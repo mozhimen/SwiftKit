@@ -1,12 +1,13 @@
 package com.swiftmk.app
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import com.swiftmk.app.databinding.ActivitySecondBinding
 import com.swiftmk.library.base.BaseActivity
 import com.swiftmk.library.helper.ActivityBridger
+import com.swiftmk.library.helper.ActivityBridgerImpl
 
+@Suppress("CAST_NEVER_SUCCEEDS")
 class SecondActivity : BaseActivity() {
     private lateinit var secondBinding: ActivitySecondBinding
 
@@ -20,5 +21,10 @@ class SecondActivity : BaseActivity() {
         }
     }
 
-    companion object : ActivityBridger
+    companion object:ActivityBridgerImpl{
+        override fun startContext(context: Context, data: HashMap<String, String>) {
+            ActivityBridger.startContext(context,this as Context,data)
+        }
+
+    }
 }

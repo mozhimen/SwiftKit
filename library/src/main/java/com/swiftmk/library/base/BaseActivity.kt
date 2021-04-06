@@ -1,14 +1,14 @@
 package com.swiftmk.library.base
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.swiftmk.library.helper.ActivityBridger
+import com.swiftmk.library.helper.ActivityBridgerImpl
 import com.swiftmk.library.helper.ActivityCollector
 
-open class BaseActivity : AppCompatActivity(),ActivityBridger {
+open class BaseActivity : AppCompatActivity() {
 
     /**
      * 打印日志
