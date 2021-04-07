@@ -18,10 +18,11 @@ object ActivityBridger {
      * SecondActivity.startContext(this, map as HashMap<String, String>)
      * 实现
      */
-    fun startContext(context: Context, context1: Context, data: HashMap<String, String>) {
-        val intent = Intent(context, context1::class.java)
-        for (param in data) {
-            intent.putExtra(param.key, param.value)
+    fun startContext(context: Context, cls: Class<*>, data: HashMap<String, String>) {
+        val intent = Intent(context, cls).apply {
+            for (param in data) {
+                putExtra(param.key, param.value)
+            }
         }
         context.startActivity(intent)
     }

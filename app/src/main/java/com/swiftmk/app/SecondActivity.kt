@@ -21,10 +21,9 @@ class SecondActivity : BaseActivity() {
         }
     }
 
-    companion object:ActivityBridgerImpl{
+    companion object : ActivityBridgerImpl {
         override fun startContext(context: Context, data: HashMap<String, String>) {
-            ActivityBridger.startContext(context,this as Context,data)
+            ActivityBridger.startContext(context, SecondActivity::class.java, data)
         }
-
     }
 }
