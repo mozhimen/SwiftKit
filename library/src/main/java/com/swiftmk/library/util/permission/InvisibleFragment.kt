@@ -3,6 +3,14 @@ package com.swiftmk.library.util.permission
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 
+/**
+ * @ClassName StatusBarIniter1
+ * @Description TODO
+ * @Author mozhimen
+ * @Date 2021/4/9 17:15
+ * @Version 1.0
+ */
+
 typealias PermissionCallback = (Boolean, List<String>) -> Unit
 
 class InvisibleFragment : Fragment() {

@@ -2,11 +2,20 @@ package com.swiftmk.library.util.permission
 
 import androidx.fragment.app.FragmentActivity
 
+/**
+ * @ClassName StatusBarIniter1
+ * @Description TODO
+ * @Author mozhimen
+ * @Date 2021/4/9 17:15
+ * @Version 1.0
+ */
+
 object PermissionApplier {
     private const val tag = "InvisibleFragment"
 
     /**
-     * 用法示例:
+     * 作用: 批量申请动态权限
+     * 用法:
      * PermissionApplier.request(this,Manifest.permission.CALL_PHONE,
      * ...){ allGranted,deniedList ->
      *     if(allGranted){ ... }

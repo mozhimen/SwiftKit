@@ -8,6 +8,14 @@ import com.swiftmk.library.helper.ActivityBridger
 import com.swiftmk.library.helper.ActivityBridgerImpl
 import com.swiftmk.library.helper.ActivityCollector
 
+/**
+ * @ClassName StatusBarIniter1
+ * @Description TODO
+ * @Author mozhimen
+ * @Date 2021/4/9 17:15
+ * @Version 1.0
+ */
+
 open class BaseActivity : AppCompatActivity() {
 
     /**

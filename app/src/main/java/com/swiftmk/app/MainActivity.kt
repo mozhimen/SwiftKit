@@ -15,7 +15,7 @@ class MainActivity : BaseActivity() {
 
         mainBinding.mainGoto.setOnClickListener {
             val map = mapOf("param1" to "1", "param2" to "2")
-            SecondActivity.startContext(this,map as HashMap<String, String>)
+            SecondActivity.actionStart(this,map as HashMap<String, String>)
         }
     }
 }
