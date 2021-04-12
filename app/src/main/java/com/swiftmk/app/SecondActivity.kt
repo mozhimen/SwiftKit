@@ -4,8 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import com.swiftmk.app.databinding.ActivitySecondBinding
 import com.swiftmk.library.base.BaseActivity
-import com.swiftmk.library.helper.ActivityBridger
-import com.swiftmk.library.helper.ActivityBridgerImpl
+import com.swiftmk.library.helper.activity.ActivityBridger
+import com.swiftmk.library.helper.activity.ActivityBridgerImpl
 
 @Suppress("CAST_NEVER_SUCCEEDS")
 class SecondActivity : BaseActivity() {
@@ -22,8 +22,8 @@ class SecondActivity : BaseActivity() {
     }
 
     companion object : ActivityBridgerImpl {
-        override fun actionStart(context: Context, data: HashMap<String, String>) {
-            ActivityBridger.actionStart(context, SecondActivity::class.java, data)
+        override fun actionStart(context: Context, pairs: Pair<String, Any?>) {
+            ActivityBridger.actionStart(context, SecondActivity::class.java, pairs)
         }
     }
 }

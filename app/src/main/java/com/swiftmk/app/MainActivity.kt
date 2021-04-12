@@ -1,11 +1,12 @@
 package com.swiftmk.app
 
-import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import com.swiftmk.app.databinding.ActivityMainBinding
 import com.swiftmk.library.base.BaseActivity
+import com.swiftmk.library.helper.activity.ActivityBridger
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(),SQLiteDatabase {
     private lateinit var mainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,8 +15,10 @@ class MainActivity : BaseActivity() {
 
 
         mainBinding.mainGoto.setOnClickListener {
-            val map = mapOf("param1" to "1", "param2" to "2")
-            SecondActivity.actionStart(this,map as HashMap<String, String>)
+            val values = ActivityBridger.paramsOf("param1" to "1", "param2" to "2")
+            SecondActivity.actionStart(this,values)
         }
+
+
     }
 }

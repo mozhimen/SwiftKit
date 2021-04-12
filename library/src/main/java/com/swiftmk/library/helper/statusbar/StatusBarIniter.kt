@@ -1,4 +1,4 @@
-package com.swiftmk.library.util.statusbar
+package com.swiftmk.library.helper.statusbar
 
 /**
  * @ClassName StatusBarIniter1

@@ -1,4 +1,4 @@
-package com.swiftmk.library.util.permission
+package com.swiftmk.library.helper.permission
 
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment

@@ -1,12 +1,9 @@
 package com.swiftmk.library.base
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.swiftmk.library.helper.ActivityBridger
-import com.swiftmk.library.helper.ActivityBridgerImpl
-import com.swiftmk.library.helper.ActivityCollector
+import com.swiftmk.library.helper.activity.ActivityCollector
 
 /**
  * @ClassName StatusBarIniter1

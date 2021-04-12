@@ -1,4 +1,4 @@
-package com.swiftmk.library.helper
+package com.swiftmk.library.helper.activity
 
 import android.app.Activity
 
