@@ -19,7 +19,7 @@ import java.util.*
  */
 class ExtraValues() : Parcelable {
 
-    private var mMap: ArrayMap<String, Any>? = null
+    private var mMap: ArrayMap<String, Bundle>? = null
 
     init {
         mMap = ArrayMap()
