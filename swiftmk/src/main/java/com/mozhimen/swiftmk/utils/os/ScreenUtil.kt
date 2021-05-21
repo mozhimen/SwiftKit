@@ -11,6 +11,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import kotlin.math.sqrt
 
 /**
  * @ClassName ScreenUtil
@@ -142,5 +143,23 @@ object ScreenUtil {
                 InputMethodManager.HIDE_NOT_ALWAYS
             )
         }
+    }
+
+    /**
+     * 获取屏幕尺寸
+     */
+    fun getScreenSize(activity: Activity): Float {
+        val densityDpi = activity.resources.displayMetrics.densityDpi
+        val scaledDensity = activity.resources.displayMetrics.scaledDensity
+        val density = activity.resources.displayMetrics.density
+        val xdpi = activity.resources.displayMetrics.xdpi
+        val ydpi = activity.resources.displayMetrics.ydpi
+        val width = activity.resources.displayMetrics.widthPixels
+        val height = activity.resources.displayMetrics.heightPixels
+
+        //计算屏幕的物理尺寸
+        val widthPhy = (width / xdpi) * (width / xdpi)
+        val heightPhy = (height / ydpi) * (height / ydpi)
+        return sqrt((widthPhy + heightPhy).toDouble()).toFloat()
     }
 }
