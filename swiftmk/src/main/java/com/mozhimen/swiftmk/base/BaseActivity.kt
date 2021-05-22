@@ -17,7 +17,7 @@ open class BaseActivity : AppCompatActivity() {
     /**
      * 打印日志
      */
-    private val tag = "BaseActivity"
+    val tag = this.javaClass.canonicalName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

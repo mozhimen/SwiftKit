@@ -12,6 +12,8 @@ import android.content.Context
  * @Version 1.0
  */
 class BaseApplication : Application() {
+    val tag: String = this.javaClass.canonicalName
+
     companion object {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context

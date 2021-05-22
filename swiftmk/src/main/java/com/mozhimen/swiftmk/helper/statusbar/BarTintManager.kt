@@ -1,4 +1,4 @@
-package com.mozhimen.swiftmk.utils.statusbar
+package com.mozhimen.swiftmk.helper.statusbar
 
 import android.app.Activity
 import android.os.Build

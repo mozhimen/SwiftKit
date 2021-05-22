@@ -1,4 +1,4 @@
-package com.mozhimen.swiftmk.utils.http
+package com.mozhimen.swiftmk.helper.http
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
