@@ -1,7 +1,5 @@
 package com.mozhimen.swiftmk.helper.verification
 
-import com.mozhimen.swiftmk.helper.verification.Verifier.isPasswordValid
-
 /**
  * @ClassName Verifier
  * @Description TODO
