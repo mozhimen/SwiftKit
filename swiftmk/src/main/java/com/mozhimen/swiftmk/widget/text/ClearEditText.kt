@@ -1,4 +1,4 @@
-package com.mozhimen.swiftmk.widget.edittext
+package com.mozhimen.swiftmk.widget.text
 
 import android.content.Context
 import android.graphics.drawable.Drawable

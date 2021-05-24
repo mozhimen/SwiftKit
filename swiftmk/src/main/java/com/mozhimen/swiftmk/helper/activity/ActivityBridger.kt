@@ -2,6 +2,7 @@ package com.mozhimen.swiftmk.helper.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import java.security.InvalidParameterException
 
 /**
@@ -15,7 +16,7 @@ object ActivityBridger {
     fun actionStart(
         context: Context,
         cls: Class<*>,
-        vararg data: Pair<String, Any> = emptyArray()
+        vararg data: Pair<String, Any> = emptyArray(),
     ) {
         val intent = Intent(context, cls).apply {
             if (!data.isNullOrEmpty()) {
@@ -30,6 +31,7 @@ object ActivityBridger {
                         is Long -> putExtra(key, value)
                         is Float -> putExtra(key, value)
                         is Double -> putExtra(key, value)
+                        is Bundle -> putExtra(key, value)
                         else -> {
                             val valueType = value.javaClass.canonicalName
                             throw IllegalArgumentException("Illegal value type $valueType for key $key")
