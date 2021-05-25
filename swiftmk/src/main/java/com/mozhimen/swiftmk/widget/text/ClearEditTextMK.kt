@@ -18,7 +18,7 @@ import com.mozhimen.swiftmk.R
  * @Date 2021/4/22 14:58
  * @Version 1.0
  */
-class ClearEditText @JvmOverloads constructor(
+class ClearEditTextMK @JvmOverloads constructor(
     context: Context?,
     attrs: AttributeSet? = null,
     defStyle: Int = android.R.attr.editTextStyle

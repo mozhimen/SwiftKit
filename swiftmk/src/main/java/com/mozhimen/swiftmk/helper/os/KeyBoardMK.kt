@@ -10,7 +10,7 @@ import android.view.inputmethod.InputMethodManager
  * @Date 2021/5/24 10:21
  * @Version 1.0
  */
-object KeyBoard {
+object KeyBoardMK {
     /**
      * 隐藏键盘
      */

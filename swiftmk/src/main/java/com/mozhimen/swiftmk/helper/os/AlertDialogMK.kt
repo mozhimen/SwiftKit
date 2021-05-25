@@ -12,7 +12,7 @@ import com.mozhimen.swiftmk.R
  * @Date 2021/5/24 17:13
  * @Version 1.0
  */
-object AlertDialog {
+object AlertDialogMK {
     private lateinit var alertDialog: AlertDialog
 
     fun showLoadingDialog(activity: Activity) {

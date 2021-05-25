@@ -2,6 +2,7 @@ package com.mozhimen.swiftmk.base
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
@@ -33,6 +34,7 @@ abstract class BaseActivity : AppCompatActivity() {
         StatusBarIniter.initStatusBar(this)
         //权限相关,需要注解
         PermissionApplier.initPermissions(this, getPermissions()) { allGranted, _ ->
+            Log.i(tag, allGranted.toString())
             if (allGranted) {
                 initData()
                 initView()

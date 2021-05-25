@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @Date 2021/4/28 16:29
  * @Version 1.0
  */
-class EmptyRecyclerView : RecyclerView {
+class EmptyRecyclerViewMK : RecyclerView {
     private var emptyView: View? = null
     private val observer: AdapterDataObserver = object : AdapterDataObserver() {
         override fun onChanged() {

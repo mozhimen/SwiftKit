@@ -23,11 +23,17 @@ object PermissionApplier {
     /**
      * 作用: 权限申请
      */
-    fun initPermissions(activity: AppCompatActivity, permissions: Array<String>,callback: PermissionCallback) {
+    fun initPermissions(
+        activity: AppCompatActivity,
+        permissions: Array<String>,
+        callback: PermissionCallback
+    ) {
         val permissionAnnor = activity.javaClass.getAnnotation(PermissionAnnor::class.java)
         permissionAnnor?.let {
-            if (!it.isNeededPermissions) //是否开启权限申请
+            if (!it.isNeededPermissions) {//是否开启权限申请
+                callback(true, emptyList())
                 return
+            }
 
             if (!checkPermissions(activity, *permissions)) {
                 PermissionApplier.requestPermissions(
@@ -35,13 +41,19 @@ object PermissionApplier {
                     *permissions
                 ) { allGranted, deniedList ->
                     if (allGranted) {
-                        callback(allGranted,deniedList)
-                    }else{
+                        callback(allGranted, deniedList)
+                    } else {
                         "权限被拒绝".showToast(activity)
                     }
                 }
             }
-        }?:Log.i(tag,"注解为空")
+        } ?: run {
+            if (permissions.isEmpty() && permissions != null) {
+                callback(true, emptyList())
+            } else {
+                Log.w(tag, "你可能忘记加注解")
+            }
+        }
     }
 
     /**
