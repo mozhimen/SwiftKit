@@ -17,7 +17,7 @@ import com.mozhimen.swiftmk.utils.statusbar.StatusBarUtil
 object StatusBarIniter {
 
     fun initStatusBar(activity: Activity) {
-        val statusBarAnnor = javaClass.getAnnotation(StatusBarAnnor::class.java)
+        val statusBarAnnor = activity.javaClass.getAnnotation(StatusBarAnnor::class.java)
         statusBarAnnor?.let {
             if (statusBarAnnor.isImmersed) {
                 StatusBarUtil.setTranslucentStatus(activity)//设置状态栏透明,沉浸式

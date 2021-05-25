@@ -1,4 +1,4 @@
-package com.mozhimen.swiftmk.helper.verification
+package com.mozhimen.swiftmk.utils.verification
 
 /**
  * @ClassName Verifier
@@ -10,8 +10,8 @@ package com.mozhimen.swiftmk.helper.verification
 /**
  * 密码校验
  */
-object Verifier {
-    const val DEFAULT = 0
+object VerifyUtil {
+    private const val DEFAULT = 0
 
     /**
      * 作用: 校验密码
