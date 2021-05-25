@@ -46,6 +46,8 @@ object PermissionApplier {
                         "权限被拒绝".showToast(activity)
                     }
                 }
+            }else{
+                callback(true, emptyList())
             }
         } ?: run {
             if (permissions.isEmpty() && permissions != null) {
