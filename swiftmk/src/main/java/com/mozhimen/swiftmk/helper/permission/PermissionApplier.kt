@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.swiftmk.helper.toast.showToast
+import java.lang.Exception
 
 /**
  * @ClassName PermissionApplier
@@ -53,7 +54,7 @@ object PermissionApplier {
             if (permissions.isEmpty() && permissions != null) {
                 callback(true, emptyList())
             } else {
-                Log.w(tag, "你可能忘记加注解")
+                throw Exception("你可能忘记加注解")
             }
         }
     }

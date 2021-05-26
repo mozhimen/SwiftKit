@@ -13,6 +13,10 @@ import java.security.InvalidParameterException
  * @Version 1.0
  */
 object ActivityBridger {
+    /**
+     * 作用: 页面的跳转
+     * 用法:
+     */
     fun actionStart(
         context: Context,
         cls: Class<*>,
