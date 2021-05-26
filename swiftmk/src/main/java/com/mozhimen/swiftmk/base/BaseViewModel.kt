@@ -9,6 +9,6 @@ import androidx.lifecycle.ViewModel
  * @Date 2021/5/26 17:42
  * @Version 1.0
  */
-class BaseViewModel : ViewModel() {
+open class BaseViewModel : ViewModel() {
     val tag = this.javaClass.canonicalName.toString()
 }

@@ -11,7 +11,7 @@ import android.content.Context
  * @Date 2021/4/14 17:07
  * @Version 1.0
  */
-class BaseApplication : Application() {
+open class BaseApplication : Application() {
     val tag: String = this.javaClass.canonicalName
 
     companion object {
