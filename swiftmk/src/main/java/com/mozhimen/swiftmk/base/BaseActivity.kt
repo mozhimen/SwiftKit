@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.mozhimen.swiftmk.helper.activity.ActivityCollector
 import com.mozhimen.swiftmk.helper.permission.PermissionApplier
@@ -17,7 +19,7 @@ import com.mozhimen.swiftmk.helper.statusbar.StatusBarIniter
  * @Date 2021/4/14 17:03
  * @Version 1.0
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity() : AppCompatActivity() {
 
     /**
      * 作用: 打印日志
@@ -34,7 +36,6 @@ abstract class BaseActivity : AppCompatActivity() {
         StatusBarIniter.initStatusBar(this)
         //权限相关,需要注解
         PermissionApplier.initPermissions(this, getPermissions()) { allGranted, _ ->
-            Log.i(tag, allGranted.toString())
             if (allGranted) {
                 initData()
                 initView()
@@ -47,8 +48,8 @@ abstract class BaseActivity : AppCompatActivity() {
      * 作用: 回调ViewBinding
      * 用法: private lateinit var viewBinding: Activity???Binding(申明)
      * override fun getViewBinding(): ViewBinding {
-     * viewBinding = Activity???Binding.inflate(layoutInflater)
-     * return viewBinding}
+     *   viewBinding = Activity???Binding.inflate(layoutInflater)
+     *   return viewBinding}
      */
     abstract fun getViewBinding(): ViewBinding
 
@@ -56,7 +57,7 @@ abstract class BaseActivity : AppCompatActivity() {
      * 作用: 回调权限数组
      * 用法: override fun getPermissions(): Array<String> = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,...)
      */
-    abstract fun getPermissions(): Array<String>
+    open fun getPermissions(): Array<String> = emptyArray()
 
     /**
      * 作用: 初始化数据
