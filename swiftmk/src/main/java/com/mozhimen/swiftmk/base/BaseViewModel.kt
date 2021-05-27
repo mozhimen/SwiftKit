@@ -17,7 +17,13 @@ open class BaseViewModel : ViewModel() {
 
     /**
      * 作用: 消息机制
-     * 声明: private val oldLiveData = MutableLiveData<Location>()
+     * 依赖: implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
+     *   implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+     *
+     * 声明: val oldLiveData = MutableLiveData<Location>()
+     *   val weatherLiveData=Transformations.switchMap(locationLiveData){ location->
+     *     Repository.refreshWeather(location.lng,location.lat)}
+     *
      * 用法1: fun searchPlaces(query:String) = fire(Dispatchers.IO){
      * val placeResponse=SunnyWeatherNetwork.searchPlaces(query)
      *   if(placeResponse.status=="ok"){
