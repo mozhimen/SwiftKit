@@ -15,7 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
  * @Version 1.0
  */
 /**
- * 作用: 通用RecyclerView适配器()
+ * 作用: 通用RecyclerView适配器
+ * 用法: viewBinding.mainList.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
+ * val adapter: RecyclerAdapterMK<User> = object : RecyclerAdapterMK<User>(viewModel.userList, R.layout.item_user, BR.item) {
+ *  override fun addListener(view: View, itemData: User, position: Int) {
+ *      (view.findViewById(R.id.user_pane) as LinearLayout).setOnClickListener {
+ *          //逻辑
+ * }}}
+ * viewBinding.mainList.adapter=adapter
  */
 open class RecyclerAdapterMK<T>(
     private var itemDatas: List<T>,
@@ -30,8 +37,6 @@ open class RecyclerAdapterMK<T>(
             parent,
             false
         )
-        val position = BaseViewHolder(binding).adapterPosition
-        addListener(binding.root, itemDatas[position], position)
         return BaseViewHolder(binding)
     }
 
@@ -39,6 +44,7 @@ open class RecyclerAdapterMK<T>(
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         holder.binding.setVariable(brId, itemDatas[position])
+        addListener(holder.binding.root, itemDatas[position], position)
         holder.binding.executePendingBindings()
     }
 
@@ -50,7 +56,7 @@ open class RecyclerAdapterMK<T>(
 
     private fun getItemLayout(itemData: T) = defaultLayout
 
-    open fun addListener(root: View, itemData: T, position: Int) {}
+    open fun addListener(view: View, itemData: T, position: Int) {}
 
     fun onItemDataChanged(newItemDatas: List<T>) {
         itemDatas = newItemDatas
