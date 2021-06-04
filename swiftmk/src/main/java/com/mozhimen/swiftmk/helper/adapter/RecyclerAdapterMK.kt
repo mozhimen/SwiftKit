@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  * 作用: 通用RecyclerView适配器()
  */
-class RecyclerAdapterMK<T>(
+open class RecyclerAdapterMK<T>(
     private var itemDatas: List<T>,
     private val defaultLayout: Int,
     private val brId: Int
@@ -48,9 +48,9 @@ class RecyclerAdapterMK<T>(
     class BaseViewHolder(var binding: ViewDataBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    fun getItemLayout(itemData: T) = defaultLayout
+    private fun getItemLayout(itemData: T) = defaultLayout
 
-    fun addListener(root: View, itemData: T, position: Int) {}
+    open fun addListener(root: View, itemData: T, position: Int) {}
 
     fun onItemDataChanged(newItemDatas: List<T>) {
         itemDatas = newItemDatas
