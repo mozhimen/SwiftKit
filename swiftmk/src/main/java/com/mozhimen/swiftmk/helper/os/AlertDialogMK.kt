@@ -1,8 +1,8 @@
 package com.mozhimen.swiftmk.helper.os
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.graphics.drawable.ColorDrawable
+import androidx.appcompat.app.AlertDialog
 import com.mozhimen.swiftmk.R
 
 /**
@@ -13,11 +13,11 @@ import com.mozhimen.swiftmk.R
  * @Version 1.0
  */
 object AlertDialogMK {
-    private var alertDialog: AlertDialog? = null
+    private var loadingDialog: AlertDialog? = null
 
     fun showLoadingDialog(activity: Activity) {
-        alertDialog = AlertDialog.Builder(activity).create()
-        alertDialog?.let {
+        loadingDialog = AlertDialog.Builder(activity).create()
+        loadingDialog?.let {
             it.window?.setBackgroundDrawable(ColorDrawable())
             it.show()
             it.setContentView(R.layout.dialog_loading)
@@ -25,8 +25,10 @@ object AlertDialogMK {
     }
 
     fun dismissLoadingDialog() {
-        alertDialog?.let {
-            if(it.isShowing) it.dismiss()
+        loadingDialog?.let {
+            if (it.isShowing) it.dismiss()
         }
     }
+
+
 }
