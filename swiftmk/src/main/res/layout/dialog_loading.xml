@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <ProgressBar
-        style="@style/NoActionBar"
+        style="@style/ProgressBar.Loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
