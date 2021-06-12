@@ -13,7 +13,7 @@ import com.mozhimen.swiftmk.R
  * @Date 2021/6/10 20:46
  * @Version 1.0
  */
-class UnderLineTextView : androidx.appcompat.widget.AppCompatTextView {
+open class UnderLineTextView : androidx.appcompat.widget.AppCompatTextView {
     //TextPaint对象，继承自Paint
     private lateinit var mTextPaint: TextPaint
 
