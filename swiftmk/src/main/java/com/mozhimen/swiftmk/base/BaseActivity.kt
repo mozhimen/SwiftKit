@@ -28,6 +28,7 @@ abstract class BaseActivity() : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initFlag()
         setContentView(getViewBinding().root)
 
         //回收相关
@@ -58,6 +59,11 @@ abstract class BaseActivity() : AppCompatActivity() {
      * 用法: override fun getPermissions(): Array<String> = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,...)
      */
     open fun getPermissions(): Array<String> = emptyArray()
+
+    /**
+     * 作用: 特殊标志声明
+     */
+    open fun initFlag() {}
 
     /**
      * 作用: 初始化数据
