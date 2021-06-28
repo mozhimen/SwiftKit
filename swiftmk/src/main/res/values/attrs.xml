@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UnderLineTextView">
+        <attr name="underline" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="QRScanView">
+        <!-- 扫描框的宽度，默认值为200dp -->
+        <attr name="rectWidth" format="dimension|reference" />
+        <!-- 扫描边框的宽度，默认值为1dp -->
+        <attr name="borderSize" format="dimension|reference" />
+        <!-- 扫描边框的颜色，默认值为@android:color/white -->
+        <attr name="borderColor" format="color|reference" />
+        <!-- 扫描线的图片资源，默认值为null -->
+        <attr name="customScanLineDrawable" format="reference" />
+        <!-- 扫描线从顶部移动到底部的动画时间，默认值为1000 -->
+        <attr name="animTime" format="integer" />
+        <!-- 扫描线是否来回移动，默认值为true -->
+        <attr name="isScanLineReverse" format="boolean" />
+    </declare-styleable>
+</resources>

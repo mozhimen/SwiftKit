@@ -37,7 +37,7 @@ abstract class BaseActivity() : AppCompatActivity() {
         //权限相关,需要注解
         PermissionApplier.initPermissions(this, getPermissions()) { allGranted, _ ->
             if (allGranted) {
-                initData()
+                initData(savedInstanceState)
                 initView()
             }
         }
@@ -62,7 +62,7 @@ abstract class BaseActivity() : AppCompatActivity() {
     /**
      * 作用: 初始化数据
      */
-    abstract fun initData()
+    abstract fun initData(savedInstanceState: Bundle?)
 
     /**
      * 作用: 初始化界面
