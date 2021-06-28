@@ -12,7 +12,7 @@ import android.content.Context
  * @Version 1.0
  */
 open class BaseApplication : Application() {
-    val tag: String = this.javaClass.canonicalName
+    val mTag: String = this.javaClass.canonicalName
 
     companion object {
         @SuppressLint("StaticFieldLeak")

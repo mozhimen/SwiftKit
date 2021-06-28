@@ -1,12 +1,7 @@
 package com.mozhimen.swiftmk.base
 
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.mozhimen.swiftmk.helper.activity.ActivityCollector
 import com.mozhimen.swiftmk.helper.permission.PermissionApplier
@@ -24,7 +19,7 @@ abstract class BaseActivity() : AppCompatActivity() {
     /**
      * 作用: 打印日志
      */
-    val tag = this.javaClass.canonicalName.toString()
+    val mTag = this.javaClass.canonicalName.toString()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

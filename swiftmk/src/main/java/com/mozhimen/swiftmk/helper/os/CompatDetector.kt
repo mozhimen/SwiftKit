@@ -11,7 +11,7 @@ import java.lang.Exception
  * @Version 1.0
  */
 object CompatDetector {
-    private const val tag = "CompatDetector"
+    private const val mTag = "CompatDetector"
 
     /**
      * 关闭Android9.0弹出框（Detected problems with API compatibility）
@@ -33,7 +33,7 @@ object CompatDetector {
             mHiddenApiWarningShown.isAccessible = true
             mHiddenApiWarningShown.setBoolean(activityThread, true)
         } catch (e: Exception) {
-            Log.e(tag, e.message.toString())
+            Log.e(mTag, e.message.toString())
         }
     }
 }

@@ -20,7 +20,7 @@ import android.view.inputmethod.InputMethodManager
  * @Version 1.0
  */
 object ScreenUtil {
-    private const val tag = "ScreenUtil"
+    private const val mTag = "ScreenUtil"
 
     /**
      * 获取状态栏高度1
@@ -106,7 +106,7 @@ object ScreenUtil {
             method.invoke(display, displayMetrics)
             virtualBarHeight = displayMetrics.heightPixels - display.height
         } catch (e: Exception) {
-            Log.w(tag, e.message.toString())
+            Log.w(mTag, e.message.toString())
         }
         return virtualBarHeight
     }

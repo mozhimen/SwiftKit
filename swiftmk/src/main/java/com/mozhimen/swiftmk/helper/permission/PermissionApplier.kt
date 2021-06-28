@@ -19,7 +19,7 @@ import java.lang.Exception
  * @Version 1.0
  */
 object PermissionApplier {
-    private val tag = this.javaClass.canonicalName.toString()
+    private val mTag = this.javaClass.canonicalName.toString()
 
     /**
      * 作用: 权限申请
@@ -73,12 +73,12 @@ object PermissionApplier {
         callback: PermissionCallback
     ) {
         val fragmentManager = activity.supportFragmentManager
-        val existedFragment = fragmentManager.findFragmentByTag(tag)
+        val existedFragment = fragmentManager.findFragmentByTag(mTag)
         val fragment = if (existedFragment != null) {
             existedFragment as InvisibleFragment
         } else {
             val invisibleFragment = InvisibleFragment()
-            fragmentManager.beginTransaction().add(invisibleFragment, tag).commitNow()
+            fragmentManager.beginTransaction().add(invisibleFragment, mTag).commitNow()
             invisibleFragment
         }
         fragment.requestNow(callback, *permissions)

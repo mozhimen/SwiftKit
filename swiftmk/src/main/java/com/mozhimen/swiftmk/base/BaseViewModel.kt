@@ -13,7 +13,7 @@ import kotlin.coroutines.CoroutineContext
  * @Version 1.0
  */
 open class BaseViewModel : ViewModel() {
-    val tag = this.javaClass.canonicalName.toString()
+    val mTag = this.javaClass.canonicalName.toString()
 
     /**
      * 作用: 消息机制
