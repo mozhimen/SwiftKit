@@ -25,7 +25,7 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return getViewBinding(inflater).root
+        return getViewBinding(inflater,container).root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,11 +37,16 @@ abstract class BaseFragment : Fragment() {
 
     /**
      * 作用: 回调ViewBinding
-     * 用法: override fun getViewBinding(inflater: LayoutInflater): ViewBinding {
-     *  vb = FragmentMainBinding.inflate(inflater)
-     *  return vb}
+     * 用法: private var _vb: FragmentMainBinding? = null
+     *  private val vb get() = _vb!!
+     *  override fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): ViewBinding {
+     *      _vb = FragmentMainBinding.inflate(inflater, container, false)
+     *      return vb}
+     *  override fun onDestroy() {
+     *      super.onDestroy()
+     *      _vb = null}
      */
-    abstract fun getViewBinding(inflater: LayoutInflater): ViewBinding
+    abstract fun getViewBinding(inflater: LayoutInflater,container: ViewGroup?): ViewBinding
 
     /**
      * 作用: 初始化数据
