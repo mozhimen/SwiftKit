@@ -6,11 +6,11 @@ import android.graphics.Bitmap
 import android.graphics.Rect
 import android.os.Build
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import com.mozhimen.swiftmk.utils.log.LogUtil
 
 /**
  * @ClassName ScreenUtil
@@ -106,7 +106,7 @@ object ScreenUtil {
             method.invoke(display, displayMetrics)
             virtualBarHeight = displayMetrics.heightPixels - display.height
         } catch (e: Exception) {
-            Log.w(mTag, e.message.toString())
+            LogUtil.w(mTag, e.message.toString())
         }
         return virtualBarHeight
     }

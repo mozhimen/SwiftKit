@@ -1,15 +1,11 @@
 package com.mozhimen.swiftmk.helper.permission
 
-import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.util.Log
-import android.util.Log.INFO
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.swiftmk.helper.toast.showToast
-import java.lang.Exception
 
 /**
  * @ClassName PermissionApplier

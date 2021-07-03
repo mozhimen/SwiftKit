@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.swiftmk.utils.log.LogUtil
 
 /**
  * @ClassName EmptyRecyclerView
@@ -21,7 +22,7 @@ class EmptyRecyclerViewMK : RecyclerView {
         }
 
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-            Log.i(TAG, "onItemRangeInserted$itemCount")
+            LogUtil.i(mTag, "onItemRangeInserted$itemCount")
             checkIfEmpty()
         }
 
@@ -60,6 +61,6 @@ class EmptyRecyclerViewMK : RecyclerView {
     }
 
     companion object {
-        private const val TAG = "EmptyRecyclerView"
+        private const val mTag = "EmptyRecyclerView"
     }
 }

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--下划线控件-->
     <declare-styleable name="UnderLineTextView">
-        <attr name="underline" format="boolean"/>
+        <!--下划线是否出现-->
+        <attr name="underline" format="boolean" />
     </declare-styleable>
 
+    <!--二维码扫描控件-->
     <declare-styleable name="QRScanView">
         <!-- 扫描框的宽度，默认值为200dp -->
         <attr name="rectWidth" format="dimension|reference" />
@@ -17,5 +20,20 @@
         <attr name="animTime" format="integer" />
         <!-- 扫描线是否来回移动，默认值为true -->
         <attr name="isScanLineReverse" format="boolean" />
+    </declare-styleable>
+
+    <!--视频布局-->
+    <declare-styleable name="VideoLayout">
+        <!--视频地址-->
+        <attr name="path_or_url" format="string" />
+        <!--视频是否循环播放-->
+        <attr name="loop" format="boolean" />
+        <!--视频权重-->
+        <attr name="video_gravity" format="enum">
+            <enum name="start" value="0" />
+            <enum name="end" value="1" />
+            <enum name="centerCrop" value="2" />
+            <enum name="none" value="3" />
+        </attr>
     </declare-styleable>
 </resources>

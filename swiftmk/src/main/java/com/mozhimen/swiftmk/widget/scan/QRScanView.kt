@@ -16,7 +16,7 @@ import com.mozhimen.swiftmk.R
  * @Date 2021/6/21 14:18
  * @Version 1.0
  */
-class QRScanView: View {
+class QRScanView : View {
     private var mCustomScanLineDrawable: Drawable? = null
     private var mBorderSize = 0
     private var mBorderColor = 0
@@ -32,9 +32,13 @@ class QRScanView: View {
     private var mRectWidth = 0
     private var mRectHeight = 0
 
-    constructor(context: Context) : this(context, null)
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context?) : this(context!!, null)
+    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
+    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
         init(attrs)
     }
 
@@ -124,8 +128,10 @@ class QRScanView: View {
      */
     private fun drawScanLine(canvas: Canvas) {
         mScanLineBitmap?.let {
-            val lineRect = RectF(mFramingRect!!.left.toFloat(), mScanLineTop,
-                mFramingRect!!.right.toFloat(), mScanLineTop + it.height)
+            val lineRect = RectF(
+                mFramingRect!!.left.toFloat(), mScanLineTop,
+                mFramingRect!!.right.toFloat(), mScanLineTop + it.height
+            )
             canvas.drawBitmap(it, null, lineRect, mPaint)
         }
     }
@@ -149,7 +155,13 @@ class QRScanView: View {
                 mScanLineTop = (mFramingRect!!.top + scanLineSize).toFloat()
             }
         }
-        postInvalidateDelayed(mAnimDelayTime.toLong(), mFramingRect!!.left, mFramingRect!!.top, mFramingRect!!.right, mFramingRect!!.bottom)
+        postInvalidateDelayed(
+            mAnimDelayTime.toLong(),
+            mFramingRect!!.left,
+            mFramingRect!!.top,
+            mFramingRect!!.right,
+            mFramingRect!!.bottom
+        )
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
