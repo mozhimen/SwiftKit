@@ -299,7 +299,7 @@ class VideoLayout : FrameLayout, TextureView.SurfaceTextureListener {
                 }
                 setVolume(0f, 0f)
                 isLooping = videoIsLoop
-                setSurface(Surface(videoSurface.surfaceTexture))
+                setSurface(Surface(videoSurface!!.surfaceTexture))
                 prepareAsync()
                 setOnPreparedListener {
                     setOnErrorListener { _, _, _ ->

@@ -36,4 +36,14 @@
             <enum name="none" value="3" />
         </attr>
     </declare-styleable>
+
+    <!--毛玻璃布局-->
+    <declare-styleable name="BlurredLayout">
+        <!--图片src-->
+        <attr name="src" format="reference" />
+        <!--是否图片移动-->
+        <attr name="isMove" format="boolean" />
+        <!--是否禁用模糊-->
+        <attr name="isDisableBlurred" format="boolean" />
+    </declare-styleable>
 </resources>
