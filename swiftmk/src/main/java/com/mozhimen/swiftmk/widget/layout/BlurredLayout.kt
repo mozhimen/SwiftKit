@@ -1,5 +1,6 @@
 package com.mozhimen.swiftmk.widget.layout
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
@@ -7,7 +8,6 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
@@ -16,7 +16,6 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.swiftmk.R
 import com.mozhimen.swiftmk.utils.image.BlurBitmap
 import com.mozhimen.swiftmk.utils.image.ImageUtil
-import java.lang.IllegalStateException
 
 /**
  * @ClassName BlurredLayout
@@ -30,20 +29,26 @@ class BlurredLayout : RelativeLayout {
         init(context!!)
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
-
+        init(context!!)
+        initAttr(context, attrs!!)
     }
 
+    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(
         context,
         attrs,
         defStyle
     ) {
-
+        init(context!!)
+        initAttr(context, attrs!!)
     }
 
     //region #全局变量
     private val ALPHA_MAX_VALUE = 255
+
+    private val mTag = "BlurredLayout"
 
     private lateinit var mContext: Context
 
@@ -90,7 +95,7 @@ class BlurredLayout : RelativeLayout {
 
         //设置模糊禁用
         if (!isDisableBlurred) {
-            blurredImageView.visibility = View.VISIBLE
+            blurredImageView.visibility = VISIBLE
         }
 
         //设置背景位移
@@ -118,7 +123,7 @@ class BlurredLayout : RelativeLayout {
      * 改变图片的高度
      */
     private fun setBlurredHeight(height: Int, imageView: ImageView) {
-        val layoutParams = imageView.layoutParams as ViewGroup.LayoutParams
+        val layoutParams: ViewGroup.LayoutParams = imageView.layoutParams
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         layoutParams.height = height + 100
         imageView.requestLayout()
@@ -146,6 +151,8 @@ class BlurredLayout : RelativeLayout {
         blurredBitmap?.let {
             mOriginBitmap = blurredBitmap
             mBlurredBitmap = BlurBitmap.blur(mContext, blurredBitmap)
+            setImageView()
+            setMove(mContext, isMove)
         }
     }
 
@@ -166,9 +173,45 @@ class BlurredLayout : RelativeLayout {
      * 设置模糊程度
      */
     fun setBlurredLevel(level: Int) {
-        if (level < 0 || level > 100){
-            throw IllegalStateException()
+        if (level < 0 || level > 100) {
+            throw IllegalStateException("No validate level, the value must be 0~100")
         }
+        if (!isDisableBlurred) {
+            originImageView.imageAlpha = (ALPHA_MAX_VALUE - level * 2.55).toInt()
+        }
+    }
+
+    /**
+     * 设置图片上移的距离
+     */
+    fun setBlurredTop(height: Int) {
+        originImageView.top = -height
+        blurredImageView.top = -height
+    }
+
+    /**
+     * 显示模糊的图片
+     */
+    fun showBlurredImage() {
+        blurredImageView.visibility = VISIBLE
+    }
+
+    /**
+     * 禁用模糊效果
+     */
+    @SuppressLint("Range")
+    fun disableBlurredEffect() {
+        isDisableBlurred = true
+        originImageView.alpha = ALPHA_MAX_VALUE.toFloat()
+        blurredImageView.visibility = INVISIBLE
+    }
+
+    /**
+     * 启用模糊效果
+     */
+    fun enableBlurredEffect() {
+        isDisableBlurred = false
+        blurredImageView.visibility = VISIBLE
     }
     //endregion
 }

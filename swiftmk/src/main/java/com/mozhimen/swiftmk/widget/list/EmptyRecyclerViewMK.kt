@@ -55,6 +55,11 @@ class EmptyRecyclerViewMK : RecyclerView {
     }
 
     //设置没有内容时，提示用户的空布局
+    /**
+     * 作用: 设置空布局
+     * 用法:  emptyView=findViewById(R.id.item_empty)
+     * vb.recycler.setEmptyView(emptyView)
+     */
     fun setEmptyView(emptyView: View?) {
         this.emptyView = emptyView
         checkIfEmpty()
