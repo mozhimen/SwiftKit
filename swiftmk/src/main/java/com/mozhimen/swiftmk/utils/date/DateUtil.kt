@@ -2,6 +2,7 @@ package com.mozhimen.swiftmk.utils.date
 
 import android.annotation.SuppressLint
 import java.text.DateFormat
+import java.text.ParsePosition
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -41,6 +42,13 @@ object DateUtil {
         return date?.let {
             val format: DateFormat = SimpleDateFormat(formatDate)
             format.format(date)
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun formatStringToDate(date: String?, formatDate: String?): Date? {
+        return date?.let {
+            SimpleDateFormat(formatDate).parse(date, ParsePosition(0))
         }
     }
 }
