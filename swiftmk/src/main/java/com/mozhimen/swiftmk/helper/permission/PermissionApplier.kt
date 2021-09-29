@@ -15,7 +15,7 @@ import com.mozhimen.swiftmk.helper.toast.showToast
  * @Version 1.0
  */
 object PermissionApplier {
-    private val mTag = this.javaClass.canonicalName.toString()
+    private val TAG = "PermissionApplier"
 
     /**
      * 作用: 权限申请
@@ -37,13 +37,9 @@ object PermissionApplier {
                     activity,
                     *permissions
                 ) { allGranted, deniedList ->
-                    if (allGranted) {
-                        callback(allGranted, deniedList)
-                    } else {
-                        "权限被拒绝".showToast(activity)
-                    }
+                    callback(allGranted, deniedList)
                 }
-            }else{
+            } else {
                 callback(true, emptyList())
             }
         } ?: run {
@@ -69,12 +65,12 @@ object PermissionApplier {
         callback: PermissionCallback
     ) {
         val fragmentManager = activity.supportFragmentManager
-        val existedFragment = fragmentManager.findFragmentByTag(mTag)
+        val existedFragment = fragmentManager.findFragmentByTag(TAG)
         val fragment = if (existedFragment != null) {
             existedFragment as InvisibleFragment
         } else {
             val invisibleFragment = InvisibleFragment()
-            fragmentManager.beginTransaction().add(invisibleFragment, mTag).commitNow()
+            fragmentManager.beginTransaction().add(invisibleFragment, TAG).commitNow()
             invisibleFragment
         }
         fragment.requestNow(callback, *permissions)
