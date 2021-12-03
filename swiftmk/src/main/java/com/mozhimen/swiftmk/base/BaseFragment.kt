@@ -18,14 +18,14 @@ abstract class BaseFragment : Fragment() {
     /**
      * 作用: 打印日志
      */
-    val mTag = this.javaClass.canonicalName.toString()
+    val TAG = this.javaClass.canonicalName.toString()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return getViewBinding(inflater,container).root
+        return getViewBinding(inflater, container).root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,12 +46,12 @@ abstract class BaseFragment : Fragment() {
      *      super.onDestroy()
      *      _vb = null}
      */
-    abstract fun getViewBinding(inflater: LayoutInflater,container: ViewGroup?): ViewBinding
+    abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): ViewBinding
 
     /**
      * 作用: 初始化数据
      */
-    abstract fun initData(savedInstanceState: Bundle?)
+    open fun initData(savedInstanceState: Bundle?) {}
 
     /**
      * 作用: 初始化界面
