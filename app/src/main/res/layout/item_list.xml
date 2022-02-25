@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.mozhimen.app.Astro" />
+            type="com.mozhimen.app.demo.Astro" />
     </data>
 
     <FrameLayout

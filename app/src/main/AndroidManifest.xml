@@ -9,13 +9,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftMK">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--ComponentMK-->
+        <activity
+            android:name=".componentmk.ComponentMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".componentmk.basemk.BaseMKDemoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".demo.DemoActivity"
+            android:exported="false" />
+        <!--BasicsMK-->
+        <activity
+            android:name=".basicsmk.stackmk.StackMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basicsmk.stackmk.StackMKSecondActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

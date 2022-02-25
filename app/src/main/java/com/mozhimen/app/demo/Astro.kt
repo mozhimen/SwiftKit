@@ -1,4 +1,4 @@
-package com.mozhimen.app
+package com.mozhimen.app.demo
 
 /**
  * @ClassName Moods

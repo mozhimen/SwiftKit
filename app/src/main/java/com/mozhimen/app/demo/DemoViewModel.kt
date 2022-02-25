@@ -1,4 +1,4 @@
-package com.mozhimen.app
+package com.mozhimen.app.demo
 
 import android.widget.EditText
 import androidx.lifecycle.LiveData
@@ -10,12 +10,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 
 /**
- * @ClassName MainViewModel
+ * @ClassName DemoViewModel
  * @Description TODO
  * @Author Kolin Zhao
  * @Date 2021/5/27 11:35
  * @Version 1.0
  */
-class MainViewModel : BaseViewModel() {
+class DemoViewModel : BaseViewModel() {
     val uiSelectedTab = ObservableLiveDataField(0)
 }
