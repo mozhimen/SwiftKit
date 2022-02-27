@@ -15,12 +15,14 @@ import java.net.URL
  * @Date 2021/4/15 11:19
  * @Version 1.0
  */
-interface HttpCallbackListener {
-    fun onFinish(response: String)
-    fun onError(e: Exception)
-}
+
 
 object HttpUtil {
+
+    interface HttpCallbackListener {
+        fun onFinish(response: String)
+        fun onError(e: Exception)
+    }
 
     /**
      * 作用: 网络请求回调

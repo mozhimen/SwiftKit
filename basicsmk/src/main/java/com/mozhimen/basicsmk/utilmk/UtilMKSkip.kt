@@ -1,22 +1,17 @@
-package com.mozhimen.swiftmk.helper.activity
+package com.mozhimen.basicsmk.utilmk
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import java.security.InvalidParameterException
 
 /**
- * @ClassName ActivityBridger
+ * @ClassName UtilMKSkip
  * @Description TODO
- * @Author mozhimen
- * @Date 2021/4/22 9:13
+ * @Author mozhimen / Kolin Zhao
+ * @Date 2022/2/27 16:35
  * @Version 1.0
  */
-object ActivityBridger {
-    /**
-     * 作用: 页面的跳转
-     * 用法:
-     */
+object UtilMKSkip {
     fun actionStart(
         context: Context,
         cls: Class<*>,
@@ -46,4 +41,8 @@ object ActivityBridger {
         }
         context.startActivity(intent)
     }
+}
+
+fun Class<*>.start(context: Context) {
+    Intent(context, this)
 }

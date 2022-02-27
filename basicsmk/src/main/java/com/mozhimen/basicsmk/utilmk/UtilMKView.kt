@@ -1,4 +1,4 @@
-package com.mozhimen.swiftmk.helper.databinding
+package com.mozhimen.basicsmk.utilmk
 
 import android.text.TextUtils
 import android.view.View
@@ -6,17 +6,19 @@ import android.view.ViewTreeObserver
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.mozhimen.swiftmk.R
+import android.R
 
 /**
- * @ClassName DataBindingAdapter
+ * @ClassName UtilMKView
  * @Description TODO
- * @Author Kolin Zhao
- * @Date 2021/6/21 15:35
+ * @Author mozhimen / Kolin Zhao
+ * @Date 2022/2/27 16:50
  * @Version 1.0
  */
-object DataBindingAdapter {
-    // 根据View的高度和宽高比，设置高度
+object UtilMKView {
+    /**
+     * 根据View的高度和宽高比，设置高度
+     */
     @JvmStatic
     @BindingAdapter("widthHeightRatio")
     fun setWidthHeightRatio(view: View, ratio: Float) {
@@ -33,9 +35,11 @@ object DataBindingAdapter {
         })
     }
 
-    //Databinding加载图片
-    @BindingAdapter("imageUrl")
+    /**
+     * Databinding加载图片
+     */
     @JvmStatic
+    @BindingAdapter("imageUrl")
     fun loadImage(view: ImageView?, url: String?) {
         if (!TextUtils.isEmpty(url)) {
             Glide.with(view?.context!!).load(url).dontAnimate().placeholder(R.color.white)

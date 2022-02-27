@@ -1,32 +1,46 @@
 package com.mozhimen.componentmk.basemk
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.componentmk.basemk.coms.BaseMKIAction
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
 /**
- * @ClassName BaseMKActivity
- * @Description class BaseMKDemoActivity :
- * BaseMKActivity<ActivityBasemkActivityBinding, BaseMKDemoViewModel>(R.layout.activity_basemk_activity) {
- * override fun assignVM() {vb.vm = vm}}
- * @Author Kolin Zhao / Mozhimen
- * @Date 2022/1/25 18:47
+ * @ClassName BaseMKFragment
+ * @Description class BaseMKDemoFragment : BaseMKFragment<FragmentBasemkFragmentBinding, BaseMKDemoViewModel>(R.layout.fragment_basemk_fragment) {
+ * override fun assignVM() {vb.vm = vm}
+ * override fun initView() {}}
+ * @Author mozhimen / Kolin Zhao
+ * @Date 2022/2/27 13:02
  * @Version 1.0
  */
-open class BaseMKActivity<VB : ViewDataBinding, VM : BaseMKViewModel>(private val layoutId: Int) :
-    AppCompatActivity(), BaseMKIAction {
-
+open class BaseMKFragment<VB : ViewDataBinding, VM : BaseMKViewModel>(private val layoutId: Int) :
+    Fragment(),
+    BaseMKIAction {
     val TAG = "${this.javaClass.simpleName}>>>>>"
-    lateinit var vb: VB
-    lateinit var vm: VM
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    lateinit var vm: VM
+    var _vb: VB? = null
+    val vb get() = _vb!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _vb = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        return vb.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initFlag()
         initial()
@@ -36,19 +50,19 @@ open class BaseMKActivity<VB : ViewDataBinding, VM : BaseMKViewModel>(private va
     override fun onDestroy() {
         super.onDestroy()
         vb.unbind()
+        _vb = null
     }
 
     override fun initFlag() {}
 
     private fun initial() {
-        vb = DataBindingUtil.setContentView(this, layoutId)
         vb.lifecycleOwner = this
 
         val superClass: Type? = this.javaClass.genericSuperclass
         if (superClass != null && superClass is ParameterizedType) {
             val arguments: Array<Type> = superClass.actualTypeArguments
             if (arguments.isNotEmpty()) {
-                vm = ViewModelProvider(this).get(arguments[1] as Class<VM>)
+                vm = ViewModelProvider(this.requireActivity()).get((arguments[1]) as Class<VM>)
                 assignVM()
             }
         }

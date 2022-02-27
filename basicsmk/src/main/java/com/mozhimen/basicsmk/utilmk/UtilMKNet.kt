@@ -3,7 +3,6 @@ package com.mozhimen.basicsmk.utilmk
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.util.Log
 
 /**
  * @ClassName UtilMKNet
@@ -21,14 +20,21 @@ object UtilMKNet {
     fun isConnectionUseful(): Boolean {
         val connectivityManager = UtilMKGlobal.instance.getApp()!!
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val info = connectivityManager.activeNetworkInfo
-        return if (info != null && info.isAvailable) {
-            val name = info.typeName
-            Log.d(TAG, "isConnectIsNormal: $name")
-            true
-        } else {
-            Log.d(TAG, "isConnectionUseful: false")
-            false
-        }
+        val netWorkInfo = connectivityManager.activeNetworkInfo
+        return netWorkInfo != null && netWorkInfo.isAvailable
+    }
+
+    fun isWifiConnected(): Boolean {
+        val connectivityManager = UtilMKGlobal.instance.getApp()!!
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netWorkInfo = connectivityManager.activeNetworkInfo
+        return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_WIFI
+    }
+
+    fun isMobileConnected(): Boolean {
+        val connectivityManager = UtilMKGlobal.instance.getApp()!!
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netWorkInfo = connectivityManager.activeNetworkInfo
+        return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_MOBILE
     }
 }

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".basicsmk.BasicsMKActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,22 +12,21 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
-            android:onClick="goDemo"
-            android:text="Demo"
+            android:onClick="goDataBusMKActivity"
+            android:text="DataBusMKActivity"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
-            android:onClick="goComponentMK"
-            android:text="ComponentMK"
+            android:onClick="goPermissionMKActivity"
+            android:text="PermissionMKActivity"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
-            android:onClick="goBasicsMK"
-            android:text="BasicsMK"
+            android:onClick="goStackMKActivity"
+            android:text="StackMKActivity"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
-
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

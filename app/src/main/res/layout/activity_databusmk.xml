@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".databusmk.DataBusMKActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/databusmk_txt_sticky"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="黏性事件"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/databusmk_txt_unSticky"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="非黏性事件"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/databusmk_btn_msg"
+                style="@style/Btn"
+                android:text="即时消息"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

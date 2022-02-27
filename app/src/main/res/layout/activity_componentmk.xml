@@ -13,10 +13,8 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="goBaseMKActivity"
-            android:text="BaseMKActivity"
+            android:onClick="goBaseMKDemoActivity"
+            android:text="BaseMKDemoActivity"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>

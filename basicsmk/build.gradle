@@ -38,4 +38,9 @@ dependencies {
 
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+
+    //utilmk
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'androidx.databinding:databinding-common:7.1.2'
+    implementation 'com.github.bumptech.glide:glide:4.11.0'//图片加载库
 }

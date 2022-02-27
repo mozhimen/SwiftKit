@@ -23,6 +23,7 @@ android {
     }
     buildFeatures{
         dataBinding true
+        viewBinding true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,4 +48,6 @@ dependencies {
     implementation project(path: ':swiftmk')
     implementation project(path: ':componentmk')
     implementation project(path: ':basicsmk')
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 }

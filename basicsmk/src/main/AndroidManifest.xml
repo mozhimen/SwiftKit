@@ -3,4 +3,6 @@
     package="com.mozhimen.basicsmk">
     <!--UtilMKNet-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--UtilMKVibrate-->
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>

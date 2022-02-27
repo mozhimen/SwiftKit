@@ -2,6 +2,8 @@ package com.mozhimen.basicsmk.utilmk
 
 import android.graphics.*
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import java.io.*
 
 
@@ -12,7 +14,7 @@ import java.io.*
  * @Date 2022/1/3 4:54
  * @Version 1.0
  */
-object UtilMKImage {
+object UtilMKBitmap {
 
     fun nv21Array2File(nv21: ByteArray?, width: Int, height: Int, filePath: String?): File? {
         return bitmap2File(nv21Array2Bitmap(nv21, width, height), filePath)
@@ -54,6 +56,31 @@ object UtilMKImage {
             }
         }
         return file
+    }
+
+    fun drawable2Bitmap(drawable: Drawable): Bitmap {
+        var bitmap: Bitmap? = null
+
+        if (drawable is BitmapDrawable) {
+            val bitmapDrawable = drawable as BitmapDrawable
+            bitmapDrawable.bitmap?.let {
+                return it
+            }
+        }
+
+        bitmap = if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
+            Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
+        } else {
+            Bitmap.createBitmap(
+                drawable.intrinsicWidth,
+                drawable.intrinsicHeight,
+                Bitmap.Config.ARGB_8888
+            )
+        }
+        val canvas = Canvas(bitmap)
+        drawable.setBounds(0, 0, canvas.width, canvas.height)
+        drawable.draw(canvas)
+        return bitmap
     }
 
     fun rotateBitmap(sourceBitmap: Bitmap, degree: Int, isFrontCamera: Boolean = false): Bitmap {

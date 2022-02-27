@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.mozhimen.app.basicsmk.BasicsMKActivity
 import com.mozhimen.app.componentmk.ComponentMKActivity
 import com.mozhimen.app.demo.DemoActivity
 
@@ -19,5 +20,9 @@ class MainActivity : AppCompatActivity() {
 
     fun goComponentMK(view: View) {
         startActivity(Intent(this, ComponentMKActivity::class.java))
+    }
+
+    fun goBasicsMK(view: View) {
+        startActivity(Intent(this, BasicsMKActivity::class.java))
     }
 }
