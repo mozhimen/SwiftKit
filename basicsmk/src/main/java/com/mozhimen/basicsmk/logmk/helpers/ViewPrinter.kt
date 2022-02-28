@@ -28,7 +28,7 @@ class ViewPrinter(activity: Activity) : ILogMKPrinter {
     private var viewProvider: ViewPrinterProvider
 
     init {
-        val rootView = activity.findViewById<FrameLayout>(R.id.content)
+        val rootView = activity.findViewById<FrameLayout>(android.R.id.content)
         recyclerView = RecyclerView(activity)
         adapter = LogMKAdapter(LayoutInflater.from(recyclerView.context))
         val layoutManager = LinearLayoutManager(recyclerView.context)

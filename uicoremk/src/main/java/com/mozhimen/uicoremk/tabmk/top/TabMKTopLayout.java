@@ -10,9 +10,9 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
+import com.mozhimen.basicsmk.utilmk.UtilMKDisplay;
 import com.mozhimen.uicoremk.tabmk.commons.ITabMKLayout;
 import com.mozhimen.uicoremk.tabmk.top.mos.TabMKTopInfo;
-import com.mozhimen.uicoremk.utilmk.UtilMKDisplay;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -125,7 +125,7 @@ public class TabMKTopLayout extends HorizontalScrollView implements ITabMKLayout
             tabWidth = tabMKTop.getWidth();
         }
         //判断点击了屏幕左侧还是右侧
-        if ((loc[0] + tabWidth / 2) > UtilMKDisplay.INSTANCE.getDisplayWithInPx(getContext()) / 2) {
+        if ((loc[0] + tabWidth / 2) > UtilMKDisplay.INSTANCE.getDisplayWithInPx() / 2) {
             scrollWidth = rangeScrollWidth(index, 2);
         } else {
             scrollWidth = rangeScrollWidth(index, -2);

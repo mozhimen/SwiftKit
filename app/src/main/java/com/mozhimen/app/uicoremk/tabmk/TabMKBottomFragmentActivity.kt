@@ -1,4 +1,4 @@
-package com.mozhimen.app.tabmk
+package com.mozhimen.app.uicoremk.tabmk
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,8 +6,8 @@ import androidx.core.content.ContextCompat
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityTabmkBottomFragmentBinding
 import com.mozhimen.app.uicoremk.tabmk.fragment.HomeFragment
-import com.mozhimen.app.tabmk.fragment.MineFragment
-import com.mozhimen.app.tabmk.fragment.MoreFragment
+import com.mozhimen.app.uicoremk.tabmk.fragment.MineFragment
+import com.mozhimen.app.uicoremk.tabmk.fragment.MoreFragment
 import com.mozhimen.uicoremk.tabmk.bottom.helpers.TabMKViewAdapter
 import com.mozhimen.uicoremk.tabmk.bottom.mos.TabMKBottomInfo
 
@@ -35,8 +35,8 @@ class TabMKBottomFragmentActivity : AppCompatActivity() {
         }
 
         vb.tabBottomFragment.setTabAlpha(0.85f)
-        val defaultColor = ContextCompat.getColor(this, R.color.tabBottomDefaultColor)
-        val tintColor = ContextCompat.getColor(this, R.color.tabBottomTintColor)
+        val defaultColor = ContextCompat.getColor(this, R.color.tabMKBottomDefaultColor)
+        val tintColor = ContextCompat.getColor(this, R.color.tabMKBottomTintColor)
         val homeInfo = TabMKBottomInfo(
             "首页",
             "fonts/iconfont.ttf",

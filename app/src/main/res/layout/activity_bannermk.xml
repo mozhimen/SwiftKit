@@ -14,9 +14,9 @@
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:background="@android:color/darker_gray"
-            app:autoPlay="false"
-            app:layout_constraintTop_toTopOf="parent"
-            app:loop="true" />
+            app:bannerMK_autoPlay="false"
+            app:bannerMK_loop="true"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/bannermk_indicator"

@@ -12,9 +12,6 @@ class ComponentMKActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_componentmk)
-
-        //黏性事件测试
-        DataBusMK.with<String>("stickyData").setStickyData("stickyData from ComponentMKActivity")
     }
 
     fun goBaseMKDemoActivity(view: View) {

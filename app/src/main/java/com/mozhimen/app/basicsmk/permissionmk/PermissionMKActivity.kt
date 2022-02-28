@@ -7,7 +7,7 @@ import com.mozhimen.app.R
 import com.mozhimen.basicsmk.permissionmk.PermissionAnnor
 import com.mozhimen.basicsmk.permissionmk.PermissionMK
 import com.mozhimen.basicsmk.permissionmk.PermissionMK.applySetts
-import com.mozhimen.swiftmk.helper.toast.showToast
+import com.mozhimen.basicsmk.utilmk.showToast
 import java.lang.StringBuilder
 
 @PermissionAnnor(permissions = [Manifest.permission.INTERNET])
@@ -25,7 +25,7 @@ class PermissionMKActivity : AppCompatActivity() {
                     deniedStr.append(it).append(",")
                 }
                 deniedStr.removeRange(deniedStr.length - 1, deniedStr.length).trim()
-                "请在设置中打开${deniedStr}权限".showToast(this)
+                "请在设置中打开${deniedStr}权限".showToast()
 
                 applySetts(this)
             }

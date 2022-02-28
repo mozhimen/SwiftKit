@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{item.name}"
+                android:textColor="@color/white"
                 android:textSize="30sp"
                 tools:ignore="HardcodedText" />
 
@@ -38,16 +39,18 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-thin"
                 android:text="@{item.weather}"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:fontFamily="sans-serif-thin"
             android:text="@{String.valueOf(item.num)}"
+            android:textColor="@color/white"
             android:textSize="60sp"
             tools:ignore="HardcodedText,RtlHardcoded" />
     </FrameLayout>

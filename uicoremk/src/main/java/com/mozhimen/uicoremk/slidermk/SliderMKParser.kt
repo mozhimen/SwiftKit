@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import com.mozhimen.uicoremk.R
 import com.mozhimen.basicsmk.utilmk.UtilMKRes
-import com.mozhimen.uicoremk.utilmk.dp2px
-import com.mozhimen.uicoremk.utilmk.sp2px
+import com.mozhimen.basicsmk.utilmk.dp2px
+import com.mozhimen.basicsmk.utilmk.sp2px
 
 /**
  * @ClassName SliderMKParser

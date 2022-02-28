@@ -15,11 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mozhimen.basicsmk.utilmk.UtilMKDisplay;
+import com.mozhimen.basicsmk.utilmk.UtilMKView;
 import com.mozhimen.uicoremk.R;
 import com.mozhimen.uicoremk.tabmk.bottom.mos.TabMKBottomInfo;
 import com.mozhimen.uicoremk.tabmk.commons.ITabMKLayout;
-import com.mozhimen.uicoremk.utilmk.UtilMKDisplay;
-import com.mozhimen.uicoremk.utilmk.MKViewUtil;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -102,7 +102,7 @@ public class TabMKBottomLayout extends FrameLayout implements ITabMKLayout<TabMK
                 iterator.remove();
             }
         }
-        int width = UtilMKDisplay.INSTANCE.getDisplayWithInPx(getContext()) / infoList.size();
+        int width = UtilMKDisplay.INSTANCE.getDisplayWithInPx() / infoList.size();
         int height = UtilMKDisplay.INSTANCE.dp2px(tabBottomHeight);
         //不用LinearLayout的原因: 当动态改变child大小后Gravity.Bottom会失效.
         FrameLayout ll = new FrameLayout(getContext());
@@ -165,12 +165,12 @@ public class TabMKBottomLayout extends FrameLayout implements ITabMKLayout<TabMK
             return;
         }
         ViewGroup rootView = (ViewGroup) getChildAt(0);
-        ViewGroup targetView = MKViewUtil.INSTANCE.findTypeView(rootView, RecyclerView.class);
+        ViewGroup targetView = UtilMKView.INSTANCE.findTypeView(rootView, RecyclerView.class);
         if (targetView == null) {
-            targetView = MKViewUtil.INSTANCE.findTypeView(rootView, ScrollView.class);
+            targetView = UtilMKView.INSTANCE.findTypeView(rootView, ScrollView.class);
         }
         if (targetView == null) {
-            targetView = MKViewUtil.INSTANCE.findTypeView(rootView, AbsListView.class);
+            targetView = UtilMKView.INSTANCE.findTypeView(rootView, AbsListView.class);
         }
         if (targetView != null) {
             targetView.setPadding(0, 0, 0, UtilMKDisplay.INSTANCE.dp2px(tabBottomHeight));

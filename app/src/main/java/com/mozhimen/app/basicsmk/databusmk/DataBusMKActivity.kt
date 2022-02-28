@@ -20,7 +20,7 @@ class DataBusMKActivity : AppCompatActivity() {
         })
 
         vb.databusmkBtnMsg.setOnClickListener {
-            DataBusMK.with<String>("stitaickyData").setStickyData("即时消息${(0..10).random()}")
+            DataBusMK.with<String>("stickyData").setStickyData("即时消息${(0..10).random()}")
         }
     }
 }

@@ -15,8 +15,8 @@ import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import com.mozhimen.basicsmk.utilmk.dp2px
 import com.mozhimen.uicoremk.R
-import com.mozhimen.uicoremk.utilmk.dp2px
 
 /**
  * @ClassName SwitchApple

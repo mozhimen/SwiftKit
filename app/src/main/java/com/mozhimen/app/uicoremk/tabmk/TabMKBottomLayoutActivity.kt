@@ -1,4 +1,4 @@
-package com.mozhimen.app.tabmk
+package com.mozhimen.app.uicoremk.tabmk
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -6,8 +6,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityTabmkBottomLayoutBinding
+import com.mozhimen.basicsmk.utilmk.dp2px
 import com.mozhimen.uicoremk.tabmk.bottom.mos.TabMKBottomInfo
-import com.mozhimen.uicoremk.utilmk.UtilMKDisplay
 import java.util.*
 
 class TabMKBottomLayoutActivity : AppCompatActivity() {
@@ -40,7 +40,8 @@ class TabMKBottomLayoutActivity : AppCompatActivity() {
             "#ff656667",
             "#ffd44949"
         )*/
-        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.fire, null)
+        val bitmap =
+            BitmapFactory.decodeResource(resources, R.mipmap.tabmk_bottom_layout_fire, null)
         val moreInfo = TabMKBottomInfo<String>(
             "更多",
             bitmap,
@@ -65,7 +66,7 @@ class TabMKBottomLayoutActivity : AppCompatActivity() {
         //改变某个Tab的高度
         val bottomTab = vb.tabmkBottomLayout.findTab(bottomInfoList[1])
         bottomTab.apply {
-            resetHeight(UtilMKDisplay.dp2px(66f))
+            resetHeight(66f.dp2px())
         }
     }
 }

@@ -7,7 +7,8 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.mozhimen.uicoremk.utilmk.UtilMKDisplay;
+import com.mozhimen.basicsmk.utilmk.UtilMKDisplay;
+
 
 /**
  * 下拉数显的Overlay视图,可以重载这个类来定义自己的Overlay

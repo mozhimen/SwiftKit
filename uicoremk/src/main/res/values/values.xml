@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BtnMKSpinnerFormStyle">
+        <item name="colorControlNormal">@android:color/transparent</item> <!--改变了spinner的箭头颜色  -->
+    </style>
+</resources>

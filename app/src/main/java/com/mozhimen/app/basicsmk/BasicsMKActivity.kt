@@ -10,6 +10,7 @@ import com.mozhimen.app.basicsmk.executormk.ExecutorMKActivity
 import com.mozhimen.app.basicsmk.logmk.LogMKActivity
 import com.mozhimen.app.basicsmk.permissionmk.PermissionMKActivity
 import com.mozhimen.app.basicsmk.stackmk.StackMKActivity
+import com.mozhimen.basicsmk.databusmk.DataBusMK
 import com.mozhimen.basicsmk.executormk.ExecutorMK
 
 class BasicsMKActivity : AppCompatActivity() {
@@ -17,6 +18,9 @@ class BasicsMKActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_basicsmk)
+
+        //黏性事件测试
+        DataBusMK.with<String>("stickyData").setStickyData("stickyData from ComponentMKActivity")
     }
 
     fun goDataBusMKActivity(view: View) {

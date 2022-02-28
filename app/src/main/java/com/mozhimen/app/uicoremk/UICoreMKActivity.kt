@@ -4,20 +4,20 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.mozhimen.app.databinding.ActivityUicoremkBinding
 import com.mozhimen.app.uicoremk.bannermk.BannerMKActivity
 import com.mozhimen.app.uicoremk.btnmk.BtnMKActivity
-import com.mozhimen.app.databinding.ActivityMainBinding
 import com.mozhimen.app.uicoremk.datamk.DataMKActivity
 import com.mozhimen.app.uicoremk.refreshmk.RefreshMKLayoutActivity
-import com.mozhimen.app.tabmk.TabMKBottomActivity
-import com.mozhimen.app.tabmk.TabMKBottomFragmentActivity
-import com.mozhimen.app.tabmk.TabMKBottomLayoutActivity
-import com.mozhimen.app.tabmk.TabMKTopLayoutActivity
-import com.mozhimen.app.viewmk.ViewMKActivity
+import com.mozhimen.app.uicoremk.tabmk.TabMKBottomActivity
+import com.mozhimen.app.uicoremk.tabmk.TabMKBottomFragmentActivity
+import com.mozhimen.app.uicoremk.tabmk.TabMKBottomLayoutActivity
+import com.mozhimen.app.uicoremk.tabmk.TabMKTopLayoutActivity
+import com.mozhimen.app.uicoremk.viewmk.ViewMKActivity
 
 class UICoreMKActivity : Activity() {
 
-    private val vb: ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val vb: ActivityUicoremkBinding by lazy { ActivityUicoremkBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(vb.root)

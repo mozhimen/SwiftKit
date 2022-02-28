@@ -1,4 +1,4 @@
-package com.mozhimen.app.tabmk
+package com.mozhimen.app.uicoremk.tabmk
 
 import android.os.Bundle
 import android.widget.Toast
@@ -41,8 +41,8 @@ class TabMKTopLayoutActivity : AppCompatActivity() {
 
     private fun initTabTop() {
         val infoList = ArrayList<TabMKTopInfo<*>>()
-        val defaultColor = ContextCompat.getColor(this, R.color.tabTopDefaultColor)
-        val tintColor = ContextCompat.getColor(this, R.color.tabTopTintColor)
+        val defaultColor = ContextCompat.getColor(this, R.color.tabMKTopDefaultColor)
+        val tintColor = ContextCompat.getColor(this, R.color.tabMKTopTintColor)
         tabStr.forEach {
             val info = TabMKTopInfo(it, defaultColor, tintColor)
             infoList.add(info)

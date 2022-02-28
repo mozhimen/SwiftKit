@@ -22,7 +22,7 @@ class UtilMKVibrate {
 
     private var vibrator: Vibrator? = null
 
-    fun start(duration: Int = 200) {
+    fun start(duration: Long = 200L) {
         if (vibrator == null) {
             vibrator =
                 UtilMKGlobal.instance.getApp()!!

@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityStackmkBinding
 import com.mozhimen.basicsmk.stackmk.StackMK
-import com.mozhimen.swiftmk.helper.toast.showToast
+import com.mozhimen.basicsmk.utilmk.showToast
 
 class StackMKActivity : AppCompatActivity() {
     companion object {
@@ -25,7 +25,7 @@ class StackMKActivity : AppCompatActivity() {
     private fun initView() {
         StackMK.instance.addFrontBackCallback(object : StackMK.FrontBackCallback {
             override fun onChanged(isFront: Boolean) {
-                "当前处于: $isFront".showToast(this@StackMKActivity)
+                "当前处于: $isFront".showToast()
                 Log.i(TAG, "onChanged: 当前处于: $isFront")
             }
         })

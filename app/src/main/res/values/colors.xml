@@ -14,4 +14,11 @@
     <color name="blue_dark">#0876E4</color>
     <color name="blue_theme">#4785EF</color>
 
+    <!--tabMKTop-->
+    <color name="tabMKTopDefaultColor">#ff656667</color>
+    <color name="tabMKTopTintColor">#ffd44949</color>
+
+    <!--tabMKBottom-->
+    <color name="tabMKBottomDefaultColor">#ff656667</color>
+    <color name="tabMKBottomTintColor">#ffd44949</color>
 </resources>

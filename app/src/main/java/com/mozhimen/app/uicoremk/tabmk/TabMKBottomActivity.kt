@@ -1,4 +1,4 @@
-package com.mozhimen.app.tabmk
+package com.mozhimen.app.uicoremk.tabmk
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +28,6 @@ class TabMKBottomActivity : AppCompatActivity() {
             "#ff656667",
             "#ffd44949"
         )
-        vb.tabBottom.setTabInfo(homeInfo)
+        vb.tabmkBottom.setTabInfo(homeInfo)
     }
 }

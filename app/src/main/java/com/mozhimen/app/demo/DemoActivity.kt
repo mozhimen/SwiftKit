@@ -44,7 +44,7 @@ class DemoActivity : BaseMKActivity<ActivityDemoBinding, DemoViewModel>(R.layout
                 BR.item
             ) {
             override fun addListener(view: View, itemData: Astro, position: Int) {
-                (view.findViewById(R.id.item_demo_list_btn) as FrameLayout).setOnClickListener {
+                (view.findViewById(R.id.demo_item_list_btn) as FrameLayout).setOnClickListener {
                     Log.i(TAG, itemData.name)
                 }
             }

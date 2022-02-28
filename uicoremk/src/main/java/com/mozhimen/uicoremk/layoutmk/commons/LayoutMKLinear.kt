@@ -3,7 +3,7 @@ package com.mozhimen.uicoremk.layoutmk.commons
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
-import com.mozhimen.uicoremk.utilmk.UtilMKDisplay
+import com.mozhimen.basicsmk.utilmk.UtilMKDisplay
 
 /**
  * @ClassName ILayout

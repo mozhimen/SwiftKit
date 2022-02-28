@@ -28,6 +28,12 @@
             android:text="BasicsMK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn"
+            android:onClick="goUICoreMK"
+            android:text="UICoreMK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

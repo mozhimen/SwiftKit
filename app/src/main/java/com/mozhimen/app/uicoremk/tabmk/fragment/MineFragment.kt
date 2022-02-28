@@ -1,7 +1,9 @@
-package com.mozhimen.app.tabmk.fragment
+package com.mozhimen.app.uicoremk.tabmk.fragment
 
-import com.mozhimen.app.BaseFragment
 import com.mozhimen.app.R
+import com.mozhimen.app.databinding.FragmentTabmkBottomMineBinding
+import com.mozhimen.app.uicoremk.tabmk.TabMKBottomFragmentViewModel
+import com.mozhimen.componentmk.basemk.BaseMKFragment
 
 /**
  * @ClassName MineFragment
@@ -10,8 +12,6 @@ import com.mozhimen.app.R
  * @Date 2021/8/2 14:34
  * @Version 1.0
  */
-class MineFragment : BaseFragment() {
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_tabmk_bottom_mine;
-    }
+class MineFragment :
+    BaseMKFragment<FragmentTabmkBottomMineBinding, TabMKBottomFragmentViewModel>(R.layout.fragment_tabmk_bottom_mine) {
 }

@@ -8,9 +8,9 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
+import com.mozhimen.basicsmk.utilmk.dp2px
 import com.mozhimen.uicoremk.R
 import com.mozhimen.uicoremk.bannermk.commons.IBannerMKIndicator
-import com.mozhimen.uicoremk.utilmk.UtilMKDisplay
 
 /**
  * @ClassName CircleIndicatorK
@@ -52,8 +52,8 @@ class CircleIndicator @JvmOverloads constructor(
     private var mPointTopBottomPadding = 0
 
     init {
-        mPointLeftRightPadding = UtilMKDisplay.dp2px(5f)
-        mPointTopBottomPadding = UtilMKDisplay.dp2px(15f)
+        mPointLeftRightPadding = 5f.dp2px()
+        mPointTopBottomPadding = 15f.dp2px()
     }
 
     override fun get(): FrameLayout {

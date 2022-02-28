@@ -3,6 +3,7 @@ package com.mozhimen.app.uicoremk.btnmk
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.mozhimen.app.databinding.ActivityBtnmkBinding
 import com.mozhimen.uicoremk.btnmk.SwitchApple
 
 class BtnMKActivity : AppCompatActivity() {

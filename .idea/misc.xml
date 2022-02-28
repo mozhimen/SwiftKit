@@ -6,15 +6,34 @@
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/drawable/champer_fom.xml" value="0.2866666666666667" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2866666666666667" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/drawable/main_pane.xml" value="0.2866666666666667" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_bannermk.xml" value="0.5579240037071362" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_basemk_activity.xml" value="0.15925925925925927" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_basicsmk.xml" value="0.26666666666666666" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_btnmk.xml" value="0.275" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_componentmk.xml" value="0.264" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_databusmk.xml" value="0.264" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_logmk.xml" value="0.240625" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_stackmk.xml" value="0.2046875" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_tabmk_bottom.xml" value="0.25" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_tabmk_bottom_fragment.xml" value="0.275" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_tabmk_bottom_layout.xml" value="0.275" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_uicoremk.xml" value="0.36614583333333334" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_viewmk.xml" value="0.36614583333333334" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_viewmk_steps.xml" value="0.275" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_viewmk_views.xml" value="0.36614583333333334" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/datamk_item_activity.xml" value="0.275" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/fragment_basemk_fragment.xml" value="0.1" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/fragment_tabmk_bottom_home.xml" value="0.275" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/fragment_tabmk_bottom_mine.xml" value="0.275" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/fragment_tabmk_bottom_more.xml" value="0.275" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/item_demo_list.xml" value="0.36614583333333334" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/item_list.xml" value="0.36614583333333334" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2866666666666667" />
         <entry key="..\:/GitHub/SwiftMK/swiftmk/src/main/res/layout/layout_blurred.xml" value="0.14629629629629629" />
+        <entry key="..\:/GitHub/SwiftMK/uicoremk/src/main/res/drawable/tabmk_top_indicator.xml" value="0.2911458333333333" />
+        <entry key="..\:/GitHub/SwiftMK/uicoremk/src/main/res/drawable/textmk_edit_cursor.xml" value="0.2911458333333333" />
+        <entry key="..\:/GitHub/SwiftMK/uicoremk/src/main/res/layout/textmk_edit_form.xml" value="0.275" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_bannermk.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_basemk_activity.xml" value="0.25" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_basicsmk.xml" value="0.275" />

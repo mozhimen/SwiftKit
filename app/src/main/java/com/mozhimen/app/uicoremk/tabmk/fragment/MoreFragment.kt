@@ -1,7 +1,9 @@
-package com.mozhimen.app.tabmk.fragment
+package com.mozhimen.app.uicoremk.tabmk.fragment
 
-import com.mozhimen.app.BaseFragment
 import com.mozhimen.app.R
+import com.mozhimen.app.databinding.FragmentTabmkBottomMoreBinding
+import com.mozhimen.app.uicoremk.tabmk.TabMKBottomFragmentViewModel
+import com.mozhimen.componentmk.basemk.BaseMKFragment
 
 /**
  * @ClassName MoreFragment
@@ -10,8 +12,6 @@ import com.mozhimen.app.R
  * @Date 2021/8/2 14:33
  * @Version 1.0
  */
-class MoreFragment : BaseFragment() {
-    override fun getLayoutId(): Int {
-        return R.layout.fragment_tabmk_bottom_more;
-    }
+class MoreFragment :
+    BaseMKFragment<FragmentTabmkBottomMoreBinding, TabMKBottomFragmentViewModel>(R.layout.fragment_tabmk_bottom_more) {
 }
