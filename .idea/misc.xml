@@ -15,13 +15,50 @@
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/item_list.xml" value="0.36614583333333334" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2866666666666667" />
         <entry key="..\:/GitHub/SwiftMK/swiftmk/src/main/res/layout/layout_blurred.xml" value="0.14629629629629629" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_bannermk.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_basemk_activity.xml" value="0.25" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_basicsmk.xml" value="0.275" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_btnmk.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_componentmk.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_databusmk.xml" value="0.275" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_datamk.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_demo.xml" value="0.275" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_executormk.xml" value="0.22" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_logmk.xml" value="0.12708333333333333" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_refreshmk.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_stackmk.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_uicoremk.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/content_basics_mkactivity.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/datamk_item_activity.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/datamk_item_banner.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/datamk_item_grid.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/datamk_item_image.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/datamk_item_tab.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/datamk_item_top.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/datamk_item_video.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/fragment_basemk_fragment.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_bannermk.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_demo_footer.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_demo_header.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_demo_list.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_footer.xml" value="0.10347222222222222" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_header.xml" value="0.10347222222222222" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_list.xml" value="0.10347222222222222" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/basicsmk/src/main/res/layout/item_logmk.xml" value="0.275" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/drawable/bannermk_circle_indicator_point_normal.xml" value="0.28416988416988415" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/drawable/btnmk_icon_background.xml" value="0.28416988416988415" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/drawable/slidermk_indicator.xml" value="0.28416988416988415" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/drawable/textmk_edit_form.xml" value="0.28416988416988415" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/layout/btnmk_icon.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/layout/btnmk_spinner_form.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/layout/layout_bannermk.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/layout/layoutmk_blurred.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/layout/refreshmk_overview_text.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/layout/slidermk_content.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/layout/slidermk_menu_item.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/layout/tabmk_bottom.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/uicoremk/src/main/res/layout/textmk_edit_form.xml" value="0.275390625" />
       </map>
     </option>
   </component>

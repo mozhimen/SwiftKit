@@ -1,5 +1,5 @@
 include ':app'
-include ':swiftmk'
 rootProject.name = "SwiftMK"
 include ':componentmk'
 include ':basicsmk'
+include ':uicoremk'

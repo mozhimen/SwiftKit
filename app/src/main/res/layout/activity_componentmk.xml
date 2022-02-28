@@ -14,7 +14,7 @@
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
             android:onClick="goBaseMKDemoActivity"
-            android:text="BaseMKDemoActivity"
+            android:text="BaseMKDemo"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>

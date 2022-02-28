@@ -4,30 +4,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.mozhimen.app.BR
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
-import com.mozhimen.swiftmk.base.BaseActivity
-import com.mozhimen.swiftmk.helper.adapter.StuffedRecyclerAdapterMK
-import com.mozhimen.swiftmk.helper.statusbar.StatusBarAnnor
+import com.mozhimen.basicsmk.statusbarmk.StatusBarMKAnnor
+import com.mozhimen.componentmk.basemk.BaseMKActivity
+import com.mozhimen.uicoremk.adaptermk.AdapterMKStuffedRecycler
 import kotlin.math.abs
 
-@StatusBarAnnor(isImmersed = true)
-class DemoActivity : BaseActivity() {
-    private val vm by lazy { ViewModelProvider(this).get(DemoViewModel::class.java) }
-
-    private lateinit var vb: ActivityDemoBinding
-    override fun getViewBinding(): ViewBinding {
-        vb = ActivityDemoBinding.inflate(layoutInflater)
-        return vb
-    }
+@StatusBarMKAnnor(isImmersed = true)
+class DemoActivity : BaseMKActivity<ActivityDemoBinding, DemoViewModel>(R.layout.activity_demo) {
 
     override fun initData(savedInstanceState: Bundle?) {
-
+        initView()
     }
 
     var mScrollY = 0
@@ -43,33 +34,33 @@ class DemoActivity : BaseActivity() {
             Astro("双子座", "晴天", 90),
             Astro("射手座", "晴天", 90),
         )
-        vb.list.layoutManager = LinearLayoutManager(this)
-        vb.list.adapter = object :
-            StuffedRecyclerAdapterMK<Astro>(
+        vb.demoList.layoutManager = LinearLayoutManager(this)
+        vb.demoList.adapter = object :
+            AdapterMKStuffedRecycler<Astro>(
                 list,
-                R.layout.item_list,
-                R.layout.item_header,
+                R.layout.item_demo_list,
+                R.layout.item_demo_header,
                 null,
                 BR.item
             ) {
             override fun addListener(view: View, itemData: Astro, position: Int) {
-                (view.findViewById(R.id.item_btn) as FrameLayout).setOnClickListener {
-                    Log.i(">>>", itemData.name)
+                (view.findViewById(R.id.item_demo_list_btn) as FrameLayout).setOnClickListener {
+                    Log.i(TAG, itemData.name)
                 }
             }
         }
-        vb.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        vb.demoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 mScrollY += dy
                 mAlpha = if (abs(mScrollY) > 1000) {
-                    vb.bg.setBlurredTop(100)
+                    vb.demoBg.setBlurredTop(100)
                     100
                 } else {
-                    vb.bg.setBlurredTop(mScrollY / 10)
+                    vb.demoBg.setBlurredTop(mScrollY / 10)
                     abs(mScrollY) / 10
                 }
-                vb.bg.setBlurredLevel(mAlpha)
+                vb.demoBg.setBlurredLevel(mAlpha)
             }
         })
     }

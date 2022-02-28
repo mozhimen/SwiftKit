@@ -20,12 +20,12 @@
             </intent-filter>
         </activity>
 
-        <!--Demo-->
+        <!--demo-->
         <activity
             android:name=".demo.DemoActivity"
             android:exported="false" />
 
-        <!-- ComponentMK -->
+        <!-- componentmk -->
         <activity
             android:name=".componentmk.ComponentMKActivity"
             android:exported="false" />
@@ -33,10 +33,16 @@
             android:name=".componentmk.basemk.BaseMKDemoActivity"
             android:exported="false" />
 
-        <!-- BasicsMK -->
+        <!-- basicsmk -->
         <activity
             android:name=".basicsmk.BasicsMKActivity"
             android:exported="true" />
+        <activity
+            android:name=".basicsmk.executormk.ExecutorMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basicsmk.logmk.LogMKActivity"
+            android:exported="false" />
         <activity
             android:name=".basicsmk.databusmk.DataBusMKActivity"
             android:exported="true" />
@@ -48,6 +54,35 @@
             android:exported="false" />
         <activity
             android:name=".basicsmk.stackmk.StackMKSecondActivity"
+            android:exported="false" />
+
+        <!--uicoremk-->
+        <activity
+            android:name=".tabmk.TabMKBottomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".tabmk.TabMKBottomLayoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".tabmk.TabMKBottomFragmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".tabmk.TabMKTopLayoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicoremk.refreshmk.RefreshMKLayoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicoremk.bannermk.BannerMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicoremk.datamk.DataMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicoremk.btnmk.BtnMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".viewmk.ViewMKActivity"
             android:exported="false" />
     </application>
 

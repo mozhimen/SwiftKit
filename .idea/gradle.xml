@@ -14,7 +14,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/basicsmk" />
             <option value="$PROJECT_DIR$/componentmk" />
-            <option value="$PROJECT_DIR$/swiftmk" />
+            <option value="$PROJECT_DIR$/uicoremk" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

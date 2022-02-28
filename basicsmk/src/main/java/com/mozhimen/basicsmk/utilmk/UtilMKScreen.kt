@@ -28,7 +28,17 @@ object UtilMKScreen {
      * 缺点: 不管你是否设置全屏模式,或是不是显示状态栏,高度是固定的;因为系统资源属性是固定的,真实的,不管你是否隐藏(隐藏或显示),他都在nali
      */
     fun getStatusBarHeight(context: Context): Int {
-        var statusBarHeight = -1
+        var statusBarHeight = 0
+        val typedArray = context.theme.obtainStyledAttributes(
+            intArrayOf(
+                android.R.attr.windowFullscreen
+            )
+        )
+        val windowFullscreen = typedArray.getBoolean(0, false)
+        typedArray.recycle()
+        if (windowFullscreen) {
+            return statusBarHeight
+        }
         //获取status_bar_height资源的ID
         val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android")
         if (resourceId > 0) {

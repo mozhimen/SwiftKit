@@ -3,7 +3,7 @@ package com.mozhimen.app.basicsmk.stackmk
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityStackmkSecondBinding
-import com.mozhimen.basicsmk.stackmk.StackMKManager
+import com.mozhimen.basicsmk.stackmk.StackMK
 
 class StackMKSecondActivity : AppCompatActivity() {
     private val vb: ActivityStackmkSecondBinding by lazy {
@@ -20,7 +20,7 @@ class StackMKSecondActivity : AppCompatActivity() {
     }
 
     fun initView() {
-        val topActivity = StackMKManager.instance.getTopActivity()
+        val topActivity = StackMK.instance.getTopActivity()
         topActivity?.let {
             vb.stackmkTopName.text = topActivity.localClassName
         }

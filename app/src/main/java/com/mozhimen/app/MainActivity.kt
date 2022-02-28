@@ -7,6 +7,7 @@ import android.view.View
 import com.mozhimen.app.basicsmk.BasicsMKActivity
 import com.mozhimen.app.componentmk.ComponentMKActivity
 import com.mozhimen.app.demo.DemoActivity
+import com.mozhimen.app.uicoremk.UICoreMKActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,5 +25,9 @@ class MainActivity : AppCompatActivity() {
 
     fun goBasicsMK(view: View) {
         startActivity(Intent(this, BasicsMKActivity::class.java))
+    }
+
+    fun goUICoreMK(view: View) {
+        startActivity(Intent(this, UICoreMKActivity::class.java))
     }
 }

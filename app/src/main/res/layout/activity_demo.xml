@@ -11,16 +11,16 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <com.mozhimen.swiftmk.widget.layout.BlurredLayout
-            android:id="@+id/bg"
+        <com.mozhimen.uicoremk.layoutmk.LayoutMKBlurred
+            android:id="@+id/demo_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:src="@mipmap/test"
-            app:isDisableBlurred="false"
-            app:isMove="true"/>
+            app:layoutMKBlurred_src="@mipmap/test"
+            app:layoutMKBlurred_isDisableBlurred="false"
+            app:layoutMKBlurred_isMove="true"/>
         
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/list"
+            android:id="@+id/demo_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />

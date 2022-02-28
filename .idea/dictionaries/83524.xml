@@ -2,16 +2,24 @@
   <dictionary name="83524">
     <words>
       <w>astro</w>
+      <w>bannermk</w>
       <w>basemk</w>
       <w>basicsmk</w>
       <w>componentmk</w>
+      <w>crashmk</w>
       <w>databinding</w>
+      <w>datamk</w>
       <w>datas</w>
       <w>kolin</w>
       <w>lateinit</w>
+      <w>logmk</w>
       <w>mozhimen</w>
+      <w>permissionmk</w>
+      <w>refreshmk</w>
+      <w>slidermk</w>
       <w>stackmk</w>
       <w>swiftmk</w>
+      <w>uicoremk</w>
       <w>zhao</w>
     </words>
   </dictionary>

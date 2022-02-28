@@ -13,19 +13,31 @@
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
             android:onClick="goDataBusMKActivity"
-            android:text="DataBusMKActivity"
+            android:text="DataBusMK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
             android:onClick="goPermissionMKActivity"
-            android:text="PermissionMKActivity"
+            android:text="PermissionMK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
             android:onClick="goStackMKActivity"
-            android:text="StackMKActivity"
+            android:text="StackMK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn"
+            android:onClick="goExecutorMKActivity"
+            android:text="ExecutorMK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn"
+            android:onClick="goLogMKActivity"
+            android:text="LogMK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 

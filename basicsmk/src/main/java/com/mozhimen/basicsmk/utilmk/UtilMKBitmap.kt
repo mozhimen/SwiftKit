@@ -98,6 +98,44 @@ object UtilMKBitmap {
         )
     }
 
+    fun adjustPhotoRotation(sourceBitmap: Bitmap, degree: Int): Bitmap {
+        val matrix = Matrix()
+        matrix.setRotate(
+            degree.toFloat(),
+            sourceBitmap.width.toFloat() / 2,
+            sourceBitmap.height.toFloat() / 2
+        )
+        val outputX: Float
+        val outputY: Float
+        if (degree == 90) {
+            outputX = sourceBitmap.height.toFloat()
+            outputY = 0f
+        } else {
+            outputX = sourceBitmap.height.toFloat()
+            outputY = sourceBitmap.width.toFloat()
+        }
+        val values = FloatArray(9)
+        matrix.getValues(values)
+        val x1 = values[Matrix.MTRANS_X]
+        val y1 = values[Matrix.MTRANS_Y]
+        matrix.postTranslate(outputX - x1, outputY - y1)
+        val outputBitmap =
+            Bitmap.createBitmap(sourceBitmap.height, sourceBitmap.width, Bitmap.Config.ARGB_8888)
+        val paint = Paint()
+        val canvas = Canvas(outputBitmap)
+        canvas.drawBitmap(sourceBitmap, matrix, paint)
+        return outputBitmap
+    }
+
+    fun tintBitmap(sourceBitmap: Bitmap, tintColor: Int): Bitmap {
+        val outputBitmap = Bitmap.createBitmap(sourceBitmap.width, sourceBitmap.height, sourceBitmap.config)
+        val canvas = Canvas(outputBitmap)
+        val paint = Paint()
+        paint.colorFilter = PorterDuffColorFilter(tintColor, PorterDuff.Mode.SRC_IN)
+        canvas.drawBitmap(sourceBitmap, 0f, 0f, paint)
+        return outputBitmap
+    }
+
     fun saveBitmap(savePath: String, bitmap: Bitmap?) {
         if (null == bitmap) // 容错处理
             return
@@ -115,6 +153,29 @@ object UtilMKBitmap {
             out.close()
         } catch (e: IOException) {
             e.printStackTrace()
+        }
+    }
+
+    /**
+     * 将本地图片文件转换成可解码二维码的 Bitmap,为了避免图片太大，这里对图片进行了压缩
+     *
+     * @param picturePath 本地图片文件路径
+     */
+    fun getDecodeAbleBitmap(picturePath: String): Bitmap? {
+        return try {
+            val options = BitmapFactory.Options()
+            options.inJustDecodeBounds = true
+            BitmapFactory.decodeFile(picturePath, options)
+            var sampleSize = options.outHeight / 400
+            if (sampleSize <= 0) {
+                sampleSize = 1
+            }
+            options.inSampleSize = sampleSize
+            options.inJustDecodeBounds = false
+            BitmapFactory.decodeFile(picturePath, options)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 }

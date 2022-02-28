@@ -6,8 +6,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.R
 import com.mozhimen.app.basicsmk.databusmk.DataBusMKActivity
+import com.mozhimen.app.basicsmk.executormk.ExecutorMKActivity
+import com.mozhimen.app.basicsmk.logmk.LogMKActivity
 import com.mozhimen.app.basicsmk.permissionmk.PermissionMKActivity
 import com.mozhimen.app.basicsmk.stackmk.StackMKActivity
+import com.mozhimen.basicsmk.executormk.ExecutorMK
 
 class BasicsMKActivity : AppCompatActivity() {
 
@@ -26,5 +29,13 @@ class BasicsMKActivity : AppCompatActivity() {
 
     fun goStackMKActivity(view: View) {
         startActivity(Intent(this, StackMKActivity::class.java))
+    }
+
+    fun goExecutorMKActivity(view: View) {
+        startActivity(Intent(this, ExecutorMKActivity::class.java))
+    }
+
+    fun goLogMKActivity(view: View) {
+        startActivity(Intent(this, LogMKActivity::class.java))
     }
 }

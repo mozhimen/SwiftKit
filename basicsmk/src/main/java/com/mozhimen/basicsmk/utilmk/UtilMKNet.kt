@@ -12,7 +12,7 @@ import android.net.NetworkInfo
  * @Version 1.0
  */
 object UtilMKNet {
-    private const val TAG = "UtilMKNet"
+    private const val TAG = "UtilMKNet>>>>>"
 
     /**
      * need permission

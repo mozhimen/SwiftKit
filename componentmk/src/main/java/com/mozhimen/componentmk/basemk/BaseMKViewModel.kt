@@ -12,7 +12,10 @@ import kotlin.coroutines.CoroutineContext
  * @Date 2022/2/25 14:46
  * @Version 1.0
  */
-open class BaseMKViewModel: ViewModel() {
+open class BaseMKViewModel : ViewModel() {
+
+    val TAG = "${this.javaClass.simpleName}>>>>>"
+
     /**
      * 作用: 消息机制
      * 依赖: implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
