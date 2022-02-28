@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="blue">#0E1AA3</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <dimen name="title">20sp</dimen>
+    <style name="CustomDialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+    <style name="NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <declare-styleable name="BlurredLayout">
+        <!--图片src-->
+        <attr format="reference" name="src"/>
+        <!--是否图片移动-->
+        <attr format="boolean" name="isMove"/>
+        <!--是否禁用模糊-->
+        <attr format="boolean" name="isDisableBlurred"/>
+    </declare-styleable>
+    <declare-styleable name="QRScanView">
+        <!-- 扫描框的宽度，默认值为200dp -->
+        <attr format="dimension|reference" name="rectWidth"/>
+        <!-- 扫描边框的宽度，默认值为1dp -->
+        <attr format="dimension|reference" name="borderSize"/>
+        <!-- 扫描边框的颜色，默认值为@android:color/white -->
+        <attr format="color|reference" name="borderColor"/>
+        <!-- 扫描线的图片资源，默认值为null -->
+        <attr format="reference" name="customScanLineDrawable"/>
+        <!-- 扫描线从顶部移动到底部的动画时间，默认值为1000 -->
+        <attr format="integer" name="animTime"/>
+        <!-- 扫描线是否来回移动，默认值为true -->
+        <attr format="boolean" name="isScanLineReverse"/>
+    </declare-styleable>
+    <declare-styleable name="UnderLineTextView">
+        <!--下划线是否出现-->
+        <attr format="boolean" name="underline"/>
+    </declare-styleable>
+    <declare-styleable name="VideoLayout">
+        <!--视频地址-->
+        <attr format="string" name="path_or_url"/>
+        <!--视频是否循环播放-->
+        <attr format="boolean" name="loop"/>
+        <!--视频权重-->
+        <attr format="enum" name="video_gravity">
+            <enum name="start" value="0"/>
+            <enum name="end" value="1"/>
+            <enum name="centerCrop" value="2"/>
+            <enum name="none" value="3"/>
+        </attr>
+    </declare-styleable>
+</resources>
