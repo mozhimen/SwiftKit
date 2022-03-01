@@ -35,6 +35,9 @@
         <activity
             android:name=".componentmk.basemk.BaseMKDemoActivity"
             android:exported="false" />
+        <activity
+            android:name=".componentmk.navigationmk.NavigationMKActivity"
+            android:exported="false" />
 
         <!-- basicsmk -->
         <activity

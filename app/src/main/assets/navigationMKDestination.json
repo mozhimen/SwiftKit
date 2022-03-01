@@ -1,0 +1,23 @@
+{
+  "main/navigationmk/notifications": {
+    "isStarter": false,
+    "pageUrl": "main/navigationmk/notifications",
+    "pageId": 1619046789,
+    "clazzName": "com.mozhimen.app.componentmk.navigationmk.fragment.NotificationsFragment",
+    "destType": "fragment"
+  },
+  "main/navigationmk/dashboard": {
+    "isStarter": false,
+    "pageUrl": "main/navigationmk/dashboard",
+    "pageId": 1091746225,
+    "clazzName": "com.mozhimen.app.componentmk.navigationmk.fragment.DashboardFragment",
+    "destType": "fragment"
+  },
+  "main/navigationmk/home": {
+    "isStarter": true,
+    "pageUrl": "main/navigationmk/home",
+    "pageId": 1863542910,
+    "clazzName": "com.mozhimen.app.componentmk.navigationmk.fragment.HomeFragment",
+    "destType": "fragment"
+  }
+}

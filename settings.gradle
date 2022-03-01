@@ -3,3 +3,5 @@ rootProject.name = "SwiftMK"
 include ':componentmk'
 include ':basicsmk'
 include ':uicoremk'
+include ':navigationmkannor'
+include ':navigationmkcompiler'

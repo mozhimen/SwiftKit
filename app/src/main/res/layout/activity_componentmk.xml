@@ -17,5 +17,11 @@
             android:text="BaseMKDemo"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn"
+            android:onClick="goNavigationMKActivity"
+            android:text="NavigationMK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

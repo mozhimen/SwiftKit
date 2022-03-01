@@ -45,6 +45,7 @@
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_executormk.xml" value="0.22" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_logmk.xml" value="0.12708333333333333" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_navigationmk.xml" value="0.275" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_refreshmk.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_stackmk.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/activity_uicoremk.xml" value="0.275390625" />
@@ -57,6 +58,9 @@
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/datamk_item_top.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/datamk_item_video.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/fragment_basemk_fragment.xml" value="0.275390625" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/fragment_navigationmk_dashboard.xml" value="0.275" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/fragment_navigationmk_home.xml" value="0.275" />
+        <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/fragment_navigationmk_notifications.xml" value="0.275" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_bannermk.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_demo_footer.xml" value="0.275390625" />
         <entry key="..\:/WorkSpace/1_Github/SwiftMK/app/src/main/res/layout/item_demo_header.xml" value="0.275390625" />
@@ -81,7 +85,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
