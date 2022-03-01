@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.mozhimen.abilitymk.cameraxmk.CameraXMKPreviewView
+            android:id="@+id/cameramk_preview_view"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:id="@+id/cameramk_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="20dp"
+            android:scaleType="centerInside" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cameramk_btn"
+            style="@style/Btn"
+            android:layout_gravity="center"
+            android:text="take"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+</layout>

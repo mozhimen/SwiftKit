@@ -41,4 +41,5 @@ dependencies {
     implementation project(path: ':componentmk')
     implementation project(path: ':basicsmk')
     implementation project(path: ':uicoremk')
+    implementation project(path: ':abilitymk')
 }

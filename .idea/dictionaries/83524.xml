@@ -10,13 +10,19 @@
       <w>databinding</w>
       <w>datamk</w>
       <w>datas</w>
+      <w>deletemk</w>
+      <w>getmk</w>
+      <w>hotfixmk</w>
       <w>kolin</w>
       <w>lateinit</w>
       <w>logmk</w>
+      <w>methodmk</w>
       <w>mozhimen</w>
       <w>navigationmk</w>
       <w>navigationmkannor</w>
       <w>permissionmk</w>
+      <w>postmk</w>
+      <w>putmk</w>
       <w>refreshmk</w>
       <w>slidermk</w>
       <w>stackmk</w>

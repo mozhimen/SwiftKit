@@ -21,6 +21,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="SwiftMK.abilitymk" target="11" />
       <module name="SwiftMK.app" target="11" />
       <module name="SwiftMK.basicsmk" target="11" />
       <module name="SwiftMK.componentmk" target="11" />
