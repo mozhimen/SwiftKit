@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftMK">
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -23,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <!--demo-->
+        <!-- demo -->
         <activity
             android:name=".demo.DemoActivity"
             android:exported="false" />
@@ -62,7 +61,7 @@
             android:name=".basicsmk.stackmk.StackMKSecondActivity"
             android:exported="false" />
 
-        <!--uicoremk-->
+        <!-- uicoremk -->
         <activity
             android:name=".uicoremk.UICoreMKActivity"
             android:exported="false" />
@@ -99,6 +98,24 @@
         <activity
             android:name=".uicoremk.viewmk.ViewMKViewsActivity"
             android:exported="false" />
+
+        <!--abilitymk-->
+        <activity
+            android:name=".abilitymk.AbilityMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilitymk.cameraxmk.CameraXMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilitymk.hotfixmk.HotFixMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilitymk.qrcodemk.QRCodeMKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilitymk.restfulmk.RESTfulMKActivity"
+            android:exported="false" />
     </application>
+
 
 </manifest>
