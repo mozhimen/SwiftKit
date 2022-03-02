@@ -12,6 +12,7 @@ import com.mozhimen.abilitymk.restfulmk.commons.InterceptorMK
  */
 class BizInterceptor : InterceptorMK {
     private val TAG = "BizInterceptor>>>>>"
+
     override fun intercept(chain: InterceptorMK.Chain): Boolean {
         if (chain.isRequestPeriod) {
             val requestMK = chain.request()

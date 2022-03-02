@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--navmk-->
+    <declare-styleable name="NavMKBar">
+        <attr name="navMKBar_title" format="string" />
+        <attr name="navMKBar_title_textColor" format="color" />
+        <attr name="navMKBar_title_textSize" format="dimension" />
+        <attr name="navMKBar_title_textSize_with_subTitle" format="dimension" />
+
+        <attr name="navMKBar_subTitle" format="string" />
+        <attr name="navMKBar_subTitle_textSize" format="dimension" />
+        <attr name="navMKBar_subTitle_textColor" format="color" />
+
+        <attr name="navMKBar_textBtn_textSize" format="dimension" />
+        <attr name="navMKBar_textBtn_textColor" format="color" />
+
+        <attr name="navMKBar_icon_size" format="dimension" />
+        <attr name="navMKBar_icon_color" format="color" />
+        <attr name="navMKBar_icon" format="string" />
+
+        <attr name="navMKBar_lineColor" format="color" />
+        <attr name="navMKBar_lineWidth" format="dimension" />
+
+        <attr name="navMKBar_paddingHorizontal" format="dimension" />
+    </declare-styleable>
+    <attr name="NavMKStyle" format="reference" />
+
     <!--bannermk-->
     <declare-styleable name="BannerMK">
         <attr name="bannerMK_autoPlay" format="boolean" />
