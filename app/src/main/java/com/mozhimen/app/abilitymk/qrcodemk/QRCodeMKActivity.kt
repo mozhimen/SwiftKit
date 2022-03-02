@@ -4,12 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.mozhimen.abilitymk.qrcodemk.QRCodeMK
+import com.mozhimen.app.databinding.ActivityQrcodemkBinding
 
 class QRCodeMKActivity : AppCompatActivity() {
-    private lateinit var vb: ActivityQrcodemkBinding
+    private val vb: ActivityQrcodemkBinding by lazy { ActivityQrcodemkBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vb = ActivityQrcodemkBinding.inflate(layoutInflater)
         setContentView(vb.root)
 
         vb.qrcodemkBtn.setOnClickListener {

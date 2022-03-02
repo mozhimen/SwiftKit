@@ -10,17 +10,23 @@ import androidx.core.app.ActivityCompat
 import com.mozhimen.abilitymk.hotfixmk.HotFixMK
 import com.mozhimen.app.R
 import com.mozhimen.app.abilitymk.hotfixmk.HotFixMKTest
+import com.mozhimen.app.databinding.ActivityHotfixmkBinding
 import java.io.File
 
 class HotFixMKActivity : AppCompatActivity() {
+    private val vb by lazy { ActivityHotfixmkBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hotfixmk)
+        setContentView(vb.root)
     }
 
     fun fixBug(view: View) {
         val permission = android.Manifest.permission.READ_EXTERNAL_STORAGE
-        if (ActivityCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                permission
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             fix()
         } else {
             ActivityCompat.requestPermissions(this, arrayOf(permission), 1000)
@@ -31,7 +37,11 @@ class HotFixMKActivity : AppCompatActivity() {
         Toast.makeText(this, HotFixMKTest().test(), Toast.LENGTH_SHORT).show()
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             fix()

@@ -6,14 +6,19 @@
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/drawable/champer_fom.xml" value="0.2866666666666667" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2866666666666667" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/drawable/main_pane.xml" value="0.2866666666666667" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_abilitymk.xml" value="0.36614583333333334" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_bannermk.xml" value="0.5579240037071362" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_basemk_activity.xml" value="0.15925925925925927" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_basicsmk.xml" value="0.26666666666666666" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_btnmk.xml" value="0.275" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_cameraxmk.xml" value="0.36614583333333334" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_componentmk.xml" value="0.264" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_databusmk.xml" value="0.264" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_hotfixmk.xml" value="0.36614583333333334" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_logmk.xml" value="0.240625" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_qrcodemk.xml" value="0.36614583333333334" />
+        <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_restfulmk.xml" value="0.36614583333333334" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_stackmk.xml" value="0.2046875" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_tabmk_bottom.xml" value="0.25" />
         <entry key="..\:/GitHub/SwiftMK/app/src/main/res/layout/activity_tabmk_bottom_fragment.xml" value="0.275" />
