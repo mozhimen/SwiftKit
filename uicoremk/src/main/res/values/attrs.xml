@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--searchmk-->
+    <declare-styleable name="SearchMKViewStyle" format="reference" />
+
+    <declare-styleable name="SearchMKView">
+        <attr name="searchMKView_search_icon" format="string|reference" />
+        <attr name="searchMKView_search_iconSize" format="dimension" />
+        <attr name="searchMKView_search_iconPadding" format="dimension" />
+        <attr name="searchMKView_search_background" format="reference" />
+        <attr name="searchMKView_search_textSize" format="dimension" />
+        <attr name="searchMKView_search_textColor" format="color" />
+
+        <attr name="searchMKView_clear_icon" format="string" />
+        <attr name="searchMKView_clear_iconSize" format="dimension" />
+
+        <attr name="searchMKView_hint_text" format="string" />
+        <attr name="searchMKView_hint_textSize" format="dimension" />
+        <attr name="searchMKView_hint_textColor" format="color" />
+        <attr name="searchMKView_hint_gravity" format="enum">
+            <enum name="hint_center" value="0" />
+            <enum name="hint_left" value="1" />
+        </attr>
+
+        <attr name="searchMKView_keyword_icon" format="string" />
+        <attr name="searchMKView_keyword_iconSize" format="dimension" />
+        <attr name="searchMKView_keyword_iconColor" format="color" />
+        <attr name="searchMKView_keyword_background" format="reference" />
+        <attr name="searchMKView_keyword_maxLength" format="integer" />
+        <attr name="searchMKView_keyword_padding" format="dimension" />
+    </declare-styleable>
+
     <!--navmk-->
     <declare-styleable name="NavMKBar">
         <attr name="navMKBar_title" format="string" />

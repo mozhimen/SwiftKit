@@ -1,25 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="SearchMKViewStyle">
+        <item name="search_background">@drawable/shape_search_view</item>
+        <item name="icon_padding">10dp</item>
+        <item name="search_icon">&#xe987;</item>
+        <item name="search_icon_size">16sp</item>
+        <item name="clear_icon">&#xe60b;</item>
+        <item name="clear_icon_size">16sp</item>
+        <item name="hint_text_color">#888888</item>
+        <item name="hint_text_size">16sp</item>
+        <item name="hint_gravity">hint_left</item>
+
+        <item name="search_text_size">16sp</item>
+        <item name="search_text_color">#000000</item>
+
+        <item name="key_word_icon">&#xe611;</item>
+        <item name="key_word_color">#ffffff</item>
+        <item name="key_word_background">@drawable/shape_key_word</item>
+        <item name="key_word_size">14sp</item>
+        <item name="key_word_max_length">10</item>
+        <item name="key_word_padding">4dp</item>
+    </style>
+
     <style name="BtnMKSpinnerFormStyle">
-        <item name="android:colorControlNormal">@android:color/transparent</item> <!--改变了spinner的箭头颜色  -->
+        <item name="android:colorControlNormal">@android:color/transparent
+        </item> <!--改变了spinner的箭头颜色  -->
     </style>
 
     <style name="NavMKBarStyle">
-        <item name="nav_icon_size">20sp</item>
-        <item name="nav_icon_color">@color/color_000</item>
-        <item name="hor_padding">8dp</item>
-
-        <item name="nav_line_color">@color/color_white</item>
-        <item name="nav_line_height">2px</item>
-
         <!--       iconfont 字体资源-->
-        <item name="nav_icon">&#xe615;</item>
-        <item name="text_btn_text_size">16sp</item>
-        <item name="text_btn_text_color">@color/color_333</item>
-        <item name="title_text_size">18sp</item>
-        <item name="title_text_color">@color/color_000</item>
-        <item name="subTitle_text_size">@dimen/font_14</item>
-        <item name="title_text_size_with_subTitle">16sp</item>
-        <item name="subTitle_text_color">@color/color_000</item>
+        <item name="navMKBar_icon">&#xe615;</item>
+        <item name="navMKBar_icon_size">20sp</item>
+        <item name="navMKBar_icon_color">@android:color/black</item>
+        <item name="navMKBar_paddingHorizontal">8dp</item>
+
+        <item name="navMKBar_lineColor">@android:color/white</item>
+        <item name="navMKBar_lineWidth">2px</item>
+
+        <item name="navMKBar_textBtn_textSize">16sp</item>
+        <item name="navMKBar_textBtn_textColor">@android:color/black</item>
+        <item name="navMKBar_title_textSize">18sp</item>
+        <item name="navMKBar_title_textColor">@android:color/black</item>
+        <item name="navMKBar_title_textSize_with_subTitle">16sp</item>
+        <item name="navMKBar_subTitle_textSize">14sp</item>
+        <item name="navMKBar_subTitle_textColor">@android:color/black</item>
     </style>
 </resources>
