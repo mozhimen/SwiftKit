@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
@@ -132,5 +133,19 @@ class CircleBorderTransform(private val borderWidth: Float, borderColor: Int) : 
         canvas.setBitmap(null)
         return transform
     }
+}
+//endregion
+
+//region text view
+fun TextView.setPaddingHorizontal(padding: Int) {
+    this.setPadding(padding, 0, padding, 0)
+}
+
+fun TextView.setPaddingVertical(padding: Int) {
+    this.setPadding(0, padding, 0, padding)
+}
+
+fun TextView.setPadding(paddingHorizontal: Int, paddingVertical: Int) {
+    this.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
 }
 //endregion

@@ -18,7 +18,7 @@ import com.mozhimen.uicoremk.R
 object NavMKAttrsParser {
     fun parseNavAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): NavMKAttrs {
         val value = TypedValue()
-        context.theme.resolveAttribute(R.attr.NavMKStyle, value, true)
+        context.theme.resolveAttribute(R.attr.NavMKBar_NavMKBarStyle, value, true)
 
         //xml-->theme.navigationStyle---navigationStyle
         val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.NavMKBarStyle

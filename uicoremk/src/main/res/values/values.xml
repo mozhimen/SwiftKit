@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="SearchMKViewStyle">
+    <style name="SearchMKLayoutStyle">
         <item name="search_background">@drawable/shape_search_view</item>
         <item name="icon_padding">10dp</item>
         <item name="search_icon">&#xe987;</item>
