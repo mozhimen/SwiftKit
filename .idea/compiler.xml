@@ -26,6 +26,7 @@
       <module name="SwiftMK.basicsmk" target="11" />
       <module name="SwiftMK.componentmk" target="11" />
       <module name="SwiftMK.uicoremk" target="11" />
+      <module name="SwiftMK.underlaysmk" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

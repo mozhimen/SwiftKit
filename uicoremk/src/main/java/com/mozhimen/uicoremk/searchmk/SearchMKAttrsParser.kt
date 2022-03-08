@@ -28,7 +28,7 @@ internal object SearchMKAttrsParser {
         )
         val searchBackground = array.getDrawable(
             R.styleable.SearchMKLayout_searchMKLayout_search_background
-        ) ?: UtilMKRes.getDrawable(R.drawable.searchmk_serach)
+        ) ?: UtilMKRes.getDrawable(R.drawable.searchmk_search_background)
         val searchTextSize = array.getDimensionPixelSize(
             R.styleable.SearchMKLayout_searchMKLayout_search_textSize, 16f.sp2px()
         )

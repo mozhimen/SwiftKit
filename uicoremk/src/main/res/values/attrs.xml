@@ -111,6 +111,23 @@
     </declare-styleable>
 
     <!--layoutmk-->
+    <declare-styleable name="LayoutMKAmount">
+        <attr name="layoutMKAmount_btn_textSize" format="dimension|reference" />
+        <attr name="layoutMKAmount_btn_textColor" format="color|reference" />
+        <attr name="layoutMKAmount_btn_size" format="dimension|reference" />
+        <attr name="layoutMKAmount_btn_background" format="color" />
+
+        <attr name="layoutMKAmount_margin" format="dimension|reference" />
+
+        <attr name="layoutMKAmount_num_textSize" format="dimension" />
+        <attr name="layoutMKAmount_num_textColor" format="color" />
+        <attr name="layoutMKAmount_num_size" format="dimension" />
+        <attr name="layoutMKAmount_num_background" format="color" />
+        <attr name="layoutMKAmount_num_defaultValue" format="integer" />
+        <attr name="layoutMKAmount_num_maxValue" format="integer" />
+        <attr name="layoutMKAmount_num_minValue" format="integer" />
+    </declare-styleable>
+
     <!--视频布局-->
     <declare-styleable name="LayoutMKVideo">
         <!--视频地址-->

@@ -10,6 +10,6 @@ import android.util.AttributeSet
  * @Version 1.0
  */
 interface ILayoutMK {
-    fun initAttrs(attrs: AttributeSet?)
+    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int)
     fun initView()
 }

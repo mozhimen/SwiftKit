@@ -112,7 +112,7 @@ class SearchMKLayout @JvmOverloads constructor(
         changeVisibility(_keywordContainer, isShow)
     }
 
-    override fun initAttrs(attrs: AttributeSet?) {}
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
 
     override fun initView() {
         background = _attrs.searchBackground

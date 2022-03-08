@@ -1,33 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--layoutmk-->
+    <style name="LayoutMKAmountStyle">
+        <item name="layoutMKAmount_btn_textSize">14sp</item>
+        <item name="layoutMKAmount_btn_textColor">#999999</item>
+        <item name="layoutMKAmount_btn_size">25dp</item>
+        <item name="layoutMKAmount_btn_background">#eeeeee</item>
+        <item name="layoutMKAmount_btn_margin">5dp</item>
 
-    <style name="SearchMKLayoutStyle">
-        <item name="search_background">@drawable/shape_search_view</item>
-        <item name="icon_padding">10dp</item>
-        <item name="search_icon">&#xe987;</item>
-        <item name="search_icon_size">16sp</item>
-        <item name="clear_icon">&#xe60b;</item>
-        <item name="clear_icon_size">16sp</item>
-        <item name="hint_text_color">#888888</item>
-        <item name="hint_text_size">16sp</item>
-        <item name="hint_gravity">hint_left</item>
-
-        <item name="search_text_size">16sp</item>
-        <item name="search_text_color">#000000</item>
-
-        <item name="key_word_icon">&#xe611;</item>
-        <item name="key_word_color">#ffffff</item>
-        <item name="key_word_background">@drawable/shape_key_word</item>
-        <item name="key_word_size">14sp</item>
-        <item name="key_word_max_length">10</item>
-        <item name="key_word_padding">4dp</item>
+        <item name="layoutMKAmount_num_textSize">16sp</item>
+        <item name="layoutMKAmount_num_textColor">#000000</item>
+        <item name="layoutMKAmount_num_size">30dp</item>
+        <item name="layoutMKAmount_num_background">@android:color/white</item>
+        <item name="layoutMKAmount_num_defaultValue">1</item>
+        <item name="layoutMKAmount_num_minValue">1</item>
+        <!--        <item name="max_value">1</item> //不配置，就是Int.max_value-->
     </style>
 
+    <!--searchmk-->
+    <style name="SearchMKLayoutStyle">
+        <item name="searchMKLayout_search_icon">&#xe987;</item>
+        <item name="searchMKLayout_search_iconSize">16sp</item>
+        <item name="searchMKLayout_search_iconPadding">10dp</item>
+        <item name="searchMKLayout_search_background">@drawable/searchmk_search_background</item>
+        <item name="searchMKLayout_search_textSize">16sp</item>
+        <item name="searchMKLayout_search_textColor">#000000</item>
+
+        <item name="searchMKLayout_clear_icon">&#xe60b;</item>
+        <item name="searchMKLayout_clear_iconSize">16sp</item>
+
+        <item name="searchMKLayout_hint_textSize">16sp</item>
+        <item name="searchMKLayout_hint_textColor">#888888</item>
+        <item name="searchMKLayout_hint_gravity">left</item>
+
+        <item name="searchMKLayout_keyword_icon">&#xe611;</item>
+        <item name="searchMKLayout_keyword_iconSize">14sp</item>
+        <item name="searchMKLayout_keyword_iconColor">#ffffff</item>
+        <item name="searchMKLayout_keyword_background">@drawable/searchmk_keyword_background</item>
+        <item name="searchMKLayout_keyword_maxLength">10</item>
+        <item name="searchMKLayout_keyword_padding">4dp</item>
+    </style>
+
+    <!--btnmk-->
     <style name="BtnMKSpinnerFormStyle">
         <item name="android:colorControlNormal">@android:color/transparent
         </item> <!--改变了spinner的箭头颜色  -->
     </style>
 
+    <!--navmk-->
     <style name="NavMKBarStyle">
         <!--       iconfont 字体资源-->
         <item name="navMKBar_icon">&#xe615;</item>

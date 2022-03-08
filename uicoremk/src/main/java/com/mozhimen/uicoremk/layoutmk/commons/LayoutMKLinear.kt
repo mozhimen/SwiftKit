@@ -17,7 +17,7 @@ abstract class LayoutMKLinear(context: Context, attrs: AttributeSet? = null, def
 
     var TAG = "LayoutMKLinear>>>>>"
 
-    override fun initAttrs(attrs: AttributeSet?) {}
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
     override fun initView() {}
 
     fun Float.dp2px(): Int {

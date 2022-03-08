@@ -24,7 +24,7 @@ import retrofit2.http.*
  * @Date 2021/10/8 22:37
  * @Version 1.0
  */
-class RetrofitCallFactory( baseUrl: String) : CallMK.Factory {
+class RetrofitCallFactory(baseUrl: String) : CallMK.Factory {
     private var gsonConverter: GsonConverter
     private var apiService: ApiService
 
@@ -93,43 +93,70 @@ class RetrofitCallFactory( baseUrl: String) : CallMK.Factory {
                     )
                 }
                 METHODMK.POSTMK -> {
-                    val params = requestMK.parameters
-                    val builder = FormBody.Builder()
-                    val requestBody: RequestBody?
-                    val jsonObject = JSONObject()
-                    for ((key, value) in params!!) {
-                        if (requestMK.formPost) {
-                            builder.add(key, value)
-                        } else {
-                            jsonObject.put(key, value)
-                        }
-                    }
-                    requestBody = if (requestMK.formPost) {
-                        builder.build()
-                    } else {
-                        jsonObject.toString()
-                            .toRequestBody("application/json;utf-8".toMediaTypeOrNull())
-                    }
+                    val requestBody: RequestBody = buildRequestBody(requestMK)
                     return apiService.post(requestMK.headers, requestMK.endPointUrl(), requestBody)
+                }
+                METHODMK.PUTMK -> {
+                    val requestBody: RequestBody = buildRequestBody(requestMK)
+                    return apiService.put(requestMK.headers, requestMK.endPointUrl(), requestBody)
+                }
+                METHODMK.DELETEMK -> {
+                    apiService.delete(requestMK.headers, requestMK.endPointUrl())
                 }
                 else -> {
                     throw IllegalStateException("restfulmk only support GET POST for now, url = " + requestMK.endPointUrl())
                 }
             }
         }
+
+        private fun buildRequestBody(requestMK: RequestMK): RequestBody {
+            val params = requestMK.parameters
+            val builder = FormBody.Builder()
+            val requestBody: RequestBody?
+            val jsonObject = JSONObject()
+            for ((key, value) in params!!) {
+                if (requestMK.formPost) {
+                    builder.add(key, value)
+                } else {
+                    jsonObject.put(key, value)
+                }
+            }
+            requestBody = if (requestMK.formPost) {
+                builder.build()
+            } else {
+                jsonObject.toString()
+                    .toRequestBody("application/json;utf-8".toMediaTypeOrNull())
+            }
+            return requestBody
+        }
     }
 
     interface ApiService {
         @GET
         fun get(
-            @HeaderMap headers: MutableMap<String, String>?, @Url url: String,
+            @HeaderMap headers: MutableMap<String, String>?,
+            @Url url: String,
             @QueryMap(encoded = true) params: MutableMap<String, String>?
         ): Call<ResponseBody>
 
         @POST
         fun post(
-            @HeaderMap headers: MutableMap<String, String>?, @Url url: String,
+            @HeaderMap headers: MutableMap<String, String>?,
+            @Url url: String,
             @Body body: RequestBody?
+        ): Call<ResponseBody>
+
+        @PUT
+        fun put(
+            @HeaderMap headers: MutableMap<String, String>?,
+            @Url url: String,
+            @Body body: RequestBody?
+        ): Call<ResponseBody>
+
+        @DELETE//不可以携带requestBody
+        fun delete(
+            @HeaderMap headers: MutableMap<String, String>?,
+            @Url url: String
         ): Call<ResponseBody>
     }
 }
