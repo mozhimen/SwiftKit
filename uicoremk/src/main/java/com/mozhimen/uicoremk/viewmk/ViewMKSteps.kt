@@ -92,11 +92,11 @@ class ViewMKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
     init {
-        initAttrs(attrs)
+        initAttrs(attrs,defStyleAttr)
         initPaint()
     }
 
-    override fun initAttrs(attrs: AttributeSet?) {
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(it, R.styleable.ViewMKSteps)
             _margin = typedArray.getDimensionPixelOffset(R.styleable.ViewMKSteps_viewMKSteps_margin, _margin)

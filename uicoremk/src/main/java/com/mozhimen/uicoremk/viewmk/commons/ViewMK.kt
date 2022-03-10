@@ -28,7 +28,7 @@ abstract class ViewMK(context: Context, attrs: AttributeSet? = null, defStyleAtt
         super.onSizeChanged(w, h, oldw, oldh)
     }
 
-    override fun initAttrs(attrs: AttributeSet?) {}
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
 
     override fun initData() {}
 

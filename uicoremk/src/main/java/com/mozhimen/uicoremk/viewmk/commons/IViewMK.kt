@@ -10,7 +10,7 @@ import android.util.AttributeSet
  * @Version 1.0
  */
 interface IViewMK {
-    fun initAttrs(attrs: AttributeSet?)
+    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int)
     fun initPaint()
     fun initData()
     fun initView()

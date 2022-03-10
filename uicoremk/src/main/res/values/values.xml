@@ -6,7 +6,7 @@
         <item name="layoutMKAmount_btn_textColor">#999999</item>
         <item name="layoutMKAmount_btn_size">25dp</item>
         <item name="layoutMKAmount_btn_background">#eeeeee</item>
-        <item name="layoutMKAmount_btn_margin">5dp</item>
+        <item name="layoutMKAmount_margin">5dp</item>
 
         <item name="layoutMKAmount_num_textSize">16sp</item>
         <item name="layoutMKAmount_num_textColor">#000000</item>
