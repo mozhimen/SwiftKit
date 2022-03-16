@@ -21,7 +21,7 @@ class BtnMKIcon @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     LayoutMKLinear(context, attrs, defStyleAttr) {
 
     init {
-        initAttrs(attrs)
+        initAttrs(attrs, defStyleAttr)
         initView()
     }
 
@@ -37,7 +37,7 @@ class BtnMKIcon @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     private lateinit var btnMKBox: LinearLayout
     private lateinit var btnMKText: TextView
 
-    override fun initAttrs(attrs: AttributeSet?) {
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BtnMKIcon)
             background = typedArray.getResourceId(R.styleable.BtnMKIcon_btnMKIcon_background, background)

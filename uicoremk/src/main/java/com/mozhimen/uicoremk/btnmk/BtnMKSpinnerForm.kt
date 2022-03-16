@@ -20,8 +20,8 @@ import com.mozhimen.uicoremk.layoutmk.commons.LayoutMKLinear
  */
 typealias OnBtnMKSpinnerFormSelected = (Int) -> Unit
 
-class BtnMKSpinnerForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
-    LayoutMKLinear(context, attrs, defStyle) {
+class BtnMKSpinnerForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    LayoutMKLinear(context, attrs, defStyleAttr) {
 
     private lateinit var itemAdapter: ArrayAdapter<String>
     private var mIsRequire = false
@@ -43,7 +43,7 @@ class BtnMKSpinnerForm @JvmOverloads constructor(context: Context, attrs: Attrib
     private lateinit var mSpinnerContainer: FrameLayout
 
     init {
-        initAttrs(attrs)
+        initAttrs(attrs,defStyleAttr)
         initView()
         refreshView()
     }
@@ -86,7 +86,7 @@ class BtnMKSpinnerForm @JvmOverloads constructor(context: Context, attrs: Attrib
     }
 
     @SuppressLint("CustomViewStyleable")
-    override fun initAttrs(attrs: AttributeSet?) {
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BtnMKSpinnerForm)
             mIsRequire = typedArray.getBoolean(R.styleable.BtnMKSpinnerForm_btnMKSpinnerForm_isRequired, mIsRequire)

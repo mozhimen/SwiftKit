@@ -22,8 +22,8 @@ import com.mozhimen.uicoremk.layoutmk.commons.LayoutMKLinear
  */
 typealias OnFormClick = (View) -> Unit
 
-class TextMKTextForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
-    LayoutMKLinear(context, attrs, defStyle) {
+class TextMKTextForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    LayoutMKLinear(context, attrs, defStyleAttr) {
 
     private var mTextHint: String? = null
     private var mOnFormClick: OnFormClick? = null
@@ -44,7 +44,7 @@ class TextMKTextForm @JvmOverloads constructor(context: Context, attrs: Attribut
     private lateinit var mTextView: TextView
 
     init {
-        initAttrs(attrs)
+        initAttrs(attrs,defStyleAttr)
         initView()
         refreshView()
     }
@@ -73,7 +73,7 @@ class TextMKTextForm @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     @SuppressLint("CustomViewStyleable")
-    override fun initAttrs(attrs: AttributeSet?) {
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextMKTextForm)
             mIsRequire = typedArray.getBoolean(R.styleable.TextMKTextForm_textMKTextForm_isRequired, mIsRequire)

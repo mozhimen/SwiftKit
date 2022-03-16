@@ -101,7 +101,7 @@ class RetrofitCallFactory(baseUrl: String) : CallMK.Factory {
                     return apiService.put(requestMK.headers, requestMK.endPointUrl(), requestBody)
                 }
                 METHODMK.DELETEMK -> {
-                    apiService.delete(requestMK.headers, requestMK.endPointUrl())
+                    return apiService.delete(requestMK.headers, requestMK.endPointUrl())
                 }
                 else -> {
                     throw IllegalStateException("restfulmk only support GET POST for now, url = " + requestMK.endPointUrl())

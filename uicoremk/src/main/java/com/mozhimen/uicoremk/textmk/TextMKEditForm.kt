@@ -21,8 +21,8 @@ import com.mozhimen.uicoremk.layoutmk.commons.LayoutMKLinear
  */
 typealias OnHasFocus = (View, Boolean) -> Unit
 
-class TextMKEditForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
-    LayoutMKLinear(context, attrs, defStyle) {
+class TextMKEditForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    LayoutMKLinear(context, attrs, defStyleAttr) {
 
     private var mOnHasFocus: OnHasFocus? = null
     private var mIsRequire = false
@@ -45,7 +45,7 @@ class TextMKEditForm @JvmOverloads constructor(context: Context, attrs: Attribut
     private lateinit var mEditText: EditText
 
     init {
-        initAttrs(attrs)
+        initAttrs(attrs,defStyleAttr)
         initView()
         refreshView()
     }
@@ -78,7 +78,7 @@ class TextMKEditForm @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     @SuppressLint("CustomViewStyleable")
-    override fun initAttrs(attrs: AttributeSet?) {
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextMKEditForm)
             mIsRequire = typedArray.getBoolean(R.styleable.TextMKEditForm_textMKEditForm_isRequired, mIsRequire)
