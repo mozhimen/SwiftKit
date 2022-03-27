@@ -72,6 +72,8 @@ class StackMK private constructor() {
         activityRefs.clear()
     }
 
+    fun isFront() = isFront
+
     //region # private function
     inner class InnerActivityLifecycleCallbacks() : Application.ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
