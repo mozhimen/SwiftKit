@@ -23,21 +23,31 @@ import java.util.*
  * @Date 2022/3/27 16:27
  * @Version 1.0
  */
-object CrashMKHandler {
-    const val CRASHMK_DIR = "crashmk_dir"
+object CrashMKJava {
+    const val CRASHMK_JAVA_DIR = "crashmk_java_dir"
+    private var _crashFullPath: String? = null
 
-    fun init() {
+    fun init(crashDir: String) {
         Thread.setDefaultUncaughtExceptionHandler(CaughtExceptionHandler())
+        this._crashFullPath = crashDir
     }
 
     fun getJavaCrashFiles(): Array<File> {
-        return File(UtilMKGlobal.instance.getApp()?.cacheDir, CRASHMK_DIR).listFiles()
+        return File(_crashFullPath).listFiles()
+    }
+
+    fun getJavaCrashDir(): File {
+        val javaCrashFile = File(UtilMKGlobal.instance.getApp()!!.cacheDir, CRASHMK_JAVA_DIR)
+        if (!javaCrashFile.exists()) {
+            javaCrashFile.mkdirs()
+        }
+        return javaCrashFile
     }
 
     private class CaughtExceptionHandler : Thread.UncaughtExceptionHandler {
         private val context = UtilMKGlobal.instance.getApp()!!
         private val defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        private val LAUNCH_TIME = UtilMKDate.date2String(Date(), UtilMKDate.FORMAT_yyyyMMddHHmmss)
+        private val launchTime = UtilMKDate.date2String(Date(), UtilMKDate.FORMAT_yyyyMMddHHmmss)
 
         override fun uncaughtException(t: Thread, e: Throwable) {
             if (!handleException(e) && defaultExceptionHandler != null) {
@@ -71,7 +81,7 @@ object CrashMKHandler {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val crashDir = File(context.cacheDir, CRASHMK_DIR)
+            val crashDir = File(_crashFullPath)
             if (!crashDir.exists()) {
                 crashDir.mkdirs()
             }
@@ -96,7 +106,7 @@ object CrashMKHandler {
             sb.append("rom=${Build.MODEL}\n")//手机系列
             sb.append("os=${Build.VERSION.RELEASE}\n")//API版本:9.0
             sb.append("sdk=${Build.VERSION.SDK_INT}\n")//SDK版本:31
-            sb.append("launch_time=$LAUNCH_TIME\n")//启动APP的时间
+            sb.append("launch_time=$launchTime\n")//启动APP的时间
             sb.append("crash_time=${UtilMKDate.date2String(Date(), UtilMKDate.FORMAT_yyyyMMddHHmmss)}")//crash发生的时间
             sb.append("foreground=${StackMK.instance.isFront()}")//应用处于前台
             sb.append("thread=${Thread.currentThread().name}\n")//异常线程名
