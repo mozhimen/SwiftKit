@@ -102,7 +102,7 @@ public class TabMKBottomLayout extends FrameLayout implements ITabMKLayout<TabMK
                 iterator.remove();
             }
         }
-        int width = UtilMKDisplay.INSTANCE.getDisplayWithInPx() / infoList.size();
+        int width = UtilMKDisplay.INSTANCE.getDisplayWidthInPx() / infoList.size();
         int height = UtilMKDisplay.INSTANCE.dp2px(tabBottomHeight);
         //不用LinearLayout的原因: 当动态改变child大小后Gravity.Bottom会失效.
         FrameLayout ll = new FrameLayout(getContext());
@@ -192,5 +192,18 @@ public class TabMKBottomLayout extends FrameLayout implements ITabMKLayout<TabMK
 
     public void setBottomLineColor(String bottomLineColor) {
         this.bottomLineColor = bottomLineColor;
+    }
+
+    public void resizeTabMKBottomLayout() {
+        int width = UtilMKDisplay.INSTANCE.getDisplayWidthInPx() / infoList.size();
+        ViewGroup frameLayout = (ViewGroup) getChildAt(getChildCount() - 1);
+        int childCount = frameLayout.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View button = frameLayout.getChildAt(i);
+            FrameLayout.LayoutParams params = (LayoutParams) button.getLayoutParams();
+            params.width = width;
+            params.leftMargin = i * width;
+            button.setLayoutParams(params);
+        }
     }
 }

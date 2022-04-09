@@ -22,7 +22,7 @@ object UtilMKDisplay {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dp, UtilMKGlobal.instance.getApp()?.resources?.displayMetrics).toInt()
     }
 
-    fun getDisplayWithInPx(): Int {
+    fun getDisplayWidthInPx(): Int {
         val wm = UtilMKGlobal.instance.getApp()!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = wm.defaultDisplay
         val size = Point()

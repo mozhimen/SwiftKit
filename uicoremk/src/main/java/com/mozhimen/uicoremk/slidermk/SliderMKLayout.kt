@@ -140,6 +140,26 @@ class SliderMKLayout @JvmOverloads constructor(context: Context, attrs: Attribut
             )
             titleView?.isSelected = selected
         }
+
+        override fun onViewAttachedToWindow(holder: ItemMKViewHolder) {
+            super.onViewAttachedToWindow(holder)
+            val remainSpace: Int = width - paddingLeft - paddingRight - menuItemAttr.width
+            val layoutManager: RecyclerView.LayoutManager? = contentView.layoutManager
+            var spanCount = 0
+            if (layoutManager is GridLayoutManager) {
+                spanCount = layoutManager.spanCount
+            } else if (layoutManager is StaggeredGridLayoutManager) {
+                spanCount = layoutManager.spanCount
+            }
+            if (spanCount > 0) {
+                val itemWidth: Int = remainSpace / spanCount
+                //创建content itemView,设置它的layoutParams的原因,是防止图片未加载出来之前,列表滑动时上下闪动的效果
+                val layoutParams: ViewGroup.LayoutParams = holder.itemView.layoutParams
+                layoutParams.width = itemWidth
+                layoutParams.height = itemWidth
+                holder.itemView.layoutParams = layoutParams
+            }
+        }
     }
 
     inner class SliderMKContentAdapter(
