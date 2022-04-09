@@ -1,9 +1,9 @@
 include ':app'
-rootProject.name = "SwiftMK"
-include ':componentmk'
-include ':basicsmk'
-include ':uicoremk'
-include ':navigationmkannor'
-include ':navigationmkcompiler'
-include ':abilitymk'
-include ':underlaysmk'
+rootProject.name = "SwiftKit"
+include ':componentk'
+include ':basicsk'
+include ':uicorek'
+include ':navigationkannor'
+include ':navigationkcompiler'
+include ':abilityk'
+include ':underlaysk'

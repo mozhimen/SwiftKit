@@ -1,4 +1,4 @@
-# *SwiftMK* Was Created In `2021.5`
+# *SwiftK* Was Created In `2021.5`
 ```
    _____         _ ______  __  _____ __
   / ___/      __(_) __/ /_/  |/  / //_/
@@ -10,5 +10,5 @@
 
 >For Android库框架,更快更好用的自建框架
 ***
-# *SwiftMK* Wa Renamed To *SwiftKit* In `2022.4`
+# *SwiftK* Wa Renamed To *SwiftKit* In `2022.4`
 

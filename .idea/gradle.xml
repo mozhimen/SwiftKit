@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -11,14 +10,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/abilitymk" />
+            <option value="$PROJECT_DIR$/abilityk" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/basicsmk" />
-            <option value="$PROJECT_DIR$/componentmk" />
-            <option value="$PROJECT_DIR$/navigationmkannor" />
-            <option value="$PROJECT_DIR$/navigationmkcompiler" />
-            <option value="$PROJECT_DIR$/uicoremk" />
-            <option value="$PROJECT_DIR$/underlaysmk" />
+            <option value="$PROJECT_DIR$/basicsk" />
+            <option value="$PROJECT_DIR$/componentk" />
+            <option value="$PROJECT_DIR$/navigationkannor" />
+            <option value="$PROJECT_DIR$/navigationkcompiler" />
+            <option value="$PROJECT_DIR$/uicorek" />
+            <option value="$PROJECT_DIR$/underlaysk" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -1,0 +1,59 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk rootProject.ext.android.compileSdk
+
+    defaultConfig {
+        minSdk rootProject.ext.android.minSdk
+        targetSdk rootProject.ext.android.targetSdk
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation project(path: ':basicsk')
+
+    //cachek
+    implementation 'androidx.room:room-runtime:2.4.2'
+    kapt 'androidx.room:room-compiler:2.4.2'
+
+    //cameraxk
+    implementation 'androidx.camera:camera-camera2:1.1.0-beta02'
+    implementation 'androidx.camera:camera-lifecycle:1.1.0-beta02'
+    implementation 'androidx.camera:camera-extensions:1.1.0-beta02'
+    implementation 'androidx.camera:camera-view:1.1.0-beta02'
+    api 'androidx.camera:camera-core:1.1.0-beta02'
+
+    //hotupdatek
+    implementation 'com.liulishuo.okdownload:okdownload:1.0.5'
+
+    //qrcodek
+    api 'com.google.zxing:android-core:3.3.0'
+    api 'com.google.zxing:core:3.3.3'
+
+    //restfulk
+    api 'com.squareup.retrofit2:retrofit:2.9.0'//retrofit
+    api 'com.squareup.retrofit2:converter-gson:2.9.0'
+    api 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+}

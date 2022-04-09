@@ -2,13 +2,13 @@ package com.mozhimen.app
 
 import android.util.Log
 import com.google.gson.Gson
-import com.mozhimen.basicsmk.crashmk.CrashMK
-import com.mozhimen.basicsmk.crashmk.CrashMKCallback
-import com.mozhimen.basicsmk.logmk.LogMKManager
-import com.mozhimen.basicsmk.logmk.helpers.ConsolePrinter
-import com.mozhimen.basicsmk.logmk.mos.LogMKConfig
-import com.mozhimen.basicsmk.stackmk.StackMK
-import com.mozhimen.componentmk.basemk.BaseMKApplication
+import com.mozhimen.basicsk.crashk.CrashK
+import com.mozhimen.basicsk.crashk.CrashKCallback
+import com.mozhimen.basicsk.logk.LogKManager
+import com.mozhimen.basicsk.logk.helpers.ConsolePrinter
+import com.mozhimen.basicsk.logk.mos.LogKConfig
+import com.mozhimen.basicsk.stackk.StackK
+import com.mozhimen.componentk.basek.BaseKApplication
 
 /**
  * @ClassName MainApplication
@@ -17,24 +17,24 @@ import com.mozhimen.componentmk.basemk.BaseMKApplication
  * @Date 2022/2/28 16:03
  * @Version 1.0
  */
-class MainApplication : BaseMKApplication() {
+class MainApplication : BaseKApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        //stackmk
-        StackMK.instance.init()
+        //stackk
+        StackK.instance.init()
 
-        //crashmk
-        CrashMK.instance.init(_crashMKCallback)
+        //crashk
+        CrashK.instance.init(_crashKCallback)
 
-        //logmk
-        LogMKManager.init(
-            logmkConfig,
+        //logk
+        LogKManager.init(
+            logkConfig,
             ConsolePrinter()/*, FilePrinter.getInstance(applicationContext.cacheDir.absolutePath, 0)*/
         )
     }
 
-    private val logmkConfig = object : LogMKConfig() {
+    private val logkConfig = object : LogKConfig() {
         override fun injectJsonParser(): JsonParser {
             return object : JsonParser {
                 override fun toJson(src: Any): String {
@@ -60,7 +60,7 @@ class MainApplication : BaseMKApplication() {
         }
     }
 
-    private val _crashMKCallback = object : CrashMKCallback {
+    private val _crashKCallback = object : CrashKCallback {
         override fun onGetMessage(msg: String?) {
             msg?.let {
 

@@ -1,0 +1,38 @@
+package com.mozhimen.basicsk.utilk
+
+import android.app.Activity
+import android.os.Vibrator
+
+/**
+ * @ClassName UtilKVibrate
+ * @Description TODO
+ * @Author mozhimen / Kolin Zhao
+ * @Date 2022/2/27 18:28
+ * @Version 1.0
+ */
+class UtilKVibrate {
+
+    companion object {
+        val instance = UtilKVibrateProvider.holder
+    }
+
+    private object UtilKVibrateProvider {
+        val holder = UtilKVibrate()
+    }
+
+    private var vibrator: Vibrator? = null
+
+    fun start(duration: Long = 200L) {
+        if (vibrator == null) {
+            vibrator =
+                UtilKGlobal.instance.getApp()!!
+                    .getSystemService(Activity.VIBRATOR_SERVICE) as Vibrator
+        }
+        vibrator!!.vibrate(duration)
+    }
+
+    fun stop() {
+        vibrator?.cancel()
+        vibrator = null
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "selectTab": 0,
+  "tabInfos": [
+    {
+      "pageUrl": "main/navigationk/home",
+      "title": "home",
+      "index": 0,
+      "size": 24,
+      "enable": true
+    },
+    {
+      "pageUrl": "main/navigationk/dashboard",
+      "title": "dashboard",
+      "index": 1,
+      "size": 24,
+      "enable": true
+    },
+    {
+      "pageUrl": "main/navigationk/notifications",
+      "title": "notifications",
+      "index": 2,
+      "size": 40,
+      "enable": true
+    }
+  ]
+}

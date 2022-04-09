@@ -36,8 +36,8 @@ android {
 dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
 
-    implementation project(path: ':componentmk')
-    implementation project(path: ':basicsmk')
-    implementation project(path: ':uicoremk')
-    implementation project(path: ':abilitymk')
+    implementation project(path: ':componentk')
+    implementation project(path: ':basicsk')
+    implementation project(path: ':uicorek')
+    implementation project(path: ':abilityk')
 }

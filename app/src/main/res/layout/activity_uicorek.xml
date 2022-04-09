@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn"
+                android:text="TabKBottom"
+                android:onClick="gotoTabKBottom"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn"
+                android:text="TabKBottomLayout"
+                android:onClick="gotoTabKBottomLayout"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn"
+                android:text="TabKBottomFragment"
+                android:onClick="gotoTabKBottomFragment"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn"
+                android:text="TabKTopLayout"
+                android:onClick="gotoTabKTopLayout"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn"
+                android:text="RefreshKLayout"
+                android:onClick="gotoRefreshKLayout"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn"
+                android:text="BannerK"
+                android:onClick="gotoBannerK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn"
+                android:text="DataK"
+                android:onClick="gotoDataK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn"
+                android:onClick="goViewK"
+                android:text="ViewK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn"
+                android:onClick="goBtnK"
+                android:text="BtnK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

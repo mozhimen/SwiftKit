@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--searchk-->
+    <attr name="SearchKLayout_SearchKLayoutStyle" format="reference" />
+    <declare-styleable name="SearchKLayout">
+        <attr name="searchKLayout_search_icon" format="string|reference" />
+        <attr name="searchKLayout_search_iconSize" format="dimension" />
+        <attr name="searchKLayout_search_iconPadding" format="dimension" />
+        <attr name="searchKLayout_search_background" format="reference" />
+        <attr name="searchKLayout_search_textSize" format="dimension" />
+        <attr name="searchKLayout_search_textColor" format="color" />
+
+        <attr name="searchKLayout_clear_icon" format="string" />
+        <attr name="searchKLayout_clear_iconSize" format="dimension" />
+
+        <attr name="searchKLayout_hint_text" format="string" />
+        <attr name="searchKLayout_hint_textSize" format="dimension" />
+        <attr name="searchKLayout_hint_textColor" format="color" />
+        <attr name="searchKLayout_hint_gravity" format="enum">
+            <enum name="center" value="0" />
+            <enum name="left" value="1" />
+        </attr>
+
+        <attr name="searchKLayout_keyword_icon" format="string" />
+        <attr name="searchKLayout_keyword_iconSize" format="dimension" />
+        <attr name="searchKLayout_keyword_iconColor" format="color" />
+        <attr name="searchKLayout_keyword_background" format="reference" />
+        <attr name="searchKLayout_keyword_maxLength" format="integer" />
+        <attr name="searchKLayout_keyword_padding" format="dimension" />
+    </declare-styleable>
+
+    <!--navk-->
+    <attr name="NavKBar_NavKBarStyle" format="reference" />
+    <declare-styleable name="NavKBar">
+        <attr name="navKBar_title" format="string" />
+        <attr name="navKBar_title_textColor" format="color" />
+        <attr name="navKBar_title_textSize" format="dimension" />
+        <attr name="navKBar_title_textSize_with_subTitle" format="dimension" />
+
+        <attr name="navKBar_subTitle" format="string" />
+        <attr name="navKBar_subTitle_textSize" format="dimension" />
+        <attr name="navKBar_subTitle_textColor" format="color" />
+
+        <attr name="navKBar_textBtn_textSize" format="dimension" />
+        <attr name="navKBar_textBtn_textColor" format="color" />
+
+        <attr name="navKBar_icon_size" format="dimension" />
+        <attr name="navKBar_icon_color" format="color" />
+        <attr name="navKBar_icon" format="string" />
+
+        <attr name="navKBar_lineColor" format="color" />
+        <attr name="navKBar_lineWidth" format="dimension" />
+
+        <attr name="navKBar_paddingHorizontal" format="dimension" />
+    </declare-styleable>
+
+    <!--bannerk-->
+    <declare-styleable name="BannerK">
+        <attr name="bannerK_autoPlay" format="boolean" />
+        <attr name="bannerK_loop" format="boolean" />
+        <attr name="bannerK_intervalTime" format="integer|reference" />
+    </declare-styleable>
+
+    <!--btnk-->
+    <declare-styleable name="SwitchApple">
+        <!--默认开关状态-->
+        <attr name="switchApple_defaultStatus" format="boolean" />
+        <!--打开时颜色-->
+        <attr name="switchApple_bgColorOn" format="reference|color" />
+        <!--关闭时颜色-->
+        <attr name="switchApple_bgColorOff" format="reference|color" />
+        <!--外边框颜色-->
+        <attr name="switchApple_bgColorBorder" format="reference|color" />
+        <!--中心圆颜色-->
+        <attr name="switchApple_iconColorBtn" format="reference|color" />
+        <!--外边框厚度-->
+        <attr name="switchApple_borderWidth" format="dimension" />
+        <!--变换时间-->
+        <attr name="switchApple_animTime" format="integer" />
+        <!--中心圆到外边距的距离-->
+        <attr name="switchApple_iconMargin" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="BtnKIcon">
+        <attr name="btnKIcon_background" format="reference" />
+        <attr name="btnKIcon_iconSrc" format="reference" />
+        <attr name="btnKIcon_iconSize" format="dimension|reference" />
+        <attr name="btnKIcon_iconMarginRight" format="dimension|reference" />
+        <attr name="btnKIcon_text" format="string|reference" />
+        <attr name="btnKIcon_textColor" format="color|reference" />
+        <attr name="btnKIcon_textSize" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="BtnKSpinnerForm">
+        <attr name="btnKSpinnerForm_isRequired" format="boolean" />
+        <attr name="btnKSpinnerForm_requiredIconPos" format="enum">
+            <enum name="top" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="btnKSpinnerForm_label" format="string|reference" />
+        <attr name="btnKSpinnerForm_labelTextSize" format="dimension|reference" />
+        <attr name="btnKSpinnerForm_labelColor" format="color|reference" />
+        <attr name="btnKSpinnerForm_labelMarginLeft" format="dimension|reference" />
+        <attr name="btnKSpinnerForm_labelMarginRight" format="dimension|reference" />
+        <attr name="btnKSpinnerForm_labelWidth" format="dimension|reference" />
+        <!--StringArray 字符串数组-->
+        <attr name="btnKSpinnerForm_spinnerEntries" format="reference" />
+        <!--layout item布局-->
+        <attr name="btnKSpinnerForm_spinnerItemLayout" format="reference" />
+        <attr name="btnKSpinnerForm_borderBackground" format="reference" />
+    </declare-styleable>
+
+    <!--layoutk-->
+    <declare-styleable name="LayoutKAmount">
+        <attr name="layoutKAmount_btn_textSize" format="dimension|reference" />
+        <attr name="layoutKAmount_btn_textColor" format="color|reference" />
+        <attr name="layoutKAmount_btn_size" format="dimension|reference" />
+        <attr name="layoutKAmount_btn_background" format="color" />
+
+        <attr name="layoutKAmount_margin" format="dimension|reference" />
+
+        <attr name="layoutKAmount_num_textSize" format="dimension" />
+        <attr name="layoutKAmount_num_textColor" format="color" />
+        <attr name="layoutKAmount_num_size" format="dimension" />
+        <attr name="layoutKAmount_num_background" format="color" />
+        <attr name="layoutKAmount_num_defaultValue" format="integer" />
+        <attr name="layoutKAmount_num_maxValue" format="integer" />
+        <attr name="layoutKAmount_num_minValue" format="integer" />
+    </declare-styleable>
+
+    <!--视频布局-->
+    <declare-styleable name="LayoutKVideo">
+        <!--视频地址-->
+        <attr name="layoutKVideo_pathOrUrl" format="string" />
+        <!--视频是否循环播放-->
+        <attr name="layoutKVideo_isLoop" format="boolean" />
+        <!--视频权重-->
+        <attr name="layoutKVideo_videoGravity" format="enum">
+            <enum name="start" value="0" />
+            <enum name="end" value="1" />
+            <enum name="centerCrop" value="2" />
+            <enum name="none" value="3" />
+        </attr>
+    </declare-styleable>
+
+    <!--毛玻璃布局-->
+    <declare-styleable name="LayoutKBlurred">
+        <!--图片src-->
+        <attr name="layoutKBlurred_src" format="reference" />
+        <!--是否图片移动-->
+        <attr name="layoutKBlurred_isMove" format="boolean" />
+        <!--是否禁用模糊-->
+        <attr name="layoutKBlurred_isDisableBlurred" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="LayoutKInputItem">
+        <attr name="layoutKInputItem_hint" format="string" />
+        <attr name="layoutKInputItem_title" format="string" />
+        <attr name="layoutKInputItem_inputType" format="enum">
+            <enum name="text" value="0" />
+            <enum name="password" value="1" />
+            <enum name="number" value="2" />
+        </attr>
+        <attr name="layoutKInputItem_inputTextAppearance" format="reference" />
+        <attr name="layoutKInputItem_titleTextAppearance" format="reference" />
+        <attr name="layoutKInputItem_topLineAppearance" format="reference" />
+        <attr name="layoutKInputItem_bottomLineAppearance" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="LayoutKInputItemInputTextAppearance">
+        <attr name="layoutKInputItem_hintColor" format="reference|color" />
+        <attr name="layoutKInputItem_inputColor" format="color|reference" />
+        <attr name="layoutKInputItem_textSize" format="dimension" />
+        <attr name="layoutKInputItem_maxInputLength" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="LayoutKInputItemTitleTextAppearance">
+        <attr name="layoutKInputItem_titleColor" format="reference|color" />
+        <attr name="layoutKInputItem_titleSize" format="color|reference" />
+        <attr name="layoutKInputItem_minWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="LayoutKInputItemLineAppearance">
+        <attr name="layoutKInputItem_color" format="reference|color" />
+        <attr name="layoutKInputItem_height" format="dimension" />
+        <attr name="layoutKInputItem_leftMargin" format="dimension" />
+        <attr name="layoutKInputItem_rightMargin" format="dimension" />
+        <attr name="layoutKInputItem_enable" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="SliderKLayout">
+        <attr name="sliderKLayout_menuItemWidth" format="dimension" />
+        <attr name="sliderKLayout_menuItemHeight" format="dimension" />
+        <attr name="sliderKLayout_menuItemTextSize" format="dimension" />
+        <attr name="sliderKLayout_menuItemSelectTextSize" format="dimension" />
+        <attr name="sliderKLayout_menuItemIndicator" format="reference" />
+        <attr name="sliderKLayout_menuItemTextColor" format="reference" />
+        <attr name="sliderKLayout_menuItemBackgroundColor" format="reference|color" />
+        <attr name="sliderKLayout_menuItemSelectBackgroundColor" format="reference|color" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleSpread">
+        <!--中心圆颜色-->
+        <attr name="circleSpread_centerColor" format="reference|color" />
+        <!--中心圆图片-->
+        <attr name="circleSpread_centerDrawable" format="reference" />
+        <!--中心圆半径-->
+        <attr name="circleSpread_centerRadius" format="dimension" />
+        <!--扩散圆颜色-->
+        <attr name="circleSpread_spreadColor" format="reference|color" />
+        <!--扩散圆最大数-->
+        <attr name="circleSpread_spreadCount" format="integer" />
+        <!--扩散圆波浪叠层效果还是边缘波纹效果-->
+        <attr name="circleSpread_spreadIsRipple" format="boolean" />
+        <!--扩散间距-->
+        <attr name="circleSpread_circlesDistance" format="dimension" />
+        <!--扩散时间1-1000ms之间-->
+        <attr name="circleSpread_animTime" format="integer" />
+    </declare-styleable>
+
+    <!--textk-->
+    <!--下划线控件-->
+    <declare-styleable name="TextKUnderLine">
+        <!--下划线是否出现-->
+        <attr name="textKUnderLine_underline" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="TextKTextForm">
+        <attr name="textKTextForm_isRequired" format="boolean" />
+        <attr name="textKTextForm_requiredIconPos" format="enum">
+            <enum name="top" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="textKTextForm_label" format="string|reference" />
+        <attr name="textKTextForm_labelTextSize" format="dimension|reference" />
+        <attr name="textKTextForm_labelColor" format="color|reference" />
+        <attr name="textKTextForm_labelMarginLeft" format="dimension|reference" />
+        <attr name="textKTextForm_labelMarginRight" format="dimension|reference" />
+        <attr name="textKTextForm_labelWidth" format="dimension|reference" />
+        <attr name="textKTextForm_textColor" format="color|reference" />
+        <attr name="textKTextForm_textHint" format="string|reference" />
+        <attr name="textKTextForm_textSize" format="dimension|reference" />
+        <attr name="textKTextForm_borderBackground" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="TextKEditForm">
+        <attr name="textKEditForm_isRequired" format="boolean" />
+        <attr name="textKEditForm_requiredIconPos" format="enum">
+            <enum name="top" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="textKEditForm_label" format="string|reference" />
+        <attr name="textKEditForm_labelTextSize" format="dimension|reference" />
+        <attr name="textKEditForm_labelColor" format="color|reference" />
+        <attr name="textKEditForm_labelMarginLeft" format="dimension|reference" />
+        <attr name="textKEditForm_labelMarginRight" format="dimension|reference" />
+        <attr name="textKEditForm_labelWidth" format="dimension|reference" />
+        <attr name="textKEditForm_editHint" format="string|reference" />
+        <attr name="textKEditForm_editType" format="enum">
+            <enum name="text" value="0" />
+            <enum name="number" value="1" />
+            <enum name="textPassword" value="2" />
+            <enum name="numberPassword" value="3" />
+        </attr>
+        <attr name="textKEditForm_editColor" format="color|reference" />
+        <attr name="textKEditForm_editSize" format="dimension|reference" />
+        <attr name="textKEditForm_borderBackground" format="reference" />
+        <attr name="textKEditForm_borderBackgroundHasFocus" format="reference" />
+    </declare-styleable>
+
+    <!--viewk-->
+    <declare-styleable name="SquareQRScan">
+        <!-- 扫描边框的粗细-->
+        <attr name="squareQRScan_borderWidth" format="dimension" />
+        <!-- 扫描边框的颜色-->
+        <attr name="squareQRScan_borderColor" format="color|reference" />
+        <!-- 扫描线的图片资源-->
+        <attr name="squareQRScan_lineDrawable" format="reference" />
+        <!-- 扫描线的粗细-->
+        <attr name="squareQRScan_lineWidth" format="dimension" />
+        <!-- 扫描线的颜色-->
+        <attr name="squareQRScan_lineColor" format="color|reference" />
+        <!-- 扫描线每次移动的距离(包括扫描线的移动,收缩和成功logo的展现)-->
+        <attr name="squareQRScan_distance" format="dimension" />
+        <!-- 扫描线从顶部移动至底部的动画时间ms-->
+        <attr name="squareQRScan_animTime" format="integer" />
+        <!-- 扫描线是否来回移动-->
+        <attr name="squareQRScan_isLineReverse" format="boolean" />
+        <!-- 扫描成功的成功图标-->
+        <attr name="squareQRScan_successDrawable" format="reference" />
+        <!-- 扫描成功的成功图标大小-->
+        <attr name="squareQRScan_successDrawableSize" format="dimension" />
+        <!-- 扫描成功的成功动画时间-->
+        <attr name="squareQRScan_successAnimTime" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="ArcRotate">
+        <!-- 圆弧的开始渐变色-->
+        <attr name="arcRotate_gradientStart" format="color|reference" />
+        <!-- 圆弧的结束渐变色-->
+        <attr name="arcRotate_gradientEnd" format="color|reference" />
+        <!-- 圆弧的线宽-->
+        <attr name="arcRotate_lineWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="RadarRipple">
+        <!-- 扫描雷达背景颜色-->
+        <attr name="radarRipple_bgColor" format="color|reference" />
+        <!-- 扫描雷达颜色-->
+        <attr name="radarRipple_radarColor" format="reference|color" />
+        <!-- 扫描雷达线颜色-->
+        <attr name="radarRipple_lineColor" format="reference|color" />
+        <!-- 扫描雷达线的Alpha-->
+        <attr name="radarRipple_lineAlpha" format="integer" />
+        <!-- 扫描雷达线宽-->
+        <attr name="radarRipple_lineWidth" format="dimension" />
+        <!-- 扫描雷达线数-->
+        <attr name="radarRipple_lineCount" format="integer" />
+        <!-- 扫描雷达扫描角度步长(1-360)-->
+        <attr name="radarRipple_angleStep" format="integer" />
+        <!-- 扫描雷达扫描一圈的时间ms-->
+        <attr name="radarRipple_animTime" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="RadarWave">
+        <!-- 扫描雷达颜色-->
+        <attr name="radarWave_radarColor" format="reference|color" />
+        <!-- 扫描雷达波浪颜色-->
+        <attr name="radarWave_waveColor" format="reference|color" />
+        <!-- 扫描雷达波浪层级渐变反转-->
+        <attr name="radarWave_isWaveOverTurn" format="boolean" />
+        <!-- 扫描雷达波浪层数-->
+        <attr name="radarWave_waveCount" format="integer" />
+        <!-- 扫描雷达扫描角度步长(1-360)-->
+        <attr name="radarWave_angleStep" format="integer" />
+        <!-- 扫描雷达扫描一圈的时间ms-->
+        <attr name="radarWave_animTime" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="RingRotate">
+        <!-- 旋转圆环开始颜色-->
+        <attr name="ringRotate_ringStartColor" format="reference|color" />
+        <!-- 旋转圆环结束颜色-->
+        <attr name="ringRotate_ringEndColor" format="reference|color" />
+        <!-- 旋转圆环宽度-->
+        <attr name="ringRotate_ringWidth" format="dimension" />
+        <!-- 旋转圆环步长-->
+        <attr name="ringRotate_angleStep" format="integer" />
+        <!-- 旋转圆环旋转一圈的时间-->
+        <attr name="ringRotate_animTime" format="integer" />
+    </declare-styleable>
+
+    <!--二维码扫描控件-->
+    <declare-styleable name="ViewKQRScan">
+        <!-- 扫描框的宽度，默认值为200dp -->
+        <attr name="viewKQRScan_rectWidth" format="dimension|reference" />
+        <!-- 扫描边框的宽度，默认值为1dp -->
+        <attr name="viewKQRScan_borderSize" format="dimension|reference" />
+        <!-- 扫描边框的颜色，默认值为@android:color/white -->
+        <attr name="viewKQRScan_borderColor" format="color|reference" />
+        <!-- 扫描线的图片资源，默认值为null -->
+        <attr name="viewKQRScan_customScanLineDrawable" format="reference" />
+        <!-- 扫描线从顶部移动到底部的动画时间，默认值为1000 -->
+        <attr name="viewKQRScan_animTime" format="integer" />
+        <!-- 扫描线是否来回移动，默认值为true -->
+        <attr name="viewKQRScan_isScanLineReverse" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="ViewKSignature">
+        <attr name="viewKSignature_lineWidth" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ViewKSteps">
+        <!--默认距离边缘的距离-->
+        <attr name="viewKSteps_margin" format="dimension|reference" />
+        <!--标题向下偏移-->
+        <attr name="viewKSteps_titleMarginTop" format="dimension|reference" />
+        <!--完成步骤的颜色-->
+        <attr name="viewKSteps_doneLineColor" format="color|reference" />
+        <!--未完成的步骤的颜色-->
+        <attr name="viewKSteps_undoLineColor" format="color|reference" />
+        <!--完成步骤的标题颜色-->
+        <attr name="viewKSteps_doneTitleColor" format="color|reference" />
+        <!--未完成步骤的标题颜色-->
+        <attr name="viewKSteps_undoTitleColor" format="color|reference" />
+        <!--完成步骤的数字颜色-->
+        <attr name="viewKSteps_doneNumberColor" format="color|reference" />
+        <!--未完成步骤的数字颜色-->
+        <attr name="viewKSteps_undoNumberColor" format="color|reference" />
+        <!--圆环的半径-->
+        <attr name="viewKSteps_circleRadius" format="dimension|reference" />
+        <!--线的宽度-->
+        <attr name="viewKSteps_lineWidth" format="dimension|reference" />
+        <!--步骤数字的大小-->
+        <attr name="viewKSteps_numberTextSize" format="dimension|reference" />
+        <!--标题的大小-->
+        <attr name="viewKSteps_titleTextSize" format="dimension|reference" />
+    </declare-styleable>
+</resources>

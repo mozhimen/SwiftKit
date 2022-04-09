@@ -1,0 +1,106 @@
+package com.mozhimen.abilityk.restfulk.mos
+
+import android.text.TextUtils
+import com.mozhimen.abilityk.restfulk.annors.CacheStrategy
+import com.mozhimen.abilityk.restfulk.annors.methods.METHOD
+import java.lang.Exception
+import java.lang.StringBuilder
+import java.lang.reflect.Type
+import java.net.URLEncoder
+
+/**
+ * @ClassName RequestK
+ * @Description TODO
+ * @Author mozhimen
+ * @Date 2021/9/26 20:32
+ * @Version 1.0
+ */
+open class Request {
+    @METHOD
+    var httpMethod = 0
+    var headers: MutableMap<String, String>? = null
+    var parameters: MutableMap<String, String>? = null
+    var domainUrl: String? = null
+    var returnType: Type? = null
+    var relativeUrl: String? = null
+    var formPost: Boolean = true
+    var cacheStrategyK: Int = CacheStrategy.NET_ONLY
+    private var cacheStrategyKKey: String = ""
+
+    constructor(
+        httpMethod: Int,
+        headers: MutableMap<String, String>?,
+        parameters: MutableMap<String, String>?,
+        domainUrl: String?,
+        returnType: Type?,
+        relativeUrl: String?,
+        formPost: Boolean,
+        cacheStrategy: Int
+    ) {
+        this.httpMethod = httpMethod
+        this.headers = headers
+        this.parameters = parameters
+        this.domainUrl = domainUrl
+        this.returnType = returnType
+        this.relativeUrl = relativeUrl
+        this.formPost = formPost
+        this.cacheStrategyK = cacheStrategy
+    }
+
+    /**
+     * 返回的是请求的完整Url
+     * scheme-host-port:443
+     * https:www.mozhimen.top/basicsk/ ---relativeUrl: user/login===>https:www.mozhimen.top/basicsk/user/login
+     * 另外一个场景
+     * https:www.mozhimen.top/uicorek/
+     * https:www.mozhimen.top/uicorek/ ---relativeUrl: /v2/user/login===>https:www.mozhimen.top/uicorek/user/login
+     */
+    fun endPointUrl(): String {
+        require(relativeUrl != null) {
+            "relative url must not be null "
+        }
+        if (!relativeUrl!!.startsWith("/")) {
+            return domainUrl + relativeUrl
+        }
+
+        val indexOf = domainUrl!!.indexOf("/")
+        return domainUrl!!.substring(0, indexOf) + relativeUrl
+    }
+
+    fun addHeaders(name: String, value: String) {
+        if (headers == null) {
+            headers = mutableMapOf()
+        }
+        headers!![name] = value
+    }
+
+    fun getCacheKey(): String {
+        if (!TextUtils.isEmpty(cacheStrategyKKey)) {
+            return cacheStrategyKKey
+        }
+        val builder = StringBuilder()
+        val endUrl = endPointUrl()
+        builder.append(endUrl)
+        if (endUrl.indexOf("?") > 0 || endUrl.indexOf("&") > 0) {
+            builder.append("&")
+        } else {
+            builder.append("?")
+        }
+
+        cacheStrategyKKey = if (parameters != null) {
+            for ((key, value) in parameters!!) {
+                try {
+                    val encodeValue = URLEncoder.encode(value, "UTF-8")
+                    builder.append(key).append("=").append(encodeValue).append("&")
+                } catch (e: Exception) {
+                    //ignore
+                }
+            }
+            builder.deleteCharAt(builder.length - 1).toString()
+        } else {
+            endUrl
+        }
+
+        return cacheStrategyKKey
+    }
+}

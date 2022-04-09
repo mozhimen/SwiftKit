@@ -4,10 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.app.basicsmk.BasicsMKActivity
-import com.mozhimen.app.componentmk.ComponentMKActivity
+import com.mozhimen.app.basicsk.BasicsKActivity
+import com.mozhimen.app.componentk.ComponentKActivity
 import com.mozhimen.app.demo.DemoActivity
-import com.mozhimen.app.uicoremk.UICoreMKActivity
+import com.mozhimen.app.uicorek.UICoreKActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,15 +19,15 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this, DemoActivity::class.java))
     }
 
-    fun goComponentMK(view: View) {
-        startActivity(Intent(this, ComponentMKActivity::class.java))
+    fun goComponentK(view: View) {
+        startActivity(Intent(this, ComponentKActivity::class.java))
     }
 
-    fun goBasicsMK(view: View) {
-        startActivity(Intent(this, BasicsMKActivity::class.java))
+    fun goBasicsK(view: View) {
+        startActivity(Intent(this, BasicsKActivity::class.java))
     }
 
-    fun goUICoreMK(view: View) {
-        startActivity(Intent(this, UICoreMKActivity::class.java))
+    fun goUICoreK(view: View) {
+        startActivity(Intent(this, UICoreKActivity::class.java))
     }
 }

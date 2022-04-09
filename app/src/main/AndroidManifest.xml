@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SwiftMK">
+        android:theme="@style/Theme.SwiftK">
 
         <!--provider-->
         <provider
@@ -38,93 +38,93 @@
             android:name=".demo.DemoActivity"
             android:exported="false" />
 
-        <!-- componentmk -->
+        <!-- componentk -->
         <activity
-            android:name=".componentmk.ComponentMKActivity"
+            android:name=".componentk.ComponentKActivity"
             android:exported="false" />
         <activity
-            android:name=".componentmk.basemk.BaseMKDemoActivity"
+            android:name=".componentk.basek.BaseKDemoActivity"
             android:exported="false" />
         <activity
-            android:name=".componentmk.navigationmk.NavigationMKActivity"
-            android:exported="false" />
-
-        <!-- basicsmk -->
-        <activity
-            android:name=".basicsmk.BasicsMKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".basicsmk.executormk.ExecutorMKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".basicsmk.logmk.LogMKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".basicsmk.databusmk.DataBusMKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".basicsmk.permissionmk.PermissionMKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".basicsmk.stackmk.StackMKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".basicsmk.stackmk.StackMKSecondActivity"
+            android:name=".componentk.navigationk.NavigationKActivity"
             android:exported="false" />
 
-        <!-- uicoremk -->
+        <!-- basicsk -->
         <activity
-            android:name=".uicoremk.UICoreMKActivity"
+            android:name=".basicsk.BasicsKActivity"
+            android:exported="true" />
+        <activity
+            android:name=".basicsk.executork.ExecutorKActivity"
             android:exported="false" />
         <activity
-            android:name=".uicoremk.tabmk.TabMKBottomActivity"
+            android:name=".basicsk.logk.LogKActivity"
             android:exported="false" />
         <activity
-            android:name=".uicoremk.tabmk.TabMKBottomLayoutActivity"
+            android:name=".basicsk.databusk.DataBusKActivity"
+            android:exported="true" />
+        <activity
+            android:name=".basicsk.permissionk.PermissionKActivity"
+            android:exported="true" />
+        <activity
+            android:name=".basicsk.stackk.StackKActivity"
             android:exported="false" />
         <activity
-            android:name=".uicoremk.tabmk.TabMKBottomFragmentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicoremk.tabmk.TabMKTopLayoutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicoremk.refreshmk.RefreshMKLayoutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicoremk.bannermk.BannerMKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicoremk.datamk.DataMKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicoremk.btnmk.BtnMKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicoremk.viewmk.ViewMKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicoremk.viewmk.ViewMKStepsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicoremk.viewmk.ViewMKViewsActivity"
+            android:name=".basicsk.stackk.StackKSecondActivity"
             android:exported="false" />
 
-        <!--abilitymk-->
+        <!-- uicorek -->
         <activity
-            android:name=".abilitymk.AbilityMKActivity"
+            android:name=".uicorek.UICoreKActivity"
             android:exported="false" />
         <activity
-            android:name=".abilitymk.cameraxmk.CameraXMKActivity"
+            android:name=".uicorek.tabk.TabKBottomActivity"
             android:exported="false" />
         <activity
-            android:name=".abilitymk.hotfixmk.HotFixMKActivity"
+            android:name=".uicorek.tabk.TabKBottomLayoutActivity"
             android:exported="false" />
         <activity
-            android:name=".abilitymk.qrcodemk.QRCodeMKActivity"
+            android:name=".uicorek.tabk.TabKBottomFragmentActivity"
             android:exported="false" />
         <activity
-            android:name=".abilitymk.restfulmk.RESTfulMKActivity"
+            android:name=".uicorek.tabk.TabKTopLayoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.refreshk.RefreshKLayoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.bannerk.BannerKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.datak.DataKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.btnk.BtnKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.viewk.ViewKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.viewk.ViewKStepsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.viewk.ViewKViewsActivity"
+            android:exported="false" />
+
+        <!--abilityk-->
+        <activity
+            android:name=".abilityk.AbilityKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilityk.cameraxk.CameraXKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilityk.hotfixk.HotFixKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilityk.qrcodek.QRCodeKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilityk.restfulk.RESTfulKActivity"
             android:exported="false" />
     </application>
 

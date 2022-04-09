@@ -18,20 +18,20 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
-            android:onClick="goComponentMK"
-            android:text="ComponentMK"
+            android:onClick="goComponentK"
+            android:text="ComponentK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
-            android:onClick="goBasicsMK"
-            android:text="BasicsMK"
+            android:onClick="goBasicsK"
+            android:text="BasicsK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
-            android:onClick="goUICoreMK"
-            android:text="UICoreMK"
+            android:onClick="goUICoreK"
+            android:text="UICoreK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>

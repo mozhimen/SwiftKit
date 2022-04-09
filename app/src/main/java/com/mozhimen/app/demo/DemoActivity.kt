@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.app.BR
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
-import com.mozhimen.basicsmk.statusbarmk.StatusBarMKAnnor
-import com.mozhimen.componentmk.basemk.BaseMKActivity
-import com.mozhimen.uicoremk.adaptermk.AdapterMKStuffedRecycler
+import com.mozhimen.basicsk.statusbark.StatusBarKAnnor
+import com.mozhimen.componentk.basek.BaseKActivity
+import com.mozhimen.uicorek.adapterk.AdapterKStuffedRecycler
 import kotlin.math.abs
 
-@StatusBarMKAnnor(isImmersed = true)
-class DemoActivity : BaseMKActivity<ActivityDemoBinding, DemoViewModel>(R.layout.activity_demo) {
+@StatusBarKAnnor(isImmersed = true)
+class DemoActivity : BaseKActivity<ActivityDemoBinding, DemoViewModel>(R.layout.activity_demo) {
 
     override fun initData(savedInstanceState: Bundle?) {
         initView()
@@ -36,7 +36,7 @@ class DemoActivity : BaseMKActivity<ActivityDemoBinding, DemoViewModel>(R.layout
         )
         vb.demoList.layoutManager = LinearLayoutManager(this)
         vb.demoList.adapter = object :
-            AdapterMKStuffedRecycler<Astro>(
+            AdapterKStuffedRecycler<Astro>(
                 list,
                 R.layout.item_demo_list,
                 R.layout.item_demo_header,

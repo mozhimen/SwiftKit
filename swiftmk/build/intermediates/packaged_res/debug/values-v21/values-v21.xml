@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="ProgressBar"/>
-    <style name="ProgressBar.Loading">
-        <item name="android:indeterminateTintMode">src_atop</item>
-        <item name="android:indeterminateTint">@color/black</item>
-    </style>
-</resources>
