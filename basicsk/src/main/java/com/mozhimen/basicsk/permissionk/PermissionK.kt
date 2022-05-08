@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 
 /**
- * @ClassName PermissionApplier
+ * @ClassName PermissionK
  * @Description TO
  * @Author mozhimen
  * @Date 2021/4/14 17:08

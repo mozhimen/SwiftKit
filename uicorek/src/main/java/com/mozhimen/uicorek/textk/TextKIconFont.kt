@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
+import com.mozhimen.basicsk.extsk.font
 
 /**
  * @ClassName TextKIconFont
@@ -16,7 +17,6 @@ class TextKIconFont @JvmOverloads constructor(context: Context, attributeSet: At
     AppCompatTextView(context, attributeSet, defStyleAttr) {
 
     init {
-        val typeface = Typeface.createFromAsset(context.assets, "/fonts/iconfont.ttf")
-        setTypeface(typeface)
+        font()
     }
 }

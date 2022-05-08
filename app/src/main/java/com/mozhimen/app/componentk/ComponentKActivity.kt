@@ -1,13 +1,12 @@
 package com.mozhimen.app.componentk
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.mozhimen.app.R
-import com.mozhimen.app.componentk.basek.BaseKDemoActivity
-import com.mozhimen.app.componentk.navigationk.NavigationKActivity
-import com.mozhimen.basicsk.databusk.DataBusK
+import com.mozhimen.app.basicsk.basek.BaseKDemoActivity
+import com.mozhimen.app.componentk.guidek.GuideKActivity
+import com.mozhimen.basicsk.extsk.start
 
 class ComponentKActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,11 +14,7 @@ class ComponentKActivity : AppCompatActivity() {
         setContentView(R.layout.activity_componentk)
     }
 
-    fun goBaseKDemoActivity(view: View) {
-        startActivity(Intent(this, BaseKDemoActivity::class.java))
-    }
-
-    fun goNavigationKActivity(view: View) {
-        startActivity(Intent(this, NavigationKActivity::class.java))
+    fun goGuideKActivity(view: View) {
+        start<GuideKActivity>()
     }
 }

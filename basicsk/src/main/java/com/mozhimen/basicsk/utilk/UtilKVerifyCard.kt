@@ -12,13 +12,22 @@ object UtilKVerifyCard {
         ID_CARD, HK_CARD, TW_CARD, PP_CARD
     }
 
-    //身份证校验
+    /**
+     * 身份证校验
+     * @param id String
+     * @return Boolean
+     */
     fun isIdCardValid(id: String): Boolean {
         val reg =
             Regex("^(([1][1-5])|([2][1-3])|([3][1-7])|([4][1-6])|([5][0-4])|([6][1-5])|([7][1])|([8][1-2]))\\d{4}(([1][9]\\d{2})|([2]\\d{3}))(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))\\d{3}[0-9xX]$")
         return id.matches(reg)
     }
 
+    /**
+     * 港澳居民来往内地通行证校验
+     * @param id String
+     * @return Boolean
+     */
     fun isHKCardValid(id: String): Boolean {
         // 港澳居民来往内地通行证
         // 规则： H/M + 10位或6位数字
@@ -27,6 +36,11 @@ object UtilKVerifyCard {
         return id.matches(reg)
     }
 
+    /**
+     * 台湾居民来往大陆通行证校验
+     * @param id String
+     * @return Boolean
+     */
     fun isTWCardValid(id: String): Boolean {
         // 台湾居民来往大陆通行证
         // 规则： 新版8位或18位数字， 旧版10位数字 + 英文字母
@@ -35,6 +49,11 @@ object UtilKVerifyCard {
         return id.matches(reg)
     }
 
+    /**
+     * 护照校验
+     * @param id String
+     * @return Boolean
+     */
     fun isPPCardValid(id: String): Boolean {
         // 护照
         // 规则： 14/15开头 + 7位数字, G + 8位数字, P + 7位数字, S/D + 7或8位数字,等

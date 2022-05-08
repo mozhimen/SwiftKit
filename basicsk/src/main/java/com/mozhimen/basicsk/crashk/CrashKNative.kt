@@ -25,7 +25,7 @@ object CrashKNative {
     fun getNativeCrashDir(): File {
         val nativeCrashFile = File(UtilKGlobal.instance.getApp()!!.cacheDir, CRASHK_NATIVE_DIR)
         if (!nativeCrashFile.exists()) {
-            nativeCrashFile.kdirs()
+            nativeCrashFile.mkdirs()
         }
         return nativeCrashFile
     }

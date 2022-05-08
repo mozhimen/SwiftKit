@@ -15,7 +15,7 @@ import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
-import com.mozhimen.basicsk.utilk.dp2px
+import com.mozhimen.basicsk.extsk.dp2px
 import com.mozhimen.uicorek.R
 
 /**
@@ -50,15 +50,15 @@ class SwitchApple @JvmOverloads constructor(
     private var iconView: CardView
     private var bgView: ImageView
 
-    private var mSwitchAppleCallback: SwitchAppleCallback? = null
+    private var mISwitchAppleListener: ISwitchAppleListener? = null
     //endregion
 
-    interface SwitchAppleCallback {
+    interface ISwitchAppleListener {
         fun switch(status: Boolean)
     }
 
-    fun setOnSwitchListener(switchAppleCallback: SwitchAppleCallback) {
-        mSwitchAppleCallback = switchAppleCallback
+    fun setOnSwitchListener(ISwitchAppleListener: ISwitchAppleListener) {
+        mISwitchAppleListener = ISwitchAppleListener
     }
 
     //设置初始状态,也可以在xml中设置-> app:switchApple_defaultStatus = false|true
@@ -219,7 +219,7 @@ class SwitchApple @JvmOverloads constructor(
                 isAnimRunning = true
 
                 //如果想动画结束再执行回调的话,就把这段话放在onAnimationEnd就阔以了
-                mSwitchAppleCallback?.switch(status)
+                mISwitchAppleListener?.switch(status)
             }
 
             override fun onAnimationEnd(animation: Animation) {

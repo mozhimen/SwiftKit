@@ -4,12 +4,12 @@
     <data />
 
     <com.mozhimen.uicorek.tabk.bottom.TabKBottomLayout
-        android:id="@+id/tab_bottom_fragment"
+        android:id="@+id/tabk_bottom_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.mozhimen.uicorek.tabk.bottom.TabKFragmentView
-            android:id="@+id/tab_bottom_fragment_view"
+            android:id="@+id/tabk_bottom_fragment_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

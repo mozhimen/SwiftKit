@@ -24,7 +24,7 @@ class TaskKRuntimeInfo(val taskK: TaskK) {
     }
 
     fun isSameTask(task: TaskK?): Boolean {
-        return task != null && this.taskK === task
+        return task != null && this.taskK == task
     }
 
     override fun toString(): String {

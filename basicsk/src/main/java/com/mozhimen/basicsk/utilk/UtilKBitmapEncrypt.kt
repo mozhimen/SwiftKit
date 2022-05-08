@@ -3,7 +3,7 @@ package com.mozhimen.basicsk.utilk
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
-import android.util.Log
+import com.mozhimen.basicsk.logk.LogK
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
@@ -15,19 +15,25 @@ import java.io.IOException
  * @Version 1.0
  */
 object UtilKBitmapEncrypt {
-    fun base64ToBitmap(base64String: String?): Bitmap? {
+    private val TAG = "UtilKBitmapEncrypt>>>>>"
+
+    /**
+     * base64转位图
+     * @param base64String String
+     * @return Bitmap?
+     */
+    fun base64ToBitmap(base64String: String): Bitmap? {
         val timeMillis = System.currentTimeMillis()
         val decode: ByteArray = Base64.decode(base64String, Base64.DEFAULT)
         val bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.size)
-        Log.e("UtilKBitmapEncrypt", "diff:" + (System.currentTimeMillis() - timeMillis))
+        LogK.et(TAG, "diff: " + (System.currentTimeMillis() - timeMillis))
         return bitmap
     }
 
     /**
-     * bitmap转为base64
-     *
-     * @param bitmap
-     * @return
+     * 位图转base64
+     * @param bitmap Bitmap?
+     * @return String?
      */
     fun bitmapToBase64(bitmap: Bitmap?): String? {
         var result: String? = null
@@ -54,13 +60,13 @@ object UtilKBitmapEncrypt {
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
-            try {
-                if (baos != null) {
+            if (baos != null) {
+                try {
                     baos.flush()
                     baos.close()
+                } catch (e: IOException) {
+                    e.printStackTrace()
                 }
-            } catch (e: IOException) {
-                e.printStackTrace()
             }
         }
         return result

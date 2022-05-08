@@ -39,7 +39,7 @@ object CrashKJava {
     fun getJavaCrashDir(): File {
         val javaCrashFile = File(UtilKGlobal.instance.getApp()!!.cacheDir, CRASHK_JAVA_DIR)
         if (!javaCrashFile.exists()) {
-            javaCrashFile.kdirs()
+            javaCrashFile.mkdirs()
         }
         return javaCrashFile
     }
@@ -83,7 +83,7 @@ object CrashKJava {
         private fun saveCrashInfo2File(log: String) {
             val crashDir = File(_crashFullPath)
             if (!crashDir.exists()) {
-                crashDir.kdirs()
+                crashDir.mkdirs()
             }
             val crashkFile = File(crashDir, UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss + "_crashk.txt"))
             crashkFile.createNewFile()
@@ -108,7 +108,7 @@ object CrashKJava {
             sb.append("sdk=${Build.VERSION.SDK_INT}\n")//SDK版本:31
             sb.append("launch_time=$launchTime\n")//启动APP的时间
             sb.append("crash_time=${UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss)}")//crash发生的时间
-            sb.append("foreground=${StackK.instance.isFront()}")//应用处于前台
+            sb.append("foreground=${StackK.isFront()}")//应用处于前台
             sb.append("thread=${Thread.currentThread().name}\n")//异常线程名
             sb.append("cpu_arch=${Build.CPU_ABI}")//CPU架构
 

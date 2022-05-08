@@ -16,7 +16,7 @@ import java.net.URL
  * @Version 1.0
  */
 object HttpRequester {
-    interface HttpCallbackListener {
+    interface IHttpListener {
         fun onFinish(response: String)
         fun onError(e: Exception)
     }
@@ -24,11 +24,11 @@ object HttpRequester {
     /**
      * 作用: 网络请求回调
      * 用法:
-     * HttpUtil.sendHttpRequest(address, object : HttpCallbackListener {
+     * HttpRequester.sendHttpRequest(address, object : HttpCallbackListener {
      *  override fun onFinish(response: String) {//得到服务器返回的具体内容}
      *  override fun onError(e: Exception) {//在这里对异常情况进行处理} })
      */
-    fun sendHttpRequest(address: String, listener: HttpCallbackListener) {
+    fun sendHttpRequest(address: String, listenerI: IHttpListener) {
         var connection: HttpURLConnection? = null
         try {
             val response = StringBuilder()
@@ -43,10 +43,10 @@ object HttpRequester {
                     response.append(it)
                 }
             }
-            listener.onFinish(response.toString())//回调onFinish()方法
+            listenerI.onFinish(response.toString())//回调onFinish()方法
         } catch (e: Exception) {
             e.printStackTrace()
-            listener.onError(e)//回调onError()方法
+            listenerI.onError(e)//回调onError()方法
         } finally {
             connection?.disconnect()
         }

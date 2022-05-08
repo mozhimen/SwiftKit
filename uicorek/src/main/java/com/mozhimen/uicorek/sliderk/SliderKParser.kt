@@ -4,10 +4,10 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basicsk.extsk.sp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.basicsk.utilk.UtilKRes
-import com.mozhimen.basicsk.utilk.dp2px
-import com.mozhimen.basicsk.utilk.sp2px
 
 /**
  * @ClassName SliderKParser

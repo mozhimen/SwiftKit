@@ -10,7 +10,7 @@ import com.mozhimen.app.BR
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.basicsk.statusbark.StatusBarKAnnor
-import com.mozhimen.componentk.basek.BaseKActivity
+import com.mozhimen.basicsk.basek.BaseKActivity
 import com.mozhimen.uicorek.adapterk.AdapterKStuffedRecycler
 import kotlin.math.abs
 

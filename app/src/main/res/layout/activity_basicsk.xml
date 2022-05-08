@@ -12,6 +12,30 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
+            android:onClick="goUtilKActivity"
+            android:text="UtilK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn"
+            android:onClick="goLogKActivity"
+            android:text="LogK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn"
+            android:onClick="goStackKActivity"
+            android:text="StackK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn"
+            android:onClick="goBaseKDemoActivity"
+            android:text="BaseKDemo"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn"
             android:onClick="goDataBusKActivity"
             android:text="DataBusK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
@@ -24,21 +48,10 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
-            android:onClick="goStackKActivity"
-            android:text="StackK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Btn"
             android:onClick="goExecutorKActivity"
             android:text="ExecutorK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Btn"
-            android:onClick="goLogKActivity"
-            android:text="LogK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -8,10 +8,13 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
-import com.mozhimen.basicsk.utilk.dp2px
+import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basicsk.basek.BaseKView
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.viewk.commons.ViewK
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @ClassName QRScanView
@@ -22,7 +25,7 @@ import kotlinx.coroutines.*
  */
 @SuppressLint("UseCompatLoadingForDrawables")
 class SquareQRScan @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ViewK(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr) {
 
     //region # variate
     private var borderWidth = 1f.dp2px()
@@ -36,7 +39,7 @@ class SquareQRScan @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var successDrawable = R.mipmap.viewk_square_qr_scan_success
     private var successDrawableSize = 20f.dp2px()
     private var successAnimTime = 1000
-    private var squareQrScanCallback: SquareQrScanCallback? = null
+    private var iScanListener: IScanListener? = null
     private var logoBitmap: Bitmap
     private var lineBitmap: Bitmap? = null
 
@@ -58,19 +61,19 @@ class SquareQRScan @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var logoScale = 0f
     //endregion
 
-    interface SquareQrScanCallback {
+    interface IScanListener {
         fun onAnimEnd()
     }
 
-    fun setSquareQrScanCallback(squareQrScanCallback: SquareQrScanCallback) {
-        this.squareQrScanCallback = squareQrScanCallback
+    fun setSquareQrScanCallback(iScanListener: IScanListener) {
+        this.iScanListener = iScanListener
     }
 
     fun requireSuccess() {
         isSuccess = true
         GlobalScope.launch(Dispatchers.Main) {
             delay(successAnimTime.toLong())
-            squareQrScanCallback?.onAnimEnd()
+            iScanListener?.onAnimEnd()
         }
     }
 

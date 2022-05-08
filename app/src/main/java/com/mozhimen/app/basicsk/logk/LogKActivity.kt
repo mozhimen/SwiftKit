@@ -4,14 +4,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityLogkBinding
 import com.mozhimen.basicsk.logk.LogK
-import com.mozhimen.basicsk.logk.LogKManager
-import com.mozhimen.basicsk.logk.helpers.ViewPrinter
+import com.mozhimen.basicsk.logk.LogKMgr
+import com.mozhimen.basicsk.logk.printers.PrinterView
 import com.mozhimen.basicsk.logk.mos.LogKConfig
 import com.mozhimen.basicsk.logk.mos.LogKType
 
 class LogKActivity : AppCompatActivity() {
     private val vb: ActivityLogkBinding by lazy { ActivityLogkBinding.inflate(layoutInflater) }
-    var viewPrinter: ViewPrinter? = null
+    private val TAG = "LogKActivity>>>>>"
+    private var _printerView: PrinterView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,25 +22,50 @@ class LogKActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        viewPrinter = ViewPrinter(this)
-        viewPrinter!!.getViewProvider().showFloatingView()
-        vb.btnLog.setOnClickListener {
+        _printerView = PrinterView(this)
+        _printerView!!.getViewProvider().showFloatingView()
+        vb.logkBtnPrint.setOnClickListener {
             printLog()
+        }
+        vb.logkBtnPrinterList.setOnClickListener {
+            printLog1()
         }
     }
 
     private fun printLog() {
-        LogKManager.getInstance().addPrinter(viewPrinter!!)
+        //初级用法
+        LogK.i("just a test1!")
+
+        //中级用法
+        LogK.log(LogKType.W, TAG, "just a test2!")
+
+        //高级用法
         LogK.log(object : LogKConfig() {
             override fun includeThread(): Boolean {
-                return false
+                return true
             }
 
             override fun stackTraceDepth(): Int {
                 return 5
             }
-        }, LogKType.E, ">>>>>", "just a test!")
+        }, LogKType.E, TAG, "just a test3!")
+    }
 
-        LogK.a("just a test!")
+    private fun printLog1() {
+        val stringBuilder = StringBuilder()
+        LogKMgr.getInstance().getPrinters().forEach { printer ->
+            stringBuilder.append(printer.getName() + ", ")
+        }
+        LogK.dt(TAG, stringBuilder)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LogKMgr.getInstance().addPrinter(_printerView!!)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LogKMgr.getInstance().removePrinter(_printerView!!)
     }
 }

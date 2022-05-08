@@ -1,14 +1,20 @@
 package com.mozhimen.app
 
 import android.util.Log
-import com.google.gson.Gson
-import com.mozhimen.basicsk.crashk.CrashK
-import com.mozhimen.basicsk.crashk.CrashKCallback
-import com.mozhimen.basicsk.logk.LogKManager
-import com.mozhimen.basicsk.logk.helpers.ConsolePrinter
+import com.mozhimen.app.componentk.guidek.fragment.HomeFragment
+import com.mozhimen.basicsk.basek.BaseKApplication
+import com.mozhimen.basicsk.crashk.commons.ICrashKListener
+import com.mozhimen.basicsk.extsk.e
+import com.mozhimen.basicsk.extsk.toJson
+import com.mozhimen.basicsk.logk.LogKMgr
 import com.mozhimen.basicsk.logk.mos.LogKConfig
-import com.mozhimen.basicsk.stackk.StackK
-import com.mozhimen.componentk.basek.BaseKApplication
+import com.mozhimen.basicsk.logk.printers.PrinterConsole
+import com.mozhimen.basicsk.logk.printers.PrinterFile
+import com.mozhimen.basicsk.stackk.StackKMgr
+import com.mozhimen.componentk.guidek.GuideK
+import com.mozhimen.componentk.guidek.GuideKMgr
+import com.mozhimen.componentk.guidek.mos.*
+import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
 
 /**
  * @ClassName MainApplication
@@ -21,24 +27,44 @@ class MainApplication : BaseKApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        //stackk
-        StackK.instance.init()
-
-        //crashk
-        CrashK.instance.init(_crashKCallback)
-
         //logk
-        LogKManager.init(
-            logkConfig,
-            ConsolePrinter()/*, FilePrinter.getInstance(applicationContext.cacheDir.absolutePath, 0)*/
-        )
+        LogKMgr.init(_logkConfig, PrinterConsole(), PrinterFile.getInstance())
+
+        //stackk
+        StackKMgr.instance.init()
+
+        //guidek
+        GuideKMgr.instance.init(_config)
     }
 
-    private val logkConfig = object : LogKConfig() {
-        override fun injectJsonParser(): JsonParser {
-            return object : JsonParser {
+    private val _config = GuideKPkgConfig(
+        0,
+        arrayListOf(
+            GuideKPkgPage(
+                GuideKPageInfo(
+                    "com.mozhimen.app.componentk.guidek.fragment.HomeFragment",
+                    "fragment",
+                    0,
+                    GuideK.getHashCode(HomeFragment::class.java),
+                    "main/guidek/home"
+                ),
+                TabKBottomMo(
+                    "首页",
+                    "fonts/iconfont.ttf",
+                    "&#xe98d;",
+                    "&#xe98d;",
+                    "#ff000000",
+                    "#ff287FF1"
+                )
+            )
+        )
+    )
+
+    private val _logkConfig = object : LogKConfig() {
+        override fun injectJsonParser(): IJsonParser {
+            return object : IJsonParser {
                 override fun toJson(src: Any): String {
-                    return Gson().toJson(src)
+                    return src.toJson()
                 }
             }
         }
@@ -56,15 +82,15 @@ class MainApplication : BaseKApplication() {
         }
 
         override fun stackTraceDepth(): Int {
-            return 5
+            return 0
         }
     }
 
-    private val _crashKCallback = object : CrashKCallback {
+    private val _crashKCallback = object : ICrashKListener {
         override fun onGetMessage(msg: String?) {
             msg?.let {
 
-            } ?: Log.e(TAG, "Ops! A crash happened, but i didn't get it messages")
+            } ?: "Ops! A crash happened, but i didn't get it messages".e()
         }
     }
 }

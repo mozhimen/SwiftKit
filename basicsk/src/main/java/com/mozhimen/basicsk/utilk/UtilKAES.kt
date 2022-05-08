@@ -43,73 +43,83 @@ object UtilKAES {
     private const val CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding"
 
     //endregion
-    private var keyAlgorithm = KEY_ALGORITHM
+    private var _keyAlgorithm = KEY_ALGORITHM
 
-    private var secureKeyLength = SECURE_KEY_LENGTH
+    private var _secureKeyLength = SECURE_KEY_LENGTH
 
-    private var defaultFill = DEFAULT_FILL
+    private var _defaultFill = DEFAULT_FILL
 
     @RequiresApi(Build.VERSION_CODES.KITKAT)
-    private var charset = CHARSET_UTF8
+    private var _charset = CHARSET_UTF8
 
-    private var cipherAlgorithm = CIPHER_ALGORITHM
+    private var _cipherAlgorithm = CIPHER_ALGORITHM
 
     //key
-    private var secureKey: String? = null
+    private var _secureKey: String? = null
 
     //IV
-    private var ivString: String? = null
+    private var _ivString: String? = null
 
+    /**
+     * 默认参数配置
+     * @param secureKey String
+     * @param _ivString String
+     * @param keyAlgorithm String?
+     * @param secureKeyLength Int?
+     * @param defaultFill String?
+     * @param charset Charset?
+     * @param cipherAlgorithm String?
+     * @return UtilKAES
+     */
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun require(
-        secureKey: String, ivString: String,
+        secureKey: String, _ivString: String,
         keyAlgorithm: String? = KEY_ALGORITHM,
         secureKeyLength: Int? = SECURE_KEY_LENGTH,
         defaultFill: String? = DEFAULT_FILL,
         charset: Charset? = CHARSET_UTF8,
         cipherAlgorithm: String? = CIPHER_ALGORITHM
     ): UtilKAES {
-        this.secureKey = secureKey
-        this.ivString = ivString
+        this._secureKey = secureKey
+        this._ivString = _ivString
         keyAlgorithm?.let {
-            this.keyAlgorithm = it
+            this._keyAlgorithm = it
         }
         secureKeyLength?.let {
-            this.secureKeyLength = it
+            this._secureKeyLength = it
         }
         defaultFill?.let {
-            this.defaultFill = it
+            this._defaultFill = it
         }
         charset?.let {
-            this.charset = it
+            this._charset = it
         }
         cipherAlgorithm?.let {
-            this.cipherAlgorithm = it
+            this._cipherAlgorithm = it
         }
         return this
     }
 
     /**
      * 采用AES128加密
-     *
-     * @param content 要加密的内容
-     * @return
+     * @param content String 要加密的内容
+     * @return String?
      */
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun encrypt(content: String): String? {
-        require(secureKey != null && ivString != null) {
-            "secureKey or ivString must not be null"
+        require(_secureKey != null && _ivString != null) {
+            "secureKey or _ivString must not be null"
         }
 
         try {
             // 获得密匙数据
-            val rawKeyData = getAESKey(secureKey!!)
+            val rawKeyData = getAESKey(_secureKey!!)
             // 从原始密匙数据创建KeySpec对象
-            val key = SecretKeySpec(rawKeyData, keyAlgorithm)
+            val key = SecretKeySpec(rawKeyData, _keyAlgorithm)
             // Cipher对象实际完成加密操作
-            val cipher = Cipher.getInstance(cipherAlgorithm)
+            val cipher = Cipher.getInstance(_cipherAlgorithm)
             // 用密匙初始化Cipher对象
-            val ivParameterSpec = IvParameterSpec(ivString!!.toByteArray())
+            val ivParameterSpec = IvParameterSpec(_ivString!!.toByteArray())
             cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec)
             // 正式执行加密操作
             val encryptByte = cipher.doFinal(content.toByteArray())
@@ -133,19 +143,15 @@ object UtilKAES {
     }
 
     /**
-     * 采用AES128解密
-     *
-     * @param content
-     * @param secureKey
-     * @return
-     * @throws Exception
-     * ,Exception
-     * @throws Exception
+     * 采用AES128解密,API>=19
+     * @param content String
+     * @param secureKey String
+     * @return String?
      */
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     fun decrypt(content: String, secureKey: String): String? {
-        require(UtilKAES.secureKey != null && ivString != null) {
-            "secureKey or ivString must not be null"
+        require(_secureKey != null && _ivString != null) {
+            "secureKey or _ivString must not be null"
         }
 
         val data: ByteArray = Base64.decode(content, Base64.NO_WRAP)
@@ -153,14 +159,14 @@ object UtilKAES {
             // 获得密匙数据
             val rawKeyData = getAESKey(secureKey) // secureKey.getBytes();
             // 从原始密匙数据创建一个KeySpec对象
-            val key = SecretKeySpec(rawKeyData, keyAlgorithm)
+            val key = SecretKeySpec(rawKeyData, _keyAlgorithm)
             // Cipher对象实际完成解密操作
-            val cipher = Cipher.getInstance(cipherAlgorithm)
+            val cipher = Cipher.getInstance(_cipherAlgorithm)
             // 用密匙初始化Cipher对象
-            val initParam = ivString!!.toByteArray()
+            val initParam = _ivString!!.toByteArray()
             val ivParameterSpec = IvParameterSpec(initParam)
             cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec)
-            return String(cipher.doFinal(data), charset)
+            return String(cipher.doFinal(data), _charset)
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
         } catch (e: NoSuchAlgorithmException) {
@@ -179,14 +185,20 @@ object UtilKAES {
         return null
     }
 
+    /**
+     * API>=19
+     * @param key String
+     * @return ByteArray
+     * @throws UnsupportedEncodingException
+     */
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     @Throws(UnsupportedEncodingException::class)
     fun getAESKey(key: String): ByteArray {
-        val keyBytes: ByteArray = key.toByteArray(charset)
-        val keyBytes16 = ByteArray(secureKeyLength)
+        val keyBytes: ByteArray = key.toByteArray(_charset)
+        val keyBytes16 = ByteArray(_secureKeyLength)
         System.arraycopy(
             keyBytes, 0, keyBytes16, 0,
-            keyBytes.size.coerceAtMost(secureKeyLength)
+            keyBytes.size.coerceAtMost(_secureKeyLength)
         )
         return keyBytes16
     }

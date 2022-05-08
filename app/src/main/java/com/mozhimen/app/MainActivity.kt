@@ -8,6 +8,7 @@ import com.mozhimen.app.basicsk.BasicsKActivity
 import com.mozhimen.app.componentk.ComponentKActivity
 import com.mozhimen.app.demo.DemoActivity
 import com.mozhimen.app.uicorek.UICoreKActivity
+import com.mozhimen.basicsk.extsk.start
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,18 +17,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goDemo(view: View) {
-        startActivity(Intent(this, DemoActivity::class.java))
+        start<DemoActivity>()
     }
 
     fun goComponentK(view: View) {
-        startActivity(Intent(this, ComponentKActivity::class.java))
+        start<ComponentKActivity>()
     }
 
     fun goBasicsK(view: View) {
-        startActivity(Intent(this, BasicsKActivity::class.java))
+        start<BasicsKActivity>()
     }
 
     fun goUICoreK(view: View) {
-        startActivity(Intent(this, UICoreKActivity::class.java))
+        start<UICoreKActivity>()
     }
 }

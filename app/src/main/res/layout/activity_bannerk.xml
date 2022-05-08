@@ -9,38 +9,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mozhimen.uicorek.bannerk.BannerK
-            android:id="@+id/bannerk"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="@android:color/darker_gray"
-            app:bannerK_autoPlay="false"
-            app:bannerK_loop="true"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/bannerk_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="切换指示器"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bannerk"
-            tools:ignore="HardcodedText" />
+            <com.mozhimen.uicorek.bannerk.BannerK
+                android:id="@+id/bannerk_container"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@android:color/darker_gray"
+                app:bannerK_autoPlay="false"
+                app:bannerK_loop="true"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Switch
-            android:id="@+id/bannerk_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="50dp"
-            android:text="是否自动播放"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toRightOf="@id/bannerk_indicator"
-            app:layout_constraintTop_toBottomOf="@id/bannerk"
-            tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/bannerk_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="切换指示器"
+                    android:textColor="@color/blue_theme"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+
+                <Switch
+                    android:id="@+id/bannerk_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="是否自动播放"
+                    android:textColor="@color/blue_theme"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText,UseSwitchCompatOrMaterialXml" />
+            </LinearLayout>
+
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

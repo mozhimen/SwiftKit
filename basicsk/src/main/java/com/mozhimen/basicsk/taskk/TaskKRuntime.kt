@@ -4,11 +4,11 @@ import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basicsk.BuildConfig
 import com.mozhimen.basicsk.executork.ExecutorK
-import com.mozhimen.basicsk.taskk.commons.TaskKRuntimeListener
+import com.mozhimen.basicsk.extsk.postDelayed
+import com.mozhimen.basicsk.taskk.commons.ITaskKRuntimeListener
 import com.mozhimen.basicsk.taskk.helpers.TaskKComparator
 import com.mozhimen.basicsk.taskk.mos.TaskKRuntimeInfo
-import com.mozhimen.basicsk.utilk.UtilKMHandler
-import com.mozhimen.basicsk.utilk.UtilKUIHandler
+import com.mozhimen.basicsk.utilk.UtilKHandler
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -100,7 +100,7 @@ internal object TaskKRuntime {
                 head.run()
             } else {
                 for (waitingTask in waitingTasks) {
-                    UtilKMHandler.instance.postDelay(waitingTask.delayMills, waitingTask)
+                    UtilKHandler(this).postDelayed(waitingTask.delayMills, waitingTask)
                 }
                 waitingTasks.clear()
             }
@@ -116,7 +116,7 @@ internal object TaskKRuntime {
             //else里面的都是在主线程执行的
             //延迟任务，但是如果这个延迟任务它存在着后置任务A(延迟任务)-->B--->C (Block task)
             if (taskK.delayMills > 0 && !hasBlockBehindTask(taskK)) {
-                UtilKMHandler.instance.postDelay(taskK.delayMills, taskK)
+                UtilKHandler(this).postDelayed(taskK.delayMills, taskK)
                 return
             }
             if (!hasBlockTasks()) {
@@ -215,7 +215,7 @@ internal object TaskKRuntime {
                     builder.append(iterator.next().id)
                     builder.append("--> ")
                 }
-                Log.e(TaskKRuntimeListener.TAG, builder.toString())
+                Log.e(ITaskKRuntimeListener.TAG, builder.toString())
             }
             innerTraversalDependencyTreeAndInit(behindTask, traversalVisitor)
             traversalVisitor.remove(behindTask)

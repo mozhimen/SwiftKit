@@ -1,7 +1,7 @@
 package com.mozhimen.abilityk.restfulk
 
-import com.mozhimen.abilityk.restfulk.commons.CallK
-import com.mozhimen.abilityk.restfulk.commons.InterceptorK
+import com.mozhimen.abilityk.restfulk.commons._ICall
+import com.mozhimen.abilityk.restfulk.commons._Interceptor
 import com.mozhimen.abilityk.restfulk.helpers.MethodParser
 import com.mozhimen.abilityk.restfulk.helpers.Scheduler
 import java.lang.reflect.InvocationHandler
@@ -18,16 +18,16 @@ import java.util.concurrent.ConcurrentHashMap
  */
 open class RESTfulK constructor(
     private val baseUrl: String,
-    private val callFactory: CallK.Factory
+    private val ICallIFactory: _ICall.IFactory
 ) {
-    private var interceptors = mutableListOf<InterceptorK>()
+    private var interceptors = mutableListOf<_Interceptor>()
     private var methodService = ConcurrentHashMap<Method, MethodParser>()
     private val schedulerK by lazy {
-        Scheduler(callFactory, interceptors)
+        Scheduler(ICallIFactory, interceptors)
     }
 
-    fun addIntercept(interceptorK: InterceptorK) {
-        interceptors.add(interceptorK)
+    fun addIntercept(InterceptorK: _Interceptor) {
+        interceptors.add(InterceptorK)
     }
 
     /**

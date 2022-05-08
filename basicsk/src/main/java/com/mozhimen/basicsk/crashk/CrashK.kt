@@ -10,6 +10,7 @@ import android.os.Looper
 import android.os.Process
 import android.util.Log
 import android.widget.Toast
+import com.mozhimen.basicsk.crashk.commons.ICrashKListener
 import com.mozhimen.basicsk.utilk.UtilKGlobal
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -39,7 +40,7 @@ class CrashK private constructor() : Thread.UncaughtExceptionHandler {
 
     private var _logFileName: String? = null
 
-    private var _crashKCallback: CrashKCallback? = null
+    private var _I_crashKListener: ICrashKListener? = null
 
     companion object {
         @JvmStatic
@@ -51,11 +52,11 @@ class CrashK private constructor() : Thread.UncaughtExceptionHandler {
 
     //初始化
     fun init(
-        crashKCallback: CrashKCallback
+        ICrashKListener: ICrashKListener
     ) {
         _context = UtilKGlobal.instance.getApp()!!
         _clcCallback = CrashKLifeCycleCallback()
-        _crashKCallback = crashKCallback
+        _I_crashKListener = ICrashKListener
         _exceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
         _context.registerActivityLifecycleCallbacks(_clcCallback)
         Thread.setDefaultUncaughtExceptionHandler(this)
@@ -128,7 +129,7 @@ class CrashK private constructor() : Thread.UncaughtExceptionHandler {
         _logFileName = saveCrashInfo2File(ex)
 
         // 上传或其他处理外放
-        _crashKCallback?.onGetMessage(_logFileName)
+        _I_crashKListener?.onGetMessage(_logFileName)
 
         return true
     }

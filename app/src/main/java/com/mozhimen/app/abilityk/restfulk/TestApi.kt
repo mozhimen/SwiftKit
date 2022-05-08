@@ -1,8 +1,8 @@
 package com.mozhimen.app.abilityk.restfulk
 
-import com.mozhimen.abilityk.restfulk.annors.Field
-import com.mozhimen.abilityk.restfulk.annors.methods.GET
-import com.mozhimen.abilityk.restfulk.commons.CallK
+import com.mozhimen.abilityk.restfulk.annors._Field
+import com.mozhimen.abilityk.restfulk.annors.methods._GET
+import com.mozhimen.abilityk.restfulk.commons._ICall
 import org.json.JSONObject
 
 /**
@@ -13,6 +13,6 @@ import org.json.JSONObject
  * @Version 1.0
  */
 interface TestApi {
-    @GET("xxx")
-    fun listCities(@Field("name") name: String): CallK<JSONObject>
+    @_GET("xxx")
+    fun listCities(@_Field("name") name: String): _ICall<JSONObject>
 }

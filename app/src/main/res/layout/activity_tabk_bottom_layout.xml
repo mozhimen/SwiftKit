@@ -21,71 +21,70 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ff563d"
-                    android:text="TabMkBottom"
-                    android:textColor="@android:color/white"
-                    android:textSize="20dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_light"
+                    android:text="item"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="20sp"
                     tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ff563d"
-                    android:text="TabMkBottom"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_theme"
+                    android:text="item"
                     android:textColor="@android:color/white"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ff563d"
-                    android:text="TabMkBottom"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_normal"
+                    android:text="item"
                     android:textColor="@android:color/white"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ff563d"
-                    android:text="TabMkBottom"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_dark"
+                    android:text="item"
                     android:textColor="@android:color/white"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ff563d"
-                    android:text="TabMkBottom"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_normal"
+                    android:text="item"
                     android:textColor="@android:color/white"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ff563d"
-                    android:text="TabMkBottom"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_theme"
+                    android:text="item"
                     android:textColor="@android:color/white"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     tools:ignore="HardcodedText" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#ff563d"
-                    android:text="TabMkBottom"
-                    android:textColor="@android:color/white"
-                    android:textSize="20dp"
+                    android:background="@color/blue_light"
+                    android:text="item"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="20sp"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
         </ScrollView>

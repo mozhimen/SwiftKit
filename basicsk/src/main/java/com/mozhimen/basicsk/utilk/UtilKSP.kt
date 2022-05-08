@@ -26,6 +26,11 @@ class UtilKSP {
     private val spMap = ConcurrentHashMap<String, SharedPreferences>()
     private lateinit var _preferences: SharedPreferences
 
+    /**
+     * 携带sp名称
+     * @param preferencesName String
+     * @return UtilKSP
+     */
     fun with(preferencesName: String): UtilKSP {
         _preferences = if (spMap[preferencesName] != null && spMap.containsKey(preferencesName)) {
             spMap[preferencesName]!!

@@ -4,16 +4,24 @@
 
     <data />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".logk.LogKActivity">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_log"
+            android:id="@+id/logk_btn_print"
             style="@style/Btn"
             android:layout_gravity="center"
-            android:text="Print Log"
+            android:text="打印日志"
             tools:ignore="HardcodedText" />
-    </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logk_btn_printer_list"
+            style="@style/Btn"
+            android:layout_gravity="center"
+            android:text="打印printers列表"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
 </layout>

@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:layout_marginTop="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:id="@+id/datak_item_tab_img"
+    <data />
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@mipmap/datak_item_tab" />
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/datak_item_tab_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@mipmap/datak_item_tab" />
+
+    </FrameLayout>
+</layout>

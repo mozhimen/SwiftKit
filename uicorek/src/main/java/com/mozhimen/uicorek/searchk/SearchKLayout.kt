@@ -9,18 +9,17 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
-import com.mozhimen.basicsk.utilk.UtilKMHandler
-import com.mozhimen.basicsk.utilk.setPaddingHorizontal
+import com.mozhimen.basicsk.extsk.setPaddingHorizontal
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.uicorek.textk.TextKIconFont
-import com.mozhimen.basicsk.utilk.setPadding
+import com.mozhimen.basicsk.extsk.setPadding
+import com.mozhimen.basicsk.utilk.UtilKHandler
+import com.mozhimen.basicsk.basek.commons.IBaseKLayout
 
 /**
  * @ClassName SearchKLayout
@@ -31,7 +30,7 @@ import com.mozhimen.basicsk.utilk.setPadding
  */
 class SearchKLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : RelativeLayout(context, attrs, defStyleAttr), ILayoutK {
+) : RelativeLayout(context, attrs, defStyleAttr), IBaseKLayout {
 
     private val _attrs: SearchKAttrs =
         SearchKAttrsParser.parseSearchViewAttrs(context, attrs, defStyleAttr)
@@ -117,13 +116,13 @@ class SearchKLayout @JvmOverloads constructor(
     override fun initView() {
         background = _attrs.searchBackground
         _editText?.addTextChangedListener(object : SearchKTextWatcher() {
-            override fun afterTextChanged(et: Editable?) {
-                val hasContent = et?.trim()?.length ?: 0 > 0
+            override fun afterTextChanged(p0: Editable?) {
+                val hasContent = p0?.trim()?.length ?: 0 > 0
                 changeVisibility(_clearIcon, hasContent)
                 changeVisibility(_searchIconHintContainer, !hasContent)
                 if (_searchKTextWatcher != null) {
-                    UtilKMHandler.instance.remove(_debounceRunnable)
-                    UtilKMHandler.instance.postDelay(DEBOUNCE_TRIGGER_DURATION, _debounceRunnable)
+                    UtilKHandler(this@SearchKLayout).removeCallbacks(_debounceRunnable)
+                    UtilKHandler(this@SearchKLayout).postDelayed(_debounceRunnable, DEBOUNCE_TRIGGER_DURATION)
                 }
             }
         })
@@ -236,7 +235,10 @@ class SearchKLayout @JvmOverloads constructor(
         if (_keywordIcon != null) {
             _keywordContainer?.addView(
                 _keywordIcon,
-                LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
             )
         }
 
@@ -250,6 +252,6 @@ class SearchKLayout @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        UtilKMHandler.instance.remove(_debounceRunnable)
+        UtilKHandler(this).removeCallbacks(_debounceRunnable)
     }
 }

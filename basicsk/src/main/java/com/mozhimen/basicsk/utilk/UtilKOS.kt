@@ -2,10 +2,11 @@ package com.mozhimen.basicsk.utilk
 
 import android.os.Build
 import android.text.TextUtils
-import android.util.Log
+import com.mozhimen.basicsk.logk.LogK
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.util.*
 
 /**
  * @ClassName OSUtil
@@ -15,7 +16,7 @@ import java.io.InputStreamReader
  * @Version 1.0
  */
 object UtilKOS {
-    private const val TAG = "UtilKOS>>>>>"
+    private val TAG = "UtilKOS>>>>>"
 
     private const val ROM_EMUI = "EMUI"
     private const val ROM_MIUI = "MIUI"
@@ -31,60 +32,88 @@ object UtilKOS {
     private const val KEY_VERSION_SMARTISAN = "ro.smartisan.version"
     private const val KEY_VERSION_VIVO = "ro.vivo.os.version"
 
-    private var xName: String? = null
-    private var xVersion: String? = null
+    private var _name: String? = null
+    private var _version: String? = null
 
+    /**
+     * 是否是Emui系统
+     * @return Boolean
+     */
     fun isEmui(): Boolean {
         return check(ROM_EMUI)
     }
 
+    /**
+     * 是否是Miui系统
+     * @return Boolean
+     */
     fun isMiui(): Boolean {
         return check(ROM_MIUI)
     }
 
+    /**
+     * 是否是Vivo系统
+     * @return Boolean
+     */
     fun isVivo(): Boolean {
         return check(ROM_VIVO)
     }
 
+    /**
+     * 是否是Oppo系统
+     * @return Boolean
+     */
     fun isOppo(): Boolean {
         return check(ROM_OPPO)
     }
 
+    /**
+     * 是否是Flyme系统
+     * @return Boolean
+     */
     fun isFlyme(): Boolean {
         return check(ROM_FLYME)
     }
 
+    /**
+     * 是否是360系统
+     * @return Boolean
+     */
     fun is360(): Boolean {
         return check(ROM_QIKU) || check("360")
     }
 
+    /**
+     * 是否是Smartisan系统
+     * @return Boolean
+     */
     fun isSmartisan(): Boolean {
         return check(ROM_SMARTISAN)
     }
 
     private fun check(rom: String): Boolean {
-        xName?.let { return xName == rom }
+        _name?.let { return _name == rom }
 
-        if (!TextUtils.isEmpty(getProp(KEY_VERSION_MIUI).also { xVersion = it })) {
-            xName = ROM_MIUI
-        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_EMUI).also { xVersion = it })) {
-            xName = ROM_EMUI
-        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_OPPO).also { xVersion = it })) {
-            xName = ROM_OPPO
-        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_VIVO).also { xVersion = it })) {
-            xName = ROM_VIVO
-        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_SMARTISAN).also { xVersion = it })) {
-            xName = ROM_SMARTISAN
+        if (!TextUtils.isEmpty(getProp(KEY_VERSION_MIUI).also { _version = it })) {
+            _name = ROM_MIUI
+        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_EMUI).also { _version = it })) {
+            _name = ROM_EMUI
+        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_OPPO).also { _version = it })) {
+            _name = ROM_OPPO
+        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_VIVO).also { _version = it })) {
+            _name = ROM_VIVO
+        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_SMARTISAN).also { _version = it })) {
+            _name = ROM_SMARTISAN
         } else {
-            xVersion = Build.DISPLAY
-            if (xVersion?.toUpperCase()!!.contains(ROM_FLYME)) {
-                xName = ROM_FLYME
+            _version = Build.DISPLAY
+            if (_version?.uppercase(Locale.getDefault())!!.contains(ROM_FLYME)) {
+                _name = ROM_FLYME
             } else {
-                xVersion = Build.UNKNOWN
-                xName = Build.MANUFACTURER.toUpperCase()
+                _version = Build.UNKNOWN
+                _name = Build.MANUFACTURER.toUpperCase()
             }
         }
-        return xName == rom
+        return _name == rom
     }
 
     private fun getProp(name: String): String? {
@@ -96,7 +125,7 @@ object UtilKOS {
             line = input.readLine()
             input.close()
         } catch (ex: IOException) {
-            Log.e(TAG, "Unable to read prop $name", ex)
+            LogK.et(TAG, "Unable to read prop $name", ex)
             return null
         } finally {
             input?.let {

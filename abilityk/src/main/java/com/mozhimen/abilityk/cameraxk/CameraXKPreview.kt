@@ -46,12 +46,16 @@ import kotlin.properties.Delegates
  */
 @SuppressLint("LongLogTag")
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-class CameraXKPreviewView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class CameraXKPreviewView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) :
     FrameLayout(context, attrs, defStyleAttr) {
 
-    companion object {
-        private const val TAG = "CameraXKPreviewView>>>>>"
+    private val TAG = "CameraXKPreviewView>>>>>"
 
+    companion object {
         private const val RATIO_4_3_VALUE = 4.0 / 3.0 // aspect ratio 4x3
         private const val RATIO_16_9_VALUE = 16.0 / 9.0 // aspect ratio 16x9
     }
@@ -122,8 +126,10 @@ class CameraXKPreviewView @JvmOverloads constructor(context: Context, attrs: Att
     private var cameraXKListener: ICameraXKListener? = null
     private var lifecycleOwner: LifecycleOwner? = null
     private var imageLoader: ImageAnalysis.Analyzer? = null
-    private var lensFacing = CameraSelector.DEFAULT_BACK_CAMERA// Selector showing which camera is selected (front or back)
-    private var isOpenHdr = false// Selector showing is hdr enabled or not (will work, only if device's camera supports hdr on hardware level)
+    private var lensFacing =
+        CameraSelector.DEFAULT_BACK_CAMERA// Selector showing which camera is selected (front or back)
+    private var isOpenHdr =
+        false// Selector showing is hdr enabled or not (will work, only if device's camera supports hdr on hardware level)
     private var selectedTimer = CameraXKTimer.OFF
 
     init {
@@ -257,7 +263,12 @@ class CameraXKPreviewView @JvmOverloads constructor(context: Context, attrs: Att
                 // check for any extension availability
                 println("AUTO " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.AUTO))
                 println("HDR " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.HDR))
-                println("FACE RETOUCH " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.FACE_RETOUCH))
+                println(
+                    "FACE RETOUCH " + extensionsManager.isExtensionAvailable(
+                        lensFacing,
+                        ExtensionMode.FACE_RETOUCH
+                    )
+                )
                 println("BOKEH " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.BOKEH))
                 println("NIGHT " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.NIGHT))
                 println("NONE " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.NONE))

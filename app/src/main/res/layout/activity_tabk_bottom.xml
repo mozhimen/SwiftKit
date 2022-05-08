@@ -3,13 +3,36 @@
 
     <data />
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mozhimen.uicorek.tabk.bottom.TabKBottom
-            android:id="@+id/tabk_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+            <com.mozhimen.uicorek.tabk.bottom.TabKBottomItem
+                android:id="@+id/tabk_bottom_home"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/blue_normal" />
+
+            <com.mozhimen.uicorek.tabk.bottom.TabKBottomItem
+                android:id="@+id/tabk_bottom_more"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/blue_dark"  />
+
+            <com.mozhimen.uicorek.tabk.bottom.TabKBottomItem
+                android:id="@+id/tabk_bottom_mine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/blue_normal" />
+        </LinearLayout>
+    </FrameLayout>
 </layout>

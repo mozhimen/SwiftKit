@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mozhimen.basicsk.basek.BaseKLayoutLinear
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.itemk.ItemKViewHolder
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 
 /**
  * @ClassName SliderKLayout
@@ -25,7 +25,7 @@ import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
  */
 @SuppressLint("ResourceAsColor")
 class SliderKLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    LayoutKLinear(context, attrs, defStyleAttr) {
+    BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
     private val menuView = RecyclerView(context)
     private val contentView = RecyclerView(context)

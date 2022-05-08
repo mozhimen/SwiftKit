@@ -10,8 +10,10 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basicsk.extsk.sp2px
+import com.mozhimen.basicsk.basek.BaseKLayoutLinear
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 
 /**
  * @ClassName TextKTextForm
@@ -23,7 +25,7 @@ import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 typealias OnFormClick = (View) -> Unit
 
 class TextKTextForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    LayoutKLinear(context, attrs, defStyleAttr) {
+    BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
     private var mTextHint: String? = null
     private var mOnFormClick: OnFormClick? = null

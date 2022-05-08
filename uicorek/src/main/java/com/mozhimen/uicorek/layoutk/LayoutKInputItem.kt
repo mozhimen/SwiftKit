@@ -13,8 +13,9 @@ import android.view.Gravity
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.mozhimen.basicsk.extsk.sp2px
+import com.mozhimen.basicsk.basek.BaseKLayoutLinear
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 
 /**
  * @ClassName LayoutKInputItem
@@ -24,7 +25,7 @@ import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
  * @Version 1.0
  */
 open class LayoutKInputItem(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) :
-    LayoutKLinear(context, attrs, defStyleAttr) {
+    BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
     private lateinit var editText: EditText
     private lateinit var titleView: TextView
@@ -140,7 +141,7 @@ open class LayoutKInputItem(context: Context, attrs: AttributeSet?, defStyleAttr
         //px
         val textSize = typedArray.getDimensionPixelSize(
             R.styleable.LayoutKInputItemInputTextAppearance_layoutKInputItem_textSize,
-            15f.sp2px().toInt()
+            15f.sp2px()
         )
 
         val maxInputLength =
@@ -190,7 +191,7 @@ open class LayoutKInputItem(context: Context, attrs: AttributeSet?, defStyleAttr
         )
         val titleSize = typedArray.getDimensionPixelSize(
             R.styleable.LayoutKInputItemTitleTextAppearance_layoutKInputItem_titleSize,
-            15f.sp2px().toInt()
+            15f.sp2px()
         )
         val minWidth = typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItemTitleTextAppearance_layoutKInputItem_minWidth, 0)
 

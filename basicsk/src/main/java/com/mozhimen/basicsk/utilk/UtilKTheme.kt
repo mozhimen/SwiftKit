@@ -10,7 +10,10 @@ import android.content.res.Configuration
  * @Version 1.0
  */
 object UtilKTheme {
-    //检测是否是浅色主题
+    /**
+     * 检测是否是浅色主题
+     * @return Boolean
+     */
     fun isLightMode(): Boolean {
         val mode = UtilKGlobal.instance.getApp()!!.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return mode == Configuration.UI_MODE_NIGHT_NO

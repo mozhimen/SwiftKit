@@ -1,7 +1,6 @@
 package com.mozhimen.basicsk.logk.mos
 
-import java.text.SimpleDateFormat
-import java.util.*
+import com.mozhimen.basicsk.utilk.UtilKDate
 
 /**
  * @ClassName LogKMo
@@ -10,18 +9,16 @@ import java.util.*
  * @Date 2021/12/20 16:46
  * @Version 1.0
  */
-class LogKMo(var timeMillis: Long, var level: Int, var tag: String, var log: String) {
-    private val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA)
+class LogKMo(private var timeMillis: Long, var level: Int, var tag: String, var log: String) {
 
-    fun flattenedLog(): String {
-        return getFlattened() + "\n" + log
-    }
+    fun flattenedLog(): String =
+        getFlattened() + "\n" + log
 
-    fun getFlattened(): String {
-        return format(timeMillis) + '|' + level + '|' + tag + "|:"
-    }
-
-    private fun format(timeMillis: Long): String {
-        return sdf.format(timeMillis)
-    }
+    fun getFlattened(): String =
+        "${
+            UtilKDate.long2String(
+                timeMillis,
+                UtilKDate.FORMAT_yyyyMMddHHmmss
+            )
+        } | Level: ${LogKType.getTypeName(level)} | Tag: $tag :"
 }

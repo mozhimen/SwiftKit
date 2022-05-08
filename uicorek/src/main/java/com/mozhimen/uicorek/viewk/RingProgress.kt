@@ -2,7 +2,7 @@ package com.mozhimen.uicorek.viewk
 
 import android.content.Context
 import android.util.AttributeSet
-import com.mozhimen.uicorek.viewk.commons.ViewK
+import com.mozhimen.basicsk.basek.BaseKView
 
 /**
  * @ClassName RingProgress
@@ -12,7 +12,7 @@ import com.mozhimen.uicorek.viewk.commons.ViewK
  * @Version 1.0
  */
 class RingProgress @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ViewK(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr) {
 
     /*//region # variate
     private var progressStartColor = 0xFFFFFF

@@ -22,6 +22,10 @@ class UtilKVibrate {
 
     private var vibrator: Vibrator? = null
 
+    /**
+     * 震动
+     * @param duration Long
+     */
     fun start(duration: Long = 200L) {
         if (vibrator == null) {
             vibrator =
@@ -31,6 +35,9 @@ class UtilKVibrate {
         vibrator!!.vibrate(duration)
     }
 
+    /**
+     * 停止
+     */
     fun stop() {
         vibrator?.cancel()
         vibrator = null

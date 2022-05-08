@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.R
+import com.mozhimen.app.basicsk.basek.BaseKDemoActivity
 import com.mozhimen.app.basicsk.databusk.DataBusKActivity
 import com.mozhimen.app.basicsk.executork.ExecutorKActivity
 import com.mozhimen.app.basicsk.logk.LogKActivity
 import com.mozhimen.app.basicsk.permissionk.PermissionKActivity
 import com.mozhimen.app.basicsk.stackk.StackKActivity
+import com.mozhimen.app.basicsk.utilk.UtilKActivity
 import com.mozhimen.basicsk.databusk.DataBusK
 import com.mozhimen.basicsk.executork.ExecutorK
+import com.mozhimen.basicsk.extsk.start
 
 class BasicsKActivity : AppCompatActivity() {
 
@@ -20,26 +23,34 @@ class BasicsKActivity : AppCompatActivity() {
         setContentView(R.layout.activity_basicsk)
 
         //黏性事件测试
-        DataBusK.with<String>("stickyData").setStickyData("stickyData from ComponentKActivity")
-    }
-
-    fun goDataBusKActivity(view: View) {
-        startActivity(Intent(this, DataBusKActivity::class.java))
-    }
-
-    fun goPermissionKActivity(view: View) {
-        startActivity(Intent(this, PermissionKActivity::class.java))
-    }
-
-    fun goStackKActivity(view: View) {
-        startActivity(Intent(this, StackKActivity::class.java))
-    }
-
-    fun goExecutorKActivity(view: View) {
-        startActivity(Intent(this, ExecutorKActivity::class.java))
+        //DataBusK.with<String>("stickyData").setStickyData("stickyData from ComponentKActivity")
     }
 
     fun goLogKActivity(view: View) {
-        startActivity(Intent(this, LogKActivity::class.java))
+        start<LogKActivity>()
+    }
+
+    fun goStackKActivity(view: View) {
+        start<StackKActivity>()
+    }
+
+    fun goBaseKDemoActivity(view: View) {
+        start<BaseKDemoActivity>()
+    }
+
+    fun goDataBusKActivity(view: View) {
+        start<DataBusKActivity>()
+    }
+
+    fun goPermissionKActivity(view: View) {
+        start<PermissionKActivity>()
+    }
+
+    fun goExecutorKActivity(view: View) {
+        start<ExecutorKActivity>()
+    }
+
+    fun goUtilKActivity(view: View) {
+        start<UtilKActivity>()
     }
 }

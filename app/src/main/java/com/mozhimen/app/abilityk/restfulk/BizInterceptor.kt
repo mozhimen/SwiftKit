@@ -1,7 +1,7 @@
 package com.mozhimen.app.abilityk.restfulk
 
 import android.util.Log
-import com.mozhimen.abilityk.restfulk.commons.InterceptorK
+import com.mozhimen.abilityk.restfulk.commons._Interceptor
 
 /**
  * @ClassName BizInterceptor
@@ -10,16 +10,16 @@ import com.mozhimen.abilityk.restfulk.commons.InterceptorK
  * @Date 2021/12/13 22:07
  * @Version 1.0
  */
-class BizInterceptor : InterceptorK {
+class BizInterceptor : _Interceptor {
     private val TAG = "BizInterceptor>>>>>"
 
-    override fun intercept(chain: InterceptorK.Chain): Boolean {
-        if (chain.isRequestPeriod) {
-            val requestK = chain.request()
+    override fun intercept(IChain: _Interceptor.IChain): Boolean {
+        if (IChain.isRequestPeriod) {
+            val requestK = IChain.request()
             requestK.addHeaders("auth-token", "xxx")
-        } else if (chain.response() != null) {
-            Log.d(TAG, "intercept: ${chain.request().endPointUrl()}")
-            Log.d(TAG, "intercept: ${chain.response()!!.rawData}")
+        } else if (IChain.response() != null) {
+            Log.d(TAG, "intercept: ${IChain.request().endPointUrl()}")
+            Log.d(TAG, "intercept: ${IChain.response()!!.rawData}")
         }
         return false
     }

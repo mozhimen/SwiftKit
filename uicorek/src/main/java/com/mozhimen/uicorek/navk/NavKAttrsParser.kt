@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
+import com.mozhimen.basicsk.extsk.sp2px
 import com.mozhimen.basicsk.utilk.UtilKRes
-import com.mozhimen.basicsk.utilk.sp2px
 import com.mozhimen.uicorek.R
 
 /**

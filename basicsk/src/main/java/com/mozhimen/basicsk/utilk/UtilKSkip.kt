@@ -12,37 +12,23 @@ import android.os.Bundle
  * @Version 1.0
  */
 object UtilKSkip {
-    fun actionStart(
-        context: Context,
-        cls: Class<*>,
-        vararg data: Pair<String, Any> = emptyArray(),
-    ) {
-        val intent = Intent(context, cls).apply {
-            if (!data.isNullOrEmpty()) {
-                data.forEach { (key, value) ->
-                    when (value) {
-                        is String -> putExtra(key, value)
-                        is Int -> putExtra(key, value)
-                        is Byte -> putExtra(key, value)
-                        is Boolean -> putExtra(key, value)
-                        is Char -> putExtra(key, value)
-                        is Short -> putExtra(key, value)
-                        is Long -> putExtra(key, value)
-                        is Float -> putExtra(key, value)
-                        is Double -> putExtra(key, value)
-                        is Bundle -> putExtra(key, value)
-                        else -> {
-                            val valueType = value.javaClass.simpleName
-                            throw IllegalArgumentException("Illegal value type $valueType for key $key")
-                        }
-                    }
-                }
-            }
-        }
+    /**
+     * 不带参数的跳转
+     * @param context Context
+     * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
+     */
+    inline fun <reified T> start(context: Context, block: Intent.() -> Unit) {
+        val intent = Intent(context, T::class.java)
+        intent.block()
         context.startActivity(intent)
     }
-}
 
-fun Class<*>.start(context: Context) {
-    Intent(context, this)
+    /**
+     * 带参数的跳转
+     * @param context Context
+     */
+    inline fun <reified T> start(context: Context) {
+        val intent = Intent(context, T::class.java)
+        context.startActivity(intent)
+    }
 }

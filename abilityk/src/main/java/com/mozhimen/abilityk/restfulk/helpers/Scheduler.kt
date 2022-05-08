@@ -1,93 +1,91 @@
 package com.mozhimen.abilityk.restfulk.helpers
 
 import android.util.Log
-import com.mozhimen.abilityk.cachek.CacheK
-import com.mozhimen.abilityk.restfulk.annors.CacheStrategy
-import com.mozhimen.abilityk.restfulk.commons.CallK
-import com.mozhimen.abilityk.restfulk.commons.Callback
-import com.mozhimen.abilityk.restfulk.commons.InterceptorK
-import com.mozhimen.abilityk.restfulk.mos.RequestK
-import com.mozhimen.abilityk.restfulk.mos.ResponseK
+import com.mozhimen.basicsk.cachek.CacheK
+import com.mozhimen.abilityk.restfulk.annors._CacheStrategy
+import com.mozhimen.abilityk.restfulk.commons._ICall
+import com.mozhimen.abilityk.restfulk.commons._ICallback
+import com.mozhimen.abilityk.restfulk.commons._Interceptor
+import com.mozhimen.abilityk.restfulk.mos._Request
+import com.mozhimen.abilityk.restfulk.mos._Response
 import com.mozhimen.basicsk.executork.ExecutorK
-import com.mozhimen.basicsk.utilk.UtilKMHandler
+import com.mozhimen.basicsk.extsk.sendAtFrontOfQueue
+import com.mozhimen.basicsk.utilk.UtilKHandler
 
 /**
  * 代理CallFactory创建出来的Call对象, 从而实现拦截器的派发动作
  */
 class Scheduler(
-    private val callFactory: CallK.Factory,
-    private val interceptors: MutableList<InterceptorK>
+    private val ICallIFactory: _ICall.IFactory,
+    private val Interceptors: MutableList<_Interceptor>
 ) {
     private val TAG = "Scheduler>>>>>"
 
-    fun newCall(requestK: RequestK): CallK<*> {
-        val newCall: CallK<*> = callFactory.newCall(requestK)
-        return ProxyCall(newCall, requestK)
+    fun newCall(request: _Request): _ICall<*> {
+        val newICall: _ICall<*> = ICallIFactory.newCall(request)
+        return ProxyICall(newICall, request)
     }
 
-    internal inner class ProxyCall<T>(
-        private val delegate: CallK<T>,
-        private val requestK: RequestK
-    ) : CallK<T> {
-        override fun execute(): ResponseK<T> {
+    internal inner class ProxyICall<T>(
+        private val delegate: _ICall<T>,
+        private val requestK: _Request
+    ) : _ICall<T> {
+        override fun execute(): _Response<T> {
             dispatchInterceptor(requestK, null)
-            if (requestK.cacheStrategyK == CacheStrategy.CACHE_FIRST) {
+            if (requestK.cacheStrategyK == _CacheStrategy.CACHE_FIRST) {
                 val cacheResponseK = readCache<T>(requestK.getCacheKey())
                 if (cacheResponseK.data != null) {
                     return cacheResponseK
                 }
             }
 
-            val responseK = delegate.execute()
-            saveCacheIfNeed(responseK)
-            dispatchInterceptor(requestK, responseK)
-            return responseK
+            val response = delegate.execute()
+            saveCacheIfNeed(response)
+            dispatchInterceptor(requestK, response)
+            return response
         }
 
-        override fun enqueue(callback: Callback<T>) {
+        override fun enqueue(ICallback: _ICallback<T>) {
             dispatchInterceptor(requestK, null)
-            if (requestK.cacheStrategyK == CacheStrategy.CACHE_FIRST) {
+            if (requestK.cacheStrategyK == _CacheStrategy.CACHE_FIRST) {
                 ExecutorK.execute({
                     val cacheResponseK = readCache<T>(requestK.getCacheKey())
                     if (cacheResponseK.data != null) {
                         //抛到主线程
-                        UtilKMHandler.instance.sendAtFrontOfQueue {
-                            callback.onSuccess(cacheResponseK)
-                        }
-
+                        UtilKHandler(this@Scheduler).sendAtFrontOfQueue { ICallback.onSuccess(cacheResponseK) }
                         Log.d(TAG, "enqueue: cache: " + requestK.getCacheKey())
                     }
                 })
             }
 
-            delegate.enqueue(object : Callback<T> {
-                override fun onSuccess(responseK: ResponseK<T>) {
-                    dispatchInterceptor(requestK, responseK)
-                    saveCacheIfNeed(responseK)
-                    callback.onSuccess(responseK)
+            delegate.enqueue(object : _ICallback<T> {
+                override fun onSuccess(response: _Response<T>) {
+                    dispatchInterceptor(requestK, response)
+                    saveCacheIfNeed(response)
+                    ICallback.onSuccess(response)
                     Log.d(TAG, "enqueue remote ${requestK.getCacheKey()}")
                 }
 
                 override fun onFail(throwable: Throwable) {
-                    callback.onFail(throwable)
+                    ICallback.onFail(throwable)
                 }
             })
         }
 
-        private fun <T> readCache(cacheKey: String): ResponseK<T> {
+        private fun <T> readCache(cacheKey: String): _Response<T> {
             //cacheK 查询缓存 需要提供一个cache key
             //request de url+参数
             val cache = CacheK.getCache<T>(cacheKey)
-            val cacheResponse = ResponseK<T>()
+            val cacheResponse = _Response<T>()
             cacheResponse.data = cache
-            cacheResponse.code = ResponseK.CACHE_SUCCESS
+            cacheResponse.code = _Response.CACHE_SUCCESS
             cacheResponse.msg = "缓存获取成功"
             return cacheResponse
         }
 
-        private fun saveCacheIfNeed(response: ResponseK<T>) {
-            if (requestK.cacheStrategyK == CacheStrategy.CACHE_FIRST
-                || requestK.cacheStrategyK == CacheStrategy.NET_CACHE
+        private fun saveCacheIfNeed(response: _Response<T>) {
+            if (requestK.cacheStrategyK == _CacheStrategy.CACHE_FIRST
+                || requestK.cacheStrategyK == _CacheStrategy.NET_CACHE
             ) {
                 if (response.data != null) {
                     ExecutorK.execute(runnable = {
@@ -97,35 +95,35 @@ class Scheduler(
             }
         }
 
-        private fun dispatchInterceptor(requestK: RequestK, responseK: ResponseK<T>?) {
-            if (interceptors.size <= 0)
+        private fun dispatchInterceptor(requestK: _Request, response: _Response<T>?) {
+            if (Interceptors.size <= 0)
                 return
-            InterceptorChain(requestK, responseK).dispatch()
+            InterceptorIChain(requestK, response).dispatch()
         }
 
-        inner class InterceptorChain(
-            private val requestK: RequestK,
-            private val responseK: ResponseK<T>?
+        inner class InterceptorIChain(
+            private val requestK: _Request,
+            private val response: _Response<T>?
         ) :
-            InterceptorK.Chain {
+            _Interceptor.IChain {
             private var callIndex = 0
 
             override val isRequestPeriod: Boolean
-                get() = responseK == null
+                get() = response == null
 
-            override fun request(): RequestK {
+            override fun request(): _Request {
                 return requestK
             }
 
-            override fun response(): ResponseK<*>? {
-                return responseK
+            override fun response(): _Response<*>? {
+                return response
             }
 
             fun dispatch() {
-                val interceptor: InterceptorK = interceptors[callIndex]
-                val intercept = interceptor.intercept(this)
+                val Interceptor: _Interceptor = Interceptors[callIndex]
+                val intercept = Interceptor.intercept(this)
                 callIndex++
-                if (!intercept && callIndex < interceptors.size) {
+                if (!intercept && callIndex < Interceptors.size) {
                     dispatch()
                 }
             }

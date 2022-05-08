@@ -1,19 +1,18 @@
 package com.mozhimen.app.basicsk.stackk
 
-import android.content.Intent
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityStackkBinding
+import com.mozhimen.basicsk.logk.LogK
 import com.mozhimen.basicsk.stackk.StackK
+import com.mozhimen.basicsk.stackk.commons.IStackKListener
 import com.mozhimen.basicsk.utilk.showToast
 
 class StackKActivity : AppCompatActivity() {
-    companion object {
-        private const val TAG = "StackKActivity>>>>>"
-    }
 
     private val vb: ActivityStackkBinding by lazy { ActivityStackkBinding.inflate(layoutInflater) }
+    private val TAG = "StackKActivity>>>>>"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,16 +21,17 @@ class StackKActivity : AppCompatActivity() {
         initView()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initView() {
-        StackK.instance.addFrontBackCallback(object : StackK.FrontBackCallback {
+        val stackTopActivity = StackK.getStackTopActivity()
+        val stackCount = StackK.getStackCount()
+        vb.stackkTitle.text = "StackTop: ${stackTopActivity?.javaClass?.simpleName ?: "Null"}, StackCount: $stackCount"
+
+        StackK.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
-                "当前处于: $isFront".showToast()
-                Log.i(TAG, "onChanged: 当前处于: $isFront")
+                "App is At Front ?: $isFront".showToast()
+                LogK.it(TAG, "App is At Front ?: $isFront")
             }
         })
-
-        vb.stackkSkip.setOnClickListener {
-            startActivity(Intent(this, StackKSecondActivity::class.java))
-        }
     }
 }

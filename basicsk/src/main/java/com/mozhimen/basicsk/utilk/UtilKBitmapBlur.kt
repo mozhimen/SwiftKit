@@ -24,8 +24,12 @@ object UtilKBitmapBlur {
     //最大模糊度(0.0-25.0之间)
     private const val BLUR_RADIUS = 25f
 
+
     /**
-     * 模糊图片
+     * 模糊图片,API>=17
+     * @param context Context
+     * @param bitmap Bitmap
+     * @return Bitmap?
      */
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     fun blur(context: Context, bitmap: Bitmap): Bitmap? {

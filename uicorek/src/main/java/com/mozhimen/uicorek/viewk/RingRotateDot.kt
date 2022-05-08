@@ -1,12 +1,8 @@
 package com.mozhimen.uicorek.viewk
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
-import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.viewk.commons.ViewK
+import com.mozhimen.basicsk.basek.BaseKView
 
 /**
  * @ClassName RingProgress
@@ -19,7 +15,7 @@ class RingRotateDot @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ViewK(context, attrs, defStyleAttr) {
+) : BaseKView(context, attrs, defStyleAttr) {
 
     /*//region # variate
     private val ringStartColor = Color.WHITE

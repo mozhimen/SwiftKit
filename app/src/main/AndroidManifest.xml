@@ -11,9 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SwiftK">
+        android:theme="@style/Theme.SwiftK"
+        android:usesCleartextTraffic="true">
 
-        <!--provider-->
+        <!-- provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -23,6 +24,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -31,33 +33,30 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- demo -->
+        </activity> <!-- demo -->
         <activity
             android:name=".demo.DemoActivity"
-            android:exported="false" />
-
-        <!-- componentk -->
+            android:exported="false" /> <!-- componentk -->
         <activity
             android:name=".componentk.ComponentKActivity"
             android:exported="false" />
         <activity
-            android:name=".componentk.basek.BaseKDemoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".componentk.navigationk.NavigationKActivity"
-            android:exported="false" />
-
-        <!-- basicsk -->
+            android:name=".componentk.guidek.GuideKActivity"
+            android:exported="false" /> <!-- basicsk -->
         <activity
             android:name=".basicsk.BasicsKActivity"
+            android:exported="true" />
+        <activity
+            android:name=".basicsk.utilk.UtilKActivity"
             android:exported="true" />
         <activity
             android:name=".basicsk.executork.ExecutorKActivity"
             android:exported="false" />
         <activity
             android:name=".basicsk.logk.LogKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basicsk.basek.BaseKDemoActivity"
             android:exported="false" />
         <activity
             android:name=".basicsk.databusk.DataBusKActivity"
@@ -68,11 +67,6 @@
         <activity
             android:name=".basicsk.stackk.StackKActivity"
             android:exported="false" />
-        <activity
-            android:name=".basicsk.stackk.StackKSecondActivity"
-            android:exported="false" />
-
-        <!-- uicorek -->
         <activity
             android:name=".uicorek.UICoreKActivity"
             android:exported="false" />
@@ -86,17 +80,32 @@
             android:name=".uicorek.tabk.TabKBottomFragmentActivity"
             android:exported="false" />
         <activity
+            android:name=".uicorek.tabk.TabKTopActivity"
+            android:exported="false" />
+        <activity
             android:name=".uicorek.tabk.TabKTopLayoutActivity"
             android:exported="false" />
         <activity
             android:name=".uicorek.refreshk.RefreshKLayoutActivity"
             android:exported="false" />
         <activity
+            android:name=".uicorek.refreshk.RefreshKLayoutLottieActivity"
+            android:exported="true" />
+        <activity
             android:name=".uicorek.bannerk.BannerKActivity"
             android:exported="false" />
         <activity
             android:name=".uicorek.datak.DataKActivity"
             android:exported="false" />
+        <activity
+            android:name=".uicorek.datak.DataKRecyclerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.loadk.LoadKActivity"
+            android:exported="true" />
+        <activity
+            android:name=".uicorek.layoutk.LayoutKActivity"
+            android:exported="true" />
         <activity
             android:name=".uicorek.btnk.BtnKActivity"
             android:exported="false" />
@@ -108,9 +117,7 @@
             android:exported="false" />
         <activity
             android:name=".uicorek.viewk.ViewKViewsActivity"
-            android:exported="false" />
-
-        <!--abilityk-->
+            android:exported="false" /> <!-- abilityk -->
         <activity
             android:name=".abilityk.AbilityKActivity"
             android:exported="false" />
@@ -127,6 +134,5 @@
             android:name=".abilityk.restfulk.RESTfulKActivity"
             android:exported="false" />
     </application>
-
 
 </manifest>

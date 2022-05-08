@@ -1,8 +1,9 @@
 package com.mozhimen.basicsk.logk.mos
 
-import com.mozhimen.basicsk.logk.commons.ILogKPrinter
-import com.mozhimen.basicsk.logk.helpers.StackTraceFormatter
-import com.mozhimen.basicsk.logk.helpers.ThreadFormatter
+import com.mozhimen.basicsk.extsk.toJson
+import com.mozhimen.basicsk.logk.commons.IPrinter
+import com.mozhimen.basicsk.logk.helpers.FormatterStackTrace
+import com.mozhimen.basicsk.logk.helpers.FormatterThread
 
 /**
  * @ClassName LogKConfig
@@ -14,12 +15,16 @@ import com.mozhimen.basicsk.logk.helpers.ThreadFormatter
 open class LogKConfig {
     companion object {
         const val MAX_LEN = 512
-        var THREAD_FORMATTER: ThreadFormatter = ThreadFormatter()
-        var STACK_TRACE_FORMATTER: StackTraceFormatter = StackTraceFormatter()
+        var formatterThread: FormatterThread = FormatterThread()
+        var formatterStackTrace: FormatterStackTrace = FormatterStackTrace()
     }
 
-    open fun injectJsonParser(): JsonParser? {
-        return null
+    open fun injectJsonParser(): IJsonParser? {
+        return object : IJsonParser {
+            override fun toJson(src: Any): String {
+                return src.toJson()
+            }
+        }
     }
 
     open fun getGlobalTag(): String {
@@ -35,14 +40,14 @@ open class LogKConfig {
     }
 
     open fun stackTraceDepth(): Int {
-        return 5
+        return 0
     }
 
-    open fun printers(): Array<ILogKPrinter>? {
+    open fun printers(): Array<IPrinter>? {
         return null
     }
 
-    interface JsonParser {
+    interface IJsonParser {
         fun toJson(src: Any): String
     }
 }

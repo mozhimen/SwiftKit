@@ -11,24 +11,28 @@ import android.media.MediaPlayer
  */
 object UtilKAudio {
 
-    private var audioPlayer: MediaPlayer? = null
+    private var _audioPlayer: MediaPlayer? = null
 
-    private val completionListener = MediaPlayer.OnCompletionListener {
+    private val _completionListener = MediaPlayer.OnCompletionListener {
         releaseMediaPlayer()
     }
 
+    /**
+     * 播放
+     * @param resId Int
+     */
     fun play(resId: Int) {
-        if (audioPlayer == null) {
-            audioPlayer = MediaPlayer.create(UtilKGlobal.instance.getApp(), resId)
+        if (_audioPlayer == null) {
+            _audioPlayer = MediaPlayer.create(UtilKGlobal.instance.getApp(), resId)
         }
-        audioPlayer!!.setOnCompletionListener(completionListener)
-        audioPlayer!!.start()
+        _audioPlayer!!.setOnCompletionListener(_completionListener)
+        _audioPlayer!!.start()
     }
 
     private fun releaseMediaPlayer() {
-        audioPlayer?.let {
-            audioPlayer!!.release()
-            audioPlayer = null
+        _audioPlayer?.let {
+            _audioPlayer!!.release()
+            _audioPlayer = null
         }
     }
 }

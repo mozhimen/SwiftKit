@@ -11,7 +11,7 @@ import com.mozhimen.abilityk.restfulk.RESTfulK
  */
 object ApiFactory {
     private val baseUrl = ""
-    private val restfulK: RESTfulK = RESTfulK(baseUrl, RetrofitCallFactory(baseUrl))
+    private val restfulK: RESTfulK = RESTfulK(baseUrl, RetrofitCallIFactory(baseUrl))
 
     init {
         restfulK.addIntercept(BizInterceptor())

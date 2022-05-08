@@ -58,7 +58,8 @@
     <declare-styleable name="BannerK">
         <attr name="bannerK_autoPlay" format="boolean" />
         <attr name="bannerK_loop" format="boolean" />
-        <attr name="bannerK_intervalTime" format="integer|reference" />
+        <attr name="bannerK_scrollDuration" format="integer" />
+        <attr name="bannerK_intervalTime" format="integer" />
     </declare-styleable>
 
     <!--btnk-->
@@ -111,6 +112,15 @@
     </declare-styleable>
 
     <!--layoutk-->
+    <declare-styleable name="LayoutKEmpty">
+        <attr name="layoutKEmpty_icon" format="string|reference" />
+        <attr name="layoutKEmpty_image" format="reference" />
+        <attr name="layoutKEmpty_title" format="string|reference" />
+        <attr name="layoutKEmpty_content" format="string|reference" />
+        <attr name="layoutKEmpty_helpIcon" format="string|reference" />
+        <attr name="layoutKEmpty_buttonTitle" format="string|reference" />
+    </declare-styleable>
+
     <declare-styleable name="LayoutKAmount">
         <attr name="layoutKAmount_btn_textSize" format="dimension|reference" />
         <attr name="layoutKAmount_btn_textColor" format="color|reference" />

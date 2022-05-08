@@ -3,7 +3,9 @@ package com.mozhimen.basicsk.utilk
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basicsk.logk.LogK
 
 /**
  * @ClassName UtilKScroll
@@ -13,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView
  * @Version 1.0
  */
 object UtilKScroll {
+    private val TAG = "UtilKScroll>>>>>"
+
     /**
      * 判断child是否发生了滚动
-     * @param child
-     * @return
+     * @param child View
+     * @return Boolean
      */
     fun childScrolled(child: View): Boolean {
         if (child is AdapterView<*>) {
@@ -29,17 +33,17 @@ object UtilKScroll {
         if (child is RecyclerView) {
             val view = child.getChildAt(0)
             val firstPosition = child.getChildAdapterPosition(view)
-            return firstPosition != 0 || view.top != 0
+            return firstPosition != 0 || !UtilKView.isScroll2Top(child)
         }
         return false
     }
 
     /**
      * 查找可以滚动的child
-     * @param viewGroup
-     * @return
+     * @param viewGroup ViewGroup
+     * @return View?
      */
-    fun findScrollableChild(viewGroup: ViewGroup): View? {
+    fun findScrollableChild(viewGroup: ViewGroup): View {
         var child = viewGroup.getChildAt(1)
         if (child is RecyclerView || child is AdapterView<*>) {
             return child

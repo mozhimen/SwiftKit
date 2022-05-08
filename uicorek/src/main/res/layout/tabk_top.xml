@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tabk_top_root"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingHorizontal="10dp"
-    android:paddingTop="8dp">
+    android:paddingHorizontal="10dp">
 
-    <ImageView
-        android:id="@+id/tabk_top_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:scaleType="centerInside"
-        android:visibility="gone" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tabk_top_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textColor="@android:color/black"
-        android:textSize="17sp"
-        android:visibility="gone" />
+        <ImageView
+            android:id="@+id/tabk_top_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tabk_top_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </LinearLayout>
 
     <View
         android:id="@+id/tabk_top_indicator"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@drawable/tabk_top_indicator" />
-</LinearLayout>
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@android:color/black" />
+</FrameLayout>

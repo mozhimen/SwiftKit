@@ -16,15 +16,19 @@ import java.lang.Exception
 class UtilKGlobal {
     companion object {
         //单例内部静态类,线程安全
-        val instance = UtilMkGlobalProvider.holder
+        val instance = UtilKGlobalProvider.holder
     }
 
-    private object UtilMkGlobalProvider {
+    private object UtilKGlobalProvider {
         val holder = UtilKGlobal()
     }
 
     private var application: Application? = null
 
+    /**
+     * 获取全局上下文
+     * @return Application?
+     */
     @SuppressLint("PrivateApi")
     fun getApp(): Application? {
         if (application == null) {

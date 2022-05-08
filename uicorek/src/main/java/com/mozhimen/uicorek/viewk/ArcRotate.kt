@@ -8,9 +8,9 @@ import android.graphics.SweepGradient
 import android.os.Build
 import android.util.AttributeSet
 import androidx.annotation.RequiresApi
-import com.mozhimen.basicsk.utilk.dp2px
+import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basicsk.basek.BaseKView
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.viewk.commons.ViewK
 
 /**
  * @ClassName CircleRotate
@@ -20,7 +20,7 @@ import com.mozhimen.uicorek.viewk.commons.ViewK
  * @Version 1.0
  */
 class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ViewK(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr) {
 
     //region # variate
     private var gradientStart = 0xFFFFFF

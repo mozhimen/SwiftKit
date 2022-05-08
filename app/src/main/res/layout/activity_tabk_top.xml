@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".uicorek.tabk.TabKTopActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_gravity="top"
+            android:orientation="horizontal">
+
+            <com.mozhimen.uicorek.tabk.top.TabKTopItem
+                android:id="@+id/tabk_top1"
+                android:layout_width="0dp"
+                android:background="@color/blue_normal"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <com.mozhimen.uicorek.tabk.top.TabKTopItem
+                android:id="@+id/tabk_top2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/blue_dark"
+                android:layout_weight="1" />
+
+            <com.mozhimen.uicorek.tabk.top.TabKTopItem
+                android:id="@+id/tabk_top3"
+                android:layout_width="0dp"
+                android:background="@color/blue_normal"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

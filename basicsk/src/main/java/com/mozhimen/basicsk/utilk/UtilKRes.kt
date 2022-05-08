@@ -2,11 +2,17 @@ package com.mozhimen.basicsk.utilk
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 
 /**
  * @ClassName UtilKRes
@@ -16,26 +22,55 @@ import androidx.core.content.ContextCompat
  * @Version 1.0
  */
 object UtilKRes {
-    private val context: Context
+    private val _context: Context
         get() = UtilKGlobal.instance.getApp() as Context
 
-    fun getString(@StringRes resId: Int): String {
-        return context.getString(resId)
-    }
+    /**
+     * 获取字符串
+     * @param resId Int
+     * @return String
+     */
+    fun getString(@StringRes resId: Int): String =
+        _context.getString(resId)
 
-    fun getString(@StringRes resId: Int, vararg formatArgs: Any?): String {
-        return context.getString(resId, *formatArgs)
-    }
+    /**
+     * 获取字符串
+     * @param resId Int
+     * @param formatArgs Array<out Any?>
+     * @return String
+     */
+    fun getString(@StringRes resId: Int, vararg formatArgs: Any?): String =
+        _context.getString(resId, *formatArgs)
 
-    fun getColor(@ColorRes resId: Int): Int {
-        return ContextCompat.getColor(context, resId)
-    }
+    /**
+     * 获取颜色
+     * @param resId Int
+     * @return Int
+     */
+    fun getColor(@ColorRes resId: Int): Int =
+        ContextCompat.getColor(_context, resId)
 
-    fun getColorStateList(@ColorRes resId: Int): ColorStateList? {
-        return ContextCompat.getColorStateList(context, resId)
-    }
+    /**
+     * 获取颜色list
+     * @param resId Int
+     * @return ColorStateList?
+     */
+    fun getColorStateList(@ColorRes resId: Int): ColorStateList? =
+        ContextCompat.getColorStateList(_context, resId)
 
-    fun getDrawable(@DrawableRes drawableId: Int): Drawable? {
-        return ContextCompat.getDrawable(context, drawableId)
-    }
+    /**
+     * 获取Drawable
+     * @param drawableId Int
+     * @return Drawable?
+     */
+    fun getDrawable(@DrawableRes drawableId: Int): Drawable? =
+        ContextCompat.getDrawable(_context, drawableId)
+
+    /**
+     * 获取Bitmap从Drawable
+     * @param drawableId Int
+     * @return Bitmap?
+     */
+    fun getBitmapDrawable(@DrawableRes drawableId: Int): Bitmap? =
+        BitmapFactory.decodeResource(_context.resources, drawableId, null)
 }

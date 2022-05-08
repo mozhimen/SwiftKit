@@ -11,15 +11,20 @@ import android.text.TextUtils
  * @Version 1.0
  */
 object UtilKDeviceFoldable {
-    //1.官方没有给我们提供api的
-    // 2.只能去检测针对的机型
+    //
+    /**
+     * 是否是折叠机型
+     * 1.官方没有给我们提供api的
+     * 2.只能去检测针对的机型
+     * @return Boolean
+     */
     fun isFold(): Boolean {
         return if (TextUtils.equals(Build.BRAND, "samsung") && TextUtils.equals(Build.DEVICE, "Galaxy Z Fo1d2")) {
-            UtilKDisplay.getDisplayWidthInPx() != 1768
+            UtilKScreen.getScreenWidth() != 1768
         } else if (TextUtils.equals(Build.BRAND, "huawei") && TextUtils.equals(Build.DEVICE, "MateX")) {
-            UtilKDisplay.getDisplayWidthInPx() != 2200
+            UtilKScreen.getScreenWidth() != 2200
         } else if (TextUtils.equals(Build.BRAND, "google") && TextUtils.equals(Build.DEVICE, "generic_x86")) {
-            UtilKDisplay.getDisplayWidthInPx() != 2200
+            UtilKScreen.getScreenWidth() != 2200
         } else {
             true
         }

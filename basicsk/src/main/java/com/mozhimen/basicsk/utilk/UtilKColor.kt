@@ -2,6 +2,7 @@ package com.mozhimen.basicsk.utilk
 
 import android.graphics.Color
 import android.os.Build
+import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 
 /**
@@ -11,7 +12,14 @@ import androidx.annotation.RequiresApi
  * @Date 2022/2/9 15:05
  * @Version 1.0
  */
-class UtilKColor {
+object UtilKColor {
+    /**
+     * 渐变色值
+     * @param startColor Int 开始颜色
+     * @param endColor Int 结束颜色
+     * @param ratio Float
+     * @return Int
+     */
     @RequiresApi(Build.VERSION_CODES.O)
     fun getMedianColor(startColor: Int, endColor: Int, ratio: Float): Int {
         val startRed = Color.red(startColor)
@@ -35,5 +43,23 @@ class UtilKColor {
         val medAlpha = startAlpha + ratio * disAlpha
 
         return Color.argb(medAlpha, medRed, medGreen, medBlue)
+    }
+
+    /**
+     * 获取颜色
+     * @param color Any
+     * @return Int
+     */
+    @ColorInt
+    fun getColorTone(color: Any): Int = when (color) {
+        is String -> {
+            Color.parseColor(color)
+        }
+        is Int -> {
+            color
+        }
+        else -> {
+            throw IllegalArgumentException("color type is illegal!")
+        }
     }
 }

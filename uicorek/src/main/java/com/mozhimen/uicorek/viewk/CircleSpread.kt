@@ -8,9 +8,9 @@ import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import com.mozhimen.basicsk.utilk.dp2px
+import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basicsk.basek.BaseKView
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.viewk.commons.ViewK
 
 /**
  * @ClassName CircleSpread
@@ -24,7 +24,7 @@ class CircleSpread @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) :
-    ViewK(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr) {
 
     //region #variate
     private var centerColor = 0xFFFFFF //中心圆颜色

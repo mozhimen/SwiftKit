@@ -4,7 +4,17 @@ import android.graphics.*
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import androidx.constraintlayout.widget.Placeholder
+import androidx.core.graphics.drawable.toBitmap
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
+import com.mozhimen.basicsk.R
+import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.*
+import kotlin.coroutines.resume
 
 
 /**
@@ -16,11 +26,73 @@ import java.io.*
  */
 object UtilKBitmap {
 
-    fun nv21Array2File(nv21: ByteArray?, width: Int, height: Int, filePath: String?): File? {
+    /**
+     * 获取Bitmap
+     * @param url String
+     * @param placeholder Int
+     * @param error Int
+     * @param onGetBitmap Function1<Bitmap, Unit>
+     */
+    fun url2Bitmap(
+        url: String,
+        placeholder: Int = android.R.color.black,
+        error: Int = android.R.color.black,
+        onGetBitmap: (Bitmap) -> Unit
+    ) {
+        Glide.with(UtilKGlobal.instance.getApp()!!).asBitmap().load(url)
+            .transition(withCrossFade()).placeholder(placeholder).error(error).into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                    onGetBitmap(resource)
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {}
+            })
+    }
+
+    /**
+     * 协程方式 获取Bitmap
+     * @param url String
+     * @param placeholder Int
+     * @param error Int
+     * @return Bitmap
+     */
+    suspend fun url2Bitmap2(
+        url: String,
+        placeholder: Int = android.R.color.black,
+        error: Int = android.R.color.black
+    ): Bitmap = suspendCancellableCoroutine { coroutine ->
+        Glide.with(UtilKGlobal.instance.getApp()!!).asBitmap().load(url)
+            .transition(withCrossFade()).placeholder(placeholder).error(error).into(
+                object : CustomTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        coroutine.resume(resource)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {}
+                })
+    }
+
+
+    /**
+     * nv21转文件
+     * @param nv21 ByteArray
+     * @param width Int
+     * @param height Int
+     * @param filePath String
+     * @return File
+     */
+    fun nv21Array2File(nv21: ByteArray, width: Int, height: Int, filePath: String): File {
         return bitmap2File(nv21Array2Bitmap(nv21, width, height), filePath)
     }
 
-    fun nv21Array2Bitmap(nv21: ByteArray?, width: Int, height: Int): Bitmap {
+    /**
+     * nv21转位图
+     * @param nv21 ByteArray
+     * @param width Int
+     * @param height Int
+     * @return Bitmap
+     */
+    fun nv21Array2Bitmap(nv21: ByteArray, width: Int, height: Int): Bitmap {
         val yuvImage = YuvImage(nv21, ImageFormat.NV21, width, height, null)
         val out = ByteArrayOutputStream()
         yuvImage.compressToJpeg(
@@ -31,7 +103,13 @@ object UtilKBitmap {
         return BitmapFactory.decodeByteArray(data, 0, data.size)
     }
 
-    fun bitmap2File(bitmap: Bitmap, filepath: String?): File? {
+    /**
+     * 位图转文件
+     * @param bitmap Bitmap
+     * @param filepath String
+     * @return File
+     */
+    fun bitmap2File(bitmap: Bitmap, filepath: String): File {
         val file = File(filepath) //将要保存图片的路径
         //        if (bitmap != null) {
         UtilKFile.deleteFile(file)
@@ -45,10 +123,6 @@ object UtilKBitmap {
             if (bos != null) {
                 try {
                     bos.flush()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-                try {
                     bos.close()
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -58,6 +132,11 @@ object UtilKBitmap {
         return file
     }
 
+    /**
+     * drawable转位图
+     * @param drawable Drawable
+     * @return Bitmap
+     */
     fun drawable2Bitmap(drawable: Drawable): Bitmap {
         var bitmap: Bitmap? = null
 
@@ -83,6 +162,13 @@ object UtilKBitmap {
         return bitmap
     }
 
+    /**
+     * 旋转位图
+     * @param sourceBitmap Bitmap
+     * @param degree Int 顺时针旋转角度
+     * @param isFrontCamera Boolean 是否镜像左右翻转
+     * @return Bitmap
+     */
     fun rotateBitmap(sourceBitmap: Bitmap, degree: Int, isFrontCamera: Boolean = false): Bitmap {
         if (degree == 0) {
             return sourceBitmap
@@ -98,6 +184,12 @@ object UtilKBitmap {
         )
     }
 
+    /**
+     * 匹配角度
+     * @param sourceBitmap Bitmap
+     * @param degree Int
+     * @return Bitmap
+     */
     fun adjustPhotoRotation(sourceBitmap: Bitmap, degree: Int): Bitmap {
         val matrix = Matrix()
         matrix.setRotate(
@@ -127,6 +219,12 @@ object UtilKBitmap {
         return outputBitmap
     }
 
+    /**
+     * 滤镜图片
+     * @param sourceBitmap Bitmap
+     * @param tintColor Int 过滤颜色
+     * @return Bitmap
+     */
     fun tintBitmap(sourceBitmap: Bitmap, tintColor: Int): Bitmap {
         val outputBitmap = Bitmap.createBitmap(sourceBitmap.width, sourceBitmap.height, sourceBitmap.config)
         val canvas = Canvas(outputBitmap)
@@ -142,7 +240,7 @@ object UtilKBitmap {
         val f = File(savePath)
         val pareFile: File? = f.parentFile
         if (pareFile?.exists() == false) {
-            pareFile.kdirs()
+            pareFile.mkdirs()
         }
         val out: FileOutputStream
         try {
@@ -158,10 +256,10 @@ object UtilKBitmap {
 
     /**
      * 将本地图片文件转换成可解码二维码的 Bitmap,为了避免图片太大，这里对图片进行了压缩
-     *
-     * @param picturePath 本地图片文件路径
+     * @param picturePath String
+     * @return Bitmap?
      */
-    fun getDecodeAbleBitmap(picturePath: String): Bitmap? {
+    fun getDecodableBitmap(picturePath: String): Bitmap? {
         return try {
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true

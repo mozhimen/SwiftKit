@@ -8,12 +8,13 @@ package com.mozhimen.basicsk.utilk
  * @Version 1.0
  */
 object UtilKStackTrace {
+
     /**
-     * Get the real stack trace and then crop it with a max depth.
-     *
-     * @param stackTrace the full stack trace
-     * @param maxDepth   the max depth of real stack trace that will be cropped, 0 means no limitation
-     * @return the cropped real stack trace
+     * 获取真正的堆栈跟踪，然后用最大深度裁剪它。
+     * @param stackTrace Array<StackTraceElement?> 完整的堆栈跟踪
+     * @param ignoredPackage String
+     * @param maxDepth Int 将被裁剪的真实堆栈跟踪的最大深度，O表示没有限制
+     * @return Array<StackTraceElement?> 裁剪后的真实堆栈跟踪
      */
     fun getCroppedRealStackTrack(
         stackTrace: Array<StackTraceElement?>,
@@ -29,10 +30,11 @@ object UtilKStackTrace {
     }
 
     /**
-     * Get the real stack trace, all elements that come from XLog library would be dropped.
+     * 获取真正的堆栈跟踪，所有来自XLog库的元素都将被删除
      * 获取除忽略包名之外的堆栈信息
-     * @param stackTrace the full stack trace
-     * @return the real stack trace, all elements come from system and library user
+     * @param stackTrace Array<StackTraceElement?> 完整的堆栈跟踪
+     * @param ignorePackage String?
+     * @return Array<StackTraceElement?> 真正的堆栈跟踪, 所有元素都来自system和library user
      */
     fun getRealStackTrack(
         stackTrace: Array<StackTraceElement?>,
@@ -56,12 +58,10 @@ object UtilKStackTrace {
     }
 
     /**
-     * 裁剪堆栈信息 Crop the stack trace with a max depth.
-     *
-     * @param callStack the original stack trace
-     * @param maxDepth  the max depth of real stack trace that will be cropped,
-     *                  0 means no limitation
-     * @return the cropped stack trace
+     * 使用最大深度裁剪堆栈跟踪.
+     * @param callStack Array<StackTraceElement?> 原始堆栈跟踪
+     * @param maxDepth Int 将被裁剪的真实堆栈跟踪的最大深度, O表示没有限制
+     * @return Array<StackTraceElement?> 裁剪后的堆栈跟踪
      */
     fun cropStackTrace(
         callStack: Array<StackTraceElement?>,

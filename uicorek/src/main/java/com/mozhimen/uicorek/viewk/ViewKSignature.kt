@@ -6,9 +6,9 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
-import com.mozhimen.basicsk.utilk.dp2px
+import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basicsk.basek.BaseKView
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.viewk.commons.ViewK
 
 /**
  * @ClassName ViewKSignature
@@ -18,7 +18,7 @@ import com.mozhimen.uicorek.viewk.commons.ViewK
  * @Version 1.0
  */
 class ViewKSignature @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ViewK(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr) {
 
     private var lineWidth = 2f.dp2px()
 

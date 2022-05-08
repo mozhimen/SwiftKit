@@ -3,90 +3,66 @@ package com.mozhimen.basicsk.stackk
 
 import android.app.Activity
 import android.app.Application
-import android.os.Build
 import android.os.Bundle
+import com.mozhimen.basicsk.stackk.commons.IStackKListener
 import com.mozhimen.basicsk.utilk.UtilKGlobal
 import java.lang.ref.WeakReference
-import java.util.*
 
-class StackK private constructor() {
+/**
+ * @ClassName StackKMgr
+ * @Description 提供前后台状态监听 以及栈顶activity的服务
+ * @Author mozhimen / Kolin Zhao
+ * @Date 2021/12/20 21:58
+ * @Version 1.0
+ */
+class StackKMgr private constructor() {
     companion object {
-        val instance = StackKManagerHolder.holder
+        @JvmStatic
+        val instance: StackKMgr by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { StackKMgr() }
     }
 
-    private object StackKManagerHolder {
-        val holder = StackK()
-    }
+    private val _activityRefs = ArrayList<WeakReference<Activity>>()
+    private val _frontBackCallbacks = ArrayList<IStackKListener>()
+    private var _activityLaunchCount = 0
+    private var _isFront = true
 
-    interface FrontBackCallback {
-        fun onChanged(isFront: Boolean)
-    }
-
-    private val activityRefs = ArrayList<WeakReference<Activity>>()
-    private val frontBackCallback = ArrayList<FrontBackCallback>()
-    private var activityStartCount = 0
-    private var isFront = true
-
+    /**
+     * 初始化
+     */
     fun init() {
-        UtilKGlobal.instance.getApp()!!
-            .registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
+        UtilKGlobal.instance.getApp()!!.registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
     }
 
     /**
-     * 找出栈顶不为空，且没有被销毁的activity
+     * 获取activity集合
+     * @return List<WeakReference<Activity>>
      */
-    fun getTopActivity(onlyAlive: Boolean = true): Activity? {
-        if (activityRefs.size <= 0) {
-            return null
-        } else {
-            val activityRef = activityRefs[activityRefs.size - 1]
-            val activity: Activity? = activityRef.get()
-            if (onlyAlive) {
-                if (onlyAlive) {
-                    if (activity == null || activity.isFinishing || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed)) {
-                        activityRefs.remove(activityRef)
-                        return getTopActivity(onlyAlive)
-                    }
-                }
-            }
-            return activity
-        }
-    }
+    internal fun getActivityRefs(): ArrayList<WeakReference<Activity>> = _activityRefs
 
-    fun addFrontBackCallback(callback: FrontBackCallback) {
-        if (!frontBackCallback.contains(callback)) {
-            frontBackCallback.add(callback)
-        }
-    }
+    /**
+     * 获取监听器集合
+     * @return List<StackKListener>
+     */
+    internal fun getListeners(): ArrayList<IStackKListener> = _frontBackCallbacks
 
-    fun removeFrontBackCallback(callback: FrontBackCallback) {
-        frontBackCallback.remove(callback)
-    }
+    /**
+     * 是否在前台
+     * @return Boolean
+     */
+    internal fun isFront() = _isFront
 
-    fun finishAll() {
-        for (activityRef in activityRefs) {
-            if (activityRef.get()?.isFinishing == false) {
-                activityRef.get()?.finish()
-            }
-        }
-        activityRefs.clear()
-    }
-
-    fun isFront() = isFront
-
-    //region # private function
-    inner class InnerActivityLifecycleCallbacks() : Application.ActivityLifecycleCallbacks {
+    private inner class InnerActivityLifecycleCallbacks() : Application.ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
-            activityRefs.add(WeakReference(activity))
+            _activityRefs.add(WeakReference(activity))
         }
 
         override fun onActivityStarted(activity: Activity) {
-            activityStartCount++
-            //activityStartCount>0 说明应用处在可见状态, 也就是前台
+            _activityLaunchCount++
+            //_activityLaunchCount>0 说明应用处在可见状态, 也就是前台
             //!isFront 之前是不是在后台
-            if (!isFront && activityStartCount > 0) {
-                isFront = true
-                onFrontBackChanged(isFront)
+            if (!_isFront && _activityLaunchCount > 0) {
+                _isFront = true
+                onFrontBackChanged(_isFront)
             }
         }
 
@@ -99,10 +75,10 @@ class StackK private constructor() {
         }
 
         override fun onActivityStopped(activity: Activity) {
-            activityStartCount--
-            if (activityStartCount <= 0 && isFront) {
-                isFront = false
-                onFrontBackChanged(isFront)
+            _activityLaunchCount--
+            if (_activityLaunchCount <= 0 && _isFront) {
+                _isFront = false
+                onFrontBackChanged(_isFront)
             }
         }
 
@@ -111,9 +87,9 @@ class StackK private constructor() {
         }
 
         override fun onActivityDestroyed(activity: Activity) {
-            for (activityRef in activityRefs) {
+            for (activityRef in _activityRefs) {
                 if (activityRef != null && activityRef.get() == activity) {
-                    activityRefs.remove(activityRef)
+                    _activityRefs.remove(activityRef)
                     break
                 }
             }
@@ -121,9 +97,8 @@ class StackK private constructor() {
     }
 
     private fun onFrontBackChanged(isFront: Boolean) {
-        for (callback in frontBackCallback) {
+        for (callback in _frontBackCallbacks) {
             callback.onChanged(isFront)
         }
     }
-    //endregion
 }

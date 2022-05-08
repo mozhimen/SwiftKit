@@ -2,13 +2,16 @@ package com.mozhimen.uicorek.viewk
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
-import com.mozhimen.basicsk.utilk.dp2px
-import com.mozhimen.basicsk.utilk.sp2px
+import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basicsk.extsk.sp2px
+import com.mozhimen.basicsk.basek.BaseKView
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.viewk.commons.ViewK
 
 /**
  * @ClassName ViewKSteps
@@ -18,7 +21,7 @@ import com.mozhimen.uicorek.viewk.commons.ViewK
  * @Version 1.0
  */
 class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ViewK(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr) {
 
     private var _doneLineColor = ContextCompat.getColor(context, R.color.blue_normal)
     private var _undoLineColor = ContextCompat.getColor(context, R.color.blue_light)

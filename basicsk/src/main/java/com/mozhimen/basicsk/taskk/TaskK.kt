@@ -2,8 +2,8 @@ package com.mozhimen.basicsk.taskk
 
 import androidx.core.os.TraceCompat
 import com.mozhimen.basicsk.taskk.annors.TaskKState
-import com.mozhimen.basicsk.taskk.commons.TaskKListener
-import com.mozhimen.basicsk.taskk.commons.TaskKRuntimeListener
+import com.mozhimen.basicsk.taskk.commons.ITaskKListener
+import com.mozhimen.basicsk.taskk.commons.ITaskKRuntimeListener
 import com.mozhimen.basicsk.taskk.helpers.TaskKComparator
 import java.util.*
 import kotlin.collections.ArrayList
@@ -34,8 +34,8 @@ abstract class TaskK @JvmOverloads constructor(
 
     val dependTasks: MutableList<TaskK> = ArrayList()//当前task依赖了那些前置任务，只有当dependTasks集合中的所有任务执行完，当前才可以被执行
     val behindTasks: MutableList<TaskK> = ArrayList()//当前task被那些后置任务依赖，只有当当前这个task执行完，behindTasks集合中的后置任务才可以执行
-    private val _taskKListeners: MutableList<TaskKListener> = ArrayList()//任务运行状态监听器集
-    private var _taskKRuntimeListener: TaskKRuntimeListener? = TaskKRuntimeListener()//用于输出task运行时的日志
+    private val _iTaskKListeners: MutableList<ITaskKListener> = ArrayList()//任务运行状态监听器集
+    private var _taskKRuntimeListener: ITaskKRuntimeListener? = ITaskKRuntimeListener()//用于输出task运行时的日志
     val dependTasksName: MutableList<String> = ArrayList()//用于运行时log统计输出，输出当前task依赖了那些前置任务， 这些前置任务的名称我们将它存储在这里
 
     open fun start() {
@@ -48,9 +48,9 @@ abstract class TaskK @JvmOverloads constructor(
         TaskKRuntime.executeTask(this)
     }
 
-    fun addTaskKListener(taskKListener: TaskKListener) {
-        if (!_taskKListeners.contains(taskKListener)) {
-            _taskKListeners.add(taskKListener)
+    fun addTaskKListener(ITaskKListener: ITaskKListener) {
+        if (!_iTaskKListeners.contains(ITaskKListener)) {
+            _iTaskKListeners.add(ITaskKListener)
         }
     }
 
@@ -129,7 +129,7 @@ abstract class TaskK @JvmOverloads constructor(
     private fun recycle() {
         dependTasks.clear()
         behindTasks.clear()
-        _taskKListeners.clear()
+        _iTaskKListeners.clear()
         _taskKRuntimeListener = null
     }
 
@@ -166,7 +166,7 @@ abstract class TaskK @JvmOverloads constructor(
     private fun toStart() {
         state = TaskKState.START
         TaskKRuntime.setStateInfo(this)
-        for (listener in _taskKListeners) {
+        for (listener in _iTaskKListeners) {
             listener.onStart(this)
         }
         _taskKRuntimeListener?.onStart(this)
@@ -176,7 +176,7 @@ abstract class TaskK @JvmOverloads constructor(
         state = TaskKState.FINISHED
         TaskKRuntime.setStateInfo(this)
         TaskKRuntime.removeBlockTask(this.id)
-        for (listener in _taskKListeners) {
+        for (listener in _iTaskKListeners) {
             listener.onFinished(this)
         }
         _taskKRuntimeListener?.onFinished(this)
@@ -186,7 +186,7 @@ abstract class TaskK @JvmOverloads constructor(
         state = TaskKState.RUNNING
         TaskKRuntime.setStateInfo(this)
         TaskKRuntime.setThreadName(this,Thread.currentThread().name)
-        for (listener in _taskKListeners) {
+        for (listener in _iTaskKListeners) {
             listener.onRunning(this)
         }
         _taskKRuntimeListener?.onRunning(this)

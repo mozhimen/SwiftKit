@@ -18,12 +18,6 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn"
-            android:onClick="goComponentK"
-            android:text="ComponentK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Btn"
             android:onClick="goBasicsK"
             android:text="BasicsK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
@@ -32,6 +26,12 @@
             style="@style/Btn"
             android:onClick="goUICoreK"
             android:text="UICoreK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn"
+            android:onClick="goComponentK"
+            android:text="ComponentK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>

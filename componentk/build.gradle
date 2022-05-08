@@ -31,16 +31,12 @@ android {
 
 dependencies {
 
-    //navigationk
+    //guidek
     implementation 'com.alibaba:fastjson:1.2.68'
     api 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     api 'androidx.navigation:navigation-ui-ktx:2.4.1'
-    api project(path: ':navigationkannor')
-    kapt project(path: ':navigationkcompiler')
 
-    //basek
-    api 'androidx.databinding:databinding-runtime:7.1.2'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha03'
-
+    api project(path: ':guidek_annor')
     implementation project(path: ':basicsk')
+    implementation project(path: ':uicorek')
 }

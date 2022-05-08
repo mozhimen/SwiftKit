@@ -3,9 +3,9 @@ package com.mozhimen.uicorek.viewk
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import com.mozhimen.basicsk.utilk.dp2px
+import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basicsk.basek.BaseKView
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.viewk.commons.ViewK
 
 /**
  * @ClassName Radar
@@ -15,7 +15,7 @@ import com.mozhimen.uicorek.viewk.commons.ViewK
  * @Version 1.0
  */
 class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    ViewK(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr) {
 
     //region # variate
     private var bgColor = 0xFFFFFF

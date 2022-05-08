@@ -20,9 +20,12 @@ import java.lang.reflect.Method
 object UtilKCmd {
     private const val KEY_SYSTEM_PROPERTIES = "android.os.SystemProperties"
 
-    private const val OPEN_FILL_LIGHT_CMD = "echo 255 > /sys/devices/platform/pwm-leds/leds/rgb:leds/brightness"
-    private const val CLOSE_FILL_LIGHT_CMD = "echo 0 > /sys/devices/platform/pwm-leds/leds/rgb:leds/brightness"
+    private const val CMD_FILL_LIGHT_OPEN = "echo 255 > /sys/devices/platform/pwm-leds/leds/rgb:leds/brightness"
+    private const val CMD_FILL_LIGHT_CLOSE = "echo 0 > /sys/devices/platform/pwm-leds/leds/rgb:leds/brightness"
 
+    /**
+     * 重启
+     */
     @SuppressLint("PrivateApi")
     fun reboot() {
         try {
@@ -34,6 +37,10 @@ object UtilKCmd {
         }
     }
 
+    /**
+     * 自启动
+     * @return Boolean
+     */
     @SuppressLint("PrivateApi")
     fun autoRun(): Boolean {
         try {
@@ -49,14 +56,25 @@ object UtilKCmd {
         return true
     }
 
+    /**
+     * 开补光灯
+     */
     fun openFillLight() {
-        executeShellCmd(OPEN_FILL_LIGHT_CMD)
+        executeShellCmd(CMD_FILL_LIGHT_OPEN)
     }
 
+    /**
+     * 关补光灯
+     */
     fun closeFillLight() {
-        executeShellCmd(CLOSE_FILL_LIGHT_CMD)
+        executeShellCmd(CMD_FILL_LIGHT_CLOSE)
     }
 
+    /**
+     * 设置屏幕亮度
+     * @param paramFloat Float 0-1范围
+     * @param activity Activity
+     */
     fun setScreenBrightness(paramFloat: Float, activity: Activity) {
         val localWindow: Window = activity.window
         val params: WindowManager.LayoutParams = localWindow.attributes

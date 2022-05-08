@@ -1,10 +1,10 @@
 package com.mozhimen.abilityk.restfulk.helpers
 
 import com.mozhimen.abilityk.restfulk.annors.*
-import com.mozhimen.abilityk.restfulk.annors.Field
+import com.mozhimen.abilityk.restfulk.annors._Field
 import com.mozhimen.abilityk.restfulk.annors.methods.*
-import com.mozhimen.abilityk.restfulk.commons.CallK
-import com.mozhimen.abilityk.restfulk.mos.RequestK
+import com.mozhimen.abilityk.restfulk.commons._ICall
+import com.mozhimen.abilityk.restfulk.mos._Request
 import java.lang.reflect.*
 
 /**
@@ -18,7 +18,7 @@ class MethodParser(private val baseUrl: String, method: Method) {
 
     private lateinit var relativeUrl: String
     private var replaceRelativeUrl: String? = null
-    private var cacheStrategy: Int = CacheStrategy.NET_ONLY
+    private var cacheStrategy: Int = _CacheStrategy.NET_ONLY
     private var domainUrl: String? = null
     private var formPost = true
     private var httpMethod = -1
@@ -35,11 +35,11 @@ class MethodParser(private val baseUrl: String, method: Method) {
         parseMethodReturnType(method)
     }
 
-    fun newRequest(method: Method, args: Array<out Any>?): RequestK {
+    fun newRequest(method: Method, args: Array<out Any>?): _Request{
         val arguments: Array<Any> = args as Array<Any>? ?: arrayOf()
         parseMethodParameters(method, arguments)
 
-        return RequestK(
+        return _Request(
             httpMethod,
             headers,
             parameters,
@@ -67,7 +67,7 @@ class MethodParser(private val baseUrl: String, method: Method) {
      * }
      */
     private fun parseMethodReturnType(method: Method) {
-        require(method.returnType == CallK::class.java) {
+        require(method.returnType == _ICall::class.java) {
             "method ${method.name} must be type of CallK::class"
         }
         val genericReturnType = method.genericReturnType
@@ -136,17 +136,17 @@ class MethodParser(private val baseUrl: String, method: Method) {
             }
 
             when (val annotation = annotations[0]) {
-                is Field -> {
+                is _Field -> {
                     val key = annotation.value
                     val value1 = args[index]
                     parameters[key] = value1.toString()
                 }
-                is Path -> {
+                is _Path -> {
                     val replaceName = annotation.value
                     val replacement = value.toString()
                     replaceRelativeUrl = relativeUrl.replace("{$replaceName}", replacement)
                 }
-                is CacheStrategy -> {
+                is _CacheStrategy -> {
                     cacheStrategy = value as Int
                 }
                 else -> {
@@ -180,31 +180,31 @@ class MethodParser(private val baseUrl: String, method: Method) {
         val annotations = method.annotations
         for (annotation in annotations) {
             when (annotation) {
-                is GET -> {
+                is _GET -> {
                     relativeUrl = annotation.value
-                    httpMethod = METHOD.GETK
+                    httpMethod = _METHOD._GETK
                 }
-                is POST -> {
+                is _POST -> {
                     relativeUrl = annotation.value
-                    httpMethod = METHOD.POSTK
+                    httpMethod = _METHOD._POSTK
                     formPost = annotation.isFormPost
                 }
-                is PUT -> {
+                is _PUT -> {
                     formPost = annotation.formPost
-                    httpMethod = METHOD.PUTK
+                    httpMethod = _METHOD._PUTK
                     relativeUrl = annotation.value
                 }
-                is DELETE -> {
-                    httpMethod = METHOD.DELETEK
+                is _DELETE -> {
+                    httpMethod = _METHOD._DELETEK
                     relativeUrl = annotation.value
                 }
-                is BaseUrl -> {
+                is _BaseUrl -> {
                     domainUrl = annotation.value
                 }
-                is CacheStrategy -> {
+                is _CacheStrategy -> {
                     cacheStrategy = annotation.value
                 }
-                is Headers -> {
+                is _Headers -> {
                     val headersArray = annotation.value
                     //@Headers("auth-token:token","accountId:123456")
                     for (header in headersArray) {
@@ -224,10 +224,10 @@ class MethodParser(private val baseUrl: String, method: Method) {
         }
 
         require(
-            httpMethod == METHOD.GETK ||
-                    httpMethod == METHOD.POSTK ||
-                    httpMethod == METHOD.PUTK ||
-                    httpMethod == METHOD.DELETEK
+            httpMethod == _METHOD._GETK ||
+                    httpMethod == _METHOD._POSTK ||
+                    httpMethod == _METHOD._PUTK ||
+                    httpMethod == _METHOD._DELETEK
         ) {
             "method ${method.name} must has one of GETK, POSTK, PUTK, DELETEK"
         }

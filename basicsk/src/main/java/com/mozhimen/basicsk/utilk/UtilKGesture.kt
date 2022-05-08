@@ -11,8 +11,11 @@ import kotlin.math.sqrt
  * @Version 1.0
  */
 class UtilKGesture {
+
     /**
-     * 计算手指间距
+     * 计算手指间间距
+     * @param event MotionEvent
+     * @return Float
      */
     fun fingerDistance(event: MotionEvent): Float {
         val x = event.getX(0) - event.getX(1)

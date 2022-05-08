@@ -13,12 +13,16 @@ import android.view.inputmethod.InputMethodManager
  * @Version 1.0
  */
 object UtilKKeyBoard {
+    /**
+     * 隐藏键盘
+     * @param activity Activity
+     */
     fun hide(activity: Activity) {
         val inputMethodManager =
             activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        activity.window.peekDecorView()?.let {
+        if (activity.window.peekDecorView() != null || inputMethodManager.isActive) {
             inputMethodManager.hideSoftInputFromWindow(
-                it.windowToken,
+                activity.currentFocus?.windowToken,
                 InputMethodManager.HIDE_NOT_ALWAYS
             )
         }
