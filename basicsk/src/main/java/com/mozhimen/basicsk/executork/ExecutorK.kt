@@ -22,12 +22,11 @@ import java.util.concurrent.locks.ReentrantLock
 object ExecutorK {
     private const val TAG = "ExecutorK>>>>>"
 
-    private var isPaused = false
-
-    private var executork: ThreadPoolExecutor
-    private var lock: ReentrantLock = ReentrantLock()
-    private var pauseCondition: Condition = lock.newCondition()
-    private val mainHandler = Handler(Looper.getMainLooper())
+    private var _isPaused = false
+    private var _executork: ThreadPoolExecutor
+    private var _lock: ReentrantLock = ReentrantLock()
+    private var _pauseCondition: Condition = _lock.newCondition()
+    private val _mainHandler = Handler(Looper.getMainLooper())
 
     init {
         val cpuCount = Runtime.getRuntime().availableProcessors()
@@ -45,7 +44,7 @@ object ExecutorK {
             return@ThreadFactory thread
         }
 
-        executork = object : ThreadPoolExecutor(
+        _executork = object : ThreadPoolExecutor(
             corePoolSize,
             maxPoolSize,
             keepAliveTime,
@@ -54,42 +53,42 @@ object ExecutorK {
             threadFactory
         ) {
             override fun beforeExecute(t: Thread?, r: Runnable?) {
-                if (isPaused) {
-                    lock.lock()
+                if (_isPaused) {
+                    _lock.lock()
                     try {
-                        pauseCondition.await()
+                        _pauseCondition.await()
                     } finally {
-                        lock.unlock()
+                        _lock.unlock()
                     }
                 }
             }
 
             override fun afterExecute(r: Runnable?, t: Throwable?) {
-                //monitor pool time waste thread number, create thread number, and running thread number
-                Log.e(TAG, "now completed thread's priority is ${(r as PriorityRunnable).priority}")
+                //监控线程池耗时任务,线程创建数量,正在运行的数量
+                Log.w(TAG, "已执行完的任务的优先级是：${(r as PriorityRunnable).priority}")
             }
         }
     }
 
     @JvmOverloads
-    fun execute(runnable: Runnable, @IntRange(from = 0, to = 10) priority: Int = 0) {
-        executork.execute(PriorityRunnable(priority, runnable))
+    fun execute(@IntRange(from = 0, to = 10) priority: Int = 0, runnable: Runnable) {
+        _executork.execute(PriorityRunnable(priority, runnable))
     }
 
     @JvmOverloads
-    fun execute(runnable: ExecutorKCallback<*>, @IntRange(from = 0, to = 10) priority: Int = 0) {
-        executork.execute(PriorityRunnable(priority, runnable))
+    fun execute(@IntRange(from = 0, to = 10) priority: Int = 0, runnable: ExecutorKCallable<*>) {
+        _executork.execute(PriorityRunnable(priority, runnable))
     }
 
 
-    abstract class ExecutorKCallback<T> : Runnable {
+    abstract class ExecutorKCallable<T> : Runnable {
         override fun run() {
-            mainHandler.post { onPrepared() }
-            val t = onBackground()
+            _mainHandler.post { onPrepared() }
+            val t: T? = onBackground()
 
             //移除所有的消息,防止需要执行onCompleted了, onPrepared还没执行,那就不需要执行了
-            mainHandler.removeCallbacksAndMessages(null)
-            mainHandler.post { onCompleted(t) }
+            _mainHandler.removeCallbacksAndMessages(null)
+            _mainHandler.post { onCompleted(t) }
         }
 
         open fun onPrepared() {}
@@ -110,24 +109,24 @@ object ExecutorK {
 
     @Synchronized
     fun pause() {
-        lock.lock()
+        _lock.lock()
         try {
-            isPaused = true
-            Log.e(TAG, "executork is paused")
+            _isPaused = true
+            Log.w(TAG, "executork is paused")
         } finally {
-            lock.unlock()
+            _lock.unlock()
         }
     }
 
     @Synchronized
     fun resume() {
-        lock.lock()
+        _lock.lock()
         try {
-            isPaused = false
-            pauseCondition.signalAll()
+            _isPaused = false
+            _pauseCondition.signalAll()
         } finally {
-            lock.unlock()
+            _lock.unlock()
         }
-        Log.e(TAG, "executork is resumed")
+        Log.w(TAG, "executork is resumed")
     }
 }

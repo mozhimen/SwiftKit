@@ -147,7 +147,6 @@ class TabKBottomItem @JvmOverloads constructor(
             if (init) {
                 _tabNameView.visibility = GONE
                 _tabImageView.visibility = VISIBLE
-                _tabImageView.resizeSize(56f.dp2px())
                 _tabIconView.visibility = GONE
             }
             if (selected) {
@@ -155,9 +154,7 @@ class TabKBottomItem @JvmOverloads constructor(
                 _tabImageView.resizeSize(58f.dp2px())
             } else {
                 _tabImageView.load(_tabKBottomMo!!.bitmapDefault!!)
-                if (_tabImageView.width != 56f.dp2px()) {
-                    _tabImageView.resizeSize(56f.dp2px())
-                }
+                _tabImageView.resizeSize(56f.dp2px())
             }
         } else if (_tabKBottomMo!!.tabKType == TabKBottomMo.TabKBottomType.IMAGE_TEXT) {
             if (init) {

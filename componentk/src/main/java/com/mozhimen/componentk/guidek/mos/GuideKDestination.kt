@@ -10,6 +10,7 @@ import java.io.Serializable
  * @Version 1.0
  */
 internal data class GuideKDestination(
+    val versionCode: Int,
     val indexDefault: Int,
     val pages: List<GuideKPage>
 )
@@ -27,7 +28,7 @@ data class GuideKPageInfo(
     val index: Int,
     val id: Int,
     val url: String
-): Serializable
+) : Serializable
 
 internal data class GuideKTabConfig(
     val name: String,

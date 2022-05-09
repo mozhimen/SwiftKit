@@ -41,28 +41,32 @@ class GuideKActivity :
         val hostFragment =
             supportFragmentManager.findFragmentById(R.id.guidek_fragment_container);
 
-        GuideK.buildNavGraph(
-            GuideKMgr.instance.getConfig(),
-            this,
-            hostFragment!!.childFragmentManager,
-            navController,
-            R.id.guidek_fragment_container
-        )
-        GuideK.buildBottomLayout(
-            GuideKMgr.instance.getConfig(),
-            GuideKMgr.instance.indexOf(_currentItemId),
-            vb.guidekBottomLayout,
-            listener = object : GuideKSelectedListener {
-                override fun onSelected(
-                    index: Int,
-                    pageInfo: GuideKPageInfo,
-                    prevMo: TabKBottomMo?,
-                    nextMo: TabKBottomMo
-                ) {
-                    navController.navigate(pageInfo.id)
-                    _currentItemId = pageInfo.id
-                }
-            })
+        GuideKMgr.instance.getConfig().observe(this) {
+            if (it != null) {
+                GuideK.buildNavGraph(
+                    it,
+                    this,
+                    hostFragment!!.childFragmentManager,
+                    navController,
+                    R.id.guidek_fragment_container
+                )
+                GuideK.buildBottomLayout(
+                    it,
+                    GuideK.indexOf(it.pkgPages, _currentItemId),
+                    vb.guidekBottomLayout,
+                    listener = object : GuideKSelectedListener {
+                        override fun onSelected(
+                            index: Int,
+                            pageInfo: GuideKPageInfo,
+                            prevMo: TabKBottomMo?,
+                            nextMo: TabKBottomMo
+                        ) {
+                            navController.navigate(pageInfo.id)
+                            _currentItemId = pageInfo.id
+                        }
+                    })
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

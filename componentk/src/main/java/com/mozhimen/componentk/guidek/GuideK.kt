@@ -40,6 +40,20 @@ object GuideK {
     }
 
     /**
+     * 获取位置
+     * @param pages List<GuideKPkgPage>
+     * @param currentId Int
+     * @return Int
+     */
+    fun indexOf(pages: List<GuideKPkgPage>, currentId: Int): Int {
+        val temps =
+            pages.filter { page -> page.pageInfo.id == currentId }
+        return if (temps.isNotEmpty()) {
+            pages.indexOf(temps[0])
+        } else 0
+    }
+
+    /**
      * 自动构建BottomLayout
      * @param pkgConfig GuideKPkgConfig
      * @param defaultIndex Int
@@ -71,14 +85,10 @@ object GuideK {
                     }
                 })
             }
-            if (GuideKMgr.instance.isChanged()) {
-                tabKBottomLayout.defaultSelected(mos[pkgConfig.indexDefault])
+            if (defaultIndex in pkgConfig.pkgPages.indices) {
+                tabKBottomLayout.defaultSelected(mos[defaultIndex])
             } else {
-                if (defaultIndex in pkgConfig.pkgPages.indices) {
-                    tabKBottomLayout.defaultSelected(mos[defaultIndex])
-                } else {
-                    tabKBottomLayout.defaultSelected(mos[0])
-                }
+                tabKBottomLayout.defaultSelected(mos[0])
             }
         }
     }

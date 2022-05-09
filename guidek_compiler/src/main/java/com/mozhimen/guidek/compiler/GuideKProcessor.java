@@ -163,6 +163,7 @@ public class GuideKProcessor extends AbstractProcessor {
             }
         }
 
+        destMap.put("versionCode", 0);
         destMap.put("indexDefault", indexDefault);
         destMap.put("pages", pages);
     }

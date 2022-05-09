@@ -39,6 +39,7 @@ class MainApplication : BaseKApplication() {
 
     private val _config = GuideKPkgConfig(
         0,
+        0,
         arrayListOf(
             GuideKPkgPage(
                 GuideKPageInfo(

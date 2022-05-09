@@ -1,11 +1,9 @@
 package com.mozhimen.componentk.guidek
 
-import android.graphics.Bitmap
+import androidx.lifecycle.MutableLiveData
 import com.mozhimen.basicsk.cachek.CacheK
 import com.mozhimen.basicsk.executork.ExecutorK
-import com.mozhimen.basicsk.extsk.string2Unicode
 import com.mozhimen.basicsk.utilk.UtilKAssets
-import com.mozhimen.basicsk.utilk.UtilKBitmap
 import com.mozhimen.basicsk.utilk.UtilKJson
 import com.mozhimen.componentk.guidek.mos.*
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
@@ -30,35 +28,23 @@ class GuideKMgr {
     }
 
     @Volatile
-    private lateinit var _guideKPkgConfig: GuideKPkgConfig
-    private var _isChanged = false
+    private var _currentConfig = MutableLiveData<GuideKPkgConfig>()
 
     fun init(defaultConfig: GuideKPkgConfig) {
-        this._guideKPkgConfig = defaultConfig
-        this._isChanged = false
         ExecutorK.execute({
             readDestinationsFromJson(defaultConfig)
         }, 0)
     }
 
     @Synchronized
-    fun getConfig(): GuideKPkgConfig = _guideKPkgConfig
+    fun getConfig(): MutableLiveData<GuideKPkgConfig> = _currentConfig
 
-    fun indexOf(currentId: Int): Int {
-        val temps =
-            _guideKPkgConfig.pkgPages.filter { page -> page.pageInfo.id == currentId }
-        return if (temps.isNotEmpty()) {
-            _guideKPkgConfig.pkgPages.indexOf(temps[0])
-        } else 0
-    }
-
-    fun isChanged(): Boolean = _isChanged
-
-    fun readDestinationsFromJson(defaultConfig: GuideKPkgConfig) {
+    private fun readDestinationsFromJson(defaultConfig: GuideKPkgConfig) {
         if (!UtilKAssets.isFileExists(GuideKConstants.FILE_NAME_TAB_CONFIG)) {
             getPkgConfigFromCacheK()?.let { cacheConfig ->
-                _guideKPkgConfig = cacheConfig
+                _currentConfig.postValue(cacheConfig)
             } ?: kotlin.run {
+                _currentConfig.postValue(defaultConfig)
                 savePkgConfig2CacheK(defaultConfig)
             }
         } else {
@@ -68,13 +54,14 @@ class GuideKMgr {
 
             val jsonConfig = packageConfig(destination)
             getPkgConfigFromCacheK()?.let { cacheConfig ->
-                if (jsonConfig != cacheConfig) {
-                    _guideKPkgConfig = jsonConfig
-                    _isChanged = true
+                if (jsonConfig.versionCode > cacheConfig.versionCode) {
+                    _currentConfig.postValue(jsonConfig)
                     CacheK.saveCache(GUIDEK_CACHE_NAME_PKG_CONFIG, jsonConfig)
+                } else {
+                    _currentConfig.postValue(defaultConfig)
                 }
             } ?: kotlin.run {
-                _guideKPkgConfig = jsonConfig
+                _currentConfig.postValue(jsonConfig)
                 savePkgConfig2CacheK(jsonConfig)
             }
         }
@@ -126,7 +113,7 @@ class GuideKMgr {
                 pkgPages.add(GuideKPkgPage(pageInfo!!, mo))
             }
         }
-        return GuideKPkgConfig(destination.indexDefault, pkgPages)
+        return GuideKPkgConfig(destination.versionCode, destination.indexDefault, pkgPages)
     }
 
     private fun getPkgConfigFromCacheK(): GuideKPkgConfig? {
