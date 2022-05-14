@@ -1,5 +1,6 @@
 package com.mozhimen.basicsk.utilk
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +14,7 @@ import android.os.Bundle
  */
 object UtilKSkip {
     /**
-     * 不带参数的跳转
+     * 带参数的跳转
      * @param context Context
      * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
      */
@@ -24,7 +25,7 @@ object UtilKSkip {
     }
 
     /**
-     * 带参数的跳转
+     * 不带参数的跳转
      * @param context Context
      */
     inline fun <reified T> start(context: Context) {

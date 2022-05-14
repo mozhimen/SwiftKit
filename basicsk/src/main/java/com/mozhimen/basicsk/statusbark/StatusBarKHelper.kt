@@ -21,7 +21,7 @@ object StatusBarKHelper {
     private const val TYPE_FLYME = 1
     private const val TYPE_M = 3
 
-    internal annotation class ViewType
+    internal annotation class StatusBarKViewType
 
     /**
      * 作用: 设置状态栏透明
@@ -102,7 +102,7 @@ object StatusBarKHelper {
     /**
      * 设置文字颜色
      */
-    private fun setStatusBarFontIconDark(activity: Activity, @ViewType type: Int) {
+    private fun setStatusBarFontIconDark(activity: Activity, @StatusBarKViewType type: Int) {
         when (type) {
             TYPE_MIUI -> setMiuiUI(activity, true)
             TYPE_M -> setCommonUI(activity)

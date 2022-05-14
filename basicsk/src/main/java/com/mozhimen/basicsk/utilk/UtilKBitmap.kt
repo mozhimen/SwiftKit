@@ -1,17 +1,17 @@
 package com.mozhimen.basicsk.utilk
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.*
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import androidx.constraintlayout.widget.Placeholder
-import androidx.core.graphics.drawable.toBitmap
+import android.os.Build
+import android.provider.MediaStore
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import com.mozhimen.basicsk.R
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.*
 import kotlin.coroutines.resume
@@ -25,6 +25,44 @@ import kotlin.coroutines.resume
  * @Version 1.0
  */
 object UtilKBitmap {
+
+    /**
+     * 裁剪图片
+     * @param origin Bitmap
+     * @param width Int
+     * @param height Int
+     * @param x Int
+     * @param y Int
+     * @return Bitmap
+     */
+    fun cropBitmap(origin: Bitmap, width: Int, height: Int, x: Int, y: Int): Bitmap {
+        val originWidth: Int = origin.width // 得到图片的宽，高
+        val originHeight: Int = origin.height
+        val cropWidth = if (width >= originWidth) originWidth else width // 裁切后所取的正方形区域边长
+        val cropHeight = if (height >= originHeight) originHeight else height
+        return Bitmap.createBitmap(origin, x, y, cropWidth, cropHeight, null, false)
+    }
+
+    /**
+     * 从相册获得图片
+     * @param activity Activity
+     * @param intent Intent?
+     * @return Bitmap?
+     */
+    fun getFromAlbum(activity: Activity, intent: Intent?): Bitmap? {
+        val uri = intent?.data ?: return null
+        try {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val source = ImageDecoder.createSource(activity.contentResolver, uri)
+                ImageDecoder.decodeBitmap(source)
+            } else {
+                MediaStore.Images.Media.getBitmap(activity.contentResolver, uri)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
 
     /**
      * 获取Bitmap
@@ -137,50 +175,38 @@ object UtilKBitmap {
      * @param drawable Drawable
      * @return Bitmap
      */
-    fun drawable2Bitmap(drawable: Drawable): Bitmap {
-        var bitmap: Bitmap? = null
-
-        if (drawable is BitmapDrawable) {
-            val bitmapDrawable = drawable as BitmapDrawable
-            bitmapDrawable.bitmap?.let {
-                return it
-            }
-        }
-
-        bitmap = if (drawable.intrinsicWidth <= 0 || drawable.intrinsicHeight <= 0) {
+    fun drawable2Bitmap(
+        drawable: Drawable,
+        width: Int = drawable.intrinsicWidth,
+        height: Int = drawable.intrinsicHeight
+    ): Bitmap = if (drawable is BitmapDrawable) {
+        drawable.bitmap
+    } else {
+        val bitmap: Bitmap = if (width <= 0 || height <= 0) {
             Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
         } else {
-            Bitmap.createBitmap(
-                drawable.intrinsicWidth,
-                drawable.intrinsicHeight,
-                Bitmap.Config.ARGB_8888
-            )
+            Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         }
         val canvas = Canvas(bitmap)
         drawable.setBounds(0, 0, canvas.width, canvas.height)
         drawable.draw(canvas)
-        return bitmap
+        bitmap
     }
 
     /**
      * 旋转位图
      * @param sourceBitmap Bitmap
-     * @param degree Int 顺时针旋转角度
-     * @param isFrontCamera Boolean 是否镜像左右翻转
+     * @param degree Int
+     * @param flipX Boolean
+     * @param flipY Boolean
      * @return Bitmap
      */
-    fun rotateBitmap(sourceBitmap: Bitmap, degree: Int, isFrontCamera: Boolean = false): Bitmap {
-        if (degree == 0) {
-            return sourceBitmap
-        }
-        val rotateDegree = (degree).toFloat()
+    fun rotateBitmap(sourceBitmap: Bitmap, degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap {
         val matrix = Matrix()
-        matrix.postRotate(rotateDegree)
-        if (isFrontCamera) {
-            matrix.postScale(-1f, 1f)
-        }
+        matrix.postRotate((degree).toFloat())
+        matrix.postScale(if (flipX) -1f else 1f, if (flipY) -1f else 1f)
         return Bitmap.createBitmap(
-            sourceBitmap, 0, 0, sourceBitmap.width, sourceBitmap.height, matrix, false
+            sourceBitmap, 0, 0, sourceBitmap.width, sourceBitmap.height, matrix, true
         )
     }
 
@@ -234,6 +260,11 @@ object UtilKBitmap {
         return outputBitmap
     }
 
+    /**
+     * 保存图片
+     * @param savePath String
+     * @param bitmap Bitmap?
+     */
     fun saveBitmap(savePath: String, bitmap: Bitmap?) {
         if (null == bitmap) // 容错处理
             return

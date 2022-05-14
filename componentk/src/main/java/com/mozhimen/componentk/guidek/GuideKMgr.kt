@@ -18,6 +18,8 @@ import java.util.*
  */
 class GuideKMgr {
 
+    private val TAG = "GuideKMgr>>>>>"
+
     companion object {
         val instance = GlideKMgrProvider.holder
         private const val GUIDEK_CACHE_NAME_PKG_CONFIG = "guidek_cache_name_pkg_config"
@@ -31,9 +33,9 @@ class GuideKMgr {
     private var _currentConfig = MutableLiveData<GuideKPkgConfig>()
 
     fun init(defaultConfig: GuideKPkgConfig) {
-        ExecutorK.execute({
+        ExecutorK.execute(TAG, 0) {
             readDestinationsFromJson(defaultConfig)
-        }, 0)
+        }
     }
 
     @Synchronized

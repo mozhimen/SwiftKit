@@ -72,5 +72,6 @@ open class BaseKFragment<VB : ViewDataBinding, VM : BaseKViewModel>(private val 
 
     override fun initData(savedInstanceState: Bundle?) {}
 
-    override fun initView() {}
+    override fun initView(savedInstanceState: Bundle?) {}
+
 }

@@ -22,15 +22,12 @@ import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
+import com.mozhimen.abilityk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.abilityk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
-import com.mozhimen.abilityk.cameraxk.helpers.LuminosityAnalyzer
 import com.mozhimen.abilityk.cameraxk.mos.CameraXKTimer
 import com.mozhimen.abilityk.cameraxk.helpers.ThreadExecutor
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.util.concurrent.ExecutionException
 import kotlin.math.abs
 import kotlin.math.max
@@ -60,77 +57,81 @@ class CameraXKPreviewView @JvmOverloads constructor(
         private const val RATIO_16_9_VALUE = 16.0 / 9.0 // aspect ratio 16x9
     }
 
-    private var displayId = -1
-    private lateinit var analyzerThread: HandlerThread
-    private lateinit var previewView: PreviewView
-    private lateinit var sliderContainer: FrameLayout
-    private lateinit var slider: Slider
-    private lateinit var preview: Preview
-    private lateinit var imageCapture: ImageCapture
-    private lateinit var imageAnalyzer: ImageAnalysis
+    private var _displayId = -1
+    private lateinit var _analyzerThread: HandlerThread
+    private lateinit var _previewView: PreviewView
+    private lateinit var _sliderContainer: FrameLayout
+    private lateinit var _slider: Slider
+    private lateinit var _preview: Preview
+    private lateinit var _imageCapture: ImageCapture
+    private lateinit var _imageAnalyzer: ImageAnalysis
 
     // An instance for display manager to get display change callbacks
-    private val displayManager by lazy { context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager }
-    private var cameraProvider: ProcessCameraProvider? = null
-    private var hdrCameraSelector: CameraSelector? = null
-    private var flashMode by Delegates.observable(ImageCapture.FLASH_MODE_OFF) { _, _, new ->
+    private val _displayManager by lazy { context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager }
+    private var _cameraProvider: ProcessCameraProvider? = null
+    private var _hdrCameraSelector: CameraSelector? = null
+    private var _flashMode by Delegates.observable(ImageCapture.FLASH_MODE_OFF) { _, _, new ->
         when (new) {
-            ImageCapture.FLASH_MODE_ON -> cameraXKListener?.onCameraFlashOn()
-            ImageCapture.FLASH_MODE_AUTO -> cameraXKListener?.onCameraFlashAuto()
-            else -> cameraXKListener?.onCameraFlashOff()
+            ImageCapture.FLASH_MODE_ON -> _cameraXKListener?.onCameraFlashOn()
+            ImageCapture.FLASH_MODE_AUTO -> _cameraXKListener?.onCameraFlashAuto()
+            else -> _cameraXKListener?.onCameraFlashOff()
         }
     }// Selector showing which flash mode is selected (on, off or auto)
-    private val onAttachStateChangeListener = object : OnAttachStateChangeListener {
+    private val _onAttachStateChangeListener = object : OnAttachStateChangeListener {
         override fun onViewAttachedToWindow(v: View?) {
-            displayManager.registerDisplayListener(displayListener, null)
+            _displayManager.registerDisplayListener(_displayListener, null)
         }
 
         override fun onViewDetachedFromWindow(v: View?) {
-            displayManager.unregisterDisplayListener(displayListener)
+            _displayManager.unregisterDisplayListener(_displayListener)
         }
     }
-    private val displayListener = object : DisplayManager.DisplayListener {
+    private val _displayListener = object : DisplayManager.DisplayListener {
         override fun onDisplayAdded(displayId: Int) = Unit
         override fun onDisplayRemoved(displayId: Int) = Unit
 
         @SuppressLint("UnsafeOptInUsageError")
         override fun onDisplayChanged(displayId: Int) {
-            if (displayId == this@CameraXKPreviewView.displayId) {
-                preview.targetRotation = this@CameraXKPreviewView.display.rotation
-                imageCapture.targetRotation = this@CameraXKPreviewView.display.rotation
-                imageAnalyzer.targetRotation = this@CameraXKPreviewView.display.rotation
+            if (displayId == this@CameraXKPreviewView._displayId) {
+                _preview.targetRotation = this@CameraXKPreviewView.display.rotation
+                _imageCapture.targetRotation = this@CameraXKPreviewView.display.rotation
+                _imageAnalyzer.targetRotation = this@CameraXKPreviewView.display.rotation
             }
         }
     }
-    private val onImageCaptureCallback = object : ImageCapture.OnImageCapturedCallback() {
+    private val _onImageCaptureCallback = object : ImageCapture.OnImageCapturedCallback() {
+        @SuppressLint("UnsafeOptInUsageError")
         override fun onCaptureSuccess(image: ImageProxy) {
             Log.d(TAG, "onCaptureSuccess: ${image.format} ${image.width}x${image.height}")
             if (image.format == ImageFormat.YUV_420_888) {
                 val bitmap = ImageConverter.yuv2Bitmap(image)
-                cameraXKListener?.onCaptureSuccess(bitmap)
+                if (bitmap != null) {
+                    _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
+                }
             } else if (image.format == ImageFormat.JPEG) {
                 val bitmap = ImageConverter.jpeg2Bitmap(image)
                 Log.d(TAG, "onCaptureSuccess: ${bitmap.width}x${bitmap.height}")
-                cameraXKListener?.onCaptureSuccess(bitmap)
+                _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
             }
             image.close()
         }
 
         override fun onError(exception: ImageCaptureException) {
             Log.e(TAG, "onError: ${exception.message}")
-            cameraXKListener?.onCaptureFail()
+            _cameraXKCaptureListener?.onCaptureFail()
             exception.printStackTrace()
         }
     }
 
-    private var cameraXKListener: ICameraXKListener? = null
-    private var lifecycleOwner: LifecycleOwner? = null
-    private var imageLoader: ImageAnalysis.Analyzer? = null
-    private var lensFacing =
+    private var _cameraXKListener: ICameraXKListener? = null
+    private var _cameraXKAnalyzer: ImageAnalysis.Analyzer? = null
+    private var _cameraXKCaptureListener: ICameraXKCaptureListener? = null
+    private var _lifecycleOwner: LifecycleOwner? = null
+    private var _lensFacing =
         CameraSelector.DEFAULT_BACK_CAMERA// Selector showing which camera is selected (front or back)
-    private var isOpenHdr =
+    private var _isOpenHdr =
         false// Selector showing is hdr enabled or not (will work, only if device's camera supports hdr on hardware level)
-    private var selectedTimer = CameraXKTimer.OFF
+    private var _selectedTimer = CameraXKTimer.OFF
 
     init {
         initView()
@@ -138,12 +139,22 @@ class CameraXKPreviewView @JvmOverloads constructor(
 
     fun initCamera(
         owner: LifecycleOwner,
-        listener: ICameraXKListener,
         facing: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
     ) {
-        lifecycleOwner = owner
-        cameraXKListener = listener
-        lensFacing = facing
+        this._lifecycleOwner = owner
+        this._lensFacing = facing
+    }
+
+    fun setCameraXKListener(listener: ICameraXKListener) {
+        this._cameraXKListener = listener
+    }
+
+    fun setCameraXKCaptureListener(listener: ICameraXKCaptureListener) {
+        this._cameraXKCaptureListener = listener
+    }
+
+    fun setImageAnalyzer(analyzer: ImageAnalysis.Analyzer) {
+        this._cameraXKAnalyzer = analyzer
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -151,35 +162,35 @@ class CameraXKPreviewView @JvmOverloads constructor(
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         cameraProviderFuture.addListener({
             try {
-                cameraProvider = cameraProviderFuture.get()
+                _cameraProvider = cameraProviderFuture.get()
             } catch (e: InterruptedException) {
-                cameraXKListener?.onCameraStartFail(e.message.toString())
+                _cameraXKListener?.onCameraStartFail(e.message.toString())
                 Log.e(TAG, "startCamera: Error starting camera")
                 return@addListener
             } catch (e: ExecutionException) {
-                cameraXKListener?.onCameraStartFail(e.message.toString())
+                _cameraXKListener?.onCameraStartFail(e.message.toString())
                 Log.e(TAG, "startCamera: Error starting camera")
                 return@addListener
             }
 
             // The ratio for the output image and preview
-            val aspectRatio = aspectRatio(previewView.width, previewView.height)
+            val aspectRatio = aspectRatio(_previewView.width, _previewView.height)
             // The display rotation
-            val rotation = previewView.display.rotation
+            val rotation = _previewView.display.rotation
 
-            val localCameraProvider = cameraProvider
+            val localCameraProvider = _cameraProvider
                 ?: throw IllegalStateException("Camera initialization failed.")
 
             // The Configuration of camera preview
-            preview = Preview.Builder()
+            _preview = Preview.Builder()
                 .setTargetAspectRatio(aspectRatio) // set the camera aspect ratio
                 .setTargetRotation(rotation) // set the camera rotation
                 .build()
 
             // The Configuration of image capture
-            imageCapture = ImageCapture.Builder()
+            _imageCapture = ImageCapture.Builder()
                 .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY) // setting to have pictures with highest quality possible (may be slow)
-                .setFlashMode(flashMode) // set capture flash
+                .setFlashMode(_flashMode) // set capture flash
                 .setTargetAspectRatio(aspectRatio) // set the capture aspect ratio
                 .setTargetRotation(rotation) // set the capture rotation
                 .build()
@@ -187,7 +198,7 @@ class CameraXKPreviewView @JvmOverloads constructor(
             checkForHdrExtensionAvailability()
 
             // The Configuration of image analyzing
-            imageAnalyzer = ImageAnalysis.Builder()
+            _imageAnalyzer = ImageAnalysis.Builder()
                 .setTargetAspectRatio(aspectRatio) // set the analyzer aspect ratio
                 .setTargetRotation(rotation) // set the analyzer rotation
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST) // in our analysis, we care about the latest image
@@ -197,22 +208,22 @@ class CameraXKPreviewView @JvmOverloads constructor(
             // Unbind the use-cases before rebinding them
             localCameraProvider.unbindAll()
             // Bind all use cases to the camera with lifecycle
-            bindToLifecycle(localCameraProvider, previewView)
+            bindToLifecycle(localCameraProvider, _previewView)
         }, ContextCompat.getMainExecutor(context))
     }
 
     fun changeFlash(@ImageCapture.FlashMode flash: Int) {
-        flashMode = flash
-        imageCapture.flashMode = flashMode
+        _flashMode = flash
+        _imageCapture.flashMode = _flashMode
     }
 
     fun changeCountDownTimer(timer: CameraXKTimer) {
-        selectedTimer = timer
+        _selectedTimer = timer
     }
 
     fun changeCameraFacing(cameraSelector: CameraSelector) {
-        if (lensFacing != cameraSelector) {
-            lensFacing = if (lensFacing == CameraSelector.DEFAULT_BACK_CAMERA) {
+        if (_lensFacing != cameraSelector) {
+            _lensFacing = if (_lensFacing == CameraSelector.DEFAULT_BACK_CAMERA) {
                 CameraSelector.DEFAULT_FRONT_CAMERA
             } else {
                 CameraSelector.DEFAULT_BACK_CAMERA
@@ -222,15 +233,15 @@ class CameraXKPreviewView @JvmOverloads constructor(
     }
 
     fun changeHDRStatus(isOpen: Boolean) {
-        if (isOpenHdr != isOpen) {
-            isOpenHdr = !isOpenHdr
+        if (_isOpenHdr != isOpen) {
+            _isOpenHdr = !_isOpenHdr
             startCamera()
         }
     }
 
-    fun takePicture() = GlobalScope.launch(Dispatchers.Main) {
+    fun takePicture() = CoroutineScope(Dispatchers.Main).launch {
         // Show a timer based on user selection
-        when (selectedTimer) {
+        when (_selectedTimer) {
             CameraXKTimer.S3 -> for (i in 3 downTo 1) {
                 delay(1000)
             }
@@ -244,43 +255,43 @@ class CameraXKPreviewView @JvmOverloads constructor(
     }
 
     private fun captureImage() {
-        val localImageCapture = imageCapture
+        val localImageCapture = _imageCapture
         localImageCapture.takePicture(
             ContextCompat.getMainExecutor(context), // the executor, on which the task will run
-            onImageCaptureCallback
+            _onImageCaptureCallback
         )
     }
 
     private fun checkForHdrExtensionAvailability() {
         // Create a Vendor Extension for HDR
-        val extensionsManagerFuture = ExtensionsManager.getInstanceAsync(context, cameraProvider ?: return)
+        val extensionsManagerFuture = ExtensionsManager.getInstanceAsync(context, _cameraProvider ?: return)
         extensionsManagerFuture.addListener(
             {
                 val extensionsManager = extensionsManagerFuture.get() ?: return@addListener
 
-                val isAvailable = extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.HDR)
+                val isAvailable = extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.HDR)
 
                 // check for any extension availability
-                println("AUTO " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.AUTO))
-                println("HDR " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.HDR))
+                println("AUTO " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.AUTO))
+                println("HDR " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.HDR))
                 println(
                     "FACE RETOUCH " + extensionsManager.isExtensionAvailable(
-                        lensFacing,
+                        _lensFacing,
                         ExtensionMode.FACE_RETOUCH
                     )
                 )
-                println("BOKEH " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.BOKEH))
-                println("NIGHT " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.NIGHT))
-                println("NONE " + extensionsManager.isExtensionAvailable(lensFacing, ExtensionMode.NONE))
+                println("BOKEH " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.BOKEH))
+                println("NIGHT " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NIGHT))
+                println("NONE " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NONE))
 
                 // Check if the extension is available on the device
                 if (!isAvailable) {
-                    cameraXKListener?.onCheckCameraHDR(false)
-                } else if (isOpenHdr) {
+                    _cameraXKListener?.onCameraHDRCheck(false)
+                } else if (_isOpenHdr) {
                     // If yes, turn on if the HDR is turned on by the user
-                    cameraXKListener?.onCameraHDROpen()
-                    hdrCameraSelector =
-                        extensionsManager.getExtensionEnabledCameraSelector(lensFacing, ExtensionMode.HDR)
+                    _cameraXKListener?.onCameraHDROpen()
+                    _hdrCameraSelector =
+                        extensionsManager.getExtensionEnabledCameraSelector(_lensFacing, ExtensionMode.HDR)
                 }
             }, ContextCompat.getMainExecutor(context)
         )
@@ -289,18 +300,18 @@ class CameraXKPreviewView @JvmOverloads constructor(
     private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, previewView: PreviewView) {
         try {
             localCameraProvider.bindToLifecycle(
-                lifecycleOwner!!, // current lifecycle owner
-                hdrCameraSelector ?: lensFacing, // either front or back facing
-                preview, // camera preview use case
-                imageCapture, // image capture use case
-                imageAnalyzer, // image analyzer use case
+                _lifecycleOwner!!, // current lifecycle owner
+                _hdrCameraSelector ?: _lensFacing, // either front or back facing
+                _preview, // camera preview use case
+                _imageCapture, // image capture use case
+                _imageAnalyzer, // image analyzer use case
             ).apply {
                 // Init camera exposure control
                 cameraInfo.exposureState.run {
                     val lower = exposureCompensationRange.lower
                     val upper = exposureCompensationRange.upper
 
-                    slider.run {
+                    _slider.run {
                         valueFrom = lower.toFloat()
                         valueTo = upper.toFloat()
                         stepSize = 1f
@@ -314,7 +325,7 @@ class CameraXKPreviewView @JvmOverloads constructor(
             }
 
             // Attach the viewfinder's surface provider to preview use case
-            preview.setSurfaceProvider(previewView.surfaceProvider)
+            _preview.setSurfaceProvider(previewView.surfaceProvider)
         } catch (e: Exception) {
             Log.e(TAG, "Failed to bind use cases", e)
         }
@@ -322,28 +333,24 @@ class CameraXKPreviewView @JvmOverloads constructor(
 
     private fun setLuminosityAnalyzer(imageAnalysis: ImageAnalysis) {
         // Use a worker thread for image analysis to prevent glitches
-        analyzerThread = HandlerThread("LuminosityAnalysis").apply { start() }
-        imageLoader?.let {
-            imageAnalysis.setAnalyzer(ThreadExecutor(Handler(analyzerThread.looper)), it)
+        _analyzerThread = HandlerThread("CameraXKLuminosityAnalysis").apply { start() }
+        _cameraXKAnalyzer?.let {
+            imageAnalysis.setAnalyzer(ThreadExecutor(Handler(_analyzerThread.looper)), it)
         }
-        imageAnalysis.setAnalyzer(
-            ThreadExecutor(Handler(analyzerThread.looper)),
-            LuminosityAnalyzer()
-        )
     }
 
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.layout_cameraxk_preview, this)
-        previewView = findViewById(R.id.cameraxk_preview)
-        sliderContainer = findViewById(R.id.cameraxk_container)
-        slider = findViewById(R.id.cameraxk_slider)
-        previewView.addOnAttachStateChangeListener(onAttachStateChangeListener)
+        _previewView = findViewById(R.id.cameraxk_preview)
+        _sliderContainer = findViewById(R.id.cameraxk_container)
+        _slider = findViewById(R.id.cameraxk_slider)
+        _previewView.addOnAttachStateChangeListener(_onAttachStateChangeListener)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
-        displayId = previewView.display.displayId
+        _displayId = _previewView.display.displayId
     }
 
     /**
@@ -363,7 +370,7 @@ class CameraXKPreviewView @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        analyzerThread.interrupt()
-        displayManager.unregisterDisplayListener(displayListener)
+        _analyzerThread.interrupt()
+        _displayManager.unregisterDisplayListener(_displayListener)
     }
 }

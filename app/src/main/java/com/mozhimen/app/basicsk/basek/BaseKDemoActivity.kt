@@ -15,14 +15,13 @@ class BaseKDemoActivity :
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        super.initData(savedInstanceState)
-        initView()
+        initView(savedInstanceState)
     }
 
     private var _sum = 0
 
     @SuppressLint("SetTextI18n")
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         vb.basekActivityTxt.text = "SUM: $_sum"
         vb.basekActivityBtn.setOnClickListener {
             _sum++

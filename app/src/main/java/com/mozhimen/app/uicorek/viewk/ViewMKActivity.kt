@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityViewkBinding
+import com.mozhimen.basicsk.extsk.start
 
 class ViewKActivity : AppCompatActivity() {
 
@@ -15,10 +16,10 @@ class ViewKActivity : AppCompatActivity() {
     }
 
     fun gotoViewKViews(view: View) {
-        startActivity(Intent(this, ViewKViewsActivity::class.java))
+        start<ViewKViewsActivity>()
     }
 
     fun gotoViewKSteps(view: View) {
-        startActivity(Intent(this, ViewKStepsActivity::class.java))
+        start<ViewKStepsActivity>()
     }
 }

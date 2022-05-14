@@ -23,3 +23,11 @@ fun String.getSplitLast(splitStr: String): String = UtilKString.getSplitLast(thi
  * @return String
  */
 fun String.string2Unicode(): String = UtilKString.string2Unicode(this)
+
+/**
+ * 抛出非法状态异常
+ * @receiver String
+ */
+fun String.throwIllegalStateException() {
+    throw IllegalStateException(this)
+}

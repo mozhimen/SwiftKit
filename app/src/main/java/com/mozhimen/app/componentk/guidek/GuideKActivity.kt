@@ -33,10 +33,10 @@ class GuideKActivity :
             _currentItemId = savedInstanceState.getInt(GUIDEK_SAVED_CURRENT_ID)
         }
 
-        initView()
+        initView(savedInstanceState)
     }
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         val navController = findNavController(R.id.guidek_fragment_container)
         val hostFragment =
             supportFragmentManager.findFragmentById(R.id.guidek_fragment_container);

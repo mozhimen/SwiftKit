@@ -1,5 +1,6 @@
 package com.mozhimen.app.basicsk.basek
 
+import android.os.Bundle
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.FragmentBasekFragmentBinding
 import com.mozhimen.basicsk.basek.BaseKFragment
@@ -11,7 +12,7 @@ class BaseKDemoFragment :
         vb.vm = vm
     }
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
 
     }
 }

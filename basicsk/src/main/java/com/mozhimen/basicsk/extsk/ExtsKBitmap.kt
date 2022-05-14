@@ -1,6 +1,7 @@
 package com.mozhimen.basicsk.extsk
 
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import com.mozhimen.basicsk.utilk.UtilKBitmap
 
 /**
@@ -24,3 +25,23 @@ fun String.url2Bitmap(
 ) {
     UtilKBitmap.url2Bitmap(this, placeholder, error, onGetBitmap)
 }
+
+/**
+ * gradientDrawable转Bitmap
+ * @receiver Drawable
+ * @return Bitmap
+ */
+fun Drawable.drawable2Bitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight): Bitmap =
+    UtilKBitmap.drawable2Bitmap(this, width, height)
+
+/**
+ * 裁剪图片
+ * @receiver Bitmap
+ * @param width Int
+ * @param height Int
+ * @param x Int
+ * @param y Int
+ * @return Bitmap
+ */
+fun Bitmap.cropBitmap(width: Int, height: Int, x: Int, y: Int): Bitmap =
+    UtilKBitmap.cropBitmap(this, width, height, x, y)

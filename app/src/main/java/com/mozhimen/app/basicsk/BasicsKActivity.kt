@@ -12,8 +12,6 @@ import com.mozhimen.app.basicsk.logk.LogKActivity
 import com.mozhimen.app.basicsk.permissionk.PermissionKActivity
 import com.mozhimen.app.basicsk.stackk.StackKActivity
 import com.mozhimen.app.basicsk.utilk.UtilKActivity
-import com.mozhimen.basicsk.databusk.DataBusK
-import com.mozhimen.basicsk.executork.ExecutorK
 import com.mozhimen.basicsk.extsk.start
 
 class BasicsKActivity : AppCompatActivity() {

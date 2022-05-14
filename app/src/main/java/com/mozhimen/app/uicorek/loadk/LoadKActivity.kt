@@ -10,7 +10,7 @@ import com.mozhimen.basicsk.utilk.UtilKHandler
 import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorek.loadk.commons.LoadKLoadCallback
 import com.mozhimen.uicorek.loadk.commons.LoadKRefreshCallback
-import com.mozhimen.uicorek.refreshk.temps.LottieOverView
+import com.mozhimen.uicorek.refreshk.customs.LottieOverView
 
 class LoadKActivity : AppCompatActivity() {
     private val vb by lazy { ActivityLoadkBinding.inflate(layoutInflater) }

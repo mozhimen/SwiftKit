@@ -145,7 +145,7 @@ object LogK {
      * @param type Int
      * @param contents Array<out Any>
      */
-    fun log(@LogKType.TYPE type: Int, vararg contents: Any) {
+    fun log(@LogKType._TYPE type: Int, vararg contents: Any) {
         log(type, LogKMgr.getInstance().getConfig().getGlobalTag(), contents)
     }
 
@@ -155,7 +155,7 @@ object LogK {
      * @param tag String
      * @param contents Array<out Any>
      */
-    fun log(@LogKType.TYPE type: Int, tag: String, vararg contents: Any) {
+    fun log(@LogKType._TYPE type: Int, tag: String, vararg contents: Any) {
         log(LogKMgr.getInstance().getConfig(), type, tag, *contents)
     }
 
@@ -166,7 +166,7 @@ object LogK {
      * @param tag String
      * @param contents Array<out Any?>
      */
-    fun log(config: LogKConfig, @LogKType.TYPE type: Int, tag: String, vararg contents: Any?) {
+    fun log(config: LogKConfig, @LogKType._TYPE type: Int, tag: String, vararg contents: Any?) {
         if (!config.enable()) {
             return
         }

@@ -12,7 +12,7 @@ import com.mozhimen.basicsk.utilk.UtilKSP
 import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
 import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
 import com.mozhimen.uicorek.bannerk.mos.BannerKMo
-import com.mozhimen.uicorek.bannerk.temps.PointIndicator
+import com.mozhimen.uicorek.bannerk.customs.PointIndicator
 import com.mozhimen.uicorek.bindk.BindKViewHolder
 import com.mozhimen.uicorek.datak.commons.DataKItem
 

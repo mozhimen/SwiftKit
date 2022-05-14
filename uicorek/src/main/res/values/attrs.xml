@@ -279,29 +279,29 @@
     </declare-styleable>
 
     <!--viewk-->
-    <declare-styleable name="SquareQRScan">
+    <declare-styleable name="ViewKQRScan2">
         <!-- 扫描边框的粗细-->
-        <attr name="squareQRScan_borderWidth" format="dimension" />
+        <attr name="viewKQRScan2_borderWidth" format="dimension" />
         <!-- 扫描边框的颜色-->
-        <attr name="squareQRScan_borderColor" format="color|reference" />
+        <attr name="viewKQRScan2_borderColor" format="color|reference" />
         <!-- 扫描线的图片资源-->
-        <attr name="squareQRScan_lineDrawable" format="reference" />
+        <attr name="viewKQRScan2_lineDrawable" format="reference" />
         <!-- 扫描线的粗细-->
-        <attr name="squareQRScan_lineWidth" format="dimension" />
+        <attr name="viewKQRScan2_lineWidth" format="dimension" />
         <!-- 扫描线的颜色-->
-        <attr name="squareQRScan_lineColor" format="color|reference" />
+        <attr name="viewKQRScan2_lineColor" format="color|reference" />
         <!-- 扫描线每次移动的距离(包括扫描线的移动,收缩和成功logo的展现)-->
-        <attr name="squareQRScan_distance" format="dimension" />
+        <attr name="viewKQRScan2_distance" format="dimension" />
         <!-- 扫描线从顶部移动至底部的动画时间ms-->
-        <attr name="squareQRScan_animTime" format="integer" />
+        <attr name="viewKQRScan2_animTime" format="integer" />
         <!-- 扫描线是否来回移动-->
-        <attr name="squareQRScan_isLineReverse" format="boolean" />
+        <attr name="viewKQRScan2_isLineReverse" format="boolean" />
         <!-- 扫描成功的成功图标-->
-        <attr name="squareQRScan_successDrawable" format="reference" />
+        <attr name="viewKQRScan2_successDrawable" format="reference" />
         <!-- 扫描成功的成功图标大小-->
-        <attr name="squareQRScan_successDrawableSize" format="dimension" />
+        <attr name="viewKQRScan2_successDrawableSize" format="dimension" />
         <!-- 扫描成功的成功动画时间-->
-        <attr name="squareQRScan_successAnimTime" format="integer" />
+        <attr name="viewKQRScan2_successAnimTime" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="ArcRotate">
@@ -362,14 +362,14 @@
 
     <!--二维码扫描控件-->
     <declare-styleable name="ViewKQRScan">
-        <!-- 扫描框的宽度，默认值为200dp -->
-        <attr name="viewKQRScan_rectWidth" format="dimension|reference" />
-        <!-- 扫描边框的宽度，默认值为1dp -->
-        <attr name="viewKQRScan_borderSize" format="dimension|reference" />
+        <!-- 扫描边框线的宽度，默认值为1dp -->
+        <attr name="viewKQRScan_borderLineWidth" format="dimension|reference" />
         <!-- 扫描边框的颜色，默认值为@android:color/white -->
         <attr name="viewKQRScan_borderColor" format="color|reference" />
         <!-- 扫描线的图片资源，默认值为null -->
-        <attr name="viewKQRScan_customScanLineDrawable" format="reference" />
+        <attr name="viewKQRScan_lineDrawable" format="reference" />
+        <!-- 扫描线的线宽，默认值为1dp -->
+        <attr name="viewKQRScan_lineWidth" format="dimension|reference" />
         <!-- 扫描线从顶部移动到底部的动画时间，默认值为1000 -->
         <attr name="viewKQRScan_animTime" format="integer" />
         <!-- 扫描线是否来回移动，默认值为true -->

@@ -1,5 +1,6 @@
 package com.mozhimen.basicsk.extsk
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basicsk.utilk.UtilKSkip

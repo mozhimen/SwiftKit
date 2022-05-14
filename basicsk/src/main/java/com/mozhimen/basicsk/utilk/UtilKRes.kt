@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.DrawableWrapper
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -65,12 +66,4 @@ object UtilKRes {
      */
     fun getDrawable(@DrawableRes drawableId: Int): Drawable? =
         ContextCompat.getDrawable(_context, drawableId)
-
-    /**
-     * 获取Bitmap从Drawable
-     * @param drawableId Int
-     * @return Bitmap?
-     */
-    fun getBitmapDrawable(@DrawableRes drawableId: Int): Bitmap? =
-        BitmapFactory.decodeResource(_context.resources, drawableId, null)
 }

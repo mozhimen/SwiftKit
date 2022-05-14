@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".qrcodek.QrCodeKActivity">
+
+        <ImageView
+            android:id="@+id/scank_demo_img"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/blue_theme"
+            android:scaleType="centerCrop"
+            android:src="@color/blue_light" />
+
+        <EditText
+            android:id="@+id/scank_demo_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scank_demo_btn_create"
+            style="@style/Btn"
+            android:text="生成QrCode"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scank_demo_btn_scan"
+            style="@style/Btn"
+            android:text="扫描二维码"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/scank_demo_btn_scan2"
+            style="@style/Btn"
+            android:text="扫描二维码(回调图片)"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+</layout>

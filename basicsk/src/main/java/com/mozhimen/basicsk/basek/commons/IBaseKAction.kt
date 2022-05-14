@@ -18,5 +18,5 @@ interface IBaseKAction {
 
     fun initData(savedInstanceState: Bundle?)
 
-    fun initView()
+    fun initView(savedInstanceState: Bundle?)
 }

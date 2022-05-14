@@ -18,13 +18,13 @@ import kotlin.math.abs
 class DemoActivity : BaseKActivity<ActivityDemoBinding, DemoViewModel>(R.layout.activity_demo) {
 
     override fun initData(savedInstanceState: Bundle?) {
-        initView()
+        initView(savedInstanceState)
     }
 
     var mScrollY = 0
     var mAlpha = 0
 
-    override fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         val list = arrayListOf<Astro>(
             Astro("白羊座", "晴天", 90),
             Astro("天蝎座", "雨天", 70),

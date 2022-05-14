@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityTabkBottomFragmentBinding
-import com.mozhimen.app.uicorek.tabk.fragment.HomeFragment
-import com.mozhimen.app.uicorek.tabk.fragment.MineFragment
-import com.mozhimen.app.uicorek.tabk.fragment.MoreFragment
+import com.mozhimen.app.uicorek.tabk.fragments.HomeFragment
+import com.mozhimen.app.uicorek.tabk.fragments.MineFragment
+import com.mozhimen.app.uicorek.tabk.fragments.MoreFragment
 import com.mozhimen.basicsk.extsk.dp2px
 import com.mozhimen.basicsk.utilk.UtilKRes
 import com.mozhimen.uicorek.tabk.bottom.helpers.TabKFragmentAdapter

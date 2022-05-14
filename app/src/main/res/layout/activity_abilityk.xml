@@ -28,14 +28,14 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Btn"
-                android:onClick="goQrCodeK"
-                android:text="QrCodeK"
+                android:onClick="goScanK"
+                android:text="ScanK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Btn"
-                android:onClick="goRESTfulK"
-                android:text="RESTfulK"
+                android:onClick="goNetK"
+                android:text="NetK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -5,9 +5,12 @@ import android.content.res.TypedArray
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.view.View
+import android.util.Log
+import com.mozhimen.basicsk.basek.BaseKView
 import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basicsk.extsk.drawable2Bitmap
 import com.mozhimen.uicorek.R
 
 /**
@@ -17,86 +20,59 @@ import com.mozhimen.uicorek.R
  * @Date 2021/6/21 14:18
  * @Version 1.0
  */
-class ViewKQRScan : View {
-    private var mCustomScanLineDrawable: Drawable? = null
-    private var mBorderSize = 0
-    private var mBorderColor = 0
-    private var mAnimTime = 1000
-    private var mIsScanLineReverse = false
-    private var mOriginQRCodeScanLineBitmap: Bitmap? = null
-    private lateinit var mPaint: Paint
-    private var mScanLineBitmap: Bitmap? = null
-    private var mScanLineTop = 0f
-    private var mMoveStepDistance = 0
-    private var mAnimDelayTime = 0
-    private var mFramingRect: Rect? = null
-    private var mRectWidth = 0
-    private var mRectHeight = 0
+class ViewKQRScan @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    BaseKView(context, attrs, defStyleAttr) {
+    private val TAG = "ViewKQRScan>>>>>"
 
-    constructor(context: Context?) : this(context!!, null)
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        init(attrs)
-    }
+    private var _lineDrawable: Drawable? = null
+    private var _lineWidth = 1f.dp2px()
+    private var _borderLineWidth = 1f.dp2px()
+    private var _borderColor = Color.WHITE
+    private var _animTime = 1000
+    private var _isScanLineReverse = false
 
-    fun init(attrs: AttributeSet?) {
-        mPaint = Paint()
-        mRectWidth = 200f.dp2px()
-        mBorderSize = 1f.dp2px()
-        mBorderColor = Color.WHITE
-        mMoveStepDistance = 2f.dp2px()
+    private var _paint: Paint = Paint()
+    private var _scanLineBitmap: Bitmap? = null
+    private var _scanLineTop = _borderLineWidth
+    private var _moveStepDistance = 2f.dp2px()
+    private var _animDelayTime = 0
+    private var _borderRect: Rect? = null
+    private var _borderWidth = 200f.dp2px()
+    private var _borderHeight = 200f.dp2px()
 
-        val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKQRScan)
-        val count = typedArray.indexCount
-        for (i in 0 until count) {
-            initCustomAttr(typedArray.getIndex(i), typedArray)
-        }
-        typedArray.recycle()
-
+    init {
+        initAttrs(attrs, defStyleAttr)
         afterInitCustomAttrs()
     }
 
-    private fun initCustomAttr(attr: Int, typedArray: TypedArray) {
-        when (attr) {
-            R.styleable.ViewKQRScan_viewKQRScan_customScanLineDrawable -> {
-                mCustomScanLineDrawable = typedArray.getDrawable(attr)
-            }
-            R.styleable.ViewKQRScan_viewKQRScan_borderSize -> {
-                mBorderSize = typedArray.getDimensionPixelSize(attr, mBorderSize)
-            }
-            R.styleable.ViewKQRScan_viewKQRScan_borderColor -> {
-                mBorderColor = typedArray.getColor(attr, mBorderColor)
-            }
-            R.styleable.ViewKQRScan_viewKQRScan_animTime -> {
-                mAnimTime = typedArray.getInteger(attr, mAnimTime)
-            }
-            R.styleable.ViewKQRScan_viewKQRScan_isScanLineReverse -> {
-                mIsScanLineReverse = typedArray.getBoolean(attr, mIsScanLineReverse)
-            }
-        }
+    fun getRectSize() = _borderWidth
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKQRScan)
+        _lineDrawable = typedArray.getDrawable(R.styleable.ViewKQRScan_viewKQRScan_lineDrawable)
+        _lineWidth = typedArray.getDimensionPixelSize(R.styleable.ViewKQRScan_viewKQRScan_lineWidth, _lineWidth)
+        _borderLineWidth =
+            typedArray.getDimensionPixelSize(R.styleable.ViewKQRScan_viewKQRScan_borderLineWidth, _borderLineWidth)
+        _borderColor = typedArray.getColor(R.styleable.ViewKQRScan_viewKQRScan_borderColor, _borderColor)
+        _animTime = typedArray.getInteger(R.styleable.ViewKQRScan_viewKQRScan_animTime, _animTime)
+        _isScanLineReverse =
+            typedArray.getBoolean(R.styleable.ViewKQRScan_viewKQRScan_isScanLineReverse, _isScanLineReverse)
+        typedArray.recycle()
     }
 
     private fun afterInitCustomAttrs() {
-        mCustomScanLineDrawable?.let {
-            mOriginQRCodeScanLineBitmap = (mCustomScanLineDrawable as BitmapDrawable).bitmap
+        _lineDrawable?.let {
+            _scanLineBitmap = if (_lineDrawable is GradientDrawable) {
+                it.drawable2Bitmap(_borderWidth, _lineWidth)
+            } else {
+                (_lineDrawable as BitmapDrawable).bitmap
+            }
         }
-        refreshScanBox()
-    }
-
-    private fun refreshScanBox() {
-        mCustomScanLineDrawable?.let {
-            mScanLineBitmap = mOriginQRCodeScanLineBitmap
-        }
-        calFramingRect()
         postInvalidate()
     }
 
     override fun onDraw(canvas: Canvas?) {
-        if (mFramingRect == null) {
+        if (_borderRect == null) {
             return
         }
 
@@ -116,11 +92,11 @@ class ViewKQRScan : View {
      * 画边框线
      */
     private fun drawBorderLine(canvas: Canvas) {
-        if (mBorderSize > 0) {
-            mPaint.style = Paint.Style.STROKE
-            mPaint.color = mBorderColor
-            mPaint.strokeWidth = mBorderSize.toFloat()
-            canvas.drawRect(mFramingRect!!, mPaint)
+        if (_borderLineWidth > 0) {
+            _paint.style = Paint.Style.STROKE
+            _paint.color = _borderColor
+            _paint.strokeWidth = _borderLineWidth.toFloat()
+            canvas.drawRect(_borderRect!!, _paint)
         }
     }
 
@@ -128,12 +104,12 @@ class ViewKQRScan : View {
      * 画扫描线
      */
     private fun drawScanLine(canvas: Canvas) {
-        mScanLineBitmap?.let {
+        _scanLineBitmap?.let {
             val lineRect = RectF(
-                mFramingRect!!.left.toFloat(), mScanLineTop,
-                mFramingRect!!.right.toFloat(), mScanLineTop + it.height
+                _borderRect!!.left.toFloat(), _scanLineTop.toFloat(),
+                _borderRect!!.right.toFloat(), _scanLineTop.toFloat() + it.height
             )
-            canvas.drawBitmap(it, null, lineRect, mPaint)
+            canvas.drawBitmap(it, null, lineRect, _paint)
         }
     }
 
@@ -142,47 +118,45 @@ class ViewKQRScan : View {
      */
     private fun moveScanLine() {
         // 处理非网格扫描图片的情况
-        mScanLineTop += mMoveStepDistance.toFloat()
-        var scanLineSize = 0
-        mScanLineBitmap?.let {
-            scanLineSize = it.height
+        _scanLineTop += _moveStepDistance
+        var scanLineWidth = 0
+        _scanLineBitmap?.let {
+            scanLineWidth = it.height
         }
-        if (mIsScanLineReverse) {
-            if (mScanLineTop + scanLineSize >= mFramingRect!!.bottom || mScanLineTop < mFramingRect!!.top) {
-                mMoveStepDistance = -mMoveStepDistance
+        if (_isScanLineReverse) {
+            if (_scanLineTop + scanLineWidth >= _borderRect!!.bottom || _scanLineTop < _borderRect!!.top) {
+                _moveStepDistance = -_moveStepDistance
             }
         } else {
-            if (mScanLineTop + scanLineSize >= mFramingRect!!.bottom) {
-                mScanLineTop = (mFramingRect!!.top + scanLineSize).toFloat()
+            if (_scanLineTop + scanLineWidth >= _borderRect!!.bottom) {
+                _scanLineTop = _borderRect!!.top + scanLineWidth
             }
         }
         postInvalidateDelayed(
-            mAnimDelayTime.toLong(),
-            mFramingRect!!.left,
-            mFramingRect!!.top,
-            mFramingRect!!.right,
-            mFramingRect!!.bottom
+            _animDelayTime.toLong(),
+            _borderRect!!.left,
+            _borderRect!!.top,
+            _borderRect!!.right,
+            _borderRect!!.bottom
         )
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        calFramingRect()
+        _borderWidth = h
+        _borderHeight = h
+        _animDelayTime = ((1f * _animTime * _moveStepDistance) / _borderHeight).toInt()
+        initBorderRect()
     }
 
-    private fun calFramingRect() {
-        val leftOffset = (width - mRectWidth) / 2
-        mFramingRect = Rect(leftOffset, 0, leftOffset + mRectWidth, mRectHeight)
+    private fun initBorderRect() {
+        val leftOffset = _borderLineWidth / 2
+        _borderRect = Rect(leftOffset, leftOffset, _borderWidth - leftOffset, _borderHeight - leftOffset)
     }
-
-    fun getScanViewHeight() = mRectHeight
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val height = MeasureSpec.getSize(heightMeasureSpec)
         val mWidthMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)
-        mRectWidth = height
-        mRectHeight = height
-        mAnimDelayTime = ((1f * mAnimTime * mMoveStepDistance) / mRectHeight).toInt()
         super.onMeasure(mWidthMeasureSpec, heightMeasureSpec)
     }
 }

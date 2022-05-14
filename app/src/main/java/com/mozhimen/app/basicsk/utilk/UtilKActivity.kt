@@ -6,6 +6,8 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityUtilkBinding
 import com.mozhimen.basicsk.utilk.UtilKBitmap
+import com.mozhimen.basicsk.utilk.UtilKVerifyUrl
+import com.mozhimen.basicsk.utilk.showToast
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -24,6 +26,10 @@ class UtilKActivity : AppCompatActivity() {
     private fun initView() {
         lifecycleScope.launch {
             vb.utilKImg.setImageBitmap(UtilKBitmap.url2Bitmap2(url))
+        }
+
+        vb.utilkBtnPortVerify.setOnClickListener {
+            "是否合法: ${UtilKVerifyUrl.isPortValid(vb.utilkTxtPortVerify.text.toString())}".showToast()
         }
     }
 }

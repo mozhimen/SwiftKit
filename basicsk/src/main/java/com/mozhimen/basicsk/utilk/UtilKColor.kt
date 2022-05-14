@@ -52,14 +52,8 @@ object UtilKColor {
      */
     @ColorInt
     fun getColorTone(color: Any): Int = when (color) {
-        is String -> {
-            Color.parseColor(color)
-        }
-        is Int -> {
-            color
-        }
-        else -> {
-            throw IllegalArgumentException("color type is illegal!")
-        }
+        is String -> Color.parseColor(color)
+        is Int -> color
+        else -> throw IllegalArgumentException("color type is illegal!")
     }
 }

@@ -19,7 +19,7 @@ object UtilKVerifyUrl {
     private const val REGEX_DOMAIN =
         "^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$"//域名验证
 
-    private const val REGEX_PORT = "^[-\\+]?[\\d]{1,6}$"//端口号验证
+    private const val REGEX_PORT = "^[-+]?[\\d]{1,6}$"//端口号验证
 
     /**
      * ip是否合法

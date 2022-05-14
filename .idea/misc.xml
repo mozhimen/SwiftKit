@@ -3,10 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/drawable/viewk_qrscan_line.xml" value="0.1" />
+        <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/activity_scank.xml" value="0.16" />
+        <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/activity_scank2.xml" value="0.1" />
+        <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/activity_scank_qr.xml" value="0.11319444444444444" />
+        <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/activity_scank_qr2.xml" value="0.1625" />
         <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/layout_cameraxk_preview.xml" value="0.1259259259259259" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_abilityk.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_bannerk.xml" value="0.4" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_basek_activity.xml" value="0.30833333333333335" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_basicsk.xml" value="0.22" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_cameraxk.xml" value="0.11666666666666667" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_componentk.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_datak_load_more.xml" value="0.264" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_guidek.xml" value="0.1" />
@@ -15,8 +22,13 @@
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_logk.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_main.xml" value="0.25364583333333335" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_navigationk.xml" value="0.1" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_netk.xml" value="0.18" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_qrcodek.xml" value="0.15" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_refreshk.xml" value="0.18489583333333334" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_refreshk_lottie.xml" value="0.2109375" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_restfulk.xml" value="0.1" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_scank.xml" value="0.1482638888888889" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_scank_demo.xml" value="0.22" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_stackk.xml" value="0.2" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_stackk2.xml" value="0.4" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_stackk_second.xml" value="0.1259259259259259" />
@@ -26,7 +38,8 @@
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_tabk_top.xml" value="0.36614583333333334" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_tabk_top_layout.xml" value="0.2" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_uicorek.xml" value="0.2" />
-        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_utilk.xml" value="0.25" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_utilk.xml" value="0.2" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_viewk_views.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/datamk_item_activity.xml" value="0.1296875" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/fragment_basek_fragment.xml" value="0.21296296296296297" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/fragment_guidek_dashboard.xml" value="0.2" />
@@ -41,6 +54,7 @@
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/item_datak_tab.xml" value="0.2109375" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/item_datak_top.xml" value="0.1361111111111111" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/item_demo_footer.xml" value="0.1" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/item_demo_list.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/basicsk/src/main/res/layout/item_logk.xml" value="0.287962962962963" />
         <entry key="..\:/GitHub/SwiftKit/basicsk/src/main/res/layout/view_fpsk.xml" value="0.1296875" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/drawable/navigationk_home.xml" value="0.11018518518518519" />

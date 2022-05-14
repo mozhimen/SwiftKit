@@ -65,19 +65,20 @@ object ExecutorK {
 
             override fun afterExecute(r: Runnable?, t: Throwable?) {
                 //监控线程池耗时任务,线程创建数量,正在运行的数量
-                Log.w(TAG, "已执行完的任务的优先级是：${(r as PriorityRunnable).priority}")
+                val runnable = r as PriorityRunnable
+                Log.w(TAG, "已执行完的任务${runnable.name}的优先级是：${runnable.priority}")
             }
         }
     }
 
     @JvmOverloads
-    fun execute(@IntRange(from = 0, to = 10) priority: Int = 0, runnable: Runnable) {
-        _executork.execute(PriorityRunnable(priority, runnable))
+    fun execute(name: String, @IntRange(from = 0, to = 10) priority: Int = 0, runnable: Runnable) {
+        _executork.execute(PriorityRunnable(name, priority, runnable))
     }
 
     @JvmOverloads
-    fun execute(@IntRange(from = 0, to = 10) priority: Int = 0, runnable: ExecutorKCallable<*>) {
-        _executork.execute(PriorityRunnable(priority, runnable))
+    fun execute(name: String, @IntRange(from = 0, to = 10) priority: Int = 0, runnable: ExecutorKCallable<*>) {
+        _executork.execute(PriorityRunnable(name, priority, runnable))
     }
 
 
@@ -96,7 +97,7 @@ object ExecutorK {
         abstract fun onCompleted(t: T?)
     }
 
-    class PriorityRunnable(val priority: Int, private val runnable: Runnable) : Runnable,
+    class PriorityRunnable(val name: String, val priority: Int, private val runnable: Runnable) : Runnable,
         Comparable<PriorityRunnable> {
         override fun run() {
             runnable.run()

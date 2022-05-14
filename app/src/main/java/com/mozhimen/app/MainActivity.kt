@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.mozhimen.app.abilityk.AbilityKActivity
 import com.mozhimen.app.basicsk.BasicsKActivity
 import com.mozhimen.app.componentk.ComponentKActivity
 import com.mozhimen.app.demo.DemoActivity
@@ -22,6 +23,10 @@ class MainActivity : AppCompatActivity() {
 
     fun goComponentK(view: View) {
         start<ComponentKActivity>()
+    }
+
+    fun goAbilityK(view: View) {
+        start<AbilityKActivity>()
     }
 
     fun goBasicsK(view: View) {

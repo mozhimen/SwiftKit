@@ -15,7 +15,7 @@ import com.mozhimen.uicorek.datak.helpers.DataKAdapter
 import com.mozhimen.uicorek.datak.DataKRecyclerView
 import com.mozhimen.uicorek.refreshk.commons.IRefreshK
 import com.mozhimen.uicorek.refreshk.mos.RefreshKStatus
-import com.mozhimen.uicorek.refreshk.temps.TextOverView
+import com.mozhimen.uicorek.refreshk.customs.TextOverView
 
 class DataKRecyclerActivity : AppCompatActivity() {
     private var _pageIndex: Int = 1

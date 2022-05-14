@@ -128,10 +128,10 @@
             android:name=".abilityk.hotfixk.HotFixKActivity"
             android:exported="false" />
         <activity
-            android:name=".abilityk.qrcodek.QRCodeKActivity"
+            android:name=".abilityk.scank.ScanKActivity"
             android:exported="false" />
         <activity
-            android:name=".abilityk.restfulk.RESTfulKActivity"
+            android:name=".abilityk.netk.NetKActivity"
             android:exported="false" />
     </application>
 

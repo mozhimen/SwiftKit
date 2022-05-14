@@ -7,7 +7,7 @@ import com.mozhimen.basicsk.extsk.dp2px
 import com.mozhimen.basicsk.extsk.postDelayed
 import com.mozhimen.basicsk.utilk.UtilKHandler
 import com.mozhimen.uicorek.refreshk.commons.IRefreshK
-import com.mozhimen.uicorek.refreshk.temps.TextOverView
+import com.mozhimen.uicorek.refreshk.customs.TextOverView
 
 class RefreshKLayoutActivity : AppCompatActivity() {
     private val vb by lazy { ActivityRefreshkBinding.inflate(layoutInflater) }

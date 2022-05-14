@@ -13,7 +13,7 @@ import androidx.annotation.IntDef
 class LogKType {
     @IntDef(V, D, I, W, E, A)
     @Retention(AnnotationRetention.SOURCE)
-    annotation class TYPE
+    annotation class _TYPE
 
     companion object {
         const val V = Log.VERBOSE

@@ -5,10 +5,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.mozhimen.basicsk.extsk.toJson
+import com.mozhimen.basicsk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.basicsk.utilk.showToast
 
 /**
  * @ClassName PermissionK
@@ -22,25 +24,51 @@ object PermissionK {
 
     /**
      * 作用: 权限申请
+     * @param activity AppCompatActivity
+     * @param isGranted Function1<Boolean, Unit>
      */
     fun initPermissions(
         activity: AppCompatActivity,
-        permissionKCallback: PermissionKCallback
+        isGranted: (Boolean) -> Unit,
     ) {
         val permissionAnnor = activity.javaClass.getAnnotation(PermissionKAnnor::class.java)
-            ?: return
+        requireNotNull(permissionAnnor) { TAG + "you may be forget add annor" }
         val permissions = permissionAnnor.permissions
         if (permissions.isNotEmpty()) {
             if (!checkPermissions(activity, *permissions)) {
                 requestPermissions(activity, *permissions) { allGranted, deniedList ->
-                    permissionKCallback(allGranted, deniedList)
+                    printDeniedList(deniedList)
+                    isGranted(allGranted)
                 }
             } else {
-                permissionKCallback(true, emptyList())
+                isGranted(true)
             }
         } else {
-            Log.e(TAG, "initPermissions: you may be forget add annor")
-            permissionKCallback(true, emptyList())
+            isGranted(true)
+        }
+    }
+
+    /**
+     * 作用: 权限申请
+     * @param activity AppCompatActivity
+     * @param permissions Array<String>
+     * @param isGranted Function1<Boolean, Unit>
+     */
+    fun initPermissions(
+        activity: AppCompatActivity,
+        permissions: Array<String>,
+        isGranted: (Boolean) -> Unit
+    ) {
+        if (permissions.isNotEmpty()) {
+            if (!checkPermissions(activity, *permissions)) {
+                requestPermissions(activity, *permissions) { allGranted, deniedList ->
+                    isGranted(false)
+                }
+            } else {
+                isGranted(true)
+            }
+        } else {
+            isGranted(true)
         }
     }
 
@@ -51,6 +79,9 @@ object PermissionK {
      *     if(allGranted){ ... }
      *     else { ... }
      * }
+     * @param activity FragmentActivity
+     * @param permissions Array<out String>
+     * @param callback Function2<Boolean, List<String>, Unit>
      */
     fun requestPermissions(
         activity: FragmentActivity,
@@ -71,6 +102,9 @@ object PermissionK {
 
     /**
      * 作用: 权限检查
+     * @param activity Activity
+     * @param permissions Array<out String>
+     * @return Boolean
      */
     fun checkPermissions(activity: Activity, vararg permissions: String): Boolean {
         var allGranted = true
@@ -89,11 +123,22 @@ object PermissionK {
 
     /**
      * 设置申请权限
+     * @param activity Activity
      */
-    fun applySetts(activity: Activity) {
+    fun applySetting(activity: Activity) {
         val intent = Intent()
-        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        intent.data = Uri.fromParts("package", activity.packageName, null)
+        intent.apply {
+            action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            data = Uri.fromParts("package", activity.packageName, null)
+        }
         activity.startActivity(intent)
+    }
+
+    /**
+     * 打印被拒绝的权限
+     * @param deniedList List<String>
+     */
+    private fun printDeniedList(deniedList: List<String>) {
+        "请在设置中打开${deniedList.toJson()}权限".showToast()
     }
 }

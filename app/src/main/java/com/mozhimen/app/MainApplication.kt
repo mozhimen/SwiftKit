@@ -1,7 +1,6 @@
 package com.mozhimen.app
 
-import android.util.Log
-import com.mozhimen.app.componentk.guidek.fragment.HomeFragment
+import com.mozhimen.app.componentk.guidek.fragments.HomeFragment
 import com.mozhimen.basicsk.basek.BaseKApplication
 import com.mozhimen.basicsk.crashk.commons.ICrashKListener
 import com.mozhimen.basicsk.extsk.e
@@ -34,10 +33,10 @@ class MainApplication : BaseKApplication() {
         StackKMgr.instance.init()
 
         //guidek
-        GuideKMgr.instance.init(_config)
+        GuideKMgr.instance.init(_guidekConfig)
     }
 
-    private val _config = GuideKPkgConfig(
+    private val _guidekConfig = GuideKPkgConfig(
         0,
         0,
         arrayListOf(

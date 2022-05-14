@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityExecutorkBinding
 import com.mozhimen.basicsk.executork.ExecutorK
-import com.mozhimen.basicsk.executork.ExecutorK.ExecutorKCallback
 
 /**
  * @ClassName ExecutorKActivity
@@ -16,7 +15,7 @@ import com.mozhimen.basicsk.executork.ExecutorK.ExecutorKCallback
  */
 class ExecutorKActivity : AppCompatActivity() {
     private val TAG = "ExecutorKActivity>>>>>"
-    
+
     private var isPaused = false
     private val vb: ActivityExecutorkBinding by lazy {
         ActivityExecutorkBinding.inflate(
@@ -34,13 +33,13 @@ class ExecutorKActivity : AppCompatActivity() {
     private fun initView() {
         vb.executorkOrder.setOnClickListener {
             for (priority in 0..10) {
-                ExecutorK.execute(Runnable {
+                ExecutorK.execute(TAG, priority) {
                     try {
                         Thread.sleep((1000 - priority * 100).toLong())
                     } catch (e: InterruptedException) {
                         e.printStackTrace()
                     }
-                }, priority)
+                }
             }
         }
 
@@ -54,7 +53,7 @@ class ExecutorKActivity : AppCompatActivity() {
         }
 
         vb.executorkAsync.setOnClickListener {
-            ExecutorK.execute(object : ExecutorKCallback<String>() {
+            ExecutorK.execute(TAG, runnable = object : ExecutorK.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
                     Log.e(TAG, "onBackground: 当前线程: ${Thread.currentThread().name}")
                     return "我是异步任务的结果"

@@ -14,8 +14,6 @@ interface ICameraXKListener {
     fun onCameraFlashOn()
     fun onCameraFlashAuto()
     fun onCameraFlashOff()
-    fun onCheckCameraHDR(available: Boolean)
+    fun onCameraHDRCheck(available: Boolean)
     fun onCameraHDROpen()
-    fun onCaptureSuccess(bitmap: Bitmap)
-    fun onCaptureFail()
 }

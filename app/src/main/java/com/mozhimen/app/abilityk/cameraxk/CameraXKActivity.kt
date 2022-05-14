@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
-import com.mozhimen.abilityk.cameraxk.commons.CameraXKListener
+import com.mozhimen.abilityk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.app.databinding.ActivityCameraxkBinding
 import com.mozhimen.basicsk.utilk.UtilKBitmap
 
@@ -23,18 +23,19 @@ class CameraXKActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(vb.root)
 
-        vb.camerakPreviewView.initCamera(this, cameraXKListener, CameraSelector.DEFAULT_FRONT_CAMERA)
+        vb.camerakPreviewView.initCamera(this, CameraSelector.DEFAULT_FRONT_CAMERA)
+        vb.camerakPreviewView.setCameraXKCaptureListener(_cameraXKCaptureListener)
         vb.camerakPreviewView.startCamera()
         vb.camerakBtn.setOnClickListener {
             vb.camerakPreviewView.takePicture()
         }
     }
 
-    private val cameraXKListener = object : CameraXKListener() {
+    private val _cameraXKCaptureListener = object : ICameraXKCaptureListener {
         override fun onCaptureSuccess(bitmap: Bitmap) {
             //UtilKImage.saveBitmap(outputDirectory, bitmap)
             runOnUiThread {
-                vb.camerakImg.setImageBitmap(UtilKBitmap.rotateBitmap(bitmap, -90, true))
+                vb.camerakImg.setImageBitmap(UtilKBitmap.rotateBitmap(bitmap, -90, flipY = true))
             }
         }
 

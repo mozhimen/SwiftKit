@@ -16,7 +16,7 @@ object UtilKJson {
      * @param obj Any
      * @return String
      */
-    fun toJson(obj: Any): String = Gson().toJson(obj)
+    fun <T> toJson(obj: T): String = Gson().toJson(obj)
 
     /**
      * 从Json转

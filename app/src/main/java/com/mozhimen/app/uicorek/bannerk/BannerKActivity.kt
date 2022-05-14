@@ -1,7 +1,6 @@
 package com.mozhimen.app.uicorek.bannerk
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +11,8 @@ import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
 import com.mozhimen.uicorek.bannerk.commons.IBannerKIndicator
 import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
 import com.mozhimen.uicorek.bannerk.mos.BannerKMo
-import com.mozhimen.uicorek.bannerk.temps.NumberIndicator
-import com.mozhimen.uicorek.bannerk.temps.PointIndicator
+import com.mozhimen.uicorek.bannerk.customs.NumberIndicator
+import com.mozhimen.uicorek.bannerk.customs.PointIndicator
 
 class BannerKActivity : AppCompatActivity() {
 

@@ -10,7 +10,7 @@ import com.mozhimen.uicorek.bannerk.commons.IBannerKIndicator
 import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
 import com.mozhimen.uicorek.bannerk.helpers.BannerKViewPager
 import com.mozhimen.uicorek.bannerk.mos.BannerKMo
-import com.mozhimen.uicorek.bannerk.temps.PointIndicator
+import com.mozhimen.uicorek.bannerk.customs.PointIndicator
 
 /**
  * @ClassName BannerKDelegate

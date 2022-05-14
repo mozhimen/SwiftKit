@@ -34,5 +34,6 @@ android {
 dependencies {
     implementation project(path: ':basicsk')
 
+    api 'androidx.constraintlayout:constraintlayout:2.1.3'
     api "com.airbnb.android:lottie:3.6.1"
 }
