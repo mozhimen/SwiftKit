@@ -9,9 +9,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.sp2px
-import com.mozhimen.basicsk.basek.BaseKLayoutLinear
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -21,12 +21,12 @@ import com.mozhimen.uicorek.R
  * @Date 2021/12/27 16:17
  * @Version 1.0
  */
-typealias OnHasFocus = (View, Boolean) -> Unit
+typealias ITextKEditFormHasFocus = (View, Boolean) -> Unit
 
 class TextKEditForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
-    private var mOnHasFocus: OnHasFocus? = null
+    private var mOnHasFocus: ITextKEditFormHasFocus? = null
     private var mIsRequire = false
     private var mRequireIconPos = 0
     private var mLabel: String? = null
@@ -39,8 +39,8 @@ class TextKEditForm @JvmOverloads constructor(context: Context, attrs: Attribute
     private var mEditType = 0
     private var mEditColor = Color.BLACK
     private var mEditSize = 16f.sp2px()
-    private var mBorderBackground = R.drawable.textk_edit_form
-    private var mBorderBackgroundFocus = R.drawable.textk_edit_form_focus
+    private var mBorderBackground = R.drawable.textk_et_form
+    private var mBorderBackgroundFocus = R.drawable.textk_et_form_focus
 
     private lateinit var mLabelText: TextView
     private lateinit var mIsRequireIcon: ImageView
@@ -75,7 +75,7 @@ class TextKEditForm @JvmOverloads constructor(context: Context, attrs: Attribute
         return this.mEditText
     }
 
-    fun setOnFocusListener(listener: OnHasFocus) {
+    fun setOnFocusListener(listener: ITextKEditFormHasFocus) {
         this.mOnHasFocus = listener
     }
 
@@ -120,7 +120,7 @@ class TextKEditForm @JvmOverloads constructor(context: Context, attrs: Attribute
 
     @SuppressLint("InflateParams")
     override fun initView() {
-        LayoutInflater.from(context).inflate(R.layout.textk_edit_form, this)
+        LayoutInflater.from(context).inflate(R.layout.textk_et_form, this)
         mLabelText = findViewById(R.id.textk_edit_form_label)
         mEditText = findViewById(R.id.textk_edit_form_edit)
         mIsRequireIcon = findViewById(R.id.textk_edit_form_icon)

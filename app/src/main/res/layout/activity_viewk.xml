@@ -17,13 +17,13 @@
             tools:context=".uicorek.viewk.ViewKActivity">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn"
+                style="@style/BtnStyle"
                 android:onClick="gotoViewKViews"
                 android:text="ViewKViews"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn"
+                style="@style/BtnStyle"
                 android:onClick="gotoViewKSteps"
                 android:text="ViewKSteps"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

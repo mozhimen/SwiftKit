@@ -7,8 +7,8 @@ import com.mozhimen.app.databinding.ActivityTabkBottomFragmentBinding
 import com.mozhimen.app.uicorek.tabk.fragments.HomeFragment
 import com.mozhimen.app.uicorek.tabk.fragments.MineFragment
 import com.mozhimen.app.uicorek.tabk.fragments.MoreFragment
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.utilk.UtilKRes
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.tabk.bottom.helpers.TabKFragmentAdapter
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
 import com.mozhimen.uicorek.tabk.commons.ITabKLayout

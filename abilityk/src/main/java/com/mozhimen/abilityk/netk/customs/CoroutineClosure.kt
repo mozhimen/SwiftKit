@@ -5,7 +5,7 @@ import com.mozhimen.abilityk.netk.commons.INetKConverter
 import com.mozhimen.abilityk.netk.helpers.NetKThrowable
 import com.mozhimen.abilityk.netk.helpers.StatusParser
 import com.mozhimen.abilityk.netk.mos.NetKResponse
-import com.mozhimen.basicsk.utilk.UtilKJson
+import com.mozhimen.basick.utilk.UtilKJson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

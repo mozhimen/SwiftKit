@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.tabk.bottom
 import android.content.Context
 import android.util.AttributeSet
 import androidx.fragment.app.Fragment
-import com.mozhimen.basicsk.basek.BaseKLayoutFrame
+import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.uicorek.tabk.bottom.helpers.TabKFragmentAdapter
 
 /**

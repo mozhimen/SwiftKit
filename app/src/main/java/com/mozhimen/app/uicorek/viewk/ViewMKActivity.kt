@@ -1,11 +1,10 @@
 package com.mozhimen.app.uicorek.viewk
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityViewkBinding
-import com.mozhimen.basicsk.extsk.start
+import com.mozhimen.basick.extsk.start
 
 class ViewKActivity : AppCompatActivity() {
 

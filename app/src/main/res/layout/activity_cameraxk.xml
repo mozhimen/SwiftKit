@@ -25,7 +25,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/camerak_btn"
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:layout_gravity="center"
             android:text="take"
             tools:ignore="HardcodedText" />

@@ -6,13 +6,13 @@
 
         <variable
             name="vm"
-            type="com.mozhimen.app.basicsk.basek.BaseKDemoViewModel" />
+            type="com.mozhimen.app.basick.basek.BaseKDemoViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".basicsk.basek.BaseKDemoFragment">
+        tools:context=".basick.basek.BaseKDemoFragment">
 
         <TextView
             android:layout_width="wrap_content"

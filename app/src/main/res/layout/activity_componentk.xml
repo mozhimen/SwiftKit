@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:onClick="goGuideKActivity"
             android:text="GuideK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

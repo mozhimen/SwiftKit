@@ -37,6 +37,6 @@ dependencies {
     api 'androidx.navigation:navigation-ui-ktx:2.4.1'
 
     api project(path: ':guidek_annor')
-    implementation project(path: ':basicsk')
+    implementation project(path: ':basick')
     implementation project(path: ':uicorek')
 }

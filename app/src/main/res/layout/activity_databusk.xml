@@ -32,7 +32,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/databusk_btn_msg"
-                style="@style/Btn"
+                style="@style/BtnStyle"
                 android:text="即时消息"
                 tools:ignore="HardcodedText" />
         </LinearLayout>

@@ -4,9 +4,9 @@ import android.Manifest
 import android.os.Bundle
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityNetkBinding
-import com.mozhimen.basicsk.basek.BaseKActivity
-import com.mozhimen.basicsk.permissionk.PermissionK
-import com.mozhimen.basicsk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.componentk.permissionk.PermissionK
+import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
 
 @PermissionKAnnor([Manifest.permission.INTERNET])
 class NetKActivity : BaseKActivity<ActivityNetkBinding, NetKViewModel>(R.layout.activity_netk) {

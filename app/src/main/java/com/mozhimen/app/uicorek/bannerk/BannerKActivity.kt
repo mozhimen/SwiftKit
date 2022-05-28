@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityBannerkBinding
-import com.mozhimen.basicsk.extsk.load
+import com.mozhimen.basick.extsk.load
 import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
 import com.mozhimen.uicorek.bannerk.commons.IBannerKIndicator
 import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
@@ -80,7 +80,5 @@ class BannerKActivity : AppCompatActivity() {
         }
     }
 
-    inner class MyBannerKMo : BannerKMo() {
-        var name: String? = null
-    }
+    inner class MyBannerKMo : BannerKMo()
 }

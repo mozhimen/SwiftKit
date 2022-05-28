@@ -1,16 +1,16 @@
 package com.mozhimen.abilityk.netk.helpers
 
 import android.util.Log
-import com.mozhimen.basicsk.cachek.CacheK
+import com.mozhimen.basick.cachek.CacheK
 import com.mozhimen.abilityk.netk.annors._CacheStrategy
 import com.mozhimen.abilityk.netk.commons.INetKCall
 import com.mozhimen.abilityk.netk.commons.INetKListener
 import com.mozhimen.abilityk.netk.commons.INetKInterceptor
 import com.mozhimen.abilityk.netk.mos.NetKRequest
 import com.mozhimen.abilityk.netk.mos.NetKResponse
-import com.mozhimen.basicsk.executork.ExecutorK
-import com.mozhimen.basicsk.extsk.sendAtFrontOfQueue
-import com.mozhimen.basicsk.utilk.UtilKHandler
+import com.mozhimen.basick.executork.ExecutorK
+import com.mozhimen.basick.extsk.sendAtFrontOfQueue
+import com.mozhimen.basick.utilk.UtilKHandler
 
 /**
  * 代理CallFactory创建出来的Call对象, 从而实现拦截器的派发动作

@@ -2,8 +2,8 @@ package com.mozhimen.app.uicorek.tabk.fragments
 
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.FragmentTabkBottomHomeBinding
-import com.mozhimen.basicsk.basek.BaseKFragment
-import com.mozhimen.basicsk.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKFragment
+import com.mozhimen.basick.basek.BaseKViewModel
 
 /**
  * @ClassName HomePageFragment

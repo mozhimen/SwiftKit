@@ -1,6 +1,6 @@
 package com.mozhimen.app.demo
 
-import com.mozhimen.basicsk.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKViewModel
 
 /**
  * @ClassName DemoViewModel

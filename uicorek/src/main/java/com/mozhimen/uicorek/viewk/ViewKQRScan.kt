@@ -5,12 +5,10 @@ import android.content.res.TypedArray
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
-import android.util.Log
-import com.mozhimen.basicsk.basek.BaseKView
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.drawable2Bitmap
+import com.mozhimen.basick.basek.BaseKView
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.drawable2Bitmap
 import com.mozhimen.uicorek.R
 
 /**
@@ -22,7 +20,6 @@ import com.mozhimen.uicorek.R
  */
 class ViewKQRScan @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseKView(context, attrs, defStyleAttr) {
-    private val TAG = "ViewKQRScan>>>>>"
 
     private var _lineDrawable: Drawable? = null
     private var _lineWidth = 1f.dp2px()
@@ -62,10 +59,10 @@ class ViewKQRScan @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     private fun afterInitCustomAttrs() {
         _lineDrawable?.let {
-            _scanLineBitmap = if (_lineDrawable is GradientDrawable) {
-                it.drawable2Bitmap(_borderWidth, _lineWidth)
-            } else {
+            _scanLineBitmap = if (_lineDrawable is BitmapDrawable) {
                 (_lineDrawable as BitmapDrawable).bitmap
+            } else {
+                it.drawable2Bitmap(_borderWidth, _lineWidth)
             }
         }
         postInvalidate()

@@ -1,15 +1,15 @@
 package com.mozhimen.app
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.mozhimen.app.abilityk.AbilityKActivity
-import com.mozhimen.app.basicsk.BasicsKActivity
+import com.mozhimen.app.basick.BasicKActivity
 import com.mozhimen.app.componentk.ComponentKActivity
 import com.mozhimen.app.demo.DemoActivity
 import com.mozhimen.app.uicorek.UICoreKActivity
-import com.mozhimen.basicsk.extsk.start
+import com.mozhimen.app.underlayk.UnderlayKActivity
+import com.mozhimen.basick.extsk.start
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +30,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goBasicsK(view: View) {
-        start<BasicsKActivity>()
+        start<BasicKActivity>()
     }
 
     fun goUICoreK(view: View) {
         start<UICoreKActivity>()
+    }
+
+    fun goUnderlayK(view: View) {
+        start<UnderlayKActivity>()
     }
 }

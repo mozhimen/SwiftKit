@@ -1,16 +1,14 @@
 package com.mozhimen.uicorek.viewk
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.RectF
-import android.graphics.SweepGradient
+import android.graphics.*
 import android.os.Build
 import android.util.AttributeSet
 import androidx.annotation.RequiresApi
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.basek.BaseKView
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.basek.BaseKView
 import com.mozhimen.uicorek.R
+import kotlin.math.asin
 
 /**
  * @ClassName CircleRotate
@@ -23,72 +21,109 @@ class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     BaseKView(context, attrs, defStyleAttr) {
 
     //region # variate
-    private var gradientStart = 0xFFFFFF
-    private var gradientEnd = 0xFFFFFF
+    private var _arcStartColor = Color.WHITE
+    private var _arcEndColor = Color.TRANSPARENT
+    private var _animTime = 1000
+    private var _angleStep = 3
+    private var _arcNum = 1
+    private var _arcWidth = 2f.dp2px()
 
-    //private var gradientDistance = 10f.dp2px()
-    private var lineWidth = 2f.dp2px()
+    @Volatile
+    private var _isStop = false
+    private var _interval = _animTime * _angleStep / 360
+    private var _angleOffset = asin(_arcWidth / 2f / realRadius)
+    private var _angleInterval = 30
+    private var _angleSweep = (360f - _arcNum * _angleInterval) / _arcNum
 
-    private lateinit var arcPaint: Paint
+    private lateinit var _arcPaint: Paint
+    private var _arcMatrix = Matrix()
+    private lateinit var _arcRectF: RectF
 
-    private lateinit var arcRectF: RectF
-    private lateinit var sweepGradientTop: SweepGradient
-    private lateinit var sweepGradientBottom: SweepGradient
     //endregion
 
     //region # private function
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ArcRotate)
-        gradientStart = typedArray.getColor(R.styleable.ArcRotate_arcRotate_gradientStart, gradientStart)
-        gradientEnd = typedArray.getColor(R.styleable.ArcRotate_arcRotate_gradientEnd, gradientEnd)
-        lineWidth = typedArray.getDimensionPixelSize(R.styleable.ArcRotate_arcRotate_lineWidth, lineWidth)
-        typedArray.recycle()
-
-        //init paint
-        initPaint()
+        initAttrs(attrs, defStyleAttr)
     }
 
-    override fun initPaint() {
-        super.initPaint()
-        arcPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
-        arcPaint.style = Paint.Style.STROKE
-        arcPaint.strokeCap = Paint.Cap.ROUND
-        arcPaint.strokeWidth = lineWidth.toFloat()
+    override fun requireStart() {
+        _isStop = false
+        invalidate()
+    }
+
+    override fun requireStop() {
+        _isStop = true
+    }
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ArcRotate)
+        _arcStartColor = typedArray.getColor(R.styleable.ArcRotate_arcRotate_arcStartColor, _arcStartColor)
+        _arcEndColor = typedArray.getColor(R.styleable.ArcRotate_arcRotate_arcEndColor, _arcEndColor)
+        _arcWidth = typedArray.getDimensionPixelSize(R.styleable.ArcRotate_arcRotate_arcWidth, _arcWidth)
+        _angleStep = typedArray.getInteger(R.styleable.ArcRotate_arcRotate_angleStep, _angleStep)
+        _arcNum = typedArray.getInteger(R.styleable.ArcRotate_arcRotate_arcNum, _arcNum)
+        _animTime = typedArray.getInteger(R.styleable.ArcRotate_arcRotate_animTime, _animTime)
+        _angleInterval = typedArray.getInteger(R.styleable.ArcRotate_arcRotate_angleInterval, _angleInterval)
+        typedArray.recycle()
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        sweepGradientTop =
-            SweepGradient(
-                realRadius.toFloat(), realRadius.toFloat(),
-                intArrayOf(gradientStart, gradientEnd),
-                floatArrayOf(0.25f, 0.5f)
-            )
-        sweepGradientBottom =
-            SweepGradient(
-                realRadius.toFloat(), realRadius.toFloat(),
-                intArrayOf(gradientStart, gradientEnd),
-                floatArrayOf(0.75f, 1f)
-            )
-        arcRectF = RectF(
-            centerX - realRadius + lineWidth, centerY - realRadius + lineWidth,
-            centerX + realRadius - lineWidth, centerY + realRadius - lineWidth
+        initData()
+        initPaint()
+    }
+
+    override fun initData() {
+        _interval = _animTime * _angleStep / 360
+        _angleOffset =
+            Math.toDegrees(asin(_arcWidth / 2f / (realRadius - _arcWidth / 2f)).toDouble()).toFloat()
+        _angleSweep = (360f - _arcNum * _angleInterval - _angleOffset) / _arcNum
+        require(_angleSweep > 0) { "圆弧数 * 圆弧间隔 + 偏移量超过了360°" }
+    }
+
+    override fun initPaint() {
+        _arcPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
+        _arcPaint.style = Paint.Style.STROKE
+        _arcPaint.strokeCap = Paint.Cap.ROUND
+        _arcPaint.isAntiAlias = true
+        _arcPaint.strokeWidth = _arcWidth.toFloat()
+        _arcRectF = RectF(
+            centerX - realRadius + _arcWidth / 2, centerY - realRadius + _arcWidth / 2,
+            centerX + realRadius - _arcWidth / 2, centerY + realRadius - _arcWidth / 2
         )
     }
+
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         canvas?.let {
-            drawCircleLine(canvas)
+            drawArcLine(canvas)
+            rotateRing()
         }
     }
 
-    private fun drawCircleLine(canvas: Canvas) {
-        arcPaint.shader = sweepGradientTop
-        canvas.drawArc(arcRectF, 90f, 90f, false, arcPaint)
-        arcPaint.shader = sweepGradientBottom
-        canvas.drawArc(arcRectF, 90f, 90f, false, arcPaint)
+    private fun rotateRing() {
+        _arcMatrix.postRotate(_angleStep.toFloat(), centerX, centerY)
+        if (!_isStop) {
+            postInvalidateDelayed(_interval.toLong())
+        }
+    }
+
+    private fun drawArcLine(canvas: Canvas) {
+        canvas.concat(_arcMatrix)
+        for (i in 0 until _arcNum) {
+            val sweepGradient = SweepGradient(
+                realRadius, realRadius,
+                intArrayOf(_arcStartColor, _arcEndColor),
+                floatArrayOf(
+                    (_angleOffset + i * (_angleInterval + _angleSweep)) / 360f,
+                    (_angleOffset + i * (_angleInterval + _angleSweep) + _angleSweep) / 360f
+                )
+            )
+            _arcPaint.shader = sweepGradient
+            canvas.drawArc(_arcRectF, _angleOffset + i * (_angleInterval + _angleSweep), _angleSweep, false, _arcPaint)
+        }
     }
     //endregion
 }

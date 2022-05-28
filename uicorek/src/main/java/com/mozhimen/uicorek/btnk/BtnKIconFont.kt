@@ -1,10 +1,10 @@
 package com.mozhimen.uicorek.btnk
 
 import android.content.Context
-import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatButton
-import com.mozhimen.basicsk.extsk.font
+import com.mozhimen.basick.extsk.font
+import com.mozhimen.uicorek.R
 
 /**
  * @ClassName BtnKIconFont
@@ -15,7 +15,21 @@ import com.mozhimen.basicsk.extsk.font
  */
 class BtnKIconFont @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatButton(context, attrs, defStyleAttr) {
+
+    private var _fontPath = "icons/iconfont.ttf"
+
     init {
-        this.font()
+        initAttrs(attrs)
+        initView()
+    }
+
+    fun initAttrs(attrs: AttributeSet?) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BtnKIconFont)
+        _fontPath = typedArray.getString(R.styleable.BtnKIconFont_btnKIcon_fontPath) ?: _fontPath
+        typedArray.recycle()
+    }
+
+    fun initView() {
+        font(_fontPath)
     }
 }

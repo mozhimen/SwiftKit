@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import com.mozhimen.abilityk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.app.databinding.ActivityCameraxkBinding
-import com.mozhimen.basicsk.utilk.UtilKBitmap
+import com.mozhimen.basick.utilk.UtilKBitmap
 
 class CameraXKActivity : AppCompatActivity() {
     private val vb by lazy { ActivityCameraxkBinding.inflate(layoutInflater) }

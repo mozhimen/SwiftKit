@@ -5,16 +5,18 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.text.InputFilter
+import android.graphics.drawable.ColorDrawable
 import android.text.InputType
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.EditText
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import com.mozhimen.basicsk.extsk.sp2px
-import com.mozhimen.basicsk.basek.BaseKLayoutLinear
+import com.mozhimen.basick.basek.BaseKLayoutLinear
+import com.mozhimen.basick.extsk.setInputMaxLength
+import com.mozhimen.basick.extsk.setPadding
+import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
 
 /**
@@ -24,213 +26,172 @@ import com.mozhimen.uicorek.R
  * @Date 2021/12/18 12:56
  * @Version 1.0
  */
-open class LayoutKInputItem(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) :
+class LayoutKInputItem @JvmOverloads constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) :
     BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
-    private lateinit var editText: EditText
-    private lateinit var titleView: TextView
-
-    private var bottomLine: Line
-    private var topLine: Line
-
-    private var topPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private var bottomPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private lateinit var _editView: EditText
+    private lateinit var _titleView: TextView
+    private var _topCrossLine: CrossLine? = null
+    private var _bottomCrossLine: CrossLine? = null
+    private var _topLinePaint = Paint()
+    private var _bottomLinePaint = Paint()
 
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKInputItem)
+        dividerDrawable = ColorDrawable()
+        showDividers = SHOW_DIVIDER_BEGINNING
+        orientation = HORIZONTAL
 
-        val titleResourceId =
-            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_titleTextAppearance, 0)
-        val title = typedArray.getString(R.styleable.LayoutKInputItem_layoutKInputItem_title)
-        parseTitleStyle(titleResourceId, title)
-
-        val inputStyleId = typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_inputTextAppearance, 0)
-        val hint = typedArray.getString(R.styleable.LayoutKInputItem_layoutKInputItem_hint)
-        val inputType = typedArray.getInteger(R.styleable.LayoutKInputItem_layoutKInputItem_inputType, 0)
-        parseInputStyle(inputStyleId, hint, inputType)
-
-        val topLineStyleId = typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_topLineAppearance, 0)
-        val bottomLineStyleId =
-            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_bottomLineAppearance, 0)
-
-        parseLineStyle(topLineStyleId)
-        parseLineStyle(bottomLineStyleId)
-
-        //上下分割线属性
-        val topResId = typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_topLineAppearance, 0)
-        val bottomResId = typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_bottomLineAppearance, 0)
-        topLine = parseLineStyle(topResId)
-        bottomLine = parseLineStyle(bottomResId)
-
-        typedArray.recycle()
-
+        initAttrs(attrs, defStyleAttr)
         initPaint()
     }
 
-    fun getTitleView(): TextView {
-        return titleView
-    }
+    fun getTitleView(): TextView = _titleView
 
-    fun getEditText(): EditText {
-        return editText
+    fun getInputView(): EditText = _editView
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKInputItem)
+
+        val titleResId =
+            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_titleAppearance, 0)
+        val title =
+            typedArray.getString(R.styleable.LayoutKInputItem_layoutKInputItem_title)
+        parseTitleStyle(titleResId, title)
+
+        val editResId =
+            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_inputAppearance, 0)
+        val hint =
+            typedArray.getString(R.styleable.LayoutKInputItem_layoutKInputItem_hint)
+        val inputType =
+            typedArray.getInteger(R.styleable.LayoutKInputItem_layoutKInputItem_inputType, 0)
+        parseInputStyle(editResId, hint, inputType)
+
+        val topResId =
+            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_topLineAppearance, 0)
+        val bottomResId =
+            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_bottomLineAppearance, 0)
+        _topCrossLine = parseLineStyle(topResId)
+        _bottomCrossLine = parseLineStyle(bottomResId)
+
+        typedArray.recycle()
     }
 
     private fun initPaint() {
-        if (topLine.enable) {
-            topPaint.color = topLine.color
-            topPaint.style = Paint.Style.FILL_AND_STROKE
-            topPaint.strokeWidth = topLine.height
+        _topCrossLine?.let {
+            _topLinePaint.color = _topCrossLine!!.color
+            _topLinePaint.style = Paint.Style.FILL_AND_STROKE
+            _topLinePaint.strokeWidth = _topCrossLine!!.height
         }
 
-        if (bottomLine.enable) {
-            bottomPaint.color = bottomLine.color
-            bottomPaint.style = Paint.Style.FILL_AND_STROKE
-            bottomPaint.strokeWidth = bottomLine.height
+        _bottomCrossLine?.let {
+            _bottomLinePaint.color = _bottomCrossLine!!.color
+            _bottomLinePaint.style = Paint.Style.FILL_AND_STROKE
+            _bottomLinePaint.strokeWidth = _bottomCrossLine!!.height
         }
-    }
-
-    @SuppressLint("CustomViewStyleable")
-    private fun parseLineStyle(resId: Int): Line {
-        val line = Line()
-        val typedArray = context.obtainStyledAttributes(resId, R.styleable.LayoutKInputItemLineAppearance)
-        line.color =
-            typedArray.getColor(
-                R.styleable.LayoutKInputItemLineAppearance_layoutKInputItem_color,
-                ContextCompat.getColor(context, R.color.blue_light)
-            )
-        line.height =
-            typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItemLineAppearance_layoutKInputItem_height, 0)
-                .toFloat()
-        line.leftMargin =
-            typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItemLineAppearance_layoutKInputItem_leftMargin, 0)
-                .toFloat()
-        line.rightMargin =
-            typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItemLineAppearance_layoutKInputItem_rightMargin, 0)
-                .toFloat()
-        line.enable = typedArray.getBoolean(R.styleable.LayoutKInputItemLineAppearance_layoutKInputItem_enable, false)
-
-        typedArray.recycle()
-        return line
-    }
-
-    inner class Line {
-        var color = 0
-        var height = 0f
-        var leftMargin = 0f
-        var rightMargin = 0f
-        var enable: Boolean = false
-    }
-
-    //解析右侧输入框资源属性
-    @SuppressLint("CustomViewStyleable")
-    private fun parseInputStyle(resId: Int, hint: String?, inputType: Int) {
-        //去加载 去读取 自定义sytle属性
-        orientation = HORIZONTAL
-
-        val typedArray = context.obtainStyledAttributes(resId, R.styleable.LayoutKInputItemInputTextAppearance)
-
-        val hintColor = typedArray.getColor(
-            R.styleable.LayoutKInputItemInputTextAppearance_layoutKInputItem_hintColor,
-            ContextCompat.getColor(context, R.color.blue_light)
-
-        )
-        val inputColor = typedArray.getColor(
-            R.styleable.LayoutKInputItemInputTextAppearance_layoutKInputItem_inputColor,
-            ContextCompat.getColor(context, R.color.blue_normal)
-        )
-        //px
-        val textSize = typedArray.getDimensionPixelSize(
-            R.styleable.LayoutKInputItemInputTextAppearance_layoutKInputItem_textSize,
-            15f.sp2px()
-        )
-
-        val maxInputLength =
-            typedArray.getInteger(R.styleable.LayoutKInputItemInputTextAppearance_layoutKInputItem_maxInputLength, 0)
-
-        editText = EditText(context)
-        if (maxInputLength > 0) {
-            editText.filters = arrayOf(InputFilter.LengthFilter(maxInputLength))//最多可输入的字符数
-        }
-        editText.setPadding(0, 0, 0, 0)
-        val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
-        params.weight = 1f
-        editText.layoutParams = params
-
-        editText.hint = hint
-        editText.setTextColor(inputColor)
-        editText.setHintTextColor(hintColor)
-        editText.gravity = Gravity.LEFT or (Gravity.CENTER)
-        editText.setBackgroundColor(Color.TRANSPARENT)
-        editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize.toFloat())
-
-        /**
-         * <enum name="text" value="0"></enum>
-         * <enum name="password" value="1"></enum>
-         * <enum name="number" value="2"></enum>
-         */
-        if (inputType == 0) {
-            editText.inputType = InputType.TYPE_CLASS_TEXT
-        } else if (inputType == 1) {
-            editText.inputType =
-                InputType.TYPE_TEXT_VARIATION_PASSWORD or (InputType.TYPE_CLASS_TEXT)
-        } else if (inputType == 2) {
-            editText.inputType = InputType.TYPE_CLASS_NUMBER
-        }
-
-        addView(editText)
-        typedArray.recycle()
-    }
-
-    //解析title资源属性
-    @SuppressLint("CustomViewStyleable")
-    private fun parseTitleStyle(resId: Int, title: String?) {
-        val typedArray = context.obtainStyledAttributes(resId, R.styleable.LayoutKInputItemTitleTextAppearance)
-        val titleColor = typedArray.getColor(
-            R.styleable.LayoutKInputItemTitleTextAppearance_layoutKInputItem_titleColor,
-            ContextCompat.getColor(context, R.color.blue_dark)
-        )
-        val titleSize = typedArray.getDimensionPixelSize(
-            R.styleable.LayoutKInputItemTitleTextAppearance_layoutKInputItem_titleSize,
-            15f.sp2px()
-        )
-        val minWidth = typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItemTitleTextAppearance_layoutKInputItem_minWidth, 0)
-
-        titleView = TextView(context)
-        titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())  //sp---当做sp在转换一次
-        titleView.setTextColor(titleColor)
-        titleView.layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
-        titleView.minWidth = minWidth
-        titleView.gravity = Gravity.LEFT or (Gravity.CENTER)
-        titleView.text = title
-
-        addView(titleView)
-        typedArray.recycle()
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
         canvas?.let {
-            //巨坑
-            if (topLine.enable) {
-                canvas.drawLine(
-                    topLine.leftMargin,
-                    0f,
-                    measuredWidth - topLine.rightMargin,
-                    0f,
-                    topPaint
-                )
+            _topCrossLine?.let {
+                canvas.drawRect(it.leftMargin, 0f, measuredWidth - it.rightMargin, 0f + it.height, _topLinePaint)
             }
 
-            if (bottomLine.enable) {
-                canvas.drawLine(
-                    bottomLine.leftMargin,
-                    height - bottomLine.height,
-                    measuredWidth - bottomLine.rightMargin,
-                    height - bottomLine.height,
-                    bottomPaint
+            _bottomCrossLine?.let {
+                canvas.drawRect(
+                    it.leftMargin, measuredHeight.toFloat() - it.height, measuredWidth - it.rightMargin, measuredHeight.toFloat(), _bottomLinePaint
                 )
             }
         }
+    }
+
+    inner class CrossLine {
+        var color = 0
+        var height = 0f
+        var leftMargin = 0f
+        var rightMargin = 0f
+    }
+
+    @SuppressLint("CustomViewStyleable")
+    private fun parseTitleStyle(resId: Int, title: String?) {
+        val typedArray = context.obtainStyledAttributes(resId, R.styleable.LayoutKInputItem_TitleAppearance)
+        val titleColor: Int =
+            typedArray.getColor(R.styleable.LayoutKInputItem_TitleAppearance_titleAppearance_titleColor, UtilKRes.getColor(R.color.blue_dark))
+        val titleSize: Float =
+            typedArray.getDimensionPixelSize(R.styleable.LayoutKInputItem_TitleAppearance_titleAppearance_titleSize, 15f.sp2px()).toFloat()
+        val leftMargin =
+            typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItem_TitleAppearance_titleAppearance_leftPadding, 0)
+        val titleMinWidth: Int =
+            typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItem_TitleAppearance_titleAppearance_minWidth, 0)
+        typedArray.recycle()
+
+        _titleView = TextView(context)
+        _titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize)
+        _titleView.setTextColor(titleColor)
+        _titleView.layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
+        _titleView.setPadding(leftMargin, 0, 0, 0)
+        _titleView.minWidth = titleMinWidth
+        _titleView.gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+        _titleView.setBackgroundColor(Color.TRANSPARENT)
+        _titleView.text = title
+        addView(_titleView)
+    }
+
+    @SuppressLint("CustomViewStyleable")
+    fun parseInputStyle(resId: Int, hint: String?, inputType: Int) {
+
+        val typedArray = context.obtainStyledAttributes(resId, R.styleable.LayoutKInputItem_InputAppearance)
+        val hintColor: Int =
+            typedArray.getColor(R.styleable.LayoutKInputItem_InputAppearance_inputAppearance_hintColor, UtilKRes.getColor(R.color.blue_light))
+        val inputColor: Int =
+            typedArray.getColor(
+                R.styleable.LayoutKInputItem_InputAppearance_inputAppearance_inputColor, UtilKRes.getColor(R.color.blue_normal)
+            )
+        val inputSize: Int =
+            typedArray.getDimensionPixelSize(R.styleable.LayoutKInputItem_InputAppearance_inputAppearance_textSize, 15f.sp2px())
+        val inputMaxLength: Int =
+            typedArray.getInteger(R.styleable.LayoutKInputItem_InputAppearance_inputAppearance_maxInputLength, 0)
+        typedArray.recycle()
+
+        _editView = EditText(context)
+        _editView.setInputMaxLength(inputMaxLength)
+        _editView.setPadding(0, 0)
+        val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
+        params.weight = 1f
+        _editView.layoutParams = params
+
+        _editView.hint = hint
+        _editView.setTextColor(inputColor)
+        _editView.setHintTextColor(hintColor)
+        _editView.gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
+        _editView.setBackgroundColor(Color.TRANSPARENT)
+        _editView.setTextSize(TypedValue.COMPLEX_UNIT_PX, inputSize.toFloat())
+
+        _editView.inputType = when (inputType) {
+            1 -> InputType.TYPE_TEXT_VARIATION_PASSWORD or InputType.TYPE_CLASS_TEXT//name="password" value="1"
+            2 -> InputType.TYPE_CLASS_NUMBER//name="number" value="2"
+            else -> InputType.TYPE_CLASS_TEXT//name="text" value="0"
+        }
+
+        addView(_editView)
+    }
+
+    @SuppressLint("CustomViewStyleable")
+    fun parseLineStyle(resId: Int): CrossLine? {
+        if (resId == 0) return null
+        val line = CrossLine()
+        val typedArray = context.obtainStyledAttributes(resId, R.styleable.LayoutKInputItem_LineAppearance)
+        line.color =
+            typedArray.getColor(R.styleable.LayoutKInputItem_LineAppearance_lineAppearance_color, UtilKRes.getColor(R.color.blue_normal))
+        line.height =
+            typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItem_LineAppearance_lineAppearance_height, 0).toFloat()
+        line.leftMargin =
+            typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItem_LineAppearance_lineAppearance_leftMargin, 0).toFloat()
+        line.rightMargin =
+            typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItem_LineAppearance_lineAppearance_rightMargin, 0).toFloat()
+
+        typedArray.recycle()
+        return line
     }
 }

@@ -5,8 +5,8 @@ import com.mozhimen.abilityk.netk.annors._Field
 import com.mozhimen.abilityk.netk.annors.methods.*
 import com.mozhimen.abilityk.netk.commons.INetKCall
 import com.mozhimen.abilityk.netk.mos.NetKRequest
-import com.mozhimen.basicsk.extsk.throwIllegalStateException
-import com.mozhimen.basicsk.utilk.UtilKDataType
+import com.mozhimen.basick.extsk.throwIllegalStateException
+import com.mozhimen.basick.utilk.UtilKDataType
 import java.lang.reflect.*
 
 /**

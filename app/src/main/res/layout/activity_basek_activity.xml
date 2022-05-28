@@ -7,13 +7,13 @@
 
         <variable
             name="vm"
-            type="com.mozhimen.app.basicsk.basek.BaseKDemoViewModel" />
+            type="com.mozhimen.app.basick.basek.BaseKDemoViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".basicsk.basek.BaseKDemoActivity">
+        tools:context=".basick.basek.BaseKDemoActivity">
 
         <TextView
             android:id="@+id/basek_activity_txt"
@@ -30,7 +30,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/basek_activity_btn"
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add"

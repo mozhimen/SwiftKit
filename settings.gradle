@@ -1,9 +1,9 @@
 include ':app'
 rootProject.name = "SwiftKit"
 include ':componentk'
-include ':basicsk'
+include ':basick'
 include ':uicorek'
 include ':guidek_annor'
 include ':guidek_compiler'
 include ':abilityk'
-include ':underlaysk'
+include ':underlayk'

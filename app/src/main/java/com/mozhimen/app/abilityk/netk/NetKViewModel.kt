@@ -10,7 +10,7 @@ import com.mozhimen.abilityk.netk.mos.NetKResponse
 import com.mozhimen.app.abilityk.netk.customs.ApiFactory
 import com.mozhimen.app.abilityk.netk.customs.Apis
 import com.mozhimen.app.abilityk.netk.mos.Weather
-import com.mozhimen.basicsk.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKViewModel
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

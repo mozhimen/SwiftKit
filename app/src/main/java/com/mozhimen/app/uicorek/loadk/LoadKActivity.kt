@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.app.databinding.ActivityLoadkBinding
 import com.mozhimen.app.uicorek.datak.mos.DataItemLoadMore
-import com.mozhimen.basicsk.extsk.postDelayed
-import com.mozhimen.basicsk.utilk.UtilKHandler
+import com.mozhimen.basick.extsk.postDelayed
+import com.mozhimen.basick.utilk.UtilKHandler
 import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorek.loadk.commons.LoadKLoadCallback
 import com.mozhimen.uicorek.loadk.commons.LoadKRefreshCallback

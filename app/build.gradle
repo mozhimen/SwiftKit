@@ -35,8 +35,12 @@ android {
 
 dependencies {
     implementation project(path: ':componentk')
-    implementation project(path: ':basicsk')
+    implementation project(path: ':basick')
     implementation project(path: ':uicorek')
     implementation project(path: ':abilityk')
-    kapt project(path: ':guidek_compiler')
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    debugImplementation project(path: ':underlayk')
+    //kapt project(path: ':guidek_compiler')
 }

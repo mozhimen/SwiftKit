@@ -6,8 +6,8 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.utilk.UtilKScreen.getScreenWidth
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
 import com.mozhimen.uicorek.tabk.commons.ITabKLayout
 import com.mozhimen.uicorek.tabk.top.mos.TabKTopMo
 import kotlin.math.abs

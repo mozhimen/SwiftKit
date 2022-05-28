@@ -14,12 +14,12 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
-import com.mozhimen.basicsk.extsk.setPaddingHorizontal
+import com.mozhimen.basick.extsk.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
-import com.mozhimen.basicsk.extsk.setPadding
-import com.mozhimen.basicsk.utilk.UtilKHandler
-import com.mozhimen.basicsk.basek.commons.IBaseKLayout
+import com.mozhimen.basick.extsk.setPadding
+import com.mozhimen.basick.utilk.UtilKHandler
+import com.mozhimen.basick.basek.commons.IBaseKLayout
 
 /**
  * @ClassName SearchKLayout

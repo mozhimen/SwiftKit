@@ -1,1 +1,72 @@
-{"pages":[{"enable":false,"pageInfo":{"index":2,"id":2105122007,"url":"main/guidek/dashboard","clazzName":"com.mozhimen.app.componentk.guidek.fragments.DashboardFragment","destType":"fragment"},"title":"dashboard","tabConfig":{"iconColorDefault":"","bitmapSelected":"","iconFont":"","iconColorSelected":"","name":"","bitmapDefault":"","type":"","iconNameDefault":"","iconNameSelected":""}},{"enable":true,"pageInfo":{"index":0,"id":1463622902,"url":"main/guidek/home","clazzName":"com.mozhimen.app.componentk.guidek.fragments.HomeFragment","destType":"fragment"},"title":"home","tabConfig":{"iconColorDefault":"","bitmapSelected":"","iconFont":"","iconColorSelected":"","name":"","bitmapDefault":"","type":"","iconNameDefault":"","iconNameSelected":""}},{"enable":true,"pageInfo":{"index":1,"id":76734205,"url":"main/guidek/notifications","clazzName":"com.mozhimen.app.componentk.guidek.fragments.NotificationsFragment","destType":"fragment"},"title":"notifications","tabConfig":{"iconColorDefault":"","bitmapSelected":"","iconFont":"","iconColorSelected":"","name":"","bitmapDefault":"","type":"","iconNameDefault":"","iconNameSelected":""}}],"indexDefault":0,"versionCode":0}
+{
+  "pages": [
+    {
+      "enable": false,
+      "pageInfo": {
+        "index": 2,
+        "id": 2105122007,
+        "url": "main/guidek/dashboard",
+        "clazzName": "com.mozhimen.app.componentk.guidek.fragments.DashboardFragment",
+        "destType": "fragment"
+      },
+      "title": "dashboard",
+      "tabConfig": {
+        "iconColorDefault": "",
+        "bitmapSelected": "",
+        "iconFont": "",
+        "iconColorSelected": "",
+        "name": "",
+        "bitmapDefault": "",
+        "type": "",
+        "iconNameDefault": "",
+        "iconNameSelected": ""
+      }
+    },
+    {
+      "enable": true,
+      "pageInfo": {
+        "index": 0,
+        "id": 1463622902,
+        "url": "main/guidek/home",
+        "clazzName": "com.mozhimen.app.componentk.guidek.fragments.HomeFragment",
+        "destType": "fragment"
+      },
+      "title": "home",
+      "tabConfig": {
+        "iconColorDefault": "",
+        "bitmapSelected": "",
+        "iconFont": "",
+        "iconColorSelected": "",
+        "name": "",
+        "bitmapDefault": "",
+        "type": "",
+        "iconNameDefault": "",
+        "iconNameSelected": ""
+      }
+    },
+    {
+      "enable": true,
+      "pageInfo": {
+        "index": 1,
+        "id": 76734205,
+        "url": "main/guidek/notifications",
+        "clazzName": "com.mozhimen.app.componentk.guidek.fragments.NotificationsFragment",
+        "destType": "fragment"
+      },
+      "title": "notifications",
+      "tabConfig": {
+        "iconColorDefault": "",
+        "bitmapSelected": "",
+        "iconFont": "",
+        "iconColorSelected": "",
+        "name": "",
+        "bitmapDefault": "",
+        "type": "",
+        "iconNameDefault": "",
+        "iconNameSelected": ""
+      }
+    }
+  ],
+  "indexDefault": 0,
+  "versionCode": 0
+}

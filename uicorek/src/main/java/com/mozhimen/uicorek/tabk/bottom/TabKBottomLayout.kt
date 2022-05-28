@@ -10,12 +10,11 @@ import android.widget.AbsListView
 import android.widget.FrameLayout
 import android.widget.ScrollView
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.utilk.UtilKColor
-import com.mozhimen.basicsk.utilk.UtilKScreen.getScreenWidth
-import com.mozhimen.basicsk.utilk.UtilKView.findTypeView
-import com.mozhimen.basicsk.basek.BaseKLayoutFrame
-import com.mozhimen.basicsk.extsk.asColorTone
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
+import com.mozhimen.basick.utilk.UtilKView.findTypeView
+import com.mozhimen.basick.basek.BaseKLayoutFrame
+import com.mozhimen.basick.extsk.asColorTone
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
 import com.mozhimen.uicorek.tabk.commons.ITabKLayout

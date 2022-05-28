@@ -11,9 +11,9 @@ import com.huawei.hms.ml.scan.HmsScan
 import com.mozhimen.abilityk.scank.*
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityScankBinding
-import com.mozhimen.basicsk.basek.BaseKActivity
-import com.mozhimen.basicsk.basek.BaseKViewModel
-import com.mozhimen.basicsk.extsk.fromJson
+import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.extsk.fromJson
 
 class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layout.activity_scank) {
 
@@ -51,7 +51,7 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
                     }
                 }
             }
-        val activityResultLaunch2 =
+        val activityResultLauncher2 =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
                     val scanKQR2Result: ScanKQRActivity2.ScanK2Result? =
@@ -77,7 +77,7 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
         }
 
         vb.scankDemoBtnScan2.setOnClickListener {
-            activityResultLaunch2.launch(Intent(this, ScanKQRActivity2::class.java))
+            activityResultLauncher2.launch(Intent(this, ScanKQRActivity2::class.java))
         }
     }
 }

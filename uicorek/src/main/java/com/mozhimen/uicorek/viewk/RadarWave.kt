@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.viewk
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import com.mozhimen.basicsk.basek.BaseKView
+import com.mozhimen.basick.basek.BaseKView
 import com.mozhimen.uicorek.R
 
 /**

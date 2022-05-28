@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftK"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".NavKActivity"
+            android:exported="false" />
         <!-- provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -38,37 +40,40 @@
             android:name=".demo.DemoActivity"
             android:exported="false" /> <!-- componentk -->
         <activity
+            android:name=".componentk.eventk.EventKActivity"
+            android:exported="true" />
+        <activity
             android:name=".componentk.ComponentKActivity"
             android:exported="false" />
         <activity
             android:name=".componentk.guidek.GuideKActivity"
-            android:exported="false" /> <!-- basicsk -->
-        <activity
-            android:name=".basicsk.BasicsKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".basicsk.utilk.UtilKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".basicsk.executork.ExecutorKActivity"
             android:exported="false" />
         <activity
-            android:name=".basicsk.logk.LogKActivity"
-            android:exported="false" />
+            android:name=".componentk.permissionk.PermissionKActivity"
+            android:exported="true" /> <!-- basicsk -->
         <activity
-            android:name=".basicsk.basek.BaseKDemoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".basicsk.databusk.DataBusKActivity"
+            android:name=".basick.BasicKActivity"
             android:exported="true" />
         <activity
-            android:name=".basicsk.permissionk.PermissionKActivity"
+            android:name=".basick.utilk.UtilKActivity"
             android:exported="true" />
         <activity
-            android:name=".basicsk.stackk.StackKActivity"
+            android:name=".basick.executork.ExecutorKActivity"
             android:exported="false" />
+        <activity
+            android:name=".basick.logk.LogKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basick.basek.BaseKDemoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basick.stackk.StackKActivity"
+            android:exported="false" /> <!-- uicorek -->
         <activity
             android:name=".uicorek.UICoreKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.sliderk.SliderKActivity"
             android:exported="false" />
         <activity
             android:name=".uicorek.tabk.TabKBottomActivity"
@@ -107,6 +112,9 @@
             android:name=".uicorek.layoutk.LayoutKActivity"
             android:exported="true" />
         <activity
+            android:name=".uicorek.layoutk.LayoutKEmptyActivity"
+            android:exported="false" />
+        <activity
             android:name=".uicorek.btnk.BtnKActivity"
             android:exported="false" />
         <activity
@@ -117,6 +125,12 @@
             android:exported="false" />
         <activity
             android:name=".uicorek.viewk.ViewKViewsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.dialogk.DialogKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".uicorek.navk.NavKActivity"
             android:exported="false" /> <!-- abilityk -->
         <activity
             android:name=".abilityk.AbilityKActivity"
@@ -132,6 +146,12 @@
             android:exported="false" />
         <activity
             android:name=".abilityk.netk.NetKActivity"
+            android:exported="false" /> <!-- underlayk -->
+        <activity
+            android:name=".underlayk.debugk.DebugKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".underlayk.UnderlayKActivity"
             android:exported="false" />
     </application>
 

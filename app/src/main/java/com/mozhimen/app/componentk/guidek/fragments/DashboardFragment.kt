@@ -3,8 +3,8 @@ package com.mozhimen.app.componentk.guidek.fragments
 import android.util.Log
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.FragmentGuidekDashboardBinding
-import com.mozhimen.basicsk.basek.BaseKFragment
-import com.mozhimen.basicsk.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKFragment
+import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.guidek.annor.GuideKDestination
 
 /**

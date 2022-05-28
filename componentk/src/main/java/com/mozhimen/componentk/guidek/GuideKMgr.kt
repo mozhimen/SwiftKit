@@ -1,10 +1,10 @@
 package com.mozhimen.componentk.guidek
 
 import androidx.lifecycle.MutableLiveData
-import com.mozhimen.basicsk.cachek.CacheK
-import com.mozhimen.basicsk.executork.ExecutorK
-import com.mozhimen.basicsk.utilk.UtilKAssets
-import com.mozhimen.basicsk.utilk.UtilKJson
+import com.mozhimen.basick.cachek.CacheK
+import com.mozhimen.basick.executork.ExecutorK
+import com.mozhimen.basick.utilk.UtilKAssets
+import com.mozhimen.basick.utilk.UtilKJson
 import com.mozhimen.componentk.guidek.mos.*
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
 import java.util.*

@@ -16,19 +16,19 @@ import com.huawei.hms.ml.scan.HmsScan
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions
 import com.mozhimen.abilityk.R
 import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
-import com.mozhimen.abilityk.databinding.ActivityScankQr2Binding
-import com.mozhimen.basicsk.basek.BaseKActivity
-import com.mozhimen.basicsk.basek.BaseKViewModel
-import com.mozhimen.basicsk.extsk.cropBitmap
-import com.mozhimen.basicsk.extsk.toJson
-import com.mozhimen.basicsk.permissionk.PermissionK
-import com.mozhimen.basicsk.permissionk.annors.PermissionKAnnor
-import com.mozhimen.basicsk.utilk.UtilKBitmap
-import com.mozhimen.basicsk.utilk.UtilKScreen
+import com.mozhimen.abilityk.databinding.ScankQr2ActivityBinding
+import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.extsk.cropBitmap
+import com.mozhimen.basick.extsk.toJson
+import com.mozhimen.componentk.permissionk.PermissionK
+import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.basick.utilk.UtilKBitmap
+import com.mozhimen.basick.utilk.UtilKScreen
 import java.util.concurrent.locks.ReentrantLock
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE])
-class ScanKQRActivity2 : BaseKActivity<ActivityScankQr2Binding, BaseKViewModel>(R.layout.activity_scank_qr2) {
+class ScanKQRActivity2 : BaseKActivity<ScankQr2ActivityBinding, BaseKViewModel>(R.layout.scank_qr2_activity) {
     data class ScanK2Result(
         val hmsScan: HmsScan,
         val bitmap: Bitmap,

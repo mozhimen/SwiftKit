@@ -8,5 +8,6 @@ package com.mozhimen.uicorek.bannerk.mos
  * @Version 1.0
  */
 abstract class BannerKMo {
+    var name: String? = null
     var url: String? = null
 }

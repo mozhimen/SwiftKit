@@ -1,18 +1,18 @@
 package com.mozhimen.app.uicorek.datak.mos
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.ViewPager
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ItemDatakBannerBinding
-import com.mozhimen.basicsk.extsk.load
-import com.mozhimen.basicsk.logk.LogK
-import com.mozhimen.basicsk.utilk.UtilKSP
+import com.mozhimen.basick.extsk.load
+import com.mozhimen.basick.cachek.CacheKSP
 import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
+import com.mozhimen.uicorek.bannerk.customs.PointIndicator
 import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
 import com.mozhimen.uicorek.bannerk.mos.BannerKMo
-import com.mozhimen.uicorek.bannerk.customs.PointIndicator
 import com.mozhimen.uicorek.bindk.BindKViewHolder
 import com.mozhimen.uicorek.datak.commons.DataKItem
 
@@ -64,7 +64,7 @@ class DataKItemBanner : DataKItem<Any, BindKViewHolder<ItemDatakBannerBinding>>(
 
                 override fun onPageSelected(position: Int) {
                     _index = position
-                    LogK.it(TAG, "onPageSelected $position")
+                    Log.d(TAG, "onPageSelected $position")
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {}
@@ -80,12 +80,12 @@ class DataKItemBanner : DataKItem<Any, BindKViewHolder<ItemDatakBannerBinding>>(
     override fun getItemLayoutRes() = R.layout.item_datak_banner
 
     override fun onViewDetachedFromWindow(holder: BindKViewHolder<ItemDatakBannerBinding>) {
-        UtilKSP.instance.with(TAG).setInt("bannerIndex", _index)
+        CacheKSP.instance.with(TAG).putInt("bannerIndex", _index)
     }
 
     override fun onViewAttachedToWindow(holder: BindKViewHolder<ItemDatakBannerBinding>) {
-        val index = UtilKSP.instance.with(TAG).getInt("bannerIndex")
-        LogK.it(TAG, "onViewAttachedToWindow currentIndex $index")
+        val index = CacheKSP.instance.with(TAG).getInt("bannerIndex")
+        Log.d(TAG, "onViewAttachedToWindow currentIndex $index")
         holder.binding.datakItemBanner.setCurrentItem(index)
     }
 }

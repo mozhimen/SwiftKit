@@ -1,8 +1,8 @@
 package com.mozhimen.uicorek.tabk.bottom.mos
 
 import androidx.fragment.app.Fragment
-import com.mozhimen.basicsk.extsk.asColorTone
-import com.mozhimen.basicsk.extsk.string2Unicode
+import com.mozhimen.basick.extsk.asColorTone
+import com.mozhimen.basick.extsk.string2Unicode
 import java.io.Serializable
 
 /**

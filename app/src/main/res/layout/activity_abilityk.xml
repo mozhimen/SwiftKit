@@ -15,25 +15,25 @@
             android:orientation="vertical">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn"
+                style="@style/BtnStyle"
                 android:onClick="goCameraXK"
                 android:text="CameraXK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn"
+                style="@style/BtnStyle"
                 android:onClick="goHotfixK"
                 android:text="HotfixK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn"
+                style="@style/BtnStyle"
                 android:onClick="goScanK"
                 android:text="ScanK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn"
+                style="@style/BtnStyle"
                 android:onClick="goNetK"
                 android:text="NetK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

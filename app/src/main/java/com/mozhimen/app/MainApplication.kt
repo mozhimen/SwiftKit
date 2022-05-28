@@ -1,17 +1,14 @@
 package com.mozhimen.app
 
 import com.mozhimen.app.componentk.guidek.fragments.HomeFragment
-import com.mozhimen.basicsk.basek.BaseKApplication
-import com.mozhimen.basicsk.crashk.commons.ICrashKListener
-import com.mozhimen.basicsk.extsk.e
-import com.mozhimen.basicsk.extsk.toJson
-import com.mozhimen.basicsk.logk.LogKMgr
-import com.mozhimen.basicsk.logk.mos.LogKConfig
-import com.mozhimen.basicsk.logk.printers.PrinterConsole
-import com.mozhimen.basicsk.logk.printers.PrinterFile
-import com.mozhimen.basicsk.stackk.StackKMgr
+import com.mozhimen.basick.basek.BaseKApplication
+import com.mozhimen.basick.extsk.toJson
+import com.mozhimen.basick.logk.LogKMgr
+import com.mozhimen.basick.logk.mos.LogKConfig
+import com.mozhimen.basick.logk.printers.PrinterConsole
+import com.mozhimen.basick.logk.printers.PrinterFile
+import com.mozhimen.basick.stackk.StackKMgr
 import com.mozhimen.componentk.guidek.GuideK
-import com.mozhimen.componentk.guidek.GuideKMgr
 import com.mozhimen.componentk.guidek.mos.*
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
 
@@ -27,13 +24,14 @@ class MainApplication : BaseKApplication() {
         super.onCreate()
 
         //logk
-        LogKMgr.init(_logkConfig, PrinterConsole(), PrinterFile.getInstance())
+        LogKMgr.init(_logkConfig, PrinterConsole(), PrinterFile.getInstance(retentionDay = 3))
 
         //stackk
         StackKMgr.instance.init()
 
         //guidek
-        GuideKMgr.instance.init(_guidekConfig)
+        //GuideKMgr.instance.init(_guidekConfig)
+
     }
 
     private val _guidekConfig = GuideKPkgConfig(
@@ -86,11 +84,11 @@ class MainApplication : BaseKApplication() {
         }
     }
 
-    private val _crashKCallback = object : ICrashKListener {
+/*    private val _crashKCallback = object : ICrashKListener {
         override fun onGetMessage(msg: String?) {
             msg?.let {
 
             } ?: "Ops! A crash happened, but i didn't get it messages".e()
         }
-    }
+    }*/
 }

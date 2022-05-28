@@ -2,7 +2,12 @@ package com.mozhimen.app.uicorek.viewk
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.mozhimen.app.databinding.ActivityViewkViewsBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class ViewKViewsActivity : AppCompatActivity() {
     private val vb by lazy { ActivityViewkViewsBinding.inflate(layoutInflater) }
@@ -43,14 +48,6 @@ class ViewKViewsActivity : AppCompatActivity() {
             radarWave.requireStop()
             delay(2000)
             radarWave.requireStart()
-        }*/
-
-        /*val ringRotate = findViewById<RingRotate>(R.id.viewk_ringRotate)
-        GlobalScope.launch(Dispatchers.Main) {
-            delay(4000)
-            ringRotate.requireStop()
-            delay(2000)
-            ringRotate.requireStart()
         }*/
     }
 }

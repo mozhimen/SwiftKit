@@ -7,8 +7,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.basek.BaseKView
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.basek.BaseKView
 import com.mozhimen.uicorek.R
 
 /**

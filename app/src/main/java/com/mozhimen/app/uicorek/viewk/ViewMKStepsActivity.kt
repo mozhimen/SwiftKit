@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import com.mozhimen.app.databinding.ActivityViewkStepsBinding
 
 class ViewKStepsActivity : AppCompatActivity() {
+    private val TAG="ViewKStepsActivity>>>>>"
     private val vb by lazy { ActivityViewkStepsBinding.inflate(layoutInflater) }
 
 
@@ -37,10 +38,10 @@ class ViewKStepsActivity : AppCompatActivity() {
             MotionEvent.ACTION_MOVE -> {
             }
             MotionEvent.ACTION_UP -> if (event.x - eventX > 0) {
-                Log.e("sss", "右")
+                Log.e(TAG, "右")
                 vb.viewkStepsViewksteps.back()
             } else if (event.x - eventX < 0) {
-                Log.e("sss", "左")
+                Log.e(TAG, "左")
                 vb.viewkStepsViewksteps.next()
             }
         }

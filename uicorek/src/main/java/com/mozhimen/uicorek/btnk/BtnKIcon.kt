@@ -7,9 +7,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.sp2px
-import com.mozhimen.basicsk.basek.BaseKLayoutLinear
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.uicorek.R
 
 /**

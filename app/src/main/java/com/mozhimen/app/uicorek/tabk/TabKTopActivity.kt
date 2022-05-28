@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityTabkTopBinding
-import com.mozhimen.basicsk.utilk.UtilKRes
+import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.tabk.top.mos.TabKTopMo
 
 class TabKTopActivity : AppCompatActivity() {

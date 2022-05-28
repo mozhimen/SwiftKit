@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.mozhimen.uicorek.layoutk.LayoutKEmpty
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutKEmpty_image="@mipmap/layoutk_empty" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".uicorek.dialogk.DialogKActivity">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/dialogk_ques"
+                style="@style/BtnStyle"
+                android:text="问题弹框"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+    </FrameLayout>
+
+</layout>

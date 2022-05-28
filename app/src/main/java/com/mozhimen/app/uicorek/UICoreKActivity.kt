@@ -8,13 +8,15 @@ import com.mozhimen.app.uicorek.bannerk.BannerKActivity
 import com.mozhimen.app.uicorek.btnk.BtnKActivity
 import com.mozhimen.app.uicorek.datak.DataKActivity
 import com.mozhimen.app.uicorek.datak.DataKRecyclerActivity
+import com.mozhimen.app.uicorek.dialogk.DialogKActivity
 import com.mozhimen.app.uicorek.layoutk.LayoutKActivity
 import com.mozhimen.app.uicorek.loadk.LoadKActivity
+import com.mozhimen.app.uicorek.navk.NavKActivity
 import com.mozhimen.app.uicorek.refreshk.RefreshKLayoutActivity
 import com.mozhimen.app.uicorek.refreshk.RefreshKLayoutLottieActivity
 import com.mozhimen.app.uicorek.tabk.*
 import com.mozhimen.app.uicorek.viewk.ViewKActivity
-import com.mozhimen.basicsk.extsk.start
+import com.mozhimen.basick.extsk.start
 
 class UICoreKActivity : Activity() {
 
@@ -79,5 +81,13 @@ class UICoreKActivity : Activity() {
 
     fun goBtnK(view: View) {
         start<BtnKActivity>()
+    }
+
+    fun goDialogK(view: View) {
+        start<DialogKActivity>()
+    }
+
+    fun goNavK(view: View) {
+        start<NavKActivity>()
     }
 }

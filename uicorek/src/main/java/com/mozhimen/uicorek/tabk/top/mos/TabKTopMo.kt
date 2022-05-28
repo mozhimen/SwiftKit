@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.tabk.top.mos
 
 import androidx.fragment.app.Fragment
-import com.mozhimen.basicsk.extsk.asColorTone
+import com.mozhimen.basick.extsk.asColorTone
 
 /**
  * @ClassName TabKTopInfo

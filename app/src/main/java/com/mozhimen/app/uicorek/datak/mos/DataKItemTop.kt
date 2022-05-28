@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.app.R
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.fitImage
-import com.mozhimen.basicsk.utilk.UtilKRes
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.fitImage
+import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.datak.commons.DataKItem
 
 /**

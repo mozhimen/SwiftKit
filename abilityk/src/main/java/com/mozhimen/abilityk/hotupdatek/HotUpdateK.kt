@@ -2,7 +2,7 @@ package com.mozhimen.abilityk.hotupdatek
 
 import com.liulishuo.okdownload.DownloadListener
 import com.liulishuo.okdownload.DownloadTask
-import com.mozhimen.basicsk.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.UtilKGlobal
 import java.net.URL
 
 /**

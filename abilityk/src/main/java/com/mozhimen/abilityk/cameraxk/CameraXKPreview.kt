@@ -340,7 +340,7 @@ class CameraXKPreviewView @JvmOverloads constructor(
     }
 
     private fun initView() {
-        LayoutInflater.from(context).inflate(R.layout.layout_cameraxk_preview, this)
+        LayoutInflater.from(context).inflate(R.layout.cameraxk_preview_layout, this)
         _previewView = findViewById(R.id.cameraxk_preview)
         _sliderContainer = findViewById(R.id.cameraxk_container)
         _slider = findViewById(R.id.cameraxk_slider)

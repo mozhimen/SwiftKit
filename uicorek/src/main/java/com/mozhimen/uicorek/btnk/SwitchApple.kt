@@ -15,7 +15,7 @@ import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
-import com.mozhimen.basicsk.extsk.dp2px
+import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.uicorek.R
 
 /**

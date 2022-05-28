@@ -13,12 +13,12 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/abilityk" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/basicsk" />
+            <option value="$PROJECT_DIR$/basick" />
             <option value="$PROJECT_DIR$/componentk" />
             <option value="$PROJECT_DIR$/guidek_annor" />
             <option value="$PROJECT_DIR$/guidek_compiler" />
             <option value="$PROJECT_DIR$/uicorek" />
-            <option value="$PROJECT_DIR$/underlaysk" />
+            <option value="$PROJECT_DIR$/underlayk" />
           </set>
         </option>
       </GradleProjectSettings>

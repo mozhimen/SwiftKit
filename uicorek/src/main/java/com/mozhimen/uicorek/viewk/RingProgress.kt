@@ -2,7 +2,7 @@ package com.mozhimen.uicorek.viewk
 
 import android.content.Context
 import android.util.AttributeSet
-import com.mozhimen.basicsk.basek.BaseKView
+import com.mozhimen.basick.basek.BaseKView
 
 /**
  * @ClassName RingProgress
@@ -66,7 +66,7 @@ class RingProgress @JvmOverloads constructor(context: Context, attrs: AttributeS
         interval = animTime * moveAngleStep / 360
         angleOffset =
             Math.toDegrees(asin(ringWidth / 2f / (realRadius - ringWidth / 2f)).toDouble()).toFloat()
-        Log.i(TAG, "initData: $angleOffset")
+        Log.d(TAG, "initData: $angleOffset")
     }
 
     override fun initView() {

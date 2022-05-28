@@ -1,10 +1,11 @@
 package com.mozhimen.uicorek.tabk.bottom.helpers
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.mozhimen.basicsk.logk.LogK
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
 import java.lang.Exception
 
@@ -62,12 +63,13 @@ class TabKFragmentAdapter constructor(
      * @param position Int
      * @return Fragment?
      */
+    @SuppressLint("LongLogTag")
     fun getItem(position: Int): Fragment? {
         try {
             return _moList[position].fragment!!.newInstance()
         } catch (e: Exception) {
             e.printStackTrace()
-            LogK.et(TAG, e.localizedMessage)
+            Log.e(TAG, e.localizedMessage ?: "")
         }
         return null
     }

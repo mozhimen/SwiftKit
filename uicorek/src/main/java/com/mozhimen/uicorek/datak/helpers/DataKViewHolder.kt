@@ -22,6 +22,6 @@ open class DataKViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
             view = itemView.findViewById<T>(viewId)
             _viewCache.put(viewId, view)
         }
-        return view as? T
+        return view as? T?
     }
 }

@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDatakLoadMoreBinding
 import com.mozhimen.app.uicorek.datak.mos.DataItemLoadMore
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.postDelayed
-import com.mozhimen.basicsk.utilk.UtilKHandler
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.postDelayed
+import com.mozhimen.basick.utilk.UtilKHandler
 import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorek.datak.helpers.DataKAdapter
 import com.mozhimen.uicorek.datak.DataKRecyclerView

@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.basek.BaseKLayoutFrame
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.uicorek.bannerk.commons.IBannerKIndicator
 
 /**

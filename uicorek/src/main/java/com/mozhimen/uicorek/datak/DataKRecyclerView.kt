@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basicsk.utilk.UtilKView
+import com.mozhimen.basick.utilk.UtilKView
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.datak.helpers.DataKAdapter
 import com.mozhimen.uicorek.refreshk.helpers.RefreshKGestureDetector

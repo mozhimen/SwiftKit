@@ -8,8 +8,8 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basicsk.extsk.font
-import com.mozhimen.basicsk.basek.BaseKLayoutLinear
+import com.mozhimen.basick.extsk.font
+import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.uicorek.R
 
 /**

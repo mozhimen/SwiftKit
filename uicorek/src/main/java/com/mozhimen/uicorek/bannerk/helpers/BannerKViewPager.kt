@@ -2,6 +2,7 @@ package com.mozhimen.uicorek.bannerk.helpers
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Presentation
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
@@ -112,7 +113,7 @@ class BannerKViewPager @JvmOverloads constructor(context: Context, attrs: Attrib
 
     override fun onDetachedFromWindow() {
         //fix 使用RecyclerView + ViewPager bug
-        if ((context as Activity).isFinishing) {
+        if (context is Activity && (context as Activity).isFinishing) {
             super.onDetachedFromWindow()
         }
         stop()

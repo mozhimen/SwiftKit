@@ -32,19 +32,19 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/scank_demo_btn_create"
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:text="生成QrCode"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/scank_demo_btn_scan"
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:text="扫描二维码"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/scank_demo_btn_scan2"
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:text="扫描二维码(回调图片)"
             tools:ignore="HardcodedText" />
     </LinearLayout>

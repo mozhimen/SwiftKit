@@ -6,8 +6,8 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.basek.BaseKView
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.basek.BaseKView
 import com.mozhimen.uicorek.R
 
 /**
@@ -109,7 +109,7 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
                 path.lineTo(eventX, eventY)
             }
             else -> {
-                Log.e("Ignored touch event: ", event.toString())
+                Log.e(TAG, "Ignored touch event: $event")
                 return false
             }
         }

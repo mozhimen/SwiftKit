@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.mozhimen.basicsk.basek.BaseKLayoutRelative
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.font
-import com.mozhimen.basicsk.extsk.load
-import com.mozhimen.basicsk.extsk.resizeSize
+import com.mozhimen.basick.basek.BaseKLayoutRelative
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.font
+import com.mozhimen.basick.extsk.load
+import com.mozhimen.basick.extsk.resizeSize
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
 import com.mozhimen.uicorek.tabk.commons.ITabK

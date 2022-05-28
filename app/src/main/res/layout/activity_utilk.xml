@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".basicsk.utilk.UtilKActivity">
+        tools:context=".basick.utilk.UtilKActivity">
 
         <ImageView
             android:id="@+id/utilK_img"
@@ -29,7 +29,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/utilk_btn_port_verify"
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:text="校验端口"
             tools:ignore="HardcodedText" />
 

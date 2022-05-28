@@ -5,9 +5,9 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.util.Log
 import com.mozhimen.abilityk.scank.mos.ColorHSV
-import com.mozhimen.basicsk.extsk.drawable2Bitmap
-import com.mozhimen.basicsk.extsk.toJson
-import com.mozhimen.basicsk.utilk.UtilKRes
+import com.mozhimen.basick.extsk.drawable2Bitmap
+import com.mozhimen.basick.extsk.toJson
+import com.mozhimen.basick.utilk.UtilKRes
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
@@ -167,7 +167,7 @@ object ScanKColorHSV {
         var colorPercent: Double
         for ((key, value) in _colorMap) {
             colorPercent = value * 1.0 / total
-            Log.w(TAG, "colorPercentage: ${key.colorName} ${(colorPercent * 100).toInt()}%")
+            Log.d(TAG, "colorPercentage: ${key.colorName} ${(colorPercent * 100).toInt()}%")
             result.add(key to (colorPercent * 100).toInt())
         }
         return result

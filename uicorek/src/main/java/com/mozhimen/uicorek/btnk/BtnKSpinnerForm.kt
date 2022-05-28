@@ -8,9 +8,9 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.sp2px
-import com.mozhimen.basicsk.basek.BaseKLayoutLinear
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -20,7 +20,7 @@ import com.mozhimen.uicorek.R
  * @Date 2022/1/15 20:13
  * @Version 1.0
  */
-typealias OnBtnKSpinnerFormSelected = (Int) -> Unit
+typealias IBtnKSpinnerFormSelected = (Int) -> Unit
 
 class BtnKSpinnerForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseKLayoutLinear(context, attrs, defStyleAttr) {
@@ -35,8 +35,8 @@ class BtnKSpinnerForm @JvmOverloads constructor(context: Context, attrs: Attribu
     private var mLabelMarginRight = 6f.dp2px()
     private var mLabelWidth = 64f.dp2px()
     private var mSpinnerList = arrayListOf("")
-    private var mSpinnerItemLayout = R.layout.btnk_spinner_form_item
-    private var mOnBtnKSpinnerFormSelected: OnBtnKSpinnerFormSelected? = null
+    private var mSpinnerItemLayout = R.layout.btnk_spinner_form_spinner_item
+    private var mOnBtnKSpinnerFormSelected: IBtnKSpinnerFormSelected? = null
     private var mBorderBackground = R.drawable.btnk_icon_background
 
     private lateinit var mLabelText: TextView
@@ -63,7 +63,7 @@ class BtnKSpinnerForm @JvmOverloads constructor(context: Context, attrs: Attribu
 
     fun getLabel(): String = mLabelText.text.toString()
 
-    fun setCallback(onBtnKSpinnerFormSelected: OnBtnKSpinnerFormSelected) {
+    fun setCallback(onBtnKSpinnerFormSelected: IBtnKSpinnerFormSelected) {
         this.mOnBtnKSpinnerFormSelected = onBtnKSpinnerFormSelected
     }
 
@@ -83,7 +83,7 @@ class BtnKSpinnerForm @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     fun getSelectItem(): Pair<Int, String> {
-        val item = if (mSpinnerList.isNullOrEmpty()) "" else mSpinner.selectedItem as String
+        val item = if (mSpinnerList.isEmpty()) "" else mSpinner.selectedItem as String
         return mSpinnerList.indexOf(item) to item
     }
 

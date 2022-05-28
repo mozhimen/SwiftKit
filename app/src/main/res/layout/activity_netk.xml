@@ -30,7 +30,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/netk_btn_get_weather"
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:layout_marginBottom="20dp"
             android:text="查询天气(异步方法)"
             tools:ignore="HardcodedText" />
@@ -49,7 +49,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/netk_btn1_get_weather"
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:layout_marginBottom="20dp"
             android:text="查询天气(协程方法)"
             tools:ignore="HardcodedText" />
@@ -68,7 +68,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/netk_btn2_get_weather"
-            style="@style/Btn"
+            style="@style/BtnStyle"
             android:text="查询天气(RxJava方法)"
             tools:ignore="HardcodedText" />
 

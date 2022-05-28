@@ -1,20 +1,19 @@
 package com.mozhimen.uicorek.navk
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import androidx.annotation.StringRes
-import com.mozhimen.basicsk.utilk.UtilKRes
-import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.btnk.BtnKIconFont
-import com.mozhimen.uicorek.textk.TextKIconFont
+import android.widget.*
+import com.mozhimen.basick.basek.BaseKLayoutLinear
+import com.mozhimen.basick.basek.BaseKLayoutRelative
+import com.mozhimen.basick.extsk.*
 import java.util.*
 
 /**
@@ -28,235 +27,299 @@ class NavKBar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : RelativeLayout(context, attrs, defStyleAttr) {
+) : BaseKLayoutRelative(context, attrs, defStyleAttr) {
 
-    private var _titleView: TextKIconFont? = null
-    private var _subTitleView: TextKIconFont? = null
-    private var _titleContainer: LinearLayout? = null
+    private var _titleView: TextView = TextView(context)
+    private var _subTitleView: TextView? = null
+    private val _titleContainer: LinearLayout = LinearLayout(context)
+    private val _leftContainer: LinearLayout = LinearLayout(context)
+    private val _rightContainer: LinearLayout = LinearLayout(context)
 
-    private var _leftLastViewId = View.NO_ID
-    private var _rightLastViewId = View.NO_ID
     private val _leftViewList = ArrayList<View>()
     private val _rightViewList = ArrayList<View>()
 
-    //属性解析获得对象
-    private val _attrs: NavKAttrs by lazy { NavKAttrsParser.parseNavAttrs(context, attrs, defStyleAttr) }
+    private lateinit var _attrs: NavKAttrsParser.NavKAttrs//属性解析获得对象
 
     init {
-        if (!TextUtils.isEmpty(_attrs.titleStr)) {
-            setTitle(_attrs.titleStr!!)
-        }
+        initAttrs(attrs, defStyleAttr)
+        initView()
+    }
 
-        if (!TextUtils.isEmpty(_attrs.subTitleStr)) {
-            setSubTitle(_attrs.subTitleStr!!)
-        }
-
-        if (_attrs.lineWidth > 0) {
-            addLineView()
+    fun genTitle(
+        title: String = NavKAttrsParser.TITLE_TEXT,
+        titleColor: Int = NavKAttrsParser.TITLE_TEXT_COLOR,
+        titleSize: Int = NavKAttrsParser.TITLE_TEXT_SIZE,
+        block: (TextView.() -> Unit)? = null
+    ) {
+        _titleView.apply {
+            text = title
+            setTextColor(titleColor)
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())
+            block?.let { it() }
         }
     }
 
-    fun setNavListener(listener: OnClickListener) {
-        if (!TextUtils.isEmpty(_attrs.iconStr)) {
-            val navBackView = addLeftTextButton(_attrs.iconStr!!, R.id.navk_icon_left_back)
-            navBackView.setTextSize(TypedValue.COMPLEX_UNIT_PX, _attrs.iconSize)
-            navBackView.setTextColor(_attrs.iconColor)
-            navBackView.setOnClickListener(listener)
-        }
-    }
-
-    fun addLeftTextButton(@StringRes stringRes: Int, viewId: Int): Button {
-        return addLeftTextButton(UtilKRes.getString(stringRes), viewId)
-    }
-
-    fun addLeftTextButton(buttonText: String, viewId: Int): Button {
-        val button = generateTextButton()
-        button.text = buttonText
-        button.id = viewId
-        if (_leftViewList.isEmpty()) {
-            button.setPadding(_attrs.paddingHorizontal * 2, 0, _attrs.paddingHorizontal, 0)
+    fun genSubTitle(
+        subTitle: String,
+        titleColor: Int = NavKAttrsParser.SUBTITLE_TEXT_COLOR,
+        titleSize: Int = NavKAttrsParser.SUBTITLE_TEXT_SIZE,
+        marginTop: Int = NavKAttrsParser.SUBTITLE_TEXT_MARGIN_TOP,
+        block: (TextView.() -> Unit)? = null
+    ) {
+        if (_subTitleView == null) {
+            _subTitleView = getTitleView(subTitle, titleColor, titleSize)
+            val layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+            layoutParams.topMargin = marginTop
+            _subTitleView!!.layoutParams = layoutParams
+            _titleContainer.addView(_subTitleView)
         } else {
-            button.setPadding(_attrs.paddingHorizontal, 0, _attrs.paddingHorizontal, 0)
-        }
-
-        addLeftView(button, generateTextButtonLayoutParams())
-        return button
-    }
-
-    fun addLeftView(view: View, params: LayoutParams) {
-        val viewId = view.id
-        if (viewId == View.NO_ID) {
-            throw IllegalStateException("left view must has an unique id.")
-        }
-        if (_leftLastViewId == View.NO_ID) {
-            params.addRule(ALIGN_PARENT_LEFT, viewId)
-        } else {
-            params.addRule(RIGHT_OF, _leftLastViewId)
-        }
-        _leftLastViewId = viewId
-        params.alignWithParent = true  //alignParentIfMissing
-        _leftViewList.add(view)
-        addView(view, params)
-    }
-
-    fun addRightTextButton(buttonText: String, viewId: Int): Button {
-        val button = generateTextButton()
-        button.text = buttonText
-        button.id = viewId
-        if (_rightViewList.isEmpty()) {
-            button.setPadding(_attrs.paddingHorizontal, 0, _attrs.paddingHorizontal * 2, 0)
-        } else {
-            button.setPadding(_attrs.paddingHorizontal, 0, _attrs.paddingHorizontal, 0)
-        }
-
-        addRightView(button, generateTextButtonLayoutParams())
-        return button
-    }
-
-    fun addRightView(view: View, params: LayoutParams) {
-        val viewId = view.id
-        if (viewId == View.NO_ID) {
-            throw IllegalStateException("right view must has an unique id.")
-        }
-        if (_rightLastViewId == View.NO_ID) {
-            params.addRule(ALIGN_PARENT_RIGHT, viewId)
-        } else {
-            params.addRule(LEFT_OF, _rightLastViewId)
-        }
-        _rightLastViewId = viewId
-        params.alignWithParent = true  //alignParentIfMissing
-        _rightViewList.add(view)
-        addView(view, params)
-    }
-
-    fun setTitle(title: String) {
-        ensureTitleView()
-        _titleView?.text = title
-        _titleView?.visibility = if (TextUtils.isEmpty(title)) View.GONE else View.VISIBLE
-    }
-
-    fun setSubTitle(subTitle: String) {
-        ensureSubTitleView()
-        updateTitleViewStyle()
-        _subTitleView?.text = subTitle
-        _subTitleView?.visibility = if (TextUtils.isEmpty(subTitle)) View.GONE else View.VISIBLE
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-
-        if (_titleContainer != null) {
-            //计算出标题栏左侧已占用的空间
-            var leftUseSpace = paddingLeft
-            for (view in _leftViewList) {
-                leftUseSpace += view.measuredWidth
+            _subTitleView!!.apply {
+                text = subTitle
+                setTextColor(titleColor)
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())
+                val params = this.layoutParams as LayoutParams
+                params.topMargin = marginTop
+                this.layoutParams = params
             }
+        }
+        block?.let {
+            _subTitleView!!.block()
+        }
+    }
 
+    fun addLeftBtnKIconFont(
+        iconStr: String,
+        boxWidth: Int,
+        iconTextSize: Int,
+        iconColor: Int,
+        paddingHorizontal: Int,
+        iconFontPath: String,
+        block: (Button.() -> Unit)? = null
+    ) {
+        val btnKIconFont = getBtnKIconFont(iconStr, iconTextSize, iconColor, iconFontPath)
+        addSideView(btnKIconFont, boxWidth, paddingHorizontal, true)
+        block?.let {
+            btnKIconFont.it()
+        }
+    }
 
-            //计算出标题栏右侧已占用的空间
-            var rightUseSpace = paddingRight
-            for (view in _rightViewList) {
-                rightUseSpace += view.measuredWidth
+    fun addLeftImage(
+        drawable: Drawable,
+        boxWidth: Int,
+        paddingHorizontal: Int,
+        block: (ImageView.() -> Unit)? = null
+    ) {
+        val btnImage = getBtnImage(drawable.drawable2Bitmap(boxWidth, boxWidth))
+        addSideView(btnImage, boxWidth, paddingHorizontal, true)
+        block?.let {
+            btnImage.it()
+        }
+    }
+
+    fun addLeftView(
+        view: View,
+        boxWidth: Int,
+        paddingHorizontal: Int,
+        block: (View.() -> Unit)?
+    ) {
+        addSideView(view, boxWidth, paddingHorizontal, true)
+        block?.let {
+            view.it()
+        }
+    }
+
+    fun addRightBtnKIconFont(
+        iconStr: String,
+        boxWidth: Int,
+        iconTextSize: Int,
+        iconColor: Int,
+        paddingHorizontal: Int,
+        iconFontPath: String,
+        block: (Button.() -> Unit)? = null
+    ) {
+        val btnKIconFont = getBtnKIconFont(iconStr, iconTextSize, iconColor, iconFontPath)
+        addSideView(btnKIconFont, boxWidth, paddingHorizontal, false)
+        block?.let {
+            btnKIconFont.it()
+        }
+    }
+
+    fun addRightImage(
+        drawable: Drawable,
+        boxWidth: Int,
+        paddingHorizontal: Int,
+        block: (ImageView.() -> Unit)? = null
+    ) {
+        val btnImage = getBtnImage(drawable.drawable2Bitmap(boxWidth, boxWidth))
+        addSideView(btnImage, boxWidth, paddingHorizontal, false)
+        block?.let {
+            btnImage.it()
+        }
+    }
+
+    fun addRightView(
+        view: View,
+        boxWidth: Int,
+        paddingHorizontal: Int,
+        block: (View.() -> Unit)?
+    ) {
+        addSideView(view, boxWidth, paddingHorizontal, false)
+        block?.let {
+            view.it()
+        }
+    }
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        _attrs = NavKAttrsParser.parseNavAttrs(context, attrs, defStyleAttr)
+    }
+
+    override fun initView() {
+        addContainer(_leftContainer, 0)
+        addContainer(_titleContainer, 1)
+        addContainer(_rightContainer, 2)
+        addTitles()
+        addLineView()
+    }
+
+    private fun getTitleView(title: String, titleColor: Int, titleSize: Int): TextView {
+        val titleView = TextView(context)
+        titleView.apply {
+            gravity = Gravity.CENTER
+            isSingleLine = true
+            ellipsize = TextUtils.TruncateAt.END
+            setTextColor(titleColor)
+            fontStyle(Typeface.BOLD)
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())
+            text = title
+        }
+        return titleView
+    }
+
+    private fun getLine(lineWidth: Int, lineColor: Int): View {
+        val line = View(context)
+        line.apply {
+            val params = RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, lineWidth)
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+            layoutParams = params
+            setBackgroundColor(lineColor)
+        }
+        return line
+    }
+
+    private fun addContainer(container: LinearLayout, type: Int) {
+        container.apply {
+            orientation = if (type == 1) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
+            gravity = Gravity.CENTER
+        }
+
+        val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT)
+        params.addRule(
+            when (type) {
+                0 -> RelativeLayout.ALIGN_PARENT_LEFT
+                1 -> RelativeLayout.CENTER_IN_PARENT
+                else -> RelativeLayout.ALIGN_PARENT_RIGHT
             }
+        )
+        this@NavKBar.addView(container, params)
+    }
 
-            //这里只是他想要的宽度 500，300
-            val titleContainerWidth = _titleContainer!!.measuredWidth
-            //为了让标题居中，左右空余距离一样
-            val remainingSpace = measuredWidth - leftUseSpace.coerceAtLeast(rightUseSpace) * 2
-            if (remainingSpace < titleContainerWidth) {
-                val size =
-                    MeasureSpec.makeMeasureSpec(remainingSpace, MeasureSpec.EXACTLY)
-                _titleContainer!!.measure(size, heightMeasureSpec)
-            }
+    private fun addTitles() {
+        _titleView = getTitleView(
+            _attrs.titleStr,
+            _attrs.titleTextColor,
+            _attrs.titleTextSize
+        )
+        _attrs.subTitleStr?.let {
+            _subTitleView = getTitleView(it, _attrs.subTitleTextColor, _attrs.subTitleTextSize)
+            val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
+            params.topMargin = _attrs.subTitleMarginTop
+            _subTitleView!!.layoutParams = params
+        }
+        _titleContainer.addView(_titleView)
+        _subTitleView?.let {
+            _titleContainer.addView(_subTitleView)
         }
     }
 
     private fun addLineView() {
-        val view = View(context)
-        val params = LayoutParams(LayoutParams.MATCH_PARENT, _attrs.lineWidth)
-        params.addRule(ALIGN_PARENT_BOTTOM)
+        if (_attrs.lineWidth > 0) {
+            addView(getLine(_attrs.lineWidth, _attrs.lineColor))
+        }
+    }
+
+    private fun addSideView(view: View, boxWidth: Int, paddingHorizontal: Int, isLeft: Boolean) {
+        val params = LayoutParams(boxWidth, boxWidth)
         view.layoutParams = params
-        view.setBackgroundColor(_attrs.lineColor)
-        addView(view)
-    }
-
-    private fun ensureTitleView() {
-        if (_titleView == null) {
-            _titleView = TextKIconFont(context, null)
-            _titleView?.apply {
-                gravity = Gravity.CENTER
-                isSingleLine = true
-                ellipsize = TextUtils.TruncateAt.END
-                setTextColor(_attrs.titleTextColor)
-
-                updateTitleViewStyle()
-                ensureTitleContainer()
-                _titleContainer?.addView(_titleView, 0)
-            }
-        }
-    }
-
-    private fun ensureSubTitleView() {
-        if (_subTitleView == null) {
-            _subTitleView = TextKIconFont(context, null)
-            _subTitleView?.apply {
-                gravity = Gravity.CENTER
-                isSingleLine = true
-                ellipsize = TextUtils.TruncateAt.END
-                setTextColor(_attrs.subTitleTextColor)
-                textSize = _attrs.subTitleTextSize
-
-                //添加到titleContainer
-                ensureTitleContainer()
-                _titleContainer?.addView(_subTitleView)
-            }
-        }
-    }
-
-    private fun updateTitleViewStyle() {
-        if (_titleView != null) {
-            if (_subTitleView == null || TextUtils.isEmpty(_subTitleView!!.text)) {
-                _titleView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, _attrs.titleTextSize)
-                _titleView?.typeface = Typeface.DEFAULT_BOLD
+        if (isLeft) {
+            if (_leftViewList.isEmpty()) {
+                view.setPadding(paddingHorizontal * 2, 0, paddingHorizontal, 0)
             } else {
-                _titleView?.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    _attrs.titleTextSizeWithSubTitle
-                )
-                _titleView?.typeface = Typeface.DEFAULT
+                view.setPaddingHorizontal(paddingHorizontal)
             }
+            _leftContainer.addView(view)
+            _leftViewList.add(view)
+        } else {
+            if (_rightViewList.isEmpty()) {
+                view.setPadding(paddingHorizontal, 0, paddingHorizontal * 2, 0)
+            } else {
+                view.setPaddingHorizontal(paddingHorizontal)
+            }
+            _rightContainer.addView(view)
+            _rightViewList.add(view)
         }
     }
 
-    private fun ensureTitleContainer() {
-        if (_titleContainer == null) {
-            _titleContainer = LinearLayout(context)
-            _titleContainer?.apply {
-                orientation = LinearLayout.VERTICAL
-                gravity = Gravity.CENTER
-
-                val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
-                params.addRule(CENTER_IN_PARENT)
-                this@NavKBar.addView(_titleContainer, params)
-            }
+    private fun getBtnKIconFont(iconStr: String, iconTextSize: Int, iconColor: Int, iconFontPath: String): Button {
+        val btnKIconFont = Button(context)
+        btnKIconFont.apply {
+            setBackgroundResource(0)
+            minWidth = 10f.dp2px()
+            minHeight = 10f.dp2px()
+            gravity = Gravity.CENTER
+            includeFontPadding = false
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, iconTextSize.toFloat())
+            setTextColor(iconColor)
+            text = iconStr
+            font(iconFontPath)
         }
+        return btnKIconFont
     }
 
-    private fun generateTextButtonLayoutParams(): LayoutParams {
-        return LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
+    private fun getBtnImage(bitmap: Bitmap): ImageView {
+        val btnImage = ImageView(context)
+        btnImage.apply {
+            minimumWidth = 10f.dp2px()
+            minimumHeight = 10f.dp2px()
+            gravity = Gravity.CENTER
+            setImageBitmap(bitmap)
+        }
+        return btnImage
     }
 
-    private fun generateTextButton(): Button {
-        val button = BtnKIconFont(context)
-        button.setBackgroundResource(0)
-        button.minWidth = 0
-        button.minimumWidth = 0
-        button.minHeight = 0
-        button.minHeight = 0
-        button.setTextSize(TypedValue.COMPLEX_UNIT_PX, _attrs.textBtnTextSize)
-        button.setTextColor(_attrs.textBtnTextColor)
-        button.gravity = Gravity.CENTER
-        button.includeFontPadding = false
-        return button
-    }
+/*    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        //计算出标题栏左侧已占用的空间
+        var leftUseSpace = paddingLeft
+        for (view in _leftViewList) {
+            leftUseSpace += view.measuredWidth
+        }
+
+
+        //计算出标题栏右侧已占用的空间
+        var rightUseSpace = paddingRight
+        for (view in _rightViewList) {
+            rightUseSpace += view.measuredWidth
+        }
+
+        //这里只是他想要的宽度 500，300
+        val titleContainerWidth = _titleContainer.measuredWidth
+        //为了让标题居中，左右空余距离一样
+        val remainingSpace = measuredWidth - leftUseSpace.coerceAtLeast(rightUseSpace) * 2
+        if (remainingSpace < titleContainerWidth) {
+            val size =
+                MeasureSpec.makeMeasureSpec(remainingSpace, MeasureSpec.EXACTLY)
+            _titleContainer.measure(size, heightMeasureSpec)
+        }
+    }*/
 }

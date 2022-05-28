@@ -1,16 +1,13 @@
 package com.mozhimen.abilityk.netk.customs
 
-import com.google.gson.reflect.TypeToken
-import com.mozhimen.abilityk.netk.NetKRxJava
 import com.mozhimen.abilityk.netk.commons.INetKConverter
 import com.mozhimen.abilityk.netk.helpers.NetKThrowable
 import com.mozhimen.abilityk.netk.helpers.StatusParser
 import com.mozhimen.abilityk.netk.mos.NetKResponse
-import com.mozhimen.basicsk.utilk.UtilKJson
-import com.mozhimen.basicsk.utilk.UtilKT
+import com.mozhimen.basick.utilk.UtilKJson
+import com.mozhimen.basick.utilk.UtilKT
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
-import java.lang.reflect.Type
 
 /**
  * @ClassName RxJavaResponse

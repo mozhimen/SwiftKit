@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityGuidekBinding
-import com.mozhimen.basicsk.basek.BaseKActivity
-import com.mozhimen.basicsk.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.componentk.guidek.GuideK
 import com.mozhimen.componentk.guidek.GuideKMgr
 import com.mozhimen.componentk.guidek.commons.GuideKSelectedListener

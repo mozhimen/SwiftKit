@@ -8,14 +8,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".uicorek.layoutk.LayoutKActivity"
-        tools:ignore="MissingDefaultResource">
+        android:orientation="vertical"
+        tools:context=".uicorek.layoutk.LayoutKActivity">
 
-        <com.mozhimen.uicorek.layoutk.LayoutKEmpty
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goLayoutKEmpty"
+            android:text="LayoutKEmpty"
+            tools:ignore="HardcodedText" />
+
+        <com.mozhimen.uicorek.layoutk.LayoutKInputItem
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutKEmpty_content="稍后刷新试试吧~"
-            app:layoutKEmpty_image="@mipmap/layoutk_empty"
-            app:layoutKEmpty_title="暂无你需要的信息" />
+            android:layout_height="56dp"
+            app:layoutKInputItem_bottomLineAppearance="@style/LayoutKInputItem_LineAppearanceStyle"
+            app:layoutKInputItem_topLineAppearance="@style/LayoutKInputItem_LineAppearanceStyle"
+            app:layoutKInputItem_hint="请输入"
+            app:layoutKInputItem_inputAppearance="@style/LayoutKInputItem_InputAppearanceStyle"
+            app:layoutKInputItem_inputType="text"
+            app:layoutKInputItem_title="示例"
+            app:layoutKInputItem_titleAppearance="@style/LayoutKInputItem_TitleAppearanceStyle" />
     </LinearLayout>
 </layout>

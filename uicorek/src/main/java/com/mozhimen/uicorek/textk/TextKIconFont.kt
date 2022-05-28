@@ -1,10 +1,10 @@
 package com.mozhimen.uicorek.textk
 
 import android.content.Context
-import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basicsk.extsk.font
+import com.mozhimen.basick.extsk.font
+import com.mozhimen.uicorek.R
 
 /**
  * @ClassName TextKIconFont
@@ -13,10 +13,23 @@ import com.mozhimen.basicsk.extsk.font
  * @Date 2021/12/18 12:50
  * @Version 1.0
  */
-class TextKIconFont @JvmOverloads constructor(context: Context, attributeSet: AttributeSet?, defStyleAttr: Int = 0) :
-    AppCompatTextView(context, attributeSet, defStyleAttr) {
+class TextKIconFont @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    AppCompatTextView(context, attrs, defStyleAttr) {
+
+    private var _fontPath = "icons/iconfont.ttf"
 
     init {
-        font()
+        initAttrs(attrs)
+        initView()
+    }
+
+    fun initAttrs(attrs: AttributeSet?) {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKIconFont)
+        _fontPath = typedArray.getString(R.styleable.TextKIconFont_textKIconFont_fontPath) ?: _fontPath
+        typedArray.recycle()
+    }
+
+    fun initView() {
+        font(_fontPath)
     }
 }

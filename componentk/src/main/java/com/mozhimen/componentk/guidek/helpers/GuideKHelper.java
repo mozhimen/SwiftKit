@@ -85,7 +85,7 @@ public class GuideKHelper extends Navigator<GuideKHelper.Destination> {
             return false;
         }
         if (_fragmentManager.isStateSaved()) {
-            Log.i(GuideKConstants.TAG, "Ignoring popBackStack() call: FragmentManager has already"
+            Log.d(GuideKConstants.TAG, "Ignoring popBackStack() call: FragmentManager has already"
                     + " saved its state");
             return false;
         }
@@ -146,7 +146,7 @@ public class GuideKHelper extends Navigator<GuideKHelper.Destination> {
     public NavDestination navigate(@NonNull Destination destination, @Nullable Bundle args,
                                    @Nullable NavOptions navOptions, @Nullable Navigator.Extras navigatorExtras) {
         if (_fragmentManager.isStateSaved()) {
-            Log.i(GuideKConstants.TAG, "Ignoring navigate() call: FragmentManager has already"
+            Log.d(GuideKConstants.TAG, "Ignoring navigate() call: FragmentManager has already"
                     + " saved its state");
             return null;
         }

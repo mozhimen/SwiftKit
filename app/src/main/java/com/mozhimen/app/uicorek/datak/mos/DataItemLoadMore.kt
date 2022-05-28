@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.mozhimen.app.R
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.fontStyle
-import com.mozhimen.basicsk.utilk.UtilKRes
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.fontStyle
+import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorek.datak.helpers.DataKViewHolder
 

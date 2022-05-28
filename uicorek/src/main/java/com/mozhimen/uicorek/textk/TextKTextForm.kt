@@ -10,9 +10,9 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.sp2px
-import com.mozhimen.basicsk.basek.BaseKLayoutLinear
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -22,13 +22,13 @@ import com.mozhimen.uicorek.R
  * @Date 2022/1/16 0:16
  * @Version 1.0
  */
-typealias OnFormClick = (View) -> Unit
+typealias ITextKTextFormClick = (View) -> Unit
 
 class TextKTextForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
     private var mTextHint: String? = null
-    private var mOnFormClick: OnFormClick? = null
+    private var mOnFormClick: ITextKTextFormClick? = null
     private var mIsRequire = false
     private var mRequiredIconPos = 0
     private var mLabel: String? = null
@@ -39,7 +39,7 @@ class TextKTextForm @JvmOverloads constructor(context: Context, attrs: Attribute
     private var mLabelMarginRight = 6f.dp2px()
     private var mTextColor = Color.BLACK
     private var mTextSize = 18f.sp2px()
-    private var mBorderBackground = R.drawable.textk_edit_form
+    private var mBorderBackground = R.drawable.textk_et_form
 
     private lateinit var mLabelText: TextView
     private lateinit var mIsRequireIcon: ImageView
@@ -70,7 +70,7 @@ class TextKTextForm @JvmOverloads constructor(context: Context, attrs: Attribute
 
     fun getContent(): String = mTextView.text.toString().trim()
 
-    fun setOnFormClickListener(listener: OnFormClick) {
+    fun setOnFormClickListener(listener: ITextKTextFormClick) {
         this.mOnFormClick = listener
     }
 
@@ -108,7 +108,7 @@ class TextKTextForm @JvmOverloads constructor(context: Context, attrs: Attribute
 
     @SuppressLint("InflateParams")
     override fun initView() {
-        LayoutInflater.from(context).inflate(R.layout.textk_text_form, this)
+        LayoutInflater.from(context).inflate(R.layout.textk_tv_form, this)
         mIsRequireIcon = findViewById(R.id.textk_text_form_icon)
         mLabelText = findViewById(R.id.textk_text_form_label)
         mTextView = findViewById(R.id.textk_text_form_text)

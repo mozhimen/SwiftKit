@@ -1,12 +1,10 @@
 package com.mozhimen.uicorek.bindk
 
-import android.text.TextUtils
+import android.graphics.Bitmap
 import android.view.View
-import android.view.ViewTreeObserver
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
-import com.mozhimen.basicsk.utilk.UtilKView
+import com.mozhimen.basick.utilk.UtilKView
 
 /**
  * @ClassName BindKView
@@ -33,8 +31,19 @@ object BindKView {
      * @param url String?
      */
     @JvmStatic
-    @BindingAdapter("imageUrl")
+    @BindingAdapter("loadUrl")
     fun loadImage(view: ImageView, url: String) {
         UtilKView.loadImageComplex(view, url)
+    }
+
+    /**
+     * 加载图片
+     * @param view ImageView?
+     * @param url String?
+     */
+    @JvmStatic
+    @BindingAdapter("loadBitmap")
+    fun loadImage(view: ImageView, bitmap: Bitmap) {
+        UtilKView.loadImage(view, bitmap)
     }
 }

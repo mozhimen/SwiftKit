@@ -2,11 +2,11 @@ package com.mozhimen.uicorek.adapterk
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.uicorek.bindk.BindKViewHolder
 
 /**
  * @ClassName RecyclerAdapterK
@@ -25,59 +25,53 @@ import androidx.recyclerview.widget.RecyclerView
  * }}}
  * viewBinding.mainList.adapter=adapter
  */
-open class AdapterKRecycler<T>(
-    private var itemDatas: List<T>,
-    private val defaultLayout: Int,
-    private val brId: Int
-) : RecyclerView.Adapter<AdapterKRecycler.BaseViewHolder>() {
+typealias IAdapterKRecyclerListener<T, VB> = (holder: BindKViewHolder<VB>, itemData: T, position: Int) -> Unit
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+open class AdapterKRecycler<T, VB : ViewDataBinding>(
+    private var _itemDatas: List<T>,
+    private val _defaultLayout: Int,
+    private val _brId: Int,
+    private val _listener: IAdapterKRecyclerListener<T, VB>? = null /* = (com.mozhimen.uicorek.bindk.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
+) : RecyclerView.Adapter<BindKViewHolder<VB>>() {
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun onItemDataChanged(newItemDatas: List<T>) {
+        _itemDatas = newItemDatas
+        notifyDataSetChanged()
+    }
+
+    fun onItemRangeChanged(newItemDatas: List<T>, positionStart: Int, itemCount: Int) {
+        _itemDatas = newItemDatas
+        notifyItemChanged(positionStart, itemCount)
+    }
+
+    fun onItemRangeInserted(newItemDatas: List<T>, positionStart: Int, itemCount: Int) {
+        _itemDatas = newItemDatas
+        notifyItemRangeInserted(positionStart, itemCount)
+    }
+
+    fun onItemRangeRemoved(newItemDatas: List<T>, positionStart: Int, itemCount: Int) {
+        _itemDatas = newItemDatas
+        notifyItemRangeRemoved(positionStart, itemCount)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindKViewHolder<VB> {
+        val binding = DataBindingUtil.inflate<VB>(
             LayoutInflater.from(parent.context),
             viewType,
             parent,
             false
         )
-        return BaseViewHolder(binding)
+        return BindKViewHolder(binding.root, binding)
     }
 
-    override fun getItemCount() = if (itemDatas.isNullOrEmpty()) 0 else itemDatas.size
+    override fun getItemCount() = if (_itemDatas.isEmpty()) 0 else _itemDatas.size
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        holder.binding.setVariable(brId, itemDatas[position])
-        addListener(holder.binding.root, itemDatas[position], position)
+    override fun onBindViewHolder(holder: BindKViewHolder<VB>, position: Int) {
+        holder.binding.setVariable(_brId, _itemDatas[position])
+        _listener?.invoke(holder, _itemDatas[position], position)
         holder.binding.executePendingBindings()
     }
 
-    override fun getItemViewType(position: Int) = getItemLayout(itemDatas[position])
-
-    //region #自定义方法
-    class BaseViewHolder(var binding: ViewDataBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    private fun getItemLayout(itemData: T) = defaultLayout
-
-    open fun addListener(view: View, itemData: T, position: Int) {}
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun onItemDataChanged(newItemDatas: List<T>) {
-        itemDatas = newItemDatas
-        notifyDataSetChanged()
-    }
-
-    fun onItemRangeChanged(newItemDatas: List<T>, positionStart: Int, itemCount: Int) {
-        itemDatas = newItemDatas
-        notifyItemChanged(positionStart, itemCount)
-    }
-
-    fun onItemRangeInserted(newItemDatas: List<T>, positionStart: Int, itemCount: Int) {
-        itemDatas = newItemDatas
-        notifyItemRangeInserted(positionStart, itemCount)
-    }
-
-    fun onItemRangeRemoved(newItemDatas: List<T>, positionStart: Int, itemCount: Int) {
-        itemDatas = newItemDatas
-        notifyItemRangeRemoved(positionStart, itemCount)
-    }
-    //endregion
+    override fun getItemViewType(position: Int) = _defaultLayout
 }

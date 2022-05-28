@@ -3,9 +3,9 @@ package com.mozhimen.app.uicorek.refreshk
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mozhimen.app.databinding.ActivityRefreshkLottieBinding
-import com.mozhimen.basicsk.extsk.dp2px
-import com.mozhimen.basicsk.extsk.postDelayed
-import com.mozhimen.basicsk.utilk.UtilKHandler
+import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.postDelayed
+import com.mozhimen.basick.utilk.UtilKHandler
 import com.mozhimen.uicorek.refreshk.commons.IRefreshK
 import com.mozhimen.uicorek.refreshk.customs.LottieOverView
 

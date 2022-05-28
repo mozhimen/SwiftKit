@@ -21,7 +21,7 @@
                 app:viewKQRScan_borderColor="@android:color/white"
                 app:viewKQRScan_borderLineWidth="3dp"
                 app:viewKQRScan_isScanLineReverse="false"
-                app:viewKQRScan_lineDrawable="@drawable/viewk_qrscan_line"
+                app:viewKQRScan_lineDrawable="@drawable/scank_qrscan_line"
                 app:viewKQRScan_lineWidth="2dp" />
 
             <!--<com.mozhimen.uicorek.viewk.SquareQRScan
@@ -52,12 +52,16 @@
                 app:circleSpread_spreadCount="3"
                 app:circleSpread_spreadIsRipple="true"/>-->
 
-            <!--<com.mozhimen.widgetk.viewk.ArcRotate
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                app:arcRotate_gradientEnd="@color/blue_dark"
-                app:arcRotate_gradientStart="@color/blue_light"
-                app:arcRotate_lineWidth="20dp" />-->
+            <com.mozhimen.uicorek.viewk.ArcRotate
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:arcRotate_angleInterval="40"
+                app:arcRotate_angleStep="3"
+                app:arcRotate_animTime="2000"
+                app:arcRotate_arcNum="3"
+                app:arcRotate_arcEndColor="@color/blue_dark"
+                app:arcRotate_arcStartColor="@color/blue_light"
+                app:arcRotate_arcWidth="4dp" />
 
             <!--<com.mozhimen.widgetk.viewk.RadarRipple
                 android:id="@+id/viewk_radarRipple"
@@ -82,16 +86,6 @@
                 app:radarWave_radarColor="@color/blue_light"
                 app:radarWave_waveColor="@color/blue_normal"
                 app:radarWave_waveCount="4" />-->
-
-            <!--<com.mozhimen.widgetk.viewk.RingRotate
-                android:id="@+id/viewk_ringRotate"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                app:ringRotate_angleStep="3"
-                app:ringRotate_animTime="1000"
-                app:ringRotate_ringEndColor="@android:color/transparent"
-                app:ringRotate_ringStartColor="@color/blue_normal"
-                app:ringRotate_ringWidth="60dp" />-->
 
             <!--<androidx.cardview.widget.CardView
                 android:layout_width="200dp"

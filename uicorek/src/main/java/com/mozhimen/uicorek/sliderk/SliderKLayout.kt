@@ -2,6 +2,7 @@ package com.mozhimen.uicorek.sliderk
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.mozhimen.basicsk.basek.BaseKLayoutLinear
+import com.mozhimen.basick.basek.BaseKLayoutLinear
+import com.mozhimen.basick.extsk.fontStyle
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.itemk.ItemKViewHolder
 
@@ -27,62 +29,64 @@ import com.mozhimen.uicorek.itemk.ItemKViewHolder
 class SliderKLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
-    private val menuView = RecyclerView(context)
-    private val contentView = RecyclerView(context)
+    private val _menuView = RecyclerView(context)
+    private val _contentView = RecyclerView(context)
 
-    private var menuItemAttr = SliderKParser.parseMenuAttr(context, attrs)
+    fun getMenusView(): RecyclerView = _menuView
+
+    fun getContentsView(): RecyclerView = _contentView
+
+    private var _menuItemAttr: SliderKParser.SliderKMenuItemAttrs = SliderKParser.parseMenuAttr(context, attrs)
 
     init {
         initView()
     }
 
     override fun initView() {
-        super.initView()
         orientation = HORIZONTAL
 
-        menuView.layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
-        menuView.overScrollMode = View.OVER_SCROLL_NEVER
-        menuView.itemAnimator = null
+        _menuView.layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
+        _menuView.overScrollMode = View.OVER_SCROLL_NEVER
+        _menuView.itemAnimator = null
 
-        contentView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
-        contentView.overScrollMode = View.OVER_SCROLL_NEVER
-        contentView.itemAnimator = null
+        _contentView.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+        _contentView.overScrollMode = View.OVER_SCROLL_NEVER
+        _contentView.itemAnimator = null
 
-        addView(menuView)
-        addView(contentView)
+        addView(_menuView)
+        addView(_contentView)
     }
 
     fun bindMenuView(
-        layoutRes: Int = R.layout.sliderk_menu_item,
         itemCount: Int,
         onBindView: (ItemKViewHolder, Int) -> Unit,
-        onItemClick: (ItemKViewHolder, Int) -> Unit
+        onItemClick: (ItemKViewHolder, Int) -> Unit,
+        layoutRes: Int = R.layout.sliderk_item_menu
     ) {
-        menuView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        menuView.adapter = SliderKMenuAdapter(layoutRes, itemCount, onBindView, onItemClick)
+        _menuView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        _menuView.adapter = SliderKMenuAdapter(layoutRes, itemCount, onBindView, onItemClick)
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun bindContentView(
-        layoutRes: Int = R.layout.sliderk_content,
         itemCount: Int,
         itemDecoration: RecyclerView.ItemDecoration?,
         layoutManager: RecyclerView.LayoutManager,
         onBindView: (ItemKViewHolder, Int) -> Unit,
-        onItemClick: (ItemKViewHolder, Int) -> Unit
+        onItemClick: (ItemKViewHolder, Int) -> Unit,
+        layoutRes: Int = R.layout.sliderk_item_content
     ) {
-        if (contentView.layoutManager == null) {
-            contentView.layoutManager = layoutManager
-            contentView.adapter = SliderKContentAdapter(layoutRes)
+        if (_contentView.layoutManager == null) {
+            _contentView.layoutManager = layoutManager
+            _contentView.adapter = SliderKContentAdapter(layoutRes)
             itemDecoration?.let {
-                contentView.addItemDecoration(it)
+                _contentView.addItemDecoration(it)
             }
         }
-        val contentAdapter = contentView.adapter as SliderKContentAdapter
+        val contentAdapter = _contentView.adapter as SliderKContentAdapter
         contentAdapter.update(itemCount, onBindView, onItemClick)
         contentAdapter.notifyDataSetChanged()
-
-        contentView.scrollToPosition(0)
+        _contentView.scrollToPosition(0)
     }
 
     inner class SliderKMenuAdapter(
@@ -99,12 +103,12 @@ class SliderKLayout @JvmOverloads constructor(context: Context, attrs: Attribute
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemKViewHolder {
             val itemView = LayoutInflater.from(context).inflate(layoutRes, parent, false)
-            val params = RecyclerView.LayoutParams(menuItemAttr.width, menuItemAttr.height)
+            val params = RecyclerView.LayoutParams(_menuItemAttr.width, _menuItemAttr.height)
 
             itemView.layoutParams = params
-            itemView.setBackgroundColor(menuItemAttr.normalBackgroundColor)
-            itemView.findViewById<TextView>(R.id.sliderk_menu_item_title)?.setTextColor(menuItemAttr.textColor)
-            itemView.findViewById<ImageView>(R.id.sliderk_menu_item_indicator)?.setImageDrawable(menuItemAttr.indicator)
+            itemView.setBackgroundColor(_menuItemAttr.bgColor)
+            itemView.findViewById<TextView>(R.id.sliderk_item_menu_title)?.setTextColor(_menuItemAttr.textColor)
+            itemView.findViewById<ImageView>(R.id.sliderk_item_menu_indicator)?.setImageDrawable(_menuItemAttr.indicator)
             return ItemKViewHolder(itemView)
         }
 
@@ -130,21 +134,24 @@ class SliderKLayout @JvmOverloads constructor(context: Context, attrs: Attribute
 
         private fun applyItemAttr(position: Int, holder: ItemKViewHolder) {
             val selected = position == currentSelectIndex
-            val titleView: TextView? = holder.itemView.findViewById(R.id.sliderk_menu_item_title)
-            val indicatorView: ImageView? = holder.itemView.findViewById(R.id.sliderk_menu_item_indicator)
+            val titleView: TextView? = holder.itemView.findViewById(R.id.sliderk_item_menu_title)
+            val indicatorView: ImageView? = holder.itemView.findViewById(R.id.sliderk_item_menu_indicator)
 
             indicatorView?.visibility = if (selected) View.VISIBLE else View.GONE
-            titleView?.textSize = (if (selected) menuItemAttr.selectTextSize else menuItemAttr.textSize).toFloat()
+            titleView?.apply {
+                textSize = (if (selected) _menuItemAttr.textSize else _menuItemAttr.textSize).toFloat()
+                if (selected) fontStyle(Typeface.BOLD) else fontStyle()
+            }
             holder.itemView.setBackgroundColor(
-                if (selected) menuItemAttr.selectBackgroundColor else menuItemAttr.normalBackgroundColor
+                if (selected) _menuItemAttr.bgColorSelect else _menuItemAttr.bgColor
             )
             titleView?.isSelected = selected
         }
 
         override fun onViewAttachedToWindow(holder: ItemKViewHolder) {
             super.onViewAttachedToWindow(holder)
-            val remainSpace: Int = width - paddingLeft - paddingRight - menuItemAttr.width
-            val layoutManager: RecyclerView.LayoutManager? = contentView.layoutManager
+            val remainSpace: Int = width - paddingLeft - paddingRight - _menuItemAttr.width
+            val layoutManager: RecyclerView.LayoutManager? = _contentView.layoutManager
             var spanCount = 0
             if (layoutManager is GridLayoutManager) {
                 spanCount = layoutManager.spanCount
@@ -187,8 +194,8 @@ class SliderKLayout @JvmOverloads constructor(context: Context, attrs: Attribute
 
         override fun onViewAttachedToWindow(holder: ItemKViewHolder) {
             super.onViewAttachedToWindow(holder)
-            val remainScope = width - paddingLeft - paddingRight - menuItemAttr.width
-            val layoutManager = contentView.layoutManager
+            val remainScope = width - paddingLeft - paddingRight - _menuItemAttr.width
+            val layoutManager = _contentView.layoutManager
             var spanCount = 0
             if (layoutManager is GridLayoutManager) {
                 spanCount = layoutManager.spanCount
@@ -216,7 +223,6 @@ class SliderKLayout @JvmOverloads constructor(context: Context, attrs: Attribute
             this.onItemClick = onItemClick
         }
     }
-
 }
 
 

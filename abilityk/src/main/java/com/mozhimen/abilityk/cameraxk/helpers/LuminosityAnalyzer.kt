@@ -20,7 +20,7 @@ object LuminosityAnalyzer {
         // Compute average luminance for the image
         val luma = pixels.average()
         // Log the new luma value
-        Log.w("CameraXK>>>>>", "Average luminosity: $luma")
+        Log.d("CameraXK>>>>>", "Average luminosity: $luma")
         // Update timestamp of last analyzed frame
     }
 
