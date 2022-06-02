@@ -1,12 +1,14 @@
 package com.mozhimen.basick.utilk
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
+import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
-import android.util.Log
+import com.mozhimen.basick.logk.LogK
 import java.lang.reflect.Method
 import java.net.Inet6Address
 import java.net.InetAddress
@@ -22,135 +24,60 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKDevice {
-    private val TAG = "UtilKDevice>>>>>"
-    private const val KEY_SYSTEM_PROPERTIES = "android.os.SystemProperties"
-    private const val KEY_ROM_VERSION = "ro.product.rom.version"
-    private const val KEY_HW_VERSION = "ro.product.hw.version"
-    private const val KEY_DISPLAY_ID = "ro.build.display.id"
-    private const val KEY_DEVICE_ID = "ro.product.id"
-    private const val KEY_DEVICE_NAME = "ro.product.name"
-    private const val KEY_DEVICE_MODEL = "ro.product.model"
-    private const val KEY_DEVICE_BRAND = "ro.product.brand"
-    private const val KEY_DEVICE_BOARD = "ro.product.board"
-    private const val KEY_DEVICE_MANUFACTURER = "ro.product.manufacturer"
-    private const val KEY_SERIAL_NUMBER = "ro.serialno"
+    private const val TAG = "UtilKDevice>>>>>"
+    private const val DEVICE_SYSTEM_PROPERTIES = "android.os.SystemProperties"
+    private const val DEVICE_ROM_VERSION = "ro.product.rom.version"
+    private const val DEVICE_HW_VERSION = "ro.product.hw.version"
+    private const val DEVICE_SERIAL_NUMBER = "ro.serialno"
+    private const val NO_DEFINED = "unknown"
 
-    /**
-     * 获取设备IP
-     * @return String?
-     */
-    fun getDeviceIP(): String? {
-        var hostIP: String? = null
+    //设备IP
+    fun getDeviceIP(): String {
         try {
-            val nis: Enumeration<NetworkInterface> = NetworkInterface.getNetworkInterfaces()
-            var ia: InetAddress
-            while (true) {
-                while (nis.hasMoreElements()) {
-                    val ni: NetworkInterface = nis.nextElement() as NetworkInterface
-                    val ias: Enumeration<InetAddress> = ni.inetAddresses
-                    while (ias.hasMoreElements()) {
-                        ia = ias.nextElement() as InetAddress
-                        if (ia !is Inet6Address) {
-                            val ip: String = ia.hostAddress
-                            if ("127.0.0.1" != ip) {
-                                hostIP = ia.hostAddress
-                                break
-                            }
+            val networkInterfaces: Enumeration<NetworkInterface> = NetworkInterface.getNetworkInterfaces()
+            var inetAddress: InetAddress
+            while (networkInterfaces.hasMoreElements()) {
+                val networkInterface: NetworkInterface = networkInterfaces.nextElement() as NetworkInterface
+                val inetAddresses: Enumeration<InetAddress> = networkInterface.inetAddresses
+                while (inetAddresses.hasMoreElements()) {
+                    inetAddress = inetAddresses.nextElement() as InetAddress
+                    if (inetAddress !is Inet6Address) {
+                        val ip = inetAddress.hostAddress
+                        if ("127.0.0.1" != ip) {
+                            return inetAddress.hostAddress ?: NO_DEFINED
                         }
                     }
                 }
-                return hostIP
             }
-        } catch (var6: SocketException) {
-            var6.printStackTrace()
-            return hostIP
+            return NO_DEFINED
+        } catch (e: SocketException) {
+            LogK.et(TAG, "getDeviceIP SocketException ${e.message}")
+            e.printStackTrace()
+            return NO_DEFINED
         }
     }
 
+    //设备Rom版本
+    fun getRomVersion(): String = getSystemProperties(DEVICE_ROM_VERSION, NO_DEFINED)
+
+    //设备硬件版本
+    fun getHardwareVersion(): String = getSystemProperties(DEVICE_HW_VERSION, NO_DEFINED)
+
+    //序列号
     /**
-     * 获取Rom型号
+     * getSerial requires READ_PHONE_STATE or READ_PRIVILEGED_PHONE_STATE permission
      * @return String
      */
-    fun getRomVersion(): String {
-        return getSystemProperties(KEY_ROM_VERSION, "")
+    @SuppressLint("HardwareIds")
+    fun getSerialNumber(): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        NO_DEFINED
+    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        Build.SERIAL
+    } else {
+        getSystemProperties(DEVICE_SERIAL_NUMBER, NO_DEFINED)
     }
 
-    /**
-     * 获取HW
-     * @return String
-     */
-    fun getHwVersion(): String {
-        return getSystemProperties(KEY_HW_VERSION, "")
-    }
-
-    /**
-     * 获取设备版本
-     * @return String
-     */
-    fun getDeviceVersion(): String {
-        return getSystemProperties(KEY_DISPLAY_ID, "")
-    }
-
-    /**
-     * 获取设备ID
-     * @return String
-     */
-    fun getDeviceId(): String {
-        return getSystemProperties(KEY_DEVICE_ID, "")
-    }
-
-    /**
-     * 获取设备名称
-     * @return String
-     */
-    fun getDeviceName(): String {
-        return getSystemProperties(KEY_DEVICE_NAME, "")
-    }
-
-    /**
-     * 获取设备
-     * @return String
-     */
-    fun getDeviceModel(): String {
-        return getSystemProperties(KEY_DEVICE_MODEL, "")
-    }
-
-    /**
-     * 获取设备公司
-     * @return String
-     */
-    fun getDeviceBrand(): String {
-        return getSystemProperties(KEY_DEVICE_BRAND, "")
-    }
-
-    /**
-     * 获取设备证书
-     * @return String
-     */
-    fun getDeviceBoard(): String {
-        return getSystemProperties(KEY_DEVICE_BOARD, "")
-    }
-
-    /**
-     * 获取设备厂商
-     * @return String
-     */
-    fun getManufacturer(): String {
-        return getSystemProperties(KEY_DEVICE_MANUFACTURER, "")
-    }
-
-    /**
-     * 获取设备序列号
-     * @return String
-     */
-    fun getSerialNumber(): String {
-        return getSystemProperties(KEY_SERIAL_NUMBER, "")
-    }
-
-    /**
-     * 获取设备短序列号
-     * @return String
-     */
+    //短序列号
     fun getSerialNumberShort(): String {
         var serial = getSerialNumber()
         if (!TextUtils.isEmpty(serial) && serial.length > 14) {
@@ -159,50 +86,28 @@ object UtilKDevice {
         return serial
     }
 
-    /**
-     * 是否有sd卡
-     * @return Boolean
-     */
-    fun isHasSdcard(): Boolean {
-        val state: String = Environment.getExternalStorageState()
-        return TextUtils.equals(state, "mounted")
-    }
+    //设备是否有sd卡
+    fun isHasSdcard(): Boolean = TextUtils.equals(Environment.getExternalStorageState(), "mounted")
 
-    /**
-     * 是否有USB设备连接
-     * @param vid Int
-     * @param pid Int
-     * @return Boolean
-     */
-    fun isHasUSBDevice(vid: Int, pid: Int): Boolean {
-        var hasFingerPrintReader = false
-        @SuppressLint("WrongConstant") val mUsbManager: UsbManager = UtilKGlobal.instance.getApp()!!.getSystemService("usb") as UsbManager
-        val var5: Iterator<UsbDevice> = mUsbManager.deviceList.values.iterator()
-        while (var5.hasNext()) {
-            val device: UsbDevice = var5.next()
+    //设备是否有USB外设
+    fun isHasUSB(vid: Int, pid: Int): Boolean {
+        @SuppressLint("WrongConstant")
+        val mUsbManager: UsbManager = UtilKGlobal.instance.getApp()!!.getSystemService("usb") as UsbManager
+        val devices: Iterator<UsbDevice> = mUsbManager.deviceList.values.iterator()
+        while (devices.hasNext()) {
+            val device: UsbDevice = devices.next()
             if (device.vendorId == vid && device.productId == pid) {
-                hasFingerPrintReader = true
-                break
+                return true
             }
         }
-        return hasFingerPrintReader
+        return false
     }
 
-    /**
-     * 是否有前置摄像头
-     * @return Boolean
-     */
-    fun isHasFrontCamera(): Boolean {
-        return hasCameras(1)
-    }
+    //设备是否有前置摄像
+    fun isHasFrontCamera(): Boolean = isHasCamera(true)
 
-    /**
-     * 是否有后置摄像头
-     * @return Boolean
-     */
-    fun isHasBackCamera(): Boolean {
-        return hasCameras(0)
-    }
+    //设备是否有后置摄像头
+    fun isHasBackCamera(): Boolean = isHasCamera(false)
 
     /**
      * 关闭Android9.0弹出框（Detected problems with API compatibility）
@@ -210,25 +115,20 @@ object UtilKDevice {
     @SuppressLint("PrivateApi", "SoonBlockedPrivateApi", "DiscouragedPrivateApi")
     fun closeAndroidPDialog() {
         try {
-            val cls = Class.forName("android.content.pm.PackageParser\$Package")
-            val declaredConstructor = cls.getDeclaredConstructor(String::class.java)
+            val clazz = Class.forName("android.content.pm.PackageParser\$Package")
+            val declaredConstructor = clazz.getDeclaredConstructor(String::class.java)
             declaredConstructor.isAccessible = true
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-            Log.e(TAG, e.message.toString())
-        }
 
-        try {
-            val cls = Class.forName("android.app.ActivityThread")
-            val declaredMethod = cls.getDeclaredMethod("currentActivityThread")
+            val clazz1 = Class.forName("android.app.ActivityThread")
+            val declaredMethod = clazz1.getDeclaredMethod("currentActivityThread")
             declaredMethod.isAccessible = true
             val activityThread = declaredMethod.invoke(null)
-            val mHiddenApiWarningShown = cls.getDeclaredField("mHiddenApiWarningShown")
-            mHiddenApiWarningShown.isAccessible = true
-            mHiddenApiWarningShown.setBoolean(activityThread, true)
-        } catch (e: java.lang.Exception) {
+            val hiddenApiWarningShown = clazz1.getDeclaredField("mHiddenApiWarningShown")
+            hiddenApiWarningShown.isAccessible = true
+            hiddenApiWarningShown.setBoolean(activityThread, true)
+        } catch (e: Exception) {
+            LogK.et(TAG, "closeAndroidPDialog Exception ${e.message}")
             e.printStackTrace()
-            Log.e(TAG, e.message.toString())
         }
     }
 
@@ -238,18 +138,19 @@ object UtilKDevice {
      * @param value String?
      */
     @SuppressLint("PrivateApi")
-    fun setSystemProperties(key: String?, value: String?) {
+    fun setSystemProperties(key: String, value: String) {
         try {
-            val c = Class.forName(KEY_SYSTEM_PROPERTIES)
-            val set: Method = c.getMethod("set", String::class.java, String::class.java)
-            set.invoke(c, key, value)
-        } catch (var4: Exception) {
-            var4.printStackTrace()
+            val clazz = Class.forName(DEVICE_SYSTEM_PROPERTIES)
+            val setMethod: Method = clazz.getMethod("set", String::class.java, String::class.java)
+            setMethod.invoke(clazz, key, value)
+        } catch (e: Exception) {
+            LogK.et(TAG, "setSystemProperties Exception ${e.message}")
+            e.printStackTrace()
         }
     }
 
     /**
-     * 获取首选项
+     * 首选项
      * @param key String?
      * @param defaultValue String
      * @return String
@@ -257,25 +158,28 @@ object UtilKDevice {
     @SuppressLint("PrivateApi")
     fun getSystemProperties(key: String?, defaultValue: String): String {
         return try {
-            val c = Class.forName(KEY_SYSTEM_PROPERTIES)
-            val get: Method = c.getMethod("get", String::class.java)
-            get.invoke(c, key) as String
-        } catch (var4: Exception) {
-            var4.printStackTrace()
+            val clazz = Class.forName(DEVICE_SYSTEM_PROPERTIES)
+            val getMethod: Method = clazz.getMethod("get", String::class.java)
+            (getMethod.invoke(clazz, key) as String).ifEmpty { defaultValue }
+        } catch (e: Exception) {
+            LogK.et(TAG, "getSystemProperties Exception ${e.message}")
+            e.printStackTrace()
             defaultValue
         }
     }
 
-    private fun hasCameras(cameraId: Int): Boolean {
-        var hasCamera = false
-        val info = Camera.CameraInfo()
-        for (i in 0 until Camera.getNumberOfCameras()) {
-            Camera.getCameraInfo(i, info)
-            if (info.facing == cameraId) {
-                hasCamera = true
-                break
+    private fun isHasCamera(isFront: Boolean): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            return UtilKGlobal.instance.getApp()!!.packageManager.hasSystemFeature(if (isFront) PackageManager.FEATURE_CAMERA_FRONT else PackageManager.FEATURE_CAMERA)
+        } else {
+            val info = Camera.CameraInfo()
+            for (i in 0 until Camera.getNumberOfCameras()) {
+                Camera.getCameraInfo(i, info)
+                if (info.facing == if (isFront) Camera.CameraInfo.CAMERA_FACING_FRONT else Camera.CameraInfo.CAMERA_FACING_BACK) {
+                    return true
+                }
             }
+            return false
         }
-        return hasCamera
     }
 }

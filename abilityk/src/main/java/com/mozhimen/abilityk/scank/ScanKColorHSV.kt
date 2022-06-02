@@ -7,6 +7,7 @@ import android.util.Log
 import com.mozhimen.abilityk.scank.mos.ColorHSV
 import com.mozhimen.basick.extsk.drawable2Bitmap
 import com.mozhimen.basick.extsk.toJson
+import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.utilk.UtilKRes
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -46,22 +47,22 @@ object ScanKColorHSV {
             val bitmap = BitmapFactory.decodeStream(inputStream)
             return colorAnalyze(bitmap)//开始分析颜色
         } catch (e: Exception) {
+            LogK.et(TAG, "colorAnalyze Exception ${e.message}")
             e.printStackTrace()
-            Log.e(TAG, e.toString())
         } finally {
             if (outputStream != null) {
                 try {
                     outputStream.flush()
                     outputStream.close()
                 } catch (e: Exception) {
-                    Log.e(TAG, e.toString())
+                    LogK.et(TAG, "colorAnalyze read outputStream Exception $e")
                 }
             }
             if (inputStream != null) {
                 try {
                     inputStream.close()
                 } catch (e: Exception) {
-                    Log.e(TAG, e.toString())
+                    LogK.et(TAG, "colorAnalyze read inputStream Exception $e")
                 }
             }
         }
@@ -98,10 +99,10 @@ object ScanKColorHSV {
                     }
                 }
             }
-            Log.w(TAG, "colorAnalyze: colorMap ${_colorMap.toJson()}")
+            Log.d(TAG, "colorAnalyze: colorMap ${_colorMap.toJson()}")
             return colorPercentage(rows * cols)
         } catch (e: Exception) {
-            Log.e(TAG, e.toString())
+            LogK.et(TAG, "colorAnalyze Exception $e")
         }
         return null
     }
@@ -167,7 +168,7 @@ object ScanKColorHSV {
         var colorPercent: Double
         for ((key, value) in _colorMap) {
             colorPercent = value * 1.0 / total
-            Log.d(TAG, "colorPercentage: ${key.colorName} ${(colorPercent * 100).toInt()}%")
+            Log.d(TAG, "colorPercentage ${key.colorName} ${(colorPercent * 100).toInt()}%")
             result.add(key to (colorPercent * 100).toInt())
         }
         return result

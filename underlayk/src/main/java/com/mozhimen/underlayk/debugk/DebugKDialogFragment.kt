@@ -16,7 +16,7 @@ import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import com.mozhimen.underlayk.BR
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.databinding.DebugkDialogItemBinding
-import com.mozhimen.underlayk.debugk.annors.DebugKAnnor
+import com.mozhimen.underlayk.debugk.annors.DebugKToolAnnor
 import com.mozhimen.underlayk.debugk.mos.DebugKMethodMo
 
 /**
@@ -57,10 +57,10 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
                 var name: String
                 var desc = ""
                 var enable = false
-                val annotation = method.getAnnotation(DebugKAnnor::class.java)
+                val annotation = method.getAnnotation(DebugKToolAnnor::class.java)
 
                 if (annotation != null) {
-                    name = annotation.name
+                    name = annotation.title
                     desc = annotation.desc
                     enable = true
                 } else {
@@ -80,9 +80,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
             BR.itemDebugKDialog
         ) { holder, itemData, _ ->
 
-            val titleView = holder.binding.debugkDialogItemTitle
             val descView = holder.binding.debugkDialogItemDesc
-            titleView.text = itemData.name
             if (TextUtils.isEmpty(itemData.desc)) {
                 descView.visibility = View.GONE
             } else {

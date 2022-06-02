@@ -59,9 +59,10 @@ public class GuideKHelper extends Navigator<GuideKHelper.Destination> {
     private final FragmentManager _fragmentManager;
     private final int _containerId;
     private ArrayDeque<Integer> _backStack = new ArrayDeque<>();
+    private final String TAG = "GuideKHelper>>>>>";
 
     public GuideKHelper(@NonNull Context context, @NonNull FragmentManager manager,
-                 int containerId) {
+                        int containerId) {
         _context = context;
         _fragmentManager = manager;
         _containerId = containerId;
@@ -85,8 +86,7 @@ public class GuideKHelper extends Navigator<GuideKHelper.Destination> {
             return false;
         }
         if (_fragmentManager.isStateSaved()) {
-            Log.d(GuideKConstants.TAG, "Ignoring popBackStack() call: FragmentManager has already"
-                    + " saved its state");
+            Log.d(TAG, "Ignoring popBackStack() call: FragmentManager has already saved its state");
             return false;
         }
         _fragmentManager.popBackStack(

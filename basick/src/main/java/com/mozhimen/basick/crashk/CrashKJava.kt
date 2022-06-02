@@ -3,16 +3,17 @@ package com.mozhimen.basick.crashk
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Environment
 import android.os.Process
 import android.os.StatFs
 import android.text.format.Formatter
-import android.util.Log
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.crashk.commons.ICrashKListener
+import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.stackk.StackK
+import com.mozhimen.basick.utilk.UtilKBuild
 import com.mozhimen.basick.utilk.UtilKDate
+import com.mozhimen.basick.utilk.UtilKDevice
 import com.mozhimen.basick.utilk.UtilKGlobal
 import java.io.*
 import java.util.*
@@ -82,7 +83,7 @@ object CrashKJava {
         private fun handleException(e: Throwable): Boolean {
             val log = collectDeviceInfo(e)
             if (BuildConfig.DEBUG) {
-                Log.e(TAG, log)
+                LogK.et(TAG, "UncaughtExceptionHandler handleException log $log")
             }
 
             _crashListener?.onGetCrashJava(log)
@@ -92,7 +93,7 @@ object CrashKJava {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val crashDir = File(_crashFullPath!!)
+            val crashDir = File(_crashFullPath)
             if (!crashDir.exists()) {
                 crashDir.mkdirs()
             }
@@ -111,38 +112,39 @@ object CrashKJava {
         }
 
         private fun collectDeviceInfo(e: Throwable): String {
-            val sb = StringBuilder()
+            val stringBuilder = StringBuilder()
             //device info
-            sb.append("brand= ${Build.BRAND}\n")//手机品牌
-            sb.append("rom= ${Build.MODEL}\n")//手机系列
-            sb.append("os= ${Build.VERSION.RELEASE}\n")//API版本:9.0
-            sb.append("sdk= ${Build.VERSION.SDK_INT}\n")//SDK版本:31
-            sb.append("launch_time= $_launchTime\n")//启动APP的时间
-            sb.append("crash_time= ${UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss)}")//crash发生的时间
-            sb.append("foreground= ${StackK.isFront()}")//应用处于前台
-            sb.append("thread= ${Thread.currentThread().name}\n")//异常线程名
-            sb.append("cpu_arch= ${Build.CPU_ABI}")//CPU架构
+            stringBuilder.append("brand= ${UtilKBuild.getBrand()}\n")//手机品牌
+            stringBuilder.append("cpu_arch= ${UtilKBuild.getSupportABIs()}")//CPU架构
+            stringBuilder.append("model= ${UtilKBuild.getModel()}\n")//手机系列
+            stringBuilder.append("rom= ${UtilKDevice.getRomVersion()}\n")//rom
+            stringBuilder.append("os= ${UtilKBuild.getVersionRelease()}\n")//API版本:9.0
+            stringBuilder.append("sdk= ${UtilKBuild.getVersionSDKCode()}\n")//SDK版本:31
+            stringBuilder.append("launch_time= $_launchTime\n")//启动APP的时间
+            stringBuilder.append("crash_time= ${UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss)}")//crash发生的时间
+            stringBuilder.append("foreground= ${StackK.isFront()}")//应用处于前台
+            stringBuilder.append("thread= ${Thread.currentThread().name}\n")//异常线程名
 
             //app info
             val packageInfo = _context.packageManager.getPackageInfo(_context.packageName, 0)
-            sb.append("version_code= ${packageInfo.versionCode}\n")
-            sb.append("version_name= ${packageInfo.versionName}\n")
-            sb.append("package_code= ${packageInfo.packageName}\n")
-            sb.append("requested_permissions= ${Arrays.toString(packageInfo.requestedPermissions)}\n")
+            stringBuilder.append("version_code= ${packageInfo.versionCode}\n")
+            stringBuilder.append("version_name= ${packageInfo.versionName}\n")
+            stringBuilder.append("package_code= ${packageInfo.packageName}\n")
+            stringBuilder.append("requested_permissions= ${Arrays.toString(packageInfo.requestedPermissions)}\n")
 
             //storage info
             val memoryInfo = ActivityManager.MemoryInfo()
             val activityManager = _context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             activityManager.getMemoryInfo(memoryInfo)
 
-            sb.append("availableMemory= ${Formatter.formatFileSize(_context, memoryInfo.availMem)}\n")//可用内存
-            sb.append("totalMemory= ${Formatter.formatFileSize(_context, memoryInfo.totalMem)}\n")//设备总内存
+            stringBuilder.append("availableMemory= ${Formatter.formatFileSize(_context, memoryInfo.availMem)}\n")//可用内存
+            stringBuilder.append("totalMemory= ${Formatter.formatFileSize(_context, memoryInfo.totalMem)}\n")//设备总内存
 
             //sd storage size
             val file = Environment.getExternalStorageDirectory()
             val statFs = StatFs(file.path)
             val availableSize = statFs.availableBlocks * statFs.blockSize
-            sb.append("availableStorage= ${Formatter.formatFileSize(_context, availableSize.toLong())}\n")//存储空间
+            stringBuilder.append("availableStorage= ${Formatter.formatFileSize(_context, availableSize.toLong())}\n")//存储空间
 
             //stack info
             val write: Writer = StringWriter()
@@ -154,8 +156,8 @@ object CrashKJava {
                 cause = cause.cause
             }
             printWriter.close()
-            sb.append(write.toString())
-            return sb.toString()
+            stringBuilder.append(write.toString())
+            return stringBuilder.toString()
         }
     }
 }

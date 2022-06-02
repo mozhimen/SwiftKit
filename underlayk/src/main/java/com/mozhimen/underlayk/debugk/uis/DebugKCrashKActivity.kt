@@ -1,49 +1,50 @@
-package com.mozhimen.underlayk.debugk
+package com.mozhimen.underlayk.debugk.uis
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.crashk.CrashKMgr
-import com.mozhimen.basick.logk.LogK
-import com.mozhimen.basick.logk.LogKMgr
-import com.mozhimen.basick.logk.printers.PrinterFile
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.underlayk.BR
 import com.mozhimen.underlayk.R
-import com.mozhimen.underlayk.databinding.DebugkActivityLogkBinding
-import com.mozhimen.underlayk.databinding.DebugkActivityLogkBindingImpl
+import com.mozhimen.underlayk.databinding.DebugkActivityCrashkBinding
 import com.mozhimen.underlayk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.underlayk.debugk.mos.DebugKCrashKMo
 
-class DebugKLogKActivity : BaseKActivity<DebugkActivityLogkBinding, BaseKViewModel>(R.layout.debugk_activity_logk) {
+/**
+ * @ClassName DebugKCrashKActivity
+ * @Description TODO
+ * @Author mozhimen / Kolin Zhao
+ * @Date 2022/5/25 23:00
+ * @Version 1.0
+ */
+class DebugKCrashKActivity : BaseKActivity<DebugkActivityCrashkBinding, BaseKViewModel>(R.layout.debugk_activity_crashk) {
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
     }
 
     private val _dataSets = ArrayList<DebugKCrashKMo>()
     override fun initView(savedInstanceState: Bundle?) {
-        val logFiles = PrinterFile.getInstance(0).getLogFiles()
+        val crashFiles = CrashKMgr.instance.getCrashFiles()
 
-        logFiles.forEach {
+        crashFiles.forEach {
             _dataSets.add(DebugKCrashKMo(it.name, it))
         }
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         decoration.setDrawable(UtilKRes.getDrawable(R.drawable.debugk_crashk_divider)!!)
-        vb.debugkLogkRecycler.addItemDecoration(decoration)
+        vb.debugkCrashkRecycler.addItemDecoration(decoration)
 
-        vb.debugkLogkRecycler.layoutManager = LinearLayoutManager(this)
+        vb.debugkCrashkRecycler.layoutManager = LinearLayoutManager(this)
         val adapterKRecycler =
             AdapterKRecycler<DebugKCrashKMo, DebugkItemCrashkFileBinding>(
                 _dataSets,
                 R.layout.debugk_item_crashk_file,
-                BR.itemDebugKCrashK
+                com.mozhimen.underlayk.BR.itemDebugKCrashK
             ) { holder, itemData, _ ->
                 holder.binding.debugkCrashkFileShare.setOnClickListener {
                     val intent = Intent(Intent.ACTION_SEND)
@@ -60,6 +61,6 @@ class DebugKLogKActivity : BaseKActivity<DebugkActivityLogkBinding, BaseKViewMod
                     startActivity(Intent.createChooser(intent, "分享Crash 日志文件"))
                 }
             }
-        vb.debugkLogkRecycler.adapter = adapterKRecycler
+        vb.debugkCrashkRecycler.adapter = adapterKRecycler
     }
 }

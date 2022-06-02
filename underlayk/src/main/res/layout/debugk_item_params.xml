@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="itemDebugKCrashK"
-            type="com.mozhimen.underlayk.debugk.mos.DebugKCrashKMo" />
+            name="itemDebugKParams"
+            type="com.mozhimen.underlayk.debugk.mos.DebugKMethodMo" />
     </data>
 
     <LinearLayout
@@ -19,20 +19,24 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="4dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@{itemDebugKCrashK.name}"
+            android:text="@{itemDebugKParams.title}"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             tools:text="x" />
 
         <TextView
             android:id="@+id/debugk_crashk_file_share"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
+            android:layout_weight="2"
+            android:ellipsize="marquee"
             android:gravity="center_vertical"
-            android:text="分享给开发者"
+            android:maxLines="2"
+            android:text="@{itemDebugKParams.desc}"
             android:textColor="@android:color/black"
             android:textSize="15sp"
             tools:ignore="HardcodedText" />

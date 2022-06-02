@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.mozhimen.basick.logk.LogK
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
 import java.lang.Exception
 
@@ -68,8 +69,8 @@ class TabKFragmentAdapter constructor(
         try {
             return _moList[position].fragment!!.newInstance()
         } catch (e: Exception) {
+            LogK.et(TAG, "getItem Exception ${e.message}")
             e.printStackTrace()
-            Log.e(TAG, e.localizedMessage ?: "")
         }
         return null
     }

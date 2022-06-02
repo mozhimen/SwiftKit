@@ -2,7 +2,6 @@ package com.mozhimen.uicorek.navk
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
@@ -11,7 +10,6 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.*
-import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.basick.basek.BaseKLayoutRelative
 import com.mozhimen.basick.extsk.*
 import java.util.*
@@ -198,8 +196,8 @@ class NavKBar @JvmOverloads constructor(
     private fun getLine(lineWidth: Int, lineColor: Int): View {
         val line = View(context)
         line.apply {
-            val params = RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, lineWidth)
-            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+            val params = LayoutParams(LayoutParams.MATCH_PARENT, lineWidth)
+            params.addRule(ALIGN_PARENT_BOTTOM)
             layoutParams = params
             setBackgroundColor(lineColor)
         }
@@ -212,12 +210,12 @@ class NavKBar @JvmOverloads constructor(
             gravity = Gravity.CENTER
         }
 
-        val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT)
+        val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         params.addRule(
             when (type) {
-                0 -> RelativeLayout.ALIGN_PARENT_LEFT
-                1 -> RelativeLayout.CENTER_IN_PARENT
-                else -> RelativeLayout.ALIGN_PARENT_RIGHT
+                0 -> ALIGN_PARENT_LEFT
+                1 -> CENTER_IN_PARENT
+                else -> ALIGN_PARENT_RIGHT
             }
         )
         this@NavKBar.addView(container, params)

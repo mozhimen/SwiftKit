@@ -94,10 +94,12 @@
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/activity_debugk_crashk.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_activity_crashk.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_activity_logk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_activity_params.xml" value="0.2415807560137457" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_crashk_item_crash_file.xml" value="0.18888888888888888" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_dialog.xml" value="0.14375" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_dialog_item.xml" value="0.18" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_item_crashk_file.xml" value="0.2" />
+        <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_item_params.xml" value="0.2415807560137457" />
       </map>
     </option>
   </component>

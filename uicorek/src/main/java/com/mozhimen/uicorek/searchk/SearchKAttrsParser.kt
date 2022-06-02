@@ -21,7 +21,7 @@ internal object SearchKAttrsParser {
             R.styleable.SearchKLayout_searchKLayout_search_icon
         )
         val searchIconSize = array.getDimensionPixelSize(
-            R.styleable.SearchKLayout_searchKLayout_search_iconSize, 16f.sp2px()
+            R.styleable.SearchKLayout_searchKLayout_search_iconSize, 15f.sp2px()
         )
         val searchIconPadding = array.getDimensionPixelOffset(
             R.styleable.SearchKLayout_searchKLayout_search_iconPadding, 4f.sp2px()
@@ -30,7 +30,7 @@ internal object SearchKAttrsParser {
             R.styleable.SearchKLayout_searchKLayout_search_background
         ) ?: UtilKRes.getDrawable(R.drawable.searchk_search_background)
         val searchTextSize = array.getDimensionPixelSize(
-            R.styleable.SearchKLayout_searchKLayout_search_textSize, 16f.sp2px()
+            R.styleable.SearchKLayout_searchKLayout_search_textSize, 15f.sp2px()
         )
         val searchTextColor = array.getColor(
             R.styleable.SearchKLayout_searchKLayout_search_textColor, UtilKRes.getColor(android.R.color.black)
@@ -41,7 +41,7 @@ internal object SearchKAttrsParser {
             R.styleable.SearchKLayout_searchKLayout_clear_icon
         )
         val clearIconSize = array.getDimensionPixelSize(
-            R.styleable.SearchKLayout_searchKLayout_clear_iconSize, 16f.sp2px()
+            R.styleable.SearchKLayout_searchKLayout_clear_iconSize, 15f.sp2px()
         )
 
         //hint
@@ -49,7 +49,7 @@ internal object SearchKAttrsParser {
             R.styleable.SearchKLayout_searchKLayout_hint_text
         )
         val hintTextSize = array.getDimensionPixelSize(
-            R.styleable.SearchKLayout_searchKLayout_hint_textSize, 16f.sp2px()
+            R.styleable.SearchKLayout_searchKLayout_hint_textSize, 15f.sp2px()
         )
         val hintTextColor = array.getColor(
             R.styleable.SearchKLayout_searchKLayout_hint_textColor, UtilKRes.getColor(android.R.color.black)

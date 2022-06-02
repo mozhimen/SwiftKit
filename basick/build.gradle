@@ -40,6 +40,9 @@ dependencies {
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
 
+    api "io.reactivex.rxjava2:rxjava:2.2.14"
+    api "io.reactivex.rxjava2:rxandroid:2.1.1"
+
     api 'androidx.databinding:databinding-common:7.1.2'
     api 'androidx.databinding:databinding-runtime:7.1.2'
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha03'

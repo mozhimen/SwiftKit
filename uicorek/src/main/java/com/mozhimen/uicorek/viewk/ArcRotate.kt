@@ -46,6 +46,11 @@ class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         initAttrs(attrs, defStyleAttr)
     }
 
+    fun setArcColor(startColor: Int, endColor: Int) {
+        _arcStartColor = startColor
+        _arcEndColor = endColor
+    }
+
     override fun requireStart() {
         _isStop = false
         invalidate()

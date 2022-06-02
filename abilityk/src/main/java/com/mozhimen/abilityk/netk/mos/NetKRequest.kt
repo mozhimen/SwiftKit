@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.abilityk.netk.annors._CacheStrategy
 import com.mozhimen.abilityk.netk.annors.methods._METHOD
+import com.mozhimen.basick.logk.LogK
 import java.lang.Exception
 import java.lang.StringBuilder
 import java.lang.reflect.Type
@@ -77,7 +78,7 @@ open class NetKRequest {
                     val encodeValue = URLEncoder.encode(value, "UTF-8")
                     builder.append(key).append("=").append(encodeValue).append("&")
                 } catch (e: Exception) {
-                    Log.e(TAG, "getCacheKey: ${e.message}")
+                    LogK.et(TAG, "getCacheKey Exception ${e.message}")
                 }
             }
             builder.deleteCharAt(builder.length - 1).toString()

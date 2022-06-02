@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.extsk.toJson
+import com.mozhimen.basick.logk.LogK
 import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
 import com.mozhimen.basick.utilk.showToast
 import com.mozhimen.componentk.permissionk.helpers.IPermissionKListener
@@ -40,7 +41,9 @@ object PermissionK {
         if (permissions.isNotEmpty()) {
             if (!checkPermissions(activity, *permissions)) {
                 requestPermissions(activity, *permissions) { allGranted, deniedList ->
-                    printDeniedList(deniedList)
+                    if (!allGranted) {
+                        printDeniedList(deniedList)
+                    }
                     isGranted(allGranted)
                 }
             } else {
@@ -143,7 +146,7 @@ object PermissionK {
      * @param deniedList List<String>
      */
     private fun printDeniedList(deniedList: List<String>) {
-        Log.d(TAG, "printDeniedList: $deniedList")
+        LogK.wt(TAG, "printDeniedList $deniedList")
         "请在设置中打开${deniedList.toJson()}权限".showToast()
     }
 }

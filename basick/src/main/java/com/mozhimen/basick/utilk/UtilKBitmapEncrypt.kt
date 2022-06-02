@@ -26,7 +26,7 @@ object UtilKBitmapEncrypt {
         val timeMillis = System.currentTimeMillis()
         val decode: ByteArray = Base64.decode(base64String, Base64.DEFAULT)
         val bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.size)
-        Log.e(TAG, "diff: " + (System.currentTimeMillis() - timeMillis))
+        Log.d(TAG, "base64ToBitmap handle time " + (System.currentTimeMillis() - timeMillis))
         return bitmap
     }
 

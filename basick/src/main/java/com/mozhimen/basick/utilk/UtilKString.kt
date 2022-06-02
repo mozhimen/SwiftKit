@@ -1,6 +1,10 @@
 package com.mozhimen.basick.utilk
 
-import java.lang.StringBuilder
+import android.os.Build
+import androidx.annotation.RequiresApi
+import java.text.DecimalFormat
+import java.util.*
+import java.util.stream.Collectors
 
 /**
  * @ClassName UtilKString
@@ -45,13 +49,53 @@ object UtilKString {
         return stringBuffer.toString()
     }
 
-    fun getStringList(strList: Array<String>): String {
-        val stringBuilder = StringBuilder()
-        strList.forEach {
-            stringBuilder.append(it).append("/")
+    /**
+     * decimal转String
+     * @param double Double
+     * @param pattern String
+     * @return String
+     */
+    fun decimal2String(double: Double, pattern: String = "#.0"): String = DecimalFormat(pattern).format(double)
+
+    /**
+     * bool转String
+     * @param bool Boolean
+     * @param locale Locale
+     * @return String
+     */
+    fun boolean2String(bool: Boolean, locale: Locale = Locale.CHINA) =
+        if (locale == Locale.CHINA) if (bool) "是" else "否" else (if (bool) "true" else "false")
+
+    /**
+     * 聚合array
+     * @param array Array<T>
+     * @param defaultValue String
+     * @param splitChar String
+     * @return String
+     */
+
+    fun <T> joinArray(array: Array<T>, defaultValue: String = "", splitChar: String = ","): String =
+        joinList(array.toList(), defaultValue, splitChar)
+
+    /**
+     * 聚合list
+     * @param list List<T>
+     * @param defaultValue String
+     * @param splitChar String
+     * @return String
+     */
+    fun <T> joinList(list: List<T>, defaultValue: String = "", splitChar: String = ","): String =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            val ret = list.stream().map { elem: T? -> elem?.toString() ?: "" }
+                .collect(Collectors.joining(splitChar))
+            ret.ifEmpty { defaultValue }
+        } else {
+            val stringBuilder = StringBuilder()
+            list.forEach {
+                stringBuilder.append(it?.toString() ?: "").append(splitChar)
+            }
+            if (stringBuilder.isNotEmpty()) stringBuilder.deleteAt(stringBuilder.length - 1).toString() else defaultValue
         }
-        return stringBuilder.deleteAt(stringBuilder.length - 1).toString()
-    }
 
     /**
      * 电话号码隐藏中间四位

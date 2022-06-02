@@ -57,7 +57,7 @@ class Scheduler(
                                 cacheResponseK
                             )
                         }
-                        Log.d(TAG, "enqueue: cache: ${_request.getCacheKey()}")
+                        Log.d(TAG, "enqueue cacheStrategy key ${_request.getCacheKey()}")
                     }
                 })
             }
@@ -67,7 +67,7 @@ class Scheduler(
                     dispatchInterceptor(_request, response)
                     saveCacheIfNeed(response)
                     listener.onSuccess(response)
-                    Log.d(TAG, "enqueue cacheKey: ${_request.getCacheKey()}")
+                    Log.d(TAG, "enqueue save cache cacheKey ${_request.getCacheKey()}")
                 }
 
                 override fun onFail(throwable: Throwable) {

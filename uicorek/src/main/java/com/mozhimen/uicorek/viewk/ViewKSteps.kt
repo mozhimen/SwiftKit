@@ -34,8 +34,8 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private var _titleMarginTop = 10f.dp2px()
     private var _circleRadius = 30f.dp2px()
     private var _lineWidth = 5f.dp2px()
-    private var _numberTextSize = 18f.sp2px()
-    private var _titleTextSize = 18f.sp2px()
+    private var _numberTextSize = 15f.sp2px()
+    private var _titleTextSize = 15f.sp2px()
 
     private lateinit var circlePaint: Paint
     private lateinit var linePaint: Paint

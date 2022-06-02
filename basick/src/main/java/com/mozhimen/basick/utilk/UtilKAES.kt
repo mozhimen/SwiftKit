@@ -97,7 +97,7 @@ object UtilKAES {
                 "secureKey or _ivString must not be null"
             }
 
-            Log.d(TAG, "encrypt: content $content")
+            Log.d(TAG, "UtilKAESProvider encrypt content $content")
             try {
                 // 获得密匙数据
                 val rawKeyData = getAESKey(_secretKey!!)
@@ -110,7 +110,7 @@ object UtilKAES {
                 cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec)
                 // 正式执行加密操作
                 val encryptByte = cipher.doFinal(content.toByteArray())
-                Log.d(TAG, "encrypt: success")
+                Log.d(TAG, "UtilKAESProvider encrypt success")
                 return Base64.encodeToString(encryptByte, Base64.NO_WRAP)
             } catch (e: UnsupportedEncodingException) {
                 e.printStackTrace()
@@ -153,7 +153,7 @@ object UtilKAES {
                 val ivParameterSpec = IvParameterSpec(initParam)
                 cipher.init(Cipher.DECRYPT_MODE, key, ivParameterSpec)
                 val result = String(cipher.doFinal(data), _charset)
-                Log.d(TAG, "decrypt: success result: $result")
+                Log.d(TAG, "UtilKAESProvider decrypt success result $result")
                 return result
             } catch (e: UnsupportedEncodingException) {
                 e.printStackTrace()

@@ -66,7 +66,7 @@ object ExecutorK {
             override fun afterExecute(r: Runnable?, t: Throwable?) {
                 //监控线程池耗时任务,线程创建数量,正在运行的数量
                 val runnable = r as PriorityRunnable
-                Log.w(TAG, "已执行完的任务${runnable.name}的优先级是：${runnable.priority}")
+                Log.d(TAG, "已执行完的任务${runnable.name}的优先级是：${runnable.priority}")
             }
         }
     }
@@ -113,7 +113,7 @@ object ExecutorK {
         _lock.lock()
         try {
             _isPaused = true
-            Log.w(TAG, "executork is paused")
+            Log.w(TAG, "pause executork is paused")
         } finally {
             _lock.unlock()
         }
@@ -128,6 +128,6 @@ object ExecutorK {
         } finally {
             _lock.unlock()
         }
-        Log.w(TAG, "executork is resumed")
+        Log.w(TAG, "resume executork is resumed")
     }
 }

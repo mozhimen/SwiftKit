@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.Surface
 import android.view.TextureView
 import android.widget.FrameLayout
+import com.mozhimen.basick.logk.LogK
 import com.mozhimen.uicorek.R
 import java.io.IOException
 
@@ -211,13 +212,13 @@ class LayoutKVideo : FrameLayout, TextureView.SurfaceTextureListener {
                 }
             }
         } catch (e: IllegalArgumentException) {
-            e.message?.let { Log.e(TAG, it) }
+            LogK.et(TAG, "onSurfaceTextureAvailable IllegalArgumentException ${e.message}")
         } catch (e: SecurityException) {
-            e.message?.let { Log.e(TAG, it) }
+            LogK.et(TAG, "onSurfaceTextureAvailable SecurityException ${e.message}")
         } catch (e: IllegalStateException) {
-            e.message?.let { Log.e(TAG, it) }
+            LogK.et(TAG, "onSurfaceTextureAvailable IllegalStateException ${e.message}")
         } catch (e: IOException) {
-            e.message?.let { Log.e(TAG, it) }
+            LogK.et(TAG, "onSurfaceTextureAvailable IOException ${e.message}")
         }
     }
 
@@ -235,9 +236,9 @@ class LayoutKVideo : FrameLayout, TextureView.SurfaceTextureListener {
                 it.release()
                 mMediaPlayer = null
             } catch (e: IllegalStateException) {
-                Log.e(TAG, "onVideoDestroy: ${e.message}")
+                LogK.et(TAG, "onVideoDestroy IllegalStateException ${e.message}")
             } catch (e: Exception) {
-                Log.e(TAG, "onVideoDestroy: ${e.message}")
+                LogK.et(TAG, "onVideoDestroy Exception ${e.message}")
             }
         }
     }
@@ -325,15 +326,15 @@ class LayoutKVideo : FrameLayout, TextureView.SurfaceTextureListener {
                 }
             }
         } catch (e: IllegalArgumentException) {
-            e.message?.let { Log.e(TAG, it) }
+            LogK.et(TAG, "changeVideo IllegalArgumentException ${e.message}")
         } catch (e: SecurityException) {
-            e.message?.let { Log.e(TAG, it) }
+            LogK.et(TAG, "changeVideo SecurityException ${e.message}")
         } catch (e: IllegalStateException) {
-            e.message?.let { Log.e(TAG, it) }
+            LogK.et(TAG, "changeVideo IllegalStateException ${e.message}")
         } catch (e: IOException) {
-            e.message?.let { Log.e(TAG, it) }
+            LogK.et(TAG, "changeVideo IOException ${e.message}")
         } catch (e: Exception) {
-            e.message?.let { Log.e(TAG, it) }
+            LogK.et(TAG, "changeVideo Exception ${e.message}")
         }
     }
 

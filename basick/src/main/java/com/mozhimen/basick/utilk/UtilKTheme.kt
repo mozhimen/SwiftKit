@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk
 
+import android.content.Context
 import android.content.res.Configuration
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
@@ -23,5 +24,13 @@ object UtilKTheme {
     fun isOSLightMode(): Boolean {
         val mode: Int = UtilKGlobal.instance.getApp()!!.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return mode == Configuration.UI_MODE_NIGHT_NO
+    }
+
+    fun toggleMode() {
+        if (isLightMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
     }
 }

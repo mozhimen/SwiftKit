@@ -1,5 +1,8 @@
 package com.mozhimen.basick.utilk
 
+import android.util.TimeFormatException
+import com.mozhimen.basick.logk.LogK
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -11,6 +14,8 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKDate {
+    private const val TAG = "UtilKDate>>>>>"
+
     const val FORMAT_yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss"
 
     const val FORMAT_yyyyMMdd = "yyyy-MM-dd"
@@ -38,7 +43,7 @@ object UtilKDate {
      * @return SimpleDateFormat
      */
     fun getSdf(
-        formatDate: String, locale: Locale? = Locale.CHINA
+        formatDate: String, locale: Locale = Locale.CHINA
     ): SimpleDateFormat =
         SimpleDateFormat(formatDate, locale)
 
@@ -50,7 +55,7 @@ object UtilKDate {
      * @return String
      */
     fun date2String(
-        date: Date, formatDate: String, locale: Locale? = Locale.CHINA
+        date: Date, formatDate: String, locale: Locale = Locale.CHINA
     ): String =
         SimpleDateFormat(formatDate, locale).format(date)
 
@@ -62,7 +67,7 @@ object UtilKDate {
      * @return String
      */
     fun long2String(
-        date: Long, formatDate: String, locale: Locale? = Locale.CHINA
+        date: Long, formatDate: String, locale: Locale = Locale.CHINA
     ): String =
         SimpleDateFormat(formatDate, locale).format(date)
 
@@ -74,10 +79,11 @@ object UtilKDate {
      * @return Date
      */
     fun string2Date(
-        dateStr: String, formatDate: String, locale: Locale? = Locale.CHINA
+        dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
     ): Date {
         return SimpleDateFormat(formatDate, locale).parse(dateStr) ?: kotlin.run {
-            throw Exception()
+            LogK.et(TAG,"string2Date Exception time format fail!")
+            throw Exception("time format fail!")
         }
     }
 

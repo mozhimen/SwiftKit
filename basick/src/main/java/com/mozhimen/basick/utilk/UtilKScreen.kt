@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import com.mozhimen.basick.logk.LogK
 
 /**
  * @ClassName ScreenUtil
@@ -142,7 +143,7 @@ object UtilKScreen {
             method.invoke(display, displayMetrics)
             virtualBarHeight = displayMetrics.heightPixels - display.height
         } catch (e: Exception) {
-            Log.e(TAG, e.message.toString())
+            LogK.et(TAG, "getVirtualBarHeight Exception ${e.message}")
         }
         return virtualBarHeight
     }

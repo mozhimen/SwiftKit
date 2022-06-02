@@ -17,7 +17,7 @@ class AsyncInterceptorLog : INetKInterceptor {
         val request = chain.request()
         val response = chain.response()
         if (chain.isRequestPeriod) {
-            Log.d(TAG, "endPointUrl>>>>> ${chain.request().endPointUrl()}")
+            Log.d(TAG, "intercept endPointUrl ${chain.request().endPointUrl()}")
         }
         if (!chain.isRequestPeriod && chain.response() != null) {
             val outputBuilder = StringBuilder()
@@ -50,7 +50,7 @@ class AsyncInterceptorLog : INetKInterceptor {
             outputBuilder.append("response>>>>>\n")
             outputBuilder.append(response?.rawData + "\n")
 
-            Log.d(TAG, outputBuilder.toString())
+            Log.d(TAG, "intercept builder $outputBuilder")
         }
         return false
     }

@@ -33,12 +33,12 @@ class TextKTextForm @JvmOverloads constructor(context: Context, attrs: Attribute
     private var mRequiredIconPos = 0
     private var mLabel: String? = null
     private var mLabelColor = Color.BLACK
-    private var mLabelTextSize = 16f.sp2px()
+    private var mLabelTextSize = 15f.sp2px()
     private var mLabelWidth = 64f.dp2px()
     private var mLabelMarginLeft = 6f.dp2px()
     private var mLabelMarginRight = 6f.dp2px()
     private var mTextColor = Color.BLACK
-    private var mTextSize = 18f.sp2px()
+    private var mTextSize = 15f.sp2px()
     private var mBorderBackground = R.drawable.textk_et_form
 
     private lateinit var mLabelText: TextView

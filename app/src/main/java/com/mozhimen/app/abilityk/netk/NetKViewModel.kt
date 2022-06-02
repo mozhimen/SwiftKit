@@ -35,12 +35,12 @@ class NetKViewModel : BaseKViewModel() {
         ApiFactory.createAsync(Apis::class.java).getRealTimeWeatherAsync("121.321504,31.194874").enqueue(object : INetKListener<Weather> {
             override fun onSuccess(response: NetKResponse<Weather>) {
                 val duration = System.currentTimeMillis() - _lastTime1
-                Log.i(TAG, "getRealtimeWeatherAsync onSuccess: duration: $duration")
+                Log.i(TAG, "getRealtimeWeatherAsync onSuccess duration: $duration")
                 uiWeather1.postValue(response.data?.result?.realtime?.temperature.toString() + " " + duration)
             }
 
             override fun onFail(throwable: Throwable) {
-                Log.e(TAG, "getRealtimeWeatherAsync onFail: ${throwable.message}")
+                Log.e(TAG, "getRealtimeWeatherAsync onFail ${throwable.message}")
             }
         })
     }
@@ -53,10 +53,10 @@ class NetKViewModel : BaseKViewModel() {
             }
             if (response.isSuccessful()) {
                 val duration = System.currentTimeMillis() - _lastTime2
-                Log.i(TAG, "getRealtimeWeatherCoroutine onSuccess: duration: $duration")
+                Log.i(TAG, "getRealtimeWeatherCoroutine onSuccess duration: $duration")
                 uiWeather2.postValue(response.data?.result?.realtime?.temperature.toString() + " " + duration)
             } else {
-                Log.e(TAG, "getRealtimeWeatherCoroutine onFail: ${response.msg}")
+                Log.e(TAG, "getRealtimeWeatherCoroutine onFail ${response.msg}")
             }
         }
     }
@@ -67,12 +67,12 @@ class NetKViewModel : BaseKViewModel() {
             object : RxJavaResponse<Weather>() {
                 override fun onSuccess(response: NetKResponse<Weather>) {
                     val duration = System.currentTimeMillis() - _lastTime3
-                    Log.i(TAG, "getRealTimeWeatherRxJava onSuccess: duration: $duration")
+                    Log.i(TAG, "getRealTimeWeatherRxJava onSuccess duration $duration")
                     uiWeather3.postValue(response.data?.result?.realtime?.temperature.toString() + " " + duration)
                 }
 
                 override fun onFailed(code: Int, message: String?) {
-                    Log.e(TAG, "getRealTimeWeatherRxJava onFail: ${message ?: "msg loss"}")
+                    Log.e(TAG, "getRealTimeWeatherRxJava onFail ${message ?: "msg loss"}")
                 }
             }
         )

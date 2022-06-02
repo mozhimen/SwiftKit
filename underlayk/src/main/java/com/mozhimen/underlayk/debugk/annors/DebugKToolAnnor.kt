@@ -9,4 +9,4 @@ package com.mozhimen.underlayk.debugk.annors
  */
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FUNCTION)
-annotation class DebugKAnnor(val name: String, val desc: String)
+annotation class DebugKToolAnnor(val title: String, val desc: String)

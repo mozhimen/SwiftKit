@@ -33,7 +33,7 @@ class BtnKIcon @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     private var iconMarginRight = 12f.dp2px()
     private var text: String? = null
     private var textColor = 0x000000
-    private var textSize = 16f.sp2px()
+    private var textSize = 15f.sp2px()
 
     private lateinit var btnKIcon: ImageView
     private lateinit var btnKBox: LinearLayout

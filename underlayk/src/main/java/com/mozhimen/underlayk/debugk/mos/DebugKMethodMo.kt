@@ -11,7 +11,7 @@ import java.lang.reflect.Method
  * @Version 1.0
  */
 data class DebugKMethodMo(
-    val name: String,
+    val title: String,
     val desc: String,
     val method: Method,
     val enable: Boolean,

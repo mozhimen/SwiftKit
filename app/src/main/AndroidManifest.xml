@@ -13,9 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftK"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".NavKActivity"
-            android:exported="false" />
+
         <!-- provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -69,6 +67,9 @@
         <activity
             android:name=".basick.stackk.StackKActivity"
             android:exported="false" /> <!-- uicorek -->
+        <activity
+            android:name=".uicorek.navk.NavKActivity"
+            android:exported="false" />
         <activity
             android:name=".uicorek.UICoreKActivity"
             android:exported="false" />

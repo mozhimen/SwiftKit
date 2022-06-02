@@ -2,9 +2,9 @@ package com.mozhimen.app.basick.stackk
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityStackkBinding
-import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.showToast
@@ -30,7 +30,7 @@ class StackKActivity : AppCompatActivity() {
         StackK.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
                 "App is At Front ?: $isFront".showToast()
-                LogK.it(TAG, "App is At Front ?: $isFront")
+                Log.d(TAG, "App is At Front ?: $isFront")
             }
         })
     }

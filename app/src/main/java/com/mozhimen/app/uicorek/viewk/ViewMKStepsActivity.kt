@@ -38,10 +38,10 @@ class ViewKStepsActivity : AppCompatActivity() {
             MotionEvent.ACTION_MOVE -> {
             }
             MotionEvent.ACTION_UP -> if (event.x - eventX > 0) {
-                Log.e(TAG, "右")
+                Log.i(TAG, "右")
                 vb.viewkStepsViewksteps.back()
             } else if (event.x - eventX < 0) {
-                Log.e(TAG, "左")
+                Log.i(TAG, "左")
                 vb.viewkStepsViewksteps.next()
             }
         }

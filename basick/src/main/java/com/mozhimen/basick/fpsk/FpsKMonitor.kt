@@ -1,5 +1,6 @@
 package com.mozhimen.basick.fpsk
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.PixelFormat
@@ -12,10 +13,13 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
 import com.mozhimen.basick.R
+import com.mozhimen.basick.extsk.decimal2String
 import com.mozhimen.basick.fpsk.helpers.FrameMonitor
+import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.UtilKString
 import java.text.DecimalFormat
 
 /**
@@ -31,7 +35,7 @@ object FpsKMonitor {
 
     private val _fpsKViewer by lazy { FpsKViewer() }
 
-    fun toggle() {
+    fun toggleView() {
         _fpsKViewer.toggle()
     }
 
@@ -50,7 +54,6 @@ object FpsKMonitor {
         private var _fpsView =
             LayoutInflater.from(_context).inflate(R.layout.fpsk_layout, null, false) as TextView
         private val _frameMonitor = FrameMonitor()
-        private val _decimal = DecimalFormat("#.0 fps")
         private var _windowManager: WindowManager = _context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
         init {
@@ -67,18 +70,19 @@ object FpsKMonitor {
             }
 
             _frameMonitor.addListener(object : IFpsKListener {
+                @SuppressLint("SetTextI18n")
                 override fun onFrame(fps: Double) {
-                    _fpsView.text = _decimal.format(fps)
+                    _fpsView.text = "${fps.decimal2String()} fps"
                 }
             })
 
             StackK.addFrontBackListener(object : IStackKListener {
                 override fun onChanged(isFront: Boolean) {
                     if (isFront) {
-                        Log.d(TAG, "onChanged: fpsk start")
+                        Log.d(TAG, "FpsKViewer onChanged fpsk start")
                         play()
                     } else {
-                        Log.w(TAG, "onChanged: fpsk stop")
+                        Log.w(TAG, "FpsKViewer onChanged fpsk stop")
                         stop()
                     }
                 }
@@ -96,7 +100,7 @@ object FpsKMonitor {
         private fun play() {
             if (!hasOverlayPermission()) {
                 startOverlaySettingActivity()
-                Log.e(TAG, "app has no overlay permission")
+                LogK.et(TAG, "FpsKViewer play app has no overlay permission")
                 return
             }
 

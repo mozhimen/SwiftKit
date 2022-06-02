@@ -2,7 +2,6 @@ package com.mozhimen.underlayk.debugk
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import com.mozhimen.underlayk.BuildConfig
 
 /**
  * @ClassName DebugK
@@ -12,7 +11,8 @@ import com.mozhimen.underlayk.BuildConfig
  * @Version 1.0
  */
 object DebugK {
-    fun toggleDebugKDialog(fragmentManager: FragmentManager){
+
+    fun toggleDialog(fragmentManager: FragmentManager){
         try {
             val clazz = Class.forName("com.mozhimen.underlayk.debugk.DebugKDialogFragment")
             val target = clazz.getConstructor().newInstance() as DialogFragment

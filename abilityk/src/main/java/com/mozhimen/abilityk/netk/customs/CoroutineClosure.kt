@@ -5,6 +5,7 @@ import com.mozhimen.abilityk.netk.commons.INetKConverter
 import com.mozhimen.abilityk.netk.helpers.NetKThrowable
 import com.mozhimen.abilityk.netk.helpers.StatusParser
 import com.mozhimen.abilityk.netk.mos.NetKResponse
+import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.utilk.UtilKJson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +41,7 @@ class CoroutineClosure(converter: INetKConverter?) {
             val response: NetKResponse<T> = try {
                 parseResponse(call())
             } catch (e: Throwable) {
-                e.message?.let { Log.e(TAG, it) }
+                LogK.et(TAG, "coroutineCall Throwable ${e.message}")
                 return@withContext StatusParser.getThrowable(e).toResponse<T>()
             }
             return@withContext response

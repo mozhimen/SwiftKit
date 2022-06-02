@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.ImageFormat
 import android.hardware.display.DisplayManager
-import android.os.Build
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.AttributeSet
@@ -13,7 +12,6 @@ import com.mozhimen.abilityk.R
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import androidx.annotation.RequiresApi
 import androidx.camera.core.*
 import androidx.camera.extensions.ExtensionMode
 import androidx.camera.extensions.ExtensionsManager
@@ -27,6 +25,7 @@ import com.mozhimen.abilityk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.cameraxk.mos.CameraXKTimer
 import com.mozhimen.abilityk.cameraxk.helpers.ThreadExecutor
+import com.mozhimen.basick.logk.LogK
 import kotlinx.coroutines.*
 import java.util.concurrent.ExecutionException
 import kotlin.math.abs
@@ -42,7 +41,6 @@ import kotlin.properties.Delegates
  * @Version 1.0
  */
 @SuppressLint("LongLogTag")
-@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 class CameraXKPreviewView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -116,10 +114,10 @@ class CameraXKPreviewView @JvmOverloads constructor(
             image.close()
         }
 
-        override fun onError(exception: ImageCaptureException) {
-            Log.e(TAG, "onError: ${exception.message}")
+        override fun onError(e: ImageCaptureException) {
+            LogK.et(TAG, "OnImageCapturedCallback onError ImageCaptureException ${e.message}")
             _cameraXKCaptureListener?.onCaptureFail()
-            exception.printStackTrace()
+            e.printStackTrace()
         }
     }
 
@@ -157,7 +155,6 @@ class CameraXKPreviewView @JvmOverloads constructor(
         this._cameraXKAnalyzer = analyzer
     }
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
         cameraProviderFuture.addListener({
@@ -165,11 +162,11 @@ class CameraXKPreviewView @JvmOverloads constructor(
                 _cameraProvider = cameraProviderFuture.get()
             } catch (e: InterruptedException) {
                 _cameraXKListener?.onCameraStartFail(e.message.toString())
-                Log.e(TAG, "startCamera: Error starting camera")
+                LogK.et(TAG, "startCamera InterruptedException ${e.message}")
                 return@addListener
             } catch (e: ExecutionException) {
                 _cameraXKListener?.onCameraStartFail(e.message.toString())
-                Log.e(TAG, "startCamera: Error starting camera")
+                LogK.et(TAG, "startCamera ExecutionException ${e.message}")
                 return@addListener
             }
 
@@ -327,7 +324,7 @@ class CameraXKPreviewView @JvmOverloads constructor(
             // Attach the viewfinder's surface provider to preview use case
             _preview.setSurfaceProvider(previewView.surfaceProvider)
         } catch (e: Exception) {
-            Log.e(TAG, "Failed to bind use cases", e)
+            LogK.et(TAG, "bindToLifecycle Exception ${e.message}")
         }
     }
 

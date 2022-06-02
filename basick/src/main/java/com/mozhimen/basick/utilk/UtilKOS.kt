@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk
 import android.os.Build
 import android.text.TextUtils
 import android.util.Log
+import com.mozhimen.basick.logk.LogK
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -124,8 +125,8 @@ object UtilKOS {
             input = BufferedReader(InputStreamReader(process.inputStream), 1024)
             line = input.readLine()
             input.close()
-        } catch (ex: IOException) {
-            Log.e(TAG, "Unable to read prop $name", ex)
+        } catch (e: IOException) {
+            LogK.et(TAG, "getProp IOException Unable to read prop $name $e")
             return null
         } finally {
             input?.let {

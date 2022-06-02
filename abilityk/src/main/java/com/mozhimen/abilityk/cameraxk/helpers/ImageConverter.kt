@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
+import com.mozhimen.basick.logk.LogK
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 
@@ -55,7 +56,7 @@ object ImageConverter {
             stream.close()
             return bmp
         } catch (e: Exception) {
-            Log.e(TAG, "buffer2Bitmap: " + "Error: " + e.message)
+            LogK.et(TAG, "buffer2Bitmap Exception ${e.message}")
         }
         return null
     }

@@ -28,7 +28,7 @@ class BtnKSpinnerForm @JvmOverloads constructor(context: Context, attrs: Attribu
     private lateinit var itemAdapter: ArrayAdapter<String>
     private var mIsRequire = false
     private var mRequiredIconPos = 0
-    private var mLabelTextSize = 16f.sp2px()
+    private var mLabelTextSize = 15f.sp2px()
     private var mLabel: String? = null
     private var mLabelColor = Color.BLACK
     private var mLabelMarginLeft = 6f.dp2px()
