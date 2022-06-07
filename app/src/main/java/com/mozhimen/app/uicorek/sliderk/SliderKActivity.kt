@@ -29,7 +29,7 @@ class SliderKActivity : AppCompatActivity() {
             onBindView = { holder, position ->
                 val menu = _menus[position]
                 holder.findViewById<TextView>(R.id.sliderk_item_menu_title)?.text = menu.itemName
-            }, onItemClick = { holder, position ->
+            }, onItemClick = { _, position ->
                 val menuId = _menus[position].itemId
                 if (_itemListCache.containsKey(menuId)) {
                     onQueryItemListSuccess(_itemListCache[menuId]!!)

@@ -8,7 +8,9 @@ import com.mozhimen.app.abilityk.cameraxk.CameraXKActivity
 import com.mozhimen.app.abilityk.hotfixk.HotFixKActivity
 import com.mozhimen.app.abilityk.netk.NetKActivity
 import com.mozhimen.app.abilityk.scank.ScanKActivity
+import com.mozhimen.app.abilityk.transk.TransKActivity
 import com.mozhimen.app.databinding.ActivityAbilitykBinding
+import com.mozhimen.basick.extsk.start
 
 class AbilityKActivity : AppCompatActivity() {
     private val vb by lazy { ActivityAbilitykBinding.inflate(layoutInflater) }
@@ -18,18 +20,22 @@ class AbilityKActivity : AppCompatActivity() {
     }
 
     fun goCameraXK(view: View) {
-        startActivity(Intent(this, CameraXKActivity::class.java))
+        start<CameraXKActivity>()
     }
 
     fun goHotfixK(view: View) {
-        startActivity(Intent(this, HotFixKActivity::class.java))
+        start<HotFixKActivity>()
     }
 
     fun goScanK(view: View) {
-        startActivity(Intent(this, ScanKActivity::class.java))
+        start<ScanKActivity>()
     }
 
     fun goNetK(view: View) {
-        startActivity(Intent(this, NetKActivity::class.java))
+        start<NetKActivity>()
+    }
+
+    fun goTransK(view: View) {
+        start<TransKActivity>()
     }
 }

@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk
 
+import java.nio.ByteBuffer
+
 /**
  * @ClassName UtilKDataType
  * @Description TODO
@@ -31,5 +33,17 @@ object UtilKDataType {
             e.printStackTrace()
         }
         return false
+    }
+
+    /**
+     * byteBuffer转ByteArray
+     * @param byteBuffer ByteBuffer
+     * @return ByteArray
+     */
+    fun byteBuffer2ByteArray(byteBuffer: ByteBuffer): ByteArray {
+        byteBuffer.rewind()    // Rewind the buffer to zero
+        val data = ByteArray(byteBuffer.remaining())
+        byteBuffer.get(data)   // Copy the buffer into a byte array
+        return data // Return the byte array
     }
 }

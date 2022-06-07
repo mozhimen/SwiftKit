@@ -30,6 +30,7 @@ class NetKViewModel : BaseKViewModel() {
     private var _lastTime1 = System.currentTimeMillis()
     private var _lastTime2 = System.currentTimeMillis()
     private var _lastTime3 = System.currentTimeMillis()
+
     fun getRealtimeWeatherAsync() {
         _lastTime1 = System.currentTimeMillis()
         ApiFactory.createAsync(Apis::class.java).getRealTimeWeatherAsync("121.321504,31.194874").enqueue(object : INetKListener<Weather> {
@@ -45,19 +46,17 @@ class NetKViewModel : BaseKViewModel() {
         })
     }
 
-    fun getRealtimeWeatherCoroutine() {
+    suspend fun getRealtimeWeatherCoroutine() {
         _lastTime2 = System.currentTimeMillis()
-        viewModelScope.launch(Dispatchers.IO) {
-            val response: NetKResponse<Weather> = CoroutineClosure.get().coroutineCall {
-                ApiFactory.createCoroutine(Apis::class.java).getRealTimeWeatherCoroutine("121.321504,31.194874")
-            }
-            if (response.isSuccessful()) {
-                val duration = System.currentTimeMillis() - _lastTime2
-                Log.i(TAG, "getRealtimeWeatherCoroutine onSuccess duration: $duration")
-                uiWeather2.postValue(response.data?.result?.realtime?.temperature.toString() + " " + duration)
-            } else {
-                Log.e(TAG, "getRealtimeWeatherCoroutine onFail ${response.msg}")
-            }
+        val response: NetKResponse<Weather> = CoroutineClosure().coroutineCall {
+            ApiFactory.createCoroutine(Apis::class.java).getRealTimeWeatherCoroutine("121.321504,31.194874")
+        }
+        if (response.isSuccessful()) {
+            val duration = System.currentTimeMillis() - _lastTime2
+            Log.i(TAG, "getRealtimeWeatherCoroutine onSuccess duration: $duration")
+            uiWeather2.postValue(response.data?.result?.realtime?.temperature.toString() + " " + duration)
+        } else {
+            Log.e(TAG, "getRealtimeWeatherCoroutine onFail ${response.msg}")
         }
     }
 

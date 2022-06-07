@@ -220,7 +220,7 @@ object UtilKView {
     fun loadImageComplex(
         imageView: ImageView,
         res: Any,
-        placeholder: Int = android.R.color.black,
+        placeholder: Int = android.R.color.transparent,
         error: Int = android.R.color.black
     ) {
         if (!isTypeLegal(res)) return
@@ -238,7 +238,7 @@ object UtilKView {
     fun loadImageCircle(
         imageView: ImageView,
         res: Any,
-        placeholder: Int = android.R.color.black,
+        placeholder: Int = android.R.color.transparent,
         error: Int = android.R.color.black
     ) {
         if (!isTypeLegal(res)) return
@@ -261,7 +261,7 @@ object UtilKView {
         res: Any,
         borderWidth: Float = 1f,
         borderColor: Int = UtilKRes.getColor(android.R.color.white),
-        placeholder: Int = android.R.color.black,
+        placeholder: Int = android.R.color.transparent,
         error: Int = android.R.color.black
     ) {
         if (!isTypeLegal(res)) return
@@ -282,7 +282,7 @@ object UtilKView {
         imageView: ImageView,
         res: Any,
         cornerRadius: Int = 1,
-        placeholder: Int = android.R.color.black,
+        placeholder: Int = android.R.color.transparent,
         error: Int = android.R.color.black
     ) {
         if (!isTypeLegal(res)) return

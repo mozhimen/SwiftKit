@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         start<AbilityKActivity>()
     }
 
-    fun goBasicsK(view: View) {
+    fun goBasicK(view: View) {
         start<BasicKActivity>()
     }
 

@@ -5,7 +5,7 @@ buildscript {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/google' }
-        maven {url 'https://developer.huawei.com/repo/'}//for scank
+        maven { url 'https://developer.huawei.com/repo/' }//for scank
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.3'
@@ -21,7 +21,7 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://www.jitpack.io' }
-        maven {url 'https://developer.huawei.com/repo/'}//for scank
+        maven { url 'https://developer.huawei.com/repo/' }//for scank
     }
 }
 

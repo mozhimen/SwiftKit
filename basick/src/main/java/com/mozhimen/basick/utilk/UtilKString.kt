@@ -103,4 +103,19 @@ object UtilKString {
      * @return String
      */
     fun hidePhone(str: String): String = if (str.length == 11) str.substring(0, 3) + "****" + str.substring(7, str.length) else str
+
+    /**
+     * 名字脱敏
+     * @param str String
+     * @return String
+     */
+    fun hideName(str: String): String {
+        if (str.isEmpty()) return ""
+        if (str.length <= 2) return str
+        val stringBuilder = StringBuilder()
+        repeat(str.length - 2) {
+            stringBuilder.append("*")
+        }
+        return str.first() + stringBuilder.toString() + str.last()
+    }
 }

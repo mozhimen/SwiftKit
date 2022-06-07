@@ -30,6 +30,7 @@ object ScanKColorHSV {
      * @param resId Int 资源文件夹中的索引id
      * @return Map<String, Int>?
      */
+    @JvmStatic
     fun colorAnalyze(resId: Int): List<Pair<ColorHSV, Int>>? {
         return colorAnalyze(UtilKRes.getDrawable(resId)!!.drawable2Bitmap())
     }
@@ -74,6 +75,7 @@ object ScanKColorHSV {
      * @param bitmap Bitmap
      * @return Map<String, Int>?
      */
+    @JvmStatic
     fun colorAnalyze(bitmap: Bitmap): List<Pair<ColorHSV, Int>>? {
         _colorMap.clear()
         try {

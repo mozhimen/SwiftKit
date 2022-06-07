@@ -18,23 +18,8 @@ import kotlinx.coroutines.withContext
  * @Date 2022/5/12 22:55
  * @Version 1.0
  */
-class CoroutineClosure(converter: INetKConverter?) {
+class CoroutineClosure(val converter: INetKConverter = AsyncConverter()) {
     val TAG = "CoroutineConverter>>>>>"
-    var gsonConverter: INetKConverter
-
-    init {
-        gsonConverter = converter ?: AsyncConverter()
-    }
-
-    companion object {
-        @Volatile
-        private var instance: CoroutineClosure? = null
-
-        fun get(converter: INetKConverter? = null) =
-            instance ?: synchronized(this) {
-                instance ?: CoroutineClosure(converter).also { instance = it }
-            }
-    }
 
     suspend inline fun <reified T> coroutineCall(crossinline call: suspend CoroutineScope.() -> T): NetKResponse<T> {
         return withContext(Dispatchers.IO) {
@@ -50,7 +35,7 @@ class CoroutineClosure(converter: INetKConverter?) {
 
     inline fun <reified T> parseResponse(response: T): NetKResponse<T> {
         val rawData: String = UtilKJson.toJson(response)
-        return gsonConverter.convert(rawData, T::class.java)
+        return converter.convert(rawData, T::class.java)
     }
 
     fun <T> NetKThrowable.toResponse(): NetKResponse<T> {

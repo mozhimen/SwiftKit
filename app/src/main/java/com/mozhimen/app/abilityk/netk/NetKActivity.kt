@@ -2,11 +2,14 @@ package com.mozhimen.app.abilityk.netk
 
 import android.Manifest
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityNetkBinding
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @PermissionKAnnor([Manifest.permission.INTERNET])
 class NetKActivity : BaseKActivity<ActivityNetkBinding, NetKViewModel>(R.layout.activity_netk) {
@@ -28,7 +31,9 @@ class NetKActivity : BaseKActivity<ActivityNetkBinding, NetKViewModel>(R.layout.
         }
 
         vb.netkBtn1GetWeather.setOnClickListener {
-            vm.getRealtimeWeatherCoroutine()
+            lifecycleScope.launch(Dispatchers.IO) {
+                vm.getRealtimeWeatherCoroutine()
+            }
         }
 
         vb.netkBtn2GetWeather.setOnClickListener {

@@ -2,10 +2,8 @@ package com.mozhimen.abilityk.netk
 
 import com.mozhimen.abilityk.netk.commons.INetKConverter
 import com.mozhimen.abilityk.netk.customs.AsyncConverter
-import com.mozhimen.abilityk.netk.customs.CoroutineClosure
 import com.mozhimen.abilityk.netk.helpers.ClientBuilder
 import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,36 +17,42 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
  * @Version 1.0
  */
 open class NetKCoroutine(
-    private val _baseUrl: String,
-    converter: INetKConverter? = null
+    private val _baseUrl: String
 ) {
     private var _retrofit: Retrofit? = null
     private val _interceptors = mutableListOf<Interceptor>()
 
-    init {
-        converter?.let {
-            CoroutineClosure.get(converter)
-        }
-    }
-
+    /**
+     * 增加拦截器
+     * @param interceptors Array<Interceptor>
+     * @return NetKCoroutine
+     */
     fun addInterceptors(interceptors: Array<Interceptor>): NetKCoroutine {
         _interceptors.addAll(interceptors)
         return this
     }
 
+    /**
+     * 增加拦截器
+     * @param interceptor Interceptor
+     * @return NetKCoroutine
+     */
     fun addInterceptor(interceptor: Interceptor): NetKCoroutine {
         _interceptors.add(interceptor)
         return this
     }
 
-    fun initRetrofit() {
-        _retrofit = Retrofit.Builder()
+    /**
+     * 初始化
+     */
+    private fun initRetrofit(): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(_baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(ClientBuilder.getClient(_interceptors))
-            .build()
+            .build().also { _retrofit = it }
     }
 
     /**
@@ -57,6 +61,6 @@ open class NetKCoroutine(
      * @return T
      */
     fun <T> create(service: Class<T>): T {
-        return _retrofit!!.create(service)
+        return _retrofit?.create(service) ?: initRetrofit().create(service)
     }
 }

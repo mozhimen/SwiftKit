@@ -13,6 +13,12 @@ import android.view.animation.*
  * @Version 1.0
  */
 object UtilKAnim {
+    open class UtilKAnimListener : Animation.AnimationListener {
+        override fun onAnimationStart(animation: Animation?) {}
+        override fun onAnimationEnd(animation: Animation?) {}
+        override fun onAnimationRepeat(animation: Animation?) {}
+    }
+
     fun startRotate(
         view: View,
         pivotX: Float = view.width / 2f,
@@ -64,6 +70,36 @@ object UtilKAnim {
         transAnimation.repeatMode = repeatMode
         transAnimation.fillAfter = true
         transAnimation.duration = duration
+        listener?.let {
+            transAnimation.setAnimationListener(it)
+        }
+        view.startAnimation(transAnimation)
+    }
+
+    fun transInRight(
+        view: View,
+        duration: Long = 1000,
+        fillAfter: Boolean = true,
+        listener: Animation.AnimationListener? = null
+    ) {
+        val transAnimation = TranslateAnimation(UtilKScreen.getScreenWidth().toFloat(), 0f, 0f, 0f)
+        transAnimation.duration = duration
+        transAnimation.fillAfter = fillAfter
+        listener?.let {
+            transAnimation.setAnimationListener(it)
+        }
+        view.startAnimation(transAnimation)
+    }
+
+    fun transOutRight(
+        view: View,
+        duration: Long = 1000,
+        fillAfter: Boolean = true,
+        listener: Animation.AnimationListener? = null
+    ) {
+        val transAnimation = TranslateAnimation(0f, UtilKScreen.getScreenWidth().toFloat(), 0f, 0f)
+        transAnimation.duration = duration
+        transAnimation.fillAfter = fillAfter
         listener?.let {
             transAnimation.setAnimationListener(it)
         }

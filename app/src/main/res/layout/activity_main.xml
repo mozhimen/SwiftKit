@@ -18,8 +18,8 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goBasicsK"
-            android:text="BasicsK"
+            android:onClick="goBasicK"
+            android:text="BasicK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton

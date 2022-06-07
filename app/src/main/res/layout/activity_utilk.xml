@@ -23,14 +23,69 @@
             android:id="@+id/utilk_txt_port_verify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="校验端口"
-            tools:ignore="HardcodedText"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:hint="UtilKVerifyUrl(校验端口)"
+            tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/utilk_btn_port_verify"
             style="@style/BtnStyle"
-            android:text="校验端口"
+            android:layout_marginBottom="10dp"
+            android:text="UtilKVerifyUrl(校验端口)"
+            tools:ignore="HardcodedText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/scank_contrast_test" />
+
+            <ImageView
+                android:id="@+id/utilk_img_bmp_zoom"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/scank_contrast_test" />
+
+            <ImageView
+                android:id="@+id/utilk_img_bmp_scale"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/scank_contrast_test" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UtilKBitmap(图像处理zoom)"
+            tools:ignore="HardcodedText" />
+
+        <SeekBar
+            android:id="@+id/utilk_seekbar_bmp_zoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="50" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UtilKBitmap(图像处理scale)"
+            tools:ignore="HardcodedText" />
+
+        <SeekBar
+            android:id="@+id/utilk_seekbar_bmp_scale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="50" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/utilk_btn_audio"
+            style="@style/BtnStyle"
+            android:layout_marginBottom="10dp"
+            android:text="UtilKAudio(测试多曲目)"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>

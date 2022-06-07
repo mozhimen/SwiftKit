@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/drawable/scank_qrscan_line.xml" value="0.1905" />
         <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/drawable/viewk_qrscan_line.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/activity_scank.xml" value="0.16" />
         <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/activity_scank2.xml" value="0.1" />
@@ -35,6 +36,7 @@
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_refreshk_lottie.xml" value="0.2109375" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_restfulk.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_scank.xml" value="0.1482638888888889" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_scank_contrast.xml" value="0.19" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_scank_demo.xml" value="0.22" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_sliderk.xml" value="0.1508591065292096" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_stackk.xml" value="0.2" />
@@ -45,6 +47,7 @@
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_tabk_bottom_layout.xml" value="0.26582278481012656" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_tabk_top.xml" value="0.36614583333333334" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_tabk_top_layout.xml" value="0.2" />
+        <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_transk.xml" value="0.23819444444444443" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_uicorek.xml" value="0.2" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_underlayk.xml" value="0.14027777777777778" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_utilk.xml" value="0.2" />

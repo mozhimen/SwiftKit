@@ -1,14 +1,19 @@
 package com.mozhimen.basick.utilk
 
 import android.app.Activity
+import android.content.ContentResolver
+import android.content.ContentValues
 import android.content.Intent
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import androidx.annotation.IntRange
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.bumptech.glide.request.target.CustomTarget
@@ -35,6 +40,7 @@ object UtilKBitmap {
      * @param bytes ByteArray
      * @return Bitmap
      */
+    @JvmStatic
     fun bytes2Bitmap(bytes: ByteArray): Bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
     /**
@@ -42,6 +48,7 @@ object UtilKBitmap {
      * @param bitmap Bitmap
      * @return ByteArray?
      */
+    @JvmStatic
     fun bitmap2Bytes(bitmap: Bitmap): ByteArray? {
         val baos = ByteArrayOutputStream(bitmap.width * bitmap.height * 4)
         try {
@@ -63,20 +70,84 @@ object UtilKBitmap {
     }
 
     /**
+     * 将两个图片裁剪成一致
+     * @param bitmap1 Bitmap
+     * @param bitmap2 Bitmap
+     * @return Pair<Bitmap, Bitmap>
+     */
+    @JvmStatic
+    fun scaleSameSize(bitmap1: Bitmap, bitmap2: Bitmap): Pair<Bitmap, Bitmap> {
+        val minWidth = kotlin.math.min(bitmap1.width, bitmap2.width)
+        val minHeight = kotlin.math.min(bitmap1.height, bitmap2.height)
+        return scaleBitmap(bitmap1, minWidth, minHeight) to scaleBitmap(bitmap2, minWidth, minHeight)
+    }
+
+    /**
      * 裁剪图片
-     * @param origin Bitmap
+     * @param orgBmp Bitmap
      * @param width Int
      * @param height Int
      * @param x Int
      * @param y Int
      * @return Bitmap
      */
-    fun cropBitmap(origin: Bitmap, width: Int, height: Int, x: Int, y: Int): Bitmap {
-        val originWidth: Int = origin.width // 得到图片的宽，高
-        val originHeight: Int = origin.height
+    @JvmStatic
+    fun cropBitmap(orgBmp: Bitmap, width: Int, height: Int, x: Int, y: Int): Bitmap {
+        val originWidth: Int = orgBmp.width // 得到图片的宽，高
+        val originHeight: Int = orgBmp.height
         val cropWidth = if (width >= originWidth) originWidth else width // 裁切后所取的正方形区域边长
         val cropHeight = if (height >= originHeight) originHeight else height
-        return Bitmap.createBitmap(origin, x, y, cropWidth, cropHeight, null, false)
+        return Bitmap.createBitmap(orgBmp, x, y, cropWidth, cropHeight, null, false)
+    }
+
+    /**
+     * 同比例放大图片
+     * @param orgBmp Bitmap
+     * @param ratio Int
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun zoomBitmap(orgBmp: Bitmap, ratio: Float): Bitmap {
+        if (ratio <= 1) return orgBmp
+        val zoomWidth: Float = orgBmp.width / ratio
+        val zoomHeight: Float = orgBmp.height / ratio
+        val x: Float = (ratio - 1) * orgBmp.width / 2 / ratio
+        val y: Float = (ratio - 1) * orgBmp.height / 2 / ratio
+        return cropBitmap(orgBmp, zoomWidth.toInt(), zoomHeight.toInt(), x.toInt(), y.toInt())
+    }
+
+    /**
+     * 旋转位图
+     * @param sourceBitmap Bitmap
+     * @param degree Int
+     * @param flipX Boolean
+     * @param flipY Boolean
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun rotateBitmap(sourceBitmap: Bitmap, degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate((degree).toFloat())
+        matrix.postScale(if (flipX) -1f else 1f, if (flipY) -1f else 1f)
+        return Bitmap.createBitmap(
+            sourceBitmap, 0, 0, sourceBitmap.width, sourceBitmap.height, matrix, true
+        )
+    }
+
+    /**
+     * 缩放原图
+     * @param orgBmp Bitmap
+     * @param destWidth Float
+     * @param destHeight Float
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun scaleBitmap(orgBmp: Bitmap, destWidth: Int, destHeight: Int): Bitmap {
+        val ratioX: Float = destWidth.toFloat() / orgBmp.width.toFloat()
+        val ratioY: Float = destHeight.toFloat() / orgBmp.height.toFloat()
+        val matrix = Matrix()
+        matrix.postScale(ratioX, ratioY)
+        return Bitmap.createBitmap(orgBmp, 0, 0, orgBmp.width, orgBmp.height, matrix, true)
     }
 
     /**
@@ -85,6 +156,7 @@ object UtilKBitmap {
      * @param intent Intent?
      * @return Bitmap?
      */
+    @JvmStatic
     fun getFromAlbum(activity: Activity, intent: Intent?): Bitmap? {
         val uri = intent?.data ?: return null
         try {
@@ -100,7 +172,14 @@ object UtilKBitmap {
         return null
     }
 
-    fun uri2Bitmap(activity: Activity,uri: Uri): Bitmap? {
+    /**
+     * uri转bitmap
+     * @param activity Activity
+     * @param uri Uri
+     * @return Bitmap?
+     */
+    @JvmStatic
+    fun uri2Bitmap(activity: Activity, uri: Uri): Bitmap? {
         var stream: InputStream? = null
         var inputStream: InputStream? = null
         try {
@@ -154,6 +233,7 @@ object UtilKBitmap {
      * @param error Int
      * @param onGetBitmap Function1<Bitmap, Unit>
      */
+    @JvmStatic
     fun url2Bitmap(
         url: String,
         placeholder: Int = android.R.color.black,
@@ -177,6 +257,7 @@ object UtilKBitmap {
      * @param error Int
      * @return Bitmap
      */
+    @JvmStatic
     suspend fun url2Bitmap2(
         url: String,
         placeholder: Int = android.R.color.black,
@@ -193,7 +274,6 @@ object UtilKBitmap {
                 })
     }
 
-
     /**
      * nv21转文件
      * @param nv21 ByteArray
@@ -202,19 +282,21 @@ object UtilKBitmap {
      * @param filePath String
      * @return File
      */
-    fun nv21Array2File(nv21: ByteArray, width: Int, height: Int, filePath: String): File {
-        return bitmap2File(nv21Array2Bitmap(nv21, width, height), filePath)
+    @JvmStatic
+    fun nv21Bytes2File(nv21Bytes: ByteArray, width: Int, height: Int, filePath: String): File {
+        return bitmap2File(nv21Bytes2Bitmap(nv21Bytes, width, height), filePath)
     }
 
     /**
-     * nv21转位图
+     * nv21转位图 for camera1
      * @param nv21 ByteArray
      * @param width Int
      * @param height Int
      * @return Bitmap
      */
-    fun nv21Array2Bitmap(nv21: ByteArray, width: Int, height: Int): Bitmap {
-        val yuvImage = YuvImage(nv21, ImageFormat.NV21, width, height, null)
+    @JvmStatic
+    fun nv21Bytes2Bitmap(nv21Bytes: ByteArray, width: Int, height: Int): Bitmap {
+        val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
         val out = ByteArrayOutputStream()
         yuvImage.compressToJpeg(
             Rect(0, 0, yuvImage.width, yuvImage.height), 100,
@@ -225,32 +307,85 @@ object UtilKBitmap {
     }
 
     /**
+     * 删除图片
+     * @param deletePath String
+     */
+    fun deleteBitmap(deletePath: String) {
+        val uri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        val contentResolver: ContentResolver = UtilKGlobal.instance.getApp()!!.contentResolver
+        val where = MediaStore.Images.Media.DATA + "='" + deletePath + "'"
+        //删除图片
+        contentResolver.delete(uri, where, null)
+    }
+
+    /**
      * 位图转文件
      * @param bitmap Bitmap
-     * @param filepath String
+     * @param fileName String
      * @return File
      */
-    fun bitmap2File(bitmap: Bitmap, filepath: String): File {
-        val file = File(filepath) //将要保存图片的路径
-        //        if (bitmap != null) {
-        UtilKFile.deleteFile(file)
-        var bos: BufferedOutputStream? = null
-        try {
-            bos = BufferedOutputStream(FileOutputStream(file))
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos)
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } finally {
-            if (bos != null) {
-                try {
-                    bos.flush()
-                    bos.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
+    @JvmStatic
+    fun bitmap2File(bitmap: Bitmap,fileName: String = System.currentTimeMillis().toString() + ".jpg"): File {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val saveFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), fileName)
+            var out: OutputStream? = null
+            var pathArray: Array<String>? = null
+            var typeArray: Array<String>? = null
+            try {
+                // Android 10版本 创建文件夹不成功，这里没有过多去研究
+                val mPicPath = saveFile.absolutePath
+                pathArray = arrayOf(saveFile.absolutePath)
+                typeArray = arrayOf("image/jpeg")
+
+                val values = ContentValues()
+                val resolver: ContentResolver = UtilKGlobal.instance.getApp()!!.contentResolver
+                values.put(MediaStore.Images.ImageColumns.DATA, mPicPath)
+                values.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, fileName)
+                values.put(MediaStore.Images.ImageColumns.MIME_TYPE, "image/jpeg")
+                values.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
+                // 插入相册
+                val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+                if (uri != null) {
+                    out = resolver.openOutputStream(uri)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                if (out != null) {
+                    try {
+                        out.flush()
+                        out.close()
+                        // 扫描刷新
+                        MediaScannerConnection.scanFile(
+                            UtilKGlobal.instance.getApp()!!, pathArray, typeArray
+                        ) { s, _ -> Log.d("ImageUtils", "onScanCompleted  s->$s") }
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
                 }
             }
+            return saveFile
+        } else {
+            val appDir = UtilKGlobal.instance.getApp()!!.getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
+            val file = File(appDir)
+            if (!file.exists()) {
+                // 目录不存在 则创建
+                file.mkdirs()
+            }
+            //下面的CompressFormat.PNG/CompressFormat.JPEG， 这里对应.png/.jpeg
+            val saveFile = File(appDir, fileName)
+            try {
+                saveFile.createNewFile()
+                val bo = BufferedOutputStream(FileOutputStream(saveFile))
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bo) // 保存bitmap至本地
+                bo.flush()
+                bo.close()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return saveFile
         }
-        return file
     }
 
     /**
@@ -258,6 +393,7 @@ object UtilKBitmap {
      * @param drawable Drawable
      * @return Bitmap
      */
+    @JvmStatic
     fun drawable2Bitmap(
         drawable: Drawable,
         width: Int = drawable.intrinsicWidth,
@@ -277,28 +413,12 @@ object UtilKBitmap {
     }
 
     /**
-     * 旋转位图
-     * @param sourceBitmap Bitmap
-     * @param degree Int
-     * @param flipX Boolean
-     * @param flipY Boolean
-     * @return Bitmap
-     */
-    fun rotateBitmap(sourceBitmap: Bitmap, degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap {
-        val matrix = Matrix()
-        matrix.postRotate((degree).toFloat())
-        matrix.postScale(if (flipX) -1f else 1f, if (flipY) -1f else 1f)
-        return Bitmap.createBitmap(
-            sourceBitmap, 0, 0, sourceBitmap.width, sourceBitmap.height, matrix, true
-        )
-    }
-
-    /**
      * 匹配角度
      * @param sourceBitmap Bitmap
      * @param degree Int
      * @return Bitmap
      */
+    @JvmStatic
     fun adjustPhotoRotation(sourceBitmap: Bitmap, degree: Int): Bitmap {
         val matrix = Matrix()
         matrix.setRotate(
@@ -334,6 +454,7 @@ object UtilKBitmap {
      * @param tintColor Int 过滤颜色
      * @return Bitmap
      */
+    @JvmStatic
     fun tintBitmap(sourceBitmap: Bitmap, tintColor: Int): Bitmap {
         val outputBitmap = Bitmap.createBitmap(sourceBitmap.width, sourceBitmap.height, sourceBitmap.config)
         val canvas = Canvas(outputBitmap)
@@ -348,6 +469,7 @@ object UtilKBitmap {
      * @param savePath String
      * @param bitmap Bitmap?
      */
+    @JvmStatic
     fun saveBitmap(savePath: String, bitmap: Bitmap?) {
         if (null == bitmap) // 容错处理
             return
@@ -373,6 +495,7 @@ object UtilKBitmap {
      * @param picturePath String
      * @return Bitmap?
      */
+    @JvmStatic
     fun getDecodableBitmap(picturePath: String): Bitmap? {
         return try {
             val options = BitmapFactory.Options()

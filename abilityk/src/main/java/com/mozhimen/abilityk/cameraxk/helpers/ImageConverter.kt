@@ -29,7 +29,7 @@ object ImageConverter {
      * @param imageProxy ImageProxy?
      * @return Bitmap?
      */
-    @RequiresApi(VERSION_CODES.LOLLIPOP)
+    @JvmStatic
     @ExperimentalGetImage
     fun yuv2Bitmap(imageProxy: ImageProxy): Bitmap? {
         if (imageProxy.image == null) return null
@@ -44,6 +44,7 @@ object ImageConverter {
      * @param height Int
      * @return Bitmap?
      */
+    @JvmStatic
     fun buffer2Bitmap(data: ByteBuffer, width: Int, height: Int): Bitmap? {
         data.rewind()
         val imageInBuffer = ByteArray(data.limit())
@@ -61,7 +62,16 @@ object ImageConverter {
         return null
     }
 
-    @RequiresApi(VERSION_CODES.KITKAT)
+    @JvmStatic
+    fun jpeg2Bitmap(image: ImageProxy): Bitmap {
+        val planes: Array<ImageProxy.PlaneProxy> = image.planes
+        val buffer = planes[0].buffer
+        val size = buffer.remaining()
+        val jpeg = ByteArray(size)
+        buffer.get(jpeg, 0, size)
+        return BitmapFactory.decodeByteArray(jpeg, 0, jpeg.size)
+    }
+
     private fun yuv420ThreePlanesToNV21(yuv420_888_planes: Array<Plane>, width: Int, height: Int): ByteBuffer {
         val imageSize = width * height
         val out = ByteArray(imageSize + 2 * (imageSize / 4))
@@ -85,7 +95,6 @@ object ImageConverter {
      * @param height Int
      * @return Boolean
      */
-    @RequiresApi(VERSION_CODES.KITKAT)
     private fun isUVPlanesNV21(planes: Array<Plane>, width: Int, height: Int): Boolean {
         val imageSize = width * height
         val uBuffer = planes[1].buffer
@@ -119,7 +128,6 @@ object ImageConverter {
      * @param offset Int
      * @param pixelStride Int
      */
-    @TargetApi(VERSION_CODES.KITKAT)
     private fun unpackPlane(plane: Plane, width: Int, height: Int, out: ByteArray, offset: Int, pixelStride: Int) {
         val buffer = plane.buffer
         buffer.rewind()
@@ -144,15 +152,5 @@ object ImageConverter {
             }
             rowStart += plane.rowStride
         }
-    }
-
-    @RequiresApi(VERSION_CODES.LOLLIPOP)
-    fun jpeg2Bitmap(image: ImageProxy): Bitmap {
-        val planes: Array<ImageProxy.PlaneProxy> = image.planes
-        val buffer = planes[0].buffer
-        val size = buffer.remaining()
-        val jpeg = ByteArray(size)
-        buffer.get(jpeg, 0, size)
-        return BitmapFactory.decodeByteArray(jpeg, 0, jpeg.size)
     }
 }

@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.huawei.hms.ml.scan.HmsScan
@@ -14,6 +15,7 @@ import com.mozhimen.app.databinding.ActivityScankBinding
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.fromJson
+import com.mozhimen.basick.extsk.start
 
 class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layout.activity_scank) {
 
@@ -79,5 +81,9 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
         vb.scankDemoBtnScan2.setOnClickListener {
             activityResultLauncher2.launch(Intent(this, ScanKQRActivity2::class.java))
         }
+    }
+
+    fun goScanKContrast(view: View) {
+        start<ScanKContrastActivity>()
     }
 }

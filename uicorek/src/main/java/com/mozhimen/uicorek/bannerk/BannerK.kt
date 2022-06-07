@@ -24,7 +24,7 @@ import com.mozhimen.uicorek.bannerk.mos.BannerKMo
  */
 class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseKLayoutFrame(context, attrs, defStyleAttr), IBannerK {
-    private var delegate: BannerKDelegate = BannerKDelegate(context, this)
+    private var _delegate: BannerKDelegate = BannerKDelegate(context, this)
 
     private var _autoPlay = true
     private var _loop = true
@@ -54,7 +54,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param mos List<BannerKMo>
      */
     override fun setBannerData(mos: List<BannerKMo>) {
-        delegate.setBannerData(mos)
+        _delegate.setBannerData(mos)
     }
 
     /**
@@ -63,7 +63,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param mos List<BannerKMo>
      */
     override fun setBannerData(layoutResId: Int, mos: List<BannerKMo>) {
-        delegate.setBannerData(layoutResId, mos)
+        _delegate.setBannerData(layoutResId, mos)
     }
 
     /**
@@ -71,7 +71,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param indicator IBannerKIndicator<*>
      */
     override fun setBannerIndicator(indicator: IBannerKIndicator<*>) {
-        delegate.setBannerIndicator(indicator)
+        _delegate.setBannerIndicator(indicator)
     }
 
     /**
@@ -79,7 +79,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param autoPlay Boolean
      */
     override fun setAutoPlay(autoPlay: Boolean) {
-        delegate.setAutoPlay(autoPlay)
+        _delegate.setAutoPlay(autoPlay)
     }
 
     /**
@@ -87,7 +87,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param loop Boolean
      */
     override fun setLoop(loop: Boolean) {
-        delegate.setLoop(loop)
+        _delegate.setLoop(loop)
     }
 
     /**
@@ -95,7 +95,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param duration Int page切换的时间长度 ,默认1000ms
      */
     override fun setScrollDuration(duration: Int) {
-        delegate.setScrollDuration(duration)
+        _delegate.setScrollDuration(duration)
     }
 
     /**
@@ -103,7 +103,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param intervalTime Int 默认5000
      */
     override fun setIntervalTime(intervalTime: Int) {
-        delegate.setIntervalTime(intervalTime)
+        _delegate.setIntervalTime(intervalTime)
     }
 
     /**
@@ -111,7 +111,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param position Int
      */
     override fun setCurrentItem(position: Int) {
-        delegate.setCurrentItem(position)
+        _delegate.setCurrentItem(position)
     }
 
     /**
@@ -119,7 +119,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param bindAdapter IBannerKBindAdapter
      */
     override fun setBindAdapter(bindAdapter: IBannerKBindAdapter) {
-        delegate.setBindAdapter(bindAdapter)
+        _delegate.setBindAdapter(bindAdapter)
     }
 
     /**
@@ -127,7 +127,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param onPageChangeListener OnPageChangeListener
      */
     override fun setOnPageChangeListener(onPageChangeListener: ViewPager.OnPageChangeListener) {
-        delegate.setOnPageChangeListener(onPageChangeListener)
+        _delegate.setOnPageChangeListener(onPageChangeListener)
     }
 
     /**
@@ -135,6 +135,6 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param IOnBannerClickListener OnBannerClickListener
      */
     override fun setOnBannerClickListener(IOnBannerClickListener: IBannerK.IOnBannerClickListener) {
-        delegate.setOnBannerClickListener(IOnBannerClickListener)
+        _delegate.setOnBannerClickListener(IOnBannerClickListener)
     }
 }

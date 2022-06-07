@@ -82,7 +82,7 @@ object UtilKDate {
         dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
     ): Date {
         return SimpleDateFormat(formatDate, locale).parse(dateStr) ?: kotlin.run {
-            LogK.et(TAG,"string2Date Exception time format fail!")
+            LogK.et(TAG, "string2Date Exception time format fail!")
             throw Exception("time format fail!")
         }
     }
@@ -96,6 +96,13 @@ object UtilKDate {
     fun dateCompare(date1: Date, date2: Date): Int =
         date1.compareTo(date2)
 
+    /**
+     * 时间比较
+     * @param date1 String
+     * @param date2 String
+     * @param formatDate String
+     * @return Int
+     */
     fun dateCompare(date1: String, date2: String, formatDate: String) =
         dateCompare(string2Date(date1, formatDate), string2Date(date2, formatDate))
 }

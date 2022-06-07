@@ -1,11 +1,11 @@
 package com.mozhimen.componentk.permissionk
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -109,18 +109,18 @@ object PermissionK {
 
     /**
      * 作用: 权限检查
-     * @param activity Activity
+     * @param context Activity
      * @param permissions Array<out String>
      * @return Boolean
      */
-    fun checkPermissions(activity: Activity, vararg permissions: String): Boolean {
+    fun checkPermissions(context: Context, vararg permissions: String): Boolean {
         var allGranted = true
         return if (permissions.isEmpty()) {
             true
         } else {
             permissions.forEach {
                 allGranted = allGranted and (ContextCompat.checkSelfPermission(
-                    activity,
+                    context,
                     it
                 ) == PackageManager.PERMISSION_GRANTED)
             }

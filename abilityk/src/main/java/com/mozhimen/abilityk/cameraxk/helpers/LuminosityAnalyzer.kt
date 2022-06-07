@@ -8,6 +8,7 @@ object LuminosityAnalyzer {
 
     private val TAG="LuminosityAnalyzer>>>>>"
 
+    @JvmStatic
     fun analyze(image: ImageProxy) {
         // Since format in ImageAnalysis is YUV, image.planes[0]
         // contains the Y (luminance) plane

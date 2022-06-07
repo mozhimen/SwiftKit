@@ -17,7 +17,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
  * @Version 1.0
  */
 class NetKRxJava(
-    private val _baseUrl: String,
+    private val _baseUrl: String
 ) {
 
     private var _retrofit: Retrofit? = null
@@ -33,14 +33,14 @@ class NetKRxJava(
         return this
     }
 
-    fun initRetrofit() {
-        _retrofit = Retrofit.Builder()
+    private fun initRetrofit(): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(_baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(ClientBuilder.getClient(_interceptors))
-            .build()
+            .build().also { _retrofit = it }
     }
 
     /**
@@ -49,6 +49,6 @@ class NetKRxJava(
      * @return T
      */
     fun <T> create(service: Class<T>): T {
-        return _retrofit!!.create(service)
+        return _retrofit?.create(service) ?: initRetrofit().create(service)
     }
 }

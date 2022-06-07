@@ -129,10 +129,13 @@
             android:exported="false" />
         <activity
             android:name=".uicorek.dialogk.DialogKActivity"
+            android:exported="false" /> <!-- abilityk -->
+        <activity
+            android:name=".abilityk.transk.TransKActivity"
             android:exported="false" />
         <activity
-            android:name=".uicorek.navk.NavKActivity"
-            android:exported="false" /> <!-- abilityk -->
+            android:name=".abilityk.scank.ScanKContrastActivity"
+            android:exported="false" />
         <activity
             android:name=".abilityk.AbilityKActivity"
             android:exported="false" />

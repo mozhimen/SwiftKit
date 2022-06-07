@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  * @Version 1.0
  */
 class PopwinKTip {
-    private var popWindowTempOK: PopupWindow? = null
+    /*private var popWindowTempOK: PopupWindow? = null
 
     @SuppressLint("SetTextI18n")
     @Synchronized
@@ -64,5 +64,5 @@ class PopwinKTip {
             }
             popWindowTempOK = null
         }
-    }
+    }*/
 }

@@ -63,4 +63,5 @@ dependencies {
 
     //scank
     api 'com.huawei.hms:scan:2.5.0.300'
+    api 'com.github.mozhimen.OpenCVKit:opencvk:1.0.1'
 }
