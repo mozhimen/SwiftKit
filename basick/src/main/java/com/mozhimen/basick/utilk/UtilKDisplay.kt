@@ -28,9 +28,4 @@ object UtilKDisplay {
     fun sp2px(dp: Float): Int =
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dp, _context.resources?.displayMetrics).toInt()
 
-    /**
-     * 获取屏幕密度
-     * @return Int
-     */
-    fun getDensityDpi(): Int = _context.resources.configuration.densityDpi
 }

@@ -15,14 +15,14 @@ import java.io.IOException
  * @Version 1.0
  */
 object UtilKBitmapEncrypt {
-    private val TAG = "UtilKBitmapEncrypt>>>>>"
+    private const val TAG = "UtilKBitmapEncrypt>>>>>"
 
     /**
      * base64转位图
      * @param base64String String
      * @return Bitmap?
      */
-    fun base64ToBitmap(base64String: String): Bitmap? {
+    fun base642Bitmap(base64String: String): Bitmap? {
         val timeMillis = System.currentTimeMillis()
         val decode: ByteArray = Base64.decode(base64String, Base64.DEFAULT)
         val bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.size)
@@ -35,7 +35,7 @@ object UtilKBitmapEncrypt {
      * @param bitmap Bitmap?
      * @return String?
      */
-    fun bitmapToBase64(bitmap: Bitmap?): String? {
+    fun bitmap2Base64(bitmap: Bitmap?): String? {
         var result: String? = null
         var baos: ByteArrayOutputStream? = null
         try {

@@ -27,6 +27,18 @@ object UtilKScreen {
     private val _context = UtilKGlobal.instance.getApp()!!
 
     /**
+     * 获取屏幕密度dp
+     * @return Int
+     */
+    fun getDensityDpi(): Int = _context.resources.configuration.densityDpi
+
+    /**
+     * 获取屏幕密度
+     * @return Float
+     */
+    fun getDensity(): Float = _context.resources.displayMetrics.density
+
+    /**
      * 获取状态栏高度1
      * 优点: 不需要在Activity的回调方法onWindowFocusChanged()执行后才能得到结果
      * 缺点: 不管你是否设置全屏模式,或是不是显示状态栏,高度是固定的;因为系统资源属性是固定的,真实的,不管你是否隐藏(隐藏或显示),他都在nali

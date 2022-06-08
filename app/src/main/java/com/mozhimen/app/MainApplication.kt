@@ -24,7 +24,7 @@ class MainApplication : BaseKApplication() {
         super.onCreate()
 
         //logk
-        LogKMgr.init(_logkConfig, PrinterConsole(), PrinterFile.getInstance(retentionDay = 3))
+        LogKMgr.instance.init(_logkConfig, PrinterConsole(), PrinterFile.getInstance(retentionDay = 3))
 
         //stackk
         StackKMgr.instance.init()

@@ -8,7 +8,13 @@ import android.hardware.usb.UsbManager
 import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
+import android.text.format.Formatter
+import android.util.Log
 import com.mozhimen.basick.logk.LogK
+import java.io.BufferedReader
+import java.io.FileReader
+import java.io.IOException
+import java.io.RandomAccessFile
 import java.lang.reflect.Method
 import java.net.Inet6Address
 import java.net.InetAddress
@@ -25,11 +31,66 @@ import java.util.*
  */
 object UtilKDevice {
     private const val TAG = "UtilKDevice>>>>>"
+    private val _context = UtilKGlobal.instance.getApp()!!
     private const val DEVICE_SYSTEM_PROPERTIES = "android.os.SystemProperties"
     private const val DEVICE_ROM_VERSION = "ro.product.rom.version"
     private const val DEVICE_HW_VERSION = "ro.product.hw.version"
     private const val DEVICE_SERIAL_NUMBER = "ro.serialno"
+    private const val DEVICE_PATH_MEMINFO = "/proc/meminfo"
+    private const val DEVICE_PATH_CPU_USED = "/proc/stat"
     private const val NO_DEFINED = "unknown"
+
+    //设备内存空间
+    fun getDeviceMemory(): String {
+        val readerStr: String
+        val arrayOfString: Array<String>
+        var memorySize: Long = 0
+        try {
+            val localFileReader = FileReader(DEVICE_PATH_MEMINFO)
+            val localBufferedReader = BufferedReader(
+                localFileReader, 8192
+            )
+            readerStr = localBufferedReader.readLine() // 读取mem info第一行，系统总内存大小
+            arrayOfString = readerStr.split("\\s+".toRegex()).toTypedArray()
+            for (num in arrayOfString) {
+                Log.e(readerStr, num + "\t")
+            }
+            memorySize = (Integer.valueOf(arrayOfString[1]).toInt() * 1024).toLong() // 获得系统总内存，单位是KB，乘以1024转换为Byte
+            localBufferedReader.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return Formatter.formatFileSize(_context, memorySize) // Byte转换为KB或者MB，内存大小规格化
+    }
+
+    /**
+     * cpu使用率
+     * @return Float
+     */
+    fun getDeviceCpuUsed(): Float {
+        try {
+            val reader = RandomAccessFile(DEVICE_PATH_CPU_USED, "r")
+            var load = reader.readLine()
+            var toks = load.split(" ".toRegex()).toTypedArray()
+            val idle1 = toks[5].toLong()
+            val cpu1 = toks[2].toLong() + toks[3].toLong() + toks[4].toLong() + toks[6].toLong() + toks[7].toLong() + toks[8].toLong()
+            try {
+                Thread.sleep(360)
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
+            reader.seek(0)
+            load = reader.readLine()
+            reader.close()
+            toks = load.split(" ".toRegex()).toTypedArray()
+            val idle2 = toks[5].toLong()
+            val cpu2 = toks[2].toLong() + toks[3].toLong() + toks[4].toLong() + toks[6].toLong() + toks[7].toLong() + toks[8].toLong()
+            return (cpu2 - cpu1).toFloat() / (cpu2 + idle2 - (cpu1 + idle1))
+        } catch (ex: IOException) {
+            ex.printStackTrace()
+        }
+        return 0f
+    }
 
     //设备IP
     fun getDeviceIP(): String {

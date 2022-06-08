@@ -9,7 +9,7 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
-import com.mozhimen.abilityk.scank.ScanKContrast
+import com.mozhimen.abilityk.scank.ScanKOpenCV
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityScankContrastBinding
 import com.mozhimen.basick.basek.BaseKActivity
@@ -77,7 +77,7 @@ class ScanKContrastActivity : BaseKActivity<ActivityScankContrastBinding, BaseKV
                         vb.scankContrastImg2.setImageBitmap(cropSameBitmap.second)
                     }
                     //detect
-                    val result = ScanKContrast.similarity(cropSameBitmap.first, cropSameBitmap.second) * 100
+                    val result = ScanKOpenCV.similarity(cropSameBitmap.first, cropSameBitmap.second) * 100
                     runOnUiThread {
                         vb.scankContrastRes.text = result.toString()
                     }

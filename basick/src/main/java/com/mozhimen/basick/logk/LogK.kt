@@ -146,7 +146,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun log(@LogKType._TYPE type: Int, vararg contents: Any) {
-        log(type, LogKMgr.getInstance().getConfig().getGlobalTag(), contents)
+        log(type, LogKMgr.instance.getConfig().getGlobalTag(), contents)
     }
 
     /**
@@ -156,7 +156,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun log(@LogKType._TYPE type: Int, tag: String, vararg contents: Any) {
-        log(LogKMgr.getInstance().getConfig(), type, tag, *contents)
+        log(LogKMgr.instance.getConfig(), type, tag, *contents)
     }
 
     /**
@@ -192,7 +192,7 @@ object LogK {
         if (config.printers() != null)
             printers.addAll(config.printers()!!)
         else
-            printers.addAll(LogKMgr.getInstance().getPrinters())
+            printers.addAll(LogKMgr.instance.getPrinters())
         if (printers.isEmpty()) return
 
         //打印log

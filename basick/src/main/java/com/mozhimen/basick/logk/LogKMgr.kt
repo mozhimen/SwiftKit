@@ -2,6 +2,7 @@ package com.mozhimen.basick.logk
 
 import com.mozhimen.basick.logk.commons.IPrinter
 import com.mozhimen.basick.logk.mos.LogKConfig
+import com.mozhimen.basick.logk.printers.PrinterConsole
 
 /**
  * @ClassName LogKMgr
@@ -24,39 +25,39 @@ import com.mozhimen.basick.logk.mos.LogKConfig
  * @Date 2021/12/20 21:58
  * @Version 1.0
  */
-class LogKMgr(private val config: LogKConfig, printers: Array<out IPrinter>) {
+class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/) {
     private val _printers: MutableList<IPrinter> = ArrayList()
-
-    init {
-        this._printers.addAll(printers)
-    }
+    private var _config: LogKConfig? = null
 
     companion object {
-        private lateinit var instance: LogKMgr
+        val instance: LogKMgr = LogKMgrHolder.holder
+    }
 
-        fun init(config: LogKConfig, vararg printers: IPrinter) {
-            instance = LogKMgr(config, printers)
-        }
+    private object LogKMgrHolder {
+        val holder = LogKMgr()
+    }
 
-        fun getInstance(): LogKMgr {
-            return instance
-        }
+    fun init(config: LogKConfig, vararg printers: IPrinter) {
+        _config = config
+        _printers.addAll(printers.filterNot { _printers.contains(it) })
     }
 
     /**
      * 获取配置
      * @return LogKConfig
      */
-    fun getConfig(): LogKConfig {
-        return config
-    }
+    fun getConfig(): LogKConfig = _config ?: LogKConfig()
 
     /**
      * 获取打印机列表
      * @return MutableList<IPrinter>
      */
     fun getPrinters(): MutableList<IPrinter> {
-        return _printers
+        return if (_printers.isEmpty()) {
+            mutableListOf<IPrinter>(PrinterConsole()).also { _printers.addAll(it) }
+        } else {
+            _printers
+        }
     }
 
     /**
