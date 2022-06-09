@@ -2,32 +2,22 @@ package com.mozhimen.abilityk.cameraxk
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.ImageFormat
 import android.hardware.display.DisplayManager
-import android.os.Handler
-import android.os.HandlerThread
 import android.util.AttributeSet
-import android.util.Log
-import com.mozhimen.abilityk.R
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.camera.core.*
-import androidx.camera.extensions.ExtensionMode
-import androidx.camera.extensions.ExtensionsManager
-import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
+import com.mozhimen.abilityk.R
+import com.mozhimen.abilityk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.abilityk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.abilityk.cameraxk.commons.ICameraXKListener
-import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
+import com.mozhimen.abilityk.cameraxk.mos.CameraXKRotation
 import com.mozhimen.abilityk.cameraxk.mos.CameraXKTimer
-import com.mozhimen.abilityk.cameraxk.helpers.ThreadExecutor
-import com.mozhimen.basick.logk.LogK
 import kotlinx.coroutines.*
-import java.util.concurrent.ExecutionException
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -40,29 +30,48 @@ import kotlin.properties.Delegates
  * @Date 2022/1/3 0:22
  * @Version 1.0
  */
-@SuppressLint("LongLogTag")
 class CameraXKPreviewView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) :
-    FrameLayout(context, attrs, defStyleAttr) {
+    FrameLayout(context, attrs, defStyleAttr), ICameraXKAction {
 
-    private val TAG = "CameraXKPreviewView>>>>>"
+    companion object {
+        private const val RATIO_4_3_VALUE = 4.0 / 3.0 // aspect ratio 4x3
+        private const val RATIO_16_9_VALUE = 16.0 / 9.0 // aspect ratio 16x9
+    }
 
-    private var _displayId = -1
-    private lateinit var _analyzerThread: HandlerThread
-    private lateinit var _previewView: PreviewView
-    private lateinit var _sliderContainer: FrameLayout
-    private lateinit var _slider: Slider
+    private lateinit var _cameraXKProxy: CameraXKProxy
     private lateinit var _preview: Preview
+    private lateinit var _previewView: PreviewView
+    private lateinit var _slider: Slider
+    private lateinit var _sliderContainer: FrameLayout
+    private var _aspectRatio: Int by Delegates.observable(AspectRatio.RATIO_16_9) { _, _, new ->
+        _cameraXKProxy.aspectRatio = new
+    }
+    private var _rotation: Int by Delegates.observable(CameraXKRotation.ROTATION_90) { _, _, new ->
+        _cameraXKProxy.rotation = new
+    }
+    private var _displayId = -1
 
-
-
-    // An instance for display manager to get display change callbacks
+    /**
+     * 显示管理器获取显示更改回调的实例
+     * An instance for display manager to get display change callbacks
+     */
     private val _displayManager by lazy { context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager }
+    private val _displayListener = object : DisplayManager.DisplayListener {
+        override fun onDisplayAdded(displayId: Int) = Unit
+        override fun onDisplayRemoved(displayId: Int) = Unit
 
-    private var _hdrCameraSelector: CameraSelector? = null
+        @SuppressLint("UnsafeOptInUsageError")
+        override fun onDisplayChanged(displayId: Int) {
+            if (displayId == this@CameraXKPreviewView._displayId) {
+                _preview.targetRotation = _rotation
+                _rotation = this@CameraXKPreviewView.display.rotation
+            }
+        }
+    }
 
     private val _onAttachStateChangeListener = object : OnAttachStateChangeListener {
         override fun onViewAttachedToWindow(v: View?) {
@@ -73,137 +82,53 @@ class CameraXKPreviewView @JvmOverloads constructor(
             _displayManager.unregisterDisplayListener(_displayListener)
         }
     }
-    private val _displayListener = object : DisplayManager.DisplayListener {
-        override fun onDisplayAdded(displayId: Int) = Unit
-        override fun onDisplayRemoved(displayId: Int) = Unit
-
-        @SuppressLint("UnsafeOptInUsageError")
-        override fun onDisplayChanged(displayId: Int) {
-            if (displayId == this@CameraXKPreviewView._displayId) {
-                _preview.targetRotation = this@CameraXKPreviewView.display.rotation
-                _imageCapture.targetRotation = this@CameraXKPreviewView.display.rotation
-                _imageAnalyzer.targetRotation = this@CameraXKPreviewView.display.rotation
-            }
-        }
-    }
-    private val _onImageCaptureCallback = object : ImageCapture.OnImageCapturedCallback() {
-        @SuppressLint("UnsafeOptInUsageError")
-        override fun onCaptureSuccess(image: ImageProxy) {
-            Log.d(TAG, "onCaptureSuccess: ${image.format} ${image.width}x${image.height}")
-            if (image.format == ImageFormat.YUV_420_888) {
-                val bitmap = ImageConverter.yuv2Bitmap(image)
-                if (bitmap != null) {
-                    _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
-                }
-            } else if (image.format == ImageFormat.JPEG) {
-                val bitmap = ImageConverter.jpeg2Bitmap(image)
-                Log.d(TAG, "onCaptureSuccess: ${bitmap.width}x${bitmap.height}")
-                _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
-            }
-            image.close()
-        }
-
-        override fun onError(e: ImageCaptureException) {
-            LogK.et(TAG, "OnImageCapturedCallback onError ImageCaptureException ${e.message}")
-            _cameraXKCaptureListener?.onCaptureFail()
-            e.printStackTrace()
-        }
-    }
-
-    private var _cameraXKAnalyzer: ImageAnalysis.Analyzer? = null
-
-
-
-    private var _isOpenHdr =
-        false// Selector showing is hdr enabled or not (will work, only if device's camera supports hdr on hardware level)
-    private var _selectedTimer = CameraXKTimer.OFF
 
     init {
         initView()
+        _cameraXKProxy = CameraXKProxy(context)
     }
 
-
-
-
-
-
-
-    private fun checkForHdrExtensionAvailability() {
-        // Create a Vendor Extension for HDR
-        val extensionsManagerFuture = ExtensionsManager.getInstanceAsync(context, _cameraProvider ?: return)
-        extensionsManagerFuture.addListener(
-            {
-                val extensionsManager = extensionsManagerFuture.get() ?: return@addListener
-
-                val isAvailable = extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.HDR)
-
-                // check for any extension availability
-                println("AUTO " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.AUTO))
-                println("HDR " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.HDR))
-                println(
-                    "FACE RETOUCH " + extensionsManager.isExtensionAvailable(
-                        _lensFacing,
-                        ExtensionMode.FACE_RETOUCH
-                    )
-                )
-                println("BOKEH " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.BOKEH))
-                println("NIGHT " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NIGHT))
-                println("NONE " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NONE))
-
-                // Check if the extension is available on the device
-                if (!isAvailable) {
-                    _cameraXKListener?.onCameraHDRCheck(false)
-                } else if (_isOpenHdr) {
-                    // If yes, turn on if the HDR is turned on by the user
-                    _cameraXKListener?.onCameraHDROpen()
-                    _hdrCameraSelector =
-                        extensionsManager.getExtensionEnabledCameraSelector(_lensFacing, ExtensionMode.HDR)
-                }
-            }, ContextCompat.getMainExecutor(context)
-        )
+    //region # open fun
+    override fun setCameraXKListener(listener: ICameraXKListener) {
+        _cameraXKProxy.setCameraXKListener(listener)
     }
 
-    private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, previewView: PreviewView) {
-        try {
-            localCameraProvider.bindToLifecycle(
-                _lifecycleOwner!!, // current lifecycle owner
-                _hdrCameraSelector ?: _lensFacing, // either front or back facing
-                _preview, // camera preview use case
-                _imageCapture, // image capture use case
-                _imageAnalyzer, // image analyzer use case
-            ).apply {
-                // Init camera exposure control
-                cameraInfo.exposureState.run {
-                    val lower = exposureCompensationRange.lower
-                    val upper = exposureCompensationRange.upper
-
-                    _slider.run {
-                        valueFrom = lower.toFloat()
-                        valueTo = upper.toFloat()
-                        stepSize = 1f
-                        value = exposureCompensationIndex.toFloat()
-
-                        addOnChangeListener { _, value, _ ->
-                            cameraControl.setExposureCompensationIndex(value.toInt())
-                        }
-                    }
-                }
-            }
-
-            // Attach the viewfinder's surface provider to preview use case
-            _preview.setSurfaceProvider(previewView.surfaceProvider)
-        } catch (e: Exception) {
-            LogK.et(TAG, "bindToLifecycle Exception ${e.message}")
-        }
+    override fun setCameraXKCaptureListener(listener: ICameraXKCaptureListener) {
+        _cameraXKProxy.setCameraXKCaptureListener(listener)
     }
 
-    private fun setLuminosityAnalyzer(imageAnalysis: ImageAnalysis) {
-        // Use a worker thread for image analysis to prevent glitches
-        _analyzerThread = HandlerThread("CameraXKLuminosityAnalysis").apply { start() }
-        _cameraXKAnalyzer?.let {
-            imageAnalysis.setAnalyzer(ThreadExecutor(Handler(_analyzerThread.looper)), it)
-        }
+    fun initCamera(owner: LifecycleOwner, facing: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA) {
+        _cameraXKProxy.initCamera(owner, facing)
     }
+
+    fun startCamera() {
+        _cameraXKProxy.startCamera()
+    }
+
+    override fun setImageAnalyzer(analyzer: ImageAnalysis.Analyzer) {
+        _cameraXKProxy.setImageAnalyzer(analyzer)
+    }
+
+    override fun changeHdr(isOpen: Boolean) {
+        _cameraXKProxy.changeHdr(isOpen)
+    }
+
+    override fun changeFlash(flashMode: Int) {
+        _cameraXKProxy.changeFlash(flashMode)
+    }
+
+    override fun changeCountDownTimer(timer: CameraXKTimer) {
+        _cameraXKProxy.changeCountDownTimer(timer)
+    }
+
+    override fun changeCameraFacing(cameraSelector: CameraSelector) {
+        _cameraXKProxy.changeCameraFacing(cameraSelector)
+    }
+
+    override fun takePicture() {
+        _cameraXKProxy.takePicture()
+    }
+    //endregion
 
     private fun initView() {
         LayoutInflater.from(context).inflate(R.layout.cameraxk_preview_layout, this)
@@ -215,15 +140,47 @@ class CameraXKPreviewView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-
-        _displayId = _previewView.display.displayId
+        initPreview()
+        _cameraXKProxy.apply {
+            slider = _slider
+            previewView = _previewView
+            preview = _preview
+        }
     }
-
-
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        _analyzerThread.interrupt()
+        _cameraXKProxy.onFrameFinished()
         _displayManager.unregisterDisplayListener(_displayListener)
+    }
+
+    private fun initPreview() {
+        _displayId = _previewView.display.displayId
+
+        //输出图像和预览图像的比率 The ratio for the output image and preview
+        _aspectRatio = aspectRatio(_previewView.width, _previewView.height)
+
+        //rotation
+        _rotation = _previewView.display.rotation
+
+        //摄像头预览的配置 The Configuration of camera preview
+        _preview = Preview.Builder()
+            .setTargetAspectRatio(_aspectRatio) // set the camera aspect ratio
+            .setTargetRotation(_rotation) // set the camera rotation
+            .build()
+    }
+
+    /**
+     *  检测当前尺寸的最合适的长宽比
+     *  @param width - preview width
+     *  @param height - preview height
+     *  @return suitable aspect ratio
+     */
+    private fun aspectRatio(width: Int, height: Int): Int {
+        val previewRatio = max(width, height).toDouble() / min(width, height)
+        if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
+            return AspectRatio.RATIO_4_3
+        }
+        return AspectRatio.RATIO_16_9
     }
 }

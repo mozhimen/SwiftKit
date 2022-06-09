@@ -1,6 +1,7 @@
-package com.mozhimen.abilityk.transk
+package com.mozhimen.abilityk.opencvk
 
 import android.graphics.Bitmap
+import com.mozhimen.opencvk.OpenCVK
 import org.opencv.android.Utils
 import org.opencv.core.Mat
 
@@ -11,7 +12,7 @@ import org.opencv.core.Mat
  * @Date 2022/6/8 18:47
  * @Version 1.0
  */
-object TransKOpenCV {
+object OpenCVKTrans {
     /**
      * bitmap转mat
      * @param bitmap Bitmap

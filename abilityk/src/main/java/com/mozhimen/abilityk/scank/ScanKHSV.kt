@@ -13,15 +13,15 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 
 /**
- * @ClassName ScanKColorHSV
+ * @ClassName ScanKHSV
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/5/10 18:23
  * @Version 1.0
  */
-object ScanKColorHSV {
+object ScanKHSV {
 
-    private const val TAG = "ScanKColorHSV>>>>>"
+    private const val TAG = "ScanKHSV>>>>>"
 
     private val _colorMap = HashMap<ColorHSV, Int>()
 
@@ -181,27 +181,27 @@ object ScanKColorHSV {
      * @param h Int
      * @param s Int
      * @param v Int
-     * @return ColorHSV?
+     * @return OpenCVKColorHSV?
      */
     private fun colorMatch(h: Int, s: Int, v: Int): ColorHSV? {
         return if (h <= ColorHSV.COLOR_RED.hMax && h >= ColorHSV.COLOR_RED.hMin && s <= ColorHSV.COLOR_RED.sMax && s >= ColorHSV.COLOR_RED.sMin && v <= ColorHSV.COLOR_RED.vMax && v >= ColorHSV.COLOR_RED.vMin) {
             ColorHSV.COLOR_RED //红色
         } else if (h <= ColorHSV.COLOR_ORANGE.hMax && h >= ColorHSV.COLOR_ORANGE.hMin && s <= ColorHSV.COLOR_ORANGE.sMax && s >= ColorHSV.COLOR_ORANGE.sMin && v <= ColorHSV.COLOR_ORANGE.vMax && v >= ColorHSV.COLOR_ORANGE.vMin) {
-            ColorHSV.COLOR_ORANGE //绿色
+            ColorHSV.COLOR_ORANGE //橙色
         } else if (h <= ColorHSV.COLOR_YELLOW.hMax && h >= ColorHSV.COLOR_YELLOW.hMin && s <= ColorHSV.COLOR_YELLOW.sMax && s >= ColorHSV.COLOR_YELLOW.sMin && v <= ColorHSV.COLOR_YELLOW.vMax && v >= ColorHSV.COLOR_YELLOW.vMin) {
-            ColorHSV.COLOR_YELLOW //绿色
+            ColorHSV.COLOR_YELLOW //黄色
         } else if (h <= ColorHSV.COLOR_GREEN.hMax && h >= ColorHSV.COLOR_GREEN.hMin && s <= ColorHSV.COLOR_GREEN.sMax && s >= ColorHSV.COLOR_GREEN.sMin && v <= ColorHSV.COLOR_GREEN.vMax && v >= ColorHSV.COLOR_GREEN.vMin) {
             ColorHSV.COLOR_GREEN //绿色
-        } else if (h <= ColorHSV.COLOR_CHING.hMax && h >= ColorHSV.COLOR_CHING.hMin && s <= ColorHSV.COLOR_CHING.sMax && s >= ColorHSV.COLOR_CHING.sMin && v <= ColorHSV.COLOR_CHING.vMax && v >= ColorHSV.COLOR_CHING.vMin) {
-            ColorHSV.COLOR_CHING //绿色
+        } else if (h <= ColorHSV.COLOR_CYAN.hMax && h >= ColorHSV.COLOR_CYAN.hMin && s <= ColorHSV.COLOR_CYAN.sMax && s >= ColorHSV.COLOR_CYAN.sMin && v <= ColorHSV.COLOR_CYAN.vMax && v >= ColorHSV.COLOR_CYAN.vMin) {
+            ColorHSV.COLOR_CYAN //青色
         } else if (h <= ColorHSV.COLOR_BLUE.hMax && h >= ColorHSV.COLOR_BLUE.hMin && s <= ColorHSV.COLOR_BLUE.sMax && s >= ColorHSV.COLOR_BLUE.sMin && v <= ColorHSV.COLOR_BLUE.vMax && v >= ColorHSV.COLOR_BLUE.vMin) {
-            ColorHSV.COLOR_BLUE //绿色
+            ColorHSV.COLOR_BLUE //蓝色
         } else if (h <= ColorHSV.COLOR_PURPLE.hMax && h >= ColorHSV.COLOR_PURPLE.hMin && s <= ColorHSV.COLOR_PURPLE.sMax && s >= ColorHSV.COLOR_PURPLE.sMin && v <= ColorHSV.COLOR_PURPLE.vMax && v >= ColorHSV.COLOR_PURPLE.vMin) {
-            ColorHSV.COLOR_PURPLE //绿色
+            ColorHSV.COLOR_PURPLE //紫色
         } else if (h <= ColorHSV.COLOR_PINK.hMax && h >= ColorHSV.COLOR_PINK.hMin && s <= ColorHSV.COLOR_PINK.sMax && s >= ColorHSV.COLOR_PINK.sMin && v <= ColorHSV.COLOR_PINK.vMax && v >= ColorHSV.COLOR_PINK.vMin) {
-            ColorHSV.COLOR_PINK //绿色
+            ColorHSV.COLOR_PINK //粉色
         } else if (h <= ColorHSV.COLOR_PINKISH_RED.hMax && h >= ColorHSV.COLOR_PINKISH_RED.hMin && s <= ColorHSV.COLOR_PINKISH_RED.sMax && s >= ColorHSV.COLOR_PINKISH_RED.sMin && v <= ColorHSV.COLOR_PINKISH_RED.vMax && v >= ColorHSV.COLOR_PINKISH_RED.vMin) {
-            ColorHSV.COLOR_PINKISH_RED //黄色
+            ColorHSV.COLOR_PINKISH_RED //品红色
         } else null
     }
 }

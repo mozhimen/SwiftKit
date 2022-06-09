@@ -53,7 +53,7 @@ class LogKActivity : AppCompatActivity() {
 
     private fun printLog1() {
         val stringBuilder = StringBuilder()
-        LogKMgr.getInstance().getPrinters().forEach { printer ->
+        LogKMgr.instance.getPrinters().forEach { printer ->
             stringBuilder.append(printer.getName() + ", ")
         }
         LogK.dt(TAG, stringBuilder)
@@ -61,11 +61,11 @@ class LogKActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        LogKMgr.getInstance().addPrinter(_printerView!!)
+        LogKMgr.instance.addPrinter(_printerView!!)
     }
 
     override fun onPause() {
         super.onPause()
-        LogKMgr.getInstance().removePrinter(_printerView!!)
+        LogKMgr.instance.removePrinter(_printerView!!)
     }
 }

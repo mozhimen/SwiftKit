@@ -1,4 +1,4 @@
-package com.mozhimen.app.abilityk.scank
+package com.mozhimen.app.abilityk.opencvk
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -9,9 +9,9 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
-import com.mozhimen.abilityk.scank.ScanKOpenCV
+import com.mozhimen.abilityk.opencvk.OpenCVKContrast
 import com.mozhimen.app.R
-import com.mozhimen.app.databinding.ActivityScankContrastBinding
+import com.mozhimen.app.databinding.ActivityOpencvkContrastBinding
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.cropBitmap
@@ -21,10 +21,11 @@ import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA])
-class ScanKContrastActivity : BaseKActivity<ActivityScankContrastBinding, BaseKViewModel>(R.layout.activity_scank_contrast) {
+class OpenCVKContrastActivity : BaseKActivity<ActivityOpencvkContrastBinding, BaseKViewModel>(R.layout.activity_opencvk_contrast) {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
@@ -37,13 +38,14 @@ class ScanKContrastActivity : BaseKActivity<ActivityScankContrastBinding, BaseKV
 
     override fun initView(savedInstanceState: Bundle?) {
         _orgBitmap = UtilKRes.getDrawable(R.mipmap.scank_contrast_test)!!.drawable2Bitmap()
+        require(OpenCVK.initSDK()) { "opencv init fail" }
         initCamera()
     }
 
     private fun initCamera() {
-        vb.scankContrastPreview.initCamera(this, CameraSelector.DEFAULT_BACK_CAMERA)
-        vb.scankContrastPreview.setImageAnalyzer(_frameAnalyzer)
-        vb.scankContrastPreview.startCamera()
+        vb.opencvkContrastPreview.initCamera(this, CameraSelector.DEFAULT_BACK_CAMERA)
+        vb.opencvkContrastPreview.setImageAnalyzer(_frameAnalyzer)
+        vb.opencvkContrastPreview.startCamera()
     }
 
     private lateinit var _orgBitmap: Bitmap
@@ -63,7 +65,7 @@ class ScanKContrastActivity : BaseKActivity<ActivityScankContrastBinding, BaseKV
                     }
                     val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
                     val ratio: Double =
-                        vb.scankContrastQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
+                        vb.opencvkContrastQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),
                         (ratio * rotateBitmap.width).toInt(),
@@ -72,14 +74,14 @@ class ScanKContrastActivity : BaseKActivity<ActivityScankContrastBinding, BaseKV
                     )
                     val cropSameBitmap = UtilKBitmap.scaleSameSize(cropBitmap, _orgBitmap)
                     runOnUiThread {
-                        vb.scankContrastImg.setImageBitmap(rotateBitmap)
-                        vb.scankContrastImg1.setImageBitmap(cropSameBitmap.first)
-                        vb.scankContrastImg2.setImageBitmap(cropSameBitmap.second)
+                        vb.opencvkContrastImg.setImageBitmap(rotateBitmap)
+                        vb.opencvkContrastImg1.setImageBitmap(cropSameBitmap.first)
+                        vb.opencvkContrastImg2.setImageBitmap(cropSameBitmap.second)
                     }
                     //detect
-                    val result = ScanKOpenCV.similarity(cropSameBitmap.first, cropSameBitmap.second) * 100
+                    val result = OpenCVKContrast.similarity(cropSameBitmap.first, cropSameBitmap.second) * 100
                     runOnUiThread {
-                        vb.scankContrastRes.text = result.toString()
+                        vb.opencvkContrastRes.text = result.toString()
                     }
                 } finally {
                     _reentrantLock.unlock()

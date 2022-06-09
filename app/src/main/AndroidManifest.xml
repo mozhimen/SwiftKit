@@ -13,8 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftK"
         android:usesCleartextTraffic="true">
-
-        <!-- provider -->
+         <!-- provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -131,10 +130,16 @@
             android:name=".uicorek.dialogk.DialogKActivity"
             android:exported="false" /> <!-- abilityk -->
         <activity
-            android:name=".abilityk.transk.TransKActivity"
+            android:name=".abilityk.opencvk.OpenCVKContrastActivity"
             android:exported="false" />
         <activity
-            android:name=".abilityk.scank.ScanKContrastActivity"
+            android:name=".abilityk.opencvk.OpenCVKShapeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilityk.opencvk.OpenCVKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".abilityk.transk.TransKActivity"
             android:exported="false" />
         <activity
             android:name=".abilityk.AbilityKActivity"

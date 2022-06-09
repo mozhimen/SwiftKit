@@ -63,7 +63,7 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
                             null
                         }
                     scanKQR2Result?.let {
-                        val colors = ScanKColorHSV.colorAnalyze(it.bitmap)
+                        val colors = ScanKHSV.colorAnalyze(it.bitmap)
                         var maxColor = ""
                         colors?.let {
                             maxColor = colors.find { color -> color.second == colors.maxOf { p -> p.second } }?.first?.colorName ?: ""
@@ -81,9 +81,5 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
         vb.scankDemoBtnScan2.setOnClickListener {
             activityResultLauncher2.launch(Intent(this, ScanKQRActivity2::class.java))
         }
-    }
-
-    fun goScanKContrast(view: View) {
-        start<ScanKContrastActivity>()
     }
 }

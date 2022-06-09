@@ -7,6 +7,7 @@ import android.view.View
 import com.mozhimen.app.abilityk.cameraxk.CameraXKActivity
 import com.mozhimen.app.abilityk.hotfixk.HotFixKActivity
 import com.mozhimen.app.abilityk.netk.NetKActivity
+import com.mozhimen.app.abilityk.opencvk.OpenCVKActivity
 import com.mozhimen.app.abilityk.scank.ScanKActivity
 import com.mozhimen.app.abilityk.transk.TransKActivity
 import com.mozhimen.app.databinding.ActivityAbilitykBinding
@@ -37,5 +38,9 @@ class AbilityKActivity : AppCompatActivity() {
 
     fun goTransK(view: View) {
         start<TransKActivity>()
+    }
+
+    fun goOpenCVK(view: View) {
+        start<OpenCVKActivity>()
     }
 }
