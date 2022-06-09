@@ -72,11 +72,12 @@ class OpenCVKShapeActivity : BaseKActivity<ActivityOpencvkShapeBinding, BaseKVie
                         ((1 - ratio) * rotateBitmap.width / 2).toInt(),
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
+                    val hsvBitmap = OpenCVKHSV.colorFilter(cropBitmap, OpenCVKColorHSV.COLOR_GREEN)
                     runOnUiThread {
-                        vb.opencvkShapeImg.setImageBitmap(cropBitmap)
+                        vb.opencvkShapeImg.setImageBitmap(hsvBitmap)
                     }
                     //detect
-                    val result = OpenCVKShape.getCircleNum(cropBitmap, OpenCVKColorHSV.COLOR_GREEN)
+                    val result = OpenCVKShape.getCircleNum(OpenCVKHSV.colorFilter(OpenCVKTrans.bitmap2Mat(cropBitmap),OpenCVKColorHSV.COLOR_GREEN))
                     runOnUiThread {
                         vb.opencvkShapeRes.text = result.toString()
                     }

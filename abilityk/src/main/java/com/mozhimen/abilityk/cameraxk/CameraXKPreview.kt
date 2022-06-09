@@ -17,7 +17,6 @@ import com.mozhimen.abilityk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.abilityk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.abilityk.cameraxk.mos.CameraXKRotation
 import com.mozhimen.abilityk.cameraxk.mos.CameraXKTimer
-import kotlinx.coroutines.*
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
