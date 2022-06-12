@@ -17,7 +17,7 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.j2objc/j2objc-annotations/1.1/976d8d30bebc251db406f2bdb3eb01962b5685b3/j2objc-annotations-1.1.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.17/f97ce6decaea32b36101e37979f8b647f00681fb/animal-sniffer-annotations-1.17.jar" />
         </processorPath>
-        <module name="SwiftKit.guidek_compiler" />
+        <module name="SwiftKit.guidek_compiler.main" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">

@@ -1,6 +1,5 @@
 package com.mozhimen.abilityk.netk.customs
 
-import android.util.Log
 import com.mozhimen.abilityk.netk.commons.INetKConverter
 import com.mozhimen.abilityk.netk.helpers.NetKThrowable
 import com.mozhimen.abilityk.netk.helpers.StatusParser
@@ -34,7 +33,7 @@ class CoroutineClosure(val converter: INetKConverter = AsyncConverter()) {
     }
 
     inline fun <reified T> parseResponse(response: T): NetKResponse<T> {
-        val rawData: String = UtilKJson.toJson(response)
+        val rawData: String = UtilKJson.t2Json(response)
         return converter.convert(rawData, T::class.java)
     }
 

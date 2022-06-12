@@ -3,9 +3,9 @@ package com.mozhimen.app.uicorek.refreshk
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityRefreshkBinding
+import com.mozhimen.basick.eventk.EventKHandler
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.postDelayed
-import com.mozhimen.basick.utilk.UtilKHandler
 import com.mozhimen.uicorek.refreshk.commons.IRefreshK
 import com.mozhimen.uicorek.refreshk.customs.TextOverView
 
@@ -21,7 +21,7 @@ class RefreshKLayoutActivity : AppCompatActivity() {
         vb.refreshkContainer.setRefreshParams(90f.dp2px(), 1.6f, null)
         vb.refreshkContainer.setRefreshListener(object : IRefreshK.IRefreshKListener {
             override fun onRefresh() {
-                UtilKHandler(this@RefreshKLayoutActivity).postDelayed(1000) { vb.refreshkContainer.refreshFinished() }
+                EventKHandler(this@RefreshKLayoutActivity).postDelayed(1000) { vb.refreshkContainer.refreshFinished() }
             }
 
             override fun enableRefresh(): Boolean {

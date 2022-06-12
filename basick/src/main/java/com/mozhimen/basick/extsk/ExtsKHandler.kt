@@ -1,7 +1,7 @@
 package com.mozhimen.basick.extsk
 
 import android.os.Handler
-import android.os.Message
+import com.mozhimen.basick.utilk.UtilKHandler
 
 /**
  * @ClassName ExtsKHandler
@@ -17,7 +17,7 @@ import android.os.Message
  * @param runnable Runnable
  */
 fun Handler.postDelayed(delayMills: Long, runnable: Runnable) {
-    this.postDelayed(runnable, delayMills)
+    UtilKHandler.postDelayed(this, delayMills, runnable)
 }
 
 /**
@@ -25,9 +25,8 @@ fun Handler.postDelayed(delayMills: Long, runnable: Runnable) {
  * @receiver Handler
  * @param runnable Runnable
  */
-fun Handler.sendAtFrontOfQueue(runnable: Runnable) {
-    val msg = Message.obtain(this, runnable)
-    this.sendMessageAtFrontOfQueue(msg)
+fun Handler.sendMsgAtFrontOfQueue(runnable: Runnable) {
+    UtilKHandler.sendMsgAtFrontOfQueue(this, runnable)
 }
 
 /**
@@ -35,6 +34,14 @@ fun Handler.sendAtFrontOfQueue(runnable: Runnable) {
  * @receiver Handler
  * @param runnable Runnable
  */
-fun Handler.remove(runnable: Runnable) {
-    this.removeCallbacks(runnable)
+fun Handler.removeCbs(runnable: Runnable) {
+    UtilKHandler.removeCbs(this, runnable)
+}
+
+/**
+ * 移除
+ * @receiver Handler
+ */
+fun Handler.removeAll() {
+    UtilKHandler.removeAll(this)
 }

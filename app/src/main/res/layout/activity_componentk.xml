@@ -13,8 +13,14 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goGuideKActivity"
+            android:onClick="goGuideK"
             android:text="GuideK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goPermissionK"
+            android:text="PermissionK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>

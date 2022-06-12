@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.room.util.UUIDUtil
 import java.text.DecimalFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -118,4 +119,11 @@ object UtilKString {
         }
         return str.first() + stringBuilder.toString() + str.last()
     }
+
+    /**
+     * 生成随机字符串
+     * @return String
+     */
+    fun getRandomUuid(): String =
+        UUID.randomUUID().toString().replace("-", "")
 }

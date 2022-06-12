@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityStackkBinding
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.utilk.showToast
+import com.mozhimen.basick.extsk.showToast
 
 class StackKActivity : AppCompatActivity() {
 

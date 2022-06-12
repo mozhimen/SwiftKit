@@ -16,14 +16,16 @@ import com.mozhimen.basick.utilk.UtilKBitmap
  * @receiver ByteArray
  * @return Bitmap
  */
-fun ByteArray.bytes2Bitmap(): Bitmap = UtilKBitmap.bytes2Bitmap(this)
+fun ByteArray.bytes2Bitmap(): Bitmap =
+    UtilKBitmap.bytes2Bitmap(this)
 
 /**
  * 位图转bytes
  * @receiver Bitmap
  * @return ByteArray?
  */
-fun Bitmap.bitmap2bytes(): ByteArray? = UtilKBitmap.bitmap2Bytes(this)
+fun Bitmap.bitmap2bytes(): ByteArray? =
+    UtilKBitmap.bitmap2Bytes(this)
 
 /**
  * url转Bitmap

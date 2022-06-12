@@ -12,43 +12,37 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goUtilKActivity"
+            android:onClick="goUtilK"
             android:text="UtilK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goLogKActivity"
+            android:onClick="goLogK"
             android:text="LogK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goStackKActivity"
+            android:onClick="goStackK"
             android:text="StackK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goBaseKDemoActivity"
+            android:onClick="goBaseKDemo"
             android:text="BaseKDemo"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goDataBusKActivity"
+            android:onClick="goEventK"
             android:text="DataBusK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goPermissionKActivity"
-            android:text="PermissionK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
-            android:onClick="goExecutorKActivity"
+            android:onClick="goExecutorK"
             android:text="ExecutorK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 

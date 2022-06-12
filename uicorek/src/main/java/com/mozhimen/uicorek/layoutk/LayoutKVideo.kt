@@ -10,207 +10,160 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Surface
 import android.view.TextureView
-import android.widget.FrameLayout
+import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.basick.logk.LogK
+import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.uicorek.R
 import java.io.IOException
 
 /**
  * @ClassName VideoLayout
- * @Description TODO
+ * @Description
+ * 作用: 播放视频
+ * 用法1: videoLayout?.apply {
+ *  onDestroyVideoLayout()
+ *  setGravity(VideoLayout.VGravity.none)
+ *  setIsLoop(true)
+ *  setPathOrUrl("login_bg.mp4", null)}
+ *  ?: run{ videoLayout = VideoLayout(this)}
+ *  vb.loginBg.addView(videoLayout)
+ *
+ * 用法2: val videoLayout=VideoLayout(this)
+ * videoLayout?.apply {
+ *  onDestroyVideoLayout()
+ *  setGravity(VideoLayout.VGravity.none)
+ *  setIsLoop(false)
+ *  setPathOrUrl("login_bg.mp4", null)}
+ *  ?: run{ videoLayout = VideoLayout(this, {
+ *      //视频播放完成执行完成逻辑})}
+ *  vb.loginBg.addView(videoLayout)
  * @Author mozhimen
  * @Date 2021/7/2 22:31
  * @Version 1.0
  */
-class LayoutKVideo : FrameLayout, TextureView.SurfaceTextureListener {
+class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    BaseKLayoutFrame(context, attrs, defStyleAttr), TextureView.SurfaceTextureListener {
 
-    private val TAG = "LayoutKVideo>>>>>"
-    var videoFileName = ""
-
-    /**
-     * 位置权重
-     * <enum name="start" value="0"/>
-     * <enum name="end" value="1"/>
-     * <enum name="centerCrop" value="2"/>
-     * <enum name="none" value="3"/>
-     */
-    private var videoGravity = 2
-    private var videoIsLoop = false
-
-    private var isVideoUrl = false
-
-    private var videoSurface: TextureView? = null
-    private var mVideoWidth = 0f
-    private var mVideoHeight = 0f
-
-    /**
-     * 作用: 播放视频
-     * 用法1: videoLayout?.apply {
-     *  onDestroyVideoLayout()
-     *  setGravity(VideoLayout.VGravity.none)
-     *  setIsLoop(true)
-     *  setPathOrUrl("login_bg.mp4", null)}
-     *  ?: run{ videoLayout = VideoLayout(this)}
-     *  vb.loginBg.addView(videoLayout)
-     *
-     * 用法2: val videoLayout=VideoLayout(this)
-     * videoLayout?.apply {
-     *  onDestroyVideoLayout()
-     *  setGravity(VideoLayout.VGravity.none)
-     *  setIsLoop(false)
-     *  setPathOrUrl("login_bg.mp4", null)}
-     *  ?: run{ videoLayout = VideoLayout(this, {
-     *      //视频播放完成执行完成逻辑})}
-     *  vb.loginBg.addView(videoLayout)
-     */
-    constructor(context: Context?) : super(context!!)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context!!, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(
-        context!!,
-        attrs,
-        defStyle
-    ) {
-        init(attrs)
+    companion object {
+        const val GRAVITY_START = 0//位置权重
+        const val GRAVITY_END = 1
+        const val GRAVITY_CENTER_CROP = 2
+        const val GRAVITY_NONE = 3
     }
 
-    private fun init(attrs: AttributeSet?) {
-        val typeArray = context.theme.obtainStyledAttributes(attrs, R.styleable.LayoutKVideo, 0, 0)
-
-        try {
-            videoFileName = typeArray.getString(R.styleable.LayoutKVideo_layoutKVideo_pathOrUrl).toString()
-            videoGravity = typeArray.getInt(R.styleable.LayoutKVideo_layoutKVideo_videoGravity, 2)
-            videoIsLoop = typeArray.getBoolean(R.styleable.LayoutKVideo_layoutKVideo_isLoop, false)
-        } finally {
-            typeArray.recycle()
-        }
-
-        //判断是否是url
-        isVideoUrl = videoFileName.contains("http://") or videoFileName.contains("https://")
-
+    init {
+        initAttrs(attrs, defStyleAttr)
         initView()
-        addView(videoSurface)
-        setListeners()
+    }
 
-        if (videoGravity != 3) {
-            calculateVideoSize()
-            surfaceSetup()
+    private var _videoSource: String? = null
+    private var _videoGravity = GRAVITY_NONE
+    private var _videoIsLoop = false
+    private var _videoVolume = 0f
+
+    private var _videoIsUrl = false
+    private var _videoWidth = 0f
+    private var _videoHeight = 0f
+
+    private var _videoSurface: TextureView? = null
+    private var _videoPlayer: MediaPlayer? = null
+    private var _videoCompletionListener: MediaPlayer.OnCompletionListener? = null
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        val typeArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKVideo)
+        _videoSource = typeArray.getString(R.styleable.LayoutKVideo_layoutKVideo_pathOrUrl)
+        _videoGravity = typeArray.getInt(R.styleable.LayoutKVideo_layoutKVideo_videoGravity, GRAVITY_CENTER_CROP)
+        _videoIsLoop = typeArray.getBoolean(R.styleable.LayoutKVideo_layoutKVideo_isLoop, false)
+        _videoVolume = typeArray.getInteger(R.styleable.LayoutKVideo_layoutKVideo_volume, 0).toFloat()
+        typeArray.recycle()
+    }
+
+    override fun initView() {
+        if (_videoSurface == null && _videoSource != null) {
+            _videoSurface = TextureView(context)
+            addView(_videoSurface)
+            _videoSurface?.surfaceTextureListener = this
+        }
+
+        _videoIsUrl = _videoSource?.let { it.contains("http://") or it.contains("https://") } ?: false
+        if (_videoGravity != GRAVITY_NONE) {
+            zoomVideoSize()
+            zoomTextureSize()
         }
     }
 
-    private fun initView() {
-        videoSurface = TextureView(context)
+    fun startVideo(
+        pathOrUrl: String,
+        videoGravity: Int = _videoGravity,
+        videoIsLoop: Boolean = _videoIsLoop,
+        videoVolume: Float = _videoVolume,
+        listener: MediaPlayer.OnCompletionListener? = null
+    ) {
+        _videoSource = pathOrUrl
+        _videoGravity = videoGravity
+        _videoIsLoop = videoIsLoop
+        _videoVolume = videoVolume
+        _videoCompletionListener = listener
+        initView()
     }
 
-    private fun setListeners() {
-        videoSurface?.surfaceTextureListener = this
-    }
+    fun getVideoPlayer() = _videoPlayer
 
-    private fun calculateVideoSize() {
+    fun getVideoSurface() = _videoSurface
+
+    fun resetVideo() {
         try {
-            val mediaMetadataRetriever = MediaMetadataRetriever()
-            if (isVideoUrl) {
-                mediaMetadataRetriever.setDataSource(videoFileName, HashMap())
-            } else {
-                val assetFileDescriptor = context.assets.openFd(videoFileName)
-                mediaMetadataRetriever.setDataSource(
-                    assetFileDescriptor.fileDescriptor,
-                    assetFileDescriptor.startOffset,
-                    assetFileDescriptor.length
-                )
-                val height =
-                    mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)
-                val width =
-                    mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
-                mVideoWidth = width!!.toFloat()
-                mVideoHeight = height!!.toFloat()
-                mediaMetadataRetriever.release()
-            }
-        } catch (e: IOException) {
+            if (_videoPlayer?.isPlaying == true) _videoPlayer?.stop()
+            _videoPlayer?.reset()
+        } catch (e: IllegalStateException) {
+            LogK.et(TAG, "onVideoDestroy IllegalStateException ${e.message}")
             e.printStackTrace()
-        } catch (e: NumberFormatException) {
+        } catch (e: Exception) {
+            LogK.et(TAG, "onVideoDestroy Exception ${e.message}")
             e.printStackTrace()
         }
     }
 
-    private fun surfaceSetup() {
-        val screenWidth = resources.displayMetrics.widthPixels
-        val screenHeight = resources.displayMetrics.heightPixels
-        updateTextureViewSize(screenWidth, screenHeight)
-    }
-
-    private fun updateTextureViewSize(screenWidth: Int, screenHeight: Int) {
-        var scaleX = 1.0f
-        var scaleY = 1.0f
-        if (mVideoWidth > screenWidth && mVideoHeight > screenHeight) {
-            scaleX = mVideoWidth / screenWidth
-            scaleY = mVideoHeight / screenHeight
-        } else if (mVideoWidth < screenWidth && mVideoHeight < screenHeight) {
-            scaleX = screenWidth / mVideoWidth
-            scaleY = screenHeight / mVideoHeight
-        } else if (screenWidth > mVideoWidth) {
-            scaleY = (screenWidth / mVideoWidth) / (screenHeight / mVideoHeight)
-        } else if (screenHeight > mVideoHeight) {
-            scaleX = (screenHeight / mVideoHeight) / (screenWidth / mVideoWidth)
+    fun destroyVideo() {
+        try {
+            if (_videoPlayer?.isPlaying == true) _videoPlayer?.stop()
+            _videoPlayer?.release()
+            _videoPlayer = null
+        } catch (e: IllegalStateException) {
+            LogK.et(TAG, "onVideoDestroy IllegalStateException ${e.message}")
+            e.printStackTrace()
+        } catch (e: Exception) {
+            LogK.et(TAG, "onVideoDestroy Exception ${e.message}")
+            e.printStackTrace()
         }
-
-        val pivotPointX = if (videoGravity == 0) {
-            0
-        } else {
-            if (videoGravity == 1) {
-                screenWidth
-            } else {
-                screenWidth / 2
-            }
-        }.toFloat()
-        val pivotPointY = (screenHeight / 2).toFloat()
-
-        val matrix = Matrix()
-        matrix.setScale(scaleX, scaleY, pivotPointX, pivotPointY)
-
-        videoSurface?.setTransform(matrix)
-        videoSurface?.layoutParams = LayoutParams(screenWidth, screenHeight)
     }
 
-    private var mMediaPlayer: MediaPlayer? = null
+    fun resumeVideo() {
+        if (_videoPlayer?.isPlaying == false) {
+            try {
+                _videoPlayer?.start()
+            } catch (e: IllegalStateException) {
+                Log.e(TAG, "onVideoLayoutResume: IllegalStateException ${e.message ?: ""}")
+                e.printStackTrace()
+            }
+        }
+    }
 
-    private var onCompletionListener: MediaPlayer.OnCompletionListener? = null
+    fun pauseVideo() {
+        if (_videoPlayer?.isPlaying == true) {
+            try {
+                _videoPlayer?.pause()
+            } catch (e: IllegalStateException) {
+                Log.e(TAG, "onVideoLayoutPause: IllegalStateException ${e.message ?: ""}")
+                e.printStackTrace()
+            }
+        }
+    }
 
     override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
         try {
-            mMediaPlayer = MediaPlayer()
-            mMediaPlayer!!.apply {
-                if (isVideoUrl) {
-                    setDataSource(videoFileName)
-                } else {
-                    val assetFileDescriptor = context.assets.openFd(videoFileName)
-                    setDataSource(
-                        assetFileDescriptor.fileDescriptor,
-                        assetFileDescriptor.startOffset,
-                        assetFileDescriptor.length
-                    )
-                }
-                setVolume(0f, 0f)
-                setSurface(Surface(surface))
-                isLooping = videoIsLoop
-                prepareAsync()
-                setOnPreparedListener {
-                    it.apply {
-                        setOnErrorListener { _, _, _ ->
-                            false
-                        }
-                        setOnCompletionListener {
-                            onCompletionListener?.onCompletion(this)
-                        }
-                        setOnInfoListener { _, what, _ ->
-                            if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
-                                setBackgroundColor(Color.TRANSPARENT)
-                            }
-                            true
-                        }
-                        start()
-                    }
-                }
-            }
+            if (_videoSource == null) return
+            _videoSurface?.surfaceTexture?.let { initVideo() }
         } catch (e: IllegalArgumentException) {
             LogK.et(TAG, "onSurfaceTextureAvailable IllegalArgumentException ${e.message}")
         } catch (e: SecurityException) {
@@ -228,115 +181,120 @@ class LayoutKVideo : FrameLayout, TextureView.SurfaceTextureListener {
 
     override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
 
-    //region #调用方法
-    fun onVideoLayoutDestroy() {
-        mMediaPlayer?.let {
-            try {
-                it.stop()
-                it.release()
-                mMediaPlayer = null
-            } catch (e: IllegalStateException) {
-                LogK.et(TAG, "onVideoDestroy IllegalStateException ${e.message}")
-            } catch (e: Exception) {
-                LogK.et(TAG, "onVideoDestroy Exception ${e.message}")
-            }
-        }
+    override fun onDetachedFromWindow() {
+        destroyVideo()
+        super.onDetachedFromWindow()
     }
 
-    fun onVideoLayoutResume() {
-        mMediaPlayer?.let {
-            if (it.isPlaying) {
-                try {
-                    it.start()
-                } catch (e: IllegalStateException) {
-                }
-            }
-        }
-    }
-
-    fun onVideoLayoutPause() {
-        mMediaPlayer?.let {
-            if (it.isPlaying) {
-                try {
-                    it.pause()
-                } catch (e: IllegalStateException) {
-                }
-            }
-        }
-    }
-
-    fun getMediaPlayer() = mMediaPlayer
-
-    fun getVideoSurface() = videoSurface
-
-    fun setPathOrUrl(fileName: String, onCompletionListener: MediaPlayer.OnCompletionListener) {
-        this.videoFileName = fileName
-
-        isVideoUrl = fileName.contains("http://") or fileName.contains("https://")
-
-        if (videoSurface == null) {
-            initView()
-            addView(videoSurface)
-            setListeners()
-        }
-
-        if (videoGravity != 3) {
-            calculateVideoSize()
-            surfaceSetup()
-        }
-
-        videoSurface?.let {
-            this.onCompletionListener = onCompletionListener
-            changeVideo(onCompletionListener)
-        }
-    }
-
-    private fun changeVideo(onCompletionListener: MediaPlayer.OnCompletionListener) {
+    //region private fun
+    private fun zoomVideoSize() {
         try {
-            onVideoLayoutDestroy()
-            mMediaPlayer = MediaPlayer()
-            mMediaPlayer!!.apply {
-                if (isVideoUrl) {
-                    setDataSource(videoFileName)
-                } else {
-                    val assetFileDescriptor = context.assets.openFd(videoFileName)
-                    setDataSource(
-                        assetFileDescriptor.fileDescriptor,
-                        assetFileDescriptor.startOffset,
-                        assetFileDescriptor.length
-                    )
-                }
-                setVolume(0f, 0f)
-                isLooping = videoIsLoop
-                setSurface(Surface(videoSurface!!.surfaceTexture))
-                prepareAsync()
-                setOnPreparedListener {
-                    setOnErrorListener { _, _, _ ->
-                        false
-                    }
-                    setOnInfoListener { _, what, _ ->
-                        if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START)
-                            setBackgroundColor(Color.TRANSPARENT)
-                        true
-                    }
-                    setOnCompletionListener {
-                        onCompletionListener.onCompletion(it)
-                    }
-                    start()
-                }
+            if (_videoSource == null) return
+            val mediaMetadataRetriever = MediaMetadataRetriever()
+            if (_videoIsUrl) {
+                mediaMetadataRetriever.setDataSource(_videoSource, HashMap())
+            } else {
+                val assetFileDescriptor = context.assets.openFd(_videoSource!!)
+                mediaMetadataRetriever.setDataSource(
+                    assetFileDescriptor.fileDescriptor,
+                    assetFileDescriptor.startOffset,
+                    assetFileDescriptor.length
+                )
+                val height =
+                    mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT)
+                val width =
+                    mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH)
+                _videoWidth = width!!.toFloat()
+                _videoHeight = height!!.toFloat()
+                mediaMetadataRetriever.release()
             }
+        } catch (e: IOException) {
+            LogK.et(TAG, "calculateVideoSize: IOException $${e.message ?: ""}")
+            e.printStackTrace()
+        } catch (e: NumberFormatException) {
+            LogK.et(TAG, "calculateVideoSize: NumberFormatException $${e.message ?: ""}")
+            e.printStackTrace()
+        }
+    }
+
+    private fun zoomTextureSize() {
+        val screenWidth: Int = UtilKScreen.getScreenWidth()
+        val screenHeight: Int = UtilKScreen.getScreenHeight()
+        var scaleX = 1.0f
+        var scaleY = 1.0f
+        if (_videoWidth > screenWidth && _videoHeight > screenHeight) {
+            scaleX = _videoWidth / screenWidth
+            scaleY = _videoHeight / screenHeight
+        } else if (_videoWidth < screenWidth && _videoHeight < screenHeight) {
+            scaleX = screenWidth / _videoWidth
+            scaleY = screenHeight / _videoHeight
+        } else if (screenWidth > _videoWidth) {
+            scaleY = (screenWidth / _videoWidth) / (screenHeight / _videoHeight)
+        } else if (screenHeight > _videoHeight) {
+            scaleX = (screenHeight / _videoHeight) / (screenWidth / _videoWidth)
+        }
+
+        val pivotPointX: Float = if (_videoGravity == 0) 0f else {
+            if (_videoGravity == 1) screenWidth else screenWidth / 2f
+        }.toFloat()
+        val pivotPointY = (screenHeight / 2).toFloat()
+        val matrix = Matrix()
+        matrix.setScale(scaleX, scaleY, pivotPointX, pivotPointY)
+        _videoSurface?.setTransform(matrix)
+        _videoSurface?.layoutParams = LayoutParams(screenWidth, screenHeight)
+    }
+
+    private fun changeVideo() {
+        try {
+            if (_videoSurface == null) return
+            resetVideo()
+            initVideo()
         } catch (e: IllegalArgumentException) {
             LogK.et(TAG, "changeVideo IllegalArgumentException ${e.message}")
+            e.printStackTrace()
         } catch (e: SecurityException) {
             LogK.et(TAG, "changeVideo SecurityException ${e.message}")
+            e.printStackTrace()
         } catch (e: IllegalStateException) {
             LogK.et(TAG, "changeVideo IllegalStateException ${e.message}")
+            e.printStackTrace()
         } catch (e: IOException) {
             LogK.et(TAG, "changeVideo IOException ${e.message}")
+            e.printStackTrace()
         } catch (e: Exception) {
             LogK.et(TAG, "changeVideo Exception ${e.message}")
+            e.printStackTrace()
         }
     }
 
+    private fun initVideo() {
+        _videoPlayer = MediaPlayer()
+        _videoPlayer!!.apply {
+            if (_videoIsUrl) {
+                setDataSource(_videoSource)
+            } else {
+                val assetFileDescriptor = context.assets.openFd(_videoSource!!)
+                setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
+            }
+            setVolume(_videoVolume / 10f, _videoVolume / 10f)
+            isLooping = _videoIsLoop
+            setSurface(Surface(_videoSurface!!.surfaceTexture!!))
+            prepareAsync()
+            setOnPreparedListener {
+                setOnErrorListener { _, _, _ ->
+                    false
+                }
+                setOnInfoListener { _, what, _ ->
+                    if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START)
+                        setBackgroundColor(Color.TRANSPARENT)
+                    true
+                }
+                setOnCompletionListener {
+                    _videoCompletionListener?.onCompletion(it)
+                }
+                start()
+            }
+        }
+    }
     //endregion
 }

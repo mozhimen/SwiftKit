@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftK"
         android:usesCleartextTraffic="true">
-         <!-- provider -->
+        <activity
+            android:name=".LayoutKVideoActivity"
+            android:exported="false" />
+        <!-- provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
@@ -37,9 +40,6 @@
             android:name=".demo.DemoActivity"
             android:exported="false" /> <!-- componentk -->
         <activity
-            android:name=".componentk.eventk.EventKActivity"
-            android:exported="true" />
-        <activity
             android:name=".componentk.ComponentKActivity"
             android:exported="false" />
         <activity
@@ -48,6 +48,9 @@
         <activity
             android:name=".componentk.permissionk.PermissionKActivity"
             android:exported="true" /> <!-- basicsk -->
+        <activity
+            android:name=".basick.eventk.EventKActivity"
+            android:exported="true" />
         <activity
             android:name=".basick.BasicKActivity"
             android:exported="true" />
@@ -66,6 +69,9 @@
         <activity
             android:name=".basick.stackk.StackKActivity"
             android:exported="false" /> <!-- uicorek -->
+        <activity
+            android:name=".uicorek.layoutk.LayoutKVideoActivity"
+            android:exported="false" />
         <activity
             android:name=".uicorek.navk.NavKActivity"
             android:exported="false" />

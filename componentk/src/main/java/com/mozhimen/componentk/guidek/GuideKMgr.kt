@@ -52,7 +52,7 @@ class GuideKMgr {
         } else {
             val content = UtilKAssets.json2String(GuideKConstants.FILE_NAME_TAB_CONFIG)
             requireNotNull(content) { "parseFile guideKTabConfig.json fail!" }
-            val destination = UtilKJson.fromJson(content, GuideKDestination::class.java)
+            val destination = UtilKJson.json2T(content, GuideKDestination::class.java)
 
             val jsonConfig = packageConfig(destination)
             getPkgConfigFromCacheK()?.let { cacheConfig ->

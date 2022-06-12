@@ -45,7 +45,7 @@ abstract class RxJavaResponse<T>(private val _converter: INetKConverter = AsyncC
     }
 
     private fun <T> parseResponse(value: T): NetKResponse<T> {
-        val rawData: String = UtilKJson.toJson(value)
+        val rawData: String = UtilKJson.t2Json(value)
         return _converter.convert(rawData, UtilKT.getT<T>(this@RxJavaResponse, 0)!!)
     }
 }

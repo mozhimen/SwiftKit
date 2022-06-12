@@ -17,7 +17,8 @@ import java.util.*
  * @param locale Locale?
  * @return String
  */
-fun Date.date2String(formatDate: String, locale: Locale = Locale.CHINA): String = UtilKDate.date2String(this, formatDate, locale)
+fun Date.date2String(formatDate: String, locale: Locale = Locale.CHINA): String =
+    UtilKDate.date2String(this, formatDate, locale)
 
 /**
  * long转String
@@ -26,7 +27,8 @@ fun Date.date2String(formatDate: String, locale: Locale = Locale.CHINA): String 
  * @param locale Locale?
  * @return String
  */
-fun Long.long2String(formatDate: String, locale: Locale = Locale.CHINA): String = UtilKDate.long2String(this, formatDate, locale)
+fun Long.long2String(formatDate: String, locale: Locale = Locale.CHINA): String =
+    UtilKDate.long2String(this, formatDate, locale)
 
 /**
  * string转date
@@ -35,4 +37,5 @@ fun Long.long2String(formatDate: String, locale: Locale = Locale.CHINA): String 
  * @param locale Locale?
  * @return Date
  */
-fun String.string2Date(formatDate: String, locale: Locale = Locale.CHINA): Date = UtilKDate.string2Date(this, formatDate, locale)
+fun String.string2Date(formatDate: String, locale: Locale = Locale.CHINA): Date =
+    UtilKDate.string2Date(this, formatDate, locale)

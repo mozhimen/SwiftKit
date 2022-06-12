@@ -16,4 +16,8 @@ class LayoutKActivity : AppCompatActivity() {
     fun goLayoutKEmpty(view: View) {
         start<LayoutKEmptyActivity>()
     }
+
+    fun goLayoutKVideo(view: View) {
+        start<LayoutKVideoActivity>()
+    }
 }

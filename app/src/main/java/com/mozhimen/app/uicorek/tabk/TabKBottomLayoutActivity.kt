@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityTabkBottomLayoutBinding
 import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.utilk.showToast
+import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
 import com.mozhimen.uicorek.tabk.commons.ITabKLayout
 import java.util.*

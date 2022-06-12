@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.R
 import com.mozhimen.app.basick.basek.BaseKDemoActivity
+import com.mozhimen.app.basick.eventk.EventKActivity
 import com.mozhimen.app.basick.executork.ExecutorKActivity
 import com.mozhimen.app.basick.logk.LogKActivity
 import com.mozhimen.app.basick.stackk.StackKActivity
@@ -16,25 +17,32 @@ class BasicKActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_basick)
+
+        //黏性事件测试
+        //DataBusK.with<String>("stickyData").setStickyData("stickyData from ComponentKActivity")
     }
 
-    fun goLogKActivity(view: View) {
+    fun goLogK(view: View) {
         start<LogKActivity>()
     }
 
-    fun goStackKActivity(view: View) {
+    fun goStackK(view: View) {
         start<StackKActivity>()
     }
 
-    fun goBaseKDemoActivity(view: View) {
+    fun goBaseKDemo(view: View) {
         start<BaseKDemoActivity>()
     }
 
-    fun goExecutorKActivity(view: View) {
+    fun goExecutorK(view: View) {
         start<ExecutorKActivity>()
     }
 
-    fun goUtilKActivity(view: View) {
+    fun goUtilK(view: View) {
         start<UtilKActivity>()
+    }
+
+    fun goEventK(view: View) {
+        start<EventKActivity>()
     }
 }

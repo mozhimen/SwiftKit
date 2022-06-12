@@ -1,28 +1,50 @@
 package com.mozhimen.basick.utilk
 
 import android.os.Handler
-import android.os.Looper
-import java.lang.ref.WeakReference
+import android.os.Message
 
 /**
  * @ClassName UtilKHandler
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/2/27 17:56
+ * @Date 2022/6/12 10:31
  * @Version 1.0
  */
-open class UtilKHandler<T>(cls: T) : Handler(Looper.getMainLooper()) {
-    var ref: WeakReference<T>? = null
-
-    init {
-        ref = WeakReference(cls)
+object UtilKHandler {
+    /**
+     * postDelay
+     * @param handler Handler
+     * @param delayMills Long
+     * @param runnable Runnable
+     */
+    fun postDelayed(handler: Handler, delayMills: Long, runnable: Runnable) {
+        handler.postDelayed(runnable, delayMills)
     }
 
     /**
-     * 获取UIHandler
-     * @return T?
+     * 插到队首
+     * @param handler Handler
+     * @param runnable Runnable
      */
-    fun getRef(): T? {
-        return ref?.get()
+    fun sendMsgAtFrontOfQueue(handler: Handler, runnable: Runnable) {
+        val msg = Message.obtain(handler, runnable)
+        handler.sendMessageAtFrontOfQueue(msg)
+    }
+
+    /**
+     * 移除callbacks
+     * @param handler Handler
+     * @param runnable Runnable
+     */
+    fun removeCbs(handler: Handler, runnable: Runnable) {
+        handler.removeCallbacks(runnable)
+    }
+
+    /**
+     * 移除所有
+     * @param handler Handler
+     */
+    fun removeAll(handler: Handler) {
+        handler.removeCallbacksAndMessages(null)
     }
 }

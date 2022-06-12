@@ -1,12 +1,15 @@
 package com.mozhimen.basick.utilk
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
 import android.os.Build
 import android.os.Environment
+import android.os.StatFs
 import android.text.TextUtils
 import android.text.format.Formatter
 import android.util.Log
@@ -63,10 +66,7 @@ object UtilKDevice {
         return Formatter.formatFileSize(_context, memorySize) // Byte转换为KB或者MB，内存大小规格化
     }
 
-    /**
-     * cpu使用率
-     * @return Float
-     */
+    //cpu使用率
     fun getDeviceCpuUsed(): Float {
         try {
             val reader = RandomAccessFile(DEVICE_PATH_CPU_USED, "r")
@@ -151,7 +151,7 @@ object UtilKDevice {
     fun isHasSdcard(): Boolean = TextUtils.equals(Environment.getExternalStorageState(), "mounted")
 
     //设备是否有USB外设
-    fun isHasUSB(vid: Int, pid: Int): Boolean {
+    fun isHasPid(vid: Int, pid: Int): Boolean {
         @SuppressLint("WrongConstant")
         val mUsbManager: UsbManager = UtilKGlobal.instance.getApp()!!.getSystemService("usb") as UsbManager
         val devices: Iterator<UsbDevice> = mUsbManager.deviceList.values.iterator()
@@ -169,6 +169,46 @@ object UtilKDevice {
 
     //设备是否有后置摄像头
     fun isHasBackCamera(): Boolean = isHasCamera(false)
+
+    //是否有外部存储
+    fun isHasExternalStorage(): Boolean = Environment.getExternalStorageState() ==
+            Environment.MEDIA_MOUNTED
+
+    //本地存储可用大小
+    fun getFreeInternalMemorySize(): String? {
+        val path = Environment.getDataDirectory()
+        val stat = StatFs(path.path)
+        val blockSize = stat.blockSizeLong
+        val availableBlocks = stat.availableBlocksLong
+        return Formatter.formatFileSize(_context, availableBlocks * blockSize)
+    }
+
+    //获取手机内部空间大小
+    fun getTotalInternalMemorySize(): String {
+        val path = Environment.getDataDirectory() //Gets the Android data directory
+        val stat = StatFs(path.path)
+        val blockSize = stat.blockSizeLong //每个block 占字节数
+        val totalBlocks = stat.availableBlocksLong //block总数
+        return Formatter.formatFileSize(_context, totalBlocks * blockSize)
+    }
+
+    fun getFreeExternalMemorySize(): String {
+        return if (isHasExternalStorage()) {
+            val stat = StatFs(Environment.getExternalStorageDirectory().absolutePath)
+            val blockSize = stat.blockSizeLong
+            val availableBlocks = stat.availableBlocksLong
+            Formatter.formatFileSize(_context, availableBlocks * blockSize)
+        } else "-1"
+    }
+
+    fun getTotalExternalMemorySize(): String {
+        return if (isHasExternalStorage()) {
+            val stat = StatFs(Environment.getExternalStorageDirectory().absolutePath)
+            val blockSize = stat.blockSizeLong
+            val totalBlocks = stat.blockCountLong
+            Formatter.formatFileSize(_context, totalBlocks * blockSize)
+        } else "-1"
+    }
 
     /**
      * 关闭Android9.0弹出框（Detected problems with API compatibility）

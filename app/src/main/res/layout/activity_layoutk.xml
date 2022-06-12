@@ -15,7 +15,13 @@
             style="@style/BtnStyle"
             android:onClick="goLayoutKEmpty"
             android:text="LayoutKEmpty"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goLayoutKVideo"
+            android:text="LayoutKVideo"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.mozhimen.uicorek.layoutk.LayoutKInputItem
             android:layout_width="match_parent"

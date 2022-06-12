@@ -18,8 +18,8 @@ import com.mozhimen.basick.extsk.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
 import com.mozhimen.basick.extsk.setPadding
-import com.mozhimen.basick.utilk.UtilKHandler
 import com.mozhimen.basick.basek.commons.IBaseKLayout
+import com.mozhimen.basick.eventk.EventKHandler
 
 /**
  * @ClassName SearchKLayout
@@ -117,12 +117,12 @@ class SearchKLayout @JvmOverloads constructor(
         background = _attrs.searchBackground
         _editText?.addTextChangedListener(object : SearchKTextWatcher() {
             override fun afterTextChanged(p0: Editable?) {
-                val hasContent = p0?.trim()?.length ?: 0 > 0
+                val hasContent = (p0?.trim()?.length ?: 0) > 0
                 changeVisibility(_clearIcon, hasContent)
                 changeVisibility(_searchIconHintContainer, !hasContent)
                 if (_searchKTextWatcher != null) {
-                    UtilKHandler(this@SearchKLayout).removeCallbacks(_debounceRunnable)
-                    UtilKHandler(this@SearchKLayout).postDelayed(_debounceRunnable, DEBOUNCE_TRIGGER_DURATION)
+                    EventKHandler(this@SearchKLayout).removeCallbacks(_debounceRunnable)
+                    EventKHandler(this@SearchKLayout).postDelayed(_debounceRunnable, DEBOUNCE_TRIGGER_DURATION)
                 }
             }
         })
@@ -252,6 +252,6 @@ class SearchKLayout @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        UtilKHandler(this).removeCallbacks(_debounceRunnable)
+        EventKHandler(this).removeCallbacks(_debounceRunnable)
     }
 }

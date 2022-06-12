@@ -13,6 +13,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.mozhimen.basick.logk.LogK
+import kotlin.math.sqrt
 
 /**
  * @ClassName ScreenUtil
@@ -123,6 +124,22 @@ object UtilKScreen {
             display.getSize(size)
             size.y
         }
+
+    /**
+     * 获取屏幕尺寸
+     * @return Float
+     */
+    fun getScreenSize(): Float {
+        val xdpi = _context.resources.displayMetrics.xdpi
+        val ydpi = _context.resources.displayMetrics.ydpi
+        val width = _context.resources.displayMetrics.widthPixels
+        val height = _context.resources.displayMetrics.heightPixels
+
+        //计算屏幕的物理尺寸
+        val widthPhy = (width / xdpi) * (width / xdpi)
+        val heightPhy = (height / ydpi) * (height / ydpi)
+        return sqrt((widthPhy + heightPhy).toDouble()).toFloat()
+    }
 
     /**
      * 获取dp宽

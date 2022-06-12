@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDatakLoadMoreBinding
 import com.mozhimen.app.uicorek.datak.mos.DataItemLoadMore
+import com.mozhimen.basick.eventk.EventKHandler
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.postDelayed
-import com.mozhimen.basick.utilk.UtilKHandler
 import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorek.datak.helpers.DataKAdapter
 import com.mozhimen.uicorek.datak.DataKRecyclerView
@@ -56,7 +56,7 @@ class DataKRecyclerActivity : AppCompatActivity() {
                 }
                 _pageIndex = 1
                 //模拟刷新
-                UtilKHandler(this@DataKRecyclerActivity).postDelayed(1000) {
+                EventKHandler(this@DataKRecyclerActivity).postDelayed(1000) {
                     //模拟获取到了
                     val dataItems: ArrayList<DataKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                         DataItemLoadMore(1),
@@ -125,7 +125,7 @@ class DataKRecyclerActivity : AppCompatActivity() {
                 }
                 _pageIndex++
                 //模拟加载
-                UtilKHandler(this).postDelayed(1000) {
+                EventKHandler(this).postDelayed(1000) {
                     val dataItems: List<DataKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                         DataItemLoadMore(_dataSets.size + 1)
                     )

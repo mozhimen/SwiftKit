@@ -141,10 +141,7 @@ object CrashKJava {
             stringBuilder.append("totalMemory= ${Formatter.formatFileSize(_context, memoryInfo.totalMem)}\n")//设备总内存
 
             //sd storage size
-            val file = Environment.getExternalStorageDirectory()
-            val statFs = StatFs(file.path)
-            val availableSize = statFs.availableBlocks * statFs.blockSize
-            stringBuilder.append("availableStorage= ${Formatter.formatFileSize(_context, availableSize.toLong())}\n")//存储空间
+            stringBuilder.append("availableStorage= ${UtilKDevice.getFreeExternalMemorySize()}\n")//存储空间
 
             //stack info
             val write: Writer = StringWriter()

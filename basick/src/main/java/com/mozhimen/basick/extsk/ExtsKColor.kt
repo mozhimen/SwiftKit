@@ -9,4 +9,10 @@ import com.mozhimen.basick.utilk.UtilKColor
  * @Date 2022/5/7 12:35
  * @Version 1.0
  */
-fun Any.asColorTone(): Int = UtilKColor.getColorTone(this)
+/**
+ * 获取颜色
+ * @receiver Any
+ * @return Int
+ */
+fun Any.asColorTone(): Int =
+    UtilKColor.getColorTone(this)

@@ -139,13 +139,15 @@
         <attr name="layoutKVideo_pathOrUrl" format="string|reference" />
         <!--视频是否循环播放-->
         <attr name="layoutKVideo_isLoop" format="boolean" />
-        <!--视频权重-->
+        <!--视频位置权重-->
         <attr name="layoutKVideo_videoGravity" format="enum">
             <enum name="start" value="0" />
             <enum name="end" value="1" />
             <enum name="centerCrop" value="2" />
             <enum name="none" value="3" />
         </attr>
+        <!--音量0-10-->
+        <attr name="layoutKVideo_volume" format="integer" />
     </declare-styleable>
 
     <!--毛玻璃布局-->

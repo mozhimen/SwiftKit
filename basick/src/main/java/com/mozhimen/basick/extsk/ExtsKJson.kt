@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.UtilKJson
  * @receiver Any
  * @return String
  */
-fun Any.toJson(): String = UtilKJson.toJson(this)
+fun Any.toJson(): String = UtilKJson.t2Json(this)
 
 /**
  * 转实体
@@ -23,7 +23,7 @@ fun Any.toJson(): String = UtilKJson.toJson(this)
  * @param token TypeToken<T>
  * @return T
  */
-fun <T> String.fromJson(token: TypeToken<T>): T = UtilKJson.fromJson(this, token)
+fun <T> String.fromJson(token: TypeToken<T>): T = UtilKJson.json2T(this, token)
 
 /**
  * 转实体
@@ -31,4 +31,4 @@ fun <T> String.fromJson(token: TypeToken<T>): T = UtilKJson.fromJson(this, token
  * @param cls Class<T>
  * @return T
  */
-fun <T> String.fromJson(cls: Class<T>): T = UtilKJson.fromJson(this, cls)
+fun <T> String.fromJson(cls: Class<T>): T = UtilKJson.json2T(this, cls)

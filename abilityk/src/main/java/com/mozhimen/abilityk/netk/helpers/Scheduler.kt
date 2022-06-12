@@ -8,9 +8,9 @@ import com.mozhimen.abilityk.netk.commons.INetKListener
 import com.mozhimen.abilityk.netk.commons.INetKInterceptor
 import com.mozhimen.abilityk.netk.mos.NetKRequest
 import com.mozhimen.abilityk.netk.mos.NetKResponse
+import com.mozhimen.basick.eventk.EventKHandler
 import com.mozhimen.basick.executork.ExecutorK
-import com.mozhimen.basick.extsk.sendAtFrontOfQueue
-import com.mozhimen.basick.utilk.UtilKHandler
+import com.mozhimen.basick.extsk.sendMsgAtFrontOfQueue
 
 /**
  * 代理CallFactory创建出来的Call对象, 从而实现拦截器的派发动作
@@ -45,15 +45,15 @@ class Scheduler(
             return response
         }
 
-        override fun enqueue(listener: INetKListener<T>) {
+        override fun enqueue(callback: INetKListener<T>) {
             dispatchInterceptor(_request, null)
             if (_request.cacheStrategy == _CacheStrategy.CACHE_FIRST) {
                 ExecutorK.execute(TAG, runnable = {
                     val cacheResponseK = readCache<T>(_request.getCacheKey())
                     if (cacheResponseK.data != null) {
                         //抛到主线程
-                        UtilKHandler(this@Scheduler).sendAtFrontOfQueue {
-                            listener.onSuccess(
+                        EventKHandler(this@Scheduler).sendMsgAtFrontOfQueue {
+                            callback.onSuccess(
                                 cacheResponseK
                             )
                         }
@@ -66,12 +66,12 @@ class Scheduler(
                 override fun onSuccess(response: NetKResponse<T>) {
                     dispatchInterceptor(_request, response)
                     saveCacheIfNeed(response)
-                    listener.onSuccess(response)
+                    callback.onSuccess(response)
                     Log.d(TAG, "enqueue save cache cacheKey ${_request.getCacheKey()}")
                 }
 
                 override fun onFail(throwable: Throwable) {
-                    listener.onFail(throwable)
+                    callback.onFail(throwable)
                 }
             })
         }

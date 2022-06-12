@@ -2,7 +2,7 @@ package com.mozhimen.basick.cachek.helpers
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.mozhimen.basick.utilk.UtilKAES
+import com.mozhimen.basick.utilk.UtilKEncryptAES
 import com.mozhimen.basick.utilk.UtilKGlobal
 
 /**
@@ -30,13 +30,13 @@ class CacheKSPProvider(spName: String) {
 
     fun putStringEncrypt(key: String, value: String) {
         if (value.isEmpty()) return
-        val valueEncrypted = UtilKAES.require(CACHEK_SP_ENCRYPT_ALIAS).encrypt(value)
+        val valueEncrypted = UtilKEncryptAES.require(CACHEK_SP_ENCRYPT_ALIAS).encrypt(value)
         _preferences.edit().putString(key, valueEncrypted).apply()
     }
 
     fun getStringDecrypt(key: String, defaultValue: String = ""): String? {
         val valueDecrypted = _preferences.getString(key, null) ?: return null
-        return UtilKAES.require(CACHEK_SP_ENCRYPT_ALIAS).decrypt(valueDecrypted)
+        return UtilKEncryptAES.require(CACHEK_SP_ENCRYPT_ALIAS).decrypt(valueDecrypted)
     }
 
     fun putBoolean(key: String, value: Boolean) {

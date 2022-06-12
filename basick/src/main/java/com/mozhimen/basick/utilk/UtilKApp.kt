@@ -5,6 +5,8 @@ import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Process
 
@@ -16,6 +18,7 @@ import android.os.Process
  * @Version 1.0
  */
 object UtilKApp {
+
     fun isActivityDestroyed(context: Context): Boolean {
         val activity: Activity? = findActivity(context)
         return if (activity != null) {

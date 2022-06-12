@@ -8,7 +8,7 @@ import com.mozhimen.app.databinding.ActivityNavkBinding
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.sp2px
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.basick.utilk.showToast
+import com.mozhimen.basick.extsk.showToast
 
 class NavKActivity : AppCompatActivity() {
     private val vb by lazy { ActivityNavkBinding.inflate(layoutInflater) }

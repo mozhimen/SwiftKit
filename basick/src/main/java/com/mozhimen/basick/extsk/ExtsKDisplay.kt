@@ -10,28 +10,28 @@ import com.mozhimen.basick.utilk.UtilKDisplay
  * @Version 1.0
  */
 /**
- *
+ * sp转px
  * @receiver Float
  * @return Int
  */
 fun Float.dp2px(): Int = UtilKDisplay.dp2px(this)
 
 /**
- *
+ * sp转px
  * @receiver Float
  * @return Int
  */
 fun Float.sp2px(): Int = UtilKDisplay.sp2px(this)
 
 /**
- *
+ * dp转px
  * @receiver Int
  * @return Int
  */
 fun Int.dp2px(): Int = UtilKDisplay.dp2px(this.toFloat())
 
 /**
- *
+ * sp转px
  * @receiver Int
  * @return Int
  */
