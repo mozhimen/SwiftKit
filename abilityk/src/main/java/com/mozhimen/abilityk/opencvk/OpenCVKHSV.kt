@@ -19,50 +19,6 @@ object OpenCVKHSV {
     private const val TAG = "OpenCVKHSV>>>>>"
 
     @JvmStatic
-    fun divideColor(matSrc: Mat, colorHSV: OpenCVKColorHSV): Mat {
-        val matHsv = Mat()
-        try {
-            Imgproc.pyrMeanShiftFiltering(matSrc, matSrc, 15.0, 80.0)
-            Imgproc.cvtColor(matSrc, matHsv, Imgproc.COLOR_BGR2HSV)
-            Core.inRange(
-                matHsv,
-                Scalar(colorHSV.hMin, colorHSV.sMin, colorHSV.vMin),
-                Scalar(colorHSV.hMax, colorHSV.sMax, colorHSV.vMin),
-                matHsv
-            )
-            Imgproc.GaussianBlur(matHsv, matHsv, Size(5.0, 3.0), 0.0)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            matSrc.release()
-        }
-        return matHsv
-    }
-
-    @JvmStatic
-    fun divideColor(bitmap: Bitmap, colorHSV: OpenCVKColorHSV): Bitmap {
-        val matSrc = OpenCVKTrans.bitmap2Mat(bitmap)
-        val matHsv = Mat()
-        try {
-            Imgproc.cvtColor(matSrc, matHsv, Imgproc.COLOR_BGR2HSV)
-            Core.inRange(
-                matHsv,
-                Scalar(colorHSV.hMin, colorHSV.sMin, colorHSV.vMin),
-                Scalar(colorHSV.hMax, colorHSV.sMax, colorHSV.vMin),
-                matHsv
-            )
-            Imgproc.cvtColor(matHsv, matHsv, Imgproc.COLOR_BGR2GRAY)
-            Imgproc.GaussianBlur(matHsv, matHsv, Size(3.0, 3.0), 0.0)
-            return OpenCVKTrans.mat2Bitmap(matHsv)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            matSrc.release()
-            matHsv.release()
-        }
-        return bitmap
-    }
-
     fun colorFilter(bitmap: Bitmap, colorHSV: OpenCVKColorHSV): Bitmap {
         val matSrc = OpenCVKTrans.bitmap2Mat(bitmap)
         val matHsv = Mat()
@@ -89,6 +45,7 @@ object OpenCVKHSV {
         return bitmap
     }
 
+    @JvmStatic
     fun colorFilter(matSrc: Mat, colorHSV: OpenCVKColorHSV): Mat {
         val matHsv = Mat()
         var hsv: DoubleArray
