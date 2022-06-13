@@ -1,8 +1,6 @@
 package com.mozhimen.basick.utilk
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.hardware.usb.UsbDevice
@@ -18,7 +16,6 @@ import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
 import java.io.RandomAccessFile
-import java.lang.reflect.Method
 import java.net.Inet6Address
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -35,13 +32,15 @@ import java.util.*
 object UtilKDevice {
     private const val TAG = "UtilKDevice>>>>>"
     private val _context = UtilKGlobal.instance.getApp()!!
-    private const val DEVICE_SYSTEM_PROPERTIES = "android.os.SystemProperties"
-    private const val DEVICE_ROM_VERSION = "ro.product.rom.version"
-    private const val DEVICE_HW_VERSION = "ro.product.hw.version"
-    private const val DEVICE_SERIAL_NUMBER = "ro.serialno"
-    private const val DEVICE_PATH_MEMINFO = "/proc/meminfo"
-    private const val DEVICE_PATH_CPU_USED = "/proc/stat"
+    private const val PKG_ROM_VERSION = "ro.product.rom.version"
+    private const val PKG_HW_VERSION = "ro.product.hw.version"
+    private const val PKG_SERIAL_NUMBER = "ro.serialno"
+
+    private const val PATH_MEMINFO = "/proc/meminfo"
+    private const val PATH_CPU_USED = "/proc/stat"
     private const val NO_DEFINED = "unknown"
+
+
 
     //设备内存空间
     fun getDeviceMemory(): String {
@@ -49,7 +48,7 @@ object UtilKDevice {
         val arrayOfString: Array<String>
         var memorySize: Long = 0
         try {
-            val localFileReader = FileReader(DEVICE_PATH_MEMINFO)
+            val localFileReader = FileReader(PATH_MEMINFO)
             val localBufferedReader = BufferedReader(
                 localFileReader, 8192
             )
@@ -69,7 +68,7 @@ object UtilKDevice {
     //cpu使用率
     fun getDeviceCpuUsed(): Float {
         try {
-            val reader = RandomAccessFile(DEVICE_PATH_CPU_USED, "r")
+            val reader = RandomAccessFile(PATH_CPU_USED, "r")
             var load = reader.readLine()
             var toks = load.split(" ".toRegex()).toTypedArray()
             val idle1 = toks[5].toLong()
@@ -119,10 +118,10 @@ object UtilKDevice {
     }
 
     //设备Rom版本
-    fun getRomVersion(): String = getSystemProperties(DEVICE_ROM_VERSION, NO_DEFINED)
+    fun getRomVersion(): String = UtilKCmd.getSystemProperties(PKG_ROM_VERSION, NO_DEFINED)
 
     //设备硬件版本
-    fun getHardwareVersion(): String = getSystemProperties(DEVICE_HW_VERSION, NO_DEFINED)
+    fun getHardwareVersion(): String = UtilKCmd.getSystemProperties(PKG_HW_VERSION, NO_DEFINED)
 
     //序列号
     /**
@@ -135,7 +134,7 @@ object UtilKDevice {
     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         Build.SERIAL
     } else {
-        getSystemProperties(DEVICE_SERIAL_NUMBER, NO_DEFINED)
+        UtilKCmd.getSystemProperties(PKG_SERIAL_NUMBER, NO_DEFINED)
     }
 
     //短序列号
@@ -230,42 +229,6 @@ object UtilKDevice {
         } catch (e: Exception) {
             LogK.et(TAG, "closeAndroidPDialog Exception ${e.message}")
             e.printStackTrace()
-        }
-    }
-
-    /**
-     * 设置首选项
-     * @param key String?
-     * @param value String?
-     */
-    @SuppressLint("PrivateApi")
-    fun setSystemProperties(key: String, value: String) {
-        try {
-            val clazz = Class.forName(DEVICE_SYSTEM_PROPERTIES)
-            val setMethod: Method = clazz.getMethod("set", String::class.java, String::class.java)
-            setMethod.invoke(clazz, key, value)
-        } catch (e: Exception) {
-            LogK.et(TAG, "setSystemProperties Exception ${e.message}")
-            e.printStackTrace()
-        }
-    }
-
-    /**
-     * 首选项
-     * @param key String?
-     * @param defaultValue String
-     * @return String
-     */
-    @SuppressLint("PrivateApi")
-    fun getSystemProperties(key: String?, defaultValue: String): String {
-        return try {
-            val clazz = Class.forName(DEVICE_SYSTEM_PROPERTIES)
-            val getMethod: Method = clazz.getMethod("get", String::class.java)
-            (getMethod.invoke(clazz, key) as String).ifEmpty { defaultValue }
-        } catch (e: Exception) {
-            LogK.et(TAG, "getSystemProperties Exception ${e.message}")
-            e.printStackTrace()
-            defaultValue
         }
     }
 

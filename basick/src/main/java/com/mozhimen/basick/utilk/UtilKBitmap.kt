@@ -13,7 +13,6 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import androidx.annotation.IntRange
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.bumptech.glide.request.target.CustomTarget
@@ -34,6 +33,7 @@ import kotlin.math.ceil
  */
 object UtilKBitmap {
     private val TAG = "UtilKBitmap>>>>>"
+    private val _context = UtilKGlobal.instance.getApp()!!
 
     /**
      * bytes转位图
@@ -325,7 +325,7 @@ object UtilKBitmap {
      * @return File
      */
     @JvmStatic
-    fun bitmap2File(bitmap: Bitmap,fileName: String = System.currentTimeMillis().toString() + ".jpg"): File {
+    fun bitmap2File(bitmap: Bitmap, fileName: String = System.currentTimeMillis().toString() + ".jpg"): File {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val saveFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), fileName)
             var out: OutputStream? = null
@@ -367,7 +367,7 @@ object UtilKBitmap {
             }
             return saveFile
         } else {
-            val appDir = UtilKGlobal.instance.getApp()!!.getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
+            val appDir = _context.getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
             val file = File(appDir)
             if (!file.exists()) {
                 // 目录不存在 则创建
@@ -470,22 +470,21 @@ object UtilKBitmap {
      * @param bitmap Bitmap?
      */
     @JvmStatic
-    fun saveBitmap(savePath: String, bitmap: Bitmap?) {
-        if (null == bitmap) // 容错处理
-            return
-        val f = File(savePath)
-        val pareFile: File? = f.parentFile
+    fun saveBitmap(savePath: String, bitmap: Bitmap) {
+        val file = File(savePath)
+        val pareFile: File? = file.parentFile
         if (pareFile?.exists() == false) {
             pareFile.mkdirs()
         }
         val out: FileOutputStream
         try {
-            f.createNewFile()
-            out = FileOutputStream(f)
+            file.createNewFile()
+            out = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
             out.flush()
             out.close()
         } catch (e: IOException) {
+            LogK.et(TAG, "saveBitmap: IOException ${e.message}")
             e.printStackTrace()
         }
     }
@@ -512,5 +511,54 @@ object UtilKBitmap {
             e.printStackTrace()
             null
         }
+    }
+
+    /**
+     * 裁剪nv21Bytes
+     * @param srcBytes ByteArray 原始数据
+     * @param srcWidth Int 原始图像的width
+     * @param srcHeight Int 原始图像height
+     * @param cropX Int 裁剪区域左上角的x
+     * @param cropY Int 裁剪区域左上角的y
+     * @param cropWidth Int 裁剪的宽度
+     * @param cropHeight Int 裁剪的高度
+     * @return ByteArray 裁剪后的图像数据
+     */
+    fun clipNv212Bytes(
+        srcBytes: ByteArray,
+        srcWidth: Int,
+        srcHeight: Int,
+        cropX: Int,
+        cropY: Int,
+        cropWidth: Int,
+        cropHeight: Int
+    ): ByteArray {
+        // 目标区域取偶(YUV420SP要求图像高度是偶数)
+        var left = cropX
+        var top = cropY
+        val begin = System.nanoTime()
+        if (left % 2 == 1) {
+            left--
+        }
+        if (top % 2 == 1) {
+            top--
+        }
+        val bottom = top + cropHeight
+        // 裁剪后的占用的大小
+        val size = cropWidth * cropHeight * 3 / 2
+        val data = ByteArray(size)
+        // 按照YUV420SP格式，复制Y
+        for (i in top until bottom) {
+            System.arraycopy(srcBytes, left + i * srcWidth, data, (i - top) * cropWidth, cropWidth)
+        }
+        // 按照YUV420SP格式，复制UV
+        val startH = srcHeight + top / 2
+        val endH = srcHeight + bottom / 2
+        for (i in startH until endH) {
+            System.arraycopy(srcBytes, left + i * srcWidth, data, (i - startH + cropHeight) * cropWidth, cropWidth)
+        }
+        val end = System.nanoTime()
+        Log.d(TAG, "clipNv212Bytes clip use: " + (end - begin) + "ns")
+        return data
     }
 }

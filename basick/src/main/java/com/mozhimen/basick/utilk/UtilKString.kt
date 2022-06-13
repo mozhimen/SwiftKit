@@ -3,6 +3,11 @@ package com.mozhimen.basick.utilk
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.room.util.UUIDUtil
+import com.mozhimen.basick.logk.LogK
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
 import java.text.DecimalFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -15,6 +20,38 @@ import java.util.stream.Collectors
  * @Version 1.0
  */
 object UtilKString {
+    private const val TAG ="UtilKString>>>>>"
+
+    /**
+     * 流转字符串
+     * @param inputStream InputStream
+     * @return String?
+     */
+    fun inputStream2String(inputStream: InputStream): String {
+        var bufferedReader: BufferedReader? = null
+        try {
+            val stringBuilder = StringBuilder()
+            bufferedReader = BufferedReader(InputStreamReader(inputStream, "UTF-8"))
+            var str: String?
+            while (bufferedReader.readLine().also { str = it } != null) {
+                stringBuilder.append(str)
+                stringBuilder.append("\n")
+            }
+            return stringBuilder.toString()
+        } catch (e: Exception) {
+            LogK.et(TAG, "inputStream2String: Exception ${e.message}")
+            e.printStackTrace()
+        } finally {
+            try {
+                bufferedReader?.close()
+            } catch (e: IOException) {
+                LogK.et(TAG, "inputStream2String: IOException ${e.message}")
+                e.printStackTrace()
+            }
+        }
+        return ""
+    }
+
     /**
      * 获取分割后的最后一个元素
      * @param str String
