@@ -1,11 +1,21 @@
 package com.mozhimen.abilityk.opencvk
 
 import android.graphics.Bitmap
-import com.mozhimen.basick.logk.LogK
-import com.mozhimen.opencvk.OpenCVK
 import org.opencv.core.CvType
 import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
+import org.opencv.features2d.Features2d
+
+import android.content.DialogInterface
+
+import org.opencv.features2d.DescriptorMatcher
+
+import org.opencv.core.MatOfPoint2f
+
+import org.opencv.core.MatOfKeyPoint
+
+import org.opencv.core.MatOfDMatch
+
 
 /**
  * @ClassName OpenCVKContrast
@@ -30,13 +40,10 @@ object OpenCVKContrast {
         var similarity = 0.0
         val matSrc = OpenCVKTrans.bitmap2Mat(bitmap)
         val matDes = OpenCVKTrans.bitmap2Mat(orgBitmap)
-        val matSrcGray = Mat()
-        val matDesGray = Mat()
+        val matSrcGray = OpenCVKTrans.mat2Gray(matSrc)
+        val matDesGray = OpenCVKTrans.mat2Gray(matDes)
 
         try {
-            Imgproc.cvtColor(matSrc, matSrcGray, Imgproc.COLOR_BGR2GRAY)
-            Imgproc.cvtColor(matDes, matDesGray, Imgproc.COLOR_BGR2GRAY)
-
             matSrcGray.convertTo(matSrcGray, CvType.CV_32F)
             matDesGray.convertTo(matDesGray, CvType.CV_32F)
             similarity = Imgproc.compareHist(matSrcGray, matDesGray, Imgproc.CV_COMP_CORREL)
@@ -50,4 +57,5 @@ object OpenCVKContrast {
         }
         return similarity
     }
+
 }

@@ -22,14 +22,17 @@ import com.mozhimen.basick.utilk.UtilKAnim
  * @param listener AnimationListener?
  */
 fun View.startRotate(
-    pivotX: Float = this.width / 2f,
-    pivotY: Float = this.height / 2f,
-    duration: Long = 1000,
+    pivotX: Float = width / 2f,
+    pivotY: Float = height / 2f,
     repeatCount: Int = Animation.INFINITE,
     repeatMode: Int = Animation.RESTART,
+    fillAfter: Boolean = true,
+    duration: Long = 1000,
     listener: Animation.AnimationListener? = null
 ) {
-    UtilKAnim.startRotate(this, pivotX, pivotY, duration, repeatCount, repeatMode, listener)
+    UtilKAnim.startRotate(
+        this, pivotX, pivotY, repeatCount, repeatMode, fillAfter, duration, listener
+    )
 }
 
 /**

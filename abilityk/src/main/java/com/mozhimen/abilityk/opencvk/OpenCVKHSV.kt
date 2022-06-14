@@ -64,8 +64,6 @@ object OpenCVKHSV {
             return matHsv
         } catch (e: Exception) {
             e.printStackTrace()
-        } finally {
-            matSrc.release()
         }
         return matHsv
     }

@@ -24,5 +24,11 @@
             android:onClick="goOpenCVKShape"
             android:text="OpenCVKShape"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goOpenCVKMatch"
+            android:text="OpenCVKMatch"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

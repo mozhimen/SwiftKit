@@ -32,7 +32,7 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
             }
 
             vb.scankDemoImg.setImageBitmap(
-                ScanKQR.createQRCode(
+                ScanKQR.createQRCodeBitmap(
                     vb.scankDemoEdit.text.toString(),
                     vb.scankDemoImg.width
                 )

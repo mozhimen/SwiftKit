@@ -19,4 +19,8 @@ class OpenCVKActivity : AppCompatActivity() {
     fun goOpenCVKShape(view: View) {
         start<OpenCVKShapeActivity>()
     }
+
+    fun goOpenCVKMatch(view: View) {
+        start<OpenCVKMatchActivity>()
+    }
 }
