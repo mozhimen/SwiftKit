@@ -25,6 +25,9 @@ import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
 import com.mozhimen.opencvk.OpenCVK
+import org.opencv.core.Mat
+import org.opencv.core.Size
+import org.opencv.imgproc.Imgproc
 import java.util.concurrent.locks.ReentrantLock
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA])
@@ -72,12 +75,8 @@ class OpenCVKShapeActivity : BaseKActivity<ActivityOpencvkShapeBinding, BaseKVie
                         ((1 - ratio) * rotateBitmap.width / 2).toInt(),
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
-                    val hsvBitmap = OpenCVKHSV.colorFilter(cropBitmap, OpenCVKColorHSV.COLOR_GREEN)
-                    runOnUiThread {
-                        vb.opencvkShapeImg.setImageBitmap(hsvBitmap)
-                    }
                     //detect
-                    val result = OpenCVKShape.getCircleNum(OpenCVKHSV.colorFilter(OpenCVKTrans.bitmap2Mat(cropBitmap),OpenCVKColorHSV.COLOR_GREEN))
+                    val result = OpenCVKShape.getCircleNum(OpenCVKHSV.colorFilter(OpenCVKTrans.bitmap2Mat(cropBitmap), OpenCVKColorHSV.COLOR_GREEN))
                     runOnUiThread {
                         vb.opencvkShapeRes.text = result.toString()
                     }

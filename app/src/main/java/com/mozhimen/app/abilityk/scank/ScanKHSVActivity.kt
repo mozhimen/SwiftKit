@@ -1,20 +1,27 @@
-package com.mozhimen.app.abilityk.opencvk
+package com.mozhimen.app.abilityk.scank
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.ImageFormat
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
+import com.huawei.hms.hmsscankit.ScanUtil
+import com.huawei.hms.ml.scan.HmsScan
+import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions
 import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.opencvk.OpenCVKContrast
 import com.mozhimen.abilityk.opencvk.OpenCVKHSV
 import com.mozhimen.abilityk.opencvk.mos.OpenCVKColorHSV
+import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityk.scank.mos.ColorHSV
 import com.mozhimen.app.R
-import com.mozhimen.app.databinding.ActivityOpencvkContrastBinding
+import com.mozhimen.app.databinding.ActivityScankHsvBinding
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.cropBitmap
@@ -28,7 +35,8 @@ import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA])
-class OpenCVKContrastActivity : BaseKActivity<ActivityOpencvkContrastBinding, BaseKViewModel>(R.layout.activity_opencvk_contrast) {
+class ScanKHSVActivity : BaseKActivity<ActivityScankHsvBinding, BaseKViewModel>(R.layout.activity_scank_hsv) {
+
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
@@ -40,18 +48,22 @@ class OpenCVKContrastActivity : BaseKActivity<ActivityOpencvkContrastBinding, Ba
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        _orgBitmap = UtilKRes.getDrawable(R.mipmap.scank_contrast_test)!!.drawable2Bitmap()
         require(OpenCVK.initSDK()) { "opencv init fail" }
         initCamera()
     }
 
     private fun initCamera() {
-        vb.opencvkContrastPreview.initCamera(this, CameraSelector.DEFAULT_BACK_CAMERA)
-        vb.opencvkContrastPreview.setImageAnalyzer(_frameAnalyzer)
-        vb.opencvkContrastPreview.startCamera()
+        vb.scankHsvPreview.initCamera(this, CameraSelector.DEFAULT_BACK_CAMERA)
+        vb.scankHsvPreview.setImageAnalyzer(_frameAnalyzer)
+        vb.scankHsvPreview.startCamera()
     }
 
     private lateinit var _orgBitmap: Bitmap
+
+    private val _options: HmsScanAnalyzerOptions = HmsScanAnalyzerOptions.Creator()
+        .setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE)
+        .setPhotoMode(true)
+        .create()
 
     private val _frameAnalyzer: ImageAnalysis.Analyzer by lazy {
         object : ImageAnalysis.Analyzer {
@@ -68,23 +80,24 @@ class OpenCVKContrastActivity : BaseKActivity<ActivityOpencvkContrastBinding, Ba
                     }
                     val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
                     val ratio: Double =
-                        vb.opencvkContrastQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
+                        vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),
                         (ratio * rotateBitmap.width).toInt(),
                         ((1 - ratio) * rotateBitmap.width / 2).toInt(),
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
-                    val cropSameBitmap = UtilKBitmap.scaleSameSize(cropBitmap, _orgBitmap)
-                    runOnUiThread {
-                        vb.opencvkContrastImg.setImageBitmap(rotateBitmap)
-                        vb.opencvkContrastImg1.setImageBitmap(OpenCVKHSV.colorFilter(cropSameBitmap.first,OpenCVKColorHSV.COLOR_GREEN))
-                        vb.opencvkContrastImg2.setImageBitmap(cropSameBitmap.second)
-                    }
-                    //detect
-                    val result = OpenCVKContrast.similarity(OpenCVKHSV.colorFilter(cropSameBitmap.first,OpenCVKColorHSV.COLOR_GREEN), cropSameBitmap.second) * 100
-                    runOnUiThread {
-                        vb.opencvkContrastRes.text = result.toString()
+
+                    val zoomBitmap = UtilKBitmap.zoomBitmap(cropBitmap, 1.1f)
+                    val scaleBitmap =
+                        UtilKBitmap.scaleBitmap(zoomBitmap, cropBitmap.width, cropBitmap.height)
+                    val results =
+                        ScanUtil.decodeWithBitmap(this@ScanKHSVActivity, scaleBitmap, _options)
+                    if (results != null && results.isNotEmpty() && results[0] != null && !TextUtils.isEmpty(
+                            results[0].originalValue
+                        )
+                    ) {
+                        onScanHealthQrRes(scaleBitmap, rotateBitmap)
                     }
                 } finally {
                     _reentrantLock.unlock()
@@ -92,6 +105,20 @@ class OpenCVKContrastActivity : BaseKActivity<ActivityOpencvkContrastBinding, Ba
 
                 image.close()
             }
+        }
+    }
+
+    private fun onScanHealthQrRes(bitmap: Bitmap, uploadBitmap: Bitmap) {
+        val scaleBitmap = UtilKBitmap.scaleBitmap(bitmap, bitmap.width / 6, bitmap.height / 6)
+        val filterBitmap = OpenCVKHSV.colorFilter(scaleBitmap, OpenCVKColorHSV.COLOR_GREEN)
+        val colors =
+            ScanKHSV.colorAnalyze(filterBitmap)?.filter { it.first.colorName == "绿色" }
+        colors?.let {
+            runOnUiThread {
+                vb.scankHsvImg.setImageBitmap(scaleBitmap)
+                vb.scankHsvImg1.setImageBitmap(filterBitmap)
+            }
+            Log.d(TAG, "onScanHealthQrRes: colors $colors")
         }
     }
 }

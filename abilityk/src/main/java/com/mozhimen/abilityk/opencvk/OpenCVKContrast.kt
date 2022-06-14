@@ -17,6 +17,12 @@ import org.opencv.imgproc.Imgproc
 object OpenCVKContrast {
     private const val TAG = "OpenCVKContrast>>>>>"
 
+    /**
+     * 相似度对比
+     * @param bitmap Bitmap
+     * @param orgBitmap Bitmap
+     * @return Double
+     */
     @JvmStatic
     fun similarity(bitmap: Bitmap, orgBitmap: Bitmap): Double {
         require(bitmap.width == orgBitmap.width && bitmap.height == orgBitmap.height) { "two bmp must have same size" }

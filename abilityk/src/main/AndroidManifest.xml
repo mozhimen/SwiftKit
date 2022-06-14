@@ -18,7 +18,7 @@
 
     <application>
         <activity
-            android:name=".scank.ScanKQRActivity2"
+            android:name=".scank.ScanKQR2Activity"
             android:exported="true" />
         <activity
             android:name=".scank.ScanKQRActivity"

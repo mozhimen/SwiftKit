@@ -56,9 +56,9 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
         val activityResultLauncher2 =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    val scanKQR2Result: ScanKQRActivity2.ScanK2Result? =
-                        result.data?.getStringExtra(ScanKQRActivity2.SCANK2_ACTIVITY_RESULT_PARAM)
-                            ?.fromJson(ScanKQRActivity2.ScanK2Result::class.java) ?: kotlin.run {
+                    val scanKQR2Result: ScanKQR2Activity.ScanK2Result? =
+                        result.data?.getStringExtra(ScanKQR2Activity.SCANK2_ACTIVITY_RESULT_PARAM)
+                            ?.fromJson(ScanKQR2Activity.ScanK2Result::class.java) ?: kotlin.run {
                             Log.e(TAG, "initView: loss scanActivity2 params")
                             null
                         }
@@ -79,7 +79,11 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
         }
 
         vb.scankDemoBtnScan2.setOnClickListener {
-            activityResultLauncher2.launch(Intent(this, ScanKQRActivity2::class.java))
+            activityResultLauncher2.launch(Intent(this, ScanKQR2Activity::class.java))
         }
+    }
+
+    fun goScanKHSV(view: View) {
+        start<ScanKHSVActivity>()
     }
 }

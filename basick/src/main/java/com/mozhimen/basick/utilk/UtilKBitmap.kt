@@ -7,8 +7,10 @@ import android.content.Intent
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.media.Image
 import android.media.MediaScannerConnection
 import android.net.Uri
+import android.opengl.GLException
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
@@ -20,12 +22,15 @@ import com.bumptech.glide.request.transition.Transition
 import com.mozhimen.basick.logk.LogK
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.*
+import java.nio.ByteBuffer
+import java.nio.IntBuffer
+import javax.microedition.khronos.opengles.GL10
 import kotlin.coroutines.resume
 import kotlin.math.ceil
 
 
 /**
- * @ClassName UtilKImage
+ * @ClassName UtilKBitmap
  * @Description <uses-permission android:name="android.permission.INTERNET" />
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/1/3 4:54
@@ -36,12 +41,111 @@ object UtilKBitmap {
     private val _context = UtilKGlobal.instance.getApp()!!
 
     /**
+     * image转Bytes
+     * @param image Image
+     * @return ByteArray
+     */
+    @JvmStatic
+    fun image2Bytes(image: Image): ByteArray {
+        var data: ByteArray? = null
+        if (image.format == ImageFormat.JPEG) {
+            val planes = image.planes
+            val buffer = planes[0].buffer
+            data = ByteArray(buffer.capacity())
+            buffer.get(data)
+        } else if (image.format == ImageFormat.YUV_420_888) {
+            data = nv21Bytes2JpegBytes(yuv420Image2nv21Bytes(image), image.width, image.height)
+        }
+        return data!!
+    }
+
+    /**
+     * yuv420转nv21Bytes
+     * @param image Image
+     * @return ByteArray
+     */
+    @JvmStatic
+    fun yuv420Image2nv21Bytes(image: Image): ByteArray {
+        val nv21Bytes: ByteArray
+        val yBuffer = image.planes[0].buffer
+        val uBuffer = image.planes[1].buffer
+        val vBuffer = image.planes[2].buffer
+        val ySize = yBuffer.remaining()
+        val uSize = uBuffer.remaining()
+        val vSize = vBuffer.remaining()
+        nv21Bytes = ByteArray(ySize + uSize + vSize)
+
+        //U and V are swapped
+        yBuffer[nv21Bytes, 0, ySize]
+        vBuffer[nv21Bytes, ySize, vSize]
+        uBuffer[nv21Bytes, ySize + vSize, uSize]
+        return nv21Bytes
+    }
+
+    /**
+     * nv21Bytes转JpegBytes
+     * @param nv21Bytes ByteArray
+     * @param width Int
+     * @param height Int
+     * @return ByteArray
+     */
+    @JvmStatic
+    private fun nv21Bytes2JpegBytes(nv21Bytes: ByteArray, width: Int, height: Int): ByteArray {
+        val outputStream = ByteArrayOutputStream()
+        val yuv = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
+        yuv.compressToJpeg(Rect(0, 0, width, height), 100, outputStream)
+        return outputStream.toByteArray()
+    }
+
+    /**
+     * yuv流转Jpeg文件
+     * @param nv21Bytes ByteArray
+     * @param outPath String
+     * @param width Int
+     * @param height Int
+     */
+    @JvmStatic
+    fun yuvBytes2JpegFile(nv21Bytes: ByteArray, outPath: String, width: Int, height: Int) {
+        val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
+        val outputStream = ByteArrayOutputStream()
+        yuvImage.compressToJpeg(Rect(0, 0, width, height), 100, outputStream)
+        try {
+            val dir = File(outPath.substring(0, outPath.lastIndexOf("/")))
+            if (!dir.exists()) {
+                dir.mkdir()
+            }
+            val file = File(outPath)
+            val fos = FileOutputStream(file)
+            fos.write(outputStream.toByteArray())
+            fos.flush()
+            fos.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
      * bytes转位图
      * @param bytes ByteArray
      * @return Bitmap
      */
     @JvmStatic
     fun bytes2Bitmap(bytes: ByteArray): Bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+    /**
+     * bytes转位图
+     * @param bytes ByteArray
+     * @param width Int
+     * @param height Int
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun bytes2Bitmap(bytes: ByteArray, width: Int, height: Int): Bitmap {
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val bytesBuffer = ByteBuffer.wrap(bytes)
+        bitmap.copyPixelsFromBuffer(bytesBuffer)
+        return bitmap
+    }
 
     /**
      * 位图转bytes
@@ -73,13 +177,14 @@ object UtilKBitmap {
      * 将两个图片裁剪成一致
      * @param bitmap1 Bitmap
      * @param bitmap2 Bitmap
+     * @param ratio Float
      * @return Pair<Bitmap, Bitmap>
      */
     @JvmStatic
-    fun scaleSameSize(bitmap1: Bitmap, bitmap2: Bitmap): Pair<Bitmap, Bitmap> {
-        val minWidth = kotlin.math.min(bitmap1.width, bitmap2.width)
-        val minHeight = kotlin.math.min(bitmap1.height, bitmap2.height)
-        return scaleBitmap(bitmap1, minWidth, minHeight) to scaleBitmap(bitmap2, minWidth, minHeight)
+    fun scaleSameSize(bitmap1: Bitmap, bitmap2: Bitmap, ratio: Float = 1f): Pair<Bitmap, Bitmap> {
+        val minWidth = kotlin.math.min(bitmap1.width, bitmap2.width) * ratio
+        val minHeight = kotlin.math.min(bitmap1.height, bitmap2.height) * ratio
+        return scaleBitmap(bitmap1, minWidth.toInt(), minHeight.toInt()) to scaleBitmap(bitmap2, minWidth.toInt(), minHeight.toInt())
     }
 
     /**
@@ -192,7 +297,7 @@ object UtilKBitmap {
             //否则options.outheight获取不到宽高
             BitmapFactory.decodeStream(inputStream, null, options)
             //2.通过 btm.getHeight()获取图片的宽高就不需要1的解析，我这里采取第一张方式
-            //Bitmap btm = BitmapFactory.decodeStream(inputStream);
+            //Bitmap btm = BitmapFactory.decodeStream(inputStream)
             //以屏幕的宽高进行压缩
             val displayMetrics = activity.resources.displayMetrics
             val heightPixels = displayMetrics.heightPixels
@@ -276,7 +381,7 @@ object UtilKBitmap {
 
     /**
      * nv21转文件
-     * @param nv21 ByteArray
+     * @param nv21Bytes ByteArray
      * @param width Int
      * @param height Int
      * @param filePath String
@@ -289,7 +394,7 @@ object UtilKBitmap {
 
     /**
      * nv21转位图 for camera1
-     * @param nv21 ByteArray
+     * @param nv21Bytes ByteArray
      * @param width Int
      * @param height Int
      * @return Bitmap
@@ -560,5 +665,64 @@ object UtilKBitmap {
         val end = System.nanoTime()
         Log.d(TAG, "clipNv212Bytes clip use: " + (end - begin) + "ns")
         return data
+    }
+
+    /**
+     * gl10转bitmap
+     * @param gl10 GL10
+     * @param width Int
+     * @param height Int
+     * @param x Int
+     * @param y Int
+     * @return Bitmap
+     */
+    fun gl102Bitmap(gl10: GL10, width: Int, height: Int, x: Int, y: Int): Bitmap {
+        val bitmapBuffer = IntArray(width * height)
+        val bitmapSource = IntArray(width * height)
+        val intBuffer = IntBuffer.wrap(bitmapBuffer)
+        intBuffer.position(0)
+        try {
+            gl10.glReadPixels(x, y, width, height, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, intBuffer)
+            var offset1: Int
+            var offset2: Int
+            for (i in 0 until height) {
+                offset1 = i * width
+                offset2 = (height - i - 1) * width
+                for (j in 0 until width) {
+                    val texturePixel = bitmapBuffer[offset1 + j]
+                    val blue = texturePixel shr 16 and 0xff
+                    val red = texturePixel shl 16 and 0x00ff0000
+                    val pixel = texturePixel and -0xff0100 or red or blue
+                    bitmapSource[offset2 + j] = pixel
+                }
+            }
+        } catch (e: GLException) {
+            e.printStackTrace()
+        }
+        return Bitmap.createBitmap(bitmapSource, width, height, Bitmap.Config.ARGB_8888)
+    }
+
+    /**
+     * 堆叠Bitmap
+     * @param bgBitmap Bitmap
+     * @param fgBitmap Bitmap
+     * @return Bitmap
+     */
+    fun pileUpBitmap(bgBitmap: Bitmap, fgBitmap: Bitmap): Bitmap {
+        val bgWidth: Int = bgBitmap.width
+        val bgHeight: Int = bgBitmap.height
+        val fgWidth: Int = fgBitmap.width
+        val fgHeight: Int = fgBitmap.height
+        val destBitmap = Bitmap.createBitmap(bgWidth, bgHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(destBitmap)
+        canvas.drawBitmap(bgBitmap, 0f, 0f, null)
+        canvas.drawBitmap(
+            fgBitmap,
+            ((bgWidth - fgWidth) / 2).toFloat(),
+            ((bgHeight - fgHeight) / 2).toFloat(), null
+        )
+        canvas.save()
+        canvas.restore()
+        return destBitmap
     }
 }
