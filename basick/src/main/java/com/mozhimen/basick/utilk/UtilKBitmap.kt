@@ -58,11 +58,13 @@ object UtilKBitmap {
             return baos.toByteArray()
         } catch (e: Exception) {
             LogK.et(TAG, "bitmap2Bytes Exception ${e.message}")
+            e.printStackTrace()
         } finally {
             try {
                 baos.flush()
                 baos.close()
             } catch (e: IOException) {
+                LogK.et(TAG, "bitmap2Bytes IOException ${e.message}")
                 e.printStackTrace()
             }
         }
@@ -325,7 +327,7 @@ object UtilKBitmap {
      * @return File
      */
     @JvmStatic
-    fun bitmap2File(bitmap: Bitmap,fileName: String = System.currentTimeMillis().toString() + ".jpg"): File {
+    fun bitmap2File(bitmap: Bitmap, fileName: String = System.currentTimeMillis().toString() + ".jpg"): File {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val saveFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), fileName)
             var out: OutputStream? = null
