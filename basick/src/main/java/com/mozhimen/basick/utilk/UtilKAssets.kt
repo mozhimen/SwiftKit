@@ -16,6 +16,7 @@ import com.mozhimen.basick.logk.LogK
  */
 object UtilKAssets {
     private val TAG = "UtilKAssets>>>>>"
+    private val _context = UtilKGlobal.instance.getApp()!!
 
     /**
      * 分析json文件
@@ -23,9 +24,8 @@ object UtilKAssets {
      * @return String?
      */
     fun json2String(fileName: String): String? {
-        val assets = UtilKGlobal.instance.getApp()!!.assets
         try {
-            val inputStream = assets.open(fileName)
+            val inputStream = _context.assets.open(fileName)
             val bufferedReader = BufferedReader(InputStreamReader(inputStream))
             var line: String?
             val builder = StringBuilder()
@@ -70,17 +70,16 @@ object UtilKAssets {
     fun license2String(licenseFileName: String?): String? {
         var inputStream: InputStream? = null
         try {
-            inputStream = UtilKGlobal.instance.getApp()!!.assets.open(licenseFileName!!)
-            return UtilKFile.inputStream2String(inputStream)
+            inputStream = _context.assets.open(licenseFileName!!)
+            return UtilKString.inputStream2String(inputStream)
         } catch (e: Exception) {
+            Log.e(TAG, "license2String: Exception ${e.message}")
             e.printStackTrace()
         } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+            try {
+                inputStream?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
         }
         return null

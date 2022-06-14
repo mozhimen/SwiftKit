@@ -2,22 +2,14 @@ package com.mozhimen.basick.crashk
 
 import android.app.ActivityManager
 import android.content.Context
-import android.content.Intent
-import android.os.Environment
-import android.os.Process
-import android.os.StatFs
 import android.text.format.Formatter
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.crashk.commons.ICrashKListener
 import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.stackk.StackK
-import com.mozhimen.basick.utilk.UtilKBuild
-import com.mozhimen.basick.utilk.UtilKDate
-import com.mozhimen.basick.utilk.UtilKDevice
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.*
 import java.io.*
 import java.util.*
-import kotlin.system.exitProcess
 
 /**
  * @ClassName CrashKJava
@@ -30,9 +22,9 @@ tools:ignore="ScopedStorage" />
  * @Version 1.0
  */
 object CrashKJava {
-    const val CRASHK_JAVA_DIR = "crashk_java"
+    private const val CRASHK_JAVA_DIR = "crashk_java"
 
-    private val TAG = "CrashKJava>>>>>"
+    private const val TAG = "CrashKJava>>>>>"
     private var _crashFullPath: String = getJavaCrashDir().absolutePath
     private var _crashListener: ICrashKListener? = null
 
@@ -45,7 +37,7 @@ object CrashKJava {
         return File(_crashFullPath).listFiles() ?: emptyArray()
     }
 
-    fun getJavaCrashDir(): File {
+    private fun getJavaCrashDir(): File {
         val javaCrashFile = File(UtilKGlobal.instance.getApp()!!.cacheDir, CRASHK_JAVA_DIR)
         if (!javaCrashFile.exists()) {
             javaCrashFile.mkdirs()
@@ -62,16 +54,7 @@ object CrashKJava {
             if (!handleException(e) && _defaultExceptionHandler != null) {
                 _defaultExceptionHandler.uncaughtException(t, e)
             }
-            restartApp()
-        }
-
-        private fun restartApp() {
-            val intent = _context.packageManager.getLaunchIntentForPackage(_context.packageName)
-            intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            _context.startActivity(intent)
-
-            Process.killProcess(Process.myPid())
-            exitProcess(10)
+            UtilKApp.restartApp(false)
         }
 
         /**

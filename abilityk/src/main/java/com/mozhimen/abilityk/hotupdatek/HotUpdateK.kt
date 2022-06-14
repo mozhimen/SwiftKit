@@ -1,9 +1,19 @@
 package com.mozhimen.abilityk.hotupdatek
 
+import android.util.Log
 import com.liulishuo.okdownload.DownloadListener
 import com.liulishuo.okdownload.DownloadTask
+import com.liulishuo.okdownload.core.cause.EndCause
+import com.liulishuo.okdownload.core.listener.DownloadListener2
+import com.mozhimen.abilityk.hotupdatek.commons.IHotUpdateKListener
+import com.mozhimen.basick.loadk.LoadKReceiverInstall
+import com.mozhimen.basick.logk.LogK
+import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.UtilKPackage
+import java.lang.StringBuilder
 import java.net.URL
+import kotlin.concurrent.thread
 
 /**
  * @ClassName HotUpdateK
@@ -14,25 +24,79 @@ import java.net.URL
  */
 object HotUpdateK {
     private const val TAG = "HotUpdateK>>>>>"
-    private const val INSTALL_DIRECTORY = "/apk/"
+    private val INSTALL_DIRECTORY = UtilKGlobal.instance.getApp()!!.filesDir.absolutePath + "/apk/"
+    private val APK_NAME get() = System.currentTimeMillis().toString() + ".apk"
 
-    private fun downloadApp(urlStr: String, listener: DownloadListener) {
+    fun updateApk(nowVersionCode: Int, apkUrl: String, receiver: Class<LoadKReceiverInstall>, listener: IHotUpdateKListener) {
+        if (!isNeedUpdate(nowVersionCode)) return
+        //delete all cache
+        try {
+            UtilKFile.deleteAllFiles(INSTALL_DIRECTORY)
+        } catch (e: Exception) {
+            LogK.et(TAG, "updateApk: Exception ${e.message}")
+            e.printStackTrace()
+        }
+        //download new apk
+        downloadApk(apkUrl, object : DownloadListener2() {
+            override fun taskStart(task: DownloadTask) {
+                Log.d(TAG, "taskStart: download start")
+                val info = task.info
+                info?.let {
+                    val stringBuilder = StringBuilder()
+                    stringBuilder.append("info ")
+                    stringBuilder.append(info.url).append(" ")
+                    stringBuilder.append(info.filename).append(" ")
+                    Log.d(TAG, "taskStart: downloading... $stringBuilder")
+                }
+                listener.onStart(task)
+            }
+
+            override fun fetchProgress(task: DownloadTask, blockIndex: Int, increaseBytes: Long) {
+                Log.d(TAG, "fetchProgress: downloading... blockIndex $blockIndex increaseBytes $increaseBytes")
+                listener.onProgress(task, blockIndex, increaseBytes)
+            }
+
+            override fun taskEnd(
+                task: DownloadTask,
+                cause: EndCause,
+                realCause: Exception?
+            ) {
+                if (cause == EndCause.COMPLETED) {
+                    realCause?.printStackTrace()
+                    Log.d(TAG, "taskEnd: download finish")
+                    listener.onFinish(task, realCause)
+                    val filePath = task.file?.absolutePath
+                    if (filePath != null) {
+                        Log.d(TAG, "taskEnd: install start")
+                        installApk(filePath, receiver)
+                    } else {
+                        LogK.et(TAG, "taskEnd: lost path")
+                    }
+                }
+            }
+        })
+    }
+
+    fun isNeedUpdate(nowVersionCode: Int): Boolean =
+        UtilKPackage.getPkgVersionCode() < nowVersionCode
+
+    fun downloadApk(urlStr: String, listener: DownloadListener) {
         val url = try {
             URL(urlStr)
-        } catch (e: java.lang.Exception) {
+        } catch (e: Exception) {
+            Log.e(TAG, "downloadApp: Exception ${e.message}")
             e.printStackTrace()
             null
         }
         url?.let {
-            val mTask = DownloadTask.Builder(
-                urlStr,
-                UtilKGlobal.instance.getApp()!!.filesDir.absolutePath + INSTALL_DIRECTORY,
-                System.currentTimeMillis().toString() + ".apk"
-            ).build()
-            mTask.enqueue(listener)
+            val downloadTask = DownloadTask.Builder(urlStr, INSTALL_DIRECTORY, APK_NAME).build()
+            downloadTask.enqueue(listener)
         }
-
     }
 
-    private fun getAppName() = ""
+    fun installApk(apkPath: String, receiver: Class<LoadKReceiverInstall>) {
+        thread {
+            UtilKPackage.installSilence(apkPath, receiver)
+        }.start()
+    }
 }

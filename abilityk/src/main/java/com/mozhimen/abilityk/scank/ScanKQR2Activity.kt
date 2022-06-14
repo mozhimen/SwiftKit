@@ -28,7 +28,7 @@ import com.mozhimen.basick.utilk.UtilKScreen
 import java.util.concurrent.locks.ReentrantLock
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE])
-class ScanKQRActivity2 : BaseKActivity<ScankQr2ActivityBinding, BaseKViewModel>(R.layout.scank_qr2_activity) {
+class ScanKQR2Activity : BaseKActivity<ScankQr2ActivityBinding, BaseKViewModel>(R.layout.scank_qr2_activity) {
     data class ScanK2Result(
         val hmsScan: HmsScan,
         val bitmap: Bitmap,
@@ -99,7 +99,7 @@ class ScanKQRActivity2 : BaseKActivity<ScankQr2ActivityBinding, BaseKViewModel>(
                         vb.scankQr2Img2.setImageBitmap(cropBitmap)
                     }*/
                     //detect
-                    val results = ScanUtil.decodeWithBitmap(this@ScanKQRActivity2, cropBitmap, _options)
+                    val results = ScanUtil.decodeWithBitmap(this@ScanKQR2Activity, cropBitmap, _options)
                     if (results != null && results.isNotEmpty() && results[0] != null && !TextUtils.isEmpty(results[0].originalValue)) {
                         onScanResult(ScanK2Result(results[0], cropBitmap, vb.scankQr2Qrscan.getRectSize()))
                     }

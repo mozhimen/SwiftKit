@@ -112,7 +112,9 @@
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_opencvk.xml" value="0.36666666666666664" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_opencvk_contrast.xml" value="0.22" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_opencvk_shape.xml" value="0.25" />
+        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_scank.xml" value="0.3671875" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_scank_contrast.xml" value="0.24722222222222223" />
+        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_scank_hsv.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

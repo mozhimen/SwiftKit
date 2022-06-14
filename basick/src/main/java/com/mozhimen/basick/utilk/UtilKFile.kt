@@ -2,10 +2,13 @@ package com.mozhimen.basick.utilk
 
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.core.content.FileProvider
+import com.mozhimen.basick.logk.LogK
 import java.io.*
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.*
 
 /**
  * @ClassName UtilKFile
@@ -16,18 +19,19 @@ import java.security.MessageDigest
  */
 object UtilKFile {
 
-    private val context = UtilKGlobal.instance.getApp()!!
+    private const val TAG = "UtilKFile>>>>>"
+    private val _context = UtilKGlobal.instance.getApp()!!
+
     fun file2Uri(file: File): Uri =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             FileProvider.getUriForFile(
-                context,
-                "${context.packageName}.fileProvider",
+                _context,
+                "${_context.packageName}.fileProvider",
                 file
             )
         } else {
             Uri.fromFile(file)
         }
-
 
     /**
      * 文件转MD5
@@ -52,44 +56,53 @@ object UtilKFile {
     }
 
     /**
-     * 流转字符串
-     * @param inputStream InputStream
-     * @return String?
-     */
-    fun inputStream2String(inputStream: InputStream): String? {
-        var bufferedReader: BufferedReader? = null
-        try {
-            val buf = StringBuilder()
-            bufferedReader = BufferedReader(InputStreamReader(inputStream, "UTF-8"))
-            var str: String?
-            while (bufferedReader.readLine().also { str = it } != null) {
-                buf.append(str)
-                buf.append("\n")
-            }
-            return buf.toString()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-        }
-        return null
-    }
-
-    /**
      * 删除文件
      * @param file File
      */
     fun deleteFile(file: File) {
-        val parentPath = file.parent ?: throw Exception("this file doesnt have parent path")
+        val parentPath = file.parent ?: throw Exception("this file does nt have parent path")
         val tempPath = File(parentPath)
         if (!tempPath.exists()) {
             tempPath.mkdirs()
         }
+    }
+
+    /**
+     * 删除所有文件
+     * @param path String
+     */
+    fun deleteAllFiles(path: String) {
+        deleteAllFiles(File(path))
+    }
+
+    /**
+     * 删除所有文件
+     * @param root File
+     */
+    fun deleteAllFiles(root: File) {
+        if (!root.exists()) return
+        Log.d(TAG, "deleteAllFiles: root ${root.absolutePath}")
+        val listFiles: Array<File> = root.listFiles() ?: emptyArray()
+        if (listFiles.isNotEmpty())
+            for (file in listFiles) {
+                if (file.isDirectory) { // 判断是否为文件夹
+                    deleteAllFiles(file)
+                    try {
+                        file.delete()
+                    } catch (e: Exception) {
+                        LogK.et(TAG, "deleteAllFiles: Exception ${e.message}")
+                        e.printStackTrace()
+                    }
+                } else {
+                    if (file.exists()) { // 判断是否存在
+                        try {
+                            file.delete()
+                        } catch (e: Exception) {
+                            LogK.et(TAG, "deleteAllFiles: Exception ${e.message}")
+                            e.printStackTrace()
+                        }
+                    }
+                }
+            }
     }
 }

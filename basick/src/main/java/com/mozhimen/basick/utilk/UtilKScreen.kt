@@ -28,6 +28,18 @@ object UtilKScreen {
     private val _context = UtilKGlobal.instance.getApp()!!
 
     /**
+     * 设置屏幕亮度
+     * @param paramFloat Float 0-1范围
+     * @param activity Activity
+     */
+    fun setScreenBrightness(paramFloat: Float, activity: Activity) {
+        val localWindow: Window = activity.window
+        val params: WindowManager.LayoutParams = localWindow.attributes
+        params.screenBrightness = paramFloat
+        localWindow.attributes = params
+    }
+
+    /**
      * 获取屏幕密度dp
      * @return Int
      */

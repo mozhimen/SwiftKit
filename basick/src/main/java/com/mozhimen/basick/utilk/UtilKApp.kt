@@ -1,14 +1,11 @@
 package com.mozhimen.basick.utilk
 
-import android.app.Activity
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
-import android.content.ContextWrapper
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
-import android.os.Build
+import android.content.Intent
 import android.os.Process
+import kotlin.system.exitProcess
 
 /**
  * @ClassName UtilKActivity
@@ -18,33 +15,39 @@ import android.os.Process
  * @Version 1.0
  */
 object UtilKApp {
+    private const val PKG_AUTO_RUN = "persist.sensepass.autorun"
+    private const val PKG_POWER = "sys.powerctl"
 
-    fun isActivityDestroyed(context: Context): Boolean {
-        val activity: Activity? = findActivity(context)
-        return if (activity != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                activity.isDestroyed || activity.isFinishing
-            } else activity.isFinishing
-        } else true
+    private val _context = UtilKGlobal.instance.getApp()!!
+
+    //重启
+    fun setReboot() {
+        UtilKCmd.setSystemProperties(PKG_POWER, "reboot")
     }
 
-    fun findActivity(context: Context): Activity? {
-        //怎么判断context 是不是activity 类型的
-        if (context is Activity) return context else if (context is ContextWrapper) {
-            return findActivity(context.baseContext)
-        }
-        return null
-    }
+    //是否自启动
+    fun isAutoRun(): Boolean =
+        UtilKCmd.getSystemPropertiesBool(PKG_AUTO_RUN, false)
 
-    fun isMainProcess(application: Application): Boolean {
-        val myPid = Process.myPid()
-        val activityManager = application.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    //是否在主线程
+    fun isMainProcess(app: Application): Boolean {
+        val activityManager = app.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val runningAppProcesses = activityManager.runningAppProcesses
         for (process in runningAppProcesses) {
-            if (process.processName == application.packageName) {
+            if (process.processName == app.packageName) {
                 return true
             }
         }
         return false
+    }
+
+    //重启APP
+    fun restartApp(isValid: Boolean = true) {
+        val intent = _context.packageManager.getLaunchIntentForPackage(_context.packageName)
+        intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        _context.startActivity(intent)
+
+        Process.killProcess(Process.myPid())
+        exitProcess(if (isValid) 0 else 10)
     }
 }

@@ -49,10 +49,9 @@
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/scank_demo_btn_scan_contrast"
             style="@style/BtnStyle"
-            android:text="图片相似度"
-            android:onClick="goScanKContrast"
+            android:text="图片色彩比例"
+            android:onClick="goScanKHSV"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>
