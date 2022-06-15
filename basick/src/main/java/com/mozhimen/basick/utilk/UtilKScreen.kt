@@ -196,6 +196,13 @@ object UtilKScreen {
     fun isPortrait(): Boolean = _context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
 
     /**
+     * 获取方向
+     * @param activity Activity
+     * @return Int
+     */
+    fun getRotation(activity: Activity): Int = UtilKDisplay.getRotation(activity)
+
+    /**
      * 截屏
      * @param activity Activity
      * @return Bitmap

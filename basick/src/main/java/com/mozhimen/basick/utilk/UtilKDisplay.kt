@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk
 
+import android.app.Activity
+import android.os.Build
 import android.util.TypedValue
 
 /**
@@ -27,5 +29,13 @@ object UtilKDisplay {
      */
     fun sp2px(dp: Float): Int =
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dp, _context.resources?.displayMetrics).toInt()
+
+    /**
+     * 获取方向
+     * @param activity Activity
+     * @return Int
+     */
+    fun getRotation(activity: Activity): Int =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) activity.display!!.rotation else activity.windowManager.defaultDisplay.rotation
 
 }
