@@ -34,7 +34,7 @@ class UtilKActivity : AppCompatActivity() {
             "是否合法: ${UtilKVerifyUrl.isPortValid(vb.utilkTxtPortVerify.text.toString())}".showToast()
         }
 
-        val bitmap = UtilKRes.getDrawable(R.mipmap.scank_contrast_test)!!.drawable2Bitmap()
+        val bitmap = UtilKRes.getDrawable(R.mipmap.opencvk_contrast_test)!!.drawable2Bitmap()
         vb.utilkSeekbarBmpZoom.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 

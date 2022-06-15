@@ -12,7 +12,6 @@ import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.opencvk.OpenCVKContrast
 import com.mozhimen.abilityk.opencvk.OpenCVKHSV
 import com.mozhimen.abilityk.opencvk.mos.OpenCVKColorHSV
-import com.mozhimen.abilityk.scank.mos.ColorHSV
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityOpencvkContrastBinding
 import com.mozhimen.basick.basek.BaseKActivity
@@ -40,7 +39,7 @@ class OpenCVKContrastActivity : BaseKActivity<ActivityOpencvkContrastBinding, Ba
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        _orgBitmap = UtilKRes.getDrawable(R.mipmap.scank_contrast_test)!!.drawable2Bitmap()
+        _orgBitmap = UtilKRes.getDrawable(R.mipmap.opencvk_contrast_test)!!.drawable2Bitmap()
         require(OpenCVK.initSDK()) { "opencv init fail" }
         initCamera()
     }

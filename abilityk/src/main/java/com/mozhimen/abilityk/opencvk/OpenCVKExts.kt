@@ -11,9 +11,5 @@ import org.opencv.core.Mat
  * @Version 1.0
  */
 fun ImageView.setMat(mat: Mat) {
-    try {
-        this.setImageBitmap(OpenCVKTrans.mat2Bitmap(mat))
-    } finally {
-        mat.release()
-    }
+    this.setImageBitmap(OpenCVKTrans.mat2Bitmap(mat))
 }

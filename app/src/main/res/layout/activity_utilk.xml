@@ -42,19 +42,19 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/scank_contrast_test" />
+                android:src="@mipmap/opencvk_contrast_test" />
 
             <ImageView
                 android:id="@+id/utilk_img_bmp_zoom"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/scank_contrast_test" />
+                android:src="@mipmap/opencvk_contrast_test" />
 
             <ImageView
                 android:id="@+id/utilk_img_bmp_scale"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@mipmap/scank_contrast_test" />
+                android:src="@mipmap/opencvk_contrast_test" />
         </LinearLayout>
 
         <TextView
