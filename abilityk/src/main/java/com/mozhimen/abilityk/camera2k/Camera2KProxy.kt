@@ -17,6 +17,7 @@ import android.view.OrientationEventListener
 import android.view.Surface
 import android.view.SurfaceHolder
 import androidx.core.app.ActivityCompat
+import com.mozhimen.abilityk.camera2k.helpers.GLSurfaceRenderer
 import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.utilk.UtilKDisplay
 import com.mozhimen.basick.utilk.UtilKToast
@@ -31,12 +32,12 @@ import kotlin.math.abs
  * @Date 2022/6/15 17:56
  * @Version 1.0
  */
-class Camera2KProxy(activity: Activity, controller: TextureController) {
+class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
 
     private val TAG = "Camera2KProxy>>>>>"
 
     private var _activity: Activity = activity
-    private var _controller: TextureController = controller
+    private var _renderer: GLSurfaceRenderer = renderer
 
     private var _cameraManager: CameraManager = _activity.getSystemService(Context.CAMERA_SERVICE) as CameraManager// 相机管理者
     private var _cameraDevice: CameraDevice? = null // 相机对象
@@ -123,10 +124,6 @@ class Camera2KProxy(activity: Activity, controller: TextureController) {
         }
     }*/
 
-    init {
-        _controller = controller
-    }
-
     fun setImageAvailableListener(listener: ImageReader.OnImageAvailableListener) {
         this._imageAvailableListener = listener
     }
@@ -151,7 +148,7 @@ class Camera2KProxy(activity: Activity, controller: TextureController) {
                     previewHeight,
                     largest
                 )// 预览大小，根据上面选择的拍照图片的长宽比，选择一个和控件长宽差不多的大小
-            _controller.setDataSize(_previewSize!!.height, _previewSize!!.width)
+            _renderer.setPreviewSize(_previewSize!!.height, _previewSize!!.width)
             _cameraManager.openCamera(_cameraId.toString(), _cameraStateCallback, _backgroundHandler)// 打开摄像头
         } catch (e: CameraAccessException) {
             LogK.et(TAG, "openCamera: fail CameraAccessException ${e.message}")
@@ -351,8 +348,8 @@ class Camera2KProxy(activity: Activity, controller: TextureController) {
     private fun initPreview(cameraDevice: CameraDevice) {
         try {
             _previewRequestBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
-            _previewSurface = Surface(_controller.getTexture())
-            _controller.getTexture().setDefaultBufferSize(_previewSize!!.width, _previewSize!!.height)
+            _previewSurface = Surface(_renderer.getTexture())
+            _renderer.getTexture().setDefaultBufferSize(_previewSize!!.width, _previewSize!!.height)
             _previewRequestBuilder!!.addTarget(_previewSurface!!) // 设置预览输出的 Surface
             _imageReader = ImageReader.newInstance(_previewSize!!.width, _previewSize!!.height, ImageFormat.YUV_420_888, 2)
             _imageReader!!.setOnImageAvailableListener(_imageAvailableListener, _backgroundHandler)
@@ -365,7 +362,7 @@ class Camera2KProxy(activity: Activity, controller: TextureController) {
                             session.setRepeatingRequest(_previewRequestBuilder!!.build(), object : CameraCaptureSession.CaptureCallback() {
                                 override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                                     super.onCaptureCompleted(session, request, result)
-                                    _controller.requestRender()
+                                    _renderer.onRequestRender()
                                 }
                             }, _backgroundHandler)
                         } catch (e: CameraAccessException) {
@@ -388,7 +385,7 @@ class Camera2KProxy(activity: Activity, controller: TextureController) {
         val swapRotation = totalRotation == 90 || totalRotation == 270
         val width = if (swapRotation) viewHeight else viewWidth
         val height = if (swapRotation) viewWidth else viewHeight
-        return getSuitableSize(sizes, width, height, pictureSize)
+        return getSuitableSize(sizes, width, pictureSize)
     }
 
     private fun getRotation(activity: Activity): Int {
@@ -404,7 +401,7 @@ class Camera2KProxy(activity: Activity, controller: TextureController) {
         return _cameraRotate
     }
 
-    private fun getSuitableSize(sizes: Array<Size>, width: Int, height: Int, pictureSize: Size): Size {
+    private fun getSuitableSize(sizes: Array<Size>, width: Int, pictureSize: Size): Size {
         var minDelta = Int.MAX_VALUE // 最小的差值，初始值应该设置大点保证之后的计算中会被重置
         var index = 0 // 最小的差值对应的索引坐标
         val aspectRatio = pictureSize.height * 1.0f / pictureSize.width

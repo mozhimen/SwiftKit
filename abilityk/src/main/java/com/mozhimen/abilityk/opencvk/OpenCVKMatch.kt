@@ -13,8 +13,8 @@ import org.opencv.imgproc.Imgproc
  */
 object OpenCVKMatch {
     private val TAG = "OpenCVKMatch"
-    const val MATCH_MAX_VAL = 8.5E8
-    const val MATCH_MIN_VAL = 7.5E8
+    const val MATCH_MAX_VAL = 7.0E8
+    const val MATCH_MIN_VAL = 6.5E8
 
     const val TM_SQDIFF = Imgproc.TM_SQDIFF
     const val TM_SQDIFF_NORMED = Imgproc.TM_SQDIFF_NORMED

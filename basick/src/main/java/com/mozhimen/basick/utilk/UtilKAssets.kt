@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk
 import android.text.TextUtils
 import java.io.*
 import android.content.res.AssetManager
+import android.content.res.Resources
 import android.util.Log
 import com.mozhimen.basick.logk.LogK
 
@@ -102,6 +103,28 @@ object UtilKAssets {
             e.printStackTrace()
         }
         return null
+    }
+
+    /**
+     * 通过路径加载Assets中的文本内容
+     * @param res Resources
+     * @param path String?
+     * @return String?
+     */
+    @JvmStatic
+    fun txt2String(res: Resources, path: String): String {
+        val result = StringBuilder()
+        try {
+            val inputStream = res.assets.open(path)
+            var ch: Int
+            val buffer = ByteArray(1024)
+            while (-1 != inputStream.read(buffer).also { ch = it }) {
+                result.append(String(buffer, 0, ch))
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return result.toString().replace("\\r\\n".toRegex(), "\n")
     }
 
     /**
