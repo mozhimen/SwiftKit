@@ -68,20 +68,22 @@ class OpenCVKContrastActivity : BaseKActivity<ActivityOpencvkContrastBinding, Ba
                     val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
                     val ratio: Double =
                         vb.opencvkContrastQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
+
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),
                         (ratio * rotateBitmap.width).toInt(),
                         ((1 - ratio) * rotateBitmap.width / 2).toInt(),
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
+
                     val cropSameBitmap = UtilKBitmap.scaleSameSize(cropBitmap, _orgBitmap)
                     runOnUiThread {
                         vb.opencvkContrastImg.setImageBitmap(rotateBitmap)
-                        vb.opencvkContrastImg1.setImageBitmap(OpenCVKHSV.colorFilter(cropSameBitmap.first,OpenCVKColorHSV.COLOR_GREEN))
+                        vb.opencvkContrastImg1.setImageBitmap(cropSameBitmap.first)
                         vb.opencvkContrastImg2.setImageBitmap(cropSameBitmap.second)
                     }
                     //detect
-                    val result = OpenCVKContrast.similarity(OpenCVKHSV.colorFilter(cropSameBitmap.first,OpenCVKColorHSV.COLOR_GREEN), cropSameBitmap.second) * 100
+                    val result = OpenCVKContrast.similarity(cropSameBitmap.first, cropSameBitmap.second) * 100
                     runOnUiThread {
                         vb.opencvkContrastRes.text = result.toString()
                     }

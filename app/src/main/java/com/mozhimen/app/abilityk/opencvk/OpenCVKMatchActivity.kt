@@ -67,6 +67,7 @@ class OpenCVKMatchActivity : BaseKActivity<ActivityOpencvkMatchBinding, BaseKVie
                     val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
                     val ratio: Double =
                         vb.opencvkMatchQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
+
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),
                         (ratio * rotateBitmap.width).toInt(),
@@ -75,6 +76,7 @@ class OpenCVKMatchActivity : BaseKActivity<ActivityOpencvkMatchBinding, BaseKVie
                     )
 
                     val srcMat = OpenCVKTrans.bitmap2Mat(cropBitmap)
+
                     val resultMat = OpenCVKMatch.templateMatch(srcMat, _templateMat)
                     Thread.sleep(100)
                     try {

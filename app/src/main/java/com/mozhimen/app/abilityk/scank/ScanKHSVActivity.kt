@@ -87,38 +87,15 @@ class ScanKHSVActivity : BaseKActivity<ActivityScankHsvBinding, BaseKViewModel>(
                         ((1 - ratio) * rotateBitmap.width / 2).toInt(),
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
-
-                    val zoomBitmap = UtilKBitmap.zoomBitmap(cropBitmap, 1.1f)
-                    val scaleBitmap =
-                        UtilKBitmap.scaleBitmap(zoomBitmap, cropBitmap.width, cropBitmap.height)
-                    val results =
-                        ScanUtil.decodeWithBitmap(this@ScanKHSVActivity, scaleBitmap, _options)
-                    if (results != null && results.isNotEmpty() && results[0] != null && !TextUtils.isEmpty(
-                            results[0].originalValue
-                        )
-                    ) {
-                        onScanHealthQrRes(scaleBitmap, rotateBitmap)
-                    }
+                    val scaleBitmap = UtilKBitmap.scaleBitmap(cropBitmap, cropBitmap.width / 5, cropBitmap.height / 5)//降低分辨率提高运算速度
+                    val results = ScanKHSV.colorAnalyze(scaleBitmap)
+                    Log.i(TAG, "analyze: $results")
                 } finally {
                     _reentrantLock.unlock()
                 }
 
                 image.close()
             }
-        }
-    }
-
-    private fun onScanHealthQrRes(bitmap: Bitmap, uploadBitmap: Bitmap) {
-        val scaleBitmap = UtilKBitmap.scaleBitmap(bitmap, bitmap.width / 6, bitmap.height / 6)
-        val filterBitmap = OpenCVKHSV.colorFilter(scaleBitmap, OpenCVKColorHSV.COLOR_GREEN)
-        val colors =
-            ScanKHSV.colorAnalyze(filterBitmap)?.filter { it.first.colorName == "绿色" }
-        colors?.let {
-            runOnUiThread {
-                vb.scankHsvImg.setImageBitmap(scaleBitmap)
-                vb.scankHsvImg1.setImageBitmap(filterBitmap)
-            }
-            Log.d(TAG, "onScanHealthQrRes: colors $colors")
         }
     }
 }
