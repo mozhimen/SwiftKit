@@ -1,9 +1,7 @@
 package com.mozhimen.basick.utilk
 
-import android.content.res.Resources
 import android.opengl.GLES20
 import android.opengl.Matrix
-import android.os.Build
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
 
@@ -98,8 +96,8 @@ object UtilKGL {
     }
 
     @JvmStatic
-    fun createGlProgramByRes(res: Resources, vert: String, frag: String): Int =
-        createGlProgram(UtilKAssets.txt2String(res, vert), UtilKAssets.txt2String(res, frag))
+    fun createGlProgramByRes(vert: String, frag: String): Int =
+        createGlProgram(UtilKAssets.txt2String2(vert), UtilKAssets.txt2String2(frag))
 
     /**
      * 创建GL程序

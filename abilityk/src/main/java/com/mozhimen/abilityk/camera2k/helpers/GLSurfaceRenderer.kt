@@ -11,6 +11,8 @@ import android.view.SurfaceHolder
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.mozhimen.abilityk.camera2k.commons.AFilter
+import com.mozhimen.abilityk.camera2k.commons.CameraAFilter
 import com.mozhimen.abilityk.camera2k.commons.ICamera2KFrameListener
 import com.mozhimen.abilityk.camera2k.commons.ICamera2KRenderer
 import com.mozhimen.basick.utilk.UtilKGL
@@ -32,7 +34,10 @@ import javax.microedition.khronos.opengles.GL10
  * @Version 1.0
  */
 class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
-    private val TAG = "GLSurfaceRenderer>>>>>"
+    companion object{
+        private const val TAG = "GLSurfaceRenderer>>>>>"
+
+    }
     private var _surface: Any? = null
     private var _context: Context = context
     private var _camera2KRenderer: ICamera2KRenderer? = null//用户附加的Renderer或用来监听Renderer
@@ -43,7 +48,7 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
     private var _inputPreviewSize: Point? = null //数据的大小
     private var _outputPreviewSize: Point? = null //输出视图的大小
 
-    private var _inputEffectFilter: CameraFilter? = null//特效处理的Filter
+    private var _effectFilter: CameraFrameFilter? = null//特效处理的Filter
     private var _groupFilter: GroupFilter? = null//中间特效
     private var _showFilter: AFilter? = null //用来渲染输出的Filter
 
@@ -100,8 +105,8 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
                 _screenMatrix, _showType,
                 _inputPreviewSize!!.x, _inputPreviewSize!!.y, _outputPreviewSize!!.x, _outputPreviewSize!!.y
             )
-            _showFilter.setMatrix(_screenMatrix)
-            _showFilter.setSize(_outputPreviewSize!!.x, _outputPreviewSize!!.y)
+            _showFilter?.setMatrix(_screenMatrix)
+            _showFilter?.changeSize(_outputPreviewSize!!.x, _outputPreviewSize!!.y)
         }
     }
 
@@ -121,18 +126,18 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
 
     /**
      * 增加滤镜
-     * @param filter [ERROR : AFilter]
+     * @param filter AFilter
      */
-    fun addFilter(filter: AFilter?) {
-        _groupFilter.addFilter(filter)
+    fun addFilter(filter: AFilter) {
+        _groupFilter?.addFilter(filter)
     }
 
     /**
      * 移除滤镜
-     * @param filter [ERROR : AFilter]
+     * @param filter AFilter
      */
-    fun removeFilter(filter: AFilter?) {
-        _groupFilter.removeFilter(filter)
+    fun removeFilter(filter: AFilter) {
+        _groupFilter?.removeFilter(filter)
     }
 
     fun onCreate(width: Int, height: Int) {
@@ -160,15 +165,15 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
     }
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
-        _inputEffectFilter.create()
-        _groupFilter.create()
-        _showFilter.create()
+        _effectFilter?.create()
+        _groupFilter?.create()
+        _showFilter?.create()
         if (!_isParamSet.get()) {
             _camera2KRenderer?.onSurfaceCreated(gl, config)
             sdkParamSet()
         }
         calculateCallbackOM()
-        _inputEffectFilter.setFlag(_directionFlag)
+        _effectFilter?.setFilterFlag(_directionFlag)
         deleteFrameBuffer()
         GLES20.glGenFramebuffers(1, _exportFrame, 0)
         UtilKGL.genTexturesAndParameterf(
@@ -183,34 +188,34 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
             _screenMatrix, _showType,
             _inputPreviewSize!!.x, _inputPreviewSize!!.y, width, height
         )
-        _showFilter.setSize(width, height)
-        _showFilter.setMatrix(_screenMatrix)
-        _groupFilter.setSize(_inputPreviewSize!!.x, _inputPreviewSize!!.y)
-        _inputEffectFilter.setSize(_inputPreviewSize!!.x, _inputPreviewSize!!.y)
-        _showFilter.setSize(_inputPreviewSize!!.x, _inputPreviewSize!!.y)
+        _showFilter?.changeSize(width, height)
+        _showFilter?.setMatrix(_screenMatrix)
+        _groupFilter?.changeSize(_inputPreviewSize!!.x, _inputPreviewSize!!.y)
+        _effectFilter?.changeSize(_inputPreviewSize!!.x, _inputPreviewSize!!.y)
+        _showFilter?.changeSize(_inputPreviewSize!!.x, _inputPreviewSize!!.y)
         _camera2KRenderer?.onSurfaceChanged(gl, width, height)
     }
 
     override fun onDrawFrame(gl: GL10?) {
         if (_isParamSet.get()) {
-            _inputEffectFilter.draw()
-            _groupFilter.setTextureId(_inputEffectFilter.getOutputTexture())
-            _groupFilter.draw()
+            _effectFilter?.draw()
+            _groupFilter?.setTextureId(_effectFilter!!.getOutputTexture())
+            _groupFilter?.draw()
             GLES20.glViewport(0, 0, _outputPreviewSize!!.x, _outputPreviewSize!!.y)//显示传入的texture上，一般是显示在屏幕上
-            _showFilter.setMatrix(_screenMatrix)
-            _showFilter.setTextureId(_groupFilter.getOutputTexture())
-            _showFilter.draw()
+            _showFilter?.setMatrix(_screenMatrix)
+            _showFilter?.setTextureId(_groupFilter!!.getOutputTexture())
+            _showFilter?.draw()
             _camera2KRenderer?.onDrawFrame(gl)
             callbackIfNeeded()
         }
     }
 
-    fun onSurfaceCreated(nativeWindow: Any?) {
+    private fun onSurfaceCreated(nativeWindow: Any?) {
         _surface = nativeWindow
         _camera2KGLSurfaceView.surfaceCreated(_surfaceHolder)
     }
 
-    fun onSurfaceChanged(width: Int, height: Int) {
+    private fun onSurfaceChanged(width: Int, height: Int) {
         _outputPreviewSize!!.x = width
         _outputPreviewSize!!.y = height
         _camera2KGLSurfaceView.surfaceChanged(_surfaceHolder, PixelFormat.RGBA_8888, width, height)
@@ -222,8 +227,8 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
 
     fun getOutput(): Any? = _surface
 
-    fun getTexture(): SurfaceTexture {
-        return _inputEffectFilter.getTexture()
+    fun getTexture(): SurfaceTexture? {
+        return _effectFilter?.getTexture()
     }
 
     fun getWindowSize(): Point? {
@@ -301,9 +306,9 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
         }
         contentView.addView(_camera2KGLSurfaceView)
         contentView.visibility = View.GONE
-        _inputEffectFilter = CameraFilter(_context.resources)
-        _showFilter = NoFilter(_context.resources)
-        _groupFilter = GroupFilter(_context.resources)
+        _effectFilter = CameraFrameFilter()
+        _showFilter = NoFilter()
+        _groupFilter = GroupFilter()
 
         //设置默认的DateSize，DataSize由AiyaProvider根据数据源的图像宽高进行设置
         _inputPreviewSize = Point(720, 1280)
@@ -319,7 +324,7 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
                 _frameWidth,
                 _frameHeight
             )
-            UtilKMatrix.flipMatrix(_callbackOptionMatrix, false, true)
+            UtilKMatrix.flipMatrix(_callbackOptionMatrix, isFlipX = false, isFlipY = true)
         }
     }
 
@@ -343,12 +348,12 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
             }
             GLES20.glViewport(0, 0, _frameWidth, _frameHeight)
             UtilKGL.bindFrameBuffer(_exportFrame[0], _exportTexture[0])
-            _showFilter.setMatrix(_callbackOptionMatrix)
-            _showFilter.draw()
+            _showFilter?.setMatrix(_callbackOptionMatrix)
+            _showFilter?.draw()
             onFrameCallback()
             _isShoot = false
             UtilKGL.unBindFrameBuffer()
-            _showFilter.setMatrix(_screenMatrix)
+            _showFilter?.setMatrix(_screenMatrix)
         }
     }
 

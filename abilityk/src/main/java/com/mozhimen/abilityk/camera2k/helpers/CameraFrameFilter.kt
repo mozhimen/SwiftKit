@@ -1,19 +1,19 @@
 package com.mozhimen.abilityk.camera2k.helpers
 
-import android.content.res.Resources
 import android.graphics.SurfaceTexture
 import android.opengl.GLES20
-import java.nio.ByteBuffer
+import com.mozhimen.abilityk.camera2k.commons.CameraAFilter
+import com.mozhimen.basick.utilk.UtilKGL
 
 /**
- * @ClassName InputFilter
+ * @ClassName CameraFrameFilter
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2022/6/16 13:33
+ * @Date 2022/6/27 16:23
  * @Version 1.0
  */
-open class InputFilter(res: Resources) : BaseFilter(res) {
-    private var _filter: CameraFilter? = null
+class CameraFrameFilter : CameraAFilter() {
+    private var _filter: CameraFilter = CameraFilter()
     private var _width = 0
     private var _height = 0
 
@@ -27,11 +27,7 @@ open class InputFilter(res: Resources) : BaseFilter(res) {
     //获取Track数据
     //private val _tBuffer: ByteBuffer? = null
 
-    init {
-        _filter = CameraFilter(res)
-    }
-
-    fun setCoordMatrix(matrix: FloatArray?) {
+    fun setCoordMatrix(matrix: FloatArray) {
         _filter.setCoordMatrix(matrix)
     }
 
@@ -39,13 +35,11 @@ open class InputFilter(res: Resources) : BaseFilter(res) {
         return _surfaceTexture
     }
 
-    fun setFlag(flag: Int) {
-        _filter.setFlag(flag)
+    override fun setFilterFlag(filterFlag: Int) {
+        _filter.setFilterFlag(filterFlag)
     }
 
-    fun initBuffer() {}
-
-    fun setMatrix(matrix: FloatArray?) {
+    override fun setMatrix(matrix: FloatArray) {
         _filter.setMatrix(matrix)
     }
 
@@ -60,14 +54,14 @@ open class InputFilter(res: Resources) : BaseFilter(res) {
     }
 
     override fun onFilterSizeChanged(width: Int, height: Int) {
-        _filter.setSize(width, height)
+        _filter.changeSize(width, height)
         if (this._width != width || this._height != height) {
             this._width = width
             this._height = height
             //创建FrameBuffer和Texture
             deleteFrameBuffer()
             GLES20.glGenFramebuffers(1, _fFrame, 0)
-            EasyGlUtils.genTexturesWithParameter(1, _fTexture, 0, GLES20.GL_RGBA, width, height)
+            UtilKGL.genTexturesAndParameterf(1, _fTexture, 0, GLES20.GL_RGBA, width, height)
         }
     }
 
@@ -81,12 +75,11 @@ open class InputFilter(res: Resources) : BaseFilter(res) {
             _surfaceTexture!!.getTransformMatrix(_coordOM)
             _filter.setCoordMatrix(_coordOM)
         }
-        EasyGlUtils.bindFrameTexture(_fFrame[0], _fTexture[0])
+        UtilKGL.bindFrameBuffer(_fFrame[0], _fTexture[0])
         GLES20.glViewport(0, 0, _width, _height)
         _filter.setTextureId(_cameraTexture[0])
         _filter.draw()
-        // Log.e("wuwang","textureFilter draw");
-        EasyGlUtils.unBindFrameBuffer()
+        UtilKGL.unBindFrameBuffer()
         if (a) {
             GLES20.glEnable(GLES20.GL_DEPTH_TEST)
         }

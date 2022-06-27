@@ -107,15 +107,14 @@ object UtilKAssets {
 
     /**
      * 通过路径加载Assets中的文本内容
-     * @param res Resources
      * @param path String?
      * @return String?
      */
     @JvmStatic
-    fun txt2String(res: Resources, path: String): String {
+    fun txt2String2(path: String): String {
         val result = StringBuilder()
         try {
-            val inputStream = res.assets.open(path)
+            val inputStream = _context.resources.assets.open(path)
             var ch: Int
             val buffer = ByteArray(1024)
             while (-1 != inputStream.read(buffer).also { ch = it }) {

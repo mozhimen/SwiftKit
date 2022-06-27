@@ -1,6 +1,5 @@
-package com.mozhimen.abilityk.camera2k.helpers
+package com.mozhimen.abilityk.camera2k.commons
 
-import android.content.res.Resources
 import android.opengl.GLES20
 import android.util.SparseArray
 import com.mozhimen.basick.utilk.UtilKAssets
@@ -9,43 +8,41 @@ import com.mozhimen.basick.utilk.UtilKMatrix
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
-import java.nio.ShortBuffer
-import java.util.*
 
 /**
  * @ClassName BaseFilter
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
- * @Date 2022/6/16 13:33
+ * @Date 2022/6/27 15:52
  * @Version 1.0
  */
-abstract class BaseFilter(res: Resources) {
+abstract class BaseFilter {
 
     companion object {
-        private const val TAG = "BaseFilter>>>>>"
-        const val BASEFILTER_KEY_OUT = 0x101
-        const val BASEFILTER_KEY_IN = 0x102
-        const val BASEFILTER_KEY_INDEX = 0x201
+//        private const val TAG = "BaseFilter>>>>>"
+//
+//        const val BASEFILTER_KEY_OUT = 0x101
+//        const val BASEFILTER_KEY_IN = 0x102
+//        const val BASEFILTER_KEY_INDEX = 0x201
     }
 
     private var verPos = floatArrayOf(-1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f, -1.0f)//顶点坐标
-    private var coordPos = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f)//纹理坐标
+    open var coordPos = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f)//纹理坐标
 
-    private var filterResources: Resources = res
-
-    protected val _originalMatrix: FloatArray = UtilKMatrix.getOriginalMatrix()//单位矩阵
-    protected var _program = 0//程序句柄
+    protected val originalMatrix: FloatArray = UtilKMatrix.getOriginalMatrix()//单位矩阵
+    protected var program = 0//程序句柄
     private var _hPosition = 0//顶点坐标句柄
     private var _hCoord = 0//纹理坐标句柄
     private var _hMatrix = 0//总变换矩阵句柄
-    protected var _hTexture = 0//默认纹理贴图句柄
+    protected var hTexture = 0//默认纹理贴图句柄
 
     private var _verBuffer: FloatBuffer? = null//顶点坐标Buffer
-    private var _texBuffer: FloatBuffer? = null//纹理坐标Buffer
-    protected var _minDexBuffer: ShortBuffer? = null//索引坐标Buffer
+    protected var texBuffer: FloatBuffer? = null//纹理坐标Buffer
+
+    //protected var _minDexBuffer: ShortBuffer? = null//索引坐标Buffer
     private var _filterFlag = 0
 
-    private var _matrix = _originalMatrix.copyOf(16)
+    private var _matrix = originalMatrix.copyOf(16)
     private var _textureType = 0 //默认使用Texture2D0
     private var _textureId = 0
     private var _bools: SparseArray<BooleanArray>? = null
@@ -60,7 +57,7 @@ abstract class BaseFilter(res: Resources) {
         _textureType = type
     }
 
-    fun setMatrix(matrix: FloatArray) {
+    open fun setMatrix(matrix: FloatArray) {
         _matrix = matrix
     }
 
@@ -68,7 +65,7 @@ abstract class BaseFilter(res: Resources) {
         _textureId = textureId
     }
 
-    fun setFilterFlag(filterFlag: Int) {
+    open fun setFilterFlag(filterFlag: Int) {
         _filterFlag = filterFlag
     }
 
@@ -93,6 +90,13 @@ abstract class BaseFilter(res: Resources) {
         _bools!!.put(type, params)
     }
 
+    /**
+     * 实现此方法，完成程序的创建，可直接调用createProgram来实现
+     */
+    protected abstract fun onFilterCreate()
+
+    protected abstract fun onFilterSizeChanged(width: Int, height: Int)
+
     open fun create() {
         onFilterCreate()
     }
@@ -109,7 +113,7 @@ abstract class BaseFilter(res: Resources) {
         onDraw()
     }
 
-    open fun getMatrix(): FloatArray? {
+    open fun getMatrix(): FloatArray {
         return _matrix
     }
 
@@ -145,32 +149,25 @@ abstract class BaseFilter(res: Resources) {
         return if (b == null || b.size <= index) 0f else b[index]
     }
 
-    fun getOutputTexture(): Int = -1
-
-    /**
-     * 实现此方法，完成程序的创建，可直接调用createProgram来实现
-     */
-    protected abstract fun onFilterCreate()
-
-    protected abstract fun onFilterSizeChanged(width: Int, height: Int)
+    open fun getOutputTexture(): Int = -1
 
     protected open fun createProgramByAssetsFile(vertex: String, fragment: String) {
         createProgram(
-            UtilKAssets.txt2String(filterResources, vertex),
-            UtilKAssets.txt2String(filterResources, fragment)
+            UtilKAssets.txt2String2(vertex),
+            UtilKAssets.txt2String2(fragment)
         )
     }
 
     protected open fun createProgram(vertex: String, fragment: String) {
-        _program = UtilKGL.createGlProgram(vertex, fragment)
-        _hPosition = GLES20.glGetAttribLocation(_program, "vPosition")
-        _hCoord = GLES20.glGetAttribLocation(_program, "vCoord")
-        _hMatrix = GLES20.glGetUniformLocation(_program, "vMatrix")
-        _hTexture = GLES20.glGetUniformLocation(_program, "vTexture")
+        program = UtilKGL.createGlProgram(vertex, fragment)
+        _hPosition = GLES20.glGetAttribLocation(program, "vPosition")
+        _hCoord = GLES20.glGetAttribLocation(program, "vCoord")
+        _hMatrix = GLES20.glGetUniformLocation(program, "vMatrix")
+        hTexture = GLES20.glGetUniformLocation(program, "vTexture")
     }
 
     protected open fun onUseProgram() {
-        GLES20.glUseProgram(_program)
+        GLES20.glUseProgram(program)
     }
 
     /**
@@ -180,7 +177,7 @@ abstract class BaseFilter(res: Resources) {
         GLES20.glEnableVertexAttribArray(_hPosition)
         GLES20.glVertexAttribPointer(_hPosition, 2, GLES20.GL_FLOAT, false, 0, _verBuffer)
         GLES20.glEnableVertexAttribArray(_hCoord)
-        GLES20.glVertexAttribPointer(_hCoord, 2, GLES20.GL_FLOAT, false, 0, _texBuffer)
+        GLES20.glVertexAttribPointer(_hCoord, 2, GLES20.GL_FLOAT, false, 0, texBuffer)
         GLES20.glDrawArrays(GLES20.GL_TRIANGLE_STRIP, 0, 4)
         GLES20.glDisableVertexAttribArray(_hPosition)
         GLES20.glDisableVertexAttribArray(_hCoord)
@@ -207,13 +204,13 @@ abstract class BaseFilter(res: Resources) {
     protected open fun onBindTexture() {
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + _textureType)
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, getTextureId())
-        GLES20.glUniform1i(_hTexture, _textureType)
+        GLES20.glUniform1i(hTexture, _textureType)
     }
 
     /**
      * Buffer初始化
      */
-    private fun initBuffer() {
+    protected open fun initBuffer() {
         val a = ByteBuffer.allocateDirect(32)
         a.order(ByteOrder.nativeOrder())
         _verBuffer = a.asFloatBuffer()
@@ -221,8 +218,8 @@ abstract class BaseFilter(res: Resources) {
         _verBuffer!!.position(0)
         val b = ByteBuffer.allocateDirect(32)
         b.order(ByteOrder.nativeOrder())
-        _texBuffer = b.asFloatBuffer()
-        _texBuffer!!.put(coordPos)
-        _texBuffer!!.position(0)
+        texBuffer = b.asFloatBuffer()
+        texBuffer!!.put(coordPos)
+        texBuffer!!.position(0)
     }
 }
