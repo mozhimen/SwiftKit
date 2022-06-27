@@ -1,7 +1,10 @@
 package com.mozhimen.basick.utilk
 
+import android.content.pm.PackageManager
 import android.graphics.Rect
 import android.graphics.RectF
+import android.hardware.Camera
+import android.os.Build
 import kotlin.math.roundToInt
 
 /**
@@ -13,6 +16,18 @@ import kotlin.math.roundToInt
  */
 object UtilKCamera {
     /**
+     * 设备是否有前置摄像
+     * @return Boolean
+     */
+    fun isHasFrontCamera(): Boolean = UtilKDevice.isHasFrontCamera()
+
+    /**
+     * 设备是否有后置摄像头
+     * @return Boolean
+     */
+    fun isHasBackCamera(): Boolean = UtilKDevice.isHasBackCamera()
+
+    /**
      * 计算对焦和测光区域
      *
      * @param coefficient        比率
@@ -23,18 +38,22 @@ object UtilKCamera {
      * @param previewViewWidth   预览宽度
      * @param previewViewHeight  预览高度
      */
-    fun focusMeteringArea(coefficient: Float,
-                          originFocusCenterX: Float, originFocusCenterY: Float,
-                          originFocusWidth: Int, originFocusHeight: Int,
-                          previewViewWidth: Int, previewViewHeight: Int): Rect {
+    fun focusMeteringArea(
+        coefficient: Float,
+        originFocusCenterX: Float, originFocusCenterY: Float,
+        originFocusWidth: Int, originFocusHeight: Int,
+        previewViewWidth: Int, previewViewHeight: Int
+    ): Rect {
         val halfFocusAreaWidth = (originFocusWidth * coefficient / 2).toInt()
         val halfFocusAreaHeight = (originFocusHeight * coefficient / 2).toInt()
         val centerX = (originFocusCenterX / previewViewWidth * 2000 - 1000).toInt()
         val centerY = (originFocusCenterY / previewViewHeight * 2000 - 1000).toInt()
-        val rectF = RectF(clamp(centerX - halfFocusAreaWidth, -1000, 1000).toFloat(),
+        val rectF = RectF(
+            clamp(centerX - halfFocusAreaWidth, -1000, 1000).toFloat(),
             clamp(centerY - halfFocusAreaHeight, -1000, 1000).toFloat(),
             clamp(centerX + halfFocusAreaWidth, -1000, 1000).toFloat(),
-            clamp(centerY + halfFocusAreaHeight, -1000, 1000).toFloat())
+            clamp(centerY + halfFocusAreaHeight, -1000, 1000).toFloat()
+        )
         return Rect(
             rectF.left.roundToInt(), rectF.top.roundToInt(),
             rectF.right.roundToInt(), rectF.bottom.roundToInt()

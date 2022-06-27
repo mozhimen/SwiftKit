@@ -1,8 +1,8 @@
 package com.mozhimen.abilityk.camera2k.helpers
 
-import android.content.res.Resources
 import android.opengl.GLES11Ext
 import android.opengl.GLES20
+import com.mozhimen.abilityk.camera2k.commons.BaseFilter
 
 /**
  * @ClassName OesFilter
@@ -11,9 +11,9 @@ import android.opengl.GLES20
  * @Date 2022/6/16 14:26
  * @Version 1.0
  */
-open class OesFilter(res: Resources) : BaseFilter(res) {
+open class OesFilter : BaseFilter() {
     private var _hCoordMatrix = 0
-    private var _coordMatrix: FloatArray = _originalMatrix.copyOf(16)
+    private var _coordMatrix: FloatArray = originalMatrix.copyOf(16)
 
     fun setCoordMatrix(matrix: FloatArray) {
         _coordMatrix = matrix
@@ -21,7 +21,7 @@ open class OesFilter(res: Resources) : BaseFilter(res) {
 
     override fun onFilterCreate() {
         createProgramByAssetsFile("shader/oes_base_vertex.sh", "shader/oes_base_fragment.sh")
-        _hCoordMatrix = GLES20.glGetUniformLocation(_program, "vCoordMatrix")
+        _hCoordMatrix = GLES20.glGetUniformLocation(program, "vCoordMatrix")
     }
 
     override fun onFilterSizeChanged(width: Int, height: Int) {}
@@ -34,6 +34,6 @@ open class OesFilter(res: Resources) : BaseFilter(res) {
     override fun onBindTexture() {
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0 + getTextureType())
         GLES20.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, getTextureId())
-        GLES20.glUniform1i(_hTexture, getTextureType())
+        GLES20.glUniform1i(hTexture, getTextureType())
     }
 }
