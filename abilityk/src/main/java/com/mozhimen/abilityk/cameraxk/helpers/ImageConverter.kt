@@ -1,11 +1,7 @@
 package com.mozhimen.abilityk.cameraxk.helpers
 
-import android.annotation.TargetApi
 import android.graphics.*
 import android.media.Image.Plane
-import android.os.Build.VERSION_CODES
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.logk.LogK
@@ -23,6 +19,14 @@ import java.nio.ByteBuffer
 object ImageConverter {
 
     private const val TAG = "ImageConverter>>>>>"
+
+    @JvmStatic
+    fun imageProxy2Bitmap(image: ImageProxy): Bitmap {
+        val bitmapBuffer = Bitmap.createBitmap(image.width, image.height, Bitmap.Config.ARGB_8888)
+        // Copy out RGB bits to the shared bitmap buffer
+        image.use { bitmapBuffer.copyPixelsFromBuffer(image.planes[0].buffer) }
+        return bitmapBuffer
+    }
 
     /**
      * 将来自 CameraX API 的 YUV_420_888 图像转换为Bitmap

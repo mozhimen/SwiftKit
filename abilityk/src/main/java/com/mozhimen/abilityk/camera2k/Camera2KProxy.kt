@@ -384,7 +384,6 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
         val totalRotation = getRotation(_activity)
         val swapRotation = totalRotation == 90 || totalRotation == 270
         val width = if (swapRotation) viewHeight else viewWidth
-        val height = if (swapRotation) viewWidth else viewHeight
         return getSuitableSize(sizes, width, pictureSize)
     }
 

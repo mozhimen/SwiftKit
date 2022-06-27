@@ -20,30 +20,32 @@ import java.util.*
  * @Version 1.0
  */
 abstract class BaseFilter(res: Resources) {
-    private val TAG = "BaseFilter"
 
-    val BASEFILTER_KEY_OUT = 0x101
-    val BASEFILTER_KEY_IN = 0x102
-    val BASEFILTER_KEY_INDEX = 0x201
+    companion object {
+        private const val TAG = "BaseFilter>>>>>"
+        const val BASEFILTER_KEY_OUT = 0x101
+        const val BASEFILTER_KEY_IN = 0x102
+        const val BASEFILTER_KEY_INDEX = 0x201
+    }
 
-    var verPos = floatArrayOf(-1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f, -1.0f)//顶点坐标
-    var coordPos = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f)//纹理坐标
+    private var verPos = floatArrayOf(-1.0f, 1.0f, -1.0f, -1.0f, 1.0f, 1.0f, 1.0f, -1.0f)//顶点坐标
+    private var coordPos = floatArrayOf(1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f)//纹理坐标
 
-    protected var filterResources: Resources = res
+    private var filterResources: Resources = res
 
     protected val _originalMatrix: FloatArray = UtilKMatrix.getOriginalMatrix()//单位矩阵
     protected var _program = 0//程序句柄
-    protected var _hPosition = 0//顶点坐标句柄
-    protected var _hCoord = 0//纹理坐标句柄
-    protected var _hMatrix = 0//总变换矩阵句柄
+    private var _hPosition = 0//顶点坐标句柄
+    private var _hCoord = 0//纹理坐标句柄
+    private var _hMatrix = 0//总变换矩阵句柄
     protected var _hTexture = 0//默认纹理贴图句柄
 
-    protected var _verBuffer: FloatBuffer? = null//顶点坐标Buffer
-    protected var _texBuffer: FloatBuffer? = null//纹理坐标Buffer
+    private var _verBuffer: FloatBuffer? = null//顶点坐标Buffer
+    private var _texBuffer: FloatBuffer? = null//纹理坐标Buffer
     protected var _minDexBuffer: ShortBuffer? = null//索引坐标Buffer
-    protected var _filterFlag = 0
+    private var _filterFlag = 0
 
-    private var _matrix = Arrays.copyOf(_originalMatrix, 16)
+    private var _matrix = _originalMatrix.copyOf(16)
     private var _textureType = 0 //默认使用Texture2D0
     private var _textureId = 0
     private var _bools: SparseArray<BooleanArray>? = null
