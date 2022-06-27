@@ -349,7 +349,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
         try {
             _previewRequestBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
             _previewSurface = Surface(_renderer.getTexture())
-            _renderer.getTexture().setDefaultBufferSize(_previewSize!!.width, _previewSize!!.height)
+            _renderer.getTexture()?.setDefaultBufferSize(_previewSize!!.width, _previewSize!!.height)
             _previewRequestBuilder!!.addTarget(_previewSurface!!) // 设置预览输出的 Surface
             _imageReader = ImageReader.newInstance(_previewSize!!.width, _previewSize!!.height, ImageFormat.YUV_420_888, 2)
             _imageReader!!.setOnImageAvailableListener(_imageAvailableListener, _backgroundHandler)
