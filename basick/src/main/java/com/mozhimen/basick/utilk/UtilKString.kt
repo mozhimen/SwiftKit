@@ -1,8 +1,6 @@
 package com.mozhimen.basick.utilk
 
 import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.room.util.UUIDUtil
 import com.mozhimen.basick.logk.LogK
 import java.io.BufferedReader
 import java.io.IOException
@@ -20,7 +18,11 @@ import java.util.stream.Collectors
  * @Version 1.0
  */
 object UtilKString {
-    private const val TAG ="UtilKString>>>>>"
+    private const val TAG = "UtilKString>>>>>"
+
+    fun isEmpty(str: CharSequence?): Boolean {
+        return str == null || str.isEmpty()
+    }
 
     /**
      * 流转字符串
