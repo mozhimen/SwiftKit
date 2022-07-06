@@ -30,8 +30,6 @@ class BarTintManager(activity: Activity) {
         val viewGroup = window.decorView
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //检查主题中是否有透明的状态栏
-
-            //检查主题中是否有透明的状态栏
             val attrs = intArrayOf(android.R.attr.windowTranslucentStatus)
             val a = activity.obtainStyledAttributes(attrs)
             try {

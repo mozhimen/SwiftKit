@@ -1,6 +1,5 @@
 package com.mozhimen.componentk.statusbark.helpers
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.graphics.Color
 import android.os.Build
@@ -26,8 +25,7 @@ object StatusBarKHelper {
     /**
      * 作用: 设置状态栏透明
      */
-    @TargetApi(19)
-    fun setTranslucentStatus(activity: Activity) {
+    fun setStatusBarTranslucent(activity: Activity) {
         //5.0以上状态栏透明
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window = activity.window
@@ -53,7 +51,7 @@ object StatusBarKHelper {
             window.statusBarColor = colorId
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明
-            setTranslucentStatus(activity)
+            setStatusBarTranslucent(activity)
             val barTintManager = BarTintManager(activity)
             barTintManager.setBarTintEnabled(true)//显示状态栏
             barTintManager.setBarTintColor(colorId)//显示状态栏颜色
@@ -63,7 +61,7 @@ object StatusBarKHelper {
     /**
      * 状态栏字体和图标是否是深色
      */
-    fun setImmersiveStatusBar(activity: Activity, fontIconDark: Boolean, isFullScreen: Boolean) {
+    fun setStatusBarImmersive(activity: Activity, fontIconDark: Boolean, isFullScreen: Boolean) {
         if (fontIconDark) {
             when {
                 Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> {
