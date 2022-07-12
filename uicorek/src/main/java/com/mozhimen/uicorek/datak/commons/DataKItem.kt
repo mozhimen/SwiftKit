@@ -16,7 +16,7 @@ abstract class DataKItem<DATA, VH : RecyclerView.ViewHolder>(data: DATA? = null)
     val TAG = "${this.javaClass.simpleName}>>>>>"
 
     private var _adapter: DataKAdapter? = null
-    var data: DATA? = null
+    private var data: DATA? = null
 
     init {
         this.data = data

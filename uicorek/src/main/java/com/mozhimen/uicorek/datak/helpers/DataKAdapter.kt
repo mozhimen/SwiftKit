@@ -33,6 +33,15 @@ class DataKAdapter(private val _context: Context) : RecyclerView.Adapter<Recycle
     private var BASE_ITEM_TYPE_FOOTER = 2000000
 
     /**
+     * 在末尾添加item
+     * @param item DataKItem<*, out ViewHolder>
+     * @param notify Boolean
+     */
+    fun addItem(item: DataKItem<*, out RecyclerView.ViewHolder>, notify: Boolean) {
+        addItemAt(-1, item, notify)
+    }
+
+    /**
      * 在指定位上添加item
      * @param index Int
      * @param item DataKItem<*, out ViewHolder>
@@ -193,7 +202,7 @@ class DataKAdapter(private val _context: Context) : RecyclerView.Adapter<Recycle
      * 移除Footer
      * @param view View
      */
-    fun  removeFooterView(view: View) {
+    fun removeFooterView(view: View) {
         val indexOfValue = _footers.indexOfValue(view)
         if (indexOfValue < 0) return
         _footers.removeAt(indexOfValue)
