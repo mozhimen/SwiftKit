@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.*
 import com.mozhimen.basick.basek.BaseKLayoutRelative
 import com.mozhimen.basick.extsk.*
+import com.mozhimen.uicorek.navk.mos.NavKAttrs
 import java.util.*
 
 /**
@@ -36,7 +37,7 @@ class NavKBar @JvmOverloads constructor(
     private val _leftViewList = ArrayList<View>()
     private val _rightViewList = ArrayList<View>()
 
-    private lateinit var _attrs: NavKAttrsParser.NavKAttrs//属性解析获得对象
+    private lateinit var _attrs: NavKAttrs//属性解析获得对象
 
     init {
         initAttrs(attrs, defStyleAttr)
@@ -44,9 +45,9 @@ class NavKBar @JvmOverloads constructor(
     }
 
     fun genTitle(
-        title: String = NavKAttrsParser.TITLE_TEXT,
-        titleColor: Int = NavKAttrsParser.TITLE_TEXT_COLOR,
-        titleSize: Int = NavKAttrsParser.TITLE_TEXT_SIZE,
+        title: String = _attrs.titleStr,
+        titleColor: Int = _attrs.titleTextColor,
+        titleSize: Int = _attrs.titleTextSize,
         block: (TextView.() -> Unit)? = null
     ) {
         _titleView.apply {
@@ -59,9 +60,9 @@ class NavKBar @JvmOverloads constructor(
 
     fun genSubTitle(
         subTitle: String,
-        titleColor: Int = NavKAttrsParser.SUBTITLE_TEXT_COLOR,
-        titleSize: Int = NavKAttrsParser.SUBTITLE_TEXT_SIZE,
-        marginTop: Int = NavKAttrsParser.SUBTITLE_TEXT_MARGIN_TOP,
+        titleColor: Int = _attrs.subTitleTextColor,
+        titleSize: Int = _attrs.subTitleTextSize,
+        marginTop: Int = _attrs.subTitleMarginTop,
         block: (TextView.() -> Unit)? = null
     ) {
         if (_subTitleView == null) {

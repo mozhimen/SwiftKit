@@ -13,14 +13,14 @@ internal data class GuideKDestination(
     val versionCode: Int,
     val indexDefault: Int,
     val pages: List<GuideKPage>
-)
+) : Serializable
 
 internal data class GuideKPage(
     val enable: Boolean,
     val pageInfo: GuideKPageInfo,
     val tabConfig: GuideKTabConfig,
     val title: String
-)
+) : Serializable
 
 data class GuideKPageInfo(
     val clazzName: String,
@@ -40,4 +40,4 @@ internal data class GuideKTabConfig(
     val iconNameDefault: String,
     val iconNameSelected: String,
     val type: String
-)
+) : Serializable

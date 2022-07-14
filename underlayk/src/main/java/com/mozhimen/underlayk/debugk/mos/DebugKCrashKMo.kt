@@ -1,6 +1,7 @@
 package com.mozhimen.underlayk.debugk.mos
 
 import java.io.File
+import java.io.Serializable
 
 /**
  * @ClassName DebugKCrashKMo
@@ -12,4 +13,4 @@ import java.io.File
 data class DebugKCrashKMo(
     val name: String,
     val file: File
-)
+) : Serializable

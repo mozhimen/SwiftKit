@@ -17,6 +17,7 @@ import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.basick.extsk.fontStyle
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.itemk.ItemKViewHolder
+import com.mozhimen.uicorek.sliderk.mos.SliderKAttrs
 
 /**
  * @ClassName SliderKLayout
@@ -31,12 +32,7 @@ class SliderKLayout @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private val _menuView = RecyclerView(context)
     private val _contentView = RecyclerView(context)
-
-    fun getMenusView(): RecyclerView = _menuView
-
-    fun getContentsView(): RecyclerView = _contentView
-
-    private var _menuItemAttr: SliderKParser.SliderKMenuItemAttrs = SliderKParser.parseMenuAttr(context, attrs)
+    private var _attr: SliderKAttrs = SliderKAttrsParser.parseMenuAttr(context, attrs)
 
     init {
         initView()
@@ -59,12 +55,12 @@ class SliderKLayout @JvmOverloads constructor(context: Context, attrs: Attribute
 
     fun bindMenuView(
         itemCount: Int,
-        onBindView: (ItemKViewHolder, Int) -> Unit,
-        onItemClick: (ItemKViewHolder, Int) -> Unit,
-        layoutRes: Int = R.layout.sliderk_item_menu
+        onBindView: (holder: ItemKViewHolder, position: Int) -> Unit,
+        onItemClick: (holder: ItemKViewHolder, position: Int) -> Unit,
+        layoutId: Int = R.layout.sliderk_item_menu
     ) {
         _menuView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        _menuView.adapter = SliderKMenuAdapter(layoutRes, itemCount, onBindView, onItemClick)
+        _menuView.adapter = SliderKMenuAdapter(layoutId, itemCount, onBindView, onItemClick)
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -89,68 +85,77 @@ class SliderKLayout @JvmOverloads constructor(context: Context, attrs: Attribute
         _contentView.scrollToPosition(0)
     }
 
+    /**
+     * 获取MenuView
+     * @return RecyclerView
+     */
+    fun getMenuView(): RecyclerView = _menuView
+
+    /**
+     * 获取ContentView
+     * @return RecyclerView
+     */
+    fun getContentView(): RecyclerView = _contentView
+
     inner class SliderKMenuAdapter(
-        private val layoutRes: Int,
-        private val count: Int,
+        private val _layoutId: Int,
+        private val _count: Int,
         val onBindView: (ItemKViewHolder, Int) -> Unit,
         val onItemClick: (ItemKViewHolder, Int) -> Unit
     ) : RecyclerView.Adapter<ItemKViewHolder>() {
-        //本次选中的item的位置
-        private var currentSelectIndex = 0
-
-        //上一次选中的item的位置
-        private var lastSelectIndex = 0
+        private var _currentSelectIndex = 0//本次选中的item的位置
+        private var _lastSelectIndex = 0//上一次选中的item的位置
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemKViewHolder {
-            val itemView = LayoutInflater.from(context).inflate(layoutRes, parent, false)
-            val params = RecyclerView.LayoutParams(_menuItemAttr.width, _menuItemAttr.height)
+            val itemView = LayoutInflater.from(context).inflate(_layoutId, parent, false)
+            val params = RecyclerView.LayoutParams(_attr.menuWidth, _attr.menuHeight)
 
             itemView.layoutParams = params
-            itemView.setBackgroundColor(_menuItemAttr.bgColor)
-            itemView.findViewById<TextView>(R.id.sliderk_item_menu_title)?.setTextColor(_menuItemAttr.textColor)
-            itemView.findViewById<ImageView>(R.id.sliderk_item_menu_indicator)?.setImageDrawable(_menuItemAttr.indicator)
+            itemView.setBackgroundColor(_attr.menuItemBgColor)
+            itemView.findViewById<TextView>(R.id.sliderk_item_menu_title)?.setTextColor(_attr.menuItemTextColor)
+            itemView.findViewById<ImageView>(R.id.sliderk_item_menu_indicator)?.setImageDrawable(_attr.menuItemIndicator)
             return ItemKViewHolder(itemView)
         }
 
         override fun getItemCount(): Int {
-            return count
+            return _count
         }
 
         override fun onBindViewHolder(holder: ItemKViewHolder, @SuppressLint("RecyclerView") position: Int) {
             holder.itemView.setOnClickListener {
-                currentSelectIndex = position
+                _currentSelectIndex = position
                 notifyItemChanged(position)
-                notifyItemChanged(lastSelectIndex)
+                notifyItemChanged(_lastSelectIndex)
             }
 
             //applyItemAttr
-            if (currentSelectIndex == position) {
+            if (_currentSelectIndex == position) {
                 onItemClick(holder, position)
-                lastSelectIndex = currentSelectIndex
+                _lastSelectIndex = _currentSelectIndex
             }
             applyItemAttr(position, holder)
             onBindView(holder, position)
         }
 
         private fun applyItemAttr(position: Int, holder: ItemKViewHolder) {
-            val selected = position == currentSelectIndex
+            val selected = position == _currentSelectIndex
             val titleView: TextView? = holder.itemView.findViewById(R.id.sliderk_item_menu_title)
             val indicatorView: ImageView? = holder.itemView.findViewById(R.id.sliderk_item_menu_indicator)
 
             indicatorView?.visibility = if (selected) View.VISIBLE else View.GONE
             titleView?.apply {
-                textSize = (if (selected) _menuItemAttr.textSize else _menuItemAttr.textSize).toFloat()
+                textSize = (if (selected) _attr.menuItemTextSize else _attr.menuItemTextSize).toFloat()
                 if (selected) fontStyle(Typeface.BOLD) else fontStyle()
             }
             holder.itemView.setBackgroundColor(
-                if (selected) _menuItemAttr.bgColorSelect else _menuItemAttr.bgColor
+                if (selected) _attr.menuItemBgColorSelect else _attr.menuItemBgColor
             )
             titleView?.isSelected = selected
         }
 
         override fun onViewAttachedToWindow(holder: ItemKViewHolder) {
             super.onViewAttachedToWindow(holder)
-            val remainSpace: Int = width - paddingLeft - paddingRight - _menuItemAttr.width
+            val remainSpace: Int = width - paddingLeft - paddingRight - _attr.menuWidth
             val layoutManager: RecyclerView.LayoutManager? = _contentView.layoutManager
             var spanCount = 0
             if (layoutManager is GridLayoutManager) {
@@ -194,7 +199,7 @@ class SliderKLayout @JvmOverloads constructor(context: Context, attrs: Attribute
 
         override fun onViewAttachedToWindow(holder: ItemKViewHolder) {
             super.onViewAttachedToWindow(holder)
-            val remainScope = width - paddingLeft - paddingRight - _menuItemAttr.width
+            val remainScope = width - paddingLeft - paddingRight - _attr.menuWidth
             val layoutManager = _contentView.layoutManager
             var spanCount = 0
             if (layoutManager is GridLayoutManager) {

@@ -1,6 +1,7 @@
 package com.mozhimen.underlayk.debugk.mos
 
 import android.content.Context
+import java.io.Serializable
 import java.lang.reflect.Method
 
 /**
@@ -16,7 +17,7 @@ data class DebugKMethodMo(
     val method: Method,
     val enable: Boolean,
     val target: Any
-) {
+) : Serializable {
     fun invoke(context: Context) {
         method.invoke(target, context)
     }

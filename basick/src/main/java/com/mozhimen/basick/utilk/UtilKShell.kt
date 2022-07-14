@@ -6,6 +6,7 @@ import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
+import java.io.Serializable
 import java.lang.Exception
 import java.lang.StringBuilder
 
@@ -123,5 +124,5 @@ object UtilKShell {
         var result: Int,
         var successMsg: String,
         var errorMsg: String
-    )
+    ) : Serializable
 }
