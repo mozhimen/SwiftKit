@@ -76,7 +76,13 @@
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="gotoLoadK"
-                android:text="Loadk"
+                android:text="LoadK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="gotoSliderK"
+                android:text="SliderK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton

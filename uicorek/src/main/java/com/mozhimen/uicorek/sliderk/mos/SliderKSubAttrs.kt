@@ -3,13 +3,13 @@ package com.mozhimen.uicorek.sliderk.mos
 import android.graphics.drawable.Drawable
 
 /**
- * @ClassName SliderKAttrs
+ * @ClassName SliderKSubAttrs
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/7/14 16:37
  * @Version 1.0
  */
-data class SliderKAttrs(
+data class SliderKSubAttrs(
     val menuWidth: Int,
     val menuHeight: Int,
     val menuItemTextSize: Int,
@@ -18,5 +18,9 @@ data class SliderKAttrs(
     val menuItemTextColorSelect: Int,
     val menuItemBgColor: Int,
     val menuItemBgColorSelect: Int,
-    val menuItemIndicator: Drawable?
+    val menuItemIndicator: Drawable?,
+    val subTextSize: Int,
+    val subTextColor: Int,
+    val contentTextSize: Int,
+    val contentTextColor: Int
 )

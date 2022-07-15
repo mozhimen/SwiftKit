@@ -16,11 +16,19 @@ data class SliderKDataMo(
 data class SliderKMenuMo(
     val menuId: String,
     val menuName: String,
-    val menuContents: List<SliderKContentMo>
+    val menuSubs: List<SliderKSubMo>
+) : Serializable
+
+data class SliderKSubMo(
+    val subId: String,
+    val fatherId: String,
+    val subName: String,
+    val subContents: List<SliderKContentMo>
 ) : Serializable
 
 data class SliderKContentMo(
     val contentId: String,
+    val fatherId: String,
     val contentName: String,
     val contentImageUrl: String,
     val contentImageUrlPlaceholder: String

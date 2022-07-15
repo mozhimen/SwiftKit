@@ -195,16 +195,20 @@
         <attr name="lineAppearance_rightMargin" format="dimension|reference" />
     </declare-styleable>
 
-    <declare-styleable name="SliderKLayout">
-        <attr name="sliderKLayout_menuWidth" format="dimension|reference" />
-        <attr name="sliderKLayout_menuHeight" format="dimension|reference" />
-        <attr name="sliderKLayout_menuItemTextSize" format="dimension|reference" />
-        <attr name="sliderKLayout_menuItemTextSizeSelect" format="dimension|reference" />
-        <attr name="sliderKLayout_menuItemTextColor" format="reference|color" />
-        <attr name="sliderKLayout_menuItemTextColorSelect" format="reference|color" />
-        <attr name="sliderKLayout_menuItemBackgroundColor" format="reference|color" />
-        <attr name="sliderKLayout_menuItemBackgroundColorSelect" format="reference|color" />
-        <attr name="sliderKLayout_menuItemIndicator" format="reference" />
+    <declare-styleable name="SliderKSubLayout">
+        <attr name="sliderKSubLayout_menuWidth" format="dimension|reference" />
+        <attr name="sliderKSubLayout_menuHeight" format="dimension|reference" />
+        <attr name="sliderKSubLayout_menuItemTextSize" format="dimension|reference" />
+        <attr name="sliderKSubLayout_menuItemTextSizeSelect" format="dimension|reference" />
+        <attr name="sliderKSubLayout_menuItemTextColor" format="reference|color" />
+        <attr name="sliderKSubLayout_menuItemTextColorSelect" format="reference|color" />
+        <attr name="sliderKSubLayout_menuItemBackgroundColor" format="reference|color" />
+        <attr name="sliderKSubLayout_menuItemBackgroundColorSelect" format="reference|color" />
+        <attr name="sliderKSubLayout_menuItemIndicator" format="reference" />
+        <attr name="sliderKSubLayout_subTextSize" format="dimension|reference" />
+        <attr name="sliderKSubLayout_subTextColor" format="color|reference" />
+        <attr name="sliderKSubLayout_contentTextSize" format="dimension|reference" />
+        <attr name="sliderKSubLayout_contentTextColor" format="color|reference" />
     </declare-styleable>
 
     <declare-styleable name="CircleSpread">

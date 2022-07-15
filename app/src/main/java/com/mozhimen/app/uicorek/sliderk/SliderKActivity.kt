@@ -1,55 +1,224 @@
 package com.mozhimen.app.uicorek.sliderk
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivitySliderkBinding
+import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.extsk.showToast
+import com.mozhimen.uicorek.itemk.ItemKViewHolder
+import com.mozhimen.uicorek.sliderk.SliderKSubItemListener
+import com.mozhimen.uicorek.sliderk.mos.SliderKContentMo
+import com.mozhimen.uicorek.sliderk.mos.SliderKDataMo
+import com.mozhimen.uicorek.sliderk.mos.SliderKMenuMo
+import com.mozhimen.uicorek.sliderk.mos.SliderKSubMo
 
-class SliderKActivity : AppCompatActivity() {
-    private val vb: ActivitySliderkBinding by lazy { ActivitySliderkBinding.inflate(layoutInflater) }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sliderk)
-
-        initData()
-        initView()
+class SliderKActivity : BaseKActivity<ActivitySliderkBinding, BaseKViewModel>(R.layout.activity_sliderk) {
+    override fun initData(savedInstanceState: Bundle?) {
+        initView(savedInstanceState)
     }
 
-    private val _menus = ArrayList<SliderKMenu>()
-    private val _itemListCache = mutableMapOf<Int, List<SliderKItem>>()
-
-    private fun initData() {
-        _menus.addAll(listOf(SliderKMenu("你的", 0), SliderKMenu("我的", 1), SliderKMenu("他的", 2)))
+    override fun initView(savedInstanceState: Bundle?) {
+        val mo = SliderKDataMo(
+            listOf(
+                SliderKMenuMo(
+                    "00", "女装", listOf(
+                        SliderKSubMo(
+                            "0000", "00", "上装", listOf(
+                                SliderKContentMo(
+                                    "000000",
+                                    "0000",
+                                    "经典款式",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000001",
+                                    "0000",
+                                    "新品上市",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000002",
+                                    "0000",
+                                    "工厂店",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000002",
+                                    "0000",
+                                    "小米有品",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000003",
+                                    "0000",
+                                    "网易优选",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000003",
+                                    "0000",
+                                    "天猫精品",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                )
+                            )
+                        ),
+                        SliderKSubMo(
+                            "0001", "00", "裙子", listOf(
+                                SliderKContentMo(
+                                    "000100",
+                                    "0001",
+                                    "经典款式",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000101",
+                                    "0001",
+                                    "新品上市",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000102",
+                                    "0001",
+                                    "工厂店",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000102",
+                                    "0001",
+                                    "小米有品",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000103",
+                                    "0001",
+                                    "网易优选",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "000103",
+                                    "0001",
+                                    "天猫精品",
+                                    "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                )
+                            )
+                        )
+                    )
+                ),
+                SliderKMenuMo(
+                    "01", "男装", listOf(
+                        SliderKSubMo(
+                            "0100", "01", "上装", listOf(
+                                SliderKContentMo(
+                                    "010000",
+                                    "0100",
+                                    "经典款式",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010001",
+                                    "0100",
+                                    "新品上市",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010002",
+                                    "0100",
+                                    "工厂店",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010002",
+                                    "0100",
+                                    "小米有品",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010003",
+                                    "0100",
+                                    "网易优选",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010003",
+                                    "0100",
+                                    "天猫精品",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                )
+                            )
+                        ),
+                        SliderKSubMo(
+                            "0101", "01", "裙子", listOf(
+                                SliderKContentMo(
+                                    "010100",
+                                    "0101",
+                                    "经典款式",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010101",
+                                    "0101",
+                                    "新品上市",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010102",
+                                    "0101",
+                                    "工厂店",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010102",
+                                    "0101",
+                                    "小米有品",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010103",
+                                    "0101",
+                                    "网易优选",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                ),
+                                SliderKContentMo(
+                                    "010103",
+                                    "0101",
+                                    "天猫精品",
+                                    "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                    ""
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+        vb.sliderkSlider.bindData(mo, listener = object : SliderKSubItemListener {
+            override fun invoke(holder: ItemKViewHolder, contentMo: SliderKContentMo?) {
+                "$contentMo".showToast()
+            }
+        })
     }
-
-    fun initView() {
-        vb.sliderkSlider.bindMenuView(
-            itemCount = _menus.size,
-            onBindView = { holder, position ->
-                val menu = _menus[position]
-                holder.findViewById<TextView>(R.id.sliderk_item_menu_title)?.text = menu.itemName
-            }, onItemClick = { _, position ->
-                val menuId = _menus[position].itemId
-                if (_itemListCache.containsKey(menuId)) {
-                    onQueryItemListSuccess(_itemListCache[menuId]!!)
-                } else {
-                    //queryItemList(categoryId)
-                }
-            })
-    }
-
-    private fun onQueryItemListSuccess(list: List<SliderKItem>) {
-
-    }
-
-    data class SliderKMenu(
-        val itemName: String,
-        val itemId: Int
-    )
-
-    data class SliderKItem(
-        val itemTitle: String,
-        val itemUrl: String
-    )
 }
