@@ -16,8 +16,13 @@ import com.mozhimen.componentk.statusbark.helpers.StatusBarKHelper
  * @Version 1.0
  */
 /**
- * 作用: 实现透明状态栏
+ * 作用: 状态栏管理
  * 用法:
+ * @StatusBarKAnnor(statusBarType = StatusBarKType.CUSTOM, isFontIconDark = false, bgColorLight = android.R.color.black)
+ * class StatusBarKActivity : BaseKActivity<ActivityStatusbarkBinding, BaseKViewModel>(R.layout.activity_statusbark) {
+ *  override fun initFlag() {
+ *      StatusBarK.initStatusBar(this)
+ *  }}
  */
 object StatusBarK {
 

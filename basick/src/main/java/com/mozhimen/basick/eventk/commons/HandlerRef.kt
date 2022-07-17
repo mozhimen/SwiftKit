@@ -2,9 +2,6 @@ package com.mozhimen.basick.eventk.commons
 
 import android.os.Handler
 import android.os.Looper
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.extsk.removeAll
 import java.lang.ref.WeakReference
 
 /**
