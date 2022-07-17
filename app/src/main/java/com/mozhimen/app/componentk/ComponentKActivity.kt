@@ -7,6 +7,7 @@ import com.mozhimen.app.R
 import com.mozhimen.app.basick.eventk.EventKActivity
 import com.mozhimen.app.componentk.guidek.GuideKActivity
 import com.mozhimen.app.componentk.permissionk.PermissionKActivity
+import com.mozhimen.app.componentk.statusbark.StatusBarKActivity
 import com.mozhimen.basick.extsk.start
 
 class ComponentKActivity : AppCompatActivity() {
@@ -21,5 +22,9 @@ class ComponentKActivity : AppCompatActivity() {
 
     fun goPermissionK(view: View) {
         start<PermissionKActivity>()
+    }
+
+    fun goStatusBarK(view: View) {
+        start<StatusBarKActivity>()
     }
 }

@@ -19,13 +19,19 @@ object UtilKTheme {
      * 检测是否是浅色主题
      * @return Boolean
      */
-    fun isLightMode(): Boolean = AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO
+    fun isLightMode(): Boolean =
+        AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO
 
-    fun isOSLightMode(): Boolean {
-        val mode: Int = UtilKGlobal.instance.getApp()!!.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        return mode == Configuration.UI_MODE_NIGHT_NO
-    }
+    /**
+     * 检测系统是否是浅色主题
+     * @return Boolean
+     */
+    fun isOSLightMode(): Boolean =
+        (UtilKGlobal.instance.getApp()!!.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
 
+    /**
+     * 改变主题
+     */
     fun toggleMode() {
         if (isLightMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

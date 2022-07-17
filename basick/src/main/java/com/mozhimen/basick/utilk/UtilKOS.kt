@@ -1,12 +1,13 @@
 package com.mozhimen.basick.utilk
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.text.TextUtils
-import android.util.Log
 import com.mozhimen.basick.logk.LogK
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.lang.reflect.Method
 import java.util.*
 
 /**
@@ -17,7 +18,7 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKOS {
-    private val TAG = "UtilKOS>>>>>"
+    private const val TAG = "UtilKOS>>>>>"
 
     private const val ROM_EMUI = "EMUI"
     private const val ROM_MIUI = "MIUI"
@@ -53,6 +54,25 @@ object UtilKOS {
     }
 
     /**
+     * Miui版本
+     * @return Boolean
+     */
+    @SuppressLint("PrivateApi")
+    fun isMIUILarger6(): Boolean {
+        return try {
+            val clazz = Class.forName("android.os.SystemProperties")
+            val method: Method = clazz.getMethod("get", String::class.java)
+            var value = method.invoke(null, KEY_VERSION_MIUI) as String
+            value = value.replace("[vV]".toRegex(), "")
+            val version = value.toInt()
+            version >= 6
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    /**
      * 是否是Vivo系统
      * @return Boolean
      */
@@ -66,6 +86,26 @@ object UtilKOS {
      */
     fun isOppo(): Boolean {
         return check(ROM_OPPO)
+    }
+
+    /**
+     * colorOS是否大于3
+     * @return Boolean
+     */
+    @SuppressLint("PrivateApi")
+    fun isColorOSLarger3(): Boolean {
+        return try {
+            val clazz = Class.forName("android.os.SystemProperties")
+            val method = clazz.getMethod("get", String::class.java)
+            var value = method.invoke(null, KEY_VERSION_OPPO) as String
+            value = value.replace("[vV]".toRegex(), "")
+            value = value.substring(0, 1)
+            val version = value.toInt()
+            version >= 3
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            false
+        }
     }
 
     /**
@@ -111,7 +151,7 @@ object UtilKOS {
                 _name = ROM_FLYME
             } else {
                 _version = Build.UNKNOWN
-                _name = Build.MANUFACTURER.toUpperCase()
+                _name = Build.MANUFACTURER.uppercase(Locale.ROOT)
             }
         }
         return _name == rom
@@ -119,19 +159,19 @@ object UtilKOS {
 
     private fun getProp(name: String): String? {
         val line: String
-        var input: BufferedReader? = null
+        var inputBuffer: BufferedReader? = null
         try {
             val process = Runtime.getRuntime().exec("getprop $name")
-            input = BufferedReader(InputStreamReader(process.inputStream), 1024)
-            line = input.readLine()
-            input.close()
+            inputBuffer = BufferedReader(InputStreamReader(process.inputStream), 1024)
+            line = inputBuffer.readLine()
+            inputBuffer.close()
         } catch (e: IOException) {
             LogK.et(TAG, "getProp IOException Unable to read prop $name $e")
             return null
         } finally {
-            input?.let {
+            inputBuffer?.let {
                 try {
-                    input.close()
+                    inputBuffer.close()
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }

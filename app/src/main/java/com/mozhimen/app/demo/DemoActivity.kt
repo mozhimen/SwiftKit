@@ -10,10 +10,11 @@ import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.componentk.statusbark.annors.StatusBarKAnnor
 import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.componentk.statusbark.annors.StatusBarKType
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import kotlin.math.abs
 
-@StatusBarKAnnor(isImmersed = true)
+@StatusBarKAnnor(statusBarType = StatusBarKType.FULL_SCREEN)
 class DemoActivity : BaseKActivity<ActivityDemoBinding, DemoViewModel>(R.layout.activity_demo) {
 
     override fun initData(savedInstanceState: Bundle?) {

@@ -13,6 +13,7 @@
         <com.mozhimen.uicorek.sliderk.SliderKSubLayout
             android:id="@+id/sliderk_slider"
             android:layout_width="match_parent"
+            app:sliderKSubLayout_contentImgRatio="ratio34"
             android:layout_height="match_parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

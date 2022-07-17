@@ -4,8 +4,6 @@ import android.graphics.*
 import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.sp2px
 
 /**
  * @ClassName SliderKSubItemDecorator
@@ -16,6 +14,8 @@ import com.mozhimen.basick.extsk.sp2px
  */
 class SliderKSubItemDecorator(
     private val _spanCount: Int,
+    private val _height: Int,
+    private val _marginStart: Int,
     private val _textSize: Int,
     private val _textColor: Int,
     val onGetGroupNameByPos: (position: Int) -> String?
@@ -36,10 +36,10 @@ class SliderKSubItemDecorator(
 
     private fun initPaint() {
         _paint.style = Paint.Style.FILL
-        _paint.color = Color.BLACK
+        _paint.color = _textColor
         _paint.isFakeBoldText = true
-        _paint.textSize = 16f.sp2px().toFloat()
-        _paint.setTypeface(Typeface.create(Typeface.DEFAULT,))
+        _paint.textSize = _textSize.toFloat()
+        _paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
     }
 
     override fun getItemOffsets(
@@ -67,35 +67,35 @@ class SliderKSubItemDecorator(
         val firstRowPosition = _groupFirstPositions[groupName] ?: 0
         val samRow = adapterPosition - firstRowPosition in 0 until _spanCount  //3
         if (!sameGroup || samRow)
-            outRect.set(0, 40f.dp2px(), 0, 0)
+            outRect.set(0, _height, 0, 0)
         else
             outRect.set(0, 0, 0, 0)
     }
 
 
-    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+    override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         val childCount = parent.childCount
         for (index in 0 until childCount) {
             val view = parent.getChildAt(index)
             val adapterPosition = parent.getChildAdapterPosition(view)
             if (adapterPosition >= parent.adapter!!.itemCount || adapterPosition < 0) continue
-            val groupName: String = onGetGroupNameByPos(adapterPosition)!!
+            val subName: String = onGetGroupNameByPos(adapterPosition)!!
 
             //判断当前位置 是不是分组的第一个位置
             //如果是，咱们在他的位置上绘制标题
-            val groupFirstPosition = _groupFirstPositions[groupName]
+            val groupFirstPosition = _groupFirstPositions[subName]
             if (groupFirstPosition == adapterPosition) {
                 val decorationBounds = Rect()
                 //为了拿到当前item 的 左上右下的坐标信息 包含了，margin 和 扩展空间的
                 parent.getDecoratedBoundsWithMargins(view, decorationBounds)
 
                 val textBounds = Rect()
-                _paint.getTextBounds(groupName, 0, groupName.length, textBounds)
+                _paint.getTextBounds(subName, 0, subName.length, textBounds)
 
-                c.drawText(
-                    groupName,
-                    16f.dp2px().toFloat(),
-                    (decorationBounds.top + 2 * textBounds.height()).toFloat(),
+                canvas.drawText(
+                    subName,
+                    _marginStart.toFloat(),
+                    (decorationBounds.top + (_height + textBounds.height()) / 2f) + 6f,
                     _paint
                 )
             }

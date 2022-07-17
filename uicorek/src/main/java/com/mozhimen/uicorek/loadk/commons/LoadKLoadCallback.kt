@@ -1,5 +1,6 @@
 package com.mozhimen.uicorek.loadk.commons
 
+import androidx.annotation.CallSuper
 import com.mozhimen.uicorek.datak.DataKRecyclerView
 import com.mozhimen.uicorek.refreshk.RefreshKLayout
 import com.mozhimen.uicorek.refreshk.commons.RefreshKOverView
@@ -15,8 +16,8 @@ import com.mozhimen.uicorek.refreshk.mos.RefreshKStatus
 open class LoadKLoadCallback(
     private val _overView: RefreshKOverView,
     private val _refreshKLayout: RefreshKLayout,
-) :
-    DataKRecyclerView.IDataKLoadListener {
+) : DataKRecyclerView.IDataKLoadListener {
+    @CallSuper
     override fun onLoadMore() {
         if (_overView.refreshKStatus == RefreshKStatus.VISIBLE ||
             _overView.refreshKStatus == RefreshKStatus.REFRESHING ||

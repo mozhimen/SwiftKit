@@ -207,8 +207,15 @@
         <attr name="sliderKSubLayout_menuItemIndicator" format="reference" />
         <attr name="sliderKSubLayout_subTextSize" format="dimension|reference" />
         <attr name="sliderKSubLayout_subTextColor" format="color|reference" />
+        <attr name="sliderKSubLayout_subHeight" format="dimension|reference" />
+        <attr name="sliderKSubLayout_subMarginStart" format="dimension|reference" />
         <attr name="sliderKSubLayout_contentTextSize" format="dimension|reference" />
         <attr name="sliderKSubLayout_contentTextColor" format="color|reference" />
+        <attr name="sliderKSubLayout_contentImgRatio" format="enum">
+            <enum name="ratio11" value="0" />
+            <enum name="ratio34" value="1" />
+            <enum name="ratio169" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="CircleSpread">

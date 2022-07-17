@@ -46,7 +46,7 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
     private var _menuLayoutId = R.layout.sliderk_menu_item
     private var _contentLayoutId = R.layout.sliderk_content_item
     private var _spanCount = 3
-    private var _sliderKSubItemLayoutManager: RecyclerView.LayoutManager = GridLayoutManager(context, _spanCount)
+    private var _sliderKSubItemLayoutManager: RecyclerView.LayoutManager? = null
     private var _sliderKSubItemListener: SliderKSubItemListener? = null
 
     init {
@@ -90,8 +90,12 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
     ) {
         menuLayoutId?.let { _menuLayoutId = it }
         contentLayoutId?.let { _contentLayoutId = it }
-        spanCount?.let { _spanCount = it }
-        layoutManager?.let { _sliderKSubItemLayoutManager = it }
+        spanCount?.let {
+            _spanCount = it
+        }
+        layoutManager?.let {
+            _sliderKSubItemLayoutManager = it
+        }
         listener?.let { _sliderKSubItemListener = it }
         bindDataMenuView(mo)
     }
@@ -101,7 +105,7 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
         mo: SliderKMenuMo
     ) {
         if (_contentView.layoutManager == null) {
-            _contentView.layoutManager = _sliderKSubItemLayoutManager
+            _contentView.layoutManager = _sliderKSubItemLayoutManager ?: GridLayoutManager(context, _spanCount)
             if (_contentView.layoutManager is GridLayoutManager) {
                 (_contentView.layoutManager as GridLayoutManager).spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
@@ -141,7 +145,10 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
                 }
             }
             _contentView.adapter = SliderKContentAdapter(mo)
-            _contentView.addItemDecoration(SliderKSubItemDecorator(_spanCount) { position -> getSubNameByPosition(mo, position) })
+            _contentView.addItemDecoration(
+                SliderKSubItemDecorator(_spanCount, _attr.subHeight, _attr.subMarginStart, _attr.subTextSize, _attr.subTextColor) { position ->
+                    getSubNameByPosition(mo, position)
+                })
         }
         val contentAdapter = _contentView.adapter as SliderKContentAdapter
         contentAdapter.update(mo)
@@ -222,6 +229,10 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemKViewHolder {
             val itemView = LayoutInflater.from(context).inflate(_contentLayoutId, parent, false)
+            itemView.findViewById<TextView>(R.id.sliderk_content_item_txt)?.apply {
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, _attr.contentTextSize.toFloat())
+                setTextColor(_attr.contentTextColor)
+            }
             return ItemKViewHolder(itemView)
         }
 
@@ -263,7 +274,7 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
                 //创建content itemView, 设置它的layoutParams 的原因,是防止图片未加载之前, 列表滑动时,上下闪动的效果
                 val layoutParams = holder.itemView.layoutParams
                 layoutParams.width = itemWidth
-                layoutParams.height = itemWidth * 2
+                layoutParams.height = (itemWidth * _attr.contentImgRatio).toInt()
                 holder.itemView.layoutParams = layoutParams
             }
         }

@@ -1,6 +1,7 @@
 package com.mozhimen.app.uicorek.sliderk
 
 import android.os.Bundle
+import android.widget.Toast
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivitySliderkBinding
 import com.mozhimen.basick.basek.BaseKActivity
@@ -152,7 +153,7 @@ class SliderKActivity : BaseKActivity<ActivitySliderkBinding, BaseKViewModel>(R.
                                 SliderKContentMo(
                                     "010003",
                                     "0100",
-                                    "网易优选",
+                                    "网易优选.............................",
                                     "https://images.pexels.com/photos/8721987/pexels-photo-8721987.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
                                     ""
                                 ),
@@ -215,9 +216,9 @@ class SliderKActivity : BaseKActivity<ActivitySliderkBinding, BaseKViewModel>(R.
                 )
             )
         )
-        vb.sliderkSlider.bindData(mo, listener = object : SliderKSubItemListener {
+        vb.sliderkSlider.bindData(mo, spanCount = 3, listener = object : SliderKSubItemListener {
             override fun invoke(holder: ItemKViewHolder, contentMo: SliderKContentMo?) {
-                "$contentMo".showToast()
+                "$contentMo".showToast(Toast.LENGTH_LONG)
             }
         })
     }

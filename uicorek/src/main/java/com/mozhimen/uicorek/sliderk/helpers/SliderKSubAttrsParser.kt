@@ -29,8 +29,12 @@ internal object SliderKSubAttrsParser {
 
     private val SUB_TEXT_SIZE = 16f.sp2px()
     private val SUB_TEXT_COLOR = UtilKRes.getColor(R.color.blue_normal)
+    private val SUB_HEIGHT = 40f.dp2px()
+    private val SUB_MARGIN_START = 10f.dp2px()
+
     private val CONTENT_TEXT_SIZE = 15f.sp2px()
     private val CONTENT_TEXT_COLOR = UtilKRes.getColor(R.color.blue_normal)
+    private const val CONTENT_IMG_RATIO = 1f
 
     fun parseMenuAttr(context: Context, attrs: AttributeSet?): SliderKSubAttrs {
         attrs?.let {
@@ -57,10 +61,20 @@ internal object SliderKSubAttrsParser {
                 typedArray.getDimensionPixelSize(R.styleable.SliderKSubLayout_sliderKSubLayout_subTextSize, SUB_TEXT_SIZE)
             val subTextColor =
                 typedArray.getColor(R.styleable.SliderKSubLayout_sliderKSubLayout_subTextColor, SUB_TEXT_COLOR)
+            val subHeight =
+                typedArray.getDimensionPixelOffset(R.styleable.SliderKSubLayout_sliderKSubLayout_subHeight, SUB_HEIGHT)
+            val subMarginStart =
+                typedArray.getDimensionPixelOffset(R.styleable.SliderKSubLayout_sliderKSubLayout_subMarginStart, SUB_MARGIN_START)
             val contentTextSize =
                 typedArray.getDimensionPixelSize(R.styleable.SliderKSubLayout_sliderKSubLayout_subTextSize, CONTENT_TEXT_SIZE)
             val contentTextColor =
                 typedArray.getColor(R.styleable.SliderKSubLayout_sliderKSubLayout_contentTextColor, CONTENT_TEXT_COLOR)
+            val contentImgRatio =
+                when (typedArray.getInteger(R.styleable.SliderKSubLayout_sliderKSubLayout_contentImgRatio, 0)) {
+                    0 -> 1f
+                    1 -> 4f / 3f
+                    else -> 16f / 9f
+                }
             typedArray.recycle()
 
             return SliderKSubAttrs(
@@ -75,8 +89,11 @@ internal object SliderKSubAttrsParser {
                 menuItemIndicator,
                 subTextSize,
                 subTextColor,
+                subHeight,
+                subMarginStart,
                 contentTextSize,
-                contentTextColor
+                contentTextColor,
+                contentImgRatio
             )
         } ?: return SliderKSubAttrs(
             MENU_WIDTH,
@@ -90,8 +107,11 @@ internal object SliderKSubAttrsParser {
             MENU_ITEM_INDICATOR,
             SUB_TEXT_SIZE,
             SUB_TEXT_COLOR,
+            SUB_HEIGHT,
+            SUB_MARGIN_START,
             CONTENT_TEXT_SIZE,
-            CONTENT_TEXT_COLOR
+            CONTENT_TEXT_COLOR,
+            CONTENT_IMG_RATIO
         )
     }
 

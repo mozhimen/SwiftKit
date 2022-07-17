@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentPagerAdapter
  * @Version 1.0
  */
 open class AdapterKTab(private val tabList: List<Fragment>, fragmentManager: FragmentManager) :
-    FragmentPagerAdapter(fragmentManager) {
+    FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getCount() = tabList.size
 
     override fun getItem(position: Int): Fragment = tabList[position]

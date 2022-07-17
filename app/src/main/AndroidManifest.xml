@@ -45,7 +45,10 @@
             android:exported="false" />
         <activity
             android:name=".componentk.permissionk.PermissionKActivity"
-            android:exported="true" /> <!-- basicsk -->
+            android:exported="true" />
+        <activity
+            android:name=".componentk.statusbark.StatusBarKActivity"
+            android:exported="false" /><!-- basicsk -->
         <activity
             android:name=".basick.eventk.EventKActivity"
             android:exported="true" />

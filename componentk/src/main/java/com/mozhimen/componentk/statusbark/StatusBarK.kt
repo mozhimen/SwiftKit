@@ -1,8 +1,11 @@
 package com.mozhimen.componentk.statusbark
 
 import android.app.Activity
+import android.app.StatusBarManager
 import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.UtilKTheme
 import com.mozhimen.componentk.statusbark.annors.StatusBarKAnnor
+import com.mozhimen.componentk.statusbark.annors.StatusBarKType
 import com.mozhimen.componentk.statusbark.helpers.StatusBarKHelper
 
 /**
@@ -19,16 +22,26 @@ import com.mozhimen.componentk.statusbark.helpers.StatusBarKHelper
 object StatusBarK {
 
     fun initStatusBar(activity: Activity) {
-        val statusBarAnnor = activity.javaClass.getAnnotation(StatusBarKAnnor::class.java) ?: return
-        if (statusBarAnnor.isImmersed) {
-            StatusBarKHelper.setStatusBarTranslucent(activity)//设置状态栏透明,沉浸式
-        } else {
-            if (statusBarAnnor.statusBarColor != -1) {
-                //设置状态栏背景色
-                StatusBarKHelper.setStatusBarColor(activity, UtilKRes.getColor(statusBarAnnor.statusBarColor))
+        val statusBarAnnor =
+            activity.javaClass.getAnnotation(StatusBarKAnnor::class.java) ?: throw Exception("you need add annotation StatusBarAnnor")
+
+        when (statusBarAnnor.statusBarType) {
+            StatusBarKType.FULL_SCREEN -> {
+                StatusBarKHelper.setStatusBarFullScreen(activity)//设置状态栏全屏
+            }
+            StatusBarKType.IMMERSED -> {
+                StatusBarKHelper.setStatusBarImmersed(activity)//设置状态栏沉浸式
+                StatusBarKHelper.setStatusBarFontIcon(activity, statusBarAnnor.isFontIconDark)//设置状态栏文字和Icon是否为深色
+            }
+            else -> {
+                val statusBarColor = if (statusBarAnnor.isFollowSystem) {
+                    if (UtilKTheme.isOSLightMode()) statusBarAnnor.bgColorLight
+                    else statusBarAnnor.bgColorDark
+                } else statusBarAnnor.bgColorLight
+                val isFontIconDark = if (statusBarAnnor.isFollowSystem) UtilKTheme.isOSLightMode() else statusBarAnnor.isFontIconDark
+                StatusBarKHelper.setStatusBarColor(activity, UtilKRes.getColor(statusBarColor))
+                StatusBarKHelper.setStatusBarFontIcon(activity, isFontIconDark)//设置状态栏文字和Icon是否为深色
             }
         }
-        //设置状态栏文字和Icon是否为深色
-        StatusBarKHelper.setStatusBarImmersive(activity, statusBarAnnor.isTextAndIconDark, statusBarAnnor.isImmersed)
     }
 }

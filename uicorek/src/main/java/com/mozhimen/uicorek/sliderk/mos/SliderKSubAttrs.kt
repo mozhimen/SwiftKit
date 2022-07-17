@@ -21,6 +21,9 @@ data class SliderKSubAttrs(
     val menuItemIndicator: Drawable?,
     val subTextSize: Int,
     val subTextColor: Int,
+    val subHeight: Int,
+    val subMarginStart: Int,
     val contentTextSize: Int,
-    val contentTextColor: Int
+    val contentTextColor: Int,
+    val contentImgRatio: Float
 )
