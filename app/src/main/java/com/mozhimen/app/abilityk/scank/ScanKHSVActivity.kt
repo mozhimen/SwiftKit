@@ -14,6 +14,7 @@ import androidx.camera.core.ImageProxy
 import com.huawei.hms.hmsscankit.ScanUtil
 import com.huawei.hms.ml.scan.HmsScan
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions
+import com.mozhimen.abilityk.cameraxk.annors.CameraXKFacing
 import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.opencvk.OpenCVKContrast
 import com.mozhimen.abilityk.opencvk.OpenCVKHSV
@@ -53,7 +54,7 @@ class ScanKHSVActivity : BaseKActivity<ActivityScankHsvBinding, BaseKViewModel>(
     }
 
     private fun initCamera() {
-        vb.scankHsvPreview.initCamera(this, CameraSelector.DEFAULT_BACK_CAMERA)
+        vb.scankHsvPreview.initCamera(this, CameraXKFacing.BACK)
         vb.scankHsvPreview.setImageAnalyzer(_frameAnalyzer)
         vb.scankHsvPreview.startCamera()
     }

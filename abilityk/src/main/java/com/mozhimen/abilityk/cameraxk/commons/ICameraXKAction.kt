@@ -4,6 +4,7 @@ import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.abilityk.cameraxk.annors.CameraXKFacing
 import com.mozhimen.abilityk.cameraxk.mos.CameraXKTimer
 
 /**
@@ -20,6 +21,6 @@ interface ICameraXKAction {
     fun changeHdr(isOpen: Boolean)
     fun changeFlash(@ImageCapture.FlashMode flashMode: Int)
     fun changeCountDownTimer(timer: CameraXKTimer)
-    fun changeCameraFacing(cameraSelector: CameraSelector)
+    fun changeCameraFacing(@CameraXKFacing facing: Int)
     fun takePicture()
 }

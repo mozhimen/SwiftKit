@@ -1,15 +1,27 @@
 package com.mozhimen.app.abilityk.cameraxk
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.graphics.ImageFormat
+import android.hardware.Camera
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageProxy
+import com.mozhimen.abilityk.cameraxk.annors.CameraXKFacing
+import com.mozhimen.abilityk.cameraxk.annors.CameraXKFormat
 import com.mozhimen.abilityk.cameraxk.commons.ICameraXKCaptureListener
+import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
+import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityCameraxkBinding
+import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.utilk.UtilKBitmap
+import com.mozhimen.componentk.statusbark.annors.StatusBarKAnnor
+import com.mozhimen.componentk.statusbark.annors.StatusBarKType
+import java.util.concurrent.locks.ReentrantLock
 
-class CameraXKActivity : AppCompatActivity() {
-    private val vb by lazy { ActivityCameraxkBinding.inflate(layoutInflater) }
+@StatusBarKAnnor(statusBarType = StatusBarKType.IMMERSED)
+class CameraXKActivity : BaseKActivity<ActivityCameraxkBinding, BaseKViewModel>(R.layout.activity_cameraxk) {
 
     /*private val outputDirectory: String by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -19,11 +31,15 @@ class CameraXKActivity : AppCompatActivity() {
         }
     }*/
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(vb.root)
+    override fun initData(savedInstanceState: Bundle?) {
+        initCamera()
+    }
 
-        vb.camerakPreviewView.initCamera(this, CameraSelector.DEFAULT_FRONT_CAMERA)
+    private val _format = CameraXKFormat.YUV_420_888
+
+    private fun initCamera() {
+        vb.camerakPreviewView.initCamera(this, CameraXKFacing.FRONT, _format)
+        vb.camerakPreviewView.setImageAnalyzer(_frameAnalyzer)
         vb.camerakPreviewView.setCameraXKCaptureListener(_cameraXKCaptureListener)
         vb.camerakPreviewView.startCamera()
         vb.camerakBtn.setOnClickListener {
@@ -31,11 +47,49 @@ class CameraXKActivity : AppCompatActivity() {
         }
     }
 
+    private val _frameAnalyzer: ImageAnalysis.Analyzer by lazy {
+        object : ImageAnalysis.Analyzer {
+            private val _reentrantLock = ReentrantLock()
+
+            @SuppressLint("UnsafeOptInUsageError")
+            override fun analyze(image: ImageProxy) {
+                try {
+                    _reentrantLock.lock()
+
+                    when (_format) {
+                        CameraXKFormat.RGBA_8888 -> {
+                            val bitmap: Bitmap = ImageConverter.rgb2Bitmap(image)
+                            val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
+                            runOnUiThread {
+                                vb.camerakImg1.setImageBitmap(rotateBitmap)
+                            }
+                        }
+                        CameraXKFormat.YUV_420_888 -> {
+                            val bitmap: Bitmap = if (image.format == ImageFormat.YUV_420_888) {
+                                ImageConverter.yuv2Bitmap(image)!!
+                            } else {
+                                ImageConverter.jpeg2Bitmap(image)
+                            }
+                            val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
+                            runOnUiThread {
+                                vb.camerakImg1.setImageBitmap(rotateBitmap)
+                            }
+                        }
+                    }
+                } finally {
+                    _reentrantLock.unlock()
+                }
+
+                image.close()
+            }
+        }
+    }
+
     private val _cameraXKCaptureListener = object : ICameraXKCaptureListener {
         override fun onCaptureSuccess(bitmap: Bitmap) {
             //UtilKImage.saveBitmap(outputDirectory, bitmap)
             runOnUiThread {
-                vb.camerakImg.setImageBitmap(UtilKBitmap.rotateBitmap(bitmap, -90, flipY = true))
+                vb.camerakImg.setImageBitmap(UtilKBitmap.rotateBitmap(bitmap, -90, flipY = false))
             }
         }
 

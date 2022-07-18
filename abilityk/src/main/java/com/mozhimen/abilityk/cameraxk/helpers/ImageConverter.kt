@@ -20,8 +20,13 @@ object ImageConverter {
 
     private const val TAG = "ImageConverter>>>>>"
 
+    /**
+     * rgb8888转Bitmap
+     * @param image ImageProxy
+     * @return Bitmap
+     */
     @JvmStatic
-    fun imageProxy2Bitmap(image: ImageProxy): Bitmap {
+    fun rgb2Bitmap(image: ImageProxy): Bitmap {
         val bitmapBuffer = Bitmap.createBitmap(image.width, image.height, Bitmap.Config.ARGB_8888)
         // Copy out RGB bits to the shared bitmap buffer
         image.use { bitmapBuffer.copyPixelsFromBuffer(image.planes[0].buffer) }

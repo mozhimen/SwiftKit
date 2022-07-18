@@ -9,6 +9,7 @@ import android.os.Bundle
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
+import com.mozhimen.abilityk.cameraxk.annors.CameraXKFacing
 import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.opencvk.OpenCVKContrast
 import com.mozhimen.abilityk.opencvk.OpenCVKHSV
@@ -48,7 +49,7 @@ class OpenCVKShapeActivity : BaseKActivity<ActivityOpencvkShapeBinding, BaseKVie
     }
 
     private fun initCamera() {
-        vb.opencvkShapePreview.initCamera(this, CameraSelector.DEFAULT_BACK_CAMERA)
+        vb.opencvkShapePreview.initCamera(this, CameraXKFacing.BACK)
         vb.opencvkShapePreview.setImageAnalyzer(_frameAnalyzer)
         vb.opencvkShapePreview.startCamera()
     }

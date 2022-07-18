@@ -1,5 +1,7 @@
 package com.mozhimen.componentk.statusbark.annors
 
+import androidx.annotation.IntDef
+
 /**
  * @ClassName StatusBarKType
  * @Description TODO
@@ -7,6 +9,7 @@ package com.mozhimen.componentk.statusbark.annors
  * @Date 2022/7/17 17:41
  * @Version 1.0
  */
+@IntDef(value = [StatusBarKType.FULL_SCREEN, StatusBarKType.IMMERSED, StatusBarKType.CUSTOM])
 annotation class StatusBarKType {
     companion object {
         const val FULL_SCREEN = 0//是否全屏状态栏

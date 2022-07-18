@@ -15,6 +15,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
+import com.mozhimen.abilityk.cameraxk.annors.CameraXKFacing
 import com.mozhimen.abilityk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.abilityk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.abilityk.cameraxk.commons.ICameraXKListener
@@ -49,6 +50,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     private var _imageCapture: ImageCapture? = null
     private var _imageAnalysis: ImageAnalysis? = null
 
+    private var _format = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
     private var _selectedTimer = CameraXKTimer.OFF
     internal var aspectRatio: Int = AspectRatio.RATIO_16_9
     internal var rotation = CameraXKRotation.ROTATION_90
@@ -87,15 +89,24 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         @SuppressLint("UnsafeOptInUsageError")
         override fun onCaptureSuccess(image: ImageProxy) {
             Log.d(TAG, "onCaptureSuccess: ${image.format} ${image.width}x${image.height}")
-            if (image.format == ImageFormat.YUV_420_888) {
-                val bitmap = ImageConverter.yuv2Bitmap(image)
-                if (bitmap != null) {
+            when (image.format) {
+                ImageFormat.YUV_420_888 -> {
+                    val bitmap = ImageConverter.yuv2Bitmap(image)
+                    bitmap?.let {
+                        Log.d(TAG, "onCaptureSuccess: YUV_420_888 ${bitmap.width}x${bitmap.height}")
+                        _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
+                    }
+                }
+                ImageFormat.JPEG -> {
+                    val bitmap = ImageConverter.jpeg2Bitmap(image)
+                    Log.d(TAG, "onCaptureSuccess: JPEG ${bitmap.width}x${bitmap.height}")
                     _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
                 }
-            } else if (image.format == ImageFormat.JPEG) {
-                val bitmap = ImageConverter.jpeg2Bitmap(image)
-                Log.d(TAG, "onCaptureSuccess: ${bitmap.width}x${bitmap.height}")
-                _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
+                ImageFormat.FLEX_RGBA_8888 -> {
+                    val bitmap = ImageConverter.rgb2Bitmap(image)
+                    Log.d(TAG, "onCaptureSuccess: FLEX_RGBA_8888 ${bitmap.width}x${bitmap.height}")
+                    _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
+                }
             }
             image.close()
         }
@@ -118,10 +129,12 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
 
     fun initCamera(
         owner: LifecycleOwner,
-        facing: CameraSelector
+        facing: CameraSelector,
+        format: Int
     ) {
         this._lifecycleOwner = owner
         this._lensFacing = facing
+        this._format = format
     }
 
     fun startCamera() {
@@ -159,6 +172,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                 .setTargetAspectRatio(aspectRatio) // set the analyzer aspect ratio
                 .setTargetRotation(rotation) // set the analyzer rotation
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST) // in our analysis, we care about the latest image
+                .setOutputImageFormat(_format)
                 .build()
                 .also { setCameraXKAnalyzer(it) }
 
@@ -189,7 +203,11 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         _selectedTimer = timer
     }
 
-    override fun changeCameraFacing(cameraSelector: CameraSelector) {
+    override fun changeCameraFacing(@CameraXKFacing facing: Int) {
+        val cameraSelector = when (facing) {
+            CameraXKFacing.FRONT -> CameraSelector.DEFAULT_BACK_CAMERA
+            else -> CameraSelector.DEFAULT_FRONT_CAMERA
+        }
         if (_lensFacing != cameraSelector) {
             _lensFacing = if (_lensFacing == CameraSelector.DEFAULT_BACK_CAMERA) {
                 CameraSelector.DEFAULT_FRONT_CAMERA
