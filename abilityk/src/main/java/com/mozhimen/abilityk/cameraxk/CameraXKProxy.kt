@@ -94,18 +94,18 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                     val bitmap = ImageConverter.yuv2Bitmap(image)
                     bitmap?.let {
                         Log.d(TAG, "onCaptureSuccess: YUV_420_888 ${bitmap.width}x${bitmap.height}")
-                        _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
+                        _cameraXKCaptureListener?.onCaptureSuccess(bitmap, image.imageInfo.rotationDegrees)
                     }
                 }
                 ImageFormat.JPEG -> {
                     val bitmap = ImageConverter.jpeg2Bitmap(image)
                     Log.d(TAG, "onCaptureSuccess: JPEG ${bitmap.width}x${bitmap.height}")
-                    _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
+                    _cameraXKCaptureListener?.onCaptureSuccess(bitmap, image.imageInfo.rotationDegrees)
                 }
                 ImageFormat.FLEX_RGBA_8888 -> {
                     val bitmap = ImageConverter.rgb2Bitmap(image)
                     Log.d(TAG, "onCaptureSuccess: FLEX_RGBA_8888 ${bitmap.width}x${bitmap.height}")
-                    _cameraXKCaptureListener?.onCaptureSuccess(bitmap)
+                    _cameraXKCaptureListener?.onCaptureSuccess(bitmap, image.imageInfo.rotationDegrees)
                 }
             }
             image.close()

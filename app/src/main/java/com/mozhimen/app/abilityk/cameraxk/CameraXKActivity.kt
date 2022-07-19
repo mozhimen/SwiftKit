@@ -2,10 +2,7 @@ package com.mozhimen.app.abilityk.cameraxk
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.ImageFormat
-import android.hardware.Camera
 import android.os.Bundle
-import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityk.cameraxk.annors.CameraXKFacing
@@ -83,7 +80,7 @@ class CameraXKActivity : BaseKActivity<ActivityCameraxkBinding, BaseKViewModel>(
     }
 
     private val _cameraXKCaptureListener = object : ICameraXKCaptureListener {
-        override fun onCaptureSuccess(bitmap: Bitmap) {
+        override fun onCaptureSuccess(bitmap: Bitmap, imageRotation: Int) {
             //UtilKImage.saveBitmap(outputDirectory, bitmap)
             runOnUiThread {
                 vb.camerakImg.setImageBitmap(UtilKBitmap.rotateBitmap(bitmap, 90, flipY = false))

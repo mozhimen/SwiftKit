@@ -10,6 +10,6 @@ import android.graphics.Bitmap
  * @Version 1.0
  */
 interface ICameraXKCaptureListener {
-    fun onCaptureSuccess(bitmap: Bitmap)
+    fun onCaptureSuccess(bitmap: Bitmap, imageRotation: Int)
     fun onCaptureFail()
 }
