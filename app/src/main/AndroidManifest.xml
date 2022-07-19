@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftK"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".basick.utilk.UtilKGestureActivity"
+            android:exported="false" />
         <!-- provider -->
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -48,7 +50,7 @@
             android:exported="true" />
         <activity
             android:name=".componentk.statusbark.StatusBarKActivity"
-            android:exported="false" /><!-- basicsk -->
+            android:exported="false" /> <!-- basicsk -->
         <activity
             android:name=".basick.eventk.EventKActivity"
             android:exported="true" />

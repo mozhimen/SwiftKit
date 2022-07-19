@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import android.hardware.Camera
 import android.os.Bundle
+import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityk.cameraxk.annors.CameraXKFacing
@@ -20,7 +21,7 @@ import com.mozhimen.componentk.statusbark.annors.StatusBarKAnnor
 import com.mozhimen.componentk.statusbark.annors.StatusBarKType
 import java.util.concurrent.locks.ReentrantLock
 
-@StatusBarKAnnor(statusBarType = StatusBarKType.IMMERSED)
+@StatusBarKAnnor(statusBarType = StatusBarKType.FULL_SCREEN)
 class CameraXKActivity : BaseKActivity<ActivityCameraxkBinding, BaseKViewModel>(R.layout.activity_cameraxk) {
 
     /*private val outputDirectory: String by lazy {
@@ -35,7 +36,7 @@ class CameraXKActivity : BaseKActivity<ActivityCameraxkBinding, BaseKViewModel>(
         initCamera()
     }
 
-    private val _format = CameraXKFormat.YUV_420_888
+    private val _format = CameraXKFormat.RGBA_8888
 
     private fun initCamera() {
         vb.camerakPreviewView.initCamera(this, CameraXKFacing.FRONT, _format)
@@ -65,11 +66,7 @@ class CameraXKActivity : BaseKActivity<ActivityCameraxkBinding, BaseKViewModel>(
                             }
                         }
                         CameraXKFormat.YUV_420_888 -> {
-                            val bitmap: Bitmap = if (image.format == ImageFormat.YUV_420_888) {
-                                ImageConverter.yuv2Bitmap(image)!!
-                            } else {
-                                ImageConverter.jpeg2Bitmap(image)
-                            }
+                            val bitmap: Bitmap = ImageConverter.yuv2Bitmap(image)!!
                             val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
                             runOnUiThread {
                                 vb.camerakImg1.setImageBitmap(rotateBitmap)
@@ -89,7 +86,7 @@ class CameraXKActivity : BaseKActivity<ActivityCameraxkBinding, BaseKViewModel>(
         override fun onCaptureSuccess(bitmap: Bitmap) {
             //UtilKImage.saveBitmap(outputDirectory, bitmap)
             runOnUiThread {
-                vb.camerakImg.setImageBitmap(UtilKBitmap.rotateBitmap(bitmap, -90, flipY = false))
+                vb.camerakImg.setImageBitmap(UtilKBitmap.rotateBitmap(bitmap, 90, flipY = false))
             }
         }
 

@@ -24,7 +24,6 @@ class DebugKActivity : AppCompatActivity() {
         setContentView(vb.root)
     }
 
-
     private val _gestureDetector: GestureDetector by lazy {
         GestureDetector(this, object : UtilKGesture.GestureFlingCallback() {
             override fun onFlingLeft() {
