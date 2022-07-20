@@ -40,6 +40,9 @@ dependencies {
     implementation project(path: ':uicorek')
     implementation project(path: ':componentk')
 
+    //common
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
     //cameraxk
     implementation 'androidx.camera:camera-camera2:1.1.0-beta02'
     implementation 'androidx.camera:camera-lifecycle:1.1.0-beta02'
