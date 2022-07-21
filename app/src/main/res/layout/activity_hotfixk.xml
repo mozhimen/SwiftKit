@@ -18,10 +18,5 @@
             android:text="弹出消息"
             tools:ignore="HardcodedText" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/hotfixk_btn_hotfix"
-            style="@style/BtnStyle"
-            android:text="热修复"
-            tools:ignore="HardcodedText" />
     </LinearLayout>
 </layout>

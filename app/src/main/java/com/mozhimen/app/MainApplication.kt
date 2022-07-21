@@ -1,5 +1,6 @@
 package com.mozhimen.app
 
+import com.mozhimen.abilityk.hotfixk.HotFixMgr
 import com.mozhimen.app.componentk.guidek.fragments.HomeFragment
 import com.mozhimen.basick.basek.BaseKApplication
 import com.mozhimen.basick.extsk.toJson
@@ -29,6 +30,8 @@ class MainApplication : BaseKApplication() {
         //stackk
         StackKMgr.instance.init()
 
+        //hotfixk
+        HotFixMgr.instance.startFix(6, dexName = "hotfixk_2.dex")
         //guidek
         //GuideKMgr.instance.init(_guidekConfig)
 

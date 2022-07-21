@@ -30,12 +30,6 @@ class HotFixKActivity : BaseKActivity<ActivityHotfixkBinding, BaseKViewModel>(R.
         vb.hotfixkBtnToast.setOnClickListener {
             HotFixKTest.test().showToast()
         }
-
-        vb.hotfixkBtnHotfix.setOnClickListener {
-            ExecutorK.execute(TAG, 0) {
-                HotFixMgr.instance.startFix(3, dexName = "hotfixk_1.dex")
-            }
-        }
     }
 
     /**
