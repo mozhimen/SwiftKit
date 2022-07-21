@@ -1,52 +1,46 @@
 package com.mozhimen.app.abilityk.hotfixk
 
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.Manifest
 import android.os.Bundle
-import android.os.Environment
-import android.view.View
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import com.mozhimen.abilityk.hotfixk.HotFixK
+import com.mozhimen.abilityk.hotfixk.HotFixMgr
+import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityHotfixkBinding
-import java.io.File
+import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.cachek.CacheKSP
+import com.mozhimen.basick.executork.ExecutorK
+import com.mozhimen.basick.extsk.showToast
+import com.mozhimen.componentk.permissionk.PermissionK
+import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
 
-class HotFixKActivity : AppCompatActivity() {
-    private val vb by lazy { ActivityHotfixkBinding.inflate(layoutInflater) }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(vb.root)
-    }
+@PermissionKAnnor(permissions = [Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE])
+class HotFixKActivity : BaseKActivity<ActivityHotfixkBinding, BaseKViewModel>(R.layout.activity_hotfixk) {
 
-    fun fixBug(view: View) {
-        val permission = android.Manifest.permission.READ_EXTERNAL_STORAGE
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                permission
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            fix()
-        } else {
-            ActivityCompat.requestPermissions(this, arrayOf(permission), 1000)
+    override fun initData(savedInstanceState: Bundle?) {
+        PermissionK.initPermissions(this) {
+            if (it) {
+                initView(savedInstanceState)
+            } else {
+                PermissionK.applySetting(this)
+            }
         }
     }
 
-    fun test(view: View) {
-        Toast.makeText(this, HotFixKTest().test(), Toast.LENGTH_SHORT).show()
-    }
+    override fun initView(savedInstanceState: Bundle?) {
+        vb.hotfixkBtnToast.setOnClickListener {
+            HotFixKTest.test().showToast()
+        }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            fix()
+        vb.hotfixkBtnHotfix.setOnClickListener {
+            ExecutorK.execute(TAG, 0) {
+                HotFixMgr.instance.startFix(3, dexName = "hotfixk_1.dex")
+            }
         }
     }
 
-    private fun fix() {
-        HotFixK.fix(this, File(Environment.getExternalStorageDirectory(), "patch.dex"))
-    }
+    /**
+     * dex打包命令: dx --dex --no-strict --output=hotfixk_1.dex app/build/tmp/kotlin-classes/debug/com/mozhimen/app/abilityk/hotfixk/HotFixKTest.class
+     * dex本地推送命令: adb push hotfixk_1.dex /sdcard/hotfixk_1.dex
+     * dex远程推送方法: 后端接口
+     */
 }

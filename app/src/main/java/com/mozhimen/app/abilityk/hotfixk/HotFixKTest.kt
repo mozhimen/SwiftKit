@@ -7,6 +7,6 @@ package com.mozhimen.app.abilityk.hotfixk
  * @Date 2022/2/20 12:50
  * @Version 1.0
  */
-class HotFixKTest {
+object HotFixKTest {
     fun test() = "bug"
 }

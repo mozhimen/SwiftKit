@@ -2,11 +2,9 @@ package com.mozhimen.uicorek.viewk
 
 import android.content.Context
 import android.graphics.*
-import android.os.Build
 import android.util.AttributeSet
-import androidx.annotation.RequiresApi
-import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.basek.BaseKView
+import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.uicorek.R
 import kotlin.math.asin
 
@@ -72,7 +70,6 @@ class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         typedArray.recycle()
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         initData()

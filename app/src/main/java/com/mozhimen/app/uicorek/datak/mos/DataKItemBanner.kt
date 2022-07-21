@@ -24,7 +24,7 @@ import com.mozhimen.uicorek.datak.commons.DataKItem
  * @Version 1.0
  */
 class DataKItemBanner : DataKItem<Any, BindKViewHolder<ItemDatakBannerBinding>>() {
-
+    private val DATAKITEM_BANNER_SP_NAME = "datakitem_banner_sp_name"
     private var _index = 0
     private var _urls = arrayOf(
         "https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
@@ -80,11 +80,11 @@ class DataKItemBanner : DataKItem<Any, BindKViewHolder<ItemDatakBannerBinding>>(
     override fun getItemLayoutRes() = R.layout.item_datak_banner
 
     override fun onViewDetachedFromWindow(holder: BindKViewHolder<ItemDatakBannerBinding>) {
-        CacheKSP.instance.with(TAG).putInt("bannerIndex", _index)
+        CacheKSP.instance.with(DATAKITEM_BANNER_SP_NAME).putInt("bannerIndex", _index)
     }
 
     override fun onViewAttachedToWindow(holder: BindKViewHolder<ItemDatakBannerBinding>) {
-        val index = CacheKSP.instance.with(TAG).getInt("bannerIndex")
+        val index = CacheKSP.instance.with(DATAKITEM_BANNER_SP_NAME).getInt("bannerIndex")
         Log.d(TAG, "onViewAttachedToWindow currentIndex $index")
         holder.binding.datakItemBanner.setCurrentItem(index)
     }

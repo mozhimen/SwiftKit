@@ -71,14 +71,55 @@ object ExecutorK {
         }
     }
 
+    /**
+     * 插入任务
+     * @param name String
+     * @param priority Int 越小,优先级越大
+     * @param runnable Runnable
+     */
     @JvmOverloads
     fun execute(name: String, @IntRange(from = 0, to = 10) priority: Int = 0, runnable: Runnable) {
         _executork.execute(PriorityRunnable(name, priority, runnable))
     }
 
+    /**
+     * 插入任务
+     * @param name String
+     * @param priority Int 越小,优先级越大
+     * @param runnable ExecutorKCallable<*>
+     */
     @JvmOverloads
     fun execute(name: String, @IntRange(from = 0, to = 10) priority: Int = 0, runnable: ExecutorKCallable<*>) {
         _executork.execute(PriorityRunnable(name, priority, runnable))
+    }
+
+    /**
+     * 暂停
+     */
+    @Synchronized
+    fun pause() {
+        _lock.lock()
+        try {
+            _isPaused = true
+            Log.w(TAG, "pause executork is paused")
+        } finally {
+            _lock.unlock()
+        }
+    }
+
+    /**
+     * 继续
+     */
+    @Synchronized
+    fun resume() {
+        _lock.lock()
+        try {
+            _isPaused = false
+            _pauseCondition.signalAll()
+        } finally {
+            _lock.unlock()
+        }
+        Log.w(TAG, "resume executork is resumed")
     }
 
 
@@ -106,28 +147,5 @@ object ExecutorK {
         override fun compareTo(other: PriorityRunnable): Int {
             return if (this.priority < other.priority) 1 else if (this.priority > other.priority) -1 else 0
         }
-    }
-
-    @Synchronized
-    fun pause() {
-        _lock.lock()
-        try {
-            _isPaused = true
-            Log.w(TAG, "pause executork is paused")
-        } finally {
-            _lock.unlock()
-        }
-    }
-
-    @Synchronized
-    fun resume() {
-        _lock.lock()
-        try {
-            _isPaused = false
-            _pauseCondition.signalAll()
-        } finally {
-            _lock.unlock()
-        }
-        Log.w(TAG, "resume executork is resumed")
     }
 }

@@ -15,6 +15,7 @@ import com.mozhimen.basick.utilk.UtilKReflect;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
@@ -29,44 +30,40 @@ public class DexConverter {
     private static final String TAG = "DexConverter>>>>>";
     private static final PackageManager[] CACHED_SYNC_PM = {null};
 
-    public static void triggerPMDexOptOnDemand(Context context, String dexPath, String oatPath) {
+    public static void triggerPMDexOptOnDemand(Context context, String dexPath, String oatPath) throws Throwable {
         if (Build.VERSION.SDK_INT != Build.VERSION_CODES.Q) {
             // Only do this trick on Android Q devices.
             return;
         }
 
+        final File oatFile = new File(oatPath);
+        if (oatFile.exists()) {
+            return;
+        }
+        final PackageManager syncPM = getSynchronizedPackageManager(context);
+        final Method registerDexModuleMethod = UtilKReflect.findMethod(syncPM.getClass(), "registerDexModule", String.class, PackageManager$DexModuleRegisterCallback.class);
         try {
-            final File oatFile = new File(oatPath);
-            if (oatFile.exists()) {
-                return;
-            }
-            final PackageManager syncPM = getSynchronizedPackageManager(context);
-            final Method registerDexModuleMethod = UtilKReflect.findMethod(syncPM.getClass(), "registerDexModule", String.class, PackageManager$DexModuleRegisterCallback.class);
-            try {
-                registerDexModuleMethod.invoke(syncPM, dexPath, new PackageManager$DexModuleRegisterCallback() {
-                    @Override
-                    public void onDexModuleRegistered(String dexModulePath, boolean success, String message) {
-                        Log.e(TAG, String.format("[+] onDexModuleRegistered, path: %s, is_success: %s, msg: %s", dexModulePath, success, message));
-                    }
-                });
-            } catch (Throwable ignored) {
-                // Ignored.
-            }
-            if (!oatFile.exists()) {
-                registerDexModuleMethod.invoke(syncPM, dexPath, new PackageManager$DexModuleRegisterCallback() {
-                    @Override
-                    public void onDexModuleRegistered(String dexModulePath, boolean success, String message) {
-                        Log.e(TAG, String.format("[+] onDexModuleRegistered again, path: %s, is_success: %s, msg: %s", dexModulePath, success, message));
-                    }
-                });
-            }
-            if (oatFile.exists()) {
-                Log.e(TAG, "[+] Bg-dexopt was triggered successfully.");
-            } else {
-                throw new IllegalStateException("Bg-dexopt was triggered, but no odex file was generated.");
-            }
-        } catch (Throwable thr) {
-            thr.printStackTrace();
+            registerDexModuleMethod.invoke(syncPM, dexPath, new PackageManager$DexModuleRegisterCallback() {
+                @Override
+                public void onDexModuleRegistered(String dexModulePath, boolean success, String message) {
+                    Log.e(TAG, String.format("[+] onDexModuleRegistered, path: %s, is_success: %s, msg: %s", dexModulePath, success, message));
+                }
+            });
+        } catch (Throwable ignored) {
+            // Ignored.
+        }
+        if (!oatFile.exists()) {
+            registerDexModuleMethod.invoke(syncPM, dexPath, new PackageManager$DexModuleRegisterCallback() {
+                @Override
+                public void onDexModuleRegistered(String dexModulePath, boolean success, String message) {
+                    Log.e(TAG, String.format("[+] onDexModuleRegistered again, path: %s, is_success: %s, msg: %s", dexModulePath, success, message));
+                }
+            });
+        }
+        if (oatFile.exists()) {
+            Log.w(TAG, "[+] Bg-dexopt was triggered successfully.");
+        } else {
+            throw new IllegalStateException("Bg-dexopt was triggered, but no odex file was generated.");
         }
     }
 
