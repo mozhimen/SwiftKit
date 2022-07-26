@@ -12,6 +12,15 @@
         android:orientation="vertical"
         tools:context=".abilityk.hotfixk.HotFixKActivity">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="修复前:弹出bug, 修复后:弹出fix bug"
+            android:textColor="@color/blue_normal"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/hotfixk_btn_toast"
             style="@style/BtnStyle"

@@ -31,7 +31,8 @@ class MainApplication : BaseKApplication() {
         StackKMgr.instance.init()
 
         //hotfixk
-        HotFixMgr.instance.startFix(6, dexName = "hotfixk_2.dex")
+        HotFixMgr.instance.init()//注释此条查看热修复前的弹框提示
+
         //guidek
         //GuideKMgr.instance.init(_guidekConfig)
 

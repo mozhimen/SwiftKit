@@ -3,7 +3,7 @@ package com.mozhimen.abilityk.hotfixk;
 import android.content.Context;
 
 import com.mozhimen.abilityk.hotfixk.helpers.DexConverter;
-import com.mozhimen.basick.utilk.UtilKFile;
+import com.mozhimen.abilityk.hotfixk.helpers.OatFileHelper;
 import com.mozhimen.basick.utilk.UtilKReflect;
 
 import java.io.File;
@@ -26,7 +26,7 @@ public class HotFixK {
 
         Object[] patchDexElements = makeDexElements(dexPathList, files, loader);
         expandFieldArray(dexPathList, patchDexElements);
-        DexConverter.triggerPMDexOptOnDemand(context, dexFilePath, UtilKFile.INSTANCE.optimizedPathFor(new File(dexFilePath)));
+        DexConverter.triggerPMDexOptOnDemand(context, dexFilePath, OatFileHelper.INSTANCE.optimizedPathFor(new File(dexFilePath)));
     }
 
     private static Object[] makeDexElements(Object dexPathList, ArrayList<File> files, ClassLoader loader) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {

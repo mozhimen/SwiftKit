@@ -2,6 +2,8 @@ package com.mozhimen.app.abilityk.hotfixk
 
 import android.Manifest
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import com.mozhimen.abilityk.hotfixk.HotFixMgr
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityHotfixkBinding
@@ -10,8 +12,10 @@ import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.cachek.CacheKSP
 import com.mozhimen.basick.executork.ExecutorK
 import com.mozhimen.basick.extsk.showToast
+import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import java.io.File
 
 @PermissionKAnnor(permissions = [Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE])
 class HotFixKActivity : BaseKActivity<ActivityHotfixkBinding, BaseKViewModel>(R.layout.activity_hotfixk) {

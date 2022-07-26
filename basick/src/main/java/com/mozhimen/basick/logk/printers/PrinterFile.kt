@@ -20,7 +20,7 @@ import java.util.concurrent.LinkedBlockingQueue
  * 1、BlockingQueue的使用，防止频繁的创建线程；
  * 2、线程同步；
  * 3、文件操作，BufferedWriter的应用；
- * @param _logPath       log保存路径，如果是外部路径需要确保已经有外部存储的读写权限
+ * 如果是外部路径需要确保已经有外部存储的读写权限
  * @param _retentionTime log文件的有效时长，单位ms，<=0表示一直有效
  * @Author Kolin Zhao / Mozhimen
  * @Date 2021/12/20 17:33
@@ -42,8 +42,6 @@ class PrinterFile(
         const val LOGK_DIR = "logk"
 
         /**
-         *
-         * @param logPath String?
          * @param retentionDay Long? 单位天
          * @return PrinterFile
          */
@@ -65,11 +63,11 @@ class PrinterFile(
     }
 
     fun getLogDir(): File {
-        val logFile = File(UtilKGlobal.instance.getApp()!!.cacheDir, LOGK_DIR)
-        if (!logFile.exists()) {
-            logFile.mkdirs()
+        val logFolder = File(UtilKGlobal.instance.getApp()!!.cacheDir, LOGK_DIR)
+        if (!logFolder.exists()) {
+            logFolder.mkdirs()
         }
-        return logFile
+        return logFolder
     }
 
     fun getLogFiles(): Array<File> {
@@ -100,8 +98,7 @@ class PrinterFile(
             return
         }
         val currentTimeMillis = System.currentTimeMillis()
-        val logDir = File(_logPath)
-        val files = logDir.listFiles() ?: return
+        val files = getLogFiles()
         for (file in files) {
             if (currentTimeMillis - file.lastModified() > _retentionTime) {
                 file.delete()

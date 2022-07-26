@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk
 
-import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Build
 import android.util.Log
@@ -9,7 +8,6 @@ import com.mozhimen.basick.logk.LogK
 import java.io.*
 import java.math.BigInteger
 import java.security.MessageDigest
-import kotlin.RuntimeException
 
 /**
  * @ClassName UtilKFile
@@ -57,23 +55,33 @@ object UtilKFile {
     }
 
     /**
+     * 创建文件夹
+     * @param file File
+     */
+    fun createDir(file: File) {
+        val parentPath = file.parent ?: throw Exception("this file does nt have parent path")
+        val dir = File(parentPath)
+        if (!dir.exists()) {
+            dir.mkdirs()
+        }
+    }
+
+    /**
      * 删除文件
      * @param file File
      */
     fun deleteFile(file: File) {
-        val parentPath = file.parent ?: throw Exception("this file does nt have parent path")
-        val tempPath = File(parentPath)
-        if (!tempPath.exists()) {
-            tempPath.mkdirs()
+        if (file.exists() && file.isFile) {
+            file.delete()
         }
     }
 
     /**
      * 删除所有文件
-     * @param path String
+     * @param rootPath String
      */
-    fun deleteAllFiles(path: String) {
-        deleteAllFiles(File(path))
+    fun deleteAllFiles(rootPath: String) {
+        deleteAllFiles(File(rootPath))
     }
 
     /**
@@ -112,7 +120,7 @@ object UtilKFile {
      * @param sourceFile File
      * @param destFile File
      */
-    fun copyFile(sourceFile: File, destFile: File) {
+    fun copyFile(sourceFile: File, destFile: File, onFinish: (() -> Unit)? = null) {
         var inputStream: FileInputStream? = null
         var outputStream: FileOutputStream? = null
         val parent = destFile.parentFile
@@ -151,42 +159,15 @@ object UtilKFile {
                     e.printStackTrace()
                 }
             }
+            onFinish?.invoke()
         }
     }
 
     /**
-     * optimizedPathFor
-     * @param path File
-     * @return String
+     * 判断是否是文件夹
+     * @param file File
+     * @return Boolean
      */
-    fun optimizedPathFor(path: File): String {
-        // dex_location = /foo/bar/baz.jar
-        // odex_location = /foo/bar/oat/<isa>/baz.odex
-        val currentInstructionSet: String = try {
-            getCurrentInstructionSet()
-        } catch (e: Exception) {
-            throw RuntimeException("optimizedPathFor: getCurrentInstructionSet fail:", e)
-        }
-        val parentFile: File = path.parentFile?: throw RuntimeException("optimizedPathFor: get parentFile fail")
-        var fileName = path.name
-        val index = fileName.lastIndexOf('.')
-        if (index > 0) {
-            fileName = fileName.substring(0, index)
-        }
-        return (parentFile.absolutePath + "/oat/"
-                + currentInstructionSet + "/" + fileName + ".odex")
-    }
-
-    /**
-     * getCurrentInstructionSet
-     * @return String
-     * @throws java
-     */
-    @SuppressLint("DiscouragedPrivateApi")
-    @Throws(java.lang.Exception::class)
-    fun getCurrentInstructionSet(): String {
-        val clazz = Class.forName("dalvik.system.VMRuntime")
-        val currentGet = clazz.getDeclaredMethod("getCurrentInstructionSet")
-        return currentGet.invoke(null) as String
-    }
+    fun isDirectory(file: File): Boolean =
+        file.isDirectory
 }
