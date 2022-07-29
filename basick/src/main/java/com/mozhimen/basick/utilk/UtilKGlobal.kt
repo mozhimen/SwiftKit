@@ -23,7 +23,7 @@ class UtilKGlobal {
         val holder = UtilKGlobal()
     }
 
-    private var application: Application? = null
+    private var _application: Application? = null
 
     /**
      * 获取全局上下文
@@ -31,15 +31,15 @@ class UtilKGlobal {
      */
     @SuppressLint("PrivateApi")
     fun getApp(): Application? {
-        if (application == null) {
+        if (_application == null) {
             try {
-                application = Class.forName("android.app.ActivityThread")
+                _application = Class.forName("android.app.ActivityThread")
                     .getMethod("currentApplication")
                     .invoke(null) as Application
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
         }
-        return application
+        return _application
     }
 }
