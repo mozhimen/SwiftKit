@@ -30,6 +30,7 @@ abstract class RxJavaResponse<T>(private val _converter: INetKConverter = AsyncC
                 onFailed(StatusParser.RESPONSE_NULL, "数据请求失败")
             }
         } catch (e: Throwable) {
+            e.printStackTrace()
             val ex = StatusParser.getThrowable(e)
             onFailed(ex.code, ex.message)
         }
@@ -40,6 +41,7 @@ abstract class RxJavaResponse<T>(private val _converter: INetKConverter = AsyncC
     override fun onComplete() {}
 
     override fun onError(e: Throwable) {
+        e.printStackTrace()
         val ex: NetKThrowable = if (e is NetKThrowable) e else StatusParser.getThrowable(e)
         onFailed(ex.code, ex.message)
     }

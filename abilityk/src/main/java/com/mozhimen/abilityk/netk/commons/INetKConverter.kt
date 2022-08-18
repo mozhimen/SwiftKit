@@ -11,5 +11,8 @@ import java.lang.reflect.Type
  * @Version 1.0
  */
 interface INetKConverter {
+    val TAG: String
+        get() = "${this.javaClass.simpleName}>>>>>"
+
     fun <T> convert(rawData: String, dataType: Type): NetKResponse<T>
 }

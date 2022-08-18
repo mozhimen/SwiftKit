@@ -19,6 +19,6 @@ open class NetKResponse<T> : Serializable {
     var errorData: Map<String, String>? = null//错误状态下的数据
     var msg: String? = null//错误信息
 
-    fun isSuccessful(): Boolean =
+    open fun isSuccessful(): Boolean =
         code == StatusParser.SUCCESS || code == StatusParser.CACHE_SUCCESS || code in 200..299 || data != null
 }

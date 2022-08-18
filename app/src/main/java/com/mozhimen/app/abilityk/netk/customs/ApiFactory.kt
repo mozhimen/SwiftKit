@@ -15,9 +15,11 @@ import com.mozhimen.abilityk.netk.customs.AsyncFactory
  */
 object ApiFactory {
     private val _baseUrl = "https://api.caiyunapp.com/v2.5/cIecnVlovchAFYIk/"
+    private val _baseUrl1 = "http://121.229.39.86:8123/"
 
     private val _netkAsync: NetKAsync = NetKAsync(_baseUrl, AsyncFactory(_baseUrl))
     private val _netkCoroutine: NetKCoroutine = NetKCoroutine(_baseUrl)
+    private val _netkCoroutineTest: NetKCoroutine = NetKCoroutine(_baseUrl1)
     private val _netkRxJava: NetKRxJava = NetKRxJava(_baseUrl)
 
     init {
@@ -34,6 +36,10 @@ object ApiFactory {
 
     fun <T> createCoroutine(api: Class<T>): T {
         return _netkCoroutine.create(api)
+    }
+
+    fun <T> createCoroutineTest(api: Class<T>): T {
+        return _netkCoroutineTest.create(api)
     }
 
     fun <T> createRxJava(api: Class<T>): T {

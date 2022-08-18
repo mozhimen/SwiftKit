@@ -38,6 +38,7 @@ object StatusParser {
     const val SSL_ERROR = 1005//证书出错
 
     fun getThrowable(e: Throwable): NetKThrowable {
+        e.printStackTrace()
         val ex: NetKThrowable
         return if (e is HttpException && e.code() == NETWORK_ERROR) {
             ex = NetKThrowable(e, NETWORK_ERROR)

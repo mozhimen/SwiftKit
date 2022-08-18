@@ -39,5 +39,11 @@ class NetKActivity : BaseKActivity<ActivityNetkBinding, NetKViewModel>(R.layout.
         vb.netkBtn2GetWeather.setOnClickListener {
             vm.getRealTimeWeatherRxJava()
         }
+
+        vb.netkBtn2GetCustom.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                vm.getRingSuHealthStatus("CE580928918183825408", "JWJA220525026", 72)
+            }
+        }
     }
 }

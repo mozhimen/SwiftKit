@@ -69,7 +69,26 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/netk_btn2_get_weather"
             style="@style/BtnStyle"
+            android:layout_marginBottom="20dp"
             android:text="查询天气(RxJava方法)"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/netk_txt3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/blue_light"
+            android:gravity="center_vertical"
+            android:hint="自定义测试"
+            android:minHeight="30dp"
+            android:text="@{vm.uiCustom}"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/netk_btn2_get_custom"
+            style="@style/BtnStyle"
+            android:text="自定义测试(协程方法)"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
