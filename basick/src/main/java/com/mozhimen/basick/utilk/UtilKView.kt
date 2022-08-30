@@ -157,7 +157,7 @@ object UtilKView {
     }
     //endregion
 
-    //region editView
+    //region # editView
     /**
      * 最多可输入的字符数
      * @param editText EditText
@@ -176,7 +176,10 @@ object UtilKView {
      * @param imageView ImageView
      * @param drawable Drawable
      */
-    fun fitImage(imageView: ImageView, drawable: Drawable) {
+    fun fitImage(
+        imageView: ImageView,
+        drawable: Drawable
+    ) {
         val drawableWidth = drawable.intrinsicWidth
         val drawableHeight = drawable.intrinsicHeight
         val layoutParams = imageView.layoutParams ?: ViewGroup.LayoutParams(
@@ -186,15 +189,6 @@ object UtilKView {
         val width = layoutParams.width
         layoutParams.height = (drawableHeight / (drawableWidth * 1.0f / width)).toInt()
         imageView.layoutParams = layoutParams
-    }
-
-    /**
-     * 加载位图
-     * @param imageView ImageView
-     * @param bitmap Bitmap
-     */
-    fun loadImage(imageView: ImageView, bitmap: Bitmap) {
-        imageView.setImageBitmap(bitmap)
     }
 
     /**

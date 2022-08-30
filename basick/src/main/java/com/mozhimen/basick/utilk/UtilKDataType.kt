@@ -36,14 +36,13 @@ object UtilKDataType {
     }
 
     /**
-     * byteBuffer转ByteArray
-     * @param byteBuffer ByteBuffer
-     * @return ByteArray
+     * 判断类型是否匹配
+     * @param type Array<out Any>
+     * @return Boolean
      */
-    fun byteBuffer2ByteArray(byteBuffer: ByteBuffer): ByteArray {
-        byteBuffer.rewind()    // Rewind the buffer to zero
-        val data = ByteArray(byteBuffer.remaining())
-        byteBuffer.get(data)   // Copy the buffer into a byte array
-        return data // Return the byte array
+    fun isTypeMatch(type: Any, vararg matches: Any): Boolean {
+        matches.any {
+            it is type
+        }
     }
 }

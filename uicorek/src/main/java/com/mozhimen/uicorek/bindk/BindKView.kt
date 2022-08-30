@@ -1,10 +1,14 @@
 package com.mozhimen.uicorek.bindk
 
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.mozhimen.basick.utilk.UtilKView
+import com.mozhimen.uicorek.R
+import java.io.File
 
 /**
  * @ClassName BindKView
@@ -27,23 +31,28 @@ object BindKView {
 
     /**
      * 加载图片
-     * @param view ImageView?
-     * @param url String?
+     * @param view ImageView
+     * @param res Any
      */
     @JvmStatic
-    @BindingAdapter("loadUrl")
-    fun loadImage(view: ImageView, url: String) {
-        UtilKView.loadImageComplex(view, url)
+    @BindingAdapter("loadImage")
+    fun loadImage(view: ImageView, res: Any) {
+        UtilKView.loadImage(view, res)
     }
 
     /**
-     * 加载图片
-     * @param view ImageView?
-     * @param url String?
+     * 加载图片(复杂场景)
+     * @param view ImageView
+     * @param res Any
      */
-    @JvmStatic
-    @BindingAdapter("loadBitmap")
-    fun loadImage(view: ImageView, bitmap: Bitmap) {
-        UtilKView.loadImage(view, bitmap)
-    }
+    /*@JvmStatic
+    @BindingAdapter("loadImageComplex")
+    fun loadImageComplex(
+        view: ImageView,
+        res: Any,
+        placeholder: Int = R.mipmap.,
+        error: Int = android.R.color.black
+    ) {
+        UtilKView.loadImageComplex(view, res)
+    }*/
 }
