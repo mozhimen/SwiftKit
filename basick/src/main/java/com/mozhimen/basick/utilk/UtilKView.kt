@@ -24,8 +24,8 @@ import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.mozhimen.basick.R
 import java.io.File
-import java.lang.IllegalArgumentException
 
 
 /**
@@ -142,7 +142,7 @@ object UtilKView {
      * @param textView TextView
      * @param style Int
      */
-    fun fontStyle(textView: TextView, @IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
+    fun fontStyle(textView: TextView, @IntRange(from = 0, to = 3) style: Int) {
         textView.typeface = Typeface.defaultFromStyle(style)
     }
 
@@ -200,7 +200,7 @@ object UtilKView {
         imageView: ImageView,
         res: Any
     ) {
-        if (!isTypeLegal(res)) return
+        if (!isGlideTypeMatch(res)) return
         Glide.with(imageView).load(res).into(imageView)
     }
 
@@ -214,10 +214,10 @@ object UtilKView {
     fun loadImageComplex(
         imageView: ImageView,
         res: Any,
-        placeholder: Int = android.R.color.transparent,
-        error: Int = android.R.color.black
+        placeholder: Int,
+        error: Int
     ) {
-        if (!isTypeLegal(res)) return
+        if (!isGlideTypeMatch(res)) return
         Glide.with(imageView).load(res).transition(withCrossFade()).error(error).placeholder(placeholder)
             .into(imageView)
     }
@@ -232,10 +232,10 @@ object UtilKView {
     fun loadImageCircle(
         imageView: ImageView,
         res: Any,
-        placeholder: Int = android.R.color.transparent,
-        error: Int = android.R.color.black
+        placeholder: Int,
+        error: Int
     ) {
-        if (!isTypeLegal(res)) return
+        if (!isGlideTypeMatch(res)) return
         Glide.with(imageView).load(res).transition(withCrossFade())
             .transform(CircleCrop()).placeholder(placeholder).error(error)
             .into(imageView)
@@ -254,11 +254,11 @@ object UtilKView {
         imageView: ImageView,
         res: Any,
         borderWidth: Float = 1f,
-        borderColor: Int = UtilKRes.getColor(android.R.color.white),
-        placeholder: Int = android.R.color.transparent,
+        borderColor: Int,
+        placeholder: Int,
         error: Int = android.R.color.black
     ) {
-        if (!isTypeLegal(res)) return
+        if (!isGlideTypeMatch(res)) return
         Glide.with(imageView).load(res).transition(withCrossFade())
             .transform(CircleBorderTransform(borderWidth, borderColor)).placeholder(placeholder).error(error)
             .into(imageView)
@@ -275,11 +275,11 @@ object UtilKView {
     fun loadImageCorner(
         imageView: ImageView,
         res: Any,
-        cornerRadius: Int = 1,
-        placeholder: Int = android.R.color.transparent,
-        error: Int = android.R.color.black
+        cornerRadius: Int,
+        placeholder: Int,
+        error: Int
     ) {
-        if (!isTypeLegal(res)) return
+        if (!isGlideTypeMatch(res)) return
         Glide.with(imageView).load(res).transition(withCrossFade())
             .transform(CenterCrop(), RoundedCorners(cornerRadius)).placeholder(placeholder).error(error)
             .into(imageView)
@@ -310,13 +310,22 @@ object UtilKView {
         }
     }
 
-    private fun isTypeLegal(arg: Any): Boolean {
+    /**
+     * glide类型匹配
+     * @param arg Any
+     * @return Boolean
+     */
+    fun isGlideTypeMatch(arg: Any): Boolean =
+        UtilKDataType.isTypeMatch(
+            arg,
+            String::class.java, Bitmap::class.java, Uri::class.java, File::class.java, Number::class.java, ByteArray::class.java,
+        )/*{
         return if (arg is String || arg is Bitmap || arg is Drawable || arg is Uri || arg is File || arg is Int || arg is ByteArray) {
             true
         } else {
             throw IllegalArgumentException("arg must be String, Bitmap, Drawable, Uri, File, Int, ByteArray!")
         }
-    }
+    }*/
 
     //endregion
 

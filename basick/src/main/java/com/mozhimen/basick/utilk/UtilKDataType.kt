@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk
 
-import java.nio.ByteBuffer
+import android.R
+import android.util.Log
 
 /**
  * @ClassName UtilKDataType
@@ -10,6 +11,8 @@ import java.nio.ByteBuffer
  * @Version 1.0
  */
 object UtilKDataType {
+    private const val TAG = "UtilKDataType>>>>>"
+
     /**
      * 判断数据类型是否是原始数据类型
      * @param value Any
@@ -37,12 +40,26 @@ object UtilKDataType {
 
     /**
      * 判断类型是否匹配
-     * @param type Array<out Any>
+     * @param type Class<*>
+     * @param matches Array<out Class<*>>
      * @return Boolean
      */
-    fun isTypeMatch(type: Any, vararg matches: Any): Boolean {
-        matches.any {
-            it is type
+    fun isTypeMatch(type: Any, vararg matches: Class<*>): Boolean {
+        try {
+            return matches.any { type.javaClass == it || type.javaClass.superclass == it }
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        } catch (e: NoSuchFieldException) {
+            e.printStackTrace()
         }
+        return false
     }
+
+    /**
+     * 获取类型名称
+     * @param type Any
+     * @return String
+     */
+    fun getTypeName(type: Any): String =
+        type.javaClass.simpleName
 }
