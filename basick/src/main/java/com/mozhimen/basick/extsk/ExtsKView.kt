@@ -17,7 +17,6 @@ import com.mozhimen.basick.utilk.UtilKView
  * @Date 2022/4/15 4:42
  * @Version 1.0
  */
-
 //region # view
 /**
  * 四周内边距
@@ -73,17 +72,10 @@ fun View.resizeSize(width: Int, height: Int) {
  * @receiver ImageView
  * @param drawable Drawable
  */
-fun ImageView.fitImage(drawable: Drawable) {
+fun ImageView.fitImage(
+    drawable: Drawable
+) {
     UtilKView.fitImage(this, drawable)
-}
-
-/**
- * 加载位图
- * @receiver ImageView
- * @param bitmap Bitmap
- */
-fun ImageView.load(bitmap: Bitmap) {
-    UtilKView.loadImage(this, bitmap)
 }
 
 /**
@@ -91,7 +83,9 @@ fun ImageView.load(bitmap: Bitmap) {
  * @receiver ImageView
  * @param res Any
  */
-fun ImageView.load(res: Any) {
+fun ImageView.load(
+    res: Any
+) {
     UtilKView.loadImage(this, res)
 }
 
@@ -104,8 +98,8 @@ fun ImageView.load(res: Any) {
  */
 fun ImageView.loadComplex(
     res: Any,
-    placeholder: Int = android.R.color.black,
-    error: Int = android.R.color.black
+    placeholder: Int,
+    error: Int
 ) {
     UtilKView.loadImageComplex(this, res, placeholder, error)
 }
@@ -119,8 +113,8 @@ fun ImageView.loadComplex(
  */
 fun ImageView.loadCircle(
     res: Any,
-    placeholder: Int = android.R.color.black,
-    error: Int = android.R.color.black
+    placeholder: Int ,
+    error: Int
 ) {
     UtilKView.loadImageCircle(this, res, placeholder, error)
 }
@@ -136,10 +130,10 @@ fun ImageView.loadCircle(
  */
 fun ImageView.loadCircleBorder(
     res: Any,
-    borderWidth: Float = 0f,
+    borderWidth: Float,
     borderColor: Int,
-    placeholder: Int = android.R.color.black,
-    error: Int = android.R.color.black
+    placeholder: Int,
+    error: Int
 ) {
     UtilKView.loadImageCircleBorder(this, res, borderWidth, borderColor, placeholder, error)
 }
@@ -155,14 +149,14 @@ fun ImageView.loadCircleBorder(
 fun ImageView.loadCorner(
     res: Any,
     cornerRadius: Int,
-    placeholder: Int = android.R.color.black,
-    error: Int = android.R.color.black
+    placeholder: Int,
+    error: Int
 ) {
     UtilKView.loadImageCorner(this, res, cornerRadius, placeholder, error)
 }
 //endregion
 
-//region textView
+//region # textView
 /**
  * 设置字体的细或粗
  * @receiver TextView
@@ -182,6 +176,8 @@ fun TextView.font(iconFont: String = "icons/iconfont.ttf") {
 }
 //endregion
 
+//region # editText
 fun EditText.setInputMaxLength(inputMaxLength: Int) {
     UtilKView.setInputMaxLength(this, inputMaxLength)
 }
+//endregion

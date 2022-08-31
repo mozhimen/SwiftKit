@@ -15,17 +15,19 @@ object UtilKDataType {
 
     /**
      * 判断数据类型是否是原始数据类型
-     * @param value Any
+     * @param type Any
      * @return Boolean
      */
-    fun isPrimitive(value: Any): Boolean {
+    fun isPrimitive(
+        type: Any
+    ): Boolean {
         //String
-        if (value.javaClass == String::class.java) {
+        if (type.javaClass == String::class.java) {
             return true
         }
         try {
             //只适用于int byte short long boolean char double float
-            val field = value.javaClass.getField("TYPE")
+            val field = type.javaClass.getField("TYPE")
             val clazz = field[null] as Class<*>
             if (clazz.isPrimitive) {
                 return true
@@ -44,7 +46,10 @@ object UtilKDataType {
      * @param matches Array<out Class<*>>
      * @return Boolean
      */
-    fun isTypeMatch(type: Any, vararg matches: Class<*>): Boolean {
+    fun isTypeMatch(
+        type: Any,
+        vararg matches: Class<*>
+    ): Boolean {
         try {
             return matches.any { type.javaClass == it || type.javaClass.superclass == it }
         } catch (e: IllegalAccessException) {
@@ -60,6 +65,8 @@ object UtilKDataType {
      * @param type Any
      * @return String
      */
-    fun getTypeName(type: Any): String =
+    fun getTypeName(
+        type: Any
+    ): String =
         type.javaClass.simpleName
 }

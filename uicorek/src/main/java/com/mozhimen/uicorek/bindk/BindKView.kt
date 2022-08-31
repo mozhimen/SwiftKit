@@ -25,8 +25,8 @@ object BindKView {
      */
     @JvmStatic
     @BindingAdapter("viewRatio")
-    fun setViewRatio(view: View, ratio: Float) {
-        UtilKView.setViewRatio(view, ratio)
+    fun setViewRatio(view: View, viewRatio: Float) {
+        UtilKView.setViewRatio(view, viewRatio)
     }
 
     /**
@@ -35,7 +35,7 @@ object BindKView {
      * @param res Any
      */
     @JvmStatic
-    @BindingAdapter("loadImage")
+    @BindingAdapter("load")
     fun loadImage(view: ImageView, res: Any) {
         UtilKView.loadImage(view, res)
     }
@@ -43,16 +43,78 @@ object BindKView {
     /**
      * 加载图片(复杂场景)
      * @param view ImageView
-     * @param res Any
+     * @param loadImageComplex Any
+     * @param placeholder Int
+     * @param error Int
      */
-    /*@JvmStatic
-    @BindingAdapter("loadImageComplex")
+    @JvmStatic
+    @BindingAdapter(value = ["loadComplex", "placeholder", "error"], requireAll = false)
     fun loadImageComplex(
-        view: ImageView,
-        res: Any,
-        placeholder: Int = R.mipmap.,
-        error: Int = android.R.color.black
+        imageView: ImageView,
+        loadImageComplex: Any,
+        placeholder: Int = R.mipmap.refreshk_loading,
+        error: Int = R.mipmap.layoutk_empty
     ) {
-        UtilKView.loadImageComplex(view, res)
-    }*/
+        UtilKView.loadImageComplex(imageView, loadImageComplex, placeholder, error)
+    }
+
+    /**
+     * 加载圆形图片
+     * @param imageView ImageView
+     * @param res Any
+     * @param placeholder Int
+     * @param error Int
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["loadCircle", "placeholder", "error"], requireAll = false)
+    fun loadImageCircle(
+        imageView: ImageView,
+        loadCircle: Any,
+        placeholder: Int = R.mipmap.refreshk_loading,
+        error: Int = R.mipmap.layoutk_empty
+    ) {
+        UtilKView.loadImageCircle(imageView, loadCircle, placeholder, error)
+    }
+
+    /**
+     * 加载带边框的圆角图片
+     * @param imageView ImageView
+     * @param loadCircleBorder Any
+     * @param borderWidth Int
+     * @param borderColor Int
+     * @param placeholder Int
+     * @param error Int
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["loadCircleBorder", "borderWidth", "borderColor", "placeholder", "error"], requireAll = false)
+    fun loadImageCircleBorder(
+        imageView: ImageView,
+        loadCircleBorder: Any,
+        borderWidth: Int = 2,
+        borderColor: Int = android.R.color.white,
+        placeholder: Int = R.mipmap.refreshk_loading,
+        error: Int = R.mipmap.layoutk_empty
+    ) {
+        UtilKView.loadImageCircleBorder(imageView, loadCircleBorder, borderWidth.toFloat(), borderColor, placeholder, error)
+    }
+
+    /**
+     * 加载圆角图片
+     * @param imageView ImageView
+     * @param loadCorner Any
+     * @param cornerRadius Int
+     * @param placeholder Int
+     * @param error Int
+     */
+    @JvmStatic
+    @BindingAdapter(value = ["loadCorner", "cornerRadius", "placeholder", "error"], requireAll = false)
+    fun loadImageCorner(
+        imageView: ImageView,
+        loadCorner: Any,
+        cornerRadius: Int = 2,
+        placeholder: Int = R.mipmap.refreshk_loading,
+        error: Int = R.mipmap.layoutk_empty
+    ) {
+        UtilKView.loadImageCorner(imageView, loadCorner, cornerRadius, placeholder, error)
+    }
 }

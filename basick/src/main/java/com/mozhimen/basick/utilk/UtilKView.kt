@@ -24,7 +24,6 @@ import java.util.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
-import com.mozhimen.basick.R
 import java.io.File
 
 
@@ -43,7 +42,10 @@ object UtilKView {
      * @param cls Class<T>
      * @return T?
      */
-    fun <T> findTypeView(group: ViewGroup?, cls: Class<T>): T? {
+    fun <T> findTypeView(
+        group: ViewGroup?,
+        cls: Class<T>
+    ): T? {
         if (group == null) {
             return null
         }
@@ -71,7 +73,10 @@ object UtilKView {
      * @param view View
      * @param ratio Float
      */
-    fun setViewRatio(view: View, ratio: Float) {
+    fun setViewRatio(
+        view: View,
+        ratio: Float
+    ) {
         view.viewTreeObserver.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
@@ -91,7 +96,11 @@ object UtilKView {
      * @param paddingHorizontal Int
      * @param paddingVertical Int
      */
-    fun setPadding(view: View, paddingHorizontal: Int, paddingVertical: Int) {
+    fun setPadding(
+        view: View,
+        paddingHorizontal: Int,
+        paddingVertical: Int
+    ) {
         view.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
     }
 
@@ -100,7 +109,10 @@ object UtilKView {
      * @param view View
      * @param padding Int
      */
-    fun setPaddingHorizontal(view: View, padding: Int) {
+    fun setPaddingHorizontal(
+        view: View,
+        padding: Int
+    ) {
         view.setPadding(padding, 0, padding, 0)
     }
 
@@ -109,7 +121,10 @@ object UtilKView {
      * @param view View
      * @param padding Int
      */
-    fun setPaddingVertical(view: View, padding: Int) {
+    fun setPaddingVertical(
+        view: View,
+        padding: Int
+    ) {
         view.setPadding(0, padding, 0, padding)
     }
 
@@ -119,7 +134,11 @@ object UtilKView {
      * @param width Int
      * @param height Int
      */
-    fun resizeSize(view: View, width: Int, height: Int) {
+    fun resizeSize(
+        view: View,
+        width: Int,
+        height: Int
+    ) {
         val layoutParams = view.layoutParams
         layoutParams.width = width
         layoutParams.height = height
@@ -131,7 +150,10 @@ object UtilKView {
      * @param view View
      * @param size Int
      */
-    fun resizeSize(view: View, size: Int) {
+    fun resizeSize(
+        view: View,
+        size: Int
+    ) {
         resizeSize(view, size, size)
     }
     //endregion
@@ -142,16 +164,22 @@ object UtilKView {
      * @param textView TextView
      * @param style Int
      */
-    fun fontStyle(textView: TextView, @IntRange(from = 0, to = 3) style: Int) {
+    fun fontStyle(
+        textView: TextView,
+        @IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL
+    ) {
         textView.typeface = Typeface.defaultFromStyle(style)
     }
 
     /**
      * 设置字体
      * @param textView TextView
-     * @param iconFont String
+     * @param fontPath String
      */
-    fun font(textView: TextView, fontPath: String = "fonts/iconfont.ttf") {
+    fun font(
+        textView: TextView,
+        fontPath: String = "fonts/iconfont.ttf"
+    ) {
         val typeface = Typeface.createFromAsset(textView.context.assets, fontPath)
         textView.typeface = typeface
     }
@@ -163,7 +191,10 @@ object UtilKView {
      * @param editText EditText
      * @param inputMaxLength Int
      */
-    fun setInputMaxLength(editText: EditText, inputMaxLength: Int) {
+    fun setInputMaxLength(
+        editText: EditText,
+        inputMaxLength: Int
+    ) {
         if (inputMaxLength > 0) {
             editText.filters = arrayOf(InputFilter.LengthFilter(inputMaxLength))
         }
@@ -194,7 +225,7 @@ object UtilKView {
     /**
      * 加载普通图片
      * @param imageView ImageView
-     * @param url String
+     * @param res Any
      */
     fun loadImage(
         imageView: ImageView,
@@ -253,10 +284,10 @@ object UtilKView {
     fun loadImageCircleBorder(
         imageView: ImageView,
         res: Any,
-        borderWidth: Float = 1f,
+        borderWidth: Float,
         borderColor: Int,
         placeholder: Int,
-        error: Int = android.R.color.black
+        error: Int
     ) {
         if (!isGlideTypeMatch(res)) return
         Glide.with(imageView).load(res).transition(withCrossFade())
@@ -285,6 +316,17 @@ object UtilKView {
             .into(imageView)
     }
 
+    /**
+     * glide类型匹配
+     * @param arg Any
+     * @return Boolean
+     */
+    fun isGlideTypeMatch(arg: Any): Boolean =
+        UtilKDataType.isTypeMatch(
+            arg,
+            String::class.java, Bitmap::class.java, Uri::class.java, File::class.java, Number::class.java, ByteArray::class.java,
+        )
+
     private class CircleBorderTransform(private val _borderWidth: Float, borderColor: Int) : CircleCrop() {
         private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
@@ -309,24 +351,6 @@ object UtilKView {
             return transform
         }
     }
-
-    /**
-     * glide类型匹配
-     * @param arg Any
-     * @return Boolean
-     */
-    fun isGlideTypeMatch(arg: Any): Boolean =
-        UtilKDataType.isTypeMatch(
-            arg,
-            String::class.java, Bitmap::class.java, Uri::class.java, File::class.java, Number::class.java, ByteArray::class.java,
-        )/*{
-        return if (arg is String || arg is Bitmap || arg is Drawable || arg is Uri || arg is File || arg is Int || arg is ByteArray) {
-            true
-        } else {
-            throw IllegalArgumentException("arg must be String, Bitmap, Drawable, Uri, File, Int, ByteArray!")
-        }
-    }*/
-
     //endregion
 
     //region # recyclerView
@@ -335,14 +359,20 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Boolean
      */
-    fun isScroll2Top(recyclerView: RecyclerView): Boolean = !recyclerView.canScrollVertically(-1)
+    fun isScroll2Top(
+        recyclerView: RecyclerView
+    ): Boolean =
+        !recyclerView.canScrollVertically(-1)
 
     /**
      * 是否滑动到底部
      * @param recyclerView RecyclerView
      * @return Boolean
      */
-    fun isScroll2End(recyclerView: RecyclerView): Boolean = !recyclerView.canScrollVertically(1)
+    fun isScroll2End(
+        recyclerView: RecyclerView
+    ): Boolean =
+        !recyclerView.canScrollVertically(1)
 
     /**
      * 滑动到顶部2
@@ -398,7 +428,9 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Boolean
      */
-    fun isScroll2VerticalEdge(recyclerView: RecyclerView): Boolean =
+    fun isScroll2VerticalEdge(
+        recyclerView: RecyclerView
+    ): Boolean =
         isScroll2End(recyclerView) || isScroll2Top(recyclerView)
 
     /**
@@ -406,7 +438,9 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Boolean
      */
-    fun isScroll2VerticalEdge2(recyclerView: RecyclerView): Boolean =
+    fun isScroll2VerticalEdge2(
+        recyclerView: RecyclerView
+    ): Boolean =
         isScroll2End2(recyclerView) || isScroll2Top2(recyclerView)
 
     /**
@@ -414,21 +448,29 @@ object UtilKView {
      * @param dy Int
      * @return Boolean
      */
-    fun isScrollUp(dy: Int): Boolean = dy < 0
+    fun isScrollUp(
+        dy: Int
+    ): Boolean =
+        dy < 0
 
     /**
      * 是否向下滚动
      * @param dx Int
      * @return Boolean
      */
-    fun isScrollDown(dx: Int): Boolean = dx > 0
+    fun isScrollDown(
+        dx: Int
+    ): Boolean =
+        dx > 0
 
     /**
      * 找到最后一个可视的Item
      * @param recyclerView RecyclerView
      * @return Int
      */
-    fun findLastVisibleItem(recyclerView: RecyclerView): Int {
+    fun findLastVisibleItem(
+        recyclerView: RecyclerView
+    ): Int {
         when (val layoutManager = recyclerView.layoutManager) {
             //layoutManager is GridLayoutManager
             is LinearLayoutManager -> {
@@ -446,7 +488,9 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Int
      */
-    fun findFirstVisibleItem(recyclerView: RecyclerView): Int {
+    fun findFirstVisibleItem(
+        recyclerView: RecyclerView
+    ): Int {
         when (val layoutManager = recyclerView.layoutManager) {
             //layoutManager is GridLayoutManager
             is LinearLayoutManager -> {
