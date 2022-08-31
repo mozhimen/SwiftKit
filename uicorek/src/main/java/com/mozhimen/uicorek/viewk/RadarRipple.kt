@@ -5,6 +5,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.basek.BaseKView
+import com.mozhimen.basick.basek.commons.IBaseKViewAction
 import com.mozhimen.uicorek.R
 
 /**
@@ -15,7 +16,7 @@ import com.mozhimen.uicorek.R
  * @Version 1.0
  */
 class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr) ,IBaseKViewAction{
 
     //region # variate
     private var bgColor = 0xFFFFFF

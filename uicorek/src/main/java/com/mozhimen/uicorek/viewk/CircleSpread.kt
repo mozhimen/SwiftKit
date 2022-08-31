@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.basek.BaseKView
+import com.mozhimen.basick.basek.commons.IBaseKViewAction
 import com.mozhimen.uicorek.R
 
 /**
@@ -24,7 +25,7 @@ class CircleSpread @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) :
-    BaseKView(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr), IBaseKViewAction {
 
     //region #variate
     private var centerColor = 0xFFFFFF //中心圆颜色

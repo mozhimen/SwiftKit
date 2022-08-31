@@ -4,6 +4,8 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import com.mozhimen.basick.basek.BaseKView
+import com.mozhimen.basick.basek.commons.IBaseKActivity
+import com.mozhimen.basick.basek.commons.IBaseKViewAction
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.uicorek.R
 import kotlin.math.asin
@@ -16,7 +18,7 @@ import kotlin.math.asin
  * @Version 1.0
  */
 class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr), IBaseKViewAction {
 
     //region # variate
     private var _arcStartColor = Color.WHITE

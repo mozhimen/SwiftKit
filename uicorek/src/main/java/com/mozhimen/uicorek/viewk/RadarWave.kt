@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import com.mozhimen.basick.basek.BaseKView
+import com.mozhimen.basick.basek.commons.IBaseKViewAction
 import com.mozhimen.uicorek.R
 
 /**
@@ -14,7 +15,7 @@ import com.mozhimen.uicorek.R
  * @Version 1.0
  */
 class RadarWave @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr) {
+    BaseKView(context, attrs, defStyleAttr),IBaseKViewAction {
 
     //region # variate
     private var radarColor = 0x287FF1

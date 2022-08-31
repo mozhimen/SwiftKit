@@ -114,6 +114,12 @@
                 android:onClick="goNavK"
                 android:text="NavK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goTextK"
+                android:text="TextK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

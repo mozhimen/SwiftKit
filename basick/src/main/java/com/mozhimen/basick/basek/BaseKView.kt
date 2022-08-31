@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.basek.commons.IBaseKView
+import com.mozhimen.basick.basek.commons.IBaseKViewAction
 
 /**
  * @ClassName ICustomView
@@ -39,7 +40,4 @@ abstract class BaseKView(context: Context, attrs: AttributeSet? = null, defStyle
 
     override fun initView() {}
 
-    override fun requireStart() {}
-
-    override fun requireStop() {}
 }

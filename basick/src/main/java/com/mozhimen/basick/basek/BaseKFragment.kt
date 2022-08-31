@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.mozhimen.basick.basek.commons.IBaseKAction
+import com.mozhimen.basick.basek.commons.IBaseKActivity
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -23,7 +23,7 @@ import java.lang.reflect.Type
  */
 open class BaseKFragment<VB : ViewDataBinding, VM : BaseKViewModel>(private val layoutId: Int) :
     Fragment(),
-    IBaseKAction {
+    IBaseKActivity {
     val TAG = "${this.javaClass.simpleName}>>>>>"
 
     lateinit var vm: VM

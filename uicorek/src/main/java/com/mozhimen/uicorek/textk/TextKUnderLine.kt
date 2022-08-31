@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.text.TextPaint
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatTextView
+import com.mozhimen.basick.basek.commons.IBaseKView
 import com.mozhimen.uicorek.R
 
 /**
@@ -13,46 +15,44 @@ import com.mozhimen.uicorek.R
  * @Date 2021/6/10 20:46
  * @Version 1.0
  */
-open class TextKUnderLine : androidx.appcompat.widget.AppCompatTextView {
+class TextKUnderLine @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    AppCompatTextView(context, attrs, defStyleAttr), IBaseKView {
     //TextPaint对象，继承自Paint
-    private lateinit var mTextPaint: TextPaint
+    private lateinit var _textPaint: TextPaint
 
     //是否加下划线
-    private var mUnderLine = false
+    private var _underLine = false
 
-    constructor(context: Context) : super(context!!) {
-        init(null, 0)
+    init {
+        initAttrs(attrs, defStyleAttr)
+        initPaint()
     }
 
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(attrs, 0)
-    }
-
-    constructor(context: Context, attrs: AttributeSet?, defStyle: Int) : super(
-        context,
-        attrs,
-        defStyle
-    ) {
-        init(attrs, defStyle)
-    }
-
-    private fun init(attrs: AttributeSet?, defStyle: Int) {
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         //Load attributes 加载属性列表R.styleable.UnderLineTextView
         val typedArray: TypedArray = context.obtainStyledAttributes(
             attrs,
             R.styleable.TextKUnderLine,
-            defStyle,
+            defStyleAttr,
             0
         )
 
         //获取自定义属性,默认是false
-        mUnderLine = typedArray.getBoolean(R.styleable.TextKUnderLine_textKUnderLine_underline, false)
+        _underLine = typedArray.getBoolean(R.styleable.TextKUnderLine_textKUnderLine_underline, false)
         typedArray.recycle()//回收TypedArray，以供以后的调用者重用
+    }
 
-        mTextPaint = paint
-        if (mUnderLine) {
+    override fun initPaint() {
+        _textPaint = paint
+        if (_underLine) {
             //设置下划线
-            mTextPaint.isUnderlineText = true
+            _textPaint.isUnderlineText = true
         }
+    }
+
+    override fun initData() {
+    }
+
+    override fun initView() {
     }
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.mozhimen.uicorek.textk.TextKMarquee
+            android:layout_width="40dp"
+            android:layout_height="36dp"
+            android:text="这是一个跑马灯...我来测试它的效果怎么样"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+</layout>

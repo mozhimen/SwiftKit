@@ -14,6 +14,4 @@ interface IBaseKView {
     fun initPaint()
     fun initData()
     fun initView()
-    fun requireStart()
-    fun requireStop()
 }

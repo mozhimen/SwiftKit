@@ -16,6 +16,7 @@ import com.mozhimen.app.uicorek.refreshk.RefreshKLayoutActivity
 import com.mozhimen.app.uicorek.refreshk.RefreshKLayoutLottieActivity
 import com.mozhimen.app.uicorek.sliderk.SliderKActivity
 import com.mozhimen.app.uicorek.tabk.*
+import com.mozhimen.app.uicorek.textk.TextKActivity
 import com.mozhimen.app.uicorek.viewk.ViewKActivity
 import com.mozhimen.basick.extsk.start
 
@@ -94,5 +95,9 @@ class UICoreKActivity : Activity() {
 
     fun goNavK(view: View) {
         start<NavKActivity>()
+    }
+
+    fun goTextK(view: View) {
+        start<TextKActivity>()
     }
 }

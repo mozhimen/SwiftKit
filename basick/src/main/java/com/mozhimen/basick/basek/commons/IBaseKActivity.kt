@@ -9,7 +9,7 @@ import android.os.Bundle
  * @Date 2022/2/25 13:44
  * @Version 1.0
  */
-interface IBaseKAction {
+interface IBaseKActivity {
     fun initFlag()
     /**
      * vb.vm=vm

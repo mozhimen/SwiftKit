@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import com.mozhimen.basick.basek.commons.IBaseKAction
+import com.mozhimen.basick.basek.commons.IBaseKActivity
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -19,7 +19,7 @@ import java.lang.reflect.Type
  * @Version 1.0
  */
 open class BaseKActivity<VB : ViewDataBinding, VM : BaseKViewModel>(private val layoutId: Int) :
-    AppCompatActivity(), IBaseKAction {
+    AppCompatActivity(), IBaseKActivity {
 
     val TAG = "${this.javaClass.simpleName}>>>>>"
     lateinit var vb: VB

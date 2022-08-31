@@ -116,6 +116,7 @@
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_cameraxk.xml" value="0.3671875" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_hotfixk.xml" value="0.3671875" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_layoutk_video.xml" value="0.1" />
+        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_navk.xml" value="0.20625" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_netk.xml" value="0.2564814814814815" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_opencvk.xml" value="0.36666666666666664" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_opencvk_contrast.xml" value="0.22" />
@@ -123,7 +124,8 @@
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_opencvk_shape.xml" value="0.25" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_scank_contrast.xml" value="0.24722222222222223" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_sliderk.xml" value="0.1" />
-        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_uicorek.xml" value="0.3671875" />
+        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_textk.xml" value="0.1" />
+        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_uicorek.xml" value="0.14393939393939395" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_utilk_gesture.xml" value="0.3671875" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/uicorek/src/main/res/drawable/sliderk_indicator_menu.xml" value="0.2682291666666667" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/uicorek/src/main/res/layout/sliderk_content_item.xml" value="0.2520833333333333" />
