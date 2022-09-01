@@ -22,7 +22,13 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogk_ques"
                 style="@style/BtnStyle"
-                android:text="问题弹框"
+                android:text="问题弹框(渐变动画,最简单用法)"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/dialogk_ques_anim"
+                style="@style/BtnStyle"
+                android:text="问题弹框(弹出动画,透明底色)"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
     </FrameLayout>

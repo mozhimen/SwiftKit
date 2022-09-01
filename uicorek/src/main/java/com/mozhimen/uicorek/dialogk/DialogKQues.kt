@@ -58,7 +58,7 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
             _btnSure.block()
         }
 
-        fun create(onSureClick: () -> Unit, onCancelClick: (() -> Unit)? = null): DialogKQues {
+        fun create(onSureClick: (() -> Unit)? = null, onCancelClick: (() -> Unit)? = null): DialogKQues {
             val layoutInflater = _activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             val dialogKQues = DialogKQues(_activity, _styleId)
             val view = layoutInflater.inflate(_layoutId, null)
@@ -78,13 +78,11 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
             }
             _btnSure.setOnClickListener {
                 dialogKQues.dismiss()
-                onSureClick()
+                onSureClick?.invoke()
             }
             dialogKQues.setContentView(view)
             dialogKQues.setCancelable(_cancelable)
-            _animStyleId?.let {
-                dialogKQues.window?.setWindowAnimations(R.style.DialogKAnimAlphaStyle)
-            }
+            dialogKQues.window?.setWindowAnimations(_animStyleId ?: R.style.DialogKAnimAlphaStyle)
             dialogKQues.window?.setLayout(_width.dp2px(), _height.dp2px())
             return dialogKQues
         }
