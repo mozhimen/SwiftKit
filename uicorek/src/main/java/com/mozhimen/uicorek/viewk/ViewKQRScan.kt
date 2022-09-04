@@ -21,6 +21,7 @@ import com.mozhimen.uicorek.R
 class ViewKQRScan @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseKView(context, attrs, defStyleAttr) {
 
+    //region # variate
     private var _lineDrawable: Drawable? = null
     private var _lineWidth = 1f.dp2px()
     private var _borderLineWidth = 1f.dp2px()
@@ -36,6 +37,7 @@ class ViewKQRScan @JvmOverloads constructor(context: Context, attrs: AttributeSe
     private var _borderRect: Rect? = null
     private var _borderWidth = 200f.dp2px()
     private var _borderHeight = 200f.dp2px()
+    //endregion
 
     init {
         initAttrs(attrs, defStyleAttr)

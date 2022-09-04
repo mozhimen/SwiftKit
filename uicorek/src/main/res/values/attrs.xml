@@ -308,6 +308,11 @@
         <attr name="arcRotate_animTime" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="ViewKColorPicker">
+        <attr name="viewKColorPicker_colorStart" format="color|reference" />
+        <attr name="viewKColorPicker_colorEnd" format="color|reference" />
+    </declare-styleable>
+
     <!--二维码扫描控件-->
     <declare-styleable name="ViewKQRScan">
         <!-- 扫描边框线的宽度，默认值为1dp -->

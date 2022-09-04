@@ -28,71 +28,71 @@ class CircleSpread @JvmOverloads constructor(
     BaseKView(context, attrs, defStyleAttr), IBaseKViewAction {
 
     //region #variate
-    private var centerColor = 0xFFFFFF //中心圆颜色
-    private var centerDrawable: Drawable? = null//中心圆图片
-    private var centerRadius = 20f.dp2px()//中心圆半径
-    private var spreadColor = 0xFFFFFF //扩散圆颜色
-    private var spreadCount = 4 //扩散圆最大数
-    private var spreadIsRipple = true//是否是波纹(否为波浪)
-    private var circlesDistance = 5f.dp2px() //每个扩散圆的距离
-    private var animTime = 2000 //从中心圆扩散到边界圆的间隔
+    private var _centerColor = 0xFFFFFF //中心圆颜色
+    private var _centerDrawable: Drawable? = null//中心圆图片
+    private var _centerRadius = 20f.dp2px()//中心圆半径
+    private var _spreadColor = 0xFFFFFF //扩散圆颜色
+    private var _spreadCount = 4 //扩散圆最大数
+    private var _spreadIsRipple = true//是否是波纹(否为波浪)
+    private var _circlesDistance = 5f.dp2px() //每个扩散圆的距离
+    private var _animTime = 2000 //从中心圆扩散到边界圆的间隔
 
-    private lateinit var centerPaint: Paint //中心圆paint
-    private lateinit var spreadPaint: Paint //扩散圆paint
-    private lateinit var circleRactF: RectF
+    private lateinit var _centerPaint: Paint //中心圆paint
+    private lateinit var _spreadPaint: Paint //扩散圆paint
+    private lateinit var _circleRectF: RectF
 
-    private var centerBitmap: Bitmap? = null
-    private var realSpreadCount = spreadCount
-    private var radiusAddStep = 2f.dp2px()
-    private var alphaMinusStep = 255f * radiusAddStep / (realRadius - centerRadius)
-    private var interval: Long =
-        animTime.toLong() * radiusAddStep.toLong() / (realRadius.toLong() - centerRadius.toLong())
+    private var _centerBitmap: Bitmap? = null
+    private var _realSpreadCount = _spreadCount
+    private var _radiusAddStep = 2f.dp2px()
+    private var _alphaMinusStep = 255f * _radiusAddStep / (realRadius - _centerRadius)
+    private var _interval: Long =
+        _animTime.toLong() * _radiusAddStep.toLong() / (realRadius.toLong() - _centerRadius.toLong())
 
-    private val spreadCircles = ArrayDeque<Pair<Float, Float>>()//半径,alpha
+    private val _spreadCircles = ArrayDeque<Pair<Float, Float>>()//半径,alpha
 
-    private var isStop = false
+    private var _isStop = false
     //endregion
 
     override fun requireStop() {
-        isStop = true
+        _isStop = true
     }
 
     override fun requireStart() {
-        isStop = false
-        spreadCircles.add(centerRadius.toFloat() to 255f)
+        _isStop = false
+        _spreadCircles.add(_centerRadius.toFloat() to 255f)
         invalidate()
     }
 
     //region #private function
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleSpread)
-        centerColor =
-            typedArray.getColor(R.styleable.CircleSpread_circleSpread_centerColor, centerColor)
-        centerDrawable =
+        _centerColor =
+            typedArray.getColor(R.styleable.CircleSpread_circleSpread_centerColor, _centerColor)
+        _centerDrawable =
             typedArray.getDrawable(R.styleable.CircleSpread_circleSpread_centerDrawable)
-        centerRadius = typedArray.getDimensionPixelSize(
+        _centerRadius = typedArray.getDimensionPixelSize(
             R.styleable.CircleSpread_circleSpread_centerRadius,
-            centerRadius
+            _centerRadius
         )
-        spreadColor =
-            typedArray.getColor(R.styleable.CircleSpread_circleSpread_spreadColor, spreadColor)
-        spreadCount =
-            typedArray.getInteger(R.styleable.CircleSpread_circleSpread_spreadCount, spreadCount)
-        spreadIsRipple = typedArray.getBoolean(
+        _spreadColor =
+            typedArray.getColor(R.styleable.CircleSpread_circleSpread_spreadColor, _spreadColor)
+        _spreadCount =
+            typedArray.getInteger(R.styleable.CircleSpread_circleSpread_spreadCount, _spreadCount)
+        _spreadIsRipple = typedArray.getBoolean(
             R.styleable.CircleSpread_circleSpread_spreadIsRipple,
-            spreadIsRipple
+            _spreadIsRipple
         )
-        circlesDistance =
+        _circlesDistance =
             typedArray.getDimensionPixelOffset(
                 R.styleable.CircleSpread_circleSpread_circlesDistance,
-                circlesDistance
+                _circlesDistance
             )
-        animTime = typedArray.getInteger(R.styleable.CircleSpread_circleSpread_animTime, animTime)
+        _animTime = typedArray.getInteger(R.styleable.CircleSpread_circleSpread_animTime, _animTime)
         typedArray.recycle()
 
         //init data
-        centerDrawable?.let {
-            centerBitmap = (it as BitmapDrawable).bitmap
+        _centerDrawable?.let {
+            _centerBitmap = (it as BitmapDrawable).bitmap
         }
 
         //init paint
@@ -101,40 +101,40 @@ class CircleSpread @JvmOverloads constructor(
 
     override fun initPaint() {
         super.initPaint()
-        centerPaint = Paint()
-        centerPaint.isAntiAlias = true
-        centerPaint.color = centerColor
+        _centerPaint = Paint()
+        _centerPaint.isAntiAlias = true
+        _centerPaint.color = _centerColor
 
-        spreadPaint = Paint()
-        spreadPaint.color = spreadColor
-        spreadPaint.isAntiAlias = true
-        if (spreadIsRipple) {
-            spreadPaint.style = Paint.Style.FILL
+        _spreadPaint = Paint()
+        _spreadPaint.color = _spreadColor
+        _spreadPaint.isAntiAlias = true
+        if (_spreadIsRipple) {
+            _spreadPaint.style = Paint.Style.FILL
         } else {
-            spreadPaint.style = Paint.Style.STROKE
+            _spreadPaint.style = Paint.Style.STROKE
         }
-        spreadPaint.alpha = 255
+        _spreadPaint.alpha = 255
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         //计算真实的阔散圆数量
-        realSpreadCount =
-            if (((realRadius - centerRadius) / circlesDistance) < spreadCount) {
-                ((realRadius - centerRadius) / circlesDistance).toInt()
-            } else spreadCount
-        spreadCircles.add(centerRadius.toFloat() to 255f)
+        _realSpreadCount =
+            if (((realRadius - _centerRadius) / _circlesDistance) < _spreadCount) {
+                ((realRadius - _centerRadius) / _circlesDistance).toInt()
+            } else _spreadCount
+        _spreadCircles.add(_centerRadius.toFloat() to 255f)
         //计算时间及步长
-        interval =
-            animTime.toLong() * radiusAddStep.toLong() / (realRadius.toLong() - centerRadius.toLong())
-        alphaMinusStep = 255f * radiusAddStep / (realRadius - centerRadius)
+        _interval =
+            _animTime.toLong() * _radiusAddStep.toLong() / (realRadius.toLong() - _centerRadius.toLong())
+        _alphaMinusStep = 255f * _radiusAddStep / (realRadius - _centerRadius)
         //rect
-        circleRactF =
+        _circleRectF =
             RectF(
-                centerX - centerRadius,
-                centerY - centerRadius,
-                centerX + centerRadius,
-                centerY + centerRadius
+                centerX - _centerRadius,
+                centerY - _centerRadius,
+                centerX + _centerRadius,
+                centerY + _centerRadius
             )
     }
 
@@ -148,34 +148,34 @@ class CircleSpread @JvmOverloads constructor(
     }
 
     private fun changeRadiusAndAlpha() {
-        spreadCircles.forEachIndexed { i, c ->
-            spreadCircles[i] =
-                c.first + radiusAddStep to c.second - alphaMinusStep
+        _spreadCircles.forEachIndexed { i, c ->
+            _spreadCircles[i] =
+                c.first + _radiusAddStep to c.second - _alphaMinusStep
         }
 
-        if (spreadCircles[spreadCircles.size - 1].first - centerRadius >= circlesDistance && spreadCircles.size < realSpreadCount && !isStop) {
-            spreadCircles.addLast(centerRadius.toFloat() to 255f)
+        if (_spreadCircles[_spreadCircles.size - 1].first - _centerRadius >= _circlesDistance && _spreadCircles.size < _realSpreadCount && !_isStop) {
+            _spreadCircles.addLast(_centerRadius.toFloat() to 255f)
         }
 
-        if (spreadCircles[0].first >= realRadius || spreadCircles[0].second <= 0f) {
-            spreadCircles.removeFirst()
+        if (_spreadCircles[0].first >= realRadius || _spreadCircles[0].second <= 0f) {
+            _spreadCircles.removeFirst()
         }
 
-        if (spreadCircles.size > 0) {
-            postInvalidateDelayed(interval)
+        if (_spreadCircles.size > 0) {
+            postInvalidateDelayed(_interval)
         }
     }
 
     private fun drawCircleCenter(canvas: Canvas) {
-        centerBitmap?.let {
-            canvas.drawBitmap(it, null, circleRactF, centerPaint)
-        } ?: canvas.drawCircle(centerX, centerY, centerRadius.toFloat(), centerPaint)
+        _centerBitmap?.let {
+            canvas.drawBitmap(it, null, _circleRectF, _centerPaint)
+        } ?: canvas.drawCircle(centerX, centerY, _centerRadius.toFloat(), _centerPaint)
     }
 
     private fun drawCircleSpread(canvas: Canvas) {
-        spreadCircles.forEach {
-            spreadPaint.alpha = it.second.toInt()
-            canvas.drawCircle(centerX, centerY, it.first, spreadPaint)
+        _spreadCircles.forEach {
+            _spreadPaint.alpha = it.second.toInt()
+            canvas.drawCircle(centerX, centerY, it.first, _spreadPaint)
         }
     }
     //endregion

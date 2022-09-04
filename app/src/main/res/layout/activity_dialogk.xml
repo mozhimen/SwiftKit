@@ -9,14 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mozhimen.uicorek.layoutk.LayoutKEmpty
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutKEmpty_image="@mipmap/layoutk_empty" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/black"
+            android:orientation="vertical"
             tools:context=".uicorek.dialogk.DialogKActivity">
 
             <com.google.android.material.button.MaterialButton

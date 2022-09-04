@@ -31,6 +31,14 @@ object UtilKDisplay {
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dp, _context.resources?.displayMetrics).toInt()
 
     /**
+     * px转dp
+     * @param px Int
+     * @return Float
+     */
+    fun px2dp(px: Float): Float =
+        _context.resources?.displayMetrics!!.density * px
+
+    /**
      * 获取方向
      * @param activity Activity
      * @return Int

@@ -7,12 +7,19 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue_light">
+        android:background="@color/black">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <com.mozhimen.uicorek.viewk.ViewKColorPicker
+                android:id="@+id/viewk_color_picker"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:viewKColorPicker_colorEnd="@color/blue_normal"
+                app:viewKColorPicker_colorStart="@color/white" />
 
             <com.mozhimen.uicorek.viewk.ViewKQRScan
                 android:layout_width="200dp"
@@ -58,8 +65,8 @@
                 app:arcRotate_angleInterval="40"
                 app:arcRotate_angleStep="3"
                 app:arcRotate_animTime="2000"
-                app:arcRotate_arcNum="3"
                 app:arcRotate_arcEndColor="@color/blue_dark"
+                app:arcRotate_arcNum="3"
                 app:arcRotate_arcStartColor="@color/blue_light"
                 app:arcRotate_arcWidth="4dp" />
 

@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.basek.BaseKView
@@ -21,22 +20,22 @@ import com.mozhimen.uicorek.R
 class ViewKSignature @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseKView(context, attrs, defStyleAttr) {
 
-    private var lineWidth = 2f.dp2px()
+    //region # variate
+    private var _lineWidth = 2f.dp2px()
 
-    private val paint = Paint()
-    private val path = Path()
+    private val _paint = Paint()
+    private val _path = Path()
 
-    /**
-     * Optimizes painting by invalidating the smallest possible area.
-     */
-    private var lastTouchX = 0f
-    private var lastTouchY = 0f
-    private val dirtyRect = RectF()
+    //Optimizes painting by invalidating the smallest possible area.
+    private var _lastTouchX = 0f
+    private var _lastTouchY = 0f
+    private val _dirtyRect = RectF()
+    //endregion
 
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKSignature)
-        lineWidth =
-            typedArray.getDimensionPixelSize(R.styleable.ViewKSignature_viewKSignature_lineWidth, lineWidth)
+        _lineWidth =
+            typedArray.getDimensionPixelSize(R.styleable.ViewKSignature_viewKSignature_lineWidth, _lineWidth)
         typedArray.recycle()
         initPaint()
     }
@@ -45,14 +44,22 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
      * Erases the signature.
      */
     fun clear() {
-        path.reset()
+        _path.reset()
 
         // Repaints the entire view.
         invalidate()
     }
 
-    fun isSign() = lastTouchX != 0f || lastTouchY != 0f
+    /**
+     * 是否签字
+     * @return Boolean
+     */
+    fun isSign() = _lastTouchX != 0f || _lastTouchY != 0f
 
+    /**
+     * 获取签字图像
+     * @return Bitmap
+     */
     fun getBitmap(): Bitmap {
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         //利用bitmap生成画布
@@ -67,15 +74,15 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     override fun initPaint() {
-        paint.isAntiAlias = true
-        paint.color = Color.BLACK
-        paint.style = Paint.Style.STROKE
-        paint.strokeJoin = Paint.Join.ROUND
-        paint.strokeWidth = lineWidth.toFloat()
+        _paint.isAntiAlias = true
+        _paint.color = Color.BLACK
+        _paint.style = Paint.Style.STROKE
+        _paint.strokeJoin = Paint.Join.ROUND
+        _paint.strokeWidth = _lineWidth.toFloat()
     }
 
     override fun onDraw(canvas: Canvas) {
-        canvas.drawPath(path, paint)
+        canvas.drawPath(_path, _paint)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -84,9 +91,9 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
         val eventY = event.y
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                path.moveTo(eventX, eventY)
-                lastTouchX = eventX
-                lastTouchY = eventY
+                _path.moveTo(eventX, eventY)
+                _lastTouchX = eventX
+                _lastTouchY = eventY
                 // There is no end point yet, so don't waste cycles invalidating.
                 return true
             }
@@ -102,12 +109,12 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
                     val historicalX = event.getHistoricalX(i)
                     val historicalY = event.getHistoricalY(i)
                     expandDirtyRect(historicalX, historicalY)
-                    path.lineTo(historicalX, historicalY)
+                    _path.lineTo(historicalX, historicalY)
                     i++
                 }
 
                 // After replaying history, connect the line to the touch point.
-                path.lineTo(eventX, eventY)
+                _path.lineTo(eventX, eventY)
             }
             else -> {
                 LogK.et(TAG, "onTouchEvent Ignored touch event: $event")
@@ -116,15 +123,15 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
         }
 
         // Include half the stroke width to avoid clipping.
-        val halfLineWidth = lineWidth / 2f
+        val halfLineWidth = _lineWidth / 2f
         postInvalidate(
-            (dirtyRect.left - halfLineWidth).toInt(),
-            (dirtyRect.top - halfLineWidth).toInt(),
-            (dirtyRect.right + halfLineWidth).toInt(),
-            (dirtyRect.bottom + halfLineWidth).toInt()
+            (_dirtyRect.left - halfLineWidth).toInt(),
+            (_dirtyRect.top - halfLineWidth).toInt(),
+            (_dirtyRect.right + halfLineWidth).toInt(),
+            (_dirtyRect.bottom + halfLineWidth).toInt()
         )
-        lastTouchX = eventX
-        lastTouchY = eventY
+        _lastTouchX = eventX
+        _lastTouchY = eventY
         return true
     }
 
@@ -133,15 +140,15 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
      * points.
      */
     private fun expandDirtyRect(historicalX: Float, historicalY: Float) {
-        if (historicalX < dirtyRect.left) {
-            dirtyRect.left = historicalX
-        } else if (historicalX > dirtyRect.right) {
-            dirtyRect.right = historicalX
+        if (historicalX < _dirtyRect.left) {
+            _dirtyRect.left = historicalX
+        } else if (historicalX > _dirtyRect.right) {
+            _dirtyRect.right = historicalX
         }
-        if (historicalY < dirtyRect.top) {
-            dirtyRect.top = historicalY
-        } else if (historicalY > dirtyRect.bottom) {
-            dirtyRect.bottom = historicalY
+        if (historicalY < _dirtyRect.top) {
+            _dirtyRect.top = historicalY
+        } else if (historicalY > _dirtyRect.bottom) {
+            _dirtyRect.bottom = historicalY
         }
     }
 
@@ -152,9 +159,9 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
 
         // The lastTouchX and lastTouchY were set when the ACTION_DOWN
         // motion event occurred.
-        dirtyRect.left = lastTouchX.coerceAtMost(eventX)
-        dirtyRect.right = lastTouchX.coerceAtLeast(eventX)
-        dirtyRect.top = lastTouchY.coerceAtMost(eventY)
-        dirtyRect.bottom = lastTouchY.coerceAtLeast(eventY)
+        _dirtyRect.left = _lastTouchX.coerceAtMost(eventX)
+        _dirtyRect.right = _lastTouchX.coerceAtLeast(eventX)
+        _dirtyRect.top = _lastTouchY.coerceAtMost(eventY)
+        _dirtyRect.bottom = _lastTouchY.coerceAtLeast(eventY)
     }
 }

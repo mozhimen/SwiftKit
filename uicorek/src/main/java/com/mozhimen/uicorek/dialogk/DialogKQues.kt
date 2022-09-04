@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
-import com.mozhimen.basick.basek.BaseKDialogBuilder
+import com.mozhimen.basick.basek.commons.IBaseKDialogBuilder
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.uicorek.R
 
 /**
- * @ClassName FillDialog
+ * @ClassName DialogKQues
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2021/12/31 14:19
@@ -21,21 +21,25 @@ import com.mozhimen.uicorek.R
  */
 class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) : Dialog(context, themeId) {
 
-    class Builder(private val _activity: Activity) : BaseKDialogBuilder() {
+    class Builder(private val _activity: Activity) : IBaseKDialogBuilder {
 
+        //region # variate
         private lateinit var _bg: FrameLayout
         private lateinit var _titleView: TextView
         private lateinit var _btnCancel: MaterialButton
         private lateinit var _btnSure: MaterialButton
-        override var _layoutId: Int = R.layout.dialogk_ques
-        override var _width: Float = 300f
-        override var _height: Float = 120f
-        override var _layoutParams: ViewGroup.LayoutParams =
-            FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
-        override var _animStyleId: Int? = R.style.DialogKAnimAlphaStyle
-        override var _styleId: Int = R.style.DialogKStyle
 
         private var _title: String = "请替换你的问题!"
+        //endregion
+
+        override var layoutId: Int = R.layout.dialogk_ques
+        override var width: Float = 300f
+        override var height: Float = 120f
+        override var layoutParams: ViewGroup.LayoutParams =
+            FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+        override var animStyleId: Int? = null
+        override var styleId: Int = R.style.DialogKStyle
+        override var cancelable: Boolean = true
 
         fun setQuestion(title: String): Builder {
             this._title = title
@@ -60,10 +64,10 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
 
         fun create(onSureClick: (() -> Unit)? = null, onCancelClick: (() -> Unit)? = null): DialogKQues {
             val layoutInflater = _activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val dialogKQues = DialogKQues(_activity, _styleId)
-            val view = layoutInflater.inflate(_layoutId, null)
+            val dialogKQues = DialogKQues(_activity, styleId)
+            val view = layoutInflater.inflate(layoutId, null)
             dialogKQues.addContentView(
-                view, _layoutParams
+                view, layoutParams
             )
 
             _bg = view.findViewById(R.id.dialogk_ques_bg)
@@ -81,9 +85,9 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
                 onSureClick?.invoke()
             }
             dialogKQues.setContentView(view)
-            dialogKQues.setCancelable(_cancelable)
-            dialogKQues.window?.setWindowAnimations(_animStyleId ?: R.style.DialogKAnimAlphaStyle)
-            dialogKQues.window?.setLayout(_width.dp2px(), _height.dp2px())
+            dialogKQues.setCancelable(cancelable)
+            dialogKQues.window?.setWindowAnimations(animStyleId ?: R.style.DialogKAnimAlphaStyle)
+            dialogKQues.window?.setLayout(width.dp2px(), height.dp2px())
             return dialogKQues
         }
     }

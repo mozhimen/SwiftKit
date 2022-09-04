@@ -28,7 +28,11 @@ class DialogKActivity : BaseKActivity<ActivityDialogkBinding, BaseKViewModel>(R.
 
     private fun genDialogKQuesAnim(ques: String, onSureClick: (() -> Unit)? = null, onCancelClick: (() -> Unit)? = null) {
         _dialogKQues?.dismiss()
-        val builder = DialogKQues.Builder(this).setQuestion(title = ques).setAnimStyleId(R.style.DialogKAnimStyleCustom)
+        val builder = DialogKQues.Builder(this)
+        builder.apply {
+            setQuestion(title = ques)
+            animStyleId = R.style.DialogKAnimStyleCustom
+        }
         _dialogKQues = builder.create(onSureClick, onCancelClick)
         builder.genBackground {
             background.alpha = 200

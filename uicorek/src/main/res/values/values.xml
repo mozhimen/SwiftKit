@@ -27,7 +27,7 @@
         <item name="android:backgroundTint">@color/blue_light</item>
         <item name="android:textColor">@color/blue_dark</item>
         <item name="android:textSize">16sp</item>
-        <item name="cornerRadius">6dp</item>
+        <item name="cornerRadius">4dp</item>
     </style>
 
     <style name="DialogKBtnSureStyle" parent="DialogKBtnCancelStyle">

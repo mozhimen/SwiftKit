@@ -19,44 +19,44 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
     BaseKView(context, attrs, defStyleAttr) ,IBaseKViewAction{
 
     //region # variate
-    private var bgColor = 0xFFFFFF
-    private var radarColor = 0x287FF1
-    private var lineColor = 0xFFFFFF
-    private var lineAlpha = 100//0-255
-    private var lineWidth = 2f.dp2px()
-    private var lineCount = 4
-    private var moveAngleStep = 3
-    private var animTime = 3000
+    private var _bgColor = 0xFFFFFF
+    private var _radarColor = 0x287FF1
+    private var _lineColor = 0xFFFFFF
+    private var _lineAlpha = 100//0-255
+    private var _lineWidth = 2f.dp2px()
+    private var _lineCount = 4
+    private var _moveAngleStep = 3
+    private var _animTime = 3000
 
-    private lateinit var radarPaint: Paint
-    private lateinit var bgPaint: Paint
-    private lateinit var circlePaint: Paint
+    private lateinit var _radarPaint: Paint
+    private lateinit var _bgPaint: Paint
+    private lateinit var _circlePaint: Paint
 
-    private var interval = animTime * moveAngleStep / 360
-    private val radarMatrix = Matrix()
-    private var isStop = false
+    private var _interval = _animTime * _moveAngleStep / 360
+    private val _radarMatrix = Matrix()
+    private var _isStop = false
     //endregion
 
     override fun requireStart() {
-        isStop = false
+        _isStop = false
         invalidate()
     }
 
     override fun requireStop() {
-        isStop = true
+        _isStop = true
     }
 
     //region # private function
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RadarRipple)
-        bgColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_bgColor, bgColor)
-        radarColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_radarColor, radarColor)
-        lineColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_lineColor, lineColor)
-        lineAlpha = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_lineAlpha, lineAlpha)
-        lineWidth = typedArray.getDimensionPixelSize(R.styleable.RadarRipple_radarRipple_lineWidth, lineWidth)
-        lineCount = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_lineCount, lineCount)
-        moveAngleStep = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_angleStep, moveAngleStep)
-        animTime = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_animTime, animTime)
+        _bgColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_bgColor, _bgColor)
+        _radarColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_radarColor, _radarColor)
+        _lineColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_lineColor, _lineColor)
+        _lineAlpha = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_lineAlpha, _lineAlpha)
+        _lineWidth = typedArray.getDimensionPixelSize(R.styleable.RadarRipple_radarRipple_lineWidth, _lineWidth)
+        _lineCount = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_lineCount, _lineCount)
+        _moveAngleStep = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_angleStep, _moveAngleStep)
+        _animTime = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_animTime, _animTime)
         typedArray.recycle()
 
         initData()
@@ -64,7 +64,7 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     override fun initData() {
         super.initData()
-        interval = animTime * moveAngleStep / 360
+        _interval = _animTime * _moveAngleStep / 360
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -74,22 +74,22 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     override fun initPaint() {
         super.initPaint()
-        bgPaint = Paint()
-        bgPaint.style = Paint.Style.FILL
-        bgPaint.isAntiAlias = true
-        bgPaint.color = bgColor
+        _bgPaint = Paint()
+        _bgPaint.style = Paint.Style.FILL
+        _bgPaint.isAntiAlias = true
+        _bgPaint.color = _bgColor
 
-        circlePaint = Paint()
-        circlePaint.style = Paint.Style.STROKE
-        circlePaint.strokeWidth = lineWidth.toFloat()
-        circlePaint.isAntiAlias = true
-        circlePaint.color = lineColor
-        circlePaint.alpha = lineAlpha
+        _circlePaint = Paint()
+        _circlePaint.style = Paint.Style.STROKE
+        _circlePaint.strokeWidth = _lineWidth.toFloat()
+        _circlePaint.isAntiAlias = true
+        _circlePaint.color = _lineColor
+        _circlePaint.alpha = _lineAlpha
 
-        radarPaint = Paint()
-        radarPaint.style = Paint.Style.FILL_AND_STROKE
-        radarPaint.isAntiAlias = true
-        radarPaint.shader = SweepGradient(realRadius.toFloat(), realRadius.toFloat(), intArrayOf(Color.TRANSPARENT, radarColor), null)
+        _radarPaint = Paint()
+        _radarPaint.style = Paint.Style.FILL_AND_STROKE
+        _radarPaint.isAntiAlias = true
+        _radarPaint.shader = SweepGradient(realRadius.toFloat(), realRadius.toFloat(), intArrayOf(Color.TRANSPARENT, _radarColor), null)
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -103,25 +103,25 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
     private fun drawBg(canvas: Canvas) {
-        canvas.drawCircle(centerX, centerY, realRadius.toFloat(), bgPaint)
+        canvas.drawCircle(centerX, centerY, realRadius.toFloat(), _bgPaint)
     }
 
     private fun drawRadar(canvas: Canvas) {
-        canvas.concat(radarMatrix)
-        canvas.drawCircle(centerX, centerY, realRadius.toFloat(), radarPaint)
+        canvas.concat(_radarMatrix)
+        canvas.drawCircle(centerX, centerY, realRadius.toFloat(), _radarPaint)
     }
 
     private fun drawCircle(canvas: Canvas) {
-        (1..lineCount).forEach {
-            val radius = realRadius / (lineCount + 1) * it
-            canvas.drawCircle(centerX, centerY, radius.toFloat(), circlePaint)
+        (1.._lineCount).forEach {
+            val radius = realRadius / (_lineCount + 1) * it
+            canvas.drawCircle(centerX, centerY, radius.toFloat(), _circlePaint)
         }
     }
 
     private fun rotateAngle() {
-        radarMatrix.postRotate(moveAngleStep.toFloat(), centerX, centerY)
-        if (!isStop) {
-            postInvalidateDelayed(interval.toLong())
+        _radarMatrix.postRotate(_moveAngleStep.toFloat(), centerX, centerY)
+        if (!_isStop) {
+            postInvalidateDelayed(_interval.toLong())
         }
     }
     //endregion

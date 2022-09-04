@@ -23,6 +23,7 @@ import com.mozhimen.uicorek.R
 class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseKView(context, attrs, defStyleAttr) {
 
+    //region # variate
     private var _doneLineColor = ContextCompat.getColor(context, R.color.blue_normal)
     private var _undoLineColor = ContextCompat.getColor(context, R.color.blue_light)
     private var _doneNumberColor = ContextCompat.getColor(context, android.R.color.white)
@@ -37,10 +38,10 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private var _numberTextSize = 15f.sp2px()
     private var _titleTextSize = 15f.sp2px()
 
-    private lateinit var circlePaint: Paint
-    private lateinit var linePaint: Paint
-    private lateinit var numberPaint: Paint
-    private lateinit var titlePaint: Paint
+    private lateinit var _circlePaint: Paint
+    private lateinit var _linePaint: Paint
+    private lateinit var _numberPaint: Paint
+    private lateinit var _titlePaint: Paint
 
     private var _leftX = 0f
     private var _rightX = 0f
@@ -52,12 +53,20 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private var _position = 0
 
     private lateinit var _titles: Array<String>
+    //endregion
 
-    //设置titles
+    /**
+     * 设置titles
+     * @param titles Array<String>
+     */
     fun setTitles(titles: Array<String>) {
         this._titles = titles
     }
 
+    /**
+     * 去指定的标签
+     * @param position Int
+     */
     fun goto(position: Int) {
         if (position == 0) {
             reset()
@@ -70,7 +79,9 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
     }
 
-    //下一步
+    /**
+     * 下一步
+     */
     fun next() {
         if (_position < _titles.size) {
             _position++
@@ -78,7 +89,9 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
     }
 
-    //上一步
+    /**
+     * 上一步
+     */
     fun back() {
         if (_position > 0) {
             _position--
@@ -86,7 +99,9 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
     }
 
-    //重置
+    /**
+     * 重置
+     */
     fun reset() {
         if (_position != 0) {
             _position = 0
@@ -123,26 +138,26 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     override fun initPaint() {
         //初始化线条画笔
-        linePaint = Paint()
-        linePaint.isAntiAlias = true
-        linePaint.style = Paint.Style.FILL
+        _linePaint = Paint()
+        _linePaint.isAntiAlias = true
+        _linePaint.style = Paint.Style.FILL
 
         //初始化圆画笔
-        circlePaint = Paint()
-        circlePaint.isAntiAlias = true
-        circlePaint.style = Paint.Style.FILL
+        _circlePaint = Paint()
+        _circlePaint.isAntiAlias = true
+        _circlePaint.style = Paint.Style.FILL
 
         //初始化圆内数字画笔
-        numberPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DEV_KERN_TEXT_FLAG)
-        numberPaint.textSize = _numberTextSize.toFloat()
-        numberPaint.typeface = Typeface.DEFAULT_BOLD // 采用默认的宽度
-        numberPaint.color = _undoNumberColor
+        _numberPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DEV_KERN_TEXT_FLAG)
+        _numberPaint.textSize = _numberTextSize.toFloat()
+        _numberPaint.typeface = Typeface.DEFAULT_BOLD // 采用默认的宽度
+        _numberPaint.color = _undoNumberColor
 
         //初始化圆标题画笔
-        titlePaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DEV_KERN_TEXT_FLAG)
-        titlePaint.textSize = _titleTextSize.toFloat()
-        titlePaint.typeface = Typeface.DEFAULT_BOLD // 采用默认的宽度
-        titlePaint.color = _undoTitleColor
+        _titlePaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DEV_KERN_TEXT_FLAG)
+        _titlePaint.textSize = _titleTextSize.toFloat()
+        _titlePaint.typeface = Typeface.DEFAULT_BOLD // 采用默认的宽度
+        _titlePaint.color = _undoTitleColor
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -168,22 +183,22 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private fun drawTitles(canvas: Canvas) {
         _titles.indices.forEach { i ->
             val rect = Rect()
-            titlePaint.getTextBounds(_titles[i], 0, _titles[i].length, rect) //获取标题文字相关宽高属性
+            _titlePaint.getTextBounds(_titles[i], 0, _titles[i].length, rect) //获取标题文字相关宽高属性
             if (i == _position - 1) {
-                titlePaint.color = _doneTitleColor
+                _titlePaint.color = _doneTitleColor
             } else {
-                titlePaint.color = _undoTitleColor
+                _titlePaint.color = _undoTitleColor
             }
             when (i) {
                 0 -> {
-                    canvas.drawText(_titles[0], _leftX - rect.width() / 2, _realCenterY + _circleRadius + _titleMarginTop, titlePaint)
+                    canvas.drawText(_titles[0], _leftX - rect.width() / 2, _realCenterY + _circleRadius + _titleMarginTop, _titlePaint)
                 }
                 _titles.size - 1 -> {
                     canvas.drawText(
                         _titles[i],
                         width - _leftX - (rect.width() / 2),
                         _realCenterY + _circleRadius + _titleMarginTop,
-                        titlePaint
+                        _titlePaint
                     )
                 }
                 else -> {
@@ -191,7 +206,7 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
                         _titles[i],
                         _leftX + i * _circleDistance - rect.width() / 2,
                         _realCenterY + _circleRadius + _titleMarginTop,
-                        titlePaint
+                        _titlePaint
                     )
                 }
             }
@@ -202,25 +217,25 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
         _titles.indices.forEach { i ->
             val str = (i + 1).toString() //声明步骤数
             val rect = Rect()
-            numberPaint.getTextBounds(str, 0, str.length, rect) //获取步骤数文字相关宽高属性
+            _numberPaint.getTextBounds(str, 0, str.length, rect) //获取步骤数文字相关宽高属性
             if (i <= _position - 1) {
-                circlePaint.color = _doneNumberColor
+                _circlePaint.color = _doneNumberColor
             } else {
-                circlePaint.color = _undoNumberColor
+                _circlePaint.color = _undoNumberColor
             }
-            canvas.drawText(str, _leftX + i * _circleDistance - rect.width() / 2, _realCenterY + rect.height() / 2, numberPaint) //开始写圆内步骤数
+            canvas.drawText(str, _leftX + i * _circleDistance - rect.width() / 2, _realCenterY + rect.height() / 2, _numberPaint) //开始写圆内步骤数
         }
     }
 
     private fun drawCircles(canvas: Canvas) {
         _titles.indices.forEach { i ->
             if (i <= _position - 1) {
-                circlePaint.color = _doneLineColor
+                _circlePaint.color = _doneLineColor
             } else {
-                circlePaint.color = _undoLineColor
+                _circlePaint.color = _undoLineColor
             }
 
-            canvas.drawCircle(_leftX + i * _circleDistance, _realCenterY, _circleRadius.toFloat(), circlePaint)
+            canvas.drawCircle(_leftX + i * _circleDistance, _realCenterY, _circleRadius.toFloat(), _circlePaint)
         }
 
     }
@@ -230,44 +245,44 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
             when (i) {
                 0 -> {
                     if (_position == 0) {
-                        linePaint.color = _undoLineColor
+                        _linePaint.color = _undoLineColor
                     } else {
-                        linePaint.color = _doneLineColor
+                        _linePaint.color = _doneLineColor
                     }
                     canvas.drawRect(
                         _leftX,
                         _leftY,
                         _leftX + _circleDistance / 2,
                         _rightY,
-                        linePaint
+                        _linePaint
                     )
                 }
                 _titles.size - 1 -> {
                     if (_position == _titles.size) {
-                        linePaint.color = _doneLineColor
+                        _linePaint.color = _doneLineColor
                     } else {
-                        linePaint.color = _undoLineColor
+                        _linePaint.color = _undoLineColor
                     }
                     canvas.drawRect(
                         _rightX - _circleDistance / 2,
                         _leftY,
                         _rightX,
                         _rightY,
-                        linePaint
+                        _linePaint
                     )
                 }
                 else -> {
                     if (i <= _position - 1) {
-                        linePaint.color = _doneLineColor
+                        _linePaint.color = _doneLineColor
                     } else {
-                        linePaint.color = _undoLineColor
+                        _linePaint.color = _undoLineColor
                     }
                     canvas.drawRect(
                         _leftX + _circleDistance * (i - 0.5f),
                         _leftY,
                         _leftX + _circleDistance * (i + 0.5f),
                         _rightY,
-                        linePaint
+                        _linePaint
                     )
                 }
             }

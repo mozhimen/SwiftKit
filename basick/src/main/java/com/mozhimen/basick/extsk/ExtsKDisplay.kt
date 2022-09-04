@@ -36,3 +36,17 @@ fun Int.dp2px(): Int = UtilKDisplay.dp2px(this.toFloat())
  * @return Int
  */
 fun Int.sp2px(): Int = UtilKDisplay.sp2px(this.toFloat())
+
+/**
+ * px转dp
+ * @receiver Int
+ * @return Float
+ */
+fun Int.px2dp(): Float = UtilKDisplay.px2dp(this.toFloat())
+
+/**
+ * px转dp
+ * @receiver Float
+ * @return Float
+ */
+fun Float.px2dp(): Float = UtilKDisplay.px2dp(this)

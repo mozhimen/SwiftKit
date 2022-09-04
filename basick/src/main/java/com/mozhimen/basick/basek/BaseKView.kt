@@ -14,8 +14,17 @@ import com.mozhimen.basick.basek.commons.IBaseKViewAction
  * @Date 2021/12/7 18:01
  * @Version 1.0
  */
-abstract class BaseKView(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    View(context, attrs, defStyleAttr), IBaseKView {
+abstract class BaseKView :
+    View, IBaseKView {
+
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
+
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes
+    )
 
     val TAG = "${this.javaClass.simpleName}>>>>>"
 
