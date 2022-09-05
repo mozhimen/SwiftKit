@@ -1,11 +1,13 @@
 package com.mozhimen.uicorek.textk.bubble
 
 import android.content.Context
+import android.content.res.TypedArray
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
+import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener
-import java.lang.Exception
 
 /**
  * @ClassName TextKBubbleProxy
@@ -16,6 +18,7 @@ import java.lang.Exception
  */
 class TextKBubbleProxy : ITextKBubble {
     //region # variate
+
     private lateinit var _parentView: View
     private var _bubbleListener: ITextKBubbleListener? = null
     override var arrowDirection: ITextKBubble.ArrowDirection
@@ -78,12 +81,39 @@ class TextKBubbleProxy : ITextKBubble {
         try {
             _parentView = view
             _bubbleListener = view as ITextKBubbleListener
-            attrs?.let {
-
-            }
+            initAttr(attrs)
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    private fun initAttr(context: Context, attrs: AttributeSet?) {
+        attrs ?: return
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKBubble)
+        arrowDirection = ITextKBubble.ArrowDirection.valueOf(
+            typedArray.getInt(R.styleable.TextKBubble_textKBubble_arrowDirection, ITextKBubble.ArrowDirection.Auto.getValue())
+        )
+        arrowHeight = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_arrowHeight, dp2px(6))
+        arrowWidth = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_arrowWidth, dp2px(10))
+        arrowPosPolicy = ArrowPosPolicy.valueOf(
+            typedArray.getInt(R.styleable.TextKBubble_textKBubble_arrowPosPolicy, ArrowPosPolicy.TargetCenter.getValue())
+        )
+        arrowPosDelta = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_arrowPosDelta, 0f)
+        arrowTo = typedArray.getResourceId(R.styleable.TextKBubble_textKBubble_arrowTo, 0)
+
+        val cornerRadius = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerRadius, dp2px(4))
+        cornerTopLeftRadius = radius.also { mCornerBottomRightRadius = it }
+            .also { mCornerBottomLeftRadius = it }.also { mCornerTopRightRadius = it }
+        cornerTopLeftRadius = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerTopLeftRadius, mCornerTopLeftRadius)
+        cornerTopRightRadius = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerTopRightRadius, mCornerTopLeftRadius)
+        cornerBottomLeftRadius = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerBottomLeftRadius, mCornerTopLeftRadius)
+        cornerBottomRightRadius = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerBottomRightRadius, mCornerTopLeftRadius)
+
+        fillColor = typedArray.getColor(R.styleable.TextKBubble_textKBubble_fillColor, -0x34000000)
+        fillPadding = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_fillPadding, 0f)
+        borderColor = typedArray.getColor(R.styleable.TextKBubble_textKBubble_borderColor, Color.WHITE)
+        borderWidth = typedArray.getDimension(R.styleable.TextKBubble_textKBubble_borderWidth, 0f)
+        typedArray.recycle()
     }
 
     override fun setArrowTo(viewId: Int) {

@@ -11,8 +11,8 @@ import com.mozhimen.basick.basek.BaseKView
  * @Date 2021/12/9 22:35
  * @Version 1.0
  */
-class RingProgress @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr) {
+class RingProgress @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseKView(context, attrs, defStyleAttr, defStyleRes) {
 
     /*//region # variate
     private var progressStartColor = 0xFFFFFF

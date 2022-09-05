@@ -44,9 +44,11 @@ class ViewKQRScan @JvmOverloads constructor(context: Context, attrs: AttributeSe
         afterInitCustomAttrs()
     }
 
-    fun getRectSize() = _borderWidth
+    fun getRectSize(): Int =
+        _borderWidth
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs ?: return
         val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKQRScan)
         _lineDrawable = typedArray.getDrawable(R.styleable.ViewKQRScan_viewKQRScan_lineDrawable)
         _lineWidth = typedArray.getDimensionPixelSize(R.styleable.ViewKQRScan_viewKQRScan_lineWidth, _lineWidth)
@@ -144,6 +146,10 @@ class ViewKQRScan @JvmOverloads constructor(context: Context, attrs: AttributeSe
         super.onSizeChanged(w, h, oldw, oldh)
         _borderWidth = h
         _borderHeight = h
+        initData()
+    }
+
+    override fun initData() {
         _animDelayTime = ((1f * _animTime * _moveStepDistance) / _borderHeight).toInt()
         initBorderRect()
     }

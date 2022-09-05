@@ -238,6 +238,23 @@
     </declare-styleable>
 
     <!--textk-->
+    <declare-styleable name="TextKBubble">
+        <attr name="textKBubble_arrowDirection" format="integer" />
+        <attr name="textKBubble_arrowHeight" format="integer" />
+        <attr name="textKBubble_arrowWidth" format="integer" />
+        <attr name="textKBubble_arrowPosPolicy" format="integer" />
+        <attr name="textKBubble_arrowPosDelta" format="integer" />
+        <attr name="textKBubble_arrowTo" format="integer" />
+        <attr name="textKBubble_cornerRadius" format="integer" />
+        <attr name="textKBubble_cornerTopLeftRadius" format="integer" />
+        <attr name="textKBubble_cornerTopRightRadius" format="integer" />
+        <attr name="textKBubble_cornerBottomLeftRadius" format="integer" />
+        <attr name="textKBubble_cornerBottomRightRadius" format="integer" />
+        <attr name="textKBubble_fillColor" format="integer" />
+        <attr name="textKBubble_fillPadding" format="integer" />
+        <attr name="textKBubble_borderColor" format="integer" />
+        <attr name="textKBubble_borderWidth" format="integer" />
+    </declare-styleable>
     <declare-styleable name="TextKIconFont">
         <attr name="textKIconFont_fontPath" format="string" />
     </declare-styleable>

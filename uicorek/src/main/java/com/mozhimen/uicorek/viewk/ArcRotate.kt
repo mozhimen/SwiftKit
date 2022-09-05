@@ -17,8 +17,8 @@ import kotlin.math.asin
  * @Date 2021/12/7 17:51
  * @Version 1.0
  */
-class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr), IBaseKViewAction {
+class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseKView(context, attrs, defStyleAttr, defStyleRes), IBaseKViewAction {
 
     //region # variate
     private var _arcStartColor = Color.WHITE
@@ -38,7 +38,6 @@ class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     private lateinit var _arcPaint: Paint
     private var _arcMatrix = Matrix()
     private lateinit var _arcRectF: RectF
-
     //endregion
 
     //region # private function
@@ -61,6 +60,7 @@ class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet?
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ArcRotate)
         _arcStartColor = typedArray.getColor(R.styleable.ArcRotate_arcRotate_arcStartColor, _arcStartColor)
         _arcEndColor = typedArray.getColor(R.styleable.ArcRotate_arcRotate_arcEndColor, _arcEndColor)
@@ -97,7 +97,6 @@ class ArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet?
             centerX + realRadius - _arcWidth / 2, centerY + realRadius - _arcWidth / 2
         )
     }
-
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)

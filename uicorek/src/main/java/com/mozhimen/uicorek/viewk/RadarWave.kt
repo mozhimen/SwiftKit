@@ -50,13 +50,8 @@ class RadarWave @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         initAttrs(attrs, defStyleAttr)
     }
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        initData()
-        initPaint()
-    }
-
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RadarWave)
         _radarColor = typedArray.getColor(R.styleable.RadarWave_radarWave_radarColor, _radarColor)
         _waveColor = typedArray.getColor(R.styleable.RadarWave_radarWave_waveColor, _waveColor)
@@ -65,6 +60,12 @@ class RadarWave @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         _moveAngleStep = typedArray.getInteger(R.styleable.RadarWave_radarWave_angleStep, _moveAngleStep)
         _animTime = typedArray.getInteger(R.styleable.RadarWave_radarWave_animTime, _animTime)
         typedArray.recycle()
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        initData()
+        initPaint()
     }
 
     override fun initData() {

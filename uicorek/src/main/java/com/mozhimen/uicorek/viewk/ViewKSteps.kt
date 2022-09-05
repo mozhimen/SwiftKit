@@ -55,6 +55,11 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
     private lateinit var _titles: Array<String>
     //endregion
 
+    init {
+        initAttrs(attrs, defStyleAttr)
+        initPaint()
+    }
+
     /**
      * 设置titles
      * @param titles Array<String>
@@ -109,11 +114,6 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
     }
 
-    init {
-        initAttrs(attrs, defStyleAttr)
-        initPaint()
-    }
-
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKSteps)
@@ -159,14 +159,18 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
         _titlePaint.color = _undoTitleColor
     }
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
+    override fun initData() {
         _realCenterY = _circleRadius + paddingTop + _margin.toFloat()
         _leftX = (this.left + paddingLeft + _margin + _circleRadius).toFloat()
         _leftY = _realCenterY - _lineWidth / 2f
         _rightX = (this.right - paddingRight - _margin - _circleRadius).toFloat()
         _rightY = _realCenterY + _lineWidth / 2f
         _circleDistance = (width - 2 * _leftX) / (_titles.size - 1) //计算每个圆之间的相距距离
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        initData()
     }
 
     @SuppressLint("DrawAllocation")

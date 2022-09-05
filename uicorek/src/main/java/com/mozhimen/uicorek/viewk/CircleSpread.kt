@@ -23,9 +23,10 @@ import com.mozhimen.uicorek.R
 class CircleSpread @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    defStyleAttr: Int = 0,
+    defStyleRes: Int = 0
 ) :
-    BaseKView(context, attrs, defStyleAttr), IBaseKViewAction {
+    BaseKView(context, attrs, defStyleAttr, defStyleRes), IBaseKViewAction {
 
     //region #variate
     private var _centerColor = 0xFFFFFF //中心圆颜色
@@ -65,6 +66,12 @@ class CircleSpread @JvmOverloads constructor(
 
     //region #private function
     init {
+        initAttrs(attrs, defStyleAttr)
+        initPaint()
+    }
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleSpread)
         _centerColor =
             typedArray.getColor(R.styleable.CircleSpread_circleSpread_centerColor, _centerColor)
@@ -90,13 +97,9 @@ class CircleSpread @JvmOverloads constructor(
         _animTime = typedArray.getInteger(R.styleable.CircleSpread_circleSpread_animTime, _animTime)
         typedArray.recycle()
 
-        //init data
         _centerDrawable?.let {
             _centerBitmap = (it as BitmapDrawable).bitmap
         }
-
-        //init paint
-        initPaint()
     }
 
     override fun initPaint() {
@@ -118,6 +121,10 @@ class CircleSpread @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        initData()
+    }
+
+    override fun initData() {
         //计算真实的阔散圆数量
         _realSpreadCount =
             if (((realRadius - _centerRadius) / _circlesDistance) < _spreadCount) {

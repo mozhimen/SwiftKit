@@ -17,8 +17,8 @@ import com.mozhimen.uicorek.R
  * @Date 2022/1/10 22:34
  * @Version 1.0
  */
-class ViewKSignature @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr, defStyleRes) {
+class ViewKSignature @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    BaseKView(context, attrs, defStyleAttr) {
 
     //region # variate
     private var _lineWidth = 2f.dp2px()

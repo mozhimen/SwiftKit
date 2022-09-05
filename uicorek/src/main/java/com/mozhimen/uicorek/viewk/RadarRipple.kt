@@ -15,8 +15,8 @@ import com.mozhimen.uicorek.R
  * @Date 2021/12/7 20:11
  * @Version 1.0
  */
-class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr), IBaseKViewAction {
+class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseKView(context, attrs, defStyleAttr, defStyleRes), IBaseKViewAction {
 
     //region # variate
     private var _bgColor = 0xFFFFFF
@@ -49,10 +49,10 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
     //region # private function
     init {
         initAttrs(attrs, defStyleAttr)
-        initData()
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RadarRipple)
         _bgColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_bgColor, _bgColor)
         _radarColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_radarColor, _radarColor)
@@ -65,13 +65,14 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
         typedArray.recycle()
     }
 
-    override fun initData() {
-        _interval = _animTime * _moveAngleStep / 360
-    }
-
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        initData()
         initPaint()
+    }
+
+    override fun initData() {
+        _interval = _animTime * _moveAngleStep / 360
     }
 
     override fun initPaint() {

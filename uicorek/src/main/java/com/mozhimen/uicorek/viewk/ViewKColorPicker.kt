@@ -29,7 +29,7 @@ class ViewKColorPicker @JvmOverloads constructor(context: Context, attrs: Attrib
     //endregion
 
     init {
-        initData()
+        initFlag()
         initAttrs(attrs, defStyleAttr)
     }
 
@@ -106,13 +106,14 @@ class ViewKColorPicker @JvmOverloads constructor(context: Context, attrs: Attrib
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKColorPicker)
         _colorStart = typedArray.getColor(R.styleable.ViewKColorPicker_viewKColorPicker_colorStart, _colorStart)
         _colorEnd = typedArray.getColor(R.styleable.ViewKColorPicker_viewKColorPicker_colorEnd, _colorEnd)
         typedArray.recycle()
     }
 
-    override fun initData() {
+    override fun initFlag() {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
     }
 

@@ -41,6 +41,8 @@ abstract class BaseKView :
         super.onSizeChanged(w, h, oldw, oldh)
     }
 
+    override fun initFlag() {}
+
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
 
     override fun initData() {}
