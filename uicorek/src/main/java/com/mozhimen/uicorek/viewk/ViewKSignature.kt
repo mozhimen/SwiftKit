@@ -17,8 +17,8 @@ import com.mozhimen.uicorek.R
  * @Date 2022/1/10 22:34
  * @Version 1.0
  */
-class ViewKSignature @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr) {
+class ViewKSignature @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseKView(context, attrs, defStyleAttr, defStyleRes) {
 
     //region # variate
     private var _lineWidth = 2f.dp2px()
@@ -33,10 +33,7 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
     //endregion
 
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKSignature)
-        _lineWidth =
-            typedArray.getDimensionPixelSize(R.styleable.ViewKSignature_viewKSignature_lineWidth, _lineWidth)
-        typedArray.recycle()
+        initAttrs(attrs, defStyleAttr)
         initPaint()
     }
 
@@ -71,6 +68,14 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
         //把view中的内容绘制在画布上
         this.draw(canvas)
         return bitmap
+    }
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs ?: return
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKSignature)
+        _lineWidth =
+            typedArray.getDimensionPixelSize(R.styleable.ViewKSignature_viewKSignature_lineWidth, _lineWidth)
+        typedArray.recycle()
     }
 
     override fun initPaint() {

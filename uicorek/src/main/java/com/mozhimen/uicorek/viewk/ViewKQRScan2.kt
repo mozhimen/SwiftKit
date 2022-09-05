@@ -18,8 +18,8 @@ import com.mozhimen.uicorek.R
  * @Date 2021/6/21 14:01
  * @Version 1.0
  */
-class ViewKQRScan2 @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr) {
+class ViewKQRScan2 @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseKView(context, attrs, defStyleAttr, defStyleRes) {
 
     //region # variate
     private var _borderWidth = 1f.dp2px()
@@ -71,7 +71,6 @@ class ViewKQRScan2 @JvmOverloads constructor(context: Context, attrs: AttributeS
     //region # private function
     init {
         initAttrs(attrs, defStyleAttr)
-
         initPaint()
     }
 

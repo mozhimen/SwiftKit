@@ -12,14 +12,18 @@ import com.mozhimen.basick.basek.commons.IBaseKLayout
  * @Date 2021/12/24 14:39
  * @Version 1.0
  */
-abstract class BaseKLayoutFrame @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) :
-    FrameLayout(context, attrs, defStyleAttr), IBaseKLayout {
+abstract class BaseKLayoutFrame : FrameLayout, IBaseKLayout {
 
-    var TAG = "${this.javaClass.simpleName}>>>>>"
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
+
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : super(
+        context,
+        attrs,
+        defStyleAttr,
+        defStyleRes
+    )
+
+    val TAG = "${this.javaClass.simpleName}>>>>>"
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
     override fun initView() {}

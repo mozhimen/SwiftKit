@@ -16,7 +16,7 @@ import com.mozhimen.uicorek.R
  * @Version 1.0
  */
 class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr) ,IBaseKViewAction{
+    BaseKView(context, attrs, defStyleAttr), IBaseKViewAction {
 
     //region # variate
     private var _bgColor = 0xFFFFFF
@@ -48,6 +48,11 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     //region # private function
     init {
+        initAttrs(attrs, defStyleAttr)
+        initData()
+    }
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RadarRipple)
         _bgColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_bgColor, _bgColor)
         _radarColor = typedArray.getColor(R.styleable.RadarRipple_radarRipple_radarColor, _radarColor)
@@ -58,12 +63,9 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
         _moveAngleStep = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_angleStep, _moveAngleStep)
         _animTime = typedArray.getInteger(R.styleable.RadarRipple_radarRipple_animTime, _animTime)
         typedArray.recycle()
-
-        initData()
     }
 
     override fun initData() {
-        super.initData()
         _interval = _animTime * _moveAngleStep / 360
     }
 

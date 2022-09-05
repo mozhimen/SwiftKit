@@ -14,8 +14,8 @@ import com.mozhimen.uicorek.R
  * @Date 2021/12/7 20:11
  * @Version 1.0
  */
-class RadarWave @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr),IBaseKViewAction {
+class RadarWave @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseKView(context, attrs, defStyleAttr, defStyleRes), IBaseKViewAction {
 
     //region # variate
     private var _radarColor = 0x287FF1
@@ -47,6 +47,16 @@ class RadarWave @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
     //region # private function
     init {
+        initAttrs(attrs, defStyleAttr)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        initData()
+        initPaint()
+    }
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.RadarWave)
         _radarColor = typedArray.getColor(R.styleable.RadarWave_radarWave_radarColor, _radarColor)
         _waveColor = typedArray.getColor(R.styleable.RadarWave_radarWave_waveColor, _waveColor)
@@ -57,20 +67,12 @@ class RadarWave @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         typedArray.recycle()
     }
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        initData()
-        initPaint()
-    }
-
     override fun initData() {
-        super.initData()
         _waveRadius = realRadius / _waveCount
         _interval = _animTime * _moveAngleStep / 360
     }
 
     override fun initPaint() {
-        super.initPaint()
         _wavePaint = Paint()
         _wavePaint.style = Paint.Style.STROKE
         _wavePaint.isAntiAlias = true

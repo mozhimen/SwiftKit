@@ -12,9 +12,9 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
-import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.uicorek.R
 
@@ -30,27 +30,25 @@ class SwitchApple @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) :
-    FrameLayout(context, attrs, defStyleAttr), View.OnClickListener {
+    BaseKLayoutFrame(context, attrs, defStyleAttr), View.OnClickListener {
 
     //region #variate
-    private val TAG = "SwitchApple>>>>>"
+    private var _bgColorOn = 0x4DD865
+    private var _bgColorOff = 0xFFFFFF
+    private var _bgColorBorder = 0xEAEAEA
+    private var _iconColorBtn = 0xFFFFFF
+    private var _iconMargin = 1f.dp2px()
+    private var _borderWidth = 1f.dp2px()
+    private var _animTime = 500
+    private var _defaultStatus = false
 
-    private var bgColorOn = 0x4DD865
-    private var bgColorOff = 0xFFFFFF
-    private var bgColorBorder = 0xEAEAEA
-    private var iconColorBtn = 0xFFFFFF
-    private var iconMargin = 1f.dp2px()
-    private var borderWidth = 1f.dp2px()
-    private var animTime = 500
-    private var defaultStatus = false
+    private var _switchStatus = false
+    private var _isAnimRunning = false
 
-    private var switchStatus = false
-    private var isAnimRunning = false
+    private var _iconView: CardView
+    private var _bgView: ImageView
 
-    private var iconView: CardView
-    private var bgView: ImageView
-
-    private var mISwitchAppleListener: ISwitchAppleListener? = null
+    private var _switchAppleListener: ISwitchAppleListener? = null
     //endregion
 
     interface ISwitchAppleListener {
@@ -58,55 +56,55 @@ class SwitchApple @JvmOverloads constructor(
     }
 
     fun setOnSwitchListener(ISwitchAppleListener: ISwitchAppleListener) {
-        mISwitchAppleListener = ISwitchAppleListener
+        _switchAppleListener = ISwitchAppleListener
     }
 
     //设置初始状态,也可以在xml中设置-> app:switchApple_defaultStatus = false|true
     fun setDefaultStatus(status: Boolean) {
-        defaultStatus = status
-        switchStatus = defaultStatus
+        _defaultStatus = status
+        _switchStatus = _defaultStatus
         refreshView()
     }
 
-    fun getSwitchStatus(): Boolean = switchStatus
+    fun getSwitchStatus(): Boolean = _switchStatus
 
     //region #private function
     init {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.SwitchApple)
-        defaultStatus =
-            typedArray.getBoolean(R.styleable.SwitchApple_switchApple_defaultStatus, defaultStatus)
-                .also { switchStatus = it }
-        bgColorOn = typedArray.getColor(R.styleable.SwitchApple_switchApple_bgColorOn, bgColorOn)
-        bgColorOff = typedArray.getColor(R.styleable.SwitchApple_switchApple_bgColorOff, bgColorOff)
-        bgColorBorder =
-            typedArray.getColor(R.styleable.SwitchApple_switchApple_bgColorBorder, bgColorBorder)
-        iconColorBtn =
-            typedArray.getColor(R.styleable.SwitchApple_switchApple_iconColorBtn, iconColorBtn)
-        iconMargin =
+        _defaultStatus =
+            typedArray.getBoolean(R.styleable.SwitchApple_switchApple_defaultStatus, _defaultStatus)
+                .also { _switchStatus = it }
+        _bgColorOn = typedArray.getColor(R.styleable.SwitchApple_switchApple_bgColorOn, _bgColorOn)
+        _bgColorOff = typedArray.getColor(R.styleable.SwitchApple_switchApple_bgColorOff, _bgColorOff)
+        _bgColorBorder =
+            typedArray.getColor(R.styleable.SwitchApple_switchApple_bgColorBorder, _bgColorBorder)
+        _iconColorBtn =
+            typedArray.getColor(R.styleable.SwitchApple_switchApple_iconColorBtn, _iconColorBtn)
+        _iconMargin =
             typedArray.getDimensionPixelSize(
                 R.styleable.SwitchApple_switchApple_iconMargin,
-                iconMargin
+                _iconMargin
             )
-        borderWidth =
+        _borderWidth =
             typedArray.getDimensionPixelSize(
                 R.styleable.SwitchApple_switchApple_borderWidth,
-                borderWidth
+                _borderWidth
             )
-        animTime = typedArray.getInteger(R.styleable.SwitchApple_switchApple_animTime, animTime)
+        _animTime = typedArray.getInteger(R.styleable.SwitchApple_switchApple_animTime, _animTime)
         typedArray.recycle()
 
         //init view
-        bgView = ImageView(context)
-        addView(bgView)
-        val layoutParams1 = bgView.layoutParams as LayoutParams
+        _bgView = ImageView(context)
+        addView(_bgView)
+        val layoutParams1 = _bgView.layoutParams as LayoutParams
         layoutParams1.height = ViewGroup.LayoutParams.MATCH_PARENT
         layoutParams1.width = ViewGroup.LayoutParams.MATCH_PARENT
 
 
-        iconView = CardView(context)
-        addView(iconView)
-        iconView.x = iconMargin.toFloat()
-        iconView.y = iconMargin.toFloat()
+        _iconView = CardView(context)
+        addView(_iconView)
+        _iconView.x = _iconMargin.toFloat()
+        _iconView.y = _iconMargin.toFloat()
 
         //register listener
         setOnClickListener(this)
@@ -117,8 +115,8 @@ class SwitchApple @JvmOverloads constructor(
     }
 
     private fun animationSwitch() {
-        if (isAnimRunning) return
-        switchStatus = if (switchStatus) {
+        if (_isAnimRunning) return
+        _switchStatus = if (_switchStatus) {
             startAnimation(false)
             false
         } else {
@@ -133,39 +131,39 @@ class SwitchApple @JvmOverloads constructor(
     }
 
     @SuppressLint("ResourceAsColor")
-    private fun initView() {
+    override fun initView() {
         //iconView
-        val layoutParams2 = iconView.layoutParams as LayoutParams
-        layoutParams2.height = (bgView.measuredHeight - iconMargin * 2)
-        layoutParams2.width = (bgView.measuredHeight - iconMargin * 2)
-        if (switchStatus) {
-            iconView.x = bgView.measuredWidth.toFloat() - iconView.layoutParams.width - iconMargin
+        val layoutParams2 = _iconView.layoutParams as LayoutParams
+        layoutParams2.height = (_bgView.measuredHeight - _iconMargin * 2)
+        layoutParams2.width = (_bgView.measuredHeight - _iconMargin * 2)
+        if (_switchStatus) {
+            _iconView.x = _bgView.measuredWidth.toFloat() - _iconView.layoutParams.width - _iconMargin
         } else {
-            iconView.x = iconMargin.toFloat()
+            _iconView.x = _iconMargin.toFloat()
         }
-        iconView.radius = bgView.measuredHeight.toFloat() / 2 - iconMargin
-        iconView.setCardBackgroundColor(iconColorBtn)
+        _iconView.radius = _bgView.measuredHeight.toFloat() / 2 - _iconMargin
+        _iconView.setCardBackgroundColor(_iconColorBtn)
 
         //bgView
         val drawable = GradientDrawable()
         //小球圆角角度
-        drawable.cornerRadius = (bgView.measuredHeight / 2).toFloat()
+        drawable.cornerRadius = (_bgView.measuredHeight / 2).toFloat()
         //外框颜色
-        drawable.setStroke(borderWidth, bgColorBorder)
-        if (switchStatus) {
-            drawable.setColor(bgColorOn)
+        drawable.setStroke(_borderWidth, _bgColorBorder)
+        if (_switchStatus) {
+            drawable.setColor(_bgColorOn)
         } else {
-            drawable.setColor(bgColorOff)
+            drawable.setColor(_bgColorOff)
         }
-        bgView.background = drawable
+        _bgView.background = drawable
     }
 
     fun refreshView() {
         //iconView
-        if (switchStatus) {
-            iconView.x = bgView.measuredWidth.toFloat() - iconView.layoutParams.width - iconMargin
+        if (_switchStatus) {
+            _iconView.x = _bgView.measuredWidth.toFloat() - _iconView.layoutParams.width - _iconMargin
         } else {
-            iconView.x = iconMargin.toFloat()
+            _iconView.x = _iconMargin.toFloat()
         }
     }
 
@@ -173,21 +171,21 @@ class SwitchApple @JvmOverloads constructor(
     private fun startAnimation(status: Boolean) {
         //iconView
         val animation: TranslateAnimation
-        var w = bgView.measuredWidth.toFloat()
+        var w = _bgView.measuredWidth.toFloat()
         if (w == 0f || w == -1f) {
-            w = bgView.width.toFloat()
+            w = _bgView.width.toFloat()
         }
-        animation = if (!defaultStatus) {
+        animation = if (!_defaultStatus) {
             if (status) {
                 TranslateAnimation(
                     0f,
-                    w - iconView.layoutParams.width - iconMargin * 2,
+                    w - _iconView.layoutParams.width - _iconMargin * 2,
                     0f,
                     0f
                 )
             } else {
                 TranslateAnimation(
-                    w - iconView.layoutParams.width - iconMargin * 2,
+                    w - _iconView.layoutParams.width - _iconMargin * 2,
                     0f,
                     0f,
                     0f
@@ -196,7 +194,7 @@ class SwitchApple @JvmOverloads constructor(
         } else {
             if (status) {
                 TranslateAnimation(
-                    -(w - iconView.layoutParams.width - iconMargin * 2),
+                    -(w - _iconView.layoutParams.width - _iconMargin * 2),
                     0f,
                     0f,
                     0f
@@ -204,50 +202,50 @@ class SwitchApple @JvmOverloads constructor(
             } else {
                 TranslateAnimation(
                     0f,
-                    -(w - iconView.layoutParams.width - iconMargin * 2),
+                    -(w - _iconView.layoutParams.width - _iconMargin * 2),
                     0f,
                     0f
                 )
             }
         }
-        animation.duration = animTime.toLong()
+        animation.duration = _animTime.toLong()
         animation.repeatMode = Animation.REVERSE
         animation.interpolator = AccelerateDecelerateInterpolator()
         animation.fillAfter = true
         animation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {
-                isAnimRunning = true
+                _isAnimRunning = true
 
                 //如果想动画结束再执行回调的话,就把这段话放在onAnimationEnd就阔以了
-                mISwitchAppleListener?.switch(status)
+                _switchAppleListener?.switch(status)
             }
 
             override fun onAnimationEnd(animation: Animation) {
-                isAnimRunning = false
+                _isAnimRunning = false
             }
 
             override fun onAnimationRepeat(animation: Animation) {}
         })
-        iconView.startAnimation(animation)
+        _iconView.startAnimation(animation)
 
         //bgView
-        val background = bgView.background as GradientDrawable
+        val background = _bgView.background as GradientDrawable
         val animator: ValueAnimator = if (status) {
             ObjectAnimator.ofInt(
                 background,
                 "color",
-                bgColorOff,
-                bgColorOn
+                _bgColorOff,
+                _bgColorOn
             )
         } else {
             ObjectAnimator.ofInt(
                 background,
                 "color",
-                bgColorOn,
-                bgColorOff
+                _bgColorOn,
+                _bgColorOff
             )
         }
-        animator.duration = animTime.toLong()
+        animator.duration = _animTime.toLong()
         animator.setEvaluator(ArgbEvaluator()) //渐变色平滑
         animator.start()
     }

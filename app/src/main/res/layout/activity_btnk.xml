@@ -14,8 +14,8 @@
 
         <com.mozhimen.uicorek.btnk.SwitchApple
             android:id="@+id/btnk_switchApple"
-            android:layout_width="80dp"
-            android:layout_height="45dp"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
             app:switchApple_animTime="300"
             app:switchApple_bgColorBorder="@color/blue_light"
             app:switchApple_bgColorOff="@color/blue_light"
@@ -23,6 +23,6 @@
             app:switchApple_borderWidth="1dp"
             app:switchApple_defaultStatus="false"
             app:switchApple_iconColorBtn="@color/white"
-            app:switchApple_iconMargin="1dp" />
+            app:switchApple_iconMargin="3dp" />
     </LinearLayout>
 </layout>

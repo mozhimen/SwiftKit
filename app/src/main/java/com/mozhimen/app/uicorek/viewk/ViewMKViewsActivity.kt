@@ -20,9 +20,6 @@ class ViewKViewsActivity : BaseKActivity<ActivityViewkViewsBinding,BaseKViewMode
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        Log.d(TAG, "initView: viewkColorPicker set ${vb.viewkColorPicker.areColorsSet()}")
-        vb.viewkColorPicker.colorPair = Color.BLUE to Color.RED
-        Log.d(TAG, "initView: viewkColorPicker set ${vb.viewkColorPicker.areColorsSet()}")
         /*val squareQRScan = findViewById<SquareQRScan>(R.id.viewk_squareQrScan)
        squareQRScan.setSquareQrScanCallback(object : SquareQRScan.SquareQrScanCallback {
            override fun onAnimEnd() {

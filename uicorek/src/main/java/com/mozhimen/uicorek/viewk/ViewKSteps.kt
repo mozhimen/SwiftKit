@@ -20,8 +20,8 @@ import com.mozhimen.uicorek.R
  * @Date 2022/1/25 22:09
  * @Version 1.0
  */
-class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKView(context, attrs, defStyleAttr) {
+class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    BaseKView(context, attrs, defStyleAttr, defStyleRes) {
 
     //region # variate
     private var _doneLineColor = ContextCompat.getColor(context, R.color.blue_normal)
@@ -110,30 +110,29 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     init {
-        initAttrs(attrs,defStyleAttr)
+        initAttrs(attrs, defStyleAttr)
         initPaint()
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        attrs?.let {
-            val typedArray = context.obtainStyledAttributes(it, R.styleable.ViewKSteps)
-            _margin = typedArray.getDimensionPixelOffset(R.styleable.ViewKSteps_viewKSteps_margin, _margin)
-            _titleMarginTop = typedArray.getDimensionPixelOffset(R.styleable.ViewKSteps_viewKSteps_titleMarginTop, _titleMarginTop)
-            _doneLineColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_doneLineColor, _doneLineColor)
-            _undoLineColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_undoLineColor, _undoLineColor)
+        attrs ?: return
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKSteps)
+        _margin = typedArray.getDimensionPixelOffset(R.styleable.ViewKSteps_viewKSteps_margin, _margin)
+        _titleMarginTop = typedArray.getDimensionPixelOffset(R.styleable.ViewKSteps_viewKSteps_titleMarginTop, _titleMarginTop)
+        _doneLineColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_doneLineColor, _doneLineColor)
+        _undoLineColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_undoLineColor, _undoLineColor)
 
-            _doneNumberColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_doneNumberColor, _doneNumberColor)
-            _undoNumberColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_undoNumberColor, _undoNumberColor)
+        _doneNumberColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_doneNumberColor, _doneNumberColor)
+        _undoNumberColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_undoNumberColor, _undoNumberColor)
 
-            _doneTitleColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_doneTitleColor, _doneTitleColor)
-            _undoTitleColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_undoTitleColor, _undoTitleColor)
+        _doneTitleColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_doneTitleColor, _doneTitleColor)
+        _undoTitleColor = typedArray.getColor(R.styleable.ViewKSteps_viewKSteps_undoTitleColor, _undoTitleColor)
 
-            _circleRadius = typedArray.getDimensionPixelSize(R.styleable.ViewKSteps_viewKSteps_circleRadius, _circleRadius)
-            _lineWidth = typedArray.getDimensionPixelOffset(R.styleable.ViewKSteps_viewKSteps_lineWidth, _lineWidth)
-            _numberTextSize = typedArray.getDimensionPixelSize(R.styleable.ViewKSteps_viewKSteps_numberTextSize, _numberTextSize)
-            _titleTextSize = typedArray.getDimensionPixelSize(R.styleable.ViewKSteps_viewKSteps_titleTextSize, _titleTextSize)
-            typedArray.recycle()
-        }
+        _circleRadius = typedArray.getDimensionPixelSize(R.styleable.ViewKSteps_viewKSteps_circleRadius, _circleRadius)
+        _lineWidth = typedArray.getDimensionPixelOffset(R.styleable.ViewKSteps_viewKSteps_lineWidth, _lineWidth)
+        _numberTextSize = typedArray.getDimensionPixelSize(R.styleable.ViewKSteps_viewKSteps_numberTextSize, _numberTextSize)
+        _titleTextSize = typedArray.getDimensionPixelSize(R.styleable.ViewKSteps_viewKSteps_titleTextSize, _titleTextSize)
+        typedArray.recycle()
     }
 
     override fun initPaint() {

@@ -21,15 +21,15 @@ class ViewKColorPicker @JvmOverloads constructor(context: Context, attrs: Attrib
     BaseKView(context, attrs, defStyleAttr, defStyleRes) {
 
     //region # variate
-    private var _colorStart = Color.WHITE
-    private var _colorEnd = Color.BLACK
+    private var _colorStart = Color.YELLOW
+    private var _colorEnd = Color.RED
     private var _paintCircle: Paint? = null
     private var _paintOutline: Paint? = null
     private var _progress: Float = ANIM_MIN_VAL
     //endregion
 
     init {
-        initView()
+        initData()
         initAttrs(attrs, defStyleAttr)
     }
 
@@ -112,7 +112,7 @@ class ViewKColorPicker @JvmOverloads constructor(context: Context, attrs: Attrib
         typedArray.recycle()
     }
 
-    override fun initView() {
+    override fun initData() {
         setLayerType(LAYER_TYPE_SOFTWARE, null)
     }
 
@@ -137,7 +137,7 @@ class ViewKColorPicker @JvmOverloads constructor(context: Context, attrs: Attrib
         canvas.drawCircle(
             width.toFloat() / 2.0f,
             height.toFloat() / 2.0f,
-            (realRadius - INNER_PADDING.dp2px().toFloat()) * _progress,
+            realRadius - INNER_PADDING.dp2px().toFloat() * _progress,
             _paintCircle!!
         )
     }
