@@ -9,6 +9,7 @@ import android.graphics.Rect
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Display
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -26,6 +27,35 @@ object UtilKScreen {
     private val TAG = "UtilKScreen>>>>>"
 
     private val _context = UtilKGlobal.instance.getApp()!!
+
+    /**
+     * 获得View所在界面 NavigationBar 高度
+     * @param view View 目标View
+     * @return Int 如果存在NavigationBar则返回高度，否则0
+     */
+    @JvmStatic
+    fun getNavBarHeight(view: View): Int {
+        val activity: Activity? = UtilKActivity.getActivityByView(view)
+        if (activity != null) {
+            val display = activity.windowManager.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val usableHeight = size.y
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                display.getRealSize(size) // getRealMetrics is only available with API 17 and +
+            } else {
+                try {
+                    size.x = (Display::class.java.getMethod("getRawWidth").invoke(display) as Int)
+                    size.y = (Display::class.java.getMethod("getRawHeight").invoke(display) as Int)
+                } catch (e: Exception) {
+                    Log.e(TAG, "getNavBarHeight: error", e)
+                }
+            }
+            val realHeight = size.y
+            return if (realHeight > usableHeight) realHeight - usableHeight else 0
+        }
+        return 0
+    }
 
     /**
      * 设置屏幕亮度
@@ -113,6 +143,7 @@ object UtilKScreen {
      * 获取像素宽
      * @return Int
      */
+    @JvmStatic
     fun getScreenWidth(): Int =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.width()
@@ -127,6 +158,7 @@ object UtilKScreen {
      * 获取像素高
      * @return Int
      */
+    @JvmStatic
     fun getScreenHeight(): Int =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.height()

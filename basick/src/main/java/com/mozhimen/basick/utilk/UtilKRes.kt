@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
+import androidx.annotation.Dimension
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
@@ -59,4 +60,13 @@ object UtilKRes {
      */
     fun getDrawable(@DrawableRes drawableId: Int): Drawable? =
         ContextCompat.getDrawable(_context, drawableId)
+
+    /**
+     * 获取DimensionPixelSize
+     * @param dimensionId Int
+     * @return Int
+     */
+    @JvmStatic
+    fun getDimensionPixelSize(dimensionId: Int): Int =
+        _context.resources.getDimensionPixelSize(dimensionId)
 }

@@ -131,4 +131,26 @@
         <item name="navKBar_lineColor">@color/gray_light</item>
         <item name="navKBar_lineWidth">0dp</item>
     </style>
+
+    <!--textk-->
+    <style name="TextKBubble_PopWinAnim_ArrowDown">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_bottom_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_bottom_hide</item>
+    </style>
+    <style name="TextKBubble_PopWinAnim_ArrowLeft">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_left_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_left_hide</item>
+    </style>
+    <style name="TextKBubble_PopWinAnim_ArrowNone">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_center_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_center_hide</item>
+    </style>
+    <style name="TextKBubble_PopWinAnim_ArrowRight">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_right_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_right_hide</item>
+    </style>
+    <style name="TextKBubble_PopWinAnim_ArrowUp">
+        <item name="android:windowEnterAnimation">@anim/anim_pop_top_show</item>
+        <item name="android:windowExitAnimation">@anim/anim_pop_top_hide</item>
+    </style>
 </resources>

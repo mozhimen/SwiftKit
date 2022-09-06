@@ -2,10 +2,9 @@ package com.mozhimen.uicorek.textk.bubble
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basick.basek.commons.IBaseKView
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener
 
@@ -20,6 +19,7 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     AppCompatTextView(context, attrs, defStyleAttr), ITextKBubble, ITextKBubbleListener {
 
     //region # variate
+    private val TAG = "TextKBubble>>>>>"
     private var _textKBubbleProxy: TextKBubbleProxy = TextKBubbleProxy()
     override var arrowDirection: ITextKBubble.ArrowDirection
         get() = _textKBubbleProxy.arrowDirection
@@ -27,104 +27,138 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
             _textKBubbleProxy.arrowDirection = value
         }
     override var arrowHeight: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.arrowHeight
+        set(value) {
+            _textKBubbleProxy.arrowHeight = value
+        }
     override var arrowWidth: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.arrowWidth
+        set(value) {
+            _textKBubbleProxy.arrowWidth = value
+        }
     override var arrowPosPolicy: ITextKBubble.ArrowPosPolicy
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.arrowPosPolicy
+        set(value) {
+            _textKBubbleProxy.arrowPosPolicy = value
+        }
     override var arrowPosOffset: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.arrowPosOffset
+        set(value) {
+            _textKBubbleProxy.arrowPosOffset = value
+        }
     override var arrowToViewId: Int
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.arrowToViewId
+        set(value) {
+            _textKBubbleProxy.arrowToViewId = value
+        }
     override var arrowToView: View?
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.arrowToView
+        set(value) {
+            _textKBubbleProxy.arrowToView = value
+        }
     override var bgColor: Int
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.bgColor
+        set(value) {
+            _textKBubbleProxy.bgColor = value
+        }
     override var borderColor: Int
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.borderColor
+        set(value) {
+            _textKBubbleProxy.borderColor = value
+        }
     override var borderWidth: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.borderWidth
+        set(value) {
+            _textKBubbleProxy.borderWidth = value
+        }
     override var gapPadding: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
+        get() = _textKBubbleProxy.gapPadding
+        set(value) {
+            _textKBubbleProxy.gapPadding = value
+        }
+    override var cornerTopLeftRadius: Float
+        get() = _textKBubbleProxy.cornerTopLeftRadius
+        set(value) {
+            _textKBubbleProxy.cornerTopLeftRadius = value
+        }
+    override var cornerTopRightRadius: Float
+        get() = _textKBubbleProxy.cornerTopRightRadius
+        set(value) {
+            _textKBubbleProxy.cornerTopRightRadius = value
+        }
+    override var cornerBottomLeftRadius: Float
+        get() = _textKBubbleProxy.cornerBottomLeftRadius
+        set(value) {
+            _textKBubbleProxy.cornerBottomLeftRadius = value
+        }
+    override var cornerBottomRightRadius: Float
+        get() = _textKBubbleProxy.cornerBottomRightRadius
+        set(value) {
+            _textKBubbleProxy.cornerBottomRightRadius = value
+        }
+    override var paddingLeft: Float
+        get() = _textKBubbleProxy.paddingLeft
+        set(value) {
+            _textKBubbleProxy.paddingLeft = value
+        }
+    override var paddingTop: Float
+        get() = _textKBubbleProxy.paddingTop
+        set(value) {
+            _textKBubbleProxy.paddingTop = value
+        }
+    override var paddingRight: Float
+        get() = _textKBubbleProxy.paddingRight
+        set(value) {
+            _textKBubbleProxy.paddingRight = value
+        }
+    override var paddingBottom: Float
+        get() = _textKBubbleProxy.paddingBottom
+        set(value) {
+            _textKBubbleProxy.paddingBottom = value
+        }
 
     override fun setCornerRadius(topLeft: Float, topRight: Float, bottomRight: Float, bottomLeft: Float) {
-        TODO("Not yet implemented")
+        _textKBubbleProxy.setCornerRadius(topLeft, topRight, bottomRight, bottomLeft)
     }
 
     override fun setCornerRadius(radius: Float) {
-        TODO("Not yet implemented")
+        _textKBubbleProxy.setCornerRadius(radius)
     }
 
-    override var cornerTopLeftRadius: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
-    override var cornerTopRightRadius: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
-    override var cornerBottomLeftRadius: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
-    override var cornerBottomRightRadius: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
-
     override fun setPadding(padding: Float) {
-        TODO("Not yet implemented")
+        _textKBubbleProxy.setPadding(padding)
     }
 
     override fun setPadding(paddingHorizontal: Float, paddingVertical: Float) {
-        TODO("Not yet implemented")
+        _textKBubbleProxy.setPadding(paddingHorizontal, paddingVertical)
     }
 
     override fun setPadding(left: Float, top: Float, right: Float, bottom: Float) {
-        TODO("Not yet implemented")
+        _textKBubbleProxy.setPadding(left, top, right, bottom)
     }
 
-    override var paddingLeft: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
-    override var paddingTop: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
-    override var paddingRight: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
-    override var paddingBottom: Float
-        get() = TODO("Not yet implemented")
-        set(value) {}
-
     override fun requestUpdateBubble() {
-        TODO("Not yet implemented")
+        _textKBubbleProxy.requestUpdateBubble()
     }
 
     override fun setSuperPadding(left: Int, top: Int, right: Int, bottom: Int) {
-        TODO("Not yet implemented")
+        super.setPadding(left, top, right, bottom)
     }
 
     override fun getSuperPaddingLeft(): Int {
-        TODO("Not yet implemented")
+        return super.getPaddingLeft()
     }
 
     override fun getSuperPaddingTop(): Int {
-        TODO("Not yet implemented")
+        return super.getPaddingTop()
     }
 
     override fun getSuperPaddingRight(): Int {
-        TODO("Not yet implemented")
+        return super.getPaddingRight()
     }
 
     override fun getSuperPaddingBottom(): Int {
-        TODO("Not yet implemented")
+        return super.getPaddingBottom()
     }
     //endregion
 
