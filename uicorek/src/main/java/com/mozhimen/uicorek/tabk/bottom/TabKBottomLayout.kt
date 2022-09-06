@@ -12,7 +12,7 @@ import android.widget.ScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
-import com.mozhimen.basick.utilk.UtilKView.findTypeView
+import com.mozhimen.basick.utilk.UtilKView.findTypeChildView
 import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.basick.extsk.asColorTone
 import com.mozhimen.uicorek.R
@@ -214,12 +214,12 @@ class TabKBottomLayout @JvmOverloads constructor(
             return
         }
         val rootView = getChildAt(0) as ViewGroup
-        var targetView: ViewGroup? = findTypeView(rootView, RecyclerView::class.java)
+        var targetView: ViewGroup? = findTypeChildView(rootView, RecyclerView::class.java)
         if (targetView == null) {
-            targetView = findTypeView(rootView, ScrollView::class.java)
+            targetView = findTypeChildView(rootView, ScrollView::class.java)
         }
         if (targetView == null) {
-            targetView = findTypeView(rootView, AbsListView::class.java)
+            targetView = findTypeChildView(rootView, AbsListView::class.java)
         }
         if (targetView != null) {
             targetView.setPadding(0, 0, 0, _tabBottomHeight)

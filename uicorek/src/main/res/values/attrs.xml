@@ -239,21 +239,60 @@
 
     <!--textk-->
     <declare-styleable name="TextKBubble">
-        <attr name="textKBubble_arrowDirection" format="integer" />
-        <attr name="textKBubble_arrowHeight" format="integer" />
-        <attr name="textKBubble_arrowWidth" format="integer" />
-        <attr name="textKBubble_arrowPosPolicy" format="integer" />
-        <attr name="textKBubble_arrowPosDelta" format="integer" />
-        <attr name="textKBubble_arrowTo" format="integer" />
-        <attr name="textKBubble_cornerRadius" format="integer" />
-        <attr name="textKBubble_cornerTopLeftRadius" format="integer" />
-        <attr name="textKBubble_cornerTopRightRadius" format="integer" />
-        <attr name="textKBubble_cornerBottomLeftRadius" format="integer" />
-        <attr name="textKBubble_cornerBottomRightRadius" format="integer" />
-        <attr name="textKBubble_fillColor" format="integer" />
-        <attr name="textKBubble_fillPadding" format="integer" />
-        <attr name="textKBubble_borderColor" format="integer" />
-        <attr name="textKBubble_borderWidth" format="integer" />
+        <!--设置箭头朝向-->
+        <attr name="textKBubble_arrowDirection" format="enum">
+            <enum name="none" value="-1" />
+            <enum name="auto" value="0" />
+            <enum name="left" value="1" />
+            <enum name="up" value="2" />
+            <enum name="right" value="3" />
+            <enum name="down" value="4" />
+        </attr>
+        <!--设置箭头三角形厚度-->
+        <attr name="textKBubble_arrowHeight" format="dimension|reference" />
+        <!--设置箭头三角形底宽-->
+        <attr name="textKBubble_arrowWidth" format="dimension|reference" />
+        <!--设置箭头在边线上的位置策略-->
+        <attr name="textKBubble_arrowPosPolicy" format="enum">
+            <!--箭头指向目标View的中心点-->
+            <enum name="target_center" value="0" />
+            <!--箭头从自己的中心点发出-->
+            <enum name="self_center" value="1" />
+            <!--结合setArrowPosOffset，箭头从所在轴的头端开始偏移-->
+            <enum name="self_begin" value="2" />
+            <!--结合setArrowPosOffset，箭头从所在轴的尾端开始偏移-->
+            <enum name="self_end" value="3" />
+        </attr>
+        <!--设置箭头在所在边线上的偏移距离-->
+        <attr name="textKBubble_arrowPosOffset" format="dimension|reference" />
+        <!--设置箭头指向的View对象Id-->
+        <attr name="textKBubble_arrowToViewId" format="reference" />
+        <!--设置气泡背景色-->
+        <attr name="textKBubble_bgColor" format="color|reference" />
+        <!--设置边框线颜色-->
+        <attr name="textKBubble_borderColor" format="color|reference" />
+        <!--设置边框线宽-->
+        <attr name="textKBubble_borderWidth" format="dimension|reference" />
+        <!--设置边框于背景之间的间隙宽度-->
+        <attr name="textKBubble_gapPadding" format="dimension|reference" />
+
+        <!--设置边角弧度-->
+        <attr name="textKBubble_cornerRadius" format="dimension|reference" />
+        <!--设置边角弧度左上角-->
+        <attr name="textKBubble_cornerTopLeftRadius" format="dimension|reference" />
+        <!--设置边角弧度右上角-->
+        <attr name="textKBubble_cornerTopRightRadius" format="dimension|reference" />
+        <!--设置边角弧度左下角-->
+        <attr name="textKBubble_cornerBottomLeftRadius" format="dimension|reference" />
+        <!--设置边角弧度右下角-->
+        <attr name="textKBubble_cornerBottomRightRadius" format="dimension|reference" />
+
+        <!--设置内边距-->
+        <attr name="textKBubble_padding" format="dimension|reference" />
+        <!--设置左右内边距-->
+        <attr name="textKBubble_paddingHorizontal" format="dimension|reference" />
+        <!--设置上下内边距-->
+        <attr name="textKBubble_paddingVertical" format="dimension|reference" />
     </declare-styleable>
     <declare-styleable name="TextKIconFont">
         <attr name="textKIconFont_fontPath" format="string" />

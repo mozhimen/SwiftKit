@@ -67,8 +67,8 @@ interface ITextKBubble {
 
         TargetCenter(0),//箭头指向目标View的中心点
         SelfCenter(1),//箭头从自己的中心点发出
-        SelfBegin(2),//结合setArrowPosDelta，箭头从所在轴的头端开始偏移
-        SelfEnd(3);//结合setArrowPosDelta，箭头从所在轴的尾端开始偏移
+        SelfBegin(2),//结合setArrowPosOffset，箭头从所在轴的头端开始偏移
+        SelfEnd(3);//结合setArrowPosOffset，箭头从所在轴的尾端开始偏移
 
         companion object {
             private var intToTypeDict = SparseArray<ArrowPosPolicy>()
@@ -103,6 +103,9 @@ interface ITextKBubble {
 //     */
 //    fun getArrowDirection(): ArrowDirection
 
+    /**
+     * 设置箭头朝向
+     */
     var arrowDirection: ArrowDirection
 
 //    /**
@@ -117,6 +120,9 @@ interface ITextKBubble {
 //     */
 //    fun getArrowHeight(): Float
 
+    /**
+     * 设置箭头三角形厚度
+     */
     var arrowHeight: Float
 
 //    /**
@@ -131,6 +137,9 @@ interface ITextKBubble {
 //     */
 //    fun getArrowWidth(): Float
 
+    /**
+     * 设置箭头三角形底宽
+     */
     var arrowWidth: Float
 
 //    /**
@@ -145,6 +154,9 @@ interface ITextKBubble {
 //     */
 //    fun getArrowPosPolicy(): ArrowPosPolicy
 
+    /**
+     * 设置箭头在边线上的位置策略
+     */
     var arrowPosPolicy: ArrowPosPolicy
 
 //    /**
@@ -154,22 +166,36 @@ interface ITextKBubble {
 //     * 朝上/下时在X轴方向偏移，朝左/右时在Y轴方向偏移
 //     * 值必须 >0，视 ArrowPosPolicy 从首段或尾端开始偏移
 //     */
-//    fun setArrowPosDelta(delta: Float)
+//    fun setArrowPosOffset(delta: Float)
 //
 //    /**
 //     * 获取箭头在所在边线上的偏移距离
 //     * @return Float
 //     */
-//    fun getArrowPosDelta(): Float
-
-    var arrowPosDelta: Float
+//    fun getArrowPosOffset(): Float
 
     /**
-     * 设置箭头指向的View对象
-     * 设置了View对象后，setArrowPos将不起作用
-     * @param viewId Int 指向的ViewId
+     * 设置箭头在所在边线上的偏移距离
      */
-    fun setArrowTo(viewId: Int)
+    var arrowPosOffset: Float
+
+//    /**
+//     * 设置箭头指向的View对象
+//     * 设置了View对象后，setArrowPos将不起作用
+//     * @param viewId Int 指向的ViewId
+//     */
+//    fun setArrowToViewId(viewId: Int)
+//
+//    /**
+//     * 获取箭头指向的View对象Id
+//     * @return Int
+//     */
+//    fun getArrowToViewId(): Int
+
+    /**
+     * 设置箭头指向的View对象Id
+     */
+    var arrowToViewId: Int
 
 //    /**
 //     * 设置箭头指向的View对象
@@ -183,21 +209,27 @@ interface ITextKBubble {
 //     */
 //    fun getArrowTo(): View
 
-    var arrowTo: View
+    /**
+     * 设置箭头指向的View对象
+     */
+    var arrowToView: View?
 
 //    /**
 //     * 设置气泡背景色
-//     * @param fillColor Int 气泡背景颜色
+//     * @param bgColor Int 气泡背景颜色
 //     */
-//    fun setFillColor(fillColor: Int)
+//    fun setBgColor(bgColor: Int)
 //
 //    /**
 //     * 获取气泡背景色
 //     * @return Int
 //     */
-//    fun getFillColor(): Int
+//    fun getBgColor(): Int
 
-    var fillColor: Int
+    /**
+     * 设置气泡背景色
+     */
+    var bgColor: Int
 
 //    /**
 //     * 设置边框线颜色
@@ -211,6 +243,9 @@ interface ITextKBubble {
 //     */
 //    fun getBorderColor(): Int
 
+    /**
+     * 设置边框线颜色
+     */
     var borderColor: Int
 
 //    /**
@@ -225,21 +260,27 @@ interface ITextKBubble {
 //     */
 //    fun getBorderWidth(): Float
 
+    /**
+     * 设置边框线宽
+     */
     var borderWidth: Float
 
 //    /**
 //     * 设置边框于背景之间的间隙宽度
-//     * @param fillPadding Float 间隙宽度
+//     * @param gapPadding Float 间隙宽度
 //     */
-//    fun setFillPadding(fillPadding: Float)
+//    fun setGapPadding(gapPadding: Float)
 //
 //    /**
 //     * 获取边框于背景之间的间隙宽度
 //     * @return Float
 //     */
-//    fun getFillPadding(): Float
+//    fun getGapPadding(): Float
 
-    var fillPadding: Float
+    /**
+     * 设置边框于背景之间的间隙宽度
+     */
+    var gapPadding: Float
 
     /**
      * 设置边角弧度
@@ -281,62 +322,92 @@ interface ITextKBubble {
 //     */
 //    fun getCornerBottomRightRadius(): Float
 
+    /**
+     * 设置边角弧度左上角
+     */
     var cornerTopLeftRadius: Float
+
+    /**
+     * 设置边角弧度右上角
+     */
     var cornerTopRightRadius: Float
+
+    /**
+     * 设置边角弧度左下角
+     */
     var cornerBottomLeftRadius: Float
+
+    /**
+     * 设置边角弧度右下角
+     */
     var cornerBottomRightRadius: Float
 
     /**
      * 设定Padding
-     * @param padding Int
+     * @param padding Float
      */
-    fun setPadding(padding: Int)
+    fun setPadding(padding: Float)
 
     /**
      * 设定Padding
-     * @param paddingHorizontal Int
-     * @param paddingVertical Int
+     * @param paddingHorizontal Float
+     * @param paddingVertical Float
      */
-    fun setPadding(paddingHorizontal: Int, paddingVertical: Int)
+    fun setPadding(paddingHorizontal: Float, paddingVertical: Float)
 
     /**
      * 设定Padding
      * 将自动将箭头区域占用空间加入Padding，使内容能够完全被气泡包含
-     * @param left Int
-     * @param top Int
-     * @param right Int
-     * @param bottom Int
+     * @param left Float
+     * @param top Float
+     * @param right Float
+     * @param bottom Float
      */
-    fun setPadding(left: Int, top: Int, right: Int, bottom: Int)
+    fun setPadding(left: Float, top: Float, right: Float, bottom: Float)
 
 //    /**
 //     * 设定Padding左
-//     * @return Int
+//     * @return Float
 //     */
-//    fun getPaddingLeft(): Int
+//    fun getPaddingLeft(): Float
 //
 //    /**
 //     * 设定Padding上
-//     * @return Int
+//     * @return Float
 //     */
-//    fun getPaddingTop(): Int
+//    fun getPaddingTop(): Float
 //
 //    /**
 //     * 设定Padding右
-//     * @return Int
+//     * @return Float
 //     */
-//    fun getPaddingRight(): Int
+//    fun getPaddingRight(): Float
 //
 //    /**
 //     * 设定Padding下
-//     * @return Int
+//     * @return Float
 //     */
-//    fun getPaddingBottom(): Int
+//    fun getPaddingBottom(): Float
 
-    var paddingLeft: Int
-    var paddingTop: Int
-    var paddingRight: Int
-    var paddingBottom: Int
+    /**
+     * 设定Padding左
+     */
+    var paddingLeft: Float
+
+    /**
+     * 设定Padding上
+     */
+    var paddingTop: Float
+
+    /**
+     * 设定Padding右
+     */
+    var paddingRight: Float
+
+    /**
+     * 设定Padding下
+     */
+    var paddingBottom: Float
 
     /**
      * 请求刷新UI样式

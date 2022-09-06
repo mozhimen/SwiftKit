@@ -42,7 +42,7 @@ object UtilKView {
      * @param cls Class<T>
      * @return T?
      */
-    fun <T> findTypeView(
+    fun <T> findTypeChildView(
         group: ViewGroup?,
         cls: Class<T>
     ): T? {
@@ -62,6 +62,27 @@ object UtilKView {
                     deque.add(node.getChildAt(i))
                     i++
                 }
+            }
+        }
+        return null
+    }
+
+    /**
+     * 逐层在父View中查找View
+     * @param viewId Int
+     * @param parentView View
+     * @return View?
+     */
+    @JvmStatic
+    fun findViewFromParentById(viewId: Int, parentView: View): View? {
+        if (viewId == 0) return null
+        var viewTree: View = parentView
+        while (viewTree.parent is View) {
+            //逐层在父View中查找，是为了查找离自己最近的目标对象，因为ID可能重复
+            viewTree = viewTree.parent as View
+            val targetView = viewTree.findViewById<View>(viewId)
+            if (targetView != null) {
+                return targetView
             }
         }
         return null
