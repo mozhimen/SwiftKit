@@ -2,7 +2,6 @@ package com.mozhimen.uicorek.textk.bubble
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
@@ -21,101 +20,82 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     //region # variate
     private val TAG = "TextKBubble>>>>>"
     private var _textKBubbleProxy: TextKBubbleProxy = TextKBubbleProxy()
-    override var arrowDirection: ITextKBubble.ArrowDirection
-        get() = _textKBubbleProxy.arrowDirection
-        set(value) {
-            _textKBubbleProxy.arrowDirection = value
-        }
-    override var arrowHeight: Float
-        get() = _textKBubbleProxy.arrowHeight
-        set(value) {
-            _textKBubbleProxy.arrowHeight = value
-        }
-    override var arrowWidth: Float
-        get() = _textKBubbleProxy.arrowWidth
-        set(value) {
-            _textKBubbleProxy.arrowWidth = value
-        }
-    override var arrowPosPolicy: ITextKBubble.ArrowPosPolicy
-        get() = _textKBubbleProxy.arrowPosPolicy
-        set(value) {
-            _textKBubbleProxy.arrowPosPolicy = value
-        }
-    override var arrowPosOffset: Float
-        get() = _textKBubbleProxy.arrowPosOffset
-        set(value) {
-            _textKBubbleProxy.arrowPosOffset = value
-        }
-    override var arrowToViewId: Int
-        get() = _textKBubbleProxy.arrowToViewId
-        set(value) {
-            _textKBubbleProxy.arrowToViewId = value
-        }
-    override var arrowToView: View?
-        get() = _textKBubbleProxy.arrowToView
-        set(value) {
-            _textKBubbleProxy.arrowToView = value
-        }
-    override var bgColor: Int
-        get() = _textKBubbleProxy.bgColor
-        set(value) {
-            _textKBubbleProxy.bgColor = value
-        }
-    override var borderColor: Int
-        get() = _textKBubbleProxy.borderColor
-        set(value) {
-            _textKBubbleProxy.borderColor = value
-        }
-    override var borderWidth: Float
-        get() = _textKBubbleProxy.borderWidth
-        set(value) {
-            _textKBubbleProxy.borderWidth = value
-        }
-    override var gapPadding: Float
-        get() = _textKBubbleProxy.gapPadding
-        set(value) {
-            _textKBubbleProxy.gapPadding = value
-        }
-    override var cornerTopLeftRadius: Float
-        get() = _textKBubbleProxy.cornerTopLeftRadius
-        set(value) {
-            _textKBubbleProxy.cornerTopLeftRadius = value
-        }
-    override var cornerTopRightRadius: Float
-        get() = _textKBubbleProxy.cornerTopRightRadius
-        set(value) {
-            _textKBubbleProxy.cornerTopRightRadius = value
-        }
-    override var cornerBottomLeftRadius: Float
-        get() = _textKBubbleProxy.cornerBottomLeftRadius
-        set(value) {
-            _textKBubbleProxy.cornerBottomLeftRadius = value
-        }
-    override var cornerBottomRightRadius: Float
-        get() = _textKBubbleProxy.cornerBottomRightRadius
-        set(value) {
-            _textKBubbleProxy.cornerBottomRightRadius = value
-        }
-    override var paddingLeft: Float
-        get() = _textKBubbleProxy.paddingLeft
-        set(value) {
-            _textKBubbleProxy.paddingLeft = value
-        }
-    override var paddingTop: Float
-        get() = _textKBubbleProxy.paddingTop
-        set(value) {
-            _textKBubbleProxy.paddingTop = value
-        }
-    override var paddingRight: Float
-        get() = _textKBubbleProxy.paddingRight
-        set(value) {
-            _textKBubbleProxy.paddingRight = value
-        }
-    override var paddingBottom: Float
-        get() = _textKBubbleProxy.paddingBottom
-        set(value) {
-            _textKBubbleProxy.paddingBottom = value
-        }
+    override fun setArrowDirection(arrowDirection: ITextKBubble.ArrowDirection) {
+        _textKBubbleProxy.setArrowDirection(arrowDirection)
+    }
+
+    override fun getArrowDirection(): ITextKBubble.ArrowDirection =
+        _textKBubbleProxy.getArrowDirection()
+
+    override fun setArrowHeight(arrowHeight: Float) {
+        _textKBubbleProxy.setArrowHeight(arrowHeight)
+    }
+
+    override fun getArrowHeight(): Float =
+        _textKBubbleProxy.getArrowHeight()
+
+    override fun setArrowWidth(arrowWidth: Float) {
+        _textKBubbleProxy.setArrowWidth(arrowWidth)
+    }
+
+    override fun getArrowWidth(): Float =
+        _textKBubbleProxy.getArrowWidth()
+
+    override fun setArrowPosPolicy(arrowPosPolicy: ITextKBubble.ArrowPosPolicy) {
+        _textKBubbleProxy.setArrowPosPolicy(arrowPosPolicy)
+    }
+
+    override fun getArrowPosPolicy(): ITextKBubble.ArrowPosPolicy =
+        _textKBubbleProxy.getArrowPosPolicy()
+
+    override fun setArrowPosOffset(offset: Float) {
+        _textKBubbleProxy.setArrowPosOffset(offset)
+    }
+
+    override fun getArrowPosOffset(): Float =
+        _textKBubbleProxy.getArrowPosOffset()
+
+    override fun setArrowToByViewId(targetViewId: Int) {
+        _textKBubbleProxy.setArrowToByViewId(targetViewId)
+    }
+
+    override fun getArrowToByViewId(): Int =
+        _textKBubbleProxy.getArrowToByViewId()
+
+    override fun setArrowTo(targetView: View) {
+        _textKBubbleProxy.setArrowTo(targetView)
+    }
+
+    override fun getArrowTo(): View? =
+        _textKBubbleProxy.getArrowTo()
+
+    override fun setBgColor(bgColor: Int) {
+        _textKBubbleProxy.setBgColor(bgColor)
+    }
+
+    override fun getBgColor(): Int =
+        _textKBubbleProxy.getBgColor()
+
+    override fun setBorderColor(borderColor: Int) {
+        _textKBubbleProxy.setBorderColor(borderColor)
+    }
+
+    override fun getBorderColor(): Int =
+        _textKBubbleProxy.getBorderColor()
+
+    override fun setBorderWidth(borderWidth: Float) {
+        _textKBubbleProxy.setBorderWidth(borderWidth)
+    }
+
+    override fun getBorderWidth(): Float =
+        _textKBubbleProxy.getBorderWidth()
+
+    override fun setGapPadding(gapPadding: Float) {
+        _textKBubbleProxy.setGapPadding(gapPadding)
+    }
+
+    override fun getGapPadding(): Float =
+        _textKBubbleProxy.getGapPadding()
 
     override fun setCornerRadius(topLeft: Float, topRight: Float, bottomRight: Float, bottomLeft: Float) {
         _textKBubbleProxy.setCornerRadius(topLeft, topRight, bottomRight, bottomLeft)
@@ -124,6 +104,18 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     override fun setCornerRadius(radius: Float) {
         _textKBubbleProxy.setCornerRadius(radius)
     }
+
+    override fun getCornerTopLeftRadius(): Float =
+        _textKBubbleProxy.getCornerTopLeftRadius()
+
+    override fun getCornerTopRightRadius(): Float =
+        _textKBubbleProxy.getCornerTopRightRadius()
+
+    override fun getCornerBottomLeftRadius(): Float =
+        _textKBubbleProxy.getCornerBottomLeftRadius()
+
+    override fun getCornerBottomRightRadius(): Float =
+        _textKBubbleProxy.getCornerBottomRightRadius()
 
     override fun setPadding(padding: Float) {
         _textKBubbleProxy.setPadding(padding)
@@ -136,6 +128,18 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     override fun setPadding(left: Float, top: Float, right: Float, bottom: Float) {
         _textKBubbleProxy.setPadding(left, top, right, bottom)
     }
+
+    override fun getPaddingLeft(): Int =
+        _textKBubbleProxy.getPaddingLeft()
+
+    override fun getPaddingTop(): Int =
+        _textKBubbleProxy.getPaddingTop()
+
+    override fun getPaddingRight(): Int =
+        _textKBubbleProxy.getPaddingRight()
+
+    override fun getPaddingBottom(): Int =
+        _textKBubbleProxy.getPaddingBottom()
 
     override fun requestUpdateBubble() {
         _textKBubbleProxy.requestUpdateBubble()

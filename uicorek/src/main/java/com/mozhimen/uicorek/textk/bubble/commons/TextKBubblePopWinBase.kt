@@ -174,10 +174,10 @@ open class TextKBubblePopWinBase(contentView: View, bubbleView: ITextKBubble) : 
         if (contentWidth > outProp.maxWidth) {
             width = outProp.maxWidth
         }
-        _bubbleListener.arrowDirection = outProp.direction
-        _bubbleListener.arrowPosPolicy = outProp.arrowPosPolicy
-        _bubbleListener.arrowToView = anchorView
-        _bubbleListener.arrowPosOffset = _arrowPosOffset.toFloat()
+        _bubbleListener.setArrowDirection(outProp.direction)
+        _bubbleListener.setArrowPosPolicy(outProp.arrowPosPolicy)
+        _bubbleListener.setArrowTo(anchorView)
+        _bubbleListener.setArrowPosOffset(_arrowPosOffset.toFloat())
         showAtLocation(anchorView, outProp.gravity, outProp.x, outProp.y)
         if (_delayMillis > 0) {
             setCancelOnLater(_delayMillis)

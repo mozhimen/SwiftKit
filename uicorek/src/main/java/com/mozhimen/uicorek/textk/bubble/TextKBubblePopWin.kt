@@ -71,10 +71,10 @@ open class TextKBubblePopWin(
         if (contentWidth > outProp.maxWidth) {
             width = outProp.maxWidth
         }
-        textKBubble.arrowDirection = outProp.direction
-        textKBubble.arrowPosPolicy = ArrowPosPolicy.SelfCenter
-        textKBubble.arrowToView = anchorView
-        textKBubble.arrowPosOffset = _arrowPosOffset.toFloat()
+        textKBubble.setArrowDirection(outProp.direction)
+        textKBubble.setArrowPosPolicy(ArrowPosPolicy.SelfCenter)
+        textKBubble.setArrowTo(anchorView)
+        textKBubble.setArrowPosOffset(_arrowPosOffset.toFloat())
 
         isClippingEnabled = false
 

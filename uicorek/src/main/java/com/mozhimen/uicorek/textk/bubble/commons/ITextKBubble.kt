@@ -103,10 +103,10 @@ interface ITextKBubble {
      */
     fun getArrowDirection(): ArrowDirection
 
-    /**
-     * 设置箭头朝向
-     */
-    //var arrowDirection: ArrowDirection
+//    /**
+//     * 设置箭头朝向
+//     */
+//    var arrowDirection: ArrowDirection
 
     /**
      * 设置箭头三角形厚度
@@ -120,10 +120,10 @@ interface ITextKBubble {
      */
     fun getArrowHeight(): Float
 
-    /**
-     * 设置箭头三角形厚度
-     */
-    //var arrowHeight: Float
+//    /**
+//     * 设置箭头三角形厚度
+//     */
+//    var arrowHeight: Float
 
     /**
      * 设置箭头三角形底宽
@@ -137,16 +137,16 @@ interface ITextKBubble {
      */
     fun getArrowWidth(): Float
 
-    /**
-     * 设置箭头三角形底宽
-     */
-    //var arrowWidth: Float
+//    /**
+//     * 设置箭头三角形底宽
+//     */
+//    var arrowWidth: Float
 
     /**
      * 设置箭头在边线上的位置策略
-     * @param policy ArrowPosPolicy 箭头位置策略
+     * @param arrowPosPolicy ArrowPosPolicy 箭头位置策略
      */
-    fun setArrowPosPolicy(policy: ArrowPosPolicy)
+    fun setArrowPosPolicy(arrowPosPolicy: ArrowPosPolicy)
 
     /**
      * 获取箭头在边线上的位置策略
@@ -154,19 +154,19 @@ interface ITextKBubble {
      */
     fun getArrowPosPolicy(): ArrowPosPolicy
 
-    /**
-     * 设置箭头在边线上的位置策略
-     */
-    //var arrowPosPolicy: ArrowPosPolicy
+//    /**
+//     * 设置箭头在边线上的位置策略
+//     */
+//    var arrowPosPolicy: ArrowPosPolicy
 
     /**
      * 设置箭头在所在边线上的偏移距离
      * 视 ArrowPosPolicy 而定，为 TargetCenter 或 SelfCenter 时无意义
-     * @param delta Float 基于箭头位置策略，相应的偏差
+     * @param offset Float 基于箭头位置策略，相应的偏差
      * 朝上/下时在X轴方向偏移，朝左/右时在Y轴方向偏移
      * 值必须 >0，视 ArrowPosPolicy 从首段或尾端开始偏移
      */
-    fun setArrowPosOffset(delta: Float)
+    fun setArrowPosOffset(offset: Float)
 
     /**
      * 获取箭头在所在边线上的偏移距离
@@ -174,45 +174,45 @@ interface ITextKBubble {
      */
     fun getArrowPosOffset(): Float
 
-    /**
-     * 设置箭头在所在边线上的偏移距离
-     */
-    //var arrowPosOffset: Float
+//    /**
+//     * 设置箭头在所在边线上的偏移距离
+//     */
+//    var arrowPosOffset: Float
 
     /**
      * 设置箭头指向的View对象
      * 设置了View对象后，setArrowPos将不起作用
-     * @param viewId Int 指向的ViewId
+     * @param targetViewId Int 指向的ViewId
      */
-    fun setArrowToViewId(viewId: Int)
+    fun setArrowToByViewId(targetViewId: Int)
 
     /**
      * 获取箭头指向的View对象Id
      * @return Int
      */
-    fun getArrowToViewId(): Int
+    fun getArrowToByViewId(): Int
 
-    /**
-     * 设置箭头指向的View对象Id
-     */
-    //var arrowToViewId: Int
+//    /**
+//     * 设置箭头指向的View对象Id
+//     */
+//    var arrowToViewId: Int
 
     /**
      * 设置箭头指向的View对象
-     * @param view View
+     * @param targetView View
      */
-    fun setArrowTo(view: View)
+    fun setArrowTo(targetView: View)
 
     /**
      * 获取箭头指向的View对象
      * @return View
      */
-    fun getArrowTo(): View
+    fun getArrowTo(): View?
 
-    /**
-     * 设置箭头指向的View对象
-     */
-    //var arrowToView: View?
+//    /**
+//     * 设置箭头指向的View对象
+//     */
+//    var arrowToView: View?
 
     /**
      * 设置气泡背景色
@@ -226,10 +226,10 @@ interface ITextKBubble {
      */
     fun getBgColor(): Int
 
-    /**
-     * 设置气泡背景色
-     */
-    //var bgColor: Int
+//    /**
+//     * 设置气泡背景色
+//     */
+//    var bgColor: Int
 
     /**
      * 设置边框线颜色
@@ -243,10 +243,10 @@ interface ITextKBubble {
      */
     fun getBorderColor(): Int
 
-    /**
-     * 设置边框线颜色
-     */
-    //var borderColor: Int
+//    /**
+//     * 设置边框线颜色
+//     */
+//    var borderColor: Int
 
     /**
      * 设置边框线宽
@@ -260,10 +260,10 @@ interface ITextKBubble {
      */
     fun getBorderWidth(): Float
 
-    /**
-     * 设置边框线宽
-     */
-    //var borderWidth: Float
+//    /**
+//     * 设置边框线宽
+//     */
+//    var borderWidth: Float
 
     /**
      * 设置边框于背景之间的间隙宽度
@@ -277,10 +277,10 @@ interface ITextKBubble {
      */
     fun getGapPadding(): Float
 
-    /**
-     * 设置边框于背景之间的间隙宽度
-     */
-    //var gapPadding: Float
+//    /**
+//     * 设置边框于背景之间的间隙宽度
+//     */
+//    var gapPadding: Float
 
     /**
      * 设置边角弧度
@@ -322,25 +322,25 @@ interface ITextKBubble {
      */
     fun getCornerBottomRightRadius(): Float
 
-    /**
-     * 设置边角弧度左上角
-     */
-    //var cornerTopLeftRadius: Float
-
-    /**
-     * 设置边角弧度右上角
-     */
-    //var cornerTopRightRadius: Float
-
-    /**
-     * 设置边角弧度左下角
-     */
-    //var cornerBottomLeftRadius: Float
-
-    /**
-     * 设置边角弧度右下角
-     */
-    //var cornerBottomRightRadius: Float
+//    /**
+//     * 设置边角弧度左上角
+//     */
+//    var cornerTopLeftRadius: Float
+//
+//    /**
+//     * 设置边角弧度右上角
+//     */
+//    var cornerTopRightRadius: Float
+//
+//    /**
+//     * 设置边角弧度左下角
+//     */
+//    var cornerBottomLeftRadius: Float
+//
+//    /**
+//     * 设置边角弧度右下角
+//     */
+//    var cornerBottomRightRadius: Float
 
     /**
      * 设定Padding
@@ -369,25 +369,25 @@ interface ITextKBubble {
      * 设定Padding左
      * @return Float
      */
-    fun getPaddingLeft(): Float
+    fun getPaddingLeft(): Int
 
     /**
      * 设定Padding上
      * @return Float
      */
-    fun getPaddingTop(): Float
+    fun getPaddingTop(): Int
 
     /**
      * 设定Padding右
      * @return Float
      */
-    fun getPaddingRight(): Float
+    fun getPaddingRight(): Int
 
     /**
      * 设定Padding下
      * @return Float
      */
-    fun getPaddingBottom(): Float
+    fun getPaddingBottom(): Int
 
 //    /**
 //     * 设定Padding左

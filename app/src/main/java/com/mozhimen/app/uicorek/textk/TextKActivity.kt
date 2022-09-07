@@ -20,7 +20,7 @@ class TextKActivity : BaseKActivity<ActivityTextkBinding, BaseKViewModel>(R.layo
     }
 
     private val _popwinKBubbleText: PopwinKBubbleText? = null
-    fun genPopwinKBubbleText(view: View, tip: String, delayMillis: Long = 2000) {
+    fun genPopwinKBubbleText(view: View, tip: String, delayMillis: Long = 4000) {
         _popwinKBubbleText?.dismiss()
         val builder = PopwinKBubbleText.Builder(this)
         builder.apply {
