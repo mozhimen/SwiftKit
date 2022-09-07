@@ -1,5 +1,6 @@
 package com.mozhimen.uicorek.textk.bubble.commons
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
@@ -30,7 +31,7 @@ open class TextKBubblePopWinBase(contentView: View, bubbleView: ITextKBubble) : 
     ViewGroup.LayoutParams.WRAP_CONTENT,
     ViewGroup.LayoutParams.WRAP_CONTENT
 ) {
-    protected val TAG = "TextKBubblePopWin>>>>>"
+    protected val TAG = "TextKBubblePopWinBase>>>>>"
 
     protected open var _padding: Int = 2f.dp2px()
     protected open var _arrowPosOffset = 0
@@ -137,6 +138,7 @@ open class TextKBubblePopWinBase(contentView: View, bubbleView: ITextKBubble) : 
      * @param marginH Int
      * @param marginV Int
      */
+    @SuppressLint("LongLogTag")
     open fun showArrowTo(anchorView: View, relativePos: RelativePos, marginH: Int, marginV: Int) {
         dismiss()
         val screenWidth = UtilKScreen.getScreenWidth()
@@ -303,11 +305,11 @@ open class TextKBubblePopWinBase(contentView: View, bubbleView: ITextKBubble) : 
 
     private fun getAnimationStyle(direction: ArrowDirection): Int {
         return when (direction) {
-            ArrowDirection.Up -> R.style.TextKBubble_PopWinAnim_ArrowUp
-            ArrowDirection.Down -> R.style.TextKBubble_PopWinAnim_ArrowDown
-            ArrowDirection.Left -> R.style.TextKBubble_PopWinAnim_ArrowLeft
-            ArrowDirection.Right -> R.style.TextKBubble_PopWinAnim_ArrowRight
-            else -> R.style.TextKBubble_PopWinAnim_ArrowNone
+            ArrowDirection.Up -> R.style.TextKBubblePopWinAnim_ArrowUp
+            ArrowDirection.Down -> R.style.TextKBubblePopWinAnim_ArrowDown
+            ArrowDirection.Left -> R.style.TextKBubblePopWinAnim_ArrowLeft
+            ArrowDirection.Right -> R.style.TextKBubblePopWinAnim_ArrowRight
+            else -> R.style.TextKBubblePopWinAnim_ArrowNone
         }
     }
 

@@ -2,7 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--dialogk-->
-    <style name="DialogKStyle" parent="android:style/Theme.Dialog">
+    <style name="DialogKStyle_Theme" parent="android:style/Theme.Dialog">
         <!--<item name="android:backgroundDimEnabled">false</item>--><!--模糊-->
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
@@ -12,7 +12,7 @@
         <item name="android:windowIsFloating">true</item>-->
     </style>
 
-    <style name="DialogKTitleStyle">
+    <style name="DialogKStyle_Title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginVertical" tools:targetApi="o">14dp</item>
@@ -21,7 +21,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="DialogKBtnCancelStyle">
+    <style name="DialogKStyle_BtnCancel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">5dp</item>
@@ -31,12 +31,12 @@
         <item name="cornerRadius">4dp</item>
     </style>
 
-    <style name="DialogKBtnSureStyle" parent="DialogKBtnCancelStyle">
+    <style name="DialogKStyle_BtnSure" parent="DialogKStyle_BtnCancel">
         <item name="android:backgroundTint">@color/blue_normal</item>
         <item name="android:textColor">@color/blue_light</item>
     </style>
 
-    <style name="DialogKAnimAlphaStyle" parent="android:Animation">
+    <style name="DialogKAnim_Alpha" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/anim_alpha_in</item>
         <item name="android:windowExitAnimation">@anim/anim_alpha_out</item>
     </style>
@@ -58,7 +58,7 @@
         <!--        <item name="max_value">1</item> //不配置，就是Int.max_value-->
     </style>
 
-    <style name="BtnCancelStyle">
+    <style name="BtnStyle_Cancel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:backgroundTint">@color/gray_light</item>
@@ -69,20 +69,20 @@
         <item name="strokeColor">@android:color/darker_gray</item>
     </style>
 
-    <style name="LayoutKInputItem_TitleAppearanceStyle">
+    <style name="LayoutKInputItemStyle_TitleAppearance">
         <item name="titleAppearance_titleColor">@android:color/black</item>
         <item name="titleAppearance_titleSize">16sp</item>
         <item name="titleAppearance_leftPadding">2dp</item>
         <item name="titleAppearance_minWidth">100dp</item>
     </style>
 
-    <style name="LayoutKInputItem_InputAppearanceStyle">
+    <style name="LayoutKInputItemStyle_InputAppearance">
         <item name="inputAppearance_hintColor">@color/blue_light</item>
         <item name="inputAppearance_inputColor">@color/blue_normal</item>
         <item name="inputAppearance_textSize">15sp</item>
     </style>
 
-    <style name="LayoutKInputItem_LineAppearanceStyle">
+    <style name="LayoutKInputItemStyle_LineAppearance">
         <item name="lineAppearance_color">@color/blue_dark</item>
         <item name="lineAppearance_height">1.5dp</item>
         <item name="lineAppearance_leftMargin">0dp</item>
@@ -133,24 +133,44 @@
     </style>
 
     <!--textk-->
-    <style name="TextKBubble_PopWinAnim_ArrowDown">
+    <style name="TextKBubblePopWinAnim_ArrowDown">
         <item name="android:windowEnterAnimation">@anim/anim_pop_bottom_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_bottom_hide</item>
     </style>
-    <style name="TextKBubble_PopWinAnim_ArrowLeft">
+
+    <style name="TextKBubblePopWinAnim_ArrowLeft">
         <item name="android:windowEnterAnimation">@anim/anim_pop_left_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_left_hide</item>
     </style>
-    <style name="TextKBubble_PopWinAnim_ArrowNone">
+
+    <style name="TextKBubblePopWinAnim_ArrowNone">
         <item name="android:windowEnterAnimation">@anim/anim_pop_center_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_center_hide</item>
     </style>
-    <style name="TextKBubble_PopWinAnim_ArrowRight">
+
+    <style name="TextKBubblePopWinAnim_ArrowRight">
         <item name="android:windowEnterAnimation">@anim/anim_pop_right_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_right_hide</item>
     </style>
-    <style name="TextKBubble_PopWinAnim_ArrowUp">
+
+    <style name="TextKBubblePopWinAnim_ArrowUp">
         <item name="android:windowEnterAnimation">@anim/anim_pop_top_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_top_hide</item>
+    </style>
+
+    <style name="TextKBubbleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="textKBubble_arrowDirection">up</item>
+        <item name="textKBubble_arrowHeight">8dp</item>
+        <item name="textKBubble_arrowWidth">16dp</item>
+        <item name="textKBubble_bgColor">@android:color/white</item>
+        <item name="textKBubble_borderColor">@color/blue_normal</item>
+        <item name="textKBubble_borderWidth">1dp</item>
+        <item name="textKBubble_cornerRadius">6dp</item>
     </style>
 </resources>

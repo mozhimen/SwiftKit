@@ -9,9 +9,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="36dp" />
+        <com.mozhimen.uicorek.textk.bubble.TextKBubble
+            style="@style/TextKBubbleStyle"
+            android:text="这是一个气泡文本"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/textk_bubble_btn"
+            style="@style/BtnStyle"
+            android:text="点击出现提示信息(TextKBubble)"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 </layout>

@@ -21,14 +21,14 @@ import com.mozhimen.uicorek.textk.bubble.mos.RelativePos
  * @Date 2022/9/7 3:38
  * @Version 1.0
  */
-class TextKBubblePopWin(
+open class TextKBubblePopWin(
     contentView: View, private val textKBubble: ITextKBubble
 ) : TextKBubblePopWinBase(contentView, textKBubble) {
     override var _padding = 2f.dp2px()
     override var _arrowPosOffset = 0
     override var _delayMillis: Long = 2500
-    var xPadding = 0
-    var yPadding = 0
+    var paddingHorizontal = 0
+    var paddingVertical = 0
 
     /**
      * 显示气泡弹窗，并将箭头指向目标
@@ -60,7 +60,7 @@ class TextKBubblePopWin(
             contentWidth,
             relativePos,
             0,
-            -yPadding - 4f.dp2px() / 2,
+            -paddingVertical - 4f.dp2px() / 2,
             _padding,
             outProp
         )
@@ -82,7 +82,7 @@ class TextKBubblePopWin(
         showAtLocation(
             anchorView,
             Gravity.CENTER_HORIZONTAL or Gravity.TOP,
-            outProp.x + xPadding,
+            outProp.x + paddingHorizontal,
             outProp.y
         )
 
@@ -268,11 +268,11 @@ class TextKBubblePopWin(
 
     private fun getAnimationStyle(direction: ArrowDirection): Int {
         return when (direction) {
-            ArrowDirection.Up -> R.style.TextKBubble_PopWinAnim_ArrowUp
-            ArrowDirection.Down -> R.style.TextKBubble_PopWinAnim_ArrowDown
-            ArrowDirection.Left -> R.style.TextKBubble_PopWinAnim_ArrowLeft
-            ArrowDirection.Right -> R.style.TextKBubble_PopWinAnim_ArrowRight
-            else -> R.style.TextKBubble_PopWinAnim_ArrowNone
+            ArrowDirection.Up -> R.style.TextKBubblePopWinAnim_ArrowUp
+            ArrowDirection.Down -> R.style.TextKBubblePopWinAnim_ArrowDown
+            ArrowDirection.Left -> R.style.TextKBubblePopWinAnim_ArrowLeft
+            ArrowDirection.Right -> R.style.TextKBubblePopWinAnim_ArrowRight
+            else -> R.style.TextKBubblePopWinAnim_ArrowNone
         }
     }
 }

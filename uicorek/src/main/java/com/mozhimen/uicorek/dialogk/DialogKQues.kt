@@ -1,6 +1,5 @@
 package com.mozhimen.uicorek.dialogk
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.view.LayoutInflater
@@ -21,7 +20,7 @@ import com.mozhimen.uicorek.R
  */
 class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) : Dialog(context, themeId) {
 
-    class Builder(private val _activity: Activity) : IBaseKDialogBuilder {
+    class Builder(private val _context: Context) : IBaseKDialogBuilder {
 
         //region # variate
         private lateinit var _bg: FrameLayout
@@ -38,7 +37,7 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
         override var layoutParams: ViewGroup.LayoutParams =
             FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         override var animStyleId: Int? = null
-        override var styleId: Int = R.style.DialogKStyle
+        override var styleId: Int = R.style.DialogKStyle_Theme
         override var cancelable: Boolean = true
 
         fun setQuestion(title: String): Builder {
@@ -63,8 +62,8 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
         }
 
         fun create(onSureClick: (() -> Unit)? = null, onCancelClick: (() -> Unit)? = null): DialogKQues {
-            val layoutInflater = _activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val dialogKQues = DialogKQues(_activity, styleId)
+            val layoutInflater = _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val dialogKQues = DialogKQues(_context, styleId)
             val view = layoutInflater.inflate(layoutId, null)
             dialogKQues.addContentView(
                 view, layoutParams
@@ -86,7 +85,7 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
             }
             dialogKQues.setContentView(view)
             dialogKQues.setCancelable(cancelable)
-            dialogKQues.window?.setWindowAnimations(animStyleId ?: R.style.DialogKAnimAlphaStyle)
+            dialogKQues.window?.setWindowAnimations(animStyleId ?: R.style.DialogKAnim_Alpha)
             dialogKQues.window?.setLayout(width.dp2px(), height.dp2px())
             return dialogKQues
         }

@@ -17,6 +17,7 @@ import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowDirection
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener
 import java.lang.ref.WeakReference
 import kotlin.math.abs
+import kotlin.math.log
 
 /**
  * @ClassName TextKBubbleProxy
@@ -33,7 +34,9 @@ class TextKBubbleProxy : ITextKBubble {
 
     private var _arrowToViewRef: WeakReference<View>? = null
     private var _drawableArrowDirection: ArrowDirection = ArrowDirection.None
-    private val _onLayoutChangeListener = View.OnLayoutChangeListener { _, _, _, _, _, _, _, _, _ -> requestUpdateBubble() }
+    private val _onLayoutChangeListener = View.OnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+        requestUpdateBubble()
+    }
     private val _location = IntArray(2)    // 方便计算用的中间值对象，避免重复创建
     private val _rectTo = Rect()
     private val _rectSelf = Rect()
@@ -51,7 +54,7 @@ class TextKBubbleProxy : ITextKBubble {
     override var arrowToViewId: Int = 0
         set(value) {
             field = value
-            setArrowToViewRef(null)
+            setArrowToViewRef(null) // 先不设置，在updateDrawable会重新寻找
         }
     override var arrowToView: View?
         get() = _arrowToViewRef?.get()
@@ -101,7 +104,7 @@ class TextKBubbleProxy : ITextKBubble {
         private val BORDER_WIDTH = 1f.dp2px().toFloat()
         private val GAP_PADDING = 0f.dp2px().toFloat()
         private val CORNER_RADIUS = 4f.dp2px().toFloat()
-        private val PADDING = 0f.dp2px().toFloat()
+        private val PADDING = 2f.dp2px().toFloat()
     }
     //endregion
 
@@ -128,11 +131,22 @@ class TextKBubbleProxy : ITextKBubble {
         _drawableArrowDirection = arrowDirection
         arrowToView?.let {
             arrowToView!!.getLocationOnScreen(_location)
-            _rectTo.set(_location[0], _location[1], _location[0] + arrowToView!!.width, _location[1] + arrowToView!!.height)
+            _rectTo.set(
+                _location[0],
+                _location[1],
+                _location[0] + arrowToView!!.width,
+                _location[1] + arrowToView!!.height
+            )
             _parentView.getLocationOnScreen(_location)
 
-            _rectSelf.set(_location[0], _location[1], _location[0] + width, _location[1] + height)
-            if (_drawableArrowDirection === ArrowDirection.Auto) {
+            _rectSelf.set(
+                _location[0],
+                _location[1],
+                _location[0] + width,
+                _location[1] + height
+            )
+
+            if (_drawableArrowDirection == ArrowDirection.Auto) {
                 _drawableArrowDirection = getAutoArrowDirection(_rectSelf, _rectTo)
             }
             arrowToOffsetX = _rectTo.centerX().toFloat() - _rectSelf.centerX().toFloat()
@@ -189,7 +203,7 @@ class TextKBubbleProxy : ITextKBubble {
 
     override fun setPadding(left: Float, top: Float, right: Float, bottom: Float) {
         _bubbleListener ?: return
-
+        Log.d(TAG, "setPadding: _bubbleListener is not null")
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
             val stack = Throwable().stackTrace
             for (i in 0..6) {
@@ -276,11 +290,11 @@ class TextKBubbleProxy : ITextKBubble {
         cornerTopLeftRadius =
             typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerTopLeftRadius, cornerTopLeftRadius)
         cornerTopRightRadius =
-            typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerTopRightRadius, cornerTopLeftRadius)
+            typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerTopRightRadius, cornerTopRightRadius)
         cornerBottomLeftRadius =
-            typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerBottomLeftRadius, cornerTopLeftRadius)
+            typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerBottomLeftRadius, cornerBottomLeftRadius)
         cornerBottomRightRadius =
-            typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerBottomRightRadius, cornerTopLeftRadius)
+            typedArray.getDimension(R.styleable.TextKBubble_textKBubble_cornerBottomRightRadius, cornerBottomRightRadius)
 
         val padding =
             typedArray.getDimension(R.styleable.TextKBubble_textKBubble_padding, PADDING)

@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/dialogk_ques_title"
-            style="@style/DialogKTitleStyle"
+            style="@style/DialogKStyle_Title"
             android:text="请替换你的标题!"
             tools:ignore="HardcodedText" />
 
@@ -26,14 +26,14 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogk_ques_btn_cancel"
-                style="@style/DialogKBtnCancelStyle"
+                style="@style/DialogKStyle_BtnCancel"
                 android:layout_width="120dp"
                 android:text="取消"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogk_ques_btn_sure"
-                style="@style/DialogKBtnSureStyle"
+                style="@style/DialogKStyle_BtnSure"
                 android:layout_width="120dp"
                 android:text="确定"
                 tools:ignore="HardcodedText" />

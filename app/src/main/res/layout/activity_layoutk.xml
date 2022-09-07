@@ -26,12 +26,12 @@
         <com.mozhimen.uicorek.layoutk.LayoutKInputItem
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            app:layoutKInputItem_bottomLineAppearance="@style/LayoutKInputItem_LineAppearanceStyle"
-            app:layoutKInputItem_topLineAppearance="@style/LayoutKInputItem_LineAppearanceStyle"
+            app:layoutKInputItem_bottomLineAppearance="@style/LayoutKInputItemStyle_LineAppearance"
+            app:layoutKInputItem_topLineAppearance="@style/LayoutKInputItemStyle_LineAppearance"
             app:layoutKInputItem_hint="请输入"
-            app:layoutKInputItem_inputAppearance="@style/LayoutKInputItem_InputAppearanceStyle"
+            app:layoutKInputItem_inputAppearance="@style/LayoutKInputItemStyle_InputAppearance"
             app:layoutKInputItem_inputType="text"
             app:layoutKInputItem_title="示例"
-            app:layoutKInputItem_titleAppearance="@style/LayoutKInputItem_TitleAppearanceStyle" />
+            app:layoutKInputItem_titleAppearance="@style/LayoutKInputItemStyle_TitleAppearance" />
     </LinearLayout>
 </layout>

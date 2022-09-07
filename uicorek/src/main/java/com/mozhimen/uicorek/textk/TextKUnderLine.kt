@@ -28,6 +28,10 @@ class TextKUnderLine @JvmOverloads constructor(context: Context, attrs: Attribut
         initPaint()
     }
 
+    override fun initFlag() {
+
+    }
+
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         //Load attributes 加载属性列表R.styleable.UnderLineTextView
         val typedArray: TypedArray = context.obtainStyledAttributes(
