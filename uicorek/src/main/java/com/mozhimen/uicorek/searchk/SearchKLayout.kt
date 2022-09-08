@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
+import com.mozhimen.basick.basek.BaseKLayoutRelative
 import com.mozhimen.basick.extsk.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
@@ -30,7 +31,7 @@ import com.mozhimen.basick.eventk.EventKHandler
  */
 class SearchKLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : RelativeLayout(context, attrs, defStyleAttr), IBaseKLayout {
+) : BaseKLayoutRelative(context, attrs, defStyleAttr) {
 
     private val _attrs: SearchKAttrs =
         SearchKAttrsParser.parseSearchViewAttrs(context, attrs, defStyleAttr)

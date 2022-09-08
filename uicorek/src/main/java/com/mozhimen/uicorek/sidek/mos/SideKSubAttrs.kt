@@ -1,15 +1,15 @@
-package com.mozhimen.uicorek.sliderk.mos
+package com.mozhimen.uicorek.sidek.mos
 
 import android.graphics.drawable.Drawable
 
 /**
- * @ClassName SliderKSubAttrs
+ * @ClassName SideKSubAttrs
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/7/14 16:37
  * @Version 1.0
  */
-data class SliderKSubAttrs(
+data class SideKSubAttrs(
     val menuWidth: Int,
     val menuHeight: Int,
     val menuItemTextSize: Int,

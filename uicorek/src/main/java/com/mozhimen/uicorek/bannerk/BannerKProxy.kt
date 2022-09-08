@@ -13,7 +13,7 @@ import com.mozhimen.uicorek.bannerk.mos.BannerKMo
 import com.mozhimen.uicorek.bannerk.customs.PointIndicator
 
 /**
- * @ClassName BannerKDelegate
+ * @ClassName BannerKProxy
  * @Description BannerK的控制器
  * 辅助BannerK完成各种功能的控制
  * 将BannerK的一些逻辑内聚在这,保证暴露给使用者的BannerK干净整洁
@@ -21,7 +21,7 @@ import com.mozhimen.uicorek.bannerk.customs.PointIndicator
  * @Date 2022/4/20 11:45
  * @Version 1.0
  */
-class BannerKDelegate(
+class BannerKProxy(
     private val _context: Context,
     private val _bannerK: BannerK
 ) : IBannerK, OnPageChangeListener {
@@ -199,7 +199,7 @@ class BannerKDelegate(
         _viewPager = BannerKViewPager(_context)
         _viewPager!!.apply {
             setIntervalTime(_intervalTime)
-            addOnPageChangeListener(this@BannerKDelegate)
+            addOnPageChangeListener(this@BannerKProxy)
             setAutoPlay(_autoPlay)
             if (_scrollDuration > 0) setScrollDuration(_scrollDuration)
             adapter = _adapter

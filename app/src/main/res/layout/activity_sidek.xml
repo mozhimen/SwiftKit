@@ -8,10 +8,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".uicorek.sliderk.SliderKActivity">
+        tools:context=".uicorek.sidek.SideKActivity">
 
-        <com.mozhimen.uicorek.sliderk.SliderKSubLayout
-            android:id="@+id/sliderk_slider"
+        <com.mozhimen.uicorek.sidek.SideKSubLayout
+            android:id="@+id/sidek_sidebar"
             android:layout_width="match_parent"
             app:sliderKSubLayout_contentImgRatio="ratio34"
             android:layout_height="match_parent" />

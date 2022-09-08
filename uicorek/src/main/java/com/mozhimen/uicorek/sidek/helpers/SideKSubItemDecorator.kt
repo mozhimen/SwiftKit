@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.sliderk.helpers
+package com.mozhimen.uicorek.sidek.helpers
 
 import android.graphics.*
 import android.text.TextUtils
@@ -6,13 +6,13 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * @ClassName SliderKSubItemDecorator
+ * @ClassName SideKSubItemDecorator
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/7/15 15:09
  * @Version 1.0
  */
-class SliderKSubItemDecorator(
+class SideKSubItemDecorator(
     private val _spanCount: Int,
     private val _height: Int,
     private val _marginStart: Int,

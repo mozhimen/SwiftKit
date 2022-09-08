@@ -14,7 +14,7 @@ import com.mozhimen.app.uicorek.loadk.LoadKActivity
 import com.mozhimen.app.uicorek.navk.NavKActivity
 import com.mozhimen.app.uicorek.refreshk.RefreshKLayoutActivity
 import com.mozhimen.app.uicorek.refreshk.RefreshKLayoutLottieActivity
-import com.mozhimen.app.uicorek.sliderk.SliderKActivity
+import com.mozhimen.app.uicorek.sidek.SideKActivity
 import com.mozhimen.app.uicorek.tabk.*
 import com.mozhimen.app.uicorek.textk.TextKActivity
 import com.mozhimen.app.uicorek.viewk.ViewKActivity
@@ -73,8 +73,8 @@ class UICoreKActivity : Activity() {
         start<LoadKActivity>()
     }
 
-    fun gotoSliderK(view: View) {
-        start<SliderKActivity>()
+    fun gotoSideK(view: View) {
+        start<SideKActivity>()
     }
 
     fun gotoLayoutK(view: View) {

@@ -10,6 +10,7 @@ import android.util.AttributeSet
  * @Version 1.0
  */
 interface IBaseKLayout {
+    fun initFlag()
     fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int)
     fun initView()
 }

@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.sliderk.helpers
+package com.mozhimen.uicorek.sidek.helpers
 
 import android.content.Context
 import android.util.AttributeSet
@@ -6,16 +6,16 @@ import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.sp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.uicorek.sliderk.mos.SliderKSubAttrs
+import com.mozhimen.uicorek.sidek.mos.SideKSubAttrs
 
 /**
- * @ClassName SliderKSubAttrsParser
+ * @ClassName SideKSubAttrsParser
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2021/12/25 16:32
  * @Version 1.0
  */
-internal object SliderKSubAttrsParser {
+internal object SideKSubAttrsParser {
     private val MENU_WIDTH = 90f.dp2px()
     private val MENU_HEIGHT = 45f.dp2px()
     private val MENU_ITEM_TEXT_SIZE = 16f.sp2px()
@@ -36,7 +36,7 @@ internal object SliderKSubAttrsParser {
     private val CONTENT_TEXT_COLOR = UtilKRes.getColor(R.color.blue_normal)
     private const val CONTENT_IMG_RATIO = 1f
 
-    fun parseMenuAttr(context: Context, attrs: AttributeSet?): SliderKSubAttrs {
+    fun parseMenuAttr(context: Context, attrs: AttributeSet?): SideKSubAttrs {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.SliderKSubLayout)
             val menuWidth =
@@ -77,7 +77,7 @@ internal object SliderKSubAttrsParser {
                 }
             typedArray.recycle()
 
-            return SliderKSubAttrs(
+            return SideKSubAttrs(
                 menuWidth,
                 menuHeight,
                 menuItemTextSize,
@@ -95,7 +95,7 @@ internal object SliderKSubAttrsParser {
                 contentTextColor,
                 contentImgRatio
             )
-        } ?: return SliderKSubAttrs(
+        } ?: return SideKSubAttrs(
             MENU_WIDTH,
             MENU_HEIGHT,
             MENU_ITEM_TEXT_SIZE,

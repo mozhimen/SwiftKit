@@ -22,6 +22,9 @@ class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) : TextKBubb
 
         private var _tip: String? = null
         private var _delayMillis: Long = DEFAULT_DISMISS_DELAY
+        private var _arrowDirection: ArrowDirection = ArrowDirection.Up
+        private var _isCancelOnTouch: Boolean = true
+        private var _isCancelOnTouchOutside: Boolean = true
 
         fun setTip(tip: String): Builder {
             _tip = tip
@@ -33,15 +36,30 @@ class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) : TextKBubb
             return this
         }
 
+        fun setArrowDirection(arrowDirection: ArrowDirection): Builder {
+            _arrowDirection = arrowDirection
+            return this
+        }
+
+        fun setCancelOnTouch(cancel: Boolean): Builder {
+            _isCancelOnTouch = cancel
+            return this
+        }
+
+        fun setCancelOnTouchOutside(cancel: Boolean): Builder {
+            _isCancelOnTouchOutside = cancel
+            return this
+        }
+
         fun create(anchorView: View): TextKBubblePopWin {
             val rootView = View.inflate(_context, layoutId, null) as TextKBubble
             rootView.text = _tip ?: DEFAULT_TEXT
 
             val textKBubblePopWin = TextKBubblePopWin(rootView, rootView)
-            textKBubblePopWin.setCancelOnTouch(true)
+            textKBubblePopWin.setCancelOnTouch(_isCancelOnTouch)
             textKBubblePopWin.setCancelOnTouchOutside(true)
             textKBubblePopWin.setCancelOnLater(_delayMillis)
-            textKBubblePopWin.showArrowTo(anchorView, ArrowDirection.Up)
+            textKBubblePopWin.showArrowTo(anchorView, _arrowDirection)
             return textKBubblePopWin
         }
     }

@@ -1,20 +1,20 @@
-package com.mozhimen.app.uicorek.sliderk
+package com.mozhimen.app.uicorek.sidek
 
 import android.os.Bundle
 import android.widget.Toast
 import com.mozhimen.app.R
-import com.mozhimen.app.databinding.ActivitySliderkBinding
+import com.mozhimen.app.databinding.ActivitySidekBinding
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.uicorek.itemk.ItemKViewHolder
-import com.mozhimen.uicorek.sliderk.SliderKSubItemListener
-import com.mozhimen.uicorek.sliderk.mos.SliderKContentMo
-import com.mozhimen.uicorek.sliderk.mos.SliderKDataMo
-import com.mozhimen.uicorek.sliderk.mos.SliderKMenuMo
-import com.mozhimen.uicorek.sliderk.mos.SliderKSubMo
+import com.mozhimen.uicorek.sidek.SideKSubItemListener
+import com.mozhimen.uicorek.sidek.mos.SliderKContentMo
+import com.mozhimen.uicorek.sidek.mos.SliderKDataMo
+import com.mozhimen.uicorek.sidek.mos.SliderKMenuMo
+import com.mozhimen.uicorek.sidek.mos.SliderKSubMo
 
-class SliderKActivity : BaseKActivity<ActivitySliderkBinding, BaseKViewModel>(R.layout.activity_sliderk) {
+class SideKActivity : BaseKActivity<ActivitySidekBinding, BaseKViewModel>(R.layout.activity_sidek) {
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
     }
@@ -216,7 +216,7 @@ class SliderKActivity : BaseKActivity<ActivitySliderkBinding, BaseKViewModel>(R.
                 )
             )
         )
-        vb.sliderkSlider.bindData(mo, spanCount = 3, listener = object : SliderKSubItemListener {
+        vb.sidekSidebar.bindData(mo, spanCount = 3, listener = object : SideKSubItemListener {
             override fun invoke(holder: ItemKViewHolder, contentMo: SliderKContentMo?) {
                 "$contentMo".showToast(Toast.LENGTH_LONG)
             }

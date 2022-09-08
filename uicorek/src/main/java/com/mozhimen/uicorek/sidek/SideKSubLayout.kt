@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.sliderk
+package com.mozhimen.uicorek.sidek
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -21,11 +21,11 @@ import com.mozhimen.basick.extsk.fontStyle
 import com.mozhimen.basick.extsk.loadComplex
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.itemk.ItemKViewHolder
-import com.mozhimen.uicorek.sliderk.helpers.SliderKSubAttrsParser
-import com.mozhimen.uicorek.sliderk.helpers.SliderKSubItemDecorator
-import com.mozhimen.uicorek.sliderk.mos.*
+import com.mozhimen.uicorek.sidek.helpers.SideKSubAttrsParser
+import com.mozhimen.uicorek.sidek.helpers.SideKSubItemDecorator
+import com.mozhimen.uicorek.sidek.mos.*
 
-typealias SliderKSubItemListener = (holder: ItemKViewHolder, contentMo: SliderKContentMo?) -> Unit
+typealias SideKSubItemListener = (holder: ItemKViewHolder, contentMo: SliderKContentMo?) -> Unit
 
 /**
  * @ClassName SliderKSubLayout
@@ -35,19 +35,19 @@ typealias SliderKSubItemListener = (holder: ItemKViewHolder, contentMo: SliderKC
  * @Version 1.0
  */
 @SuppressLint("ResourceAsColor")
-class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class SideKSubLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
     private val _menuView = RecyclerView(context)
     private val _contentView = RecyclerView(context)
-    private var _attr: SliderKSubAttrs = SliderKSubAttrsParser.parseMenuAttr(context, attrs)
+    private var _attr: SideKSubAttrs = SideKSubAttrsParser.parseMenuAttr(context, attrs)
     private val _subSpanSizeOffset = SparseIntArray()
 
     private var _menuLayoutId = R.layout.sliderk_menu_item
     private var _contentLayoutId = R.layout.sliderk_content_item
     private var _spanCount = 3
     private var _sliderKSubItemLayoutManager: RecyclerView.LayoutManager? = null
-    private var _sliderKSubItemListener: SliderKSubItemListener? = null
+    private var _sideKSubItemListener: SideKSubItemListener? = null
 
     init {
         initView()
@@ -86,7 +86,7 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
         contentLayoutId: Int? = null,
         spanCount: Int? = null,
         layoutManager: RecyclerView.LayoutManager? = null,
-        listener: SliderKSubItemListener? = null
+        listener: SideKSubItemListener? = null
     ) {
         menuLayoutId?.let { _menuLayoutId = it }
         contentLayoutId?.let { _contentLayoutId = it }
@@ -96,7 +96,7 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
         layoutManager?.let {
             _sliderKSubItemLayoutManager = it
         }
-        listener?.let { _sliderKSubItemListener = it }
+        listener?.let { _sideKSubItemListener = it }
         bindDataMenuView(mo)
     }
 
@@ -146,7 +146,7 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
             }
             _contentView.adapter = SliderKContentAdapter(mo)
             _contentView.addItemDecoration(
-                SliderKSubItemDecorator(_spanCount, _attr.subHeight, _attr.subMarginStart, _attr.subTextSize, _attr.subTextColor) { position ->
+                SideKSubItemDecorator(_spanCount, _attr.subHeight, _attr.subMarginStart, _attr.subTextSize, _attr.subTextColor) { position ->
                     getSubNameByPosition(mo, position)
                 })
         }
@@ -247,7 +247,7 @@ class SliderKSubLayout @JvmOverloads constructor(context: Context, attrs: Attrib
         override fun onBindViewHolder(holder: ItemKViewHolder, position: Int) {
             bindContentView(holder, position)
             holder.itemView.setOnClickListener {
-                _sliderKSubItemListener?.invoke(holder, getContentByPosition(_mo, position))
+                _sideKSubItemListener?.invoke(holder, getContentByPosition(_mo, position))
             }
         }
 

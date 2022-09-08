@@ -81,8 +81,8 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="gotoSliderK"
-                android:text="SliderK"
+                android:onClick="gotoSideK"
+                android:text="SideK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton

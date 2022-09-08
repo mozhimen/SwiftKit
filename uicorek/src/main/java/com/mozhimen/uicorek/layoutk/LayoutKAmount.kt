@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
+import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.sp2px
 import com.mozhimen.basick.basek.commons.IBaseKLayout
@@ -26,10 +27,11 @@ import com.mozhimen.uicorek.R
 
 typealias ILayoutKAmountMonitor = (Int) -> Unit
 
+
 class LayoutKAmount @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LinearLayout(context, attrs, defStyleAttr), IBaseKLayout {
+) : BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
     private var _layoutKAmountListener: ILayoutKAmountMonitor? = null
     private val _attrs = AttrsParser.parseAttrs(context, attrs, defStyleAttr)

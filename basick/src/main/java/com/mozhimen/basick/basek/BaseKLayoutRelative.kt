@@ -24,6 +24,7 @@ abstract class BaseKLayoutRelative : RelativeLayout, IBaseKLayout {
         defStyleRes
     )
 
+    override fun initFlag() {}
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
     override fun initView() {}
 }

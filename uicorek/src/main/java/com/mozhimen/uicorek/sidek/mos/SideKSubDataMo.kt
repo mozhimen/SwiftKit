@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.sliderk.mos
+package com.mozhimen.uicorek.sidek.mos
 
 import java.io.Serializable
 

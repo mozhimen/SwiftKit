@@ -14,7 +14,7 @@ import com.mozhimen.basick.basek.commons.IBaseKLayout
  */
 abstract class BaseKLayoutLinear : LinearLayout, IBaseKLayout {
 
-    val TAG = "${this.javaClass.simpleName}>>>>>"
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : super(
@@ -24,6 +24,7 @@ abstract class BaseKLayoutLinear : LinearLayout, IBaseKLayout {
         defStyleRes
     )
 
+    override fun initFlag() {}
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
     override fun initView() {}
 }

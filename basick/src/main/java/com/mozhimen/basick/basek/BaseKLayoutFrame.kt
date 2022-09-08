@@ -25,6 +25,7 @@ abstract class BaseKLayoutFrame : FrameLayout, IBaseKLayout {
 
     val TAG = "${this.javaClass.simpleName}>>>>>"
 
+    override fun initFlag() {}
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
     override fun initView() {}
 }

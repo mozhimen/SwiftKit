@@ -95,7 +95,7 @@
             android:name=".uicorek.UICoreKActivity"
             android:exported="false" />
         <activity
-            android:name=".uicorek.sliderk.SliderKActivity"
+            android:name=".uicorek.sidek.SideKActivity"
             android:exported="false" />
         <activity
             android:name=".uicorek.tabk.TabKBottomActivity"

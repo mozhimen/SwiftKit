@@ -107,6 +107,30 @@
     </declare-styleable>
 
     <!--layoutk-->
+    <declare-styleable name="LayoutKSlider">
+        <attr name="layoutKSlider_height" format="dimension" />
+        <attr name="layoutKSlider_backgroundColor" format="color" />
+
+        <attr name="layoutKSlider_textTop_visible" format="boolean" />
+        <attr name="layoutKSlider_textTop_size" format="dimension" />
+        <attr name="layoutKSlider_textBottom_visible" format="boolean" />
+        <attr name="layoutKSlider_textBottom_size" format="dimension" />
+
+        <attr name="layoutKSlider_step_colorizeAfterLast" format="boolean" />
+        <attr name="layoutKSlider_step_drawLine" format="boolean" />
+        <attr name="layoutKSlider_step_colorizeOnlyBeforeIndicator" format="boolean" />
+
+        <attr name="layoutKSlider_draw_bubble" format="boolean" />
+
+        <attr name="layoutKSlider_regions" format="boolean" />
+        <attr name="layoutKSlider_regions_centerText" format="boolean" />
+        <attr name="layoutKSlider_regions_textFollowRegionColor" format="boolean" />
+        <attr name="layoutKSlider_region_leftColor" format="color" />
+        <attr name="layoutKSlider_region_rightColor" format="color" />
+
+        <attr name="layoutKSlider_indicator_inside" format="boolean" />
+        <attr name="layoutKSlider_edditable" format="boolean" />
+    </declare-styleable>
     <declare-styleable name="LayoutKEmpty">
         <attr name="layoutKEmpty_icon" format="string|reference" />
         <attr name="layoutKEmpty_image" format="reference" />

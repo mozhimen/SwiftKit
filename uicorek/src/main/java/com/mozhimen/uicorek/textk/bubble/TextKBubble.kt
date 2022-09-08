@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import com.mozhimen.basick.basek.commons.IBaseKLayout
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener
 
@@ -19,7 +20,7 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     //region # variate
     private val TAG = "TextKBubble>>>>>"
-    private var _textKBubbleProxy: TextKBubbleProxy = TextKBubbleProxy()
+    private var _textKBubbleProxy: TextKBubbleProxy = TextKBubbleProxy(context)
     override fun setArrowDirection(arrowDirection: ITextKBubble.ArrowDirection) {
         _textKBubbleProxy.setArrowDirection(arrowDirection)
     }
@@ -167,11 +168,11 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     //endregion
 
     init {
-        init(context, attrs)
+        init(attrs)
     }
 
-    fun init(context: Context, attrs: AttributeSet?) {
-        _textKBubbleProxy.init(this, context, attrs)
+    fun init(attrs: AttributeSet?) {
+        _textKBubbleProxy.init(this, attrs)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
