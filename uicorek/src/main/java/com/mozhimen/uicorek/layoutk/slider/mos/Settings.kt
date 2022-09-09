@@ -1,7 +1,6 @@
 package com.mozhimen.uicorek.layoutk.slider.mos
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.graphics.Color
 import android.graphics.Paint
 import android.text.TextPaint
@@ -19,35 +18,65 @@ import com.mozhimen.uicorek.layoutk.slider.Slidr
 class Settings(slidr: Slidr) {
     private val slidr: Slidr
     private val paintBar: Paint
+    fun getPaintBar() = paintBar
     private val paintIndicator: Paint
+    fun getPaintIndicator(): Paint = paintIndicator
     private val paintStep: Paint
+    fun getPaintStep() = paintStep
     private val paintTextTop: TextPaint
+    fun getPaintTextTop() = paintTextTop
     private val paintTextBottom: TextPaint
+    fun getPaintTextBottom() = paintTextBottom
     private val paintBubbleTextCurrent: TextPaint
+    fun getPaintBubbleTextCurrent(): TextPaint = paintBubbleTextCurrent
     private val paintBubble: Paint
+    fun getPaintBubble(): Paint = paintBubble
     private var colorBackground = Color.parseColor("#cccccc")
+    fun getColorBackground() = colorBackground
     private val colorStoppover = Color.BLACK
     private val textColor = Color.parseColor("#6E6E6E")
     private var textTopSize = 12
     private var textBottomSize = 12
     private val textSizeBubbleCurrent = 16
+    fun getTextSizeBubbleCurrent(): Int = textSizeBubbleCurrent
     private var barHeight = 15f
-    private val paddingCorners = 0f
+    fun getBarHeight(): Float = barHeight
+    private var paddingCorners = 0f
+    fun setPaddingCorners(paddingCorners: Float) {
+        this.paddingCorners = paddingCorners
+    }
+
+    fun getPaddingCorners(): Float = paddingCorners
     private var step_colorizeAfterLast = false
+    fun getStep_colorizeAfterLast() = step_colorizeAfterLast
     private var step_drawLines = true
+    fun getStep_drawLines() = step_drawLines
     private var step_colorizeOnlyBeforeIndicator = true
+    fun getStep_colorizeOnlyBeforeIndicator() = step_colorizeOnlyBeforeIndicator
     private var drawTextOnTop = true
+    fun getDrawTextOnTop() = drawTextOnTop
     private var drawTextOnBottom = true
+    fun getDrawTextOnBottom() = drawTextOnBottom
     private var drawBubble = true
+    fun getDrawBubble(): Boolean = drawBubble
     private var modeRegion = false
+    fun getModeRegion(): Boolean = modeRegion
     private var indicatorInside = false
+    fun getIndicatorInside() = indicatorInside
     private var regions_textFollowRegionColor = false
+    fun getRegions_textFollowRegionColor() = regions_textFollowRegionColor
     private var regions_centerText = true
+    fun getRegions_centerText() = regions_centerText
     private var regionColorLeft = Color.parseColor("#007E90")
+    fun getRegionColorLeft() = regionColorLeft
     private var regionColorRight = Color.parseColor("#ed5564")
+    fun getRegionColorRight() = regionColorRight
     private var editOnBubbleClick = true
+    fun getEditOnBubbleClick(): Boolean = editOnBubbleClick
     private val bubbleColorEditing = Color.WHITE
-    private fun init(context: Context, attrs: AttributeSet?) {
+    fun getBubbleColorEditing() = bubbleColorEditing
+
+    fun init(context: Context, attrs: AttributeSet?) {
         if (attrs != null) {
             val a = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSlider)
             setColorBackground(a.getColor(R.styleable.LayoutKSlider_layoutKSlider_backgroundColor, colorBackground))
@@ -135,33 +164,40 @@ class Settings(slidr: Slidr) {
 
     init {
         this.slidr = slidr
+
         paintIndicator = Paint()
         paintIndicator.isAntiAlias = true
         paintIndicator.strokeWidth = 2f
+
         paintBar = Paint()
         paintBar.isAntiAlias = true
         paintBar.strokeWidth = 2f
         paintBar.color = colorBackground
+
         paintStep = Paint()
         paintStep.isAntiAlias = true
         paintStep.strokeWidth = 5f
         paintStep.color = colorStoppover
+
         paintTextTop = TextPaint()
         paintTextTop.isAntiAlias = true
         paintTextTop.style = Paint.Style.FILL
         paintTextTop.color = textColor
         paintTextTop.textSize = textTopSize.toFloat()
+
         paintTextBottom = TextPaint()
         paintTextBottom.isAntiAlias = true
         paintTextBottom.style = Paint.Style.FILL
         paintTextBottom.color = textColor
         paintTextBottom.textSize = textBottomSize.toFloat()
+
         paintBubbleTextCurrent = TextPaint()
         paintBubbleTextCurrent.isAntiAlias = true
         paintBubbleTextCurrent.style = Paint.Style.FILL
         paintBubbleTextCurrent.color = Color.WHITE
         paintBubbleTextCurrent.strokeWidth = 2f
         paintBubbleTextCurrent.textSize = dpToPx(textSizeBubbleCurrent)
+
         paintBubble = Paint()
         paintBubble.isAntiAlias = true
         paintBubble.strokeWidth = 3f

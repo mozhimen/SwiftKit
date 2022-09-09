@@ -12,23 +12,46 @@ import com.mozhimen.uicorek.layoutk.slider.Slidr
  * @Version 1.0
  */
 class Bubble {
-    private val height = 0f
-    private val width = 0f
-    private val x = 0f
-    private val y = 0f
-    fun clicked(e: MotionEvent): Boolean {
-        return e.x >= x && e.x <= x + width && e.y >= y && e.y < y + height
+    private var _height = 0f
+    private var _width = 0f
+    private var _x = 0f
+    private var _y = 0f
+
+    fun setWidth(width: Float) {
+        _width = width
     }
 
-    fun getHeight(): Float {
-        return height - Slidr.BUBBLE_ARROW_HEIGHT.dp2px()
+    fun getWidth(): Float =
+        _width
+
+    fun setHeight(height: Float) {
+        _height = height
+    }
+
+    fun getHeight(): Float =
+        _height
+
+    fun getSliderHeight(): Float {
+        return _height - Slidr.BUBBLE_ARROW_HEIGHT.dp2px()
+    }
+
+    fun setX(x: Float) {
+        _x = x
     }
 
     fun getX(): Float {
-        return x.coerceAtLeast(0f)
+        return _x.coerceAtLeast(0f)
+    }
+
+    fun setY(y: Float) {
+        _y = y
     }
 
     fun getY(): Float {
-        return y.coerceAtLeast(0f)
+        return _y.coerceAtLeast(0f)
+    }
+
+    fun onClicked(e: MotionEvent): Boolean {
+        return e.x >= _x && e.x <= _x + _width && e.y >= _y && e.y < _y + _height
     }
 }

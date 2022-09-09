@@ -3,7 +3,6 @@ package com.mozhimen.uicorek.layoutk.slider;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,7 +10,6 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.view.GestureDetectorCompat;
@@ -48,21 +46,28 @@ import java.util.List;
 
 import static android.view.MotionEvent.ACTION_UP;
 
-import com.mozhimen.uicorek.R;
+import com.mozhimen.basick.utilk.UtilKDisplay;
+import com.mozhimen.uicorek.layoutk.slider.commons.BubbleClickedListener;
 import com.mozhimen.uicorek.layoutk.slider.commons.EditListener;
+import com.mozhimen.uicorek.layoutk.slider.commons.Listener;
+import com.mozhimen.uicorek.layoutk.slider.commons.RegionTextFormatter;
+import com.mozhimen.uicorek.layoutk.slider.commons.TextFormatter;
+import com.mozhimen.uicorek.layoutk.slider.mos.Bubble;
+import com.mozhimen.uicorek.layoutk.slider.mos.Settings;
+import com.mozhimen.uicorek.layoutk.slider.mos.Step;
+import com.mozhimen.uicorek.layoutk.slider.temps.EurosTextFormatter;
+import com.mozhimen.uicorek.viewk.ViewKTouch;
 
-/**
- * Created by florentchampigny on 20/04/2017.
- */
+import kotlin.Unit;
+import kotlin.jvm.functions.Function0;
 
 public class Slidr extends FrameLayout {
-
     private static final float DISTANCE_TEXT_BAR = 10;
     private static final float BUBBLE_PADDING_HORIZONTAL = 15;
     private static final float BUBBLE_PADDING_VERTICAL = 10;
 
     public static final float BUBBLE_ARROW_HEIGHT = 10;
-    private static final float BUBBLE_ARROW_WIDTH = 20;
+    public static final float BUBBLE_ARROW_WIDTH = 20;
     boolean moving = false;
     private Listener listener;
     private BubbleClickedListener bubbleClickedListener;
@@ -88,7 +93,7 @@ public class Slidr extends FrameLayout {
     private boolean isEditing = false;
     private String textEditing = "";
     private EditText editText;
-    private TouchView touchView;
+    private ViewKTouch touchView;
     private EditListener editListener;
 
     @Nullable
@@ -108,16 +113,341 @@ public class Slidr extends FrameLayout {
         init(context, attrs);
     }
 
-    private void onClick(MotionEvent e) {
-        if (bubble.clicked(e)) {
-            onBubbleClicked();
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
+    public void setBubbleClickedListener(BubbleClickedListener bubbleClickedListener) {
+        this.bubbleClickedListener = bubbleClickedListener;
+    }
+
+    public float getMax() {
+        return max;
+    }
+
+    public void setMax(float max) {
+        this.max = max;
+        updateValues();
+        update();
+    }
+
+    public void setMin(float min) {
+        this.min = min;
+        updateValues();
+        update();
+    }
+
+    public float getCurrentValue() {
+        return currentValue;
+    }
+
+    public void setCurrentValue(float value) {
+        this.currentValue = value;
+        updateValues();
+        update();
+    }
+
+    public void setTextMax(String textMax) {
+        this.textMax = textMax;
+        postInvalidate();
+    }
+
+    public void setTextMin(String textMin) {
+        this.textMin = textMin;
+        postInvalidate();
+    }
+
+    public void setTextFormatter(TextFormatter textFormatter) {
+        this.textFormatter = textFormatter;
+        update();
+    }
+
+    public void setRegionTextFormatter(RegionTextFormatter regionTextFormatter) {
+        this.regionTextFormatter = regionTextFormatter;
+        update();
+    }
+
+    public void setEditListener(EditListener editListener) {
+        this.editListener = editListener;
+    }
+
+    public void addStep(List<Step> steps) {
+        this.steps.addAll(steps);
+        Collections.sort(steps);
+        update();
+    }
+
+    public void addStep(Step step) {
+        this.steps.add(step);
+        Collections.sort(steps);
+        update();
+    }
+
+    public void clearSteps() {
+        this.steps.clear();
+        update();
+    }
+
+    public void update() {
+        if (barWidth > 0f) {
+            float currentPercent = indicatorX / barWidth;
+            currentValue = currentPercent * (max - min) + min;
+            currentValue = Math.round(currentValue);
+
+            if (listener != null && oldValue != currentValue) {
+                oldValue = currentValue;
+                listener.valueChanged(Slidr.this, currentValue);
+            } else {
+
+            }
+
+            updateBubbleWidth();
+            editBubbleEditPosition();
         }
+        postInvalidate();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return handleTouch(event);
+    }
+
+    @Override
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            dispatchKeyEvent(event);
+            closeEditText();
+            return false;
+        }
+        return super.onKeyPreIme(keyCode, event);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         parentScroll = (ViewGroup) getScrollableParentView();
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        canvas.save();
+        {
+
+            final float paddingLeft = settings.getPaddingCorners();
+            final float paddingRight = settings.getPaddingCorners();
+
+
+            if (isRegions()) {
+                if (steps.isEmpty()) {
+                    settings.getPaintIndicator().setColor(settings.getRegionColorLeft());
+                    settings.getPaintBubble().setColor(settings.getRegionColorLeft());
+                } else {
+                    settings.getPaintIndicator().setColor(settings.getRegionColorRight());
+                    settings.getPaintBubble().setColor(settings.getRegionColorRight());
+                }
+            } else {
+                final Step stepBeforeCustor = findStepOfCustor();
+                if (stepBeforeCustor != null) {
+                    settings.getPaintIndicator().setColor(stepBeforeCustor.getColorBefore());
+                    settings.getPaintBubble().setColor(stepBeforeCustor.getColorBefore());
+                } else {
+                    if (settings.getStep_colorizeAfterLast()) {
+                        final Step beforeCustor = findStepBeforeCustor();
+                        if (beforeCustor != null) {
+                            settings.getPaintIndicator().setColor(beforeCustor.getColorAfter());
+                            settings.getPaintBubble().setColor(beforeCustor.getColorAfter());
+                        }
+                    } else {
+                        settings.getPaintIndicator().setColor(settings.getColorBackground());
+                        settings.getPaintBubble().setColor(settings.getColorBackground());
+                    }
+                }
+            }
+
+            final float radiusCorner = settings.getBarHeight() / 2f;
+
+            final float indicatorCenterX = indicatorX + paddingLeft;
+
+            { //background
+                final float centerCircleLeft = paddingLeft;
+                final float centerCircleRight = getWidth() - paddingRight;
+
+                //grey background
+                if (isRegions()) {
+                    if (steps.isEmpty()) {
+                        settings.getPaintBar().setColor(settings.getColorBackground());
+                    } else {
+                        settings.getPaintBar().setColor(settings.getRegionColorRight());
+                    }
+                } else {
+                    settings.getPaintBar().setColor(settings.getColorBackground());
+                }
+                canvas.drawCircle(centerCircleLeft, barCenterY, radiusCorner, settings.getPaintBar());
+                canvas.drawCircle(centerCircleRight, barCenterY, radiusCorner, settings.getPaintBar());
+                canvas.drawRect(centerCircleLeft, barY, centerCircleRight, barY + settings.getBarHeight(), settings.getPaintBar());
+
+                if (isRegions()) {
+                    settings.getPaintBar().setColor(settings.getRegionColorLeft());
+
+                    canvas.drawCircle(centerCircleLeft, barCenterY, radiusCorner, settings.getPaintBar());
+                    canvas.drawRect(centerCircleLeft, barY, indicatorCenterX, barY + settings.getBarHeight(), settings.getPaintBar());
+                } else {
+                    float lastX = centerCircleLeft;
+                    boolean first = true;
+                    for (Step step : steps) {
+                        settings.getPaintBar().setColor(step.getColorBefore());
+                        if (first) {
+                            canvas.drawCircle(centerCircleLeft, barCenterY, radiusCorner, settings.getPaintBar());
+                        }
+
+                        final float x = step.getStartPos() + paddingLeft;
+                        if (!settings.getStep_colorizeOnlyBeforeIndicator()) {
+                            canvas.drawRect(lastX, barY, x, barY + settings.getBarHeight(), settings.getPaintBar());
+                        } else {
+                            canvas.drawRect(lastX, barY, Math.min(x, indicatorCenterX), barY + settings.getBarHeight(), settings.getPaintBar());
+                        }
+                        lastX = x;
+
+                        first = false;
+                    }
+
+
+                    if (settings.getStep_colorizeAfterLast()) {
+                        //find the step just below currentValue
+                        for (int i = steps.size() - 1; i >= 0; i--) {
+                            final Step step = steps.get(i);
+                            if ((currentValue - min) > step.getValue()) {
+                                settings.getPaintBar().setColor(step.getColorAfter());
+                                canvas.drawRect(step.getStartPos() + paddingLeft, barY, indicatorCenterX, barY + settings.getBarHeight(), settings.getPaintBar());
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            { //texts top (values)
+                if (settings.getDrawTextOnTop()) {
+                    final float textY = barY - UtilKDisplay.INSTANCE.dp2px(DISTANCE_TEXT_BAR);
+                    if (isRegions()) {
+                        float leftValue;
+                        float rightValue;
+
+                        if (settings.getRegions_centerText()) {
+                            leftValue = currentValue;
+                            rightValue = max - leftValue;
+                        } else {
+                            leftValue = min;
+                            rightValue = max;
+                        }
+
+                        if (settings.getRegions_textFollowRegionColor()) {
+                            settings.getPaintTextTop().setColor(settings.getRegionColorLeft());
+                        }
+
+                        float textX;
+                        if (settings.getRegions_centerText()) {
+                            textX = (indicatorCenterX - paddingLeft) / 2f + paddingLeft;
+                        } else {
+                            textX = paddingLeft;
+                        }
+
+                        drawIndicatorsTextAbove(canvas, formatRegionValue(0, leftValue), settings.getPaintTextTop(), textX, textY, Layout.Alignment.ALIGN_CENTER);
+
+                        if (settings.getRegions_textFollowRegionColor()) {
+                            settings.getPaintTextTop().setColor(settings.getRegionColorRight());
+                        }
+
+                        if (settings.getRegions_centerText()) {
+                            textX = indicatorCenterX + (barWidth - indicatorCenterX - paddingLeft) / 2f + paddingLeft;
+                        } else {
+                            textX = paddingLeft + barWidth;
+                        }
+                        drawIndicatorsTextAbove(canvas, formatRegionValue(1, rightValue), settings.getPaintTextTop(), textX, textY, Layout.Alignment.ALIGN_CENTER);
+                    } else {
+                        drawIndicatorsTextAbove(canvas, formatValue(min), settings.getPaintTextTop(), 0 + paddingLeft, textY, Layout.Alignment.ALIGN_CENTER);
+                        for (Step step : steps) {
+                            drawIndicatorsTextAbove(canvas, formatValue(step.getValue()), settings.getPaintTextTop(), step.getStartPos() + paddingLeft, textY, Layout.Alignment.ALIGN_CENTER);
+                        }
+                        drawIndicatorsTextAbove(canvas, formatValue(max), settings.getPaintTextTop(), canvas.getWidth(), textY, Layout.Alignment.ALIGN_CENTER);
+                    }
+                }
+            }
+
+
+            { //steps + bottom text
+                final float bottomTextY = barY + settings.getBarHeight() + 15;
+
+                for (Step step : steps) {
+                    if (settings.getStep_drawLines()) {
+                        canvas.drawLine(step.getStartPos() + paddingLeft, barY - settings.getBarHeight() / 4f, step.getStartPos() + paddingLeft, barY + settings.getBarHeight() + settings.getBarHeight() / 4f, settings.getPaintStep());
+                    }
+
+                    if (settings.getDrawTextOnBottom()) {
+                        //drawMultilineText(canvas, maxText, canvas.getWidth() - settings.paintText.measureText(maxText), textY, settings.paintText, Layout.Alignment.ALIGN_OPPOSITE);
+                        drawMultilineText(canvas, step.getName(), step.getStartPos() + paddingLeft, bottomTextY, settings.getPaintTextBottom(), Layout.Alignment.ALIGN_CENTER);
+                    }
+                }
+
+                if (settings.getDrawTextOnBottom()) {
+                    if (!TextUtils.isEmpty(textMax)) {
+                        drawMultilineText(canvas, textMax, canvas.getWidth(), bottomTextY, settings.getPaintTextBottom(), Layout.Alignment.ALIGN_CENTER);
+                    }
+
+                    if (!TextUtils.isEmpty(textMin)) {
+                        drawMultilineText(canvas, textMin, 0, bottomTextY, settings.getPaintTextBottom(), Layout.Alignment.ALIGN_CENTER);
+                    }
+                }
+            }
+
+            //indicator
+            {
+                final int color = settings.getPaintIndicator().getColor();
+                canvas.drawCircle(indicatorCenterX, this.barCenterY, indicatorRadius, settings.getPaintIndicator());
+                settings.getPaintIndicator().setColor(Color.WHITE);
+                canvas.drawCircle(indicatorCenterX, this.barCenterY, indicatorRadius * 0.85f, settings.getPaintIndicator());
+                settings.getPaintIndicator().setColor(color);
+            }
+
+            //bubble
+            {
+                if (settings.getDrawBubble()) {
+                    float bubbleCenterX = indicatorCenterX;
+                    float trangleCenterX;
+
+                    bubble.setX(bubbleCenterX - bubble.getWidth() / 2f);
+                    bubble.setY(0f);
+
+                    if (bubbleCenterX > canvas.getWidth() - bubble.getWidth() / 2f) {
+                        bubbleCenterX = canvas.getWidth() - bubble.getWidth() / 2f;
+                    } else if (bubbleCenterX - bubble.getWidth() / 2f < 0) {
+                        bubbleCenterX = bubble.getWidth() / 2f;
+                    }
+
+                    trangleCenterX = (bubbleCenterX + indicatorCenterX) / 2f;
+
+                    drawBubble(canvas, bubbleCenterX, trangleCenterX, 0);
+                }
+            }
+        }
+
+        canvas.restore();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        updateValues();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        updateValues();
+        super.onMeasure(widthMeasureSpec,
+                MeasureSpec.makeMeasureSpec(calculatedHieght, MeasureSpec.EXACTLY));
     }
 
     private void closeEditText() {
@@ -163,15 +493,14 @@ public class Slidr extends FrameLayout {
         return (ViewGroup) ((Activity) getContext()).getWindow().getDecorView();
     }
 
-
     private void editBubbleEditPosition() {
         if (isEditing) {
             editText.setX(Math.min(bubble.getX(), getWidth() - editText.getWidth()));
             editText.setY(bubble.getY());
 
             final ViewGroup.LayoutParams params = editText.getLayoutParams();
-            params.width = (int) bubble.width;
-            params.height = (int) bubble.getHeight();
+            params.width = (int) bubble.getWidth();
+            params.height = (int) bubble.getSliderHeight();
             editText.setLayoutParams(params);
 
             editText.animate().alpha(1f);
@@ -179,7 +508,7 @@ public class Slidr extends FrameLayout {
     }
 
     private void onBubbleClicked() {
-        if (settings.editOnBubbleClick) {
+        if (settings.getEditOnBubbleClick()) {
             isEditing = true;
             editText = new AppCompatEditText(getContext()) {
                 @Override
@@ -207,22 +536,23 @@ public class Slidr extends FrameLayout {
             //editText.setRawInputType(Configuration.KEYBOARD_12KEY);
             editText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
-            editText.setTextColor(settings.paintIndicator.getColor());
+            editText.setTextColor(settings.getPaintIndicator().getColor());
             editText.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             editText.setPadding(0, 0, 0, 0);
-            editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, dpToPx(settings.textSizeBubbleCurrent));
+            editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, UtilKDisplay.INSTANCE.dp2px(settings.getTextSizeBubbleCurrent()));
 
             textEditing = String.valueOf((int) currentValue);
             editText.setText(textEditing);
 
             final ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.width = (int) bubble.width;
-            params.height = (int) bubble.getHeight();
+            params.width = (int) bubble.getWidth();
+            params.height = (int) bubble.getSliderHeight();
             editText.setLayoutParams(params);
 
             final Rect rect = new Rect();
             getGlobalVisibleRect(rect);
-            this.touchView = new TouchView(getContext(), rect);
+            this.touchView = new ViewKTouch(getContext());
+            touchView.setTouchArea(rect);
             getActivityDecorView().addView(touchView);
 
             editText.postDelayed(new Runnable() {
@@ -231,12 +561,11 @@ public class Slidr extends FrameLayout {
                     final InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
 
-                    touchView.setCallback(new TouchView.Callback() {
-                        @Override
-                        public void onClicked() {
-                            closeEditText();
-                        }
-                    });
+                    touchView.setListener(
+                            () -> {
+                                closeEditText();
+                                return null;
+                            });
                 }
             }, 300);
 
@@ -295,17 +624,6 @@ public class Slidr extends FrameLayout {
         }
     }
 
-    @Override
-    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            dispatchKeyEvent(event);
-            closeEditText();
-            return false;
-        }
-        return super.onKeyPreIme(keyCode, event);
-    }
-
-
     private void init(Context context, @Nullable AttributeSet attrs) {
         setWillNotDraw(false);
 
@@ -328,82 +646,11 @@ public class Slidr extends FrameLayout {
         this.settings.init(context, attrs);
     }
 
-    public void setListener(Listener listener) {
-        this.listener = listener;
-    }
-
-    public void setBubbleClickedListener(BubbleClickedListener bubbleClickedListener) {
-        this.bubbleClickedListener = bubbleClickedListener;
-    }
-
-    //region getters
-
-    private float dpToPx(int size) {
-        return size * getResources().getDisplayMetrics().density;
-    }
-
-    private float dpToPx(float size) {
-        return size * getResources().getDisplayMetrics().density;
-    }
-
-    private float pxToDp(int size) {
-        return size / getResources().getDisplayMetrics().density;
-    }
-
-    public float getMax() {
-        return max;
-    }
-
-    public void setMax(float max) {
-        this.max = max;
-        updateValues();
-        update();
-    }
-
-    public void setMin(float min) {
-        this.min = min;
-        updateValues();
-        update();
-    }
-
-    public float getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setCurrentValue(float value) {
-        this.currentValue = value;
-        updateValues();
-        update();
-    }
-
     private void setCurrentValueNoUpdate(float value) {
         this.currentValue = value;
         listener.valueChanged(Slidr.this, currentValue);
         updateValues();
 
-    }
-
-    public void setEditListener(EditListener editListener) {
-        this.editListener = editListener;
-    }
-
-    public void addStep(List<Step> steps) {
-        this.steps.addAll(steps);
-        Collections.sort(steps);
-        update();
-    }
-
-    //endregion
-
-    public void addStep(Step step) {
-        this.steps.add(step);
-        Collections.sort(steps);
-        update();
-    }
-
-    public void clearSteps() {
-        this.steps.clear();
-        update();
     }
 
     private View getScrollableParentView() {
@@ -417,12 +664,7 @@ public class Slidr extends FrameLayout {
         return null;
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return handleTouch(event);
-    }
-
-    boolean handleTouch(MotionEvent event) {
+    private boolean handleTouch(MotionEvent event) {
         if (isEditing) {
             return false;
         }
@@ -436,7 +678,6 @@ public class Slidr extends FrameLayout {
                     if (parentScroll != null) {
                         parentScroll.requestDisallowInterceptTouchEvent(false);
                     }
-                    actionUp();
                     moving = false;
                     break;
                 case MotionEvent.ACTION_DOWN:
@@ -453,7 +694,7 @@ public class Slidr extends FrameLayout {
                     if (moving) {
                         float evX = event.getX();
 
-                        evX = evX - settings.paddingCorners;
+                        evX = evX - settings.getPaddingCorners();
                         if (evX < 0) {
                             evX = 0;
                         }
@@ -472,49 +713,13 @@ public class Slidr extends FrameLayout {
         return true;
     }
 
-    void actionUp() {
-
-    }
-
-    public void update() {
-        if (barWidth > 0f) {
-            float currentPercent = indicatorX / barWidth;
-            currentValue = currentPercent * (max - min) + min;
-            currentValue = Math.round(currentValue);
-
-            if (listener != null && oldValue != currentValue) {
-                oldValue = currentValue;
-                listener.valueChanged(Slidr.this, currentValue);
-            } else {
-
-            }
-
-            updateBubbleWidth();
-            editBubbleEditPosition();
-        }
-        postInvalidate();
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
-        updateValues();
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        updateValues();
-        super.onMeasure(widthMeasureSpec,
-                MeasureSpec.makeMeasureSpec(calculatedHieght, MeasureSpec.EXACTLY));
-    }
-
     private void updateBubbleWidth() {
-        this.bubble.width = calculateBubbleTextWidth() + dpToPx(BUBBLE_PADDING_HORIZONTAL) * 2f;
-        this.bubble.width = Math.max(150, this.bubble.width);
+        this.bubble.setWidth(calculateBubbleTextWidth() + UtilKDisplay.INSTANCE.dp2px(BUBBLE_PADDING_HORIZONTAL) * 2f);
+        this.bubble.setWidth(Math.max(150, this.bubble.getWidth()));
     }
 
     private boolean isRegions() {
-        return settings.modeRegion || steps.isEmpty();
+        return settings.getModeRegion() || steps.isEmpty();
     }
 
     private void updateValues() {
@@ -523,26 +728,26 @@ public class Slidr extends FrameLayout {
             currentValue = min;
         }
 
-        settings.paddingCorners = settings.barHeight;
+        settings.setPaddingCorners(settings.getBarHeight());
 
-        barWidth = getWidth() - this.settings.paddingCorners * 2;
+        barWidth = getWidth() - this.settings.getPaddingCorners() * 2;
 
-        if (settings.drawBubble) {
+        if (settings.getDrawBubble()) {
             updateBubbleWidth();
-            this.bubble.height = dpToPx(settings.textSizeBubbleCurrent) + dpToPx(BUBBLE_PADDING_VERTICAL) * 2f + dpToPx(BUBBLE_ARROW_HEIGHT);
+            this.bubble.setHeight(UtilKDisplay.INSTANCE.dp2px(settings.getTextSizeBubbleCurrent()) + UtilKDisplay.INSTANCE.dp2px(BUBBLE_PADDING_VERTICAL) * 2f + UtilKDisplay.INSTANCE.dp2px(BUBBLE_ARROW_HEIGHT));
         } else {
-            this.bubble.height = 0;
+            this.bubble.setHeight(0f);
         }
 
         this.barY = 0;
-        if (settings.drawTextOnTop) {
+        if (settings.getDrawTextOnTop()) {
             barY += DISTANCE_TEXT_BAR * 2;
             if (isRegions()) {
                 float topTextHeight = 0;
                 final String tmpTextLeft = formatRegionValue(0, 0);
                 final String tmpTextRight = formatRegionValue(1, 0);
-                topTextHeight = Math.max(topTextHeight, calculateTextMultilineHeight(tmpTextLeft, settings.paintTextTop));
-                topTextHeight = Math.max(topTextHeight, calculateTextMultilineHeight(tmpTextRight, settings.paintTextTop));
+                topTextHeight = Math.max(topTextHeight, calculateTextMultilineHeight(tmpTextLeft, settings.getPaintTextTop()));
+                topTextHeight = Math.max(topTextHeight, calculateTextMultilineHeight(tmpTextRight, settings.getPaintTextTop()));
 
                 this.barY += topTextHeight + 3;
             } else {
@@ -551,30 +756,30 @@ public class Slidr extends FrameLayout {
                 for (Step step : steps) {
                     topTextHeight = Math.max(
                             topTextHeight,
-                            calculateTextMultilineHeight(formatValue(step.value), settings.paintTextBottom)
+                            calculateTextMultilineHeight(formatValue(step.getValue()), settings.getPaintTextBottom())
                     );
                 }
                 this.barY += topTextHeight;
             }
         } else {
-            if (settings.drawBubble) {
-                this.barY -= dpToPx(BUBBLE_ARROW_HEIGHT) / 1.5f;
+            if (settings.getDrawBubble()) {
+                this.barY -= UtilKDisplay.INSTANCE.dp2px(BUBBLE_ARROW_HEIGHT) / 1.5f;
             }
         }
 
-        this.barY += bubble.height;
+        this.barY += bubble.getHeight();
 
-        this.barCenterY = barY + settings.barHeight / 2f;
+        this.barCenterY = barY + settings.getBarHeight() / 2f;
 
-        if (settings.indicatorInside) {
-            this.indicatorRadius = (int) (settings.barHeight * .5f);
+        if (settings.getIndicatorInside()) {
+            this.indicatorRadius = (int) (settings.getBarHeight() * .5f);
         } else {
-            this.indicatorRadius = (int) (settings.barHeight * .9f);
+            this.indicatorRadius = (int) (settings.getBarHeight() * .9f);
         }
 
         for (Step step : steps) {
-            final float stoppoverPercent = step.value / (max - min);
-            step.xStart = stoppoverPercent * barWidth;
+            final float stoppoverPercent = step.getValue() / (max - min);
+            step.setStartPos(stoppoverPercent * barWidth);
         }
 
         indicatorX = (currentValue - min) / (max - min) * barWidth;
@@ -584,14 +789,14 @@ public class Slidr extends FrameLayout {
         float bottomTextHeight = 0;
         if (!TextUtils.isEmpty(textMax)) {
             bottomTextHeight = Math.max(
-                    calculateTextMultilineHeight(textMax, settings.paintTextBottom),
-                    calculateTextMultilineHeight(textMin, settings.paintTextBottom)
+                    calculateTextMultilineHeight(textMax, settings.getPaintTextBottom()),
+                    calculateTextMultilineHeight(textMin, settings.getPaintTextBottom())
             );
         }
         for (Step step : steps) {
             bottomTextHeight = Math.max(
                     bottomTextHeight,
-                    calculateTextMultilineHeight(step.name, settings.paintTextBottom)
+                    calculateTextMultilineHeight(step.getName(), settings.getPaintTextBottom())
             );
         }
 
@@ -604,7 +809,7 @@ public class Slidr extends FrameLayout {
     private Step findStepBeforeCustor() {
         for (int i = steps.size() - 1; i >= 0; i--) {
             final Step step = steps.get(i);
-            if ((currentValue - min) >= step.value) {
+            if ((currentValue - min) >= step.getValue()) {
                 return step;
             }
             break;
@@ -615,230 +820,17 @@ public class Slidr extends FrameLayout {
     private Step findStepOfCustor() {
         for (int i = 0; i < steps.size(); ++i) {
             final Step step = steps.get(i);
-            if ((currentValue - min) <= step.value) {
+            if ((currentValue - min) <= step.getValue()) {
                 return step;
             }
         }
         return null;
     }
 
-    public void setTextMax(String textMax) {
-        this.textMax = textMax;
-        postInvalidate();
-    }
-
-    public void setTextMin(String textMin) {
-        this.textMin = textMin;
-        postInvalidate();
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-
-        canvas.save();
-        {
-
-            final float paddingLeft = settings.paddingCorners;
-            final float paddingRight = settings.paddingCorners;
-
-
-            if (isRegions()) {
-                if (steps.isEmpty()) {
-                    settings.paintIndicator.setColor(settings.regionColorLeft);
-                    settings.paintBubble.setColor(settings.regionColorLeft);
-                } else {
-                    settings.paintIndicator.setColor(settings.regionColorRight);
-                    settings.paintBubble.setColor(settings.regionColorRight);
-                }
-            } else {
-                final Step stepBeforeCustor = findStepOfCustor();
-                if (stepBeforeCustor != null) {
-                    settings.paintIndicator.setColor(stepBeforeCustor.colorBefore);
-                    settings.paintBubble.setColor(stepBeforeCustor.colorBefore);
-                } else {
-                    if (settings.step_colorizeAfterLast) {
-                        final Step beforeCustor = findStepBeforeCustor();
-                        if (beforeCustor != null) {
-                            settings.paintIndicator.setColor(beforeCustor.colorAfter);
-                            settings.paintBubble.setColor(beforeCustor.colorAfter);
-                        }
-                    } else {
-                        settings.paintIndicator.setColor(settings.colorBackground);
-                        settings.paintBubble.setColor(settings.colorBackground);
-                    }
-                }
-            }
-
-            final float radiusCorner = settings.barHeight / 2f;
-
-            final float indicatorCenterX = indicatorX + paddingLeft;
-
-            { //background
-                final float centerCircleLeft = paddingLeft;
-                final float centerCircleRight = getWidth() - paddingRight;
-
-                //grey background
-                if (isRegions()) {
-                    if (steps.isEmpty()) {
-                        settings.paintBar.setColor(settings.colorBackground);
-                    } else {
-                        settings.paintBar.setColor(settings.regionColorRight);
-                    }
-                } else {
-                    settings.paintBar.setColor(settings.colorBackground);
-                }
-                canvas.drawCircle(centerCircleLeft, barCenterY, radiusCorner, settings.paintBar);
-                canvas.drawCircle(centerCircleRight, barCenterY, radiusCorner, settings.paintBar);
-                canvas.drawRect(centerCircleLeft, barY, centerCircleRight, barY + settings.barHeight, settings.paintBar);
-
-                if (isRegions()) {
-                    settings.paintBar.setColor(settings.regionColorLeft);
-
-                    canvas.drawCircle(centerCircleLeft, barCenterY, radiusCorner, settings.paintBar);
-                    canvas.drawRect(centerCircleLeft, barY, indicatorCenterX, barY + settings.barHeight, settings.paintBar);
-                } else {
-                    float lastX = centerCircleLeft;
-                    boolean first = true;
-                    for (Step step : steps) {
-                        settings.paintBar.setColor(step.colorBefore);
-                        if (first) {
-                            canvas.drawCircle(centerCircleLeft, barCenterY, radiusCorner, settings.paintBar);
-                        }
-
-                        final float x = step.xStart + paddingLeft;
-                        if (!settings.step_colorizeOnlyBeforeIndicator) {
-                            canvas.drawRect(lastX, barY, x, barY + settings.barHeight, settings.paintBar);
-                        } else {
-                            canvas.drawRect(lastX, barY, Math.min(x, indicatorCenterX), barY + settings.barHeight, settings.paintBar);
-                        }
-                        lastX = x;
-
-                        first = false;
-                    }
-
-
-                    if (settings.step_colorizeAfterLast) {
-                        //find the step just below currentValue
-                        for (int i = steps.size() - 1; i >= 0; i--) {
-                            final Step step = steps.get(i);
-                            if ((currentValue - min) > step.value) {
-                                settings.paintBar.setColor(step.colorAfter);
-                                canvas.drawRect(step.xStart + paddingLeft, barY, indicatorCenterX, barY + settings.barHeight, settings.paintBar);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-
-
-            { //texts top (values)
-                if (settings.drawTextOnTop) {
-                    final float textY = barY - dpToPx(DISTANCE_TEXT_BAR);
-                    if (isRegions()) {
-                        float leftValue;
-                        float rightValue;
-
-                        if (settings.regions_centerText) {
-                            leftValue = currentValue;
-                            rightValue = max - leftValue;
-                        } else {
-                            leftValue = min;
-                            rightValue = max;
-                        }
-
-                        if (settings.regions_textFollowRegionColor) {
-                            settings.paintTextTop.setColor(settings.regionColorLeft);
-                        }
-
-                        float textX;
-                        if (settings.regions_centerText) {
-                            textX = (indicatorCenterX - paddingLeft) / 2f + paddingLeft;
-                        } else {
-                            textX = paddingLeft;
-                        }
-
-                        drawIndicatorsTextAbove(canvas, formatRegionValue(0, leftValue), settings.paintTextTop, textX, textY, Layout.Alignment.ALIGN_CENTER);
-
-                        if (settings.regions_textFollowRegionColor) {
-                            settings.paintTextTop.setColor(settings.regionColorRight);
-                        }
-
-                        if (settings.regions_centerText) {
-                            textX = indicatorCenterX + (barWidth - indicatorCenterX - paddingLeft) / 2f + paddingLeft;
-                        } else {
-                            textX = paddingLeft + barWidth;
-                        }
-                        drawIndicatorsTextAbove(canvas, formatRegionValue(1, rightValue), settings.paintTextTop, textX, textY, Layout.Alignment.ALIGN_CENTER);
-                    } else {
-                        drawIndicatorsTextAbove(canvas, formatValue(min), settings.paintTextTop, 0 + paddingLeft, textY, Layout.Alignment.ALIGN_CENTER);
-                        for (Step step : steps) {
-                            drawIndicatorsTextAbove(canvas, formatValue(step.value), settings.paintTextTop, step.xStart + paddingLeft, textY, Layout.Alignment.ALIGN_CENTER);
-                        }
-                        drawIndicatorsTextAbove(canvas, formatValue(max), settings.paintTextTop, canvas.getWidth(), textY, Layout.Alignment.ALIGN_CENTER);
-                    }
-                }
-            }
-
-
-            { //steps + bottom text
-                final float bottomTextY = barY + settings.barHeight + 15;
-
-                for (Step step : steps) {
-                    if (settings.step_drawLines) {
-                        canvas.drawLine(step.xStart + paddingLeft, barY - settings.barHeight / 4f, step.xStart + paddingLeft, barY + settings.barHeight + settings.barHeight / 4f, settings.paintStep);
-                    }
-
-                    if (settings.drawTextOnBottom) {
-                        //drawMultilineText(canvas, maxText, canvas.getWidth() - settings.paintText.measureText(maxText), textY, settings.paintText, Layout.Alignment.ALIGN_OPPOSITE);
-                        drawMultilineText(canvas, step.name, step.xStart + paddingLeft, bottomTextY, settings.paintTextBottom, Layout.Alignment.ALIGN_CENTER);
-                    }
-                }
-
-                if (settings.drawTextOnBottom) {
-                    if (!TextUtils.isEmpty(textMax)) {
-                        drawMultilineText(canvas, textMax, canvas.getWidth(), bottomTextY, settings.paintTextBottom, Layout.Alignment.ALIGN_CENTER);
-                    }
-
-                    if (!TextUtils.isEmpty(textMin)) {
-                        drawMultilineText(canvas, textMin, 0, bottomTextY, settings.paintTextBottom, Layout.Alignment.ALIGN_CENTER);
-                    }
-                }
-            }
-
-            //indicator
-            {
-                final int color = settings.paintIndicator.getColor();
-                canvas.drawCircle(indicatorCenterX, this.barCenterY, indicatorRadius, settings.paintIndicator);
-                settings.paintIndicator.setColor(Color.WHITE);
-                canvas.drawCircle(indicatorCenterX, this.barCenterY, indicatorRadius * 0.85f, settings.paintIndicator);
-                settings.paintIndicator.setColor(color);
-            }
-
-            //bubble
-            {
-                if (settings.drawBubble) {
-                    float bubbleCenterX = indicatorCenterX;
-                    float trangleCenterX;
-
-                    bubble.x = bubbleCenterX - bubble.width / 2f;
-                    bubble.y = 0;
-
-                    if (bubbleCenterX > canvas.getWidth() - bubble.width / 2f) {
-                        bubbleCenterX = canvas.getWidth() - bubble.width / 2f;
-                    } else if (bubbleCenterX - bubble.width / 2f < 0) {
-                        bubbleCenterX = bubble.width / 2f;
-                    }
-
-                    trangleCenterX = (bubbleCenterX + indicatorCenterX) / 2f;
-
-                    drawBubble(canvas, bubbleCenterX, trangleCenterX, 0);
-                }
-            }
+    private void onClick(MotionEvent e) {
+        if (bubble.onClicked(e)) {
+            onBubbleClicked();
         }
-
-        canvas.restore();
     }
 
     private String formatValue(float value) {
@@ -880,7 +872,7 @@ public class Slidr extends FrameLayout {
 
                 final float right = lineX + lineWidth;
                 if (right > canvas.getWidth()) {
-                    lineX = canvas.getWidth() - lineWidth - settings.paddingCorners;
+                    lineX = canvas.getWidth() - lineWidth - settings.getPaddingCorners();
                 }
 
                 canvas.translate(lineX, lineY);
@@ -900,8 +892,8 @@ public class Slidr extends FrameLayout {
         y -= textHeight;
 
         final int width = (int) paintText.measureText(text);
-        if (x >= getWidth() - settings.paddingCorners) {
-            x = (getWidth() - width - settings.paddingCorners / 2f);
+        if (x >= getWidth() - settings.getPaddingCorners()) {
+            x = (getWidth() - width - settings.getPaddingCorners() / 2f);
         } else if (x <= 0) {
             x = width / 2f;
         } else {
@@ -928,16 +920,16 @@ public class Slidr extends FrameLayout {
         if (isEditing) {
             bubbleText = textEditing;
         }
-        return settings.paintBubbleTextCurrent.measureText(bubbleText);
+        return settings.getPaintBubbleTextCurrent().measureText(bubbleText);
     }
 
     private void drawBubblePath(Canvas canvas, float triangleCenterX, float height, float width) {
         final Path path = new Path();
 
         int padding = 3;
-        final Rect rect = new Rect(padding, padding, (int) width - padding, (int) (height - dpToPx(BUBBLE_ARROW_HEIGHT)) - padding);
+        final Rect rect = new Rect(padding, padding, (int) width - padding, (int) (height - UtilKDisplay.INSTANCE.dp2px(BUBBLE_ARROW_HEIGHT)) - padding);
 
-        final float roundRectHeight = (height - dpToPx(BUBBLE_ARROW_HEIGHT)) / 2;
+        final float roundRectHeight = (height - UtilKDisplay.INSTANCE.dp2px(BUBBLE_ARROW_HEIGHT)) / 2;
 
         path.moveTo(rect.left + roundRectHeight, rect.top);
         path.lineTo(rect.right - roundRectHeight, rect.top);
@@ -945,9 +937,9 @@ public class Slidr extends FrameLayout {
         path.lineTo(rect.right, rect.bottom - roundRectHeight);
         path.quadTo(rect.right, rect.bottom, rect.right - roundRectHeight, rect.bottom);
 
-        path.lineTo(triangleCenterX + dpToPx(BUBBLE_ARROW_WIDTH) / 2f, height - dpToPx(BUBBLE_ARROW_HEIGHT) - padding);
+        path.lineTo(triangleCenterX + UtilKDisplay.INSTANCE.dp2px(BUBBLE_ARROW_WIDTH) / 2f, height - UtilKDisplay.INSTANCE.dp2px(BUBBLE_ARROW_HEIGHT) - padding);
         path.lineTo(triangleCenterX, height - padding);
-        path.lineTo(triangleCenterX - dpToPx(BUBBLE_ARROW_WIDTH) / 2f, height - dpToPx(BUBBLE_ARROW_HEIGHT) - padding);
+        path.lineTo(triangleCenterX - UtilKDisplay.INSTANCE.dp2px(BUBBLE_ARROW_WIDTH) / 2f, height - UtilKDisplay.INSTANCE.dp2px(BUBBLE_ARROW_HEIGHT) - padding);
 
         path.lineTo(rect.left + roundRectHeight, rect.bottom);
         path.quadTo(rect.left, rect.bottom, rect.left, rect.bottom - roundRectHeight);
@@ -955,12 +947,12 @@ public class Slidr extends FrameLayout {
         path.quadTo(rect.left, rect.top, rect.left + roundRectHeight, rect.top);
         path.close();
 
-        canvas.drawPath(path, settings.paintBubble);
+        canvas.drawPath(path, settings.getPaintBubble());
     }
 
     private void drawBubble(Canvas canvas, float centerX, float triangleCenterX, float y) {
-        final float width = this.bubble.width;
-        final float height = this.bubble.height;
+        final float width = this.bubble.getWidth();
+        final float height = this.bubble.getHeight();
 
         canvas.save();
         {
@@ -970,37 +962,27 @@ public class Slidr extends FrameLayout {
             if (!isEditing) {
                 drawBubblePath(canvas, triangleCenterX, height, width);
             } else {
-                final int savedColor = settings.paintBubble.getColor();
+                final int savedColor = settings.getPaintBubble().getColor();
 
-                settings.paintBubble.setColor(settings.bubbleColorEditing);
-                settings.paintBubble.setStyle(Paint.Style.FILL);
+                settings.getPaintBubble().setColor(settings.getBubbleColorEditing());
+                settings.getPaintBubble().setStyle(Paint.Style.FILL);
                 drawBubblePath(canvas, triangleCenterX, height, width);
 
-                settings.paintBubble.setStyle(Paint.Style.STROKE);
-                settings.paintBubble.setColor(settings.paintIndicator.getColor());
+                settings.getPaintBubble().setStyle(Paint.Style.STROKE);
+                settings.getPaintBubble().setColor(settings.getPaintIndicator().getColor());
                 drawBubblePath(canvas, triangleCenterX, height, width);
 
-                settings.paintBubble.setStyle(Paint.Style.FILL);
-                settings.paintBubble.setColor(savedColor);
+                settings.getPaintBubble().setStyle(Paint.Style.FILL);
+                settings.getPaintBubble().setColor(savedColor);
             }
 
             if (!isEditing) {
                 final String bubbleText = formatValue(getCurrentValue());
-                drawText(canvas, bubbleText, dpToPx(BUBBLE_PADDING_HORIZONTAL), dpToPx(BUBBLE_PADDING_VERTICAL) - 3, settings.paintBubbleTextCurrent, Layout.Alignment.ALIGN_NORMAL);
+                drawText(canvas, bubbleText, UtilKDisplay.INSTANCE.dp2px(BUBBLE_PADDING_HORIZONTAL), UtilKDisplay.INSTANCE.dp2px(BUBBLE_PADDING_VERTICAL) - 3, settings.getPaintBubbleTextCurrent(), Layout.Alignment.ALIGN_NORMAL);
             }
         }
 
         canvas.restore();
 
-    }
-
-    public void setTextFormatter(TextFormatter textFormatter) {
-        this.textFormatter = textFormatter;
-        update();
-    }
-
-    public void setRegionTextFormatter(RegionTextFormatter regionTextFormatter) {
-        this.regionTextFormatter = regionTextFormatter;
-        update();
     }
 }

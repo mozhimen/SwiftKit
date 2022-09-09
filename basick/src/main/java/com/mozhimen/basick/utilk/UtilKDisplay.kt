@@ -2,7 +2,10 @@ package com.mozhimen.basick.utilk
 
 import android.app.Activity
 import android.os.Build
+import android.util.DisplayMetrics
 import android.util.TypedValue
+import java.lang.Math.round
+import kotlin.math.roundToInt
 
 /**
  * @ClassName KDisplayUtil
@@ -20,23 +23,32 @@ object UtilKDisplay {
      * @return Int
      */
     fun dp2px(dp: Float): Int =
-        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, _context.resources?.displayMetrics).toInt()
+        (dp * (_context.resources.displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt().toInt()
 
     /**
      * sp转px
-     * @param dp Float
+     * @param sp Float
      * @return Int
      */
-    fun sp2px(dp: Float): Int =
-        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, dp, _context.resources?.displayMetrics).toInt()
+    fun sp2px(sp: Float): Int =
+        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, _context.resources?.displayMetrics).toInt()
 
     /**
      * px转dp
      * @param px Int
      * @return Float
      */
-    fun px2dp(px: Float): Float =
-        _context.resources?.displayMetrics!!.density * px
+    fun px2dp(px: Float): Int =
+        (px / (_context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
+
+    /**
+     * px转sp
+     * @param px Float
+     * @return Float
+     */
+    fun px2sp(px: Float): Int =
+        (px / _context.resources.displayMetrics.scaledDensity + 0.5f).roundToInt()
+
 
     /**
      * 获取方向

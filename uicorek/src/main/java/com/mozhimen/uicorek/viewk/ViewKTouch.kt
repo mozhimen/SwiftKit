@@ -17,17 +17,25 @@ import com.mozhimen.basick.basek.BaseKLayoutFrame
  */
 typealias IViewKTouchListener = () -> Unit
 
-private class ViewKTouch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+class ViewKTouch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     BaseKLayoutFrame(context, attrs, defStyleAttr, defStyleRes) {
     //region # variate
     private var _viewKTouchListener: IViewKTouchListener? = null
     private var _touchAreaRect: Rect? = null
     //endregion
 
+    /**
+     * 触摸的区域范围(内)
+     * @param areaRect Rect
+     */
     fun setTouchArea(areaRect: Rect) {
         _touchAreaRect = areaRect
     }
 
+    /**
+     * 设置出发监听器
+     * @param listener Function0<Unit>
+     */
     fun setListener(listener: IViewKTouchListener) {
         _viewKTouchListener = listener
     }

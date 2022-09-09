@@ -42,11 +42,25 @@ fun Int.sp2px(): Int = UtilKDisplay.sp2px(this.toFloat())
  * @receiver Int
  * @return Float
  */
-fun Int.px2dp(): Float = UtilKDisplay.px2dp(this.toFloat())
+fun Int.px2dp(): Int = UtilKDisplay.px2dp(this.toFloat())
 
 /**
  * px转dp
  * @receiver Float
  * @return Float
  */
-fun Float.px2dp(): Float = UtilKDisplay.px2dp(this)
+fun Float.px2dp(): Int = UtilKDisplay.px2dp(this)
+
+/**
+ * px转sp
+ * @receiver Int
+ * @return Int
+ */
+fun Int.px2sp(): Int = UtilKDisplay.px2sp(this.toFloat())
+
+/**
+ * px转sp
+ * @receiver Float
+ * @return Int
+ */
+fun Float.px2sp(): Int = UtilKDisplay.px2sp(this)
