@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import java.io.File
+import java.lang.Exception
 
 
 /**
@@ -35,6 +36,32 @@ import java.io.File
  * @Version 1.0
  */
 object UtilKView {
+
+    /**
+     * 寻找父View是否匹配列举的类型
+     * @param currentView View
+     * @param matches Array<out Class<*>>
+     */
+    fun getParentViewMatch(currentView: View, vararg matches: Class<*>): View? {
+        var view: View = currentView
+        while (view.parent != null && view.parent is View) {
+            try {
+                view = view.parent as View
+                if (UtilKDataType.isTypeMatch(view, *matches)) return view
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        return null
+    }
+
+    /**
+     * 寻找父View是否匹配列举的类型
+     * @param currentView View
+     * @param matches Array<out Class<*>>
+     */
+    fun isParentViewMatch(currentView: View, vararg matches: Class<*>): Boolean =
+        getParentViewMatch(currentView, *matches) != null
 
     /**
      * 获取指定类型的子View

@@ -7,6 +7,6 @@ package com.mozhimen.uicorek.layoutk.slider.commons
  * @Date 2022/9/8 17:57
  * @Version 1.0
  */
-interface RegionTextFormatter {
+interface ITextRodFormatter {
     fun format(region: Int, value: Float): String
 }

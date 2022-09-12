@@ -42,6 +42,7 @@ object UtilKRes {
      * @param resId Int
      * @return Int
      */
+    @JvmStatic
     fun getColor(@ColorRes resId: Int): Int =
         ContextCompat.getColor(_context, resId)
 

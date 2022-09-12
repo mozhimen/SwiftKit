@@ -9,6 +9,6 @@ import android.widget.EditText
  * @Date 2022/9/8 17:56
  * @Version 1.0
  */
-interface EditListener {
-    fun onEditStarted(editText: EditText)
+interface IEditListener {
+    fun onEdit(editText: EditText)
 }

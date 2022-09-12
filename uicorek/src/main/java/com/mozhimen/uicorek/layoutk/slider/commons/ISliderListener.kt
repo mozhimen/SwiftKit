@@ -1,6 +1,6 @@
 package com.mozhimen.uicorek.layoutk.slider.commons
 
-import com.mozhimen.uicorek.layoutk.slider.Slidr
+import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 
 /**
  * @ClassName Listener
@@ -9,6 +9,6 @@ import com.mozhimen.uicorek.layoutk.slider.Slidr
  * @Date 2022/9/8 17:56
  * @Version 1.0
  */
-interface Listener {
-    fun valueChanged(slidr: Slidr, currentValue: Float)
+interface ISliderListener {
+    fun onScroll(layoutKSlider: LayoutKSlider, currentValue: Float)
 }

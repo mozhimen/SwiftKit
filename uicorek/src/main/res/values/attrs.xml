@@ -129,7 +129,7 @@
         <attr name="layoutKSlider_region_rightColor" format="color" />
 
         <attr name="layoutKSlider_indicator_inside" format="boolean" />
-        <attr name="layoutKSlider_edditable" format="boolean" />
+        <attr name="layoutKSlider_enableEditBubble" format="boolean" />
     </declare-styleable>
     <declare-styleable name="LayoutKEmpty">
         <attr name="layoutKEmpty_icon" format="string|reference" />

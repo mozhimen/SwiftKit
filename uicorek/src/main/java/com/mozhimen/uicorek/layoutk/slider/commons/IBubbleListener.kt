@@ -1,6 +1,6 @@
 package com.mozhimen.uicorek.layoutk.slider.commons
 
-import com.mozhimen.uicorek.layoutk.slider.Slidr
+import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 
 /**
  * @ClassName BubbleClickedListener
@@ -9,6 +9,6 @@ import com.mozhimen.uicorek.layoutk.slider.Slidr
  * @Date 2022/9/8 17:54
  * @Version 1.0
  */
-interface BubbleClickedListener {
-    fun bubbleClicked(slidr: Slidr)
+interface IBubbleListener {
+    fun onClick(layoutKSlider: LayoutKSlider)
 }

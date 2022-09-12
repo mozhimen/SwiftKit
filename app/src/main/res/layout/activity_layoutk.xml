@@ -34,7 +34,7 @@
             app:layoutKInputItem_titleAppearance="@style/LayoutKInputItemStyle_TitleAppearance"
             app:layoutKInputItem_topLineAppearance="@style/LayoutKInputItemStyle_LineAppearance" />
 
-        <com.mozhimen.uicorek.layoutk.slider.Slidr
+        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
             android:id="@+id/layoutk_slider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             app:layoutKSlider_regions_centerText="false"
             app:layoutKSlider_backgroundColor="@color/black"/>
 
-        <com.mozhimen.uicorek.layoutk.slider.Slidr
+        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
             android:id="@+id/layoutk_slider1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             app:layoutKSlider_region_rightColor="@color/blue_normal"
             app:layoutKSlider_step_colorizeAfterLast="true" />
 
-        <com.mozhimen.uicorek.layoutk.slider.Slidr
+        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
             android:id="@+id/layoutk_slider2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             app:layoutKSlider_textBottom_visible="false"
             app:layoutKSlider_textTop_visible="false" />
 
-        <com.mozhimen.uicorek.layoutk.slider.Slidr
+        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
             android:id="@+id/layoutk_slider_regions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

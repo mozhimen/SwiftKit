@@ -1,6 +1,6 @@
 package com.mozhimen.uicorek.layoutk.slider.temps
 
-import com.mozhimen.uicorek.layoutk.slider.commons.TextFormatter
+import com.mozhimen.uicorek.layoutk.slider.commons.ITextLabelFormatter
 
 /**
  * @ClassName EurosTextFormatter
@@ -9,7 +9,7 @@ import com.mozhimen.uicorek.layoutk.slider.commons.TextFormatter
  * @Date 2022/9/8 17:59
  * @Version 1.0
  */
-class EurosTextFormatter : TextFormatter {
+class EurosTextLabelFormatter : ITextLabelFormatter {
     override fun format(value: Float): String {
         return String.format("%d €", value.toInt())
     }

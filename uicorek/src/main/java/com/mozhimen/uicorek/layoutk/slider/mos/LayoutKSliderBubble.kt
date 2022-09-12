@@ -2,7 +2,8 @@ package com.mozhimen.uicorek.layoutk.slider.mos
 
 import android.view.MotionEvent
 import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.uicorek.layoutk.slider.Slidr
+import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
+import com.mozhimen.uicorek.layoutk.slider.LayoutKSliderProxy.Companion.BUBBLE_ARROW_HEIGHT
 
 /**
  * @ClassName Bubble
@@ -11,7 +12,7 @@ import com.mozhimen.uicorek.layoutk.slider.Slidr
  * @Date 2022/9/8 17:58
  * @Version 1.0
  */
-class Bubble {
+class LayoutKSliderBubble {
     private var _height = 0f
     private var _width = 0f
     private var _x = 0f
@@ -32,7 +33,7 @@ class Bubble {
         _height
 
     fun getSliderHeight(): Float {
-        return _height - Slidr.BUBBLE_ARROW_HEIGHT.dp2px()
+        return _height - BUBBLE_ARROW_HEIGHT.dp2px()
     }
 
     fun setX(x: Float) {
@@ -51,7 +52,7 @@ class Bubble {
         return _y.coerceAtLeast(0f)
     }
 
-    fun onClicked(e: MotionEvent): Boolean {
+    fun isTapInBubbleArea(e: MotionEvent): Boolean {
         return e.x >= _x && e.x <= _x + _width && e.y >= _y && e.y < _y + _height
     }
 }

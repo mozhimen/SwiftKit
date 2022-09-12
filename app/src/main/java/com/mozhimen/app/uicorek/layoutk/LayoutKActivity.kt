@@ -8,10 +8,10 @@ import com.mozhimen.app.databinding.ActivityLayoutkBinding
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.start
-import com.mozhimen.uicorek.layoutk.slider.Slidr
-import com.mozhimen.uicorek.layoutk.slider.commons.Listener
-import com.mozhimen.uicorek.layoutk.slider.commons.RegionTextFormatter
-import com.mozhimen.uicorek.layoutk.slider.mos.Step
+import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
+import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
+import com.mozhimen.uicorek.layoutk.slider.commons.ITextRodFormatter
+import com.mozhimen.uicorek.layoutk.slider.mos.Section
 
 class LayoutKActivity : BaseKActivity<ActivityLayoutkBinding, BaseKViewModel>(R.layout.activity_layoutk) {
     override fun initData(savedInstanceState: Bundle?) {
@@ -20,30 +20,30 @@ class LayoutKActivity : BaseKActivity<ActivityLayoutkBinding, BaseKViewModel>(R.
 
     override fun initView(savedInstanceState: Bundle?) {
         val layoutKSlider1 = vb.layoutkSlider1
-        layoutKSlider1.max = 500f
-        layoutKSlider1.addStep(Step("test", 250f, Color.parseColor("#007E90"), Color.RED))
-        layoutKSlider1.setTextMax("max\nvalue")
-        layoutKSlider1.setTextMin("min\nvalue")
-        layoutKSlider1.currentValue = 300f
-        layoutKSlider1.setListener(object : Listener {
-            override fun valueChanged(slidr: Slidr, currentValue: Float) {
+        layoutKSlider1.setRodMaxVal(500f)
+        layoutKSlider1.addSection(Section("test", 250f, Color.parseColor("#007E90"), Color.RED))
+        layoutKSlider1.setLabelTextMax("max\nvalue")
+        layoutKSlider1.setLabelTextMin("min\nvalue")
+        layoutKSlider1.setRodCurrentVal(300f)
+        layoutKSlider1.setSliderListener(object : ISliderListener {
+            override fun onScroll(layoutKSlider: LayoutKSlider, currentValue: Float) {
 
             }
         })
 
         val layoutKSlider2 = vb.layoutkSlider2
-        layoutKSlider2.max = 5000f
-        layoutKSlider2.currentValue = 5000f
-        layoutKSlider2.addStep(Step("test", 1500f, Color.parseColor("#007E90"), Color.parseColor("#111111")))
+        layoutKSlider2.setRodMaxVal(5000f)
+        layoutKSlider2.setRodCurrentVal(5000f)
+        layoutKSlider2.addSection(Section("test", 1500f, Color.parseColor("#007E90"), Color.parseColor("#111111")))
 
         val layoutKSliderRegions = vb.layoutkSliderRegions
-        layoutKSliderRegions.max = 3000f
-        layoutKSliderRegions.setRegionTextFormatter(object : RegionTextFormatter {
+        layoutKSliderRegions.setRodMaxVal(3000f)
+        layoutKSliderRegions.setTextRodFormatter(object : ITextRodFormatter {
             override fun format(region: Int, value: Float): String {
                 return "region $region : $value"
             }
         })
-        layoutKSliderRegions.addStep(Step("test", 1500f, Color.parseColor("#007E90"), Color.parseColor("#111111")))
+        layoutKSliderRegions.addSection(Section("test", 1500f, Color.parseColor("#007E90"), Color.parseColor("#111111")))
     }
 
     fun goLayoutKEmpty(view: View) {
