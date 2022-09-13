@@ -3,7 +3,6 @@ package com.mozhimen.uicorek.layoutk.slider
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
-import android.text.*
 import android.util.AttributeSet
 import android.view.*
 import android.widget.ScrollView
@@ -13,7 +12,6 @@ import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.basick.utilk.UtilKView
 import com.mozhimen.uicorek.layoutk.slider.commons.*
 import com.mozhimen.uicorek.layoutk.slider.mos.Section
-import java.util.*
 
 /**
  * @ClassName LayoutKSlider
@@ -147,6 +145,6 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         _layoutKSliderProxy.updateValues()
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(_layoutKSliderProxy.getMeasureSpecHeight(), MeasureSpec.EXACTLY))
+        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(_layoutKSliderProxy.getLayoutHeightMeasureSpec(), MeasureSpec.EXACTLY))
     }
 }
