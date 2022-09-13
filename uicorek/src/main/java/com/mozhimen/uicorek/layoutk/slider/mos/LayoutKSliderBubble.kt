@@ -2,7 +2,6 @@ package com.mozhimen.uicorek.layoutk.slider.mos
 
 import android.view.MotionEvent
 import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSliderProxy.Companion.BUBBLE_ARROW_HEIGHT
 
 /**
@@ -32,7 +31,7 @@ class LayoutKSliderBubble {
     fun getHeight(): Float =
         _height
 
-    fun getSliderHeight(): Float {
+    fun getBubbleHeight(): Float {
         return _height - BUBBLE_ARROW_HEIGHT.dp2px()
     }
 

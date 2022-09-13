@@ -23,7 +23,9 @@ object UtilKDisplay {
      * @return Int
      */
     fun dp2px(dp: Float): Int =
-        (dp * (_context.resources.displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt().toInt()
+        if (dp <= 0f) 0
+        else (dp * (_context.resources.displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
+
 
     /**
      * sp转px
@@ -31,7 +33,8 @@ object UtilKDisplay {
      * @return Int
      */
     fun sp2px(sp: Float): Int =
-        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, _context.resources?.displayMetrics).toInt()
+        if (sp <= 0f) 0
+        else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, _context.resources?.displayMetrics).toInt()
 
     /**
      * px转dp
@@ -39,7 +42,8 @@ object UtilKDisplay {
      * @return Float
      */
     fun px2dp(px: Float): Int =
-        (px / (_context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
+        if (px <= 0f) 0
+        else (px / (_context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
 
     /**
      * px转sp
@@ -47,7 +51,8 @@ object UtilKDisplay {
      * @return Float
      */
     fun px2sp(px: Float): Int =
-        (px / _context.resources.displayMetrics.scaledDensity + 0.5f).roundToInt()
+        if (px <= 0f) 0
+        else (px / _context.resources.displayMetrics.scaledDensity + 0.5f).roundToInt()
 
 
     /**
