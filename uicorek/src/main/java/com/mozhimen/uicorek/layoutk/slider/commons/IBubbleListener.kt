@@ -1,5 +1,6 @@
 package com.mozhimen.uicorek.layoutk.slider.commons
 
+import android.widget.EditText
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 
 /**
@@ -11,4 +12,5 @@ import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
  */
 interface IBubbleListener {
     fun onClick(layoutKSlider: LayoutKSlider)
+    fun onEdit(editText: EditText)
 }

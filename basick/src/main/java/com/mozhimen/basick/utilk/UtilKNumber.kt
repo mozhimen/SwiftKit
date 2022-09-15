@@ -10,6 +10,15 @@ import kotlin.collections.ArrayList
  * @Version 1.0
  */
 object UtilKNumber {
+    @JvmStatic
+    fun normalize(value: Int, range: IntRange): Int {
+        return when {
+            value < range.first -> range.first
+            value > range.last -> range.last
+            else -> value
+        }
+    }
+
     fun random(start: Int, end: Int): Int = random(IntRange(start, end))
 
     fun random(range: IntRange): Int = range.random()

@@ -38,40 +38,7 @@
             android:id="@+id/layoutk_slider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layoutKSlider_region_leftColor="@color/blue_normal"
-            app:layoutKSlider_regions_centerText="false"
-            app:layoutKSlider_backgroundColor="@color/black"/>
+            android:layout_margin="10dp"/>
 
-        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
-            android:id="@+id/layoutk_slider1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layoutKSlider_region_leftColor="@color/blue_dark"
-            app:layoutKSlider_region_rightColor="@color/blue_normal"
-            app:layoutKSlider_step_colorizeAfterLast="true" />
-
-        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
-            android:id="@+id/layoutk_slider2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layoutKSlider_height="10dp"
-            app:layoutKSlider_step_colorizeAfterLast="true"
-            app:layoutKSlider_textBottom_visible="false"
-            app:layoutKSlider_textTop_visible="false" />
-
-        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
-            android:id="@+id/layoutk_slider_regions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layoutKSlider_draw_bubble="false"
-            app:layoutKSlider_region_leftColor="@color/blue_normal"
-            app:layoutKSlider_region_rightColor="@color/black"
-            app:layoutKSlider_regions="true"
-            app:layoutKSlider_regions_centerText="true"
-            app:layoutKSlider_regions_textFollowRegionColor="true" />
     </LinearLayout>
 </layout>

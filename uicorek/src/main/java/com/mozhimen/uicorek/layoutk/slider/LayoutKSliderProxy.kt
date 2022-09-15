@@ -17,6 +17,7 @@ import androidx.core.view.GestureDetectorCompat
 import com.mozhimen.basick.basek.BaseViewCallback
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.utilk.UtilKCanvas
 import com.mozhimen.basick.utilk.UtilKDisplay
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
@@ -48,10 +49,7 @@ import kotlin.math.roundToInt
  * @Version 1.0
  */
 class LayoutKSliderProxy(
-    private val _layoutKSlider: LayoutKSlider,
-    private val _context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+    private val _context: Context
 ) :
     BaseViewCallback() {
 
@@ -69,11 +67,12 @@ class LayoutKSliderProxy(
         val BUBBLE_ARROW_WIDTH = 10f.dp2px().toFloat()
         val BUBBLE_ARROW_HEIGHT = 10f.dp2px().toFloat()
         val BUBBLE_TEXT_SIZE = 13f.sp2px().toFloat()
-        val BUBBLE_COLOR = UtilKRes.getColor(R.color.blue_light)
         val BUBBLE_RADIUS = 4f.dp2px().toFloat()
     }
 
     //region # variate
+    private lateinit var _layoutKSlider: LayoutKSlider
+
     //set init variate
     private var _layoutHeight: Float = LAYOUT_HEIGHT
 
@@ -82,8 +81,9 @@ class LayoutKSliderProxy(
     private var _sliderRegionLeftColor = UtilKRes.getColor(R.color.blue_normal)
     private var _sliderRegionRightColor = UtilKRes.getColor(R.color.blue_light)
 
-    private var _sliderRegionLabelIsShow = true
-    private var _sliderRegionLabelColorIsFollowRegion = true
+    private var _sliderRegionLabelIsShow = false
+    private var _sliderRegionLabelColorIsFollowRegion = false
+    private var _sliderRegionLabelColor = UtilKRes.getColor(R.color.blue_normal)
 
     private var _rodColor = _sliderRegionLeftColor
     private var _rodIsInside = false
@@ -103,21 +103,22 @@ class LayoutKSliderProxy(
     private var _sectionColorBeforeRod = true
 
     private var _bubbleIsShow = true
-    private var _bubbleEnableEditOnClick = true
-    private val _bubbleColor = BUBBLE_COLOR
+    private val _bubbleColor = Color.WHITE
     private val _bubbleRadius: Float = BUBBLE_RADIUS
-    private val _bubbleColorEditing = UtilKRes.getColor(R.color.blue_light)
     private val _bubbleTextColor = UtilKRes.getColor(R.color.blue_normal)
     private val _bubbleTextSize: Float = BUBBLE_TEXT_SIZE
     private val _bubbleArrowWidth: Float = BUBBLE_ARROW_WIDTH
     private val _bubbleArrowHeight: Float = BUBBLE_ARROW_HEIGHT
     private val _bubblePaddingHorizontal: Float = BUBBLE_PADDING_HORIZONTAL
     private val _bubblePaddingVertical: Float = BUBBLE_PADDING_VERTICAL
+    private val _bubbleColorEditing = UtilKRes.getColor(R.color.blue_light)
+    private var _bubbleEnableEditOnClick = true
     //set init variate
 
     //dynamic variate
     private var _layoutHeightSpec = 0
 
+    private var _sliderVertexRadius: Float = _sliderHeight / 2f
     private var _sliderWidth = 0f
     private var _sliderY = 0f
     private var _sliderCenterY = 0f
@@ -138,7 +139,7 @@ class LayoutKSliderProxy(
 
     private lateinit var _paintSlider: Paint
     private lateinit var _paintRod: Paint
-    private lateinit var _paintSection: Paint
+    private lateinit var _paintSectionCrossLine: Paint
     private lateinit var _paintLabelTop: TextPaint
     private lateinit var _paintLabelBottom: TextPaint
     private lateinit var _paintBubbleText: TextPaint
@@ -149,9 +150,7 @@ class LayoutKSliderProxy(
     private var _viewKTouch: ViewKTouch? = null
 
     private lateinit var _editText: EditText
-    private var _textLabelFormatter: ITextLabelFormatter? = null/*EurosTextLabelFormatter()*/
-    private var _textRodFormatter: ITextRodFormatter? = null
-    private var _editListener: IEditListener? = null
+    private var _labelTextFormatter: ILabelTextFormatter? = null/*EurosLabelTextFormatter()*/
     private var _sliderListener: ISliderListener? = null
     private var _bubbleListener: IBubbleListener? = null
     private val _sections: MutableList<Section> = ArrayList()
@@ -169,6 +168,14 @@ class LayoutKSliderProxy(
     })
     //endregion
 
+    fun init(layoutKSlider: LayoutKSlider, attrs: AttributeSet?) {
+        _layoutKSlider = layoutKSlider
+        initAttrs(attrs, 0)
+        initPaint()
+        initView()
+    }
+
+    //region # public func
     fun getLayoutHeightMeasureSpec(): Int = _layoutHeightSpec
 
     fun setSliderListener(sliderListener: ISliderListener) {
@@ -179,19 +186,19 @@ class LayoutKSliderProxy(
         _bubbleListener = bubbleListener
     }
 
-    fun setEditListener(editListener: IEditListener) {
+    /*fun setEditListener(editListener: IEditListener) {
         _editListener = editListener
-    }
+    }*/
 
-    fun setTextLabelFormatter(textLabelFormatter: ITextLabelFormatter) {
-        _textLabelFormatter = textLabelFormatter
+    fun setTextLabelFormatter(labelTextFormatter: ILabelTextFormatter) {
+        _labelTextFormatter = labelTextFormatter
         update()
     }
 
-    fun setTextRodFormatter(textRodFormatter: ITextRodFormatter) {
+    /*fun setTextRodFormatter(textRodFormatter: ITextRodFormatter) {
         _textRodFormatter = textRodFormatter
         update()
-    }
+    }*/
 
     fun addSection(sections: List<Section>) {
         _sections.addAll(sections)
@@ -291,17 +298,12 @@ class LayoutKSliderProxy(
         _paintLabelBottom.textSize = textSize
         update()
     }
-
-    init {
-        initAttrs(attrs, defStyleAttr)
-        initPaint()
-        initView()
-    }
+    //endregion
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs ?: return
         val typedArray = _context.obtainStyledAttributes(attrs, R.styleable.LayoutKSlider)
-        _sectionColorAfterLast =
+        /*_sectionColorAfterLast =
             typedArray.getBoolean(R.styleable.LayoutKSlider_layoutKSlider_step_colorizeAfterLast, _sectionColorAfterLast)
         _sectionCrossLineIsShow =
             typedArray.getBoolean(R.styleable.LayoutKSlider_layoutKSlider_step_drawLine, _sectionCrossLineIsShow)
@@ -330,7 +332,7 @@ class LayoutKSliderProxy(
         _sliderRegionLabelIsShow =
             typedArray.getBoolean(R.styleable.LayoutKSlider_layoutKSlider_regions_centerText, _sliderRegionLabelIsShow)
         _bubbleEnableEditOnClick =
-            typedArray.getBoolean(R.styleable.LayoutKSlider_layoutKSlider_enableEditBubble, _bubbleEnableEditOnClick)
+            typedArray.getBoolean(R.styleable.LayoutKSlider_layoutKSlider_enableEditBubble, _bubbleEnableEditOnClick)*/
         typedArray.recycle()
     }
 
@@ -345,10 +347,10 @@ class LayoutKSliderProxy(
         _paintSlider.strokeWidth = 2f
         _paintSlider.color = _sliderRegionLeftColor
 
-        _paintSection = Paint()
-        _paintSection.isAntiAlias = true
-        _paintSection.strokeWidth = _sectionCrossLineWidth
-        _paintSection.color = _sectionCrossLineColor
+        _paintSectionCrossLine = Paint()
+        _paintSectionCrossLine.isAntiAlias = true
+        _paintSectionCrossLine.strokeWidth = _sectionCrossLineWidth
+        _paintSectionCrossLine.color = _sectionCrossLineColor
 
         _paintBubble = Paint()
         _paintBubble.isAntiAlias = true
@@ -379,7 +381,11 @@ class LayoutKSliderProxy(
         setLabelBottomTextSize(_labelBottomTextSize)
     }
 
-    fun onDraw(globalWidth: Int, globalHeight: Int, canvas: Canvas) {
+    fun updateData() {
+        _sliderVertexRadius = _sliderHeight / 2f
+    }
+
+    fun onDraw(canvas: Canvas) {
         canvas.save()
 
         if (isRegions()) {
@@ -408,82 +414,15 @@ class LayoutKSliderProxy(
                 }
             }
         }
-        val radiusCorner = _sliderHeight / 2f
-        val rodCenterX = _rodX + _sliderPaddingHorizontal
-        kotlin.run { //background
-            val centerCircleRight = globalWidth - _sliderPaddingHorizontal
+        _sliderVertexRadius = _sliderHeight / 2f
 
-            //grey background
-            if (isRegions()) {
-                if (_sections.isEmpty()) {
-                    _paintSlider.color = _sliderRegionLeftColor
-                } else {
-                    _paintSlider.color = _sliderRegionRightColor
-                }
-            } else {
-                _paintSlider.color = _sliderRegionLeftColor
-            }
-            canvas.drawCircle(_sliderPaddingHorizontal, _sliderCenterY, radiusCorner, _paintSlider)
-            canvas.drawCircle(centerCircleRight, _sliderCenterY, radiusCorner, _paintSlider)
-            canvas.drawRect(
-                _sliderPaddingHorizontal,
-                _sliderY,
-                centerCircleRight,
-                _sliderY + _sliderHeight,
-                _paintSlider
-            )
-            if (isRegions()) {
-                _paintSlider.color = _sliderRegionLeftColor
-                canvas.drawCircle(_sliderPaddingHorizontal, _sliderCenterY, radiusCorner, _paintSlider)
-                canvas.drawRect(
-                    _sliderPaddingHorizontal,
-                    _sliderY,
-                    rodCenterX,
-                    _sliderY + _sliderHeight,
-                    _paintSlider
-                )
-            } else {
-                var lastX = _sliderPaddingHorizontal
-                var first = true
-                for (step in _sections) {
-                    _paintSlider.color = step.colorBefore
-                    if (first) {
-                        canvas.drawCircle(_sliderPaddingHorizontal, _sliderCenterY, radiusCorner, _paintSlider)
-                    }
-                    val x = step.startPos + _sliderPaddingHorizontal
-                    if (!_sectionColorBeforeRod) {
-                        canvas.drawRect(lastX, _sliderY, x, _sliderY + _sliderHeight, _paintSlider)
-                    } else {
-                        canvas.drawRect(
-                            lastX,
-                            _sliderY,
-                            x.coerceAtMost(rodCenterX),
-                            _sliderY + _sliderHeight,
-                            _paintSlider
-                        )
-                    }
-                    lastX = x
-                    first = false
-                }
-                if (_sectionColorAfterLast) {
-                    //find the step just below currentValue
-                    for (i in _sections.indices.reversed()) {
-                        val step = _sections[i]
-                        if (_rodCurrentVal - _rodMinVal > step.value) {
-                            _paintSlider.color = step.colorAfter
-                            canvas.drawRect(
-                                step.startPos + _sliderPaddingHorizontal,
-                                _sliderY,
-                                rodCenterX,
-                                _sliderY + _sliderHeight,
-                                _paintSlider
-                            )
-                            break
-                        }
-                    }
-                }
-            }
-        }
+        //slider
+        drawSlider(canvas)
+
+        //rod
+        drawRod(canvas)
+
+        /*//labelTop
         kotlin.run { //texts top (values)
             if (_labelTopIsShow) {
                 val textY = _sliderY - _labelSliderDistance
@@ -506,10 +445,7 @@ class LayoutKSliderProxy(
                         _sliderPaddingHorizontal
                     }
                     drawIndicatorsTextAbove(
-                        canvas,
-                        globalWidth,
-                        formatRodText(0, leftValue),
-                        _paintLabelTop,
+                        canvas, _layoutKSlider.width, formatLabelText(leftValue), _paintLabelTop,
                         textX,
                         textY,
                         Layout.Alignment.ALIGN_CENTER
@@ -524,8 +460,8 @@ class LayoutKSliderProxy(
                     }
                     drawIndicatorsTextAbove(
                         canvas,
-                        globalWidth,
-                        formatRodText(1, rightValue),
+                        _layoutKSlider.width,
+                        formatLabelText(rightValue),
                         _paintLabelTop,
                         textX,
                         textY,
@@ -534,7 +470,7 @@ class LayoutKSliderProxy(
                 } else {
                     drawIndicatorsTextAbove(
                         canvas,
-                        globalWidth,
+                        _layoutKSlider.width,
                         formatLabelText(_rodMinVal),
                         _paintLabelTop,
                         0 + _sliderPaddingHorizontal,
@@ -544,7 +480,7 @@ class LayoutKSliderProxy(
                     for (step in _sections) {
                         drawIndicatorsTextAbove(
                             canvas,
-                            globalWidth,
+                            _layoutKSlider.width,
                             formatLabelText(step.value),
                             _paintLabelTop,
                             step.startPos + _sliderPaddingHorizontal,
@@ -554,7 +490,7 @@ class LayoutKSliderProxy(
                     }
                     drawIndicatorsTextAbove(
                         canvas,
-                        globalWidth,
+                        _layoutKSlider.width,
                         formatLabelText(_rodMaxVal),
                         _paintLabelTop,
                         canvas.width.toFloat(),
@@ -564,6 +500,8 @@ class LayoutKSliderProxy(
                 }
             }
         }
+
+        //sections
         kotlin.run { //steps + bottom text
             val bottomTextY = _sliderY + _sliderHeight + 15
             for (section in _sections) {
@@ -573,7 +511,7 @@ class LayoutKSliderProxy(
                         _sliderY - _sliderHeight / 4f,
                         section.startPos + _sliderPaddingHorizontal,
                         _sliderY + _sliderHeight + _sliderHeight / 4f,
-                        _paintSection
+                        _paintSectionCrossLine
                     )
                 }
                 if (_labelBottomIsShow) {
@@ -593,7 +531,7 @@ class LayoutKSliderProxy(
                     drawMultilineText(
                         canvas,
                         _labelTextMax,
-                        globalWidth.toFloat(),
+                        _layoutKSlider.width.toFloat(),
                         bottomTextY,
                         _paintLabelBottom,
                         Layout.Alignment.ALIGN_CENTER
@@ -612,31 +550,89 @@ class LayoutKSliderProxy(
             }
         }
 
-        //indicator
-        kotlin.run {
-            val color = _paintRod.color
-            canvas.drawCircle(rodCenterX, this._sliderCenterY, _rodRadius, _paintRod)
-            _paintRod.color = Color.WHITE
-            canvas.drawCircle(rodCenterX, this._sliderCenterY, _rodRadius * 0.85f, _paintRod)
-            _paintRod.color = color
-        }
-
         //bubble
         kotlin.run {
             if (_bubbleIsShow) {
                 var bubbleCenterX = rodCenterX
                 _layoutKSliderBubble.setX(bubbleCenterX - _layoutKSliderBubble.getWidth() / 2f)
                 _layoutKSliderBubble.setY(0f)
-                if (bubbleCenterX > globalWidth - _layoutKSliderBubble.getWidth() / 2f) {
-                    bubbleCenterX = globalWidth - _layoutKSliderBubble.getWidth() / 2f
+                if (bubbleCenterX > _layoutKSlider.width - _layoutKSliderBubble.getWidth() / 2f) {
+                    bubbleCenterX = _layoutKSlider.width - _layoutKSliderBubble.getWidth() / 2f
                 } else if (bubbleCenterX - _layoutKSliderBubble.getWidth() / 2f < 0) {
                     bubbleCenterX = _layoutKSliderBubble.getWidth() / 2f
                 }
                 val trangleCenterX: Float = (bubbleCenterX + rodCenterX) / 2f
                 drawBubble(canvas, bubbleCenterX, trangleCenterX, 0f)
             }
-        }
+        }*/
+
         canvas.restore()
+    }
+
+    private fun drawSlider(canvas: Canvas) {
+        val vertexLeft = _sliderPaddingHorizontal
+        val vertexRight = _layoutKSlider.width - _sliderPaddingHorizontal
+
+        canvas.drawCircle(vertexLeft, _sliderCenterY, _sliderVertexRadius, _paintSlider)
+        canvas.drawCircle(vertexRight, _sliderCenterY, _sliderVertexRadius, _paintSlider)
+        canvas.drawRect(vertexLeft, _sliderY, vertexRight, _sliderY + _sliderHeight, _paintSlider)
+
+        val rodCurrentX = _rodX + _sliderPaddingHorizontal
+
+        if (isRegions()) {
+            _paintSlider.color = _sliderRegionLeftColor
+            canvas.drawCircle(_sliderPaddingHorizontal, _sliderCenterY, _sliderVertexRadius, _paintSlider)
+            canvas.drawRect(_sliderPaddingHorizontal, _sliderY, rodCurrentX, _sliderY + _sliderHeight, _paintSlider)
+        } else {
+            var lastX = _sliderPaddingHorizontal
+            var first = true
+            for (step in _sections) {
+                _paintSlider.color = step.colorBefore
+                if (first) {
+                    canvas.drawCircle(_sliderPaddingHorizontal, _sliderCenterY, _sliderVertexRadius, _paintSlider)
+                }
+                val x = step.startPos + _sliderPaddingHorizontal
+                if (!_sectionColorBeforeRod) {
+                    canvas.drawRect(lastX, _sliderY, x, _sliderY + _sliderHeight, _paintSlider)
+                } else {
+                    canvas.drawRect(
+                        lastX,
+                        _sliderY,
+                        x.coerceAtMost(rodCurrentX),
+                        _sliderY + _sliderHeight,
+                        _paintSlider
+                    )
+                }
+                lastX = x
+                first = false
+            }
+            if (_sectionColorAfterLast) {
+                //find the step just below currentValue
+                for (i in _sections.indices.reversed()) {
+                    val step = _sections[i]
+                    if (_rodCurrentVal - _rodMinVal > step.value) {
+                        _paintSlider.color = step.colorAfter
+                        canvas.drawRect(
+                            step.startPos + _sliderPaddingHorizontal,
+                            _sliderY,
+                            rodCurrentX,
+                            _sliderY + _sliderHeight,
+                            _paintSlider
+                        )
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    private fun drawRod(canvas: Canvas) {
+        val rodCurrentX = _rodX + _sliderPaddingHorizontal
+        val color = _paintRod.color
+        canvas.drawCircle(rodCurrentX, _sliderCenterY, _rodRadius, _paintRod)//外圆
+        _paintRod.color = Color.WHITE
+        canvas.drawCircle(rodCurrentX, _sliderCenterY, _rodRadius * 0.85f, _paintRod)//内圆
+        _paintRod.color = color
     }
 
     private fun onBubbleClicked() {
@@ -697,9 +693,7 @@ class LayoutKSliderProxy(
             _editText.requestFocus()
             _editText.requestFocusFromTouch()
             editBubbleEditPosition()
-            if (_editListener != null) {
-                _editListener!!.onEdit(_editText)
-            }
+            _bubbleListener?.onEdit(_editText)
             _editText.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                     closeEditText()
@@ -815,14 +809,6 @@ class LayoutKSliderProxy(
         return _sections.isEmpty()
     }
 
-    private fun drawText(canvas: Canvas, text: String, x: Float, y: Float, paint: TextPaint, alignment: Layout.Alignment) {
-        canvas.save()
-        canvas.translate(x, y)
-        val staticLayout = StaticLayout(text, paint, paint.measureText(text).toInt(), alignment, 1.0f, 0f, false)
-        staticLayout.draw(canvas)
-        canvas.restore()
-    }
-
     private fun drawMultilineText(canvas: Canvas, text: String, x: Float, y: Float, paint: TextPaint, alignment: Layout.Alignment) {
         val lineHeight = paint.textSize
         var lineY = y
@@ -867,17 +853,17 @@ class LayoutKSliderProxy(
             _sliderY += _labelSliderDistance * 2
             if (isRegions()) {
                 var topTextHeight = 0f
-                val tmpTextLeft = formatRodText(0, 0f)
-                val tmpTextRight = formatRodText(1, 0f)
-                topTextHeight = max(topTextHeight, calculateTextMultilineHeight(tmpTextLeft, _paintLabelTop))
-                topTextHeight = max(topTextHeight, calculateTextMultilineHeight(tmpTextRight, _paintLabelTop))
+                val tmpTextLeft = formatLabelText(0f)
+                val tmpTextRight = formatLabelText(0f)
+                topTextHeight = max(topTextHeight, UtilKCanvas.getMultiLineTextHeight(_paintLabelTop, tmpTextLeft))
+                topTextHeight = max(topTextHeight, UtilKCanvas.getMultiLineTextHeight(_paintLabelTop, tmpTextRight))
                 _sliderY += topTextHeight + 3
             } else {
                 var topTextHeight = 0f
                 for (step in _sections) {
                     topTextHeight = max(
                         topTextHeight,
-                        calculateTextMultilineHeight(formatLabelText(step.value), _paintLabelBottom)
+                        UtilKCanvas.getMultiLineTextHeight(_paintLabelBottom, formatLabelText(step.value))
                     )
                 }
                 _sliderY += topTextHeight
@@ -903,14 +889,14 @@ class LayoutKSliderProxy(
         var bottomTextHeight = 0f
         if (!TextUtils.isEmpty(_labelTextMax)) {
             bottomTextHeight = max(
-                calculateTextMultilineHeight(_labelTextMax, _paintLabelBottom),
-                calculateTextMultilineHeight(_labelTextMin, _paintLabelBottom)
+                UtilKCanvas.getMultiLineTextHeight(_paintLabelBottom, _labelTextMax),
+                UtilKCanvas.getMultiLineTextHeight(_paintLabelBottom, _labelTextMin)
             )
         }
         for (step in _sections) {
             bottomTextHeight = max(
                 bottomTextHeight,
-                calculateTextMultilineHeight(step.name, _paintLabelBottom)
+                UtilKCanvas.getMultiLineTextHeight(_paintLabelBottom, step.name)
             )
         }
         _layoutHeightSpec += bottomTextHeight.toInt()
@@ -943,7 +929,7 @@ class LayoutKSliderProxy(
     ) {
         var x = globalX
         var y = globalY
-        val textHeight = calculateTextMultilineHeight(text, paintText)
+        val textHeight = UtilKCanvas.getMultiLineTextHeight(paintText, text)
         y -= textHeight
         val width = paintText.measureText(text).toInt()
         x = if (x >= globalWidth - _sliderPaddingHorizontal) {
@@ -959,7 +945,7 @@ class LayoutKSliderProxy(
         if (x + width > globalWidth) {
             x = (globalWidth - width).toFloat()
         }
-        drawText(canvas, text, x, y, paintText, alignment)
+        UtilKCanvas.drawText(canvas, paintText, text, x, y, alignment)
     }
 
     private fun drawBubblePath(canvas: Canvas, triangleCenterX: Float, height: Float, width: Float) {
@@ -983,12 +969,12 @@ class LayoutKSliderProxy(
         canvas.drawPath(path, _paintBubble)
     }
 
-    private fun formatRodText(region: Int, value: Float): String {
+    /*private fun formatRodText(region: Int, value: Float): String {
         return _textRodFormatter?.format(region, value) ?: value.toString()
-    }
+    }*/
 
     private fun formatLabelText(value: Float): String {
-        return _textLabelFormatter?.format(value) ?: value.toString()
+        return _labelTextFormatter?.format(value) ?: value.toString()
     }
 
     fun handleTouch(event: MotionEvent): Boolean {
@@ -1050,20 +1036,9 @@ class LayoutKSliderProxy(
             }
             if (!this._bubbleIsEditing) {
                 val bubbleText = formatLabelText(_rodCurrentVal)
-                drawText(
-                    canvas,
-                    bubbleText,
-                    _bubblePaddingHorizontal,
-                    (_bubblePaddingVertical - 3),
-                    _paintBubbleText,
-                    Layout.Alignment.ALIGN_NORMAL
-                )
+                UtilKCanvas.drawText(canvas, _paintBubbleText, bubbleText, _bubblePaddingHorizontal, (_bubblePaddingVertical - 3), Layout.Alignment.ALIGN_NORMAL)
             }
         }
         canvas.restore()
-    }
-
-    private fun calculateTextMultilineHeight(text: String, textPaint: TextPaint): Float {
-        return text.split("\n").toTypedArray().size * textPaint.textSize
     }
 }

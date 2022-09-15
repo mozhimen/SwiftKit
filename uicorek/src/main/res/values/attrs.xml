@@ -108,28 +108,30 @@
 
     <!--layoutk-->
     <declare-styleable name="LayoutKSlider">
-        <attr name="layoutKSlider_height" format="dimension" />
-        <attr name="layoutKSlider_backgroundColor" format="color" />
+        <attr name="layoutKSlider_layoutHeight" format="dimension|reference" />
 
-        <attr name="layoutKSlider_textTop_visible" format="boolean" />
-        <attr name="layoutKSlider_textTop_size" format="dimension" />
-        <attr name="layoutKSlider_textBottom_visible" format="boolean" />
-        <attr name="layoutKSlider_textBottom_size" format="dimension" />
+        <attr name="layoutKSlider_sliderHeight" format="dimension|reference" />
+        <attr name="layoutKSlider_sliderPaddingHorizontal" format="dimension|reference" />
+        <attr name="layoutKSlider_sliderRegionLeftColor" format="color|reference" />
+        <attr name="layoutKSlider_sliderRegionRightColor" format="color|reference" />
+        <attr name="layoutKSlider_sliderRegionLabelIsShow" format="boolean" />
+        <attr name="layoutKSlider_sliderRegionLabelColor" format="color|reference" />
+        <attr name="layoutKSlider_sliderRegionLabelColorIsFollowRegion" format="boolean" />
 
-        <attr name="layoutKSlider_step_colorizeAfterLast" format="boolean" />
-        <attr name="layoutKSlider_step_drawLine" format="boolean" />
-        <attr name="layoutKSlider_step_colorizeOnlyBeforeIndicator" format="boolean" />
+        <attr name="layoutKSlider_rodColor" format="color|reference" />
+        <attr name="layoutKSlider_rodIsInside" format="boolean" />
+        <attr name="layoutKSlider_rodRadius" format="dimension|reference" />
 
-        <attr name="layoutKSlider_draw_bubble" format="boolean" />
+        <attr name="layoutKSlider_labelTopIsShow" format="boolean" />
+        <attr name="layoutKSlider_labelBottomIsShow" format="boolean" />
+        <attr name="layoutKSlider_labelTextColor" format="color|reference" />
+        <attr name="layoutKSlider_labelTopTextSize" format="dimension|reference" />
+        <attr name="layoutKSlider_labelBottomTextSize" format="dimension|reference" />
+        <attr name="layoutKSlider_labelSliderDistance" format="dimension|reference" />
 
-        <attr name="layoutKSlider_regions" format="boolean" />
-        <attr name="layoutKSlider_regions_centerText" format="boolean" />
-        <attr name="layoutKSlider_regions_textFollowRegionColor" format="boolean" />
-        <attr name="layoutKSlider_region_leftColor" format="color" />
-        <attr name="layoutKSlider_region_rightColor" format="color" />
-
-        <attr name="layoutKSlider_indicator_inside" format="boolean" />
-        <attr name="layoutKSlider_enableEditBubble" format="boolean" />
+        <attr name="layoutKSlider_sectionCrossLineIsShow" format="boolean" />
+        <attr name="layoutKSlider_sectionCrossLineColor" format="color|reference" />
+        <attr name="layoutKSlider_sectionCrossLineWidth" format="dimension|reference" />
     </declare-styleable>
     <declare-styleable name="LayoutKEmpty">
         <attr name="layoutKEmpty_icon" format="string|reference" />

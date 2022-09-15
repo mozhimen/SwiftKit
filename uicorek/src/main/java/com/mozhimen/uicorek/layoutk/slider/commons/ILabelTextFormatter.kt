@@ -7,6 +7,6 @@ package com.mozhimen.uicorek.layoutk.slider.commons
  * @Date 2022/9/8 17:55
  * @Version 1.0
  */
-interface ITextLabelFormatter {
+interface ILabelTextFormatter {
     fun format(value: Float): String
 }

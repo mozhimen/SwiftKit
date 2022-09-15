@@ -168,10 +168,6 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     //endregion
 
     init {
-        init(attrs)
-    }
-
-    fun init(attrs: AttributeSet?) {
         _textKBubbleProxy.init(this, attrs)
     }
 

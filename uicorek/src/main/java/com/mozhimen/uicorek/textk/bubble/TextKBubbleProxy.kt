@@ -29,8 +29,8 @@ import kotlin.math.abs
 class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayout {
     //region # variate
     private val TAG = "TextKBubbleProxy>>>>>"
-    private lateinit var _parentView: View
-    private lateinit var _bubbleListener: ITextKBubbleListener
+    private lateinit var _textKBubble: TextKBubble
+    private lateinit var _textKBubbleListener: ITextKBubbleListener
 
     private var _arrowToViewRef: WeakReference<View>? = null
     private var _drawableArrowDirection: ArrowDirection = ArrowDirection.None
@@ -78,15 +78,11 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
     }
     //endregion
 
-    fun init(view: View, attrs: AttributeSet?) {
-        try {
-            _parentView = view
-            _bubbleListener = view as ITextKBubbleListener
-            initAttrs(attrs, 0)
-            updateDrawable(_parentView.width, _parentView.height, false)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+    fun init(textKBubble: TextKBubble, attrs: AttributeSet?) {
+        _textKBubble = textKBubble
+        _textKBubbleListener = textKBubble
+        initAttrs(attrs, 0)
+        updateDrawable(_textKBubble.width, _textKBubble.height, false)
     }
 
     override fun initFlag() {}
@@ -153,7 +149,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
         var arrowToView = getArrowTo()
 
         if (arrowToView == null && _arrowToByViewId != 0) {
-            arrowToView = UtilKView.findViewFromParentById(_arrowToByViewId, _parentView)
+            arrowToView = UtilKView.findViewFromParentById(_arrowToByViewId, _textKBubble)
             setArrowToViewRef(arrowToView)
         }
 
@@ -166,7 +162,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
                 _location[0] + arrowToView.width,
                 _location[1] + arrowToView.height
             )
-            _parentView.getLocationOnScreen(_location)
+            _textKBubble.getLocationOnScreen(_location)
 
             _rectSelf.set(
                 _location[0],
@@ -183,10 +179,10 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
         }
 
         setPadding(
-            _parentView.paddingLeft.toFloat(),
-            _parentView.paddingTop.toFloat(),
-            _parentView.paddingRight.toFloat(),
-            _parentView.paddingBottom.toFloat()
+            _textKBubble.paddingLeft.toFloat(),
+            _textKBubble.paddingTop.toFloat(),
+            _textKBubble.paddingRight.toFloat(),
+            _textKBubble.paddingBottom.toFloat()
         )
 
         if (drawImmediately) {
@@ -204,9 +200,9 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
             _bubbleDrawable.setArrowWidth(_arrowWidth)
             _bubbleDrawable.updateShapes()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                _parentView.background = _bubbleDrawable
+                _textKBubble.background = _bubbleDrawable
             } else {
-                _parentView.setBackgroundDrawable(_bubbleDrawable) // noinspection deprecation
+                _textKBubble.setBackgroundDrawable(_bubbleDrawable) // noinspection deprecation
             }
         }
     }
@@ -328,7 +324,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
                 if (stack[i].className == View::class.java.name && (stack[i].methodName == "recomputePadding")
                 ) {
                     Log.w(TAG, "Called setPadding by View on old Android platform")
-                    _bubbleListener.setSuperPadding(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
+                    _textKBubbleListener.setSuperPadding(left.toInt(), top.toInt(), right.toInt(), bottom.toInt())
                     return
                 }
             }
@@ -348,9 +344,9 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
         val superPaddingRight: Int = right.toInt() + _paddingRightOffset
         val superPaddingBottom: Int = bottom.toInt() + _paddingBottomOffset
 
-        if (superPaddingLeft != _bubbleListener.getSuperPaddingLeft() || superPaddingTop != _bubbleListener.getSuperPaddingTop() || superPaddingRight != _bubbleListener.getSuperPaddingRight() || superPaddingBottom != _bubbleListener.getSuperPaddingBottom()) {
-            _parentView.post {
-                _bubbleListener.setSuperPadding(
+        if (superPaddingLeft != _textKBubbleListener.getSuperPaddingLeft() || superPaddingTop != _textKBubbleListener.getSuperPaddingTop() || superPaddingRight != _textKBubbleListener.getSuperPaddingRight() || superPaddingBottom != _textKBubbleListener.getSuperPaddingBottom()) {
+            _textKBubble.post {
+                _textKBubbleListener.setSuperPadding(
                     superPaddingLeft, superPaddingTop, superPaddingRight, superPaddingBottom
                 )
             }
@@ -358,19 +354,19 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
     }
 
     override fun getPaddingLeft(): Int =
-        _bubbleListener.getSuperPaddingLeft() - _paddingLeftOffset
+        _textKBubbleListener.getSuperPaddingLeft() - _paddingLeftOffset
 
     override fun getPaddingTop(): Int =
-        _bubbleListener.getSuperPaddingTop() - _paddingTopOffset
+        _textKBubbleListener.getSuperPaddingTop() - _paddingTopOffset
 
     override fun getPaddingRight(): Int =
-        _bubbleListener.getSuperPaddingRight() - _paddingRightOffset
+        _textKBubbleListener.getSuperPaddingRight() - _paddingRightOffset
 
     override fun getPaddingBottom(): Int =
-        _bubbleListener.getSuperPaddingBottom() - _paddingBottomOffset
+        _textKBubbleListener.getSuperPaddingBottom() - _paddingBottomOffset
 
     override fun requestUpdateBubble() {
-        updateDrawable(_parentView.width, _parentView.height, true)
+        updateDrawable(_textKBubble.width, _textKBubble.height, true)
     }
 
     private fun setArrowToViewRef(targetView: View?) {

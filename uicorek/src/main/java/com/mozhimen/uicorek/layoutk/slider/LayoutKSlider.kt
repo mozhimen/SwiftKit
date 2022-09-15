@@ -36,75 +36,79 @@ import com.mozhimen.uicorek.layoutk.slider.mos.Section
 class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     BaseKLayoutFrame(context, attrs, defStyleAttr, defStyleRes) {
 
-    private var _layoutKSliderProxy: LayoutKSliderProxy
+    private var _layoutKSliderProxy: LayoutKSliderProxy = LayoutKSliderProxy(context)
 
     init {
         setWillNotDraw(false)
-        _layoutKSliderProxy = LayoutKSliderProxy(this, context, attrs, defStyleAttr)
+        _layoutKSliderProxy.init(this, attrs)
     }
 
     //region # public func
-    fun setSliderListener(sliderListener: ISliderListener) {
-        _layoutKSliderProxy.setSliderListener(sliderListener)
-    }
+    /* fun setSliderListener(sliderListener: ISliderListener) {
+         _layoutKSliderProxy.setSliderListener(sliderListener)
+     }
 
-    fun setBubbleListener(bubbleListener: IBubbleListener) {
-        _layoutKSliderProxy.setBubbleListener(bubbleListener)
-    }
+     fun setBubbleListener(bubbleListener: IBubbleListener) {
+         _layoutKSliderProxy.setBubbleListener(bubbleListener)
+     }
 
-    fun setEditListener(editListener: IEditListener) {
-        _layoutKSliderProxy.setEditListener(editListener)
-    }
+     fun setEditListener(editListener: IEditListener) {
+         _layoutKSliderProxy.setEditListener(editListener)
+     }
 
-    fun setTextLabelFormatter(textLabelFormatter: ITextLabelFormatter) {
-        _layoutKSliderProxy.setTextLabelFormatter(textLabelFormatter)
-    }
+     fun setTextLabelFormatter(textLabelFormatter: ILabelTextFormatter) {
+         _layoutKSliderProxy.setTextLabelFormatter(textLabelFormatter)
+     }
 
-    fun setTextRodFormatter(textRodFormatter: ITextRodFormatter) {
-        _layoutKSliderProxy.setTextRodFormatter(textRodFormatter)
-    }
+     fun setTextRodFormatter(textRodFormatter: ITextRodFormatter) {
+         _layoutKSliderProxy.setTextRodFormatter(textRodFormatter)
+     }
 
-    fun addSection(sections: List<Section>) {
-        _layoutKSliderProxy.addSection(sections)
-    }
+     fun addSection(sections: List<Section>) {
+         _layoutKSliderProxy.addSection(sections)
+     }
 
-    fun addSection(section: Section) {
-        _layoutKSliderProxy.addSection(section)
-    }
+     fun addSection(section: Section) {
+         _layoutKSliderProxy.addSection(section)
+     }
 
-    fun clearSections() {
-        _layoutKSliderProxy.clearSections()
-    }
+     fun clearSections() {
+         _layoutKSliderProxy.clearSections()
+     }
 
-    fun getRodMaxVal(): Float {
-        return _layoutKSliderProxy.getRodMaxVal()
-    }
+     fun getRodMaxVal(): Float {
+         return _layoutKSliderProxy.getRodMaxVal()
+     }
 
-    fun setRodMaxVal(rodMaxVal: Float) {
-        _layoutKSliderProxy.setRodMaxVal(rodMaxVal)
-    }
+     fun setRodMaxVal(rodMaxVal: Float) {
+         _layoutKSliderProxy.setRodMaxVal(rodMaxVal)
+     }
 
-    fun setRodMinVal(rodMinVal: Float) {
-        _layoutKSliderProxy.setRodMinVal(rodMinVal)
-    }
+     fun setRodMinVal(rodMinVal: Float) {
+         _layoutKSliderProxy.setRodMinVal(rodMinVal)
+     }
 
-    fun getRodCurrentVal(): Float {
-        return _layoutKSliderProxy.getRodCurrentVal()
-    }
+     fun getRodCurrentVal(): Float {
+         return _layoutKSliderProxy.getRodCurrentVal()
+     }
 
-    fun setRodCurrentVal(rodCurrentVal: Float) {
-        _layoutKSliderProxy.setRodCurrentVal(rodCurrentVal)
-    }
+     fun setRodCurrentVal(rodCurrentVal: Float) {
+         _layoutKSliderProxy.setRodCurrentVal(rodCurrentVal)
+     }
 
-    fun setLabelTextMax(labelTextMax: String) {
-        _layoutKSliderProxy.setLabelTextMax(labelTextMax)
-    }
+     fun setLabelTextMax(labelTextMax: String) {
+         _layoutKSliderProxy.setLabelTextMax(labelTextMax)
+     }
 
-    fun setLabelTextMin(labelTextMin: String) {
-        _layoutKSliderProxy.setLabelTextMin(labelTextMin)
-    }
+     fun setLabelTextMin(labelTextMin: String) {
+         _layoutKSliderProxy.setLabelTextMin(labelTextMin)
+     }*/
     //endregion
 
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        _layoutKSliderProxy.onDraw(canvas)
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -122,19 +126,7 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        _layoutKSliderProxy.setParentViewScrollable(
-            UtilKView.getParentViewMatch(
-                this,
-                ScrollView::class.java,
-                NestedScrollView::class.java,
-                RecyclerView::class.java
-            ) as ViewGroup?
-        )
-    }
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        _layoutKSliderProxy.onDraw(width, height, canvas)
+        _layoutKSliderProxy.setParentViewScrollable(UtilKView.getParentViewMatch(this, ScrollView::class.java, NestedScrollView::class.java, RecyclerView::class.java) as ViewGroup?)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
