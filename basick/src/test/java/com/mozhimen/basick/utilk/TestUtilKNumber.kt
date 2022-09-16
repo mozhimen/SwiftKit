@@ -13,7 +13,13 @@ class TestUtilKNumber {
     @Test
     fun normalize() {
         UtilKConsole.printlog(UtilKNumber.normalize(-1, 0..10).toString())
-        UtilKConsole.printlog(UtilKNumber.normalize(1, 0..10).toString())```
+        UtilKConsole.printlog(UtilKNumber.normalize(1, 0..10).toString())
         UtilKConsole.printlog(UtilKNumber.normalize(11, 0..10).toString())
+    }
+
+    @Test
+    fun angleSin() {
+        UtilKConsole.printlog(UtilKNumber.angleSin(1f, 2f).toString())
+        UtilKConsole.printlog(UtilKNumber.angleCos(1f, 2f).toString())
     }
 }

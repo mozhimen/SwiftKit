@@ -1,6 +1,13 @@
 package com.mozhimen.basick.utilk
 
+import android.graphics.Point
+import android.util.Range
+import androidx.annotation.FloatRange
 import kotlin.collections.ArrayList
+import kotlin.math.abs
+import kotlin.math.acos
+import kotlin.math.asin
+import kotlin.math.sqrt
 
 /**
  * @ClassName UtilKNumber
@@ -10,6 +17,26 @@ import kotlin.collections.ArrayList
  * @Version 1.0
  */
 object UtilKNumber {
+    fun angleCos(adjacent: Float, hypotenuse: Float): Float {
+        return Math.toDegrees(acos(adjacent / hypotenuse).toDouble()).toFloat()
+    }
+
+    @JvmStatic
+    fun angleSin(opposite: Float, hypotenuse: Float): Float {
+        return Math.toDegrees(asin(opposite / hypotenuse).toDouble()).toFloat()
+    }
+
+    @JvmStatic
+    fun distance(ax: Float, ay: Float, bx: Float, by: Float): Float {
+        val distance1 = abs(bx - ax)
+        val distance2 = abs(by - ay)
+        return sqrt(distance1 * distance1 + distance2 * distance2)
+    }
+
+    @JvmStatic
+    fun center(ax: Float, ay: Float, bx: Float, by: Float): Pair<Float, Float> =
+        Pair((ax + bx) / 2f, (ay + by) / 2f)
+
     @JvmStatic
     fun normalize(value: Int, range: IntRange): Int {
         return when {

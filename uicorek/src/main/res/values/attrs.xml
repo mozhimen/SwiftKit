@@ -373,6 +373,15 @@
     </declare-styleable>
 
     <!--viewk-->
+    <declare-styleable name="ViewKImageMask">
+        <attr name="viewKImageMask_maskType" format="enum">
+            <enum name="stroke" value="1" />
+            <enum name="fill" value="0" />
+        </attr>
+        <attr name="viewKImageMask_maskColor" format="color|reference" />
+        <attr name="viewKImageMask_borderWidth" format="dimension|reference" />
+    </declare-styleable>
+
     <declare-styleable name="ArcRotate">
         <!-- 圆弧的开始渐变色-->
         <attr name="arcRotate_arcStartColor" format="color|reference" />
