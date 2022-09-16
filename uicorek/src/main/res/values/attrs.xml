@@ -374,11 +374,16 @@
 
     <!--viewk-->
     <declare-styleable name="ViewKImageMask">
+        <!--蒙版类型-->
         <attr name="viewKImageMask_maskType" format="enum">
+            <!--蒙版类型:全遮罩-->
             <enum name="stroke" value="1" />
+            <!--蒙版类型:边框-->
             <enum name="fill" value="0" />
         </attr>
+        <!--蒙版颜色-->
         <attr name="viewKImageMask_maskColor" format="color|reference" />
+        <!--蒙版边框类型宽-->
         <attr name="viewKImageMask_borderWidth" format="dimension|reference" />
     </declare-styleable>
 
