@@ -1,8 +1,7 @@
 package com.mozhimen.uicorek.layoutk.slider.mos
 
 import android.view.MotionEvent
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.uicorek.layoutk.slider.LayoutKSliderProxy.Companion.BUBBLE_ARROW_HEIGHT
+import com.mozhimen.basick.utilk.UtilKGesture
 
 /**
  * @ClassName Bubble
@@ -11,8 +10,22 @@ import com.mozhimen.uicorek.layoutk.slider.LayoutKSliderProxy.Companion.BUBBLE_A
  * @Date 2022/9/8 17:58
  * @Version 1.0
  */
-class LayoutKSliderBubble {
-    private var _height = 0f
+class Bubble {
+    var width = 0f
+    var height = 0f
+    var leftX = 0f
+    var rightX = 0f
+    var topY = 0f
+    var bottomY = 0f
+    var arrowWidth = 0f
+    var arrowHeight = 0f
+    var bubbleHeight: Float = 0f
+        get() = height - arrowHeight
+
+    fun isTapInArea(e: MotionEvent): Boolean =
+        UtilKGesture.isTapInArea(e, leftX, rightX, topY, bottomY)
+
+    /*private var _height = 0f
     private var _width = 0f
     private var _x = 0f
     private var _y = 0f
@@ -53,5 +66,5 @@ class LayoutKSliderBubble {
 
     fun isTapInBubbleArea(e: MotionEvent): Boolean {
         return e.x >= _x && e.x <= _x + _width && e.y >= _y && e.y < _y + _height
-    }
+    }*/
 }

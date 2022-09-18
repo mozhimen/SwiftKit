@@ -10,8 +10,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.basick.utilk.UtilKView
-import com.mozhimen.uicorek.layoutk.slider.commons.*
-import com.mozhimen.uicorek.layoutk.slider.mos.Section
+import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
 
 /**
  * @ClassName LayoutKSlider
@@ -40,13 +39,70 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
 
     init {
         setWillNotDraw(false)
-        _layoutKSliderProxy.init(this, attrs)
+        _layoutKSliderProxy.init(this)
+        initAttrs(attrs, defStyleAttr)
+        initPaint()
+        minimumHeight = _layoutKSliderProxy.getHeightMeasureSpec()
+    }
+
+    fun getCurrentVal(): Float =
+        _layoutKSliderProxy.getCurrentVal()
+
+    fun setSliderListener(sliderListener: ISliderListener) {
+        _layoutKSliderProxy.setSliderListener(sliderListener)
+    }
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        _layoutKSliderProxy.initAttrs(attrs, defStyleAttr)
+    }
+
+    private fun initPaint() {
+        _layoutKSliderProxy.initPaint()
+    }
+
+    override fun initView() {
+        _layoutKSliderProxy.initView()
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        //_layoutKSliderProxy.updateValues()
+        val newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(_layoutKSliderProxy.getHeightMeasureSpec(), MeasureSpec.EXACTLY)
+        super.onMeasure(widthMeasureSpec, newHeightMeasureSpec)
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        initView()
+        //_layoutKSliderProxy.updateValues()
+        postInvalidate()
+    }
+
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        _layoutKSliderProxy.onDraw(canvas)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return _layoutKSliderProxy.onTouchEvent(event)
+    }
+
+//    override fun onKeyPreIme(keyCode: Int, event: KeyEvent): Boolean {
+//        if (event.keyCode == KeyEvent.KEYCODE_BACK) {
+//            dispatchKeyEvent(event)
+//            //_layoutKSliderProxy.closeEditText()
+//            return false
+//        }
+//        return super.onKeyPreIme(keyCode, event)
+//    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        _layoutKSliderProxy.attachScrollableParentView(UtilKView.getParentViewMatch(this, ScrollView::class.java, NestedScrollView::class.java, RecyclerView::class.java) as ViewGroup?)
     }
 
     //region # public func
-    /* fun setSliderListener(sliderListener: ISliderListener) {
-         _layoutKSliderProxy.setSliderListener(sliderListener)
-     }
+    /*
 
      fun setBubbleListener(bubbleListener: IBubbleListener) {
          _layoutKSliderProxy.setBubbleListener(bubbleListener)
@@ -104,39 +160,4 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
          _layoutKSliderProxy.setLabelTextMin(labelTextMin)
      }*/
     //endregion
-
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-        _layoutKSliderProxy.onDraw(canvas)
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        return _layoutKSliderProxy.handleTouch(event)
-    }
-
-    override fun onKeyPreIme(keyCode: Int, event: KeyEvent): Boolean {
-        if (event.keyCode == KeyEvent.KEYCODE_BACK) {
-            dispatchKeyEvent(event)
-            _layoutKSliderProxy.closeEditText()
-            return false
-        }
-        return super.onKeyPreIme(keyCode, event)
-    }
-
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        _layoutKSliderProxy.setParentViewScrollable(UtilKView.getParentViewMatch(this, ScrollView::class.java, NestedScrollView::class.java, RecyclerView::class.java) as ViewGroup?)
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        postInvalidate()
-        _layoutKSliderProxy.updateValues()
-    }
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        _layoutKSliderProxy.updateValues()
-        super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(_layoutKSliderProxy.getLayoutHeightMeasureSpec(), MeasureSpec.EXACTLY))
-    }
 }

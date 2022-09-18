@@ -22,11 +22,30 @@ object UtilKGesture {
      * @param event MotionEvent
      * @return Float
      */
-    fun fingerDistance(event: MotionEvent): Float {
-        val x = event.getX(0) - event.getX(1)
-        val y = event.getY(0) - event.getY(1)
-        return sqrt((x * x + y * y).toDouble()).toFloat()
+    @JvmStatic
+    fun distance(event: MotionEvent): Float {
+        return if (event.pointerCount >= 2) {
+            UtilKNumber.distance(
+                event.getX(0),
+                event.getY(0),
+                event.getX(1),
+                event.getY(1)
+            )
+        } else 0f
     }
+
+    /**
+     * 是否点击区域内
+     * @param event MotionEvent
+     * @param ax Float
+     * @param ay Float
+     * @param bx Float
+     * @param by Float
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isTapInArea(event: MotionEvent, left: Float, right: Float, top: Float, bottom: Float): Boolean =
+        event.x in left..right && event.y >= top && event.y < bottom
 
     interface IFlingListener {
         fun onFlingUp()

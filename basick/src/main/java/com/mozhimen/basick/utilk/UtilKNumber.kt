@@ -17,6 +17,7 @@ import kotlin.math.sqrt
  * @Version 1.0
  */
 object UtilKNumber {
+    @JvmStatic
     fun angleCos(adjacent: Float, hypotenuse: Float): Float {
         return Math.toDegrees(acos(adjacent / hypotenuse).toDouble()).toFloat()
     }
@@ -27,6 +28,10 @@ object UtilKNumber {
     }
 
     @JvmStatic
+    fun center(ax: Float, ay: Float, bx: Float, by: Float): Pair<Float, Float> =
+        Pair((ax + bx) / 2f, (ay + by) / 2f)
+
+    @JvmStatic
     fun distance(ax: Float, ay: Float, bx: Float, by: Float): Float {
         val distance1 = abs(bx - ax)
         val distance2 = abs(by - ay)
@@ -34,17 +39,32 @@ object UtilKNumber {
     }
 
     @JvmStatic
-    fun center(ax: Float, ay: Float, bx: Float, by: Float): Pair<Float, Float> =
-        Pair((ax + bx) / 2f, (ay + by) / 2f)
-
-    @JvmStatic
-    fun normalize(value: Int, range: IntRange): Int {
-        return when {
+    fun normalize(value: Float, range: Pair<Float, Float>): Float =
+        when {
             value < range.first -> range.first
-            value > range.last -> range.last
+            value > range.second -> range.second
             else -> value
         }
-    }
+
+    @JvmStatic
+    fun normalize(value: Float, range: IntRange): Float =
+        normalize(value, range.first.toFloat() to range.last.toFloat())
+
+    @JvmStatic
+    fun normalize(value: Float, rangeStart: Int, rangeEnd: Int): Float =
+        normalize(value, rangeStart..rangeEnd)
+
+    @JvmStatic
+    fun percent(value: Float, range: Pair<Float, Float>): Float =
+        (normalize(value, range) - range.first) / (range.second - range.first)
+
+    @JvmStatic
+    fun percent(value: Float, range: IntRange): Float =
+        percent(value, range.first.toFloat() to range.last.toFloat())
+
+    @JvmStatic
+    fun percent(value: Float, rangeStart: Int, rangeEnd: Int): Float =
+        percent(value, rangeStart..rangeEnd)
 
     fun random(start: Int, end: Int): Int = random(IntRange(start, end))
 

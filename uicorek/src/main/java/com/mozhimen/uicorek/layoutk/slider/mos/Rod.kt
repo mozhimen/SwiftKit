@@ -1,0 +1,56 @@
+package com.mozhimen.uicorek.layoutk.slider.mos
+
+import android.util.Log
+import com.mozhimen.basick.extsk.normalize
+import com.mozhimen.basick.extsk.percent
+import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
+
+/**
+ * @ClassName Rod
+ * @Description TODO
+ * @Author mozhimen / Kolin Zhao
+ * @Date 2022/9/17 23:50
+ * @Version 1.0
+ */
+class Rod {
+    private val TAG = "Rod>>>>>"
+    var minX: Float = 0f
+    var maxX: Float = 0f
+    var centerY: Float = 0f
+    var isInsideSlider: Boolean = false
+    var radius: Float = 0f
+    var radiusInside: Float = 0f
+        set(value) {
+            field = value.normalize(0f to radius)
+        }
+
+    var currentX: Float = 0f
+        set(value) {
+            field = value.normalize(minX to maxX)
+            _sliderListener?.onScrolling(currentVal)
+        }
+
+    var minVal: Float = 0f
+    var maxVal: Float = 100f
+    val intervalVal: Float
+        get() = maxVal - minVal
+    var currentVal: Float = 0f
+        get() {
+            val value = currentX.percent(minX to maxX) * intervalVal
+            Log.d(TAG, "currentVal: $value currentX $currentX minX $minX maxX $maxX percent ${currentX.percent(minX to maxX)} intervalVal $intervalVal")
+            return currentX.percent(minX to maxX) * intervalVal
+        }
+
+    private var _sliderListener: ISliderListener? = null
+
+    constructor(minX: Float, maxX: Float, centerY: Float, isInsideSlider: Boolean, radius: Float, radiusInside: Float, _sliderListener: ISliderListener?) {
+        this.minX = minX
+        this.maxX = maxX
+        this.currentX = minX
+        this.centerY = centerY
+        this.isInsideSlider = isInsideSlider
+        this.radius = radius
+        this.radiusInside = radiusInside
+        _sliderListener?.let { this._sliderListener = it }
+    }
+}

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.basek.commons.IBaseKView
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.normalize
+import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKView
@@ -31,7 +32,6 @@ class ViewKImageMask @JvmOverloads constructor(context: Context, attrs: Attribut
 
     //region
     private companion object {
-        private const val TAG = "ViewKImageMask>>>>>"
         private const val MASK_TYPE = 1
         private val MASK_COLOR = UtilKRes.getColor(R.color.blue_normal)
         private val BORDER_WIDTH = 2f.dp2px()
@@ -145,8 +145,8 @@ class ViewKImageMask @JvmOverloads constructor(context: Context, attrs: Attribut
         if (distance > DES_SHAKE_DISTANCE) return ax to ay
         val changeX = ax - _lastAnchorTwoFinger!!.first
         val changeY = ay - _lastAnchorTwoFinger!!.second
-        _maskRect.centerX = (_maskRect.centerX + changeX).normalize(0..width).toFloat()
-        _maskRect.centerY = (_maskRect.centerY + changeY).normalize(0..height).toFloat()
+        _maskRect.centerX = (_maskRect.centerX + changeX).normalize(0f to width.toFloat())
+        _maskRect.centerY = (_maskRect.centerY + changeY).normalize(0f to height.toFloat())
         return ax to ay
     }
 
@@ -157,8 +157,8 @@ class ViewKImageMask @JvmOverloads constructor(context: Context, attrs: Attribut
         if (distance > DES_SHAKE_DISTANCE) return point
         val changeX = point.first - _lastAnchorTwoFinger!!.first
         val changeY = point.second - _lastAnchorTwoFinger!!.second
-        _maskRect.centerX = (_maskRect.centerX + changeX).normalize(0..width).toFloat()
-        _maskRect.centerY = (_maskRect.centerY + changeY).normalize(0..height).toFloat()
+        _maskRect.centerX = (_maskRect.centerX + changeX).normalize(0f to width.toFloat())
+        _maskRect.centerY = (_maskRect.centerY + changeY).normalize(0f to height.toFloat())
         return point
     }
 
@@ -186,16 +186,16 @@ class ViewKImageMask @JvmOverloads constructor(context: Context, attrs: Attribut
             }
         } else {
             0f
-        }.normalize(0..180).toFloat()
+        }.normalize(0f to 180f)
         val scale: Float = fingerDistance / _lastFingerDistance
         if (angle in 0f..15f || angle in 165f..180f) {
-            _maskRect.height = (_maskRect.height * scale).normalize(0..height).toFloat()
+            _maskRect.height = (_maskRect.height * scale).normalize(0f to height.toFloat())
         } else if (angle in 30f..60f) {
-            _maskRect.width = (_maskRect.width * scale).normalize(0..width).toFloat()
+            _maskRect.width = (_maskRect.width * scale).normalize(0f to width.toFloat())
 
         } else {
-            _maskRect.height = (_maskRect.height * scale).normalize(0..height).toFloat()
-            _maskRect.width = (_maskRect.width * scale).normalize(0..width).toFloat()
+            _maskRect.height = (_maskRect.height * scale).normalize(0f to height.toFloat())
+            _maskRect.width = (_maskRect.width * scale).normalize(0f to width.toFloat())
         }
         return fingerDistance
     }
@@ -252,6 +252,7 @@ class ViewKImageMask @JvmOverloads constructor(context: Context, attrs: Attribut
             bottomY = centerY + heightHalf
         }
 
-        fun isTapInArea(e: MotionEvent): Boolean = e.x in leftX..rightX && e.y >= topY && e.y < bottomY
+        fun isTapInArea(e: MotionEvent): Boolean =
+            UtilKGesture.isTapInArea(e, leftX, rightX, topY, bottomY)
     }
 }

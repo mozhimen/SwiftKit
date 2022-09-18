@@ -1,7 +1,5 @@
 package com.mozhimen.uicorek.layoutk.slider.commons
 
-import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
-
 /**
  * @ClassName Listener
  * @Description TODO
@@ -10,5 +8,7 @@ import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
  * @Version 1.0
  */
 interface ISliderListener {
-    fun onScroll(layoutKSlider: LayoutKSlider, currentValue: Float)
+    fun onScrollStart()
+    fun onScrolling(currentValue: Float)
+    fun onScrollEnd(currentValue: Float)
 }
