@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.EditText
 import com.mozhimen.basick.basek.BaseViewCallback
+import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.uicorek.layoutk.slider.commons.IBubbleListener
 import com.mozhimen.uicorek.layoutk.slider.commons.ILabelTextFormatter
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
@@ -100,7 +101,7 @@ class LayoutKSliderProxy(
     }
 
     fun getCurrentVal(): Float =
-        _rod.currentVal
+        if (::_rod.isInitialized) _rod.currentVal else 0f
 
     fun setSliderListener(sliderListener: ISliderListener) {
         _sliderListener = sliderListener
@@ -835,7 +836,7 @@ class LayoutKSliderProxy(
                 _rodIsScrolling = false
             }
             MotionEvent.ACTION_DOWN -> {
-                _rodIsScrolling = if (event.y <= _slider.leftX || event.y >= _slider.rightX) {
+                _rodIsScrolling = if (!UtilKGesture.isTapInArea(event, _slider.leftX, _slider.rightX, _slider.topY, _slider.bottomY)) {
                     return true
                 } else {
                     _sliderListener?.onScrollStart()
