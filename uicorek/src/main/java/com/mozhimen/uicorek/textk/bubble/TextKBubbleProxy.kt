@@ -66,8 +66,8 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
     private var _paddingBottom: Float = PADDING
 
     companion object {
-        private val ARROW_HEIGHT = 6f.dp2px().toFloat()
-        private val ARROW_WIDTH = 10f.dp2px().toFloat()
+        private val ARROW_HEIGHT = 4f.dp2px().toFloat()
+        private val ARROW_WIDTH = 6f.dp2px().toFloat()
         private val ARROW_POS_OFFSET = 10f.dp2px().toFloat()
         private const val BG_COLOR = Color.WHITE
         private const val BORDER_COLOR = Color.GRAY

@@ -1,7 +1,6 @@
 package com.mozhimen.uicorek.layoutk.slider.mos
 
 import android.graphics.Color
-import androidx.annotation.ColorRes
 import com.mozhimen.uicorek.layoutk.slider.helpers.LayoutKSliderParser
 
 /**
@@ -40,6 +39,8 @@ class Slider {
     var heightHalf: Float = 0f
     var centerY: Float = 0f
     var bottomY: Float = 0f
+
+    constructor()
 
     constructor(width: Float, height: Float, leftX: Float, topY: Float) {
         this.width = width

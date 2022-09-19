@@ -18,49 +18,8 @@ import com.mozhimen.uicorek.layoutk.slider.mos.LayoutKSliderAttrs
  */
 internal object LayoutKSliderParser {
 
-
-    //attrs
-    /*var _layoutHeight: Float = LAYOUT_HEIGHT
-
-    var _sliderHeight: Float = SLIDER_HEIGHT
-    var _sliderPaddingHorizontal: Float = SLIDER_PADDING_HORIZONTAL
-    var _sliderRegionLeftColor = UtilKRes.getColor(R.color.blue_normal)
-    var _sliderRegionRightColor = UtilKRes.getColor(R.color.blue_light)
-
-    var _sliderRegionLabelIsShow = false
-    var _sliderRegionLabelColorIsFollowRegion = false
-    var _sliderRegionLabelColor = UtilKRes.getColor(R.color.blue_normal)
-
-    var _rodColor = _sliderRegionLeftColor
-    var _rodIsInside = false
-    var _rodRadius: Float = ROD_RADIUS
-
-    var _labelTopIsShow = true
-    var _labelBottomIsShow = true
-    val _labelTextColor = UtilKRes.getColor(R.color.blue_normal)
-    var _labelTopTextSize: Float = LABEL_TOP_TEXT_SIZE
-    var _labelBottomTextSize: Float = LABEL_BOTTOM_TEXT_SIZE
-    var _labelSliderDistance: Float = LABEL_SLIDER_DISTANCE
-
-    var _sectionCrossLineIsShow = true
-    val _sectionCrossLineColor = _sliderRegionLeftColor
-    val _sectionCrossLineWidth: Float = SECTION_CROSS_LINE_WIDTH
-    var _sectionColorAfterLast = false
-    var _sectionColorBeforeRod = true
-
-    var _bubbleIsShow = true
-    val _bubbleColor = Color.WHITE
-    val _bubbleRadius: Float = BUBBLE_RADIUS
-    val _bubbleTextColor = UtilKRes.getColor(R.color.blue_normal)
-    val _bubbleTextSize: Float = BUBBLE_TEXT_SIZE
-    val _bubbleArrowWidth: Float = BUBBLE_ARROW_WIDTH
-    val _bubbleArrowHeight: Float = BUBBLE_ARROW_HEIGHT
-    val _bubblePaddingHorizontal: Float = BUBBLE_PADDING_HORIZONTAL
-    val _bubblePaddingVertical: Float = BUBBLE_PADDING_VERTICAL
-    val _bubbleColorEditing = UtilKRes.getColor(R.color.blue_light)
-    var _bubbleEnableEditOnClick = true*/
-
     //const
+    val DEFAULT_PADDING_VERTICAL = 4f.dp2px()
     val SLIDER_WIDTH = 100f.dp2px().toFloat()
     val SLIDER_HEIGHT = 10f.dp2px().toFloat()
     val SLIDER_HEIGHT_INSIDE = 16f.dp2px().toFloat()
@@ -71,21 +30,9 @@ internal object LayoutKSliderParser {
     val ROD_IS_INSIDE = false
     val ROD_MIN_VAL = 0f
     val ROD_MAX_VAL = 0f
-    val SLIDER_PADDING_HORIZONTAL = 0f.dp2px().toFloat()
-    val LABEL_SLIDER_DISTANCE = 8f.dp2px().toFloat()
-    val LABEL_TOP_TEXT_SIZE = 12f.sp2px().toFloat()
-    val LABEL_BOTTOM_TEXT_SIZE = 12f.sp2px().toFloat()
-    val SECTION_CROSS_LINE_WIDTH = 2f.dp2px().toFloat()
-    val BUBBLE_PADDING_HORIZONTAL = 8f.dp2px().toFloat()
-    val BUBBLE_PADDING_VERTICAL = 10f.dp2px().toFloat()
-    val BUBBLE_ARROW_WIDTH = 10f.dp2px().toFloat()
-    val BUBBLE_ARROW_HEIGHT = 10f.dp2px().toFloat()
-    val BUBBLE_TEXT_SIZE = 13f.sp2px().toFloat()
-    val BUBBLE_RADIUS = 4f.dp2px().toFloat()
 
     fun parseAttrs(context: Context, attrs: AttributeSet?): LayoutKSliderAttrs {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSlider)
-
         val rodIsInside: Boolean =
             typedArray.getBoolean(R.styleable.LayoutKSlider_layoutKSlider_rodIsInside, ROD_IS_INSIDE)
         val sliderHeight: Float =
@@ -106,7 +53,6 @@ internal object LayoutKSliderParser {
             typedArray.getFloat(R.styleable.LayoutKSlider_layoutKSlider_rodMinVal, ROD_MIN_VAL)
         val rodMaxVal =
             typedArray.getFloat(R.styleable.LayoutKSlider_layoutKSlider_rodMaxVal, ROD_MAX_VAL)
-
         typedArray.recycle()
 
         return LayoutKSliderAttrs(

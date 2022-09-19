@@ -27,8 +27,8 @@ open class TextKBubblePopWin(
     override var _padding = 2f.dp2px()
     override var _arrowPosOffset = 0
     override var _delayMillis: Long = 2500
-    var paddingHorizontal = 0
-    var paddingVertical = 0
+    var xOffset: Int = 0
+    var yOffset: Int = 0
 
     /**
      * 显示气泡弹窗，并将箭头指向目标
@@ -60,7 +60,7 @@ open class TextKBubblePopWin(
             contentWidth,
             relativePos,
             0,
-            -paddingVertical - 4f.dp2px() / 2,
+            -yOffset - 4f.dp2px() / 2,
             _padding,
             outProp
         )
@@ -82,7 +82,7 @@ open class TextKBubblePopWin(
         showAtLocation(
             anchorView,
             Gravity.CENTER_HORIZONTAL or Gravity.TOP,
-            outProp.x + paddingHorizontal,
+            outProp.x + xOffset,
             outProp.y
         )
 

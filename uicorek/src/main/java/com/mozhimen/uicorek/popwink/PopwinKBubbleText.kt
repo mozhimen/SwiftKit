@@ -20,6 +20,8 @@ class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) : TextKBubb
 
         var layoutId = R.layout.textk_bubble
 
+        private var _xOffset = 0
+        private var _yOffset = 0
         private var _tip: String? = null
         private var _delayMillis: Long = DEFAULT_DISMISS_DELAY
         private var _arrowDirection: ArrowDirection = ArrowDirection.Up
@@ -28,6 +30,16 @@ class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) : TextKBubb
 
         fun setTip(tip: String): Builder {
             _tip = tip
+            return this
+        }
+
+        fun setXOffset(xOffset: Int): Builder {
+            _xOffset = xOffset
+            return this
+        }
+
+        fun setYOffset(yOffset: Int): Builder {
+            _yOffset = yOffset
             return this
         }
 
@@ -56,6 +68,8 @@ class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) : TextKBubb
             rootView.text = _tip ?: DEFAULT_TEXT
 
             val textKBubblePopWin = TextKBubblePopWin(rootView, rootView)
+            textKBubblePopWin.xOffset = _xOffset
+            textKBubblePopWin.yOffset = _yOffset
             textKBubblePopWin.setCancelOnTouch(_isCancelOnTouch)
             textKBubblePopWin.setCancelOnTouchOutside(true)
             textKBubblePopWin.setCancelOnLater(_delayMillis)

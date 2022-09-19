@@ -1,13 +1,6 @@
 package com.mozhimen.basick.utilk
 
-import android.graphics.Point
-import android.util.Range
-import androidx.annotation.FloatRange
-import kotlin.collections.ArrayList
-import kotlin.math.abs
-import kotlin.math.acos
-import kotlin.math.asin
-import kotlin.math.sqrt
+import kotlin.math.*
 
 /**
  * @ClassName UtilKNumber
@@ -39,12 +32,14 @@ object UtilKNumber {
     }
 
     @JvmStatic
-    fun normalize(value: Float, range: Pair<Float, Float>): Float =
-        when {
-            value < range.first -> range.first
-            value > range.second -> range.second
+    fun normalize(value: Float, range: Pair<Float, Float>): Float {
+        val tempRange = min(range.first, range.second) to max(range.first, range.second)
+        return when {
+            value < tempRange.first -> tempRange.first
+            value > tempRange.second -> tempRange.second
             else -> value
         }
+    }
 
     @JvmStatic
     fun normalize(value: Float, range: IntRange): Float =
@@ -55,8 +50,10 @@ object UtilKNumber {
         normalize(value, rangeStart..rangeEnd)
 
     @JvmStatic
-    fun percent(value: Float, range: Pair<Float, Float>): Float =
-        (normalize(value, range) - range.first) / (range.second - range.first)
+    fun percent(value: Float, range: Pair<Float, Float>): Float {
+        val tempRange = min(range.first, range.second) to max(range.first, range.second)
+        return (normalize(value, tempRange) - tempRange.first) / (tempRange.second - tempRange.first)
+    }
 
     @JvmStatic
     fun percent(value: Float, range: IntRange): Float =

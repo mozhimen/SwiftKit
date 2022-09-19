@@ -1,10 +1,8 @@
 package com.mozhimen.basick.utilk
 
-import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import kotlin.math.abs
-import kotlin.math.sqrt
 
 /**
  * @ClassName UtilKGesture

@@ -16,6 +16,8 @@ class Rod {
     private val TAG = "Rod>>>>>"
     var minX: Float = 0f
     var maxX: Float = 0f
+    val intervalX: Float
+        get() = maxX - minX
     var centerY: Float = 0f
     var isInsideSlider: Boolean = false
     var radius: Float = 0f
@@ -35,13 +37,11 @@ class Rod {
     val intervalVal: Float
         get() = maxVal - minVal
     var currentVal: Float = 0f
-        get() {
-            val value = currentX.percent(minX to maxX) * intervalVal
-            Log.d(TAG, "currentVal: $value currentX $currentX minX $minX maxX $maxX percent ${currentX.percent(minX to maxX)} intervalVal $intervalVal")
-            return currentX.percent(minX to maxX) * intervalVal
-        }
+        get() = currentX.percent(minX to maxX) * intervalVal
 
     private var _sliderListener: ISliderListener? = null
+
+    constructor()
 
     constructor(minX: Float, maxX: Float, centerY: Float, isInsideSlider: Boolean, radius: Float, radiusInside: Float, _sliderListener: ISliderListener?) {
         this.minX = minX

@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.basick.utilk.UtilKView
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
+import com.mozhimen.uicorek.layoutk.slider.mos.Rod
+import com.mozhimen.uicorek.layoutk.slider.mos.Slider
 
 /**
  * @ClassName LayoutKSlider
@@ -45,8 +47,11 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
         minimumHeight = _layoutKSliderProxy.getHeightMeasureSpec()
     }
 
-    fun getCurrentVal(): Float =
-        _layoutKSliderProxy.getCurrentVal()
+    val rod: Rod
+        get() = _layoutKSliderProxy.getRod()
+
+    val slider:Slider
+    get() = _layoutKSliderProxy.getSlider()
 
     fun setSliderListener(sliderListener: ISliderListener) {
         _layoutKSliderProxy.setSliderListener(sliderListener)
@@ -65,16 +70,13 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        //_layoutKSliderProxy.updateValues()
         val newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(_layoutKSliderProxy.getHeightMeasureSpec(), MeasureSpec.EXACTLY)
         super.onMeasure(widthMeasureSpec, newHeightMeasureSpec)
     }
 
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
         initView()
-        //_layoutKSliderProxy.updateValues()
-        postInvalidate()
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -87,77 +89,8 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
         return _layoutKSliderProxy.onTouchEvent(event)
     }
 
-//    override fun onKeyPreIme(keyCode: Int, event: KeyEvent): Boolean {
-//        if (event.keyCode == KeyEvent.KEYCODE_BACK) {
-//            dispatchKeyEvent(event)
-//            //_layoutKSliderProxy.closeEditText()
-//            return false
-//        }
-//        return super.onKeyPreIme(keyCode, event)
-//    }
-
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         _layoutKSliderProxy.attachScrollableParentView(UtilKView.getParentViewMatch(this, ScrollView::class.java, NestedScrollView::class.java, RecyclerView::class.java) as ViewGroup?)
     }
-
-    //region # public func
-    /*
-
-     fun setBubbleListener(bubbleListener: IBubbleListener) {
-         _layoutKSliderProxy.setBubbleListener(bubbleListener)
-     }
-
-     fun setEditListener(editListener: IEditListener) {
-         _layoutKSliderProxy.setEditListener(editListener)
-     }
-
-     fun setTextLabelFormatter(textLabelFormatter: ILabelTextFormatter) {
-         _layoutKSliderProxy.setTextLabelFormatter(textLabelFormatter)
-     }
-
-     fun setTextRodFormatter(textRodFormatter: ITextRodFormatter) {
-         _layoutKSliderProxy.setTextRodFormatter(textRodFormatter)
-     }
-
-     fun addSection(sections: List<Section>) {
-         _layoutKSliderProxy.addSection(sections)
-     }
-
-     fun addSection(section: Section) {
-         _layoutKSliderProxy.addSection(section)
-     }
-
-     fun clearSections() {
-         _layoutKSliderProxy.clearSections()
-     }
-
-     fun getRodMaxVal(): Float {
-         return _layoutKSliderProxy.getRodMaxVal()
-     }
-
-     fun setRodMaxVal(rodMaxVal: Float) {
-         _layoutKSliderProxy.setRodMaxVal(rodMaxVal)
-     }
-
-     fun setRodMinVal(rodMinVal: Float) {
-         _layoutKSliderProxy.setRodMinVal(rodMinVal)
-     }
-
-     fun getRodCurrentVal(): Float {
-         return _layoutKSliderProxy.getRodCurrentVal()
-     }
-
-     fun setRodCurrentVal(rodCurrentVal: Float) {
-         _layoutKSliderProxy.setRodCurrentVal(rodCurrentVal)
-     }
-
-     fun setLabelTextMax(labelTextMax: String) {
-         _layoutKSliderProxy.setLabelTextMax(labelTextMax)
-     }
-
-     fun setLabelTextMin(labelTextMin: String) {
-         _layoutKSliderProxy.setLabelTextMin(labelTextMin)
-     }*/
-    //endregion
 }
