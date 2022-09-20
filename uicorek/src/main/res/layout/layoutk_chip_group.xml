@@ -6,8 +6,8 @@
         android:id="@+id/layoutk_chip_group"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:chipSpacingHorizontal="8dp"
-        app:chipSpacingVertical="8dp"
+        android:layout_marginHorizontal="6dp"
+        app:chipSpacingVertical="-8dp"
         app:singleLine="false"
         app:singleSelection="true" />
 

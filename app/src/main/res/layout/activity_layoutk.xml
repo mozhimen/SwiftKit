@@ -58,8 +58,6 @@
         <com.mozhimen.uicorek.layoutk.LayoutKChipGroup
             android:id="@+id/layoutk_chips"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/blue_dark"
-            android:padding="10dp" />
+            android:layout_height="80dp" />
     </LinearLayout>
 </layout>
