@@ -195,8 +195,6 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
         _cameraCapture = true
     }
 
-
-
     fun setPreviewSurfaceHolder(holder: SurfaceHolder) {
         _previewSurface = holder.surface
     }
@@ -204,9 +202,6 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
     fun setPreviewSurfaceTexture(surfaceTexture: SurfaceTexture) {
         _previewSurfaceTexture = surfaceTexture
     }
-
-
-
 
     fun stopPreview() {
         if (_cameraCaptureSession == null || _previewRequestBuilder == null) return
@@ -216,7 +211,6 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
             e.printStackTrace()
         }
     }
-
 
     fun isFrontCamera(): Boolean {
         return _cameraId == CameraCharacteristics.LENS_FACING_FRONT

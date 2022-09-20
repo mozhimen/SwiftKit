@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutk_chip_group_item"
+    android:layout_width="wrap_content"
+    android:layout_height="20dp"
+    android:layout_gravity="center_vertical"
+    android:ellipsize="end"
+    android:maxLength="10"
+    android:singleLine="true"
+    android:textColor="@color/blue_normal"
+    app:checkedIconVisible="false"
+    app:chipBackgroundColor="@color/blue_light"
+    app:chipCornerRadius="10dp"
+    app:closeIconVisible="false" />

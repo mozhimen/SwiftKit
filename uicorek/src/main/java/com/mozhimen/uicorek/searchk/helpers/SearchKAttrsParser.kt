@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.searchk
+package com.mozhimen.uicorek.searchk.helpers
 
 import android.content.Context
 import android.graphics.Color
@@ -7,6 +7,7 @@ import android.util.TypedValue
 import com.mozhimen.basick.extsk.sp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.searchk.mos.SearchKAttrs
 
 internal object SearchKAttrsParser {
     fun parseSearchViewAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): SearchKAttrs {

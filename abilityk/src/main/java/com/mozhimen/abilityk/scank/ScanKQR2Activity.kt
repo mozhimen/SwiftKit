@@ -8,7 +8,6 @@ import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.huawei.hms.hmsscankit.ScanUtil
@@ -22,10 +21,10 @@ import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.extsk.toJson
-import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
 import com.mozhimen.basick.utilk.UtilKBitmap
 import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.componentk.permissionk.PermissionK
+import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
 import java.util.concurrent.locks.ReentrantLock
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE])

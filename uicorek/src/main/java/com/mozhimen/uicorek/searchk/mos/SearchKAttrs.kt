@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.searchk
+package com.mozhimen.uicorek.searchk.mos
 
 import android.graphics.drawable.Drawable
 

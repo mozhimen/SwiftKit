@@ -11,7 +11,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.mozhimen.basick.basek.BaseKLayoutRelative
@@ -19,8 +18,10 @@ import com.mozhimen.basick.extsk.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
 import com.mozhimen.basick.extsk.setPadding
-import com.mozhimen.basick.basek.commons.IBaseKLayout
 import com.mozhimen.basick.eventk.EventKHandler
+import com.mozhimen.uicorek.searchk.helpers.SearchKAttrsParser
+import com.mozhimen.uicorek.searchk.helpers.SearchKTextWatcher
+import com.mozhimen.uicorek.searchk.mos.SearchKAttrs
 
 /**
  * @ClassName SearchKLayout

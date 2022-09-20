@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.searchk
+package com.mozhimen.uicorek.searchk.helpers
 
 import android.text.Editable
 import android.text.TextWatcher
