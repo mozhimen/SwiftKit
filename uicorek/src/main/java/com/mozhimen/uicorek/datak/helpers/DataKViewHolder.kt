@@ -2,12 +2,9 @@ package com.mozhimen.uicorek.datak.helpers
 
 import android.util.SparseArray
 import android.view.View
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-open class DataKViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    val containerView: View
-        get() = view
+open class DataKViewHolder(val containerView: View) : RecyclerView.ViewHolder(containerView) {
 
     private var _viewCache = SparseArray<View>()
 

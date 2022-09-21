@@ -6,7 +6,7 @@ import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityLayoutkBinding
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.basick.datak.DataKKey
+import com.mozhimen.basick.mok.MoKKey
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.percent
 import com.mozhimen.basick.extsk.showToast
@@ -45,24 +45,24 @@ class LayoutKActivity : BaseKActivity<ActivityLayoutkBinding, BaseKViewModel>(R.
         })
         vb.layoutkChips.bindKeys(
             arrayListOf(
-                DataKKey("0", "赛博朋克2077"),
-                DataKKey("1", "老头环"),
-                DataKKey("2", "塞尔达"),
-                DataKKey("3", "使命召唤19"),
-                DataKKey("4", "全战三国"),
-                DataKKey("5", "荒野大镖客"),
-                DataKKey("6", "GTA6"),
-                DataKKey("7", "文明6")
+                MoKKey("0", "赛博朋克2077"),
+                MoKKey("1", "老头环"),
+                MoKKey("2", "塞尔达"),
+                MoKKey("3", "使命召唤19"),
+                MoKKey("4", "全战三国"),
+                MoKKey("5", "荒野大镖客"),
+                MoKKey("6", "GTA6"),
+                MoKKey("7", "文明6")
             )
         )
         vb.layoutkChips.setOnCheckedListener { _, i, dataKKey ->
             "index: $i dataKey: ${dataKKey.id} ${dataKKey.key}".showToast()
         }
         vb.layoutkChipsAdd.setOnClickListener {
-            vb.layoutkChips.addKey(DataKKey("ss", "原神"))
+            vb.layoutkChips.addKey(MoKKey("ss", "原神"))
         }
         vb.layoutkChipsRemove.setOnClickListener {
-            vb.layoutkChips.removeKey(DataKKey("ss", "原神"))
+            vb.layoutkChips.removeKey(MoKKey("ss", "原神"))
         }
     }
 

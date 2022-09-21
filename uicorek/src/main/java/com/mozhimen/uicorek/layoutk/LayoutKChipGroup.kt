@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.mozhimen.basick.basek.BaseKLayoutLinear
-import com.mozhimen.basick.datak.DataKKey
+import com.mozhimen.basick.mok.MoKKey
 import com.mozhimen.uicorek.R
 
-typealias ILayoutKChipGroupListener = (Chip, Int, DataKKey) -> Unit
+typealias ILayoutKChipGroupListener = (Chip, Int, MoKKey) -> Unit
 
 /**
  * @ClassName LayoutKChipGroup
@@ -21,7 +21,7 @@ typealias ILayoutKChipGroupListener = (Chip, Int, DataKKey) -> Unit
 class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     BaseKLayoutLinear(context, attrs, defStyleAttr, defStyleRes) {
 
-    private val _keys = ArrayList<DataKKey>()
+    private val _keys = ArrayList<MoKKey>()
     private lateinit var _chipGroup: ChipGroup
     private var _chipItemId = R.layout.layoutk_chip_group_item
 
@@ -39,9 +39,9 @@ class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: Attrib
 
     /**
      * 绑定数据
-     * @param keys ArrayList<DataKKey>
+     * @param keys ArrayList<MoKKey>
      */
-    fun bindKeys(keys: ArrayList<DataKKey>) {
+    fun bindKeys(keys: ArrayList<MoKKey>) {
         if (keys.isEmpty()) return
         _keys.clear()
         _keys.addAll(keys)
@@ -61,9 +61,9 @@ class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: Attrib
 
     /**
      * 增加字段
-     * @param key DataKKey
+     * @param key MoKKey
      */
-    fun addKey(key: DataKKey) {
+    fun addKey(key: MoKKey) {
         val chipItem = createChipItem(_keys.size)
         _chipGroup.addView(chipItem)
         chipItem.text = key.key
@@ -83,11 +83,11 @@ class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: Attrib
 
     /**
      * 删除字段
-     * @param key DataKKey
+     * @param key MoKKey
      */
-    fun removeKey(key: DataKKey) {
+    fun removeKey(key: MoKKey) {
         val index = _keys.indexOf(key)
-        if (index != -1) removeKey(index)
+        if (index in 0 until _keys.size) removeKey(index)
     }
 
     /**
@@ -100,7 +100,7 @@ class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: Attrib
 
     /**
      * 点击回调
-     * @param listener Function3<Chip, Int, DataKKey, Unit>
+     * @param listener Function3<Chip, Int, MoKKey, Unit>
      */
     fun setOnCheckedListener(listener: ILayoutKChipGroupListener) {
         _chipGroup.setOnCheckedChangeListener { chipGroup, checkedId ->
