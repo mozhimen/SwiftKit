@@ -9,6 +9,7 @@ import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.datak.DataKKey
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.percent
+import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
 import com.mozhimen.uicorek.popwink.PopwinKBubbleText
@@ -42,7 +43,7 @@ class LayoutKActivity : BaseKActivity<ActivityLayoutkBinding, BaseKViewModel>(R.
                 )
             }
         })
-        vb.layoutkChips.bindData(
+        vb.layoutkChips.bindKeys(
             arrayListOf(
                 DataKKey("0", "赛博朋克2077"),
                 DataKKey("1", "老头环"),
@@ -54,6 +55,15 @@ class LayoutKActivity : BaseKActivity<ActivityLayoutkBinding, BaseKViewModel>(R.
                 DataKKey("7", "文明6")
             )
         )
+        vb.layoutkChips.setOnCheckedListener { _, i, dataKKey ->
+            "index: $i dataKey: ${dataKKey.id} ${dataKKey.key}".showToast()
+        }
+        vb.layoutkChipsAdd.setOnClickListener {
+            vb.layoutkChips.addKey(DataKKey("ss", "原神"))
+        }
+        vb.layoutkChipsRemove.setOnClickListener {
+            vb.layoutkChips.removeKey(DataKKey("ss", "原神"))
+        }
     }
 
     private val _popwinKBubbleText: PopwinKBubbleText? = null

@@ -58,6 +58,21 @@
         <com.mozhimen.uicorek.layoutk.LayoutKChipGroup
             android:id="@+id/layoutk_chips"
             android:layout_width="match_parent"
-            android:layout_height="80dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/layoutk_chips_add"
+            style="@style/BtnStyle"
+            android:layout_marginBottom="10dp"
+            android:text="增加Key"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/layoutk_chips_remove"
+            style="@style/BtnStyle"
+            android:layout_marginBottom="10dp"
+            android:text="删除Key"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 </layout>

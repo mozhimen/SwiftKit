@@ -14,11 +14,11 @@ object UtilKToast {
     private val _context = UtilKGlobal.instance.getApp()!!
 
     fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(UtilKGlobal.instance.getApp(), msg, duration).show()
+        Toast.makeText(_context, msg, duration).show()
     }
 
     fun showToast(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        Toast.makeText(UtilKGlobal.instance.getApp(), msgId, duration).show()
+        Toast.makeText(_context, msgId, duration).show()
     }
 
     fun showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
