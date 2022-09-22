@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
-import com.mozhimen.basick.R
+import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.commons.IPrinter
 import com.mozhimen.underlayk.logk.mos.LogKConfig
 import com.mozhimen.basick.utilk.UtilKGlobal

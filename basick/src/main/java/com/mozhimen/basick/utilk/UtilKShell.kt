@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import android.util.Log
-import com.mozhimen.basick.logk.LogK
+
 import java.io.BufferedReader
 import java.io.DataOutputStream
 import java.io.IOException
@@ -104,7 +104,7 @@ object UtilKShell {
                 }
             }
         } catch (e: Exception) {
-            LogK.et(TAG, "execCmd: Exception ${e.message}")
+            Log.e(TAG, "execCmd: Exception ${e.message}")
             e.printStackTrace()
         } finally {
             try {
@@ -113,7 +113,7 @@ object UtilKShell {
                 errorResult?.close()
                 process?.destroy()
             } catch (e: IOException) {
-                LogK.et(TAG, "execCmd: IOException ${e.message}")
+                Log.e(TAG, "execCmd: IOException ${e.message}")
                 e.printStackTrace()
             }
         }

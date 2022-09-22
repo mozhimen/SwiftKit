@@ -2,7 +2,6 @@ package com.mozhimen.basick.taskk.commons
 
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
-import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.taskk.TaskK
 import com.mozhimen.basick.taskk.TaskKGroup
 import com.mozhimen.basick.taskk.TaskKRuntime.getTaskKRuntimeInfo
@@ -18,13 +17,13 @@ import com.mozhimen.basick.taskk.annors.TaskKState
 class ITaskKRuntimeListener : ITaskKListener {
     override fun onStart(taskK: TaskK) {
         if (BuildConfig.DEBUG) {
-            LogK.dt(TAG, "ITaskKRuntimeListener id ${taskK.id} method $METHOD_START")
+            Log.d(TAG, "ITaskKRuntimeListener id ${taskK.id} method $METHOD_START")
         }
     }
 
     override fun onRunning(taskK: TaskK) {
         if (BuildConfig.DEBUG) {
-            LogK.dt(TAG, "ITaskKRuntimeListener id ${taskK.id} method $METHOD_RUNNING")
+            Log.d(TAG, "ITaskKRuntimeListener id ${taskK.id} method $METHOD_RUNNING")
         }
     }
 
@@ -60,7 +59,7 @@ class ITaskKRuntimeListener : ITaskKListener {
         builder.append(WRAPPER)
         builder.append(WRAPPER)
         if (BuildConfig.DEBUG) {
-            LogK.et(TAG, "logTaskKRuntimeInfo builder $builder")
+            Log.e(TAG, "logTaskKRuntimeInfo builder $builder")
         }
     }
 

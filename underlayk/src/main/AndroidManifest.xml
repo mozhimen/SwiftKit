@@ -4,13 +4,13 @@
 
     <application>
         <activity
-            android:name=".debugk.uis.DebugKParamsActivity"
+            android:name="com.mozhimen.componentk.debugk.uis.DebugKParamsActivity"
             android:exported="false" />
         <activity
-            android:name=".debugk.uis.DebugKLogKActivity"
+            android:name="com.mozhimen.componentk.debugk.uis.DebugKLogKActivity"
             android:exported="false" />
         <activity
-            android:name=".debugk.uis.DebugKCrashKActivity"
+            android:name="com.mozhimen.componentk.debugk.uis.DebugKCrashKActivity"
             android:exported="false" />
     </application>
 

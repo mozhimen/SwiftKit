@@ -2,22 +2,20 @@ package com.mozhimen.underlayk.logk.temps
 
 import android.app.Activity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.R
-import com.mozhimen.underlayk.logk.commons.IPrinter
-import com.mozhimen.underlayk.logk.mos.LogKConfig
-import com.mozhimen.underlayk.logk.mos.LogKMo
-import com.mozhimen.underlayk.logk.mos.LogKType
 import com.mozhimen.basick.utilk.UtilKGlobal
 import com.mozhimen.uicorek.bindk.BindKViewHolder
 import com.mozhimen.uicorek.datak.commons.DataKItem
+import com.mozhimen.uicorek.datak.helpers.DataKAdapter
+import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.databinding.LogkPrinterViewItemBinding
-import java.util.*
+import com.mozhimen.underlayk.logk.commons.IPrinter
+import com.mozhimen.underlayk.logk.helpers.LogKHelper
+import com.mozhimen.underlayk.logk.mos.LogKConfig
+import com.mozhimen.underlayk.logk.mos.LogKMo
 
 /**
  * @ClassName ViewPrinter
@@ -28,16 +26,15 @@ import java.util.*
  */
 class PrinterView(activity: Activity) : IPrinter {
     private var _recyclerView: RecyclerView
-    private var _adapter: LogKAdapter
+    private var _adapter: DataKAdapter
     private var _viewProvider: PrinterViewProvider
 
     init {
         val rootView = activity.findViewById<FrameLayout>(android.R.id.content)
 
         _recyclerView = RecyclerView(activity)
-        _adapter = LogKAdapter(LayoutInflater.from(_recyclerView.context))
-        val layoutManager = LinearLayoutManager(_recyclerView.context)
-        _recyclerView.layoutManager = layoutManager
+        _adapter = DataKAdapter(activity)
+        _recyclerView.layoutManager = LinearLayoutManager(activity)
         _recyclerView.adapter = _adapter
 
         _viewProvider = PrinterViewProvider(rootView, _recyclerView)
@@ -45,7 +42,7 @@ class PrinterView(activity: Activity) : IPrinter {
 
     override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
         //将log展示添加到recyclerView
-        _adapter.addItem(LogKMo(System.currentTimeMillis(), level, tag, printString))
+        _adapter.addItem(LogKPrinterViewItem(LogKMo(System.currentTimeMillis(), level, tag, printString)), true)
         //滚动到对应的位置
         _recyclerView.smoothScrollToPosition(_adapter.itemCount - 1)
     }
@@ -58,9 +55,13 @@ class PrinterView(activity: Activity) : IPrinter {
         return _viewProvider
     }
 
-    private class LogKPrinterViewItem : DataKItem<Any, BindKViewHolder<LogkPrinterViewItemBinding>>() {
+    private class LogKPrinterViewItem(private val logKMo: LogKMo) : DataKItem<Any, BindKViewHolder<LogkPrinterViewItemBinding>>() {
         override fun onBindData(holder: BindKViewHolder<LogkPrinterViewItemBinding>, position: Int) {
-
+            val color = LogKHelper.getLevelColor(logKMo.level)
+            holder.binding.logkPrinterViewTag.text = logKMo.getFlattened()
+            holder.binding.logkPrinterViewTag.setTextColor(color)
+            holder.binding.logkPrinterViewMsg.text = logKMo.log.replace("\\n", "\n").replace(UtilKGlobal.instance.getApp()!!.packageName, "")
+            holder.binding.logkPrinterViewMsg.setTextColor(color)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup): BindKViewHolder<LogkPrinterViewItemBinding> {
@@ -70,7 +71,7 @@ class PrinterView(activity: Activity) : IPrinter {
         override fun getItemLayoutRes(): Int = R.layout.logk_printer_view_item
     }
 
-    private class LogKAdapter(private val _inflater: LayoutInflater) :
+/*    private class LogKAdapter(private val _inflater: LayoutInflater) :
         RecyclerView.Adapter<LogKAdapter.LogKViewHolder>() {
 
         private val logKMos: MutableList<LogKMo> = ArrayList<LogKMo>()
@@ -103,5 +104,5 @@ class PrinterView(activity: Activity) : IPrinter {
         override fun getItemCount(): Int {
             return logKMos.size
         }
-    }
+    }*/
 }

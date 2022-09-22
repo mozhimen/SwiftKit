@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import android.util.Log
-import com.mozhimen.basick.logk.LogK
+
 import java.io.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
@@ -24,7 +24,7 @@ object UtilKZip {
             val file = File(srcName)
             compress(zipOutputStream, bufferedOutputStream, file, file.name)
         } catch (e: Exception) {
-            LogK.et(TAG, "zip error ${e.message ?: ""}")
+            Log.e(TAG, "zip error ${e.message ?: ""}")
             e.printStackTrace()
         } finally {
             bufferedOutputStream.close()

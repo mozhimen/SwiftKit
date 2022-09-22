@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.Surface
 import android.view.TextureView
 import com.mozhimen.basick.basek.BaseKLayoutFrame
-import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.uicorek.R
 import java.io.IOException
@@ -116,10 +115,10 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             if (_videoPlayer?.isPlaying == true) _videoPlayer?.stop()
             _videoPlayer?.reset()
         } catch (e: IllegalStateException) {
-            LogK.et(TAG, "onVideoDestroy IllegalStateException ${e.message}")
+            Log.e(TAG, "onVideoDestroy IllegalStateException ${e.message}")
             e.printStackTrace()
         } catch (e: Exception) {
-            LogK.et(TAG, "onVideoDestroy Exception ${e.message}")
+            Log.e(TAG, "onVideoDestroy Exception ${e.message}")
             e.printStackTrace()
         }
     }
@@ -130,10 +129,10 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             _videoPlayer?.release()
             _videoPlayer = null
         } catch (e: IllegalStateException) {
-            LogK.et(TAG, "onVideoDestroy IllegalStateException ${e.message}")
+            Log.e(TAG, "onVideoDestroy IllegalStateException ${e.message}")
             e.printStackTrace()
         } catch (e: Exception) {
-            LogK.et(TAG, "onVideoDestroy Exception ${e.message}")
+            Log.e(TAG, "onVideoDestroy Exception ${e.message}")
             e.printStackTrace()
         }
     }
@@ -165,13 +164,13 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             if (_videoSource == null) return
             _videoSurface?.surfaceTexture?.let { initVideo() }
         } catch (e: IllegalArgumentException) {
-            LogK.et(TAG, "onSurfaceTextureAvailable IllegalArgumentException ${e.message}")
+            Log.e(TAG, "onSurfaceTextureAvailable IllegalArgumentException ${e.message}")
         } catch (e: SecurityException) {
-            LogK.et(TAG, "onSurfaceTextureAvailable SecurityException ${e.message}")
+            Log.e(TAG, "onSurfaceTextureAvailable SecurityException ${e.message}")
         } catch (e: IllegalStateException) {
-            LogK.et(TAG, "onSurfaceTextureAvailable IllegalStateException ${e.message}")
+            Log.e(TAG, "onSurfaceTextureAvailable IllegalStateException ${e.message}")
         } catch (e: IOException) {
-            LogK.et(TAG, "onSurfaceTextureAvailable IOException ${e.message}")
+            Log.e(TAG, "onSurfaceTextureAvailable IOException ${e.message}")
         }
     }
 
@@ -209,10 +208,10 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
                 mediaMetadataRetriever.release()
             }
         } catch (e: IOException) {
-            LogK.et(TAG, "calculateVideoSize: IOException $${e.message ?: ""}")
+            Log.e(TAG, "calculateVideoSize: IOException $${e.message ?: ""}")
             e.printStackTrace()
         } catch (e: NumberFormatException) {
-            LogK.et(TAG, "calculateVideoSize: NumberFormatException $${e.message ?: ""}")
+            Log.e(TAG, "calculateVideoSize: NumberFormatException $${e.message ?: ""}")
             e.printStackTrace()
         }
     }
@@ -250,19 +249,19 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             resetVideo()
             initVideo()
         } catch (e: IllegalArgumentException) {
-            LogK.et(TAG, "changeVideo IllegalArgumentException ${e.message}")
+            Log.e(TAG, "changeVideo IllegalArgumentException ${e.message}")
             e.printStackTrace()
         } catch (e: SecurityException) {
-            LogK.et(TAG, "changeVideo SecurityException ${e.message}")
+            Log.e(TAG, "changeVideo SecurityException ${e.message}")
             e.printStackTrace()
         } catch (e: IllegalStateException) {
-            LogK.et(TAG, "changeVideo IllegalStateException ${e.message}")
+            Log.e(TAG, "changeVideo IllegalStateException ${e.message}")
             e.printStackTrace()
         } catch (e: IOException) {
-            LogK.et(TAG, "changeVideo IOException ${e.message}")
+            Log.e(TAG, "changeVideo IOException ${e.message}")
             e.printStackTrace()
         } catch (e: Exception) {
-            LogK.et(TAG, "changeVideo Exception ${e.message}")
+            Log.e(TAG, "changeVideo Exception ${e.message}")
             e.printStackTrace()
         }
     }

@@ -3,7 +3,7 @@ package com.mozhimen.abilityk.hotfixk
 import android.os.Environment
 import com.mozhimen.abilityk.hotfixk.commons.IHotFixKListener
 import com.mozhimen.basick.executork.ExecutorK
-import com.mozhimen.basick.logk.LogK
+import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKGlobal
 import java.io.File

@@ -1,5 +1,7 @@
 package com.mozhimen.underlayk.logk.helpers
 
+import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.mos.LogKType
 
 /**
@@ -12,14 +14,14 @@ import com.mozhimen.underlayk.logk.mos.LogKType
 object LogKHelper {
 
     @JvmStatic
-    fun getColor(logLevel: Int): Int {
-        return when (logLevel) {
-            LogKType.V -> -0x444445
-            LogKType.D -> -0x1
-            LogKType.I -> -0x9578a7
-            LogKType.W -> -0x444ad7
-            LogKType.E -> -0x9498
+    fun getLevelColor(logLevel: Int): Int = UtilKRes.getColor(
+        when (logLevel) {
+            LogKType.V -> R.color.logk_v
+            LogKType.D -> R.color.logk_d
+            LogKType.I -> R.color.logk_i
+            LogKType.W -> R.color.logk_w
+            LogKType.E -> R.color.logk_e
             else -> -0x100
         }
-    }
+    )
 }

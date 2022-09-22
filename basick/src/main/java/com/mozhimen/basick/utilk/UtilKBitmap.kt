@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-import com.mozhimen.basick.logk.LogK
+
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.*
 import java.nio.ByteBuffer
@@ -161,14 +161,14 @@ object UtilKBitmap {
             //将字节数组输出流转化为字节数组byte[]
             return baos.toByteArray()
         } catch (e: Exception) {
-            LogK.et(TAG, "bitmap2Bytes Exception ${e.message}")
+            Log.e(TAG, "bitmap2Bytes Exception ${e.message}")
             e.printStackTrace()
         } finally {
             try {
                 baos.flush()
                 baos.close()
             } catch (e: IOException) {
-                LogK.et(TAG, "bitmap2Bytes IOException ${e.message}")
+                Log.e(TAG, "bitmap2Bytes IOException ${e.message}")
                 e.printStackTrace()
             }
         }
@@ -591,7 +591,7 @@ object UtilKBitmap {
             out.flush()
             out.close()
         } catch (e: IOException) {
-            LogK.et(TAG, "saveBitmap: IOException ${e.message}")
+            Log.e(TAG, "saveBitmap: IOException ${e.message}")
             e.printStackTrace()
         }
     }

@@ -11,7 +11,7 @@ import android.os.StatFs
 import android.text.TextUtils
 import android.text.format.Formatter
 import android.util.Log
-import com.mozhimen.basick.logk.LogK
+
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
@@ -111,7 +111,7 @@ object UtilKDevice {
             }
             return NO_DEFINED
         } catch (e: SocketException) {
-            LogK.et(TAG, "getDeviceIP SocketException ${e.message}")
+            Log.e(TAG, "getDeviceIP SocketException ${e.message}")
             e.printStackTrace()
             return NO_DEFINED
         }
@@ -227,7 +227,7 @@ object UtilKDevice {
             hiddenApiWarningShown.isAccessible = true
             hiddenApiWarningShown.setBoolean(activityThread, true)
         } catch (e: Exception) {
-            LogK.et(TAG, "closeAndroidPDialog Exception ${e.message}")
+            Log.e(TAG, "closeAndroidPDialog Exception ${e.message}")
             e.printStackTrace()
         }
     }

@@ -1,11 +1,11 @@
 package com.mozhimen.basick.taskk
 
 import android.text.TextUtils
+import android.util.Log
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.eventk.EventKHandler
 import com.mozhimen.basick.executork.ExecutorK
 import com.mozhimen.basick.extsk.postDelayed
-import com.mozhimen.basick.logk.LogK
 import com.mozhimen.basick.taskk.commons.ITaskKRuntimeListener
 import com.mozhimen.basick.taskk.helpers.TaskKComparator
 import com.mozhimen.basick.taskk.mos.TaskKRuntimeInfo
@@ -217,7 +217,7 @@ internal object TaskKRuntime {
                     builder.append(iterator.next().id)
                     builder.append("--> ")
                 }
-                LogK.et(ITaskKRuntimeListener.TAG, "innerTraversalDependencyTreeAndInit builder $builder")
+                Log.e(ITaskKRuntimeListener.TAG, "innerTraversalDependencyTreeAndInit builder $builder")
             }
             innerTraversalDependencyTreeAndInit(behindTask, traversalVisitor)
             traversalVisitor.remove(behindTask)

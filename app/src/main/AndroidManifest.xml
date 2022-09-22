@@ -39,6 +39,9 @@
             android:name=".demo.DemoActivity"
             android:exported="false" /> <!-- componentk -->
         <activity
+            android:name="com.mozhimen.app.componentk.debugk.DebugKActivity"
+            android:exported="false" />
+        <activity
             android:name=".componentk.ComponentKActivity"
             android:exported="false" />
         <activity
@@ -178,9 +181,6 @@
             android:exported="false" /> <!-- underlayk -->
         <activity
             android:name="com.mozhimen.app.underlayk.logk.LogKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".underlayk.debugk.DebugKActivity"
             android:exported="false" />
         <activity
             android:name=".underlayk.UnderlayKActivity"

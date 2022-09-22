@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.mozhimen.app.R
 import com.mozhimen.app.basick.eventk.EventKActivity
+import com.mozhimen.app.componentk.debugk.DebugKActivity
 import com.mozhimen.app.componentk.guidek.GuideKActivity
 import com.mozhimen.app.componentk.permissionk.PermissionKActivity
 import com.mozhimen.app.componentk.statusbark.StatusBarKActivity
@@ -26,5 +27,9 @@ class ComponentKActivity : AppCompatActivity() {
 
     fun goStatusBarK(view: View) {
         start<StatusBarKActivity>()
+    }
+
+    fun goDebugK(view: View) {
+        start<DebugKActivity>()
     }
 }

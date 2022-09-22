@@ -1,7 +1,8 @@
 package com.mozhimen.basick.utilk
 
+import android.util.Log
 import android.util.TimeFormatException
-import com.mozhimen.basick.logk.LogK
+
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -82,7 +83,7 @@ object UtilKDate {
         dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
     ): Date {
         return SimpleDateFormat(formatDate, locale).parse(dateStr) ?: kotlin.run {
-            LogK.et(TAG, "string2Date Exception time format fail!")
+            Log.e(TAG, "string2Date Exception time format fail!")
             throw Exception("time format fail!")
         }
     }

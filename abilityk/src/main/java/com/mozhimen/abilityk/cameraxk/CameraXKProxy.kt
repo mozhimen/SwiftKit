@@ -23,7 +23,7 @@ import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.cameraxk.helpers.ThreadExecutor
 import com.mozhimen.abilityk.cameraxk.mos.CameraXKRotation
 import com.mozhimen.abilityk.cameraxk.mos.CameraXKTimer
-import com.mozhimen.basick.logk.LogK
+import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

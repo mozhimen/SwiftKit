@@ -12,6 +12,10 @@ import com.mozhimen.basick.stackk.StackKMgr
 import com.mozhimen.componentk.guidek.GuideK
 import com.mozhimen.componentk.guidek.mos.*
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
+import com.mozhimen.underlayk.crashk.CrashKJava
+import com.mozhimen.underlayk.crashk.CrashKMgr
+import com.mozhimen.underlayk.crashk.commons.ICrashKListener
+import com.mozhimen.underlayk.logk.e
 
 /**
  * @ClassName MainApplication
@@ -26,6 +30,9 @@ class MainApplication : BaseKApplication() {
 
         //logk
         LogKMgr.instance.init(_logkConfig, PrinterConsole(), PrinterFile.getInstance(retentionDay = 3))
+
+        //crashk
+        //CrashKMgr.instance.init(_crashKCallback)
 
         //stackk
         StackKMgr.instance.init()
@@ -88,11 +95,18 @@ class MainApplication : BaseKApplication() {
         }
     }
 
-/*    private val _crashKCallback = object : ICrashKListener {
-        override fun onGetMessage(msg: String?) {
+    private val _crashKCallback = object : ICrashKListener {
+
+        override fun onGetCrashJava(msg: String?) {
             msg?.let {
 
             } ?: "Ops! A crash happened, but i didn't get it messages".e()
         }
-    }*/
+
+        override fun onGetCrashNative(msg: String?) {
+            msg?.let {
+
+            } ?: "Ops! A crash happened, but i didn't get it messages".e()
+        }
+    }
 }

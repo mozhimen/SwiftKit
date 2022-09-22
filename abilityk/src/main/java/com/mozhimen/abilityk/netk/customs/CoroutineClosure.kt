@@ -6,7 +6,7 @@ import com.mozhimen.abilityk.netk.helpers.NetKThrowable
 import com.mozhimen.abilityk.netk.helpers.StatusParser
 import com.mozhimen.abilityk.netk.mos.NetKCommon
 import com.mozhimen.abilityk.netk.mos.NetKResponse
-import com.mozhimen.basick.logk.LogK
+import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.UtilKJson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -8,7 +8,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import com.mozhimen.basick.loadk.LoadKReceiverInstall
-import com.mozhimen.basick.logk.LogK
+
 import java.io.*
 import java.nio.charset.Charset
 
@@ -32,7 +32,7 @@ object UtilKPackage {
             val pi = _context.packageManager.getPackageInfo(_context.packageName, 0)
             pi?.versionName ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
-            LogK.et(TAG, "getPkgVersionName: NameNotFoundException ${e.message}")
+            Log.e(TAG, "getPkgVersionName: NameNotFoundException ${e.message}")
             e.printStackTrace()
             ""
         }
@@ -51,7 +51,7 @@ object UtilKPackage {
                 pi.versionCode
             }
         } catch (e: PackageManager.NameNotFoundException) {
-            LogK.et(TAG, "getPkgVersionCode: NameNotFoundException ${e.message}")
+            Log.e(TAG, "getPkgVersionCode: NameNotFoundException ${e.message}")
             e.printStackTrace()
             -1
         }
@@ -87,14 +87,14 @@ object UtilKPackage {
             result = String(data, Charset.forName("UTF-8"))
             Log.d(TAG, "installSilence result $result")
         } catch (e: IOException) {
-            LogK.et(TAG, "installSilence IOException ${e.message}")
+            Log.e(TAG, "installSilence IOException ${e.message}")
             e.printStackTrace()
         } finally {
             try {
                 inputStream?.close()
                 outputStream?.close()
             } catch (e: IOException) {
-                LogK.et(TAG, "installSilence: IOException ${e.message}")
+                Log.e(TAG, "installSilence: IOException ${e.message}")
                 e.printStackTrace()
             }
             process?.destroy()
@@ -144,14 +144,14 @@ object UtilKPackage {
                 msgError.append(s)
             }
         } catch (e: Exception) {
-            LogK.et(TAG, "installSilence: Exception ${e.message}")
+            Log.e(TAG, "installSilence: Exception ${e.message}")
             e.printStackTrace()
         } finally {
             try {
                 resSuccess?.close()
                 resError?.close()
             } catch (e: Exception) {
-                LogK.et(TAG, "installSilence: Exception ${e.message}")
+                Log.e(TAG, "installSilence: Exception ${e.message}")
                 e.printStackTrace()
             }
             process?.destroy()
@@ -193,10 +193,10 @@ object UtilKPackage {
             session.commit(pendingIntent.intentSender)
             Log.d(TAG, "execInstall begin")
         } catch (e: IOException) {
-            LogK.et(TAG, "execInstall: IOException ${e.message}")
+            Log.e(TAG, "execInstall: IOException ${e.message}")
             e.printStackTrace()
         } catch (e: Exception) {
-            LogK.et(TAG, "execInstall: Exception ${e.message}")
+            Log.e(TAG, "execInstall: Exception ${e.message}")
             e.printStackTrace()
         } finally {
             session?.close()
@@ -208,7 +208,7 @@ object UtilKPackage {
         try {
             sessionId = packageInstaller.createSession(sessionParams)
         } catch (e: IOException) {
-            LogK.et(TAG, "createSession: ${e.message}")
+            Log.e(TAG, "createSession: ${e.message}")
             e.printStackTrace()
         }
         return sessionId
@@ -239,7 +239,7 @@ object UtilKPackage {
             Log.d(TAG, "copyInstallFile streamed $total bytes")
             success = true
         } catch (e: IOException) {
-            LogK.et(TAG, "copyInstallFile: IOException ${e.message}")
+            Log.e(TAG, "copyInstallFile: IOException ${e.message}")
             e.printStackTrace()
         } finally {
             try {
@@ -247,7 +247,7 @@ object UtilKPackage {
                 inputStream?.close()
                 session?.close()
             } catch (e: IOException) {
-                LogK.et(TAG, "copyInstallFile: IOException ${e.message}")
+                Log.e(TAG, "copyInstallFile: IOException ${e.message}")
                 e.printStackTrace()
             }
         }

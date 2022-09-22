@@ -7,7 +7,7 @@ import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.abilityk.hotupdatek.commons.IHotUpdateKListener
 import com.mozhimen.basick.loadk.LoadKReceiverInstall
-import com.mozhimen.basick.logk.LogK
+import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKGlobal
 import com.mozhimen.basick.utilk.UtilKPackage

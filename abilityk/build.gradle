@@ -38,6 +38,7 @@ android {
 dependencies {
     implementation project(path: ':basick')
     implementation project(path: ':uicorek')
+    implementation project(path: ':underlayk')
     implementation project(path: ':componentk')
 
     //common

@@ -1,9 +1,10 @@
 package com.mozhimen.basick.loadk
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.mozhimen.basick.logk.LogK
+import android.util.Log
 import com.mozhimen.basick.utilk.UtilKApp
 
 /**
@@ -25,18 +26,19 @@ import com.mozhimen.basick.utilk.UtilKApp
  */
 open class LoadKReceiverInstall : BroadcastReceiver() {
     private val TAG = "LoadKReceiverInstall>>>>>"
+    @SuppressLint("LongLogTag")
     override fun onReceive(context: Context, intent: Intent) {
         val packageName = intent.dataString
         when (intent.action) {
             Intent.ACTION_PACKAGE_REPLACED -> {
-                LogK.wt(TAG, "onReceive: update one pkg, restart program soon")
+                Log.w(TAG, "onReceive: update one pkg, restart program soon")
                 UtilKApp.restartApp()
             }
             Intent.ACTION_PACKAGE_ADDED -> {
-                LogK.wt(TAG, "onReceive: install one pkg $packageName")
+                Log.w(TAG, "onReceive: install one pkg $packageName")
             }
             Intent.ACTION_PACKAGE_REMOVED -> {
-                LogK.wt(TAG, "onReceive: uninstall one pkg $packageName")
+                Log.w(TAG, "onReceive: uninstall one pkg $packageName")
             }
         }
     }

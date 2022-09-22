@@ -2,7 +2,8 @@ package com.mozhimen.basick.utilk
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
-import com.mozhimen.basick.logk.LogK
+import android.util.Log
+
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -48,7 +49,7 @@ object UtilKCmd {
             val setMethod: Method = clazz.getMethod("set", String::class.java, String::class.java)
             setMethod.invoke(clazz, key, value)
         } catch (e: Exception) {
-            LogK.et(TAG, "setSystemProperties Exception ${e.message}")
+            Log.e(TAG, "setSystemProperties Exception ${e.message}")
             e.printStackTrace()
         }
     }
@@ -66,7 +67,7 @@ object UtilKCmd {
             val getMethod: Method = clazz.getMethod("get", String::class.java)
             (getMethod.invoke(clazz, key) as String).ifEmpty { defaultValue }
         } catch (e: Exception) {
-            LogK.et(TAG, "getSystemProperties Exception ${e.message}")
+            Log.e(TAG, "getSystemProperties Exception ${e.message}")
             e.printStackTrace()
             defaultValue
         }
@@ -87,7 +88,7 @@ object UtilKCmd {
                 java.lang.Boolean.parseBoolean(resStr)
             } else defaultValue
         } catch (e: Exception) {
-            LogK.et(TAG, "getSystemProperties Exception ${e.message}")
+            Log.e(TAG, "getSystemProperties Exception ${e.message}")
             e.printStackTrace()
             defaultValue
         }
@@ -118,7 +119,7 @@ object UtilKCmd {
                 """.trimIndent()
             }
         } catch (e: IOException) {
-            LogK.e(TAG, "executeShellCmd: IOException ${e.message}")
+            Log.e(TAG, "executeShellCmd: IOException ${e.message}")
             e.printStackTrace()
         }
     }

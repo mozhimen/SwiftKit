@@ -4,10 +4,11 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.basek.BaseKView
-import com.mozhimen.basick.logk.LogK
+
 import com.mozhimen.uicorek.R
 
 /**
@@ -122,7 +123,7 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
                 _path.lineTo(eventX, eventY)
             }
             else -> {
-                LogK.et(TAG, "onTouchEvent Ignored touch event: $event")
+                Log.e(TAG, "onTouchEvent Ignored touch event: $event")
                 return false
             }
         }

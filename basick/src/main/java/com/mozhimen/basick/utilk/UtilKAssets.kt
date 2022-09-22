@@ -5,7 +5,7 @@ import java.io.*
 import android.content.res.AssetManager
 import android.content.res.Resources
 import android.util.Log
-import com.mozhimen.basick.logk.LogK
+
 
 
 /**
@@ -164,7 +164,7 @@ object UtilKAssets {
                 out.write(buffer, 0, read)
             }
         } catch (e: Exception) {
-            LogK.et(TAG, "assets2File Exception ${e.message}")
+            Log.e(TAG, "assets2File Exception ${e.message}")
             e.printStackTrace()
             destAbsolutePath = null
         } finally {

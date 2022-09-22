@@ -28,5 +28,10 @@
             android:text="StatusBarK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goDebugK"
+            android:text="DebugK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

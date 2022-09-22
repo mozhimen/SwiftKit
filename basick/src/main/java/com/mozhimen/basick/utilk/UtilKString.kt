@@ -1,7 +1,8 @@
 package com.mozhimen.basick.utilk
 
 import android.os.Build
-import com.mozhimen.basick.logk.LogK
+import android.util.Log
+
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -41,13 +42,13 @@ object UtilKString {
             }
             return stringBuilder.toString()
         } catch (e: Exception) {
-            LogK.et(TAG, "inputStream2String: Exception ${e.message}")
+            Log.e(TAG, "inputStream2String: Exception ${e.message}")
             e.printStackTrace()
         } finally {
             try {
                 bufferedReader?.close()
             } catch (e: IOException) {
-                LogK.et(TAG, "inputStream2String: IOException ${e.message}")
+                Log.e(TAG, "inputStream2String: IOException ${e.message}")
                 e.printStackTrace()
             }
         }

@@ -18,7 +18,7 @@ import android.view.Surface
 import android.view.SurfaceHolder
 import androidx.core.app.ActivityCompat
 import com.mozhimen.abilityk.camera2k.helpers.GLSurfaceRenderer
-import com.mozhimen.basick.logk.LogK
+import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.UtilKDisplay
 import com.mozhimen.basick.utilk.UtilKToast
 import java.lang.IllegalArgumentException

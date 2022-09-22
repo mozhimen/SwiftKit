@@ -4,7 +4,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.content.FileProvider
-import com.mozhimen.basick.logk.LogK
+
 import java.io.*
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -99,7 +99,7 @@ object UtilKFile {
                     try {
                         file.delete()
                     } catch (e: Exception) {
-                        LogK.et(TAG, "deleteAllFiles: Exception ${e.message}")
+                        Log.e(TAG, "deleteAllFiles: Exception ${e.message}")
                         e.printStackTrace()
                     }
                 } else {
@@ -107,7 +107,7 @@ object UtilKFile {
                         try {
                             file.delete()
                         } catch (e: Exception) {
-                            LogK.et(TAG, "deleteAllFiles: Exception ${e.message}")
+                            Log.e(TAG, "deleteAllFiles: Exception ${e.message}")
                             e.printStackTrace()
                         }
                     }

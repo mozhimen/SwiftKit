@@ -54,7 +54,7 @@ class LogKActivity : AppCompatActivity() {
     private fun printLog1() {
         val stringBuilder = StringBuilder()
         LogKMgr.instance.getPrinters().forEach { printer ->
-            stringBuilder.append(printer.getName() + ", ")
+            stringBuilder.append(printer.getName().replace(">>>>>", "") + ", ")
         }
         LogK.dt(TAG, stringBuilder)
     }

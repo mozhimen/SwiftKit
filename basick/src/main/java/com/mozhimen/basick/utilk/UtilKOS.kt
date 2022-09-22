@@ -3,7 +3,8 @@ package com.mozhimen.basick.utilk
 import android.annotation.SuppressLint
 import android.os.Build
 import android.text.TextUtils
-import com.mozhimen.basick.logk.LogK
+import android.util.Log
+
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -166,7 +167,7 @@ object UtilKOS {
             line = inputBuffer.readLine()
             inputBuffer.close()
         } catch (e: IOException) {
-            LogK.et(TAG, "getProp IOException Unable to read prop $name $e")
+            Log.e(TAG, "getProp IOException Unable to read prop $name $e")
             return null
         } finally {
             inputBuffer?.let {
