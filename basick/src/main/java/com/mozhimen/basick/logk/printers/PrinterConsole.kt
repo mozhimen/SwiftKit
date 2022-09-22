@@ -13,6 +13,8 @@ import com.mozhimen.basick.logk.mos.LogKConfig.Companion.MAX_LEN
  * @Version 1.0
  */
 class PrinterConsole : IPrinter {
+    private val TAG = "PrinterConsole>>>>>"
+
     override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
         val len = printString.length
         val countOfSub = len / MAX_LEN
@@ -30,5 +32,6 @@ class PrinterConsole : IPrinter {
         }
     }
 
-    override fun getName(): String = this.javaClass.simpleName
+    override fun getName(): String =
+        TAG
 }

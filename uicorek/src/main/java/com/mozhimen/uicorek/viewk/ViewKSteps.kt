@@ -80,7 +80,7 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
         if (position > 0 && position <= _titles.size) {
             _position = position
-            invalidate()
+            postInvalidate()
         }
     }
 
@@ -90,7 +90,7 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
     fun next() {
         if (_position < _titles.size) {
             _position++
-            invalidate()
+            postInvalidate()
         }
     }
 
@@ -100,7 +100,7 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
     fun back() {
         if (_position > 0) {
             _position--
-            invalidate()
+            postInvalidate()
         }
     }
 
@@ -110,7 +110,7 @@ class ViewKSteps @JvmOverloads constructor(context: Context, attrs: AttributeSet
     fun reset() {
         if (_position != 0) {
             _position = 0
-            invalidate()
+            postInvalidate()
         }
     }
 

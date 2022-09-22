@@ -69,7 +69,7 @@ class ViewKQRScan @JvmOverloads constructor(context: Context, attrs: AttributeSe
                 it.drawable2Bitmap(_borderWidth, _lineWidth)
             }
         }
-        postInvalidate()
+        invalidate()
     }
 
     override fun onDraw(canvas: Canvas?) {

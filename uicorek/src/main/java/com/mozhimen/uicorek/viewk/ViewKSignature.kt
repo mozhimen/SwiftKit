@@ -44,7 +44,7 @@ class ViewKSignature @JvmOverloads constructor(context: Context, attrs: Attribut
         _path.reset()
 
         // Repaints the entire view.
-        invalidate()
+        postInvalidate()
     }
 
     /**

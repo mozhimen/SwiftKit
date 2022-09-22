@@ -2,7 +2,9 @@ package com.mozhimen.uicorek.layoutk.slider
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.LinearGradient
 import android.graphics.Paint
+import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewGroup
@@ -46,7 +48,8 @@ class LayoutKSliderProxy(
     private var _scrollableParentView: ViewGroup? = null
     private var _rodIsScrolling = false
 
-    private lateinit var _paintSlider: Paint
+    private lateinit var _paintRightSlider: Paint
+    private lateinit var _paintLeftSlider: Paint
     private lateinit var _paintRod: Paint
 
     private var _sliderListener: ISliderListener? = null
@@ -92,16 +95,21 @@ class LayoutKSliderProxy(
         _paintRod.strokeWidth = 2f
         _paintRod.color = _attrs.rodColor
 
-        _paintSlider = Paint()
-        _paintSlider.isAntiAlias = true
-        _paintSlider.strokeWidth = 2f
-        _paintSlider.color = _attrs.sliderRodRightColor
+        _paintRightSlider = Paint()
+        _paintRightSlider.isAntiAlias = true
+        _paintRightSlider.strokeWidth = 2f
+        _paintRightSlider.color = _attrs.sliderRodRightColor
+
+        _paintLeftSlider = Paint()
+        _paintLeftSlider.isAntiAlias = true
+        _paintLeftSlider.strokeWidth = 2f
+        _paintLeftSlider.color = _attrs.sliderRodLeftColor
     }
 
     override fun initView() {
         initSlider()
         initRod()
-        _layoutKSlider.postInvalidate()
+        _layoutKSlider.invalidate()
     }
 
     private fun initRod() {
@@ -126,6 +134,17 @@ class LayoutKSliderProxy(
         )
         _slider.rodLeftColor = _attrs.sliderRodLeftColor
         _slider.rodRightColor = _attrs.sliderRodRightColor
+        //set paint shader
+        if (_attrs.sliderRodLeftColor != _attrs.sliderRodLeftGradientColor) {
+            _paintLeftSlider.shader = LinearGradient(
+                _slider.leftX,
+                _slider.topY,
+                _slider.rightX,
+                _slider.bottomY,
+                _attrs.sliderRodLeftColor, _attrs.sliderRodLeftGradientColor,
+                Shader.TileMode.CLAMP
+            )
+        }
     }
 
     fun onDraw(canvas: Canvas) {
@@ -142,43 +161,43 @@ class LayoutKSliderProxy(
 
     private fun drawSlider(canvas: Canvas) {
         //rightSlider
-        _paintSlider.color = _slider.rodRightColor
+        _paintRightSlider.color = _slider.rodRightColor
         canvas.drawCircle(
             _slider.leftX,
             _slider.centerY,
             _slider.heightHalf,
-            _paintSlider
+            _paintRightSlider
         )
         canvas.drawCircle(
             _slider.rightX,
             _slider.centerY,
             _slider.heightHalf,
-            _paintSlider
+            _paintRightSlider
         )
         canvas.drawRect(
             _slider.leftX,
             _slider.topY,
             _slider.rightX,
             _slider.bottomY,
-            _paintSlider
+            _paintRightSlider
         )
 
         //leftSlider
-        _paintSlider.color = _slider.rodLeftColor
+        _paintRightSlider.color = _slider.rodLeftColor
         if (_rod.currentVal > _rod.minVal) {
             val distance = if (!_rod.isInsideSlider) 0f else _slider.heightHalf - _rod.radius
             canvas.drawCircle(
                 _slider.leftX,
                 _slider.centerY,
                 if (!_rod.isInsideSlider) _slider.heightHalf else _rod.radius,
-                _paintSlider
+                _paintRightSlider
             )
             canvas.drawRect(
                 _slider.leftX,
                 _slider.topY + distance,
                 _rod.currentX,
                 _slider.bottomY - distance,
-                _paintSlider
+                _paintLeftSlider
             )
         }
     }
@@ -218,7 +237,6 @@ class LayoutKSliderProxy(
                 if (_rodIsScrolling) {
                     _rod.currentX = event.x
                     _layoutKSlider.postInvalidate()
-                    //update()
                 }
             }
         }

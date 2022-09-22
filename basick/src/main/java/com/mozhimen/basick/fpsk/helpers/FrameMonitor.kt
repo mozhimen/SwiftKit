@@ -1,8 +1,7 @@
 package com.mozhimen.basick.fpsk.helpers
 
-import android.util.Log
 import android.view.Choreographer
-import com.mozhimen.basick.fpsk.FpsKMonitor
+import com.mozhimen.basick.fpsk.commons.IFpsKListener
 import java.util.concurrent.TimeUnit
 
 /**
@@ -18,9 +17,9 @@ internal class FrameMonitor : Choreographer.FrameCallback {
     private var _frameStartTime: Long = 0//这个是记录上一针到达的时间戳
     private var _frameCount = 0//1s内确切绘制了多少帧
 
-    private var _listeners = arrayListOf<FpsKMonitor.IFpsKListener>()
+    private var _listeners = arrayListOf<IFpsKListener>()
 
-    fun addListener(listener: FpsKMonitor.IFpsKListener) {
+    fun addListener(listener: IFpsKListener) {
         _listeners.add(listener)
     }
 
@@ -44,7 +43,7 @@ internal class FrameMonitor : Choreographer.FrameCallback {
             _frameCount++
             if (timeSpan > 1000) {
                 val fps: Double = _frameCount * 1000 / timeSpan.toDouble()
-                for (listener: FpsKMonitor.IFpsKListener in _listeners) {
+                for (listener: IFpsKListener in _listeners) {
                     listener.onFrame(fps)
                 }
                 _frameCount = 0

@@ -38,11 +38,12 @@ class RadarWave @JvmOverloads constructor(context: Context, attrs: AttributeSet?
 
     override fun requireStart() {
         _isStop = false
-        invalidate()
+        postInvalidate()
     }
 
     override fun requireStop() {
         _isStop = true
+        postInvalidate()
     }
 
     //region # private function

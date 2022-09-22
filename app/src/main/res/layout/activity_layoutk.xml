@@ -39,7 +39,9 @@
             android:id="@+id/layoutk_slider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            app:layoutKSlider_sliderRodLeftColor="@color/blue_light"
+            app:layoutKSlider_sliderRodLeftGradientColor="@color/blue_dark" />
 
         <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
             android:id="@+id/layoutk_slider_inside"

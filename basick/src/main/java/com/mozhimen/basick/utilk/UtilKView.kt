@@ -131,7 +131,7 @@ object UtilKView {
                 val height: Int = view.height
                 if (height > 0) {
                     view.layoutParams.width = (height * ratio).toInt()
-                    view.invalidate()
+                    view.postInvalidate()
                     view.viewTreeObserver.removeGlobalOnLayoutListener(this)
                 }
             }

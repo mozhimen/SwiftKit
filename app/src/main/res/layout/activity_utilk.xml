@@ -11,6 +11,18 @@
         android:orientation="vertical"
         tools:context=".basick.utilk.UtilKActivity">
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="gotoUtilKGesture"
+            android:text="UtilKGesture"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="gotoUtilKAnim"
+            android:text="UtilKAnim"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
         <ImageView
             android:id="@+id/utilK_img"
             android:layout_width="60dp"

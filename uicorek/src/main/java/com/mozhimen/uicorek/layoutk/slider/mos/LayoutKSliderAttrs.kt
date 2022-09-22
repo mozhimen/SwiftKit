@@ -10,6 +10,7 @@ package com.mozhimen.uicorek.layoutk.slider.mos
 data class LayoutKSliderAttrs(
     var sliderHeight: Float,
     var sliderRodLeftColor: Int,
+    var sliderRodLeftGradientColor: Int,
     var sliderRodRightColor: Int,
     var rodColor: Int,
     var rodColorInside: Int,

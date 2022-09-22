@@ -56,12 +56,13 @@ class CircleSpread @JvmOverloads constructor(
 
     override fun requireStop() {
         _isStop = true
+        postInvalidate()
     }
 
     override fun requireStart() {
         _isStop = false
         _spreadCircles.add(_centerRadius.toFloat() to 255f)
-        invalidate()
+        postInvalidate()
     }
 
     //region #private function

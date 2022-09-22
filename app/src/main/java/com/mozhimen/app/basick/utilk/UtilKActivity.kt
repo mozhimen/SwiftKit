@@ -3,12 +3,14 @@ package com.mozhimen.app.basick.utilk
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.SeekBar
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityUtilkBinding
 import com.mozhimen.basick.extsk.drawable2Bitmap
 import com.mozhimen.basick.extsk.showToast
+import com.mozhimen.basick.extsk.start
 import com.mozhimen.basick.utilk.*
 import kotlinx.coroutines.launch
 
@@ -79,5 +81,13 @@ class UtilKActivity : AppCompatActivity() {
             UtilKAudio.getInstance(this).play(R.raw.utilk_audio_test)
             UtilKAudio.getInstance(this).play(R.raw.utilk_audio_test)
         }
+    }
+
+    fun gotoUtilKGesture(view: View) {
+        start<UtilKGestureActivity>()
+    }
+
+    fun gotoUtilKAnim(view: View) {
+        start<UtilKAnimActivity>()
     }
 }

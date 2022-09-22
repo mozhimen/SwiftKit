@@ -39,11 +39,12 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     override fun requireStart() {
         _isStop = false
-        invalidate()
+        postInvalidate()
     }
 
     override fun requireStop() {
         _isStop = true
+        postInvalidate()
     }
 
     //region # private function
@@ -92,7 +93,7 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
         _radarPaint = Paint()
         _radarPaint.style = Paint.Style.FILL_AND_STROKE
         _radarPaint.isAntiAlias = true
-        _radarPaint.shader = SweepGradient(realRadius.toFloat(), realRadius.toFloat(), intArrayOf(Color.TRANSPARENT, _radarColor), null)
+        _radarPaint.shader = SweepGradient(realRadius, realRadius, intArrayOf(Color.TRANSPARENT, _radarColor), null)
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -106,18 +107,18 @@ class RadarRipple @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
     private fun drawBg(canvas: Canvas) {
-        canvas.drawCircle(centerX, centerY, realRadius.toFloat(), _bgPaint)
+        canvas.drawCircle(centerX, centerY, realRadius, _bgPaint)
     }
 
     private fun drawRadar(canvas: Canvas) {
         canvas.concat(_radarMatrix)
-        canvas.drawCircle(centerX, centerY, realRadius.toFloat(), _radarPaint)
+        canvas.drawCircle(centerX, centerY, realRadius, _radarPaint)
     }
 
     private fun drawCircle(canvas: Canvas) {
         (1.._lineCount).forEach {
             val radius = realRadius / (_lineCount + 1) * it
-            canvas.drawCircle(centerX, centerY, radius.toFloat(), _circlePaint)
+            canvas.drawCircle(centerX, centerY, radius, _circlePaint)
         }
     }
 

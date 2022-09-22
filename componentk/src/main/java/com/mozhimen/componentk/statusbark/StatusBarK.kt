@@ -26,6 +26,7 @@ import com.mozhimen.componentk.statusbark.helpers.StatusBarKHelper
  */
 object StatusBarK {
 
+    @JvmStatic
     fun initStatusBar(activity: Activity) {
         val statusBarAnnor =
             activity.javaClass.getAnnotation(StatusBarKAnnor::class.java) ?: throw Exception("you need add annotation StatusBarAnnor")

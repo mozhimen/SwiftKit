@@ -110,6 +110,7 @@
     <declare-styleable name="LayoutKSlider">
         <attr name="layoutKSlider_sliderHeight" format="reference|dimension" />
         <attr name="layoutKSlider_sliderRodLeftColor" format="color|reference" />
+        <attr name="layoutKSlider_sliderRodLeftGradientColor" format="color|reference" />
         <attr name="layoutKSlider_sliderRodRightColor" format="color|reference" />
         <attr name="layoutKSlider_rodColor" format="color|reference" />
         <attr name="layoutKSlider_rodColorInside" format="reference|color" />

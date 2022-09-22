@@ -47,7 +47,7 @@ class PrinterView(activity: Activity) : IPrinter {
         _recyclerView.smoothScrollToPosition(_adapter.itemCount - 1)
     }
 
-    override fun getName(): String = this.javaClass.simpleName
+    override fun getName(): String = "${this.javaClass.simpleName}>>>>>"
 
     /**
      * 获取ViewProvider,通过ViewProvider可以控制log视图的展示和隐藏

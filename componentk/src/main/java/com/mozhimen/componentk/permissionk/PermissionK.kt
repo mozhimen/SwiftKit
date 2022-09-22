@@ -31,6 +31,7 @@ object PermissionK {
      * @param activity AppCompatActivity
      * @param isGranted Function1<Boolean, Unit>
      */
+    @JvmStatic
     fun initPermissions(
         activity: AppCompatActivity,
         isGranted: (Boolean) -> Unit,
@@ -60,6 +61,7 @@ object PermissionK {
      * @param permissions Array<String>
      * @param isGranted Function1<Boolean, Unit>
      */
+    @JvmStatic
     fun initPermissions(
         activity: AppCompatActivity,
         permissions: Array<String>,
@@ -90,6 +92,7 @@ object PermissionK {
      * @param permissions Array<out String>
      * @param callback Function2<Boolean, List<String>, Unit>
      */
+    @JvmStatic
     fun requestPermissions(
         activity: FragmentActivity,
         vararg permissions: String,
@@ -113,6 +116,7 @@ object PermissionK {
      * @param permissions Array<out String>
      * @return Boolean
      */
+    @JvmStatic
     fun checkPermissions(context: Context, vararg permissions: String): Boolean {
         var allGranted = true
         return if (permissions.isEmpty()) {
@@ -132,6 +136,7 @@ object PermissionK {
      * 设置申请权限
      * @param activity Activity
      */
+    @JvmStatic
     fun applySetting(activity: Activity) {
         val intent = Intent()
         intent.apply {

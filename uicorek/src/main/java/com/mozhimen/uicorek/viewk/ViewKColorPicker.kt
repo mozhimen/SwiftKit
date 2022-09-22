@@ -40,7 +40,7 @@ class ViewKColorPicker @JvmOverloads constructor(context: Context, attrs: Attrib
         get() = _paintOutline?.color ?: Color.TRANSPARENT
         set(value) {
             _paintOutline?.color = value
-            invalidate()
+            postInvalidate()
         }
 
     /**
@@ -62,7 +62,7 @@ class ViewKColorPicker @JvmOverloads constructor(context: Context, attrs: Attrib
         // This way, it will be refreshed on onDraw.
         _paintCircle = null
         _paintOutline = null
-        invalidate()
+        postInvalidate()
     }
 
     /**
@@ -154,14 +154,14 @@ class ViewKColorPicker @JvmOverloads constructor(context: Context, attrs: Attrib
             return
         }
         this._progress = toVal
-        invalidate()
+        postInvalidate()
     }
 
     private fun animUpdateListener(): ValueAnimator.AnimatorUpdateListener =
         ValueAnimator.AnimatorUpdateListener { valAnimator ->
             val valueAnimator = valAnimator?.animatedValue ?: throw NullPointerException()
             this._progress = (valueAnimator as Float).toFloat()
-            this.invalidate()
+            postInvalidate()
         }
 
     private fun createPaintInside(): Paint {

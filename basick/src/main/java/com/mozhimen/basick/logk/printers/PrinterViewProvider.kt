@@ -22,7 +22,7 @@ class PrinterViewProvider(
     private val _rootView: FrameLayout,
     private val _recyclerView: RecyclerView
 ) {
-    private var _floatingView: View? = null
+    private var _titleView: View? = null
     private var _logView: FrameLayout? = null
     private var _isShowing = false
 
@@ -34,7 +34,7 @@ class PrinterViewProvider(
     /**
      * 显示悬浮面板
      */
-    fun showFloatingView() {
+    fun showTitleView() {
         if (_rootView.findViewWithTag<View?>(TAG_LOGK_FLOATING_VIEW) != null) {
             return
         }
@@ -43,45 +43,45 @@ class PrinterViewProvider(
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         params.gravity = Gravity.BOTTOM or Gravity.END
-        val floatingView = getFloatingView()
+        val floatingView = genTitleView()
         floatingView.tag = TAG_LOGK_FLOATING_VIEW
         floatingView.setBackgroundColor(Color.BLACK)
         floatingView.alpha = 0.8f
-        _rootView.addView(getFloatingView(), params)
+        _rootView.addView(genTitleView(), params)
     }
 
-    private fun closeFloatingView() {
-        _rootView.removeView(getFloatingView())
+    private fun closeTitleView() {
+        _rootView.removeView(genTitleView())
     }
 
-    private fun getFloatingView(): View {
-        if (_floatingView != null) {
-            return _floatingView!!
+    private fun genTitleView(): View {
+        if (_titleView != null) {
+            return _titleView!!
         }
-        val textView = TextView(_rootView.context)
-        textView.setOnClickListener {
+        val titleView = TextView(_rootView.context)
+        titleView.setOnClickListener {
             if (!_isShowing) {
-                showLogKView()
+                showLogView()
             }
         }
-        textView.text = UtilKRes.getString(R.string.logk_view_provider_title)
-        textView.setTextColor(UtilKRes.getColor(android.R.color.white))
-        return textView.also { _floatingView = it }
+        titleView.text = UtilKRes.getString(R.string.logk_view_provider_title)
+        titleView.setTextColor(UtilKRes.getColor(android.R.color.white))
+        return titleView.also { _titleView = it }
     }
 
     /**
      * 展示LogView
      */
-    private fun showLogKView() {
+    private fun showLogView() {
         if (_rootView.findViewWithTag<View?>(TAG_LOGK_VIEW) != null) {
             return
         }
         val layoutParams =
             FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UtilKScreen.getScreenHeight() / 3)
         layoutParams.gravity = Gravity.BOTTOM
-        val logView = getLogView()
+        val logView = genLogView()
         logView.tag = TAG_LOGK_VIEW
-        _rootView.addView(getLogView(), layoutParams)
+        _rootView.addView(genLogView(), layoutParams)
         _isShowing = true
     }
 
@@ -90,10 +90,10 @@ class PrinterViewProvider(
      */
     private fun closeLogView() {
         _isShowing = false
-        _rootView.removeView(getLogView())
+        _rootView.removeView(genLogView())
     }
 
-    private fun getLogView(): View {
+    private fun genLogView(): View {
         if (_logView != null) {
             return _logView!!
         }

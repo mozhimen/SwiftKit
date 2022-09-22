@@ -23,6 +23,7 @@ object StatusBarKHelper {
      * 设置状态栏沉浸式
      * @param activity Activity
      */
+    @JvmStatic
     fun setStatusBarImmersed(activity: Activity) {
         val window = activity.window
         val decorView = window.decorView
@@ -41,6 +42,7 @@ object StatusBarKHelper {
      * 设置状态栏全屏
      * @param activity Activity
      */
+    @JvmStatic
     fun setStatusBarFullScreen(activity: Activity) {
         UtilKBar.hideTitleBar(activity)
         UtilKBar.hideStatusBar(activity)
@@ -52,6 +54,7 @@ object StatusBarKHelper {
      * 需要在根布局中设置FitSystemWindows属性为true, 所以添加Process方法中加入如下的代码
      * 或者在xml中添加android:fitSystemWindows="true"
      */
+    @JvmStatic
     fun setDecorViewFitSys(activity: Activity) {
         //华为,OPPO机型在StatusUtil.setLightStatusBar后布局被顶到状态栏上去了
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -65,6 +68,7 @@ object StatusBarKHelper {
     /**
      * 修改状态栏颜色,支持4.4以上的版本
      */
+    @JvmStatic
     fun setStatusBarColor(activity: Activity, colorId: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             val window = activity.window
@@ -81,6 +85,7 @@ object StatusBarKHelper {
     /**
      * 状态栏字体和图标是否是深色
      */
+    @JvmStatic
     fun setStatusBarFontIcon(activity: Activity, isDark: Boolean) {
         if (isDark) {
             when {

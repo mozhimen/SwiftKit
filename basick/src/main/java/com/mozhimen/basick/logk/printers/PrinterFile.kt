@@ -39,6 +39,7 @@ class PrinterFile(
 
     companion object {
         private var instance: PrinterFile? = null
+        private const val TAG = "PrinterFile>>>>>"
         const val LOGK_DIR = "logk"
 
         /**
@@ -82,7 +83,8 @@ class PrinterFile(
         _worker.put(LogKMo(timeMillis, level, tag, printString))
     }
 
-    override fun getName(): String = this.javaClass.simpleName
+    override fun getName(): String =
+        TAG
 
     private fun genFileName(): String {
         val sdf = UtilKDate.getSdf(UtilKDate.FORMAT_yyyyMMdd)

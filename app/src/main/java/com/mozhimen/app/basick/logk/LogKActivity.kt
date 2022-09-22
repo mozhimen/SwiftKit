@@ -23,7 +23,7 @@ class LogKActivity : AppCompatActivity() {
 
     private fun initView() {
         _printerView = PrinterView(this)
-        _printerView!!.getViewProvider().showFloatingView()
+        _printerView!!.getViewProvider().showTitleView()
         vb.logkBtnPrint.setOnClickListener {
             printLog()
         }

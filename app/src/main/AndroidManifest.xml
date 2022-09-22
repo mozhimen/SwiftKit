@@ -34,14 +34,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- demo -->
+        </activity> <!-- demo -->
         <activity
             android:name=".demo.DemoActivity"
-            android:exported="false" />
-
-        <!-- componentk -->
+            android:exported="false" /> <!-- componentk -->
         <activity
             android:name=".componentk.ComponentKActivity"
             android:exported="false" />
@@ -53,9 +49,10 @@
             android:exported="true" />
         <activity
             android:name=".componentk.statusbark.StatusBarKActivity"
+            android:exported="false" /> <!-- basicsk -->
+        <activity
+            android:name=".basick.utilk.UtilKAnimActivity"
             android:exported="false" />
-
-        <!-- basicsk -->
         <activity
             android:name=".basick.utilk.UtilKGestureActivity"
             android:exported="false" />
@@ -79,9 +76,7 @@
             android:exported="false" />
         <activity
             android:name=".basick.stackk.StackKActivity"
-            android:exported="false" />
-
-        <!-- uicorek -->
+            android:exported="false" /> <!-- uicorek -->
         <activity
             android:name=".uicorek.textk.TextKActivity"
             android:exported="false" />
@@ -150,9 +145,7 @@
             android:exported="false" />
         <activity
             android:name=".uicorek.dialogk.DialogKActivity"
-            android:exported="false" />
-
-        <!-- abilityk -->
+            android:exported="false" /> <!-- abilityk -->
         <activity
             android:name=".abilityk.opencvk.OpenCVKMatchActivity"
             android:exported="false" />
@@ -185,9 +178,7 @@
             android:exported="false" />
         <activity
             android:name=".abilityk.netk.NetKActivity"
-            android:exported="false" />
-
-        <!-- underlayk -->
+            android:exported="false" /> <!-- underlayk -->
         <activity
             android:name=".underlayk.debugk.DebugKActivity"
             android:exported="false" />

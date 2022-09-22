@@ -1,7 +1,10 @@
 package com.mozhimen.basick.extsk
 
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
+import android.view.animation.Interpolator
+import android.view.animation.LinearInterpolator
 import com.mozhimen.basick.utilk.UtilKAnim
 
 /**
@@ -24,14 +27,15 @@ import com.mozhimen.basick.utilk.UtilKAnim
 fun View.startRotate(
     pivotX: Float = width / 2f,
     pivotY: Float = height / 2f,
+    fillAfter: Boolean = true,
     repeatCount: Int = Animation.INFINITE,
     repeatMode: Int = Animation.RESTART,
-    fillAfter: Boolean = true,
+    interpolator: Interpolator = LinearInterpolator(),
     duration: Long = 1000,
     listener: Animation.AnimationListener? = null
 ) {
-    UtilKAnim.startRotate(
-        this, pivotX, pivotY, repeatCount, repeatMode, fillAfter, duration, listener
+    UtilKAnim.rotate(
+        this, pivotX, pivotY, fillAfter, repeatCount, repeatMode, interpolator, duration, listener
     )
 }
 

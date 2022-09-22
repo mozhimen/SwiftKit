@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.sp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.slider.mos.LayoutKSliderAttrs
@@ -39,6 +38,8 @@ internal object LayoutKSliderParser {
             typedArray.getDimension(R.styleable.LayoutKSlider_layoutKSlider_sliderHeight, if (!rodIsInside) SLIDER_HEIGHT else SLIDER_HEIGHT_INSIDE)
         val sliderRodLeftColor: Int =
             typedArray.getColor(R.styleable.LayoutKSlider_layoutKSlider_sliderRodLeftColor, SLIDER_ROD_LEFT_COLOR)
+        val sliderRodLeftGradientColor: Int =
+            typedArray.getColor(R.styleable.LayoutKSlider_layoutKSlider_sliderRodLeftGradientColor, SLIDER_ROD_LEFT_COLOR)
         val sliderRodRightColor: Int =
             typedArray.getColor(R.styleable.LayoutKSlider_layoutKSlider_sliderRodRightColor, SLIDER_ROD_RIGHT_COLOR)
         val rodColor: Int =
@@ -58,6 +59,7 @@ internal object LayoutKSliderParser {
         return LayoutKSliderAttrs(
             sliderHeight,
             sliderRodLeftColor,
+            sliderRodLeftGradientColor,
             sliderRodRightColor,
             rodColor,
             rodColorInside,
