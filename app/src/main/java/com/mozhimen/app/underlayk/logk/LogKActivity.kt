@@ -1,13 +1,13 @@
-package com.mozhimen.app.basick.logk
+package com.mozhimen.app.underlayk.logk
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.databinding.ActivityLogkBinding
-import com.mozhimen.basick.logk.LogK
-import com.mozhimen.basick.logk.LogKMgr
-import com.mozhimen.basick.logk.printers.PrinterView
-import com.mozhimen.basick.logk.mos.LogKConfig
-import com.mozhimen.basick.logk.mos.LogKType
+import com.mozhimen.underlayk.logk.LogK
+import com.mozhimen.underlayk.logk.LogKMgr
+import com.mozhimen.underlayk.logk.temps.PrinterView
+import com.mozhimen.underlayk.logk.mos.LogKConfig
+import com.mozhimen.underlayk.logk.mos.LogKType
 
 class LogKActivity : AppCompatActivity() {
     private val vb: ActivityLogkBinding by lazy { ActivityLogkBinding.inflate(layoutInflater) }

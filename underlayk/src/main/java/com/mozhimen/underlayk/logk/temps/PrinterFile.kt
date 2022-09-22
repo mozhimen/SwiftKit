@@ -1,8 +1,8 @@
-package com.mozhimen.basick.logk.printers
+package com.mozhimen.underlayk.logk.temps
 
-import com.mozhimen.basick.logk.commons.IPrinter
-import com.mozhimen.basick.logk.mos.LogKConfig
-import com.mozhimen.basick.logk.mos.LogKMo
+import com.mozhimen.underlayk.logk.commons.IPrinter
+import com.mozhimen.underlayk.logk.mos.LogKConfig
+import com.mozhimen.underlayk.logk.mos.LogKMo
 import com.mozhimen.basick.utilk.UtilKDate
 import com.mozhimen.basick.utilk.UtilKGlobal
 import java.io.BufferedWriter
@@ -82,9 +82,6 @@ class PrinterFile(
         }
         _worker.put(LogKMo(timeMillis, level, tag, printString))
     }
-
-    override fun getName(): String =
-        TAG
 
     private fun genFileName(): String {
         val sdf = UtilKDate.getSdf(UtilKDate.FORMAT_yyyyMMdd)

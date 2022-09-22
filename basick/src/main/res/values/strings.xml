@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="logk_view_provider_title">日志面板</string>
-    <string name="logk_view_provider_close">关闭</string>
-</resources>

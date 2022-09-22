@@ -39,18 +39,20 @@ class FpsKView {
     private val _frameMonitor = FrameMonitor()
     private var _windowManager: WindowManager = _context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
-    init {
-        _params.width = WindowManager.LayoutParams.WRAP_CONTENT
-        _params.height = WindowManager.LayoutParams.WRAP_CONTENT
-        _params.flags =
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-        _params.format = PixelFormat.TRANSLUCENT
-        _params.gravity = Gravity.RIGHT or Gravity.BOTTOM
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            _params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+    fun toggle() {
+        if (_isShow) {
+            stop()
         } else {
-            _params.type = WindowManager.LayoutParams.TYPE_TOAST
+            play()
         }
+    }
+
+    fun addListener(listener: IFpsKListener) {
+        _frameMonitor.addListener(listener)
+    }
+
+    init {
+        initParams()
 
         _frameMonitor.addListener(object : IFpsKListener {
             @SuppressLint("SetTextI18n")
@@ -62,14 +64,28 @@ class FpsKView {
         StackK.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
                 if (isFront) {
-                    Log.d(TAG, "FpsKView onChanged fpsk start")
+                    LogK.dt(TAG, "FpsKView onChanged fpsk start")
                     play()
                 } else {
-                    Log.w(TAG, "FpsKView onChanged fpsk stop")
+                    LogK.wt(TAG, "FpsKView onChanged fpsk stop")
                     stop()
                 }
             }
         })
+    }
+
+    private fun initParams() {
+        _params.width = WindowManager.LayoutParams.WRAP_CONTENT
+        _params.height = WindowManager.LayoutParams.WRAP_CONTENT
+        _params.flags =
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+        _params.format = PixelFormat.TRANSLUCENT
+        _params.gravity = Gravity.RIGHT or Gravity.BOTTOM
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            _params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else {
+            _params.type = WindowManager.LayoutParams.TYPE_TOAST
+        }
     }
 
     private fun stop() {
@@ -108,17 +124,5 @@ class FpsKView {
 
     private fun hasOverlayPermission(): Boolean {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(_context)
-    }
-
-    fun toggle() {
-        if (_isShow) {
-            stop()
-        } else {
-            play()
-        }
-    }
-
-    fun addListener(listener: IFpsKListener) {
-        _frameMonitor.addListener(listener)
     }
 }

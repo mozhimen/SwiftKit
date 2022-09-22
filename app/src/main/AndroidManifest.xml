@@ -69,9 +69,6 @@
             android:name=".basick.executork.ExecutorKActivity"
             android:exported="false" />
         <activity
-            android:name=".basick.logk.LogKActivity"
-            android:exported="false" />
-        <activity
             android:name=".basick.basek.BaseKDemoActivity"
             android:exported="false" />
         <activity
@@ -179,6 +176,9 @@
         <activity
             android:name=".abilityk.netk.NetKActivity"
             android:exported="false" /> <!-- underlayk -->
+        <activity
+            android:name="com.mozhimen.app.underlayk.logk.LogKActivity"
+            android:exported="false" />
         <activity
             android:name=".underlayk.debugk.DebugKActivity"
             android:exported="false" />

@@ -7,7 +7,7 @@ import com.mozhimen.app.R
 import com.mozhimen.app.basick.basek.BaseKDemoActivity
 import com.mozhimen.app.basick.eventk.EventKActivity
 import com.mozhimen.app.basick.executork.ExecutorKActivity
-import com.mozhimen.app.basick.logk.LogKActivity
+import com.mozhimen.app.underlayk.logk.LogKActivity
 import com.mozhimen.app.basick.stackk.StackKActivity
 import com.mozhimen.app.basick.utilk.UtilKActivity
 import com.mozhimen.basick.extsk.start
@@ -20,10 +20,6 @@ class BasicKActivity : AppCompatActivity() {
 
         //黏性事件测试
         //DataBusK.with<String>("stickyData").setStickyData("stickyData from ComponentKActivity")
-    }
-
-    fun goLogK(view: View) {
-        start<LogKActivity>()
     }
 
     fun goStackK(view: View) {

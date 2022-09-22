@@ -1,8 +1,8 @@
-package com.mozhimen.basick.logk
+package com.mozhimen.underlayk.logk
 
-import com.mozhimen.basick.logk.commons.IPrinter
-import com.mozhimen.basick.logk.mos.LogKConfig
-import com.mozhimen.basick.logk.printers.PrinterConsole
+import com.mozhimen.underlayk.logk.commons.IPrinter
+import com.mozhimen.underlayk.logk.mos.LogKConfig
+import com.mozhimen.underlayk.logk.temps.PrinterConsole
 
 /**
  * @ClassName LogKMgr

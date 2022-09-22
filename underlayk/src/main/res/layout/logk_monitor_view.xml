@@ -10,11 +10,12 @@
         android:layout_height="wrap_content"
         android:background="@android:color/black"
         android:gravity="center"
-        android:text="OpenLog"
+        android:text="@string/logk_view_provider_title"
         android:textColor="@android:color/white"
         tools:ignore="HardcodedText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="100dp"/>
+        android:layout_height="100dp"
+        android:visibility="visible"/>
 </LinearLayout>

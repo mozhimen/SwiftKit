@@ -1,9 +1,9 @@
-package com.mozhimen.basick.logk.printers
+package com.mozhimen.underlayk.logk.temps
 
 import android.util.Log
-import com.mozhimen.basick.logk.mos.LogKConfig
-import com.mozhimen.basick.logk.commons.IPrinter
-import com.mozhimen.basick.logk.mos.LogKConfig.Companion.MAX_LEN
+import com.mozhimen.underlayk.logk.mos.LogKConfig
+import com.mozhimen.underlayk.logk.commons.IPrinter
+import com.mozhimen.underlayk.logk.mos.LogKConfig.Companion.MAX_LEN
 
 /**
  * @ClassName ConsolePrinter
@@ -13,7 +13,6 @@ import com.mozhimen.basick.logk.mos.LogKConfig.Companion.MAX_LEN
  * @Version 1.0
  */
 class PrinterConsole : IPrinter {
-    private val TAG = "PrinterConsole>>>>>"
 
     override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
         val len = printString.length
@@ -31,7 +30,4 @@ class PrinterConsole : IPrinter {
             Log.println(level, tag, printString)
         }
     }
-
-    override fun getName(): String =
-        TAG
 }

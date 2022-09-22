@@ -1,4 +1,4 @@
-package com.mozhimen.basick.logk.printers
+package com.mozhimen.underlayk.logk.temps
 
 import android.app.Activity
 import android.view.LayoutInflater
@@ -9,11 +9,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.R
-import com.mozhimen.basick.logk.commons.IPrinter
-import com.mozhimen.basick.logk.mos.LogKConfig
-import com.mozhimen.basick.logk.mos.LogKMo
-import com.mozhimen.basick.logk.mos.LogKType
+import com.mozhimen.underlayk.logk.commons.IPrinter
+import com.mozhimen.underlayk.logk.mos.LogKConfig
+import com.mozhimen.underlayk.logk.mos.LogKMo
+import com.mozhimen.underlayk.logk.mos.LogKType
 import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.uicorek.bindk.BindKViewHolder
+import com.mozhimen.uicorek.datak.commons.DataKItem
+import com.mozhimen.underlayk.databinding.LogkPrinterViewItemBinding
 import java.util.*
 
 /**
@@ -47,14 +50,24 @@ class PrinterView(activity: Activity) : IPrinter {
         _recyclerView.smoothScrollToPosition(_adapter.itemCount - 1)
     }
 
-    override fun getName(): String = "${this.javaClass.simpleName}>>>>>"
-
     /**
      * 获取ViewProvider,通过ViewProvider可以控制log视图的展示和隐藏
      * @return PrinterViewProvider
      */
     fun getViewProvider(): PrinterViewProvider {
         return _viewProvider
+    }
+
+    private class LogKPrinterViewItem : DataKItem<Any, BindKViewHolder<LogkPrinterViewItemBinding>>() {
+        override fun onBindData(holder: BindKViewHolder<LogkPrinterViewItemBinding>, position: Int) {
+
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup): BindKViewHolder<LogkPrinterViewItemBinding> {
+            return BindKViewHolder(LayoutInflater.from(parent.context).inflate(getItemLayoutRes(), parent, false))
+        }
+
+        override fun getItemLayoutRes(): Int = R.layout.logk_printer_view_item
     }
 
     private class LogKAdapter(private val _inflater: LayoutInflater) :
@@ -85,17 +98,6 @@ class PrinterView(activity: Activity) : IPrinter {
             holder.magView.text = logItem.log.replace("\\n", "\n")
                 .replace(UtilKGlobal.instance.getApp()!!.packageName, "")
             holder.magView.setTextColor(color)
-        }
-
-        private fun getHeightLightColor(logLevel: Int): Int {
-            return when (logLevel) {
-                LogKType.V -> -0x444445
-                LogKType.D -> -0x1
-                LogKType.I -> -0x9578a7
-                LogKType.W -> -0x444ad7
-                LogKType.E -> -0x9498
-                else -> -0x100
-            }
         }
 
         override fun getItemCount(): Int {

@@ -76,6 +76,8 @@
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/item_demo_list.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/basick/src/main/res/layout/activity_crashk_log.xml" value="0.15208333333333332" />
         <entry key="..\:/GitHub/SwiftKit/basick/src/main/res/layout/fpsk_layout.xml" value="0.24340277777777777" />
+        <entry key="..\:/GitHub/SwiftKit/basick/src/main/res/layout/logk_monitor_view.xml" value="0.2415807560137457" />
+        <entry key="..\:/GitHub/SwiftKit/basick/src/main/res/layout/logk_recycler_item.xml" value="0.2415807560137457" />
         <entry key="..\:/GitHub/SwiftKit/basick/src/main/res/layout/view_fpsk.xml" value="0.18263888888888888" />
         <entry key="..\:/GitHub/SwiftKit/basicsk/src/main/res/layout/item_logk.xml" value="0.287962962962963" />
         <entry key="..\:/GitHub/SwiftKit/basicsk/src/main/res/layout/view_fpsk.xml" value="0.1296875" />
@@ -90,6 +92,7 @@
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/datak_footer_loading.xml" value="0.4" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/dialogk_ques.xml" value="0.25" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_blurred.xml" value="0.2415807560137457" />
+        <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_chip_group_item.xml" value="0.17569444444444443" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_empty.xml" value="0.2" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/refreshk_overview_lottie.xml" value="0.2109375" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/refreshk_overview_text.xml" value="0.264" />
@@ -111,6 +114,7 @@
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_dialog_item.xml" value="0.18" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_item_crashk_file.xml" value="0.2" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_item_params.xml" value="0.2415807560137457" />
+        <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/logk_monitor_view.xml" value="0.24409722222222222" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/abilityk/src/main/res/drawable/scank_qrscan_line.xml" value="0.2708333333333333" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_abilityk.xml" value="0.20572916666666666" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_btnk.xml" value="0.17916666666666667" />

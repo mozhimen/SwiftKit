@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="logk_v"></color>
+    <color name="logk_d"></color>
+    <color name="logk_i"></color>
+    <color name="logk_w"></color>
+    <color name="logk_e"></color>
+    <color name="logk_other"></color>
+</resources>
