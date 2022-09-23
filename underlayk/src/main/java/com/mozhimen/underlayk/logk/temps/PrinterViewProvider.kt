@@ -2,6 +2,7 @@ package com.mozhimen.underlayk.logk.temps
 
 import android.content.Context
 import android.graphics.Color
+import android.icu.text.CaseMap
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -30,22 +31,17 @@ class PrinterViewProvider(
 ) : IPrinter {
     private companion object {
         private const val TAG_LOGK_CONTAINER_VIEW = "TAG_LOGK_CONTAINER_VIEW"
-        private const val TAG_LOGK_TITLE_VIEW = "TAG_LOGK_TITLE_VIEW"
-        private const val TAG_LOGK_RECYCLER_VIEW = "TAG_LOGK_RECYCLER_VIEW"
         private val TITLE_OPEN_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_open)
         private val TITLE_CLOSE_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_close)
-        private val LAYOUT_PARAMS_PANEL_OPEN = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UtilKScreen.getScreenHeight() / 3)
     }
 
     private var _adapter: DataKAdapter = DataKAdapter(_context)
-    private var _isFold = false
 
     private var _recyclerView: RecyclerView? = null
         get() {
             if (field != null) return field
 
             val recyclerView = RecyclerView(_context)
-            recyclerView.tag = TAG_LOGK_RECYCLER_VIEW
             recyclerView.layoutManager = LinearLayoutManager(_context)
             recyclerView.adapter = _adapter
             recyclerView.setBackgroundColor(Color.BLACK)
@@ -57,7 +53,6 @@ class PrinterViewProvider(
             if (field != null) return field
 
             val textView = TextView(_context)
-            textView.tag = TAG_LOGK_TITLE_VIEW
             textView.gravity = Gravity.END
             textView.text = if (_isFold) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
             textView.setTextColor(Color.WHITE)
@@ -81,21 +76,16 @@ class PrinterViewProvider(
             return containerView.also { field = it }
         }
 
-    override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
-        //将log展示添加到recyclerView
-        _adapter.addItem(PrinterViewItem(LogKMo(System.currentTimeMillis(), level, tag, printString)), true)
-        //滚动到对应的位置
-        _recyclerView!!.smoothScrollToPosition(_adapter.itemCount - 1)
-    }
+    private var _isFold = false
+        set(value) {
+            _titleView!!.text = if (value) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
+            field = value
+        }
 
-    fun showLogView() {
+    fun showLogView(isFold: Boolean) {
         if (_rootView.findViewWithTag<View?>(TAG_LOGK_CONTAINER_VIEW) != null) return
         //add to root
-        val layoutParams = LAYOUT_PARAMS_PANEL_OPEN
-        layoutParams.width = UtilKScreen.getScreenWidth()
-        layoutParams.height = UtilKScreen.getScreenHeight() / 3
-        layoutParams.gravity = Gravity.BOTTOM or Gravity.END
-        _rootView.addView(_containerView, layoutParams)
+        _rootView.addView(_containerView, getLayoutParams(isFold))
     }
 
     fun closeLogView() {
@@ -103,28 +93,42 @@ class PrinterViewProvider(
     }
 
     fun foldLogView() {
-        if (_containerView?.findViewWithTag<View?>(TAG_LOGK_RECYCLER_VIEW) == null || _isFold) return
         _isFold = true
         _titleView!!.text = TITLE_OPEN_PANEL
         _recyclerView!!.visibility = View.GONE
         //transform
-        val layoutParams = _containerView!!.layoutParams as FrameLayout.LayoutParams
-        layoutParams.width = _titleView!!.width
-        layoutParams.height = _titleView!!.height
-        layoutParams.gravity = Gravity.BOTTOM or Gravity.END
-        _containerView!!.layoutParams = layoutParams
+        _containerView!!.layoutParams = getLayoutParams(true)
     }
 
     fun unfoldLogView() {
-        if (_containerView?.findViewWithTag<View?>(TAG_LOGK_RECYCLER_VIEW) == null || !_isFold) return
         _isFold = false
         _titleView!!.text = TITLE_CLOSE_PANEL
         _recyclerView!!.visibility = View.VISIBLE
         //transform
-        val layoutParams = _containerView!!.layoutParams as FrameLayout.LayoutParams
-        layoutParams.width = UtilKScreen.getScreenWidth()
-        layoutParams.height = UtilKScreen.getScreenHeight() / 3
+        _containerView!!.layoutParams = getLayoutParams(false)
+    }
+
+    override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
+        //将log展示添加到recyclerView
+        _adapter.addItem(PrinterViewItem(LogKMo(System.currentTimeMillis(), level, tag, printString)), true)
+        //滚动到对应的位置
+        _recyclerView!!.smoothScrollToPosition(_adapter.itemCount - 1)
+    }
+
+    private fun getLayoutParams(isFold: Boolean): FrameLayout.LayoutParams {
+        val layoutParams = (_containerView!!.layoutParams as? FrameLayout.LayoutParams?) ?: FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
         layoutParams.gravity = Gravity.BOTTOM or Gravity.END
-        _containerView!!.layoutParams = layoutParams
+        if (isFold) {
+            if (_titleView!!.width == 0 || _titleView!!.height == 0) {
+                _isFold = true
+                return layoutParams
+            }
+            layoutParams.width = _titleView!!.width
+            layoutParams.height = _titleView!!.height
+        } else {
+            layoutParams.width = UtilKScreen.getScreenWidth()
+            layoutParams.height = UtilKScreen.getScreenHeight() / 3
+        }
+        return layoutParams
     }
 }

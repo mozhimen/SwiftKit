@@ -21,7 +21,7 @@ class LogKActivity : BaseKActivity<ActivityLogkBinding, BaseKViewModel>(R.layout
 
     override fun initView(savedInstanceState: Bundle?) {
         _printerView = PrinterView(this)
-        _printerView!!.toggleView()
+        _printerView!!.toggleView(true)
         vb.logkBtnPrint.setOnClickListener {
             printLog()
         }

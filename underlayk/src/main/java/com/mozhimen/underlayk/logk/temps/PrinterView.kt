@@ -28,20 +28,20 @@ class PrinterView(activity: Activity) : IPrinter {
     private var _viewProvider: PrinterViewProvider = PrinterViewProvider(activity, activity.findViewById(android.R.id.content))
     private var _isShow: Boolean = false
 
-    override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
-        _viewProvider.print(config, level, tag, printString)
-    }
-
-    fun toggleView() {
+    fun toggleView(isFold: Boolean = true) {
         if (_isShow) {
             _isShow = false
             _viewProvider.closeLogView()
         } else {
             _isShow = true
-            _viewProvider.showLogView()
+            _viewProvider.showLogView(isFold)
         }
     }
 
     fun getViewProvider(): PrinterViewProvider =
         _viewProvider
+
+    override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
+        _viewProvider.print(config, level, tag, printString)
+    }
 }
