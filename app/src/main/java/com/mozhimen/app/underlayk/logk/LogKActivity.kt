@@ -2,28 +2,26 @@ package com.mozhimen.app.underlayk.logk
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityLogkBinding
+import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.temps.PrinterView
 import com.mozhimen.underlayk.logk.mos.LogKConfig
 import com.mozhimen.underlayk.logk.mos.LogKType
 
-class LogKActivity : AppCompatActivity() {
-    private val vb: ActivityLogkBinding by lazy { ActivityLogkBinding.inflate(layoutInflater) }
-    private val TAG = "LogKActivity>>>>>"
+class LogKActivity : BaseKActivity<ActivityLogkBinding, BaseKViewModel>(R.layout.activity_logk) {
     private var _printerView: PrinterView? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(vb.root)
-
-        initView()
+    override fun initData(savedInstanceState: Bundle?) {
+        initView(savedInstanceState)
     }
 
-    private fun initView() {
+    override fun initView(savedInstanceState: Bundle?) {
         _printerView = PrinterView(this)
-        _printerView!!.getViewProvider().showTitleView()
+        _printerView!!.toggleView()
         vb.logkBtnPrint.setOnClickListener {
             printLog()
         }
@@ -52,11 +50,8 @@ class LogKActivity : AppCompatActivity() {
     }
 
     private fun printLog1() {
-        val stringBuilder = StringBuilder()
-        LogKMgr.instance.getPrinters().forEach { printer ->
-            stringBuilder.append(printer.getName().replace(">>>>>", "") + ", ")
-        }
-        LogK.dt(TAG, stringBuilder)
+        val printers: String = LogKMgr.instance.getPrinters().joinToString { it.getName().replace(">>>>>", "") }
+        LogK.dt(TAG, printers)
     }
 
     override fun onResume() {

@@ -19,6 +19,7 @@ import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.UtilKOverlay
 
 /**
  * @ClassName FpsViewer
@@ -52,7 +53,10 @@ class FpsKView {
 
     init {
         initParams()
+        initView()
+    }
 
+    private fun initView() {
         _frameMonitor.addListener(object : IFpsKListener {
             @SuppressLint("SetTextI18n")
             override fun onFrame(fps: Double) {
@@ -96,8 +100,8 @@ class FpsKView {
     }
 
     private fun play() {
-        if (!hasOverlayPermission()) {
-            startOverlaySettingActivity()
+        if (!UtilKOverlay.hasOverlayPermission()) {
+            UtilKOverlay.startOverlaySettingActivity()
             LogK.et(TAG, "FpsKView play app has no overlay permission")
             return
         }
@@ -107,21 +111,5 @@ class FpsKView {
             _isShow = true
             _windowManager.addView(_fpsView, _params)
         }
-
-    }
-
-    private fun startOverlaySettingActivity() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            _context.startActivity(
-                Intent(
-                    Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + _context.packageName)
-                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            )
-        }
-    }
-
-    private fun hasOverlayPermission(): Boolean {
-        return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(_context)
     }
 }

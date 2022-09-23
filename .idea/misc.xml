@@ -130,6 +130,7 @@
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_hotfixk.xml" value="0.3671875" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_layoutk.xml" value="0.20358974358974358" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_layoutk_video.xml" value="0.1" />
+        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_logk.xml" value="0.25" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_navk.xml" value="0.20625" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_netk.xml" value="0.2564814814814815" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_opencvk.xml" value="0.36666666666666664" />
@@ -161,6 +162,9 @@
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/uicorek/src/main/res/layout/sliderk_menu_item.xml" value="0.2520833333333333" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/uicorek/src/main/res/layout/textk_bubble.xml" value="0.36302083333333335" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_activity_crashk.xml" value="0.36666666666666664" />
+        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/underlayk/src/main/res/layout/fpsk_view.xml" value="0.3671875" />
+        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/underlayk/src/main/res/layout/logk_monitor_view.xml" value="0.33" />
+        <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/underlayk/src/main/res/layout/logk_printer_view_item.xml" value="0.3671875" />
       </map>
     </option>
   </component>
