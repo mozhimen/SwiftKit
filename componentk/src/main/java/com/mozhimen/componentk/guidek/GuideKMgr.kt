@@ -21,6 +21,7 @@ class GuideKMgr {
     private val TAG = "GuideKMgr>>>>>"
 
     companion object {
+        @JvmStatic
         val instance = GlideKMgrProvider.holder
         private const val GUIDEK_CACHE_NAME_PKG_CONFIG = "guidek_cache_name_pkg_config"
     }

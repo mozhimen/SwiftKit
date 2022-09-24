@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap
 class CacheKSP {
 
     companion object {
+        @JvmStatic
         val instance = UtilKSPProvider.holder
     }
 

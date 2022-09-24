@@ -2,7 +2,6 @@ package com.mozhimen.underlayk.logk.temps
 
 import android.content.Context
 import android.graphics.Color
-import android.icu.text.CaseMap
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,10 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.underlayk.R
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.uicorek.datak.helpers.DataKAdapter
+import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.commons.IPrinter
 import com.mozhimen.underlayk.logk.mos.LogKConfig
 import com.mozhimen.underlayk.logk.mos.LogKMo
@@ -53,7 +52,6 @@ class PrinterViewProvider(
             if (field != null) return field
 
             val textView = TextView(_context)
-            textView.gravity = Gravity.END
             textView.text = if (_isFold) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
             textView.setTextColor(Color.WHITE)
             textView.setBackgroundColor(Color.BLACK)
@@ -71,7 +69,7 @@ class PrinterViewProvider(
             val recyclerLayoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             containerView.addView(_recyclerView, recyclerLayoutParams)
             val titleLayoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            titleLayoutParams.gravity = Gravity.TOP or Gravity.END
+            titleLayoutParams.gravity = Gravity.TOP or Gravity.START
             containerView.addView(_titleView, titleLayoutParams)
             return containerView.also { field = it }
         }
@@ -84,15 +82,18 @@ class PrinterViewProvider(
 
     fun showLogView(isFold: Boolean) {
         if (_rootView.findViewWithTag<View?>(TAG_LOGK_CONTAINER_VIEW) != null) return
+        if (isFold) foldLogView() else unfoldLogView()
         //add to root
         _rootView.addView(_containerView, getLayoutParams(isFold))
     }
 
     fun closeLogView() {
+        if (_rootView.findViewWithTag<View?>(TAG_LOGK_CONTAINER_VIEW) == null) return
         _rootView.removeView(_containerView)
     }
 
     fun foldLogView() {
+        if (_isFold) return
         _isFold = true
         _titleView!!.text = TITLE_OPEN_PANEL
         _recyclerView!!.visibility = View.GONE
@@ -101,6 +102,7 @@ class PrinterViewProvider(
     }
 
     fun unfoldLogView() {
+        if (!_isFold) return
         _isFold = false
         _titleView!!.text = TITLE_CLOSE_PANEL
         _recyclerView!!.visibility = View.VISIBLE
@@ -117,7 +119,7 @@ class PrinterViewProvider(
 
     private fun getLayoutParams(isFold: Boolean): FrameLayout.LayoutParams {
         val layoutParams = (_containerView!!.layoutParams as? FrameLayout.LayoutParams?) ?: FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT)
-        layoutParams.gravity = Gravity.BOTTOM or Gravity.END
+        layoutParams.gravity = Gravity.BOTTOM or Gravity.START
         if (isFold) {
             if (_titleView!!.width == 0 || _titleView!!.height == 0) {
                 _isFold = true

@@ -1,21 +1,11 @@
 package com.mozhimen.underlayk.logk.temps
 
 import android.app.Activity
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.utilk.UtilKGlobal
-import com.mozhimen.uicorek.bindk.BindKViewHolder
-import com.mozhimen.uicorek.datak.commons.DataKItem
-import com.mozhimen.uicorek.datak.helpers.DataKAdapter
-import com.mozhimen.underlayk.R
-import com.mozhimen.underlayk.databinding.LogkPrinterViewItemBinding
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.commons.IPrinter
-import com.mozhimen.underlayk.logk.helpers.LogKHelper
 import com.mozhimen.underlayk.logk.mos.LogKConfig
-import com.mozhimen.underlayk.logk.mos.LogKMo
 
 /**
  * @ClassName ViewPrinter
@@ -24,9 +14,13 @@ import com.mozhimen.underlayk.logk.mos.LogKMo
  * @Date 2021/12/20 17:20
  * @Version 1.0
  */
-class PrinterView(activity: Activity) : IPrinter {
+class PrinterView(activity: Activity, lifecycleOwner: LifecycleOwner) : IPrinter, DefaultLifecycleObserver {
     private var _viewProvider: PrinterViewProvider = PrinterViewProvider(activity, activity.findViewById(android.R.id.content))
     private var _isShow: Boolean = false
+
+    init {
+        lifecycleOwner.lifecycle.addObserver(this)
+    }
 
     fun toggleView(isFold: Boolean = true) {
         if (_isShow) {
@@ -43,5 +37,11 @@ class PrinterView(activity: Activity) : IPrinter {
 
     override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
         _viewProvider.print(config, level, tag, printString)
+    }
+
+    override fun onPause(owner: LifecycleOwner) {
+        _viewProvider.closeLogView()
+        LogKMgr.instance.removePrinter(this)
+        super.onPause(owner)
     }
 }

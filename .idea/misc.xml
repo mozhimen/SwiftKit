@@ -81,6 +81,15 @@
         <entry key="..\:/GitHub/SwiftKit/basick/src/main/res/layout/view_fpsk.xml" value="0.18263888888888888" />
         <entry key="..\:/GitHub/SwiftKit/basicsk/src/main/res/layout/item_logk.xml" value="0.287962962962963" />
         <entry key="..\:/GitHub/SwiftKit/basicsk/src/main/res/layout/view_fpsk.xml" value="0.1296875" />
+        <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_basek_activity.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_basick.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_eventk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_executork.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_stackk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_utilk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_utilk_anim.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_utilk_gesture.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/fragment_basek_fragment.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/drawable/debugk_crashk_divider.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/drawable/guidek_home.xml" value="0.2335" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/drawable/navigationk_home.xml" value="0.11018518518518519" />
@@ -88,6 +97,9 @@
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/layout/debugk_dialog_item.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/layout/debugk_item_crashk_file.xml" value="0.12569444444444444" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/layout/debugk_item_params.xml" value="0.1388888888888889" />
+        <entry key="..\:/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_componentk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_debugk.xml" value="0.15486111111111112" />
+        <entry key="..\:/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_permissionk.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/drawable/bannerk_indicator_circle_point_normal.xml" value="0.30092592592592593" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/drawable/bannerk_indicator_circle_point_selected.xml" value="0.20104166666666667" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/drawable/dialogk_background.xml" value="0.2035" />
@@ -108,6 +120,29 @@
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/tabk_bottom.xml" value="0.2" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/tabk_bottom_layout.xml" value="0.2657407407407407" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/layout/tabk_top.xml" value="0.2" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/drawable/viewk_qr_scan_line.xml" value="0.1525" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_bannerk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_btnk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_datak.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_datak_load_more.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_dialogk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_empty.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_video.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_loadk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_navk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_refreshk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_refreshk_lottie.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_sidek.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_textk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_uicorek.xml" value="0.16597222222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_viewk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_viewk_steps.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_viewk_views.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/fragment_tabk_bottom_more.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_bannerk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_datak_tab.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_datak_video.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/drawable/debugk_crashk_dialog.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/drawable/debugk_crashk_divider.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/activity_debugk_crashk.xml" value="0.1" />
@@ -120,8 +155,10 @@
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_item_crashk_file.xml" value="0.2" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/debugk_item_params.xml" value="0.2415807560137457" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/fpsk_view.xml" value="0.1" />
-        <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/logk_monitor_view.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/logk_monitor_view.xml" value="0.22" />
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/logk_printer_view_item.xml" value="0.1261168384879725" />
+        <entry key="..\:/GitHub/SwiftKit/underlayktest/src/main/res/layout/activity_logk.xml" value="0.19444444444444445" />
+        <entry key="..\:/GitHub/SwiftKit/underlayktest/src/main/res/layout/activity_underlayk.xml" value="0.15555555555555556" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/abilityk/src/main/res/drawable/scank_qrscan_line.xml" value="0.2708333333333333" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_abilityk.xml" value="0.20572916666666666" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/app/src/main/res/layout/activity_btnk.xml" value="0.17916666666666667" />

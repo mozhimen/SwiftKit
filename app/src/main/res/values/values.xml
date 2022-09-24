@@ -13,9 +13,6 @@
         <item name="strokeColor">@color/blue_dark</item>
     </style>
 
-    <style name="DialogKAnim_Custom" parent="android:Animation">
-        <item name="android:windowEnterAnimation">@anim/anim_top_in</item>
-        <item name="android:windowExitAnimation">@anim/anim_top_out</item>
-    </style>
+
 
 </resources>

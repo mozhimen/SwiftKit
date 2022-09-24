@@ -2,24 +2,21 @@ package com.mozhimen.underlayk.fpsk
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.graphics.PixelFormat
-import android.net.Uri
 import android.os.Build
-import android.provider.Settings
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
-import com.mozhimen.underlayk.R
 import com.mozhimen.basick.extsk.decimal2String
-import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
-import com.mozhimen.underlayk.fpsk.helpers.FrameMonitor
-import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.UtilKGlobal
 import com.mozhimen.basick.utilk.UtilKOverlay
+import com.mozhimen.underlayk.R
+import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
+import com.mozhimen.underlayk.fpsk.helpers.FrameMonitor
+import com.mozhimen.underlayk.logk.LogK
 
 /**
  * @ClassName FpsViewer

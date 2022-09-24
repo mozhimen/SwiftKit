@@ -18,33 +18,10 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goBasicK"
-            android:text="BasicK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
-            android:onClick="goUICoreK"
-            android:text="UICoreK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
-            android:onClick="goComponentK"
-            android:text="ComponentK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
             android:onClick="goAbilityK"
             android:text="AbilityK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
-            android:onClick="goUnderlayK"
-            android:text="UnderlayK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

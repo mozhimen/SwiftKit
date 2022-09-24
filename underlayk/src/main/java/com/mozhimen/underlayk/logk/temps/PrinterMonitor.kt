@@ -1,20 +1,11 @@
 package com.mozhimen.underlayk.logk.temps
 
-import android.content.Context
-import android.graphics.PixelFormat
-import android.os.Build
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.WindowManager
-import android.widget.LinearLayout
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.underlayk.R
+import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.commons.IPrinter
 import com.mozhimen.underlayk.logk.mos.LogKConfig
-import com.mozhimen.basick.utilk.UtilKGlobal
-import com.mozhimen.basick.utilk.UtilKOverlay
-import com.mozhimen.underlayk.logk.LogK
 
 /**
  * @ClassName PrinterMonitor
@@ -23,7 +14,7 @@ import com.mozhimen.underlayk.logk.LogK
  * @Date 2022/9/22 15:52
  * @Version 1.0
  */
-class PrinterMonitor : IPrinter {
+class PrinterMonitor() : IPrinter {
     private val _printerMonitorProvider: PrinterMonitorProvider = PrinterMonitorProvider(UtilKGlobal.instance.getApp()!!)
     private var _isShow: Boolean = false
 

@@ -21,6 +21,7 @@ class FpsK {
     }
 
     companion object {
+        @JvmStatic
         val instance = FpsKProvider.holder
     }
 

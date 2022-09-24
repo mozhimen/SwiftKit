@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!--android:requestLegacyExternalStorage="true" hotfixk-->
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -37,115 +38,7 @@
         </activity> <!-- demo -->
         <activity
             android:name=".demo.DemoActivity"
-            android:exported="false" /> <!-- componentk -->
-        <activity
-            android:name="com.mozhimen.app.componentk.debugk.DebugKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".componentk.ComponentKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".componentk.guidek.GuideKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".componentk.permissionk.PermissionKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".componentk.statusbark.StatusBarKActivity"
-            android:exported="false" /> <!-- basicsk -->
-        <activity
-            android:name=".basick.utilk.UtilKAnimActivity"
-            android:exported="false" />
-        <activity
-            android:name=".basick.utilk.UtilKGestureActivity"
-            android:exported="false" />
-        <activity
-            android:name=".basick.eventk.EventKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".basick.BasicKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".basick.utilk.UtilKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".basick.executork.ExecutorKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".basick.basek.BaseKDemoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".basick.stackk.StackKActivity"
-            android:exported="false" /> <!-- uicorek -->
-        <activity
-            android:name=".uicorek.textk.TextKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.layoutk.LayoutKVideoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.navk.NavKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.UICoreKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.sidek.SideKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.tabk.TabKBottomActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.tabk.TabKBottomLayoutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.tabk.TabKBottomFragmentActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.tabk.TabKTopActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.tabk.TabKTopLayoutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.refreshk.RefreshKLayoutActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.refreshk.RefreshKLayoutLottieActivity"
-            android:exported="true" />
-        <activity
-            android:name=".uicorek.bannerk.BannerKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.datak.DataKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.datak.DataKRecyclerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.loadk.LoadKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".uicorek.layoutk.LayoutKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".uicorek.layoutk.LayoutKEmptyActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.btnk.BtnKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.viewk.ViewKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.viewk.ViewKStepsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.viewk.ViewKViewsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".uicorek.dialogk.DialogKActivity"
-            android:exported="false" /> <!-- abilityk -->
+            android:exported="false" />   <!-- abilityk -->
         <activity
             android:name=".abilityk.opencvk.OpenCVKMatchActivity"
             android:exported="false" />
@@ -178,12 +71,6 @@
             android:exported="false" />
         <activity
             android:name=".abilityk.netk.NetKActivity"
-            android:exported="false" /> <!-- underlayk -->
-        <activity
-            android:name="com.mozhimen.app.underlayk.logk.LogKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".underlayk.UnderlayKActivity"
             android:exported="false" />
     </application>
 

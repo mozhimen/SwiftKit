@@ -3,7 +3,9 @@ package com.mozhimen.basick.stackk
 
 import android.app.Activity
 import android.app.Application
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.UtilKGlobal
 import java.lang.ref.WeakReference
@@ -17,19 +19,25 @@ import java.lang.ref.WeakReference
  */
 class StackKMgr private constructor() {
     companion object {
+        private val TAG = "StackKMgr>>>>>"
+
         @JvmStatic
-        val instance: StackKMgr by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { StackKMgr() }
+        val instance: StackKMgr = StackKMgrProvider.holder
+    }
+
+    private object StackKMgrProvider {
+        val holder = StackKMgr()
     }
 
     private val _activityRefs = ArrayList<WeakReference<Activity>>()
-    private val _frontBackCallbacks = ArrayList<IStackKListener>()
+    private val _frontBackListeners = ArrayList<IStackKListener>()
     private var _activityLaunchCount = 0
     private var _isFront = true
 
     /**
      * 初始化
      */
-    fun init() {
+    init {
         UtilKGlobal.instance.getApp()!!.registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
     }
 
@@ -37,19 +45,72 @@ class StackKMgr private constructor() {
      * 获取activity集合
      * @return List<WeakReference<Activity>>
      */
-    internal fun getActivityRefs(): ArrayList<WeakReference<Activity>> = _activityRefs
+    fun getActivityRefs(): ArrayList<WeakReference<Activity>> = _activityRefs
 
     /**
      * 获取监听器集合
      * @return List<StackKListener>
      */
-    internal fun getListeners(): ArrayList<IStackKListener> = _frontBackCallbacks
+    fun getListeners(): ArrayList<IStackKListener> = _frontBackListeners
 
     /**
      * 是否在前台
      * @return Boolean
      */
-    internal fun isFront() = _isFront
+    fun isFront() = _isFront
+
+    /**
+     * 获得栈顶
+     * @param onlyAlive Boolean
+     * @return Activity?
+     */
+    fun getStackTopActivity(onlyAlive: Boolean = true): Activity? {
+        if (_activityRefs.size <= 0) {
+            return null
+        } else {
+            val activityRef: WeakReference<Activity> = _activityRefs[_activityRefs.size - 1]
+            val activity: Activity? = activityRef.get()
+            if (onlyAlive) {
+                if (activity == null || activity.isFinishing || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed)) {
+                    _activityRefs.remove(activityRef)
+                    return StackK.getStackTopActivity(onlyAlive)
+                }
+            }
+            return activity
+        }
+    }
+
+    /**
+     * 增加监听器
+     * @param listener IStackKListener
+     */
+    fun addFrontBackListener(listener: IStackKListener) {
+        if (!_frontBackListeners.contains(listener)) {
+            _frontBackListeners.add(listener)
+        }
+    }
+
+    /**
+     * 移除监听器
+     * @param listener IStackKListener
+     */
+    fun removeFrontBackListener(listener: IStackKListener) {
+        if (_frontBackListeners.contains(listener)) {
+            _frontBackListeners.remove(listener)
+        }
+    }
+
+    /**
+     * 移除所有的Activity
+     */
+    fun finishAllActivity() {
+        for (activityRef in _activityRefs) {
+            if (activityRef.get()?.isFinishing == false) {
+                activityRef.get()?.finish()
+            }
+        }
+        _activityRefs.clear()
+    }
 
     private inner class InnerActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
@@ -94,11 +155,11 @@ class StackKMgr private constructor() {
                 }
             }
         }
-    }
 
-    private fun onFrontBackChanged(isFront: Boolean) {
-        for (callback in _frontBackCallbacks) {
-            callback.onChanged(isFront)
+        private fun onFrontBackChanged(isFront: Boolean) {
+            for (listener in _frontBackListeners) {
+                listener.onChanged(isFront)
+            }
         }
     }
 }

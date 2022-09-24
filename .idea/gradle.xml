@@ -14,14 +14,17 @@
             <option value="$PROJECT_DIR$/abilityk" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/basick" />
+            <option value="$PROJECT_DIR$/biasicktest" />
             <option value="$PROJECT_DIR$/componentk" />
+            <option value="$PROJECT_DIR$/componentktest" />
             <option value="$PROJECT_DIR$/guidek_annor" />
             <option value="$PROJECT_DIR$/guidek_compiler" />
             <option value="$PROJECT_DIR$/uicorek" />
+            <option value="$PROJECT_DIR$/uicorektest" />
             <option value="$PROJECT_DIR$/underlayk" />
+            <option value="$PROJECT_DIR$/underlayktest" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

@@ -1,7 +1,3 @@
 <resources>
     <string name="app_name">SwiftKit</string>
-
-    <string name="icon_home">&#xe98d;</string>
-    <string name="icon_more">&#xe98c;</string>
-    <string name="icon_mine">&#xe99e;</string>
 </resources>

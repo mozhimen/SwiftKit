@@ -13,6 +13,7 @@ import android.os.Vibrator
 class UtilKVibrate {
 
     companion object {
+        @JvmStatic
         val instance = UtilKVibrateProvider.holder
     }
 

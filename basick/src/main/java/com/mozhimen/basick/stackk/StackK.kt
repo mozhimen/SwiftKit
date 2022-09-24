@@ -19,20 +19,7 @@ object StackK {
      * @return Activity?
      */
     fun getStackTopActivity(onlyAlive: Boolean = true): Activity? {
-        val activityRefs = StackKMgr.instance.getActivityRefs()
-        if (activityRefs.size <= 0) {
-            return null
-        } else {
-            val activityRef: WeakReference<Activity> = activityRefs[activityRefs.size - 1]
-            val activity: Activity? = activityRef.get()
-            if (onlyAlive) {
-                if (activity == null || activity.isFinishing || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed)) {
-                    activityRefs.remove(activityRef)
-                    return getStackTopActivity(onlyAlive)
-                }
-            }
-            return activity
-        }
+        return StackKMgr.instance.getStackTopActivity(onlyAlive)
     }
 
     /**
@@ -40,10 +27,7 @@ object StackK {
      * @param listener StackKListener
      */
     fun addFrontBackListener(listener: IStackKListener) {
-        val listeners = StackKMgr.instance.getListeners()
-        if (!listeners.contains(listener)) {
-            listeners.add(listener)
-        }
+        StackKMgr.instance.addFrontBackListener(listener)
     }
 
     /**
@@ -51,31 +35,27 @@ object StackK {
      * @param listener StackKListener
      */
     fun removeFrontBackListener(listener: IStackKListener) {
-        StackKMgr.instance.getListeners().remove(listener)
+        StackKMgr.instance.removeFrontBackListener(listener)
     }
 
     /**
      * 结束所有堆栈
      */
     fun finishAllActivity() {
-        val activityRefs = StackKMgr.instance.getActivityRefs()
-        for (activityRef in activityRefs) {
-            if (activityRef.get()?.isFinishing == false) {
-                activityRef.get()?.finish()
-            }
-        }
-        activityRefs.clear()
+        StackKMgr.instance.finishAllActivity()
     }
 
     /**
      * 是否在前台
      * @return Boolean
      */
-    fun isFront() = StackKMgr.instance.isFront()
+    fun isFront(): Boolean =
+        StackKMgr.instance.isFront()
 
     /**
      * 获取堆栈数量
      * @return Int
      */
-    fun getStackCount() = StackKMgr.instance.getActivityRefs().size
+    fun getStackCount(): Int =
+        StackKMgr.instance.getActivityRefs().size
 }
