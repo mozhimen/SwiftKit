@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.CallSuper;
@@ -23,6 +22,7 @@ import androidx.navigation.NavigatorProvider;
 
 import com.mozhimen.componentk.R;
 import com.mozhimen.componentk.guidek.mos.GuideKConstants;
+import com.mozhimen.underlayk.logk.LogK;
 
 import java.util.ArrayDeque;
 import java.util.Collections;
@@ -86,7 +86,7 @@ public class GuideKHelper extends Navigator<GuideKHelper.Destination> {
             return false;
         }
         if (_fragmentManager.isStateSaved()) {
-            Log.d(TAG, "Ignoring popBackStack() call: FragmentManager has already saved its state");
+            LogK.INSTANCE.dt(TAG, "Ignoring popBackStack() call: FragmentManager has already saved its state");
             return false;
         }
         _fragmentManager.popBackStack(
@@ -146,7 +146,7 @@ public class GuideKHelper extends Navigator<GuideKHelper.Destination> {
     public NavDestination navigate(@NonNull Destination destination, @Nullable Bundle args,
                                    @Nullable NavOptions navOptions, @Nullable Navigator.Extras navigatorExtras) {
         if (_fragmentManager.isStateSaved()) {
-            Log.d(GuideKConstants.TAG, "Ignoring navigate() call: FragmentManager has already"
+            LogK.INSTANCE.dt(GuideKConstants.TAG, "Ignoring navigate() call: FragmentManager has already"
                     + " saved its state");
             return null;
         }

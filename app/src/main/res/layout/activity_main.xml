@@ -16,12 +16,6 @@
             android:text="Demo"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
-            android:onClick="goAbilityK"
-            android:text="AbilityK"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

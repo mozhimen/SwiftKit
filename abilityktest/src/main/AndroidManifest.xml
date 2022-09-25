@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mozhimen.abilityktest">
+
+    <!--android:requestLegacyExternalStorage="true" hotfixk-->
+    <application
+        android:name=".AbilityKApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SwiftKit">
+        <activity
+            android:name=".AbilityKActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- provider -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!-- abilityk -->
+        <activity
+            android:name=".opencvk.OpenCVKMatchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".scank.ScanKHSVActivity"
+            android:exported="false" />
+        <activity
+            android:name=".opencvk.OpenCVKContrastActivity"
+            android:exported="false" />
+        <activity
+            android:name=".opencvk.OpenCVKShapeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".opencvk.OpenCVKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".transk.TransKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".hotfixk.HotFixKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".scank.ScanKActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

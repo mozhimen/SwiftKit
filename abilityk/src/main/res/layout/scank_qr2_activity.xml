@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         tools:context=".scank.ScanKQR2Activity">
 
-        <com.mozhimen.abilityk.cameraxk.CameraXKPreviewView
+        <com.mozhimen.componentk.cameraxk.CameraXKPreviewView
             android:id="@+id/scank_qr2_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

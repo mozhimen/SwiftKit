@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.mozhimen.componentk">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mozhimen.componentk">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <!--netk-->
+    <application android:usesCleartextTraffic="true" />
 </manifest>

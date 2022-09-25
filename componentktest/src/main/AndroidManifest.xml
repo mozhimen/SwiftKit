@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SwiftKit">
+        android:theme="@style/Theme.SwiftKit"
+        android:usesCleartextTraffic="true">
         <activity
             android:name="com.mozhimen.componentktest.ComponentKActivity"
             android:exported="true">
@@ -18,9 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.mozhimen.componentktest.debugk.DebugKActivity"
+            android:name="com.mozhimen.componentktest.cameraxk.CameraXKActivity"
             android:exported="false" />
         <activity
             android:name="com.mozhimen.componentktest.guidek.GuideKActivity"
@@ -30,6 +30,9 @@
             android:exported="false" />
         <activity
             android:name="com.mozhimen.componentktest.statusbark.StatusBarKActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.mozhimen.componentktest.netk.NetKActivity"
             android:exported="false" />
     </application>
 

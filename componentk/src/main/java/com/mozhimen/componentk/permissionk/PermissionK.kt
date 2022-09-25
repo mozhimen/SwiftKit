@@ -6,15 +6,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.extsk.toJson
 import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
-import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.componentk.permissionk.helpers.IPermissionKListener
 import com.mozhimen.componentk.permissionk.helpers.InvisibleFragment
+import com.mozhimen.underlayk.logk.LogK
 
 /**
  * @ClassName PermissionK
@@ -151,7 +151,7 @@ object PermissionK {
      * @param deniedList List<String>
      */
     private fun printDeniedList(deniedList: List<String>) {
-        Log.w(TAG, "printDeniedList $deniedList")
+        LogK.wt(TAG, "printDeniedList $deniedList")
         "请在设置中打开${deniedList.toJson()}权限".showToast()
     }
 }

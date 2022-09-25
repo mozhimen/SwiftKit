@@ -4,28 +4,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--android:requestLegacyExternalStorage="true" hotfixk-->
+
     <application
-        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SwiftK"
-        android:usesCleartextTraffic="true">
-
-        <!-- provider -->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+        android:theme="@style/Theme.SwiftK">
 
         <activity
             android:name=".MainActivity"
@@ -38,39 +24,6 @@
         </activity> <!-- demo -->
         <activity
             android:name=".demo.DemoActivity"
-            android:exported="false" />   <!-- abilityk -->
-        <activity
-            android:name=".abilityk.opencvk.OpenCVKMatchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.scank.ScanKHSVActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.opencvk.OpenCVKContrastActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.opencvk.OpenCVKShapeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.opencvk.OpenCVKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.transk.TransKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.AbilityKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.cameraxk.CameraXKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.hotfixk.HotFixKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.scank.ScanKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".abilityk.netk.NetKActivity"
             android:exported="false" />
     </application>
 

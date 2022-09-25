@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mozhimen.basicktest">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SwiftKit">
+        <activity
+            android:name=".BasicKActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".basick.utilk.UtilKAnimActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basick.utilk.UtilKGestureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basick.eventk.EventKActivity"
+            android:exported="true" />
+        <activity
+            android:name=".basick.utilk.UtilKActivity"
+            android:exported="true" />
+        <activity
+            android:name=".basick.executork.ExecutorKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basick.basek.BaseKDemoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".basick.stackk.StackKActivity"
+            android:exported="false" />
+    </application>
+
+</manifest>

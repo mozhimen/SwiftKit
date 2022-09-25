@@ -12,6 +12,15 @@
         <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/layout_cameraxk_preview.xml" value="0.1259259259259259" />
         <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/scank_qr2_activity.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/abilityk/src/main/res/layout/scank_qr_activity.xml" value="0.1" />
+        <entry key="..\:/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_abilityk.xml" value="0.12569444444444444" />
+        <entry key="..\:/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_hotfixk.xml" value="0.12569444444444444" />
+        <entry key="..\:/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_opencvk.xml" value="0.12569444444444444" />
+        <entry key="..\:/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_opencvk_contrast.xml" value="0.12569444444444444" />
+        <entry key="..\:/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_opencvk_match.xml" value="0.12569444444444444" />
+        <entry key="..\:/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_opencvk_shape.xml" value="0.12569444444444444" />
+        <entry key="..\:/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_scank.xml" value="0.12569444444444444" />
+        <entry key="..\:/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_scank_hsv.xml" value="0.12569444444444444" />
+        <entry key="..\:/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_transk.xml" value="0.12569444444444444" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_abilityk.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_bannerk.xml" value="0.4" />
         <entry key="..\:/GitHub/SwiftKit/app/src/main/res/layout/activity_basek_activity.xml" value="0.30833333333333335" />
@@ -90,16 +99,21 @@
         <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_utilk_anim.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/activity_utilk_gesture.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/biasicktest/src/main/res/layout/fragment_basek_fragment.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/drawable/cameraxk_slider.xml" value="0.1955" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/drawable/debugk_crashk_divider.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/drawable/guidek_home.xml" value="0.2335" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/drawable/navigationk_home.xml" value="0.11018518518518519" />
+        <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/layout/cameraxk_preview_layout.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/layout/debugk_activity_crashk.xml" value="0.1284722222222222" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/layout/debugk_dialog_item.xml" value="0.1" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/layout/debugk_item_crashk_file.xml" value="0.12569444444444444" />
         <entry key="..\:/GitHub/SwiftKit/componentk/src/main/res/layout/debugk_item_params.xml" value="0.1388888888888889" />
+        <entry key="..\:/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_cameraxk.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_componentk.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_debugk.xml" value="0.15486111111111112" />
+        <entry key="..\:/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_netk.xml" value="0.24409722222222222" />
         <entry key="..\:/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_permissionk.xml" value="0.24409722222222222" />
+        <entry key="..\:/GitHub/SwiftKit/debugktest/src/main/res/layout/activity_debugk.xml" value="0.15486111111111112" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/drawable/bannerk_indicator_circle_point_normal.xml" value="0.30092592592592593" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/drawable/bannerk_indicator_circle_point_selected.xml" value="0.20104166666666667" />
         <entry key="..\:/GitHub/SwiftKit/uicorek/src/main/res/drawable/dialogk_background.xml" value="0.2035" />

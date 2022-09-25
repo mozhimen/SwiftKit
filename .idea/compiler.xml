@@ -22,12 +22,15 @@
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
       <module name="SwiftKit.abilityk" target="11" />
+      <module name="SwiftKit.abilityktest" target="11" />
       <module name="SwiftKit.app" target="11" />
       <module name="SwiftKit.basick" target="11" />
+      <module name="SwiftKit.basicktest" target="11" />
       <module name="SwiftKit.biasicktest" target="11" />
       <module name="SwiftKit.componentk" target="11" />
       <module name="SwiftKit.componentktest" target="11" />
       <module name="SwiftKit.debugk" target="11" />
+      <module name="SwiftKit.debugktest" target="11" />
       <module name="SwiftKit.uicorek" target="11" />
       <module name="SwiftKit.uicorektest" target="11" />
       <module name="SwiftKit.underlayk" target="11" />

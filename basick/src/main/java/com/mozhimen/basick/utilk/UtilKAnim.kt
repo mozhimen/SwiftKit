@@ -263,7 +263,7 @@ object UtilKAnim {
     @JvmStatic
     fun bgAlphaFlash(
         view: View,
-        alphaEnd: Float = 0f,
+        alphaEnd: Int = 0,
         repeatCount: Int = ValueAnimator.INFINITE,
         repeatMode: Int = ValueAnimator.RESTART,
         interpolator: Interpolator = AccelerateDecelerateInterpolator(),
@@ -271,15 +271,18 @@ object UtilKAnim {
         listener: Animator.AnimatorListener? = null
     ) {
         val alphaDrawable = view.background
-        val alphaAnimation = ValueAnimator.ofFloat(1f, alphaEnd, 1f)
+        val alphaAnimation = ValueAnimator.ofInt(255, alphaEnd, 255)
         alphaAnimation.addUpdateListener {
-            Log.d(TAG, "bgAlphaFlash: value ${it.animatedValue}")
-            //ViewCompat.setBackground(view, alphaDrawable)
+            alphaDrawable.alpha = it.animatedValue as Int
+            ViewCompat.setBackground(view, alphaDrawable)
         }
         alphaAnimation.repeatCount = repeatCount
         alphaAnimation.repeatMode = repeatMode
         alphaAnimation.interpolator = interpolator
         alphaAnimation.duration = duration
+        listener?.let {
+            alphaAnimation.addListener(it)
+        }
         alphaAnimation.start()
     }
 

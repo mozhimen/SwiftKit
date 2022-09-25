@@ -14,8 +14,8 @@ import com.huawei.hms.hmsscankit.ScanUtil
 import com.huawei.hms.ml.scan.HmsScan
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions
 import com.mozhimen.abilityk.R
-import com.mozhimen.abilityk.cameraxk.annors.CameraXKFacing
-import com.mozhimen.abilityk.cameraxk.helpers.ImageConverter
+import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
+import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.databinding.ScankQr2ActivityBinding
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel

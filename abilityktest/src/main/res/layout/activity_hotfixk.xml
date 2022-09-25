@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context="com.mozhimen.abilityktest.hotfixk.HotFixKActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="修复前:弹出bug, 修复后:弹出fix bug"
+            android:textColor="@color/blue_normal"
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/hotfixk_btn_toast"
+            style="@style/BtnStyle"
+            android:text="弹出消息"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+</layout>

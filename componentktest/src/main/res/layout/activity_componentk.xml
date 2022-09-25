@@ -16,6 +16,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
+                android:onClick="goCameraXK"
+                android:text="CameraX"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
                 android:onClick="goGuideK"
                 android:text="GuideK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
@@ -34,8 +40,8 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="goDebugK"
-                android:text="DebugK"
+                android:onClick="goNetK"
+                android:text="NetK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

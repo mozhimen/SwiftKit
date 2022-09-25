@@ -38,5 +38,6 @@ dependencies {
     implementation project(path: ':basick')
     implementation project(path: ':componentk')
     implementation project(path: ':uicorek')
+    implementation project(path: ':debugk')
     //kapt project(path: ':guidek_compiler')
 }
