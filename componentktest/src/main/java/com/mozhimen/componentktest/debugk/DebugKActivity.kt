@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.utilk.UtilKGesture
-import com.mozhimen.componentk.debugk.DebugK
+import com.mozhimen.debugk.globel.DebugK
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.BuildConfig
 import com.mozhimen.componentktest.databinding.ActivityDebugkBinding
@@ -34,7 +34,7 @@ class DebugKActivity : BaseKActivity<ActivityDebugkBinding, BaseKViewModel>(R.la
 
     fun toggleDebugDialog() {
         if (BuildConfig.DEBUG) {
-            DebugK.toggleDialog(this.supportFragmentManager)
+            com.mozhimen.debugk.globel.DebugK.toggleDialog(this.supportFragmentManager)
         }
     }
 }

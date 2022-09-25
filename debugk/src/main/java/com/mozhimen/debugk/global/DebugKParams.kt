@@ -1,9 +1,9 @@
-package com.mozhimen.componentk.debugk
+package com.mozhimen.debugk.global
 
 import com.mozhimen.basick.extsk.boolean2String
 import com.mozhimen.basick.utilk.*
-import com.mozhimen.componentk.BuildConfig
-import com.mozhimen.componentk.debugk.annors.DebugKParamsAnnor
+import com.mozhimen.debugk.BuildConfig
+import com.mozhimen.debugk.global.annors.DebugKParamsAnnor
 
 /**
  * @ClassName DebugKParams

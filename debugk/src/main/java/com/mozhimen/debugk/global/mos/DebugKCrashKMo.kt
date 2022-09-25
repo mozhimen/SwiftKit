@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.debugk.mos
+package com.mozhimen.debugk.global.mos
 
 import java.io.File
 import java.io.Serializable

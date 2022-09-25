@@ -1,17 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mozhimen.underlayk" >
-
-    <application>
-        <activity
-            android:name="com.mozhimen.componentk.debugk.uis.DebugKParamsActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.mozhimen.componentk.debugk.uis.DebugKLogKActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.mozhimen.componentk.debugk.uis.DebugKCrashKActivity"
-            android:exported="false" />
-    </application>
+<manifest package="com.mozhimen.underlayk">
 
 </manifest>

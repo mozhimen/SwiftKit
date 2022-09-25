@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.debugk
+package com.mozhimen.debugk.global.uis
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.debugk.BR
+import com.mozhimen.debugk.R
+import com.mozhimen.debugk.databinding.DebugkDialogItemBinding
+import com.mozhimen.debugk.global.DebugKTools
+import com.mozhimen.debugk.global.annors.DebugKToolAnnor
+import com.mozhimen.debugk.global.mos.DebugKMethodMo
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.componentk.BR
-import com.mozhimen.componentk.R
-import com.mozhimen.componentk.databinding.DebugkDialogItemBinding
-import com.mozhimen.componentk.debugk.annors.DebugKToolAnnor
-import com.mozhimen.componentk.debugk.mos.DebugKMethodMo
 
 /**
  * @ClassName DebugKDialogFragment

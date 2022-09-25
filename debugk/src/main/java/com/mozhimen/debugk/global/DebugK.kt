@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.debugk
+package com.mozhimen.debugk.global
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -14,7 +14,7 @@ object DebugK {
 
     fun toggleDialog(fragmentManager: FragmentManager){
         try {
-            val clazz = Class.forName("com.mozhimen.componentk.debugk.DebugKDialogFragment")
+            val clazz = Class.forName("com.mozhimen.debugk.globel.uis.DebugKDialogFragment")
             val target = clazz.getConstructor().newInstance() as DialogFragment
             target.show(fragmentManager, "debugk_dialog")
         } catch (e: Exception) {

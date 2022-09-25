@@ -1,0 +1,57 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk rootProject.android.compileSdk
+
+    defaultConfig {
+        minSdk rootProject.ext.android.minSdk
+        targetSdk rootProject.ext.android.targetSdk
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            buildConfigField("String", "BUILD_TIME", "\"" + buildTime() + "\"")
+            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.ext.android.versionName + "\""
+            buildConfigField "int", "VERSION_CODE", "" + rootProject.ext.android.versionCode
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField("String", "BUILD_TIME", "\"" + buildTime() + "\"")
+            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.ext.android.versionName + "\""
+            buildConfigField "int", "VERSION_CODE", "" + rootProject.ext.android.versionCode
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures{
+        dataBinding true
+    }
+}
+
+dependencies {
+    implementation project(path: ':basick')
+    implementation project(path: ':underlayk')
+    implementation project(path: ':uicorek')
+    implementation project(path: ':componentk')
+//    testImplementation 'junit:junit:4.13.2'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+static def buildTime() {
+    return new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("GMT+08:00"))
+}

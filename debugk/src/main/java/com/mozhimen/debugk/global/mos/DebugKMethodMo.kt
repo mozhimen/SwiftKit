@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.debugk.mos
+package com.mozhimen.debugk.global.mos
 
 import android.content.Context
 import java.io.Serializable

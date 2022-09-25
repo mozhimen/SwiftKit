@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.debugk.annors
+package com.mozhimen.debugk.global.annors
 
 /**
  * @ClassName DebugKParamsAnnor

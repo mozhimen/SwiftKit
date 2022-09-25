@@ -202,10 +202,19 @@
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/underlayk/src/main/res/layout/fpsk_view.xml" value="0.3671875" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/underlayk/src/main/res/layout/logk_monitor_view.xml" value="0.33" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/underlayk/src/main/res/layout/logk_printer_view_item.xml" value="0.3671875" />
+        <entry key="..\:/Workspace/Github/SwiftKit/debugk/src/main/res/drawable/debugk_crashk_dialog.xml" value="0.1375" />
+        <entry key="..\:/Workspace/Github/SwiftKit/debugk/src/main/res/drawable/debugk_crashk_divider.xml" value="0.1375" />
+        <entry key="..\:/Workspace/Github/SwiftKit/debugk/src/main/res/layout/debugk_activity_crashk.xml" value="0.12708333333333333" />
+        <entry key="..\:/Workspace/Github/SwiftKit/debugk/src/main/res/layout/debugk_activity_logk.xml" value="0.12708333333333333" />
+        <entry key="..\:/Workspace/Github/SwiftKit/debugk/src/main/res/layout/debugk_activity_params.xml" value="0.12708333333333333" />
+        <entry key="..\:/Workspace/Github/SwiftKit/debugk/src/main/res/layout/debugk_dialog.xml" value="0.1" />
+        <entry key="..\:/Workspace/Github/SwiftKit/debugk/src/main/res/layout/debugk_dialog_item.xml" value="0.1" />
+        <entry key="..\:/Workspace/Github/SwiftKit/debugk/src/main/res/layout/debugk_item_crashk_file.xml" value="0.1" />
+        <entry key="..\:/Workspace/Github/SwiftKit/debugk/src/main/res/layout/debugk_item_params.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

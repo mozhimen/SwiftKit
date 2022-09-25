@@ -16,16 +16,8 @@ android {
 
     buildTypes {
         release {
-            buildConfigField("String", "BUILD_TIME", "\"" + buildTime() + "\"")
-            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.ext.android.versionName + "\""
-            buildConfigField "int", "VERSION_CODE", "" + rootProject.ext.android.versionCode
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            buildConfigField("String", "BUILD_TIME", "\"" + buildTime() + "\"")
-            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.ext.android.versionName + "\""
-            buildConfigField "int", "VERSION_CODE", "" + rootProject.ext.android.versionCode
         }
     }
     compileOptions {
@@ -51,8 +43,4 @@ dependencies {
     implementation project(path: ':basick')
     implementation project(path: ':uicorek')
     implementation project(path: ':underlayk')
-}
-
-static def buildTime() {
-    return new Date().format("yyyy-MM-dd HH:mm:ss", TimeZone.getTimeZone("GMT+08:00"))
 }

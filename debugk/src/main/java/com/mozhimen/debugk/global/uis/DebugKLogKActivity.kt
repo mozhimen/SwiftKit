@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.debugk.uis
+package com.mozhimen.debugk.global.uis
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,12 +9,12 @@ import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.underlayk.logk.temps.PrinterFile
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.componentk.databinding.DebugkActivityLogkBinding
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.componentk.BR
-import com.mozhimen.componentk.R
-import com.mozhimen.componentk.databinding.DebugkItemCrashkFileBinding
-import com.mozhimen.componentk.debugk.mos.DebugKCrashKMo
+import com.mozhimen.debugk.BR
+import com.mozhimen.debugk.R
+import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
+import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
+import com.mozhimen.debugk.global.mos.DebugKCrashKMo
 
 class DebugKLogKActivity : BaseKActivity<DebugkActivityLogkBinding, BaseKViewModel>(R.layout.debugk_activity_logk) {
     override fun initData(savedInstanceState: Bundle?) {

@@ -1,14 +1,14 @@
-package com.mozhimen.componentk.debugk
+package com.mozhimen.debugk.global
 
 import android.content.Context
 import com.mozhimen.underlayk.fpsk.FpsK
 import com.mozhimen.basick.utilk.UtilKNet
-import com.mozhimen.componentk.debugk.annors.DebugKToolAnnor
 import com.mozhimen.basick.utilk.UtilKSkip.start
 import com.mozhimen.basick.utilk.UtilKTheme
-import com.mozhimen.componentk.debugk.uis.DebugKCrashKActivity
-import com.mozhimen.componentk.debugk.uis.DebugKLogKActivity
-import com.mozhimen.componentk.debugk.uis.DebugKParamsActivity
+import com.mozhimen.debugk.global.annors.DebugKToolAnnor
+import com.mozhimen.debugk.global.uis.DebugKCrashKActivity
+import com.mozhimen.debugk.global.uis.DebugKLogKActivity
+import com.mozhimen.debugk.global.uis.DebugKParamsActivity
 
 /**
  * @ClassName DebugKTools

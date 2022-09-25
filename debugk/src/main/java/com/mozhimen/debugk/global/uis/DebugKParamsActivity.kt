@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.debugk.uis
+package com.mozhimen.debugk.global.uis
 
 import android.Manifest
 import android.os.Bundle
@@ -9,14 +9,14 @@ import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.debugk.BR
+import com.mozhimen.debugk.R
+import com.mozhimen.debugk.databinding.DebugkActivityParamsBinding
+import com.mozhimen.debugk.databinding.DebugkDialogItemBinding
+import com.mozhimen.debugk.global.DebugKParams
+import com.mozhimen.debugk.global.annors.DebugKParamsAnnor
+import com.mozhimen.debugk.global.mos.DebugKMethodMo
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.componentk.BR
-import com.mozhimen.componentk.R
-import com.mozhimen.componentk.databinding.DebugkActivityParamsBinding
-import com.mozhimen.componentk.databinding.DebugkDialogItemBinding
-import com.mozhimen.componentk.debugk.DebugKParams
-import com.mozhimen.componentk.debugk.annors.DebugKParamsAnnor
-import com.mozhimen.componentk.debugk.mos.DebugKMethodMo
 
 @PermissionKAnnor(permissions = [Manifest.permission.READ_PHONE_STATE])
 class DebugKParamsActivity : BaseKActivity<DebugkActivityParamsBinding, BaseKViewModel>(R.layout.debugk_activity_params) {

@@ -27,6 +27,7 @@
       <module name="SwiftKit.biasicktest" target="11" />
       <module name="SwiftKit.componentk" target="11" />
       <module name="SwiftKit.componentktest" target="11" />
+      <module name="SwiftKit.debugk" target="11" />
       <module name="SwiftKit.uicorek" target="11" />
       <module name="SwiftKit.uicorektest" target="11" />
       <module name="SwiftKit.underlayk" target="11" />

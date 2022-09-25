@@ -7,7 +7,7 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="11" />
+        <option name="gradleJvm" value="Android Studio default JDK" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/biasicktest" />
             <option value="$PROJECT_DIR$/componentk" />
             <option value="$PROJECT_DIR$/componentktest" />
+            <option value="$PROJECT_DIR$/debugk" />
             <option value="$PROJECT_DIR$/guidek_annor" />
             <option value="$PROJECT_DIR$/guidek_compiler" />
             <option value="$PROJECT_DIR$/uicorek" />
