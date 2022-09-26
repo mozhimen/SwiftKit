@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk
 
 import android.annotation.SuppressLint
+import android.app.ActivityManager
+import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.hardware.usb.UsbDevice
@@ -40,8 +42,6 @@ object UtilKDevice {
     private const val PATH_CPU_USED = "/proc/stat"
     private const val NO_DEFINED = "unknown"
 
-
-
     //设备内存空间
     fun getDeviceMemory(): String {
         val readerStr: String
@@ -72,7 +72,8 @@ object UtilKDevice {
             var load = reader.readLine()
             var toks = load.split(" ".toRegex()).toTypedArray()
             val idle1 = toks[5].toLong()
-            val cpu1 = toks[2].toLong() + toks[3].toLong() + toks[4].toLong() + toks[6].toLong() + toks[7].toLong() + toks[8].toLong()
+            val cpu1 =
+                toks[2].toLong() + toks[3].toLong() + toks[4].toLong() + toks[6].toLong() + toks[7].toLong() + toks[8].toLong()
             try {
                 Thread.sleep(360)
             } catch (e: java.lang.Exception) {
@@ -83,7 +84,8 @@ object UtilKDevice {
             reader.close()
             toks = load.split(" ".toRegex()).toTypedArray()
             val idle2 = toks[5].toLong()
-            val cpu2 = toks[2].toLong() + toks[3].toLong() + toks[4].toLong() + toks[6].toLong() + toks[7].toLong() + toks[8].toLong()
+            val cpu2 =
+                toks[2].toLong() + toks[3].toLong() + toks[4].toLong() + toks[6].toLong() + toks[7].toLong() + toks[8].toLong()
             return (cpu2 - cpu1).toFloat() / (cpu2 + idle2 - (cpu1 + idle1))
         } catch (ex: IOException) {
             ex.printStackTrace()

@@ -38,16 +38,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
 }
 
 dependencies {
-    implementation project(path: ':basick')
-    implementation project(path: ':underlayk')
-    implementation project(path: ':uicorek')
-    implementation project(path: ':componentk')
+    implementation project(project.path.replace(project.name, '') + ':basick')
+    implementation project(project.path.replace(project.name, '') + ':underlayk')
+    implementation project(project.path.replace(project.name, '') + ':uicorek')
+    implementation project(project.path.replace(project.name, '') + ':componentk')
 
     //leakk
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'

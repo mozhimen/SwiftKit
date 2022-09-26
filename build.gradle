@@ -3,7 +3,7 @@ apply from: 'config.gradle'
 buildscript {
     ext.kotlin_version = "1.6.10"
     repositories {
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://developer.huawei.com/repo/' }//for scank
     }
@@ -13,15 +13,6 @@ buildscript {
         classpath 'com.huawei.agconnect:agcp:1.6.5.300'//for scank
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://www.jitpack.io' }
-        maven { url 'https://developer.huawei.com/repo/' }//for scank
     }
 }
 

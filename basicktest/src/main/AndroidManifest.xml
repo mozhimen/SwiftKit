@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
         <activity
+            android:name=".loadk.LoadKActivity"
+            android:exported="false" />
+        <activity
             android:name=".BasicKActivity"
             android:exported="true">
             <intent-filter>
@@ -39,6 +42,15 @@
         <activity
             android:name=".basick.stackk.StackKActivity"
             android:exported="false" />
+
+        <receiver
+            android:name=".loadk.AutoRunReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -26,8 +26,14 @@ import com.mozhimen.basick.utilk.UtilKApp
  */
 open class LoadKReceiverInstall : BroadcastReceiver() {
     private val TAG = "LoadKReceiverInstall>>>>>"
+
     @SuppressLint("LongLogTag")
     override fun onReceive(context: Context, intent: Intent) {
+        onReceiveInstall(context, intent)
+    }
+
+    @SuppressLint("LongLogTag")
+    fun onReceiveInstall(context: Context, intent: Intent) {
         val packageName = intent.dataString
         when (intent.action) {
             Intent.ACTION_PACKAGE_REPLACED -> {

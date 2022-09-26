@@ -36,13 +36,13 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':basick')
-    implementation project(path: ':uicorek')
-    implementation project(path: ':underlayk')
-    implementation project(path: ':componentk')
+    implementation project(project.path.replace(project.name, '') + ':basick')
+    implementation project(project.path.replace(project.name, '') +':uicorek')
+    implementation project(project.path.replace(project.name, '') + ':underlayk')
+    implementation project(project.path.replace(project.name, '') + ':componentk')
 
     //common
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    api fileTree(dir: "libs", include: ["*.jar"])
 
     //hotupdatek
     api 'com.liulishuo.okdownload:okdownload:1.0.5'

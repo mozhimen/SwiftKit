@@ -53,8 +53,8 @@ dependencies {
     implementation 'androidx.camera:camera-view:1.1.0-beta02'
     api 'androidx.camera:camera-core:1.1.0-beta02'
 
-    api project(path: ':guidek_annor')
-    implementation project(path: ':basick')
-    implementation project(path: ':uicorek')
-    implementation project(path: ':underlayk')
+    api project(project.path.replace(project.name, '') +  ':guidek_annor')
+    implementation project(project.path.replace(project.name, '') +  ':basick')
+    implementation project(project.path.replace(project.name, '') +  ':uicorek')
+    implementation project(project.path.replace(project.name, '') +  ':underlayk')
 }

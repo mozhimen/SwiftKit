@@ -35,8 +35,8 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':basick')
-    implementation project(path: ':uicorek')
+    implementation project(project.path.replace(project.name, '') +  ':basick')
+    implementation project(project.path.replace(project.name, '') +  ':uicorek')
 }
 
 
