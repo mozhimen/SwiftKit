@@ -9,6 +9,9 @@ import android.util.Log
 /**
  * @ClassName LoadKReceiverAutoRun
  * @Description
+ * 权限:
+ * <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+ *
  * 继承:
  * class AutoRunReceiver() : LoadKReceiverAutoRun(LoadKActivity::class.java) {
  * companion object {private val DELAY_TIME = 15//s}

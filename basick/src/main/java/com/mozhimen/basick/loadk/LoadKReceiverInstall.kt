@@ -24,28 +24,37 @@ import com.mozhimen.basick.utilk.UtilKApp
  * @Date 2022/6/13 12:04
  * @Version 1.0
  */
-open class LoadKReceiverInstall : BroadcastReceiver() {
+open class LoadKReceiverInstall(private val _listener: ILoadKReceiverInstall? = null) : BroadcastReceiver() {
     private val TAG = "LoadKReceiverInstall>>>>>"
 
     @SuppressLint("LongLogTag")
     override fun onReceive(context: Context, intent: Intent) {
-        onReceiveInstall(context, intent)
+        onReceiveInstall(intent)
     }
 
     @SuppressLint("LongLogTag")
-    fun onReceiveInstall(context: Context, intent: Intent) {
+    fun onReceiveInstall(intent: Intent) {
         val packageName = intent.dataString
         when (intent.action) {
             Intent.ACTION_PACKAGE_REPLACED -> {
                 Log.w(TAG, "onReceive: update one pkg, restart program soon")
+                _listener?.onUpdateApp()
                 UtilKApp.restartApp()
             }
             Intent.ACTION_PACKAGE_ADDED -> {
                 Log.w(TAG, "onReceive: install one pkg $packageName")
+                _listener?.onInstallApp()
             }
             Intent.ACTION_PACKAGE_REMOVED -> {
                 Log.w(TAG, "onReceive: uninstall one pkg $packageName")
+                _listener?.onUnInstallApp()
             }
         }
+    }
+
+    interface ILoadKReceiverInstall {
+        fun onUpdateApp()
+        fun onInstallApp()
+        fun onUnInstallApp()
     }
 }

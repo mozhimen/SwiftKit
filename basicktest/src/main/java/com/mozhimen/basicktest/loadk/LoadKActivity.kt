@@ -9,6 +9,7 @@ import com.mozhimen.basicktest.databinding.ActivityLoadkBinding
 class LoadKActivity : BaseKActivity<ActivityLoadkBinding, BaseKViewModel>(R.layout.activity_loadk) {
     override fun initData(savedInstanceState: Bundle?) {
         vb.loadkRestart.setOnClickListener {
+
         }
     }
 }
