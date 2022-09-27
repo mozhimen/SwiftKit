@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.os.RemoteCallbackList
+import com.mozhimen.basicktest.ICallback
 
 /**
  * @ClassName BaseKService
@@ -12,13 +13,11 @@ import android.os.RemoteCallbackList
  * @Date 2022/9/27 0:59
  * @Version 1.0
  */
-/*
 class BaseKDemoService : Service() {
-    */
-/*private val _callbacks = RemoteCallbackList<ICallback>
+private val _callbacks = RemoteCallbackList<ICallback>()
     override fun onBind(intent: Intent?): IBinder? {
 
-    }*//*
+    }
 
 
-}*/
+}
