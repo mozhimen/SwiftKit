@@ -1,6 +1,7 @@
 // IService.aidl
 package com.mozhimen.basicktest;
 
+import com.mozhimen.basicktest.ICallback;
 // Declare any non-default types here with import statements
 
 interface IService {
