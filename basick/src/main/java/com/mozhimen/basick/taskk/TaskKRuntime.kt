@@ -3,14 +3,13 @@ package com.mozhimen.basick.taskk
 import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
-import com.mozhimen.basick.eventk.EventKHandler
+import com.mozhimen.basick.eventk.commons.HandlerRef
 import com.mozhimen.basick.executork.ExecutorK
 import com.mozhimen.basick.extsk.postDelayed
 import com.mozhimen.basick.taskk.commons.ITaskKRuntimeListener
 import com.mozhimen.basick.taskk.helpers.TaskKComparator
 import com.mozhimen.basick.taskk.mos.TaskKRuntimeInfo
 import java.util.*
-import kotlin.collections.HashMap
 
 /**
  * @ClassName TaskKRuntime
@@ -27,18 +26,18 @@ import kotlin.collections.HashMap
 * 4.统计所有task的运行时信息(线程，状态，开始执行时间，电时的4.是否是阻塞任务)，用于log输出
  */
 internal object TaskKRuntime {
-    private val TAG = "TaskKRuntime>>>>>"
+    private const val TAG = "TaskKRuntime>>>>>"
 
     //通过addBlockTask (String name)指定启动阶段需要阻完成的任务，只有当blockTasksId当中的任务都执行完了
     //才会释放application的阻塞，才会拉起launchActivity
-    val blockTasksId: MutableList<String> = mutableListOf()
+    private val _blockTasksId: MutableList<String> = mutableListOf()
 
     //如果blockTasksId集合中的任务还没有完成，那么在主线程中执行的任务会被添加到waitingTasks集合里面去
     //目的是为了优先保证阻塞任务的优先完成，尽可能早的拉起launchActivity
-    val waitingTasks: MutableList<TaskK> = mutableListOf()
+    private val _waitingTasks: MutableList<TaskK> = mutableListOf()
 
     //记录下启动阶段所有任务的运行时信息key是taskId
-    val taskKRuntimeInfos: MutableMap<String, TaskKRuntimeInfo> = HashMap()
+    private val _taskKRuntimeInfos: MutableMap<String, TaskKRuntimeInfo> = HashMap()
 
     val taskKComparator = kotlin.Comparator<TaskK> { task1, task2 ->
         TaskKComparator.compareTaskK(task1, task2)
@@ -47,7 +46,7 @@ internal object TaskKRuntime {
     @JvmStatic
     fun addBlockTask(id: String) {
         if (!TextUtils.isEmpty(id)) {
-            blockTasksId.add(id)
+            _blockTasksId.add(id)
         }
     }
 
@@ -62,12 +61,12 @@ internal object TaskKRuntime {
 
     @JvmStatic
     fun removeBlockTask(id: String) {
-        blockTasksId.remove(id)
+        _blockTasksId.remove(id)
     }
 
     @JvmStatic
     fun hasBlockTasks(): Boolean {
-        return blockTasksId.iterator().hasNext()
+        return _blockTasksId.iterator().hasNext()
     }
 
     @JvmStatic
@@ -84,27 +83,27 @@ internal object TaskKRuntime {
 
     @JvmStatic
     fun getTaskKRuntimeInfo(id: String): TaskKRuntimeInfo? {
-        return taskKRuntimeInfos[id]
+        return _taskKRuntimeInfos[id]
     }
 
     @JvmStatic
     fun hasWaitingTasks(): Boolean {
-        return waitingTasks.iterator().hasNext()
+        return _waitingTasks.iterator().hasNext()
     }
 
     fun runWaitingTasks() {
         if (hasWaitingTasks()) {
-            if (waitingTasks.size > 1) {
-                Collections.sort(waitingTasks, taskKComparator)
+            if (_waitingTasks.size > 1) {
+                Collections.sort(_waitingTasks, taskKComparator)
             }
             if (hasBlockTasks()) {
-                val head = waitingTasks.removeAt(0)
+                val head = _waitingTasks.removeAt(0)
                 head.run()
             } else {
-                for (waitingTask in waitingTasks) {
-                    EventKHandler(this).postDelayed(waitingTask.delayMills, waitingTask)
+                for (waitingTask in _waitingTasks) {
+                    HandlerRef(this).postDelayed(waitingTask.delayMills, waitingTask)
                 }
-                waitingTasks.clear()
+                _waitingTasks.clear()
             }
         }
     }
@@ -118,7 +117,7 @@ internal object TaskKRuntime {
             //else里面的都是在主线程执行的
             //延迟任务，但是如果这个延迟任务它存在着后置任务A(延迟任务)-->B--->C (Block task)
             if (taskK.delayMills > 0 && !hasBlockBehindTask(taskK)) {
-                EventKHandler(this).postDelayed(taskK.delayMills, taskK)
+                HandlerRef(this).postDelayed(taskK.delayMills, taskK)
                 return
             }
             if (!hasBlockTasks()) {
@@ -131,8 +130,8 @@ internal object TaskKRuntime {
 
     //把一个主线程上需要执行的任务，但又不影响launchActivity的启动，添加到等待队列
     private fun addWaitingTask(taskK: TaskK) {
-        if (!waitingTasks.contains(taskK)) {
-            waitingTasks.add(taskK)
+        if (!_waitingTasks.contains(taskK)) {
+            _waitingTasks.add(taskK)
         }
     }
 
@@ -163,11 +162,11 @@ internal object TaskKRuntime {
         traversalVisitor.add(taskK)
         innerTraversalDependencyTreeAndInit(taskK, traversalVisitor)
 
-        val iterator = blockTasksId.iterator()
+        val iterator = _blockTasksId.iterator()
         while (iterator.hasNext()) {
             val taskId = iterator.next()
             //检查这个阻塞任务是否存在依赖树中
-            if (!taskKRuntimeInfos.containsKey(taskId)) {
+            if (!_taskKRuntimeInfos.containsKey(taskId)) {
                 throw java.lang.RuntimeException("block task ${taskK.id} not in dependency tree.")
             } else {
                 traversalDependencyPriority(getTaskKRuntimeInfo(taskId)?.taskK)
@@ -189,10 +188,10 @@ internal object TaskKRuntime {
         var taskKRuntimeInfo = getTaskKRuntimeInfo(taskK.id)
         if (taskKRuntimeInfo == null) {
             taskKRuntimeInfo = TaskKRuntimeInfo(taskK)
-            if (blockTasksId.contains(taskK.id)) {
+            if (_blockTasksId.contains(taskK.id)) {
                 taskKRuntimeInfo.isBlockTask = true
             }
-            taskKRuntimeInfos[taskK.id] = taskKRuntimeInfo
+            _taskKRuntimeInfos[taskK.id] = taskKRuntimeInfo
         } else {
             if (!taskKRuntimeInfo.isSameTask(taskK)) {
                 throw RuntimeException("not allow to contain the same id ${taskK.id}")

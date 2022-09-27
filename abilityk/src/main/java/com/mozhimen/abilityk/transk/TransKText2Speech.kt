@@ -3,7 +3,6 @@ package com.mozhimen.abilityk.transk
 import android.Manifest
 import android.os.Build
 import android.speech.tts.TextToSpeech
-import android.speech.tts.UtteranceProgressListener
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.TransKText2SpeechConfig
@@ -79,8 +78,10 @@ class TransKText2Speech(owner: LifecycleOwner, config: TransKText2SpeechConfig) 
         _transKText2Speech?.setSpeechRate(speechRate)
     }
 
-    override fun onDestroy(owner: LifecycleOwner) {
+    override fun onPause(owner: LifecycleOwner) {
         _transKText2Speech?.stop()
         _transKText2Speech?.shutdown()
+        owner.lifecycle.removeObserver(this)
+        super.onPause(owner)
     }
 }

@@ -2,6 +2,7 @@ package com.mozhimen.basick.eventk.commons
 
 import android.os.Handler
 import android.os.Looper
+import android.os.Message
 import java.lang.ref.WeakReference
 
 /**
@@ -18,7 +19,11 @@ open class HandlerRef<T>(cls: T) : Handler(Looper.getMainLooper()) {
         _ref = WeakReference(cls)
     }
 
-    protected fun getRef(): T? {
+    fun getRef(): T? {
         return _ref?.get()
+    }
+
+    fun clear() {
+        _ref?.clear()
     }
 }

@@ -40,7 +40,7 @@ class LoadKActivity : BaseKActivity<ActivityLoadkBinding, BaseKViewModel>(R.layo
                     override fun onLoadMore() {
                         super.onLoadMore()
                         _pageIndex++
-                        EventKHandler(this).postDelayed(1000) {
+                        EventKHandler(this@LoadKActivity).postDelayed(1000) {
                             val dataItems: List<DataKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                                 DataItemLoadMore(_dataSets.size + 1)
                             )

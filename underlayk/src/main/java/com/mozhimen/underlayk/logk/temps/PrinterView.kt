@@ -40,8 +40,9 @@ class PrinterView(activity: Activity, lifecycleOwner: LifecycleOwner) : IPrinter
     }
 
     override fun onPause(owner: LifecycleOwner) {
-        _viewProvider.closeLogView()
         LogKMgr.instance.removePrinter(this)
+        _viewProvider.closeLogView()
+        owner.lifecycle.removeObserver(this)
         super.onPause(owner)
     }
 }

@@ -9,6 +9,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.extsk.showToastOnMain
@@ -29,13 +32,14 @@ import com.mozhimen.underlayk.logk.mos.LogKMo
  * @Date 2022/9/23 18:52
  * @Version 1.0
  */
-class PrinterMonitorProvider(private val _context: Context) : IPrinter {
+class PrinterMonitorProvider(private val _context: Context) : IPrinter, LifecycleOwner {
     private companion object {
         private const val TAG_LOGK_MONITOR_VIEW = "TAG_LOGK_CONTAINER_VIEW"
         private val TITLE_OPEN_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_open)
         private val TITLE_CLOSE_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_close)
     }
 
+    private val _lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
     private val _layoutParams: WindowManager.LayoutParams = WindowManager.LayoutParams()
     private var _rootView: FrameLayout? = null
         get() {
@@ -91,7 +95,7 @@ class PrinterMonitorProvider(private val _context: Context) : IPrinter {
     fun openMonitor(isFold: Boolean) {
         if (!UtilKOverlay.hasOverlayPermission()) {
             LogK.et(TAG, "PrinterMonitor play app has no overlay permission")
-            "请打开悬浮窗权限".showToastOnMain()
+            "请打开悬浮窗权限".showToastOnMain(this)
             UtilKOverlay.startOverlaySettingActivity()
             return
         }
@@ -100,6 +104,7 @@ class PrinterMonitorProvider(private val _context: Context) : IPrinter {
     }
 
     fun closeMonitor() {
+        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) == null) return
         _windowManager.removeView(_rootView)
     }
@@ -142,5 +147,9 @@ class PrinterMonitorProvider(private val _context: Context) : IPrinter {
         _layoutParams.width = if (isFold) WindowManager.LayoutParams.WRAP_CONTENT else WindowManager.LayoutParams.MATCH_PARENT
         _layoutParams.height = if (isFold) WindowManager.LayoutParams.WRAP_CONTENT else (UtilKScreen.getScreenHeight() / 3)
         return _layoutParams
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return _lifecycleRegistry
     }
 }

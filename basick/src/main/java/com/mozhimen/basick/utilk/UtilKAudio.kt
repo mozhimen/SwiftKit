@@ -115,7 +115,9 @@ class UtilKAudio(owner: LifecycleOwner) : DefaultLifecycleObserver {
         }
     }
 
-    override fun onDestroy(owner: LifecycleOwner) {
+    override fun onPause(owner: LifecycleOwner) {
         _audioWorker.stop()
+        owner.lifecycle.removeObserver(this)
+        super.onPause(owner)
     }
 }

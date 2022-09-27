@@ -14,21 +14,19 @@ import com.mozhimen.basick.utilk.UtilKAnim
  * @Date 2022/9/24 23:58
  * @Version 1.0
  */
-object AnimK : DefaultLifecycleObserver {
-    /*private val _views = SparseArray<View>()
+class AnimK(lifecycleOwner: LifecycleOwner) : DefaultLifecycleObserver {
+    private val _views = SparseArray<View>()
 
-    fun with(view: View): UtilKAnim {
-        _views.put(view.id, view)
-    }
-
-    object AnimKProvider {
-
+    init {
+        lifecycleOwner.lifecycle.addObserver(this)
     }
 
     override fun onPause(owner: LifecycleOwner) {
-        _viewList.forEach { key, value ->
+        _views.forEach { key, value ->
 
         }
+        _views.clear()
+        owner.lifecycle.removeObserver(this)
         super.onPause(owner)
-    }*/
+    }
 }

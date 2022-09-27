@@ -1,8 +1,9 @@
 package com.mozhimen.basicktest.basick.basek
 
-import com.mozhimen.basick.basek.BaseKService
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import android.app.Service
+import android.content.Intent
+import android.os.IBinder
+import android.os.RemoteCallbackList
 
 /**
  * @ClassName BaseKService
@@ -11,21 +12,13 @@ import kotlinx.coroutines.runBlocking
  * @Date 2022/9/27 0:59
  * @Version 1.0
  */
-class BaseKDemoService : BaseKService<BaseKDemoService>() {
+/*
+class BaseKDemoService : Service() {
+    */
+/*private val _callbacks = RemoteCallbackList<ICallback>
+    override fun onBind(intent: Intent?): IBinder? {
 
-    inner class Binder : BaseKServiceBinder()
+    }*//*
 
-    private var _listener: (() -> Unit)? = null
-    override fun onCreate() {
-        super.onCreate()
 
-        runBlocking {
-            delay(1 * 1000)
-            _listener?.invoke()
-        }
-    }
-
-    fun setListener(listener: () -> Unit) {
-        _listener = listener
-    }
-}
+}*/

@@ -121,7 +121,7 @@ class DataKRecyclerActivity : BaseKActivity<ActivityDatakLoadMoreBinding, BaseKV
                 }
                 _pageIndex++
                 //模拟加载
-                EventKHandler(this).postDelayed(1000) {
+                EventKHandler(this@DataKRecyclerActivity).postDelayed(1000) {
                     val dataItems: List<DataKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                         DataItemLoadMore(_dataSets.size + 1)
                     )

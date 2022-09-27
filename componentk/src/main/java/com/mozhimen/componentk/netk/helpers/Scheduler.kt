@@ -7,7 +7,7 @@ import com.mozhimen.componentk.netk.commons.INetKListener
 import com.mozhimen.componentk.netk.commons.INetKInterceptor
 import com.mozhimen.componentk.netk.mos.NetKRequest
 import com.mozhimen.componentk.netk.mos.NetKResponse
-import com.mozhimen.basick.eventk.EventKHandler
+import com.mozhimen.basick.eventk.commons.HandlerRef
 import com.mozhimen.basick.executork.ExecutorK
 import com.mozhimen.basick.extsk.sendMsgAtFrontOfQueue
 import com.mozhimen.underlayk.logk.LogK
@@ -52,7 +52,7 @@ class Scheduler(
                     val cacheResponseK = readCache<T>(_request.getCacheKey())
                     if (cacheResponseK.data != null) {
                         //抛到主线程
-                        EventKHandler(this@Scheduler).sendMsgAtFrontOfQueue {
+                        HandlerRef(this@Scheduler).sendMsgAtFrontOfQueue {
                             callback.onSuccess(
                                 cacheResponseK
                             )

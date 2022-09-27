@@ -1,6 +1,7 @@
 package com.mozhimen.basick.extsk
 
 import android.widget.Toast
+import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.utilk.UtilKGlobal
 import com.mozhimen.basick.utilk.UtilKToast
 
@@ -36,8 +37,8 @@ fun Int.showToast(duration: Int = Toast.LENGTH_SHORT) {
  * @receiver String
  * @param duration Int
  */
-fun String.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
-    UtilKToast.showToastOnMain(this, duration)
+fun String.showToastOnMain(lifecycleOwner: LifecycleOwner, duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToastOnMain(lifecycleOwner, this, duration)
 }
 
 /**
@@ -45,6 +46,6 @@ fun String.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
  * @receiver Int
  * @param duration Int
  */
-fun Int.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
-    UtilKToast.showToastOnMain(this, duration)
+fun Int.showToastOnMain(lifecycleOwner: LifecycleOwner, duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToastOnMain(lifecycleOwner, this, duration)
 }

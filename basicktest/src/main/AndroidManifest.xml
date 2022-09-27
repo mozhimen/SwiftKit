@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
         <activity
+            android:name=".basick.basek.BaseKDemoServiceActivity"
+            android:exported="false" />
+        <activity
             android:name=".loadk.LoadKActivity"
             android:exported="false" />
         <activity

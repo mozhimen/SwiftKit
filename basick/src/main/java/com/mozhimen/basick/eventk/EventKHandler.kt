@@ -12,16 +12,15 @@ import com.mozhimen.basick.extsk.removeAll
  * @Date 2022/6/12 11:34
  * @Version 1.0
  */
-class EventKHandler<T>(private val _clazz: T) : HandlerRef<T>(_clazz), DefaultLifecycleObserver {
+class EventKHandler<T : LifecycleOwner>(private val _clazz: T) : HandlerRef<T>(_clazz), DefaultLifecycleObserver {
     init {
-        if (_clazz is LifecycleOwner){
-            _clazz.lifecycle.addObserver(this)
-        }
+        _clazz.lifecycle.addObserver(this)
     }
 
-    override fun onDestroy(owner: LifecycleOwner) {
-        if (_clazz is LifecycleOwner){
-            this.removeAll()
-        }
+    override fun onPause(owner: LifecycleOwner) {
+        this.removeAll()
+        this.clear()
+        _clazz.lifecycle.removeObserver(this)
+        super.onPause(owner)
     }
 }
