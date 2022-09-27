@@ -18,11 +18,10 @@ import android.view.Surface
 import android.view.SurfaceHolder
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.extsk.showToastOnMain
+import com.mozhimen.basick.utilk.UtilKDisplay
 import com.mozhimen.componentk.camera2k.helpers.GLSurfaceRenderer
 import com.mozhimen.underlayk.logk.LogK
-import com.mozhimen.basick.utilk.UtilKDisplay
-import com.mozhimen.basick.utilk.UtilKToast
-import java.lang.IllegalArgumentException
 import java.util.*
 import kotlin.math.abs
 
@@ -129,7 +128,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
         this._imageAvailableListener = listener
     }
 
-    fun openCamera(lifecycleOwner: LifecycleOwner, previewWidth: Int, previewHeight: Int) {
+    fun openCamera(previewWidth: Int, previewHeight: Int) {
         require(
             ActivityCompat.checkSelfPermission(
                 _activity,
@@ -154,11 +153,11 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
         } catch (e: CameraAccessException) {
             LogK.et(TAG, "openCamera: fail CameraAccessException ${e.message}")
             e.printStackTrace()
-            UtilKToast.showToastOnMain(lifecycleOwner, "请检查摄像头")
+            "请检查摄像头".showToastOnMain()
         } catch (e: IllegalArgumentException) {
             LogK.et(TAG, "openCamera: fail IllegalArgumentException ${e.message}")
             e.printStackTrace()
-            UtilKToast.showToastOnMain(lifecycleOwner, "请检查摄像头")
+            "请检查摄像头".showToastOnMain()
         }
     }
 
@@ -224,7 +223,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
     fun switchCamera(lifecycleOwner: LifecycleOwner, previewWidth: Int, previewHeight: Int) {
         _cameraId = _cameraId xor 1
         releaseCamera()
-        openCamera(lifecycleOwner, previewWidth, previewHeight)
+        openCamera(previewWidth, previewHeight)
     }
 
     fun handleZoom(isZoomIn: Boolean) {

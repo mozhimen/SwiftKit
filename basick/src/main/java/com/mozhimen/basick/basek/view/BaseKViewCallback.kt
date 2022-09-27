@@ -1,4 +1,4 @@
-package com.mozhimen.basick.basek
+package com.mozhimen.basick.basek.view
 
 import android.util.AttributeSet
 import com.mozhimen.basick.basek.commons.IBaseKView

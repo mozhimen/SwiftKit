@@ -6,7 +6,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.animation.AccelerateDecelerateInterpolator
-import com.mozhimen.basick.basek.BaseKView
+import com.mozhimen.basick.basek.view.BaseKView
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.uicorek.R
 

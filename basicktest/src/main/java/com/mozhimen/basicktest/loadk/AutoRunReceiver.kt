@@ -14,11 +14,11 @@ import kotlinx.coroutines.*
  */
 class AutoRunReceiver() : LoadKReceiverAutoRun(LoadKActivity::class.java) {
     companion object {
-        private val DELAY_TIME = 15//s
+        private val DELAY_TIME = 10//s
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        runBlocking {
+        CoroutineScope(Dispatchers.Main).launch {
             delay(DELAY_TIME * 1000L)
             launch(context, intent)
         }

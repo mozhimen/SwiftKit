@@ -2,7 +2,7 @@ package com.mozhimen.uicorek.viewk
 
 import android.content.Context
 import android.util.AttributeSet
-import com.mozhimen.basick.basek.BaseKView
+import com.mozhimen.basick.basek.view.BaseKView
 
 /**
  * @ClassName RingProgress

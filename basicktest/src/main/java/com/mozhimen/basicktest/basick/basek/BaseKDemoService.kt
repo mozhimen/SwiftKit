@@ -1,10 +1,10 @@
 package com.mozhimen.basicktest.basick.basek
 
-import android.app.Service
-import android.content.Intent
-import android.os.IBinder
-import android.os.RemoteCallbackList
-import com.mozhimen.basicktest.ICallback
+import com.mozhimen.basick.basek.service.BaseKService
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @ClassName BaseKService
@@ -13,11 +13,26 @@ import com.mozhimen.basicktest.ICallback
  * @Date 2022/9/27 0:59
  * @Version 1.0
  */
-class BaseKDemoService : Service() {
-private val _callbacks = RemoteCallbackList<ICallback>()
-    override fun onBind(intent: Intent?): IBinder? {
+class BaseKDemoService : BaseKService() {
 
+    private val _block = CoroutineScope(Dispatchers.IO).launch {
+        //Thread.sleep(3000)
+        delay(3000)
+        onCallback("及你太美")
     }
 
+    override fun onCreate() {
+        super.onCreate()
 
+        runBackgroundTasks()
+    }
+
+    private fun runBackgroundTasks() {
+        _block.start()
+    }
+
+    override fun onDestroy() {
+        _block.cancel()
+        super.onDestroy()
+    }
 }

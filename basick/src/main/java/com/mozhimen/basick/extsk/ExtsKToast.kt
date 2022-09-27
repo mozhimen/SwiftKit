@@ -37,8 +37,8 @@ fun Int.showToast(duration: Int = Toast.LENGTH_SHORT) {
  * @receiver String
  * @param duration Int
  */
-fun String.showToastOnMain(lifecycleOwner: LifecycleOwner, duration: Int = Toast.LENGTH_SHORT) {
-    UtilKToast.showToastOnMain(lifecycleOwner, this, duration)
+fun String.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToastOnMain(this, duration)
 }
 
 /**
@@ -46,6 +46,6 @@ fun String.showToastOnMain(lifecycleOwner: LifecycleOwner, duration: Int = Toast
  * @receiver Int
  * @param duration Int
  */
-fun Int.showToastOnMain(lifecycleOwner: LifecycleOwner, duration: Int = Toast.LENGTH_SHORT) {
-    UtilKToast.showToastOnMain(lifecycleOwner, this, duration)
+fun Int.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToastOnMain(this, duration)
 }

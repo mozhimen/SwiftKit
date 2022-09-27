@@ -10,7 +10,7 @@ import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.sp2px
-import com.mozhimen.basick.basek.BaseKView
+import com.mozhimen.basick.basek.view.BaseKView
 import com.mozhimen.uicorek.R
 
 /**

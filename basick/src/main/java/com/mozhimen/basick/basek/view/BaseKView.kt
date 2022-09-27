@@ -1,11 +1,10 @@
-package com.mozhimen.basick.basek
+package com.mozhimen.basick.basek.view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.basek.commons.IBaseKView
-import com.mozhimen.basick.basek.commons.IBaseKViewAction
 
 /**
  * @ClassName ICustomView

@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk
 import android.widget.Toast
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.eventk.EventKHandler
+import com.mozhimen.basick.eventk.commons.HandlerRef
 
 /**
  * @ClassName UtilKToast
@@ -22,11 +23,11 @@ object UtilKToast {
         Toast.makeText(_context, msgId, duration).show()
     }
 
-    fun showToastOnMain(lifecycleOwner: LifecycleOwner, msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        EventKHandler(lifecycleOwner).post { showToast(msg, duration) }
+    fun showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+        HandlerRef(_context).post { showToast(msg, duration) }
     }
 
-    fun showToastOnMain(lifecycleOwner: LifecycleOwner, msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        EventKHandler(lifecycleOwner).post { showToast(msgId, duration) }
+    fun showToastOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
+        HandlerRef(_context).post { showToast(msgId, duration) }
     }
 }

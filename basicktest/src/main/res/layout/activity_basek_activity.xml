@@ -10,10 +10,18 @@
             type="com.mozhimen.basicktest.basick.basek.BaseKDemoViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         tools:context="com.mozhimen.basicktest.basick.basek.BaseKDemoActivity">
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goBaseKDemoServiceActivity"
+            android:text="BaseKDemoServiceActivity"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <TextView
             android:id="@+id/basek_activity_txt"
@@ -39,5 +47,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 </layout>
