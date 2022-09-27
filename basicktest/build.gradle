@@ -38,7 +38,4 @@ dependencies {
     implementation project(path: ':basick')
     implementation project(path: ':debugk')
     implementation project(path: ':uicorek')
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 }
