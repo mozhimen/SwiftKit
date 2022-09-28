@@ -15,10 +15,11 @@ import com.mozhimen.basick.IBaseKServiceResListener
  * @Date 2022/9/27 0:36
  * @Version 1.0
  */
-abstract class BaseKService : Service() {
+open class BaseKService : Service() {
     private val _listeners = RemoteCallbackList<IBaseKServiceResListener>()
+    private var _binder: IBaseKServiceConnListener.Stub = BaseKServiceBinder()
 
-    private var _binder: IBaseKServiceConnListener.Stub = object : IBaseKServiceConnListener.Stub() {
+    inner class BaseKServiceBinder() : IBaseKServiceConnListener.Stub() {
         override fun onServiceStart() {
 
         }
@@ -29,6 +30,10 @@ abstract class BaseKService : Service() {
 
         override fun unRegisterListener(listener: IBaseKServiceResListener?) {
             listener?.let { _listeners.unregister(it) }
+        }
+
+        override fun onServiceStop() {
+            _listeners.kill()
         }
     }
 
@@ -66,10 +71,5 @@ abstract class BaseKService : Service() {
             e.printStackTrace()
         }
         _listeners.finishBroadcast()
-    }
-
-    override fun onDestroy() {
-        _listeners.kill()
-        super.onDestroy()
     }
 }

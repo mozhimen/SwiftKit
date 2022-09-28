@@ -12,4 +12,5 @@ interface IBaseKServiceConnListener {
     void onServiceStart();
     void registerListener(IBaseKServiceResListener listener);
     void unRegisterListener(IBaseKServiceResListener listener);
+    void onServiceStop();
 }
