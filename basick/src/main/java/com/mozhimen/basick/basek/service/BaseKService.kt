@@ -18,7 +18,7 @@ import com.mozhimen.basick.IBaseKServiceResListener
 abstract class BaseKService : Service() {
     private val _listeners = RemoteCallbackList<IBaseKServiceResListener>()
 
-    private val _binder = object : IBaseKServiceConnListener.Stub() {
+    private var _binder: IBaseKServiceConnListener.Stub = object : IBaseKServiceConnListener.Stub() {
         override fun onServiceStart() {
 
         }

@@ -5,6 +5,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.concurrent.thread
 
 /**
  * @ClassName BaseKService
@@ -15,12 +16,6 @@ import kotlinx.coroutines.launch
  */
 class BaseKDemoService : BaseKService() {
 
-    private val _block = CoroutineScope(Dispatchers.IO).launch {
-        //Thread.sleep(3000)
-        delay(3000)
-        onCallback("及你太美")
-    }
-
     override fun onCreate() {
         super.onCreate()
 
@@ -28,11 +23,9 @@ class BaseKDemoService : BaseKService() {
     }
 
     private fun runBackgroundTasks() {
-        _block.start()
-    }
-
-    override fun onDestroy() {
-        _block.cancel()
-        super.onDestroy()
+        thread {
+            Thread.sleep(3000)
+            onCallback("鸡你太美")
+        }
     }
 }

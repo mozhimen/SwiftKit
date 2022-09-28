@@ -39,7 +39,7 @@ class UtilKCountDown(private val _lifecycleOwner: LifecycleOwner) : DefaultLifec
     override fun onPause(owner: LifecycleOwner) {
         stop()
         _lifecycleOwner.lifecycle.removeObserver(this)
-        onPause(owner)
+        super.onPause(owner)
     }
 
     private inner class UtilKCountDownTimer(countDownMilliseconds: Long) : CountDownTimer(countDownMilliseconds, 1000) {

@@ -1,27 +1,23 @@
-package com.mozhimen.basicktest.basick.basek
+package com.mozhimen.basick.basek.service
 
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Bundle
 import android.os.IBinder
 import android.os.RemoteException
+import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.basick.IBaseKServiceConnListener
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.basick.basek.service.BaseKServiceResCallback
-import com.mozhimen.basicktest.R
-import com.mozhimen.basicktest.databinding.ActivityBasekDemoServiceBinding
 
-class BaseKDemoServiceActivity : BaseKActivity<ActivityBasekDemoServiceBinding, BaseKViewModel>(R.layout.activity_basek_demo_service) {
+/**
+ * @ClassName BaseKServiceActivityProxy
+ * @Description TODO
+ * @Author Kolin Zhao / Mozhimen
+ * @Date 2022/9/28 16:02
+ * @Version 1.0
+ */
+/*
+class BaseKServiceActivityProxy(private val _activity: AppCompatActivity) {
     private var _connListener: IBaseKServiceConnListener? = null
-    private var _resListener: BaseKServiceResCallback? = object : BaseKServiceResCallback() {
-        override fun onResString(resString: String?) {
-            runOnUiThread {
-                vb.basekServiceTxt.text = resString ?: "loss"
-            }
-        }
-    }
 
     private val _serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -40,10 +36,6 @@ class BaseKDemoServiceActivity : BaseKActivity<ActivityBasekDemoServiceBinding, 
         }
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
-        bindService(Intent(this, BaseKDemoService::class.java), _serviceConnection, BIND_AUTO_CREATE)
-    }
-
     private fun unregisterCallback() {
         try {
             _connListener?.unRegisterListener(_resListener)
@@ -53,8 +45,7 @@ class BaseKDemoServiceActivity : BaseKActivity<ActivityBasekDemoServiceBinding, 
         }
     }
 
-    override fun onPause() {
-        unregisterCallback()
-        super.onPause()
+    fun bindService() {
+        bindService(Intent(this, BaseKDemoService::class.java), _serviceConnection, AppCompatActivity.BIND_AUTO_CREATE)
     }
-}
+}*/
