@@ -43,19 +43,17 @@
 
     <!--layoutk-->
     <style name="LayoutKAmountStyle">
-        <item name="layoutKAmount_btn_textSize">14sp</item>
-        <item name="layoutKAmount_btn_textColor">#999999</item>
-        <item name="layoutKAmount_btn_size">25dp</item>
-        <item name="layoutKAmount_btn_background">#eeeeee</item>
-        <item name="layoutKAmount_margin">5dp</item>
-
-        <item name="layoutKAmount_num_textSize">16sp</item>
-        <item name="layoutKAmount_num_textColor">#000000</item>
-        <item name="layoutKAmount_num_size">30dp</item>
-        <item name="layoutKAmount_num_background">@android:color/white</item>
-        <item name="layoutKAmount_num_defaultValue">1</item>
-        <item name="layoutKAmount_num_minValue">1</item>
-        <!--        <item name="max_value">1</item> //不配置，就是Int.max_value-->
+        <item name="layoutKAmount_minVal">0</item>
+        <item name="layoutKAmount_maxVal">100</item>
+        <item name="layoutKAmount_defaultAmount">0</item>
+        <item name="layoutKAmount_amountTextColor">@color/blue_normal</item>
+        <item name="layoutKAmount_amountBackgroundColor">@android:color/white</item>
+        <item name="layoutKAmount_amountMarginHorizontal">0dp</item>
+        <item name="layoutKAmount_amountMinWidth">20dp</item>
+        <item name="layoutKAmount_btnTextColor">@color/blue_normal</item>
+        <item name="layoutKAmount_btnTextSize">14sp</item>
+        <item name="layoutKAmount_btnBackgroundColor">@color/gray_normal</item>
+        <item name="layoutKAmount_btnSize">20dp</item>
     </style>
 
     <style name="BtnStyle_Cancel">

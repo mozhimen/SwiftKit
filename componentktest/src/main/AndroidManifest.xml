@@ -11,6 +11,9 @@
         android:theme="@style/Theme.SwiftKit"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".AnimKActivity"
+            android:exported="false" />
+        <activity
             android:name="com.mozhimen.componentktest.ComponentKActivity"
             android:exported="true">
             <intent-filter>

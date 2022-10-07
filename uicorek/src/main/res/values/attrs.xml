@@ -131,20 +131,21 @@
     </declare-styleable>
 
     <declare-styleable name="LayoutKAmount">
-        <attr name="layoutKAmount_btn_textSize" format="dimension|reference" />
-        <attr name="layoutKAmount_btn_textColor" format="color|reference" />
-        <attr name="layoutKAmount_btn_size" format="dimension|reference" />
-        <attr name="layoutKAmount_btn_background" format="color|reference" />
+        <attr name="layoutKAmount_minVal" format="integer" />
+        <attr name="layoutKAmount_maxVal" format="integer" />
+        <attr name="layoutKAmount_defaultAmount" format="integer" />
 
-        <attr name="layoutKAmount_margin" format="dimension|reference" />
+        <attr name="layoutKAmount_amountTextColor" format="color|reference" />
+        <attr name="layoutKAmount_amountTextSize" format="dimension|reference" />
+        <attr name="layoutKAmount_amountBackgroundColor" format="color|reference" />
+        <attr name="layoutKAmount_amountMarginHorizontal" format="dimension|reference" />
+        <attr name="layoutKAmount_amountMinWidth" format="dimension|reference" />
 
-        <attr name="layoutKAmount_num_textSize" format="dimension|reference" />
-        <attr name="layoutKAmount_num_textColor" format="color|reference" />
-        <attr name="layoutKAmount_num_size" format="dimension|reference" />
-        <attr name="layoutKAmount_num_background" format="color|reference" />
-        <attr name="layoutKAmount_num_defaultValue" format="integer" />
-        <attr name="layoutKAmount_num_maxValue" format="integer" />
-        <attr name="layoutKAmount_num_minValue" format="integer" />
+        <attr name="layoutKAmount_btnTextColor" format="color|reference" />
+        <attr name="layoutKAmount_btnTextSize" format="dimension|reference" />
+        <attr name="layoutKAmount_btnBackgroundColor" format="color|reference" />
+        <attr name="layoutKAmount_btnSize" format="dimension|reference" />
+
     </declare-styleable>
 
     <!--视频布局-->

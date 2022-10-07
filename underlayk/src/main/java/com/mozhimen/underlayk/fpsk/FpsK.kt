@@ -16,7 +16,7 @@ class FpsK {
         _fpsKViewer.toggle()
     }
 
-    fun setListener(listener: IFpsKListener) {
+    fun setOnFrameListener(listener: IFpsKListener) {
         _fpsKViewer.addListener(listener)
     }
 

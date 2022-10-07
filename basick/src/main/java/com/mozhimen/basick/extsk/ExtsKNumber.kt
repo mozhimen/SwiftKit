@@ -15,6 +15,9 @@ fun Float.normalize(range: Pair<Float, Float>): Float =
 fun Float.normalize(rangeStart: Int, rangeEnd: Int): Float =
     UtilKNumber.normalize(this, rangeStart, rangeEnd)
 
+fun Int.normalize(range: IntRange) =
+    UtilKNumber.normalize(this, range)
+
 fun Float.percent(range: Pair<Float, Float>): Float =
     UtilKNumber.percent(this, range)
 

@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat
 
 /**
  * @ClassName UtilKAnim
- * @Description TODO
+ * @Description 不推荐直接使用,因为属性动画需要不及时释放,会造成内存泄露
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/4/18 0:25
  * @Version 1.0

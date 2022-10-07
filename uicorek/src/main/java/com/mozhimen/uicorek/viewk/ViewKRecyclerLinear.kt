@@ -39,7 +39,7 @@ class ViewKRecyclerLinear @JvmOverloads constructor(context: Context, attrs: Att
      * 设置监听器
      * @param listener Function2<[@kotlin.ParameterName] Int, MoKKey, Unit>
      */
-    fun setListener(listener: IViewKRecyclerLinearListener) {
+    fun setOnItemClickListener(listener: IViewKRecyclerLinearListener) {
         _viewKRecyclerLinearListener = listener
     }
 

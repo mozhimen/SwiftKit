@@ -42,6 +42,16 @@ object UtilKNumber {
     }
 
     @JvmStatic
+    fun normalize(value: Int, range: IntRange): Int {
+        val tempRange = min(range.first, range.last) to max(range.first, range.last)
+        return when {
+            value < tempRange.first -> tempRange.first
+            value > tempRange.second -> tempRange.second
+            else -> value
+        }
+    }
+
+    @JvmStatic
     fun normalize(value: Float, range: IntRange): Float =
         normalize(value, range.first.toFloat() to range.last.toFloat())
 

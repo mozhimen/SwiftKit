@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.util.forEach
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.extsk.stopAnim
 import com.mozhimen.basick.utilk.UtilKAnim
 
 /**
@@ -21,9 +22,14 @@ class AnimK(lifecycleOwner: LifecycleOwner) : DefaultLifecycleObserver {
         lifecycleOwner.lifecycle.addObserver(this)
     }
 
-    override fun onPause(owner: LifecycleOwner) {
-        _views.forEach { key, value ->
+    fun with(view: View): UtilKAnim {
+        _views.append(view.id, view)
+        return UtilKAnim
+    }
 
+    override fun onPause(owner: LifecycleOwner) {
+        _views.forEach { _, view ->
+            view.stopAnim()
         }
         _views.clear()
         owner.lifecycle.removeObserver(this)

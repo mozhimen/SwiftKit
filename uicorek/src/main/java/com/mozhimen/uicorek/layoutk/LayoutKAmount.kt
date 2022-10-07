@@ -1,20 +1,19 @@
 package com.mozhimen.uicorek.layoutk
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.Button
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.extsk.normalize
 import com.mozhimen.basick.extsk.sp2px
-import com.mozhimen.basick.basek.commons.IBaseKLayout
+import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
 
 /**
@@ -25,87 +24,97 @@ import com.mozhimen.uicorek.R
  * @Version 1.0
  */
 
-typealias ILayoutKAmountMonitor = (Int) -> Unit
-
+typealias ILayoutKAmountListener = (amountVal: Int) -> Unit
 
 class LayoutKAmount @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
 ) : BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
-    private var _layoutKAmountListener: ILayoutKAmountMonitor? = null
-    private val _attrs = AttrsParser.parseAttrs(context, attrs, defStyleAttr)
-    private var _amountValue = _attrs.numDefaultValue
+    //region # private variate
+    private val _attrs = LayoutKAmountParser.parseAttrs(context, attrs, defStyleAttr)
+    private var _layoutKAmountListener: ILayoutKAmountListener? = null
+
+    private val _btnIncrease: Button? = null
+        get() {
+            if (field != null) return field
+            val btn = genBtn()
+            btn.text = "+"
+            btn.setOnClickListener {
+                currentAmount++
+                _txtAmount!!.text = currentAmount.toString()
+                _layoutKAmountListener?.invoke(currentAmount)
+            }
+            return btn
+        }
+
+    private val _btnDecrease: Button? = null
+        get() {
+            if (field != null) return field
+            val btn = genBtn()
+            btn.text = "-"
+            btn.setOnClickListener {
+                currentAmount--
+                _txtAmount!!.text = currentAmount.toString()
+                _layoutKAmountListener?.invoke(currentAmount)
+            }
+            return btn
+        }
+
+    private val _txtAmount: TextView? = null
+        get() {
+            if (field != null) return field
+            val txt = genTxt()
+            txt.text = _attrs.defaultAmount.toString()
+            return txt
+        }
+    //endregion
+
+    private var maxVal: Int = _attrs.maxVal
+    private var minVal: Int = _attrs.minVal
+    private var currentAmount: Int = _attrs.defaultAmount
+        set(value) {
+            field = value.normalize(minVal..maxVal)
+        }
 
     init {
+        initFlag()
         initView()
     }
 
-    fun getAmountValue() = _amountValue
-
-    fun setAmountValueChangedListener(layoutKAmountListener: ILayoutKAmountMonitor) {
+    fun setOnAmountChangedListener(layoutKAmountListener: ILayoutKAmountListener) {
         this._layoutKAmountListener = layoutKAmountListener
     }
 
-    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
-
-    override fun initView() {
+    override fun initFlag() {
         orientation = HORIZONTAL
         gravity = Gravity.CENTER
-        applyAttrs()
     }
 
-    private fun applyAttrs() {
-        val increaseBtn = generateBtn()
-        increaseBtn.text = "+"
-
-        val decreaseBtn = generateBtn()
-        decreaseBtn.text = "-"
-
-        val amountView = generateAmountTxt()
-        amountView.text = _amountValue.toString()
-
-        addView(increaseBtn)
-        addView(decreaseBtn)
-        addView(amountView)
-
-        decreaseBtn.isEnabled = _amountValue > _attrs.numMinValue
-        increaseBtn.isEnabled = _amountValue < _attrs.numMaxValue
-
-        decreaseBtn.setOnClickListener {
-            _amountValue--
-            amountView.text = _amountValue.toString()
-            amountView.isEnabled = _amountValue > _attrs.numMinValue
-            increaseBtn.isEnabled = true
-            _layoutKAmountListener?.invoke(_amountValue)
-        }
-
-        increaseBtn.setOnClickListener {
-            _amountValue++
-            amountView.text = _amountValue.toString()
-            increaseBtn.isEnabled = _amountValue < _attrs.numMaxValue
-            decreaseBtn.isEnabled = true
-            _layoutKAmountListener?.invoke(_amountValue)
-        }
+    override fun initView() {
+        addView(_btnDecrease)
+        addView(_txtAmount)
+        addView(_btnIncrease)
     }
 
-    private fun generateAmountTxt(): TextView {
+    private fun genTxt(): TextView {
         val textView = TextView(context)
         textView.setPadding(0)
-        textView.setTextColor(_attrs.numTextColor)
-        textView.setBackgroundColor(_attrs.numBackground)
+        textView.setTextColor(_attrs.amountTextColor)
+        textView.setBackgroundColor(_attrs.amountBackgroundColor)
         textView.gravity = Gravity.CENTER
         textView.includeFontPadding = false
 
         val layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
-        layoutParams.leftMargin = _attrs.margin
-        layoutParams.rightMargin = _attrs.margin
+        layoutParams.leftMargin = _attrs.amountMarginHorizontal
+        layoutParams.rightMargin = _attrs.amountMarginHorizontal
         textView.layoutParams = layoutParams
-        textView.minWidth = _attrs.numSize
+        textView.minWidth = _attrs.amountMinWidth
         return textView
     }
 
-    private fun generateBtn(): Button {
+    private fun genBtn(): Button {
         val button = Button(context)
         button.setBackgroundResource(0)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) button.elevation = 0f
@@ -113,86 +122,100 @@ class LayoutKAmount @JvmOverloads constructor(
         button.includeFontPadding = false
         button.setTextColor(_attrs.btnTextColor)
         button.setTextSize(TypedValue.COMPLEX_UNIT_PX, _attrs.btnTextSize)
-        button.setBackgroundColor(_attrs.btnBackground)
+        button.setBackgroundColor(_attrs.btnBackgroundColor)
         button.gravity = Gravity.CENTER
         button.layoutParams = LayoutParams(_attrs.btnSize, _attrs.btnSize)
         return button
     }
 
-    private object AttrsParser {
+    private object LayoutKAmountParser {
+
+        const val MIN_VAL: Int = 0
+        const val MAX_VAL: Int = 100
+        const val DEFAULT_AMOUNT: Int = 0
+        val AMOUNT_TEXT_COLOR: Int = UtilKRes.getColor(R.color.blue_normal)
+        val AMOUNT_TEXT_SIZE: Int = 14.sp2px()
+        const val AMOUNT_BACKGROUND_COLOR: Int = Color.WHITE
+        val AMOUNT_MARGIN_HORIZONTAL: Int = 0f.dp2px()
+        val AMOUNT_MIN_WIDTH: Int = 20f.dp2px()
+        val BTN_TEXT_COLOR: Int = UtilKRes.getColor(R.color.blue_normal)
+        val BTN_TEXT_SIZE: Int = 14f.sp2px()
+        val BTN_BACKGROUND_COLOR: Int = UtilKRes.getColor(R.color.gray_normal)
+        val BTN_SIZE: Int = 20f.dp2px()
+
         fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): Attrs {
-            val array = context.obtainStyledAttributes(
+            val typedArray = context.obtainStyledAttributes(
                 attrs, R.styleable.LayoutKAmount, defStyleAttr, R.style.LayoutKAmountStyle
             )
 
-            val btnTextSize = array.getDimensionPixelSize(
-                R.styleable.LayoutKAmount_layoutKAmount_btn_textSize, 14f.sp2px()
+            val minVal = typedArray.getInteger(
+                R.styleable.LayoutKAmount_layoutKAmount_minVal, MIN_VAL
             )
-            val btnTextColor = array.getColorStateList(
-                R.styleable.LayoutKAmount_layoutKAmount_btn_textColor
+            val maxVal = typedArray.getInteger(
+                R.styleable.LayoutKAmount_layoutKAmount_maxVal, MAX_VAL
             )
-            val btnSize = array.getDimensionPixelSize(
-                R.styleable.LayoutKAmount_layoutKAmount_btn_size, 20f.dp2px()
+            val defaultAmount = typedArray.getInteger(
+                R.styleable.LayoutKAmount_layoutKAmount_defaultAmount, DEFAULT_AMOUNT
             )
-            val margin = array.getDimensionPixelOffset(
-                R.styleable.LayoutKAmount_layoutKAmount_margin, 0
+            val amountTextColor = typedArray.getColor(
+                R.styleable.LayoutKAmount_layoutKAmount_amountTextColor, AMOUNT_TEXT_COLOR
             )
-            val btnBackground = array.getColor(
-                R.styleable.LayoutKAmount_layoutKAmount_btn_background, Color.parseColor("#eeeeee")
+            val amountTextSize = typedArray.getDimensionPixelSize(
+                R.styleable.LayoutKAmount_layoutKAmount_amountTextSize, AMOUNT_TEXT_SIZE
             )
-            val numTextSize = array.getDimensionPixelSize(
-                R.styleable.LayoutKAmount_layoutKAmount_num_textSize, 14f.sp2px()
+            val amountBackgroundColor = typedArray.getColor(
+                R.styleable.LayoutKAmount_layoutKAmount_amountBackgroundColor, AMOUNT_BACKGROUND_COLOR
             )
-            val numTextColor = array.getColor(
-                R.styleable.LayoutKAmount_layoutKAmount_num_textColor, Color.BLACK
+            val amountMarginHorizontal = typedArray.getDimensionPixelOffset(
+                R.styleable.LayoutKAmount_layoutKAmount_amountMarginHorizontal, AMOUNT_MARGIN_HORIZONTAL
             )
-            val numSize = array.getDimensionPixelSize(
-                R.styleable.LayoutKAmount_layoutKAmount_num_size, 20f.dp2px()
+            val amountMinWidth = typedArray.getDimensionPixelOffset(
+                R.styleable.LayoutKAmount_layoutKAmount_amountMinWidth, AMOUNT_MIN_WIDTH
             )
-            val numBackground = array.getColor(
-                R.styleable.LayoutKAmount_layoutKAmount_num_background, Color.WHITE
+            val btnTextColor = typedArray.getColor(
+                R.styleable.LayoutKAmount_layoutKAmount_btnTextColor, BTN_TEXT_COLOR
             )
-            val numDefaultValue = array.getInteger(
-                R.styleable.LayoutKAmount_layoutKAmount_num_defaultValue, 1
+            val btnTextSize = typedArray.getDimensionPixelSize(
+                R.styleable.LayoutKAmount_layoutKAmount_btnTextSize, BTN_TEXT_SIZE
             )
-            val numMinValue = array.getInteger(
-                R.styleable.LayoutKAmount_layoutKAmount_num_minValue, 1
+            val btnBackgroundColor = typedArray.getColor(
+                R.styleable.LayoutKAmount_layoutKAmount_btnBackgroundColor, BTN_BACKGROUND_COLOR
             )
-            val numMaxValue = array.getInteger(
-                R.styleable.LayoutKAmount_layoutKAmount_num_maxValue, Int.MAX_VALUE
+            val btnSize = typedArray.getDimensionPixelOffset(
+                R.styleable.LayoutKAmount_layoutKAmount_btnSize, BTN_SIZE
             )
 
-            array.recycle()
+            typedArray.recycle()
 
             return Attrs(
-                btnTextSize.toFloat(),
+                minVal,
+                maxVal,
+                defaultAmount,
+                amountTextColor,
+                amountTextSize,
+                amountBackgroundColor,
+                amountMarginHorizontal,
+                amountMinWidth,
                 btnTextColor,
-                btnSize,
-                btnBackground,
-                margin,
-                numTextSize.toFloat(),
-                numTextColor,
-                numSize,
-                numBackground,
-                numDefaultValue,
-                numMinValue,
-                numMaxValue
+                btnTextSize.toFloat(),
+                btnBackgroundColor,
+                btnSize
             )
         }
     }
 
     private data class Attrs(
+        val minVal: Int,
+        val maxVal: Int,
+        val defaultAmount: Int,
+        val amountTextColor: Int,
+        val amountTextSize: Int,
+        val amountBackgroundColor: Int,
+        val amountMarginHorizontal: Int,
+        val amountMinWidth: Int,
+        val btnTextColor: Int,
         val btnTextSize: Float,
-        val btnTextColor: ColorStateList?,
-        val btnSize: Int,
-        val btnBackground: Int,
-        val margin: Int,
-        val numTextSize: Float,
-        val numTextColor: Int,
-        val numSize: Int,
-        val numBackground: Int,
-        val numDefaultValue: Int,
-        val numMinValue: Int,
-        val numMaxValue: Int
+        val btnBackgroundColor: Int,
+        val btnSize: Int
     )
 }

@@ -36,7 +36,7 @@ class ViewKTouch @JvmOverloads constructor(context: Context, attrs: AttributeSet
      * 设置出发监听器
      * @param listener Function0<Unit>
      */
-    fun setListener(listener: IViewKTouchListener) {
+    fun setOnTouchListener(listener: IViewKTouchListener) {
         _viewKTouchListener = listener
     }
 

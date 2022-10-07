@@ -8,7 +8,7 @@ java {
 }
 
 dependencies {
-    api project(path: ':guidek_annor')
+    api project(project.path.replace(project.name, '') +  ':guidek_annor')
     api 'com.alibaba:fastjson:1.2.68'
     api 'com.google.auto.service:auto-service:1.0-rc6'
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc6'
