@@ -4,7 +4,7 @@ import com.mozhimen.basick.basek.BaseKApplication
 import com.mozhimen.basick.extsk.toJson
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
-import com.mozhimen.underlayk.logk.e
+import com.mozhimen.basick.extsk.e
 import com.mozhimen.underlayk.logk.mos.LogKConfig
 import com.mozhimen.underlayk.logk.temps.PrinterConsole
 import com.mozhimen.underlayk.logk.temps.PrinterFile

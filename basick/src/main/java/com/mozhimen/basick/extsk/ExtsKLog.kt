@@ -1,7 +1,9 @@
-package com.mozhimen.underlayk.logk
+package com.mozhimen.basick.extsk
+
+import com.mozhimen.basick.utilk.UtilKLog
 
 /**
- * @ClassName ExtsKLogK
+ * @ClassName ExtsKLog
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/4/14 19:15
@@ -12,7 +14,7 @@ package com.mozhimen.underlayk.logk
  * @receiver String
  */
 fun String.v() {
-    LogK.v(this)
+    UtilKLog.v(this)
 }
 
 /**
@@ -21,7 +23,7 @@ fun String.v() {
  * @param tag String
  */
 fun String.vt(tag: String) {
-    LogK.vt(this, tag)
+    UtilKLog.vt(this, tag)
 }
 
 /**
@@ -29,7 +31,7 @@ fun String.vt(tag: String) {
  * @receiver String
  */
 fun String.d() {
-    LogK.d(this)
+    UtilKLog.d(this)
 }
 
 /**
@@ -38,7 +40,7 @@ fun String.d() {
  * @param tag String
  */
 fun String.dt(tag: String) {
-    LogK.dt(this, tag)
+    UtilKLog.dt(this, tag)
 }
 
 /**
@@ -46,7 +48,7 @@ fun String.dt(tag: String) {
  * @receiver String
  */
 fun String.i() {
-    LogK.i(this)
+    UtilKLog.i(this)
 }
 
 /**
@@ -55,7 +57,7 @@ fun String.i() {
  * @param tag String
  */
 fun String.it(tag: String) {
-    LogK.it(this, tag)
+    UtilKLog.it(this, tag)
 }
 
 /**
@@ -63,7 +65,7 @@ fun String.it(tag: String) {
  * @receiver String
  */
 fun String.w() {
-    LogK.w(this)
+    UtilKLog.w(this)
 }
 
 /**
@@ -72,7 +74,7 @@ fun String.w() {
  * @param tag String
  */
 fun String.wt(tag: String) {
-    LogK.wt(this, tag)
+    UtilKLog.wt(this, tag)
 }
 
 /**
@@ -80,7 +82,7 @@ fun String.wt(tag: String) {
  * @receiver String
  */
 fun String.e() {
-    LogK.e(this)
+    UtilKLog.e(this)
 }
 
 /**
@@ -89,22 +91,5 @@ fun String.e() {
  * @param tag String
  */
 fun String.et(tag: String) {
-    LogK.et(this, tag)
-}
-
-/**
- *
- * @receiver String
- */
-fun String.a() {
-    LogK.a(this)
-}
-
-/**
- *
- * @receiver String
- * @param tag String
- */
-fun String.at(tag: String) {
-    LogK.at(this, tag)
+    UtilKLog.et(this, tag)
 }
