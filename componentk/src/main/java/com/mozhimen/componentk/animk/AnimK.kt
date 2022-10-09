@@ -16,7 +16,6 @@ import com.mozhimen.basick.utilk.UtilKAnim
  * @Version 1.0
  */
 class AnimK(lifecycleOwner: LifecycleOwner) : DefaultLifecycleObserver {
-    private val _views = SparseArray<View>()
 
     init {
         lifecycleOwner.lifecycle.addObserver(this)
