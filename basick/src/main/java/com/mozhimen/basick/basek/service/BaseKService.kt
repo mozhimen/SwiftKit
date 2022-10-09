@@ -16,7 +16,7 @@ import com.mozhimen.basick.IBaseKServiceResListener
  * @Version 1.0
  */
 open class BaseKService : Service() {
-    private val TAG = "${this.javaClass.simpleName}>>>>>"
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private val _listeners = RemoteCallbackList<IBaseKServiceResListener>()
     private var _binder: IBaseKServiceConnListener.Stub = BaseKServiceBinder()
 

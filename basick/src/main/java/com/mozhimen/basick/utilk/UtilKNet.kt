@@ -15,8 +15,8 @@ import com.mozhimen.basick.cachek.CacheKSP
  */
 object UtilKNet {
     private val TAG = "UtilKNet>>>>>"
-    const val UTILKNET_SP_NAME = "utilknet_sp_name"
-    const val UTILKNET_SP_DEGRADE_HTTP = "utilknet_sp_degrade_http"
+    private const val utilknet_sp_name = "utilknet_sp_name"
+    private const val utilknet_sp_degrade_http = "utilknet_sp_degrade_http"
 
     /**
      * 是否连接网络,需要权限:ACCESS_NETWORK_STATE
@@ -52,8 +52,8 @@ object UtilKNet {
     }
 
     fun degrade2Http() {
-        if (CacheKSP.instance.with(UTILKNET_SP_NAME).getBoolean(UTILKNET_SP_DEGRADE_HTTP, false)) return
-        CacheKSP.instance.with(UTILKNET_SP_NAME).putBoolean(UTILKNET_SP_DEGRADE_HTTP, true)
+        if (CacheKSP.instance.with(utilknet_sp_name).getBoolean(utilknet_sp_degrade_http, false)) return
+        CacheKSP.instance.with(utilknet_sp_name).putBoolean(utilknet_sp_degrade_http, true)
         val context = UtilKGlobal.instance.getApp() ?: return
         context.startActivity(context.packageManager.getLaunchIntentForPackage(context.packageName))
 

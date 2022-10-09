@@ -21,6 +21,9 @@ import java.util.stream.Collectors
 object UtilKString {
     private const val TAG = "UtilKString>>>>>"
 
+    /**
+     * 是否为空
+     */
     fun isEmpty(str: CharSequence?): Boolean {
         return str == null || str.isEmpty()
     }
