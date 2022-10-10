@@ -11,9 +11,6 @@
         android:theme="@style/Theme.SwiftKit"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AnimKActivity"
-            android:exported="false" />
-        <activity
             android:name="com.mozhimen.componentktest.ComponentKActivity"
             android:exported="true">
             <intent-filter>
@@ -23,10 +20,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mozhimen.componentktest.cameraxk.CameraXKActivity"
+            android:name="com.mozhimen.componentktest.animk.AnimKActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.componentktest.guidek.GuideKActivity"
+            android:name="com.mozhimen.componentktest.cameraxk.CameraXKActivity"
             android:exported="false" />
         <activity
             android:name="com.mozhimen.componentktest.permissionk.PermissionKActivity"

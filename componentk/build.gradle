@@ -34,11 +34,6 @@ android {
 
 dependencies {
 
-    //guidek
-    api 'com.alibaba:fastjson:1.2.68'
-    api 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    api 'androidx.navigation:navigation-ui-ktx:2.4.1'
-
     //restfulk
     api 'com.squareup.retrofit2:retrofit:2.9.0'//retrofit
     api 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -53,7 +48,6 @@ dependencies {
     implementation 'androidx.camera:camera-view:1.1.0-beta02'
     api 'androidx.camera:camera-core:1.1.0-beta02'
 
-    api project(project.path.replace(project.name, '') +  ':guidek_annor')
     implementation project(project.path.replace(project.name, '') +  ':basick')
     implementation project(project.path.replace(project.name, '') +  ':uicorek')
     implementation project(project.path.replace(project.name, '') +  ':underlayk')

@@ -6,7 +6,6 @@ import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.componentktest.cameraxk.CameraXKActivity
 import com.mozhimen.componentktest.databinding.ActivityComponentkBinding
-import com.mozhimen.componentktest.guidek.GuideKActivity
 import com.mozhimen.componentktest.netk.NetKActivity
 import com.mozhimen.componentktest.permissionk.PermissionKActivity
 import com.mozhimen.componentktest.statusbark.StatusBarKActivity
@@ -15,10 +14,6 @@ class ComponentKActivity : BaseKActivity<ActivityComponentkBinding, BaseKViewMod
 
     fun goCameraXK(view: View) {
         start<CameraXKActivity>()
-    }
-
-    fun goGuideK(view: View) {
-        start<GuideKActivity>()
     }
 
     fun goPermissionK(view: View) {

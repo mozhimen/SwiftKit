@@ -175,6 +175,8 @@
         <entry key="..\:/GitHub/SwiftKit/underlayk/src/main/res/layout/logk_printer_view_item.xml" value="0.1261168384879725" />
         <entry key="..\:/GitHub/SwiftKit/underlayktest/src/main/res/layout/activity_logk.xml" value="0.19444444444444445" />
         <entry key="..\:/GitHub/SwiftKit/underlayktest/src/main/res/layout/activity_underlayk.xml" value="0.15555555555555556" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_componentk.xml" value="0.18" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_guidek.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/Github/SwiftKit/basicktest/src/main/res/layout/activity_utilk.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/Github/SwiftKit/componentktest/src/main/res/layout/activity_animk.xml" value="0.2115036231884058" />
         <entry key="..\:/WorkSpace/1_GitHub/SwiftKit/abilityk/src/main/res/drawable/scank_qrscan_line.xml" value="0.2708333333333333" />
@@ -234,7 +236,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

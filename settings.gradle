@@ -12,8 +12,6 @@ include ':app'
 rootProject.name = "SwiftKit"
 include ':basick'
 include ':basicktest'
-include ':guidek_annor'
-include ':guidek_compiler'
 include ':abilityk'
 include ':underlayk'
 include ':underlayktest'

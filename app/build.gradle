@@ -40,5 +40,4 @@ dependencies {
     implementation project(path: ':abilityk')
     implementation project(path: ':underlayk')
     implementation project(path: ':debugk')
-    //kapt project(path: ':guidek_compiler')
 }
