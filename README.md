@@ -25,7 +25,7 @@ typora-root-url: imgs
 
 - 架构大图
 
-![SwiftKit架构](SwiftKit架构.png)
+![SwiftKit架构.png](https://github.com/mozhimen/SwiftKit/blob/master/imgs/SwiftKit%E6%9E%B6%E6%9E%84.png)
 
 - 架构细分概要
 
@@ -43,7 +43,7 @@ typora-root-url: imgs
 
 - 模块大图
 
-![](/modules.png)
+![](https://github.com/mozhimen/SwiftKit/blob/master/imgs/modules.png)
 
 # 5.框架使用
 
