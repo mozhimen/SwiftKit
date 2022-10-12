@@ -37,6 +37,9 @@ object UtilKDate {
 
     const val FORMAT_ss = "ss"
 
+    fun getTimeStamp(): Long =
+        Date().time
+
     /**
      * 获得Format
      * @param formatDate String

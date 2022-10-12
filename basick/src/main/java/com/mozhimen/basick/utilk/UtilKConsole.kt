@@ -10,19 +10,23 @@ package com.mozhimen.basick.utilk
 object UtilKConsole {
     const val TAG = "UtilKConsole>>>>>"
 
-    fun print(msg: String) {
+    @JvmStatic
+    fun <T> print(msg: T) {
         kotlin.io.print(msg)
     }
 
-    fun println(msg: String) {
+    @JvmStatic
+    fun <T> println(msg: T) {
         kotlin.io.println(msg)
     }
 
-    fun printlog(msg: String) {
+    @JvmStatic
+    fun <T> printlog(msg: T) {
         printlog(TAG, msg)
     }
 
-    fun printlog(tag: String, msg: String) {
+    @JvmStatic
+    fun <T> printlog(tag: String, msg: T) {
         kotlin.io.println("$tag: $msg")
     }
 }

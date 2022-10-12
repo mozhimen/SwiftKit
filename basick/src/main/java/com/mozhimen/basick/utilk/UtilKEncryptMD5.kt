@@ -1,11 +1,12 @@
 package com.mozhimen.basick.utilk
 
 import android.util.Log
-import java.lang.Exception
-import java.lang.StringBuilder
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
+import java.io.UnsupportedEncodingException
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import kotlin.experimental.and
 
 /**
  * @ClassName UtilKEncryptMd5
@@ -22,11 +23,12 @@ object UtilKEncryptMD5 {
      * @param data String
      * @return String
      */
-    fun encrypt(data: String): String {
+    fun encrypt16(data: String): String {
         val secretBytes: ByteArray? = try {
-            MessageDigest.getInstance("md5").digest(data.toByteArray())
+            MessageDigest.getInstance("MD5").digest(data.toByteArray())
         } catch (e: NoSuchAlgorithmException) {
-            throw RuntimeException("no such md5 algo!")
+            e.printStackTrace()
+            throw RuntimeException("encrypt: no such md5 algo! ${e.message}")
         }
         var md5code: String = BigInteger(1, secretBytes).toString(16)
         for (i in 0 until 32 - md5code.length) {
@@ -40,7 +42,7 @@ object UtilKEncryptMD5 {
      * @param data String
      * @return String
      */
-    fun encrypt32(data: String): String {
+    fun encryptLower32(data: String): String {
         val md5: MessageDigest
         try {
             md5 = MessageDigest.getInstance("MD5")
@@ -55,9 +57,23 @@ object UtilKEncryptMD5 {
             }
             return hexValue.toString()
         } catch (e: Exception) {
-            Log.e(TAG, "encrypt32: ")
             e.printStackTrace()
+            Log.e(TAG, "encrypt32: ${e.message}")
         }
         return data
+    }
+
+    /**
+     * MD5_32加密
+     * @param data String
+     * @return String
+     */
+    fun encrypt32(data: String): String {
+        return try {
+            DigestUtils.md5Hex(data.toByteArray())
+        } catch (e: UnsupportedEncodingException) {
+            e.printStackTrace()
+            throw RuntimeException("encrypt322: ${e.message}")
+        }
     }
 }

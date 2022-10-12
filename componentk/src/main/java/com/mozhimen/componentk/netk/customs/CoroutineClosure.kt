@@ -27,7 +27,7 @@ class CoroutineClosure(val converter: INetKConverter = AsyncConverter()) {
                 parseResponse(call())
             } catch (e: Throwable) {
                 e.printStackTrace()
-                LogK.et(TAG, "coroutineCall Throwable ${e.message}")
+                LogK.et(TAG, "coroutineCall Throwable ${e.message ?: ""}")
                 return@withContext StatusParser.getThrowable(e).toResponse<T>()
             }
         }

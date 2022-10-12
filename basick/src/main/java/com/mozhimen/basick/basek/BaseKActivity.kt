@@ -12,7 +12,7 @@ import java.lang.reflect.Type
 /**
  * @ClassName BaseKActivity
  * @Description class BaseKDemoActivity :
- * BaseKActivity<ActivityBasekActivityBinding, BaseKDemoViewModel>(R.layout.activity_basek_activity) {
+ * BaseKActivity<ActivityBaseKActivityBinding, BaseKDemoViewModel>(R.layout.activity_basek_activity) {
  * override fun assignVM() {vb.vm = vm}}
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/1/25 18:47

@@ -15,7 +15,6 @@ import com.mozhimen.componentk.netk.customs.AsyncFactory
  */
 object ApiFactory {
     private val _baseUrl = "https://api.caiyunapp.com/v2.5/cIecnVlovchAFYIk/"
-    private val _baseUrl1 = "http://121.229.39.86:8123/"
 
     private val _netkAsync: NetKAsync = NetKAsync(_baseUrl, AsyncFactory(_baseUrl))
     private val _netkCoroutine: NetKCoroutine = NetKCoroutine(_baseUrl)

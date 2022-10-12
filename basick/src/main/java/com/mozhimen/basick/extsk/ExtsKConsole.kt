@@ -9,14 +9,14 @@ import com.mozhimen.basick.utilk.UtilKConsole
  * @Date 2022/8/31 11:21
  * @Version 1.0
  */
-fun String.print() =
+fun <T> T.print() =
     UtilKConsole.print(this)
 
-fun String.println() =
+fun <T> T.println() =
     UtilKConsole.println(this)
 
-fun String.printlog() =
+fun <T> T.printlog() =
     UtilKConsole.printlog(this)
 
-fun String.printlog(tag: String) =
+fun <T> T.printlog(tag: String) =
     UtilKConsole.printlog(tag, this)

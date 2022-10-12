@@ -46,10 +46,13 @@ dependencies {
     api 'androidx.databinding:databinding-common:7.1.2'
     api 'androidx.databinding:databinding-runtime:7.1.2'
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha03'
+    api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha03'
 
     api 'com.google.code.gson:gson:2.8.6'
     api 'com.github.bumptech.glide:glide:4.12.0'//图片加载库
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
+
+    api 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
 
     //cachek
     implementation 'androidx.room:room-runtime:2.4.2'
