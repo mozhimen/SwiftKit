@@ -4,58 +4,94 @@ import android.content.ComponentName
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.*
 import androidx.navigation.fragment.DialogFragmentNavigator
-import com.mozhimen.componentk.navigatek.annors.NavigateKType
 import com.mozhimen.componentk.navigatek.helpers.NavigateKHelper
+import com.mozhimen.componentk.navigatek.mos.NavigateKPageInfo
+import java.util.*
 
 object NavigateK {
 
-    fun <T> buildNavGraph(
+    private const val dest_type_activity = "Activity"
+    private const val dest_type_fragment = "Fragment"
+    private const val dest_type_dialog = "Dialog"
+
+    fun getId(clazz: Class<*>): Int {
+        return kotlin.math.abs(clazz.name.hashCode())
+    }
+
+    fun buildNavGraph(
         activity: FragmentActivity,
         containerId: Int,
-        @NavigateKType navigateKType: Int = NavigateKType.FRAGMENT,
-        vararg component: T
+        clazzes: List<Class<*>>
     ) {
         val navController = activity.findNavController(containerId)
         val childFragmentManager = activity.supportFragmentManager.findFragmentById(containerId)!!.childFragmentManager
-
-        val iterator: Iterator<GuideKPkgPage> = pkgConfig.pkgPages.iterator()
+        val pageInfos = clazzes2PageInfos(clazzes)
+        val iterator: Iterator<NavigateKPageInfo> = pageInfos.iterator()
         val navigatorProvider = navController.navigatorProvider
-
         val graphNavigator = navigatorProvider.getNavigator(NavGraphNavigator::class.java)
         val navGraph = NavGraph(graphNavigator)
-
         val navigateKHelper = NavigateKHelper(activity, childFragmentManager, containerId)
         navigatorProvider.addNavigator(navigateKHelper)
         while (iterator.hasNext()) {
             val page = iterator.next()
-            when (navigateKType) {
-                NavigateKType.ACTIVITY -> {
+            when (page.destType) {
+                dest_type_activity -> {
                     val navigator = navigatorProvider.getNavigator(ActivityNavigator::class.java)
                     val node: ActivityNavigator.Destination = navigator.createDestination()
-                    node.id = page.pageInfo.id
-                    node.setComponentName(ComponentName(activity.packageName, page.pageInfo.clazzName))
+                    node.id = page.id
+                    node.setComponentName(ComponentName(activity.packageName, page.clazzName))
                     navGraph.addDestination(node)
                 }
-                NavigateKType.FRAGMENT -> {
+                dest_type_fragment -> {
                     val node = navigateKHelper.createDestination()
-                    node.id = page.pageInfo.id
-                    node.className = page.pageInfo.clazzName
+                    node.id = page.id
+                    node.className = page.clazzName
                     navGraph.addDestination(node)
                 }
-                NavigateKType.DIALOG -> {
+                dest_type_dialog -> {
                     val navigator = navigatorProvider.getNavigator(
                         DialogFragmentNavigator::class.java
                     )
                     val node: DialogFragmentNavigator.Destination = navigator.createDestination()
-                    node.id = page.pageInfo.id
-                    node.setClassName(page.pageInfo.clazzName)
+                    node.id = page.id
+                    node.setClassName(page.clazzName)
                     navGraph.addDestination(node)
                 }
             }
         }
-        if (pkgConfig.indexDefault in pkgConfig.pkgPages.indices) {
-            navGraph.setStartDestination(pkgConfig.pkgPages.filter { page -> page.pageInfo.index == pkgConfig.indexDefault }[0].pageInfo.id)
+        navGraph.setStartDestination(pageInfos[0].id)
+        navController.graph = navGraph
+    }
+
+    private fun clazzes2PageInfos(clazzes: List<Class<*>>): List<NavigateKPageInfo> {
+        val navigateKPageInfos: ArrayList<NavigateKPageInfo> = arrayListOf()
+        clazzes.forEach {
+            val destType = getDestinationType(it) ?: throw Exception("this class is not fragment, dialog, or activity")
+            val clazzName = it::class.java.name
+            val id = kotlin.math.abs(clazzName.hashCode())
+            navigateKPageInfos.add(NavigateKPageInfo(destType, id, clazzName))
         }
-        controller.graph = navGraph
+        return navigateKPageInfos
+    }
+
+    /**
+     * 获取页面Type,Activity/Fragment/Dialog
+     * @param clazz Class<*>
+     * @return String?
+     */
+    private fun getDestinationType(clazz: Class<*>): String? {
+        val superClazzName: String = clazz.superclass.toString()
+        return when {
+            superClazzName.contains(dest_type_activity) -> {
+                dest_type_activity
+            }
+            superClazzName.contains(dest_type_fragment) -> {
+                dest_type_fragment
+            }
+            superClazzName.contains(dest_type_dialog) -> {
+                dest_type_dialog
+            }
+            else -> null
+        }
     }
 }

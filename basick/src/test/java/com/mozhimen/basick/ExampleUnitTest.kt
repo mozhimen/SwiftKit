@@ -1,5 +1,6 @@
 package com.mozhimen.basick
 
+import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.extsk.printlog
 import com.mozhimen.basick.utilk.UtilKConsole
 import com.mozhimen.basick.utilk.UtilKDate
@@ -7,6 +8,7 @@ import com.mozhimen.basick.utilk.UtilKEncryptMD5
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -28,16 +30,9 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun testMd5() {
-        val deviceSerialNum = "3K8D33K3"
-        val timestamp = UtilKDate.getTimeStamp()//"1665559396"
-        val signature1 = UtilKEncryptMD5.encrypt16("hsq$deviceSerialNum$timestamp")
-        val signature2 = UtilKEncryptMD5.encryptLower32("hsq$deviceSerialNum$timestamp")
-        val signature3 = UtilKEncryptMD5.encrypt32("hsq$deviceSerialNum$timestamp")
-        deviceSerialNum.printlog()
-        timestamp.printlog()
-        signature1.printlog()
-        signature2.printlog()
-        signature3.printlog()
+    fun test_class() {
+        BaseKActivity::class.java.toString().printlog()
+        BaseKActivity::class.java.superclass.toString().printlog()
+        BaseKActivity::class.java.superclass.toString().contains("Activity").printlog()
     }
 }

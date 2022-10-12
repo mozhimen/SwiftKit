@@ -24,7 +24,7 @@ class NavigateKActivity : BaseKActivity<ActivityNavigatekBinding, BaseKViewModel
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        NavigateK.buildNavGraph(this,R.id.navigatek_fragment_container)
+        NavigateK.buildNavGraph(this,R.id.navigatek_fragment_container,)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
