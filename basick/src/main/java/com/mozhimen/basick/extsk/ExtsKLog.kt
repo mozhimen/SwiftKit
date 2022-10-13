@@ -23,7 +23,7 @@ fun String.v() {
  * @param tag String
  */
 fun String.vt(tag: String) {
-    UtilKLog.vt(this, tag)
+    UtilKLog.vt(tag, this)
 }
 
 /**
@@ -40,7 +40,7 @@ fun String.d() {
  * @param tag String
  */
 fun String.dt(tag: String) {
-    UtilKLog.dt(this, tag)
+    UtilKLog.dt(tag, this)
 }
 
 /**
@@ -57,7 +57,7 @@ fun String.i() {
  * @param tag String
  */
 fun String.it(tag: String) {
-    UtilKLog.it(this, tag)
+    UtilKLog.it(tag, this)
 }
 
 /**
@@ -74,7 +74,7 @@ fun String.w() {
  * @param tag String
  */
 fun String.wt(tag: String) {
-    UtilKLog.wt(this, tag)
+    UtilKLog.wt(tag, this)
 }
 
 /**
@@ -91,5 +91,5 @@ fun String.e() {
  * @param tag String
  */
 fun String.et(tag: String) {
-    UtilKLog.et(this, tag)
+    UtilKLog.et(tag, this)
 }

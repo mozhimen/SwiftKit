@@ -280,6 +280,7 @@ class TextKBubbleDrawable : Drawable() {
                 )
                 outShape.arrowPeakY = outShape.rect.bottom + outShape.arrowHeight
             }
+            else -> {}
         }
     }
 

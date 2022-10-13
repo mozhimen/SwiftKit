@@ -21,17 +21,17 @@ class AnimK(lifecycleOwner: LifecycleOwner) : DefaultLifecycleObserver {
         lifecycleOwner.lifecycle.addObserver(this)
     }
 
-    fun with(view: View): UtilKAnim {
-        _views.append(view.id, view)
-        return UtilKAnim
-    }
-
-    override fun onPause(owner: LifecycleOwner) {
-        _views.forEach { _, view ->
-            view.stopAnim()
-        }
-        _views.clear()
-        owner.lifecycle.removeObserver(this)
-        super.onPause(owner)
-    }
+//    fun with(view: View): UtilKAnim {
+//        _views.append(view.id, view)
+//        return UtilKAnim
+//    }
+//
+//    override fun onPause(owner: LifecycleOwner) {
+//        _views.forEach { _, view ->
+//            view.stopAnim()
+//        }
+//        _views.clear()
+//        owner.lifecycle.removeObserver(this)
+//        super.onPause(owner)
+//    }
 }
