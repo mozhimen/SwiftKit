@@ -35,4 +35,11 @@ class ExampleUnitTest {
         BaseKActivity::class.java.superclass.toString().printlog()
         BaseKActivity::class.java.superclass.toString().contains("Activity").printlog()
     }
+
+    @Test
+    fun md5() {
+        val a = "DK3333"
+        val b = "1665565543326"
+        UtilKEncryptMD5.encrypt32("hsq$a$b").printlog()
+    }
 }

@@ -48,9 +48,9 @@ open class BaseKFragment<VB : ViewDataBinding, VM : BaseKViewModel>(private val 
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         vb.unbind()
         _vb = null
+        super.onDestroy()
     }
 
     override fun initFlag() {}

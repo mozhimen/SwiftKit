@@ -34,8 +34,8 @@ open class BaseKActivity<VB : ViewDataBinding, VM : BaseKViewModel>(private val 
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         vb.unbind()
+        super.onDestroy()
     }
 
     override fun initFlag() {}

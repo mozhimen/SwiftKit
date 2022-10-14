@@ -68,7 +68,7 @@ object UtilKBuild {
     fun getId(): String = Build.ID
 
     //设备无线固件版本
-    fun getRadioVersion(): String = Build.getRadioVersion()
+    fun getRadioVersion(): String = Build.getRadioVersion() ?: "unknown"
 
     //系统引导加载程序版本
     fun getBootLoader(): String = Build.BOOTLOADER

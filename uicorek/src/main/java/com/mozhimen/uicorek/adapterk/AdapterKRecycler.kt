@@ -25,32 +25,32 @@ import com.mozhimen.uicorek.bindk.BindKViewHolder
  * }}}
  * viewBinding.mainList.adapter=adapter
  */
-typealias IAdapterKRecyclerListener<T, VB> = (holder: BindKViewHolder<VB>, itemData: T, position: Int) -> Unit
+typealias IAdapterKRecyclerListener<BEAN, VB> = (holder: BindKViewHolder<VB>, itemData: BEAN, position: Int) -> Unit
 
-open class AdapterKRecycler<T, VB : ViewDataBinding>(
-    private var _itemDatas: List<T>,
+open class AdapterKRecycler<BEAN, VB : ViewDataBinding>(
+    private var _itemDatas: List<BEAN>,
     private val _defaultLayout: Int,
     private val _brId: Int,
-    private val _listener: IAdapterKRecyclerListener<T, VB>? = null /* = (com.mozhimen.uicorek.bindk.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
+    private val _listener: IAdapterKRecyclerListener<BEAN, VB>? = null /* = (com.mozhimen.uicorek.bindk.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
 ) : RecyclerView.Adapter<BindKViewHolder<VB>>() {
 
     @SuppressLint("NotifyDataSetChanged")
-    fun onItemDataChanged(newItemDatas: List<T>) {
+    fun onItemDataChanged(newItemDatas: List<BEAN>) {
         _itemDatas = newItemDatas
         notifyDataSetChanged()
     }
 
-    fun onItemRangeChanged(newItemDatas: List<T>, positionStart: Int, itemCount: Int) {
+    fun onItemRangeChanged(newItemDatas: List<BEAN>, positionStart: Int, itemCount: Int) {
         _itemDatas = newItemDatas
         notifyItemChanged(positionStart, itemCount)
     }
 
-    fun onItemRangeInserted(newItemDatas: List<T>, positionStart: Int, itemCount: Int) {
+    fun onItemRangeInserted(newItemDatas: List<BEAN>, positionStart: Int, itemCount: Int) {
         _itemDatas = newItemDatas
         notifyItemRangeInserted(positionStart, itemCount)
     }
 
-    fun onItemRangeRemoved(newItemDatas: List<T>, positionStart: Int, itemCount: Int) {
+    fun onItemRangeRemoved(newItemDatas: List<BEAN>, positionStart: Int, itemCount: Int) {
         _itemDatas = newItemDatas
         notifyItemRangeRemoved(positionStart, itemCount)
     }

@@ -1,6 +1,7 @@
 package com.mozhimen.componentktest.navigatek
 
 import android.os.Bundle
+import androidx.navigation.NavController
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.extsk.e
 import com.mozhimen.basick.extsk.et
@@ -11,8 +12,13 @@ import com.mozhimen.componentktest.navigatek.fragments.FirstFragment
 import com.mozhimen.componentktest.navigatek.fragments.SecondFragment
 
 class NavigateKActivity : BaseKActivity<ActivityNavigatekBinding, NavigateKViewModel>(R.layout.activity_navigatek) {
-
+    private lateinit var _navController: NavController
     private var _currentItemId: Int = 0
+        set(value) {
+            if (value == -1) return
+            _navController.navigate(value)
+            field = value
+        }
 
     companion object {
         private const val navigatek_saved_current_id = "navigatek_saved_current_id"
@@ -20,16 +26,15 @@ class NavigateKActivity : BaseKActivity<ActivityNavigatekBinding, NavigateKViewM
 
     override fun initData(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
-            _currentItemId = savedInstanceState.getInt(navigatek_saved_current_id)
+            _currentItemId = savedInstanceState.getInt(navigatek_saved_current_id, -1)
         }
         initView(savedInstanceState)
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        val navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, listOf(FirstFragment::class.java, SecondFragment::class.java))
+        _navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, listOf(FirstFragment::class.java, SecondFragment::class.java))
         vm.liveFragmentId.observe(this) {
-            if (it != null && navController.findDestination(it) != null) {
-                navController.navigate(it)
+            if (it != null && _navController.findDestination(it) != null&& _navController.currentDestination?.id != it) {
                 _currentItemId = it
             } else {
                 "please add this destination to list".et(TAG)
