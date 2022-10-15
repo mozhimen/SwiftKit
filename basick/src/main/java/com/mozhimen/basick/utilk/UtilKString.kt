@@ -29,36 +29,6 @@ object UtilKString {
     }
 
     /**
-     * 流转字符串
-     * @param inputStream InputStream
-     * @return String?
-     */
-    fun inputStream2String(inputStream: InputStream): String {
-        var bufferedReader: BufferedReader? = null
-        try {
-            val stringBuilder = StringBuilder()
-            bufferedReader = BufferedReader(InputStreamReader(inputStream, "UTF-8"))
-            var str: String?
-            while (bufferedReader.readLine().also { str = it } != null) {
-                stringBuilder.append(str)
-                stringBuilder.append("\n")
-            }
-            return stringBuilder.toString()
-        } catch (e: Exception) {
-            Log.e(TAG, "inputStream2String: Exception ${e.message}")
-            e.printStackTrace()
-        } finally {
-            try {
-                bufferedReader?.close()
-            } catch (e: IOException) {
-                Log.e(TAG, "inputStream2String: IOException ${e.message}")
-                e.printStackTrace()
-            }
-        }
-        return ""
-    }
-
-    /**
      * 获取分割后的最后一个元素
      * @param str String
      * @param splitStr String

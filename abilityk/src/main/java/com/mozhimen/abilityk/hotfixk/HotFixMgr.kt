@@ -61,9 +61,8 @@ class HotFixMgr {
         val sourceFiles: Array<File> = getAllExternalHotFixFiles(sourcePath)
         sourceFiles.forEach {
             val destFile = File(_hotfixPath, it.name)
-            UtilKFile.copyFile(it, destFile) {
-                UtilKFile.deleteFile(it)
-            }
+            UtilKFile.copyFile(it, destFile)
+            UtilKFile.deleteFile(it)
         }
         LogK.dt(TAG, "moveHotFixFiles2InnerSpace: move ${sourceFiles.size} files to cache dir")
         _hotFixKListener?.onMoveHotFixFilesFinished(sourceFiles.size)
@@ -124,14 +123,14 @@ class HotFixMgr {
      * 清除所有热修复dex文件
      */
     fun clearHotFixFiles() {
-        UtilKFile.deleteAllFiles(_hotfixPath)
+        UtilKFile.deleteFolder(_hotfixPath)
     }
 
     private fun getAllExternalHotFixFiles(sourcePath: String): Array<File> {
         val sourceFiles: Array<File> = File(sourcePath).listFiles() ?: emptyArray()
         val dexFiles = ArrayList<File>()
         sourceFiles.forEach {
-            if (!UtilKFile.isDirectory(it) && it.extension == "dex" && it.name.startsWith("hotfixk"))
+            if (!UtilKFile.isFolder(it) && it.extension == "dex" && it.name.startsWith("hotfixk"))
                 dexFiles.add(it)
         }
         return dexFiles.toTypedArray()

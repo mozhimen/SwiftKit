@@ -2,10 +2,10 @@ package com.mozhimen.basick.utilk
 
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.core.content.FileProvider
 
 import java.io.*
+import java.lang.StringBuilder
 import java.math.BigInteger
 import java.security.MessageDigest
 
@@ -21,98 +21,200 @@ object UtilKFile {
     private const val TAG = "UtilKFile>>>>>"
     private val _context = UtilKGlobal.instance.getApp()!!
 
-    fun file2Uri(file: File): Uri =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            FileProvider.getUriForFile(
-                _context,
-                "${_context.packageName}.fileProvider",
-                file
-            )
-        } else {
-            Uri.fromFile(file)
-        }
+    /**
+     * 判断是否是文件夹
+     * @param folder File
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isFolder(folder: File): Boolean =
+        folder.exists() && folder.isDirectory
 
     /**
-     * 文件转MD5
-     * @param inputStream InputStream
-     * @return String?
+     * 判断是否为文件
+     * @param file File
+     * @return Boolean
      */
-    fun file2MD5(inputStream: InputStream): String? {
-        val digest: MessageDigest?
-        val buffer = ByteArray(1024)
-        var len: Int
-        try {
-            digest = MessageDigest.getInstance("MD5")
-            while (inputStream.read(buffer, 0, 1024).also { len = it } != -1) {
-                digest.update(buffer, 0, len)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return null
+    @JvmStatic
+    fun isFile(file: File): Boolean =
+        file.exists() && file.isFile
+
+    /**
+     * 创建文件
+     * @param filePathWithName String
+     * @return File
+     * @throws Exception
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun createFile(filePathWithName: String): File =
+        createFile(File(filePathWithName))
+
+    /**
+     * 创建文件
+     * @param file File
+     * @return File
+     * @throws Exception
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun createFile(file: File): File {
+        file.parent?.let { createFolder(it) } ?: throw Exception("dont have parent folder")
+        if (!file.exists()) {
+            file.createNewFile()
         }
-        val bigInteger = BigInteger(1, digest.digest())
-        return bigInteger.toString(16)
+        return file
     }
 
     /**
-     * 创建文件夹
-     * @param file File
+     * 删除文件
+     * @param filePathWithName String
+     * @throws Exception
      */
-    fun createDir(file: File) {
-        val parentPath = file.parent ?: throw Exception("this file does nt have parent path")
-        val dir = File(parentPath)
-        if (!dir.exists()) {
-            dir.mkdirs()
-        }
+    @JvmStatic
+    @Throws(Exception::class)
+    fun deleteFile(filePathWithName: String) {
+        deleteFile(File(filePathWithName))
     }
 
     /**
      * 删除文件
      * @param file File
      */
-    fun deleteFile(file: File) {
-        if (file.exists() && file.isFile) {
+    @JvmStatic
+    @Throws(Exception::class)
+    fun deleteFile(file: File): Boolean {
+        return if (file.exists() && file.isFile) {
             file.delete()
+        } else false
+    }
+
+    /**
+     * 创建文件夹
+     * @param folderPath String
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun createFolder(folderPath: String) {
+        createFolder(File(genFolderPath(folderPath)))
+    }
+
+    /**
+     * 创建文件夹
+     * @param folder File
+     * @throws Exception
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun createFolder(folder: File) {
+        if (!folder.exists()) {
+            folder.mkdirs()
         }
     }
 
     /**
-     * 删除所有文件
-     * @param rootPath String
+     * 删除文件夹
+     * @param folderPath String
+     * @return Boolean
+     * @throws Exception
      */
-    fun deleteAllFiles(rootPath: String) {
-        deleteAllFiles(File(rootPath))
+    @JvmStatic
+    @Throws(Exception::class)
+    fun deleteFolder(folderPath: String): Boolean {
+        return deleteFolder(File(genFolderPath(folderPath)))
     }
 
     /**
-     * 删除所有文件
-     * @param root File
+     * 删除文件夹
+     * @param folder File
+     * @return Boolean
+     * @throws Exception
      */
-    fun deleteAllFiles(root: File) {
-        if (!root.exists()) return
-        Log.d(TAG, "deleteAllFiles: root ${root.absolutePath}")
-        val listFiles: Array<File> = root.listFiles() ?: emptyArray()
-        if (listFiles.isNotEmpty())
+    @JvmStatic
+    @Throws(Exception::class)
+    fun deleteFolder(folder: File): Boolean {
+        if (!folder.exists()) return false
+        val listFiles: Array<File> = folder.listFiles() ?: emptyArray()
+        if (listFiles.isNotEmpty()) {
             for (file in listFiles) {
-                if (file.isDirectory) { // 判断是否为文件夹
-                    deleteAllFiles(file)
-                    try {
-                        file.delete()
-                    } catch (e: Exception) {
-                        Log.e(TAG, "deleteAllFiles: Exception ${e.message}")
-                        e.printStackTrace()
-                    }
+                if (isFolder(file)) { // 判断是否为文件夹
+                    deleteFolder(file)
+                    file.delete()
                 } else {
-                    if (file.exists()) { // 判断是否存在
-                        try {
-                            file.delete()
-                        } catch (e: Exception) {
-                            Log.e(TAG, "deleteAllFiles: Exception ${e.message}")
-                            e.printStackTrace()
-                        }
-                    }
+                    deleteFile(file)
                 }
             }
+        }
+        return true
+    }
+
+    /**
+     * 文本转文件
+     * @param content String
+     * @param filePathWithName String
+     * @throws Exception
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun string2File(content: String, filePathWithName: String) {
+        val tmpContent = content + "\r\n"
+        val txtFile = createFile(filePathWithName)
+        val randomAccessFile = RandomAccessFile(txtFile, "rwf")
+        randomAccessFile.use { raf ->
+            raf.write(tmpContent.toByteArray())
+        }
+    }
+
+    /**
+     * 文件转文本
+     * @param filePathWithName String
+     * @return String
+     * @throws Exception
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun file2String(filePathWithName: String): String {
+        val file = File(filePathWithName)
+        if (isFolder(file)) return "this path is a folder"
+        val fileInputStream = FileInputStream(file)
+        fileInputStream.use { stream ->
+            return inputStream2String(stream)
+        }
+    }
+
+    /**
+     * 流转字符串
+     * @param inputStream InputStream
+     * @return String
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun inputStream2String(inputStream: InputStream): String {
+        val stringBuilder = StringBuilder()
+        val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
+        val bufferedReader = BufferedReader(inputStreamReader)
+        try {
+            var lineString = ""
+            while (bufferedReader.readLine()?.also { lineString = it } != null) {
+                stringBuilder.append(lineString).append("\n")
+            }
+            return stringBuilder.toString()
+        } finally {
+            bufferedReader.close()
+            inputStreamReader.close()
+        }
+    }
+
+    /**
+     * 复制文件
+     * @param sourceFilePathWithName String
+     * @param destFilePathWithName String
+     * @throws Exception
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun copyFile(sourceFilePathWithName: String, destFilePathWithName: String) {
+        copyFile(File(sourceFilePathWithName), File(destFilePathWithName))
     }
 
     /**
@@ -120,54 +222,58 @@ object UtilKFile {
      * @param sourceFile File
      * @param destFile File
      */
-    fun copyFile(sourceFile: File, destFile: File, onFinish: (() -> Unit)? = null) {
-        var inputStream: FileInputStream? = null
-        var outputStream: FileOutputStream? = null
-        val parent = destFile.parentFile
-        if (parent != null && !parent.exists()) {
-            parent.mkdirs()
-        }
-        if (!destFile.exists()) {
-            try {
-                destFile.createNewFile()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
+    @JvmStatic
+    @Throws(Exception::class)
+    fun copyFile(sourceFile: File, destFile: File) {
+        if (!sourceFile.exists()) return
+        if (!destFile.exists()) createFile(destFile)
+        val fileInputStream = FileInputStream(sourceFile)
+        val fileOutputStream = FileOutputStream(destFile)
         try {
-            inputStream = FileInputStream(sourceFile)
-            outputStream = FileOutputStream(destFile)
             val buffer = ByteArray(16384)
-            var length: Int
-            while (inputStream.read(buffer).also { length = it } > 0) {
-                outputStream.write(buffer, 0, length)
+            var bufferLength: Int
+            while (fileInputStream.read(buffer).also { bufferLength = it } > 0) {
+                fileOutputStream.write(buffer, 0, bufferLength)
             }
-        } catch (e: IOException) {
-            e.printStackTrace()
         } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-            if (outputStream != null) {
-                try {
-                    outputStream.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-            onFinish?.invoke()
+            fileInputStream.close()
+            fileOutputStream.close()
         }
     }
 
     /**
-     * 判断是否是文件夹
+     * 文件转Uri
      * @param file File
-     * @return Boolean
+     * @return Uri
      */
-    fun isDirectory(file: File): Boolean =
-        file.isDirectory
+    @JvmStatic
+    @Throws(Exception::class)
+    fun file2Uri(file: File): Uri =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            FileProvider.getUriForFile(_context, "${_context.packageName}.fileProvider", file)
+        else Uri.fromFile(file)
+
+    /**
+     * 文件转Md5
+     * @param inputStream InputStream
+     * @return String
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    fun file2Md5(inputStream: InputStream): String {
+        val buffer = ByteArray(1024)
+        val messageDigest: MessageDigest = MessageDigest.getInstance("md5") ?: throw Exception("get md5 fail")
+        var bufferLength: Int
+        while (inputStream.read(buffer, 0, 1024).also { bufferLength = it } != -1) {
+            messageDigest.update(buffer, 0, bufferLength)
+        }
+        val bigInteger = BigInteger(1, messageDigest.digest())
+        return bigInteger.toString(16)
+    }
+
+    private fun genFolderPath(folderPath: String): String {
+        var tmpFolderPath = folderPath
+        if (!tmpFolderPath.endsWith(File.separator)) tmpFolderPath += File.separator
+        return tmpFolderPath
+    }
 }

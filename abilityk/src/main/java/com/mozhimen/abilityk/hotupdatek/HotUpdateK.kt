@@ -31,7 +31,7 @@ object HotUpdateK {
         if (!isNeedUpdate(nowVersionCode)) return
         //delete all cache
         try {
-            UtilKFile.deleteAllFiles(INSTALL_DIRECTORY)
+            UtilKFile.deleteFolder(INSTALL_DIRECTORY)
         } catch (e: Exception) {
             LogK.et(TAG, "updateApk: Exception ${e.message}")
             e.printStackTrace()
