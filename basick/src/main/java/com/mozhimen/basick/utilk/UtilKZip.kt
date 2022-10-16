@@ -16,6 +16,7 @@ import java.util.zip.ZipOutputStream
 object UtilKZip {
     private const val TAG = "UtilKZip>>>>>"
 
+    @JvmStatic
     fun zip(srcName: String, zipName: String) {
         Log.d(TAG, "zip start")
         val zipOutputStream = ZipOutputStream(FileOutputStream(zipName))
@@ -33,6 +34,7 @@ object UtilKZip {
         }
     }
 
+    @JvmStatic
     fun compress(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, compressFile: File, filePath: String) {
         if (compressFile.isDirectory) {
             val listFiles = compressFile.listFiles() ?: emptyArray()

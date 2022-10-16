@@ -26,6 +26,7 @@ object UtilKVerifyUrl {
      * @param ip String
      * @return Boolean
      */
+    @JvmStatic
     fun isIPValid(ip: String) = ip.matches(Regex(REGEX_IP))
 
     /**
@@ -33,6 +34,7 @@ object UtilKVerifyUrl {
      * @param domain String
      * @return Boolean
      */
+    @JvmStatic
     fun isDoMainValid(domain: String) = domain.matches(Regex(REGEX_DOMAIN))
 
     /**
@@ -40,5 +42,6 @@ object UtilKVerifyUrl {
      * @param port String
      * @return Boolean
      */
+    @JvmStatic
     fun isPortValid(port: String) = port.matches(Regex(REGEX_PORT))
 }

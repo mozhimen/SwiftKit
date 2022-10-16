@@ -24,6 +24,7 @@ object UtilKString {
     /**
      * 是否为空
      */
+    @JvmStatic
     fun isEmpty(str: CharSequence?): Boolean {
         return str == null || str.isEmpty()
     }
@@ -34,6 +35,7 @@ object UtilKString {
      * @param splitStr String
      * @return String
      */
+    @JvmStatic
     fun getSplitLast(str: String, splitStr: String): String = str.substring(str.lastIndexOf(splitStr) + 1, str.length)
 
     /**
@@ -41,6 +43,7 @@ object UtilKString {
      * @param str String
      * @return String
      */
+    @JvmStatic
     fun string2Unicode(str: String): String {
         if (str.isEmpty()) return ""
         val stringBuffer = StringBuffer()
@@ -69,6 +72,7 @@ object UtilKString {
      * @param pattern String
      * @return String
      */
+    @JvmStatic
     fun decimal2String(double: Double, pattern: String = "#.0"): String = DecimalFormat(pattern).format(double)
 
     /**
@@ -77,6 +81,7 @@ object UtilKString {
      * @param locale Locale
      * @return String
      */
+    @JvmStatic
     fun boolean2String(bool: Boolean, locale: Locale = Locale.CHINA) =
         if (locale == Locale.CHINA) if (bool) "是" else "否" else (if (bool) "true" else "false")
 
@@ -87,7 +92,7 @@ object UtilKString {
      * @param splitChar String
      * @return String
      */
-
+    @JvmStatic
     fun <T> joinArray(array: Array<T>, defaultValue: String = "", splitChar: String = ","): String =
         joinList(array.toList(), defaultValue, splitChar)
 
@@ -98,6 +103,7 @@ object UtilKString {
      * @param splitChar String
      * @return String
      */
+    @JvmStatic
     fun <T> joinList(list: List<T>, defaultValue: String = "", splitChar: String = ","): String =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             val ret = list.stream().map { elem: T? -> elem?.toString() ?: "" }
@@ -116,6 +122,7 @@ object UtilKString {
      * @param str String
      * @return String
      */
+    @JvmStatic
     fun hidePhone(str: String): String = if (str.length == 11) str.substring(0, 3) + "****" + str.substring(7, str.length) else str
 
     /**
@@ -123,6 +130,7 @@ object UtilKString {
      * @param str String
      * @return String
      */
+    @JvmStatic
     fun hideName(str: String): String {
         if (str.isEmpty()) return ""
         if (str.length <= 2) return str
@@ -137,6 +145,7 @@ object UtilKString {
      * 生成随机字符串
      * @return String
      */
+    @JvmStatic
     fun getRandomUuid(): String =
         UUID.randomUUID().toString().replace("-", "")
 }
