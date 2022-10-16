@@ -22,6 +22,7 @@ object UtilKNet {
      * 是否连接网络,需要权限:ACCESS_NETWORK_STATE
      * @return Boolean
      */
+    @JvmStatic
     fun isConnectionUseful(): Boolean {
         val connectivityManager = UtilKGlobal.instance.getApp()!!
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -33,6 +34,7 @@ object UtilKNet {
      * 是否连接无线网
      * @return Boolean
      */
+    @JvmStatic
     fun isWifiConnected(): Boolean {
         val connectivityManager = UtilKGlobal.instance.getApp()!!
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -44,6 +46,7 @@ object UtilKNet {
      * 是否连接移动网络
      * @return Boolean
      */
+    @JvmStatic
     fun isMobileConnected(): Boolean {
         val connectivityManager = UtilKGlobal.instance.getApp()!!
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -51,6 +54,7 @@ object UtilKNet {
         return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_MOBILE
     }
 
+    @JvmStatic
     fun degrade2Http() {
         if (CacheKSP.instance.with(utilknet_sp_name).getBoolean(utilknet_sp_degrade_http, false)) return
         CacheKSP.instance.with(utilknet_sp_name).putBoolean(utilknet_sp_degrade_http, true)

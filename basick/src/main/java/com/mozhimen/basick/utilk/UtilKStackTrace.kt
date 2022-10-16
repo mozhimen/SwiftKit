@@ -16,6 +16,7 @@ object UtilKStackTrace {
      * @param maxDepth Int 将被裁剪的真实堆栈跟踪的最大深度，O表示没有限制
      * @return Array<StackTraceElement?> 裁剪后的真实堆栈跟踪
      */
+    @JvmStatic
     fun getCroppedRealStackTrack(
         stackTrace: Array<StackTraceElement?>,
         ignoredPackage: String,
@@ -36,6 +37,7 @@ object UtilKStackTrace {
      * @param ignorePackage String?
      * @return Array<StackTraceElement?> 真正的堆栈跟踪, 所有元素都来自system和library user
      */
+    @JvmStatic
     fun getRealStackTrack(
         stackTrace: Array<StackTraceElement?>,
         ignorePackage: String?
@@ -63,6 +65,7 @@ object UtilKStackTrace {
      * @param maxDepth Int 将被裁剪的真实堆栈跟踪的最大深度, O表示没有限制
      * @return Array<StackTraceElement?> 裁剪后的堆栈跟踪
      */
+    @JvmStatic
     fun cropStackTrace(
         callStack: Array<StackTraceElement?>,
         maxDepth: Int

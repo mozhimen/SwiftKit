@@ -27,6 +27,7 @@ object UtilKShell {
      * @param isRooted Boolean
      * @return UtilKShellCmd?
      */
+    @JvmStatic
     fun execCmd(cmd: String, isRooted: Boolean): UtilKShellCmd {
         return execCmd(arrayOf(cmd), isRooted, true)
     }
@@ -37,6 +38,7 @@ object UtilKShell {
      * @param isRooted Boolean
      * @return UtilKShellCmd?
      */
+    @JvmStatic
     fun execCmd(cmds: List<String>, isRooted: Boolean): UtilKShellCmd {
         return execCmd(cmds.toTypedArray(), isRooted, true)
     }
@@ -47,6 +49,7 @@ object UtilKShell {
      * @param isRooted Boolean
      * @return UtilKShellCmd?
      */
+    @JvmStatic
     fun execCmd(cmds: Array<String>, isRooted: Boolean): UtilKShellCmd {
         return execCmd(cmds, isRooted, true)
     }

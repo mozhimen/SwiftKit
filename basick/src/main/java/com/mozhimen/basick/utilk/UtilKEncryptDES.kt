@@ -25,6 +25,7 @@ object UtilKEncryptDES {
      * @return String
      * @throws Exception
      */
+    @JvmStatic
     @Throws(Exception::class)
     fun encrypt(content: String, secretKey: String): String {
         val bt = encrypt(content.toByteArray(charset(ENCODE)), secretKey.toByteArray(charset(ENCODE)))
@@ -39,6 +40,7 @@ object UtilKEncryptDES {
      * @throws IOException
      * @throws Exception
      */
+    @JvmStatic
     @Throws(IOException::class, Exception::class)
     fun decrypt(content: String, secretKey: String): String {
         val buf = Base64.decode(content.toByteArray(), Base64.DEFAULT)
@@ -53,6 +55,7 @@ object UtilKEncryptDES {
      * @return ByteArray
      * @throws Exception
      */
+    @JvmStatic
     @Throws(Exception::class)
     private fun encrypt(content: ByteArray, secretKey: ByteArray): ByteArray {
         // 生成一个可信任的随机数源
@@ -76,6 +79,7 @@ object UtilKEncryptDES {
      * @return ByteArray
      * @throws Exception
      */
+    @JvmStatic
     @Throws(Exception::class)
     private fun decrypt(content: ByteArray, secretKey: ByteArray): ByteArray {
         // 生成一个可信任的随机数源

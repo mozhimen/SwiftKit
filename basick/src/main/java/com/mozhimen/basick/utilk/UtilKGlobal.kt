@@ -37,8 +37,8 @@ class UtilKGlobal {
                 _application = Class.forName("android.app.ActivityThread")
                     .getMethod("currentApplication")
                     .invoke(null) as Application
-            } catch (ex: Exception) {
-                ex.printStackTrace()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
         return _application

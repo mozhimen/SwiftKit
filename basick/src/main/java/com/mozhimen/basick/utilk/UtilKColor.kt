@@ -20,6 +20,7 @@ object UtilKColor {
      * @param ratio Float
      * @return Int
      */
+    @JvmStatic
     @RequiresApi(Build.VERSION_CODES.O)
     fun getMedianColor(startColor: Int, endColor: Int, ratio: Float): Int {
         val startRed = Color.red(startColor)

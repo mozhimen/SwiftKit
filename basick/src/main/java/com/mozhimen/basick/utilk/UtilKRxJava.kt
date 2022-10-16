@@ -26,6 +26,7 @@ object UtilKRxJava {
      * @param next IRxJavaListener
      * @return Disposable
      */
+    @JvmStatic
     fun timer(
         millisecond: Long,
         schedulers: Scheduler = AndroidSchedulers.mainThread(),
@@ -42,6 +43,7 @@ object UtilKRxJava {
      * @param next IRxJavaListener
      * @return Disposable
      */
+    @JvmStatic
     fun interval(
         millisecond: Long,
         schedulers: Scheduler = AndroidSchedulers.mainThread(),
@@ -59,6 +61,7 @@ object UtilKRxJava {
      * @param next IRxJavaListener
      * @return Disposable
      */
+    @JvmStatic
     fun take(
         millisecond: Long,
         repeatCount: Int,

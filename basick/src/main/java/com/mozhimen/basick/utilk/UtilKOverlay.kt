@@ -15,6 +15,7 @@ import android.provider.Settings
 object UtilKOverlay {
     private val _context = UtilKGlobal.instance.getApp()!!
 
+    @JvmStatic
     fun startOverlaySettingActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             _context.startActivity(
@@ -26,6 +27,7 @@ object UtilKOverlay {
         }
     }
 
+    @JvmStatic
     fun hasOverlayPermission(): Boolean {
         return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(_context)
     }

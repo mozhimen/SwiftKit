@@ -27,6 +27,7 @@ object UtilKPackage {
      * 获取程序包名
      * @return String
      */
+    @JvmStatic
     fun getPkgVersionName(): String {
         return try {
             val pi = _context.packageManager.getPackageInfo(_context.packageName, 0)
@@ -42,6 +43,7 @@ object UtilKPackage {
      * 获取程序版本号
      * @return Int
      */
+    @JvmStatic
     fun getPkgVersionCode(): Int {
         return try {
             val pi = _context.packageManager.getPackageInfo(_context.packageName, 0)
@@ -63,6 +65,7 @@ object UtilKPackage {
      * @param pkgName String
      * @return Boolean
      */
+    @JvmStatic
     fun installSilence(apkPath: String, pkgName: String): Boolean {
         val cmd = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPath)
@@ -107,6 +110,7 @@ object UtilKPackage {
      * @param pathApk String
      * @param receiver Class<LoadKReceiverInstall>
      */
+    @JvmStatic
     fun installSilence(pathApk: String, receiver: Class<LoadKReceiverInstall>) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             installSilenceAfter28(pathApk, receiver)
@@ -120,6 +124,7 @@ object UtilKPackage {
      * @param pathApk String
      * @return Boolean
      */
+    @JvmStatic
     fun installSilenceBefore28(pathApk: String): Boolean {
         var process: Process? = null
         var resSuccess: BufferedReader? = null
@@ -165,6 +170,7 @@ object UtilKPackage {
      * @param pathApk String
      * @param receiver Class<LoadKReceiverInstall>
      */
+    @JvmStatic
     fun installSilenceAfter28(pathApk: String, receiver: Class<LoadKReceiverInstall>) {
         Log.d(TAG, "install28 path $pathApk")
         val apkFile = File(pathApk)

@@ -22,6 +22,7 @@ object UtilKEncryptBitmap {
      * @param base64String String
      * @return Bitmap?
      */
+    @JvmStatic
     fun base642Bitmap(base64String: String): Bitmap? {
         val timeMillis = System.currentTimeMillis()
         val decode: ByteArray = Base64.decode(base64String, Base64.DEFAULT)
@@ -35,6 +36,7 @@ object UtilKEncryptBitmap {
      * @param bitmap Bitmap
      * @return String?
      */
+    @JvmStatic
     fun bitmap2Base64(bitmap: Bitmap): String? {
         var result: String? = null
         var baos: ByteArrayOutputStream? = null

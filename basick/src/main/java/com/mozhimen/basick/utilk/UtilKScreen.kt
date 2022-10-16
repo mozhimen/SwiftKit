@@ -62,6 +62,7 @@ object UtilKScreen {
      * @param paramFloat Float 0-1范围
      * @param activity Activity
      */
+    @JvmStatic
     fun setScreenBrightness(paramFloat: Float, activity: Activity) {
         val localWindow: Window = activity.window
         val params: WindowManager.LayoutParams = localWindow.attributes
@@ -73,12 +74,14 @@ object UtilKScreen {
      * 获取屏幕密度dp
      * @return Int
      */
+    @JvmStatic
     fun getDensityDpi(): Int = _context.resources.configuration.densityDpi
 
     /**
      * 获取屏幕密度
      * @return Float
      */
+    @JvmStatic
     fun getDensity(): Float = _context.resources.displayMetrics.density
 
     /**
@@ -87,6 +90,7 @@ object UtilKScreen {
      * 缺点: 不管你是否设置全屏模式,或是不是显示状态栏,高度是固定的;因为系统资源属性是固定的,真实的,不管你是否隐藏(隐藏或显示),他都在nali
      * @return Int
      */
+    @JvmStatic
     fun getStatusBarHeight(): Int {
         var statusBarHeight = 0
         val typedArray = _context.theme.obtainStyledAttributes(
@@ -115,6 +119,7 @@ object UtilKScreen {
      * @param activity Activity
      * @return Int
      */
+    @JvmStatic
     fun getStatusBarHeight(activity: Activity): Int {
         val rect = Rect()
         activity.window.decorView.getWindowVisibleDisplayFrame(rect)
@@ -127,6 +132,7 @@ object UtilKScreen {
      * @param activity Activity
      * @return Int
      */
+    @JvmStatic
     fun getTitleBarHeight(activity: Activity) =
         getViewDrawHeight(activity) - getStatusBarHeight(activity)
 
@@ -173,6 +179,7 @@ object UtilKScreen {
      * 获取屏幕尺寸
      * @return Float
      */
+    @JvmStatic
     fun getScreenSize(): Float {
         val xdpi = _context.resources.displayMetrics.xdpi
         val ydpi = _context.resources.displayMetrics.ydpi
@@ -189,12 +196,14 @@ object UtilKScreen {
      * 获取dp宽
      * @return Int
      */
+    @JvmStatic
     fun getScreenWidthDp(): Int = _context.resources.configuration.screenWidthDp
 
     /**
      * 获取dp高
      * @return Int
      */
+    @JvmStatic
     fun getScreenHeightDp(): Int = _context.resources.configuration.screenHeightDp
 
     /**
@@ -202,6 +211,7 @@ object UtilKScreen {
      * @param context Context
      * @return Int
      */
+    @JvmStatic
     fun getVirtualBarHeight(context: Context): Int {
         var virtualBarHeight = 0
         val displayMetrics = DisplayMetrics()
@@ -225,6 +235,7 @@ object UtilKScreen {
      * 是否为竖屏
      * @return Boolean
      */
+    @JvmStatic
     fun isPortrait(): Boolean = _context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
 
     /**
@@ -232,6 +243,7 @@ object UtilKScreen {
      * @param activity Activity
      * @return Int
      */
+    @JvmStatic
     fun getRotation(activity: Activity): Int = UtilKDisplay.getRotation(activity)
 
     /**
@@ -239,6 +251,7 @@ object UtilKScreen {
      * @param activity Activity
      * @return Bitmap
      */
+    @JvmStatic
     fun captureScreen(activity: Activity): Bitmap {
         val view = activity.window.decorView
         view.isDrawingCacheEnabled = true

@@ -67,6 +67,7 @@ object UtilKEncryptAES {
      * @param cipherAlgorithm String
      * @return UtilKAESProvider
      */
+    @JvmStatic
     fun require(
         secretKey: String,
         ivString: String = secretKey,
@@ -92,6 +93,7 @@ object UtilKEncryptAES {
          * @param content String 要加密的内容
          * @return String?
          */
+        @JvmStatic
         fun encrypt(content: String): String? {
             require(_secretKey != null && _ivString != null) {
                 "secureKey or _ivString must not be null"
@@ -135,6 +137,7 @@ object UtilKEncryptAES {
          * @param encryptContent String
          * @return String?
          */
+        @JvmStatic
         fun decrypt(encryptContent: String): String? {
             require(_secretKey != null && _ivString != null) {
                 "_secretKey or _ivString must not be null"
@@ -179,6 +182,7 @@ object UtilKEncryptAES {
          * @return ByteArray
          * @throws UnsupportedEncodingException
          */
+        @JvmStatic
         @Throws(UnsupportedEncodingException::class)
         fun getAESKey(key: String): ByteArray {
             val keyBytes: ByteArray = key.toByteArray(_charset)

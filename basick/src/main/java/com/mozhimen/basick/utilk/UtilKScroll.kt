@@ -20,6 +20,7 @@ object UtilKScroll {
      * @param child View
      * @return Boolean
      */
+    @JvmStatic
     fun childScrolled(child: View): Boolean {
         if (child is AdapterView<*>) {
             if (child.firstVisiblePosition != 0 || child.firstVisiblePosition == 0 && child.getChildAt(0) != null && child.getChildAt(0).top < 0) {
@@ -41,6 +42,7 @@ object UtilKScroll {
      * @param viewGroup ViewGroup
      * @return View?
      */
+    @JvmStatic
     fun findScrollableChild(viewGroup: ViewGroup): View {
         var child = viewGroup.getChildAt(1)
         if (child is RecyclerView || child is AdapterView<*>) {

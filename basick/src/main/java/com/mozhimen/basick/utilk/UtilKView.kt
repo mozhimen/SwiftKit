@@ -42,6 +42,7 @@ object UtilKView {
      * @param currentView View
      * @param matches Array<out Class<*>>
      */
+    @JvmStatic
     fun getParentViewMatch(currentView: View, vararg matches: Class<*>): View? {
         var view: View = currentView
         while (view.parent != null && view.parent is View) {
@@ -60,6 +61,7 @@ object UtilKView {
      * @param currentView View
      * @param matches Array<out Class<*>>
      */
+    @JvmStatic
     fun isParentViewMatch(currentView: View, vararg matches: Class<*>): Boolean =
         getParentViewMatch(currentView, *matches) != null
 
@@ -69,6 +71,7 @@ object UtilKView {
      * @param cls Class<T>
      * @return T?
      */
+    @JvmStatic
     fun <T> findTypeChildView(
         group: ViewGroup?,
         cls: Class<T>
@@ -121,6 +124,7 @@ object UtilKView {
      * @param view View
      * @param ratio Float
      */
+    @JvmStatic
     fun setViewRatio(
         view: View,
         ratio: Float
@@ -144,6 +148,7 @@ object UtilKView {
      * @param paddingHorizontal Int
      * @param paddingVertical Int
      */
+    @JvmStatic
     fun setPadding(
         view: View,
         paddingHorizontal: Int,
@@ -157,6 +162,7 @@ object UtilKView {
      * @param view View
      * @param padding Int
      */
+    @JvmStatic
     fun setPaddingHorizontal(
         view: View,
         padding: Int
@@ -169,6 +175,7 @@ object UtilKView {
      * @param view View
      * @param padding Int
      */
+    @JvmStatic
     fun setPaddingVertical(
         view: View,
         padding: Int
@@ -182,6 +189,7 @@ object UtilKView {
      * @param width Int
      * @param height Int
      */
+    @JvmStatic
     fun resizeSize(
         view: View,
         width: Int,
@@ -198,6 +206,7 @@ object UtilKView {
      * @param view View
      * @param size Int
      */
+    @JvmStatic
     fun resizeSize(
         view: View,
         size: Int
@@ -212,6 +221,7 @@ object UtilKView {
      * @param textView TextView
      * @param style Int
      */
+    @JvmStatic
     fun fontStyle(
         textView: TextView,
         @IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL
@@ -224,6 +234,7 @@ object UtilKView {
      * @param textView TextView
      * @param fontPath String
      */
+    @JvmStatic
     fun font(
         textView: TextView,
         fontPath: String = "fonts/iconfont.ttf"
@@ -239,6 +250,7 @@ object UtilKView {
      * @param editText EditText
      * @param inputMaxLength Int
      */
+    @JvmStatic
     fun setInputMaxLength(
         editText: EditText,
         inputMaxLength: Int
@@ -255,6 +267,7 @@ object UtilKView {
      * @param imageView ImageView
      * @param drawable Drawable
      */
+    @JvmStatic
     fun fitImage(
         imageView: ImageView,
         drawable: Drawable
@@ -275,6 +288,7 @@ object UtilKView {
      * @param imageView ImageView
      * @param res Any
      */
+    @JvmStatic
     fun loadImage(
         imageView: ImageView,
         res: Any
@@ -290,6 +304,7 @@ object UtilKView {
      * @param placeholder Int
      * @param error Int
      */
+    @JvmStatic
     fun loadImageComplex(
         imageView: ImageView,
         res: Any,
@@ -308,6 +323,7 @@ object UtilKView {
      * @param placeholder Int
      * @param error Int
      */
+    @JvmStatic
     fun loadImageCircle(
         imageView: ImageView,
         res: Any,
@@ -329,6 +345,7 @@ object UtilKView {
      * @param placeholder Int
      * @param error Int
      */
+    @JvmStatic
     fun loadImageCircleBorder(
         imageView: ImageView,
         res: Any,
@@ -351,6 +368,7 @@ object UtilKView {
      * @param placeholder Int
      * @param error Int
      */
+    @JvmStatic
     fun loadImageCorner(
         imageView: ImageView,
         res: Any,
@@ -369,6 +387,7 @@ object UtilKView {
      * @param arg Any
      * @return Boolean
      */
+    @JvmStatic
     fun isGlideTypeMatch(arg: Any): Boolean =
         UtilKDataType.isTypeMatch(
             arg,
@@ -407,6 +426,7 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Boolean
      */
+    @JvmStatic
     fun isScroll2Top(
         recyclerView: RecyclerView
     ): Boolean =
@@ -417,6 +437,7 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Boolean
      */
+    @JvmStatic
     fun isScroll2End(
         recyclerView: RecyclerView
     ): Boolean =
@@ -427,6 +448,7 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Boolean
      */
+    @JvmStatic
     fun isScroll2Top2(recyclerView: RecyclerView): Boolean {
         if (recyclerView.layoutManager is LinearLayoutManager) {
             val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -459,6 +481,7 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Boolean
      */
+    @JvmStatic
     fun isScroll2End2(recyclerView: RecyclerView): Boolean {
         if (recyclerView.layoutManager is LinearLayoutManager) {
             val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -476,6 +499,7 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Boolean
      */
+    @JvmStatic
     fun isScroll2VerticalEdge(
         recyclerView: RecyclerView
     ): Boolean =
@@ -486,6 +510,7 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Boolean
      */
+    @JvmStatic
     fun isScroll2VerticalEdge2(
         recyclerView: RecyclerView
     ): Boolean =
@@ -496,6 +521,7 @@ object UtilKView {
      * @param dy Int
      * @return Boolean
      */
+    @JvmStatic
     fun isScrollUp(
         dy: Int
     ): Boolean =
@@ -506,6 +532,7 @@ object UtilKView {
      * @param dx Int
      * @return Boolean
      */
+    @JvmStatic
     fun isScrollDown(
         dx: Int
     ): Boolean =
@@ -516,6 +543,7 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Int
      */
+    @JvmStatic
     fun findLastVisibleItem(
         recyclerView: RecyclerView
     ): Int {
@@ -536,6 +564,7 @@ object UtilKView {
      * @param recyclerView RecyclerView
      * @return Int
      */
+    @JvmStatic
     fun findFirstVisibleItem(
         recyclerView: RecyclerView
     ): Int {

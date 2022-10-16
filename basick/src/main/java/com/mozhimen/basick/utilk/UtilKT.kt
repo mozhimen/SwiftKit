@@ -11,6 +11,7 @@ import java.lang.reflect.Type
  * @Version 1.0
  */
 object UtilKT {
+    @JvmStatic
     fun <T> getT(obj: Any, i: Int): Class<T>? {
         try {
             val superClass: Type? = obj.javaClass.genericSuperclass

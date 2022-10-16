@@ -26,6 +26,7 @@ object UtilKCmd {
     /**
      * 开补光灯
      */
+    @JvmStatic
     fun openFillLight() {
         executeShellCmd(CMD_FILL_LIGHT_OPEN)
     }
@@ -33,6 +34,7 @@ object UtilKCmd {
     /**
      * 关补光灯
      */
+    @JvmStatic
     fun closeFillLight() {
         executeShellCmd(CMD_FILL_LIGHT_CLOSE)
     }
@@ -42,6 +44,7 @@ object UtilKCmd {
      * @param key String?
      * @param value String?
      */
+    @JvmStatic
     @SuppressLint("PrivateApi")
     fun setSystemProperties(key: String, value: String) {
         try {
@@ -60,6 +63,7 @@ object UtilKCmd {
      * @param defaultValue String
      * @return String
      */
+    @JvmStatic
     @SuppressLint("PrivateApi")
     fun getSystemProperties(key: String, defaultValue: String): String =
         try {
@@ -78,6 +82,7 @@ object UtilKCmd {
      * @param defaultValue String
      * @return String
      */
+    @JvmStatic
     @SuppressLint("PrivateApi")
     fun getSystemPropertiesBool(key: String, defaultValue: Boolean): Boolean =
         try {
@@ -93,6 +98,7 @@ object UtilKCmd {
             defaultValue
         }
 
+    @JvmStatic
     private fun executeShellCmd(cmd: String) {
         var process: Process? = null
         try {

@@ -22,6 +22,7 @@ object UtilKDisplay {
      * @param dp Float
      * @return Int
      */
+    @JvmStatic
     fun dp2px(dp: Float): Int =
         if (dp <= 0f) 0
         else (dp * (_context.resources.displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
@@ -32,6 +33,7 @@ object UtilKDisplay {
      * @param sp Float
      * @return Int
      */
+    @JvmStatic
     fun sp2px(sp: Float): Int =
         if (sp <= 0f) 0
         else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, _context.resources?.displayMetrics).toInt()
@@ -41,6 +43,7 @@ object UtilKDisplay {
      * @param px Int
      * @return Float
      */
+    @JvmStatic
     fun px2dp(px: Float): Int =
         if (px <= 0f) 0
         else (px / (_context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)).roundToInt()
@@ -50,6 +53,7 @@ object UtilKDisplay {
      * @param px Float
      * @return Float
      */
+    @JvmStatic
     fun px2sp(px: Float): Int =
         if (px <= 0f) 0
         else (px / _context.resources.displayMetrics.scaledDensity + 0.5f).roundToInt()
@@ -60,6 +64,7 @@ object UtilKDisplay {
      * @param activity Activity
      * @return Int
      */
+    @JvmStatic
     fun getRotation(activity: Activity): Int =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) activity.display!!.rotation else activity.windowManager.defaultDisplay.rotation
 

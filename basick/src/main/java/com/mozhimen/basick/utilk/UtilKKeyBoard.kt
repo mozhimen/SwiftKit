@@ -19,6 +19,7 @@ object UtilKKeyBoard {
      * 隐藏键盘
      * @param activity Activity
      */
+    @JvmStatic
     fun hide(activity: Activity) {
         val inputMethodManager =
             activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -36,6 +37,7 @@ object UtilKKeyBoard {
      * @param event MotionEvent
      * @return Boolean
      */
+    @JvmStatic
     fun isNeedHide(view: View, event: MotionEvent): Boolean {
         if (view is EditText) {
             val l = intArrayOf(0, 0)

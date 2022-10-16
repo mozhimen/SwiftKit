@@ -23,6 +23,7 @@ object UtilKEncryptMD5 {
      * @param data String
      * @return String
      */
+    @JvmStatic
     fun encrypt16(data: String): String {
         val secretBytes: ByteArray? = try {
             MessageDigest.getInstance("MD5").digest(data.toByteArray())
@@ -42,6 +43,7 @@ object UtilKEncryptMD5 {
      * @param data String
      * @return String
      */
+    @JvmStatic
     fun encryptLower32(data: String): String {
         val md5: MessageDigest
         try {
@@ -68,6 +70,7 @@ object UtilKEncryptMD5 {
      * @param data String
      * @return String
      */
+    @JvmStatic
     fun encrypt32(data: String): String {
         return try {
             DigestUtils.md5Hex(data.toByteArray())

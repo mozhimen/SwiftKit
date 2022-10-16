@@ -37,6 +37,7 @@ object UtilKDate {
 
     const val FORMAT_ss = "ss"
 
+    @JvmStatic
     fun getTimeStamp(): Long =
         Date().time
 
@@ -46,6 +47,7 @@ object UtilKDate {
      * @param locale Locale?
      * @return SimpleDateFormat
      */
+    @JvmStatic
     fun getSdf(
         formatDate: String, locale: Locale = Locale.CHINA
     ): SimpleDateFormat =
@@ -58,6 +60,7 @@ object UtilKDate {
      * @param locale Locale? 时区
      * @return String
      */
+    @JvmStatic
     fun date2String(
         date: Date, formatDate: String, locale: Locale = Locale.CHINA
     ): String =
@@ -70,6 +73,7 @@ object UtilKDate {
      * @param locale Locale?
      * @return String
      */
+    @JvmStatic
     fun long2String(
         date: Long, formatDate: String, locale: Locale = Locale.CHINA
     ): String =
@@ -82,6 +86,7 @@ object UtilKDate {
      * @param locale Locale?
      * @return Date
      */
+    @JvmStatic
     fun string2Date(
         dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
     ): Date {
@@ -97,6 +102,7 @@ object UtilKDate {
      * @param date2 Date
      * @return Int -1: date2 larger, 1: date1 larger, 0: same
      */
+    @JvmStatic
     fun dateCompare(date1: Date, date2: Date): Int =
         date1.compareTo(date2)
 
@@ -107,6 +113,7 @@ object UtilKDate {
      * @param formatDate String
      * @return Int
      */
+    @JvmStatic
     fun dateCompare(date1: String, date2: String, formatDate: String) =
         dateCompare(string2Date(date1, formatDate), string2Date(date2, formatDate))
 }

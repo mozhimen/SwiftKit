@@ -22,6 +22,7 @@ object UtilKBar {
      * 隐藏标题栏
      * @param activity Activity
      */
+    @JvmStatic
     fun hideTitleBar(activity: Activity) {
         activity.requestWindowFeature(Window.FEATURE_NO_TITLE)
     }
@@ -30,6 +31,7 @@ object UtilKBar {
      * 隐藏状态栏
      * @param activity Activity
      */
+    @JvmStatic
     fun hideStatusBar(activity: Activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             activity.window.decorView.systemUiVisibility =
@@ -42,6 +44,7 @@ object UtilKBar {
      * @param activity Activity
      * @param isDark Boolean
      */
+    @JvmStatic
     fun setStatusBarFontIcon_MiuiUI(activity: Activity, isDark: Boolean) {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
             setStatusBarFontIcon_CommonUI(activity, isDark)
@@ -59,6 +62,7 @@ object UtilKBar {
      * @param activity Activity
      * @param isDark Boolean
      */
+    @JvmStatic
     @SuppressLint("PrivateApi")
     fun setStatusBarFontIcon_MiuiUILarger6(activity: Activity, isDark: Boolean) {
         try {
@@ -81,6 +85,7 @@ object UtilKBar {
      * @param activity Activity
      * @param isDark Boolean
      */
+    @JvmStatic
     fun setStatusBarFontIcon_CommonUI(activity: Activity, isDark: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val window: Window = activity.window
@@ -99,6 +104,7 @@ object UtilKBar {
      * @param activity Activity
      * @param isDark Boolean
      */
+    @JvmStatic
     fun setStatusBarFontIcon_FlymeUI(activity: Activity, isDark: Boolean) {
         try {
             val window = activity.window
@@ -124,6 +130,7 @@ object UtilKBar {
      * @param activity Activity
      * @param isDark Boolean
      */
+    @JvmStatic
     fun setStatusBarFontIcon_ColorOSUI(activity: Activity, isDark: Boolean) {
         //控制字体颜色，只有黑白两色
         val fontColor = if (isDark) 0x00000010 else 0x00190000

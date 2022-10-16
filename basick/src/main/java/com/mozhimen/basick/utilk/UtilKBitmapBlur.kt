@@ -27,6 +27,7 @@ object UtilKBitmapBlur {
      * @param bitmap Bitmap
      * @return Bitmap
      */
+    @JvmStatic
     fun blur(bitmap: Bitmap): Bitmap {
         //计算图片缩小后的长宽
         val width = (bitmap.width * BITMAP_SCALE).roundToInt()

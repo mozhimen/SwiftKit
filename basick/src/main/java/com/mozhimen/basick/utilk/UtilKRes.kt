@@ -25,6 +25,7 @@ object UtilKRes {
      * @param resId Int
      * @return String
      */
+    @JvmStatic
     fun getString(@StringRes resId: Int): String =
         _context.getString(resId)
 
@@ -34,6 +35,7 @@ object UtilKRes {
      * @param formatArgs Array<out Any?>
      * @return String
      */
+    @JvmStatic
     fun getString(@StringRes resId: Int, vararg formatArgs: Any?): String =
         _context.getString(resId, *formatArgs)
 
@@ -51,6 +53,7 @@ object UtilKRes {
      * @param resId Int
      * @return ColorStateList?
      */
+    @JvmStatic
     fun getColorStateList(@ColorRes resId: Int): ColorStateList? =
         ContextCompat.getColorStateList(_context, resId)
 
@@ -59,6 +62,7 @@ object UtilKRes {
      * @param drawableId Int
      * @return Drawable?
      */
+    @JvmStatic
     fun getDrawable(@DrawableRes drawableId: Int): Drawable? =
         ContextCompat.getDrawable(_context, drawableId)
 

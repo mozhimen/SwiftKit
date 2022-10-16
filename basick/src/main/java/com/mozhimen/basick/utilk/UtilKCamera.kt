@@ -19,12 +19,14 @@ object UtilKCamera {
      * 设备是否有前置摄像
      * @return Boolean
      */
+    @JvmStatic
     fun isHasFrontCamera(): Boolean = UtilKDevice.isHasFrontCamera()
 
     /**
      * 设备是否有后置摄像头
      * @return Boolean
      */
+    @JvmStatic
     fun isHasBackCamera(): Boolean = UtilKDevice.isHasBackCamera()
 
     /**
@@ -38,6 +40,7 @@ object UtilKCamera {
      * @param previewViewWidth   预览宽度
      * @param previewViewHeight  预览高度
      */
+    @JvmStatic
     fun focusMeteringArea(
         coefficient: Float,
         originFocusCenterX: Float, originFocusCenterY: Float,

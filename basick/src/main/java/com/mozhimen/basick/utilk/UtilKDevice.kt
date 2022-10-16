@@ -43,6 +43,7 @@ object UtilKDevice {
     private const val NO_DEFINED = "unknown"
 
     //设备内存空间
+    @JvmStatic
     fun getDeviceMemory(): String {
         val readerStr: String
         val arrayOfString: Array<String>
@@ -66,6 +67,7 @@ object UtilKDevice {
     }
 
     //cpu使用率
+    @JvmStatic
     fun getDeviceCpuUsed(): Float {
         try {
             val reader = RandomAccessFile(PATH_CPU_USED, "r")
@@ -94,6 +96,7 @@ object UtilKDevice {
     }
 
     //设备IP
+    @JvmStatic
     fun getDeviceIP(): String {
         try {
             val networkInterfaces: Enumeration<NetworkInterface> = NetworkInterface.getNetworkInterfaces()
@@ -120,16 +123,21 @@ object UtilKDevice {
     }
 
     //设备Rom版本
-    fun getRomVersion(): String = UtilKCmd.getSystemProperties(PKG_ROM_VERSION, NO_DEFINED)
+    @JvmStatic
+    fun getRomVersion(): String =
+        UtilKCmd.getSystemProperties(PKG_ROM_VERSION, NO_DEFINED)
 
     //设备硬件版本
-    fun getHardwareVersion(): String = UtilKCmd.getSystemProperties(PKG_HW_VERSION, NO_DEFINED)
+    @JvmStatic
+    fun getHardwareVersion(): String =
+        UtilKCmd.getSystemProperties(PKG_HW_VERSION, NO_DEFINED)
 
     //序列号
     /**
      * getSerial requires READ_PHONE_STATE or READ_PRIVILEGED_PHONE_STATE permission
      * @return String
      */
+    @JvmStatic
     @SuppressLint("HardwareIds")
     fun getSerialNumber(): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         NO_DEFINED
@@ -140,6 +148,7 @@ object UtilKDevice {
     }
 
     //短序列号
+    @JvmStatic
     fun getSerialNumberShort(): String {
         var serial = getSerialNumber()
         if (!TextUtils.isEmpty(serial) && serial.length > 14) {
@@ -149,9 +158,12 @@ object UtilKDevice {
     }
 
     //设备是否有sd卡
-    fun isHasSdcard(): Boolean = TextUtils.equals(Environment.getExternalStorageState(), "mounted")
+    @JvmStatic
+    fun isHasSdcard(): Boolean =
+        TextUtils.equals(Environment.getExternalStorageState(), "mounted")
 
     //设备是否有USB外设
+    @JvmStatic
     fun isHasPid(vid: Int, pid: Int): Boolean {
         @SuppressLint("WrongConstant")
         val mUsbManager: UsbManager = UtilKGlobal.instance.getApp()!!.getSystemService("usb") as UsbManager
@@ -166,16 +178,22 @@ object UtilKDevice {
     }
 
     //设备是否有前置摄像
-    fun isHasFrontCamera(): Boolean = isHasCamera(true)
+    @JvmStatic
+    fun isHasFrontCamera(): Boolean =
+        isHasCamera(true)
 
     //设备是否有后置摄像头
-    fun isHasBackCamera(): Boolean = isHasCamera(false)
+    @JvmStatic
+    fun isHasBackCamera(): Boolean =
+        isHasCamera(false)
 
     //是否有外部存储
+    @JvmStatic
     fun isHasExternalStorage(): Boolean = Environment.getExternalStorageState() ==
             Environment.MEDIA_MOUNTED
 
     //本地存储可用大小
+    @JvmStatic
     fun getFreeInternalMemorySize(): String? {
         val path = Environment.getDataDirectory()
         val stat = StatFs(path.path)
@@ -185,6 +203,7 @@ object UtilKDevice {
     }
 
     //获取手机内部空间大小
+    @JvmStatic
     fun getTotalInternalMemorySize(): String {
         val path = Environment.getDataDirectory() //Gets the Android data directory
         val stat = StatFs(path.path)
@@ -193,6 +212,7 @@ object UtilKDevice {
         return Formatter.formatFileSize(_context, totalBlocks * blockSize)
     }
 
+    @JvmStatic
     fun getFreeExternalMemorySize(): String {
         return if (isHasExternalStorage()) {
             val stat = StatFs(Environment.getExternalStorageDirectory().absolutePath)
@@ -202,6 +222,7 @@ object UtilKDevice {
         } else "-1"
     }
 
+    @JvmStatic
     fun getTotalExternalMemorySize(): String {
         return if (isHasExternalStorage()) {
             val stat = StatFs(Environment.getExternalStorageDirectory().absolutePath)
@@ -214,6 +235,7 @@ object UtilKDevice {
     /**
      * 关闭Android9.0弹出框（Detected problems with API compatibility）
      */
+    @JvmStatic
     @SuppressLint("PrivateApi", "SoonBlockedPrivateApi", "DiscouragedPrivateApi")
     fun closeAndroidPDialog() {
         try {
@@ -234,6 +256,7 @@ object UtilKDevice {
         }
     }
 
+    @JvmStatic
     private fun isHasCamera(isFront: Boolean): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             return UtilKGlobal.instance.getApp()!!.packageManager.hasSystemFeature(if (isFront) PackageManager.FEATURE_CAMERA_FRONT else PackageManager.FEATURE_CAMERA)

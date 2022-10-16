@@ -16,6 +16,7 @@ object UtilKSkip {
      * @param context Context
      * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
      */
+    @JvmStatic
     inline fun <reified T> start(context: Context, block: Intent.() -> Unit) {
         val intent = Intent(context, T::class.java)
         intent.block()
@@ -26,6 +27,7 @@ object UtilKSkip {
      * 不带参数的跳转
      * @param context Context
      */
+    @JvmStatic
     inline fun <reified T> start(context: Context) {
         val intent = Intent(context, T::class.java)
         context.startActivity(intent)

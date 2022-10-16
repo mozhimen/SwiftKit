@@ -19,6 +19,7 @@ object UtilKTheme {
      * 检测是否是浅色主题
      * @return Boolean
      */
+    @JvmStatic
     fun isLightMode(): Boolean =
         AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO
 
@@ -26,12 +27,14 @@ object UtilKTheme {
      * 检测系统是否是浅色主题
      * @return Boolean
      */
+    @JvmStatic
     fun isOSLightMode(): Boolean =
         (UtilKGlobal.instance.getApp()!!.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
 
     /**
      * 改变主题
      */
+    @JvmStatic
     fun toggleMode() {
         if (isLightMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

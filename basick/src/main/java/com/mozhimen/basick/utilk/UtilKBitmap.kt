@@ -417,6 +417,7 @@ object UtilKBitmap {
      * 删除图片
      * @param deletePath String
      */
+    @JvmStatic
     fun deleteBitmap(deletePath: String) {
         val uri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val contentResolver: ContentResolver = UtilKGlobal.instance.getApp()!!.contentResolver
@@ -631,6 +632,7 @@ object UtilKBitmap {
      * @param cropHeight Int 裁剪的高度
      * @return ByteArray 裁剪后的图像数据
      */
+    @JvmStatic
     fun clipNv212Bytes(
         srcBytes: ByteArray,
         srcWidth: Int,
@@ -678,6 +680,7 @@ object UtilKBitmap {
      * @param y Int
      * @return Bitmap
      */
+    @JvmStatic
     fun gl102Bitmap(gl10: GL10, width: Int, height: Int, x: Int, y: Int): Bitmap {
         val bitmapBuffer = IntArray(width * height)
         val bitmapSource = IntArray(width * height)
@@ -710,6 +713,7 @@ object UtilKBitmap {
      * @param fgBitmap Bitmap
      * @return Bitmap
      */
+    @JvmStatic
     fun pileUpBitmap(bgBitmap: Bitmap, fgBitmap: Bitmap): Bitmap {
         val bgWidth: Int = bgBitmap.width
         val bgHeight: Int = bgBitmap.height

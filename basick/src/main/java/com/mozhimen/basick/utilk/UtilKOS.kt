@@ -42,6 +42,7 @@ object UtilKOS {
      * 是否是Emui系统
      * @return Boolean
      */
+    @JvmStatic
     fun isEmui(): Boolean {
         return check(ROM_EMUI)
     }
@@ -50,6 +51,7 @@ object UtilKOS {
      * 是否是Miui系统
      * @return Boolean
      */
+    @JvmStatic
     fun isMiui(): Boolean {
         return check(ROM_MIUI)
     }
@@ -58,6 +60,7 @@ object UtilKOS {
      * Miui版本
      * @return Boolean
      */
+    @JvmStatic
     @SuppressLint("PrivateApi")
     fun isMIUILarger6(): Boolean {
         return try {
@@ -77,6 +80,7 @@ object UtilKOS {
      * 是否是Vivo系统
      * @return Boolean
      */
+    @JvmStatic
     fun isVivo(): Boolean {
         return check(ROM_VIVO)
     }
@@ -85,6 +89,7 @@ object UtilKOS {
      * 是否是Oppo系统
      * @return Boolean
      */
+    @JvmStatic
     fun isOppo(): Boolean {
         return check(ROM_OPPO)
     }
@@ -93,6 +98,7 @@ object UtilKOS {
      * colorOS是否大于3
      * @return Boolean
      */
+    @JvmStatic
     @SuppressLint("PrivateApi")
     fun isColorOSLarger3(): Boolean {
         return try {
@@ -113,6 +119,7 @@ object UtilKOS {
      * 是否是Flyme系统
      * @return Boolean
      */
+    @JvmStatic
     fun isFlyme(): Boolean {
         return check(ROM_FLYME)
     }
@@ -121,6 +128,7 @@ object UtilKOS {
      * 是否是360系统
      * @return Boolean
      */
+    @JvmStatic
     fun is360(): Boolean {
         return check(ROM_QIKU) || check("360")
     }
@@ -129,6 +137,7 @@ object UtilKOS {
      * 是否是Smartisan系统
      * @return Boolean
      */
+    @JvmStatic
     fun isSmartisan(): Boolean {
         return check(ROM_SMARTISAN)
     }

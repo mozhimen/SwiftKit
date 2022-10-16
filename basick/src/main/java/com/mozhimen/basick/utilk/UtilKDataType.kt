@@ -18,6 +18,7 @@ object UtilKDataType {
      * @param type Any
      * @return Boolean
      */
+    @JvmStatic
     fun isPrimitive(
         type: Any
     ): Boolean {
@@ -46,6 +47,7 @@ object UtilKDataType {
      * @param matches Array<out Class<*>>
      * @return Boolean
      */
+    @JvmStatic
     fun isTypeMatch(
         type: Any,
         vararg matches: Class<*>
@@ -65,6 +67,7 @@ object UtilKDataType {
      * @param type Any
      * @return String
      */
+    @JvmStatic
     fun getTypeName(
         type: Any
     ): String =
