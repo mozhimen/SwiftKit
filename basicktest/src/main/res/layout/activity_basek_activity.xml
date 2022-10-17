@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="vm"
-            type="com.mozhimen.basicktest.basick.basek.BaseKDemoViewModel" />
+            type="com.mozhimen.basicktest.basek.BaseKDemoViewModel" />
     </data>
 
     <LinearLayout
@@ -15,7 +14,7 @@
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        tools:context="com.mozhimen.basicktest.basick.basek.BaseKDemoActivity">
+        tools:context=".basek.BaseKDemoActivity">
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"

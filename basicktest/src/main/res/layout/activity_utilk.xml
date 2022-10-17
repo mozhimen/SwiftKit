@@ -9,17 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.mozhimen.basicktest.basick.utilk.UtilKActivity">
+        tools:context=".utilk.UtilKActivity">
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="gotoUtilKGesture"
+            android:onClick="goUtilKFile"
+            android:text="UtilKFile"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goUtilKGesture"
             android:text="UtilKGesture"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="gotoUtilKAnim"
+            android:onClick="goUtilKAnim"
             android:text="UtilKAnim"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 

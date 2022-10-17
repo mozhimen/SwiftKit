@@ -5,11 +5,11 @@ import android.view.View
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.start
-import com.mozhimen.basicktest.basick.basek.BaseKDemoActivity
-import com.mozhimen.basicktest.basick.eventk.EventKActivity
-import com.mozhimen.basicktest.basick.executork.ExecutorKActivity
-import com.mozhimen.basicktest.basick.stackk.StackKActivity
-import com.mozhimen.basicktest.basick.utilk.UtilKActivity
+import com.mozhimen.basicktest.basek.BaseKDemoActivity
+import com.mozhimen.basicktest.eventk.EventKActivity
+import com.mozhimen.basicktest.executork.ExecutorKActivity
+import com.mozhimen.basicktest.stackk.StackKActivity
+import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding
 
 class BasicKActivity : BaseKActivity<ActivityBasickBinding, BaseKViewModel>(R.layout.activity_basick) {

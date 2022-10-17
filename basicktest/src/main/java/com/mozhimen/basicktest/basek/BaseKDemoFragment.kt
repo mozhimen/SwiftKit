@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.basick.basek
+package com.mozhimen.basicktest.basek
 
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKFragment

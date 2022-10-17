@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.basick.utilk
+package com.mozhimen.basicktest.utilk
 
 import android.os.Bundle
 import android.util.Log
@@ -82,11 +82,15 @@ class UtilKActivity : BaseKActivity<ActivityUtilkBinding, BaseKViewModel>(R.layo
         }
     }
 
-    fun gotoUtilKGesture(view: View) {
+    fun goUtilKFile(view: View) {
+        start<UtilKFileActivity>()
+    }
+
+    fun goUtilKGesture(view: View) {
         start<UtilKGestureActivity>()
     }
 
-    fun gotoUtilKAnim(view: View) {
+    fun goUtilKAnim(view: View) {
         start<UtilKAnimActivity>()
     }
 }

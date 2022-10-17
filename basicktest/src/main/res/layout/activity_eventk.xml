@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.mozhimen.basicktest.basick.eventk.EventKActivity">
+        tools:context=".eventk.EventKActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.basick.utilk
+package com.mozhimen.basicktest.utilk
 
 import android.view.GestureDetector
 import android.view.MotionEvent

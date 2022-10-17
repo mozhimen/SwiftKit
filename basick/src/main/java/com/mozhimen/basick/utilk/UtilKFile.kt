@@ -1,7 +1,9 @@
 package com.mozhimen.basick.utilk
 
+import android.Manifest
 import android.net.Uri
 import android.os.Build
+import androidx.annotation.RequiresPermission
 import androidx.core.content.FileProvider
 
 import java.io.*
@@ -38,6 +40,40 @@ object UtilKFile {
     @JvmStatic
     fun isFile(file: File): Boolean =
         file.exists() && file.isFile
+
+    /**
+     * 文件是否存在
+     * @param filePathWithName String
+     * @return Boolean
+     */
+    fun isFileExist(filePathWithName: String) =
+        isFileExist(File(filePathWithName))
+
+    /**
+     * 文件夹是否存在
+     * @param folderPath String
+     * @return Boolean
+     */
+    fun isFolderExist(folderPath: String) =
+        UtilKFile.isFolderExist(File(genFolderPath(folderPath)))
+
+    /**
+     * 文件是否存在
+     * @param file File
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isFileExist(file: File): Boolean =
+        isFile(file)
+
+    /**
+     * 文件夹是否存在
+     * @param folder File
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isFolderExist(folder: File): Boolean =
+        isFolder(folder)
 
     /**
      * 创建文件

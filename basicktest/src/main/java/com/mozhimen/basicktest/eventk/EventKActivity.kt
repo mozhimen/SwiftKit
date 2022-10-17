@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.basick.eventk
+package com.mozhimen.basicktest.eventk
 
 import android.annotation.SuppressLint
 import android.os.Bundle

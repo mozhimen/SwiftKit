@@ -3,14 +3,19 @@
     package="com.mozhimen.basicktest">
 
     <application
+        android:name=".BasicKApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
         <activity
-            android:name=".basick.basek.BaseKDemoServiceActivity"
+            android:name="com.mozhimen.basicktest.utilk.UtilKFileActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.mozhimen.basicktest.basek.BaseKDemoServiceActivity"
             android:exported="false" />
         <activity
             android:name=".loadk.LoadKActivity"
@@ -25,25 +30,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".basick.utilk.UtilKAnimActivity"
+            android:name="com.mozhimen.basicktest.utilk.UtilKAnimActivity"
             android:exported="false" />
         <activity
-            android:name=".basick.utilk.UtilKGestureActivity"
+            android:name="com.mozhimen.basicktest.utilk.UtilKGestureActivity"
             android:exported="false" />
         <activity
-            android:name=".basick.eventk.EventKActivity"
+            android:name="com.mozhimen.basicktest.eventk.EventKActivity"
             android:exported="true" />
         <activity
-            android:name=".basick.utilk.UtilKActivity"
+            android:name="com.mozhimen.basicktest.utilk.UtilKActivity"
             android:exported="true" />
         <activity
-            android:name=".basick.executork.ExecutorKActivity"
+            android:name="com.mozhimen.basicktest.executork.ExecutorKActivity"
             android:exported="false" />
         <activity
-            android:name=".basick.basek.BaseKDemoActivity"
+            android:name="com.mozhimen.basicktest.basek.BaseKDemoActivity"
             android:exported="false" />
         <activity
-            android:name=".basick.stackk.StackKActivity"
+            android:name="com.mozhimen.basicktest.stackk.StackKActivity"
             android:exported="false" />
 
         <receiver
@@ -55,7 +60,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".basick.basek.BaseKDemoService" />
+        <service android:name="com.mozhimen.basicktest.basek.BaseKDemoService" />
     </application>
 
 </manifest>

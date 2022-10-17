@@ -6,7 +6,7 @@ import java.io.*
 
 /**
  * @ClassName UtilKAsset
- * @Description TODO
+ * @Description android:requestLegacyExternalStorage="true" application 设置
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/4/15 3:52
  * @Version 1.0
@@ -85,26 +85,27 @@ object UtilKAssets {
      * 从资产拷贝到文件
      * @param assetFileName String
      * @param destFilePathWithName String
-     * @return String?
+     * @return String
      */
-    fun assetCopyFile(assetFileName: String, destFilePathWithName: String): String {
+    fun assetCopyFile(assetFileName: String, destFilePathWithName: String, isOverwrite: Boolean = true): String {
         var tmpFilePathWithName = destFilePathWithName
         if (tmpFilePathWithName.endsWith("/")) {
             tmpFilePathWithName += assetFileName
         }
         val inputStream: InputStream = _context.assets.open(assetFileName)
+        var fileInputStream: FileInputStream? = null
         val destFile = File(destFilePathWithName)
-        val fileInputStream = FileInputStream(destFile)
-        if (!destFile.exists()) {
+        if (!destFile.exists()) {//不存在就创建该文件
             UtilKFile.createFile(destFile)
         } else {
+            fileInputStream = FileInputStream(destFile)
             val assetFileMD5 = UtilKFile.file2Md5(inputStream)
             val destFileMD5 = UtilKFile.file2Md5(fileInputStream)
-            if (TextUtils.equals(assetFileMD5, destFileMD5)) {
+            if (TextUtils.equals(assetFileMD5, destFileMD5)) {//相似内容就直接返回地址
                 return tmpFilePathWithName
             }
         }
-        val fileOutputStream = FileOutputStream(destFile)
+        val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
         try {
             val buffer = ByteArray(1024)
             var bufferLength: Int
@@ -114,7 +115,7 @@ object UtilKAssets {
             return tmpFilePathWithName
         } finally {
             fileOutputStream.close()
-            fileInputStream.close()
+            fileInputStream?.close()
             inputStream.close()
         }
     }

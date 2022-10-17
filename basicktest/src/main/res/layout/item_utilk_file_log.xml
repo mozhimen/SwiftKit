@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item_utilk_file_log"
+            type="com.mozhimen.basicktest.utilk.UtilKFileActivity.UtilKFileLogBean" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:text="@{item_utilk_file_log.log}"
+        android:textColor="@android:color/white"
+        tools:background="@color/black"
+        tools:text="this is exam"/>
+</layout>

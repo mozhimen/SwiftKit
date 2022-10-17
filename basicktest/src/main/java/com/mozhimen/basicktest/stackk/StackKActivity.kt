@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.basick.stackk
+package com.mozhimen.basicktest.stackk
 
 import android.annotation.SuppressLint
 import android.os.Bundle

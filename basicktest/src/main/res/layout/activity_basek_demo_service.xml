@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".basick.basek.BaseKDemoServiceActivity">
+        tools:context=".basek.BaseKDemoServiceActivity">
 
         <TextView
             android:id="@+id/basek_service_txt"

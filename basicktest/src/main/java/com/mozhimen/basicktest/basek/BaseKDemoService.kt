@@ -1,10 +1,6 @@
-package com.mozhimen.basicktest.basick.basek
+package com.mozhimen.basicktest.basek
 
 import com.mozhimen.basick.basek.service.BaseKService
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlin.concurrent.thread
 
 /**

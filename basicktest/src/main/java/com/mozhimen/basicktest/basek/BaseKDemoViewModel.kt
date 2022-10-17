@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.basick.basek
+package com.mozhimen.basicktest.basek
 
 import com.mozhimen.basick.basek.BaseKViewModel
 
