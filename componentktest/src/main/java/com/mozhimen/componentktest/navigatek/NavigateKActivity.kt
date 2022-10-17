@@ -33,7 +33,7 @@ class NavigateKActivity : BaseKActivity<ActivityNavigatekBinding, NavigateKViewM
     override fun initView(savedInstanceState: Bundle?) {
         _navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, listOf(FirstFragment::class.java, SecondFragment::class.java))
         vm.liveFragmentId.observe(this) {
-            if (it != null && _navController.findDestination(it) != null&& _navController.currentDestination?.id != it) {
+            if (it != null && _navController.findDestination(it) != null && _navController.currentDestination?.id != it) {
                 _currentItemId = it
             } else {
                 "please add this destination to list".et(TAG)
@@ -44,5 +44,10 @@ class NavigateKActivity : BaseKActivity<ActivityNavigatekBinding, NavigateKViewM
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(navigatek_saved_current_id, _currentItemId)
         super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        _currentItemId = savedInstanceState.getInt(navigatek_saved_current_id, -1)
     }
 }
