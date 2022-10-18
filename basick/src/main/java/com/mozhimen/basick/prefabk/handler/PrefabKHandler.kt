@@ -11,7 +11,7 @@ import com.mozhimen.basick.extsk.removeAll
  * @Date 2022/6/12 11:34
  * @Version 1.0
  */
-class EventKHandler<T : LifecycleOwner>(private val _clazz: T) : RefHandler<T>(_clazz), DefaultLifecycleObserver {
+class PrefabKHandler<T : LifecycleOwner>(private val _clazz: T) : RefHandler<T>(_clazz), DefaultLifecycleObserver {
     init {
         _clazz.lifecycle.addObserver(this)
     }
