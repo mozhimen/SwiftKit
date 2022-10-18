@@ -1,9 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import android.widget.Toast
-import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.eventk.EventKHandler
-import com.mozhimen.basick.eventk.commons.HandlerRef
+import com.mozhimen.basick.prefabk.handler.RefHandler
 
 /**
  * @ClassName UtilKToast
@@ -27,11 +25,11 @@ object UtilKToast {
 
     @JvmStatic
     fun showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        HandlerRef(_context).post { showToast(msg, duration) }
+        RefHandler(_context).post { showToast(msg, duration) }
     }
 
     @JvmStatic
     fun showToastOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        HandlerRef(_context).post { showToast(msgId, duration) }
+        RefHandler(_context).post { showToast(msgId, duration) }
     }
 }

@@ -6,7 +6,7 @@ import com.liulishuo.okdownload.DownloadTask
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.abilityk.hotupdatek.commons.IHotUpdateKListener
-import com.mozhimen.basick.loadk.LoadKReceiverInstall
+import com.mozhimen.basick.prefabk.receiver.PrefabKReceiverInstall
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKGlobal
@@ -27,7 +27,7 @@ object HotUpdateK {
     private val INSTALL_DIRECTORY = UtilKGlobal.instance.getApp()!!.filesDir.absolutePath + "/apk/"
     private val APK_NAME get() = System.currentTimeMillis().toString() + ".apk"
 
-    fun updateApk(nowVersionCode: Int, apkUrl: String, receiver: Class<LoadKReceiverInstall>, listener: IHotUpdateKListener) {
+    fun updateApk(nowVersionCode: Int, apkUrl: String, receiver: Class<PrefabKReceiverInstall>, listener: IHotUpdateKListener) {
         if (!isNeedUpdate(nowVersionCode)) return
         //delete all cache
         try {
@@ -94,7 +94,7 @@ object HotUpdateK {
         }
     }
 
-    fun installApk(apkPath: String, receiver: Class<LoadKReceiverInstall>) {
+    fun installApk(apkPath: String, receiver: Class<PrefabKReceiverInstall>) {
         thread {
             UtilKPackage.installSilence(apkPath, receiver)
         }.start()

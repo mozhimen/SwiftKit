@@ -18,7 +18,7 @@ import com.mozhimen.basick.extsk.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
 import com.mozhimen.basick.extsk.setPadding
-import com.mozhimen.basick.eventk.commons.HandlerRef
+import com.mozhimen.basick.prefabk.handler.RefHandler
 import com.mozhimen.uicorek.searchk.helpers.SearchKAttrsParser
 import com.mozhimen.uicorek.searchk.helpers.SearchKTextWatcher
 import com.mozhimen.uicorek.searchk.mos.SearchKAttrs
@@ -48,7 +48,7 @@ class SearchKLayout @JvmOverloads constructor(
     private var _searchIcon: TextKIconFont? = null
     private var _searchIconHintContainer: LinearLayout? = null
     private var _clearIcon: TextKIconFont? = null
-    private val _handlerRef = HandlerRef(this)
+    private val _refHandler = RefHandler(this)
 
     companion object {
         const val LEFT = 1
@@ -124,8 +124,8 @@ class SearchKLayout @JvmOverloads constructor(
                 changeVisibility(_clearIcon, hasContent)
                 changeVisibility(_searchIconHintContainer, !hasContent)
                 if (_searchKTextWatcher != null) {
-                    _handlerRef.removeCallbacks(_debounceRunnable)
-                    _handlerRef.postDelayed(_debounceRunnable, DEBOUNCE_TRIGGER_DURATION)
+                    _refHandler.removeCallbacks(_debounceRunnable)
+                    _refHandler.postDelayed(_debounceRunnable, DEBOUNCE_TRIGGER_DURATION)
                 }
             }
         })
@@ -254,7 +254,7 @@ class SearchKLayout @JvmOverloads constructor(
     }
 
     override fun onDetachedFromWindow() {
-        _handlerRef.removeCallbacks(_debounceRunnable)
+        _refHandler.removeCallbacks(_debounceRunnable)
         super.onDetachedFromWindow()
     }
 }

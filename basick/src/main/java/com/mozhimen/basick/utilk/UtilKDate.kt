@@ -25,6 +25,8 @@ object UtilKDate {
 
     const val FORMAT_HHmm = "HH:mm"
 
+    const val FORMAT_mmss = "mm:ss"
+
     const val FORMAT_yyyy = "yyyy"
 
     const val FORMAT_MM = "MM"

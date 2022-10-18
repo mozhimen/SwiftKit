@@ -25,7 +25,7 @@ import com.mozhimen.uicorek.sidek.helpers.SideKSubAttrsParser
 import com.mozhimen.uicorek.sidek.helpers.SideKSubItemDecorator
 import com.mozhimen.uicorek.sidek.mos.*
 
-typealias SideKSubItemListener = (holder: ItemKViewHolder, contentMo: SliderKContentMo?) -> Unit
+typealias ISideKSubItemListener = (holder: ItemKViewHolder, contentMo: SliderKContentMo?) -> Unit
 
 /**
  * @ClassName SliderKSubLayout
@@ -47,7 +47,7 @@ class SideKSubLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     private var _contentLayoutId = R.layout.sliderk_content_item
     private var _spanCount = 3
     private var _sliderKSubItemLayoutManager: RecyclerView.LayoutManager? = null
-    private var _sideKSubItemListener: SideKSubItemListener? = null
+    private var _sideKSubItemListener: ISideKSubItemListener? = null
 
     init {
         initView()
@@ -86,7 +86,7 @@ class SideKSubLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         contentLayoutId: Int? = null,
         spanCount: Int? = null,
         layoutManager: RecyclerView.LayoutManager? = null,
-        listener: SideKSubItemListener? = null
+        listener: ISideKSubItemListener? = null
     ) {
         menuLayoutId?.let { _menuLayoutId = it }
         contentLayoutId?.let { _contentLayoutId = it }

@@ -6,7 +6,7 @@ import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.uicorek.itemk.ItemKViewHolder
-import com.mozhimen.uicorek.sidek.SideKSubItemListener
+import com.mozhimen.uicorek.sidek.ISideKSubItemListener
 import com.mozhimen.uicorek.sidek.mos.SliderKContentMo
 import com.mozhimen.uicorek.sidek.mos.SliderKDataMo
 import com.mozhimen.uicorek.sidek.mos.SliderKMenuMo
@@ -216,7 +216,7 @@ class SideKActivity : BaseKActivity<ActivitySidekBinding, BaseKViewModel>(R.layo
                 )
             )
         )
-        vb.sidekSidebar.bindData(mo, spanCount = 3, listener = object : SideKSubItemListener {
+        vb.sidekSidebar.bindData(mo, spanCount = 3, listener = object : ISideKSubItemListener {
             override fun invoke(holder: ItemKViewHolder, contentMo: SliderKContentMo?) {
                 "$contentMo".showToast(Toast.LENGTH_LONG)
             }

@@ -6,22 +6,13 @@ import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.basicktest.basek.BaseKDemoActivity
-import com.mozhimen.basicktest.eventk.EventKActivity
 import com.mozhimen.basicktest.executork.ExecutorKActivity
 import com.mozhimen.basicktest.stackk.StackKActivity
 import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding
+import com.mozhimen.basicktest.taskk.TaskKActivity
 
 class BasicKActivity : BaseKActivity<ActivityBasickBinding, BaseKViewModel>(R.layout.activity_basick) {
-
-    override fun initData(savedInstanceState: Bundle?) {
-        //黏性事件测试
-        //DataBusK.with<String>("stickyData").setStickyData("stickyData from ComponentKActivity")
-    }
-
-    fun goStackK(view: View) {
-        start<StackKActivity>()
-    }
 
     fun goBaseKDemo(view: View) {
         start<BaseKDemoActivity>()
@@ -31,11 +22,15 @@ class BasicKActivity : BaseKActivity<ActivityBasickBinding, BaseKViewModel>(R.la
         start<ExecutorKActivity>()
     }
 
-    fun goUtilK(view: View) {
-        start<UtilKActivity>()
+    fun goStackK(view: View) {
+        start<StackKActivity>()
     }
 
-    fun goEventK(view: View) {
-        start<EventKActivity>()
+    fun goTaskK(view: View) {
+        start<TaskKActivity>()
+    }
+
+    fun goUtilK(view: View) {
+        start<UtilKActivity>()
     }
 }

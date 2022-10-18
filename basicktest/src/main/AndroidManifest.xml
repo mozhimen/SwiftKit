@@ -12,15 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
         <activity
-            android:name="com.mozhimen.basicktest.utilk.UtilKFileActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.mozhimen.basicktest.basek.BaseKDemoServiceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".loadk.LoadKActivity"
-            android:exported="false" />
-        <activity
             android:name=".BasicKActivity"
             android:exported="true">
             <intent-filter>
@@ -29,38 +20,64 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--basek-->
         <activity
-            android:name="com.mozhimen.basicktest.utilk.UtilKAnimActivity"
+            android:name=".basek.BaseKDemoActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.basicktest.utilk.UtilKGestureActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.mozhimen.basicktest.eventk.EventKActivity"
-            android:exported="true" />
-        <activity
-            android:name="com.mozhimen.basicktest.utilk.UtilKActivity"
-            android:exported="true" />
-        <activity
-            android:name="com.mozhimen.basicktest.executork.ExecutorKActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.mozhimen.basicktest.basek.BaseKDemoActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.mozhimen.basicktest.stackk.StackKActivity"
+            android:name=".basek.BaseKDemoServiceActivity"
             android:exported="false" />
 
+        <service android:name=".basek.BaseKDemoService" />
+        <!--executork-->
+        <activity
+            android:name=".executork.ExecutorKActivity"
+            android:exported="false" />
+        <!--prefabk-->
         <receiver
-            android:name=".loadk.AutoRunReceiver"
+            android:name=".prefabk.AutoRunReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
-        <service android:name="com.mozhimen.basicktest.basek.BaseKDemoService" />
+        <!--stackk-->
+        <activity
+            android:name=".stackk.StackKActivity"
+            android:exported="false" />
+        <!--taskk-->
+        <activity
+            android:name=".taskk.TaskKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".taskk.TaskKPollingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".taskk.TaskKAsyncActivity"
+            android:exported="false" />
+        <!--utilk-->
+        <activity
+            android:name=".utilk.UtilKGestureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.UtilKActivity"
+            android:exported="true" />
+        <activity
+            android:name=".utilk.UtilKAudioActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.UtilKVerifyUrlActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.UtilKBitmapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.UtilKDataBusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.UtilKFileActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

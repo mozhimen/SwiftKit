@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.basick.eventk.EventKHandler
+import com.mozhimen.basick.prefabk.handler.EventKHandler
 import com.mozhimen.basick.extsk.postDelayed
 import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorek.loadk.commons.LoadKLoadCallback
