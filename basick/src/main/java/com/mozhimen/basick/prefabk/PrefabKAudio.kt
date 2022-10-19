@@ -1,8 +1,9 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.prefabk
 
 import android.media.MediaPlayer
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.utilk.UtilKGlobal
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
 
@@ -13,24 +14,13 @@ import java.util.concurrent.LinkedBlockingQueue
  * @Date 2022/1/18 13:04
  * @Version 1.0
  */
-class UtilKAudio(owner: LifecycleOwner) : DefaultLifecycleObserver {
+class PrefabKAudio(lifecycleOwner: LifecycleOwner) : DefaultLifecycleObserver {
 
-    companion object {
-        fun getInstance(owner: LifecycleOwner) =
-            instance ?: synchronized(this) {
-                instance ?: UtilKAudio(owner).also { instance = it }
-            }
-
-        @Volatile
-        private var instance: UtilKAudio? = null
-    }
-
-    @Volatile
     private var _audioWorker: AudioWorker
     private val _executors = Executors.newSingleThreadExecutor()
 
     init {
-        owner.lifecycle.addObserver(this)
+        lifecycleOwner.lifecycle.addObserver(this)
         _audioWorker = AudioWorker()
         _audioWorker.start()
     }
@@ -48,7 +38,7 @@ class UtilKAudio(owner: LifecycleOwner) : DefaultLifecycleObserver {
      * 播放
      * @param audio MediaPlayer
      */
-    fun play(audio: MediaPlayer) {
+    private fun play(audio: MediaPlayer) {
         if (!_audioWorker.isRunning()) {
             _audioWorker.start()
         }
@@ -115,9 +105,9 @@ class UtilKAudio(owner: LifecycleOwner) : DefaultLifecycleObserver {
         }
     }
 
-    override fun onPause(owner: LifecycleOwner) {
+    override fun onDestroy(owner: LifecycleOwner) {
         _audioWorker.stop()
         owner.lifecycle.removeObserver(this)
-        super.onPause(owner)
+        super.onDestroy(owner)
     }
 }

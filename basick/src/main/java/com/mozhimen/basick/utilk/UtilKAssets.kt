@@ -21,7 +21,6 @@ object UtilKAssets {
      * @return Boolean
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun isFileExists(assetFileName: String): Boolean {
         val assetFileNames = _context.assets.list("")
         for (index in assetFileNames!!.indices) {
@@ -36,7 +35,6 @@ object UtilKAssets {
      * @return String
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun file2String(assetFileName: String): String {
         val inputStream = _context.assets.open(assetFileName)
         inputStream.use { stream ->
@@ -50,7 +48,6 @@ object UtilKAssets {
      * @return String
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun txt2String(assetFileName: String): String {
         val inputStream = _context.assets.open(assetFileName)
         inputStream.use { stream ->
@@ -67,7 +64,6 @@ object UtilKAssets {
      * @return String
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun txt2String2(assetFileName: String): String {
         val stringBuilder = StringBuilder()
         val inputStream = _context.resources.assets.open(assetFileName)
@@ -113,10 +109,13 @@ object UtilKAssets {
                 fileOutputStream.write(buffer, 0, bufferLength)
             }
             return tmpFilePathWithName
+        } catch (e: Exception) {
+            e.printStackTrace()
         } finally {
             fileOutputStream.close()
             fileInputStream?.close()
             inputStream.close()
         }
+        return ""
     }
 }

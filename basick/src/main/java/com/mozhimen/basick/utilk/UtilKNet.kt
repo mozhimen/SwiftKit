@@ -15,6 +15,7 @@ import com.mozhimen.basick.cachek.CacheKSP
  */
 object UtilKNet {
     private val TAG = "UtilKNet>>>>>"
+    private val _context = UtilKGlobal.instance.getApp()!!
     private const val utilknet_sp_name = "utilknet_sp_name"
     private const val utilknet_sp_degrade_http = "utilknet_sp_degrade_http"
 
@@ -24,7 +25,7 @@ object UtilKNet {
      */
     @JvmStatic
     fun isConnectionUseful(): Boolean {
-        val connectivityManager = UtilKGlobal.instance.getApp()!!
+        val connectivityManager = _context
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val netWorkInfo = connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.isAvailable
@@ -36,7 +37,7 @@ object UtilKNet {
      */
     @JvmStatic
     fun isWifiConnected(): Boolean {
-        val connectivityManager = UtilKGlobal.instance.getApp()!!
+        val connectivityManager = _context
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val netWorkInfo = connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_WIFI
@@ -48,7 +49,7 @@ object UtilKNet {
      */
     @JvmStatic
     fun isMobileConnected(): Boolean {
-        val connectivityManager = UtilKGlobal.instance.getApp()!!
+        val connectivityManager = _context
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val netWorkInfo = connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_MOBILE

@@ -15,6 +15,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import androidx.core.location.LocationRequestCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.bumptech.glide.request.target.CustomTarget
@@ -26,6 +27,7 @@ import java.nio.ByteBuffer
 import java.nio.IntBuffer
 import javax.microedition.khronos.opengles.GL10
 import kotlin.coroutines.resume
+import kotlin.jvm.Throws
 import kotlin.math.ceil
 
 
@@ -347,7 +349,7 @@ object UtilKBitmap {
         error: Int = android.R.color.black,
         onGetBitmap: (Bitmap) -> Unit
     ) {
-        Glide.with(UtilKGlobal.instance.getApp()!!).asBitmap().load(url)
+        Glide.with(_context).asBitmap().load(url)
             .transition(withCrossFade()).placeholder(placeholder).error(error).into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
                     onGetBitmap(resource)
@@ -370,7 +372,7 @@ object UtilKBitmap {
         placeholder: Int = android.R.color.black,
         error: Int = android.R.color.black
     ): Bitmap = suspendCancellableCoroutine { coroutine ->
-        Glide.with(UtilKGlobal.instance.getApp()!!).asBitmap().load(url)
+        Glide.with(_context).asBitmap().load(url)
             .transition(withCrossFade()).placeholder(placeholder).error(error).into(
                 object : CustomTarget<Bitmap>() {
                     override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
@@ -420,7 +422,7 @@ object UtilKBitmap {
     @JvmStatic
     fun deleteBitmap(deletePath: String) {
         val uri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-        val contentResolver: ContentResolver = UtilKGlobal.instance.getApp()!!.contentResolver
+        val contentResolver: ContentResolver = _context.contentResolver
         val where = MediaStore.Images.Media.DATA + "='" + deletePath + "'"
         //删除图片
         contentResolver.delete(uri, where, null)
@@ -446,7 +448,7 @@ object UtilKBitmap {
                 typeArray = arrayOf("image/jpeg")
 
                 val values = ContentValues()
-                val resolver: ContentResolver = UtilKGlobal.instance.getApp()!!.contentResolver
+                val resolver: ContentResolver = _context.contentResolver
                 values.put(MediaStore.Images.ImageColumns.DATA, mPicPath)
                 values.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, fileName)
                 values.put(MediaStore.Images.ImageColumns.MIME_TYPE, "image/jpeg")
@@ -466,7 +468,7 @@ object UtilKBitmap {
                         out.close()
                         // 扫描刷新
                         MediaScannerConnection.scanFile(
-                            UtilKGlobal.instance.getApp()!!, pathArray, typeArray
+                            _context, pathArray, typeArray
                         ) { s, _ -> Log.d("ImageUtils", "onScanCompleted  s->$s") }
                     } catch (e: IOException) {
                         e.printStackTrace()
@@ -578,22 +580,13 @@ object UtilKBitmap {
      * @param bitmap Bitmap?
      */
     @JvmStatic
-    fun saveBitmap(savePath: String, bitmap: Bitmap) {
+    @Throws(IOException::class)
+    fun saveBitmap(savePath: String, bitmap: Bitmap, quality: Int = 80) {
         val file = File(savePath)
-        val pareFile: File? = file.parentFile
-        if (pareFile?.exists() == false) {
-            pareFile.mkdirs()
-        }
-        val out: FileOutputStream
-        try {
-            file.createNewFile()
-            out = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-            out.flush()
-            out.close()
-        } catch (e: IOException) {
-            Log.e(TAG, "saveBitmap: IOException ${e.message}")
-            e.printStackTrace()
+        UtilKFile.createFile(file)
+        val fileOutputStream = FileOutputStream(file)
+        fileOutputStream.use { stream ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
         }
     }
 

@@ -1,7 +1,10 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.prefabk
 
 import android.app.Activity
 import android.os.Vibrator
+import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.taskk.commons.ITaskK
+import com.mozhimen.basick.utilk.UtilKGlobal
 
 /**
  * @ClassName UtilKVibrate
@@ -10,37 +13,28 @@ import android.os.Vibrator
  * @Date 2022/2/27 18:28
  * @Version 1.0
  */
-class UtilKVibrate {
+class PrefabKVibrate(lifecycleOwner: LifecycleOwner) : ITaskK(lifecycleOwner) {
 
-    companion object {
-        @JvmStatic
-        val instance = UtilKVibrateProvider.holder
-    }
-
-    private object UtilKVibrateProvider {
-        val holder = UtilKVibrate()
-    }
-
-    private var vibrator: Vibrator? = null
+    private var _vibrator: Vibrator? = null
 
     /**
      * 震动
      * @param duration Long
      */
     fun start(duration: Long = 200L) {
-        if (vibrator == null) {
-            vibrator =
+        if (_vibrator == null) {
+            _vibrator =
                 UtilKGlobal.instance.getApp()!!
                     .getSystemService(Activity.VIBRATOR_SERVICE) as Vibrator
         }
-        vibrator!!.vibrate(duration)
+        _vibrator!!.vibrate(duration)
     }
 
     /**
      * 停止
      */
-    fun stop() {
-        vibrator?.cancel()
-        vibrator = null
+    override fun cancel() {
+        _vibrator?.cancel()
+        _vibrator = null
     }
 }

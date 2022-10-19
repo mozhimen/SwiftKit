@@ -19,8 +19,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--basek-->
+        </activity> <!-- basek -->
         <activity
             android:name=".basek.BaseKDemoActivity"
             android:exported="false" />
@@ -28,12 +27,16 @@
             android:name=".basek.BaseKDemoServiceActivity"
             android:exported="false" />
 
-        <service android:name=".basek.BaseKDemoService" />
-        <!--executork-->
+        <service android:name=".basek.BaseKDemoService" /> <!-- executork -->
         <activity
             android:name=".executork.ExecutorKActivity"
+            android:exported="false" /> <!-- prefabk -->
+        <activity
+            android:name=".prefabk.PrefabKActivity"
             android:exported="false" />
-        <!--prefabk-->
+        <activity
+            android:name=".prefabk.PrefabKAudioActivity"
+            android:exported="false" />
         <receiver
             android:name=".prefabk.AutoRunReceiver"
             android:enabled="true"
@@ -41,12 +44,10 @@
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
-        <!--stackk-->
+        </receiver> <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
-            android:exported="false" />
-        <!--taskk-->
+            android:exported="false" /> <!-- taskk -->
         <activity
             android:name=".taskk.TaskKActivity"
             android:exported="false" />
@@ -55,17 +56,13 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKAsyncActivity"
-            android:exported="false" />
-        <!--utilk-->
+            android:exported="false" /> <!-- utilk -->
         <activity
             android:name=".utilk.UtilKGestureActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.UtilKActivity"
             android:exported="true" />
-        <activity
-            android:name=".utilk.UtilKAudioActivity"
-            android:exported="false" />
         <activity
             android:name=".utilk.UtilKVerifyUrlActivity"
             android:exported="false" />

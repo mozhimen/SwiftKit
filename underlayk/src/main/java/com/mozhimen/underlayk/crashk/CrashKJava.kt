@@ -27,6 +27,7 @@ object CrashKJava {
     private const val TAG = "CrashKJava>>>>>"
     private var _crashFullPath: String = getJavaCrashDir().absolutePath
     private var _crashListener: ICrashKListener? = null
+    private val _context = UtilKGlobal.instance.getApp()!!
 
     fun init(crashKListener: ICrashKListener) {
         this._crashListener = crashKListener
@@ -38,7 +39,7 @@ object CrashKJava {
     }
 
     private fun getJavaCrashDir(): File {
-        val javaCrashFile = File(UtilKGlobal.instance.getApp()!!.cacheDir, CRASHK_JAVA_DIR)
+        val javaCrashFile = File(_context.cacheDir, CRASHK_JAVA_DIR)
         if (!javaCrashFile.exists()) {
             javaCrashFile.mkdirs()
         }
@@ -46,7 +47,6 @@ object CrashKJava {
     }
 
     private class CrashKUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
-        private val _context = UtilKGlobal.instance.getApp()!!
         private val _defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
         private val _launchTime = UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss)
 

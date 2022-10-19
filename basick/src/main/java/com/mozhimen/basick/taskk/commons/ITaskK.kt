@@ -3,13 +3,16 @@ package com.mozhimen.basick.taskk.commons
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
-open class ITaskK(_lifecycleOwner: LifecycleOwner) : DefaultLifecycleObserver {
+abstract class ITaskK(_lifecycleOwner: LifecycleOwner) : DefaultLifecycleObserver {
     init {
         _lifecycleOwner.lifecycle.addObserver(this)
     }
 
-    override fun onPause(owner: LifecycleOwner) {
+    override fun onDestroy(owner: LifecycleOwner) {
+        cancel()
         owner.lifecycle.removeObserver(this)
-        super.onPause(owner)
+        super.onDestroy(owner)
     }
+
+    abstract fun cancel()
 }

@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.UtilKGlobal
  * @Version 1.0
  */
 class CacheKSPProvider(spName: String) {
-    private lateinit var _preferences: SharedPreferences
+    private var _preferences: SharedPreferences
     private val CACHEK_SP_ENCRYPT_ALIAS = "5rfj4FVG&Td#$*Jd"
 
     init {

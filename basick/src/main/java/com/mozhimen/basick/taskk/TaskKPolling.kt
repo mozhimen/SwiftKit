@@ -28,13 +28,8 @@ class TaskKPolling(lifecycleOwner: LifecycleOwner) : ITaskK(lifecycleOwner) {
         _pollingScope = scope
     }
 
-    fun cancel() {
+    override fun cancel() {
         _pollingScope?.cancel()
         _pollingScope = null
-    }
-
-    override fun onPause(owner: LifecycleOwner) {
-        cancel()
-        super.onPause(owner)
     }
 }

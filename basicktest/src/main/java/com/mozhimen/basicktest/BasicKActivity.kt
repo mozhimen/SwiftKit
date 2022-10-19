@@ -10,6 +10,7 @@ import com.mozhimen.basicktest.executork.ExecutorKActivity
 import com.mozhimen.basicktest.stackk.StackKActivity
 import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding
+import com.mozhimen.basicktest.prefabk.PrefabKActivity
 import com.mozhimen.basicktest.taskk.TaskKActivity
 
 class BasicKActivity : BaseKActivity<ActivityBasickBinding, BaseKViewModel>(R.layout.activity_basick) {
@@ -20,6 +21,10 @@ class BasicKActivity : BaseKActivity<ActivityBasickBinding, BaseKViewModel>(R.la
 
     fun goExecutorK(view: View) {
         start<ExecutorKActivity>()
+    }
+
+    fun goPrefabK(view: View) {
+        start<PrefabKActivity>()
     }
 
     fun goStackK(view: View) {

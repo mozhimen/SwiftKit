@@ -17,31 +17,18 @@ import java.util.*
  * @Date 2022/6/5 21:08
  * @Version 1.0
  */
-class TransKText2Speech(owner: LifecycleOwner, config: TransKText2SpeechConfig) : DefaultLifecycleObserver {
-
-    companion object {
-        @Volatile
-        private var instance: TransKText2Speech? = null
-
-        fun getInstance(owner: LifecycleOwner, config: TransKText2SpeechConfig = TransKText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) =
-            instance ?: synchronized(this) {
-                instance ?: TransKText2Speech(owner, config).also { instance = it }
-            }
-    }
-
+class TransKText2Speech(owner: LifecycleOwner, config: TransKText2SpeechConfig = TransKText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : DefaultLifecycleObserver {
     private var _transKText2Speech: TextToSpeech? = null
+    private val _context = UtilKGlobal.instance.getApp()!!
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             require(
-                PermissionK.checkPermissions(
-                    UtilKGlobal.instance.getApp()!!,
-                    Manifest.permission.FOREGROUND_SERVICE
-                )
+                PermissionK.checkPermissions(_context, Manifest.permission.FOREGROUND_SERVICE)
             ) { "FOREGROUND_SERVICE permission denied" }
         }
         owner.lifecycle.addObserver(this)
-        _transKText2Speech = TextToSpeech(UtilKGlobal.instance.getApp()!!) {
+        _transKText2Speech = TextToSpeech(_context) {
             if (it == TextToSpeech.SUCCESS) {
                 val supportRes = _transKText2Speech!!.setLanguage(config.language)
                 require(supportRes != TextToSpeech.LANG_MISSING_DATA && supportRes != TextToSpeech.LANG_NOT_SUPPORTED) {
@@ -78,10 +65,10 @@ class TransKText2Speech(owner: LifecycleOwner, config: TransKText2SpeechConfig) 
         _transKText2Speech?.setSpeechRate(speechRate)
     }
 
-    override fun onPause(owner: LifecycleOwner) {
+    override fun onDestroy(owner: LifecycleOwner) {
         _transKText2Speech?.stop()
         _transKText2Speech?.shutdown()
         owner.lifecycle.removeObserver(this)
-        super.onPause(owner)
+        super.onDestroy(owner)
     }
 }

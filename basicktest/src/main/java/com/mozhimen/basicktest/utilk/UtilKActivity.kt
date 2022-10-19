@@ -21,10 +21,6 @@ class UtilKActivity : BaseKActivity<ActivityUtilkBinding, BaseKViewModel>(R.layo
         UtilKDataBus.with<String>("stickyData").setStickyData("即时消息主界面")
     }
 
-    fun goUtilKAudio(view: View) {
-        start<UtilKAudioActivity>()
-    }
-
     fun goUtilKBitmap(view: View) {
         start<UtilKBitmapActivity>()
     }

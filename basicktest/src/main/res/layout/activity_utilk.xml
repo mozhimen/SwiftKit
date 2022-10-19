@@ -12,12 +12,6 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goUtilKAudio"
-            android:text="UtilKAudio"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
             android:onClick="goUtilKBitmap"
             android:text="UtilKBitmap"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

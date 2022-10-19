@@ -26,12 +26,7 @@ class TaskKAsync(lifecycleOwner: LifecycleOwner) : ITaskK(lifecycleOwner) {
         }
     }
 
-    fun cancel() {
+    override fun cancel() {
         _asyncScope.cancel()
-    }
-
-    override fun onPause(owner: LifecycleOwner) {
-        cancel()
-        super.onPause(owner)
     }
 }

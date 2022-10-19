@@ -27,14 +27,9 @@ class TaskKCountDown(lifecycleOwner: LifecycleOwner) : ITaskK(lifecycleOwner) {
         _countDownTimer!!.start()
     }
 
-    fun cancel() {
+    override fun cancel() {
         _countDownTimer?.cancel()
         _countDownTimer = null
-    }
-
-    override fun onPause(owner: LifecycleOwner) {
-        cancel()
-        super.onPause(owner)
     }
 
     private inner class UtilKCountDownTimer(countDownMilliseconds: Long) : CountDownTimer(countDownMilliseconds, 1000) {

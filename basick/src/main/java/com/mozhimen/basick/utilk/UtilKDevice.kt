@@ -166,7 +166,7 @@ object UtilKDevice {
     @JvmStatic
     fun isHasPid(vid: Int, pid: Int): Boolean {
         @SuppressLint("WrongConstant")
-        val mUsbManager: UsbManager = UtilKGlobal.instance.getApp()!!.getSystemService("usb") as UsbManager
+        val mUsbManager: UsbManager = _context.getSystemService("usb") as UsbManager
         val devices: Iterator<UsbDevice> = mUsbManager.deviceList.values.iterator()
         while (devices.hasNext()) {
             val device: UsbDevice = devices.next()
@@ -259,7 +259,7 @@ object UtilKDevice {
     @JvmStatic
     private fun isHasCamera(isFront: Boolean): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            return UtilKGlobal.instance.getApp()!!.packageManager.hasSystemFeature(if (isFront) PackageManager.FEATURE_CAMERA_FRONT else PackageManager.FEATURE_CAMERA)
+            return _context.packageManager.hasSystemFeature(if (isFront) PackageManager.FEATURE_CAMERA_FRONT else PackageManager.FEATURE_CAMERA)
         } else {
             val info = Camera.CameraInfo()
             for (i in 0 until Camera.getNumberOfCameras()) {

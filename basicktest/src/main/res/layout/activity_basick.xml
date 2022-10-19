@@ -17,31 +17,37 @@
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goBaseKDemo"
-                android:text="BaseKDemo"
+                android:text="goBaseKDemo"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goExecutorK"
-                android:text="ExecutorK"
+                android:text="goExecutorK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goPrefabK"
+                android:text="goPrefabK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goStackK"
-                android:text="StackK"
+                android:text="goStackK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goTaskK"
-                android:text="TaskK"
+                android:text="goTaskK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goUtilK"
-                android:text="UtilK"
+                android:text="goUtilK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         </LinearLayout>

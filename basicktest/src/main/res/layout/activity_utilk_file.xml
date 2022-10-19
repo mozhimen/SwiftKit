@@ -13,8 +13,14 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/utilk_file_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="400dp"
             android:background="@color/black" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/utilk_file_btn_create_folder"
+            style="@style/BtnStyle"
+            android:text="创建一个文件夹"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 </layout>

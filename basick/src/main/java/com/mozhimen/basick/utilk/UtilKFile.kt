@@ -1,13 +1,9 @@
 package com.mozhimen.basick.utilk
 
-import android.Manifest
 import android.net.Uri
 import android.os.Build
-import androidx.annotation.RequiresPermission
 import androidx.core.content.FileProvider
-
 import java.io.*
-import java.lang.StringBuilder
 import java.math.BigInteger
 import java.security.MessageDigest
 
@@ -46,6 +42,7 @@ object UtilKFile {
      * @param filePathWithName String
      * @return Boolean
      */
+    @JvmStatic
     fun isFileExist(filePathWithName: String) =
         isFileExist(File(filePathWithName))
 
@@ -54,6 +51,7 @@ object UtilKFile {
      * @param folderPath String
      * @return Boolean
      */
+    @JvmStatic
     fun isFolderExist(folderPath: String) =
         UtilKFile.isFolderExist(File(genFolderPath(folderPath)))
 
@@ -82,7 +80,6 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun createFile(filePathWithName: String): File =
         createFile(File(filePathWithName))
 
@@ -93,9 +90,8 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun createFile(file: File): File {
-        file.parent?.let { createFolder(it) } ?: throw Exception("dont have parent folder")
+        file.parent?.let { createFolder(it) } ?: throw Exception("don't have parent folder")
         if (!file.exists()) {
             file.createNewFile()
         }
@@ -108,7 +104,6 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun deleteFile(filePathWithName: String) {
         deleteFile(File(filePathWithName))
     }
@@ -118,7 +113,6 @@ object UtilKFile {
      * @param file File
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun deleteFile(file: File): Boolean {
         return if (file.exists() && file.isFile) {
             file.delete()
@@ -130,7 +124,6 @@ object UtilKFile {
      * @param folderPath String
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun createFolder(folderPath: String) {
         createFolder(File(genFolderPath(folderPath)))
     }
@@ -141,7 +134,6 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun createFolder(folder: File) {
         if (!folder.exists()) {
             folder.mkdirs()
@@ -155,7 +147,6 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun deleteFolder(folderPath: String): Boolean {
         return deleteFolder(File(genFolderPath(folderPath)))
     }
@@ -167,7 +158,6 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun deleteFolder(folder: File): Boolean {
         if (!folder.exists()) return false
         val listFiles: Array<File> = folder.listFiles() ?: emptyArray()
@@ -191,7 +181,6 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun string2File(content: String, filePathWithName: String) {
         val tmpContent = content + "\r\n"
         val txtFile = createFile(filePathWithName)
@@ -208,7 +197,6 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun file2String(filePathWithName: String): String {
         val file = File(filePathWithName)
         if (isFolder(file)) return "this path is a folder"
@@ -224,7 +212,6 @@ object UtilKFile {
      * @return String
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun inputStream2String(inputStream: InputStream): String {
         val stringBuilder = StringBuilder()
         val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
@@ -235,10 +222,13 @@ object UtilKFile {
                 stringBuilder.append(lineString).append("\n")
             }
             return stringBuilder.toString()
+        } catch (e: Exception) {
+            e.printStackTrace()
         } finally {
             bufferedReader.close()
             inputStreamReader.close()
         }
+        return ""
     }
 
     /**
@@ -248,7 +238,6 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun copyFile(sourceFilePathWithName: String, destFilePathWithName: String) {
         copyFile(File(sourceFilePathWithName), File(destFilePathWithName))
     }
@@ -259,7 +248,6 @@ object UtilKFile {
      * @param destFile File
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun copyFile(sourceFile: File, destFile: File) {
         if (!sourceFile.exists()) return
         if (!destFile.exists()) createFile(destFile)
@@ -271,6 +259,8 @@ object UtilKFile {
             while (fileInputStream.read(buffer).also { bufferLength = it } > 0) {
                 fileOutputStream.write(buffer, 0, bufferLength)
             }
+        } catch (e: Exception) {
+            e.printStackTrace()
         } finally {
             fileInputStream.close()
             fileOutputStream.close()
@@ -283,7 +273,6 @@ object UtilKFile {
      * @return Uri
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun file2Uri(file: File): Uri =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             FileProvider.getUriForFile(_context, "${_context.packageName}.fileProvider", file)
@@ -295,7 +284,6 @@ object UtilKFile {
      * @return String
      */
     @JvmStatic
-    @Throws(Exception::class)
     fun file2Md5(inputStream: InputStream): String {
         val buffer = ByteArray(1024)
         val messageDigest: MessageDigest = MessageDigest.getInstance("md5") ?: throw Exception("get md5 fail")
@@ -307,6 +295,7 @@ object UtilKFile {
         return bigInteger.toString(16)
     }
 
+    @JvmStatic
     private fun genFolderPath(folderPath: String): String {
         var tmpFolderPath = folderPath
         if (!tmpFolderPath.endsWith(File.separator)) tmpFolderPath += File.separator

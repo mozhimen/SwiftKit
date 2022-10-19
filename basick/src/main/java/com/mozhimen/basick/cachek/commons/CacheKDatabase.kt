@@ -18,15 +18,9 @@ abstract class CacheKDatabase : RoomDatabase() {
     abstract val cacheKDao: ICacheKDao
 
     companion object {
-        private var _db: CacheKDatabase
+        private var _db: CacheKDatabase = Room.databaseBuilder(UtilKGlobal.instance.getApp()!!.applicationContext, CacheKDatabase::class.java, "basicsk_cachek").build()
         fun get(): CacheKDatabase {
             return _db
-        }
-
-        init {
-            val context = UtilKGlobal.instance.getApp()!!.applicationContext
-            _db =
-                Room.databaseBuilder(context, CacheKDatabase::class.java, "basicsk_cachek").build()
         }
     }
 }

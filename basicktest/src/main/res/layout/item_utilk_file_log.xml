@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="2dp"
-        android:text="@{item_utilk_file_log.log}"
+        android:text="@{item_utilk_file_log.joinContent}"
         android:textColor="@android:color/white"
         tools:background="@color/black"
         tools:text="this is exam"/>
