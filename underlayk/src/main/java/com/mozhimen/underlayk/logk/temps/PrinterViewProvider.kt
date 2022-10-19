@@ -39,7 +39,6 @@ class PrinterViewProvider(
     private var _recyclerView: RecyclerView? = null
         get() {
             if (field != null) return field
-
             val recyclerView = RecyclerView(_context)
             recyclerView.layoutManager = LinearLayoutManager(_context)
             recyclerView.adapter = _adapter
@@ -50,7 +49,6 @@ class PrinterViewProvider(
     private var _titleView: TextView? = null
         get() {
             if (field != null) return field
-
             val textView = TextView(_context)
             textView.text = if (_isFold) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
             textView.setTextColor(Color.WHITE)
@@ -62,7 +60,6 @@ class PrinterViewProvider(
     private var _containerView: FrameLayout? = null
         get() {
             if (field != null) return field
-
             val containerView = FrameLayout(_context)
             containerView.tag = TAG_LOGK_CONTAINER_VIEW
             containerView.setBackgroundColor(Color.BLACK)

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basicktest.BR
 import com.mozhimen.basick.basek.BaseKActivity
 import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.basick.utilk.UtilKAssets
+import com.mozhimen.basick.utilk.UtilKAsset
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkFileBinding
@@ -49,22 +49,18 @@ class UtilKFileActivity : BaseKActivity<ActivityUtilkFileBinding, BaseKViewModel
             }
         }
         lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val file = File(this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo")
-                addLog("destination : ${this@UtilKFileActivity.filesDir.absolutePath}")
-                addLog("start copy asset file to cdcard destination")
-                UtilKAssets.assetCopyFile("deviceInfo", file.absolutePath)
-                addLog("end")
-                addLog("after copy path: ${file.absolutePath}, isExist ${UtilKFile.isFileExist(file.absolutePath)}")
-                addLog("start read file content")
-                val content = UtilKFile.file2String(file.absolutePath)
-                addLog("read end")
-                addLog("read content: $content")
-                val contentArray = content.split("\n")
-                addLog("lines: $contentArray")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            val file = File(this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo")
+            addLog("destination : ${this@UtilKFileActivity.filesDir.absolutePath}")
+            addLog("start copy asset file to cdcard destination")
+            UtilKAsset.assetCopyFile("deviceInfo", file.absolutePath)
+            addLog("end")
+            addLog("after copy path: ${file.absolutePath}, isExist ${UtilKFile.isFileExist(file.absolutePath)}")
+            addLog("start read file content")
+            val content = UtilKFile.file2String(file.absolutePath)
+            addLog("read end")
+            addLog("read content: $content")
+            val contentArray = content.split("\n")
+            addLog("lines: $contentArray")
         }
     }
 

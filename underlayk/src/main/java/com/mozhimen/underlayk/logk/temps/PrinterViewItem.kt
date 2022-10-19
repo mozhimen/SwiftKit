@@ -22,7 +22,7 @@ class PrinterViewItem(private val logKMo: LogKMo) : DataKItem<Any, BindKViewHold
         val color = LogKHelper.getLevelColor(logKMo.level)
         holder.binding.logkPrinterViewTag.text = logKMo.getFlattened()
         holder.binding.logkPrinterViewTag.setTextColor(color)
-        holder.binding.logkPrinterViewMsg.text = logKMo.log.replace("\\n", "\n").replace(UtilKGlobal.instance.getApp()!!.packageName, "")
+        holder.binding.logkPrinterViewMsg.text = logKMo.log.replace("\\n".toRegex(), "\n").replace(UtilKGlobal.instance.getApp()!!.packageName, "")
         holder.binding.logkPrinterViewMsg.setTextColor(color)
     }
 

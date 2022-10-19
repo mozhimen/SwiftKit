@@ -2,7 +2,7 @@ package com.mozhimen.componentk.camera2k.commons
 
 import android.opengl.GLES20
 import android.util.SparseArray
-import com.mozhimen.basick.utilk.UtilKAssets
+import com.mozhimen.basick.utilk.UtilKAsset
 import com.mozhimen.basick.utilk.UtilKGL
 import com.mozhimen.basick.utilk.UtilKMatrix
 import java.nio.ByteBuffer
@@ -153,8 +153,8 @@ abstract class BaseFilter {
 
     protected open fun createProgramByAssetsFile(vertex: String, fragment: String) {
         createProgram(
-            UtilKAssets.txt2String2(vertex),
-            UtilKAssets.txt2String2(fragment)
+            UtilKAsset.file2String3(vertex),
+            UtilKAsset.file2String3(fragment)
         )
     }
 

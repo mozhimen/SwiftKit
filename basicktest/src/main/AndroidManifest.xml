@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
+
         <activity
             android:name=".BasicKActivity"
             android:exported="true">
@@ -37,6 +38,7 @@
         <activity
             android:name=".prefabk.PrefabKAudioActivity"
             android:exported="false" />
+
         <receiver
             android:name=".prefabk.AutoRunReceiver"
             android:enabled="true"
@@ -57,6 +59,9 @@
         <activity
             android:name=".taskk.TaskKAsyncActivity"
             android:exported="false" /> <!-- utilk -->
+        <activity
+            android:name=".utilk.UtilKAssetActivity"
+            android:exported="false" />
         <activity
             android:name=".utilk.UtilKGestureActivity"
             android:exported="false" />

@@ -4,6 +4,7 @@ import com.mozhimen.underlayk.logk.commons.IPrinter
 import com.mozhimen.underlayk.logk.mos.LogKConfig
 import com.mozhimen.underlayk.logk.mos.LogKMo
 import com.mozhimen.basick.utilk.UtilKDate
+import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKGlobal
 import java.io.BufferedWriter
 import java.io.File
@@ -30,7 +31,14 @@ class PrinterFile(
     private val _retentionTime: Long
 ) : IPrinter {
 
-    private val _logPath: String = getLogDir().absolutePath
+    var logPath: String? = null
+        get() {
+            if (field != null) return field
+            val logFullPath = UtilKGlobal.instance.getApp()!!.cacheDir.absolutePath + "/printer_file"
+            UtilKFile.createFolder(logFullPath)
+            return logFullPath.also { field = it }
+        }
+
     private val _executors = Executors.newSingleThreadExecutor()
     private var _writer: PrinterWriter
 
@@ -40,7 +48,7 @@ class PrinterFile(
     companion object {
         private var instance: PrinterFile? = null
         private const val TAG = "PrinterFile>>>>>"
-        const val LOGK_DIR = "logk"
+        //const val LOGK_DIR = "logk"
 
         /**
          * @param retentionDay Long? 单位天
@@ -63,16 +71,8 @@ class PrinterFile(
         cleanExpiredLog()
     }
 
-    fun getLogDir(): File {
-        val logFolder = File(UtilKGlobal.instance.getApp()!!.cacheDir, LOGK_DIR)
-        if (!logFolder.exists()) {
-            logFolder.mkdirs()
-        }
-        return logFolder
-    }
-
     fun getLogFiles(): Array<File> {
-        return File(_logPath).listFiles() ?: emptyArray()
+        return File(logPath!!).listFiles() ?: emptyArray()
     }
 
     override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
@@ -197,25 +197,11 @@ class PrinterFile(
          */
         fun ready(newFileName: String): Boolean {
             _preFileName = newFileName
-            _logFile = File(_logPath, newFileName)
+            _logFile = File(logPath, newFileName)
 
             // 当log文件不存在时创建log文件
-            if (!_logFile!!.exists()) {
-                try {
-                    val fileParent = _logFile!!.parentFile
-                    if (!fileParent.exists()) {
-                        fileParent.mkdirs()
-                    }
-                    _logFile!!.createNewFile()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    _preFileName = null
-                    _logFile = null
-                    return false
-                }
-            }
-
             try {
+                UtilKFile.createFile(_logFile!!)
                 _bufferedWriter = BufferedWriter(FileWriter(_logFile, true))
             } catch (e: Exception) {
                 e.printStackTrace()

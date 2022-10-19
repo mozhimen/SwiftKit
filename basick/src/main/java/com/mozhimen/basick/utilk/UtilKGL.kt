@@ -97,7 +97,7 @@ object UtilKGL {
 
     @JvmStatic
     fun createGlProgramByRes(vert: String, frag: String): Int =
-        createGlProgram(UtilKAssets.txt2String2(vert), UtilKAssets.txt2String2(frag))
+        createGlProgram(UtilKAsset.file2String3(vert), UtilKAsset.file2String3(frag))
 
     /**
      * 创建GL程序

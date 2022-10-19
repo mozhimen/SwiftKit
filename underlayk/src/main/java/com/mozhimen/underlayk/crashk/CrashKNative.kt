@@ -13,22 +13,20 @@ import java.io.File
  * @Version 1.0
  */
 object CrashKNative {
-    var _crashFullPath: String = UtilKGlobal.instance.getApp()!!.cacheDir.absolutePath + "/crashk_native"
+    private var _crashKListener: ICrashKListener? = null
+    var crashPathNative: String? = null
         get() {
+            if (field != null) return field
             val crashFullPath = UtilKGlobal.instance.getApp()!!.cacheDir.absolutePath + "/crashk_native"
             UtilKFile.createFolder(crashFullPath)
             return crashFullPath.also { field = it }
         }
-
-    private var _crashKListener: ICrashKListener? = null
 
     fun init(crashKListener: ICrashKListener) {
         this._crashKListener = crashKListener
     }
 
     fun getNativeCrashFiles(): Array<File> {
-        return File(_crashFullPath).listFiles() ?: emptyArray()
+        return File(crashPathNative!!).listFiles() ?: emptyArray()
     }
-
-    fun sss() =  _crashFullPath
 }

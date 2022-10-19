@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk
 
-import android.text.TextUtils
+import android.util.Log
 import java.io.*
 
 
@@ -11,8 +11,10 @@ import java.io.*
  * @Date 2022/4/15 3:52
  * @Version 1.0
  */
-object UtilKAssets {
+object UtilKAsset {
     private const val TAG = "UtilKAssets>>>>>"
+    private const val msg_not_exist = "fail, make sure it's file or exist"
+    private const val msg_wrong = "something wrong"
     private val _context = UtilKGlobal.instance.getApp()!!
 
     /**
@@ -22,9 +24,10 @@ object UtilKAssets {
      */
     @JvmStatic
     fun isFileExists(assetFileName: String): Boolean {
-        val assetFileNames = _context.assets.list("")
-        for (index in assetFileNames!!.indices) {
-            if (assetFileNames[index] == assetFileName.trim()) return true
+        val listAssetFiles = _context.assets.list("")
+        val tmpAssetFileName = assetFileName.trim()
+        for (index in listAssetFiles!!.indices) {
+            if (listAssetFiles[index] == tmpAssetFileName) return true
         }
         return false
     }
@@ -36,26 +39,39 @@ object UtilKAssets {
      */
     @JvmStatic
     fun file2String(assetFileName: String): String {
+        if (!isFileExists(assetFileName)) return msg_not_exist
         val inputStream = _context.assets.open(assetFileName)
-        inputStream.use { stream ->
-            return UtilKFile.inputStream2String(stream)
+        try {
+            return UtilKFile.inputStream2String(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            inputStream.close()
         }
+        return msg_wrong
     }
 
     /**
      * 获取文本文件内容: txt
+     * 最快的方法
      * @param assetFileName String
      * @return String
      */
     @JvmStatic
-    fun txt2String(assetFileName: String): String {
+    fun file2String2(assetFileName: String): String {
+        if (!isFileExists(assetFileName)) return msg_not_exist
         val inputStream = _context.assets.open(assetFileName)
-        inputStream.use { stream ->
-            val length = stream.available()
+        try {
+            val length = inputStream.available()
             val data = ByteArray(length)
-            stream.read(data)
+            inputStream.read(data)
             return String(data)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            inputStream.close()
         }
+        return msg_wrong
     }
 
     /**
@@ -64,17 +80,23 @@ object UtilKAssets {
      * @return String
      */
     @JvmStatic
-    fun txt2String2(assetFileName: String): String {
-        val stringBuilder = StringBuilder()
+    fun file2String3(assetFileName: String): String {
+        if (!isFileExists(assetFileName)) return msg_not_exist
         val inputStream = _context.resources.assets.open(assetFileName)
-        inputStream.use { stream ->
+        val stringBuilder = StringBuilder()
+        try {
             var bufferLength: Int
             val buffer = ByteArray(1024)
-            while (stream.read(buffer).also { bufferLength = it } != -1) {
+            while (inputStream.read(buffer).also { bufferLength = it } != -1) {
                 stringBuilder.append(String(buffer, 0, bufferLength))
             }
             return stringBuilder.toString().replace("\\r\\n".toRegex(), "\n")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            inputStream.close()
         }
+        return msg_wrong
     }
 
     /**
@@ -83,39 +105,28 @@ object UtilKAssets {
      * @param destFilePathWithName String
      * @return String
      */
+    @JvmStatic
     fun assetCopyFile(assetFileName: String, destFilePathWithName: String, isOverwrite: Boolean = true): String {
-        var tmpFilePathWithName = destFilePathWithName
-        if (tmpFilePathWithName.endsWith("/")) {
-            tmpFilePathWithName += assetFileName
-        }
+        if (!isFileExists(assetFileName)) return msg_not_exist
         val inputStream: InputStream = _context.assets.open(assetFileName)
-        var fileInputStream: FileInputStream? = null
-        val destFile = File(destFilePathWithName)
-        if (!destFile.exists()) {//不存在就创建该文件
-            UtilKFile.createFile(destFile)
+        //整理名称
+        var tmpDestFilePath = destFilePathWithName
+        if (tmpDestFilePath.endsWith("/")) {
+            tmpDestFilePath += assetFileName
         } else {
-            fileInputStream = FileInputStream(destFile)
-            val assetFileMD5 = UtilKFile.file2Md5(inputStream)
-            val destFileMD5 = UtilKFile.file2Md5(fileInputStream)
-            if (TextUtils.equals(assetFileMD5, destFileMD5)) {//相似内容就直接返回地址
-                return tmpFilePathWithName
+            val fileName = tmpDestFilePath.split("/").last()
+            if (fileName != assetFileName) {
+                tmpDestFilePath += "/${assetFileName}"
             }
         }
-        val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
+        Log.d(TAG, "assetCopyFile: tmpDestFilePath $tmpDestFilePath")
         try {
-            val buffer = ByteArray(1024)
-            var bufferLength: Int
-            while (inputStream.read(buffer).also { bufferLength = it } != -1) {
-                fileOutputStream.write(buffer, 0, bufferLength)
-            }
-            return tmpFilePathWithName
+            return UtilKFile.inputStream2File(inputStream, tmpDestFilePath, isOverwrite)
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
-            fileOutputStream.close()
-            fileInputStream?.close()
             inputStream.close()
         }
-        return ""
+        return msg_wrong
     }
 }

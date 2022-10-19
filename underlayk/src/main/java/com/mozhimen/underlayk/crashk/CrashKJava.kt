@@ -22,12 +22,18 @@ tools:ignore="ScopedStorage" />
  * @Version 1.0
  */
 object CrashKJava {
-    private const val CRASHK_JAVA_DIR = "crashk_java"
 
     private const val TAG = "CrashKJava>>>>>"
-    private var _crashFullPath: String = getJavaCrashDir().absolutePath
-    private var _crashListener: ICrashKListener? = null
     private val _context = UtilKGlobal.instance.getApp()!!
+    private var _crashListener: ICrashKListener? = null
+
+    var crashPathJava: String? = null
+        get() {
+            if (field != null) return field
+            val crashFullPath = _context.cacheDir.absolutePath + "/crashk_java"
+            UtilKFile.createFolder(crashFullPath)
+            return crashFullPath.also { field = it }
+        }
 
     fun init(crashKListener: ICrashKListener) {
         this._crashListener = crashKListener
@@ -35,15 +41,7 @@ object CrashKJava {
     }
 
     fun getJavaCrashFiles(): Array<File> {
-        return File(_crashFullPath).listFiles() ?: emptyArray()
-    }
-
-    private fun getJavaCrashDir(): File {
-        val javaCrashFile = File(_context.cacheDir, CRASHK_JAVA_DIR)
-        if (!javaCrashFile.exists()) {
-            javaCrashFile.mkdirs()
-        }
-        return javaCrashFile
+        return File(crashPathJava!!).listFiles() ?: emptyArray()
     }
 
     private class CrashKUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
@@ -76,22 +74,8 @@ object CrashKJava {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val crashDir = File(_crashFullPath)
-            if (!crashDir.exists()) {
-                crashDir.mkdirs()
-            }
-            val crashkFile = File(crashDir, "crashk_" + UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss + ".txt"))
-            crashkFile.createNewFile()
-            val fos = FileOutputStream(crashkFile)
-
-            try {
-                fos.write(log.toByteArray())
-                fos.flush()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                fos.close()
-            }
+            val savePath = crashPathJava + "/crashk_${UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss + ".txt")}"
+            UtilKFile.string2File(log, savePath)
         }
 
         private fun collectDeviceInfo(e: Throwable): String {

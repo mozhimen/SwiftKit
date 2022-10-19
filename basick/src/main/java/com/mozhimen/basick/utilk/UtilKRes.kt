@@ -17,8 +17,7 @@ import androidx.core.content.ContextCompat
  * @Version 1.0
  */
 object UtilKRes {
-    private val _context: Context
-        get() = UtilKGlobal.instance.getApp() as Context
+    private val _context = UtilKGlobal.instance.getApp()!!
 
     /**
      * 获取字符串

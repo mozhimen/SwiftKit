@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 
@@ -17,7 +18,7 @@ object UtilKSkip {
      * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
      */
     @JvmStatic
-    inline fun <reified T> start(context: Context, block: Intent.() -> Unit) {
+    inline fun <reified T> start(context: Context, block: Intent.() -> Unit) where T : Activity {
         val intent = Intent(context, T::class.java)
         intent.block()
         context.startActivity(intent)
@@ -28,7 +29,7 @@ object UtilKSkip {
      * @param context Context
      */
     @JvmStatic
-    inline fun <reified T> start(context: Context) {
+    inline fun <reified T> start(context: Context) where T : Activity {
         val intent = Intent(context, T::class.java)
         context.startActivity(intent)
     }

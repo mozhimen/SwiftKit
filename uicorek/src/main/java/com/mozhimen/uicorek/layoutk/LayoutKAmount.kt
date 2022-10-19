@@ -36,7 +36,7 @@ class LayoutKAmount @JvmOverloads constructor(
     private val _attrs = LayoutKAmountParser.parseAttrs(context, attrs, defStyleAttr)
     private var _layoutKAmountListener: ILayoutKAmountListener? = null
 
-    private val _btnIncrease: Button? = null
+    private var _btnIncrease: Button? = null
         get() {
             if (field != null) return field
             val btn = genBtn()
@@ -46,10 +46,10 @@ class LayoutKAmount @JvmOverloads constructor(
                 _txtAmount!!.text = currentAmount.toString()
                 _layoutKAmountListener?.invoke(currentAmount)
             }
-            return btn
+            return btn.also { field = it }
         }
 
-    private val _btnDecrease: Button? = null
+    private var _btnDecrease: Button? = null
         get() {
             if (field != null) return field
             val btn = genBtn()
@@ -59,15 +59,15 @@ class LayoutKAmount @JvmOverloads constructor(
                 _txtAmount!!.text = currentAmount.toString()
                 _layoutKAmountListener?.invoke(currentAmount)
             }
-            return btn
+            return btn.also { field = it }
         }
 
-    private val _txtAmount: TextView? = null
+    private var _txtAmount: TextView? = null
         get() {
             if (field != null) return field
             val txt = genTxt()
             txt.text = _attrs.defaultAmount.toString()
-            return txt
+            return txt.also { field = it }
         }
     //endregion
 

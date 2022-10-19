@@ -20,14 +20,20 @@ class HotFixMgr {
 
     companion object {
         private const val TAG = "HotFixKMgr>>>>>"
-        private const val HOTFIXK_DIR = "hotfixk"
 
         @JvmStatic
         val instance = HotFixKMgrHolder.holder
     }
 
     private val _context = UtilKGlobal.instance.getApp()!!
-    private val _hotfixPath = getHotFixFilesDir().absolutePath
+    var hotfixPath: String? = null
+        get() {
+            if (field != null) return field
+            val hotfixFullPath = _context.cacheDir.absolutePath + "/hotfix"
+            UtilKFile.createFolder(hotfixFullPath)
+            return hotfixFullPath.also { field = it }
+        }
+
     private var _hotFixKListener: IHotFixKListener? = null
 
     @Volatile
@@ -60,7 +66,7 @@ class HotFixMgr {
     fun moveHotFixFiles2InnerSpace(sourcePath: String) {
         val sourceFiles: Array<File> = getAllExternalHotFixFiles(sourcePath)
         sourceFiles.forEach {
-            val destFile = File(_hotfixPath, it.name)
+            val destFile = File(hotfixPath, it.name)
             UtilKFile.copyFile(it, destFile)
             UtilKFile.deleteFile(it)
         }
@@ -100,30 +106,18 @@ class HotFixMgr {
     }
 
     /**
-     * 获取到HotFixK文件的存储路径
-     * @return File
-     */
-    fun getHotFixFilesDir(): File {
-        val hotFixFolder = File(_context.cacheDir, HOTFIXK_DIR)
-        if (!hotFixFolder.exists()) {
-            hotFixFolder.mkdirs()
-        }
-        return hotFixFolder
-    }
-
-    /**
      * 获取到存储路径下的所有文件
      * @return Array<File>
      */
     fun getHotFixFiles(): Array<File> {
-        return File(_hotfixPath).listFiles() ?: emptyArray()
+        return File(hotfixPath!!).listFiles() ?: emptyArray()
     }
 
     /**
      * 清除所有热修复dex文件
      */
     fun clearHotFixFiles() {
-        UtilKFile.deleteFolder(_hotfixPath)
+        UtilKFile.deleteFolder(hotfixPath!!)
     }
 
     private fun getAllExternalHotFixFiles(sourcePath: String): Array<File> {
