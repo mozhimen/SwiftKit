@@ -40,28 +40,40 @@ class UtilKFileActivity : BaseKActivity<ActivityUtilkFileBinding, BaseKViewModel
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.utilkFileBtnCreateFolder.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Main) {
-                val createPath = this@UtilKFileActivity.cacheDir.absolutePath
-                addLog("createPath: $createPath")
-                UtilKFile.createFolder("$createPath/newFolder")
-                addLog("newFolder is exists: " + UtilKFile.isFolderExist("$createPath/newFolder"))
-            }
-        }
         lifecycleScope.launch(Dispatchers.IO) {
-            val file = File(this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo")
-            addLog("destination : ${this@UtilKFileActivity.filesDir.absolutePath}")
-            addLog("start copy asset file to cdcard destination")
-            UtilKAsset.asset2File("deviceInfo", file.absolutePath)
-            addLog("end")
-            addLog("after copy path: ${file.absolutePath}, isExist ${UtilKFile.isFileExist(file.absolutePath)}")
-            addLog("start read file content")
-            val content = UtilKFile.file2String(file.absolutePath)
-            addLog("read end")
-            addLog("read content: $content")
-            val contentArray = content.split("\n")
-            addLog("lines: $contentArray")
+            "section file".log()
+            val deviceInfoPath = this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo"
+            "isFile deviceInfo ${UtilKFile.isFile(deviceInfoPath)}".log()
+            val deviceInfo1Path = this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo1"
+            "createFile deviceInfo1 ${UtilKFile.createFile(deviceInfo1Path).absolutePath}".log()
+            "deleteFile deviceInfo1 ${UtilKFile.deleteFile(deviceInfo1Path)}".log()
+            "getFileSize deviceInfo size ${UtilKFile.getFileSize(deviceInfoPath)}".log()
+
+            val string2File1Path = this@UtilKFileActivity.filesDir.absolutePath + "/tmp1.txt"
+            val string2File1Time = System.currentTimeMillis()
+            "string2File1 tmp1 ${UtilKFile.string2File("第一行\n第二行", string2File1Path)} time ${System.currentTimeMillis() - string2File1Time}".log()
+            val string2File2Path = this@UtilKFileActivity.filesDir.absolutePath + "/tmp2.txt"
+            val string2File2Time = System.currentTimeMillis()
+            "string2File2 tmp2 ${UtilKFile.string2File2("第一行\n第二行", string2File2Path)} time ${System.currentTimeMillis() - string2File2Time}".log()
+
+            val file2StringTime = System.currentTimeMillis()
+            "file2String tmp ${UtilKFile.file2String(string2File1Path)} time ${System.currentTimeMillis() - file2StringTime}".log()
+
+            val copyFileTime = System.currentTimeMillis()
+            val destTmpFilePath = this@UtilKFileActivity.filesDir.absolutePath + "/tmp3.txt"
+            "copyFile tmp -> tmp3 ${UtilKFile.copyFile(string2File1Path, destTmpFilePath)} time ${System.currentTimeMillis() - copyFileTime}".log()
+
+            "section folder".log()
+            val deviceInfoFolder = this@UtilKFileActivity.filesDir.absolutePath
+            "isFolder filesDir ${UtilKFile.isFolder(deviceInfoFolder)}".log()
+            val createFolderPath = this@UtilKFileActivity.filesDir.absolutePath + "/folder/"
+            "createFolder folder ${UtilKFile.createFolder(createFolderPath).absolutePath}".log()
+            "deleteFolder folder ${UtilKFile.deleteFolder(createFolderPath)}".log()
         }
+    }
+
+    private suspend fun String.log() {
+        addLog(this)
     }
 
     private suspend fun addLog(log: String) {

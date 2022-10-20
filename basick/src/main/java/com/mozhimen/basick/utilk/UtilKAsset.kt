@@ -42,7 +42,7 @@ object UtilKAsset {
         if (!isFileExists(assetFileName)) return msg_not_exist
         val inputStream = _context.assets.open(assetFileName)
         try {
-            return UtilKFile.inputStream2String(inputStream)
+            return UtilKFile.inputStream2String(inputStream).replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -62,10 +62,9 @@ object UtilKAsset {
         if (!isFileExists(assetFileName)) return msg_not_exist
         val inputStream = _context.assets.open(assetFileName)
         try {
-            val length = inputStream.available()
-            val data = ByteArray(length)
+            val data = ByteArray(inputStream.available())
             inputStream.read(data)
-            return String(data)
+            return String(data).replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -90,7 +89,7 @@ object UtilKAsset {
             while (inputStream.read(buffer).also { bufferLength = it } != -1) {
                 stringBuilder.append(String(buffer, 0, bufferLength))
             }
-            return stringBuilder.toString().replace("\\r\\n".toRegex(), "\n")
+            return stringBuilder.toString().replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {

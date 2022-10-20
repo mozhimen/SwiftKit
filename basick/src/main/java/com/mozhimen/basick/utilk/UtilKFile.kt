@@ -103,8 +103,37 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    fun deleteFile(filePathWithName: String) {
+    fun deleteFile(filePathWithName: String): Boolean =
         deleteFile(File(filePathWithName))
+
+    /**
+     * 获取文件大小
+     * @param filePathWithName String
+     * @return Long
+     */
+    @JvmStatic
+    fun getFileSize(filePathWithName: String): Int =
+        getFileSize(File(filePathWithName))
+
+    /**
+     * 获取文件大小
+     * @param file File
+     * @return Long
+     */
+    @JvmStatic
+    fun getFileSize(file: File): Int {
+        val size = 0
+        if (isFileExist(file)) {
+            val fileInputStream = FileInputStream(file)
+            try {
+                return fileInputStream.available()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                fileInputStream.close()
+            }
+        }
+        return size
     }
 
     /**
@@ -114,17 +143,19 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    fun string2File(content: String, filePathWithName: String) {
-        val tmpContent = content + "\r\n"
+    fun string2File(content: String, filePathWithName: String): String {
+        val tmpContent = content + "\n"
         val tmpFile = createFile(filePathWithName)
-        val randomAccessFile = RandomAccessFile(tmpFile, "rwf")
+        val randomAccessFile = RandomAccessFile(tmpFile, "rwd")
         try {
             randomAccessFile.write(tmpContent.toByteArray())
+            return tmpFile.absolutePath
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
             randomAccessFile.close()
         }
+        return msg_wrong
     }
 
     /**
@@ -134,18 +165,20 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    fun string2File2(content: String, filePathWithName: String) {
+    fun string2File2(content: String, filePathWithName: String): String {
         val tmpContent = content + "\r\n"
         val tmpFile = createFile(filePathWithName)
         val fileOutputStream = FileOutputStream(tmpFile)
         try {
             fileOutputStream.write(tmpContent.toByteArray())
+            return tmpFile.absolutePath
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
             fileOutputStream.flush()
             fileOutputStream.close()
         }
+        return msg_wrong
     }
 
     /**
@@ -167,7 +200,7 @@ object UtilKFile {
         if (!isFileExist(file)) return msg_not_exist
         val fileInputStream = FileInputStream(file)
         try {
-            return inputStream2String(fileInputStream)
+            return inputStream2String(fileInputStream).replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -191,7 +224,7 @@ object UtilKFile {
             while (bufferedReader.readLine()?.also { lineString = it } != null) {
                 stringBuilder.append(lineString).append("\n")
             }
-            return stringBuilder.deleteCharAt(stringBuilder.length - 1).toString()
+            return stringBuilder.deleteCharAt(stringBuilder.length - 1).toString().replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -368,6 +401,15 @@ object UtilKFile {
         folder.exists() && folder.isDirectory
 
     /**
+     * 判断是否是文件夹
+     * @param folderPath String
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isFolder(folderPath: String): Boolean =
+        isFolder(File(folderPath))
+
+    /**
      * 文件夹是否存在
      * @param folderPath String
      * @return Boolean
@@ -388,23 +430,23 @@ object UtilKFile {
     /**
      * 创建文件夹
      * @param folderPath String
+     * @return File
      */
     @JvmStatic
-    fun createFolder(folderPath: String) {
+    fun createFolder(folderPath: String) =
         createFolder(File(genFolderPath(folderPath)))
-    }
 
     /**
      * 创建文件夹
      * @param folder File
-     * @throws Exception
+     * @return File
      */
     @JvmStatic
-    fun createFolder(folder: File) {
-        Log.d(TAG, "createFolder: folder $folder")
+    fun createFolder(folder: File): File {
         if (!isFolderExist(folder)) {
             folder.mkdirs()
         }
+        return folder
     }
 
     /**
@@ -414,9 +456,8 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    fun deleteFolder(folderPath: String): Boolean {
-        return deleteFolder(File(genFolderPath(folderPath)))
-    }
+    fun deleteFolder(folderPath: String): Boolean =
+        deleteFolder(File(genFolderPath(folderPath)))
 
     /**
      * 删除文件夹
