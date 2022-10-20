@@ -3,14 +3,12 @@ package com.mozhimen.basick.utilk
 import android.app.Activity
 import android.content.ContentResolver
 import android.content.ContentValues
-import android.content.Intent
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.Image
 import android.media.MediaScannerConnection
 import android.net.Uri
-import android.opengl.GLException
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
@@ -19,12 +17,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
-
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.io.*
 import java.nio.ByteBuffer
-import java.nio.IntBuffer
-import javax.microedition.khronos.opengles.GL10
 import kotlin.coroutines.resume
 import kotlin.math.ceil
 
@@ -40,60 +35,6 @@ object UtilKBitmap {
     private val TAG = "UtilKBitmap>>>>>"
     private val _context = UtilKGlobal.instance.getApp()!!
 
-    //region # bitmap io
-    /**
-     * 位图转文件
-     * @param bitmap Bitmap
-     * @param destFileName String
-     * @return File
-     */
-    @JvmStatic
-    fun bitmap2Album(bitmap: Bitmap, destFileName: String, quality: Int = 80): String {
-        var tmpDestFilePath = _context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.absolutePath + "/${destFileName}"
-        if (!tmpDestFilePath.endsWith(".jpg")) {
-            tmpDestFilePath += ".jpg"
-        }
-        Log.d(TAG, "bitmap2Album: tmpDestFilePath $tmpDestFilePath")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            var outputStream: OutputStream? = null
-            val destFile = UtilKFile.createFile(tmpDestFilePath)
-            val pathArray: Array<String> = arrayOf(destFile.absolutePath)
-            val typeArray: Array<String> = arrayOf("image/jpeg")
-            try {
-                val values = ContentValues()
-                val resolver: ContentResolver = _context.contentResolver
-                values.put(MediaStore.Images.ImageColumns.DATA, destFile.absolutePath)
-                values.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, destFileName)
-                values.put(MediaStore.Images.ImageColumns.MIME_TYPE, "image/jpeg")
-                values.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
-                val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values) // 插入相册
-                uri?.let {
-                    outputStream = resolver.openOutputStream(uri)
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
-                }
-                return tmpDestFilePath
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                outputStream?.apply {
-                    flush()
-                    close()
-                    try {
-                        MediaScannerConnection.scanFile(_context, pathArray, typeArray) { path, uri ->
-                            Log.d(TAG, "bitmap2Album: path $path, uri $uri")
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-        } else {
-            return bitmap2File(bitmap, tmpDestFilePath)
-        }
-        return UtilKFile.msg_wrong
-    }
-
-    //endregion
 
     /**
      * image转Bytes
@@ -104,8 +45,7 @@ object UtilKBitmap {
     fun image2Bytes(image: Image): ByteArray {
         var data: ByteArray? = null
         if (image.format == ImageFormat.JPEG) {
-            val planes = image.planes
-            val buffer = planes[0].buffer
+            val buffer = image.planes[0].buffer
             data = ByteArray(buffer.capacity())
             buffer.get(data)
         } else if (image.format == ImageFormat.YUV_420_888) {
@@ -309,28 +249,6 @@ object UtilKBitmap {
     }
 
     /**
-     * 从相册获得图片
-     * @param activity Activity
-     * @param intent Intent?
-     * @return Bitmap?
-     */
-    @JvmStatic
-    fun getFromAlbum(activity: Activity, intent: Intent?): Bitmap? {
-        val uri = intent?.data ?: return null
-        try {
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                val source = ImageDecoder.createSource(activity.contentResolver, uri)
-                ImageDecoder.decodeBitmap(source)
-            } else {
-                MediaStore.Images.Media.getBitmap(activity.contentResolver, uri)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return null
-    }
-
-    /**
      * uri转bitmap
      * @param activity Activity
      * @param uri Uri
@@ -440,10 +358,10 @@ object UtilKBitmap {
      * @param filePath String
      * @return File
      */
-    @JvmStatic
+    /*@JvmStatic
     fun nv21Bytes2File(nv21Bytes: ByteArray, width: Int, height: Int, filePath: String): String {
         return bitmap2Album(nv21Bytes2Bitmap(nv21Bytes, width, height), filePath)
-    }
+    }*/
 
     /**
      * nv21转位图 for camera1
@@ -554,37 +472,12 @@ object UtilKBitmap {
         return outputBitmap
     }
 
-    @JvmStatic
-    fun bitmap2File(bitmap: Bitmap, filePathWithName: String, quality: Int = 80, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): String =
-        bitmap2File(bitmap, File(filePathWithName), quality, compressFormat)
-
-    /**
-     * 保存图片
-     * @param destFile String
-     * @param bitmap Bitmap?
-     */
-    @JvmStatic
-    fun bitmap2File(bitmap: Bitmap, destFile: File, quality: Int = 80, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): String {
-        UtilKFile.createFile(destFile)
-        val bufferedOutputStream = BufferedOutputStream(FileOutputStream(destFile))
-        try {
-            bitmap.compress(compressFormat, quality, bufferedOutputStream)
-            return destFile.absolutePath
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            bufferedOutputStream.flush()
-            bufferedOutputStream.close()
-        }
-        return UtilKFile.msg_wrong
-    }
-
     /**
      * 将本地图片文件转换成可解码二维码的 Bitmap,为了避免图片太大，这里对图片进行了压缩
      * @param picturePath String
      * @return Bitmap?
      */
-    @JvmStatic
+    /*@JvmStatic
     fun getDecodableBitmap(picturePath: String): Bitmap? {
         return try {
             val options = BitmapFactory.Options()
@@ -601,7 +494,7 @@ object UtilKBitmap {
             e.printStackTrace()
             null
         }
-    }
+    }*/
 
     /**
      * 裁剪nv21Bytes
@@ -614,7 +507,7 @@ object UtilKBitmap {
      * @param cropHeight Int 裁剪的高度
      * @return ByteArray 裁剪后的图像数据
      */
-    @JvmStatic
+    /*@JvmStatic
     fun clipNv212Bytes(
         srcBytes: ByteArray,
         srcWidth: Int,
@@ -651,7 +544,7 @@ object UtilKBitmap {
         val end = System.nanoTime()
         Log.d(TAG, "clipNv212Bytes clip use: " + (end - begin) + "ns")
         return data
-    }
+    }*/
 
     /**
      * gl10转bitmap
@@ -662,7 +555,7 @@ object UtilKBitmap {
      * @param y Int
      * @return Bitmap
      */
-    @JvmStatic
+    /*@JvmStatic
     fun gl102Bitmap(gl10: GL10, width: Int, height: Int, x: Int, y: Int): Bitmap {
         val bitmapBuffer = IntArray(width * height)
         val bitmapSource = IntArray(width * height)
@@ -687,30 +580,26 @@ object UtilKBitmap {
             e.printStackTrace()
         }
         return Bitmap.createBitmap(bitmapSource, width, height, Bitmap.Config.ARGB_8888)
-    }
+    }*/
 
     /**
-     * 堆叠Bitmap
+     * 堆叠Bitmap,最左边的在下面
      * @param bgBitmap Bitmap
      * @param fgBitmap Bitmap
      * @return Bitmap
      */
-    @JvmStatic
+    /*@JvmStatic
     fun pileUpBitmap(bgBitmap: Bitmap, fgBitmap: Bitmap): Bitmap {
-        val bgWidth: Int = bgBitmap.width
-        val bgHeight: Int = bgBitmap.height
         val fgWidth: Int = fgBitmap.width
         val fgHeight: Int = fgBitmap.height
-        val destBitmap = Bitmap.createBitmap(bgWidth, bgHeight, Bitmap.Config.ARGB_8888)
+
+        val destBitmap = Bitmap.createBitmap(bgBitmap.width, bgBitmap.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(destBitmap)
+
         canvas.drawBitmap(bgBitmap, 0f, 0f, null)
-        canvas.drawBitmap(
-            fgBitmap,
-            ((bgWidth - fgWidth) / 2).toFloat(),
-            ((bgHeight - fgHeight) / 2).toFloat(), null
-        )
+        canvas.drawBitmap(fgBitmap, ((bgWidth - fgWidth) / 2).toFloat(), ((bgHeight - fgHeight) / 2).toFloat(), null)
         canvas.save()
         canvas.restore()
         return destBitmap
-    }
+    }*/
 }

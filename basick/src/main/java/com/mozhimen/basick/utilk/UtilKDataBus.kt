@@ -40,12 +40,12 @@ object UtilKDataBus {
             //不受线程的限制
         }
 
-        override fun setValue(value: T) {
+        public override fun setValue(value: T) {
             _version++
             super.setValue(value)
         }
 
-        override fun postValue(value: T) {
+        public override fun postValue(value: T) {
             _version++
             super.postValue(value)
         }
