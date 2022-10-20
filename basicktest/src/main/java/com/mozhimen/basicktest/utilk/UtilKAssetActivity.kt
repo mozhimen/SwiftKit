@@ -51,7 +51,7 @@ class UtilKAssetActivity : BaseKActivity<ActivityUtilkAssetBinding, BaseKViewMod
             addLog("txt2String3 deviceInfo $txt2String2Content time ${System.currentTimeMillis() - txt2String2Time}")
             addLog("start copy file")
             val assetCopyFileTime = System.currentTimeMillis()
-            val assetCopyFilePath = UtilKAsset.assetCopyFile("deviceInfo", this@UtilKAssetActivity.cacheDir.absolutePath + "/utilk_asset/")
+            val assetCopyFilePath = UtilKAsset.asset2File("deviceInfo", this@UtilKAssetActivity.cacheDir.absolutePath + "/utilk_asset/")
             addLog("assetCopyFile deviceInfo path $assetCopyFilePath time ${System.currentTimeMillis() - assetCopyFileTime}")
         }
     }

@@ -19,8 +19,8 @@ import java.security.MessageDigest
 object UtilKFile {
 
     private const val TAG = "UtilKFile>>>>>"
-    private const val msg_not_exist = "fail, make sure it's file or exist"
-    private const val msg_wrong = "something wrong"
+    const val msg_not_exist = "fail, make sure it's file or exist"
+    const val msg_wrong = "something wrong"
     private val _context = UtilKGlobal.instance.getApp()!!
 
     //region # file
@@ -213,7 +213,7 @@ object UtilKFile {
         inputStream2File(inputStream, File(destFilePathWithName), isOverwrite)
 
     /**
-     * 流转文件
+     * 输入流转文件
      * @param inputStream InputStream
      * @return String
      */
@@ -226,7 +226,7 @@ object UtilKFile {
             fileInputStream = FileInputStream(destFile)
             if (isFilesSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
                 Log.d(TAG, "assetCopyFile: the two files is same")
-                return "the two files is same, dont need overwrite"
+                return "the two files is same, don't need overwrite"
             }
         }
         val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
@@ -244,6 +244,41 @@ object UtilKFile {
             fileOutputStream.close()
             fileInputStream?.close()
             inputStream.close()
+        }
+        return msg_wrong
+    }
+
+    /**
+     * 输出流转文件
+     * @param byteArrayOutputStream ByteArrayOutputStream
+     * @param filePathWithName String
+     * @param isOverwrite Boolean
+     * @return String
+     */
+    @JvmStatic
+    fun byteArrayOutputStream2File(byteArrayOutputStream: ByteArrayOutputStream, filePathWithName: String, isOverwrite: Boolean = true): String =
+        byteArrayOutputStream2File(byteArrayOutputStream, File(filePathWithName), isOverwrite)
+
+    /**
+     * 输出流转文件
+     * @param byteArrayOutputStream ByteArrayOutputStream
+     * @param destFile File
+     * @param isOverwrite Boolean
+     */
+    @JvmStatic
+    fun byteArrayOutputStream2File(byteArrayOutputStream: ByteArrayOutputStream, destFile: File, isOverwrite: Boolean = true): String {
+        createFile(destFile)
+        val fileOutputStream = FileOutputStream(destFile)
+        try {
+            fileOutputStream.write(byteArrayOutputStream.toByteArray())
+            return destFile.absolutePath
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            byteArrayOutputStream.flush()
+            byteArrayOutputStream.close()
+            fileOutputStream.flush()
+            fileOutputStream.close()
         }
         return msg_wrong
     }

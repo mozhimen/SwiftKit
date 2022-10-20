@@ -106,7 +106,7 @@ object UtilKAsset {
      * @return String
      */
     @JvmStatic
-    fun assetCopyFile(assetFileName: String, destFilePathWithName: String, isOverwrite: Boolean = true): String {
+    fun asset2File(assetFileName: String, destFilePathWithName: String, isOverwrite: Boolean = true): String {
         if (!isFileExists(assetFileName)) return msg_not_exist
         val inputStream: InputStream = _context.assets.open(assetFileName)
         //整理名称

@@ -10,12 +10,12 @@ import android.os.IBinder;
 import android.os.IInterface;
 import android.util.Log;
 
+import com.mozhimen.basick.utilk.UtilKFile;
 import com.mozhimen.basick.utilk.UtilKReflect;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
@@ -37,9 +37,7 @@ public class DexConverter {
         }
 
         final File oatFile = new File(oatPath);
-        if (oatFile.exists()) {
-            return;
-        }
+        if (UtilKFile.isFileExist(oatFile)) return;
         final PackageManager syncPM = getSynchronizedPackageManager(context);
         final Method registerDexModuleMethod = UtilKReflect.findMethod(syncPM.getClass(), "registerDexModule", String.class, PackageManager$DexModuleRegisterCallback.class);
         try {
@@ -52,7 +50,7 @@ public class DexConverter {
         } catch (Throwable ignored) {
             // Ignored.
         }
-        if (!oatFile.exists()) {
+        if (!UtilKFile.isFileExist(oatFile)) {
             registerDexModuleMethod.invoke(syncPM, dexPath, new PackageManager$DexModuleRegisterCallback() {
                 @Override
                 public void onDexModuleRegistered(String dexModulePath, boolean success, String message) {
@@ -60,7 +58,7 @@ public class DexConverter {
                 }
             });
         }
-        if (oatFile.exists()) {
+        if (UtilKFile.isFileExist(oatFile)) {
             Log.w(TAG, "[+] Bg-dexopt was triggered successfully.");
         } else {
             throw new IllegalStateException("Bg-dexopt was triggered, but no odex file was generated.");

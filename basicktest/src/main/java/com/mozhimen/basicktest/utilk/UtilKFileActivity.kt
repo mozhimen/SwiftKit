@@ -52,7 +52,7 @@ class UtilKFileActivity : BaseKActivity<ActivityUtilkFileBinding, BaseKViewModel
             val file = File(this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo")
             addLog("destination : ${this@UtilKFileActivity.filesDir.absolutePath}")
             addLog("start copy asset file to cdcard destination")
-            UtilKAsset.assetCopyFile("deviceInfo", file.absolutePath)
+            UtilKAsset.asset2File("deviceInfo", file.absolutePath)
             addLog("end")
             addLog("after copy path: ${file.absolutePath}, isExist ${UtilKFile.isFileExist(file.absolutePath)}")
             addLog("start read file content")

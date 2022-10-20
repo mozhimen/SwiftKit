@@ -15,7 +15,6 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import androidx.core.location.LocationRequestCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.bumptech.glide.request.target.CustomTarget
@@ -27,7 +26,6 @@ import java.nio.ByteBuffer
 import java.nio.IntBuffer
 import javax.microedition.khronos.opengles.GL10
 import kotlin.coroutines.resume
-import kotlin.jvm.Throws
 import kotlin.math.ceil
 
 
@@ -41,6 +39,61 @@ import kotlin.math.ceil
 object UtilKBitmap {
     private val TAG = "UtilKBitmap>>>>>"
     private val _context = UtilKGlobal.instance.getApp()!!
+
+    //region # bitmap io
+    /**
+     * 位图转文件
+     * @param bitmap Bitmap
+     * @param destFileName String
+     * @return File
+     */
+    @JvmStatic
+    fun bitmap2Album(bitmap: Bitmap, destFileName: String, quality: Int = 80): String {
+        var tmpDestFilePath = _context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)!!.absolutePath + "/${destFileName}"
+        if (!tmpDestFilePath.endsWith(".jpg")) {
+            tmpDestFilePath += ".jpg"
+        }
+        Log.d(TAG, "bitmap2Album: tmpDestFilePath $tmpDestFilePath")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            var outputStream: OutputStream? = null
+            val destFile = UtilKFile.createFile(tmpDestFilePath)
+            val pathArray: Array<String> = arrayOf(destFile.absolutePath)
+            val typeArray: Array<String> = arrayOf("image/jpeg")
+            try {
+                val values = ContentValues()
+                val resolver: ContentResolver = _context.contentResolver
+                values.put(MediaStore.Images.ImageColumns.DATA, destFile.absolutePath)
+                values.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, destFileName)
+                values.put(MediaStore.Images.ImageColumns.MIME_TYPE, "image/jpeg")
+                values.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
+                val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values) // 插入相册
+                uri?.let {
+                    outputStream = resolver.openOutputStream(uri)
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+                }
+                return tmpDestFilePath
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                outputStream?.apply {
+                    flush()
+                    close()
+                    try {
+                        MediaScannerConnection.scanFile(_context, pathArray, typeArray) { path, uri ->
+                            Log.d(TAG, "bitmap2Album: path $path, uri $uri")
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        } else {
+            return bitmap2File(bitmap, tmpDestFilePath)
+        }
+        return UtilKFile.msg_wrong
+    }
+
+    //endregion
 
     /**
      * image转Bytes
@@ -102,28 +155,24 @@ object UtilKBitmap {
     /**
      * yuv流转Jpeg文件
      * @param nv21Bytes ByteArray
-     * @param outPath String
+     * @param filePathWithName String
      * @param width Int
      * @param height Int
      */
     @JvmStatic
-    fun yuvBytes2JpegFile(nv21Bytes: ByteArray, outPath: String, width: Int, height: Int) {
+    fun yuvBytes2JpegFile(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, isOverwrite: Boolean = true): String {
         val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
-        val outputStream = ByteArrayOutputStream()
-        yuvImage.compressToJpeg(Rect(0, 0, width, height), 100, outputStream)
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        yuvImage.compressToJpeg(Rect(0, 0, width, height), 100, byteArrayOutputStream)
         try {
-            val dir = File(outPath.substring(0, outPath.lastIndexOf("/")))
-            if (!dir.exists()) {
-                dir.mkdir()
-            }
-            val file = File(outPath)
-            val fos = FileOutputStream(file)
-            fos.write(outputStream.toByteArray())
-            fos.flush()
-            fos.close()
-        } catch (e: IOException) {
+            return UtilKFile.byteArrayOutputStream2File(byteArrayOutputStream, filePathWithName, isOverwrite)
+        } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            byteArrayOutputStream.flush()
+            byteArrayOutputStream.close()
         }
+        return UtilKFile.msg_wrong
     }
 
     /**
@@ -392,8 +441,8 @@ object UtilKBitmap {
      * @return File
      */
     @JvmStatic
-    fun nv21Bytes2File(nv21Bytes: ByteArray, width: Int, height: Int, filePath: String): File {
-        return bitmap2File(nv21Bytes2Bitmap(nv21Bytes, width, height), filePath)
+    fun nv21Bytes2File(nv21Bytes: ByteArray, width: Int, height: Int, filePath: String): String {
+        return bitmap2Album(nv21Bytes2Bitmap(nv21Bytes, width, height), filePath)
     }
 
     /**
@@ -428,75 +477,6 @@ object UtilKBitmap {
         contentResolver.delete(uri, where, null)
     }
 
-    /**
-     * 位图转文件
-     * @param bitmap Bitmap
-     * @param fileName String
-     * @return File
-     */
-    @JvmStatic
-    fun bitmap2File(bitmap: Bitmap, fileName: String = System.currentTimeMillis().toString() + ".jpg"): File {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val saveFile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), fileName)
-            var out: OutputStream? = null
-            var pathArray: Array<String>? = null
-            var typeArray: Array<String>? = null
-            try {
-                // Android 10版本 创建文件夹不成功，这里没有过多去研究
-                val mPicPath = saveFile.absolutePath
-                pathArray = arrayOf(saveFile.absolutePath)
-                typeArray = arrayOf("image/jpeg")
-
-                val values = ContentValues()
-                val resolver: ContentResolver = _context.contentResolver
-                values.put(MediaStore.Images.ImageColumns.DATA, mPicPath)
-                values.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, fileName)
-                values.put(MediaStore.Images.ImageColumns.MIME_TYPE, "image/jpeg")
-                values.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
-                // 插入相册
-                val uri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-                if (uri != null) {
-                    out = resolver.openOutputStream(uri)
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                if (out != null) {
-                    try {
-                        out.flush()
-                        out.close()
-                        // 扫描刷新
-                        MediaScannerConnection.scanFile(
-                            _context, pathArray, typeArray
-                        ) { s, _ -> Log.d("ImageUtils", "onScanCompleted  s->$s") }
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-            return saveFile
-        } else {
-            val appDir = _context.getExternalFilesDir(Environment.DIRECTORY_DCIM)!!.absolutePath
-            val file = File(appDir)
-            if (!file.exists()) {
-                // 目录不存在 则创建
-                file.mkdirs()
-            }
-            //下面的CompressFormat.PNG/CompressFormat.JPEG， 这里对应.png/.jpeg
-            val saveFile = File(appDir, fileName)
-            try {
-                saveFile.createNewFile()
-                val bo = BufferedOutputStream(FileOutputStream(saveFile))
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bo) // 保存bitmap至本地
-                bo.flush()
-                bo.close()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            return saveFile
-        }
-    }
 
     /**
      * drawable转位图
@@ -574,20 +554,29 @@ object UtilKBitmap {
         return outputBitmap
     }
 
+    @JvmStatic
+    fun bitmap2File(bitmap: Bitmap, filePathWithName: String, quality: Int = 80, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): String =
+        bitmap2File(bitmap, File(filePathWithName), quality, compressFormat)
+
     /**
      * 保存图片
-     * @param savePath String
+     * @param destFile String
      * @param bitmap Bitmap?
      */
     @JvmStatic
-    @Throws(IOException::class)
-    fun saveBitmap(savePath: String, bitmap: Bitmap, quality: Int = 80) {
-        val file = File(savePath)
-        UtilKFile.createFile(file)
-        val fileOutputStream = FileOutputStream(file)
-        fileOutputStream.use { stream ->
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
+    fun bitmap2File(bitmap: Bitmap, destFile: File, quality: Int = 80, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): String {
+        UtilKFile.createFile(destFile)
+        val bufferedOutputStream = BufferedOutputStream(FileOutputStream(destFile))
+        try {
+            bitmap.compress(compressFormat, quality, bufferedOutputStream)
+            return destFile.absolutePath
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            bufferedOutputStream.flush()
+            bufferedOutputStream.close()
         }
+        return UtilKFile.msg_wrong
     }
 
     /**
