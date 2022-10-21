@@ -2,6 +2,7 @@ package com.mozhimen.basicktest.utilk
 
 import android.Manifest
 import android.os.Bundle
+import android.os.Environment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basicktest.BR
@@ -42,6 +43,7 @@ class UtilKFileActivity : BaseKActivity<ActivityUtilkFileBinding, BaseKViewModel
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
             "section file".log()
+            "filePath getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) ${this@UtilKFileActivity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.absolutePath}".log()
             val deviceInfoPath = this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo"
             "isFile deviceInfo ${UtilKFile.isFile(deviceInfoPath)}".log()
             val deviceInfo1Path = this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo1"

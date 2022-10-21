@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.UtilKGlobal
  * @Date 2022/2/27 18:28
  * @Version 1.0
  */
-class PrefabKVibrate(lifecycleOwner: LifecycleOwner) : ITaskK(lifecycleOwner) {
+class PrefabKVibrate(owner: LifecycleOwner) : ITaskK(owner) {
 
     private var _vibrator: Vibrator? = null
 

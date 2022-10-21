@@ -12,13 +12,19 @@ import java.io.Serializable
  */
 open class NetKResponse<T> : Serializable {
 
+    companion object {
+        const val SUCCESS = 0
+        const val CACHE_SUCCESS: Int = 1
+        const val ERROR = -1
+    }
+
     var rawData: String? = null//原始数据
 
     var code = 0//业务状态码
-    var data: T? = null//业务数据
-    var errorData: Map<String, String>? = null//错误状态下的数据
     var msg: String? = null//错误信息
+    var data: T? = null//业务数据
+    //var errorData: Map<String, String>? = null//错误状态下的数据
 
     open fun isSuccessful(): Boolean =
-        code == StatusParser.SUCCESS || code == StatusParser.CACHE_SUCCESS || code in 200..299 || data != null
+        data != null && (code == SUCCESS || code == CACHE_SUCCESS)
 }

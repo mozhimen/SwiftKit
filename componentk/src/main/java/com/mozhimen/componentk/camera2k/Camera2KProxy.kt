@@ -220,7 +220,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
         return _previewSize
     }
 
-    fun switchCamera(lifecycleOwner: LifecycleOwner, previewWidth: Int, previewHeight: Int) {
+    fun switchCamera(owner: LifecycleOwner, previewWidth: Int, previewHeight: Int) {
         _cameraId = _cameraId xor 1
         releaseCamera()
         openCamera(previewWidth, previewHeight)

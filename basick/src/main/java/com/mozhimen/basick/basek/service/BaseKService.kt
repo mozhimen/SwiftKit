@@ -5,6 +5,9 @@ import android.content.Intent
 import android.os.IBinder
 import android.os.RemoteCallbackList
 import android.os.RemoteException
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import com.mozhimen.basick.IBaseKServiceConnListener
 import com.mozhimen.basick.IBaseKServiceResListener
 
@@ -15,7 +18,7 @@ import com.mozhimen.basick.IBaseKServiceResListener
  * @Date 2022/9/27 0:36
  * @Version 1.0
  */
-open class BaseKService : Service() {
+open class BaseKService : Service(), LifecycleOwner {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private val _listeners = RemoteCallbackList<IBaseKServiceResListener>()
     private var _binder: IBaseKServiceConnListener.Stub = BaseKServiceBinder()
@@ -72,5 +75,21 @@ open class BaseKService : Service() {
             e.printStackTrace()
         }
         _listeners.finishBroadcast()
+    }
+
+    private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
+
+    override fun onCreate() {
+        super.onCreate()
+        _lifecycleRegistry.currentState = Lifecycle.State.CREATED
+    }
+
+    override fun onDestroy() {
+        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
+        super.onDestroy()
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return _lifecycleRegistry
     }
 }

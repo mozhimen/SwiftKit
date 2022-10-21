@@ -14,12 +14,12 @@ import com.mozhimen.underlayk.logk.mos.LogKConfig
  * @Date 2021/12/20 17:20
  * @Version 1.0
  */
-class PrinterView(activity: Activity, lifecycleOwner: LifecycleOwner) : IPrinter, DefaultLifecycleObserver {
+class PrinterView(activity: Activity, owner: LifecycleOwner) : IPrinter, DefaultLifecycleObserver {
     private var _viewProvider: PrinterViewProvider = PrinterViewProvider(activity, activity.findViewById(android.R.id.content))
     private var _isShow: Boolean = false
 
     init {
-        lifecycleOwner.lifecycle.addObserver(this)
+        owner.lifecycle.addObserver(this)
     }
 
     fun toggleView(isFold: Boolean = true) {

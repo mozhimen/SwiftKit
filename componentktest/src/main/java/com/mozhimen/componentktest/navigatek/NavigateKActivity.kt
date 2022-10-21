@@ -11,12 +11,19 @@ import com.mozhimen.componentktest.navigatek.fragments.FirstFragment
 import com.mozhimen.componentktest.navigatek.fragments.SecondFragment
 
 class NavigateKActivity : BaseKActivity<ActivityNavigatekBinding, NavigateKViewModel>(R.layout.activity_navigatek) {
+
+    private val _fragments = listOf(FirstFragment::class.java, SecondFragment::class.java)
     private lateinit var _navController: NavController
     private var _currentItemId: Int = 0
         set(value) {
             if (value == -1) return
             _navController.navigate(value)
             field = value
+        }
+        get() {
+            if (field != 0) return field
+            val fragmentId: Int = _navController.currentDestination?.id ?: NavigateK.getId(_fragments[0])
+            return fragmentId.also { field = it }
         }
 
     companion object {
@@ -31,7 +38,7 @@ class NavigateKActivity : BaseKActivity<ActivityNavigatekBinding, NavigateKViewM
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        _navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, listOf(FirstFragment::class.java, SecondFragment::class.java))
+        _navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, _fragments)
         vm.liveFragmentId.observe(this) {
             if (it != null && _navController.findDestination(it) != null && _navController.currentDestination?.id != it) {
                 _currentItemId = it

@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.taskk.commons.ITaskK
 import kotlinx.coroutines.*
 
-class TaskKPolling(lifecycleOwner: LifecycleOwner) : ITaskK(lifecycleOwner) {
+class TaskKPolling(owner: LifecycleOwner) : ITaskK(owner) {
     private var _pollingScope: CoroutineScope? = null
 
     fun isRunning(): Boolean =

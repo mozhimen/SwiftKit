@@ -14,13 +14,13 @@ import java.util.concurrent.LinkedBlockingQueue
  * @Date 2022/1/18 13:04
  * @Version 1.0
  */
-class PrefabKAudio(lifecycleOwner: LifecycleOwner) : DefaultLifecycleObserver {
+class PrefabKAudio(owner: LifecycleOwner) : DefaultLifecycleObserver {
 
     private var _audioWorker: AudioWorker
     private val _executors = Executors.newSingleThreadExecutor()
 
     init {
-        lifecycleOwner.lifecycle.addObserver(this)
+        owner.lifecycle.addObserver(this)
         _audioWorker = AudioWorker()
         _audioWorker.start()
     }

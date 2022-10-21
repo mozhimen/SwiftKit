@@ -55,7 +55,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     internal var aspectRatio: Int = AspectRatio.RATIO_16_9
     internal var rotation = CameraXKRotation.ROTATION_90
 
-    private lateinit var _lifecycleOwner: LifecycleOwner
+    private lateinit var _owner: LifecycleOwner
     private lateinit var _analyzerThread: HandlerThread
     internal lateinit var slider: Slider
     internal lateinit var previewView: PreviewView
@@ -132,7 +132,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         facing: CameraSelector,
         format: Int
     ) {
-        this._lifecycleOwner = owner
+        this._owner = owner
         this._lensFacing = facing
         this._format = format
     }
@@ -219,7 +219,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     }
 
     override fun takePicture() {
-        _lifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+        _owner.lifecycleScope.launch(Dispatchers.Main) {
             // Show a timer based on user selection
             when (_selectedTimer) {
                 CameraXKTimer.S3 -> for (i in 3 downTo 1) {
@@ -243,7 +243,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, preview: Preview, previewView: PreviewView, slider: Slider) {
         try {
             localCameraProvider.bindToLifecycle(
-                _lifecycleOwner, // current lifecycle owner
+                _owner, // current lifecycle owner
                 _hdrCameraSelector ?: _lensFacing, // either front or back facing
                 preview, // camera preview use case
                 _imageCapture!!, // image capture use case

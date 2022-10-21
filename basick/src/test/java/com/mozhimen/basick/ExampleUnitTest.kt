@@ -38,7 +38,7 @@ class ExampleUnitTest {
 
     @Test
     fun md5() {
-        val a = "DK3333"
+        val a = "EIST0110140001"
         val b = "1665565543326"
         UtilKEncryptMD5.encrypt32("hsq$a$b").printlog()
     }

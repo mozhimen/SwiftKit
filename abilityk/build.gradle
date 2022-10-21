@@ -23,7 +23,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
     compileOptions {
@@ -37,7 +37,7 @@ android {
 
 dependencies {
     implementation project(project.path.replace(project.name, '') + ':basick')
-    implementation project(project.path.replace(project.name, '') +':uicorek')
+    implementation project(project.path.replace(project.name, '') + ':uicorek')
     implementation project(project.path.replace(project.name, '') + ':underlayk')
     implementation project(project.path.replace(project.name, '') + ':componentk')
 

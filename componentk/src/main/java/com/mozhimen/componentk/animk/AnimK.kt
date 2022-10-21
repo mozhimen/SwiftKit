@@ -15,10 +15,10 @@ import com.mozhimen.basick.utilk.UtilKAnim
  * @Date 2022/9/24 23:58
  * @Version 1.0
  */
-class AnimK(lifecycleOwner: LifecycleOwner) : DefaultLifecycleObserver {
+class AnimK(owner: LifecycleOwner) : DefaultLifecycleObserver {
 
     init {
-        lifecycleOwner.lifecycle.addObserver(this)
+        owner.lifecycle.addObserver(this)
     }
 
 //    fun with(view: View): UtilKAnim {

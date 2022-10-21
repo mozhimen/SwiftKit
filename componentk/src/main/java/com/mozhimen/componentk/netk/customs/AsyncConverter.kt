@@ -17,7 +17,7 @@ import java.lang.reflect.Type
  * @Date 2021/12/13 20:51
  * @Version 1.0
  */
-class AsyncConverter(private val _successCode:Int = StatusParser.SUCCESS) : INetKConverter {
+class AsyncConverter() : INetKConverter {
     private var _gson: Gson = Gson()
 
     override fun <T> convert(rawData: String, dataType: Type): NetKResponse<T> {
@@ -31,18 +31,18 @@ class AsyncConverter(private val _successCode:Int = StatusParser.SUCCESS) : INet
             if ((data is JSONObject) || (data is JSONArray)) {
                 if (response.code == _successCode) {
                     response.data = _gson.fromJson(data.toString(), dataType)
-                } else {
+                } /*else {
                     response.errorData = _gson.fromJson<MutableMap<String, String>>(
                         data.toString(),
                         object : TypeToken<MutableMap<String, String>>() {}.type
                     )
-                }
+                }*/
             } else {
                 response.data = data as? T?
             }
         } catch (e: JSONException) {
             e.printStackTrace()
-            response.code = -1
+            response.code = NetKResponse.ERROR
             response.msg = e.message
         }
 

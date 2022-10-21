@@ -18,7 +18,7 @@ object UtilKT {
             if (superClass != null && superClass is ParameterizedType) {
                 val arguments: Array<Type> = superClass.actualTypeArguments
                 if (arguments.isNotEmpty()) {
-                    return arguments[i] as Class<T>
+                    return arguments[i] as? Class<T>?
                 }
             }
         } catch (e: InstantiationException) {
@@ -28,7 +28,6 @@ object UtilKT {
         } catch (e: ClassCastException) {
             e.printStackTrace()
         }
-
         return null
     }
 }

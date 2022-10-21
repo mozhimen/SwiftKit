@@ -6,7 +6,7 @@ import kotlinx.coroutines.*
 
 typealias ITaskKAsyncErrorListener = (Throwable) -> Unit
 
-class TaskKAsync(lifecycleOwner: LifecycleOwner) : ITaskK(lifecycleOwner) {
+class TaskKAsync(owner: LifecycleOwner) : ITaskK(owner) {
     private val _exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
         _taskKAsyncErrorListener?.invoke(throwable)        // 发生异常时的捕获

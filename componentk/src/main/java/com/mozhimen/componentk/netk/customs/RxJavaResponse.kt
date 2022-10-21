@@ -16,7 +16,7 @@ import io.reactivex.disposables.Disposable
  * @Date 2022/5/13 17:07
  * @Version 1.0
  */
-abstract class RxJavaResponse<T>(private val _converter: INetKConverter = AsyncConverter()) :
+abstract class RxJavaResponse<T : Any>(private val _converter: INetKConverter = AsyncConverter()) :
     Observer<T> {
     abstract fun onSuccess(response: NetKResponse<T>)
     abstract fun onFailed(code: Int, message: String?)

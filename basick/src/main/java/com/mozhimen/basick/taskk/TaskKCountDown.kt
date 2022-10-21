@@ -11,7 +11,7 @@ import com.mozhimen.basick.taskk.commons.ITaskK
  * @Date 2022/9/26 15:57
  * @Version 1.0
  */
-class TaskKCountDown(lifecycleOwner: LifecycleOwner) : ITaskK(lifecycleOwner) {
+class TaskKCountDown(owner: LifecycleOwner) : ITaskK(owner) {
 
     private var _taskKCountDownListener: TaskKCountDownListener? = null
     private var _countDownTimer: CountDownTimer? = null

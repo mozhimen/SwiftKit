@@ -47,7 +47,6 @@ class CoroutineClosure(val converter: INetKConverter = AsyncConverter()) {
 
     inline fun <reified T> parseResponse(response: T): NetKResponse<T> {
         val rawData: String = UtilKJson.t2Json(response)
-        LogK.dt(TAG, "parseResponse: rawData $rawData")
         return converter.convert(rawData, T::class.java)
     }
 
