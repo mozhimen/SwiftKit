@@ -1,6 +1,7 @@
 package com.mozhimen.componentktest.netk.customs
 
-import com.mozhimen.componentk.netk.commons.INetKInterceptor
+import com.mozhimen.componentk.netk.async.commons.INetKChain
+import com.mozhimen.componentk.netk.async.commons.INetKInterceptor
 
 /**
  * @ClassName BizInterceptor
@@ -11,7 +12,7 @@ import com.mozhimen.componentk.netk.commons.INetKInterceptor
  */
 class BizInterceptor : INetKInterceptor {
 
-    override fun intercept(chain: INetKInterceptor.INetKChain): Boolean {
+    override fun intercept(chain: INetKChain): Boolean {
         if (chain.isRequestPeriod) {
             //你的全局请求头在这里增加
             /*val request = chain.request()

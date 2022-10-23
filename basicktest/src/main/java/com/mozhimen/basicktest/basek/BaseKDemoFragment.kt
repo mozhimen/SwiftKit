@@ -8,7 +8,7 @@ import com.mozhimen.basicktest.databinding.FragmentBasekFragmentBinding
 class BaseKDemoFragment :
     BaseKFragment<FragmentBasekFragmentBinding, BaseKDemoViewModel>(R.layout.fragment_basek_fragment) {
 
-    override fun injectVM() {
+    override fun vbBindVM() {
         vb.vm = vm
     }
 

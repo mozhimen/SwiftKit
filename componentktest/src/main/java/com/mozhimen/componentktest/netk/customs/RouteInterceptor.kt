@@ -1,6 +1,6 @@
 package com.mozhimen.componentktest.netk.customs
 
-import com.mozhimen.componentk.netk.commons.INetKInterceptor
+import com.mozhimen.componentk.netk.async.commons.INetKInterceptor
 
 
 /**

@@ -2,12 +2,14 @@ package com.mozhimen.basick.basek
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.basek.commons.IBaseKActivity
-import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
+import com.mozhimen.basick.basek.commons.IBaseKViewDataBinding
+import com.mozhimen.basick.utilk.UtilKGeneric
+import com.mozhimen.basick.utilk.UtilKViewDataBinding
+import com.mozhimen.basick.utilk.UtilKViewModel
 
 /**
  * @ClassName BaseKActivity
@@ -18,18 +20,25 @@ import java.lang.reflect.Type
  * @Date 2022/1/25 18:47
  * @Version 1.0
  */
-open class BaseKActivity<VB : ViewDataBinding, VM : BaseKViewModel>(private val layoutId: Int) :
-    AppCompatActivity(), IBaseKActivity {
+abstract class BaseKActivity<VB : ViewDataBinding, VM : ViewModel>(private val _factory: ViewModelProvider.Factory? = null) :
+    AppCompatActivity(), IBaseKActivity, IBaseKViewDataBinding<VB> {
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
-    val TAG = "${this.javaClass.simpleName}>>>>>"
-    lateinit var vb: VB
-    lateinit var vm: VM
+    protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
+        UtilKViewDataBinding.get<VB>(this, layoutInflater, 0).apply {
+            lifecycleOwner = this@BaseKActivity
+        }
+    }
+    protected val vm: VM by lazy(mode = LazyThreadSafetyMode.NONE) {
+        UtilKViewModel.get<VM>(this, _factory, 1).apply {
+            vb.bindViewVM()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initFlag()
-        initial()
+        initLayout()
         initData(savedInstanceState)
     }
 
@@ -40,23 +49,9 @@ open class BaseKActivity<VB : ViewDataBinding, VM : BaseKViewModel>(private val 
 
     override fun initFlag() {}
 
-    private fun initial() {
-        vb = DataBindingUtil.setContentView(this, layoutId)
-        vb.lifecycleOwner = this
-
-        val superClass: Type? = this.javaClass.genericSuperclass
-        if (superClass != null && superClass is ParameterizedType) {
-            val arguments: Array<Type> = superClass.actualTypeArguments
-            if (arguments.isNotEmpty()) {
-                vm = ViewModelProvider(this).get(arguments[1] as Class<VM>)
-                injectVM()
-            }
-        }
+    override fun initLayout() {
+        setContentView(vb.root)
     }
 
-    override fun injectVM() {}
-
     override fun initData(savedInstanceState: Bundle?) {}
-
-    override fun initView(savedInstanceState: Bundle?) {}
 }

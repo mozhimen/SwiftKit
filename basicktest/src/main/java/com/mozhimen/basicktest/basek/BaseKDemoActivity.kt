@@ -12,7 +12,7 @@ import com.mozhimen.basicktest.databinding.ActivityBasekActivityBinding
 class BaseKDemoActivity :
     BaseKActivity<ActivityBasekActivityBinding, BaseKDemoViewModel>(R.layout.activity_basek_activity) {
 
-    override fun injectVM() {
+    override fun vbBindVM() {
         vb.vm = vm
     }
 

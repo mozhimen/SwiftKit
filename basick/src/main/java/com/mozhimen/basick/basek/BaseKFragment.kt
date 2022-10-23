@@ -22,26 +22,28 @@ import java.lang.reflect.Type
  * @Version 1.0
  */
 open class BaseKFragment<VB : ViewDataBinding, VM : BaseKViewModel>(private val layoutId: Int) :
-    Fragment(),
-    IBaseKActivity {
+    Fragment(), IBaseKActivity {
     val TAG = "${this.javaClass.simpleName}>>>>>"
 
     lateinit var vm: VM
     var _vb: VB? = null
     val vb get() = _vb!!
 
+    fun isAlive(): Boolean = !isRemoving && !isDetached && activity != null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _vb = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        _vb = DataBindingUtil.inflate<VB>(inflater, layoutId, container, false).apply {
+            lifecycleOwner = this@BaseKFragment
+        }
         return vb.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initFlag()
         initial()
         initData(savedInstanceState)
@@ -55,24 +57,20 @@ open class BaseKFragment<VB : ViewDataBinding, VM : BaseKViewModel>(private val 
 
     override fun initFlag() {}
 
-    private fun initial() {
-        vb.lifecycleOwner = this
-
-        val superClass: Type? = this.javaClass.genericSuperclass
-        if (superClass != null && superClass is ParameterizedType) {
-            val arguments: Array<Type> = superClass.actualTypeArguments
-            if (arguments.isNotEmpty()) {
-                vm = ViewModelProvider(this.requireActivity()).get((arguments[1]) as Class<VM>)
-                injectVM()
-            }
-        }
-    }
-
-    override fun injectVM() {}
+    override fun vbBindVM() {}
 
     override fun initData(savedInstanceState: Bundle?) {}
 
     override fun initView(savedInstanceState: Bundle?) {}
 
-    fun isAlive(): Boolean = !isRemoving && !isDetached && activity != null
+    private fun initial() {
+        val superClass: Type? = this.javaClass.genericSuperclass
+        if (superClass != null && superClass is ParameterizedType) {
+            val arguments: Array<Type> = superClass.actualTypeArguments
+            if (arguments.isNotEmpty()) {
+                vm = ViewModelProvider(this.requireActivity()).get((arguments[1]) as Class<VM>)
+                vbBindVM()
+            }
+        }
+    }
 }

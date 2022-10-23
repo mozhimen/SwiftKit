@@ -1,7 +1,7 @@
 package com.mozhimen.basick.extsk
 
-import com.google.gson.reflect.TypeToken
 import com.mozhimen.basick.utilk.UtilKJson
+import kotlin.jvm.Throws
 
 /**
  * @ClassName JsonUtil
@@ -12,23 +12,41 @@ import com.mozhimen.basick.utilk.UtilKJson
  */
 /**
  * 转Json
- * @receiver Any
+ * @receiver T
+ * @param indent String
  * @return String
+ * @throws Exception
  */
-fun Any.toJson(): String = UtilKJson.t2Json(this)
+@Throws(Exception::class)
+inline fun <reified T : Any> T.toJson(indent: String = ""): String = UtilKJson.t2Json(this, indent)
 
 /**
  * 转实体
  * @receiver String
- * @param token TypeToken<T>
- * @return T
+ * @return T?
+ * @throws Exception
  */
-fun <T> String.fromJson(token: TypeToken<T>): T = UtilKJson.json2T(this, token)
-
-/**
- * 转实体
- * @receiver String
- * @param cls Class<T>
- * @return T
- */
-fun <T> String.fromJson(cls: Class<T>): T = UtilKJson.json2T(this, cls)
+@Throws(Exception::class)
+inline fun <reified T> String.fromJson(): T? = UtilKJson.json2T(this)
+///**
+// * 转Json
+// * @receiver Any
+// * @return String
+// */
+//fun Any.toJson(): String = UtilKJson.t2Json(this)
+//
+///**
+// * 转实体
+// * @receiver String
+// * @param token TypeToken<T>
+// * @return T
+// */
+//fun <T> String.fromJson(token: TypeToken<T>): T = UtilKJson.json2T(this, token)
+//
+///**
+// * 转实体
+// * @receiver String
+// * @param cls Class<T>
+// * @return T
+// */
+//fun <T> String.fromJson(cls: Class<T>): T = UtilKJson.json2T(this, cls)

@@ -46,7 +46,7 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
                 if (result.resultCode == Activity.RESULT_OK) {
                     val hmsScan: HmsScan? =
                         result.data?.getStringExtra(ScanKQRActivity.SCANK_ACTIVITY_RESULT_PARAM)
-                            ?.fromJson(HmsScan::class.java) ?: kotlin.run {
+                            ?.fromJson<HmsScan>() ?: kotlin.run {
                             Log.e(TAG, "initView: loss scanActivity params")
                             null
                         }
@@ -61,7 +61,7 @@ class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layo
                 if (result.resultCode == Activity.RESULT_OK) {
                     val scanKQR2Result: ScanKQR2Activity.ScanK2Result? =
                         result.data?.getStringExtra(ScanKQR2Activity.SCANK2_ACTIVITY_RESULT_PARAM)
-                            ?.fromJson(ScanKQR2Activity.ScanK2Result::class.java) ?: kotlin.run {
+                            ?.fromJson<ScanKQR2Activity.ScanK2Result>() ?: kotlin.run {
                             Log.e(TAG, "initView: loss scanActivity2 params")
                             null
                         }

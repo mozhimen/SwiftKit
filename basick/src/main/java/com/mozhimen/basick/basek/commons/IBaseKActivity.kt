@@ -11,12 +11,12 @@ import android.os.Bundle
  */
 interface IBaseKActivity {
     fun initFlag()
-    /**
-     * vb.vm=vm
-     */
-    fun injectVM()
+
+    fun initLayout()
 
     fun initData(savedInstanceState: Bundle?)
 
     fun initView(savedInstanceState: Bundle?)
+
+    fun initObserver()
 }

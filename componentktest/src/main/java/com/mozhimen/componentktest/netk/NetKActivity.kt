@@ -21,7 +21,7 @@ class NetKActivity : BaseKActivity<ActivityNetkBinding, NetKViewModel>(R.layout.
         }
     }
 
-    override fun injectVM() {
+    override fun vbBindVM() {
         vb.vm = vm
     }
 
