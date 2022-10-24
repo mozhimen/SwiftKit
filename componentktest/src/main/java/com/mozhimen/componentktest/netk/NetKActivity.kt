@@ -25,23 +25,9 @@ class NetKActivity : BaseKActivityVBVM<ActivityNetkBinding, NetKViewModel>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-//        vb.netkBtnGetWeather.setOnClickListener {
-//            vm.getRealtimeWeatherAsync()
-//        }
-//
+
         vb.netkBtn1GetWeather.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                vm.getRealtimeWeatherCoroutine()
-            }
+            vm.getRealtimeWeatherCoroutine()
         }
-//
-//        vb.netkBtn2GetWeather.setOnClickListener {
-//            vm.getRealTimeWeatherRxJava()
-//        }
-//
-//        vb.netkBtn2GetCustom.setOnClickListener {
-//            lifecycleScope.launch(Dispatchers.IO) {
-//            }
-//        }
     }
 }

@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.coroutine
+package com.mozhimen.componentk.netk
 
 /**
  * @ClassName NetKRep
@@ -7,7 +7,7 @@ package com.mozhimen.componentk.netk.coroutine
  * @Date 2022/10/22 18:42
  * @Version 1.0
  */
-open class NetKRep<T> {
+open class NetKRep<out T> {
     object Uninitialized : NetKRep<Nothing>()
 
     object Loading : NetKRep<Nothing>()

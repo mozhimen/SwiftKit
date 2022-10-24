@@ -15,32 +15,13 @@
         android:orientation="vertical"
         tools:context="com.mozhimen.componentktest.netk.NetKActivity">
 
-<!--        <TextView
-            android:id="@+id/netk_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/blue_light"
-            android:gravity="center_vertical"
-            android:hint="当前的天气"
-            android:minHeight="30dp"
-            android:text="@{vm.uiWeather1}"
-            tools:ignore="HardcodedText" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/netk_btn_get_weather"
-            style="@style/BtnStyle"
-            android:layout_marginBottom="20dp"
-            android:text="查询天气(异步方法)"
-            tools:ignore="HardcodedText" />-->
-
         <TextView
             android:id="@+id/netk_txt1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/blue_light"
             android:hint="当前的天气"
-            android:text="@{}"
+            android:text="@{vm.uiWeather2}"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
@@ -48,43 +29,6 @@
             style="@style/BtnStyle"
             android:text="查询天气(协程方法)"
             tools:ignore="HardcodedText" />
-
-        <!--<TextView
-            android:id="@+id/netk_txt2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/blue_light"
-            android:gravity="center_vertical"
-            android:hint="当前的天气"
-            android:minHeight="30dp"
-            android:text="@{vm.uiWeather3}"
-            tools:ignore="HardcodedText" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/netk_btn2_get_weather"
-            style="@style/BtnStyle"
-            android:layout_marginBottom="20dp"
-            android:text="查询天气(RxJava方法)"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/netk_txt3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@color/blue_light"
-            android:gravity="center_vertical"
-            android:hint="自定义测试"
-            android:minHeight="30dp"
-            android:text="@{vm.uiCustom}"
-            tools:ignore="HardcodedText" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/netk_btn2_get_custom"
-            style="@style/BtnStyle"
-            android:text="自定义测试(协程方法)"
-            tools:ignore="HardcodedText" />-->
 
     </LinearLayout>
 </layout>

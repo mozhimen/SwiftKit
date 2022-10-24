@@ -1,7 +1,6 @@
-package com.mozhimen.componentk.netk.async.helpers
+package com.mozhimen.componentk.netk
 
 import com.google.gson.JsonParseException
-import com.mozhimen.underlayk.logk.LogK
 import org.json.JSONException
 import retrofit2.HttpException
 import java.lang.NullPointerException
@@ -15,8 +14,8 @@ import javax.net.ssl.SSLHandshakeException
  * @Date 2022/5/12 13:30
  * @Version 1.0
  */
-object StatusParser {
-    private const val TAG = "ExceptionParser>>>>>"
+object NetKRepErrorParser {
+    private const val TAG = "NetKRepErrorParser>>>>>"
 
     const val NETWORK_ERROR = 426//网络错误
     const val UNAUTHORIZED = 401
@@ -35,7 +34,6 @@ object StatusParser {
 
     fun getThrowable(e: Throwable): NetKThrowable {
         e.printStackTrace()
-        LogK.dt(TAG, e.message ?: "")
         return when (e) {
             is HttpException -> {
                 val message = when (e.code()) {
@@ -51,9 +49,6 @@ object StatusParser {
                     else -> e.message() ?: "网络异常: 未知"
                 }
                 NetKThrowable(e.code(), message)
-            }
-            is ServerException -> {
-                NetKThrowable(e.code, e.message ?: "ServerException loss message")
             }
             is JsonParseException, is JSONException -> {
                 NetKThrowable(PARSE_ERROR, "解析失败")
@@ -73,13 +68,8 @@ object StatusParser {
         }
     }
 
-    /**
-     * ServerException发生后, 将自动转换为ResponseThrowable返回
-     * @property code Int
-     * @property message String?
-     */
-    internal class ServerException : RuntimeException() {
-        var code = 0
-        override var message: String? = null
-    }
+    data class NetKThrowable(
+        val code: Int,
+        val message: String
+    )
 }

@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.coroutine.helpers
+package com.mozhimen.componentk.netk
 
 import android.annotation.SuppressLint
 import com.mozhimen.componentk.BuildConfig

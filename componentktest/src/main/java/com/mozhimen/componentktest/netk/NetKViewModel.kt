@@ -1,12 +1,14 @@
 package com.mozhimen.componentktest.netk
 
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.componentk.netk.coroutine.NetKRep
+import com.mozhimen.componentk.netk.NetKRep
+import com.mozhimen.componentk.netk.NetKRepErrorParser
 import com.mozhimen.componentktest.netk.customs.ApiFactorys
 import com.mozhimen.componentktest.netk.customs.Apis
 import com.mozhimen.componentktest.netk.mos.Weather
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -19,28 +21,8 @@ import kotlinx.coroutines.launch
  */
 class NetKViewModel : BaseKViewModel() {
 
-//    val uiWeather1 = MutableLiveData<String>()
-//    val uiWeather2 = MutableLiveData<String>()
-//    val uiWeather3 = MutableLiveData<String>()
-//    val uiCustom = MutableLiveData<String>()
-//    private var _lastTime1 = System.currentTimeMillis()
-//    private var _lastTime2 = System.currentTimeMillis()
-//    private var _lastTime3 = System.currentTimeMillis()
-
-//    fun getRealtimeWeatherAsync() {
-//        _lastTime1 = System.currentTimeMillis()
-//        ApiFactorys.createAsync(Apis::class.java).getRealTimeWeatherAsync("121.321504,31.194874").enqueue(object : INetKListener<Weather> {
-//            override fun onSuccess(response: NetKResponse<Weather>) {
-//                val duration = System.currentTimeMillis() - _lastTime1
-//                Log.i(TAG, "getRealtimeWeatherAsync onSuccess duration: $duration")
-//                uiWeather1.postValue(response.data?.result?.realtime?.temperature.toString() + " " + duration)
-//            }
-//
-//            override fun onFail(throwable: Throwable) {
-//                Log.e(TAG, "getRealtimeWeatherAsync onFail ${throwable.message}")
-//            }
-//        })
-//    }
+    val uiWeather2 = MutableLiveData<String>()
+    private var _lastTime2 = System.currentTimeMillis()
 
 //    suspend fun getRealtimeWeatherCoroutine() {
 //        _lastTime2 = System.currentTimeMillis()
@@ -57,39 +39,41 @@ class NetKViewModel : BaseKViewModel() {
 //    }
 
     fun getRealtimeWeatherCoroutine() {
+        _lastTime2 = System.currentTimeMillis()
         viewModelScope.launch {
             getRealtimeWeatherCoroutineInRep().collect {
                 when (it) {
-
+                    is NetKRep.Uninitialized -> {
+                        Log.d(TAG, "getRealtimeWeatherCoroutine: Uninitialized")
+                    }
+                    is NetKRep.Loading -> {
+                        Log.d(TAG, "getRealtimeWeatherCoroutine: Loading")
+                    }
+                    is NetKRep.Success -> {
+                        val duration = System.currentTimeMillis() - _lastTime2
+                        Log.d(TAG, "getRealtimeWeatherCoroutine: Success time $duration data ${it.data}")
+                        uiWeather2.postValue(it.data.result?.realtime?.temperature.toString() + " duration:" + duration)
+                    }
+                    is NetKRep.Empty -> {
+                        Log.d(TAG, "getRealtimeWeatherCoroutine: Empty")
+                    }
+                    is NetKRep.Error -> {
+                        val netKThrowable = NetKRepErrorParser.getThrowable(it.exception)
+                        Log.d(TAG, "getRealtimeWeatherCoroutine: Error code ${netKThrowable.code} message ${netKThrowable.message}")
+                    }
                 }
             }
         }
     }
 
-    fun getRealtimeWeatherCoroutineInRep() = flow {
+    private fun getRealtimeWeatherCoroutineInRep() = flow {
         emit(NetKRep.Loading)
-        val weather = ApiFactorys.netkCoroutineFactory.create(Apis::class.java).getRealTimeWeatherCoroutine("121.321504,31.194874")
-        emit(NetKRep.Success(weather))
+        val weather: Weather? = ApiFactorys.netkCoroutineFactory.create(Apis::class.java).getRealTimeWeatherCoroutine("121.321504,31.194874")
+        weather?.let {
+            emit(NetKRep.Success(weather))
+        } ?: emit(NetKRep.Empty)
+    }.catch { e ->
+        emit(NetKRep.Error(e))
     }
-        .flowOn(Dispatchers.IO)
-        .catch { e ->
-            emit(NetKRep.Error(e))
-        }
 
-//    fun getRealTimeWeatherRxJava() {
-//        _lastTime3 = System.currentTimeMillis()
-//        ApiFactorys.createRxJava(Apis::class.java).getRealTimeWeatherRxJava("121.321504,31.194874").subscribeOn(Schedulers.io()).subscribe(
-//            object : RxJavaResponse<Weather>() {
-//                override fun onSuccess(response: NetKResponse<Weather>) {
-//                    val duration = System.currentTimeMillis() - _lastTime3
-//                    Log.i(TAG, "getRealTimeWeatherRxJava onSuccess duration $duration")
-//                    uiWeather3.postValue(response.data?.result?.realtime?.temperature.toString() + " " + duration)
-//                }
-//
-//                override fun onFailed(code: Int, message: String?) {
-//                    Log.e(TAG, "getRealTimeWeatherRxJava onFail ${message ?: "msg loss"}")
-//                }
-//            }
-//        )
-//    }
 }
