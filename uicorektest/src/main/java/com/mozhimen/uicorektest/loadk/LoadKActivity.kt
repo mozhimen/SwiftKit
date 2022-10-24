@@ -2,19 +2,19 @@ package com.mozhimen.uicorektest.loadk
 
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.basick.prefabk.handler.EventKHandler
 import com.mozhimen.basick.extsk.postDelayed
+import com.mozhimen.basick.prefabk.handler.PrefabKHandler
 import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorek.loadk.commons.LoadKLoadCallback
 import com.mozhimen.uicorek.loadk.commons.LoadKRefreshCallback
 import com.mozhimen.uicorek.refreshk.customs.LottieOverView
-import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLoadkBinding
 import com.mozhimen.uicorektest.datak.mos.DataItemLoadMore
 
-class LoadKActivity : BaseKActivity<ActivityLoadkBinding, BaseKViewModel>(R.layout.activity_loadk) {
+class LoadKActivity : BaseKActivityVB<ActivityLoadkBinding>() {
     private val _dataSets = ArrayList<DataKItem<*, out RecyclerView.ViewHolder>>()
     private var _pageIndex = 0
 
@@ -40,7 +40,7 @@ class LoadKActivity : BaseKActivity<ActivityLoadkBinding, BaseKViewModel>(R.layo
                     override fun onLoadMore() {
                         super.onLoadMore()
                         _pageIndex++
-                        EventKHandler(this@LoadKActivity).postDelayed(1000) {
+                        PrefabKHandler(this@LoadKActivity).postDelayed(1000) {
                             val dataItems: List<DataKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                                 DataItemLoadMore(_dataSets.size + 1)
                             )
@@ -58,7 +58,7 @@ class LoadKActivity : BaseKActivity<ActivityLoadkBinding, BaseKViewModel>(R.layo
                     override fun onRefresh() {
                         super.onRefresh()
                         _pageIndex = 1
-                        EventKHandler(this@LoadKActivity).postDelayed(1000) {
+                        PrefabKHandler(this@LoadKActivity).postDelayed(1000) {
                             //模拟获取到了
                             val dataItems: ArrayList<DataKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                                 DataItemLoadMore(1),

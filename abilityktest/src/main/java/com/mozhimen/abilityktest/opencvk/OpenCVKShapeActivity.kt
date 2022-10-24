@@ -9,9 +9,9 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityk.opencvk.OpenCVKShape
 import com.mozhimen.abilityk.opencvk.OpenCVKTrans
-import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkShapeBinding
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.utilk.UtilKBitmap
@@ -24,7 +24,7 @@ import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA])
-class OpenCVKShapeActivity : BaseKActivity<ActivityOpencvkShapeBinding, BaseKViewModel>(R.layout.activity_opencvk_shape) {
+class OpenCVKShapeActivity : BaseKActivityVB<ActivityOpencvkShapeBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {

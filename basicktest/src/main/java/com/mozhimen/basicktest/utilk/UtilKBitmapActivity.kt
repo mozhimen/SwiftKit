@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.SeekBar
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.drawable2Bitmap
 import com.mozhimen.basick.utilk.UtilKBitmap
@@ -13,7 +14,7 @@ import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkBitmapBinding
 import kotlinx.coroutines.launch
 
-class UtilKBitmapActivity : BaseKActivity<ActivityUtilkBitmapBinding, BaseKViewModel>(R.layout.activity_utilk_bitmap) {
+class UtilKBitmapActivity : BaseKActivityVB<ActivityUtilkBitmapBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         lifecycleScope.launch {
             vb.utilKBitmapImg.setImageBitmap(UtilKBitmap.url2Bitmap2( "http://img.crcz.com/allimg/202003/25/1585100748975745.jpg"))

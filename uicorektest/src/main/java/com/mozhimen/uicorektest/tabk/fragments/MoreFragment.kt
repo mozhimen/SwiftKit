@@ -1,8 +1,7 @@
 package com.mozhimen.uicorektest.tabk.fragments
 
-import com.mozhimen.basick.basek.BaseKFragment
-import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.uicorektest.R
+import android.os.Bundle
+import com.mozhimen.basick.basek.BaseKFragmentVB
 import com.mozhimen.uicorektest.databinding.FragmentTabkBottomMoreBinding
 
 /**
@@ -13,5 +12,8 @@ import com.mozhimen.uicorektest.databinding.FragmentTabkBottomMoreBinding
  * @Version 1.0
  */
 class MoreFragment :
-    BaseKFragment<FragmentTabkBottomMoreBinding, BaseKViewModel>(R.layout.fragment_tabk_bottom_more) {
+    BaseKFragmentVB<FragmentTabkBottomMoreBinding>() {
+    override fun initData(savedInstanceState: Bundle?) {
+
+    }
 }

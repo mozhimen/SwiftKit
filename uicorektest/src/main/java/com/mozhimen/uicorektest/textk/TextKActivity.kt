@@ -2,13 +2,11 @@ package com.mozhimen.uicorektest.textk
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.uicorek.popwink.PopwinKBubbleText
-import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityTextkBinding
 
-class TextKActivity : BaseKActivity<ActivityTextkBinding, BaseKViewModel>(R.layout.activity_textk) {
+class TextKActivity : BaseKActivityVB<ActivityTextkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
     }

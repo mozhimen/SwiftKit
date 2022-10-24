@@ -1,7 +1,9 @@
 package com.mozhimen.uicorektest
 
+import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.uicorektest.bannerk.BannerKActivity
@@ -20,7 +22,7 @@ import com.mozhimen.uicorektest.tabk.*
 import com.mozhimen.uicorektest.textk.TextKActivity
 import com.mozhimen.uicorektest.viewk.ViewKActivity
 
-class UicoreKActivity : BaseKActivity<ActivityUicorekBinding, BaseKViewModel>(R.layout.activity_uicorek) {
+class UicoreKActivity : BaseKActivityVB<ActivityUicorekBinding>() {
 
     fun gotoTabKBottom(view: View) {
         start<TabKBottomActivity>()
@@ -92,5 +94,9 @@ class UicoreKActivity : BaseKActivity<ActivityUicorekBinding, BaseKViewModel>(R.
 
     fun goTextK(view: View) {
         start<TextKActivity>()
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
+
     }
 }

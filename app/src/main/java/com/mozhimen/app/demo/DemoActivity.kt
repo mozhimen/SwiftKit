@@ -9,13 +9,13 @@ import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.componentk.statusbark.annors.StatusBarKAnnor
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.componentk.statusbark.annors.StatusBarKType
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import kotlin.math.abs
 
 @StatusBarKAnnor(statusBarType = StatusBarKType.FULL_SCREEN)
-class DemoActivity : BaseKActivity<ActivityDemoBinding, DemoViewModel>(R.layout.activity_demo) {
+class DemoActivity : BaseKActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)

@@ -1,7 +1,8 @@
 package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.showToast
@@ -10,7 +11,7 @@ import com.mozhimen.uicorek.tabk.commons.ITabKLayout
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityTabkBottomLayoutBinding
 
-class TabKBottomLayoutActivity : BaseKActivity<ActivityTabkBottomLayoutBinding, BaseKViewModel>(R.layout.activity_tabk_bottom_layout) {
+class TabKBottomLayoutActivity : BaseKActivityVB<ActivityTabkBottomLayoutBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         initTabBottom()

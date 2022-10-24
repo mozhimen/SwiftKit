@@ -1,13 +1,12 @@
 package com.mozhimen.uicorektest.viewk
 
+import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.start
-import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityViewkBinding
 
-class ViewKActivity : BaseKActivity<ActivityViewkBinding, BaseKViewModel>(R.layout.activity_viewk) {
+class ViewKActivity : BaseKActivityVB<ActivityViewkBinding>() {
 
     fun gotoViewKViews(view: View) {
         start<ViewKViewsActivity>()
@@ -15,5 +14,9 @@ class ViewKActivity : BaseKActivity<ActivityViewkBinding, BaseKViewModel>(R.layo
 
     fun gotoViewKSteps(view: View) {
         start<ViewKStepsActivity>()
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
+
     }
 }

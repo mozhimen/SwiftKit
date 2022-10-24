@@ -1,7 +1,9 @@
 package com.mozhimen.componentktest
 
+import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.componentktest.cameraxk.CameraXKActivity
@@ -11,7 +13,7 @@ import com.mozhimen.componentktest.netk.NetKActivity
 import com.mozhimen.componentktest.permissionk.PermissionKActivity
 import com.mozhimen.componentktest.statusbark.StatusBarKActivity
 
-class ComponentKActivity : BaseKActivity<ActivityComponentkBinding, BaseKViewModel>(R.layout.activity_componentk) {
+class ComponentKActivity : BaseKActivityVB<ActivityComponentkBinding>() {
 
     fun goCameraXK(view: View) {
         start<CameraXKActivity>()
@@ -31,5 +33,9 @@ class ComponentKActivity : BaseKActivity<ActivityComponentkBinding, BaseKViewMod
 
     fun goNavigateK(view: View) {
         start<NavigateKActivity>()
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
+
     }
 }

@@ -2,16 +2,14 @@ package com.mozhimen.abilityktest.hotfixk
 
 import android.Manifest
 import android.os.Bundle
-import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityHotfixkBinding
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
 
 @PermissionKAnnor(permissions = [Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE])
-class HotFixKActivity : BaseKActivity<ActivityHotfixkBinding, BaseKViewModel>(R.layout.activity_hotfixk) {
+class HotFixKActivity : BaseKActivityVB<ActivityHotfixkBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {

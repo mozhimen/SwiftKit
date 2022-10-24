@@ -1,8 +1,8 @@
 package com.mozhimen.uicorektest.tabk.fragments
 
-import com.mozhimen.basick.basek.BaseKFragment
+import android.os.Bundle
+import com.mozhimen.basick.basek.BaseKFragmentVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.FragmentTabkBottomMineBinding
 
 /**
@@ -13,5 +13,12 @@ import com.mozhimen.uicorektest.databinding.FragmentTabkBottomMineBinding
  * @Version 1.0
  */
 class MineFragment :
-    BaseKFragment<FragmentTabkBottomMineBinding, BaseKViewModel>(R.layout.fragment_tabk_bottom_mine) {
+    BaseKFragmentVBVM<FragmentTabkBottomMineBinding, BaseKViewModel>() {
+    override fun initData(savedInstanceState: Bundle?) {
+
+    }
+
+    override fun FragmentTabkBottomMineBinding.bindViewVM() {
+
+    }
 }

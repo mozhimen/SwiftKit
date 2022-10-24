@@ -1,18 +1,16 @@
 package com.mozhimen.underlayktest.logk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.mos.LogKConfig
 import com.mozhimen.underlayk.logk.mos.LogKType
 import com.mozhimen.underlayk.logk.temps.PrinterMonitor
 import com.mozhimen.underlayk.logk.temps.PrinterView
-import com.mozhimen.underlayktest.R
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
 
-class LogKActivity : BaseKActivity<ActivityLogkBinding, BaseKViewModel>(R.layout.activity_logk) {
+class LogKActivity : BaseKActivityVB<ActivityLogkBinding>() {
     private val _printerView: PrinterView by lazy { PrinterView(this, this) }
     private val _printerMonitor: PrinterMonitor by lazy { PrinterMonitor() }
 

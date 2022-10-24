@@ -9,17 +9,15 @@ import android.text.TextUtils
 import android.widget.FrameLayout
 import com.huawei.hms.hmsscankit.RemoteView
 import com.huawei.hms.ml.scan.HmsScan
-import com.mozhimen.abilityk.R
 import com.mozhimen.abilityk.databinding.ScankQrActivityBinding
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.toJson
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA,Manifest.permission.READ_EXTERNAL_STORAGE])
-class ScanKQRActivity : BaseKActivity<ScankQrActivityBinding, BaseKViewModel>(R.layout.scank_qr_activity) {
+class ScanKQRActivity : BaseKActivityVB<ScankQrActivityBinding>() {
     companion object {
         const val SCANK_ACTIVITY_RESULT_PARAM = "SCANK_ACTIVITY_RESULT_PARAM"
     }

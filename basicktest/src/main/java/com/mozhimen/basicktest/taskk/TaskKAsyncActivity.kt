@@ -2,15 +2,12 @@ package com.mozhimen.basicktest.taskk
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.taskk.TaskKAsync
-import com.mozhimen.basick.utilk.UtilKDate
-import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityTaskkAsyncBinding
 import kotlinx.coroutines.delay
 
-class TaskKAsyncActivity : BaseKActivity<ActivityTaskkAsyncBinding, BaseKViewModel>(R.layout.activity_taskk_async) {
+class TaskKAsyncActivity : BaseKActivityVB<ActivityTaskkAsyncBinding>() {
     private val _taskKAsync = TaskKAsync(this)
     override fun initData(savedInstanceState: Bundle?) {
         vb.taskkAsyncBtn.setOnClickListener {

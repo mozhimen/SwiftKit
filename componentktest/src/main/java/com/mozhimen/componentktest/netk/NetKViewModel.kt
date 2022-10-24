@@ -56,7 +56,7 @@ class NetKViewModel : BaseKViewModel() {
 //        }
 //    }
 
-    /*fun getRealtimeWeatherCoroutine() {
+    fun getRealtimeWeatherCoroutine() {
         viewModelScope.launch {
             getRealtimeWeatherCoroutineInRep().collect {
                 when (it) {
@@ -74,7 +74,7 @@ class NetKViewModel : BaseKViewModel() {
         .flowOn(Dispatchers.IO)
         .catch { e ->
             emit(NetKRep.Error(e))
-        }*/
+        }
 
 //    fun getRealTimeWeatherRxJava() {
 //        _lastTime3 = System.currentTimeMillis()

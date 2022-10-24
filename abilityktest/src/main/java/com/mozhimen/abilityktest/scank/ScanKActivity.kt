@@ -13,14 +13,12 @@ import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityk.scank.ScanKQR
 import com.mozhimen.abilityk.scank.ScanKQR2Activity
 import com.mozhimen.abilityk.scank.ScanKQRActivity
-import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityScankBinding
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.fromJson
 import com.mozhimen.basick.extsk.start
 
-class ScanKActivity : BaseKActivity<ActivityScankBinding, BaseKViewModel>(R.layout.activity_scank) {
+class ScanKActivity : BaseKActivityVB<ActivityScankBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)

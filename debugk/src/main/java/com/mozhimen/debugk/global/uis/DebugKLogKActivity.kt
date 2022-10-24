@@ -4,7 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.underlayk.logk.temps.PrinterFile
 import com.mozhimen.basick.utilk.UtilKFile
@@ -16,7 +17,7 @@ import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
 import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.global.mos.DebugKCrashKMo
 
-class DebugKLogKActivity : BaseKActivity<DebugkActivityLogkBinding, BaseKViewModel>(R.layout.debugk_activity_logk) {
+class DebugKLogKActivity : BaseKActivityVB<DebugkActivityLogkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
     }

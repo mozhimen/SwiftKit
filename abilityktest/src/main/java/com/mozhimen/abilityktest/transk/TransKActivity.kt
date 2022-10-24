@@ -4,13 +4,15 @@ import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import com.mozhimen.abilityk.transk.TransKText2Speech
-import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.componentk.permissionk.PermissionK
 
-class TransKActivity : BaseKActivity<ActivityTranskBinding, BaseKViewModel>(R.layout.activity_transk) {
+class TransKActivity : BaseKActivityVB<ActivityTranskBinding>() {
+    private val _transKText2Speech by lazy {
+        TransKText2Speech(this)
+    }
+
     override fun initData(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             PermissionK.initPermissions(this, arrayOf(Manifest.permission.FOREGROUND_SERVICE)) {
@@ -23,7 +25,7 @@ class TransKActivity : BaseKActivity<ActivityTranskBinding, BaseKViewModel>(R.la
 
     override fun initView(savedInstanceState: Bundle?) {
         vb.transkT2sBtn.setOnClickListener {
-            TransKText2Speech.getInstance(this).play(vb.transkT2sEdt.text.toString())
+            _transKText2Speech.play(vb.transkT2sEdt.text.toString())
         }
     }
 }

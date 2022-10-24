@@ -2,7 +2,7 @@ package com.mozhimen.componentktest.navigatek
 
 import android.os.Bundle
 import androidx.navigation.NavController
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.extsk.et
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.componentktest.R
@@ -10,7 +10,7 @@ import com.mozhimen.componentktest.databinding.ActivityNavigatekBinding
 import com.mozhimen.componentktest.navigatek.fragments.FirstFragment
 import com.mozhimen.componentktest.navigatek.fragments.SecondFragment
 
-class NavigateKActivity : BaseKActivity<ActivityNavigatekBinding, NavigateKViewModel>(R.layout.activity_navigatek) {
+class NavigateKActivity : BaseKActivityVBVM<ActivityNavigatekBinding, NavigateKViewModel>() {
 
     private val _fragments = listOf(FirstFragment::class.java, SecondFragment::class.java)
     private lateinit var _navController: NavController

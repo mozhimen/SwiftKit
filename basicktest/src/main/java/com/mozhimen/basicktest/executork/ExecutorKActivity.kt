@@ -2,10 +2,10 @@ package com.mozhimen.basicktest.executork
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.executork.ExecutorK
-import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityExecutorkBinding
 
 /**
@@ -15,7 +15,7 @@ import com.mozhimen.basicktest.databinding.ActivityExecutorkBinding
  * @Date 2021/9/14 20:05
  * @Version 1.0
  */
-class ExecutorKActivity : BaseKActivity<ActivityExecutorkBinding, BaseKViewModel>(R.layout.activity_executork) {
+class ExecutorKActivity : BaseKActivityVB<ActivityExecutorkBinding>() {
 
     private var _isPaused = false
 

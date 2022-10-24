@@ -1,5 +1,6 @@
 package com.mozhimen.basicktest.basek
 
+import androidx.lifecycle.MutableLiveData
 import com.mozhimen.basick.basek.BaseKViewModel
 
 /**
@@ -10,4 +11,9 @@ import com.mozhimen.basick.basek.BaseKViewModel
  * @Version 1.0
  */
 class BaseKDemoViewModel : BaseKViewModel() {
+    val uiNum = MutableLiveData("0")
+
+    fun genNum(){
+        uiNum.value = (uiNum.value!!.toInt() + 1).toString()
+    }
 }

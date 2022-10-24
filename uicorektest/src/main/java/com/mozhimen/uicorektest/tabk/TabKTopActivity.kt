@@ -1,14 +1,15 @@
 package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.tabk.top.mos.TabKTopMo
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityTabkTopBinding
 
-class TabKTopActivity : BaseKActivity<ActivityTabkTopBinding, BaseKViewModel>(R.layout.activity_tabk_top) {
+class TabKTopActivity : BaseKActivityVB<ActivityTabkTopBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         initTabKTop()
     }

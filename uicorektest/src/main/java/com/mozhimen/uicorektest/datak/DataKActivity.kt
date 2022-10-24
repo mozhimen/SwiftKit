@@ -3,11 +3,11 @@ package com.mozhimen.uicorektest.datak
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorek.datak.helpers.DataKAdapter
-import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDatakBinding
 import com.mozhimen.uicorektest.datak.mos.*
 
@@ -18,7 +18,7 @@ import com.mozhimen.uicorektest.datak.mos.*
  * @Date 2021/9/1 16:16
  * @Version 1.0
  */
-class DataKActivity : BaseKActivity<ActivityDatakBinding, BaseKViewModel>(R.layout.activity_datak) {
+class DataKActivity : BaseKActivityVB<ActivityDatakBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         initDataK()

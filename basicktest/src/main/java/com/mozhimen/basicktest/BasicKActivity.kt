@@ -2,10 +2,11 @@ package com.mozhimen.basicktest
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.start
-import com.mozhimen.basicktest.basek.BaseKDemoActivity
+import com.mozhimen.basicktest.basek.BaseKDemoStartActivity
 import com.mozhimen.basicktest.executork.ExecutorKActivity
 import com.mozhimen.basicktest.stackk.StackKActivity
 import com.mozhimen.basicktest.utilk.UtilKActivity
@@ -13,10 +14,10 @@ import com.mozhimen.basicktest.databinding.ActivityBasickBinding
 import com.mozhimen.basicktest.prefabk.PrefabKActivity
 import com.mozhimen.basicktest.taskk.TaskKActivity
 
-class BasicKActivity : BaseKActivity<ActivityBasickBinding, BaseKViewModel>(R.layout.activity_basick) {
+class BasicKActivity : BaseKActivityVB<ActivityBasickBinding>() {
 
     fun goBaseKDemo(view: View) {
-        start<BaseKDemoActivity>()
+        start<BaseKDemoStartActivity>()
     }
 
     fun goExecutorK(view: View) {
@@ -37,5 +38,9 @@ class BasicKActivity : BaseKActivity<ActivityBasickBinding, BaseKViewModel>(R.la
 
     fun goUtilK(view: View) {
         start<UtilKActivity>()
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
+
     }
 }

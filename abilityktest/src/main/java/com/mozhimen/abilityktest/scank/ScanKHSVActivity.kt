@@ -13,9 +13,9 @@ import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions
 import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.scank.ScanKHSV
-import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.utilk.UtilKBitmap
@@ -26,7 +26,7 @@ import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA])
-class ScanKHSVActivity : BaseKActivity<ActivityScankHsvBinding, BaseKViewModel>(R.layout.activity_scank_hsv) {
+class ScanKHSVActivity : BaseKActivityVB<ActivityScankHsvBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {

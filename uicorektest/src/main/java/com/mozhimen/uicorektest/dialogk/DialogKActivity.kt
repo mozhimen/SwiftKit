@@ -1,13 +1,12 @@
 package com.mozhimen.uicorektest.dialogk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.uicorek.dialogk.DialogKQues
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDialogkBinding
 
-class DialogKActivity : BaseKActivity<ActivityDialogkBinding, BaseKViewModel>(R.layout.activity_dialogk) {
+class DialogKActivity : BaseKActivityVB<ActivityDialogkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         vb.dialogkQues.setOnClickListener {
             genDialogKQues("你get到此用法了吗?", onSureClick = {})

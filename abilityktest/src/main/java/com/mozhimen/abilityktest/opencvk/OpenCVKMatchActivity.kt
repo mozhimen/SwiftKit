@@ -12,7 +12,8 @@ import com.mozhimen.abilityk.opencvk.OpenCVKTrans
 import com.mozhimen.abilityk.opencvk.setMat
 import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkMatchBinding
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.extsk.drawable2Bitmap
@@ -27,7 +28,7 @@ import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @PermissionKAnnor(permissions = [Manifest.permission.CAMERA])
-class OpenCVKMatchActivity : BaseKActivity<ActivityOpencvkMatchBinding, BaseKViewModel>(R.layout.activity_opencvk_match) {
+class OpenCVKMatchActivity : BaseKActivityVB<ActivityOpencvkMatchBinding>() {
     private val _templateMat by lazy { OpenCVKTrans.bitmap2Mat(UtilKRes.getDrawable(R.mipmap.opencvk_contrast_test)!!.drawable2Bitmap()) }
 
     override fun initData(savedInstanceState: Bundle?) {

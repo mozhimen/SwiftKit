@@ -1,13 +1,12 @@
 package com.mozhimen.abilityktest.opencvk
 
+import android.os.Bundle
 import android.view.View
-import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkBinding
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.start
 
-class OpenCVKActivity : BaseKActivity<ActivityOpencvkBinding, BaseKViewModel>(R.layout.activity_opencvk) {
+class OpenCVKActivity : BaseKActivityVB<ActivityOpencvkBinding>() {
 
     fun goOpenCVKContrast(view: View) {
         start<OpenCVKContrastActivity>()
@@ -19,5 +18,9 @@ class OpenCVKActivity : BaseKActivity<ActivityOpencvkBinding, BaseKViewModel>(R.
 
     fun goOpenCVKMatch(view: View) {
         start<OpenCVKMatchActivity>()
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
+
     }
 }

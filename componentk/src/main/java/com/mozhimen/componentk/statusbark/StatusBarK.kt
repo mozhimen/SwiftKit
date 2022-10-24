@@ -1,7 +1,6 @@
 package com.mozhimen.componentk.statusbark
 
 import android.app.Activity
-import android.app.StatusBarManager
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKTheme
 import com.mozhimen.componentk.statusbark.annors.StatusBarKAnnor
@@ -19,7 +18,7 @@ import com.mozhimen.componentk.statusbark.helpers.StatusBarKHelper
  * 作用: 状态栏管理
  * 用法:
  * @StatusBarKAnnor(statusBarType = StatusBarKType.CUSTOM, isFontIconDark = false, bgColorLight = android.R.color.black)
- * class StatusBarKActivity : BaseKActivity<ActivityStatusbarkBinding, BaseKViewModel>(R.layout.activity_statusbark) {
+ * class StatusBarKActivity : BaseKActivity<ActivityStatusbarkBinding, BaseKViewModel>() {
  *  override fun initFlag() {
  *      StatusBarK.initStatusBar(this)
  *  }}

@@ -48,6 +48,6 @@ abstract class RxJavaResponse<T : Any>(private val _converter: INetKConverter = 
 
     private fun <T> parseResponse(value: T): NetKResponse<T> {
         val rawData: String = value!!::class.toJson() /*UtilKJson.t2Json(value)*/
-        return _converter.convert(rawData, UtilKGeneric.getParentGenericTypeClazz<T>(this@RxJavaResponse, 0)!!)
+        return _converter.convert(rawData, UtilKGeneric.getParentGenericTypeClazz(this@RxJavaResponse, 0)!!)
     }
 }

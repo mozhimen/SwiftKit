@@ -2,7 +2,8 @@ package com.mozhimen.uicorektest.sidek
 
 import android.os.Bundle
 import android.widget.Toast
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.uicorek.itemk.ItemKViewHolder
@@ -11,10 +12,9 @@ import com.mozhimen.uicorek.sidek.mos.SliderKContentMo
 import com.mozhimen.uicorek.sidek.mos.SliderKDataMo
 import com.mozhimen.uicorek.sidek.mos.SliderKMenuMo
 import com.mozhimen.uicorek.sidek.mos.SliderKSubMo
-import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivitySidekBinding
 
-class SideKActivity : BaseKActivity<ActivitySidekBinding, BaseKViewModel>(R.layout.activity_sidek) {
+class SideKActivity : BaseKActivityVB<ActivitySidekBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
     }

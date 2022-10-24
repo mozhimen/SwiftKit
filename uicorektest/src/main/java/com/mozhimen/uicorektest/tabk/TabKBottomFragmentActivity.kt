@@ -1,7 +1,8 @@
 package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
@@ -22,7 +23,7 @@ import com.mozhimen.uicorektest.tabk.fragments.MoreFragment
  * @Date 2021/8/2 14:38
  * @Version 1.0
  */
-class TabKBottomFragmentActivity : BaseKActivity<ActivityTabkBottomFragmentBinding, BaseKViewModel>(R.layout.activity_tabk_bottom_fragment) {
+class TabKBottomFragmentActivity : BaseKActivityVB<ActivityTabkBottomFragmentBinding>() {
 
     companion object {
         private const val SAVED_CURRENT_ID = "SAVED_CURRENT_ID"

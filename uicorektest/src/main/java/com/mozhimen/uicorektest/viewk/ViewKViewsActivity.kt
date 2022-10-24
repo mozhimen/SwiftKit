@@ -1,12 +1,10 @@
 package com.mozhimen.uicorektest.viewk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.uicorektest.R
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityViewkViewsBinding
 
-class ViewKViewsActivity : BaseKActivity<ActivityViewkViewsBinding, BaseKViewModel>(R.layout.activity_viewk_views) {
+class ViewKViewsActivity : BaseKActivityVB<ActivityViewkViewsBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
     }

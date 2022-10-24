@@ -2,7 +2,8 @@ package com.mozhimen.uicorektest.navk
 
 import android.graphics.Color
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.showToast
@@ -11,7 +12,7 @@ import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityNavkBinding
 
-class NavKActivity : BaseKActivity<ActivityNavkBinding, BaseKViewModel>(R.layout.activity_navk) {
+class NavKActivity : BaseKActivityVB<ActivityNavkBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         vb.navkNavbar3.addLeftImage(UtilKRes.getDrawable(R.mipmap.navk_back)!!, 40f.dp2px(), 2f.dp2px()) {

@@ -2,7 +2,8 @@ package com.mozhimen.uicorektest.layoutk
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.percent
@@ -11,10 +12,9 @@ import com.mozhimen.basick.extsk.start
 import com.mozhimen.basick.mok.MoKKey
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
 import com.mozhimen.uicorek.popwink.PopwinKBubbleText
-import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkBinding
 
-class LayoutKActivity : BaseKActivity<ActivityLayoutkBinding, BaseKViewModel>(R.layout.activity_layoutk) {
+class LayoutKActivity : BaseKActivityVB<ActivityLayoutkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
     }

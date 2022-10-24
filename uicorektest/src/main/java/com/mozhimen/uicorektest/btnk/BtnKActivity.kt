@@ -2,13 +2,11 @@ package com.mozhimen.uicorektest.btnk
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.uicorek.btnk.SwitchApple
-import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityBtnkBinding
 
-class BtnKActivity : BaseKActivity<ActivityBtnkBinding, BaseKViewModel>(R.layout.activity_btnk) {
+class BtnKActivity : BaseKActivityVB<ActivityBtnkBinding>() {
     private lateinit var btnKSwitchApple: SwitchApple
 
     override fun initData(savedInstanceState: Bundle?) {

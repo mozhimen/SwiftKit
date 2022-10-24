@@ -1,7 +1,8 @@
 package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
@@ -15,7 +16,7 @@ import com.mozhimen.uicorektest.databinding.ActivityTabkBottomBinding
  * @Date 2021/8/2 14:39
  * @Version 1.0
  */
-class TabKBottomActivity : BaseKActivity<ActivityTabkBottomBinding, BaseKViewModel>(R.layout.activity_tabk_bottom) {
+class TabKBottomActivity : BaseKActivityVB<ActivityTabkBottomBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         vb.tabkBottomHome.setTabInfo(_homeInfo)
         vb.tabkBottomMore.setTabInfo(_moreInfo)

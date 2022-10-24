@@ -1,18 +1,21 @@
 package com.mozhimen.basicktest.taskk
 
+import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.start
-import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityTaskkBinding
 
-class TaskKActivity : BaseKActivity<ActivityTaskkBinding, BaseKViewModel>(R.layout.activity_taskk) {
+class TaskKActivity : BaseKActivityVB<ActivityTaskkBinding>() {
     fun goTaskKPolling(view: View) {
         start<TaskKPollingActivity>()
     }
 
     fun goTaskKAsync(view: View) {
         start<TaskKAsyncActivity>()
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
+
     }
 }

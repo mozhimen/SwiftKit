@@ -5,21 +5,19 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.utilk.UtilKBitmap
 import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.CameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.basick.utilk.UtilKBitmap
 import com.mozhimen.componentk.statusbark.annors.StatusBarKAnnor
 import com.mozhimen.componentk.statusbark.annors.StatusBarKType
-import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 import java.util.concurrent.locks.ReentrantLock
 
 @StatusBarKAnnor(statusBarType = StatusBarKType.FULL_SCREEN)
-class CameraXKActivity : BaseKActivity<ActivityCameraxkBinding, BaseKViewModel>(R.layout.activity_cameraxk) {
+class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
 
     /*private val outputDirectory: String by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

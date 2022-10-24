@@ -1,14 +1,12 @@
 package com.mozhimen.basick
 
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.extsk.printlog
 import com.mozhimen.basick.utilk.UtilKConsole
-import com.mozhimen.basick.utilk.UtilKDate
 import com.mozhimen.basick.utilk.UtilKEncryptMD5
 import org.junit.Test
 
 import org.junit.Assert.*
-import java.util.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -31,9 +29,9 @@ class ExampleUnitTest {
 
     @Test
     fun test_class() {
-        BaseKActivity::class.java.toString().printlog()
-        BaseKActivity::class.java.superclass.toString().printlog()
-        BaseKActivity::class.java.superclass.toString().contains("Activity").printlog()
+        BaseKActivityVBVM::class.java.toString().printlog()
+        BaseKActivityVBVM::class.java.superclass.toString().printlog()
+        BaseKActivityVBVM::class.java.superclass.toString().contains("Activity").printlog()
     }
 
     @Test

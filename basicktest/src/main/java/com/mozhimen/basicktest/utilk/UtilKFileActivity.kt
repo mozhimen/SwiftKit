@@ -5,10 +5,10 @@ import android.os.Bundle
 import android.os.Environment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basicktest.BR
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.basick.utilk.UtilKAsset
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkFileBinding
@@ -19,10 +19,9 @@ import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 
 @PermissionKAnnor([Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
-class UtilKFileActivity : BaseKActivity<ActivityUtilkFileBinding, BaseKViewModel>(R.layout.activity_utilk_file) {
+class UtilKFileActivity : BaseKActivityVB<ActivityUtilkFileBinding>() {
     private lateinit var _adapterKRecycler: AdapterKRecycler<UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileLogBean(0, "start file process >>>>>")

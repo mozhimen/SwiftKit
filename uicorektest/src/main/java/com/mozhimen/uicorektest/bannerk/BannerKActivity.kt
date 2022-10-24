@@ -3,20 +3,18 @@ package com.mozhimen.uicorektest.bannerk
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.load
 import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
 import com.mozhimen.uicorek.bannerk.commons.IBannerKIndicator
-import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
-import com.mozhimen.uicorek.bannerk.mos.BannerKMo
 import com.mozhimen.uicorek.bannerk.customs.NumberIndicator
 import com.mozhimen.uicorek.bannerk.customs.PointIndicator
+import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
+import com.mozhimen.uicorek.bannerk.mos.BannerKMo
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityBannerkBinding
 
-class BannerKActivity : BaseKActivity<ActivityBannerkBinding, BaseKViewModel>(R.layout.activity_bannerk) {
+class BannerKActivity : BaseKActivityVB<ActivityBannerkBinding>() {
 
     private var _autoPlay = true
     private lateinit var _indicator: IBannerKIndicator<*>

@@ -22,6 +22,9 @@
             </intent-filter>
         </activity> <!-- basek -->
         <activity
+            android:name=".basek.BaseKDemoStartActivity"
+            android:exported="false" />
+        <activity
             android:name=".basek.BaseKDemoActivity"
             android:exported="false" />
         <activity

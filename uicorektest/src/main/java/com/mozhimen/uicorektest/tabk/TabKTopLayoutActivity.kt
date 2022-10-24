@@ -1,7 +1,8 @@
 package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.utilk.UtilKRes
@@ -17,7 +18,7 @@ import com.mozhimen.uicorektest.databinding.ActivityTabkTopLayoutBinding
  * @Date 2021/8/4 17:17
  * @Version 1.0
  */
-class TabKTopLayoutActivity : BaseKActivity<ActivityTabkTopLayoutBinding, BaseKViewModel>(R.layout.activity_tabk_top_layout) {
+class TabKTopLayoutActivity : BaseKActivityVB<ActivityTabkTopLayoutBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         initTabKTopLayout()

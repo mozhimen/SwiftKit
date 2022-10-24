@@ -4,7 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.basek.BaseKActivity
+import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
@@ -23,7 +24,7 @@ import com.mozhimen.underlayk.crashk.CrashKMgr
  * @Date 2022/5/25 23:00
  * @Version 1.0
  */
-class DebugKCrashKActivity : BaseKActivity<DebugkActivityCrashkBinding, BaseKViewModel>(R.layout.debugk_activity_crashk) {
+class DebugKCrashKActivity : BaseKActivityVB<DebugkActivityCrashkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
     }

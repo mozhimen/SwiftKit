@@ -3,12 +3,10 @@ package com.mozhimen.uicorektest.viewk
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
-import com.mozhimen.basick.basek.BaseKActivity
-import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.uicorektest.R
+import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityViewkStepsBinding
 
-class ViewKStepsActivity : BaseKActivity<ActivityViewkStepsBinding, BaseKViewModel>(R.layout.activity_viewk_steps) {
+class ViewKStepsActivity : BaseKActivityVB<ActivityViewkStepsBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         vb.viewkStepsViewksteps.setTitles(arrayOf("第一步", "第二步", "第三步", "第四步"))
