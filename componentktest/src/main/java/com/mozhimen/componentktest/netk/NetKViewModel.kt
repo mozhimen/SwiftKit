@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.componentk.netk.helpers.NetKHelper
-import com.mozhimen.componentk.netk.asNetKRes
+import com.mozhimen.componentk.netk.helpers.asNetKRes
 import com.mozhimen.componentktest.netk.customs.ApiFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

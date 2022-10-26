@@ -14,31 +14,6 @@ import kotlinx.coroutines.flow.*
 object NetKHelper {
     const val TAG = "NetKHelper>>>>>"
 
-//    suspend fun <T> get(call: suspend () -> T): T? = suspendCancellableCoroutine { coroutine->
-//        val currentTime = System.currentTimeMillis()
-//        createFlow(call).collect {
-//            when (it) {
-//                is NetKRep.Uninitialized -> {
-//                }
-//                is NetKRep.Loading -> {
-//                }
-//                is NetKRep.Success -> {
-//                    Log.d(TAG, "getRealtimeWeatherCoroutine: Success time ${System.currentTimeMillis() - currentTime} data ${it.data}")
-//                    coroutine.resume(it.data)
-//                }
-//                is NetKRep.Empty -> {
-//                    Log.d(TAG, "getRealtimeWeatherCoroutine: Empty")
-//                    coroutine.resume(null)
-//                }
-//                is NetKRep.Error -> {
-//                    val netKThrowable = NetKRepErrorParser.getThrowable(it.exception)
-//                    Log.d(TAG, "getRealtimeWeatherCoroutine: Error code ${netKThrowable.code} message ${netKThrowable.message}")
-//                    coroutine.resume(null)
-//                }
-//            }
-//        }
-//    }
-
     fun <T> createFlow(call: suspend () -> T?): Flow<NetKRep<T>> = flow {
         val result: T? = call()
         result?.let {

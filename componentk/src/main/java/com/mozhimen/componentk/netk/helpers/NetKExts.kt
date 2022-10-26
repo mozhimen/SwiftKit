@@ -1,8 +1,6 @@
-package com.mozhimen.componentk.netk
+package com.mozhimen.componentk.netk.helpers
 
 import android.util.Log
-import com.mozhimen.componentk.netk.helpers.NetKHelper
-import com.mozhimen.componentk.netk.helpers.NetKRepErrorParser
 import com.mozhimen.componentk.netk.mos.NetKRep
 import kotlinx.coroutines.flow.Flow
 
@@ -17,22 +15,22 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKRes(onSuccess: (data: T) -> Unit, onFail:
     collect {
         when (it) {
             is NetKRep.Uninitialized -> {
-                Log.d(NetKHelper.TAG, "getRealtimeWeatherCoroutine: Uninitialized")
+                Log.d(NetKHelper.TAG, "asNetKRes: Uninitialized")
             }
             is NetKRep.Loading -> {
-                Log.d(NetKHelper.TAG, "getRealtimeWeatherCoroutine: Loading")
+                Log.d(NetKHelper.TAG, "asNetKRes: Loading")
             }
             is NetKRep.Success -> {
-                Log.d(NetKHelper.TAG, "getRealtimeWeatherCoroutine: Success data ${it.data}")
+                Log.d(NetKHelper.TAG, "asNetKRes: Success data ${it.data}")
                 onSuccess(it.data)
             }
             is NetKRep.Empty -> {
-                Log.d(NetKHelper.TAG, "getRealtimeWeatherCoroutine: Empty")
+                Log.d(NetKHelper.TAG, "asNetKRes: Empty")
                 onFail(-1, "result is null")
             }
             is NetKRep.Error -> {
                 val netKThrowable = NetKRepErrorParser.getThrowable(it.exception)
-                Log.d(NetKHelper.TAG, "getRealtimeWeatherCoroutine: Error code ${netKThrowable.code} message ${netKThrowable.message}")
+                Log.d(NetKHelper.TAG, "asNetKRes: Error code ${netKThrowable.code} message ${netKThrowable.message}")
                 onFail(netKThrowable.code, netKThrowable.message)
             }
         }
