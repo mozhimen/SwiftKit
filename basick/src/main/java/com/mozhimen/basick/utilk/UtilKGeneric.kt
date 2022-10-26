@@ -13,6 +13,11 @@ import java.lang.reflect.Type
 object UtilKGeneric {
     abstract class UtilKTypeRef<T> // 自定义的类,用来包装泛型
 
+    /**
+     * 获取当前<>里面的泛型实例
+     * @param index Int
+     * @return Type?
+     */
     @JvmStatic
     inline fun <reified T> getGenericType(index: Int = 0): Type? =
         object : UtilKTypeRef<T>() {}::class.java
@@ -26,10 +31,22 @@ object UtilKGeneric {
                     null
             }
 
+    /**
+     * 获取泛型类
+     * @param obj Any
+     * @param index Int
+     * @return Class<*>?
+     */
     @JvmStatic
     fun getParentGenericTypeClazz(obj: Any, index: Int = 0): Class<*>? =
         getParentGenericType(obj, index) as? Class<*>?
 
+    /**
+     * 获取泛型type
+     * @param obj Any
+     * @param index Int
+     * @return Type?
+     */
     @JvmStatic
     fun getParentGenericType(obj: Any, index: Int = 0): Type? =
         obj::class.java
@@ -43,10 +60,20 @@ object UtilKGeneric {
                     null
             }
 
+    /**
+     * 获取继承父类的泛型类
+     * @param index Int
+     * @return Class<*>?
+     */
     @JvmStatic
     inline fun <reified T> getParentGenericTypeClazz(index: Int = 0): Class<*>? =
         getParentGenericType<T>(index) as? Class<*>?
 
+    /**
+     * 获取继承父类的泛型Type
+     * @param index Int
+     * @return Type?
+     */
     @JvmStatic
     inline fun <reified T> getParentGenericType(index: Int = 0): Type? =
         T::class.java

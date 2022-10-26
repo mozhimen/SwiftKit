@@ -2,6 +2,7 @@ package com.mozhimen.componentktest.netk
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.componentk.permissionk.PermissionK
@@ -20,8 +21,9 @@ class NetKActivity : BaseKActivityVBVM<ActivityNetkBinding, NetKViewModel>() {
         }
     }
 
-    override fun ActivityNetkBinding.bindViewVM() {
-        vm = vm
+    override fun bindViewVM(vb: ActivityNetkBinding) {
+        Log.d(TAG, "bindViewVM: ")
+        vb.vm = vm
     }
 
     override fun initView(savedInstanceState: Bundle?) {

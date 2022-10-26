@@ -57,4 +57,7 @@ class NavigateKActivity : BaseKActivityVBVM<ActivityNavigatekBinding, NavigateKV
         super.onRestoreInstanceState(savedInstanceState)
         _currentItemId = savedInstanceState.getInt(navigatek_saved_current_id, -1)
     }
+
+    override fun bindViewVM(vb: ActivityNavigatekBinding) {
+    }
 }

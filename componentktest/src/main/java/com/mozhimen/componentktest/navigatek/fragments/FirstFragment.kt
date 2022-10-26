@@ -14,7 +14,7 @@ class FirstFragment : BaseKFragmentVBVM<FragmentFirstBinding, NavigateKViewModel
         }
     }
 
-    override fun FragmentFirstBinding.bindViewVM() {
+    override fun bindViewVM(vb: FragmentFirstBinding) {
 
     }
 }

@@ -6,8 +6,8 @@ import com.mozhimen.basicktest.databinding.FragmentBasekFragmentVbvmBinding
 
 class BaseKDemoFragmentVBVM : BaseKFragmentVBVM<FragmentBasekFragmentVbvmBinding, BaseKDemoViewModel>() {
 
-    override fun FragmentBasekFragmentVbvmBinding.bindViewVM() {
-        vm = vm
+    override fun bindViewVM(vb: FragmentBasekFragmentVbvmBinding) {
+        vb.vm = vm
     }
 
     override fun initData(savedInstanceState: Bundle?) {

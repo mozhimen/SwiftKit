@@ -12,15 +12,9 @@ import retrofit2.http.Path
  * @Version 1.0
  */
 interface Apis {
-    //121.321504,31.194874
-//    @_GET("{loc}/realtime.json")
-//    fun getRealTimeWeatherAsync(@_Path("loc") loc: String): INetKCall<Weather>
 
     //121.321504,31.194874
     @GET("{loc}/realtime.json")
     suspend fun getRealTimeWeatherCoroutine(@Path("loc") loc: String): Weather?
 
-    //121.321504,31.194874
-//    @GET("{loc}/realtime.json")
-//    fun getRealTimeWeatherRxJava(@Path("loc") loc: String): Observable<Weather>
 }

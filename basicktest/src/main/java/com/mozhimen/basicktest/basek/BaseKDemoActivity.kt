@@ -7,8 +7,8 @@ import com.mozhimen.basicktest.databinding.ActivityBasekDemoBinding
 class BaseKDemoActivity :
     BaseKActivityVBVM<ActivityBasekDemoBinding, BaseKDemoViewModel>() {
 
-    override fun ActivityBasekDemoBinding.bindViewVM() {
-        basekDemoVm = vm
+    override fun bindViewVM(vb: ActivityBasekDemoBinding) {
+        vb.basekDemoVm = vm
     }
 
     override fun initData(savedInstanceState: Bundle?) {

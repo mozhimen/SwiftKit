@@ -1,6 +1,7 @@
 package com.mozhimen.componentk.netk
 
 import android.util.Log
+import com.mozhimen.basick.utilk.UtilKJson
 import com.mozhimen.componentk.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -16,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap
  * @Date 2022/5/12 16:01
  * @Version 1.0
  */
-open class NetKCoroutineFactory(
+open class NetKFactory(
     baseUrl: String,
     interceptors: List<Interceptor> = emptyList()
 ) {
@@ -48,7 +49,7 @@ open class NetKCoroutineFactory(
     }
 
     @Synchronized
-    fun <T : Any> create(service: Class<T>): T {
+    fun <SERVICE : Any> create(service: Class<SERVICE>): SERVICE {
         val id = service::class.java.hashCode()
         if (!_services.containsKey(id)) {
             _retrofit!!.create(service).apply {
@@ -56,12 +57,12 @@ open class NetKCoroutineFactory(
                 return this
             }
         }
-        return _services[id] as T
+        return _services[id] as SERVICE
     }
 
     private fun initRetrofit(url: String): Retrofit =
         Retrofit.Builder().baseUrl(url)
             .client(_okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(UtilKJson.moshiBuilder))
             .build()
 }

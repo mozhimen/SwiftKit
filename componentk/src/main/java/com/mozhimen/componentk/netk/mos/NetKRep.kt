@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk
+package com.mozhimen.componentk.netk.mos
 
 /**
  * @ClassName NetKRep

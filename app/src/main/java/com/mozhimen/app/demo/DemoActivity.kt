@@ -64,4 +64,7 @@ class DemoActivity : BaseKActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
             }
         })
     }
+
+    override fun bindViewVM(vb: ActivityDemoBinding) {
+    }
 }

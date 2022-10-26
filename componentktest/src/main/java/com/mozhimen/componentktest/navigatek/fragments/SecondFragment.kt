@@ -3,7 +3,6 @@ package com.mozhimen.componentktest.navigatek.fragments
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKFragmentVBVM
 import com.mozhimen.componentk.navigatek.NavigateK
-import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.FragmentSecondBinding
 import com.mozhimen.componentktest.navigatek.NavigateKViewModel
 
@@ -14,7 +13,7 @@ class SecondFragment : BaseKFragmentVBVM<FragmentSecondBinding, NavigateKViewMod
         }
     }
 
-    override fun FragmentSecondBinding.bindViewVM() {
+    override fun bindViewVM(vb: FragmentSecondBinding) {
 
     }
 }

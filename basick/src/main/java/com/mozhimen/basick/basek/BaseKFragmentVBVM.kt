@@ -1,15 +1,9 @@
 package com.mozhimen.basick.basek
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.basek.commons.IBaseKActivity
 import com.mozhimen.basick.basek.commons.IBaseKViewDataBinding
-import com.mozhimen.basick.utilk.UtilKViewDataBinding
 import com.mozhimen.basick.utilk.UtilKViewModel
 
 /**
@@ -30,6 +24,6 @@ abstract class BaseKFragmentVBVM<VB : ViewDataBinding, VM : BaseKViewModel>(
     override fun initLayout() {
         super.initLayout()
         vm = UtilKViewModel.get(this.requireActivity(), _factory, 1)
-        vb.bindViewVM()
+        bindViewVM(vb)
     }
 }

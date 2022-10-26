@@ -1,14 +1,9 @@
 package com.mozhimen.basick.basek
 
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.mozhimen.basick.basek.commons.IBaseKActivity
 import com.mozhimen.basick.basek.commons.IBaseKViewDataBinding
-import com.mozhimen.basick.utilk.UtilKGeneric
-import com.mozhimen.basick.utilk.UtilKViewDataBinding
 import com.mozhimen.basick.utilk.UtilKViewModel
 
 /**
@@ -29,6 +24,6 @@ abstract class BaseKActivityVBVM<VB : ViewDataBinding, VM : ViewModel>(
     override fun initLayout() {
         super.initLayout()
         vm = UtilKViewModel.get(this, _factory, 1)
-        vb.bindViewVM()
+        bindViewVM(vb)
     }
 }

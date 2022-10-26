@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk
+package com.mozhimen.componentk.netk.helpers
 
 import com.google.gson.JsonParseException
 import org.json.JSONException

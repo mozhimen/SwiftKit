@@ -13,5 +13,5 @@ interface IBaseKViewDataBinding<VB : ViewDataBinding> {
     /**
      * vb.vm=vm
      */
-    fun VB.bindViewVM()
+    fun bindViewVM(vb: VB)
 }

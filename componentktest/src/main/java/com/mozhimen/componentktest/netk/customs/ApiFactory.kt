@@ -1,6 +1,6 @@
 package com.mozhimen.componentktest.netk.customs
 
-import com.mozhimen.componentk.netk.NetKCoroutineFactory
+import com.mozhimen.componentk.netk.NetKFactory
 
 /**
  * @ClassName ApiFactory
@@ -9,10 +9,10 @@ import com.mozhimen.componentk.netk.NetKCoroutineFactory
  * @Date 2021/12/13 22:16
  * @Version 1.0
  */
-object ApiFactorys {
+object ApiFactory {
     private val _baseUrl = "https://api.caiyunapp.com/v2.5/cIecnVlovchAFYIk/"
 
-    val netkCoroutineFactory by lazy {
-        NetKCoroutineFactory(_baseUrl)
-    }
+    val netk = NetKFactory(_baseUrl)
+
+    val api = netk.create(Apis::class.java)
 }
