@@ -36,18 +36,6 @@
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/scank_demo_btn_scan"
-            style="@style/BtnStyle"
-            android:text="扫描二维码"
-            tools:ignore="HardcodedText" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/scank_demo_btn_scan2"
-            style="@style/BtnStyle"
-            android:text="扫描二维码(回调图片)"
-            tools:ignore="HardcodedText" />
-
-        <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
             android:text="图片色彩比例"
             android:onClick="goScanKHSV"

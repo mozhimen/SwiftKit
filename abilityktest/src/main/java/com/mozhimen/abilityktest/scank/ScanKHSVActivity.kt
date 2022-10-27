@@ -8,15 +8,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import com.huawei.hms.ml.scan.HmsScan
-import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions
 import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.utilk.UtilKBitmap
 import com.mozhimen.basick.utilk.UtilKScreen
@@ -50,11 +46,6 @@ class ScanKHSVActivity : BaseKActivityVB<ActivityScankHsvBinding>() {
     }
 
     private lateinit var _orgBitmap: Bitmap
-
-    private val _options: HmsScanAnalyzerOptions = HmsScanAnalyzerOptions.Creator()
-        .setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE)
-        .setPhotoMode(true)
-        .create()
 
     private val _frameAnalyzer: ImageAnalysis.Analyzer by lazy {
         object : ImageAnalysis.Analyzer {
