@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mozhimen.abilityk">
     <!-- scank -->
-    <uses-permission android:name="android.permission.CAMERA" />
+<!--    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />-->
 
     <!--TransKText2Speech-->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -14,14 +14,5 @@
             <action android:name="android.intent.action.TTS_SERVICE" />
         </intent>
     </queries>
-
-    <application>
-        <activity
-            android:name=".scank.ScanKQR2Activity"
-            android:exported="true" />
-        <activity
-            android:name=".scank.ScanKQRActivity"
-            android:exported="true" />
-    </application>
 
 </manifest>
