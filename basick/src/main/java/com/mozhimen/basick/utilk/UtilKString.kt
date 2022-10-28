@@ -22,6 +22,36 @@ object UtilKString {
     private const val TAG = "UtilKString>>>>>"
 
     /**
+     * 找到第一个匹配的字符的位置
+     * @param content String
+     * @param str String
+     * @return Int
+     */
+    @JvmStatic
+    fun findFirst(content: String, char: Char): Int =
+        content.indexOfFirst { it == char }
+
+    /**
+     * 找到第一个匹配的字符串的位置
+     * @param content String
+     * @param str String
+     * @return Int
+     */
+    fun findFirst(content: String, str: String): Int =
+        content.indexOf(str)
+
+    /**
+     * 切割字符串
+     * @param content String
+     * @param firstIndex Int
+     * @param length Int
+     * @return String
+     */
+    @JvmStatic
+    fun substring(content: String, firstIndex: Int, length: Int): String =
+        content.substring(UtilKNumber.normalize(firstIndex, content.indices), if (firstIndex + length > content.length) content.length else firstIndex + length)
+
+    /**
      * 是否为空
      */
     @JvmStatic
@@ -36,7 +66,8 @@ object UtilKString {
      * @return String
      */
     @JvmStatic
-    fun getSplitLast(str: String, splitStr: String): String = str.substring(str.lastIndexOf(splitStr) + 1, str.length)
+    fun getSplitLast(str: String, splitStr: String): String =
+        str.substring(str.lastIndexOf(splitStr) + 1, str.length)
 
     /**
      * icon代码转unicode
@@ -73,7 +104,8 @@ object UtilKString {
      * @return String
      */
     @JvmStatic
-    fun decimal2String(double: Double, pattern: String = "#.0"): String = DecimalFormat(pattern).format(double)
+    fun decimal2String(double: Double, pattern: String = "#.0"): String =
+        DecimalFormat(pattern).format(double)
 
     /**
      * bool转String
@@ -123,7 +155,8 @@ object UtilKString {
      * @return String
      */
     @JvmStatic
-    fun hidePhone(str: String): String = if (str.length == 11) str.substring(0, 3) + "****" + str.substring(7, str.length) else str
+    fun hidePhone(str: String): String =
+        if (str.length == 11) str.substring(0, 3) + "****" + str.substring(7, str.length) else str
 
     /**
      * 名字脱敏

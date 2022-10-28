@@ -7,7 +7,7 @@ android {
     compileSdk rootProject.android.compileSdk
 
     defaultConfig {
-        applicationId rootProject.ext.android.applicationId
+        applicationId "com.mozhimen.underlayktest"
         minSdk rootProject.ext.android.minSdk
         targetSdk rootProject.ext.android.targetSdk
         versionCode rootProject.ext.android.versionCode

@@ -24,7 +24,7 @@
             app:viewKQRScan_borderColor="@android:color/white"
             app:viewKQRScan_borderLineWidth="2dp"
             app:viewKQRScan_isScanLineReverse="false"
-            app:viewKQRScan_lineDrawable="@drawable/scank_qrscan_line"
+            app:viewKQRScan_lineDrawable="@drawable/qrscan_line"
             app:viewKQRScan_lineWidth="2dp" />
 
         <LinearLayout

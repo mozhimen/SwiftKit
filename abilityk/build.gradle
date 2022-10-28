@@ -36,9 +36,6 @@ dependencies {
     implementation project(project.path.replace(project.name, '') + ':underlayk')
     implementation project(project.path.replace(project.name, '') + ':componentk')
 
-    //common
-    api fileTree(dir: "libs", include: ["*.jar"])
-
     //hotupdatek
     api 'com.liulishuo.okdownload:okdownload:1.0.5'
 

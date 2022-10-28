@@ -1,6 +1,5 @@
 package com.mozhimen.abilityktest
 
-import com.mozhimen.abilityk.hotfixk.HotFixMgr
 import com.mozhimen.basick.basek.BaseKApplication
 
 /**
@@ -14,8 +13,5 @@ class AbilityKApplication : BaseKApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
-        //hotfixk
-        HotFixMgr.instance.init()//注释此条查看热修复前的弹框提示
     }
 }

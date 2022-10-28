@@ -16,12 +16,6 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="goHotfixK"
-                android:text="HotfixK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
                 android:onClick="goScanK"
                 android:text="ScanK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

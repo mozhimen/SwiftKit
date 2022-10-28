@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion rootProject.android.compileSdk
+    compileSdk rootProject.android.compileSdk
 
     defaultConfig {
         applicationId "com.mozhimen.basicktest"

@@ -3,7 +3,6 @@ package com.mozhimen.abilityktest
 import android.os.Bundle
 import android.view.View
 import com.mozhimen.abilityktest.databinding.ActivityAbilitykBinding
-import com.mozhimen.abilityktest.hotfixk.HotFixKActivity
 import com.mozhimen.abilityktest.opencvk.OpenCVKActivity
 import com.mozhimen.abilityktest.scank.ScanKActivity
 import com.mozhimen.abilityktest.transk.TransKActivity
@@ -11,10 +10,6 @@ import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.start
 
 class AbilityKActivity : BaseKActivityVB<ActivityAbilitykBinding>() {
-
-    fun goHotfixK(view: View) {
-        start<HotFixKActivity>()
-    }
 
     fun goScanK(view: View) {
         start<ScanKActivity>()
