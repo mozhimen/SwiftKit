@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdk rootProject.ext.android.compileSdk
+    compileSdk rootProject.android.compileSdk
 
     defaultConfig {
-        minSdk rootProject.ext.android.minSdk
-        targetSdk rootProject.ext.android.targetSdk
+        minSdk rootProject.android.minSdk
+        targetSdk rootProject.android.targetSdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -18,15 +18,15 @@ android {
     buildTypes {
         release {
             buildConfigField("String", "BUILD_TIME", "\"" + buildTime() + "\"")
-            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.ext.android.versionName + "\""
-            buildConfigField "int", "VERSION_CODE", "" + rootProject.ext.android.versionCode
+            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.android.versionName + "\""
+            buildConfigField "int", "VERSION_CODE", "" + rootProject.android.versionCode
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             buildConfigField("String", "BUILD_TIME", "\"" + buildTime() + "\"")
-            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.ext.android.versionName + "\""
-            buildConfigField "int", "VERSION_CODE", "" + rootProject.ext.android.versionCode
+            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.android.versionName + "\""
+            buildConfigField "int", "VERSION_CODE", "" + rootProject.android.versionCode
         }
     }
     compileOptions {
