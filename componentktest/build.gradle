@@ -36,10 +36,10 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':basick')
-    implementation project(path: ':componentk')
-    implementation project(path: ':uicorek')
-    implementation project(path: ':debugk')
+    implementation project(':basick')
+    implementation project(':componentk')
+    implementation project(':uicorek')
+    implementation project(':debugk')
 
     testImplementation 'junit:junit:4.13.2'
 }

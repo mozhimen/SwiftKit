@@ -35,6 +35,6 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':basick')
-    implementation project(path: ':debugk')
+    implementation project(':basick')
+    implementation project(':debugk')
 }

@@ -35,6 +35,6 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':underlayk')
-    implementation project(path: ':basick')
+    implementation project(':underlayk')
+    implementation project(':basick')
 }

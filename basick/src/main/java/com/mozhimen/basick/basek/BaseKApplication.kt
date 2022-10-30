@@ -1,6 +1,7 @@
 package com.mozhimen.basick.basek
 
 import android.app.Application
+import androidx.multidex.MultiDex
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.StackKMgr
 import java.util.*
@@ -17,6 +18,7 @@ open class BaseKApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        MultiDex.install(this)
         StackKMgr.instance
     }
 }

@@ -34,10 +34,10 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':componentk')
-    implementation project(path: ':basick')
-    implementation project(path: ':uicorek')
-    implementation project(path: ':abilityk')
-    implementation project(path: ':underlayk')
-    implementation project(path: ':debugk')
+    implementation project(':componentk')
+    implementation project(':basick')
+    implementation project(':uicorek')
+    implementation project(':abilityk')
+    implementation project(':underlayk')
+    implementation project(':debugk')
 }

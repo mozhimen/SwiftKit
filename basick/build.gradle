@@ -10,6 +10,7 @@ android {
     defaultConfig {
         minSdk rootProject.android.minSdk
         targetSdk rootProject.android.targetSdk
+        multiDexEnabled rootProject.android.multiDexEnabled
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -35,6 +36,9 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.4.1'
     api 'androidx.core:core-ktx:1.7.0'
     api 'com.google.android.material:material:1.5.0'
+
+    //multidex
+    api 'androidx.multidex:multidex:2.0.1'
 
     //coroutine
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
