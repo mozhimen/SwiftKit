@@ -12,7 +12,7 @@ import android.view.View
 import android.widget.*
 import com.mozhimen.basick.basek.BaseKLayoutRelative
 import com.mozhimen.basick.extsk.*
-import com.mozhimen.uicorek.navk.helpers.NavKAttrsParser
+import com.mozhimen.uicorek.navk.helpers.AttrsParser
 import com.mozhimen.uicorek.navk.mos.MNavKAttrs
 import java.util.*
 
@@ -170,7 +170,7 @@ class NavKBar @JvmOverloads constructor(
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        _attrs = NavKAttrsParser.parseNavAttrs(context, attrs, defStyleAttr)
+        _attrs = AttrsParser.parseNavAttrs(context, attrs, defStyleAttr)
     }
 
     override fun initView() {

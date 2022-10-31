@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.mozhimen.componentk">
 
+    <!--CameraXK,Camera2K-->
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
 
+    <!--AudioK-->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
     <!--netk-->
-    <application android:usesCleartextTraffic="true" />
+    <application android:usesCleartextTraffic="true"
+        tools:targetApi="m" />
+
 </manifest>

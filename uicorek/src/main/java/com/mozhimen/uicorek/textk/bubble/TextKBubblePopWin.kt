@@ -9,9 +9,9 @@ import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowDirection
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowPosPolicy
 import com.mozhimen.uicorek.textk.bubble.commons.TextKBubblePopWinCallback
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.textk.bubble.mos.MRelativePos
 
 /**
@@ -72,7 +72,7 @@ open class TextKBubblePopWin(
             width = outProp.maxWidth
         }
         textKBubble.setArrowDirection(outProp.direction)
-        textKBubble.setArrowPosPolicy(ArrowPosPolicy.SelfCenter)
+        textKBubble.setArrowPosPolicy(EArrowPosPolicy.SelfCenter)
         textKBubble.setArrowTo(anchorView)
         textKBubble.setArrowPosOffset(_arrowPosOffset.toFloat())
 
@@ -108,8 +108,8 @@ open class TextKBubblePopWin(
         UtilKScreen.getNavBarHeight(view)
 
     private inner class PopupProp {
-        var direction: ArrowDirection = ArrowDirection.Auto
-        var arrowPosPolicy: ArrowPosPolicy = ArrowPosPolicy.TargetCenter
+        var direction: EArrowDirection = EArrowDirection.Auto
+        var arrowPosPolicy: EArrowPosPolicy = EArrowPosPolicy.TargetCenter
         var animationStyle: Int = 0
         var maxWidth: Int = 0
         var gravity: Int = 0
@@ -212,25 +212,25 @@ open class TextKBubblePopWin(
         )
 
         when (outProp.direction) {
-            ArrowDirection.Up, ArrowDirection.Down -> when (relativePos.getHorizontalRelate()) {
+            EArrowDirection.Up, EArrowDirection.Down -> when (relativePos.getHorizontalRelate()) {
                 MRelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy =
-                    ArrowPosPolicy.TargetCenter
+                    EArrowPosPolicy.TargetCenter
                 MRelativePos.ALIGN_LEFT -> outProp.arrowPosPolicy =
-                    ArrowPosPolicy.SelfBegin
+                    EArrowPosPolicy.SelfBegin
                 MRelativePos.ALIGN_RIGHT -> outProp.arrowPosPolicy =
-                    ArrowPosPolicy.SelfEnd
-                else -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
+                    EArrowPosPolicy.SelfEnd
+                else -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
             }
-            ArrowDirection.Left, ArrowDirection.Right -> when (relativePos.getVerticalRelate()) {
+            EArrowDirection.Left, EArrowDirection.Right -> when (relativePos.getVerticalRelate()) {
                 MRelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy =
-                    ArrowPosPolicy.TargetCenter
+                    EArrowPosPolicy.TargetCenter
                 MRelativePos.ALIGN_TOP -> outProp.arrowPosPolicy =
-                    ArrowPosPolicy.SelfBegin
+                    EArrowPosPolicy.SelfBegin
                 MRelativePos.ALIGN_BOTTOM -> outProp.arrowPosPolicy =
-                    ArrowPosPolicy.SelfEnd
-                else -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
+                    EArrowPosPolicy.SelfEnd
+                else -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
             }
-            else -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
+            else -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
         }
     }
 
@@ -266,12 +266,12 @@ open class TextKBubblePopWin(
         }
     }
 
-    private fun getAnimationStyle(direction: ArrowDirection): Int {
+    private fun getAnimationStyle(direction: EArrowDirection): Int {
         return when (direction) {
-            ArrowDirection.Up -> R.style.TextKBubblePopWinAnim_ArrowUp
-            ArrowDirection.Down -> R.style.TextKBubblePopWinAnim_ArrowDown
-            ArrowDirection.Left -> R.style.TextKBubblePopWinAnim_ArrowLeft
-            ArrowDirection.Right -> R.style.TextKBubblePopWinAnim_ArrowRight
+            EArrowDirection.Up -> R.style.TextKBubblePopWinAnim_ArrowUp
+            EArrowDirection.Down -> R.style.TextKBubblePopWinAnim_ArrowDown
+            EArrowDirection.Left -> R.style.TextKBubblePopWinAnim_ArrowLeft
+            EArrowDirection.Right -> R.style.TextKBubblePopWinAnim_ArrowRight
             else -> R.style.TextKBubblePopWinAnim_ArrowNone
         }
     }

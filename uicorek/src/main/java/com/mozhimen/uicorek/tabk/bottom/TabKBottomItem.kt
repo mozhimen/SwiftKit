@@ -13,6 +13,7 @@ import com.mozhimen.basick.extsk.font
 import com.mozhimen.basick.extsk.load
 import com.mozhimen.basick.extsk.resizeSize
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.tabk.bottom.cons.ETabKBottomType
 import com.mozhimen.uicorek.tabk.bottom.mos.MTabKBottom
 import com.mozhimen.uicorek.tabk.commons.ITabK
 
@@ -123,7 +124,7 @@ class TabKBottomItem @JvmOverloads constructor(
 
     private fun inflateInfo(selected: Boolean, init: Boolean) {
         require(_tabKBottomMo != null) { "_tabKBottomInfo must not be null!" }
-        if (_tabKBottomMo!!.tabKType == MTabKBottom.ETabKBottomType.ICONFONT_TEXT) {
+        if (_tabKBottomMo!!.tabKType == ETabKBottomType.ICONFONT_TEXT) {
             if (init) {
                 _tabImageView.visibility = GONE
                 _tabIconView.visibility = VISIBLE
@@ -143,7 +144,7 @@ class TabKBottomItem @JvmOverloads constructor(
                 _tabIconView.setTextColor(_tabKBottomMo!!.iconColorDefault!!)
                 _tabNameView.setTextColor(_tabKBottomMo!!.iconColorDefault!!)
             }
-        } else if (_tabKBottomMo!!.tabKType == MTabKBottom.ETabKBottomType.IMAGE) {
+        } else if (_tabKBottomMo!!.tabKType == ETabKBottomType.IMAGE) {
             if (init) {
                 _tabNameView.visibility = GONE
                 _tabImageView.visibility = VISIBLE
@@ -156,7 +157,7 @@ class TabKBottomItem @JvmOverloads constructor(
                 _tabImageView.load(_tabKBottomMo!!.bitmapDefault!!)
                 _tabImageView.resizeSize(56f.dp2px())
             }
-        } else if (_tabKBottomMo!!.tabKType == MTabKBottom.ETabKBottomType.IMAGE_TEXT) {
+        } else if (_tabKBottomMo!!.tabKType == ETabKBottomType.IMAGE_TEXT) {
             if (init) {
                 _tabIconView.visibility = GONE
                 _tabImageView.visibility = VISIBLE

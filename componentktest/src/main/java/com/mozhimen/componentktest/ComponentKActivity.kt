@@ -6,6 +6,8 @@ import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.start
+import com.mozhimen.componentk.audiok.AudioK
+import com.mozhimen.componentktest.audiok.AudioKActivity
 import com.mozhimen.componentktest.cameraxk.CameraXKActivity
 import com.mozhimen.componentktest.databinding.ActivityComponentkBinding
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
@@ -14,6 +16,10 @@ import com.mozhimen.componentktest.permissionk.PermissionKActivity
 import com.mozhimen.componentktest.statusbark.StatusBarKActivity
 
 class ComponentKActivity : BaseKActivityVB<ActivityComponentkBinding>() {
+
+    fun goAudioK(view: View){
+        start<AudioKActivity>()
+    }
 
     fun goCameraXK(view: View) {
         start<CameraXKActivity>()

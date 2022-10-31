@@ -11,7 +11,7 @@
         android:theme="@style/Theme.SwiftKit"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AudioKActivity"
+            android:name=".audiok.AudioKActivity"
             android:exported="false" />
         <activity
             android:name="com.mozhimen.componentktest.ComponentKActivity"

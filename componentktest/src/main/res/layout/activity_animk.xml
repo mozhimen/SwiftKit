@@ -9,10 +9,5 @@
         android:layout_height="match_parent"
         tools:context=".animk.AnimKActivity">
 
-        <View
-            android:id="@+id/animk_bg_alpha_flash"
-            style="@style/BtnStyle"
-            android:text="背景闪动"
-            tools:ignore="HardcodedText" />
     </LinearLayout>
 </layout>

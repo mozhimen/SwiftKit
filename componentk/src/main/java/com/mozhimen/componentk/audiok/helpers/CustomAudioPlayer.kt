@@ -12,9 +12,10 @@ import com.mozhimen.basick.taskk.TaskKPolling
 import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.basick.utilk.UtilKGlobal
 import com.mozhimen.componentk.audiok.commons.IAudioKFocusListener
-import com.mozhimen.componentk.audiok.cons.CEvent
+import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
-import com.mozhimen.componentk.audiok.mos.MPlayProgress
+import com.mozhimen.componentk.audiok.mos.MAudioK
+import com.mozhimen.componentk.audiok.mos.MAudioKProgress
 import java.io.IOException
 
 /**
@@ -65,29 +66,29 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
     private val _taskKProUpd by lazy { TaskKPolling(owner) }
 
     //发布更新进度Event
-    private val _dataBusProUpd by lazy { UtilKDataBus.with<MPlayProgress?>(CEvent.pro_upd) }
+    private val _dataBusProUpd by lazy { UtilKDataBus.with<MAudioKProgress?>(CAudioKEvent.progress_update) }
 
     private var _isPausedByFocusLossTransient = false
 
-    private var _currentAudioUrl: String? = null
+    private var _currentAudio: MAudioK? = null
 
     /**
      * 加载音频
-     * @param url String
+     * @param audio MAudioK
      */
-    fun load(url: String) {
+    fun load(audio: MAudioK) {
         try {
-            _currentAudioUrl = url
+            _currentAudio = audio
             _statusMediaPlayer!!.apply {
                 reset()
-                setDataSource(url)
+                setDataSource(audio.url)
                 prepareAsync()
             }
             //发送加载音频事件，UI类型处理事件
-            setAudioEvent(CEvent.audio_load, _currentAudioUrl)
+            setAudioEvent(CAudioKEvent.audio_load, _currentAudio)
         } catch (e: IOException) {
             e.printStackTrace()
-            setAudioEvent(CEvent.audio_error, _currentAudioUrl)
+            setAudioEvent(CAudioKEvent.audio_error, _currentAudio)
         }
     }
 
@@ -113,7 +114,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
         //停止发送进度消息
         _taskKProUpd.cancel()
         //发送暂停事件,UI类型事件
-        setAudioEvent(CEvent.audio_pause, _currentAudioUrl)
+        setAudioEvent(CAudioKEvent.audio_pause, _currentAudio)
     }
 
     /**
@@ -133,7 +134,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
         }
         _taskKProUpd.cancel()
         //发送销毁播放器事件,清除通知等
-        setAudioEvent(CEvent.audio_release, _currentAudioUrl)
+        setAudioEvent(CAudioKEvent.audio_release, _currentAudio)
     }
 
     /**
@@ -168,7 +169,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
 
     override fun onCompletion(mp: MediaPlayer?) {
         //发送播放完成事件,逻辑类型事件
-        setAudioEvent(CEvent.audio_complete, _currentAudioUrl)
+        setAudioEvent(CAudioKEvent.audio_complete, _currentAudio)
     }
 
     override fun onBufferingUpdate(mp: MediaPlayer?, percent: Int) {
@@ -180,7 +181,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
 
     override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
         //发送当次播放实败事件,逻辑类型事件
-        setAudioEvent(CEvent.audio_error, _currentAudioUrl)
+        setAudioEvent(CAudioKEvent.audio_error, _currentAudio)
         return false
     }
 
@@ -216,17 +217,17 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
         }
         _statusMediaPlayer!!.start()
         _wifiLock!!.acquire()//启用wifi锁
-        _taskKProUpd.start(1000) {
+        _taskKProUpd.start(2000) {
             //暂停也要更新进度，防止UI不同步，只不过进度一直一样
             if (getPlayStatus() == EPlayStatus.STARTED || getPlayStatus() == EPlayStatus.PAUSED) {
                 //UI类型处理事件
-                _dataBusProUpd.postValue(MPlayProgress(getPlayStatus(), getCurrentPosition(), getDuration()))
+                _dataBusProUpd.postValue(MAudioKProgress(getPlayStatus(), getCurrentPosition(), getDuration(), _currentAudio))
             }
         }
-        setAudioEvent(CEvent.audio_start, _currentAudioUrl)
+        setAudioEvent(CAudioKEvent.audio_start, _currentAudio)
     }
 
-    private fun setAudioEvent(eventName: String, url: String?) {
-        UtilKDataBus.with<String?>(eventName).setValue(url)
+    private fun setAudioEvent(eventName: String, audio: MAudioK?) {
+        UtilKDataBus.with<MAudioK?>(eventName).postValue(audio)
     }
 }

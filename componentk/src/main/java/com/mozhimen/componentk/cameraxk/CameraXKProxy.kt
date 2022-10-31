@@ -22,7 +22,7 @@ import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.componentk.cameraxk.helpers.ThreadExecutor
 import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
-import com.mozhimen.componentk.cameraxk.cons.CameraXKTimer
+import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -51,7 +51,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     private var _imageAnalysis: ImageAnalysis? = null
 
     private var _format = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
-    private var _selectedTimer = CameraXKTimer.OFF
+    private var _selectedTimer = ECameraXKTimer.OFF
     internal var aspectRatio: Int = AspectRatio.RATIO_16_9
     internal var rotation = CCameraXKRotation.ROTATION_90
 
@@ -199,7 +199,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         _imageCapture?.flashMode = _flashMode
     }
 
-    override fun changeCountDownTimer(timer: CameraXKTimer) {
+    override fun changeCountDownTimer(timer: ECameraXKTimer) {
         _selectedTimer = timer
     }
 
@@ -222,10 +222,10 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         _owner.lifecycleScope.launch(Dispatchers.Main) {
             // Show a timer based on user selection
             when (_selectedTimer) {
-                CameraXKTimer.S3 -> for (i in 3 downTo 1) {
+                ECameraXKTimer.S3 -> for (i in 3 downTo 1) {
                     delay(1000)
                 }
-                CameraXKTimer.S10 -> for (i in 10 downTo 1) {
+                ECameraXKTimer.S10 -> for (i in 10 downTo 1) {
                     delay(1000)
                 }
                 else -> {

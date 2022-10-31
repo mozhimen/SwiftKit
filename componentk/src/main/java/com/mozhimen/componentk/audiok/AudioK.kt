@@ -21,147 +21,6 @@ class AudioK : IAudioKListener, LifecycleOwner {
 
     private val _audioKProxy by lazy { AudioKProxy(this) }
 
-//    fun addAudios(audios: List<MAudioK>) {
-//        _playList.addAll(_playList)
-//    }
-//
-//    fun addAudios(audios: List<MAudioK>, playIndex: Int) {
-//        addAudios(audios)
-//        _currentPlayIndex = playIndex
-//    }
-//
-//    fun addAudio(bean: MAudioK) {
-//        val index = indexOf(bean)
-//        if (index < 0) {
-//            _playList.add(playIndex, bean)
-//            setPlayIndex(playIndex)
-//        } else {
-//            val currentAudio = getCurrentAudio()
-//            if (currentAudio != null && currentAudio.id != bean.id) {
-//                //添加过且不是当前播放，播，否则什么也不干
-//                setPlayIndex(index)
-//            }
-//        }
-//    }
-//
-//    fun addAudio(bean: MAudioK, playIndex: Int) {
-//        val index = indexOf(bean)
-//        if (index < 0) {
-//            _playList.add(playIndex, bean)
-//            setPlayIndex(playIndex)
-//        } else {
-//            val currentAudio = getCurrentAudio()
-//            if (currentAudio != null && currentAudio.id != bean.id) {
-//                //添加过且不是当前播放，播，否则什么也不干
-//                setPlayIndex(index)
-//            }
-//        }
-//    }
-//
-//    fun setPlayIndex(playIndex: Int) {
-//        _currentPlayIndex = playIndex
-//        play()
-//    }
-//
-//    fun getPlayMode(): EPlayMode =
-//        _playMode
-//
-//    fun setPlayMode(playMode: EPlayMode) {
-//        _playMode = playMode
-//    }
-//
-//    fun getCurrentPlayIndex(): Int =
-//        _currentPlayIndex
-//
-//    fun getCurrentAudio(): MAudioK? =
-//        getAudio(_currentPlayIndex)
-//
-//    fun playOrPause() {
-//        if (getPlayStatus() == EPlayStatus.STARTED) {
-//            pause()
-//        } else if (getPlayStatus() == EPlayStatus.STOPPED) {
-//            resume()
-//        }
-//    }
-//
-//    fun play() {
-//        getCurrentAudio()?.let {
-//            loadAudio(it)
-//        }
-//    }
-//
-//    fun next() {
-//        getNextAudio()?.let {
-//            loadAudio(it)
-//        }
-//    }
-//
-//    fun getNowPlayTime(): Int =
-//        _customAudioPlayer.getCurrentPosition()
-//
-//    fun getDuration(): Int =
-//        _customAudioPlayer.getDuration()
-//
-//    fun resume() {
-//        _customAudioPlayer.resume()
-//    }
-//
-//    fun pause() {
-//        _customAudioPlayer.pause()
-//    }
-//
-//    fun release() {
-//        _customAudioPlayer.release()
-//    }
-//
-//    fun previous() {
-//        getPreviousAudio()?.let {
-//            loadAudio(it)
-//        }
-//    }
-//
-//    private fun indexOf(bean: MAudioK): Int =
-//        _playList.indexOf(bean)
-//
-//    private fun loadAudio(bean: MAudioK) {
-//        _customAudioPlayer.load(bean.url)
-//    }
-//
-//    private fun getNextAudio(): MAudioK? =
-//        when (_playMode) {
-//            EPlayMode.LOOP -> {
-//                _currentPlayIndex = (_currentPlayIndex + 1) % _playList.size
-//                getAudio(_currentPlayIndex)
-//            }
-//            EPlayMode.RANDOM -> {
-//                _currentPlayIndex = (0 until _playList.size).random() % _playList.size
-//                getAudio(_currentPlayIndex)
-//            }
-//            EPlayMode.REPEAT -> {
-//                getAudio(_currentPlayIndex)
-//            }
-//        }
-//
-//    private fun getPreviousAudio(): MAudioK? =
-//        when (_playMode) {
-//            EPlayMode.LOOP -> {
-//                _currentPlayIndex = (_currentPlayIndex + _playList.size - 1) % _playList.size
-//                getAudio(_currentPlayIndex)
-//            }
-//            EPlayMode.RANDOM -> {
-//                _currentPlayIndex = (0 until _playList.size).random() % _playList.size
-//                getAudio(_currentPlayIndex)
-//            }
-//            EPlayMode.REPEAT -> {
-//                getAudio(_currentPlayIndex)
-//            }
-//        }
-//
-//    private fun getAudio(index: Int): MAudioK? =
-//        if (_playList.isNotEmpty() && index >= 0 && index < _playList.size) {
-//            _playList[index]
-//        } else null
-
     companion object {
         @JvmStatic
         val instance = AudioKProvider.holder
@@ -169,6 +28,10 @@ class AudioK : IAudioKListener, LifecycleOwner {
 
     private object AudioKProvider {
         val holder = AudioK()
+    }
+
+    init {
+        _lifecycleRegistry.currentState = Lifecycle.State.STARTED
     }
 
     override fun getPlayList(): ArrayList<MAudioK> {
@@ -236,11 +99,11 @@ class AudioK : IAudioKListener, LifecycleOwner {
     }
 
     protected fun finalize() {
+        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         release()
     }
 
     override fun release() {
-        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         _audioKProxy.release()
     }
 

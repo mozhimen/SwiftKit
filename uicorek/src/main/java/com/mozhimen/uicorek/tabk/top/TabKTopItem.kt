@@ -15,6 +15,7 @@ import com.mozhimen.basick.extsk.load
 import com.mozhimen.basick.extsk.resizeSize
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.tabk.commons.ITabK
+import com.mozhimen.uicorek.tabk.top.cons.ETabKTopType
 import com.mozhimen.uicorek.tabk.top.mos.MTabKTop
 
 /**
@@ -108,7 +109,7 @@ class TabKTopItem @JvmOverloads constructor(
 
     private fun inflateInfo(selected: Boolean, init: Boolean) {
         requireNotNull(_tabTopMo) { "tabInfo must not be null!" }
-        if (_tabTopMo!!.tabKType == MTabKTop.ETabKTopType.TEXT) {
+        if (_tabTopMo!!.tabKType == ETabKTopType.TEXT) {
             if (init) {
                 _tabImageView.visibility = GONE
                 _tabNameView.visibility = VISIBLE
@@ -128,7 +129,7 @@ class TabKTopItem @JvmOverloads constructor(
                 _tabNameView.textSize = 16f
                 _tabNameView.fontStyle(Typeface.NORMAL)
             }
-        } else if (_tabTopMo!!.tabKType == MTabKTop.ETabKTopType.IMAGE) {
+        } else if (_tabTopMo!!.tabKType == ETabKTopType.IMAGE) {
             if (init) {
                 _tabImageView.visibility = VISIBLE
                 _tabNameView.visibility = GONE
@@ -143,7 +144,7 @@ class TabKTopItem @JvmOverloads constructor(
                 _tabImageView.load(_tabTopMo!!.bitmapDefault!!)
                 _tabImageView.resizeSize(26f.dp2px())
             }
-        } else if (_tabTopMo!!.tabKType == MTabKTop.ETabKTopType.IMAGE_TEXT) {
+        } else if (_tabTopMo!!.tabKType == ETabKTopType.IMAGE_TEXT) {
             if (init) {
                 _tabImageView.visibility = VISIBLE
                 _tabImageView.setPadding(0, 0, 4f.dp2px(), 0)

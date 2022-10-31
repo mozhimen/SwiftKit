@@ -3,7 +3,7 @@ package com.mozhimen.componentk.cameraxk.commons
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageCapture
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
-import com.mozhimen.componentk.cameraxk.cons.CameraXKTimer
+import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
 
 /**
  * @ClassName ICameraXKAction
@@ -18,7 +18,7 @@ interface ICameraXKAction {
     fun setImageAnalyzer(analyzer: ImageAnalysis.Analyzer)
     fun changeHdr(isOpen: Boolean)
     fun changeFlash(@ImageCapture.FlashMode flashMode: Int)
-    fun changeCountDownTimer(timer: CameraXKTimer)
+    fun changeCountDownTimer(timer: ECameraXKTimer)
     fun changeCameraFacing(@ACameraXKFacing facing: Int)
     fun takePicture()
 }

@@ -5,7 +5,7 @@ import android.view.View
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.bubble.TextKBubble
 import com.mozhimen.uicorek.textk.bubble.TextKBubblePopWin
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowDirection
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
 
 /**
  * @ClassName PopwinKBubbleText
@@ -24,7 +24,7 @@ class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) : TextKBubb
         private var _yOffset = 0
         private var _tip: String? = null
         private var _delayMillis: Long = DEFAULT_DISMISS_DELAY
-        private var _arrowDirection: ArrowDirection = ArrowDirection.Up
+        private var _arrowDirection: EArrowDirection = EArrowDirection.Up
         private var _isCancelOnTouch: Boolean = true
         private var _isCancelOnTouchOutside: Boolean = true
 
@@ -48,7 +48,7 @@ class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) : TextKBubb
             return this
         }
 
-        fun setArrowDirection(arrowDirection: ArrowDirection): Builder {
+        fun setArrowDirection(arrowDirection: EArrowDirection): Builder {
             _arrowDirection = arrowDirection
             return this
         }

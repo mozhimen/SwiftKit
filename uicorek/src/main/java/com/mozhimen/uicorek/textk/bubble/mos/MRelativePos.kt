@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.textk.bubble.mos
 
 import androidx.annotation.IntDef
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowDirection
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
 
 /**
  * @ClassName RelativePos
@@ -52,22 +52,22 @@ class MRelativePos(@RelativeH horizontalRelate: Int, @RelativeV verticalRelate: 
         _verticalRelate = verticalRelate
     }
 
-    fun getArrowDirection(): ArrowDirection {
+    fun getArrowDirection(): EArrowDirection {
         if (isHorizontalToTargetOf() && !isVerticalToTargetOf()) {
             if (_horizontalRelate == TO_RIGHT_OF) {
-                return ArrowDirection.Left
+                return EArrowDirection.Left
             } else if (_horizontalRelate == TO_LEFT_OF) {
-                return ArrowDirection.Right
+                return EArrowDirection.Right
             }
         }
         if (!isHorizontalToTargetOf() && isVerticalToTargetOf()) {
             if (_verticalRelate == BELOW) {
-                return ArrowDirection.Up
+                return EArrowDirection.Up
             } else if (_verticalRelate == ABOVE) {
-                return ArrowDirection.Down
+                return EArrowDirection.Down
             }
         }
-        return ArrowDirection.None
+        return EArrowDirection.None
     }
 
     private fun isHorizontalToTargetOf(): Boolean {

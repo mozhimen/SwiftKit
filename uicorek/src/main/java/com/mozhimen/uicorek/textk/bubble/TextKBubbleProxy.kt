@@ -13,9 +13,9 @@ import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKView
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowDirection
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowPosPolicy
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
 import java.lang.ref.WeakReference
 import kotlin.math.abs
 
@@ -33,7 +33,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
     private lateinit var _textKBubbleListener: ITextKBubbleListener
 
     private var _arrowToViewRef: WeakReference<View>? = null
-    private var _drawableArrowDirection: ArrowDirection = ArrowDirection.None
+    private var _drawableArrowDirection: EArrowDirection = EArrowDirection.None
     private val _onLayoutChangeListener = View.OnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
         requestUpdateBubble()
     }
@@ -46,10 +46,10 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
     private var _paddingRightOffset = 0
     private var _paddingBottomOffset = 0
 
-    private var _arrowDirection: ArrowDirection = ArrowDirection.Auto
+    private var _arrowDirection: EArrowDirection = EArrowDirection.Auto
     private var _arrowHeight: Float = ARROW_HEIGHT
     private var _arrowWidth: Float = ARROW_WIDTH
-    private var _arrowPosPolicy: ArrowPosPolicy = ArrowPosPolicy.TargetCenter
+    private var _arrowPosPolicy: EArrowPosPolicy = EArrowPosPolicy.TargetCenter
     private var _arrowPosOffset: Float = ARROW_POS_OFFSET
     private var _arrowToByViewId: Int = 0
     private var _bgColor: Int = BG_COLOR
@@ -91,16 +91,16 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
         attrs ?: return
         val typedArray = _context.obtainStyledAttributes(attrs, R.styleable.TextKBubble)
         _arrowDirection =
-            ArrowDirection.valueOf(
-                typedArray.getInteger(R.styleable.TextKBubble_textKBubble_arrowDirection, ArrowDirection.Auto.value)
+            EArrowDirection.valueOf(
+                typedArray.getInteger(R.styleable.TextKBubble_textKBubble_arrowDirection, EArrowDirection.Auto.value)
             )
         _arrowHeight =
             typedArray.getDimension(R.styleable.TextKBubble_textKBubble_arrowHeight, ARROW_HEIGHT)
         _arrowWidth =
             typedArray.getDimension(R.styleable.TextKBubble_textKBubble_arrowWidth, ARROW_WIDTH)
         _arrowPosPolicy =
-            ArrowPosPolicy.valueOf(
-                typedArray.getInteger(R.styleable.TextKBubble_textKBubble_arrowPosPolicy, ArrowPosPolicy.TargetCenter.value)
+            EArrowPosPolicy.valueOf(
+                typedArray.getInteger(R.styleable.TextKBubble_textKBubble_arrowPosPolicy, EArrowPosPolicy.TargetCenter.value)
             )
         _arrowPosOffset =
             typedArray.getDimension(R.styleable.TextKBubble_textKBubble_arrowPosOffset, ARROW_POS_OFFSET)
@@ -171,7 +171,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
                 _location[1] + height
             )
 
-            if (_drawableArrowDirection == ArrowDirection.Auto) {
+            if (_drawableArrowDirection == EArrowDirection.Auto) {
                 _drawableArrowDirection = getAutoArrowDirection(_rectSelf, _rectTo)
             }
             arrowToOffsetX = _rectTo.centerX().toFloat() - _rectSelf.centerX().toFloat()
@@ -207,11 +207,11 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
         }
     }
 
-    override fun setArrowDirection(arrowDirection: ArrowDirection) {
+    override fun setArrowDirection(arrowDirection: EArrowDirection) {
         _arrowDirection = arrowDirection
     }
 
-    override fun getArrowDirection(): ArrowDirection =
+    override fun getArrowDirection(): EArrowDirection =
         _arrowDirection
 
     override fun setArrowHeight(arrowHeight: Float) {
@@ -228,11 +228,11 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
     override fun getArrowWidth(): Float =
         _arrowWidth
 
-    override fun setArrowPosPolicy(arrowPosPolicy: ArrowPosPolicy) {
+    override fun setArrowPosPolicy(arrowPosPolicy: EArrowPosPolicy) {
         _arrowPosPolicy = arrowPosPolicy
     }
 
-    override fun getArrowPosPolicy(): ArrowPosPolicy =
+    override fun getArrowPosPolicy(): EArrowPosPolicy =
         _arrowPosPolicy
 
     override fun setArrowPosOffset(offset: Float) {
@@ -332,11 +332,11 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
 
         _paddingLeftOffset = 0.also { _paddingBottomOffset = it }.also { _paddingRightOffset = it }.also { _paddingTopOffset = it }
         when (_drawableArrowDirection) {
-            ArrowDirection.Left -> _paddingLeftOffset += _arrowHeight.toInt()
-            ArrowDirection.Up -> _paddingTopOffset += _arrowHeight.toInt()
-            ArrowDirection.Right -> _paddingRightOffset += _arrowHeight.toInt()
-            ArrowDirection.Down -> _paddingBottomOffset += _arrowHeight.toInt()
-            ArrowDirection.Auto, ArrowDirection.None -> {}
+            EArrowDirection.Left -> _paddingLeftOffset += _arrowHeight.toInt()
+            EArrowDirection.Up -> _paddingTopOffset += _arrowHeight.toInt()
+            EArrowDirection.Right -> _paddingRightOffset += _arrowHeight.toInt()
+            EArrowDirection.Down -> _paddingBottomOffset += _arrowHeight.toInt()
+            EArrowDirection.Auto, EArrowDirection.None -> {}
         }
 
         val superPaddingLeft: Int = left.toInt() + _paddingLeftOffset
@@ -385,23 +385,23 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
      * @param target Rect 目标区域
      * @return ArrowDirection 推导出的箭头朝向
      */
-    private fun getAutoArrowDirection(bubble: Rect, target: Rect): ArrowDirection {
+    private fun getAutoArrowDirection(bubble: Rect, target: Rect): EArrowDirection {
         if (!bubble.intersects(target.left, target.top, target.right, target.bottom)) {
             val offset = Point(bubble.centerX() - target.centerX(), bubble.centerY() - target.centerY())
             if (abs(offset.x) < bubble.width() / 2 + target.width() / 2) {
                 if (offset.y < 0) {
-                    return ArrowDirection.Down
+                    return EArrowDirection.Down
                 } else if (offset.y > 0) {
-                    return ArrowDirection.Up
+                    return EArrowDirection.Up
                 }
             } else if (abs(offset.y) < bubble.height() / 2 + target.height() / 2) {
                 if (offset.x < 0) {
-                    return ArrowDirection.Right
+                    return EArrowDirection.Right
                 } else if (offset.x > 0) {
-                    return ArrowDirection.Left
+                    return EArrowDirection.Left
                 }
             }
         }
-        return ArrowDirection.None
+        return EArrowDirection.None
     }
 }

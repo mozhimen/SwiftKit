@@ -15,8 +15,8 @@ import android.widget.PopupWindow
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowDirection
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowPosPolicy
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.textk.bubble.mos.MRelativePos
 
 /**
@@ -110,7 +110,7 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
      * @param anchorView View 气泡箭头要指向的目标
      * @param direction ArrowDirection 箭头方向，同时也决定了气泡出现的位置
      */
-    fun showArrowTo(anchorView: View, direction: ArrowDirection) {
+    fun showArrowTo(anchorView: View, direction: EArrowDirection) {
         showArrowTo(anchorView, direction, 0)
     }
 
@@ -120,12 +120,12 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
      * @param direction ArrowDirection 箭头方向，同时也决定了气泡出现的位置
      * @param margin Int 气泡箭头与目标的距离
      */
-    fun showArrowTo(anchorView: View, direction: ArrowDirection, margin: Int) {
+    fun showArrowTo(anchorView: View, direction: EArrowDirection, margin: Int) {
         val relativePos: MRelativePos = when (direction) {
-            ArrowDirection.Up -> MRelativePos(MRelativePos.CENTER_HORIZONTAL, MRelativePos.BELOW)
-            ArrowDirection.Down -> MRelativePos(MRelativePos.CENTER_HORIZONTAL, MRelativePos.ABOVE)
-            ArrowDirection.Left -> MRelativePos(MRelativePos.TO_RIGHT_OF, MRelativePos.CENTER_VERTICAL)
-            ArrowDirection.Right -> MRelativePos(MRelativePos.TO_LEFT_OF, MRelativePos.CENTER_VERTICAL)
+            EArrowDirection.Up -> MRelativePos(MRelativePos.CENTER_HORIZONTAL, MRelativePos.BELOW)
+            EArrowDirection.Down -> MRelativePos(MRelativePos.CENTER_HORIZONTAL, MRelativePos.ABOVE)
+            EArrowDirection.Left -> MRelativePos(MRelativePos.TO_RIGHT_OF, MRelativePos.CENTER_VERTICAL)
+            EArrowDirection.Right -> MRelativePos(MRelativePos.TO_LEFT_OF, MRelativePos.CENTER_VERTICAL)
             else -> MRelativePos(MRelativePos.CENTER_HORIZONTAL, MRelativePos.CENTER_VERTICAL)
         }
         showArrowTo(anchorView, relativePos, margin, margin)
@@ -204,19 +204,19 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
         getPopupPropOfMaxWidth(screenWidth, anchorRect, relativePos, marginH, padding, outProp)
         getPopupPropOfY(screenHeight, navigationBarHeight, anchorRect, relativePos, marginV, outProp)
         when (outProp.direction) {
-            ArrowDirection.Up, ArrowDirection.Down -> when (relativePos.getHorizontalRelate()) {
-                MRelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
-                MRelativePos.ALIGN_LEFT -> outProp.arrowPosPolicy = ArrowPosPolicy.SelfBegin
-                MRelativePos.ALIGN_RIGHT -> outProp.arrowPosPolicy = ArrowPosPolicy.SelfEnd
-                else -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
+            EArrowDirection.Up, EArrowDirection.Down -> when (relativePos.getHorizontalRelate()) {
+                MRelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
+                MRelativePos.ALIGN_LEFT -> outProp.arrowPosPolicy = EArrowPosPolicy.SelfBegin
+                MRelativePos.ALIGN_RIGHT -> outProp.arrowPosPolicy = EArrowPosPolicy.SelfEnd
+                else -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
             }
-            ArrowDirection.Left, ArrowDirection.Right -> when (relativePos.getVerticalRelate()) {
-                MRelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
-                MRelativePos.ALIGN_TOP -> outProp.arrowPosPolicy = ArrowPosPolicy.SelfBegin
-                MRelativePos.ALIGN_BOTTOM -> outProp.arrowPosPolicy = ArrowPosPolicy.SelfEnd
-                else -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
+            EArrowDirection.Left, EArrowDirection.Right -> when (relativePos.getVerticalRelate()) {
+                MRelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
+                MRelativePos.ALIGN_TOP -> outProp.arrowPosPolicy = EArrowPosPolicy.SelfBegin
+                MRelativePos.ALIGN_BOTTOM -> outProp.arrowPosPolicy = EArrowPosPolicy.SelfEnd
+                else -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
             }
-            else -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
+            else -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
         }
     }
 
@@ -303,12 +303,12 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
         }
     }
 
-    private fun getAnimationStyle(direction: ArrowDirection): Int {
+    private fun getAnimationStyle(direction: EArrowDirection): Int {
         return when (direction) {
-            ArrowDirection.Up -> R.style.TextKBubblePopWinAnim_ArrowUp
-            ArrowDirection.Down -> R.style.TextKBubblePopWinAnim_ArrowDown
-            ArrowDirection.Left -> R.style.TextKBubblePopWinAnim_ArrowLeft
-            ArrowDirection.Right -> R.style.TextKBubblePopWinAnim_ArrowRight
+            EArrowDirection.Up -> R.style.TextKBubblePopWinAnim_ArrowUp
+            EArrowDirection.Down -> R.style.TextKBubblePopWinAnim_ArrowDown
+            EArrowDirection.Left -> R.style.TextKBubblePopWinAnim_ArrowLeft
+            EArrowDirection.Right -> R.style.TextKBubblePopWinAnim_ArrowRight
             else -> R.style.TextKBubblePopWinAnim_ArrowNone
         }
     }
@@ -324,8 +324,8 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) UtilKScreen.getNavBarHeight(view) else 0
 
     private class PopupProp {
-        var direction: ArrowDirection = ArrowDirection.Auto
-        var arrowPosPolicy: ArrowPosPolicy = ArrowPosPolicy.TargetCenter
+        var direction: EArrowDirection = EArrowDirection.Auto
+        var arrowPosPolicy: EArrowPosPolicy = EArrowPosPolicy.TargetCenter
         var animationStyle = 0
         var maxWidth = 0
         var gravity = 0

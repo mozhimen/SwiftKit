@@ -3,8 +3,8 @@ package com.mozhimen.uicorek.textk.bubble
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowDirection
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowPosPolicy
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
 import kotlin.math.atan
 import kotlin.math.sin
 
@@ -17,8 +17,8 @@ import kotlin.math.sin
  */
 class TextKBubbleDrawable : Drawable() {
     //region # variate
-    private var _arrowDirection: ArrowDirection = ArrowDirection.None
-    private var _arrowPosPolicy: ArrowPosPolicy = ArrowPosPolicy.TargetCenter
+    private var _arrowDirection: EArrowDirection = EArrowDirection.None
+    private var _arrowPosPolicy: EArrowPosPolicy = EArrowPosPolicy.TargetCenter
 
     private val _originalShape = Shape()
     private val _borderShape = Shape()
@@ -69,11 +69,11 @@ class TextKBubbleDrawable : Drawable() {
         _originalShape.bottomLeftRadius = bottomLeft
     }
 
-    fun setArrowDirection(arrowDirection: ArrowDirection) {
+    fun setArrowDirection(arrowDirection: EArrowDirection) {
         _arrowDirection = arrowDirection
     }
 
-    fun setArrowPosPolicy(arrowPosPolicy: ArrowPosPolicy) {
+    fun setArrowPosPolicy(arrowPosPolicy: EArrowPosPolicy) {
         _arrowPosPolicy = arrowPosPolicy
     }
 
@@ -151,16 +151,16 @@ class TextKBubbleDrawable : Drawable() {
         }
     }
 
-    private fun getLeftRightArrowPeakY(policy: ArrowPosPolicy, arrowTo: PointF, shape: Shape): Float {
+    private fun getLeftRightArrowPeakY(policy: EArrowPosPolicy, arrowTo: PointF, shape: Shape): Float {
         var y = 0f
         when (policy) {
-            ArrowPosPolicy.TargetCenter -> y = shape.rect.centerY() + arrowTo.y
-            ArrowPosPolicy.SelfCenter -> y = shape.rect.centerY()
-            ArrowPosPolicy.SelfBegin -> {
+            EArrowPosPolicy.TargetCenter -> y = shape.rect.centerY() + arrowTo.y
+            EArrowPosPolicy.SelfCenter -> y = shape.rect.centerY()
+            EArrowPosPolicy.SelfBegin -> {
                 y = shape.rect.top
                 y += shape.arrowDelta
             }
-            ArrowPosPolicy.SelfEnd -> {
+            EArrowPosPolicy.SelfEnd -> {
                 y = shape.rect.bottom
                 y -= shape.arrowDelta
             }
@@ -168,16 +168,16 @@ class TextKBubbleDrawable : Drawable() {
         return y
     }
 
-    private fun getUpDownArrowPeakX(policy: ArrowPosPolicy, arrowTo: PointF, shape: Shape): Float {
+    private fun getUpDownArrowPeakX(policy: EArrowPosPolicy, arrowTo: PointF, shape: Shape): Float {
         var x = 0f
         when (policy) {
-            ArrowPosPolicy.TargetCenter -> x = shape.rect.centerX() + arrowTo.x
-            ArrowPosPolicy.SelfCenter -> x = shape.rect.centerX()
-            ArrowPosPolicy.SelfBegin -> {
+            EArrowPosPolicy.TargetCenter -> x = shape.rect.centerX() + arrowTo.x
+            EArrowPosPolicy.SelfCenter -> x = shape.rect.centerX()
+            EArrowPosPolicy.SelfBegin -> {
                 x = shape.rect.left
                 x += shape.arrowDelta
             }
-            ArrowPosPolicy.SelfEnd -> {
+            EArrowPosPolicy.SelfEnd -> {
                 x = shape.rect.right
                 x -= shape.arrowDelta
             }
@@ -224,21 +224,21 @@ class TextKBubbleDrawable : Drawable() {
         updatePath(_fillShape, _fillPath)
     }
 
-    private fun updateFillArrowPeak(direction: ArrowDirection, borderShape: Shape, outFillShape: Shape) {
+    private fun updateFillArrowPeak(direction: EArrowDirection, borderShape: Shape, outFillShape: Shape) {
         when (direction) {
-            ArrowDirection.Left -> {
+            EArrowDirection.Left -> {
                 outFillShape.arrowPeakX = outFillShape.rect.left - outFillShape.arrowHeight
                 outFillShape.arrowPeakY = borderShape.arrowPeakY
             }
-            ArrowDirection.Right -> {
+            EArrowDirection.Right -> {
                 outFillShape.arrowPeakX = outFillShape.rect.right + outFillShape.arrowHeight
                 outFillShape.arrowPeakY = borderShape.arrowPeakY
             }
-            ArrowDirection.Up -> {
+            EArrowDirection.Up -> {
                 outFillShape.arrowPeakX = borderShape.arrowPeakX
                 outFillShape.arrowPeakY = outFillShape.rect.top - outFillShape.arrowHeight
             }
-            ArrowDirection.Down -> {
+            EArrowDirection.Down -> {
                 outFillShape.arrowPeakX = borderShape.arrowPeakX
                 outFillShape.arrowPeakY = outFillShape.rect.bottom + outFillShape.arrowHeight
             }
@@ -246,9 +246,9 @@ class TextKBubbleDrawable : Drawable() {
         }
     }
 
-    private fun updateBorderArrowPeak(direction: ArrowDirection, policy: ArrowPosPolicy, arrowTo: PointF, outShape: Shape) {
+    private fun updateBorderArrowPeak(direction: EArrowDirection, policy: EArrowPosPolicy, arrowTo: PointF, outShape: Shape) {
         when (direction) {
-            ArrowDirection.Left -> {
+            EArrowDirection.Left -> {
                 outShape.arrowPeakX = outShape.rect.left - outShape.arrowHeight
                 outShape.arrowPeakY = bound(
                     outShape.rect.top + outShape.topLeftRadius + outShape.arrowWidth / 2 + outShape.borderWidth / 2,
@@ -256,7 +256,7 @@ class TextKBubbleDrawable : Drawable() {
                     outShape.rect.bottom - outShape.bottomLeftRadius - outShape.arrowWidth / 2 - outShape.borderWidth / 2
                 )
             }
-            ArrowDirection.Up -> {
+            EArrowDirection.Up -> {
                 outShape.arrowPeakX = bound(
                     outShape.rect.left + outShape.topLeftRadius + outShape.arrowWidth / 2 + outShape.borderWidth / 2,
                     getUpDownArrowPeakX(policy, arrowTo, outShape),
@@ -264,7 +264,7 @@ class TextKBubbleDrawable : Drawable() {
                 )
                 outShape.arrowPeakY = outShape.rect.top - outShape.arrowHeight
             }
-            ArrowDirection.Right -> {
+            EArrowDirection.Right -> {
                 outShape.arrowPeakX = outShape.rect.right + outShape.arrowHeight
                 outShape.arrowPeakY = bound(
                     outShape.rect.top + outShape.topRightRadius + outShape.arrowWidth / 2 + outShape.borderWidth / 2,
@@ -272,7 +272,7 @@ class TextKBubbleDrawable : Drawable() {
                     outShape.rect.bottom - outShape.bottomRightRadius - outShape.arrowWidth / 2 - outShape.borderWidth / 2
                 )
             }
-            ArrowDirection.Down -> {
+            EArrowDirection.Down -> {
                 outShape.arrowPeakX = bound(
                     outShape.rect.left + outShape.bottomLeftRadius + outShape.arrowWidth / 2 + outShape.borderWidth / 2,
                     getUpDownArrowPeakX(policy, arrowTo, outShape),
@@ -287,10 +287,10 @@ class TextKBubbleDrawable : Drawable() {
     private fun updatePath(shape: Shape, path: Path) {
         path.reset()
         when (_arrowDirection) {
-            ArrowDirection.Up -> buildWithUpArrow(shape, path)
-            ArrowDirection.Down -> buildWithDownArrow(shape, path)
-            ArrowDirection.Left -> buildWithLeftArrow(shape, path)
-            ArrowDirection.Right -> buildWithRightArrow(shape, path)
+            EArrowDirection.Up -> buildWithUpArrow(shape, path)
+            EArrowDirection.Down -> buildWithDownArrow(shape, path)
+            EArrowDirection.Left -> buildWithLeftArrow(shape, path)
+            EArrowDirection.Right -> buildWithRightArrow(shape, path)
             else -> buildWithNoneArrow(shape, path)
         }
     }

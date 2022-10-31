@@ -21,6 +21,7 @@ import com.mozhimen.basick.extsk.fontStyle
 import com.mozhimen.basick.extsk.loadComplex
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.itemk.ItemKViewHolder
+import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
 import com.mozhimen.uicorek.sidek.helpers.AttrsParser
 import com.mozhimen.uicorek.sidek.helpers.SideKSubItemDecorator
 import com.mozhimen.uicorek.sidek.mos.*
@@ -81,7 +82,7 @@ class SideKSubLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     fun getContentView(): RecyclerView = _contentView
 
     fun bindData(
-        mo: SliderKDataMo,
+        mo: MSideKSubData,
         menuLayoutId: Int? = null,
         contentLayoutId: Int? = null,
         spanCount: Int? = null,
@@ -157,14 +158,14 @@ class SideKSubLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     private fun bindDataMenuView(
-        mo: SliderKDataMo,
+        mo: MSideKSubData,
     ) {
         _menuView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         _menuView.adapter = SliderKMenuAdapter(mo, _menuLayoutId)
     }
 
     inner class SliderKMenuAdapter(
-        private val _mo: SliderKDataMo,
+        private val _mo: MSideKSubData,
         private val _layoutId: Int,
     ) : RecyclerView.Adapter<ItemKViewHolder>() {
         private var _currentSelectIndex = 0//本次选中的item的位置

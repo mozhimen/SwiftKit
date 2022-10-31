@@ -16,32 +16,38 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
+                android:onClick="goAudioK"
+                android:text="goAudioK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
                 android:onClick="goCameraXK"
-                android:text="CameraX"
+                android:text="goCameraXK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goPermissionK"
-                android:text="PermissionK"
+                android:text="goPermissionK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goStatusBarK"
-                android:text="StatusBarK"
+                android:text="goStatusBarK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goNetK"
-                android:text="NetK"
+                android:text="goNetK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goNavigateK"
-                android:text="NavigateK"
+                android:text="goNavigateK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -7,6 +7,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.mozhimen.basick.basek.commons.IBaseKLayout
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
 
 /**
  * @ClassName TextKBubble
@@ -21,11 +23,11 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     //region # variate
     private val TAG = "TextKBubble>>>>>"
     private var _textKBubbleProxy: TextKBubbleProxy = TextKBubbleProxy(context)
-    override fun setArrowDirection(arrowDirection: ITextKBubble.ArrowDirection) {
+    override fun setArrowDirection(arrowDirection: EArrowDirection) {
         _textKBubbleProxy.setArrowDirection(arrowDirection)
     }
 
-    override fun getArrowDirection(): ITextKBubble.ArrowDirection =
+    override fun getArrowDirection(): EArrowDirection =
         _textKBubbleProxy.getArrowDirection()
 
     override fun setArrowHeight(arrowHeight: Float) {
@@ -42,11 +44,11 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     override fun getArrowWidth(): Float =
         _textKBubbleProxy.getArrowWidth()
 
-    override fun setArrowPosPolicy(arrowPosPolicy: ITextKBubble.ArrowPosPolicy) {
+    override fun setArrowPosPolicy(arrowPosPolicy: EArrowPosPolicy) {
         _textKBubbleProxy.setArrowPosPolicy(arrowPosPolicy)
     }
 
-    override fun getArrowPosPolicy(): ITextKBubble.ArrowPosPolicy =
+    override fun getArrowPosPolicy(): EArrowPosPolicy =
         _textKBubbleProxy.getArrowPosPolicy()
 
     override fun setArrowPosOffset(offset: Float) {

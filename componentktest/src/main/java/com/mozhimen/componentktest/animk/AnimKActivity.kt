@@ -6,6 +6,5 @@ import com.mozhimen.componentktest.databinding.ActivityAnimkBinding
 
 class AnimKActivity : BaseKActivityVB<ActivityAnimkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
-        vb.animkBgAlphaFlash
     }
 }
