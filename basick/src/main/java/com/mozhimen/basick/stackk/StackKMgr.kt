@@ -22,7 +22,7 @@ class StackKMgr private constructor() {
         private val TAG = "StackKMgr>>>>>"
 
         @JvmStatic
-        val instance: StackKMgr = StackKMgrProvider.holder
+        val instance = StackKMgrProvider.holder
     }
 
     private object StackKMgrProvider {

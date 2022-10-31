@@ -7,10 +7,10 @@ import android.widget.ImageView
 import androidx.viewpager.widget.ViewPager
 import com.mozhimen.basick.cachek.CacheKSP
 import com.mozhimen.basick.extsk.load
-import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
+import com.mozhimen.uicorek.bannerk.commons.IBannerKBinder
 import com.mozhimen.uicorek.bannerk.customs.PointIndicator
 import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
-import com.mozhimen.uicorek.bannerk.mos.BannerKMo
+import com.mozhimen.uicorek.bannerk.mos.MBannerKItem
 import com.mozhimen.uicorek.bindk.BindKViewHolder
 import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorektest.R
@@ -35,11 +35,11 @@ class DataKItemBanner : DataKItem<Any, BindKViewHolder<ItemDatakBannerBinding>>(
         "https://images.pexels.com/photos/7078486/pexels-photo-7078486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
     )
 
-    inner class ItemMo : BannerKMo()
+    inner class ItemMo : MBannerKItem()
 
     override fun onBindData(holder: BindKViewHolder<ItemDatakBannerBinding>, position: Int) {
         val context = holder.itemView.context ?: return
-        val moList: MutableList<BannerKMo> = ArrayList()
+        val moList: MutableList<MBannerKItem> = ArrayList()
         for (i in 0..5) {
             val mo = ItemMo()
             mo.url = _urls[i % _urls.size]
@@ -51,8 +51,8 @@ class DataKItemBanner : DataKItem<Any, BindKViewHolder<ItemDatakBannerBinding>>(
             setIntervalTime(5000)
             setScrollDuration(3000)
             setBannerData(R.layout.item_bannerk, moList)
-            setBindAdapter(object : IBannerKBindAdapter {
-                override fun onBind(viewHolder: BannerKAdapter.BannerKViewHolder, mo: BannerKMo, position: Int) {
+            setBindAdapter(object : IBannerKBinder {
+                override fun onBind(viewHolder: BannerKAdapter.BannerKViewHolder, mo: MBannerKItem, position: Int) {
                     val model = mo as ItemMo
                     val imageView: ImageView = viewHolder.findViewById(R.id.item_bannerk_img)
                     model.url?.let { imageView.load(it) }

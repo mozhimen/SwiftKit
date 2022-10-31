@@ -15,14 +15,14 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
-import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.componentk.cameraxk.helpers.ThreadExecutor
-import com.mozhimen.componentk.cameraxk.mos.CameraXKRotation
-import com.mozhimen.componentk.cameraxk.mos.CameraXKTimer
+import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
+import com.mozhimen.componentk.cameraxk.cons.CameraXKTimer
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -53,7 +53,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     private var _format = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
     private var _selectedTimer = CameraXKTimer.OFF
     internal var aspectRatio: Int = AspectRatio.RATIO_16_9
-    internal var rotation = CameraXKRotation.ROTATION_90
+    internal var rotation = CCameraXKRotation.ROTATION_90
 
     private lateinit var _owner: LifecycleOwner
     private lateinit var _analyzerThread: HandlerThread
@@ -203,9 +203,9 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         _selectedTimer = timer
     }
 
-    override fun changeCameraFacing(@CameraXKFacing facing: Int) {
+    override fun changeCameraFacing(@ACameraXKFacing facing: Int) {
         val cameraSelector = when (facing) {
-            CameraXKFacing.FRONT -> CameraSelector.DEFAULT_BACK_CAMERA
+            ACameraXKFacing.FRONT -> CameraSelector.DEFAULT_BACK_CAMERA
             else -> CameraSelector.DEFAULT_FRONT_CAMERA
         }
         if (_lensFacing != cameraSelector) {

@@ -1,6 +1,6 @@
 package com.mozhimen.componentk.netk.helpers
 
-import com.mozhimen.componentk.netk.mos.NetKRep
+import com.mozhimen.componentk.netk.commons.NetKRep
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 
@@ -17,11 +17,11 @@ object NetKHelper {
     fun <T> createFlow(call: suspend () -> T?): Flow<NetKRep<T>> = flow {
         val result: T? = call()
         result?.let {
-            emit(NetKRep.Success(result))
+            emit(NetKRep.MSuccess(result))
         } ?: emit(NetKRep.Empty)
     }.onStart {
         emit(NetKRep.Loading)
     }.catch { e ->
-        emit(NetKRep.Error(e))
+        emit(NetKRep.MError(e))
     }.flowOn(Dispatchers.IO)
 }

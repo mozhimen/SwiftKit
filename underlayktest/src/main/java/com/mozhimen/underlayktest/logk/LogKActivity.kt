@@ -4,15 +4,15 @@ import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
-import com.mozhimen.underlayk.logk.mos.LogKConfig
+import com.mozhimen.underlayk.logk.commons.LogKConfig
 import com.mozhimen.underlayk.logk.mos.LogKType
-import com.mozhimen.underlayk.logk.temps.PrinterMonitor
-import com.mozhimen.underlayk.logk.temps.PrinterView
+import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
+import com.mozhimen.underlayk.logk.temps.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
 
 class LogKActivity : BaseKActivityVB<ActivityLogkBinding>() {
-    private val _printerView: PrinterView by lazy { PrinterView(this, this) }
-    private val _printerMonitor: PrinterMonitor by lazy { PrinterMonitor() }
+    private val _printerView: LogKPrinterView by lazy { LogKPrinterView(this, this) }
+    private val _printerMonitor: LogKPrinterMonitor by lazy { LogKPrinterMonitor() }
 
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)

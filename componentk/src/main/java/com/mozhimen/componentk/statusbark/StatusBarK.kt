@@ -3,8 +3,8 @@ package com.mozhimen.componentk.statusbark
 import android.app.Activity
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKTheme
-import com.mozhimen.componentk.statusbark.annors.StatusBarKAnnor
-import com.mozhimen.componentk.statusbark.annors.StatusBarKType
+import com.mozhimen.componentk.statusbark.annors.AStatusBarK
+import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
 import com.mozhimen.componentk.statusbark.helpers.StatusBarKHelper
 
 /**
@@ -28,13 +28,13 @@ object StatusBarK {
     @JvmStatic
     fun initStatusBar(activity: Activity) {
         val statusBarAnnor =
-            activity.javaClass.getAnnotation(StatusBarKAnnor::class.java) ?: throw Exception("you need add annotation StatusBarAnnor")
+            activity.javaClass.getAnnotation(AStatusBarK::class.java) ?: throw Exception("you need add annotation StatusBarAnnor")
 
         when (statusBarAnnor.statusBarType) {
-            StatusBarKType.FULL_SCREEN -> {
+            AStatusBarKType.FULL_SCREEN -> {
                 StatusBarKHelper.setStatusBarFullScreen(activity)//设置状态栏全屏
             }
-            StatusBarKType.IMMERSED -> {
+            AStatusBarKType.IMMERSED -> {
                 StatusBarKHelper.setStatusBarImmersed(activity)//设置状态栏沉浸式
                 StatusBarKHelper.setStatusBarFontIcon(activity, statusBarAnnor.isFontIconDark)//设置状态栏文字和Icon是否为深色
             }

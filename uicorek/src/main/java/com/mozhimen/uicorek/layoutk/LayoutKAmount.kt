@@ -143,7 +143,7 @@ class LayoutKAmount @JvmOverloads constructor(
         val BTN_BACKGROUND_COLOR: Int = UtilKRes.getColor(R.color.gray_normal)
         val BTN_SIZE: Int = 20f.dp2px()
 
-        fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): Attrs {
+        fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MAmountAttrs {
             val typedArray = context.obtainStyledAttributes(
                 attrs, R.styleable.LayoutKAmount, defStyleAttr, R.style.LayoutKAmountStyle
             )
@@ -187,7 +187,7 @@ class LayoutKAmount @JvmOverloads constructor(
 
             typedArray.recycle()
 
-            return Attrs(
+            return MAmountAttrs(
                 minVal,
                 maxVal,
                 defaultAmount,
@@ -204,7 +204,7 @@ class LayoutKAmount @JvmOverloads constructor(
         }
     }
 
-    private data class Attrs(
+    internal data class MAmountAttrs(
         val minVal: Int,
         val maxVal: Int,
         val defaultAmount: Int,

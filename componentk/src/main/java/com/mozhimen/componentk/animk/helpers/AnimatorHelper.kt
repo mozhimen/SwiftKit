@@ -3,7 +3,7 @@ package com.mozhimen.componentk.animk.helpers
 import android.animation.*
 import android.graphics.drawable.ColorDrawable
 import androidx.core.view.ViewCompat
-import com.mozhimen.componentk.animk.mos.AnimatorMo
+import com.mozhimen.componentk.animk.mos.MAnimator
 
 object AnimatorHelper {
 
@@ -16,7 +16,7 @@ object AnimatorHelper {
      */
     @JvmStatic
     fun flash(
-        animatorMo: AnimatorMo,
+        animatorMo: MAnimator,
         startAlpha: Float = 1f,
         endAlpha: Float = 0f
     ): Animator =
@@ -30,7 +30,7 @@ object AnimatorHelper {
      */
     @JvmStatic
     fun waver(
-        animatorMo: AnimatorMo,
+        animatorMo: MAnimator,
         ratio: Float = 1.1f,
     ): Animator {
         animatorMo.view.pivotX = animatorMo.view.width / 2f
@@ -49,7 +49,7 @@ object AnimatorHelper {
      */
     @JvmStatic
     fun bgBetweenColors(
-        animatorMo: AnimatorMo,
+        animatorMo: MAnimator,
         colorStart: Int,
         colorEnd: Int,
     ): Animator {
@@ -70,7 +70,7 @@ object AnimatorHelper {
      */
     @JvmStatic
     fun bgAlphaFlash(
-        animatorMo: AnimatorMo,
+        animatorMo: MAnimator,
         alphaEnd: Int = 0
     ): Animator {
         val alphaDrawable = animatorMo.view.background
@@ -82,7 +82,7 @@ object AnimatorHelper {
         return genAnimator(animatorMo, alphaAnimator)
     }
 
-    private fun <T> genAnimator(animatorMo: AnimatorMo, animator: T): T where T : ValueAnimator {
+    private fun <T> genAnimator(animatorMo: MAnimator, animator: T): T where T : ValueAnimator {
         animator.repeatCount = animatorMo.repeatCount
         animator.repeatMode = animatorMo.repeatMode
         animator.interpolator = animatorMo.interpolator

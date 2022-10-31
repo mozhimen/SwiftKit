@@ -11,10 +11,10 @@ import android.view.ViewGroup
 import com.mozhimen.basick.basek.view.BaseKViewCallback
 import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
-import com.mozhimen.uicorek.layoutk.slider.helpers.LayoutKSliderParser
-import com.mozhimen.uicorek.layoutk.slider.mos.LayoutKSliderAttrs
-import com.mozhimen.uicorek.layoutk.slider.mos.Rod
-import com.mozhimen.uicorek.layoutk.slider.mos.Slider
+import com.mozhimen.uicorek.layoutk.slider.helpers.SliderParser
+import com.mozhimen.uicorek.layoutk.slider.mos.MSliderAttrs
+import com.mozhimen.uicorek.layoutk.slider.mos.MRod
+import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
 
 /**
  * @ClassName LayoutKSliderProxy
@@ -42,9 +42,9 @@ class LayoutKSliderProxy(
 
     //region # variate
     private lateinit var _layoutKSlider: LayoutKSlider
-    private lateinit var _attrs: LayoutKSliderAttrs
-    private var _slider: Slider = Slider()
-    private var _rod: Rod = Rod()
+    private lateinit var _attrs: MSliderAttrs
+    private var _slider: MSlider = MSlider()
+    private var _rod: MRod = MRod()
     private var _scrollableParentView: ViewGroup? = null
     private var _rodIsScrolling = false
 
@@ -60,11 +60,11 @@ class LayoutKSliderProxy(
         _layoutKSlider = layoutKSlider
     }
 
-    fun getRod(): Rod {
+    fun getRod(): MRod {
         return _rod
     }
 
-    fun getSlider(): Slider {
+    fun getSlider(): MSlider {
         return _slider
     }
 
@@ -75,7 +75,7 @@ class LayoutKSliderProxy(
     fun getHeightMeasureSpec(): Int {
         var height = 0
         height += if (_attrs.rodIsInside) _attrs.sliderHeight.toInt() else _attrs.rodRadius.toInt() * 2
-        height += LayoutKSliderParser.DEFAULT_PADDING_VERTICAL * 2
+        height += SliderParser.DEFAULT_PADDING_VERTICAL * 2
         return height
     }
 
@@ -86,7 +86,7 @@ class LayoutKSliderProxy(
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs ?: return
-        _attrs = LayoutKSliderParser.parseAttrs(_context, attrs)
+        _attrs = SliderParser.parseAttrs(_context, attrs)
     }
 
     override fun initPaint() {
@@ -114,7 +114,7 @@ class LayoutKSliderProxy(
 
     private fun initRod() {
         val distance = if (!_attrs.rodIsInside) 0f else _slider.heightHalf - _attrs.rodRadius
-        _rod = Rod(
+        _rod = MRod(
             _layoutKSlider.paddingStart.toFloat() + _attrs.rodRadius + distance,
             _layoutKSlider.width - _layoutKSlider.paddingEnd.toFloat() - _attrs.rodRadius - distance,
             _slider.centerY,
@@ -126,11 +126,11 @@ class LayoutKSliderProxy(
     }
 
     private fun initSlider() {
-        _slider = Slider(
+        _slider = MSlider(
             _layoutKSlider.width - _layoutKSlider.paddingStart.toFloat() - _layoutKSlider.paddingEnd - _attrs.sliderHeight,
             _attrs.sliderHeight,
             _layoutKSlider.paddingStart.toFloat() + _attrs.sliderHeight / 2f,
-            (if (_attrs.rodIsInside) 0f else _attrs.rodRadius - (_attrs.sliderHeight / 2f)) + LayoutKSliderParser.DEFAULT_PADDING_VERTICAL
+            (if (_attrs.rodIsInside) 0f else _attrs.rodRadius - (_attrs.sliderHeight / 2f)) + SliderParser.DEFAULT_PADDING_VERTICAL
         )
         _slider.rodLeftColor = _attrs.sliderRodLeftColor
         _slider.rodRightColor = _attrs.sliderRodRightColor
@@ -222,8 +222,8 @@ class LayoutKSliderProxy(
                         event,
                         _slider.leftX,
                         _slider.rightX,
-                        _slider.topY - LayoutKSliderParser.DEFAULT_PADDING_VERTICAL,
-                        _slider.bottomY + LayoutKSliderParser.DEFAULT_PADDING_VERTICAL
+                        _slider.topY - SliderParser.DEFAULT_PADDING_VERTICAL,
+                        _slider.bottomY + SliderParser.DEFAULT_PADDING_VERTICAL
                     )
                 ) {
                     return true

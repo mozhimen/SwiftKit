@@ -6,9 +6,9 @@ import androidx.viewpager.widget.ViewPager
 import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.bannerk.commons.IBannerK
-import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
+import com.mozhimen.uicorek.bannerk.commons.IBannerKBinder
 import com.mozhimen.uicorek.bannerk.commons.IBannerKIndicator
-import com.mozhimen.uicorek.bannerk.mos.BannerKMo
+import com.mozhimen.uicorek.bannerk.mos.MBannerKItem
 
 /**
  * @ClassName BannerK
@@ -53,7 +53,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * 设置Banner数据
      * @param mos List<BannerKMo>
      */
-    override fun setBannerData(mos: List<BannerKMo>) {
+    override fun setBannerData(mos: List<MBannerKItem>) {
         _proxy.setBannerData(mos)
     }
 
@@ -62,7 +62,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * @param layoutResId Int
      * @param mos List<BannerKMo>
      */
-    override fun setBannerData(layoutResId: Int, mos: List<BannerKMo>) {
+    override fun setBannerData(layoutResId: Int, mos: List<MBannerKItem>) {
         _proxy.setBannerData(layoutResId, mos)
     }
 
@@ -118,7 +118,7 @@ class BannerK @JvmOverloads constructor(context: Context, attrs: AttributeSet? =
      * 设置绑定adapter
      * @param bindAdapter IBannerKBindAdapter
      */
-    override fun setBindAdapter(bindAdapter: IBannerKBindAdapter) {
+    override fun setBindAdapter(bindAdapter: IBannerKBinder) {
         _proxy.setBindAdapter(bindAdapter)
     }
 

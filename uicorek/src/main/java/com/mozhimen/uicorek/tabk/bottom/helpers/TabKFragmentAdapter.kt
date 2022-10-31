@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 
-import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
+import com.mozhimen.uicorek.tabk.bottom.mos.MTabKBottom
 import java.lang.Exception
 
 /**
@@ -18,7 +18,7 @@ import java.lang.Exception
  * @Version 1.0
  */
 class TabKFragmentAdapter constructor(
-    private var _fragmentManager: FragmentManager, private var _moList: List<TabKBottomMo>
+    private var _fragmentManager: FragmentManager, private var _moList: List<MTabKBottom>
 ) {
     private val TAG = "TabKFragmentAdapter>>>>>"
     private var _currentFragment: Fragment? = null

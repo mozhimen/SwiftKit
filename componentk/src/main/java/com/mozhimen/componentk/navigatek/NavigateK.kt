@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.*
 import androidx.navigation.fragment.DialogFragmentNavigator
 import com.mozhimen.componentk.navigatek.helpers.NavigateKHelper
-import com.mozhimen.componentk.navigatek.mos.NavigateKPageInfo
+import com.mozhimen.componentk.navigatek.mos.MNavigateKPageInfo
 import java.util.*
 
 object NavigateK {
@@ -29,7 +29,7 @@ object NavigateK {
         val childFragmentManager = activity.supportFragmentManager.findFragmentById(containerId)!!.childFragmentManager
         val pageInfos = clazzes2PageInfos(clazzes)
         Log.d(TAG, "buildNavGraph: $pageInfos")
-        val iterator: Iterator<NavigateKPageInfo> = pageInfos.iterator()
+        val iterator: Iterator<MNavigateKPageInfo> = pageInfos.iterator()
         val navigatorProvider = navController.navigatorProvider
         val graphNavigator = navigatorProvider.getNavigator(NavGraphNavigator::class.java)
         val navGraph = NavGraph(graphNavigator)
@@ -67,13 +67,13 @@ object NavigateK {
         return navController
     }
 
-    private fun clazzes2PageInfos(clazzes: List<Class<*>>): List<NavigateKPageInfo> {
-        val navigateKPageInfos: ArrayList<NavigateKPageInfo> = arrayListOf()
+    private fun clazzes2PageInfos(clazzes: List<Class<*>>): List<MNavigateKPageInfo> {
+        val navigateKPageInfos: ArrayList<MNavigateKPageInfo> = arrayListOf()
         clazzes.forEach {
             val destType = getDestinationType(it) ?: throw Exception("this class is not fragment, dialog, or activity")
             val clazzName = it.name
             val id = kotlin.math.abs(clazzName.hashCode())
-            navigateKPageInfos.add(NavigateKPageInfo(destType, id, clazzName))
+            navigateKPageInfos.add(MNavigateKPageInfo(destType, id, clazzName))
         }
         return navigateKPageInfos
     }

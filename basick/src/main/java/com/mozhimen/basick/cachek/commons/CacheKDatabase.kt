@@ -3,7 +3,7 @@ package com.mozhimen.basick.cachek.commons
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.mozhimen.basick.cachek.mos.CacheK
+import com.mozhimen.basick.cachek.mos.MCacheK
 import com.mozhimen.basick.utilk.UtilKGlobal
 
 /**
@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.UtilKGlobal
  * @Date 2021/12/20 14:59
  * @Version 1.0
  */
-@Database(entities = [CacheK::class], version = 1, exportSchema = false)
+@Database(entities = [MCacheK::class], version = 1, exportSchema = false)
 abstract class CacheKDatabase : RoomDatabase() {
     abstract val cacheKDao: ICacheKDao
 

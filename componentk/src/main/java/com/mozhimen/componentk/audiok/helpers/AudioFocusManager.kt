@@ -3,7 +3,7 @@ package com.mozhimen.componentk.audiok.helpers
 import android.content.Context
 import android.media.AudioManager
 import android.media.AudioManager.OnAudioFocusChangeListener
-import com.mozhimen.componentk.audiok.commons.IAudioFocusListener
+import com.mozhimen.componentk.audiok.commons.IAudioKFocusListener
 
 /**
  * @ClassName AudioFocusManager
@@ -14,7 +14,7 @@ import com.mozhimen.componentk.audiok.commons.IAudioFocusListener
  */
 class AudioFocusManager(
     context: Context,
-    private val _listener: IAudioFocusListener? = null
+    private val _listener: IAudioKFocusListener? = null
 ) : OnAudioFocusChangeListener {
     private val _audioManager: AudioManager = (context.getSystemService(Context.AUDIO_SERVICE) as AudioManager)
 

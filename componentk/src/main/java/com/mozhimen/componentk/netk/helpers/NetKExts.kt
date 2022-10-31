@@ -1,7 +1,7 @@
 package com.mozhimen.componentk.netk.helpers
 
 import android.util.Log
-import com.mozhimen.componentk.netk.mos.NetKRep
+import com.mozhimen.componentk.netk.commons.NetKRep
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -20,7 +20,7 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKRes(onSuccess: (data: T) -> Unit, onFail:
             is NetKRep.Loading -> {
                 Log.d(NetKHelper.TAG, "asNetKRes: Loading")
             }
-            is NetKRep.Success -> {
+            is NetKRep.MSuccess -> {
                 Log.d(NetKHelper.TAG, "asNetKRes: Success data ${it.data}")
                 onSuccess(it.data)
             }
@@ -28,7 +28,7 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKRes(onSuccess: (data: T) -> Unit, onFail:
                 Log.d(NetKHelper.TAG, "asNetKRes: Empty")
                 onFail(-1, "result is null")
             }
-            is NetKRep.Error -> {
+            is NetKRep.MError -> {
                 val netKThrowable = NetKRepErrorParser.getThrowable(it.exception)
                 Log.d(NetKHelper.TAG, "asNetKRes: Error code ${netKThrowable.code} message ${netKThrowable.message}")
                 onFail(netKThrowable.code, netKThrowable.message)

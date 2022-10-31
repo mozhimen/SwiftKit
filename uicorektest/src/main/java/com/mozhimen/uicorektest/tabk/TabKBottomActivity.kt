@@ -2,10 +2,8 @@ package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
+import com.mozhimen.uicorek.tabk.bottom.mos.MTabKBottom
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityTabkBottomBinding
 
@@ -24,7 +22,7 @@ class TabKBottomActivity : BaseKActivityVB<ActivityTabkBottomBinding>() {
     }
 
     private val _homeInfo by lazy {
-        TabKBottomMo(
+        MTabKBottom(
             "首页",
             "fonts/iconfont.ttf",
             getString(R.string.icon_home),
@@ -35,7 +33,7 @@ class TabKBottomActivity : BaseKActivityVB<ActivityTabkBottomBinding>() {
     }
 
     private val _moreInfo by lazy {
-        TabKBottomMo(
+        MTabKBottom(
             "更多",
             R.mipmap.tabk_bottom_layout_fire,
             R.mipmap.tabk_bottom_layout_fire
@@ -43,7 +41,7 @@ class TabKBottomActivity : BaseKActivityVB<ActivityTabkBottomBinding>() {
     }
 
     private val _mineInfo by lazy {
-        TabKBottomMo(
+        MTabKBottom(
             "我的",
             R.mipmap.tabk_bottom_layout_fire,
             R.mipmap.tabk_bottom_layout_fire,

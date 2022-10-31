@@ -5,9 +5,9 @@ import com.mozhimen.basick.extsk.toJson
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.basick.extsk.e
-import com.mozhimen.underlayk.logk.mos.LogKConfig
-import com.mozhimen.underlayk.logk.temps.PrinterConsole
-import com.mozhimen.underlayk.logk.temps.PrinterFile
+import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
+import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
 
 /**
  * @ClassName UnderlayKApplication
@@ -21,7 +21,7 @@ class UnderlayKApplication : BaseKApplication() {
         super.onCreate()
 
         //logk
-        LogKMgr.instance.init(_logkConfig, PrinterConsole(), PrinterFile.getInstance(retentionDay = 3))
+        LogKMgr.instance.init(_logkConfig, LogKPrinterConsole(), LogKPrinterFile.getInstance(retentionDay = 3))
 
         //crashk
         //CrashKMgr.instance.init(_crashKCallback)

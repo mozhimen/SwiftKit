@@ -8,7 +8,7 @@ package com.mozhimen.basick.utilk
  * @Version 1.0
  */
 object UtilKVerifyCard {
-    enum class CardType {
+    enum class ECardType {
         ID_CARD, HK_CARD, TW_CARD, PP_CARD
     }
 

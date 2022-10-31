@@ -1,8 +1,8 @@
 package com.mozhimen.underlayk.logk
 
-import com.mozhimen.underlayk.logk.commons.IPrinter
-import com.mozhimen.underlayk.logk.mos.LogKConfig
-import com.mozhimen.underlayk.logk.temps.PrinterConsole
+import com.mozhimen.underlayk.logk.commons.ILogKPrinter
+import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
 
 /**
  * @ClassName LogKMgr
@@ -26,18 +26,19 @@ import com.mozhimen.underlayk.logk.temps.PrinterConsole
  * @Version 1.0
  */
 class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/) {
-    private val _printers: MutableList<IPrinter> = ArrayList()
+    private val _printers: MutableList<ILogKPrinter> = ArrayList()
     private var _config: LogKConfig? = null
 
     companion object {
-        val instance: LogKMgr = LogKMgrHolder.holder
+        @JvmStatic
+        val instance = LogKMgrHolder.holder
     }
 
     private object LogKMgrHolder {
         val holder = LogKMgr()
     }
 
-    fun init(config: LogKConfig, vararg printers: IPrinter) {
+    fun init(config: LogKConfig, vararg printers: ILogKPrinter) {
         _config = config
         _printers.addAll(printers.filterNot { _printers.contains(it) })
     }
@@ -52,9 +53,9 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
      * 获取打印机列表
      * @return MutableList<IPrinter>
      */
-    fun getPrinters(): MutableList<IPrinter> {
+    fun getPrinters(): MutableList<ILogKPrinter> {
         return if (_printers.isEmpty()) {
-            mutableListOf<IPrinter>(PrinterConsole()).also { _printers.addAll(it) }
+            mutableListOf<ILogKPrinter>(LogKPrinterConsole()).also { _printers.addAll(it) }
         } else {
             _printers
         }
@@ -64,7 +65,7 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
      * 增加打印机
      * @param printer IPrinter
      */
-    fun addPrinter(printer: IPrinter) {
+    fun addPrinter(printer: ILogKPrinter) {
         _printers.add(printer)
     }
 
@@ -72,7 +73,7 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
      * 移除打印机
      * @param printer IPrinter
      */
-    fun removePrinter(printer: IPrinter) {
+    fun removePrinter(printer: ILogKPrinter) {
         _printers.remove(printer)
     }
 }

@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.IntRange
+import com.mozhimen.basick.executork.helpers.PriorityRunnable
 import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.locks.Condition
@@ -136,16 +137,5 @@ object ExecutorK {
         open fun onPrepared() {}
         abstract fun onBackground(): T?
         abstract fun onCompleted(t: T?)
-    }
-
-    class PriorityRunnable(val name: String, val priority: Int, private val runnable: Runnable) : Runnable,
-        Comparable<PriorityRunnable> {
-        override fun run() {
-            runnable.run()
-        }
-
-        override fun compareTo(other: PriorityRunnable): Int {
-            return if (this.priority < other.priority) 1 else if (this.priority > other.priority) -1 else 0
-        }
     }
 }

@@ -1,6 +1,7 @@
 package com.mozhimen.componentk.netk.helpers
 
 import com.google.gson.JsonParseException
+import com.mozhimen.componentk.netk.mos.MNetKThrowable
 import org.json.JSONException
 import retrofit2.HttpException
 import java.lang.NullPointerException
@@ -32,7 +33,7 @@ object NetKRepErrorParser {
     const val NULL_POINT = -1000
     const val UNKNOWN = 1000//未知错误
 
-    fun getThrowable(e: Throwable): NetKThrowable {
+    fun getThrowable(e: Throwable): MNetKThrowable {
         e.printStackTrace()
         return when (e) {
             is HttpException -> {
@@ -48,28 +49,23 @@ object NetKRepErrorParser {
                     SERVICE_UNAVAILABLE -> "网络异常: 服务未达"
                     else -> e.message() ?: "网络异常: 未知"
                 }
-                NetKThrowable(e.code(), message)
+                MNetKThrowable(e.code(), message)
             }
             is JsonParseException, is JSONException -> {
-                NetKThrowable(PARSE_ERROR, "解析失败")
+                MNetKThrowable(PARSE_ERROR, "解析失败")
             }
             is ConnectException -> {
-                NetKThrowable(NET_WORD_ERROR, "网络连接失败")
+                MNetKThrowable(NET_WORD_ERROR, "网络连接失败")
             }
             is SSLHandshakeException -> {
-                NetKThrowable(SSL_ERROR, "证书验证失败")
+                MNetKThrowable(SSL_ERROR, "证书验证失败")
             }
             is NullPointerException -> {
-                NetKThrowable(NULL_POINT, "空指针错误")
+                MNetKThrowable(NULL_POINT, "空指针错误")
             }
             else -> {
-                NetKThrowable(UNKNOWN, e.message ?: "未知异常")
+                MNetKThrowable(UNKNOWN, e.message ?: "未知异常")
             }
         }
     }
-
-    data class NetKThrowable(
-        val code: Int,
-        val message: String
-    )
 }

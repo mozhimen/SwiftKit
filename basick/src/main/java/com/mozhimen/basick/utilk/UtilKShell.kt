@@ -28,7 +28,7 @@ object UtilKShell {
      * @return UtilKShellCmd?
      */
     @JvmStatic
-    fun execCmd(cmd: String, isRooted: Boolean): UtilKShellCmd {
+    fun execCmd(cmd: String, isRooted: Boolean): MShellCmd {
         return execCmd(arrayOf(cmd), isRooted, true)
     }
 
@@ -39,7 +39,7 @@ object UtilKShell {
      * @return UtilKShellCmd?
      */
     @JvmStatic
-    fun execCmd(cmds: List<String>, isRooted: Boolean): UtilKShellCmd {
+    fun execCmd(cmds: List<String>, isRooted: Boolean): MShellCmd {
         return execCmd(cmds.toTypedArray(), isRooted, true)
     }
 
@@ -50,7 +50,7 @@ object UtilKShell {
      * @return UtilKShellCmd?
      */
     @JvmStatic
-    fun execCmd(cmds: Array<String>, isRooted: Boolean): UtilKShellCmd {
+    fun execCmd(cmds: Array<String>, isRooted: Boolean): MShellCmd {
         return execCmd(cmds, isRooted, true)
     }
 
@@ -61,10 +61,10 @@ object UtilKShell {
      * @param isNeedResultMsg
      * @return
      */
-    private fun execCmd(cmds: Array<String>, isRooted: Boolean, isNeedResultMsg: Boolean): UtilKShellCmd {
+    private fun execCmd(cmds: Array<String>, isRooted: Boolean, isNeedResultMsg: Boolean): MShellCmd {
         var result = -1
         if (cmds.isEmpty()) {
-            return UtilKShellCmd(result, "", "")
+            return MShellCmd(result, "", "")
         }
         var process: Process? = null
         var successResult: BufferedReader? = null
@@ -120,10 +120,10 @@ object UtilKShell {
                 e.printStackTrace()
             }
         }
-        return UtilKShellCmd(result, successMsg?.toString() ?: "", errorMsg?.toString() ?: "")
+        return MShellCmd(result, successMsg?.toString() ?: "", errorMsg?.toString() ?: "")
     }
 
-    data class UtilKShellCmd(
+    data class MShellCmd(
         var result: Int,
         var successMsg: String,
         var errorMsg: String

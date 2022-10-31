@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.UtilKView.findTypeChildView
 import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.basick.extsk.asColorTone
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
+import com.mozhimen.uicorek.tabk.bottom.mos.MTabKBottom
 import com.mozhimen.uicorek.tabk.commons.ITabKLayout
 
 /**
@@ -30,16 +30,16 @@ class TabKBottomLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defAttrStyle: Int = 0
-) : BaseKLayoutFrame(context, attrs, defAttrStyle), ITabKLayout<TabKBottomItem, TabKBottomMo> {
+) : BaseKLayoutFrame(context, attrs, defAttrStyle), ITabKLayout<TabKBottomItem, MTabKBottom> {
 
     companion object {
         private const val TAG_TABK_BOTTOM_LAYOUT = "TAG_TABK_BOTTOM_LAYOUT"
     }
 
-    private val _tabSelectedChangeListeners: ArrayList<ITabKLayout.TabSelectedListener<TabKBottomMo>> =
+    private val _tabSelectedChangeListeners: ArrayList<ITabKLayout.TabSelectedListener<MTabKBottom>> =
         ArrayList()
-    private var _selectedMo: TabKBottomMo? = null
-    private var _moList: List<TabKBottomMo>? = null
+    private var _selectedMo: MTabKBottom? = null
+    private var _moList: List<MTabKBottom>? = null
     private var _tabBottomAlpha = 1f
     private var _tabBottomHeight = 50f.dp2px()//TabBottom高度
     private var _tabBottomLineHeight = 0.5f.dp2px()//TabBottom的头部线条高度
@@ -116,7 +116,7 @@ class TabKBottomLayout @JvmOverloads constructor(
         }
     }
 
-    override fun findTab(mo: TabKBottomMo): TabKBottomItem? {
+    override fun findTab(mo: MTabKBottom): TabKBottomItem? {
         val tabKBottom = findViewWithTag<ViewGroup>(TAG_TABK_BOTTOM_LAYOUT)
         for (i in 0 until tabKBottom.childCount) {
             val child = tabKBottom.getChildAt(i)
@@ -129,16 +129,16 @@ class TabKBottomLayout @JvmOverloads constructor(
         return null
     }
 
-    override fun addTabSelectedChangeListener(listener: ITabKLayout.TabSelectedListener<TabKBottomMo>) {
+    override fun addTabSelectedChangeListener(listener: ITabKLayout.TabSelectedListener<MTabKBottom>) {
         _tabSelectedChangeListeners.add(listener)
     }
 
 
-    override fun defaultSelected(defaultMo: TabKBottomMo) {
+    override fun defaultSelected(defaultMo: MTabKBottom) {
         onSelected(defaultMo)
     }
 
-    override fun inflateInfo(moList: List<TabKBottomMo>) {
+    override fun inflateInfo(moList: List<MTabKBottom>) {
         if (moList.isEmpty()) {
             return
         }
@@ -150,7 +150,7 @@ class TabKBottomLayout @JvmOverloads constructor(
         _selectedMo = null
         addBackground()
         //清除之前添加的TabkBottom listener,同时遍历和删除问题,采用迭代器
-        val iterator: MutableIterator<ITabKLayout.TabSelectedListener<TabKBottomMo>> =
+        val iterator: MutableIterator<ITabKLayout.TabSelectedListener<MTabKBottom>> =
             _tabSelectedChangeListeners.iterator()
         while (iterator.hasNext()) {
             if (iterator.next() is TabKBottomItem) {
@@ -180,7 +180,7 @@ class TabKBottomLayout @JvmOverloads constructor(
         fixContentView()
     }
 
-    private fun onSelected(nextMo: TabKBottomMo) {
+    private fun onSelected(nextMo: MTabKBottom) {
         require(_moList != null) { "infoList must not be null!" }
         for (listener in _tabSelectedChangeListeners) {
             listener.onTabSelected(_moList!!.indexOf(nextMo), _selectedMo, nextMo)

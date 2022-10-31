@@ -1,12 +1,11 @@
 package com.mozhimen.componentk.animk.helpers
 
-import android.view.View
 import android.view.animation.*
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.componentk.animk.mos.AnimationMo
+import com.mozhimen.componentk.animk.mos.MAnimation
 
 object AnimationHelper {
-    private fun <T> genAnimation(animationMo: AnimationMo, animation: T): T where T : Animation {
+    private fun <T> genAnimation(animationMo: MAnimation, animation: T): T where T : Animation {
         animation.fillAfter = animationMo.fillAfter
         animation.repeatCount = animationMo.repeatCount
         animation.repeatMode = animationMo.repeatMode
@@ -25,7 +24,7 @@ object AnimationHelper {
      */
     @JvmStatic
     fun rotate(
-        animationMo: AnimationMo,
+        animationMo: MAnimation,
         pivotX: Float = animationMo.view.width / 2f,
         pivotY: Float = animationMo.view.height / 2f,
     ): Animation =
@@ -40,7 +39,7 @@ object AnimationHelper {
      */
     @JvmStatic
     fun shake(
-        animationMo: AnimationMo,
+        animationMo: MAnimation,
         isShakeY: Boolean = true,
         shakeDistance: Float = animationMo.view.width.coerceAtLeast(animationMo.view.height) / 2f,
     ): Animation =
@@ -54,7 +53,7 @@ object AnimationHelper {
      */
     @JvmStatic
     fun transInRight(
-        animationMo: AnimationMo
+        animationMo: MAnimation
     ): Animation =
         genAnimation(animationMo, TranslateAnimation(UtilKScreen.getScreenWidth().toFloat(), 0f, 0f, 0f))
 
@@ -65,7 +64,7 @@ object AnimationHelper {
      */
     @JvmStatic
     fun transOutRight(
-        animationMo: AnimationMo
+        animationMo: MAnimation
     ): Animation =
         genAnimation(animationMo, TranslateAnimation(0f, UtilKScreen.getScreenWidth().toFloat(), 0f, 0f))
 }

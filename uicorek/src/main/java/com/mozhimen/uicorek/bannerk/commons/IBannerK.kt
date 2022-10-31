@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.bannerk.commons
 import androidx.annotation.LayoutRes
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter.BannerKViewHolder
-import com.mozhimen.uicorek.bannerk.mos.BannerKMo
+import com.mozhimen.uicorek.bannerk.mos.MBannerKItem
 
 /**
  * @ClassName IBannerK
@@ -17,14 +17,14 @@ interface IBannerK {
      * 设置banner数据
      * @param mos List<BannerKMo>
      */
-    fun setBannerData(mos: List<BannerKMo>)
+    fun setBannerData(mos: List<MBannerKItem>)
 
     /**
      * 设置banner数据
      * @param layoutResId Int
      * @param mos List<BannerKMo>
      */
-    fun setBannerData(@LayoutRes layoutResId: Int, mos: List<BannerKMo>)
+    fun setBannerData(@LayoutRes layoutResId: Int, mos: List<MBannerKItem>)
 
     /**
      * 设置banner指示器
@@ -66,7 +66,7 @@ interface IBannerK {
      * 绑定adapter
      * @param bindAdapter IBannerKBindAdapter
      */
-    fun setBindAdapter(bindAdapter: IBannerKBindAdapter)
+    fun setBindAdapter(bindAdapter: IBannerKBinder)
 
     /**
      * 页面变换监听器
@@ -81,6 +81,6 @@ interface IBannerK {
     fun setOnBannerClickListener(IOnBannerClickListener: IOnBannerClickListener)
 
     interface IOnBannerClickListener {
-        fun onBannerClick(viewHolder: BannerKViewHolder, bannerKMo: BannerKMo, position: Int)
+        fun onBannerClick(viewHolder: BannerKViewHolder, bannerKMo: MBannerKItem, position: Int)
     }
 }

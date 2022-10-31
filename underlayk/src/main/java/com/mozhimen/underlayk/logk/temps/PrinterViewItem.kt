@@ -8,7 +8,7 @@ import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.databinding.LogkPrinterViewItemBinding
 import com.mozhimen.underlayk.logk.helpers.LogKHelper
-import com.mozhimen.underlayk.logk.mos.LogKMo
+import com.mozhimen.underlayk.logk.mos.MLogK
 
 /**
  * @ClassName PrinterViewItem
@@ -17,12 +17,12 @@ import com.mozhimen.underlayk.logk.mos.LogKMo
  * @Date 2022/9/23 11:51
  * @Version 1.0
  */
-class PrinterViewItem(private val logKMo: LogKMo) : DataKItem<Any, BindKViewHolder<LogkPrinterViewItemBinding>>() {
+class PrinterViewItem(private val mLogK: MLogK) : DataKItem<Any, BindKViewHolder<LogkPrinterViewItemBinding>>() {
     override fun onBindData(holder: BindKViewHolder<LogkPrinterViewItemBinding>, position: Int) {
-        val color = LogKHelper.getLevelColor(logKMo.level)
-        holder.binding.logkPrinterViewTag.text = logKMo.getFlattened()
+        val color = LogKHelper.getLevelColor(mLogK.level)
+        holder.binding.logkPrinterViewTag.text = mLogK.getFlattened()
         holder.binding.logkPrinterViewTag.setTextColor(color)
-        holder.binding.logkPrinterViewMsg.text = logKMo.log.replace("\\n".toRegex(), "\n").replace(UtilKGlobal.instance.getApp()!!.packageName, "")
+        holder.binding.logkPrinterViewMsg.text = mLogK.log.replace("\\n".toRegex(), "\n").replace(UtilKGlobal.instance.getApp()!!.packageName, "")
         holder.binding.logkPrinterViewMsg.setTextColor(color)
     }
 

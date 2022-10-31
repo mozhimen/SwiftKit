@@ -12,7 +12,8 @@ import android.view.View
 import android.widget.*
 import com.mozhimen.basick.basek.BaseKLayoutRelative
 import com.mozhimen.basick.extsk.*
-import com.mozhimen.uicorek.navk.mos.NavKAttrs
+import com.mozhimen.uicorek.navk.helpers.NavKAttrsParser
+import com.mozhimen.uicorek.navk.mos.MNavKAttrs
 import java.util.*
 
 /**
@@ -37,7 +38,7 @@ class NavKBar @JvmOverloads constructor(
     private val _leftViewList = ArrayList<View>()
     private val _rightViewList = ArrayList<View>()
 
-    private lateinit var _attrs: NavKAttrs//属性解析获得对象
+    private lateinit var _attrs: MNavKAttrs//属性解析获得对象
 
     init {
         initAttrs(attrs, defStyleAttr)

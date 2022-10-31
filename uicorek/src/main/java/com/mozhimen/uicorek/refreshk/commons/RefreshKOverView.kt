@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.uicorek.refreshk.mos.RefreshKStatus
+import com.mozhimen.uicorek.refreshk.cons.ERefreshKStatus
 
 /**
  * @ClassName RefreshKOverView
@@ -16,7 +16,7 @@ import com.mozhimen.uicorek.refreshk.mos.RefreshKStatus
 abstract class RefreshKOverView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
-    var refreshKStatus = RefreshKStatus.INIT
+    var refreshKStatus = ERefreshKStatus.INIT
 
     /**
      * 触发下拉刷新需要的最小高度
@@ -73,7 +73,7 @@ abstract class RefreshKOverView @JvmOverloads constructor(
      * 设置下拉刷新头部状态
      * @param status RefreshKStatus
      */
-    open fun setStatus(status: RefreshKStatus) {
+    open fun setStatus(status: ERefreshKStatus) {
         this.refreshKStatus = status
     }
 
@@ -82,5 +82,5 @@ abstract class RefreshKOverView @JvmOverloads constructor(
      *
      * @return kStatus
      */
-    open fun getStatus(): RefreshKStatus = refreshKStatus
+    open fun getStatus(): ERefreshKStatus = refreshKStatus
 }

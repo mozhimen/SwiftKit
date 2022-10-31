@@ -21,11 +21,11 @@ import com.mozhimen.basick.extsk.fontStyle
 import com.mozhimen.basick.extsk.loadComplex
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.itemk.ItemKViewHolder
-import com.mozhimen.uicorek.sidek.helpers.SideKSubAttrsParser
+import com.mozhimen.uicorek.sidek.helpers.AttrsParser
 import com.mozhimen.uicorek.sidek.helpers.SideKSubItemDecorator
 import com.mozhimen.uicorek.sidek.mos.*
 
-typealias ISideKSubItemListener = (holder: ItemKViewHolder, contentMo: SliderKContentMo?) -> Unit
+typealias ISideKSubItemListener = (holder: ItemKViewHolder, contentMo: MSliderKContent?) -> Unit
 
 /**
  * @ClassName SliderKSubLayout
@@ -40,7 +40,7 @@ class SideKSubLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 
     private val _menuView = RecyclerView(context)
     private val _contentView = RecyclerView(context)
-    private var _attr: SideKSubAttrs = SideKSubAttrsParser.parseMenuAttr(context, attrs)
+    private var _attr: MSideKSubAttrs = AttrsParser.parseMenuAttr(context, attrs)
     private val _subSpanSizeOffset = SparseIntArray()
 
     private var _menuLayoutId = R.layout.sliderk_menu_item
@@ -102,7 +102,7 @@ class SideKSubLayout @JvmOverloads constructor(context: Context, attrs: Attribut
 
     @SuppressLint("NotifyDataSetChanged")
     private fun bindDataContentView(
-        mo: SliderKMenuMo
+        mo: MSliderKMenu
     ) {
         if (_contentView.layoutManager == null) {
             _contentView.layoutManager = _sliderKSubItemLayoutManager ?: GridLayoutManager(context, _spanCount)
@@ -220,10 +220,10 @@ class SideKSubLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     inner class SliderKContentAdapter(
-        private var _mo: SliderKMenuMo
+        private var _mo: MSliderKMenu
     ) : RecyclerView.Adapter<ItemKViewHolder>() {
 
-        fun update(mo: SliderKMenuMo) {
+        fun update(mo: MSliderKMenu) {
             this._mo = mo
         }
 
@@ -280,14 +280,14 @@ class SideKSubLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         }
     }
 
-    private fun getSubNameByPosition(mo: SliderKMenuMo, position: Int): String? {
+    private fun getSubNameByPosition(mo: MSliderKMenu, position: Int): String? {
         val sliderKContentMo = getContentByPosition(mo, position)
         return sliderKContentMo?.let { contentMo ->
             mo.menuSubs.find { it.subId == contentMo.fatherId }?.subName
         }
     }
 
-    private fun getContentByPosition(mo: SliderKMenuMo, position: Int): SliderKContentMo? {
+    private fun getContentByPosition(mo: MSliderKMenu, position: Int): MSliderKContent? {
         val lengthList = arrayListOf<Int>()//3,4,6
         mo.menuSubs.forEach {
             lengthList.add(it.subContents.size)

@@ -3,12 +3,12 @@ package com.mozhimen.basick.flowk
 import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
-import com.mozhimen.basick.prefabk.handler.RefHandler
+import com.mozhimen.basick.prefabk.handler.helpers.RefHandler
 import com.mozhimen.basick.executork.ExecutorK
 import com.mozhimen.basick.extsk.postDelayed
-import com.mozhimen.basick.flowk.commons.FlowKRuntimeCallback
-import com.mozhimen.basick.flowk.helpers.FlowKNodeComparator
-import com.mozhimen.basick.flowk.mos.FlowKNodeRuntimeInfo
+import com.mozhimen.basick.flowk.helpers.RuntimeCallback
+import com.mozhimen.basick.flowk.helpers.NodeComparator
+import com.mozhimen.basick.flowk.mos.MNodeRuntimeInfo
 import java.util.*
 
 /**
@@ -37,10 +37,10 @@ internal object FlowKRuntime {
     private val _waitingTasks: MutableList<FlowKNode> = mutableListOf()
 
     //记录下启动阶段所有任务的运行时信息key是taskId
-    private val _flowKNodeRuntimeInfos: MutableMap<String, FlowKNodeRuntimeInfo> = HashMap()
+    private val _mNodeRuntimeInfos: MutableMap<String, MNodeRuntimeInfo> = HashMap()
 
     val flowKNodeComparator = kotlin.Comparator<FlowKNode> { task1, task2 ->
-        FlowKNodeComparator.compareTaskK(task1, task2)
+        NodeComparator.compareNode(task1, task2)
     }
 
     @JvmStatic
@@ -82,8 +82,8 @@ internal object FlowKRuntime {
     }
 
     @JvmStatic
-    fun getTaskKRuntimeInfo(id: String): FlowKNodeRuntimeInfo? {
-        return _flowKNodeRuntimeInfos[id]
+    fun getTaskKRuntimeInfo(id: String): MNodeRuntimeInfo? {
+        return _mNodeRuntimeInfos[id]
     }
 
     @JvmStatic
@@ -166,7 +166,7 @@ internal object FlowKRuntime {
         while (iterator.hasNext()) {
             val taskId = iterator.next()
             //检查这个阻塞任务是否存在依赖树中
-            if (!_flowKNodeRuntimeInfos.containsKey(taskId)) {
+            if (!_mNodeRuntimeInfos.containsKey(taskId)) {
                 throw java.lang.RuntimeException("block task ${flowKNode.id} not in dependency tree.")
             } else {
                 traversalDependencyPriority(getTaskKRuntimeInfo(taskId)?.flowKNode)
@@ -187,11 +187,11 @@ internal object FlowKRuntime {
         ////物始化taskKRuntimeInfo 并校验是否存在相同的任务名称taskK.Id
         var taskKRuntimeInfo = getTaskKRuntimeInfo(flowKNode.id)
         if (taskKRuntimeInfo == null) {
-            taskKRuntimeInfo = FlowKNodeRuntimeInfo(flowKNode)
+            taskKRuntimeInfo = MNodeRuntimeInfo(flowKNode)
             if (_blockTasksId.contains(flowKNode.id)) {
                 taskKRuntimeInfo.isBlockTask = true
             }
-            _flowKNodeRuntimeInfos[flowKNode.id] = taskKRuntimeInfo
+            _mNodeRuntimeInfos[flowKNode.id] = taskKRuntimeInfo
         } else {
             if (!taskKRuntimeInfo.isSameTask(flowKNode)) {
                 throw RuntimeException("not allow to contain the same id ${flowKNode.id}")
@@ -216,7 +216,7 @@ internal object FlowKRuntime {
                     builder.append(iterator.next().id)
                     builder.append("--> ")
                 }
-                Log.e(FlowKRuntimeCallback.TAG, "innerTraversalDependencyTreeAndInit builder $builder")
+                Log.e(RuntimeCallback.TAG, "innerTraversalDependencyTreeAndInit builder $builder")
             }
             innerTraversalDependencyTreeAndInit(behindTask, traversalVisitor)
             traversalVisitor.remove(behindTask)

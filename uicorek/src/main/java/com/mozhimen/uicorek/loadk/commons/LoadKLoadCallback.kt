@@ -4,7 +4,7 @@ import androidx.annotation.CallSuper
 import com.mozhimen.uicorek.datak.DataKRecyclerView
 import com.mozhimen.uicorek.refreshk.RefreshKLayout
 import com.mozhimen.uicorek.refreshk.commons.RefreshKOverView
-import com.mozhimen.uicorek.refreshk.mos.RefreshKStatus
+import com.mozhimen.uicorek.refreshk.cons.ERefreshKStatus
 
 /**
  * @ClassName DataKLoadListener
@@ -19,10 +19,10 @@ open class LoadKLoadCallback(
 ) : DataKRecyclerView.IDataKLoadListener {
     @CallSuper
     override fun onLoadMore() {
-        if (_overView.refreshKStatus == RefreshKStatus.VISIBLE ||
-            _overView.refreshKStatus == RefreshKStatus.REFRESHING ||
-            _overView.refreshKStatus == RefreshKStatus.OVERFLOW ||
-            _overView.refreshKStatus == RefreshKStatus.OVERFLOW_RELEASE
+        if (_overView.refreshKStatus == ERefreshKStatus.VISIBLE ||
+            _overView.refreshKStatus == ERefreshKStatus.REFRESHING ||
+            _overView.refreshKStatus == ERefreshKStatus.OVERFLOW ||
+            _overView.refreshKStatus == ERefreshKStatus.OVERFLOW_RELEASE
         ) {
             //正处于刷新状态
             _refreshKLayout.refreshFinished()

@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.extsk.toJson
-import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.componentk.permissionk.helpers.IPermissionKListener
 import com.mozhimen.componentk.permissionk.helpers.InvisibleFragment
 import com.mozhimen.underlayk.logk.LogK
@@ -36,7 +36,7 @@ object PermissionK {
         activity: AppCompatActivity,
         isGranted: (Boolean) -> Unit,
     ) {
-        val permissionAnnor = activity.javaClass.getAnnotation(PermissionKAnnor::class.java)
+        val permissionAnnor = activity.javaClass.getAnnotation(APermissionK::class.java)
         requireNotNull(permissionAnnor) { TAG + "you may be forget add annor" }
         val permissions = permissionAnnor.permissions
         if (permissions.isNotEmpty()) {

@@ -12,13 +12,13 @@ import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
 import com.mozhimen.componentk.R
-import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
-import com.mozhimen.componentk.cameraxk.annors.CameraXKFormat
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
-import com.mozhimen.componentk.cameraxk.mos.CameraXKRotation
-import com.mozhimen.componentk.cameraxk.mos.CameraXKTimer
+import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
+import com.mozhimen.componentk.cameraxk.cons.CameraXKTimer
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -51,7 +51,7 @@ class CameraXKPreviewView @JvmOverloads constructor(
     private var _aspectRatio: Int by Delegates.observable(AspectRatio.RATIO_16_9) { _, _, new ->
         _cameraXKProxy.aspectRatio = new
     }
-    private var _rotation: Int by Delegates.observable(CameraXKRotation.ROTATION_90) { _, _, new ->
+    private var _rotation: Int by Delegates.observable(CCameraXKRotation.ROTATION_90) { _, _, new ->
         _cameraXKProxy.rotation = new
     }
     private var _displayId = -1
@@ -98,13 +98,13 @@ class CameraXKPreviewView @JvmOverloads constructor(
         _cameraXKProxy.setCameraXKCaptureListener(listener)
     }
 
-    fun initCamera(owner: LifecycleOwner, @CameraXKFacing facing: Int = CameraXKFacing.BACK, @CameraXKFormat format: Int = CameraXKFormat.YUV_420_888) {
+    fun initCamera(owner: LifecycleOwner, @ACameraXKFacing facing: Int = ACameraXKFacing.BACK, @ACameraXKFormat format: Int = ACameraXKFormat.YUV_420_888) {
         val cameraSelector = when (facing) {
-            CameraXKFacing.FRONT -> CameraSelector.DEFAULT_BACK_CAMERA
+            ACameraXKFacing.FRONT -> CameraSelector.DEFAULT_BACK_CAMERA
             else -> CameraSelector.DEFAULT_FRONT_CAMERA
         }
         val cameraFormat = when (format) {
-            CameraXKFormat.RGBA_8888 -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888
+            ACameraXKFormat.RGBA_8888 -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888
             else -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
         }
         _cameraXKProxy.initCamera(owner, cameraSelector, cameraFormat)
@@ -130,7 +130,7 @@ class CameraXKPreviewView @JvmOverloads constructor(
         _cameraXKProxy.changeCountDownTimer(timer)
     }
 
-    override fun changeCameraFacing(@CameraXKFacing facing: Int) {
+    override fun changeCameraFacing(@ACameraXKFacing facing: Int) {
         _cameraXKProxy.changeCameraFacing(facing)
     }
 

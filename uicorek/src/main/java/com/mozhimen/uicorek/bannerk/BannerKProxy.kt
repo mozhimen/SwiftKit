@@ -5,11 +5,11 @@ import android.widget.FrameLayout
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.bannerk.commons.IBannerK
-import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
+import com.mozhimen.uicorek.bannerk.commons.IBannerKBinder
 import com.mozhimen.uicorek.bannerk.commons.IBannerKIndicator
 import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
 import com.mozhimen.uicorek.bannerk.helpers.BannerKViewPager
-import com.mozhimen.uicorek.bannerk.mos.BannerKMo
+import com.mozhimen.uicorek.bannerk.mos.MBannerKItem
 import com.mozhimen.uicorek.bannerk.customs.PointIndicator
 
 /**
@@ -28,7 +28,7 @@ class BannerKProxy(
 
     private var _adapter: BannerKAdapter? = null
     private var _indicator: IBannerKIndicator<*>? = null
-    private var _bannerKMos: List<BannerKMo>? = null
+    private var _bannerKMos: List<MBannerKItem>? = null
     private var _onPageChangeListener: OnPageChangeListener? = null
     private var _iOnBannerClickListener: IBannerK.IOnBannerClickListener? = null
     private var _viewPager: BannerKViewPager? = null
@@ -43,7 +43,7 @@ class BannerKProxy(
      * 设置Banner数据
      * @param mos List<BannerKMo>
      */
-    override fun setBannerData(mos: List<BannerKMo>) {
+    override fun setBannerData(mos: List<MBannerKItem>) {
         setBannerData(R.layout.bannerk, mos)
     }
 
@@ -52,7 +52,7 @@ class BannerKProxy(
      * @param layoutResId Int
      * @param mos List<BannerKMo>
      */
-    override fun setBannerData(layoutResId: Int, mos: List<BannerKMo>) {
+    override fun setBannerData(layoutResId: Int, mos: List<MBannerKItem>) {
         _bannerKMos = mos
         init(layoutResId)
     }
@@ -119,7 +119,7 @@ class BannerKProxy(
      * 设置绑定adapter
      * @param bindAdapter IBannerKBindAdapter
      */
-    override fun setBindAdapter(bindAdapter: IBannerKBindAdapter) {
+    override fun setBindAdapter(bindAdapter: IBannerKBinder) {
         _adapter?.setBindAdapter(bindAdapter)
     }
 

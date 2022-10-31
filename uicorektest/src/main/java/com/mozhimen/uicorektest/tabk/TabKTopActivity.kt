@@ -2,10 +2,8 @@ package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.uicorek.tabk.top.mos.TabKTopMo
+import com.mozhimen.uicorek.tabk.top.mos.MTabKTop
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityTabkTopBinding
 
@@ -15,7 +13,7 @@ class TabKTopActivity : BaseKActivityVB<ActivityTabkTopBinding>() {
     }
 
     private val _tabInfo1 by lazy {
-        TabKTopMo(
+        MTabKTop(
             "home",
             UtilKRes.getColor(R.color.white),
             UtilKRes.getColor(R.color.blue_light)
@@ -23,7 +21,7 @@ class TabKTopActivity : BaseKActivityVB<ActivityTabkTopBinding>() {
     }
 
     private val _tabInfo2 by lazy {
-        TabKTopMo(
+        MTabKTop(
             "more",
             R.mipmap.tabk_bottom_layout_fire,
             R.mipmap.tabk_bottom_layout_fire,
@@ -32,7 +30,7 @@ class TabKTopActivity : BaseKActivityVB<ActivityTabkTopBinding>() {
     }
 
     private val _tabInfo3 by lazy {
-        TabKTopMo(
+        MTabKTop(
             "mine",
             R.mipmap.tabk_bottom_layout_fire,
             R.mipmap.tabk_bottom_layout_fire,

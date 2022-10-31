@@ -3,15 +3,12 @@ package com.mozhimen.componentktest.netk
 import android.Manifest
 import android.os.Bundle
 import android.util.Log
-import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityNetkBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-@PermissionKAnnor([Manifest.permission.INTERNET])
+@APermissionK([Manifest.permission.INTERNET])
 class NetKActivity : BaseKActivityVBVM<ActivityNetkBinding, NetKViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {

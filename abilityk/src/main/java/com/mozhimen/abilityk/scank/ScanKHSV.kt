@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.util.Log
-import com.mozhimen.abilityk.scank.mos.ColorHSV
+import com.mozhimen.abilityk.scank.cons.EColorHSV
 import com.mozhimen.basick.extsk.drawable2Bitmap
 import com.mozhimen.basick.extsk.toJson
 import com.mozhimen.underlayk.logk.LogK
@@ -23,7 +23,7 @@ object ScanKHSV {
 
     private const val TAG = "ScanKHSV>>>>>"
 
-    private val _colorMap = HashMap<ColorHSV, Int>()
+    private val _colorMap = HashMap<EColorHSV, Int>()
 
     /**
      * 检查图片资源的颜色占比
@@ -31,7 +31,7 @@ object ScanKHSV {
      * @return Map<String, Int>?
      */
     @JvmStatic
-    fun colorAnalyze(resId: Int): List<Pair<ColorHSV, Int>>? {
+    fun colorAnalyze(resId: Int): List<Pair<EColorHSV, Int>>? {
         return colorAnalyze(UtilKRes.getDrawable(resId)!!.drawable2Bitmap())
     }
 
@@ -40,7 +40,7 @@ object ScanKHSV {
      * @param path String
      * @return Map<String, Int>?
      */
-    fun colorAnalyze(path: String): List<Pair<ColorHSV, Int>>? {
+    fun colorAnalyze(path: String): List<Pair<EColorHSV, Int>>? {
         val outputStream: FileOutputStream? = null
         var inputStream: FileInputStream? = null
         try {
@@ -76,12 +76,12 @@ object ScanKHSV {
      * @return Map<String, Int>?
      */
     @JvmStatic
-    fun colorAnalyze(bitmap: Bitmap): List<Pair<ColorHSV, Int>>? {
+    fun colorAnalyze(bitmap: Bitmap): List<Pair<EColorHSV, Int>>? {
         _colorMap.clear()
         try {
             val rows = bitmap.width
             val cols = bitmap.height
-            var key: ColorHSV?
+            var key: EColorHSV?
             var r: Int
             var g: Int
             var b: Int
@@ -165,8 +165,8 @@ object ScanKHSV {
      * @param total Int
      * @return Map<String, Int>
      */
-    private fun colorPercentage(total: Int): List<Pair<ColorHSV, Int>> {
-        val result = ArrayList<Pair<ColorHSV, Int>>()
+    private fun colorPercentage(total: Int): List<Pair<EColorHSV, Int>> {
+        val result = ArrayList<Pair<EColorHSV, Int>>()
         var colorPercent: Double
         for ((key, value) in _colorMap) {
             colorPercent = value * 1.0 / total
@@ -183,25 +183,25 @@ object ScanKHSV {
      * @param v Int
      * @return OpenCVKColorHSV?
      */
-    private fun colorMatch(h: Int, s: Int, v: Int): ColorHSV? {
-        return if (h <= ColorHSV.COLOR_RED.hMax && h >= ColorHSV.COLOR_RED.hMin && s <= ColorHSV.COLOR_RED.sMax && s >= ColorHSV.COLOR_RED.sMin && v <= ColorHSV.COLOR_RED.vMax && v >= ColorHSV.COLOR_RED.vMin) {
-            ColorHSV.COLOR_RED //红色
-        } else if (h <= ColorHSV.COLOR_ORANGE.hMax && h >= ColorHSV.COLOR_ORANGE.hMin && s <= ColorHSV.COLOR_ORANGE.sMax && s >= ColorHSV.COLOR_ORANGE.sMin && v <= ColorHSV.COLOR_ORANGE.vMax && v >= ColorHSV.COLOR_ORANGE.vMin) {
-            ColorHSV.COLOR_ORANGE //橙色
-        } else if (h <= ColorHSV.COLOR_YELLOW.hMax && h >= ColorHSV.COLOR_YELLOW.hMin && s <= ColorHSV.COLOR_YELLOW.sMax && s >= ColorHSV.COLOR_YELLOW.sMin && v <= ColorHSV.COLOR_YELLOW.vMax && v >= ColorHSV.COLOR_YELLOW.vMin) {
-            ColorHSV.COLOR_YELLOW //黄色
-        } else if (h <= ColorHSV.COLOR_GREEN.hMax && h >= ColorHSV.COLOR_GREEN.hMin && s <= ColorHSV.COLOR_GREEN.sMax && s >= ColorHSV.COLOR_GREEN.sMin && v <= ColorHSV.COLOR_GREEN.vMax && v >= ColorHSV.COLOR_GREEN.vMin) {
-            ColorHSV.COLOR_GREEN //绿色
-        } else if (h <= ColorHSV.COLOR_CYAN.hMax && h >= ColorHSV.COLOR_CYAN.hMin && s <= ColorHSV.COLOR_CYAN.sMax && s >= ColorHSV.COLOR_CYAN.sMin && v <= ColorHSV.COLOR_CYAN.vMax && v >= ColorHSV.COLOR_CYAN.vMin) {
-            ColorHSV.COLOR_CYAN //青色
-        } else if (h <= ColorHSV.COLOR_BLUE.hMax && h >= ColorHSV.COLOR_BLUE.hMin && s <= ColorHSV.COLOR_BLUE.sMax && s >= ColorHSV.COLOR_BLUE.sMin && v <= ColorHSV.COLOR_BLUE.vMax && v >= ColorHSV.COLOR_BLUE.vMin) {
-            ColorHSV.COLOR_BLUE //蓝色
-        } else if (h <= ColorHSV.COLOR_PURPLE.hMax && h >= ColorHSV.COLOR_PURPLE.hMin && s <= ColorHSV.COLOR_PURPLE.sMax && s >= ColorHSV.COLOR_PURPLE.sMin && v <= ColorHSV.COLOR_PURPLE.vMax && v >= ColorHSV.COLOR_PURPLE.vMin) {
-            ColorHSV.COLOR_PURPLE //紫色
-        } else if (h <= ColorHSV.COLOR_PINK.hMax && h >= ColorHSV.COLOR_PINK.hMin && s <= ColorHSV.COLOR_PINK.sMax && s >= ColorHSV.COLOR_PINK.sMin && v <= ColorHSV.COLOR_PINK.vMax && v >= ColorHSV.COLOR_PINK.vMin) {
-            ColorHSV.COLOR_PINK //粉色
-        } else if (h <= ColorHSV.COLOR_PINKISH_RED.hMax && h >= ColorHSV.COLOR_PINKISH_RED.hMin && s <= ColorHSV.COLOR_PINKISH_RED.sMax && s >= ColorHSV.COLOR_PINKISH_RED.sMin && v <= ColorHSV.COLOR_PINKISH_RED.vMax && v >= ColorHSV.COLOR_PINKISH_RED.vMin) {
-            ColorHSV.COLOR_PINKISH_RED //品红色
+    private fun colorMatch(h: Int, s: Int, v: Int): EColorHSV? {
+        return if (h <= EColorHSV.COLOR_RED.hMax && h >= EColorHSV.COLOR_RED.hMin && s <= EColorHSV.COLOR_RED.sMax && s >= EColorHSV.COLOR_RED.sMin && v <= EColorHSV.COLOR_RED.vMax && v >= EColorHSV.COLOR_RED.vMin) {
+            EColorHSV.COLOR_RED //红色
+        } else if (h <= EColorHSV.COLOR_ORANGE.hMax && h >= EColorHSV.COLOR_ORANGE.hMin && s <= EColorHSV.COLOR_ORANGE.sMax && s >= EColorHSV.COLOR_ORANGE.sMin && v <= EColorHSV.COLOR_ORANGE.vMax && v >= EColorHSV.COLOR_ORANGE.vMin) {
+            EColorHSV.COLOR_ORANGE //橙色
+        } else if (h <= EColorHSV.COLOR_YELLOW.hMax && h >= EColorHSV.COLOR_YELLOW.hMin && s <= EColorHSV.COLOR_YELLOW.sMax && s >= EColorHSV.COLOR_YELLOW.sMin && v <= EColorHSV.COLOR_YELLOW.vMax && v >= EColorHSV.COLOR_YELLOW.vMin) {
+            EColorHSV.COLOR_YELLOW //黄色
+        } else if (h <= EColorHSV.COLOR_GREEN.hMax && h >= EColorHSV.COLOR_GREEN.hMin && s <= EColorHSV.COLOR_GREEN.sMax && s >= EColorHSV.COLOR_GREEN.sMin && v <= EColorHSV.COLOR_GREEN.vMax && v >= EColorHSV.COLOR_GREEN.vMin) {
+            EColorHSV.COLOR_GREEN //绿色
+        } else if (h <= EColorHSV.COLOR_CYAN.hMax && h >= EColorHSV.COLOR_CYAN.hMin && s <= EColorHSV.COLOR_CYAN.sMax && s >= EColorHSV.COLOR_CYAN.sMin && v <= EColorHSV.COLOR_CYAN.vMax && v >= EColorHSV.COLOR_CYAN.vMin) {
+            EColorHSV.COLOR_CYAN //青色
+        } else if (h <= EColorHSV.COLOR_BLUE.hMax && h >= EColorHSV.COLOR_BLUE.hMin && s <= EColorHSV.COLOR_BLUE.sMax && s >= EColorHSV.COLOR_BLUE.sMin && v <= EColorHSV.COLOR_BLUE.vMax && v >= EColorHSV.COLOR_BLUE.vMin) {
+            EColorHSV.COLOR_BLUE //蓝色
+        } else if (h <= EColorHSV.COLOR_PURPLE.hMax && h >= EColorHSV.COLOR_PURPLE.hMin && s <= EColorHSV.COLOR_PURPLE.sMax && s >= EColorHSV.COLOR_PURPLE.sMin && v <= EColorHSV.COLOR_PURPLE.vMax && v >= EColorHSV.COLOR_PURPLE.vMin) {
+            EColorHSV.COLOR_PURPLE //紫色
+        } else if (h <= EColorHSV.COLOR_PINK.hMax && h >= EColorHSV.COLOR_PINK.hMin && s <= EColorHSV.COLOR_PINK.sMax && s >= EColorHSV.COLOR_PINK.sMin && v <= EColorHSV.COLOR_PINK.vMax && v >= EColorHSV.COLOR_PINK.vMin) {
+            EColorHSV.COLOR_PINK //粉色
+        } else if (h <= EColorHSV.COLOR_PINKISH_RED.hMax && h >= EColorHSV.COLOR_PINKISH_RED.hMin && s <= EColorHSV.COLOR_PINKISH_RED.sMax && s >= EColorHSV.COLOR_PINKISH_RED.sMin && v <= EColorHSV.COLOR_PINKISH_RED.vMax && v >= EColorHSV.COLOR_PINKISH_RED.vMin) {
+            EColorHSV.COLOR_PINKISH_RED //品红色
         } else null
     }
 }

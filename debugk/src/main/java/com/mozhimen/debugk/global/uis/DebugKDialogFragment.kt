@@ -16,8 +16,8 @@ import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkDialogItemBinding
 import com.mozhimen.debugk.global.DebugKTools
-import com.mozhimen.debugk.global.annors.DebugKToolAnnor
-import com.mozhimen.debugk.global.mos.DebugKMethodMo
+import com.mozhimen.debugk.global.annors.ADebugKTool
+import com.mozhimen.debugk.global.mos.MDebugKMethod
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 
 /**
@@ -48,7 +48,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
         itemDecoration.setDrawable(UtilKRes.getDrawable(R.drawable.debugk_crashk_divider)!!)
         _debugKRecycler.addItemDecoration(itemDecoration)
 
-        val methods = mutableListOf<DebugKMethodMo>()
+        val methods = mutableListOf<MDebugKMethod>()
         val size = _debugMethods.size
         for (index in 0 until size) {
             val clazz = _debugMethods[index]
@@ -58,7 +58,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
                 var name: String
                 var desc = ""
                 var enable = false
-                val annotation = method.getAnnotation(DebugKToolAnnor::class.java)
+                val annotation = method.getAnnotation(ADebugKTool::class.java)
 
                 if (annotation != null) {
                     name = annotation.title
@@ -69,13 +69,13 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
                     name = method.invoke(target) as String
                 }
 
-                val func = DebugKMethodMo(name, desc, method, enable, target)
+                val func = MDebugKMethod(name, desc, method, enable, target)
                 methods.add(func)
             }
         }
 
         _debugKRecycler.layoutManager = LinearLayoutManager(requireActivity())
-        _debugKRecycler.adapter = AdapterKRecycler<DebugKMethodMo, DebugkDialogItemBinding>(
+        _debugKRecycler.adapter = AdapterKRecycler<MDebugKMethod, DebugkDialogItemBinding>(
             methods,
             R.layout.debugk_dialog_item,
             BR.itemDebugKDialog

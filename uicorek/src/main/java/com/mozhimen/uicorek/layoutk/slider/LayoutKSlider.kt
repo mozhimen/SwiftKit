@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.basick.utilk.UtilKView
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
-import com.mozhimen.uicorek.layoutk.slider.mos.Rod
-import com.mozhimen.uicorek.layoutk.slider.mos.Slider
+import com.mozhimen.uicorek.layoutk.slider.mos.MRod
+import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
 
 /**
  * @ClassName LayoutKSlider
@@ -47,10 +47,10 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
         minimumHeight = _layoutKSliderProxy.getHeightMeasureSpec()
     }
 
-    val rod: Rod
+    val rod: MRod
         get() = _layoutKSliderProxy.getRod()
 
-    val slider:Slider
+    val slider:MSlider
     get() = _layoutKSliderProxy.getSlider()
 
     fun setSliderListener(sliderListener: ISliderListener) {

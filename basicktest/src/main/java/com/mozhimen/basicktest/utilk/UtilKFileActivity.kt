@@ -7,20 +7,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basicktest.BR
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkFileBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@PermissionKAnnor([Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
+@APermissionK([Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
 class UtilKFileActivity : BaseKActivityVB<ActivityUtilkFileBinding>() {
     private lateinit var _adapterKRecycler: AdapterKRecycler<UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(

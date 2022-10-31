@@ -11,19 +11,17 @@ import com.mozhimen.abilityk.opencvk.OpenCVKShape
 import com.mozhimen.abilityk.opencvk.OpenCVKTrans
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkShapeBinding
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.utilk.UtilKBitmap
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
-@PermissionKAnnor(permissions = [Manifest.permission.CAMERA])
+@APermissionK(permissions = [Manifest.permission.CAMERA])
 class OpenCVKShapeActivity : BaseKActivityVB<ActivityOpencvkShapeBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
@@ -41,7 +39,7 @@ class OpenCVKShapeActivity : BaseKActivityVB<ActivityOpencvkShapeBinding>() {
     }
 
     private fun initCamera() {
-        vb.opencvkShapePreview.initCamera(this, CameraXKFacing.BACK)
+        vb.opencvkShapePreview.initCamera(this, ACameraXKFacing.BACK)
         vb.opencvkShapePreview.setImageAnalyzer(_frameAnalyzer)
         vb.opencvkShapePreview.startCamera()
     }

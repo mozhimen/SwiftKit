@@ -5,9 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.underlayk.logk.temps.PrinterFile
+import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
@@ -15,19 +13,19 @@ import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
 import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
-import com.mozhimen.debugk.global.mos.DebugKCrashKMo
+import com.mozhimen.debugk.global.mos.MDebugKCrashK
 
 class DebugKLogKActivity : BaseKActivityVB<DebugkActivityLogkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
     }
 
-    private val _dataSets = ArrayList<DebugKCrashKMo>()
+    private val _dataSets = ArrayList<MDebugKCrashK>()
     override fun initView(savedInstanceState: Bundle?) {
-        val logFiles = PrinterFile.getInstance(0).getLogFiles()
+        val logFiles = LogKPrinterFile.getInstance(0).getLogFiles()
 
         logFiles.forEach {
-            _dataSets.add(DebugKCrashKMo(it.name, it))
+            _dataSets.add(MDebugKCrashK(it.name, it))
         }
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
@@ -36,7 +34,7 @@ class DebugKLogKActivity : BaseKActivityVB<DebugkActivityLogkBinding>() {
 
         vb.debugkLogkRecycler.layoutManager = LinearLayoutManager(this)
         val adapterKRecycler =
-            AdapterKRecycler<DebugKCrashKMo, DebugkItemCrashkFileBinding>(
+            AdapterKRecycler<MDebugKCrashK, DebugkItemCrashkFileBinding>(
                 _dataSets,
                 R.layout.debugk_item_crashk_file,
                 BR.itemDebugKCrashK

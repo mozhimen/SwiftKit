@@ -4,8 +4,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.postDelayed
 import com.mozhimen.basick.prefabk.handler.PrefabKHandler
@@ -14,7 +12,7 @@ import com.mozhimen.uicorek.datak.commons.DataKItem
 import com.mozhimen.uicorek.datak.helpers.DataKAdapter
 import com.mozhimen.uicorek.refreshk.commons.IRefreshK
 import com.mozhimen.uicorek.refreshk.customs.TextOverView
-import com.mozhimen.uicorek.refreshk.mos.RefreshKStatus
+import com.mozhimen.uicorek.refreshk.cons.ERefreshKStatus
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDatakLoadMoreBinding
 import com.mozhimen.uicorektest.datak.mos.DataItemLoadMore
@@ -111,10 +109,10 @@ class DataKRecyclerActivity : BaseKActivityVB<ActivityDatakLoadMoreBinding>() {
         vb.datakLoadMoreRecycler.setFooterView(R.layout.item_datak_footer_load)
         vb.datakLoadMoreRecycler.enableLoadMore(5, object : DataKRecyclerView.IDataKLoadListener {
             override fun onLoadMore() {
-                if (_textOverView.refreshKStatus == RefreshKStatus.VISIBLE ||
-                    _textOverView.refreshKStatus == RefreshKStatus.REFRESHING ||
-                    _textOverView.refreshKStatus == RefreshKStatus.OVERFLOW ||
-                    _textOverView.refreshKStatus == RefreshKStatus.OVERFLOW_RELEASE
+                if (_textOverView.refreshKStatus == ERefreshKStatus.VISIBLE ||
+                    _textOverView.refreshKStatus == ERefreshKStatus.REFRESHING ||
+                    _textOverView.refreshKStatus == ERefreshKStatus.OVERFLOW ||
+                    _textOverView.refreshKStatus == ERefreshKStatus.OVERFLOW_RELEASE
                 ) {
                     //正处于刷新状态
                     vb.datakLoadMoreRefresh.refreshFinished()

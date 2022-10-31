@@ -18,10 +18,10 @@ import com.mozhimen.basick.extsk.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
 import com.mozhimen.basick.extsk.setPadding
-import com.mozhimen.basick.prefabk.handler.RefHandler
-import com.mozhimen.uicorek.searchk.helpers.SearchKAttrsParser
-import com.mozhimen.uicorek.searchk.helpers.SearchKTextWatcher
-import com.mozhimen.uicorek.searchk.mos.SearchKAttrs
+import com.mozhimen.basick.prefabk.handler.helpers.RefHandler
+import com.mozhimen.uicorek.searchk.helpers.AttrsParser
+import com.mozhimen.uicorek.searchk.commons.SearchKTextWatcher
+import com.mozhimen.uicorek.searchk.mos.MSearchKAttrs
 
 /**
  * @ClassName SearchKLayout
@@ -34,8 +34,8 @@ class SearchKLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BaseKLayoutRelative(context, attrs, defStyleAttr) {
 
-    private val _attrs: SearchKAttrs =
-        SearchKAttrsParser.parseSearchViewAttrs(context, attrs, defStyleAttr)
+    private val _attrs: MSearchKAttrs =
+        AttrsParser.parseSearchViewAttrs(context, attrs, defStyleAttr)
     private var _searchKTextWatcher: SearchKTextWatcher? = null
     private val _debounceRunnable = Runnable {
         if (_searchKTextWatcher != null) _searchKTextWatcher!!.afterTextChanged(_editText?.text)

@@ -1,7 +1,7 @@
 package com.mozhimen.basick.cachek.commons
 
 import androidx.room.*
-import com.mozhimen.basick.cachek.mos.CacheK
+import com.mozhimen.basick.cachek.mos.MCacheK
 
 /**
  * @ClassName CacheDao
@@ -12,12 +12,12 @@ import com.mozhimen.basick.cachek.mos.CacheK
  */
 @Dao
 interface ICacheKDao {
-    @Insert(entity = CacheK::class, onConflict = OnConflictStrategy.REPLACE)
-    fun saveCache(cacheK: CacheK): Long
+    @Insert(entity = MCacheK::class, onConflict = OnConflictStrategy.REPLACE)
+    fun saveCache(MCacheK: MCacheK): Long
 
     @Query("select * from cachek where `key`=:key")
-    fun getCache(key: String): CacheK?
+    fun getCache(key: String): MCacheK?
 
-    @Delete(entity = CacheK::class)
-    fun deleteCache(cacheK: CacheK)
+    @Delete(entity = MCacheK::class)
+    fun deleteCache(cache: MCacheK)
 }

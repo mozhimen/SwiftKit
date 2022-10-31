@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.viewpager.widget.PagerAdapter
 import com.mozhimen.uicorek.bannerk.commons.IBannerK
-import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
-import com.mozhimen.uicorek.bannerk.mos.BannerKMo
+import com.mozhimen.uicorek.bannerk.commons.IBannerKBinder
+import com.mozhimen.uicorek.bannerk.mos.MBannerKItem
 import java.util.*
 
 /**
@@ -22,8 +22,8 @@ import java.util.*
 class BannerKAdapter(private var _context: Context) : PagerAdapter() {
     private var _cachedViews: SparseArray<BannerKViewHolder> = SparseArray<BannerKViewHolder>()
     private var _bannerClickListenerI: IBannerK.IOnBannerClickListener? = null
-    private var _bindAdapter: IBannerKBindAdapter? = null
-    private var _bannerKMos: LinkedList<BannerKMo>? = null
+    private var _bindAdapter: IBannerKBinder? = null
+    private var _bannerKMos: LinkedList<MBannerKItem>? = null
     private var _autoPlay = true //是否开启自动轮播
     private var _loop = false //非自动轮播状态下是否可以循环切换
     private var _layoutResId = -1
@@ -32,7 +32,7 @@ class BannerKAdapter(private var _context: Context) : PagerAdapter() {
      * 设置BannerData
      * @param mos List<BannerKMo>
      */
-    fun setBannerData(mos: List<BannerKMo>) {
+    fun setBannerData(mos: List<MBannerKItem>) {
         _bannerKMos = LinkedList(mos)
         initCachedView()//初始化数据
         notifyDataSetChanged()
@@ -42,7 +42,7 @@ class BannerKAdapter(private var _context: Context) : PagerAdapter() {
      * 设置adapter
      * @param bindAdapter IBannerKBindAdapter
      */
-    fun setBindAdapter(bindAdapter: IBannerKBindAdapter) {
+    fun setBindAdapter(bindAdapter: IBannerKBinder) {
         this._bindAdapter = bindAdapter
     }
 
@@ -141,7 +141,7 @@ class BannerKAdapter(private var _context: Context) : PagerAdapter() {
      */
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {}
 
-    protected fun onBind(viewHolder: BannerKViewHolder, bannerKMo: BannerKMo, position: Int) {
+    protected fun onBind(viewHolder: BannerKViewHolder, bannerKMo: MBannerKItem, position: Int) {
         viewHolder.rootView.setOnClickListener {
             _bannerClickListenerI?.onBannerClick(viewHolder, bannerKMo, position)
         }

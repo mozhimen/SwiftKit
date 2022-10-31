@@ -1,11 +1,8 @@
 package com.mozhimen.abilityk.opencvk
 
 import android.graphics.Bitmap
-import com.mozhimen.abilityk.opencvk.mos.OpenCVKColorHSV
-import org.opencv.core.Core
+import com.mozhimen.abilityk.opencvk.cons.EColorHSV
 import org.opencv.core.Mat
-import org.opencv.core.Scalar
-import org.opencv.core.Size
 import org.opencv.imgproc.Imgproc
 
 /**
@@ -19,7 +16,7 @@ object OpenCVKHSV {
     private const val TAG = "OpenCVKHSV>>>>>"
 
     @JvmStatic
-    fun colorFilter(bitmap: Bitmap, colorHSV: OpenCVKColorHSV): Bitmap {
+    fun colorFilter(bitmap: Bitmap, colorHSV: EColorHSV): Bitmap {
         val matSrc = OpenCVKTrans.bitmap2Mat(bitmap)
         val matHsv = Mat()
         var hsv: DoubleArray
@@ -46,7 +43,7 @@ object OpenCVKHSV {
     }
 
     @JvmStatic
-    fun colorFilter(matSrc: Mat, colorHSV: OpenCVKColorHSV): Mat {
+    fun colorFilter(matSrc: Mat, colorHSV: EColorHSV): Mat {
         val matHsv = Mat()
         var hsv: DoubleArray
         try {

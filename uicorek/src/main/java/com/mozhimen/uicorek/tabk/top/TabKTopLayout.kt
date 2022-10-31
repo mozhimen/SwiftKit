@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
 import com.mozhimen.uicorek.tabk.commons.ITabKLayout
-import com.mozhimen.uicorek.tabk.top.mos.TabKTopMo
+import com.mozhimen.uicorek.tabk.top.mos.MTabKTop
 import kotlin.math.abs
 
 /**
@@ -23,10 +23,10 @@ class TabKTopLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : HorizontalScrollView(context, attrs, defStyleAttr), ITabKLayout<TabKTopItem, TabKTopMo> {
-    private val _tabSelectedChangeListeners: ArrayList<ITabKLayout.TabSelectedListener<TabKTopMo>> = ArrayList()
-    private var _selectedMo: TabKTopMo? = null
-    private var _moList: List<TabKTopMo>? = null
+) : HorizontalScrollView(context, attrs, defStyleAttr), ITabKLayout<TabKTopItem, MTabKTop> {
+    private val _tabSelectedChangeListeners: ArrayList<ITabKLayout.TabSelectedListener<MTabKTop>> = ArrayList()
+    private var _selectedMo: MTabKTop? = null
+    private var _moList: List<MTabKTop>? = null
     private var _tabTopWidth: Int = 0
     private var _tabTopHeight = 40f.dp2px()//TabBottom高度
 
@@ -50,7 +50,7 @@ class TabKTopLayout @JvmOverloads constructor(
         this.setBackgroundColor(color)
     }
 
-    override fun findTab(info: TabKTopMo): TabKTopItem? {
+    override fun findTab(info: MTabKTop): TabKTopItem? {
         val rootView: ViewGroup = getRootLayout(false)
         for (i in 0 until rootView.childCount) {
             val child = rootView.getChildAt(i)
@@ -63,15 +63,15 @@ class TabKTopLayout @JvmOverloads constructor(
         return null
     }
 
-    override fun addTabSelectedChangeListener(listener: ITabKLayout.TabSelectedListener<TabKTopMo>) {
+    override fun addTabSelectedChangeListener(listener: ITabKLayout.TabSelectedListener<MTabKTop>) {
         _tabSelectedChangeListeners.add(listener)
     }
 
-    override fun defaultSelected(defaultInfo: TabKTopMo) {
+    override fun defaultSelected(defaultInfo: MTabKTop) {
         onSelected(defaultInfo)
     }
 
-    override fun inflateInfo(infoList: List<TabKTopMo>) {
+    override fun inflateInfo(infoList: List<MTabKTop>) {
         if (infoList.isEmpty()) {
             return
         }
@@ -79,7 +79,7 @@ class TabKTopLayout @JvmOverloads constructor(
         val container = getRootLayout(true)
         _selectedMo = null
         //清除之前添加的TabKTop listener,Tips: Java foreach remove问题
-        val iterator: MutableIterator<ITabKLayout.TabSelectedListener<TabKTopMo>> =
+        val iterator: MutableIterator<ITabKLayout.TabSelectedListener<MTabKTop>> =
             _tabSelectedChangeListeners.iterator()
         while (iterator.hasNext()) {
             if (iterator.next() is TabKTopItem) {
@@ -96,7 +96,7 @@ class TabKTopLayout @JvmOverloads constructor(
         }
     }
 
-    private fun onSelected(nextMo: TabKTopMo) {
+    private fun onSelected(nextMo: MTabKTop) {
         require(_moList != null) { "infoList must not be null!" }
         for (listener in _tabSelectedChangeListeners) {
             listener.onTabSelected(_moList!!.indexOf(nextMo), _selectedMo, nextMo)
@@ -109,7 +109,7 @@ class TabKTopLayout @JvmOverloads constructor(
      * 自动滚动,实现点击的位置能够自动滚动以展示前后2个
      * @param nextMo TabKTopInfo
      */
-    private fun autoScroll(nextMo: TabKTopMo) {
+    private fun autoScroll(nextMo: MTabKTop) {
         val tabKTop = findTab(nextMo) ?: return
         val index: Int = _moList!!.indexOf(nextMo)
         val location = IntArray(2)

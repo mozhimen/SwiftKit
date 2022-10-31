@@ -15,7 +15,7 @@ import com.mozhimen.uicorek.datak.DataKRecyclerView
 import com.mozhimen.uicorek.refreshk.commons.IRefreshK
 import com.mozhimen.uicorek.refreshk.commons.RefreshKOverView
 import com.mozhimen.uicorek.refreshk.helpers.RefreshKGestureDetector
-import com.mozhimen.uicorek.refreshk.mos.RefreshKStatus
+import com.mozhimen.uicorek.refreshk.cons.ERefreshKStatus
 import kotlin.math.abs
 
 /**
@@ -36,7 +36,7 @@ open class RefreshKLayout @JvmOverloads constructor(
 
     private var _refreshKListener: IRefreshK.IRefreshKListener? = null
     private var _disableRefreshScroll = false//刷新时是否禁止滚动
-    private var _refreshKStatus: RefreshKStatus? = null
+    private var _refreshKStatus: ERefreshKStatus? = null
     private var _lastY = 0
     protected var refreshKOverView: RefreshKOverView? = null
 
@@ -52,7 +52,7 @@ open class RefreshKLayout @JvmOverloads constructor(
                     return false
                 }
 
-                if (_disableRefreshScroll && _refreshKStatus == RefreshKStatus.REFRESHING) {
+                if (_disableRefreshScroll && _refreshKStatus == ERefreshKStatus.REFRESHING) {
                     //刷新时是否禁止滑动
                     return true
                 }
@@ -65,9 +65,9 @@ open class RefreshKLayout @JvmOverloads constructor(
                 }
 
                 //没有刷新或没有达到可以刷新的距离，且头部已经划出或下拉
-                return if ((_refreshKStatus != RefreshKStatus.REFRESHING || head.bottom <= refreshKOverView!!.minPullRefreshHeight) && (head.bottom > 0 || distanceY <= 0.0f)) {
+                return if ((_refreshKStatus != ERefreshKStatus.REFRESHING || head.bottom <= refreshKOverView!!.minPullRefreshHeight) && (head.bottom > 0 || distanceY <= 0.0f)) {
                     //还在滑动中
-                    if (_refreshKStatus != RefreshKStatus.OVERFLOW_RELEASE) {
+                    if (_refreshKStatus != ERefreshKStatus.OVERFLOW_RELEASE) {
                         //阻尼计算
                         val speed: Int = if (child.top < refreshKOverView!!.minPullRefreshHeight) {
                             (_lastY / refreshKOverView!!.minDamp).toInt()
@@ -141,13 +141,13 @@ open class RefreshKLayout @JvmOverloads constructor(
         val head = getChildAt(0)
         refreshKOverView?.apply {
             onFinish()
-            setStatus(RefreshKStatus.INIT)
+            setStatus(ERefreshKStatus.INIT)
         }
         val bottom = head.bottom
         if (bottom > 0) {
             recoverHead(bottom)
         }
-        _refreshKStatus = RefreshKStatus.INIT
+        _refreshKStatus = ERefreshKStatus.INIT
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -159,7 +159,7 @@ open class RefreshKLayout @JvmOverloads constructor(
         val head = getChildAt(0)
         if (ev!!.action == MotionEvent.ACTION_UP || ev.action == MotionEvent.ACTION_CANCEL || ev.action == MotionEvent.ACTION_POINTER_INDEX_MASK) { //松开手
             if (head.bottom > 0) {
-                if (_refreshKStatus != RefreshKStatus.REFRESHING) { //非正在刷新
+                if (_refreshKStatus != ERefreshKStatus.REFRESHING) { //非正在刷新
                     recoverHead(head.bottom)
                     return false
                 }
@@ -167,7 +167,7 @@ open class RefreshKLayout @JvmOverloads constructor(
             _lastY = 0
         }
         val consumed: Boolean = _gestureDetector.onTouchEvent(ev)
-        if ((consumed || _refreshKStatus != RefreshKStatus.INIT && _refreshKStatus != RefreshKStatus.REFRESHING) && head.bottom != 0) {
+        if ((consumed || _refreshKStatus != ERefreshKStatus.INIT && _refreshKStatus != ERefreshKStatus.REFRESHING) && head.bottom != 0) {
             ev.action = MotionEvent.ACTION_CANCEL //让父类接受不到真实的事件
             return super.dispatchTouchEvent(ev)
         }
@@ -185,7 +185,7 @@ open class RefreshKLayout @JvmOverloads constructor(
         val child = getChildAt(1)
         if (header != null && child != null) {
             val childTop = child.top
-            if (_refreshKStatus == RefreshKStatus.REFRESHING) {
+            if (_refreshKStatus == ERefreshKStatus.REFRESHING) {
                 header.layout(
                     0, refreshKOverView!!.minPullRefreshHeight - header.measuredHeight,
                     right, refreshKOverView!!.minPullRefreshHeight
@@ -217,7 +217,7 @@ open class RefreshKLayout @JvmOverloads constructor(
         if (_refreshKListener != null && distance > refreshKOverView!!.minPullRefreshHeight) {
             //滚动到指定位置distance-kOverView.mPullRefreshHeight
             _autoScroller.recover(distance - refreshKOverView!!.minPullRefreshHeight)
-            _refreshKStatus = RefreshKStatus.OVERFLOW_RELEASE
+            _refreshKStatus = ERefreshKStatus.OVERFLOW_RELEASE
         } else {
             _autoScroller.recover(distance)
         }
@@ -271,29 +271,29 @@ open class RefreshKLayout @JvmOverloads constructor(
             //移动head与child的位置到原始位置
             head.offsetTopAndBottom(offsetY)
             child.offsetTopAndBottom(offsetY)
-            if (_refreshKStatus != RefreshKStatus.REFRESHING) {
-                _refreshKStatus = RefreshKStatus.INIT
+            if (_refreshKStatus != ERefreshKStatus.REFRESHING) {
+                _refreshKStatus = ERefreshKStatus.INIT
             }
-        } else if (_refreshKStatus == RefreshKStatus.REFRESHING && childTop > refreshKOverView!!.minPullRefreshHeight) {
+        } else if (_refreshKStatus == ERefreshKStatus.REFRESHING && childTop > refreshKOverView!!.minPullRefreshHeight) {
             //如果正在下拉刷新中,禁止继续下拉
             return false
         } else if (childTop <= refreshKOverView!!.minPullRefreshHeight) { //还没有超出设定的刷新距离
-            if (refreshKOverView!!.getStatus() != RefreshKStatus.VISIBLE && isEnableAutoScroll) { //头部开始显示
+            if (refreshKOverView!!.getStatus() != ERefreshKStatus.VISIBLE && isEnableAutoScroll) { //头部开始显示
                 refreshKOverView!!.onVisible()
-                refreshKOverView!!.setStatus(RefreshKStatus.VISIBLE)
-                _refreshKStatus = RefreshKStatus.VISIBLE
+                refreshKOverView!!.setStatus(ERefreshKStatus.VISIBLE)
+                _refreshKStatus = ERefreshKStatus.VISIBLE
             }
             head.offsetTopAndBottom(offsetY)
             child.offsetTopAndBottom(offsetY)
-            if (childTop == refreshKOverView!!.minPullRefreshHeight && _refreshKStatus == RefreshKStatus.OVERFLOW_RELEASE) {
+            if (childTop == refreshKOverView!!.minPullRefreshHeight && _refreshKStatus == ERefreshKStatus.OVERFLOW_RELEASE) {
                 //开始下拉刷新
                 startRefresh()
             }
         } else {
-            if (refreshKOverView!!.getStatus() != RefreshKStatus.OVERFLOW && isEnableAutoScroll) {
+            if (refreshKOverView!!.getStatus() != ERefreshKStatus.OVERFLOW && isEnableAutoScroll) {
                 //超出刷新位置
                 refreshKOverView!!.onOverflow()
-                refreshKOverView!!.setStatus(RefreshKStatus.OVERFLOW)
+                refreshKOverView!!.setStatus(ERefreshKStatus.OVERFLOW)
             }
             head.offsetTopAndBottom(offsetY)
             child.offsetTopAndBottom(offsetY)
@@ -310,9 +310,9 @@ open class RefreshKLayout @JvmOverloads constructor(
     private fun startRefresh() {
         requireNotNull(refreshKOverView) { "refreshKOverView must not be null!" }
         if (_refreshKListener != null) {
-            _refreshKStatus = RefreshKStatus.REFRESHING
+            _refreshKStatus = ERefreshKStatus.REFRESHING
             refreshKOverView!!.onStartRefresh()
-            refreshKOverView!!.setStatus(RefreshKStatus.REFRESHING)
+            refreshKOverView!!.setStatus(ERefreshKStatus.REFRESHING)
             _refreshKListener!!.onRefresh()
         }
     }

@@ -13,7 +13,7 @@ import com.mozhimen.basick.extsk.font
 import com.mozhimen.basick.extsk.load
 import com.mozhimen.basick.extsk.resizeSize
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
+import com.mozhimen.uicorek.tabk.bottom.mos.MTabKBottom
 import com.mozhimen.uicorek.tabk.commons.ITabK
 
 /**
@@ -35,12 +35,12 @@ class TabKBottomItem @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : BaseKLayoutRelative(context, attrs, defStyleAttr), ITabK<TabKBottomMo> {
+) : BaseKLayoutRelative(context, attrs, defStyleAttr), ITabK<MTabKBottom> {
     private lateinit var _tabImageView: ImageView
     private lateinit var _tabIconView: TextView
     private lateinit var _tabNameView: TextView
     private lateinit var _tabContainer: LinearLayout
-    private var _tabKBottomMo: TabKBottomMo? = null
+    private var _tabKBottomMo: MTabKBottom? = null
 
     init {
         initView()
@@ -50,7 +50,7 @@ class TabKBottomItem @JvmOverloads constructor(
      * 设置tabInfo
      * @param tabMo TabKBottomInfo<*>
      */
-    override fun setTabInfo(tabMo: TabKBottomMo) {
+    override fun setTabInfo(tabMo: MTabKBottom) {
         this._tabKBottomMo = tabMo
         inflateInfo(false, true)
     }
@@ -59,7 +59,7 @@ class TabKBottomItem @JvmOverloads constructor(
      * 获取tabInfo
      * @return TabKBottomInfo<*>?
      */
-    fun getTabInfo(): TabKBottomMo? = _tabKBottomMo
+    fun getTabInfo(): MTabKBottom? = _tabKBottomMo
 
     /**
      * 获取图片布局
@@ -102,7 +102,7 @@ class TabKBottomItem @JvmOverloads constructor(
      * @param prevMo TabKBottomInfo<*>
      * @param nextMo TabKBottomInfo<*>
      */
-    override fun onTabSelected(index: Int, prevMo: TabKBottomMo?, nextMo: TabKBottomMo) {
+    override fun onTabSelected(index: Int, prevMo: MTabKBottom?, nextMo: MTabKBottom) {
         if (prevMo != _tabKBottomMo && nextMo != _tabKBottomMo || prevMo == nextMo) {
             return
         }
@@ -123,7 +123,7 @@ class TabKBottomItem @JvmOverloads constructor(
 
     private fun inflateInfo(selected: Boolean, init: Boolean) {
         require(_tabKBottomMo != null) { "_tabKBottomInfo must not be null!" }
-        if (_tabKBottomMo!!.tabKType == TabKBottomMo.TabKBottomType.ICONFONT_TEXT) {
+        if (_tabKBottomMo!!.tabKType == MTabKBottom.ETabKBottomType.ICONFONT_TEXT) {
             if (init) {
                 _tabImageView.visibility = GONE
                 _tabIconView.visibility = VISIBLE
@@ -143,7 +143,7 @@ class TabKBottomItem @JvmOverloads constructor(
                 _tabIconView.setTextColor(_tabKBottomMo!!.iconColorDefault!!)
                 _tabNameView.setTextColor(_tabKBottomMo!!.iconColorDefault!!)
             }
-        } else if (_tabKBottomMo!!.tabKType == TabKBottomMo.TabKBottomType.IMAGE) {
+        } else if (_tabKBottomMo!!.tabKType == MTabKBottom.ETabKBottomType.IMAGE) {
             if (init) {
                 _tabNameView.visibility = GONE
                 _tabImageView.visibility = VISIBLE
@@ -156,7 +156,7 @@ class TabKBottomItem @JvmOverloads constructor(
                 _tabImageView.load(_tabKBottomMo!!.bitmapDefault!!)
                 _tabImageView.resizeSize(56f.dp2px())
             }
-        } else if (_tabKBottomMo!!.tabKType == TabKBottomMo.TabKBottomType.IMAGE_TEXT) {
+        } else if (_tabKBottomMo!!.tabKType == MTabKBottom.ETabKBottomType.IMAGE_TEXT) {
             if (init) {
                 _tabIconView.visibility = GONE
                 _tabImageView.visibility = VISIBLE

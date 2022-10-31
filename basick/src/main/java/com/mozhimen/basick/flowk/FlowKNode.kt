@@ -1,10 +1,10 @@
 package com.mozhimen.basick.flowk
 
 import androidx.core.os.TraceCompat
-import com.mozhimen.basick.flowk.annors.FlowKState
+import com.mozhimen.basick.flowk.annors.AFlowKState
 import com.mozhimen.basick.flowk.commons.IFlowKListener
-import com.mozhimen.basick.flowk.commons.FlowKRuntimeCallback
-import com.mozhimen.basick.flowk.helpers.FlowKNodeComparator
+import com.mozhimen.basick.flowk.helpers.RuntimeCallback
+import com.mozhimen.basick.flowk.helpers.NodeComparator
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -28,18 +28,18 @@ abstract class FlowKNode @JvmOverloads constructor(
     var executeTime: Long = 0
         //任务执行时间
         protected set
-    var state: Int = FlowKState.IDLE
+    var state: Int = AFlowKState.IDLE
         //任务的状态
         protected set
 
     val dependTasks: MutableList<FlowKNode> = ArrayList()//当前task依赖了那些前置任务，只有当dependTasks集合中的所有任务执行完，当前才可以被执行
     val behindTasks: MutableList<FlowKNode> = ArrayList()//当前task被那些后置任务依赖，只有当当前这个task执行完，behindTasks集合中的后置任务才可以执行
     private val _iTaskKListeners: MutableList<IFlowKListener> = ArrayList()//任务运行状态监听器集
-    private var _taskKRuntimeListener: FlowKRuntimeCallback? = FlowKRuntimeCallback()//用于输出task运行时的日志
+    private var _taskKRuntimeListener: RuntimeCallback? = RuntimeCallback()//用于输出task运行时的日志
     val dependTasksName: MutableList<String> = ArrayList()//用于运行时log统计输出，输出当前task依赖了那些前置任务， 这些前置任务的名称我们将它存储在这里
 
     open fun start() {
-        if (state != FlowKState.IDLE) {
+        if (state != AFlowKState.IDLE) {
             throw RuntimeException("cannot run task $id again")
         }
         toStart()
@@ -164,7 +164,7 @@ abstract class FlowKNode @JvmOverloads constructor(
     }
 
     private fun toStart() {
-        state = FlowKState.START
+        state = AFlowKState.START
         FlowKRuntime.setStateInfo(this)
         for (listener in _iTaskKListeners) {
             listener.onStart(this)
@@ -173,7 +173,7 @@ abstract class FlowKNode @JvmOverloads constructor(
     }
 
     private fun toFinish() {
-        state = FlowKState.FINISHED
+        state = AFlowKState.FINISHED
         FlowKRuntime.setStateInfo(this)
         FlowKRuntime.removeBlockTask(this.id)
         for (listener in _iTaskKListeners) {
@@ -183,7 +183,7 @@ abstract class FlowKNode @JvmOverloads constructor(
     }
 
     private fun toRunning() {
-        state = FlowKState.RUNNING
+        state = AFlowKState.RUNNING
         FlowKRuntime.setStateInfo(this)
         FlowKRuntime.setThreadName(this,Thread.currentThread().name)
         for (listener in _iTaskKListeners) {
@@ -195,7 +195,7 @@ abstract class FlowKNode @JvmOverloads constructor(
     abstract fun run(id: String)
 
     override fun compareTo(other: FlowKNode): Int {
-        return FlowKNodeComparator.compareTaskK(this, other)
+        return NodeComparator.compareNode(this, other)
     }
 }
 

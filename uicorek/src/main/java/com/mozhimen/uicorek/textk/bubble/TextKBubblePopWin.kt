@@ -11,8 +11,8 @@ import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowDirection
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble.ArrowPosPolicy
-import com.mozhimen.uicorek.textk.bubble.commons.TextKBubblePopWinBase
-import com.mozhimen.uicorek.textk.bubble.mos.RelativePos
+import com.mozhimen.uicorek.textk.bubble.commons.TextKBubblePopWinCallback
+import com.mozhimen.uicorek.textk.bubble.mos.MRelativePos
 
 /**
  * @ClassName TextKBubblePopWin
@@ -23,7 +23,7 @@ import com.mozhimen.uicorek.textk.bubble.mos.RelativePos
  */
 open class TextKBubblePopWin(
     contentView: View, private val textKBubble: ITextKBubble
-) : TextKBubblePopWinBase(contentView, textKBubble) {
+) : TextKBubblePopWinCallback(contentView, textKBubble) {
     override var _padding = 2f.dp2px()
     override var _arrowPosOffset = 0
     override var _delayMillis: Long = 2500
@@ -37,7 +37,7 @@ open class TextKBubblePopWin(
      * @param marginH Int
      * @param marginV Int
      */
-    override fun showArrowTo(anchorView: View, relativePos: RelativePos, marginH: Int, marginV: Int) {
+    override fun showArrowTo(anchorView: View, relativePos: MRelativePos, marginH: Int, marginV: Int) {
         dismiss()
 
         val screenWidth = UtilKScreen.getScreenWidth()
@@ -120,17 +120,17 @@ open class TextKBubblePopWin(
     private fun getPopupPropOfMaxWidth(
         screenWidth: Int,
         anchorRect: Rect,
-        relativePos: RelativePos,
+        relativePos: MRelativePos,
         marginH: Int,
         padding: Int,
         outProp: PopupProp
     ) {
         when (relativePos.getHorizontalRelate()) {
-            RelativePos.ALIGN_LEFT -> outProp.maxWidth = screenWidth - anchorRect.left - marginH - padding
-            RelativePos.TO_RIGHT_OF -> outProp.maxWidth = screenWidth - anchorRect.right - marginH - padding
-            RelativePos.TO_LEFT_OF -> outProp.maxWidth = anchorRect.left - marginH - padding
-            RelativePos.ALIGN_RIGHT -> outProp.maxWidth = anchorRect.right - marginH - padding
-            RelativePos.CENTER_HORIZONTAL -> outProp.maxWidth = screenWidth - 2 * padding
+            MRelativePos.ALIGN_LEFT -> outProp.maxWidth = screenWidth - anchorRect.left - marginH - padding
+            MRelativePos.TO_RIGHT_OF -> outProp.maxWidth = screenWidth - anchorRect.right - marginH - padding
+            MRelativePos.TO_LEFT_OF -> outProp.maxWidth = anchorRect.left - marginH - padding
+            MRelativePos.ALIGN_RIGHT -> outProp.maxWidth = anchorRect.right - marginH - padding
+            MRelativePos.CENTER_HORIZONTAL -> outProp.maxWidth = screenWidth - 2 * padding
         }
     }
 
@@ -138,29 +138,29 @@ open class TextKBubblePopWin(
         screenWidth: Int,
         anchorRect: Rect,
         contentWidth: Int,
-        relativePos: RelativePos,
+        relativePos: MRelativePos,
         marginH: Int,
         padding: Int,
         outProp: PopupProp
     ) {
         when (relativePos.getHorizontalRelate()) {
-            RelativePos.ALIGN_LEFT -> {
+            MRelativePos.ALIGN_LEFT -> {
                 outProp.gravity = outProp.gravity or Gravity.LEFT
                 outProp.x = anchorRect.left + marginH
             }
-            RelativePos.TO_RIGHT_OF -> {
+            MRelativePos.TO_RIGHT_OF -> {
                 outProp.gravity = outProp.gravity or Gravity.LEFT
                 outProp.x = anchorRect.right + marginH
             }
-            RelativePos.TO_LEFT_OF -> {
+            MRelativePos.TO_LEFT_OF -> {
                 outProp.gravity = outProp.gravity or Gravity.RIGHT
                 outProp.x = screenWidth - anchorRect.left + marginH
             }
-            RelativePos.ALIGN_RIGHT -> {
+            MRelativePos.ALIGN_RIGHT -> {
                 outProp.gravity = outProp.gravity or Gravity.RIGHT
                 outProp.x = screenWidth - anchorRect.right + marginH
             }
-            RelativePos.CENTER_HORIZONTAL -> when {
+            MRelativePos.CENTER_HORIZONTAL -> when {
                 anchorRect.centerX() < contentWidth / 2 + padding -> {
                     outProp.gravity = outProp.gravity or Gravity.LEFT
                     outProp.x = padding
@@ -183,7 +183,7 @@ open class TextKBubblePopWin(
         navigationBarHeight: Int,
         anchorRect: Rect,
         contentWidth: Int,
-        relativePos: RelativePos,
+        relativePos: MRelativePos,
         marginH: Int,
         marginV: Int,
         padding: Int,
@@ -213,20 +213,20 @@ open class TextKBubblePopWin(
 
         when (outProp.direction) {
             ArrowDirection.Up, ArrowDirection.Down -> when (relativePos.getHorizontalRelate()) {
-                RelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy =
+                MRelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy =
                     ArrowPosPolicy.TargetCenter
-                RelativePos.ALIGN_LEFT -> outProp.arrowPosPolicy =
+                MRelativePos.ALIGN_LEFT -> outProp.arrowPosPolicy =
                     ArrowPosPolicy.SelfBegin
-                RelativePos.ALIGN_RIGHT -> outProp.arrowPosPolicy =
+                MRelativePos.ALIGN_RIGHT -> outProp.arrowPosPolicy =
                     ArrowPosPolicy.SelfEnd
                 else -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
             }
             ArrowDirection.Left, ArrowDirection.Right -> when (relativePos.getVerticalRelate()) {
-                RelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy =
+                MRelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy =
                     ArrowPosPolicy.TargetCenter
-                RelativePos.ALIGN_TOP -> outProp.arrowPosPolicy =
+                MRelativePos.ALIGN_TOP -> outProp.arrowPosPolicy =
                     ArrowPosPolicy.SelfBegin
-                RelativePos.ALIGN_BOTTOM -> outProp.arrowPosPolicy =
+                MRelativePos.ALIGN_BOTTOM -> outProp.arrowPosPolicy =
                     ArrowPosPolicy.SelfEnd
                 else -> outProp.arrowPosPolicy = ArrowPosPolicy.TargetCenter
             }
@@ -238,28 +238,28 @@ open class TextKBubblePopWin(
         screenHeight: Int,
         navigationBarHeight: Int,
         anchorRect: Rect,
-        relativePos: RelativePos,
+        relativePos: MRelativePos,
         marginV: Int,
         outProp: PopupProp
     ) {
         when (relativePos.getVerticalRelate()) {
-            RelativePos.ALIGN_TOP -> {
+            MRelativePos.ALIGN_TOP -> {
                 outProp.gravity = outProp.gravity or Gravity.TOP
                 outProp.y = anchorRect.top + marginV
             }
-            RelativePos.BELOW -> {
+            MRelativePos.BELOW -> {
                 outProp.gravity = outProp.gravity or Gravity.TOP
                 outProp.y = anchorRect.bottom + marginV
             }
-            RelativePos.ALIGN_BOTTOM -> {
+            MRelativePos.ALIGN_BOTTOM -> {
                 outProp.gravity = outProp.gravity or Gravity.BOTTOM
                 outProp.y = screenHeight + navigationBarHeight - anchorRect.bottom + marginV
             }
-            RelativePos.ABOVE -> {
+            MRelativePos.ABOVE -> {
                 outProp.gravity = outProp.gravity or Gravity.BOTTOM
                 outProp.y = screenHeight + navigationBarHeight - anchorRect.top + marginV
             }
-            RelativePos.CENTER_VERTICAL -> {
+            MRelativePos.CENTER_VERTICAL -> {
                 outProp.gravity = outProp.gravity or Gravity.CENTER_VERTICAL
                 outProp.y = anchorRect.centerY() - navigationBarHeight / 2 - screenHeight / 2
             }

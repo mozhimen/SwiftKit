@@ -4,10 +4,10 @@ import android.Manifest
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityPermissionkBinding
 
-@PermissionKAnnor(permissions = [Manifest.permission.INTERNET])
+@APermissionK(permissions = [Manifest.permission.INTERNET])
 class PermissionKActivity : BaseKActivityVB<ActivityPermissionkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         //方法一

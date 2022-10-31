@@ -11,21 +11,19 @@ import com.mozhimen.abilityk.opencvk.OpenCVKContrast
 import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkContrastBinding
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.extsk.drawable2Bitmap
 import com.mozhimen.basick.utilk.UtilKBitmap
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
-@PermissionKAnnor(permissions = [Manifest.permission.CAMERA])
+@APermissionK(permissions = [Manifest.permission.CAMERA])
 class OpenCVKContrastActivity : BaseKActivityVB<ActivityOpencvkContrastBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
@@ -44,7 +42,7 @@ class OpenCVKContrastActivity : BaseKActivityVB<ActivityOpencvkContrastBinding>(
     }
 
     private fun initCamera() {
-        vb.opencvkContrastPreview.initCamera(this, CameraXKFacing.BACK)
+        vb.opencvkContrastPreview.initCamera(this, ACameraXKFacing.BACK)
         vb.opencvkContrastPreview.setImageAnalyzer(_frameAnalyzer)
         vb.opencvkContrastPreview.startCamera()
     }

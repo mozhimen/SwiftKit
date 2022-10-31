@@ -2,12 +2,10 @@ package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.tabk.bottom.helpers.TabKFragmentAdapter
-import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
+import com.mozhimen.uicorek.tabk.bottom.mos.MTabKBottom
 import com.mozhimen.uicorek.tabk.commons.ITabKLayout
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityTabkBottomFragmentBinding
@@ -29,7 +27,7 @@ class TabKBottomFragmentActivity : BaseKActivityVB<ActivityTabkBottomFragmentBin
         private const val SAVED_CURRENT_ID = "SAVED_CURRENT_ID"
     }
 
-    private var _infoList = ArrayList<TabKBottomMo>()
+    private var _infoList = ArrayList<MTabKBottom>()
     private var _currentItemIndex = 0
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -42,7 +40,7 @@ class TabKBottomFragmentActivity : BaseKActivityVB<ActivityTabkBottomFragmentBin
 
     private fun initTabKBottom() {
         vb.tabkBottomFragmentContainer.setTabBottomAlpha(0.85f)
-        val homeInfo = TabKBottomMo(
+        val homeInfo = MTabKBottom(
             "首页",
             "fonts/iconfont.ttf",
             getString(R.string.icon_home),
@@ -50,12 +48,12 @@ class TabKBottomFragmentActivity : BaseKActivityVB<ActivityTabkBottomFragmentBin
             UtilKRes.getColor(R.color.black),
             UtilKRes.getColor(R.color.blue_theme),
         )
-        val moreInfo = TabKBottomMo(
+        val moreInfo = MTabKBottom(
             "更多",
             R.mipmap.tabk_bottom_layout_fire,
             R.mipmap.tabk_bottom_layout_fire
         )
-        val mineInfo = TabKBottomMo(
+        val mineInfo = MTabKBottom(
             "我的",
             "fonts/iconfont.ttf",
             getString(R.string.icon_mine),
@@ -75,8 +73,8 @@ class TabKBottomFragmentActivity : BaseKActivityVB<ActivityTabkBottomFragmentBin
         val tabKFragmentAdapter = TabKFragmentAdapter(supportFragmentManager, _infoList)
         vb.tabkBottomFragmentView.setAdapter(tabKFragmentAdapter)
         vb.tabkBottomFragmentContainer.addTabSelectedChangeListener(object :
-            ITabKLayout.TabSelectedListener<TabKBottomMo> {
-            override fun onTabSelected(index: Int, prevMo: TabKBottomMo?, nextMo: TabKBottomMo) {
+            ITabKLayout.TabSelectedListener<MTabKBottom> {
+            override fun onTabSelected(index: Int, prevMo: MTabKBottom?, nextMo: MTabKBottom) {
                 vb.tabkBottomFragmentView.setCurrentItem(index)
                 _currentItemIndex = index
             }

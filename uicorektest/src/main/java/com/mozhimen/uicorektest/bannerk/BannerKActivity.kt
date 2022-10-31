@@ -5,12 +5,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.load
-import com.mozhimen.uicorek.bannerk.commons.IBannerKBindAdapter
+import com.mozhimen.uicorek.bannerk.commons.IBannerKBinder
 import com.mozhimen.uicorek.bannerk.commons.IBannerKIndicator
 import com.mozhimen.uicorek.bannerk.customs.NumberIndicator
 import com.mozhimen.uicorek.bannerk.customs.PointIndicator
 import com.mozhimen.uicorek.bannerk.helpers.BannerKAdapter
-import com.mozhimen.uicorek.bannerk.mos.BannerKMo
+import com.mozhimen.uicorek.bannerk.mos.MBannerKItem
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityBannerkBinding
 
@@ -64,8 +64,8 @@ class BannerKActivity : BaseKActivityVB<ActivityBannerkBinding>() {
             setScrollDuration(3000)
             //setCurrentItem(?)
             setBannerData(R.layout.item_bannerk, moList)
-            setBindAdapter(object : IBannerKBindAdapter {
-                override fun onBind(viewHolder: BannerKAdapter.BannerKViewHolder, mo: BannerKMo, position: Int) {
+            setBindAdapter(object : IBannerKBinder {
+                override fun onBind(viewHolder: BannerKAdapter.BannerKViewHolder, mo: MBannerKItem, position: Int) {
                     val model = mo as MyBannerKMo
                     val imageView: ImageView = viewHolder.findViewById(R.id.item_bannerk_img)
                     val titleView: TextView = viewHolder.findViewById(R.id.item_bannerk_title)
@@ -76,5 +76,5 @@ class BannerKActivity : BaseKActivityVB<ActivityBannerkBinding>() {
         }
     }
 
-    inner class MyBannerKMo : BannerKMo()
+    inner class MyBannerKMo : MBannerKItem()
 }

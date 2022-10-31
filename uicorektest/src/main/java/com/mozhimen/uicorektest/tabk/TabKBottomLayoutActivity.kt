@@ -2,11 +2,9 @@ package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.showToast
-import com.mozhimen.uicorek.tabk.bottom.mos.TabKBottomMo
+import com.mozhimen.uicorek.tabk.bottom.mos.MTabKBottom
 import com.mozhimen.uicorek.tabk.commons.ITabKLayout
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityTabkBottomLayoutBinding
@@ -19,8 +17,8 @@ class TabKBottomLayoutActivity : BaseKActivityVB<ActivityTabkBottomLayoutBinding
 
     private fun initTabBottom() {
         vb.tabkBottomLayout.setTabBottomAlpha(0.85f)
-        val bottomMoList: MutableList<TabKBottomMo> = ArrayList()
-        val homeInfo = TabKBottomMo(
+        val bottomMoList: MutableList<MTabKBottom> = ArrayList()
+        val homeInfo = MTabKBottom(
             "首页",
             "fonts/iconfont.ttf",
             getString(R.string.icon_home),
@@ -28,12 +26,12 @@ class TabKBottomLayoutActivity : BaseKActivityVB<ActivityTabkBottomLayoutBinding
             "#ff656667",
             "#ffd44949"
         )
-        val moreInfo = TabKBottomMo(
+        val moreInfo = MTabKBottom(
             "更多",
             R.mipmap.tabk_bottom_layout_fire,
             R.mipmap.tabk_bottom_layout_fire
         )
-        val mineInfo = TabKBottomMo(
+        val mineInfo = MTabKBottom(
             "我的",
             "fonts/iconfont.ttf",
             getString(R.string.icon_mine),
@@ -47,8 +45,8 @@ class TabKBottomLayoutActivity : BaseKActivityVB<ActivityTabkBottomLayoutBinding
             add(mineInfo)
         }
         vb.tabkBottomLayout.inflateInfo(bottomMoList)
-        vb.tabkBottomLayout.addTabSelectedChangeListener(object : ITabKLayout.TabSelectedListener<TabKBottomMo> {
-            override fun onTabSelected(index: Int, prevMo: TabKBottomMo?, nextMo: TabKBottomMo) {
+        vb.tabkBottomLayout.addTabSelectedChangeListener(object : ITabKLayout.TabSelectedListener<MTabKBottom> {
+            override fun onTabSelected(index: Int, prevMo: MTabKBottom?, nextMo: MTabKBottom) {
                 nextMo.name!!.showToast()
             }
         })

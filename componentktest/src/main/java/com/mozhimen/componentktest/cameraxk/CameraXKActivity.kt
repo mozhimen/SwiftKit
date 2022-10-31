@@ -7,16 +7,16 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.utilk.UtilKBitmap
-import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
-import com.mozhimen.componentk.cameraxk.annors.CameraXKFormat
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
-import com.mozhimen.componentk.statusbark.annors.StatusBarKAnnor
-import com.mozhimen.componentk.statusbark.annors.StatusBarKType
+import com.mozhimen.componentk.statusbark.annors.AStatusBarK
+import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
 import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 import java.util.concurrent.locks.ReentrantLock
 
-@StatusBarKAnnor(statusBarType = StatusBarKType.FULL_SCREEN)
+@AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
 class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
 
     /*private val outputDirectory: String by lazy {
@@ -31,10 +31,10 @@ class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
         initCamera()
     }
 
-    private val _format = CameraXKFormat.RGBA_8888
+    private val _format = ACameraXKFormat.RGBA_8888
 
     private fun initCamera() {
-        vb.camerakPreviewView.initCamera(this, CameraXKFacing.FRONT, _format)
+        vb.camerakPreviewView.initCamera(this, ACameraXKFacing.FRONT, _format)
         vb.camerakPreviewView.setImageAnalyzer(_frameAnalyzer)
         vb.camerakPreviewView.setCameraXKCaptureListener(_cameraXKCaptureListener)
         vb.camerakPreviewView.startCamera()
@@ -53,14 +53,14 @@ class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
                     _reentrantLock.lock()
 
                     when (_format) {
-                        CameraXKFormat.RGBA_8888 -> {
+                        ACameraXKFormat.RGBA_8888 -> {
                             val bitmap: Bitmap = ImageConverter.rgb2Bitmap(image)
                             val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
                             runOnUiThread {
                                 vb.camerakImg1.setImageBitmap(rotateBitmap)
                             }
                         }
-                        CameraXKFormat.YUV_420_888 -> {
+                        ACameraXKFormat.YUV_420_888 -> {
                             val bitmap: Bitmap = ImageConverter.yuv2Bitmap(image)!!
                             val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
                             runOnUiThread {

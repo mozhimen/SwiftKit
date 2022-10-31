@@ -1,7 +1,7 @@
 package com.mozhimen.basick.cachek
 
 import com.mozhimen.basick.cachek.commons.CacheKDatabase
-import com.mozhimen.basick.cachek.mos.CacheK
+import com.mozhimen.basick.cachek.mos.MCacheK
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -22,7 +22,7 @@ object CacheK {
      * @param body T
      */
     fun <T> saveCache(key: String, body: T) {
-        val cache = CacheK(key, toByteArray<T>(body))
+        val cache = MCacheK(key, toByteArray<T>(body))
         CacheKDatabase.get().cacheKDao.saveCache(cache)
     }
 
@@ -39,7 +39,7 @@ object CacheK {
     }
 
     fun deleteCache(key: String) {
-        val cache = CacheK(key, null)
+        val cache = MCacheK(key, null)
         CacheKDatabase.get().cacheKDao.deleteCache(cache)
     }
 

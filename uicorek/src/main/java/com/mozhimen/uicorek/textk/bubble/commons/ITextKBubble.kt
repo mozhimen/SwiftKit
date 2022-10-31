@@ -1,7 +1,8 @@
 package com.mozhimen.uicorek.textk.bubble.commons
 
-import android.util.SparseArray
 import android.view.View
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
+import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
 
 /**
  * @ClassName ITextKBubble
@@ -11,97 +12,18 @@ import android.view.View
  * @Version 1.0
  */
 interface ITextKBubble {
-    /**
-     * 箭头朝向定义
-     * @property value Int
-     * @property isLeft Boolean
-     * @property isUp Boolean
-     * @property isRight Boolean
-     * @property isDown Boolean
-     * @constructor
-     */
-    enum class ArrowDirection(value: Int) {
-        None(-1),//无箭头
-        Auto(0), //自动确定指向
-        Left(1),
-        Up(2),
-        Right(3),
-        Down(4);
-
-        companion object {
-            private var int2TypeDict = SparseArray<ArrowDirection>()
-
-            init {
-                for (type in values()) {
-                    int2TypeDict.put(type.value, type)
-                }
-            }
-
-            fun valueOf(value: Int): ArrowDirection {
-                return int2TypeDict[value] ?: Auto
-            }
-        }
-
-        var value = 0
-
-        init {
-            this.value = value
-        }
-
-        val isLeft: Boolean
-            get() = this == Left
-        val isUp: Boolean
-            get() = this == Up
-        val isRight: Boolean
-            get() = this == Right
-        val isDown: Boolean
-            get() = this == Down
-    }
-
-    /**
-     * 箭头位置策略定义
-     * @property value Int
-     * @constructor
-     */
-    enum class ArrowPosPolicy(value: Int) {
-
-        TargetCenter(0),//箭头指向目标View的中心点
-        SelfCenter(1),//箭头从自己的中心点发出
-        SelfBegin(2),//结合setArrowPosOffset，箭头从所在轴的头端开始偏移
-        SelfEnd(3);//结合setArrowPosOffset，箭头从所在轴的尾端开始偏移
-
-        companion object {
-            private var intToTypeDict = SparseArray<ArrowPosPolicy>()
-
-            init {
-                for (type in values()) {
-                    intToTypeDict.put(type.value, type)
-                }
-            }
-
-            fun valueOf(value: Int): ArrowPosPolicy {
-                return intToTypeDict[value] ?: TargetCenter
-            }
-        }
-
-        var value = 0
-
-        init {
-            this.value = value
-        }
-    }
 
     /**
      * 设置箭头朝向
      * @param arrowDirection ArrowDirection 上下左右或者无
      */
-    fun setArrowDirection(arrowDirection: ArrowDirection)
+    fun setArrowDirection(arrowDirection: EArrowDirection)
 
     /**
      * 获取箭头朝向
      * @return ArrowDirection
      */
-    fun getArrowDirection(): ArrowDirection
+    fun getArrowDirection(): EArrowDirection
 
 //    /**
 //     * 设置箭头朝向
@@ -146,13 +68,13 @@ interface ITextKBubble {
      * 设置箭头在边线上的位置策略
      * @param arrowPosPolicy ArrowPosPolicy 箭头位置策略
      */
-    fun setArrowPosPolicy(arrowPosPolicy: ArrowPosPolicy)
+    fun setArrowPosPolicy(arrowPosPolicy: EArrowPosPolicy)
 
     /**
      * 获取箭头在边线上的位置策略
      * @return ArrowPosPolicy
      */
-    fun getArrowPosPolicy(): ArrowPosPolicy
+    fun getArrowPosPolicy(): EArrowPosPolicy
 
 //    /**
 //     * 设置箭头在边线上的位置策略

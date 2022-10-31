@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import com.mozhimen.componentk.cameraxk.annors.CameraXKFacing
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
@@ -17,11 +17,11 @@ import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.utilk.UtilKBitmap
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.PermissionKAnnor
+import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
-@PermissionKAnnor(permissions = [Manifest.permission.CAMERA])
+@APermissionK(permissions = [Manifest.permission.CAMERA])
 class ScanKHSVActivity : BaseKActivityVB<ActivityScankHsvBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class ScanKHSVActivity : BaseKActivityVB<ActivityScankHsvBinding>() {
     }
 
     private fun initCamera() {
-        vb.scankHsvPreview.initCamera(this, CameraXKFacing.BACK)
+        vb.scankHsvPreview.initCamera(this, ACameraXKFacing.BACK)
         vb.scankHsvPreview.setImageAnalyzer(_frameAnalyzer)
         vb.scankHsvPreview.startCamera()
     }

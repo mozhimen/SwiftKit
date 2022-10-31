@@ -15,8 +15,7 @@ import java.lang.Exception
  */
 class UtilKGlobal {
     companion object {
-        //单例内部静态类,线程安全
-        @JvmStatic
+        @JvmStatic//单例内部静态类,线程安全
         val instance = UtilKGlobalProvider.holder
     }
 

@@ -2,12 +2,10 @@ package com.mozhimen.uicorektest.tabk
 
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.tabk.commons.ITabKLayout
-import com.mozhimen.uicorek.tabk.top.mos.TabKTopMo
+import com.mozhimen.uicorek.tabk.top.mos.MTabKTop
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityTabkTopLayoutBinding
 
@@ -25,7 +23,7 @@ class TabKTopLayoutActivity : BaseKActivityVB<ActivityTabkTopLayoutBinding>() {
     }
 
     private val _tabTop1 by lazy {
-        TabKTopMo(
+        MTabKTop(
             "推荐",
             R.mipmap.tabk_bottom_layout_fire,
             R.mipmap.tabk_bottom_layout_fire,
@@ -34,7 +32,7 @@ class TabKTopLayoutActivity : BaseKActivityVB<ActivityTabkTopLayoutBinding>() {
     }
 
     private val _tabTop2 by lazy {
-        TabKTopMo(
+        MTabKTop(
             "推荐1",
             R.mipmap.tabk_bottom_layout_fire,
             R.mipmap.tabk_bottom_layout_fire,
@@ -48,7 +46,7 @@ class TabKTopLayoutActivity : BaseKActivityVB<ActivityTabkTopLayoutBinding>() {
     )
 
     private fun initTabKTopLayout() {
-        val infoList = ArrayList<TabKTopMo>()
+        val infoList = ArrayList<MTabKTop>()
         val colorDefault = UtilKRes.getColor(R.color.blue_theme)
         val colorSelected = UtilKRes.getColor(R.color.blue_dark)
         infoList.apply {
@@ -56,12 +54,12 @@ class TabKTopLayoutActivity : BaseKActivityVB<ActivityTabkTopLayoutBinding>() {
             add(_tabTop2)
         }
         _tabStr.forEach {
-            val info = TabKTopMo(it, colorDefault, colorSelected)
+            val info = MTabKTop(it, colorDefault, colorSelected)
             infoList.add(info)
         }
         vb.tabkTopLayout.inflateInfo(infoList)
-        vb.tabkTopLayout.addTabSelectedChangeListener(object : ITabKLayout.TabSelectedListener<TabKTopMo> {
-            override fun onTabSelected(index: Int, prevMo: TabKTopMo?, nextMo: TabKTopMo) {
+        vb.tabkTopLayout.addTabSelectedChangeListener(object : ITabKLayout.TabSelectedListener<MTabKTop> {
+            override fun onTabSelected(index: Int, prevMo: MTabKTop?, nextMo: MTabKTop) {
                 nextMo.name!!.showToast()
             }
         })
