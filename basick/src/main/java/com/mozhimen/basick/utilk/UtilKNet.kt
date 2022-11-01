@@ -3,8 +3,11 @@ package com.mozhimen.basick.utilk
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.net.Uri
 import android.os.Process
 import com.mozhimen.basick.cachek.CacheKSP
+import java.net.URI
+import java.net.URISyntaxException
 
 /**
  * @ClassName UtilKNet
@@ -16,6 +19,7 @@ import com.mozhimen.basick.cachek.CacheKSP
 object UtilKNet {
     private val TAG = "UtilKNet>>>>>"
     private val _context = UtilKGlobal.instance.getApp()!!
+    private val _connectivityManager = _context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private const val utilknet_sp_name = "utilknet_sp_name"
     private const val utilknet_sp_degrade_http = "utilknet_sp_degrade_http"
 
@@ -25,9 +29,7 @@ object UtilKNet {
      */
     @JvmStatic
     fun isConnectionUseful(): Boolean {
-        val connectivityManager = _context
-            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val netWorkInfo = connectivityManager.activeNetworkInfo
+        val netWorkInfo = _connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.isAvailable
     }
 
@@ -37,9 +39,7 @@ object UtilKNet {
      */
     @JvmStatic
     fun isWifiConnected(): Boolean {
-        val connectivityManager = _context
-            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val netWorkInfo = connectivityManager.activeNetworkInfo
+        val netWorkInfo = _connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_WIFI
     }
 
@@ -49,10 +49,30 @@ object UtilKNet {
      */
     @JvmStatic
     fun isMobileConnected(): Boolean {
-        val connectivityManager = _context
-            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val netWorkInfo = connectivityManager.activeNetworkInfo
+        val netWorkInfo = _connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_MOBILE
+    }
+
+    /**
+     * 判断url是否合法
+     * @param url String
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isUrlAvailable(url: String): Boolean {
+        val uri: URI?
+        try {
+            uri = URI(url)
+        } catch (e: URISyntaxException) {
+            e.printStackTrace()
+            return false
+        }
+        if (uri.host == null) {
+            return false
+        } else if (!uri.scheme.equals("http") && !uri.scheme.equals("https")) {
+            return false
+        }
+        return true
     }
 
     @JvmStatic

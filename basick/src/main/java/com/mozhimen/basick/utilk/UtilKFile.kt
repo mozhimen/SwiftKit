@@ -87,6 +87,16 @@ object UtilKFile {
         createFile(File(filePathWithName))
 
     /**
+     * 批量删除
+     * @param files Array<out File>
+     */
+    fun deleteFiles(vararg files: File) {
+        for (file in files) {
+            deleteFile(file)
+        }
+    }
+
+    /**
      * 删除文件
      * @param file File
      */
@@ -483,7 +493,7 @@ object UtilKFile {
     }
 
     @JvmStatic
-    private fun genFolderPath(folderPath: String): String {
+    fun genFolderPath(folderPath: String): String {
         var tmpFolderPath = folderPath
         if (!tmpFolderPath.endsWith("/")) tmpFolderPath += "/"
         return tmpFolderPath

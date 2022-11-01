@@ -1,7 +1,7 @@
-package com.mozhimen.componentk.netk.helpers
+package com.mozhimen.componentk.netk.http.helpers
 
 import android.util.Log
-import com.mozhimen.componentk.netk.commons.NetKRep
+import com.mozhimen.componentk.netk.http.commons.NetKRep
 import kotlinx.coroutines.flow.Flow
 
 /**

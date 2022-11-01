@@ -36,9 +36,6 @@ dependencies {
     implementation project(project.path.replace(project.name, '') + ':underlayk')
     implementation project(project.path.replace(project.name, '') + ':componentk')
 
-    //hotupdatek
-    api 'com.liulishuo.okdownload:okdownload:1.0.5'
-
     //qrcodek
     api 'com.google.zxing:android-core:3.3.0'
     api 'com.google.zxing:core:3.3.3'

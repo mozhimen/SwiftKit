@@ -79,6 +79,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
     fun load(audio: MAudioK) {
         try {
             _currentAudio = audio
+            if (audio.id.isEmpty() || audio.url.isEmpty()) throw Exception("your path or id must not be null.")
             _statusMediaPlayer!!.apply {
                 reset()
                 setDataSource(audio.url)
@@ -86,7 +87,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
             }
             //发送加载音频事件，UI类型处理事件
             setAudioEvent(CAudioKEvent.audio_load, _currentAudio)
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             e.printStackTrace()
             setAudioEvent(CAudioKEvent.audio_error, _currentAudio)
         }

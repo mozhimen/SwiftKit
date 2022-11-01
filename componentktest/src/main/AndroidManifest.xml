@@ -38,7 +38,7 @@
             android:name="com.mozhimen.componentktest.statusbark.StatusBarKActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.componentktest.netk.NetKActivity"
+            android:name="com.mozhimen.componentktest.netk.http.NetKHttpActivity"
             android:exported="false" />
     </application>
 

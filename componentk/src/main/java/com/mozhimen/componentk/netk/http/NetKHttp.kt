@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk
+package com.mozhimen.componentk.netk.http
 
 import android.util.Log
 import com.mozhimen.basick.utilk.UtilKJson
@@ -17,11 +17,11 @@ import java.util.concurrent.ConcurrentHashMap
  * @Date 2022/5/12 16:01
  * @Version 1.0
  */
-open class NetKFactory(
+open class NetKHttp(
     baseUrl: String,
     interceptors: List<Interceptor> = emptyList()
 ) {
-    private val TAG = "NetKCoroutine>>>>>"
+    private val TAG = "NetKHttp>>>>>"
     private val _intercepters: ArrayList<Interceptor> = ArrayList()
     private val _services = ConcurrentHashMap<Int, Any>()
     private val _okHttpClient by lazy {

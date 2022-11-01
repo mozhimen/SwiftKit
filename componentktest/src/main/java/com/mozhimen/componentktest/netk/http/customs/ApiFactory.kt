@@ -1,6 +1,6 @@
-package com.mozhimen.componentktest.netk.customs
+package com.mozhimen.componentktest.netk.http.customs
 
-import com.mozhimen.componentk.netk.NetKFactory
+import com.mozhimen.componentk.netk.http.NetKHttp
 
 /**
  * @ClassName ApiFactory
@@ -12,7 +12,7 @@ import com.mozhimen.componentk.netk.NetKFactory
 object ApiFactory {
     private val _baseUrl = "https://api.caiyunapp.com/v2.5/cIecnVlovchAFYIk/"
 
-    val netk = NetKFactory(_baseUrl)
+    val netk = NetKHttp(_baseUrl)
 
     val api = netk.create(Apis::class.java)
 }

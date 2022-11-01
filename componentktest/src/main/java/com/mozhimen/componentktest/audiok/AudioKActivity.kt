@@ -13,10 +13,9 @@ import com.mozhimen.componentktest.databinding.ActivityAudiokBinding
 
 class AudioKActivity : BaseKActivityVB<ActivityAudiokBinding>() {
     private val _audioList = arrayListOf(
-        MAudioK("01", "http://sp-sycdn.kuwo.cn/resource/n2/85/58/433900159.mp3"),
-        MAudioK("02", ""),
+        MAudioK("01", "http://192.168.2.6/construction-sites-images/voice/20221018//9b94d721ed244fa892b15112bc11a3ce.wav"),
+        MAudioK("02", "http://192.168.2.9/construction-sites-images/voice/20221024/1237378768e7q8e7r8qwesafdasdfasdfaxss111.speex"),
         MAudioK("03", "http://sq-sycdn.kuwo.cn/resource/n1/98/51/3777061809.mp3"),
-        MAudioK("04", "http://sr-sycdn.kuwo.cn/resource/n2/33/25/2629654819.mp3")
     )
 
     override fun initData(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.mozhimen.componentktest.netk
+package com.mozhimen.componentktest.netk.http
 
 import android.Manifest
 import android.os.Bundle
@@ -9,7 +9,7 @@ import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityNetkBinding
 
 @APermissionK([Manifest.permission.INTERNET])
-class NetKActivity : BaseKActivityVBVM<ActivityNetkBinding, NetKViewModel>() {
+class NetKHttpActivity : BaseKActivityVBVM<ActivityNetkBinding, NetKHttpViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {

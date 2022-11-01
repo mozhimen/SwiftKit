@@ -2,10 +2,15 @@ package com.mozhimen.basick.taskk.commons
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 abstract class ITaskK(owner: LifecycleOwner) : DefaultLifecycleObserver {
     init {
-        owner.lifecycle.addObserver(this)
+        owner.lifecycleScope.launch(Dispatchers.Main){
+            owner.lifecycle.addObserver(this@ITaskK)
+        }
     }
 
     override fun onDestroy(owner: LifecycleOwner) {

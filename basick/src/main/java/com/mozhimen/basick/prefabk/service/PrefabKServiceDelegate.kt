@@ -25,7 +25,7 @@ class PrefabKServiceDelegate<T>(
 ) : DefaultLifecycleObserver
         where T : AppCompatActivity, T : LifecycleOwner {
     private var _connListener: IBaseKServiceConnListener? = null
-    private var _serviceConnection: ServiceConnection = BaseKServiceConnection()
+    private val _serviceConnection: ServiceConnection by lazy { BaseKServiceConnection() }
     private var _isBindService = false
 
     init {

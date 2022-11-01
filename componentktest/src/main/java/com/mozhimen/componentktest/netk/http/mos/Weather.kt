@@ -1,4 +1,4 @@
-package com.mozhimen.componentktest.netk.mos
+package com.mozhimen.componentktest.netk.http.mos
 
 data class Weather(
     val api_status: String,

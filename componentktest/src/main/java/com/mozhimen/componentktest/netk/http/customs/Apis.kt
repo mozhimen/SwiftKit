@@ -1,6 +1,6 @@
-package com.mozhimen.componentktest.netk.customs
+package com.mozhimen.componentktest.netk.http.customs
 
-import com.mozhimen.componentktest.netk.mos.Weather
+import com.mozhimen.componentktest.netk.http.mos.Weather
 import retrofit2.http.GET
 import retrofit2.http.Path
 
