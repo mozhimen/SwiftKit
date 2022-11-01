@@ -38,9 +38,6 @@
         <activity
             android:name=".prefabk.PrefabKActivity"
             android:exported="false" />
-        <activity
-            android:name=".prefabk.PrefabKAudioActivity"
-            android:exported="false" />
 
         <receiver
             android:name=".prefabk.AutoRunReceiver"

@@ -7,9 +7,6 @@ import com.mozhimen.basick.extsk.start
 import com.mozhimen.basicktest.databinding.ActivityPrefabkBinding
 
 class PrefabKActivity : BaseKActivityVB<ActivityPrefabkBinding>() {
-    fun goPrefabKAudio(view: View) {
-        start<PrefabKAudioActivity>()
-    }
 
     override fun initData(savedInstanceState: Bundle?) {
 
