@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.download
+package com.mozhimen.componentk.netk.file.download.commons
 
 import com.liulishuo.okdownload.DownloadTask
 
@@ -9,9 +9,9 @@ import com.liulishuo.okdownload.DownloadTask
  * @Date 2022/11/1 21:58
  * @Version 1.0
  */
-interface ISingleFileDownloadListener {
-    fun onStart(task: DownloadTask)
-    fun onProgress(task: DownloadTask, blockIndex: Int, increaseBytes: Long)
+interface IFileDownloadSingleListener {
+    fun onStart(task: DownloadTask) {}
+    fun onProgress(task: DownloadTask, blockIndex: Int, increaseBytes: Long) {}
     fun onComplete(task: DownloadTask)
     fun onFail(task: DownloadTask, e: Exception?)
 }

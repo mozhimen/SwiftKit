@@ -1,8 +1,7 @@
 package com.mozhimen.componentk.netk.file
 
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.componentk.netk.file.download.NetKFileDownload
-import java.security.acl.Owner
+import com.mozhimen.componentk.netk.file.download.FileDownloadTaskMgr
 
 
 /**
@@ -15,9 +14,9 @@ import java.security.acl.Owner
 class NetKFile(owner: LifecycleOwner) {
     private val TAG = "NetKFile>>>>>"
 
-    private val _netkFileDownload by lazy { NetKFileDownload(owner) }
-    fun download(): NetKFileDownload =
-        _netkFileDownload
+    private val _fileDownloadTaskMgr by lazy { FileDownloadTaskMgr(owner) }
+    fun download(): FileDownloadTaskMgr =
+        _fileDownloadTaskMgr
 
 //    companion object {
 //        @JvmStatic

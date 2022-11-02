@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".audiok.AudioKActivity"
             android:exported="false" />
@@ -38,7 +39,13 @@
             android:name="com.mozhimen.componentktest.statusbark.StatusBarKActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.componentktest.netk.http.NetKHttpActivity"
+            android:name=".netk.file.NetKFileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".netk.http.NetKHttpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".netk.NetKActivity"
             android:exported="false" />
     </application>
 

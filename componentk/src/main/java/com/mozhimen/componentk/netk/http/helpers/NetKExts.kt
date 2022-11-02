@@ -2,6 +2,7 @@ package com.mozhimen.componentk.netk.http.helpers
 
 import android.util.Log
 import com.mozhimen.componentk.netk.http.commons.NetKRep
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.Flow
  * @Date 2022/10/26 13:19
  * @Version 1.0
  */
-suspend fun <T> Flow<NetKRep<T>>.asNetKRes(onSuccess: (data: T) -> Unit, onFail: (code: Int, msg: String) -> Unit) {
+suspend fun <T> Flow<NetKRep<T>>.asNetKRes(onSuccess: suspend (data: T) -> Unit, onFail: suspend (code: Int, msg: String) -> Unit) {
     collect {
         when (it) {
             is NetKRep.Uninitialized -> {

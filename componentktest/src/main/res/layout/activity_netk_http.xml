@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.mozhimen.componentktest.netk.http.NetKHttpViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.mozhimen.componentktest.netk.http.NetKHttpActivity">
+
+        <TextView
+            android:id="@+id/netk_txt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue_light"
+            android:hint="当前的天气"
+            android:text="@{vm.uiWeather2}"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/netk_btn1_get_weather"
+            style="@style/BtnStyle"
+            android:text="查询天气(协程方法)"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+</layout>

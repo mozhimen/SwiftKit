@@ -81,7 +81,7 @@ open class BaseKService : Service(), LifecycleOwner {
 
     override fun onCreate() {
         super.onCreate()
-        _lifecycleRegistry.currentState = Lifecycle.State.CREATED
+        _lifecycleRegistry.currentState = Lifecycle.State.STARTED
     }
 
     override fun onDestroy() {

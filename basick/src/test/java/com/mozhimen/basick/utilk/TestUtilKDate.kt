@@ -7,8 +7,16 @@ import org.junit.Test
 class TestUtilKDate {
     @Test
     fun getTimeZone() {
-        val timeStamp = UtilKDate.getTimeStamp()
-        timeStamp.printlog()
-        timeStamp.long2String(UtilKDate.FORMAT_yyyyMMddHHmmss).printlog()
+        val nowDate = UtilKDate.getNowDate()
+        val nowTime = UtilKDate.getNowTime()
+        val nowString = UtilKDate.getNowString(UtilKDate.FORMAT_yyyyMMddHHmmssS)
+        UtilKDate.apply {
+            nowDate.printlog()
+            long2Date(nowTime).printlog()
+            string2Date(nowString, FORMAT_yyyyMMddHHmmssS).printlog()
+            nowTime.printlog()
+            date2Long(nowDate).printlog()
+            string2Long(nowString, FORMAT_yyyyMMddHHmmssS).printlog()
+        }
     }
 }

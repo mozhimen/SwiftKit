@@ -8,6 +8,8 @@ import com.mozhimen.componentktest.audiok.AudioKActivity
 import com.mozhimen.componentktest.cameraxk.CameraXKActivity
 import com.mozhimen.componentktest.databinding.ActivityComponentkBinding
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
+import com.mozhimen.componentktest.netk.NetKActivity
+import com.mozhimen.componentktest.netk.file.NetKFileActivity
 import com.mozhimen.componentktest.netk.http.NetKHttpActivity
 import com.mozhimen.componentktest.permissionk.PermissionKActivity
 import com.mozhimen.componentktest.statusbark.StatusBarKActivity
@@ -31,7 +33,7 @@ class ComponentKActivity : BaseKActivityVB<ActivityComponentkBinding>() {
     }
 
     fun goNetK(view: View) {
-        start<NetKHttpActivity>()
+        start<NetKActivity>()
     }
 
     fun goNavigateK(view: View) {

@@ -7,9 +7,10 @@ import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityNetkBinding
+import com.mozhimen.componentktest.databinding.ActivityNetkHttpBinding
 
 @APermissionK([Manifest.permission.INTERNET])
-class NetKHttpActivity : BaseKActivityVBVM<ActivityNetkBinding, NetKHttpViewModel>() {
+class NetKHttpActivity : BaseKActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
@@ -18,7 +19,7 @@ class NetKHttpActivity : BaseKActivityVBVM<ActivityNetkBinding, NetKHttpViewMode
         }
     }
 
-    override fun bindViewVM(vb: ActivityNetkBinding) {
+    override fun bindViewVM(vb: ActivityNetkHttpBinding) {
         Log.d(TAG, "bindViewVM: ")
         vb.vm = vm
     }

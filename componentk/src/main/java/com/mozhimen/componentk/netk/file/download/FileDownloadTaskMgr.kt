@@ -17,6 +17,9 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @Date 2022/11/1 21:52
  * @Version 1.0
  */
-class NetKFileDownload(owner: LifecycleOwner) {
+class FileDownloadTaskMgr(owner: LifecycleOwner) {
+    private val _taskFileDownloadSingle by lazy { TaskFileDownloadSingle(owner) }
 
+    fun singleFileTask(): TaskFileDownloadSingle =
+        _taskFileDownloadSingle
 }

@@ -7,7 +7,9 @@ import com.liulishuo.okdownload.DownloadTask
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.basick.taskk.commons.ITaskK
+import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKNet
+import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
 import com.mozhimen.underlayk.logk.LogK
 import java.io.File
 import java.lang.Exception
@@ -21,17 +23,18 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @Date 2022/11/1 23:27
  * @Version 1.0
  */
-class SingleFileDownloadTask(owner: LifecycleOwner) : ITaskK(owner) {
+class TaskFileDownloadSingle(owner: LifecycleOwner) : ITaskK(owner) {
     private val _downloadUrls = CopyOnWriteArrayList<String>()
-    private var _downloadListeners = ConcurrentHashMap<String, ISingleFileDownloadListener>()
+    private var _downloadListeners = ConcurrentHashMap<String, IFileDownloadSingleListener>()
     private var _downloadTasks = ConcurrentHashMap<String, DownloadTask>()
 
-    fun download(url: String, filePathWithName: String, listener: ISingleFileDownloadListener? = null) {
-        download(url, File(filePathWithName), listener)
+    fun start(url: String, filePathWithName: String, listener: IFileDownloadSingleListener? = null) {
+        start(url, File(filePathWithName), listener)
     }
 
-    fun download(url: String, file: File, listener: ISingleFileDownloadListener? = null) {
+    fun start(url: String, file: File, listener: IFileDownloadSingleListener? = null) {
         if (!UtilKNet.isUrlAvailable(url) || _downloadUrls.contains(url)) return
+
         _downloadUrls.add(url)
         listener?.let { _downloadListeners[url] = it }
         val downloadTask = DownloadTask.Builder(url, file).build()
@@ -64,8 +67,8 @@ class SingleFileDownloadTask(owner: LifecycleOwner) : ITaskK(owner) {
         cancelAll()
     }
 
-    inner class DownloadCallback2(private val _listener: ISingleFileDownloadListener? = null) : DownloadListener2() {
-        private val TAG = "DownloadCallback>>>>>"
+    inner class DownloadCallback2(private val _listener: IFileDownloadSingleListener? = null) : DownloadListener2() {
+        private val TAG = "DownloadCallback2>>>>>"
         override fun taskStart(task: DownloadTask) {
             Log.d(TAG, "taskStart...")
             Log.d(TAG, "taskStart: task Info ${getTaskInfo(task)}")

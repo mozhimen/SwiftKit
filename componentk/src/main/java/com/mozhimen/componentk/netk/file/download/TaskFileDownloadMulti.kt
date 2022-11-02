@@ -1,5 +1,7 @@
 package com.mozhimen.componentk.netk.file.download
 
+import androidx.lifecycle.LifecycleOwner
+
 /**
  * @ClassName MultiFileDownloadMgr
  * @Description TODO
@@ -7,6 +9,6 @@ package com.mozhimen.componentk.netk.file.download
  * @Date 2022/11/1 23:28
  * @Version 1.0
  */
-class MultiFileDownloadTask {
+class TaskFileDownloadMulti(owner: LifecycleOwner) {
 
 }

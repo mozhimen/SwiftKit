@@ -17,6 +17,8 @@ import java.util.*
 object UtilKDate {
     private const val TAG = "UtilKDate>>>>>"
 
+    const val FORMAT_yyyyMMddHHmmssS = "yyyy-MM-dd HH:mm:ss S"
+
     const val FORMAT_yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss"
 
     const val FORMAT_yyyyMMdd = "yyyy-MM-dd"
@@ -39,9 +41,30 @@ object UtilKDate {
 
     const val FORMAT_ss = "ss"
 
+    /**
+     * 获取现在日期
+     * @return Long
+     */
     @JvmStatic
-    fun getTimeStamp(): Long =
-        Date().time
+    fun getNowTime(): Long =
+        date2Long(getNowDate())
+
+    /**
+     * 获取现在日期
+     * @return Date
+     */
+    @JvmStatic
+    fun getNowDate(): Date =
+        Date()
+
+    /**
+     * 获取当前时间
+     * @param formatDate String
+     * @param locale Locale
+     * @return String
+     */
+    fun getNowString(formatDate: String, locale: Locale = Locale.CHINA): String =
+        date2String(getNowDate(), formatDate, locale)
 
     /**
      * 获得Format
@@ -56,6 +79,24 @@ object UtilKDate {
         SimpleDateFormat(formatDate, locale)
 
     /**
+     * date转long
+     * @param date Date
+     * @return Long
+     */
+    fun date2Long(date: Date): Long {
+        return date.time
+    }
+
+    /**
+     * long转date
+     * @param date Long
+     * @return Date
+     */
+    fun long2Date(date: Long): Date {
+        return Date(date)
+    }
+
+    /**
      * 日期转字符串
      * @param date Date
      * @param formatDate String
@@ -65,21 +106,9 @@ object UtilKDate {
     @JvmStatic
     fun date2String(
         date: Date, formatDate: String, locale: Locale = Locale.CHINA
-    ): String =
-        SimpleDateFormat(formatDate, locale).format(date)
-
-    /**
-     * 长整型转字符串
-     * @param date Long
-     * @param formatDate String
-     * @param locale Locale?
-     * @return String
-     */
-    @JvmStatic
-    fun long2String(
-        date: Long, formatDate: String, locale: Locale = Locale.CHINA
-    ): String =
-        SimpleDateFormat(formatDate, locale).format(date)
+    ): String {
+        return getSdf(formatDate, locale).format(date)
+    }
 
     /**
      * 字符串转日期
@@ -92,10 +121,38 @@ object UtilKDate {
     fun string2Date(
         dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
     ): Date {
-        return SimpleDateFormat(formatDate, locale).parse(dateStr) ?: kotlin.run {
+        return getSdf(formatDate, locale).parse(dateStr) ?: kotlin.run {
             Log.e(TAG, "string2Date Exception time format fail!")
             throw Exception("time format fail!")
         }
+    }
+
+    /**
+     * 长整型转字符串
+     * @param date Long
+     * @param formatDate String
+     * @param locale Locale?
+     * @return String
+     */
+    @JvmStatic
+    fun long2String(
+        date: Long, formatDate: String, locale: Locale = Locale.CHINA
+    ): String {
+        return getSdf(formatDate, locale).format(date)
+    }
+
+    /**
+     * String转long
+     * @param dateStr String
+     * @param formatDate String
+     * @param locale Locale
+     * @return Long
+     */
+    @JvmStatic
+    fun string2Long(
+        dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
+    ): Long {
+        return date2Long(string2Date(dateStr, formatDate, locale))
     }
 
     /**
