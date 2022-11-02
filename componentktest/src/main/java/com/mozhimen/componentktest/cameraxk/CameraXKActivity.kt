@@ -6,7 +6,8 @@ import android.os.Bundle
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.utilk.UtilKBitmap
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapConv
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapTrans
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
@@ -55,14 +56,14 @@ class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
                     when (_format) {
                         ACameraXKFormat.RGBA_8888 -> {
                             val bitmap: Bitmap = ImageConverter.rgb2Bitmap(image)
-                            val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
+                            val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
                             runOnUiThread {
                                 vb.camerakImg1.setImageBitmap(rotateBitmap)
                             }
                         }
                         ACameraXKFormat.YUV_420_888 -> {
                             val bitmap: Bitmap = ImageConverter.yuv2Bitmap(image)!!
-                            val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
+                            val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
                             runOnUiThread {
                                 vb.camerakImg1.setImageBitmap(rotateBitmap)
                             }
@@ -81,7 +82,7 @@ class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
         override fun onCaptureSuccess(bitmap: Bitmap, imageRotation: Int) {
             //UtilKImage.saveBitmap(outputDirectory, bitmap)
             runOnUiThread {
-                vb.camerakImg.setImageBitmap(UtilKBitmap.rotateBitmap(bitmap, 90, flipY = false))
+                vb.camerakImg.setImageBitmap(UtilKBitmapConv.rotateBitmap(bitmap, 90, flipY = false))
             }
         }
 

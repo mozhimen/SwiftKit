@@ -7,7 +7,7 @@ import android.content.Intent
 import android.util.Log
 
 /**
- * @ClassName LoadKReceiverAutoRun
+ * @ClassName PrefabKReceiverAutoRun
  * @Description
  * 权限:
  * <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />

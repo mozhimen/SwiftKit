@@ -21,7 +21,7 @@ import com.mozhimen.basick.IBaseKServiceResListener
 open class BaseKService : Service(), LifecycleOwner {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private val _listeners = RemoteCallbackList<IBaseKServiceResListener>()
-    private var _binder: IBaseKServiceConnListener.Stub = BaseKServiceBinder()
+    private var _binder: IBaseKServiceConnListener.Stub? = BaseKServiceBinder()
 
     inner class BaseKServiceBinder() : IBaseKServiceConnListener.Stub() {
         override fun onServiceStart() {
@@ -41,7 +41,7 @@ open class BaseKService : Service(), LifecycleOwner {
         }
     }
 
-    override fun onBind(intent: Intent?): IBinder {
+    override fun onBind(intent: Intent?): IBinder? {
         return _binder
     }
 

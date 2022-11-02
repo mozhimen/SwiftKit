@@ -14,18 +14,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!--UtilKVibrate-->
     <uses-permission android:name="android.permission.VIBRATE" />
-    <!--CrashK-->
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--FpsK-->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!--UtilKDevice-->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <!--LoadKReceiverAutoRun-->
+    <!--PrefabKReceiverAutoRun-->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>

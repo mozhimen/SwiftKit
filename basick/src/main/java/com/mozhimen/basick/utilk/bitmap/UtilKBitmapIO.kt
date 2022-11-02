@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.bitmap
 
 import android.content.ContentResolver
 import android.content.ContentValues
@@ -10,6 +10,8 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import com.mozhimen.basick.utilk.UtilKFile
+import com.mozhimen.basick.utilk.UtilKGlobal
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -17,7 +19,7 @@ import java.io.OutputStream
 
 /**
  * @ClassName UtilKBitmapIO
- * @Description TODO
+ * @Description Bitmap IO 类
  * @Author Mozhimen & Kolin Zhao
  * @Date 2022/10/20 16:44
  * @Version 1.0

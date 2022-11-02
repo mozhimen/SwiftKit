@@ -13,9 +13,10 @@ import com.mozhimen.abilityktest.databinding.ActivityOpencvkContrastBinding
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.extsk.drawable2Bitmap
-import com.mozhimen.basick.utilk.UtilKBitmap
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapConv
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapTrans
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.componentk.permissionk.PermissionK
@@ -62,7 +63,7 @@ class OpenCVKContrastActivity : BaseKActivityVB<ActivityOpencvkContrastBinding>(
                     } else {
                         ImageConverter.jpeg2Bitmap(image)
                     }
-                    val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
+                    val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
                     val ratio: Double =
                         vb.opencvkContrastQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
 
@@ -73,7 +74,7 @@ class OpenCVKContrastActivity : BaseKActivityVB<ActivityOpencvkContrastBinding>(
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
 
-                    val cropSameBitmap = UtilKBitmap.scaleSameSize(cropBitmap, _orgBitmap)
+                    val cropSameBitmap = UtilKBitmapConv.scaleSameSize(cropBitmap, _orgBitmap)
                     runOnUiThread {
                         vb.opencvkContrastImg.setImageBitmap(rotateBitmap)
                         vb.opencvkContrastImg1.setImageBitmap(cropSameBitmap.first)

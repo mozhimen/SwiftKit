@@ -14,8 +14,9 @@ import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.cropBitmap
-import com.mozhimen.basick.utilk.UtilKBitmap
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapTrans
 import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapConv
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.APermissionK
 import com.mozhimen.opencvk.OpenCVK
@@ -60,7 +61,7 @@ class ScanKHSVActivity : BaseKActivityVB<ActivityScankHsvBinding>() {
                     } else {
                         ImageConverter.jpeg2Bitmap(image)
                     }
-                    val rotateBitmap = UtilKBitmap.rotateBitmap(bitmap, 90)
+                    val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
                     val ratio: Double =
                         vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
                     val cropBitmap = rotateBitmap.cropBitmap(
@@ -69,7 +70,7 @@ class ScanKHSVActivity : BaseKActivityVB<ActivityScankHsvBinding>() {
                         ((1 - ratio) * rotateBitmap.width / 2).toInt(),
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
-                    val scaleBitmap = UtilKBitmap.scaleBitmap(cropBitmap, cropBitmap.width / 5, cropBitmap.height / 5)//降低分辨率提高运算速度
+                    val scaleBitmap = UtilKBitmapConv.scaleBitmap(cropBitmap, cropBitmap.width / 5, cropBitmap.height / 5)//降低分辨率提高运算速度
                     val results = ScanKHSV.colorAnalyze(scaleBitmap)
                     Log.i(TAG, "analyze: $results")
                 } finally {
