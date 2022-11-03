@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.*
 import androidx.navigation.fragment.DialogFragmentNavigator
+import com.mozhimen.basick.extsk.joinList
 import com.mozhimen.componentk.navigatek.helpers.NavigateKHelper
 import com.mozhimen.componentk.navigatek.mos.MNavigateKPageInfo
 import java.util.*
@@ -23,7 +24,8 @@ object NavigateK {
     fun buildNavGraph(
         activity: FragmentActivity,
         containerId: Int,
-        clazzes: List<Class<*>>
+        clazzes: List<Class<*>>,
+        defaultFragmentId: Int = 0
     ): NavController {
         val navController = activity.findNavController(containerId)
         val childFragmentManager = activity.supportFragmentManager.findFragmentById(containerId)!!.childFragmentManager
@@ -62,7 +64,11 @@ object NavigateK {
                 }
             }
         }
-        navGraph.setStartDestination(pageInfos[0].id)
+        val fragmentIds = arrayListOf<Int>()
+        clazzes.forEach {
+            fragmentIds.add(it.hashCode())
+        }
+        navGraph.setStartDestination(if (defaultFragmentId != 0 && defaultFragmentId in fragmentIds) defaultFragmentId else pageInfos[0].id)
         navController.graph = navGraph
         return navController
     }

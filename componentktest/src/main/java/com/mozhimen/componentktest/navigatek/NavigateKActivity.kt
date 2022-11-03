@@ -38,7 +38,7 @@ class NavigateKActivity : BaseKActivityVBVM<ActivityNavigatekBinding, NavigateKV
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        _navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, _fragments)
+        _navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, _fragments, _currentItemId)
         vm.liveFragmentId.observe(this) {
             if (it != null && _navController.findDestination(it) != null && _navController.currentDestination?.id != it) {
                 _currentItemId = it

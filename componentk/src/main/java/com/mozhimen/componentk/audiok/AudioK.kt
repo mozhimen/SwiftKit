@@ -3,10 +3,13 @@ package com.mozhimen.componentk.audiok
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.lifecycleScope
 import com.mozhimen.componentk.audiok.commons.IAudioKListener
 import com.mozhimen.componentk.audiok.cons.EPlayMode
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
 import com.mozhimen.componentk.audiok.mos.MAudioK
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * @ClassName AudioK
@@ -31,7 +34,9 @@ class AudioK : IAudioKListener, LifecycleOwner {
     }
 
     init {
-        _lifecycleRegistry.currentState = Lifecycle.State.STARTED
+        this.lifecycleScope.launch(Dispatchers.Main) {
+            _lifecycleRegistry.currentState = Lifecycle.State.STARTED
+        }
     }
 
     override fun getPlayList(): ArrayList<MAudioK> {

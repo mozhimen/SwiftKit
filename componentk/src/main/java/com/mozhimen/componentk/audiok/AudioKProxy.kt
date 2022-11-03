@@ -2,6 +2,7 @@ package com.mozhimen.componentk.audiok
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.componentk.audiok.commons.IAudioKListener
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent
@@ -9,6 +10,8 @@ import com.mozhimen.componentk.audiok.cons.EPlayMode
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
 import com.mozhimen.componentk.audiok.helpers.CustomAudioPlayer
 import com.mozhimen.componentk.audiok.mos.MAudioK
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 /**
@@ -18,9 +21,9 @@ import com.mozhimen.componentk.audiok.mos.MAudioK
  * @Date 2022/10/31 15:19
  * @Version 1.0
  */
-internal class AudioKProxy(owner: LifecycleOwner) : IAudioKListener {
+internal class AudioKProxy(private val _owner: LifecycleOwner) : IAudioKListener {
 
-    private val _customAudioPlayer by lazy { CustomAudioPlayer(owner) }
+    private val _customAudioPlayer by lazy { CustomAudioPlayer(_owner) }
     private val TAG = "AudioKProxy>>>>>"
 
     private val _playList: ArrayList<MAudioK> = ArrayList()
@@ -43,13 +46,15 @@ internal class AudioKProxy(owner: LifecycleOwner) : IAudioKListener {
         }
 
     init {
-        UtilKDataBus.with<MAudioK?>(CAudioKEvent.audio_complete).observe(owner) {
-            Log.d(TAG, "init: onCompleted id ${it?.id} url ${it?.url}")
-            genNextAudio(it)
-        }
-        UtilKDataBus.with<MAudioK?>(CAudioKEvent.audio_error).observe(owner) {
-            Log.d(TAG, "init: onError id ${it?.id} url ${it?.url}")
-            genNextAudio(it)
+        _owner.lifecycleScope.launch(Dispatchers.Main) {
+            UtilKDataBus.with<MAudioK?>(CAudioKEvent.audio_complete).observe(_owner) {
+                Log.d(TAG, "init: onCompleted id ${it?.id} url ${it?.url}")
+                genNextAudio(it)
+            }
+            UtilKDataBus.with<MAudioK?>(CAudioKEvent.audio_error).observe(_owner) {
+                Log.d(TAG, "init: onError id ${it?.id} url ${it?.url}")
+                genNextAudio(it)
+            }
         }
     }
 
