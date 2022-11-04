@@ -8,7 +8,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.concurrent.ConcurrentHashMap
 
 /**
  * @ClassName CoroutineFactory
@@ -23,7 +22,6 @@ open class NetKHttp(
 ) {
     private val TAG = "NetKHttp>>>>>"
     private val _intercepters: ArrayList<Interceptor> = ArrayList()
-    private val _services = ConcurrentHashMap<Int, Any>()
     private val _okHttpClient by lazy {
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
@@ -50,14 +48,7 @@ open class NetKHttp(
 
     @Synchronized
     fun <SERVICE : Any> create(service: Class<SERVICE>): SERVICE {
-        val id = service::class.java.hashCode()
-        if (!_services.containsKey(id)) {
-            _retrofit!!.create(service).apply {
-                _services[id] = this
-                return this
-            }
-        }
-        return _services[id] as SERVICE
+        return  _retrofit!!.create(service) as SERVICE
     }
 
     private fun initRetrofit(url: String): Retrofit =

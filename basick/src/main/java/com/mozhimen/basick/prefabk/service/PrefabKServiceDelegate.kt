@@ -8,8 +8,11 @@ import android.os.RemoteException
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.IBaseKServiceConnListener
 import com.mozhimen.basick.IBaseKServiceResListener
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * @ClassName BaseKServiceProxy
@@ -18,7 +21,7 @@ import com.mozhimen.basick.IBaseKServiceResListener
  * @Date 2022/9/28 16:02
  * @Version 1.0
  */
-class PrefabKServiceDelegate<T>(
+open class PrefabKServiceDelegate<T>(
     private val _activity: T,
     private val _service: Class<*>,
     private val _resListener: IBaseKServiceResListener
@@ -29,8 +32,10 @@ class PrefabKServiceDelegate<T>(
     private var _isBindService = false
 
     init {
-        _activity.lifecycle.addObserver(this)
-        bindService()
+        _activity.lifecycleScope.launch(Dispatchers.Main) {
+            _activity.lifecycle.addObserver(this@PrefabKServiceDelegate)
+            bindService()
+        }
     }
 
     fun bindService() {

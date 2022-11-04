@@ -32,6 +32,8 @@ class LogKPrinterMonitor() : ILogKPrinter {
         })
     }
 
+    fun isShow(): Boolean = _isShow
+
     fun toggleMonitor(isFold: Boolean = true) {
         if (_isShow) {
             _isShow = false

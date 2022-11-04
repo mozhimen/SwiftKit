@@ -40,7 +40,7 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
 
     fun init(config: LogKConfig, vararg printers: ILogKPrinter) {
         _config = config
-        _printers.addAll(printers.filterNot { _printers.contains(it) })
+        _printers.addAll(_printers)
     }
 
     /**

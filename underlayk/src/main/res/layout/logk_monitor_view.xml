@@ -19,6 +19,7 @@
         android:background="@android:color/black"
         android:layout_gravity="end"
         android:text="@string/logk_view_provider_title_close"
+        android:padding="4dp"
         android:textColor="@android:color/white"
         tools:ignore="HardcodedText" />
 </FrameLayout>
