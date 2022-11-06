@@ -8,12 +8,12 @@ import com.mozhimen.uicorektest.databinding.ActivityViewkBinding
 
 class ViewKActivity : BaseKActivityVB<ActivityViewkBinding>() {
 
-    fun gotoViewKViews(view: View) {
-        start<ViewKViewsActivity>()
+    fun goViewKSteps(view: View) {
+        start<ViewKStepsActivity>()
     }
 
-    fun gotoViewKSteps(view: View) {
-        start<ViewKStepsActivity>()
+    fun goViewKViews(view: View) {
+        start<ViewKViewsActivity>()
     }
 
     override fun initData(savedInstanceState: Bundle?) {

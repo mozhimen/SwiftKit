@@ -10,7 +10,7 @@ import android.util.Log
 import android.view.View
 import com.mozhimen.basick.basek.commons.IBaseKLayout
 import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.utilk.UtilKView
+import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener

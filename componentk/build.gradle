@@ -42,7 +42,6 @@ dependencies {
     api "com.squareup.retrofit2:converter-moshi:2.9.0"
     api 'com.squareup.retrofit2:converter-scalars:2.5.0'
     api "com.squareup.retrofit2:adapter-rxjava2:2.6.1"
-    api 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
     api 'com.liulishuo.okdownload:okdownload:1.0.7'
 
     //cameraxk

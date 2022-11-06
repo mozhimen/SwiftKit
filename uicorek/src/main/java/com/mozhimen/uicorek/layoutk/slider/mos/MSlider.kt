@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.layoutk.slider.mos
 
 import android.graphics.Color
-import com.mozhimen.uicorek.layoutk.slider.helpers.SliderParser
+import com.mozhimen.uicorek.layoutk.slider.helpers.AttrsParser
 
 /**
  * @ClassName Slider
@@ -13,12 +13,12 @@ import com.mozhimen.uicorek.layoutk.slider.helpers.SliderParser
 class MSlider {
     var width: Float = 0f
         set(value) {
-            field = if (value <= 0) SliderParser.SLIDER_WIDTH else value
+            field = if (value <= 0) AttrsParser.SLIDER_WIDTH else value
             refreshX()
         }
     var height: Float = 0f
         set(value) {
-            field = if (value <= 0) SliderParser.SLIDER_HEIGHT else value
+            field = if (value <= 0) AttrsParser.SLIDER_HEIGHT else value
             refreshY()
         }
     var leftX: Float = 0f

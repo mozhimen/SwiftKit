@@ -9,8 +9,9 @@ import android.widget.ScrollView
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.basek.BaseKLayoutFrame
-import com.mozhimen.basick.utilk.UtilKView
-import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
+import com.mozhimen.basick.utilk.view.UtilKView
+import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
+import com.mozhimen.uicorek.layoutk.slider.helpers.LayoutKSliderProxy
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
 import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
 
@@ -53,7 +54,7 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
     val slider:MSlider
     get() = _layoutKSliderProxy.getSlider()
 
-    fun setSliderListener(sliderListener: ISliderListener) {
+    fun setSliderListener(sliderListener: ISliderScrollListener) {
         _layoutKSliderProxy.setSliderListener(sliderListener)
     }
 

@@ -17,7 +17,9 @@ import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
  * @Date 2022/9/5 13:09
  * @Version 1.0
  */
-class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class TextKBubble @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) :
     AppCompatTextView(context, attrs, defStyleAttr), ITextKBubble, ITextKBubbleListener {
 
     //region # variate

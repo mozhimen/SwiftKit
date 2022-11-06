@@ -11,7 +11,7 @@ import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.componentk.statusbark.annors.AStatusBarK
 import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.recyclerk.AdapterKRecyclerStuffed
 import kotlin.math.abs
 
 @AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data />
+
+    <com.mozhimen.uicorek.layoutk.tab.bottom.TabBottomLayout
+        android:id="@+id/layoutk_tab_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_light"
+                    android:text="item"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_theme"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_normal"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_dark"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_normal"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_theme"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@color/blue_light"
+                    android:text="item"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </ScrollView>
+
+    </com.mozhimen.uicorek.layoutk.tab.bottom.TabBottomLayout>
+</layout>

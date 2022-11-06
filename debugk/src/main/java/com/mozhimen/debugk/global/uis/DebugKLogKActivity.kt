@@ -8,12 +8,12 @@ import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
 import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.global.mos.MDebugKCrashK
+import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
 
 class DebugKLogKActivity : BaseKActivityVB<DebugkActivityLogkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class DebugKLogKActivity : BaseKActivityVB<DebugkActivityLogkBinding>() {
                 R.layout.debugk_item_crashk_file,
                 BR.itemDebugKCrashK
             ) { holder, itemData, _ ->
-                holder.binding.debugkCrashkFileShare.setOnClickListener {
+                holder.vb.debugkCrashkFileShare.setOnClickListener {
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.putExtra("subject", "")
                     intent.putExtra("body", "")

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <com.mozhimen.uicorek.layoutk.refresh.LayoutKRefresh
+        android:id="@+id/layoutk_refresh_container_lottie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".layoutk.refresh.LayoutKRefreshLottieActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_light"
+                    android:text="item"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_theme"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_normal"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_dark"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_normal"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/blue_theme"
+                    android:text="item"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@color/blue_light"
+                    android:text="item"
+                    android:textColor="@color/blue_dark"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </ScrollView>
+    </com.mozhimen.uicorek.layoutk.refresh.LayoutKRefresh>
+</layout>

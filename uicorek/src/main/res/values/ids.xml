@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--navk-->
-    <item name="navk_icon_left_back" type="id" />
-    <!--searchk-->
-    <item name="searchk_edit_search" type="id" />
-    <item name="searchk_txt_icon_clear" type="id" />
-    <item name="searchk_txt_hint" type="id" />
-    <item name="searchk_txt_icon_search" type="id" />
-    <item name="searchk_txt_icon_keyword" type="id" />
-    <item name="searchk_txt_keyword" type="id" />
+    <!--layoutk_nav-->
+    <item name="layoutk_nav_icon_left_back" type="id" />
+    <!--layoutk_search-->
+    <item name="layoutk_search_edit_search" type="id" />
+    <item name="layoutk_search_icon_clear" type="id" />
+    <item name="layoutk_search_txt_hint" type="id" />
+    <item name="layoutk_search_txt_icon_search" type="id" />
+    <item name="layoutk_search_txt_icon_keyword" type="id" />
+    <item name="layoutk_search_txt_keyword" type="id" />
 </resources>

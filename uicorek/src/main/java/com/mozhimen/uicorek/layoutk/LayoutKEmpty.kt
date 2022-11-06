@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.extsk.font
+import com.mozhimen.basick.extsk.view.font
 import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.uicorek.R
 
@@ -19,7 +19,9 @@ import com.mozhimen.uicorek.R
  * @Date 2022/4/22 18:28
  * @Version 1.0
  */
-class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class LayoutKEmpty @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) :
     BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
     private var _imageResId: Int? = null

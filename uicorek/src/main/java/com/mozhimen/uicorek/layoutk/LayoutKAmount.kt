@@ -24,7 +24,7 @@ import com.mozhimen.uicorek.R
  * @Version 1.0
  */
 
-typealias ILayoutKAmountListener = (amountVal: Int) -> Unit
+typealias ILayoutKAmountListener = (amount: Int) -> Unit
 
 class LayoutKAmount @JvmOverloads constructor(
     context: Context,

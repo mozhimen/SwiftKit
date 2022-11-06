@@ -7,7 +7,7 @@ package com.mozhimen.uicorek.layoutk.slider.mos
  * @Date 2022/9/17 14:23
  * @Version 1.0
  */
-data class MSliderAttrs(
+internal data class MSliderAttrs(
     var sliderHeight: Float,
     var sliderRodLeftColor: Int,
     var sliderRodLeftGradientColor: Int,

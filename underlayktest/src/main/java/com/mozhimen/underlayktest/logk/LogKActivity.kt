@@ -1,18 +1,24 @@
 package com.mozhimen.underlayktest.logk
 
 import android.os.Bundle
+import android.util.Log
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.commons.LogKConfig
-import com.mozhimen.underlayk.logk.mos.LogKType
+import com.mozhimen.underlayk.logk.mos.CLogKType
 import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
 import com.mozhimen.underlayk.logk.temps.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
 
 class LogKActivity : BaseKActivityVB<ActivityLogkBinding>() {
     private val _printerView: LogKPrinterView by lazy { LogKPrinterView(this, this) }
-    private val _printerMonitor: LogKPrinterMonitor by lazy { LogKPrinterMonitor() }
+    private val _printerMonitor: LogKPrinterMonitor by lazy {
+        LogKMgr.instance.getPrinters().filterIsInstance<LogKPrinterMonitor>().getOrNull(0) ?: kotlin.run {
+            Log.d(TAG, "_printerMonitor: init")
+            LogKPrinterMonitor().also { LogKMgr.instance.addPrinter(it) }
+        }
+    }
 
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
@@ -32,12 +38,10 @@ class LogKActivity : BaseKActivityVB<ActivityLogkBinding>() {
 
     private fun initPrinterView() {
         _printerView.toggleView()
-
     }
 
     private fun initPrinterMonitor() {
         //添加_printerMonitor的时候一定Application要继承BaseKApplication, 因为其中实现了前后台切换的监听
-        LogKMgr.instance.addPrinter(_printerMonitor)
         _printerMonitor.toggleMonitor()
     }
 
@@ -46,7 +50,7 @@ class LogKActivity : BaseKActivityVB<ActivityLogkBinding>() {
         LogK.i("just a test1!")
 
         //中级用法
-        LogK.log(LogKType.W, TAG, "just a test2!")
+        LogK.log(CLogKType.W, TAG, "just a test2!")
 
         //高级用法
         LogK.log(object : LogKConfig() {
@@ -57,7 +61,7 @@ class LogKActivity : BaseKActivityVB<ActivityLogkBinding>() {
             override fun stackTraceDepth(): Int {
                 return 5
             }
-        }, LogKType.E, TAG, "just a test3!")
+        }, CLogKType.E, TAG, "just a test3!")
     }
 
     private fun printLog1() {

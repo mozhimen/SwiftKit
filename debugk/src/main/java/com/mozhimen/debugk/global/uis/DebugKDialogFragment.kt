@@ -18,7 +18,7 @@ import com.mozhimen.debugk.databinding.DebugkDialogItemBinding
 import com.mozhimen.debugk.global.DebugKTools
 import com.mozhimen.debugk.global.annors.ADebugKTool
 import com.mozhimen.debugk.global.mos.MDebugKMethod
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
 
 /**
  * @ClassName DebugKDialogFragment
@@ -81,7 +81,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
             BR.itemDebugKDialog
         ) { holder, itemData, _ ->
 
-            val descView = holder.binding.debugkDialogItemDesc
+            val descView = holder.vb.debugkDialogItemDesc
             if (TextUtils.isEmpty(itemData.desc)) {
                 descView.visibility = View.GONE
             } else {

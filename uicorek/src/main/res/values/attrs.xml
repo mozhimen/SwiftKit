@@ -1,112 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--searchk-->
-    <attr name="SearchKLayout_SearchKLayoutStyle" format="reference" />
-    <declare-styleable name="SearchKLayout">
-        <attr name="searchKLayout_search_icon" format="string|reference" />
-        <attr name="searchKLayout_search_iconSize" format="dimension|reference" />
-        <attr name="searchKLayout_search_iconPadding" format="dimension|reference" />
-        <attr name="searchKLayout_search_background" format="reference" />
-        <attr name="searchKLayout_search_textSize" format="dimension|reference" />
-        <attr name="searchKLayout_search_textColor" format="color|reference" />
-
-        <attr name="searchKLayout_clear_icon" format="string|reference" />
-        <attr name="searchKLayout_clear_iconSize" format="dimension|reference" />
-
-        <attr name="searchKLayout_hint_text" format="string|reference" />
-        <attr name="searchKLayout_hint_textSize" format="dimension|reference" />
-        <attr name="searchKLayout_hint_textColor" format="color|reference" />
-        <attr name="searchKLayout_hint_gravity" format="enum">
-            <enum name="center" value="0" />
-            <enum name="left" value="1" />
-        </attr>
-
-        <attr name="searchKLayout_keyword_icon" format="string|reference" />
-        <attr name="searchKLayout_keyword_iconSize" format="dimension|reference" />
-        <attr name="searchKLayout_keyword_iconColor" format="color|reference" />
-        <attr name="searchKLayout_keyword_background" format="reference" />
-        <attr name="searchKLayout_keyword_maxLength" format="integer|reference" />
-        <attr name="searchKLayout_keyword_padding" format="dimension|reference" />
-    </declare-styleable>
-
-    <!--navk-->
-    <attr name="NavKBar_NavKBarStyle" format="reference" />
-    <declare-styleable name="NavKBar">
-        <attr name="navKBar_title" format="string|reference" />
-        <attr name="navKBar_title_textColor" format="color|reference" />
-        <attr name="navKBar_title_textSize" format="dimension|reference" />
-
-        <attr name="navKBar_subTitle" format="string|reference" />
-        <attr name="navKBar_subTitle_textSize" format="dimension|reference" />
-        <attr name="navKBar_subTitle_textColor" format="color|reference" />
-        <attr name="navKBar_subTitle_marginTop" format="dimension|reference" />
-
-        <attr name="navKBar_lineColor" format="color|reference" />
-        <attr name="navKBar_lineWidth" format="dimension|reference" />
-    </declare-styleable>
-
-    <!--bannerk-->
-    <declare-styleable name="BannerK">
-        <attr name="bannerK_autoPlay" format="boolean" />
-        <attr name="bannerK_loop" format="boolean" />
-        <attr name="bannerK_scrollDuration" format="integer" />
-        <attr name="bannerK_intervalTime" format="integer" />
-    </declare-styleable>
-
     <!--btnk-->
     <declare-styleable name="BtnKIconFont">
         <attr name="btnKIcon_fontPath" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="SwitchApple">
-        <!--默认开关状态-->
-        <attr name="switchApple_defaultStatus" format="boolean" />
-        <!--打开时颜色-->
-        <attr name="switchApple_bgColorOn" format="reference|color" />
-        <!--关闭时颜色-->
-        <attr name="switchApple_bgColorOff" format="reference|color" />
-        <!--外边框颜色-->
-        <attr name="switchApple_bgColorBorder" format="reference|color" />
-        <!--中心圆颜色-->
-        <attr name="switchApple_iconColorBtn" format="reference|color" />
-        <!--外边框厚度-->
-        <attr name="switchApple_borderWidth" format="dimension|reference" />
-        <!--变换时间-->
-        <attr name="switchApple_animTime" format="integer" />
-        <!--中心圆到外边距的距离-->
-        <attr name="switchApple_iconMargin" format="dimension|reference" />
-    </declare-styleable>
-
-    <declare-styleable name="BtnKIcon">
-        <attr name="btnKIcon_background" format="reference" />
-        <attr name="btnKIcon_iconSrc" format="reference" />
-        <attr name="btnKIcon_iconSize" format="dimension|reference" />
-        <attr name="btnKIcon_iconMarginRight" format="dimension|reference" />
-        <attr name="btnKIcon_text" format="string|reference" />
-        <attr name="btnKIcon_textColor" format="color|reference" />
-        <attr name="btnKIcon_textSize" format="dimension|reference" />
-    </declare-styleable>
-
-    <declare-styleable name="BtnKSpinnerForm">
-        <attr name="btnKSpinnerForm_isRequired" format="boolean" />
-        <attr name="btnKSpinnerForm_requiredIconPos" format="enum">
-            <enum name="top" value="0" />
-            <enum name="center" value="1" />
+    <!--viewk-->
+    <declare-styleable name="ImageKMask">
+        <!--蒙版类型-->
+        <attr name="imageKMask_maskType" format="enum">
+            <!--蒙版类型:全遮罩-->
+            <enum name="stroke" value="1" />
+            <!--蒙版类型:边框-->
+            <enum name="fill" value="0" />
         </attr>
-        <attr name="btnKSpinnerForm_label" format="string|reference" />
-        <attr name="btnKSpinnerForm_labelTextSize" format="dimension|reference" />
-        <attr name="btnKSpinnerForm_labelColor" format="color|reference" />
-        <attr name="btnKSpinnerForm_labelMarginLeft" format="dimension|reference" />
-        <attr name="btnKSpinnerForm_labelMarginRight" format="dimension|reference" />
-        <attr name="btnKSpinnerForm_labelWidth" format="dimension|reference" />
-        <!--StringArray 字符串数组-->
-        <attr name="btnKSpinnerForm_spinnerEntries" format="reference" />
-        <!--layout item布局-->
-        <attr name="btnKSpinnerForm_spinnerItemLayout" format="reference" />
-        <attr name="btnKSpinnerForm_borderBackground" format="reference" />
+        <!--蒙版颜色-->
+        <attr name="imageKMask_maskColor" format="color|reference" />
+        <!--蒙版边框类型宽-->
+        <attr name="imageKMask_borderWidth" format="dimension|reference" />
     </declare-styleable>
 
-    <!--layoutk-->
+    <!--layoutk_search-->
+    <attr name="LayoutKSearch_LayoutKSearchStyle" format="reference" />
+    <declare-styleable name="LayoutKSearch">
+        <attr name="layoutKSearch_search_icon" format="string|reference" />
+        <attr name="layoutKSearch_search_iconSize" format="dimension|reference" />
+        <attr name="layoutKSearch_search_iconPadding" format="dimension|reference" />
+        <attr name="layoutKSearch_search_background" format="reference" />
+        <attr name="layoutKSearch_search_textSize" format="dimension|reference" />
+        <attr name="layoutKSearch_search_textColor" format="color|reference" />
+
+        <attr name="layoutKSearch_clear_icon" format="string|reference" />
+        <attr name="layoutKSearch_clear_iconSize" format="dimension|reference" />
+
+        <attr name="layoutKSearch_hint_text" format="string|reference" />
+        <attr name="layoutKSearch_hint_textSize" format="dimension|reference" />
+        <attr name="layoutKSearch_hint_textColor" format="color|reference" />
+        <attr name="layoutKSearch_hint_gravity" format="enum">
+            <enum name="center" value="0" />
+            <enum name="left" value="1" />
+        </attr>
+
+        <attr name="layoutKSearch_keyword_icon" format="string|reference" />
+        <attr name="layoutKSearch_keyword_iconSize" format="dimension|reference" />
+        <attr name="layoutKSearch_keyword_iconColor" format="color|reference" />
+        <attr name="layoutKSearch_keyword_background" format="reference" />
+        <attr name="layoutKSearch_keyword_maxLength" format="integer|reference" />
+        <attr name="layoutKSearch_keyword_padding" format="dimension|reference" />
+    </declare-styleable>
+
+    <!--layoutk_navbar-->
+    <attr name="LayoutKNavBar_LayoutKNavBarStyle" format="reference" />
+    <declare-styleable name="LayoutKNavBar">
+        <attr name="layoutKNavBar_title" format="string|reference" />
+        <attr name="layoutKNavBar_title_textColor" format="color|reference" />
+        <attr name="layoutKNavBar_title_textSize" format="dimension|reference" />
+
+        <attr name="layoutKNavBar_subTitle" format="string|reference" />
+        <attr name="layoutKNavBar_subTitle_textSize" format="dimension|reference" />
+        <attr name="layoutKNavBar_subTitle_textColor" format="color|reference" />
+        <attr name="layoutKNavBar_subTitle_marginTop" format="dimension|reference" />
+
+        <attr name="layoutKNavBar_lineColor" format="color|reference" />
+        <attr name="layoutKNavBar_lineWidth" format="dimension|reference" />
+    </declare-styleable>
+
+    <!--layoutk_banner-->
+    <declare-styleable name="LayoutKBanner">
+        <attr name="layoutKBanner_autoPlay" format="boolean" />
+        <attr name="layoutKBanner_loop" format="boolean" />
+        <attr name="layoutKBanner_scrollDuration" format="integer" />
+        <attr name="layoutKBanner_intervalTime" format="integer" />
+    </declare-styleable>
+
+    <!--layoutk_slider-->
     <declare-styleable name="LayoutKSlider">
         <attr name="layoutKSlider_sliderHeight" format="reference|dimension" />
         <attr name="layoutKSlider_sliderRodLeftColor" format="color|reference" />
@@ -145,7 +112,6 @@
         <attr name="layoutKAmount_btnTextSize" format="dimension|reference" />
         <attr name="layoutKAmount_btnBackgroundColor" format="color|reference" />
         <attr name="layoutKAmount_btnSize" format="dimension|reference" />
-
     </declare-styleable>
 
     <!--视频布局-->
@@ -210,46 +176,76 @@
         <attr name="lineAppearance_rightMargin" format="dimension|reference" />
     </declare-styleable>
 
-    <declare-styleable name="SliderKSubLayout">
-        <attr name="sliderKSubLayout_menuWidth" format="dimension|reference" />
-        <attr name="sliderKSubLayout_menuHeight" format="dimension|reference" />
-        <attr name="sliderKSubLayout_menuItemTextSize" format="dimension|reference" />
-        <attr name="sliderKSubLayout_menuItemTextSizeSelect" format="dimension|reference" />
-        <attr name="sliderKSubLayout_menuItemTextColor" format="reference|color" />
-        <attr name="sliderKSubLayout_menuItemTextColorSelect" format="reference|color" />
-        <attr name="sliderKSubLayout_menuItemBackgroundColor" format="reference|color" />
-        <attr name="sliderKSubLayout_menuItemBackgroundColorSelect" format="reference|color" />
-        <attr name="sliderKSubLayout_menuItemIndicator" format="reference" />
-        <attr name="sliderKSubLayout_subTextSize" format="dimension|reference" />
-        <attr name="sliderKSubLayout_subTextColor" format="color|reference" />
-        <attr name="sliderKSubLayout_subHeight" format="dimension|reference" />
-        <attr name="sliderKSubLayout_subMarginStart" format="dimension|reference" />
-        <attr name="sliderKSubLayout_contentTextSize" format="dimension|reference" />
-        <attr name="sliderKSubLayout_contentTextColor" format="color|reference" />
-        <attr name="sliderKSubLayout_contentImgRatio" format="enum">
+    <!--layoutk_side-->
+    <declare-styleable name="LayoutKSideList">
+        <attr name="layoutKSideList_menuWidth" format="dimension|reference" />
+        <attr name="layoutKSideList_menuHeight" format="dimension|reference" />
+        <attr name="layoutKSideList_menuItemTextSize" format="dimension|reference" />
+        <attr name="layoutKSideList_menuItemTextSizeSelect" format="dimension|reference" />
+        <attr name="layoutKSideList_menuItemTextColor" format="reference|color" />
+        <attr name="layoutKSideList_menuItemTextColorSelect" format="reference|color" />
+        <attr name="layoutKSideList_menuItemBackgroundColor" format="reference|color" />
+        <attr name="layoutKSideList_menuItemBackgroundColorSelect" format="reference|color" />
+        <attr name="layoutKSideList_menuItemIndicator" format="reference" />
+        <attr name="layoutKSideList_subTextSize" format="dimension|reference" />
+        <attr name="layoutKSideList_subTextColor" format="color|reference" />
+        <attr name="layoutKSideList_subHeight" format="dimension|reference" />
+        <attr name="layoutKSideList_subMarginStart" format="dimension|reference" />
+        <attr name="layoutKSideList_contentTextSize" format="dimension|reference" />
+        <attr name="layoutKSideList_contentTextColor" format="color|reference" />
+        <attr name="layoutKSideList_contentImgRatio" format="enum">
             <enum name="ratio11" value="0" />
             <enum name="ratio34" value="1" />
             <enum name="ratio169" value="2" />
         </attr>
     </declare-styleable>
 
-    <declare-styleable name="CircleSpread">
+    <declare-styleable name="LayoutKBtnSwitchApple">
+        <!--默认开关状态-->
+        <attr name="layoutKBtnSwitchApple_defaultStatus" format="boolean" />
+        <!--打开时颜色-->
+        <attr name="layoutKBtnSwitchApple_bgColorOn" format="reference|color" />
+        <!--关闭时颜色-->
+        <attr name="layoutKBtnSwitchApple_bgColorOff" format="reference|color" />
+        <!--外边框颜色-->
+        <attr name="layoutKBtnSwitchApple_bgColorBorder" format="reference|color" />
         <!--中心圆颜色-->
-        <attr name="circleSpread_centerColor" format="reference|color" />
-        <!--中心圆图片-->
-        <attr name="circleSpread_centerDrawable" format="reference" />
-        <!--中心圆半径-->
-        <attr name="circleSpread_centerRadius" format="dimension|reference" />
-        <!--扩散圆颜色-->
-        <attr name="circleSpread_spreadColor" format="reference|color" />
-        <!--扩散圆最大数-->
-        <attr name="circleSpread_spreadCount" format="integer" />
-        <!--扩散圆波浪叠层效果还是边缘波纹效果-->
-        <attr name="circleSpread_spreadIsRipple" format="boolean" />
-        <!--扩散间距-->
-        <attr name="circleSpread_circlesDistance" format="dimension|reference" />
-        <!--扩散时间1-1000ms之间-->
-        <attr name="circleSpread_animTime" format="integer" />
+        <attr name="layoutKBtnSwitchApple_iconColorBtn" format="reference|color" />
+        <!--外边框厚度-->
+        <attr name="layoutKBtnSwitchApple_borderWidth" format="dimension|reference" />
+        <!--变换时间-->
+        <attr name="layoutKBtnSwitchApple_animTime" format="integer" />
+        <!--中心圆到外边距的距离-->
+        <attr name="layoutKBtnSwitchApple_iconMargin" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="LayoutKBtnIcon">
+        <attr name="layoutKBtnIcon_background" format="reference" />
+        <attr name="layoutKBtnIcon_iconSrc" format="reference" />
+        <attr name="layoutKBtnIcon_iconSize" format="dimension|reference" />
+        <attr name="layoutKBtnIcon_iconMarginRight" format="dimension|reference" />
+        <attr name="layoutKBtnIcon_text" format="string|reference" />
+        <attr name="layoutKBtnIcon_textColor" format="color|reference" />
+        <attr name="layoutKBtnIcon_textSize" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="LayoutKSpinnerForm">
+        <attr name="layoutKSpinnerForm_isRequired" format="boolean" />
+        <attr name="layoutKSpinnerForm_requiredIconPos" format="enum">
+            <enum name="top" value="0" />
+            <enum name="center" value="1" />
+        </attr>
+        <attr name="layoutKSpinnerForm_label" format="string|reference" />
+        <attr name="layoutKSpinnerForm_labelTextSize" format="dimension|reference" />
+        <attr name="layoutKSpinnerForm_labelColor" format="color|reference" />
+        <attr name="layoutKSpinnerForm_labelMarginLeft" format="dimension|reference" />
+        <attr name="layoutKSpinnerForm_labelMarginRight" format="dimension|reference" />
+        <attr name="layoutKSpinnerForm_labelWidth" format="dimension|reference" />
+        <!--StringArray 字符串数组-->
+        <attr name="layoutKSpinnerForm_spinnerEntries" format="reference" />
+        <!--layout item布局-->
+        <attr name="layoutKSpinnerForm_spinnerItemLayout" format="reference" />
+        <attr name="layoutKSpinnerForm_borderBackground" format="reference" />
     </declare-styleable>
 
     <!--textk-->
@@ -309,31 +305,33 @@
         <!--设置上下内边距-->
         <attr name="textKBubble_paddingVertical" format="dimension|reference" />
     </declare-styleable>
+
     <declare-styleable name="TextKIconFont">
         <attr name="textKIconFont_fontPath" format="string" />
     </declare-styleable>
+
     <!--下划线控件-->
     <declare-styleable name="TextKUnderLine">
         <!--下划线是否出现-->
         <attr name="textKUnderLine_underline" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="TextKTextForm">
-        <attr name="textKTextForm_isRequired" format="boolean" />
-        <attr name="textKTextForm_requiredIconPos" format="enum">
+    <declare-styleable name="TextKForm">
+        <attr name="textKForm_isRequired" format="boolean" />
+        <attr name="textKForm_requiredIconPos" format="enum">
             <enum name="top" value="0" />
             <enum name="center" value="1" />
         </attr>
-        <attr name="textKTextForm_label" format="string|reference" />
-        <attr name="textKTextForm_labelTextSize" format="dimension|reference" />
-        <attr name="textKTextForm_labelColor" format="color|reference" />
-        <attr name="textKTextForm_labelMarginLeft" format="dimension|reference" />
-        <attr name="textKTextForm_labelMarginRight" format="dimension|reference" />
-        <attr name="textKTextForm_labelWidth" format="dimension|reference" />
-        <attr name="textKTextForm_textColor" format="color|reference" />
-        <attr name="textKTextForm_textHint" format="string|reference" />
-        <attr name="textKTextForm_textSize" format="dimension|reference" />
-        <attr name="textKTextForm_borderBackground" format="reference" />
+        <attr name="textKForm_label" format="string|reference" />
+        <attr name="textKForm_labelTextSize" format="dimension|reference" />
+        <attr name="textKForm_labelColor" format="color|reference" />
+        <attr name="textKForm_labelMarginLeft" format="dimension|reference" />
+        <attr name="textKForm_labelMarginRight" format="dimension|reference" />
+        <attr name="textKForm_labelWidth" format="dimension|reference" />
+        <attr name="textKForm_textColor" format="color|reference" />
+        <attr name="textKForm_textHint" format="string|reference" />
+        <attr name="textKForm_textSize" format="dimension|reference" />
+        <attr name="textKForm_borderBackground" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="TextKEditForm">
@@ -362,18 +360,23 @@
     </declare-styleable>
 
     <!--viewk-->
-    <declare-styleable name="ViewKImageMask">
-        <!--蒙版类型-->
-        <attr name="viewKImageMask_maskType" format="enum">
-            <!--蒙版类型:全遮罩-->
-            <enum name="stroke" value="1" />
-            <!--蒙版类型:边框-->
-            <enum name="fill" value="0" />
-        </attr>
-        <!--蒙版颜色-->
-        <attr name="viewKImageMask_maskColor" format="color|reference" />
-        <!--蒙版边框类型宽-->
-        <attr name="viewKImageMask_borderWidth" format="dimension|reference" />
+    <declare-styleable name="CircleSpread">
+        <!--中心圆颜色-->
+        <attr name="circleSpread_centerColor" format="reference|color" />
+        <!--中心圆图片-->
+        <attr name="circleSpread_centerDrawable" format="reference" />
+        <!--中心圆半径-->
+        <attr name="circleSpread_centerRadius" format="dimension|reference" />
+        <!--扩散圆颜色-->
+        <attr name="circleSpread_spreadColor" format="reference|color" />
+        <!--扩散圆最大数-->
+        <attr name="circleSpread_spreadCount" format="integer" />
+        <!--扩散圆波浪叠层效果还是边缘波纹效果-->
+        <attr name="circleSpread_spreadIsRipple" format="boolean" />
+        <!--扩散间距-->
+        <attr name="circleSpread_circlesDistance" format="dimension|reference" />
+        <!--扩散时间1-1000ms之间-->
+        <attr name="circleSpread_animTime" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="ArcRotate">

@@ -8,6 +8,7 @@ import com.mozhimen.basick.extsk.e
 import com.mozhimen.underlayk.logk.commons.LogKConfig
 import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
 import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
+import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
 
 /**
  * @ClassName UnderlayKApplication
@@ -21,7 +22,7 @@ class UnderlayKApplication : BaseKApplication() {
         super.onCreate()
 
         //logk
-        LogKMgr.instance.init(_logkConfig, LogKPrinterConsole(), LogKPrinterFile.getInstance(retentionDay = 3))
+        LogKMgr.instance.init(_logkConfig, LogKPrinterConsole(), LogKPrinterFile.getInstance(retentionDay = 3), LogKPrinterMonitor())
 
         //crashk
         //CrashKMgr.instance.init(_crashKCallback)

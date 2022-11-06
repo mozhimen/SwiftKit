@@ -12,13 +12,15 @@
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--UtilKVibrate-->
-    <uses-permission android:name="android.permission.VIBRATE" />
     <!--UtilKDevice-->
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!--UtilKImageLoader-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--UtilKVibrate-->
+    <uses-permission android:name="android.permission.VIBRATE" />
     <!--PrefabKReceiverAutoRun-->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 </manifest>

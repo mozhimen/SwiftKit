@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="refreshk_visible">下拉…</string>
-    <string name="refreshk_overflow">松开刷新</string>
-    <string name="refreshk_refreshing">正在刷新…</string>
-    <string name="datak_footer_loading">正在加载…</string>
+    <string name="layoutk_refresh_visible">下拉…</string>
+    <string name="layoutk_refresh_overflow">松开刷新</string>
+    <string name="layoutk_refresh_refreshing">正在刷新…</string>
+    <string name="recyclerk_load_footer_loading">正在加载…</string>
 </resources>

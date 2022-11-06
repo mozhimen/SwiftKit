@@ -14,7 +14,8 @@ import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
  * @Date 2022/9/7 11:50
  * @Version 1.0
  */
-class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) : TextKBubblePopWin(contentView, textKBubble) {
+class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) :
+    TextKBubblePopWin(contentView, textKBubble) {
 
     class Builder(private val _context: Activity) {
 

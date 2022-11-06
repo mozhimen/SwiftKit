@@ -18,15 +18,16 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="gotoViewKViews"
-                android:text="ViewKViews"
+                android:onClick="goViewKSteps"
+                android:text="goViewKSteps"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="gotoViewKSteps"
-                android:text="ViewKSteps"
+                android:onClick="goViewKViews"
+                android:text="goViewKViews"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

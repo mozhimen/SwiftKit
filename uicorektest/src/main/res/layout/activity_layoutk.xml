@@ -5,73 +5,91 @@
 
     <data />
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.mozhimen.uicorektest.layoutk.LayoutKActivity">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
-            android:onClick="goLayoutKEmpty"
-            android:text="LayoutKEmpty"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
-            android:onClick="goLayoutKVideo"
-            android:text="LayoutKVideo"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.mozhimen.uicorek.layoutk.LayoutKInputItem
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginBottom="10dp"
-            app:layoutKInputItem_bottomLineAppearance="@style/LayoutKInputItemStyle_LineAppearance"
-            app:layoutKInputItem_hint="请输入"
-            app:layoutKInputItem_inputAppearance="@style/LayoutKInputItemStyle_InputAppearance"
-            app:layoutKInputItem_inputType="text"
-            app:layoutKInputItem_title="示例"
-            app:layoutKInputItem_titleAppearance="@style/LayoutKInputItemStyle_TitleAppearance"
-            app:layoutKInputItem_topLineAppearance="@style/LayoutKInputItemStyle_LineAppearance" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context="com.mozhimen.uicorektest.layoutk.LayoutKActivity">
 
-        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
-            android:id="@+id/layoutk_slider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layoutKSlider_sliderRodLeftColor="@color/blue_light"
-            app:layoutKSlider_sliderRodLeftGradientColor="@color/blue_dark" />
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKBanner"
+                android:text="goLayoutKBanner"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
-            android:id="@+id/layoutk_slider_inside"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            app:layoutKSlider_rodIsInside="true" />
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKLoadRefresh"
+                android:text="goLayoutKLoadRefresh"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <TextView
-            android:id="@+id/layoutk_slider_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:textColor="@color/blue_normal" />
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKNavBar"
+                android:text="goLayoutKNavBar"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <com.mozhimen.uicorek.layoutk.LayoutKChipGroup
-            android:id="@+id/layoutk_chips"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKRefresh"
+                android:text="goLayoutKRefresh"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/layoutk_chips_add"
-            style="@style/BtnStyle"
-            android:text="增加Key"
-            tools:ignore="HardcodedText" />
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKSide"
+                android:text="goLayoutKSide"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/layoutk_chips_remove"
-            style="@style/BtnStyle"
-            android:text="删除Key"
-            tools:ignore="HardcodedText" />
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKSlider"
+                android:text="goLayoutKSlider"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKTab"
+                android:text="goLayoutKTab"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKBtn"
+                android:text="goLayoutKBtn"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKChipGroup"
+                android:text="goLayoutKChipGroup"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKEmpty"
+                android:text="goLayoutKEmpty"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKInputItem"
+                android:text="goLayoutKInputItem"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goLayoutKVideo"
+                android:text="goLayoutKVideo"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </layout>

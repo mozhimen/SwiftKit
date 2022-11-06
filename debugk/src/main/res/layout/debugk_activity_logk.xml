@@ -9,11 +9,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.mozhimen.uicorek.navk.NavKBar
-            android:id="@+id/debugk_logk_navkbar"
+        <com.mozhimen.uicorek.layoutk.navbar.LayoutKNavBar
+            android:id="@+id/debugk_logk_navbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            app:navKBar_title="本地日志文件" />
+            app:layoutKNavBar_title="本地日志文件" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/debugk_logk_recycler"

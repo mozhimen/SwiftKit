@@ -18,60 +18,90 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--btnk-->
         <activity
-            android:name=".textk.TextKActivity"
+            android:name=".btnk.BtnKActivity"
+            android:exported="false" />
+        <!--dialogk-->
+        <activity
+            android:name=".dialogk.DialogKActivity"
+            android:exported="false" />
+        <!--layoutk-->
+        <activity
+            android:name=".layoutk.LayoutKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".layoutk.LayoutKInputItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".layoutk.LayoutKBtnActivity"
+            android:exported="false" />
+        <activity
+            android:name=".layoutk.LayoutKChipGroupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".layoutk.LayoutKEmptyActivity"
             android:exported="false" />
         <activity
             android:name=".layoutk.LayoutKVideoActivity"
             android:exported="false" />
         <activity
-            android:name=".navk.NavKActivity"
+            android:name=".layoutk.banner.LayoutKBannerActivity"
             android:exported="false" />
         <activity
-            android:name=".sidek.SideKActivity"
+            android:name=".layoutk.loadrefresh.LayoutKLoadRefreshActivity"
             android:exported="false" />
         <activity
-            android:name=".tabk.TabKBottomActivity"
+            android:name=".layoutk.navbar.LayoutKNavBarActivity"
             android:exported="false" />
         <activity
-            android:name=".tabk.TabKBottomLayoutActivity"
+            android:name=".layoutk.refresh.LayoutKRefreshActivity"
             android:exported="false" />
         <activity
-            android:name=".tabk.TabKBottomFragmentActivity"
+            android:name=".layoutk.refresh.LayoutKRefreshTextActivity"
             android:exported="false" />
         <activity
-            android:name=".tabk.TabKTopActivity"
+            android:name=".layoutk.refresh.LayoutKRefreshLottieActivity"
             android:exported="false" />
         <activity
-            android:name=".tabk.TabKTopLayoutActivity"
+            android:name=".layoutk.side.LayoutKSideActivity"
             android:exported="false" />
         <activity
-            android:name=".refreshk.RefreshKLayoutActivity"
+            android:name=".layoutk.slider.LayoutKSliderActivity"
             android:exported="false" />
         <activity
-            android:name=".refreshk.RefreshKLayoutLottieActivity"
-            android:exported="true" />
-        <activity
-            android:name=".bannerk.BannerKActivity"
+            android:name=".layoutk.tab.LayoutKTabActivity"
             android:exported="false" />
         <activity
-            android:name=".datak.DataKActivity"
+            android:name=".layoutk.tab.LayoutKTabBottomActivity"
             android:exported="false" />
         <activity
-            android:name=".datak.DataKRecyclerActivity"
+            android:name=".layoutk.tab.LayoutKTabBottomFragmentActivity"
             android:exported="false" />
         <activity
-            android:name=".loadk.LoadKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".layoutk.LayoutKActivity"
-            android:exported="true" />
-        <activity
-            android:name=".layoutk.LayoutKEmptyActivity"
+            android:name=".layoutk.tab.LayoutKTabBottomLayoutActivity"
             android:exported="false" />
         <activity
-            android:name=".btnk.BtnKActivity"
+            android:name=".layoutk.tab.LayoutKTabTopActivity"
             android:exported="false" />
+        <activity
+            android:name=".layoutk.tab.LayoutKTabTopLayoutActivity"
+            android:exported="false" />
+        <!--recyclerk-->
+        <activity
+            android:name=".recyclerk.RecyclerKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".recyclerk.RecyclerKAdapterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".recyclerk.RecyclerKLoadActivity"
+            android:exported="false" />
+        <!--textk-->
+        <activity
+            android:name=".textk.TextKActivity"
+            android:exported="false" />
+        <!--viewk-->
         <activity
             android:name=".viewk.ViewKActivity"
             android:exported="false" />
@@ -80,9 +110,6 @@
             android:exported="false" />
         <activity
             android:name=".viewk.ViewKViewsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".dialogk.DialogKActivity"
             android:exported="false" />
     </application>
 

@@ -1,9 +1,7 @@
 package com.mozhimen.basick.extsk
 
-import com.bumptech.glide.util.Util
 import com.mozhimen.basick.utilk.UtilKString
 import java.util.*
-import java.util.regex.Pattern
 
 /**
  * @ClassName ExtsKString

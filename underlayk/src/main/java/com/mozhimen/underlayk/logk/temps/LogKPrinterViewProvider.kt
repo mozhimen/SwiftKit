@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.uicorek.datak.helpers.DataKAdapter
+import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.commons.LogKConfig
@@ -34,7 +36,7 @@ class LogKPrinterViewProvider(
         private val TITLE_CLOSE_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_close)
     }
 
-    private var _adapter: DataKAdapter = DataKAdapter(_context)
+    private var _adapter: RecyclerKAdapter = RecyclerKAdapter(_context)
 
     private var _recyclerView: RecyclerView? = null
         get() {
@@ -51,6 +53,7 @@ class LogKPrinterViewProvider(
             if (field != null) return field
             val textView = TextView(_context)
             textView.text = if (_isFold) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
+            textView.setPadding(4f.dp2px())
             textView.setTextColor(Color.WHITE)
             textView.setBackgroundColor(Color.BLACK)
             textView.setOnClickListener { if (_isFold) unfoldLogView() else foldLogView() }

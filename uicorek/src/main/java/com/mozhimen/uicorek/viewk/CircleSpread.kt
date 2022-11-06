@@ -21,10 +21,7 @@ import com.mozhimen.uicorek.R
  * @Version 1.0
  */
 class CircleSpread @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) :
     BaseKView(context, attrs, defStyleAttr, defStyleRes), IBaseKViewAction {
 

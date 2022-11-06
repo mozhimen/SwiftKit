@@ -9,11 +9,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.mozhimen.uicorek.navk.NavKBar
-            android:id="@+id/debugk_params_navkbar"
+        <com.mozhimen.uicorek.layoutk.navbar.LayoutKNavBar
+            android:id="@+id/debugk_params_navbar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            app:navKBar_title="本地参数" />
+            app:layoutKNavBar_title="本地参数" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/debugk_params_recycler"

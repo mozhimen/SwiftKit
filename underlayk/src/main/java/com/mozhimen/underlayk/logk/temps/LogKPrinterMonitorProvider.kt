@@ -15,7 +15,7 @@ import com.mozhimen.basick.extsk.showToastOnMain
 import com.mozhimen.basick.utilk.UtilKOverlay
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.uicorek.datak.helpers.DataKAdapter
+import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
@@ -46,7 +46,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         }
     private var _windowManager: WindowManager = _context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
 
-    private var _adapter: DataKAdapter = DataKAdapter(_context)
+    private var _adapter: RecyclerKAdapter = RecyclerKAdapter(_context)
 
     private var _recyclerView: RecyclerView? = null
         get() {

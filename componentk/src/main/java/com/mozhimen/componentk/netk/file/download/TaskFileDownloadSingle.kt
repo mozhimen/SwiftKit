@@ -67,7 +67,7 @@ class TaskFileDownloadSingle(owner: LifecycleOwner) : ITaskK(owner) {
         cancelAll()
     }
 
-    inner class DownloadCallback2(private val _listener: IFileDownloadSingleListener? = null) : DownloadListener2() {
+    internal inner class DownloadCallback2(private val _listener: IFileDownloadSingleListener? = null) : DownloadListener2() {
         private val TAG = "DownloadCallback2>>>>>"
         override fun taskStart(task: DownloadTask) {
             Log.d(TAG, "taskStart...")

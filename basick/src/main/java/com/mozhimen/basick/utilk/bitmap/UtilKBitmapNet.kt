@@ -1,14 +1,10 @@
 package com.mozhimen.basick.utilk.bitmap
 
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
+import android.graphics.drawable.BitmapDrawable
+import coil.imageLoader
+import coil.request.ImageRequest
 import com.mozhimen.basick.utilk.UtilKGlobal
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resume
 
 /**
  * @ClassName UtilKBitmapNet
@@ -23,24 +19,22 @@ object UtilKBitmapNet {
     /**
      * 协程方式 获取Bitmap
      * @param url String
-     * @param placeholder Int
-     * @param error Int
      * @return Bitmap
      */
     @JvmStatic
     suspend fun url2Bitmap(
-        url: String,
-        placeholder: Int = android.R.color.black,
-        error: Int = android.R.color.black
-    ): Bitmap? = suspendCancellableCoroutine { coroutine ->
-        Glide.with(_context).asBitmap().load(url).transition(withCrossFade()).placeholder(placeholder).error(error).into(object : CustomTarget<Bitmap>() {
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                coroutine.resume(resource)
-            }
+        url: String
+    ): Bitmap? {
+        return (_context.imageLoader.execute(ImageRequest.Builder(_context).data(url).build()).drawable as? BitmapDrawable)?.bitmap
 
-            override fun onLoadCleared(placeholder: Drawable?) {
-                coroutine.resume(null)
-            }
-        })
+//        Glide.with(_context).asBitmap().load(url).transition(withCrossFade()).placeholder(placeholder).error(error).into(object : CustomTarget<Bitmap>() {
+//            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+//                coroutine.resume(resource)
+//            }
+//
+//            override fun onLoadCleared(placeholder: Drawable?) {
+//                coroutine.resume(null)
+//            }
+//        })
     }
 }

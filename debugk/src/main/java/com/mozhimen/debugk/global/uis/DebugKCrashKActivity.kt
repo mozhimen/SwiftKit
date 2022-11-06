@@ -12,7 +12,7 @@ import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.databinding.DebugkActivityCrashkBinding
 import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.global.mos.MDebugKCrashK
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
 import com.mozhimen.underlayk.crashk.CrashKMgr
 
 /**
@@ -46,7 +46,7 @@ class DebugKCrashKActivity : BaseKActivityVB<DebugkActivityCrashkBinding>() {
                 R.layout.debugk_item_crashk_file,
                 BR.itemDebugKCrashK
             ) { holder, itemData, _ ->
-                holder.binding.debugkCrashkFileShare.setOnClickListener {
+                holder.vb.debugkCrashkFileShare.setOnClickListener {
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.putExtra("subject", "")
                     intent.putExtra("body", "")

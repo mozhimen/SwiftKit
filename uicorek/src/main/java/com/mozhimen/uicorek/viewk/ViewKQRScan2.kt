@@ -18,7 +18,9 @@ import com.mozhimen.uicorek.R
  * @Date 2021/6/21 14:01
  * @Version 1.0
  */
-class ViewKQRScan2 @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+class ViewKQRScan2 @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
+) :
     BaseKView(context, attrs, defStyleAttr, defStyleRes) {
 
     //region # variate
@@ -30,7 +32,7 @@ class ViewKQRScan2 @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var _animTime = 1000
     private var _distance = 2f.dp2px()
     private var _isLineReverse = false
-    private var _successDrawable = R.mipmap.viewk_square_qr_scan_success
+    private var _successDrawable = R.mipmap.viewk_qr_scan_success
     private var _successDrawableSize = 20f.dp2px()
     private var _successAnimTime = 1000
     private var _iScanListener: IScanListener? = null

@@ -70,7 +70,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/layoutk_empty_btn"
-        style="@style/BtnStyle_Cancel"
+        style="@style/LayoutK_Empty_BtnStyle_Cancel"
         android:text="刷新"
         android:visibility="gone"
         tools:ignore="HardcodedText" />

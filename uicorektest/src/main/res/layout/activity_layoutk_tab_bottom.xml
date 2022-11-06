@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+            <com.mozhimen.uicorek.layoutk.tab.bottom.TabBottomItem
+                android:id="@+id/layoutk_tab_bottom_home"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/blue_normal" />
+
+            <com.mozhimen.uicorek.layoutk.tab.bottom.TabBottomItem
+                android:id="@+id/layoutk_tab_bottom_more"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/blue_dark"  />
+
+            <com.mozhimen.uicorek.layoutk.tab.bottom.TabBottomItem
+                android:id="@+id/layoutk_tab_bottom_mine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/blue_normal" />
+        </LinearLayout>
+    </FrameLayout>
+</layout>

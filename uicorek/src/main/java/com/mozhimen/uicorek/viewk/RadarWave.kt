@@ -14,7 +14,9 @@ import com.mozhimen.uicorek.R
  * @Date 2021/12/7 20:11
  * @Version 1.0
  */
-class RadarWave @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+class RadarWave @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
+) :
     BaseKView(context, attrs, defStyleAttr, defStyleRes), IBaseKViewAction {
 
     //region # variate

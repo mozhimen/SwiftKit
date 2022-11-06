@@ -1,9 +1,8 @@
 package com.mozhimen.uicorek.layoutk.slider.mos
 
-import android.util.Log
 import com.mozhimen.basick.extsk.normalize
 import com.mozhimen.basick.extsk.percent
-import com.mozhimen.uicorek.layoutk.slider.commons.ISliderListener
+import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 
 /**
  * @ClassName Rod
@@ -39,11 +38,11 @@ class MRod {
     var currentVal: Float = 0f
         get() = currentX.percent(minX to maxX) * intervalVal
 
-    private var _sliderListener: ISliderListener? = null
+    private var _sliderListener: ISliderScrollListener? = null
 
     constructor()
 
-    constructor(minX: Float, maxX: Float, centerY: Float, isInsideSlider: Boolean, radius: Float, radiusInside: Float, _sliderListener: ISliderListener?) {
+    constructor(minX: Float, maxX: Float, centerY: Float, isInsideSlider: Boolean, radius: Float, radiusInside: Float, _sliderListener: ISliderScrollListener?) {
         this.minX = minX
         this.maxX = maxX
         this.currentX = minX

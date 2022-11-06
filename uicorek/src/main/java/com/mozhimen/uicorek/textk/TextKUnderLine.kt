@@ -15,7 +15,9 @@ import com.mozhimen.uicorek.R
  * @Date 2021/6/10 20:46
  * @Version 1.0
  */
-class TextKUnderLine @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class TextKUnderLine @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) :
     AppCompatTextView(context, attrs, defStyleAttr), IBaseKView {
     //TextPaint对象，继承自Paint
     private lateinit var _textPaint: TextPaint

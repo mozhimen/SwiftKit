@@ -15,110 +15,38 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="gotoTabKBottom"
-                android:text="TabKBottom"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoTabKBottomLayout"
-                android:text="TabKBottomLayout"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoTabKBottomFragment"
-                android:text="TabKBottomFragment"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoTabKTop"
-                android:text="TabKTop"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoTabKTopLayout"
-                android:text="TabKTopLayout"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoRefreshKLayout"
-                android:text="RefreshKLayout"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoRefreshKLayoutLottie"
-                android:text="RefreshKLayoutLottie"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoBannerK"
-                android:text="BannerK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoDataK"
-                android:text="DataK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoDataKRecycler"
-                android:text="DataKRecycler"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoLoadK"
-                android:text="LoadK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoSideK"
-                android:text="SideK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="gotoLayoutK"
-                android:text="LayoutK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="goViewK"
-                android:text="ViewK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
                 android:onClick="goBtnK"
-                android:text="BtnK"
+                android:text="goBtnK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goDialogK"
-                android:text="DialogK"
+                android:text="goDialogK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="goNavK"
-                android:text="NavK"
+                android:onClick="goLayoutK"
+                android:text="goLayoutK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goRecyclerK"
+                android:text="goRecyclerK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goTextK"
-                android:text="TextK"
+                android:text="goTextK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goViewK"
+                android:text="goViewK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

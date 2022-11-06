@@ -9,7 +9,7 @@ import com.mozhimen.basick.basek.BaseKLayoutLinear
 import com.mozhimen.basick.mok.MoKKey
 import com.mozhimen.uicorek.R
 
-typealias ILayoutKChipGroupListener = (Chip, Int, MoKKey) -> Unit
+typealias ILayoutKChipGroupListener = (chaip: Chip, position: Int, item: MoKKey) -> Unit
 
 /**
  * @ClassName LayoutKChipGroup

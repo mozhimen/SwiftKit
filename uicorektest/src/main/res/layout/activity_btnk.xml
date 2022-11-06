@@ -1,28 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        tools:context=".btnk.BtnKActivity">
-
-        <com.mozhimen.uicorek.btnk.SwitchApple
-            android:id="@+id/btnk_switchApple"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            app:switchApple_animTime="300"
-            app:switchApple_bgColorBorder="@color/blue_light"
-            app:switchApple_bgColorOff="@color/blue_light"
-            app:switchApple_bgColorOn="@color/blue_normal"
-            app:switchApple_borderWidth="1dp"
-            app:switchApple_defaultStatus="false"
-            app:switchApple_iconColorBtn="@color/white"
-            app:switchApple_iconMargin="3dp" />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 </layout>

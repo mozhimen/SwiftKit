@@ -18,7 +18,9 @@ import com.mozhimen.uicorek.R
  * @Date 2022/1/10 22:34
  * @Version 1.0
  */
-class ViewKSignature @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class ViewKSignature @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) :
     BaseKView(context, attrs, defStyleAttr) {
 
     //region # variate

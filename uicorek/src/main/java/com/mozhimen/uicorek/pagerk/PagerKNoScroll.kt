@@ -13,8 +13,7 @@ import androidx.viewpager.widget.ViewPager
  * @Version 1.0
  */
 class PagerKNoScroll @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
+    context: Context, attrs: AttributeSet? = null,
 ) : ViewPager(context, attrs) {
     private var _isEnableScroll = false
 

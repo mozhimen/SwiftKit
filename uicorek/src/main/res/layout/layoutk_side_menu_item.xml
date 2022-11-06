@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="45dp">
+
+    <ImageView
+        android:id="@+id/layoutk_side_menu_item_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/layoutk_side_indicator_menu"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/layoutk_side_menu_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="分类"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
+</FrameLayout>

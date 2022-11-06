@@ -5,62 +5,56 @@
 
     <data />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".viewk.ViewKStepsActivity">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.mozhimen.uicorek.viewk.ViewKSteps
+            android:id="@+id/viewk_steps_viewksteps"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="12dp"
+            app:viewKSteps_circleRadius="16dp"
+            app:viewKSteps_doneLineColor="@color/blue_normal"
+            app:viewKSteps_doneNumberColor="@color/white"
+            app:viewKSteps_doneTitleColor="@color/black"
+            app:viewKSteps_lineWidth="5dp"
+            app:viewKSteps_margin="12dp"
+            app:viewKSteps_numberTextSize="16sp"
+            app:viewKSteps_titleMarginTop="20dp"
+            app:viewKSteps_titleTextSize="16sp"
+            app:viewKSteps_undoLineColor="@color/blue_light"
+            app:viewKSteps_undoNumberColor="@color/white"
+            app:viewKSteps_undoTitleColor="@color/blue_light" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="horizontal">
 
-            <com.mozhimen.uicorek.viewk.ViewKSteps
-                android:id="@+id/viewk_steps_viewksteps"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginBottom="12dp"
-                app:viewKSteps_circleRadius="16dp"
-                app:viewKSteps_doneLineColor="@color/blue_normal"
-                app:viewKSteps_doneNumberColor="@color/white"
-                app:viewKSteps_doneTitleColor="@color/black"
-                app:viewKSteps_lineWidth="5dp"
-                app:viewKSteps_margin="12dp"
-                app:viewKSteps_numberTextSize="16sp"
-                app:viewKSteps_titleMarginTop="20dp"
-                app:viewKSteps_titleTextSize="16sp"
-                app:viewKSteps_undoLineColor="@color/blue_light"
-                app:viewKSteps_undoNumberColor="@color/white"
-                app:viewKSteps_undoTitleColor="@color/blue_light" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/viewk_steps_btn_reset"
+                style="@style/BtnStyle"
+                android:text="重置"
+                tools:ignore="HardcodedText" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/viewk_steps_btn_back"
+                style="@style/BtnStyle"
+                android:text="上一步"
+                tools:ignore="HardcodedText" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/viewk_steps_btn_reset"
-                    style="@style/BtnStyle"
-                    android:text="重置"
-                    tools:ignore="HardcodedText" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/viewk_steps_btn_back"
-                    style="@style/BtnStyle"
-                    android:text="上一步"
-                    tools:ignore="HardcodedText" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/viewk_steps_btn_next"
-                    style="@style/BtnStyle"
-                    android:text="下一步"
-                    tools:ignore="HardcodedText" />
-            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/viewk_steps_btn_next"
+                style="@style/BtnStyle"
+                android:text="下一步"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
+    </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

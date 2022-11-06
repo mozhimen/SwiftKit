@@ -60,8 +60,8 @@ dependencies {
     api "androidx.fragment:fragment-ktx:1.4.0"
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha03'
     api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0-alpha03'
-    api "androidx.lifecycle:lifecycle-extensions:2.2.0"
     api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.0"
+    api "androidx.lifecycle:lifecycle-extensions:2.2.0"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
 
     //room cachek
@@ -69,12 +69,17 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.4.2'
 
     //moshi
-    api 'com.squareup.moshi:moshi:1.12.0'
+    api 'com.squareup.moshi:moshi:1.13.0'
     api 'com.squareup.moshi:moshi-kotlin:1.13.0'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
 
-    api 'com.github.bumptech.glide:glide:4.12.0'//图片加载库
-    kapt 'com.github.bumptech.glide:compiler:4.12.0'
+    //coil
+    api 'io.coil-kt:coil:2.2.0'
+    api 'io.coil-kt:coil-gif:2.2.0'
+    api 'io.coil-kt:coil-svg:2.2.0'
+    api 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+    //api 'com.github.bumptech.glide:glide:4.12.0'//图片加载库
+    //kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
     api 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
 

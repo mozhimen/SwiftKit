@@ -1,19 +1,21 @@
 package com.mozhimen.abilityk.hotupdatek
 
 import android.util.Log
-import com.liulishuo.okdownload.DownloadListener
+import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
-import com.liulishuo.okdownload.core.cause.EndCause
-import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
 import com.mozhimen.basick.prefabk.receiver.PrefabKReceiverInstall
-import com.mozhimen.underlayk.logk.LogK
+import com.mozhimen.basick.utilk.UtilKDate
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKGlobal
 import com.mozhimen.basick.utilk.UtilKPackage
-import java.lang.StringBuilder
-import java.net.URL
-import kotlin.concurrent.thread
+import com.mozhimen.componentk.netk.file.NetKFile
+import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
+import com.mozhimen.underlayk.logk.LogK
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.resume
 
 /**
  * @ClassName HotUpdateK
@@ -22,81 +24,90 @@ import kotlin.concurrent.thread
  * @Date 2022/2/24 12:15
  * @Version 1.0
  */
-object HotupdateK {
-    private const val TAG = "HotUpdateK>>>>>"
-    private val INSTALL_DIRECTORY = UtilKGlobal.instance.getApp()!!.filesDir.absolutePath + "/apk/"
-    private val APK_NAME get() = System.currentTimeMillis().toString() + ".apk"
+class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
+    companion object {
+        private val TAG = "HotUpdateK>>>>>"
+    }
 
-    fun updateApk(nowVersionCode: Int, apkUrl: String, receiver: Class<PrefabKReceiverInstall>, listener: IHotupdateKListener) {
-        if (!isNeedUpdate(nowVersionCode)) return
-        //delete all cache
-        try {
-            UtilKFile.deleteFolder(INSTALL_DIRECTORY)
-        } catch (e: Exception) {
-            LogK.et(TAG, "updateApk: Exception ${e.message}")
-            e.printStackTrace()
+    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _installParentDirectory = _context.filesDir.absolutePath + "/hotupdatek/"
+    private val _installDirectory
+        get() = _installParentDirectory + "${UtilKDate.getNowTime()}.apk"
+    private val _netKFile by lazy { NetKFile(owner) }
+
+    suspend fun updateApk(nowVersionCode: Int, apkUrl: String, receiver: Class<PrefabKReceiverInstall>) {
+        withContext(Dispatchers.IO) {
+            //check version
+            if (!isNeedUpdate(nowVersionCode)) {
+                _hotupdateKListener?.onComplete()
+                return@withContext
+            }
+            //delete all cache
+            if (!deleteAllOldPkgs()) {
+                _hotupdateKListener?.onFail("delete all old pkgs fail")
+                return@withContext
+            }
+            //download new apk
+            if (!downloadApk(apkUrl)) {
+                _hotupdateKListener?.onFail("download new pkg fail")
+                return@withContext
+            }
+            //install new apk
+            installApk(_installDirectory, receiver)
         }
-        //download new apk
-        downloadApk(apkUrl, object : DownloadListener2() {
-            override fun taskStart(task: DownloadTask) {
-                Log.d(TAG, "taskStart: download start")
-                val info = task.info
-                info?.let {
-                    val stringBuilder = StringBuilder()
-                    stringBuilder.append("info ")
-                    stringBuilder.append(info.url).append(" ")
-                    stringBuilder.append(info.filename).append(" ")
-                    Log.d(TAG, "taskStart: downloading... $stringBuilder")
-                }
-                listener.onStart(task)
+    }
+
+    /**
+     * 是否需要更新
+     * @param nowVersionCode Int
+     * @return Boolean
+     */
+    fun isNeedUpdate(nowVersionCode: Int): Boolean =
+        (UtilKPackage.getPkgVersionCode() < nowVersionCode).also {
+            Log.d(TAG, "isNeedUpdate: $it")
+        }
+
+    /**
+     * 删除所有的旧包
+     */
+    fun deleteAllOldPkgs(): Boolean {
+        return try {
+            val deleteRes = UtilKFile.deleteFolder(_installParentDirectory)
+            Log.d(TAG, "deleteAllOldPkgs: deleteRes $deleteRes")
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            LogK.et(TAG, "updateApk: Exception ${e.message}")
+            false
+        }
+    }
+
+    /**
+     * 下载更新
+     * @param url String
+     */
+    suspend fun downloadApk(url: String): Boolean = suspendCancellableCoroutine { coroutine ->
+        _netKFile.download().singleFileTask().start(url, _installDirectory, object : IFileDownloadSingleListener {
+            override fun onComplete(task: DownloadTask) {
+                task.file?.let {
+                    coroutine.resume(true)
+                } ?: coroutine.resume(false)
             }
 
-            override fun fetchProgress(task: DownloadTask, blockIndex: Int, increaseBytes: Long) {
-                Log.d(TAG, "fetchProgress: downloading... blockIndex $blockIndex increaseBytes $increaseBytes")
-                listener.onProgress(task, blockIndex, increaseBytes)
-            }
-
-            override fun taskEnd(
-                task: DownloadTask,
-                cause: EndCause,
-                realCause: Exception?
-            ) {
-                if (cause == EndCause.COMPLETED) {
-                    realCause?.printStackTrace()
-                    Log.d(TAG, "taskEnd: download finish")
-                    listener.onFinish(task, realCause)
-                    val filePath = task.file?.absolutePath
-                    if (filePath != null) {
-                        Log.d(TAG, "taskEnd: install start")
-                        installApk(filePath, receiver)
-                    } else {
-                        LogK.et(TAG, "taskEnd: lost path")
-                    }
-                }
+            override fun onFail(task: DownloadTask, e: Exception?) {
+                e?.printStackTrace()
+                LogK.et(TAG, "downloadApk fail msg: ${e?.message}")
+                coroutine.resume(false)
             }
         })
     }
 
-    fun isNeedUpdate(nowVersionCode: Int): Boolean =
-        UtilKPackage.getPkgVersionCode() < nowVersionCode
-
-    fun downloadApk(urlStr: String, listener: DownloadListener) {
-        val url = try {
-            URL(urlStr)
-        } catch (e: Exception) {
-            Log.e(TAG, "downloadApp: Exception ${e.message}")
-            e.printStackTrace()
-            null
-        }
-        url?.let {
-            val downloadTask = DownloadTask.Builder(urlStr, INSTALL_DIRECTORY, APK_NAME).build()
-            downloadTask.enqueue(listener)
-        }
-    }
-
+    /**
+     * 安装更新
+     * @param apkPath String
+     * @param receiver Class<PrefabKReceiverInstall>
+     */
     fun installApk(apkPath: String, receiver: Class<PrefabKReceiverInstall>) {
-        thread {
-            UtilKPackage.installSilence(apkPath, receiver)
-        }.start()
+        UtilKPackage.installSilence(apkPath, receiver)
     }
 }

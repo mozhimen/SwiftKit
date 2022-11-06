@@ -21,42 +21,44 @@ import com.mozhimen.uicorek.R
  * @Date 2021/12/27 16:17
  * @Version 1.0
  */
-typealias ITextKEditFormHasFocus = (View, Boolean) -> Unit
+typealias ITextKEditFormFocusListener = (view: View, hasFocus: Boolean) -> Unit
 
-class TextKEditForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class TextKEditForm @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) :
     BaseKLayoutLinear(context, attrs, defStyleAttr) {
 
-    private var mOnHasFocus: ITextKEditFormHasFocus? = null
-    private var mIsRequire = false
-    private var mRequireIconPos = 0
-    private var mLabel: String? = null
-    private var mLabelColor = Color.BLACK
-    private var mLabelTextSize = 15f.sp2px()
-    private var mLabelMarginLeft = 6f.dp2px()
-    private var mLabelMarginRight = 6f.dp2px()
-    private var mLabelWidth = 64f.dp2px()
-    private var mEditHint: String? = null
-    private var mEditType = 0
-    private var mEditColor = Color.BLACK
-    private var mEditSize = 15f.sp2px()
-    private var mBorderBackground = R.drawable.textk_et_form
-    private var mBorderBackgroundFocus = R.drawable.textk_et_form_focus
+    private var _hasFocus: ITextKEditFormFocusListener? = null
+    private var _isRequire = false
+    private var _requireIconPos = 0
+    private var _label: String? = null
+    private var _labelColor = Color.BLACK
+    private var _labelTextSize = 15f.sp2px()
+    private var _labelMarginLeft = 6f.dp2px()
+    private var _labelMarginRight = 6f.dp2px()
+    private var _labelWidth = 64f.dp2px()
+    private var _editHint: String? = null
+    private var _editType = 0
+    private var _editColor = Color.BLACK
+    private var _editSize = 15f.sp2px()
+    private var _borderBackground = R.drawable.textk_edit_form
+    private var _borderBackgroundFocus = R.drawable.textk_edit_form_focus
 
     private lateinit var mLabelText: TextView
     private lateinit var mIsRequireIcon: ImageView
     private lateinit var mEditText: EditText
 
     init {
-        initAttrs(attrs,defStyleAttr)
+        initAttrs(attrs, defStyleAttr)
         initView()
         refreshView()
     }
 
-    fun getIsRequire() = mIsRequire
+    fun getIsRequire() = _isRequire
 
     fun setIsRequire(isRequire: Boolean) {
-        mIsRequire = isRequire
-        mIsRequireIcon.visibility = if (mIsRequire) View.VISIBLE else View.INVISIBLE
+        _isRequire = isRequire
+        mIsRequireIcon.visibility = if (_isRequire) View.VISIBLE else View.INVISIBLE
     }
 
     fun setLabel(label: String) {
@@ -75,44 +77,44 @@ class TextKEditForm @JvmOverloads constructor(context: Context, attrs: Attribute
         return this.mEditText
     }
 
-    fun setOnFocusListener(listener: ITextKEditFormHasFocus) {
-        this.mOnHasFocus = listener
+    fun setOnFocusListener(listener: ITextKEditFormFocusListener) {
+        this._hasFocus = listener
     }
 
     @SuppressLint("CustomViewStyleable")
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKEditForm)
-            mIsRequire = typedArray.getBoolean(R.styleable.TextKEditForm_textKEditForm_isRequired, mIsRequire)
-            mRequireIconPos =
-                typedArray.getInteger(R.styleable.TextKEditForm_textKEditForm_isRequired, mRequireIconPos)
-            mLabel = typedArray.getString(R.styleable.TextKEditForm_textKEditForm_label)
-            mLabelTextSize = typedArray.getDimensionPixelSize(
+            _isRequire = typedArray.getBoolean(R.styleable.TextKEditForm_textKEditForm_isRequired, _isRequire)
+            _requireIconPos =
+                typedArray.getInteger(R.styleable.TextKEditForm_textKEditForm_isRequired, _requireIconPos)
+            _label = typedArray.getString(R.styleable.TextKEditForm_textKEditForm_label)
+            _labelTextSize = typedArray.getDimensionPixelSize(
                 R.styleable.TextKEditForm_textKEditForm_labelTextSize,
-                mLabelTextSize
+                _labelTextSize
             )
-            mLabelColor = typedArray.getColor(R.styleable.TextKEditForm_textKEditForm_labelColor, mLabelColor)
-            mLabelMarginLeft =
+            _labelColor = typedArray.getColor(R.styleable.TextKEditForm_textKEditForm_labelColor, _labelColor)
+            _labelMarginLeft =
                 typedArray.getDimensionPixelOffset(
                     R.styleable.TextKEditForm_textKEditForm_labelMarginLeft,
-                    mLabelMarginLeft
+                    _labelMarginLeft
                 )
-            mLabelMarginRight =
+            _labelMarginRight =
                 typedArray.getDimensionPixelOffset(
                     R.styleable.TextKEditForm_textKEditForm_labelMarginRight,
-                    mLabelMarginRight
+                    _labelMarginRight
                 )
-            mLabelWidth =
-                typedArray.getDimensionPixelOffset(R.styleable.TextKEditForm_textKEditForm_labelWidth, mLabelWidth)
-            mEditHint = typedArray.getString(R.styleable.TextKEditForm_textKEditForm_editHint)
-            mEditType = typedArray.getInteger(R.styleable.TextKEditForm_textKEditForm_editType, mEditType)
-            mEditColor = typedArray.getColor(R.styleable.TextKEditForm_textKEditForm_editColor, mEditColor)
-            mEditSize = typedArray.getDimensionPixelSize(R.styleable.TextKEditForm_textKEditForm_editSize, mEditSize)
-            mBorderBackground =
-                typedArray.getResourceId(R.styleable.TextKEditForm_textKEditForm_borderBackground, mBorderBackground)
-            mBorderBackgroundFocus = typedArray.getResourceId(
+            _labelWidth =
+                typedArray.getDimensionPixelOffset(R.styleable.TextKEditForm_textKEditForm_labelWidth, _labelWidth)
+            _editHint = typedArray.getString(R.styleable.TextKEditForm_textKEditForm_editHint)
+            _editType = typedArray.getInteger(R.styleable.TextKEditForm_textKEditForm_editType, _editType)
+            _editColor = typedArray.getColor(R.styleable.TextKEditForm_textKEditForm_editColor, _editColor)
+            _editSize = typedArray.getDimensionPixelSize(R.styleable.TextKEditForm_textKEditForm_editSize, _editSize)
+            _borderBackground =
+                typedArray.getResourceId(R.styleable.TextKEditForm_textKEditForm_borderBackground, _borderBackground)
+            _borderBackgroundFocus = typedArray.getResourceId(
                 R.styleable.TextKEditForm_textKEditForm_borderBackgroundHasFocus,
-                mBorderBackgroundFocus
+                _borderBackgroundFocus
             )
             typedArray.recycle()
         }
@@ -120,44 +122,44 @@ class TextKEditForm @JvmOverloads constructor(context: Context, attrs: Attribute
 
     @SuppressLint("InflateParams")
     override fun initView() {
-        LayoutInflater.from(context).inflate(R.layout.textk_et_form, this)
+        LayoutInflater.from(context).inflate(R.layout.textk_edit_form, this)
         mLabelText = findViewById(R.id.textk_edit_form_label)
         mEditText = findViewById(R.id.textk_edit_form_edit)
         mIsRequireIcon = findViewById(R.id.textk_edit_form_icon)
     }
 
     fun refreshView() {
-        mIsRequireIcon.visibility = if (mIsRequire) View.VISIBLE else View.INVISIBLE
+        mIsRequireIcon.visibility = if (_isRequire) View.VISIBLE else View.INVISIBLE
         val layoutParams = mIsRequireIcon.layoutParams as FrameLayout.LayoutParams
-        layoutParams.gravity = Gravity.START or when (mRequireIconPos) {
+        layoutParams.gravity = Gravity.START or when (_requireIconPos) {
             0 -> Gravity.TOP
             else -> Gravity.CENTER_VERTICAL
         }
-        layoutParams.setMargins(mLabelMarginLeft, 0, mLabelMarginRight, 0)
+        layoutParams.setMargins(_labelMarginLeft, 0, _labelMarginRight, 0)
         mIsRequireIcon.layoutParams = layoutParams
         val layoutParams1 = mLabelText.layoutParams
-        layoutParams1.width = mLabelWidth
+        layoutParams1.width = _labelWidth
         mLabelText.layoutParams = layoutParams1
-        mLabelText.text = mLabel ?: ""
-        mLabelText.textSize = mLabelTextSize.toFloat()
-        mLabelText.setTextColor(mLabelColor)
-        mEditText.inputType = when (mEditType) {
+        mLabelText.text = _label ?: ""
+        mLabelText.textSize = _labelTextSize.toFloat()
+        mLabelText.setTextColor(_labelColor)
+        mEditText.inputType = when (_editType) {
             1 -> InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_NORMAL
             2 -> InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
             3 -> InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD
             else -> InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
         }
-        mEditText.hint = mEditHint ?: ""
-        mEditText.textSize = mEditSize.toFloat()
-        mEditText.setTextColor(mEditColor)
-        mEditText.setBackgroundResource(mBorderBackground)
+        mEditText.hint = _editHint ?: ""
+        mEditText.textSize = _editSize.toFloat()
+        mEditText.setTextColor(_editColor)
+        mEditText.setBackgroundResource(_borderBackground)
         mEditText.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
-                mEditText.setBackgroundResource(mBorderBackgroundFocus)
+                mEditText.setBackgroundResource(_borderBackgroundFocus)
             } else {
-                mEditText.setBackgroundResource(mBorderBackground)
+                mEditText.setBackgroundResource(_borderBackground)
             }
-            mOnHasFocus?.let { it(view, hasFocus) }
+            _hasFocus?.let { it(view, hasFocus) }
         }
     }
 }

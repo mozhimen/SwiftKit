@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.extsk.view.isScroll2Top
 
 /**
  * @ClassName UtilKScroll
@@ -32,7 +33,7 @@ object UtilKScroll {
         if (child is RecyclerView) {
             val view = child.getChildAt(0)
             val firstPosition = child.getChildAdapterPosition(view)
-            return firstPosition != 0 || !UtilKView.isScroll2Top(child)
+            return firstPosition != 0 || !child.isScroll2Top()
         }
         return false
     }

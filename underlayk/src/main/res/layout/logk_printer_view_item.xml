@@ -17,9 +17,9 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginVertical="4dp"
-            android:background="@android:color/holo_red_dark" />
+            android:layout_height="1.5dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/logk_printer_view_line" />
 
         <TextView
             android:id="@+id/logk_printer_view_msg"
@@ -28,8 +28,8 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
+            android:layout_height="2dp"
+            android:layout_marginVertical="4dp"
             android:background="@android:color/white" />
     </LinearLayout>
 </layout>

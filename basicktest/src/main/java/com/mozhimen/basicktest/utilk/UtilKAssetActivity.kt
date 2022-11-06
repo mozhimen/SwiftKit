@@ -12,7 +12,7 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkAssetBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.componentk.permissionk.PermissionK
 import com.mozhimen.componentk.permissionk.annors.APermissionK
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

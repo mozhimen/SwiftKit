@@ -104,7 +104,7 @@
                     app:viewKSignature_lineWidth="2dp" />
             </androidx.cardview.widget.CardView>-->
 
-            <com.mozhimen.uicorek.viewk.ViewKImageMask
+            <com.mozhimen.uicorek.imagek.ViewKImageMask
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:src="@mipmap/uicorek_img"

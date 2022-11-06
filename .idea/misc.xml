@@ -222,7 +222,69 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_first.xml" value="0.17097264437689969" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_second.xml" value="0.1363989134652697" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_third.xml" value="0.128125" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/btnk_icon_background.xml" value="0.1985" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/searchk_keyword_background.xml" value="0.1985" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/sliderk_indicator_menu.xml" value="0.1985" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/textk_edit_cursor.xml" value="0.1985" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/textk_edit_form.xml" value="0.1985" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/textk_edit_form_focus.xml" value="0.1985" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/textk_et_cursor.xml" value="0.1985" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/btnk_icon.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/btnk_spinner_form.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/btnk_spinner_form_spinner_item.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_refresh_overview_lottie.xml" value="0.14548611111111112" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_refresh_overview_text.xml" value="0.14548611111111112" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_side_content_item.xml" value="0.14548611111111112" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_side_menu_item.xml" value="0.14548611111111112" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_tab_bottom.xml" value="0.14548611111111112" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_tab_top.xml" value="0.14548611111111112" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/recyclerk_linear_item.xml" value="0.1" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/recyclerk_load_footer_loading.xml" value="0.1" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/refreshk_overview_lottie.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/sliderk_content_item.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/tabk_bottom.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_bubble.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_et_form.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_tv_form.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_btnk.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_datak.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_datak_load_more.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_dialogk.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk.xml" value="0.23076923076923078" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_banner.xml" value="0.21082621082621084" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_btn.xml" value="0.13157894736842105" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_chip_group.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_input_item.xml" value="0.23275862068965517" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_refresh.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_refresh_lottie.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_refresh_text.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_side_list.xml" value="0.14548611111111112" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_slider.xml" value="0.24340277777777777" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_tab.xml" value="0.17" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_tab_bottom.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_tab_bottom_fragment.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_tab_bottom_layout.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_tab_top.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk_tab_top_layout.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_loadk.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_navk.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_recyclerk.xml" value="0.240893470790378" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_recyclerk_adapter.xml" value="0.2219178082191781" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_recyclerk_load.xml" value="0.2415807560137457" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_refreshk.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_sidek.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_textk.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_uicorek.xml" value="0.23076923076923078" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_viewk.xml" value="0.2111111111111111" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_viewk_steps.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_viewk_views.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_bannerk.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_datak_banner.xml" value="0.1" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_layoutk_banner.xml" value="0.1" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_recyclerk_banner.xml" value="0.14548611111111112" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/underlayk/src/main/res/drawable/logk_printer_view_line.xml" value="0.1585" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/underlayk/src/main/res/layout/logk_monitor_view.xml" value="0.21319444444444444" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/underlayk/src/main/res/layout/logk_printer_view_item.xml" value="0.25" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/underlayktest/src/main/res/layout/activity_underlayk.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mozhimen/Documents/Github/SwiftKit/basicktest/src/main/res/layout/activity_utilk.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/Github/SwiftKit/componentktest/src/main/res/layout/activity_animk.xml" value="0.2115036231884058" />

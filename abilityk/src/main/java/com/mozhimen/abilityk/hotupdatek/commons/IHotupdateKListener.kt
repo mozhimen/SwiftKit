@@ -10,7 +10,6 @@ import com.liulishuo.okdownload.DownloadTask
  * @Version 1.0
  */
 interface IHotupdateKListener {
-    fun onStart(task: DownloadTask)
-    fun onProgress(task: DownloadTask, blockIndex: Int, increaseBytes: Long)
-    fun onFinish(task: DownloadTask, realCause: Exception?)
+    fun onComplete()
+    fun onFail(msg: String)
 }
