@@ -299,8 +299,8 @@ public class NavigateKHelper extends Navigator<NavigateKHelper.Destination> {
         public void onInflate(@NonNull Context context, @NonNull AttributeSet attrs) {
             super.onInflate(context, attrs);
             TypedArray a = context.getResources().obtainAttributes(attrs,
-                    R.styleable.FragmentNavigator);
-            String className = a.getString(R.styleable.FragmentNavigator_android_name);
+                    androidx.navigation.fragment.R.styleable.FragmentNavigator);
+            String className = a.getString(androidx.navigation.fragment.R.styleable.FragmentNavigator_android_name);
             if (className != null) {
                 setClassName(className);
             }

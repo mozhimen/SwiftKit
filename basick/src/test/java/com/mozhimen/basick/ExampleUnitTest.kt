@@ -14,6 +14,5 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun finalize() {
-        (7%0)
     }
 }

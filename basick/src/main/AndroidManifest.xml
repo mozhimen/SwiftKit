@@ -18,7 +18,7 @@
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <!--UtilKImageLoader-->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <!--<uses-permission android:name="android.permission.INTERNET" />-->
     <!--UtilKVibrate-->
     <uses-permission android:name="android.permission.VIBRATE" />
     <!--PrefabKReceiverAutoRun-->
