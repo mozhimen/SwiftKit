@@ -34,7 +34,7 @@ class LogKPrinterFile(
     var logPath: String? = null
         get() {
             if (field != null) return field
-            val logFullPath = UtilKGlobal.instance.getApp()!!.cacheDir.absolutePath + "/printer_file"
+            val logFullPath = UtilKGlobal.instance.getApp()!!.cacheDir.absolutePath + "/logk_printer_file"
             UtilKFile.createFolder(logFullPath)
             return logFullPath.also { field = it }
         }
@@ -84,9 +84,7 @@ class LogKPrinterFile(
     }
 
     private fun genFileName(): String {
-        val sdf = UtilKDate.getSdf(UtilKDate.FORMAT_yyyyMMdd)
-        sdf.timeZone = TimeZone.getDefault()
-        return "logk-" + sdf.format(Date(System.currentTimeMillis())) + ".txt"
+        return "logk_${UtilKDate.getNowTime()}.txt"
     }
 
     /**

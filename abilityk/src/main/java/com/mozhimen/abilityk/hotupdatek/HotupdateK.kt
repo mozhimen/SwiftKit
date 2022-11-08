@@ -30,9 +30,9 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
     }
 
     private val _context = UtilKGlobal.instance.getApp()!!
-    private val _installParentDirectory = _context.filesDir.absolutePath + "/hotupdatek/"
+    private val _installParentDirectory = _context.filesDir.absolutePath + "/hotupdatek"
     private val _installDirectory
-        get() = _installParentDirectory + "${UtilKDate.getNowTime()}.apk"
+        get() = _installParentDirectory + "/hotupdatek_${UtilKDate.getNowTime()}.apk"
     private val _netKFile by lazy { NetKFile(owner) }
 
     suspend fun updateApk(nowVersionCode: Int, apkUrl: String, receiver: Class<PrefabKReceiverInstall>) {

@@ -24,12 +24,18 @@ class CrashKMgr {
         val holder = CrashKMgr()
     }
 
-    fun init(crashKListener: ICrashKListener) {
-        CrashKJava.init(crashKListener)
-        CrashKNative.init(crashKListener)
+    private val _crashKJava by lazy { CrashKJava() }
+    private val _crashKNative by lazy { CrashKNative() }
+
+    fun init(
+        crashKJavaListener: ICrashKListener? = null,
+        crashKNativeListener: ICrashKListener? = null
+    ) {
+        _crashKJava.init(crashKJavaListener)
+        _crashKNative.init(crashKNativeListener)
     }
 
     fun getCrashFiles(): Array<File> {
-        return CrashKJava.getJavaCrashFiles() + CrashKNative.getNativeCrashFiles()
+        return _crashKJava.getJavaCrashFiles() + _crashKNative.getNativeCrashFiles()
     }
 }

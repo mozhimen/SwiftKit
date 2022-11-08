@@ -11,14 +11,11 @@ import com.mozhimen.basick.utilk.UtilKDate
  */
 class MLogK(private var timeMillis: Long, var level: Int, var tag: String, var log: String) {
 
-    fun flattenedLog(): String =
-        getFlattened() + "\n" + log
+    fun flattenedLog(): String {
+        return getFlattened() + "\n" + log
+    }
 
-    fun getFlattened(): String =
-        "${
-            UtilKDate.long2String(
-                timeMillis,
-                UtilKDate.FORMAT_yyyyMMddHHmmss
-            )
-        } | Level: ${CLogKType.getTypeName(level)} | Tag: $tag :"
+    fun getFlattened(): String {
+        return "${UtilKDate.long2String(timeMillis, UtilKDate.FORMAT_yyyyMMddHHmmss)} | Level: ${CLogKType.getTypeName(level)} | Tag: $tag :"
+    }
 }

@@ -21,9 +21,9 @@ tools:ignore="ScopedStorage" />
  * @Date 2022/3/27 16:27
  * @Version 1.0
  */
-object CrashKJava {
+class CrashKJava {
 
-    private const val TAG = "CrashKJava>>>>>"
+    private val TAG = "CrashKJava>>>>>"
     private val _context = UtilKGlobal.instance.getApp()!!
     private var _crashListener: ICrashKListener? = null
 
@@ -35,8 +35,8 @@ object CrashKJava {
             return crashFullPath.also { field = it }
         }
 
-    fun init(crashKListener: ICrashKListener) {
-        this._crashListener = crashKListener
+    fun init(listener: ICrashKListener?) {
+        listener?.let { this._crashListener = it }
         Thread.setDefaultUncaughtExceptionHandler(CrashKUncaughtExceptionHandler())
     }
 
@@ -44,9 +44,9 @@ object CrashKJava {
         return File(crashPathJava!!).listFiles() ?: emptyArray()
     }
 
-    private class CrashKUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
+    private inner class CrashKUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
         private val _defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        private val _launchTime = UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss)
+        private val _launchTime = UtilKDate.getNowString(UtilKDate.FORMAT_yyyyMMddHHmmss)
 
         override fun uncaughtException(t: Thread, e: Throwable) {
             if (!handleException(e) && _defaultExceptionHandler != null) {
@@ -74,7 +74,7 @@ object CrashKJava {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val savePath = crashPathJava + "/crashk_${UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss + ".txt")}"
+            val savePath = crashPathJava + "/crashk_java_${UtilKDate.getNowTime()}.txt"
             UtilKFile.string2File(log, savePath)
         }
 
@@ -88,7 +88,7 @@ object CrashKJava {
             stringBuilder.append("os= ${UtilKBuild.getVersionRelease()}\n")//API版本:9.0
             stringBuilder.append("sdk= ${UtilKBuild.getVersionSDKCode()}\n")//SDK版本:31
             stringBuilder.append("launch_time= $_launchTime\n")//启动APP的时间
-            stringBuilder.append("crash_time= ${UtilKDate.date2String(Date(), UtilKDate.FORMAT_yyyyMMddHHmmss)}")//crash发生的时间
+            stringBuilder.append("crash_time= ${UtilKDate.getNowString(UtilKDate.FORMAT_yyyyMMddHHmmss)}")//crash发生的时间
             stringBuilder.append("foreground= ${StackK.isFront()}")//应用处于前台
             stringBuilder.append("thread= ${Thread.currentThread().name}\n")//异常线程名
 

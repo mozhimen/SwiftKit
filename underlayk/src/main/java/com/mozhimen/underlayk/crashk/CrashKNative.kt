@@ -12,7 +12,7 @@ import java.io.File
  * @Date 2022/3/28 14:34
  * @Version 1.0
  */
-object CrashKNative {
+class CrashKNative {
     private var _crashKListener: ICrashKListener? = null
     var crashPathNative: String? = null
         get() {
@@ -22,8 +22,8 @@ object CrashKNative {
             return crashFullPath.also { field = it }
         }
 
-    fun init(crashKListener: ICrashKListener) {
-        this._crashKListener = crashKListener
+    fun init(listener: ICrashKListener?) {
+        listener?.let { this._crashKListener = it }
     }
 
     fun getNativeCrashFiles(): Array<File> {
