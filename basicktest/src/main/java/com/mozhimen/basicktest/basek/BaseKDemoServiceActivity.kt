@@ -10,6 +10,7 @@ import com.mozhimen.basicktest.databinding.ActivityBasekDemoServiceBinding
 class BaseKDemoServiceActivity : BaseKActivityVB<ActivityBasekDemoServiceBinding>() {
 
     private lateinit var _prefabKServiceDelegate: PrefabKServiceDelegate<BaseKDemoServiceActivity>
+
     private var _resListener: BaseKServiceResCallback = object : BaseKServiceResCallback() {
         override fun onResString(resString: String?) {
             runOnUiThread {

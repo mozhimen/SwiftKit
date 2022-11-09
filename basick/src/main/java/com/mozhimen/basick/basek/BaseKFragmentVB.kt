@@ -50,4 +50,6 @@ abstract class BaseKFragmentVB<VB : ViewDataBinding>(
     override fun initView(savedInstanceState: Bundle?) {
 
     }
+
+
 }

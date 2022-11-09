@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.verify
 
 /**
  * @ClassName UtilKIdentityCard
@@ -8,10 +8,6 @@ package com.mozhimen.basick.utilk
  * @Version 1.0
  */
 object UtilKVerifyCard {
-    enum class ECardType {
-        ID_CARD, HK_CARD, TW_CARD, PP_CARD
-    }
-
     /**
      * 身份证校验
      * @param id String

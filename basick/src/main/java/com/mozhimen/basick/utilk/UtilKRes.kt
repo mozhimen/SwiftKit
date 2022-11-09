@@ -73,4 +73,13 @@ object UtilKRes {
     @JvmStatic
     fun getDimensionPixelSize(dimensionId: Int): Int =
         _context.resources.getDimensionPixelSize(dimensionId)
+
+    /**
+     * 获取StringArray
+     * @param resId Int
+     * @return Array<String>
+     */
+    @JvmStatic
+    fun getStringArray(resId: Int): Array<String> =
+        _context.resources.getStringArray(resId)
 }
