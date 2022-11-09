@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatImageButton
+import com.mozhimen.basick.basek.commons.IBaseKLayout
 import com.mozhimen.uicorek.R
 
 
@@ -23,8 +24,8 @@ class BtnKPwdEye @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-) : AppCompatImageButton(context, attrs, defStyleAttr), View.OnClickListener {
-    private var _isHide = false
+) : AppCompatImageButton(context, attrs, defStyleAttr), View.OnClickListener, IBaseKLayout {
+    private var _isShow = false
     private var _pwdTextEdit: EditText? = null
 
     private var _showDrawableId: Int = R.mipmap.btnk_pwd_eye_open
@@ -33,16 +34,27 @@ class BtnKPwdEye @JvmOverloads constructor(
     private val _hideMethod: TransformationMethod by lazy { PasswordTransformationMethod.getInstance() }
 
     init {
-        initAttrs(attrs)
+        initAttrs(attrs, defStyleAttr)
+        initView()
     }
 
-    private fun initAttrs(attrs: AttributeSet?) {
+    override fun initFlag() {
+
+    }
+
+    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BtnKPwdEye)
             _showDrawableId = typedArray.getResourceId(R.styleable.BtnKPwdEye_btnKPwdEye_openEyeDrawable, _showDrawableId)
             _hideDrawableId = typedArray.getResourceId(R.styleable.BtnKPwdEye_btnKPwdEye_closeEyeDrawable, _hideDrawableId)
+            _isShow = typedArray.getBoolean(R.styleable.BtnKPwdEye_btnKPwdEye_isShow, _isShow)
             typedArray.recycle()
         }
+    }
+
+    override fun initView() {
+        toggleStatus(_isShow)
+        setOnClickListener(this)
     }
 
     fun setEditText(editText: EditText) {
@@ -50,16 +62,17 @@ class BtnKPwdEye @JvmOverloads constructor(
     }
 
     override fun onClick(view: View) {
-        _pwdTextEdit?.let {
-            if (_isHide) {    // 明文
-                setImageResource(_showDrawableId)
-                it.transformationMethod = _showMethod
-                _isHide = false
-            } else {  // 密文
-                setImageResource(_hideDrawableId)
-                it.transformationMethod = _hideMethod
-                _isHide = true
-            }
+        _isShow = !_isShow
+        toggleStatus(_isShow)
+    }
+
+    private fun toggleStatus(status: Boolean) {
+        if (status) {    // 明文
+            setImageResource(_showDrawableId)
+            _pwdTextEdit?.transformationMethod = _showMethod
+        } else {  // 密文
+            setImageResource(_hideDrawableId)
+            _pwdTextEdit?.transformationMethod = _hideMethod
         }
     }
 }

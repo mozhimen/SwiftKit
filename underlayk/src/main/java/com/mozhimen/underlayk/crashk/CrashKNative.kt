@@ -3,6 +3,7 @@ package com.mozhimen.underlayk.crashk
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.crashk_native.CrashKNativeLib
 import java.io.File
 
 /**
@@ -24,6 +25,7 @@ class CrashKNative {
 
     fun init(listener: ICrashKListener?) {
         listener?.let { this._crashKListener = it }
+        CrashKNativeLib.init(crashPathNative!!)
     }
 
     fun getNativeCrashFiles(): Array<File> {

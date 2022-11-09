@@ -189,14 +189,18 @@ public class NavigateKHelper extends Navigator<NavigateKHelper.Destination> {
 
         final @IdRes int destId = destination.getId();
         final boolean initialNavigation = _backStack.isEmpty();
-        // TODO Build first class singleTop behavior for fragments
+        final boolean isSingleTaskReplacement = !initialNavigation && _backStack.contains(destId);
         final boolean isSingleTopReplacement = navOptions != null && !initialNavigation
                 && navOptions.shouldLaunchSingleTop()
-                && _backStack.peekLast() == destId;
+                && _backStack.peekLast() == destId;// Build first class singleTop behavior for fragments
 
         boolean isAdded;
         if (initialNavigation) {
             isAdded = true;
+            Log.d(TAG, "navigate: initialNavigation");
+        } else if (isSingleTaskReplacement) {
+            isAdded = false;
+            Log.d(TAG, "navigate: isSingleTaskReplacement");
         } else if (isSingleTopReplacement) {
             // Single Top means we only want one instance on the back stack
             if (_backStack.size() > 1) {
@@ -210,9 +214,11 @@ public class NavigateKHelper extends Navigator<NavigateKHelper.Destination> {
                 ft.addToBackStack(generateBackStackName(_backStack.size(), destId));
             }
             isAdded = false;
+            Log.d(TAG, "navigate: isSingleTopReplacement");
         } else {
             ft.addToBackStack(generateBackStackName(_backStack.size() + 1, destId));
             isAdded = true;
+            Log.d(TAG, "navigate: else");
         }
         if (navigatorExtras instanceof Extras) {
             Extras extras = (Extras) navigatorExtras;
@@ -225,6 +231,9 @@ public class NavigateKHelper extends Navigator<NavigateKHelper.Destination> {
         // The commit succeeded, update our view of the world
         if (isAdded) {
             _backStack.add(destId);
+            Log.d(TAG, "navigate: " + _backStack.size());
+            return destination;
+        } else if (isSingleTaskReplacement) {
             return destination;
         } else {
             return null;

@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.mozhimen:CrashKit_Native:1.0.0'
     implementation project(project.path.replace(project.name, '') +  ':basick')
     implementation project(project.path.replace(project.name, '') +  ':uicorek')
 }

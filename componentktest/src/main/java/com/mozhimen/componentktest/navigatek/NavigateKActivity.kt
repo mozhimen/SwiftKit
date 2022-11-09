@@ -1,7 +1,9 @@
 package com.mozhimen.componentktest.navigatek
 
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.mozhimen.basick.basek.BaseKActivityVBVM
 import com.mozhimen.basick.extsk.et
 import com.mozhimen.componentk.navigatek.NavigateK
@@ -14,16 +16,13 @@ class NavigateKActivity : BaseKActivityVBVM<ActivityNavigatekBinding, NavigateKV
 
     private val _fragments = listOf(FirstFragment::class.java, SecondFragment::class.java)
     private lateinit var _navController: NavController
+    private val _navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
     private var _currentItemId: Int = 0
         set(value) {
-            if (value == -1) return
-            _navController.navigate(value)
+            if (value == -1 || !this::_navController.isInitialized) return
+            _navController.navigate(resId = value, args = null, navOptions = _navOptions)
+            Log.d(TAG, "backQueue: ${_navController.backQueue.joinToString { it.destination.displayName }}")
             field = value
-        }
-        get() {
-            if (field != 0) return field
-            val fragmentId: Int = _navController.currentDestination?.id ?: NavigateK.getId(_fragments[0])
-            return fragmentId.also { field = it }
         }
 
     companion object {

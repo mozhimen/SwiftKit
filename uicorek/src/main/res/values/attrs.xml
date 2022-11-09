@@ -6,6 +6,7 @@
     </declare-styleable>
 
     <declare-styleable name="BtnKPwdEye">
+        <attr name="btnKPwdEye_isShow" format="boolean" />
         <attr name="btnKPwdEye_openEyeDrawable" format="reference" />
         <attr name="btnKPwdEye_closeEyeDrawable" format="reference" />
     </declare-styleable>

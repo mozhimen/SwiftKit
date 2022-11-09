@@ -35,6 +35,14 @@ class CrashKMgr {
         _crashKNative.init(crashKNativeListener)
     }
 
+    fun getJavaCrashFiles(): Array<File> {
+        return _crashKJava.getJavaCrashFiles()
+    }
+
+    fun getNativeCrashFiles(): Array<File> {
+        return _crashKNative.getNativeCrashFiles()
+    }
+
     fun getCrashFiles(): Array<File> {
         return _crashKJava.getJavaCrashFiles() + _crashKNative.getNativeCrashFiles()
     }

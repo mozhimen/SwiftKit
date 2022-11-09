@@ -5,5 +5,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/btnk_pwd_eye_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="numberPassword" />
+
+        <com.mozhimen.uicorek.btnk.BtnKPwdEye
+            android:id="@+id/btnk_pwd_eye"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
 </layout>
