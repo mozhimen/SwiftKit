@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.verify
 
 /**
  * @ClassName Verifier
@@ -11,8 +11,6 @@ package com.mozhimen.basick.utilk
  * 密码校验
  */
 object UtilKVerifyUrl {
-    const val PWD_DEFAULT = 0
-
     private const val REGEX_IP =
         "((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)"//IP验证
 

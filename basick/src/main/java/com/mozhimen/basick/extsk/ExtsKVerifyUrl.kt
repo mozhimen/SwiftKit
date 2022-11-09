@@ -1,6 +1,6 @@
 package com.mozhimen.basick.extsk
 
-import com.mozhimen.basick.utilk.UtilKVerifyUrl
+import com.mozhimen.basick.utilk.verify.UtilKVerifyUrl
 
 /**
  * @ClassName ExtsKVerifyUrl
@@ -9,21 +9,6 @@ import com.mozhimen.basick.utilk.UtilKVerifyUrl
  * @Date 2022/4/15 4:29
  * @Version 1.0
  */
-/**
- * 作用: 校验密码
- * 用法1: "...".isPasswordValid()
- *       "...".isPasswordValid(DEFAULT)
- * @receiver String
- * @param degree Int
- * @return Boolean
- */
-fun String.isPasswordValid(degree: Int = UtilKVerifyUrl.PWD_DEFAULT): Boolean {
-    return when (degree) {
-        UtilKVerifyUrl.PWD_DEFAULT -> this.length > 5
-        else -> false
-    }
-}
-
 /**
  * IP是否合法
  * @receiver String
