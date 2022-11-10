@@ -37,8 +37,8 @@ dependencies {
     implementation project(project.path.replace(project.name, '') + ':componentk')
 
     //qrcodek
-    api 'com.google.zxing:android-core:3.3.0'
-    api 'com.google.zxing:core:3.3.3'
+    implementation 'com.google.zxing:android-core:3.3.0'
+    implementation 'com.google.zxing:core:3.3.3'
 
     //scank
     api 'com.github.mozhimen.OpenCVKit:opencvk:1.0.1'

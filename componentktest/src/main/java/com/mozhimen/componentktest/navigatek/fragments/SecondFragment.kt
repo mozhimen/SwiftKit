@@ -19,6 +19,16 @@ class SecondFragment : BaseKFragmentVBVM<FragmentSecondBinding, NavigateKViewMod
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop: ")
+    }
+
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume: ")

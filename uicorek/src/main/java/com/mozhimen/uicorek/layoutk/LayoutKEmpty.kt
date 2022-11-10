@@ -45,11 +45,11 @@ class LayoutKEmpty @JvmOverloads constructor(
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKEmpty)
-        _iconFont = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_icon)
         _imageResId = typedArray.getResourceId(R.styleable.LayoutKEmpty_layoutKEmpty_image, -1)
+        _iconFont = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_iconFont)
         _titleStr = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_title)
         _contentStr = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_content)
-        _helpIconFont = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_helpIcon)
+        _helpIconFont = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_helpIconFont)
         _btnStr = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_buttonTitle)
         typedArray.recycle()
     }
@@ -60,11 +60,11 @@ class LayoutKEmpty @JvmOverloads constructor(
 
         LayoutInflater.from(context).inflate(R.layout.layoutk_empty, this, true)
 
-        _iconView = findViewById(R.id.layoutk_empty_icon)
+        _iconView = findViewById(R.id.layoutk_empty_icon_font)
         _imageView = findViewById(R.id.layoutk_empty_img)
         _titleView = findViewById(R.id.layoutk_empty_title)
         _txtView = findViewById(R.id.layoutk_empty_txt)
-        _helpView = findViewById(R.id.layoutk_empty_help)
+        _helpView = findViewById(R.id.layoutk_empty_help_icon_font)
         _btn = findViewById(R.id.layoutk_empty_btn)
 
         _iconFont?.let {

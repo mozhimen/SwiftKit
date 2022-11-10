@@ -95,11 +95,11 @@
     </declare-styleable>
 
     <declare-styleable name="LayoutKEmpty">
-        <attr name="layoutKEmpty_icon" format="string|reference" />
+        <attr name="layoutKEmpty_iconFont" format="string|reference" />
         <attr name="layoutKEmpty_image" format="reference" />
         <attr name="layoutKEmpty_title" format="string|reference" />
         <attr name="layoutKEmpty_content" format="string|reference" />
-        <attr name="layoutKEmpty_helpIcon" format="string|reference" />
+        <attr name="layoutKEmpty_helpIconFont" format="string|reference" />
         <attr name="layoutKEmpty_buttonTitle" format="string|reference" />
     </declare-styleable>
 

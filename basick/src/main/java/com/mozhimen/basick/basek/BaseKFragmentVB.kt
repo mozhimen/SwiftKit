@@ -27,16 +27,19 @@ abstract class BaseKFragmentVB<VB : ViewDataBinding>(
         return vb.root
     }
 
+    /**
+     * 及时释放vb避免内存泄漏
+     */
+    override fun onDestroyView() {
+        vb.unbind()
+        _vb = null
+        super.onDestroyView()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()
         initData(savedInstanceState)
-    }
-
-    override fun onDestroy() {
-        vb.unbind()
-        _vb = null
-        super.onDestroy()
     }
 
     override fun initFlag() {
@@ -50,6 +53,4 @@ abstract class BaseKFragmentVB<VB : ViewDataBinding>(
     override fun initView(savedInstanceState: Bundle?) {
 
     }
-
-
 }

@@ -5,6 +5,7 @@
     <data />
 
     <com.mozhimen.uicorek.layoutk.LayoutKEmpty
+        android:id="@+id/layoutk_empty_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutKEmpty_content="稍后刷新试试吧~"

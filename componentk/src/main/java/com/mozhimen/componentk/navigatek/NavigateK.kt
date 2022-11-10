@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.*
 import androidx.navigation.fragment.DialogFragmentNavigator
+import androidx.navigation.fragment.FragmentNavigator
 import com.mozhimen.basick.extsk.joinList
 import com.mozhimen.componentk.navigatek.helpers.NavigateKHelper
 import com.mozhimen.componentk.navigatek.mos.MNavigateKPageInfo
@@ -32,11 +33,13 @@ object NavigateK {
         val pageInfos = clazzes2PageInfos(clazzes)
         Log.d(TAG, "buildNavGraph: $pageInfos")
         val iterator: Iterator<MNavigateKPageInfo> = pageInfos.iterator()
+
         val navigatorProvider = navController.navigatorProvider
         val graphNavigator = navigatorProvider.getNavigator(NavGraphNavigator::class.java)
         val navGraph = NavGraph(graphNavigator)
-        val navigateKHelper = NavigateKHelper(activity, childFragmentManager, containerId)
-        navigatorProvider.addNavigator(navigateKHelper)
+
+//        val navigateKHelper = NavigateKHelper(activity, childFragmentManager, containerId)
+//        navigatorProvider.addNavigator(navigateKHelper)
         while (iterator.hasNext()) {
             val page = iterator.next()
             when (page.destType) {
@@ -48,15 +51,14 @@ object NavigateK {
                     navGraph.addDestination(node)
                 }
                 dest_type_fragment -> {
-                    val node = navigateKHelper.createDestination()
+                    val navigator = navigatorProvider.getNavigator(FragmentNavigator::class.java)
+                    val node: FragmentNavigator.Destination = navigator.createDestination()
                     node.id = page.id
-                    node.className = page.clazzName
+                    node.setClassName(page.clazzName)
                     navGraph.addDestination(node)
                 }
                 dest_type_dialog -> {
-                    val navigator = navigatorProvider.getNavigator(
-                        DialogFragmentNavigator::class.java
-                    )
+                    val navigator = navigatorProvider.getNavigator(DialogFragmentNavigator::class.java)
                     val node: DialogFragmentNavigator.Destination = navigator.createDestination()
                     node.id = page.id
                     node.setClassName(page.clazzName)
@@ -68,6 +70,7 @@ object NavigateK {
         clazzes.forEach {
             fragmentIds.add(it.hashCode())
         }
+        Log.d(TAG, "buildNavGraph: fragmentIds $fragmentIds")
         navGraph.setStartDestination(if (defaultFragmentId != 0 && defaultFragmentId in fragmentIds) defaultFragmentId else pageInfos[0].id)
         navController.graph = navGraph
         return navController
