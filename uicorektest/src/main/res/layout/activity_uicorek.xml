@@ -27,6 +27,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
+                android:onClick="goImageK"
+                android:text="goImageK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
                 android:onClick="goLayoutK"
                 android:text="goLayoutK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

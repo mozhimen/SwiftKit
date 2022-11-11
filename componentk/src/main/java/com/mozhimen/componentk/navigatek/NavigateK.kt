@@ -70,7 +70,7 @@ object NavigateK {
         clazzes.forEach {
             fragmentIds.add(it.hashCode())
         }
-        Log.d(TAG, "buildNavGraph: fragmentIds $fragmentIds")
+        Log.d(TAG, "buildNavGraph: defaultFragmentId $defaultFragmentId fragmentIds $fragmentIds")
         navGraph.setStartDestination(if (defaultFragmentId != 0 && defaultFragmentId in fragmentIds) defaultFragmentId else pageInfos[0].id)
         navController.graph = navGraph
         return navController

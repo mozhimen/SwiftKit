@@ -112,11 +112,6 @@ object UtilKAsset {
         var tmpDestFilePath = destFilePathWithName
         if (tmpDestFilePath.endsWith("/")) {
             tmpDestFilePath += assetFileName
-        } else {
-            val fileName = tmpDestFilePath.split("/").last()
-            if (fileName != assetFileName) {
-                tmpDestFilePath += "/${assetFileName}"
-            }
         }
         Log.d(TAG, "assetCopyFile: tmpDestFilePath $tmpDestFilePath")
         try {

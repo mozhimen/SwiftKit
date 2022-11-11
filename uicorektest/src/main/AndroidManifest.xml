@@ -26,6 +26,13 @@
         <activity
             android:name=".dialogk.DialogKActivity"
             android:exported="false" />
+        <!--imagek-->
+        <activity
+            android:name=".imagek.ImageKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".imagek.ImageKBindingAdapterActivity"
+            android:exported="false" />
         <!--layoutk-->
         <activity
             android:name=".layoutk.LayoutKActivity"

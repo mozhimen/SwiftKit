@@ -1,5 +1,9 @@
 package com.mozhimen.uicorek.imagek
 
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
+import com.mozhimen.basick.utilk.view.UtilKViewImageLoader
+
 /**
  * @ClassName ImageKBindingAdapter
  * @Description TODO
@@ -8,6 +12,11 @@ package com.mozhimen.uicorek.imagek
  * @Version 1.0
  */
 object ImageKBindingAdapter {
+    @JvmStatic
+    @BindingAdapter("loadImageBlur")
+    fun loadImageBlur(imageView: ImageView, res: Any) {
+        UtilKViewImageLoader.loadImageBlur(imageView, res)
+    }
 //    /**
 //     * 加载图片
 //     * @param imageView ImageView

@@ -312,6 +312,23 @@
         <attr name="textKBubble_paddingVertical" format="dimension|reference" />
     </declare-styleable>
 
+    <declare-styleable name="TextKClock">
+        <attr name="textkClock_timeFormat" format="enum">
+            <enum name="yyyyMMddHHmmss" value="0" />
+            <enum name="yyyyMMddHHmm" value="1" />
+            <enum name="yyyyMMdd" value="2" />
+            <enum name="HHmmss" value="3" />
+            <enum name="HHmm" value="4" />
+            <enum name="mmss" value="5" />
+            <enum name="yyyy" value="6" />
+            <enum name="MM" value="7" />
+            <enum name="dd" value="8" />
+            <enum name="HH" value="9" />
+            <enum name="mm" value="10" />
+            <enum name="ss" value="11" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="TextKIconFont">
         <attr name="textKIconFont_fontPath" format="string" />
     </declare-styleable>
