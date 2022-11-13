@@ -2,6 +2,7 @@ package com.mozhimen.componentktest.audiok
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.utilk.UtilKDataBus
@@ -10,6 +11,8 @@ import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.mos.MAudioK
 import com.mozhimen.componentk.audiok.mos.MAudioKProgress
 import com.mozhimen.componentktest.databinding.ActivityAudiokBinding
+import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
+import com.mozhimen.uicorek.popwink.PopwinKBubbleText
 
 class AudioKActivity : BaseKActivityVB<ActivityAudiokBinding>() {
     private val _audioList = arrayListOf(
@@ -19,6 +22,21 @@ class AudioKActivity : BaseKActivityVB<ActivityAudiokBinding>() {
     )
 
     override fun initData(savedInstanceState: Bundle?) {
+        vb.audiokSliderVolumeTxt.text = vb.audiokSlider.rod.currentVal.toString()
+        vb.audiokSlider.setSliderListener(object : ISliderScrollListener {
+            override fun onScrollStart() {
+
+            }
+
+            override fun onScrolling(currentValue: Float) {
+                vb.audiokSliderVolumeTxt.text = currentValue.toString()
+            }
+
+            override fun onScrollEnd(currentValue: Float) {
+
+            }
+
+        })
         AudioK.instance.addAudiosToPlayList(_audioList)
         UtilKDataBus.with<MAudioK?>(CAudioKEvent.audio_start).observe(this) {
             if (it != null) {
@@ -31,6 +49,19 @@ class AudioKActivity : BaseKActivityVB<ActivityAudiokBinding>() {
                     TAG, "initData: " + "progress status ${it.status} currentPos ${it.currentPos} duration ${it.duration} audioInfo ${it.audioInfo}"
                 )
             }
+        }
+    }
+
+    private val _popwinKBubbleText: PopwinKBubbleText? = null
+    fun genPopwinKBubbleText(view: View, tip: String, xOffset: Int = 0, yOffset: Int = 0, delayMillis: Long = 4000) {
+        _popwinKBubbleText?.dismiss()
+        val builder = PopwinKBubbleText.Builder(this)
+        builder.apply {
+            setTip(tip)
+            setXOffset(xOffset)
+            setYOffset(yOffset)
+            setDismissDelay(delayMillis)
+            create(view)
         }
     }
 }

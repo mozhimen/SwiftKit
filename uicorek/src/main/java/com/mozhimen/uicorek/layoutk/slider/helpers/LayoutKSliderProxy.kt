@@ -43,8 +43,8 @@ internal class LayoutKSliderProxy(
     //region # variate
     private lateinit var _layoutKSlider: LayoutKSlider
     private lateinit var _attrs: MSliderAttrs
-    private var _slider: MSlider = MSlider()
-    private var _rod: MRod = MRod()
+    private lateinit var _slider: MSlider
+    private lateinit var _rod: MRod
     private var _scrollableParentView: ViewGroup? = null
     private var _rodIsScrolling = false
 
@@ -61,11 +61,11 @@ internal class LayoutKSliderProxy(
     }
 
     fun getRod(): MRod {
-        return _rod
+        return if (::_rod.isInitialized) _rod else MRod()
     }
 
     fun getSlider(): MSlider {
-        return _slider
+        return if (::_slider.isInitialized) _slider else MSlider()
     }
 
     fun setSliderListener(sliderListener: ISliderScrollListener) {
@@ -74,7 +74,7 @@ internal class LayoutKSliderProxy(
 
     fun getHeightMeasureSpec(): Int {
         var height = 0
-        height += if (_attrs.rodIsInside) _attrs.sliderHeight.toInt() else _attrs.rodRadius.toInt() * 2
+        height += if (!_attrs.rodIsInside) _attrs.rodRadius.toInt() * 2 else _attrs.sliderHeight.toInt()
         height += AttrsParser.DEFAULT_PADDING_VERTICAL * 2
         return height
     }
@@ -113,10 +113,10 @@ internal class LayoutKSliderProxy(
     }
 
     private fun initRod() {
-        val distance = if (!_attrs.rodIsInside) 0f else _slider.heightHalf - _attrs.rodRadius
+        if (this::_rod.isInitialized) return
         _rod = MRod(
-            _layoutKSlider.paddingStart.toFloat() + _attrs.rodRadius + distance,
-            _layoutKSlider.width - _layoutKSlider.paddingEnd.toFloat() - _attrs.rodRadius - distance,
+            _layoutKSlider.paddingStart.toFloat() + if (!_attrs.rodIsInside) _attrs.rodRadius else _slider.heightHalf,
+            _layoutKSlider.width - _layoutKSlider.paddingEnd.toFloat() - if (!_attrs.rodIsInside) _attrs.rodRadius else _slider.heightHalf,
             _slider.centerY,
             _attrs.rodIsInside,
             _attrs.rodRadius,
@@ -126,11 +126,13 @@ internal class LayoutKSliderProxy(
     }
 
     private fun initSlider() {
+        if (this::_slider.isInitialized) return
+        val distance = _attrs.rodRadius - (_attrs.sliderHeight / 2f)
         _slider = MSlider(
-            _layoutKSlider.width - _layoutKSlider.paddingStart.toFloat() - _layoutKSlider.paddingEnd - _attrs.sliderHeight,
+            _layoutKSlider.width - _layoutKSlider.paddingStart.toFloat() - _layoutKSlider.paddingEnd - _attrs.sliderHeight - if (!_attrs.rodIsInside) distance * 2 else 0f,
             _attrs.sliderHeight,
-            _layoutKSlider.paddingStart.toFloat() + _attrs.sliderHeight / 2f,
-            (if (_attrs.rodIsInside) 0f else _attrs.rodRadius - (_attrs.sliderHeight / 2f)) + AttrsParser.DEFAULT_PADDING_VERTICAL
+            _layoutKSlider.paddingStart.toFloat() + if (!_attrs.rodIsInside) _attrs.rodRadius else _attrs.sliderHeight / 2f,
+            (if (!_attrs.rodIsInside) distance else 0f) + AttrsParser.DEFAULT_PADDING_VERTICAL
         )
         _slider.rodLeftColor = _attrs.sliderRodLeftColor
         _slider.rodRightColor = _attrs.sliderRodRightColor
@@ -214,14 +216,16 @@ internal class LayoutKSliderProxy(
         when (event.actionMasked) {
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 _scrollableParentView?.requestDisallowInterceptTouchEvent(false)
-                _sliderListener?.onScrollEnd(_rod.currentVal)
+                if (_rodIsScrolling) {
+                    _sliderListener?.onScrollEnd(_rod.currentPercent, _rod.currentVal, _rod)
+                }
                 _rodIsScrolling = false
             }
             MotionEvent.ACTION_DOWN -> {
                 _rodIsScrolling = if (!UtilKGesture.isTapInArea(
                         event,
-                        _slider.leftX,
-                        _slider.rightX,
+                        _slider.leftX - if (!_attrs.rodIsInside) _rod.radius else _slider.heightHalf,
+                        _slider.rightX + if (!_attrs.rodIsInside) _rod.radius else _slider.heightHalf,
                         _slider.topY - AttrsParser.DEFAULT_PADDING_VERTICAL,
                         _slider.bottomY + AttrsParser.DEFAULT_PADDING_VERTICAL
                     )
@@ -230,6 +234,10 @@ internal class LayoutKSliderProxy(
                 } else {
                     _sliderListener?.onScrollStart()
                     true
+                }
+                if (_rodIsScrolling) {
+                    _rod.currentX = event.x
+                    _layoutKSlider.postInvalidate()
                 }
                 _scrollableParentView?.requestDisallowInterceptTouchEvent(true)
             }

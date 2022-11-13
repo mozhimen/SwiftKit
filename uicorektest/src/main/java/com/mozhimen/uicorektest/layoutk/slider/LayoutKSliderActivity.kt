@@ -1,13 +1,17 @@
 package com.mozhimen.uicorektest.layoutk.slider
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.percent
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
+import com.mozhimen.uicorek.layoutk.slider.mos.MRod
+import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
 import com.mozhimen.uicorek.popwink.PopwinKBubbleText
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkSliderBinding
+import io.reactivex.internal.operators.flowable.FlowableRangeLong
 
 /**
  * @ClassName LayoutKSliderActivity
@@ -18,29 +22,50 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkSliderBinding
  */
 class LayoutKSliderActivity : BaseKActivityVB<ActivityLayoutkSliderBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
-        vb.layoutkSliderTxt.text = vb.layoutkSlider.rod.currentVal.toString()
+        vb.layoutkSliderTxt.text = getTxt(vb.layoutkSlider.rod.currentPercent, vb.layoutkSlider.rod.currentVal, vb.layoutkSlider.rod.currentX)
+        vb.layoutkSlider.setSliderListener(object : ISliderScrollListener {
+            override fun onScrollStart() {
+
+            }
+
+            override fun onScrolling(currentPercent: Float, currentValue: Float, rod: MRod) {
+                vb.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
+            }
+
+            override fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod) {
+                genPopwinKBubbleText(
+                    vb.layoutkSlider,
+                    currentValue.toInt().toString(),
+                    xOffset = /*(currentX - rod.centerX).toInt()*/(rod.currentX - vb.layoutkSlider.width / 2f).toInt(),
+                    yOffset = -(8f).dp2px()
+                )
+                vb.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
+            }
+        })
+        vb.layoutkSliderInsideTxt.text = getTxt(vb.layoutkSlider.rod.currentPercent, vb.layoutkSlider.rod.currentVal, vb.layoutkSlider.rod.currentX)
         vb.layoutkSliderInside.setSliderListener(object : ISliderScrollListener {
             override fun onScrollStart() {
 
             }
 
-            override fun onScrolling(currentValue: Float) {
-                vb.layoutkSliderTxt.text = currentValue.toString()
+            override fun onScrolling(currentPercent: Float, currentValue: Float, rod: MRod) {
+                vb.layoutkSliderInsideTxt.text = getTxt(vb.layoutkSliderInside.rod.currentPercent, vb.layoutkSliderInside.rod.currentVal, vb.layoutkSliderInside.rod.currentX)
             }
 
-            override fun onScrollEnd(currentValue: Float) {
-                val sliderInside = vb.layoutkSliderInside
-                val centerX = sliderInside.left + (sliderInside.width) / 2f - sliderInside.slider.leftX
-                val currentX = sliderInside.left +
-                        currentValue.percent(sliderInside.rod.minVal to sliderInside.rod.maxVal) * (sliderInside.width - 2 * sliderInside.slider.leftX)
+            override fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod) {
                 genPopwinKBubbleText(
-                    sliderInside,
+                    vb.layoutkSliderInside,
                     currentValue.toInt().toString(),
-                    xOffset = (currentX - centerX).toInt(),
+                    xOffset = (rod.currentX - vb.layoutkSlider.width / 2f).toInt(),
                     yOffset = -(8f).dp2px()
                 )
+                vb.layoutkSliderInsideTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
             }
         })
+    }
+
+    fun getTxt(currentPercent: Float, currentValue: Float, currentX: Float): String {
+        return "currentPercent $currentPercent currentValue $currentValue currentX $currentX"
     }
 
     private val _popwinKBubbleText: PopwinKBubbleText? = null

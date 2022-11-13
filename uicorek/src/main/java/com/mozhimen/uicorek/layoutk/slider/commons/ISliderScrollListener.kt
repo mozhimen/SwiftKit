@@ -1,5 +1,7 @@
 package com.mozhimen.uicorek.layoutk.slider.commons
 
+import com.mozhimen.uicorek.layoutk.slider.mos.MRod
+
 /**
  * @ClassName Listener
  * @Description TODO
@@ -9,6 +11,6 @@ package com.mozhimen.uicorek.layoutk.slider.commons
  */
 interface ISliderScrollListener {
     fun onScrollStart()
-    fun onScrolling(currentValue: Float)
-    fun onScrollEnd(currentValue: Float)
+    fun onScrolling(currentPercent: Float, currentValue: Float, rod: MRod)
+    fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod)
 }

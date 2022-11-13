@@ -33,5 +33,6 @@ class TestUtilKNumber {
         UtilKConsole.printlog(UtilKNumber.percent(33f, 0, 100).toString())
         UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 99).toString())
         UtilKConsole.printlog(UtilKNumber.percent(23f, 23, 99).toString())
+        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 0).toString())
     }
 }

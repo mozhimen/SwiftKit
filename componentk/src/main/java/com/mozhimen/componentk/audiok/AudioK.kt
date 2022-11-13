@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.audiok
 
+import androidx.annotation.FloatRange
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
@@ -110,6 +111,10 @@ class AudioK : IAudioKListener, LifecycleOwner {
 
     override fun release() {
         _audioKProxy.release()
+    }
+
+    override fun setVolume(@FloatRange(from = 0.0, to = 1.0) volume: Float) {
+        _audioKProxy.setVolume(volume)
     }
 
     override fun getLifecycle(): Lifecycle {

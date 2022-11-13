@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.*
 import android.widget.ScrollView
 import androidx.core.widget.NestedScrollView
@@ -38,7 +39,7 @@ import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
 class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     BaseKLayoutFrame(context, attrs, defStyleAttr, defStyleRes) {
 
-    private var _layoutKSliderProxy: LayoutKSliderProxy = LayoutKSliderProxy(context)
+    private val _layoutKSliderProxy: LayoutKSliderProxy by lazy { LayoutKSliderProxy(context) }
 
     init {
         setWillNotDraw(false)

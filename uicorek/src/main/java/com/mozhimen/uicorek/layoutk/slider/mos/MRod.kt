@@ -1,5 +1,6 @@
 package com.mozhimen.uicorek.layoutk.slider.mos
 
+import android.util.Log
 import com.mozhimen.basick.extsk.normalize
 import com.mozhimen.basick.extsk.percent
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
@@ -18,6 +19,8 @@ class MRod {
     val intervalX: Float
         get() = maxX - minX
     var centerY: Float = 0f
+    val centerX: Float
+        get() = (maxX - minX) / 2f
     var isInsideSlider: Boolean = false
     var radius: Float = 0f
     var radiusInside: Float = 0f
@@ -28,15 +31,17 @@ class MRod {
     var currentX: Float = 0f
         set(value) {
             field = value.normalize(minX to maxX)
-            _sliderListener?.onScrolling(currentVal)
+            _sliderListener?.onScrolling(currentPercent, currentVal, this)
         }
+    val currentPercent: Float
+        get() = currentX.percent(minX to maxX)
 
     var minVal: Float = 0f
     var maxVal: Float = 100f
     val intervalVal: Float
         get() = maxVal - minVal
-    var currentVal: Float = 0f
-        get() = currentX.percent(minX to maxX) * intervalVal
+    val currentVal: Float
+        get() = currentPercent * intervalVal
 
     private var _sliderListener: ISliderScrollListener? = null
 

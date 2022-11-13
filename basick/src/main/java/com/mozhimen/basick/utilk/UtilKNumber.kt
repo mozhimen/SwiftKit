@@ -59,6 +59,7 @@ object UtilKNumber {
 
     @JvmStatic
     fun percent(value: Float, range: Pair<Float, Float>): Float {
+        if (range.first == range.second) return 0f
         val tempRange = min(range.first, range.second) to max(range.first, range.second)
         return (normalize(value, tempRange) - tempRange.first) / (tempRange.second - tempRange.first)
     }

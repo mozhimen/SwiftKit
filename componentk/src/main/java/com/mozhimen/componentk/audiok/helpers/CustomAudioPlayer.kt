@@ -7,6 +7,7 @@ import android.net.wifi.WifiManager
 import android.net.wifi.WifiManager.WifiLock
 import android.os.PowerManager
 import android.util.Log
+import androidx.annotation.FloatRange
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.taskk.TaskKPolling
 import com.mozhimen.basick.utilk.UtilKDataBus
@@ -164,7 +165,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
      * @param left Float
      * @param right Float
      */
-    fun setVolume(left: Float, right: Float) {
+    fun setVolume( left: Float, right: Float) {
         _statusMediaPlayer!!.setVolume(left, right)
     }
 
