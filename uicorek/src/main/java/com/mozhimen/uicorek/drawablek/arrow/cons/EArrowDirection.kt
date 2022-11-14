@@ -13,5 +13,14 @@ enum class EArrowDirection {
     Left,
     Up,
     Right,
-    Down
+    Down;
+
+    val isLeft: Boolean
+        get() = this == Left
+    val isUp: Boolean
+        get() = this == Up
+    val isRight: Boolean
+        get() = this == Right
+    val isDown: Boolean
+        get() = this == Down
 }

@@ -35,4 +35,29 @@ data class MShape(
     var cornerTopRightRadius: Float = 0f,
     var cornerBottomLeftRadius: Float = 0f,
     var cornerBottomRightRadius: Float = 0f
-)
+){
+    fun set(shape: MShape) {
+        this.rect.set(shape.rect)
+        this.borderWidth = shape.borderWidth
+        this.borderColor = shape.borderColor
+
+        this.fillColor = shape.fillColor
+        this.gapWidth = shape.gapWidth
+
+        this.arrowDirection = shape.arrowDirection
+        this.arrowPosPolicy = shape.arrowPosPolicy
+        this.arrowPosDelta = shape.arrowPosDelta
+
+        this.arrowWidth = shape.arrowWidth
+        this.arrowHeight = shape.arrowHeight
+        this.arrowToX = shape.arrowToX
+        this.arrowToY = shape.arrowToY
+        this.arrowPeakX = shape.arrowPeakX
+        this.arrowPeakY = shape.arrowPeakY
+
+        this.cornerTopLeftRadius = shape.cornerTopLeftRadius
+        this.cornerTopRightRadius = shape.cornerTopRightRadius
+        this.cornerBottomLeftRadius = shape.cornerBottomLeftRadius
+        this.cornerBottomRightRadius = shape.cornerBottomRightRadius
+    }
+}
