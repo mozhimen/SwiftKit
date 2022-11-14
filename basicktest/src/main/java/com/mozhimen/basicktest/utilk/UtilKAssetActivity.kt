@@ -10,8 +10,8 @@ import com.mozhimen.basicktest.BR
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkAssetBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
-import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

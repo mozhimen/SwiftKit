@@ -1,12 +1,10 @@
-package com.mozhimen.basicktest.executork
+package com.mozhimen.basicktest.taskk
 
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
-import com.mozhimen.basick.executork.ExecutorK
-import com.mozhimen.basicktest.databinding.ActivityExecutorkBinding
+import com.mozhimen.basick.taskk.threadpool.TaskKThreadPool
+import com.mozhimen.basicktest.databinding.ActivityTaskkThreadPoolBinding
 
 /**
  * @ClassName ExecutorKActivity
@@ -15,7 +13,7 @@ import com.mozhimen.basicktest.databinding.ActivityExecutorkBinding
  * @Date 2021/9/14 20:05
  * @Version 1.0
  */
-class ExecutorKActivity : BaseKActivityVB<ActivityExecutorkBinding>() {
+class TaskKThreadPoolActivity : BaseKActivityVB<ActivityTaskkThreadPoolBinding>() {
 
     private var _isPaused = false
 
@@ -24,9 +22,9 @@ class ExecutorKActivity : BaseKActivityVB<ActivityExecutorkBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.executorkOrder.setOnClickListener {
+        vb.taskkThreadPoolBtnOrder.setOnClickListener {
             for (priority in 0..10) {
-                ExecutorK.execute(TAG, priority) {
+                TaskKThreadPool.execute(TAG, priority) {
                     try {
                         Thread.sleep((1000 - priority * 100).toLong())
                     } catch (e: InterruptedException) {
@@ -36,17 +34,17 @@ class ExecutorKActivity : BaseKActivityVB<ActivityExecutorkBinding>() {
             }
         }
 
-        vb.executorkAllTask.setOnClickListener {
+        vb.taskkThreadPoolBtnAllTask.setOnClickListener {
             if (_isPaused) {
-                ExecutorK.resume()
+                TaskKThreadPool.resume()
             } else {
-                ExecutorK.pause()
+                TaskKThreadPool.pause()
             }
             _isPaused = !_isPaused
         }
 
-        vb.executorkAsync.setOnClickListener {
-            ExecutorK.execute(TAG, runnable = object : ExecutorK.ExecutorKCallable<String>() {
+        vb.taskkThreadPoolBtnAsync.setOnClickListener {
+            TaskKThreadPool.execute(TAG, runnable = object : TaskKThreadPool.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
                     Log.e(TAG, "onBackground: 当前线程: ${Thread.currentThread().name}")
                     return "我是异步任务的结果"

@@ -2,10 +2,8 @@ package com.mozhimen.basicktest.taskk
 
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.showToast
-import com.mozhimen.basick.taskk.TaskKPolling
+import com.mozhimen.basick.taskk.coroutine.TaskKPolling
 import com.mozhimen.basicktest.databinding.ActivityTaskkPollingBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

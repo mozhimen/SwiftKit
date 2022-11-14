@@ -22,7 +22,7 @@ class AudioKActivity : BaseKActivityVB<ActivityAudiokBinding>() {
     )
 
     override fun initData(savedInstanceState: Bundle?) {
-        vb.audiokSliderVolumeTxt.text = vb.audiokSlider.rod.currentVal.toString()
+        /*vb.audiokSliderVolumeTxt.text = vb.audiokSlider.rod.currentVal.toString()
         vb.audiokSlider.setSliderListener(object : ISliderScrollListener {
             override fun onScrollStart() {
 
@@ -36,7 +36,7 @@ class AudioKActivity : BaseKActivityVB<ActivityAudiokBinding>() {
 
             }
 
-        })
+        })*/
         AudioK.instance.addAudiosToPlayList(_audioList)
         UtilKDataBus.with<MAudioK?>(CAudioKEvent.audio_start).observe(this) {
             if (it != null) {

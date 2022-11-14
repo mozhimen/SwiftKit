@@ -4,9 +4,8 @@ import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.APermissionK
-import com.mozhimen.componentktest.databinding.ActivityNetkBinding
+import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityNetkHttpBinding
 
 @APermissionK([Manifest.permission.INTERNET])

@@ -20,5 +20,11 @@
             android:onClick="goTaskKAsync"
             android:text="goTaskKAsync"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goTaskKThreadPool"
+            android:text="goTaskKThreadPool"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

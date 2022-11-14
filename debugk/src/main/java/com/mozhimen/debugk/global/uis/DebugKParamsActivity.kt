@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityParamsBinding

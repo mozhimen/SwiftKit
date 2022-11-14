@@ -7,9 +7,8 @@ import android.net.wifi.WifiManager
 import android.net.wifi.WifiManager.WifiLock
 import android.os.PowerManager
 import android.util.Log
-import androidx.annotation.FloatRange
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.taskk.TaskKPolling
+import com.mozhimen.basick.taskk.coroutine.TaskKPolling
 import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.basick.utilk.UtilKGlobal
 import com.mozhimen.componentk.audiok.commons.IAudioKFocusListener
@@ -17,7 +16,6 @@ import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
 import com.mozhimen.componentk.audiok.mos.MAudioK
 import com.mozhimen.componentk.audiok.mos.MAudioKProgress
-import java.io.IOException
 
 /**
  * @ClassName AudioPlayer

@@ -15,6 +15,11 @@ class TaskKActivity : BaseKActivityVB<ActivityTaskkBinding>() {
         start<TaskKAsyncActivity>()
     }
 
+    fun goTaskKThreadPool(view: View) {
+        start<TaskKThreadPoolActivity>()
+    }
+
+
     override fun initData(savedInstanceState: Bundle?) {
 
     }

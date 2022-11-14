@@ -8,8 +8,8 @@ import com.mozhimen.componentk.audiok.AudioK
 import com.mozhimen.componentk.audiok.mos.MAudioK
 import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
-import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityNetkFileBinding
 
 @APermissionK(permissions = [Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE])

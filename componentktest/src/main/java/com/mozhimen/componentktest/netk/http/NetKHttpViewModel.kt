@@ -8,6 +8,8 @@ import com.mozhimen.componentk.netk.http.helpers.asNetKRes
 import com.mozhimen.componentktest.netk.http.customs.ApiFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlin.coroutines.resume
 
 /**
  * @ClassName NetKViewModel
@@ -28,6 +30,18 @@ class NetKHttpViewModel : BaseKViewModel() {
                     uiWeather2.postValue(data.result.realtime.temperature.toString() + " ${System.currentTimeMillis() - time}")
                 }, onFail = { code, msg ->
                     uiWeather2.postValue("$code $msg ${System.currentTimeMillis() - time}")
+                })
+        }
+    }
+
+    suspend fun getRealtimeWeatherCoroutine1(): String = suspendCancellableCoroutine { coroutine ->
+        viewModelScope.launch(Dispatchers.IO) {
+            val time = System.currentTimeMillis()
+            NetKHelper.createFlow { ApiFactory.api.getRealTimeWeatherCoroutine("121.321504,31.194874") }.asNetKRes(
+                onSuccess = { data ->
+                    coroutine.resume(data.result.realtime.temperature.toString() + " ${System.currentTimeMillis() - time}")
+                }, onFail = { code, msg ->
+                    coroutine.resume("$code $msg ${System.currentTimeMillis() - time}")
                 })
         }
     }

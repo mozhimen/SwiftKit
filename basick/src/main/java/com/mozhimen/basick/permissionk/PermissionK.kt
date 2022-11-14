@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.permissionk
+package com.mozhimen.basick.permissionk
 
 import android.app.Activity
 import android.content.Context
@@ -6,15 +6,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.extsk.toJson
-import com.mozhimen.componentk.permissionk.annors.APermissionK
-import com.mozhimen.componentk.permissionk.helpers.IPermissionKListener
-import com.mozhimen.componentk.permissionk.helpers.InvisibleFragment
-import com.mozhimen.underlayk.logk.LogK
+import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.helpers.IPermissionKListener
+import com.mozhimen.basick.permissionk.helpers.InvisibleFragment
 
 /**
  * @ClassName PermissionK
@@ -24,7 +24,7 @@ import com.mozhimen.underlayk.logk.LogK
  * @Version 1.0
  */
 object PermissionK {
-    private val TAG = "PermissionK>>>>>"
+    private const val TAG = "PermissionK>>>>>"
 
     /**
      * 作用: 权限申请
@@ -151,7 +151,7 @@ object PermissionK {
      * @param deniedList List<String>
      */
     private fun printDeniedList(deniedList: List<String>) {
-        LogK.wt(TAG, "printDeniedList $deniedList")
+        Log.w(TAG, "printDeniedList $deniedList")
         "请在设置中打开${deniedList.toJson()}权限".showToast()
     }
 }

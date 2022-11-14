@@ -31,10 +31,8 @@
             android:name=".basek.BaseKDemoServiceActivity"
             android:exported="false" />
 
-        <service android:name=".basek.BaseKDemoService" /> <!-- executork -->
-        <activity
-            android:name=".executork.ExecutorKActivity"
-            android:exported="false" /> <!-- prefabk -->
+        <service android:name=".basek.BaseKDemoService" />
+<!-- prefabk -->
         <activity
             android:name=".prefabk.PrefabKActivity"
             android:exported="false" />
@@ -45,11 +43,15 @@
             android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </receiver> <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
             android:exported="false" /> <!-- taskk -->
+        <activity
+            android:name=".taskk.TaskKThreadPoolActivity"
+            android:exported="false" />
         <activity
             android:name=".taskk.TaskKActivity"
             android:exported="false" />

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.taskk.commons
+package com.mozhimen.basick.taskk.coroutine.commons
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner

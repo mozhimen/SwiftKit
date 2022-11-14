@@ -22,12 +22,6 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="goExecutorK"
-                android:text="goExecutorK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
                 android:onClick="goPrefabK"
                 android:text="goPrefabK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

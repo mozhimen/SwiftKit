@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.mozhimen.abilityk.transk.TransKText2Speech
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.componentk.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.PermissionK
 
 class TransKActivity : BaseKActivityVB<ActivityTranskBinding>() {
     private val _transKText2Speech by lazy {

@@ -12,13 +12,12 @@ import com.mozhimen.abilityk.opencvk.OpenCVKTrans
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkShapeBinding
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.cropBitmap
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapTrans
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapConv
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
-import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 

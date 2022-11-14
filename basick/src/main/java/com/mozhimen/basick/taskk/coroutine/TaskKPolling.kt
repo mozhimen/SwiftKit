@@ -1,8 +1,7 @@
-package com.mozhimen.basick.taskk
+package com.mozhimen.basick.taskk.coroutine
 
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.taskk.commons.ITaskK
+import com.mozhimen.basick.taskk.coroutine.commons.ITaskK
 import kotlinx.coroutines.*
 
 class TaskKPolling(owner: LifecycleOwner) : ITaskK(owner) {

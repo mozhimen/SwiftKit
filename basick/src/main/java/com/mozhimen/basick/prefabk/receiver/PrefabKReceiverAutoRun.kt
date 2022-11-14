@@ -1,10 +1,15 @@
 package com.mozhimen.basick.prefabk.receiver
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.util.Log
+import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.taskk.rxjava.commons.ObserverCallback
+import com.mozhimen.basick.taskk.rxjava.helpers.RxJavaScheduler
+import io.reactivex.Observable
+import java.util.concurrent.TimeUnit
 
 /**
  * @ClassName PrefabKReceiverAutoRun
@@ -35,21 +40,19 @@ import android.util.Log
  * @Date 2022/6/13 11:55
  * @Version 1.0
  */
-open class PrefabKReceiverAutoRun(private val _cls: Class<*>) : BroadcastReceiver() {
-    private val TAG = "LoadKReceiverAutoRun>>>>>"
+@APermissionK(permissions = [Manifest.permission.RECEIVE_BOOT_COMPLETED])
+open class PrefabKReceiverAutoRun(private val _delayTime: Long, private val _cls: Class<*>) : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        launch(context, intent)
-    }
-
-    @SuppressLint("LongLogTag")
-    fun launch(context: Context, intent: Intent) {
         val action: String? = intent.action
-        Log.d(TAG, "onReceive $action")
-        if (action == Intent.ACTION_BOOT_COMPLETED) {
-            val reIntent = Intent(context, _cls)
-            reIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context.startActivity(reIntent)
+        if (action?.isNotEmpty() == true && action == Intent.ACTION_BOOT_COMPLETED) {
+            Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(RxJavaScheduler.io2mainObservable()).subscribe(object : ObserverCallback<String>() {
+                override fun onComplete() {
+                    val rebootIntent = Intent(context, _cls)
+                    rebootIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    context.startActivity(rebootIntent)
+                }
+            })
         }
     }
 }

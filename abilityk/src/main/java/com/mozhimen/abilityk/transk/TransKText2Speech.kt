@@ -7,7 +7,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.MText2SpeechConfig
 import com.mozhimen.basick.utilk.UtilKGlobal
-import com.mozhimen.componentk.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.PermissionK
 import java.util.*
 
 /**

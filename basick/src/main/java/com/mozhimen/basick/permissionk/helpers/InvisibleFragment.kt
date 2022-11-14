@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.permissionk.helpers
+package com.mozhimen.basick.permissionk.helpers
 
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment

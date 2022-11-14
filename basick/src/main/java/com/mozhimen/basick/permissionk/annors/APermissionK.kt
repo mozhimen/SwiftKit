@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.permissionk.annors
+package com.mozhimen.basick.permissionk.annors
 
 /**
  * @ClassName PermissionAnnor
@@ -10,5 +10,5 @@ package com.mozhimen.componentk.permissionk.annors
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class APermissionK(
-    val permissions: Array<String> = [],//是否检查权限
+    val permissions: Array<String> = [],//需要持有的权限
 )

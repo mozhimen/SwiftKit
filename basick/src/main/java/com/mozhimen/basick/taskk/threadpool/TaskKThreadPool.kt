@@ -1,10 +1,10 @@
-package com.mozhimen.basick.executork
+package com.mozhimen.basick.taskk.threadpool
 
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.IntRange
-import com.mozhimen.basick.executork.helpers.PriorityRunnable
+import com.mozhimen.basick.taskk.threadpool.helpers.PriorityRunnable
 import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.locks.Condition
@@ -18,9 +18,9 @@ import java.util.concurrent.locks.ReentrantLock
  * @Author Kolin Zhao
  * @Date 2021/9/13 16:04
  * @Version 1.0
- * todo 线程池能力监控,耗时任务检测,定时,延迟
+ * 线程池能力监控,耗时任务检测,定时,延迟
  */
-object ExecutorK {
+object TaskKThreadPool {
     private const val TAG = "ExecutorK>>>>>"
 
     private var _isPaused = false

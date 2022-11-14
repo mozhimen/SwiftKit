@@ -3,8 +3,8 @@ package com.mozhimen.componentktest.permissionk
 import android.Manifest
 import android.os.Bundle
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.componentk.permissionk.PermissionK
-import com.mozhimen.componentk.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityPermissionkBinding
 
 @APermissionK(permissions = [Manifest.permission.INTERNET])

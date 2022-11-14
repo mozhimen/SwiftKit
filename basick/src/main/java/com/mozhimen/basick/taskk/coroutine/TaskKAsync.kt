@@ -1,7 +1,7 @@
-package com.mozhimen.basick.taskk
+package com.mozhimen.basick.taskk.coroutine
 
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.taskk.commons.ITaskK
+import com.mozhimen.basick.taskk.coroutine.commons.ITaskK
 import kotlinx.coroutines.*
 
 typealias ITaskKAsyncErrorListener = (Throwable) -> Unit

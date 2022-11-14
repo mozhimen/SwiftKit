@@ -3,11 +3,9 @@ package com.mozhimen.basicktest
 import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.basek.BaseKActivityVBVM
-import com.mozhimen.basick.basek.BaseKViewModel
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.basicktest.basek.BaseKDemoStartActivity
-import com.mozhimen.basicktest.executork.ExecutorKActivity
+import com.mozhimen.basicktest.taskk.TaskKThreadPoolActivity
 import com.mozhimen.basicktest.stackk.StackKActivity
 import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding
@@ -18,10 +16,6 @@ class BasicKActivity : BaseKActivityVB<ActivityBasickBinding>() {
 
     fun goBaseKDemo(view: View) {
         start<BaseKDemoStartActivity>()
-    }
-
-    fun goExecutorK(view: View) {
-        start<ExecutorKActivity>()
     }
 
     fun goPrefabK(view: View) {

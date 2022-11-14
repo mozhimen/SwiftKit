@@ -16,19 +16,19 @@
             android:orientation="vertical">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/executork_order"
+                android:id="@+id/taskk_thread_pool_btn_order"
                 style="@style/BtnStyle"
                 android:text="按任务优先级执行"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/executork_all_task"
+                android:id="@+id/taskk_thread_pool_btn_all_task"
                 style="@style/BtnStyle"
                 android:text="暂停/恢复线程池所有任务"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/executork_async"
+                android:id="@+id/taskk_thread_pool_btn_async"
                 style="@style/BtnStyle"
                 android:text="异步任务结束回调主线程"
                 tools:ignore="HardcodedText" />
