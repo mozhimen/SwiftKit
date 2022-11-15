@@ -13,15 +13,15 @@ import com.mozhimen.basick.taskk.coroutine.commons.ITaskK
  */
 class TaskKCountDown(owner: LifecycleOwner) : ITaskK(owner) {
 
-    private var _taskKCountDownListener: TaskKCountDownListener? = null
+    private var _taskKCountDownListener: ITaskKCountDownListener? = null
     private var _countDownTimer: CountDownTimer? = null
 
-    interface TaskKCountDownListener {
+    interface ITaskKCountDownListener {
         fun onTick(millisUntilFinished: Long)
         fun onFinish()
     }
 
-    fun start(countDownMilliseconds: Long, listener: TaskKCountDownListener? = null) {
+    fun start(countDownMilliseconds: Long, listener: ITaskKCountDownListener? = null) {
         listener?.let { _taskKCountDownListener = it }
         _countDownTimer = UtilKCountDownTimer(countDownMilliseconds)
         _countDownTimer!!.start()

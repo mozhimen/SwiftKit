@@ -10,7 +10,7 @@ import com.mozhimen.uicorek.layoutk.slider.mos.MRod
  * @Version 1.0
  */
 interface ISliderScrollListener {
-    fun onScrollStart()
-    fun onScrolling(currentPercent: Float, currentValue: Float, rod: MRod)
-    fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod)
+    fun onScrollStart(){}
+    fun onScrolling(currentPercent: Float, currentValue: Float, rod: MRod){}
+    fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod){}
 }
