@@ -15,6 +15,7 @@ import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
 import com.mozhimen.basick.utilk.view.UtilKView.findTypeChildView
 import com.mozhimen.basick.basek.BaseKLayoutFrame
 import com.mozhimen.basick.extsk.asColorTone
+import com.mozhimen.basick.utilk.UtilKColor
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
@@ -75,7 +76,7 @@ class TabBottomLayout @JvmOverloads constructor(
      * @param bottomLineColor String
      */
     fun setTabBottomLineColor(bottomLineColor: Any) {
-        this._tabBottomLineColor = bottomLineColor.asColorTone()
+        this._tabBottomLineColor = UtilKColor.getColorTone(bottomLineColor)
     }
 
     /**

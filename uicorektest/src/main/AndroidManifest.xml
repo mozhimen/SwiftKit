@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
+
         <activity
             android:name=".UicoreKActivity"
             android:exported="true">
@@ -17,23 +18,27 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--btnk-->
+        </activity> <!-- btnk -->
         <activity
             android:name=".btnk.BtnKActivity"
-            android:exported="false" />
-        <!--dialogk-->
+            android:exported="false" /> <!-- dialogk -->
         <activity
             android:name=".dialogk.DialogKActivity"
             android:exported="false" />
-        <!--imagek-->
+        <!--drawablek-->
+        <activity
+            android:name=".drawablek.DrawableKArrowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".drawablek.DrawableKActivity"
+            android:exported="false" />
+        <!--imagek -->
         <activity
             android:name=".imagek.ImageKActivity"
             android:exported="false" />
         <activity
             android:name=".imagek.ImageKBindingAdapterActivity"
-            android:exported="false" />
-        <!--layoutk-->
+            android:exported="false" /> <!-- layoutk -->
         <activity
             android:name=".layoutk.LayoutKActivity"
             android:exported="false" />
@@ -93,8 +98,7 @@
             android:exported="false" />
         <activity
             android:name=".layoutk.tab.LayoutKTabTopLayoutActivity"
-            android:exported="false" />
-        <!--recyclerk-->
+            android:exported="false" /> <!-- recyclerk -->
         <activity
             android:name=".recyclerk.RecyclerKActivity"
             android:exported="false" />
@@ -103,12 +107,10 @@
             android:exported="false" />
         <activity
             android:name=".recyclerk.RecyclerKLoadActivity"
-            android:exported="false" />
-        <!--textk-->
+            android:exported="false" /> <!-- textk -->
         <activity
             android:name=".textk.TextKActivity"
-            android:exported="false" />
-        <!--viewk-->
+            android:exported="false" /> <!-- viewk -->
         <activity
             android:name=".viewk.ViewKActivity"
             android:exported="false" />

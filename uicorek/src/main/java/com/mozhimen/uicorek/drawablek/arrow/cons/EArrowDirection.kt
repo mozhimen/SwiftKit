@@ -1,5 +1,8 @@
 package com.mozhimen.uicorek.drawablek.arrow.cons
 
+import android.util.SparseArray
+
+
 /**
  * @ClassName EArrowDirection
  * @Description TODO
@@ -7,13 +10,13 @@ package com.mozhimen.uicorek.drawablek.arrow.cons
  * @Date 2022/11/14 0:37
  * @Version 1.0
  */
-enum class EArrowDirection {
-    None,//无箭头
-    Auto, //自动确定指向
-    Left,
-    Up,
-    Right,
-    Down;
+enum class EArrowDirection(val value: Int) {
+    None(0),//无箭头
+    Auto(1), //自动确定指向,和None相似
+    Left(2),
+    Up(3),
+    Right(4),
+    Down(5);
 
     val isLeft: Boolean
         get() = this == Left
@@ -23,4 +26,18 @@ enum class EArrowDirection {
         get() = this == Right
     val isDown: Boolean
         get() = this == Down
+
+    companion object {
+        private var _int2TypeDict = SparseArray<EArrowDirection>()
+
+        init {
+            for (type in EArrowDirection.values()) {
+                _int2TypeDict.put(type.value, type)
+            }
+        }
+
+        fun get(value: Int): EArrowDirection {
+            return _int2TypeDict[value] ?: EArrowDirection.Auto
+        }
+    }
 }

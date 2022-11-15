@@ -1,6 +1,7 @@
 package com.mozhimen.basick.flowk.helpers
 
 import android.util.Log
+import androidx.annotation.CallSuper
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.flowk.FlowKNode
 import com.mozhimen.basick.flowk.FlowKNodeGroup
@@ -16,6 +17,7 @@ import com.mozhimen.basick.flowk.commons.IFlowKListener
  * @Version 1.0
  */
 class RuntimeCallback : IFlowKListener {
+    @CallSuper
     override fun onStart(flowKNode: FlowKNode) {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "ITaskKRuntimeListener id ${flowKNode.id} method $METHOD_START")

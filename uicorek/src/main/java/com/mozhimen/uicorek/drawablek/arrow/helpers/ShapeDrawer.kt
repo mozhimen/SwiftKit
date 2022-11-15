@@ -3,6 +3,7 @@ package com.mozhimen.uicorek.drawablek.arrow.helpers
 import android.graphics.Path
 import android.graphics.PointF
 import android.graphics.RectF
+import com.mozhimen.basick.extsk.normalize
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.drawablek.arrow.mos.MShape
@@ -14,7 +15,7 @@ import com.mozhimen.uicorek.drawablek.arrow.mos.MShape
  * @Date 2022/11/14 22:33
  * @Version 1.0
  */
-class ShapeDrawer {
+internal class ShapeDrawer {
     private val _ovalRect = RectF()
 
     fun updatePath(arrowDirection: EArrowDirection, shape: MShape, path: Path) {
@@ -54,32 +55,29 @@ class ShapeDrawer {
         when (direction) {
             EArrowDirection.Left -> {
                 outShape.arrowPeakX = outShape.rect.left - outShape.arrowHeight
-                outShape.arrowPeakY = bound(
+                // 确保弧角的显示
+                outShape.arrowPeakY =  getLeftRightArrowPeakY(policy, arrowTo, outShape).normalize(
                     outShape.rect.top + outShape.cornerTopLeftRadius + outShape.arrowWidth / 2 + outShape.borderWidth / 2,
-                    getLeftRightArrowPeakY(policy, arrowTo, outShape),  // 确保弧角的显示
                     outShape.rect.bottom - outShape.cornerBottomLeftRadius - outShape.arrowWidth / 2 - outShape.borderWidth / 2
                 )
             }
             EArrowDirection.Up -> {
-                outShape.arrowPeakX = bound(
+                outShape.arrowPeakX = getUpDownArrowPeakX(policy, arrowTo, outShape).normalize(
                     outShape.rect.left + outShape.cornerTopLeftRadius + outShape.arrowWidth / 2 + outShape.borderWidth / 2,
-                    getUpDownArrowPeakX(policy, arrowTo, outShape),
                     outShape.rect.right - outShape.cornerTopRightRadius - outShape.arrowWidth / 2 - outShape.borderWidth / 2
                 )
                 outShape.arrowPeakY = outShape.rect.top - outShape.arrowHeight
             }
             EArrowDirection.Right -> {
                 outShape.arrowPeakX = outShape.rect.right + outShape.arrowHeight
-                outShape.arrowPeakY = bound(
+                outShape.arrowPeakY = getLeftRightArrowPeakY(policy, arrowTo, outShape).normalize(
                     outShape.rect.top + outShape.cornerTopRightRadius + outShape.arrowWidth / 2 + outShape.borderWidth / 2,
-                    getLeftRightArrowPeakY(policy, arrowTo, outShape),
                     outShape.rect.bottom - outShape.cornerBottomRightRadius - outShape.arrowWidth / 2 - outShape.borderWidth / 2
                 )
             }
             EArrowDirection.Down -> {
-                outShape.arrowPeakX = bound(
+                outShape.arrowPeakX = getUpDownArrowPeakX(policy, arrowTo, outShape).normalize(
                     outShape.rect.left + outShape.cornerBottomLeftRadius + outShape.arrowWidth / 2 + outShape.borderWidth / 2,
-                    getUpDownArrowPeakX(policy, arrowTo, outShape),
                     outShape.rect.right - outShape.cornerBottomRightRadius - outShape.arrowWidth / 2 - outShape.borderWidth / 2
                 )
                 outShape.arrowPeakY = outShape.rect.bottom + outShape.arrowHeight
@@ -245,9 +243,5 @@ class ShapeDrawer {
     private fun createPathArc(path: Path, left: Float, top: Float, right: Float, bottom: Float, startAngle: Float, sweepAngle: Float) {
         _ovalRect[left, top, right] = bottom
         path.arcTo(_ovalRect, startAngle, sweepAngle)
-    }
-
-    private fun bound(min: Float, value: Float, max: Float): Float {
-        return value.coerceAtLeast(min).coerceAtMost(max)
     }
 }

@@ -258,12 +258,12 @@
     <declare-styleable name="TextKBubble">
         <!--设置箭头朝向-->
         <attr name="textKBubble_arrowDirection" format="enum">
-            <enum name="none" value="-1" />
-            <enum name="auto" value="0" />
-            <enum name="left" value="1" />
-            <enum name="up" value="2" />
-            <enum name="right" value="3" />
-            <enum name="down" value="4" />
+            <enum name="none" value="0" />
+            <enum name="auto" value="1" />
+            <enum name="left" value="2" />
+            <enum name="up" value="3" />
+            <enum name="right" value="4" />
+            <enum name="down" value="5" />
         </attr>
         <!--设置箭头三角形厚度-->
         <attr name="textKBubble_arrowHeight" format="dimension|reference" />

@@ -12,10 +12,11 @@ import com.mozhimen.basick.basek.commons.IBaseKLayout
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.drawablek.arrow.DrawableKArrow
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
 import java.lang.ref.WeakReference
 import kotlin.math.abs
 
@@ -40,7 +41,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
     private val _location = IntArray(2)    // 方便计算用的中间值对象，避免重复创建
     private val _rectTo = Rect()
     private val _rectSelf = Rect()
-    private val _bubbleDrawable = TextKBubbleDrawable()
+    private val _bubbleDrawable = DrawableKArrow()
     private var _paddingLeftOffset = 0
     private var _paddingTopOffset = 0
     private var _paddingRightOffset = 0
@@ -91,7 +92,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
         attrs ?: return
         val typedArray = _context.obtainStyledAttributes(attrs, R.styleable.TextKBubble)
         _arrowDirection =
-            EArrowDirection.valueOf(
+            EArrowDirection.get(
                 typedArray.getInteger(R.styleable.TextKBubble_textKBubble_arrowDirection, EArrowDirection.Auto.value)
             )
         _arrowHeight =
@@ -99,7 +100,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
         _arrowWidth =
             typedArray.getDimension(R.styleable.TextKBubble_textKBubble_arrowWidth, ARROW_WIDTH)
         _arrowPosPolicy =
-            EArrowPosPolicy.valueOf(
+            EArrowPosPolicy.get(
                 typedArray.getInteger(R.styleable.TextKBubble_textKBubble_arrowPosPolicy, EArrowPosPolicy.TargetCenter.value)
             )
         _arrowPosOffset =
@@ -188,13 +189,13 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayo
         if (drawImmediately) {
             _bubbleDrawable.resetRect(width, height)
             _bubbleDrawable.setCornerRadius(_cornerTopLeftRadius, _cornerTopRightRadius, _cornerBottomRightRadius, _cornerBottomLeftRadius)
-            _bubbleDrawable.setBgColor(_bgColor)
+            _bubbleDrawable.setFillColor(_bgColor)
             _bubbleDrawable.setBorderWidth(_borderWidth)
-            _bubbleDrawable.setGapPadding(_gapPadding)
+            _bubbleDrawable.setGapWidth(_gapPadding)
             _bubbleDrawable.setBorderColor(_borderColor)
             _bubbleDrawable.setArrowDirection(_drawableArrowDirection)
             _bubbleDrawable.setArrowPosPolicy(_arrowPosPolicy)
-            _bubbleDrawable.setArrowTo(arrowToOffsetX, arrowToOffsetY)
+            _bubbleDrawable.setArrowToPoint(arrowToOffsetX, arrowToOffsetY)
             _bubbleDrawable.setArrowPosDelta(_arrowPosOffset)
             _bubbleDrawable.setArrowHeight(_arrowHeight)
             _bubbleDrawable.setArrowWidth(_arrowWidth)

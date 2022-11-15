@@ -7,6 +7,7 @@ import com.mozhimen.basick.extsk.start
 import com.mozhimen.uicorektest.btnk.BtnKActivity
 import com.mozhimen.uicorektest.databinding.ActivityUicorekBinding
 import com.mozhimen.uicorektest.dialogk.DialogKActivity
+import com.mozhimen.uicorektest.drawablek.DrawableKActivity
 import com.mozhimen.uicorektest.imagek.ImageKActivity
 import com.mozhimen.uicorektest.layoutk.LayoutKActivity
 import com.mozhimen.uicorektest.recyclerk.RecyclerKActivity
@@ -21,6 +22,10 @@ class UicoreKActivity : BaseKActivityVB<ActivityUicorekBinding>() {
 
     fun goDialogK(view: View) {
         start<DialogKActivity>()
+    }
+
+    fun goDrawableK(view: View) {
+        start<DrawableKActivity>()
     }
 
     fun goImageK(view: View) {

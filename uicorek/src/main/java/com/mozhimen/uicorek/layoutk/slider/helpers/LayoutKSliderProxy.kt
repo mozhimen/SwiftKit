@@ -8,13 +8,13 @@ import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewGroup
-import com.mozhimen.basick.basek.view.BaseKViewCallback
+import com.mozhimen.basick.basek.commons.IBaseKView
 import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
-import com.mozhimen.uicorek.layoutk.slider.mos.MSliderAttrs
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
 import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
+import com.mozhimen.uicorek.layoutk.slider.mos.MSliderAttrs
 
 /**
  * @ClassName LayoutKSliderProxy
@@ -38,7 +38,7 @@ import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
 internal class LayoutKSliderProxy(
     private val _context: Context,
 ) :
-    BaseKViewCallback() {
+    IBaseKView {
 
     //region # variate
     private lateinit var _layoutKSlider: LayoutKSlider

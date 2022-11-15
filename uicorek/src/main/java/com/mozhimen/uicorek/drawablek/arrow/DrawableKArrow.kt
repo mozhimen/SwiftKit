@@ -18,10 +18,7 @@ import kotlin.math.sin
  */
 class DrawableKArrow : Drawable() {
     private val _shapeDrawer: ShapeDrawer by lazy { ShapeDrawer() }
-    private var _arrowDirection: EArrowDirection = EArrowDirection.None
-    private var _arrowPosPolicy: EArrowPosPolicy = EArrowPosPolicy.TargetCenter
-
-    private val _originalShape = MShape()
+    private val _shape = MShape()
     private val _borderShape = MShape()
     private val _fillShape = MShape()
 
@@ -34,7 +31,7 @@ class DrawableKArrow : Drawable() {
                 strokeCap = Paint.Cap.ROUND
                 strokeJoin = Paint.Join.ROUND
                 strokeWidth = _borderShape.borderWidth
-                color = _borderColor
+                color = _shape.borderColor
             }
             return paint.also { field = it }
         }
@@ -45,79 +42,92 @@ class DrawableKArrow : Drawable() {
             val paint = Paint(Paint.ANTI_ALIAS_FLAG)
             paint.apply {
                 style = Paint.Style.FILL
-                color = _fillColor
+                color = _shape.fillColor
             }
             return paint.also { field = it }
         }
     private val _fillPath = Path()
 
-    private var _gapWidth = 0f
-    private var _fillColor = Color.WHITE
-    private var _borderColor = Color.WHITE
-    private val _arrowTo = PointF(0f, 0f)
-
-
     fun resetRect(width: Int, height: Int) {
-        _originalShape.rect[0f, 0f, width.toFloat()] = height.toFloat()
+        _shape.rect[0f, 0f, width.toFloat()] = height.toFloat()
     }
 
     fun setFillColor(fillColor: Int) {
-        _fillColor = fillColor
+        _shape.fillColor = fillColor
     }
 
-    fun setBorderColor(borderColor: Int) {
-        _borderColor = borderColor
+    fun setGapWidth(gapWidth: Float) {
+        _shape.gapWidth = gapWidth
+    }
+
+    fun setCornerRadius(radius: Float) {
+        setCornerRadius(radius, radius, radius, radius)
+    }
+
+    fun setCornerRadius(topLeft: Float, topRight: Float, bottomRight: Float, bottomLeft: Float) {
+        _shape.cornerTopLeftRadius = topLeft
+        _shape.cornerTopRightRadius = topRight
+        _shape.cornerBottomRightRadius = bottomRight
+        _shape.cornerBottomLeftRadius = bottomLeft
     }
 
     fun setBorderWidth(borderWidth: Float) {
-        _originalShape.borderWidth = borderWidth
+        _shape.borderWidth = borderWidth
     }
 
-    fun setGapPadding(gapPadding: Float) {
-        _gapWidth = gapPadding
+    fun setBorderColor(borderColor: Int) {
+        _shape.borderColor = borderColor
+    }
+
+    /**
+     * 在EArrowDirection.None无效
+     * @param arrowWidth Float
+     */
+    fun setArrowWidth(arrowWidth: Float) {
+        _shape.arrowWidth = arrowWidth
+    }
+
+    /**
+     * 在EArrowDirection.None无效
+     * @param arrowHeight Float
+     */
+    fun setArrowHeight(arrowHeight: Float) {
+        _shape.arrowHeight = arrowHeight
+    }
+
+    fun setArrowDirection(arrowDirection: EArrowDirection) {
+        _shape.arrowDirection = arrowDirection
+    }
+
+    fun setArrowPosPolicy(arrowPosPolicy: EArrowPosPolicy) {
+        _shape.arrowPosPolicy = arrowPosPolicy
+    }
+
+    /**
+     * 设置箭头指向的View对象中心相对坐标,EArrowPosPolicy.TargetCenter有效
+     * @param targetCenterX 目标中心x
+     * @param targetCenterY 目标中心y
+     */
+    fun setArrowToPoint(targetCenterX: Float, targetCenterY: Float) {
+        _shape.arrowToPoint.apply {
+            this.x = targetCenterX
+            this.y = targetCenterY
+        }
+//        _arrowTo.x = x
+//        _arrowTo.y = y
+    }
+
+    /**
+     * EArrowPosPolicy.SelfBegin或EArrowPosPolicy.SelfEnd有效
+     * @param arrowPosDelta Float
+     */
+    fun setArrowPosDelta(arrowPosDelta: Float) {
+        _shape.arrowPosDelta = arrowPosDelta
     }
 
     fun updateShapes() {
         updateBorderShape()
         updateFillShape()
-    }
-
-    fun setCornerRadius(topLeft: Float, topRight: Float, bottomRight: Float, bottomLeft: Float) {
-        _originalShape.cornerTopLeftRadius = topLeft
-        _originalShape.cornerTopRightRadius = topRight
-        _originalShape.cornerBottomRightRadius = bottomRight
-        _originalShape.cornerBottomLeftRadius = bottomLeft
-    }
-
-    fun setArrowDirection(arrowDirection: EArrowDirection) {
-        _arrowDirection = arrowDirection
-    }
-
-    fun setArrowPosPolicy(arrowPosPolicy: EArrowPosPolicy) {
-        _arrowPosPolicy = arrowPosPolicy
-    }
-
-    fun setArrowHeight(arrowHeight: Float) {
-        _originalShape.arrowHeight = arrowHeight
-    }
-
-    fun setArrowWidth(arrowWidth: Float) {
-        _originalShape.arrowWidth = arrowWidth
-    }
-
-    /**
-     * 设置箭头指向的View对象中心相对坐标
-     *
-     * @param x 目标中心x
-     * @param y 目标中心y
-     */
-    fun setArrowTo(x: Float, y: Float) {
-        _arrowTo.x = x
-        _arrowTo.y = y
-    }
-
-    fun setArrowPosDelta(arrowPosDelta: Float) {
-        _originalShape.arrowPosDelta = arrowPosDelta
     }
 
     override fun draw(canvas: Canvas) {
@@ -136,16 +146,16 @@ class DrawableKArrow : Drawable() {
     }
 
     private fun updateBorderShape() {
-        _borderShape.set(_originalShape)
+        _borderShape.set(_shape)
         _borderShape.rect[
-                _originalShape.rect.left + _originalShape.borderWidth / 2f + (if (_arrowDirection.isLeft) _originalShape.arrowHeight else 0f),
-                _originalShape.rect.top + _originalShape.borderWidth / 2 + (if (_arrowDirection.isUp) _originalShape.arrowHeight else 0f),
-                _originalShape.rect.right - _originalShape.borderWidth / 2 - (if (_arrowDirection.isRight) _originalShape.arrowHeight else 0f)
-        ] = _originalShape.rect.bottom - _originalShape.borderWidth / 2 - if (_arrowDirection.isDown) _originalShape.arrowHeight else 0f
+                _shape.rect.left + _shape.borderWidth / 2f + (if (_shape.arrowDirection.isLeft) _shape.arrowHeight else 0f),
+                _shape.rect.top + _shape.borderWidth / 2 + (if (_shape.arrowDirection.isUp) _shape.arrowHeight else 0f),
+                _shape.rect.right - _shape.borderWidth / 2 - (if (_shape.arrowDirection.isRight) _shape.arrowHeight else 0f)
+        ] = _shape.rect.bottom - _shape.borderWidth / 2 - if (_shape.arrowDirection.isDown) _shape.arrowHeight else 0f
 
         // 外层的箭头顶点位置通过箭头位置策略、箭头偏移设定、目标位置决定
-        _shapeDrawer.updateBorderArrowPeak(_arrowDirection, _arrowPosPolicy, _arrowTo, _borderShape)
-        _shapeDrawer.updatePath(_arrowDirection, _borderShape, _borderPath)
+        _shapeDrawer.updateBorderArrowPeak(_shape.arrowDirection, _shape.arrowPosPolicy, /*_arrowTo*/_shape.arrowToPoint, _borderShape)
+        _shapeDrawer.updatePath(_shape.arrowDirection, _borderShape, _borderPath)
     }
 
     private fun updateFillShape() {
@@ -153,24 +163,22 @@ class DrawableKArrow : Drawable() {
 
         _fillShape.borderWidth = 0f
         _fillShape.rect[
-                _originalShape.rect.left + _originalShape.borderWidth + _gapWidth + (if (_arrowDirection.isLeft) _originalShape.arrowHeight else 0f),
-                _originalShape.rect.top + _originalShape.borderWidth + _gapWidth + (if (_arrowDirection.isUp) _originalShape.arrowHeight else 0f),
-                _originalShape.rect.right - _originalShape.borderWidth - _gapWidth - (if (_arrowDirection.isRight) _originalShape.arrowHeight else 0f)
-        ] = _originalShape.rect.bottom - _originalShape.borderWidth - _gapWidth - if (_arrowDirection.isDown) _originalShape.arrowHeight else 0f
+                _shape.rect.left + _shape.borderWidth + _shape.gapWidth + (if (_shape.arrowDirection.isLeft) _shape.arrowHeight else 0f),
+                _shape.rect.top + _shape.borderWidth + _shape.gapWidth + (if (_shape.arrowDirection.isUp) _shape.arrowHeight else 0f),
+                _shape.rect.right - _shape.borderWidth - _shape.gapWidth - (if (_shape.arrowDirection.isRight) _shape.arrowHeight else 0f)
+        ] = _shape.rect.bottom - _shape.borderWidth - _shape.gapWidth - if (_shape.arrowDirection.isDown) _shape.arrowHeight else 0f
 
-        _fillShape.cornerTopLeftRadius = 0f.coerceAtLeast(_originalShape.cornerTopLeftRadius - _originalShape.borderWidth / 2f - _gapWidth)
-        _fillShape.cornerTopRightRadius = 0f.coerceAtLeast(_originalShape.cornerTopRightRadius - _originalShape.borderWidth / 2f - _gapWidth)
-        _fillShape.cornerBottomLeftRadius = 0f.coerceAtLeast(_originalShape.cornerBottomLeftRadius - _originalShape.borderWidth / 2f - _gapWidth)
-        _fillShape.cornerBottomRightRadius = 0f.coerceAtLeast(_originalShape.cornerBottomRightRadius - _originalShape.borderWidth / 2f - _gapWidth)
-        val w =
-            _originalShape.arrowWidth - 2 * (_originalShape.borderWidth / 2 + _gapWidth) / sin(atan((_originalShape.arrowHeight / (_originalShape.arrowWidth / 2)).toDouble()))
-        val h =
-            w * _originalShape.arrowHeight / _originalShape.arrowWidth
-        _fillShape.arrowHeight = (h + _originalShape.borderWidth / 2 + _gapWidth).toFloat()
-        _fillShape.arrowWidth = _fillShape.arrowHeight * _originalShape.arrowWidth / _originalShape.arrowHeight
+        _fillShape.cornerTopLeftRadius = 0f.coerceAtLeast(_shape.cornerTopLeftRadius - _shape.borderWidth / 2f - _shape.gapWidth)
+        _fillShape.cornerTopRightRadius = 0f.coerceAtLeast(_shape.cornerTopRightRadius - _shape.borderWidth / 2f - _shape.gapWidth)
+        _fillShape.cornerBottomLeftRadius = 0f.coerceAtLeast(_shape.cornerBottomLeftRadius - _shape.borderWidth / 2f - _shape.gapWidth)
+        _fillShape.cornerBottomRightRadius = 0f.coerceAtLeast(_shape.cornerBottomRightRadius - _shape.borderWidth / 2f - _shape.gapWidth)
+        val w = _shape.arrowWidth - 2 * (_shape.borderWidth / 2 + _shape.gapWidth) / sin(atan((_shape.arrowHeight / (_shape.arrowWidth / 2)).toDouble()))
+        val h = w * _shape.arrowHeight / _shape.arrowWidth
+        _fillShape.arrowHeight = (h + _shape.borderWidth / 2 + _shape.gapWidth).toFloat()
+        _fillShape.arrowWidth = _fillShape.arrowHeight * _shape.arrowWidth / _shape.arrowHeight
 
         // 内层的箭头顶点位置通过外层边线上的顶点位置来计算
-        _shapeDrawer.updateFillArrowPeak(_arrowDirection, _borderShape, _fillShape)
-        _shapeDrawer.updatePath(_arrowDirection, _fillShape, _fillPath)
+        _shapeDrawer.updateFillArrowPeak(_shape.arrowDirection, _borderShape, _fillShape)
+        _shapeDrawer.updatePath(_shape.arrowDirection, _fillShape, _fillPath)
     }
 }

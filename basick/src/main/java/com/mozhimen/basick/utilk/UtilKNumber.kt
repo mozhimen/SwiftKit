@@ -30,14 +30,26 @@ object UtilKNumber {
     }
 
     @JvmStatic
-    fun normalize(value: Float, range: Pair<Float, Float>): Float {
-        val tempRange = min(range.first, range.second) to max(range.first, range.second)
+    fun normalize(value: Float, min: Float, max: Float): Float {
+        val tempRange = min(min, max) to max(min, max)
         return when {
             value < tempRange.first -> tempRange.first
             value > tempRange.second -> tempRange.second
             else -> value
         }
     }
+
+    @JvmStatic
+    fun normalize(value: Float, min: Int, max: Int): Float =
+        normalize(value, min.toFloat(), max.toFloat())
+
+    @JvmStatic
+    fun normalize(value: Float, range: IntRange): Float =
+        normalize(value, range.first.toFloat(), range.last.toFloat())
+
+    @JvmStatic
+    fun normalize(value: Float, range: Pair<Float, Float>): Float =
+        normalize(value, range.first, range.second)
 
     @JvmStatic
     fun normalize(value: Int, range: IntRange): Int {
@@ -48,14 +60,6 @@ object UtilKNumber {
             else -> value
         }
     }
-
-    @JvmStatic
-    fun normalize(value: Float, range: IntRange): Float =
-        normalize(value, range.first.toFloat() to range.last.toFloat())
-
-    @JvmStatic
-    fun normalize(value: Float, rangeStart: Int, rangeEnd: Int): Float =
-        normalize(value, rangeStart..rangeEnd)
 
     @JvmStatic
     fun percent(value: Float, range: Pair<Float, Float>): Float {

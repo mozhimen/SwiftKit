@@ -2,9 +2,8 @@ package com.mozhimen.uicorek.textk.bubble
 
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import kotlin.math.atan
 import kotlin.math.sin
 

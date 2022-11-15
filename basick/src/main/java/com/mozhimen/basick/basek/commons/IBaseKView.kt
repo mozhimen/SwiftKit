@@ -10,9 +10,9 @@ import android.util.AttributeSet
  * @Version 1.0
  */
 interface IBaseKView {
-    fun initFlag()
-    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int)
-    fun initPaint()
-    fun initData()
-    fun initView()
+    fun initFlag(){}
+    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int){}
+    fun initPaint(){}
+    fun initData(){}
+    fun initView(){}
 }

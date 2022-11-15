@@ -1,8 +1,8 @@
 package com.mozhimen.uicorek.textk.bubble.commons
 
 import android.view.View
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 
 /**
  * @ClassName ITextKBubble

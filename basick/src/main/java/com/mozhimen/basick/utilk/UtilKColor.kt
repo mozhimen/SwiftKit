@@ -48,13 +48,21 @@ object UtilKColor {
 
     /**
      * 获取颜色
-     * @param color Any
+     * @param colorStr String
      * @return Int
      */
+    @JvmStatic
     @ColorInt
-    fun getColorTone(color: Any): Int = when (color) {
-        is String -> Color.parseColor(color)
-        is Int -> color
-        else -> throw IllegalArgumentException("color type is illegal!")
+    fun getColorTone(colorStr: String): Int =
+        Color.parseColor(colorStr)
+
+    @JvmStatic
+    @ColorInt
+    fun getColorTone(any: Any): Int {
+        return when (any) {
+            is String -> getColorTone(any)
+            is Int -> any
+            else -> Color.WHITE
+        }
     }
 }
