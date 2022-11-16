@@ -20,7 +20,9 @@ import java.lang.Exception
 class TabBottomFragmentAdapter constructor(
     private var _fragmentManager: FragmentManager, private var _moList: List<MTabBottom>
 ) {
-    private val TAG = "TabBottomFragmentAdapter>>>>>"
+    companion object{
+        private const val TAG = "TabBottomFragmentAdapter>>>>>"
+    }
     private var _currentFragment: Fragment? = null
 
     /**

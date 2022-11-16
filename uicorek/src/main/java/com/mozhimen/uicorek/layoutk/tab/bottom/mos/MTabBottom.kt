@@ -1,6 +1,5 @@
 package com.mozhimen.uicorek.layoutk.tab.bottom.mos
 
-import android.graphics.Color
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.extsk.string2Unicode
 import com.mozhimen.basick.utilk.UtilKColor

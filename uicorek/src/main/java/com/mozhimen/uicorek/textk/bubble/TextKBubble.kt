@@ -4,11 +4,10 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basick.basek.commons.IBaseKLayout
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
 
 /**
  * @ClassName TextKBubble

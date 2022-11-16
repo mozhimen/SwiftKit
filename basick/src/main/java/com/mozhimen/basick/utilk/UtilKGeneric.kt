@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk
 
+import com.squareup.moshi.asArrayType
+import java.lang.ClassCastException
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -33,32 +35,33 @@ object UtilKGeneric {
 
     /**
      * 获取泛型类
-     * @param obj Any
+     * @param clazz Class<*>
      * @param index Int
      * @return Class<*>?
      */
     @JvmStatic
-    fun getParentGenericTypeClazz(obj: Any, index: Int = 0): Class<*>? =
-        getParentGenericType(obj, index) as? Class<*>?
+    fun getParentGenericTypeClazz(clazz: Class<*>, index: Int = 0): Class<*>? =
+        getParentGenericType(clazz, index) as? Class<*>?
 
     /**
      * 获取泛型type
-     * @param obj Any
+     * @param clazz Class<*>
      * @param index Int
      * @return Type?
      */
     @JvmStatic
-    fun getParentGenericType(obj: Any, index: Int = 0): Type? =
-        obj::class.java
-            .genericSuperclass
-            .let { it as ParameterizedType }
+    fun getParentGenericType(clazz: Class<*>, index: Int = 0): Type? {
+        val genericSuperclass = clazz.genericSuperclass
+        if (genericSuperclass !is ParameterizedType) return if (clazz.superclass != null) getParentGenericType(clazz.superclass, index) else null//当我们继承多层BaseKActivity时递归查找泛型
+        genericSuperclass
             .actualTypeArguments.filterIsInstance<Class<*>>()
             .run {
-                if (this.isNotEmpty() && index in this.indices)
+                return if (this.isNotEmpty() && index in this.indices)
                     this[index]
                 else
                     null
             }
+    }
 
     /**
      * 获取继承父类的泛型类

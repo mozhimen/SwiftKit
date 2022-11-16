@@ -6,9 +6,11 @@ import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
+import androidx.annotation.Px
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
+import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
 import kotlin.math.abs
 
@@ -22,7 +24,7 @@ import kotlin.math.abs
 class TabTopLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : HorizontalScrollView(context, attrs, defStyleAttr), ITabLayout<TabTopItem, MTabTop> {
-    private val _tabSelectedChangeListeners: ArrayList<ITabLayout.TabSelectedListener<MTabTop>> = ArrayList()
+    private val _tabSelectedChangeListeners: ArrayList<ITabSelectedListener<MTabTop>> = ArrayList()
     private var _selectedMo: MTabTop? = null
     private var _moList: List<MTabTop>? = null
     private var _tabTopWidth: Int = 0
@@ -33,10 +35,10 @@ class TabTopLayout @JvmOverloads constructor(
     }
 
     /**
-     * 设置顶部高度
+     * 设置顶部高度 px ,在inflate之前有效
      * @param tabHeight Int
      */
-    fun setTabTopHeight(tabHeight: Int) {
+    fun setTabTopHeight(@Px tabHeight: Int) {
         this._tabTopHeight = tabHeight
     }
 
@@ -48,12 +50,12 @@ class TabTopLayout @JvmOverloads constructor(
         this.setBackgroundColor(color)
     }
 
-    override fun findTab(info: MTabTop): TabTopItem? {
+    override fun findTabItem(item: MTabTop): TabTopItem? {
         val rootView: ViewGroup = getRootLayout(false)
         for (i in 0 until rootView.childCount) {
             val child = rootView.getChildAt(i)
             if (child is TabTopItem) {
-                if (child.getTabInfo() == info) {
+                if (child.getTabInfo() == item) {
                     return child
                 }
             }
@@ -61,34 +63,34 @@ class TabTopLayout @JvmOverloads constructor(
         return null
     }
 
-    override fun addTabSelectedChangeListener(listener: ITabLayout.TabSelectedListener<MTabTop>) {
+    override fun addTabItemSelectedListener(listener: ITabSelectedListener<MTabTop>) {
         _tabSelectedChangeListeners.add(listener)
     }
 
-    override fun defaultSelected(defaultInfo: MTabTop) {
-        onSelected(defaultInfo)
+    override fun defaultSelected(defaultItem: MTabTop) {
+        onSelected(defaultItem)
     }
 
-    override fun inflateInfo(infoList: List<MTabTop>) {
-        if (infoList.isEmpty()) {
+    override fun inflateTabItem(itemList: List<MTabTop>) {
+        if (itemList.isEmpty()) {
             return
         }
-        this._moList = infoList
+        this._moList = itemList
         val container = getRootLayout(true)
         _selectedMo = null
         //清除之前添加的TabTop listener,Tips: Java foreach remove问题
-        val iterator: MutableIterator<ITabLayout.TabSelectedListener<MTabTop>> =
+        val iterator: MutableIterator<ITabSelectedListener<MTabTop>> =
             _tabSelectedChangeListeners.iterator()
         while (iterator.hasNext()) {
             if (iterator.next() is TabTopItem) {
                 iterator.remove()
             }
         }
-        for (i in infoList.indices) {
-            val info = infoList[i]
+        for (i in itemList.indices) {
+            val info = itemList[i]
             val tab = TabTopItem(context)
             _tabSelectedChangeListeners.add(tab)
-            tab.setTabInfo(info)
+            tab.setTabItem(info)
             container.addView(tab)
             tab.setOnClickListener { onSelected(info) }
         }
@@ -97,7 +99,7 @@ class TabTopLayout @JvmOverloads constructor(
     private fun onSelected(nextMo: MTabTop) {
         require(_moList != null) { "infoList must not be null!" }
         for (listener in _tabSelectedChangeListeners) {
-            listener.onTabSelected(_moList!!.indexOf(nextMo), _selectedMo, nextMo)
+            listener.onTabItemSelected(_moList!!.indexOf(nextMo), _selectedMo, nextMo)
         }
         this._selectedMo = nextMo
         autoScroll(nextMo)
@@ -108,7 +110,7 @@ class TabTopLayout @JvmOverloads constructor(
      * @param nextMo MTabTop
      */
     private fun autoScroll(nextMo: MTabTop) {
-        val tabTop = findTab(nextMo) ?: return
+        val tabTop = findTabItem(nextMo) ?: return
         val index: Int = _moList!!.indexOf(nextMo)
         val location = IntArray(2)
         //获取点击控件在屏幕的位置
@@ -157,7 +159,7 @@ class TabTopLayout @JvmOverloads constructor(
      * @return Int 可滚动的距离
      */
     private fun scrollWidth(index: Int, toRight: Boolean): Int {
-        val target = findTab(_moList!![index]) ?: return 0
+        val target = findTabItem(_moList!![index]) ?: return 0
         val rect = Rect()
         target.getLocalVisibleRect(rect)
         return if (toRight) { //点击了屏幕右侧

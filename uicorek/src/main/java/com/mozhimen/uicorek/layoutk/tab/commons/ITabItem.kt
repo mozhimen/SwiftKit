@@ -9,8 +9,8 @@ import androidx.annotation.Px
  * @Date 2022/4/15 15:07
  * @Version 1.0
  */
-interface ITabItem<INFO> : ITabLayout.TabSelectedListener<INFO> {
-    fun setTabInfo(tabMo: INFO)
+interface ITabItem<ITEM> : ITabSelectedListener<ITEM> {
+    fun setTabItem(tabMo: ITEM)
 
     /**
      * 动态修改某个item的大小

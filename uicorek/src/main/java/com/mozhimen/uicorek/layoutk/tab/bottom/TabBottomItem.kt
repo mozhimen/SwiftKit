@@ -49,9 +49,9 @@ class TabBottomItem @JvmOverloads constructor(
      * 设置tabInfo
      * @param tabMo MTabBottom<*>
      */
-    override fun setTabInfo(tabMo: MTabBottom) {
+    override fun setTabItem(tabMo: MTabBottom) {
         this._tabBottomItem = tabMo
-        inflateInfo(false, true)
+        inflateInfo(selected = false, init = true)
     }
 
     /**
@@ -98,17 +98,17 @@ class TabBottomItem @JvmOverloads constructor(
     /**
      *
      * @param index Int
-     * @param prevMo MTabBottom<*>
-     * @param nextMo MTabBottom<*>
+     * @param prevItem MTabBottom<*>
+     * @param currentItem MTabBottom<*>
      */
-    override fun onTabSelected(index: Int, prevMo: MTabBottom?, nextMo: MTabBottom) {
-        if (prevMo != _tabBottomItem && nextMo != _tabBottomItem || prevMo == nextMo) {
+    override fun onTabItemSelected(index: Int, prevItem: MTabBottom?, currentItem: MTabBottom) {
+        if (prevItem != _tabBottomItem && currentItem != _tabBottomItem || prevItem == currentItem) {
             return
         }
-        if (prevMo == _tabBottomItem) {
-            inflateInfo(false, false)
+        if (prevItem == _tabBottomItem) {
+            inflateInfo(selected = false, init = false)
         } else {
-            inflateInfo(true, false)
+            inflateInfo(selected = true, init = false)
         }
     }
 

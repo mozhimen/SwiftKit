@@ -14,11 +14,11 @@ import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
 import com.mozhimen.basick.utilk.view.UtilKView.findTypeChildView
 import com.mozhimen.basick.basek.BaseKLayoutFrame
-import com.mozhimen.basick.extsk.asColorTone
 import com.mozhimen.basick.utilk.UtilKColor
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
+import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 
 /**
  * @ClassName TabBottomLayout
@@ -37,10 +37,10 @@ class TabBottomLayout @JvmOverloads constructor(
         private const val TAG_TAB_BOTTOM_LAYOUT = "TAG_TAB_BOTTOM_LAYOUT"
     }
 
-    private val _tabSelectedChangeListeners: ArrayList<ITabLayout.TabSelectedListener<MTabBottom>> =
+    private val _tabSelectedListeners: ArrayList<ITabSelectedListener<MTabBottom>> =
         ArrayList()
-    private var _selectedMo: MTabBottom? = null
-    private var _moList: List<MTabBottom>? = null
+    private var _preSelectedItem: MTabBottom? = null
+    private var _itemList: List<MTabBottom>? = null
     private var _tabBottomAlpha = 1f
     private var _tabBottomHeight = 50f.dp2px()//TabBottom高度
     private var _tabBottomLineHeight = 0.5f.dp2px()//TabBottom的头部线条高度
@@ -104,8 +104,8 @@ class TabBottomLayout @JvmOverloads constructor(
      * 重置底部Tab
      */
     fun resizeTabBottomLayout() {
-        requireNotNull(_moList) { "infoList must not be null!" }
-        val width: Int = getScreenWidth() / _moList!!.size
+        requireNotNull(_itemList) { "infoList must not be null!" }
+        val width: Int = getScreenWidth() / _itemList!!.size
         val frameLayout = getChildAt(childCount - 1) as ViewGroup
         val childCount = frameLayout.childCount
         for (i in 0 until childCount) {
@@ -117,12 +117,12 @@ class TabBottomLayout @JvmOverloads constructor(
         }
     }
 
-    override fun findTab(mo: MTabBottom): TabBottomItem? {
+    override fun findTabItem(item: MTabBottom): TabBottomItem? {
         val tabBottom = findViewWithTag<ViewGroup>(TAG_TAB_BOTTOM_LAYOUT)
         for (i in 0 until tabBottom.childCount) {
             val child = tabBottom.getChildAt(i)
             if (child is TabBottomItem) {
-                if (child.getTabInfo() == mo) {
+                if (child.getTabInfo() == item) {
                     return child
                 }
             }
@@ -130,47 +130,46 @@ class TabBottomLayout @JvmOverloads constructor(
         return null
     }
 
-    override fun addTabSelectedChangeListener(listener: ITabLayout.TabSelectedListener<MTabBottom>) {
-        _tabSelectedChangeListeners.add(listener)
+    override fun addTabItemSelectedListener(listener:ITabSelectedListener<MTabBottom>) {
+        _tabSelectedListeners.add(listener)
     }
 
-
-    override fun defaultSelected(defaultMo: MTabBottom) {
-        onSelected(defaultMo)
+    override fun defaultSelected(defaultItem: MTabBottom) {
+        onSelected(defaultItem)
     }
 
-    override fun inflateInfo(moList: List<MTabBottom>) {
-        if (moList.isEmpty()) {
+    override fun inflateTabItem(infoList: List<MTabBottom>) {
+        if (infoList.isEmpty()) {
             return
         }
-        this._moList = moList
+        this._itemList = infoList
         //移除之前已经添加的View
         for (i in childCount - 1 downTo 1) {
             removeViewAt(i)
         }
-        _selectedMo = null
+        _preSelectedItem = null
         addBackground()
         //清除之前添加的TabBottom listener,同时遍历和删除问题,采用迭代器
-        val iterator: MutableIterator<ITabLayout.TabSelectedListener<MTabBottom>> =
-            _tabSelectedChangeListeners.iterator()
+        val iterator: MutableIterator<ITabSelectedListener<MTabBottom>> =
+            _tabSelectedListeners.iterator()
         while (iterator.hasNext()) {
             if (iterator.next() is TabBottomItem) {
                 iterator.remove()
             }
         }
-        val width = getScreenWidth() / moList.size
+        val width = getScreenWidth() / infoList.size
         val height = _tabBottomHeight
         //不用LinearLayout的原因: 当动态改变child大小后Gravity.Bottom会失效.
         _tabBottomContainer = FrameLayout(context)
         _tabBottomContainer!!.tag = TAG_TAB_BOTTOM_LAYOUT
-        for (i in moList.indices) {
-            val info = moList[i]
+        for (i in infoList.indices) {
+            val info = infoList[i]
             val itemLP = LayoutParams(width, height)
             itemLP.gravity = Gravity.BOTTOM
             itemLP.leftMargin = i * width
             val tabBottom = TabBottomItem(context)
-            _tabSelectedChangeListeners.add(tabBottom)
-            tabBottom.setTabInfo(info)
+            _tabSelectedListeners.add(tabBottom)
+            tabBottom.setTabItem(info)
             _tabBottomContainer!!.addView(tabBottom, itemLP)
             tabBottom.setOnClickListener { onSelected(info) }
         }
@@ -182,11 +181,11 @@ class TabBottomLayout @JvmOverloads constructor(
     }
 
     private fun onSelected(nextMo: MTabBottom) {
-        require(_moList != null) { "infoList must not be null!" }
-        for (listener in _tabSelectedChangeListeners) {
-            listener.onTabSelected(_moList!!.indexOf(nextMo), _selectedMo, nextMo)
+        require(_itemList != null) { "infoList must not be null!" }
+        for (listener in _tabSelectedListeners) {
+            listener.onTabItemSelected(_itemList!!.indexOf(nextMo), _preSelectedItem, nextMo)
         }
-        this._selectedMo = nextMo
+        this._preSelectedItem = nextMo
     }
 
     private fun addBackground() {

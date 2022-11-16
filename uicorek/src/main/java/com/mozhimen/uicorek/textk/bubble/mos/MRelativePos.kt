@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.textk.bubble.mos
 
 import androidx.annotation.IntDef
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 
 /**
  * @ClassName RelativePos

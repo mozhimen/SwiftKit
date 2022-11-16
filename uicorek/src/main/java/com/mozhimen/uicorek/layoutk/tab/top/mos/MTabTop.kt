@@ -13,7 +13,7 @@ import com.mozhimen.uicorek.layoutk.tab.top.cons.ETabTopType
  * @Date 2022/4/15 22:16
  * @Version 1.0
  */
-class MTabTop {
+open class MTabTop {
 
     var name: String? = null
     var fragment: Class<out Fragment>? = null

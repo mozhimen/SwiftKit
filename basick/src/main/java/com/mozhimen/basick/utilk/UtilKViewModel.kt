@@ -16,7 +16,7 @@ import java.lang.Exception
 object UtilKViewModel {
     @JvmStatic
     fun <VM : ViewModel> get(owner: ViewModelStoreOwner, factory: ViewModelProvider.Factory? = null, index: Int = 1): VM =
-        getSuperClazz(owner, index)?.let { vmClazz ->
+        getSuperClazz(owner::class.java, index)?.let { vmClazz ->
             factory?.let { fac ->
                 ViewModelProvider(owner, fac).get(vmClazz as Class<VM>)
             } ?: run {
@@ -24,5 +24,5 @@ object UtilKViewModel {
             }
         } ?: throw Exception("inflate vm fail!")
 
-    private fun getSuperClazz(obj: Any, index: Int): Class<*>? = UtilKGeneric.getParentGenericTypeClazz(obj, index)
+    private fun getSuperClazz(clazz: Class<*>, index: Int): Class<*>? = UtilKGeneric.getParentGenericTypeClazz(clazz, index)
 }

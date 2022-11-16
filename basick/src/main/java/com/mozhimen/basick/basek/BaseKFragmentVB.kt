@@ -21,7 +21,7 @@ abstract class BaseKFragmentVB<VB : ViewDataBinding>(
     fun isAlive(): Boolean = !isRemoving && !isDetached && activity != null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _vb = UtilKViewDataBinding.get<VB>(this, inflater, container, 0).apply {
+        _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container, 0).apply {
             lifecycleOwner = this@BaseKFragmentVB
         }
         return vb.root

@@ -13,7 +13,7 @@ abstract class BaseKActivityVB<VB : ViewDataBinding>(
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
-        UtilKViewDataBinding.get<VB>(this, layoutInflater, 0).apply {
+        UtilKViewDataBinding.get<VB>(this::class.java, layoutInflater, 0).apply {
             lifecycleOwner = this@BaseKActivityVB
         }
     }

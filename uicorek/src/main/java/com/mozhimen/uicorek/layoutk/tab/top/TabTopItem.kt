@@ -42,7 +42,7 @@ class TabTopItem @JvmOverloads constructor(
      * 设置TabInfo
      * @param tabMo MTabTop
      */
-    override fun setTabInfo(tabMo: MTabTop) {
+    override fun setTabItem(tabMo: MTabTop) {
         this._tabTopMo = tabMo
         inflateInfo(false, true)
     }
@@ -88,7 +88,7 @@ class TabTopItem @JvmOverloads constructor(
      * @param prevMo MTabTop?
      * @param nextMo MTabTop
      */
-    override fun onTabSelected(index: Int, prevMo: MTabTop?, nextMo: MTabTop) {
+    override fun onTabItemSelected(index: Int, prevMo: MTabTop?, nextMo: MTabTop) {
         if (prevMo != _tabTopMo && nextMo != _tabTopMo || prevMo == nextMo) {
             return
         }

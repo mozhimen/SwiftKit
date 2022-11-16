@@ -15,8 +15,8 @@ import android.widget.PopupWindow
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowPosPolicy
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.textk.bubble.mos.MRelativePos
 
 /**

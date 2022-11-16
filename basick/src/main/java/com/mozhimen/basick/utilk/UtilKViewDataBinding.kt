@@ -18,13 +18,13 @@ import java.lang.reflect.ParameterizedType
  * @Version 1.0
  */
 object UtilKViewDataBinding {
-    fun <VB : ViewDataBinding> get(obj: Any, inflater: LayoutInflater, index: Int = 0): VB =
-        getSuperClass(obj, index)?.run {
+    fun <VB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater, index: Int = 0): VB =
+        getSuperClass(clazz, index)?.run {
             getDeclaredMethod("inflate", LayoutInflater::class.java).invoke(null, inflater) as VB
         } ?: throw Exception("inflate activity vb fail!")
 
-    fun <VB : ViewDataBinding> get(obj: Any, inflater: LayoutInflater, container: ViewGroup?, index: Int = 0): VB =
-        getSuperClass(obj, index)?.run {
+    fun <VB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater, container: ViewGroup?, index: Int = 0): VB =
+        getSuperClass(clazz, index)?.run {
             getDeclaredMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java).invoke(null, inflater, container, false) as VB
         } ?: throw Exception("inflate fragment vb fail!")
 
@@ -34,7 +34,7 @@ object UtilKViewDataBinding {
 //        return ViewModelProvider(this).get(viewModel)
 //    }
 
-    private fun getSuperClass(obj: Any, index: Int): Class<*>? = UtilKGeneric.getParentGenericTypeClazz(obj, index)
+    private fun getSuperClass(clazz: Class<*>, index: Int): Class<*>? = UtilKGeneric.getParentGenericTypeClazz(clazz, index)
 
 //    fun <VB : ViewDataBinding> Any.getViewBinding(inflater: LayoutInflater, position: Int = 0): VB {
 //        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<*>>()

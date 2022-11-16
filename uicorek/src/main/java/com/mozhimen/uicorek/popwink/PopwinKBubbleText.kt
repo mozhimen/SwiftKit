@@ -3,9 +3,9 @@ package com.mozhimen.uicorek.popwink
 import android.app.Activity
 import android.view.View
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.textk.bubble.TextKBubble
 import com.mozhimen.uicorek.textk.bubble.TextKBubblePopWin
-import com.mozhimen.uicorek.textk.bubble.cons.EArrowDirection
 
 /**
  * @ClassName PopwinKBubbleText

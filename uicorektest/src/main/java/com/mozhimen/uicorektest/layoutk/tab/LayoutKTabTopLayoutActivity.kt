@@ -5,6 +5,7 @@ import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
+import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabTopLayoutBinding
@@ -57,10 +58,10 @@ class LayoutKTabTopLayoutActivity : BaseKActivityVB<ActivityLayoutkTabTopLayoutB
             val info = MTabTop(it, colorDefault, colorSelected)
             infoList.add(info)
         }
-        vb.layoutkTabTopLayout.inflateInfo(infoList)
-        vb.layoutkTabTopLayout.addTabSelectedChangeListener(object : ITabLayout.TabSelectedListener<MTabTop> {
-            override fun onTabSelected(index: Int, prevMo: MTabTop?, nextMo: MTabTop) {
-                nextMo.name!!.showToast()
+        vb.layoutkTabTopLayout.inflateTabItem(infoList)
+        vb.layoutkTabTopLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabTop> {
+            override fun onTabItemSelected(index: Int, prevItem: MTabTop?, currentItem: MTabTop) {
+                currentItem.name!!.showToast()
             }
         })
         vb.layoutkTabTopLayout.defaultSelected(infoList[0])

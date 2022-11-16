@@ -223,6 +223,7 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_first.xml" value="0.17097264437689969" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_second.xml" value="0.1363989134652697" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_third.xml" value="0.128125" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/debugk/src/main/res/layout/activity_debug_ui.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/btnk_icon_background.xml" value="0.1985" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/searchk_keyword_background.xml" value="0.1985" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/sliderk_indicator_menu.xml" value="0.1985" />
@@ -253,8 +254,6 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_datak.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_datak_load_more.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_dialogk.xml" value="0.24409722222222222" />
-        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_drawablek.xml" value="0.24409722222222222" />
-        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_drawablek_arrow.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_imagek.xml" value="0.274609375" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_imagek_binding_adapter.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_layoutk.xml" value="0.23076923076923078" />

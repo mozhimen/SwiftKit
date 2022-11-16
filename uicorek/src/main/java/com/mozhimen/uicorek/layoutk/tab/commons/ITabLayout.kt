@@ -9,16 +9,12 @@ import android.view.ViewGroup
  * @Date 2022/4/15 15:07
  * @Version 1.0
  */
-interface ITabLayout<VIEW : ViewGroup, INFO> {
-    fun findTab(info: INFO): VIEW?
+interface ITabLayout<VIEW : ViewGroup, ITEM> {
+    fun findTabItem(item: ITEM): VIEW?
 
-    fun addTabSelectedChangeListener(listener: TabSelectedListener<INFO>)
+    fun addTabItemSelectedListener(listener: ITabSelectedListener<ITEM>)
 
-    fun defaultSelected(defaultInfo: INFO)
+    fun defaultSelected(defaultItem: ITEM)
 
-    fun inflateInfo(infoList: List<INFO>)
-
-    interface TabSelectedListener<Info> {
-        fun onTabSelected(index: Int, prevMo: Info?, nextMo: Info)
-    }
+    fun inflateTabItem(itemList: List<ITEM>)
 }
