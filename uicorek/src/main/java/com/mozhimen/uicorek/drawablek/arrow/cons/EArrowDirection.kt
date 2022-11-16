@@ -31,13 +31,13 @@ enum class EArrowDirection(val value: Int) {
         private var _int2TypeDict = SparseArray<EArrowDirection>()
 
         init {
-            for (type in EArrowDirection.values()) {
+            for (type in values()) {
                 _int2TypeDict.put(type.value, type)
             }
         }
 
         fun get(value: Int): EArrowDirection {
-            return _int2TypeDict[value] ?: EArrowDirection.Auto
+            return _int2TypeDict[value] ?: Auto
         }
     }
 }

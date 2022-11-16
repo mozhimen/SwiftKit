@@ -1,26 +1,19 @@
 package com.mozhimen.uicorek.textk.bubble.mos
 
-import androidx.annotation.IntDef
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
+import com.mozhimen.uicorek.textk.bubble.annors.ARelativeHorizontal
+import com.mozhimen.uicorek.textk.bubble.annors.ARelativeVertical
 
 /**
- * @ClassName RelativePos
+ * @ClassName MRelativePos
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/9/6 21:14
  * @Version 1.0
  */
-class MRelativePos(@RelativeH horizontalRelate: Int, @RelativeV verticalRelate: Int) {
+class MRelativePos(@ARelativeHorizontal horizontalRelate: Int, @ARelativeVertical verticalRelate: Int) {
     private var _horizontalRelate = horizontalRelate
     private var _verticalRelate = verticalRelate
-
-    @IntDef(value = [CENTER_HORIZONTAL, TO_LEFT_OF, TO_RIGHT_OF, ALIGN_LEFT, ALIGN_RIGHT])
-    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
-    annotation class RelativeH
-
-    @IntDef(value = [CENTER_VERTICAL, ABOVE, BELOW, ALIGN_TOP, ALIGN_BOTTOM])
-    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
-    annotation class RelativeV
 
     companion object {
         const val CENTER_HORIZONTAL = 0

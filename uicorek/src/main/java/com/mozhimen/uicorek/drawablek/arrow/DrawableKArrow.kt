@@ -2,6 +2,7 @@ package com.mozhimen.uicorek.drawablek.arrow
 
 import android.graphics.*
 import android.graphics.drawable.Drawable
+import com.mozhimen.uicorek.drawablek.arrow.commons.IArrow
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.drawablek.arrow.helpers.ShapeDrawer
@@ -16,7 +17,7 @@ import kotlin.math.sin
  * @Date 2022/11/13 22:30
  * @Version 1.0
  */
-class DrawableKArrow : Drawable() {
+class DrawableKArrow : Drawable(), IArrow {
     private val _shapeDrawer: ShapeDrawer by lazy { ShapeDrawer() }
     private val _shape = MShape()
     private val _borderShape = MShape()
@@ -52,30 +53,30 @@ class DrawableKArrow : Drawable() {
         _shape.rect[0f, 0f, width.toFloat()] = height.toFloat()
     }
 
-    fun setFillColor(fillColor: Int) {
+    override fun setFillColor(fillColor: Int) {
         _shape.fillColor = fillColor
     }
 
-    fun setGapWidth(gapWidth: Float) {
+    override fun setGapWidth(gapWidth: Float) {
         _shape.gapWidth = gapWidth
     }
 
-    fun setCornerRadius(radius: Float) {
+    override fun setCornerRadius(radius: Float) {
         setCornerRadius(radius, radius, radius, radius)
     }
 
-    fun setCornerRadius(topLeft: Float, topRight: Float, bottomRight: Float, bottomLeft: Float) {
+    override fun setCornerRadius(topLeft: Float, topRight: Float, bottomRight: Float, bottomLeft: Float) {
         _shape.cornerTopLeftRadius = topLeft
         _shape.cornerTopRightRadius = topRight
         _shape.cornerBottomRightRadius = bottomRight
         _shape.cornerBottomLeftRadius = bottomLeft
     }
 
-    fun setBorderWidth(borderWidth: Float) {
+    override fun setBorderWidth(borderWidth: Float) {
         _shape.borderWidth = borderWidth
     }
 
-    fun setBorderColor(borderColor: Int) {
+    override fun setBorderColor(borderColor: Int) {
         _shape.borderColor = borderColor
     }
 
@@ -83,7 +84,7 @@ class DrawableKArrow : Drawable() {
      * 在EArrowDirection.None无效
      * @param arrowWidth Float
      */
-    fun setArrowWidth(arrowWidth: Float) {
+    override fun setArrowWidth(arrowWidth: Float) {
         _shape.arrowWidth = arrowWidth
     }
 
@@ -91,15 +92,15 @@ class DrawableKArrow : Drawable() {
      * 在EArrowDirection.None无效
      * @param arrowHeight Float
      */
-    fun setArrowHeight(arrowHeight: Float) {
+    override fun setArrowHeight(arrowHeight: Float) {
         _shape.arrowHeight = arrowHeight
     }
 
-    fun setArrowDirection(arrowDirection: EArrowDirection) {
+    override fun setArrowDirection(arrowDirection: EArrowDirection) {
         _shape.arrowDirection = arrowDirection
     }
 
-    fun setArrowPosPolicy(arrowPosPolicy: EArrowPosPolicy) {
+    override fun setArrowPosPolicy(arrowPosPolicy: EArrowPosPolicy) {
         _shape.arrowPosPolicy = arrowPosPolicy
     }
 
@@ -108,7 +109,7 @@ class DrawableKArrow : Drawable() {
      * @param targetCenterX 目标中心x
      * @param targetCenterY 目标中心y
      */
-    fun setArrowToPoint(targetCenterX: Float, targetCenterY: Float) {
+    override fun setArrowToPoint(targetCenterX: Float, targetCenterY: Float) {
         _shape.arrowToPoint.apply {
             this.x = targetCenterX
             this.y = targetCenterY
@@ -121,7 +122,7 @@ class DrawableKArrow : Drawable() {
      * EArrowPosPolicy.SelfBegin或EArrowPosPolicy.SelfEnd有效
      * @param arrowPosDelta Float
      */
-    fun setArrowPosDelta(arrowPosDelta: Float) {
+    override fun setArrowPosDelta(arrowPosDelta: Float) {
         _shape.arrowPosDelta = arrowPosDelta
     }
 
