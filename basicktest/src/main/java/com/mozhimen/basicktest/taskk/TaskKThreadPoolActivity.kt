@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.taskk
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.taskk.threadpool.TaskKThreadPool
+import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basicktest.databinding.ActivityTaskkThreadPoolBinding
 
 /**
@@ -24,7 +24,7 @@ class TaskKThreadPoolActivity : BaseKActivityVB<ActivityTaskkThreadPoolBinding>(
     override fun initView(savedInstanceState: Bundle?) {
         vb.taskkThreadPoolBtnOrder.setOnClickListener {
             for (priority in 0..10) {
-                TaskKThreadPool.execute(TAG, priority) {
+                TaskKExecutor.execute(TAG, priority) {
                     try {
                         Thread.sleep((1000 - priority * 100).toLong())
                     } catch (e: InterruptedException) {
@@ -36,15 +36,15 @@ class TaskKThreadPoolActivity : BaseKActivityVB<ActivityTaskkThreadPoolBinding>(
 
         vb.taskkThreadPoolBtnAllTask.setOnClickListener {
             if (_isPaused) {
-                TaskKThreadPool.resume()
+                TaskKExecutor.resume()
             } else {
-                TaskKThreadPool.pause()
+                TaskKExecutor.pause()
             }
             _isPaused = !_isPaused
         }
 
         vb.taskkThreadPoolBtnAsync.setOnClickListener {
-            TaskKThreadPool.execute(TAG, runnable = object : TaskKThreadPool.ExecutorKCallable<String>() {
+            TaskKExecutor.execute(TAG, runnable = object : TaskKExecutor.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
                     Log.e(TAG, "onBackground: 当前线程: ${Thread.currentThread().name}")
                     return "我是异步任务的结果"

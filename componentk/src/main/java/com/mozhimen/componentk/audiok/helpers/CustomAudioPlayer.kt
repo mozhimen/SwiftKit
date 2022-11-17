@@ -8,7 +8,7 @@ import android.net.wifi.WifiManager.WifiLock
 import android.os.PowerManager
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.taskk.coroutine.TaskKPolling
+import com.mozhimen.basick.taskk.temps.TaskKPoll
 import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.basick.utilk.UtilKGlobal
 import com.mozhimen.componentk.audiok.commons.IAudioKFocusListener
@@ -62,7 +62,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
         }
 
     //更新进度Task
-    private val _taskKProUpd by lazy { TaskKPolling(owner) }
+    private val _taskKProUpd by lazy { TaskKPoll(owner) }
 
     //发布更新进度Event
     private val _dataBusProUpd by lazy { UtilKDataBus.with<MAudioKProgress?>(CAudioKEvent.progress_update) }

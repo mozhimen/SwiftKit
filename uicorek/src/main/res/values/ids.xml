@@ -9,4 +9,6 @@
     <item name="layoutk_search_txt_icon_search" type="id" />
     <item name="layoutk_search_txt_icon_keyword" type="id" />
     <item name="layoutk_search_txt_keyword" type="id" />
+    <!--popwink-->
+    <item name="base_popup_content_root" type="id"/>
 </resources>

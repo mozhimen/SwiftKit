@@ -11,8 +11,8 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="onPopwinKAudio"
-            android:text="onPopwinKAudio"
+            android:onClick="onPopwinShow"
+            android:text="onPopwinShow"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>
