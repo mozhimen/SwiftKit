@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.*
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.sp2px
-import com.mozhimen.basick.basek.BaseKLayoutLinear
+import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -23,7 +23,7 @@ import com.mozhimen.uicorek.R
 typealias ILayoutKSpinnerFormListener = (position: Int) -> Unit
 
 class LayoutKSpinnerForm @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseKLayoutLinear(context, attrs, defStyleAttr) {
+    LayoutKLinear(context, attrs, defStyleAttr) {
 
     private lateinit var itemAdapter: ArrayAdapter<String>
     private var mIsRequire = false

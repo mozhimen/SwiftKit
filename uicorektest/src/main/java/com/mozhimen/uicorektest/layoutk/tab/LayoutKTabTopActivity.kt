@@ -40,8 +40,8 @@ class LayoutKTabTopActivity : BaseKActivityVB<ActivityLayoutkTabTopBinding>() {
     }
 
     private fun initTabTop() {
-        vb.layoutkTabTop.setTabInfo(_tabInfo1)
-        vb.layoutkTabTop2.setTabInfo(_tabInfo2)
-        vb.layoutkTabTop3.setTabInfo(_tabInfo3)
+        vb.layoutkTabTop.setTabItem(_tabInfo1)
+        vb.layoutkTabTop2.setTabItem(_tabInfo2)
+        vb.layoutkTabTop3.setTabItem(_tabInfo3)
     }
 }

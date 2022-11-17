@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -30,12 +31,14 @@ abstract class BaseKFragmentVB<VB : ViewDataBinding>(
     /**
      * 及时释放vb避免内存泄漏
      */
+    @CallSuper
     override fun onDestroyView() {
         vb.unbind()
         _vb = null
         super.onDestroyView()
     }
 
+    @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initLayout()

@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.basek.BaseKLayoutFrame
+import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 
@@ -25,7 +25,7 @@ class PointIndicator @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) :
-    BaseKLayoutFrame(context, attrs, defStyleAttr), IBannerIndicator<FrameLayout> {
+    LayoutKFrame(context, attrs, defStyleAttr), IBannerIndicator<FrameLayout> {
     companion object {
         private const val VMC = ViewGroup.LayoutParams.WRAP_CONTENT
     }

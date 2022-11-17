@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
 import com.mozhimen.basick.utilk.view.UtilKView.findTypeChildView
-import com.mozhimen.basick.basek.BaseKLayoutFrame
+import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
 import com.mozhimen.basick.utilk.UtilKColor
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
@@ -31,7 +31,7 @@ class TabBottomLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defAttrStyle: Int = 0
-) : BaseKLayoutFrame(context, attrs, defAttrStyle), ITabLayout<TabBottomItem, MTabBottom> {
+) : LayoutKFrame(context, attrs, defAttrStyle), ITabLayout<TabBottomItem, MTabBottom> {
 
     companion object {
         private const val TAG_TAB_BOTTOM_LAYOUT = "TAG_TAB_BOTTOM_LAYOUT"

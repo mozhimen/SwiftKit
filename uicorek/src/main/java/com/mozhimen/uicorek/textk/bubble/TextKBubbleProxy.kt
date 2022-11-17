@@ -8,7 +8,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import com.mozhimen.basick.basek.commons.IBaseKLayout
+import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.uicorek.R
@@ -27,7 +27,7 @@ import kotlin.math.abs
  * @Date 2022/9/5 13:19
  * @Version 1.0
  */
-class TextKBubbleProxy(private val _context: Context) : ITextKBubble, IBaseKLayout {
+class TextKBubbleProxy(private val _context: Context) : ITextKBubble, ILayoutK {
     //region # variate
     private val TAG = "TextKBubbleProxy>>>>>"
     private lateinit var _textKBubble: TextKBubble

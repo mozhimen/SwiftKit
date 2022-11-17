@@ -2,7 +2,7 @@ package com.mozhimen.basick.taskk
 
 import android.os.CountDownTimer
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.taskk.coroutine.commons.ITaskK
+import com.mozhimen.basick.taskk.commons.ITaskK
 
 /**
  * @ClassName UtilKCountDown

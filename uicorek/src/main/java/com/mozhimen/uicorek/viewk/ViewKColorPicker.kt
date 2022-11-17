@@ -6,7 +6,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.animation.AccelerateDecelerateInterpolator
-import com.mozhimen.basick.basek.view.BaseKView
+import com.mozhimen.uicorek.viewk.commons.ViewK
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.uicorek.R
 
@@ -20,7 +20,7 @@ import com.mozhimen.uicorek.R
 class ViewKColorPicker @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) :
-    BaseKView(context, attrs, defStyleAttr, defStyleRes) {
+    ViewK(context, attrs, defStyleAttr, defStyleRes) {
 
     //region # variate
     private var _colorStart = Color.YELLOW

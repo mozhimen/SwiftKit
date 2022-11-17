@@ -10,6 +10,7 @@ import com.mozhimen.uicorektest.dialogk.DialogKActivity
 import com.mozhimen.uicorektest.drawablek.DrawableKActivity
 import com.mozhimen.uicorektest.imagek.ImageKActivity
 import com.mozhimen.uicorektest.layoutk.LayoutKActivity
+import com.mozhimen.uicorektest.popwink.PopwinKActivity
 import com.mozhimen.uicorektest.recyclerk.RecyclerKActivity
 import com.mozhimen.uicorektest.textk.TextKActivity
 import com.mozhimen.uicorektest.viewk.ViewKActivity
@@ -34,6 +35,10 @@ class UicoreKActivity : BaseKActivityVB<ActivityUicorekBinding>() {
 
     fun goLayoutK(view: View) {
         start<LayoutKActivity>()
+    }
+
+    fun goPopwinK(view: View) {
+        start<PopwinKActivity>()
     }
 
     fun goRecyclerK(view: View) {

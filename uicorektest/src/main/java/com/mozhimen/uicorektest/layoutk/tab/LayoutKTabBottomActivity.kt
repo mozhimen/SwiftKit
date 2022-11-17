@@ -16,9 +16,9 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabBottomBinding
  */
 class LayoutKTabBottomActivity : BaseKActivityVB<ActivityLayoutkTabBottomBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
-        vb.layoutkTabBottomHome.setTabInfo(_homeInfo)
-        vb.layoutkTabBottomMore.setTabInfo(_moreInfo)
-        vb.layoutkTabBottomMine.setTabInfo(_mineInfo)
+        vb.layoutkTabBottomHome.setTabItem(_homeInfo)
+        vb.layoutkTabBottomMore.setTabItem(_moreInfo)
+        vb.layoutkTabBottomMine.setTabItem(_mineInfo)
     }
 
     private val _homeInfo by lazy {

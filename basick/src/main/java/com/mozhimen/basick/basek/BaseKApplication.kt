@@ -1,6 +1,7 @@
 package com.mozhimen.basick.basek
 
 import android.app.Application
+import androidx.annotation.CallSuper
 import androidx.multidex.MultiDex
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.StackKMgr
@@ -16,6 +17,7 @@ import java.util.*
 open class BaseKApplication : Application() {
     val TAG = "${this.javaClass.simpleName}>>>>>"
 
+    @CallSuper
     override fun onCreate() {
         super.onCreate()
         MultiDex.install(this)

@@ -6,6 +6,7 @@ import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
+import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabBottomLayoutBinding
 
@@ -44,13 +45,13 @@ class LayoutKTabBottomLayoutActivity : BaseKActivityVB<ActivityLayoutkTabBottomL
             add(moreInfo)
             add(mineInfo)
         }
-        vb.layoutkTabBottomLayout.inflateInfo(bottomMoList)
-        vb.layoutkTabBottomLayout.addTabSelectedChangeListener(object : ITabLayout.TabSelectedListener<MTabBottom> {
-            override fun onTabSelected(index: Int, prevMo: MTabBottom?, nextMo: MTabBottom) {
-                nextMo.name!!.showToast()
+        vb.layoutkTabBottomLayout.inflateTabItem(bottomMoList)
+        vb.layoutkTabBottomLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabBottom> {
+            override fun onTabItemSelected(index: Int, prevItem: MTabBottom?, currentItem: MTabBottom) {
+                currentItem.name!!.showToast()
             }
         })
         vb.layoutkTabBottomLayout.defaultSelected(homeInfo)
-        vb.layoutkTabBottomLayout.findTab(bottomMoList[1])?.resetTabHeight(66f.dp2px()) //改变某个Tab的高度
+        vb.layoutkTabBottomLayout.findTabItem(bottomMoList[1])?.resetTabHeight(66f.dp2px()) //改变某个Tab的高度
     }
 }

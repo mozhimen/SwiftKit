@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.sp2px
-import com.mozhimen.basick.basek.BaseKLayoutLinear
+import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -27,7 +27,7 @@ typealias ITextKFormListener = (view: View) -> Unit
 class TextKTextForm @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    BaseKLayoutLinear(context, attrs, defStyleAttr) {
+    LayoutKLinear(context, attrs, defStyleAttr) {
 
     private var _textHint: String? = null
     private var _onFormClick: ITextKFormListener? = null

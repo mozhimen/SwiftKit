@@ -21,28 +21,28 @@ class ViewKViewsActivity : BaseKActivityVB<ActivityViewkViewsBinding>() {
            squareQRScan.requireSuccess()
        }*/
 
-        /*val circleSpread = findViewById<CircleSpread>(R.id.viewk_circleSpread)
+        /*val viewKCircleSpread = findViewById<CircleSpread>(R.id.viewk_viewKCircleSpread)
         GlobalScope.launch(Dispatchers.Main) {
             delay(3000)
-            circleSpread.requireStop()
+            viewKCircleSpread.requireStop()
             delay(3000)
-            circleSpread.requireStart()
+            viewKCircleSpread.requireStart()
         }*/
 
-        /*val radarRipple = findViewById<RadarRipple>(R.id.viewk_radarRipple)
+        /*val viewKRadarRipple = findViewById<RadarRipple>(R.id.viewk_viewKRadarRipple)
         GlobalScope.launch(Dispatchers.Main) {
             delay(4000)
-            radarRipple.requireStop()
+            viewKRadarRipple.requireStop()
             delay(2000)
-            radarRipple.requireStart()
+            viewKRadarRipple.requireStart()
         }*/
 
-        /*val radarWave = findViewById<RadarWave>(R.id.viewk_radarWave)
+        /*val viewKRadarWave = findViewById<RadarWave>(R.id.viewk_viewKRadarWave)
         GlobalScope.launch(Dispatchers.Main) {
             delay(4000)
-            radarWave.requireStop()
+            viewKRadarWave.requireStop()
             delay(2000)
-            radarWave.requireStart()
+            viewKRadarWave.requireStart()
         }*/
     }
 }

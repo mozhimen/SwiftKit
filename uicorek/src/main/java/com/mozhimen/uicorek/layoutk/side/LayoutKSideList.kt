@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.mozhimen.basick.basek.BaseKLayoutLinear
+import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 import com.mozhimen.basick.extsk.view.fontStyle
 import com.mozhimen.basick.extsk.view.loadImageComplex
 import com.mozhimen.uicorek.R
@@ -38,7 +38,7 @@ typealias ILayoutKSideListListener = (holder: RecyclerKViewHolder, item: MSideSu
 class LayoutKSideList @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    BaseKLayoutLinear(context, attrs, defStyleAttr) {
+    LayoutKLinear(context, attrs, defStyleAttr) {
 
     private val _menuView = RecyclerView(context)
     private val _contentView = RecyclerView(context)

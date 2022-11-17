@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.basek.BaseKLayoutRelative
+import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.view.fontStyle
 import com.mozhimen.basick.extsk.view.loadImage
@@ -27,7 +27,7 @@ import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
  */
 class TabTopItem @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : BaseKLayoutRelative(context, attrs, defStyleAttr), ITabItem<MTabTop> {
+) : LayoutKRelative(context, attrs, defStyleAttr), ITabItem<MTabTop> {
 
     private var _tabTopMo: MTabTop? = null
     private lateinit var _tabImageView: ImageView

@@ -22,10 +22,15 @@ import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
  * @Date 2022/11/16 15:25
  * @Version 1.0
  */
+@AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
 abstract class DebugKUIActivity : BaseKActivityVB<DebugkActivityUiBinding>() {
     private val _tabList: ArrayList<DebugKUITabTopItem> by lazy { getTabList() }
 
     abstract fun getTabList(): ArrayList<DebugKUITabTopItem>
+
+    override fun initFlag() {
+        StatusBarK.initStatusBar(this)
+    }
 
     override fun initData(savedInstanceState: Bundle?) {
         vb.debugkUiTabTop.setTabTopHeight(20f.dp2px())

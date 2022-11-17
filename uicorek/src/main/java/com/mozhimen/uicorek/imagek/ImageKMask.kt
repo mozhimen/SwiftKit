@@ -10,7 +10,7 @@ import android.widget.ScrollView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.basek.commons.IBaseKView
+import com.mozhimen.uicorek.viewk.commons.IViewK
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.normalize
 import com.mozhimen.basick.utilk.UtilKGesture
@@ -28,7 +28,7 @@ import kotlin.math.max
  * @Version 1.0
  */
 class ViewKImageMask @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatImageView(context, attrs, defStyleAttr), IBaseKView {
+    AppCompatImageView(context, attrs, defStyleAttr), IViewK {
 
     //region
     private companion object {

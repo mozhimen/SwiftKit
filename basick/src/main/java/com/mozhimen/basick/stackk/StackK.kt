@@ -18,6 +18,7 @@ object StackK {
      * @param onlyAlive Boolean
      * @return Activity?
      */
+    @JvmStatic
     fun getStackTopActivity(onlyAlive: Boolean = true): Activity? {
         return StackKMgr.instance.getStackTopActivity(onlyAlive)
     }
@@ -26,6 +27,7 @@ object StackK {
      * 增加栈监听器
      * @param listener StackKListener
      */
+    @JvmStatic
     fun addFrontBackListener(listener: IStackKListener) {
         StackKMgr.instance.addFrontBackListener(listener)
     }
@@ -34,6 +36,7 @@ object StackK {
      * 移除栈监听器
      * @param listener StackKListener
      */
+    @JvmStatic
     fun removeFrontBackListener(listener: IStackKListener) {
         StackKMgr.instance.removeFrontBackListener(listener)
     }
@@ -41,6 +44,7 @@ object StackK {
     /**
      * 结束所有堆栈
      */
+    @JvmStatic
     fun finishAllActivity() {
         StackKMgr.instance.finishAllActivity()
     }
@@ -49,6 +53,7 @@ object StackK {
      * 是否在前台
      * @return Boolean
      */
+    @JvmStatic
     fun isFront(): Boolean =
         StackKMgr.instance.isFront()
 
@@ -56,6 +61,7 @@ object StackK {
      * 获取堆栈数量
      * @return Int
      */
+    @JvmStatic
     fun getStackCount(): Int =
         StackKMgr.instance.getActivityRefs().size
 }

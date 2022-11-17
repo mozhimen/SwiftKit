@@ -1,6 +1,7 @@
 package com.mozhimen.basick.basek
 
 import android.os.Bundle
+import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,7 @@ abstract class BaseKActivityVB<VB : ViewDataBinding>(
         }
     }
 
+    @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initFlag()

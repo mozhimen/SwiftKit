@@ -35,6 +35,7 @@ android {
 
 dependencies {
     implementation project(project.path.replace(project.name, '') + ':basick')
+    api 'io.github.razerdp:BasePopup:3.2.0'
     api 'androidx.constraintlayout:constraintlayout:2.1.4'
     api "com.airbnb.android:lottie:3.6.1"
 }

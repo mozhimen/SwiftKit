@@ -14,7 +14,7 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
-import com.mozhimen.basick.basek.BaseKLayoutFrame
+import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.uicorek.R
 
@@ -27,7 +27,7 @@ import com.mozhimen.uicorek.R
  */
 class LayoutKBtnSwitchApple @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : BaseKLayoutFrame(context, attrs, defStyleAttr), View.OnClickListener {
+) : LayoutKFrame(context, attrs, defStyleAttr), View.OnClickListener {
 
     //region #variate
     private var _bgColorOn = 0x4DD865

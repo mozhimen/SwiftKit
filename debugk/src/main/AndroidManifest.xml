@@ -10,13 +10,13 @@
 
     <application>
         <activity
-            android:name="com.mozhimen.debugk.global.uis.DebugKParamsActivity"
+            android:name="com.mozhimen.debugk.base.uis.DebugKParamsActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.debugk.global.uis.DebugKLogKActivity"
+            android:name="com.mozhimen.debugk.base.uis.DebugKLogKActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.debugk.global.uis.DebugKCrashKActivity"
+            android:name="com.mozhimen.debugk.base.uis.DebugKCrashKActivity"
             android:exported="false" />
     </application>
 </manifest>

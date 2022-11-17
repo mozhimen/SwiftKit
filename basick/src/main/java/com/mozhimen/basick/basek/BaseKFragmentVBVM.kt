@@ -1,5 +1,6 @@
 package com.mozhimen.basick.basek
 
+import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.basek.commons.IBaseKActivity
@@ -21,6 +22,7 @@ abstract class BaseKFragmentVBVM<VB : ViewDataBinding, VM : BaseKViewModel>(
 
     protected lateinit var vm: VM
 
+    @CallSuper
     override fun initLayout() {
         super.initLayout()
         vm = UtilKViewModel.get(this.requireActivity(), _factory, 1)

@@ -6,7 +6,7 @@ import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.layoutk.tab.bottom.helpers.TabBottomFragmentAdapter
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
-import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
+import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabBottomFragmentBinding
 import com.mozhimen.uicorektest.layoutk.tab.fragments.HomeFragment
@@ -68,18 +68,17 @@ class LayoutKTabBottomFragmentActivity : BaseKActivityVB<ActivityLayoutkTabBotto
             add(moreInfo)
             add(mineInfo)
         }
-        vb.layoutkTabBottomFragmentContainer.inflateInfo(_infoList)
+        vb.layoutkTabBottomFragmentContainer.inflateTabItem(_infoList)
         val tabBottomFragmentAdapter = TabBottomFragmentAdapter(supportFragmentManager, _infoList)
         vb.layoutkTabBottomFragmentView.setAdapter(tabBottomFragmentAdapter)
-        vb.layoutkTabBottomFragmentContainer.addTabSelectedChangeListener(object :
-            ITabLayout.TabSelectedListener<MTabBottom> {
-            override fun onTabSelected(index: Int, prevMo: MTabBottom?, nextMo: MTabBottom) {
+        vb.layoutkTabBottomFragmentContainer.addTabItemSelectedListener(object : ITabSelectedListener<MTabBottom> {
+            override fun onTabItemSelected(index: Int, prevItem: MTabBottom?, currentItem: MTabBottom) {
                 vb.layoutkTabBottomFragmentView.setCurrentItem(index)
                 _currentItemIndex = index
             }
         })
         vb.layoutkTabBottomFragmentContainer.defaultSelected(_infoList[_currentItemIndex])
-        vb.layoutkTabBottomFragmentContainer.findTab(_infoList[1])?.resetTabHeight(66f.dp2px()) //改变某个Tab的高度
+        vb.layoutkTabBottomFragmentContainer.findTabItem(_infoList[1])?.resetTabHeight(66f.dp2px()) //改变某个Tab的高度
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

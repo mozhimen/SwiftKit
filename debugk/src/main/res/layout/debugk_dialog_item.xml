@@ -6,7 +6,7 @@
 
         <variable
             name="itemDebugKDialog"
-            type="com.mozhimen.debugk.global.mos.MDebugKMethod" />
+            type="com.mozhimen.debugk.base.mos.MDebugKMethod" />
     </data>
 
     <LinearLayout

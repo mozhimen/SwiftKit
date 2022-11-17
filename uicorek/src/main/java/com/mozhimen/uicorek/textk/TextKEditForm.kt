@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.*
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.sp2px
-import com.mozhimen.basick.basek.BaseKLayoutLinear
+import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -26,7 +26,7 @@ typealias ITextKEditFormFocusListener = (view: View, hasFocus: Boolean) -> Unit
 class TextKEditForm @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    BaseKLayoutLinear(context, attrs, defStyleAttr) {
+    LayoutKLinear(context, attrs, defStyleAttr) {
 
     private var _hasFocus: ITextKEditFormFocusListener? = null
     private var _isRequire = false

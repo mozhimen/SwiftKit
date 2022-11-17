@@ -6,7 +6,7 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import com.mozhimen.basick.basek.BaseKActivityVB
 import com.mozhimen.basick.utilk.UtilKGesture
-import com.mozhimen.debugk.global.DebugK
+import com.mozhimen.debugk.base.DebugK
 import com.mozhimen.debugktest.databinding.ActivityDebugkBinding
 
 class DebugKActivity : BaseKActivityVB<ActivityDebugkBinding>() {

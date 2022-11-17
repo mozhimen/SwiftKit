@@ -3,7 +3,7 @@ package com.mozhimen.basick.prefabk
 import android.app.Activity
 import android.os.Vibrator
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.taskk.coroutine.commons.ITaskK
+import com.mozhimen.basick.taskk.commons.ITaskK
 import com.mozhimen.basick.utilk.UtilKGlobal
 
 /**

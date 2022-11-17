@@ -10,7 +10,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.*
-import com.mozhimen.basick.basek.BaseKLayoutRelative
+import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.drawable2Bitmap
 import com.mozhimen.basick.extsk.view.setPaddingHorizontal
@@ -29,7 +29,7 @@ import java.util.*
  */
 class LayoutKNavBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : BaseKLayoutRelative(context, attrs, defStyleAttr) {
+) : LayoutKRelative(context, attrs, defStyleAttr) {
 
     private var _titleView: TextView = TextView(context)
     private var _subTitleView: TextView? = null

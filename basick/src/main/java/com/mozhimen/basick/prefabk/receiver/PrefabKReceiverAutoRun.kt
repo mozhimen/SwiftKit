@@ -1,13 +1,12 @@
 package com.mozhimen.basick.prefabk.receiver
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.permissionk.annors.APermissionK
-import com.mozhimen.basick.taskk.rxjava.commons.ObserverCallback
-import com.mozhimen.basick.taskk.rxjava.helpers.RxJavaScheduler
+import com.mozhimen.basick.prefabk.rxjava.PrefabKObserverCallback
+import com.mozhimen.basick.utilk.UtilKRxJavaTrans
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
@@ -46,7 +45,7 @@ open class PrefabKReceiverAutoRun(private val _delayTime: Long, private val _cls
     override fun onReceive(context: Context, intent: Intent) {
         val action: String? = intent.action
         if (action?.isNotEmpty() == true && action == Intent.ACTION_BOOT_COMPLETED) {
-            Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(RxJavaScheduler.io2mainObservable()).subscribe(object : ObserverCallback<String>() {
+            Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : PrefabKObserverCallback<String>() {
                 override fun onComplete() {
                     val rebootIntent = Intent(context, _cls)
                     rebootIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

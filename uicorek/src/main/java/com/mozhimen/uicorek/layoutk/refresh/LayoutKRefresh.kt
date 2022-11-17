@@ -10,7 +10,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.Scroller
 import com.mozhimen.basick.utilk.UtilKScroll.childScrolled
 import com.mozhimen.basick.utilk.UtilKScroll.findScrollableChild
-import com.mozhimen.basick.basek.BaseKLayoutFrame
+import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
 import com.mozhimen.uicorek.recyclerk.load.RecyclerKLoad
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefresh
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
@@ -29,7 +29,7 @@ import kotlin.math.abs
 open class LayoutKRefresh @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    BaseKLayoutFrame(context, attrs, defStyleAttr), IRefresh {
+    LayoutKFrame(context, attrs, defStyleAttr), IRefresh {
     private lateinit var _gestureDetector: GestureDetector
     private lateinit var _autoScroller: AutoScroller
 

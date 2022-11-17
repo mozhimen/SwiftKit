@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.textk
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextClock
-import com.mozhimen.basick.basek.commons.IBaseKLayout
+import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.basick.utilk.UtilKDate
 import com.mozhimen.uicorek.R
 
@@ -17,7 +17,7 @@ import com.mozhimen.uicorek.R
  */
 class TextKClock @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
-) : TextClock(context, attrs, defStyleAttr, defStyleRes), IBaseKLayout {
+) : TextClock(context, attrs, defStyleAttr, defStyleRes), ILayoutK {
     private var _timeFormat: String = getTimeFormat()
 
     init {

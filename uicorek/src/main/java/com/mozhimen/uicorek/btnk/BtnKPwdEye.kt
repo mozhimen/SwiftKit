@@ -1,7 +1,6 @@
 package com.mozhimen.uicorek.btnk
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.text.method.TransformationMethod
@@ -9,7 +8,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatImageButton
-import com.mozhimen.basick.basek.commons.IBaseKLayout
+import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.uicorek.R
 
 
@@ -24,7 +23,7 @@ class BtnKPwdEye @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-) : AppCompatImageButton(context, attrs, defStyleAttr), View.OnClickListener, IBaseKLayout {
+) : AppCompatImageButton(context, attrs, defStyleAttr), View.OnClickListener, ILayoutK {
     private var _isShow = false
     private var _pwdTextEdit: EditText? = null
 

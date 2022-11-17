@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.mozhimen.basick.basek.BaseKLayoutLinear
+import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 import com.mozhimen.basick.mok.MoKKey
 import com.mozhimen.uicorek.R
 
@@ -19,7 +19,7 @@ typealias ILayoutKChipGroupListener = (chaip: Chip, position: Int, item: MoKKey)
  * @Version 1.0
  */
 class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    BaseKLayoutLinear(context, attrs, defStyleAttr, defStyleRes) {
+    LayoutKLinear(context, attrs, defStyleAttr, defStyleRes) {
 
     private val _keys = ArrayList<MoKKey>()
     private lateinit var _chipGroup: ChipGroup

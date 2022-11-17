@@ -5,7 +5,7 @@ import android.content.res.TypedArray
 import android.text.TextPaint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basick.basek.commons.IBaseKView
+import com.mozhimen.uicorek.viewk.commons.IViewK
 import com.mozhimen.uicorek.R
 
 /**
@@ -18,7 +18,7 @@ import com.mozhimen.uicorek.R
 class TextKUnderLine @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    AppCompatTextView(context, attrs, defStyleAttr), IBaseKView {
+    AppCompatTextView(context, attrs, defStyleAttr), IViewK {
     //TextPaint对象，继承自Paint
     private lateinit var _textPaint: TextPaint
 

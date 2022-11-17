@@ -98,7 +98,12 @@
             android:exported="false" />
         <activity
             android:name=".layoutk.tab.LayoutKTabTopLayoutActivity"
-            android:exported="false" /> <!-- recyclerk -->
+            android:exported="false" />
+        <!--popwink-->
+        <activity
+            android:name=".popwink.PopwinKActivity"
+            android:exported="false" />
+        <!-- recyclerk -->
         <activity
             android:name=".recyclerk.RecyclerKActivity"
             android:exported="false" />

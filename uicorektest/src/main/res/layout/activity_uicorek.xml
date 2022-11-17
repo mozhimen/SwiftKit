@@ -45,6 +45,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
+                android:onClick="goPopwinK"
+                android:text="goPopwinK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
                 android:onClick="goRecyclerK"
                 android:text="goRecyclerK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

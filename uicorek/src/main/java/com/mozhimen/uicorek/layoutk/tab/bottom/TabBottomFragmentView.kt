@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.layoutk.tab.bottom
 import android.content.Context
 import android.util.AttributeSet
 import androidx.fragment.app.Fragment
-import com.mozhimen.basick.basek.BaseKLayoutFrame
+import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
 import com.mozhimen.uicorek.layoutk.tab.bottom.helpers.TabBottomFragmentAdapter
 
 /**
@@ -16,7 +16,7 @@ import com.mozhimen.uicorek.layoutk.tab.bottom.helpers.TabBottomFragmentAdapter
 class TabBottomFragmentView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    BaseKLayoutFrame(context, attrs, defStyleAttr) {
+    LayoutKFrame(context, attrs, defStyleAttr) {
 
     private var _adapter: TabBottomFragmentAdapter? = null
     private var _currentPosition = 0
