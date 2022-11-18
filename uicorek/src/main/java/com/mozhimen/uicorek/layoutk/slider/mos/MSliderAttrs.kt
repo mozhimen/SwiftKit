@@ -12,6 +12,7 @@ internal data class MSliderAttrs(
     var sliderRodLeftColor: Int,
     var sliderRodLeftGradientColor: Int,
     var sliderRodRightColor: Int,
+    var rodScrollEnable: Boolean,
     var rodColor: Int,
     var rodColorInside: Int,
     var rodIsInside: Boolean,
@@ -19,4 +20,5 @@ internal data class MSliderAttrs(
     var rodRadiusInside: Float,
     var rodMinVal: Float,
     var rodMaxVal: Float,
+    var rodDefaultPercent: Float
 )

@@ -113,8 +113,20 @@ class AudioK : IAudioKListener, LifecycleOwner {
         _audioKProxy.release()
     }
 
-    override fun setVolume(@FloatRange(from = 0.0, to = 1.0) volume: Float) {
+    override fun setVolume(volume: Int) {
         _audioKProxy.setVolume(volume)
+    }
+
+    override fun getVolume(): Int {
+        return _audioKProxy.getVolume()
+    }
+
+    override fun getVolumeMin(): Int {
+        return _audioKProxy.getVolumeMin()
+    }
+
+    override fun getVolumeMax(): Int {
+        return _audioKProxy.getVolumeMax()
     }
 
     override fun getLifecycle(): Lifecycle {

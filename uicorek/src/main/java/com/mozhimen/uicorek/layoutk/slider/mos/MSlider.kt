@@ -11,53 +11,55 @@ import com.mozhimen.uicorek.layoutk.slider.helpers.AttrsParser
  * @Version 1.0
  */
 class MSlider {
+    //region # init
     var width: Float = 0f
         set(value) {
             field = if (value <= 0) AttrsParser.SLIDER_WIDTH else value
-            refreshX()
         }
     var height: Float = 0f
         set(value) {
             field = if (value <= 0) AttrsParser.SLIDER_HEIGHT else value
-            refreshY()
         }
     var leftX: Float = 0f
-        set(value) {
-            field = value
-            refreshX()
-        }
     var topY: Float = 0f
-        set(value) {
-            field = value
-            refreshY()
-        }
+    val widthHalf: Float
+        get() = width / 2f
+    val heightHalf: Float
+        get() = height / 2f
+    val centerX: Float
+        get() = leftX + widthHalf
+    val centerY: Float
+        get() = topY + heightHalf
+    val rightX: Float
+        get() = leftX + width
+    val bottomY: Float
+        get() = topY + height
+    //endregion
+
+    //region # attrs
     var rodLeftColor = Color.BLACK
+    var rodLeftGradientColor = rodLeftColor
     var rodRightColor = Color.LTGRAY
-    var widthHalf: Float = 0f
-    var centerX: Float = 0f
-    var rightX: Float = 0f
-    var heightHalf: Float = 0f
-    var centerY: Float = 0f
-    var bottomY: Float = 0f
+    //endregion
 
-    constructor()
+//    constructor()
+//
+//    constructor(width: Float, height: Float, leftX: Float, topY: Float) {
+//        this.width = width
+//        this.height = height
+//        this.leftX = leftX
+//        this.topY = topY
+//    }
 
-    constructor(width: Float, height: Float, leftX: Float, topY: Float) {
-        this.width = width
-        this.height = height
-        this.leftX = leftX
-        this.topY = topY
-    }
-
-    fun refreshX() {
-        widthHalf = width / 2f
-        centerX = leftX + widthHalf
-        rightX = leftX + width
-    }
-
-    fun refreshY() {
-        heightHalf = height / 2f
-        centerY = topY + heightHalf
-        bottomY = topY + height
-    }
+//    fun refreshX() {
+//        //widthHalf = width / 2f
+//        //centerX = leftX + widthHalf
+//        //rightX = leftX + width
+//    }
+//
+//    fun refreshY() {
+//        //heightHalf = height / 2f
+//        //centerY = topY + heightHalf
+//        //bottomY = topY + height
+//    }
 }

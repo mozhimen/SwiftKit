@@ -27,8 +27,8 @@ object StatusBarK {
 
     @JvmStatic
     fun initStatusBar(activity: Activity) {
-        val statusBarAnnor =
-            activity.javaClass.getAnnotation(AStatusBarK::class.java) ?: throw Exception("you need add annotation StatusBarAnnor")
+        val statusBarAnnor: AStatusBarK =
+            activity.javaClass.getAnnotation(AStatusBarK::class.java) ?: AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
 
         when (statusBarAnnor.statusBarType) {
             AStatusBarKType.FULL_SCREEN -> {

@@ -43,6 +43,7 @@ class LayoutKSliderActivity : BaseKActivityVB<ActivityLayoutkSliderBinding>() {
             }
         })
         vb.layoutkSliderInsideTxt.text = getTxt(vb.layoutkSlider.rod.currentPercent, vb.layoutkSlider.rod.currentVal, vb.layoutkSlider.rod.currentX)
+        vb.layoutkSliderInside.setRodDefaultPercent(0.2f)
         vb.layoutkSliderInside.setSliderListener(object : ISliderScrollListener {
             override fun onScrollStart() {
 

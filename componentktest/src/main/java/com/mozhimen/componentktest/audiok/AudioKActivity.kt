@@ -11,7 +11,6 @@ import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.mos.MAudioK
 import com.mozhimen.componentk.audiok.mos.MAudioKProgress
 import com.mozhimen.componentktest.databinding.ActivityAudiokBinding
-import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.popwink.PopwinKBubbleText
 
 class AudioKActivity : BaseKActivityVB<ActivityAudiokBinding>() {
@@ -37,16 +36,20 @@ class AudioKActivity : BaseKActivityVB<ActivityAudiokBinding>() {
             }
 
         })*/
+        Log.d(TAG, "initData: volume ${AudioK.instance.getVolume()}")
+        Log.d(TAG, "initData: volume min ${AudioK.instance.getVolumeMin()}")
+        Log.d(TAG, "initData: volume max ${AudioK.instance.getVolumeMax()}")
         AudioK.instance.addAudiosToPlayList(_audioList)
         UtilKDataBus.with<MAudioK?>(CAudioKEvent.audio_start).observe(this) {
             if (it != null) {
+                Log.d(TAG, "initData: audio_start")
                 "id: ${it.id}".showToast()
             }
         }
         UtilKDataBus.with<MAudioKProgress?>(CAudioKEvent.progress_update).observe(this) {
             if (it != null) {
                 Log.d(
-                    TAG, "initData: " + "progress status ${it.status} currentPos ${it.currentPos} duration ${it.duration} audioInfo ${it.audioInfo}"
+                    TAG, "initData: progress_update" + " progress status ${it.status} currentPos ${it.currentPos} duration ${it.duration} audioInfo ${it.audioInfo}"
                 )
             }
         }

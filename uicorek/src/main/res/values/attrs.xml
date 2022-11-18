@@ -85,6 +85,7 @@
         <attr name="layoutKSlider_sliderRodLeftColor" format="color|reference" />
         <attr name="layoutKSlider_sliderRodLeftGradientColor" format="color|reference" />
         <attr name="layoutKSlider_sliderRodRightColor" format="color|reference" />
+        <attr name="layoutKSlider_rodScrollEnable" format="boolean" />
         <attr name="layoutKSlider_rodColor" format="color|reference" />
         <attr name="layoutKSlider_rodColorInside" format="reference|color" />
         <attr name="layoutKSlider_rodIsInside" format="boolean" />
@@ -92,6 +93,7 @@
         <attr name="layoutKSlider_rodRadiusInside" format="dimension|reference" />
         <attr name="layoutKSlider_rodMinVal" format="float" />
         <attr name="layoutKSlider_rodMaxVal" format="float" />
+        <attr name="layoutKSlider_rodDefaultPercent" format="float" />
     </declare-styleable>
 
     <declare-styleable name="LayoutKEmpty">

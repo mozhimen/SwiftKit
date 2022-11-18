@@ -8,9 +8,11 @@ import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.uicorek.viewk.commons.IViewK
 import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
+import com.mozhimen.uicorek.layoutk.slider.commons.ILayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
 import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
@@ -35,16 +37,16 @@ import com.mozhimen.uicorek.layoutk.slider.mos.MSliderAttrs
  * @Date 2022/9/8 14:33
  * @Version 1.0
  */
+
 internal class LayoutKSliderProxy(
-    private val _context: Context,
-) :
-    IViewK {
+    private val _context: Context
+) : IViewK, ILayoutKSlider {
 
     //region # variate
     private lateinit var _layoutKSlider: LayoutKSlider
     private lateinit var _attrs: MSliderAttrs
-    private lateinit var _slider: MSlider
-    private lateinit var _rod: MRod
+    private val _slider: MSlider by lazy { MSlider() }
+    private val _rod: MRod by lazy { MRod(_context as LifecycleOwner) }
     private var _scrollableParentView: ViewGroup? = null
     private var _rodIsScrolling = false
 
@@ -61,15 +63,19 @@ internal class LayoutKSliderProxy(
     }
 
     fun getRod(): MRod {
-        return if (::_rod.isInitialized) _rod else MRod()
+        return _rod
     }
 
     fun getSlider(): MSlider {
-        return if (::_slider.isInitialized) _slider else MSlider()
+        return _slider
     }
 
     fun setSliderListener(sliderListener: ISliderScrollListener) {
         _sliderListener = sliderListener
+    }
+
+    fun setRodDefaultPercent(percent: Float) {
+        _rod.currentPercent = percent
     }
 
     fun getHeightMeasureSpec(): Int {
@@ -109,52 +115,61 @@ internal class LayoutKSliderProxy(
     override fun initView() {
         initSlider()
         initRod()
-        _layoutKSlider.invalidate()
     }
 
     private fun initRod() {
-        if (this::_rod.isInitialized) return
-        _rod = MRod(
-            _layoutKSlider.paddingStart.toFloat() + if (!_attrs.rodIsInside) _attrs.rodRadius else _slider.heightHalf,
-            _layoutKSlider.width - _layoutKSlider.paddingEnd.toFloat() - if (!_attrs.rodIsInside) _attrs.rodRadius else _slider.heightHalf,
-            _slider.centerY,
-            _attrs.rodIsInside,
-            _attrs.rodRadius,
-            _attrs.rodRadiusInside,
-            _sliderListener
-        )
+        _rod.apply {
+            rodScrollEnable = _attrs.rodScrollEnable
+            isInsideSlider = _attrs.rodIsInside
+            radius = _attrs.rodRadius
+            radiusInside = _attrs.rodRadiusInside
+            rodColor = _attrs.rodColor
+            rodColorInside = _attrs.rodColorInside
+            currentPercent = _attrs.rodDefaultPercent
+        }
     }
 
     private fun initSlider() {
-        if (this::_slider.isInitialized) return
-        val distance = _attrs.rodRadius - (_attrs.sliderHeight / 2f)
-        _slider = MSlider(
-            _layoutKSlider.width - _layoutKSlider.paddingStart.toFloat() - _layoutKSlider.paddingEnd - _attrs.sliderHeight - if (!_attrs.rodIsInside) distance * 2 else 0f,
-            _attrs.sliderHeight,
-            _layoutKSlider.paddingStart.toFloat() + if (!_attrs.rodIsInside) _attrs.rodRadius else _attrs.sliderHeight / 2f,
-            (if (!_attrs.rodIsInside) distance else 0f) + AttrsParser.DEFAULT_PADDING_VERTICAL
-        )
-        _slider.rodLeftColor = _attrs.sliderRodLeftColor
-        _slider.rodRightColor = _attrs.sliderRodRightColor
-        //set paint shader
-        if (_attrs.sliderRodLeftColor != _attrs.sliderRodLeftGradientColor) {
-            _paintLeftSlider.shader = LinearGradient(
-                _slider.leftX,
-                _slider.topY,
-                _slider.rightX,
-                _slider.bottomY,
-                _attrs.sliderRodLeftColor, _attrs.sliderRodLeftGradientColor,
-                Shader.TileMode.CLAMP
-            )
+        _slider.apply {
+            val distance = _attrs.rodRadius - (_attrs.sliderHeight / 2f)
+            height = _attrs.sliderHeight
+            topY = (if (!_attrs.rodIsInside) distance else 0f) + AttrsParser.DEFAULT_PADDING_VERTICAL
+            rodLeftColor = _attrs.sliderRodLeftColor
+            rodLeftGradientColor = _attrs.sliderRodLeftGradientColor
+            rodRightColor = _attrs.sliderRodRightColor
         }
+    }
+
+    private fun refreshSlider() {
+        _slider.apply {
+            val distance = _rod.radius - (_slider.height / 2f)
+            leftX = _layoutKSlider.paddingStart.toFloat() + if (!_rod.isInsideSlider) _rod.radius else _slider.height / 2f
+            width = _layoutKSlider.width - _layoutKSlider.paddingStart.toFloat() - _layoutKSlider.paddingEnd - _slider.height - if (!_rod.isInsideSlider) distance * 2 else 0f
+            if (_slider.rodLeftColor != _slider.rodLeftGradientColor) {
+                _paintLeftSlider.shader =
+                    LinearGradient(_slider.leftX, _slider.topY, _slider.rightX, _slider.bottomY, _slider.rodLeftColor, _slider.rodLeftGradientColor, Shader.TileMode.CLAMP)
+            }
+        }
+    }
+
+    private fun refreshRod() {
+        _rod.apply {
+            minX = _layoutKSlider.paddingStart.toFloat() + if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf
+            maxX = _layoutKSlider.width - _layoutKSlider.paddingEnd.toFloat() - if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf
+            centerY = _slider.centerY
+        }
+    }
+
+    fun refreshView() {
+        refreshSlider()
+        refreshRod()
+        _layoutKSlider.invalidate()
     }
 
     fun onDraw(canvas: Canvas) {
         canvas.save()
-
         //slider
         drawSlider(canvas)
-
         //rod
         drawRod(canvas)
 
@@ -205,49 +220,55 @@ internal class LayoutKSliderProxy(
     }
 
     private fun drawRod(canvas: Canvas) {
-        val color = _attrs.rodColor
+        val color = _rod.rodColor
         canvas.drawCircle(_rod.currentX, _rod.centerY, _rod.radius, _paintRod)//外圆
-        _paintRod.color = _attrs.rodColorInside
+        _paintRod.color = _rod.rodColorInside
         canvas.drawCircle(_rod.currentX, _rod.centerY, _rod.radiusInside, _paintRod)//内圆
         _paintRod.color = color
     }
 
     fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.actionMasked) {
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                _scrollableParentView?.requestDisallowInterceptTouchEvent(false)
-                if (_rodIsScrolling) {
-                    _sliderListener?.onScrollEnd(_rod.currentPercent, _rod.currentVal, _rod)
+        if (_rod.rodScrollEnable){
+            when (event.actionMasked) {
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    _scrollableParentView?.requestDisallowInterceptTouchEvent(false)
+                    if (_rodIsScrolling) {
+                        _sliderListener?.onScrollEnd(_rod.currentPercent, _rod.currentVal, _rod)
+                    }
+                    _rodIsScrolling = false
                 }
-                _rodIsScrolling = false
-            }
-            MotionEvent.ACTION_DOWN -> {
-                _rodIsScrolling = if (!UtilKGesture.isTapInArea(
-                        event,
-                        _slider.leftX - if (!_attrs.rodIsInside) _rod.radius else _slider.heightHalf,
-                        _slider.rightX + if (!_attrs.rodIsInside) _rod.radius else _slider.heightHalf,
-                        _slider.topY - AttrsParser.DEFAULT_PADDING_VERTICAL,
-                        _slider.bottomY + AttrsParser.DEFAULT_PADDING_VERTICAL
-                    )
-                ) {
-                    return true
-                } else {
-                    _sliderListener?.onScrollStart()
-                    true
+                MotionEvent.ACTION_DOWN -> {
+                    _rodIsScrolling = if (!UtilKGesture.isTapInArea(
+                            event,
+                            _slider.leftX - if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
+                            _slider.rightX + if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
+                            _slider.topY - AttrsParser.DEFAULT_PADDING_VERTICAL,
+                            _slider.bottomY + AttrsParser.DEFAULT_PADDING_VERTICAL
+                        )
+                    ) {
+                        return true
+                    } else {
+                        _sliderListener?.onScrollStart()
+                        true
+                    }
+                    if (_rodIsScrolling) {
+                        _rod.currentPercent = event.x / _rod.intervalX
+                        _layoutKSlider.postInvalidate()
+                    }
+                    _scrollableParentView?.requestDisallowInterceptTouchEvent(true)
                 }
-                if (_rodIsScrolling) {
-                    _rod.currentX = event.x
-                    _layoutKSlider.postInvalidate()
-                }
-                _scrollableParentView?.requestDisallowInterceptTouchEvent(true)
-            }
-            MotionEvent.ACTION_MOVE -> {
-                if (_rodIsScrolling) {
-                    _rod.currentX = event.x
-                    _layoutKSlider.postInvalidate()
+                MotionEvent.ACTION_MOVE -> {
+                    if (_rodIsScrolling) {
+                        _rod.currentPercent = event.x / _rod.intervalX
+                        _layoutKSlider.postInvalidate()
+                    }
                 }
             }
         }
-        return true
+    }
+
+    override fun updateRodPercent(percent: Float) {
+        _rod.currentPercent = percent
+        refreshView()
     }
 }

@@ -23,15 +23,20 @@ internal interface IAudioKListener {
     fun setPlayMode(playMode: EPlayMode)
     fun setPlayIndexCurrent(playIndex: Int)
     fun getPlayIndexCurrent(): Int?
+
     //protect
     fun getPlayIndexNext(): Int
     fun getPlayIndexPrevious(): Int
     fun getAudioFromPlayList(index: Int): MAudioK?
+
     //control
     fun play()
     fun playNext()
     fun playPrevious()
     fun pause()
     fun release()
-    fun setVolume(volume: Float)
+    fun setVolume(volume: Int)
+    fun getVolume(): Int
+    fun getVolumeMin(): Int
+    fun getVolumeMax(): Int
 }

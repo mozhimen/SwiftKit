@@ -1,7 +1,6 @@
 package com.mozhimen.componentk.audiok
 
 import android.util.Log
-import androidx.annotation.FloatRange
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.utilk.UtilKDataBus
@@ -158,8 +157,20 @@ internal class AudioKProxy(private val _owner: LifecycleOwner) : IAudioKListener
         _customAudioPlayer.release()
     }
 
-    override fun setVolume( volume: Float) {
-        _customAudioPlayer.setVolume(volume, volume)
+    override fun setVolume(volume: Int) {
+        _customAudioPlayer.setVolume(volume)
+    }
+
+    override fun getVolume(): Int {
+        return _customAudioPlayer.getVolume()
+    }
+
+    override fun getVolumeMin(): Int {
+        return _customAudioPlayer.getVolumeMin()
+    }
+
+    override fun getVolumeMax(): Int {
+        return _customAudioPlayer.getVolumeMax()
     }
 
     private fun genNextAudio(audio: MAudioK?) {

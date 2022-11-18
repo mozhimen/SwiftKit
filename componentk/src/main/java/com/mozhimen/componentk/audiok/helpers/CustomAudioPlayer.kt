@@ -160,11 +160,22 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
 
     /**
      * 设置音量
-     * @param left Float
-     * @param right Float
+     * @param volume Int
      */
-    fun setVolume( left: Float, right: Float) {
-        _statusMediaPlayer!!.setVolume(left, right)
+    fun setVolume(volume: Int) {
+        _audioFocusManager!!.setVolume(volume)
+    }
+
+    fun getVolume(): Int {
+        return _audioFocusManager!!.getVolume()
+    }
+
+    fun getVolumeMin(): Int {
+        return _audioFocusManager!!.getVolumeMin()
+    }
+
+    fun getVolumeMax(): Int {
+        return _audioFocusManager!!.getVolumeMax()
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
@@ -187,7 +198,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
 
     override fun onFocusGrant() {
         //重新获得焦点
-        setVolume(1.0f, 1.0f)
+        setMediaVolume(1.0f, 1.0f)
         if (_isPausedByFocusLossTransient) resume()
         _isPausedByFocusLossTransient = false
     }
@@ -205,7 +216,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
 
     override fun onFocusLossDuck() {
         //瞬间失去焦点
-        setVolume(0.5f, 0.5f)
+        setMediaVolume(0.5f, 0.5f)
     }
 
     /**
@@ -229,5 +240,9 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
 
     private fun setAudioEvent(eventName: String, audio: MAudioK?) {
         UtilKDataBus.with<MAudioK?>(eventName).postValue(audio)
+    }
+
+    private fun setMediaVolume(left: Float, right: Float) {
+        _statusMediaPlayer!!.setVolume(left, right)
     }
 }

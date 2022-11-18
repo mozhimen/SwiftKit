@@ -24,11 +24,13 @@ internal object AttrsParser {
     val SLIDER_HEIGHT_INSIDE = 16f.dp2px().toFloat()
     val SLIDER_ROD_LEFT_COLOR = UtilKRes.getColor(R.color.blue_normal)
     val SLIDER_ROD_RIGHT_COLOR = UtilKRes.getColor(R.color.gray_light)
+    val ROD_SCROLL_ENABLE = true
     val ROD_COLOR = Color.WHITE
     val ROD_COLOR_INSIDE = UtilKRes.getColor(R.color.blue_dark)
     val ROD_IS_INSIDE = false
     val ROD_MIN_VAL = 0f
-    val ROD_MAX_VAL = 0f
+    val ROD_MAX_VAL = 100f
+    val ROD_DEFAULT_PERCENT = 0f
 
     fun parseAttrs(context: Context, attrs: AttributeSet?): MSliderAttrs {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSlider)
@@ -42,6 +44,8 @@ internal object AttrsParser {
             typedArray.getColor(R.styleable.LayoutKSlider_layoutKSlider_sliderRodLeftGradientColor, SLIDER_ROD_LEFT_COLOR)
         val sliderRodRightColor: Int =
             typedArray.getColor(R.styleable.LayoutKSlider_layoutKSlider_sliderRodRightColor, SLIDER_ROD_RIGHT_COLOR)
+        val rodScrollEnable: Boolean =
+            typedArray.getBoolean(R.styleable.LayoutKSlider_layoutKSlider_rodScrollEnable, ROD_SCROLL_ENABLE)
         val rodColor: Int =
             typedArray.getColor(R.styleable.LayoutKSlider_layoutKSlider_rodColor, ROD_COLOR)
         val rodColorInside: Int =
@@ -54,6 +58,8 @@ internal object AttrsParser {
             typedArray.getFloat(R.styleable.LayoutKSlider_layoutKSlider_rodMinVal, ROD_MIN_VAL)
         val rodMaxVal =
             typedArray.getFloat(R.styleable.LayoutKSlider_layoutKSlider_rodMaxVal, ROD_MAX_VAL)
+        val rodDefaultPercent =
+            typedArray.getFloat(R.styleable.LayoutKSlider_layoutKSlider_rodDefaultPercent, ROD_DEFAULT_PERCENT)
         typedArray.recycle()
 
         return MSliderAttrs(
@@ -61,13 +67,15 @@ internal object AttrsParser {
             sliderRodLeftColor,
             sliderRodLeftGradientColor,
             sliderRodRightColor,
+            rodScrollEnable,
             rodColor,
             rodColorInside,
             rodIsInside,
             rodRadius,
             rodRadiusInside,
             rodMinVal,
-            rodMaxVal
+            rodMaxVal,
+            rodDefaultPercent
         )
     }
 }

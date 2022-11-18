@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@color/black"
+            app:layoutKSlider_rodDefaultPercent="0.1"
             app:layoutKSlider_sliderRodLeftColor="@color/blue_light"
             app:layoutKSlider_sliderRodLeftGradientColor="@color/blue_dark" />
 
