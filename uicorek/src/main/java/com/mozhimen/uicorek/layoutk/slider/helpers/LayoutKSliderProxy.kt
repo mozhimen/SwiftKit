@@ -228,43 +228,42 @@ internal class LayoutKSliderProxy(
     }
 
     fun onTouchEvent(event: MotionEvent): Boolean {
-        if (_rod.rodScrollEnable){
-            when (event.actionMasked) {
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                    _scrollableParentView?.requestDisallowInterceptTouchEvent(false)
-                    if (_rodIsScrolling) {
-                        _sliderListener?.onScrollEnd(_rod.currentPercent, _rod.currentVal, _rod)
-                    }
-                    _rodIsScrolling = false
+        when (event.actionMasked) {
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                _scrollableParentView?.requestDisallowInterceptTouchEvent(false)
+                if (_rodIsScrolling) {
+                    _sliderListener?.onScrollEnd(_rod.currentPercent, _rod.currentVal, _rod)
                 }
-                MotionEvent.ACTION_DOWN -> {
-                    _rodIsScrolling = if (!UtilKGesture.isTapInArea(
-                            event,
-                            _slider.leftX - if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
-                            _slider.rightX + if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
-                            _slider.topY - AttrsParser.DEFAULT_PADDING_VERTICAL,
-                            _slider.bottomY + AttrsParser.DEFAULT_PADDING_VERTICAL
-                        )
-                    ) {
-                        return true
-                    } else {
-                        _sliderListener?.onScrollStart()
-                        true
-                    }
-                    if (_rodIsScrolling) {
-                        _rod.currentPercent = event.x / _rod.intervalX
-                        _layoutKSlider.postInvalidate()
-                    }
-                    _scrollableParentView?.requestDisallowInterceptTouchEvent(true)
+                _rodIsScrolling = false
+            }
+            MotionEvent.ACTION_DOWN -> {
+                _rodIsScrolling = if (!UtilKGesture.isTapInArea(
+                        event,
+                        _slider.leftX - if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
+                        _slider.rightX + if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
+                        _slider.topY - AttrsParser.DEFAULT_PADDING_VERTICAL,
+                        _slider.bottomY + AttrsParser.DEFAULT_PADDING_VERTICAL
+                    )
+                ) {
+                    return true
+                } else {
+                    _sliderListener?.onScrollStart()
+                    true
                 }
-                MotionEvent.ACTION_MOVE -> {
-                    if (_rodIsScrolling) {
-                        _rod.currentPercent = event.x / _rod.intervalX
-                        _layoutKSlider.postInvalidate()
-                    }
+                if (_rodIsScrolling) {
+                    _rod.currentPercent = event.x / _rod.intervalX
+                    _layoutKSlider.postInvalidate()
+                }
+                _scrollableParentView?.requestDisallowInterceptTouchEvent(true)
+            }
+            MotionEvent.ACTION_MOVE -> {
+                if (_rodIsScrolling) {
+                    _rod.currentPercent = event.x / _rod.intervalX
+                    _layoutKSlider.postInvalidate()
                 }
             }
         }
+        return true
     }
 
     override fun updateRodPercent(percent: Float) {
