@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.imagek
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityImagekBindingAdapterBinding
 
 
@@ -12,8 +12,4 @@ import com.mozhimen.uicorektest.databinding.ActivityImagekBindingAdapterBinding
  * @Date 2022/11/11 14:12
  * @Version 1.0
  */
-class ImageKBindingAdapterActivity: BaseKActivityVB<ActivityImagekBindingAdapterBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
-}
+class ImageKBindingAdapterActivity: BaseActivityVB<ActivityImagekBindingAdapterBinding>()

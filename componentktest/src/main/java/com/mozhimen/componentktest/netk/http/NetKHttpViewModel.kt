@@ -2,7 +2,7 @@ package com.mozhimen.componentktest.netk.http
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.mozhimen.basick.basek.BaseKViewModel
+import com.mozhimen.basick.elemk.viewmodel.commons.BaseViewModel
 import com.mozhimen.componentk.netk.http.helpers.NetKHelper
 import com.mozhimen.componentk.netk.http.helpers.asNetKRes
 import com.mozhimen.componentktest.netk.http.customs.ApiFactory
@@ -18,7 +18,7 @@ import kotlin.coroutines.resume
  * @Date 2022/5/11 23:44
  * @Version 1.0
  */
-class NetKHttpViewModel : BaseKViewModel() {
+class NetKHttpViewModel : BaseViewModel() {
 
     val uiWeather2 = MutableLiveData("")
 

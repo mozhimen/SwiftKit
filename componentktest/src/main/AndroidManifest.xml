@@ -27,9 +27,6 @@
             android:name="com.mozhimen.componentktest.navigatek.NavigateKActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.componentktest.animk.AnimKActivity"
-            android:exported="false" />
-        <activity
             android:name="com.mozhimen.componentktest.cameraxk.CameraXKActivity"
             android:exported="false" />
         <activity

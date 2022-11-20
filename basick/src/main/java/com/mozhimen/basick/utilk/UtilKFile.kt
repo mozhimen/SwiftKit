@@ -5,6 +5,7 @@ import android.os.Build
 import android.text.TextUtils
 import android.util.Log
 import androidx.core.content.FileProvider
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.*
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -21,7 +22,7 @@ object UtilKFile {
     private const val TAG = "UtilKFile>>>>>"
     const val msg_not_exist = "fail, make sure it's file or exist"
     const val msg_wrong = "something wrong"
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     //region # file
     /**

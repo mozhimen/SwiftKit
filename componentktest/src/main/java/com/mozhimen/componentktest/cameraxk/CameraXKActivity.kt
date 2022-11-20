@@ -5,9 +5,8 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapConv
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapTrans
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
@@ -18,7 +17,7 @@ import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 import java.util.concurrent.locks.ReentrantLock
 
 @AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
-class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
+class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 
     /*private val outputDirectory: String by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -28,7 +27,7 @@ class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
         }
     }*/
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun initView(savedInstanceState: Bundle?) {
         initCamera()
     }
 
@@ -56,14 +55,14 @@ class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
                     when (_format) {
                         ACameraXKFormat.RGBA_8888 -> {
                             val bitmap: Bitmap = ImageConverter.rgb2Bitmap(image)
-                            val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
+                            val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                             runOnUiThread {
                                 vb.camerakImg1.setImageBitmap(rotateBitmap)
                             }
                         }
                         ACameraXKFormat.YUV_420_888 -> {
                             val bitmap: Bitmap = ImageConverter.yuv2Bitmap(image)!!
-                            val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
+                            val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                             runOnUiThread {
                                 vb.camerakImg1.setImageBitmap(rotateBitmap)
                             }
@@ -82,7 +81,7 @@ class CameraXKActivity : BaseKActivityVB<ActivityCameraxkBinding>() {
         override fun onCaptureSuccess(bitmap: Bitmap, imageRotation: Int) {
             //UtilKImage.saveBitmap(outputDirectory, bitmap)
             runOnUiThread {
-                vb.camerakImg.setImageBitmap(UtilKBitmapConv.rotateBitmap(bitmap, 90, flipY = false))
+                vb.camerakImg.setImageBitmap(UtilKBitmapDeal.rotateBitmap(bitmap, 90, flipY = false))
             }
         }
 

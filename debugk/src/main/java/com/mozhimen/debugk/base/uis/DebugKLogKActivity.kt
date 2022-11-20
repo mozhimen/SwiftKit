@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
@@ -15,10 +15,7 @@ import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.base.mos.MDebugKCrashK
 import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
 
-class DebugKLogKActivity : BaseKActivityVB<DebugkActivityLogkBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
-    }
+class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
 
     private val _dataSets = ArrayList<MDebugKCrashK>()
     override fun initView(savedInstanceState: Bundle?) {

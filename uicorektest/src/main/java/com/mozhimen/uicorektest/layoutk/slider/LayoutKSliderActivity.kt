@@ -1,17 +1,13 @@
 package com.mozhimen.uicorektest.layoutk.slider
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.percent
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
-import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
 import com.mozhimen.uicorek.popwink.PopwinKBubbleText
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkSliderBinding
-import io.reactivex.internal.operators.flowable.FlowableRangeLong
 
 /**
  * @ClassName LayoutKSliderActivity
@@ -20,8 +16,8 @@ import io.reactivex.internal.operators.flowable.FlowableRangeLong
  * @Date 2022/11/6 23:35
  * @Version 1.0
  */
-class LayoutKSliderActivity : BaseKActivityVB<ActivityLayoutkSliderBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
+class LayoutKSliderActivity : BaseActivityVB<ActivityLayoutkSliderBinding>() {
+    override fun initView(savedInstanceState: Bundle?) {
         vb.layoutkSliderTxt.text = getTxt(vb.layoutkSlider.rod.currentPercent, vb.layoutkSlider.rod.currentVal, vb.layoutkSlider.rod.currentX)
         vb.layoutkSlider.setSliderListener(object : ISliderScrollListener {
             override fun onScrollStart() {

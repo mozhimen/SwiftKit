@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import com.mozhimen.uicorektest.R
@@ -14,8 +14,8 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabBottomBinding
  * @Date 2021/8/2 14:39
  * @Version 1.0
  */
-class LayoutKTabBottomActivity : BaseKActivityVB<ActivityLayoutkTabBottomBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
+class LayoutKTabBottomActivity : BaseActivityVB<ActivityLayoutkTabBottomBinding>() {
+    override fun initView(savedInstanceState: Bundle?) {
         vb.layoutkTabBottomHome.setTabItem(_homeInfo)
         vb.layoutkTabBottomMore.setTabItem(_moreInfo)
         vb.layoutkTabBottomMine.setTabItem(_mineInfo)

@@ -1,6 +1,6 @@
 package com.mozhimen.underlayktest
 
-import com.mozhimen.basick.basek.BaseKApplication
+import com.mozhimen.basick.elemk.application.commons.BaseApplication
 import com.mozhimen.basick.extsk.toJson
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
@@ -17,7 +17,7 @@ import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
  * @Date 2022/9/24 17:41
  * @Version 1.0
  */
-class UnderlayKApplication : BaseKApplication() {
+class UnderlayKApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
 

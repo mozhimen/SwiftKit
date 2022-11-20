@@ -1,7 +1,8 @@
 package com.mozhimen.basick.utilk
 
 import android.widget.Toast
-import com.mozhimen.basick.prefabk.handler.helpers.RefHandler
+import com.mozhimen.basick.elemk.handler.commons.BaseWeakRefHandler
+import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
  * @ClassName UtilKToast
@@ -11,7 +12,7 @@ import com.mozhimen.basick.prefabk.handler.helpers.RefHandler
  * @Version 1.0
  */
 object UtilKToast {
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     @JvmStatic
     fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
@@ -25,11 +26,11 @@ object UtilKToast {
 
     @JvmStatic
     fun showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        RefHandler(_context).post { showToast(msg, duration) }
+        BaseWeakRefHandler(_context).post { showToast(msg, duration) }
     }
 
     @JvmStatic
     fun showToastOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        RefHandler(_context).post { showToast(msgId, duration) }
+        BaseWeakRefHandler(_context).post { showToast(msgId, duration) }
     }
 }

@@ -1,13 +1,10 @@
 package com.mozhimen.uicorektest.viewk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityViewkViewsBinding
 
-class ViewKViewsActivity : BaseKActivityVB<ActivityViewkViewsBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
-    }
+class ViewKViewsActivity : BaseActivityVB<ActivityViewkViewsBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         /*val squareQRScan = findViewById<SquareQRScan>(R.id.viewk_squareQrScan)

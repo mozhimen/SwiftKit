@@ -20,25 +20,25 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- basek -->
+        </activity>
+        <!--animk-->
         <activity
-            android:name=".basek.BaseKDemoStartActivity"
+            android:name=".animk.AnimKActivity"
+            android:exported="false" />
+        <!--elemk-->
+        <activity
+            android:name=".elemk.ElemKActivity"
             android:exported="false" />
         <activity
-            android:name=".basek.BaseKDemoActivity"
+            android:name=".elemk.activity.ElemKDemoVBVMActivity"
             android:exported="false" />
         <activity
-            android:name=".basek.BaseKDemoServiceActivity"
+            android:name=".elemk.service.ElemKDemoServiceActivity"
             android:exported="false" />
 
-        <service android:name=".basek.BaseKDemoService" />
-<!-- prefabk -->
-        <activity
-            android:name=".prefabk.PrefabKActivity"
-            android:exported="false" />
-
+        <service android:name=".elemk.service.ElemKDemoService" />
         <receiver
-            android:name=".prefabk.AutoRunReceiver"
+            android:name=".elemk.receiver.ElemKAutoRunReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="1000">
@@ -50,13 +50,13 @@
             android:name=".stackk.StackKActivity"
             android:exported="false" /> <!-- taskk -->
         <activity
-            android:name=".taskk.TaskKThreadPoolActivity"
+            android:name=".taskk.TaskKExecutorActivity"
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKActivity"
             android:exported="false" />
         <activity
-            android:name=".taskk.TaskKPollingActivity"
+            android:name=".taskk.TaskKPollActivity"
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKAsyncActivity"

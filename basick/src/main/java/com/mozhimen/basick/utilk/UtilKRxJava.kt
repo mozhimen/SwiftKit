@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
  * @Date 2022/6/12 0:48
  * @Version 1.0
  */
-object TaskKRxJava {
+object UtilKRxJava {
 
 //    interface IRxJavaListener {
 //        fun next(count: Long)

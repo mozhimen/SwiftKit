@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.mozhimen.basick.extsk.decimal2String
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.UtilKOverlay
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
@@ -28,7 +28,7 @@ import com.mozhimen.underlayk.logk.LogK
 class FpsKView {
     private val TAG = "FpsKView>>>>>"
 
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
     private var _params = WindowManager.LayoutParams()
     private var _isShow = false
     private var _fpsView =

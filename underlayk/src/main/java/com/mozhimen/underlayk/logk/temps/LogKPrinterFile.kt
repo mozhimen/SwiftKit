@@ -5,12 +5,11 @@ import com.mozhimen.underlayk.logk.commons.LogKConfig
 import com.mozhimen.underlayk.logk.mos.MLogK
 import com.mozhimen.basick.utilk.UtilKDate
 import com.mozhimen.basick.utilk.UtilKFile
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
-import java.util.*
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
@@ -34,7 +33,7 @@ class LogKPrinterFile(
     var logPath: String? = null
         get() {
             if (field != null) return field
-            val logFullPath = UtilKGlobal.instance.getApp()!!.cacheDir.absolutePath + "/logk_printer_file"
+            val logFullPath = UtilKApplication.instance.get()!!.cacheDir.absolutePath + "/logk_printer_file"
             UtilKFile.createFolder(logFullPath)
             return logFullPath.also { field = it }
         }

@@ -5,9 +5,8 @@ import android.app.Activity
 import android.app.Application
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.lang.ref.WeakReference
 
 /**
@@ -38,7 +37,7 @@ class StackKMgr private constructor() {
      * 初始化
      */
     init {
-        UtilKGlobal.instance.getApp()!!.registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
+        UtilKApplication.instance.get()!!.registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
     }
 
     /**

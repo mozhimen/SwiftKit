@@ -1,14 +1,14 @@
 package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabTopBinding
 
-class LayoutKTabTopActivity : BaseKActivityVB<ActivityLayoutkTabTopBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
+class LayoutKTabTopActivity : BaseActivityVB<ActivityLayoutkTabTopBinding>() {
+    override fun initView(savedInstanceState: Bundle?) {
         initTabTop()
     }
 

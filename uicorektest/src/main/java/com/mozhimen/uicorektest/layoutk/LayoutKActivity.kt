@@ -2,22 +2,18 @@ package com.mozhimen.uicorektest.layoutk
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkBinding
 import com.mozhimen.uicorektest.layoutk.banner.LayoutKBannerActivity
 import com.mozhimen.uicorektest.layoutk.loadrefresh.LayoutKLoadRefreshActivity
 import com.mozhimen.uicorektest.layoutk.navbar.LayoutKNavBarActivity
 import com.mozhimen.uicorektest.layoutk.refresh.LayoutKRefreshActivity
-import com.mozhimen.uicorektest.layoutk.refresh.LayoutKRefreshTextActivity
 import com.mozhimen.uicorektest.layoutk.side.LayoutKSideActivity
 import com.mozhimen.uicorektest.layoutk.slider.LayoutKSliderActivity
 import com.mozhimen.uicorektest.layoutk.tab.LayoutKTabActivity
 
-class LayoutKActivity : BaseKActivityVB<ActivityLayoutkBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-    }
-
+class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
     fun goLayoutKBanner(view: View) {
         start<LayoutKBannerActivity>()
     }

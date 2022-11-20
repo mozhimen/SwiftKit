@@ -26,7 +26,6 @@ public class PopupLog {
         v
     }
 
-
     private static final AtomicBoolean sLOG = new AtomicBoolean(false);
     private static final String TAG = "BasePopup";
 

@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.layoutk.tab.fragments
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKFragmentVB
+import com.mozhimen.basick.elemk.fragment.commons.BaseFragmentVB
 import com.mozhimen.uicorektest.databinding.FragmentTabBottomHomeBinding
 
 /**
@@ -11,7 +11,7 @@ import com.mozhimen.uicorektest.databinding.FragmentTabBottomHomeBinding
  * @Date 2021/8/2 13:32
  * @Version 1.0
  */
-class HomeFragment : BaseKFragmentVB<FragmentTabBottomHomeBinding>() {
+class HomeFragment : BaseFragmentVB<FragmentTabBottomHomeBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
 
     }

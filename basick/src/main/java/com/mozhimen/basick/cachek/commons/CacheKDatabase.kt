@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mozhimen.basick.cachek.mos.MCacheK
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
  * @ClassName CacheDatabase
@@ -18,7 +18,7 @@ abstract class CacheKDatabase : RoomDatabase() {
     abstract val cacheKDao: ICacheKDao
 
     companion object {
-        private var _db: CacheKDatabase = Room.databaseBuilder(UtilKGlobal.instance.getApp()!!.applicationContext, CacheKDatabase::class.java, "basicsk_cachek").build()
+        private var _db: CacheKDatabase = Room.databaseBuilder(UtilKApplication.instance.get()!!.applicationContext, CacheKDatabase::class.java, "basicsk_cachek").build()
         fun get(): CacheKDatabase {
             return _db
         }

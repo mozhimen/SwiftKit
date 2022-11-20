@@ -2,15 +2,11 @@ package com.mozhimen.uicorektest.textk
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.uicorek.popwink.PopwinKBubbleText
 import com.mozhimen.uicorektest.databinding.ActivityTextkBinding
 
-class TextKActivity : BaseKActivityVB<ActivityTextkBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
-    }
-
+class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         vb.textkBubbleBtn.setOnClickListener {
             genPopwinKBubbleText(it, "弹出了一个气泡提示")

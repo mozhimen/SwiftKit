@@ -1,11 +1,10 @@
 package com.mozhimen.abilityk.zipk
 
-import android.content.Context
 import android.content.res.AssetManager
 import android.opengl.ETC1
 import android.opengl.ETC1Util.ETC1Texture
 import android.util.Log
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.UtilKString
 import java.io.FileInputStream
 import java.io.IOException
@@ -23,7 +22,7 @@ import java.util.zip.ZipInputStream
  * @Version 1.0
  */
 class ZipKPkmReader {
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
     private var _path: String? = null
     private var _zipInputStream: ZipInputStream? = null
     private var _manager: AssetManager = _context.assets

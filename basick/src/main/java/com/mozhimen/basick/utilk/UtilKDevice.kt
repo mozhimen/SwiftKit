@@ -1,8 +1,7 @@
 package com.mozhimen.basick.utilk
 
+import android.Manifest
 import android.annotation.SuppressLint
-import android.app.ActivityManager
-import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.hardware.usb.UsbDevice
@@ -13,6 +12,8 @@ import android.os.StatFs
 import android.text.TextUtils
 import android.text.format.Formatter
 import android.util.Log
+import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.utilk.context.UtilKApplication
 
 import java.io.BufferedReader
 import java.io.FileReader
@@ -31,9 +32,14 @@ import java.util.*
  * @Date 2022/1/15 19:40
  * @Version 1.0
  */
+@APermissionK([
+    Manifest.permission.KILL_BACKGROUND_PROCESSES,
+    Manifest.permission.READ_PHONE_STATE,
+    Manifest.permission.CAMERA
+])
 object UtilKDevice {
     private const val TAG = "UtilKDevice>>>>>"
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()
     private const val PKG_ROM_VERSION = "ro.product.rom.version"
     private const val PKG_HW_VERSION = "ro.product.hw.version"
     private const val PKG_SERIAL_NUMBER = "ro.serialno"

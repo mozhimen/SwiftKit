@@ -2,15 +2,16 @@ package com.mozhimen.basicktest.utilk
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.basicktest.databinding.ActivityUtilkBinding
 
-class UtilKActivity : BaseKActivityVB<ActivityUtilkBinding>() {
+class UtilKActivity : BaseActivityVB<ActivityUtilkBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         UtilKDataBus.with<String>("stickyData").setStickyData("即时消息主界面")
+        super.initData(savedInstanceState)
     }
 
     fun goUtilKAsset(view: View) {

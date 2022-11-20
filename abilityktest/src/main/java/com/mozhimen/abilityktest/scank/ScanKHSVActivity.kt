@@ -12,22 +12,22 @@ import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapConv
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @APermissionK(permissions = [Manifest.permission.CAMERA])
-class ScanKHSVActivity : BaseKActivityVB<ActivityScankHsvBinding>() {
+class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
-                initView(savedInstanceState)
+                super.initData(savedInstanceState)
             } else {
                 PermissionK.applySetting(this)
             }
@@ -60,7 +60,7 @@ class ScanKHSVActivity : BaseKActivityVB<ActivityScankHsvBinding>() {
                     } else {
                         ImageConverter.jpeg2Bitmap(image)
                     }
-                    val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
+                    val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
                         vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
                     val cropBitmap = rotateBitmap.cropBitmap(
@@ -69,7 +69,7 @@ class ScanKHSVActivity : BaseKActivityVB<ActivityScankHsvBinding>() {
                         ((1 - ratio) * rotateBitmap.width / 2).toInt(),
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
-                    val scaleBitmap = UtilKBitmapConv.scaleBitmap(cropBitmap, cropBitmap.width / 5, cropBitmap.height / 5)//降低分辨率提高运算速度
+                    val scaleBitmap = UtilKBitmapDeal.scaleBitmap(cropBitmap, cropBitmap.width / 5, cropBitmap.height / 5)//降低分辨率提高运算速度
                     val results = ScanKHSV.colorAnalyze(scaleBitmap)
                     Log.i(TAG, "analyze: $results")
                 } finally {

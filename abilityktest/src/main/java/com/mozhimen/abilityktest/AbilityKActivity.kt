@@ -6,10 +6,10 @@ import com.mozhimen.abilityktest.databinding.ActivityAbilitykBinding
 import com.mozhimen.abilityktest.opencvk.OpenCVKActivity
 import com.mozhimen.abilityktest.scank.ScanKActivity
 import com.mozhimen.abilityktest.transk.TransKActivity
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.start
 
-class AbilityKActivity : BaseKActivityVB<ActivityAbilitykBinding>() {
+class AbilityKActivity : BaseActivityVB<ActivityAbilitykBinding>() {
 
     fun goScanK(view: View) {
         start<ScanKActivity>()
@@ -21,9 +21,5 @@ class AbilityKActivity : BaseKActivityVB<ActivityAbilitykBinding>() {
 
     fun goOpenCVK(view: View) {
         start<OpenCVKActivity>()
-    }
-
-    override fun initData(savedInstanceState: Bundle?) {
-
     }
 }

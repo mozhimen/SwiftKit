@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.debugk.R
@@ -22,11 +22,7 @@ import com.mozhimen.underlayk.crashk.CrashKMgr
  * @Date 2022/5/25 23:00
  * @Version 1.0
  */
-class DebugKCrashKActivity : BaseKActivityVB<DebugkActivityCrashkBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
-    }
-
+class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
     private val _dataSets = ArrayList<MDebugKCrashK>()
     override fun initView(savedInstanceState: Bundle?) {
         val crashFiles = CrashKMgr.instance.getCrashFiles()

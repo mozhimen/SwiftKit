@@ -2,7 +2,7 @@ package com.mozhimen.uicorek.imagek.helpers
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.mozhimen.basick.utilk.view.UtilKViewImageLoader
+import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
 
 /**
  * @ClassName ImageKBindingAdapter

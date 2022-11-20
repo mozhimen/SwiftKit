@@ -3,12 +3,10 @@ package com.mozhimen.debugk.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.componentk.statusbark.StatusBarK
-import com.mozhimen.componentk.statusbark.annors.AStatusBarK
-import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityUiBinding
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
@@ -22,7 +20,7 @@ import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
  * @Date 2022/11/16 15:25
  * @Version 1.0
  */
-abstract class DebugKUIActivity : BaseKActivityVB<DebugkActivityUiBinding>() {
+abstract class DebugKUIActivity : BaseActivityVB<DebugkActivityUiBinding>() {
     private val _tabList: ArrayList<DebugKUITabTopItem> by lazy { getTabList() }
 
     abstract fun getTabList(): ArrayList<DebugKUITabTopItem>
@@ -31,7 +29,7 @@ abstract class DebugKUIActivity : BaseKActivityVB<DebugkActivityUiBinding>() {
         StatusBarK.initStatusBar(this)
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun initView(savedInstanceState: Bundle?) {
         vb.debugkUiTabTop.setTabTopHeight(20f.dp2px())
         vb.debugkUiTabTop.inflateTabItem(_tabList)
         vb.debugkUiTabTop.addTabItemSelectedListener(object : ITabSelectedListener<MTabTop> {

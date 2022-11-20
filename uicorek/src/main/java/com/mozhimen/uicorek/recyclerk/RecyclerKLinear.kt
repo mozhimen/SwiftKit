@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.mok.MoKKey
+import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.databinding.RecyclerkLinearItemBinding
 
@@ -17,14 +17,14 @@ import com.mozhimen.uicorek.databinding.RecyclerkLinearItemBinding
  * @Date 2022/9/21 15:04
  * @Version 1.0
  */
-typealias IRecyclerKLinearListener = (position: Int, item: MoKKey) -> Unit
+typealias IRecyclerKLinearListener = (position: Int, item: MKey) -> Unit
 
 class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     RecyclerView(context, attrs, defStyleAttr) {
 
     private var _viewKRecyclerLinearListener: IRecyclerKLinearListener? = null
     private val _adapter = RecyclerKAdapter(context)
-    private val _keys = ArrayList<MoKKey>()
+    private val _keys = ArrayList<MKey>()
 
     init {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -45,7 +45,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
      * @param keys List<MoKKey>
      * @param listener Function2<[@kotlin.ParameterName] Int, MoKKey, Unit>
      */
-    fun bindKeys(keys: List<MoKKey>, listener: IRecyclerKLinearListener) {
+    fun bindKeys(keys: List<MKey>, listener: IRecyclerKLinearListener) {
         _keys.addAll(keys)
         val keyItems = mutableListOf<RecyclerKLinearItem>()
         keys.forEach {
@@ -67,7 +67,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
      * 增加字段
      * @param key MoKKey
      */
-    fun addKey(key: MoKKey) {
+    fun addKey(key: MKey) {
         _keys.add(key)
         _adapter.addItem(RecyclerKLinearItem(key, _viewKRecyclerLinearListener), true)
     }
@@ -76,7 +76,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
      * 删除字段
      * @param key MoKKey
      */
-    fun removeKey(key: MoKKey) {
+    fun removeKey(key: MKey) {
         val index = _keys.indexOf(key)
         if (index in 0 until _keys.size) removeKey(index)
     }
@@ -93,9 +93,9 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     private inner class RecyclerKLinearItem(
-        private val _dataKKey: MoKKey,
+        private val _dataKKey: MKey,
         private val _listener: IRecyclerKLinearListener?
-    ) : RecyclerKItem<MoKKey, RecyclerKVBViewHolder<RecyclerkLinearItemBinding>>() {
+    ) : RecyclerKItem<MKey, RecyclerKVBViewHolder<RecyclerkLinearItemBinding>>() {
 
         override fun onBindData(holder: RecyclerKVBViewHolder<RecyclerkLinearItemBinding>, position: Int) {
             holder.vb.layoutkRecyclerLinearItemTxt.text = _dataKKey.key

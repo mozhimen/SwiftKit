@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import android.util.Log
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.*
 
 
@@ -15,7 +16,7 @@ object UtilKAsset {
     private const val TAG = "UtilKAssets>>>>>"
     private const val msg_not_exist = "fail, make sure it's file or exist"
     private const val msg_wrong = "something wrong"
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     /**
      * 文件是否存在

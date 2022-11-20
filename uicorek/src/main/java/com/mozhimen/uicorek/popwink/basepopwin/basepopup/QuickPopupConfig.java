@@ -8,8 +8,8 @@ import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
 
-import com.mozhimen.basick.animk.AnimK;
-import com.mozhimen.basick.animk.mos.ScaleConfig;
+import com.mozhimen.basick.animk.builder.AnimKBuilder;
+import com.mozhimen.basick.animk.builder.temps.ScaleType;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
 import com.mozhimen.uicorek.popwink.basepopwin.util.KeyboardUtils;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
@@ -102,12 +102,12 @@ public class QuickPopupConfig implements BasePopupFlag, ClearMemoryObject {
     public static QuickPopupConfig generateDefault() {
         //https://github.com/razerdp/BasePopup/issues/152
         return new QuickPopupConfig()
-                .withShowAnimation(AnimK.INSTANCE.asAnimation()
-                                           .asScale(ScaleConfig.Companion.getCENTER())
-                                           .show())
-                .withDismissAnimation(AnimK.INSTANCE.asAnimation()
-                                              .asScale(ScaleConfig.Companion.getCENTER())
-                                              .dismiss())
+                .withShowAnimation(AnimKBuilder.INSTANCE.asAnimation()
+                                           .asScale(ScaleType.Companion.getCENTER_SHOW())
+                                           .build())
+                .withDismissAnimation(AnimKBuilder.INSTANCE.asAnimation()
+                                              .asScale(ScaleType.Companion.getCENTER_HIDE())
+                                              .build())
                 .fadeInAndOut(Build.VERSION.SDK_INT != Build.VERSION_CODES.M);
     }
 

@@ -2,7 +2,7 @@ package com.mozhimen.underlayk.logk.temps
 
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.commons.LogKConfig
@@ -15,7 +15,7 @@ import com.mozhimen.underlayk.logk.commons.LogKConfig
  * @Version 1.0
  */
 class LogKPrinterMonitor() : ILogKPrinter {
-    private val _printerMonitorProvider: LogKPrinterMonitorProvider = LogKPrinterMonitorProvider(UtilKGlobal.instance.getApp()!!)
+    private val _printerMonitorProvider: LogKPrinterMonitorProvider = LogKPrinterMonitorProvider(UtilKApplication.instance.get()!!)
     private var _isShow: Boolean = false
 
     init {

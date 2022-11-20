@@ -3,12 +3,12 @@ package com.mozhimen.basicktest.utilk
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.basicktest.databinding.ActivityUtilkGestureBinding
 
-class UtilKGestureActivity : BaseKActivityVB<ActivityUtilkGestureBinding>() {
+class UtilKGestureActivity : BaseActivityVB<ActivityUtilkGestureBinding>() {
 
     private val _gestureDetector: GestureDetector by lazy {
         GestureDetector(this, object : UtilKGesture.GestureFlingCallback() {
@@ -34,7 +34,4 @@ class UtilKGestureActivity : BaseKActivityVB<ActivityUtilkGestureBinding>() {
         return _gestureDetector.onTouchEvent(event)
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
 }

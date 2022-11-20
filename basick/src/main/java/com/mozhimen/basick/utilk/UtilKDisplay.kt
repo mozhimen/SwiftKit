@@ -4,7 +4,7 @@ import android.app.Activity
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import java.lang.Math.round
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.math.roundToInt
 
 /**
@@ -15,7 +15,7 @@ import kotlin.math.roundToInt
  * @Version 1.0
  */
 object UtilKDisplay {
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     /**
      * dp转px

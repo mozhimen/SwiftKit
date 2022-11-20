@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.uicorektest.btnk.BtnKActivity
 import com.mozhimen.uicorektest.databinding.ActivityUicorekBinding
@@ -15,7 +15,7 @@ import com.mozhimen.uicorektest.recyclerk.RecyclerKActivity
 import com.mozhimen.uicorektest.textk.TextKActivity
 import com.mozhimen.uicorektest.viewk.ViewKActivity
 
-class UicoreKActivity : BaseKActivityVB<ActivityUicorekBinding>() {
+class UicoreKActivity : BaseActivityVB<ActivityUicorekBinding>() {
 
     fun goBtnK(view: View) {
         start<BtnKActivity>()
@@ -53,7 +53,4 @@ class UicoreKActivity : BaseKActivityVB<ActivityUicorekBinding>() {
         start<ViewKActivity>()
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
 }

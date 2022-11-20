@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.drawablek
 
 import android.graphics.Color
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.drawablek.arrow.DrawableKArrow
@@ -11,7 +11,7 @@ import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDrawablekArrowBinding
 
-class DrawableKArrowActivity : BaseKActivityVB<ActivityDrawablekArrowBinding>() {
+class DrawableKArrowActivity : BaseActivityVB<ActivityDrawablekArrowBinding>() {
     private var drawableKArrow: DrawableKArrow? = null
         get() {
             if (field != null) return field
@@ -38,7 +38,7 @@ class DrawableKArrowActivity : BaseKActivityVB<ActivityDrawablekArrowBinding>() 
             return drawableKArrow.also { field = it }
         }
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun initView(savedInstanceState: Bundle?) {
         vb.drawablekArrow1.post {
             vb.drawablekArrow1.background = drawableKArrow
         }

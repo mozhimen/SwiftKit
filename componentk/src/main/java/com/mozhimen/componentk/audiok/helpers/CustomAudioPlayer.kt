@@ -10,7 +10,7 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.taskk.temps.TaskKPoll
 import com.mozhimen.basick.utilk.UtilKDataBus
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.componentk.audiok.commons.IAudioKFocusListener
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
@@ -31,7 +31,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
     MediaPlayer.OnErrorListener,
     IAudioKFocusListener {
     private val TAG = "AudioPlayer>>>>>"
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
     private var _statusMediaPlayer: StatusMediaPlayer? = null
         get() {
             if (field != null) return field

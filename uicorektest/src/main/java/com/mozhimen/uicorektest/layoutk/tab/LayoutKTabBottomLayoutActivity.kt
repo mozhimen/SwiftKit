@@ -1,18 +1,17 @@
 package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
-import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabBottomLayoutBinding
 
-class LayoutKTabBottomLayoutActivity : BaseKActivityVB<ActivityLayoutkTabBottomLayoutBinding>() {
+class LayoutKTabBottomLayoutActivity : BaseActivityVB<ActivityLayoutkTabBottomLayoutBinding>() {
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun initView(savedInstanceState: Bundle?) {
         initTabBottom()
     }
 

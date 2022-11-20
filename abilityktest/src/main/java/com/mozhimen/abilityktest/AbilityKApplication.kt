@@ -1,6 +1,6 @@
 package com.mozhimen.abilityktest
 
-import com.mozhimen.basick.basek.BaseKApplication
+import com.mozhimen.basick.elemk.application.commons.BaseApplication
 
 /**
  * @ClassName AbilityKApplication
@@ -9,7 +9,7 @@ import com.mozhimen.basick.basek.BaseKApplication
  * @Date 2022/9/25 22:26
  * @Version 1.0
  */
-class AbilityKApplication : BaseKApplication() {
+class AbilityKApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()

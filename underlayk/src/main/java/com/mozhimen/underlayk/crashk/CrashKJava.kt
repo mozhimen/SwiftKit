@@ -8,6 +8,7 @@ import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.utilk.*
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.*
 import java.util.*
 
@@ -24,7 +25,7 @@ tools:ignore="ScopedStorage" />
 class CrashKJava {
 
     private val TAG = "CrashKJava>>>>>"
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
     private var _crashListener: ICrashKListener? = null
 
     var crashPathJava: String? = null

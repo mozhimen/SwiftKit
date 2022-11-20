@@ -2,7 +2,7 @@ package com.mozhimen.underlayktest.logk
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.commons.LogKConfig
@@ -11,17 +11,13 @@ import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
 import com.mozhimen.underlayk.logk.temps.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
 
-class LogKActivity : BaseKActivityVB<ActivityLogkBinding>() {
+class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
     private val _printerView: LogKPrinterView by lazy { LogKPrinterView(this, this) }
     private val _printerMonitor: LogKPrinterMonitor by lazy {
         LogKMgr.instance.getPrinters().filterIsInstance<LogKPrinterMonitor>().getOrNull(0) ?: kotlin.run {
             Log.d(TAG, "_printerMonitor: init")
             LogKPrinterMonitor().also { LogKMgr.instance.addPrinter(it) }
         }
-    }
-
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
     }
 
     override fun initView(savedInstanceState: Bundle?) {

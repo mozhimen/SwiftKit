@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
-import com.mozhimen.basick.basek.commons.IBaseKDialogBuilder
+import com.mozhimen.uicorek.dialogk.commons.IDialogKBuilder
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.uicorek.R
 
@@ -20,7 +20,7 @@ import com.mozhimen.uicorek.R
  */
 class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) : Dialog(context, themeId) {
 
-    class Builder(private val _context: Context) : IBaseKDialogBuilder {
+    class Builder(private val _context: Context) : IDialogKBuilder {
 
         //region # variate
         private lateinit var _bg: FrameLayout

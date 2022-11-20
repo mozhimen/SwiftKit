@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.layoutk
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkInputItemBinding
 
 /**
@@ -11,8 +11,4 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkInputItemBinding
  * @Date 2022/11/7 1:23
  * @Version 1.0
  */
-class LayoutKInputItemActivity : BaseKActivityVB<ActivityLayoutkInputItemBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
-}
+class LayoutKInputItemActivity : BaseActivityVB<ActivityLayoutkInputItemBinding>()

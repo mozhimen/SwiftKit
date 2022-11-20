@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.recyclerk
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.uicorektest.databinding.ActivityRecyclerkBinding
 
@@ -13,10 +13,7 @@ import com.mozhimen.uicorektest.databinding.ActivityRecyclerkBinding
  * @Date 2022/11/7 1:17
  * @Version 1.0
  */
-class RecyclerKActivity : BaseKActivityVB<ActivityRecyclerkBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
+class RecyclerKActivity : BaseActivityVB<ActivityRecyclerkBinding>() {
 
     fun goRecyclerKAdapter(view: View) {
         start<RecyclerKAdapterActivity>()

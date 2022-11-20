@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.layoutk.tab.fragments
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKFragmentVB
+import com.mozhimen.basick.elemk.fragment.commons.BaseFragmentVB
 import com.mozhimen.uicorektest.databinding.FragmentTabBottomMineBinding
 
 /**
@@ -12,7 +12,7 @@ import com.mozhimen.uicorektest.databinding.FragmentTabBottomMineBinding
  * @Version 1.0
  */
 class MineFragment :
-    BaseKFragmentVB<FragmentTabBottomMineBinding>() {
+    BaseFragmentVB<FragmentTabBottomMineBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
 
     }

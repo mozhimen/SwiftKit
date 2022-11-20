@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.os.Environment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basicktest.BR
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basicktest.R
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @APermissionK([Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
-class UtilKFileActivity : BaseKActivityVB<ActivityUtilkFileBinding>() {
+class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
     private lateinit var _adapterKRecycler: AdapterKRecycler<UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileLogBean(0, "start file process >>>>>")
@@ -32,7 +32,7 @@ class UtilKFileActivity : BaseKActivityVB<ActivityUtilkFileBinding>() {
                 _adapterKRecycler = AdapterKRecycler(_logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
                 vb.utilkFileRecycler.adapter = _adapterKRecycler
 
-                initView(savedInstanceState)
+                super.initData(savedInstanceState)
             }
         }
     }

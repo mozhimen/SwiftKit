@@ -1,14 +1,13 @@
 package com.mozhimen.componentktest.navigatek.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.basek.BaseKFragmentVBVM
+import com.mozhimen.basick.elemk.fragment.commons.BaseFragmentVBVM
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.componentktest.databinding.FragmentSecondBinding
 import com.mozhimen.componentktest.navigatek.NavigateKViewModel
 
-class SecondFragment : BaseKFragmentVBVM<FragmentSecondBinding, NavigateKViewModel>() {
+class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, NavigateKViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
         vb.navigatekFragmentSecondTxt.setOnClickListener {
             vm.liveFragmentId.value = NavigateK.getId(FirstFragment::class.java)

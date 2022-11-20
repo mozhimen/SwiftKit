@@ -2,12 +2,12 @@ package com.mozhimen.uicorektest.popwink
 
 import android.content.Context
 import android.graphics.Color
-import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
-import com.mozhimen.basick.animk.AnimK
-import com.mozhimen.basick.animk.mos.TranslationConfig
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.cons.EDirection
+import com.mozhimen.basick.animk.builder.temps.*
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.uicorek.popwink.PopwinKLifecycle
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityPopwinkBinding
@@ -20,10 +20,7 @@ import com.mozhimen.uicorektest.databinding.ActivityPopwinkBinding
  * @Date 2022/11/17 16:45
  * @Version 1.0
  */
-class PopwinKActivity : BaseKActivityVB<ActivityPopwinkBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
+class PopwinKActivity : BaseActivityVB<ActivityPopwinkBinding>() {
 
     private val _popwin by lazy { Popwin(this) }
     fun onPopwinShow(view: View) {
@@ -37,11 +34,11 @@ class PopwinKActivity : BaseKActivityVB<ActivityPopwinkBinding>() {
         }
 
         override fun onCreateShowAnimation(): Animation {
-            return AnimK.asAnimation().asTranslation(TranslationConfig.FROM_TOP).show()
+            return AnimKBuilder.asAnimation().asTranslation(TranslationType.FROM_TOP_SHOW).build()
         }
 
         override fun onCreateDismissAnimation(): Animation {
-            return AnimK.asAnimation().asTranslation(TranslationConfig.TO_TOP).dismiss()
+            return AnimKBuilder.asAnimation().asTranslation(TranslationType.TO_TOP_HIDE).build()
         }
     }
 }

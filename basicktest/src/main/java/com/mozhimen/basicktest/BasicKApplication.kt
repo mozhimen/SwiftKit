@@ -1,9 +1,10 @@
 package com.mozhimen.basicktest
 
-import android.app.Application
+import com.mozhimen.basick.elemk.application.commons.BaseApplication
 
-class BasicKApplication: Application() {
+class BasicKApplication : BaseApplication() {
     override fun onCreate() {
+        super.onCreate()
 
     }
 }

@@ -1,9 +1,8 @@
 package com.mozhimen.basick.utilk
 
-import android.content.Context
 import android.content.res.Configuration
-import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
+import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
  * @ClassName UtilKTheme
@@ -29,7 +28,7 @@ object UtilKTheme {
      */
     @JvmStatic
     fun isOSLightMode(): Boolean =
-        (UtilKGlobal.instance.getApp()!!.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
+        (UtilKApplication.instance.get()!!.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
 
     /**
      * 改变主题

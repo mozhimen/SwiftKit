@@ -11,7 +11,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import com.mozhimen.basick.utilk.UtilKFile
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -26,7 +26,7 @@ import java.io.OutputStream
  */
 object UtilKBitmapIO {
     private val TAG = "UtilKBitmapIO>>>>>"
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     /**
      * 位图转文件

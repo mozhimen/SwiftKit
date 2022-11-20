@@ -3,17 +3,17 @@ package com.mozhimen.componentktest.netk.http
 import android.Manifest
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.basek.BaseKActivityVBVM
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVBVM
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityNetkHttpBinding
 
 @APermissionK([Manifest.permission.INTERNET])
-class NetKHttpActivity : BaseKActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewModel>() {
+class NetKHttpActivity : BaseActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
-                initView(savedInstanceState)
+                super.initData(savedInstanceState)
             }
         }
     }

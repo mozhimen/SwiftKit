@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
-import com.mozhimen.basick.mok.MoKKey
+import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.uicorek.R
 
-typealias ILayoutKChipGroupListener = (chaip: Chip, position: Int, item: MoKKey) -> Unit
+typealias ILayoutKChipGroupListener = (chaip: Chip, position: Int, item: MKey) -> Unit
 
 /**
  * @ClassName LayoutKChipGroup
@@ -21,7 +21,7 @@ typealias ILayoutKChipGroupListener = (chaip: Chip, position: Int, item: MoKKey)
 class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     LayoutKLinear(context, attrs, defStyleAttr, defStyleRes) {
 
-    private val _keys = ArrayList<MoKKey>()
+    private val _keys = ArrayList<MKey>()
     private lateinit var _chipGroup: ChipGroup
     private var _chipItemId = R.layout.layoutk_chip_group_item
 
@@ -41,7 +41,7 @@ class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: Attrib
      * 绑定数据
      * @param keys ArrayList<MoKKey>
      */
-    fun bindKeys(keys: ArrayList<MoKKey>) {
+    fun bindKeys(keys: ArrayList<MKey>) {
         if (keys.isEmpty()) return
         _keys.clear()
         _keys.addAll(keys)
@@ -63,7 +63,7 @@ class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: Attrib
      * 增加字段
      * @param key MoKKey
      */
-    fun addKey(key: MoKKey) {
+    fun addKey(key: MKey) {
         val chipItem = createChipItem(_keys.size)
         _chipGroup.addView(chipItem)
         chipItem.text = key.key
@@ -85,7 +85,7 @@ class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: Attrib
      * 删除字段
      * @param key MoKKey
      */
-    fun removeKey(key: MoKKey) {
+    fun removeKey(key: MKey) {
         val index = _keys.indexOf(key)
         if (index in 0 until _keys.size) removeKey(index)
     }

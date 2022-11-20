@@ -12,12 +12,12 @@ import com.mozhimen.abilityk.opencvk.OpenCVKTrans
 import com.mozhimen.abilityk.opencvk.setMat
 import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkMatchBinding
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.extsk.drawable2Bitmap
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapConv
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.basick.permissionk.PermissionK
@@ -26,13 +26,13 @@ import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @APermissionK(permissions = [Manifest.permission.CAMERA])
-class OpenCVKMatchActivity : BaseKActivityVB<ActivityOpencvkMatchBinding>() {
+class OpenCVKMatchActivity : BaseActivityVB<ActivityOpencvkMatchBinding>() {
     private val _templateMat by lazy { OpenCVKTrans.bitmap2Mat(UtilKRes.getDrawable(R.mipmap.opencvk_contrast_test)!!.drawable2Bitmap()) }
 
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
-                initView(savedInstanceState)
+                super.initData(savedInstanceState)
             } else {
                 PermissionK.applySetting(this)
             }
@@ -63,7 +63,7 @@ class OpenCVKMatchActivity : BaseKActivityVB<ActivityOpencvkMatchBinding>() {
                     } else {
                         ImageConverter.jpeg2Bitmap(image)
                     }
-                    val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
+                    val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
                         vb.opencvkMatchQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
 

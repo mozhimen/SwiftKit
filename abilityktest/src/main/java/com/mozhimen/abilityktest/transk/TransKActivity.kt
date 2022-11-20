@@ -5,10 +5,10 @@ import android.os.Build
 import android.os.Bundle
 import com.mozhimen.abilityk.transk.TransKText2Speech
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.permissionk.PermissionK
 
-class TransKActivity : BaseKActivityVB<ActivityTranskBinding>() {
+class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
     private val _transKText2Speech by lazy {
         TransKText2Speech(this)
     }
@@ -16,10 +16,10 @@ class TransKActivity : BaseKActivityVB<ActivityTranskBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             PermissionK.initPermissions(this, arrayOf(Manifest.permission.FOREGROUND_SERVICE)) {
-                initView(savedInstanceState)
+                super.initData(savedInstanceState)
             }
         } else {
-            initView(savedInstanceState)
+            super.initData(savedInstanceState)
         }
     }
 

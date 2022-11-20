@@ -6,7 +6,7 @@ import android.speech.tts.TextToSpeech
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.MText2SpeechConfig
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.permissionk.PermissionK
 import java.util.*
 
@@ -19,7 +19,7 @@ import java.util.*
  */
 class TransKText2Speech(owner: LifecycleOwner, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : DefaultLifecycleObserver {
     private var _transKText2Speech: TextToSpeech? = null
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

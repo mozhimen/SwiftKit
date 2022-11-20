@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mozhimen.basick">
-    <!--UtilKBitmap-->
+    <!--UtilKBitmapNet-->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--UtilKNet-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,14 +12,12 @@
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--UtilKDevice-->
     <uses-permission android:name="android.permission.CAMERA" />
-
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <!--UtilKImageLoader-->
     <!--<uses-permission android:name="android.permission.INTERNET" />-->
-    <!--UtilKVibrate-->
+    <!--PrefabKVibrate-->
     <uses-permission android:name="android.permission.VIBRATE" />
     <!--PrefabKReceiverAutoRun-->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />

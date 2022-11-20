@@ -4,7 +4,7 @@ import android.Manifest
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKAsset
 import com.mozhimen.basicktest.BR
 import com.mozhimen.basicktest.R
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @APermissionK([Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
-class UtilKAssetActivity : BaseKActivityVB<ActivityUtilkAssetBinding>() {
+class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
     private lateinit var _adapterKRecycler: AdapterKRecycler<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileActivity.UtilKFileLogBean(0, "start asset file process >>>>>")
@@ -31,7 +31,7 @@ class UtilKAssetActivity : BaseKActivityVB<ActivityUtilkAssetBinding>() {
                 _adapterKRecycler = AdapterKRecycler(_logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
                 vb.utilkAssetRecycler.adapter = _adapterKRecycler
 
-                initView(savedInstanceState)
+                super.initData(savedInstanceState)
             }
         }
     }

@@ -10,10 +10,10 @@ import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityk.opencvk.OpenCVKShape
 import com.mozhimen.abilityk.opencvk.OpenCVKTrans
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkShapeBinding
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapConv
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.basick.permissionk.PermissionK
@@ -22,11 +22,11 @@ import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @APermissionK(permissions = [Manifest.permission.CAMERA])
-class OpenCVKShapeActivity : BaseKActivityVB<ActivityOpencvkShapeBinding>() {
+class OpenCVKShapeActivity : BaseActivityVB<ActivityOpencvkShapeBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
-                initView(savedInstanceState)
+                super.initData(savedInstanceState)
             } else {
                 PermissionK.applySetting(this)
             }
@@ -57,7 +57,7 @@ class OpenCVKShapeActivity : BaseKActivityVB<ActivityOpencvkShapeBinding>() {
                     } else {
                         ImageConverter.jpeg2Bitmap(image)
                     }
-                    val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
+                    val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
                         vb.opencvkShapeQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
                     val cropBitmap = rotateBitmap.cropBitmap(

@@ -2,24 +2,18 @@ package com.mozhimen.basicktest
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.start
-import com.mozhimen.basicktest.basek.BaseKDemoStartActivity
-import com.mozhimen.basicktest.taskk.TaskKThreadPoolActivity
 import com.mozhimen.basicktest.stackk.StackKActivity
 import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding
-import com.mozhimen.basicktest.prefabk.PrefabKActivity
+import com.mozhimen.basicktest.elemk.ElemKActivity
 import com.mozhimen.basicktest.taskk.TaskKActivity
 
-class BasicKActivity : BaseKActivityVB<ActivityBasickBinding>() {
+class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
 
-    fun goBaseKDemo(view: View) {
-        start<BaseKDemoStartActivity>()
-    }
-
-    fun goPrefabK(view: View) {
-        start<PrefabKActivity>()
+    fun goElemK(view: View) {
+        start<ElemKActivity>()
     }
 
     fun goStackK(view: View) {
@@ -34,7 +28,4 @@ class BasicKActivity : BaseKActivityVB<ActivityBasickBinding>() {
         start<UtilKActivity>()
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
 }

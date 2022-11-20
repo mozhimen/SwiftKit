@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
-import com.mozhimen.basick.prefabk.receiver.PrefabKReceiverInstall
+import com.mozhimen.basick.elemk.receiver.commons.BaseInstallReceiver
 import com.mozhimen.basick.utilk.UtilKDate
 import com.mozhimen.basick.utilk.UtilKFile
-import com.mozhimen.basick.utilk.UtilKGlobal
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.UtilKPackage
 import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
@@ -29,13 +29,13 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
         private val TAG = "HotUpdateK>>>>>"
     }
 
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
     private val _installParentDirectory = _context.filesDir.absolutePath + "/hotupdatek"
     private val _installDirectory
         get() = _installParentDirectory + "/hotupdatek_${UtilKDate.getNowTime()}.apk"
     private val _netKFile by lazy { NetKFile(owner) }
 
-    suspend fun updateApk(nowVersionCode: Int, apkUrl: String, receiver: Class<PrefabKReceiverInstall>) {
+    suspend fun updateApk(nowVersionCode: Int, apkUrl: String, receiver: Class<BaseInstallReceiver>) {
         withContext(Dispatchers.IO) {
             //check version
             if (!isNeedUpdate(nowVersionCode)) {
@@ -107,7 +107,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      * @param apkPath String
      * @param receiver Class<PrefabKReceiverInstall>
      */
-    fun installApk(apkPath: String, receiver: Class<PrefabKReceiverInstall>) {
+    fun installApk(apkPath: String, receiver: Class<BaseInstallReceiver>) {
         UtilKPackage.installSilence(apkPath, receiver)
     }
 }

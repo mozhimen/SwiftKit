@@ -3,10 +3,10 @@ package com.mozhimen.uicorektest.recyclerk
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.extsk.postDelayed
-import com.mozhimen.basick.prefabk.handler.PrefabKHandler
+import com.mozhimen.basick.elemk.handler.LifecycleHandler
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
 import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
@@ -17,15 +17,11 @@ import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityRecyclerkLoadBinding
 import com.mozhimen.uicorektest.recyclerk.mos.RecyclerKItemLoadMore
 
-class RecyclerKLoadActivity : BaseKActivityVB<ActivityRecyclerkLoadBinding>() {
+class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
     private var _pageIndex: Int = 1
     private lateinit var _textOverView: TextOverView
     private lateinit var _adapter: RecyclerKAdapter
     private val _dataSets = ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
-
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
-    }
 
     override fun initView(savedInstanceState: Bundle?) {
         initRefresh()
@@ -51,7 +47,7 @@ class RecyclerKLoadActivity : BaseKActivityVB<ActivityRecyclerkLoadBinding>() {
                 }
                 _pageIndex = 1
                 //模拟刷新
-                PrefabKHandler(this@RecyclerKLoadActivity).postDelayed(1000) {
+                LifecycleHandler(this@RecyclerKLoadActivity).postDelayed(1000) {
                     //模拟获取到了
                     val dataItems: ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                         RecyclerKItemLoadMore(1),
@@ -120,7 +116,7 @@ class RecyclerKLoadActivity : BaseKActivityVB<ActivityRecyclerkLoadBinding>() {
                 }
                 _pageIndex++
                 //模拟加载
-                PrefabKHandler(this@RecyclerKLoadActivity).postDelayed(1000) {
+                LifecycleHandler(this@RecyclerKLoadActivity).postDelayed(1000) {
                     val dataItems: List<RecyclerKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                         RecyclerKItemLoadMore(_dataSets.size + 1)
                     )

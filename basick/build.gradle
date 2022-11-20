@@ -88,5 +88,5 @@ dependencies {
     api 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
 
     //test
-    testApi 'junit:junit:4.13.2'
+    testImplementation 'junit:junit:4.13.2'
 }

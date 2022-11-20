@@ -9,17 +9,13 @@ import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.componentk.statusbark.annors.AStatusBarK
-import com.mozhimen.basick.basek.BaseKActivityVBVM
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVBVM
 import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
 import com.mozhimen.uicorek.recyclerk.AdapterKRecyclerStuffed
 import kotlin.math.abs
 
 @AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
-class DemoActivity : BaseKActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
-
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
-    }
+class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
 
     var mScrollY = 0
     var mAlpha = 0

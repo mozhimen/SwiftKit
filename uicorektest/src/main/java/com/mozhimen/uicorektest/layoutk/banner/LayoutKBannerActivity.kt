@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import coil.load
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 import com.mozhimen.uicorek.layoutk.banner.temps.NumberIndicator
@@ -14,7 +14,7 @@ import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkBannerBinding
 
-class LayoutKBannerActivity : BaseKActivityVB<ActivityLayoutkBannerBinding>() {
+class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
 
     private var _autoPlay = true
     private lateinit var _indicator: IBannerIndicator<*>
@@ -27,10 +27,6 @@ class LayoutKBannerActivity : BaseKActivityVB<ActivityLayoutkBannerBinding>() {
         "https://images.pexels.com/photos/6948010/pexels-photo-6948010.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         "https://images.pexels.com/photos/7078486/pexels-photo-7078486.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
     )
-
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
-    }
 
     override fun initView(savedInstanceState: Bundle?) {
         _indicator = PointIndicator(this)

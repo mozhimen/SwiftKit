@@ -1,10 +1,9 @@
 package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
 import com.mozhimen.uicorektest.R
@@ -17,9 +16,9 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabTopLayoutBinding
  * @Date 2021/8/4 17:17
  * @Version 1.0
  */
-class LayoutKTabTopLayoutActivity : BaseKActivityVB<ActivityLayoutkTabTopLayoutBinding>() {
+class LayoutKTabTopLayoutActivity : BaseActivityVB<ActivityLayoutkTabTopLayoutBinding>() {
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun initView(savedInstanceState: Bundle?) {
         initTabTopLayout()
     }
 

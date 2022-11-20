@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
  * @ClassName UtilKOverlay
@@ -13,7 +14,7 @@ import android.provider.Settings
  * @Version 1.0
  */
 object UtilKOverlay {
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     @JvmStatic
     fun startOverlaySettingActivity() {

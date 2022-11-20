@@ -2,14 +2,15 @@ package com.mozhimen.basicktest.taskk
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.basek.BaseKActivityVB
-import com.mozhimen.basick.taskk.TaskKAsync
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.taskk.temps.TaskKAsync
 import com.mozhimen.basicktest.databinding.ActivityTaskkAsyncBinding
 import kotlinx.coroutines.delay
 
-class TaskKAsyncActivity : BaseKActivityVB<ActivityTaskkAsyncBinding>() {
+class TaskKAsyncActivity : BaseActivityVB<ActivityTaskkAsyncBinding>() {
     private val _taskKAsync = TaskKAsync(this)
-    override fun initData(savedInstanceState: Bundle?) {
+
+    override fun initView(savedInstanceState: Bundle?) {
         vb.taskkAsyncBtn.setOnClickListener {
             for (i in 0 until 10) {
                 _taskKAsync.execute {

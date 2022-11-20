@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.start
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabBinding
 
@@ -13,10 +13,7 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabBinding
  * @Date 2022/11/7 1:29
  * @Version 1.0
  */
-class LayoutKTabActivity : BaseKActivityVB<ActivityLayoutkTabBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
+class LayoutKTabActivity : BaseActivityVB<ActivityLayoutkTabBinding>() {
 
     fun goLayoutKTabBottom(view: View) {
         start<LayoutKTabBottomActivity>()

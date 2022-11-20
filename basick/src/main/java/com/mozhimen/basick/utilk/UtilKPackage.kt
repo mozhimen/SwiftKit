@@ -7,7 +7,8 @@ import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import com.mozhimen.basick.prefabk.receiver.PrefabKReceiverInstall
+import com.mozhimen.basick.elemk.receiver.commons.BaseInstallReceiver
+import com.mozhimen.basick.utilk.context.UtilKApplication
 
 import java.io.*
 import java.nio.charset.Charset
@@ -21,7 +22,7 @@ import java.nio.charset.Charset
  */
 object UtilKPackage {
     private const val TAG = "UtilKPackage>>>>>"
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     /**
      * 获取程序包名
@@ -111,7 +112,7 @@ object UtilKPackage {
      * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
-    fun installSilence(pathApk: String, receiver: Class<PrefabKReceiverInstall>) {
+    fun installSilence(pathApk: String, receiver: Class<BaseInstallReceiver>) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             installSilenceAfter28(pathApk, receiver)
         } else {
@@ -171,7 +172,7 @@ object UtilKPackage {
      * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
-    fun installSilenceAfter28(pathApk: String, receiver: Class<PrefabKReceiverInstall>) {
+    fun installSilenceAfter28(pathApk: String, receiver: Class<BaseInstallReceiver>) {
         Log.d(TAG, "install28 path $pathApk")
         val apkFile = File(pathApk)
         val packageInstaller = _context.packageManager.packageInstaller
@@ -188,7 +189,7 @@ object UtilKPackage {
         }
     }
 
-    private fun execInstall(packageInstaller: PackageInstaller, sessionId: Int, receiver: Class<PrefabKReceiverInstall>) {
+    private fun execInstall(packageInstaller: PackageInstaller, sessionId: Int, receiver: Class<BaseInstallReceiver>) {
         var session: PackageInstaller.Session? = null
         try {
             session = packageInstaller.openSession(sessionId)

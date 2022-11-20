@@ -4,7 +4,7 @@ import android.Manifest
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
@@ -18,13 +18,13 @@ import com.mozhimen.debugk.base.mos.MDebugKMethod
 import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
 
 @APermissionK(permissions = [Manifest.permission.READ_PHONE_STATE])
-class DebugKParamsActivity : BaseKActivityVB<DebugkActivityParamsBinding>() {
+class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {
     private val _debugParams = arrayOf(DebugKParams::class.java)
 
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
-                initView(savedInstanceState)
+                super.initData(savedInstanceState)
             } else {
                 finish()
             }

@@ -2,17 +2,14 @@ package com.mozhimen.uicorektest.layoutk.side
 
 import android.os.Bundle
 import android.widget.Toast
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.uicorek.recyclerk.RecyclerKViewHolder
 import com.mozhimen.uicorek.layoutk.side.ILayoutKSideListListener
 import com.mozhimen.uicorek.layoutk.side.mos.*
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkSideListBinding
 
-class LayoutKSideActivity : BaseKActivityVB<ActivityLayoutkSideListBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
-    }
+class LayoutKSideActivity : BaseActivityVB<ActivityLayoutkSideListBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         val mo = MSide(

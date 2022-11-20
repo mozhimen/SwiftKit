@@ -40,4 +40,7 @@ dependencies {
     implementation project(':debugk')
     implementation project(':componentk')
     implementation project(':uicorek')
+
+    //test
+    testImplementation 'junit:junit:4.13.2'
 }

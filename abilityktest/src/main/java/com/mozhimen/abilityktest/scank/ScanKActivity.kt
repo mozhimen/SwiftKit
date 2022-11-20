@@ -6,14 +6,10 @@ import android.view.View
 import android.widget.Toast
 import com.mozhimen.abilityk.scank.ScanKQR
 import com.mozhimen.abilityktest.databinding.ActivityScankBinding
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.start
 
-class ScanKActivity : BaseKActivityVB<ActivityScankBinding>() {
-
-    override fun initData(savedInstanceState: Bundle?) {
-        initView(savedInstanceState)
-    }
+class ScanKActivity : BaseActivityVB<ActivityScankBinding>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {

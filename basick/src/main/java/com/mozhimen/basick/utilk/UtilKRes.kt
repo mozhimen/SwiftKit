@@ -1,13 +1,12 @@
 package com.mozhimen.basick.utilk
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
-import androidx.annotation.Dimension
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
  * @ClassName UtilKRes
@@ -17,7 +16,7 @@ import androidx.core.content.ContextCompat
  * @Version 1.0
  */
 object UtilKRes {
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     /**
      * 获取字符串
@@ -82,4 +81,13 @@ object UtilKRes {
     @JvmStatic
     fun getStringArray(resId: Int): Array<String> =
         _context.resources.getStringArray(resId)
+
+    /**
+     * 获取Integer
+     * @param resId Int
+     * @return Int
+     */
+    @JvmStatic
+    fun getInteger(resId: Int): Int =
+        _context.resources.getInteger(resId)
 }

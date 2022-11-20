@@ -16,14 +16,8 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="goBaseKDemo"
-                android:text="goBaseKDemo"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="goPrefabK"
-                android:text="goPrefabK"
+                android:onClick="goElemK"
+                android:text="goElemK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton

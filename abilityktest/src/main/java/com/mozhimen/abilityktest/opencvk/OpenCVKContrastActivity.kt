@@ -10,12 +10,12 @@ import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityk.opencvk.OpenCVKContrast
 import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkContrastBinding
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.cropBitmap
 import com.mozhimen.basick.extsk.drawable2Bitmap
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapConv
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.basick.permissionk.PermissionK
@@ -24,11 +24,11 @@ import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @APermissionK(permissions = [Manifest.permission.CAMERA])
-class OpenCVKContrastActivity : BaseKActivityVB<ActivityOpencvkContrastBinding>() {
+class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
-                initView(savedInstanceState)
+                super.initData(savedInstanceState)
             } else {
                 PermissionK.applySetting(this)
             }
@@ -62,7 +62,7 @@ class OpenCVKContrastActivity : BaseKActivityVB<ActivityOpencvkContrastBinding>(
                     } else {
                         ImageConverter.jpeg2Bitmap(image)
                     }
-                    val rotateBitmap = UtilKBitmapConv.rotateBitmap(bitmap, 90)
+                    val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
                         vb.opencvkContrastQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
 
@@ -73,7 +73,7 @@ class OpenCVKContrastActivity : BaseKActivityVB<ActivityOpencvkContrastBinding>(
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
 
-                    val cropSameBitmap = UtilKBitmapConv.scaleSameSize(cropBitmap, _orgBitmap)
+                    val cropSameBitmap = UtilKBitmapDeal.scaleSameSize(cropBitmap, _orgBitmap)
                     runOnUiThread {
                         vb.opencvkContrastImg.setImageBitmap(rotateBitmap)
                         vb.opencvkContrastImg1.setImageBitmap(cropSameBitmap.first)

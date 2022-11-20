@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.extsk.printlog
+import com.mozhimen.basick.utilk.encrypt.UtilKEncryptDES
 import org.junit.Test
 
 
@@ -14,6 +15,6 @@ import org.junit.Test
 class TestUtilKDES {
     @Test
     fun decrypt() {
-        UtilKEncryptDES.decrypt("Y1Z6Gtq0d2fHOGwnvdoeRkJucb1aKBHI3tD8sZDH2DGqhvRoS3E6Lb1h45YoYmPJHYLfGRpVmUuZXn791JWVMXrVyvfAyOqXL/vAhwojW6QqfM4P+B/jG1SP8FjEPuNg", "86907807").printlog()
+        //UtilKEncryptDES.decrypt("Y1Z6Gtq0d2fHOGwnvdoeRkJucb1aKBHI3tD8sZDH2DGqhvRoS3E6Lb1h45YoYmPJHYLfGRpVmUuZXn791JWVMXrVyvfAyOqXL/vAhwojW6QqfM4P+B/jG1SP8FjEPuNg", "86907807").printlog()
     }
 }

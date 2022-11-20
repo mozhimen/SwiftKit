@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.basick.extsk.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.layoutk.tab.bottom.helpers.TabBottomFragmentAdapter
@@ -20,7 +20,7 @@ import com.mozhimen.uicorektest.layoutk.tab.fragments.MoreFragment
  * @Date 2021/8/2 14:38
  * @Version 1.0
  */
-class LayoutKTabBottomFragmentActivity : BaseKActivityVB<ActivityLayoutkTabBottomFragmentBinding>() {
+class LayoutKTabBottomFragmentActivity : BaseActivityVB<ActivityLayoutkTabBottomFragmentBinding>() {
 
     companion object {
         private const val SAVED_CURRENT_ID = "SAVED_CURRENT_ID"
@@ -29,7 +29,7 @@ class LayoutKTabBottomFragmentActivity : BaseKActivityVB<ActivityLayoutkTabBotto
     private var _infoList = ArrayList<MTabBottom>()
     private var _currentItemIndex = 0
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun initView(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
             _currentItemIndex = savedInstanceState.getInt(SAVED_CURRENT_ID)
         }

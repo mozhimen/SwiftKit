@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Process
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.system.exitProcess
 
 /**
@@ -18,7 +19,7 @@ object UtilKApp {
     private const val PKG_AUTO_RUN = "persist.sensepass.autorun"
     private const val PKG_POWER = "sys.powerctl"
 
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()!!
 
     //重启
     fun setReboot() {

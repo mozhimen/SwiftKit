@@ -1,11 +1,13 @@
 package com.mozhimen.basick.utilk
 
+import android.Manifest
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.net.Uri
 import android.os.Process
 import com.mozhimen.basick.cachek.CacheKSP
+import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.net.URI
 import java.net.URISyntaxException
 
@@ -16,9 +18,10 @@ import java.net.URISyntaxException
  * @Date 2022/2/16 19:57
  * @Version 1.0
  */
+@APermissionK([Manifest.permission.ACCESS_NETWORK_STATE])
 object UtilKNet {
     private val TAG = "UtilKNet>>>>>"
-    private val _context = UtilKGlobal.instance.getApp()!!
+    private val _context = UtilKApplication.instance.get()
     private val _connectivityManager = _context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private const val utilknet_sp_name = "utilknet_sp_name"
     private const val utilknet_sp_degrade_http = "utilknet_sp_degrade_http"
@@ -79,9 +82,7 @@ object UtilKNet {
     fun degrade2Http() {
         if (CacheKSP.instance.with(utilknet_sp_name).getBoolean(utilknet_sp_degrade_http, false)) return
         CacheKSP.instance.with(utilknet_sp_name).putBoolean(utilknet_sp_degrade_http, true)
-        val context = UtilKGlobal.instance.getApp() ?: return
-        context.startActivity(context.packageManager.getLaunchIntentForPackage(context.packageName))
-
+        _context.startActivity(_context.packageManager.getLaunchIntentForPackage(_context.packageName))
         //杀掉当前进程,并主动启动新的启动页,以完成重启的动作
         Process.killProcess(Process.myPid())
     }

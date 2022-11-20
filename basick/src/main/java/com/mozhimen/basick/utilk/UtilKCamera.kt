@@ -52,10 +52,10 @@ object UtilKCamera {
         val centerX = (originFocusCenterX / previewViewWidth * 2000 - 1000).toInt()
         val centerY = (originFocusCenterY / previewViewHeight * 2000 - 1000).toInt()
         val rectF = RectF(
-            clamp(centerX - halfFocusAreaWidth, -1000, 1000).toFloat(),
-            clamp(centerY - halfFocusAreaHeight, -1000, 1000).toFloat(),
-            clamp(centerX + halfFocusAreaWidth, -1000, 1000).toFloat(),
-            clamp(centerY + halfFocusAreaHeight, -1000, 1000).toFloat()
+            UtilKNumber.normalize(centerX - halfFocusAreaWidth, -1000..1000).toFloat(),
+            UtilKNumber.normalize(centerY - halfFocusAreaHeight, -1000..1000).toFloat(),
+            UtilKNumber.normalize(centerX + halfFocusAreaWidth, -1000..1000).toFloat(),
+            UtilKNumber.normalize(centerY + halfFocusAreaHeight, -1000..1000).toFloat()
         )
         return Rect(
             rectF.left.roundToInt(), rectF.top.roundToInt(),
@@ -63,7 +63,7 @@ object UtilKCamera {
         )
     }
 
-    private fun clamp(value: Int, min: Int, max: Int): Int {
-        return value.coerceAtLeast(min).coerceAtMost(max)
-    }
+//    private fun clamp(value: Int, min: Int, max: Int): Int {
+//        return value.coerceAtLeast(min).coerceAtMost(max)
+//    }
 }

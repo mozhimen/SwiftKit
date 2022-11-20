@@ -3,7 +3,7 @@ package com.mozhimen.uicorektest.recyclerk
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.basek.BaseKActivityVB
+import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
 import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.uicorektest.databinding.ActivityRecyclerkAdapterBinding
@@ -16,9 +16,9 @@ import com.mozhimen.uicorektest.recyclerk.mos.*
  * @Date 2021/9/1 16:16
  * @Version 1.0
  */
-class RecyclerKAdapterActivity : BaseKActivityVB<ActivityRecyclerkAdapterBinding>() {
+class RecyclerKAdapterActivity : BaseActivityVB<ActivityRecyclerkAdapterBinding>() {
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun initView(savedInstanceState: Bundle?) {
         initAdapter()
     }
 
