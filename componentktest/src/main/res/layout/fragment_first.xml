@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data />
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".navigatek.fragments.FirstFragment">
 
         <TextView
@@ -16,5 +18,10 @@
             android:text="第一个Fragment(点击去第二个Fragment)"
             tools:ignore="HardcodedText" />
 
-    </FrameLayout>
+        <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutKSlider_rodDefaultPercent="0.1" />
+
+    </LinearLayout>
 </layout>
