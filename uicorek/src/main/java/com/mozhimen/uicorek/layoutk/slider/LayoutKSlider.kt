@@ -64,6 +64,10 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
         _layoutKSliderProxy.setRodDefaultPercent(percent)
     }
 
+    override fun updateRodPercent(@FloatRange(from = 0.0, to = 1.0) percent: Float) {
+        _layoutKSliderProxy.updateRodPercent(percent)
+    }
+
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         _layoutKSliderProxy.initAttrs(attrs, defStyleAttr)
     }
@@ -93,15 +97,11 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return if (rod.rodScrollEnable) onTouchEvent(event) else super.onTouchEvent(event)
+        return _layoutKSliderProxy.onTouchEvent(event)
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         _layoutKSliderProxy.attachScrollableParentView(UtilKView.getParentViewMatch(this, ScrollView::class.java, NestedScrollView::class.java, RecyclerView::class.java) as ViewGroup?)
-    }
-
-    override fun updateRodPercent(@FloatRange(from = 0.0, to = 1.0) percent: Float) {
-        _layoutKSliderProxy.updateRodPercent(percent)
     }
 }

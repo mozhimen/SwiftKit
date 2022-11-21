@@ -25,6 +25,11 @@ open class PopwinKLifecycle(context: Context) : BasePopupWindow(context), Lifecy
 
     override fun onViewCreated(contentView: View) {
         super.onViewCreated(contentView)
+        _lifecycleRegistry?.currentState = Lifecycle.State.STARTED
+    }
+
+    override fun onShowing() {
+        super.onShowing()
         _lifecycleRegistry?.currentState = Lifecycle.State.RESUMED
     }
 

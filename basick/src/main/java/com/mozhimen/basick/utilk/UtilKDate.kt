@@ -25,6 +25,8 @@ object UtilKDate {
 
     const val FORMAT_yyyyMMdd = "yyyy-MM-dd"
 
+    const val FORMAT_NONE_yyyyMMdd = "yyyyMMdd"
+
     const val FORMAT_HHmmss = "HH:mm:ss"
 
     const val FORMAT_HHmm = "HH:mm"
@@ -61,12 +63,21 @@ object UtilKDate {
 
     /**
      * 获取当前时间
-     * @param formatDate String
      * @param locale Locale
      * @return String
      */
-    fun getNowString(formatDate: String, locale: Locale = Locale.CHINA): String =
-        date2String(getNowDate(), formatDate, locale)
+    @JvmStatic
+    fun getNowString(locale: Locale = Locale.CHINA): String =
+        date2String(getNowDate(), FORMAT_yyyyMMddHHmmssS, locale)
+
+    /**
+     * 今日
+     * @param locale Locale
+     * @return String
+     */
+    @JvmStatic
+    fun getTodayString(locale: Locale = Locale.CHINA): String =
+        date2String(getNowDate(), FORMAT_NONE_yyyyMMdd)
 
     /**
      * 获得Format

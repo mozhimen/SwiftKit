@@ -184,7 +184,7 @@ internal class AudioKProxy(private val _owner: LifecycleOwner) : IAudioKListener
                 if (index in _playList.indices) {
                     _playList.removeAt(index)
                 }
-                UtilKDataBus.with<MAudioK?>(CAudioKEvent.audio_popup).setValue(audio)
+                UtilKDataBus.with<Pair<MAudioK, Boolean>?>(CAudioKEvent.audio_popup).setValue(audio to (_playList.size != 0))
                 getPlayIndexNext()
             }
         }

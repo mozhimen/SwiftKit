@@ -10,7 +10,7 @@ import android.util.AttributeSet
  * @Version 1.0
  */
 interface ILayoutK {
-    fun initFlag()
-    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int)
-    fun initView()
+    fun initFlag(){}
+    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int){}
+    fun initView(){}
 }

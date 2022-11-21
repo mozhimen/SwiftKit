@@ -24,7 +24,7 @@ object CAudioKEvent {
     const val audio_start = pre_ + Theme.audio_ + Event.start
     const val audio_pause = pre_ + Theme.audio_ + Event.pause
     const val audio_complete = pre_ + Theme.audio_ + Event.complete
-    const val audio_popup = pre_ + Theme.audio_ + Event.popup
+    const val audio_popup = pre_ + Theme.audio_ + Event.popup//MAudio+isHasNext
     const val audio_release = pre_ + Theme.audio_ + Event.release
     const val audio_error = pre_ + Theme.audio_ + Event.error
 }

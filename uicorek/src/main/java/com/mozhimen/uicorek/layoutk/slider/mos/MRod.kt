@@ -2,14 +2,9 @@ package com.mozhimen.uicorek.layoutk.slider.mos
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.extsk.normalize
-import com.mozhimen.basick.extsk.percent
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.helpers.AttrsParser
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 
 /**
  * @ClassName Rod
@@ -34,6 +29,7 @@ class MRod(private val _owner: LifecycleOwner) {
     var currentPercent: Float = 0f
         set(value) {
             field = value.normalize(0f to 1f)
+            Log.d(TAG, "currentPercent: $field")
             _sliderListener?.onScrolling(currentPercent, currentVal, this)
         }
     val currentVal: Float
@@ -45,7 +41,6 @@ class MRod(private val _owner: LifecycleOwner) {
     //endregion
 
     //region # attrs
-    var rodScrollEnable: Boolean = true
     var isInsideSlider: Boolean = false
     var radius: Float = 0f
     var radiusInside: Float = 0f
