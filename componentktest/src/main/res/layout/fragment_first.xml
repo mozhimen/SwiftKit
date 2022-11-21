@@ -14,14 +14,14 @@
         <TextView
             android:id="@+id/navigatek_fragment_first_txt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="第一个Fragment(点击去第二个Fragment)"
             tools:ignore="HardcodedText" />
 
         <com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
+            android:id="@+id/navigatek_fragment_first_slider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutKSlider_rodDefaultPercent="0.1" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </layout>

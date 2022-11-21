@@ -190,11 +190,15 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_transk.xml" value="0.140625" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/app/src/main/res/layout/activity_demo.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/app/src/main/res/layout/item_demo_list.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_animk.xml" value="0.24340277777777777" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_basek_activity.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_basek_demo.xml" value="0.22" />
-        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_basek_demo_start.xml" value="0.10208333333333333" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_basek_demo_start.xml" value="0.18" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_basick.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_bask_demo_start.xml" value="0.12135416666666667" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_elemk.xml" value="0.278636543797067" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_elemk_demo_service.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_elemk_demo_vbvm.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_eventk.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_eventk_data_bus.xml" value="0.3515625" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_eventk_task_polling.xml" value="0.14375" />
@@ -203,6 +207,8 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_prefabk_audio.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_taskk.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_taskk_async.xml" value="0.17755825734549138" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_taskk_executor.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_taskk_poll.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_taskk_thread_pool.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_utilk.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/activity_utilk_audio.xml" value="0.17097264437689969" />
@@ -213,17 +219,19 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/fragment_basek_fragment.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/fragment_basek_fragment_vb.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/fragment_basek_fragment_vbvm.xml" value="0.1" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/fragment_elemk_fragment_vb.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/fragment_elemk_fragment_vbvm.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/basicktest/src/main/res/layout/item_utilk_file_log.xml" value="0.22" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_animk.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_audiok.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_componentk.xml" value="0.18" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_guidek.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_navigatek.xml" value="0.17097264437689969" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_netk.xml" value="0.1778115501519757" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_netk_file.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_first.xml" value="0.17097264437689969" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_first.xml" value="0.25" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_second.xml" value="0.1363989134652697" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_third.xml" value="0.128125" />
-        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/layout_popwin_audio.xml" value="0.33" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/debugk/src/main/res/layout/activity_debug_ui.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/btnk_icon_background.xml" value="0.1985" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/searchk_keyword_background.xml" value="0.1985" />
@@ -250,7 +258,6 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/tabk_bottom.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_bubble.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_et_form.xml" value="0.24409722222222222" />
-        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_marquee.xml" value="0.2997007268063275" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_tv_form.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_binding_adapter.xml" value="0.3651041666666667" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_btnk.xml" value="0.24409722222222222" />

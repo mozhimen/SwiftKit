@@ -1,4 +1,6 @@
-package com.mozhimen.componentk.navigatek
+package com.mozhimen.componentk.navigatek.exts
+
+import com.mozhimen.componentk.navigatek.NavigateK
 
 
 /**

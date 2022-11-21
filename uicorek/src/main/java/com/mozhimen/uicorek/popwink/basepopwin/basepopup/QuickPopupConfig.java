@@ -10,8 +10,8 @@ import android.view.animation.Animation;
 
 import com.mozhimen.basick.animk.builder.AnimKBuilder;
 import com.mozhimen.basick.animk.builder.temps.ScaleType;
+import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
-import com.mozhimen.uicorek.popwink.basepopwin.util.KeyboardUtils;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 import com.mozhimen.uicorek.popwink.basepopwin.widget.QuickPopup;
 
@@ -295,7 +295,7 @@ public class QuickPopupConfig implements BasePopupFlag, ClearMemoryObject {
         return this;
     }
 
-    public QuickPopupConfig keyBoardChangeListener(KeyboardUtils.OnKeyboardChangeListener listener) {
+    public QuickPopupConfig keyBoardChangeListener(UtilKKeyBoard.IUtilKKeyboardListener listener) {
         set("setOnKeyboardChangeListener", listener);
         return this;
     }

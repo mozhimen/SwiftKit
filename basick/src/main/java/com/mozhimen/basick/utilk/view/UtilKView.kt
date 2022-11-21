@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.view
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.utilk.UtilKDataType
 import java.util.*
 
@@ -15,6 +16,34 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKView {
+
+    /**
+     * 添加全局监听
+     * @param view View
+     * @param listener OnGlobalLayoutListener
+     */
+    @JvmStatic
+    fun safeAddGlobalLayoutListener(view: View, listener: OnGlobalLayoutListener) {
+        try {
+            view.viewTreeObserver.removeOnGlobalLayoutListener(listener)
+            view.viewTreeObserver.addOnGlobalLayoutListener(listener)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     * 获取焦点
+     * @param view View
+     */
+    @JvmStatic
+    fun requestFocus(view: View) {
+        if (view.isInTouchMode) {
+            view.requestFocusFromTouch()
+        } else {
+            view.requestFocus()
+        }
+    }
 
     /**
      * 寻找父View是否匹配列举的类型
@@ -47,23 +76,17 @@ object UtilKView {
     /**
      * 获取指定类型的子View
      * @param group ViewGroup?
-     * @param cls Class<T>
+     * @param clazz Class<T>
      * @return T?
      */
     @JvmStatic
-    fun <T> findTypeChildView(
-        group: ViewGroup?,
-        cls: Class<T>
-    ): T? {
-        if (group == null) {
-            return null
-        }
+    fun <T> findTypeChildView(group: ViewGroup, clazz: Class<T>): T? {
         val deque: Deque<View> = ArrayDeque()
         deque.add(group)
         while (!deque.isEmpty()) {
             val node = deque.removeFirst()
-            if (cls.isInstance(node)) {
-                return cls.cast(node)
+            if (clazz.isInstance(node)) {
+                return clazz.cast(node)
             } else if (node is ViewGroup) {
                 var i = 0
                 val count = node.childCount
@@ -79,20 +102,34 @@ object UtilKView {
     /**
      * 逐层在父View中查找View
      * @param viewId Int
-     * @param parentView View
+     * @param sourceView View
      * @return View?
      */
     @JvmStatic
-    fun findViewFromParentById(viewId: Int, parentView: View): View? {
-        if (viewId == 0) return null
-        var viewTree: View = parentView
-        while (viewTree.parent is View) {
+    fun findViewFromParentById(viewId: Int, sourceView: View): View? {
+        var tempView: View = sourceView
+        while (tempView.parent is View) {
             //逐层在父View中查找，是为了查找离自己最近的目标对象，因为ID可能重复
-            viewTree = viewTree.parent as View
-            val targetView = viewTree.findViewById<View>(viewId)
-            if (targetView != null) {
-                return targetView
-            }
+            tempView = tempView.parent as View
+            val targetView = tempView.findViewById<View>(viewId)
+            if (targetView != null) return targetView
+        }
+        return null
+    }
+
+    /**
+     * 逐层在父View中查找View
+     * @param destView View
+     * @param sourceView View
+     * @return View?
+     */
+    @JvmStatic
+    fun findViewFromParentByView(destView: View, sourceView: View): View? {
+        var tempView: View = sourceView
+        while (tempView.parent is View) {
+            //需要从content一直遍历往前找到decorView下的第一个child，那个为准
+            tempView = tempView.parent as View
+            if (tempView == destView) return tempView
         }
         return null
     }
@@ -107,12 +144,10 @@ object UtilKView {
         view: View,
         ratio: Float
     ) {
-        view.viewTreeObserver.addOnGlobalLayoutListener(object :
-            ViewTreeObserver.OnGlobalLayoutListener {
+        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                val height: Int = view.height
-                if (height > 0) {
-                    view.layoutParams.width = (height * ratio).toInt()
+                if (view.height > 0) {
+                    view.layoutParams.width = (view.height * ratio).toInt()
                     view.postInvalidate()
                     view.viewTreeObserver.removeGlobalOnLayoutListener(this)
                 }

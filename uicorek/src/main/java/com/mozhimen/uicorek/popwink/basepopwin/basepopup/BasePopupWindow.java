@@ -249,8 +249,8 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.uicorek.R;
-import com.mozhimen.uicorek.popwink.basepopwin.util.KeyboardUtils;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
@@ -1913,7 +1913,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     /**
      * 设置键盘监听回调
      */
-    public BasePopupWindow setOnKeyboardChangeListener(KeyboardUtils.OnKeyboardChangeListener listener) {
+    public BasePopupWindow setOnKeyboardChangeListener(UtilKKeyBoard.IUtilKKeyboardListener listener) {
         mHelper.mUserKeyboardStateChangeListener = listener;
         return this;
     }

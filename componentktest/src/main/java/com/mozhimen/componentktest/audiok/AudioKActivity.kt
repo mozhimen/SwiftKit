@@ -8,11 +8,9 @@ import android.view.View
 import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.TranslationType
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.showToast
 import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.componentk.audiok.AudioK
@@ -24,10 +22,7 @@ import com.mozhimen.componentktest.databinding.ActivityAudiokBinding
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
-import com.mozhimen.uicorek.popwink.PopwinKBubbleText
 import com.mozhimen.uicorek.popwink.PopwinKLifecycle
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {

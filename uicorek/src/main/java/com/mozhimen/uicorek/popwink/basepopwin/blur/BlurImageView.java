@@ -16,8 +16,8 @@ import android.view.animation.AccelerateInterpolator;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
+import com.mozhimen.basick.taskk.executor.TaskKExecutor;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
-import com.mozhimen.uicorek.popwink.basepopwin.blur.thread.ThreadPoolManager;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -219,7 +219,7 @@ public class BlurImageView extends AppCompatImageView {
      * @param anchorView
      */
     private void startBlurTask(View anchorView) {
-        ThreadPoolManager.execute(new CreateBlurBitmapRunnable(anchorView));
+        TaskKExecutor.INSTANCE.execute(TAG,new CreateBlurBitmapRunnable(anchorView));
     }
 
 
