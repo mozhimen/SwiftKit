@@ -232,13 +232,16 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
             //暂停也要更新进度，防止UI不同步，只不过进度一直一样
             if (getPlayStatus() == EPlayStatus.STARTED || getPlayStatus() == EPlayStatus.PAUSED) {
                 //UI类型处理事件
-                _dataBusProUpd.postValue(MAudioKProgress(getPlayStatus(), getCurrentPosition(), getDuration(), _currentAudio))
+                _dataBusProUpd.postValue(MAudioKProgress(getPlayStatus(), getCurrentPosition(), getDuration(), _currentAudio).also {
+                    Log.d(TAG, "start: progress_update $it")
+                })
             }
         }
         setAudioEvent(CAudioKEvent.audio_start, _currentAudio)
     }
 
     private fun setAudioEvent(eventName: String, audio: MAudioK?) {
+        Log.d(TAG, "setAudioEvent: eventName $eventName audio $audio")
         UtilKDataBus.with<MAudioK?>(eventName).postValue(audio)
     }
 

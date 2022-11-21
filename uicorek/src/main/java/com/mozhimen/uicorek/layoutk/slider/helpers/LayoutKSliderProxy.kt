@@ -49,6 +49,7 @@ internal class LayoutKSliderProxy(
     private val _rod: MRod by lazy { MRod(_context as LifecycleOwner) }
     private var _scrollableParentView: ViewGroup? = null
     private var _rodIsScrolling = false
+    private var _isEnableScroll = true
 
     private lateinit var _paintRightSlider: Paint
     private lateinit var _paintLeftSlider: Paint
@@ -113,13 +114,13 @@ internal class LayoutKSliderProxy(
     }
 
     override fun initView() {
+        _isEnableScroll = _attrs.rodScrollEnable
         initSlider()
         initRod()
     }
 
     private fun initRod() {
         _rod.apply {
-            rodScrollEnable = _attrs.rodScrollEnable
             isInsideSlider = _attrs.rodIsInside
             radius = _attrs.rodRadius
             radiusInside = _attrs.rodRadiusInside
@@ -228,6 +229,7 @@ internal class LayoutKSliderProxy(
     }
 
     fun onTouchEvent(event: MotionEvent): Boolean {
+        if (!_isEnableScroll) return true
         when (event.actionMasked) {
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 _scrollableParentView?.requestDisallowInterceptTouchEvent(false)

@@ -104,7 +104,9 @@ object UtilKFile {
     @JvmStatic
     fun deleteFile(file: File): Boolean {
         return if (isFileExist(file)) {
-            file.delete()
+            file.delete().also {
+                Log.d(TAG, "deleteFile: file ${file.absolutePath} success")
+            }
         } else false
     }
 

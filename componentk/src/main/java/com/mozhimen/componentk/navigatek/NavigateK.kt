@@ -29,7 +29,7 @@ object NavigateK {
         defaultFragmentId: Int = 0
     ): NavController {
         val navController = activity.findNavController(containerId)
-        val childFragmentManager = activity.supportFragmentManager.findFragmentById(containerId)!!.childFragmentManager
+        //val childFragmentManager = activity.supportFragmentManager.findFragmentById(containerId)!!.childFragmentManager
         val pageInfos = clazzes2PageInfos(clazzes)
         Log.d(TAG, "buildNavGraph: $pageInfos")
         val iterator: Iterator<MNavigateKPageInfo> = pageInfos.iterator()

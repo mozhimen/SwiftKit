@@ -25,7 +25,7 @@ tools:ignore="ScopedStorage" />
 class CrashKJava {
 
     private val TAG = "CrashKJava>>>>>"
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
     private var _crashListener: ICrashKListener? = null
 
     var crashPathJava: String? = null
@@ -47,7 +47,7 @@ class CrashKJava {
 
     private inner class CrashKUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
         private val _defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        private val _launchTime = UtilKDate.getNowString(UtilKDate.FORMAT_yyyyMMddHHmmss)
+        private val _launchTime = UtilKDate.getNowString()
 
         override fun uncaughtException(t: Thread, e: Throwable) {
             if (!handleException(e) && _defaultExceptionHandler != null) {
@@ -89,7 +89,7 @@ class CrashKJava {
             stringBuilder.append("os= ${UtilKBuild.getVersionRelease()}\n")//API版本:9.0
             stringBuilder.append("sdk= ${UtilKBuild.getVersionSDKCode()}\n")//SDK版本:31
             stringBuilder.append("launch_time= $_launchTime\n")//启动APP的时间
-            stringBuilder.append("crash_time= ${UtilKDate.getNowString(UtilKDate.FORMAT_yyyyMMddHHmmss)}")//crash发生的时间
+            stringBuilder.append("crash_time= ${UtilKDate.getNowString()}")//crash发生的时间
             stringBuilder.append("foreground= ${StackK.isFront()}")//应用处于前台
             stringBuilder.append("thread= ${Thread.currentThread().name}\n")//异常线程名
 
