@@ -250,11 +250,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
+import com.mozhimen.basick.utilk.UtilKRes;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUtils;
 
 /**
  * <br>
@@ -821,7 +821,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      */
     void tryToShowPopup(View v, boolean positionMode) {
         if (Looper.myLooper() != Looper.getMainLooper()) {
-            throw new CalledFromWrongThreadException(PopupUtils.getString(R.string.basepopup_error_thread));
+            throw new CalledFromWrongThreadException(UtilKRes.getString(R.string.basepopup_error_thread));
         }
         checkActivity();
         if (mContext == null) {
@@ -829,38 +829,38 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
                 waitForFirstActivityOpened(v, positionMode);
                 return;
             }
-            onShowError(new NullPointerException(PopupUtils.getString(R.string.basepopup_error_non_act_context)));
+            onShowError(new NullPointerException(UtilKRes.getString(R.string.basepopup_error_non_act_context)));
             return;
         }
         if (isShowing() || mContentView == null) return;
         if (isDestroyed) {
-            onShowError(new IllegalAccessException(PopupUtils.getString(R.string.basepopup_error_destroyed)));
+            onShowError(new IllegalAccessException(UtilKRes.getString(R.string.basepopup_error_destroyed)));
             return;
         }
         View decorView = getDecorView();
         if (decorView == null) {
-            onShowError(new NullPointerException(PopupUtils.getString(R.string.basepopup_error_decorview,
+            onShowError(new NullPointerException(UtilKRes.getString(R.string.basepopup_error_decorview,
                                                                       ownerParentLog())));
             return;
         }
         if (decorView.getWindowToken() == null) {
-            onShowError(new IllegalStateException(PopupUtils.getString(R.string.basepopup_window_not_prepare,
+            onShowError(new IllegalStateException(UtilKRes.getString(R.string.basepopup_window_not_prepare,
                                                                        ownerParentLog())));
             pendingPopupWindow(decorView, v, positionMode);
             return;
         }
-        onLogInternal(PopupUtils.getString(R.string.basepopup_window_prepared, ownerParentLog()));
+        onLogInternal(UtilKRes.getString(R.string.basepopup_window_prepared, ownerParentLog()));
         if (!onBeforeShow()) return;
         mHelper.prepare(v, positionMode);
         try {
             if (isShowing()) {
-                onShowError(new IllegalStateException(PopupUtils.getString(R.string.basepopup_has_been_shown)));
+                onShowError(new IllegalStateException(UtilKRes.getString(R.string.basepopup_has_been_shown)));
                 return;
             }
             mHelper.onShow();
             //这里传参没啥意义的，，反正代理类会解决
             mPopupWindowProxy.showAtLocation(decorView, Gravity.NO_GRAVITY, 0, 0);
-            onLogInternal(PopupUtils.getString(R.string.basepopup_shown_successful));
+            onLogInternal(UtilKRes.getString(R.string.basepopup_shown_successful));
         } catch (Exception e) {
             e.printStackTrace();
             superDismiss();
@@ -2014,7 +2014,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      */
     public void dismiss(boolean animateDismiss) {
         if (Looper.myLooper() != Looper.getMainLooper()) {
-            throw new CalledFromWrongThreadException(PopupUtils.getString(R.string.basepopup_error_thread));
+            throw new CalledFromWrongThreadException(UtilKRes.getString(R.string.basepopup_error_thread));
         }
         if (!isShowing() || mContentView == null) return;
         mHelper.dismiss(animateDismiss);
@@ -2181,7 +2181,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     private String ownerParentLog() {
-        return PopupUtils.getString(R.string.basepopup_host, String.valueOf(ownerAnchorParent));
+        return UtilKRes.getString(R.string.basepopup_host, String.valueOf(ownerAnchorParent));
     }
 //endregion
 

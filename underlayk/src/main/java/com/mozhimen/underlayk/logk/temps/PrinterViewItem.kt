@@ -22,7 +22,7 @@ class PrinterViewItem(private val mLogK: MLogK) : RecyclerKItem<Any, RecyclerKVB
         val color = LogKHelper.getLevelColor(mLogK.level)
         holder.vb.logkPrinterViewTag.text = mLogK.getFlattened()
         holder.vb.logkPrinterViewTag.setTextColor(color)
-        holder.vb.logkPrinterViewMsg.text = mLogK.log.replace("\\n".toRegex(), "\n").replace(UtilKApplication.instance.get()!!.packageName, "")
+        holder.vb.logkPrinterViewMsg.text = mLogK.log.replace("\\n".toRegex(), "\n").replace(UtilKApplication.instance.get().packageName, "")
         holder.vb.logkPrinterViewMsg.setTextColor(color)
     }
 

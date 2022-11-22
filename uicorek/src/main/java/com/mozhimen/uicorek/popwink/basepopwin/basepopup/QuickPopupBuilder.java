@@ -6,8 +6,8 @@ import android.view.View;
 
 import androidx.fragment.app.Fragment;
 
+import com.mozhimen.basick.utilk.UtilKRes;
 import com.mozhimen.uicorek.R;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUtils;
 import com.mozhimen.uicorek.popwink.basepopwin.widget.QuickPopup;
 
 /**
@@ -88,7 +88,7 @@ public class QuickPopupBuilder implements ClearMemoryObject {
         if (popupHost instanceof Dialog) {
             return new QuickPopup((Dialog) popupHost, this);
         }
-        throw new NullPointerException(PopupUtils.getString(R.string.basepopup_host_destroyed));
+        throw new NullPointerException(UtilKRes.getString(R.string.basepopup_host_destroyed));
     }
 
     public QuickPopup show() {

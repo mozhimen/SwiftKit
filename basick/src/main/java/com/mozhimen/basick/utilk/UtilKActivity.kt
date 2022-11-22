@@ -26,11 +26,19 @@ object UtilKActivity {
     @JvmStatic
     fun isActivityDestroyed(context: Context): Boolean {
         val activity: Activity? = getActivityByContext(context)
-        return if (activity != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                activity.isDestroyed || activity.isFinishing
-            } else activity.isFinishing
-        } else true
+        return if (activity != null) isActivityDestroyed(activity) else true
+    }
+
+    /**
+     * 判断Activity是否被销毁
+     * @param activity Activity
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isActivityDestroyed(activity: Activity): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            activity.isDestroyed || activity.isFinishing
+        } else activity.isFinishing
     }
 
     /**

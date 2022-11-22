@@ -28,7 +28,7 @@ import com.mozhimen.underlayk.logk.LogK
 class FpsKView {
     private val TAG = "FpsKView>>>>>"
 
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
     private var _params = WindowManager.LayoutParams()
     private var _isShow = false
     private var _fpsView =

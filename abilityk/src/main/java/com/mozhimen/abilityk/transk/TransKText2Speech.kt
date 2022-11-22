@@ -19,7 +19,7 @@ import java.util.*
  */
 class TransKText2Speech(owner: LifecycleOwner, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : DefaultLifecycleObserver {
     private var _transKText2Speech: TextToSpeech? = null
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

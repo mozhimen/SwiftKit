@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 
 import androidx.annotation.NonNull;
 
+import com.mozhimen.basick.utilk.UtilKActivity;
 import com.mozhimen.basick.utilk.context.UtilKApplication;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupSDK;
@@ -46,7 +47,7 @@ public class PopupUiUtils {
     }
 
     public static boolean isStatusBarVisible(Context context) {
-        Activity act = PopupUtils.getActivity(context);
+        Activity act = UtilKActivity.getActivityByContext(context, true);
         if (act == null) {
             return true;
         }
@@ -89,8 +90,8 @@ public class PopupUiUtils {
     @SuppressLint("NewApi")
     @NonNull
     public static void getNavigationBarBounds(Rect r, Context context) {
-        Activity act = PopupUtils.getActivity(context);
-        if (!PopupUtils.isActivityAlive(act)) return;
+        Activity act = UtilKActivity.getActivityByContext(context, true);
+        if (act == null || UtilKActivity.isActivityDestroyed(act)) return;
         ViewGroup decorView = (ViewGroup) act.getWindow().getDecorView();
         final int childCount = decorView.getChildCount();
         for (int i = childCount - 1; i >= 0; i--) {

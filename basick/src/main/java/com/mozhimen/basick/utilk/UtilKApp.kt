@@ -19,7 +19,7 @@ object UtilKApp {
     private const val PKG_AUTO_RUN = "persist.sensepass.autorun"
     private const val PKG_POWER = "sys.powerctl"
 
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     //重启
     fun setReboot() {

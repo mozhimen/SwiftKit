@@ -37,7 +37,7 @@ class StackKMgr private constructor() {
      * 初始化
      */
     init {
-        UtilKApplication.instance.get()!!.registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
+        UtilKApplication.instance.get().registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
     }
 
     /**

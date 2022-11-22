@@ -25,16 +25,16 @@ import androidx.recyclerview.widget.RecyclerView
  * }}}
  * viewBinding.mainList.adapter=adapter
  */
-typealias IAdapterKRecyclerStuffedListener<DATA, VB> = (holder: AdapterKRecyclerStuffed.MultipleViewHolder<VB>, itemData: DATA, position: Int) -> Unit
+typealias IRecyclerKVBAdapterStuffedListener<DATA, VB> = (holder: RecyclerKVBAdapterStuffed.MultipleViewHolder<VB>, itemData: DATA, position: Int) -> Unit
 
-open class AdapterKRecyclerStuffed<DATA, VB : ViewDataBinding>(
+open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
     private var _itemDatas: List<DATA>,
     private var _defaultLayout: Int,
     private var _headerLayout: Int?,
     private var _footerLayout: Int?,
     private var _brId: Int,
-    private var _listener: IAdapterKRecyclerStuffedListener<DATA, VB>? = null
-) : RecyclerView.Adapter<AdapterKRecyclerStuffed.MultipleViewHolder<VB>>() {
+    private var _listener: IRecyclerKVBAdapterStuffedListener<DATA, VB>? = null
+) : RecyclerView.Adapter<RecyclerKVBAdapterStuffed.MultipleViewHolder<VB>>() {
 
     private val TAG = "AdapterKRecyclerStuffed>>>>>"
 

@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
 
+import com.mozhimen.basick.utilk.UtilKActivity;
+import com.mozhimen.basick.utilk.UtilKRes;
+import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUtils;
 
 /**
  * Created by 大灯泡 on 2017/1/12.
@@ -79,9 +81,9 @@ class PopupWindowProxy extends PopupWindow implements ClearMemoryObject {
     @Override
     public void showAtLocation(View parent, int gravity, int x, int y) {
         if (isShowing()) return;
-        Activity activity = PopupUtils.getActivity(parent.getContext(), false);
+        Activity activity = UtilKActivity.getActivityByContext(parent.getContext(), false);
         if (activity == null) {
-            Log.e(TAG, PopupUtils.getString(R.string.basepopup_error_non_act_context));
+            Log.e(TAG, UtilKRes.getString(R.string.basepopup_error_non_act_context));
             return;
         }
         onBeforeShowExec(activity);
@@ -130,7 +132,7 @@ class PopupWindowProxy extends PopupWindow implements ClearMemoryObject {
 
     void superDismiss() {
         try {
-            if (mBasePopupContextWrapper!=null){
+            if (mBasePopupContextWrapper != null) {
                 WindowManagerProxy.PopupWindowQueueManager.getInstance().remove(mBasePopupContextWrapper.mWindowManagerProxy);
             }
             super.dismiss();
@@ -153,7 +155,7 @@ class PopupWindowProxy extends PopupWindow implements ClearMemoryObject {
         if (mBasePopupContextWrapper != null) {
             mBasePopupContextWrapper.clear(destroy);
         }
-        PopupUtils.clearViewFromParent(getContentView());
+        UtilKView.removeViewFromParent(getContentView());
         if (destroy) {
             mBasePopupContextWrapper = null;
         }

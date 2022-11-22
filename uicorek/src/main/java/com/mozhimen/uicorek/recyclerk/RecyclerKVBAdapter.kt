@@ -5,7 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * @ClassName RecyclerAdapterK
@@ -23,18 +28,23 @@ import androidx.recyclerview.widget.RecyclerView
  *          //逻辑
  * }}}
  * viewBinding.mainList.adapter=adapter
+ * 注意:
+ * 在使用Fragment切换,挂起与恢复时, 要使recyclerView.adapter置null
+ * 不然持有全局本类, 会引起内存的泄漏
  */
-typealias IAdapterKRecyclerListener<BEAN, VB> = (holder: RecyclerKVBViewHolder<VB>, item: BEAN, position: Int, currentSelectPos: Int) -> Unit
+typealias IRecyclerKVBAdapterListener<BEAN, VB> = (holder: RecyclerKVBViewHolder<VB>, item: BEAN, position: Int, currentSelectPos: Int) -> Unit
 
-open class AdapterKRecycler<BEAN, VB : ViewDataBinding>(
+open class RecyclerKVBAdapter<BEAN, VB : ViewDataBinding>(
     private var _itemDatas: List<BEAN>,
     private val _defaultLayout: Int,
     private val _brId: Int,
-    private val _listener: IAdapterKRecyclerListener<BEAN, VB>? = null /* = (com.mozhimen.uicorek.recyclerk.datak.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
-) : RecyclerView.Adapter<RecyclerKVBViewHolder<VB>>() {
+    private val _listener: IRecyclerKVBAdapterListener<BEAN, VB>? = null /* = (com.mozhimen.uicorek.recyclerk.datak.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
+) : RecyclerView.Adapter<RecyclerKVBViewHolder<VB>>(), DefaultLifecycleObserver {
 
     private var _selectItemPosition = 0
+    private lateinit var _vb: VB
 
+    @SuppressLint("NotifyDataSetChanged")
     fun onItemSelected(position: Int) {
         _selectItemPosition = position
         notifyDataSetChanged()
@@ -74,9 +84,14 @@ open class AdapterKRecycler<BEAN, VB : ViewDataBinding>(
     override fun getItemCount() = if (_itemDatas.isEmpty()) 0 else _itemDatas.size
 
     override fun onBindViewHolder(holder: RecyclerKVBViewHolder<VB>, position: Int) {
-        holder.vb.setVariable(_brId, _itemDatas[position])
+        holder.vb.setVariable(_brId, _itemDatas[position]).also { _vb = holder.vb }
         _listener?.invoke(holder, _itemDatas[position], position, _selectItemPosition)
         holder.vb.executePendingBindings()
+    }
+
+    override fun onPause(owner: LifecycleOwner) {
+        super.onPause(owner)
+        if (this::_vb.isInitialized) _vb.unbind()
     }
 
     override fun getItemViewType(position: Int) = _defaultLayout

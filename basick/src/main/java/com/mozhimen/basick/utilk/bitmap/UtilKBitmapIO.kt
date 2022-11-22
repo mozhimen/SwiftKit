@@ -26,7 +26,7 @@ import java.io.OutputStream
  */
 object UtilKBitmapIO {
     private val TAG = "UtilKBitmapIO>>>>>"
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     /**
      * 位图转文件

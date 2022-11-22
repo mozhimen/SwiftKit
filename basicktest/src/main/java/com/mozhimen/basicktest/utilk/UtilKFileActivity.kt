@@ -13,14 +13,14 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkFileBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
-import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
+import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @APermissionK([Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
 class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
-    private lateinit var _adapterKRecycler: AdapterKRecycler<UtilKFileLogBean, ItemUtilkFileLogBinding>
+    private lateinit var _adapterKRecycler: RecyclerKVBAdapter<UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileLogBean(0, "start file process >>>>>")
     )
@@ -29,7 +29,7 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
         PermissionK.initPermissions(this) {
             if (it) {
                 vb.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
-                _adapterKRecycler = AdapterKRecycler(_logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
+                _adapterKRecycler = RecyclerKVBAdapter( _logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
                 vb.utilkFileRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)

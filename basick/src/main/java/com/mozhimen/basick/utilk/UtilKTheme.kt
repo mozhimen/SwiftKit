@@ -28,7 +28,7 @@ object UtilKTheme {
      */
     @JvmStatic
     fun isOSLightMode(): Boolean =
-        (UtilKApplication.instance.get()!!.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
+        (UtilKApplication.instance.get().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
 
     /**
      * 改变主题

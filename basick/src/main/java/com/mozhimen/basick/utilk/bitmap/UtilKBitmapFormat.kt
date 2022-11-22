@@ -24,7 +24,7 @@ import kotlin.math.ceil
  */
 object UtilKBitmapFormat {
     private val TAG = "UtilKBitmap>>>>>"
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
 
     /**

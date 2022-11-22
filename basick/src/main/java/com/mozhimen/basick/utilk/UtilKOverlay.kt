@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Version 1.0
  */
 object UtilKOverlay {
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     @JvmStatic
     fun startOverlaySettingActivity() {

@@ -13,7 +13,7 @@ import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
 import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.base.mos.MDebugKCrashK
-import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
+import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
 class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
 
@@ -31,7 +31,7 @@ class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
 
         vb.debugkLogkRecycler.layoutManager = LinearLayoutManager(this)
         val adapterKRecycler =
-            AdapterKRecycler<MDebugKCrashK, DebugkItemCrashkFileBinding>(
+            RecyclerKVBAdapter<MDebugKCrashK, DebugkItemCrashkFileBinding>(
                 _dataSets,
                 R.layout.debugk_item_crashk_file,
                 BR.itemDebugKCrashK

@@ -18,7 +18,7 @@ class CrashKNative {
     var crashPathNative: String? = null
         get() {
             if (field != null) return field
-            val crashFullPath = UtilKApplication.instance.get()!!.cacheDir.absolutePath + "/crashk_native"
+            val crashFullPath = UtilKApplication.instance.get().cacheDir.absolutePath + "/crashk_native"
             UtilKFile.createFolder(crashFullPath)
             return crashFullPath.also { field = it }
         }

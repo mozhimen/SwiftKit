@@ -16,7 +16,7 @@ import kotlin.math.roundToInt
  * @Version 1.0
  */
 object UtilKBitmapDeal {
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     /**
      * 旋转位图

@@ -22,7 +22,7 @@ import java.nio.charset.Charset
  */
 object UtilKPackage {
     private const val TAG = "UtilKPackage>>>>>"
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     /**
      * 获取程序包名

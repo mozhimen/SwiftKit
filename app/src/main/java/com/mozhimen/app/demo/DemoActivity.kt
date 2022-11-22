@@ -11,7 +11,7 @@ import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.componentk.statusbark.annors.AStatusBarK
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVBVM
 import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
-import com.mozhimen.uicorek.recyclerk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapterStuffed
 import kotlin.math.abs
 
 @AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
@@ -32,7 +32,7 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
         )
         vb.demoList.layoutManager = LinearLayoutManager(this)
         vb.demoList.adapter =
-            AdapterKRecyclerStuffed<Astro, ItemDemoListBinding>(
+            RecyclerKVBAdapterStuffed<Astro, ItemDemoListBinding>(
                 list,
                 R.layout.item_demo_list,
                 R.layout.item_demo_header,

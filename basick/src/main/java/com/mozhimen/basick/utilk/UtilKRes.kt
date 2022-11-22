@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Version 1.0
  */
 object UtilKRes {
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     /**
      * 获取字符串
@@ -34,7 +34,7 @@ object UtilKRes {
      * @return String
      */
     @JvmStatic
-    fun getString(@StringRes resId: Int, vararg formatArgs: Any?): String =
+    fun getString(@StringRes resId: Int, vararg formatArgs: Any): String =
         _context.getString(resId, *formatArgs)
 
     /**

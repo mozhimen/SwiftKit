@@ -27,7 +27,7 @@ import kotlin.math.sqrt
 object UtilKScreen {
     private val TAG = "UtilKScreen>>>>>"
 
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     /**
      * 获得View所在界面 NavigationBar 高度

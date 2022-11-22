@@ -31,7 +31,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
     MediaPlayer.OnErrorListener,
     IAudioKFocusListener {
     private val TAG = "AudioPlayer>>>>>"
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
     private var _statusMediaPlayer: StatusMediaPlayer? = null
         get() {
             if (field != null) return field

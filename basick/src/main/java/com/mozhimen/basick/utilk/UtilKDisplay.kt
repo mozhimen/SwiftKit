@@ -15,7 +15,7 @@ import kotlin.math.roundToInt
  * @Version 1.0
  */
 object UtilKDisplay {
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     /**
      * dp转px

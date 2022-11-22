@@ -15,7 +15,7 @@ import com.mozhimen.debugk.databinding.DebugkDialogItemBinding
 import com.mozhimen.debugk.base.DebugKParams
 import com.mozhimen.debugk.base.annors.ADebugKParams
 import com.mozhimen.debugk.base.mos.MDebugKMethod
-import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
+import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
 @APermissionK(permissions = [Manifest.permission.READ_PHONE_STATE])
 class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {
@@ -57,7 +57,7 @@ class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {
         }
 
         vb.debugkParamsRecycler.layoutManager = LinearLayoutManager(this)
-        vb.debugkParamsRecycler.adapter = AdapterKRecycler<MDebugKMethod, DebugkDialogItemBinding>(
+        vb.debugkParamsRecycler.adapter = RecyclerKVBAdapter<MDebugKMethod, DebugkDialogItemBinding>(
             params,
             R.layout.debugk_item_params,
             BR.itemDebugKParams

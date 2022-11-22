@@ -36,12 +36,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.mozhimen.basick.utilk.UtilKActivity;
+import com.mozhimen.basick.utilk.UtilKAnimation;
+import com.mozhimen.basick.utilk.UtilKAnimator;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUtils;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -332,7 +334,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         if (mShowAnimation == null) {
             mShowAnimation = mPopupWindow.onCreateShowAnimation(width, height);
             if (mShowAnimation != null) {
-                showDuration = PopupUtils.getAnimationDuration(mShowAnimation, 0);
+                showDuration = UtilKAnimation.getAnimationDuration(mShowAnimation);
                 setToBlur(mBlurOption);
             }
         }
@@ -343,7 +345,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         if (mShowAnimator == null) {
             mShowAnimator = mPopupWindow.onCreateShowAnimator(width, height);
             if (mShowAnimator != null) {
-                showDuration = PopupUtils.getAnimatorDuration(mShowAnimator, 0);
+                showDuration = UtilKAnimator.getAnimatorDuration(mShowAnimator);
                 setToBlur(mBlurOption);
             }
         }
@@ -354,7 +356,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         if (mDismissAnimation == null) {
             mDismissAnimation = mPopupWindow.onCreateDismissAnimation(width, height);
             if (mDismissAnimation != null) {
-                dismissDuration = PopupUtils.getAnimationDuration(mDismissAnimation, 0);
+                dismissDuration = UtilKAnimation.getAnimationDuration(mDismissAnimation);
                 setToBlur(mBlurOption);
             }
         }
@@ -365,7 +367,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         if (mDismissAnimator == null) {
             mDismissAnimator = mPopupWindow.onCreateDismissAnimator(width, height);
             if (mDismissAnimator != null) {
-                dismissDuration = PopupUtils.getAnimatorDuration(mDismissAnimator, 0);
+                dismissDuration = UtilKAnimator.getAnimatorDuration(mDismissAnimator);
                 setToBlur(mBlurOption);
             }
         }
@@ -396,7 +398,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             mShowAnimation.cancel();
         }
         mShowAnimation = showAnimation;
-        showDuration = PopupUtils.getAnimationDuration(mShowAnimation, 0);
+        showDuration = UtilKAnimation.getAnimationDuration(mShowAnimation);
         setToBlur(mBlurOption);
     }
 
@@ -409,7 +411,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             mShowAnimator.cancel();
         }
         mShowAnimator = showAnimator;
-        showDuration = PopupUtils.getAnimatorDuration(mShowAnimator, 0);
+        showDuration = UtilKAnimator.getAnimatorDuration(mShowAnimator);
         setToBlur(mBlurOption);
     }
 
@@ -419,7 +421,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             mDismissAnimation.cancel();
         }
         mDismissAnimation = dismissAnimation;
-        dismissDuration = PopupUtils.getAnimationDuration(mDismissAnimation, 0);
+        dismissDuration = UtilKAnimation.getAnimationDuration(mDismissAnimation);
         setToBlur(mBlurOption);
     }
 
@@ -429,7 +431,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             mDismissAnimator.cancel();
         }
         mDismissAnimator = dismissAnimator;
-        dismissDuration = PopupUtils.getAnimatorDuration(mDismissAnimator, 0);
+        dismissDuration = UtilKAnimator.getAnimatorDuration(mDismissAnimator);
         setToBlur(mBlurOption);
     }
 
@@ -1165,11 +1167,11 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     static Activity findActivity(Object parent, boolean returnTopIfNull) {
         Activity act = null;
         if (parent instanceof Context) {
-            act = PopupUtils.getActivity((Context) parent);
+            act = UtilKActivity.getActivityByContext((Context) parent, true);
         } else if (parent instanceof Fragment) {
             act = ((Fragment) parent).getActivity();
         } else if (parent instanceof Dialog) {
-            act = PopupUtils.getActivity(((Dialog) parent).getContext());
+            act = UtilKActivity.getActivityByContext(((Dialog) parent).getContext(), true);
         }
         if (act == null && returnTopIfNull) {
             act = BasePopupSDK.getInstance().getTopActivity();
@@ -1192,7 +1194,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         } else if (parent instanceof Fragment) {
             decorView = ((Fragment) parent).getView();
         } else if (parent instanceof Context) {
-            Activity act = PopupUtils.getActivity((Context) parent);
+            Activity act = UtilKActivity.getActivityByContext((Context) parent, true);
             decorView = act == null ? null : act.findViewById(android.R.id.content);
         }
 

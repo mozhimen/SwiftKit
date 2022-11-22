@@ -29,7 +29,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
         private val TAG = "HotUpdateK>>>>>"
     }
 
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
     private val _installParentDirectory = _context.filesDir.absolutePath + "/hotupdatek"
     private val _installDirectory
         get() = _installParentDirectory + "/hotupdatek_${UtilKDate.getNowLong()}.apk"

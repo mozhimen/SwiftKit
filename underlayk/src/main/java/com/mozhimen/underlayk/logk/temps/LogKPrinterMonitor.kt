@@ -15,7 +15,7 @@ import com.mozhimen.underlayk.logk.commons.LogKConfig
  * @Version 1.0
  */
 class LogKPrinterMonitor() : ILogKPrinter {
-    private val _printerMonitorProvider: LogKPrinterMonitorProvider = LogKPrinterMonitorProvider(UtilKApplication.instance.get()!!)
+    private val _printerMonitorProvider: LogKPrinterMonitorProvider = LogKPrinterMonitorProvider(UtilKApplication.instance.get())
     private var _isShow: Boolean = false
 
     init {

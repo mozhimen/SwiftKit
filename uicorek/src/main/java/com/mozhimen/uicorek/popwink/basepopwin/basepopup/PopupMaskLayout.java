@@ -10,9 +10,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.mozhimen.basick.utilk.UtilKDrawable;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.BlurImageView;
 import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUtils;
 
 /**
  * Created by 大灯泡 on 2018/5/9.
@@ -67,10 +67,8 @@ class PopupMaskLayout extends FrameLayout implements BasePopupEvent.EventObserve
         if (mHelper.getBackgroundView() != null) {
             mBackgroundViewHolder = new BackgroundViewHolder(mHelper.getBackgroundView(), mHelper);
         } else {
-            if (!PopupUtils.isBackgroundInvalidated(mHelper.getPopupBackground())) {
-                mBackgroundViewHolder = new BackgroundViewHolder(PopupBackgroundView.creaete(context,
-                                                                                             mHelper),
-                                                                 mHelper);
+            if (UtilKDrawable.isColorDrawableValid(mHelper.getPopupBackground())) {
+                mBackgroundViewHolder = new BackgroundViewHolder(PopupBackgroundView.creaete(context, mHelper), mHelper);
             }
         }
         if (mBackgroundViewHolder != null) {

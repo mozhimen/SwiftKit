@@ -17,7 +17,7 @@ class CacheKSPProvider(spName: String) {
     private val CACHEK_SP_ENCRYPT_ALIAS = "5rfj4FVG&Td#$*Jd"
 
     init {
-        _preferences = UtilKApplication.instance.get()!!
+        _preferences = UtilKApplication.instance.get()
             .getSharedPreferences(spName, Context.MODE_PRIVATE)
     }
 

@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.view
 
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewParent
 import android.view.ViewTreeObserver
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.utilk.UtilKDataType
@@ -132,6 +133,18 @@ object UtilKView {
             if (tempView == destView) return tempView
         }
         return null
+    }
+
+    /**
+     * 从父布局删除View
+     * @param view View
+     * @return View
+     */
+    @JvmStatic
+    fun removeViewFromParent(view: View): View {
+        val viewParent: ViewParent = view.parent
+        if (viewParent is ViewGroup) viewParent.removeView(viewParent)
+        return view
     }
 
     /**

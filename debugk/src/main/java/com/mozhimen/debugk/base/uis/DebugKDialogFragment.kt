@@ -18,7 +18,7 @@ import com.mozhimen.debugk.databinding.DebugkDialogItemBinding
 import com.mozhimen.debugk.base.DebugKTools
 import com.mozhimen.debugk.base.annors.ADebugKTool
 import com.mozhimen.debugk.base.mos.MDebugKMethod
-import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
+import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
 /**
  * @ClassName DebugKDialogFragment
@@ -75,7 +75,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
         }
 
         _debugKRecycler.layoutManager = LinearLayoutManager(requireActivity())
-        _debugKRecycler.adapter = AdapterKRecycler<MDebugKMethod, DebugkDialogItemBinding>(
+        _debugKRecycler.adapter = RecyclerKVBAdapter<MDebugKMethod, DebugkDialogItemBinding>(
             methods,
             R.layout.debugk_dialog_item,
             BR.itemDebugKDialog

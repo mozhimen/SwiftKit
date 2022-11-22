@@ -12,7 +12,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Version 1.0
  */
 object UtilKToast {
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     @JvmStatic
     fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {

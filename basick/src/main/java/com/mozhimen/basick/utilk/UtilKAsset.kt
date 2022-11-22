@@ -16,7 +16,7 @@ object UtilKAsset {
     private const val TAG = "UtilKAssets>>>>>"
     private const val msg_not_exist = "fail, make sure it's file or exist"
     private const val msg_wrong = "something wrong"
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
 
     /**
      * 文件是否存在

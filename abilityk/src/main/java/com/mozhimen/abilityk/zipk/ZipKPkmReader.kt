@@ -22,7 +22,7 @@ import java.util.zip.ZipInputStream
  * @Version 1.0
  */
 class ZipKPkmReader {
-    private val _context = UtilKApplication.instance.get()!!
+    private val _context = UtilKApplication.instance.get()
     private var _path: String? = null
     private var _zipInputStream: ZipInputStream? = null
     private var _manager: AssetManager = _context.assets

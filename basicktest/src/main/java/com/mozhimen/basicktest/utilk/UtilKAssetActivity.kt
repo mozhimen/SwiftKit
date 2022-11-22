@@ -12,14 +12,14 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkAssetBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
-import com.mozhimen.uicorek.recyclerk.AdapterKRecycler
+import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 @APermissionK([Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
 class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
-    private lateinit var _adapterKRecycler: AdapterKRecycler<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>
+    private lateinit var _adapterKRecycler: RecyclerKVBAdapter<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileActivity.UtilKFileLogBean(0, "start asset file process >>>>>")
     )
@@ -28,7 +28,7 @@ class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
         PermissionK.initPermissions(this) {
             if (it) {
                 vb.utilkAssetRecycler.layoutManager = LinearLayoutManager(this)
-                _adapterKRecycler = AdapterKRecycler(_logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
+                _adapterKRecycler = RecyclerKVBAdapter( _logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
                 vb.utilkAssetRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)

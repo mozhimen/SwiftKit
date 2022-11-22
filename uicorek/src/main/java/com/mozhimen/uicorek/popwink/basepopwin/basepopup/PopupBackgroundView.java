@@ -5,8 +5,8 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.mozhimen.basick.utilk.UtilKDrawable;
 import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUtils;
 
 /**
  * Created by 大灯泡 on 2018/5/9.
@@ -35,7 +35,7 @@ class PopupBackgroundView extends View {
     }
 
     private void init(Context context, final BasePopupHelper mHelper) {
-        if (PopupUtils.isBackgroundInvalidated(mHelper.getPopupBackground())) {
+        if (!UtilKDrawable.isColorDrawableValid(mHelper.getPopupBackground())) {
             setVisibility(GONE);
             return;
         }

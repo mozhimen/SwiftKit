@@ -33,7 +33,7 @@ class LogKPrinterFile(
     var logPath: String? = null
         get() {
             if (field != null) return field
-            val logFullPath = UtilKApplication.instance.get()!!.cacheDir.absolutePath + "/logk_printer_file"
+            val logFullPath = UtilKApplication.instance.get().cacheDir.absolutePath + "/logk_printer_file"
             UtilKFile.createFolder(logFullPath)
             return logFullPath.also { field = it }
         }
