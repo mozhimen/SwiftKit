@@ -14,10 +14,10 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
-import com.mozhimen.basick.extsk.view.setPaddingHorizontal
+import com.mozhimen.basick.utilk.exts.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
-import com.mozhimen.basick.extsk.view.setPadding
+import com.mozhimen.basick.utilk.exts.setPadding
 import com.mozhimen.basick.elemk.handler.commons.BaseWeakRefHandler
 import com.mozhimen.uicorek.layoutk.search.helpers.AttrsParser
 import com.mozhimen.uicorek.layoutk.search.commons.SearchTextWatcher

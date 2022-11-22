@@ -11,8 +11,8 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.uicorek.viewk.commons.IViewK
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.normalize
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.basick.utilk.UtilKRes

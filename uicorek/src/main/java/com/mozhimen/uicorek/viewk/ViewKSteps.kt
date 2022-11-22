@@ -8,8 +8,8 @@ import android.graphics.Rect
 import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.uicorek.viewk.commons.ViewK
 import com.mozhimen.uicorek.R
 

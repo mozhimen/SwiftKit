@@ -1,9 +1,8 @@
 package com.mozhimen.basicktest
 
-import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.start
+import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.basicktest.stackk.StackKActivity
 import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding

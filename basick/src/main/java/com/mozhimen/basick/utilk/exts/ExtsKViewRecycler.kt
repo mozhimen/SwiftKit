@@ -1,4 +1,4 @@
-package com.mozhimen.basick.extsk.view
+package com.mozhimen.basick.utilk.exts
 
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.view.UtilKViewRecycler

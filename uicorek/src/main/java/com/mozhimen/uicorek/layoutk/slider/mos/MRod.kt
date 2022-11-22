@@ -1,8 +1,7 @@
 package com.mozhimen.uicorek.layoutk.slider.mos
 
-import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.extsk.normalize
+import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.helpers.AttrsParser
 
@@ -29,7 +28,6 @@ class MRod(private val _owner: LifecycleOwner) {
     var currentPercent: Float = 0f
         set(value) {
             field = value.normalize(0f to 1f)
-            Log.d(TAG, "currentPercent: $field")
             _sliderListener?.onScrolling(currentPercent, currentVal, this)
         }
     val currentVal: Float

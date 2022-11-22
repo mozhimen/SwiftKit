@@ -83,7 +83,7 @@ class LogKPrinterFile(
     }
 
     private fun genFileName(): String {
-        return "logk_${UtilKDate.getNowTime()}.txt"
+        return "logk_${UtilKDate.getNowLong()}.txt"
     }
 
     /**

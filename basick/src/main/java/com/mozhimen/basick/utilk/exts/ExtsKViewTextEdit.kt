@@ -1,4 +1,4 @@
-package com.mozhimen.basick.extsk.view
+package com.mozhimen.basick.utilk.exts
 
 import android.widget.EditText
 import com.mozhimen.basick.utilk.view.UtilKViewTextEdit

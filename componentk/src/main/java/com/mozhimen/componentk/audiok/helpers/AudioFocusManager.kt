@@ -3,8 +3,7 @@ package com.mozhimen.componentk.audiok.helpers
 import android.content.Context
 import android.media.AudioManager
 import android.media.AudioManager.OnAudioFocusChangeListener
-import android.media.AudioManager.STREAM_ALARM
-import com.mozhimen.basick.extsk.normalize
+import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.componentk.audiok.commons.IAudioKFocusListener
 
 /**

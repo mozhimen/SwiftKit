@@ -1,10 +1,10 @@
 package com.mozhimen.underlayktest
 
 import com.mozhimen.basick.elemk.application.commons.BaseApplication
-import com.mozhimen.basick.extsk.toJson
+import com.mozhimen.basick.utilk.exts.toJson
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
-import com.mozhimen.basick.extsk.e
+import com.mozhimen.basick.utilk.exts.e
 import com.mozhimen.underlayk.logk.commons.LogKConfig
 import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
 import com.mozhimen.underlayk.logk.temps.LogKPrinterFile

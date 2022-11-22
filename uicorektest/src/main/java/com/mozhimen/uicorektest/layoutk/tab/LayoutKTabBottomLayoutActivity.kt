@@ -2,8 +2,8 @@ package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.showToast
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorektest.R

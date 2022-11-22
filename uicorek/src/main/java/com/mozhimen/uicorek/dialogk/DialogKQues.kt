@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import com.mozhimen.uicorek.dialogk.commons.IDialogKBuilder
-import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R
 
 /**

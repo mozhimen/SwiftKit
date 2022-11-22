@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.view.fontStyle
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.fontStyle
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
 import com.mozhimen.uicorek.recyclerk.RecyclerKViewHolder

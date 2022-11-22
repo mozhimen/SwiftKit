@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import androidx.annotation.Px
-import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener

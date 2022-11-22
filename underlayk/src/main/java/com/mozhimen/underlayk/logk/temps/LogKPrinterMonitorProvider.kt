@@ -11,7 +11,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.extsk.showToastOnMain
+import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.basick.utilk.UtilKOverlay
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen

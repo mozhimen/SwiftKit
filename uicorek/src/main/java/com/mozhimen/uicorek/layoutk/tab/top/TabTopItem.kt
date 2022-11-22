@@ -9,10 +9,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.view.fontStyle
-import com.mozhimen.basick.extsk.view.loadImage
-import com.mozhimen.basick.extsk.view.resizeSize
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.fontStyle
+import com.mozhimen.basick.utilk.exts.loadImage
+import com.mozhimen.basick.utilk.exts.resizeSize
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabItem
 import com.mozhimen.uicorek.layoutk.tab.top.cons.ETabTopType

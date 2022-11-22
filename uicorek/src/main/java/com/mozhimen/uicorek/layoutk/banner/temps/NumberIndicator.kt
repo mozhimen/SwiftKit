@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 

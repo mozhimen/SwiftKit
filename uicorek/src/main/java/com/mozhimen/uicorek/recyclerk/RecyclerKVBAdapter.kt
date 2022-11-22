@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
  * }}}
  * viewBinding.mainList.adapter=adapter
  */
-typealias IAdapterKRecyclerListener<BEAN, VB> = (holder: RecyclerKVBViewHolder<VB>, item: BEAN, position: Int) -> Unit
+typealias IAdapterKRecyclerListener<BEAN, VB> = (holder: RecyclerKVBViewHolder<VB>, item: BEAN, position: Int, currentSelectPos: Int) -> Unit
 
 open class AdapterKRecycler<BEAN, VB : ViewDataBinding>(
     private var _itemDatas: List<BEAN>,
@@ -32,6 +32,13 @@ open class AdapterKRecycler<BEAN, VB : ViewDataBinding>(
     private val _brId: Int,
     private val _listener: IAdapterKRecyclerListener<BEAN, VB>? = null /* = (com.mozhimen.uicorek.recyclerk.datak.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
 ) : RecyclerView.Adapter<RecyclerKVBViewHolder<VB>>() {
+
+    private var _selectItemPosition = 0
+
+    fun onItemSelected(position: Int) {
+        _selectItemPosition = position
+        notifyDataSetChanged()
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun onItemDataChanged(newItemDatas: List<BEAN>) {
@@ -68,7 +75,7 @@ open class AdapterKRecycler<BEAN, VB : ViewDataBinding>(
 
     override fun onBindViewHolder(holder: RecyclerKVBViewHolder<VB>, position: Int) {
         holder.vb.setVariable(_brId, _itemDatas[position])
-        _listener?.invoke(holder, _itemDatas[position], position)
+        _listener?.invoke(holder, _itemDatas[position], position, _selectItemPosition)
         holder.vb.executePendingBindings()
     }
 

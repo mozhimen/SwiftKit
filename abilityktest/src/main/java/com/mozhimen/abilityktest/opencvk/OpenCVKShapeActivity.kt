@@ -11,7 +11,7 @@ import com.mozhimen.abilityk.opencvk.OpenCVKShape
 import com.mozhimen.abilityk.opencvk.OpenCVKTrans
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkShapeBinding
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.cropBitmap
+import com.mozhimen.basick.utilk.exts.cropBitmap
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing

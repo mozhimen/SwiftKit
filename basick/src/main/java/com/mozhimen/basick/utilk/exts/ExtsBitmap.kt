@@ -1,4 +1,4 @@
-package com.mozhimen.basick.extsk
+package com.mozhimen.basick.utilk.exts
 
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable

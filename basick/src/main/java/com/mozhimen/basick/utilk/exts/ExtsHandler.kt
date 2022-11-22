@@ -1,4 +1,4 @@
-package com.mozhimen.basick.extsk
+package com.mozhimen.basick.utilk.exts
 
 import android.os.Handler
 import com.mozhimen.basick.utilk.UtilKHandler

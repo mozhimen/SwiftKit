@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.logk.commons
 
-import com.mozhimen.basick.extsk.toJson
+import com.mozhimen.basick.utilk.exts.toJson
 import com.mozhimen.underlayk.logk.temps.LogKFormatterStackTrace
 import com.mozhimen.underlayk.logk.temps.LogKFormatterThread
 

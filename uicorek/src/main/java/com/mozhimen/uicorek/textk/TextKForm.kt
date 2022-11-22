@@ -10,8 +10,8 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 import com.mozhimen.uicorek.R
 

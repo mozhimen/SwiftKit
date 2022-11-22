@@ -25,8 +25,6 @@ object UtilKDate {
 
     const val FORMAT_yyyyMMdd = "yyyy-MM-dd"
 
-    const val FORMAT_NONE_yyyyMMdd = "yyyyMMdd"
-
     const val FORMAT_HHmmss = "HH:mm:ss"
 
     const val FORMAT_HHmm = "HH:mm"
@@ -50,7 +48,7 @@ object UtilKDate {
      * @return Long
      */
     @JvmStatic
-    fun getNowTime(): Long =
+    fun getNowLong(): Long =
         date2Long(getNowDate())
 
     /**
@@ -77,7 +75,16 @@ object UtilKDate {
      */
     @JvmStatic
     fun getTodayString(locale: Locale = Locale.CHINA): String =
-        date2String(getNowDate(), FORMAT_NONE_yyyyMMdd)
+        date2String(getNowDate(), FORMAT_yyyyMMdd)
+
+    /**
+     * 今日Long
+     * @param locale Locale
+     * @return Long
+     */
+    @JvmStatic
+    fun getTodayLong(locale: Locale = Locale.CHINA): Long =
+        string2Long(getTodayString(locale), FORMAT_yyyyMMdd)
 
     /**
      * 获得Format

@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.textk
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basick.extsk.view.font
+import com.mozhimen.basick.utilk.exts.font
 import com.mozhimen.uicorek.R
 
 /**

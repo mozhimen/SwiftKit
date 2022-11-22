@@ -8,7 +8,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
-import com.mozhimen.basick.extsk.decimal2String
+import com.mozhimen.basick.utilk.exts.decimal2String
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.context.UtilKApplication

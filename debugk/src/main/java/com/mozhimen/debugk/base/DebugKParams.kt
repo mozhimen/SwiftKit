@@ -1,6 +1,6 @@
 package com.mozhimen.debugk.base
 
-import com.mozhimen.basick.extsk.boolean2String
+import com.mozhimen.basick.utilk.exts.boolean2String
 import com.mozhimen.basick.utilk.*
 import com.mozhimen.debugk.BuildConfig
 import com.mozhimen.debugk.base.annors.ADebugKParams

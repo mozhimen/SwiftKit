@@ -3,9 +3,9 @@ package com.mozhimen.uicorektest.layoutk.navbar
 import android.graphics.Color
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.showToast
-import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkNavbarBinding

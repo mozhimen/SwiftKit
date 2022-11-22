@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk
 
 import android.os.Build
-import com.mozhimen.basick.extsk.joinArray
-import com.mozhimen.basick.extsk.long2String
+import com.mozhimen.basick.utilk.exts.joinArray
+import com.mozhimen.basick.utilk.exts.long2String
 
 /**
  * @ClassName UtilKBuild

@@ -1,9 +1,8 @@
 package com.mozhimen.componentktest
 
-import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.start
+import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.componentktest.audiok.AudioKActivity
 import com.mozhimen.componentktest.cameraxk.CameraXKActivity
 import com.mozhimen.componentktest.databinding.ActivityComponentkBinding

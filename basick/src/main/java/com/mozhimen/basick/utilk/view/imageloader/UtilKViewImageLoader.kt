@@ -8,7 +8,7 @@ import androidx.annotation.Px
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
-import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.view.imageloader.mos.BlurTransformation

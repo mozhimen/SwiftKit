@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
-import com.mozhimen.basick.extsk.view.fontStyle
-import com.mozhimen.basick.extsk.view.loadImageComplex
+import com.mozhimen.basick.utilk.exts.fontStyle
+import com.mozhimen.basick.utilk.exts.loadImageComplex
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.recyclerk.RecyclerKViewHolder
 import com.mozhimen.uicorek.layoutk.side.helpers.AttrsParser

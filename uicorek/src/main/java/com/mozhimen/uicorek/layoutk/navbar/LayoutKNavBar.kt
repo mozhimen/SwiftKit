@@ -2,6 +2,7 @@ package com.mozhimen.uicorek.layoutk.navbar
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
@@ -10,12 +11,15 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.*
+import androidx.annotation.ColorInt
+import androidx.annotation.Px
 import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.drawable2Bitmap
-import com.mozhimen.basick.extsk.view.setPaddingHorizontal
-import com.mozhimen.basick.extsk.view.font
-import com.mozhimen.basick.extsk.view.fontStyle
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.drawable2Bitmap
+import com.mozhimen.basick.utilk.exts.sp2px
+import com.mozhimen.basick.utilk.exts.setPaddingHorizontal
+import com.mozhimen.basick.utilk.exts.font
+import com.mozhimen.basick.utilk.exts.fontStyle
 import com.mozhimen.uicorek.layoutk.navbar.helpers.AttrsParser
 import com.mozhimen.uicorek.layoutk.navbar.mos.MNavBarAttrs
 import java.util.*
@@ -118,11 +122,26 @@ class LayoutKNavBar @JvmOverloads constructor(
         }
     }
 
+    fun addLeftText(
+        text: String,
+        boxWidth: Int,
+        paddingHorizontal: Int,
+        block: (View.() -> Unit)? = null,
+        @ColorInt textColor: Int = Color.BLACK,
+        @Px textSize: Int = 15f.sp2px()
+    ) {
+        val textView = getTitleView(text, textColor, textSize)
+        addSideView(textView, boxWidth, paddingHorizontal, true)
+        block?.let {
+            textView.it()
+        }
+    }
+
     fun addLeftView(
         view: View,
         boxWidth: Int,
         paddingHorizontal: Int,
-        block: (View.() -> Unit)?
+        block: (View.() -> Unit)? = null
     ) {
         addSideView(view, boxWidth, paddingHorizontal, true)
         block?.let {
@@ -159,11 +178,26 @@ class LayoutKNavBar @JvmOverloads constructor(
         }
     }
 
+    fun addRightText(
+        text: String,
+        boxWidth: Int,
+        paddingHorizontal: Int,
+        block: (View.() -> Unit)? = null,
+        @ColorInt textColor: Int = Color.BLACK,
+        @Px textSize: Int = 15f.sp2px()
+    ) {
+        val textView = getTitleView(text, textColor, textSize)
+        addSideView(textView, boxWidth, paddingHorizontal, false)
+        block?.let {
+            textView.it()
+        }
+    }
+
     fun addRightView(
         view: View,
         boxWidth: Int,
         paddingHorizontal: Int,
-        block: (View.() -> Unit)?
+        block: (View.() -> Unit)? = null
     ) {
         addSideView(view, boxWidth, paddingHorizontal, false)
         block?.let {

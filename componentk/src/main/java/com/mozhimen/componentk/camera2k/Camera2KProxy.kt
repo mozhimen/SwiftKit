@@ -18,7 +18,7 @@ import android.view.Surface
 import android.view.SurfaceHolder
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.extsk.showToastOnMain
+import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.basick.utilk.UtilKDisplay
 import com.mozhimen.componentk.camera2k.helpers.GLSurfaceRenderer
 import com.mozhimen.underlayk.logk.LogK

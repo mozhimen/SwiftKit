@@ -2,8 +2,8 @@ package com.mozhimen.uicorek.layoutk.side.helpers
 
 import android.content.Context
 import android.util.AttributeSet
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.layoutk.side.mos.MSideAttrs

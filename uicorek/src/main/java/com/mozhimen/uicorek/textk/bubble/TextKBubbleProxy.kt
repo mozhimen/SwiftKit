@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
-import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.drawablek.arrow.DrawableKArrow

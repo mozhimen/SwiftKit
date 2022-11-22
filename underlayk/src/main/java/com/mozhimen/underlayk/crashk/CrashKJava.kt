@@ -75,7 +75,7 @@ class CrashKJava {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val savePath = crashPathJava + "/crashk_java_${UtilKDate.getNowTime()}.txt"
+            val savePath = crashPathJava + "/crashk_java_${UtilKDate.getNowLong()}.txt"
             UtilKFile.string2File(log, savePath)
         }
 

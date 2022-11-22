@@ -1,9 +1,8 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.extsk.isIPValid
-import com.mozhimen.basick.extsk.isPortValid
-import com.mozhimen.basick.extsk.printlog
-import com.mozhimen.basick.utilk.verify.UtilKVerifyUrl
+import com.mozhimen.basick.utilk.exts.isIPValid
+import com.mozhimen.basick.utilk.exts.isPortValid
+import com.mozhimen.basick.utilk.exts.printlog
 import org.junit.Test
 
 

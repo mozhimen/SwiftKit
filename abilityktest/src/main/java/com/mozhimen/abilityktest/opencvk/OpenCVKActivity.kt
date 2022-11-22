@@ -1,10 +1,9 @@
 package com.mozhimen.abilityktest.opencvk
 
-import android.os.Bundle
 import android.view.View
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkBinding
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.start
+import com.mozhimen.basick.utilk.exts.start
 
 class OpenCVKActivity : BaseActivityVB<ActivityOpencvkBinding>() {
 

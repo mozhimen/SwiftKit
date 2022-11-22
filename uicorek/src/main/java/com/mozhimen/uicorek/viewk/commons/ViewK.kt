@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.viewk.commons
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.exts.dp2px
 
 /**
  * @ClassName ICustomView

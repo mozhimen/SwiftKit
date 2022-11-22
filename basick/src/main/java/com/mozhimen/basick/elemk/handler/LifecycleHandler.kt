@@ -2,7 +2,7 @@ package com.mozhimen.basick.elemk.handler
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.extsk.removeAll
+import com.mozhimen.basick.utilk.exts.removeAll
 import com.mozhimen.basick.elemk.handler.commons.BaseWeakRefHandler
 
 /**

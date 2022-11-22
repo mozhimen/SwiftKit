@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.extsk.view.isScroll2Top
+import com.mozhimen.basick.utilk.exts.isScroll2Top
 
 /**
  * @ClassName UtilKScroll

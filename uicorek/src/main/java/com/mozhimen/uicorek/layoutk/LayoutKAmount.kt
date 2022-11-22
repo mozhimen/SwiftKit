@@ -10,9 +10,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.normalize
-import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.normalize
+import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
 

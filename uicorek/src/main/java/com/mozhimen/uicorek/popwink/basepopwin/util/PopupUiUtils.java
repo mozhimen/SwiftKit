@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 
 import androidx.annotation.NonNull;
 
+import com.mozhimen.basick.utilk.context.UtilKApplication;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupSDK;
 
@@ -124,7 +125,7 @@ public class PopupUiUtils {
     }
 
     public static int getScreenOrientation() {
-        return BasePopupSDK.getApplication().getResources().getConfiguration().orientation;
+        return  /*BasePopupSDK.getApplication().getResources()*/UtilKApplication.getInstance().get().getResources().getConfiguration().orientation;
     }
 
     public static int getStatusBarHeight() {

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.extsk.view
+package com.mozhimen.basick.utilk.exts
 
 import android.graphics.Typeface
 import android.widget.TextView

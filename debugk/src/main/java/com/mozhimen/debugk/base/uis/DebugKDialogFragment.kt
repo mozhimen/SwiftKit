@@ -79,7 +79,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
             methods,
             R.layout.debugk_dialog_item,
             BR.itemDebugKDialog
-        ) { holder, itemData, _ ->
+        ) { holder, itemData, _, _ ->
 
             val descView = holder.vb.debugkDialogItemDesc
             if (TextUtils.isEmpty(itemData.desc)) {

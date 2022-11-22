@@ -17,6 +17,12 @@ object ImageKBindingAdapter {
     fun loadImageBlur(imageView: ImageView, res: Any) {
         UtilKViewImageLoader.loadImageBlur(imageView, res)
     }
+
+    @JvmStatic
+    @BindingAdapter("loadImage")
+    fun loadImage(imageView: ImageView, res: Any) {
+        UtilKViewImageLoader.loadImage(imageView, res)
+    }
 //    /**
 //     * 加载图片
 //     * @param imageView ImageView

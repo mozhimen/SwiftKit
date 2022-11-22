@@ -3,7 +3,7 @@ package com.mozhimen.uicorektest.layoutk.side
 import android.os.Bundle
 import android.widget.Toast
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.showToast
+import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.uicorek.recyclerk.RecyclerKViewHolder
 import com.mozhimen.uicorek.layoutk.side.ILayoutKSideListListener
 import com.mozhimen.uicorek.layoutk.side.mos.*

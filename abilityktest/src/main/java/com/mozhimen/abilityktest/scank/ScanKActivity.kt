@@ -7,7 +7,7 @@ import android.widget.Toast
 import com.mozhimen.abilityk.scank.ScanKQR
 import com.mozhimen.abilityktest.databinding.ActivityScankBinding
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.start
+import com.mozhimen.basick.utilk.exts.start
 
 class ScanKActivity : BaseActivityVB<ActivityScankBinding>() {
 

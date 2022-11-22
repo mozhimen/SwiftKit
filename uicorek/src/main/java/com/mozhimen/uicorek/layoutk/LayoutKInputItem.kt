@@ -13,9 +13,9 @@ import android.view.Gravity
 import android.widget.EditText
 import android.widget.TextView
 import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
-import com.mozhimen.basick.extsk.view.setInputMaxLength
-import com.mozhimen.basick.extsk.view.setPadding
-import com.mozhimen.basick.extsk.sp2px
+import com.mozhimen.basick.utilk.exts.setInputMaxLength
+import com.mozhimen.basick.utilk.exts.setPadding
+import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
 

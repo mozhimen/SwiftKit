@@ -6,7 +6,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
-import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.viewk.commons.ViewK
 
 import com.mozhimen.uicorek.R

@@ -11,8 +11,8 @@ import com.mozhimen.abilityk.opencvk.OpenCVKContrast
 import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkContrastBinding
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.cropBitmap
-import com.mozhimen.basick.extsk.drawable2Bitmap
+import com.mozhimen.basick.utilk.exts.cropBitmap
+import com.mozhimen.basick.utilk.exts.drawable2Bitmap
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal

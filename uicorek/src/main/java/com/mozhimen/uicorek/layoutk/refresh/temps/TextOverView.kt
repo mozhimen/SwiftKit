@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
-import com.mozhimen.basick.extsk.startRotate
-import com.mozhimen.basick.extsk.stopAnim
+import com.mozhimen.basick.utilk.exts.startRotate
+import com.mozhimen.basick.utilk.exts.stopAnim
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.refresh.commons.RefreshOverView

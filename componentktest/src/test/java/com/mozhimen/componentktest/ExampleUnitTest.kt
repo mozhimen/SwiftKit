@@ -1,11 +1,10 @@
 package com.mozhimen.componentktest
 
-import com.mozhimen.basick.extsk.printlog
+import com.mozhimen.basick.utilk.exts.printlog
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.componentktest.navigatek.fragments.FirstFragment
 import org.junit.Test
 
-import org.junit.Assert.*
 import java.lang.Math.abs
 
 /**

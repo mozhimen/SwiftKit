@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.SeekBar
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.drawable2Bitmap
+import com.mozhimen.basick.utilk.exts.drawable2Bitmap
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapNet

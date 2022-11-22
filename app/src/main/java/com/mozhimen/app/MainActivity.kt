@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.app.demo.DemoActivity
-import com.mozhimen.basick.extsk.start
+import com.mozhimen.basick.utilk.exts.start
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

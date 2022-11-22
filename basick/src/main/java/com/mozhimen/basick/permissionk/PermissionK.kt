@@ -10,8 +10,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.mozhimen.basick.extsk.showToast
-import com.mozhimen.basick.extsk.toJson
+import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.exts.toJson
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.permissionk.helpers.IPermissionKListener
 import com.mozhimen.basick.permissionk.helpers.InvisibleFragment

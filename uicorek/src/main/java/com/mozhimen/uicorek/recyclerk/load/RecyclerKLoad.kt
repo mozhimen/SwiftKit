@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.extsk.view.findLastVisibleItem
-import com.mozhimen.basick.extsk.view.isScroll2End
-import com.mozhimen.basick.extsk.view.isScroll2Top
+import com.mozhimen.basick.utilk.exts.findLastVisibleItem
+import com.mozhimen.basick.utilk.exts.isScroll2End
+import com.mozhimen.basick.utilk.exts.isScroll2Top
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.uicorek.layoutk.refresh.helpers.RefreshGestureDetector

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.extsk.view.font
+import com.mozhimen.basick.utilk.exts.font
 import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
 import com.mozhimen.uicorek.R
 

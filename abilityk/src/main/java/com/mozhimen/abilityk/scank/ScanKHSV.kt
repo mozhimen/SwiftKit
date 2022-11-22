@@ -5,8 +5,8 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.util.Log
 import com.mozhimen.abilityk.scank.cons.EColorHSV
-import com.mozhimen.basick.extsk.drawable2Bitmap
-import com.mozhimen.basick.extsk.toJson
+import com.mozhimen.basick.utilk.exts.drawable2Bitmap
+import com.mozhimen.basick.utilk.exts.toJson
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.UtilKRes
 import java.io.FileInputStream

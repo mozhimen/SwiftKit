@@ -1,14 +1,14 @@
-package com.mozhimen.debugk.ui
+package com.mozhimen.debugk.commons
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.componentk.statusbark.StatusBarK
 import com.mozhimen.debugk.R
-import com.mozhimen.debugk.databinding.DebugkActivityUiBinding
+import com.mozhimen.debugk.databinding.DebugkActivityTabkTopBinding
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
 
@@ -20,7 +20,7 @@ import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
  * @Date 2022/11/16 15:25
  * @Version 1.0
  */
-abstract class DebugKUIActivity : BaseActivityVB<DebugkActivityUiBinding>() {
+abstract class DebugKTabKTopActivity : BaseActivityVB<DebugkActivityTabkTopBinding>() {
     private val _tabList: ArrayList<DebugKUITabTopItem> by lazy { getTabList() }
 
     abstract fun getTabList(): ArrayList<DebugKUITabTopItem>

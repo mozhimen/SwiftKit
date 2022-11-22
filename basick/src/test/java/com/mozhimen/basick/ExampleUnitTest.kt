@@ -1,9 +1,5 @@
 package com.mozhimen.basick
 
-import com.mozhimen.basick.extsk.printlog
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.junit.Test
 
 /**

@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
-import com.mozhimen.basick.extsk.dp2px
-import com.mozhimen.basick.extsk.postDelayed
+import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.exts.postDelayed
 import com.mozhimen.basick.elemk.handler.LifecycleHandler
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
 import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter

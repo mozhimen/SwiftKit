@@ -8,7 +8,7 @@ import android.graphics.RectF
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import com.mozhimen.basick.extsk.dp2px
+import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.viewk.commons.ViewK
 import com.mozhimen.uicorek.viewk.commons.IViewKAction
 import com.mozhimen.uicorek.R
