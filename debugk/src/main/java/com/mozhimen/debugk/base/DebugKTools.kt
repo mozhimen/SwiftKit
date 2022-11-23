@@ -2,7 +2,7 @@ package com.mozhimen.debugk.base
 
 import android.content.Context
 import com.mozhimen.underlayk.fpsk.FpsK
-import com.mozhimen.basick.utilk.UtilKNet
+import com.mozhimen.basick.utilk.UtilKNetwork
 import com.mozhimen.basick.utilk.UtilKSkip.start
 import com.mozhimen.basick.utilk.UtilKTheme
 import com.mozhimen.debugk.base.annors.ADebugKTool
@@ -21,7 +21,7 @@ class DebugKTools {
 
     @ADebugKTool("开启Https降级", "降级成Http,可以使用抓包工具,明文抓包")
     fun degrade2Http(context: Context) {
-        UtilKNet.degrade2Http()
+        UtilKNetwork.degrade2Http()
     }
 
     @ADebugKTool("查看本地参数", "查看构建参数,设备参数,硬件参数等")

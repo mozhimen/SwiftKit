@@ -1,5 +1,8 @@
 package com.mozhimen.basick.utilk.verify
 
+import java.net.URI
+import java.net.URISyntaxException
+
 /**
  * @ClassName Verifier
  * @Description TODO
@@ -42,4 +45,26 @@ object UtilKVerifyUrl {
      */
     @JvmStatic
     fun isPortValid(port: String) = port.matches(Regex(REGEX_PORT))
+
+    /**
+     * 判断url是否可连
+     * @param url String
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isUrlAvailable(url: String): Boolean {
+        val uri: URI?
+        try {
+            uri = URI(url)
+        } catch (e: URISyntaxException) {
+            e.printStackTrace()
+            return false
+        }
+        if (uri.host == null) {
+            return false
+        } else if (!uri.scheme.equals("http") && !uri.scheme.equals("https")) {
+            return false
+        }
+        return true
+    }
 }

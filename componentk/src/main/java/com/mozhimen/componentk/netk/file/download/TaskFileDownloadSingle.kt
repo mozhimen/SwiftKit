@@ -7,7 +7,7 @@ import com.liulishuo.okdownload.DownloadTask
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.basick.taskk.commons.ITaskK
-import com.mozhimen.basick.utilk.UtilKNet
+import com.mozhimen.basick.utilk.verify.UtilKVerifyUrl
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
 import com.mozhimen.underlayk.logk.LogK
 import java.io.File
@@ -32,7 +32,7 @@ class TaskFileDownloadSingle(owner: LifecycleOwner) : ITaskK(owner) {
     }
 
     fun start(url: String, file: File, listener: IFileDownloadSingleListener? = null) {
-        if (!UtilKNet.isUrlAvailable(url) || _downloadUrls.contains(url)) return
+        if (!UtilKVerifyUrl.isUrlAvailable(url) || _downloadUrls.contains(url)) return
 
         _downloadUrls.add(url)
         listener?.let { _downloadListeners[url] = it }

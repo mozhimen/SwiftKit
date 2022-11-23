@@ -15,13 +15,16 @@ abstract class RecyclerKItem<DATA, VH : RecyclerView.ViewHolder>(val data: DATA?
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     private var _adapter: RecyclerKAdapter? = null
+    lateinit var vh: VH
 
     /**
      * 绑定数据
      * @param holder VH
      * @param position Int
      */
-    abstract fun onBindData(holder: VH, position: Int)
+    open fun onBindData(holder: VH, position: Int) {
+        vh = holder
+    }
 
     /**
      * 返回该item的资源id

@@ -14,13 +14,13 @@ import com.mozhimen.componentktest.navigatek.fragments.SecondFragment
 class NavigateKActivity : BaseActivityVBVM<ActivityNavigatekBinding, NavigateKViewModel>() {
 
     private val _fragments = listOf(FirstFragment::class.java, SecondFragment::class.java)
-    private lateinit var _navController: NavController
+    lateinit var navController: NavController
     //private val _navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
     private var _currentItemId: Int = 0
         set(value) {
-            if (value == -1 || !this::_navController.isInitialized) return
-            _navController.navigate(resId = value/*, args = null, navOptions = _navOptions*/)
-            Log.d(TAG, "backQueue: ${_navController.backQueue.joinToString { it.destination.displayName }}")
+            if (value == -1 || !this::navController.isInitialized) return
+            navController.navigate(resId = value/*, args = null, navOptions = _navOptions*/)
+            Log.d(TAG, "backQueue: ${navController.backQueue.joinToString { it.destination.displayName }}")
             field = value
         }
 
@@ -36,9 +36,9 @@ class NavigateKActivity : BaseActivityVBVM<ActivityNavigatekBinding, NavigateKVi
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        _navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, _fragments, _currentItemId)
+        navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, _fragments, _currentItemId)
         vm.liveFragmentId.observe(this) {
-            if (it != null && _navController.findDestination(it) != null && _navController.currentDestination?.id != it) {
+            if (it != null && navController.findDestination(it) != null && navController.currentDestination?.id != it) {
                 _currentItemId = it
             } else {
                 "please add this destination to list".et(TAG)

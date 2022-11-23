@@ -1,6 +1,8 @@
 package com.mozhimen.basick.elemk.fragment.commons
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,5 +57,45 @@ abstract class BaseFragmentVB<VB : ViewDataBinding>(
 
     override fun initView(savedInstanceState: Bundle?) {
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.v(TAG, "onAttach")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.v(TAG, "onPause")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.v(TAG, "onCreate")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.v(TAG, "onDestroy")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.v(TAG, "onDetach")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.v(TAG, "onResume")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.v(TAG, "onStart")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.v(TAG, "onStop")
     }
 }

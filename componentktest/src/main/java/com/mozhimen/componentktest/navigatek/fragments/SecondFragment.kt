@@ -10,6 +10,7 @@ import com.mozhimen.componentktest.BR
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.FragmentSecondBinding
 import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
+import com.mozhimen.componentktest.navigatek.NavigateKActivity
 import com.mozhimen.componentktest.navigatek.NavigateKViewModel
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
@@ -18,7 +19,8 @@ class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, NavigateKViewMode
     private var _adapter: RecyclerKVBAdapter<MKey, ItemNavigatekBinding>? = null
     override fun initData(savedInstanceState: Bundle?) {
         vb.navigatekFragmentSecondTxt.setOnClickListener {
-            vm.liveFragmentId.value = NavigateK.getId(FirstFragment::class.java)
+            (requireActivity() as NavigateKActivity).navController.popBackStack()
+            //vm.liveFragmentId.value = NavigateK.getId(FirstFragment::class.java)
         }
         vb.navigatekFragmentSecondRecycler.layoutManager = LinearLayoutManager(requireActivity())
         _adapter = RecyclerKVBAdapter(_datas, R.layout.item_navigatek, BR.item_navigatek)

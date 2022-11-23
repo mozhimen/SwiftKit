@@ -331,6 +331,11 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="TextKEditFocus">
+        <attr name="textKEditFocus_focusBackground" format="reference" />
+        <attr name="textKEditFocus_unFocusBackground" format="reference" />
+    </declare-styleable>
+
     <declare-styleable name="TextKIconFont">
         <attr name="textKIconFont_fontPath" format="string" />
     </declare-styleable>

@@ -230,11 +230,17 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_netk.xml" value="0.1778115501519757" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/activity_netk_file.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_first.xml" value="0.25" />
-        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_second.xml" value="0.17" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_second.xml" value="0.1363989134652697" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/fragment_third.xml" value="0.128125" />
-        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/componentktest/src/main/res/layout/item_navigatek.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/debugk/src/main/res/layout/activity_debug_ui.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/btnk_icon_background.xml" value="0.1985" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/dialogk_background.xml" value="0.147" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/layoutk_banner_indicator_circle_point_normal.xml" value="0.147" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/layoutk_banner_indicator_circle_point_selected.xml" value="0.147" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/layoutk_btn_icon_background.xml" value="0.147" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/layoutk_search_background.xml" value="0.147" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/layoutk_search_keyword_background.xml" value="0.147" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/layoutk_side_indicator_menu.xml" value="0.147" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/searchk_keyword_background.xml" value="0.1985" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/sliderk_indicator_menu.xml" value="0.1985" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/drawable/textk_edit_cursor.xml" value="0.1985" />
@@ -301,6 +307,7 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_datak_banner.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_layoutk_banner.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_recyclerk_banner.xml" value="0.14548611111111112" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_recyclerk_tab.xml" value="0.20820863616930313" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/layout_popwin_audio.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/underlayk/src/main/res/drawable/logk_printer_view_line.xml" value="0.1585" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/underlayk/src/main/res/layout/logk_monitor_view.xml" value="0.21319444444444444" />

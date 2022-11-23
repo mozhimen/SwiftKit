@@ -13,10 +13,10 @@ import kotlinx.coroutines.launch
  * @Date 2022/11/21 21:22
  * @Version 1.0
  */
-open class DelegateLifecycleObserver(private val _owner: LifecycleOwner) : DefaultLifecycleObserver {
+open class BaseDelegateLifecycleObserver(private val _owner: LifecycleOwner) : DefaultLifecycleObserver {
     init {
         _owner.lifecycleScope.launch(Dispatchers.Main) {
-            _owner.lifecycle.addObserver(this@DelegateLifecycleObserver)
+            _owner.lifecycle.addObserver(this@BaseDelegateLifecycleObserver)
         }
     }
 

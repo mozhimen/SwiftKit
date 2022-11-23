@@ -36,7 +36,7 @@ open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
     private var _listener: IRecyclerKVBAdapterStuffedListener<DATA, VB>? = null
 ) : RecyclerView.Adapter<RecyclerKVBAdapterStuffed.MultipleViewHolder<VB>>() {
 
-    private val TAG = "AdapterKRecyclerStuffed>>>>>"
+    private val TAG = "RecyclerKVBAdapterStuffed>>>>>"
 
     @SuppressLint("NotifyDataSetChanged")
     fun onItemDataChanged(newItemDatas: List<DATA>) {

@@ -5,11 +5,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Process
+import android.util.Log
 import com.mozhimen.basick.cachek.CacheKSP
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.context.UtilKApplication
-import java.net.URI
-import java.net.URISyntaxException
 
 /**
  * @ClassName UtilKNet
@@ -19,7 +18,7 @@ import java.net.URISyntaxException
  * @Version 1.0
  */
 @APermissionK([Manifest.permission.ACCESS_NETWORK_STATE])
-object UtilKNet {
+object UtilKNetwork {
     private val TAG = "UtilKNet>>>>>"
     private val _context = UtilKApplication.instance.get()
     private val _connectivityManager = _context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -27,11 +26,24 @@ object UtilKNet {
     private const val utilknet_sp_degrade_http = "utilknet_sp_degrade_http"
 
     /**
+     * 网络是否连接
+     * @param context Context
+     * @return Boolean
+     */
+    fun isNetworkConnected(context: Context): Boolean {
+        val netWorkInfos = _connectivityManager.allNetworkInfo
+        netWorkInfos.forEach {
+            if (it.isConnected) return true
+        }
+        return false
+    }
+
+    /**
      * 是否连接网络,需要权限:ACCESS_NETWORK_STATE
      * @return Boolean
      */
     @JvmStatic
-    fun isConnectionUseful(): Boolean {
+    fun isNetworkAvailable(): Boolean {
         val netWorkInfo = _connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.isAvailable
     }
@@ -57,25 +69,26 @@ object UtilKNet {
     }
 
     /**
-     * 判断url是否合法
-     * @param url String
-     * @return Boolean
+     * 获取连接类型
+     * @return Int
      */
     @JvmStatic
-    fun isUrlAvailable(url: String): Boolean {
-        val uri: URI?
-        try {
-            uri = URI(url)
-        } catch (e: URISyntaxException) {
-            e.printStackTrace()
-            return false
+    fun getConnectionType(): Int {
+        val networkInfo = _connectivityManager.activeNetworkInfo
+        return networkInfo?.type ?: -1
+    }
+
+    /**
+     * 打印连接信息
+     * @param context Context
+     */
+    @JvmStatic
+    fun printNetworkInfo(context: Context) {
+        val networkInfo = _connectivityManager.activeNetworkInfo
+        if (networkInfo != null) {
+            Log.i(TAG, "isAvailable " + networkInfo.isAvailable + " isConnected " + networkInfo.isConnected + " networkInfo " + networkInfo.toString())
+            Log.i(TAG, "subtypeName " + networkInfo.subtypeName + " typeName " + networkInfo.typeName + " extraInfo " + networkInfo.extraInfo)
         }
-        if (uri.host == null) {
-            return false
-        } else if (!uri.scheme.equals("http") && !uri.scheme.equals("https")) {
-            return false
-        }
-        return true
     }
 
     @JvmStatic
