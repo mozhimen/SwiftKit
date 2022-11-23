@@ -6,8 +6,9 @@ import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import com.mozhimen.basick.utilk.UtilKBar
+import com.mozhimen.basick.utilk.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.UtilKOS
+import com.mozhimen.basick.utilk.bar.UtilKTitleBar
 
 /**
  * @ClassName StatusBarKHelper
@@ -44,8 +45,8 @@ object StatusBarKHelper {
      */
     @JvmStatic
     fun setStatusBarFullScreen(activity: Activity) {
-        UtilKBar.hideTitleBar(activity)
-        UtilKBar.hideStatusBar(activity)
+        UtilKTitleBar.hideTitleBar(activity)
+        UtilKStatusBar.hideStatusBar(activity)
         setDecorViewFitSys(activity)
     }
 
@@ -90,16 +91,16 @@ object StatusBarKHelper {
         if (isDark) {
             when {
                 UtilKOS.isMiui() -> {
-                    UtilKBar.setStatusBarFontIcon_MiuiUI(activity, isDark)
+                    UtilKStatusBar.setStatusBarFontIcon_MiuiUI(activity, isDark)
                 }
                 UtilKOS.isOppo() -> {
-                    UtilKBar.setStatusBarFontIcon_ColorOSUI(activity, isDark)
+                    UtilKStatusBar.setStatusBarFontIcon_ColorOSUI(activity, isDark)
                 }
                 UtilKOS.isFlyme() -> {
-                    UtilKBar.setStatusBarFontIcon_FlymeUI(activity, isDark)
+                    UtilKStatusBar.setStatusBarFontIcon_FlymeUI(activity, isDark)
                 }
                 else -> {
-                    UtilKBar.setStatusBarFontIcon_CommonUI(activity, isDark)
+                    UtilKStatusBar.setStatusBarFontIcon_CommonUI(activity, isDark)
                 }
             }
         }

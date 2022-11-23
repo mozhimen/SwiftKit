@@ -37,13 +37,16 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.mozhimen.basick.utilk.UtilKActivity;
+import com.mozhimen.basick.utilk.UtilKAnim;
 import com.mozhimen.basick.utilk.UtilKAnimation;
 import com.mozhimen.basick.utilk.UtilKAnimator;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
+import com.mozhimen.basick.utilk.UtilKWindow;
+import com.mozhimen.basick.utilk.bar.UtilKNavigationBar;
+import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -566,7 +569,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     void refreshNavigationBarBounds() {
-        PopupUiUtils.getNavigationBarBounds(navigationBarBounds, mPopupWindow.getContext());
+        UtilKNavigationBar.getNavigationBarBounds(navigationBarBounds, mPopupWindow.getContext());
     }
 
     int getNavigationBarSize() {
@@ -574,7 +577,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     int getNavigationBarGravity() {
-        return PopupUiUtils.getNavigationBarGravity(navigationBarBounds);
+        return UtilKNavigationBar.getNavigationBarGravity(navigationBarBounds);
     }
 
     public int getCutoutGravity() {
@@ -618,7 +621,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     BasePopupHelper overlayStatusbar(boolean overlay) {
-        if (!overlay && PopupUiUtils.isActivityFullScreen(mPopupWindow.getContext())) {
+        if (!overlay && UtilKWindow.isActivityFullScreen(mPopupWindow.getContext())) {
             Log.e(BasePopupWindow.TAG, "setOverlayStatusbar: 全屏Activity下没有StatusBar，此处不能设置为false");
             overlay = true;
         }
@@ -948,13 +951,13 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
                 public void onKeyboardChange(Rect keyboardBounds, boolean isVisible) {
                     BasePopupHelper.this.onKeyboardChange(keyboardBounds, isVisible);
                     if (!mPopupWindow.isShowing()) {
-                        PopupUiUtils.safeRemoveGlobalLayoutListener(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
+                        UtilKView.safeRemoveGlobalLayoutListener(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
                         return;
                     }
                 }
             });
         }
-        PopupUiUtils.safeAddGlobalLayoutListener(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
+        UtilKView.safeAddGlobalLayoutListener(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
         if (mLinkedTarget != null) {
             if (mLinkedViewLayoutChangeListenerWrapper == null) {
                 mLinkedViewLayoutChangeListenerWrapper = new LinkedViewLayoutChangeListenerWrapper(
@@ -1236,12 +1239,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         if (eventObserverMap != null) {
             eventObserverMap.clear();
         }
-        PopupUiUtils.releaseAnimation(mShowAnimation,
-                mDismissAnimation,
-                mShowAnimator,
-                mDismissAnimator,
-                mMaskViewShowAnimation,
-                mMaskViewDismissAnimation);
+        UtilKAnim.releaseAnimation(mShowAnimation, mDismissAnimation, mShowAnimator, mDismissAnimator, mMaskViewShowAnimation, mMaskViewDismissAnimation);
         if (mBlurOption != null) {
             mBlurOption.clear();
         }
@@ -1249,7 +1247,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             mShowInfo.mAnchorView = null;
         }
         if (mGlobalLayoutListener != null) {
-            PopupUiUtils.safeRemoveGlobalLayoutListener(mPopupWindow.getContext()
+            UtilKView.safeRemoveGlobalLayoutListener(mPopupWindow.getContext()
                             .getWindow()
                             .getDecorView(),
                     mGlobalLayoutListener);

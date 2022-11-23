@@ -5,7 +5,6 @@ import android.animation.ValueAnimator
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import androidx.annotation.FloatRange
-import androidx.annotation.IntRange
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.animk.builder.AnimKBuilder
@@ -13,7 +12,8 @@ import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.temps.DrawableAlphaRecyclerType
 import com.mozhimen.basick.animk.builder.temps.DrawableColorRecyclerType
 import com.mozhimen.basick.taskk.commons.ITaskK
-import com.mozhimen.basick.utilk.UtilKAnimation
+import com.mozhimen.basick.utilk.UtilKAnim
+import com.mozhimen.basick.utilk.UtilKAnimator
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -63,7 +63,8 @@ class AnimKLifecycleAnimatorHelper(owner: LifecycleOwner) : ITaskK(owner) {
     override fun cancel() {
         _viewAndListeners.forEach {
             (it.value as ValueAnimator).removeAllUpdateListeners()
-            UtilKAnimation.clearAnimation(it.key)
+            UtilKAnimator.releaseAnimator(it.value)
+            UtilKAnim.stopAnim(it.key)
         }
         _viewAndListeners.clear()
     }

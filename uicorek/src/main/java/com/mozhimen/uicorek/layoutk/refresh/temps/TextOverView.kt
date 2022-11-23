@@ -5,7 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
-import com.mozhimen.basick.utilk.exts.startRotate
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.temps.RotationRecyclerType
 import com.mozhimen.basick.utilk.exts.stopAnim
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
@@ -22,6 +23,7 @@ class TextOverView @JvmOverloads constructor(context: Context, attrs: AttributeS
     RefreshOverView(context, attrs, defStyleAttr) {
     private lateinit var _titleView: TextView
     private lateinit var _animView: View
+    private val _rotateAnimation by lazy { AnimKBuilder.asAnimation().asRotation(RotationRecyclerType()).build() }
 
     override fun init() {
         LayoutInflater.from(context).inflate(R.layout.layoutk_refresh_overview_text, this, true)
@@ -41,7 +43,7 @@ class TextOverView @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     override fun onStartRefresh() {
         _titleView.text = UtilKRes.getString(R.string.layoutk_refresh_refreshing)
-        _animView.startRotate()
+        _animView.startAnimation(_rotateAnimation)
     }
 
     override fun onFinish() {

@@ -16,8 +16,12 @@ import android.view.ViewPropertyAnimator;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
+import com.mozhimen.basick.utilk.UtilKScreen;
+import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
+import com.mozhimen.basick.utilk.view.UtilKView;
+import com.mozhimen.uicorek.popwink.base.cons.CUI;
 
 /**
  * Created by 大灯泡 on 2017/12/25.
@@ -63,7 +67,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
 
     PopupDecorViewProxy(Context context, BasePopupHelper helper) {
         this(context);
-        isStatusBarVisible = PopupUiUtils.isStatusBarVisible(context);
+        isStatusBarVisible = UtilKStatusBar.isStatusBarVisible(context);
         init(helper);
     }
 
@@ -75,11 +79,11 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
         setClipChildren(mHelper.isClipChildren());
         mMaskLayout = new PopupMaskLayout(getContext(), mHelper);
         setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-                                                   LayoutParams.MATCH_PARENT));
+                LayoutParams.MATCH_PARENT));
         addViewInLayout(mMaskLayout,
-                        -1,
-                        new LayoutParams(LayoutParams.MATCH_PARENT,
-                                                   LayoutParams.MATCH_PARENT));
+                -1,
+                new LayoutParams(LayoutParams.MATCH_PARENT,
+                        LayoutParams.MATCH_PARENT));
     }
 
     public void wrapPopupDecorView(final View target, WindowManager.LayoutParams params) {
@@ -141,7 +145,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
 
             View parent = (View) contentView.getParent();
             // 如果是background，则要求其填满decor
-            if (PopupUiUtils.isPopupBackgroundView(parent)) {
+            if (CUI.isPopupBackgroundView(parent)) {
                 LayoutParams p = parent.getLayoutParams();
                 if (p == null) {
                     p = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -157,7 +161,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
                 if (contentView instanceof ViewGroup) {
                     ((ViewGroup) contentView).setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
                 }
-                PopupUiUtils.requestFocus(contentView);
+                UtilKView.requestFocus(contentView);
             }
 
             if (mHelper.isAutoShowInputMethod()) {
@@ -179,15 +183,15 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
             //蒙层给最大值
             if (child == mMaskLayout) {
                 measureChild(child,
-                             adjustWidthMeasureSpec(widthMeasureSpec, BasePopupFlag.OVERLAY_MASK),
-                             adjustHeightMeasureSpec(heightMeasureSpec,
-                                                     BasePopupFlag.OVERLAY_MASK));
+                        adjustWidthMeasureSpec(widthMeasureSpec, BasePopupFlag.OVERLAY_MASK),
+                        adjustHeightMeasureSpec(heightMeasureSpec,
+                                BasePopupFlag.OVERLAY_MASK));
             } else {
                 measureWrappedDecorView(child,
-                                        adjustWidthMeasureSpec(widthMeasureSpec,
-                                                               BasePopupFlag.OVERLAY_CONTENT),
-                                        adjustHeightMeasureSpec(heightMeasureSpec,
-                                                                BasePopupFlag.OVERLAY_CONTENT));
+                        adjustWidthMeasureSpec(widthMeasureSpec,
+                                BasePopupFlag.OVERLAY_CONTENT),
+                        adjustHeightMeasureSpec(heightMeasureSpec,
+                                BasePopupFlag.OVERLAY_CONTENT));
             }
         }
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
@@ -218,7 +222,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         if ((mHelper.overlayStatusBarMode & overlayTarget) == 0 && isStatusBarVisible) {
-            heightSize -= PopupUiUtils.getStatusBarHeight();
+            heightSize -= UtilKStatusBar.getStatusBarHeight(false);
         }
         if ((mHelper.overlayNavigationBarMode & overlayTarget) == 0) {
             int navigationBarGravity = mHelper.getNavigationBarGravity();
@@ -379,7 +383,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
 
             //状态栏判断
             if ((mHelper.overlayStatusBarMode & (child == mMaskLayout ? BasePopupFlag.OVERLAY_MASK : BasePopupFlag.OVERLAY_CONTENT)) == 0) {
-                contentBounds.top = contentBounds.top == 0 ? contentBounds.top + PopupUiUtils.getStatusBarHeight() : contentBounds.top;
+                contentBounds.top = contentBounds.top == 0 ? contentBounds.top + UtilKStatusBar.getStatusBarHeight(false) : contentBounds.top;
             } else {
                 contentBounds.top = 0;
             }
@@ -419,9 +423,9 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
             if (child == mMaskLayout) {
                 contentBounds.offset(mHelper.maskOffsetX, mHelper.maskOffsetY);
                 child.layout(contentBounds.left,
-                             contentBounds.top,
-                             contentBounds.left + getMeasuredWidth(),
-                             contentBounds.top + getMeasuredHeight());
+                        contentBounds.top,
+                        contentBounds.left + getMeasuredWidth(),
+                        contentBounds.top + getMeasuredHeight());
             } else {
                 anchorRect.set(mHelper.getAnchorViewBound());
                 anchorRect.offset(-location[0], -location[1]);
@@ -542,9 +546,9 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
                 }
 
                 contentRect.set(contentRect.left,
-                                contentRect.top,
-                                contentRect.left + width,
-                                contentRect.top + height);
+                        contentRect.top,
+                        contentRect.left + width,
+                        contentRect.top + height);
 
                 contentRect.offset(offsetX, offsetY);
 
@@ -581,23 +585,23 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
                 }
 
                 child.layout(contentRect.left,
-                             contentRect.top,
-                             contentRect.right,
-                             contentRect.bottom);
+                        contentRect.top,
+                        contentRect.right,
+                        contentRect.bottom);
                 if (delayLayoutMask) {
                     mMaskLayout.handleAlignBackground(mHelper.getAlignBackgroundGravity(),
-                                                      contentRect.left,
-                                                      contentRect.top,
-                                                      contentRect.right,
-                                                      contentRect.bottom);
+                            contentRect.left,
+                            contentRect.top,
+                            contentRect.right,
+                            contentRect.bottom);
                 }
                 popupRect.set(contentRect);
                 mHelper.onPopupLayout(popupRect, anchorRect);
                 if (!lastPopupRect.equals(contentRect)) {
                     mHelper.onSizeChange(lastPopupRect.width(),
-                                         lastPopupRect.height(),
-                                         contentRect.width(),
-                                         contentRect.height());
+                            lastPopupRect.height(),
+                            contentRect.width(),
+                            contentRect.height());
                     lastPopupRect.set(contentRect);
                 }
             }
@@ -749,7 +753,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
     public void onKeyboardChange(Rect keyboardBounds, boolean isVisible) {
         if (mHelper.isOutSideTouchable() && !mHelper.isOverlayStatusbar()) return;
         boolean forceAdjust = (mHelper.flag & BasePopupFlag.KEYBOARD_FORCE_ADJUST) != 0;
-        boolean process = forceAdjust || ((PopupUiUtils.getScreenOrientation() != Configuration.ORIENTATION_LANDSCAPE)
+        boolean process = forceAdjust || ((UtilKScreen.getScreenOrientation() != Configuration.ORIENTATION_LANDSCAPE)
                 && (mHelper.getSoftInputMode() == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN ||
                 mHelper.getSoftInputMode() == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE));
 
@@ -822,7 +826,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
             } else {
                 if (mHelper.isWithAnchor()) {
                     //如果是有anchor，则考虑anchor的情况
-                    int gravity = PopupUiUtils.computeGravity(popupRect, anchorRect);
+                    int gravity = UtilKGravity.computeGravity(popupRect, anchorRect);
                     if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.TOP) {
                         //显示在anchor顶部，则需要考虑anchor的高度
                         offsetY -= mHelper.getAnchorViewBound().height();

@@ -20,8 +20,8 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.view.View;
 import android.widget.Toast;
 
+import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
 
 /**
  * Created by 大灯泡 on 2017/12/27.
@@ -162,7 +162,7 @@ public class BlurHelper {
             PopupLog.e("getViewBitmap  >>  宽或者高为空");
             return null;
         }
-        final int statusBarHeight = PopupUiUtils.getStatusBarHeight();
+        final int statusBarHeight = UtilKStatusBar.getStatusBarHeight(false);
         Bitmap b;
         PopupLog.i("模糊原始图像分辨率 [" + v.getWidth() + " x " + v.getHeight() + "]");
 

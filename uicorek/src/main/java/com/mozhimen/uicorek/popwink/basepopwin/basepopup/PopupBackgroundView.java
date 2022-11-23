@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.mozhimen.basick.utilk.UtilKDrawable;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
+import com.mozhimen.basick.utilk.view.UtilKView;
 
 /**
  * Created by 大灯泡 on 2018/5/9.
@@ -41,7 +41,7 @@ class PopupBackgroundView extends View {
         }
         this.mHelper = mHelper;
         setVisibility(VISIBLE);
-        PopupUiUtils.setBackground(this, mHelper.getPopupBackground());
+        UtilKView.setBackground(this, mHelper.getPopupBackground());
     }
 
     public void destroy() {

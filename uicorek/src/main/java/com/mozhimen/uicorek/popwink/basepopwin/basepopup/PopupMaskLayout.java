@@ -11,8 +11,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.mozhimen.basick.utilk.UtilKDrawable;
+import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.BlurImageView;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
 
 /**
  * Created by 大灯泡 on 2018/5/9.
@@ -188,7 +188,7 @@ class PopupMaskLayout extends FrameLayout implements BasePopupEvent.EventObserve
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (mPopupHelper != null) {
             if (!mPopupHelper.isOverlayStatusbar()) {
-                ev.offsetLocation(0, PopupUiUtils.getStatusBarHeight());
+                ev.offsetLocation(0, UtilKStatusBar.getStatusBarHeight(false));
             }
             mPopupHelper.dispatchOutSideEvent(ev,
                                               maskRect.contains(ev.getRawX(), ev.getRawY()),

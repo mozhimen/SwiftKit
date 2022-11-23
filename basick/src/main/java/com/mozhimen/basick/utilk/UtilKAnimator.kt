@@ -12,6 +12,18 @@ import kotlin.math.max
  * @Version 1.0
  */
 object UtilKAnimator {
+
+    @JvmStatic
+    fun releaseAnimator(animator: Animator) {
+        animator.cancel()
+        animator.removeAllListeners()
+    }
+
+    /**
+     * 获取时长
+     * @param animator Animator
+     * @return Long
+     */
     @JvmStatic
     fun getAnimatorDuration(animator: Animator): Long {
         var duration: Long

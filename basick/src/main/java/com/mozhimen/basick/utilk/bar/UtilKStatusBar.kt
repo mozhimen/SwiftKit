@@ -1,12 +1,18 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.bar
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.graphics.Rect
 import android.os.Build
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import com.mozhimen.basick.utilk.UtilKActivity
+import com.mozhimen.basick.utilk.UtilKOS
+import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
  * @ClassName UtilKBar
@@ -15,16 +21,65 @@ import android.view.WindowManager
  * @Date 2022/7/17 17:29
  * @Version 1.0
  */
-object UtilKBar {
-    private const val TAG = "UtilKBar>>>>>"
+object UtilKStatusBar {
+    private const val TAG = "UtilKStatusBar>>>>>"
+    private val _context = UtilKApplication.instance.get()
 
     /**
-     * 隐藏标题栏
+     * 获取状态栏高度2
+     * 优点: 依赖于WMS,是在界面构建后根据View获取的,所以高度是动态的
+     * 缺点: 在Activity的回调方法onWindowFocusChanged()执行后,才能得到预期的结果
      * @param activity Activity
+     * @return Int
      */
     @JvmStatic
-    fun hideTitleBar(activity: Activity) {
-        activity.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    fun getStatusBarHeight(activity: Activity): Int {
+        val rect = Rect()
+        activity.window.decorView.getWindowVisibleDisplayFrame(rect)
+        return rect.top
+    }
+
+    /**
+     * 获取状态栏高度1
+     * 优点: 不需要在Activity的回调方法onWindowFocusChanged()执行后才能得到结果
+     * 缺点: 不管你是否设置全屏模式,或是不是显示状态栏,高度是固定的;因为系统资源属性是固定的,真实的,不管你是否隐藏(隐藏或显示),他都在那里
+     * @param isCheckFullScreen Boolean 是否把全屏纳入考虑范围, 置true, 全屏返回0
+     * @return Int
+     */
+    @JvmStatic
+    fun getStatusBarHeight(isCheckFullScreen: Boolean = false): Int {
+        var statusBarHeight = 0
+        if (isCheckFullScreen) {
+            val typedArray = _context.theme.obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
+            val windowFullscreen = typedArray.getBoolean(0, false)
+            typedArray.recycle()
+            if (windowFullscreen) {
+                return statusBarHeight
+            }
+        }
+        //获取status_bar_height资源的ID
+        val resourceId = _context.resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            //根据资源ID获取响应的尺寸值
+            statusBarHeight = _context.resources.getDimensionPixelSize(resourceId)
+        }
+        return statusBarHeight
+    }
+
+    /**
+     * 状态栏是否可见
+     * @param context Context
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isStatusBarVisible(context: Context): Boolean {
+        val activity = UtilKActivity.getActivityByContext(context, true) ?: return true
+        return try {
+            activity.window.attributes.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == 0
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            true
+        }
     }
 
     /**

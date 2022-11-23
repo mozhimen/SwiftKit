@@ -1,9 +1,9 @@
 package com.mozhimen.basick.utilk.view
 
-import android.view.View
-import android.view.ViewGroup
-import android.view.ViewParent
-import android.view.ViewTreeObserver
+import android.app.Activity
+import android.graphics.drawable.Drawable
+import android.os.Build
+import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.utilk.UtilKDataType
 import java.util.*
@@ -17,6 +17,29 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKView {
+    /**
+     * 获取View绘制区域TOP高度
+     * 注: 在Activity的回调方法onWindowFocusChanged()执行后,才能得到预期结果
+     * @param activity Activity
+     * @return Int
+     */
+    @JvmStatic
+    fun getViewDrawHeight(activity: Activity) =
+        activity.window.findViewById<View>(Window.ID_ANDROID_CONTENT).top
+
+    /**
+     * 设置背景
+     * @param view View
+     * @param background Drawable
+     */
+    @JvmStatic
+    fun setBackground(view: View, background: Drawable) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            view.background = background
+        } else {
+            view.setBackgroundDrawable(background)
+        }
+    }
 
     /**
      * 添加全局监听
@@ -28,6 +51,20 @@ object UtilKView {
         try {
             view.viewTreeObserver.removeOnGlobalLayoutListener(listener)
             view.viewTreeObserver.addOnGlobalLayoutListener(listener)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     * 删除全局监听
+     * @param view View
+     * @param listener OnGlobalLayoutListener?
+     */
+    @JvmStatic
+    fun safeRemoveGlobalLayoutListener(view: View, listener: OnGlobalLayoutListener?) {
+        try {
+            view.viewTreeObserver.removeOnGlobalLayoutListener(listener)
         } catch (e: Exception) {
             e.printStackTrace()
         }

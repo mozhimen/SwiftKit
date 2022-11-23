@@ -14,8 +14,8 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 
+import com.mozhimen.uicorek.popwink.base.cons.CUI;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -188,7 +188,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
 
 
     private boolean isPopupInnerDecorView(View v) {
-        return PopupUiUtils.isPopupDecorView(v) || PopupUiUtils.isPopupViewContainer(v);
+        return CUI.isPopupDecorView(v) || CUI.isPopupViewContainer(v);
     }
 
     @Override

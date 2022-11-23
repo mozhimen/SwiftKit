@@ -249,12 +249,12 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKRes;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
-import com.mozhimen.uicorek.popwink.basepopwin.util.PopupUiUtils;
 
 /**
  * <br>
@@ -2151,7 +2151,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     public int computeGravity(@NonNull Rect popupRect, @NonNull Rect anchorRect) {
-        return PopupUiUtils.computeGravity(popupRect, anchorRect);
+        return UtilKGravity.computeGravity(popupRect, anchorRect);
     }
 
     /**
