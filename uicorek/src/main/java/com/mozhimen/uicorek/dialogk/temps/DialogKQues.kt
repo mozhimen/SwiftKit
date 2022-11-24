@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.dialogk
+package com.mozhimen.uicorek.dialogk.temps
 
 import android.app.Dialog
 import android.content.Context

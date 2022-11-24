@@ -1,15 +1,16 @@
 package com.mozhimen.uicorektest.dialogk
 
-import android.content.Context
+import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.uicorek.dialogk.DialogKQues
-import com.mozhimen.uicorek.dialogk.bases.BaseDialog
-import com.mozhimen.uicorek.dialogk.bases.commons.IDialogClickListener
+import com.mozhimen.basick.utilk.UtilKThread
+import com.mozhimen.uicorek.dialogk.temps.DialogKLoading
+import com.mozhimen.uicorek.dialogk.temps.DialogKQues
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDialogkBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
@@ -19,6 +20,10 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
 
         vb.dialogkQuesAnim.setOnClickListener {
             genDialogKQuesAnim("带弹出动画的毛玻璃效果的弹框~")
+        }
+
+        vb.dialogkCustom.setOnClickListener {
+            showLoadingDialog(true)
         }
     }
 
@@ -44,17 +49,32 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         _dialogKQues!!.show()
     }
 
-    class LoadingDialog(context: Context) : BaseDialog<IDialogClickListener>(context) {
-        override fun onCreateView(inflater: LayoutInflater): View {
-            return inflater.inflate(R.layout.dialogk_loading, null)
+    private var _dialogkLoading: Dialog? = null
+
+    fun showLoadingDialog(cancelable: Boolean) {
+        if (_dialogkLoading == null) {
+            _dialogkLoading = createDialogKLoading()
         }
-
-        override fun onFindView(dialogView: View) {
-
+        _dialogkLoading!!.setCancelable(cancelable)
+        if (!_dialogkLoading!!.isShowing) {
+            lifecycleScope.launch(Dispatchers.Main) {
+                _dialogkLoading!!.show()
+            }
         }
+    }
 
-        override fun onInitMode(mode: Int) {
-
+    fun dismissLoadingDialog() {
+        if (_dialogkLoading == null) return
+        if (UtilKThread.isMainThread()) {
+            _dialogkLoading!!.dismiss()
+        } else {
+            lifecycleScope.launch(Dispatchers.Main) {
+                _dialogkLoading!!.dismiss()
+            }
         }
+    }
+
+    fun createDialogKLoading(): DialogKLoading {
+        return DialogKLoading.create(this)
     }
 }

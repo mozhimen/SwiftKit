@@ -256,6 +256,15 @@
         <attr name="layoutKSpinnerForm_borderBackground" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="LayoutKSquare">
+        <attr name="layoutKSquare_measureMode" format="enum">
+            <enum name="measureMin" value="0" />
+            <enum name="measureMax" value="1" />
+            <enum name="measureWidth" value="2" />
+            <enum name="measureHeight" value="3" />
+        </attr>
+    </declare-styleable>
+
     <!--textk-->
     <declare-styleable name="TextKBubble">
         <!--设置箭头朝向-->
