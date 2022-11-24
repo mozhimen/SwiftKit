@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
-import com.mozhimen.basick.elemk.receiver.commons.BaseInstallReceiver
+import com.mozhimen.basick.elemk.receiver.bases.BaseInstallReceiver
 import com.mozhimen.basick.utilk.UtilKDate
 import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication

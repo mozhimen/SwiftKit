@@ -29,10 +29,10 @@ internal object AttrsParser {
 
     fun parseNavAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MNavBarAttrs {
         val value = TypedValue()
-        context.theme.resolveAttribute(R.attr.LayoutKNavBar_LayoutKNavBarStyle, value, true)
+        context.theme.resolveAttribute(R.attr.LayoutKNavBar_LayoutKNavBar_Style, value, true)
 
         //xml-->theme.navigationStyle---navigationStyle
-        val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKNavBarStyle
+        val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKNavBar_Style
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKNavBar, defStyleAttr, defStyleRes)
 
         //标题

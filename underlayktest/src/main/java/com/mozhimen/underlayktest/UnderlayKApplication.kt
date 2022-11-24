@@ -1,6 +1,6 @@
 package com.mozhimen.underlayktest
 
-import com.mozhimen.basick.elemk.application.commons.BaseApplication
+import com.mozhimen.basick.elemk.application.bases.BaseApplication
 import com.mozhimen.basick.utilk.exts.toJson
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr

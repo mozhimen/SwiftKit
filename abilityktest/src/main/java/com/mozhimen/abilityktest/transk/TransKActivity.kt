@@ -5,7 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import com.mozhimen.abilityk.transk.TransKText2Speech
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.PermissionK
 
 class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {

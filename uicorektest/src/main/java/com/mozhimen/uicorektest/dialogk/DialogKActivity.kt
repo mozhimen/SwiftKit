@@ -1,8 +1,13 @@
 package com.mozhimen.uicorektest.dialogk
 
+import android.content.Context
 import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import android.view.LayoutInflater
+import android.view.View
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.uicorek.dialogk.DialogKQues
+import com.mozhimen.uicorek.dialogk.bases.BaseDialog
+import com.mozhimen.uicorek.dialogk.bases.commons.IDialogClickListener
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDialogkBinding
 
@@ -37,5 +42,19 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
             background.alpha = 200
         }
         _dialogKQues!!.show()
+    }
+
+    class LoadingDialog(context: Context) : BaseDialog<IDialogClickListener>(context) {
+        override fun onCreateView(inflater: LayoutInflater): View {
+            return inflater.inflate(R.layout.dialogk_loading, null)
+        }
+
+        override fun onFindView(dialogView: View) {
+
+        }
+
+        override fun onInitMode(mode: Int) {
+
+        }
     }
 }

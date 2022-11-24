@@ -71,6 +71,9 @@
             android:name=".utilk.UtilKActivity"
             android:exported="true" />
         <activity
+            android:name=".utilk.UtilKScreenActivity"
+            android:exported="false" />
+        <activity
             android:name=".utilk.UtilKVerifyUrlActivity"
             android:exported="false" />
         <activity

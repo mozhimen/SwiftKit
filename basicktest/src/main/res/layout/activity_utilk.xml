@@ -42,6 +42,12 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
+            android:onClick="goUtilKScreen"
+            android:text="goUtilKScreen"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
             android:onClick="goUtilKVerifyUrl"
             android:text="UtilKVerifyUrl"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

@@ -1,6 +1,5 @@
 package com.mozhimen.componentk.audiok.commons
 
-import androidx.annotation.FloatRange
 import com.mozhimen.componentk.audiok.cons.EPlayMode
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
 import com.mozhimen.componentk.audiok.mos.MAudioK

@@ -9,7 +9,7 @@ import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.componentk.statusbark.annors.AStatusBarK
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVBVM
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
 import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapterStuffed
 import kotlin.math.abs

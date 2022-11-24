@@ -3,7 +3,7 @@ package com.mozhimen.componentktest.netk.http
 import android.Manifest
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVBVM
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityNetkHttpBinding

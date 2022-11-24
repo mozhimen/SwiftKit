@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import coil.load
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 import com.mozhimen.uicorek.layoutk.banner.temps.NumberIndicator

@@ -1,6 +1,6 @@
 package com.mozhimen.abilityktest
 
-import com.mozhimen.basick.elemk.application.commons.BaseApplication
+import com.mozhimen.basick.elemk.application.bases.BaseApplication
 
 /**
  * @ClassName AbilityKApplication

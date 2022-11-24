@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest.elemk.receiver
 
-import com.mozhimen.basick.elemk.receiver.commons.BaseAutoRunReceiver
+import com.mozhimen.basick.elemk.receiver.bases.BaseAutoRunReceiver
 import com.mozhimen.basicktest.BasicKActivity
 
 /**

@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.elemk.service
 
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.service.commons.BaseService
+import com.mozhimen.basick.elemk.service.bases.BaseService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

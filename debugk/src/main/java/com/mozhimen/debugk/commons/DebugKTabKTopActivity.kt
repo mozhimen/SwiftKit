@@ -3,7 +3,7 @@ package com.mozhimen.debugk.commons
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.componentk.statusbark.StatusBarK

@@ -4,7 +4,7 @@ import android.Manifest
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKAsset
 import com.mozhimen.basicktest.BR
 import com.mozhimen.basicktest.R

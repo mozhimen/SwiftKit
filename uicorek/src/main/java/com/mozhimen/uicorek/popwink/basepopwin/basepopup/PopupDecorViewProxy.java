@@ -21,7 +21,7 @@ import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKScreen;
 import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
 import com.mozhimen.basick.utilk.view.UtilKView;
-import com.mozhimen.uicorek.popwink.base.cons.CUI;
+import com.mozhimen.uicorek.popwink.bases.cons.CUI;
 
 /**
  * Created by 大灯泡 on 2017/12/25.

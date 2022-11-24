@@ -3,7 +3,7 @@ package com.mozhimen.uicorektest.recyclerk
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
 import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.uicorektest.databinding.ActivityRecyclerkAdapterBinding

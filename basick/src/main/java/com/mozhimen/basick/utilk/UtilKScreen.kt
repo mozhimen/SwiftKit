@@ -3,15 +3,12 @@ package com.mozhimen.basick.utilk
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Build
-import android.util.DisplayMetrics
-import android.util.Log
-import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import com.mozhimen.basick.utilk.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.bar.UtilKVirtualBar
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.math.sqrt
@@ -54,6 +51,24 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenDensity(): Float = _context.resources.displayMetrics.density
+
+    /**
+     * 获取屏幕宽度
+     * @return Int
+     */
+    @JvmStatic
+    fun getScreenWidth2(): Int {
+        return _context.resources.displayMetrics.widthPixels
+    }
+
+    /**
+     * 获取屏幕高度
+     * @return Int
+     */
+    @JvmStatic
+    fun getScreenHeight2(): Int {
+        return _context.resources.displayMetrics.heightPixels
+    }
 
     /**
      * 获取像素宽

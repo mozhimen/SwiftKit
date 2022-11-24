@@ -11,5 +11,6 @@ package com.mozhimen.componentk.audiok.mos
 data class MAudioK(
     val name: String,//名字
     val url: String,//地址/url
+    val type: Int,
     val id: String = url.hashCode().toString()
 )

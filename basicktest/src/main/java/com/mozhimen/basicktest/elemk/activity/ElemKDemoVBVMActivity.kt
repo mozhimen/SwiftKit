@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.elemk.activity
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVBVM
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
 import com.mozhimen.basicktest.elemk.viewmodel.ElemKDemoViewModel
 import com.mozhimen.basicktest.databinding.ActivityElemkDemoVbvmBinding
 

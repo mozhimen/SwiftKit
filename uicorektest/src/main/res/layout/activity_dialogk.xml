@@ -26,6 +26,12 @@
                 style="@style/BtnStyle"
                 android:text="问题弹框(弹出动画,透明底色)"
                 tools:ignore="HardcodedText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/dialogk_custom"
+                style="@style/BtnStyle"
+                android:text="自定义弹框(基于BaseDialog)"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </FrameLayout>
 

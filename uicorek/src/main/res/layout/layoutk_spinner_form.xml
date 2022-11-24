@@ -45,7 +45,7 @@
             android:minHeight="48dp"
             android:overlapAnchor="false"
             android:spinnerMode="dropdown"
-            android:theme="@style/LayoutKSpinnerFormStyle" />
+            android:theme="@style/LayoutKSpinnerForm_Style" />
 
         <ImageView
             android:layout_width="20dp"

@@ -2,7 +2,7 @@ package com.mozhimen.debugk.commons
 
 import android.os.Bundle
 import androidx.navigation.NavController
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVBVM
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.componentk.statusbark.StatusBarK

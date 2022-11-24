@@ -1,6 +1,7 @@
 package com.mozhimen.basick.elemk.activity.commons
 
 import android.os.Bundle
+import androidx.annotation.CallSuper
 
 /**
  * @ClassName BaseKIAction

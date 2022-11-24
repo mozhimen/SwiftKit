@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <com.mozhimen.uicorek.textk.bubble.TextKBubble
-            style="@style/TextKBubbleStyle"
+            style="@style/TextK_Bubble_Style"
             android:text="这是一个气泡文本"
             tools:ignore="HardcodedText" />
 
@@ -24,7 +24,22 @@
         <com.mozhimen.uicorek.textk.TextKClock
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             app:textkClock_timeFormat="yyyyMMddHHmmss" />
+
+        <com.mozhimen.uicorek.textk.TextKEditClear
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.mozhimen.uicorek.textk.TextKEditForm
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.mozhimen.uicorek.textk.TextKEditFocus
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textk_edit_form" />
+
 
     </LinearLayout>
 </layout>

@@ -12,8 +12,8 @@ import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs
 internal object AttrsParser {
     fun parseSearchViewAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MSearchAttrs {
         val value = TypedValue()
-        context.theme.resolveAttribute(R.attr.LayoutKSearch_LayoutKSearchStyle, value, true)
-        val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKSearchStyle
+        context.theme.resolveAttribute(R.attr.LayoutKSearch_LayoutKSearch_Style, value, true)
+        val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKSearch_Style
 
         val array = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSearch, defStyleAttr, defStyleRes)
 

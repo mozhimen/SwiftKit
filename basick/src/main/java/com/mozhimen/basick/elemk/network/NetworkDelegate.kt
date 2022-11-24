@@ -3,9 +3,8 @@ package com.mozhimen.basick.elemk.network
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
-import android.view.View
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.elemk.lifecycle.commons.BaseDelegateLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseDelegateLifecycleObserver
 import com.mozhimen.basick.elemk.network.commons.INetworkListener
 
 

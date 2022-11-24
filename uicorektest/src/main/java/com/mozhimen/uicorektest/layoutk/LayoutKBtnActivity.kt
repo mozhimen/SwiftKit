@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.layoutk
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.uicorek.layoutk.btn.LayoutKBtnSwitchApple
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkBtnBinding
 

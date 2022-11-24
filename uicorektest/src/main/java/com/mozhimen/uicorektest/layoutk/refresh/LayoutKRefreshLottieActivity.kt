@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.layoutk.refresh
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.postDelayed
 import com.mozhimen.basick.elemk.handler.LifecycleHandler

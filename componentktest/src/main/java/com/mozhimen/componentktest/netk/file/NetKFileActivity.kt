@@ -3,7 +3,7 @@ package com.mozhimen.componentktest.netk.file
 import android.Manifest
 import android.os.Bundle
 import com.liulishuo.okdownload.DownloadTask
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.componentk.audiok.AudioK
 import com.mozhimen.componentk.audiok.mos.MAudioK
 import com.mozhimen.componentk.netk.file.NetKFile
@@ -20,7 +20,7 @@ class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
     private val _fileDownloadSingleListener = object : IFileDownloadSingleListener {
         override fun onComplete(task: DownloadTask) {
             task.file?.let {
-                AudioK.instance.addAudioToPlayList(MAudioK("0001", it.absolutePath))
+                AudioK.instance.addAudioToPlayList(MAudioK("0001", it.absolutePath,0))
             }
         }
 

@@ -3,7 +3,7 @@ package com.mozhimen.debugktest
 import android.view.GestureDetector
 import android.view.KeyEvent
 import android.view.MotionEvent
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.debugk.BuildConfig
 import com.mozhimen.debugk.base.DebugK

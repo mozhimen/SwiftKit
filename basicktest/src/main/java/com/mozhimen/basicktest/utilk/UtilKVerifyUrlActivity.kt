@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.utilk
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.basick.utilk.verify.UtilKVerifyUrl
 import com.mozhimen.basicktest.databinding.ActivityUtilkVerifyUrlBinding

@@ -7,7 +7,7 @@ import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import com.mozhimen.basick.elemk.receiver.commons.BaseInstallReceiver
+import com.mozhimen.basick.elemk.receiver.bases.BaseInstallReceiver
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 import java.io.*

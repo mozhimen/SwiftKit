@@ -155,7 +155,11 @@ class PopupWindowProxy extends PopupWindow implements ClearMemoryObject {
         if (mBasePopupContextWrapper != null) {
             mBasePopupContextWrapper.clear(destroy);
         }
-        UtilKView.removeViewFromParent(getContentView());
+        try {
+            UtilKView.removeViewFromParent(getContentView());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (destroy) {
             mBasePopupContextWrapper = null;
         }

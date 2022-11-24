@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.taskk
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basicktest.databinding.ActivityTaskkExecutorBinding
 

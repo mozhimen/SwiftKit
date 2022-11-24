@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.TranslationType
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.componentk.audiok.AudioK
@@ -27,9 +27,9 @@ import kotlin.math.roundToInt
 
 class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
     private val _audioList = arrayListOf(
-        MAudioK("9b94d721ed244fa892b15112bc11a3ce", "http://192.168.2.6/construction-sites-images/voice/20221018//9b94d721ed244fa892b15112bc11a3ce.wav"),
-        MAudioK("1237378768e7q8e7r8qwesafdasdfasdfaxss111", "http://192.168.2.9/construction-sites-images/voice/20221024/1237378768e7q8e7r8qwesafdasdfasdfaxss111.speex"),
-        MAudioK("3777061809", "http://sq-sycdn.kuwo.cn/resource/n1/98/51/3777061809.mp3"),
+        MAudioK("9b94d721ed244fa892b15112bc11a3ce","http://192.168.2.6/construction-sites-images/voice/20221018//9b94d721ed244fa892b15112bc11a3ce.wav",0),
+        MAudioK("1237378768e7q8e7r8qwesafdasdfasdfaxss111", "http://192.168.2.9/construction-sites-images/voice/20221024/1237378768e7q8e7r8qwesafdasdfasdfaxss111.speex",0),
+        MAudioK("3777061809", "http://sq-sycdn.kuwo.cn/resource/n1/98/51/3777061809.mp3",0),
     )
     private val _popwinAudio: PopwinAudio by lazy { PopwinAudio(this) }
     private var _currentVolume: Int = AudioK.instance.getVolume()

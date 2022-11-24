@@ -2,7 +2,7 @@ package com.mozhimen.componentktest.netk.http
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.mozhimen.basick.elemk.viewmodel.commons.BaseViewModel
+import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
 import com.mozhimen.componentk.netk.http.helpers.NetKHelper
 import com.mozhimen.componentk.netk.http.helpers.asNetKRes
 import com.mozhimen.componentktest.netk.http.customs.ApiFactory

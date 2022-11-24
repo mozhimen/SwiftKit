@@ -3,9 +3,8 @@ package com.mozhimen.componentktest.navigatek.fragments
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.elemk.fragment.commons.BaseFragmentVBVM
+import com.mozhimen.basick.elemk.fragment.bases.BaseFragmentVBVM
 import com.mozhimen.basick.elemk.mos.MKey
-import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.componentktest.BR
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.FragmentSecondBinding

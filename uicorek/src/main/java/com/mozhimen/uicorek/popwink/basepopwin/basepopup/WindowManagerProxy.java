@@ -14,7 +14,7 @@ import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 
-import com.mozhimen.uicorek.popwink.base.cons.CUI;
+import com.mozhimen.uicorek.popwink.bases.cons.CUI;
 import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 
 import java.util.HashMap;

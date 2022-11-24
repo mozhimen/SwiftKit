@@ -2,7 +2,7 @@ package com.mozhimen.componentktest.permissionk
 
 import android.Manifest
 import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityPermissionkBinding

@@ -1,7 +1,6 @@
 package com.mozhimen.componentktest.statusbark
 
-import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.componentk.statusbark.StatusBarK
 import com.mozhimen.componentk.statusbark.annors.AStatusBarK
 import com.mozhimen.componentk.statusbark.annors.AStatusBarKType

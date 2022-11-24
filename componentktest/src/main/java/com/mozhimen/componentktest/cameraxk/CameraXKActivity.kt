@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat

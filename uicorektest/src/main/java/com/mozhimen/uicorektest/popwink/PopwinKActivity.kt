@@ -5,9 +5,8 @@ import android.graphics.Color
 import android.view.View
 import android.view.animation.Animation
 import com.mozhimen.basick.animk.builder.AnimKBuilder
-import com.mozhimen.basick.animk.builder.cons.EDirection
 import com.mozhimen.basick.animk.builder.temps.*
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.uicorek.popwink.PopwinKLifecycle
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityPopwinkBinding

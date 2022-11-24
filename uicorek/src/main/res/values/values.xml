@@ -2,7 +2,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--dialogk-->
-    <style name="DialogKStyle_Theme" parent="android:style/Theme.Dialog">
+    <style name="BaseDialog_Style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="DialogK_Style_Theme" parent="android:style/Theme.Dialog">
         <!--<item name="android:backgroundDimEnabled">false</item>--><!--模糊-->
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
@@ -12,7 +21,7 @@
         <item name="android:windowIsFloating">true</item>-->
     </style>
 
-    <style name="DialogKStyle_Title">
+    <style name="DialogK_Style_Title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginVertical" tools:targetApi="o">14dp</item>
@@ -21,7 +30,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="DialogKStyle_BtnCancel">
+    <style name="DialogK_Style_BtnCancel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">5dp</item>
@@ -31,18 +40,18 @@
         <item name="cornerRadius">4dp</item>
     </style>
 
-    <style name="DialogKStyle_BtnSure" parent="DialogKStyle_BtnCancel">
+    <style name="DialogK_Style_BtnSure" parent="DialogK_Style_BtnCancel">
         <item name="android:backgroundTint">@color/blue_normal</item>
         <item name="android:textColor">@color/blue_light</item>
     </style>
 
-    <style name="DialogKAnim_Alpha" parent="android:Animation">
+    <style name="DialogK_Anim_Alpha" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/anim_alpha_in</item>
         <item name="android:windowExitAnimation">@anim/anim_alpha_out</item>
     </style>
 
     <!--layoutk-->
-    <style name="LayoutKAmountStyle">
+    <style name="LayoutKAmount_Style">
         <item name="layoutKAmount_minVal">0</item>
         <item name="layoutKAmount_maxVal">100</item>
         <item name="layoutKAmount_defaultAmount">0</item>
@@ -56,7 +65,7 @@
         <item name="layoutKAmount_btnSize">20dp</item>
     </style>
 
-    <style name="LayoutK_Empty_BtnStyle_Cancel">
+    <style name="LayoutKEmpty_BtnStyle_Cancel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:backgroundTint">@color/gray_light</item>
@@ -67,20 +76,20 @@
         <item name="strokeColor">@android:color/darker_gray</item>
     </style>
 
-    <style name="LayoutKInputItemStyle_TitleAppearance">
+    <style name="LayoutKInputItem_Style_TitleAppearance">
         <item name="titleAppearance_titleColor">@android:color/black</item>
         <item name="titleAppearance_titleSize">16sp</item>
         <item name="titleAppearance_leftPadding">2dp</item>
         <item name="titleAppearance_minWidth">100dp</item>
     </style>
 
-    <style name="LayoutKInputItemStyle_InputAppearance">
+    <style name="LayoutKInputItem_Style_InputAppearance">
         <item name="inputAppearance_hintColor">@color/blue_light</item>
         <item name="inputAppearance_inputColor">@color/blue_normal</item>
         <item name="inputAppearance_textSize">15sp</item>
     </style>
 
-    <style name="LayoutKInputItemStyle_LineAppearance">
+    <style name="LayoutKInputItem_Style_LineAppearance">
         <item name="lineAppearance_color">@color/blue_dark</item>
         <item name="lineAppearance_height">1.5dp</item>
         <item name="lineAppearance_leftMargin">0dp</item>
@@ -88,7 +97,7 @@
     </style>
 
     <!--layoutk_search-->
-    <style name="LayoutKSearchStyle">
+    <style name="LayoutKSearch_Style">
         <item name="layoutKSearch_search_icon">&#xe987;</item>
         <item name="layoutKSearch_search_iconSize">16sp</item>
         <item name="layoutKSearch_search_iconPadding">10dp</item>
@@ -112,13 +121,13 @@
     </style>
 
     <!--layoutk-->
-    <style name="LayoutKSpinnerFormStyle">
+    <style name="LayoutKSpinnerForm_Style">
         <item name="android:colorControlNormal">@android:color/transparent
         </item> <!--改变了spinner的箭头颜色  -->
     </style>
 
     <!--layoutk_nav-->
-    <style name="LayoutKNavBarStyle">
+    <style name="LayoutKNavBar_Style">
         <item name="layoutKNavBar_title_textSize">17sp</item>
         <item name="layoutKNavBar_title_textColor">@android:color/black</item>
 
@@ -131,32 +140,32 @@
     </style>
 
     <!--textk_bubble-->
-    <style name="TextKBubblePopWinAnim_ArrowDown">
+    <style name="TextKBubble_PopWin_Anim_ArrowDown">
         <item name="android:windowEnterAnimation">@anim/anim_pop_bottom_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_bottom_hide</item>
     </style>
 
-    <style name="TextKBubblePopWinAnim_ArrowLeft">
+    <style name="TextKBubble_PopWin_Anim_ArrowLeft">
         <item name="android:windowEnterAnimation">@anim/anim_pop_left_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_left_hide</item>
     </style>
 
-    <style name="TextKBubblePopWinAnim_ArrowNone">
+    <style name="TextKBubble_PopWin_Anim_ArrowNone">
         <item name="android:windowEnterAnimation">@anim/anim_pop_center_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_center_hide</item>
     </style>
 
-    <style name="TextKBubblePopWinAnim_ArrowRight">
+    <style name="TextKBubble_PopWin_Anim_ArrowRight">
         <item name="android:windowEnterAnimation">@anim/anim_pop_right_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_right_hide</item>
     </style>
 
-    <style name="TextKBubblePopWinAnim_ArrowUp">
+    <style name="TextKBubble_PopWin_Anim_ArrowUp">
         <item name="android:windowEnterAnimation">@anim/anim_pop_top_show</item>
         <item name="android:windowExitAnimation">@anim/anim_pop_top_hide</item>
     </style>
 
-    <style name="TextKBubbleStyle">
+    <style name="TextK_Bubble_Style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">4dp</item>

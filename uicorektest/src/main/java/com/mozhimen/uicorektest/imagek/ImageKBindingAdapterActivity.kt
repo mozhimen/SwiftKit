@@ -1,7 +1,6 @@
 package com.mozhimen.uicorektest.imagek
 
-import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityImagekBindingAdapterBinding
 
 

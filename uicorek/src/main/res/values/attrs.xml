@@ -27,7 +27,7 @@
     </declare-styleable>
 
     <!--layoutk_search-->
-    <attr name="LayoutKSearch_LayoutKSearchStyle" format="reference" />
+    <attr name="LayoutKSearch_LayoutKSearch_Style" format="reference" />
     <declare-styleable name="LayoutKSearch">
         <attr name="layoutKSearch_search_icon" format="string|reference" />
         <attr name="layoutKSearch_search_iconSize" format="dimension|reference" />
@@ -56,7 +56,7 @@
     </declare-styleable>
 
     <!--layoutk_navbar-->
-    <attr name="LayoutKNavBar_LayoutKNavBarStyle" format="reference" />
+    <attr name="LayoutKNavBar_LayoutKNavBar_Style" format="reference" />
     <declare-styleable name="LayoutKNavBar">
         <attr name="layoutKNavBar_title" format="string|reference" />
         <attr name="layoutKNavBar_title_textColor" format="color|reference" />

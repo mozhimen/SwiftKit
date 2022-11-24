@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.drawablek
 
 import android.graphics.Color
 import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.drawablek.arrow.DrawableKArrow

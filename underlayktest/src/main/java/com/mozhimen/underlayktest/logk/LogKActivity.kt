@@ -2,7 +2,7 @@ package com.mozhimen.underlayktest.logk
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.commons.LogKConfig

@@ -269,11 +269,11 @@ open class TextKBubblePopWin(
 
     private fun getAnimationStyle(direction: EArrowDirection): Int {
         return when (direction) {
-            EArrowDirection.Up -> R.style.TextKBubblePopWinAnim_ArrowUp
-            EArrowDirection.Down -> R.style.TextKBubblePopWinAnim_ArrowDown
-            EArrowDirection.Left -> R.style.TextKBubblePopWinAnim_ArrowLeft
-            EArrowDirection.Right -> R.style.TextKBubblePopWinAnim_ArrowRight
-            else -> R.style.TextKBubblePopWinAnim_ArrowNone
+            EArrowDirection.Up -> R.style.TextKBubble_PopWin_Anim_ArrowUp
+            EArrowDirection.Down -> R.style.TextKBubble_PopWin_Anim_ArrowDown
+            EArrowDirection.Left -> R.style.TextKBubble_PopWin_Anim_ArrowLeft
+            EArrowDirection.Right -> R.style.TextKBubble_PopWin_Anim_ArrowRight
+            else -> R.style.TextKBubble_PopWin_Anim_ArrowNone
         }
     }
 }

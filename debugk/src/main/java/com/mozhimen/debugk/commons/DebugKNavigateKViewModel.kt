@@ -1,7 +1,7 @@
 package com.mozhimen.debugk.commons
 
 import androidx.lifecycle.MutableLiveData
-import com.mozhimen.basick.elemk.viewmodel.commons.BaseViewModel
+import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
 
 
 /**

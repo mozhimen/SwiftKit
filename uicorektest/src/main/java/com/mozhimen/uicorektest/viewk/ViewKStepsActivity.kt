@@ -3,7 +3,7 @@ package com.mozhimen.uicorektest.viewk
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityViewkStepsBinding
 
 class ViewKStepsActivity : BaseActivityVB<ActivityViewkStepsBinding>() {

@@ -37,7 +37,7 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
         override var layoutParams: ViewGroup.LayoutParams =
             FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         override var animStyleId: Int? = null
-        override var styleId: Int = R.style.DialogKStyle_Theme
+        override var styleId: Int = R.style.DialogK_Style_Theme
         override var cancelable: Boolean = true
 
         fun setQuestion(title: String): Builder {
@@ -85,7 +85,7 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
             }
             dialogKQues.setContentView(view)
             dialogKQues.setCancelable(cancelable)
-            dialogKQues.window?.setWindowAnimations(animStyleId ?: R.style.DialogKAnim_Alpha)
+            dialogKQues.window?.setWindowAnimations(animStyleId ?: R.style.DialogK_Anim_Alpha)
             dialogKQues.window?.setLayout(width.dp2px(), height.dp2px())
             return dialogKQues
         }

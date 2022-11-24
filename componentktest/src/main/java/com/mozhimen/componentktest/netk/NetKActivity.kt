@@ -1,7 +1,7 @@
 package com.mozhimen.componentktest.netk
 
 import android.view.View
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.componentktest.databinding.ActivityNetkBinding
 import com.mozhimen.componentktest.netk.file.NetKFileActivity

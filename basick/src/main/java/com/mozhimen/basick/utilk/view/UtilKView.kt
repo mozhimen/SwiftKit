@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import com.mozhimen.basick.utilk.UtilKActivity
 import com.mozhimen.basick.utilk.UtilKDataType
 import java.util.*
 
@@ -180,7 +181,7 @@ object UtilKView {
     @JvmStatic
     fun removeViewFromParent(view: View): View {
         val viewParent: ViewParent = view.parent
-        if (viewParent is ViewGroup) viewParent.removeView(viewParent)
+        if (viewParent is ViewGroup && !UtilKActivity.isActivityDestroyed(view.context)) viewParent.removeView(viewParent)
         return view
     }
 

@@ -2,7 +2,7 @@ package com.mozhimen.underlayktest
 
 import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.elemk.activity.commons.BaseActivityVB
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayktest.databinding.ActivityUnderlaykBinding
