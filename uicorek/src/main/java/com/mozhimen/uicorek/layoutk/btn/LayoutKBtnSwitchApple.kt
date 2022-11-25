@@ -74,12 +74,12 @@ class LayoutKBtnSwitchApple @JvmOverloads constructor(
         _bgColorOn = typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_bgColorOn, _bgColorOn)
         _bgColorOff = typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_bgColorOff, _bgColorOff)
         _bgColorBorder =
-            typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_bgColorBorder, _bgColorBorder)
+            typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_borderColor, _bgColorBorder)
         _iconColorBtn =
-            typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_iconColorBtn, _iconColorBtn)
+            typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_btnColor, _iconColorBtn)
         _iconMargin =
             typedArray.getDimensionPixelSize(
-                R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_iconMargin,
+                R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_btnMargin,
                 _iconMargin
             )
         _borderWidth =

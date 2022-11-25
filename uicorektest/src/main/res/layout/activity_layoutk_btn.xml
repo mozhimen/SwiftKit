@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data />
 
@@ -14,6 +14,19 @@
 
         <com.mozhimen.uicorek.layoutk.btn.LayoutKBtnSwitchApple
             android:id="@+id/layoutk_btn_switchApple"
+            android:layout_width="50dp"
+            android:layout_height="30dp" />
+        <!--            app:layoutKBtnSwitchApple_animTime="300"-->
+        <!--            app:layoutKBtnSwitchApple_bgColorBorder="@color/blue_light"-->
+        <!--            app:layoutKBtnSwitchApple_bgColorOff="@color/blue_light"-->
+        <!--            app:layoutKBtnSwitchApple_bgColorOn="@color/blue_normal"-->
+        <!--            app:layoutKBtnSwitchApple_borderWidth="1dp"-->
+        <!--            app:layoutKBtnSwitchApple_defaultStatus="false"-->
+        <!--            app:layoutKBtnSwitchApple_iconColorBtn="@color/white"-->
+        <!--            app:layoutKBtnSwitchApple_iconMargin="3dp" />-->
+
+        <com.mozhimen.uicorek.layoutk.btn.LayoutKBtnSwitchApple
+            android:id="@+id/layoutk_btn_switchApple1"
             android:layout_width="50dp"
             android:layout_height="30dp"
             app:layoutKBtnSwitchApple_animTime="300"

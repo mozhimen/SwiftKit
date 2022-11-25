@@ -18,11 +18,11 @@ class LayoutKBtnActivity : BaseActivityVB<ActivityLayoutkBtnBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         _layoutKBtnSwitchApple = vb.layoutkBtnSwitchApple
-        _layoutKBtnSwitchApple.setDefaultStatus(false)
+        _layoutKBtnSwitchApple.setSwitchStatus(false)
         _layoutKBtnSwitchApple.setOnSwitchListener(object :
             LayoutKBtnSwitchApple.ISwitchAppleListener {
-            override fun switch(status: Boolean) {
-                Log.i("BtnKActivity", "btnk_switchApple status $status")
+            override fun onSwitch(status: Boolean) {
+                Log.i(TAG, "btnk_switchApple status $status")
             }
         })
     }

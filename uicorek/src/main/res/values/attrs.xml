@@ -215,16 +215,17 @@
         <attr name="layoutKBtnSwitchApple_bgColorOn" format="reference|color" />
         <!--关闭时颜色-->
         <attr name="layoutKBtnSwitchApple_bgColorOff" format="reference|color" />
-        <!--外边框颜色-->
-        <attr name="layoutKBtnSwitchApple_bgColorBorder" format="reference|color" />
         <!--中心圆颜色-->
-        <attr name="layoutKBtnSwitchApple_iconColorBtn" format="reference|color" />
+        <attr name="layoutKBtnSwitchApple_btnColor" format="reference|color" />
+        <!--中心圆到外边距的距离-->
+        <attr name="layoutKBtnSwitchApple_btnMargin" format="dimension|reference" />
         <!--外边框厚度-->
         <attr name="layoutKBtnSwitchApple_borderWidth" format="dimension|reference" />
+        <!--外边框颜色-->
+        <attr name="layoutKBtnSwitchApple_borderColor" format="reference|color" />
         <!--变换时间-->
         <attr name="layoutKBtnSwitchApple_animTime" format="integer" />
-        <!--中心圆到外边距的距离-->
-        <attr name="layoutKBtnSwitchApple_iconMargin" format="dimension|reference" />
+
     </declare-styleable>
 
     <declare-styleable name="LayoutKBtnIcon">
