@@ -21,7 +21,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
-import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
+import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 
 /**
  * Created by 大灯泡 on 2017/12/27.
@@ -77,14 +77,14 @@ public class BlurHelper {
     public static Bitmap blur(Context context, Bitmap origin, int resultWidth, int resultHeight, float radius) {
         startTime = System.currentTimeMillis();
         if (renderScriptSupported()) {
-            PopupLog.i(TAG, "脚本模糊");
+            UtilKSmartLog.i(TAG, "脚本模糊");
             return scriptBlur(context,
                     origin,
                     resultWidth,
                     resultHeight,
                     radius);
         } else {
-            PopupLog.i(TAG, "快速模糊");
+            UtilKSmartLog.i(TAG, "快速模糊");
             return fastBlur(context,
                     origin,
                     resultWidth,
@@ -111,7 +111,7 @@ public class BlurHelper {
         }
 
         if (blur == null) {
-            PopupLog.e(TAG, "脚本模糊失败，转fastBlur");
+            UtilKSmartLog.e(TAG, "脚本模糊失败，转fastBlur");
             blurInput.destroy();
             blurOutput.destroy();
             return fastBlur(context, origin, outWidth, outHeight, radius);
@@ -129,10 +129,10 @@ public class BlurHelper {
         Bitmap result = Bitmap.createScaledBitmap(origin, outWidth, outHeight, true);
         origin.recycle();
         long time = (System.currentTimeMillis() - startTime);
-        if (PopupLog.isOpenLog()) {
+        if (UtilKSmartLog.isOpenLog()) {
             toast(context, "模糊用时：【" + time + "ms】");
         }
-        PopupLog.i(TAG, "模糊用时：【" + time + "ms】");
+        UtilKSmartLog.i(TAG, "模糊用时：【" + time + "ms】");
         return result;
     }
 
@@ -145,10 +145,10 @@ public class BlurHelper {
                 outHeight,
                 true);
         long time = (System.currentTimeMillis() - startTime);
-        if (PopupLog.isOpenLog()) {
+        if (UtilKSmartLog.isOpenLog()) {
             toast(context, "模糊用时：【" + time + "ms】");
         }
-        PopupLog.i(TAG, "模糊用时：【" + time + "ms】");
+        UtilKSmartLog.i(TAG, "模糊用时：【" + time + "ms】");
         return origin;
     }
 
@@ -159,12 +159,12 @@ public class BlurHelper {
 
     public static Bitmap getViewBitmap(final View v, float scaledRatio, boolean fullScreen, int cutoutX, int cutoutY) {
         if (v == null || v.getWidth() <= 0 || v.getHeight() <= 0) {
-            PopupLog.e("getViewBitmap  >>  宽或者高为空");
+            UtilKSmartLog.e("getViewBitmap  >>  宽或者高为空");
             return null;
         }
         final int statusBarHeight = UtilKStatusBar.getStatusBarHeight(false);
         Bitmap b;
-        PopupLog.i("模糊原始图像分辨率 [" + v.getWidth() + " x " + v.getHeight() + "]");
+        UtilKSmartLog.i("模糊原始图像分辨率 [" + v.getWidth() + " x " + v.getHeight() + "]");
 
         try {
             b = Bitmap.createBitmap((int) (v.getWidth() * scaledRatio), (int) (v.getHeight() * scaledRatio), Bitmap.Config.ARGB_8888);
@@ -193,7 +193,7 @@ public class BlurHelper {
             }
         }
         v.draw(c);
-        PopupLog.i("模糊缩放图像分辨率 [" + b.getWidth() + " x " + b.getHeight() + "]");
+        UtilKSmartLog.i("模糊缩放图像分辨率 [" + b.getWidth() + " x " + b.getHeight() + "]");
         if (cutoutX > 0 || cutoutY > 0) {
             try {
                 int cutLeft = (int) (cutoutX * scaledRatio);
@@ -217,12 +217,7 @@ public class BlurHelper {
     private static void toast(final Context context, final String msg) {
         if (Looper.myLooper() == null || Looper.myLooper() != Looper.getMainLooper()) {
             if (context instanceof Activity) {
-                ((Activity) context).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        toast(context, msg);
-                    }
-                });
+                ((Activity) context).runOnUiThread(() -> toast(context, msg));
             }
         } else {
             Toast.makeText(context.getApplicationContext(), msg, Toast.LENGTH_SHORT).show();

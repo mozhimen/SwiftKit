@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.log
 
 import android.util.Log
 

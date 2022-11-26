@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.UtilKLog
+import com.mozhimen.basick.utilk.log.UtilKLog
 
 /**
  * @ClassName ExtsKLog

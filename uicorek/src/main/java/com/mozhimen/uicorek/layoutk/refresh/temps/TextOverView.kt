@@ -23,7 +23,7 @@ class TextOverView @JvmOverloads constructor(context: Context, attrs: AttributeS
     RefreshOverView(context, attrs, defStyleAttr) {
     private lateinit var _titleView: TextView
     private lateinit var _animView: View
-    private val _rotateAnimation by lazy { AnimKBuilder.asAnimation().asRotation(RotationRecyclerType()).build() }
+    private val _rotateAnimation by lazy { AnimKBuilder.asAnimation().add(RotationRecyclerType()).build() }
 
     override fun init() {
         LayoutInflater.from(context).inflate(R.layout.layoutk_refresh_overview_text, this, true)

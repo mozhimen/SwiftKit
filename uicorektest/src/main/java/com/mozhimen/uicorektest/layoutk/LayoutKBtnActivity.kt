@@ -3,6 +3,8 @@ package com.mozhimen.uicorektest.layoutk
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.uicorek.layoutk.btn.ILayoutKSwitchListener
+import com.mozhimen.uicorek.layoutk.btn.LayoutKBtnSwitch
 import com.mozhimen.uicorek.layoutk.btn.LayoutKBtnSwitchApple
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkBtnBinding
 
@@ -14,16 +16,13 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkBtnBinding
  * @Version 1.0
  */
 class LayoutKBtnActivity : BaseActivityVB<ActivityLayoutkBtnBinding>() {
-    private lateinit var _layoutKBtnSwitchApple: LayoutKBtnSwitchApple
+    private lateinit var _layoutKBtnSwitchApple: LayoutKBtnSwitch
 
     override fun initView(savedInstanceState: Bundle?) {
-        _layoutKBtnSwitchApple = vb.layoutkBtnSwitchApple
+        _layoutKBtnSwitchApple = vb.layoutkBtnSwitchApple1
         _layoutKBtnSwitchApple.setSwitchStatus(false)
-        _layoutKBtnSwitchApple.setOnSwitchListener(object :
-            LayoutKBtnSwitchApple.ISwitchAppleListener {
-            override fun onSwitch(status: Boolean) {
-                Log.i(TAG, "btnk_switchApple status $status")
-            }
-        })
+        _layoutKBtnSwitchApple.setOnSwitchListener { status ->
+            Log.i(TAG, "btnk_switch status $status")
+        }
     }
 }

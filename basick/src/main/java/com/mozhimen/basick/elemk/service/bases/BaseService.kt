@@ -13,7 +13,7 @@ import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
 
 /**
- * @ClassName BaseKService
+ * @ClassName BaseService
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/9/27 0:36

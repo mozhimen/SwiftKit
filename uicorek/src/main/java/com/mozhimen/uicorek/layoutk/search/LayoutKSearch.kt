@@ -18,7 +18,7 @@ import com.mozhimen.basick.utilk.exts.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
 import com.mozhimen.basick.utilk.exts.setPadding
-import com.mozhimen.basick.elemk.handler.bases.BaseWeakHandler
+import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzHandler
 import com.mozhimen.uicorek.layoutk.search.helpers.AttrsParser
 import com.mozhimen.uicorek.layoutk.search.commons.SearchTextWatcher
 import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs
@@ -48,7 +48,7 @@ class LayoutKSearch @JvmOverloads constructor(
     private var _searchIcon: TextKIconFont? = null
     private var _searchIconHintContainer: LinearLayout? = null
     private var _clearIcon: TextKIconFont? = null
-    private val _weakRefHandler = BaseWeakHandler(this)
+    private val _weakRefHandler = BaseWeakClazzHandler(this)
 
     companion object {
         const val LEFT = 1

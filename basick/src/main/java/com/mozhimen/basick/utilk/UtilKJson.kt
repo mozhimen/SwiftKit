@@ -1,7 +1,11 @@
 package com.mozhimen.basick.utilk
 
+import android.text.TextUtils
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import kotlin.jvm.Throws
 
 /**
@@ -23,6 +27,7 @@ object UtilKJson {
      * @throws Exception
      */
     @Throws(Exception::class)
+    @JvmStatic
     inline fun <reified T> t2Json(t: T, indent: String = ""): String =
         moshiBuilder.adapter<T>(UtilKGeneric.getGenericType<T>()!!).indent(indent).toJson(t)
 
@@ -33,8 +38,43 @@ object UtilKJson {
      * @throws Exception
      */
     @Throws(Exception::class)
+    @JvmStatic
     inline fun <reified T> json2T(json: String): T? =
         moshiBuilder.adapter<T>(UtilKGeneric.getGenericType<T>()!!).fromJson(json)
+
+    @JvmStatic
+    fun wrapJson(jsonStr: String): String {
+        var message: String
+        if (TextUtils.isEmpty(jsonStr)) return ""
+        try {
+            if (jsonStr.startsWith("{")) {
+                val jsonObject = JSONObject(jsonStr)
+                message = jsonObject.toString(2)
+                message = """
+                
+                <<<<<=====JSONObject=====>>>>>
+                $message
+                <<<<<=====JSONObject=====>>>>>
+                
+                """.trimIndent()
+            } else if (jsonStr.startsWith("[")) {
+                val jsonArray = JSONArray(jsonStr)
+                message = jsonArray.toString(4)
+                message = """
+                
+                <<<<<=====JSONArray=====>>>>>
+                $message
+                <<<<<=====JSONArray=====>>>>>
+                
+                """.trimIndent()
+            } else {
+                message = jsonStr
+            }
+        } catch (e: JSONException) {
+            message = jsonStr
+        }
+        return message
+    }
 
 //    /**
 //     * 转Json

@@ -3,14 +3,14 @@ package com.mozhimen.basicktest.utilk
 import android.view.GestureDetector
 import android.view.MotionEvent
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.gesture.commons.GestureFlingCallback
 import com.mozhimen.basick.utilk.exts.showToast
-import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.basicktest.databinding.ActivityUtilkGestureBinding
 
 class UtilKGestureActivity : BaseActivityVB<ActivityUtilkGestureBinding>() {
 
     private val _gestureDetector: GestureDetector by lazy {
-        GestureDetector(this, object : UtilKGesture.GestureFlingCallback() {
+        GestureDetector(this, object : GestureFlingCallback() {
             override fun onFlingLeft() {
                 "左划".showToast()
             }

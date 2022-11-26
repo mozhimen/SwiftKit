@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import android.widget.Toast
-import com.mozhimen.basick.elemk.handler.bases.BaseWeakHandler
+import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzHandler
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
@@ -26,11 +26,11 @@ object UtilKToast {
 
     @JvmStatic
     fun showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        BaseWeakHandler(_context).post { showToast(msg, duration) }
+        BaseWeakClazzHandler(_context).post { showToast(msg, duration) }
     }
 
     @JvmStatic
     fun showToastOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        BaseWeakHandler(_context).post { showToast(msgId, duration) }
+        BaseWeakClazzHandler(_context).post { showToast(msgId, duration) }
     }
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
 
 /**
- * @ClassName BaseKDemoViewModel
+ * @ClassName ElemKDemoViewModel
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/2/25 14:46

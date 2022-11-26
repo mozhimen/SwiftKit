@@ -43,10 +43,10 @@ import com.mozhimen.basick.utilk.UtilKAnimator;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKWindow;
 import com.mozhimen.basick.utilk.bar.UtilKNavigationBar;
+import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
-import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -616,7 +616,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             r.set(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
                     cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
         } catch (Exception e) {
-            PopupLog.e(e);
+            UtilKSmartLog.e(e);
         }
     }
 

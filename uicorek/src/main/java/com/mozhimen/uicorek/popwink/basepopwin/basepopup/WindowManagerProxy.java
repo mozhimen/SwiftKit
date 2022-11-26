@@ -13,9 +13,10 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
+import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.uicorek.popwink.bases.cons.CUI;
-import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -53,7 +54,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
 
     @Override
     public void removeViewImmediate(View view) {
-        PopupLog.i(TAG,
+        UtilKSmartLog.i(TAG,
                    "WindowManager.removeViewImmediate  >>>  " + (view == null ? null : view.getClass()
                            .getSimpleName()));
         PopupWindowQueueManager.getInstance().remove(this);
@@ -73,7 +74,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
 
     @Override
     public void removeView(View view) {
-        PopupLog.i(TAG,
+        UtilKSmartLog.i(TAG,
                    "WindowManager.removeView  >>>  " + (view == null ? null : view.getClass()
                            .getSimpleName()));
         PopupWindowQueueManager.getInstance().remove(this);
@@ -89,7 +90,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
 
     @Override
     public void addView(View view, ViewGroup.LayoutParams params) {
-        PopupLog.i(TAG,
+        UtilKSmartLog.i(TAG,
                    "WindowManager.addView  >>>  " + (view == null ? null : view.getClass()
                            .getName()));
         if (mWindowManager == null || view == null) return;
@@ -130,7 +131,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
 
     @Override
     public void updateViewLayout(View view, ViewGroup.LayoutParams params) {
-        PopupLog.i(TAG,
+        UtilKSmartLog.i(TAG,
                    "WindowManager.updateViewLayout  >>>  " + (view == null ? null : view.getClass()
                            .getName()));
         if (mWindowManager == null || view == null) return;
@@ -261,7 +262,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
             queue.addLast(managerProxy);
             managerProxy.isAddedToQueue = true;
 
-            PopupLog.d(TAG, queue);
+            UtilKSmartLog.d(TAG, queue);
         }
 
         void remove(WindowManagerProxy managerProxy) {
@@ -273,7 +274,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
                 queue.remove(managerProxy);
             }
             managerProxy.isAddedToQueue = false;
-            PopupLog.d(TAG, queue);
+            UtilKSmartLog.d(TAG, queue);
         }
 
         void clear(String key) {
@@ -282,7 +283,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
                 queue.clear();
             }
             sQueueMap.remove(key);
-            PopupLog.d(TAG, queue, sQueueMap);
+            UtilKSmartLog.d(TAG, queue, sQueueMap);
         }
 
         @Nullable
@@ -320,7 +321,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
                         }
                     }
                     if (helper.isOverlayStatusbar()) {
-                        PopupLog.i(TAG, "applyHelper  >>>  覆盖状态栏");
+                        UtilKSmartLog.i(TAG, "applyHelper  >>>  覆盖状态栏");
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                             int cutoutGravity = helper.getCutoutGravity();
                             if (cutoutGravity == Gravity.TOP || cutoutGravity == Gravity.BOTTOM) {
@@ -342,6 +343,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
 
         class Api30Impl implements WindowFlagCompat {
 
+            @RequiresApi(api = Build.VERSION_CODES.R)
             @Override
             public void setupFlag(ViewGroup.LayoutParams params, BasePopupHelper helper) {
                 if (params instanceof LayoutParams && helper != null) {
@@ -355,7 +357,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
                     }
                     int insetsType = p.getFitInsetsTypes();
                     if (helper.isOverlayStatusbar()) {
-                        PopupLog.i(TAG, "applyHelper  >>>  覆盖状态栏");
+                        UtilKSmartLog.i(TAG, "applyHelper  >>>  覆盖状态栏");
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                             int cutoutGravity = helper.getCutoutGravity();
                             if (cutoutGravity == Gravity.TOP || cutoutGravity == Gravity.BOTTOM) {

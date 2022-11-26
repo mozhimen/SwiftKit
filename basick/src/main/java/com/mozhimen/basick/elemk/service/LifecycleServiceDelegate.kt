@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * @ClassName BaseKServiceProxy
+ * @ClassName LifecycleServiceDelegate
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/9/28 16:02

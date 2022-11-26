@@ -205,10 +205,10 @@
 package com.mozhimen.uicorek.popwink.basepopwin.basepopup;
 
 import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.AUTO_INPUT_METHOD;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.BACKPRESS_ENABLE;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.FADE_ENABLE;
 import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.AUTO_MIRROR;
+import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.BACKPRESS_ENABLE;
 import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.CLIP_CHILDREN;
+import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.FADE_ENABLE;
 import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.FITSIZE;
 import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.MODE_ADD;
 import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.MODE_REMOVE;
@@ -252,9 +252,9 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKRes;
+import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
-import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 
 /**
  * <br>
@@ -894,7 +894,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     protected void onShowError(Exception e) {
-        PopupLog.e(TAG, "onShowError: ", e);
+        UtilKSmartLog.e(TAG, "onShowError: ", e);
         onLogInternal(e.getMessage());
     }
 
@@ -2170,14 +2170,14 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     public static void setDebugMode(boolean debugMode) {
-        PopupLog.setOpenLog(debugMode);
+        UtilKSmartLog.setOpenLog(debugMode);
     }
 
     /**
      * 日志输出口
      */
     protected void onLogInternal(String msg) {
-        PopupLog.d(TAG, msg);
+        UtilKSmartLog.d(TAG, msg);
     }
 
     private String ownerParentLog() {

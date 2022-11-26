@@ -1,6 +1,7 @@
 package com.mozhimen.underlayk.logk.mos
 
 import androidx.annotation.IntDef
+import com.mozhimen.basick.utilk.log.cons.CLogType
 
 /**
  * @ClassName LogKType
@@ -10,12 +11,12 @@ import androidx.annotation.IntDef
  * @Version 1.0
  */
 @IntDef(
-    CLogKType.V,
-    CLogKType.D,
-    CLogKType.I,
-    CLogKType.W,
-    CLogKType.E,
-    CLogKType.A
+    CLogType.V,
+    CLogType.D,
+    CLogType.I,
+    CLogType.W,
+    CLogType.E,
+    CLogType.A
 )
 @Retention(AnnotationRetention.SOURCE)
 annotation class ALogKType

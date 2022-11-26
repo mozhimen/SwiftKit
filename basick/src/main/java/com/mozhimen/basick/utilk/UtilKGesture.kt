@@ -45,45 +45,26 @@ object UtilKGesture {
     fun isTapInArea(event: MotionEvent, left: Float, right: Float, top: Float, bottom: Float): Boolean =
         event.x in left..right && event.y >= top && event.y < bottom
 
-    interface IFlingListener {
-        fun onFlingUp()
-        fun onFlingDown()
-        fun onFlingLeft()
-        fun onFlingRight()
-    }
-
-    open class GestureFlingCallback : IFlingListener, GestureDetector.SimpleOnGestureListener() {
-        private val _minDistance = 200 //最小识别距离
-        private val _minVelocity = 20 //最小识别速度
-
-        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            //大于设定的最小滑动距离并且在水平/竖直方向速度绝对值大于设定的最小速度，则执行相应方法
-            if (e1.x - e2.x > _minDistance && abs(velocityX) > _minVelocity) {
-                onFlingLeft()
-            } else if (e2.x - e1.x > _minDistance && abs(velocityX) > _minVelocity) {
-                onFlingRight()
-            } else if (e1.y - e2.y > _minDistance && abs(velocityY) > _minVelocity) {
-                onFlingUp()
-            } else if (e2.y - e1.y > _minDistance && abs(velocityY) > _minVelocity) {
-                onFlingDown()
-            }
-            return false
+    @JvmStatic
+    fun motionEvent2String(action: Int): String {
+        when (action) {
+            MotionEvent.ACTION_DOWN -> return "ACTION_DOWN"
+            MotionEvent.ACTION_UP -> return "ACTION_UP"
+            MotionEvent.ACTION_CANCEL -> return "ACTION_CANCEL"
+            MotionEvent.ACTION_OUTSIDE -> return "ACTION_OUTSIDE"
+            MotionEvent.ACTION_MOVE -> return "ACTION_MOVE"
+            MotionEvent.ACTION_HOVER_MOVE -> return "ACTION_HOVER_MOVE"
+            MotionEvent.ACTION_SCROLL -> return "ACTION_SCROLL"
+            MotionEvent.ACTION_HOVER_ENTER -> return "ACTION_HOVER_ENTER"
+            MotionEvent.ACTION_HOVER_EXIT -> return "ACTION_HOVER_EXIT"
+            MotionEvent.ACTION_BUTTON_PRESS -> return "ACTION_BUTTON_PRESS"
+            MotionEvent.ACTION_BUTTON_RELEASE -> return "ACTION_BUTTON_RELEASE"
         }
-
-        override fun onFlingUp() {
-
-        }
-
-        override fun onFlingDown() {
-
-        }
-
-        override fun onFlingLeft() {
-
-        }
-
-        override fun onFlingRight() {
-
+        val index = action and MotionEvent.ACTION_POINTER_INDEX_MASK shr MotionEvent.ACTION_POINTER_INDEX_SHIFT
+        return when (action and MotionEvent.ACTION_MASK) {
+            MotionEvent.ACTION_POINTER_DOWN -> "ACTION_POINTER_DOWN($index)"
+            MotionEvent.ACTION_POINTER_UP -> "ACTION_POINTER_UP($index)"
+            else -> action.toString()
         }
     }
 }

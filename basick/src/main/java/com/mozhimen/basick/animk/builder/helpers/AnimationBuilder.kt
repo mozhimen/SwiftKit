@@ -3,7 +3,7 @@ package com.mozhimen.basick.animk.builder.helpers
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import androidx.core.util.forEach
-import com.mozhimen.basick.animk.builder.commons.IAnimKBuilder
+import com.mozhimen.basick.animk.builder.bases.BaseAnimationBuilder
 import com.mozhimen.basick.animk.builder.commons.IAnimationCreateListener
 
 /**
@@ -13,7 +13,7 @@ import com.mozhimen.basick.animk.builder.commons.IAnimationCreateListener
  * @Date 2022/11/17 23:38
  * @Version 1.0
  */
-class AnimationBuilder : IAnimKBuilder<AnimationBuilder>() {
+class AnimationBuilder : BaseAnimationBuilder<AnimationBuilder>() {
 
     @JvmOverloads
     fun build(listener: IAnimationCreateListener? = null): Animation {

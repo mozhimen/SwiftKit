@@ -12,8 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".elemk.activity.BaseKDemoActivity">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,7 +36,7 @@
 
         <fragment
             android:id="@+id/elemk_vbvm_fragment_vbvm"
-            android:name="com.mozhimen.basicktest.elemk.fragment.BaseKDemoFragmentVBVM"
+            android:name="com.mozhimen.basicktest.elemk.fragment.ElemKDemoFragmentVBVM"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />

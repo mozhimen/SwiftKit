@@ -1,5 +1,9 @@
 package com.mozhimen.basick.utilk
 
+import android.text.TextUtils
+import android.util.Log
+import java.util.logging.Logger
+
 /**
  * @ClassName StackTraceUtil
  * @Description TODO
@@ -77,5 +81,56 @@ object UtilKStackTrace {
         val realStack = arrayOfNulls<StackTraceElement>(realDepth)
         System.arraycopy(callStack, 0, realStack, 0, realDepth)
         return realStack
+    }
+
+    @JvmStatic
+    fun getCurrentStackTrace(clazz: Class<*>): StackTraceElement? {
+        val stackTrace = Thread.currentThread().stackTrace
+        var stackOffset = getStackTraceOffset(stackTrace, clazz)
+        if (stackOffset == -1) {
+            stackOffset = getStackTraceOffset(stackTrace, Logger::class.java)
+            if (stackOffset == -1) {
+                stackOffset = getStackTraceOffset(stackTrace, Log::class.java)
+                if (stackOffset == -1) {
+                    return null
+                }
+            }
+        }
+        return stackTrace[stackOffset]
+    }
+
+    @JvmStatic
+    fun getStackTraceOffset(stackTraceElements: Array<StackTraceElement>, clazz: Class<*>): Int {
+        var logIndex = -1
+        for (i in stackTraceElements.indices) {
+            val element = stackTraceElements[i]
+            val tClass = element.className
+            if (TextUtils.equals(tClass, clazz.name)) {
+                logIndex = i
+            } else {
+                if (logIndex > -1) break
+            }
+        }
+        if (logIndex != -1) {
+            logIndex++
+            if (logIndex >= stackTraceElements.size) {
+                logIndex = stackTraceElements.size - 1
+            }
+        }
+        return logIndex
+    }
+
+    @JvmStatic
+    fun getStackTraceInfo(msg: String): String {
+        val element = getCurrentStackTrace(this::class.java)
+        var clazzName = "unknown"
+        var methodName = "unknown"
+        var lineNumber = -1
+        if (element != null) {
+            clazzName = element.fileName
+            methodName = element.methodName
+            lineNumber = element.lineNumber
+        }
+        return "  ($clazzName:$lineNumber) #$methodName: \n${UtilKJson.wrapJson(msg)}"
     }
 }

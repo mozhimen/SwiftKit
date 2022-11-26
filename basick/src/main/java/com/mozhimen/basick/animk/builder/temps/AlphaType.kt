@@ -6,7 +6,7 @@ import android.view.View
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import androidx.annotation.FloatRange
-import com.mozhimen.basick.animk.builder.commons.IAnimKType
+import com.mozhimen.basick.animk.builder.bases.BaseAnimKType
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
 
 /**
@@ -16,9 +16,10 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/17 22:46
  * @Version 1.0
  */
-open class AlphaType : IAnimKType<AlphaType>() {
+open class AlphaType : BaseAnimKType<AlphaType>() {
     protected var _alphaFrom = 0f
     protected var _alphaTo = 1f
+    override lateinit var _animator: Animator
 
     fun setAlpha(@FloatRange(from = 0.0, to = 1.0) fromAlpha: Float, @FloatRange(from = 0.0, to = 1.0) toAlpha: Float): AlphaType {
         _alphaFrom = fromAlpha
@@ -45,9 +46,9 @@ open class AlphaType : IAnimKType<AlphaType>() {
     }
 
     override fun buildAnimator(animKConfig: AnimKConfig): Animator {
-        val animator: Animator = ObjectAnimator.ofFloat(null, View.ALPHA, _alphaFrom, _alphaTo)
-        formatAnimator(animKConfig, animator)
-        return animator
+        _animator = ObjectAnimator.ofFloat(null, View.ALPHA, _alphaFrom, _alphaTo)
+        formatAnimator(animKConfig, _animator)
+        return _animator
     }
 
     companion object {

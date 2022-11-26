@@ -13,7 +13,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/20 16:37
  * @Version 1.0
  */
-open class AlphaRecyclerType : AlphaType() {
+class AlphaRecyclerType : AlphaType() {
     init {
         setInterpolator(LinearInterpolator())
     }

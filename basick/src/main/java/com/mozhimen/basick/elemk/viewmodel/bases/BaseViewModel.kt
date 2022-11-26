@@ -6,7 +6,7 @@ import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
 /**
- * @ClassName BaseKViewModel
+ * @ClassName BaseViewModel
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/2/25 14:46

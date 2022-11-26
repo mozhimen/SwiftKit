@@ -1,4 +1,4 @@
-package com.mozhimen.underlayk.logk.mos
+package com.mozhimen.basick.utilk.log.cons
 
 import android.util.Log
 
@@ -10,7 +10,7 @@ import android.util.Log
  * @Date 2022/10/31 13:29
  * @Version 1.0
  */
-object CLogKType {
+object CLogType {
     const val V = Log.VERBOSE
     const val D = Log.DEBUG
     const val I = Log.INFO

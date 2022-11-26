@@ -1,6 +1,7 @@
 package com.mozhimen.underlayk.logk.mos
 
 import com.mozhimen.basick.utilk.UtilKDate
+import com.mozhimen.basick.utilk.log.cons.CLogType
 
 /**
  * @ClassName LogKMo
@@ -16,6 +17,6 @@ class MLogK(private var timeMillis: Long, var level: Int, var tag: String, var l
     }
 
     fun getFlattened(): String {
-        return "${UtilKDate.long2String(timeMillis, UtilKDate.FORMAT_yyyyMMddHHmmss)} | Level: ${CLogKType.getTypeName(level)} | Tag: $tag :"
+        return "${UtilKDate.long2String(timeMillis, UtilKDate.FORMAT_yyyyMMddHHmmss)} | Level: ${CLogType.getTypeName(level)} | Tag: $tag :"
     }
 }

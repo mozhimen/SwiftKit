@@ -17,7 +17,7 @@ import android.view.animation.AccelerateInterpolator;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.mozhimen.basick.taskk.executor.TaskKExecutor;
-import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
+import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -84,19 +84,19 @@ public class BlurImageView extends AppCompatImageView {
         mBlurOption = option;
         View anchorView = option.getBlurView();
         if (anchorView == null) {
-            PopupLog.e(TAG, "模糊锚点View为空，放弃模糊操作...");
+            UtilKSmartLog.e(TAG, "模糊锚点View为空，放弃模糊操作...");
             destroy();
             return;
         }
         //因为考虑到实时更新位置（包括模糊也要实时）的原因，因此强制更新时模糊操作在主线程完成。
         if (option.isBlurAsync() && !isOnUpdate) {
-            PopupLog.i(TAG, "子线程blur");
+            UtilKSmartLog.i(TAG, "子线程blur");
             startBlurTask(anchorView);
         } else {
             try {
-                PopupLog.i(TAG, "主线程blur");
+                UtilKSmartLog.i(TAG, "主线程blur");
                 if (!BlurHelper.renderScriptSupported()) {
-                    PopupLog.e(TAG, "不支持脚本模糊。。。最低支持api 17(Android 4.2.2)，将采用fastblur");
+                    UtilKSmartLog.e(TAG, "不支持脚本模糊。。。最低支持api 17(Android 4.2.2)，将采用fastblur");
                 }
                 setImageBitmapOnUiThread(BlurHelper.blur(getContext(),
                         anchorView,
@@ -107,7 +107,7 @@ public class BlurImageView extends AppCompatImageView {
                         cutoutY),
                         isOnUpdate);
             } catch (Exception e) {
-                PopupLog.e(TAG, "模糊异常", e);
+                UtilKSmartLog.e(TAG, "模糊异常", e);
                 e.printStackTrace();
                 destroy();
             }
@@ -139,7 +139,7 @@ public class BlurImageView extends AppCompatImageView {
                         start(startDuration);
                     }
                 }, 0);
-                PopupLog.e(TAG, "缓存模糊动画，等待模糊完成");
+                UtilKSmartLog.e(TAG, "缓存模糊动画，等待模糊完成");
             }
             return;
         }
@@ -149,7 +149,7 @@ public class BlurImageView extends AppCompatImageView {
             mCacheAction = null;
         }
         if (isAnimating) return;
-        PopupLog.i(TAG, "开始模糊alpha动画");
+        UtilKSmartLog.i(TAG, "开始模糊alpha动画");
         isAnimating = true;
         if (duration > 0) {
             startAlphaInAnimation(duration);
@@ -184,7 +184,7 @@ public class BlurImageView extends AppCompatImageView {
      */
     public void dismiss(long duration) {
         isAnimating = false;
-        PopupLog.i(TAG, "dismiss模糊imageview alpha动画");
+        UtilKSmartLog.i(TAG, "dismiss模糊imageview alpha动画");
         if (duration > 0) {
             startAlphaOutAnimation(duration);
         } else if (duration == -2) {
@@ -266,7 +266,7 @@ public class BlurImageView extends AppCompatImageView {
      */
     private void handleSetImageBitmap(Bitmap bitmap, boolean isOnUpdate) {
         if (bitmap != null) {
-            PopupLog.i("bitmap: 【" + bitmap.getWidth() + "," + bitmap.getHeight() + "】");
+            UtilKSmartLog.i("bitmap: 【" + bitmap.getWidth() + "," + bitmap.getHeight() + "】");
         }
 
         setImageAlpha(isOnUpdate ? 255 : 0);
@@ -283,9 +283,9 @@ public class BlurImageView extends AppCompatImageView {
             setImageMatrix(matrix);
         }
         blurFinish.compareAndSet(false, true);
-        PopupLog.i(TAG, "设置成功：" + blurFinish.get());
+        UtilKSmartLog.i(TAG, "设置成功：" + blurFinish.get());
         if (mCacheAction != null) {
-            PopupLog.i(TAG, "恢复缓存动画");
+            UtilKSmartLog.i(TAG, "恢复缓存动画");
             mCacheAction.restore();
         }
         if (mAttachedCache != null) {
@@ -329,10 +329,10 @@ public class BlurImageView extends AppCompatImageView {
         @Override
         public void run() {
             if (abortBlur || mBlurOption == null) {
-                PopupLog.e(TAG, "放弃模糊，可能是已经移除了布局");
+                UtilKSmartLog.e(TAG, "放弃模糊，可能是已经移除了布局");
                 return;
             }
-            PopupLog.i(TAG, "子线程模糊执行");
+            UtilKSmartLog.i(TAG, "子线程模糊执行");
             setImageBitmapOnUiThread(BlurHelper.blur(getContext(),
                     mBitmap,
                     outWidth,
@@ -356,7 +356,7 @@ public class BlurImageView extends AppCompatImageView {
 
         void restore() {
             if (isOverTime()) {
-                PopupLog.e(TAG, "模糊超时");
+                UtilKSmartLog.e(TAG, "模糊超时");
                 destroy();
                 return;
             }

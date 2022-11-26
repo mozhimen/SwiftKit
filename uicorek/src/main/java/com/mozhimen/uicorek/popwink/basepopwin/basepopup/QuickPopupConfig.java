@@ -11,8 +11,8 @@ import android.view.animation.Animation;
 import com.mozhimen.basick.animk.builder.AnimKBuilder;
 import com.mozhimen.basick.animk.builder.temps.ScaleType;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
+import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
-import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
 import com.mozhimen.uicorek.popwink.basepopwin.widget.QuickPopup;
 
 import java.lang.reflect.Method;
@@ -69,7 +69,7 @@ public class QuickPopupConfig implements BasePopupFlag, ClearMemoryObject {
         try {
             return QuickPopup.class.getMethod(methodName, parameterTypes);
         } catch (Exception e) {
-            PopupLog.e("not found", methodName, parameterTypes.getName());
+            UtilKSmartLog.e("not found", methodName, parameterTypes.getName());
             return null;
         }
     }
@@ -103,10 +103,10 @@ public class QuickPopupConfig implements BasePopupFlag, ClearMemoryObject {
         //https://github.com/razerdp/BasePopup/issues/152
         return new QuickPopupConfig()
                 .withShowAnimation(AnimKBuilder.INSTANCE.asAnimation()
-                                           .asScale(ScaleType.Companion.getCENTER_SHOW())
+                                           .add(ScaleType.Companion.getCENTER_SHOW())
                                            .build())
                 .withDismissAnimation(AnimKBuilder.INSTANCE.asAnimation()
-                                              .asScale(ScaleType.Companion.getCENTER_HIDE())
+                                              .add(ScaleType.Companion.getCENTER_HIDE())
                                               .build())
                 .fadeInAndOut(Build.VERSION.SDK_INT != Build.VERSION_CODES.M);
     }

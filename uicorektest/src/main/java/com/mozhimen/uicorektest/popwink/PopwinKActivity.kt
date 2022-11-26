@@ -33,11 +33,11 @@ class PopwinKActivity : BaseActivityVB<ActivityPopwinkBinding>() {
         }
 
         override fun onCreateShowAnimation(): Animation {
-            return AnimKBuilder.asAnimation().asTranslation(TranslationType.FROM_TOP_SHOW).build()
+            return AnimKBuilder.asAnimation().add(TranslationType.FROM_TOP_SHOW).build()
         }
 
         override fun onCreateDismissAnimation(): Animation {
-            return AnimKBuilder.asAnimation().asTranslation(TranslationType.TO_TOP_HIDE).build()
+            return AnimKBuilder.asAnimation().add(TranslationType.TO_TOP_HIDE).build()
         }
     }
 }

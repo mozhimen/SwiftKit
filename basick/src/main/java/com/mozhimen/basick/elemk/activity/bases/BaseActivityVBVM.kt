@@ -8,10 +8,8 @@ import com.mozhimen.basick.elemk.viewdatabinding.commons.IViewDataBinding
 import com.mozhimen.basick.utilk.UtilKViewModel
 
 /**
- * @ClassName BaseKActivity
- * @Description class BaseKDemoActivity :
- * BaseKActivity<ActivityBaseKActivityBinding, BaseKDemoViewModel>() {
- * override fun assignVM() {vb.vm = vm}}
+ * @ClassName BaseActivity
+ * @Description
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/1/25 18:47
  * @Version 1.0

@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.viewdatabinding.commons
 import androidx.databinding.ViewDataBinding
 
 /**
- * @ClassName IBaseKBinding
+ * @ClassName IViewDataBinding
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/10/22 23:58

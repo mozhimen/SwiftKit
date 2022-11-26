@@ -52,7 +52,7 @@ object UtilKGeneric {
     @JvmStatic
     fun getParentGenericType(clazz: Class<*>, index: Int = 0): Type? {
         val genericSuperclass = clazz.genericSuperclass
-        if (genericSuperclass !is ParameterizedType) return if (clazz.superclass != null) getParentGenericType(clazz.superclass, index) else null//当我们继承多层BaseKActivity时递归查找泛型
+        if (genericSuperclass !is ParameterizedType) return if (clazz.superclass != null) getParentGenericType(clazz.superclass, index) else null//当我们继承多层BaseActivity时递归查找泛型
         genericSuperclass
             .actualTypeArguments.filterIsInstance<Class<*>>()
             .run {

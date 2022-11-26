@@ -6,7 +6,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.commons.LogKConfig
-import com.mozhimen.underlayk.logk.mos.CLogKType
+import com.mozhimen.basick.utilk.log.cons.CLogType
 import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
 import com.mozhimen.underlayk.logk.temps.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
@@ -37,7 +37,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
     }
 
     private fun initPrinterMonitor() {
-        //添加_printerMonitor的时候一定Application要继承BaseKApplication, 因为其中实现了前后台切换的监听
+        //添加_printerMonitor的时候一定Application要继承BaseApplication, 因为其中实现了前后台切换的监听
         _printerMonitor.toggleMonitor()
     }
 
@@ -46,7 +46,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
         LogK.i("just a test1!")
 
         //中级用法
-        LogK.log(CLogKType.W, TAG, "just a test2!")
+        LogK.log(CLogType.W, TAG, "just a test2!")
 
         //高级用法
         LogK.log(object : LogKConfig() {
@@ -57,7 +57,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
             override fun stackTraceDepth(): Int {
                 return 5
             }
-        }, CLogKType.E, TAG, "just a test3!")
+        }, CLogType.E, TAG, "just a test3!")
     }
 
     private fun printLog1() {

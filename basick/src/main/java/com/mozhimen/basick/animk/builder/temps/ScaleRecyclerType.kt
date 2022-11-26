@@ -1,6 +1,7 @@
 package com.mozhimen.basick.animk.builder.temps
 
 import android.animation.Animator
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
@@ -30,9 +31,11 @@ class ScaleRecyclerType : ScaleType() {
 
     override fun formatAnimator(animKConfig: AnimKConfig, animator: Animator) {
         super.formatAnimator(animKConfig, animator)
-        (animator as ObjectAnimator).apply {
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
+        (animator as AnimatorSet).childAnimations.forEach {
+            (it as ObjectAnimator).apply {
+                repeatCount = ObjectAnimator.INFINITE
+                repeatMode = ObjectAnimator.REVERSE
+            }
         }
     }
 }

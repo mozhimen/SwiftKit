@@ -6,7 +6,7 @@ import androidx.multidex.MultiDex
 import com.mozhimen.basick.stackk.StackKMgr
 
 /**
- * @ClassName BaseKApplication
+ * @ClassName BaseApplication
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/2/27 13:00

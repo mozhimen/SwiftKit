@@ -1,14 +1,12 @@
 package com.mozhimen.basick.animk.builder.temps
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
+import android.animation.*
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import androidx.annotation.FloatRange
-import com.mozhimen.basick.animk.builder.commons.IAnimKType
+import com.mozhimen.basick.animk.builder.bases.BaseAnimKType
+import com.mozhimen.basick.animk.builder.bases.BaseType
 import com.mozhimen.basick.animk.builder.cons.EDirection
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
 
@@ -19,12 +17,13 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/17 23:02
  * @Version 1.0
  */
-open class ScaleType : IAnimKType<ScaleType>() {
+open class ScaleType : BaseAnimKType<ScaleType>() {
     private var _scaleFromX = 0f
     private var _scaleToX = 1f
     private var _scaleFromY = 0f
     private var _scaleToY = 1f
     private var _isDismiss = false
+    override lateinit var _animator: Animator
 
     init {
         setPivot(.5f, .5f)
@@ -128,7 +127,7 @@ open class ScaleType : IAnimKType<ScaleType>() {
 
     override fun buildAnimator(animKConfig: AnimKConfig): Animator {
         val values = genConfigs()
-        val animatorSet = AnimatorSet()
+        _animator = AnimatorSet()
         val scaleX: Animator = ObjectAnimator.ofFloat(null, View.SCALE_X, values[0], values[1])
         val scaleY: Animator = ObjectAnimator.ofFloat(null, View.SCALE_Y, values[2], values[3])
         scaleX.addListener(object : AnimatorListenerAdapter() {
@@ -147,9 +146,9 @@ open class ScaleType : IAnimKType<ScaleType>() {
                 }
             }
         })
-        animatorSet.playTogether(scaleX, scaleY)
-        formatAnimator(animKConfig, animatorSet)
-        return animatorSet
+        (_animator as AnimatorSet).playTogether(scaleX, scaleY)
+        formatAnimator(animKConfig, _animator)
+        return _animator
     }
 
     private fun genConfigs(): FloatArray {

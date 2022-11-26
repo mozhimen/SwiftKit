@@ -7,7 +7,7 @@ import android.util.Property
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
-import com.mozhimen.basick.animk.builder.commons.IAnimKType
+import com.mozhimen.basick.animk.builder.bases.BaseAnimKType
 import com.mozhimen.basick.animk.builder.cons.EDirection
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
 
@@ -18,7 +18,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/17 23:03
  * @Version 1.0
  */
-open class TranslationType : IAnimKType<TranslationType>() {
+open class TranslationType() : BaseAnimKType<TranslationType>() {
     private var _fromX = 0f
     private var _toX = 0f
     private var _fromY = 0f
@@ -27,6 +27,7 @@ open class TranslationType : IAnimKType<TranslationType>() {
     private var _isPercentageToX = false
     private var _isPercentageFromY = false
     private var _isPercentageToY = false
+    override lateinit var _animator: Animator
 
     fun from(vararg directions: EDirection): TranslationType {
         if (directions.isNotEmpty()) {
@@ -176,7 +177,7 @@ open class TranslationType : IAnimKType<TranslationType>() {
     }
 
     override fun buildAnimator(animKConfig: AnimKConfig): Animator {
-        val animatorSet = AnimatorSet()
+        _animator = AnimatorSet()
         val translationXProperty = if (_isPercentageFromX && _isPercentageToY) object : FloatPropertyCompat<View>(
             View.TRANSLATION_X.name
         ) {
@@ -201,9 +202,9 @@ open class TranslationType : IAnimKType<TranslationType>() {
         } else View.TRANSLATION_Y
         val translationX = ObjectAnimator.ofFloat(null, translationXProperty, _fromX, _toX)
         val translationY = ObjectAnimator.ofFloat(null, translationYProperty, _fromY, _toY)
-        animatorSet.playTogether(translationX, translationY)
-        formatAnimator(animKConfig, animatorSet)
-        return animatorSet
+        (_animator as AnimatorSet).playTogether(translationX, translationY)
+        formatAnimator(animKConfig, _animator)
+        return _animator
     }
 
     abstract class FloatPropertyCompat<T>(name: String) : Property<T, Float>(Float::class.java, name) {

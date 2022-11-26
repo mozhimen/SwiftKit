@@ -9,7 +9,8 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.mozhimen.uicorek.popwink.basepopwin.util.log.PopupLog;
+import com.mozhimen.basick.utilk.UtilKStackTrace;
+import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -139,7 +140,7 @@ public enum BasePopupUnsafe {
         try {
             p.mHelper.mOnFitWindowManagerLayoutParamsCallback = cb;
         } catch (Exception e) {
-            PopupLog.e(e);
+            UtilKSmartLog.e(e);
         }
     }
 
@@ -149,9 +150,9 @@ public enum BasePopupUnsafe {
 
         private static StackTraceElement getCurrentStackTrace() {
             StackTraceElement[] trace = Thread.currentThread().getStackTrace();
-            int stackOffset = PopupLog.getStackOffset(trace, BasePopupUnsafe.class);
+            int stackOffset = UtilKStackTrace.getStackTraceOffset(trace, BasePopupUnsafe.class);
             if (stackOffset == -1) {
-                stackOffset = PopupLog.getStackOffset(trace, StackFetcher.class);
+                stackOffset = UtilKStackTrace.getStackTraceOffset(trace, StackFetcher.class);
                 if (stackOffset == -1) {
                     return null;
                 }

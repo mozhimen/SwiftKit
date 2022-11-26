@@ -1,10 +1,9 @@
 package com.mozhimen.basick.elemk.activity.commons
 
 import android.os.Bundle
-import androidx.annotation.CallSuper
 
 /**
- * @ClassName BaseKIAction
+ * @ClassName IActivity
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/2/25 13:44

@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.viewk.commons
 
 /**
- * @ClassName IBaseKViewAction
+ * @ClassName IViewKAction
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/8/31 17:49

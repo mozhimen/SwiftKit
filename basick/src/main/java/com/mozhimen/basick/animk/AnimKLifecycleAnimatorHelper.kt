@@ -9,8 +9,8 @@ import androidx.core.view.ViewCompat
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
-import com.mozhimen.basick.animk.builder.temps.DrawableAlphaRecyclerType
-import com.mozhimen.basick.animk.builder.temps.DrawableColorRecyclerType
+import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
+import com.mozhimen.basick.animk.builder.temps.ColorRecyclerAnimatorType
 import com.mozhimen.basick.taskk.commons.ITaskK
 import com.mozhimen.basick.utilk.UtilKAnim
 import com.mozhimen.basick.utilk.UtilKAnimator
@@ -34,7 +34,7 @@ class AnimKLifecycleAnimatorHelper(owner: LifecycleOwner) : ITaskK(owner) {
      */
     fun betweenColors(view: View, colorStart: Int, colorEnd: Int) {
         val colorDrawable = ColorDrawable(colorStart)
-        val colorAnimator = AnimKBuilder.asAnimator().asAlpha(DrawableColorRecyclerType().setColorRange(colorStart, colorEnd).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        val colorAnimator = AnimKBuilder.asAnimator().add(ColorRecyclerAnimatorType().setColorRange(colorStart, colorEnd).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
             override fun onChange(value: Int) {
                 colorDrawable.color = value
                 ViewCompat.setBackground(view, colorDrawable)
@@ -51,7 +51,7 @@ class AnimKLifecycleAnimatorHelper(owner: LifecycleOwner) : ITaskK(owner) {
      */
     fun alphaFlash(view: View, @FloatRange(from = 0.0, to = 1.0) alphaEnd: Float, @FloatRange(from = 0.0, to = 1.0) alphaStart: Float = 1f) {
         val alphaDrawable = view.background
-        val alphaAnimator = AnimKBuilder.asAnimator().asAlpha(DrawableAlphaRecyclerType().addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        val alphaAnimator = AnimKBuilder.asAnimator().add(AlphaAnimatorType().addAnimatorUpdateListener(object : IAnimatorUpdateListener {
             override fun onChange(value: Int) {
                 alphaDrawable.alpha = value
                 ViewCompat.setBackground(view, alphaDrawable)

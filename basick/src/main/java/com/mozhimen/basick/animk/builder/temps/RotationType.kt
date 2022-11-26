@@ -7,7 +7,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import androidx.annotation.FloatRange
-import com.mozhimen.basick.animk.builder.commons.IAnimKType
+import com.mozhimen.basick.animk.builder.bases.BaseAnimKType
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
 
 /**
@@ -17,9 +17,10 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/17 23:01
  * @Version 1.0
  */
-open class RotationType : IAnimKType<RotationType>() {
+open class RotationType : BaseAnimKType<RotationType>() {
     private var _from = 0f
     private var _to = 360f
+    override lateinit var _animator: Animator
 
     init {
         setPivot(0.5f, 0.5f)
@@ -38,8 +39,8 @@ open class RotationType : IAnimKType<RotationType>() {
     }
 
     override fun buildAnimator(animKConfig: AnimKConfig): Animator {
-        val rotateAnimator: Animator = ObjectAnimator.ofFloat(null, View.ROTATION, _from, _to)
-        rotateAnimator.addListener(object : AnimatorListenerAdapter() {
+        _animator = ObjectAnimator.ofFloat(null, View.ROTATION, _from, _to)
+        _animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationStart(animation: Animator) {
                 val target = (animation as ObjectAnimator).target
                 if (target is View) {
@@ -48,8 +49,8 @@ open class RotationType : IAnimKType<RotationType>() {
                 }
             }
         })
-        formatAnimator(animKConfig, rotateAnimator)
-        return rotateAnimator
+        formatAnimator(animKConfig, _animator)
+        return _animator
     }
 
     companion object {

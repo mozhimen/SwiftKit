@@ -1,9 +1,10 @@
-package com.mozhimen.basick.animk.builder.commons
+package com.mozhimen.basick.animk.builder.bases
 
 import android.util.Log
 import android.util.SparseArray
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
+import com.mozhimen.basick.animk.builder.commons.IAnimationType
 import com.mozhimen.basick.animk.builder.temps.AlphaType
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
 import com.mozhimen.basick.animk.builder.temps.RotationType
@@ -18,19 +19,8 @@ import com.mozhimen.basick.utilk.UtilKRes
  * @Date 2022/11/17 22:50
  * @Version 1.0
  */
-abstract class IAnimKBuilder<T> {
-    companion object {
-        private val TAG = "IAnimKBuilder>>>>>"
-
-        val DEFAULT_FILLBEFORE = false
-        val DEFAULT_FILLAFTER = true
-        val DEFAULT_DURATION = UtilKRes.getInteger(android.R.integer.config_longAnimTime).toLong()
-        val DEFAULT_INTERPOLATOR: Interpolator = AccelerateDecelerateInterpolator()
-    }
-
-    protected var _animKConfig = AnimKConfig(DEFAULT_FILLBEFORE, DEFAULT_FILLAFTER, DEFAULT_DURATION, DEFAULT_INTERPOLATOR)
-    protected var _types: SparseArray<IAnimKType<*>> = SparseArray()
-
+abstract class BaseAnimationBuilder<T> : BaseAnimKBuilder() {
+    protected var _types: SparseArray<IAnimationType> = SparseArray()
 
     fun setFillBefore(fillBefore: Boolean = false): T {
         this._animKConfig.fillBefore = fillBefore
@@ -52,28 +42,13 @@ abstract class IAnimKBuilder<T> {
         return this as T
     }
 
-    fun asAlpha(type: AlphaType): T {
+    fun add(type: IAnimationType): T {
         appendConfigs(type)
         return this as T
     }
 
-    fun asScale(type: ScaleType): T {
-        appendConfigs(type)
-        return this as T
-    }
-
-    fun asTranslation(type: TranslationType): T {
-        appendConfigs(type)
-        return this as T
-    }
-
-    fun asRotation(type: RotationType): T {
-        appendConfigs(type)
-        return this as T
-    }
-
-    private fun appendConfigs(type: IAnimKType<*>) {
-        _types.delete(type.getKey())//同类型的只能作用一个
+    private fun appendConfigs(type: IAnimationType) {
+        _types.delete((type as BaseType<*>).getKey())//同类型的只能作用一个
         _types.append(type.getKey(), type)
         Log.d(TAG, "appendConfigs: $_types")
     }

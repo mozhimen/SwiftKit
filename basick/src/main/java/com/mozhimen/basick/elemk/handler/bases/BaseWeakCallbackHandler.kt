@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.handler
+package com.mozhimen.basick.elemk.handler.bases
 
 import android.os.Handler
 import android.os.Looper
@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference
  * @Date 2022/11/24 14:33
  * @Version 1.0
  */
-class ExecHandler : Handler {
+class BaseWeakCallbackHandler : Handler {
     private val _weakCallback: WeakReference<Callback>?
 
     @JvmOverloads

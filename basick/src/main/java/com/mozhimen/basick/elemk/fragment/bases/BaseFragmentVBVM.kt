@@ -9,8 +9,8 @@ import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
 import com.mozhimen.basick.utilk.UtilKViewModel
 
 /**
- * @ClassName BaseKFragment
- * @Description class BaseKDemoFragment : BaseKFragment<FragmentBasekFragmentBinding, BaseKDemoViewModel>() {
+ * @ClassName BaseFragmentVBVM
+ * @Description class BaseDemoFragment : BaseFragment<FragmentBasekFragmentBinding, BaseDemoViewModel>() {
  * override fun assignVM() {vb.vm = vm}
  * override fun initView() {}}
  * @Author mozhimen / Kolin Zhao

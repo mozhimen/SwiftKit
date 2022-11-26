@@ -4,7 +4,7 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.commons.LogKConfig
 import com.mozhimen.basick.utilk.UtilKStackTrace
 import com.mozhimen.underlayk.logk.mos.ALogKType
-import com.mozhimen.underlayk.logk.mos.CLogKType
+import com.mozhimen.basick.utilk.log.cons.CLogType
 import java.lang.StringBuilder
 import kotlin.collections.ArrayList
 
@@ -44,7 +44,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun v(vararg contents: Any) {
-        log(CLogKType.V, *contents)
+        log(CLogType.V, *contents)
     }
 
     /**
@@ -53,7 +53,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun vt(tag: String, vararg contents: Any) {
-        log(CLogKType.V, tag, *contents)
+        log(CLogType.V, tag, *contents)
     }
 
     /**
@@ -61,7 +61,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun d(vararg contents: Any) {
-        log(CLogKType.D, *contents)
+        log(CLogType.D, *contents)
     }
 
     /**
@@ -70,7 +70,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun dt(tag: String, vararg contents: Any) {
-        log(CLogKType.D, tag, *contents)
+        log(CLogType.D, tag, *contents)
     }
 
     /**
@@ -78,7 +78,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun i(vararg contents: Any) {
-        log(CLogKType.I, *contents)
+        log(CLogType.I, *contents)
     }
 
     /**
@@ -87,7 +87,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun it(tag: String, vararg contents: Any) {
-        log(CLogKType.I, tag, *contents)
+        log(CLogType.I, tag, *contents)
     }
 
     /**
@@ -95,7 +95,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun w(vararg contents: Any) {
-        log(CLogKType.W, *contents)
+        log(CLogType.W, *contents)
     }
 
     /**
@@ -104,7 +104,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun wt(tag: String, vararg contents: Any) {
-        log(CLogKType.W, tag, *contents)
+        log(CLogType.W, tag, *contents)
     }
 
     /**
@@ -112,7 +112,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun e(vararg contents: Any) {
-        log(CLogKType.E, *contents)
+        log(CLogType.E, *contents)
     }
 
     /**
@@ -121,7 +121,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun et(tag: String, vararg contents: Any) {
-        log(CLogKType.E, tag, *contents)
+        log(CLogType.E, tag, *contents)
     }
 
     /**
@@ -129,7 +129,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun a(vararg contents: Any) {
-        log(CLogKType.A, *contents)
+        log(CLogType.A, *contents)
     }
 
     /**
@@ -138,7 +138,7 @@ object LogK {
      * @param contents Array<out Any>
      */
     fun at(tag: String, vararg contents: Any) {
-        log(CLogKType.A, tag, *contents)
+        log(CLogType.A, tag, *contents)
     }
 
     /**
@@ -176,7 +176,7 @@ object LogK {
             val threadInfo: String = LogKConfig.formatterThread.format(Thread.currentThread())
             builder.append(threadInfo).append("\n")
         }
-        if (config.stackTraceDepth() > 0 || (config.stackTraceDepth() <= 0 && type >= CLogKType.E)) {
+        if (config.stackTraceDepth() > 0 || (config.stackTraceDepth() <= 0 && type >= CLogType.E)) {
             val stackTrace: String? = LogKConfig.formatterStackTrace.format(
                 UtilKStackTrace.getCroppedRealStackTrack(
                     Throwable().stackTrace,

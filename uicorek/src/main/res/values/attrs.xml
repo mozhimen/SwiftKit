@@ -208,6 +208,26 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="LayoutKBtnSwitch">
+        <!--默认开关状态-->
+        <attr name="layoutKBtnSwitch_defaultStatus" format="boolean" />
+        <!--打开时颜色-->
+        <attr name="layoutKBtnSwitch_bgColorOn" format="reference|color" />
+        <!--关闭时颜色-->
+        <attr name="layoutKBtnSwitch_bgColorOff" format="reference|color" />
+        <!--中心圆颜色-->
+        <attr name="layoutKBtnSwitch_btnColor" format="reference|color" />
+        <!--中心圆到外边距的距离-->
+        <attr name="layoutKBtnSwitch_btnMargin" format="dimension|reference" />
+        <!--外边框厚度-->
+        <attr name="layoutKBtnSwitch_borderWidth" format="dimension|reference" />
+        <!--外边框颜色-->
+        <attr name="layoutKBtnSwitch_borderColor" format="reference|color" />
+        <!--变换时间-->
+        <attr name="layoutKBtnSwitch_animTime" format="integer" />
+
+    </declare-styleable>
+
     <declare-styleable name="LayoutKBtnSwitchApple">
         <!--默认开关状态-->
         <attr name="layoutKBtnSwitchApple_defaultStatus" format="boolean" />

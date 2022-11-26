@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.service.bases
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
 
 /**
- * @ClassName BaseKServiceResCallback
+ * @ClassName BaseServiceResCallback
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/9/28 0:58
