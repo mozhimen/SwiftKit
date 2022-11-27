@@ -1,7 +1,6 @@
 package com.mozhimen.basick.permissionk
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,11 +9,12 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.mozhimen.basick.utilk.exts.showToast
-import com.mozhimen.basick.utilk.exts.toJson
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.permissionk.helpers.IPermissionKListener
 import com.mozhimen.basick.permissionk.helpers.InvisibleFragment
+import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.exts.toJson
 
 /**
  * @ClassName PermissionK
@@ -25,6 +25,7 @@ import com.mozhimen.basick.permissionk.helpers.InvisibleFragment
  */
 object PermissionK {
     private const val TAG = "PermissionK>>>>>"
+    private val _context = UtilKApplication.instance.get()
 
     /**
      * 作用: 权限申请
@@ -34,24 +35,24 @@ object PermissionK {
     @JvmStatic
     fun initPermissions(
         activity: AppCompatActivity,
-        isGranted: (Boolean) -> Unit,
+        isGranted: ((Boolean) -> Unit)? = null,
     ) {
         val permissionAnnor = activity.javaClass.getAnnotation(APermissionK::class.java)
         requireNotNull(permissionAnnor) { TAG + "you may be forget add annor" }
         val permissions = permissionAnnor.permissions
         if (permissions.isNotEmpty()) {
-            if (!checkPermissions(activity, *permissions)) {
+            if (!checkPermissions(*permissions)) {
                 requestPermissions(activity, *permissions) { allGranted, deniedList ->
                     if (!allGranted) {
                         printDeniedList(deniedList)
                     }
-                    isGranted(allGranted)
+                    isGranted?.invoke(allGranted)
                 }
             } else {
-                isGranted(true)
+                isGranted?.invoke(true)
             }
         } else {
-            isGranted(true)
+            isGranted?.invoke(true)
         }
     }
 
@@ -65,19 +66,19 @@ object PermissionK {
     fun initPermissions(
         activity: AppCompatActivity,
         permissions: Array<String>,
-        isGranted: (Boolean) -> Unit
+        isGranted: ((Boolean) -> Unit)? = null
     ) {
         if (permissions.isNotEmpty()) {
-            if (!checkPermissions(activity, *permissions)) {
+            if (!checkPermissions(*permissions)) {
                 requestPermissions(activity, *permissions) { allGranted, deniedList ->
                     printDeniedList(deniedList)
-                    isGranted(allGranted)
+                    isGranted?.invoke(allGranted)
                 }
             } else {
-                isGranted(true)
+                isGranted?.invoke(true)
             }
         } else {
-            isGranted(true)
+            isGranted?.invoke(true)
         }
     }
 
@@ -112,21 +113,26 @@ object PermissionK {
 
     /**
      * 作用: 权限检查
-     * @param context Activity
      * @param permissions Array<out String>
      * @return Boolean
      */
     @JvmStatic
-    fun checkPermissions(context: Context, vararg permissions: String): Boolean {
+    fun checkPermissions(vararg permissions: String): Boolean {
+        return checkPermissions(permissions.toList())
+    }
+
+    /**
+     * 作用: 权限检查
+     * @param permissions Array<out String>
+     * @return Boolean
+     */
+    @JvmStatic
+    fun checkPermissions(permissions: List<String>): Boolean {
         var allGranted = true
-        return if (permissions.isEmpty()) {
-            true
-        } else {
+        return if (permissions.isEmpty()) true
+        else {
             permissions.forEach {
-                allGranted = allGranted and (ContextCompat.checkSelfPermission(
-                    context,
-                    it
-                ) == PackageManager.PERMISSION_GRANTED)
+                allGranted = allGranted and (ContextCompat.checkSelfPermission(_context, it) == PackageManager.PERMISSION_GRANTED)
             }
             allGranted
         }

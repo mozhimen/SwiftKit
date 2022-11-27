@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.UtilKToast
  * @param duration Int
  */
 fun String.showToast(duration: Int = Toast.LENGTH_SHORT) {
-    UtilKToast.showToast(this, duration)
+    UtilKToast.show(this, duration)
 }
 
 /**
@@ -26,7 +26,7 @@ fun String.showToast(duration: Int = Toast.LENGTH_SHORT) {
  * @param duration Int
  */
 fun Int.showToast(duration: Int = Toast.LENGTH_SHORT) {
-    UtilKToast.showToast(this, duration)
+    UtilKToast.show(this, duration)
 }
 
 /**
@@ -36,7 +36,7 @@ fun Int.showToast(duration: Int = Toast.LENGTH_SHORT) {
  * @param duration Int
  */
 fun String.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
-    UtilKToast.showToastOnMain(this, duration)
+    UtilKToast.showOnMain(this, duration)
 }
 
 /**
@@ -45,5 +45,5 @@ fun String.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
  * @param duration Int
  */
 fun Int.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
-    UtilKToast.showToastOnMain(this, duration)
+    UtilKToast.showOnMain(this, duration)
 }

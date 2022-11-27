@@ -15,22 +15,30 @@ object UtilKToast {
     private val _context = UtilKApplication.instance.get()
 
     @JvmStatic
-    fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+    fun show(msg: String, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(_context, msg, duration).show()
     }
 
     @JvmStatic
-    fun showToast(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    fun show(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(_context, msgId, duration).show()
     }
 
     @JvmStatic
-    fun showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        BaseWeakClazzHandler(_context).post { showToast(msg, duration) }
+    fun showOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+        if (UtilKThread.isMainLooper()) {
+            show(msg, duration)
+        } else {
+            BaseWeakClazzHandler(_context).post { show(msg, duration) }
+        }
     }
 
     @JvmStatic
-    fun showToastOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        BaseWeakClazzHandler(_context).post { showToast(msgId, duration) }
+    fun showOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
+        if (UtilKThread.isMainLooper()) {
+            show(msgId, duration)
+        } else {
+            BaseWeakClazzHandler(_context).post { show(msgId, duration) }
+        }
     }
 }

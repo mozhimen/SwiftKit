@@ -14,4 +14,9 @@ object UtilKThread {
     fun isMainThread(): Boolean {
         return Looper.getMainLooper().thread == Thread.currentThread()
     }
+
+    @JvmStatic
+    fun isMainLooper(): Boolean {
+        return Looper.myLooper() == Looper.getMainLooper()
+    }
 }
