@@ -50,12 +50,11 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
         const val GRAVITY_NONE = 3
     }
 
-    init {
-        initAttrs(attrs, defStyleAttr)
-        initView()
-    }
-
     private var _videoSource: String? = null
+        set(value) {
+            Log.d(TAG, "_videoSource set $value")
+            field = value
+        }
     private var _videoGravity = GRAVITY_NONE
     private var _videoIsLoop = false
     private var _videoVolume = 0f
@@ -67,6 +66,11 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var _videoSurface: TextureView? = null
     private var _videoPlayer: MediaPlayer? = null
     private var _videoCompletionListener: MediaPlayer.OnCompletionListener? = null
+
+    init {
+        initAttrs(attrs, defStyleAttr)
+        initView()
+    }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         val typeArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKVideo)
@@ -80,22 +84,26 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
     override fun initView() {
         if (_videoSurface == null && _videoSource != null) {
             _videoSurface = TextureView(context)
-            addView(_videoSurface)
+            _videoIsUrl = _videoSource!!.contains("http://") or _videoSource!!.contains("https://")
             _videoSurface?.surfaceTextureListener = this
+            addView(_videoSurface)
         }
 
-        _videoIsUrl = _videoSource?.let { it.contains("http://") or it.contains("https://") } ?: false
         if (_videoGravity != GRAVITY_NONE) {
             zoomVideoSize()
             zoomTextureSize()
         }
     }
 
-    fun startVideo(
+    fun getVideoPlayer() = _videoPlayer
+
+    fun getVideoSurface() = _videoSurface
+
+    fun initVideo(
         pathOrUrl: String,
-        videoGravity: Int = _videoGravity,
-        videoIsLoop: Boolean = _videoIsLoop,
-        videoVolume: Float = _videoVolume,
+        videoGravity: Int = GRAVITY_NONE,
+        videoIsLoop: Boolean = false,
+        videoVolume: Float = 0f,
         listener: MediaPlayer.OnCompletionListener? = null
     ) {
         _videoSource = pathOrUrl
@@ -105,10 +113,6 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
         _videoCompletionListener = listener
         initView()
     }
-
-    fun getVideoPlayer() = _videoPlayer
-
-    fun getVideoSurface() = _videoSurface
 
     fun resetVideo() {
         try {
@@ -159,18 +163,54 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
     }
 
+    fun changeVideo(
+        pathOrUrl: String,
+        videoGravity: Int = GRAVITY_NONE,
+        videoIsLoop: Boolean = false,
+        videoVolume: Float = 0f,
+        listener: MediaPlayer.OnCompletionListener? = null
+    ) {
+        try {
+            initVideo(pathOrUrl, videoGravity, videoIsLoop, videoVolume, listener)
+            resetVideo()
+            playVideo()
+        } catch (e: IllegalArgumentException) {
+            Log.e(TAG, "changeVideo IllegalArgumentException ${e.message}")
+            e.printStackTrace()
+        } catch (e: SecurityException) {
+            Log.e(TAG, "changeVideo SecurityException ${e.message}")
+            e.printStackTrace()
+        } catch (e: IllegalStateException) {
+            Log.e(TAG, "changeVideo IllegalStateException ${e.message}")
+            e.printStackTrace()
+        } catch (e: IOException) {
+            Log.e(TAG, "changeVideo IOException ${e.message}")
+            e.printStackTrace()
+        } catch (e: Exception) {
+            Log.e(TAG, "changeVideo Exception ${e.message}")
+            e.printStackTrace()
+        }
+    }
+
     override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
         try {
-            if (_videoSource == null) return
-            _videoSurface?.surfaceTexture?.let { initVideo() }
+            if (_videoSource == null) {
+                Log.e(TAG, "onSurfaceTextureAvailable: _videoSource == null")
+                return
+            }
+            _videoSurface?.surfaceTexture?.let { playVideo() }
         } catch (e: IllegalArgumentException) {
             Log.e(TAG, "onSurfaceTextureAvailable IllegalArgumentException ${e.message}")
+            e.printStackTrace()
         } catch (e: SecurityException) {
             Log.e(TAG, "onSurfaceTextureAvailable SecurityException ${e.message}")
+            e.printStackTrace()
         } catch (e: IllegalStateException) {
             Log.e(TAG, "onSurfaceTextureAvailable IllegalStateException ${e.message}")
+            e.printStackTrace()
         } catch (e: IOException) {
             Log.e(TAG, "onSurfaceTextureAvailable IOException ${e.message}")
+            e.printStackTrace()
         }
     }
 
@@ -188,7 +228,10 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
     //region private fun
     private fun zoomVideoSize() {
         try {
-            if (_videoSource == null) return
+            if (_videoSource == null) {
+                Log.d(TAG, "zoomVideoSize: _videoSource == null")
+                return
+            }
             val mediaMetadataRetriever = MediaMetadataRetriever()
             if (_videoIsUrl) {
                 mediaMetadataRetriever.setDataSource(_videoSource, HashMap())
@@ -243,37 +286,18 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
         _videoSurface?.layoutParams = LayoutParams(screenWidth, screenHeight)
     }
 
-    private fun changeVideo() {
-        try {
-            if (_videoSurface == null) return
-            resetVideo()
-            initVideo()
-        } catch (e: IllegalArgumentException) {
-            Log.e(TAG, "changeVideo IllegalArgumentException ${e.message}")
-            e.printStackTrace()
-        } catch (e: SecurityException) {
-            Log.e(TAG, "changeVideo SecurityException ${e.message}")
-            e.printStackTrace()
-        } catch (e: IllegalStateException) {
-            Log.e(TAG, "changeVideo IllegalStateException ${e.message}")
-            e.printStackTrace()
-        } catch (e: IOException) {
-            Log.e(TAG, "changeVideo IOException ${e.message}")
-            e.printStackTrace()
-        } catch (e: Exception) {
-            Log.e(TAG, "changeVideo Exception ${e.message}")
-            e.printStackTrace()
-        }
-    }
-
-    private fun initVideo() {
-        _videoPlayer = MediaPlayer()
+    private fun playVideo() {
+        if (_videoPlayer == null) _videoPlayer = MediaPlayer()
         _videoPlayer!!.apply {
             if (_videoIsUrl) {
                 setDataSource(_videoSource)
             } else {
-                val assetFileDescriptor = context.assets.openFd(_videoSource!!)
-                setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
+                if (_videoSource!!.contains("/")){
+                    setDataSource(_videoSource)
+                }else{
+                    val assetFileDescriptor = context.assets.openFd(_videoSource!!)
+                    setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
+                }
             }
             setVolume(_videoVolume / 10f, _videoVolume / 10f)
             isLooping = _videoIsLoop

@@ -14,4 +14,8 @@ object UtilKActionBar {
     fun enableBackIfActionBarExists(activity: AppCompatActivity) {
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
+    fun hide(activity: AppCompatActivity) {
+        activity.supportActionBar?.hide()
+    }
 }
