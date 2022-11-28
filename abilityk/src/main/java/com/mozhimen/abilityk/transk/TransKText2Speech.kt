@@ -24,7 +24,7 @@ class TransKText2Speech(owner: LifecycleOwner, config: MText2SpeechConfig = MTex
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             require(
-                PermissionK.checkPermissions(_context, Manifest.permission.FOREGROUND_SERVICE)
+                PermissionK.checkPermissions(Manifest.permission.FOREGROUND_SERVICE)
             ) { "FOREGROUND_SERVICE permission denied" }
         }
         owner.lifecycle.addObserver(this)

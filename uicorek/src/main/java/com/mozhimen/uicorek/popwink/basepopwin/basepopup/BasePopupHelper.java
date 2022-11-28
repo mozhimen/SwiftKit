@@ -46,6 +46,7 @@ import com.mozhimen.basick.utilk.bar.UtilKNavigationBar;
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
+import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
 import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
 
 import java.util.HashMap;

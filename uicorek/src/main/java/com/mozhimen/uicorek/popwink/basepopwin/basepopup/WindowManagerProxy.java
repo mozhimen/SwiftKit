@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.WindowManager;
+import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;

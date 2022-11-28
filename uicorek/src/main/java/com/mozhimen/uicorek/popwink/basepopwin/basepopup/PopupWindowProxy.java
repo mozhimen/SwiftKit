@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
 
 import com.mozhimen.basick.utilk.UtilKActivity;
 import com.mozhimen.basick.utilk.UtilKRes;

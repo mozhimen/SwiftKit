@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
 
 import com.mozhimen.basick.utilk.UtilKDrawable;
 import com.mozhimen.basick.utilk.bar.UtilKStatusBar;

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
 
 import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
