@@ -7,7 +7,6 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.componentk.statusbark.StatusBarK
-import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityTabkTopBinding
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
@@ -49,5 +48,5 @@ abstract class DebugKTabKTopActivity : BaseActivityVB<DebugkActivityTabkTopBindi
     data class DebugKUITabTopItem(
         val tabName: String,
         val viewId: Int
-    ) : MTabTop(tabName, UtilKRes.getColor(R.color.blue_normal), UtilKRes.getColor(R.color.blue_dark))
+    ) : MTabTop(tabName, UtilKRes.getColor(com.mozhimen.uicorek.R.color.blue_normal), UtilKRes.getColor(com.mozhimen.uicorek.R.color.blue_dark))
 }
