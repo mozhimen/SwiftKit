@@ -96,13 +96,12 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
         onFindView(_dialogView!!)
         onInitMode(_dialogMode)
         setContentView(_dialogView!!)
-        val dialogWindow = window
-        if (dialogWindow != null && !_isHasSetWindowAttr) {
-            val layoutParams = dialogWindow.attributes
+        if (window != null && !_isHasSetWindowAttr) {
+            val layoutParams = window!!.attributes
             layoutParams.width = onInitWindowWidth()
             layoutParams.height = onInitWindowHeight()
             layoutParams.gravity = onInitWindowGravity()
-            dialogWindow.attributes = layoutParams
+            window!!.attributes = layoutParams
             _isHasSetWindowAttr = true
         }
     }
