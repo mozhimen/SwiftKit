@@ -15,6 +15,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:loadImageBlur="@{R.mipmap.uicorek_img}" />
+            app:loadImageBlur="@{R.mipmap.uicorek_img}"
+            app:placeholder="@{R.mipmap.uicorek_img}" />
     </LinearLayout>
 </layout>

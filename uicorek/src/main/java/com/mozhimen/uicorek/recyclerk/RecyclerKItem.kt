@@ -2,6 +2,7 @@ package com.mozhimen.uicorek.recyclerk
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -22,6 +23,7 @@ abstract class RecyclerKItem<DATA, VH : RecyclerView.ViewHolder>(val data: DATA?
      * @param holder VH
      * @param position Int
      */
+    @CallSuper
     open fun onBindData(holder: VH, position: Int) {
         vh = holder
     }

@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.view.UtilKView
+import java.lang.reflect.Field
 
 /**
  * @ClassName UtilKKeyBoard
@@ -109,6 +110,35 @@ object UtilKKeyBoard {
             return !(event.x > ints[0] && event.x < right && event.y > ints[1] && event.y < bottom)
         }
         return false
+    }
+
+    /**
+     * 修复在RecyclerView中持有内存泄漏的问题
+     * @param context Context
+     */
+    @JvmStatic
+    fun fixInputMethodLeak(context: Context) {
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val viewArray = arrayOf("mCurRootView", "mServedView", "mNextServedView")
+        var field: Field
+        var fieldObj: Any?
+        for (view in viewArray) {
+            try {
+                field = inputMethodManager.javaClass.getDeclaredField(view)
+                if (!field.isAccessible) field.isAccessible = true
+                fieldObj = field.get(inputMethodManager)
+                if (fieldObj != null && fieldObj is View) {
+                    if (fieldObj.context == context) {
+                        //注意需要判断View关联的Context是不是当前Activity，否则有可能造成正常的输入框输入失效
+                        field.set(inputMethodManager, null)
+                    } else {
+                        break
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     @JvmStatic

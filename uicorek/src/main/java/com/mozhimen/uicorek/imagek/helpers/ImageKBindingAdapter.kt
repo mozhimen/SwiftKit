@@ -13,9 +13,9 @@ import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
  */
 object ImageKBindingAdapter {
     @JvmStatic
-    @BindingAdapter("loadImageBlur")
-    fun loadImageBlur(imageView: ImageView, res: Any) {
-        UtilKViewImageLoader.loadImageBlur(imageView, res)
+    @BindingAdapter(value = ["loadImageBlur", "placeholder"], requireAll = true)
+    fun loadImageBlur(imageView: ImageView, res: Any, placeholder: Int) {
+        UtilKViewImageLoader.loadImageBlur(imageView, res, placeholder)
     }
 
     @JvmStatic

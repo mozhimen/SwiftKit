@@ -74,10 +74,16 @@ object UtilKViewImageLoader {
     fun loadImageBlur(
         imageView: ImageView,
         res: Any,
+        placeholder: Int,
+        crossFadeEnable: Boolean = true,
+        crossFadeTime: Int = 1500,
         @FloatRange(from = 0.0, to = 25.0) radius: Float = BlurTransformation.DEFAULT_RADIUS,
         @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = BlurTransformation.DEFAULT_SAMPLING
     ) {
         imageView.load(res) {
+            crossfade(crossFadeEnable)
+            crossfade(crossFadeTime)
+            placeholder(placeholder)
             transformations(BlurTransformation(_context, radius, sampling))
         }
     }

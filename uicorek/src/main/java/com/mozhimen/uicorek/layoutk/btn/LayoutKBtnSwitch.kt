@@ -123,19 +123,18 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         addView(_bgView)
         addView(_switchView)
 
-    }
-
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        super.onLayout(changed, left, top, right, bottom)
-        initBg()
-        initSwitch()
-        initView()
+        this.post {
+            initBg()
+            initSwitch()
+            initView()
+        }
     }
 
     override fun initView() {
         val switchViewLayoutParams = _switchView!!.layoutParams as LayoutParams
         switchViewLayoutParams.width = _switch.width.toInt()
         switchViewLayoutParams.height = _switch.height.toInt()
+        _switchView!!.layoutParams = switchViewLayoutParams
 
         _bgDrawable!!.setColor(if (_switchStatus) _attrs.bgColorOn else _attrs.bgColorOff)
         _bgView!!.background = _bgDrawable
@@ -168,12 +167,17 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
      */
     fun getSwitchStatus(): Boolean = _switchStatus
 
-    fun toggleSwitch() {
+    fun toggleSwitch(status: Boolean) {
         (context as LifecycleOwner).lifecycleScope.launch(Dispatchers.Main) {
+            if (_switchStatus == status) return@launch
+            _switchStatus = status
             if (_isAnimRunning) delay(_attrs.animTime.toLong())
-            _switchStatus = !_switchStatus
-            startAnimation(_switchStatus)
+            startAnimation(status.also { _switchStatus = status })
         }
+    }
+
+    fun toggleSwitch() {
+        toggleSwitch(!_switchStatus)
     }
 
     private fun startAnimation(status: Boolean) {

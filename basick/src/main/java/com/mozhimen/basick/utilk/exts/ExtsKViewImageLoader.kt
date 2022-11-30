@@ -55,10 +55,13 @@ fun ImageView.loadImageComplex(
  */
 fun ImageView.loadImageBlur(
     res: Any,
+    placeholder: Int,
+    crossFadeEnable: Boolean = true,
+    crossFadeTime: Int = 1500,
     @FloatRange(from = 0.0, to = 25.0) radius: Float = BlurTransformation.DEFAULT_RADIUS,
     @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = BlurTransformation.DEFAULT_SAMPLING
 ) {
-    UtilKViewImageLoader.loadImageBlur(this, res, radius, sampling)
+    UtilKViewImageLoader.loadImageBlur(this, res, placeholder, crossFadeEnable, crossFadeTime, radius, sampling)
 }
 
 /**
