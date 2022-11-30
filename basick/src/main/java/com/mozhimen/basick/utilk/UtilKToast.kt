@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk
 
 import android.widget.Toast
-import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzHandler
 import com.mozhimen.basick.utilk.context.UtilKApplication
+
 
 /**
  * @ClassName UtilKToast
@@ -29,7 +29,7 @@ object UtilKToast {
         if (UtilKThread.isMainLooper()) {
             show(msg, duration)
         } else {
-            BaseWeakClazzHandler(_context).post { show(msg, duration) }
+            UtilKHandler.prepareAndLoop { show(msg, duration) }
         }
     }
 
@@ -38,7 +38,7 @@ object UtilKToast {
         if (UtilKThread.isMainLooper()) {
             show(msgId, duration)
         } else {
-            BaseWeakClazzHandler(_context).post { show(msgId, duration) }
+            UtilKHandler.prepareAndLoop { show(msgId, duration) }
         }
     }
 }

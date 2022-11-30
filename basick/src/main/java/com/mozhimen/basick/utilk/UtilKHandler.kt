@@ -1,7 +1,9 @@
 package com.mozhimen.basick.utilk
 
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
+
 
 /**
  * @ClassName UtilKHandler
@@ -50,5 +52,23 @@ object UtilKHandler {
     @JvmStatic
     fun removeAll(handler: Handler) {
         handler.removeCallbacksAndMessages(null)
+    }
+
+    /**
+     * 循环
+     * @param block Function0<Unit>
+     */
+    @JvmStatic
+    fun prepareAndLoop(block: () -> Unit) {
+        var myLooper = Looper.myLooper()
+        if (myLooper == null) {
+            Looper.prepare()
+            myLooper = Looper.myLooper()
+        }
+        block.invoke()
+        if (myLooper != null) {
+            Looper.loop()
+            myLooper.quit()
+        }
     }
 }

@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
+import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlur;
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 
 /**
@@ -138,7 +139,7 @@ public class BlurHelper {
 
     public static Bitmap fastBlur(Context context, Bitmap origin, int outWidth, int outHeight, float radius) {
         if (origin == null || origin.isRecycled()) return null;
-        origin = FastBlur.doBlur(origin, (int) range(radius, 0, 20), false);
+        origin = UtilKBitmapBlur.INSTANCE.blurBitmap(origin, (int) range(radius, 0, 20), false);
         if (origin == null || origin.isRecycled()) return null;
         origin = Bitmap.createScaledBitmap(origin,
                 outWidth,

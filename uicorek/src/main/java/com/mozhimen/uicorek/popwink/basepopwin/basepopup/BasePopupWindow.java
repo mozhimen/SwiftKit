@@ -252,9 +252,9 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKRes;
+import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.uicorek.R;
-import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
 
 /**
  * <br>
@@ -302,8 +302,8 @@ import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption;
  * <li><strong>模糊层（Blur层）：</strong>
  * <ul>
  * <li>模糊默认关闭，如果您开启模糊，请设置{@link #setBlurBackgroundEnable(boolean)}为true，默认情况下模糊对象是当前decorView，如果您需要针对模糊某个View，
- * 请设置{@link #setBlurOption(PopupBlurOption)}以及{@link PopupBlurOption#setBlurView(View)}传入。</li>
- * <li>如果您想修改默认的背景模糊中的模糊配置，您可以调用{@link #setBlurBackgroundEnable(boolean, OnBlurOptionInitListener)}，在{@link OnBlurOptionInitListener#onCreateBlurOption(PopupBlurOption)}中进行修改</li>
+ * 请设置{@link #setBlurOption(UtilKBitmapBlurOption)}以及{@link UtilKBitmapBlurOption#setBlurView(View)}传入。</li>
+ * <li>如果您想修改默认的背景模糊中的模糊配置，您可以调用{@link #setBlurBackgroundEnable(boolean, OnBlurOptionInitListener)}，在{@link OnBlurOptionInitListener#onCreateBlurOption(UtilKBitmapBlurOption)}中进行修改</li>
  * </ul>
  * </li>
  * </ul>
@@ -1285,7 +1285,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * 设置PopupWindow弹出时是否模糊背景。
      * <br>
      * <br>
-     * 在使用模糊背景前，您可以通过{@link #setBlurOption(PopupBlurOption)}传入模糊配置。
+     * 在使用模糊背景前，您可以通过{@link #setBlurOption(UtilKBitmapBlurOption)}传入模糊配置。
      * <br>
      * <br>
      * <strong>本方法默认模糊当前Activity的DecorView</strong>
@@ -1302,10 +1302,10 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * 设置PopupWindow弹出时是否模糊背景。
      * <br>
      * <br>
-     * 在使用模糊背景前，您可以通过{@link #setBlurOption(PopupBlurOption)}传入模糊配置。
+     * 在使用模糊背景前，您可以通过{@link #setBlurOption(UtilKBitmapBlurOption)}传入模糊配置。
      * <br>
      * <br>
-     * 本方法允许您传入一个初始化监听，您可以在{@link OnBlurOptionInitListener#onCreateBlurOption(PopupBlurOption)}中进行展示前的最后一次修改
+     * 本方法允许您传入一个初始化监听，您可以在{@link OnBlurOptionInitListener#onCreateBlurOption(UtilKBitmapBlurOption)}中进行展示前的最后一次修改
      * </p>
      *
      * @param blurBackgroundEnable true for blur decorView
@@ -1317,9 +1317,9 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
             onLogInternal("无法配置默认模糊脚本，因为context不是activity");
             return this;
         }
-        PopupBlurOption option = null;
+        UtilKBitmapBlurOption option = null;
         if (blurBackgroundEnable) {
-            option = new PopupBlurOption();
+            option = new UtilKBitmapBlurOption();
             option.setFullScreen(true)
                     .setBlurInDuration(-1)
                     .setBlurOutDuration(-1);
@@ -1345,7 +1345,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      *
      * @param option 模糊配置
      */
-    public BasePopupWindow setBlurOption(PopupBlurOption option) {
+    public BasePopupWindow setBlurOption(UtilKBitmapBlurOption option) {
         mHelper.setToBlur(option);
         return this;
     }
@@ -2207,7 +2207,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     public interface OnBlurOptionInitListener {
-        void onCreateBlurOption(PopupBlurOption option);
+        void onCreateBlurOption(UtilKBitmapBlurOption option);
     }
 
     public static abstract class OnDismissListener implements PopupWindow.OnDismissListener {

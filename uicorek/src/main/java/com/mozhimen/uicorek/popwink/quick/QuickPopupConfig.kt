@@ -12,13 +12,13 @@ import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_HIDE
 import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_SHOW
 import com.mozhimen.basick.utilk.UtilKClazz
 import com.mozhimen.basick.utilk.UtilKKeyBoard.IUtilKKeyboardListener
+import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption
 import com.mozhimen.basick.utilk.log.UtilKSmartLog
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.KeyEventListener
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.OnBlurOptionInitListener
 import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject
-import com.mozhimen.uicorek.popwink.basepopwin.blur.PopupBlurOption
 import java.lang.reflect.Method
 
 /**
@@ -50,7 +50,7 @@ class QuickPopupConfig : BasePopupFlag, ClearMemoryObject {
     private var _flag = BasePopupFlag.IDLE
     private var _contentViewLayoutId = 0
     private var _onBlurOptionInitListener: OnBlurOptionInitListener? = null
-    private var _popupBlurOption: PopupBlurOption? = null
+    private var _bitmapBlurOption: UtilKBitmapBlurOption? = null
 
     init {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
@@ -86,8 +86,8 @@ class QuickPopupConfig : BasePopupFlag, ClearMemoryObject {
         return _onBlurOptionInitListener
     }
 
-    fun getPopupBlurOption(): PopupBlurOption? {
-        return _popupBlurOption
+    fun getPopupBlurOption(): UtilKBitmapBlurOption? {
+        return _bitmapBlurOption
     }
 
     fun setShowAnimation(showAnimation: Animation): QuickPopupConfig {
@@ -125,8 +125,8 @@ class QuickPopupConfig : BasePopupFlag, ClearMemoryObject {
         return this
     }
 
-    fun setBlurOption(popupBlurOption: PopupBlurOption): QuickPopupConfig {
-        _popupBlurOption = popupBlurOption
+    fun setBlurOption(bitmapBlurOption: UtilKBitmapBlurOption): QuickPopupConfig {
+        _bitmapBlurOption = bitmapBlurOption
         return this
     }
 
@@ -279,7 +279,7 @@ class QuickPopupConfig : BasePopupFlag, ClearMemoryObject {
 
     override fun clear(destroy: Boolean) {
         _destroyed = true
-        _popupBlurOption?.clear()
+        _bitmapBlurOption?.clear()
         _onBlurOptionInitListener = null
         _listenersHolderMap?.clear()
         _listenersHolderMap = null

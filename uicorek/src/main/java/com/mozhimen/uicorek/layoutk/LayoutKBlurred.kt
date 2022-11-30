@@ -10,8 +10,8 @@ import android.widget.ImageView
 import androidx.annotation.IntRange
 import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapFormat
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlur
 import com.mozhimen.uicorek.R
 
 /**
@@ -57,7 +57,7 @@ class LayoutKBlurred @JvmOverloads constructor(context: Context, attrs: Attribut
      */
     fun setBlurredImageView(blurredBitmap: Bitmap) {
         _originBitmap = blurredBitmap
-        _blurredBitmap = UtilKBitmapDeal.blurBitmap(blurredBitmap)
+        _blurredBitmap = UtilKBitmapBlur.blurBitmap(blurredBitmap)
         setImageView(_originBitmap, _blurredBitmap!!)
         setMove(_isMove)
     }
@@ -67,7 +67,7 @@ class LayoutKBlurred @JvmOverloads constructor(context: Context, attrs: Attribut
      */
     fun setBlurredImageView(blurDrawable: Drawable) {
         _originBitmap = UtilKBitmapFormat.drawable2Bitmap(blurDrawable)
-        _blurredBitmap = UtilKBitmapDeal.blurBitmap(_originBitmap)
+        _blurredBitmap = UtilKBitmapBlur.blurBitmap(_originBitmap)
         setImageView(_originBitmap, _blurredBitmap!!)
         setMove(_isMove)
     }
@@ -122,7 +122,7 @@ class LayoutKBlurred @JvmOverloads constructor(context: Context, attrs: Attribut
         //模糊图片
         _blurredDrawable?.let {
             _originBitmap = UtilKBitmapFormat.drawable2Bitmap(it)
-            _blurredBitmap = UtilKBitmapDeal.blurBitmap(_originBitmap)
+            _blurredBitmap = UtilKBitmapBlur.blurBitmap(_originBitmap)
         }
 
         //设置模糊禁用

@@ -1,8 +1,10 @@
 package com.mozhimen.basick.utilk.view
 
+import android.R
 import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.utilk.UtilKActivity
@@ -18,6 +20,17 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKView {
+    /**
+     * 是否是DecorView
+     * @param view View
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isDecorView(view: View): Boolean {
+        return if (view.id == R.id.content) true
+        else TextUtils.equals(view.javaClass.name, "com.android.internal.policy.DecorView")
+    }
+
     /**
      * 获取View绘制区域TOP高度
      * 注: 在Activity的回调方法onWindowFocusChanged()执行后,才能得到预期结果

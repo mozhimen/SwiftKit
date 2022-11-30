@@ -18,6 +18,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.mozhimen.basick.taskk.executor.TaskKExecutor;
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
+import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -30,7 +31,7 @@ public class BlurImageView extends AppCompatImageView {
     private static final String TAG = "BlurImageView";
 
     private volatile boolean abortBlur = false;
-    private PopupBlurOption mBlurOption;
+    private UtilKBitmapBlurOption mBlurOption;
     private AtomicBoolean blurFinish = new AtomicBoolean(false);
     private volatile boolean isAnimating = false;
     private long startDuration;
@@ -75,11 +76,11 @@ public class BlurImageView extends AppCompatImageView {
         return this;
     }
 
-    public void applyBlurOption(PopupBlurOption option) {
+    public void applyBlurOption(UtilKBitmapBlurOption option) {
         applyBlurOption(option, false);
     }
 
-    private void applyBlurOption(PopupBlurOption option, boolean isOnUpdate) {
+    private void applyBlurOption(UtilKBitmapBlurOption option, boolean isOnUpdate) {
         if (option == null) return;
         mBlurOption = option;
         View anchorView = option.getBlurView();
@@ -271,7 +272,7 @@ public class BlurImageView extends AppCompatImageView {
 
         setImageAlpha(isOnUpdate ? 255 : 0);
         setImageBitmap(bitmap);
-        PopupBlurOption option = mBlurOption;
+        UtilKBitmapBlurOption option = mBlurOption;
         if (option != null && !option.isFullScreen()) {
             //非全屏的话，则需要将bitmap变化到对应位置
             View anchorView = option.getBlurView();
