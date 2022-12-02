@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <com.mozhimen.uicorek.layoutk.LayoutKTimeLine
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutKTimeLine_lineDynamicOffset="8dp"
+            app:layoutKTimeLine_lineMarginOffset="25dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/black"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+        </com.mozhimen.uicorek.layoutk.LayoutKTimeLine>
+
+        <!--        <com.mozhimen.uicorek.layoutk.LayoutKTimeLine
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutKTimeLine_lineDynamicOffset="10dp"
+                    app:layoutKTimeLine_lineMarginOffset="2dp" />-->
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

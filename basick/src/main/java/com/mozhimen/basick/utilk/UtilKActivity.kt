@@ -4,10 +4,13 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.stackk.StackK
+import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
  * @ClassName UtilKActivity
@@ -17,6 +20,22 @@ import com.mozhimen.basick.stackk.StackK
  * @Version 1.0
  */
 object UtilKActivity {
+
+    /**
+     * 获取启动Activity
+     * @param packageName String
+     * @return String?
+     */
+    @JvmStatic
+    fun getLauncherActivity(packageName: String): String {
+        if (UtilKString.isHasSpace(packageName)) return ""
+        val intent = Intent(Intent.ACTION_MAIN, null)
+        intent.addCategory(Intent.CATEGORY_LAUNCHER)
+        intent.setPackage(packageName)
+        val packageManager: PackageManager = UtilKApplication.instance.get().packageManager
+        val info = packageManager.queryIntentActivities(intent, 0)
+        return if (info.size == 0) "" else info[0].activityInfo.name
+    }
 
     /**
      * 判断Activity是否被销毁

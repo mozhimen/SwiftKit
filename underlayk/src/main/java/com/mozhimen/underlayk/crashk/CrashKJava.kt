@@ -53,7 +53,7 @@ class CrashKJava {
             if (!handleException(e) && _defaultExceptionHandler != null) {
                 _defaultExceptionHandler.uncaughtException(t, e)
             }
-            UtilKApp.restartApp(false)
+            UtilKApp.restartAppWithStatus(false)
         }
 
         /**

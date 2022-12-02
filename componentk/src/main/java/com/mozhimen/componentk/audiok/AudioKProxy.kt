@@ -72,6 +72,13 @@ internal class AudioKProxy(private val _owner: LifecycleOwner) : IAudioKListener
         play()
     }
 
+    override fun addAudioToPlayListTop(audioK: MAudioK) {
+        if (getPlayStatus() == EPlayStatus.STARTED || _playList.size > 0)
+            _playList.add(1, audioK)
+        else _playList.add(0, audioK)
+        play()
+    }
+
     override fun clearPLayList() {
         _playList.clear()
     }

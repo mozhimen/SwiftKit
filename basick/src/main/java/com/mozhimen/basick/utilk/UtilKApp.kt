@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.os.Process
+import android.util.Log
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.system.exitProcess
 
@@ -17,20 +18,33 @@ import kotlin.system.exitProcess
  */
 object UtilKApp {
     private const val PKG_AUTO_RUN = "persist.sensepass.autorun"
-    private const val PKG_POWER = "sys.powerctl"
+    private const val PKG_POWER = "sys.powered"
+    private const val TAG = "UtilKApp>>>>>"
 
     private val _context = UtilKApplication.instance.get()
 
-    //重启
+    /**
+     * 重启
+     */
+    @JvmStatic
     fun setReboot() {
         UtilKCmd.setSystemProperties(PKG_POWER, "reboot")
     }
 
-    //是否自启动
+    /**
+     * 是否自启动
+     * @return Boolean
+     */
+    @JvmStatic
     fun isAutoRun(): Boolean =
         UtilKCmd.getSystemPropertiesBool(PKG_AUTO_RUN, false)
 
-    //是否在主线程
+    /**
+     * 是否在主线程
+     * @param app Application
+     * @return Boolean
+     */
+    @JvmStatic
     fun isMainProcess(app: Application): Boolean {
         val activityManager = app.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         val runningAppProcesses = activityManager.runningAppProcesses
@@ -42,13 +56,38 @@ object UtilKApp {
         return false
     }
 
-    //重启APP
-    fun restartApp(isValid: Boolean = true) {
+    /**
+     * 重启APP
+     * @param isValid Boolean
+     */
+    @JvmStatic
+    fun restartAppWithStatus(isValid: Boolean = true) {
         val intent = _context.packageManager.getLaunchIntentForPackage(_context.packageName)
         intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         _context.startActivity(intent)
 
         Process.killProcess(Process.myPid())
         exitProcess(if (isValid) 0 else 10)
+    }
+
+    /**
+     * 重启App
+     * @param isKillProcess Boolean
+     */
+    @JvmStatic
+    fun restartApp(isKillProcess: Boolean) {
+        val intent: Intent? = UtilKIntent.getLaunchAppIntent(_context.packageName)
+        if (intent == null) {
+            Log.e(TAG, "Didn't exist launcher activity.")
+            return
+        }
+        intent.addFlags(
+            Intent.FLAG_ACTIVITY_NEW_TASK
+                    or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        )
+        _context.startActivity(intent)
+        if (!isKillProcess) return
+        Process.killProcess(Process.myPid())
+        exitProcess(0)
     }
 }

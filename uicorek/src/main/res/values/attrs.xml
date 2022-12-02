@@ -26,6 +26,32 @@
         <attr name="imageKMask_borderWidth" format="dimension|reference" />
     </declare-styleable>
 
+    <!--layoutk-->
+    <declare-styleable name="LayoutKTimeLine">
+        <!--时间轴偏移值-->
+        <attr name="layoutKTimeLine_lineMarginOffset" format="dimension|reference" />
+        <!--时间轴动态调整值-->
+        <attr name="layoutKTimeLine_lineDynamicOffset" format="dimension|reference" />
+        <!--线宽-->
+        <attr name="layoutKTimeLine_lineWidth" format="dimension|reference" />
+        <!--线的颜色-->
+        <attr name="layoutKTimeLine_lineColor" format="color|reference" />
+        <!--时间轴的gravity-->
+        <attr name="layoutKTimeLine_lineGravity">
+            <enum name="center" value="0" />
+            <enum name="left" value="2" />
+            <enum name="top" value="1" />
+            <enum name="right" value="4" />
+            <enum name="bottom" value="3" />
+        </attr>
+        <!--点的大小-->
+        <attr name="layoutKTimeLine_pointSize" format="dimension|reference" />
+        <!--点的颜色-->
+        <attr name="layoutKTimeLine_pointColor" format="color|reference" />
+        <!--图标-->
+        <attr name="layoutKTimeLine_pointIconSrc" format="reference" />
+    </declare-styleable>
+
     <!--layoutk_search-->
     <attr name="LayoutKSearch_LayoutKSearch_Style" format="reference" />
     <declare-styleable name="LayoutKSearch">

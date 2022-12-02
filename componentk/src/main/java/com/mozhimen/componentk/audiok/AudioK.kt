@@ -52,6 +52,10 @@ class AudioK : IAudioKListener, LifecycleOwner {
         _audioKProxy.addAudioToPlayList(audio)
     }
 
+    override fun addAudioToPlayListTop(audioK: MAudioK) {
+        _audioKProxy.addAudioToPlayListTop(audioK)
+    }
+
     override fun clearPLayList() {
         _audioKProxy.clearPLayList()
     }

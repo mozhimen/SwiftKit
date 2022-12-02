@@ -1,7 +1,9 @@
 package com.mozhimen.componentk.audiok.helpers
 
+import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
+import java.io.FileDescriptor
 import java.io.IOException
 
 /**
@@ -38,6 +40,17 @@ class StatusMediaPlayer : MediaPlayer(), MediaPlayer.OnCompletionListener {
     @Throws(IOException::class, IllegalArgumentException::class, SecurityException::class, IllegalStateException::class)
     override fun setDataSource(path: String?) {
         super.setDataSource(path)
+        _playStatus = EPlayStatus.INITIALIZED
+    }
+
+    @Throws(IOException::class, IllegalArgumentException::class, SecurityException::class, IllegalStateException::class)
+    override fun setDataSource(afd: AssetFileDescriptor) {
+        super.setDataSource(afd)
+        _playStatus = EPlayStatus.INITIALIZED
+    }
+
+    override fun setDataSource(fd: FileDescriptor?, offset: Long, length: Long) {
+        super.setDataSource(fd, offset, length)
         _playStatus = EPlayStatus.INITIALIZED
     }
 
