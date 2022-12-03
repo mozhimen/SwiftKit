@@ -27,14 +27,14 @@ class TestUtilKNumber {
 
     @Test
     fun percent() {
-        UtilKConsole.printlog(UtilKNumber.percent(0f, 0, 100).toString())
-        UtilKConsole.printlog(UtilKNumber.percent(-1f, 0, 100).toString())
-        UtilKConsole.printlog(UtilKNumber.percent(101f, 0, 100).toString())
-        UtilKConsole.printlog(UtilKNumber.percent(50f, 0, 100).toString())
-        UtilKConsole.printlog(UtilKNumber.percent(33f, 0, 100).toString())
-        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 99).toString())
-        UtilKConsole.printlog(UtilKNumber.percent(23f, 23, 99).toString())
-        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 0).toString())
+//        UtilKConsole.printlog(UtilKNumber.percent(0f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKNumber.percent(-1f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKNumber.percent(101f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKNumber.percent(50f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKNumber.percent(33f, 0, 100).toString())
+//        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 99).toString())
+//        UtilKConsole.printlog(UtilKNumber.percent(23f, 23, 99).toString())
+//        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 0).toString())
     }
 
     @Test

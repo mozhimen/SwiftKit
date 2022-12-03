@@ -83,6 +83,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
+                android:onClick="goLayoutKTimeLine"
+                android:text="goLayoutKTimeLine"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
                 android:onClick="goLayoutKVideo"
                 android:text="goLayoutKVideo"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

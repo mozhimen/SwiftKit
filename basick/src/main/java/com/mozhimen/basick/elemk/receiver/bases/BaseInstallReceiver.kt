@@ -42,7 +42,7 @@ open class BaseInstallReceiver(private val _listener: IReceiverInstallListener? 
             Intent.ACTION_PACKAGE_REPLACED -> {
                 Log.w(TAG, "onReceive: update one pkg, restart program soon")
                 _listener?.onAppUpdate()
-                UtilKApp.restartApp()
+                UtilKApp.restartApp(true)
             }
             Intent.ACTION_PACKAGE_ADDED -> {
                 Log.w(TAG, "onReceive: install one pkg $packageName")

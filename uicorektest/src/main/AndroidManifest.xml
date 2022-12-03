@@ -99,6 +99,9 @@
         <activity
             android:name=".layoutk.tab.LayoutKTabTopLayoutActivity"
             android:exported="false" />
+        <activity
+            android:name=".layoutk.LayoutKTimeLineActivity"
+            android:exported="false" />
         <!--popwink-->
         <activity
             android:name=".popwink.PopwinKActivity"

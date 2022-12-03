@@ -1,12 +1,6 @@
 package com.mozhimen.basick.utilk
 
 import android.os.Build
-import android.util.Log
-
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
 import java.text.DecimalFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -20,6 +14,22 @@ import java.util.stream.Collectors
  */
 object UtilKString {
     private const val TAG = "UtilKString>>>>>"
+
+    /**
+     * 是否含有空格
+     * @param str String
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isHasSpace(str: String): Boolean {
+        var i = 0
+        val len = str.length
+        while (i < len) {
+            if (!Character.isWhitespace(str[i])) return false
+            ++i
+        }
+        return true
+    }
 
     /**
      * 找到第一个匹配的字符的位置

@@ -83,7 +83,15 @@ object UtilKNumber {
         percent(value, range.first.toFloat() to range.last.toFloat())
 
     @JvmStatic
-    fun percent(value: Float, rangeStart: Int, rangeEnd: Int): Float =
+    fun percent(value: Long, range: LongRange): Float =
+        percent(value.toFloat(), range.first.toFloat() to range.last.toFloat())
+
+    @JvmStatic
+    fun percent(value: Float, rangeStart: Float, rangeEnd: Float): Float =
+        percent(value, rangeStart to rangeEnd)
+
+    @JvmStatic
+    fun percent(value: Long, rangeStart: Long, rangeEnd: Long): Float =
         percent(value, rangeStart..rangeEnd)
 
     @JvmStatic

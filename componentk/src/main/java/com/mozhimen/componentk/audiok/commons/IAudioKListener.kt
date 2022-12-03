@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.audiok.commons
 
+import com.mozhimen.componentk.audiok.AudioK
 import com.mozhimen.componentk.audiok.cons.EPlayMode
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
 import com.mozhimen.componentk.audiok.mos.MAudioK
@@ -16,6 +17,7 @@ internal interface IAudioKListener {
     fun getPlayList(): ArrayList<MAudioK>
     fun addAudiosToPlayList(audios: List<MAudioK>)
     fun addAudioToPlayList(audio: MAudioK)
+    fun addAudioToPlayListTop(audioK: MAudioK)
     fun clearPLayList()
     fun getPlayStatus(): EPlayStatus
     fun getPlayMode(): EPlayMode

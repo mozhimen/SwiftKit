@@ -81,7 +81,12 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
             if (audio.id.isEmpty() || audio.url.isEmpty()) throw Exception("your path or id must not be null.")
             _statusMediaPlayer!!.apply {
                 reset()
-                setDataSource(audio.url)
+                if (audio.url.contains("/")) {
+                    setDataSource(audio.url)
+                } else {
+                    val assetFileDescriptor = _context.assets.openFd(audio.url)
+                    setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
+                }
                 prepareAsync()
             }
             //发送加载音频事件，UI类型处理事件
