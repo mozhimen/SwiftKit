@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk
 
+import com.mozhimen.basick.utilk.exts.printlog
 import org.junit.Test
 
 /**
@@ -34,5 +35,10 @@ class TestUtilKNumber {
         UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 99).toString())
         UtilKConsole.printlog(UtilKNumber.percent(23f, 23, 99).toString())
         UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 0).toString())
+    }
+
+    @Test
+    fun keepTwo() {
+        UtilKNumber.keepTwoDigits(2.33333f).printlog()
     }
 }
