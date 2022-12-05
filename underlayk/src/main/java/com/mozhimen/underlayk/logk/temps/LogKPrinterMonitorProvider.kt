@@ -95,13 +95,16 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
             UtilKOverlay.startOverlaySettingActivity()
             return
         }
-        _windowManager.addView(_rootView, getWindowLayoutParams(isFold))
+        if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) == null) {//fix bug 22.12.05 重复添加view内存泄漏
+            _windowManager.addView(_rootView, getWindowLayoutParams(isFold))
+        }
         if (isFold) foldMonitor() else unfoldMonitor()
     }
 
     fun closeMonitor() {
-        if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) == null) return
-        _windowManager.removeView(_rootView)
+        if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) != null) {
+            _windowManager.removeView(_rootView)
+        }
     }
 
     fun foldMonitor() {
