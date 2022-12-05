@@ -33,60 +33,42 @@ class LayoutKBannerProxy(
     private var _iOnBannerClickListener: IOnBannerClickListener? = null
     private var _viewPager: BannerViewPager? = null
 
-    private var _autoPlay = false
-    private var _loop = false
-    private var _scrollDuration = -1
-    private var _intervalTime = 5000
-    private var _currentItem = 0
+    private var _currentItemIndex = 0
 
-    /**
-     * 设置Banner数据
-     * @param mos List<MBannerItem>
-     */
+    private var _autoPlay = false//后期更新也能生效
+    private var _scrollDuration = -1
+
+    private var _loop = false
+    private var _enableScroll = true
+    private var _intervalTime = 5000
+
     override fun setBannerData(mos: List<MBannerItem>) {
         setBannerData(R.layout.layoutk_banner, mos)
     }
 
-    /**
-     * 设置Banner数据
-     * @param layoutResId Int
-     * @param mos List<MBannerItem>
-     */
     override fun setBannerData(layoutResId: Int, mos: List<MBannerItem>) {
         _bannerItems = mos
         init(layoutResId)
     }
 
-    /**
-     * 设置指示器
-     * @param indicator IBannerIndicator<*>
-     */
     override fun setBannerIndicator(indicator: IBannerIndicator<*>) {
         this._indicator = indicator
     }
 
-    /**
-     * 设置自动轮播
-     * @param autoPlay Boolean
-     */
+    override fun setEnableScroll(enable: Boolean) {
+        this._enableScroll = enable
+    }
+
     override fun setAutoPlay(autoPlay: Boolean) {
         this._autoPlay = autoPlay
         _adapter?.setAutoPlay(autoPlay)
         _viewPager?.setAutoPlay(autoPlay)
     }
 
-    /**
-     * 设置循环播放
-     * @param loop Boolean
-     */
     override fun setLoop(loop: Boolean) {
         this._loop = loop
     }
 
-    /**
-     * 设置滚动时长
-     * @param duration Int
-     */
     override fun setScrollDuration(duration: Int) {
         this._scrollDuration = duration
         if (_viewPager != null && duration > 0) {
@@ -94,57 +76,31 @@ class LayoutKBannerProxy(
         }
     }
 
-    /**
-     * 设置单页驻留时长
-     * @param intervalTime Int
-     */
     override fun setIntervalTime(intervalTime: Int) {
         if (intervalTime > 0) {
             this._intervalTime = intervalTime
         }
     }
 
-    /**
-     * 设置当前item
-     * @param position Int
-     */
     override fun setCurrentItem(position: Int) {
-        if (_currentItem >= 0 && _currentItem < _bannerItems!!.size) {
-            _currentItem = position
-            _viewPager?.setCurrentItem(_currentItem, false)
+        if (_currentItemIndex >= 0 && _currentItemIndex < _bannerItems!!.size) {
+            _currentItemIndex = position
+            _viewPager?.setCurrentItem(_currentItemIndex, false)
         }
     }
 
-    /**
-     * 设置绑定adapter
-     * @param bindAdapter IBannerBindListener
-     */
     override fun setBindAdapter(bindAdapter: IBannerBindListener) {
         _adapter?.setBindAdapter(bindAdapter)
     }
 
-    /**
-     * 设置页面改换监听器
-     * @param onPageChangeListener OnPageChangeListener
-     */
     override fun setOnPageChangeListener(onPageChangeListener: OnPageChangeListener) {
         this._onPageChangeListener = onPageChangeListener
     }
 
-    /**
-     * 设置页面点击监听器
-     * @param IOnBannerClickListener OnBannerClickListener
-     */
     override fun setOnBannerClickListener(IOnBannerClickListener: IOnBannerClickListener) {
         this._iOnBannerClickListener = IOnBannerClickListener
     }
 
-    /**
-     * 页面滑动回调
-     * @param position Int
-     * @param positionOffset Float
-     * @param positionOffsetPixels Int
-     */
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         if (_onPageChangeListener != null && _adapter?.getRealCount() != 0) {
             _onPageChangeListener!!.onPageScrolled(
@@ -155,24 +111,17 @@ class LayoutKBannerProxy(
         }
     }
 
-    /**
-     * 页面点击
-     * @param position Int
-     */
     override fun onPageSelected(position: Int) {
         requireNotNull(_adapter) { "adapter must not be null!" }
         if (_adapter!!.getRealCount() == 0) {
             return
         }
         val pos = position % _adapter!!.getRealCount()
+        _currentItemIndex = pos
         _onPageChangeListener?.onPageSelected(pos)
         _indicator?.onItemChange(pos, _adapter!!.getRealCount())
     }
 
-    /**
-     * 滑动状态改变回调
-     * @param state Int
-     */
     override fun onPageScrollStateChanged(state: Int) {
         _onPageChangeListener?.onPageScrollStateChanged(state)
     }
@@ -198,6 +147,7 @@ class LayoutKBannerProxy(
 
         _viewPager = BannerViewPager(_context)
         _viewPager!!.apply {
+            setEnableScroll(_enableScroll)
             setIntervalTime(_intervalTime)
             addOnPageChangeListener(this@LayoutKBannerProxy)
             setAutoPlay(_autoPlay)
@@ -205,7 +155,7 @@ class LayoutKBannerProxy(
             adapter = _adapter
             if ((_loop || _autoPlay) && _adapter!!.getRealCount() != 0) {
                 //无限轮播关键点: 使第一张能反向滑动到最后一张, 已经达到无限滚动的效果
-                val firstItem: Int = if (_currentItem != 0) _currentItem else _adapter!!.getFirstItem()
+                val firstItem: Int = if (_currentItemIndex != 0) _currentItemIndex else _adapter!!.getFirstItem()
                 _viewPager!!.setCurrentItem(firstItem, false)
             }
         }

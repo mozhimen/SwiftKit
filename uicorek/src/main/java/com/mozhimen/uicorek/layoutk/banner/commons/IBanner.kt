@@ -2,8 +2,6 @@ package com.mozhimen.uicorek.layoutk.banner.commons
 
 import androidx.annotation.LayoutRes
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
-import com.mozhimen.uicorek.layoutk.banner.helpers.BannerAdapter
-import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder
 import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
 
 /**
@@ -32,6 +30,12 @@ interface IBanner {
      * @param indicator IBannerIndicator<*>
      */
     fun setBannerIndicator(indicator: IBannerIndicator<*>)
+
+    /**
+     * 设置Banner是否支持左右滑动
+     * @param enable Boolean
+     */
+    fun setEnableScroll(enable: Boolean)
 
     /**
      * 设置自动播放
