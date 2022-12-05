@@ -21,6 +21,14 @@ object UtilKNumber {
     }
 
     @JvmStatic
+    fun keepOneDigits(value: Float): Float {
+        val format = DecimalFormat("#.#")
+        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.roundingMode = RoundingMode.FLOOR
+        return format.format(value).toFloat()
+    }
+
+    @JvmStatic
     fun angleCos(adjacent: Float, hypotenuse: Float): Float =
         Math.toDegrees(acos(adjacent / hypotenuse).toDouble()).toFloat()
 
