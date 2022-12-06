@@ -101,6 +101,7 @@
     <declare-styleable name="LayoutKBanner">
         <attr name="layoutKBanner_autoPlay" format="boolean" />
         <attr name="layoutKBanner_loop" format="boolean" />
+        <attr name="layoutKBanner_enableScroll" format="boolean" />
         <attr name="layoutKBanner_scrollDuration" format="integer" />
         <attr name="layoutKBanner_intervalTime" format="integer" />
     </declare-styleable>

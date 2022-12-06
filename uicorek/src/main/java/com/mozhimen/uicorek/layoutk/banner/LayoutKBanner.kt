@@ -30,6 +30,7 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private var _autoPlay = true
     private var _loop = true
+    private var _enableScroll = true
     private var _intervalTime = -1
     private var _scrollDuration = -1
 
@@ -39,10 +40,11 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBanner)
-        _autoPlay = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_autoPlay, true)
-        _loop = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_loop, true)
-        _intervalTime = typedArray.getInteger(R.styleable.LayoutKBanner_layoutKBanner_intervalTime, -1)
-        _scrollDuration = typedArray.getInteger(R.styleable.LayoutKBanner_layoutKBanner_scrollDuration, -1)
+        _enableScroll = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_enableScroll, _enableScroll)
+        _autoPlay = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_autoPlay, _autoPlay)
+        _loop = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_loop, _loop)
+        _intervalTime = typedArray.getInteger(R.styleable.LayoutKBanner_layoutKBanner_intervalTime, _intervalTime)
+        _scrollDuration = typedArray.getInteger(R.styleable.LayoutKBanner_layoutKBanner_scrollDuration, _scrollDuration)
         typedArray.recycle()
 
         setAutoPlay(_autoPlay)
