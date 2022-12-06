@@ -79,6 +79,14 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     /**
+     * 支持滑动
+     * @param enable Boolean
+     */
+    override fun setEnableScroll(enable: Boolean) {
+        _layoutKBannerProxy.setEnableScroll(enable)
+    }
+
+    /**
      * 设置自动轮播
      * @param autoPlay Boolean
      */

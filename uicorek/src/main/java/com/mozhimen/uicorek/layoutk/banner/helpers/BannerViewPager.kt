@@ -8,6 +8,7 @@ import android.os.Looper
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
+import com.mozhimen.uicorek.pagerk.PagerKNoScroll
 import java.lang.Exception
 
 /**
@@ -18,7 +19,7 @@ import java.lang.Exception
  * @Version 1.0
  */
 class BannerViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
-    ViewPager(context, attrs) {
+    PagerKNoScroll(context, attrs) {
 
     private var _intervalTime = 0
     private var _autoPlay = true//是否开启自动轮播
@@ -31,10 +32,6 @@ class BannerViewPager @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
-    /**
-     * 是否自动轮播
-     * @param autoPlay Boolean
-     */
     fun setAutoPlay(autoPlay: Boolean) {
         this._autoPlay = autoPlay
         if (!_autoPlay) {
@@ -42,10 +39,6 @@ class BannerViewPager @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
-    /**
-     * 设置ViewPager的滚动速度
-     * @param duration Int page切换的时间长度
-     */
     fun setScrollDuration(duration: Int) {
         try {
             val scrollerField = ViewPager::class.java.getDeclaredField("mScroller")
@@ -56,17 +49,10 @@ class BannerViewPager @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
-    /**
-     * 设置页面停留时间
-     * @param intervalTime Int 停留时间单位毫秒
-     */
     fun setIntervalTime(intervalTime: Int) {
         this._intervalTime = intervalTime
     }
 
-    /**
-     * 开始
-     */
     fun start() {
         _handler.removeCallbacksAndMessages(null)
         if (_autoPlay) {
@@ -74,16 +60,13 @@ class BannerViewPager @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
-    /**
-     * 结束
-     */
     fun stop() {
         _handler.removeCallbacksAndMessages(null) //停止Timer
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(ev: MotionEvent): Boolean {
-        when (ev.action) {
+    override fun onTouchEvent(ev: MotionEvent?): Boolean {
+        when (ev?.action) {
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> start()
             else -> stop()
         }
