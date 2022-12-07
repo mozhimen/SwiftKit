@@ -18,6 +18,7 @@ import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
@@ -28,7 +29,7 @@ class OpenCVKShapeActivity : BaseActivityVB<ActivityOpencvkShapeBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                PermissionK.applySetting(this)
+                UtilKPermission.openSetting(this)
             }
         }
     }

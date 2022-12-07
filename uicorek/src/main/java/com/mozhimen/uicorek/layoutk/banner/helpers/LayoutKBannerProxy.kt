@@ -89,6 +89,10 @@ class LayoutKBannerProxy(
         }
     }
 
+    override fun getCurrentItem(): Int {
+        return _currentItemIndex
+    }
+
     override fun setBindAdapter(bindAdapter: IBannerBindListener) {
         _adapter?.setBindAdapter(bindAdapter)
     }

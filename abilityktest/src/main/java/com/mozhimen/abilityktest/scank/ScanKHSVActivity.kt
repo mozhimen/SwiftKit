@@ -18,6 +18,7 @@ import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
@@ -29,7 +30,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                PermissionK.applySetting(this)
+                UtilKPermission.openSetting(this)
             }
         }
     }

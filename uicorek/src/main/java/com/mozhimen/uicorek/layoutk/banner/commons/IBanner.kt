@@ -68,6 +68,12 @@ interface IBanner {
     fun setCurrentItem(position: Int)
 
     /**
+     * 获取当前Item
+     * @return Int
+     */
+    fun getCurrentItem(): Int
+
+    /**
      * 绑定adapter
      * @param bindAdapter IBannerBindListener
      */

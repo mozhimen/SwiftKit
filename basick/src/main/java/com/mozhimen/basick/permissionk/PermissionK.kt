@@ -139,20 +139,6 @@ object PermissionK {
     }
 
     /**
-     * 设置申请权限
-     * @param activity Activity
-     */
-    @JvmStatic
-    fun applySetting(activity: Activity) {
-        val intent = Intent()
-        intent.apply {
-            action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-            data = Uri.fromParts("package", activity.packageName, null)
-        }
-        activity.startActivity(intent)
-    }
-
-    /**
      * 打印被拒绝的权限
      * @param deniedList List<String>
      */

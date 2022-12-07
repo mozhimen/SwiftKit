@@ -47,10 +47,11 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
         _scrollDuration = typedArray.getInteger(R.styleable.LayoutKBanner_layoutKBanner_scrollDuration, _scrollDuration)
         typedArray.recycle()
 
+        setEnableScroll(_enableScroll)
         setAutoPlay(_autoPlay)
         setLoop(_loop)
-        setScrollDuration(_scrollDuration)
         setIntervalTime(_intervalTime)
+        setScrollDuration(_scrollDuration)
     }
 
     /**
@@ -125,6 +126,11 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
     override fun setCurrentItem(position: Int) {
         _layoutKBannerProxy.setCurrentItem(position)
     }
+
+    override fun getCurrentItem(): Int {
+        return _layoutKBannerProxy.getCurrentItem()
+    }
+
 
     /**
      * 设置绑定adapter

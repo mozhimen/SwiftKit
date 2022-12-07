@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.componentktest.databinding.ActivityPermissionkBinding
 
 @APermissionK(permissions = [Manifest.permission.INTERNET])
@@ -15,7 +16,7 @@ class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                PermissionK.applySetting(this)
+                UtilKPermission.openSetting(this)
             }
         }
 
@@ -24,7 +25,7 @@ class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
             if (it) {
                 initView(savedInstanceState)
             } else {
-                PermissionK.applySetting(this)
+                UtilKPermission.openSetting(this)
             }
         }
     }
