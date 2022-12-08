@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 
 /**
- * @ClassName ILayout
+ * @ClassName LayoutKLinear
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2021/12/24 14:39
