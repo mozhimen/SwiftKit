@@ -11,10 +11,10 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.basick.utilk.UtilKOverlay
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.LogK
@@ -95,16 +95,13 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
             UtilKOverlay.startOverlaySettingActivity()
             return
         }
-        if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) == null) {//fix bug 22.12.05 重复添加view内存泄漏
-            _windowManager.addView(_rootView, getWindowLayoutParams(isFold))
-        }
+        _windowManager.addView(_rootView, getWindowLayoutParams(isFold))
         if (isFold) foldMonitor() else unfoldMonitor()
     }
 
     fun closeMonitor() {
-        if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) != null) {
-            _windowManager.removeView(_rootView)
-        }
+        if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) == null) return
+        _windowManager.removeView(_rootView)
     }
 
     fun foldMonitor() {

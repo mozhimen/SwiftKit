@@ -22,7 +22,12 @@ object UtilKString {
      */
     @JvmStatic
     fun isNotEmpty(vararg str: String): Boolean {
-        return str.all { isNotEmpty(it) }
+        str.forEach {
+            if (it.isEmpty()) {
+                return false
+            }
+        }
+        return true
     }
 
     /**

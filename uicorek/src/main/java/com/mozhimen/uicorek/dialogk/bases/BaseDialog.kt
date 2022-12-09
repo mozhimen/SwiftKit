@@ -30,10 +30,38 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
     private var _isHasSetWindowAttr = false
     private var _dialogMode = DialogMode.BOTH
     private var _dialogView: View? = null
-    private var _dialogClickListener: I? = null
+    protected var _dialogClickListener: I? = null
 
     fun getDialogClickListener(): I? {
         return _dialogClickListener
+    }
+
+    @DialogMode
+    fun getDialogMode(): Int {
+        return _dialogMode
+    }
+
+    /**
+     * 设置dialog的模式, 设置后会回调到[.onInitMode]
+     * @param mode
+     */
+    fun setDialogMode(@DialogMode mode: Int): BaseDialog<*> {
+        return setDialogMode(mode, true)
+    }
+
+    /**
+     * 设置dialog的模式
+     * 设置后会回调到[.onInitMode]
+     * @param mode
+     * @param callModeChange false 禁止回调[.onInitMode]
+     */
+    protected fun setDialogMode(@DialogMode mode: Int, callModeChange: Boolean): BaseDialog<*> {
+        val hasChange = this._dialogMode != mode
+        this._dialogMode = mode
+        if (hasChange && callModeChange) {
+            onInitMode(mode)
+        }
+        return this
     }
 
     fun setDialogClickListener(onDialogButtonClickListener: I): BaseDialog<*> {
@@ -41,18 +69,9 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
         return this
     }
 
-    /**
-     * 设置dialog的模式
-     * 设置后会回调到[.onInitMode]
-     * @param mode
-     */
-    fun setDialogMode(@DialogMode mode: Int): BaseDialog<*> {
-        return setDialogMode(mode, true)
-    }
-
-    @DialogMode
-    fun getDialogMode(): Int {
-        return _dialogMode
+    fun setDialogCancelable(flag: Boolean): BaseDialog<*> {
+        setCancelable(flag)
+        return this
     }
 
     fun show(delayMillis: Long = 0) {
@@ -82,11 +101,6 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
         }
     }
 
-    fun isCancelable(flag: Boolean): BaseDialog<*> {
-        setCancelable(flag)
-        return this
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (_dialogView == null) {
@@ -111,21 +125,6 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
     protected abstract fun onFindView(dialogView: View)
 
     protected abstract fun onInitMode(@DialogMode mode: Int)
-
-    /**
-     * 设置dialog的模式
-     * 设置后会回调到[.onInitMode]
-     * @param mode
-     * @param callModeChange false 禁止回调[.onInitMode]
-     */
-    protected fun setDialogMode(@DialogMode mode: Int, callModeChange: Boolean): BaseDialog<*> {
-        val hasChange = this._dialogMode != mode
-        this._dialogMode = mode
-        if (hasChange && callModeChange) {
-            onInitMode(mode)
-        }
-        return this
-    }
 
     /**
      * 初始化window宽度

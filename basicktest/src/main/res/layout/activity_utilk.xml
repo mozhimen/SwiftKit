@@ -19,25 +19,31 @@
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
             android:onClick="goUtilKBitmap"
-            android:text="UtilKBitmap"
+            android:text="goUtilKBitmap"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
             android:onClick="goUtilKDataBus"
-            android:text="UtilKDataBus"
+            android:text="goUtilKDataBus"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goUtilKEncrypt"
+            android:text="goUtilKEncrypt"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
             android:onClick="goUtilKFile"
-            android:text="UtilKFile"
+            android:text="goUtilKFile"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
             android:onClick="goUtilKGesture"
-            android:text="UtilKGesture"
+            android:text="goUtilKGesture"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
@@ -49,7 +55,7 @@
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
             android:onClick="goUtilKVerifyUrl"
-            android:text="UtilKVerifyUrl"
+            android:text="goUtilKVerifyUrl"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>

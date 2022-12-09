@@ -75,7 +75,7 @@ object UtilKEncryptMD5 {
             DigestUtils.md5Hex(data.toByteArray())
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
-            throw RuntimeException("encrypt322: ${e.message}")
+            throw RuntimeException("encrypt32: ${e.message}")
         }
     }
 }

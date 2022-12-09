@@ -30,13 +30,13 @@ class CacheKSPProvider(spName: String) {
 
     fun putStringEncrypt(key: String, value: String) {
         if (value.isEmpty()) return
-        val valueEncrypted = UtilKEncryptAES.require(CACHEK_SP_ENCRYPT_ALIAS).encrypt(value)
+        val valueEncrypted = UtilKEncryptAES.require(secretKey = CACHEK_SP_ENCRYPT_ALIAS).encryptWithBase64(value)
         _preferences.edit().putString(key, valueEncrypted).apply()
     }
 
     fun getStringDecrypt(key: String, defaultValue: String = ""): String? {
         val valueDecrypted = _preferences.getString(key, null) ?: return null
-        return UtilKEncryptAES.require(CACHEK_SP_ENCRYPT_ALIAS).decrypt(valueDecrypted)
+        return UtilKEncryptAES.require(secretKey = CACHEK_SP_ENCRYPT_ALIAS).decryptWithBase64(valueDecrypted)
     }
 
     fun putBoolean(key: String, value: Boolean) {

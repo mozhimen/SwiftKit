@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKThread
+import com.mozhimen.uicorek.dialogk.bases.BaseDialog
 import com.mozhimen.uicorek.dialogk.temps.DialogKLoading
 import com.mozhimen.uicorek.dialogk.temps.DialogKQues
 import com.mozhimen.uicorektest.R
@@ -49,13 +50,13 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         _dialogKQues!!.show()
     }
 
-    private var _dialogkLoading: Dialog? = null
+    private var _dialogkLoading: DialogKLoading? = null
 
     fun showLoadingDialog(cancelable: Boolean) {
         if (_dialogkLoading == null) {
-            _dialogkLoading = createDialogKLoading()
+            _dialogkLoading = DialogKLoading.create(this)
         }
-        _dialogkLoading!!.setCancelable(cancelable)
+        _dialogkLoading!!.setDialogCancelable(cancelable)
         if (!_dialogkLoading!!.isShowing) {
             lifecycleScope.launch(Dispatchers.Main) {
                 _dialogkLoading!!.show()
@@ -72,9 +73,5 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
                 _dialogkLoading!!.dismiss()
             }
         }
-    }
-
-    fun createDialogKLoading(): DialogKLoading {
-        return DialogKLoading.create(this)
     }
 }

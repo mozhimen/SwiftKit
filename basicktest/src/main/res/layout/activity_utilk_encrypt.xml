@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="加密前:"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/utilk_encrypt_txt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/utilk_encrypt_btn_encrypt"
+            style="@style/BtnStyle"
+            android:text="加密"
+            android:layout_marginBottom="10dp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="加密后:"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/utilk_encrypt_txt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/utilk_encrypt_btn_decrypt"
+            style="@style/BtnStyle"
+            android:text="解密"
+            android:layout_marginBottom="10dp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="解密后:"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/utilk_encrypt_txt3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"/>
+
+
+    </LinearLayout>
+</layout>
