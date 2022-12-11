@@ -29,15 +29,5 @@ object UtilKBitmapNet {
         url: String
     ): Bitmap? {
         return (_context.imageLoader.execute(ImageRequest.Builder(_context).data(url).build()).drawable as? BitmapDrawable)?.bitmap
-
-//        Glide.with(_context).asBitmap().load(url).transition(withCrossFade()).placeholder(placeholder).error(error).into(object : CustomTarget<Bitmap>() {
-//            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-//                coroutine.resume(resource)
-//            }
-//
-//            override fun onLoadCleared(placeholder: Drawable?) {
-//                coroutine.resume(null)
-//            }
-//        })
     }
 }

@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.cameraxk.helpers
 
+import android.annotation.SuppressLint
 import android.graphics.*
 import android.media.Image.Plane
 import androidx.camera.core.ExperimentalGetImage
@@ -43,7 +44,19 @@ object ImageConverter {
     fun yuv2Bitmap(imageProxy: ImageProxy): Bitmap? {
         if (imageProxy.image == null) return null
         val nv21Buffer = yuv420ThreePlanesToNV21(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
-        return buffer2Bitmap(nv21Buffer, imageProxy.width, imageProxy.height)
+        return buffer2Bitmap(ByteBuffer.wrap(nv21Buffer), imageProxy.width, imageProxy.height)
+    }
+
+    /**
+     * YUV_420_888转NV21
+     * @param imageProxy ImageProxy
+     * @return ByteArray
+     */
+    @JvmStatic
+    @ExperimentalGetImage
+    fun yuv2nv21(imageProxy: ImageProxy): ByteArray? {
+        if (imageProxy.image == null) return null
+        return yuv420ThreePlanesToNV21(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
     }
 
     /**
@@ -81,7 +94,8 @@ object ImageConverter {
         return BitmapFactory.decodeByteArray(jpeg, 0, jpeg.size)
     }
 
-    private fun yuv420ThreePlanesToNV21(yuv420_888_planes: Array<Plane>, width: Int, height: Int): ByteBuffer {
+    @JvmStatic
+    fun yuv420ThreePlanesToNV21(yuv420_888_planes: Array<Plane>, width: Int, height: Int): ByteArray {
         val imageSize = width * height
         val out = ByteArray(imageSize + 2 * (imageSize / 4))
         if (isUVPlanesNV21(yuv420_888_planes, width, height)) {
@@ -94,7 +108,7 @@ object ImageConverter {
             unpackPlane(yuv420_888_planes[1], width, height, out, imageSize + 1, 2)// 取 U.
             unpackPlane(yuv420_888_planes[2], width, height, out, imageSize, 2)// 取 V.
         }
-        return ByteBuffer.wrap(out)
+        return out
     }
 
     /**
@@ -104,6 +118,7 @@ object ImageConverter {
      * @param height Int
      * @return Boolean
      */
+    @JvmStatic
     private fun isUVPlanesNV21(planes: Array<Plane>, width: Int, height: Int): Boolean {
         val imageSize = width * height
         val uBuffer = planes[1].buffer
@@ -137,6 +152,7 @@ object ImageConverter {
      * @param offset Int
      * @param pixelStride Int
      */
+    @JvmStatic
     private fun unpackPlane(plane: Plane, width: Int, height: Int, out: ByteArray, offset: Int, pixelStride: Int) {
         val buffer = plane.buffer
         buffer.rewind()

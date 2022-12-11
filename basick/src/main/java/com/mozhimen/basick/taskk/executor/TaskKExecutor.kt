@@ -102,7 +102,7 @@ object TaskKExecutor {
         _lock.lock()
         try {
             _isPaused = true
-            Log.w(TAG, "pause executork is paused")
+            Log.w(TAG, "executork is paused")
         } finally {
             _lock.unlock()
         }
@@ -117,12 +117,27 @@ object TaskKExecutor {
         try {
             _isPaused = false
             _pauseCondition.signalAll()
+            Log.w(TAG, "executork is resumed")
         } finally {
             _lock.unlock()
         }
-        Log.w(TAG, "resume executork is resumed")
     }
 
+    /**
+     * 释放
+     */
+    @Synchronized
+    fun release() {
+        _lock.lock()
+        try {
+            if (!_executork.isShutdown) {
+                _executork.shutdown()
+            }
+            Log.w(TAG, "executork is shutdown")
+        } finally {
+            _lock.unlock()
+        }
+    }
 
     abstract class ExecutorKCallable<T> : Runnable {
         override fun run() {

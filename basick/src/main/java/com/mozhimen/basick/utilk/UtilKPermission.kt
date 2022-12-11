@@ -17,7 +17,7 @@ import android.provider.Settings
  */
 object UtilKPermission {
     @JvmStatic
-    fun openSettingFile(activity: Activity) {
+    fun openSettingAll(activity: Activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {//当系统在11及以上
             if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
                 val intent = Intent()
@@ -35,7 +35,7 @@ object UtilKPermission {
      * @param activity Activity
      */
     @JvmStatic
-    fun openSetting(activity: Activity) {
+    fun openSettingSelf(activity: Activity) {
         val intent = Intent()
         intent.apply {
             action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS

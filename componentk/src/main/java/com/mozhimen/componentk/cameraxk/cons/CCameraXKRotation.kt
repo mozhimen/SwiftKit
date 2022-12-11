@@ -8,8 +8,8 @@ package com.mozhimen.componentk.cameraxk.cons
  * @Version 1.0
  */
 object CCameraXKRotation {
-    val ROTATION_0 = 0
-    val ROTATION_180 = 2
-    val ROTATION_270 = 3
-    val ROTATION_90 = 1
+    const val ROTATION_0 = 0
+    const val ROTATION_90 = 1
+    const val ROTATION_180 = 2
+    const val ROTATION_270 = 3
 }

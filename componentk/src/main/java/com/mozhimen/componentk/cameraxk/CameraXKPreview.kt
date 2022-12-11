@@ -14,6 +14,7 @@ import com.google.android.material.slider.Slider
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
@@ -51,8 +52,8 @@ class CameraXKPreviewView @JvmOverloads constructor(
     private var _aspectRatio: Int by Delegates.observable(AspectRatio.RATIO_16_9) { _, _, new ->
         _cameraXKProxy.aspectRatio = new
     }
-    private var _rotation: Int by Delegates.observable(CCameraXKRotation.ROTATION_90) { _, _, new ->
-        _cameraXKProxy.rotation = new
+    private var _rotation: Int by Delegates.observable(ACameraXKRotation.ROTATION_90) { _, _, new ->
+        //_cameraXKProxy.rotation = new
     }
     private var _displayId = -1
 
@@ -98,10 +99,14 @@ class CameraXKPreviewView @JvmOverloads constructor(
         _cameraXKProxy.setCameraXKCaptureListener(listener)
     }
 
-    fun initCamera(owner: LifecycleOwner, @ACameraXKFacing facing: Int = ACameraXKFacing.BACK, @ACameraXKFormat format: Int = ACameraXKFormat.YUV_420_888) {
+    fun initCamera(
+        owner: LifecycleOwner,
+        @ACameraXKFacing facing: Int = ACameraXKFacing.BACK,
+        @ACameraXKFormat format: Int = ACameraXKFormat.YUV_420_888
+    ) {
         val cameraSelector = when (facing) {
-            ACameraXKFacing.FRONT -> CameraSelector.DEFAULT_BACK_CAMERA
-            else -> CameraSelector.DEFAULT_FRONT_CAMERA
+            ACameraXKFacing.FRONT -> CameraSelector.DEFAULT_FRONT_CAMERA
+            else -> CameraSelector.DEFAULT_BACK_CAMERA
         }
         val cameraFormat = when (format) {
             ACameraXKFormat.RGBA_8888 -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888
@@ -110,16 +115,16 @@ class CameraXKPreviewView @JvmOverloads constructor(
         _cameraXKProxy.initCamera(owner, cameraSelector, cameraFormat)
     }
 
-    fun startCamera() {
-        _cameraXKProxy.startCamera()
+    fun startCamera(@ACameraXKRotation rotation: Int) {
+        _cameraXKProxy.startCamera(rotation)
     }
 
     override fun setImageAnalyzer(analyzer: ImageAnalysis.Analyzer) {
         _cameraXKProxy.setImageAnalyzer(analyzer)
     }
 
-    override fun changeHdr(isOpen: Boolean) {
-        _cameraXKProxy.changeHdr(isOpen)
+    override fun changeHdr(isOpen: Boolean, @ACameraXKRotation rotation: Int) {
+        _cameraXKProxy.changeHdr(isOpen, rotation)
     }
 
     override fun changeFlash(flashMode: Int) {
@@ -130,8 +135,8 @@ class CameraXKPreviewView @JvmOverloads constructor(
         _cameraXKProxy.changeCountDownTimer(timer)
     }
 
-    override fun changeCameraFacing(@ACameraXKFacing facing: Int) {
-        _cameraXKProxy.changeCameraFacing(facing)
+    override fun changeCameraFacing(@ACameraXKFacing facing: Int, @ACameraXKRotation rotation: Int) {
+        _cameraXKProxy.changeCameraFacing(facing, rotation)
     }
 
     override fun takePicture() {

@@ -107,3 +107,7 @@ dependencies {
 # 6.模块功能的使用
 
 > 后期更新,并在wiki中详细整理,请持续关注,也可以查看单模块的testapp中查看demo的使用范例
+> 近期更新: 1.消化BasePopwin
+> 2.完善BaseDialog
+> 3.优化PopwinKBubble
+> 4.整合Camera2,Camera1,CameraX

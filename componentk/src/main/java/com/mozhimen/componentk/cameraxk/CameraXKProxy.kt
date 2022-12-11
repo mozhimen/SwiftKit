@@ -6,6 +6,8 @@ import android.graphics.ImageFormat
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
+import androidx.annotation.IntDef
+import androidx.annotation.IntRange
 import androidx.camera.core.*
 import androidx.camera.extensions.ExtensionMode
 import androidx.camera.extensions.ExtensionsManager
@@ -16,6 +18,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
@@ -53,7 +56,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     private var _format = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
     private var _selectedTimer = ECameraXKTimer.OFF
     internal var aspectRatio: Int = AspectRatio.RATIO_16_9
-    internal var rotation = CCameraXKRotation.ROTATION_90
+    //internal var rotation = CCameraXKRotation.ROTATION_90
 
     private lateinit var _owner: LifecycleOwner
     private lateinit var _analyzerThread: HandlerThread
@@ -137,7 +140,9 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         this._format = format
     }
 
-    fun startCamera() {
+    fun startCamera(
+        @ACameraXKRotation rotation: Int
+    ) {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(_context)
         cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider?
@@ -165,7 +170,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                 .build()
 
             //Hdr
-            checkForHdrExtensionAvailability(cameraProvider)
+            //checkForHdrExtensionAvailability(cameraProvider)
 
             //图像分析的配置 The Configuration of image analyzing
             _imageAnalysis = ImageAnalysis.Builder()
@@ -187,10 +192,10 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         this._cameraXKAnalyzer = analyzer
     }
 
-    override fun changeHdr(isOpen: Boolean) {
+    override fun changeHdr(isOpen: Boolean, @ACameraXKRotation rotation: Int) {
         if (_isOpenHdr != isOpen) {
             _isOpenHdr = !_isOpenHdr
-            startCamera()
+            startCamera(rotation = rotation)
         }
     }
 
@@ -203,7 +208,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         _selectedTimer = timer
     }
 
-    override fun changeCameraFacing(@ACameraXKFacing facing: Int) {
+    override fun changeCameraFacing(@ACameraXKFacing facing: Int, rotation: Int) {
         val cameraSelector = when (facing) {
             ACameraXKFacing.FRONT -> CameraSelector.DEFAULT_BACK_CAMERA
             else -> CameraSelector.DEFAULT_FRONT_CAMERA
@@ -214,7 +219,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
             } else {
                 CameraSelector.DEFAULT_BACK_CAMERA
             }
-            startCamera()
+            startCamera(rotation)
         }
     }
 
@@ -236,7 +241,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     }
 
     fun onFrameFinished() {
-        if (!_analyzerThread.isInterrupted) _analyzerThread.interrupt()
+        if (this::_analyzerThread.isInitialized && !_analyzerThread.isInterrupted) _analyzerThread.interrupt()
     }
     //endregion
 
@@ -296,8 +301,14 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                 val isAvailable = extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.HDR)
 
                 //检查是否有扩展可用 check for any extension availability
-                Log.d(TAG, "checkForHdrExtensionAvailability: AUTO " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.AUTO))
-                Log.d(TAG, "checkForHdrExtensionAvailability: HDR " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.HDR))
+                Log.d(
+                    TAG,
+                    "checkForHdrExtensionAvailability: AUTO " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.AUTO)
+                )
+                Log.d(
+                    TAG,
+                    "checkForHdrExtensionAvailability: HDR " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.HDR)
+                )
                 Log.d(
                     TAG,
                     "checkForHdrExtensionAvailability: FACE RETOUCH " + extensionsManager.isExtensionAvailable(
@@ -305,9 +316,18 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                         ExtensionMode.FACE_RETOUCH
                     )
                 )
-                Log.d(TAG, "checkForHdrExtensionAvailability: BOKEH " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.BOKEH))
-                Log.d(TAG, "checkForHdrExtensionAvailability: NIGHT " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NIGHT))
-                Log.d(TAG, "checkForHdrExtensionAvailability: NONE " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NONE))
+                Log.d(
+                    TAG,
+                    "checkForHdrExtensionAvailability: BOKEH " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.BOKEH)
+                )
+                Log.d(
+                    TAG,
+                    "checkForHdrExtensionAvailability: NIGHT " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NIGHT)
+                )
+                Log.d(
+                    TAG,
+                    "checkForHdrExtensionAvailability: NONE " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NONE)
+                )
 
                 //检查分机是否在设备上可用 Check if the extension is available on the device
                 if (!isAvailable) {

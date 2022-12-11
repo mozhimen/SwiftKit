@@ -8,8 +8,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 abstract class ITaskK(owner: LifecycleOwner) : DefaultLifecycleObserver {
+    protected val TAG = "${this::class.java.simpleName}>>>>>"
+
     init {
-        owner.lifecycleScope.launch(Dispatchers.Main){
+        owner.lifecycleScope.launch(Dispatchers.Main) {
             owner.lifecycle.addObserver(this@ITaskK)
         }
     }
