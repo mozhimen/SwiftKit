@@ -26,6 +26,10 @@ class UtilKActivity : BaseActivityVB<ActivityUtilkBinding>() {
         start<UtilKDataBusActivity>()
     }
 
+    fun goUtilKEncrypt(view: View) {
+        start<UtilKEncryptActivity>()
+    }
+
     fun goUtilKFile(view: View) {
         start<UtilKFileActivity>()
     }

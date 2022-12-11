@@ -83,6 +83,9 @@
             android:name=".utilk.UtilKDataBusActivity"
             android:exported="false" />
         <activity
+            android:name=".utilk.UtilKEncryptActivity"
+            android:exported="false" />
+        <activity
             android:name=".utilk.UtilKFileActivity"
             android:exported="false" />
     </application>

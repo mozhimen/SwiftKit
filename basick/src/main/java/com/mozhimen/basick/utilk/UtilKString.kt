@@ -16,6 +16,21 @@ object UtilKString {
     private const val TAG = "UtilKString>>>>>"
 
     /**
+     * 判断是否不为Empty
+     * @param str Array<out String>
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isNotEmpty(vararg str: String): Boolean {
+        str.forEach {
+            if (it.isEmpty()) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
      * 是否含有空格
      * @param str String
      * @return Boolean
