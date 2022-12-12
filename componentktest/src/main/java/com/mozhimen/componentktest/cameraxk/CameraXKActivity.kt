@@ -9,6 +9,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.componentk.statusbark.annors.AStatusBarK
@@ -37,7 +38,7 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
         vb.camerakPreviewView.initCamera(this, ACameraXKFacing.FRONT, _format)
         vb.camerakPreviewView.setImageAnalyzer(_frameAnalyzer)
         vb.camerakPreviewView.setCameraXKCaptureListener(_cameraXKCaptureListener)
-        vb.camerakPreviewView.startCamera()
+        vb.camerakPreviewView.startCamera(ACameraXKRotation.ROTATION_90)
         vb.camerakBtn.setOnClickListener {
             vb.camerakPreviewView.takePicture()
         }
