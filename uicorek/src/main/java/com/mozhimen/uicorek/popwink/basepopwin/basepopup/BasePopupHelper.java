@@ -62,6 +62,7 @@ import java.util.WeakHashMap;
 @SuppressWarnings("all")
 final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, BasePopupFlag, ClearMemoryObject {
 
+    private static final String TAG = "BasePopupHelper>>>>>";
     BasePopupWindow mPopupWindow;
 
     WeakHashMap<Object, BasePopupEvent.EventObserver> eventObserverMap;
@@ -623,7 +624,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
 
     BasePopupHelper overlayStatusbar(boolean overlay) {
         if (!overlay && UtilKWindow.isActivityFullScreen(mPopupWindow.getContext())) {
-            Log.e(BasePopupWindow.TAG, "setOverlayStatusbar: 全屏Activity下没有StatusBar，此处不能设置为false");
+            Log.e(TAG, "setOverlayStatusbar: 全屏Activity下没有StatusBar，此处不能设置为false");
             overlay = true;
         }
         setFlag(OVERLAY_STATUS_BAR, overlay);

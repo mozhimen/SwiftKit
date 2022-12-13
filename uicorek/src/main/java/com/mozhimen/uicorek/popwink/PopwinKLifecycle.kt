@@ -20,26 +20,21 @@ open class PopwinKLifecycle(context: Context) : BasePopupWindow(context), Lifecy
 
     init {
         _lifecycleRegistry = LifecycleRegistry(this)
-        _lifecycleRegistry?.currentState = Lifecycle.State.CREATED
+        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
     }
 
     override fun onViewCreated(contentView: View) {
         super.onViewCreated(contentView)
-        _lifecycleRegistry?.currentState = Lifecycle.State.STARTED
-    }
-
-    override fun onShowing() {
-        super.onShowing()
-        _lifecycleRegistry?.currentState = Lifecycle.State.RESUMED
+        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_START)
     }
 
     override fun onDismiss() {
+        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
         super.onDismiss()
-        _lifecycleRegistry?.currentState = Lifecycle.State.CREATED
     }
 
     override fun onDestroy() {
-        _lifecycleRegistry?.currentState = Lifecycle.State.DESTROYED
+        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         super.onDestroy()
     }
 
