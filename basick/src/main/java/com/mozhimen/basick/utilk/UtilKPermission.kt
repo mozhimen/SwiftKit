@@ -18,7 +18,7 @@ import android.provider.Settings
 object UtilKPermission {
     @JvmStatic
     fun openSettingAll(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {//当系统在11及以上
+        if (Build.VERSION.SDK_INT >= UtilKBuild.VersionCode.R) {//当系统在11及以上
             if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
                 val intent = Intent()
                 intent.apply {

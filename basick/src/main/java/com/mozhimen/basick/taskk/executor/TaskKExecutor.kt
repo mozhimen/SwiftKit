@@ -67,7 +67,7 @@ object TaskKExecutor {
             override fun afterExecute(r: Runnable?, t: Throwable?) {
                 //监控线程池耗时任务,线程创建数量,正在运行的数量
                 val runnable = r as PriorityRunnable
-                Log.d(TAG, "已执行完的任务${runnable.name}的优先级是：${runnable.priority}")
+                Log.d(TAG, "the task ${runnable.name} is finished, priority ${runnable.priority}")
             }
         }
     }

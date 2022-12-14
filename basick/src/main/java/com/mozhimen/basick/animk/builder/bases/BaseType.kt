@@ -10,6 +10,7 @@ import androidx.annotation.FloatRange
  * @Date 2022/11/17 22:44
  * @Version 1.0
  */
+@Suppress("UNCHECKED_CAST")
 abstract class BaseType<T> {
 
     protected var _interpolator: Interpolator? = null

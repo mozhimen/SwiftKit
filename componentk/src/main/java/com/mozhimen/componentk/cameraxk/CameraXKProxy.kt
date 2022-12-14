@@ -143,49 +143,53 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     fun startCamera(
         @ACameraXKRotation rotation: Int
     ) {
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(_context)
-        cameraProviderFuture.addListener({
-            val cameraProvider: ProcessCameraProvider?
-            try {
-                cameraProvider = cameraProviderFuture.get()
-            } catch (e: InterruptedException) {
-                _cameraXKListener?.onCameraStartFail(e.message ?: "")
-                LogK.et(TAG, "startCamera InterruptedException ${e.message ?: ""}")
-                return@addListener
-            } catch (e: ExecutionException) {
-                _cameraXKListener?.onCameraStartFail(e.message ?: "")
-                LogK.et(TAG, "startCamera ExecutionException ${e.message ?: ""}")
-                return@addListener
-            }
+        try {
+            val cameraProviderFuture = ProcessCameraProvider.getInstance(_context)
+            cameraProviderFuture.addListener({
+                val cameraProvider: ProcessCameraProvider?
+                try {
+                    cameraProvider = cameraProviderFuture.get()
+                } catch (e: InterruptedException) {
+                    _cameraXKListener?.onCameraStartFail(e.message ?: "")
+                    LogK.et(TAG, "startCamera InterruptedException ${e.message ?: ""}")
+                    return@addListener
+                } catch (e: ExecutionException) {
+                    _cameraXKListener?.onCameraStartFail(e.message ?: "")
+                    LogK.et(TAG, "startCamera ExecutionException ${e.message ?: ""}")
+                    return@addListener
+                }
 
-            val localCameraProvider: ProcessCameraProvider = cameraProvider
-                ?: throw IllegalStateException("Camera initialization failed.")
+                val localCameraProvider: ProcessCameraProvider = cameraProvider
+                    ?: throw IllegalStateException("Camera initialization failed.")
 
-            //图像捕获的配置 The Configuration of image capture
-            _imageCapture = ImageCapture.Builder()
-                .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY) // setting to have pictures with highest quality possible (may be slow)
-                .setFlashMode(_flashMode) // set capture flash
-                .setTargetAspectRatio(aspectRatio) // set the capture aspect ratio
-                .setTargetRotation(rotation) // set the capture rotation
-                .build()
+                //图像捕获的配置 The Configuration of image capture
+                _imageCapture = ImageCapture.Builder()
+                    .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY) // setting to have pictures with highest quality possible (may be slow)
+                    .setFlashMode(_flashMode) // set capture flash
+                    .setTargetAspectRatio(aspectRatio) // set the capture aspect ratio
+                    .setTargetRotation(rotation) // set the capture rotation
+                    .build()
 
-            //Hdr
-            //checkForHdrExtensionAvailability(cameraProvider)
+                //Hdr
+                //checkForHdrExtensionAvailability(cameraProvider)
 
-            //图像分析的配置 The Configuration of image analyzing
-            _imageAnalysis = ImageAnalysis.Builder()
-                .setTargetAspectRatio(aspectRatio) // set the analyzer aspect ratio
-                .setTargetRotation(rotation) // set the analyzer rotation
-                .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST) // in our analysis, we care about the latest image
-                .setOutputImageFormat(_format)
-                .build()
-                .also { setCameraXKAnalyzer(it) }
+                //图像分析的配置 The Configuration of image analyzing
+                _imageAnalysis = ImageAnalysis.Builder()
+                    .setTargetAspectRatio(aspectRatio) // set the analyzer aspect ratio
+                    .setTargetRotation(rotation) // set the analyzer rotation
+                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST) // in our analysis, we care about the latest image
+                    .setOutputImageFormat(_format)
+                    .build()
+                    .also { setCameraXKAnalyzer(it) }
 
-            // Unbind the use-cases before rebinding them
-            localCameraProvider.unbindAll()
-            // Bind all use cases to the camera with lifecycle
-            bindToLifecycle(localCameraProvider, preview, previewView, slider)
-        }, ContextCompat.getMainExecutor(_context))
+                // Unbind the use-cases before rebinding them
+                localCameraProvider.unbindAll()
+                // Bind all use cases to the camera with lifecycle
+                bindToLifecycle(localCameraProvider, preview, previewView, slider)
+            }, ContextCompat.getMainExecutor(_context))
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun setImageAnalyzer(analyzer: ImageAnalysis.Analyzer) {
@@ -249,7 +253,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         try {
             localCameraProvider.bindToLifecycle(
                 _owner, // current lifecycle owner
-                _hdrCameraSelector ?: _lensFacing, // either front or back facing
+                /*_hdrCameraSelector ?: */_lensFacing, // either front or back facing
                 preview, // camera preview use case
                 _imageCapture!!, // image capture use case
                 _imageAnalysis!!, // image analyzer use case

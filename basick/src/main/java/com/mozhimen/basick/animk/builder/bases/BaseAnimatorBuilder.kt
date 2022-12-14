@@ -3,12 +3,7 @@ package com.mozhimen.basick.animk.builder.bases
 import android.util.Log
 import android.util.SparseArray
 import android.view.animation.Interpolator
-import com.mozhimen.basick.animk.builder.commons.IAnimationType
 import com.mozhimen.basick.animk.builder.commons.IAnimatorType
-import com.mozhimen.basick.animk.builder.temps.AlphaType
-import com.mozhimen.basick.animk.builder.temps.RotationType
-import com.mozhimen.basick.animk.builder.temps.ScaleType
-import com.mozhimen.basick.animk.builder.temps.TranslationType
 
 /**
  * @ClassName BaseAnimatorBuilder
@@ -17,6 +12,7 @@ import com.mozhimen.basick.animk.builder.temps.TranslationType
  * @Date 2022/11/26 18:46
  * @Version 1.0
  */
+@Suppress("UNCHECKED_CAST")
 open class BaseAnimatorBuilder<T> : BaseAnimKBuilder() {
     protected var _types: SparseArray<IAnimatorType> = SparseArray()
 

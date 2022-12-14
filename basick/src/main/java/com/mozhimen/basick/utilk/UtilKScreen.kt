@@ -91,7 +91,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenWidth(): Int =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= UtilKBuild.VersionCode.R) {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.width()
         } else {
             val size = Point()
@@ -106,7 +106,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenHeight(): Int =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= UtilKBuild.VersionCode.R) {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.height()
         } else {
             val size = Point()

@@ -2,11 +2,14 @@ package com.mozhimen.basick.utilk.bitmap
 
 import android.Manifest
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.context.UtilKApplication
+import java.io.InputStream
+import java.net.URL
 
 /**
  * @ClassName UtilKBitmapNet
@@ -29,5 +32,25 @@ object UtilKBitmapNet {
         url: String
     ): Bitmap? {
         return (_context.imageLoader.execute(ImageRequest.Builder(_context).data(url).build()).drawable as? BitmapDrawable)?.bitmap
+    }
+
+    /**
+     * 获取Bitmap
+     * @param url String
+     * @return Bitmap?
+     */
+    @JvmStatic
+    fun url2Bitmap2(url: String): Bitmap? {
+        val tempURL = URL(url)
+        var inputStream: InputStream? = null
+        try {
+            inputStream = tempURL.openStream()
+            return BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            inputStream?.close()
+        }
+        return null
     }
 }

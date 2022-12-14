@@ -11,6 +11,7 @@
         tools:context="com.mozhimen.componentktest.com.mozhimen.debugktest.DebugKActivity">
 
         <TextView
+            android:id="@+id/debugk_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

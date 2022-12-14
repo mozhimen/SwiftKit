@@ -88,6 +88,14 @@ class CameraXKPreviewView @JvmOverloads constructor(
     init {
         initView()
         _cameraXKProxy = CameraXKProxy(context)
+        _cameraXKProxy.apply {
+            slider = _slider
+            previewView = _previewView
+        }
+        this.post {
+            initPreview()
+            _cameraXKProxy.preview = _preview
+        }
     }
 
     //region # open fun
@@ -145,21 +153,11 @@ class CameraXKPreviewView @JvmOverloads constructor(
     //endregion
 
     private fun initView() {
-        LayoutInflater.from(context).inflate(R.layout.cameraxk_preview_layout, this)
-        _previewView = findViewById(R.id.cameraxk_preview)
-        _sliderContainer = findViewById(R.id.cameraxk_container)
-        _slider = findViewById(R.id.cameraxk_slider)
+        val view = LayoutInflater.from(context).inflate(R.layout.cameraxk_preview_layout, this)
+        _previewView = view.findViewById(R.id.cameraxk_preview)
         _previewView.addOnAttachStateChangeListener(_onAttachStateChangeListener)
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        initPreview()
-        _cameraXKProxy.apply {
-            slider = _slider
-            previewView = _previewView
-            preview = _preview
-        }
+        _sliderContainer = view.findViewById(R.id.cameraxk_container)
+        _slider = view.findViewById(R.id.cameraxk_slider)
     }
 
     override fun onDetachedFromWindow() {

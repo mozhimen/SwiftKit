@@ -66,6 +66,6 @@ object UtilKDisplay {
      */
     @JvmStatic
     fun getRotation(activity: Activity): Int =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) activity.display!!.rotation else activity.windowManager.defaultDisplay.rotation
+        if (Build.VERSION.SDK_INT >= UtilKBuild.VersionCode.R) activity.display!!.rotation else activity.windowManager.defaultDisplay.rotation
 
 }

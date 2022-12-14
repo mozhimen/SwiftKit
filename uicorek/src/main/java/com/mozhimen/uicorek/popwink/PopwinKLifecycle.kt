@@ -16,15 +16,19 @@ import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
  * @Version 1.0
  */
 open class PopwinKLifecycle(context: Context) : BasePopupWindow(context), LifecycleOwner {
-    private var _lifecycleRegistry: LifecycleRegistry? = null
+    protected var _lifecycleRegistry: LifecycleRegistry? = null
 
     init {
         _lifecycleRegistry = LifecycleRegistry(this)
-        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
     }
 
     override fun onViewCreated(contentView: View) {
         super.onViewCreated(contentView)
+        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    }
+
+    override fun onShowing() {
+        super.onShowing()
         _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_START)
     }
 
