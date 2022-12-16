@@ -65,7 +65,7 @@ class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>()
                     }
                     val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
-                        vb.opencvkContrastQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
+                        vb.opencvkContrastQrscan.getRectSize().toDouble() / UtilKScreen.getRealScreenWidth().toDouble()
 
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),

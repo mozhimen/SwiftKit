@@ -128,8 +128,8 @@ class LogKPrinterViewProvider(
             layoutParams.width = _titleView!!.width
             layoutParams.height = _titleView!!.height
         } else {
-            layoutParams.width = UtilKScreen.getScreenWidth()
-            layoutParams.height = UtilKScreen.getScreenHeight() / 3
+            layoutParams.width = UtilKScreen.getRealScreenWidth()
+            layoutParams.height = UtilKScreen.getRealScreenHeight() / 3
         }
         return layoutParams
     }

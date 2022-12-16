@@ -260,8 +260,8 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     private fun zoomTextureSize() {
-        val screenWidth: Int = UtilKScreen.getScreenWidth()
-        val screenHeight: Int = UtilKScreen.getScreenHeight()
+        val screenWidth: Int = UtilKScreen.getRealScreenWidth()
+        val screenHeight: Int = UtilKScreen.getRealScreenHeight()
         var scaleX = 1.0f
         var scaleY = 1.0f
         if (_videoWidth > screenWidth && _videoHeight > screenHeight) {

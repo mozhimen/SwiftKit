@@ -1,10 +1,6 @@
 package com.mozhimen.basick.permissionk
 
-import android.app.Activity
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
-import android.provider.Settings
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -12,6 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.permissionk.helpers.IPermissionKListener
 import com.mozhimen.basick.permissionk.helpers.InvisibleFragment
+import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.basick.utilk.exts.toJson
@@ -30,6 +27,17 @@ object PermissionK {
     /**
      * 作用: 权限申请
      * @param activity AppCompatActivity
+     * @param onSuccess Function0<Unit>
+     * @param onFail Function0<Unit>
+     */
+    @JvmStatic
+    fun initPermissions(activity: AppCompatActivity, onSuccess: () -> Unit, onFail: (() -> Unit)? = { UtilKPermission.openSettingSelf(activity) }) {
+        initPermissions(activity, isGranted = { if (it) onSuccess.invoke() else onFail?.invoke() })
+    }
+
+    /**
+     * 作用: 权限申请
+     * @param activity AppCompatActivity
      * @param isGranted Function1<Boolean, Unit>
      */
     @JvmStatic
@@ -40,20 +48,7 @@ object PermissionK {
         val permissionAnnor = activity.javaClass.getAnnotation(APermissionK::class.java)
         requireNotNull(permissionAnnor) { TAG + "you may be forget add annor" }
         val permissions = permissionAnnor.permissions
-        if (permissions.isNotEmpty()) {
-            if (!checkPermissions(*permissions)) {
-                requestPermissions(activity, *permissions) { allGranted, deniedList ->
-                    if (!allGranted) {
-                        printDeniedList(deniedList)
-                    }
-                    isGranted?.invoke(allGranted)
-                }
-            } else {
-                isGranted?.invoke(true)
-            }
-        } else {
-            isGranted?.invoke(true)
-        }
+        initPermissions(activity, permissions, isGranted)
     }
 
     /**
@@ -144,6 +139,8 @@ object PermissionK {
      */
     private fun printDeniedList(deniedList: List<String>) {
         Log.w(TAG, "printDeniedList $deniedList")
-        "请在设置中打开${deniedList.toJson()}权限".showToast()
+        if (deniedList.isNotEmpty()){
+            "请在设置中打开${deniedList.joinToString()}权限".showToast()
+        }
     }
 }

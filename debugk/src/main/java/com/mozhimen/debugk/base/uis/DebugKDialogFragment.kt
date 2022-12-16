@@ -35,7 +35,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
         val parent = dialog?.window?.findViewById(android.R.id.content) ?: container
         val view = inflater.inflate(R.layout.debugk_dialog, parent, false)
 
-        dialog?.window?.setLayout((UtilKScreen.getScreenWidth() * 0.8f).toInt(), WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setLayout((UtilKScreen.getRealScreenWidth() * 0.8f).toInt(), WindowManager.LayoutParams.WRAP_CONTENT)
         dialog?.window?.setBackgroundDrawableResource(R.drawable.debugk_crashk_dialog)
         return view
     }

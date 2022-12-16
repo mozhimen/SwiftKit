@@ -13,6 +13,10 @@ import com.mozhimen.basick.utilk.exts.long2String
  */
 object UtilKBuild {
 
+    object VersionCode {
+        const val R = 30
+    }
+
     //设备名
     @JvmStatic
     fun getProduct(): String = Build.PRODUCT

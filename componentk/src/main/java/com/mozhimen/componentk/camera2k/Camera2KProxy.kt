@@ -66,7 +66,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
     private var _cameraOrientation = 0 // 设备方向，由相机传感器获取
     private var _cameraZoom = 1 // 缩放
     private var _cameraCapture = false
-    private var _cameraId = CameraCharacteristics.LENS_FACING_FRONT // 要打开的摄像头ID
+    private var _cameraId: Int = CameraCharacteristics.LENS_FACING_FRONT // 要打开的摄像头ID
 
     //打开摄像头的回调
     private val _cameraStateCallback: CameraDevice.StateCallback = object : CameraDevice.StateCallback() {

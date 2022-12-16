@@ -55,6 +55,9 @@ dependencies {
     api 'androidx.navigation:navigation-fragment-ktx:2.4.1'
     api 'androidx.navigation:navigation-ui-ktx:2.4.1'
 
+    //adaptk
+    api 'me.jessyan:autosize:1.2.1'
+
     implementation project(project.path.replace(project.name, '') +  ':basick')
     implementation project(project.path.replace(project.name, '') +  ':uicorek')
     implementation project(project.path.replace(project.name, '') +  ':underlayk')

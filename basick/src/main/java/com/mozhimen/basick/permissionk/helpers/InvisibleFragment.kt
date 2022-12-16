@@ -15,8 +15,8 @@ typealias IPermissionKListener = (Boolean, List<String>) -> Unit
 class InvisibleFragment : Fragment() {
     private var _listener: IPermissionKListener? = null
 
-    fun requestNow(cb: IPermissionKListener, vararg permissions: String) {
-        _listener = cb
+    fun requestNow(listener: IPermissionKListener, vararg permissions: String) {
+        _listener = listener
         requestPermissions(permissions, 1)
     }
 

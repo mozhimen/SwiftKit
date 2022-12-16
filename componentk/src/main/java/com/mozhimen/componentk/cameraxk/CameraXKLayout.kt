@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.cameraxk
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.display.DisplayManager
@@ -7,19 +8,21 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import androidx.camera.core.*
-import androidx.camera.view.PreviewView
+import androidx.camera.core.AspectRatio
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.Preview
+import androidx.camera.view.CameraXKPreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
-import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
-import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
+import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -32,7 +35,8 @@ import kotlin.properties.Delegates
  * @Date 2022/1/3 0:22
  * @Version 1.0
  */
-class CameraXKPreviewView @JvmOverloads constructor(
+@APermissionK(permissions = [Manifest.permission.CAMERA])
+class CameraXKLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -46,14 +50,14 @@ class CameraXKPreviewView @JvmOverloads constructor(
 
     private lateinit var _cameraXKProxy: CameraXKProxy
     private lateinit var _preview: Preview
-    private lateinit var _previewView: PreviewView
+    private lateinit var _previewView: CameraXKPreviewView
     private lateinit var _slider: Slider
     private lateinit var _sliderContainer: FrameLayout
     private var _aspectRatio: Int by Delegates.observable(AspectRatio.RATIO_16_9) { _, _, new ->
         _cameraXKProxy.aspectRatio = new
     }
     private var _rotation: Int by Delegates.observable(ACameraXKRotation.ROTATION_90) { _, _, new ->
-        //_cameraXKProxy.rotation = new
+        _cameraXKProxy.rotation = new
     }
     private var _displayId = -1
 
@@ -68,9 +72,9 @@ class CameraXKPreviewView @JvmOverloads constructor(
 
         @SuppressLint("UnsafeOptInUsageError")
         override fun onDisplayChanged(displayId: Int) {
-            if (displayId == this@CameraXKPreviewView._displayId) {
+            if (displayId == this@CameraXKLayout._displayId) {
                 _preview.targetRotation = _rotation
-                _rotation = this@CameraXKPreviewView.display.rotation
+                _rotation = this@CameraXKLayout.display.rotation
             }
         }
     }
@@ -88,6 +92,14 @@ class CameraXKPreviewView @JvmOverloads constructor(
     init {
         initView()
         _cameraXKProxy = CameraXKProxy(context)
+        _cameraXKProxy.apply {
+            slider = _slider
+            previewView = _previewView
+        }
+        this.post {
+            initPreview()
+            _cameraXKProxy.preview = _preview
+        }
     }
 
     //region # open fun
@@ -101,30 +113,21 @@ class CameraXKPreviewView @JvmOverloads constructor(
 
     fun initCamera(
         owner: LifecycleOwner,
-        @ACameraXKFacing facing: Int = ACameraXKFacing.BACK,
-        @ACameraXKFormat format: Int = ACameraXKFormat.YUV_420_888
+        cameraXKConfig: CameraXKConfig
     ) {
-        val cameraSelector = when (facing) {
-            ACameraXKFacing.FRONT -> CameraSelector.DEFAULT_FRONT_CAMERA
-            else -> CameraSelector.DEFAULT_BACK_CAMERA
-        }
-        val cameraFormat = when (format) {
-            ACameraXKFormat.RGBA_8888 -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888
-            else -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
-        }
-        _cameraXKProxy.initCamera(owner, cameraSelector, cameraFormat)
+        _cameraXKProxy.initCamera(owner, cameraXKConfig)
     }
 
-    fun startCamera(@ACameraXKRotation rotation: Int) {
-        _cameraXKProxy.startCamera(rotation)
+    fun startCamera() {
+        _cameraXKProxy.startCamera()
     }
 
     override fun setImageAnalyzer(analyzer: ImageAnalysis.Analyzer) {
         _cameraXKProxy.setImageAnalyzer(analyzer)
     }
 
-    override fun changeHdr(isOpen: Boolean, @ACameraXKRotation rotation: Int) {
-        _cameraXKProxy.changeHdr(isOpen, rotation)
+    override fun changeHdr(isOpen: Boolean) {
+        _cameraXKProxy.changeHdr(isOpen)
     }
 
     override fun changeFlash(flashMode: Int) {
@@ -135,8 +138,8 @@ class CameraXKPreviewView @JvmOverloads constructor(
         _cameraXKProxy.changeCountDownTimer(timer)
     }
 
-    override fun changeCameraFacing(@ACameraXKFacing facing: Int, @ACameraXKRotation rotation: Int) {
-        _cameraXKProxy.changeCameraFacing(facing, rotation)
+    override fun changeCameraFacing(@ACameraXKFacing facing: Int) {
+        _cameraXKProxy.changeCameraFacing(facing)
     }
 
     override fun takePicture() {
@@ -145,21 +148,11 @@ class CameraXKPreviewView @JvmOverloads constructor(
     //endregion
 
     private fun initView() {
-        LayoutInflater.from(context).inflate(R.layout.cameraxk_preview_layout, this)
-        _previewView = findViewById(R.id.cameraxk_preview)
-        _sliderContainer = findViewById(R.id.cameraxk_container)
-        _slider = findViewById(R.id.cameraxk_slider)
+        val view = LayoutInflater.from(context).inflate(R.layout.cameraxk_preview_layout, this)
+        _previewView = view.findViewById(R.id.cameraxk_preview)
         _previewView.addOnAttachStateChangeListener(_onAttachStateChangeListener)
-    }
-
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        initPreview()
-        _cameraXKProxy.apply {
-            slider = _slider
-            previewView = _previewView
-            preview = _preview
-        }
+        _sliderContainer = view.findViewById(R.id.cameraxk_container)
+        _slider = view.findViewById(R.id.cameraxk_slider)
     }
 
     override fun onDetachedFromWindow() {

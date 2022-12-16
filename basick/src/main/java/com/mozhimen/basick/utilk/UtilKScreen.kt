@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Build
@@ -72,16 +71,16 @@ object UtilKScreen {
      * @return Int
      */
     @JvmStatic
-    fun getScreenWidth2(): Int {
+    fun getCurrentScreenWidth(): Int {
         return _context.resources.displayMetrics.widthPixels
     }
 
     /**
-     * 获取屏幕高度
+     * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
      * @return Int
      */
     @JvmStatic
-    fun getScreenHeight2(): Int {
+    fun getCurrentScreenHeight(): Int {
         return _context.resources.displayMetrics.heightPixels
     }
 
@@ -90,8 +89,8 @@ object UtilKScreen {
      * @return Int
      */
     @JvmStatic
-    fun getScreenWidth(): Int =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+    fun getRealScreenWidth(): Int =
+        if (Build.VERSION.SDK_INT >= UtilKBuild.VersionCode.R) {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.width()
         } else {
             val size = Point()
@@ -105,8 +104,8 @@ object UtilKScreen {
      * @return Int
      */
     @JvmStatic
-    fun getScreenHeight(): Int =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+    fun getRealScreenHeight(): Int =
+        if (Build.VERSION.SDK_INT >= UtilKBuild.VersionCode.R) {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.height()
         } else {
             val size = Point()
@@ -123,8 +122,8 @@ object UtilKScreen {
     fun getScreenSize(): Float {
         val xdpi = _context.resources.displayMetrics.xdpi
         val ydpi = _context.resources.displayMetrics.ydpi
-        val width = _context.resources.displayMetrics.widthPixels
-        val height = _context.resources.displayMetrics.heightPixels
+        val width = getCurrentScreenWidth()
+        val height = getCurrentScreenHeight()
 
         //计算屏幕的物理尺寸
         val widthPhy = (width / xdpi) * (width / xdpi)
@@ -162,7 +161,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun isScreenPortrait(): Boolean =
-        _context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        getScreenOrientation() == Configuration.ORIENTATION_PORTRAIT
 
     /**
      * 获取方向

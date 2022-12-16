@@ -16,9 +16,9 @@ interface ICameraXKAction {
     fun setCameraXKListener(listener: ICameraXKListener)
     fun setCameraXKCaptureListener(listener: ICameraXKCaptureListener)
     fun setImageAnalyzer(analyzer: ImageAnalysis.Analyzer)
-    fun changeHdr(isOpen: Boolean, @ACameraXKFacing rotation: Int)
+    fun changeHdr(isOpen: Boolean)
     fun changeFlash(@ImageCapture.FlashMode flashMode: Int)
     fun changeCountDownTimer(timer: ECameraXKTimer)
-    fun changeCameraFacing(@ACameraXKFacing facing: Int, @ACameraXKFacing rotation: Int)
+    fun changeCameraFacing(@ACameraXKFacing facing: Int)
     fun takePicture()
 }

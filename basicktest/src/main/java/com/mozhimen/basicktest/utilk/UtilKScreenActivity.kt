@@ -22,9 +22,9 @@ class UtilKScreenActivity : BaseActivityVB<ActivityUtilkScreenBinding>() {
         super.initData(savedInstanceState)
         Log.d(TAG, "initData: getScreenWidthDp ${UtilKScreen.getScreenWidthDp()}")
         Log.d(TAG, "initData: getScreenHeightDp ${UtilKScreen.getScreenHeightDp()}")
-        Log.d(TAG, "initData: getScreenWidth ${UtilKScreen.getScreenWidth()}")
-        Log.d(TAG, "initData: getScreenHeight ${UtilKScreen.getScreenHeight()}")
-        Log.d(TAG, "initData: getScreenWidth2 ${UtilKScreen.getScreenWidth2()}")
-        Log.d(TAG, "initData: getScreenHeight2 ${UtilKScreen.getScreenHeight2()}")
+        Log.d(TAG, "initData: getScreenWidth ${UtilKScreen.getRealScreenWidth()}")
+        Log.d(TAG, "initData: getScreenHeight ${UtilKScreen.getRealScreenHeight()}")
+        Log.d(TAG, "initData: getScreenWidth2 ${UtilKScreen.getCurrentScreenWidth()}")
+        Log.d(TAG, "initData: getScreenHeight2 ${UtilKScreen.getCurrentScreenHeight()}")
     }
 }

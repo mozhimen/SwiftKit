@@ -66,7 +66,7 @@ class OpenCVKMatchActivity : BaseActivityVB<ActivityOpencvkMatchBinding>() {
                     }
                     val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
-                        vb.opencvkMatchQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
+                        vb.opencvkMatchQrscan.getRectSize().toDouble() / UtilKScreen.getRealScreenWidth().toDouble()
 
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),

@@ -13,12 +13,43 @@ import com.mozhimen.debugk.base.annors.ADebugKParams
  * @Version 1.0
  */
 class DebugKParams {
+    /**
+     * 设备参数
+     * @return String
+     */
+    @ADebugKParams("设备参数")
+    fun deviceParams(): String = ""
 
-    @ADebugKParams("序列号")
-    fun localSerialNo(): String = UtilKDevice.getSerialNumber()
+    @ADebugKParams("设备序列号")
+    fun deviceSerialNo(): String = UtilKDevice.getSerialNumber()
 
-    @ADebugKParams("短序列号")
-    fun localSerialNoShort(): String = UtilKDevice.getSerialNumberShort()
+    @ADebugKParams("设备短序列号")
+    fun deviceSerialNoShort(): String = UtilKDevice.getSerialNumberShort()
+
+    @ADebugKParams("设备IP")
+    fun deviceIP(): String = UtilKDevice.getDeviceIP()
+
+    @ADebugKParams("设备Rom版本")
+    fun deviceRomVersion(): String = UtilKDevice.getRomVersion()
+
+    @ADebugKParams("设备硬件版本")
+    fun deviceHardwareVersion(): String = UtilKDevice.getHardwareVersion()
+
+    @ADebugKParams("设备是否有sd卡")
+    fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().boolean2String()
+
+    @ADebugKParams("设备是否有前置摄像")
+    fun deviceHasFrontCamera(): String = UtilKDevice.isHasFrontCamera().boolean2String()
+
+    @ADebugKParams("设备是否有后置摄像头")
+    fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().boolean2String()
+
+    /**
+     * 构建参数
+     * @return String
+     */
+    @ADebugKParams("构建参数")
+    fun buildParams(): String = ""
 
     @ADebugKParams("构建版本")
     fun buildConfigVersion(): String = "code ${BuildConfig.VERSION_CODE} name ${BuildConfig.VERSION_NAME}"
@@ -59,64 +90,71 @@ class DebugKParams {
     @ADebugKParams("构建内部时间")
     fun buildTime(): String = UtilKBuild.getTime()
 
-    @ADebugKParams("设备分辨率")
-    fun deviceScreen(): String = "设备分辨率: w " + UtilKScreen.getScreenWidth() + " h " + UtilKScreen.getScreenHeight()
+    @ADebugKParams("构建设备名")
+    fun buildProduct(): String = UtilKBuild.getProduct()
 
-    @ADebugKParams("设备IP")
-    fun deviceIP(): String = UtilKDevice.getDeviceIP()
+    @ADebugKParams("构建设备品牌")
+    fun buildBrand(): String = UtilKBuild.getBrand()
 
-    @ADebugKParams("设备Rom版本")
-    fun deviceRomVersion(): String = UtilKDevice.getRomVersion()
+    @ADebugKParams("构建设备/硬件制造商")
+    fun buildManufacture(): String = UtilKBuild.getManufacture()
 
-    @ADebugKParams("设备硬件版本")
-    fun deviceHardwareVersion(): String = UtilKDevice.getHardwareVersion()
+    @ADebugKParams("构建无线固件版本")
+    fun buildRadioVersion(): String = UtilKBuild.getRadioVersion()
 
-    @ADebugKParams("设备是否有sd卡")
-    fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().boolean2String()
+    @ADebugKParams("构建最终用户名")
+    fun buildModel(): String = UtilKBuild.getModel()
 
-    @ADebugKParams("设备是否有前置摄像")
-    fun deviceHasFrontCamera(): String = UtilKDevice.isHasFrontCamera().boolean2String()
+    @ADebugKParams("构建支持架构")
+    fun buildSupportABIs(): String = UtilKBuild.getSupportABIs()
 
-    @ADebugKParams("设备是否有后置摄像头")
-    fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().boolean2String()
+    @ADebugKParams("构建支持32位架构")
+    fun buildSupport32BitABIs(): String = UtilKBuild.getSupport32BitABIs()
 
-    @ADebugKParams("设备名")
-    fun deviceProduct(): String = UtilKBuild.getProduct()
+    @ADebugKParams("构建支持64位架构")
+    fun buildSupport64BitABIs(): String = UtilKBuild.getSupport64BitABIs()
 
-    @ADebugKParams("设备品牌")
-    fun deviceBrand(): String = UtilKBuild.getBrand()
+    @ADebugKParams("构建开发板名称")
+    fun buildBoard(): String = UtilKBuild.getBoard()
 
-    @ADebugKParams("设备/硬件制造商")
-    fun deviceManufacture(): String = UtilKBuild.getManufacture()
+    @ADebugKParams("构建工业设计名")
+    fun buildDevice(): String = UtilKBuild.getDevice()
 
-    @ADebugKParams("设备无线固件版本")
-    fun deviceRadioVersion(): String = UtilKBuild.getRadioVersion()
+    @ADebugKParams("构建硬件名称")
+    fun buildHardware(): String = UtilKBuild.getHardware()
 
-    @ADebugKParams("设备最终用户名")
-    fun deviceModel(): String = UtilKBuild.getModel()
+    @ADebugKParams("构建唯一标识版本字符")
+    fun buildFingerPrint(): String = UtilKBuild.getFingerPrint()
 
-    @ADebugKParams("设备支持架构")
-    fun deviceSupportABIs(): String = UtilKBuild.getSupportABIs()
+    @ADebugKParams("构建系统引导加载程序版本")
+    fun buildBootLoader(): String = UtilKBuild.getBootLoader()
 
-    @ADebugKParams("设备支持32位架构")
-    fun deviceSupport32BitABIs(): String = UtilKBuild.getSupport32BitABIs()
+    /**
+     * 屏幕参数
+     * @return String
+     */
+    @ADebugKParams("屏幕参数")
+    fun screenParams(): String = ""
 
-    @ADebugKParams("设备支持64位架构")
-    fun deviceSupport64BitABIs(): String = UtilKBuild.getSupport64BitABIs()
+    @ADebugKParams("屏幕尺寸")
+    fun screenSize(): String = UtilKScreen.getScreenSize().toString()
 
-    @ADebugKParams("设备开发板名称")
-    fun deviceBoard(): String = UtilKBuild.getBoard()
+    @ADebugKParams("屏幕真实分辨率px")
+    fun screenResolution(): String = "设备分辨率: w " + UtilKScreen.getRealScreenWidth() + " h " + UtilKScreen.getRealScreenHeight()
 
-    @ADebugKParams("设备工业设计名")
-    fun deviceDevice(): String = UtilKBuild.getDevice()
+    @ADebugKParams("屏幕当前分辨率px")
+    fun screenResolution2(): String = "设备分辨率: w " + UtilKScreen.getCurrentScreenWidth() + " h " + UtilKScreen.getCurrentScreenHeight()
 
-    @ADebugKParams("硬件名称")
-    fun hardware(): String = UtilKBuild.getHardware()
+    @ADebugKParams("屏幕分辨率dp")
+    fun screenResolutionDpi(): String = "设备分辨率: w " + UtilKScreen.getScreenWidthDp() + " h " + UtilKScreen.getScreenHeightDp()
 
-    @ADebugKParams("唯一标识版本字符")
-    fun fingerPrint(): String = UtilKBuild.getFingerPrint()
+    @ADebugKParams("屏幕密度px")
+    fun screenDensity(): String = UtilKScreen.getScreenDensity().toString()
 
-    @ADebugKParams("系统引导加载程序版本")
-    fun bootLoader(): String = UtilKBuild.getBootLoader()
+    @ADebugKParams("屏幕密度dp")
+    fun screenDensityDpi(): String = UtilKScreen.getScreenDensityDpi().toString()
+
+    @ADebugKParams("屏幕竖屏")
+    fun screenIsPortrait(): String = if (UtilKScreen.isScreenPortrait()) "是" else "否"
 
 }

@@ -27,7 +27,7 @@ import kotlin.math.max
  * @Date 2022/9/14 16:03
  * @Version 1.0
  */
-class ViewKImageMask @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class ImageKMask @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatImageView(context, attrs, defStyleAttr), IViewK {
 
     //region

@@ -8,7 +8,7 @@ import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import androidx.annotation.Px
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth
+import com.mozhimen.basick.utilk.UtilKScreen.getRealScreenWidth
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
@@ -119,7 +119,7 @@ class TabTopLayout @JvmOverloads constructor(
             _tabTopWidth = tabTop.width
         }
         //判断点击了屏幕左侧还是右侧
-        val scrollWidth: Int = if ((location[0] + _tabTopWidth / 2) > getScreenWidth() / 2) {
+        val scrollWidth: Int = if ((location[0] + _tabTopWidth / 2) > getRealScreenWidth() / 2) {
             rangeScrollWidth(index, 2)
         } else {
             rangeScrollWidth(index, -2)

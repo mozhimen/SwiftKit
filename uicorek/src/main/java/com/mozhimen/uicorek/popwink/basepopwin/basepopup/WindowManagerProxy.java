@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.WindowManager;
+
+import com.mozhimen.basick.utilk.UtilKBuild;
 import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
 
 import androidx.annotation.Nullable;
@@ -36,7 +38,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
     static final WindowFlagCompat FLAG_COMPAT;
 
     static {
-        if (Build.VERSION.SDK_INT >= 30) {
+        if (Build.VERSION.SDK_INT >= UtilKBuild.VersionCode.R) {
             FLAG_COMPAT = new WindowFlagCompat.Api30Impl();
         } else {
             FLAG_COMPAT = new WindowFlagCompat.BeforeApi30Impl();
@@ -344,7 +346,7 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
 
         class Api30Impl implements WindowFlagCompat {
 
-            @RequiresApi(api = Build.VERSION_CODES.R)
+            @RequiresApi(api = UtilKBuild.VersionCode.R)
             @Override
             public void setupFlag(ViewGroup.LayoutParams params, BasePopupHelper helper) {
                 if (params instanceof LayoutParams && helper != null) {

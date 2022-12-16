@@ -1,6 +1,5 @@
 package com.mozhimen.componentk.cameraxk.helpers
 
-import android.annotation.SuppressLint
 import android.graphics.*
 import android.media.Image.Plane
 import androidx.camera.core.ExperimentalGetImage
@@ -23,14 +22,15 @@ object ImageConverter {
 
     /**
      * rgb8888转Bitmap
-     * @param image ImageProxy
+     * @param imageProxy ImageProxy
      * @return Bitmap
      */
     @JvmStatic
-    fun rgb2Bitmap(image: ImageProxy): Bitmap {
-        val bitmapBuffer = Bitmap.createBitmap(image.width, image.height, Bitmap.Config.ARGB_8888)
+    fun rgb2Bitmap(imageProxy: ImageProxy): Bitmap? {
+        if (imageProxy.image == null) return null
+        val bitmapBuffer = Bitmap.createBitmap(imageProxy.width, imageProxy.height, Bitmap.Config.ARGB_8888)
         // Copy out RGB bits to the shared bitmap buffer
-        image.use { bitmapBuffer.copyPixelsFromBuffer(image.planes[0].buffer) }
+        imageProxy.use { bitmapBuffer.copyPixelsFromBuffer(imageProxy.planes[0].buffer) }
         return bitmapBuffer
     }
 

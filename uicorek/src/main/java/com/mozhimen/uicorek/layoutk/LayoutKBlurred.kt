@@ -151,7 +151,7 @@ class LayoutKBlurred @JvmOverloads constructor(context: Context, attrs: Attribut
 
     private fun setMove(isMove: Boolean) {//设置背景图片的移动效果
         if (isMove) {
-            val height = UtilKScreen.getScreenHeight()
+            val height = UtilKScreen.getRealScreenHeight()
             setBlurredHeight(height, _originImageView)
             setBlurredHeight(height, _blurredImageView)
         }

@@ -2,15 +2,8 @@ package com.mozhimen.basick.animk.builder.bases
 
 import android.util.Log
 import android.util.SparseArray
-import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
 import com.mozhimen.basick.animk.builder.commons.IAnimationType
-import com.mozhimen.basick.animk.builder.temps.AlphaType
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
-import com.mozhimen.basick.animk.builder.temps.RotationType
-import com.mozhimen.basick.animk.builder.temps.ScaleType
-import com.mozhimen.basick.animk.builder.temps.TranslationType
-import com.mozhimen.basick.utilk.UtilKRes
 
 /**
  * @ClassName AnimationApi
@@ -19,6 +12,7 @@ import com.mozhimen.basick.utilk.UtilKRes
  * @Date 2022/11/17 22:50
  * @Version 1.0
  */
+@Suppress("UNCHECKED_CAST")
 abstract class BaseAnimationBuilder<T> : BaseAnimKBuilder() {
     protected var _types: SparseArray<IAnimationType> = SparseArray()
 

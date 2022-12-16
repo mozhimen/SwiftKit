@@ -31,6 +31,7 @@ object CacheK {
      * @param key String
      * @return T?
      */
+    @Suppress("UNCHECKED_CAST")
     fun <T> getCache(key: String): T? {
         val cache = CacheKDatabase.get().cacheKDao.getCache(key)
         return (if (cache?.data != null) {
