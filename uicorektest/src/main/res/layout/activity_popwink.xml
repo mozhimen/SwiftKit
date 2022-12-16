@@ -12,7 +12,13 @@
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
             android:onClick="onPopwinShow"
-            android:text="onPopwinShow"
+            android:text="onPopwinShow(Normal)"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="onPopwinShowTest"
+            android:text="onPopwinShow(Test)"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>
