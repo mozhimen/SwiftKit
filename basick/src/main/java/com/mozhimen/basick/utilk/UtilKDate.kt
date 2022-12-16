@@ -65,8 +65,8 @@ object UtilKDate {
      * @return String
      */
     @JvmStatic
-    fun getNowString(locale: Locale = Locale.CHINA): String =
-        date2String(getNowDate(), FORMAT_yyyyMMddHHmmssS, locale)
+    fun getNowString(formatDate: String = FORMAT_yyyyMMddHHmmssS, locale: Locale = Locale.CHINA): String =
+        date2String(getNowDate(), formatDate, locale)
 
     /**
      * 今日

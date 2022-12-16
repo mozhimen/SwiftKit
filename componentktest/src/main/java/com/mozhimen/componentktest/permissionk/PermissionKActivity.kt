@@ -11,21 +11,28 @@ import com.mozhimen.componentktest.databinding.ActivityPermissionkBinding
 @APermissionK(permissions = [Manifest.permission.INTERNET])
 class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
-        //方法一
+        //方法一,need APermissionK 注解
         PermissionK.initPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSetting(this)
+                UtilKPermission.openSettingSelf(this)
             }
         }
 
-        //方法二
+        //方法二,need APermissionK 注解
+        PermissionK.initPermissions(this, onSuccess = {
+            initView(savedInstanceState)
+        }, onFail = {
+            UtilKPermission.openSettingSelf(this)
+        })
+
+        //方法三
         PermissionK.initPermissions(this, arrayOf(Manifest.permission.INTERNET)) {
             if (it) {
                 initView(savedInstanceState)
             } else {
-                UtilKPermission.openSetting(this)
+                UtilKPermission.openSettingSelf(this)
             }
         }
     }

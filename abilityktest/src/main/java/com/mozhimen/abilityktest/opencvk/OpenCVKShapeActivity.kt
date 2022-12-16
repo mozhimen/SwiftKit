@@ -60,7 +60,7 @@ class OpenCVKShapeActivity : BaseActivityVB<ActivityOpencvkShapeBinding>() {
                     }
                     val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
-                        vb.opencvkShapeQrscan.getRectSize().toDouble() / UtilKScreen.getScreenWidth().toDouble()
+                        vb.opencvkShapeQrscan.getRectSize().toDouble() / UtilKScreen.getRealScreenWidth().toDouble()
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),
                         (ratio * rotateBitmap.width).toInt(),

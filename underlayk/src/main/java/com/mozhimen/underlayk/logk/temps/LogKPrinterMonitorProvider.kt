@@ -132,15 +132,15 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
             layoutParams.width = _titleView!!.width
             layoutParams.height = _titleView!!.height
         } else {
-            layoutParams.width = UtilKScreen.getScreenWidth()
-            layoutParams.height = UtilKScreen.getScreenHeight() / 3
+            layoutParams.width = UtilKScreen.getRealScreenWidth()
+            layoutParams.height = UtilKScreen.getRealScreenHeight() / 3
         }
         return layoutParams
     }
 
     private fun getWindowLayoutParams(isFold: Boolean): WindowManager.LayoutParams {
         _layoutParams.width = if (isFold) WindowManager.LayoutParams.WRAP_CONTENT else WindowManager.LayoutParams.MATCH_PARENT
-        _layoutParams.height = if (isFold) WindowManager.LayoutParams.WRAP_CONTENT else (UtilKScreen.getScreenHeight() / 3)
+        _layoutParams.height = if (isFold) WindowManager.LayoutParams.WRAP_CONTENT else (UtilKScreen.getRealScreenHeight() / 3)
         return _layoutParams
     }
 }

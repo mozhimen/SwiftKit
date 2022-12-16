@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.camera.view.PreviewView
+    <androidx.camera.view.CameraXKPreviewView
         android:id="@+id/cameraxk_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

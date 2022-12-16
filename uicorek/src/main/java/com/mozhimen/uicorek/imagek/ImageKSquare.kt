@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatImageView
  * @Date 2021/6/21 15:21
  * @Version 1.0
  */
-class ViewKImageSquare @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class ImageKSquare @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatImageView(context, attrs, defStyleAttr) {
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

@@ -139,16 +139,16 @@ object UtilKViewImageLoader {
      * 加载圆角图片
      * @param imageView ImageView
      * @param res Any
-     * @param cornerRadius Int
+     * @param roundedCornerRadius Int
      */
     @JvmStatic
     fun loadImageRoundedCorner(
         imageView: ImageView,
         res: Any,
-        @Px cornerRadius: Int = 6f.dp2px()
+        @Px roundedCornerRadius: Int = 6f.dp2px()
     ) {
         imageView.load(res) {
-            transformations(RoundedCornersTransformation(cornerRadius.toFloat()))
+            transformations(RoundedCornersTransformation(roundedCornerRadius.toFloat()))
         }
     }
 

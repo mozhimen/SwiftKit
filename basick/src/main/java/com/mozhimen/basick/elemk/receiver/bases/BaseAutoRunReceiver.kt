@@ -41,19 +41,27 @@ import java.util.concurrent.TimeUnit
  * @Version 1.0
  */
 @APermissionK(permissions = [Manifest.permission.RECEIVE_BOOT_COMPLETED])
-open class BaseAutoRunReceiver(private val _delayTime: Long, private val _cls: Class<*>) : BroadcastReceiver() {
+open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BroadcastReceiver() {
 
     @CallSuper
     override fun onReceive(context: Context, intent: Intent) {
         val action: String? = intent.action
         if (action?.isNotEmpty() == true && action == Intent.ACTION_BOOT_COMPLETED) {
-            Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : ObserverCallback<String>() {
-                override fun onComplete() {
-                    val rebootIntent = Intent(context, _cls)
-                    rebootIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    context.startActivity(rebootIntent)
-                }
-            })
+            if (_delayTime != 0L) {
+                Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : ObserverCallback<String>() {
+                    override fun onComplete() {
+                        startActivity(context, clazz)
+                    }
+                })
+            } else {
+                startActivity(context, clazz)
+            }
         }
+    }
+
+    private fun startActivity(context: Context, clazz: Class<*>) {
+        val rebootIntent = Intent(context, clazz)
+        rebootIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(rebootIntent)
     }
 }

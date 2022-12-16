@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         tools:context="com.mozhimen.abilityktest.scank.ScanKHSVActivity">
 
-        <com.mozhimen.componentk.cameraxk.CameraXKPreviewView
+        <com.mozhimen.componentk.cameraxk.CameraXKLayout
             android:id="@+id/scank_hsv_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

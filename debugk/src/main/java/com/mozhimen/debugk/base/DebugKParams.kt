@@ -136,8 +136,14 @@ class DebugKParams {
     @ADebugKParams("屏幕参数")
     fun screenParams(): String = ""
 
-    @ADebugKParams("屏幕分辨率px")
-    fun screenResolution(): String = "设备分辨率: w " + UtilKScreen.getScreenWidth() + " h " + UtilKScreen.getScreenHeight()
+    @ADebugKParams("屏幕尺寸")
+    fun screenSize(): String = UtilKScreen.getScreenSize().toString()
+
+    @ADebugKParams("屏幕真实分辨率px")
+    fun screenResolution(): String = "设备分辨率: w " + UtilKScreen.getRealScreenWidth() + " h " + UtilKScreen.getRealScreenHeight()
+
+    @ADebugKParams("屏幕当前分辨率px")
+    fun screenResolution2(): String = "设备分辨率: w " + UtilKScreen.getCurrentScreenWidth() + " h " + UtilKScreen.getCurrentScreenHeight()
 
     @ADebugKParams("屏幕分辨率dp")
     fun screenResolutionDpi(): String = "设备分辨率: w " + UtilKScreen.getScreenWidthDp() + " h " + UtilKScreen.getScreenHeightDp()
@@ -147,5 +153,8 @@ class DebugKParams {
 
     @ADebugKParams("屏幕密度dp")
     fun screenDensityDpi(): String = UtilKScreen.getScreenDensityDpi().toString()
+
+    @ADebugKParams("屏幕竖屏")
+    fun screenIsPortrait(): String = if (UtilKScreen.isScreenPortrait()) "是" else "否"
 
 }

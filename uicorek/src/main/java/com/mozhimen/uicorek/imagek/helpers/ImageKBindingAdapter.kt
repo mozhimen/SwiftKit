@@ -2,7 +2,9 @@ package com.mozhimen.uicorek.imagek.helpers
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
+import com.mozhimen.uicorek.imagek.ImageKSquare
 
 /**
  * @ClassName ImageKBindingAdapter
@@ -13,16 +15,42 @@ import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
  */
 object ImageKBindingAdapter {
     @JvmStatic
+    @BindingAdapter("loadImage")
+    fun loadImage(imageView: ImageView, res: Any) {
+        UtilKViewImageLoader.loadImage(imageView, res)
+    }
+
+    @JvmStatic
     @BindingAdapter(value = ["loadImageBlur", "placeholder"], requireAll = true)
     fun loadImageBlur(imageView: ImageView, res: Any, placeholder: Int) {
         UtilKViewImageLoader.loadImageBlur(imageView, res, placeholder)
     }
 
     @JvmStatic
-    @BindingAdapter("loadImage")
-    fun loadImage(imageView: ImageView, res: Any) {
-        UtilKViewImageLoader.loadImage(imageView, res)
+    @BindingAdapter(value = ["loadImageRoundedCorner", "roundedCornerRadius"], requireAll = true)
+    fun loadImageRoundedCorner(imageView: ImageView, res: Any, roundedCornerRadius: Int) {
+        UtilKViewImageLoader.loadImageRoundedCorner(imageView, res, roundedCornerRadius.dp2px())
     }
+
+    //    /**
+//     * 加载圆角图片
+//     * @param imageView ImageView
+//     * @param loadCorner Any
+//     * @param cornerRadius Int
+//     * @param placeholder Int
+//     * @param error Int
+//     */
+//    @JvmStatic
+//    @BindingAdapter(value = ["loadCorner", "cornerRadius", "placeholder", "error"], requireAll = false)
+//    fun loadImageCorner(
+//        imageView: ImageView,
+//        loadCorner: Any,
+//        cornerRadius: Int = 2,
+//        placeholder: Int = R.mipmap.refresh_loading,
+//        error: Int = R.mipmap.layoutk_empty
+//    ) {
+//        UtilKImageLoader.loadImageCorner(imageView, loadCorner, cornerRadius, placeholder, error)
+//    }
 //    /**
 //     * 加载图片
 //     * @param imageView ImageView
@@ -92,23 +120,5 @@ object ImageKBindingAdapter {
 //        UtilKImageLoader.loadImageCircleBorder(imageView, loadCircleBorder, borderWidth.toFloat(), borderColor, placeholder, error)
 //    }
 //
-//    /**
-//     * 加载圆角图片
-//     * @param imageView ImageView
-//     * @param loadCorner Any
-//     * @param cornerRadius Int
-//     * @param placeholder Int
-//     * @param error Int
-//     */
-//    @JvmStatic
-//    @BindingAdapter(value = ["loadCorner", "cornerRadius", "placeholder", "error"], requireAll = false)
-//    fun loadImageCorner(
-//        imageView: ImageView,
-//        loadCorner: Any,
-//        cornerRadius: Int = 2,
-//        placeholder: Int = R.mipmap.refresh_loading,
-//        error: Int = R.mipmap.layoutk_empty
-//    ) {
-//        UtilKImageLoader.loadImageCorner(imageView, loadCorner, cornerRadius, placeholder, error)
-//    }
+
 }

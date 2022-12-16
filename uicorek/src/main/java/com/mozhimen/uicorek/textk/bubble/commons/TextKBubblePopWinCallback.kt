@@ -142,8 +142,8 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
     @SuppressLint("LongLogTag")
     open fun showArrowTo(anchorView: View, relativePos: MRelativePos, marginH: Int, marginV: Int) {
         dismiss()
-        val screenWidth = UtilKScreen.getScreenWidth()
-        val screenHeight = UtilKScreen.getScreenHeight()
+        val screenWidth = UtilKScreen.getRealScreenWidth()
+        val screenHeight = UtilKScreen.getRealScreenHeight()
 
         val navigationBarHeight = getNavigationBarHeightOffset(anchorView)
         val anchorRect = getRectInWindow(anchorView)

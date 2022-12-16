@@ -8,7 +8,7 @@ import androidx.activity.ComponentDialog
 import androidx.annotation.StyleRes
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.permissionk.annors.APermissionK
-import com.mozhimen.basick.utilk.UtilKScreen.getScreenWidth2
+import com.mozhimen.basick.utilk.UtilKScreen.getCurrentScreenWidth
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.annors.DialogMode
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
@@ -131,8 +131,8 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
      * 默认屏幕宽度左右间距25dp
      * @return
      */
-    protected fun onInitWindowWidth(): Int {
-        return (getScreenWidth2() * 0.8f).roundToInt()
+    protected open fun onInitWindowWidth(): Int {
+        return (getCurrentScreenWidth() * 0.8f).roundToInt()
     }
 
     /**

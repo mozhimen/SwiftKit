@@ -2,30 +2,32 @@ package com.mozhimen.componentk.cameraxk
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
-import androidx.annotation.IntDef
-import androidx.annotation.IntRange
+import androidx.camera.camera2.internal.Camera2CameraInfoImpl
 import androidx.camera.core.*
 import androidx.camera.extensions.ExtensionMode
 import androidx.camera.extensions.ExtensionsManager
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
+import androidx.camera.view.CameraXKPreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
-import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
-import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
-import com.mozhimen.componentk.cameraxk.helpers.ThreadExecutor
 import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
+import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
+import com.mozhimen.componentk.cameraxk.helpers.OtherCameraFilter
+import com.mozhimen.componentk.cameraxk.helpers.ThreadExecutor
+import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -56,12 +58,13 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     private var _format = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
     private var _selectedTimer = ECameraXKTimer.OFF
     internal var aspectRatio: Int = AspectRatio.RATIO_16_9
-    //internal var rotation = CCameraXKRotation.ROTATION_90
+    internal var rotation = CCameraXKRotation.ROTATION_90
+    private var _isSingleCamera = false
 
     private lateinit var _owner: LifecycleOwner
     private lateinit var _analyzerThread: HandlerThread
     internal lateinit var slider: Slider
-    internal lateinit var previewView: PreviewView
+    internal lateinit var previewView: CameraXKPreviewView
     internal lateinit var preview: Preview
 
     /**
@@ -80,13 +83,15 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
      * 显示相机选择的选择器(正面或背面)
      * Selector showing which camera is selected (front or back)
      */
-    private var _lensFacing = CameraSelector.DEFAULT_BACK_CAMERA
+    private var _lensFacingSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private var _lensFacing = CameraSelector.LENS_FACING_FRONT
 
     /**
      * 选择器显示是否启用hdr(只有当设备的摄像头在硬件层面支持hdr时才会工作)
      * Selector showing is hdr enabled or not (will work, only if device's camera supports hdr on hardware level)
      */
     private var _isOpenHdr = false
+    private var _captureBitmap: Bitmap? = null
 
     private val _onImageCaptureCallback = object : ImageCapture.OnImageCapturedCallback() {
         @SuppressLint("UnsafeOptInUsageError")
@@ -94,22 +99,20 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
             Log.d(TAG, "onCaptureSuccess: ${image.format} ${image.width}x${image.height}")
             when (image.format) {
                 ImageFormat.YUV_420_888 -> {
-                    val bitmap = ImageConverter.yuv2Bitmap(image)
-                    bitmap?.let {
-                        Log.d(TAG, "onCaptureSuccess: YUV_420_888 ${bitmap.width}x${bitmap.height}")
-                        _cameraXKCaptureListener?.onCaptureSuccess(bitmap, image.imageInfo.rotationDegrees)
-                    }
+                    _captureBitmap = ImageConverter.yuv2Bitmap(image)
+                    Log.d(TAG, "onCaptureSuccess: YUV_420_888")
                 }
                 ImageFormat.JPEG -> {
-                    val bitmap = ImageConverter.jpeg2Bitmap(image)
-                    Log.d(TAG, "onCaptureSuccess: JPEG ${bitmap.width}x${bitmap.height}")
-                    _cameraXKCaptureListener?.onCaptureSuccess(bitmap, image.imageInfo.rotationDegrees)
+                    _captureBitmap = ImageConverter.jpeg2Bitmap(image)
+                    Log.d(TAG, "onCaptureSuccess: JPEG")
                 }
                 ImageFormat.FLEX_RGBA_8888 -> {
-                    val bitmap = ImageConverter.rgb2Bitmap(image)
-                    Log.d(TAG, "onCaptureSuccess: FLEX_RGBA_8888 ${bitmap.width}x${bitmap.height}")
-                    _cameraXKCaptureListener?.onCaptureSuccess(bitmap, image.imageInfo.rotationDegrees)
+                    _captureBitmap = ImageConverter.rgb2Bitmap(image)
+                    Log.d(TAG, "onCaptureSuccess: FLEX_RGBA_8888")
                 }
+            }
+            _captureBitmap?.let {
+                _cameraXKCaptureListener?.onCaptureSuccess(it, image.imageInfo.rotationDegrees)
             }
             image.close()
         }
@@ -132,17 +135,22 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
 
     fun initCamera(
         owner: LifecycleOwner,
-        facing: CameraSelector,
-        format: Int
+        cameraXKConfig: CameraXKConfig
     ) {
-        this._owner = owner
-        this._lensFacing = facing
-        this._format = format
+        _owner = owner
+        _lensFacing = cameraXKConfig.facing
+        _lensFacingSelector = when (cameraXKConfig.facing) {
+            ACameraXKFacing.FRONT -> CameraSelector.DEFAULT_FRONT_CAMERA
+            else -> CameraSelector.DEFAULT_BACK_CAMERA
+        }
+        _format = when (cameraXKConfig.format) {
+            ACameraXKFormat.RGBA_8888 -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888
+            else -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
+        }
     }
 
-    fun startCamera(
-        @ACameraXKRotation rotation: Int
-    ) {
+    @Throws(Exception::class)
+    fun startCamera() {
         try {
             val cameraProviderFuture = ProcessCameraProvider.getInstance(_context)
             cameraProviderFuture.addListener({
@@ -180,12 +188,17 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                     .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST) // in our analysis, we care about the latest image
                     .setOutputImageFormat(_format)
                     .build()
-                    .also { setCameraXKAnalyzer(it) }
+                    .also {
+                        setCameraXKAnalyzer(it)
+                    }
 
                 // Unbind the use-cases before rebinding them
                 localCameraProvider.unbindAll()
+
                 // Bind all use cases to the camera with lifecycle
-                bindToLifecycle(localCameraProvider, preview, previewView, slider)
+                previewView.post {
+                    bindToLifecycle(localCameraProvider, preview, previewView, slider)
+                }
             }, ContextCompat.getMainExecutor(_context))
         } catch (e: Exception) {
             e.printStackTrace()
@@ -196,10 +209,10 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         this._cameraXKAnalyzer = analyzer
     }
 
-    override fun changeHdr(isOpen: Boolean, @ACameraXKRotation rotation: Int) {
+    override fun changeHdr(isOpen: Boolean) {
         if (_isOpenHdr != isOpen) {
             _isOpenHdr = !_isOpenHdr
-            startCamera(rotation = rotation)
+            startCamera()
         }
     }
 
@@ -212,18 +225,19 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         _selectedTimer = timer
     }
 
-    override fun changeCameraFacing(@ACameraXKFacing facing: Int, rotation: Int) {
+    override fun changeCameraFacing(@ACameraXKFacing facing: Int) {
+        if (_isSingleCamera) return
         val cameraSelector = when (facing) {
             ACameraXKFacing.FRONT -> CameraSelector.DEFAULT_BACK_CAMERA
             else -> CameraSelector.DEFAULT_FRONT_CAMERA
         }
-        if (_lensFacing != cameraSelector) {
-            _lensFacing = if (_lensFacing == CameraSelector.DEFAULT_BACK_CAMERA) {
+        if (_lensFacingSelector != cameraSelector) {
+            _lensFacingSelector = if (_lensFacingSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
                 CameraSelector.DEFAULT_FRONT_CAMERA
             } else {
                 CameraSelector.DEFAULT_BACK_CAMERA
             }
-            startCamera(rotation)
+            startCamera()
         }
     }
 
@@ -249,38 +263,43 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     }
     //endregion
 
-    private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, preview: Preview, previewView: PreviewView, slider: Slider) {
-        try {
-            localCameraProvider.bindToLifecycle(
-                _owner, // current lifecycle owner
-                /*_hdrCameraSelector ?: */_lensFacing, // either front or back facing
-                preview, // camera preview use case
-                _imageCapture!!, // image capture use case
-                _imageAnalysis!!, // image analyzer use case
-            ).apply {
-                // Init camera exposure control
-                cameraInfo.exposureState.run {
-                    val lower = exposureCompensationRange.lower
-                    val upper = exposureCompensationRange.upper
+    @Throws(Exception::class)
+    private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, preview: Preview, previewView: CameraXKPreviewView, slider: Slider) {
+        if (localCameraProvider.availableCameraInfos.size == 1) {
+            _isSingleCamera = true
+            val cameraInfo: Camera2CameraInfoImpl = (localCameraProvider.availableCameraInfos[0] as Camera2CameraInfoImpl)
+            Log.d(TAG, "bindToLifecycle: cameraInfo $cameraInfo _lensFacing ${cameraInfo.cameraSelector.lensFacing} id ${cameraInfo.cameraId}")
+            _lensFacingSelector.cameraFilterSet.clear()
+            _lensFacingSelector.cameraFilterSet.add(OtherCameraFilter(cameraInfo.cameraId))
+        }
+        localCameraProvider.bindToLifecycle(
+            _owner, // current lifecycle owner
+            /*_hdrCameraSelector ?: */
+            _lensFacingSelector, // either front or back facing
+            preview, // camera preview use case
+            _imageCapture!!, // image capture use case
+            _imageAnalysis!!, // image analyzer use case
+        ).apply {
+            // Init camera exposure control
+            cameraInfo.exposureState.run {
+                val lower = exposureCompensationRange.lower
+                val upper = exposureCompensationRange.upper
 
-                    slider.run {
-                        valueFrom = lower.toFloat()
-                        valueTo = upper.toFloat()
-                        stepSize = 1f
-                        value = exposureCompensationIndex.toFloat()
+                slider.run {
+                    valueFrom = lower.toFloat()
+                    valueTo = upper.toFloat()
+                    stepSize = 1f
+                    value = exposureCompensationIndex.toFloat()
 
-                        addOnChangeListener { _, value, _ ->
-                            cameraControl.setExposureCompensationIndex(value.toInt())
-                        }
+                    addOnChangeListener { _, value, _ ->
+                        cameraControl.setExposureCompensationIndex(value.toInt())
                     }
                 }
             }
-
-            // Attach the viewfinder's surface provider to preview use case
-            preview.setSurfaceProvider(previewView.surfaceProvider)
-        } catch (e: Exception) {
-            LogK.et(TAG, "bindToLifecycle Exception ${e.message ?: ""}")
         }
+
+        // Attach the viewfinder's surface provider to preview use case
+        preview.setSurfaceProvider(previewView.surfaceProvider)
     }
 
     private fun captureImage() {
@@ -302,35 +321,35 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         extensionsManagerFuture.addListener(
             {
                 val extensionsManager = extensionsManagerFuture.get() ?: return@addListener
-                val isAvailable = extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.HDR)
+                val isAvailable = extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.HDR)
 
                 //检查是否有扩展可用 check for any extension availability
                 Log.d(
                     TAG,
-                    "checkForHdrExtensionAvailability: AUTO " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.AUTO)
+                    "checkForHdrExtensionAvailability: AUTO " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.AUTO)
                 )
                 Log.d(
                     TAG,
-                    "checkForHdrExtensionAvailability: HDR " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.HDR)
+                    "checkForHdrExtensionAvailability: HDR " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.HDR)
                 )
                 Log.d(
                     TAG,
                     "checkForHdrExtensionAvailability: FACE RETOUCH " + extensionsManager.isExtensionAvailable(
-                        _lensFacing,
+                        _lensFacingSelector,
                         ExtensionMode.FACE_RETOUCH
                     )
                 )
                 Log.d(
                     TAG,
-                    "checkForHdrExtensionAvailability: BOKEH " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.BOKEH)
+                    "checkForHdrExtensionAvailability: BOKEH " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.BOKEH)
                 )
                 Log.d(
                     TAG,
-                    "checkForHdrExtensionAvailability: NIGHT " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NIGHT)
+                    "checkForHdrExtensionAvailability: NIGHT " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.NIGHT)
                 )
                 Log.d(
                     TAG,
-                    "checkForHdrExtensionAvailability: NONE " + extensionsManager.isExtensionAvailable(_lensFacing, ExtensionMode.NONE)
+                    "checkForHdrExtensionAvailability: NONE " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.NONE)
                 )
 
                 //检查分机是否在设备上可用 Check if the extension is available on the device
@@ -339,7 +358,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                 } else if (_isOpenHdr) {
                     //如果是，如果HDR是由用户打开的，则打开 If yes, turn on if the HDR is turned on by the user
                     _cameraXKListener?.onCameraHDROpen()
-                    _hdrCameraSelector = extensionsManager.getExtensionEnabledCameraSelector(_lensFacing, ExtensionMode.HDR)
+                    _hdrCameraSelector = extensionsManager.getExtensionEnabledCameraSelector(_lensFacingSelector, ExtensionMode.HDR)
                 }
             }, ContextCompat.getMainExecutor(_context)
         )
