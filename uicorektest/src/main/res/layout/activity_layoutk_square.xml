@@ -24,15 +24,17 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:loadImageRoundedCorner="@{R.mipmap.uicorek_img}"
+                    android:scaleType="centerCrop"
+                    app:loadImageRoundedCorner="@{`https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg`}"
                     app:roundedCornerRadius="@{10}" />
             </com.mozhimen.uicorek.layoutk.LayoutKSquare>
 
             <com.mozhimen.uicorek.imagek.ImageKSquare
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
                 app:imageKSquare_measureMode="measureWidth"
-                app:loadImageRoundedCorner="@{R.mipmap.uicorek_img}"
+                app:loadImageRoundedCorner="@{`https://images.pexels.com/photos/2709388/pexels-photo-2709388.jpeg`}"
                 app:roundedCornerRadius="@{10}" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
