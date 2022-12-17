@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.mozhimen.uicorektest.R" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.mozhimen.uicorek.layoutk.LayoutKSquare
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutKSquare_measureMode="measureWidth">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:loadImageRoundedCorner="@{R.mipmap.uicorek_img}"
+                    app:roundedCornerRadius="@{10}" />
+            </com.mozhimen.uicorek.layoutk.LayoutKSquare>
+
+            <com.mozhimen.uicorek.imagek.ImageKSquare
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imageKSquare_measureMode="measureWidth"
+                app:loadImageRoundedCorner="@{R.mipmap.uicorek_img}"
+                app:roundedCornerRadius="@{10}" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

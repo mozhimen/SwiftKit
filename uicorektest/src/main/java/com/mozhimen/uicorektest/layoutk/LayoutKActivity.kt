@@ -57,6 +57,10 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
         start<LayoutKInputItemActivity>()
     }
 
+    fun goLayoutKSquare(view: View) {
+        start<LayoutKSquareActivity>()
+    }
+
     fun goLayoutKTimeLine(view: View) {
         start<LayoutKTimeLineActivity>()
     }

@@ -11,7 +11,7 @@
         <attr name="btnKPwdEye_closeEyeDrawable" format="reference" />
     </declare-styleable>
 
-    <!--viewk-->
+    <!--imagek-->
     <declare-styleable name="ImageKMask">
         <!--蒙版类型-->
         <attr name="imageKMask_maskType" format="enum">
@@ -24,6 +24,15 @@
         <attr name="imageKMask_maskColor" format="color|reference" />
         <!--蒙版边框类型宽-->
         <attr name="imageKMask_borderWidth" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="ImageKSquare">
+        <attr name="imageKSquare_measureMode" format="enum">
+            <enum name="measureMin" value="0" />
+            <enum name="measureMax" value="1" />
+            <enum name="measureWidth" value="2" />
+            <enum name="measureHeight" value="3" />
+        </attr>
     </declare-styleable>
 
     <!--layoutk-->

@@ -1,7 +1,6 @@
 package com.mozhimen.uicorektest
 
 import com.mozhimen.basick.elemk.application.bases.BaseApplication
-import com.mozhimen.componentk.adaptk.AdaptKMgr
 
 
 /**
@@ -15,6 +14,6 @@ class UicoreKApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        AdaptKMgr.instance.init()
+        //AdaptKMgr.instance.init(960, 540)
     }
 }
