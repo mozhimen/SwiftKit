@@ -80,6 +80,10 @@ object UtilKNumber {
     }
 
     @JvmStatic
+    fun normalize(value: Int, min: Int, max: Int): Int =
+        normalize(value, min..max)
+
+    @JvmStatic
     fun percent(value: Float, range: Pair<Float, Float>): Float {
         if (range.first == range.second) return 0f
         val tempRange = min(range.first, range.second) to max(range.first, range.second)

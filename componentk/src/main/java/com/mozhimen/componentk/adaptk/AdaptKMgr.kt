@@ -30,7 +30,14 @@ class AdaptKMgr {
     }
 
     /**
-     * 在application中进行初始化
+     * 在application中进行初始化. 请先设置
+     * Application
+     *         <meta-data
+     *         android:name="design_width_in_dp"
+     *         android:value="1280"/>
+     *         <meta-data
+     *         android:name="design_height_in_dp"
+     *         android:value="800"/>
      * @param length Int 设备的长
      * @param width Int 设备的宽
      */

@@ -1,8 +1,6 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.exts.isIPValid
-import com.mozhimen.basick.utilk.exts.isPortValid
-import com.mozhimen.basick.utilk.exts.printlog
+import com.mozhimen.basick.utilk.exts.*
 import org.junit.Test
 
 
@@ -13,7 +11,7 @@ import org.junit.Test
  * @Date 2022/11/9 18:02
  * @Version 1.0
  */
-class TestUtilKVerifyUrl {
+class TestUtilKFilter {
     @Test
     fun verify() {
         "192.168.33.102".isIPValid().printlog()
@@ -21,5 +19,13 @@ class TestUtilKVerifyUrl {
         "1.1.1.1".isIPValid().printlog()
         "8080".isPortValid().printlog()
         "80".isPortValid().printlog()
+    }
+
+    @Test
+    fun filter() {
+        "123我是谁AAA&&".filterNumber().printlog()
+        "123我是谁AAA&&".filterAlphabet().printlog()
+        "123我是谁AAA&&".filterChinese().printlog()
+        "123我是谁AAA&&".filter().printlog()
     }
 }

@@ -15,4 +15,8 @@ object ApiFactory {
     val netk = NetKHttp(_baseUrl)
 
     val api = netk.create(Apis::class.java)
+
+//    private val _baseUrl get() = Config.restfulSP.baseUrl
+//
+//    val bizApi: BizApis by lazy {  NetKHttp(_baseUrl).create(BizApis::class.java) }
 }

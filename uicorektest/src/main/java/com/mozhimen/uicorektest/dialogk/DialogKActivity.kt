@@ -1,12 +1,11 @@
 package com.mozhimen.uicorektest.dialogk
 
-import android.app.Dialog
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKThread
-import com.mozhimen.uicorek.dialogk.bases.BaseDialog
-import com.mozhimen.uicorek.dialogk.temps.DialogKLoading
+import com.mozhimen.uicorek.dialogk.temps.DialogKLoadingAnim
+import com.mozhimen.uicorek.dialogk.temps.DialogKLoadingAnimDrawable
 import com.mozhimen.uicorek.dialogk.temps.DialogKQues
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDialogkBinding
@@ -23,8 +22,12 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
             genDialogKQuesAnim("带弹出动画的毛玻璃效果的弹框~")
         }
 
-        vb.dialogkCustom.setOnClickListener {
-            showLoadingDialog(true)
+        vb.dialogkCustomAnimDrawable.setOnClickListener {
+            showDialogLoadingAnimDrawable(true)
+        }
+
+        vb.dialogkCustomAnim.setOnClickListener {
+            showDialogLoadingAnim(true)
         }
     }
 
@@ -50,27 +53,52 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         _dialogKQues!!.show()
     }
 
-    private var _dialogkLoading: DialogKLoading? = null
+    private var _dialogkLoadingAnimDrawable: DialogKLoadingAnimDrawable? = null
 
-    fun showLoadingDialog(cancelable: Boolean) {
-        if (_dialogkLoading == null) {
-            _dialogkLoading = DialogKLoading.create(this)
+    fun showDialogLoadingAnimDrawable(cancelable: Boolean) {
+        if (_dialogkLoadingAnimDrawable == null) {
+            _dialogkLoadingAnimDrawable = DialogKLoadingAnimDrawable.create(this)
         }
-        _dialogkLoading!!.setDialogCancelable(cancelable)
-        if (!_dialogkLoading!!.isShowing) {
+        _dialogkLoadingAnimDrawable!!.setDialogCancelable(cancelable)
+        if (!_dialogkLoadingAnimDrawable!!.isShowing) {
             lifecycleScope.launch(Dispatchers.Main) {
-                _dialogkLoading!!.show()
+                _dialogkLoadingAnimDrawable!!.show()
             }
         }
     }
 
-    fun dismissLoadingDialog() {
-        if (_dialogkLoading == null) return
+    fun dismissDialogLoadingAnimDrawable() {
+        if (_dialogkLoadingAnimDrawable == null|| _dialogkLoadingAnimDrawable?.isShowing == false) return
         if (UtilKThread.isMainThread()) {
-            _dialogkLoading!!.dismiss()
+            _dialogkLoadingAnimDrawable!!.dismiss()
         } else {
             lifecycleScope.launch(Dispatchers.Main) {
-                _dialogkLoading!!.dismiss()
+                _dialogkLoadingAnimDrawable!!.dismiss()
+            }
+        }
+    }
+
+    private var _dialogkLoadingAnim: DialogKLoadingAnim? = null
+
+    fun showDialogLoadingAnim(cancelable: Boolean) {
+        if (_dialogkLoadingAnim == null) {
+            _dialogkLoadingAnim = DialogKLoadingAnim.create(this)
+        }
+        _dialogkLoadingAnim!!.setDialogCancelable(cancelable)
+        if (!_dialogkLoadingAnim!!.isShowing) {
+            lifecycleScope.launch(Dispatchers.Main) {
+                _dialogkLoadingAnim!!.show()
+            }
+        }
+    }
+
+    fun dismissDialogLoadingAnim() {
+        if (_dialogkLoadingAnim == null|| _dialogkLoadingAnim?.isShowing == false) return
+        if (UtilKThread.isMainThread()) {
+            _dialogkLoadingAnim!!.dismiss()
+        } else {
+            lifecycleScope.launch(Dispatchers.Main) {
+                _dialogkLoadingAnim!!.dismiss()
             }
         }
     }

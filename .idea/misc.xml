@@ -257,7 +257,9 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/btnk_icon.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/btnk_spinner_form.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/btnk_spinner_form_spinner_item.xml" value="0.24409722222222222" />
-        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/dialog_loading.xml" value="0.14652777777777778" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/dialog_loading.xml" value="0.22" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/dialogk_loading_anim.xml" value="0.30055579307396324" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/dialogk_loading_anim_drawable.xml" value="0.30055579307396324" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_empty.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_refresh_overview_lottie.xml" value="0.14548611111111112" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/layoutk_refresh_overview_text.xml" value="0.14548611111111112" />

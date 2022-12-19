@@ -21,15 +21,21 @@ class TaskKCountDown(owner: LifecycleOwner) : ITaskK(owner) {
         fun onFinish()
     }
 
+    fun isActive() = _countDownTimer != null
+
     fun start(countDownMilliseconds: Long, listener: ITaskKCountDownListener? = null) {
-        listener?.let { _taskKCountDownListener = it }
-        _countDownTimer = UtilKCountDownTimer(countDownMilliseconds)
-        _countDownTimer!!.start()
+        if (!isActive()) {
+            listener?.let { _taskKCountDownListener = it }
+            _countDownTimer = UtilKCountDownTimer(countDownMilliseconds)
+            _countDownTimer!!.start()
+        }
     }
 
     override fun cancel() {
-        _countDownTimer?.cancel()
-        _countDownTimer = null
+        if (isActive()) {
+            _countDownTimer?.cancel()
+            _countDownTimer = null
+        }
     }
 
     private inner class UtilKCountDownTimer(countDownMilliseconds: Long) : CountDownTimer(countDownMilliseconds, 1000) {

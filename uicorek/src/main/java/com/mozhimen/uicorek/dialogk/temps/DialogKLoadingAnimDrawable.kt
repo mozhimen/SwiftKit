@@ -19,7 +19,7 @@ import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
  * @Date 2022/11/24 23:39
  * @Version 1.0
  */
-class DialogKLoading @JvmOverloads internal constructor(context: Context, desc: String? = null) : BaseDialog<IDialogKClickListener>(context) {
+class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Context, desc: String? = null) : BaseDialog<IDialogKClickListener>(context) {
     private var _imgProgress: ImageView? = null
     private var _txtDesc: TextView? = null
     private var _txtAction: TextView? = null
@@ -46,13 +46,13 @@ class DialogKLoading @JvmOverloads internal constructor(context: Context, desc: 
 
     companion object {
         @JvmOverloads
-        fun create(context: Context, desc: String? = null): DialogKLoading {
-            return DialogKLoading(context, desc)
+        fun create(context: Context, desc: String? = null): DialogKLoadingAnimDrawable {
+            return DialogKLoadingAnimDrawable(context, desc)
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater): View {
-        return inflater.inflate(R.layout.dialog_loading, null)
+        return inflater.inflate(R.layout.dialogk_loading_anim_drawable, null)
     }
 
     override fun onFindView(dialogView: View) {

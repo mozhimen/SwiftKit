@@ -140,7 +140,7 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
      * 默认wrap_content
      * @return
      */
-    protected fun onInitWindowHeight(): Int {
+    protected open fun onInitWindowHeight(): Int {
         return ViewGroup.LayoutParams.WRAP_CONTENT
     }
 

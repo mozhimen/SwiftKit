@@ -28,9 +28,15 @@
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/dialogk_custom"
+                android:id="@+id/dialogk_custom_anim_drawable"
                 style="@style/BtnStyle"
-                android:text="自定义弹框(基于BaseDialog)"
+                android:text="自定义弹框AnimDrawable(基于BaseDialog)"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/dialogk_custom_anim"
+                style="@style/BtnStyle"
+                android:text="自定义弹框Anim(基于BaseDialog)"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
     </FrameLayout>

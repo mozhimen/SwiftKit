@@ -15,11 +15,10 @@ class NavigateKActivity : BaseActivityVBVM<ActivityNavigatekBinding, NavigateKVi
 
     private val _fragments = listOf(FirstFragment::class.java, SecondFragment::class.java)
     lateinit var navController: NavController
-    //private val _navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
     private var _currentItemId: Int = 0
         set(value) {
             if (value == -1 || !this::navController.isInitialized) return
-            navController.navigate(resId = value/*, args = null, navOptions = _navOptions*/)
+            navController.navigate(value)
             Log.d(TAG, "backQueue: ${navController.backQueue.joinToString { it.destination.displayName }}")
             field = value
         }
@@ -38,11 +37,22 @@ class NavigateKActivity : BaseActivityVBVM<ActivityNavigatekBinding, NavigateKVi
     override fun initView(savedInstanceState: Bundle?) {
         navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, _fragments, _currentItemId)
         vm.liveFragmentId.observe(this) {
-            if (it != null && navController.findDestination(it) != null && navController.currentDestination?.id != it) {
-                _currentItemId = it
+            if (it != null) {
+                genNavigateK(it)
             } else {
                 "please add this destination to list".et(TAG)
             }
+        }
+        vm.liveSetPopupFlag.observe(this) {
+            if (it != null) {
+                navController.popBackStack()
+            }
+        }
+    }
+
+    private fun genNavigateK(id: Int?) {
+        if (id != null && navController.findDestination(id) != null && navController.currentDestination?.id != id) {
+            _currentItemId = id
         }
     }
 

@@ -5,4 +5,5 @@ import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
 
 class NavigateKViewModel : BaseViewModel() {
     val liveFragmentId = MutableLiveData<Int?>(null)
+    val liveSetPopupFlag = MutableLiveData<Boolean?>(null)
 }
