@@ -7,11 +7,11 @@ import kotlinx.coroutines.*
 class TaskKPoll(owner: LifecycleOwner) : ITaskK(owner) {
     private var _pollingScope: CoroutineScope? = null
 
-    fun isRunning(): Boolean =
+    fun isActive(): Boolean =
         _pollingScope != null && _pollingScope!!.isActive
 
     fun start(interval: Long, task: suspend () -> Unit) {
-        cancel()
+        if (isActive()) return
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             while (isActive) {
@@ -28,6 +28,7 @@ class TaskKPoll(owner: LifecycleOwner) : ITaskK(owner) {
     }
 
     override fun cancel() {
+        if (!isActive()) return
         _pollingScope?.cancel()
         _pollingScope = null
     }
