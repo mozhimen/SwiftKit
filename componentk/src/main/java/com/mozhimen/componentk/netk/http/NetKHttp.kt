@@ -30,6 +30,7 @@ open class NetKHttp(
             }
         }.build()
     }
+
     private var _retrofit: Retrofit? = null
         get() {
             if (field != null) return field

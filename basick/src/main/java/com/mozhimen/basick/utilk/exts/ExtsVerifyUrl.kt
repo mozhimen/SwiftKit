@@ -29,3 +29,10 @@ fun String.isDoMainValid(): Boolean = UtilKVerifyUrl.isDoMainValid(this)
  * @return Boolean
  */
 fun String.isPortValid(): Boolean = UtilKVerifyUrl.isPortValid(this)
+
+/**
+ * url是都合法
+ * @receiver String
+ * @return Boolean
+ */
+fun String.isUrlValid(): Boolean = UtilKVerifyUrl.isUrlValid(this)

@@ -1,5 +1,11 @@
 package com.mozhimen.basick.utilk.filter
 
+import android.util.Log
+import androidx.annotation.MainThread
+import com.mozhimen.basick.utilk.exts.isDoMainValid
+import com.mozhimen.basick.utilk.exts.isIPValid
+import com.mozhimen.basick.utilk.exts.isPortValid
+import com.mozhimen.basick.utilk.exts.showToast
 import java.net.URI
 import java.net.URISyntaxException
 
@@ -14,6 +20,7 @@ import java.net.URISyntaxException
  * 密码校验
  */
 object UtilKVerifyUrl {
+    private val TAG = "UtilKVerifyUrl>>>>>"
     private const val REGEX_IP =
         "((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)"//IP验证
 
@@ -63,6 +70,59 @@ object UtilKVerifyUrl {
         if (uri.host == null) {
             return false
         } else if (!uri.scheme.equals("http") && !uri.scheme.equals("https")) {
+            return false
+        }
+        return true
+    }
+
+    /**
+     * 判断url是否合法
+     * @param url String
+     * @return Boolean
+     */
+    @JvmStatic
+    @MainThread
+    fun isUrlValid(url: String): Boolean {
+        Log.d(TAG, "isUrlValid: url $url")
+        if (url.isEmpty()) {
+            Log.d(TAG, "isUrlValid: 0")
+            "输入为空".showToast()
+            return false
+        }
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            Log.d(TAG, "isUrlValid: 1")
+            "请输入正确的协议(http://或https://)".showToast()
+            return false
+        }
+        val splitArray = url.split(":")
+        if (splitArray.size != 3 && splitArray.size != 2) {
+            Log.d(TAG, "isUrlValid: 2")
+            "请输入正确的端口格式".showToast()
+            return false
+        }
+        if (splitArray.getOrNull(0) == null) {
+            Log.d(TAG, "isUrlValid: 3")
+            "请输入正确的端口格式(http或https)接IP或域名".showToast()
+            return false
+        }
+        if (splitArray[0] != "http" && splitArray[0] != "https") {
+            Log.d(TAG, "isUrlValid: 4")
+            "请输入正确的协议(http或https)".showToast()
+            return false
+        }
+        if (splitArray.getOrNull(1) == null) {
+            Log.d(TAG, "isUrlValid: 5")
+            "请输入正确的IP或域名".showToast()
+            return false
+        }
+        if (!splitArray[1].replace("//", "").isIPValid() && !splitArray[1].replace("//", "").isDoMainValid()) {
+            Log.d(TAG, "isUrlValid: 6")
+            "请输入正确的IP或域名".showToast()
+            return false
+        }
+        if (splitArray[2].getOrNull(2) != null && !splitArray[2].isPortValid()) {
+            Log.d(TAG, "isUrlValid: 7")
+            "请输入正确的端口".showToast()
             return false
         }
         return true

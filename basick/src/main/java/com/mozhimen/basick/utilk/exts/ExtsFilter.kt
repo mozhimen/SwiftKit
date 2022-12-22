@@ -25,3 +25,7 @@ fun String.filterChinese(): String {
 fun String.filter(): String {
     return UtilKFilter.filter(this)
 }
+
+fun String.filterLength(endIndex: Int): String {
+    return UtilKFilter.filterLength(this, endIndex)
+}

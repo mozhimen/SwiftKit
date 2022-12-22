@@ -45,4 +45,14 @@ object UtilKFilter {
         return character.replace("[^(a-zA-Z0-9\\u4e00-\\u9fa5)]".toRegex(), "")
     }
 
+    /**
+     * 过滤长度
+     * @param str String
+     * @param endIndex Int
+     * @return String
+     */
+    fun filterLength(str: String, endIndex: Int): String {
+        return if (endIndex in str.indices)
+            str.substring(0, endIndex) else str
+    }
 }

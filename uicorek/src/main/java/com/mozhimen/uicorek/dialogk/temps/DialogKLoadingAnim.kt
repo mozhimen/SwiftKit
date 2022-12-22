@@ -20,14 +20,12 @@ import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
  * @Date 2022/12/19 15:37
  * @Version 1.0
  */
-class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, desc: String? = null) : BaseDialog<IDialogKClickListener>(context) {
+class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, private var _desc: String? = null) : BaseDialog<IDialogKClickListener>(context) {
     private var _imgProgress: ImageView? = null
     private var _txtDesc: TextView? = null
-    private var _descStr: String?
     private val _rotateAnimation by lazy { AnimKBuilder.asAnimation().add(RotationRecyclerType()).setDuration(1000).build() }
 
     init {
-        _descStr = desc
         setOnDismissListener {
             _imgProgress?.stopAnim()
         }
@@ -50,15 +48,12 @@ class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, de
     override fun onFindView(dialogView: View) {
         _imgProgress = dialogView.findViewById(R.id.dialogk_loading_img_progress)
         _txtDesc = dialogView.findViewById(R.id.dialogk_loading_txt_desc)
-        if (!TextUtils.isEmpty(_descStr)) {
-            _txtDesc!!.text = _descStr
-        }
+        setDesc(_desc)
     }
 
-    fun setDesc(desc: String) {
-        _descStr = desc
-        if (this._txtDesc != null) {
-            _txtDesc!!.text = desc
+    fun setDesc(desc: String?) {
+        if (!TextUtils.isEmpty(desc)) {
+            _txtDesc?.text = desc.also { _desc = it }
         }
     }
 
