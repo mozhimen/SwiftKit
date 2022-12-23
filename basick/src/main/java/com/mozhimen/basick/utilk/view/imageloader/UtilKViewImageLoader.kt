@@ -53,7 +53,7 @@ object UtilKViewImageLoader {
         placeholder: Int,
         error: Int,
         crossFadeEnable: Boolean = true,
-        crossFadeTime: Int = 1500
+        crossFadeTime: Int = 1000
     ) {
         imageView.load(res) {
             crossfade(crossFadeEnable)
