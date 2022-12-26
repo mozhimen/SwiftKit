@@ -13,12 +13,13 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 
 import com.mozhimen.basick.utilk.UtilKBuild;
-import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
+import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 import com.mozhimen.uicorek.popwink.bases.cons.CUI;
 
 import java.util.HashMap;
@@ -29,7 +30,7 @@ import java.util.LinkedList;
  * <p>
  * 代理掉popup的windowmanager，在addView操作，拦截decorView的操作
  */
-final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
+final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListener {
     private static final String TAG = "WindowManagerProxy";
     private WindowManager mWindowManager;
     PopupDecorViewProxy mPopupDecorViewProxy;
@@ -169,9 +170,9 @@ final class WindowManagerProxy implements WindowManager, ClearMemoryObject {
             ViewGroup.LayoutParams params = popupDecorViewProxy.getLayoutParams();
             if (params instanceof LayoutParams) {
                 for (int flag : flags) {
-                    if (mode == BasePopupFlag.MODE_ADD) {
+                    if (mode == CFlag.MODE_ADD) {
                         ((LayoutParams) params).flags |= flag;
-                    } else if (mode == BasePopupFlag.MODE_REMOVE) {
+                    } else if (mode == CFlag.MODE_REMOVE) {
                         ((LayoutParams) params).flags &= ~flag;
                     }
                 }

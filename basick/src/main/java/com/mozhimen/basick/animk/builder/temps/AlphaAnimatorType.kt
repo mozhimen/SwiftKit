@@ -1,6 +1,7 @@
 package com.mozhimen.basick.animk.builder.temps
 
 import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import androidx.annotation.FloatRange
@@ -30,6 +31,11 @@ open class AlphaAnimatorType : BaseAnimatorType<AlphaAnimatorType>() {
         (_animator as ObjectAnimator).addUpdateListener {
             listener.onChange(it.animatedValue as Int)
         }
+        return this
+    }
+
+    open fun addAnimatorListener(listener: AnimatorListenerAdapter): AlphaAnimatorType {
+        (_animator as ObjectAnimator).addListener(listener)
         return this
     }
 

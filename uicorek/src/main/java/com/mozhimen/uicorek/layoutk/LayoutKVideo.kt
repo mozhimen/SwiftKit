@@ -73,12 +73,16 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        val typeArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKVideo)
-        _videoSource = typeArray.getString(R.styleable.LayoutKVideo_layoutKVideo_pathOrUrl)
-        _videoGravity = typeArray.getInt(R.styleable.LayoutKVideo_layoutKVideo_videoGravity, GRAVITY_CENTER_CROP)
-        _videoIsLoop = typeArray.getBoolean(R.styleable.LayoutKVideo_layoutKVideo_isLoop, false)
-        _videoVolume = typeArray.getInteger(R.styleable.LayoutKVideo_layoutKVideo_volume, 0).toFloat()
-        typeArray.recycle()
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKVideo)
+        _videoSource =
+            typedArray.getString(R.styleable.LayoutKVideo_layoutKVideo_pathOrUrl)
+        _videoGravity =
+            typedArray.getInt(R.styleable.LayoutKVideo_layoutKVideo_videoGravity, GRAVITY_CENTER_CROP)
+        _videoIsLoop =
+            typedArray.getBoolean(R.styleable.LayoutKVideo_layoutKVideo_isLoop, false)
+        _videoVolume =
+            typedArray.getInteger(R.styleable.LayoutKVideo_layoutKVideo_volume, 0).toFloat()
+        typedArray.recycle()
     }
 
     override fun initView() {

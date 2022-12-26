@@ -15,13 +15,16 @@ import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener;
 
 import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKScreen;
 import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
 import com.mozhimen.basick.utilk.view.UtilKView;
+import com.mozhimen.uicorek.popwink.bases.commons.IEventObserver;
+import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
+import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 import com.mozhimen.uicorek.popwink.bases.cons.CUI;
 
 /**
@@ -29,7 +32,7 @@ import com.mozhimen.uicorek.popwink.bases.cons.CUI;
  * <p>
  * popupwindow的decorview代理，这里统筹位置、蒙层、事件等
  */
-final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtilKKeyboardListener, BasePopupEvent.EventObserver, ClearMemoryObject {
+final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtilKKeyboardListener, IEventObserver, IClearMemoryObjectListener {
     //蒙层
     private PopupMaskLayout mMaskLayout;
     private int childBottomMargin;
@@ -184,22 +187,22 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
             //蒙层给最大值
             if (child == mMaskLayout) {
                 measureChild(child,
-                        adjustWidthMeasureSpec(widthMeasureSpec, BasePopupFlag.OVERLAY_MASK),
+                        adjustWidthMeasureSpec(widthMeasureSpec, CFlag.OVERLAY_MASK),
                         adjustHeightMeasureSpec(heightMeasureSpec,
-                                BasePopupFlag.OVERLAY_MASK));
+                                CFlag.OVERLAY_MASK));
             } else {
                 measureWrappedDecorView(child,
                         adjustWidthMeasureSpec(widthMeasureSpec,
-                                BasePopupFlag.OVERLAY_CONTENT),
+                                CFlag.OVERLAY_CONTENT),
                         adjustHeightMeasureSpec(heightMeasureSpec,
-                                BasePopupFlag.OVERLAY_CONTENT));
+                                CFlag.OVERLAY_CONTENT));
             }
         }
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
     }
 
     private int adjustWidthMeasureSpec(int widthMeasureSpec, int overlayTarget) {
-        if ((overlayTarget & (BasePopupFlag.OVERLAY_MASK | BasePopupFlag.OVERLAY_CONTENT)) == 0) {
+        if ((overlayTarget & (CFlag.OVERLAY_MASK | CFlag.OVERLAY_CONTENT)) == 0) {
             return widthMeasureSpec;
         }
         //由于statusbar只会出现在顶部，不会出现在左右，因此宽度跟statusbar没啥关系
@@ -217,7 +220,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
     }
 
     private int adjustHeightMeasureSpec(int heightMeasureSpec, int overlayTarget) {
-        if ((overlayTarget & (BasePopupFlag.OVERLAY_MASK | BasePopupFlag.OVERLAY_CONTENT)) == 0) {
+        if ((overlayTarget & (CFlag.OVERLAY_MASK | CFlag.OVERLAY_CONTENT)) == 0) {
             return heightMeasureSpec;
         }
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
@@ -383,7 +386,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
             int height = child.getMeasuredHeight();
 
             //状态栏判断
-            if ((mHelper.overlayStatusBarMode & (child == mMaskLayout ? BasePopupFlag.OVERLAY_MASK : BasePopupFlag.OVERLAY_CONTENT)) == 0) {
+            if ((mHelper.overlayStatusBarMode & (child == mMaskLayout ? CFlag.OVERLAY_MASK : CFlag.OVERLAY_CONTENT)) == 0) {
                 contentBounds.top = contentBounds.top == 0 ? contentBounds.top + UtilKStatusBar.getStatusBarHeight(false) : contentBounds.top;
             } else {
                 contentBounds.top = 0;
@@ -393,7 +396,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
             //同时需要判断navigationbar的方向，在蛋疼的模拟器或者某些rom上，横屏的时候navigationbar能在左右
             final int navigationBarGravity = mHelper.getNavigationBarGravity();
             final int navigationBarSize;
-            if ((mHelper.overlayNavigationBarMode & (child == mMaskLayout ? BasePopupFlag.OVERLAY_MASK : BasePopupFlag.OVERLAY_CONTENT)) == 0) {
+            if ((mHelper.overlayNavigationBarMode & (child == mMaskLayout ? CFlag.OVERLAY_MASK : CFlag.OVERLAY_CONTENT)) == 0) {
                 navigationBarSize = mHelper.getNavigationBarSize();
             } else {
                 navigationBarSize = 0;
@@ -736,7 +739,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
 
     @Override
     public void onEvent(Message msg) {
-        if (msg.what == BasePopupEvent.EVENT_ALIGN_KEYBOARD && keyboardBoundsCache != null) {
+        if (msg.what == CEvent.EVENT_ALIGN_KEYBOARD && keyboardBoundsCache != null) {
             onKeyboardChange(keyboardBoundsCache, keyboardVisibleCache);
         }
     }
@@ -753,7 +756,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
     @Override
     public void onKeyboardChange(Rect keyboardBounds, boolean isVisible) {
         if (mHelper.isOutSideTouchable() && !mHelper.isOverlayStatusbar()) return;
-        boolean forceAdjust = (mHelper.flag & BasePopupFlag.KEYBOARD_FORCE_ADJUST) != 0;
+        boolean forceAdjust = (mHelper.flag & CFlag.KEYBOARD_FORCE_ADJUST) != 0;
         boolean process = forceAdjust || ((UtilKScreen.getScreenOrientation() != Configuration.ORIENTATION_LANDSCAPE)
                 && (mHelper.getSoftInputMode() == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN ||
                 mHelper.getSoftInputMode() == WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE));
@@ -766,20 +769,20 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
         keyboardVisibleCache = isVisible;
         View alignWhat = mHelper.keybaordAlignView;
 
-        if ((mHelper.flag & BasePopupFlag.KEYBOARD_ALIGN_TO_VIEW) != 0) {
+        if ((mHelper.flag & CFlag.KEYBOARD_ALIGN_TO_VIEW) != 0) {
             if (mHelper.keybaordAlignViewId != 0) {
                 alignWhat = mTarget.findViewById(mHelper.keybaordAlignViewId);
             }
         }
 
-        if ((mHelper.flag & BasePopupFlag.KEYBOARD_ALIGN_TO_ROOT) != 0 || alignWhat == null) {
+        if ((mHelper.flag & CFlag.KEYBOARD_ALIGN_TO_ROOT) != 0 || alignWhat == null) {
             alignWhat = mTarget;
         }
 
         int offsetX;
         int offsetY;
         final int keyboardGravity = mHelper.keyboardGravity;
-        boolean animate = (mHelper.flag & BasePopupFlag.KEYBOARD_ANIMATE_ALIGN) != 0;
+        boolean animate = (mHelper.flag & CFlag.KEYBOARD_ANIMATE_ALIGN) != 0;
         alignWhat.getLocationOnScreen(location);
         //自身或者指定view的bottom
         final int left = location[0];
@@ -819,7 +822,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
         }
 
         if (isVisible && keyboardBounds.height() > 0) {
-            if ((mHelper.flag & BasePopupFlag.KEYBOARD_IGNORE_OVER_KEYBOARD) != 0) {
+            if ((mHelper.flag & CFlag.KEYBOARD_IGNORE_OVER_KEYBOARD) != 0) {
                 // 忽略basepopup在键盘上方
                 if (bottom <= keyboardBounds.height() && lastKeyboardBounds.isEmpty()) {
                     offsetY = 0;

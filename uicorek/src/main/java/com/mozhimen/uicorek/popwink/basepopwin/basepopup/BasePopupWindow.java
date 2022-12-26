@@ -204,17 +204,6 @@
  */
 package com.mozhimen.uicorek.popwink.basepopwin.basepopup;
 
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.AUTO_INPUT_METHOD;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.AUTO_MIRROR;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.BACKPRESS_ENABLE;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.CLIP_CHILDREN;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.FADE_ENABLE;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.FITSIZE;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.MODE_ADD;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.MODE_REMOVE;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.OUT_SIDE_DISMISS;
-import static com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag.OUT_SIDE_TOUCHABLE;
-
 import android.animation.Animator;
 import android.app.Activity;
 import android.app.Dialog;
@@ -249,12 +238,19 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.mozhimen.basick.stackk.StackK;
+import com.mozhimen.basick.stackk.commons.IStackKListener;
+import com.mozhimen.basick.stackk.cons.CStackKEvent;
+import com.mozhimen.basick.utilk.UtilKDataBus;
 import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKRes;
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
+import com.mozhimen.basick.utilk.context.UtilKApplication;
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.uicorek.R;
+import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
+import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 
 /**
  * <br>
@@ -336,11 +332,11 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     protected final String TAG = this.getClass().getSimpleName() + ">>>>>";
     public static int DEFAULT_BACKGROUND_COLOR = Color.parseColor("#8f000000");
 
-    public static final int FLAG_KEYBOARD_ALIGN_TO_VIEW = BasePopupFlag.KEYBOARD_ALIGN_TO_VIEW;
-    public static final int FLAG_KEYBOARD_ALIGN_TO_ROOT = BasePopupFlag.KEYBOARD_ALIGN_TO_ROOT;
-    public static final int FLAG_KEYBOARD_IGNORE_OVER = BasePopupFlag.KEYBOARD_IGNORE_OVER_KEYBOARD;
-    public static final int FLAG_KEYBOARD_ANIMATE_ALIGN = BasePopupFlag.KEYBOARD_ANIMATE_ALIGN;
-    public static final int FLAG_KEYBOARD_FORCE_ADJUST = BasePopupFlag.KEYBOARD_FORCE_ADJUST;
+    public static final int FLAG_KEYBOARD_ALIGN_TO_VIEW = CFlag.KEYBOARD_ALIGN_TO_VIEW;
+    public static final int FLAG_KEYBOARD_ALIGN_TO_ROOT = CFlag.KEYBOARD_ALIGN_TO_ROOT;
+    public static final int FLAG_KEYBOARD_IGNORE_OVER = CFlag.KEYBOARD_IGNORE_OVER_KEYBOARD;
+    public static final int FLAG_KEYBOARD_ANIMATE_ALIGN = CFlag.KEYBOARD_ANIMATE_ALIGN;
+    public static final int FLAG_KEYBOARD_FORCE_ADJUST = CFlag.KEYBOARD_FORCE_ADJUST;
 
     public enum GravityMode {
         RELATIVE_TO_ANCHOR,
@@ -645,7 +641,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * @param isPopupFadeAnimate true for apply anim style
      */
     public BasePopupWindow setPopupFadeEnable(boolean isPopupFadeAnimate) {
-        mHelper.setFlag(FADE_ENABLE, isPopupFadeAnimate);
+        mHelper.setFlag(CFlag.FADE_ENABLE, isPopupFadeAnimate);
         return this;
     }
 
@@ -825,7 +821,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
         }
         checkActivity();
         if (mContext == null) {
-            if (BasePopupSDK.getInstance().getTopActivity() == null) {
+            if (StackK.INSTANCE.getStackTopActivity(true) == null) {
                 waitForFirstActivityOpened(v, positionMode);
                 return;
             }
@@ -869,10 +865,11 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     void waitForFirstActivityOpened(View v, boolean positionMode) {
-        BasePopupSDK.getInstance().regFirstActivityOpen(new Observer<Boolean>() {
+        UtilKDataBus.INSTANCE.with(CStackKEvent.first_activity).observeForever(new Observer() {
             @Override
-            public void onChanged(Boolean aBoolean) {
+            public void onChanged(Object o) {
                 tryToShowPopup(v, positionMode);
+                UtilKDataBus.INSTANCE.with(CStackKEvent.first_activity).removeObserver(this);
             }
         });
     }
@@ -1076,7 +1073,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      */
     public BasePopupWindow setAutoShowKeyboard(EditText editText, boolean autoShow) {
         mHelper.mAutoShowInputEdittext = editText;
-        mHelper.setFlag(AUTO_INPUT_METHOD, autoShow);
+        mHelper.setFlag(CFlag.AUTO_INPUT_METHOD, autoShow);
         return this;
     }
 
@@ -1129,7 +1126,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * <p>
      */
     public BasePopupWindow setBackPressEnable(boolean backPressEnable) {
-        mHelper.setFlag(BACKPRESS_ENABLE, backPressEnable);
+        mHelper.setFlag(CFlag.BACKPRESS_ENABLE, backPressEnable);
         return this;
     }
 
@@ -1173,10 +1170,10 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     /**
      * 设置覆盖状态栏的模式
      *
-     * @param mode <ul> <li>可以选择 {@link BasePopupFlag#OVERLAY_CONTENT}或者{@link BasePopupFlag#OVERLAY_MASK}</li>
-     *             <li>如果只传入{@link BasePopupFlag#OVERLAY_CONTENT}，则内容（{@link #onCreateContentView()}）可以覆盖导航栏，蒙层不可以</li>
-     *             <li>如果只传入{@link BasePopupFlag#OVERLAY_MASK}，则蒙层可以覆盖导航栏，内容不可以</li>
-     *             <li>如果传入{@link BasePopupFlag#OVERLAY_CONTENT}|{@link BasePopupFlag#OVERLAY_MASK}，则两者皆可</li>
+     * @param mode <ul> <li>可以选择 {@link CFlag#OVERLAY_CONTENT}或者{@link CFlag#OVERLAY_MASK}</li>
+     *             <li>如果只传入{@link CFlag#OVERLAY_CONTENT}，则内容（{@link #onCreateContentView()}）可以覆盖导航栏，蒙层不可以</li>
+     *             <li>如果只传入{@link CFlag#OVERLAY_MASK}，则蒙层可以覆盖导航栏，内容不可以</li>
+     *             <li>如果传入{@link CFlag#OVERLAY_CONTENT}|{@link CFlag#OVERLAY_MASK}，则两者皆可</li>
      *             </ul>
      */
     public BasePopupWindow setOverlayStatusbarMode(int mode) {
@@ -1203,10 +1200,10 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     /**
      * 设置覆盖导航栏的模式
      *
-     * @param mode <ul> <li>可以选择 {@link BasePopupFlag#OVERLAY_CONTENT}或者{@link BasePopupFlag#OVERLAY_MASK}</li>
-     *             <li>如果只传入{@link BasePopupFlag#OVERLAY_CONTENT}，则内容（{@link #onCreateContentView()}）可以覆盖导航栏，蒙层不可以</li>
-     *             <li>如果只传入{@link BasePopupFlag#OVERLAY_MASK}，则蒙层可以覆盖导航栏，内容不可以</li>
-     *             <li>如果传入{@link BasePopupFlag#OVERLAY_CONTENT}|{@link BasePopupFlag#OVERLAY_MASK}，则两者皆可</li>
+     * @param mode <ul> <li>可以选择 {@link CFlag#OVERLAY_CONTENT}或者{@link CFlag#OVERLAY_MASK}</li>
+     *             <li>如果只传入{@link CFlag#OVERLAY_CONTENT}，则内容（{@link #onCreateContentView()}）可以覆盖导航栏，蒙层不可以</li>
+     *             <li>如果只传入{@link CFlag#OVERLAY_MASK}，则蒙层可以覆盖导航栏，内容不可以</li>
+     *             <li>如果传入{@link CFlag#OVERLAY_CONTENT}|{@link CFlag#OVERLAY_MASK}，则两者皆可</li>
      *             </ul>
      */
     public BasePopupWindow setOverlayNavigationBarMode(int mode) {
@@ -1500,7 +1497,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     Context getContextInner(boolean appContextIfNoContext) {
         Context ctx = getContext();
         if (ctx == null && appContextIfNoContext) {
-            ctx = BasePopupSDK.getApplication();
+            ctx = UtilKApplication.getInstance().get();
         }
         return ctx;
     }
@@ -1625,8 +1622,8 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * </ul>
      *
      * @param mode <ul><li>GravityMode.RELATIVE_TO_ANCHOR：该模式将会以Anchor作为参考点，表示Popup处于该Anchor的哪个位置</li>
-     *                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     <li>GravityMode.ALIGN_TO_ANCHOR_SIDE：该模式将会以Anchor作为参考点，表示Popup对齐Anchor的哪条边</li>
-     *                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     </ul>
+     *                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 <li>GravityMode.ALIGN_TO_ANCHOR_SIDE：该模式将会以Anchor作为参考点，表示Popup对齐Anchor的哪条边</li>
+     *                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </ul>
      */
     public BasePopupWindow setPopupGravity(GravityMode mode, int popupGravity) {
         mHelper.setPopupGravity(mode, popupGravity);
@@ -1680,12 +1677,12 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * @param enable 是否开启
      */
     public BasePopupWindow setAutoMirrorEnable(boolean enable) {
-        mHelper.setFlag(AUTO_MIRROR, enable);
-        mHelper.cacheFlag(FITSIZE, true);
+        mHelper.setFlag(CFlag.AUTO_MIRROR, enable);
+        mHelper.cacheFlag(CFlag.FITSIZE, true);
         if (enable) {
             setFitSize(false);
         } else {
-            setFitSize(mHelper.restoreFlag(FITSIZE, true));
+            setFitSize(mHelper.restoreFlag(CFlag.FITSIZE, true));
         }
         return this;
     }
@@ -1748,7 +1745,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * @param outSideDismiss true for allow
      */
     public BasePopupWindow setOutSideDismiss(boolean outSideDismiss) {
-        mHelper.setFlag(OUT_SIDE_DISMISS, outSideDismiss);
+        mHelper.setFlag(CFlag.OUT_SIDE_DISMISS, outSideDismiss);
         return this;
     }
 
@@ -1766,7 +1763,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      *                  </ul>
      */
     public BasePopupWindow setOutSideTouchable(boolean touchable) {
-        mHelper.setFlag(OUT_SIDE_TOUCHABLE, touchable);
+        mHelper.setFlag(CFlag.OUT_SIDE_TOUCHABLE, touchable);
         return this;
     }
 
@@ -1782,7 +1779,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * @param clipChildren 默认为true
      */
     public BasePopupWindow setClipChildren(boolean clipChildren) {
-        mHelper.setFlag(CLIP_CHILDREN, clipChildren);
+        mHelper.setFlag(CFlag.CLIP_CHILDREN, clipChildren);
         return this;
     }
 
@@ -1883,7 +1880,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * 是否允许BasePopup自动调整大小
      */
     public BasePopupWindow setFitSize(boolean canResize) {
-        mHelper.setFlag(FITSIZE, canResize);
+        mHelper.setFlag(CFlag.FITSIZE, canResize);
         return this;
     }
 
@@ -1906,7 +1903,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     public BasePopupWindow syncMaskAnimationDuration(boolean sync) {
-        mHelper.setFlag(BasePopupFlag.SYNC_MASK_ANIMATION_DURATION, sync);
+        mHelper.setFlag(CFlag.SYNC_MASK_ANIMATION_DURATION, sync);
         return this;
     }
 
@@ -1930,7 +1927,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * basepopup宽度跟随anchorview
      */
     public BasePopupWindow setWidthAsAnchorView(boolean widthAsAnchor) {
-        mHelper.setFlag(BasePopupFlag.AS_WIDTH_AS_ANCHOR, widthAsAnchor);
+        mHelper.setFlag(CFlag.AS_WIDTH_AS_ANCHOR, widthAsAnchor);
         return this;
     }
 
@@ -1938,7 +1935,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * basepopup高度跟随anchorView
      */
     public BasePopupWindow setHeightAsAnchorView(boolean heightAsAnchor) {
-        mHelper.setFlag(BasePopupFlag.AS_HEIGHT_AS_ANCHOR, heightAsAnchor);
+        mHelper.setFlag(CFlag.AS_HEIGHT_AS_ANCHOR, heightAsAnchor);
         return this;
     }
 
@@ -1954,9 +1951,9 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      * 设置是否允Popup是否响应事件，如果不响应，则事件会穿透Popup
      */
     public BasePopupWindow setTouchable(boolean touchable) {
-        mHelper.setFlag(BasePopupFlag.TOUCHABLE, touchable);
+        mHelper.setFlag(CFlag.TOUCHABLE, touchable);
         if (isShowing()) {
-            ((PopupWindowProxy) getPopupWindow()).updateFlag(touchable ? MODE_REMOVE : MODE_ADD,
+            ((PopupWindowProxy) getPopupWindow()).updateFlag(touchable ? CFlag.MODE_REMOVE : CFlag.MODE_ADD,
                     true,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
@@ -1965,7 +1962,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     public boolean isTouchable() {
-        return (mHelper.flag & BasePopupFlag.TOUCHABLE) != 0;
+        return (mHelper.flag & CFlag.TOUCHABLE) != 0;
     }
 
     /**
@@ -1973,7 +1970,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
      */
     public BasePopupWindow updateKeyboardAlign() {
         Message msg = Message.obtain();
-        msg.what = BasePopupEvent.EVENT_ALIGN_KEYBOARD;
+        msg.what = CEvent.EVENT_ALIGN_KEYBOARD;
         mHelper.sendEvent(msg);
         return this;
     }

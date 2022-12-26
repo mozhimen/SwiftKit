@@ -168,13 +168,10 @@ internal class LayoutKSliderProxy(
     }
 
     fun onDraw(canvas: Canvas) {
-        canvas.save()
         //slider
         drawSlider(canvas)
         //rod
         drawRod(canvas)
-
-        canvas.restore()
     }
 
     private fun drawSlider(canvas: Canvas) {

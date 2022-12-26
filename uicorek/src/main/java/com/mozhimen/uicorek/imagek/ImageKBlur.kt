@@ -9,12 +9,17 @@ import android.graphics.Rect
 import android.os.Build
 import android.os.Looper
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
 import androidx.appcompat.widget.AppCompatImageView
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
+import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
+import com.mozhimen.basick.taskk.executor.TaskKExecutor
+import com.mozhimen.basick.utilk.bitmap.blur.RenderScriptHelper
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption
-import com.mozhimen.basick.utilk.log.UtilKSmartLog
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -29,6 +34,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     companion object {
         private const val TAG = "ImageKBlur>>>>>"
+        private const val BLUR_TASK_WAIT_TIMEOUT: Long = 1000 //图片模糊超时1秒
     }
 
     @Volatile
@@ -70,38 +76,19 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         applyBlurOption(option, false)
     }
 
-    private fun applyBlurOption(option: UtilKBitmapBlurOption, isOnUpdate: Boolean) {
-        _blurOption = option
-        val anchorView = option.getBlurView()
-        if (anchorView == null) {
-            UtilKSmartLog.e(TAG, "applyBlurOption 模糊锚点View为空，放弃模糊操作...")
-            destroy()
-            return
-        }
-        //因为考虑到实时更新位置（包括模糊也要实时）的原因，因此强制更新时模糊操作在主线程完成。
-        if (option.isBlurAsync() && !isOnUpdate) {
-            UtilKSmartLog.i(TAG, "applyBlurOption 子线程blur")
-            startBlurTask(anchorView)
-        } else {
-            try {
-                UtilKSmartLog.i(TAG, "applyBlurOption 主线程blur")
-                if (!isRenderScriptSupported()) {
-                    UtilKSmartLog.e(TAG, "applyBlurOption 不支持脚本模糊。。。最低支持api 17(Android 4.2.2)，将采用fastblur")
-                }
-                setImageBitmapOnUiThread(
-                    blur(anchorView, option.getBlurPreScaleRatio(), option.getBlurRadius(), option.isFullScreen(), _cutoutX, _cutoutY), isOnUpdate
-                )
-            } catch (e: Exception) {
-                e.printStackTrace()
-                UtilKSmartLog.e(TAG, "applyBlurOption 模糊异常", e)
-                destroy()
-            }
-        }
-    }
-
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
+    fun destroy() {
+        setImageBitmap(null)
         _abortBlur = true
+        if (_blurOption != null) {
+            _blurOption = null
+        }
+        if (_cacheAction != null) {
+            _cacheAction!!.destroy()
+            _cacheAction = null
+        }
+        _blurFinish.set(false)
+        _isAnimating = false
+        _startDuration = 0
     }
 
     fun update() {
@@ -118,7 +105,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         if (!_blurFinish.get()) {
             if (_cacheAction == null) {
                 _cacheAction = CacheAction({ start(_startDuration) }, 0)
-                UtilKSmartLog.e(TAG, "缓存模糊动画，等待模糊完成")
+                Log.e(TAG, "start 缓存模糊动画，等待模糊完成")
             }
             return
         }
@@ -127,7 +114,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
             _cacheAction = null
         }
         if (_isAnimating) return
-        UtilKSmartLog.i(TAG, "start 开始模糊alpha动画")
+        Log.i(TAG, "start 开始模糊alpha动画")
         _isAnimating = true
         if (duration > 0) {
             startAlphaInAnimation(duration)
@@ -138,25 +125,12 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
     }
 
-    private fun startAlphaInAnimation(duration: Long) {
-        val valueAnimator = ValueAnimator.ofInt(0, 255)
-        valueAnimator.duration = duration
-        valueAnimator.interpolator = AccelerateDecelerateInterpolator()
-        valueAnimator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                _isAnimating = false
-            }
-        })
-        valueAnimator.addUpdateListener { animation -> imageAlpha = (animation.animatedValue as Int) }
-        valueAnimator.start()
-    }
-
     /**
      * alpha退场动画
      */
     fun dismiss(duration: Long) {
         _isAnimating = false
-        i(TAG, "dismiss模糊imageview alpha动画")
+        Log.i(TAG, "dismiss 模糊imageview alpha动画")
         if (duration > 0) {
             startAlphaOutAnimation(duration)
         } else if (duration == -2L) {
@@ -166,32 +140,75 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
     }
 
-    private fun startAlphaOutAnimation(duration: Long) {
-        val valueAnimator = ValueAnimator.ofInt(255, 0)
-        valueAnimator.duration = duration
-        valueAnimator.interpolator = AccelerateInterpolator()
-        valueAnimator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        _isAttachedToWindow = true
+        if (_attachedCache != null) {
+            _attachedCache!!.forceRestore()
+        }
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        _abortBlur = true
+    }
+
+    private fun startAlphaInAnimation(duration: Long) {
+//        val valueAnimator = ValueAnimator.ofInt(0, 255)
+//        valueAnimator.duration = duration
+//        valueAnimator.interpolator = AccelerateDecelerateInterpolator()
+//        valueAnimator.addListener(object : AnimatorListenerAdapter() {
+//            override fun onAnimationEnd(animation: Animator) {
+//                _isAnimating = false
+//            }
+//        })
+//        valueAnimator.addUpdateListener { animation -> imageAlpha = (animation.animatedValue as Int) }
+//        valueAnimator.start()
+
+        AnimKBuilder.asAnimator().add(AlphaAnimatorType().setAlpha(0f, 1f).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+            override fun onChange(value: Int) {
+                imageAlpha = value
+            }
+        }).addAnimatorListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
                 _isAnimating = false
             }
-        })
-        valueAnimator.addUpdateListener { animation -> imageAlpha = (animation.animatedValue as Int) }
-        valueAnimator.start()
+        })).setDuration(duration).setInterpolator(AccelerateDecelerateInterpolator()).build().start()
+    }
+
+    private fun startAlphaOutAnimation(duration: Long) {
+//        val valueAnimator = ValueAnimator.ofInt(255, 0)
+//        valueAnimator.duration = duration
+//        valueAnimator.interpolator = AccelerateInterpolator()
+//        valueAnimator.addListener(object : AnimatorListenerAdapter() {
+//            override fun onAnimationEnd(animation: Animator) {
+//                _isAnimating = false
+//            }
+//        })
+//        valueAnimator.addUpdateListener { animation -> imageAlpha = (animation.animatedValue as Int) }
+//        valueAnimator.start()
+
+        AnimKBuilder.asAnimator().add(AlphaAnimatorType().setAlpha(1f, 0f).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+            override fun onChange(value: Int) {
+                imageAlpha = value
+            }
+        }).addAnimatorListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                _isAnimating = false
+            }
+        })).setDuration(duration).setInterpolator(AccelerateInterpolator()).build().start()
     }
 
     /**
      * 子线程模糊
-     *
      * @param anchorView
      */
     private fun startBlurTask(anchorView: View) {
-        execute(TAG, CreateBlurBitmapRunnable(anchorView))
+        TaskKExecutor.execute(TAG, runnable = CreateBlurBitmapRunnable(anchorView))
     }
-
 
     /**
      * 判断是否处于主线程，并进行设置bitmap
-     *
      * @param blurBitmap
      */
     private fun setImageBitmapOnUiThread(blurBitmap: Bitmap?, isOnUpdate: Boolean) {
@@ -206,29 +223,19 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        _isAttachedToWindow = true
-        if (_attachedCache != null) {
-            _attachedCache!!.forceRestore()
-        }
-    }
-
     /**
      * 设置bitmap，并进行后续处理（此方法必定运行在主线程）
-     *
      * @param bitmap
      */
     private fun handleSetImageBitmap(bitmap: Bitmap?, isOnUpdate: Boolean) {
         if (bitmap != null) {
-            UtilKSmartLog.i("bitmap: 【" + bitmap.width + "," + bitmap.height + "】")
+            Log.i(TAG, "bitmap: 【" + bitmap.width + "," + bitmap.height + "】")
         }
         imageAlpha = if (isOnUpdate) 255 else 0
         setImageBitmap(bitmap)
         val option = _blurOption
         if (option != null && !option.isFullScreen()) {
-            //非全屏的话，则需要将bitmap变化到对应位置
-            val anchorView = option.getBlurView() ?: return
+            val anchorView = option.getBlurView() ?: return            //非全屏的话，则需要将bitmap变化到对应位置
             val rect = Rect()
             anchorView.getGlobalVisibleRect(rect)
             val matrix = imageMatrix
@@ -236,9 +243,9 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
             imageMatrix = matrix
         }
         _blurFinish.compareAndSet(false, true)
-        UtilKSmartLog.i(TAG, "设置成功：" + _blurFinish.get())
+        Log.i(TAG, "设置成功：" + _blurFinish.get())
         if (_cacheAction != null) {
-            UtilKSmartLog.i(TAG, "恢复缓存动画")
+            Log.i(TAG, "恢复缓存动画")
             _cacheAction!!.restore()
         }
         if (_attachedCache != null) {
@@ -251,94 +258,91 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         return Thread.currentThread() === Looper.getMainLooper().thread
     }
 
-    fun destroy() {
-        setImageBitmap(null)
-        _abortBlur = true
-        if (_blurOption != null) {
-            _blurOption = null
+    private fun applyBlurOption(option: UtilKBitmapBlurOption, isOnUpdate: Boolean) {
+        _blurOption = option
+        val anchorView = option.getBlurView()
+        if (anchorView == null) {
+            Log.e(TAG, "applyBlurOption 模糊锚点View为空，放弃模糊操作...")
+            destroy()
+            return
         }
-        if (_cacheAction != null) {
-            _cacheAction!!.destroy()
-            _cacheAction = null
+        if (option.isBlurAsync() && !isOnUpdate) {        //因为考虑到实时更新位置（包括模糊也要实时）的原因，因此强制更新时模糊操作在主线程完成。
+            Log.i(TAG, "applyBlurOption 子线程blur")
+            startBlurTask(anchorView)
+        } else {
+            try {
+                Log.i(TAG, "applyBlurOption 主线程blur")
+                if (!RenderScriptHelper.isRenderScriptSupported()) {
+                    Log.e(TAG, "applyBlurOption 不支持脚本模糊。。。最低支持api 17(Android 4.2.2)，将采用fastBlur")
+                }
+                setImageBitmapOnUiThread(
+                    RenderScriptHelper.blur(anchorView, option.getBlurPreScaleRatio(), option.getBlurRadius(), option.isFullScreen(), _cutoutX, _cutoutY), isOnUpdate
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Log.e(TAG, "applyBlurOption 模糊异常", e)
+                destroy()
+            }
         }
-        _blurFinish.set(false)
-        _isAnimating = false
-        _startDuration = 0
     }
 
-    internal class CreateBlurBitmapRunnable(target: View) : Runnable {
-        private val outWidth: Int
-        private val outHeight: Int
-        private val mBitmap: Bitmap?
-        override fun run() {
-            if (abortBlur || mBlurOption == null) {
-                UtilKSmartLog.e(TAG, "放弃模糊，可能是已经移除了布局")
-                return
-            }
-            UtilKSmartLog.i(TAG, "子线程模糊执行")
-            setImageBitmapOnUiThread(
-                blur(
-                    mBitmap,
-                    outWidth,
-                    outHeight,
-                    mBlurOption.getBlurRadius()
-                ),
-                false
-            )
-        }
+    inner class CreateBlurBitmapRunnable(target: View) : Runnable {
+        private val _outWidth: Int
+        private val _outHeight: Int
+        private val _bitmap: Bitmap?
 
         init {
-            outWidth = target.width
-            outHeight = target.height
-            mBitmap = getViewBitmap(
-                target, mBlurOption.getBlurPreScaleRatio(), mBlurOption
-                    .isFullScreen(), cutoutX, cutoutY
+            _outWidth = target.width
+            _outHeight = target.height
+            _bitmap = RenderScriptHelper.getViewBitmap(target, _blurOption!!.getBlurPreScaleRatio(), _blurOption!!.isFullScreen(), _cutoutX, _cutoutY)
+        }
+
+        override fun run() {
+            if (_abortBlur || _blurOption == null) {
+                Log.e(TAG, "放弃模糊，可能是已经移除了布局")
+                return
+            }
+            Log.i(TAG, "子线程模糊执行")
+            setImageBitmapOnUiThread(
+                RenderScriptHelper.blur(_bitmap, _outWidth, _outHeight, _blurOption!!.getBlurRadius()), false
             )
         }
     }
 
-    internal class CacheAction(var action: Runnable?, var delay: Long) {
-        val startTime: Long
+    inner class CacheAction(
+        private var _action: Runnable?, private var _delay: Long
+    ) {
+        private val _startTime: Long = System.currentTimeMillis()
+        private val _isOverTime: Boolean
+            get() = System.currentTimeMillis() - _startTime > BLUR_TASK_WAIT_TIMEOUT
 
         fun restore() {
-            if (isOverTime) {
-                e(TAG, "模糊超时")
+            if (_isOverTime) {
+                Log.e(TAG, "模糊超时")
                 destroy()
                 return
             }
-            if (action != null) {
-                post(action)
+            if (_action != null) {
+                post(_action)
             }
         }
 
         fun forceRestore() {
-            if (action != null) {
-                post(action)
+            if (_action != null) {
+                post(_action)
             }
         }
-
-        val isOverTime: Boolean
-            get() = System.currentTimeMillis() - startTime > BLUR_TASK_WAIT_TIMEOUT
 
         fun destroy() {
-            if (action != null) {
-                removeCallbacks(action)
+            if (_action != null) {
+                removeCallbacks(_action)
             }
-            action = null
-            delay = 0
+            _action = null
+            _delay = 0
         }
 
-        fun matches(otherAction: Runnable?): Boolean {
-            return (otherAction == null && action == null
-                    || action != null && action == otherAction)
-        }
-
-        companion object {
-            private const val BLUR_TASK_WAIT_TIMEOUT: Long = 1000 //图片模糊超时1秒
-        }
-
-        init {
-            startTime = System.currentTimeMillis()
+        fun matches(otherAction: Runnable): Boolean {
+            return (_action != null && _action == otherAction)
         }
     }
 }

@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.mozhimen.basick.stackk.StackK;
 import com.mozhimen.basick.utilk.UtilKActivity;
 import com.mozhimen.basick.utilk.UtilKAnim;
 import com.mozhimen.basick.utilk.UtilKAnimation;
@@ -47,7 +48,10 @@ import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
-import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener;
+import com.mozhimen.uicorek.popwink.bases.commons.IEventObserver;
+import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
+import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -60,12 +64,12 @@ import java.util.WeakHashMap;
  * PopupHelper，这货与Popup强引用哦~
  */
 @SuppressWarnings("all")
-final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, BasePopupFlag, ClearMemoryObject {
+final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, IClearMemoryObjectListener {
 
     private static final String TAG = "BasePopupHelper>>>>>";
     BasePopupWindow mPopupWindow;
 
-    WeakHashMap<Object, BasePopupEvent.EventObserver> eventObserverMap;
+    WeakHashMap<Object, IEventObserver> eventObserverMap;
 
     Map<Integer, Boolean> mFlagCacheMap;
 
@@ -77,8 +81,8 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     static final long DEFAULT_KEYBOARD_SHOW_DELAY = 350;
-    static final int DEFAULT_OVERLAY_STATUS_BAR_MODE = OVERLAY_MASK | OVERLAY_CONTENT;
-    static final int DEFAULT_OVERLAY_NAVIGATION_BAR_MODE = OVERLAY_MASK;
+    static final int DEFAULT_OVERLAY_STATUS_BAR_MODE = CFlag.OVERLAY_MASK | CFlag.OVERLAY_CONTENT;
+    static final int DEFAULT_OVERLAY_NAVIGATION_BAR_MODE = CFlag.OVERLAY_MASK;
     private static final int CONTENT_VIEW_ID = R.id.base_popup_content_root;
 
     static final int STATUS_START_SHOWING = 0x1;
@@ -90,7 +94,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
 
     int contentRootId = CONTENT_VIEW_ID;
 
-    int flag = IDLE;
+    int flag = CFlag.IDLE;
 
     //animate
     Animation mShowAnimation;
@@ -214,7 +218,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         return defaultValue;
     }
 
-    void observerEvent(Object who, BasePopupEvent.EventObserver observer) {
+    void observerEvent(Object who, IEventObserver observer) {
         eventObserverMap.put(who, observer);
     }
 
@@ -225,7 +229,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     void sendEvent(Message msg) {
         if (msg == null) return;
         if (msg.what < 0) return;
-        for (Map.Entry<Object, BasePopupEvent.EventObserver> entry : eventObserverMap.entrySet()) {
+        for (Map.Entry<Object, IEventObserver> entry : eventObserverMap.entrySet()) {
             if (entry.getValue() != null) {
                 entry.getValue().onEvent(msg);
             }
@@ -297,7 +301,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         preventInitShowAnimation = true;
         //通知蒙层动画，此时duration已经计算完毕
         Message msg = Message.obtain();
-        msg.what = BasePopupEvent.EVENT_SHOW;
+        msg.what = CEvent.EVENT_SHOW;
         sendEvent(msg);
         if (mShowAnimation != null) {
             mShowAnimation.cancel();
@@ -323,7 +327,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             if (mOnDismissListener != null) {
                 mOnDismissListener.onDismissAnimationStart();
             }
-            setFlag(CUSTOM_ON_ANIMATE_DISMISS, true);
+            setFlag(CFlag.CUSTOM_ON_ANIMATE_DISMISS, true);
         } else if (mDismissAnimator != null) {
             mDismissAnimator.setTarget(mPopupWindow.getDisplayAnimateView());
             mDismissAnimator.cancel();
@@ -331,7 +335,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             if (mOnDismissListener != null) {
                 mOnDismissListener.onDismissAnimationStart();
             }
-            setFlag(CUSTOM_ON_ANIMATE_DISMISS, true);
+            setFlag(CFlag.CUSTOM_ON_ANIMATE_DISMISS, true);
         }
     }
 
@@ -466,19 +470,19 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     boolean isPopupFadeEnable() {
-        return (flag & FADE_ENABLE) != 0;
+        return (flag & CFlag.FADE_ENABLE) != 0;
     }
 
     boolean isWithAnchor() {
-        return (flag & WITH_ANCHOR) != 0;
+        return (flag & CFlag.WITH_ANCHOR) != 0;
     }
 
     boolean isFitsizable() {
-        return (flag & FITSIZE) != 0;
+        return (flag & CFlag.FITSIZE) != 0;
     }
 
     BasePopupHelper withAnchor(boolean showAsDropDown) {
-        setFlag(WITH_ANCHOR, showAsDropDown);
+        setFlag(CFlag.WITH_ANCHOR, showAsDropDown);
         if (showAsDropDown && (popupGravity == Gravity.NO_GRAVITY || popupGravity == -1)) {
             popupGravity = Gravity.BOTTOM;
         }
@@ -523,19 +527,19 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
 
 
     boolean isAutoShowInputMethod() {
-        return (flag & AUTO_INPUT_METHOD) != 0;
+        return (flag & CFlag.AUTO_INPUT_METHOD) != 0;
     }
 
     boolean isAutoMirror() {
-        return (flag & AUTO_MIRROR) != 0;
+        return (flag & CFlag.AUTO_MIRROR) != 0;
     }
 
     boolean isOutSideDismiss() {
-        return (flag & OUT_SIDE_DISMISS) != 0;
+        return (flag & CFlag.OUT_SIDE_DISMISS) != 0;
     }
 
     boolean isOutSideTouchable() {
-        return (flag & OUT_SIDE_TOUCHABLE) != 0;
+        return (flag & CFlag.OUT_SIDE_TOUCHABLE) != 0;
     }
 
     BasePopupHelper getAnchorLocation(View v) {
@@ -559,15 +563,15 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     boolean isBackPressEnable() {
-        return (flag & BACKPRESS_ENABLE) != 0;
+        return (flag & CFlag.BACKPRESS_ENABLE) != 0;
     }
 
     boolean isOverlayStatusbar() {
-        return (flag & OVERLAY_STATUS_BAR) != 0;
+        return (flag & CFlag.OVERLAY_STATUS_BAR) != 0;
     }
 
     boolean isOverlayNavigationBar() {
-        return (flag & OVERLAY_NAVIGATION_BAR) != 0;
+        return (flag & CFlag.OVERLAY_NAVIGATION_BAR) != 0;
     }
 
     void refreshNavigationBarBounds() {
@@ -627,7 +631,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             Log.e(TAG, "setOverlayStatusbar: 全屏Activity下没有StatusBar，此处不能设置为false");
             overlay = true;
         }
-        setFlag(OVERLAY_STATUS_BAR, overlay);
+        setFlag(CFlag.OVERLAY_STATUS_BAR, overlay);
         if (!overlay) {
             lastOverLayStatusBarMode = overlayStatusBarMode;
             overlayStatusBarMode = 0;
@@ -647,7 +651,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     BasePopupHelper overlayNavigationBar(boolean overlay) {
-        setFlag(OVERLAY_NAVIGATION_BAR, overlay);
+        setFlag(CFlag.OVERLAY_NAVIGATION_BAR, overlay);
         if (!overlay) {
             lastOverlayNavigationBarMode = overlayNavigationBarMode;
             overlayNavigationBarMode = 0;
@@ -682,11 +686,11 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     boolean isAlignBackground() {
-        return (flag & ALIGN_BACKGROUND) != 0;
+        return (flag & CFlag.ALIGN_BACKGROUND) != 0;
     }
 
     BasePopupHelper setAlignBackgound(boolean mAlignBackground) {
-        setFlag(ALIGN_BACKGROUND, mAlignBackground);
+        setFlag(CFlag.ALIGN_BACKGROUND, mAlignBackground);
         if (!mAlignBackground) {
             setAlignBackgroundGravity(Gravity.NO_GRAVITY);
         }
@@ -706,7 +710,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     BasePopupHelper setForceAdjustKeyboard(boolean adjust) {
-        setFlag(KEYBOARD_FORCE_ADJUST, adjust);
+        setFlag(CFlag.KEYBOARD_FORCE_ADJUST, adjust);
         return this;
     }
 
@@ -716,7 +720,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
 
 
     boolean isClipChildren() {
-        return (flag & CLIP_CHILDREN) != 0;
+        return (flag & CFlag.CLIP_CHILDREN) != 0;
     }
 
     /**
@@ -811,7 +815,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     }
 
     boolean isSyncMaskAnimationDuration() {
-        return (flag & BasePopupFlag.SYNC_MASK_ANIMATION_DURATION) != 0;
+        return (flag & CFlag.SYNC_MASK_ANIMATION_DURATION) != 0;
     }
 
     boolean isAlignAnchorWidth() {
@@ -820,7 +824,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             if (mShowInfo != null && mShowInfo.positionMode) {
                 return false;
             }
-            return (flag & BasePopupFlag.AS_WIDTH_AS_ANCHOR) != 0;
+            return (flag & CFlag.AS_WIDTH_AS_ANCHOR) != 0;
         }
         return false;
     }
@@ -831,7 +835,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             if (mShowInfo != null && mShowInfo.positionMode) {
                 return false;
             }
-            return (flag & BasePopupFlag.AS_HEIGHT_AS_ANCHOR) != 0;
+            return (flag & CFlag.AS_HEIGHT_AS_ANCHOR) != 0;
         }
         return false;
     }
@@ -857,8 +861,8 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         if (mPopupWindow == null || mPopupWindow.mPopupWindowProxy == null) return;
         mPopupWindow.mPopupWindowProxy.setSoftInputMode(mSoftInputMode);
         mPopupWindow.mPopupWindowProxy.setAnimationStyle(animationStyleRes);
-        mPopupWindow.mPopupWindowProxy.setTouchable((flag & TOUCHABLE) != 0);
-        mPopupWindow.mPopupWindowProxy.setFocusable((flag & TOUCHABLE) != 0);
+        mPopupWindow.mPopupWindowProxy.setTouchable((flag & CFlag.TOUCHABLE) != 0);
+        mPopupWindow.mPopupWindowProxy.setFocusable((flag & CFlag.TOUCHABLE) != 0);
     }
 
     void onDismiss() {
@@ -876,8 +880,8 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             this.flag &= ~flag;
         } else {
             this.flag |= flag;
-            if (flag == AUTO_MIRROR) {
-                this.flag |= WITH_ANCHOR;
+            if (flag == CFlag.AUTO_MIRROR) {
+                this.flag |= CFlag.WITH_ANCHOR;
             }
         }
     }
@@ -903,7 +907,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
 
     void onShow() {
         prepareShow();
-        if ((flag & CUSTOM_ON_UPDATE) != 0) return;
+        if ((flag & CFlag.CUSTOM_ON_UPDATE) != 0) return;
         if (mShowAnimation == null || mShowAnimator == null) {
             mPopupWindow.mDisplayAnimateView.getViewTreeObserver()
                     .addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -976,12 +980,12 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
         if (mPopupWindow == null || !mPopupWindow.onBeforeDismissInternal(mOnDismissListener)) {
             return;
         }
-        if (mPopupWindow.mDisplayAnimateView == null || animateDismiss && (flag & CUSTOM_ON_ANIMATE_DISMISS) != 0) {
+        if (mPopupWindow.mDisplayAnimateView == null || animateDismiss && (flag & CFlag.CUSTOM_ON_ANIMATE_DISMISS) != 0) {
             return;
         }
         showFlag &= ~STATUS_START_SHOWING;
         showFlag |= STATUS_START_DISMISS;
-        Message msg = BasePopupEvent.getMessage(BasePopupEvent.EVENT_DISMISS);
+        Message msg = CEvent.getMessage(CEvent.EVENT_DISMISS);
         if (animateDismiss) {
             startDismissAnimate(mPopupWindow.mDisplayAnimateView.getWidth(),
                     mPopupWindow.mDisplayAnimateView.getHeight());
@@ -1000,7 +1004,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
     private Runnable dismissAnimationDelayRunnable = new Runnable() {
         @Override
         public void run() {
-            flag &= ~CUSTOM_ON_ANIMATE_DISMISS;
+            flag &= ~CFlag.CUSTOM_ON_ANIMATE_DISMISS;
             if (mPopupWindow != null) {
                 //popup可能已经释放引用了
                 mPopupWindow.superDismiss();
@@ -1179,7 +1183,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, Bas
             act = UtilKActivity.getActivityByContext(((Dialog) parent).getContext(), true);
         }
         if (act == null && returnTopIfNull) {
-            act = BasePopupSDK.getInstance().getTopActivity();
+            act = StackK.INSTANCE.getStackTopActivity(true);
         }
         return act;
     }

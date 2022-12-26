@@ -31,7 +31,11 @@ object PermissionK {
      * @param onFail Function0<Unit>
      */
     @JvmStatic
-    fun initPermissions(activity: AppCompatActivity, onSuccess: () -> Unit, onFail: (() -> Unit)? = { UtilKPermission.openSettingSelf(activity) }) {
+    fun initPermissions(
+        activity: AppCompatActivity,
+        onSuccess: () -> Unit,
+        onFail: (() -> Unit)? = { UtilKPermission.openSettingSelf(activity) }
+    ) {
         initPermissions(activity, isGranted = { if (it) onSuccess.invoke() else onFail?.invoke() })
     }
 
@@ -139,7 +143,7 @@ object PermissionK {
      */
     private fun printDeniedList(deniedList: List<String>) {
         Log.w(TAG, "printDeniedList $deniedList")
-        if (deniedList.isNotEmpty()){
+        if (deniedList.isNotEmpty()) {
             "请在设置中打开${deniedList.joinToString()}权限".showToast()
         }
     }

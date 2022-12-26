@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener
 
 /**
  * @ClassName QuickPopupBuilder
@@ -15,7 +15,7 @@ import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject
  * @Date 2022/11/28 22:45
  * @Version 1.0
  */
-class QuickPopupBuilder(obj: Any) : ClearMemoryObject {
+class QuickPopupBuilder(obj: Any) : IClearMemoryObjectListener {
 
     private var _config: QuickPopupConfig = QuickPopupConfig.generateDefault()
     private var _popupHost: Any = obj

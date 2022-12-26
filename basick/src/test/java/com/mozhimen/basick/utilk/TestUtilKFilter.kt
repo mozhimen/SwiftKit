@@ -19,6 +19,10 @@ class TestUtilKFilter {
         "1.1.1.1".isIPValid().printlog()
         "8080".isPortValid().printlog()
         "80".isPortValid().printlog()
+
+        "0123456789".isNumberic().printlog()
+        "12322r".isNumberic().printlog()
+        "ree".isNumberic().printlog()
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.filter
+package com.mozhimen.basick.utilk.regular
 
 import android.util.Log
 import androidx.annotation.MainThread

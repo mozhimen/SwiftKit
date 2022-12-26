@@ -7,6 +7,6 @@ package com.mozhimen.uicorek.popwink.bases.commons
  * @Date 2022/11/28 22:46
  * @Version 1.0
  */
-interface ClearMemoryObject {
+interface IClearMemoryObjectListener {
     fun clear(destroy: Boolean)
 }

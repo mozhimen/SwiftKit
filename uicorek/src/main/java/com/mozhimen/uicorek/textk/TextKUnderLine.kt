@@ -43,9 +43,10 @@ class TextKUnderLine @JvmOverloads constructor(
             0
         )
 
-        //获取自定义属性,默认是false
-        _underLine = typedArray.getBoolean(R.styleable.TextKUnderLine_textKUnderLine_underline, false)
-        typedArray.recycle()//回收TypedArray，以供以后的调用者重用
+        _underLine =
+            typedArray.getBoolean(R.styleable.TextKUnderLine_textKUnderLine_underline, false)        //获取自定义属性,默认是false
+
+        typedArray.recycle()
     }
 
     override fun initPaint() {

@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.utilk
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.showToast
-import com.mozhimen.basick.utilk.filter.UtilKVerifyUrl
+import com.mozhimen.basick.utilk.regular.UtilKVerifyUrl
 import com.mozhimen.basicktest.databinding.ActivityUtilkVerifyUrlBinding
 
 class UtilKVerifyUrlActivity : BaseActivityVB<ActivityUtilkVerifyUrlBinding>() {

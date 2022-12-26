@@ -14,11 +14,11 @@ import com.mozhimen.basick.utilk.UtilKClazz
 import com.mozhimen.basick.utilk.UtilKKeyBoard.IUtilKKeyboardListener
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption
 import com.mozhimen.basick.utilk.log.UtilKSmartLog
-import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.KeyEventListener
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.OnBlurOptionInitListener
-import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener
+import com.mozhimen.uicorek.popwink.bases.cons.CFlag
 import java.lang.reflect.Method
 
 /**
@@ -28,7 +28,7 @@ import java.lang.reflect.Method
  * @Date 2022/11/28 22:23
  * @Version 1.0
  */
-class QuickPopupConfig : BasePopupFlag, ClearMemoryObject {
+class QuickPopupConfig : IClearMemoryObjectListener {
 
     companion object {
 
@@ -47,14 +47,14 @@ class QuickPopupConfig : BasePopupFlag, ClearMemoryObject {
 
     @Volatile
     private var _destroyed = false
-    private var _flag = BasePopupFlag.IDLE
+    private var _flag = CFlag.IDLE
     private var _contentViewLayoutId = 0
     private var _onBlurOptionInitListener: OnBlurOptionInitListener? = null
     private var _bitmapBlurOption: UtilKBitmapBlurOption? = null
 
     init {
         if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-            _flag = _flag and BasePopupFlag.FADE_ENABLE.inv()
+            _flag = _flag and CFlag.FADE_ENABLE.inv()
         }
     }
 
@@ -120,7 +120,7 @@ class QuickPopupConfig : BasePopupFlag, ClearMemoryObject {
     }
 
     fun setBlurBackground(blurBackground: Boolean, mInitListener: OnBlurOptionInitListener?): QuickPopupConfig {
-        setFlag(BasePopupFlag.BLUR_BACKGROUND, blurBackground)
+        setFlag(CFlag.BLUR_BACKGROUND, blurBackground)
         _onBlurOptionInitListener = mInitListener
         return this
     }
@@ -143,7 +143,7 @@ class QuickPopupConfig : BasePopupFlag, ClearMemoryObject {
     }
 
     fun setFadeInAndOut(fadeEnable: Boolean): QuickPopupConfig {
-        setFlag(BasePopupFlag.FADE_ENABLE, fadeEnable)
+        setFlag(CFlag.FADE_ENABLE, fadeEnable)
         return this
     }
 

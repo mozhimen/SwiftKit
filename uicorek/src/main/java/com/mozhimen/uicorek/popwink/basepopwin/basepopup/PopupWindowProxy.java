@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
-import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener;
 
 import com.mozhimen.basick.utilk.UtilKActivity;
 import com.mozhimen.basick.utilk.UtilKRes;
@@ -22,7 +22,7 @@ import com.mozhimen.uicorek.R;
  * 与basePopupWindow强引用(或者说与PopupController强引用)
  */
 
-class PopupWindowProxy extends PopupWindow implements ClearMemoryObject {
+class PopupWindowProxy extends PopupWindow implements IClearMemoryObjectListener {
     private static final String TAG = "PopupWindowProxy";
     BasePopupContextWrapper mBasePopupContextWrapper;
 
@@ -172,7 +172,7 @@ class PopupWindowProxy extends PopupWindow implements ClearMemoryObject {
      *
      * @xchengDroid https://github.com/xchengDroid  提供的方案
      */
-    static class BasePopupContextWrapper extends ContextWrapper implements ClearMemoryObject {
+    static class BasePopupContextWrapper extends ContextWrapper implements IClearMemoryObjectListener {
         BasePopupHelper helper;
         WindowManagerProxy mWindowManagerProxy;
 

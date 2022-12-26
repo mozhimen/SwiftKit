@@ -28,9 +28,7 @@ object UtilKBitmapNet {
      * @return Bitmap
      */
     @JvmStatic
-    suspend fun url2Bitmap(
-        url: String
-    ): Bitmap? {
+    suspend fun url2BitmapCoroutine(url: String): Bitmap? {
         return (_context.imageLoader.execute(ImageRequest.Builder(_context).data(url).build()).drawable as? BitmapDrawable)?.bitmap
     }
 
@@ -40,17 +38,17 @@ object UtilKBitmapNet {
      * @return Bitmap?
      */
     @JvmStatic
-    fun url2Bitmap2(url: String): Bitmap? {
+    fun url2Bitmap(url: String): Bitmap? {
         val tempURL = URL(url)
         var inputStream: InputStream? = null
-        try {
+        return try {
             inputStream = tempURL.openStream()
-            return BitmapFactory.decodeStream(inputStream)
+            BitmapFactory.decodeStream(inputStream)
         } catch (e: Exception) {
             e.printStackTrace()
+            null
         } finally {
             inputStream?.close()
         }
-        return null
     }
 }

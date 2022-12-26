@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.filter.UtilKFilter
+import com.mozhimen.basick.utilk.regular.UtilKFilter
 
 
 /**

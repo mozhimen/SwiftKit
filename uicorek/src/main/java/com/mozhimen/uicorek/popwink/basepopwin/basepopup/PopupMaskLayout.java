@@ -9,20 +9,23 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import com.mozhimen.uicorek.popwink.bases.commons.ClearMemoryObject;
+
+import com.mozhimen.uicorek.imagek.ImageKBlur;
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener;
 
 import com.mozhimen.basick.utilk.UtilKDrawable;
 import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
-import com.mozhimen.uicorek.popwink.basepopwin.blur.BlurImageView;
+import com.mozhimen.uicorek.popwink.bases.commons.IEventObserver;
+import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
 
 /**
  * Created by 大灯泡 on 2018/5/9.
  * <p>
  * 蒙层
  */
-class PopupMaskLayout extends FrameLayout implements BasePopupEvent.EventObserver, ClearMemoryObject {
+class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemoryObjectListener {
 
-    BlurImageView mBlurImageView;
+    ImageKBlur mBlurImageView;
     private BackgroundViewHolder mBackgroundViewHolder;
     private BasePopupHelper mPopupHelper;
     private int[] location = null;
@@ -62,7 +65,7 @@ class PopupMaskLayout extends FrameLayout implements BasePopupEvent.EventObserve
         }
         mHelper.observerEvent(this, this);
         if (mHelper.isAllowToBlur()) {
-            mBlurImageView = new BlurImageView(context);
+            mBlurImageView = new ImageKBlur(context);
             addViewInLayout(mBlurImageView, -1, generateDefaultLayoutParams());
         }
         if (mHelper.getBackgroundView() != null) {
@@ -176,10 +179,10 @@ class PopupMaskLayout extends FrameLayout implements BasePopupEvent.EventObserve
     @Override
     public void onEvent(Message msg) {
         switch (msg.what) {
-            case BasePopupEvent.EVENT_SHOW:
+            case CEvent.EVENT_SHOW:
                 handleShow();
                 break;
-            case BasePopupEvent.EVENT_DISMISS:
+            case CEvent.EVENT_DISMISS:
                 handleDismiss(msg.arg1 == 1 ? -2 : 0);
                 break;
         }
@@ -223,7 +226,7 @@ class PopupMaskLayout extends FrameLayout implements BasePopupEvent.EventObserve
         }
     }
 
-    final class BackgroundViewHolder implements ClearMemoryObject {
+    final class BackgroundViewHolder implements IClearMemoryObjectListener {
 
         View mBackgroundView;
         BasePopupHelper mHelper;

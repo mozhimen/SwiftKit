@@ -15,71 +15,71 @@ internal object AttrsParser {
         context.theme.resolveAttribute(R.attr.LayoutKSearch_LayoutKSearch_Style, value, true)
         val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKSearch_Style
 
-        val array = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSearch, defStyleAttr, defStyleRes)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSearch, defStyleAttr, defStyleRes)
 
         //search icon
-        val searchIcon = array.getString(
+        val searchIcon = typedArray.getString(
             R.styleable.LayoutKSearch_layoutKSearch_search_icon
         )
-        val searchIconSize = array.getDimensionPixelSize(
+        val searchIconSize = typedArray.getDimensionPixelSize(
             R.styleable.LayoutKSearch_layoutKSearch_search_iconSize, 15f.sp2px()
         )
-        val searchIconPadding = array.getDimensionPixelOffset(
+        val searchIconPadding = typedArray.getDimensionPixelOffset(
             R.styleable.LayoutKSearch_layoutKSearch_search_iconPadding, 4f.sp2px()
         )
-        val searchBackground = array.getDrawable(
+        val searchBackground = typedArray.getDrawable(
             R.styleable.LayoutKSearch_layoutKSearch_search_background
         ) ?: UtilKRes.getDrawable(R.drawable.layoutk_search_background)
-        val searchTextSize = array.getDimensionPixelSize(
+        val searchTextSize = typedArray.getDimensionPixelSize(
             R.styleable.LayoutKSearch_layoutKSearch_search_textSize, 15f.sp2px()
         )
-        val searchTextColor = array.getColor(
+        val searchTextColor = typedArray.getColor(
             R.styleable.LayoutKSearch_layoutKSearch_search_textColor, UtilKRes.getColor(android.R.color.black)
         )
 
         //clear icon
-        val clearIcon = array.getString(
+        val clearIcon = typedArray.getString(
             R.styleable.LayoutKSearch_layoutKSearch_clear_icon
         )
-        val clearIconSize = array.getDimensionPixelSize(
+        val clearIconSize = typedArray.getDimensionPixelSize(
             R.styleable.LayoutKSearch_layoutKSearch_clear_iconSize, 15f.sp2px()
         )
 
         //hint
-        val hintText = array.getString(
+        val hintText = typedArray.getString(
             R.styleable.LayoutKSearch_layoutKSearch_hint_text
         )
-        val hintTextSize = array.getDimensionPixelSize(
+        val hintTextSize = typedArray.getDimensionPixelSize(
             R.styleable.LayoutKSearch_layoutKSearch_hint_textSize, 15f.sp2px()
         )
-        val hintTextColor = array.getColor(
+        val hintTextColor = typedArray.getColor(
             R.styleable.LayoutKSearch_layoutKSearch_hint_textColor, UtilKRes.getColor(android.R.color.black)
         )
-        val hintGravity = array.getInteger(
+        val hintGravity = typedArray.getInteger(
             R.styleable.LayoutKSearch_layoutKSearch_hint_gravity, 1
         )
 
         //keyword
-        val keywordIcon = array.getString(
+        val keywordIcon = typedArray.getString(
             R.styleable.LayoutKSearch_layoutKSearch_keyword_icon
         )
-        val keywordIconSize = array.getDimensionPixelSize(
+        val keywordIconSize = typedArray.getDimensionPixelSize(
             R.styleable.LayoutKSearch_layoutKSearch_keyword_iconSize, 13f.sp2px()
         )
-        val keywordIconColor = array.getColor(
+        val keywordIconColor = typedArray.getColor(
             R.styleable.LayoutKSearch_layoutKSearch_keyword_iconColor, Color.WHITE
         )
-        val keywordBackground = array.getDrawable(
+        val keywordBackground = typedArray.getDrawable(
             R.styleable.LayoutKSearch_layoutKSearch_keyword_background
         )
-        val keywordMaxLength = array.getInteger(
+        val keywordMaxLength = typedArray.getInteger(
             R.styleable.LayoutKSearch_layoutKSearch_keyword_maxLength, 10
         )
-        val keywordPadding = array.getDimensionPixelOffset(
+        val keywordPadding = typedArray.getDimensionPixelOffset(
             R.styleable.LayoutKSearch_layoutKSearch_keyword_padding, 12f.sp2px()
         )
 
-        array.recycle()
+        typedArray.recycle()
 
         return MSearchAttrs(
             searchIcon,

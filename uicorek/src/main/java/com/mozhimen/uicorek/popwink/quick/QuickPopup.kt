@@ -4,8 +4,8 @@ import android.app.Dialog
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupFlag
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
+import com.mozhimen.uicorek.popwink.bases.cons.CFlag
 import com.mozhimen.uicorek.popwink.quick.commons.QuickPopupOnClickCallback
 import java.lang.reflect.InvocationTargetException
 
@@ -50,9 +50,9 @@ class QuickPopup : BasePopupWindow {
         if (config.getPopupBlurOption() != null) {
             setBlurOption(config.getPopupBlurOption())
         } else {
-            setBlurBackgroundEnable(config.getFlag() and BasePopupFlag.BLUR_BACKGROUND != 0, config.getOnBlurOptionInitListener())
+            setBlurBackgroundEnable(config.getFlag() and CFlag.BLUR_BACKGROUND != 0, config.getOnBlurOptionInitListener())
         }
-        isPopupFadeEnable = config.getFlag() and BasePopupFlag.FADE_ENABLE != 0
+        isPopupFadeEnable = config.getFlag() and CFlag.FADE_ENABLE != 0
         for ((methodName, value) in config.getInvokeParams()) {
             val method = config.getMethod(methodName)
             if (method != null) {

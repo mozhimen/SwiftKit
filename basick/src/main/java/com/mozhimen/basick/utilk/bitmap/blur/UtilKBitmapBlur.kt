@@ -27,22 +27,21 @@ object UtilKBitmapBlur {
 
     /**
      * 模糊图片,API>=17
-     * @param bitmap Bitmap
+     * @param sourceBitmap Bitmap
      * @param bitmapScale Float 图片缩放比例
      * @param blurRadius Float 最大模糊度(0.0-25.0之间)
      * @return Bitmap
      */
     @JvmStatic
-    fun blurBitmap(bitmap: Bitmap, bitmapScale: Float = 0.4f, blurRadius: Float = 25f): Bitmap {
+    fun blurBitmap(sourceBitmap: Bitmap, bitmapScale: Float = 0.4f, blurRadius: Float = 25f): Bitmap {
         //将缩小后的图片作为预渲染的图片
-        val inputBitmap = Bitmap.createScaledBitmap(bitmap, (bitmap.width * bitmapScale).roundToInt(), (bitmap.height * bitmapScale).roundToInt(), false)
+        val inputBitmap = Bitmap.createScaledBitmap(sourceBitmap, (sourceBitmap.width * bitmapScale).roundToInt(), (sourceBitmap.height * bitmapScale).roundToInt(), false)
         //创建一张渲染后的输出图片
         val outputBitmap = Bitmap.createBitmap(inputBitmap)
         //创建RenderScript内核对象
         val renderScript = RenderScript.create(_context)
         //创建一个模糊效果的RenderScript的工具对象
-        val scriptIntrinsicBlur =
-            ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
+        val scriptIntrinsicBlur = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
         //由于RenderScript并没有使用VM来分配内存,所以需要使用Allocation类来创建和分配内存空间
         //创建Allocation对象的时候其实内存时空的,需要使用copyTo()将数据填充进去
         val allocationIn = Allocation.createFromBitmap(renderScript, inputBitmap)
@@ -60,7 +59,7 @@ object UtilKBitmapBlur {
     }
 
     @JvmStatic
-    fun blurBitmap(sentBitmap: Bitmap, radius: Int, canReuseInBitmap: Boolean): Bitmap? {
+    fun blurBitmap(sourceBitmap: Bitmap, radius: Int, canReuseInBitmap: Boolean): Bitmap? {
 
         // Stack Blur v1.0 from
         // http://www.quasimondo.com/StackBlurForCanvas/StackBlurDemo.html
@@ -90,9 +89,9 @@ object UtilKBitmapBlur {
         //
         // Stack Blur Algorithm by Mario Klingemann <mario@quasimondo.com>
         val bitmap: Bitmap = if (canReuseInBitmap) {
-            sentBitmap
+            sourceBitmap
         } else {
-            sentBitmap.copy(sentBitmap.config, true)
+            sourceBitmap.copy(sourceBitmap.config, true)
         }
         if (radius < 1) {
             return null

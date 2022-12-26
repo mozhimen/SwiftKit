@@ -6,6 +6,8 @@ import android.app.Application
 import android.os.Build
 import android.os.Bundle
 import com.mozhimen.basick.stackk.commons.IStackKListener
+import com.mozhimen.basick.stackk.cons.CStackKEvent
+import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.lang.ref.WeakReference
 
@@ -72,7 +74,7 @@ class StackKMgr private constructor() {
             if (onlyAlive) {
                 if (activity == null || activity.isFinishing || (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && activity.isDestroyed)) {
                     _activityRefs.remove(activityRef)
-                    return StackK.getStackTopActivity(onlyAlive)
+                    return getStackTopActivity(onlyAlive)
                 }
             }
             return activity
@@ -114,6 +116,7 @@ class StackKMgr private constructor() {
     private inner class InnerActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
             _activityRefs.add(WeakReference(activity))
+            recordFirstActivity()
         }
 
         override fun onActivityStarted(activity: Activity) {
@@ -159,6 +162,12 @@ class StackKMgr private constructor() {
             for (listener in _frontBackListeners) {
                 listener.onChanged(isFront)
             }
+        }
+    }
+
+    private fun recordFirstActivity() {
+        if (_activityRefs.size == 1) {
+            UtilKDataBus.with<Boolean>(CStackKEvent.first_activity).setValue(true)
         }
     }
 }
