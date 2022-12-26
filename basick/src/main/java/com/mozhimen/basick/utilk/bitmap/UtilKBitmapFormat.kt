@@ -15,7 +15,7 @@ import kotlin.math.ceil
 
 
 /**
- * @ClassName UtilKBitmap
+ * @ClassName UtilKBitmapFormat
  * @Description
  * <uses-permission android:name="android.permission.INTERNET" />
  * @Author mozhimen / Kolin Zhao
@@ -23,7 +23,7 @@ import kotlin.math.ceil
  * @Version 1.0
  */
 object UtilKBitmapFormat {
-    private val TAG = "UtilKBitmap>>>>>"
+    private val TAG = "UtilKBitmapFormat>>>>>"
     private val _context = UtilKApplication.instance.get()
 
 

@@ -36,7 +36,7 @@ typora-root-url: imgs
 ||ComponentK(基本组件群)|`动画`, `摄像头`, `RESTful`, `权限管理`, `状态栏`|
 |Middle Components|UiCoreK(界面组件群)|`适配器`, `Banner轮播图`, `绑定器`, `自定义按钮`, `数据加载`, `弹框`, `Item`, `自定义布局`, `上拉刷新,下拉加载`, `导航栏`, `ViewPager`, `PopupWindow`, `刷新组件`,`搜索组件`, `侧边栏`, `Tab栏`, `自定义Text`, `自定义View`|
 ||UnderlayK(中间件组件群)|`Crash管理`,`Fps管理`,`日志管理`
-|Bottom Components|BasicK(底层支持)|`接口依赖`, `以来注入`, `缓存管理`, `事件管理`,`粘性事件`, `多线程管理`, `扩展方法集合`, `四大组件预制类集合`, `堆栈管理`, `TaskK依赖管理`, `工具集合`|
+|Bottom Components|BasicK(底层支持)|`接口依赖`, `缓存管理`, `事件管理`,`粘性事件`, `多线程管理`, `扩展方法集合`, `四大组件预制类集合`, `堆栈管理`, `TaskK依赖管理`, `工具集合`|
 ***
 
 # 4.模块组成

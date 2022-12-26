@@ -17,6 +17,8 @@ import android.view.animation.AccelerateInterpolator;
 import androidx.appcompat.widget.AppCompatImageView;
 
 import com.mozhimen.basick.taskk.executor.TaskKExecutor;
+import com.mozhimen.basick.utilk.bitmap.blur.RenderScriptHelper;
+import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlur;
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
 
@@ -96,10 +98,10 @@ public class BlurImageView extends AppCompatImageView {
         } else {
             try {
                 UtilKSmartLog.i(TAG, "主线程blur");
-                if (!BlurHelper.renderScriptSupported()) {
+                if (!RenderScriptHelper.isRenderScriptSupported()) {
                     UtilKSmartLog.e(TAG, "不支持脚本模糊。。。最低支持api 17(Android 4.2.2)，将采用fastblur");
                 }
-                setImageBitmapOnUiThread(BlurHelper.blur(getContext(),
+                setImageBitmapOnUiThread(RenderScriptHelper.blur(
                         anchorView,
                         option.getBlurPreScaleRatio(),
                         option.getBlurRadius(),
@@ -323,7 +325,7 @@ public class BlurImageView extends AppCompatImageView {
         CreateBlurBitmapRunnable(View target) {
             outWidth = target.getWidth();
             outHeight = target.getHeight();
-            mBitmap = BlurHelper.getViewBitmap(target, mBlurOption.getBlurPreScaleRatio(), mBlurOption
+            mBitmap = RenderScriptHelper.getViewBitmap(target, mBlurOption.getBlurPreScaleRatio(), mBlurOption
                     .isFullScreen(), cutoutX, cutoutY);
         }
 
@@ -334,7 +336,7 @@ public class BlurImageView extends AppCompatImageView {
                 return;
             }
             UtilKSmartLog.i(TAG, "子线程模糊执行");
-            setImageBitmapOnUiThread(BlurHelper.blur(getContext(),
+            setImageBitmapOnUiThread(RenderScriptHelper.blur(
                     mBitmap,
                     outWidth,
                     outHeight,
