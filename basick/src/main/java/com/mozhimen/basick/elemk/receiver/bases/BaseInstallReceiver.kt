@@ -27,7 +27,7 @@ import com.mozhimen.basick.utilk.UtilKApp
  * @Version 1.0
  */
 open class BaseInstallReceiver(private val _listener: IReceiverInstallListener? = null) : BroadcastReceiver() {
-    private val TAG = "BaseInstallReceiver>>>>>"
+    private val TAG = "${this::class.java.simpleName}>>>>>"
 
     @SuppressLint("LongLogTag")
     override fun onReceive(context: Context, intent: Intent) {

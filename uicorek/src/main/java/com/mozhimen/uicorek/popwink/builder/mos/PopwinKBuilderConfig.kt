@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.popwink.quick
+package com.mozhimen.uicorek.popwink.builder.mos
 
 import android.animation.Animator
 import android.graphics.drawable.ColorDrawable
@@ -17,8 +17,9 @@ import com.mozhimen.basick.utilk.log.UtilKSmartLog
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.KeyEventListener
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.OnBlurOptionInitListener
-import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag
+import com.mozhimen.uicorek.popwink.builder.PopwinKBuilderProxy
 import java.lang.reflect.Method
 
 /**
@@ -28,13 +29,13 @@ import java.lang.reflect.Method
  * @Date 2022/11/28 22:23
  * @Version 1.0
  */
-class QuickPopupConfig : IClearMemoryObjectListener {
+class PopwinKBuilderConfig : IClearMemoryListener {
 
     companion object {
 
         @JvmStatic
-        fun generateDefault(): QuickPopupConfig {
-            return QuickPopupConfig()
+        fun generateDefault(): PopwinKBuilderConfig {
+            return PopwinKBuilderConfig()
                 .setShowAnimation(asAnimation().add(CENTER_SHOW).build())
                 .setDismissAnimation(asAnimation().add(CENTER_HIDE).build())
                 .setFadeInAndOut(Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
@@ -90,51 +91,51 @@ class QuickPopupConfig : IClearMemoryObjectListener {
         return _bitmapBlurOption
     }
 
-    fun setShowAnimation(showAnimation: Animation): QuickPopupConfig {
+    fun setShowAnimation(showAnimation: Animation): PopwinKBuilderConfig {
         set("setShowAnimation", showAnimation)
         return this
     }
 
-    fun setDismissAnimation(dismissAnimation: Animation): QuickPopupConfig {
+    fun setDismissAnimation(dismissAnimation: Animation): PopwinKBuilderConfig {
         set("setDismissAnimation", dismissAnimation)
         return this
     }
 
-    fun setShowAnimator(showAnimator: Animator): QuickPopupConfig {
+    fun setShowAnimator(showAnimator: Animator): PopwinKBuilderConfig {
         set("setShowAnimator", showAnimator)
         return this
     }
 
-    fun setDismissAnimator(dismissAnimator: Animator): QuickPopupConfig {
+    fun setDismissAnimator(dismissAnimator: Animator): PopwinKBuilderConfig {
         set("setDismissAnimator", dismissAnimator)
         return this
     }
 
-    fun setOnDismissListener(dismissListener: BasePopupWindow.OnDismissListener): QuickPopupConfig {
+    fun setOnDismissListener(dismissListener: BasePopupWindow.OnDismissListener): PopwinKBuilderConfig {
         set("setOnDismissListener", dismissListener)
         return this
     }
 
-    fun setBlurBackground(blurBackground: Boolean): QuickPopupConfig {
+    fun setBlurBackground(blurBackground: Boolean): PopwinKBuilderConfig {
         return setBlurBackground(blurBackground, null)
     }
 
-    fun setBlurBackground(blurBackground: Boolean, mInitListener: OnBlurOptionInitListener?): QuickPopupConfig {
+    fun setBlurBackground(blurBackground: Boolean, mInitListener: OnBlurOptionInitListener?): PopwinKBuilderConfig {
         setFlag(CFlag.BLUR_BACKGROUND, blurBackground)
         _onBlurOptionInitListener = mInitListener
         return this
     }
 
-    fun setBlurOption(bitmapBlurOption: UtilKBitmapBlurOption): QuickPopupConfig {
+    fun setBlurOption(bitmapBlurOption: UtilKBitmapBlurOption): PopwinKBuilderConfig {
         _bitmapBlurOption = bitmapBlurOption
         return this
     }
 
-    fun setOnClickListener(viewId: Int, listener: View.OnClickListener): QuickPopupConfig {
+    fun setOnClickListener(viewId: Int, listener: View.OnClickListener): PopwinKBuilderConfig {
         return setOnClickListener(viewId, listener, false)
     }
 
-    fun setOnClickListener(viewId: Int, listener: View.OnClickListener, dismissWhenClick: Boolean): QuickPopupConfig {
+    fun setOnClickListener(viewId: Int, listener: View.OnClickListener, dismissWhenClick: Boolean): PopwinKBuilderConfig {
         if (_listenersHolderMap == null) {
             _listenersHolderMap = HashMap()
         }
@@ -142,137 +143,137 @@ class QuickPopupConfig : IClearMemoryObjectListener {
         return this
     }
 
-    fun setFadeInAndOut(fadeEnable: Boolean): QuickPopupConfig {
+    fun setFadeInAndOut(fadeEnable: Boolean): PopwinKBuilderConfig {
         setFlag(CFlag.FADE_ENABLE, fadeEnable)
         return this
     }
 
-    fun setOffsetX(offsetX: Int): QuickPopupConfig {
+    fun setOffsetX(offsetX: Int): PopwinKBuilderConfig {
         set("setOffsetX", offsetX)
         return this
     }
 
-    fun setMaskOffsetX(offsetX: Int): QuickPopupConfig {
+    fun setMaskOffsetX(offsetX: Int): PopwinKBuilderConfig {
         set("setMaskOffsetX", offsetX)
         return this
     }
 
 
-    fun setOffsetY(offsetY: Int): QuickPopupConfig {
+    fun setOffsetY(offsetY: Int): PopwinKBuilderConfig {
         set("setOffsetY", offsetY)
         return this
     }
 
-    fun setMaskOffsetY(offsetY: Int): QuickPopupConfig {
+    fun setMaskOffsetY(offsetY: Int): PopwinKBuilderConfig {
         set("setMaskOffsetY", offsetY)
         return this
     }
 
-    fun setOverlayStatusbarMode(mode: Int): QuickPopupConfig {
+    fun setOverlayStatusbarMode(mode: Int): PopwinKBuilderConfig {
         set("setOverlayStatusbarMode", mode)
         return this
     }
 
-    fun setOverlayNavigationBarMode(mode: Int): QuickPopupConfig {
+    fun setOverlayNavigationBarMode(mode: Int): PopwinKBuilderConfig {
         set("setOverlayNavigationBarMode", mode)
         return this
     }
 
-    fun setOverlayStatusbar(overlay: Boolean): QuickPopupConfig {
+    fun setOverlayStatusbar(overlay: Boolean): PopwinKBuilderConfig {
         set("setOverlayStatusbar", overlay)
         return this
     }
 
-    fun setOverlayNavigationBar(overlay: Boolean): QuickPopupConfig {
+    fun setOverlayNavigationBar(overlay: Boolean): PopwinKBuilderConfig {
         set("setOverlayNavigationBar", overlay)
         return this
     }
 
-    fun setAlignBackground(alignBackground: Boolean): QuickPopupConfig {
+    fun setAlignBackground(alignBackground: Boolean): PopwinKBuilderConfig {
         set("setAlignBackground", alignBackground)
         return this
     }
 
-    fun setAlignBackgroundGravity(gravity: Int): QuickPopupConfig {
+    fun setAlignBackgroundGravity(gravity: Int): PopwinKBuilderConfig {
         set("setAlignBackgroundGravity", gravity)
         return this
     }
 
-    fun setAutoMirrorEnable(autoMirrorEnable: Boolean): QuickPopupConfig {
+    fun setAutoMirrorEnable(autoMirrorEnable: Boolean): PopwinKBuilderConfig {
         set("setAutoMirrorEnable", autoMirrorEnable)
         return this
     }
 
-    fun setBackground(background: Drawable): QuickPopupConfig {
+    fun setBackground(background: Drawable): PopwinKBuilderConfig {
         set("setBackground", background)
         return this
     }
 
-    fun setBackgroundColor(color: Int): QuickPopupConfig {
+    fun setBackgroundColor(color: Int): PopwinKBuilderConfig {
         return setBackground(ColorDrawable(color))
     }
 
-    fun setPopupGravity(gravity: Int): QuickPopupConfig {
+    fun setPopupGravity(gravity: Int): PopwinKBuilderConfig {
         set("setPopupGravity", gravity)
         return this
     }
 
-    fun setClipChildren(clipChildren: Boolean): QuickPopupConfig {
+    fun setClipChildren(clipChildren: Boolean): PopwinKBuilderConfig {
         set("setClipChildren", clipChildren)
         return this
     }
 
-    fun setOutSideTouchable(outSideTouchable: Boolean): QuickPopupConfig {
+    fun setOutSideTouchable(outSideTouchable: Boolean): PopwinKBuilderConfig {
         set("setOutSideTouchable", outSideTouchable)
         return this
     }
 
-    fun setLinkTo(linkedView: View): QuickPopupConfig {
+    fun setLinkTo(linkedView: View): PopwinKBuilderConfig {
         set("setLinkTo", linkedView)
         return this
     }
 
-    fun setContentViewLayoutId(contentViewLayoutId: Int): QuickPopupConfig {
+    fun setContentViewLayoutId(contentViewLayoutId: Int): PopwinKBuilderConfig {
         this._contentViewLayoutId = contentViewLayoutId
         return this
     }
 
-    fun setMinWidth(minWidth: Int): QuickPopupConfig {
+    fun setMinWidth(minWidth: Int): PopwinKBuilderConfig {
         set("setMinWidth", minWidth)
         return this
     }
 
-    fun setMaxWidth(maxWidth: Int): QuickPopupConfig {
+    fun setMaxWidth(maxWidth: Int): PopwinKBuilderConfig {
         set("setMaxWidth", maxWidth)
         return this
     }
 
-    fun setMinHeight(minHeight: Int): QuickPopupConfig {
+    fun setMinHeight(minHeight: Int): PopwinKBuilderConfig {
         set("setMinHeight", minHeight)
         return this
     }
 
-    fun setMaxHeight(maxHeight: Int): QuickPopupConfig {
+    fun setMaxHeight(maxHeight: Int): PopwinKBuilderConfig {
         set("setMaxHeight", maxHeight)
         return this
     }
 
-    fun setBackPressEnable(enable: Boolean): QuickPopupConfig {
+    fun setBackPressEnable(enable: Boolean): PopwinKBuilderConfig {
         set("setBackPressEnable", enable)
         return this
     }
 
-    fun setOutSideDismiss(outsideDismiss: Boolean): QuickPopupConfig {
+    fun setOutSideDismiss(outsideDismiss: Boolean): PopwinKBuilderConfig {
         set("setOutSideDismiss", outsideDismiss)
         return this
     }
 
-    fun setKeyEventListener(keyEventListener: KeyEventListener): QuickPopupConfig {
+    fun setKeyEventListener(keyEventListener: KeyEventListener): PopwinKBuilderConfig {
         set("setKeyEventListener", keyEventListener)
         return this
     }
 
-    fun setOnKeyboardChangeListener(listener: IUtilKKeyboardListener): QuickPopupConfig {
+    fun setOnKeyboardChangeListener(listener: IUtilKKeyboardListener): PopwinKBuilderConfig {
         set("setOnKeyboardChangeListener", listener)
         return this
     }
@@ -298,7 +299,7 @@ class QuickPopupConfig : IClearMemoryObjectListener {
 
     private fun findMethod(methodName: String, parameterTypes: Class<*>?): Method? {
         return try {
-            QuickPopup::class.java.getMethod(methodName, parameterTypes)
+            PopwinKBuilderProxy::class.java.getMethod(methodName, parameterTypes)
         } catch (e: Exception) {
             UtilKSmartLog.e("not found", methodName, parameterTypes!!.name)
             null

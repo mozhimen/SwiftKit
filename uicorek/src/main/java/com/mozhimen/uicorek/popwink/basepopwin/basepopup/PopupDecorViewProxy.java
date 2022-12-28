@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener;
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
@@ -32,7 +32,7 @@ import com.mozhimen.uicorek.popwink.bases.cons.CUI;
  * <p>
  * popupwindow的decorview代理，这里统筹位置、蒙层、事件等
  */
-final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtilKKeyboardListener, IEventObserver, IClearMemoryObjectListener {
+final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtilKKeyboardListener, IEventObserver, IClearMemoryListener {
     //蒙层
     private PopupMaskLayout mMaskLayout;
     private int childBottomMargin;

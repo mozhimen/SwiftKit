@@ -120,7 +120,7 @@ object UtilKVerifyUrl {
             "请输入正确的IP或域名".showToast()
             return false
         }
-        if (splitArray[2].getOrNull(2) != null && !splitArray[2].isPortValid()) {
+        if (splitArray.getOrNull(2) != null && !splitArray[2].isPortValid()) {
             Log.d(TAG, "isUrlValid: 7")
             "请输入正确的端口".showToast()
             return false

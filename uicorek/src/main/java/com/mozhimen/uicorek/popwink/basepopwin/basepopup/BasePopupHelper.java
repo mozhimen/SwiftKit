@@ -48,7 +48,7 @@ import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
-import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener;
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 import com.mozhimen.uicorek.popwink.bases.commons.IEventObserver;
 import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
@@ -64,7 +64,7 @@ import java.util.WeakHashMap;
  * PopupHelper，这货与Popup强引用哦~
  */
 @SuppressWarnings("all")
-final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, IClearMemoryObjectListener {
+public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, IClearMemoryListener {
 
     private static final String TAG = "BasePopupHelper>>>>>";
     BasePopupWindow mPopupWindow;
@@ -675,7 +675,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, ICl
     }
 
 
-    Drawable getPopupBackground() {
+    public Drawable getPopupBackground() {
         return mBackgroundDrawable;
     }
 
@@ -976,7 +976,7 @@ final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, ICl
     }
 
 
-    void dismiss(boolean animateDismiss) {
+    public void dismiss(boolean animateDismiss) {
         if (mPopupWindow == null || !mPopupWindow.onBeforeDismissInternal(mOnDismissListener)) {
             return;
         }

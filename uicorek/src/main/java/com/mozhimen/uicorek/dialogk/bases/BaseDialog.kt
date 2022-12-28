@@ -155,7 +155,7 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
 
     protected fun onPositiveClick() {
         if (_dialogClickListener != null) {
-            val dismiss: Boolean = _dialogClickListener!!.onClickPositive()
+            val dismiss: Boolean = _dialogClickListener!!.onClickPositive(_dialogView)
             if (dismiss && isShowing) dismiss()
         } else {
             if (isShowing) dismiss()
@@ -164,7 +164,7 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
 
     protected fun onNegativeClick() {
         if (_dialogClickListener != null) {
-            val dismiss: Boolean = _dialogClickListener!!.onClickNegative()
+            val dismiss: Boolean = _dialogClickListener!!.onClickNegative(_dialogView)
             if (dismiss && isShowing) dismiss()
         } else {
             if (isShowing) dismiss()

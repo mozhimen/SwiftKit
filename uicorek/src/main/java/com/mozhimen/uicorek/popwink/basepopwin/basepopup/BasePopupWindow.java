@@ -249,6 +249,7 @@ import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
 import com.mozhimen.basick.utilk.context.UtilKApplication;
 import com.mozhimen.basick.utilk.log.UtilKSmartLog;
 import com.mozhimen.uicorek.R;
+import com.mozhimen.uicorek.popwink.bases.BasePopwinKProxy;
 import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 
@@ -369,7 +370,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     boolean pendingPopupWindow;
 
     //元素定义
-    PopupWindowProxy mPopupWindowProxy;
+    BasePopwinKProxy mPopupWindowProxy;
     //popup视图
     View mContentView;
     View mDisplayAnimateView;
@@ -492,7 +493,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
 
         //默认占满全屏
         if (mPopupWindowProxy == null) {
-            mPopupWindowProxy = new PopupWindowProxy(new PopupWindowProxy.BasePopupContextWrapper(
+            mPopupWindowProxy = new BasePopwinKProxy(new BasePopwinKProxy.BasePopwinKContextWrapper(
                     getContext(),
                     mHelper));
         }
@@ -1953,7 +1954,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     public BasePopupWindow setTouchable(boolean touchable) {
         mHelper.setFlag(CFlag.TOUCHABLE, touchable);
         if (isShowing()) {
-            ((PopupWindowProxy) getPopupWindow()).updateFlag(touchable ? CFlag.MODE_REMOVE : CFlag.MODE_ADD,
+            ((BasePopwinKProxy) getPopupWindow()).updateFlag(touchable ? CFlag.MODE_REMOVE : CFlag.MODE_ADD,
                     true,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);

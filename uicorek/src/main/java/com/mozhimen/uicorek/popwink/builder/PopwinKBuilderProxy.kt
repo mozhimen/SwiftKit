@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.popwink.quick
+package com.mozhimen.uicorek.popwink.builder
 
 import android.app.Dialog
 import android.content.Context
@@ -6,7 +6,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag
-import com.mozhimen.uicorek.popwink.quick.commons.QuickPopupOnClickCallback
+import com.mozhimen.uicorek.popwink.builder.commons.PopwinKBuilderOnClickCallback
+import com.mozhimen.uicorek.popwink.builder.mos.PopwinKBuilderConfig
 import java.lang.reflect.InvocationTargetException
 
 /**
@@ -16,37 +17,37 @@ import java.lang.reflect.InvocationTargetException
  * @Date 2022/11/28 21:54
  * @Version 1.0
  */
-class QuickPopup : BasePopupWindow {
-    private var _config: QuickPopupConfig
-    private var _builder: QuickPopupBuilder
+class PopwinKBuilderProxy : BasePopupWindow {
+    private var _config: PopwinKBuilderConfig
+    private var _builder: PopwinKBuilder
 
-    constructor(fragment: Fragment, builder: QuickPopupBuilder) : super(fragment, builder.getWidth(), builder.getHeight()) {
+    constructor(fragment: Fragment, builder: PopwinKBuilder) : super(fragment, builder.getWidth(), builder.getHeight()) {
         _builder = builder
         _config = builder.getConfig()
         setContentView(_config.getContentViewLayoutId())
     }
 
-    constructor(dialog: Dialog, builder: QuickPopupBuilder) : super(dialog, builder.getWidth(), builder.getHeight()) {
+    constructor(dialog: Dialog, builder: PopwinKBuilder) : super(dialog, builder.getWidth(), builder.getHeight()) {
         _builder = builder
         _config = builder.getConfig()
         setContentView(_config.getContentViewLayoutId())
     }
 
-    constructor(context: Context, builder: QuickPopupBuilder) : super(context, builder.getWidth(), builder.getHeight()) {
+    constructor(context: Context, builder: PopwinKBuilder) : super(context, builder.getWidth(), builder.getHeight()) {
         _builder = builder
         _config = builder.getConfig()
         setContentView(_config.getContentViewLayoutId())
     }
 
-    fun getConfig(): QuickPopupConfig {
+    fun getConfig(): PopwinKBuilderConfig {
         return _config
     }
 
-    fun getBuilder(): QuickPopupBuilder {
+    fun getBuilder(): PopwinKBuilder {
         return _builder
     }
 
-    private fun applyConfigSetting(config: QuickPopupConfig) {
+    private fun applyConfigSetting(config: PopwinKBuilderConfig) {
         if (config.getPopupBlurOption() != null) {
             setBlurOption(config.getPopupBlurOption())
         } else {
@@ -87,8 +88,8 @@ class QuickPopup : BasePopupWindow {
                 if (event.second) {
                     view.setOnClickListener { v ->
                         if (event.first != null) {
-                            if (event.first is QuickPopupOnClickCallback) {
-                                (event.first as QuickPopupOnClickCallback).quickPopup = this@QuickPopup
+                            if (event.first is PopwinKBuilderOnClickCallback) {
+                                (event.first as PopwinKBuilderOnClickCallback).popwinKBuilderProxy = this@PopwinKBuilderProxy
                             }
                             event.first!!.onClick(v)
                         }

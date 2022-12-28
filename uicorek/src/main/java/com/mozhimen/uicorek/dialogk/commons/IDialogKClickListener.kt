@@ -1,5 +1,7 @@
 package com.mozhimen.uicorek.dialogk.commons
 
+import android.view.View
+
 /**
  * @ClassName IDialogKClickListener
  * @Description TODO
@@ -8,6 +10,6 @@ package com.mozhimen.uicorek.dialogk.commons
  * @Version 1.0
  */
 interface IDialogKClickListener {
-    fun onClickPositive(): Boolean
-    fun onClickNegative(): Boolean
+    fun onClickPositive(view: View?): Boolean
+    fun onClickNegative(view: View?): Boolean
 }

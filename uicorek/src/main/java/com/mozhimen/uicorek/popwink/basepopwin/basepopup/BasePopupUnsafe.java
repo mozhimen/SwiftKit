@@ -100,7 +100,7 @@ public enum BasePopupUnsafe {
     @Nullable
     public WindowManager getWindowManager(BasePopupWindow p) {
         try {
-            return Objects.requireNonNull(p.mPopupWindowProxy.mBasePopupContextWrapper.mWindowManagerProxy);
+            return Objects.requireNonNull(p.mPopupWindowProxy.getBasePopwinKContextWrapper().getWindowManagerProxy());
         } catch (Exception e) {
             return null;
         }

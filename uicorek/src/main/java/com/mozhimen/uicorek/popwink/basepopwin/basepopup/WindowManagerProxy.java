@@ -13,7 +13,7 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 
 import com.mozhimen.basick.utilk.UtilKBuild;
-import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener;
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -30,7 +30,7 @@ import java.util.LinkedList;
  * <p>
  * 代理掉popup的windowmanager，在addView操作，拦截decorView的操作
  */
-final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListener {
+public final class WindowManagerProxy implements WindowManager, IClearMemoryListener {
     private static final String TAG = "WindowManagerProxy";
     private WindowManager mWindowManager;
     PopupDecorViewProxy mPopupDecorViewProxy;
@@ -46,7 +46,7 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
         }
     }
 
-    WindowManagerProxy(WindowManager windowManager, BasePopupHelper helper) {
+    public WindowManagerProxy(WindowManager windowManager, BasePopupHelper helper) {
         mWindowManager = windowManager;
         mPopupHelper = helper;
     }
@@ -59,8 +59,8 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
     @Override
     public void removeViewImmediate(View view) {
         UtilKSmartLog.i(TAG,
-                   "WindowManager.removeViewImmediate  >>>  " + (view == null ? null : view.getClass()
-                           .getSimpleName()));
+                "WindowManager.removeViewImmediate  >>>  " + (view == null ? null : view.getClass()
+                        .getSimpleName()));
         PopupWindowQueueManager.getInstance().remove(this);
         if (mWindowManager == null || view == null) return;
         if (isPopupInnerDecorView(view) && mPopupDecorViewProxy != null) {
@@ -79,8 +79,8 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
     @Override
     public void removeView(View view) {
         UtilKSmartLog.i(TAG,
-                   "WindowManager.removeView  >>>  " + (view == null ? null : view.getClass()
-                           .getSimpleName()));
+                "WindowManager.removeView  >>>  " + (view == null ? null : view.getClass()
+                        .getSimpleName()));
         PopupWindowQueueManager.getInstance().remove(this);
         if (mWindowManager == null || view == null) return;
         if (isPopupInnerDecorView(view) && mPopupDecorViewProxy != null) {
@@ -95,8 +95,8 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
     @Override
     public void addView(View view, ViewGroup.LayoutParams params) {
         UtilKSmartLog.i(TAG,
-                   "WindowManager.addView  >>>  " + (view == null ? null : view.getClass()
-                           .getName()));
+                "WindowManager.addView  >>>  " + (view == null ? null : view.getClass()
+                        .getName()));
         if (mWindowManager == null || view == null) return;
         if (isPopupInnerDecorView(view)) {
             /**
@@ -136,8 +136,8 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
     @Override
     public void updateViewLayout(View view, ViewGroup.LayoutParams params) {
         UtilKSmartLog.i(TAG,
-                   "WindowManager.updateViewLayout  >>>  " + (view == null ? null : view.getClass()
-                           .getName()));
+                "WindowManager.updateViewLayout  >>>  " + (view == null ? null : view.getClass()
+                        .getName()));
         if (mWindowManager == null || view == null) return;
         if (isPopupInnerDecorView(view) && mPopupDecorViewProxy != null || view == mPopupDecorViewProxy) {
             mWindowManager.updateViewLayout(mPopupDecorViewProxy, fitLayoutParamsPosition(params));
@@ -146,7 +146,7 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
         }
     }
 
-    void updateFocus(boolean focus) {
+    public void updateFocus(boolean focus) {
         if (mWindowManager != null && mPopupDecorViewProxy != null) {
             PopupDecorViewProxy popupDecorViewProxy = mPopupDecorViewProxy;
             ViewGroup.LayoutParams params = popupDecorViewProxy.getLayoutParams();
@@ -163,7 +163,7 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
     }
 
 
-    void updateFlag(int mode, boolean updateImmediately, int... flags) {
+    public void updateFlag(int mode, boolean updateImmediately, int... flags) {
         if (flags == null || flags.length == 0) return;
         if (mWindowManager != null && mPopupDecorViewProxy != null) {
             PopupDecorViewProxy popupDecorViewProxy = mPopupDecorViewProxy;
@@ -215,7 +215,7 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
     }
 
     @Nullable
-    WindowManagerProxy preWindow() {
+    public WindowManagerProxy preWindow() {
         return PopupWindowQueueManager.getInstance().preWindow(this);
     }
 
@@ -225,7 +225,7 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
         }
     }
 
-    static class PopupWindowQueueManager {
+    public static class PopupWindowQueueManager {
 
         static final HashMap<String, LinkedList<WindowManagerProxy>> sQueueMap = new HashMap<>();
 
@@ -236,7 +236,7 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
         private PopupWindowQueueManager() {
         }
 
-        static PopupWindowQueueManager getInstance() {
+        public static PopupWindowQueueManager getInstance() {
             return SingleTonHolder.INSTANCE;
         }
 
@@ -269,7 +269,7 @@ final class WindowManagerProxy implements WindowManager, IClearMemoryObjectListe
             UtilKSmartLog.d(TAG, queue);
         }
 
-        void remove(WindowManagerProxy managerProxy) {
+        public void remove(WindowManagerProxy managerProxy) {
             if (managerProxy == null || !managerProxy.isAddedToQueue) return;
             String key = getKey(managerProxy);
             if (TextUtils.isEmpty(key)) return;

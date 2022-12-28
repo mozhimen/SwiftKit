@@ -11,7 +11,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.mozhimen.uicorek.imagek.ImageKBlur;
-import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryObjectListener;
+import com.mozhimen.uicorek.popwink.bases.BasePopwinKBackgroundView;
+import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import com.mozhimen.basick.utilk.UtilKDrawable;
 import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
@@ -23,7 +24,7 @@ import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
  * <p>
  * 蒙层
  */
-class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemoryObjectListener {
+class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemoryListener {
 
     ImageKBlur mBlurImageView;
     private BackgroundViewHolder mBackgroundViewHolder;
@@ -72,7 +73,7 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
             mBackgroundViewHolder = new BackgroundViewHolder(mHelper.getBackgroundView(), mHelper);
         } else {
             if (UtilKDrawable.isColorDrawableValid(mHelper.getPopupBackground())) {
-                mBackgroundViewHolder = new BackgroundViewHolder(PopupBackgroundView.creaete(context, mHelper), mHelper);
+                mBackgroundViewHolder = new BackgroundViewHolder(BasePopwinKBackgroundView.create(context, mHelper), mHelper);
             }
         }
         if (mBackgroundViewHolder != null) {
@@ -226,7 +227,7 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
         }
     }
 
-    final class BackgroundViewHolder implements IClearMemoryObjectListener {
+    final class BackgroundViewHolder implements IClearMemoryListener {
 
         View mBackgroundView;
         BasePopupHelper mHelper;
@@ -248,8 +249,8 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
         }
 
         void update() {
-            if (mBackgroundView instanceof PopupBackgroundView) {
-                ((PopupBackgroundView) mBackgroundView).update();
+            if (mBackgroundView instanceof BasePopwinKBackgroundView) {
+                ((BasePopwinKBackgroundView) mBackgroundView).update();
             }
         }
 
@@ -257,7 +258,7 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
             if (mHelper != null &&
                     mHelper.isPopupFadeEnable() &&
                     mBackgroundView != null &&
-                    ((mBackgroundView instanceof PopupBackgroundView) || mBackgroundView.getAnimation() == null)) {
+                    ((mBackgroundView instanceof BasePopwinKBackgroundView) || mBackgroundView.getAnimation() == null)) {
                 if (mHelper.mMaskViewDismissAnimation != null) {
                     if (mHelper.isSyncMaskAnimationDuration()) {
                         if (mHelper.dismissDuration > 0 && (mHelper.isDefaultMaskViewShowAnimation || mHelper.mMaskViewDismissAnimation
@@ -272,8 +273,8 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
         }
 
         void destroy() {
-            if (mBackgroundView instanceof PopupBackgroundView) {
-                ((PopupBackgroundView) mBackgroundView).destroy();
+            if (mBackgroundView instanceof BasePopwinKBackgroundView) {
+                ((BasePopwinKBackgroundView) mBackgroundView).destroy();
                 mBackgroundView = null;
             } else {
                 mBackgroundView = null;
@@ -284,7 +285,7 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
             if (mHelper != null &&
                     mHelper.isPopupFadeEnable() &&
                     mBackgroundView != null &&
-                    ((mBackgroundView instanceof PopupBackgroundView) || mBackgroundView.getAnimation() == null)) {
+                    ((mBackgroundView instanceof BasePopwinKBackgroundView) || mBackgroundView.getAnimation() == null)) {
                 //如果是自定义的backgroundview，同时有自己的动画，那就不使用我们的，而是使用开发者自定义的
                 if (mHelper.mMaskViewShowAnimation != null) {
                     if (mHelper.isSyncMaskAnimationDuration()) {
