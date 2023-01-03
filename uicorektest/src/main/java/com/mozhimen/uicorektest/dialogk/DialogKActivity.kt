@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKThread
-import com.mozhimen.uicorek.dialogk.temps.DialogKLoadingAnim
-import com.mozhimen.uicorek.dialogk.temps.DialogKLoadingAnimDrawable
-import com.mozhimen.uicorek.dialogk.temps.DialogKQues
+import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnim
+import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnimDrawable
+import com.mozhimen.uicorektest.dialogk.temps.DialogKQues
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDialogkBinding
 import kotlinx.coroutines.Dispatchers

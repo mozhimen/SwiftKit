@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.mozhimen.basick.utilk.context.UtilKActivity
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.view.UtilKView
 import java.lang.reflect.Field

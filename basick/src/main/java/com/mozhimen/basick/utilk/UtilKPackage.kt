@@ -31,11 +31,11 @@ object UtilKPackage {
     @JvmStatic
     fun getPkgVersionName(): String {
         return try {
-            val pi = _context.packageManager.getPackageInfo(_context.packageName, 0)
-            pi?.versionName ?: ""
+            val packageInfo = _context.packageManager.getPackageInfo(_context.packageName, 0)
+            packageInfo?.versionName ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
-            Log.e(TAG, "getPkgVersionName: NameNotFoundException ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "getPkgVersionName: NameNotFoundException ${e.message}")
             ""
         }
     }
@@ -47,15 +47,15 @@ object UtilKPackage {
     @JvmStatic
     fun getPkgVersionCode(): Int {
         return try {
-            val pi = _context.packageManager.getPackageInfo(_context.packageName, 0)
+            val packageInfo = _context.packageManager.getPackageInfo(_context.packageName, 0)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                pi.longVersionCode.toInt()
+                packageInfo.longVersionCode.toInt()
             } else {
-                pi.versionCode
+                packageInfo.versionCode
             }
         } catch (e: PackageManager.NameNotFoundException) {
-            Log.e(TAG, "getPkgVersionCode: NameNotFoundException ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "getPkgVersionCode: NameNotFoundException ${e.message}")
             -1
         }
     }
@@ -68,42 +68,38 @@ object UtilKPackage {
      */
     @JvmStatic
     fun installSilence(apkPath: String, pkgName: String): Boolean {
+        var result = "EMPTY"
         val cmd = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPath)
         } else {
             arrayOf("pm", "install", "-i", pkgName, "-r", apkPath)
         }
-        var result = "EMPTY"
         val processBuilder = ProcessBuilder(*cmd)
         var process: Process? = null
         var inputStream: InputStream? = null
-        var outputStream: ByteArrayOutputStream? = null
+        var byteArrayOutputStream = ByteArrayOutputStream()
         try {
-            outputStream = ByteArrayOutputStream()
-            var read: Int
+            var readCount: Int
             process = processBuilder.start()
-            outputStream.write('/'.code)
+            byteArrayOutputStream.write('/'.code)
             inputStream = process.inputStream
-            while (inputStream.read().also { read = it } != -1) {
-                outputStream.write(read)
+            while (inputStream.read().also { readCount = it } != -1) {
+                byteArrayOutputStream.write(readCount)
             }
-            val data = outputStream.toByteArray()
-            result = String(data, Charset.forName("UTF-8"))
+            result = String(byteArrayOutputStream.toByteArray(), Charset.forName("UTF-8"))
             Log.d(TAG, "installSilence result $result")
         } catch (e: IOException) {
-            Log.e(TAG, "installSilence IOException ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "installSilence IOException ${e.message}")
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e(TAG, "installSilence Exception ${e.message}")
         } finally {
-            try {
-                inputStream?.close()
-                outputStream?.close()
-            } catch (e: IOException) {
-                Log.e(TAG, "installSilence: IOException ${e.message}")
-                e.printStackTrace()
-            }
+            byteArrayOutputStream.close()
+            inputStream?.close()
             process?.destroy()
         }
-        return result.contains("Success")
+        return result.contains("success", ignoreCase = true)
     }
 
     /**
@@ -112,7 +108,7 @@ object UtilKPackage {
      * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
-    fun installSilence(pathApk: String, receiver: Class<BaseInstallReceiver>) {
+    fun installSilence(pathApk: String, receiver: Class<*>) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             installSilenceAfter28(pathApk, receiver)
         } else {
@@ -128,8 +124,8 @@ object UtilKPackage {
     @JvmStatic
     fun installSilenceBefore28(pathApk: String): Boolean {
         var process: Process? = null
-        var resSuccess: BufferedReader? = null
-        var resError: BufferedReader? = null
+        var resSuccessBufferedReader: BufferedReader? = null
+        var resErrorBufferedReader: BufferedReader? = null
 
         val msgSuccess = StringBuilder()
         val msgError = StringBuilder()
@@ -140,71 +136,63 @@ object UtilKPackage {
         }
         try {
             process = ProcessBuilder(*cmd).start()
-            resSuccess = BufferedReader(InputStreamReader(process.inputStream))
-            resError = BufferedReader(InputStreamReader(process.errorStream))
-            var s: String?
-            while (resSuccess.readLine().also { s = it } != null) {
-                msgSuccess.append(s)
+            resSuccessBufferedReader = BufferedReader(InputStreamReader(process.inputStream))
+            resErrorBufferedReader = BufferedReader(InputStreamReader(process.errorStream))
+            var msg: String?
+            while (resSuccessBufferedReader.readLine().also { msg = it } != null) {
+                msgSuccess.append(msg)
             }
-            while (resError.readLine().also { s = it } != null) {
-                msgError.append(s)
+            while (resErrorBufferedReader.readLine().also { msg = it } != null) {
+                msgError.append(msg)
             }
         } catch (e: Exception) {
-            Log.e(TAG, "installSilence: Exception ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "installSilenceBefore28: Exception ${e.message}")
         } finally {
-            try {
-                resSuccess?.close()
-                resError?.close()
-            } catch (e: Exception) {
-                Log.e(TAG, "installSilence: Exception ${e.message}")
-                e.printStackTrace()
-            }
+            resSuccessBufferedReader?.close()
+            resErrorBufferedReader?.close()
             process?.destroy()
         }
-        //如果含有success单词则认为安装成功
-        return msgSuccess.toString().contains("success", ignoreCase = true)
+        return msgSuccess.toString().contains("success", ignoreCase = true)        //如果含有success单词则认为安装成功
     }
 
     /**
      * 静默安装 SDK28 之后的
-     * @param pathApk String
+     * @param apkPathWithName String
      * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
-    fun installSilenceAfter28(pathApk: String, receiver: Class<BaseInstallReceiver>) {
-        Log.d(TAG, "install28 path $pathApk")
-        val apkFile = File(pathApk)
+    fun installSilenceAfter28(apkPathWithName: String, receiver: Class<*>) {
+        Log.d(TAG, "installSilenceAfter28 pathApk $apkPathWithName")
+        val apkFile = File(apkPathWithName)
         val packageInstaller = _context.packageManager.packageInstaller
         val sessionParams = SessionParams(SessionParams.MODE_FULL_INSTALL)
         sessionParams.setSize(apkFile.length())
         val sessionId: Int = createSession(packageInstaller, sessionParams)
-        Log.d(TAG, "install28 sessionId $sessionId")
+        Log.d(TAG, "installSilenceAfter28 sessionId $sessionId")
+
         if (sessionId != -1) {
-            val copySuccess = copyInstallFile(packageInstaller, sessionId, pathApk)
-            Log.d(TAG, "install28 copySuccess $copySuccess")
-            if (copySuccess) {
+            val isCopySuccess = copyApkFile(packageInstaller, sessionId, apkPathWithName)
+            Log.d(TAG, "installSilenceAfter28 copySuccess $isCopySuccess")
+            if (isCopySuccess) {
                 execInstall(packageInstaller, sessionId, receiver)
             }
         }
     }
 
-    private fun execInstall(packageInstaller: PackageInstaller, sessionId: Int, receiver: Class<BaseInstallReceiver>) {
+    private fun execInstall(packageInstaller: PackageInstaller, sessionId: Int, receiver: Class<*>) {
         var session: PackageInstaller.Session? = null
         try {
             session = packageInstaller.openSession(sessionId)
-            val intent = Intent(_context, receiver)
-            val pendingIntent = PendingIntent.getBroadcast(
-                _context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT
-            )
+            val pendingIntent = PendingIntent.getBroadcast(_context, 1, Intent(_context, receiver), PendingIntent.FLAG_UPDATE_CURRENT)
             session.commit(pendingIntent.intentSender)
             Log.d(TAG, "execInstall begin")
         } catch (e: IOException) {
+            e.printStackTrace()
             Log.e(TAG, "execInstall: IOException ${e.message}")
-            e.printStackTrace()
         } catch (e: Exception) {
-            Log.e(TAG, "execInstall: Exception ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "execInstall: Exception ${e.message}")
         } finally {
             session?.close()
         }
@@ -221,42 +209,38 @@ object UtilKPackage {
         return sessionId
     }
 
-    private fun copyInstallFile(
+    private fun copyApkFile(
         packageInstaller: PackageInstaller,
         sessionId: Int,
-        apkFilePath: String
+        apkFilePathWithName: String
     ): Boolean {
-        var inputStream: InputStream? = null
+        var fileInputStream: FileInputStream? = null
         var outputStream: OutputStream? = null
         var session: PackageInstaller.Session? = null
         var success = false
         try {
-            val apkFile = File(apkFilePath)
+            val apkFile = File(apkFilePathWithName)
             session = packageInstaller.openSession(sessionId)
             outputStream = session.openWrite("base.apk", 0, apkFile.length())
-            inputStream = FileInputStream(apkFile)
+            fileInputStream = FileInputStream(apkFile)
             var total = 0
             var count: Int
             val buffer = ByteArray(65536)
-            while (inputStream.read(buffer).also { count = it } != -1) {
+            while (fileInputStream.read(buffer).also { count = it } != -1) {
                 total += count
                 outputStream.write(buffer, 0, count)
             }
             session.fsync(outputStream)
-            Log.d(TAG, "copyInstallFile streamed $total bytes")
             success = true
+            Log.d(TAG, "copyApkFile success $success")
         } catch (e: IOException) {
-            Log.e(TAG, "copyInstallFile: IOException ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "copyApkFile: IOException ${e.message}")
         } finally {
-            try {
-                outputStream?.close()
-                inputStream?.close()
-                session?.close()
-            } catch (e: IOException) {
-                Log.e(TAG, "copyInstallFile: IOException ${e.message}")
-                e.printStackTrace()
-            }
+            session?.close()
+            outputStream?.flush()
+            outputStream?.close()
+            fileInputStream?.close()
         }
         return success
     }

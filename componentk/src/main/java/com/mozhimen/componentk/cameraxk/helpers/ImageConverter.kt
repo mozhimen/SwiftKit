@@ -21,17 +21,16 @@ object ImageConverter {
     private const val TAG = "ImageConverter>>>>>"
 
     /**
-     * rgb8888转Bitmap
+     * rgba8888转Bitmap
      * @param imageProxy ImageProxy
      * @return Bitmap
      */
     @JvmStatic
-    fun rgb2Bitmap(imageProxy: ImageProxy): Bitmap? {
-        if (imageProxy.image == null) return null
-        val bitmapBuffer = Bitmap.createBitmap(imageProxy.width, imageProxy.height, Bitmap.Config.ARGB_8888)
+    fun rgba8888Image2Rgba8888Bitmap(imageProxy: ImageProxy): Bitmap {
+        val bitmap = Bitmap.createBitmap(imageProxy.width, imageProxy.height, Bitmap.Config.ARGB_8888)
         // Copy out RGB bits to the shared bitmap buffer
-        imageProxy.use { bitmapBuffer.copyPixelsFromBuffer(imageProxy.planes[0].buffer) }
-        return bitmapBuffer
+        imageProxy.use { bitmap.copyPixelsFromBuffer(imageProxy.planes[0].buffer) }
+        return bitmap
     }
 
     /**
@@ -41,10 +40,23 @@ object ImageConverter {
      */
     @JvmStatic
     @ExperimentalGetImage
-    fun yuv2Bitmap(imageProxy: ImageProxy): Bitmap? {
-        if (imageProxy.image == null) return null
-        val nv21Buffer = yuv420ThreePlanesToNV21(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
-        return buffer2Bitmap(ByteBuffer.wrap(nv21Buffer), imageProxy.width, imageProxy.height)
+    fun yuv420888Image2JpegBitmap(imageProxy: ImageProxy): Bitmap? {
+        val nv21Bytes = yuv420888Planes2Nv21Bytes(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
+        return nv21Bytes2JpegBitmap(ByteBuffer.wrap(nv21Bytes), imageProxy.width, imageProxy.height)
+    }
+
+    /**
+     * 将来自 CameraX API 的 JPEG 图像转换为Bitmap
+     * @param imageProxy ImageProxy
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun jpegImage2JpegBitmap(imageProxy: ImageProxy): Bitmap {
+        val buffer = imageProxy.planes[0].buffer
+        val size = buffer.remaining()
+        val jpegBytes = ByteArray(size)
+        buffer.get(jpegBytes, 0, size)
+        return BitmapFactory.decodeByteArray(jpegBytes, 0, jpegBytes.size)
     }
 
     /**
@@ -54,61 +66,51 @@ object ImageConverter {
      */
     @JvmStatic
     @ExperimentalGetImage
-    fun yuv2nv21(imageProxy: ImageProxy): ByteArray? {
-        if (imageProxy.image == null) return null
-        return yuv420ThreePlanesToNV21(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
+    fun yuv4208882Nv21Bytes(imageProxy: ImageProxy): ByteArray {
+        return yuv420888Planes2Nv21Bytes(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
     }
 
     /**
      * 将 NV21 格式字节缓冲区转换为Bitmap
-     * @param data ByteBuffer
+     * @param nv21Bytes ByteBuffer
      * @param width Int
      * @param height Int
      * @return Bitmap?
      */
     @JvmStatic
-    fun buffer2Bitmap(data: ByteBuffer, width: Int, height: Int): Bitmap? {
-        data.rewind()
-        val imageInBuffer = ByteArray(data.limit())
-        data[imageInBuffer, 0, imageInBuffer.size]
+    fun nv21Bytes2JpegBitmap(nv21Bytes: ByteBuffer, width: Int, height: Int): Bitmap? {
+        nv21Bytes.rewind()
+        val imageInBuffer = ByteArray(nv21Bytes.limit())
+        nv21Bytes[imageInBuffer, 0, imageInBuffer.size]
+        val byteArrayOutputStream = ByteArrayOutputStream()
         try {
-            val image = YuvImage(imageInBuffer, ImageFormat.NV21, width, height, null)
-            val stream = ByteArrayOutputStream()
-            image.compressToJpeg(Rect(0, 0, width, height), 80, stream)
-            val bmp = BitmapFactory.decodeByteArray(stream.toByteArray(), 0, stream.size())
-            stream.close()
-            return bmp
+            val yuvImage = YuvImage(imageInBuffer, ImageFormat.NV21, width, height, null)
+            yuvImage.compressToJpeg(Rect(0, 0, width, height), 80, byteArrayOutputStream)
+            return BitmapFactory.decodeByteArray(byteArrayOutputStream.toByteArray(), 0, byteArrayOutputStream.size())
         } catch (e: Exception) {
+            e.printStackTrace()
             LogK.et(TAG, "buffer2Bitmap Exception ${e.message}")
+        } finally {
+            byteArrayOutputStream.close()
         }
         return null
     }
 
     @JvmStatic
-    fun jpeg2Bitmap(image: ImageProxy): Bitmap {
-        val planes: Array<ImageProxy.PlaneProxy> = image.planes
-        val buffer = planes[0].buffer
-        val size = buffer.remaining()
-        val jpeg = ByteArray(size)
-        buffer.get(jpeg, 0, size)
-        return BitmapFactory.decodeByteArray(jpeg, 0, jpeg.size)
-    }
-
-    @JvmStatic
-    fun yuv420ThreePlanesToNV21(yuv420_888_planes: Array<Plane>, width: Int, height: Int): ByteArray {
+    fun yuv420888Planes2Nv21Bytes(yuv420888Planes: Array<Plane>, width: Int, height: Int): ByteArray {
         val imageSize = width * height
-        val out = ByteArray(imageSize + 2 * (imageSize / 4))
-        if (isUVPlanesNV21(yuv420_888_planes, width, height)) {
-            yuv420_888_planes[0].buffer[out, 0, imageSize]// 复制 Y 的值
-            yuv420_888_planes[2].buffer[out, imageSize, 1]// 从 V 缓冲区获取第一个 V 值，因为 U 缓冲区不包含它
-            yuv420_888_planes[1].buffer[out, imageSize + 1, 2 * imageSize / 4 - 1]// 从 U 缓冲区复制第一个 U 值和剩余的 VU 值
+        val outBytes = ByteArray(imageSize + 2 * (imageSize / 4))
+        if (isYuv420888PlanesNv21(yuv420888Planes, width, height)) {
+            yuv420888Planes[0].buffer[outBytes, 0, imageSize]// 复制 Y 的值
+            yuv420888Planes[2].buffer[outBytes, imageSize, 1]// 从 V 缓冲区获取第一个 V 值，因为 U 缓冲区不包含它
+            yuv420888Planes[1].buffer[outBytes, imageSize + 1, 2 * imageSize / 4 - 1]// 从 U 缓冲区复制第一个 U 值和剩余的 VU 值
         } else {
             // 回退到一个一个地复制 UV 值，这更慢但也有效
-            unpackPlane(yuv420_888_planes[0], width, height, out, 0, 1)// 取 Y.
-            unpackPlane(yuv420_888_planes[1], width, height, out, imageSize + 1, 2)// 取 U.
-            unpackPlane(yuv420_888_planes[2], width, height, out, imageSize, 2)// 取 V.
+            unpackYuv420888Plane(yuv420888Planes[0], width, height, outBytes, 0, 1)// 取 Y.
+            unpackYuv420888Plane(yuv420888Planes[1], width, height, outBytes, imageSize + 1, 2)// 取 U.
+            unpackYuv420888Plane(yuv420888Planes[2], width, height, outBytes, imageSize, 2)// 取 V.
         }
-        return out
+        return outBytes
     }
 
     /**
@@ -119,7 +121,7 @@ object ImageConverter {
      * @return Boolean
      */
     @JvmStatic
-    private fun isUVPlanesNV21(planes: Array<Plane>, width: Int, height: Int): Boolean {
+    private fun isYuv420888PlanesNv21(planes: Array<Plane>, width: Int, height: Int): Boolean {
         val imageSize = width * height
         val uBuffer = planes[1].buffer
         val vBuffer = planes[2].buffer
@@ -153,7 +155,7 @@ object ImageConverter {
      * @param pixelStride Int
      */
     @JvmStatic
-    private fun unpackPlane(plane: Plane, width: Int, height: Int, out: ByteArray, offset: Int, pixelStride: Int) {
+    private fun unpackYuv420888Plane(plane: Plane, width: Int, height: Int, out: ByteArray, offset: Int, pixelStride: Int) {
         val buffer = plane.buffer
         buffer.rewind()
 

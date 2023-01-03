@@ -44,13 +44,11 @@ class TaskFileDownloadSingle(owner: LifecycleOwner) : ITaskK(owner) {
     private fun popupDownloadTask(url: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             _downloadUrls.removeIf { it == url }
-            _downloadListeners.remove(url)
-            _downloadTasks.remove(url)
         } else {
             _downloadUrls.remove(url)
-            _downloadListeners.remove(url)
-            _downloadTasks.remove(url)
         }
+        _downloadListeners.remove(url)
+        _downloadTasks.remove(url)
     }
 
     private fun cancelAll() {

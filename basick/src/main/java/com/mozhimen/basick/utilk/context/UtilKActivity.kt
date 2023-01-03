@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.context
 
 import android.app.Activity
 import android.app.Dialog
@@ -10,7 +10,7 @@ import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.stackk.StackK
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.UtilKString
 
 /**
  * @ClassName UtilKActivity

@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.dialogk.temps
+package com.mozhimen.uicorektest.dialogk.temps
 
 import android.content.Context
 import android.text.TextUtils
@@ -9,9 +9,9 @@ import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.RotationRecyclerType
 import com.mozhimen.basick.utilk.exts.stopAnim
-import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.BaseDialog
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
+import com.mozhimen.uicorektest.R
 
 /**
  * @ClassName LoadingDialog

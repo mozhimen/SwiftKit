@@ -34,6 +34,15 @@ object UtilKGeneric {
             }
 
     /**
+     * 获取当前<>里面的泛型实例
+     * @param index Int
+     * @return Class<*>?
+     */
+    @JvmStatic
+    inline fun <reified T> getGenericTypeClazz(index: Int = 0): Class<*>? =
+        getGenericType<T>(index) as? Class<*>?
+
+    /**
      * 获取泛型类
      * @param clazz Class<*>
      * @param index Int
@@ -79,14 +88,6 @@ object UtilKGeneric {
      */
     @JvmStatic
     inline fun <reified T> getParentGenericType(index: Int = 0): Type? =
-        T::class.java
-            .genericSuperclass
-            .let { it as ParameterizedType }
-            .actualTypeArguments.filterIsInstance<Class<*>>()
-            .run {
-                if (this.isNotEmpty() && index in this.indices)
-                    this[index]
-                else
-                    null
-            }
+        getParentGenericType(T::class.java, index)
+
 }

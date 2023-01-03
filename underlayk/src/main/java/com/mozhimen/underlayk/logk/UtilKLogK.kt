@@ -1,4 +1,4 @@
-package com.mozhimen.underlayk
+package com.mozhimen.underlayk.logk
 
 import com.mozhimen.underlayk.logk.LogK
 

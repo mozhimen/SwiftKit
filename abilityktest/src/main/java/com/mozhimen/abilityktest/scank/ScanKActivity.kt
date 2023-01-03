@@ -31,4 +31,8 @@ class ScanKActivity : BaseActivityVB<ActivityScankBinding>() {
     fun goScanKHSV(view: View) {
         start<ScanKHSVActivity>()
     }
+
+    fun goScanKFace(view: View) {
+        start<ScanKFaceActivity>()
+    }
 }

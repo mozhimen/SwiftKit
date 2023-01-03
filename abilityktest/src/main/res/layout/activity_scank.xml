@@ -40,5 +40,11 @@
             android:text="图片色彩比例"
             android:onClick="goScanKHSV"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:text="人脸识别"
+            android:onClick="goScanKFace"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

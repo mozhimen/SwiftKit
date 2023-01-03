@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.dialogk.temps
+package com.mozhimen.uicorektest.dialogk.temps
 
 import android.content.Context
 import android.graphics.drawable.AnimationDrawable
@@ -8,9 +8,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.BaseDialog
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
+import com.mozhimen.uicorektest.R
 
 /**
  * @ClassName DialogKLoading

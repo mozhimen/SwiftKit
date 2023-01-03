@@ -9,9 +9,8 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import com.mozhimen.basick.utilk.UtilKActivity
+import com.mozhimen.basick.utilk.context.UtilKActivity
 import com.mozhimen.basick.utilk.UtilKOS
-import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**

@@ -14,19 +14,21 @@ class TaskKAsync(owner: LifecycleOwner) : ITaskK(owner) {
     private var _taskKAsyncErrorListener: ITaskKAsyncErrorListener? = null
     private var _asyncScope: CoroutineScope = CoroutineScope(Dispatchers.IO + _exceptionHandler)
 
-    fun isRunning(): Boolean = _asyncScope.isActive
+    fun isActive(): Boolean = _asyncScope.isActive
 
     fun setErrorListener(listener: ITaskKAsyncErrorListener) {
         this._taskKAsyncErrorListener = listener
     }
 
     fun execute(task: suspend () -> Unit) {
+        if (isActive()) return
         _asyncScope.launch {
             task.invoke()
         }
     }
 
     override fun cancel() {
+        if(!isActive()) return
         _asyncScope.cancel()
     }
 }

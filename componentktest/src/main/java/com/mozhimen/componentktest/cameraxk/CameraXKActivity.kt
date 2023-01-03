@@ -7,7 +7,6 @@ import androidx.camera.core.ImageAnalysis
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
-import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
@@ -54,10 +53,10 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
         ImageAnalysis.Analyzer { image ->
             when (_format) {
                 ACameraXKFormat.RGBA_8888 -> {
-                    _outputBitmap = ImageConverter.rgb2Bitmap(image)
+                    _outputBitmap = ImageConverter.rgba8888Image2Rgba8888Bitmap(image)
                 }
                 ACameraXKFormat.YUV_420_888 -> {
-                    _outputBitmap = ImageConverter.yuv2Bitmap(image)
+                    _outputBitmap = ImageConverter.yuv420888Image2JpegBitmap(image)
                 }
             }
             _outputBitmap?.let {

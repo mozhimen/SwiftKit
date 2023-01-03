@@ -99,15 +99,15 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
             Log.d(TAG, "onCaptureSuccess: ${image.format} ${image.width}x${image.height}")
             when (image.format) {
                 ImageFormat.YUV_420_888 -> {
-                    _captureBitmap = ImageConverter.yuv2Bitmap(image)
+                    _captureBitmap = ImageConverter.yuv420888Image2JpegBitmap(image)
                     Log.d(TAG, "onCaptureSuccess: YUV_420_888")
                 }
                 ImageFormat.JPEG -> {
-                    _captureBitmap = ImageConverter.jpeg2Bitmap(image)
+                    _captureBitmap = ImageConverter.jpegImage2JpegBitmap(image)
                     Log.d(TAG, "onCaptureSuccess: JPEG")
                 }
                 ImageFormat.FLEX_RGBA_8888 -> {
-                    _captureBitmap = ImageConverter.rgb2Bitmap(image)
+                    _captureBitmap = ImageConverter.rgba8888Image2Rgba8888Bitmap(image)
                     Log.d(TAG, "onCaptureSuccess: FLEX_RGBA_8888")
                 }
             }

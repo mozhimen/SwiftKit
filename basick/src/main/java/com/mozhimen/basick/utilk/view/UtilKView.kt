@@ -7,7 +7,7 @@ import android.os.Build
 import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import com.mozhimen.basick.utilk.UtilKActivity
+import com.mozhimen.basick.utilk.context.UtilKActivity
 import com.mozhimen.basick.utilk.UtilKDataType
 import java.util.*
 

@@ -10,9 +10,9 @@ import android.view.Display
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import com.mozhimen.basick.utilk.UtilKActivity
-import com.mozhimen.basick.utilk.UtilKActivity.getActivityByContext
-import com.mozhimen.basick.utilk.UtilKActivity.isActivityDestroyed
+import com.mozhimen.basick.utilk.context.UtilKActivity
+import com.mozhimen.basick.utilk.context.UtilKActivity.getActivityByContext
+import com.mozhimen.basick.utilk.context.UtilKActivity.isActivityDestroyed
 import java.util.*
 
 /**

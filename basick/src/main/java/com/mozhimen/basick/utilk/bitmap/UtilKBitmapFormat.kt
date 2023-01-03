@@ -28,6 +28,16 @@ object UtilKBitmapFormat {
     private val _context = UtilKApplication.instance.get()
 
     /**
+     * rgba8888转化为rgb565
+     * @param bitmap Bitmap
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun rgba8888Bitmap2Rgb565Bitmap(bitmap: Bitmap): Bitmap {
+        return bitmap.copy(Bitmap.Config.RGB_565, true)
+    }
+
+    /**
      * image转Bytes
      * @param image Image
      * @return ByteArray
@@ -43,7 +53,7 @@ object UtilKBitmapFormat {
                 buffer.get(bytes)
             }
             ImageFormat.YUV_420_888 -> {
-                bytes = nv21Bytes2JpegBytes(yuv420Image2nv21Bytes(image), image.width, image.height)
+                bytes = nv21Bytes2JpegBytes(yuv420888Image2Nv21Bytes(image), image.width, image.height)
             }
             else -> {
                 throw Exception("cannot handle this format")
@@ -58,7 +68,7 @@ object UtilKBitmapFormat {
      * @return ByteArray
      */
     @JvmStatic
-    fun yuv420Image2nv21Bytes(image: Image): ByteArray {
+    fun yuv420888Image2Nv21Bytes(image: Image): ByteArray {
         val nv21Bytes: ByteArray
         val yBuffer = image.planes[0].buffer
         val uBuffer = image.planes[1].buffer
@@ -140,7 +150,7 @@ object UtilKBitmapFormat {
      * @return Bitmap
      */
     @JvmStatic
-    fun bytes2Bitmap(bytes: ByteArray, width: Int, height: Int): Bitmap {
+    fun grba8888Bytes2Rgba8888Bitmap(bytes: ByteArray, width: Int, height: Int): Bitmap {
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(bytes))
         return bitmap
@@ -223,7 +233,7 @@ object UtilKBitmapFormat {
     @JvmStatic
     fun nv21Bytes2File(nv21Bytes: ByteArray, width: Int, height: Int, filePathWithName: String): String {
         return try {
-            UtilKBitmapIO.bitmap2Album(nv21Bytes2Bitmap(nv21Bytes, width, height), filePathWithName)
+            UtilKBitmapIO.bitmap2Album(nv21Bytes2JpegBitmap(nv21Bytes, width, height), filePathWithName)
         } catch (e: Exception) {
             e.printStackTrace()
             UtilKFile.msg_wrong
@@ -239,7 +249,7 @@ object UtilKBitmapFormat {
      */
     @JvmStatic
     @Throws(Exception::class)
-    fun nv21Bytes2Bitmap(nv21Bytes: ByteArray, width: Int, height: Int): Bitmap {
+    fun nv21Bytes2JpegBitmap(nv21Bytes: ByteArray, width: Int, height: Int): Bitmap {
         val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
         var byteArrayOutputStream: ByteArrayOutputStream? = null
         var byteArray: ByteArray?
@@ -294,7 +304,7 @@ object UtilKBitmapFormat {
      * @return ByteArray 裁剪后的图像数据
      */
     @JvmStatic
-    fun clipNv212Bytes(
+    fun clipNv21Bytes(
         nv21Bytes: ByteArray,
         width: Int,
         height: Int,

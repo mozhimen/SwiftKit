@@ -55,7 +55,7 @@ object NetKRepErrorParser {
                 MNetKThrowable(PARSE_ERROR, "解析失败")
             }
             is ConnectException -> {
-                MNetKThrowable(NET_WORD_ERROR, "网络连接失败")
+                MNetKThrowable(NET_WORD_ERROR, "网络连接拒绝,请检查IP或端口号")
             }
             is SSLHandshakeException -> {
                 MNetKThrowable(SSL_ERROR, "证书验证失败")

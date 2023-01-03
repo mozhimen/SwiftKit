@@ -18,4 +18,9 @@ object UtilKVerifyString {
         val reg = Regex("^[0-9]*\$")
         return str.matches(reg)
     }
+
+    fun hasNumberAndAlphabet(str: String): Boolean {
+        val reg = Regex("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{6,20}\$")
+        return str.matches(reg)
+    }
 }

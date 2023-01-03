@@ -11,3 +11,5 @@ import com.mozhimen.basick.utilk.regular.UtilKVerifyString
  */
 
 fun String.isNumberic(): Boolean = UtilKVerifyString.isNumberic(this)
+
+fun String.hasNumberAndAlphabet(): Boolean = UtilKVerifyString.hasNumberAndAlphabet(this)

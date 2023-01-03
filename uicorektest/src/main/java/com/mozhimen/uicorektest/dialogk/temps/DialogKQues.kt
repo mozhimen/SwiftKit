@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.dialogk.temps
+package com.mozhimen.uicorektest.dialogk.temps
 
 import android.app.Dialog
 import android.content.Context
@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import com.mozhimen.uicorek.dialogk.commons.IDialogKBuilder
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.uicorek.R
+import com.mozhimen.uicorektest.R
 
 /**
  * @ClassName DialogKQues

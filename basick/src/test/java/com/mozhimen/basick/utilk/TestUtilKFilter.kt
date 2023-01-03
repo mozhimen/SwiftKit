@@ -23,6 +23,10 @@ class TestUtilKFilter {
         "0123456789".isNumberic().printlog()
         "12322r".isNumberic().printlog()
         "ree".isNumberic().printlog()
+        "ree123".hasNumberAndAlphabet().printlog()
+        "123456".hasNumberAndAlphabet().printlog()
+        "123".hasNumberAndAlphabet().printlog()
+        "ree".hasNumberAndAlphabet().printlog()
     }
 
     @Test

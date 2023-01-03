@@ -37,7 +37,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.mozhimen.basick.stackk.StackK;
-import com.mozhimen.basick.utilk.UtilKActivity;
+import com.mozhimen.basick.utilk.context.UtilKActivity;
 import com.mozhimen.basick.utilk.UtilKAnim;
 import com.mozhimen.basick.utilk.UtilKAnimation;
 import com.mozhimen.basick.utilk.UtilKAnimator;

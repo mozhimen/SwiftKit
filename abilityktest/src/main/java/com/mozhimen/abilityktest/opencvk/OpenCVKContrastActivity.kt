@@ -21,6 +21,7 @@ import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
@@ -31,7 +32,7 @@ class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>()
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSetting(this)
+                UtilKPermission.openSettingSelf(this)
             }
         }
     }
@@ -43,7 +44,7 @@ class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>()
     }
 
     private fun initCamera() {
-        vb.opencvkContrastPreview.initCamera(this, ACameraXKFacing.BACK)
+        vb.opencvkContrastPreview.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK))
         vb.opencvkContrastPreview.setImageAnalyzer(_frameAnalyzer)
         vb.opencvkContrastPreview.startCamera()
     }
@@ -59,9 +60,9 @@ class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>()
                 try {
                     _reentrantLock.lock()
                     val bitmap: Bitmap = if (image.format == ImageFormat.YUV_420_888) {
-                        ImageConverter.yuv2Bitmap(image)!!
+                        ImageConverter.yuv420888Image2JpegBitmap(image)!!
                     } else {
-                        ImageConverter.jpeg2Bitmap(image)
+                        ImageConverter.jpegImage2JpegBitmap(image)
                     }
                     val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =

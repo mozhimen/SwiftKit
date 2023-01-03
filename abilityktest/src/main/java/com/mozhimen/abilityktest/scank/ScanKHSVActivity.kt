@@ -19,6 +19,7 @@ import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
@@ -30,7 +31,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSetting(this)
+                UtilKPermission.openSettingSelf(this)
             }
         }
     }
@@ -41,7 +42,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
     }
 
     private fun initCamera() {
-        vb.scankHsvPreview.initCamera(this, ACameraXKFacing.BACK)
+        vb.scankHsvPreview.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK))
         vb.scankHsvPreview.setImageAnalyzer(_frameAnalyzer)
         vb.scankHsvPreview.startCamera()
     }
@@ -57,9 +58,9 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
                 try {
                     _reentrantLock.lock()
                     val bitmap: Bitmap = if (image.format == ImageFormat.YUV_420_888) {
-                        ImageConverter.yuv2Bitmap(image)!!
+                        ImageConverter.yuv420888Image2JpegBitmap(image)!!
                     } else {
-                        ImageConverter.jpeg2Bitmap(image)
+                        ImageConverter.jpegImage2JpegBitmap(image)
                     }
                     val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =

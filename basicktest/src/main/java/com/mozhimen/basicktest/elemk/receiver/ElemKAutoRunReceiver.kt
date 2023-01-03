@@ -10,4 +10,4 @@ import com.mozhimen.basicktest.BasicKActivity
  * @Date 2022/9/26 18:53
  * @Version 1.0
  */
-class ElemKAutoRunReceiver : BaseAutoRunReceiver(5000, BasicKActivity::class.java)
+class ElemKAutoRunReceiver : BaseAutoRunReceiver(BasicKActivity::class.java, 5000)

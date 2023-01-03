@@ -186,6 +186,7 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_opencvk_match.xml" value="0.1125" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_opencvk_shape.xml" value="0.140625" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_scank.xml" value="0.140625" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_scank_face.xml" value="0.30055579307396324" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_scank_hsv.xml" value="0.140625" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/abilityktest/src/main/res/layout/activity_transk.xml" value="0.140625" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/app/src/main/res/layout/activity_demo.xml" value="0.25364583333333335" />
@@ -277,6 +278,7 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_bubble.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_et_form.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorek/src/main/res/layout/textk_tv_form.xml" value="0.24409722222222222" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/drawable/dialogk_loading.xml" value="0.367" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/aaa.xml" value="0.2997007268063275" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_binding_adapter.xml" value="0.3651041666666667" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_btnk.xml" value="0.24409722222222222" />
@@ -320,6 +322,9 @@
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_viewk_steps.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/activity_viewk_views.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/dialogk_loading.xml" value="0.30055579307396324" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/dialogk_loading_anim.xml" value="0.30055579307396324" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/dialogk_loading_anim_drawable.xml" value="0.30055579307396324" />
+        <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/dialogk_ques.xml" value="0.30055579307396324" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_bannerk.xml" value="0.24409722222222222" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_datak_banner.xml" value="0.1" />
         <entry key="..\:/Users/mozhimen/Documents/GitHub/SwiftKit/uicorektest/src/main/res/layout/item_layoutk_banner.xml" value="0.2" />
