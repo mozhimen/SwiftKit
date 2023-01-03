@@ -23,6 +23,7 @@ import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
@@ -48,11 +49,11 @@ class OpenCVKMatchActivity : BaseActivityVB<ActivityOpencvkMatchBinding>() {
 
     private fun initCamera() {
         vb.opencvkMatchPreview.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK))
-        vb.opencvkMatchPreview.setImageAnalyzer(_frameAnalyzer)
+        vb.opencvkMatchPreview.setCameraXKFrameListener(_frameAnalyzer)
         vb.opencvkMatchPreview.startCamera()
     }
 
-    private val _frameAnalyzer: ImageAnalysis.Analyzer by lazy {
+    private val _frameAnalyzer: ICameraXKFrameListener by lazy {
         object : ImageAnalysis.Analyzer {
             private val _reentrantLock = ReentrantLock()
 

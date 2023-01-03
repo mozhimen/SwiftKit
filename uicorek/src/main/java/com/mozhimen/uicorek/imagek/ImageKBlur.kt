@@ -299,10 +299,10 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
         override fun run() {
             if (_abortBlur || _blurOption == null) {
-                Log.e(TAG, "放弃模糊，可能是已经移除了布局")
+                Log.e(TAG, "run 放弃模糊，可能是已经移除了布局")
                 return
             }
-            Log.i(TAG, "子线程模糊执行")
+            Log.i(TAG, "run 子线程模糊执行")
             setImageBitmapOnUiThread(
                 RenderScriptHelper.blur(_bitmap, _outWidth, _outHeight, _blurOption!!.getBlurRadius()), false
             )
@@ -318,7 +318,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
         fun restore() {
             if (_isOverTime) {
-                Log.e(TAG, "模糊超时")
+                Log.e(TAG, "restore 模糊超时")
                 destroy()
                 return
             }
