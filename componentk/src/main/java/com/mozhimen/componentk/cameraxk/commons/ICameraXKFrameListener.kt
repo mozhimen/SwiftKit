@@ -1,5 +1,7 @@
 package com.mozhimen.componentk.cameraxk.commons
 
+import androidx.camera.core.ImageProxy
+
 /**
  * @ClassName ICameraXKFrameListener
  * @Description TODO
@@ -8,5 +10,5 @@ package com.mozhimen.componentk.cameraxk.commons
  * @Version 1.0
  */
 interface ICameraXKFrameListener {
-    fun onFrame(image: IImageProxy)
+    fun onFrame(image: ImageProxy)
 }

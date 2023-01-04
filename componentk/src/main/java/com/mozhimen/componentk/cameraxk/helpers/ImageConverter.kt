@@ -26,7 +26,7 @@ object ImageConverter {
      * @return Bitmap
      */
     @JvmStatic
-    fun rgba8888Image2Rgba8888Bitmap(imageProxy: ImageProxy): Bitmap {
+    fun <T : ImageProxy> rgba8888Image2Rgba8888Bitmap(imageProxy: T): Bitmap {
         val bitmap = Bitmap.createBitmap(imageProxy.width, imageProxy.height, Bitmap.Config.ARGB_8888)
         // Copy out RGB bits to the shared bitmap buffer
         imageProxy.use { bitmap.copyPixelsFromBuffer(imageProxy.planes[0].buffer) }
@@ -40,7 +40,7 @@ object ImageConverter {
      */
     @JvmStatic
     @ExperimentalGetImage
-    fun yuv420888Image2JpegBitmap(imageProxy: ImageProxy): Bitmap? {
+    fun <T : ImageProxy> yuv420888Image2JpegBitmap(imageProxy: T): Bitmap? {
         val nv21Bytes = yuv420888Planes2Nv21Bytes(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
         return nv21Bytes2JpegBitmap(ByteBuffer.wrap(nv21Bytes), imageProxy.width, imageProxy.height)
     }
@@ -51,7 +51,7 @@ object ImageConverter {
      * @return Bitmap
      */
     @JvmStatic
-    fun jpegImage2JpegBitmap(imageProxy: ImageProxy): Bitmap {
+    fun <T : ImageProxy> jpegImage2JpegBitmap(imageProxy: T): Bitmap {
         val buffer = imageProxy.planes[0].buffer
         val size = buffer.remaining()
         val jpegBytes = ByteArray(size)
@@ -66,7 +66,7 @@ object ImageConverter {
      */
     @JvmStatic
     @ExperimentalGetImage
-    fun yuv4208882Nv21Bytes(imageProxy: ImageProxy): ByteArray {
+    fun <T : ImageProxy> yuv4208882Nv21Bytes(imageProxy: T): ByteArray {
         return yuv420888Planes2Nv21Bytes(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
     }
 

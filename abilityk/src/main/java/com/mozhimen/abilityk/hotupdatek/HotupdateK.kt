@@ -1,10 +1,11 @@
 package com.mozhimen.abilityk.hotupdatek
 
+import android.Manifest
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
-import com.mozhimen.basick.elemk.receiver.bases.BaseInstallReceiver
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.*
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.componentk.netk.file.NetKFile
@@ -22,6 +23,13 @@ import kotlin.coroutines.resume
  * @Date 2022/2/24 12:15
  * @Version 1.0
  */
+@APermissionK(permissions = [
+    Manifest.permission.READ_EXTERNAL_STORAGE,
+    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    Manifest.permission.REQUEST_INSTALL_PACKAGES,
+    Manifest.permission.INSTALL_PACKAGES,
+])
+//uses-permission android:name="android.permission.READ_INSTALL_SESSIONS
 class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {
         private const val TAG = "HotUpdateK>>>>>"
@@ -29,8 +37,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
 
     private val _context = UtilKApplication.instance.get()
     private val _apkPath = _context.filesDir.absolutePath + "/hotupdatek"
-    private val _apkPathWithName
-        get() = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
+    private val _apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
     private val _netKFile by lazy { NetKFile(owner) }
 
     suspend fun updateApk(remoteVersionCode: Int, apkUrl: String, receiver: Class<*>) {

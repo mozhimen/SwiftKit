@@ -9,9 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.camera.core.AspectRatio
-import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
-import androidx.camera.view.CameraXKPreviewView
+import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.permissionk.annors.APermissionK
@@ -51,7 +50,7 @@ class CameraXKLayout @JvmOverloads constructor(
 
     private lateinit var _cameraXKProxy: CameraXKProxy
     private lateinit var _preview: Preview
-    private lateinit var _previewView: CameraXKPreviewView
+    private lateinit var _previewView: PreviewView
     private lateinit var _slider: Slider
     private lateinit var _sliderContainer: FrameLayout
     private var _aspectRatio: Int by Delegates.observable(AspectRatio.RATIO_16_9) { _, _, new ->
@@ -81,11 +80,11 @@ class CameraXKLayout @JvmOverloads constructor(
     }
 
     private val _onAttachStateChangeListener = object : OnAttachStateChangeListener {
-        override fun onViewAttachedToWindow(v: View?) {
+        override fun onViewAttachedToWindow(v: View) {
             _displayManager.registerDisplayListener(_displayListener, null)
         }
 
-        override fun onViewDetachedFromWindow(v: View?) {
+        override fun onViewDetachedFromWindow(v: View) {
             _displayManager.unregisterDisplayListener(_displayListener)
         }
     }

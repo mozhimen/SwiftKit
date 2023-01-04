@@ -45,7 +45,7 @@ open class LayoutKRefresh @JvmOverloads constructor(
 
     final override fun initView() {
         _gestureDetector = GestureDetector(context, object : RefreshGestureDetector() {
-            override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+            override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
                 if (abs(distanceX) > abs(distanceY) || _refreshListener != null && !_refreshListener!!.enableRefresh()) {
                     //横向滑动，或刷新被禁止则不处理
                     return false

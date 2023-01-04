@@ -94,12 +94,12 @@ object UtilKBitmapFormat {
      */
     @JvmStatic
     @Throws(Exception::class)
-    fun nv21Bytes2JpegBytes(nv21Bytes: ByteArray, width: Int, height: Int): ByteArray {
+    fun nv21Bytes2JpegBytes(nv21Bytes: ByteArray, width: Int, height: Int, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): ByteArray {
         var byteArrayOutputStream: ByteArrayOutputStream? = null
         try {
             byteArrayOutputStream = ByteArrayOutputStream()
             val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
-            yuvImage.compressToJpeg(Rect(0, 0, width, height), 100, byteArrayOutputStream)
+            yuvImage.compressToJpeg(Rect(0, 0, width, height), quality, byteArrayOutputStream)
             return byteArrayOutputStream.toByteArray()
         } catch (e: Exception) {
             throw e

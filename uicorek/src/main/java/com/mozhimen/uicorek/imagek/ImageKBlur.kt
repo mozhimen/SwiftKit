@@ -170,7 +170,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
                 imageAlpha = value
             }
         }).addAnimatorListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 _isAnimating = false
             }
         })).setDuration(duration).setInterpolator(AccelerateDecelerateInterpolator()).build().start()
@@ -193,7 +193,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
                 imageAlpha = value
             }
         }).addAnimatorListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 _isAnimating = false
             }
         })).setDuration(duration).setInterpolator(AccelerateInterpolator()).build().start()

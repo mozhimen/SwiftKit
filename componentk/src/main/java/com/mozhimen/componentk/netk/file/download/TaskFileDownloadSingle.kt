@@ -4,6 +4,7 @@ import android.os.Build
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
+import com.liulishuo.okdownload.StatusUtil
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.basick.taskk.commons.ITaskK
@@ -74,28 +75,43 @@ class TaskFileDownloadSingle(owner: LifecycleOwner) : ITaskK(owner) {
 
         override fun fetchProgress(task: DownloadTask, blockIndex: Int, increaseBytes: Long) {
             super.fetchProgress(task, blockIndex, increaseBytes)
-            Log.d(TAG, "fetchProgress: blockIndex $blockIndex")
+            Log.v(TAG, "fetchProgress: blockIndex $blockIndex increaseBytes $increaseBytes")
             _listener?.onProgress(task, blockIndex, increaseBytes)
         }
 
         override fun taskEnd(task: DownloadTask, cause: EndCause, realCause: Exception?) {
             Log.d(TAG, "taskEnd...")
-            when (cause) {
-                EndCause.COMPLETED -> {
-                    val savePath: String? = task.file?.absolutePath
-                    savePath?.let {
-                        Log.d(TAG, "taskEnd: success")
-                        _listener?.onComplete(task)
-                    } ?: kotlin.run {
-                        LogK.et(TAG, "taskEnd: fail get file path fail")
-                        _listener?.onFail(task, Exception("get file path fail"))
-                    }
+            //may be some problem
+//            when (cause) {
+//                EndCause.COMPLETED -> {
+//                    val savePath: String? = task.file?.absolutePath
+//                    savePath?.let {
+//                        Log.d(TAG, "taskEnd: success")
+//                        _listener?.onComplete(task)
+//                    } ?: kotlin.run {
+//                        LogK.et(TAG, "taskEnd: fail get file path fail")
+//                        _listener?.onFail(task, Exception("get file path fail"))
+//                    }
+//                }
+//                else -> {
+//                    LogK.et(TAG, "taskEnd: error ${cause.name} realCause ${realCause?.message}")
+//                    realCause?.printStackTrace()
+//                    _listener?.onFail(task, realCause)
+//                }
+//            }
+            if (StatusUtil.isCompleted(task)) {
+                val savePath: String? = task.file?.absolutePath
+                savePath?.let {
+                    Log.d(TAG, "taskEnd: success")
+                    _listener?.onComplete(task)
+                } ?: kotlin.run {
+                    LogK.et(TAG, "taskEnd: fail get file path fail")
+                    _listener?.onFail(task, Exception("get file path fail"))
                 }
-                else -> {
-                    LogK.et(TAG, "taskEnd: error ${cause.name} realCause ${realCause?.message}")
-                    realCause?.printStackTrace()
-                    _listener?.onFail(task, realCause)
-                }
+            }else{
+                LogK.et(TAG, "taskEnd: error ${cause.name} realCause ${realCause?.message}")
+                realCause?.printStackTrace()
+                _listener?.onFail(task, realCause)
             }
             popupDownloadTask(task.url)
         }

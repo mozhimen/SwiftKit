@@ -29,7 +29,7 @@ class UtilKGestureActivity : BaseActivityVB<ActivityUtilkGestureBinding>() {
         })
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
+    override fun onTouchEvent(event: MotionEvent): Boolean {
         return _gestureDetector.onTouchEvent(event)
     }
 

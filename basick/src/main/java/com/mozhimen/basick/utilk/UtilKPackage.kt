@@ -7,9 +7,7 @@ import android.content.pm.PackageInstaller.SessionParams
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
-import com.mozhimen.basick.elemk.receiver.bases.BaseInstallReceiver
 import com.mozhimen.basick.utilk.context.UtilKApplication
-
 import java.io.*
 import java.nio.charset.Charset
 
@@ -22,6 +20,8 @@ import java.nio.charset.Charset
  */
 object UtilKPackage {
     private const val TAG = "UtilKPackage>>>>>"
+    private const val ACTION = "wait.install.result"
+
     private val _context = UtilKApplication.instance.get()
 
     /**

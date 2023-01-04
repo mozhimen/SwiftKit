@@ -104,7 +104,7 @@ class RecyclerKLoad @JvmOverloads constructor(
         _isLoading = false
     }
 
-    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
         //这里放弃了监听onScroll事件而改用监听手势, 因为fix 原有的滚动, 滚动到边缘触发两次的bug
         return if (_gestureDetector.onTouchEvent(ev)) true else super.dispatchTouchEvent(ev)
     }
@@ -114,7 +114,7 @@ class RecyclerKLoad @JvmOverloads constructor(
         //咱们这里的强转, 因为前面会有前置检查
         private val _recyclerKAdapter by lazy { adapter as RecyclerKAdapter }
 
-        override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+        override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
             if (distanceY < 0 && this@RecyclerKLoad.isScroll2Top()) {
                 return true
             } else {

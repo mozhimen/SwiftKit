@@ -12,7 +12,7 @@ import androidx.camera.core.*
 import androidx.camera.extensions.ExtensionMode
 import androidx.camera.extensions.ExtensionsManager
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.CameraXKPreviewView
+import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -65,7 +65,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     private lateinit var _owner: LifecycleOwner
     private lateinit var _analyzerThread: HandlerThread
     internal lateinit var slider: Slider
-    internal lateinit var previewView: CameraXKPreviewView
+    internal lateinit var previewView: PreviewView
     internal lateinit var preview: Preview
 
     /**
@@ -125,7 +125,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         }
     }
     private val _imageAnalyzer: ImageAnalysis.Analyzer = ImageAnalysis.Analyzer { image ->
-        _cameraXKFrameListener?.onFrame(image as com.mozhimen.componentk.cameraxk.commons.IImageProxy)
+        _cameraXKFrameListener?.onFrame(image)
     }
 
     //region open fun
@@ -267,8 +267,9 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     }
     //endregion
 
+    @SuppressLint("RestrictedApi")
     @Throws(Exception::class)
-    private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, preview: Preview, previewView: CameraXKPreviewView, slider: Slider) {
+    private fun bindToLifecycle(localCameraProvider: ProcessCameraProvider, preview: Preview, previewView: PreviewView, slider: Slider) {
         if (localCameraProvider.availableCameraInfos.size == 1) {
             _isSingleCamera = true
             val cameraInfo: Camera2CameraInfoImpl = (localCameraProvider.availableCameraInfos[0] as Camera2CameraInfoImpl)

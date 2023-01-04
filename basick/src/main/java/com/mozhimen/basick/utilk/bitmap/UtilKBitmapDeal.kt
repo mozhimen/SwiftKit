@@ -26,9 +26,7 @@ object UtilKBitmapDeal {
         val matrix = Matrix()
         matrix.postRotate((degree).toFloat())
         matrix.postScale(if (flipX) -1f else 1f, if (flipY) -1f else 1f)
-        return Bitmap.createBitmap(
-            sourceBitmap, 0, 0, sourceBitmap.width, sourceBitmap.height, matrix, true
-        )
+        return Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.width, sourceBitmap.height, matrix, true)
     }
 
     /**

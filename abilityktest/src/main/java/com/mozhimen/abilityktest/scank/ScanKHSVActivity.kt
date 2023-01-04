@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import android.os.Bundle
 import android.util.Log
-import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
@@ -19,6 +18,7 @@ import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
@@ -43,18 +43,18 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
 
     private fun initCamera() {
         vb.scankHsvPreview.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK))
-        vb.scankHsvPreview.setImageAnalyzer(_frameAnalyzer)
+        vb.scankHsvPreview.setCameraXKFrameListener(_frameAnalyzer)
         vb.scankHsvPreview.startCamera()
     }
 
     private lateinit var _orgBitmap: Bitmap
 
-    private val _frameAnalyzer: ImageAnalysis.Analyzer by lazy {
-        object : ImageAnalysis.Analyzer {
+    private val _frameAnalyzer: ICameraXKFrameListener by lazy {
+        object : ICameraXKFrameListener {
             private val _reentrantLock = ReentrantLock()
 
             @SuppressLint("UnsafeOptInUsageError")
-            override fun analyze(image: ImageProxy) {
+            override fun onFrame(image: ImageProxy) {
                 try {
                     _reentrantLock.lock()
                     val bitmap: Bitmap = if (image.format == ImageFormat.YUV_420_888) {

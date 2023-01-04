@@ -33,7 +33,7 @@ class DebugKActivity : BaseActivityVB<ActivityDebugkBinding>() {
         return super.onKeyDown(keyCode, event)
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
+    override fun onTouchEvent(event: MotionEvent): Boolean {
         return _gestureDetector.onTouchEvent(event)
     }
 

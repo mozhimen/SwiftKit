@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import android.os.Bundle
-import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityk.opencvk.OpenCVKMatch
 import com.mozhimen.abilityk.opencvk.OpenCVKTrans
@@ -13,17 +12,17 @@ import com.mozhimen.abilityk.opencvk.setMat
 import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkMatchBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.cropBitmap
-import com.mozhimen.basick.utilk.exts.drawable2Bitmap
-import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
-import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
-import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
+import com.mozhimen.basick.utilk.exts.cropBitmap
+import com.mozhimen.basick.utilk.exts.drawable2Bitmap
+import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
+import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
@@ -54,11 +53,11 @@ class OpenCVKMatchActivity : BaseActivityVB<ActivityOpencvkMatchBinding>() {
     }
 
     private val _frameAnalyzer: ICameraXKFrameListener by lazy {
-        object : ImageAnalysis.Analyzer {
+        object : ICameraXKFrameListener {
             private val _reentrantLock = ReentrantLock()
 
             @SuppressLint("UnsafeOptInUsageError")
-            override fun analyze(image: ImageProxy) {
+            override fun onFrame(image: ImageProxy) {
                 try {
                     _reentrantLock.lock()
                     val bitmap: Bitmap = if (image.format == ImageFormat.YUV_420_888) {

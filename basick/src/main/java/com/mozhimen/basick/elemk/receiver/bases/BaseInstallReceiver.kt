@@ -31,18 +31,20 @@ open class BaseInstallReceiver(private val _listener: IReceiverInstallListener? 
 
     @SuppressLint("LongLogTag")
     override fun onReceive(context: Context, intent: Intent) {
-        onReceiveInstall(intent)
+        onReceiveInstall(context, intent)
     }
 
     @SuppressLint("LongLogTag")
     @CallSuper
-    fun onReceiveInstall(intent: Intent) {
+    fun onReceiveInstall(context: Context, intent: Intent) {
         val packageName = intent.dataString
         when (intent.action) {
             Intent.ACTION_PACKAGE_REPLACED -> {
-                Log.w(TAG, "onReceive: update one pkg, restart program soon")
+                Log.w(TAG, "onReceive: update one pkg, restart program soon packageName $packageName")
                 _listener?.onAppUpdate()
-                UtilKApp.restartApp(true)
+                if (packageName == "package:" + context.packageName) {
+                    UtilKApp.restartApp(true)
+                }
             }
             Intent.ACTION_PACKAGE_ADDED -> {
                 Log.w(TAG, "onReceive: install one pkg $packageName")

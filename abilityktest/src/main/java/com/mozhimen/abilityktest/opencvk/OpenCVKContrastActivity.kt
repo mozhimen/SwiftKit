@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import android.os.Bundle
+import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityk.opencvk.OpenCVKContrast
 import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkContrastBinding
@@ -20,8 +21,6 @@ import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.cameraxk.commons.IImageProxy
-import com.mozhimen.componentk.cameraxk.helpers.ImageProxyHelper
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
@@ -57,10 +56,10 @@ class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>()
             private val _reentrantLock = ReentrantLock()
 
             @SuppressLint("UnsafeOptInUsageError")
-            override fun onFrame(image: IImageProxy) {
+            override fun onFrame(image: ImageProxy) {
                 try {
                     _reentrantLock.lock()
-                    val bitmap: Bitmap = if (ImageProxyHelper.getFormat(image) == ImageFormat.YUV_420_888) {
+                    val bitmap: Bitmap = if (image.format == ImageFormat.YUV_420_888) {
                         ImageConverter.yuv420888Image2JpegBitmap(image)!!
                     } else {
                         ImageConverter.jpegImage2JpegBitmap(image)
@@ -90,7 +89,7 @@ class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>()
                 } finally {
                     _reentrantLock.unlock()
                 }
-                ImageProxyHelper.close(image)
+                image.close()
             }
         }
     }

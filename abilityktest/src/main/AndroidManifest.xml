@@ -40,6 +40,9 @@
             android:name=".scank.ScanKHSVActivity"
             android:exported="false" />
         <activity
+            android:name=".scank.ScanKFaceActivity"
+            android:exported="false" />
+        <activity
             android:name=".opencvk.OpenCVKContrastActivity"
             android:exported="false" />
         <activity

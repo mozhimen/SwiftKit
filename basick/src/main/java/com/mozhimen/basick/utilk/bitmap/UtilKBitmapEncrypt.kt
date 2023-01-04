@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.encrypt
+package com.mozhimen.basick.utilk.bitmap
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,7 +13,7 @@ import java.io.IOException
  * @Date 2022/1/15 19:38
  * @Version 1.0
  */
-object UtilKEncryptBitmap {
+object UtilKBitmapEncrypt {
     private const val TAG = "UtilKBitmapEncrypt>>>>>"
 
     /**
@@ -29,18 +29,16 @@ object UtilKEncryptBitmap {
 
     /**
      * 位图转base64
-     * @param bitmap Bitmap
+     * @param sourceBitmap Bitmap
      * @return String?
      */
     @JvmStatic
-    fun bitmap2Base64(bitmap: Bitmap): String? {
+    fun bitmap2Base64(sourceBitmap: Bitmap): String? {
         var result: String? = null
         var byteArrayOutputStream: ByteArrayOutputStream? = null
         try {
             byteArrayOutputStream = ByteArrayOutputStream()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
-            byteArrayOutputStream.flush()
-            byteArrayOutputStream.close()
+            sourceBitmap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
             val bitmapBytes: ByteArray = byteArrayOutputStream.toByteArray()
             /**
              * flags参数说明

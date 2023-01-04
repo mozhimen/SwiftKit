@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.camera.view.CameraXKPreviewView
+    <androidx.camera.view.PreviewView
         android:id="@+id/cameraxk_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -18,8 +17,7 @@
         android:elevation="3dp"
         android:orientation="horizontal"
         android:padding="32dp"
-        android:visibility="gone"
-        tools:targetApi="lollipop">
+        android:visibility="gone">
 
         <com.google.android.material.slider.Slider
             android:id="@+id/cameraxk_slider"

@@ -43,17 +43,19 @@ dependencies {
     api 'com.squareup.retrofit2:converter-scalars:2.5.0'
     api "com.squareup.retrofit2:adapter-rxjava2:2.6.1"
     api 'com.liulishuo.okdownload:okdownload:1.0.7'
+    api 'com.liulishuo.okdownload:sqlite:1.0.7'
+    api 'in.xiandan:okdownload-ext:1.0.7'
 
     //cameraxk
-    implementation 'androidx.camera:camera-camera2:1.1.0-beta02'
-    implementation 'androidx.camera:camera-lifecycle:1.1.0-beta02'
-    implementation 'androidx.camera:camera-extensions:1.1.0-beta02'
-    implementation 'androidx.camera:camera-view:1.1.0-beta02'
-    implementation 'androidx.camera:camera-core:1.1.0-beta02'
+    implementation 'androidx.camera:camera-camera2:1.2.0'
+    implementation 'androidx.camera:camera-lifecycle:1.2.0'
+    implementation 'androidx.camera:camera-extensions:1.2.0'
+    implementation 'androidx.camera:camera-view:1.2.0'
+    api 'androidx.camera:camera-core:1.2.0'
 
     //navigatek
-    api 'androidx.navigation:navigation-fragment-ktx:2.4.1'
-    api 'androidx.navigation:navigation-ui-ktx:2.4.1'
+    api 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    api 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     //adaptk
     api 'me.jessyan:autosize:1.2.1'
