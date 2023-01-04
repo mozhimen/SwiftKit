@@ -14,7 +14,8 @@ import com.mozhimen.componentk.netk.file.download.FileDownloadTaskMgr
 class NetKFile(owner: LifecycleOwner) {
     private val TAG = "NetKFile>>>>>"
 
-    private val _fileDownloadTaskMgr by lazy { FileDownloadTaskMgr(owner) }
+    private val _fileDownloadTaskMgr by lazy { FileDownloadTaskMgr(owner)
+
     fun download(): FileDownloadTaskMgr =
         _fileDownloadTaskMgr
 
