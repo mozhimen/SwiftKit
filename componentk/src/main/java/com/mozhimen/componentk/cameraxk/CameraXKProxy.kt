@@ -21,6 +21,7 @@ import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
+import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
@@ -49,7 +50,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
 
     private var _cameraXKListener: ICameraXKListener? = null
     private var _cameraXKCaptureListener: ICameraXKCaptureListener? = null
-    private var _cameraXKAnalyzer: ImageAnalysis.Analyzer? = null
+    private var _cameraXKFrameListener: ICameraXKFrameListener? = null
 
     private var _hdrCameraSelector: CameraSelector? = null
     private var _imageCapture: ImageCapture? = null
@@ -122,6 +123,9 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
             _cameraXKCaptureListener?.onCaptureFail()
             e.printStackTrace()
         }
+    }
+    private val _imageAnalyzer: ImageAnalysis.Analyzer = ImageAnalysis.Analyzer { image ->
+        _cameraXKFrameListener?.onFrame(image as com.mozhimen.componentk.cameraxk.commons.IImageProxy)
     }
 
     //region open fun
@@ -205,8 +209,8 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         }
     }
 
-    override fun setImageAnalyzer(analyzer: ImageAnalysis.Analyzer) {
-        this._cameraXKAnalyzer = analyzer
+    override fun setCameraXKFrameListener(listener: ICameraXKFrameListener) {
+        this._cameraXKFrameListener = listener
     }
 
     override fun changeHdr(isOpen: Boolean) {
@@ -366,9 +370,9 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
 
     private fun setCameraXKAnalyzer(imageAnalysis: ImageAnalysis) {
         //使用工作线程进行图像分析，以防止故障 Use a worker thread for image analysis to prevent glitches
-        _cameraXKAnalyzer?.let {
+        _cameraXKFrameListener?.let {
             _analyzerThread = HandlerThread("CameraXKLuminosityAnalysis").apply { start() }
-            imageAnalysis.setAnalyzer(ThreadExecutor(Handler(_analyzerThread.looper)), it)
+            imageAnalysis.setAnalyzer(ThreadExecutor(Handler(_analyzerThread.looper)), _imageAnalyzer)
         }
     }
 }

@@ -20,6 +20,7 @@ import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
+import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
@@ -122,8 +123,8 @@ class CameraXKLayout @JvmOverloads constructor(
         _cameraXKProxy.startCamera()
     }
 
-    override fun setImageAnalyzer(analyzer: ImageAnalysis.Analyzer) {
-        _cameraXKProxy.setImageAnalyzer(analyzer)
+    override fun setCameraXKFrameListener(listener: ICameraXKFrameListener) {
+        _cameraXKProxy.setCameraXKFrameListener(listener)
     }
 
     override fun changeHdr(isOpen: Boolean) {
