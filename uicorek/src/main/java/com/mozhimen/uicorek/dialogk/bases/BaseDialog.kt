@@ -24,7 +24,7 @@ import kotlin.math.roundToInt
  * @Date 2022/11/24 22:31
  * @Version 1.0
  */
-@APermissionK(permissions = [Manifest.permission.SYSTEM_ALERT_WINDOW])
+@APermissionK(Manifest.permission.SYSTEM_ALERT_WINDOW)
 abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.BaseDialog_Style) : ComponentDialog(context, themeResId) {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private var _isHasSetWindowAttr = false

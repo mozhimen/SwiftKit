@@ -10,8 +10,7 @@ import com.mozhimen.basick.permissionk.helpers.IPermissionKListener
 import com.mozhimen.basick.permissionk.helpers.InvisibleFragment
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.context.UtilKApplication
-import com.mozhimen.basick.utilk.exts.showToast
-import com.mozhimen.basick.utilk.exts.toJson
+import com.mozhimen.basick.utilk.exts.showToastOnMain
 
 /**
  * @ClassName PermissionK
@@ -34,7 +33,7 @@ object PermissionK {
     fun initPermissions(
         activity: AppCompatActivity,
         onSuccess: () -> Unit,
-        onFail: (() -> Unit)? = { UtilKPermission.openSettingSelf(activity) }
+        onFail: (() -> Unit)? = { UtilKPermission.openSettingSelf() }
     ) {
         initPermissions(activity, isGranted = { if (it) onSuccess.invoke() else onFail?.invoke() })
     }
@@ -50,9 +49,8 @@ object PermissionK {
         isGranted: ((Boolean) -> Unit)? = null,
     ) {
         val permissionAnnor = activity.javaClass.getAnnotation(APermissionK::class.java)
-        requireNotNull(permissionAnnor) { TAG + "you may be forget add annor" }
-        val permissions = permissionAnnor.permissions
-        initPermissions(activity, permissions, isGranted)
+        requireNotNull(permissionAnnor) { "$TAG you may be forget add annor" }
+        initPermissions(activity, permissionAnnor.permission, isGranted)
     }
 
     /**
@@ -64,7 +62,7 @@ object PermissionK {
     @JvmStatic
     fun initPermissions(
         activity: AppCompatActivity,
-        permissions: Array<String>,
+        permissions: Array<out String>,
         isGranted: ((Boolean) -> Unit)? = null
     ) {
         if (permissions.isNotEmpty()) {
@@ -82,12 +80,7 @@ object PermissionK {
     }
 
     /**
-     * 作用: 批量申请动态权限
-     * 用法: PermissionApplier.requestPermissions(this,Manifest.permission.CALL_PHONE,
-     * ...){ allGranted,deniedList ->
-     *     if(allGranted){ ... }
-     *     else { ... }
-     * }
+     * 批量申请动态权限
      * @param activity FragmentActivity
      * @param permissions Array<out String>
      * @param callback Function2<Boolean, List<String>, Unit>
@@ -111,7 +104,7 @@ object PermissionK {
     }
 
     /**
-     * 作用: 权限检查
+     * 权限检查
      * @param permissions Array<out String>
      * @return Boolean
      */
@@ -121,7 +114,7 @@ object PermissionK {
     }
 
     /**
-     * 作用: 权限检查
+     * 权限检查
      * @param permissions Array<out String>
      * @return Boolean
      */
@@ -144,7 +137,7 @@ object PermissionK {
     private fun printDeniedList(deniedList: List<String>) {
         Log.w(TAG, "printDeniedList $deniedList")
         if (deniedList.isNotEmpty()) {
-            "请在设置中打开${deniedList.joinToString()}权限".showToast()
+            "请在设置中打开${deniedList.joinToString()}权限".showToastOnMain()
         }
     }
 }

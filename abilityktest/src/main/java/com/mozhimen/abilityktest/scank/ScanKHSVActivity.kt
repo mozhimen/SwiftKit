@@ -23,7 +23,7 @@ import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
-@APermissionK(permissions = [Manifest.permission.CAMERA])
+@APermissionK(Manifest.permission.CAMERA)
 class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf(this)
+                UtilKPermission.openSettingSelf()
             }
         }
     }

@@ -27,7 +27,7 @@ import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
-@APermissionK(permissions = [Manifest.permission.CAMERA])
+@APermissionK(Manifest.permission.CAMERA)
 class OpenCVKMatchActivity : BaseActivityVB<ActivityOpencvkMatchBinding>() {
     private val _templateMat by lazy { OpenCVKTrans.bitmap2Mat(UtilKRes.getDrawable(R.mipmap.opencvk_contrast_test)!!.drawable2Bitmap()) }
 
@@ -36,7 +36,7 @@ class OpenCVKMatchActivity : BaseActivityVB<ActivityOpencvkMatchBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf(this)
+                UtilKPermission.openSettingSelf()
             }
         }
     }

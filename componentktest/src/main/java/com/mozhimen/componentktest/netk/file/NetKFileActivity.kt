@@ -12,7 +12,7 @@ import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityNetkFileBinding
 
-@APermissionK(permissions = [Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE])
+@APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
     private val _netKFile by lazy { NetKFile(this) }
     private val _musicUrl = "http://192.168.2.6/construction-sites-images/voice/20221102/176f9197f0694591b16ffd47a0f117fe.wav"

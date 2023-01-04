@@ -8,7 +8,7 @@ import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.componentktest.databinding.ActivityPermissionkBinding
 
-@APermissionK(permissions = [Manifest.permission.INTERNET])
+@APermissionK(Manifest.permission.INTERNET)
 class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         //方法一,need APermissionK 注解
@@ -16,7 +16,7 @@ class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf(this)
+                UtilKPermission.openSettingSelf()
             }
         }
 
@@ -24,7 +24,7 @@ class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
         PermissionK.initPermissions(this, onSuccess = {
             initView(savedInstanceState)
         }, onFail = {
-            UtilKPermission.openSettingSelf(this)
+            UtilKPermission.openSettingSelf()
         })
 
         //方法三
@@ -32,7 +32,7 @@ class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
             if (it) {
                 initView(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf(this)
+                UtilKPermission.openSettingSelf()
             }
         }
     }

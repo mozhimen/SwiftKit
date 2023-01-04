@@ -18,7 +18,7 @@ import java.net.URL
  * @Date 2022/11/2 23:49
  * @Version 1.0
  */
-@APermissionK([Manifest.permission.INTERNET])
+@APermissionK(Manifest.permission.INTERNET)
 object UtilKBitmapNet {
     private val _context = UtilKApplication.instance.get()
 

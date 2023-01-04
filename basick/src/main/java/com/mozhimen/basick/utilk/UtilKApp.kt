@@ -1,13 +1,18 @@
 package com.mozhimen.basick.utilk
 
+import android.Manifest
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Process
 import android.util.Log
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.system.exitProcess
+
 
 /**
  * @ClassName UtilKActivity
@@ -81,13 +86,51 @@ object UtilKApp {
             Log.e(TAG, "Didn't exist launcher activity.")
             return
         }
-        intent.addFlags(
-            Intent.FLAG_ACTIVITY_NEW_TASK
-                    or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        )
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         _context.startActivity(intent)
         if (!isKillProcess) return
         Process.killProcess(Process.myPid())
         exitProcess(0)
     }
+
+    /**
+     * 判断手机是否拥有Root权限:
+     * 有root权限返回true, 否则返回false
+     * @return Boolean
+     */
+    @JvmStatic
+    @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
+    fun isRoot(): Boolean {
+        var isRoot = false
+        try {
+            isRoot = !UtilKFile.isFileExist("/system/bin/su") || !UtilKFile.isFileExist("/system/xbin/su")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return isRoot
+    }
+
+    /**
+     * isSystemApp
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isSystemApp(): Boolean =
+        (UtilKPackage.getPackageInfo().applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+
+    /**
+     * isSystemUpdateApp
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isSystemUpdateApp(): Boolean =
+        (UtilKPackage.getPackageInfo().applicationInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
+
+    /**
+     * isUserApp
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isUserApp():Boolean =
+        !isSystemApp() && !isSystemUpdateApp()
 }

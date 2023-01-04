@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
+import com.mozhimen.abilityk.hotupdatek.helpers.AccessibilityInstall
+import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.*
 import com.mozhimen.basick.utilk.context.UtilKApplication
@@ -23,13 +25,13 @@ import kotlin.coroutines.resume
  * @Date 2022/2/24 12:15
  * @Version 1.0
  */
-@APermissionK(permissions = [
+@APermissionK(
     Manifest.permission.READ_EXTERNAL_STORAGE,
     Manifest.permission.WRITE_EXTERNAL_STORAGE,
     Manifest.permission.REQUEST_INSTALL_PACKAGES,
     Manifest.permission.INSTALL_PACKAGES,
-])
-//uses-permission android:name="android.permission.READ_INSTALL_SESSIONS
+)
+@ADescription("alse add [uses-permission android:name=\"android.permission.READ_INSTALL_SESSIONS\"] to your manifest")
 class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {
         private const val TAG = "HotUpdateK>>>>>"
@@ -73,7 +75,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      * @return Boolean
      */
     fun isNeedUpdate(remoteVersionCode: Int): Boolean =
-        (UtilKPackage.getPkgVersionCode() < remoteVersionCode).also {
+        (UtilKPackage.getVersionCode() < remoteVersionCode).also {
             Log.d(TAG, "isNeedUpdate: $it")
         }
 
@@ -114,9 +116,20 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
 
     /**
      * 安装更新
-     * @param apkPath String
+     * @param apkPathWithName String
      */
-    fun installApk(apkPath: String, receiver: Class<*>) {
-        UtilKPackage.installSilence(apkPath, receiver)
+    suspend fun installApk(apkPathWithName: String, receiver: Class<*>) {
+        if (UtilKApp.isSystemApp() || UtilKApp.isRoot()) {
+            Log.d(TAG, "installApk: isSystemApp or isRoot install silence")
+            UtilKInstall.installSilence(apkPathWithName, receiver)
+        } else {
+            Log.d(TAG, "installApk: try launch smart install")
+            try {
+                AccessibilityInstall.installSmart(apkPathWithName)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                LogK.et(TAG, "installApk: fail " + (e.message ?: ""))
+            }
+        }
     }
 }

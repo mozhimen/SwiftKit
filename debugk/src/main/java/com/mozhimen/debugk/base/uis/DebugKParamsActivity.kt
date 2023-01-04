@@ -17,7 +17,7 @@ import com.mozhimen.debugk.base.annors.ADebugKParams
 import com.mozhimen.debugk.base.mos.MDebugKMethod
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
-@APermissionK(permissions = [Manifest.permission.READ_PHONE_STATE])
+@APermissionK(Manifest.permission.READ_PHONE_STATE)
 class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {
     private val _debugParams = arrayOf(DebugKParams::class.java)
 

@@ -94,7 +94,7 @@ class CrashKJava {
             stringBuilder.append("thread= ${Thread.currentThread().name}\n")//异常线程名
 
             //app info
-            val packageInfo = _context.packageManager.getPackageInfo(_context.packageName, 0)
+            val packageInfo = UtilKPackage.getPackageInfo()
             stringBuilder.append("version_code= ${packageInfo.versionCode}\n")
             stringBuilder.append("version_name= ${packageInfo.versionName}\n")
             stringBuilder.append("package_code= ${packageInfo.packageName}\n")

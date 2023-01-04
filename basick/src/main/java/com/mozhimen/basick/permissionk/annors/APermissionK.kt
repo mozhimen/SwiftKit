@@ -7,8 +7,8 @@ package com.mozhimen.basick.permissionk.annors
  * @Date 2021/5/25 11:22
  * @Version 1.0
  */
-@Target(AnnotationTarget.CLASS)
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class APermissionK(
-    val permissions: Array<String> = [],//需要持有的权限
+    vararg val permission: String//需要持有的权限
 )

@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Date 2022/2/16 19:57
  * @Version 1.0
  */
-@APermissionK([Manifest.permission.ACCESS_NETWORK_STATE])
+@APermissionK(Manifest.permission.ACCESS_NETWORK_STATE)
 object UtilKNetwork {
     private val TAG = "UtilKNet>>>>>"
     private val _context = UtilKApplication.instance.get()

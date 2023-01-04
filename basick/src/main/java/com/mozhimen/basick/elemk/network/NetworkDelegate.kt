@@ -18,12 +18,10 @@ import com.mozhimen.basick.permissionk.annors.APermissionK
  * @Version 1.0
  */
 @APermissionK(
-    permissions = [
         Manifest.permission.ACCESS_NETWORK_STATE,
         Manifest.permission.CHANGE_NETWORK_STATE,
         Manifest.permission.CHANGE_WIFI_STATE,
         Manifest.permission.ACCESS_WIFI_STATE,
-    ]
 )
 class NetworkDelegate(private val _owner: LifecycleOwner) : BaseDelegateLifecycleObserver(_owner) {
     private var _networkListener: INetworkListener? = null

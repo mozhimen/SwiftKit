@@ -27,14 +27,14 @@ import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
  * @Date 2023/1/3 14:46
  * @Version 1.0
  */
-@APermissionK(permissions = [Manifest.permission.CAMERA])
+@APermissionK(Manifest.permission.CAMERA)
 class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf(this)
+                UtilKPermission.openSettingSelf()
             }
         }
     }

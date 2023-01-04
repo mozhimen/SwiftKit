@@ -35,7 +35,7 @@ import kotlin.properties.Delegates
  * @Date 2022/1/3 0:22
  * @Version 1.0
  */
-@APermissionK(permissions = [Manifest.permission.CAMERA])
+@APermissionK(Manifest.permission.CAMERA)
 class CameraXKLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

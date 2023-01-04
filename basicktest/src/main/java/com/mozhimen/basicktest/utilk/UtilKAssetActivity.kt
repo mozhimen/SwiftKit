@@ -17,7 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@APermissionK([Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE])
+@APermissionK(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)
 class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
     private lateinit var _adapterKRecycler: RecyclerKVBAdapter<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(

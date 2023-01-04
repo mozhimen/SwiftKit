@@ -8,7 +8,7 @@ import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.componentktest.databinding.ActivityNetkHttpBinding
 
-@APermissionK([Manifest.permission.INTERNET])
+@APermissionK(Manifest.permission.INTERNET)
 class NetKHttpActivity : BaseActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {

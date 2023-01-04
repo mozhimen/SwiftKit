@@ -17,7 +17,7 @@ import com.mozhimen.componentk.statusbark.annors.AStatusBarK
 import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
 import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 
-@APermissionK(permissions = [Manifest.permission.CAMERA])
+@APermissionK(Manifest.permission.CAMERA)
 @AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
 class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 

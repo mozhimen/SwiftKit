@@ -25,14 +25,16 @@ import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
-@APermissionK(permissions = [Manifest.permission.CAMERA])
+@APermissionK(
+    Manifest.permission.CAMERA
+)
 class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf(this)
+                UtilKPermission.openSettingSelf()
             }
         }
     }

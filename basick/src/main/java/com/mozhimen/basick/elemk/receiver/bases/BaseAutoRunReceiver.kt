@@ -40,7 +40,9 @@ import java.util.concurrent.TimeUnit
  * @Date 2022/6/13 11:55
  * @Version 1.0
  */
-@APermissionK(permissions = [Manifest.permission.RECEIVE_BOOT_COMPLETED])
+@APermissionK(
+    Manifest.permission.RECEIVE_BOOT_COMPLETED
+)
 open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BroadcastReceiver() {
 
     @CallSuper

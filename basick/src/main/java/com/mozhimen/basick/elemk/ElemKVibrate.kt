@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Date 2022/2/27 18:28
  * @Version 1.0
  */
-@APermissionK([Manifest.permission.VIBRATE])
+@APermissionK(Manifest.permission.VIBRATE)
 class ElemKVibrate(owner: LifecycleOwner) : ITaskK(owner) {
 
     private var _vibrator: Vibrator? = null

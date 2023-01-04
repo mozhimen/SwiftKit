@@ -32,11 +32,11 @@ import java.util.*
  * @Date 2022/1/15 19:40
  * @Version 1.0
  */
-@APermissionK([
+@APermissionK(
     Manifest.permission.KILL_BACKGROUND_PROCESSES,
     Manifest.permission.READ_PHONE_STATE,
     Manifest.permission.CAMERA
-])
+)
 object UtilKDevice {
     private const val TAG = "UtilKDevice>>>>>"
     private val _context = UtilKApplication.instance.get()

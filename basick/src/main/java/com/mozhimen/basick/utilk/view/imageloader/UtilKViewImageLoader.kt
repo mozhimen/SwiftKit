@@ -23,7 +23,7 @@ import com.mozhimen.basick.utilk.view.imageloader.mos.GrayscaleTransformation
  * @Date 2022/11/6 0:25
  * @Version 1.0
  */
-@APermissionK([Manifest.permission.INTERNET])
+@APermissionK(Manifest.permission.INTERNET)
 object UtilKViewImageLoader {
     private val _context = UtilKApplication.instance.get()
 
