@@ -15,6 +15,11 @@ import org.opencv.imgproc.Imgproc
 object OpenCVKShape {
     private const val TAG = "OpenCVKShape>>>>>"
 
+    /**
+     * 霍夫圆匹配
+     * @param matSrc Mat
+     * @return Int
+     */
     @JvmStatic
     fun getCircleNum(matSrc: Mat): Int {
         val matGray = Mat()

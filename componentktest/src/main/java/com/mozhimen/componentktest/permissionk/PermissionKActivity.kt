@@ -16,7 +16,7 @@ class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf()
+                UtilKPermission.openSettingSelf(this)
             }
         }
 
@@ -24,7 +24,7 @@ class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
         PermissionK.initPermissions(this, onSuccess = {
             initView(savedInstanceState)
         }, onFail = {
-            UtilKPermission.openSettingSelf()
+            UtilKPermission.openSettingSelf(this)
         })
 
         //方法三
@@ -32,7 +32,7 @@ class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
             if (it) {
                 initView(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf()
+                UtilKPermission.openSettingSelf(this)
             }
         }
     }

@@ -15,17 +15,17 @@ object UtilKToast {
     private val _context = UtilKApplication.instance.get()
 
     @JvmStatic
-    fun show(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+    fun show(msg: String, duration: Int = Toast.LENGTH_LONG) {
         Toast.makeText(_context, msg, duration).show()
     }
 
     @JvmStatic
-    fun show(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    fun show(msgId: Int, duration: Int = Toast.LENGTH_LONG) {
         Toast.makeText(_context, msgId, duration).show()
     }
 
     @JvmStatic
-    fun showOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+    fun showOnMain(msg: String, duration: Int = Toast.LENGTH_LONG) {
         if (UtilKThread.isMainLooper()) {
             show(msg, duration)
         } else {
@@ -34,7 +34,7 @@ object UtilKToast {
     }
 
     @JvmStatic
-    fun showOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    fun showOnMain(msgId: Int, duration: Int = Toast.LENGTH_LONG) {
         if (UtilKThread.isMainLooper()) {
             show(msgId, duration)
         } else {

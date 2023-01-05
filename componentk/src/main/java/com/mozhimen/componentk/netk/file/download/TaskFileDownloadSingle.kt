@@ -8,6 +8,7 @@ import com.liulishuo.okdownload.StatusUtil
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.basick.taskk.commons.ITaskK
+import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.basick.utilk.regular.UtilKVerifyUrl
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
 import com.mozhimen.underlayk.logk.LogK
@@ -67,16 +68,21 @@ class TaskFileDownloadSingle(owner: LifecycleOwner) : ITaskK(owner) {
 
     internal inner class DownloadCallback2(private val _listener: IFileDownloadSingleListener? = null) : DownloadListener2() {
         private val TAG = "DownloadCallback2>>>>>"
+        private var _totalIndex = 0
+        private var _totalBytes = 0L
         override fun taskStart(task: DownloadTask) {
             Log.d(TAG, "taskStart...")
             Log.d(TAG, "taskStart: task Info ${getTaskInfo(task)}")
+            clearProgressInfo()
             _listener?.onStart(task)
         }
 
         override fun fetchProgress(task: DownloadTask, blockIndex: Int, increaseBytes: Long) {
             super.fetchProgress(task, blockIndex, increaseBytes)
-            Log.v(TAG, "fetchProgress: blockIndex $blockIndex increaseBytes $increaseBytes")
-            _listener?.onProgress(task, blockIndex, increaseBytes)
+            _totalIndex += blockIndex
+            _totalBytes += increaseBytes
+            Log.v(TAG, "fetchProgress: _totalIndex $_totalIndex _totalBytes ${_totalBytes / 1024 / 1024}MB")
+            _listener?.onProgress(task, UtilKNumber.normalize(_totalIndex, 0, 100), _totalBytes)
         }
 
         override fun taskEnd(task: DownloadTask, cause: EndCause, realCause: Exception?) {
@@ -108,23 +114,35 @@ class TaskFileDownloadSingle(owner: LifecycleOwner) : ITaskK(owner) {
                     LogK.et(TAG, "taskEnd: fail get file path fail")
                     _listener?.onFail(task, Exception("get file path fail"))
                 }
-            }else{
+            } else {
                 LogK.et(TAG, "taskEnd: error ${cause.name} realCause ${realCause?.message}")
                 realCause?.printStackTrace()
                 _listener?.onFail(task, realCause)
             }
             popupDownloadTask(task.url)
+            clearProgressInfo()
         }
 
         private fun getTaskInfo(task: DownloadTask): String {
             val stringBuilder = StringBuilder()
             stringBuilder.apply {
-                append("priority ${task.priority}").append(" ")
-                append("info?.filename ${task.info?.filename}").append(" ")
-                append("info?.url ${task.info?.url}").append(" ")
-                append("info?.file?.absolutePath ${task.info?.file?.absolutePath}")
+                append("priority-> ${task.priority}").append(" ")
+                append("info?.filename-> ${task.info?.filename}").append(" ")
+                append("info?.url-> ${task.info?.url}").append(" ")
+                append("info?.blockCount-> ${task.info?.blockCount}").append(" ")
+                append("info?.file?.absolutePath-> ${task.info?.file?.absolutePath}").append(" ")
+                append("info?.file?.totalSpace-> ${task.info?.file?.totalSpace}").append(" ")
+                append("info?.file?.totalLength-> ${task.info?.totalLength}").append(" ")
+                append("task.flushBufferSize-> ${task.flushBufferSize}").append(" ")
+                append("task.readBufferSize-> ${task.readBufferSize}").append(" ")
+                append("task.syncBufferSize-> ${task.syncBufferSize}").append(" ")
             }
             return stringBuilder.toString()
+        }
+
+        private fun clearProgressInfo() {
+            _totalBytes = 0L
+            _totalIndex = 0
         }
     }
 }

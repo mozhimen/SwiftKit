@@ -34,7 +34,7 @@ class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>()
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf()
+                UtilKPermission.openSettingSelf(this)
             }
         }
     }

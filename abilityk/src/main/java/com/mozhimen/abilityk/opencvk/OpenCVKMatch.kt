@@ -23,6 +23,13 @@ object OpenCVKMatch {
     const val TM_CCORR = Imgproc.TM_CCORR
     const val TM_CCORR_NORMED = Imgproc.TM_CCORR_NORMED
 
+    /**
+     * 模板匹配
+     * @param srcMat Mat
+     * @param templateMat Mat
+     * @param method Int
+     * @return Mat
+     */
     @JvmStatic
     fun templateMatch(srcMat: Mat, templateMat: Mat, method: Int = TM_SQDIFF): Mat {
         val srcRgbMat = Mat()
@@ -58,6 +65,13 @@ object OpenCVKMatch {
         return drawResMat
     }
 
+    /**
+     * 模板匹配
+     * @param srcMat Mat
+     * @param templateMat Mat
+     * @param method Int
+     * @return Pair<Double, Double>
+     */
     @JvmStatic
     fun templateMatch2(srcMat: Mat, templateMat: Mat, method: Int = TM_SQDIFF): Pair<Double, Double> {
         val srcRgbMat = Mat()

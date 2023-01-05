@@ -37,35 +37,23 @@ object ScanKHSV {
 
     /**
      * 检查图片资源的颜色占比
-     * @param path String
+     * @param bitmapPathWithName String
      * @return Map<String, Int>?
      */
-    fun colorAnalyze(path: String): List<Pair<EColorHSV, Int>>? {
+    fun colorAnalyze(bitmapPathWithName: String): List<Pair<EColorHSV, Int>>? {
         val outputStream: FileOutputStream? = null
         var inputStream: FileInputStream? = null
         try {
-            inputStream = FileInputStream(path)
+            inputStream = FileInputStream(bitmapPathWithName)
             val bitmap = BitmapFactory.decodeStream(inputStream)
             return colorAnalyze(bitmap)//开始分析颜色
         } catch (e: Exception) {
-            LogK.et(TAG, "colorAnalyze Exception ${e.message}")
             e.printStackTrace()
+            LogK.et(TAG, "colorAnalyze Exception ${e.message}")
         } finally {
-            if (outputStream != null) {
-                try {
-                    outputStream.flush()
-                    outputStream.close()
-                } catch (e: Exception) {
-                    LogK.et(TAG, "colorAnalyze read outputStream Exception $e")
-                }
-            }
-            if (inputStream != null) {
-                try {
-                    inputStream.close()
-                } catch (e: Exception) {
-                    LogK.et(TAG, "colorAnalyze read inputStream Exception $e")
-                }
-            }
+            outputStream?.flush()
+            outputStream?.close()
+            inputStream?.close()
         }
         return null
     }
@@ -90,7 +78,7 @@ object ScanKHSV {
                     r = Color.red(bitmap.getPixel(x, y))
                     g = Color.green(bitmap.getPixel(x, y))
                     b = Color.blue(bitmap.getPixel(x, y))
-                    val hsv = rgb2Hsv(intArrayOf(r, g, b))
+                    val hsv = rgbArray2HsvArray(intArrayOf(r, g, b))
                     key = colorMatch(hsv[0].toInt(), (hsv[1] * 255).toInt(), (hsv[2] * 255).toInt())
                     key?.let {
                         if (!_colorMap.containsKey(key)) {
@@ -109,7 +97,13 @@ object ScanKHSV {
         return null
     }
 
-    fun rgb2Hsv(rgb: IntArray): FloatArray {
+    /**
+     * rgb转换hsv
+     * @param rgb IntArray
+     * @return FloatArray
+     */
+    @JvmStatic
+    private fun rgbArray2HsvArray(rgb: IntArray): FloatArray {
         //切割rgb数组
         val r = rgb[0]
         val g = rgb[1]
@@ -165,6 +159,7 @@ object ScanKHSV {
      * @param total Int
      * @return Map<String, Int>
      */
+    @JvmStatic
     private fun colorPercentage(total: Int): List<Pair<EColorHSV, Int>> {
         val result = ArrayList<Pair<EColorHSV, Int>>()
         var colorPercent: Double
@@ -183,6 +178,7 @@ object ScanKHSV {
      * @param v Int
      * @return OpenCVKColorHSV?
      */
+    @JvmStatic
     private fun colorMatch(h: Int, s: Int, v: Int): EColorHSV? {
         return if (h <= EColorHSV.COLOR_RED.hMax && h >= EColorHSV.COLOR_RED.hMin && s <= EColorHSV.COLOR_RED.sMax && s >= EColorHSV.COLOR_RED.sMin && v <= EColorHSV.COLOR_RED.vMax && v >= EColorHSV.COLOR_RED.vMin) {
             EColorHSV.COLOR_RED //红色

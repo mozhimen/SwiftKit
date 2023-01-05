@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.bitmap
 
 import android.graphics.*
+import androidx.annotation.FloatRange
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.lang.Integer.min
 
@@ -12,6 +13,16 @@ import java.lang.Integer.min
  * @Version 1.0
  */
 object UtilKBitmapDeal {
+
+    /**
+     * bitmap转化为rgb565
+     * @param sourceBitmap Bitmap
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun bitmap2Rgb565Bitmap(sourceBitmap: Bitmap): Bitmap {
+        return sourceBitmap.copy(Bitmap.Config.RGB_565, true)
+    }
 
     /**
      * 旋转位图
@@ -46,6 +57,18 @@ object UtilKBitmapDeal {
     /**
      * 缩放原图
      * @param sourceBitmap Bitmap
+     * @param ratio Float
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun scaleBitmap(sourceBitmap: Bitmap, ratio: Float): Bitmap {
+        require(ratio > 0f) { "ratioX or ratioY must bigger than 0" }
+        return scaleBitmap(sourceBitmap, ratio, ratio)
+    }
+
+    /**
+     * 缩放原图
+     * @param sourceBitmap Bitmap
      * @param destWidth Float
      * @param destHeight Float
      * @return Bitmap
@@ -54,6 +77,19 @@ object UtilKBitmapDeal {
     fun scaleBitmap(sourceBitmap: Bitmap, destWidth: Int, destHeight: Int): Bitmap {
         val ratioX: Float = destWidth.toFloat() / sourceBitmap.width.toFloat()
         val ratioY: Float = destHeight.toFloat() / sourceBitmap.height.toFloat()
+        return scaleBitmap(sourceBitmap, ratioX, ratioY)
+    }
+
+    /**
+     * 缩放原图
+     * @param sourceBitmap Bitmap
+     * @param ratioX Float
+     * @param ratioY Float
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun scaleBitmap(sourceBitmap: Bitmap, ratioX: Float, ratioY: Float): Bitmap {
+        require(ratioX > 0f && ratioY > 0) { "ratioX or ratioY must bigger than 0" }
         val matrix = Matrix()
         matrix.postScale(ratioX, ratioY)
         return Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.width, sourceBitmap.height, matrix, true)

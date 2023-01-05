@@ -1,11 +1,13 @@
 package com.mozhimen.abilityk.hotupdatek
 
 import android.Manifest
+import android.app.Activity
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
-import com.mozhimen.abilityk.hotupdatek.helpers.AccessibilityInstall
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.*
@@ -16,6 +18,7 @@ import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import top.wuhaojie.installerlibrary.AutoInstaller
 import kotlin.coroutines.resume
 
 /**
@@ -31,18 +34,24 @@ import kotlin.coroutines.resume
     Manifest.permission.REQUEST_INSTALL_PACKAGES,
     Manifest.permission.INSTALL_PACKAGES,
 )
-@ADescription("alse add [uses-permission android:name=\"android.permission.READ_INSTALL_SESSIONS\"] to your manifest")
+@ADescription(
+    "uses-permission android:name=\"android.permission.READ_INSTALL_SESSIONS\"",
+    "also add [READ_INSTALL_SESSIONS] to your manifest"
+)
 class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {
         private const val TAG = "HotUpdateK>>>>>"
+
+        private val _context = UtilKApplication.instance.get()
+        private val _apkPath = _context.filesDir.absolutePath + "/hotupdatek"
+
+        const val EVENT_HOTUPDATEK_PROGRESS = "hotupdatek_progress"
+        val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
     }
 
-    private val _context = UtilKApplication.instance.get()
-    private val _apkPath = _context.filesDir.absolutePath + "/hotupdatek"
-    private val _apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
     private val _netKFile by lazy { NetKFile(owner) }
 
-    suspend fun updateApk(remoteVersionCode: Int, apkUrl: String, receiver: Class<*>) {
+    suspend fun updateApk(remoteVersionCode: Int, apkUrl: String, activity: Activity) {
         withContext(Dispatchers.IO) {
             //check version
             if (!isNeedUpdate(remoteVersionCode)) {
@@ -64,7 +73,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
             }
             //install new apk
             Log.d(TAG, "updateApk: installApk start")
-            installApk(_apkPathWithName, receiver)
+            installApk(apkPathWithName, activity)
             _hotupdateKListener?.onComplete()
         }
     }
@@ -81,6 +90,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
 
     /**
      * 删除所有的旧包
+     * @return Boolean
      */
     fun deleteAllOldPkgs(): Boolean {
         return try {
@@ -99,11 +109,16 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      * @param url String
      */
     suspend fun downloadApk(url: String): Boolean = suspendCancellableCoroutine { coroutine ->
-        _netKFile.download().singleFileTask().start(url, _apkPathWithName, object : IFileDownloadSingleListener {
+        _netKFile.download().singleFileTask().start(url, apkPathWithName, object : IFileDownloadSingleListener {
             override fun onComplete(task: DownloadTask) {
                 task.file?.let {
                     coroutine.resume(true)
                 } ?: coroutine.resume(false)
+            }
+
+            override fun onProgress(task: DownloadTask, totalIndex: Int, totalBytes: Long) {
+                super.onProgress(task, totalIndex, totalBytes)
+                UtilKDataBus.with<String>(EVENT_HOTUPDATEK_PROGRESS).postValue("${totalIndex}% ${totalBytes / 1024 / 1024}MB")
             }
 
             override fun onFail(task: DownloadTask, e: Exception?) {
@@ -118,18 +133,9 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      * 安装更新
      * @param apkPathWithName String
      */
-    suspend fun installApk(apkPathWithName: String, receiver: Class<*>) {
-        if (UtilKApp.isSystemApp() || UtilKApp.isRoot()) {
-            Log.d(TAG, "installApk: isSystemApp or isRoot install silence")
-            UtilKInstall.installSilence(apkPathWithName, receiver)
-        } else {
-            Log.d(TAG, "installApk: try launch smart install")
-            try {
-                AccessibilityInstall.installSmart(apkPathWithName)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                LogK.et(TAG, "installApk: fail " + (e.message ?: ""))
-            }
+    suspend fun installApk(apkPathWithName: String, activity: Activity) {
+        withContext(Dispatchers.Main) {
+            AutoInstaller.getDefault(activity).install(apkPathWithName)
         }
     }
 }

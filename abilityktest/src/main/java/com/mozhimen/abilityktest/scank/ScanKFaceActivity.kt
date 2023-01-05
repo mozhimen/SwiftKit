@@ -34,7 +34,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf()
+                UtilKPermission.openSettingSelf(this)
             }
         }
     }
@@ -55,9 +55,9 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
                 if (System.currentTimeMillis() - _currentTime > 2000L) {
                     _currentTime = System.currentTimeMillis()
                     _rgb565Bitmap =
-                        UtilKBitmapFormat.rgba8888Bitmap2Rgb565Bitmap(
+                        UtilKBitmapDeal.bitmap2Rgb565Bitmap(
                             UtilKBitmapDeal.rotateBitmap(
-                                ImageConverter.rgba8888Image2Rgba8888Bitmap(image),-90
+                                ImageConverter.rgba8888Image2Rgba8888Bitmap(image), -90
                             )
                         )
                     _faceDetector = FaceDetector(_rgb565Bitmap!!.width, _rgb565Bitmap!!.height, 1)

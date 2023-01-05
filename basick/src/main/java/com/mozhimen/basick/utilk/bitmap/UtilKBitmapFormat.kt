@@ -28,16 +28,6 @@ object UtilKBitmapFormat {
     private val _context = UtilKApplication.instance.get()
 
     /**
-     * rgba8888转化为rgb565
-     * @param bitmap Bitmap
-     * @return Bitmap
-     */
-    @JvmStatic
-    fun rgba8888Bitmap2Rgb565Bitmap(bitmap: Bitmap): Bitmap {
-        return bitmap.copy(Bitmap.Config.RGB_565, true)
-    }
-
-    /**
      * image转Bytes
      * @param image Image
      * @return ByteArray
@@ -190,8 +180,7 @@ object UtilKBitmapFormat {
             //根据uri获取图片的流
             inputStream = _context.contentResolver.openInputStream(uri)
             val options = BitmapFactory.Options()
-            //options的in系列的设置了，injustDecodeBound只解析图片的大小，而不加载到内存中去
-            options.inJustDecodeBounds = true
+            options.inJustDecodeBounds = true            //options的in系列的设置了，injustDecodeBound只解析图片的大小，而不加载到内存中去
             //1.如果通过options.outHeight获取图片的宽高，就必须通过decodeStream解析同options赋值
             //否则options.outHeight获取不到宽高
             BitmapFactory.decodeStream(inputStream, null, options)

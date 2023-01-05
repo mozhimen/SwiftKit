@@ -31,7 +31,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf()
+                UtilKPermission.openSettingSelf(this)
             }
         }
     }

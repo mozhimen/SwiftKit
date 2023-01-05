@@ -30,7 +30,7 @@ class OpenCVKShapeActivity : BaseActivityVB<ActivityOpencvkShapeBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf()
+                UtilKPermission.openSettingSelf(this)
             }
         }
     }

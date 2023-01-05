@@ -11,7 +11,7 @@ import com.liulishuo.okdownload.DownloadTask
  */
 interface IFileDownloadSingleListener {
     fun onStart(task: DownloadTask) {}
-    fun onProgress(task: DownloadTask, blockIndex: Int, increaseBytes: Long) {}
+    fun onProgress(task: DownloadTask, totalIndex: Int, totalBytes: Long) {}
     fun onComplete(task: DownloadTask)
     fun onFail(task: DownloadTask, e: Exception?)
 }

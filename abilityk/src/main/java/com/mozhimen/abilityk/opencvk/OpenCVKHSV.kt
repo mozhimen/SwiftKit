@@ -15,6 +15,12 @@ import org.opencv.imgproc.Imgproc
 object OpenCVKHSV {
     private const val TAG = "OpenCVKHSV>>>>>"
 
+    /**
+     * 颜色过滤
+     * @param bitmap Bitmap
+     * @param colorHSV EColorHSV
+     * @return Bitmap
+     */
     @JvmStatic
     fun colorFilter(bitmap: Bitmap, colorHSV: EColorHSV): Bitmap {
         val matSrc = OpenCVKTrans.bitmap2Mat(bitmap)
@@ -42,6 +48,12 @@ object OpenCVKHSV {
         return bitmap
     }
 
+    /**
+     * 颜色过滤
+     * @param matSrc Mat
+     * @param colorHSV EColorHSV
+     * @return Mat
+     */
     @JvmStatic
     fun colorFilter(matSrc: Mat, colorHSV: EColorHSV): Mat {
         val matHsv = Mat()

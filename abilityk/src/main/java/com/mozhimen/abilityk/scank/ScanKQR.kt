@@ -7,6 +7,7 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.underlayk.logk.LogK
 import java.util.*
 
 /**
@@ -17,6 +18,7 @@ import java.util.*
  * @Version 1.0
  */
 object ScanKQR {
+    private const val TAG = "ScanKQR>>>>>"
 
     fun createQRCodeBitmap(
         str: String,
@@ -62,6 +64,7 @@ object ScanKQR {
             return bitmap
         } catch (e: WriterException) {
             e.printStackTrace()
+            LogK.et(TAG, e.message ?: "")
         }
         return null
     }

@@ -3,9 +3,10 @@ package com.mozhimen.basick.utilk.bitmap
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
-import android.os.Environment
 import android.util.Log
 import java.io.ByteArrayOutputStream
+import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 
 /**
@@ -17,34 +18,87 @@ import java.io.ByteArrayOutputStream
  */
 object UtilKBitmapCompress {
     private const val TAG = "UtilKBitmapCompress>>>>>"
-    fun compressQuality(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int): Bitmap {
+
+    /**
+     * 压缩质量
+     * @param sourceBitmap Bitmap
+     * @param quality Int
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun compressQuality(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap? {
         val byteArrayOutputStream = ByteArrayOutputStream()
-        sourceBitmap.compress(CompressFormat.JPEG, quality, byteArrayOutputStream)
-        val bytes: ByteArray = byteArrayOutputStream.toByteArray()
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size).also {
-            printBitmapInfo(it, bytes, quality)
+        try {
+            sourceBitmap.compress(CompressFormat.JPEG, quality, byteArrayOutputStream)
+            val bytes: ByteArray = byteArrayOutputStream.toByteArray()
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.size).also {
+                printBitmapInfo(it, bytes, quality)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            byteArrayOutputStream.flush()
+            byteArrayOutputStream.close()
         }
+        return null
     }
 
-//    fun compressSampleSize(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int): Bitmap {
-//        val options = BitmapFactory.Options()
-//        options.inSampleSize = 2
-//
-//        bm = BitmapFactory.decodeFile(
-//            Environment
-//                .getExternalStorageDirectory().absolutePath
-//                    + "/DCIM/Camera/test.jpg", options
-//        )
-//        Log.i(
-//            "wechat", ("压缩后图片的大小" + (bm.getByteCount() / 1024 / 1024)
-//                .toString() + "M宽度为" + bm.getWidth().toString() + "高度为" + bm.getHeight())
-//        )
-//    }
+    /**
+     * 压缩采样率
+     * @param bitmapPathWithName String
+     * @param quality Int
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun compressSampleSize(bitmapPathWithName: String, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
+        val options = BitmapFactory.Options()
+        options.inSampleSize = (100f / quality.toFloat()).roundToInt().also { Log.v(TAG, "compressSampleSize: inSampleSize $it") }
+        return BitmapFactory.decodeFile(bitmapPathWithName, options).also { printBitmapInfo(it, null, quality) }
+    }
 
-    private fun printBitmapInfo(bitmap: Bitmap, bytes: ByteArray, quality: Int) {
-        Log.i(
+    /**
+     * 缩放压缩法
+     * @param sourceBitmap Bitmap
+     * @param quality Int
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun compressMatrix(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
+        val ratio: Float = sqrt(quality.toFloat() / 100f).also { Log.v(TAG, "compressMatrix: ratio $it") }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
+        return UtilKBitmapDeal.scaleBitmap(sourceBitmap, ratio).also { printBitmapInfo(it, null, quality) }
+    }
+
+    /**
+     * rgb565压缩方法
+     * @param sourceBitmap Bitmap
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun compressRgb565(sourceBitmap: Bitmap): Bitmap {
+        return UtilKBitmapDeal.bitmap2Rgb565Bitmap(sourceBitmap)
+    }
+
+    /**
+     * createScaledBitmap方法压缩
+     * @param sourceBitmap Bitmap
+     */
+    @JvmStatic
+    fun compressScaledBitmap(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
+        val ratio: Float = sqrt(quality.toFloat() / 100f).also { Log.d(TAG, "compressScaledBitmap: ratio $it") }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
+        return Bitmap.createScaledBitmap(sourceBitmap, (sourceBitmap.width * ratio).toInt(), 150, true).also { printBitmapInfo(it, null, quality) }
+    }
+
+    /**
+     * 打印bitmap信息
+     * @param bitmap Bitmap
+     * @param bytes ByteArray?
+     * @param quality Int
+     */
+    @JvmStatic
+    private fun printBitmapInfo(bitmap: Bitmap, bytes: ByteArray?, quality: Int) {
+        Log.v(
             TAG,
-            "compress after bitmap size: ${bitmap.byteCount / 1024 / 1024}M width: ${bitmap.width} height: ${bitmap.height} bytes.length: ${bytes.size / 1024}KB quality: $quality"
+            "compress after bitmap size: ${bitmap.byteCount / 1024 / 1024}MB width: ${bitmap.width} height: ${bitmap.height} bytes.length: ${bytes?.let { it.size / 1024 } ?: 0}KB quality: $quality"
         )
     }
 }

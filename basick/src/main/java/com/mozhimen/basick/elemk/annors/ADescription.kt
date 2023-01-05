@@ -9,4 +9,4 @@ package com.mozhimen.basick.elemk.annors
  */
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
-annotation class ADescription(val tip: String)
+annotation class ADescription(vararg val tip: String)

@@ -3,11 +3,13 @@ package com.mozhimen.abilityk.transk
 import android.Manifest
 import android.os.Build
 import android.speech.tts.TextToSpeech
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.MText2SpeechConfig
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import java.util.*
 
 /**
@@ -17,15 +19,14 @@ import java.util.*
  * @Date 2022/6/5 21:08
  * @Version 1.0
  */
+@APermissionK(Manifest.permission.FOREGROUND_SERVICE)
 class TransKText2Speech(owner: LifecycleOwner, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : DefaultLifecycleObserver {
     private var _transKText2Speech: TextToSpeech? = null
     private val _context = UtilKApplication.instance.get()
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            require(
-                PermissionK.checkPermissions(Manifest.permission.FOREGROUND_SERVICE)
-            ) { "FOREGROUND_SERVICE permission denied" }
+            require(PermissionK.checkPermissions(Manifest.permission.FOREGROUND_SERVICE)) { "FOREGROUND_SERVICE permission denied" }
         }
         owner.lifecycle.addObserver(this)
         _transKText2Speech = TextToSpeech(_context) {

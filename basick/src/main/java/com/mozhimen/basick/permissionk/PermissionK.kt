@@ -33,7 +33,7 @@ object PermissionK {
     fun initPermissions(
         activity: AppCompatActivity,
         onSuccess: () -> Unit,
-        onFail: (() -> Unit)? = { UtilKPermission.openSettingSelf() }
+        onFail: (() -> Unit)? = { UtilKPermission.openSettingSelf(activity) }
     ) {
         initPermissions(activity, isGranted = { if (it) onSuccess.invoke() else onFail?.invoke() })
     }
