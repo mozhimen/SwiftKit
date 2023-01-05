@@ -3,14 +3,14 @@ package com.mozhimen.abilityktest.transk
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import com.mozhimen.abilityk.transk.TransKText2Speech
+import com.mozhimen.abilityk.transk.TransKTTS
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.PermissionK
 
 class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
-    private val _transKText2Speech by lazy {
-        TransKText2Speech(this)
+    private val _transKTTS by lazy {
+        TransKTTS(this)
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -25,7 +25,7 @@ class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         vb.transkT2sBtn.setOnClickListener {
-            _transKText2Speech.play(vb.transkT2sEdt.text.toString())
+            _transKTTS.play(vb.transkT2sEdt.text.toString())
         }
     }
 }

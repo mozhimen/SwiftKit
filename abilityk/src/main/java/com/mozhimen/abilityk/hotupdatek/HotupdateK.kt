@@ -2,9 +2,7 @@ package com.mozhimen.abilityk.hotupdatek
 
 import android.Manifest
 import android.app.Activity
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
@@ -36,7 +34,7 @@ import kotlin.coroutines.resume
 )
 @ADescription(
     "uses-permission android:name=\"android.permission.READ_INSTALL_SESSIONS\"",
-    "also add [READ_INSTALL_SESSIONS] to your manifest"
+    "also add @see [READ_INSTALL_SESSIONS] to your manifest"
 )
 class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {

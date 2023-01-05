@@ -20,8 +20,8 @@ import java.security.MessageDigest
 object UtilKFile {
 
     private const val TAG = "UtilKFile>>>>>"
-    const val msg_not_exist = "fail, make sure it's file or exist"
-    const val msg_wrong = "something wrong"
+    const val MSG_NOT_EXIST = "fail, make sure it's file or exist"
+    const val MSG_WRONG = "something wrong"
     private val _context = UtilKApplication.instance.get()
 
     //region # file
@@ -168,7 +168,7 @@ object UtilKFile {
         } finally {
             randomAccessFile.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
@@ -179,7 +179,7 @@ object UtilKFile {
      */
     @JvmStatic
     fun string2File2(content: String, filePathWithName: String): String {
-        val tmpContent = content + "\r\n"
+        val tmpContent = content + "\n"
         val tmpFile = createFile(filePathWithName)
         val fileOutputStream = FileOutputStream(tmpFile)
         try {
@@ -191,7 +191,7 @@ object UtilKFile {
             fileOutputStream.flush()
             fileOutputStream.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
@@ -210,7 +210,7 @@ object UtilKFile {
      */
     @JvmStatic
     fun file2String(file: File): String {
-        if (!isFileExist(file)) return msg_not_exist
+        if (!isFileExist(file)) return MSG_NOT_EXIST
         val fileInputStream = FileInputStream(file)
         try {
             return inputStream2String(fileInputStream).replace("\\n".toRegex(), "\n")
@@ -219,7 +219,7 @@ object UtilKFile {
         } finally {
             fileInputStream.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
@@ -244,7 +244,7 @@ object UtilKFile {
             bufferedReader.close()
             inputStreamReader.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
@@ -291,7 +291,7 @@ object UtilKFile {
             fileInputStream?.close()
             inputStream.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
@@ -326,7 +326,7 @@ object UtilKFile {
             fileOutputStream.flush()
             fileOutputStream.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
@@ -346,7 +346,7 @@ object UtilKFile {
      */
     @JvmStatic
     fun copyFile(sourceFile: File, destFile: File, isOverwrite: Boolean = true): String {
-        if (!isFileExist(sourceFile)) return msg_not_exist
+        if (!isFileExist(sourceFile)) return MSG_NOT_EXIST
         val fileInputStream = FileInputStream(sourceFile)
         try {
             return inputStream2File(fileInputStream, destFile, isOverwrite)
@@ -355,11 +355,60 @@ object UtilKFile {
         } finally {
             fileInputStream.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
      * 文件转Uri
+     * if build sdk > N you also add provider and @xml/file_paths
+
+     * AndroidManifest.xml
+        <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="包名.fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_paths"  />
+        </provider>
+
+     * file_paths.xml
+        <paths>
+        <files-path
+        name="files-path"
+        path="." />
+        </paths>
+
+     * @param filePathWithName String
+     * @return Uri
+     */
+    @JvmStatic
+    fun file2Uri(filePathWithName: String): Uri =
+        file2Uri(File(filePathWithName))
+
+    /**
+     * 文件转Uri
+     * if build sdk > N you also add provider and @xml/file_paths
+
+     * AndroidManifest.xml
+        <provider
+        android:name="androidx.core.content.FileProvider"
+        android:authorities="包名.fileprovider"
+        android:exported="false"
+        android:grantUriPermissions="true">
+        <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/file_paths"  />
+        </provider>
+
+     * file_paths.xml
+        <paths>
+        <files-path
+        name="files-path"
+        path="." />
+        </paths>
+
      * @param file File
      * @return Uri
      */
@@ -388,7 +437,7 @@ object UtilKFile {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**

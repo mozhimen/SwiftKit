@@ -1,4 +1,4 @@
-package com.mozhimen.abilityk.hotupdatek.helpers
+package com.mozhimen.abilityk.installk
 
 import android.accessibilityservice.AccessibilityService
 import android.annotation.SuppressLint
@@ -7,31 +7,31 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 
 /**
- * @ClassName SmartInstallService
+ * @ClassName InstallKSmartService
  * @Description you must register service
 
-  <service
-   android:name=".SmartInstallService"
-   android:label="程序更新"
-   android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-   android:exported="true">
-   <intent-filter>
-       <action android:name="android.accessibilityservice.AccessibilityService" />
-   </intent-filter>
-
-   <meta-data
-       android:name="android.accessibilityservice"
-   android:resource="@xml/smart_install_accessibility_service_config" />
-  </service>
+ * AndroidManifest.xml
+    <service
+    android:name=".installk.InstallKSmartService"
+    android:label="HotupdateK程序更新"
+    android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+    android:exported="true">
+    <intent-filter>
+    <action android:name="android.accessibilityservice.AccessibilityService" />
+    </intent-filter>
+    <meta-data
+    android:name="android.accessibilityservice"
+    android:resource="@xml/installk_smart_accessibility_service_config" />
+    </service>
 
  * @Author mozhimen / Kolin Zhao
  * @Date 2023/1/4 22:39
  * @Version 1.0
  */
 
-class SmartInstallService : AccessibilityService() {
+class InstallKSmartService : AccessibilityService() {
     companion object {
-        private const val TAG = "SmartInstallService>>>>>"
+        private const val TAG = "InstallKSmartService>>>>>"
     }
 
     private var _handledMap: MutableMap<Int, Boolean?> = HashMap()

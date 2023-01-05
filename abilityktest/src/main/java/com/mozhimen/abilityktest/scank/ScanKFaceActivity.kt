@@ -40,7 +40,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.scankFaceCamera.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.FRONT, format = ACameraXKFormat.RGBA_8888))
+        vb.scankFaceCamera.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK, format = ACameraXKFormat.RGBA_8888))
         vb.scankFaceCamera.setCameraXKFrameListener(_frameAnalyzer)
         vb.scankFaceCamera.startCamera()
     }
@@ -54,12 +54,12 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
             override fun onFrame(image: ImageProxy) {
                 if (System.currentTimeMillis() - _currentTime > 2000L) {
                     _currentTime = System.currentTimeMillis()
-                    _rgb565Bitmap =
-                        UtilKBitmapDeal.bitmap2Rgb565Bitmap(
-                            UtilKBitmapDeal.rotateBitmap(
-                                ImageConverter.rgba8888Image2Rgba8888Bitmap(image), -90
-                            )
-                        )
+                    _rgb565Bitmap = ImageConverter.rgba8888Image2Rgba8888Bitmap(image)
+//                        UtilKBitmapDeal.bitmap2Rgb565Bitmap(
+//                            UtilKBitmapDeal.rotateBitmap(
+//                                ImageConverter.rgba8888Image2Rgba8888Bitmap(image), -90
+//                            )
+//                        )
                     _faceDetector = FaceDetector(_rgb565Bitmap!!.width, _rgb565Bitmap!!.height, 1)
                     val faceCount = _faceDetector!!.findFaces(_rgb565Bitmap!!, _faces)
                     runOnUiThread { vb.scankFaceImg.setImageBitmap(_rgb565Bitmap) }

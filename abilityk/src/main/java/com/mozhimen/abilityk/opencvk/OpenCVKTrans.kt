@@ -7,7 +7,7 @@ import org.opencv.core.Mat
 import org.opencv.imgproc.Imgproc
 
 /**
- * @ClassName TransKOpenCV
+ * @ClassName OpenCVKTrans
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/6/8 18:47

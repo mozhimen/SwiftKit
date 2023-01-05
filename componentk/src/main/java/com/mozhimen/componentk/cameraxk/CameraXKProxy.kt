@@ -125,7 +125,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
         }
     }
     private val _imageAnalyzer: ImageAnalysis.Analyzer = ImageAnalysis.Analyzer { image ->
-        _cameraXKFrameListener?.onFrame(image)
+        this._cameraXKFrameListener?.onFrame(image)
     }
 
     //region open fun

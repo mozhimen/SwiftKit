@@ -7,7 +7,6 @@ import android.graphics.ImageDecoder
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import com.mozhimen.basick.utilk.UtilKDate
@@ -73,7 +72,7 @@ object UtilKBitmapIO {
                 e.printStackTrace()
             }
         }
-        return UtilKFile.msg_wrong
+        return UtilKFile.MSG_WRONG
     }
 
     /**
@@ -107,7 +106,7 @@ object UtilKBitmapIO {
             bufferedOutputStream?.flush()
             bufferedOutputStream?.close()
         }
-        return UtilKFile.msg_wrong
+        return UtilKFile.MSG_WRONG
     }
 
     /**

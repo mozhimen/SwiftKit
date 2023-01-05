@@ -112,6 +112,7 @@ dependencies {
 > 近期fix: 1.fix download file
 > 2.faceDetector人脸识别
 > 3.TimePicker封装
+> 4.AutoInstaller
 > 近期更新: 1.消化BasePopwin
 > 2.完善BaseDialog
 > 3.优化PopwinKBubble

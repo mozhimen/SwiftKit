@@ -2,6 +2,7 @@ package com.mozhimen.componentk.cameraxk.helpers
 
 import android.graphics.*
 import android.media.Image.Plane
+import android.util.Log
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
 import com.mozhimen.underlayk.logk.LogK
@@ -27,6 +28,7 @@ object ImageConverter {
      */
     @JvmStatic
     fun rgba8888Image2Rgba8888Bitmap(imageProxy: ImageProxy): Bitmap {
+        Log.v(TAG, "rgba8888Image2Rgba8888Bitmap: width ${imageProxy.width} height ${imageProxy.height}")
         val bitmap = Bitmap.createBitmap(imageProxy.width, imageProxy.height, Bitmap.Config.ARGB_8888)
         // Copy out RGB bits to the shared bitmap buffer
         imageProxy.use { bitmap.copyPixelsFromBuffer(imageProxy.planes[0].buffer) }

@@ -2,7 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mozhimen.abilityktest">
 
-    <!--android:requestLegacyExternalStorage="true" hotfixk-->
+    <!--trans-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
     <application
         android:name=".AbilityKApplication"
         android:allowBackup="true"
@@ -11,6 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
+
         <activity
             android:name=".AbilityKActivity"
             android:exported="true">
@@ -21,20 +29,10 @@
             </intent-filter>
         </activity>
 
-        <!-- provider -->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
-
         <!-- abilityk -->
+        <!--scank-->
         <activity
-            android:name=".opencvk.OpenCVKMatchActivity"
+            android:name=".scank.ScanKActivity"
             android:exported="false" />
         <activity
             android:name=".scank.ScanKHSVActivity"
@@ -42,21 +40,26 @@
         <activity
             android:name=".scank.ScanKFaceActivity"
             android:exported="false" />
+
+        <!--opencvk-->
+        <activity
+            android:name=".opencvk.OpenCVKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".opencvk.OpenCVKMatchActivity"
+            android:exported="false" />
         <activity
             android:name=".opencvk.OpenCVKContrastActivity"
             android:exported="false" />
         <activity
             android:name=".opencvk.OpenCVKShapeActivity"
             android:exported="false" />
-        <activity
-            android:name=".opencvk.OpenCVKActivity"
-            android:exported="false" />
+
+        <!--transk-->
         <activity
             android:name=".transk.TransKActivity"
             android:exported="false" />
-        <activity
-            android:name=".scank.ScanKActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -43,10 +43,7 @@ object OpenCVKMatch {
 
             Imgproc.matchTemplate(srcRgbMat, temRgbMat, result, method)
             val minMaxLoc = Core.minMaxLoc(result)
-            Log.d(
-                TAG,
-                "maxVal = ${minMaxLoc.maxVal}, maxLocation = ${minMaxLoc.maxLoc}, minVal = ${minMaxLoc.minVal}, minLocation = ${minMaxLoc.minLoc}"
-            )
+            Log.v(TAG, "templateMatch maxVal = ${minMaxLoc.maxVal}, maxLocation = ${minMaxLoc.maxLoc}, minVal = ${minMaxLoc.minVal}, minLocation = ${minMaxLoc.minLoc}")
             val topLeft = if (method == Imgproc.TM_SQDIFF || method == Imgproc.TM_SQDIFF_NORMED) {
                 minMaxLoc.minLoc
             } else {

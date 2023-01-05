@@ -120,7 +120,7 @@ object UtilKBitmapFormat {
             byteArrayOutputStream?.flush()
             byteArrayOutputStream?.close()
         }
-        return UtilKFile.msg_wrong
+        return UtilKFile.MSG_WRONG
     }
 
     /**
@@ -225,7 +225,7 @@ object UtilKBitmapFormat {
             UtilKBitmapIO.bitmap2Album(nv21Bytes2JpegBitmap(nv21Bytes, width, height), filePathWithName)
         } catch (e: Exception) {
             e.printStackTrace()
-            UtilKFile.msg_wrong
+            UtilKFile.MSG_WRONG
         }
     }
 
