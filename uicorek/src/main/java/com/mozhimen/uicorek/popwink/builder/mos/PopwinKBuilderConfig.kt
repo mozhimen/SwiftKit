@@ -13,7 +13,7 @@ import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_SHOW
 import com.mozhimen.basick.utilk.UtilKClazz
 import com.mozhimen.basick.utilk.UtilKKeyBoard.IUtilKKeyboardListener
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption
-import com.mozhimen.basick.utilk.log.UtilKSmartLog
+import com.mozhimen.basick.utilk.log.UtilKLogSmart
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.KeyEventListener
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.OnBlurOptionInitListener
@@ -301,7 +301,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         return try {
             PopwinKBuilderProxy::class.java.getMethod(methodName, parameterTypes)
         } catch (e: Exception) {
-            UtilKSmartLog.e("not found", methodName, parameterTypes!!.name)
+            UtilKLogSmart.e("not found", methodName, parameterTypes!!.name)
             null
         }
     }

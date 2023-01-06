@@ -456,6 +456,19 @@
     </declare-styleable>
 
     <!--viewk-->
+    <declare-styleable name="ViewKOverlay">
+        <attr name="viewKOverlay_isShowLabel" format="boolean" />
+        <attr name="viewKOverlay_labelTextSize" format="dimension|reference" />
+        <attr name="viewKOverlay_labelTextColor" format="color|reference" />
+        <attr name="viewKOverlay_labelBackgroundColor" format="color|reference" />
+        <attr name="viewKOverlay_boxType" format="enum">
+            <enum name="rect" value="0" />
+            <enum name="circle" value="1" />
+        </attr>
+        <attr name="viewKOverlay_boxLineWidth" format="dimension|reference" />
+        <attr name="viewKOverlay_boxLineColor" format="color|reference" />
+    </declare-styleable>
+
     <declare-styleable name="ViewKCircleSpread">
         <!--中心圆颜色-->
         <attr name="viewKCircleSpread_centerColor" format="reference|color" />

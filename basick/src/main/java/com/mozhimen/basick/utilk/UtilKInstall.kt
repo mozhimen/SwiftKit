@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.os.Build
@@ -21,18 +22,55 @@ object UtilKInstall {
     private val _context = UtilKApplication.instance.get()
 
     /**
+     * 智能安装
+
+     * AndroidManifest.xml sdk>24
+    <provider
+    android:name="androidx.core.content.FileProvider"
+    android:authorities="包名.fileprovider"
+    android:exported="false"
+    android:grantUriPermissions="true">
+    <meta-data
+    android:name="android.support.FILE_PROVIDER_PATHS"
+    android:resource="@xml/file_paths"  />
+    </provider>
+
+     * file_paths.xml sdk>24
+    <paths>
+    <files-path
+    name="files-path"
+    path="." />
+    </paths>
+
+     * @param context Context
+     * @param apkPathWithName String
+     */
+    fun installSmart(context: Context, apkPathWithName: String) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_VIEW
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK        //在Broadcast中启动Activity需要添加Intent.FLAG_ACTIVITY_NEW_TASK
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //判断安卓系统是否大于7.0  大于7.0使用以下方法
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)                //添加这一句表示对目标应用临时授权该Uri所代表的文件
+        }
+        val uri = UtilKFile.file2Uri(apkPathWithName) ?: return
+        val type = "application/vnd.android.package-archive" //安装路径
+        intent.setDataAndType(uri, type)
+        context.startActivity(intent)
+    }
+
+    /**
      * 静默安装
-     * @param apkPath String 绝对路径
+     * @param apkPathWithName String 绝对路径
      * @param pkgName String
      * @return Boolean
      */
     @JvmStatic
-    fun installSilence(apkPath: String, pkgName: String): Boolean {
+    fun installSilence(apkPathWithName: String, pkgName: String): Boolean {
         var result = "EMPTY"
         val cmd = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPath)
+            arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPathWithName)
         } else {
-            arrayOf("pm", "install", "-i", pkgName, "-r", apkPath)
+            arrayOf("pm", "install", "-i", pkgName, "-r", apkPathWithName)
         }
         val processBuilder = ProcessBuilder(*cmd)
         var process: Process? = null
@@ -64,25 +102,25 @@ object UtilKInstall {
 
     /**
      * 静默安装
-     * @param pathApk String
+     * @param apkPathWithName String
      * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
-    fun installSilence(pathApk: String, receiver: Class<*>) {
+    fun installSilence(apkPathWithName: String, receiver: Class<*>) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            installSilenceAfter28(pathApk, receiver)
+            installSilenceAfter28(apkPathWithName, receiver)
         } else {
-            installSilenceBefore28(pathApk)
+            installSilenceBefore28(apkPathWithName)
         }
     }
 
     /**
      * 静默安装适配 SDK28 之前的安装方法
-     * @param pathApk String
+     * @param apkPathWithName String
      * @return Boolean
      */
     @JvmStatic
-    fun installSilenceBefore28(pathApk: String): Boolean {
+    fun installSilenceBefore28(apkPathWithName: String): Boolean {
         var process: Process? = null
         var resSuccessBufferedReader: BufferedReader? = null
         var resErrorBufferedReader: BufferedReader? = null
@@ -90,9 +128,9 @@ object UtilKInstall {
         val msgSuccess = StringBuilder()
         val msgError = StringBuilder()
         val cmd: Array<String> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            arrayOf("pm", "install", "-i", _context.packageName, "-r", pathApk)
+            arrayOf("pm", "install", "-i", _context.packageName, "-r", apkPathWithName)
         } else {
-            arrayOf("pm", "install", "-r", pathApk)
+            arrayOf("pm", "install", "-r", apkPathWithName)
         }
         try {
             process = ProcessBuilder(*cmd).start()

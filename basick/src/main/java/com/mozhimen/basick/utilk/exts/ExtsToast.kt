@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.exts
 
 import android.widget.Toast
-import com.mozhimen.basick.utilk.UtilKToast
+import com.mozhimen.basick.utilk.bar.UtilKToast
 
 /**
  * @ClassName UtilKToast

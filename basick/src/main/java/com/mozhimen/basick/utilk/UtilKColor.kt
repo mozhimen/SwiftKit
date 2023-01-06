@@ -21,6 +21,7 @@ object UtilKColor {
      * @return Int
      */
     @JvmStatic
+    @ColorInt
     @RequiresApi(Build.VERSION_CODES.O)
     fun getMedianColor(startColor: Int, endColor: Int, ratio: Float): Int {
         val startRed = Color.red(startColor)
@@ -56,6 +57,11 @@ object UtilKColor {
     fun getColorTone(colorStr: String): Int =
         Color.parseColor(colorStr)
 
+    /**
+     * 获取颜色
+     * @param any Any
+     * @return Int
+     */
     @JvmStatic
     @ColorInt
     fun getColorTone(any: Any): Int {

@@ -31,9 +31,7 @@ object UtilKBitmapCompress {
         try {
             sourceBitmap.compress(CompressFormat.JPEG, quality, byteArrayOutputStream)
             val bytes: ByteArray = byteArrayOutputStream.toByteArray()
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.size).also {
-                printBitmapInfo(it, bytes, quality)
-            }
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.size).also { printBitmapInfo(it, bytes, quality) }
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -75,7 +73,18 @@ object UtilKBitmapCompress {
      */
     @JvmStatic
     fun compressRgb565(sourceBitmap: Bitmap): Bitmap {
-        return UtilKBitmapDeal.bitmap2Rgb565Bitmap(sourceBitmap)
+        return UtilKBitmapDeal.bitmap2Rgb565Bitmap(sourceBitmap).also { printBitmapInfo(it, null, 100) }
+    }
+
+    /**
+     * rgb565压缩方法
+     * @param filePathWithName String
+     */
+    @JvmStatic
+    fun compressRgb565(filePathWithName: String): Bitmap {
+        val options = BitmapFactory.Options()
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        return BitmapFactory.decodeFile(filePathWithName, options).also { printBitmapInfo(it, null, 100) }
     }
 
     /**

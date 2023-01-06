@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.mozhimen.basick.utilk.UtilKStackTrace;
-import com.mozhimen.basick.utilk.log.UtilKSmartLog;
+import com.mozhimen.basick.utilk.log.UtilKLogSmart;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -140,7 +140,7 @@ public enum BasePopupUnsafe {
         try {
             p.mHelper.mOnFitWindowManagerLayoutParamsCallback = cb;
         } catch (Exception e) {
-            UtilKSmartLog.e(e);
+            UtilKLogSmart.e(e);
         }
     }
 

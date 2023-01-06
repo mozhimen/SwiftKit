@@ -120,36 +120,6 @@ object UtilKFile {
         deleteFile(File(filePathWithName))
 
     /**
-     * 获取文件大小
-     * @param filePathWithName String
-     * @return Long
-     */
-    @JvmStatic
-    fun getFileSize(filePathWithName: String): Int =
-        getFileSize(File(filePathWithName))
-
-    /**
-     * 获取文件大小
-     * @param file File
-     * @return Long
-     */
-    @JvmStatic
-    fun getFileSize(file: File): Int {
-        val size = 0
-        if (isFileExist(file)) {
-            val fileInputStream = FileInputStream(file)
-            try {
-                return fileInputStream.available()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            } finally {
-                fileInputStream.close()
-            }
-        }
-        return size
-    }
-
-    /**
      * 文本转文件
      * @param content String
      * @param filePathWithName String
@@ -363,60 +333,70 @@ object UtilKFile {
      * if build sdk > N you also add provider and @xml/file_paths
 
      * AndroidManifest.xml
-        <provider
-        android:name="androidx.core.content.FileProvider"
-        android:authorities="包名.fileprovider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/file_paths"  />
-        </provider>
+    <provider
+    android:name="androidx.core.content.FileProvider"
+    android:authorities="包名.fileprovider"
+    android:exported="false"
+    android:grantUriPermissions="true">
+    <meta-data
+    android:name="android.support.FILE_PROVIDER_PATHS"
+    android:resource="@xml/file_paths"  />
+    </provider>
 
      * file_paths.xml
-        <paths>
-        <files-path
-        name="files-path"
-        path="." />
-        </paths>
+    <paths>
+    <files-path
+    name="files-path"
+    path="." />
+    </paths>
 
      * @param filePathWithName String
      * @return Uri
      */
     @JvmStatic
-    fun file2Uri(filePathWithName: String): Uri =
-        file2Uri(File(filePathWithName))
+    fun file2Uri(filePathWithName: String): Uri? {
+        if (filePathWithName.isEmpty()) {
+            Log.e(TAG, "file2Uri: isEmpty true")
+            return null
+        }
+        return file2Uri(File(filePathWithName))
+    }
 
     /**
      * 文件转Uri
      * if build sdk > N you also add provider and @xml/file_paths
 
      * AndroidManifest.xml
-        <provider
-        android:name="androidx.core.content.FileProvider"
-        android:authorities="包名.fileprovider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/file_paths"  />
-        </provider>
+    <provider
+    android:name="androidx.core.content.FileProvider"
+    android:authorities="包名.fileprovider"
+    android:exported="false"
+    android:grantUriPermissions="true">
+    <meta-data
+    android:name="android.support.FILE_PROVIDER_PATHS"
+    android:resource="@xml/file_paths"  />
+    </provider>
 
      * file_paths.xml
-        <paths>
-        <files-path
-        name="files-path"
-        path="." />
-        </paths>
+    <paths>
+    <files-path
+    name="files-path"
+    path="." />
+    </paths>
 
      * @param file File
      * @return Uri
      */
     @JvmStatic
-    fun file2Uri(file: File): Uri =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+    fun file2Uri(file: File): Uri? {
+        if (!isFileExist(file)) {
+            Log.e(TAG, "file2Uri: file isFileExist false")
+            return null
+        }
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
             FileProvider.getUriForFile(_context, "${_context.packageName}.fileProvider", file)
         else Uri.fromFile(file)
+    }
 
     /**
      * 文件转Md5
@@ -449,6 +429,59 @@ object UtilKFile {
     @JvmStatic
     fun isFilesSame(inputStream1: InputStream, inputStream2: InputStream): Boolean {
         return TextUtils.equals(file2Md5(inputStream1), file2Md5(inputStream2))
+    }
+
+    /**
+     * 获取文件大小
+     * @param filePathWithName String
+     * @return Long
+     */
+    @JvmStatic
+    fun getFileSize(filePathWithName: String): Long {
+        if (filePathWithName.isEmpty()) return 0L
+        return getFileSize(File(filePathWithName))
+    }
+
+    /**
+     * 获取文件大小
+     * @param file File
+     * @return Long
+     */
+    @JvmStatic
+    fun getFileSize(file: File): Long {
+        if (!isFileExist(file)) return 0L
+        val size = 0L
+        val fileInputStream = FileInputStream(file)
+        try {
+            return fileInputStream.available().toLong()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            fileInputStream.close()
+        }
+        return size
+    }
+
+    /**
+     * 获取文件大小
+     * @param filePathWithName String
+     * @return Long
+     */
+    @JvmStatic
+    fun getFileSize2(filePathWithName: String): Long {
+        if (filePathWithName.isEmpty()) return 0L
+        return getFileSize2(File(filePathWithName))
+    }
+
+    /**
+     * 获取文件大小
+     * @param file File
+     * @return Long
+     */
+    @JvmStatic
+    fun getFileSize2(file: File): Long {
+        if (!isFileExist(file)) return 0L
+        return file.length()
     }
     //endregion
 
@@ -552,3 +585,4 @@ object UtilKFile {
     }
     //endregion
 }
+

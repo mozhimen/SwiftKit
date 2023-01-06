@@ -110,7 +110,6 @@ dependencies {
 
 > 后期更新,并在wiki中详细整理,请持续关注,也可以查看单模块的testapp中查看demo的使用范例
 > 近期fix: 1.fix download file
-> 2.faceDetector人脸识别
 > 3.TimePicker封装
 > 4.AutoInstaller
 > 近期更新: 1.消化BasePopwin

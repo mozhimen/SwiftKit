@@ -20,7 +20,7 @@ import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKScreen;
-import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
+import com.mozhimen.basick.utilk.bar.UtilKBarStatus;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.popwink.bases.commons.IEventObserver;
 import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
@@ -71,7 +71,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
 
     PopupDecorViewProxy(Context context, BasePopupHelper helper) {
         this(context);
-        isStatusBarVisible = UtilKStatusBar.isStatusBarVisible(context);
+        isStatusBarVisible = UtilKBarStatus.isStatusBarVisible(context);
         init(helper);
     }
 
@@ -226,7 +226,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         if ((mHelper.overlayStatusBarMode & overlayTarget) == 0 && isStatusBarVisible) {
-            heightSize -= UtilKStatusBar.getStatusBarHeight(false);
+            heightSize -= UtilKBarStatus.getStatusBarHeight(false);
         }
         if ((mHelper.overlayNavigationBarMode & overlayTarget) == 0) {
             int navigationBarGravity = mHelper.getNavigationBarGravity();
@@ -387,7 +387,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
 
             //状态栏判断
             if ((mHelper.overlayStatusBarMode & (child == mMaskLayout ? CFlag.OVERLAY_MASK : CFlag.OVERLAY_CONTENT)) == 0) {
-                contentBounds.top = contentBounds.top == 0 ? contentBounds.top + UtilKStatusBar.getStatusBarHeight(false) : contentBounds.top;
+                contentBounds.top = contentBounds.top == 0 ? contentBounds.top + UtilKBarStatus.getStatusBarHeight(false) : contentBounds.top;
             } else {
                 contentBounds.top = 0;
             }

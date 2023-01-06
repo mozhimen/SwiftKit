@@ -9,7 +9,7 @@ import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import com.mozhimen.basick.utilk.bar.UtilKVirtualBar
+import com.mozhimen.basick.utilk.bar.UtilKBarVirtual
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.math.sqrt
 
@@ -182,7 +182,7 @@ object UtilKScreen {
         val view = activity.window.decorView
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
-        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getVirtualBarHeight(activity))
+        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKBarVirtual.getVirtualBarHeight(activity))
         view.isDrawingCacheEnabled = false
         view.destroyDrawingCache()
         return bitmap

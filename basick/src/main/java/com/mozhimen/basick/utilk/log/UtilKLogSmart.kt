@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @Date 2022/11/19 13:53
  * @Version 1.0
  */
-object UtilKSmartLog {
+object UtilKLogSmart {
     private const val TAG = "UtilKSmartLog>>>>>"
     private const val MAX_LOG_MSG_LENGTH = 4000//logcat最大长度为4*1024，此处取4000
     private const val LOG_LONG = true//超长Log

@@ -1,6 +1,8 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.bar
 
 import android.widget.Toast
+import com.mozhimen.basick.utilk.UtilKHandler
+import com.mozhimen.basick.utilk.UtilKThread
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 
@@ -14,16 +16,31 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
 object UtilKToast {
     private val _context = UtilKApplication.instance.get()
 
+    /**
+     * show
+     * @param msg String
+     * @param duration Int
+     */
     @JvmStatic
     fun show(msg: String, duration: Int = Toast.LENGTH_LONG) {
         Toast.makeText(_context, msg, duration).show()
     }
 
+    /**
+     * show
+     * @param msgId Int
+     * @param duration Int
+     */
     @JvmStatic
     fun show(msgId: Int, duration: Int = Toast.LENGTH_LONG) {
         Toast.makeText(_context, msgId, duration).show()
     }
 
+    /**
+     * 在主线程show
+     * @param msg String
+     * @param duration Int
+     */
     @JvmStatic
     fun showOnMain(msg: String, duration: Int = Toast.LENGTH_LONG) {
         if (UtilKThread.isMainLooper()) {
@@ -33,6 +50,11 @@ object UtilKToast {
         }
     }
 
+    /**
+     * 在主线程show
+     * @param msg String
+     * @param duration Int
+     */
     @JvmStatic
     fun showOnMain(msgId: Int, duration: Int = Toast.LENGTH_LONG) {
         if (UtilKThread.isMainLooper()) {

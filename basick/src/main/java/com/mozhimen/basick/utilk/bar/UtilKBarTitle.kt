@@ -11,7 +11,7 @@ import com.mozhimen.basick.utilk.view.UtilKView
  * @Date 2022/11/23 23:34
  * @Version 1.0
  */
-object UtilKTitleBar {
+object UtilKBarTitle {
     /**
      * 获取标题栏高度
      * 注: 在Activity的回调方法onWindowFocusChanged()执行后,才能得到预期的结果
@@ -20,7 +20,7 @@ object UtilKTitleBar {
      */
     @JvmStatic
     fun getTitleBarHeight(activity: Activity) =
-        UtilKView.getViewDrawHeight(activity) - UtilKStatusBar.getStatusBarHeight(activity)
+        UtilKView.getViewDrawHeight(activity) - UtilKBarStatus.getStatusBarHeight(activity)
 
     /**
      * 隐藏标题栏

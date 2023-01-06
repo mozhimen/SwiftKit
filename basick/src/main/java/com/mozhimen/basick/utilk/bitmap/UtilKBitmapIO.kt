@@ -43,6 +43,14 @@ object UtilKBitmapIO {
         }
     }
 
+    /**
+     * 存相册 after 29
+     * @param sourceBitmap Bitmap
+     * @param filePathWithName String
+     * @param quality Int
+     * @param compressFormat CompressFormat
+     * @return String
+     */
     fun bitmap2AlnumAfter29(sourceBitmap: Bitmap, filePathWithName: String, quality: Int = 100, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): String {
         var outputStream: OutputStream? = null
         val destFile = UtilKFile.createFile(filePathWithName)
@@ -76,7 +84,7 @@ object UtilKBitmapIO {
     }
 
     /**
-     * 保存图片
+     * 保存图片 before 29
      * @param sourceBitmap Bitmap
      * @param filePathWithName String
      * @param quality Int
@@ -88,7 +96,7 @@ object UtilKBitmapIO {
         bitmap2AlbumBefore29(sourceBitmap, File(filePathWithName), quality, compressFormat)
 
     /**
-     * 保存图片
+     * 保存图片 before 29
      * @param destFile String
      * @param sourceBitmap Bitmap?
      */

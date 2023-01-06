@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Date 2022/11/27 17:37
  * @Version 1.0
  */
-object UtilKSnackBar {
+object UtilKBarSnack {
     private const val SNACK_BAR_MAX_LINES = 50//能显示的最多行数
     private val _context = UtilKApplication.instance.get()
 

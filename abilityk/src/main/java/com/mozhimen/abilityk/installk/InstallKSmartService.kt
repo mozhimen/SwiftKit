@@ -11,18 +11,18 @@ import android.view.accessibility.AccessibilityNodeInfo
  * @Description you must register service
 
  * AndroidManifest.xml
-    <service
-    android:name=".installk.InstallKSmartService"
-    android:label="HotupdateK程序更新"
-    android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-    android:exported="true">
-    <intent-filter>
-    <action android:name="android.accessibilityservice.AccessibilityService" />
-    </intent-filter>
-    <meta-data
-    android:name="android.accessibilityservice"
-    android:resource="@xml/installk_smart_accessibility_service_config" />
-    </service>
+<service
+android:name=".installk.InstallKSmartService"
+android:label="HotupdateK程序更新"
+android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+android:exported="true">
+<intent-filter>
+<action android:name="android.accessibilityservice.AccessibilityService" />
+</intent-filter>
+<meta-data
+android:name="android.accessibilityservice"
+android:resource="@xml/installk_smart_accessibility_service_config" />
+</service>
 
  * @Author mozhimen / Kolin Zhao
  * @Date 2023/1/4 22:39

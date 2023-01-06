@@ -14,13 +14,14 @@ object UtilKVerifyString {
      * @param str String
      */
     @JvmStatic
-    fun isNumberic(str: String): Boolean {
-        val reg = Regex("^[0-9]*\$")
-        return str.matches(reg)
-    }
+    fun isNumberic(str: String): Boolean =
+        str.matches(Regex("^[0-9]*\$"))
 
-    fun hasNumberAndAlphabet(str: String): Boolean {
-        val reg = Regex("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{6,20}\$")
-        return str.matches(reg)
-    }
+    /**
+     * 同时包含数字和字母
+     * @param str String
+     * @return Boolean
+     */
+    fun hasNumberAndAlphabet(str: String): Boolean =
+        str.matches(Regex("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{2,}\$"))
 }

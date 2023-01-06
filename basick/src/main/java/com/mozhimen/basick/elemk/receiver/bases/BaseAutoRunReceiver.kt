@@ -14,28 +14,23 @@ import java.util.concurrent.TimeUnit
 /**
  * @ClassName PrefabKReceiverAutoRun
  * @Description
+
  * 权限:
- * <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
- *
+<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
  * 继承:
- * class AutoRunReceiver() : LoadKReceiverAutoRun(LoadKActivity::class.java) {
- * companion object {private val DELAY_TIME = 15//s}
- *
- * override fun onReceive(context: Context, intent: Intent) {
- *  runBlocking {
- *      delay(DELAY_TIME * 1000L)
- *      launch(context, intent)
- *  }
- * }}
- * 注册:
- * <receiver
- * android:name=".loadk.AutoRunReceiver"
- * android:enabled="true"
- * android:exported="true">
- *  <intent-filter android:priority="1000">
- *      <action android:name="android.intent.action.BOOT_COMPLETED" />
- *  </intent-filter>
- * </receiver>
+class ElemKAutoRunReceiver : BaseAutoRunReceiver(BasicKActivity::class.java, 5000)
+
+ * 静态注册:
+<receiver
+android:name=".elemk.receiver.ElemKAutoRunReceiver"
+android:enabled="true"
+android:exported="true">
+<intent-filter android:priority="1000">
+<action android:name="android.intent.action.BOOT_COMPLETED" />
+</intent-filter>
+</receiver>
+
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/6/13 11:55
  * @Version 1.0

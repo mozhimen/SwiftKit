@@ -3,8 +3,10 @@ package com.mozhimen.abilityk.installk
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.utilk.UtilKFile
+import com.mozhimen.basick.utilk.UtilKInstall
 import com.mozhimen.basick.utilk.UtilKPermission
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -32,22 +34,22 @@ object InstallKSmart {
      * if build sdk > N you also add provider and @xml/file_paths
 
      * AndroidManifest.xml
-        <provider
-        android:name="androidx.core.content.FileProvider"
-        android:authorities="包名.fileprovider"
-        android:exported="false"
-        android:grantUriPermissions="true">
-        <meta-data
-        android:name="android.support.FILE_PROVIDER_PATHS"
-        android:resource="@xml/file_paths"  />
-        </provider>
+    <provider
+    android:name="androidx.core.content.FileProvider"
+    android:authorities="包名.fileprovider"
+    android:exported="false"
+    android:grantUriPermissions="true">
+    <meta-data
+    android:name="android.support.FILE_PROVIDER_PATHS"
+    android:resource="@xml/file_paths"  />
+    </provider>
 
      * file_paths.xml
-        <paths>
-        <files-path
-        name="files-path"
-        path="." />
-        </paths>
+    <paths>
+    <files-path
+    name="files-path"
+    path="." />
+    </paths>
 
      * @see [InstallKSmartService] this service
      * @param apkPathWithName String
@@ -60,10 +62,7 @@ object InstallKSmart {
     )
     suspend fun installSmart(apkPathWithName: String, activity: Activity) {
         withContext(Dispatchers.Main) {
-            val uri: Uri = UtilKFile.file2Uri(apkPathWithName)
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.setDataAndType(uri, "application/vnd.android.package-archive")
-            activity.startActivity(intent)
+            UtilKInstall.installSmart(activity, apkPathWithName)
         }
     }
 }

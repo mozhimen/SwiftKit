@@ -43,9 +43,9 @@ import com.mozhimen.basick.utilk.UtilKAnimation;
 import com.mozhimen.basick.utilk.UtilKAnimator;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKWindow;
-import com.mozhimen.basick.utilk.bar.UtilKNavigationBar;
+import com.mozhimen.basick.utilk.bar.UtilKBarNavigation;
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
-import com.mozhimen.basick.utilk.log.UtilKSmartLog;
+import com.mozhimen.basick.utilk.log.UtilKLogSmart;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
@@ -575,7 +575,7 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
     }
 
     void refreshNavigationBarBounds() {
-        UtilKNavigationBar.getNavigationBarBounds(navigationBarBounds, mPopupWindow.getContext());
+        UtilKBarNavigation.getNavigationBarBounds(navigationBarBounds, mPopupWindow.getContext());
     }
 
     int getNavigationBarSize() {
@@ -583,7 +583,7 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
     }
 
     int getNavigationBarGravity() {
-        return UtilKNavigationBar.getNavigationBarGravity(navigationBarBounds);
+        return UtilKBarNavigation.getNavigationBarGravity(navigationBarBounds);
     }
 
     public int getCutoutGravity() {
@@ -622,7 +622,7 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
             r.set(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
                     cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
         } catch (Exception e) {
-            UtilKSmartLog.e(e);
+            UtilKLogSmart.e(e);
         }
     }
 

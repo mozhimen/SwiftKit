@@ -8,6 +8,7 @@ import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.utilk.*
+import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.*
 import java.util.*

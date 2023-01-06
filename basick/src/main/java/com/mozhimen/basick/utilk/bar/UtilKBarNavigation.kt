@@ -22,7 +22,7 @@ import java.util.*
  * @Date 2022/11/23 23:37
  * @Version 1.0
  */
-object UtilKNavigationBar {
+object UtilKBarNavigation {
     private val TAG = "UtilKNavBar>>>>>"
     private val NAVIGATION_BAR_NAMES: HashMap<String, Void?> = hashMapOf(
         "navigationbarbackground" to null,

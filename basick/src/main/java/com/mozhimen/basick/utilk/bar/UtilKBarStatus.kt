@@ -20,7 +20,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Date 2022/7/17 17:29
  * @Version 1.0
  */
-object UtilKStatusBar {
+object UtilKBarStatus {
     private const val TAG = "UtilKStatusBar>>>>>"
     private val _context = UtilKApplication.instance.get()
 

@@ -13,6 +13,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <com.mozhimen.uicorek.viewk.ViewKOverlay
+            android:id="@+id/scank_face_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:viewKOverlay_isShowLabel="false"
+            app:viewKOverlay_boxType="circle"
+            app:viewKOverlay_boxLineColor="@android:color/holo_red_dark"
+            app:viewKOverlay_boxLineWidth="2dp" />
+
         <ImageView
             android:id="@+id/scank_face_img"
             android:layout_width="100dp"

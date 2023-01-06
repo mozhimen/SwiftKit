@@ -15,6 +15,30 @@ import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.base.mos.MDebugKCrashK
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
+/**
+
+ * if build sdk > N you also add provider and @xml/file_paths
+
+ * AndroidManifest.xml sdk>24
+<provider
+android:name="androidx.core.content.FileProvider"
+android:authorities="包名.fileprovider"
+android:exported="false"
+android:grantUriPermissions="true">
+<meta-data
+android:name="android.support.FILE_PROVIDER_PATHS"
+android:resource="@xml/file_paths"  />
+</provider>
+
+ * file_paths.xml sdk>24
+<paths>
+<files-path
+name="files-path"
+path="." />
+</paths>
+
+ * @property _dataSets ArrayList<MDebugKCrashK>
+ */
 class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
 
     private val _dataSets = ArrayList<MDebugKCrashK>()

@@ -21,13 +21,6 @@ import java.net.URISyntaxException
  */
 object UtilKVerifyUrl {
     private val TAG = "UtilKVerifyUrl>>>>>"
-    private const val REGEX_IP =
-        "((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)"//IP验证
-
-    private const val REGEX_DOMAIN =
-        "^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$"//域名验证
-
-    private const val REGEX_PORT = "^[-+]?[\\d]{1,6}$"//端口号验证
 
     /**
      * ip是否合法
@@ -35,7 +28,8 @@ object UtilKVerifyUrl {
      * @return Boolean
      */
     @JvmStatic
-    fun isIPValid(ip: String) = ip.matches(Regex(REGEX_IP))
+    fun isIPValid(ip: String) =
+        ip.matches(Regex("((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)"))
 
     /**
      * 域名是否合法
@@ -43,7 +37,8 @@ object UtilKVerifyUrl {
      * @return Boolean
      */
     @JvmStatic
-    fun isDoMainValid(domain: String) = domain.matches(Regex(REGEX_DOMAIN))
+    fun isDoMainValid(domain: String) =
+        domain.matches(Regex("^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$"))
 
     /**
      * 端口是否合法
@@ -51,7 +46,8 @@ object UtilKVerifyUrl {
      * @return Boolean
      */
     @JvmStatic
-    fun isPortValid(port: String) = port.matches(Regex(REGEX_PORT))
+    fun isPortValid(port: String) =
+        port.matches(Regex("^[-+]?[\\d]{1,6}$"))
 
     /**
      * 判断url是否可连
@@ -85,43 +81,35 @@ object UtilKVerifyUrl {
     fun isUrlValid(url: String): Boolean {
         Log.d(TAG, "isUrlValid: url $url")
         if (url.isEmpty()) {
-            Log.d(TAG, "isUrlValid: 0")
             "输入为空".showToast()
             return false
         }
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
-            Log.d(TAG, "isUrlValid: 1")
             "请输入正确的协议(http://或https://)".showToast()
             return false
         }
         val splitArray = url.split(":")
         if (splitArray.size != 3 && splitArray.size != 2) {
-            Log.d(TAG, "isUrlValid: 2")
             "请输入正确的端口格式".showToast()
             return false
         }
         if (splitArray.getOrNull(0) == null) {
-            Log.d(TAG, "isUrlValid: 3")
             "请输入正确的端口格式(http或https)接IP或域名".showToast()
             return false
         }
         if (splitArray[0] != "http" && splitArray[0] != "https") {
-            Log.d(TAG, "isUrlValid: 4")
             "请输入正确的协议(http或https)".showToast()
             return false
         }
         if (splitArray.getOrNull(1) == null) {
-            Log.d(TAG, "isUrlValid: 5")
             "请输入正确的IP或域名".showToast()
             return false
         }
         if (!splitArray[1].replace("//", "").isIPValid() && !splitArray[1].replace("//", "").isDoMainValid()) {
-            Log.d(TAG, "isUrlValid: 6")
             "请输入正确的IP或域名".showToast()
             return false
         }
         if (splitArray.getOrNull(2) != null && !splitArray[2].isPortValid()) {
-            Log.d(TAG, "isUrlValid: 7")
             "请输入正确的端口".showToast()
             return false
         }

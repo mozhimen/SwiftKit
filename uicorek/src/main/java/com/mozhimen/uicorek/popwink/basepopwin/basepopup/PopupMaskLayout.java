@@ -15,7 +15,7 @@ import com.mozhimen.uicorek.popwink.bases.BasePopwinKBackgroundView;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import com.mozhimen.basick.utilk.UtilKDrawable;
-import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
+import com.mozhimen.basick.utilk.bar.UtilKBarStatus;
 import com.mozhimen.uicorek.popwink.bases.commons.IEventObserver;
 import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
 
@@ -193,7 +193,7 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (mPopupHelper != null) {
             if (!mPopupHelper.isOverlayStatusbar()) {
-                ev.offsetLocation(0, UtilKStatusBar.getStatusBarHeight(false));
+                ev.offsetLocation(0, UtilKBarStatus.getStatusBarHeight(false));
             }
             mPopupHelper.dispatchOutSideEvent(ev,
                                               maskRect.contains(ev.getRawX(), ev.getRawY()),

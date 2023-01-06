@@ -12,7 +12,7 @@ import android.view.WindowManager
  * @Date 2022/11/23 23:44
  * @Version 1.0
  */
-object UtilKVirtualBar {
+object UtilKBarVirtual {
     private val TAG = "UtilKVirtualBar>>>>>"
 
     /**

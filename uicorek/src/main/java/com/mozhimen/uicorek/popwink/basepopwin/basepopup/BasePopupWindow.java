@@ -239,7 +239,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.mozhimen.basick.stackk.StackK;
-import com.mozhimen.basick.stackk.commons.IStackKListener;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
 import com.mozhimen.basick.utilk.UtilKDataBus;
 import com.mozhimen.basick.utilk.UtilKGravity;
@@ -247,7 +246,7 @@ import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKRes;
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
 import com.mozhimen.basick.utilk.context.UtilKApplication;
-import com.mozhimen.basick.utilk.log.UtilKSmartLog;
+import com.mozhimen.basick.utilk.log.UtilKLogSmart;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinKProxy;
 import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
@@ -892,7 +891,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     protected void onShowError(Exception e) {
-        UtilKSmartLog.e(TAG, "onShowError: ", e);
+        UtilKLogSmart.e(TAG, "onShowError: ", e);
         onLogInternal(e.getMessage());
     }
 
@@ -2168,14 +2167,14 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
     }
 
     public static void setDebugMode(boolean debugMode) {
-        UtilKSmartLog.setOpenLog(debugMode);
+        UtilKLogSmart.setOpenLog(debugMode);
     }
 
     /**
      * 日志输出口
      */
     protected void onLogInternal(String msg) {
-        UtilKSmartLog.d(TAG, msg);
+        UtilKLogSmart.d(TAG, msg);
     }
 
     private String ownerParentLog() {

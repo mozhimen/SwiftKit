@@ -14,36 +14,33 @@ object UtilKFilter {
      * @param number String
      * @return String
      */
-    fun filterNumber(number: String): String {
-        return number.replace("[^(0-9)]".toRegex(), "")
-    }
+    fun filterNumber(number: String): String =
+        number.replace("[^(0-9)]".toRegex(), "")
 
     /**
      * 过滤出字母
      * @param alphabet String
      * @return String
      */
-    fun filterAlphabet(alphabet: String): String {
-        return alphabet.replace("[^(A-Za-z)]".toRegex(), "")
-    }
+    fun filterAlphabet(alphabet: String): String =
+        alphabet.replace("[^(A-Za-z)]".toRegex(), "")
+
 
     /**
      * 过滤出中文
      * @param chinese String
      * @return String
      */
-    fun filterChinese(chinese: String): String {
-        return chinese.replace("[^(\\u4e00-\\u9fa5)]".toRegex(), "")
-    }
+    fun filterChinese(chinese: String): String =
+        chinese.replace("[^(\\u4e00-\\u9fa5)]".toRegex(), "")
 
     /**
      * 过滤出字母、数字和中文
      * @param character String
      * @return String
      */
-    fun filter(character: String): String {
-        return character.replace("[^(a-zA-Z0-9\\u4e00-\\u9fa5)]".toRegex(), "")
-    }
+    fun filter(character: String): String =
+        character.replace("[^(a-zA-Z0-9\\u4e00-\\u9fa5)]".toRegex(), "")
 
     /**
      * 过滤长度
@@ -51,8 +48,6 @@ object UtilKFilter {
      * @param endIndex Int
      * @return String
      */
-    fun filterLength(str: String, endIndex: Int): String {
-        return if (endIndex in str.indices)
-            str.substring(0, endIndex) else str
-    }
+    fun filterLength(str: String, endIndex: Int): String =
+        if (endIndex in str.indices) str.substring(0, endIndex) else str
 }

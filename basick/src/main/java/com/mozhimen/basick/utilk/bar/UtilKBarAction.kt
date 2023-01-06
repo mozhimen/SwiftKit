@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
  * @Date 2022/11/27 18:02
  * @Version 1.0
  */
-object UtilKActionBar {
+object UtilKBarAction {
     @JvmStatic
     fun enableBackIfActionBarExists(activity: AppCompatActivity) {
         activity.supportActionBar?.setDisplayHomeAsUpEnabled(true)

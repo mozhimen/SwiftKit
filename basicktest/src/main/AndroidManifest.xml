@@ -43,9 +43,19 @@
             android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.HOME" />
             </intent-filter>
-        </receiver> <!-- stackk -->
+        </receiver>
+        <receiver
+            android:name=".elemk.receiver.ElemKInstallObserverReceiver" android:exported="true"
+            android:enabled="true">
+            <intent-filter android:priority="100">
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
             android:exported="false" /> <!-- taskk -->
