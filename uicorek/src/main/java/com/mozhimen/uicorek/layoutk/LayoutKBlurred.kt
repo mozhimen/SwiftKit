@@ -75,8 +75,9 @@ class LayoutKBlurred @JvmOverloads constructor(context: Context, attrs: Attribut
     /**
      * 设置模糊程度
      */
+    @Throws(Exception::class)
     fun setBlurredLevel(@IntRange(from = 0, to = 100) level: Int) {
-        require(level in 0..100) { "No validate level, the value must be 0~100" }
+        require(level in 0..100) { "$TAG No validate level, the value must be 0~100" }
         if (_isBlurredEnable) {
             _originImageView.imageAlpha = (255f - level * 2.55).toInt()
         }

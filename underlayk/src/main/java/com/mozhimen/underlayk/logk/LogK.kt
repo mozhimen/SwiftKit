@@ -186,7 +186,7 @@ object LogK {
             )
             builder.append(stackTrace).append("\n")
         }
-        require(contents.isNotEmpty()) { "content's size must not be 0" }
+        require(contents.isNotEmpty()) { "$TAG content's size must not be 0" }
         val body = parseBody(contents, config)
         builder.append(body)
         val printers: MutableList<ILogKPrinter> = ArrayList()

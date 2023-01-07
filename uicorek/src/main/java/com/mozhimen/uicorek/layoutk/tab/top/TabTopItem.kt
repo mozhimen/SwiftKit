@@ -29,7 +29,7 @@ class TabTopItem @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : LayoutKRelative(context, attrs, defStyleAttr), ITabItem<MTabTop> {
 
-    private var _tabTopMo: MTabTop? = null
+    private var _tabTopItem: MTabTop? = null
     private lateinit var _tabImageView: ImageView
     private lateinit var _tabNameView: TextView
     private lateinit var _tabIndicator: View
@@ -43,7 +43,7 @@ class TabTopItem @JvmOverloads constructor(
      * @param tabMo MTabTop
      */
     override fun setTabItem(tabMo: MTabTop) {
-        this._tabTopMo = tabMo
+        this._tabTopItem = tabMo
         inflateInfo(false, true)
     }
 
@@ -51,7 +51,7 @@ class TabTopItem @JvmOverloads constructor(
      * 获取TabInfo
      * @return MTabTop?
      */
-    fun getTabInfo(): MTabTop? = _tabTopMo
+    fun getTabInfo(): MTabTop? = _tabTopItem
 
     /**
      * 获取imageView
@@ -89,10 +89,10 @@ class TabTopItem @JvmOverloads constructor(
      * @param nextMo MTabTop
      */
     override fun onTabItemSelected(index: Int, prevMo: MTabTop?, nextMo: MTabTop) {
-        if (prevMo != _tabTopMo && nextMo != _tabTopMo || prevMo == nextMo) {
+        if (prevMo != _tabTopItem && nextMo != _tabTopItem || prevMo == nextMo) {
             return
         }
-        if (prevMo == _tabTopMo) {
+        if (prevMo == _tabTopItem) {
             inflateInfo(false, false)
         } else {
             inflateInfo(true, false)
@@ -106,65 +106,66 @@ class TabTopItem @JvmOverloads constructor(
         _tabIndicator = findViewById(R.id.layoutk_tab_top_indicator)
     }
 
+    @Throws(Exception::class)
     private fun inflateInfo(selected: Boolean, init: Boolean) {
-        requireNotNull(_tabTopMo) { "tabInfo must not be null!" }
-        if (_tabTopMo!!.tabType == ETabTopType.TEXT) {
+        requireNotNull(_tabTopItem) { "$TAG _tabTopItem must not be null!" }
+        if (_tabTopItem!!.tabType == ETabTopType.TEXT) {
             if (init) {
                 _tabImageView.visibility = GONE
                 _tabNameView.visibility = VISIBLE
-                if (!TextUtils.isEmpty(_tabTopMo!!.name)) {
-                    _tabNameView.text = _tabTopMo!!.name
+                if (!TextUtils.isEmpty(_tabTopItem!!.name)) {
+                    _tabNameView.text = _tabTopItem!!.name
                 }
             }
             if (selected) {
                 _tabIndicator.visibility = VISIBLE
-                _tabIndicator.setBackgroundColor(_tabTopMo!!.colorSelected!!)
-                _tabNameView.setTextColor(_tabTopMo!!.colorSelected!!)
+                _tabIndicator.setBackgroundColor(_tabTopItem!!.colorSelected!!)
+                _tabNameView.setTextColor(_tabTopItem!!.colorSelected!!)
                 _tabNameView.textSize = 17f
                 _tabNameView.fontStyle(Typeface.BOLD)
             } else {
                 _tabIndicator.visibility = GONE
-                _tabNameView.setTextColor(_tabTopMo!!.colorDefault!!)
+                _tabNameView.setTextColor(_tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 16f
                 _tabNameView.fontStyle(Typeface.NORMAL)
             }
-        } else if (_tabTopMo!!.tabType == ETabTopType.IMAGE) {
+        } else if (_tabTopItem!!.tabType == ETabTopType.IMAGE) {
             if (init) {
                 _tabImageView.visibility = VISIBLE
                 _tabNameView.visibility = GONE
             }
             if (selected) {
                 _tabIndicator.visibility = VISIBLE
-                _tabIndicator.setBackgroundColor(_tabTopMo!!.colorIndicator!!)
-                _tabImageView.loadImage(_tabTopMo!!.bitmapSelected!!)
+                _tabIndicator.setBackgroundColor(_tabTopItem!!.colorIndicator!!)
+                _tabImageView.loadImage(_tabTopItem!!.bitmapSelected!!)
                 _tabImageView.resizeSize(27f.dp2px())
             } else {
                 _tabIndicator.visibility = GONE
-                _tabImageView.loadImage(_tabTopMo!!.bitmapDefault!!)
+                _tabImageView.loadImage(_tabTopItem!!.bitmapDefault!!)
                 _tabImageView.resizeSize(26f.dp2px())
             }
-        } else if (_tabTopMo!!.tabType == ETabTopType.IMAGE_TEXT) {
+        } else if (_tabTopItem!!.tabType == ETabTopType.IMAGE_TEXT) {
             if (init) {
                 _tabImageView.visibility = VISIBLE
                 _tabImageView.setPadding(0, 0, 4f.dp2px(), 0)
                 _tabNameView.visibility = VISIBLE
-                if (!TextUtils.isEmpty(_tabTopMo!!.name)) {
-                    _tabNameView.text = _tabTopMo!!.name
+                if (!TextUtils.isEmpty(_tabTopItem!!.name)) {
+                    _tabNameView.text = _tabTopItem!!.name
                 }
             }
             if (selected) {
                 _tabIndicator.visibility = VISIBLE
-                _tabIndicator.setBackgroundColor(_tabTopMo!!.colorSelected!!)
-                _tabImageView.loadImage(_tabTopMo!!.bitmapSelected!!)
+                _tabIndicator.setBackgroundColor(_tabTopItem!!.colorSelected!!)
+                _tabImageView.loadImage(_tabTopItem!!.bitmapSelected!!)
                 _tabImageView.resizeSize(25f.dp2px())
-                _tabNameView.setTextColor(_tabTopMo!!.colorSelected ?: _tabTopMo!!.colorDefault!!)
+                _tabNameView.setTextColor(_tabTopItem!!.colorSelected ?: _tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 17f
                 _tabNameView.fontStyle(Typeface.BOLD)
             } else {
                 _tabIndicator.visibility = GONE
-                _tabImageView.loadImage(_tabTopMo!!.bitmapDefault!!)
+                _tabImageView.loadImage(_tabTopItem!!.bitmapDefault!!)
                 _tabImageView.resizeSize(24f.dp2px())
-                _tabNameView.setTextColor(_tabTopMo!!.colorDefault!!)
+                _tabNameView.setTextColor(_tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 16f
                 _tabNameView.fontStyle(Typeface.NORMAL)
             }

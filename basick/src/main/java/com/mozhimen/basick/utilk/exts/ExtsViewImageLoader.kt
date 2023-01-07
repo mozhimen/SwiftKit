@@ -4,7 +4,6 @@ import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.Px
-import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
 import com.mozhimen.basick.utilk.view.imageloader.mos.BlurTransformation
 import com.mozhimen.basick.utilk.view.imageloader.mos.CropTransformation
@@ -120,7 +119,7 @@ fun ImageView.loadImageRoundedCorner(
  */
 fun ImageView.loadImageCrop(
     res: Any,
-    cropType: CropTransformation.CropType = CropTransformation.CropType.CENTER
+    cropType: CropTransformation.ECropType = CropTransformation.ECropType.CENTER
 ) {
     UtilKViewImageLoader.loadImageCrop(this, res, cropType)
 }

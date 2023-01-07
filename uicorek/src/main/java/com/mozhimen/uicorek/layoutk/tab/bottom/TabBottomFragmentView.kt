@@ -45,8 +45,9 @@ class TabBottomFragmentView @JvmOverloads constructor(
      * 设置当前item
      * @param position Int
      */
+    @Throws(Exception::class)
     fun setCurrentItem(position: Int) {
-        requireNotNull(this._adapter) { "please call setAdapter first." }
+        requireNotNull(_adapter) { "$TAG please call setAdapter first." }
         if (position < 0 || position >= _adapter!!.getCount()) {
             return
         }
@@ -66,8 +67,9 @@ class TabBottomFragmentView @JvmOverloads constructor(
      * 获取当前fragment
      * @return Fragment
      */
+    @Throws(Exception::class)
     fun getCurrentFragment(): Fragment? {
-        requireNotNull(this._adapter) { "please call setAdapter first." }
+        requireNotNull(_adapter) { "$TAG please call setAdapter first." }
         return _adapter!!.getCurrentFragment()
     }
 }

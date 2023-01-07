@@ -120,8 +120,9 @@ class TabBottomItem @JvmOverloads constructor(
         _tabNameView = findViewById(R.id.layoutk_tab_bottom_name)
     }
 
+    @Throws(Exception::class)
     private fun inflateInfo(selected: Boolean, init: Boolean) {
-        require(_tabBottomItem != null) { "_tabBottomInfo must not be null!" }
+        requireNotNull(_tabBottomItem) { "_tabBottomItem must not be null" }
         if (_tabBottomItem!!.tabType == ETabBottomType.ICONFONT_TEXT) {
             if (init) {
                 _tabImageView.visibility = GONE

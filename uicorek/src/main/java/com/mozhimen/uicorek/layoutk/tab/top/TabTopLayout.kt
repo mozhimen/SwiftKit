@@ -24,9 +24,10 @@ import kotlin.math.abs
 class TabTopLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : HorizontalScrollView(context, attrs, defStyleAttr), ITabLayout<TabTopItem, MTabTop> {
+    private val TAG = "TabTopLayout>>>>>"
     private val _tabSelectedChangeListeners: ArrayList<ITabSelectedListener<MTabTop>> = ArrayList()
     private var _selectedMo: MTabTop? = null
-    private var _moList: List<MTabTop>? = null
+    private var _itemList: List<MTabTop>? = null
     private var _tabTopWidth: Int = 0
     private var _tabTopHeight = 40f.dp2px()//TabBottom高度
 
@@ -75,7 +76,7 @@ class TabTopLayout @JvmOverloads constructor(
         if (itemList.isEmpty()) {
             return
         }
-        this._moList = itemList
+        this._itemList = itemList
         val container = getRootLayout(true)
         _selectedMo = null
         //清除之前添加的TabTop listener,Tips: Java foreach remove问题
@@ -96,10 +97,11 @@ class TabTopLayout @JvmOverloads constructor(
         }
     }
 
+    @Throws(Exception::class)
     private fun onSelected(nextMo: MTabTop) {
-        require(_moList != null) { "infoList must not be null!" }
+        requireNotNull(_itemList) { "$TAG _itemList must not be null!" }
         for (listener in _tabSelectedChangeListeners) {
-            listener.onTabItemSelected(_moList!!.indexOf(nextMo), _selectedMo, nextMo)
+            listener.onTabItemSelected(_itemList!!.indexOf(nextMo), _selectedMo, nextMo)
         }
         this._selectedMo = nextMo
         autoScroll(nextMo)
@@ -111,7 +113,7 @@ class TabTopLayout @JvmOverloads constructor(
      */
     private fun autoScroll(nextMo: MTabTop) {
         val tabTop = findTabItem(nextMo) ?: return
-        val index: Int = _moList!!.indexOf(nextMo)
+        val index: Int = _itemList!!.indexOf(nextMo)
         val location = IntArray(2)
         //获取点击控件在屏幕的位置
         tabTop.getLocationInWindow(location)
@@ -141,7 +143,7 @@ class TabTopLayout @JvmOverloads constructor(
             } else {
                 range - i + index
             }
-            if (next >= 0 && next < _moList!!.size) {
+            if (next >= 0 && next < _itemList!!.size) {
                 if (range < 0) {
                     scrollWidth -= scrollWidth(next, false)
                 } else {
@@ -159,7 +161,7 @@ class TabTopLayout @JvmOverloads constructor(
      * @return Int 可滚动的距离
      */
     private fun scrollWidth(index: Int, toRight: Boolean): Int {
-        val target = findTabItem(_moList!![index]) ?: return 0
+        val target = findTabItem(_itemList!![index]) ?: return 0
         val rect = Rect()
         target.getLocalVisibleRect(rect)
         return if (toRight) { //点击了屏幕右侧

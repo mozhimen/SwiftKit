@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.viewpager.widget.PagerAdapter
-import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IOnBannerClickListener
 import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
@@ -21,6 +20,7 @@ import java.util.*
  * @Version 1.0
  */
 class BannerAdapter(private var _context: Context) : PagerAdapter() {
+    private val TAG = "BannerAdapter>>>>>"
     private var _cachedViews: SparseArray<BannerViewHolder> = SparseArray<BannerViewHolder>()
     private var _bannerClickListenerI: IOnBannerClickListener? = null
     private var _bindAdapter: IBannerBindListener? = null
@@ -116,7 +116,7 @@ class BannerAdapter(private var _context: Context) : PagerAdapter() {
      * @return Any
      */
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        requireNotNull(_bannerItems) { "_bannerItems must not be null!" }
+        requireNotNull(_bannerItems) { "$TAG _bannerItems must not be null!" }
         var realPosition = position
         if (getRealCount() > 0) {
             realPosition = position % getRealCount()
@@ -149,8 +149,9 @@ class BannerAdapter(private var _context: Context) : PagerAdapter() {
         _bindAdapter?.onBind(viewHolder, item, position)
     }
 
+    @Throws(Exception::class)
     private fun initCachedView() {
-        requireNotNull(_bannerItems) { "_item must not be null!" }
+        requireNotNull(_bannerItems) { "$TAG _bannerItems must not be null!" }
         _cachedViews = SparseArray<BannerViewHolder>()
         for (i in _bannerItems!!.indices) {
             val viewHolder = BannerViewHolder(createView(LayoutInflater.from(_context), null))
@@ -158,8 +159,9 @@ class BannerAdapter(private var _context: Context) : PagerAdapter() {
         }
     }
 
+    @Throws(Exception::class)
     private fun createView(layoutInflater: LayoutInflater, parent: ViewGroup?): View {
-        require(_layoutResId != -1) { "you must be set setLayoutResId first" }
+        require(_layoutResId != -1) { "$TAG you must be set setLayoutResId first" }
         return layoutInflater.inflate(_layoutResId, parent, false)
     }
 }

@@ -12,6 +12,7 @@ import java.util.logging.Logger
  * @Version 1.0
  */
 object UtilKStackTrace {
+    private const val TAG = "UtilKStackTrace>>>>>"
 
     /**
      * 获取真正的堆栈跟踪，然后用最大深度裁剪它。
@@ -42,13 +43,14 @@ object UtilKStackTrace {
      * @return Array<StackTraceElement?> 真正的堆栈跟踪, 所有元素都来自system和library user
      */
     @JvmStatic
+    @Throws(Exception::class)
     fun getRealStackTrack(
         stackTrace: Array<StackTraceElement?>,
         ignorePackage: String?
     ): Array<StackTraceElement?> {
         var ignoreDepth = 0
         val allDepth = stackTrace.size
-        require(allDepth > 0) { "stackTrace's size is 0" }
+        require(allDepth > 0) { "$TAG stackTrace's size is 0" }
         var className: String
         for (i in allDepth - 1 downTo 0) {
             className = stackTrace[i]!!.className

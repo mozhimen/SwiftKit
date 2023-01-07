@@ -9,7 +9,7 @@ import javax.crypto.spec.SecretKeySpec
 
 /**
  * @ClassName UtilKEncryptAES
- * @Description  AESUtil.require("xxx","xxx").encrypt("xxx")
+ * @Description  AESUtil.with("xxx","xxx").encrypt("xxx")
  * @Author Kolin Zhao
  * @Date 2021/10/14 15:13
  * @Version 1.0
@@ -28,7 +28,7 @@ object UtilKEncryptAES {
      * @return UtilKAESProvider
      */
     @JvmStatic
-    fun require(
+    fun with(
         charset: Charset = Charsets.UTF_8,
         secretKey: String = "saaierForTodoKey",
         ivString: String = "ihaierForTodo_Iv",

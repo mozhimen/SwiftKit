@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.app
 
 import android.app.PendingIntent
 import android.content.Context
@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.os.Build
 import android.util.Log
+import com.mozhimen.basick.utilk.context.UtilKActivitySkip
+import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.*
 import java.nio.charset.Charset
@@ -17,9 +19,48 @@ import java.nio.charset.Charset
  * @Date 2023/1/4 23:29
  * @Version 1.0
  */
-object UtilKInstall {
+object UtilKAppInstall {
     private const val TAG = "UtilKInstall>>>>>"
     private val _context = UtilKApplication.instance.get()
+
+    @JvmStatic
+    @Throws(Exception::class)
+    fun installRoot(apkPathWithName: String): Boolean {
+        require(apkPathWithName.isNotEmpty()) { "$TAG please check apk file path" }
+        var result = false
+        var process: Process? = null
+        var outputStream: OutputStream? = null
+        var bufferedReader: BufferedReader? = null
+        try {
+            process = Runtime.getRuntime().exec("su")
+            outputStream = process.outputStream
+            val command = "pm install -r $apkPathWithName\n"
+            outputStream.write(command.toByteArray())
+            outputStream.flush()
+            outputStream.write("exit\n".toByteArray())
+            outputStream.flush()
+
+            process.waitFor()
+            bufferedReader = BufferedReader(InputStreamReader(process.errorStream))
+            val msg = StringBuilder()
+            var line: String?
+            while (bufferedReader.readLine().also { line = it } != null) {
+                msg.append(line)
+            }
+            Log.d(TAG, "installRoot msg is $msg")
+            if (!msg.toString().contains("Failure", ignoreCase = true)) {
+                result = true
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e(TAG, e.message, e)
+        } finally {
+            outputStream?.close()
+            bufferedReader?.close()
+            process?.destroy()
+        }
+        return result
+    }
 
     /**
      * 智能安装
@@ -45,6 +86,7 @@ object UtilKInstall {
      * @param context Context
      * @param apkPathWithName String
      */
+    @JvmStatic
     fun installSmart(context: Context, apkPathWithName: String) {
         val intent = Intent()
         intent.action = Intent.ACTION_VIEW
@@ -55,7 +97,7 @@ object UtilKInstall {
         val uri = UtilKFile.file2Uri(apkPathWithName) ?: return
         val type = "application/vnd.android.package-archive" //安装路径
         intent.setDataAndType(uri, type)
-        context.startActivity(intent)
+        UtilKActivitySkip.start(context, intent)
     }
 
     /**
@@ -178,6 +220,13 @@ object UtilKInstall {
         }
     }
 
+    /**
+     * 命令安装
+     * @param packageInstaller PackageInstaller
+     * @param sessionId Int
+     * @param receiver Class<*>
+     */
+    @JvmStatic
     private fun execInstall(packageInstaller: PackageInstaller, sessionId: Int, receiver: Class<*>) {
         var session: PackageInstaller.Session? = null
         try {
@@ -196,6 +245,12 @@ object UtilKInstall {
         }
     }
 
+    /**
+     * createSession
+     * @param packageInstaller PackageInstaller
+     * @param sessionParams SessionParams
+     * @return Int
+     */
     private fun createSession(packageInstaller: PackageInstaller, sessionParams: PackageInstaller.SessionParams): Int {
         var sessionId = -1
         try {
@@ -207,6 +262,13 @@ object UtilKInstall {
         return sessionId
     }
 
+    /**
+     * 拷贝
+     * @param packageInstaller PackageInstaller
+     * @param sessionId Int
+     * @param apkFilePathWithName String
+     * @return Boolean
+     */
     private fun copyApkFile(
         packageInstaller: PackageInstaller,
         sessionId: Int,

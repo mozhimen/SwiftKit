@@ -10,7 +10,7 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import com.mozhimen.basick.utilk.UtilKDate
-import com.mozhimen.basick.utilk.UtilKFile
+import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.BufferedOutputStream
 import java.io.File

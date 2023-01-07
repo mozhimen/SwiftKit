@@ -33,10 +33,11 @@ class BlurTransformation @JvmOverloads constructor(
     private val radius: Float = DEFAULT_RADIUS,
     private val sampling: Float = DEFAULT_SAMPLING
 ) : Transformation, ITransformation {
+    private val TAG = "BlurTransformation>>>>>"
 
     init {
-        require(radius in 0.0..25.0) { "radius must be in [0, 25]." }
-        require(sampling > 0) { "sampling must be > 0." }
+        require(radius in 0.0..25.0) { "$TAG radius must be in [0, 25]" }
+        require(sampling > 0) { "$TAG sampling must be > 0" }
     }
 
     override val cacheKey: String = "${BlurTransformation::class.java.name}-$radius-$sampling"

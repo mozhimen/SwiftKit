@@ -20,6 +20,20 @@ import java.util.*
 object ScanKQR {
     private const val TAG = "ScanKQR>>>>>"
 
+    /**
+     * 创建QRCode
+     * @param str String
+     * @param width Int
+     * @param height Int
+     * @param charset String
+     * @param errorCorrection String
+     * @param margin String
+     * @param colorBg Int
+     * @param colorCode Int
+     * @return Bitmap?
+     */
+    @JvmStatic
+    @Throws(Exception::class)
     fun createQRCodeBitmap(
         str: String,
         width: Int,
@@ -30,8 +44,8 @@ object ScanKQR {
         @ColorInt colorBg: Int = UtilKRes.getColor(android.R.color.white),
         @ColorInt colorCode: Int = UtilKRes.getColor(android.R.color.black)
     ): Bitmap? {
-        require(str.isNotEmpty()) { "str must not be mull" }
-        require(width > 0 && height > 0) { "width and height must be > 0" }
+        require(str.isNotEmpty()) { "$TAG str must not be mull" }
+        require(width > 0 && height > 0) { "$TAG width and height must be > 0" }
         try {
             //设置二维码相关配置,生成BitMatrix(位矩阵)对象
             val hints = Hashtable<EncodeHintType, String>()

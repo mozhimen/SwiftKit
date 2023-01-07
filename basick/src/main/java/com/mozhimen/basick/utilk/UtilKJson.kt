@@ -6,7 +6,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import kotlin.jvm.Throws
 
 /**
  * @ClassName UtilKJson

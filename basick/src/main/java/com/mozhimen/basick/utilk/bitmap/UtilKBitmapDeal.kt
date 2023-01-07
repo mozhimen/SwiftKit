@@ -1,8 +1,6 @@
 package com.mozhimen.basick.utilk.bitmap
 
 import android.graphics.*
-import androidx.annotation.FloatRange
-import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.lang.Integer.min
 
 /**
@@ -13,6 +11,7 @@ import java.lang.Integer.min
  * @Version 1.0
  */
 object UtilKBitmapDeal {
+    private const val TAG = "UtilKBitmapDeal>>>>>"
 
     /**
      * bitmap转化为rgb565
@@ -61,8 +60,9 @@ object UtilKBitmapDeal {
      * @return Bitmap
      */
     @JvmStatic
+    @Throws(Exception::class)
     fun scaleBitmap(sourceBitmap: Bitmap, ratio: Float): Bitmap {
-        require(ratio > 0f) { "ratioX or ratioY must bigger than 0" }
+        require(ratio > 0f) { "$TAG ratioX or ratioY must bigger than 0" }
         return scaleBitmap(sourceBitmap, ratio, ratio)
     }
 
@@ -88,8 +88,9 @@ object UtilKBitmapDeal {
      * @return Bitmap
      */
     @JvmStatic
+    @Throws(Exception::class)
     fun scaleBitmap(sourceBitmap: Bitmap, ratioX: Float, ratioY: Float): Bitmap {
-        require(ratioX > 0f && ratioY > 0) { "ratioX or ratioY must bigger than 0" }
+        require(ratioX > 0f && ratioY > 0) { "$TAG ratioX or ratioY must bigger than 0" }
         val matrix = Matrix()
         matrix.postScale(ratioX, ratioY)
         return Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.width, sourceBitmap.height, matrix, true)

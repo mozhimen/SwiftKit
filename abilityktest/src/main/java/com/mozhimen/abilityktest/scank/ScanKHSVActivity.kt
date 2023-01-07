@@ -36,8 +36,9 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
         }
     }
 
+    @Throws(Exception::class)
     override fun initView(savedInstanceState: Bundle?) {
-        require(OpenCVK.initSDK()) { "opencv init fail" }
+        require(OpenCVK.initSDK()) { "$TAG opencv init fail" }
         initCamera()
     }
 

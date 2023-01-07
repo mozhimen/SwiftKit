@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.UtilKFile
+import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.BR

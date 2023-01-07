@@ -162,7 +162,7 @@ object UtilKViewImageLoader {
     fun loadImageCrop(
         imageView: ImageView,
         res: Any,
-        cropType: CropTransformation.CropType = CropTransformation.CropType.CENTER
+        cropType: CropTransformation.ECropType = CropTransformation.ECropType.CENTER
     ) {
         imageView.load(res) {
             transformations(CropTransformation(cropType))

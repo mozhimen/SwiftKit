@@ -1,5 +1,6 @@
 package com.mozhimen.basick.elemk.receiver.bases
 
+import android.annotation.TargetApi
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -36,6 +37,7 @@ android:enabled="true">
     ">> you should set your target sdk as 25, because android 8 later all limited",
     ">> 你必须设置你的targetSDK:25, 因为android8后有限制"
 )
+@TargetApi(25)
 open class BaseInstallObserverReceiver(private val _listener: IReceiverInstallListener? = null) : BroadcastReceiver() {
     companion object {
         private val TAG = "${this::class.java.simpleName}>>>>>"

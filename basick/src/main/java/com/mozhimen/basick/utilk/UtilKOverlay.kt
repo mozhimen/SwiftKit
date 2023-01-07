@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
@@ -19,8 +20,8 @@ object UtilKOverlay {
     @JvmStatic
     fun startOverlaySettingActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            _context.startActivity(
-                Intent(
+            UtilKActivitySkip.start(
+                _context, Intent(
                     Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                     Uri.parse("package:" + _context.packageName)
                 ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

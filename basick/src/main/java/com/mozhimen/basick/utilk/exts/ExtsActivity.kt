@@ -1,9 +1,8 @@
 package com.mozhimen.basick.utilk.exts
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import com.mozhimen.basick.utilk.UtilKSkip
+import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 
 /**
  * @ClassName ExtsKSkip
@@ -16,8 +15,8 @@ import com.mozhimen.basick.utilk.UtilKSkip
  * 不带参数的跳转
  * @receiver Context
  */
-inline fun <reified T> Context.start() where T : Activity {
-    UtilKSkip.start<T>(this)
+inline fun <reified T> Activity.start() where T : Activity {
+    UtilKActivitySkip.start<T>(this)
 }
 
 /**
@@ -25,6 +24,6 @@ inline fun <reified T> Context.start() where T : Activity {
  * @receiver Context
  * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
  */
-inline fun <reified T> Context.start(block: Intent.() -> Unit) where T : Activity {
-    UtilKSkip.start<T>(this, block)
+inline fun <reified T> Activity.start(block: Intent.() -> Unit) where T : Activity {
+    UtilKActivitySkip.start<T>(this, block)
 }

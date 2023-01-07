@@ -128,13 +128,9 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
         this._imageAvailableListener = listener
     }
 
+    @Throws(Exception::class)
     fun openCamera(previewWidth: Int, previewHeight: Int) {
-        require(
-            ActivityCompat.checkSelfPermission(
-                _activity,
-                Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_GRANTED
-        ) { "need camera permission" }
+        require(ActivityCompat.checkSelfPermission(_activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) { "$TAG need camera permission" }
         startBackgroundThread() // 对应 releaseCamera() 方法中的 stopBackgroundThread()
         try {
             _orientationEventListener.enable()

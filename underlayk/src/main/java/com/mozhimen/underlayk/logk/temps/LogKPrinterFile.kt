@@ -4,7 +4,7 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.commons.LogKConfig
 import com.mozhimen.underlayk.logk.mos.MLogK
 import com.mozhimen.basick.utilk.UtilKDate
-import com.mozhimen.basick.utilk.UtilKFile
+import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.BufferedWriter
 import java.io.File

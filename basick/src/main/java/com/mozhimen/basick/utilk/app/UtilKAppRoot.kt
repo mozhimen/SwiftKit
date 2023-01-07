@@ -2,10 +2,11 @@ package com.mozhimen.basick.utilk.app
 
 import android.Manifest
 import android.os.Build
-import androidx.core.content.PackageManagerCompat.LOG_TAG
 import com.mozhimen.basick.permissionk.annors.APermissionK
-import com.mozhimen.basick.utilk.UtilKFile
+import com.mozhimen.basick.utilk.file.UtilKFile
+import java.io.BufferedReader
 import java.io.File
+import java.io.InputStreamReader
 
 
 /**
@@ -26,7 +27,7 @@ object UtilKAppRoot {
     fun isRoot(): Boolean {
         var isRoot = false
         try {
-            isRoot = UtilKFile.isFileExist("/system/bin/su") || UtilKFile.isFileExist("/system/xbin/su")
+            isRoot = isSuAvailable() || isBusyboxAvailable() || isWhichAvailable() || hasSuperuserApk() || isSystemBeta()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -38,63 +39,86 @@ object UtilKAppRoot {
      * @return Boolean
      */
     @JvmStatic
+    @Throws(Exception::class)
     @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
     private fun isSuAvailable(): Boolean {
         var file: File
-        val paths = arrayOf("/system/bin/", "/system/xbin/", "/system/sbin/", "/sbin/", "/vendor/bin/", "/su/bin/")
-        try {
-            paths.forEach {
-                file = File("${it}su")
-                if (UtilKFile.isFileExist(file) && file.canExecute()) {
-                    return true
-                }
+        val paths = arrayOf(
+            "/system/bin/su", "/system/xbin/su", "/system/sbin/su",
+            "/sbin/su", "/vendor/bin/su", "/su/bin/su",
+            "/data/local/xbin/su", "/data/local/bin/su", "/system/sd/xbin/su",
+            "/system/bin/failsafe/su", "/data/local/su"
+        )
+        for (path in paths) {
+            file = File(path)
+            if (UtilKFile.isFileExist(file) && file.canExecute()) {
+                return true
             }
-        } catch (e: Exception) {
-            e.printStackTrace();
         }
         return false
     }
 
+    /**
+     * 系统是否包含busybox
+     * @return Boolean
+     * @throws Exception
+     */
     @JvmStatic
+    @Throws(Exception::class)
     @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
     fun isBusyboxAvailable(): Boolean {
         var file: File
-        val paths = arrayOf("/system/bin/", "/system/xbin/", "/system/sbin/", "/sbin/", "/vendor/bin/", "/su/bin/")
-        try {
-            for (path in paths) {
-                file = File(path + "${path}busybox")
-                if (file.exists() && file.canExecute()) {
-                    return true
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return false
-    }
-
-    @JvmStatic
-    @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
-    fun hasSuperuserApk(): Boolean {
-        try {
-            val file = File("/system/app/Superuser.apk")
-            if (UtilKFile.isFileExist(file)) {
+        val paths = arrayOf(
+            "/system/bin/busybox", "/system/xbin/busybox", "/system/sbin/busybox",
+            "/sbin/busybox", "/vendor/bin/busybox", "/su/bin/busybox",
+            "/data/local/xbin/busybox", "/data/local/bin/busybox", "/system/sd/xbin/busybox",
+            "/system/bin/failsafe/busybox", "/data/local/busybox"
+        )
+        for (path in paths) {
+            file = File(path)
+            if (file.exists() && file.canExecute()) {
                 return true
             }
+        }
+        return false
+    }
+
+    /**
+     * 系统是否包含which
+     * @return Boolean
+     * @throws Exception
+     */
+    @JvmStatic
+    @Throws(Exception::class)
+    @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
+    fun isWhichAvailable(): Boolean {
+        var process: Process? = null
+        return try {
+            process = Runtime.getRuntime().exec(arrayOf("/system/xbin/which", "su"))
+            val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
+            bufferedReader.readLine() != null
         } catch (e: Exception) {
             e.printStackTrace()
+            false
+        } finally {
+            process?.destroy()
         }
-        return false
     }
 
+    /**
+     * 检测系统内是否安装了Superuser.apk之类的App
+     * @return Boolean
+     */
     @JvmStatic
-    fun isSystemBeta(): Boolean {
-        val buildTags = Build.TAGS
-        if (buildTags != null && buildTags.contains("test-keys")) {
-            return true
-        }
-        return false
-    }
+    @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
+    fun hasSuperuserApk(): Boolean =
+        UtilKFile.isFileExist(File("/system/app/Superuser.apk"))
 
-
+    /**
+     * 系统是否是非官方发布版
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isSystemBeta(): Boolean =
+        Build.TAGS != null && Build.TAGS.contains("test-keys")
 }
