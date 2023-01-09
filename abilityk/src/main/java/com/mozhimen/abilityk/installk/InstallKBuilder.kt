@@ -43,7 +43,7 @@ class InstallKBuilder {
         class Builder {
             private var _installMode: EInstallMode = EInstallMode.BOTH
             private var _installStateChangedListener: IInstallStateChangedListener? = null
-            private var _apkCacheDirectory = Environment.getExternalStorageDirectory().absolutePath
+            private var _installCacheDirectory = Environment.getExternalStorageDirectory().absolutePath
 
             fun setInstallMode(mode: EInstallMode): Builder {
                 _installMode = mode
@@ -56,7 +56,7 @@ class InstallKBuilder {
             }
 
             fun setInstallCacheDirectory(directory: String): Builder {
-                _apkCacheDirectory = directory
+                _installCacheDirectory = directory
                 return this
             }
 
@@ -64,10 +64,9 @@ class InstallKBuilder {
                 val installKBuilder = InstallKBuilder()
                 installKBuilder._installMode = _installMode
                 installKBuilder._installStateChangeListener = _installStateChangedListener
-                installKBuilder._tempApkPathWithName = _apkCacheDirectory
+                installKBuilder._tempApkPathWithName = _installCacheDirectory
                 return installKBuilder
             }
-
         }
     }
 
