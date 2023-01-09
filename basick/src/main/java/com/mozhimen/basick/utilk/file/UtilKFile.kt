@@ -1,10 +1,12 @@
 package com.mozhimen.basick.utilk.file
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.text.TextUtils
 import android.util.Log
 import androidx.core.content.FileProvider
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.*
 import java.math.BigInteger
@@ -393,8 +395,10 @@ object UtilKFile {
             Log.e(TAG, "file2Uri: file isFileExist false")
             return null
         }
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            FileProvider.getUriForFile(_context, "${_context.packageName}.fileProvider", file)
+        return if (Build.VERSION.SDK_INT >= VersionCode.V_24_7_N)
+            FileProvider.getUriForFile(_context, "${_context.packageName}.fileProvider", file).also {
+                _context.grantUriPermission(_context.packageName, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
         else Uri.fromFile(file)
     }
 

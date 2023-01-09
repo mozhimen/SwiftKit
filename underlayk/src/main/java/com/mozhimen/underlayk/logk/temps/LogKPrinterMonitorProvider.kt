@@ -11,7 +11,8 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.utilk.UtilKOverlay
+import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.exts.showToastOnMain
@@ -76,7 +77,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
                 or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE) or WindowManager.LayoutParams.FLAG_FULLSCREEN
         _layoutParams.format = PixelFormat.TRANSLUCENT
         _layoutParams.gravity = Gravity.END or Gravity.BOTTOM
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_26_8_O) {
             _layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         } else {
             _layoutParams.type = WindowManager.LayoutParams.TYPE_TOAST
@@ -89,10 +90,10 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
     }
 
     fun openMonitor(isFold: Boolean) {
-        if (!UtilKOverlay.hasOverlayPermission()) {
+        if (!UtilKPermission.isSettingOverlayPermissionEnable(_context)) {
             LogK.et(TAG, "PrinterMonitor play app has no overlay permission")
             "请打开悬浮窗权限".showToastOnMain()
-            UtilKOverlay.startOverlaySettingActivity()
+            UtilKPermission.openSettingOverlay(_context)
             return
         }
         _windowManager.addView(_rootView, getWindowLayoutParams(isFold))

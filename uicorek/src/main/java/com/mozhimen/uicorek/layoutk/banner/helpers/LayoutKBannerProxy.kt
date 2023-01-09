@@ -26,6 +26,7 @@ class LayoutKBannerProxy(
     private val _layoutKBanner: LayoutKBanner
 ) : IBanner, OnPageChangeListener {
 
+    private val TAG = "LayoutKBannerProxy>>>>>"
     private var _adapter: BannerAdapter? = null
     private var _indicator: IBannerIndicator<*>? = null
     private var _bannerItems: List<MBannerItem>? = null

@@ -7,6 +7,7 @@ import com.liulishuo.okdownload.DownloadTask
 import com.liulishuo.okdownload.StatusUtil
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.taskk.commons.ITaskK
 import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.basick.utilk.regular.UtilKVerifyUrl
@@ -44,7 +45,7 @@ class TaskFileDownloadSingle(owner: LifecycleOwner) : ITaskK(owner) {
     }
 
     private fun popupDownloadTask(url: String) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_24_7_N) {
             _downloadUrls.removeIf { it == url }
         } else {
             _downloadUrls.remove(url)

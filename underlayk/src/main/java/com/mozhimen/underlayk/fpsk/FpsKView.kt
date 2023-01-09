@@ -8,11 +8,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.exts.decimal2String
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.context.UtilKApplication
-import com.mozhimen.basick.utilk.UtilKOverlay
+import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
 import com.mozhimen.underlayk.fpsk.helpers.FrameMonitor
@@ -81,7 +82,7 @@ class FpsKView {
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
         _params.format = PixelFormat.TRANSLUCENT
         _params.gravity = Gravity.END or Gravity.BOTTOM
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_26_8_O) {
             _params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         } else {
             _params.type = WindowManager.LayoutParams.TYPE_TOAST
@@ -97,8 +98,8 @@ class FpsKView {
     }
 
     private fun play() {
-        if (!UtilKOverlay.hasOverlayPermission()) {
-            UtilKOverlay.startOverlaySettingActivity()
+        if (!UtilKPermission.isSettingOverlayPermissionEnable(_context)) {
+            UtilKPermission.openSettingOverlay(_context)
             LogK.et(TAG, "FpsKView play app has no overlay permission")
             return
         }

@@ -32,6 +32,7 @@ import kotlin.collections.ArrayList
  * @Version 1.0
  */
 object LogK {
+    private const val TAG = "LogK>>>>>"
     private var LOGK_PACKAGE: String
 
     init {

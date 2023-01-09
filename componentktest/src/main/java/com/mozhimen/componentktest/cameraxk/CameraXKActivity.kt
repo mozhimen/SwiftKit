@@ -22,7 +22,7 @@ import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 
     /*private val outputDirectory: String by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (Build.VERSION.SDK_INT >= VersionCode.Q) {
             "${Environment.DIRECTORY_DCIM}/CameraXKActivity/"
         } else {
             "${this.getExternalFilesDir(Environment.DIRECTORY_DCIM)}/CameraXKActivity/"

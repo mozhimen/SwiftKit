@@ -238,6 +238,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
+import com.mozhimen.basick.elemk.cons.VersionCode;
 import com.mozhimen.basick.stackk.StackK;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
 import com.mozhimen.basick.utilk.UtilKDataBus;
@@ -1234,7 +1235,7 @@ public abstract class BasePopupWindow implements PopupWindow.OnDismissListener, 
         if (drawableIds == 0) {
             return setBackground(null);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_21_5_L) {
             return setBackground(getContextInner(true).getDrawable(drawableIds));
         } else {
             return setBackground(getContextInner(true).getResources().getDrawable(drawableIds));

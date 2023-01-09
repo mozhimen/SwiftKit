@@ -7,6 +7,7 @@ import android.os.Build
 import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.context.UtilKActivity
 import com.mozhimen.basick.utilk.UtilKDataType
 import java.util.*
@@ -48,7 +49,7 @@ object UtilKView {
      */
     @JvmStatic
     fun setBackground(view: View, background: Drawable) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_16_41_J) {
             view.background = background
         } else {
             view.setBackgroundDrawable(background)

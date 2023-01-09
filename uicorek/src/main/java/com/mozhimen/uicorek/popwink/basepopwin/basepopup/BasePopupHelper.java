@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.mozhimen.basick.elemk.cons.VersionCode;
 import com.mozhimen.basick.stackk.StackK;
 import com.mozhimen.basick.utilk.context.UtilKActivity;
 import com.mozhimen.basick.utilk.UtilKAnim;
@@ -605,7 +606,7 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
 
     void getSafeInsetBounds(Rect r) {
         if (r == null) return;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT < VersionCode.V_28_9_P) {
             r.setEmpty();
             return;
         }

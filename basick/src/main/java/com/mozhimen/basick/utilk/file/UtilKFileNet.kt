@@ -21,7 +21,7 @@ object UtilKFileNet {
     private const val TAG = "UtilKDownload>>>>>"
 
     @APermissionK(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
-    fun downLoadFile(httpUrl: String, saveFileNameWithName: String): File {
+    fun downLoadFile(httpUrl: String, saveFileNameWithName: String): String {
         require(httpUrl.isNotEmpty()) { "$TAG httpUrl must be not empty" }
 
         val file = File(saveFileNameWithName)
@@ -53,12 +53,13 @@ object UtilKFileNet {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            return ""
         } finally {
             inputStream?.close()
             fileOutputStream?.flush()
             fileOutputStream?.close()
             httpURLConnection?.disconnect()
         }
-        return file
+        return file.absolutePath
     }
 }

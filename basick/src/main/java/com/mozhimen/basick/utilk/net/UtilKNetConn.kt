@@ -8,6 +8,7 @@ import android.os.Process
 import android.util.Log
 import com.mozhimen.basick.cachek.CacheKSP
 import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
@@ -23,8 +24,6 @@ object UtilKNetConn {
     private val TAG = "UtilKNet>>>>>"
     private val _context = UtilKApplication.instance.get()
     private val _connectivityManager = _context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    private const val utilknet_sp_name = "utilknet_sp_name"
-    private const val utilknet_sp_degrade_http = "utilknet_sp_degrade_http"
 
     /**
      * 网络是否连接
@@ -81,24 +80,13 @@ object UtilKNetConn {
 
     /**
      * 打印连接信息
-     * @param context Context
      */
     @JvmStatic
-    fun printNetworkInfo(context: Context) {
+    fun printNetworkInfo() {
         val networkInfo = _connectivityManager.activeNetworkInfo
         if (networkInfo != null) {
             Log.i(TAG, "isAvailable " + networkInfo.isAvailable + " isConnected " + networkInfo.isConnected + " networkInfo " + networkInfo.toString())
             Log.i(TAG, "subtypeName " + networkInfo.subtypeName + " typeName " + networkInfo.typeName + " extraInfo " + networkInfo.extraInfo)
         }
-    }
-
-    @JvmStatic
-    fun degrade2Http() {
-        if (CacheKSP.instance.with(utilknet_sp_name).getBoolean(utilknet_sp_degrade_http, false)) return
-        CacheKSP.instance.with(utilknet_sp_name).putBoolean(utilknet_sp_degrade_http, true)
-        Thread.sleep(100)
-        UtilKActivitySkip.start(_context, _context.packageManager.getLaunchIntentForPackage(_context.packageName)!!)
-        //杀掉当前进程,并主动启动新的启动页,以完成重启的动作
-        Process.killProcess(Process.myPid())
     }
 }

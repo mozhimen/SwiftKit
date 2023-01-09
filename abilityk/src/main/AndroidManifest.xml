@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mozhimen.abilityk">
 
-    <application
+<!--    <application
         android:allowBackup="true"
         android:supportsRtl="true">
 
-        <!--installk-->
+        &lt;!&ndash;installk&ndash;&gt;
         <service
             android:name=".installk.InstallKSmartService"
             android:enabled="true"
@@ -30,5 +30,5 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/installk_files_path" />
         </provider>
-    </application>
+    </application>-->
 </manifest>

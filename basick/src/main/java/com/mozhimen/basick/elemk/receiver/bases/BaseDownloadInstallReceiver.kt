@@ -64,11 +64,6 @@ open class BaseDownloadInstallReceiver(private val _apkPathWithName: String) : B
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        onReceiveInstall(context)
-    }
-
-    @CallSuper
-    fun onReceiveInstall(context: Context) {
-        UtilKAppInstall.installSmart(context, _apkPathWithName)
+        UtilKAppInstall.installAuto(_apkPathWithName)
     }
 }

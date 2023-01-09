@@ -63,35 +63,21 @@ object UtilKApp {
     }
 
     /**
-     * 重启APP
-     * @param isValid Boolean
-     */
-    @JvmStatic
-    fun restartAppWithStatus(isValid: Boolean = true) {
-        val intent = _context.packageManager.getLaunchIntentForPackage(_context.packageName)
-        intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        _context.startActivity(intent)
-
-        Process.killProcess(Process.myPid())
-        exitProcess(if (isValid) 0 else 10)
-    }
-
-    /**
      * 重启App
      * @param isKillProcess Boolean
      */
     @JvmStatic
-    fun restartApp(isKillProcess: Boolean) {
-        val intent: Intent? = UtilKIntent.getLaunchAppIntent(_context.packageName)
+    fun restartApp(isKillProcess: Boolean, isValid: Boolean = true) {
+        val intent: Intent? = UtilKIntent.getLauncherActivityIntent(_context.packageName)
         if (intent == null) {
-            Log.e(TAG, "Didn't exist launcher activity.")
+            Log.e(TAG, "didn't exist launcher activity.")
             return
         }
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         UtilKActivitySkip.start(_context, intent)
         if (!isKillProcess) return
         Process.killProcess(Process.myPid())
-        exitProcess(0)
+        exitProcess(if (isValid) 0 else 10)
     }
 
     /**

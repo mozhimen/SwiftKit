@@ -4,6 +4,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 
@@ -42,7 +43,7 @@ object UtilKPackage {
     fun getVersionCode(): Int {
         return try {
             val packageInfo = getPackageInfo()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
                 packageInfo.longVersionCode.toInt()
             } else {
                 packageInfo.versionCode

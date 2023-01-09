@@ -12,14 +12,15 @@ import android.content.Intent
  * @Version 1.0
  */
 object UtilKActivitySkip {
+    private const val TAG = "UtilKActivitySkip>>>>>"
+
     /**
      * 不带参数的跳转
      * @param activity Activity
      */
     @JvmStatic
     inline fun <reified T> start(activity: Activity) where T : Activity {
-        val intent = Intent(activity, T::class.java)
-        activity.startActivity(intent)
+        activity.startActivity(Intent(activity, T::class.java))
     }
 
     /**
@@ -30,6 +31,16 @@ object UtilKActivitySkip {
     @JvmStatic
     fun start(activity: Activity, intent: Intent) {
         activity.startActivity(intent)
+    }
+
+    /**
+     * 原始跳转
+     * @param activity Activity
+     * @param clazz Class<*>
+     */
+    @JvmStatic
+    fun start(activity: Activity, clazz: Class<*>) {
+        start(activity, Intent(activity, clazz))
     }
 
     /**
@@ -50,8 +61,7 @@ object UtilKActivitySkip {
      */
     @JvmStatic
     inline fun <reified T> start(context: Context) where T : Activity {
-        val intent = Intent(context, T::class.java)
-        context.startActivity(intent)
+        context.startActivity(Intent(context, T::class.java))
     }
 
     /**
@@ -61,7 +71,18 @@ object UtilKActivitySkip {
      */
     @JvmStatic
     fun start(context: Context, intent: Intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
+    }
+
+    /**
+     * 原始跳转
+     * @param context Context
+     * @param clazz Class<*>
+     */
+    @JvmStatic
+    fun start(context: Context, clazz: Class<*>) {
+        start(context, Intent(context, clazz))
     }
 
     /**

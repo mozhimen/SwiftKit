@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseDelegateLifecycleObserver
 import com.mozhimen.basick.elemk.network.commons.INetworkListener
 import com.mozhimen.basick.permissionk.annors.APermissionK
@@ -26,7 +27,7 @@ import com.mozhimen.basick.permissionk.annors.APermissionK
 class NetworkDelegate(private val _owner: LifecycleOwner) : BaseDelegateLifecycleObserver(_owner) {
     private var _networkListener: INetworkListener? = null
 
-    private val _netWorkCallback = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
+    private val _netWorkCallback = if (Build.VERSION.SDK_INT >= VersionCode.V_21_5_L && Build.VERSION.SDK_INT <= VersionCode.V_24_7_N) {
         object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)

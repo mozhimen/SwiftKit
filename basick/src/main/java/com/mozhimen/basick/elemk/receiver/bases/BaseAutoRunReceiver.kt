@@ -48,18 +48,12 @@ open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTi
             if (_delayTime != 0L) {
                 Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : ObserverCallback<String>() {
                     override fun onComplete() {
-                        startActivity(context, clazz)
+                        UtilKActivitySkip.start(context, clazz)
                     }
                 })
             } else {
-                startActivity(context, clazz)
+                UtilKActivitySkip.start(context, clazz)
             }
         }
-    }
-
-    private fun startActivity(context: Context, clazz: Class<*>) {
-        val intent = Intent(context, clazz)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        UtilKActivitySkip.start(context, intent)
     }
 }

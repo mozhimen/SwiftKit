@@ -12,6 +12,7 @@ import android.os.StatFs
 import android.text.TextUtils
 import android.text.format.Formatter
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
@@ -145,9 +146,9 @@ object UtilKDevice {
      */
     @JvmStatic
     @SuppressLint("HardwareIds")
-    fun getSerialNumber(): String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+    fun getSerialNumber(): String = if (Build.VERSION.SDK_INT >= VersionCode.V_29_10_Q) {
         NO_DEFINED
-    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+    } else if (Build.VERSION.SDK_INT >= VersionCode.V_26_8_O) {
         Build.SERIAL
     } else {
         UtilKCmd.getSystemProperties(PKG_SERIAL_NUMBER, NO_DEFINED)
@@ -264,7 +265,7 @@ object UtilKDevice {
 
     @JvmStatic
     private fun isHasCamera(isFront: Boolean): Boolean {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
             return _context.packageManager.hasSystemFeature(if (isFront) PackageManager.FEATURE_CAMERA_FRONT else PackageManager.FEATURE_CAMERA)
         } else {
             val info = Camera.CameraInfo()

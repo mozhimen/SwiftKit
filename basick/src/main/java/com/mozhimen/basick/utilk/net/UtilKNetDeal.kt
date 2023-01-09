@@ -1,6 +1,11 @@
 package com.mozhimen.basick.utilk.net
 
 import android.annotation.SuppressLint
+import android.os.Process
+import com.mozhimen.basick.cachek.CacheKSP
+import com.mozhimen.basick.utilk.app.UtilKApp
+import com.mozhimen.basick.utilk.context.UtilKActivitySkip
+import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
@@ -15,6 +20,10 @@ import javax.net.ssl.X509TrustManager
  * @Version 1.0
  */
 object UtilKNetDeal {
+    private const val UTILKNET_SP_NAME = "utilknet_sp_name"
+    private const val UTILKNET_SP_DEGRADE_HTTP = "utilknet_sp_degrade_http"
+    private val _context = UtilKApplication.instance.get()
+
     /**
      * 获取SSL
      * @return SSLContext?
@@ -24,25 +33,39 @@ object UtilKNetDeal {
         var sslContext: SSLContext? = null
         try {
             sslContext = SSLContext.getInstance("TLS")
-            sslContext.init(null, arrayOf<TrustManager>(
-                @SuppressLint("CustomX509TrustManager")
-                object : X509TrustManager {
-                    @SuppressLint("TrustAllX509TrustManager")
-                    override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
-                    }
+            sslContext.init(
+                null, arrayOf<TrustManager>(
+                    @SuppressLint("CustomX509TrustManager")
+                    object : X509TrustManager {
+                        @SuppressLint("TrustAllX509TrustManager")
+                        override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+                        }
 
-                    @SuppressLint("TrustAllX509TrustManager")
-                    override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
-                    }
+                        @SuppressLint("TrustAllX509TrustManager")
+                        override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+                        }
 
-                    override fun getAcceptedIssuers(): Array<X509Certificate?> {
-                        return arrayOfNulls(0)
-                    }
-                }), SecureRandom()
+                        override fun getAcceptedIssuers(): Array<X509Certificate?> {
+                            return arrayOfNulls(0)
+                        }
+                    }), SecureRandom()
             )
         } catch (e: Exception) {
             e.printStackTrace()
         }
         return sslContext
+    }
+
+    /**
+     * 协议降级
+     */
+    @JvmStatic
+    fun degrade2Http() {
+        if (CacheKSP.instance.with(UTILKNET_SP_NAME).getBoolean(UTILKNET_SP_DEGRADE_HTTP, false)) return
+        CacheKSP.instance.with(UTILKNET_SP_NAME).putBoolean(UTILKNET_SP_DEGRADE_HTTP, true)
+        Thread.sleep(100)
+        UtilKApp.restartApp(isKillProcess = false)
+        //杀掉当前进程,并主动启动新的启动页,以完成重启的动作
+        Process.killProcess(Process.myPid())
     }
 }

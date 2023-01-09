@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.bitmap.blur.RenderScriptHelper
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption
@@ -55,7 +56,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         isFocusable = false
         isFocusableInTouchMode = false
         scaleType = ScaleType.MATRIX
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_16_41_J) {
             background = null
         } else {
             setBackgroundDrawable(null)

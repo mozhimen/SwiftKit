@@ -5,10 +5,10 @@ import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.utilk.UtilKString
 
@@ -21,20 +21,22 @@ import com.mozhimen.basick.utilk.UtilKString
  */
 object UtilKActivity {
 
+    private val _context = UtilKApplication.instance.get()
+
     /**
      * 获取启动Activity
      * @param packageName String
      * @return String?
      */
     @JvmStatic
-    fun getLauncherActivity(packageName: String): String {
+    fun getLauncherActivityName(packageName: String): String {
         if (UtilKString.isHasSpace(packageName)) return ""
-        val intent = Intent(Intent.ACTION_MAIN, null)
-        intent.addCategory(Intent.CATEGORY_LAUNCHER)
-        intent.setPackage(packageName)
-        val packageManager: PackageManager = UtilKApplication.instance.get().packageManager
-        val info = packageManager.queryIntentActivities(intent, 0)
-        return if (info.size == 0) "" else info[0].activityInfo.name
+        val intent = Intent(Intent.ACTION_MAIN, null).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+            setPackage(packageName)
+        }
+        val resolveInfos = _context.packageManager.queryIntentActivities(intent, 0)
+        return if (resolveInfos.size == 0) "" else resolveInfos[0].activityInfo.name
     }
 
     /**
@@ -55,7 +57,7 @@ object UtilKActivity {
      */
     @JvmStatic
     fun isActivityDestroyed(activity: Activity): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        return if (Build.VERSION.SDK_INT >= VersionCode.V_17_42_J1) {
             activity.isDestroyed || activity.isFinishing
         } else activity.isFinishing
     }

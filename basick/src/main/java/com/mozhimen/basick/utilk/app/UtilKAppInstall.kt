@@ -1,11 +1,11 @@
 package com.mozhimen.basick.utilk.app
 
 import android.app.PendingIntent
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.os.Build
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
@@ -20,7 +20,7 @@ import java.nio.charset.Charset
  * @Version 1.0
  */
 object UtilKAppInstall {
-    private const val TAG = "UtilKInstall>>>>>"
+    private const val TAG = "UtilKAppInstall>>>>>"
     private val _context = UtilKApplication.instance.get()
 
     @JvmStatic
@@ -55,6 +55,7 @@ object UtilKAppInstall {
             e.printStackTrace()
             Log.e(TAG, e.message, e)
         } finally {
+            outputStream?.flush()
             outputStream?.close()
             bufferedReader?.close()
             process?.destroy()
@@ -83,21 +84,16 @@ object UtilKAppInstall {
     path="." />
     </paths>
 
-     * @param context Context
      * @param apkPathWithName String
      */
     @JvmStatic
-    fun installSmart(context: Context, apkPathWithName: String) {
-        val intent = Intent()
-        intent.action = Intent.ACTION_VIEW
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK        //在Broadcast中启动Activity需要添加Intent.FLAG_ACTIVITY_NEW_TASK
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //判断安卓系统是否大于7.0  大于7.0使用以下方法
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)                //添加这一句表示对目标应用临时授权该Uri所代表的文件
+    fun installAuto(apkPathWithName: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        if (Build.VERSION.SDK_INT >= VersionCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
-        val uri = UtilKFile.file2Uri(apkPathWithName) ?: return
-        val type = "application/vnd.android.package-archive" //安装路径
-        intent.setDataAndType(uri, type)
-        UtilKActivitySkip.start(context, intent)
+        intent.setDataAndType(UtilKFile.file2Uri(apkPathWithName) ?: return, "application/vnd.android.package-archive")
+        UtilKActivitySkip.start(_context, intent)
     }
 
     /**
@@ -109,7 +105,7 @@ object UtilKAppInstall {
     @JvmStatic
     fun installSilence(apkPathWithName: String, pkgName: String): Boolean {
         var result = "EMPTY"
-        val cmd = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        val cmd = if (Build.VERSION.SDK_INT >= VersionCode.V_24_7_N) {
             arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPathWithName)
         } else {
             arrayOf("pm", "install", "-i", pkgName, "-r", apkPathWithName)
@@ -149,7 +145,7 @@ object UtilKAppInstall {
      */
     @JvmStatic
     fun installSilence(apkPathWithName: String, receiver: Class<*>) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
             installSilenceAfter28(apkPathWithName, receiver)
         } else {
             installSilenceBefore28(apkPathWithName)
@@ -169,7 +165,7 @@ object UtilKAppInstall {
 
         val msgSuccess = StringBuilder()
         val msgError = StringBuilder()
-        val cmd: Array<String> = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        val cmd: Array<String> = if (Build.VERSION.SDK_INT >= VersionCode.V_24_7_N) {
             arrayOf("pm", "install", "-i", _context.packageName, "-r", apkPathWithName)
         } else {
             arrayOf("pm", "install", "-r", apkPathWithName)

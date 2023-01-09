@@ -1,5 +1,6 @@
 package com.mozhimen.debugk.base.mos
 
+import android.app.Activity
 import android.content.Context
 import java.io.Serializable
 import java.lang.reflect.Method
@@ -18,7 +19,7 @@ data class MDebugKMethod(
     val enable: Boolean,
     val target: Any
 ) : Serializable {
-    fun invoke(context: Context) {
-        method.invoke(target, context)
+    fun invoke(activity: Activity) {
+        method.invoke(target, activity)
     }
 }

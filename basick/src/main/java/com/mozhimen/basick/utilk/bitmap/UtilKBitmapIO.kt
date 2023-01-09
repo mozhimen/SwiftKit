@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.UtilKDate
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
@@ -36,7 +37,7 @@ object UtilKBitmapIO {
      */
     @JvmStatic
     fun bitmap2Album(sourceBitmap: Bitmap, filePathWithName: String, quality: Int = 100, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): String {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        return if (Build.VERSION.SDK_INT >= VersionCode.V_29_10_Q) {
             bitmap2AlnumAfter29(sourceBitmap, filePathWithName, quality, compressFormat)
         } else {
             bitmap2AlbumBefore29(sourceBitmap, filePathWithName, quality, compressFormat)
@@ -125,7 +126,7 @@ object UtilKBitmapIO {
     @JvmStatic
     fun album2Bitmap(uri: Uri): Bitmap? {
         return try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
                 val source = ImageDecoder.createSource(_context.contentResolver, uri)
                 ImageDecoder.decodeBitmap(source)
             } else {

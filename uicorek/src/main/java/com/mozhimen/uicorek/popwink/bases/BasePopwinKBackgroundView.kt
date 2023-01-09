@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.UtilKDrawable.isColorDrawableValid
 import com.mozhimen.basick.utilk.view.UtilKView.setBackground
 import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupHelper
@@ -34,7 +35,7 @@ class BasePopwinKBackgroundView @JvmOverloads constructor(context: Context, attr
 
     fun update() {
         if (_helper != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (Build.VERSION.SDK_INT >= VersionCode.V_16_41_J) {
                 background = _helper!!.popupBackground
             } else {
                 setBackgroundDrawable(_helper!!.popupBackground)

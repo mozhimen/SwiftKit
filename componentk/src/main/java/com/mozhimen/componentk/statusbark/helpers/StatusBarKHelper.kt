@@ -6,6 +6,7 @@ import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.bar.UtilKBarStatus
 import com.mozhimen.basick.utilk.UtilKOS
 import com.mozhimen.basick.utilk.bar.UtilKBarTitle
@@ -29,12 +30,12 @@ object StatusBarKHelper {
         val window = activity.window
         val decorView = window.decorView
         //5.0以上状态栏透明
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//21
+        if (Build.VERSION.SDK_INT >= VersionCode.V_21_5_L) {//21
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)//清除透明状态栏
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
             window.statusBarColor = Color.TRANSPARENT//设置透明
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//19
+        } else if (Build.VERSION.SDK_INT >= VersionCode.V_19_44_K) {//19
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         }
     }
@@ -58,7 +59,7 @@ object StatusBarKHelper {
     @JvmStatic
     fun setDecorViewFitSys(activity: Activity) {
         //华为,OPPO机型在StatusUtil.setLightStatusBar后布局被顶到状态栏上去了
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_23_6_M) {
             val content = (activity.findViewById(android.R.id.content) as ViewGroup).getChildAt(0)
             if (content != null) {
                 content.fitsSystemWindows = true
@@ -71,10 +72,10 @@ object StatusBarKHelper {
      */
     @JvmStatic
     fun setStatusBarColor(activity: Activity, colorId: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_21_5_L) {
             val window = activity.window
             window.statusBarColor = colorId
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        } else if (Build.VERSION.SDK_INT >= VersionCode.V_19_44_K) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明
             setStatusBarImmersed(activity)
             val barTintMgr = BarTintMgr(activity)

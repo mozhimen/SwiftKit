@@ -7,6 +7,7 @@ import android.content.Intent
 import android.util.Log
 import androidx.annotation.CallSuper
 import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.elemk.receiver.commons.IReceiverInstallListener
 import com.mozhimen.basick.utilk.app.UtilKApp
 
@@ -37,7 +38,7 @@ android:enabled="true">
     ">> you should set your target sdk as 25, because android 8 later all limited",
     ">> 你必须设置你的targetSDK:25, 因为android8后有限制"
 )
-@TargetApi(25)
+@TargetApi(VersionCode.V_25_71_N1)
 open class BaseInstallObserverReceiver(private val _listener: IReceiverInstallListener? = null) : BroadcastReceiver() {
     companion object {
         private val TAG = "${this::class.java.simpleName}>>>>>"
@@ -55,7 +56,7 @@ open class BaseInstallObserverReceiver(private val _listener: IReceiverInstallLi
                 Log.w(TAG, "onReceiveInstall: update one pkg, restart program soon packageName $packageName")
                 _listener?.onAppUpdate()
                 if (packageName == "package:" + context.packageName) {
-                    UtilKApp.restartApp(true)
+                    UtilKApp.restartApp(isKillProcess = false)
                 }
             }
             Intent.ACTION_PACKAGE_ADDED -> {

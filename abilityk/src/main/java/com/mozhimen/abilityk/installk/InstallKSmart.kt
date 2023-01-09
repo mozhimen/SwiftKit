@@ -49,16 +49,15 @@ object InstallKSmart {
 
      * @see [InstallKSmartService] this service
      * @param apkPathWithName String
-     * @param activity Activity
      */
     @JvmStatic
     @ADescription(
         ">> you must register SmartInstallService first",
         ">> 你必须先在工程app的Manifest下注册SmartInstallService,才有效"
     )
-    suspend fun installSmart(apkPathWithName: String, activity: Activity) {
+    suspend fun installSmart(apkPathWithName: String) {
         withContext(Dispatchers.Main) {
-            UtilKAppInstall.installSmart(activity, apkPathWithName)
+            UtilKAppInstall.installAuto(apkPathWithName)
         }
     }
 }

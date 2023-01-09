@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Build
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.cons.VersionCode
 
 /**
  * @ClassName UtilKColor
@@ -22,7 +23,7 @@ object UtilKColor {
      */
     @JvmStatic
     @ColorInt
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(VersionCode.V_26_8_O)
     fun getMedianColor(startColor: Int, endColor: Int, ratio: Float): Int {
         val startRed = Color.red(startColor)
         val startBlue = Color.blue(startColor)

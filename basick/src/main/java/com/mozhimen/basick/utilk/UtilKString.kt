@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import android.os.Build
+import com.mozhimen.basick.elemk.cons.VersionCode
 import java.text.DecimalFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -162,7 +163,7 @@ object UtilKString {
      */
     @JvmStatic
     fun <T> joinList(list: List<T>, defaultValue: String = "", splitChar: String = ","): String =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_24_7_N) {
             val ret = list.stream().map { elem: T? -> elem?.toString() ?: "" }
                 .collect(Collectors.joining(splitChar))
             ret.ifEmpty { defaultValue }

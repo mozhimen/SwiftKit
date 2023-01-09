@@ -8,6 +8,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.MText2SpeechConfig
 import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.permissionk.PermissionK
 import com.mozhimen.basick.permissionk.annors.APermissionK
@@ -48,7 +49,7 @@ class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Loc
     private val TAG = "TransKTTS>>>>>"
 
     init {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
             if (!PermissionK.checkPermission(Manifest.permission.FOREGROUND_SERVICE)) {
                 UtilKPermission.openSettingSelf(owner)
             }

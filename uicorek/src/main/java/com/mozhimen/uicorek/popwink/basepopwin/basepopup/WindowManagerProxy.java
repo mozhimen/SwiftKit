@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 
-import com.mozhimen.basick.utilk.UtilKBuild;
+import com.mozhimen.basick.elemk.cons.VersionCode;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import androidx.annotation.Nullable;
@@ -39,7 +39,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
     static final WindowFlagCompat FLAG_COMPAT;
 
     static {
-        if (Build.VERSION.SDK_INT >= UtilKBuild.VersionCode.R) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_30_11_R) {
             FLAG_COMPAT = new WindowFlagCompat.Api30Impl();
         } else {
             FLAG_COMPAT = new WindowFlagCompat.BeforeApi30Impl();
@@ -65,7 +65,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
         if (mWindowManager == null || view == null) return;
         if (isPopupInnerDecorView(view) && mPopupDecorViewProxy != null) {
             PopupDecorViewProxy popupDecorViewProxy = mPopupDecorViewProxy;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (Build.VERSION.SDK_INT >= VersionCode.V_19_44_K) {
                 if (!popupDecorViewProxy.isAttachedToWindow()) return;
             }
             mWindowManager.removeViewImmediate(popupDecorViewProxy);
@@ -317,7 +317,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
             public void setupFlag(ViewGroup.LayoutParams params, BasePopupHelper helper) {
                 if (params instanceof LayoutParams && helper != null) {
                     LayoutParams p = (LayoutParams) params;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
                         Activity decorAct = helper.mPopupWindow.getContext();
                         if (decorAct != null) {
                             LayoutParams lp = decorAct.getWindow().getAttributes();
@@ -326,7 +326,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
                     }
                     if (helper.isOverlayStatusbar()) {
                         UtilKLogSmart.i(TAG, "applyHelper  >>>  覆盖状态栏");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
                             int cutoutGravity = helper.getCutoutGravity();
                             if (cutoutGravity == Gravity.TOP || cutoutGravity == Gravity.BOTTOM) {
                                 //垂直方向允许占用刘海
@@ -338,7 +338,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
                     // 状态栏和导航栏相关处理交给decorview proxy，这里永远占用
                     p.flags |= LayoutParams.FLAG_LAYOUT_IN_SCREEN;
                     p.flags |= LayoutParams.FLAG_LAYOUT_NO_LIMITS;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    if (Build.VERSION.SDK_INT >= VersionCode.V_18_43_J2) {
                         p.flags |= LayoutParams.FLAG_LAYOUT_IN_OVERSCAN;
                     }
                 }
@@ -347,12 +347,12 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
 
         class Api30Impl implements WindowFlagCompat {
 
-            @RequiresApi(api = UtilKBuild.VersionCode.R)
+            @RequiresApi(api = VersionCode.V_30_11_R)
             @Override
             public void setupFlag(ViewGroup.LayoutParams params, BasePopupHelper helper) {
                 if (params instanceof LayoutParams && helper != null) {
                     LayoutParams p = (LayoutParams) params;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
                         Activity decorAct = helper.mPopupWindow.getContext();
                         if (decorAct != null) {
                             LayoutParams lp = decorAct.getWindow().getAttributes();
@@ -362,7 +362,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
                     int insetsType = p.getFitInsetsTypes();
                     if (helper.isOverlayStatusbar()) {
                         UtilKLogSmart.i(TAG, "applyHelper  >>>  覆盖状态栏");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
                             int cutoutGravity = helper.getCutoutGravity();
                             if (cutoutGravity == Gravity.TOP || cutoutGravity == Gravity.BOTTOM) {
                                 //垂直方向允许占用刘海

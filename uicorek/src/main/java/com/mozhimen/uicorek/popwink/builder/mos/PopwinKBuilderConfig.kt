@@ -10,6 +10,7 @@ import android.view.animation.Animation
 import com.mozhimen.basick.animk.builder.AnimKBuilder.asAnimation
 import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_HIDE
 import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_SHOW
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.UtilKClazz
 import com.mozhimen.basick.utilk.UtilKKeyBoard.IUtilKKeyboardListener
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption
@@ -38,7 +39,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
             return PopwinKBuilderConfig()
                 .setShowAnimation(asAnimation().add(CENTER_SHOW).build())
                 .setDismissAnimation(asAnimation().add(CENTER_HIDE).build())
-                .setFadeInAndOut(Build.VERSION.SDK_INT != Build.VERSION_CODES.M)
+                .setFadeInAndOut(Build.VERSION.SDK_INT != VersionCode.V_23_6_M)
         }
     }
 
@@ -54,7 +55,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
     private var _bitmapBlurOption: UtilKBitmapBlurOption? = null
 
     init {
-        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT == VersionCode.V_23_6_M) {
             _flag = _flag and CFlag.FADE_ENABLE.inv()
         }
     }

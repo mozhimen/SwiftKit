@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.utilk.context.UtilKActivity
 import com.mozhimen.basick.utilk.UtilKOS
 import com.mozhimen.basick.utilk.context.UtilKApplication
@@ -87,7 +88,7 @@ object UtilKBarStatus {
      */
     @JvmStatic
     fun hideStatusBar(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_23_6_M) {
             activity.window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
@@ -100,7 +101,7 @@ object UtilKBarStatus {
      */
     @JvmStatic
     fun setStatusBarFontIcon_MiuiUI(activity: Activity, isDark: Boolean) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT > VersionCode.V_23_6_M) {
             setStatusBarFontIcon_CommonUI(activity, isDark)
         } else {
             if (UtilKOS.isMIUILarger6()) {
@@ -141,7 +142,7 @@ object UtilKBarStatus {
      */
     @JvmStatic
     fun setStatusBarFontIcon_CommonUI(activity: Activity, isDark: Boolean) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= VersionCode.V_23_6_M) {
             val window: Window = activity.window
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
