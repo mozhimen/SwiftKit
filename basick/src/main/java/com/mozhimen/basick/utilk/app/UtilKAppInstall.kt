@@ -13,7 +13,7 @@ import java.io.*
 import java.nio.charset.Charset
 
 /**
- * @ClassName UtilKInstall
+ * @ClassName UtilKAppInstall
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2023/1/4 23:29

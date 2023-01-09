@@ -32,7 +32,7 @@ android:resource="@xml/installk_smart_accessibility_service_config" />
  * @Version 1.0
  */
 
-class InstallKSmartService : AccessibilityService() {
+class InstallKAutoService : AccessibilityService() {
     companion object {
         private const val TAG = "InstallKSmartService>>>>>"
     }

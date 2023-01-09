@@ -64,7 +64,7 @@ object UtilKNetDeal {
         if (CacheKSP.instance.with(UTILKNET_SP_NAME).getBoolean(UTILKNET_SP_DEGRADE_HTTP, false)) return
         CacheKSP.instance.with(UTILKNET_SP_NAME).putBoolean(UTILKNET_SP_DEGRADE_HTTP, true)
         Thread.sleep(100)
-        UtilKApp.restartApp(isKillProcess = false)
+        UtilKApp.restartApp(isKillProcess = true)
         //杀掉当前进程,并主动启动新的启动页,以完成重启的动作
         Process.killProcess(Process.myPid())
     }

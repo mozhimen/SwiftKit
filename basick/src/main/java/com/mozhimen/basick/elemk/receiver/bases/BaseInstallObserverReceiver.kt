@@ -54,9 +54,9 @@ open class BaseInstallObserverReceiver(private val _listener: IReceiverInstallLi
         when (intent.action) {
             Intent.ACTION_PACKAGE_REPLACED -> {
                 Log.w(TAG, "onReceiveInstall: update one pkg, restart program soon packageName $packageName")
-                _listener?.onAppUpdate()
-                if (packageName == "package:" + context.packageName) {
-                    UtilKApp.restartApp(isKillProcess = false)
+                if (packageName == "package:${context.packageName}") {
+                    _listener?.onAppUpdate()
+                    UtilKApp.restartApp(isKillProcess = true)
                 }
             }
             Intent.ACTION_PACKAGE_ADDED -> {

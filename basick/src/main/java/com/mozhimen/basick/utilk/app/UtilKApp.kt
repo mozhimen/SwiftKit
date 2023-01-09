@@ -8,8 +8,8 @@ import android.content.pm.ApplicationInfo
 import android.os.Process
 import android.util.Log
 import com.mozhimen.basick.utilk.UtilKCmd
-import com.mozhimen.basick.utilk.UtilKIntent
 import com.mozhimen.basick.utilk.UtilKPackage
+import com.mozhimen.basick.utilk.context.UtilKActivity
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.system.exitProcess
@@ -68,7 +68,7 @@ object UtilKApp {
      */
     @JvmStatic
     fun restartApp(isKillProcess: Boolean, isValid: Boolean = true) {
-        val intent: Intent? = UtilKIntent.getLauncherActivityIntent(_context.packageName)
+        val intent: Intent? = UtilKActivity.getLauncherActivityIntent(_context.packageName)
         if (intent == null) {
             Log.e(TAG, "didn't exist launcher activity.")
             return

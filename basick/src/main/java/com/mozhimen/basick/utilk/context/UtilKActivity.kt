@@ -24,6 +24,22 @@ object UtilKActivity {
     private val _context = UtilKApplication.instance.get()
 
     /**
+     * 获取启动App的Intent
+     * @param packageName String
+     * @return Intent?
+     */
+    @JvmStatic
+    fun getLauncherActivityIntent(packageName: String): Intent? {
+        val launcherActivityName: String = getLauncherActivityName(packageName)
+        if (UtilKString.isHasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return _context.packageManager.getLaunchIntentForPackage(_context.packageName)
+        val intent = Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+            setClassName(packageName, launcherActivityName)
+        }
+        return intent
+    }
+
+    /**
      * 获取启动Activity
      * @param packageName String
      * @return String?

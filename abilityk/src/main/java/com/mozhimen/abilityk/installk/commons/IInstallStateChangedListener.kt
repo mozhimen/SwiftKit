@@ -8,8 +8,9 @@ package com.mozhimen.abilityk.installk.commons
  * @Version 1.0
  */
 interface IInstallStateChangedListener {
+    fun onDownloadStart() {}
     fun onInstallStart()
     fun onInstallFinish()
-    fun onNeedOpenAccessibilitySetting()
-    fun onNeedPermissions()
+    fun onInstallFail(msg: String?)
+    fun onNeedPermissions() {}
 }

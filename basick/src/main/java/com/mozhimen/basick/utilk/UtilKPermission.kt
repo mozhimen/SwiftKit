@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk
 
+import android.Manifest
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -11,6 +13,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 
 
@@ -30,7 +33,7 @@ object UtilKPermission {
      * @return Boolean
      */
     @JvmStatic
-    fun isSettingOverlayPermissionEnable(context: Context): Boolean {
+    fun isOverlayPermissionEnable(context: Context): Boolean {
         return Build.VERSION.SDK_INT < VersionCode.V_23_6_M || Settings.canDrawOverlays(context)
     }
 
@@ -104,7 +107,7 @@ object UtilKPermission {
      * @return Boolean
      */
     @JvmStatic
-    fun isSettingAccessibilityPermissionEnable(context: Context, serviceClazz: Class<*>): Boolean {
+    fun isAccessibilityPermissionEnable(context: Context, serviceClazz: Class<*>): Boolean {
         var permissionEnable = 0
         val service = "${context.packageName}/${serviceClazz.canonicalName}"
         try {
@@ -133,5 +136,18 @@ object UtilKPermission {
             Log.e(TAG, "isSettingAccessibilityPermissionEnable accessibility is disabled")
         }
         return false
+    }
+
+    /**
+     * 是否有包安装权限
+     * @param context Context
+     * @return Boolean
+     */
+    @JvmStatic
+    @APermissionK(Manifest.permission.REQUEST_INSTALL_PACKAGES)
+    @RequiresApi(VersionCode.V_26_8_O)
+    @TargetApi(VersionCode.V_26_8_O)
+    fun isPackageInstallsPermissionEnable(context: Context): Boolean {
+        return context.packageManager.canRequestPackageInstalls()
     }
 }

@@ -98,7 +98,7 @@ class FpsKView {
     }
 
     private fun play() {
-        if (!UtilKPermission.isSettingOverlayPermissionEnable(_context)) {
+        if (!UtilKPermission.isOverlayPermissionEnable(_context)) {
             UtilKPermission.openSettingOverlay(_context)
             LogK.et(TAG, "FpsKView play app has no overlay permission")
             return
