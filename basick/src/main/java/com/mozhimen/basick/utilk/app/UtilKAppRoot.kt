@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.app
 
 import android.Manifest
 import android.os.Build
-import androidx.core.content.PackageManagerCompat.LOG_TAG
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.UtilKFile
 import java.io.File
