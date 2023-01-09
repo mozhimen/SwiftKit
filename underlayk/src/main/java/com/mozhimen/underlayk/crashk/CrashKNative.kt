@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.crashk
 
-import com.mozhimen.basick.utilk.UtilKFile
+import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.crashk_native.CrashKNativeLib

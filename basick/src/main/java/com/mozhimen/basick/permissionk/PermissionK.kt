@@ -44,6 +44,7 @@ object PermissionK {
      * @param isGranted Function1<Boolean, Unit>
      */
     @JvmStatic
+    @Throws(Exception::class)
     fun initPermissions(
         activity: AppCompatActivity,
         isGranted: ((Boolean) -> Unit)? = null,
@@ -66,7 +67,7 @@ object PermissionK {
         isGranted: ((Boolean) -> Unit)? = null
     ) {
         if (permissions.isNotEmpty()) {
-            if (!checkPermissions(*permissions)) {
+            if (!checkPermissions(permissions)) {
                 requestPermissions(activity, *permissions) { allGranted, deniedList ->
                     printDeniedList(deniedList)
                     isGranted?.invoke(allGranted)
@@ -105,11 +106,20 @@ object PermissionK {
 
     /**
      * 权限检查
+     * @param permission String
+     * @return Boolean
+     */
+    fun checkPermission(permission: String): Boolean {
+        return checkPermissions(arrayOf(permission))
+    }
+
+    /**
+     * 权限检查
      * @param permissions Array<out String>
      * @return Boolean
      */
     @JvmStatic
-    fun checkPermissions(vararg permissions: String): Boolean {
+    fun checkPermissions(permissions: Array<out String>): Boolean {
         return checkPermissions(permissions.toList())
     }
 

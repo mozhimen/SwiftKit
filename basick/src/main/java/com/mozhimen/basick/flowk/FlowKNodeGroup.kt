@@ -107,7 +107,6 @@ class FlowKNodeGroup private constructor(id: String) : FlowKNode(id) {
                 return taskK
             }
             taskK = _flowKCreator.createFlow(id)
-            requireNotNull(taskK) { "create task fail, make sure iTaskCreator can create a Task with only taskId" }
             mCacheTasks[id] = taskK
             return taskK
         }

@@ -103,8 +103,9 @@ class TabBottomLayout @JvmOverloads constructor(
     /**
      * 重置底部Tab
      */
+    @Throws(Exception::class)
     fun resizeTabBottomLayout() {
-        requireNotNull(_itemList) { "infoList must not be null!" }
+        requireNotNull(_itemList) { "$TAG _itemList must not be null!" }
         val width: Int = getRealScreenWidth() / _itemList!!.size
         val frameLayout = getChildAt(childCount - 1) as ViewGroup
         val childCount = frameLayout.childCount
@@ -180,8 +181,9 @@ class TabBottomLayout @JvmOverloads constructor(
         fixContentView()
     }
 
+    @Throws(Exception::class)
     private fun onSelected(nextMo: MTabBottom) {
-        require(_itemList != null) { "infoList must not be null!" }
+        requireNotNull(_itemList) { "$TAG _itemList must not be null!" }
         for (listener in _tabSelectedListeners) {
             listener.onTabItemSelected(_itemList!!.indexOf(nextMo), _preSelectedItem, nextMo)
         }

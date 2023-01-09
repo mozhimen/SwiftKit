@@ -105,11 +105,12 @@ open class LayoutKRefresh @JvmOverloads constructor(
      * @param minDamp Float? 最小阻尼
      * @param maxDamp Float? 最大阻尼
      */
+    @Throws(Exception::class)
     override fun setRefreshParams(
         minPullRefreshHeight: Int?,
         minDamp: Float?, maxDamp: Float?
     ) {
-        requireNotNull(_refreshOverView) { "refreshOverView must not be null, set it first!" }
+        requireNotNull(_refreshOverView) { "$TAG _refreshOverView must not be null, set it first!" }
         minPullRefreshHeight?.let { _refreshOverView!!.minPullRefreshHeight = it }
         minDamp?.let { _refreshOverView!!.minDamp = it }
         maxDamp?.let { _refreshOverView!!.maxDamp = it }
@@ -211,8 +212,9 @@ open class LayoutKRefresh @JvmOverloads constructor(
      * 恢复头部
      * @param distance Int 滚动的距离
      */
+    @Throws(Exception::class)
     private fun recoverHead(distance: Int) {
-        require(_refreshOverView != null) { "refreshOverview must not be null!" }
+        requireNotNull(_refreshOverView ) { "$TAG _refreshOverView must not be null!" }
         if (_refreshListener != null && distance > _refreshOverView!!.minPullRefreshHeight) {
             //滚动到指定位置distance-kOverView.mPullRefreshHeight
             _autoScroller.recover(distance - _refreshOverView!!.minPullRefreshHeight)
@@ -259,8 +261,9 @@ open class LayoutKRefresh @JvmOverloads constructor(
      * @param isEnableAutoScroll Boolean 是否非自动滚动触发
      * @return Boolean
      */
+    @Throws(Exception::class)
     private fun moveDown(offY: Int, isEnableAutoScroll: Boolean): Boolean {
-        requireNotNull(_refreshOverView) { "refreshOverView must not be null!" }
+        requireNotNull(_refreshOverView) { "$TAG _refreshOverView must not be null!" }
         var offsetY = offY
         val head = getChildAt(0)
         val child = getChildAt(1)
@@ -306,8 +309,9 @@ open class LayoutKRefresh @JvmOverloads constructor(
     /**
      * 开始刷新
      */
+    @Throws(Exception::class)
     private fun startRefresh() {
-        requireNotNull(_refreshOverView) { "refreshOverView must not be null!" }
+        requireNotNull(_refreshOverView) { "$TAG _refreshOverView must not be null!" }
         if (_refreshListener != null) {
             _refreshStatus = ERefreshStatus.REFRESHING
             _refreshOverView!!.onStartRefresh()

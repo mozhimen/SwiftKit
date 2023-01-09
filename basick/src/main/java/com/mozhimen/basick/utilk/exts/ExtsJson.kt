@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
 import com.mozhimen.basick.utilk.UtilKJson
-import kotlin.jvm.Throws
 
 /**
  * @ClassName JsonUtil

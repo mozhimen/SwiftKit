@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.app
 
-import android.Manifest
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
@@ -8,11 +7,10 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.os.Process
 import android.util.Log
-import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.UtilKCmd
-import com.mozhimen.basick.utilk.UtilKFile
 import com.mozhimen.basick.utilk.UtilKIntent
 import com.mozhimen.basick.utilk.UtilKPackage
+import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.system.exitProcess
 
@@ -90,7 +88,7 @@ object UtilKApp {
             return
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        _context.startActivity(intent)
+        UtilKActivitySkip.start(_context, intent)
         if (!isKillProcess) return
         Process.killProcess(Process.myPid())
         exitProcess(0)
@@ -117,6 +115,6 @@ object UtilKApp {
      * @return Boolean
      */
     @JvmStatic
-    fun isUserApp():Boolean =
+    fun isUserApp(): Boolean =
         !isSystemApp() && !isSystemUpdateApp()
 }

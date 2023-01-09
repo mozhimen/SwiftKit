@@ -310,8 +310,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
     private fun captureImage() {
         val localImageCapture = _imageCapture ?: return
         localImageCapture.takePicture(
-            ContextCompat.getMainExecutor(_context), // the executor, on which the task will run
-            _onImageCaptureCallback
+            ContextCompat.getMainExecutor(_context), _onImageCaptureCallback// the executor, on which the task will run
         )
     }
 
@@ -329,33 +328,12 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                 val isAvailable = extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.HDR)
 
                 //检查是否有扩展可用 check for any extension availability
-                Log.d(
-                    TAG,
-                    "checkForHdrExtensionAvailability: AUTO " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.AUTO)
-                )
-                Log.d(
-                    TAG,
-                    "checkForHdrExtensionAvailability: HDR " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.HDR)
-                )
-                Log.d(
-                    TAG,
-                    "checkForHdrExtensionAvailability: FACE RETOUCH " + extensionsManager.isExtensionAvailable(
-                        _lensFacingSelector,
-                        ExtensionMode.FACE_RETOUCH
-                    )
-                )
-                Log.d(
-                    TAG,
-                    "checkForHdrExtensionAvailability: BOKEH " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.BOKEH)
-                )
-                Log.d(
-                    TAG,
-                    "checkForHdrExtensionAvailability: NIGHT " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.NIGHT)
-                )
-                Log.d(
-                    TAG,
-                    "checkForHdrExtensionAvailability: NONE " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.NONE)
-                )
+                Log.d(TAG, "checkForHdrExtensionAvailability: AUTO " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.AUTO))
+                Log.d(TAG, "checkForHdrExtensionAvailability: HDR " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.HDR))
+                Log.d(TAG, "checkForHdrExtensionAvailability: FACE RETOUCH " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.FACE_RETOUCH))
+                Log.d(TAG, "checkForHdrExtensionAvailability: BOKEH " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.BOKEH))
+                Log.d(TAG, "checkForHdrExtensionAvailability: NIGHT " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.NIGHT))
+                Log.d(TAG, "checkForHdrExtensionAvailability: NONE " + extensionsManager.isExtensionAvailable(_lensFacingSelector, ExtensionMode.NONE))
 
                 //检查分机是否在设备上可用 Check if the extension is available on the device
                 if (!isAvailable) {

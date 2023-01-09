@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.net
 
 import android.Manifest
 import android.content.Context
@@ -8,6 +8,7 @@ import android.os.Process
 import android.util.Log
 import com.mozhimen.basick.cachek.CacheKSP
 import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
@@ -18,7 +19,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Version 1.0
  */
 @APermissionK(Manifest.permission.ACCESS_NETWORK_STATE)
-object UtilKNetwork {
+object UtilKNetConn {
     private val TAG = "UtilKNet>>>>>"
     private val _context = UtilKApplication.instance.get()
     private val _connectivityManager = _context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -95,7 +96,8 @@ object UtilKNetwork {
     fun degrade2Http() {
         if (CacheKSP.instance.with(utilknet_sp_name).getBoolean(utilknet_sp_degrade_http, false)) return
         CacheKSP.instance.with(utilknet_sp_name).putBoolean(utilknet_sp_degrade_http, true)
-        _context.startActivity(_context.packageManager.getLaunchIntentForPackage(_context.packageName))
+        Thread.sleep(100)
+        UtilKActivitySkip.start(_context, _context.packageManager.getLaunchIntentForPackage(_context.packageName)!!)
         //杀掉当前进程,并主动启动新的启动页,以完成重启的动作
         Process.killProcess(Process.myPid())
     }

@@ -7,6 +7,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 
@@ -19,20 +21,19 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  */
 object UtilKPermission {
     /**
-     * 设置申请权限
+     * 设置申请权限 当系统在11及以上
      * @param activity Activity
      */
     @JvmStatic
+    @RequiresApi(30)
     fun openSettingAll(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= UtilKBuild.VersionCode.R) {//当系统在11及以上
-            if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
-                val intent = Intent()
-                intent.apply {
-                    action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
-                    data = Uri.parse("package:${activity.packageName}")
-                }
-                activity.startActivity(intent)
+        if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
+            val intent = Intent()
+            intent.apply {
+                action = Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
+                data = Uri.parse("package:${activity.packageName}")
             }
+            UtilKActivitySkip.start(activity, intent)
         }
     }
 
@@ -47,7 +48,7 @@ object UtilKPermission {
             action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
             data = Uri.fromParts("package", activity.packageName, null)
         }
-        activity.startActivity(intent)
+        UtilKActivitySkip.start(activity, intent)
     }
 
     /**
@@ -56,6 +57,6 @@ object UtilKPermission {
      */
     @JvmStatic
     fun openSettingAccessibility(activity: Activity) {
-        activity.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+        UtilKActivitySkip.start(activity, Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
     }
 }

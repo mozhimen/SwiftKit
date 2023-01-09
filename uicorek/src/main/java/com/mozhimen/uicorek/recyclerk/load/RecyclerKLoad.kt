@@ -29,6 +29,7 @@ class RecyclerKLoad @JvmOverloads constructor(
 ) :
     RecyclerView(context, attrs, defStyleAttr) {
 
+    private val TAG = "RecyclerKLoad>>>>>"
     private var _loadScrollListener: OnScrollListener? = null
     private var _footerView: View? = null
     private var _isLoading: Boolean = false
@@ -52,8 +53,9 @@ class RecyclerKLoad @JvmOverloads constructor(
      * @param prefetchSize Int
      * @param listener Function0<Unit>
      */
+    @Throws(Exception::class)
     fun enableLoad(prefetchSize: Int, listener: IRecyclerKLoadListener?) {
-        require(adapter is RecyclerKAdapter) { "enableLoadMore must use dataKAdapter" }
+        require(adapter is RecyclerKAdapter) { "$TAG enableLoadMore adapter must use dataKAdapter" }
 
         this._prefetchSize = prefetchSize
         this._recyclerKLoadCallback = listener
@@ -65,8 +67,7 @@ class RecyclerKLoad @JvmOverloads constructor(
      * 关闭加载更多
      */
     fun disableLoad() {
-        require(adapter is RecyclerKAdapter) { "enableLoadMore must use dataKAdapter" }
-
+        require(adapter is RecyclerKAdapter) { "$TAG enableLoadMore adapter must use dataKAdapter" }
         val recyclerKAdapter = adapter as RecyclerKAdapter
         _footerView?.let {
             if (_footerView!!.parent != null) {
@@ -94,7 +95,7 @@ class RecyclerKLoad @JvmOverloads constructor(
      * 加载结束
      */
     fun loadFinished() {
-        require(adapter is RecyclerKAdapter) { "enableLoad must use dataKAdapter" }
+        require(adapter is RecyclerKAdapter) { "$TAG enableLoad must use dataKAdapter" }
 
         val recyclerKAdapter = adapter as RecyclerKAdapter
         _footerView?.let {

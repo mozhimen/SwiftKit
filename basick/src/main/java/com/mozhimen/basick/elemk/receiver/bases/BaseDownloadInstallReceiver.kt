@@ -7,7 +7,7 @@ import android.content.Intent
 import androidx.annotation.CallSuper
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.permissionk.annors.APermissionK
-import com.mozhimen.basick.utilk.UtilKInstall
+import com.mozhimen.basick.utilk.app.UtilKAppInstall
 
 
 /**
@@ -69,6 +69,6 @@ open class BaseDownloadInstallReceiver(private val _apkPathWithName: String) : B
 
     @CallSuper
     fun onReceiveInstall(context: Context) {
-        UtilKInstall.installSmart(context, _apkPathWithName)
+        UtilKAppInstall.installSmart(context, _apkPathWithName)
     }
 }

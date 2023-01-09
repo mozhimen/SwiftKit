@@ -21,11 +21,11 @@ class UtilKEncryptActivity : BaseActivityVB<ActivityUtilkEncryptBinding>() {
         var res: String = ""
         vb.utilkEncryptTxt1.text = content
         vb.utilkEncryptBtnEncrypt.setOnClickListener {
-            pwd = UtilKEncryptAES.require(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").encryptWithBase64(content)
+            pwd = UtilKEncryptAES.with(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").encryptWithBase64(content)
             vb.utilkEncryptTxt2.text = pwd
         }
         vb.utilkEncryptBtnDecrypt.setOnClickListener {
-            res = UtilKEncryptAES.require(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").decryptWithBase64(pwd)
+            res = UtilKEncryptAES.with(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").decryptWithBase64(pwd)
             vb.utilkEncryptTxt3.text = res
         }
     }

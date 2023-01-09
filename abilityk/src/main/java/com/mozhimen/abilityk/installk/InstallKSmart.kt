@@ -1,12 +1,8 @@
 package com.mozhimen.abilityk.installk
 
 import android.app.Activity
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.utilk.UtilKFile
-import com.mozhimen.basick.utilk.UtilKInstall
+import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.UtilKPermission
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -62,7 +58,7 @@ object InstallKSmart {
     )
     suspend fun installSmart(apkPathWithName: String, activity: Activity) {
         withContext(Dispatchers.Main) {
-            UtilKInstall.installSmart(activity, apkPathWithName)
+            UtilKAppInstall.installSmart(activity, apkPathWithName)
         }
     }
 }

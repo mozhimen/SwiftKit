@@ -34,8 +34,9 @@ object OpenCVKContrast {
      * @return Double
      */
     @JvmStatic
+    @Throws(Exception::class)
     fun similarity(bitmap: Bitmap, orgBitmap: Bitmap): Double {
-        require(bitmap.width == orgBitmap.width && bitmap.height == orgBitmap.height) { "two bmp must have same size" }
+        require(bitmap.width == orgBitmap.width && bitmap.height == orgBitmap.height) { "$TAG two bmp must have same size" }
 
         var similarity = 0.0
         val matSrc = OpenCVKTrans.bitmap2Mat(bitmap)

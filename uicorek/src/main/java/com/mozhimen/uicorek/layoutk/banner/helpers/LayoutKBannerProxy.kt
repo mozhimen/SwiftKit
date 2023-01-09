@@ -115,8 +115,9 @@ class LayoutKBannerProxy(
         }
     }
 
+    @Throws(Exception::class)
     override fun onPageSelected(position: Int) {
-        requireNotNull(_adapter) { "adapter must not be null!" }
+        requireNotNull(_adapter) { "$TAG _adapter must not be null!" }
         if (_adapter!!.getRealCount() == 0) {
             return
         }
@@ -130,8 +131,9 @@ class LayoutKBannerProxy(
         _onPageChangeListener?.onPageScrollStateChanged(state)
     }
 
+    @Throws(Exception::class)
     private fun init(layoutResId: Int) {
-        requireNotNull(_bannerItems) { "bannerMos must not be null!" }
+        requireNotNull(_bannerItems) { "$TAG _bannerItems must not be null!" }
         if (_adapter == null) {
             _adapter = BannerAdapter(_context)
         }

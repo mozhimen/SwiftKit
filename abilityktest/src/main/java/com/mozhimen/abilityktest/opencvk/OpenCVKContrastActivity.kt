@@ -39,9 +39,10 @@ class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>()
         }
     }
 
+    @Throws(Exception::class)
     override fun initView(savedInstanceState: Bundle?) {
         _orgBitmap = UtilKRes.getDrawable(R.mipmap.opencvk_contrast_test)!!.drawable2Bitmap()
-        require(OpenCVK.initSDK()) { "opencv init fail" }
+        require(OpenCVK.initSDK()) { "$TAG opencv init fail" }
         initCamera()
     }
 

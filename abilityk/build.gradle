@@ -39,7 +39,6 @@ dependencies {
     //qrcodek
     implementation 'com.google.zxing:android-core:3.3.0'
     implementation 'com.google.zxing:core:3.3.3'
-    implementation 'com.github.a-voyager:AutoInstaller:v1.1'
 
     //scank
     api 'com.github.mozhimen.OpenCVKit:opencvk:1.0.1'

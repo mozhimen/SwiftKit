@@ -17,10 +17,10 @@ import java.lang.Float.max
  * @Version 1.0
  */
 class CropTransformation(
-    private val cropType: CropType = CropType.CENTER
+    private val cropType: ECropType = ECropType.CENTER
 ) : Transformation, ITransformation {
 
-    enum class CropType {
+    enum class ECropType {
         TOP,
         CENTER,
         BOTTOM
@@ -54,9 +54,9 @@ class CropTransformation(
 
     private fun getTop(height: Float, scaledHeight: Float): Float {
         return when (cropType) {
-            CropType.TOP -> 0f
-            CropType.CENTER -> (height - scaledHeight) / 2
-            CropType.BOTTOM -> height - scaledHeight
+            ECropType.TOP -> 0f
+            ECropType.CENTER -> (height - scaledHeight) / 2
+            ECropType.BOTTOM -> height - scaledHeight
         }
     }
 }

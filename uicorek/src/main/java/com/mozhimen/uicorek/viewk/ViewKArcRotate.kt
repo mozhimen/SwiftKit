@@ -83,7 +83,7 @@ class ViewKArcRotate @JvmOverloads constructor(context: Context, attrs: Attribut
         _angleOffset =
             Math.toDegrees(asin(_arcWidth / 2f / (realRadius - _arcWidth / 2f)).toDouble()).toFloat()
         _angleSweep = (360f - _arcNum * _angleInterval - _angleOffset) / _arcNum
-        require(_angleSweep > 0) { "圆弧数 * 圆弧间隔 + 偏移量超过了360°" }
+        require(_angleSweep > 0) { "$TAG 圆弧数 * 圆弧间隔 + 偏移量超过了360°" }
     }
 
     override fun initPaint() {

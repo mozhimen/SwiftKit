@@ -8,6 +8,7 @@ import androidx.annotation.CallSuper
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.elemk.rxjava.commons.ObserverCallback
 import com.mozhimen.basick.utilk.UtilKRxJavaTrans
+import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
@@ -57,8 +58,8 @@ open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTi
     }
 
     private fun startActivity(context: Context, clazz: Class<*>) {
-        val rebootIntent = Intent(context, clazz)
-        rebootIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(rebootIntent)
+        val intent = Intent(context, clazz)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        UtilKActivitySkip.start(context, intent)
     }
 }

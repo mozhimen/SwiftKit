@@ -2,6 +2,8 @@ package com.mozhimen.abilityk.installk
 
 import android.accessibilityservice.AccessibilityService
 import android.annotation.SuppressLint
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
@@ -13,9 +15,10 @@ import android.view.accessibility.AccessibilityNodeInfo
  * AndroidManifest.xml
 <service
 android:name=".installk.InstallKSmartService"
-android:label="HotupdateK程序更新"
-android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-android:exported="true">
+android:enabled="true"
+android:exported="true"
+android:label="@string/installk_label"
+android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
 <intent-filter>
 <action android:name="android.accessibilityservice.AccessibilityService" />
 </intent-filter>
@@ -35,17 +38,33 @@ class InstallKSmartService : AccessibilityService() {
     }
 
     private var _handledMap: MutableMap<Int, Boolean?> = HashMap()
+    private val _handler = Handler(Looper.getMainLooper())
 
+    @SuppressLint("LongLogTag")
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
+        Log.d(TAG, "onAccessibilityEvent: $event")
+
+        if (!event.packageName.toString().contains("packageinstaller")) {
+            //不写完整包名，是因为某些手机(如小米)安装器包名是自定义的
+            return
+        }
+
         val nodeInfo = event.source
-        if (nodeInfo != null) {
-            val eventType = event.eventType
-            if (eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED || eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-                if (_handledMap[event.windowId] == null) {
-                    val handled = iterateNodesAndHandle(nodeInfo)
-                    if (handled) {
-                        _handledMap[event.windowId] = true
-                    }
+        if (nodeInfo == null) {
+            Log.i(TAG, "eventNode: null, 重新获取eventNode...")
+            performGlobalAction(GLOBAL_ACTION_RECENTS) // 打开最近页面
+            _handler.postDelayed({
+                performGlobalAction(GLOBAL_ACTION_BACK) // 返回安装页面
+            }, 320)
+            return
+        }
+
+        val eventType = event.eventType
+        if (eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED || eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+            if (_handledMap[event.windowId] == null) {
+                val handled = iterateNodesAndHandle(nodeInfo)
+                if (handled) {
+                    _handledMap[event.windowId] = true
                 }
             }
         }
@@ -58,7 +77,7 @@ class InstallKSmartService : AccessibilityService() {
             if ("android.widget.Button" == nodeInfo.className) {
                 val nodeContent = nodeInfo.text.toString()
                 Log.d(TAG, "content is $nodeContent")
-                if ("安装" == nodeContent || "完成" == nodeContent || "确定" == nodeContent) {
+                if (nodeContent.isNotEmpty() && ("安装" == nodeContent || "完成" == nodeContent || "确定" == nodeContent || "install" == nodeContent || "done" == nodeContent)) {
                     nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK)
                     return true
                 }
