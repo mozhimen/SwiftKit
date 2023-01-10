@@ -1,11 +1,13 @@
 package com.mozhimen.basick.elemk.receiver.bases
 
 import android.Manifest
+import android.annotation.TargetApi
+import android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import androidx.annotation.CallSuper
 import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 
@@ -59,11 +61,12 @@ path="." />
     "    <uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\"/><!-- 8.0必要权限  -->\n"
 )
 open class BaseDownloadInstallReceiver(private val _apkPathWithName: String) : BroadcastReceiver() {
-    companion object {
-        private val TAG = "${this::class.java.simpleName}>>>>>"
-    }
 
     override fun onReceive(context: Context, intent: Intent) {
-        UtilKAppInstall.installAuto(_apkPathWithName)
+        when (intent.action) {
+            ACTION_DOWNLOAD_COMPLETE -> {
+                UtilKAppInstall.installAuto(_apkPathWithName)
+            }
+        }
     }
 }

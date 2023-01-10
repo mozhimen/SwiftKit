@@ -30,13 +30,17 @@
             android:name=".elemk.ElemKActivity"
             android:exported="false" />
         <activity
-            android:name=".elemk.activity.ElemKDemoVBVMActivity"
+            android:name=".elemk.activity.ElemKVBVMActivity"
             android:exported="false" />
         <activity
-            android:name=".elemk.service.ElemKDemoServiceActivity"
+            android:name=".elemk.service.ElemKServiceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".elemk.receiver.ElemKReceiverActivity"
             android:exported="false" />
 
-        <service android:name=".elemk.service.ElemKDemoService" />
+        <service android:name=".elemk.service.ElemKService" />
+
         <receiver
             android:name=".elemk.receiver.ElemKAutoRunReceiver"
             android:enabled="true"
@@ -46,12 +50,14 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".elemk.receiver.ElemKInstallObserverReceiver" android:exported="true"
-            android:enabled="true">
+            android:name=".elemk.receiver.ElemKInstallObserverReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter android:priority="100">
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>

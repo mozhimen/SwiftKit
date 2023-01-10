@@ -6,7 +6,7 @@
 
         <variable
             name="elemk_vbvm"
-            type="com.mozhimen.basicktest.elemk.viewmodel.ElemKDemoViewModel" />
+            type="com.mozhimen.basicktest.elemk.viewmodel.ElemKViewModel" />
     </data>
 
     <LinearLayout
@@ -29,14 +29,14 @@
 
         <fragment
             android:id="@+id/elemk_vbvm_fragment_vb"
-            android:name="com.mozhimen.basicktest.elemk.fragment.ElemKDemoFragmentVB"
+            android:name="com.mozhimen.basicktest.elemk.fragment.ElemKFragmentVB"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
         <fragment
             android:id="@+id/elemk_vbvm_fragment_vbvm"
-            android:name="com.mozhimen.basicktest.elemk.fragment.ElemKDemoFragmentVBVM"
+            android:name="com.mozhimen.basicktest.elemk.fragment.ElemKFragmentVBVM"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />

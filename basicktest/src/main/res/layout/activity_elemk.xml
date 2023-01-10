@@ -9,16 +9,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goDemoActivityVBVM"
-            android:text="goDemoActivityVBVM"
+            android:onClick="goElemKActivityVBVM"
+            android:text="goElemKActivityVBVM"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goDemoServiceActivity"
-            android:text="goDemoServiceActivity"
+            android:onClick="goElemKServiceActivity"
+            android:text="goElemKServiceActivity"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goElemKReceiverActivity"
+            android:text="goElemKReceiverActivity"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

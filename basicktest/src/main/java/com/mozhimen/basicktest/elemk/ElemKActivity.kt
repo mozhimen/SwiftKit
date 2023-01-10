@@ -4,8 +4,9 @@ import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.basicktest.databinding.ActivityElemkBinding
-import com.mozhimen.basicktest.elemk.activity.ElemKDemoVBVMActivity
-import com.mozhimen.basicktest.elemk.service.ElemKDemoServiceActivity
+import com.mozhimen.basicktest.elemk.activity.ElemKVBVMActivity
+import com.mozhimen.basicktest.elemk.receiver.ElemKReceiverActivity
+import com.mozhimen.basicktest.elemk.service.ElemKServiceActivity
 
 /**
  * @ClassName ElemKActivity
@@ -16,11 +17,15 @@ import com.mozhimen.basicktest.elemk.service.ElemKDemoServiceActivity
  */
 class ElemKActivity : BaseActivityVB<ActivityElemkBinding>() {
 
-    fun goDemoActivityVBVM(view: View) {
-        start<ElemKDemoVBVMActivity>()
+    fun goElemKActivityVBVM(view: View) {
+        start<ElemKVBVMActivity>()
     }
 
-    fun goDemoServiceActivity(view: View) {
-        start<ElemKDemoServiceActivity>()
+    fun goElemKServiceActivity(view: View) {
+        start<ElemKServiceActivity>()
+    }
+
+    fun goElemKReceiverActivity(view: View) {
+        start<ElemKReceiverActivity>()
     }
 }

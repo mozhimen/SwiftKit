@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
  * @Date 2022/2/25 14:46
  * @Version 1.0
  */
-class ElemKDemoViewModel : BaseViewModel() {
+class ElemKViewModel : BaseViewModel() {
     val uiNum = MutableLiveData("0")
 
     fun genNum(){

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/9/27 0:59
  * @Version 1.0
  */
-class ElemKDemoService : BaseService() {
+class ElemKService : BaseService() {
 
     override fun onCreate() {
         super.onCreate()

@@ -5,10 +5,10 @@ import android.util.Log
 import androidx.fragment.app.viewModels
 import com.mozhimen.basick.elemk.fragment.bases.BaseFragmentVB
 import com.mozhimen.basicktest.databinding.FragmentElemkFragmentVbBinding
-import com.mozhimen.basicktest.elemk.viewmodel.ElemKDemoViewModel
+import com.mozhimen.basicktest.elemk.viewmodel.ElemKViewModel
 
-class ElemKDemoFragmentVB : BaseFragmentVB<FragmentElemkFragmentVbBinding>() {
-    private val vm: ElemKDemoViewModel by viewModels(ownerProducer = { requireActivity() })
+class ElemKFragmentVB : BaseFragmentVB<FragmentElemkFragmentVbBinding>() {
+    private val vm: ElemKViewModel by viewModels(ownerProducer = { requireActivity() })
 
     override fun initData(savedInstanceState: Bundle?) {
         Log.d(TAG, "initData: 1")

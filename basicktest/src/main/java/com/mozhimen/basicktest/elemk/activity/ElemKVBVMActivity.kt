@@ -2,13 +2,13 @@ package com.mozhimen.basicktest.elemk.activity
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
-import com.mozhimen.basicktest.elemk.viewmodel.ElemKDemoViewModel
-import com.mozhimen.basicktest.databinding.ActivityElemkDemoVbvmBinding
+import com.mozhimen.basicktest.elemk.viewmodel.ElemKViewModel
+import com.mozhimen.basicktest.databinding.ActivityElemkVbvmBinding
 
-class ElemKDemoVBVMActivity :
-    BaseActivityVBVM<ActivityElemkDemoVbvmBinding, ElemKDemoViewModel>() {
+class ElemKVBVMActivity :
+    BaseActivityVBVM<ActivityElemkVbvmBinding, ElemKViewModel>() {
 
-    override fun bindViewVM(vb: ActivityElemkDemoVbvmBinding) {
+    override fun bindViewVM(vb: ActivityElemkVbvmBinding) {
         vb.elemkVbvm = vm
     }
 

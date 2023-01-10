@@ -1,10 +1,12 @@
 package com.mozhimen.basick.elemk.receiver.bases
 
 import android.Manifest
+import android.annotation.TargetApi
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.CallSuper
+import com.mozhimen.basick.elemk.cons.VersionCode
 import com.mozhimen.basick.permissionk.annors.APermissionK
 import com.mozhimen.basick.elemk.rxjava.commons.ObserverCallback
 import com.mozhimen.basick.utilk.UtilKRxJavaTrans
@@ -41,18 +43,18 @@ android:exported="true">
 )
 open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BroadcastReceiver() {
 
-    @CallSuper
     override fun onReceive(context: Context, intent: Intent) {
-        val action: String? = intent.action
-        if (action?.isNotEmpty() == true && action == Intent.ACTION_BOOT_COMPLETED) {
-            if (_delayTime != 0L) {
-                Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : ObserverCallback<String>() {
-                    override fun onComplete() {
-                        UtilKActivitySkip.start(context, clazz)
-                    }
-                })
-            } else {
-                UtilKActivitySkip.start(context, clazz)
+        when (intent.action) {
+            Intent.ACTION_BOOT_COMPLETED -> {
+                if (_delayTime != 0L) {
+                    Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : ObserverCallback<String>() {
+                        override fun onComplete() {
+                            UtilKActivitySkip.start(context, clazz)
+                        }
+                    })
+                } else {
+                    UtilKActivitySkip.start(context, clazz)
+                }
             }
         }
     }
