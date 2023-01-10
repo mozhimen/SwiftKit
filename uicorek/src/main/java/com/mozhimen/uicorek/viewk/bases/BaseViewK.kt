@@ -1,9 +1,10 @@
-package com.mozhimen.uicorek.viewk.commons
+package com.mozhimen.uicorek.viewk.bases
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.uicorek.viewk.commons.IViewK
 
 /**
  * @ClassName ICustomView
@@ -12,7 +13,7 @@ import com.mozhimen.basick.utilk.exts.dp2px
  * @Date 2021/12/7 18:01
  * @Version 1.0
  */
-abstract class ViewK :
+abstract class BaseViewK :
     View, IViewK {
 
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)

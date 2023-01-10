@@ -13,7 +13,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
-import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.drawable2Bitmap
 import com.mozhimen.basick.utilk.exts.sp2px
@@ -33,7 +33,7 @@ import java.util.*
  */
 class LayoutKNavBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LayoutKRelative(context, attrs, defStyleAttr) {
+) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
 
     private var _titleView: TextView = TextView(context)
     private var _subTitleView: TextView? = null

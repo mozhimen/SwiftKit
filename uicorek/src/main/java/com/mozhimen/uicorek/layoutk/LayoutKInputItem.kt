@@ -12,7 +12,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.widget.EditText
 import android.widget.TextView
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.basick.utilk.exts.setInputMaxLength
 import com.mozhimen.basick.utilk.exts.setPadding
 import com.mozhimen.basick.utilk.exts.sp2px
@@ -29,7 +29,7 @@ import com.mozhimen.uicorek.R
 class LayoutKInputItem @JvmOverloads constructor(
     context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
 ) :
-    LayoutKLinear(context, attrs, defStyleAttr) {
+    BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     private lateinit var _editView: EditText
     private lateinit var _titleView: TextView

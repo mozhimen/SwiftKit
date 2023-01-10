@@ -6,7 +6,7 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import com.mozhimen.uicorek.viewk.commons.ViewK
+import com.mozhimen.uicorek.viewk.bases.BaseViewK
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.drawable2Bitmap
 import com.mozhimen.uicorek.R
@@ -21,7 +21,7 @@ import com.mozhimen.uicorek.R
 class ViewKQRScan @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) :
-    ViewK(context, attrs, defStyleAttr, defStyleRes) {
+    BaseViewK(context, attrs, defStyleAttr, defStyleRes) {
 
     //region # variate
     private var _lineDrawable: Drawable? = null

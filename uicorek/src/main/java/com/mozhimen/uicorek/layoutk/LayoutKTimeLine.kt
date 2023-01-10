@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 
 
 /**
@@ -19,7 +19,7 @@ import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
  * @Date 2022/12/1 14:00
  * @Version 1.0
  */
-class LayoutKTimeLine @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LayoutKLinear(context, attrs, defStyleAttr) {
+class LayoutKTimeLine @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     private lateinit var _linePaint: Paint
     private lateinit var _pointPaint: Paint

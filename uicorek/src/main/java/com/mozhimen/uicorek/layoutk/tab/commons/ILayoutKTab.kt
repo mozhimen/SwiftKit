@@ -9,7 +9,7 @@ import android.view.ViewGroup
  * @Date 2022/4/15 15:07
  * @Version 1.0
  */
-interface ITabLayout<VIEW : ViewGroup, ITEM> {
+interface ILayoutKTab<VIEW : ViewGroup, ITEM> {
     fun findTabItem(item: ITEM): VIEW?
 
     fun addTabItemSelectedListener(listener: ITabSelectedListener<ITEM>)

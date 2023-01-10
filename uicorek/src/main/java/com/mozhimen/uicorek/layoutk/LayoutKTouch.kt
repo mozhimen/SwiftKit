@@ -6,7 +6,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.MotionEvent
-import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 
 /**
  * @ClassName ViewKTouch
@@ -18,7 +18,7 @@ import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
 typealias ILayoutKTouchListener = () -> Unit
 
 class LayoutKTouch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    LayoutKFrame(context, attrs, defStyleAttr, defStyleRes) {
+    BaseLayoutKFrame(context, attrs, defStyleAttr, defStyleRes) {
     //region # variate
     private var _viewKTouchListener: ILayoutKTouchListener? = null
     private var _touchAreaRect: Rect? = null

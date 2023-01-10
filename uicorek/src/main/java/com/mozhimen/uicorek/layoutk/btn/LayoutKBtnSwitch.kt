@@ -17,7 +17,7 @@ import com.mozhimen.basick.animk.builder.temps.TranslationType
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -33,7 +33,7 @@ typealias ILayoutKSwitchListener = (status: Boolean) -> Unit
 
 class LayoutKBtnSwitch @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LayoutKFrame(context, attrs, defStyleAttr), View.OnClickListener {
+) : BaseLayoutKFrame(context, attrs, defStyleAttr), View.OnClickListener {
 
     private val _switch = MSwitch()
     private val _bg = MBG()

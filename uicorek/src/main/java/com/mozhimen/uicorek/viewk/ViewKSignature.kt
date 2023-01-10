@@ -7,7 +7,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.uicorek.viewk.commons.ViewK
+import com.mozhimen.uicorek.viewk.bases.BaseViewK
 
 import com.mozhimen.uicorek.R
 
@@ -21,7 +21,7 @@ import com.mozhimen.uicorek.R
 class ViewKSignature @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    ViewK(context, attrs, defStyleAttr) {
+    BaseViewK(context, attrs, defStyleAttr) {
 
     //region # variate
     private var _lineWidth = 2f.dp2px()

@@ -9,7 +9,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 
 /**
@@ -20,7 +20,7 @@ import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
  * @Version 1.0
  */
 class NumberIndicator @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    LayoutKFrame(context, attrs, defStyleAttr),
+    BaseLayoutKFrame(context, attrs, defStyleAttr),
     IBannerIndicator<FrameLayout> {
 
     companion object {

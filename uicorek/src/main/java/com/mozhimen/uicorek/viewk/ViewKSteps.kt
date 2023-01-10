@@ -10,7 +10,7 @@ import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.sp2px
-import com.mozhimen.uicorek.viewk.commons.ViewK
+import com.mozhimen.uicorek.viewk.bases.BaseViewK
 import com.mozhimen.uicorek.R
 
 /**
@@ -23,7 +23,7 @@ import com.mozhimen.uicorek.R
 class ViewKSteps @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) :
-    ViewK(context, attrs, defStyleAttr, defStyleRes) {
+    BaseViewK(context, attrs, defStyleAttr, defStyleRes) {
 
     //region # variate
     private var _doneLineColor = ContextCompat.getColor(context, R.color.blue_normal)

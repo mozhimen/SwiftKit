@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.mozhimen.uicorek.layoutk.tab.top.TabTopLayout
+        <com.mozhimen.uicorek.layoutk.tab.top.LayoutKTabTop
             android:id="@+id/layoutk_tab_top_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

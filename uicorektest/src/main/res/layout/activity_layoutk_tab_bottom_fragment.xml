@@ -3,7 +3,7 @@
 
     <data />
 
-    <com.mozhimen.uicorek.layoutk.tab.bottom.TabBottomLayout
+    <com.mozhimen.uicorek.layoutk.tab.bottom.LayoutKTabBottom
         android:id="@+id/layoutk_tab_bottom_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,5 +13,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.mozhimen.uicorek.layoutk.tab.bottom.TabBottomLayout>
+    </com.mozhimen.uicorek.layoutk.tab.bottom.LayoutKTabBottom>
 </layout>

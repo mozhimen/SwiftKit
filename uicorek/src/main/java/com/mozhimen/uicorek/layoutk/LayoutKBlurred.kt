@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.IntRange
-import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapFormat
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlur
@@ -22,7 +22,7 @@ import com.mozhimen.uicorek.R
  * @Version 1.0
  */
 class LayoutKBlurred @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    LayoutKRelative(context, attrs, defStyleAttr) {
+    BaseLayoutKRelative(context, attrs, defStyleAttr) {
 
     //region #全局变量
     //是否移动背景图片

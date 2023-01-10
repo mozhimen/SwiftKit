@@ -9,7 +9,7 @@ import android.widget.ScrollView
 import androidx.annotation.FloatRange
 import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.uicorek.layoutk.slider.commons.ILayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
@@ -37,7 +37,7 @@ import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
  * @Version 1.0
  */
 class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    LayoutKFrame(context, attrs, defStyleAttr, defStyleRes), ILayoutKSlider {
+    BaseLayoutKFrame(context, attrs, defStyleAttr, defStyleRes), ILayoutKSlider {
 
     private val _layoutKSliderProxy: LayoutKSliderProxy by lazy { LayoutKSliderProxy(context) }
 

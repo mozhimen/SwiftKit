@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.viewk
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import com.mozhimen.uicorek.viewk.commons.ViewK
+import com.mozhimen.uicorek.viewk.bases.BaseViewK
 import com.mozhimen.uicorek.viewk.commons.IViewKAction
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R
@@ -17,7 +17,7 @@ import kotlin.math.asin
  * @Version 1.0
  */
 class ViewKArcRotate @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    ViewK(context, attrs, defStyleAttr, defStyleRes), IViewKAction {
+    BaseViewK(context, attrs, defStyleAttr, defStyleRes), IViewKAction {
 
     //region # variate
     private var _arcStartColor = Color.WHITE

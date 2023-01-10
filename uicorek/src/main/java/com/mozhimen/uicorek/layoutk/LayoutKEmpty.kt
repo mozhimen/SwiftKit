@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.utilk.exts.font
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -22,7 +22,7 @@ import com.mozhimen.uicorek.R
 class LayoutKEmpty @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    LayoutKLinear(context, attrs, defStyleAttr) {
+    BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     private var _imageResId: Int? = null
     private var _iconFont: String? = null

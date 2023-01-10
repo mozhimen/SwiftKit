@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen.getRealScreenWidth
 import com.mozhimen.basick.utilk.view.UtilKView.findTypeChildView
-import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.UtilKColor
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
-import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
+import com.mozhimen.uicorek.layoutk.tab.commons.ILayoutKTab
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 
 /**
@@ -27,11 +27,11 @@ import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
  * @Date 2022/4/15 15:19
  * @Version 1.0
  */
-class TabBottomLayout @JvmOverloads constructor(
+class LayoutKTabBottom @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defAttrStyle: Int = 0
-) : LayoutKFrame(context, attrs, defAttrStyle), ITabLayout<TabBottomItem, MTabBottom> {
+) : BaseLayoutKFrame(context, attrs, defAttrStyle), ILayoutKTab<TabBottomItem, MTabBottom> {
 
     companion object {
         private const val TAG_TAB_BOTTOM_LAYOUT = "TAG_TAB_BOTTOM_LAYOUT"

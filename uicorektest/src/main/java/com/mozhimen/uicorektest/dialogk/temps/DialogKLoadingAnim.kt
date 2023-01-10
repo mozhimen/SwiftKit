@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.RotationRecyclerType
 import com.mozhimen.basick.utilk.exts.stopAnim
-import com.mozhimen.uicorek.dialogk.bases.BaseDialog
+import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R
 
@@ -20,7 +20,7 @@ import com.mozhimen.uicorektest.R
  * @Date 2022/12/19 15:37
  * @Version 1.0
  */
-class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, private var _desc: String? = null) : BaseDialog<IDialogKClickListener>(context) {
+class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, private var _desc: String? = null) : BaseDialogK<IDialogKClickListener>(context) {
     private var _imgProgress: ImageView? = null
     private var _txtDesc: TextView? = null
     private val _rotateAnimation by lazy { AnimKBuilder.asAnimation().add(RotationRecyclerType()).setDuration(1000).build() }

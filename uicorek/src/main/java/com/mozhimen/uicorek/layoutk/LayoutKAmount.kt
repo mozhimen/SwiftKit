@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.mozhimen.basick.elemk.cons.VersionCode
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.basick.utilk.exts.sp2px
@@ -31,7 +31,7 @@ class LayoutKAmount @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : LayoutKLinear(context, attrs, defStyleAttr) {
+) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     //region # private variate
     private val _attrs = LayoutKAmountParser.parseAttrs(context, attrs, defStyleAttr)

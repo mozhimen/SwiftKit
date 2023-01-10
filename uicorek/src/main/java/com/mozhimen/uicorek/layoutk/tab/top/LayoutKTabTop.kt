@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import androidx.annotation.Px
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen.getRealScreenWidth
-import com.mozhimen.uicorek.layoutk.tab.commons.ITabLayout
+import com.mozhimen.uicorek.layoutk.tab.commons.ILayoutKTab
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
 import kotlin.math.abs
@@ -21,9 +21,9 @@ import kotlin.math.abs
  * @Date 2022/4/15 23:36
  * @Version 1.0
  */
-class TabTopLayout @JvmOverloads constructor(
+class LayoutKTabTop @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : HorizontalScrollView(context, attrs, defStyleAttr), ITabLayout<TabTopItem, MTabTop> {
+) : HorizontalScrollView(context, attrs, defStyleAttr), ILayoutKTab<TabTopItem, MTabTop> {
     private val TAG = "TabTopLayout>>>>>"
     private val _tabSelectedChangeListeners: ArrayList<ITabSelectedListener<MTabTop>> = ArrayList()
     private var _selectedMo: MTabTop? = null

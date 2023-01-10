@@ -30,7 +30,8 @@ import java.io.*
     Manifest.permission.READ_EXTERNAL_STORAGE,
     Manifest.permission.WRITE_EXTERNAL_STORAGE,
     Manifest.permission.INTERNET,
-    Manifest.permission.REQUEST_INSTALL_PACKAGES
+    Manifest.permission.REQUEST_INSTALL_PACKAGES,
+    Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS
 )
 class InstallKBuilder {
 

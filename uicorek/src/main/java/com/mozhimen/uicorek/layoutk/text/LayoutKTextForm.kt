@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.textk
+package com.mozhimen.uicorek.layoutk.text
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,7 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.sp2px
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -22,15 +22,15 @@ import com.mozhimen.uicorek.R
  * @Date 2022/1/16 0:16
  * @Version 1.0
  */
-typealias ITextKFormListener = (view: View) -> Unit
+typealias ILayoutKTextFormListener = (view: View) -> Unit
 
-class TextKTextForm @JvmOverloads constructor(
+class LayoutKTextForm @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    LayoutKLinear(context, attrs, defStyleAttr) {
+    BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     private var _textHint: String? = null
-    private var _onFormClick: ITextKFormListener? = null
+    private var _onFormClick: ILayoutKTextFormListener? = null
     private var _isRequire = false
     private var _requiredIconPos = 0
     private var _label: String? = null
@@ -72,7 +72,7 @@ class TextKTextForm @JvmOverloads constructor(
 
     fun getContent(): String = _textView.text.toString().trim()
 
-    fun setOnFormClickListener(listener: ITextKFormListener) {
+    fun setOnFormClickListener(listener: ILayoutKTextFormListener) {
         this._onFormClick = listener
     }
 

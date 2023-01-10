@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import coil.load
-import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.font
 import com.mozhimen.basick.utilk.exts.resizeSize
@@ -34,7 +34,7 @@ import com.mozhimen.uicorek.layoutk.tab.commons.ITabItem
  */
 class TabBottomItem @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LayoutKRelative(context, attrs, defStyleAttr), ITabItem<MTabBottom> {
+) : BaseLayoutKRelative(context, attrs, defStyleAttr), ITabItem<MTabBottom> {
     private lateinit var _tabImageView: ImageView
     private lateinit var _tabIconView: TextView
     private lateinit var _tabNameView: TextView

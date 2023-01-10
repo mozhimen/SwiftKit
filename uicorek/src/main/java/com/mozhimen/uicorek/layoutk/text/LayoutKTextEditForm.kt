@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.textk
+package com.mozhimen.uicorek.layoutk.text
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,7 +11,7 @@ import android.view.View
 import android.widget.*
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.sp2px
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -21,14 +21,14 @@ import com.mozhimen.uicorek.R
  * @Date 2021/12/27 16:17
  * @Version 1.0
  */
-typealias ITextKEditFormFocusListener = (view: View, hasFocus: Boolean) -> Unit
+typealias ILayoutKTextEditFormFocusListener = (view: View, hasFocus: Boolean) -> Unit
 
-class TextKEditForm @JvmOverloads constructor(
+class LayoutKTextEditForm @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :
-    LayoutKLinear(context, attrs, defStyleAttr) {
+    BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
-    private var _hasFocus: ITextKEditFormFocusListener? = null
+    private var _hasFocus: ILayoutKTextEditFormFocusListener? = null
     private var _isRequire = false
     private var _requireIconPos = 0
     private var _label: String? = null
@@ -77,7 +77,7 @@ class TextKEditForm @JvmOverloads constructor(
         return this.mEditText
     }
 
-    fun setOnFocusListener(listener: ITextKEditFormFocusListener) {
+    fun setOnFocusListener(listener: ILayoutKTextEditFormFocusListener) {
         this._hasFocus = listener
     }
 

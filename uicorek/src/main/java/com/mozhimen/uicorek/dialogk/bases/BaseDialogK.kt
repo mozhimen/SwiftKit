@@ -25,7 +25,7 @@ import kotlin.math.roundToInt
  * @Version 1.0
  */
 @APermissionK(Manifest.permission.SYSTEM_ALERT_WINDOW)
-abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.BaseDialog_Style) : ComponentDialog(context, themeResId) {
+abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.BaseDialog_Style) : ComponentDialog(context, themeResId) {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private var _isHasSetWindowAttr = false
     private var _dialogMode = DialogMode.BOTH
@@ -45,7 +45,7 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
      * 设置dialog的模式, 设置后会回调到[.onInitMode]
      * @param mode
      */
-    fun setDialogMode(@DialogMode mode: Int): BaseDialog<*> {
+    fun setDialogMode(@DialogMode mode: Int): BaseDialogK<*> {
         return setDialogMode(mode, true)
     }
 
@@ -55,7 +55,7 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
      * @param mode
      * @param callModeChange false 禁止回调[.onInitMode]
      */
-    protected fun setDialogMode(@DialogMode mode: Int, callModeChange: Boolean): BaseDialog<*> {
+    protected fun setDialogMode(@DialogMode mode: Int, callModeChange: Boolean): BaseDialogK<*> {
         val hasChange = this._dialogMode != mode
         this._dialogMode = mode
         if (hasChange && callModeChange) {
@@ -64,12 +64,12 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
         return this
     }
 
-    fun setDialogClickListener(onDialogButtonClickListener: I): BaseDialog<*> {
+    fun setDialogClickListener(onDialogButtonClickListener: I): BaseDialogK<*> {
         this._dialogClickListener = onDialogButtonClickListener
         return this
     }
 
-    fun setDialogCancelable(flag: Boolean): BaseDialog<*> {
+    fun setDialogCancelable(flag: Boolean): BaseDialogK<*> {
         setCancelable(flag)
         return this
     }
@@ -80,7 +80,7 @@ abstract class BaseDialog<I : IDialogKClickListener> @JvmOverloads constructor(c
         } else {
             lifecycleScope.launch(Dispatchers.Main) {
                 delay(delayMillis)
-                super@BaseDialog.show()
+                super@BaseDialogK.show()
             }
         }
     }

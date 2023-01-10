@@ -1,8 +1,9 @@
-package com.mozhimen.uicorek.layoutk.commons
+package com.mozhimen.uicorek.layoutk.bases
 
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.RelativeLayout
+import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 
 /**
  * @ClassName LayoutKRelative
@@ -11,7 +12,7 @@ import android.widget.RelativeLayout
  * @Date 2021/12/24 14:39
  * @Version 1.0
  */
-abstract class LayoutKRelative : RelativeLayout, ILayoutK {
+abstract class BaseLayoutKRelative : RelativeLayout, ILayoutK {
 
     var TAG = "${this.javaClass.simpleName}>>>>>"
 

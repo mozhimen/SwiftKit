@@ -10,7 +10,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Surface
 import android.view.TextureView
-import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.uicorek.R
 import java.io.IOException
@@ -41,7 +41,7 @@ import java.io.IOException
  * @Version 1.0
  */
 class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    LayoutKFrame(context, attrs, defStyleAttr), TextureView.SurfaceTextureListener {
+    BaseLayoutKFrame(context, attrs, defStyleAttr), TextureView.SurfaceTextureListener {
 
     companion object {
         const val GRAVITY_START = 0//位置权重

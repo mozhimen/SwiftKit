@@ -3,12 +3,11 @@ package com.mozhimen.uicorek.viewk
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.SparseArray
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.viewk.commons.ViewK
+import com.mozhimen.uicorek.viewk.bases.BaseViewK
 import java.util.*
 import kotlin.math.min
 
@@ -21,7 +20,7 @@ import kotlin.math.min
  */
 class ViewKOverlay @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : ViewK(context, attrs, defStyleAttr) {
+) : BaseViewK(context, attrs, defStyleAttr) {
 
     companion object {
         private const val BOUNDING_RECT_TEXT_PADDING = 8

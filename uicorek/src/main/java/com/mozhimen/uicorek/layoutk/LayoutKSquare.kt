@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.layoutk
 import android.content.Context
 import android.util.AttributeSet
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 
 /**
  * @ClassName LayoutKSquare
@@ -12,7 +12,7 @@ import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
  * @Date 2022/11/24 23:24
  * @Version 1.0
  */
-class LayoutKSquare @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LayoutKFrame(context, attrs, defStyleAttr) {
+class LayoutKSquare @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleAttr) {
     companion object {
         private const val MEASURE_MODE_MIN = 0
         private const val MEASURE_MODE_MAX = 1

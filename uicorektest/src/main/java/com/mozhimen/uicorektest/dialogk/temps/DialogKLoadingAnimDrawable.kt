@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.uicorek.dialogk.bases.BaseDialog
+import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R
 
@@ -19,7 +19,7 @@ import com.mozhimen.uicorektest.R
  * @Date 2022/11/24 23:39
  * @Version 1.0
  */
-class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Context, desc: String? = null) : BaseDialog<IDialogKClickListener>(context) {
+class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Context, desc: String? = null) : BaseDialogK<IDialogKClickListener>(context) {
     private var _imgProgress: ImageView? = null
     private var _txtDesc: TextView? = null
     private var _txtAction: TextView? = null

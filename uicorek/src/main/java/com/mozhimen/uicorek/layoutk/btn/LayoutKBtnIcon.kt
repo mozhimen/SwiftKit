@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.sp2px
-import com.mozhimen.uicorek.layoutk.commons.LayoutKLinear
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 
 /**
@@ -21,7 +21,7 @@ import com.mozhimen.uicorek.R
  */
 class LayoutKBtnIcon @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LayoutKLinear(context, attrs, defStyleAttr) {
+) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     init {
         initAttrs(attrs, defStyleAttr)

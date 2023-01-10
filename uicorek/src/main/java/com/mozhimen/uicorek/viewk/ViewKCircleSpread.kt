@@ -9,7 +9,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.uicorek.viewk.commons.ViewK
+import com.mozhimen.uicorek.viewk.bases.BaseViewK
 import com.mozhimen.uicorek.viewk.commons.IViewKAction
 import com.mozhimen.uicorek.R
 
@@ -23,7 +23,7 @@ import com.mozhimen.uicorek.R
 class ViewKCircleSpread @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
 ) :
-    ViewK(context, attrs, defStyleAttr, defStyleRes), IViewKAction {
+    BaseViewK(context, attrs, defStyleAttr, defStyleRes), IViewKAction {
 
     //region #variate
     private var _centerColor = 0xFFFFFF //中心圆颜色

@@ -13,7 +13,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
-import com.mozhimen.uicorek.layoutk.commons.LayoutKRelative
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.basick.utilk.exts.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
@@ -32,7 +32,7 @@ import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs
  */
 class LayoutKSearch @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : LayoutKRelative(context, attrs, defStyleAttr) {
+) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
 
     private val _attrs: MSearchAttrs =
         AttrsParser.parseSearchViewAttrs(context, attrs, defStyleAttr)

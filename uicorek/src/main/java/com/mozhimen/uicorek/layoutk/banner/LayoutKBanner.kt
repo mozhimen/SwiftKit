@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.layoutk.banner
 import android.content.Context
 import android.util.AttributeSet
 import androidx.viewpager.widget.ViewPager
-import com.mozhimen.uicorek.layoutk.commons.LayoutKFrame
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
@@ -25,7 +25,7 @@ import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
  * @Version 1.0
  */
 class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    LayoutKFrame(context, attrs, defStyleAttr), IBanner {
+    BaseLayoutKFrame(context, attrs, defStyleAttr), IBanner {
     private var _layoutKBannerProxy: LayoutKBannerProxy = LayoutKBannerProxy(context, this)
 
     private var _autoPlay = true
