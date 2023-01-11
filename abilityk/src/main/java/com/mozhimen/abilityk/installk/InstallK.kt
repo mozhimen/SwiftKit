@@ -9,7 +9,7 @@ import com.mozhimen.abilityk.installk.helpers.InstallKAutoService
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.app.UtilKAppRoot
@@ -27,7 +27,7 @@ import java.io.*
  * @Date 2023/1/7 0:04
  * @Version 1.0
  */
-@APermissionRequire(
+@APermissionKRequire(
     CPermission.READ_EXTERNAL_STORAGE,
     CPermission.WRITE_EXTERNAL_STORAGE,
     CPermission.INTERNET,

@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.app
 
 import android.os.Build
 import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.file.UtilKFile
 import java.io.BufferedReader
 import java.io.File
@@ -16,7 +16,7 @@ import java.io.InputStreamReader
  * @Date 2023/1/6 18:04
  * @Version 1.0
  */
-@APermissionRequire(CPermission.READ_EXTERNAL_STORAGE)
+@APermissionKRequire(CPermission.READ_EXTERNAL_STORAGE)
 object UtilKAppRoot {
     /**
      * 判断手机是否拥有Root权限:

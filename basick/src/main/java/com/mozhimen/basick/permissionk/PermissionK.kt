@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.mozhimen.basick.permissionk.annors.APermissionCheck
+import com.mozhimen.basick.permissionk.annors.APermissionKCheck
 import com.mozhimen.basick.permissionk.helpers.IPermissionKListener
 import com.mozhimen.basick.permissionk.helpers.InvisibleFragment
 import com.mozhimen.basick.utilk.UtilKPermission
@@ -49,7 +49,7 @@ object PermissionK {
         activity: AppCompatActivity,
         isGranted: ((Boolean) -> Unit)? = null,
     ) {
-        val permissionAnnor = activity.javaClass.getAnnotation(APermissionCheck::class.java)
+        val permissionAnnor = activity.javaClass.getAnnotation(APermissionKCheck::class.java)
         requireNotNull(permissionAnnor) { "$TAG you may be forget add annor" }
         initPermissions(activity, permissionAnnor.permission, isGranted)
     }

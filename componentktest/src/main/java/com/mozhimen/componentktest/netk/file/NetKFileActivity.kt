@@ -9,10 +9,10 @@ import com.mozhimen.componentk.audiok.mos.MAudioK
 import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
 import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.componentktest.databinding.ActivityNetkFileBinding
 
-@APermissionRequire(
+@APermissionKRequire(
     CPermission.READ_EXTERNAL_STORAGE,
     CPermission.WRITE_EXTERNAL_STORAGE,
     CPermission.INTERNET

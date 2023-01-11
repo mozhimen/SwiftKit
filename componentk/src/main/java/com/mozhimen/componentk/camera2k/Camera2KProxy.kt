@@ -17,7 +17,7 @@ import android.view.SurfaceHolder
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.permissionk.cons.CUseFeature
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.basick.utilk.UtilKDisplay
@@ -33,7 +33,7 @@ import kotlin.math.abs
  * @Date 2022/6/15 17:56
  * @Version 1.0
  */
-@APermissionRequire(CPermission.CAMERA,CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@APermissionKRequire(CPermission.CAMERA,CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
 
     private val TAG = "Camera2KProxy>>>>>"

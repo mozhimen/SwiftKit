@@ -5,7 +5,7 @@ import android.hardware.Camera
 import android.os.Build
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Date 2022/6/7 19:09
  * @Version 1.0
  */
-@APermissionRequire(CPermission.CAMERA)
+@APermissionKRequire(CPermission.CAMERA)
 object UtilKCamera {
     private val _context = UtilKApplication.instance.get()
     /**

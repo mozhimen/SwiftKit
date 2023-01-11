@@ -6,7 +6,7 @@ import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.permissionk.cons.CUseFeature
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
@@ -18,7 +18,7 @@ import com.mozhimen.componentk.statusbark.annors.AStatusBarK
 import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
 import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 
-@APermissionRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@APermissionKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 @AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
 class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 

@@ -9,6 +9,6 @@ package com.mozhimen.basick.permissionk.annors
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.SOURCE)
-annotation class APermissionRequire(
+annotation class APermissionKRequire(
     vararg val permission: String//需要持有的权限
 )

@@ -10,6 +10,6 @@ package com.mozhimen.basick.permissionk.annors
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class APermissionCheck(
+annotation class APermissionKCheck(
     vararg val permission: String//需要持有的权限
 )

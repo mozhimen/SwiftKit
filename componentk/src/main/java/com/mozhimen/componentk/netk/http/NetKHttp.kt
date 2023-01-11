@@ -1,7 +1,7 @@
 package com.mozhimen.componentk.netk.http
 
 import android.util.Log
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.permissionk.cons.CApplication
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.utilk.UtilKJson
@@ -19,7 +19,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  * @Date 2022/5/12 16:01
  * @Version 1.0
  */
-@APermissionRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
+@APermissionKRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
 open class NetKHttp(
     baseUrl: String,
     interceptors: List<Interceptor> = emptyList()

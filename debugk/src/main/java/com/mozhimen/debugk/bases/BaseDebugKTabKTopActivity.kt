@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.componentk.statusbark.StatusBarK
@@ -21,7 +21,7 @@ import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
  * @Date 2022/11/16 15:25
  * @Version 1.0
  */
-@APermissionRequire(CPermission.INTERNET)
+@APermissionKRequire(CPermission.INTERNET)
 abstract class BaseDebugKTabKTopActivity : BaseActivityVB<DebugkActivityTabkTopBinding>() {
     private val _tabList: ArrayList<DebugKUITabTopItem> by lazy { getTabList() }
 

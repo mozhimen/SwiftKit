@@ -11,7 +11,7 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
@@ -25,7 +25,7 @@ import java.nio.charset.Charset
  * @Date 2023/1/4 23:29
  * @Version 1.0
  */
-@APermissionRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
+@APermissionKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
 object UtilKAppInstall {
     private const val TAG = "UtilKAppInstall>>>>>"
     private val _context = UtilKApplication.instance.get()

@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.imagek.helpers
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
 
@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
  * @Date 2022/11/6 14:20
  * @Version 1.0
  */
-@APermissionRequire(CPermission.INTERNET)
+@APermissionKRequire(CPermission.INTERNET)
 object ImageKBindingAdapter {
     @JvmStatic
     @BindingAdapter("loadImage")

@@ -9,7 +9,7 @@ import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.view.imageloader.mos.BlurTransformation
 import com.mozhimen.basick.utilk.view.imageloader.mos.ColorFilterTransformation
@@ -23,7 +23,7 @@ import com.mozhimen.basick.utilk.view.imageloader.mos.GrayscaleTransformation
  * @Date 2022/11/6 0:25
  * @Version 1.0
  */
-@APermissionRequire(CPermission.INTERNET)
+@APermissionKRequire(CPermission.INTERNET)
 object UtilKViewImageLoader {
     private val _context = UtilKApplication.instance.get()
 

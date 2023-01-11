@@ -2,7 +2,7 @@ package com.mozhimen.debugk.cons
 
 import android.app.Activity
 import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.underlayk.fpsk.FpsK
 import com.mozhimen.basick.utilk.UtilKTheme
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip.start
@@ -19,7 +19,7 @@ import com.mozhimen.debugk.temps.DebugKParamsActivity
  * @Date 2022/1/18 15:12
  * @Version 1.0
  */
-@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
+@APermissionKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class DebugKTools {
 
     @ADebugKTool("开启Https降级", "降级成Http,可以使用抓包工具,明文抓包")

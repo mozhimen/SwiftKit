@@ -4,7 +4,7 @@ import android.app.Activity
 import android.os.Vibrator
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.taskk.commons.ITaskK
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Date 2022/2/27 18:28
  * @Version 1.0
  */
-@APermissionRequire(CPermission.VIBRATE)
+@APermissionKRequire(CPermission.VIBRATE)
 class ElemKVibrate(owner: LifecycleOwner) : ITaskK(owner) {
 
     private var _vibrator: Vibrator? = null

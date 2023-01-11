@@ -5,7 +5,7 @@ import android.content.Context
 import android.text.format.Formatter
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.StackK
@@ -24,7 +24,7 @@ import java.util.*
  * @Date 2022/3/27 16:27
  * @Version 1.0
  */
-@APermissionRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
+@APermissionKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 class CrashKJava {
 
     private val TAG = "CrashKJava>>>>>"

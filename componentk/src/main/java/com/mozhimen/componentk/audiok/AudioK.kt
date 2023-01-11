@@ -4,7 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.componentk.audiok.commons.IAudioKListener
 import com.mozhimen.componentk.audiok.cons.EPlayMode
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/10/30 18:57
  * @Version 1.0
  */
-@APermissionRequire(CPermission.WAKE_LOCK)
+@APermissionKRequire(CPermission.WAKE_LOCK)
 class AudioK : IAudioKListener, LifecycleOwner {
 
     private val _lifecycleRegistry by lazy { LifecycleRegistry(this) }

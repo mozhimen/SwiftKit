@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 
 /**
  * @ClassName InstallKSmartService
@@ -33,7 +33,7 @@ android:resource="@xml/installk_smart_accessibility_service_config" />
  * @Date 2023/1/4 22:39
  * @Version 1.0
  */
-@APermissionRequire(CPermission.BIND_ACCESSIBILITY_SERVICE)
+@APermissionKRequire(CPermission.BIND_ACCESSIBILITY_SERVICE)
 class InstallKAutoService : AccessibilityService() {
     companion object {
         private const val TAG = "InstallKSmartService>>>>>"

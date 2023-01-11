@@ -8,7 +8,7 @@ import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseDelegateLifecycleObserver
 import com.mozhimen.basick.elemk.network.commons.INetworkListener
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 
 
 /**
@@ -18,7 +18,7 @@ import com.mozhimen.basick.permissionk.annors.APermissionRequire
  * @Date 2022/11/23 14:09
  * @Version 1.0
  */
-@APermissionRequire(CPermission.ACCESS_NETWORK_STATE, CPermission.ACCESS_WIFI_STATE)
+@APermissionKRequire(CPermission.ACCESS_NETWORK_STATE, CPermission.ACCESS_WIFI_STATE)
 class NetworkDelegate(private val _owner: LifecycleOwner) : BaseDelegateLifecycleObserver(_owner) {
     private var _networkListener: INetworkListener? = null
 

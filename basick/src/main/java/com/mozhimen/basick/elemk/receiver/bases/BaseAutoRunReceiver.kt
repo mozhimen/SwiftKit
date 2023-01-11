@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.elemk.rxjava.commons.ObserverCallback
 import com.mozhimen.basick.utilk.UtilKRxJavaTrans
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
@@ -35,7 +35,7 @@ android:exported="true">
  * @Date 2022/6/13 11:55
  * @Version 1.0
  */
-@APermissionRequire(CPermission.RECEIVE_BOOT_COMPLETED)
+@APermissionKRequire(CPermission.RECEIVE_BOOT_COMPLETED)
 open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

@@ -10,7 +10,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.exts.decimal2String
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
@@ -28,7 +28,7 @@ import com.mozhimen.underlayk.logk.LogK
  * @Date 2022/9/22 16:04
  * @Version 1.0
  */
-@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
+@APermissionKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class FpsKView {
     private val TAG = "FpsKView>>>>>"
 

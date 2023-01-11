@@ -1,7 +1,7 @@
 package com.mozhimen.underlayk.logk.temps
 
 import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.context.UtilKApplication
@@ -16,7 +16,7 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
  * @Date 2022/9/22 15:52
  * @Version 1.0
  */
-@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
+@APermissionKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKPrinterMonitor : ILogKPrinter {
     private val _printerMonitorProvider: LogKPrinterMonitorProvider = LogKPrinterMonitorProvider(UtilKApplication.instance.get())
     private var _isShow: Boolean = false
