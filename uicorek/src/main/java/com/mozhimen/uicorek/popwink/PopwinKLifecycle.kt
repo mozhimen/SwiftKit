@@ -5,8 +5,7 @@ import android.view.View
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.OnLifecycleEvent
-import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
+import com.mozhimen.uicorek.popwink.bases.BasePopwinK
 
 /**
  * @ClassName PopwinKTip
@@ -15,7 +14,7 @@ import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
  * @Date 2022/5/31 23:09
  * @Version 1.0
  */
-open class PopwinKLifecycle(context: Context) : BasePopupWindow(context), LifecycleOwner {
+open class PopwinKLifecycle(context: Context) : BasePopwinK(context), LifecycleOwner {
     protected var _lifecycleRegistry: LifecycleRegistry? = null
 
     init {

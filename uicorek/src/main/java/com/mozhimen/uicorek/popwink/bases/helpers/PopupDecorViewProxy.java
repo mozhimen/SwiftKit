@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.popwink.basepopwin.basepopup;
+package com.mozhimen.uicorek.popwink.bases.helpers;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+
+import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import com.mozhimen.basick.utilk.UtilKGravity;
@@ -272,12 +274,12 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
             int rr = parentWidth - anchorRect.right;
             int rb = parentHeight - anchorRect.bottom;
             //如果是对齐到anchor的边，则需要修正
-            if (mHelper.horizontalGravityMode == BasePopupWindow.GravityMode.ALIGN_TO_ANCHOR_SIDE) {
+            if (mHelper.horizontalGravityMode == BasePopwinK.GravityMode.ALIGN_TO_ANCHOR_SIDE) {
                 rl = parentWidth - anchorRect.left;
                 rr = anchorRect.right;
             }
             //如果是对齐到anchor的边，则需要修正
-            if (mHelper.verticalGravityMode == BasePopupWindow.GravityMode.ALIGN_TO_ANCHOR_SIDE) {
+            if (mHelper.verticalGravityMode == BasePopwinK.GravityMode.ALIGN_TO_ANCHOR_SIDE) {
                 rt = parentHeight - anchorRect.top;
                 rb = anchorRect.bottom;
             }
@@ -434,8 +436,8 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
                 anchorRect.set(mHelper.getAnchorViewBound());
                 anchorRect.offset(-location[0], -location[1]);
                 boolean isRelativeToAnchor = mHelper.isWithAnchor();
-                boolean isHorizontalAlignAnchorSlide = mHelper.horizontalGravityMode == BasePopupWindow.GravityMode.ALIGN_TO_ANCHOR_SIDE;
-                boolean isVerticalAlignAnchorSlide = mHelper.verticalGravityMode == BasePopupWindow.GravityMode.ALIGN_TO_ANCHOR_SIDE;
+                boolean isHorizontalAlignAnchorSlide = mHelper.horizontalGravityMode == BasePopwinK.GravityMode.ALIGN_TO_ANCHOR_SIDE;
+                boolean isVerticalAlignAnchorSlide = mHelper.verticalGravityMode == BasePopwinK.GravityMode.ALIGN_TO_ANCHOR_SIDE;
 
                 //不跟anchorView联系的情况下，gravity意味着在整个decorView中的方位
                 //如果跟anchorView联系，gravity意味着以anchorView为中心的方位

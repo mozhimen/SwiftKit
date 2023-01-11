@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.popwink.basepopwin.basepopup;
+package com.mozhimen.uicorek.popwink.bases.helpers;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.mozhimen.uicorek.imagek.ImageKBlur;
-import com.mozhimen.uicorek.popwink.bases.BasePopwinKBackgroundView;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import com.mozhimen.basick.utilk.UtilKDrawable;

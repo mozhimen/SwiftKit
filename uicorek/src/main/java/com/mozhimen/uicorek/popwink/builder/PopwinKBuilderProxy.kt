@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
+import com.mozhimen.uicorek.popwink.bases.BasePopwinK
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag
 import com.mozhimen.uicorek.popwink.builder.commons.PopwinKBuilderOnClickCallback
 import com.mozhimen.uicorek.popwink.builder.mos.PopwinKBuilderConfig
@@ -17,7 +17,7 @@ import java.lang.reflect.InvocationTargetException
  * @Date 2022/11/28 21:54
  * @Version 1.0
  */
-class PopwinKBuilderProxy : BasePopupWindow {
+class PopwinKBuilderProxy : BasePopwinK {
     private var _config: PopwinKBuilderConfig
     private var _builder: PopwinKBuilder
 

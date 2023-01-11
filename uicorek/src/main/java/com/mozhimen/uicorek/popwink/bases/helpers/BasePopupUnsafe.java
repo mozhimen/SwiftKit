@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.popwink.basepopwin.basepopup;
+package com.mozhimen.uicorek.popwink.bases.helpers;
 
 import android.annotation.SuppressLint;
 import android.text.TextUtils;
@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.mozhimen.basick.utilk.UtilKStackTrace;
 import com.mozhimen.basick.utilk.log.UtilKLogSmart;
+import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -65,7 +66,7 @@ public enum BasePopupUnsafe {
      */
     @Deprecated
     @Nullable
-    public BasePopupWindow getPopupFromWindowManagerProxy(WindowManagerProxy proxy) {
+    public BasePopwinK getPopupFromWindowManagerProxy(WindowManagerProxy proxy) {
         if (proxy == null) return null;
         if (proxy.mPopupHelper != null) {
             return proxy.mPopupHelper.mPopupWindow;
@@ -78,17 +79,17 @@ public enum BasePopupUnsafe {
      */
     @Deprecated
     @Nullable
-    public StackDumpInfo dump(BasePopupWindow p) {
+    public StackDumpInfo dump(BasePopwinK p) {
         if (p == null) return null;
         return StackFetcher.record(p);
     }
 
     /**
-     * 获取用{@link #dump(BasePopupWindow)}记录的堆栈信息
+     * 获取用{@link #dump(BasePopwinK)}记录的堆栈信息
      */
     @Deprecated
     @Nullable
-    public StackDumpInfo getDump(BasePopupWindow p) {
+    public StackDumpInfo getDump(BasePopwinK p) {
         return StackFetcher.get(p);
     }
 
@@ -98,7 +99,7 @@ public enum BasePopupUnsafe {
      */
     @Deprecated
     @Nullable
-    public WindowManager getWindowManager(BasePopupWindow p) {
+    public WindowManager getWindowManager(BasePopwinK p) {
         try {
             return Objects.requireNonNull(p.mPopupWindowProxy.getBasePopwinKContextWrapper().getWindowManagerProxy());
         } catch (Exception e) {
@@ -111,7 +112,7 @@ public enum BasePopupUnsafe {
      */
     @Deprecated
     @Nullable
-    public View getBasePopupDecorViewProxy(BasePopupWindow p) {
+    public View getBasePopupDecorViewProxy(BasePopwinK p) {
         try {
             return Objects.requireNonNull(((WindowManagerProxy) getWindowManager(p)).mPopupDecorViewProxy);
         } catch (Exception e) {
@@ -124,7 +125,7 @@ public enum BasePopupUnsafe {
      */
     @Deprecated
     @Nullable
-    public ViewGroup.LayoutParams getDecorViewLayoutParams(BasePopupWindow p) {
+    public ViewGroup.LayoutParams getDecorViewLayoutParams(BasePopwinK p) {
         try {
             return getBasePopupDecorViewProxy(p).getLayoutParams();
         } catch (Exception e) {
@@ -136,7 +137,7 @@ public enum BasePopupUnsafe {
      * 设置windowmanagerproxy对WindowManager#LayoutParams处理后的监听，您可以在这里修改LayoutParams，但我并不推荐您这么做
      */
     @Deprecated
-    public void setFitWindowManagerLayoutParamsCallback(BasePopupWindow p, OnFitWindowManagerLayoutParamsCallback cb) {
+    public void setFitWindowManagerLayoutParamsCallback(BasePopwinK p, OnFitWindowManagerLayoutParamsCallback cb) {
         try {
             p.mHelper.mOnFitWindowManagerLayoutParamsCallback = cb;
         } catch (Exception e) {
@@ -160,15 +161,15 @@ public enum BasePopupUnsafe {
             return trace[stackOffset];
         }
 
-        private static StackDumpInfo record(BasePopupWindow p) {
+        private static StackDumpInfo record(BasePopwinK p) {
             return STACK_MAP.put(key(p), StackDumpInfo.obtain(getCurrentStackTrace()));
         }
 
-        static void remove(BasePopupWindow p) {
+        static void remove(BasePopwinK p) {
             StackDumpInfo.CACHE = STACK_MAP.remove(key(p));
         }
 
-        private static StackDumpInfo get(BasePopupWindow p) {
+        private static StackDumpInfo get(BasePopwinK p) {
             String key = key(p);
             StackDumpInfo info = STACK_MAP.get(key(p));
             if (!TextUtils.isEmpty(key) && info != null) {
@@ -181,7 +182,7 @@ public enum BasePopupUnsafe {
             return info;
         }
 
-        private static String key(BasePopupWindow p) {
+        private static String key(BasePopwinK p) {
             return String.valueOf(p);
         }
     }

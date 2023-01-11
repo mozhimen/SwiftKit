@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.popwink.bases
+package com.mozhimen.uicorek.popwink.bases.helpers
 
 import android.app.Activity
 import android.content.Context
@@ -13,8 +13,6 @@ import com.mozhimen.basick.utilk.context.UtilKActivity.getActivityByContext
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.view.UtilKView.removeViewFromParent
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupHelper
-import com.mozhimen.uicorek.popwink.basepopwin.basepopup.WindowManagerProxy
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener
 
 
