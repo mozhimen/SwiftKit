@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.viewk.wheel.commons;
 
 
-public interface WheelAdapter<T> {
+public interface IWheelAdapter<T> {
 	/**
 	 * Gets items count
 	 * @return the count of wheel items

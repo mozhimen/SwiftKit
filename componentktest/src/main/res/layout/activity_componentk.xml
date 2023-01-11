@@ -28,12 +28,6 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
-                android:onClick="goPermissionK"
-                android:text="goPermissionK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
                 android:onClick="goStatusBarK"
                 android:text="goStatusBarK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

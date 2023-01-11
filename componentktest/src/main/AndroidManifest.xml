@@ -32,9 +32,6 @@
             android:name="com.mozhimen.componentktest.cameraxk.CameraXKActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.componentktest.permissionk.PermissionKActivity"
-            android:exported="false" />
-        <activity
             android:name="com.mozhimen.componentktest.statusbark.StatusBarKActivity"
             android:exported="false" />
         <activity

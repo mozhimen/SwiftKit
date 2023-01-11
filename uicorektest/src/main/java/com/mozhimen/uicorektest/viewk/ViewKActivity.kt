@@ -14,4 +14,8 @@ class ViewKActivity : BaseActivityVB<ActivityViewkBinding>() {
     fun goViewKViews(view: View) {
         start<ViewKViewsActivity>()
     }
+
+    fun goViewKWheel(view: View) {
+        start<ViewKWheelActivity>()
+    }
 }

@@ -132,6 +132,9 @@
         <activity
             android:name=".viewk.ViewKViewsActivity"
             android:exported="false" />
+        <activity
+            android:name=".viewk.ViewKWheelActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -17,7 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.mozhimen.uicorek.R;
-import com.mozhimen.uicorek.viewk.wheel.commons.WheelAdapter;
+import com.mozhimen.uicorek.viewk.wheel.commons.IWheelAdapter;
 import com.mozhimen.uicorek.viewk.wheel.commons.IPickerViewData;
 import com.mozhimen.uicorek.viewk.wheel.commons.LoopViewGestureListener;
 import com.mozhimen.uicorek.viewk.wheel.commons.OnItemSelectedListener;
@@ -63,7 +63,7 @@ public class ViewKWheel extends View {
     private Paint paintCenterText;
     private Paint paintIndicator;
 
-    private WheelAdapter adapter;
+    private IWheelAdapter adapter;
 
     private String label;//附加单位
     private int textSize;//选项的文字大小
@@ -323,7 +323,7 @@ public class ViewKWheel extends View {
         this.onItemSelectedListener = OnItemSelectedListener;
     }
 
-    public final void setAdapter(WheelAdapter adapter) {
+    public final void setAdapter(IWheelAdapter adapter) {
         this.adapter = adapter;
         reMeasure();
         invalidate();
@@ -340,7 +340,7 @@ public class ViewKWheel extends View {
         isAlphaGradient = alphaGradient;
     }
 
-    public final WheelAdapter getAdapter() {
+    public final IWheelAdapter getAdapter() {
         return adapter;
     }
 

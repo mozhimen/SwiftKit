@@ -28,6 +28,12 @@
                 android:text="goViewKViews"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goViewKWheel"
+                android:text="goViewKWheel"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

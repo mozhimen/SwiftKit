@@ -13,6 +13,7 @@ import com.mozhimen.abilityktest.databinding.ActivityOpencvkMatchBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionKCheck
 import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.permissionk.cons.CUseFeature
 import com.mozhimen.basick.utilk.UtilKPermission
@@ -29,6 +30,7 @@ import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @APermissionKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@APermissionKCheck(CPermission.CAMERA)
 class OpenCVKMatchActivity : BaseActivityVB<ActivityOpencvkMatchBinding>() {
     private val _templateMat by lazy { OpenCVKTrans.bitmap2Mat(UtilKRes.getDrawable(R.mipmap.opencvk_contrast_test)!!.drawable2Bitmap()) }
 

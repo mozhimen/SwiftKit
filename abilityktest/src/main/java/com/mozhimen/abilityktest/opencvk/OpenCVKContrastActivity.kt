@@ -18,6 +18,7 @@ import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionKCheck
 import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.permissionk.cons.CUseFeature
 import com.mozhimen.basick.utilk.UtilKPermission
@@ -27,6 +28,7 @@ import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
 @APermissionKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@APermissionKCheck(CPermission.CAMERA)
 class OpenCVKContrastActivity : BaseActivityVB<ActivityOpencvkContrastBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {

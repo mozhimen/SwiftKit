@@ -11,6 +11,7 @@ import com.mozhimen.abilityktest.databinding.ActivityScankFaceBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionKCheck
 import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.permissionk.cons.CUseFeature
 import com.mozhimen.basick.utilk.UtilKPermission
@@ -30,7 +31,8 @@ import com.mozhimen.uicorek.viewk.ViewKOverlay
  * @Date 2023/1/3 14:46
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.CAMERA,CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@APermissionKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@APermissionKCheck(CPermission.CAMERA)
 class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         PermissionK.initPermissions(this) {

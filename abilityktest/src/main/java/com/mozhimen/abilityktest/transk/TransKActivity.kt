@@ -8,9 +8,11 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.permissionk.PermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionKCheck
 import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 
 @APermissionKRequire(CPermission.FOREGROUND_SERVICE)
+@APermissionKCheck(CPermission.FOREGROUND_SERVICE)
 class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
     private val _transKTTS by lazy {
         TransKTTS(this)

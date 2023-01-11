@@ -15,6 +15,10 @@ class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
         start<ElemKActivity>()
     }
 
+    fun goPermissionK(view: View) {
+        start<com.mozhimen.basicktest.permissionk.PermissionKActivity>()
+    }
+
     fun goStackK(view: View) {
         start<StackKActivity>()
     }

@@ -8,7 +8,6 @@ import com.mozhimen.componentktest.cameraxk.CameraXKActivity
 import com.mozhimen.componentktest.databinding.ActivityComponentkBinding
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
 import com.mozhimen.componentktest.netk.NetKActivity
-import com.mozhimen.componentktest.permissionk.PermissionKActivity
 import com.mozhimen.componentktest.statusbark.StatusBarKActivity
 
 class ComponentKActivity : BaseActivityVB<ActivityComponentkBinding>() {
@@ -19,10 +18,6 @@ class ComponentKActivity : BaseActivityVB<ActivityComponentkBinding>() {
 
     fun goCameraXK(view: View) {
         start<CameraXKActivity>()
-    }
-
-    fun goPermissionK(view: View) {
-        start<PermissionKActivity>()
     }
 
     fun goStatusBarK(view: View) {

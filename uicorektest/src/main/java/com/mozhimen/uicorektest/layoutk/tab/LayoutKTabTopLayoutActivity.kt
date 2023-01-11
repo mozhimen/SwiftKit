@@ -2,6 +2,7 @@ package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.permissionk.annors.APermissionKCheck
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.exts.showToast
@@ -19,6 +20,7 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabTopLayoutBinding
  * @Version 1.0
  */
 @APermissionKRequire(CPermission.INTERNET)
+@APermissionKCheck(CPermission.INTERNET)
 class LayoutKTabTopLayoutActivity : BaseActivityVB<ActivityLayoutkTabTopLayoutBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {

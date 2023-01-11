@@ -1,6 +1,7 @@
 package com.mozhimen.underlayktest
 
 import com.mozhimen.basick.elemk.application.bases.BaseApplication
+import com.mozhimen.basick.permissionk.annors.APermissionKCheck
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.basick.utilk.exts.toJson

@@ -3,6 +3,7 @@ package com.mozhimen.underlayktest.logk
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.permissionk.annors.APermissionKCheck
 import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.permissionk.annors.APermissionKRequire
 import com.mozhimen.underlayk.logk.LogK
@@ -14,6 +15,7 @@ import com.mozhimen.underlayk.logk.temps.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
 
 @APermissionKRequire(CPermission.SYSTEM_ALERT_WINDOW)
+@APermissionKCheck(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
     private val _printerView: LogKPrinterView by lazy { LogKPrinterView(this, this) }
     private val _printerMonitor: LogKPrinterMonitor by lazy {
