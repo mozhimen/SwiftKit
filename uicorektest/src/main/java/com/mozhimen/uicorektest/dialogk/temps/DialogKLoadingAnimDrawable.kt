@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
@@ -19,6 +21,7 @@ import com.mozhimen.uicorektest.R
  * @Date 2022/11/24 23:39
  * @Version 1.0
  */
+@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Context, desc: String? = null) : BaseDialogK<IDialogKClickListener>(context) {
     private var _imgProgress: ImageView? = null
     private var _txtDesc: TextView? = null

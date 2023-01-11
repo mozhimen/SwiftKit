@@ -1,6 +1,5 @@
 package com.mozhimen.abilityktest.opencvk
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.ImageFormat
@@ -12,8 +11,10 @@ import com.mozhimen.abilityk.opencvk.setMat
 import com.mozhimen.abilityktest.R
 import com.mozhimen.abilityktest.databinding.ActivityOpencvkMatchBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.cons.CUseFeature
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
@@ -27,7 +28,7 @@ import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
-@APermissionK(Manifest.permission.CAMERA)
+@APermissionRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 class OpenCVKMatchActivity : BaseActivityVB<ActivityOpencvkMatchBinding>() {
     private val _templateMat by lazy { OpenCVKTrans.bitmap2Mat(UtilKRes.getDrawable(R.mipmap.opencvk_contrast_test)!!.drawable2Bitmap()) }
 

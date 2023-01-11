@@ -1,9 +1,9 @@
 package com.mozhimen.underlayk.logk
 
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
-import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.UtilKStackTrace
-import com.mozhimen.underlayk.logk.mos.ALogKType
+import com.mozhimen.underlayk.logk.annors.ALogKType
 import com.mozhimen.basick.utilk.log.cons.CLogType
 import java.lang.StringBuilder
 import kotlin.collections.ArrayList
@@ -168,17 +168,17 @@ object LogK {
      * @param tag String
      * @param contents Array<out Any?>
      */
-    fun log(config: LogKConfig, @ALogKType type: Int, tag: String, vararg contents: Any?) {
+    fun log(config: BaseLogKConfig, @ALogKType type: Int, tag: String, vararg contents: Any?) {
         if (!config.enable()) {
             return
         }
         val builder = StringBuilder()
         if (config.includeThread()) {
-            val threadInfo: String = LogKConfig.formatterThread.format(Thread.currentThread())
+            val threadInfo: String = BaseLogKConfig.formatterThread.format(Thread.currentThread())
             builder.append(threadInfo).append("\n")
         }
         if (config.stackTraceDepth() > 0 || (config.stackTraceDepth() <= 0 && type >= CLogType.E)) {
-            val stackTrace: String? = LogKConfig.formatterStackTrace.format(
+            val stackTrace: String? = BaseLogKConfig.formatterStackTrace.format(
                 UtilKStackTrace.getCroppedRealStackTrack(
                     Throwable().stackTrace,
                     LOGK_PACKAGE,
@@ -203,7 +203,7 @@ object LogK {
         }
     }
 
-    private fun parseBody(contents: Array<out Any?>, config: LogKConfig): String {
+    private fun parseBody(contents: Array<out Any?>, config: BaseLogKConfig): String {
         if (config.injectJsonParser() != null) {
             return config.injectJsonParser()!!.toJson(contents)
         }

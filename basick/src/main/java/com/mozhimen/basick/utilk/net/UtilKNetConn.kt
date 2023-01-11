@@ -1,36 +1,64 @@
 package com.mozhimen.basick.utilk.net
 
-import android.Manifest
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.os.Process
 import android.util.Log
-import com.mozhimen.basick.cachek.CacheKSP
-import com.mozhimen.basick.permissionk.annors.APermissionK
-import com.mozhimen.basick.utilk.app.UtilKApp
-import com.mozhimen.basick.utilk.context.UtilKActivitySkip
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.context.UtilKApplication
+import java.net.Inet6Address
+import java.net.InetAddress
+import java.net.NetworkInterface
+import java.net.SocketException
+import java.util.*
 
 /**
  * @ClassName UtilKNet
- * @Description <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+ * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/2/16 19:57
  * @Version 1.0
  */
-@APermissionK(Manifest.permission.ACCESS_NETWORK_STATE)
+@APermissionRequire(CPermission.ACCESS_NETWORK_STATE, CPermission.ACCESS_WIFI_STATE, CPermission.INTERNET)
 object UtilKNetConn {
     private val TAG = "UtilKNet>>>>>"
     private val _context = UtilKApplication.instance.get()
     private val _connectivityManager = _context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     /**
+     * 获取网路IP
+     * @return String
+     */
+    @JvmStatic
+    fun getIP(): String? {
+        try {
+            val networkInterfaces: Enumeration<NetworkInterface> = NetworkInterface.getNetworkInterfaces()
+            var inetAddress: InetAddress
+            while (networkInterfaces.hasMoreElements()) {
+                val inetAddresses: Enumeration<InetAddress> = (networkInterfaces.nextElement() as NetworkInterface).inetAddresses
+                while (inetAddresses.hasMoreElements()) {
+                    inetAddress = inetAddresses.nextElement() as InetAddress
+                    if (inetAddress !is Inet6Address) {
+                        if (inetAddress.hostAddress != "127.0.0.1") {
+                            return inetAddress.hostAddress ?: continue
+                        }
+                    }
+                }
+            }
+        } catch (e: SocketException) {
+            e.printStackTrace()
+            Log.e(TAG, "getDeviceIP SocketException ${e.message}")
+        }
+        return null
+    }
+
+    /**
      * 网络是否连接
      * @param context Context
      * @return Boolean
      */
-    fun isNetworkConnected(context: Context): Boolean {
+    fun isNetConnected(context: Context): Boolean {
         val netWorkInfos = _connectivityManager.allNetworkInfo
         netWorkInfos.forEach {
             if (it.isConnected) return true
@@ -43,7 +71,7 @@ object UtilKNetConn {
      * @return Boolean
      */
     @JvmStatic
-    fun isNetworkAvailable(): Boolean {
+    fun isNetAvailable(): Boolean {
         val netWorkInfo = _connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.isAvailable
     }

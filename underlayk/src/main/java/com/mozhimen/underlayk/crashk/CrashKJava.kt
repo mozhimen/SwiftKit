@@ -4,26 +4,27 @@ import android.app.ActivityManager
 import android.content.Context
 import android.text.format.Formatter
 import com.mozhimen.basick.BuildConfig
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.utilk.*
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.device.UtilKDevice
 import com.mozhimen.basick.utilk.file.UtilKFile
 import java.io.*
 import java.util.*
 
 /**
  * @ClassName CrashKJava
- * @Description <uses-permission
-android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-tools:ignore="ScopedStorage" />
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+ * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/3/27 16:27
  * @Version 1.0
  */
+@APermissionRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 class CrashKJava {
 
     private val TAG = "CrashKJava>>>>>"

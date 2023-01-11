@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.file
 
-import android.Manifest
-import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.net.UtilKNetDeal
 import java.io.File
 import java.io.FileOutputStream
@@ -17,10 +17,10 @@ import javax.net.ssl.HttpsURLConnection
  * @Date 2023/1/7 23:37
  * @Version 1.0
  */
+@APermissionRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
 object UtilKFileNet {
     private const val TAG = "UtilKDownload>>>>>"
 
-    @APermissionK(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.INTERNET)
     fun downLoadFile(httpUrl: String, saveFileNameWithName: String): String {
         require(httpUrl.isNotEmpty()) { "$TAG httpUrl must be not empty" }
 

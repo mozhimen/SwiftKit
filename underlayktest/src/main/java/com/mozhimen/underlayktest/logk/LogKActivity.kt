@@ -3,14 +3,17 @@ package com.mozhimen.underlayktest.logk
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
-import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.log.cons.CLogType
 import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
 import com.mozhimen.underlayk.logk.temps.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
 
+@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
     private val _printerView: LogKPrinterView by lazy { LogKPrinterView(this, this) }
     private val _printerMonitor: LogKPrinterMonitor by lazy {
@@ -49,7 +52,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
         LogK.log(CLogType.W, TAG, "just a test2!")
 
         //高级用法
-        LogK.log(object : LogKConfig() {
+        LogK.log(object : BaseLogKConfig() {
             override fun includeThread(): Boolean {
                 return true
             }

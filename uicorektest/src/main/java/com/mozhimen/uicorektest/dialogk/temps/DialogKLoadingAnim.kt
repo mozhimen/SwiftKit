@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.RotationRecyclerType
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.exts.stopAnim
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
@@ -20,6 +22,7 @@ import com.mozhimen.uicorektest.R
  * @Date 2022/12/19 15:37
  * @Version 1.0
  */
+@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, private var _desc: String? = null) : BaseDialogK<IDialogKClickListener>(context) {
     private var _imgProgress: ImageView? = null
     private var _txtDesc: TextView? = null

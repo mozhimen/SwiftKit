@@ -1,14 +1,14 @@
 package com.mozhimen.basick.elemk.network
 
-import android.Manifest
 import android.net.ConnectivityManager
 import android.net.Network
 import android.os.Build
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseDelegateLifecycleObserver
 import com.mozhimen.basick.elemk.network.commons.INetworkListener
-import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 
 
 /**
@@ -18,16 +18,11 @@ import com.mozhimen.basick.permissionk.annors.APermissionK
  * @Date 2022/11/23 14:09
  * @Version 1.0
  */
-@APermissionK(
-        Manifest.permission.ACCESS_NETWORK_STATE,
-        Manifest.permission.CHANGE_NETWORK_STATE,
-        Manifest.permission.CHANGE_WIFI_STATE,
-        Manifest.permission.ACCESS_WIFI_STATE,
-)
+@APermissionRequire(CPermission.ACCESS_NETWORK_STATE, CPermission.ACCESS_WIFI_STATE)
 class NetworkDelegate(private val _owner: LifecycleOwner) : BaseDelegateLifecycleObserver(_owner) {
     private var _networkListener: INetworkListener? = null
 
-    private val _netWorkCallback = if (Build.VERSION.SDK_INT >= VersionCode.V_21_5_L && Build.VERSION.SDK_INT <= VersionCode.V_24_7_N) {
+    private val _netWorkCallback = if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L && Build.VERSION.SDK_INT <= CVersionCode.V_24_7_N) {
         object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)

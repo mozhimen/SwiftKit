@@ -1,11 +1,17 @@
 package com.mozhimen.basick.utilk.app
 
+import android.annotation.TargetApi
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.os.Build
 import android.util.Log
-import com.mozhimen.basick.elemk.cons.VersionCode
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
@@ -19,12 +25,26 @@ import java.nio.charset.Charset
  * @Date 2023/1/4 23:29
  * @Version 1.0
  */
+@APermissionRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
 object UtilKAppInstall {
     private const val TAG = "UtilKAppInstall>>>>>"
     private val _context = UtilKApplication.instance.get()
 
+    /**
+     * 是否有包安装权限
+     * @param context Context
+     * @return Boolean
+     */
+    @JvmStatic
+    @RequiresApi(CVersionCode.V_26_8_O)
+    @TargetApi(CVersionCode.V_26_8_O)
+    fun isPackageInstallsPermissionEnable(context: Context): Boolean {
+        return context.packageManager.canRequestPackageInstalls()
+    }
+
     @JvmStatic
     @Throws(Exception::class)
+    @ADescription("need you device has rooted")
     fun installRoot(apkPathWithName: String): Boolean {
         require(apkPathWithName.isNotEmpty()) { "$TAG please check apk file path" }
         var result = false
@@ -87,9 +107,10 @@ object UtilKAppInstall {
      * @param apkPathWithName String
      */
     @JvmStatic
+    @ADescription("need add provider to your manifest")
     fun installAuto(apkPathWithName: String) {
         val intent = Intent(Intent.ACTION_VIEW)
-        if (Build.VERSION.SDK_INT >= VersionCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
         intent.setDataAndType(UtilKFile.file2Uri(apkPathWithName) ?: return, "application/vnd.android.package-archive")
@@ -105,7 +126,7 @@ object UtilKAppInstall {
     @JvmStatic
     fun installSilence(apkPathWithName: String, pkgName: String): Boolean {
         var result = "EMPTY"
-        val cmd = if (Build.VERSION.SDK_INT >= VersionCode.V_24_7_N) {
+        val cmd = if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
             arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPathWithName)
         } else {
             arrayOf("pm", "install", "-i", pkgName, "-r", apkPathWithName)
@@ -145,7 +166,7 @@ object UtilKAppInstall {
      */
     @JvmStatic
     fun installSilence(apkPathWithName: String, receiver: Class<*>) {
-        if (Build.VERSION.SDK_INT >= VersionCode.V_28_9_P) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
             installSilenceAfter28(apkPathWithName, receiver)
         } else {
             installSilenceBefore28(apkPathWithName)
@@ -165,7 +186,7 @@ object UtilKAppInstall {
 
         val msgSuccess = StringBuilder()
         val msgError = StringBuilder()
-        val cmd: Array<String> = if (Build.VERSION.SDK_INT >= VersionCode.V_24_7_N) {
+        val cmd: Array<String> = if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
             arrayOf("pm", "install", "-i", _context.packageName, "-r", apkPathWithName)
         } else {
             arrayOf("pm", "install", "-r", apkPathWithName)
@@ -198,6 +219,7 @@ object UtilKAppInstall {
      * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
+    @RequiresApi(CVersionCode.V_28_9_P)
     fun installSilenceAfter28(apkPathWithName: String, receiver: Class<*>) {
         Log.d(TAG, "installSilenceAfter28 pathApk $apkPathWithName")
         val apkFile = File(apkPathWithName)

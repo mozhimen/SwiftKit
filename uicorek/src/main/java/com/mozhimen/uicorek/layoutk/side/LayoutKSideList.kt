@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.basick.utilk.exts.fontStyle
 import com.mozhimen.basick.utilk.exts.loadImageComplex
@@ -34,7 +36,7 @@ typealias ILayoutKSideListListener = (holder: RecyclerKViewHolder, item: MSideSu
  * @Date 2021/12/24 14:10
  * @Version 1.0
  */
-@SuppressLint("ResourceAsColor")
+@APermissionRequire(CPermission.INTERNET)
 class LayoutKSideList @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) :

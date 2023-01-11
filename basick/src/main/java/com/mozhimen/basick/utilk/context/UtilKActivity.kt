@@ -8,7 +8,7 @@ import android.content.Intent
 import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.utilk.UtilKString
 
@@ -73,7 +73,7 @@ object UtilKActivity {
      */
     @JvmStatic
     fun isActivityDestroyed(activity: Activity): Boolean {
-        return if (Build.VERSION.SDK_INT >= VersionCode.V_17_42_J1) {
+        return if (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1) {
             activity.isDestroyed || activity.isFinishing
         } else activity.isFinishing
     }

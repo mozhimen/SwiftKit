@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.bar.UtilKBarStatus
 
 /**
@@ -30,7 +30,7 @@ class BarTintMgr(activity: Activity) {
         val window = activity.window
         //获取DecorView
         val viewGroup = window.decorView
-        if (Build.VERSION.SDK_INT >= VersionCode.V_19_44_K) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {
             //检查主题中是否有透明的状态栏
             val attrs = intArrayOf(android.R.attr.windowTranslucentStatus)
             val a = activity.obtainStyledAttributes(attrs)

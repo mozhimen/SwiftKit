@@ -1,6 +1,5 @@
 package com.mozhimen.componentk.cameraxk
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.hardware.display.DisplayManager
@@ -13,7 +12,9 @@ import androidx.camera.core.Preview
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
-import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.cons.CUseFeature
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
@@ -22,6 +23,7 @@ import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
+import com.mozhimen.componentk.cameraxk.helpers.CameraXKProxy
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import kotlin.math.abs
 import kotlin.math.max
@@ -35,7 +37,7 @@ import kotlin.properties.Delegates
  * @Date 2022/1/3 0:22
  * @Version 1.0
  */
-@APermissionK(Manifest.permission.CAMERA)
+@APermissionRequire(CPermission.CAMERA,CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 class CameraXKLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

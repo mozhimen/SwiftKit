@@ -1,18 +1,18 @@
 package com.mozhimen.underlayk.crashk
 
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import java.io.File
 
 /**
  * @ClassName CrashKMgr
- * @Description <uses-permission
-android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-tools:ignore="ScopedStorage" />
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+ * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/3/28 14:32
  * @Version 1.0
  */
+@APermissionRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 class CrashKMgr {
 
     companion object {

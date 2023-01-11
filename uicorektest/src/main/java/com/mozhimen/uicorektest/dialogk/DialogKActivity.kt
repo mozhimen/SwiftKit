@@ -3,6 +3,8 @@ package com.mozhimen.uicorektest.dialogk
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.UtilKThread
 import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnim
 import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnimDrawable
@@ -12,6 +14,7 @@ import com.mozhimen.uicorektest.databinding.ActivityDialogkBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         vb.dialogkQues.setOnClickListener {

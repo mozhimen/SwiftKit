@@ -10,14 +10,14 @@ import android.view.animation.Animation
 import com.mozhimen.basick.animk.builder.AnimKBuilder.asAnimation
 import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_HIDE
 import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_SHOW
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.UtilKClazz
 import com.mozhimen.basick.utilk.UtilKKeyBoard.IUtilKKeyboardListener
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption
 import com.mozhimen.basick.utilk.log.UtilKLogSmart
-import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow
-import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.KeyEventListener
-import com.mozhimen.uicorek.popwink.basepopwin.basepopup.BasePopupWindow.OnBlurOptionInitListener
+import com.mozhimen.uicorek.popwink.bases.BasePopwinK
+import com.mozhimen.uicorek.popwink.bases.BasePopwinK.KeyEventListener
+import com.mozhimen.uicorek.popwink.bases.BasePopwinK.OnBlurOptionInitListener
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag
 import com.mozhimen.uicorek.popwink.builder.PopwinKBuilderProxy
@@ -39,7 +39,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
             return PopwinKBuilderConfig()
                 .setShowAnimation(asAnimation().add(CENTER_SHOW).build())
                 .setDismissAnimation(asAnimation().add(CENTER_HIDE).build())
-                .setFadeInAndOut(Build.VERSION.SDK_INT != VersionCode.V_23_6_M)
+                .setFadeInAndOut(Build.VERSION.SDK_INT != CVersionCode.V_23_6_M)
         }
     }
 
@@ -55,7 +55,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
     private var _bitmapBlurOption: UtilKBitmapBlurOption? = null
 
     init {
-        if (Build.VERSION.SDK_INT == VersionCode.V_23_6_M) {
+        if (Build.VERSION.SDK_INT == CVersionCode.V_23_6_M) {
             _flag = _flag and CFlag.FADE_ENABLE.inv()
         }
     }
@@ -112,7 +112,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         return this
     }
 
-    fun setOnDismissListener(dismissListener: BasePopupWindow.OnDismissListener): PopwinKBuilderConfig {
+    fun setOnDismissListener(dismissListener: BasePopwinK.OnDismissListener): PopwinKBuilderConfig {
         set("setOnDismissListener", dismissListener)
         return this
     }

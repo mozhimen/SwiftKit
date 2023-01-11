@@ -7,7 +7,7 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.gesture.commons.GestureFlingCallback
-import com.mozhimen.debugk.base.DebugK
+import com.mozhimen.debugk.DebugK
 import com.mozhimen.debugktest.databinding.ActivityDebugkBinding
 
 class DebugKActivity : BaseActivityVB<ActivityDebugkBinding>() {

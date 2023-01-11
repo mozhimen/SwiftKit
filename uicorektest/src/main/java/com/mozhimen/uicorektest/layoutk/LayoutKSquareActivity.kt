@@ -1,7 +1,8 @@
 package com.mozhimen.uicorektest.layoutk
 
-import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkSquareBinding
 
 /**
@@ -11,8 +12,5 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkSquareBinding
  * @Date 2022/12/17 12:24
  * @Version 1.0
  */
-class LayoutKSquareActivity : BaseActivityVB<ActivityLayoutkSquareBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-        super.initData(savedInstanceState)
-    }
-}
+@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
+class LayoutKSquareActivity : BaseActivityVB<ActivityLayoutkSquareBinding>()

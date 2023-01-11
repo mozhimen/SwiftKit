@@ -11,16 +11,19 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.bar.UtilKDialog
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
-import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.mos.MLogK
 
 /**
@@ -30,6 +33,7 @@ import com.mozhimen.underlayk.logk.mos.MLogK
  * @Date 2022/9/23 18:52
  * @Version 1.0
  */
+@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
     private companion object {
         private const val TAG_LOGK_MONITOR_VIEW = "TAG_LOGK_CONTAINER_VIEW"
@@ -77,20 +81,20 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
                 or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE) or WindowManager.LayoutParams.FLAG_FULLSCREEN
         _layoutParams.format = PixelFormat.TRANSLUCENT
         _layoutParams.gravity = Gravity.END or Gravity.BOTTOM
-        if (Build.VERSION.SDK_INT >= VersionCode.V_26_8_O) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
             _layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         } else {
             _layoutParams.type = WindowManager.LayoutParams.TYPE_TOAST
         }
     }
 
-    override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
+    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         _adapter.addItem(PrinterViewItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
         _recyclerView!!.smoothScrollToPosition(_adapter.itemCount - 1)
     }
 
     fun openMonitor(isFold: Boolean) {
-        if (!UtilKPermission.isOverlayPermissionEnable(_context)) {
+        if (!UtilKDialog.isOverlayPermissionEnable(_context)) {
             LogK.et(TAG, "PrinterMonitor play app has no overlay permission")
             "请打开悬浮窗权限".showToastOnMain()
             UtilKPermission.openSettingOverlay(_context)

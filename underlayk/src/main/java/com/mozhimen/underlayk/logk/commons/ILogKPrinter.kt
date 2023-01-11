@@ -1,5 +1,7 @@
 package com.mozhimen.underlayk.logk.commons
 
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
+
 /**
  * @ClassName ILogKPrinter
  * @Description TODO
@@ -11,7 +13,7 @@ interface ILogKPrinter {
     val TAG: String
         get() = "${this.javaClass.simpleName}>>>>>"
 
-    fun print(config: LogKConfig, level: Int, tag: String, printString: String)
+    fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String)
 
     fun getName(): String = TAG
 }

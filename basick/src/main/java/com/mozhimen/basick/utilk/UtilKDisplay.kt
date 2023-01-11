@@ -4,7 +4,7 @@ import android.app.Activity
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.math.roundToInt
 
@@ -67,6 +67,6 @@ object UtilKDisplay {
      */
     @JvmStatic
     fun getRotation(activity: Activity): Int =
-        if (Build.VERSION.SDK_INT >= VersionCode.V_30_11_R) activity.display!!.rotation else activity.windowManager.defaultDisplay.rotation
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) activity.display!!.rotation else activity.windowManager.defaultDisplay.rotation
 
 }

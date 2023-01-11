@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk.app
 
-import android.Manifest
 import android.os.Build
-import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.file.UtilKFile
 import java.io.BufferedReader
 import java.io.File
@@ -16,6 +16,7 @@ import java.io.InputStreamReader
  * @Date 2023/1/6 18:04
  * @Version 1.0
  */
+@APermissionRequire(CPermission.READ_EXTERNAL_STORAGE)
 object UtilKAppRoot {
     /**
      * 判断手机是否拥有Root权限:
@@ -23,7 +24,6 @@ object UtilKAppRoot {
      * @return Boolean
      */
     @JvmStatic
-    @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
     fun isRoot(): Boolean {
         var isRoot = false
         try {
@@ -40,7 +40,6 @@ object UtilKAppRoot {
      */
     @JvmStatic
     @Throws(Exception::class)
-    @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
     private fun isSuAvailable(): Boolean {
         var file: File
         val paths = arrayOf(
@@ -65,7 +64,6 @@ object UtilKAppRoot {
      */
     @JvmStatic
     @Throws(Exception::class)
-    @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
     fun isBusyboxAvailable(): Boolean {
         var file: File
         val paths = arrayOf(
@@ -90,7 +88,6 @@ object UtilKAppRoot {
      */
     @JvmStatic
     @Throws(Exception::class)
-    @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
     fun isWhichAvailable(): Boolean {
         var process: Process? = null
         return try {
@@ -110,7 +107,6 @@ object UtilKAppRoot {
      * @return Boolean
      */
     @JvmStatic
-    @APermissionK(Manifest.permission.READ_EXTERNAL_STORAGE)
     fun hasSuperuserApk(): Boolean =
         UtilKFile.isFileExist(File("/system/app/Superuser.apk"))
 

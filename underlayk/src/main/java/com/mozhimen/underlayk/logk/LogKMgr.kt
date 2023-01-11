@@ -1,7 +1,7 @@
 package com.mozhimen.underlayk.logk
 
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
-import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
 
 /**
@@ -27,7 +27,7 @@ import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
  */
 class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/) {
     private val _printers: MutableList<ILogKPrinter> = ArrayList()
-    private var _config: LogKConfig? = null
+    private var _config: BaseLogKConfig? = null
 
     companion object {
         @JvmStatic
@@ -38,7 +38,7 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
         val holder = LogKMgr()
     }
 
-    fun init(config: LogKConfig, vararg printers: ILogKPrinter) {
+    fun init(config: BaseLogKConfig, vararg printers: ILogKPrinter) {
         _config = config
         _printers.addAll(printers.filterNot { _printers.contains(it) })
     }
@@ -47,7 +47,7 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
      * 获取配置
      * @return LogKConfig
      */
-    fun getConfig(): LogKConfig = _config ?: LogKConfig()
+    fun getConfig(): BaseLogKConfig = _config ?: BaseLogKConfig()
 
     /**
      * 获取打印机列表

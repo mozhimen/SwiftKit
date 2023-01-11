@@ -76,7 +76,8 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKAsyncActivity"
-            android:exported="false" /> <!-- utilk -->
+            android:exported="false" />
+        <!-- utilk -->
         <activity
             android:name=".utilk.UtilKAssetActivity"
             android:exported="false" />

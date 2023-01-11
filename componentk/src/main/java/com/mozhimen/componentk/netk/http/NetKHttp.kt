@@ -1,6 +1,9 @@
 package com.mozhimen.componentk.netk.http
 
 import android.util.Log
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.cons.CApplication
+import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.utilk.UtilKJson
 import com.mozhimen.componentk.BuildConfig
 import okhttp3.Interceptor
@@ -16,11 +19,15 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  * @Date 2022/5/12 16:01
  * @Version 1.0
  */
+@APermissionRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
 open class NetKHttp(
     baseUrl: String,
     interceptors: List<Interceptor> = emptyList()
 ) {
-    private val TAG = "NetKHttp>>>>>"
+    companion object {
+        private const val TAG = "NetKHttp>>>>>"
+    }
+
     private val _intercepters: ArrayList<Interceptor> = ArrayList()
     private val _okHttpClient by lazy {
         OkHttpClient.Builder().apply {
@@ -49,7 +56,7 @@ open class NetKHttp(
 
     @Synchronized
     fun <SERVICE : Any> create(service: Class<SERVICE>): SERVICE {
-        return  _retrofit!!.create(service) as SERVICE
+        return _retrofit!!.create(service) as SERVICE
     }
 
     private fun initRetrofit(url: String): Retrofit =

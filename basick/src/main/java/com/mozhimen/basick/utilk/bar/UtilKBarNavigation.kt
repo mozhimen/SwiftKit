@@ -10,7 +10,7 @@ import android.view.Display
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.context.UtilKActivity
 import com.mozhimen.basick.utilk.context.UtilKActivity.getActivityByContext
 import com.mozhimen.basick.utilk.context.UtilKActivity.isActivityDestroyed
@@ -89,7 +89,7 @@ object UtilKBarNavigation {
             val size = Point()
             display.getSize(size)
             val usableHeight = size.y
-            if (Build.VERSION.SDK_INT >= VersionCode.V_17_42_J1) {
+            if (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1) {
                 display.getRealSize(size) // getRealMetrics is only available with API 17 and +
             } else {
                 try {

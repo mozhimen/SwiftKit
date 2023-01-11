@@ -1,14 +1,14 @@
 package com.mozhimen.componentktest.permissionk
 
-import android.Manifest
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.componentktest.databinding.ActivityPermissionkBinding
 
-@APermissionK(Manifest.permission.INTERNET)
+@APermissionRequire(CPermission.INTERNET)
 class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         //方法一,need APermissionK 注解
@@ -28,7 +28,7 @@ class PermissionKActivity : BaseActivityVB<ActivityPermissionkBinding>() {
         })
 
         //方法三
-        PermissionK.initPermissions(this, arrayOf(Manifest.permission.INTERNET)) {
+        PermissionK.initPermissions(this, arrayOf(CPermission.INTERNET)) {
             if (it) {
                 initView(savedInstanceState)
             } else {

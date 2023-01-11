@@ -44,9 +44,7 @@ super.initData(savedInstanceState)
  * @Date 2023/1/10 14:01
  * @Version 1.0
  */
-@ADescription(
-    "需要动态注册"
-)
+@ADescription("need register dynamic 需要动态注册")
 open class BaseTimeReceiver(private val _listener: ITimeReceiverListener) : BroadcastReceiver() {
 
     private val TAG = "BaseTimeReceiver>>>>>"

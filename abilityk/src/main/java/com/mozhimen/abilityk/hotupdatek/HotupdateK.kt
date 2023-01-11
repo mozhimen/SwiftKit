@@ -1,13 +1,12 @@
 package com.mozhimen.abilityk.hotupdatek
 
-import android.Manifest
 import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
-import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.*
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.file.UtilKFile
@@ -27,15 +26,13 @@ import kotlin.coroutines.resume
  * @Date 2022/2/24 12:15
  * @Version 1.0
  */
-@APermissionK(
-    Manifest.permission.READ_EXTERNAL_STORAGE,
-    Manifest.permission.WRITE_EXTERNAL_STORAGE,
-    Manifest.permission.REQUEST_INSTALL_PACKAGES,
-    Manifest.permission.INSTALL_PACKAGES,
-)
-@ADescription(
-    "uses-permission android:name=\"android.permission.READ_INSTALL_SESSIONS\"",
-    "also add @see [READ_INSTALL_SESSIONS] to your manifest"
+@APermissionRequire(
+    CPermission.INTERNET,
+    CPermission.READ_EXTERNAL_STORAGE,
+    CPermission.WRITE_EXTERNAL_STORAGE,
+    CPermission.REQUEST_INSTALL_PACKAGES,
+    CPermission.INSTALL_PACKAGES,
+    CPermission.READ_INSTALL_SESSIONS
 )
 class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {
@@ -44,8 +41,8 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
         private val _context = UtilKApplication.instance.get()
         private val _apkPath = _context.filesDir.absolutePath + "/hotupdatek"
 
-        const val EVENT_HOTUPDATEK_PROGRESS = "hotupdatek_progress"
         val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
+        const val EVENT_HOTUPDATEK_PROGRESS = "hotupdatek_progress"
     }
 
     private val _netKFile by lazy { NetKFile(owner) }

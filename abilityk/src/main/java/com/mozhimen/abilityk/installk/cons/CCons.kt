@@ -1,7 +1,6 @@
 package com.mozhimen.abilityk.installk.cons
 
-import android.Manifest
-
+import com.mozhimen.basick.permissionk.cons.CPermission
 
 /**
  * @ClassName CCons
@@ -11,10 +10,9 @@ import android.Manifest
  * @Version 1.0
  */
 object CCons {
-
     val PERMISSIONS = arrayOf(
-        Manifest.permission.INTERNET,
-        Manifest.permission.READ_EXTERNAL_STORAGE,
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+        CPermission.INTERNET,
+        CPermission.READ_EXTERNAL_STORAGE,
+        CPermission.WRITE_EXTERNAL_STORAGE
     )
 }

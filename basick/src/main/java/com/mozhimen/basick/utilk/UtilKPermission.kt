@@ -1,19 +1,15 @@
 package com.mozhimen.basick.utilk
 
-import android.Manifest
-import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.VersionCode
-import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 
 
@@ -28,21 +24,11 @@ object UtilKPermission {
     private const val TAG = "UtilKPermission>>>>>"
 
     /**
-     * 是否有Overlay的权限
-     * @param context Context
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isOverlayPermissionEnable(context: Context): Boolean {
-        return Build.VERSION.SDK_INT < VersionCode.V_23_6_M || Settings.canDrawOverlays(context)
-    }
-
-    /**
      * 设置申请权限 当系统在23及以上
      * @param context Context
      */
     @JvmStatic
-    @RequiresApi(VersionCode.V_23_6_M)
+    @RequiresApi(CVersionCode.V_23_6_M)
     fun openSettingOverlay(context: Context) {
         UtilKActivitySkip.start(
             context,
@@ -55,7 +41,7 @@ object UtilKPermission {
      * @param activity Activity
      */
     @JvmStatic
-    @RequiresApi(VersionCode.V_30_11_R)
+    @RequiresApi(CVersionCode.V_30_11_R)
     fun openSettingAll(activity: Activity) {
         if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
             UtilKActivitySkip.start(
@@ -136,18 +122,5 @@ object UtilKPermission {
             Log.e(TAG, "isSettingAccessibilityPermissionEnable accessibility is disabled")
         }
         return false
-    }
-
-    /**
-     * 是否有包安装权限
-     * @param context Context
-     * @return Boolean
-     */
-    @JvmStatic
-    @APermissionK(Manifest.permission.REQUEST_INSTALL_PACKAGES)
-    @RequiresApi(VersionCode.V_26_8_O)
-    @TargetApi(VersionCode.V_26_8_O)
-    fun isPackageInstallsPermissionEnable(context: Context): Boolean {
-        return context.packageManager.canRequestPackageInstalls()
     }
 }

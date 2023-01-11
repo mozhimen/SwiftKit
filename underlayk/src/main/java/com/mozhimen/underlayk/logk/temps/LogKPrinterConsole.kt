@@ -1,9 +1,9 @@
 package com.mozhimen.underlayk.logk.temps
 
 import android.util.Log
-import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
-import com.mozhimen.underlayk.logk.commons.LogKConfig.Companion.MAX_LEN
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig.Companion.MAX_LEN
 
 /**
  * @ClassName ConsolePrinter
@@ -14,7 +14,7 @@ import com.mozhimen.underlayk.logk.commons.LogKConfig.Companion.MAX_LEN
  */
 class LogKPrinterConsole : ILogKPrinter {
 
-    override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
+    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         val len = printString.length
         val countOfSub = len / MAX_LEN
         if (countOfSub > 0) {

@@ -18,7 +18,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- demo -->
+        </activity>
+        <!-- demo -->
         <activity
             android:name=".demo.DemoActivity"
             android:exported="false" />

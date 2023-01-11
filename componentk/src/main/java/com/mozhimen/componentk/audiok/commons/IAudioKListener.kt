@@ -1,6 +1,5 @@
 package com.mozhimen.componentk.audiok.commons
 
-import com.mozhimen.componentk.audiok.AudioK
 import com.mozhimen.componentk.audiok.cons.EPlayMode
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
 import com.mozhimen.componentk.audiok.mos.MAudioK

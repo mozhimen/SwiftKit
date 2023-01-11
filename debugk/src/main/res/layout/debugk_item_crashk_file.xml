@@ -6,7 +6,7 @@
 
         <variable
             name="itemDebugKCrashK"
-            type="com.mozhimen.debugk.base.mos.MDebugKCrashK" />
+            type="com.mozhimen.debugk.mos.MDebugKCrashK" />
     </data>
 
     <LinearLayout

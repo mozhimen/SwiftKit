@@ -2,7 +2,6 @@ package com.mozhimen.uicorek.imagek
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Rect
@@ -17,7 +16,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.bitmap.blur.RenderScriptHelper
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption
@@ -56,7 +55,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         isFocusable = false
         isFocusableInTouchMode = false
         scaleType = ScaleType.MATRIX
-        if (Build.VERSION.SDK_INT >= VersionCode.V_16_41_J) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_16_41_J) {
             background = null
         } else {
             setBackgroundDrawable(null)

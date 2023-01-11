@@ -1,14 +1,11 @@
 package com.mozhimen.basick.elemk.receiver.bases
 
-import android.Manifest
-import android.annotation.TargetApi
 import android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.cons.VersionCode
-import com.mozhimen.basick.permissionk.annors.APermissionK
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 
 
@@ -18,8 +15,7 @@ import com.mozhimen.basick.utilk.app.UtilKAppInstall
  *
 
  * 权限
-<uses-permission android:name="android.permission.REPLACE_EXISTING_PACKAGE"/>
-<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+Permission.INSTALL_PACKAGES, Permission.REQUEST_INSTALL_PACKAGES, Permission.READ_INSTALL_SESSIONS, Permission.REPLACE_EXISTING_PACKAGE)
 
  * 继承
 class ElemKDownloadInstallReceiver : BaseDownloadInstallReceiver("")
@@ -55,11 +51,7 @@ path="." />
  * @Date 2022/6/13 12:04
  * @Version 1.0
  */
-@APermissionK(Manifest.permission.REQUEST_INSTALL_PACKAGES)
-@ADescription(
-    "    <uses-permission android:name=\"android.permission.REPLACE_EXISTING_PACKAGE\"/>\n",
-    "    <uses-permission android:name=\"android.permission.REQUEST_INSTALL_PACKAGES\"/><!-- 8.0必要权限  -->\n"
-)
+@APermissionRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
 open class BaseDownloadInstallReceiver(private val _apkPathWithName: String) : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

@@ -1,11 +1,13 @@
 package com.mozhimen.underlayktest
 
 import com.mozhimen.basick.elemk.application.bases.BaseApplication
+import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
 import com.mozhimen.basick.utilk.exts.toJson
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.basick.utilk.exts.e
-import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
 import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
 import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
@@ -17,6 +19,7 @@ import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
  * @Date 2022/9/24 17:41
  * @Version 1.0
  */
+@APermissionRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class UnderlayKApplication : BaseApplication() {
     override fun onCreate() {
         super.onCreate()
@@ -28,7 +31,7 @@ class UnderlayKApplication : BaseApplication() {
         //CrashKMgr.instance.init(_crashKCallback)
     }
 
-    private val _logkConfig = object : LogKConfig() {
+    private val _logkConfig = object : BaseLogKConfig() {
         override fun injectJsonParser(): IJsonParser {
             return object : IJsonParser {
                 override fun toJson(src: Any): String {

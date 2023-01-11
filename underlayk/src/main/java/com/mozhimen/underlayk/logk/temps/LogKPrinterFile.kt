@@ -1,7 +1,7 @@
 package com.mozhimen.underlayk.logk.temps
 
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
-import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.mos.MLogK
 import com.mozhimen.basick.utilk.UtilKDate
 import com.mozhimen.basick.utilk.file.UtilKFile
@@ -74,7 +74,7 @@ class LogKPrinterFile(
         return File(logPath!!).listFiles() ?: emptyArray()
     }
 
-    override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
+    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         val timeMillis = System.currentTimeMillis()
         if (!_worker.isRunning()) {
             _worker.start()

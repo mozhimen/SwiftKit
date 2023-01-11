@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
-import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.mos.MLogK
 
 /**
@@ -110,7 +110,7 @@ class LogKPrinterViewProvider(
         _containerView!!.layoutParams = getLayoutParams(false)
     }
 
-    override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
+    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         //将log展示添加到recyclerView
         _adapter.addItem(PrinterViewItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
         //滚动到对应的位置

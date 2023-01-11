@@ -2,14 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mozhimen.abilityktest">
 
-    <!--trans-->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.TTS_SERVICE" />
-        </intent>
-    </queries>
-
     <application
         android:name=".AbilityKApplication"
         android:allowBackup="true"
@@ -40,7 +32,6 @@
         <activity
             android:name=".scank.ScanKFaceActivity"
             android:exported="false" />
-
         <!--opencvk-->
         <activity
             android:name=".opencvk.OpenCVKActivity"
@@ -54,7 +45,6 @@
         <activity
             android:name=".opencvk.OpenCVKShapeActivity"
             android:exported="false" />
-
         <!--transk-->
         <activity
             android:name=".transk.TransKActivity"

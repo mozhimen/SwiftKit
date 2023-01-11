@@ -2,21 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mozhimen.debugk">
-    <!--debugk-->
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission
         android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application>
         <activity
-            android:name="com.mozhimen.debugk.base.uis.DebugKParamsActivity"
+            android:name="com.mozhimen.debugk.temps.DebugKParamsActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.debugk.base.uis.DebugKLogKActivity"
+            android:name="com.mozhimen.debugk.temps.DebugKLogKActivity"
             android:exported="false" />
         <activity
-            android:name="com.mozhimen.debugk.base.uis.DebugKCrashKActivity"
+            android:name="com.mozhimen.debugk.temps.DebugKCrashKActivity"
             android:exported="false" />
     </application>
 </manifest>

@@ -1,5 +1,8 @@
 package com.mozhimen.componentktest.netk.http.customs
 
+import com.mozhimen.basick.permissionk.annors.APermissionRequire
+import com.mozhimen.basick.permissionk.cons.CApplication
+import com.mozhimen.basick.permissionk.cons.CPermission
 import com.mozhimen.componentk.netk.http.NetKHttp
 
 /**
@@ -9,6 +12,7 @@ import com.mozhimen.componentk.netk.http.NetKHttp
  * @Date 2021/12/13 22:16
  * @Version 1.0
  */
+@APermissionRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
 object ApiFactory {
     private val _baseUrl = "https://api.caiyunapp.com/v2.5/cIecnVlovchAFYIk/"
 

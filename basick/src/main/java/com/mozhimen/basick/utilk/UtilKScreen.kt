@@ -9,7 +9,7 @@ import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.bar.UtilKBarVirtual
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import kotlin.math.sqrt
@@ -91,7 +91,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getRealScreenWidth(): Int =
-        if (Build.VERSION.SDK_INT >= VersionCode.V_30_11_R) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.width()
         } else {
             val size = Point()
@@ -106,7 +106,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getRealScreenHeight(): Int =
-        if (Build.VERSION.SDK_INT >= VersionCode.V_30_11_R) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.height()
         } else {
             val size = Point()

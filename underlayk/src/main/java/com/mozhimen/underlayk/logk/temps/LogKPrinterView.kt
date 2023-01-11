@@ -5,7 +5,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
-import com.mozhimen.underlayk.logk.commons.LogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 
 /**
  * @ClassName ViewPrinter
@@ -35,7 +35,7 @@ class LogKPrinterView(activity: Activity, owner: LifecycleOwner) : ILogKPrinter,
     fun getViewProvider(): LogKPrinterViewProvider =
         _viewProvider
 
-    override fun print(config: LogKConfig, level: Int, tag: String, printString: String) {
+    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         _viewProvider.print(config, level, tag, printString)
     }
 

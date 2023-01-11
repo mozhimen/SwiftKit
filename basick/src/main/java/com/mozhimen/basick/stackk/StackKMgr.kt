@@ -5,7 +5,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Build
 import android.os.Bundle
-import com.mozhimen.basick.elemk.cons.VersionCode
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.CStackKEvent
 import com.mozhimen.basick.utilk.UtilKDataBus
@@ -73,7 +73,7 @@ class StackKMgr private constructor() {
             val activityRef: WeakReference<Activity> = _activityRefs[_activityRefs.size - 1]
             val activity: Activity? = activityRef.get()
             if (onlyAlive) {
-                if (activity == null || activity.isFinishing || (Build.VERSION.SDK_INT >= VersionCode.V_17_42_J1 && activity.isDestroyed)) {
+                if (activity == null || activity.isFinishing || (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1 && activity.isDestroyed)) {
                     _activityRefs.remove(activityRef)
                     return getStackTopActivity(onlyAlive)
                 }
