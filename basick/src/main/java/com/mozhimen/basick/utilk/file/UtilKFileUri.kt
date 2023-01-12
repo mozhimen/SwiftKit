@@ -51,10 +51,12 @@ object UtilKFileUri {
             Log.e(TAG, "file2Uri: file isFileExist false")
             return null
         }
-        return if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N)
-            FileProvider.getUriForFile(_context, "${_context.packageName}.fileProvider", file).also {
+        return if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
+            val authority = "${_context.packageName}.fileProvider"
+            Log.d(TAG, "file2Uri: authority $authority")
+            FileProvider.getUriForFile(_context, authority, file).also {
                 _context.grantUriPermission(_context.packageName, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
-        else Uri.fromFile(file)
+        } else Uri.fromFile(file)
     }
 }

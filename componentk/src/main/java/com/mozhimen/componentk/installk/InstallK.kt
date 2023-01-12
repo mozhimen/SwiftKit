@@ -156,10 +156,10 @@ class InstallK {
                 _installStateChangeListener?.onInstallFail("apk file not exists")
                 return@withContext
             }
-            if (!UtilKPermission.isAccessibilityPermissionEnable(_context, InstallKAutoService::class.java)) {
-                Log.w(TAG, "installByMode: onNeedPermissions isAccessibilityPermissionEnable false")
-                _installStateChangeListener?.onNeedPermissions(EPermissionType.ACCESSIBILITY)
-            }
+//            if (!UtilKPermission.isAccessibilityPermissionEnable(_context, InstallKAutoService::class.java)) {
+//                Log.w(TAG, "installByMode: onNeedPermissions isAccessibilityPermissionEnable false")
+//                _installStateChangeListener?.onNeedPermissions(EPermissionType.ACCESSIBILITY)
+//            }
             UtilKAppInstall.installAuto(apkPathWithName)
         }
     }

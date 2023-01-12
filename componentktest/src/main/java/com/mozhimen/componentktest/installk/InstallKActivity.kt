@@ -86,7 +86,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                                     }
                                 }
                                 EPermissionType.ACCESSIBILITY -> {
-                                    UtilKPermission.openSettingAccessibility(this@InstallKActivity)
+                                    //UtilKPermission.openSettingAccessibility(this@InstallKActivity)
                                 }
                                 else -> {}
                             }

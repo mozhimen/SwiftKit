@@ -7,8 +7,8 @@ import android.os.Looper
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 
 /**
  * @ClassName InstallKSmartService
@@ -40,52 +40,69 @@ class InstallKAutoService : AccessibilityService() {
     }
 
     private var _handledMap: MutableMap<Int, Boolean?> = HashMap()
-    private val _handler = Handler(Looper.getMainLooper())
 
     @SuppressLint("LongLogTag")
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
-        Log.d(TAG, "onAccessibilityEvent: $event")
-
-        if (!event.packageName.toString().contains("packageinstaller")) {
-            //不写完整包名，是因为某些手机(如小米)安装器包名是自定义的
+        if (!event.packageName.toString().contains("packageinstaller")) {            //不写完整包名，是因为某些手机(如小米)安装器包名是自定义的
             return
         }
 
         val nodeInfo = event.source
-        if (nodeInfo == null) {
-            Log.d(TAG, "onAccessibilityEvent: null, 重新获取eventNode...")
-            performGlobalAction(GLOBAL_ACTION_RECENTS) // 打开最近页面
-            _handler.postDelayed({
-                performGlobalAction(GLOBAL_ACTION_BACK) // 返回安装页面
-            }, 320)
-            return
-        }
-
-        val eventType = event.eventType
-        if (eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED || eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-            if (_handledMap[event.windowId] == null) {
-                val handled = iterateNodesAndHandle(nodeInfo)
-                if (handled) {
-                    _handledMap[event.windowId] = true
+        if (nodeInfo != null) {
+            val eventType = event.eventType
+            if (eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED || eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
+                if (_handledMap[event.windowId] == null) {
+                    Log.d(TAG, "onAccessibilityEvent: nodeInfo $nodeInfo")
+                    if (iterateNodesAndHandle(nodeInfo)) {
+                        _handledMap[event.windowId] = true
+                    } else {
+                        Log.d(TAG, "onAccessibilityEvent: iterateNodesAndHandle false")
+                    }
                 }
             }
+        } else {
+//            Log.v(TAG, "onAccessibilityEvent: nodeInfo null")
+//            performGlobalAction(GLOBAL_ACTION_RECENTS) // 打开最近页面
+//            _handler.postDelayed({
+//                performGlobalAction(GLOBAL_ACTION_BACK) // 返回安装页面
+//            }, 1000)
         }
+
     }
 
     @SuppressLint("LongLogTag")
     private fun iterateNodesAndHandle(nodeInfo: AccessibilityNodeInfo?): Boolean {
         if (nodeInfo != null) {
             val childCount = nodeInfo.childCount
-            if ("android.widget.Button" == nodeInfo.className) {
-                val nodeContent = nodeInfo.text.toString()
-
-                Log.d(TAG, "iterateNodesAndHandle content is $nodeContent")
-
-                if (nodeContent.isNotEmpty() && ("安装" == nodeContent || "完成" == nodeContent || "确定" == nodeContent || "install" == nodeContent || "done" == nodeContent)) {
+            if (
+                "android.widget.Button" == nodeInfo.className ||
+                "androidx.appcompat.widget.AppCompatButton" == nodeInfo.className ||
+                "com.google.android.material.button.MaterialButton" == nodeInfo.className ||
+                "android.widget.TextView" == nodeInfo.className ||
+                "androidx.appcompat.widget.AppCompatTextView" == nodeInfo.className ||
+                "com.google.android.material.textview.MaterialTextView" == nodeInfo.className
+            ) {
+                val nodeContent = nodeInfo.text?.toString() ?: ""
+                Log.v(TAG, "iterateNodesAndHandle button content $nodeContent")
+                if (nodeContent.isNotEmpty() && nodeContent.length <= 4 && (
+                            "安装" == nodeContent
+//                                    ||
+//                                    "完成" == nodeContent ||
+//                                    "确定" == nodeContent ||
+//                                    "继续" == nodeContent ||
+//                                    "继续更新" == nodeContent ||
+//                                    "install" == nodeContent ||
+//                                    "done" == nodeContent
+                            )
+                ) {
                     nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK)
                     return true
                 }
-            } else if ("android.widget.ScrollView" == nodeInfo.className) {
+            } else if (
+                "android.widget.ScrollView" == nodeInfo.className ||
+                "androidx.core.widget.NestedScrollView" == nodeInfo.className
+            ) {
+                Log.v(TAG, "iterateNodesAndHandle scrollview")
                 nodeInfo.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD)
             }
             for (i in 0 until childCount) {
