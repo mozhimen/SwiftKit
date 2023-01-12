@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.debugk.BR
@@ -29,7 +30,7 @@ import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
  * @Date 2022/5/26 17:37
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
+@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW, CManifest.PROVIDER)
 class DebugKDialogFragment : AppCompatDialogFragment() {
     private val _debugMethods = arrayOf(DebugKTools::class.java)
 

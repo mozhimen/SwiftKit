@@ -5,15 +5,17 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
-import com.mozhimen.basick.utilk.file.UtilKFile
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.file.UtilKFileUri
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
 import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.mos.MDebugKCrashK
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
+import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
 
 /**
 
@@ -22,7 +24,7 @@ import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
  * AndroidManifest.xml sdk>24
 <provider
 android:name="androidx.core.content.FileProvider"
-android:authorities="包名.fileprovider"
+android:authorities="包名.fileProvider"
 android:exported="false"
 android:grantUriPermissions="true">
 <meta-data
@@ -39,6 +41,7 @@ path="." />
 
  * @property _dataSets ArrayList<MDebugKCrashK>
  */
+@AManifestKRequire(CManifest.PROVIDER)
 class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
 
     private val _dataSets = ArrayList<MDebugKCrashK>()
@@ -65,7 +68,7 @@ class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
                     intent.putExtra("subject", "")
                     intent.putExtra("body", "")
 
-                    val uri = UtilKFile.file2Uri(itemData.file, packageName)
+                    val uri = UtilKFileUri.file2Uri(itemData.file)
                     intent.putExtra(Intent.EXTRA_STREAM, uri)//添加文件
                     if (itemData.file.name.endsWith(".txt")) {
                         intent.type = "text/plain"//纯文本

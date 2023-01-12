@@ -25,7 +25,6 @@ abstract class BaseDebugKNavigateKActivity : BaseActivityVBVM<DebugkActivityNavi
         set(value) {
             if (value == -1 || !this::_navController.isInitialized) return
             _navController.navigate(resId = value)
-            //Log.d(TAG, "backQueue: ${_navController.backQueue.joinToString { it.destination.displayName }}")
             field = value
         }
 

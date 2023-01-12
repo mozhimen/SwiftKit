@@ -7,6 +7,8 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.*
 import java.math.BigInteger
@@ -328,78 +330,6 @@ object UtilKFile {
             fileInputStream.close()
         }
         return MSG_WRONG
-    }
-
-    /**
-     * 文件转Uri
-     * if build sdk > N you also add provider and @xml/file_paths
-
-     * AndroidManifest.xml sdk>24
-    <provider
-    android:name="androidx.core.content.FileProvider"
-    android:authorities="包名.fileprovider"
-    android:exported="false"
-    android:grantUriPermissions="true">
-    <meta-data
-    android:name="android.support.FILE_PROVIDER_PATHS"
-    android:resource="@xml/file_paths"  />
-    </provider>
-
-     * file_paths.xml
-    <paths>
-    <files-path
-    name="files-path"
-    path="." />
-    </paths>
-
-     * @param filePathWithName String
-     * @return Uri
-     */
-    @JvmStatic
-    fun file2Uri(filePathWithName: String, packageName: String): Uri? {
-        if (filePathWithName.isEmpty()) {
-            Log.e(TAG, "file2Uri: isEmpty true")
-            return null
-        }
-        return file2Uri(File(filePathWithName), packageName)
-    }
-
-    /**
-     * 文件转Uri
-     * if build sdk > N you also add provider and @xml/file_paths
-
-     * AndroidManifest.xml sdk>24
-    <provider
-    android:name="androidx.core.content.FileProvider"
-    android:authorities="包名.fileprovider"
-    android:exported="false"
-    android:grantUriPermissions="true">
-    <meta-data
-    android:name="android.support.FILE_PROVIDER_PATHS"
-    android:resource="@xml/file_paths"  />
-    </provider>
-
-     * file_paths.xml
-    <paths>
-    <files-path
-    name="files-path"
-    path="." />
-    </paths>
-
-     * @param file File
-     * @return Uri
-     */
-    @JvmStatic
-    fun file2Uri(file: File, packageName: String): Uri? {
-        if (!isFileExist(file)) {
-            Log.e(TAG, "file2Uri: file isFileExist false")
-            return null
-        }
-        return if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N)
-            FileProvider.getUriForFile(_context, "$packageName.fileProvider", file).also {
-                _context.grantUriPermission(_context.packageName, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            }
-        else Uri.fromFile(file)
     }
 
     /**

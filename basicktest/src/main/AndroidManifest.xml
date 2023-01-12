@@ -61,6 +61,15 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mozhimen.basicktest.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/files_path"  />
+        </provider>
         <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"

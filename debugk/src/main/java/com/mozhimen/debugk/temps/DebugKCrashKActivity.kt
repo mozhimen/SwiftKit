@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.file.UtilKFileUri
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.databinding.DebugkActivityCrashkBinding
@@ -26,7 +28,7 @@ import com.mozhimen.underlayk.crashk.CrashKMgr
  * AndroidManifest.xml sdk>24
 <provider
 android:name="androidx.core.content.FileProvider"
-android:authorities="包名.fileprovider"
+android:authorities="包名.fileProvider"
 android:exported="false"
 android:grantUriPermissions="true">
 <meta-data
@@ -45,7 +47,7 @@ path="." />
  * @Date 2022/5/25 23:00
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
+@AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE, CManifest.PROVIDER)
 class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
     private val _dataSets = ArrayList<MDebugKCrashK>()
     override fun initView(savedInstanceState: Bundle?) {
@@ -71,7 +73,7 @@ class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
                     intent.putExtra("subject", "")
                     intent.putExtra("body", "")
 
-                    val uri = UtilKFile.file2Uri(itemData.file, packageName)
+                    val uri = UtilKFileUri.file2Uri(itemData.file)
                     intent.putExtra(Intent.EXTRA_STREAM, uri)//添加文件
                     if (itemData.file.name.endsWith(".txt")) {
                         intent.type = "text/plain"//纯文本

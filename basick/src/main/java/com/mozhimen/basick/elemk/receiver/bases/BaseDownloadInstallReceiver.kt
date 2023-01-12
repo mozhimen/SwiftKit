@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 
 
@@ -32,7 +33,7 @@ android:exported="false">
  * AndroidManifest.xml sdk>24
 <provider
 android:name="androidx.core.content.FileProvider"
-android:authorities="包名.fileprovider"
+android:authorities="包名.fileProvider"
 android:exported="false"
 android:grantUriPermissions="true">
 <meta-data
@@ -51,13 +52,13 @@ path="." />
  * @Date 2022/6/13 12:04
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
-open class BaseDownloadInstallReceiver(private val _apkPathWithName: String, private val _packageName: String) : BroadcastReceiver() {
+@AManifestKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE, CManifest.PROVIDER)
+open class BaseDownloadInstallReceiver(private val _apkPathWithName: String) : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
             ACTION_DOWNLOAD_COMPLETE -> {
-                UtilKAppInstall.installAuto(_apkPathWithName, _packageName)
+                UtilKAppInstall.installAuto(_apkPathWithName)
             }
         }
     }

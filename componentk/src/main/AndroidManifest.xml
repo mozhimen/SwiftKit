@@ -44,7 +44,7 @@
                 android:resource="@xml/installk_smart_accessibility_service_config" />
         </service>
 
-        <provider
+<!--        <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.mozhimen.componentk.fileProvider"
             android:exported="false"
@@ -52,7 +52,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/installk_files_path" />
-        </provider>
+        </provider>-->
     </application>
 
 </manifest>

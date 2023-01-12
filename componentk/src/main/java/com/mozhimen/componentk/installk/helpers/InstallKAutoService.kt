@@ -53,7 +53,7 @@ class InstallKAutoService : AccessibilityService() {
 
         val nodeInfo = event.source
         if (nodeInfo == null) {
-            Log.i(TAG, "eventNode: null, 重新获取eventNode...")
+            Log.d(TAG, "onAccessibilityEvent: null, 重新获取eventNode...")
             performGlobalAction(GLOBAL_ACTION_RECENTS) // 打开最近页面
             _handler.postDelayed({
                 performGlobalAction(GLOBAL_ACTION_BACK) // 返回安装页面
@@ -78,7 +78,9 @@ class InstallKAutoService : AccessibilityService() {
             val childCount = nodeInfo.childCount
             if ("android.widget.Button" == nodeInfo.className) {
                 val nodeContent = nodeInfo.text.toString()
-                Log.d(TAG, "content is $nodeContent")
+
+                Log.d(TAG, "iterateNodesAndHandle content is $nodeContent")
+
                 if (nodeContent.isNotEmpty() && ("安装" == nodeContent || "完成" == nodeContent || "确定" == nodeContent || "install" == nodeContent || "done" == nodeContent)) {
                     nodeInfo.performAction(AccessibilityNodeInfo.ACTION_CLICK)
                     return true

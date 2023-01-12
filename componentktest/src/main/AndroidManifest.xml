@@ -34,6 +34,15 @@
         <activity
             android:name="com.mozhimen.componentktest.installk.InstallKActivity"
             android:exported="false" />
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mozhimen.componentktest.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/files_path" />
+        </provider>
         <!--navigatek-->
         <activity
             android:name="com.mozhimen.componentktest.navigatek.NavigateKActivity"

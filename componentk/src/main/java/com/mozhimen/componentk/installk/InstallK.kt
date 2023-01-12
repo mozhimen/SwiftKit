@@ -11,6 +11,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.app.UtilKAppRoot
@@ -36,7 +37,8 @@ import java.io.*
     CPermission.INSTALL_PACKAGES,
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE,
-    CPermission.BIND_ACCESSIBILITY_SERVICE
+    CPermission.BIND_ACCESSIBILITY_SERVICE,
+    CManifest.PROVIDER
 )
 class InstallK {
 
@@ -158,7 +160,7 @@ class InstallK {
                 Log.w(TAG, "installByMode: onNeedPermissions isAccessibilityPermissionEnable false")
                 _installStateChangeListener?.onNeedPermissions(EPermissionType.ACCESSIBILITY)
             }
-            UtilKAppInstall.installAuto(apkPathWithName, "com.mozhimen.componentk")
+            UtilKAppInstall.installAuto(apkPathWithName)
         }
     }
 

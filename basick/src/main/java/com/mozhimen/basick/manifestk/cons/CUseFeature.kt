@@ -5,7 +5,7 @@ package com.mozhimen.basick.manifestk.cons
  * @ClassName UseFeature
  * @Description
 
- * AndroidManifest.xml
+ * AndroidManifest.xml (example)
 
 <uses-feature android:name="android.hardware.camera" />
 

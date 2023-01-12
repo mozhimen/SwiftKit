@@ -7,6 +7,7 @@ import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.*
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.file.UtilKFile
@@ -34,7 +35,8 @@ import kotlin.coroutines.resume
     CPermission.INSTALL_PACKAGES,
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE,
-    CPermission.BIND_ACCESSIBILITY_SERVICE
+    CPermission.BIND_ACCESSIBILITY_SERVICE,
+    CManifest.PROVIDER
 )
 class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {

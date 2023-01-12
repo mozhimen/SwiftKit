@@ -23,5 +23,6 @@
         <activity
             android:name="com.mozhimen.debugk.temps.DebugKCrashKActivity"
             android:exported="false" />
+
     </application>
 </manifest>

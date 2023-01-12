@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
@@ -39,7 +40,8 @@ import kotlinx.coroutines.launch
     CPermission.INSTALL_PACKAGES,
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE,
-    CPermission.BIND_ACCESSIBILITY_SERVICE
+    CPermission.BIND_ACCESSIBILITY_SERVICE,
+    CManifest.PROVIDER
 )
 @APermissionCheck(
     CPermission.READ_EXTERNAL_STORAGE,

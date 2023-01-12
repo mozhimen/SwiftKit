@@ -11,6 +11,6 @@ import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
  * @Date 2022/11/22 10:59
  * @Version 1.0
  */
-class BaseDebugKNavigateKViewModel : BaseViewModel() {
+open class BaseDebugKNavigateKViewModel : BaseViewModel() {
     val liveFragmentId = MutableLiveData<Int?>(null)
 }

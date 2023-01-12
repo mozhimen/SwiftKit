@@ -15,9 +15,11 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.file.UtilKFileUri
 import java.io.*
 import java.nio.charset.Charset
 
@@ -28,7 +30,13 @@ import java.nio.charset.Charset
  * @Date 2023/1/4 23:29
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
+@AManifestKRequire(
+    CPermission.INSTALL_PACKAGES,
+    CPermission.REQUEST_INSTALL_PACKAGES,
+    CPermission.READ_INSTALL_SESSIONS,
+    CPermission.REPLACE_EXISTING_PACKAGE,
+    CManifest.PROVIDER
+)
 object UtilKAppInstall {
     private const val TAG = "UtilKAppInstall>>>>>"
     private val _context = UtilKApplication.instance.get()
@@ -116,35 +124,16 @@ object UtilKAppInstall {
 
     /**
      * 智能安装
-
-     * AndroidManifest.xml sdk>24
-    <provider
-    android:name="androidx.core.content.FileProvider"
-    android:authorities="包名.fileprovider"
-    android:exported="false"
-    android:grantUriPermissions="true">
-    <meta-data
-    android:name="android.support.FILE_PROVIDER_PATHS"
-    android:resource="@xml/file_paths"  />
-    </provider>
-
-     * file_paths.xml sdk>24
-    <paths>
-    <files-path
-    name="files-path"
-    path="." />
-    </paths>
-
+     * if sdk >= 24 add provider
      * @param apkPathWithName String
      */
     @JvmStatic
-    @ADescription("need add provider to your manifest")
-    fun installAuto(apkPathWithName: String, packageName: String) {
+    fun installAuto(apkPathWithName: String) {
         val intent = Intent(Intent.ACTION_VIEW)
         if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
-        intent.setDataAndType(UtilKFile.file2Uri(apkPathWithName, packageName) ?: return, "application/vnd.android.package-archive")
+        intent.setDataAndType(UtilKFileUri.file2Uri(apkPathWithName) ?: return, "application/vnd.android.package-archive")
         UtilKActivitySkip.start(_context, intent)
     }
 
