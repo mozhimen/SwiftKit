@@ -11,9 +11,9 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
@@ -33,7 +33,7 @@ import com.mozhimen.underlayk.logk.mos.MLogK
  * @Date 2022/9/23 18:52
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.SYSTEM_ALERT_WINDOW)
+@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
     private companion object {
         private const val TAG_LOGK_MONITOR_VIEW = "TAG_LOGK_CONTAINER_VIEW"

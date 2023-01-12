@@ -32,19 +32,6 @@
         <activity
             android:name=".scank.ScanKFaceActivity"
             android:exported="false" />
-        <!--opencvk-->
-        <activity
-            android:name=".opencvk.OpenCVKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".opencvk.OpenCVKMatchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".opencvk.OpenCVKContrastActivity"
-            android:exported="false" />
-        <activity
-            android:name=".opencvk.OpenCVKShapeActivity"
-            android:exported="false" />
         <!--transk-->
         <activity
             android:name=".transk.TransKActivity"

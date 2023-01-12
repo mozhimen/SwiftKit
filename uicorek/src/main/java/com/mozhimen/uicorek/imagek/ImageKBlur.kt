@@ -13,9 +13,9 @@ import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
 import androidx.appcompat.widget.AppCompatImageView
-import com.mozhimen.basick.animk.builder.AnimKBuilder
-import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
-import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
+import com.mozhimen.basick.animk.builders.AnimKBuilder
+import com.mozhimen.basick.animk.builders.commons.IAnimatorUpdateListener
+import com.mozhimen.basick.animk.builders.temps.AlphaAnimatorType
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.bitmap.blur.RenderScriptHelper

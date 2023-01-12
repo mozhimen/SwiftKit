@@ -4,11 +4,11 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionKCheck
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CUseFeature
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
@@ -19,8 +19,8 @@ import com.mozhimen.componentk.statusbark.annors.AStatusBarK
 import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
 import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 
-@APermissionKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
-@APermissionKCheck(CPermission.CAMERA)
+@AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@APermissionCheck(CPermission.CAMERA)
 @AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
 class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 
@@ -33,7 +33,7 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     }*/
 
     override fun initData(savedInstanceState: Bundle?) {
-        PermissionK.initPermissions(this, onSuccess = { super.initData(savedInstanceState) })
+        ManifestKPermission.initPermissions(this, onSuccess = { super.initData(savedInstanceState) })
     }
 
     override fun initView(savedInstanceState: Bundle?) {

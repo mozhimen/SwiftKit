@@ -1,17 +1,20 @@
 package com.mozhimen.basick.utilk.app
 
 import android.annotation.TargetApi
+import android.app.Activity
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
@@ -25,7 +28,7 @@ import java.nio.charset.Charset
  * @Date 2023/1/4 23:29
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
+@AManifestKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
 object UtilKAppInstall {
     private const val TAG = "UtilKAppInstall>>>>>"
     private val _context = UtilKApplication.instance.get()
@@ -38,8 +41,36 @@ object UtilKAppInstall {
     @JvmStatic
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
-    fun isPackageInstallsPermissionEnable(context: Context): Boolean {
-        return context.packageManager.canRequestPackageInstalls()
+    fun isAppInstallsPermissionEnable(context: Context): Boolean {
+        return context.packageManager.canRequestPackageInstalls().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
+    }
+
+    /**
+     * 打开包安装权限
+     * @param activity Activity
+     */
+    @JvmStatic
+    @RequiresApi(CVersionCode.V_26_8_O)
+    @TargetApi(CVersionCode.V_26_8_O)
+    fun openSettingAppInstall(activity: Activity) {
+        UtilKActivitySkip.start(
+            activity,
+            Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${activity.packageName}"))
+        )
+    }
+
+    /**
+     * 打开包安装权限
+     * @param context Context
+     */
+    @JvmStatic
+    @RequiresApi(CVersionCode.V_26_8_O)
+    @TargetApi(CVersionCode.V_26_8_O)
+    fun openSettingAppInstall(context: Context) {
+        UtilKActivitySkip.start(
+            context,
+            Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${context.packageName}"))
+        )
     }
 
     @JvmStatic
@@ -108,12 +139,12 @@ object UtilKAppInstall {
      */
     @JvmStatic
     @ADescription("need add provider to your manifest")
-    fun installAuto(apkPathWithName: String) {
+    fun installAuto(apkPathWithName: String, packageName: String) {
         val intent = Intent(Intent.ACTION_VIEW)
         if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
-        intent.setDataAndType(UtilKFile.file2Uri(apkPathWithName) ?: return, "application/vnd.android.package-archive")
+        intent.setDataAndType(UtilKFile.file2Uri(apkPathWithName, packageName) ?: return, "application/vnd.android.package-archive")
         UtilKActivitySkip.start(_context, intent)
     }
 

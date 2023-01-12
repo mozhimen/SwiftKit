@@ -1,8 +1,6 @@
 package com.mozhimen.debugktest
 
 import com.mozhimen.basick.elemk.application.bases.BaseApplication
-import com.mozhimen.componentk.adaptk.AdaptKMgr
-
 
 /**
  * @ClassName DebugKApplication
@@ -15,7 +13,5 @@ class DebugKApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
-        AdaptKMgr.instance.init()
     }
 }

@@ -26,33 +26,4 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
-    <!--    <application
-            android:allowBackup="true"
-            android:supportsRtl="true">
-
-            &lt;!&ndash;installk&ndash;&gt;
-            <service
-                android:name=".installk.InstallKSmartService"
-                android:enabled="true"
-                android:exported="true"
-                android:label="@string/installk_label"
-                android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-                <intent-filter>
-                    <action android:name="android.accessibilityservice.AccessibilityService" />
-                </intent-filter>
-                <meta-data
-                    android:name="android.accessibilityservice"
-                    android:resource="@xml/installk_smart_accessibility_service_config" />
-            </service>
-
-            <provider
-                android:name="androidx.core.content.FileProvider"
-                android:authorities="com.mozhimen.abilityk.fileProvider"
-                android:exported="false"
-                android:grantUriPermissions="true">
-                <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/installk_files_path" />
-            </provider>
-        </application>-->
 </manifest>

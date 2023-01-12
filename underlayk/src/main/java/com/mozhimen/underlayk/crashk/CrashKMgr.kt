@@ -1,7 +1,7 @@
 package com.mozhimen.underlayk.crashk
 
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import java.io.File
 
@@ -12,7 +12,7 @@ import java.io.File
  * @Date 2022/3/28 14:32
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
+@AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 class CrashKMgr {
 
     companion object {

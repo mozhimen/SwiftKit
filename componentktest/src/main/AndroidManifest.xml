@@ -22,18 +22,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--audiok-->
         <activity
             android:name=".audiok.AudioKActivity"
             android:exported="false" />
-        <activity
-            android:name="com.mozhimen.componentktest.navigatek.NavigateKActivity"
-            android:exported="false" />
+        <!--cameraxk-->
         <activity
             android:name="com.mozhimen.componentktest.cameraxk.CameraXKActivity"
             android:exported="false" />
+        <!--installk-->
         <activity
-            android:name="com.mozhimen.componentktest.statusbark.StatusBarKActivity"
+            android:name="com.mozhimen.componentktest.installk.InstallKActivity"
             android:exported="false" />
+        <!--navigatek-->
+        <activity
+            android:name="com.mozhimen.componentktest.navigatek.NavigateKActivity"
+            android:exported="false" />
+        <!--netk-->
         <activity
             android:name=".netk.file.NetKFileActivity"
             android:exported="false" />
@@ -43,6 +48,11 @@
         <activity
             android:name=".netk.NetKActivity"
             android:exported="false" />
+        <!--statusbark-->
+        <activity
+            android:name="com.mozhimen.componentktest.statusbark.StatusBarKActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

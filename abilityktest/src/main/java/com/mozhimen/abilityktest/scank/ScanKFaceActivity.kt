@@ -9,11 +9,11 @@ import android.util.Log
 import androidx.camera.core.ImageProxy
 import com.mozhimen.abilityktest.databinding.ActivityScankFaceBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionKCheck
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CUseFeature
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
@@ -31,11 +31,11 @@ import com.mozhimen.uicorek.viewk.ViewKOverlay
  * @Date 2023/1/3 14:46
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
-@APermissionKCheck(CPermission.CAMERA)
+@AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@APermissionCheck(CPermission.CAMERA)
 class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
-        PermissionK.initPermissions(this) {
+        ManifestKPermission.initPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {

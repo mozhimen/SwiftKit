@@ -1,8 +1,9 @@
 package com.mozhimen.basick.utilk.app
 
 import android.os.Build
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import android.util.Log
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.file.UtilKFile
 import java.io.BufferedReader
 import java.io.File
@@ -16,8 +17,10 @@ import java.io.InputStreamReader
  * @Date 2023/1/6 18:04
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.READ_EXTERNAL_STORAGE)
+@AManifestKRequire(CPermission.READ_EXTERNAL_STORAGE)
 object UtilKAppRoot {
+    private val TAG = "UtilKAppRoot>>>>>"
+
     /**
      * 判断手机是否拥有Root权限:
      * 有root权限返回true, 否则返回false
@@ -25,13 +28,12 @@ object UtilKAppRoot {
      */
     @JvmStatic
     fun isRoot(): Boolean {
-        var isRoot = false
-        try {
-            isRoot = isSuAvailable() || isBusyboxAvailable() || isWhichAvailable() || hasSuperuserApk() || isSystemBeta()
+        return try {
+            isSuAvailable() || isBusyboxAvailable() || isWhichAvailable() || hasSuperuserApk() || isSystemBeta()
         } catch (e: Exception) {
             e.printStackTrace()
-        }
-        return isRoot
+            false
+        }.also { Log.d(TAG, "isRoot: $it") }
     }
 
     /**

@@ -6,8 +6,8 @@ import android.view.*
 import androidx.activity.ComponentDialog
 import androidx.annotation.StyleRes
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.UtilKScreen.getCurrentScreenWidth
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.annors.DialogMode
@@ -24,7 +24,7 @@ import kotlin.math.roundToInt
  * @Date 2022/11/24 22:31
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.SYSTEM_ALERT_WINDOW)
+@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.BaseDialog_Style) : ComponentDialog(context, themeResId) {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private var _isHasSetWindowAttr = false

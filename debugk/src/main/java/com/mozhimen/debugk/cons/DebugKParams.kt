@@ -1,7 +1,7 @@
 package com.mozhimen.debugk.cons
 
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.exts.boolean2String
 import com.mozhimen.basick.utilk.*
 import com.mozhimen.basick.utilk.device.UtilKCamera
@@ -17,7 +17,7 @@ import com.mozhimen.debugk.annors.ADebugKParams
  * @Date 2022/5/29 10:04
  * @Version 1.0
  */
-@APermissionKRequire(
+@AManifestKRequire(
     CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE, CPermission.CAMERA,
     CPermission.ACCESS_NETWORK_STATE, CPermission.ACCESS_WIFI_STATE, CPermission.INTERNET
 )

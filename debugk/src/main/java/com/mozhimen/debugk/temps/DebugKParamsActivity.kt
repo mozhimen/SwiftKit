@@ -4,10 +4,10 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityParamsBinding
@@ -17,7 +17,7 @@ import com.mozhimen.debugk.annors.ADebugKParams
 import com.mozhimen.debugk.mos.MDebugKMethod
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
-@APermissionKRequire(
+@AManifestKRequire(
     CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE, CPermission.CAMERA,
     CPermission.ACCESS_NETWORK_STATE, CPermission.ACCESS_WIFI_STATE, CPermission.INTERNET
 )
@@ -25,7 +25,7 @@ class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {
     private val _debugParams = arrayOf(DebugKParams::class.java)
 
     override fun initData(savedInstanceState: Bundle?) {
-        PermissionK.initPermissions(this) {
+        ManifestKPermission.initPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {

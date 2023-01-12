@@ -5,8 +5,8 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import coil.imageLoader
 import coil.request.ImageRequest
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.io.InputStream
 import java.net.URL
@@ -18,7 +18,7 @@ import java.net.URL
  * @Date 2022/11/2 23:49
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.INTERNET)
+@AManifestKRequire(CPermission.INTERNET)
 object UtilKBitmapNet {
     private val _context = UtilKApplication.instance.get()
 

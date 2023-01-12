@@ -15,10 +15,10 @@ import android.view.OrientationEventListener
 import android.view.Surface
 import android.view.SurfaceHolder
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CUseFeature
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.basick.utilk.UtilKDisplay
 import com.mozhimen.componentk.camera2k.helpers.GLSurfaceRenderer
@@ -33,7 +33,7 @@ import kotlin.math.abs
  * @Date 2022/6/15 17:56
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.CAMERA,CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
 
     private val TAG = "Camera2KProxy>>>>>"
@@ -132,7 +132,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
 
     @Throws(Exception::class)
     fun openCamera(previewWidth: Int, previewHeight: Int) {
-        require(PermissionK.checkPermission(CPermission.CAMERA)) { "$TAG need camera permission" }
+        require(ManifestKPermission.checkPermission(CPermission.CAMERA)) { "$TAG need camera permission" }
         startBackgroundThread() // 对应 releaseCamera() 方法中的 stopBackgroundThread()
         try {
             _orientationEventListener.enable()

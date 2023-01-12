@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="installk_auto_accessibility_service_description">应用自动安装服务</string>
+    <string name="installk_label">InstallK程序更新</string>
+</resources>

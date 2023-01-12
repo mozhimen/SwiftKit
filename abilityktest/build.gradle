@@ -11,7 +11,7 @@ android {
         applicationId "com.mozhimen.abilityktest"
         minSdk rootProject.android.minSdk
         targetSdk rootProject.android.targetSdk
-        versionCode rootProject.android.versionCode
+        versionCode 3
         versionName rootProject.android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -19,7 +19,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

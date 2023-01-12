@@ -5,9 +5,9 @@ import android.os.Build
 import android.provider.Settings
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 
 
 /**
@@ -17,7 +17,7 @@ import com.mozhimen.basick.permissionk.annors.APermissionKRequire
  * @Date 2023/1/11 12:31
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.SYSTEM_ALERT_WINDOW)
+@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 object UtilKDialog {
     private val TAG = "UtilKDialog>>>>>"
 

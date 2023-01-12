@@ -7,6 +7,7 @@ import com.mozhimen.basicktest.stackk.StackKActivity
 import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding
 import com.mozhimen.basicktest.elemk.ElemKActivity
+import com.mozhimen.basicktest.manifestk.ManifestKActivity
 import com.mozhimen.basicktest.taskk.TaskKActivity
 
 class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
@@ -15,8 +16,8 @@ class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
         start<ElemKActivity>()
     }
 
-    fun goPermissionK(view: View) {
-        start<com.mozhimen.basicktest.permissionk.PermissionKActivity>()
+    fun goManifestK(view: View) {
+        start<ManifestKActivity>()
     }
 
     fun goStackK(view: View) {

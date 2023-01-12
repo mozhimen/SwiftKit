@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.file
 
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.net.UtilKNetDeal
 import java.io.File
 import java.io.FileOutputStream
@@ -17,7 +17,7 @@ import javax.net.ssl.HttpsURLConnection
  * @Date 2023/1/7 23:37
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
+@AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
 object UtilKFileNet {
     private const val TAG = "UtilKDownload>>>>>"
 

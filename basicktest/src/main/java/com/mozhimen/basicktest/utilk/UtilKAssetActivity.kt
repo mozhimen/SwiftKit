@@ -4,22 +4,22 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.UtilKAsset
 import com.mozhimen.basicktest.BR
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkAssetBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
-import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionKCheck
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-@APermissionKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
-@APermissionKCheck(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
+@AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
+@APermissionCheck(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
 class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
     private lateinit var _adapterKRecycler: RecyclerKVBAdapter<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
@@ -27,7 +27,7 @@ class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
     )
 
     override fun initData(savedInstanceState: Bundle?) {
-        PermissionK.initPermissions(this) {
+        ManifestKPermission.initPermissions(this) {
             if (it) {
                 vb.utilkAssetRecycler.layoutManager = LinearLayoutManager(this)
                 _adapterKRecycler = RecyclerKVBAdapter( _logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)

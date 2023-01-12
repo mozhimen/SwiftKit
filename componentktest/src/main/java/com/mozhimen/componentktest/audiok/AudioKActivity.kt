@@ -8,12 +8,12 @@ import android.view.View
 import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.animk.builder.AnimKBuilder
-import com.mozhimen.basick.animk.builder.temps.TranslationType
+import com.mozhimen.basick.animk.builders.AnimKBuilder
+import com.mozhimen.basick.animk.builders.temps.TranslationType
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.permissionk.annors.APermissionKCheck
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.componentk.audiok.AudioK
@@ -28,8 +28,8 @@ import com.mozhimen.uicorek.layoutk.slider.mos.MRod
 import com.mozhimen.uicorek.popwink.PopwinKLifecycle
 import kotlin.math.roundToInt
 
-@APermissionKRequire(CPermission.WAKE_LOCK)
-@APermissionKCheck(CPermission.WAKE_LOCK)
+@AManifestKRequire(CPermission.WAKE_LOCK)
+@APermissionCheck(CPermission.WAKE_LOCK)
 class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
     private val _audioList = arrayListOf(
         MAudioK("9b94d721ed244fa892b15112bc11a3ce","http://192.168.2.6/construction-sites-images/voice/20221018//9b94d721ed244fa892b15112bc11a3ce.wav",0),

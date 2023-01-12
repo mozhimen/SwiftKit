@@ -1,8 +1,8 @@
 package com.mozhimen.componentk.netk.file
 
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.componentk.netk.file.download.FileDownloadTaskMgr
 
 
@@ -13,7 +13,9 @@ import com.mozhimen.componentk.netk.file.download.FileDownloadTaskMgr
  * @Date 2022/11/1 14:12
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.INTERNET, CPermission.READ_EXTERNAL_STORAGE, CPermission.WRITE_EXTERNAL_STORAGE)
+@AManifestKRequire(
+    CPermission.INTERNET, CPermission.READ_EXTERNAL_STORAGE, CPermission.WRITE_EXTERNAL_STORAGE
+)
 class NetKFile(owner: LifecycleOwner) {
     companion object {
         private const val TAG = "NetKFile>>>>>"

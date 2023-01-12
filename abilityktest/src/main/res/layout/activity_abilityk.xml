@@ -17,19 +17,13 @@
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goScanK"
-                android:text="ScanK"
+                android:text="goScanK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
                 android:onClick="goTransK"
-                android:text="TransK"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
-                android:onClick="goOpenCVK"
-                android:text="OpenCVK"
+                android:text="goTransK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         </LinearLayout>

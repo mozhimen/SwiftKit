@@ -5,18 +5,18 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.*
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.file.UtilKFile
+import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import top.wuhaojie.installerlibrary.AutoInstaller
 import kotlin.coroutines.resume
 
 /**
@@ -26,13 +26,15 @@ import kotlin.coroutines.resume
  * @Date 2022/2/24 12:15
  * @Version 1.0
  */
-@APermissionKRequire(
-    CPermission.INTERNET,
+@AManifestKRequire(
     CPermission.READ_EXTERNAL_STORAGE,
     CPermission.WRITE_EXTERNAL_STORAGE,
+    CPermission.INTERNET,
     CPermission.REQUEST_INSTALL_PACKAGES,
     CPermission.INSTALL_PACKAGES,
-    CPermission.READ_INSTALL_SESSIONS
+    CPermission.READ_INSTALL_SESSIONS,
+    CPermission.REPLACE_EXISTING_PACKAGE,
+    CPermission.BIND_ACCESSIBILITY_SERVICE
 )
 class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {
@@ -47,7 +49,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
 
     private val _netKFile by lazy { NetKFile(owner) }
 
-    suspend fun updateApk(remoteVersionCode: Int, apkUrl: String, activity: Activity) {
+    suspend fun updateApk(remoteVersionCode: Int, apkUrl: String) {
         withContext(Dispatchers.IO) {
             //check version
             if (!isNeedUpdate(remoteVersionCode)) {
@@ -69,7 +71,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
             }
             //install new apk
             Log.d(TAG, "updateApk: installApk start")
-            installApk(apkPathWithName, activity)
+            installApk(apkPathWithName)
             _hotupdateKListener?.onComplete()
         }
     }
@@ -129,9 +131,9 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      * 安装更新
      * @param apkPathWithName String
      */
-    suspend fun installApk(apkPathWithName: String, activity: Activity) {
+    suspend fun installApk(apkPathWithName: String) {
         withContext(Dispatchers.Main) {
-            AutoInstaller.getDefault(activity).install(apkPathWithName)
+            InstallK.instance.install(apkPathWithName)
         }
     }
 }

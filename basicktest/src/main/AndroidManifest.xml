@@ -61,9 +61,12 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <!-- permissionk -->
+        <!-- manifestk -->
         <activity
-            android:name=".permissionk.PermissionKActivity"
+            android:name=".manifestk.ManifestKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".manifestk.permission.ManifestKPermissionActivity"
             android:exported="false" />
         <!-- stackk -->
         <activity

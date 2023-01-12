@@ -3,18 +3,18 @@ package com.mozhimen.componentktest.netk.http
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionKCheck
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CApplication
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.componentktest.databinding.ActivityNetkHttpBinding
 
-@APermissionKRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
-@APermissionKCheck(CPermission.INTERNET)
+@AManifestKRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
+@APermissionCheck(CPermission.INTERNET)
 class NetKHttpActivity : BaseActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
-        PermissionK.initPermissions(this) {
+        ManifestKPermission.initPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             }

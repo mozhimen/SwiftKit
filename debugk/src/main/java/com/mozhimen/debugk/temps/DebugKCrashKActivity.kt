@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.debugk.R
@@ -45,7 +45,7 @@ path="." />
  * @Date 2022/5/25 23:00
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
+@AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
     private val _dataSets = ArrayList<MDebugKCrashK>()
     override fun initView(savedInstanceState: Bundle?) {
@@ -71,7 +71,7 @@ class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
                     intent.putExtra("subject", "")
                     intent.putExtra("body", "")
 
-                    val uri = UtilKFile.file2Uri(itemData.file)
+                    val uri = UtilKFile.file2Uri(itemData.file, packageName)
                     intent.putExtra(Intent.EXTRA_STREAM, uri)//添加文件
                     if (itemData.file.name.endsWith(".txt")) {
                         intent.type = "text/plain"//纯文本

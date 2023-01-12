@@ -5,14 +5,14 @@ import android.os.Bundle
 import com.mozhimen.abilityk.transk.TransKTTS
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionKCheck
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 
-@APermissionKRequire(CPermission.FOREGROUND_SERVICE)
-@APermissionKCheck(CPermission.FOREGROUND_SERVICE)
+@AManifestKRequire(CPermission.FOREGROUND_SERVICE)
+@APermissionCheck(CPermission.FOREGROUND_SERVICE)
 class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
     private val _transKTTS by lazy {
         TransKTTS(this)
@@ -20,7 +20,7 @@ class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
-            PermissionK.initPermissions(this, arrayOf(CPermission.FOREGROUND_SERVICE)) {
+            ManifestKPermission.initPermissions(this, arrayOf(CPermission.FOREGROUND_SERVICE)) {
                 super.initData(savedInstanceState)
             }
         } else {

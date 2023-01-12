@@ -6,12 +6,12 @@ import android.speech.tts.TextToSpeech
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.MText2SpeechConfig
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.context.UtilKApplication
-import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CQuery
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CQuery
 import com.mozhimen.basick.utilk.UtilKPermission
 import java.util.*
 
@@ -31,7 +31,7 @@ import java.util.*
  * @Date 2022/6/5 21:08
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.FOREGROUND_SERVICE, CQuery.TTS_SERVICE)
+@AManifestKRequire(CPermission.FOREGROUND_SERVICE, CQuery.TTS_SERVICE)
 class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) :
     DefaultLifecycleObserver where T : LifecycleOwner, T : Activity {
     private var _transKText2Speech: TextToSpeech? = null
@@ -40,7 +40,7 @@ class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Loc
 
     init {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
-            if (!PermissionK.checkPermission(CPermission.FOREGROUND_SERVICE)) {
+            if (!ManifestKPermission.checkPermission(CPermission.FOREGROUND_SERVICE)) {
                 UtilKPermission.openSettingSelf(owner)
             }
         }

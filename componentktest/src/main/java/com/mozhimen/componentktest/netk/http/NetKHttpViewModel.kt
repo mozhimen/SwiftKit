@@ -3,9 +3,9 @@ package com.mozhimen.componentktest.netk.http
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CApplication
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CApplication
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.componentk.netk.http.helpers.NetKHelper
 import com.mozhimen.componentk.netk.http.helpers.asNetKRes
 import com.mozhimen.componentktest.netk.http.customs.ApiFactory
@@ -21,7 +21,7 @@ import kotlin.coroutines.resume
  * @Date 2022/5/11 23:44
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
+@AManifestKRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
 class NetKHttpViewModel : BaseViewModel() {
 
     val uiWeather2 = MutableLiveData("")

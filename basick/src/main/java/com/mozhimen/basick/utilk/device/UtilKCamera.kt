@@ -3,9 +3,9 @@ package com.mozhimen.basick.utilk.device
 import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.os.Build
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.context.UtilKApplication
 
 /**
@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Date 2022/6/7 19:09
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.CAMERA)
+@AManifestKRequire(CPermission.CAMERA)
 object UtilKCamera {
     private val _context = UtilKApplication.instance.get()
     /**

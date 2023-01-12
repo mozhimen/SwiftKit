@@ -12,9 +12,9 @@ import androidx.camera.core.Preview
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CUseFeature
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
@@ -37,7 +37,7 @@ import kotlin.properties.Delegates
  * @Date 2022/1/3 0:22
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.CAMERA,CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 class CameraXKLayout @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

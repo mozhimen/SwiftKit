@@ -4,8 +4,8 @@ import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.Px
-import com.mozhimen.basick.permissionk.cons.CPermission
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
 import com.mozhimen.basick.utilk.view.imageloader.mos.BlurTransformation
 import com.mozhimen.basick.utilk.view.imageloader.mos.CropTransformation
@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.view.imageloader.mos.CropTransformation
  * @Date 2022/11/6 14:54
  * @Version 1.0
  */
-@APermissionKRequire(CPermission.INTERNET)
+@AManifestKRequire(CPermission.INTERNET)
 class ExtsViewImageLoader
 
 /**

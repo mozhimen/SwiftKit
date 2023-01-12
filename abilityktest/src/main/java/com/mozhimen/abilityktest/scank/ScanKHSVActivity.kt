@@ -11,26 +11,25 @@ import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.permissionk.cons.CPermission
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.exts.cropBitmap
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
-import com.mozhimen.basick.permissionk.PermissionK
-import com.mozhimen.basick.permissionk.annors.APermissionKCheck
-import com.mozhimen.basick.permissionk.annors.APermissionKRequire
-import com.mozhimen.basick.permissionk.cons.CUseFeature
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
-import com.mozhimen.opencvk.OpenCVK
 import java.util.concurrent.locks.ReentrantLock
 
-@APermissionKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
-@APermissionKCheck(CPermission.CAMERA)
+@AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
+@APermissionCheck(CPermission.CAMERA)
 class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
-        PermissionK.initPermissions(this) {
+        ManifestKPermission.initPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
@@ -41,7 +40,6 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
 
     @Throws(Exception::class)
     override fun initView(savedInstanceState: Bundle?) {
-        require(OpenCVK.initSDK()) { "$TAG opencv init fail" }
         initCamera()
     }
 
