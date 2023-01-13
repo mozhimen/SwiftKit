@@ -1,6 +1,5 @@
 package com.mozhimen.abilityk.hotupdatek
 
-import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
@@ -8,7 +7,9 @@ import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
-import com.mozhimen.basick.utilk.*
+import com.mozhimen.basick.utilk.UtilKDataBus
+import com.mozhimen.basick.utilk.UtilKDate
+import com.mozhimen.basick.utilk.UtilKPackage
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.componentk.installk.InstallK
@@ -36,7 +37,8 @@ import kotlin.coroutines.resume
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE,
     CPermission.BIND_ACCESSIBILITY_SERVICE,
-    CManifest.PROVIDER
+    CManifest.PROVIDER,
+    CManifest.SERVICE
 )
 class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {
@@ -50,6 +52,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
     }
 
     private val _netKFile by lazy { NetKFile(owner) }
+    private val _installK by lazy { InstallK() }
 
     suspend fun updateApk(remoteVersionCode: Int, apkUrl: String) {
         withContext(Dispatchers.IO) {
@@ -135,7 +138,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      */
     suspend fun installApk(apkPathWithName: String) {
         withContext(Dispatchers.Main) {
-            InstallK.instance.install(apkPathWithName)
+            _installK.install(apkPathWithName)
         }
     }
 }

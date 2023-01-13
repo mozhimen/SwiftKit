@@ -8,13 +8,13 @@ import com.mozhimen.app.BR
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
-import com.mozhimen.componentk.statusbark.annors.AStatusBarK
+import com.mozhimen.basick.statusbark.annors.AStatusBarK
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
-import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
+import com.mozhimen.basick.statusbark.annors.AStatusBarKType
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapterStuffed
 import kotlin.math.abs
 
-@AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
+@com.mozhimen.basick.statusbark.annors.AStatusBarK(statusBarType = com.mozhimen.basick.statusbark.annors.AStatusBarKType.FULL_SCREEN)
 class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
 
     var mScrollY = 0

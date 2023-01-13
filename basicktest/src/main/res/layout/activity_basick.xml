@@ -16,6 +16,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
+                android:onClick="goAnimK"
+                android:text="goAnimK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
                 android:onClick="goElemK"
                 android:text="goElemK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
@@ -30,6 +36,12 @@
                 style="@style/BtnStyle"
                 android:onClick="goStackK"
                 android:text="goStackK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
+                android:onClick="goStatusBarK"
+                android:text="goStatusBarK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton

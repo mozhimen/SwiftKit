@@ -8,7 +8,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.componentk.statusbark.StatusBarK
+import com.mozhimen.basick.statusbark.StatusBarK
 import com.mozhimen.debugk.databinding.DebugkActivityTabkTopBinding
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
@@ -28,7 +28,7 @@ abstract class BaseDebugKTabKTopActivity : BaseActivityVB<DebugkActivityTabkTopB
     abstract fun getTabList(): ArrayList<DebugKUITabTopItem>
 
     override fun initFlag() {
-        StatusBarK.initStatusBar(this)
+        com.mozhimen.basick.statusbark.StatusBarK.initStatusBar(this)
     }
 
     override fun initView(savedInstanceState: Bundle?) {

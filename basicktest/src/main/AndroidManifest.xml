@@ -61,6 +61,7 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.mozhimen.basicktest.fileProvider"
@@ -68,7 +69,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/files_path"  />
+                android:resource="@xml/files_path" />
         </provider>
         <!-- manifestk -->
         <activity
@@ -80,7 +81,8 @@
         <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
-            android:exported="false" /> <!-- taskk -->
+            android:exported="false" />
+        <!-- taskk -->
         <activity
             android:name=".taskk.TaskKExecutorActivity"
             android:exported="false" />
@@ -92,6 +94,10 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKAsyncActivity"
+            android:exported="false" />
+        <!--statusbark-->
+        <activity
+            android:name=".statusbark.StatusBarKActivity"
             android:exported="false" />
         <!-- utilk -->
         <activity

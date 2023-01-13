@@ -9,7 +9,6 @@ import com.mozhimen.componentktest.databinding.ActivityComponentkBinding
 import com.mozhimen.componentktest.installk.InstallKActivity
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
 import com.mozhimen.componentktest.netk.NetKActivity
-import com.mozhimen.componentktest.statusbark.StatusBarKActivity
 
 class ComponentKActivity : BaseActivityVB<ActivityComponentkBinding>() {
 
@@ -23,10 +22,6 @@ class ComponentKActivity : BaseActivityVB<ActivityComponentkBinding>() {
 
     fun goInstallK(view: View) {
         start<InstallKActivity>()
-    }
-
-    fun goStatusBarK(view: View) {
-        start<StatusBarKActivity>()
     }
 
     fun goNetK(view: View) {

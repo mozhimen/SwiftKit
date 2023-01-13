@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.statusbark.annors
+package com.mozhimen.basick.statusbark.annors
 
 import androidx.annotation.IntDef
 

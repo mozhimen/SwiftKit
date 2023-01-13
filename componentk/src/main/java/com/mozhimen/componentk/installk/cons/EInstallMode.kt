@@ -8,7 +8,8 @@ package com.mozhimen.componentk.installk.cons
  * @Version 1.0
  */
 enum class EInstallMode {
-    ROOT_ONLY,
-    AUTO_ONLY,
-    BOTH
+    AUTO,//自适配
+    ROOT,//root安装
+    SMART,//智能安装
+    HAND//手动安装
 }

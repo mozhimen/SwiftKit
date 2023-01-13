@@ -15,4 +15,10 @@ object CCons {
         CPermission.READ_EXTERNAL_STORAGE,
         CPermission.WRITE_EXTERNAL_STORAGE
     )
+
+    const val MSG_DOWNLOAD_START = -1
+    const val MSG_INSTALL_START = 0
+    const val MSG_INSTALL_FINISH = 1
+    const val MSG_INSTALL_FAIL = 2
+    const val MSG_NEED_PERMISSION = 3
 }

@@ -1,11 +1,11 @@
-package com.mozhimen.componentk.statusbark
+package com.mozhimen.basick.statusbark
 
 import android.app.Activity
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.UtilKTheme
-import com.mozhimen.componentk.statusbark.annors.AStatusBarK
-import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
-import com.mozhimen.componentk.statusbark.helpers.StatusBarKHelper
+import com.mozhimen.basick.statusbark.annors.AStatusBarK
+import com.mozhimen.basick.statusbark.annors.AStatusBarKType
+import com.mozhimen.basick.statusbark.helpers.StatusBarKHelper
 
 /**
  * @ClassName StatusBarK

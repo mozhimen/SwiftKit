@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.statusbark.helpers
+package com.mozhimen.basick.statusbark.helpers
 
 import android.app.Activity
 import android.os.Build

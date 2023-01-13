@@ -18,6 +18,7 @@ import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
+import com.mozhimen.componentk.installk.cons.EInstallMode
 import com.mozhimen.componentk.installk.cons.EPermissionType
 import com.mozhimen.componentktest.databinding.ActivityInstallkBinding
 import kotlinx.coroutines.Dispatchers
@@ -41,7 +42,8 @@ import kotlinx.coroutines.launch
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE,
     CPermission.BIND_ACCESSIBILITY_SERVICE,
-    CManifest.PROVIDER
+    CManifest.PROVIDER,
+    CManifest.SERVICE
 )
 @APermissionCheck(
     CPermission.READ_EXTERNAL_STORAGE,
@@ -51,6 +53,7 @@ import kotlinx.coroutines.launch
 )
 class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
     private val _apkPathWithName by lazy { this.filesDir.absolutePath + "/installk/componentktest.apk" }
+    private val _installK by lazy { InstallK() }
 
     override fun initView(savedInstanceState: Bundle?) {
         vb.installkBtn.setOnClickListener {
@@ -59,8 +62,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                     UtilKAsset.asset2File("componentktest.apk", _apkPathWithName, false)
                 }
                 delay(500)
-                Log.d(TAG, "onInstallApp: start install")
-                InstallK.instance.setInstallStateChangeListener(object : IInstallStateChangedListener {
+                _installK.setInstallMode(EInstallMode.SMART).setInstallSmartService(InstallKService::class.java).setInstallStateChangeListener(object : IInstallStateChangedListener {
                     override fun onInstallStart() {
                         Log.d(TAG, "onInstallStart:")
                     }
@@ -74,22 +76,20 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                     }
 
                     override fun onNeedPermissions(type: EPermissionType) {
-                        Log.w(TAG, "onNeedPermissions: ")
-                        lifecycleScope.launch(Dispatchers.Main){
-                            when (type) {
-                                EPermissionType.COMMON -> {
-                                    ManifestKPermission.initPermissions(this@InstallKActivity, onSuccess = { "权限申请成功".showToast() })
-                                }
-                                EPermissionType.INSTALL -> {
-                                    if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
-                                        UtilKAppInstall.openSettingAppInstall(this@InstallKActivity)
-                                    }
-                                }
-                                EPermissionType.ACCESSIBILITY -> {
-                                    //UtilKPermission.openSettingAccessibility(this@InstallKActivity)
-                                }
-                                else -> {}
+                        Log.w(TAG, "onNeedPermissions: $type")
+                        when (type) {
+                            EPermissionType.COMMON -> {
+                                ManifestKPermission.initPermissions(this@InstallKActivity, onSuccess = { "权限申请成功".showToast() })
                             }
+                            EPermissionType.INSTALL -> {
+                                if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
+                                    UtilKAppInstall.openSettingAppInstall(this@InstallKActivity)
+                                }
+                            }
+                            EPermissionType.ACCESSIBILITY -> {
+                                UtilKPermission.openSettingAccessibility(this@InstallKActivity)
+                            }
+                            else -> {}
                         }
                     }
 

@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.statusbark.annors
+package com.mozhimen.basick.statusbark.annors
 
 /**
  * @ClassName StatusBarAnnor

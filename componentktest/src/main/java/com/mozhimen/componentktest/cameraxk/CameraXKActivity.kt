@@ -15,13 +15,13 @@ import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
-import com.mozhimen.componentk.statusbark.annors.AStatusBarK
-import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
+import com.mozhimen.basick.statusbark.annors.AStatusBarK
+import com.mozhimen.basick.statusbark.annors.AStatusBarKType
 import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 @APermissionCheck(CPermission.CAMERA)
-@AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
+@com.mozhimen.basick.statusbark.annors.AStatusBarK(statusBarType = com.mozhimen.basick.statusbark.annors.AStatusBarKType.FULL_SCREEN)
 class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 
     /*private val outputDirectory: String by lazy {

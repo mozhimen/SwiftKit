@@ -32,7 +32,7 @@ android:enabled="true">
  * @Date 2022/6/13 12:04
  * @Version 1.0
  */
-@ADescription("you should set your target sdk as 25, because android 8 later all limited",)
+@ADescription("you should set your target sdk as 25, because android 8 later all limited")
 @TargetApi(CVersionCode.V_25_71_N1)
 open class BaseInstallObserverReceiver() : BroadcastReceiver() {
     protected val TAG = "${this::class.java.simpleName}>>>>>"

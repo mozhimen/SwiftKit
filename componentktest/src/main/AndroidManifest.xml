@@ -43,6 +43,29 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/files_path" />
         </provider>
+        <service
+            android:name=".installk.InstallKService"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/install_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/installk_smart_accessibility_service_config" />
+        </service>
+        <receiver
+            android:name=".installk.InstallReceiver" android:exported="true"
+            android:enabled="true">
+            <intent-filter android:priority="100">
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
         <!--navigatek-->
         <activity
             android:name="com.mozhimen.componentktest.navigatek.NavigateKActivity"
@@ -56,10 +79,6 @@
             android:exported="false" />
         <activity
             android:name=".netk.NetKActivity"
-            android:exported="false" />
-        <!--statusbark-->
-        <activity
-            android:name="com.mozhimen.componentktest.statusbark.StatusBarKActivity"
             android:exported="false" />
 
     </application>

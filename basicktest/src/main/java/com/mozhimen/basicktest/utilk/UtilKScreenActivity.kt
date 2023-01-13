@@ -5,8 +5,8 @@ import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basicktest.databinding.ActivityUtilkScreenBinding
-import com.mozhimen.componentk.statusbark.annors.AStatusBarK
-import com.mozhimen.componentk.statusbark.annors.AStatusBarKType
+import com.mozhimen.basick.statusbark.annors.AStatusBarK
+import com.mozhimen.basick.statusbark.annors.AStatusBarKType
 
 
 /**

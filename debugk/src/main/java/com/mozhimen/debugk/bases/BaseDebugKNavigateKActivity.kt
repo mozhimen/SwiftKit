@@ -5,7 +5,6 @@ import androidx.navigation.NavController
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.componentk.navigatek.NavigateK
-import com.mozhimen.componentk.statusbark.StatusBarK
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityNavigatekBinding
 
@@ -31,7 +30,7 @@ abstract class BaseDebugKNavigateKActivity : BaseActivityVBVM<DebugkActivityNavi
     abstract fun getFragments(): List<Class<*>>
 
     override fun initFlag() {
-        StatusBarK.initStatusBar(this)
+        com.mozhimen.basick.statusbark.StatusBarK.initStatusBar(this)
     }
 
     override fun initData(savedInstanceState: Bundle?) {

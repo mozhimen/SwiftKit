@@ -2,22 +2,20 @@ package com.mozhimen.componentk.installk
 
 import android.os.*
 import android.util.Log
-import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
-import com.mozhimen.componentk.installk.cons.CCons
-import com.mozhimen.componentk.installk.cons.EInstallMode
-import com.mozhimen.componentk.installk.cons.EPermissionType
-import com.mozhimen.componentk.installk.helpers.InstallKAutoService
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.app.UtilKAppRoot
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.file.UtilKFile
-import com.mozhimen.basick.utilk.file.UtilKFileNet
+import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
+import com.mozhimen.componentk.installk.cons.CCons
+import com.mozhimen.componentk.installk.cons.EInstallMode
+import com.mozhimen.componentk.installk.cons.EPermissionType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.*
@@ -31,57 +29,48 @@ import java.io.*
  */
 @AManifestKRequire(
     CPermission.READ_EXTERNAL_STORAGE,
-    CPermission.WRITE_EXTERNAL_STORAGE,
-    CPermission.INTERNET,
     CPermission.REQUEST_INSTALL_PACKAGES,
     CPermission.INSTALL_PACKAGES,
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE,
     CPermission.BIND_ACCESSIBILITY_SERVICE,
-    CManifest.PROVIDER
+    CManifest.PROVIDER,
+    CManifest.SERVICE
 )
 class InstallK {
 
     companion object {
-        private const val TAG = "InstallKBuilder>>>>>"
-
-        @JvmStatic
-        val instance = InstallKBuilderProvider.holder
-
-        class Builder {
-            private var _installMode: EInstallMode = EInstallMode.BOTH
-            private var _installStateChangedListener: IInstallStateChangedListener? = null
-            private var _installCacheDirectory = Environment.getExternalStorageDirectory().absolutePath
-
-            fun setInstallMode(mode: EInstallMode): Builder {
-                _installMode = mode
-                return this
-            }
-
-            fun setInstallStateChangedListener(listener: IInstallStateChangedListener?): Builder {
-                _installStateChangedListener = listener
-                return this
-            }
-
-            fun setInstallCacheDirectory(directory: String): Builder {
-                _installCacheDirectory = directory
-                return this
-            }
-
-            fun build(): InstallK {
-                val installKBuilder = InstallK()
-                installKBuilder._installMode = _installMode
-                installKBuilder._installStateChangeListener = _installStateChangedListener
-                installKBuilder._tempApkPathWithName = _installCacheDirectory
-                return installKBuilder
-            }
-        }
+        private const val TAG = "InstallK>>>>>"
     }
 
     private val _context = UtilKApplication.instance.get()
-    private var _tempApkPathWithName = "${_context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)}/installk/update.apk"
-    private var _installMode = EInstallMode.BOTH
+
+    private var _tempApkPathWithName = "${_context.filesDir.absolutePath}/installk/update.apk"
+    private var _installMode = EInstallMode.AUTO
     private var _installStateChangeListener: IInstallStateChangedListener? = null
+    private var _smartServiceClazz: Class<*>? = null
+    private val _handler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            when (msg.what) {
+                CCons.MSG_DOWNLOAD_START -> {
+                    _installStateChangeListener?.onDownloadStart()
+                }
+                CCons.MSG_INSTALL_START -> {
+                    _installStateChangeListener?.onInstallStart()
+                }
+                CCons.MSG_INSTALL_FINISH -> {
+                    _installStateChangeListener?.onInstallFinish()
+                }
+                CCons.MSG_INSTALL_FAIL -> {
+                    _installStateChangeListener?.onInstallFail(msg.obj as String)
+                }
+                CCons.MSG_NEED_PERMISSION -> {
+                    _installStateChangeListener?.onNeedPermissions(msg.obj as EPermissionType)
+                }
+            }
+        }
+    }
 
     /**
      * 设置监听器
@@ -93,78 +82,127 @@ class InstallK {
     }
 
     /**
-     * 下载并安装
-     * @param apkUrl String
+     * 设置安装模式
+     * @param mode EInstallMode
+     * @return InstallK
      */
-    suspend fun downloadFromUrlAndInstall(apkUrl: String) {
-        try {
-            _installStateChangeListener?.onDownloadStart()
-            var apkPathWithName: String
-            withContext(Dispatchers.IO) {
-                apkPathWithName = UtilKFileNet.downLoadFile(apkUrl, _tempApkPathWithName)
-            }
-            installByMode(apkPathWithName)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e(TAG, "downloadFromUrlAndInstall: ${e.message}")
-            _installStateChangeListener?.onInstallFail(e.message)
-        } finally {
-            _installStateChangeListener?.onInstallFinish()
-        }
+    fun setInstallMode(mode: EInstallMode): InstallK {
+        _installMode = mode
+        return this
     }
 
+    /**
+     * 设置智能安装服务
+     * @param serviceClazz Class<*>
+     * @return InstallK
+     */
+    fun setInstallSmartService(serviceClazz: Class<*>): InstallK {
+        _smartServiceClazz = serviceClazz
+        return this
+    }
+
+    /**
+     * 安装
+     * @param apkPathWithName String
+     */
     suspend fun install(apkPathWithName: String) {
-        try {
-            _installStateChangeListener?.onInstallStart()
-            installByMode(apkPathWithName)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e(TAG, "install: ${e.message}")
-            _installStateChangeListener?.onInstallFail(e.message)
-        } finally {
-            _installStateChangeListener?.onInstallFinish()
+        withContext(Dispatchers.Main) {
+            try {
+                _handler.sendEmptyMessage(CCons.MSG_INSTALL_START)
+                installByMode(apkPathWithName)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Log.e(TAG, "install: ${e.message}")
+                _handler.sendMessage(Message().apply {
+                    what = CCons.MSG_INSTALL_FAIL
+                    obj = e.message ?: ""
+                })
+            } finally {
+                _handler.sendEmptyMessage(CCons.MSG_INSTALL_FINISH)
+            }
         }
     }
 
     @Throws(Exception::class)
-    private suspend fun installByMode(apkPathWithName: String) {
-        require(apkPathWithName.isNotEmpty() && apkPathWithName.endsWith(".apk")) { "$TAG not a correct apk file path" }
+    private fun installByMode(apkPathWithName: String) {
+        require(apkPathWithName.isNotEmpty() && apkPathWithName.endsWith(".apk")) { "$TAG $apkPathWithName not a correct apk file path" }
+        require(UtilKFile.isFileExist(apkPathWithName)) { "$TAG $apkPathWithName is not exist" }
         if (!ManifestKPermission.checkPermissions(CCons.PERMISSIONS)) {
             Log.w(TAG, "installByMode: onNeedPermissions PERMISSIONS")
-            _installStateChangeListener?.onNeedPermissions(EPermissionType.COMMON)
+            _handler.sendMessage(Message().apply {
+                what = CCons.MSG_NEED_PERMISSION
+                obj = EPermissionType.COMMON
+            })
             return
         }
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable(_context)) {        // 允许安装应用
+        if (_context.applicationInfo.targetSdkVersion >= CVersionCode.V_26_8_O && Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable(_context)) {        // 允许安装应用
             Log.w(TAG, "installByMode: onNeedPermissions isAppInstallsPermissionEnable false")
-            _installStateChangeListener?.onNeedPermissions(EPermissionType.INSTALL)
+            _handler.sendMessage(Message().apply {
+                what = CCons.MSG_NEED_PERMISSION
+                obj = EPermissionType.INSTALL
+            })
             return
         }
 
         when (_installMode) {
-            EInstallMode.BOTH -> if (!UtilKAppRoot.isRoot() || !UtilKAppInstall.installRoot(apkPathWithName)) installByAutoMode(apkPathWithName).also {
-                Log.d(TAG, "installByMode: start installByAutoMode")
+            EInstallMode.AUTO -> {
+                if (UtilKAppRoot.isRoot() && UtilKAppInstall.installRoot(apkPathWithName)) {
+                    Log.d(TAG, "installByMode: AUTO as ROOT success")
+                    return
+                }
+                if (_smartServiceClazz != null && UtilKPermission.isAccessibilityPermissionEnable(_context, _smartServiceClazz!!)) {
+                    UtilKAppInstall.installAuto(apkPathWithName)
+                    Log.d(TAG, "installByMode: AUTO as SMART success")
+                    return
+                }
+                UtilKAppInstall.installAuto(apkPathWithName)
             }
-            EInstallMode.ROOT_ONLY -> UtilKAppInstall.installRoot(apkPathWithName)
-            EInstallMode.AUTO_ONLY -> installByAutoMode(apkPathWithName)
+            EInstallMode.ROOT -> {
+                require(UtilKAppRoot.isRoot()) { "$TAG this device has not root" }
+                UtilKAppInstall.installRoot(apkPathWithName)
+                Log.d(TAG, "installByMode: ROOT success")
+            }
+            EInstallMode.SMART -> {
+                requireNotNull(_smartServiceClazz) { "$TAG smart service must not be null" }
+                if (!UtilKPermission.isAccessibilityPermissionEnable(_context, _smartServiceClazz!!)) {
+                    Log.w(TAG, "installByMode: SMART isAccessibilityPermissionEnable false")
+                    _handler.sendMessage(Message().apply {
+                        what = CCons.MSG_NEED_PERMISSION
+                        obj = EPermissionType.ACCESSIBILITY
+                    })
+                    return
+                }
+                UtilKAppInstall.installAuto(apkPathWithName)
+                Log.d(TAG, "installByMode: SMART success")
+            }
+            EInstallMode.HAND -> {
+                UtilKAppInstall.installAuto(apkPathWithName)
+                Log.d(TAG, "installByMode: HAND success")
+            }
         }
     }
 
-    private suspend fun installByAutoMode(apkPathWithName: String) {
-        withContext(Dispatchers.Main) {
-            if (!UtilKFile.isFileExist(apkPathWithName)) {
-                Log.e(TAG, "installByAutoMode apk file not exists, path: $apkPathWithName")
-                _installStateChangeListener?.onInstallFail("apk file not exists")
-                return@withContext
-            }
-//            if (!UtilKPermission.isAccessibilityPermissionEnable(_context, InstallKAutoService::class.java)) {
-//                Log.w(TAG, "installByMode: onNeedPermissions isAccessibilityPermissionEnable false")
-//                _installStateChangeListener?.onNeedPermissions(EPermissionType.ACCESSIBILITY)
+//    /**
+//     * 下载并安装
+//     * @param apkUrl String
+//     */
+//    suspend fun downloadFromUrlAndInstall(apkUrl: String) {
+//        try {
+//            _handler.sendEmptyMessage(CCons.MSG_DOWNLOAD_START)
+//            var apkPathWithName: String
+//            withContext(Dispatchers.IO) {
+//                apkPathWithName = UtilKFileNet.downLoadFile(apkUrl, _tempApkPathWithName)
 //            }
-            UtilKAppInstall.installAuto(apkPathWithName)
-        }
-    }
-
-    private object InstallKBuilderProvider {
-        val holder = InstallK()
-    }
+//            installByMode(apkPathWithName)
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//            Log.e(TAG, "downloadFromUrlAndInstall: ${e.message}")
+//            _handler.sendMessage(Message().apply {
+//                what = CCons.MSG_INSTALL_FAIL
+//                obj = e.message ?: ""
+//            })
+//        } finally {
+//            _handler.sendEmptyMessage(CCons.MSG_INSTALL_FINISH)
+//        }
+//    }
 }
