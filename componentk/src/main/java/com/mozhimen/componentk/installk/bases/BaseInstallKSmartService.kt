@@ -34,23 +34,21 @@ android:resource="@xml/installk_smart_accessibility_service_config" />
  */
 @AManifestKRequire(CPermission.BIND_ACCESSIBILITY_SERVICE)
 open class BaseInstallKSmartService : AccessibilityService() {
-    companion object {
-        private const val TAG = "InstallKSmartService>>>>>"
-    }
-
+    private val TAG = "${this::class.java.simpleName}>>>>>"
     private var _handledMap: MutableMap<Int, Boolean?> = HashMap()
 
     @SuppressLint("LongLogTag")
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
-//        if (!event.packageName.toString().contains("packageinstaller")) {            //不写完整包名，是因为某些手机(如小米)安装器包名是自定义的
-//            return
-//        }
+        val packageName = event.packageName.toString()
+        if (!packageName.contains("packageinstaller") && !packageName.contains("accessibility") && !packageName.contains("settings")) {            //不写完整包名，是因为某些手机(如小米)安装器包名是自定义的
+            return
+        }
 
         val nodeInfo = event.source
         if (nodeInfo != null) {
             val eventType = event.eventType
             if (eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED || eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED) {
-                Log.d(TAG, "onAccessibilityEvent: nodeInfo $nodeInfo")
+                Log.d(TAG, "onAccessibilityEvent: nodeInfo packageName ${nodeInfo.packageName} clazzName ${nodeInfo.className}")
                 iterateNodesAndHandle(nodeInfo)
             }
         } else {
@@ -77,7 +75,9 @@ open class BaseInstallKSmartService : AccessibilityService() {
                 val nodeContent = nodeInfo.text?.toString() ?: ""
                 Log.v(TAG, "iterateNodesAndHandle button content $nodeContent")
                 if (nodeContent.isNotEmpty() && nodeContent.length <= 4 && (
-                            "重新安装" == nodeContent || "继续安装" == nodeContent || "安装" == nodeContent ||
+                            "更新" == nodeContent || "设置" == nodeContent ||//SAMSUNG
+                                    "继续" == nodeContent || "继续更新" == nodeContent ||//XIAOMI
+                                    "重新安装" == nodeContent || "继续安装" == nodeContent || "安装" == nodeContent ||//OPPO
                                     "打开" == nodeContent || "打开应用" == nodeContent || "完成" == nodeContent
 //                                    ||
 //                                    "完成" == nodeContent ||
@@ -110,6 +110,13 @@ open class BaseInstallKSmartService : AccessibilityService() {
                             return true
                         } else {
                             Log.v(TAG, "iterateNodesAndHandle textview click disable")
+                            if (nodeInfo.parent != null) {
+                                Log.v(TAG, "iterateNodesAndHandle textview parent ${nodeInfo.text} click")
+                                nodeInfo.parent.performAction(AccessibilityNodeInfo.ACTION_CLICK)
+                                return true
+                            } else {
+                                Log.v(TAG, "iterateNodesAndHandle textview parent null")
+                            }
                         }
                     }
 

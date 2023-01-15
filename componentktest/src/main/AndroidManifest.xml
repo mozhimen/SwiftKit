@@ -57,12 +57,14 @@
                 android:resource="@xml/installk_smart_accessibility_service_config" />
         </service>
         <receiver
-            android:name=".installk.InstallReceiver" android:exported="true"
-            android:enabled="true">
+            android:name=".installk.InstallReceiver"
+            android:enabled="true"
+            android:exported="true">
             <intent-filter android:priority="100">
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
