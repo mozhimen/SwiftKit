@@ -19,6 +19,7 @@ import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import top.wuhaojie.installerlibrary.AutoInstaller
 import kotlin.coroutines.resume
 
 /**
@@ -138,7 +139,8 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      */
     suspend fun installApk(apkPathWithName: String) {
         withContext(Dispatchers.Main) {
-            _installK.install(apkPathWithName)
+            //_installK.install(apkPathWithName)
+            AutoInstaller.getDefault(_context).install(apkPathWithName)
         }
     }
 }
