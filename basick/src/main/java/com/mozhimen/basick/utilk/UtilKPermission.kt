@@ -113,10 +113,12 @@ object UtilKPermission {
                     val accessibilityService = stringColonSplitter.next()
                     Log.v(TAG, "isSettingAccessibilityPermissionEnable accessibilityService $accessibilityService - service $service")
                     if (accessibilityService.equals(service, ignoreCase = true)) {
-                        Log.w(TAG, "isSettingAccessibilityPermissionEnable we've found the correct setting - accessibility is switched on!")
+                        Log.i(TAG, "isSettingAccessibilityPermissionEnable we've found the correct setting - accessibility is switched on!")
                         return true
                     }
                 }
+            } else {
+
             }
         } else {
             Log.e(TAG, "isSettingAccessibilityPermissionEnable accessibility is disabled")

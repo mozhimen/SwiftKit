@@ -62,7 +62,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                     UtilKAsset.asset2File("componentktest.apk", _apkPathWithName, false)
                 }
                 delay(500)
-                _installK.setInstallMode(EInstallMode.SMART).setInstallSmartService(InstallKService::class.java).setInstallStateChangeListener(object : IInstallStateChangedListener {
+                _installK.setInstallMode(EInstallMode.AUTO).setInstallSmartService(InstallKService::class.java).setInstallStateChangeListener(object : IInstallStateChangedListener {
                     override fun onInstallStart() {
                         Log.d(TAG, "onInstallStart:")
                     }
