@@ -12,17 +12,10 @@ import com.mozhimen.uicorek.layoutk.commons.ILayoutK
  * @Date 2021/12/24 14:39
  * @Version 1.0
  */
-abstract class BaseLayoutKLinear : LinearLayout, ILayoutK {
+abstract class BaseLayoutKLinear @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    LinearLayout(context, attrs, defStyleAttr, defStyleRes), ILayoutK {
 
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
-
-    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
-    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : super(
-        context,
-        attrs,
-        defStyleAttr,
-        defStyleRes
-    )
 
     override fun initFlag() {}
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}

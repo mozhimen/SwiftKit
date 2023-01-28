@@ -2,18 +2,18 @@ package com.mozhimen.uicorek.layoutk.bases
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.RelativeLayout
+import android.widget.GridLayout
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 
 /**
- * @ClassName LayoutKRelative
+ * @ClassName BaseLayoutKGrid
  * @Description TODO
- * @Author Kolin Zhao / Mozhimen
- * @Date 2021/12/24 14:39
+ * @Author mozhimen / Kolin Zhao
+ * @Date 2023/1/29 0:04
  * @Version 1.0
  */
-abstract class BaseLayoutKRelative @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    RelativeLayout(context, attrs, defStyleAttr, defStyleRes), ILayoutK {
+abstract class BaseLayoutKGrid @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+    GridLayout(context, attrs, defStyleAttr, defStyleRes), ILayoutK {
 
     protected var TAG = "${this.javaClass.simpleName}>>>>>"
 
