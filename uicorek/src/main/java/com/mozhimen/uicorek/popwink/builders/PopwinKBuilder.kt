@@ -86,7 +86,7 @@ class PopwinKBuilder(obj: Any) : IClearMemoryListener {
         if (_popupHost is Dialog) {
             return PopwinKBuilderProxy(_popupHost as Dialog, this)
         }
-        throw NullPointerException(UtilKRes.getString(R.string.basepopup_host_destroyed))
+        throw NullPointerException(UtilKRes.getString(R.string.base_popwink_host_destroyed))
     }
 
     fun show(): PopwinKBuilderProxy {

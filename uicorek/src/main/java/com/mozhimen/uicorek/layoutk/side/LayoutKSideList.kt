@@ -50,7 +50,7 @@ class LayoutKSideList @JvmOverloads constructor(
     private var _menuLayoutId = R.layout.layoutk_side_menu_item
     private var _contentLayoutId = R.layout.layoutk_side_content_item
     private var _spanCount = 3
-    private var _layoutKsideSubItemLayoutManager: RecyclerView.LayoutManager? = null
+    private var _layoutKSideSubItemLayoutManager: RecyclerView.LayoutManager? = null
     private var _layoutKSideListListener: ILayoutKSideListListener? = null
 
     init {
@@ -98,7 +98,7 @@ class LayoutKSideList @JvmOverloads constructor(
             _spanCount = it
         }
         layoutManager?.let {
-            _layoutKsideSubItemLayoutManager = it
+            _layoutKSideSubItemLayoutManager = it
         }
         listener?.let { _layoutKSideListListener = it }
         bindDataMenuView(mo)
@@ -109,7 +109,7 @@ class LayoutKSideList @JvmOverloads constructor(
         mo: MSideMenu
     ) {
         if (_contentView.layoutManager == null) {
-            _contentView.layoutManager = _layoutKsideSubItemLayoutManager ?: GridLayoutManager(context, _spanCount)
+            _contentView.layoutManager = _layoutKSideSubItemLayoutManager ?: GridLayoutManager(context, _spanCount)
             if (_contentView.layoutManager is GridLayoutManager) {
                 (_contentView.layoutManager as GridLayoutManager).spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {

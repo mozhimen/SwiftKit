@@ -28,6 +28,7 @@
     <application
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+
     </application>
 
 </manifest>

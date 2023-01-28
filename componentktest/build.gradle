@@ -11,8 +11,8 @@ android {
         applicationId "com.mozhimen.componentktest"
         minSdk rootProject.android.minSdk
         targetSdk 25
-        versionCode rootProject.android.versionCode
-        versionName rootProject.android.versionName
+        versionCode 1
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -30,7 +30,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding true
     }
 }

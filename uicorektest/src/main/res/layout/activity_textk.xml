@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <com.mozhimen.uicorek.textk.bubble.TextKBubble
-            style="@style/TextK_Bubble_Style"
+            style="@style/TextKBubble_Style"
             android:text="这是一个气泡文本"
             tools:ignore="HardcodedText" />
 

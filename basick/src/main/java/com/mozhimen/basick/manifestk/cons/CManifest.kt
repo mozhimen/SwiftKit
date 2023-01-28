@@ -3,37 +3,18 @@ package com.mozhimen.basick.manifestk.cons
 
 /**
  * @ClassName CManifest
- * @Description
-
- * AndroidManifest.xml (example)
-
-<provider
-android:name="androidx.core.content.FileProvider"
-android:authorities="包名.fileProvider"
-android:exported="false"
-android:grantUriPermissions="true">
-<meta-data
-android:name="android.support.FILE_PROVIDER_PATHS"
-android:resource="@xml/file_paths"  />
-</provider>
-
- * file_paths.xml sdk>24
-<paths>
-<files-path
-name="files-path"
-path="." />
-</paths>
-
+ * @Description TODO
  * @Author Mozhimen & Kolin Zhao
  * @Date 2023/1/12 18:47
  * @Version 1.0
  */
 object CManifest {
     /**
-     * AndroidManifest.xml
+     * AndroidManifest.xml sdk>24
+
     <provider
     android:name="androidx.core.content.FileProvider"
-    android:authorities="包名.fileProvider"
+    android:authorities="${applicationId}.fileProvider"
     android:exported="false"
     android:grantUriPermissions="true">
     <meta-data
@@ -50,7 +31,7 @@ object CManifest {
      */
     const val PROVIDER = """
             android:name="androidx.core.content.FileProvider"
-    android:authorities="包名.fileProvider"
+    android:authorities="${'$'}{applicationId}.fileProvider"
     android:exported="false"
     android:grantUriPermissions="true">
     <meta-data
@@ -86,7 +67,7 @@ object CManifest {
     android:canRetrieveWindowContent="true"
     android:description="@string/installk_auto_accessibility_service_description"/>
      */
-    const val SERVICE = """
+    const val SERVICE_ACCESSIBILITY = """
         android:name="com.mozhimen.componentk.installk.bases.BaseInstallKSmartService"
 android:enabled="true"
 android:exported="true"

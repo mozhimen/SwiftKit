@@ -19,7 +19,6 @@ import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
-import top.wuhaojie.installerlibrary.AutoInstaller
 import kotlin.coroutines.resume
 
 /**
@@ -38,8 +37,7 @@ import kotlin.coroutines.resume
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE,
     CPermission.BIND_ACCESSIBILITY_SERVICE,
-    CManifest.PROVIDER,
-    CManifest.SERVICE
+    CManifest.SERVICE_ACCESSIBILITY
 )
 class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {
@@ -139,8 +137,8 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      */
     suspend fun installApk(apkPathWithName: String) {
         withContext(Dispatchers.Main) {
-            //_installK.install(apkPathWithName)
-            AutoInstaller.getDefault(_context).install(apkPathWithName)
+            _installK.install(apkPathWithName)
+            //AutoInstaller.getDefault(_context).install(apkPathWithName)
         }
     }
 }

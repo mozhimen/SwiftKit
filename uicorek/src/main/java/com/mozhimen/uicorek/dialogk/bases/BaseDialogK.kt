@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.UtilKScreen.getCurrentScreenWidth
+import com.mozhimen.basick.utilk.UtilKThread
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.annors.DialogMode
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
@@ -18,14 +19,14 @@ import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 /**
- * @ClassName BaseDialog
+ * @ClassName BaseDialogK
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/11/24 22:31
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.BaseDialog_Style) : ComponentDialog(context, themeResId) {
+abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.DialogK_Theme_Blur) : ComponentDialog(context, themeResId) {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private var _isHasSetWindowAttr = false
     private var _dialogMode = DialogMode.BOTH
@@ -74,13 +75,31 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
         return this
     }
 
-    fun show(delayMillis: Long = 0) {
-        if (delayMillis <= 0) {
+    override fun show() {
+        if (isShowing) return
+        lifecycleScope.launch(Dispatchers.Main) {
             super.show()
+        }
+    }
+
+    fun show(delayMillis: Long = 0) {
+        if (isShowing) return
+        lifecycleScope.launch(Dispatchers.Main) {
+            if (delayMillis <= 0) {
+                super.show()
+            } else {
+                delay(delayMillis)
+                super.show()
+            }
+        }
+    }
+
+    override fun dismiss() {
+        if (UtilKThread.isMainThread()) {
+            super.dismiss()
         } else {
             lifecycleScope.launch(Dispatchers.Main) {
-                delay(delayMillis)
-                super@BaseDialogK.show()
+                super.dismiss()
             }
         }
     }
@@ -124,7 +143,7 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
 
     protected abstract fun onFindView(dialogView: View)
 
-    protected abstract fun onInitMode(@DialogMode mode: Int)
+    protected open fun onInitMode(@DialogMode mode: Int) {}
 
     /**
      * 初始化window宽度
@@ -151,23 +170,5 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
      */
     protected fun onInitWindowGravity(): Int {
         return Gravity.CENTER
-    }
-
-    protected fun onPositiveClick() {
-        if (_dialogClickListener != null) {
-            val dismiss: Boolean = _dialogClickListener!!.onClickPositive(_dialogView)
-            if (dismiss && isShowing) dismiss()
-        } else {
-            if (isShowing) dismiss()
-        }
-    }
-
-    protected fun onNegativeClick() {
-        if (_dialogClickListener != null) {
-            val dismiss: Boolean = _dialogClickListener!!.onClickNegative(_dialogView)
-            if (dismiss && isShowing) dismiss()
-        } else {
-            if (isShowing) dismiss()
-        }
     }
 }

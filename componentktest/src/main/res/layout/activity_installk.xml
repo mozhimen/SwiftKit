@@ -7,7 +7,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/installk_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="12.000" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/installk_btn"

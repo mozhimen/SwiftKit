@@ -12,7 +12,6 @@ import com.mozhimen.basick.manifestk.cons.CManifest
  * @Date 2022/5/27 12:03
  * @Version 1.0
  */
-@AManifestKRequire(CManifest.PROVIDER)
 object DebugK {
 
     fun toggleDialog(fragmentManager: FragmentManager){

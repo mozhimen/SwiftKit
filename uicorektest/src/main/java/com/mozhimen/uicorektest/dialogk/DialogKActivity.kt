@@ -28,11 +28,11 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         }
 
         vb.dialogkCustomAnimDrawable.setOnClickListener {
-            showDialogLoadingAnimDrawable(true)
+            showDialogLoadingAnimDrawable()
         }
 
         vb.dialogkCustomAnim.setOnClickListener {
-            showDialogLoadingAnim(true)
+            showDialogLoadingAnim()
         }
     }
 
@@ -59,52 +59,19 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
     }
 
     private var _dialogkLoadingAnimDrawable: DialogKLoadingAnimDrawable? = null
+    private var _dialogkLoadingAnim: DialogKLoadingAnim? = null
 
-    fun showDialogLoadingAnimDrawable(cancelable: Boolean) {
+    fun showDialogLoadingAnimDrawable() {
         if (_dialogkLoadingAnimDrawable == null) {
             _dialogkLoadingAnimDrawable = DialogKLoadingAnimDrawable.create(this)
         }
-        _dialogkLoadingAnimDrawable!!.setDialogCancelable(cancelable)
-        if (!_dialogkLoadingAnimDrawable!!.isShowing) {
-            lifecycleScope.launch(Dispatchers.Main) {
-                _dialogkLoadingAnimDrawable!!.show()
-            }
-        }
+        _dialogkLoadingAnimDrawable!!.show()
     }
 
-    fun dismissDialogLoadingAnimDrawable() {
-        if (_dialogkLoadingAnimDrawable == null|| _dialogkLoadingAnimDrawable?.isShowing == false) return
-        if (UtilKThread.isMainThread()) {
-            _dialogkLoadingAnimDrawable!!.dismiss()
-        } else {
-            lifecycleScope.launch(Dispatchers.Main) {
-                _dialogkLoadingAnimDrawable!!.dismiss()
-            }
-        }
-    }
-
-    private var _dialogkLoadingAnim: DialogKLoadingAnim? = null
-
-    fun showDialogLoadingAnim(cancelable: Boolean) {
+    fun showDialogLoadingAnim() {
         if (_dialogkLoadingAnim == null) {
             _dialogkLoadingAnim = DialogKLoadingAnim.create(this)
         }
-        _dialogkLoadingAnim!!.setDialogCancelable(cancelable)
-        if (!_dialogkLoadingAnim!!.isShowing) {
-            lifecycleScope.launch(Dispatchers.Main) {
-                _dialogkLoadingAnim!!.show()
-            }
-        }
-    }
-
-    fun dismissDialogLoadingAnim() {
-        if (_dialogkLoadingAnim == null|| _dialogkLoadingAnim?.isShowing == false) return
-        if (UtilKThread.isMainThread()) {
-            _dialogkLoadingAnim!!.dismiss()
-        } else {
-            lifecycleScope.launch(Dispatchers.Main) {
-                _dialogkLoadingAnim!!.dismiss()
-            }
-        }
+        _dialogkLoadingAnim!!.show()
     }
 }

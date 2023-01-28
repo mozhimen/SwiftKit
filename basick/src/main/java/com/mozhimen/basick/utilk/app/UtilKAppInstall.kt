@@ -15,9 +15,7 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.context.UtilKActivitySkip
-import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.file.UtilKFileUri
 import java.io.*
@@ -34,8 +32,7 @@ import java.nio.charset.Charset
     CPermission.INSTALL_PACKAGES,
     CPermission.REQUEST_INSTALL_PACKAGES,
     CPermission.READ_INSTALL_SESSIONS,
-    CPermission.REPLACE_EXISTING_PACKAGE,
-    CManifest.PROVIDER
+    CPermission.REPLACE_EXISTING_PACKAGE
 )
 object UtilKAppInstall {
     private const val TAG = "UtilKAppInstall>>>>>"
@@ -111,15 +108,14 @@ object UtilKAppInstall {
                 result = true
             }
         } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e(TAG, e.message, e)
+            throw e
         } finally {
             outputStream?.flush()
             outputStream?.close()
             bufferedReader?.close()
             process?.destroy()
         }
-        return result
+        return result.also { Log.d(TAG, "installRoot: result $it apkPathWithName $apkPathWithName") }
     }
 
     /**
@@ -128,7 +124,7 @@ object UtilKAppInstall {
      * @param apkPathWithName String
      */
     @JvmStatic
-    fun installAuto(apkPathWithName: String) {
+    fun installHand(apkPathWithName: String) {
         val intent = Intent(Intent.ACTION_VIEW)
         if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件

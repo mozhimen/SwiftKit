@@ -18,30 +18,8 @@ import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
 
 /**
-
- * if build sdk > N you also add provider and @xml/file_paths
-
- * AndroidManifest.xml sdk>24
-<provider
-android:name="androidx.core.content.FileProvider"
-android:authorities="包名.fileProvider"
-android:exported="false"
-android:grantUriPermissions="true">
-<meta-data
-android:name="android.support.FILE_PROVIDER_PATHS"
-android:resource="@xml/file_paths"  />
-</provider>
-
- * file_paths.xml sdk>24
-<paths>
-<files-path
-name="files-path"
-path="." />
-</paths>
-
  * @property _dataSets ArrayList<MDebugKCrashK>
  */
-@AManifestKRequire(CManifest.PROVIDER)
 class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
 
     private val _dataSets = ArrayList<MDebugKCrashK>()

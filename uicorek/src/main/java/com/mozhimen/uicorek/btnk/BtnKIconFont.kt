@@ -25,7 +25,7 @@ class BtnKIconFont @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BtnKIconFont)
-        _fontPath = typedArray.getString(R.styleable.BtnKIconFont_btnKIcon_fontPath) ?: _fontPath
+        _fontPath = typedArray.getString(R.styleable.BtnKIconFont_btnKIconFont_fontPath) ?: _fontPath
         typedArray.recycle()
     }
 

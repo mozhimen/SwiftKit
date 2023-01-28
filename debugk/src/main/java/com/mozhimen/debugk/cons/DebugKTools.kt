@@ -20,7 +20,7 @@ import com.mozhimen.debugk.temps.DebugKParamsActivity
  * @Date 2022/1/18 15:12
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW, CManifest.PROVIDER)
+@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class DebugKTools {
 
     @ADebugKTool("开启Https降级", "降级成Http,可以使用抓包工具,明文抓包")

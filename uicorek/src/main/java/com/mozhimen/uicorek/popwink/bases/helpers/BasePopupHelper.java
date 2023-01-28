@@ -85,7 +85,7 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
     static final long DEFAULT_KEYBOARD_SHOW_DELAY = 350;
     static final int DEFAULT_OVERLAY_STATUS_BAR_MODE = CFlag.OVERLAY_MASK | CFlag.OVERLAY_CONTENT;
     static final int DEFAULT_OVERLAY_NAVIGATION_BAR_MODE = CFlag.OVERLAY_MASK;
-    private static final int CONTENT_VIEW_ID = R.id.base_popup_content_root;
+    private static final int CONTENT_VIEW_ID = R.id.base_popwink_content_root;
 
     public static final int STATUS_START_SHOWING = 0x1;
     static final int STATUS_START_DISMISS = 0x2;

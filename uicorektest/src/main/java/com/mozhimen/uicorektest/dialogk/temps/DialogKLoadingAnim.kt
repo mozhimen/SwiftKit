@@ -29,6 +29,7 @@ class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, pr
     private val _rotateAnimation by lazy { AnimKBuilder.asAnimation().add(RotationRecyclerType()).setDuration(1000).build() }
 
     init {
+        setDialogCancelable(true)
         setOnDismissListener {
             _imgProgress?.stopAnim()
         }
@@ -59,6 +60,4 @@ class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, pr
             _txtDesc?.text = desc.also { _desc = it }
         }
     }
-
-    override fun onInitMode(mode: Int) {}
 }

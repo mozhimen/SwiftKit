@@ -30,7 +30,7 @@ import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
  * @Date 2022/5/26 17:37
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW, CManifest.PROVIDER)
+@AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class DebugKDialogFragment : AppCompatDialogFragment() {
     private val _debugMethods = arrayOf(DebugKTools::class.java)
 

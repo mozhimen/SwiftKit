@@ -307,11 +307,11 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
 
     private fun getAnimationStyle(direction: EArrowDirection): Int {
         return when (direction) {
-            EArrowDirection.Up -> R.style.TextKBubble_PopWin_Anim_ArrowUp
-            EArrowDirection.Down -> R.style.TextKBubble_PopWin_Anim_ArrowDown
-            EArrowDirection.Left -> R.style.TextKBubble_PopWin_Anim_ArrowLeft
-            EArrowDirection.Right -> R.style.TextKBubble_PopWin_Anim_ArrowRight
-            else -> R.style.TextKBubble_PopWin_Anim_ArrowNone
+            EArrowDirection.Up -> R.style.AnimK_Scale_Top
+            EArrowDirection.Left -> R.style.AnimK_Scale_Left
+            EArrowDirection.Right -> R.style.AnimK_Scale_Right
+            EArrowDirection.Down -> R.style.AnimK_Scale_Bottom
+            else -> R.style.AnimK_Scale_Center
         }
     }
 

@@ -12,6 +12,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.utilk.UtilKAsset
+import com.mozhimen.basick.utilk.UtilKPackage
 import com.mozhimen.basick.utilk.UtilKPermission
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.exts.showToast
@@ -42,8 +43,7 @@ import kotlinx.coroutines.launch
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE,
     CPermission.BIND_ACCESSIBILITY_SERVICE,
-    CManifest.PROVIDER,
-    CManifest.SERVICE
+    CManifest.SERVICE_ACCESSIBILITY
 )
 @APermissionCheck(
     CPermission.READ_EXTERNAL_STORAGE,
@@ -56,44 +56,46 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
     private val _installK by lazy { InstallK() }
 
     override fun initView(savedInstanceState: Bundle?) {
+        vb.installkTxt.text = UtilKPackage.getVersionCode().toString()
         vb.installkBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (!UtilKFile.isFileExist(_apkPathWithName)) {
                     UtilKAsset.asset2File("componentktest.apk", _apkPathWithName, false)
                 }
                 delay(500)
-                _installK.setInstallMode(EInstallMode.AUTO).setInstallSmartService(InstallKService::class.java).setInstallStateChangeListener(object : IInstallStateChangedListener {
-                    override fun onInstallStart() {
-                        Log.d(TAG, "onInstallStart:")
-                    }
-
-                    override fun onInstallFinish() {
-                        Log.d(TAG, "onInstallFinish:")
-                    }
-
-                    override fun onInstallFail(msg: String?) {
-                        Log.e(TAG, "onInstallFail: ${msg ?: ""}")
-                    }
-
-                    override fun onNeedPermissions(type: EPermissionType) {
-                        Log.w(TAG, "onNeedPermissions: $type")
-                        when (type) {
-                            EPermissionType.COMMON -> {
-                                ManifestKPermission.initPermissions(this@InstallKActivity, onSuccess = { "权限申请成功".showToast() })
-                            }
-                            EPermissionType.INSTALL -> {
-                                if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
-                                    UtilKAppInstall.openSettingAppInstall(this@InstallKActivity)
-                                }
-                            }
-                            EPermissionType.ACCESSIBILITY -> {
-                                UtilKPermission.openSettingAccessibility(this@InstallKActivity)
-                            }
-                            else -> {}
+                _installK.setInstallMode(EInstallMode.AUTO).setInstallSmartService(InstallKService::class.java).setInstallSilenceReceiver(InstallKReceiver::class.java)
+                    .setInstallStateChangeListener(object : IInstallStateChangedListener {
+                        override fun onInstallStart() {
+                            Log.d(TAG, "onInstallStart:")
                         }
-                    }
 
-                }).install(_apkPathWithName)
+                        override fun onInstallFinish() {
+                            Log.d(TAG, "onInstallFinish:")
+                        }
+
+                        override fun onInstallFail(msg: String?) {
+                            Log.e(TAG, "onInstallFail: ${msg ?: ""}")
+                        }
+
+                        override fun onNeedPermissions(type: EPermissionType) {
+                            Log.w(TAG, "onNeedPermissions: $type")
+                            when (type) {
+                                EPermissionType.COMMON -> {
+                                    ManifestKPermission.initPermissions(this@InstallKActivity, onSuccess = { "权限申请成功".showToast() })
+                                }
+                                EPermissionType.INSTALL -> {
+                                    if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
+                                        UtilKAppInstall.openSettingAppInstall(this@InstallKActivity)
+                                    }
+                                }
+                                EPermissionType.ACCESSIBILITY -> {
+                                    UtilKPermission.openSettingAccessibility(this@InstallKActivity)
+                                }
+                                else -> {}
+                            }
+                        }
+
+                    }).install(_apkPathWithName)
             }
         }
     }

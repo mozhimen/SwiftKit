@@ -19,7 +19,6 @@ import java.io.File
  * @Date 2023/1/12 18:58
  * @Version 1.0
  */
-@AManifestKRequire(CManifest.PROVIDER)
 object UtilKFileUri {
     private val TAG = "UtilKFileUri>>>>>"
 
@@ -27,7 +26,6 @@ object UtilKFileUri {
 
     /**
      * 文件转Uri
-     * if build sdk > N you also add provider and @xml/file_paths
      * @param filePathWithName String
      * @return Uri
      */
@@ -41,7 +39,6 @@ object UtilKFileUri {
     }
 
     /**
-     * if build sdk > N you also add provider and @xml/file_paths
      * @param file File
      * @return Uri?
      */

@@ -21,33 +21,12 @@ import com.mozhimen.underlayk.crashk.CrashKMgr
 
 /**
  * @ClassName DebugKCrashKActivity
- * @Description
-
- * if build sdk > N you also add provider and @xml/file_paths
-
- * AndroidManifest.xml sdk>24
-<provider
-android:name="androidx.core.content.FileProvider"
-android:authorities="包名.fileProvider"
-android:exported="false"
-android:grantUriPermissions="true">
-<meta-data
-android:name="android.support.FILE_PROVIDER_PATHS"
-android:resource="@xml/file_paths"  />
-</provider>
-
- * file_paths.xml sdk>24
-<paths>
-<files-path
-name="files-path"
-path="." />
-</paths>
-
+ * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/5/25 23:00
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE, CManifest.PROVIDER)
+@AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
     private val _dataSets = ArrayList<MDebugKCrashK>()
     override fun initView(savedInstanceState: Bundle?) {

@@ -7,15 +7,15 @@
     <!--recyclerk-->
     <string name="recyclerk_load_footer_loading">Loading…</string>
     <!--popwink-->
-    <string name="basepopup_error_non_act_context">No host Activity found, please ensure you have at least one Activity open.</string>
-    <string name="basepopup_error_thread">Please operate in the main thread.</string>
-    <string name="basepopup_error_destroyed">The BasePopup has been Destroyed and cannot continue to perform show.</string>
-    <string name="basepopup_error_decorview">PopupWindow needs %s of DecorView\'s WindowToken, please check if DecorView exists.</string>
-    <string name="basepopup_window_not_prepare">The %s window is not ready, wait for it to pop up when ready</string>
-    <string name="basepopup_window_prepared">The %s window is ready to execute the popup.</string>
-    <string name="basepopup_has_been_shown">BasePopup has been shown.</string>
-    <string name="basepopup_shown_successful">Show successful</string>
-    <string name="basepopup_host">popupwindow host (%s)</string>
-    <string name="basepopup_host_destroyed">The popupwindow\'s host has been destroyed</string>
+    <string name="base_popwink_error_non_act_context">No host Activity found, please ensure you have at least one Activity open.</string>
+    <string name="base_popwink_error_thread">Please operate in the main thread.</string>
+    <string name="base_popwink_error_destroyed">The BasePopup has been Destroyed and cannot continue to perform show.</string>
+    <string name="base_popwink_error_decorview">PopupWindow needs %s of DecorView\'s WindowToken, please check if DecorView exists.</string>
+    <string name="base_popwink_window_not_prepare">The %s window is not ready, wait for it to pop up when ready</string>
+    <string name="base_popwink_window_prepared">The %s window is ready to execute the popup.</string>
+    <string name="base_popwink_has_been_shown">BasePopup has been shown.</string>
+    <string name="base_popwink_shown_successful">Show successful</string>
+    <string name="base_popwink_host">popupwindow host (%s)</string>
+    <string name="base_popwink_host_destroyed">The popupwindow\'s host has been destroyed</string>
 
 </resources>

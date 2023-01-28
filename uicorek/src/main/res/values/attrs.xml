@@ -2,7 +2,7 @@
 <resources>
     <!--btnk-->
     <declare-styleable name="BtnKIconFont">
-        <attr name="btnKIcon_fontPath" format="string" />
+        <attr name="btnKIconFont_fontPath" format="string" />
     </declare-styleable>
 
     <declare-styleable name="BtnKPwdEye">

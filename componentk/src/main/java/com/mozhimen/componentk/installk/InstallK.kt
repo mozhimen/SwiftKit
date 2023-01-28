@@ -8,6 +8,7 @@ import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.app.UtilKAppRoot
 import com.mozhimen.basick.utilk.context.UtilKApplication
@@ -34,8 +35,7 @@ import java.io.*
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE,
     CPermission.BIND_ACCESSIBILITY_SERVICE,
-    CManifest.PROVIDER,
-    CManifest.SERVICE
+    CManifest.SERVICE_ACCESSIBILITY
 )
 class InstallK {
 
@@ -45,10 +45,11 @@ class InstallK {
 
     private val _context = UtilKApplication.instance.get()
 
-    private var _tempApkPathWithName = "${_context.filesDir.absolutePath}/installk/update.apk"
+    //private var _tempApkPathWithName = "${_context.filesDir.absolutePath}/installk/update.apk"
     private var _installMode = EInstallMode.AUTO
     private var _installStateChangeListener: IInstallStateChangedListener? = null
     private var _smartServiceClazz: Class<*>? = null
+    private var _silenceReceiverClazz: Class<*>? = null
     private val _handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -70,6 +71,16 @@ class InstallK {
                 }
             }
         }
+    }
+
+    /**
+     * 设置安装
+     * @param receiverClazz Class<*>
+     * @return InstallK
+     */
+    fun setInstallSilenceReceiver(receiverClazz: Class<*>): InstallK {
+        _silenceReceiverClazz = receiverClazz
+        return this
     }
 
     /**
@@ -146,20 +157,35 @@ class InstallK {
 
         when (_installMode) {
             EInstallMode.AUTO -> {
+                //try install root
                 if (UtilKAppRoot.isRoot() && UtilKAppInstall.installRoot(apkPathWithName)) {
                     Log.d(TAG, "installByMode: AUTO as ROOT success")
                     return
                 }
+                //try install silence
+                if (_silenceReceiverClazz != null && (UtilKAppRoot.isRoot() || !UtilKApp.isUserApp())) {
+                    UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
+                    Log.d(TAG, "installByMode: AUTO as SILENCE success")
+                    return
+                }
+                //try install smart
                 if (_smartServiceClazz != null && UtilKPermission.isAccessibilityPermissionEnable(_context, _smartServiceClazz!!)) {
-                    UtilKAppInstall.installAuto(apkPathWithName)
+                    UtilKAppInstall.installHand(apkPathWithName)
                     Log.d(TAG, "installByMode: AUTO as SMART success")
                     return
                 }
-                UtilKAppInstall.installAuto(apkPathWithName)
+                //try install hand
+                UtilKAppInstall.installHand(apkPathWithName)
             }
             EInstallMode.ROOT -> {
                 require(UtilKAppRoot.isRoot()) { "$TAG this device has not root" }
                 UtilKAppInstall.installRoot(apkPathWithName)
+                Log.d(TAG, "installByMode: ROOT success")
+            }
+            EInstallMode.SILENCE -> {
+                requireNotNull(_silenceReceiverClazz) { "$TAG silence receiver must not be null" }
+                require(UtilKAppRoot.isRoot() || !UtilKApp.isUserApp()) { "$TAG this device has not root or its system app" }
+                UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
                 Log.d(TAG, "installByMode: ROOT success")
             }
             EInstallMode.SMART -> {
@@ -172,11 +198,11 @@ class InstallK {
                     })
                     return
                 }
-                UtilKAppInstall.installAuto(apkPathWithName)
+                UtilKAppInstall.installHand(apkPathWithName)
                 Log.d(TAG, "installByMode: SMART success")
             }
             EInstallMode.HAND -> {
-                UtilKAppInstall.installAuto(apkPathWithName)
+                UtilKAppInstall.installHand(apkPathWithName)
                 Log.d(TAG, "installByMode: HAND success")
             }
         }

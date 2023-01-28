@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--layoutk_nav-->
-    <item name="layoutk_nav_icon_left_back" type="id" />
+    <item name="layoutk_nav_icon_back_left" type="id" />
     <!--layoutk_search-->
     <item name="layoutk_search_edit_search" type="id" />
     <item name="layoutk_search_icon_clear" type="id" />
@@ -10,5 +10,5 @@
     <item name="layoutk_search_txt_icon_keyword" type="id" />
     <item name="layoutk_search_txt_keyword" type="id" />
     <!--popwink-->
-    <item name="base_popup_content_root" type="id"/>
+    <item name="base_popwink_content_root" type="id"/>
 </resources>

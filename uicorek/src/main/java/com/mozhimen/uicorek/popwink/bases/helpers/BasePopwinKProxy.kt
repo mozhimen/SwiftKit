@@ -85,7 +85,7 @@ class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context
         if (isShowing) return
         val activity = getActivityByContext(parent.context, false)
         if (activity == null) {
-            Log.e(TAG, UtilKRes.getString(R.string.basepopup_error_non_act_context))
+            Log.e(TAG, UtilKRes.getString(R.string.base_popwink_error_non_act_context))
             return
         }
         onBeforeShowExec(activity)

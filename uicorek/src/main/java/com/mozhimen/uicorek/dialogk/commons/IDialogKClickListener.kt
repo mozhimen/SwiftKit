@@ -10,6 +10,6 @@ import android.view.View
  * @Version 1.0
  */
 interface IDialogKClickListener {
-    fun onClickPositive(view: View?): Boolean
-    fun onClickNegative(view: View?): Boolean
+    fun onClickPositive(view: View?)
+    fun onClickNegative(view: View?)
 }

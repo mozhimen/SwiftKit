@@ -22,7 +22,7 @@ import com.mozhimen.uicorektest.R
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Context, desc: String? = null) : BaseDialogK<IDialogKClickListener>(context) {
+class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Context, desc: String? = null) : BaseDialogK<IDialogKClickListener>(context, R.style.DialogK_Theme_Translucent) {
     private var _imgProgress: ImageView? = null
     private var _txtDesc: TextView? = null
     private var _txtAction: TextView? = null
@@ -32,6 +32,7 @@ class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Con
 
     init {
         _descStr = desc
+        setDialogCancelable(true)
         setOnDismissListener {
             if (_animationDrawable != null) {
                 _animationDrawable!!.selectDrawable(0)
@@ -100,6 +101,4 @@ class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Con
             }
         }
     }
-
-    override fun onInitMode(mode: Int) {}
 }

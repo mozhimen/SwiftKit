@@ -12,7 +12,6 @@ import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.debugk.DebugK
 import com.mozhimen.debugktest.databinding.ActivityDebugkBinding
 
-@AManifestKRequire(CManifest.PROVIDER)
 class DebugKActivity : BaseActivityVB<ActivityDebugkBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {

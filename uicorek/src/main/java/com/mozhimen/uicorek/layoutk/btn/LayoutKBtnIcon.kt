@@ -13,7 +13,7 @@ import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 
 /**
- * @ClassName BtnKIcon
+ * @ClassName LayoutKBtnIcon
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/1/15 20:06

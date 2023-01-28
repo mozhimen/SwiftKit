@@ -10,6 +10,7 @@ package com.mozhimen.componentk.installk.cons
 enum class EInstallMode {
     AUTO,//自适配
     ROOT,//root安装
+    SILENCE,//静默安装
     SMART,//智能安装
     HAND//手动安装
 }

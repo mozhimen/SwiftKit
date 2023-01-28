@@ -112,6 +112,6 @@ dependencies {
 > 近期fix: 1.fix download file
 > 3.TimePicker封装
 > 近期更新: 1.消化BasePopwin
-> 2.完善BaseDialog
+> 2.完善BaseDialogK
 > 3.优化PopwinKBubble
 > 4.整合Camera2,Camera1,CameraX

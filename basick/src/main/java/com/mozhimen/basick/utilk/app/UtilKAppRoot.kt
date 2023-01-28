@@ -53,10 +53,10 @@ object UtilKAppRoot {
         for (path in paths) {
             file = File(path)
             if (UtilKFile.isFileExist(file) && file.canExecute()) {
-                return true
+                return true.also { Log.d(TAG, "isSuAvailable: $it") }
             }
         }
-        return false
+        return false.also { Log.d(TAG, "isSuAvailable: $it") }
     }
 
     /**
@@ -77,10 +77,10 @@ object UtilKAppRoot {
         for (path in paths) {
             file = File(path)
             if (file.exists() && file.canExecute()) {
-                return true
+                return true.also { Log.d(TAG, "isBusyboxAvailable: $it") }
             }
         }
-        return false
+        return false.also { Log.d(TAG, "isBusyboxAvailable: $it") }
     }
 
     /**
@@ -95,10 +95,10 @@ object UtilKAppRoot {
         return try {
             process = Runtime.getRuntime().exec(arrayOf("/system/xbin/which", "su"))
             val bufferedReader = BufferedReader(InputStreamReader(process.inputStream))
-            bufferedReader.readLine() != null
+            (bufferedReader.readLine() != null).also { Log.d(TAG, "isWhichAvailable: $it") }
         } catch (e: Exception) {
             e.printStackTrace()
-            false
+            false.also { Log.d(TAG, "isWhichAvailable: $it") }
         } finally {
             process?.destroy()
         }
@@ -110,7 +110,7 @@ object UtilKAppRoot {
      */
     @JvmStatic
     fun hasSuperuserApk(): Boolean =
-        UtilKFile.isFileExist(File("/system/app/Superuser.apk"))
+        UtilKFile.isFileExist(File("/system/app/Superuser.apk")).also { Log.d(TAG, "hasSuperuserApk: $it") }
 
     /**
      * 系统是否是非官方发布版
@@ -118,5 +118,5 @@ object UtilKAppRoot {
      */
     @JvmStatic
     fun isSystemBeta(): Boolean =
-        Build.TAGS != null && Build.TAGS.contains("test-keys")
+        Build.TAGS != null && Build.TAGS.contains("test-keys").also { Log.d(TAG, "isSystemBeta: $it") }
 }
