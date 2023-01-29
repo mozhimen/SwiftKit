@@ -83,6 +83,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
+                android:onClick="goLayoutKGridFillMove"
+                android:text="goLayoutKGridFillMove"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
                 android:onClick="goLayoutKInputItem"
                 android:text="goLayoutKInputItem"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

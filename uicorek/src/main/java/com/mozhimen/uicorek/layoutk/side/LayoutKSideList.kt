@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mozhimen.basick.imagek.exts.loadImageComplex
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.basick.utilk.exts.fontStyle
-import com.mozhimen.basick.utilk.exts.loadImageComplex
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.recyclerk.RecyclerKViewHolder
 import com.mozhimen.uicorek.layoutk.side.helpers.AttrsParser

@@ -241,6 +241,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.stackk.StackK;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
+import com.mozhimen.basick.utilk.UtilKColor;
 import com.mozhimen.basick.utilk.UtilKDataBus;
 import com.mozhimen.basick.utilk.UtilKGravity;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
@@ -333,7 +334,7 @@ import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 @SuppressWarnings("All")
 public abstract class BasePopwinK implements PopupWindow.OnDismissListener, LifecycleObserver {
     protected final String TAG = this.getClass().getSimpleName() + ">>>>>";
-    public static int DEFAULT_BACKGROUND_COLOR = Color.parseColor("#8f000000");
+    public static int DEFAULT_BACKGROUND_COLOR = UtilKColor.colorStr2Int("#8f000000");
 
     public static final int FLAG_KEYBOARD_ALIGN_TO_VIEW = CFlag.KEYBOARD_ALIGN_TO_VIEW;
     public static final int FLAG_KEYBOARD_ALIGN_TO_ROOT = CFlag.KEYBOARD_ALIGN_TO_ROOT;

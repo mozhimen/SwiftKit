@@ -253,6 +253,6 @@ class ImageKMask @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
 
         fun isTapInArea(e: MotionEvent): Boolean =
-            UtilKGesture.isTapInArea(e, leftX, rightX, topY, bottomY)
+            UtilKGesture.isTapInArea(e, leftX, topY, rightX, bottomY)
     }
 }

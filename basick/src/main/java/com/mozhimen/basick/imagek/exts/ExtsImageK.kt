@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.exts
+package com.mozhimen.basick.imagek.exts
 
 import android.widget.ImageView
 import androidx.annotation.ColorInt
@@ -6,9 +6,10 @@ import androidx.annotation.FloatRange
 import androidx.annotation.Px
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
-import com.mozhimen.basick.utilk.view.imageloader.mos.BlurTransformation
-import com.mozhimen.basick.utilk.view.imageloader.mos.CropTransformation
+import com.mozhimen.basick.imagek.ImageKLoader
+import com.mozhimen.basick.imagek.mos.BlurTransformation
+import com.mozhimen.basick.imagek.mos.CropTransformation
+import com.mozhimen.basick.utilk.exts.dp2px
 
 /**
  * @ClassName ExtsKViewImageLoader
@@ -18,7 +19,7 @@ import com.mozhimen.basick.utilk.view.imageloader.mos.CropTransformation
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.INTERNET)
-class ExtsViewImageLoader
+class ExtsImageK
 
 /**
  * 普通加载
@@ -28,7 +29,7 @@ class ExtsViewImageLoader
 fun ImageView.loadImage(
     res: Any
 ) {
-    UtilKViewImageLoader.loadImage(this, res)
+    ImageKLoader.loadImage(this, res)
 }
 
 /**
@@ -47,7 +48,7 @@ fun ImageView.loadImageComplex(
     crossFadeEnable: Boolean = true,
     crossFadeTime: Int = 1500
 ) {
-    UtilKViewImageLoader.loadImageComplex(this, res, placeholder, error, crossFadeEnable, crossFadeTime)
+    ImageKLoader.loadImageComplex(this, res, placeholder, error, crossFadeEnable, crossFadeTime)
 }
 
 /**
@@ -65,7 +66,7 @@ fun ImageView.loadImageBlur(
     @FloatRange(from = 0.0, to = 25.0) radius: Float = BlurTransformation.DEFAULT_RADIUS,
     @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = BlurTransformation.DEFAULT_SAMPLING
 ) {
-    UtilKViewImageLoader.loadImageBlur(this, res, placeholder, crossFadeEnable, crossFadeTime, radius, sampling)
+    ImageKLoader.loadImageBlur(this, res, placeholder, crossFadeEnable, crossFadeTime, radius, sampling)
 }
 
 /**
@@ -76,7 +77,7 @@ fun ImageView.loadImageBlur(
 fun ImageView.loadImageGray(
     res: Any
 ) {
-    UtilKViewImageLoader.loadImageGray(this, res)
+    ImageKLoader.loadImageGray(this, res)
 }
 
 /**
@@ -89,7 +90,7 @@ fun ImageView.loadImageColorFilter(
     res: Any,
     @ColorInt color: Int
 ) {
-    UtilKViewImageLoader.loadImageColorFilter(this, res, color)
+    ImageKLoader.loadImageColorFilter(this, res, color)
 }
 
 /**
@@ -100,7 +101,7 @@ fun ImageView.loadImageColorFilter(
 fun ImageView.loadImageCircle(
     res: Any
 ) {
-    UtilKViewImageLoader.loadImageCircle(this, res)
+    ImageKLoader.loadImageCircle(this, res)
 }
 
 /**
@@ -113,7 +114,7 @@ fun ImageView.loadImageRoundedCorner(
     res: Any,
     @Px cornerRadius: Int = 6f.dp2px()
 ) {
-    UtilKViewImageLoader.loadImageRoundedCorner(this, res, cornerRadius)
+    ImageKLoader.loadImageRoundedCorner(this, res, cornerRadius)
 }
 
 /**
@@ -126,5 +127,5 @@ fun ImageView.loadImageCrop(
     res: Any,
     cropType: CropTransformation.ECropType = CropTransformation.ECropType.CENTER
 ) {
-    UtilKViewImageLoader.loadImageCrop(this, res, cropType)
+    ImageKLoader.loadImageCrop(this, res, cropType)
 }

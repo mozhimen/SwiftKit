@@ -107,11 +107,11 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
             return animation.also { field = it }
         }
     private val _bgOnAnimator by lazy {
-        AnimKBuilder.asAnimator().add(GradientDrawableColorAnimatorType().setGradientDrawable(_bgView!!.background as GradientDrawable).setColorRange(_attrs.bgColorOff, _attrs.bgColorOn))
+        AnimKBuilder.asAnimator().add(GradientDrawableColorAnimatorType().setGradientDrawable(_bgView!!.background as GradientDrawable).setColors(_attrs.bgColorOff, _attrs.bgColorOn))
             .setDuration(_attrs.animTime.toLong()).build()
     }
     private val _bgOffAnimator by lazy {
-        AnimKBuilder.asAnimator().add(GradientDrawableColorAnimatorType().setGradientDrawable(_bgView!!.background as GradientDrawable).setColorRange(_attrs.bgColorOn, _attrs.bgColorOff))
+        AnimKBuilder.asAnimator().add(GradientDrawableColorAnimatorType().setGradientDrawable(_bgView!!.background as GradientDrawable).setColors(_attrs.bgColorOn, _attrs.bgColorOff))
             .setDuration(_attrs.animTime.toLong()).build()
     }
 

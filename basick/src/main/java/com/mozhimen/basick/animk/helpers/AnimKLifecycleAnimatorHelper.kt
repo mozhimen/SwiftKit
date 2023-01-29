@@ -12,8 +12,8 @@ import com.mozhimen.basick.animk.builders.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builders.temps.AlphaAnimatorType
 import com.mozhimen.basick.animk.builders.temps.ColorRecyclerAnimatorType
 import com.mozhimen.basick.taskk.commons.ITaskK
-import com.mozhimen.basick.utilk.UtilKAnim
-import com.mozhimen.basick.utilk.UtilKAnimator
+import com.mozhimen.basick.utilk.anim.UtilKAnim
+import com.mozhimen.basick.utilk.anim.UtilKAnimator
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -60,6 +60,9 @@ class AnimKLifecycleAnimatorHelper(owner: LifecycleOwner) : ITaskK(owner) {
         _viewAndListeners[view] = alphaAnimator
     }
 
+    /**
+     * 取消
+     */
     override fun cancel() {
         _viewAndListeners.forEach {
             (it.value as ValueAnimator).removeAllUpdateListeners()

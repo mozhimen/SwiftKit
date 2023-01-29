@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.view.imageloader
+package com.mozhimen.basick.imagek
 
 import android.widget.ImageView
 import androidx.annotation.ColorInt
@@ -11,10 +11,10 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.context.UtilKApplication
-import com.mozhimen.basick.utilk.view.imageloader.mos.BlurTransformation
-import com.mozhimen.basick.utilk.view.imageloader.mos.ColorFilterTransformation
-import com.mozhimen.basick.utilk.view.imageloader.mos.CropTransformation
-import com.mozhimen.basick.utilk.view.imageloader.mos.GrayscaleTransformation
+import com.mozhimen.basick.imagek.mos.BlurTransformation
+import com.mozhimen.basick.imagek.mos.ColorFilterTransformation
+import com.mozhimen.basick.imagek.mos.CropTransformation
+import com.mozhimen.basick.imagek.mos.GrayscaleTransformation
 
 /**
  * @ClassName UtilKImageLoader
@@ -24,7 +24,7 @@ import com.mozhimen.basick.utilk.view.imageloader.mos.GrayscaleTransformation
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.INTERNET)
-object UtilKViewImageLoader {
+object ImageKLoader {
     private val _context = UtilKApplication.instance.get()
 
     /**

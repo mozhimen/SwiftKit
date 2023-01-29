@@ -57,6 +57,10 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
         start<LayoutKGridFillActivity>()
     }
 
+    fun goLayoutKGridFillMove(view: View) {
+        start<LayoutKGridFillMoveActivity>()
+    }
+
     fun goLayoutKInputItem(view: View) {
         start<LayoutKInputItemActivity>()
     }

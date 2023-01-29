@@ -62,6 +62,9 @@
             android:name=".layoutk.LayoutKGridFillActivity"
             android:exported="false" />
         <activity
+            android:name=".layoutk.LayoutKGridFillMoveActivity"
+            android:exported="false" />
+        <activity
             android:name=".layoutk.LayoutKVideoActivity"
             android:exported="false" />
         <activity

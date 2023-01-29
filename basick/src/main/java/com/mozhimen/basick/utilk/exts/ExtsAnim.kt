@@ -1,11 +1,7 @@
 package com.mozhimen.basick.utilk.exts
 
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.Animation
-import android.view.animation.Interpolator
-import android.view.animation.LinearInterpolator
-import com.mozhimen.basick.utilk.UtilKAnim
+import com.mozhimen.basick.utilk.anim.UtilKAnim
 
 /**
  * @ClassName ExtsKAnim

@@ -15,12 +15,12 @@ import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
  * @Date 2022/9/8 18:05
  * @Version 1.0
  */
-typealias ILayoutKTouchListener = () -> Unit
+typealias ILayoutKFrameTouchListener = () -> Unit
 
-class LayoutKTouch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+class LayoutKFrameTouch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr, defStyleRes) {
     //region # variate
-    private var _viewKTouchListener: ILayoutKTouchListener? = null
+    private var _viewKTouchListener: ILayoutKFrameTouchListener? = null
     private var _touchAreaRect: Rect? = null
     //endregion
 
@@ -36,7 +36,7 @@ class LayoutKTouch @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 设置出发监听器
      * @param listener Function0<Unit>
      */
-    fun setOnTouchListener(listener: ILayoutKTouchListener) {
+    fun setOnTouchListener(listener: ILayoutKFrameTouchListener) {
         _viewKTouchListener = listener
     }
 

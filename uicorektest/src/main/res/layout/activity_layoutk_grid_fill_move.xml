@@ -8,10 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mozhimen.uicorek.layoutk.LayoutKGridFill
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/black"
+        <com.mozhimen.uicorek.layoutk.LayoutKGridFillMove
+            android:layout_width="400dp"
+            android:layout_height="600dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

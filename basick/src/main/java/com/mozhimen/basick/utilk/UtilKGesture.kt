@@ -42,9 +42,28 @@ object UtilKGesture {
      * @return Boolean
      */
     @JvmStatic
-    fun isTapInArea(event: MotionEvent, left: Float, right: Float, top: Float, bottom: Float): Boolean =
-        event.x in left..right && event.y >= top && event.y < bottom
+    fun isTapInArea(event: MotionEvent, left: Float, top: Float, right: Float, bottom: Float): Boolean =
+        isTapInArea(event.x, event.y, left, right, top, bottom)
 
+    /**
+     * 是否点击区域内
+     * @param x Float
+     * @param y Float
+     * @param left Float
+     * @param right Float
+     * @param top Float
+     * @param bottom Float
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isTapInArea(x: Float, y: Float, left: Float, right: Float, top: Float, bottom: Float): Boolean =
+        x > left && x < right && y > top && y < bottom
+
+    /**
+     * motionEvent2String
+     * @param action Int
+     * @return String
+     */
     @JvmStatic
     fun motionEvent2String(action: Int): String {
         when (action) {

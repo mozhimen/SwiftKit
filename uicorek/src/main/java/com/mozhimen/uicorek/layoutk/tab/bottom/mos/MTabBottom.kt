@@ -63,8 +63,8 @@ class MTabBottom : Serializable {
         this.name = name
         this.bitmapDefault = bitmapDefault
         this.bitmapSelected = bitmapSelected
-        this.iconColorDefault = UtilKColor.getColorTone(iconColorDefault)
-        this.iconColorSelected = UtilKColor.getColorTone(iconColorSelected)
+        this.iconColorDefault = UtilKColor.colorStr2Int(iconColorDefault)
+        this.iconColorSelected = UtilKColor.colorStr2Int(iconColorSelected)
         this.tabType = ETabBottomType.IMAGE_TEXT
     }
 
@@ -90,8 +90,8 @@ class MTabBottom : Serializable {
         this.iconFont = iconFont
         this.iconNameDefault = iconNameDefault.string2Unicode()
         this.iconNameSelected = iconNameSelected.string2Unicode()
-        this.iconColorDefault = UtilKColor.getColorTone(iconColorDefault)
-        this.iconColorSelected = UtilKColor.getColorTone(iconColorSelected)
+        this.iconColorDefault = UtilKColor.colorStr2Int(iconColorDefault)
+        this.iconColorSelected = UtilKColor.colorStr2Int(iconColorSelected)
         this.tabType = ETabBottomType.ICONFONT_TEXT
     }
 }

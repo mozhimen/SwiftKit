@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk
 
+import android.graphics.Color
 import android.os.Build
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import java.text.DecimalFormat

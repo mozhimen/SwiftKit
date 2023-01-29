@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.view.imageloader.commons
+package com.mozhimen.basick.imagek.commons
 
 import android.graphics.Bitmap
 

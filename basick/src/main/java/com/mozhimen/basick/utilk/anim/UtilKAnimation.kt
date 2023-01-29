@@ -1,8 +1,12 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.anim
 
 import android.view.animation.Animation
 
 object UtilKAnimation {
+    /**
+     * 释放Animation
+     * @param animation Animation
+     */
     @JvmStatic
     fun releaseAnimation(animation: Animation) {
         animation.cancel()

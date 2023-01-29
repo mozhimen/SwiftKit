@@ -4,37 +4,37 @@ import android.animation.Animator
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
+import android.view.View
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.animk.builders.bases.BaseAnimatorType
 import com.mozhimen.basick.animk.builders.mos.AnimKConfig
-import java.lang.Exception
+
 
 /**
- * @ClassName DrawableColorAnimatorType
+ * @ClassName BackgroundColorAnimatorType
  * @Description TODO
- * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/26 19:07
+ * @Author Mozhimen & Kolin Zhao
+ * @Date 2023/1/29 16:08
  * @Version 1.0
  */
-open class GradientDrawableColorAnimatorType : BaseAnimatorType<GradientDrawableColorAnimatorType>() {
-    private var _gradientDrawable: GradientDrawable? = null
+class BackgroundColorAnimatorType : BaseAnimatorType<BackgroundColorAnimatorType>() {
     private var _colors: IntArray = intArrayOf(Color.WHITE, Color.BLACK)
     override lateinit var _animator: Animator
+    private var _view: View? = null
 
-    fun setGradientDrawable(gradientDrawable: GradientDrawable): GradientDrawableColorAnimatorType {
-        _gradientDrawable = gradientDrawable
-        return this
-    }
-
-    fun setColors(@ColorInt vararg colorInt: Int): GradientDrawableColorAnimatorType {
+    fun setColors(@ColorInt vararg colorInt: Int): BackgroundColorAnimatorType {
         _colors = colorInt
         return this
     }
 
+    fun setView(view: View): BackgroundColorAnimatorType {
+        _view = view
+        return this
+    }
+
     override fun buildAnimator(animKConfig: AnimKConfig): Animator {
-        requireNotNull(_gradientDrawable) { "$TAG you should set _drawable" }
-        _animator = ObjectAnimator.ofInt(_gradientDrawable!!, "color", *_colors)
+        requireNotNull(_view) { "$TAG you should set _view" }
+        _animator = ObjectAnimator.ofInt(_view!!, "backgroundColor", *_colors)
         (_animator as ObjectAnimator).setEvaluator(ArgbEvaluator())
         formatAnimator(animKConfig, _animator)
         return _animator

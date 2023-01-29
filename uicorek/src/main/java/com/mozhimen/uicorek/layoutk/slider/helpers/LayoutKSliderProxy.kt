@@ -239,8 +239,8 @@ internal class LayoutKSliderProxy(
                 _rodIsScrolling = if (!UtilKGesture.isTapInArea(
                         event,
                         _slider.leftX - if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
-                        _slider.rightX + if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
                         _slider.topY - AttrsParser.DEFAULT_PADDING_VERTICAL,
+                        _slider.rightX + if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
                         _slider.bottomY + AttrsParser.DEFAULT_PADDING_VERTICAL
                     )
                 ) {

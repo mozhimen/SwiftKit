@@ -39,9 +39,9 @@ import androidx.fragment.app.Fragment;
 import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.stackk.StackK;
 import com.mozhimen.basick.utilk.context.UtilKActivity;
-import com.mozhimen.basick.utilk.UtilKAnim;
-import com.mozhimen.basick.utilk.UtilKAnimation;
-import com.mozhimen.basick.utilk.UtilKAnimator;
+import com.mozhimen.basick.utilk.anim.UtilKAnim;
+import com.mozhimen.basick.utilk.anim.UtilKAnimation;
+import com.mozhimen.basick.utilk.anim.UtilKAnimator;
 import com.mozhimen.basick.utilk.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKWindow;
 import com.mozhimen.basick.utilk.bar.UtilKBarNavigation;
@@ -1250,7 +1250,7 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
         if (eventObserverMap != null) {
             eventObserverMap.clear();
         }
-        UtilKAnim.releaseAnimation(mShowAnimation, mDismissAnimation, mShowAnimator, mDismissAnimator, mMaskViewShowAnimation, mMaskViewDismissAnimation);
+        UtilKAnim.releaseAnim(mShowAnimation, mDismissAnimation, mShowAnimator, mDismissAnimator, mMaskViewShowAnimation, mMaskViewDismissAnimation);
         if (mBlurOption != null) {
             mBlurOption.clear();
         }

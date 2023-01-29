@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.view.imageloader.UtilKViewImageLoader
+import com.mozhimen.basick.imagek.ImageKLoader
 
 /**
  * @ClassName ImageKBindingAdapter
@@ -19,19 +19,19 @@ object ImageKBindingAdapter {
     @JvmStatic
     @BindingAdapter("loadImage")
     fun loadImage(imageView: ImageView, res: Any) {
-        UtilKViewImageLoader.loadImage(imageView, res)
+        ImageKLoader.loadImage(imageView, res)
     }
 
     @JvmStatic
     @BindingAdapter(value = ["loadImageBlur", "placeholder"], requireAll = true)
     fun loadImageBlur(imageView: ImageView, res: Any, placeholder: Int) {
-        UtilKViewImageLoader.loadImageBlur(imageView, res, placeholder)
+        ImageKLoader.loadImageBlur(imageView, res, placeholder)
     }
 
     @JvmStatic
     @BindingAdapter(value = ["loadImageRoundedCorner", "roundedCornerRadius"], requireAll = true)
     fun loadImageRoundedCorner(imageView: ImageView, res: Any, roundedCornerRadius: Int) {
-        UtilKViewImageLoader.loadImageRoundedCorner(imageView, res, roundedCornerRadius.dp2px())
+        ImageKLoader.loadImageRoundedCorner(imageView, res, roundedCornerRadius.dp2px())
     }
 
     //    /**

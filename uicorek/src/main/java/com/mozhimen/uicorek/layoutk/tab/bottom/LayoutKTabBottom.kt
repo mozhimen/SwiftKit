@@ -76,7 +76,7 @@ class LayoutKTabBottom @JvmOverloads constructor(
      * @param bottomLineColor String
      */
     fun setTabBottomLineColor(bottomLineColor: Any) {
-        this._tabBottomLineColor = UtilKColor.getColorTone(bottomLineColor)
+        this._tabBottomLineColor = UtilKColor.colorStr2Int(bottomLineColor)
     }
 
     /**

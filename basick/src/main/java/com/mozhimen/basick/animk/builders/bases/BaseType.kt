@@ -13,6 +13,7 @@ import androidx.annotation.FloatRange
 @Suppress("UNCHECKED_CAST")
 abstract class BaseType<T> {
 
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
     protected var _interpolator: Interpolator? = null
     protected var _pivotX = 0f
     protected var _pivotY = 0f

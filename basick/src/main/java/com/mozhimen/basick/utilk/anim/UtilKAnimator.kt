@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.anim
 
 import android.animation.Animator
 import android.animation.AnimatorSet
@@ -13,6 +13,10 @@ import kotlin.math.max
  */
 object UtilKAnimator {
 
+    /**
+     * 释放Animator
+     * @param animator Animator
+     */
     @JvmStatic
     fun releaseAnimator(animator: Animator) {
         animator.cancel()

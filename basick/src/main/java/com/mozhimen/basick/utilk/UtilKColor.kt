@@ -54,21 +54,18 @@ object UtilKColor {
      */
     @JvmStatic
     @ColorInt
-    fun getColorTone(colorStr: String): Int =
-        Color.parseColor(colorStr)
+    fun colorStr2Int(colorStr: String): Int = Color.parseColor(colorStr)
 
     /**
      * 获取颜色
-     * @param any Any
+     * @param obj Any
      * @return Int
      */
     @JvmStatic
     @ColorInt
-    fun getColorTone(any: Any): Int {
-        return when (any) {
-            is String -> getColorTone(any)
-            is Int -> any
-            else -> Color.WHITE
-        }
+    fun colorStr2Int(obj: Any): Int = when (obj) {
+        is String -> colorStr2Int(obj)
+        is Int -> obj
+        else -> Color.WHITE
     }
 }

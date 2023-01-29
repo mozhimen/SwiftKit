@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.anim
 
 import android.animation.*
 import android.view.View
@@ -14,8 +14,12 @@ import android.view.animation.*
 object UtilKAnim {
     private const val TAG = "UtilKAnim>>>>>"
 
+    /**
+     * 释放Anim
+     * @param objs Array<out Any>
+     */
     @JvmStatic
-    fun releaseAnimation(vararg objs: Any) {
+    fun releaseAnim(vararg objs: Any) {
         if (objs.isEmpty()) return
         for (obj in objs) {
             if (obj is Animation) {
@@ -26,6 +30,10 @@ object UtilKAnim {
         }
     }
 
+    /**
+     * 停止View的Anim
+     * @param view View
+     */
     @JvmStatic
     fun stopAnim(view: View) {
         view.apply {

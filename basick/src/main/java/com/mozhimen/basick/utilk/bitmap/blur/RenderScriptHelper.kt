@@ -13,6 +13,7 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.basick.utilk.bar.UtilKBarStatus
 import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.exts.colorStr2Int
 import com.mozhimen.basick.utilk.log.UtilKLogSmart
 
 /**
@@ -157,7 +158,7 @@ object RenderScriptHelper {
         canvas.setMatrix(matrix)
         val bgDrawable = view.background
         if (bgDrawable == null) {
-            canvas.drawColor(Color.parseColor("#FAFAFA"))
+            canvas.drawColor("#FAFAFA".colorStr2Int())
         } else {
             bgDrawable.draw(canvas)
         }
