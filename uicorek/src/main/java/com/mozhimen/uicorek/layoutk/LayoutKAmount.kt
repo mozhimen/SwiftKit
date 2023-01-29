@@ -145,9 +145,7 @@ class LayoutKAmount @JvmOverloads constructor(
         val BTN_SIZE: Int = 20f.dp2px()
 
         fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MAmountAttrs {
-            val typedArray = context.obtainStyledAttributes(
-                attrs, R.styleable.LayoutKAmount, defStyleAttr, R.style.LayoutKAmount_Style
-            )
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKAmount, defStyleAttr, R.style.LayoutKAmount_Style)
 
             val minVal = typedArray.getInteger(
                 R.styleable.LayoutKAmount_layoutKAmount_minVal, MIN_VAL

@@ -36,6 +36,18 @@
     </declare-styleable>
 
     <!--layoutk-->
+    <declare-styleable name="LayoutKGridFill">
+        <attr name="layoutKGridFill_gridRowCount" format="integer" />
+        <attr name="layoutKGridFill_gridColumnCount" format="integer" />
+        <attr name="layoutKGridFill_gridColor" format="color|reference" />
+        <attr name="layoutKGridFill_cellDefaultColor" format="color|reference" />
+        <attr name="layoutKGridFill_cellHoverColor" format="color|reference" />
+        <attr name="layoutKGridFill_cellSelectColor" format="color|reference" />
+        <attr name="layoutKGridFill_lineColor" format="color|reference" />
+        <attr name="layoutKGridFill_innerLineWidth" format="dimension|reference" />
+        <attr name="layoutKGridFill_outerLineWidth" format="dimension|reference" />
+    </declare-styleable>
+
     <declare-styleable name="LayoutKTimeLine">
         <!--时间轴偏移值-->
         <attr name="layoutKTimeLine_lineMarginOffset" format="dimension|reference" />
@@ -458,16 +470,16 @@
     <!--viewk-->
     <declare-styleable name="ViewKWheel">
         <attr name="viewKWheel_gravity">
-            <enum name="center" value="17"/>
-            <enum name="left" value="3"/>
-            <enum name="right" value="5"/>
+            <enum name="center" value="17" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
         </attr>
-        <attr name="viewKWheel_textSize" format="dimension"/>
-        <attr name="viewKWheel_textColorOut" format="color"/>
-        <attr name="viewKWheel_textColorCenter" format="color"/>
-        <attr name="viewKWheel_dividerColor" format="color"/>
-        <attr name="viewKWheel_dividerWidth" format="dimension"/>
-        <attr name="viewKWheel_lineSpacingMultiplier" format="float"/>
+        <attr name="viewKWheel_textSize" format="dimension" />
+        <attr name="viewKWheel_textColorOut" format="color" />
+        <attr name="viewKWheel_textColorCenter" format="color" />
+        <attr name="viewKWheel_dividerColor" format="color" />
+        <attr name="viewKWheel_dividerWidth" format="dimension" />
+        <attr name="viewKWheel_lineSpacingMultiplier" format="float" />
     </declare-styleable>
 
     <declare-styleable name="ViewKOverlay">

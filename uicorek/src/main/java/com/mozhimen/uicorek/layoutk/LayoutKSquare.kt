@@ -28,7 +28,7 @@ class LayoutKSquare @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
-            val typedArray = context.obtainStyledAttributes(it, R.styleable.LayoutKSquare)
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSquare)
             _measureMode = typedArray.getInt(R.styleable.LayoutKSquare_layoutKSquare_measureMode, _measureMode)
             typedArray.recycle()
         }

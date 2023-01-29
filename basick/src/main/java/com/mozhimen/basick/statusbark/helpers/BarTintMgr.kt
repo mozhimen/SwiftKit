@@ -33,11 +33,11 @@ class BarTintMgr(activity: Activity) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {
             //检查主题中是否有透明的状态栏
             val attrs = intArrayOf(android.R.attr.windowTranslucentStatus)
-            val a = activity.obtainStyledAttributes(attrs)
+            val typedArray = activity.obtainStyledAttributes(attrs)
             try {
-                _BarAvailable = a.getBoolean(0, false)
+                _BarAvailable = typedArray.getBoolean(0, false)
             } finally {
-                a.recycle()
+                typedArray.recycle()
             }
             val winParams = window.attributes
             val bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS

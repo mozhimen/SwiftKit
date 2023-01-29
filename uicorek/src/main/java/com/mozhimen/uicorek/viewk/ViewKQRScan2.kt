@@ -78,7 +78,7 @@ class ViewKQRScan2 @JvmOverloads constructor(
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs ?: return
-        val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKQRScan2)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKQRScan2)
         _borderWidth = typedArray.getDimensionPixelSize(R.styleable.ViewKQRScan2_viewKQRScan2_borderWidth, _borderWidth)
         _borderColor = typedArray.getColor(R.styleable.ViewKQRScan2_viewKQRScan2_borderColor, _borderColor)
         _lineDrawable = typedArray.getDrawable(R.styleable.ViewKQRScan2_viewKQRScan2_lineDrawable)

@@ -31,7 +31,7 @@ class ImageKSquare @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
-            val typedArray = context.obtainStyledAttributes(it, R.styleable.ImageKSquare)
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageKSquare)
             _measureMode = typedArray.getInt(R.styleable.ImageKSquare_imageKSquare_measureMode, _measureMode)
             typedArray.recycle()
         }

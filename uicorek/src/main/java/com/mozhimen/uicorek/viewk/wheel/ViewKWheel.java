@@ -155,15 +155,15 @@ public class ViewKWheel extends View {
         }
 
         if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ViewKWheel, 0, 0);
-            mGravity = a.getInt(R.styleable.ViewKWheel_viewKWheel_gravity, Gravity.CENTER);
-            textColorOut = a.getColor(R.styleable.ViewKWheel_viewKWheel_textColorOut, 0xFFa8a8a8);
-            textColorCenter = a.getColor(R.styleable.ViewKWheel_viewKWheel_textColorCenter, 0xFF2a2a2a);
-            dividerColor = a.getColor(R.styleable.ViewKWheel_viewKWheel_dividerColor, 0xFFd5d5d5);
-            dividerWidth = a.getDimensionPixelSize(R.styleable.ViewKWheel_viewKWheel_dividerWidth, 2);
-            textSize = a.getDimensionPixelOffset(R.styleable.ViewKWheel_viewKWheel_textSize, textSize);
-            lineSpacingMultiplier = a.getFloat(R.styleable.ViewKWheel_viewKWheel_lineSpacingMultiplier, lineSpacingMultiplier);
-            a.recycle();//回收内存
+            TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKWheel, 0, 0);
+            mGravity = typedArray.getInt(R.styleable.ViewKWheel_viewKWheel_gravity, Gravity.CENTER);
+            textColorOut = typedArray.getColor(R.styleable.ViewKWheel_viewKWheel_textColorOut, 0xFFa8a8a8);
+            textColorCenter = typedArray.getColor(R.styleable.ViewKWheel_viewKWheel_textColorCenter, 0xFF2a2a2a);
+            dividerColor = typedArray.getColor(R.styleable.ViewKWheel_viewKWheel_dividerColor, 0xFFd5d5d5);
+            dividerWidth = typedArray.getDimensionPixelSize(R.styleable.ViewKWheel_viewKWheel_dividerWidth, 2);
+            textSize = typedArray.getDimensionPixelOffset(R.styleable.ViewKWheel_viewKWheel_textSize, textSize);
+            lineSpacingMultiplier = typedArray.getFloat(R.styleable.ViewKWheel_viewKWheel_lineSpacingMultiplier, lineSpacingMultiplier);
+            typedArray.recycle();//回收内存
         }
 
         judgeLineSpace();

@@ -9,14 +9,23 @@ import com.mozhimen.basick.utilk.UtilKNumber
  * @Date 2022/9/16 19:39
  * @Version 1.0
  */
-fun Float.normalize(range: Pair<Float, Float>): Float =
-    UtilKNumber.normalize(this, range)
-
 fun Float.normalize(min: Float, max: Float): Float =
     UtilKNumber.normalize(this, min, max)
 
-fun Int.normalize(range: IntRange) =
+fun Float.normalize(min: Int, max: Int): Float =
+    UtilKNumber.normalize(this, min, max)
+
+fun Float.normalize(range: IntRange): Float =
     UtilKNumber.normalize(this, range)
+
+fun Float.normalize(range: Pair<Float, Float>): Float =
+    UtilKNumber.normalize(this, range)
+
+fun Int.normalize(range: IntRange): Int =
+    UtilKNumber.normalize(this, range)
+
+fun Int.normalize(min: Int, max: Int): Int =
+    UtilKNumber.normalize(this, min, max)
 
 fun Float.percent(range: Pair<Float, Float>): Float =
     UtilKNumber.percent(this, range)

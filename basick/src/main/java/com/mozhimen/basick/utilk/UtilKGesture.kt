@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk
 
+import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import kotlin.math.abs
@@ -43,7 +44,7 @@ object UtilKGesture {
      */
     @JvmStatic
     fun isTapInArea(event: MotionEvent, left: Float, top: Float, right: Float, bottom: Float): Boolean =
-        isTapInArea(event.x, event.y, left, right, top, bottom)
+        isTapInArea(event.x, event.y, left, top, right, bottom)
 
     /**
      * 是否点击区域内
@@ -56,7 +57,7 @@ object UtilKGesture {
      * @return Boolean
      */
     @JvmStatic
-    fun isTapInArea(x: Float, y: Float, left: Float, right: Float, top: Float, bottom: Float): Boolean =
+    fun isTapInArea(x: Float, y: Float, left: Float, top: Float, right: Float, bottom: Float): Boolean =
         x > left && x < right && y > top && y < bottom
 
     /**
