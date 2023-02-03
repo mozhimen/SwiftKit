@@ -39,19 +39,19 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/viewk_steps_btn_reset"
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:text="重置"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/viewk_steps_btn_back"
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:text="上一步"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/viewk_steps_btn_next"
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:text="下一步"
                 tools:ignore="HardcodedText" />
         </LinearLayout>

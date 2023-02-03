@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.UtilKJson
+import com.google.gson.reflect.TypeToken
+import com.mozhimen.basick.utilk.json.UtilKJsonGson
+import com.mozhimen.basick.utilk.json.UtilKJsonMoshi
 
 /**
  * @ClassName JsonUtil
@@ -17,7 +19,7 @@ import com.mozhimen.basick.utilk.UtilKJson
  * @throws Exception
  */
 @Throws(Exception::class)
-inline fun <reified T : Any> T.toJson(indent: String = ""): String = UtilKJson.t2Json(this, indent)
+inline fun <reified T : Any> T.toJsonMoshi(indent: String = ""): String = UtilKJsonMoshi.t2Json(this, indent)
 
 /**
  * 转实体
@@ -26,26 +28,27 @@ inline fun <reified T : Any> T.toJson(indent: String = ""): String = UtilKJson.t
  * @throws Exception
  */
 @Throws(Exception::class)
-inline fun <reified T> String.fromJson(): T? = UtilKJson.json2T(this)
-///**
-// * 转Json
-// * @receiver Any
-// * @return String
-// */
-//fun Any.toJson(): String = UtilKJson.t2Json(this)
-//
-///**
-// * 转实体
-// * @receiver String
-// * @param token TypeToken<T>
-// * @return T
-// */
-//fun <T> String.fromJson(token: TypeToken<T>): T = UtilKJson.json2T(this, token)
-//
-///**
-// * 转实体
-// * @receiver String
-// * @param cls Class<T>
-// * @return T
-// */
-//fun <T> String.fromJson(cls: Class<T>): T = UtilKJson.json2T(this, cls)
+inline fun <reified T> String.fromJsonMoshi(): T? = UtilKJsonMoshi.json2T(this)
+
+/**
+ * 转Json
+ * @receiver Any
+ * @return String
+ */
+fun Any.toJsonGson(): String = UtilKJsonGson.t2Json(this)
+
+/**
+ * 转实体
+ * @receiver String
+ * @param token TypeToken<T>
+ * @return T
+ */
+fun <T> String.fromJsonGson(token: TypeToken<T>): T = UtilKJsonGson.json2T(this, token)
+
+/**
+ * 转实体
+ * @receiver String
+ * @param cls Class<T>
+ * @return T
+ */
+fun <T> String.fromJsonGson(cls: Class<T>): T = UtilKJsonGson.json2T(this, cls)

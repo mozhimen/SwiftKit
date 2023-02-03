@@ -41,6 +41,8 @@ open class LifecycleServiceDelegate<T>(
         }
     }
 
+    fun getListener(): IBaseServiceConnListener? = _connListener
+
     @SuppressLint("LongLogTag")
     fun bindService() {
         _isBindService = true

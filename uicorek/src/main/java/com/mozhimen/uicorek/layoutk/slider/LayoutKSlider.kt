@@ -42,12 +42,14 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
     private val _layoutKSliderProxy: LayoutKSliderProxy by lazy { LayoutKSliderProxy(context) }
 
     init {
-        setWillNotDraw(false)
-        _layoutKSliderProxy.init(this)
-        initAttrs(attrs, defStyleAttr)
-        initPaint()
-        initView()
-        minimumHeight = _layoutKSliderProxy.getHeightMeasureSpec()
+        if (!isInEditMode) {
+            setWillNotDraw(false)
+            _layoutKSliderProxy.init(this)
+            initAttrs(attrs, defStyleAttr)
+            initPaint()
+            initView()
+            minimumHeight = _layoutKSliderProxy.getHeightMeasureSpec()
+        }
     }
 
     val rod: MRod
@@ -81,27 +83,41 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(_layoutKSliderProxy.getHeightMeasureSpec(), MeasureSpec.EXACTLY)
-        super.onMeasure(widthMeasureSpec, newHeightMeasureSpec)
+        if (!isInEditMode) {
+            val newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(_layoutKSliderProxy.getHeightMeasureSpec(), MeasureSpec.EXACTLY)
+            super.onMeasure(widthMeasureSpec, newHeightMeasureSpec)
+        } else {
+            super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        }
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        _layoutKSliderProxy.refreshView()
+        if (!isInEditMode) {
+            _layoutKSliderProxy.refreshView()
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        _layoutKSliderProxy.onDraw(canvas)
+        if (!isInEditMode) {
+            _layoutKSliderProxy.onDraw(canvas)
+        }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return _layoutKSliderProxy.onTouchEvent(event)
+        return if (!isInEditMode) {
+            _layoutKSliderProxy.onTouchEvent(event)
+        } else {
+            super.onTouchEvent(event)
+        }
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        _layoutKSliderProxy.attachScrollableParentView(UtilKView.getParentViewMatch(this, ScrollView::class.java, NestedScrollView::class.java, RecyclerView::class.java) as ViewGroup?)
+        if (!isInEditMode) {
+            _layoutKSliderProxy.attachScrollableParentView(UtilKView.getParentViewMatch(this, ScrollView::class.java, NestedScrollView::class.java, RecyclerView::class.java) as ViewGroup?)
+        }
     }
 }

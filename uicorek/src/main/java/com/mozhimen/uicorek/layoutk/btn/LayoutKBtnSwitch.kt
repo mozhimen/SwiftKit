@@ -37,7 +37,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
 
     private val _switch = MSwitch()
     private val _bg = MBG()
-    private val _attrs: LayoutKBtnSwitchAttrs = AttrsParser.parseAttrs(context, attrs)
+    private val _attrs: LayoutKBtnSwitchAttrs by lazy { AttrsParser.parseAttrs(context, attrs) }
     private var _layoutKSwitchListener: ILayoutKSwitchListener? = null
 
     private var _switchStatus = false
@@ -116,17 +116,19 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
     }
 
     init {
-        minimumWidth = 20f.dp2px()
-        minimumHeight = 10f.dp2px()
-        setOnClickListener(this)
+        if (!isInEditMode) {
+            minimumWidth = 20f.dp2px()
+            minimumHeight = 10f.dp2px()
+            setOnClickListener(this)
 
-        addView(_bgView)
-        addView(_switchView)
+            addView(_bgView)
+            addView(_switchView)
 
-        this.post {
-            initBg()
-            initSwitch()
-            initView()
+            this.post {
+                initBg()
+                initSwitch()
+                initView()
+            }
         }
     }
 

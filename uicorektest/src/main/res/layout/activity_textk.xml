@@ -17,7 +17,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/textk_bubble_btn"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="点击出现提示信息(TextKBubble)"
             tools:ignore="HardcodedText" />
 

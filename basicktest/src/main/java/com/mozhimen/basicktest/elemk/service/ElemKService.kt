@@ -2,6 +2,8 @@ package com.mozhimen.basicktest.elemk.service
 
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.service.bases.BaseService
+import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
+import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -16,13 +18,17 @@ import kotlinx.coroutines.launch
  */
 class ElemKService : BaseService() {
 
+    override var binder: IBaseServiceConnListener.Stub? = object : BaseServiceBinder() {
+        override fun launchCommand(cmd: String?): String {
+            return if (cmd == "123") "456" else "123"
+        }
+    }
+
     override fun onCreate() {
         super.onCreate()
 
         runBackgroundTasks()
     }
-
-    private var _job: Job? = null
 
     private fun runBackgroundTasks() {
         lifecycleScope.launch(Dispatchers.IO) {

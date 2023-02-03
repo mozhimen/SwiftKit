@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.device
 import android.graphics.Rect
 import android.graphics.RectF
 import com.mozhimen.basick.utilk.UtilKNumber
+import com.mozhimen.basick.utilk.exts.normalize
 import kotlin.math.roundToInt
 
 
@@ -37,10 +38,10 @@ object UtilKCameraDeal {
         val centerX = (originFocusCenterX / previewViewWidth * 2000 - 1000).toInt()
         val centerY = (originFocusCenterY / previewViewHeight * 2000 - 1000).toInt()
         val rectF = RectF(
-            UtilKNumber.normalize(centerX - halfFocusAreaWidth, -1000..1000).toFloat(),
-            UtilKNumber.normalize(centerY - halfFocusAreaHeight, -1000..1000).toFloat(),
-            UtilKNumber.normalize(centerX + halfFocusAreaWidth, -1000..1000).toFloat(),
-            UtilKNumber.normalize(centerY + halfFocusAreaHeight, -1000..1000).toFloat()
+            (centerX - halfFocusAreaWidth).normalize(-1000..1000).toFloat(),
+            (centerY - halfFocusAreaHeight).normalize(-1000..1000).toFloat(),
+            (centerX + halfFocusAreaWidth).normalize(-1000..1000).toFloat(),
+            (centerY + halfFocusAreaHeight).normalize(-1000..1000).toFloat()
         )
         return Rect(
             rectF.left.roundToInt(), rectF.top.roundToInt(),

@@ -35,10 +35,27 @@ class TestUtilKNumber {
 //        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 99).toString())
 //        UtilKConsole.printlog(UtilKNumber.percent(23f, 23, 99).toString())
 //        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 0).toString())
+        UtilKNumber.percent(23f, 33f, 44f).printlog()
+        UtilKNumber.percent(-23f, 33f, 44f).printlog()
     }
 
     @Test
     fun keepTwo() {
         UtilKNumber.keepTwoDigits(2.33333f).printlog()
+    }
+
+    @Test
+    fun getNewRotate() {
+        val origin = 45f
+        val last = 5f
+        val current = 315f
+        val temp = current - origin + when {
+            (current - last) <= -180f -> 360f
+            (current - last) >= 180f -> -360f
+            else -> 0f
+        }
+        var real = 0f
+        real += temp
+        real.printlog()
     }
 }

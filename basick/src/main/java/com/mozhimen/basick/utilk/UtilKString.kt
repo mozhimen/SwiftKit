@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk
 import android.graphics.Color
 import android.os.Build
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.exts.normalize
 import java.text.DecimalFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -76,7 +77,7 @@ object UtilKString {
      */
     @JvmStatic
     fun substring(content: String, firstIndex: Int, length: Int): String =
-        content.substring(UtilKNumber.normalize(firstIndex, content.indices), if (firstIndex + length > content.length) content.length else firstIndex + length)
+        content.substring(firstIndex.normalize(content.indices), if (firstIndex + length > content.length) content.length else firstIndex + length)
 
     /**
      * 是否为空

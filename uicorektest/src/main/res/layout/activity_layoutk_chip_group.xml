@@ -16,13 +16,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/layoutk_chips_add"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="增加Key"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/layoutk_chips_remove"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="删除Key"
             tools:ignore="HardcodedText" />
 

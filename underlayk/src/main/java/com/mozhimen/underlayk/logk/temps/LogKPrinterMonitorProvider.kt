@@ -104,9 +104,16 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         if (isFold) foldMonitor() else unfoldMonitor()
     }
 
+    /**
+     * 关闭Monitor
+     */
     fun closeMonitor() {
-        if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) == null) return
-        _windowManager.removeView(_rootView)
+        try {
+            if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) == null) return
+            _windowManager.removeView(_rootView)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     fun foldMonitor() {

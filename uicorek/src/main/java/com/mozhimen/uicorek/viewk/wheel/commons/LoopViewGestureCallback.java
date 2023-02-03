@@ -8,11 +8,11 @@ import com.mozhimen.uicorek.viewk.wheel.ViewKWheel;
 /**
  * 手势监听
  */
-public final class LoopViewGestureListener extends android.view.GestureDetector.SimpleOnGestureListener {
+public final class LoopViewGestureCallback extends android.view.GestureDetector.SimpleOnGestureListener {
 
     private final ViewKWheel viewKWheel;
 
-    public LoopViewGestureListener(ViewKWheel viewKWheel) {
+    public LoopViewGestureCallback(ViewKWheel viewKWheel) {
         this.viewKWheel = viewKWheel;
     }
 

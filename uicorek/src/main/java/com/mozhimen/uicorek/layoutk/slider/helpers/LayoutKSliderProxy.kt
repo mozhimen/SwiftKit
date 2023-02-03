@@ -46,7 +46,7 @@ internal class LayoutKSliderProxy(
     private lateinit var _layoutKSlider: LayoutKSlider
     private lateinit var _attrs: MSliderAttrs
     private val _slider: MSlider by lazy { MSlider() }
-    private val _rod: MRod by lazy { MRod(_context as LifecycleOwner) }
+    private val _rod: MRod by lazy { MRod() }
     private var _scrollableParentView: ViewGroup? = null
     private var _rodIsScrolling = false
     private var _isEnableScroll = true

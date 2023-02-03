@@ -12,13 +12,14 @@ import android.widget.GridLayout
 import com.mozhimen.basick.animk.builders.AnimKBuilder
 import com.mozhimen.basick.animk.builders.temps.BackgroundColorAnimatorType
 import com.mozhimen.basick.elemk.mos.MArea
+import com.mozhimen.basick.elemk.mos.MAreaF
 import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.basick.utilk.exts.colorStr2Int
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
+import kotlin.math.roundToInt
 
 
 /**
@@ -33,21 +34,44 @@ class LayoutKGridFill @JvmOverloads constructor(context: Context, attrs: Attribu
 
     private var _gridRowCount = 10 //行数量
     private var _gridColumnCount = 10 //列数量
-    private var _gridColor = UtilKRes.getColor(R.color.blue_light)
-    private var _cellDefaultColor = UtilKRes.getColor(R.color.gray_light)    //默认格子颜色
-    private var _cellHoverColor = UtilKRes.getColor(R.color.blue_light)    //滑动时进入格子的暂时颜色
-    private var _cellSelectColor = UtilKRes.getColor(R.color.blue_normal)    //选中的颜色
-    private var _lineColor = UtilKRes.getColor(R.color.blue_dark)
-    private var _innerLineWidth = 1f.dp2px().toFloat()
-    private var _outerLineWidth = 2f.dp2px().toFloat()
+    private var _gridColor: Int = 0
+    private var _cellDefaultColor: Int = 0    //默认格子颜色
+    private var _cellHoverColor: Int = 0//滑动时进入格子的暂时颜色
+    private var _cellSelectColor: Int = 0 //选中的颜色
+    private var _lineColor: Int = 0
+    private var _innerLineWidth = 0f
+    private var _outerLineWidth = 0f
+
+    init {
+        if (!isInEditMode) {
+            _gridColor = UtilKRes.getColor(R.color.blue_light)
+            _cellDefaultColor = UtilKRes.getColor(R.color.gray_light)
+            _cellHoverColor = UtilKRes.getColor(R.color.blue_light)
+            _cellSelectColor = UtilKRes.getColor(R.color.blue_normal)
+            _lineColor = UtilKRes.getColor(R.color.blue_dark)
+            _innerLineWidth = 1f.dp2px().toFloat()
+            _outerLineWidth = 2f.dp2px().toFloat()
+            initAttrs(attrs, defStyleAttr)
+            post {
+                addView(_gridLayout)
+                initCells()
+                invalidate()
+            }
+        }
+    }
 
     private lateinit var _cells: Array<Array<View>>    //二维格子
-    private val _areaGrid by lazy { MArea(width - paddingLeft - paddingRight, height - paddingTop - paddingBottom, paddingLeft, paddingTop) }
-    private val _areaCell by lazy { MArea(width / _gridColumnCount, height / _gridRowCount) }
+    private val _areaGrid by lazy {
+        MArea(
+            width - paddingLeft - paddingRight, height - paddingTop - paddingBottom,
+            paddingLeft, paddingTop
+        )
+    }
+    private val _areaCell by lazy { MAreaF(_areaGrid.width / _gridColumnCount, _areaGrid.height / _gridRowCount) }
 
     private val _gridLayout by lazy {
         GridLayout(context).apply {
-            layoutParams = LayoutParams(_areaGrid.width, _areaGrid.height)
+            layoutParams = LayoutParams(_areaGrid.width.toInt(), _areaGrid.height.toInt())
             setBackgroundColor(_gridColor)
             orientation = GridLayout.HORIZONTAL
             columnCount = _gridColumnCount
@@ -65,15 +89,6 @@ class LayoutKGridFill @JvmOverloads constructor(context: Context, attrs: Attribu
     private val _linePath = Path()
 
     private var _cellLast: View? = null    //上一个  view
-
-    init {
-        initAttrs(attrs, defStyleAttr)
-        post {
-            addView(_gridLayout)
-            initCells()
-            invalidate()
-        }
-    }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
@@ -98,7 +113,7 @@ class LayoutKGridFill @JvmOverloads constructor(context: Context, attrs: Attribu
             Array(_gridColumnCount, init = {
                 View(context).apply {
                     tag = Status.DEFAULT
-                    this.layoutParams = LayoutParams(_areaCell.width, _areaCell.height)
+                    this.layoutParams = LayoutParams(_areaCell.width.roundToInt(), _areaCell.height.roundToInt())
                     setBackgroundColor(_cellDefaultColor)
                     setOnClickListener {
                         if (tag == Status.SELECTED) return@setOnClickListener
@@ -165,21 +180,23 @@ class LayoutKGridFill @JvmOverloads constructor(context: Context, attrs: Attribu
     override fun dispatchDraw(canvas: Canvas?) {
         super.dispatchDraw(canvas)
 
-        val initX: Float = _areaGrid.left.toFloat()
-        val initY: Float = _areaCell.top.toFloat()
+        val left: Float = _areaGrid.left.toFloat()
+        val top: Float = _areaGrid.top.toFloat()
+        val right: Float = _areaGrid.right.toFloat()
+        val bottom: Float = _areaGrid.bottom.toFloat()
         for (i in 0.._gridRowCount) {
-            val y = (_areaCell.height * i) + initY + if (i == 0) _outerLineWidth / 2f else if (i == _gridRowCount) -(_outerLineWidth / 2f) else 0f
+            val y = if (i == _gridRowCount) right - (_outerLineWidth / 2f) else (_areaCell.height * i) + top + if (i == 0) _outerLineWidth / 2f else 0f
             _linePaint.strokeWidth = if (i == 0 || i == _gridRowCount) _outerLineWidth else _innerLineWidth
-            _linePath.moveTo(initX, y)
-            _linePath.lineTo(initX + _areaGrid.width, y)
+            _linePath.moveTo(left, y)
+            _linePath.lineTo(left + _areaGrid.width, y)
             canvas?.drawPath(_linePath, _linePaint)
             _linePath.reset()
         }
         for (i in 0.._gridColumnCount) {
-            val x = (_areaCell.width * i) + initX + if (i == 0) _outerLineWidth / 2f else if (i == _gridColumnCount) -(_outerLineWidth / 2f) else 0f
+            val x = if (i == _gridColumnCount) right - (_outerLineWidth / 2f) else (_areaCell.width * i) + left + if (i == 0) _outerLineWidth / 2f else 0f
             _linePaint.strokeWidth = if (i == 0 || i == _gridColumnCount) _outerLineWidth else _innerLineWidth
-            _linePath.moveTo(x, initY)
-            _linePath.lineTo(x, initY + _areaGrid.height)
+            _linePath.moveTo(x, top)
+            _linePath.lineTo(x, top + _areaGrid.height)
             canvas?.drawPath(_linePath, _linePaint)
             _linePath.reset()
         }

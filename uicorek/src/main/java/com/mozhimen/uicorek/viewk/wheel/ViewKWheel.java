@@ -19,8 +19,8 @@ import android.view.View;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.viewk.wheel.commons.IWheelAdapter;
 import com.mozhimen.uicorek.viewk.wheel.commons.IPickerViewData;
-import com.mozhimen.uicorek.viewk.wheel.commons.LoopViewGestureListener;
-import com.mozhimen.uicorek.viewk.wheel.commons.OnItemSelectedListener;
+import com.mozhimen.uicorek.viewk.wheel.commons.LoopViewGestureCallback;
+import com.mozhimen.uicorek.viewk.wheel.commons.IItemSelectedListener;
 import com.mozhimen.uicorek.viewk.wheel.helpers.InertiaTimerTask;
 import com.mozhimen.uicorek.viewk.wheel.helpers.MessageHandler;
 import com.mozhimen.uicorek.viewk.wheel.helpers.SmoothScrollTimerTask;
@@ -50,7 +50,7 @@ public class ViewKWheel extends View {
     private Context context;
     private Handler handler;
     private GestureDetector gestureDetector;
-    private OnItemSelectedListener onItemSelectedListener;
+    private IItemSelectedListener itemSelectedListener;
 
     private boolean isOptions = false;
     private boolean isCenterLabel = true;
@@ -184,7 +184,7 @@ public class ViewKWheel extends View {
     private void initLoopView(Context context) {
         this.context = context;
         handler = new MessageHandler(this);
-        gestureDetector = new GestureDetector(context, new LoopViewGestureListener(this));
+        gestureDetector = new GestureDetector(context, new LoopViewGestureCallback(this));
         gestureDetector.setIsLongpressEnabled(false);
         isLoop = true;
 
@@ -210,6 +210,7 @@ public class ViewKWheel extends View {
         paintIndicator = new Paint();
         paintIndicator.setColor(dividerColor);
         paintIndicator.setAntiAlias(true);
+        paintIndicator.setStrokeWidth(dividerWidth);
 
         setLayerType(LAYER_TYPE_SOFTWARE, null);
     }
@@ -319,8 +320,8 @@ public class ViewKWheel extends View {
         invalidate();
     }
 
-    public final void setOnItemSelectedListener(OnItemSelectedListener OnItemSelectedListener) {
-        this.onItemSelectedListener = OnItemSelectedListener;
+    public final void setItemSelectedListener(IItemSelectedListener listener) {
+        this.itemSelectedListener = listener;
     }
 
     public final void setAdapter(IWheelAdapter adapter) {
@@ -356,11 +357,11 @@ public class ViewKWheel extends View {
     }
 
     public final void onItemSelected() {
-        if (onItemSelectedListener != null) {
+        if (itemSelectedListener != null) {
             postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    onItemSelectedListener.onItemSelected(getCurrentItem());
+                    itemSelectedListener.onItemSelected(getCurrentItem());
                 }
             }, 200L);
         }
@@ -425,7 +426,6 @@ public class ViewKWheel extends View {
         } else if (dividerType == DividerType.CIRCLE) {
             //分割线为圆圈形状
             paintIndicator.setStyle(Paint.Style.STROKE);
-            paintIndicator.setStrokeWidth(dividerWidth);
             float startX;
             float endX;
             if (TextUtils.isEmpty(label)) {//隐藏Label的情况

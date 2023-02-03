@@ -95,6 +95,7 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
     }
 
     override fun dismiss() {
+        if (!isShowing) return
         if (UtilKThread.isMainThread()) {
             super.dismiss()
         } else {
@@ -148,10 +149,11 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
     /**
      * 初始化window宽度
      * 默认屏幕宽度左右间距25dp
+     * (getCurrentScreenWidth() * 0.8f).roundToInt()
      * @return
      */
     protected open fun onInitWindowWidth(): Int {
-        return (getCurrentScreenWidth() * 0.8f).roundToInt()
+        return ViewGroup.LayoutParams.WRAP_CONTENT
     }
 
     /**

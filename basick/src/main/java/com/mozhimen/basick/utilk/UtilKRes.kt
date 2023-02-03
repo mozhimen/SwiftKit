@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
@@ -61,8 +62,8 @@ object UtilKRes {
      * @return Drawable?
      */
     @JvmStatic
-    fun getDrawable(@DrawableRes drawableId: Int): Drawable? =
-        ContextCompat.getDrawable(_context, drawableId)
+    fun getDrawable(@DrawableRes drawableId: Int, context: Context = _context): Drawable? =
+        ContextCompat.getDrawable(context, drawableId)
 
     /**
      * 获取DimensionPixelSize

@@ -10,7 +10,7 @@
         tools:context=".drawablek.DrawableKActivity">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:onClick="goDrawableKArrow"
             android:text="goDrawableKArrow"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

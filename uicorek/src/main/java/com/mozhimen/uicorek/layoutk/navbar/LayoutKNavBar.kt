@@ -47,8 +47,10 @@ class LayoutKNavBar @JvmOverloads constructor(
     private lateinit var _attrs: MNavBarAttrs//属性解析获得对象
 
     init {
-        initAttrs(attrs, defStyleAttr)
-        initView()
+        if (!isInEditMode) {
+            initAttrs(attrs, defStyleAttr)
+            initView()
+        }
     }
 
     fun genTitle(

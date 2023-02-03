@@ -12,6 +12,30 @@ import kotlin.math.*
  * @Version 1.0
  */
 object UtilKNumber {
+    /**
+     * ASCII转整型
+     * '5' ascci 是 53。 输入 int 53，输出 int 5
+     * @param ascii Int
+     * @return Int
+     */
+    @JvmStatic
+    fun ascii2Int(ascii: Int): Int {
+        return Character.getNumericValue(ascii)
+    }
+
+    /**
+     * 保留两位
+     * @param value Double
+     * @return Double
+     */
+    @JvmStatic
+    fun keepTwoDigits(value: Double): Double {
+        val format = DecimalFormat("#.##")
+        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.roundingMode = RoundingMode.FLOOR
+        return format.format(value).toDouble()
+    }
+
     @JvmStatic
     fun keepTwoDigits(value: Float): Float {
         val format = DecimalFormat("#.##")
@@ -48,6 +72,16 @@ object UtilKNumber {
     }
 
     @JvmStatic
+    fun normalize(value: Long, min: Long, max: Long): Long {
+        val tempRange = min(min, max) to max(min, max)
+        return when {
+            value < tempRange.first -> tempRange.first
+            value > tempRange.second -> tempRange.second
+            else -> value
+        }
+    }
+
+    @JvmStatic
     fun normalize(value: Float, min: Float, max: Float): Float {
         val tempRange = min(min, max) to max(min, max)
         return when {
@@ -58,20 +92,18 @@ object UtilKNumber {
     }
 
     @JvmStatic
-    fun normalize(value: Float, min: Int, max: Int): Float =
-        normalize(value, min.toFloat(), max.toFloat())
+    fun normalize(value: Double, min: Double, max: Double): Double {
+        val tempRange = min(min, max) to max(min, max)
+        return when {
+            value < tempRange.first -> min
+            value > tempRange.second -> max
+            else -> value
+        }
+    }
 
     @JvmStatic
-    fun normalize(value: Float, range: IntRange): Float =
-        normalize(value, range.first.toFloat(), range.last.toFloat())
-
-    @JvmStatic
-    fun normalize(value: Float, range: Pair<Float, Float>): Float =
-        normalize(value, range.first, range.second)
-
-    @JvmStatic
-    fun normalize(value: Int, range: IntRange): Int {
-        val tempRange = min(range.first, range.last) to max(range.first, range.last)
+    fun normalize(value: Int, min: Int, max: Int): Int {
+        val tempRange = min(min, max) to max(min, max)
         return when {
             value < tempRange.first -> tempRange.first
             value > tempRange.second -> tempRange.second
@@ -80,31 +112,18 @@ object UtilKNumber {
     }
 
     @JvmStatic
-    fun normalize(value: Int, min: Int, max: Int): Int =
-        normalize(value, min..max)
-
-    @JvmStatic
-    fun percent(value: Float, range: Pair<Float, Float>): Float {
-        if (range.first == range.second) return 0f
-        val tempRange = min(range.first, range.second) to max(range.first, range.second)
-        return (normalize(value, tempRange) - tempRange.first) / (tempRange.second - tempRange.first)
+    fun percent(value: Double, start: Double, end: Double): Double {
+        if (start == end) return 0.0
+        val tempRange = min(start, end) to max(start, end)
+        return (normalize(value, tempRange.first, tempRange.second) - tempRange.first) / (tempRange.second - tempRange.first)
     }
 
     @JvmStatic
-    fun percent(value: Float, range: IntRange): Float =
-        percent(value, range.first.toFloat() to range.last.toFloat())
-
-    @JvmStatic
-    fun percent(value: Long, range: LongRange): Float =
-        percent(value.toFloat(), range.first.toFloat() to range.last.toFloat())
-
-    @JvmStatic
-    fun percent(value: Float, rangeStart: Float, rangeEnd: Float): Float =
-        percent(value, rangeStart to rangeEnd)
-
-    @JvmStatic
-    fun percent(value: Long, rangeStart: Long, rangeEnd: Long): Float =
-        percent(value, rangeStart..rangeEnd)
+    fun percent(value: Float, start: Float, end: Float): Float {
+        if (start == end) return 0f
+        val tempRange = min(start, end) to max(start, end)
+        return (normalize(value, tempRange.first, tempRange.second) - tempRange.first) / (tempRange.second - tempRange.first)
+    }
 
     @JvmStatic
     fun random(start: Int, end: Int): Int =

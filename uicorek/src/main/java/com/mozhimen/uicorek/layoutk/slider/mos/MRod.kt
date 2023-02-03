@@ -1,5 +1,7 @@
 package com.mozhimen.uicorek.layoutk.slider.mos
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
@@ -12,10 +14,7 @@ import com.mozhimen.uicorek.layoutk.slider.helpers.AttrsParser
  * @Date 2022/9/17 23:50
  * @Version 1.0
  */
-class MRod(private val _owner: LifecycleOwner) {
-    companion object {
-        private val TAG = "Rod>>>>>"
-    }
+class MRod() : Parcelable {
 
     //region # layout
     var minX: Float = 0f
@@ -52,6 +51,18 @@ class MRod(private val _owner: LifecycleOwner) {
     //endregion
 
     private var _sliderListener: ISliderScrollListener? = null
+
+    constructor(parcel: Parcel) : this() {
+        minX = parcel.readFloat()
+        maxX = parcel.readFloat()
+        centerY = parcel.readFloat()
+        isInsideSlider = parcel.readByte() != 0.toByte()
+        radius = parcel.readFloat()
+        minVal = parcel.readFloat()
+        maxVal = parcel.readFloat()
+        rodColor = parcel.readInt()
+        rodColorInside = parcel.readInt()
+    }
 //    private suspend fun launchScrollChange(rod: MRod) = flow {
 //        emit(rod)
 //    }.flowOn(Dispatchers.IO).collectLatest {//这里我希望不要频繁的更新UI, 所以采用背压的方式来获取频繁数据的最新值
@@ -73,4 +84,29 @@ class MRod(private val _owner: LifecycleOwner) {
 //        this.radiusInside = radiusInside
 //        _sliderListener?.let { this._sliderListener = it }
 //    }
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeFloat(minX)
+        parcel.writeFloat(maxX)
+        parcel.writeFloat(centerY)
+        parcel.writeByte(if (isInsideSlider) 1 else 0)
+        parcel.writeFloat(radius)
+        parcel.writeFloat(minVal)
+        parcel.writeFloat(maxVal)
+        parcel.writeInt(rodColor)
+        parcel.writeInt(rodColorInside)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<MRod> {
+        override fun createFromParcel(parcel: Parcel): MRod {
+            return MRod(parcel)
+        }
+
+        override fun newArray(size: Int): Array<MRod?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

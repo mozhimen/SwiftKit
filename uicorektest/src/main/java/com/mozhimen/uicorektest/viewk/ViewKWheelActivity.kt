@@ -18,7 +18,7 @@ class ViewKWheelActivity : BaseActivityVB<ActivityViewkWheelBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         vb.viewkWheel.setCyclic(false)
         vb.viewkWheel.adapter = ArrayWheelAdapter(_items)
-        vb.viewkWheel.setOnItemSelectedListener {
+        vb.viewkWheel.setItemSelectedListener {
             Log.v(TAG, "initView: selected $it")
         }
     }

@@ -1,6 +1,8 @@
 package com.mozhimen.uicorek.layoutk.slider.mos
 
 import android.graphics.Color
+import android.os.Parcel
+import android.os.Parcelable
 import com.mozhimen.uicorek.layoutk.slider.helpers.AttrsParser
 
 /**
@@ -10,7 +12,7 @@ import com.mozhimen.uicorek.layoutk.slider.helpers.AttrsParser
  * @Date 2022/9/17 15:48
  * @Version 1.0
  */
-class MSlider {
+class MSlider() :Parcelable {
     //region # init
     var width: Float = 0f
         set(value) {
@@ -40,6 +42,14 @@ class MSlider {
     var rodLeftColor = Color.BLACK
     var rodLeftGradientColor = rodLeftColor
     var rodRightColor = Color.LTGRAY
+
+    constructor(parcel: Parcel) : this() {
+        leftX = parcel.readFloat()
+        topY = parcel.readFloat()
+        rodLeftColor = parcel.readInt()
+        rodLeftGradientColor = parcel.readInt()
+        rodRightColor = parcel.readInt()
+    }
     //endregion
 
 //    constructor()
@@ -62,4 +72,25 @@ class MSlider {
 //        //centerY = topY + heightHalf
 //        //bottomY = topY + height
 //    }
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeFloat(leftX)
+        parcel.writeFloat(topY)
+        parcel.writeInt(rodLeftColor)
+        parcel.writeInt(rodLeftGradientColor)
+        parcel.writeInt(rodRightColor)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<MSlider> {
+        override fun createFromParcel(parcel: Parcel): MSlider {
+            return MSlider(parcel)
+        }
+
+        override fun newArray(size: Int): Array<MSlider?> {
+            return arrayOfNulls(size)
+        }
+    }
 }

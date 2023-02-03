@@ -17,26 +17,32 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogk_ques"
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:text="问题弹框(渐变动画,最简单用法)"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogk_ques_anim"
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:text="问题弹框(弹出动画,透明底色)"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogk_custom_anim_drawable"
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:text="自定义弹框AnimDrawable(基于BaseDialogK)"
                 tools:ignore="HardcodedText" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/dialogk_custom_anim"
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:text="自定义弹框Anim(基于BaseDialogK)"
+                tools:ignore="HardcodedText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/dialogk_custom_update"
+                style="@style/Btn_Style"
+                android:text="自定义弹框更新进度(基于BaseDialogK)"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
     </FrameLayout>

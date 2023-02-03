@@ -92,15 +92,17 @@ class CameraXKLayout @JvmOverloads constructor(
     }
 
     init {
-        initView()
-        _cameraXKProxy = CameraXKProxy(context)
-        _cameraXKProxy.apply {
-            slider = _slider
-            previewView = _previewView
-        }
-        this.post {
-            initPreview()
-            _cameraXKProxy.preview = _preview
+        if (!isInEditMode) {
+            initView()
+            _cameraXKProxy = CameraXKProxy(context)
+            _cameraXKProxy.apply {
+                slider = _slider
+                previewView = _previewView
+            }
+            this.post {
+                initPreview()
+                _cameraXKProxy.preview = _preview
+            }
         }
     }
 

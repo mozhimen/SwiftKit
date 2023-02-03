@@ -4,7 +4,8 @@ import android.util.Log
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.UtilKJson
+import com.mozhimen.basick.utilk.json.UtilKJson
+import com.mozhimen.basick.utilk.json.UtilKJsonMoshi
 import com.mozhimen.componentk.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -62,6 +63,6 @@ open class NetKHttp(
     private fun initRetrofit(url: String): Retrofit =
         Retrofit.Builder().baseUrl(url)
             .client(_okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(UtilKJson.moshiBuilder))
+            .addConverterFactory(MoshiConverterFactory.create(UtilKJsonMoshi.moshiBuilder))
             .build()
 }

@@ -22,15 +22,19 @@ import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
 open class BaseService : Service(), LifecycleOwner {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private val _listeners = RemoteCallbackList<IBaseServiceResListener>()
-    private var _binder: IBaseServiceConnListener.Stub? = BaseServiceBinder()
+    protected open var binder: IBaseServiceConnListener.Stub? = BaseServiceBinder()
 
-    inner class BaseServiceBinder : IBaseServiceConnListener.Stub() {
+    open inner class BaseServiceBinder : IBaseServiceConnListener.Stub() {
         override fun onServiceStart() {
 
         }
 
         override fun registerListener(listener: IBaseServiceResListener?) {
             listener?.let { _listeners.register(it) }
+        }
+
+        override fun launchCommand(cmd: String?): String {
+            return ""
         }
 
         override fun unRegisterListener(listener: IBaseServiceResListener?) {
@@ -43,7 +47,7 @@ open class BaseService : Service(), LifecycleOwner {
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        return _binder
+        return binder
     }
 
     protected fun onCallback(res: Any) {

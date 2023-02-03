@@ -11,6 +11,7 @@ interface IBaseServiceConnListener {
      */
     void onServiceStart();
     void registerListener(IBaseServiceResListener listener);
+    String launchCommand(String cmd);
     void unRegisterListener(IBaseServiceResListener listener);
     void onServiceStop();
 }

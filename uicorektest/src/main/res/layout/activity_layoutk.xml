@@ -16,97 +16,97 @@
             tools:context="com.mozhimen.uicorektest.layoutk.LayoutKActivity">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKBanner"
                 android:text="goLayoutKBanner"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKLoadRefresh"
                 android:text="goLayoutKLoadRefresh"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKNavBar"
                 android:text="goLayoutKNavBar"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKRefresh"
                 android:text="goLayoutKRefresh"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKSide"
                 android:text="goLayoutKSide"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKSlider"
                 android:text="goLayoutKSlider"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKTab"
                 android:text="goLayoutKTab"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKBtn"
                 android:text="goLayoutKBtn"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKChipGroup"
                 android:text="goLayoutKChipGroup"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKEmpty"
                 android:text="goLayoutKEmpty"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKGridFill"
                 android:text="goLayoutKGridFill"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKGridFillMove"
                 android:text="goLayoutKGridFillMove"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKInputItem"
                 android:text="goLayoutKInputItem"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKSquare"
                 android:text="goLayoutKSquare"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKTimeLine"
                 android:text="goLayoutKTimeLine"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKVideo"
                 android:text="goLayoutKVideo"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

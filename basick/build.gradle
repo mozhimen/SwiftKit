@@ -77,6 +77,9 @@ dependencies {
     api 'com.squareup.moshi:moshi-kotlin:1.13.0'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.8.0'
 
+    //gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+
     //coil
     api 'io.coil-kt:coil:2.2.0'
     api 'io.coil-kt:coil-gif:2.2.0'

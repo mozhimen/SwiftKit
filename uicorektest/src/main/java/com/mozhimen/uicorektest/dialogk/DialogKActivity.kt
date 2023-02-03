@@ -1,17 +1,18 @@
 package com.mozhimen.uicorektest.dialogk
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.UtilKThread
 import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnim
 import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnimDrawable
 import com.mozhimen.uicorektest.dialogk.temps.DialogKQues
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDialogkBinding
+import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingUpdate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,10 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         vb.dialogkCustomAnim.setOnClickListener {
             showDialogLoadingAnim()
         }
+
+        vb.dialogkCustomUpdate.setOnClickListener {
+            showLoadingUpdateDialog("正在更新", "...")
+        }
     }
 
     private var _dialogKQues: DialogKQues? = null
@@ -49,7 +54,7 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         val builder = DialogKQues.Builder(this)
         builder.apply {
             setQuestion(title = ques)
-            animStyleId = R.style.DialogKAnim_Custom
+            animStyleId = R.style.DialogKQues_Anim_Custom
         }
         _dialogKQues = builder.create(onSureClick, onCancelClick)
         builder.genBackground {
@@ -59,7 +64,6 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
     }
 
     private var _dialogkLoadingAnimDrawable: DialogKLoadingAnimDrawable? = null
-    private var _dialogkLoadingAnim: DialogKLoadingAnim? = null
 
     fun showDialogLoadingAnimDrawable() {
         if (_dialogkLoadingAnimDrawable == null) {
@@ -68,10 +72,37 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         _dialogkLoadingAnimDrawable!!.show()
     }
 
+    private var _dialogkLoadingAnim: DialogKLoadingAnim? = null
+
     fun showDialogLoadingAnim() {
         if (_dialogkLoadingAnim == null) {
             _dialogkLoadingAnim = DialogKLoadingAnim.create(this)
         }
         _dialogkLoadingAnim!!.show()
+    }
+
+    private var _dialogKLoadingUpdate: DialogKLoadingUpdate? = null
+
+    fun showLoadingUpdateDialog(desc: String, descUpdate: String) {
+        if (_dialogKLoadingUpdate == null) {
+            _dialogKLoadingUpdate = DialogKLoadingUpdate.create(this@DialogKActivity, desc, descUpdate).apply {
+                setOnDismissListener {
+                    // _isProcessingUpdate = false
+                    Log.d(TAG, "showLoadingUpdateDialog: dismiss")
+                }
+            }
+        } else {
+            _dialogKLoadingUpdate!!.setDesc(desc)
+            _dialogKLoadingUpdate!!.setUpdateDesc(descUpdate)
+        }
+        _dialogKLoadingUpdate!!.show()
+    }
+
+    fun updateLoadingUpdateDialog(str: String) {
+        if (_dialogKLoadingUpdate != null && _dialogKLoadingUpdate!!.isShowing) {
+            lifecycleScope.launch(Dispatchers.Main) {
+                _dialogKLoadingUpdate!!.setUpdateDesc(str)
+            }
+        }
     }
 }

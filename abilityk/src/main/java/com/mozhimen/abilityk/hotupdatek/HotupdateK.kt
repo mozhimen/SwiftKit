@@ -55,6 +55,12 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
 
     suspend fun updateApk(remoteVersionCode: Int, apkUrl: String) {
         withContext(Dispatchers.IO) {
+            //url valid
+            if (!apkUrl.endsWith("apk")) {
+                Log.e(TAG, "updateApk: url valid false")
+                _hotupdateKListener?.onFail("isn't a valid apk file url")
+                return@withContext
+            }
             //check version
             if (!isNeedUpdate(remoteVersionCode)) {
                 Log.d(TAG, "updateApk: isNeedUpdate false")
@@ -63,13 +69,13 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
             }
             //delete all cache
             if (!deleteAllOldPkgs()) {
-                Log.d(TAG, "updateApk: deleteAllOldPkgs fail")
+                Log.e(TAG, "updateApk: deleteAllOldPkgs fail")
                 _hotupdateKListener?.onFail("delete all old apks fail")
                 return@withContext
             }
             //download new apk
             if (!downloadApk(apkUrl)) {
-                Log.d(TAG, "updateApk: downloadApk fail")
+                Log.e(TAG, "updateApk: downloadApk fail")
                 _hotupdateKListener?.onFail("download new apk fail")
                 return@withContext
             }

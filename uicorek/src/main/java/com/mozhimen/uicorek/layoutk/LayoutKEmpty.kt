@@ -39,8 +39,10 @@ class LayoutKEmpty @JvmOverloads constructor(
     private lateinit var _helpView: TextView
 
     init {
-        initAttrs(attrs, defStyleAttr)
-        initView()
+        if (!isInEditMode) {
+            initAttrs(attrs, defStyleAttr)
+            initView()
+        }
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {

@@ -10,15 +10,27 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
-            android:onClick="onPopwinShow"
-            android:text="onPopwinShow(Normal)"
+            style="@style/Btn_Style"
+            android:onClick="showPopwinK"
+            android:text="showPopwinK(Normal)"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
-            android:onClick="onPopwinShowTest"
-            android:text="onPopwinShow(Test)"
+            style="@style/Btn_Style"
+            android:onClick="showPopwinKTest"
+            android:text="showPopwinKTest(Test)"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="showPopwinKSelectorNormal"
+            android:text="showPopwinKSelectorNormal"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="showPopwinKSelectorName"
+            android:text="showPopwinKSelectorName"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>

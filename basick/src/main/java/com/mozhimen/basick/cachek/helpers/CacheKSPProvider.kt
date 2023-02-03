@@ -67,6 +67,13 @@ class CacheKSPProvider(spName: String) {
     fun getFloat(key: String, defaultValue: Float = 0F): Float =
         _preferences.getFloat(key, defaultValue)
 
+    fun putDouble(key: String, value: Double) {
+        _preferences.edit().putLong(key, java.lang.Double.doubleToRawLongBits(value)).apply()
+    }
+
+    fun getDouble(key: String, defaultValue: Double = 0.0): Double =
+        java.lang.Double.longBitsToDouble(_preferences.getLong(key, defaultValue.toLong()))
+
     fun putStringSet(key: String, value: Set<String>) {
         _preferences.edit().putStringSet(key, value).apply()
     }
