@@ -15,12 +15,13 @@ object UtilKGesture {
 
     private const val TAG = "UtilKGesture>>>>>"
 
-    fun dragAndDrop(source: View, dest: View, onDrop: (source: View, dest: View) -> Unit) {
-        source.setOnLongClickListener {
-            source.startDrag(null, View.DragShadowBuilder(source), source, 0)
+    fun dragAndDrop(sourceView: View, destView: View, onDrop: (source: View, dest: View) -> Unit) {
+        sourceView.setOnLongClickListener {
+            sourceView.startDrag(null, View.DragShadowBuilder(sourceView), sourceView, 0)            //v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)
+            //v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)
             true
         }
-        dest.setOnDragListener { view, event ->
+        destView.setOnDragListener { view, event ->
             if (event.action == DragEvent.ACTION_DROP) {
                 onDrop(event.localState as View, view)
             }
