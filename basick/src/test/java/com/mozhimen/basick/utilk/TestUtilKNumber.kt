@@ -13,10 +13,10 @@ import org.junit.Test
 class TestUtilKNumber {
     @Test
     fun normalize() {
-        UtilKConsole.printlog(UtilKNumber.normalize(-1f, 0, 10).toString())
-        UtilKConsole.printlog(UtilKNumber.normalize(1f, 0, 10).toString())
-        UtilKConsole.printlog(UtilKNumber.normalize(11f, 0, 10).toString())
-        UtilKConsole.printlog(UtilKNumber.normalize(0f, 0, 0).toString())
+        UtilKConsole.printlog(UtilKNumber.normalize(-1f, 0f, 10f).toString())
+        UtilKConsole.printlog(UtilKNumber.normalize(1f, 0f, 10f).toString())
+        UtilKConsole.printlog(UtilKNumber.normalize(11f, 0f, 10f).toString())
+        UtilKConsole.printlog(UtilKNumber.normalize(0f, 0f, 0f).toString())
     }
 
     @Test

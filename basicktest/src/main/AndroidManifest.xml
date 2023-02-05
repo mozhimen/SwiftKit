@@ -38,6 +38,9 @@
         <activity
             android:name=".elemk.receiver.ElemKReceiverActivity"
             android:exported="false" />
+        <activity
+            android:name=".elemk.ElemKGestureActivity"
+            android:exported="false" />
 
         <service android:name=".elemk.service.ElemKService" />
 

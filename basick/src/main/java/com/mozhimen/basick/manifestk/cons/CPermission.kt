@@ -110,7 +110,7 @@ object CPermission {
     const val GET_PACKAGE_SIZE = "android.permission.GET_PACKAGE_SIZE"
 
     @Deprecated("")
-    val GET_TASKS = "android.permission.GET_TASKS"
+    const val GET_TASKS = "android.permission.GET_TASKS"
     const val GLOBAL_SEARCH = "android.permission.GLOBAL_SEARCH"
     const val HIDE_OVERLAY_WINDOWS = "android.permission.HIDE_OVERLAY_WINDOWS"
     const val HIGH_SAMPLING_RATE_SENSORS = "android.permission.HIGH_SAMPLING_RATE_SENSORS"

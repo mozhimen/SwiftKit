@@ -22,6 +22,11 @@ class NavigateKActivity : BaseActivityVBVM<ActivityNavigatekBinding, NavigateKVi
             Log.d(TAG, "backQueue: ${navController.backQueue.joinToString { it.destination.displayName }}")
             field = value
         }
+        get() {
+            if (field != 0 || !this::navController.isInitialized) return field
+            val fragmentId: Int = navController.currentDestination?.id ?: NavigateK.getId(_fragments[0])
+            return fragmentId.also { field = it }
+        }
 
     companion object {
         private const val navigatek_saved_current_id = "navigatek_saved_current_id"

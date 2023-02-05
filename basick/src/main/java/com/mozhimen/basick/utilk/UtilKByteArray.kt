@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk
 
+import java.util.*
+
 
 /**
  * @ClassName UtilKByteArray
@@ -10,13 +12,52 @@ package com.mozhimen.basick.utilk
  */
 object UtilKByteArray {
     /**
+     * 合并数组
+     * @param first ByteArray
+     * @param second ByteArray
+     * @param third ByteArray
+     * @param four ByteArray
+     * @param fif ByteArray
+     * @return ByteArray
+     */
+    @JvmStatic
+    fun concat(first: ByteArray, second: ByteArray, third: ByteArray, four: ByteArray, fif: ByteArray): ByteArray {
+        val result = first.copyOf(first.size + second.size + third.size + four.size + fif.size)
+        System.arraycopy(second, 0, result, first.size, second.size)
+        System.arraycopy(third, 0, result, first.size + second.size, third.size)
+        System.arraycopy(four, 0, result, first.size + second.size + third.size, four.size)
+        System.arraycopy(fif, 0, result, first.size + second.size + third.size + four.size, fif.size)
+        return result
+    }
+
+    /**
+     * cs校验
+     * @param bytes
+     * @return Byte
+     */
+    @JvmStatic
+    fun checkCS(bytes: ByteArray): Byte {
+        var result: Byte
+        try {
+            var num = 0
+            for (i in bytes.indices) {
+                num = (num + bytes[i]) % 256
+            }
+            result = num.toByte()
+        } catch (e: Exception) {
+            result = 0
+        }
+        return result
+    }
+
+    /**
      * 合并Bytes
      * @param bytes1 ByteArray
      * @param bytes2 ByteArray
-     * @return ByteArray?
+     * @return ByteArray
      */
     @JvmStatic
-    fun joinBytes(bytes1: ByteArray, bytes2: ByteArray): ByteArray? {
+    fun joinBytes(bytes1: ByteArray, bytes2: ByteArray): ByteArray {
         val bytes3 = ByteArray(bytes1.size + bytes2.size)
         System.arraycopy(bytes1, 0, bytes3, 0, bytes1.size)
         System.arraycopy(bytes2, 0, bytes3, bytes1.size, bytes2.size)

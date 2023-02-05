@@ -28,4 +28,8 @@ class ElemKActivity : BaseActivityVB<ActivityElemkBinding>() {
     fun goElemKReceiverActivity(view: View) {
         start<ElemKReceiverActivity>()
     }
+
+    fun goElemKGestureActivity(view: View) {
+        start<ElemKGestureActivity>()
+    }
 }

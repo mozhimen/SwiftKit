@@ -17,6 +17,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.UtilKDataBus
 import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.basick.utilk.exts.normalize
+import com.mozhimen.basick.utilk.exts.printlog
 import com.mozhimen.componentk.audiok.AudioK
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.mos.MAudioK
@@ -27,6 +28,7 @@ import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
 import com.mozhimen.uicorek.popwink.PopwinKLifecycle
+import kotlin.concurrent.thread
 import kotlin.math.roundToInt
 
 @AManifestKRequire(CPermission.WAKE_LOCK)

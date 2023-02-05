@@ -26,5 +26,11 @@
             android:onClick="goElemKReceiverActivity"
             android:text="goElemKReceiverActivity"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goElemKGestureActivity"
+            android:text="goElemKGestureActivity"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

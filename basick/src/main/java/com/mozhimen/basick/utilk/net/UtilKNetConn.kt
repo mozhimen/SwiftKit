@@ -20,7 +20,11 @@ import java.util.*
  * @Date 2022/2/16 19:57
  * @Version 1.0
  */
-@AManifestKRequire(CPermission.ACCESS_NETWORK_STATE, CPermission.ACCESS_WIFI_STATE, CPermission.INTERNET)
+@AManifestKRequire(
+    CPermission.ACCESS_NETWORK_STATE,
+    CPermission.ACCESS_WIFI_STATE,
+    CPermission.INTERNET
+)
 object UtilKNetConn {
     private val TAG = "UtilKNet>>>>>"
     private val _context = UtilKApplication.instance.get()

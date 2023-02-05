@@ -1,9 +1,8 @@
 package com.mozhimen.basick.utilk
 
-import android.util.Log
-import android.view.GestureDetector
+import android.view.DragEvent
 import android.view.MotionEvent
-import kotlin.math.abs
+import android.view.View
 
 /**
  * @ClassName UtilKGesture
@@ -15,6 +14,19 @@ import kotlin.math.abs
 object UtilKGesture {
 
     private const val TAG = "UtilKGesture>>>>>"
+
+    fun dragAndDrop(source: View, dest: View, onDrop: (source: View, dest: View) -> Unit) {
+        source.setOnLongClickListener {
+            source.startDrag(null, View.DragShadowBuilder(source), source, 0)
+            true
+        }
+        dest.setOnDragListener { view, event ->
+            if (event.action == DragEvent.ACTION_DROP) {
+                onDrop(event.localState as View, view)
+            }
+            true
+        }
+    }
 
     /**
      * 计算手指间间距
