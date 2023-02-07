@@ -25,6 +25,16 @@
             android:id="@+id/elemk_gesture_txt2"
             android:layout_width="200dp"
             android:layout_height="100dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/blue_theme"
+            android:gravity="center"
+            android:text="345"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/elemk_gesture_txt3"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
             android:background="@color/blue_theme"
             android:gravity="center"
             android:text="345"
