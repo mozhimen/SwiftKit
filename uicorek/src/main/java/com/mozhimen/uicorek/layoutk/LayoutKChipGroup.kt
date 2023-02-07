@@ -55,7 +55,7 @@ class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: Attrib
                 chipItem = createChipItem(index)
                 _chipGroup.addView(chipItem)
             }
-            chipItem.text = _keys[index].key
+            chipItem.text = _keys[index].name
         }
     }
 
@@ -66,7 +66,7 @@ class LayoutKChipGroup @JvmOverloads constructor(context: Context, attrs: Attrib
     fun addKey(key: MKey) {
         val chipItem = createChipItem(_keys.size)
         _chipGroup.addView(chipItem)
-        chipItem.text = key.key
+        chipItem.text = key.name
         _keys.add(key)
     }
 

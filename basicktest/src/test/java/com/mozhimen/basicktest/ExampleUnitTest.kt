@@ -14,4 +14,10 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
     }
+
+    @Test
+    fun test() {
+        val jsons = arrayOf("2022-01-01", "2022-01-01")
+        jsons.joinToString()
+    }
 }

@@ -3,7 +3,7 @@ package com.mozhimen.underlayktest
 import com.mozhimen.basick.elemk.application.bases.BaseApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.exts.toJson
+import com.mozhimen.basick.utilk.exts.toJsonMoshi
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.basick.utilk.exts.e
@@ -35,7 +35,7 @@ class UnderlayKApplication : BaseApplication() {
         override fun injectJsonParser(): IJsonParser {
             return object : IJsonParser {
                 override fun toJson(src: Any): String {
-                    return src.toJson()
+                    return src.toJsonMoshi()
                 }
             }
         }

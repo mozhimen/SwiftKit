@@ -19,7 +19,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- btnk -->
+        </activity>
+        <!--adapterk-->
+        <activity
+            android:name=".adapterk.AdapterKActivity"
+            android:exported="false" /> <!-- btnk -->
         <activity
             android:name=".btnk.BtnKActivity"
             android:exported="false" /> <!-- dialogk -->

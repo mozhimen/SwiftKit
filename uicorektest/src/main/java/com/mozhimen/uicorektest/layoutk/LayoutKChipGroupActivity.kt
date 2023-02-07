@@ -28,7 +28,7 @@ class LayoutKChipGroupActivity : BaseActivityVB<ActivityLayoutkChipGroupBinding>
             )
         )
         vb.layoutkChips.setOnCheckedListener { _, i, dataKKey ->
-            "index: $i dataKey: ${dataKKey.id} ${dataKKey.key}".showToast()
+            "index: $i dataKey: ${dataKKey.id} ${dataKKey.name}".showToast()
         }
         vb.layoutkChipsAdd.setOnClickListener {
             vb.layoutkChips.addKey(MKey("ss", "原神"))
