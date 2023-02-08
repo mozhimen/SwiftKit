@@ -16,8 +16,16 @@ import com.mozhimen.basick.utilk.bar.UtilKToast
  * @receiver String
  * @param duration Int
  */
-fun String.showToast(duration: Int = Toast.LENGTH_LONG) {
+fun String.showToast(duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.show(this, duration)
+}
+
+/**
+ * 长时土司
+ * @receiver String
+ */
+fun String.showToastLong() {
+    UtilKToast.show(this, Toast.LENGTH_LONG)
 }
 
 /**
@@ -25,9 +33,18 @@ fun String.showToast(duration: Int = Toast.LENGTH_LONG) {
  * @receiver Int
  * @param duration Int
  */
-fun Int.showToast(duration: Int = Toast.LENGTH_LONG) {
+fun Int.showToast(duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.show(this, duration)
 }
+
+/**
+ * 长时土司
+ * @receiver Int
+ */
+fun Int.showToastLong() {
+    UtilKToast.show(this, Toast.LENGTH_LONG)
+}
+
 
 /**
  * 用法1: "...".showToastOnMain(context)
@@ -35,7 +52,7 @@ fun Int.showToast(duration: Int = Toast.LENGTH_LONG) {
  * @receiver String
  * @param duration Int
  */
-fun String.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
+fun String.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.showOnMain(this, duration)
 }
 
@@ -44,6 +61,6 @@ fun String.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
  * @receiver Int
  * @param duration Int
  */
-fun Int.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
+fun Int.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.showOnMain(this, duration)
 }

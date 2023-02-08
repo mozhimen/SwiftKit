@@ -10,7 +10,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.stackk.StackK
-import com.mozhimen.basick.utilk.UtilKString
+import com.mozhimen.basick.utilk.datatype.UtilKString
 
 /**
  * @ClassName UtilKActivity

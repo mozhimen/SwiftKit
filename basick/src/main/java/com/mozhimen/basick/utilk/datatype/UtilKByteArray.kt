@@ -1,6 +1,6 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.datatype
 
-import java.util.*
+import java.nio.ByteBuffer
 
 
 /**
@@ -11,6 +11,19 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKByteArray {
+    /**
+     * byteBuffer转ByteArray
+     * @param byteBuffer ByteBuffer
+     * @return ByteArray
+     */
+    @JvmStatic
+    fun byteBuffer2ByteArray(byteBuffer: ByteBuffer): ByteArray {
+        byteBuffer.rewind()    // Rewind the buffer to zero
+        val data = ByteArray(byteBuffer.remaining())
+        byteBuffer.get(data)   // Copy the buffer into a byte array
+        return data // Return the byte array
+    }
+
     /**
      * 合并数组
      * @param first ByteArray

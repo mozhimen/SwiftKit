@@ -9,7 +9,7 @@ import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.context.UtilKActivity
-import com.mozhimen.basick.utilk.UtilKDataType
+import com.mozhimen.basick.utilk.datatype.UtilKDataType
 import java.util.*
 
 

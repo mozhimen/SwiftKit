@@ -22,7 +22,7 @@ import com.mozhimen.uicorektest.R
  */
 class PopwinKSelector(
     context: Context,
-    private val _items: MutableList<String>
+    private var _items: List<String>
 ) : PopwinKLifecycle(context) {
     private var _viewKWheel: ViewKWheel? = null
 
@@ -42,10 +42,8 @@ class PopwinKSelector(
     }
 
     fun setItems(items: List<String>) {
-        if (_viewKWheel == null) return
-        _items.clear()
-        _items.addAll(items)
-        _viewKWheel!!.adapter = ArrayWheelAdapter(_items)
+        if (_viewKWheel == null || items.isEmpty()) return
+        _viewKWheel!!.adapter = ArrayWheelAdapter(items.also { _items = items })
     }
 
     override fun onCreateShowAnimation(): Animation {

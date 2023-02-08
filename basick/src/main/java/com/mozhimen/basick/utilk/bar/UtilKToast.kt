@@ -22,7 +22,7 @@ object UtilKToast {
      * @param duration Int
      */
     @JvmStatic
-    fun show(msg: String, duration: Int = Toast.LENGTH_LONG) {
+    fun show(msg: String, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(_context, msg, duration).show()
     }
 
@@ -32,7 +32,7 @@ object UtilKToast {
      * @param duration Int
      */
     @JvmStatic
-    fun show(msgId: Int, duration: Int = Toast.LENGTH_LONG) {
+    fun show(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(_context, msgId, duration).show()
     }
 
@@ -42,7 +42,7 @@ object UtilKToast {
      * @param duration Int
      */
     @JvmStatic
-    fun showOnMain(msg: String, duration: Int = Toast.LENGTH_LONG) {
+    fun showOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
         if (UtilKThread.isMainLooper()) {
             show(msg, duration)
         } else {
@@ -56,7 +56,7 @@ object UtilKToast {
      * @param duration Int
      */
     @JvmStatic
-    fun showOnMain(msgId: Int, duration: Int = Toast.LENGTH_LONG) {
+    fun showOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
         if (UtilKThread.isMainLooper()) {
             show(msgId, duration)
         } else {

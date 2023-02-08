@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.log
 
 import android.util.Log
 import android.view.MotionEvent
-import com.mozhimen.basick.utilk.UtilKCollections
+import com.mozhimen.basick.utilk.datatype.UtilKCollections
 import com.mozhimen.basick.utilk.UtilKGesture
 import com.mozhimen.basick.utilk.UtilKStackTrace
 import com.mozhimen.basick.utilk.UtilKThrowable

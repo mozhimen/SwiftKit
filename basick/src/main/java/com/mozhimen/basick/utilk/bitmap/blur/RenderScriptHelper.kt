@@ -10,7 +10,7 @@ import android.view.View
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.renderscript.*
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.UtilKNumber
+import com.mozhimen.basick.utilk.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.bar.UtilKBarStatus
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.utilk.exts.colorStr2Int

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.datatype
 
 import java.math.RoundingMode
 import java.text.DecimalFormat

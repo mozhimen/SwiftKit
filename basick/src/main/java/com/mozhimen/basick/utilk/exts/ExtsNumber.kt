@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.UtilKNumber
+import com.mozhimen.basick.utilk.datatype.UtilKNumber
 
 /**
  * @ClassName ExtsKNumber

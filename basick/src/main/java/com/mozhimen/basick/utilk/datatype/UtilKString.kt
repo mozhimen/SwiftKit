@@ -1,6 +1,5 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.datatype
 
-import android.graphics.Color
 import android.os.Build
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.exts.normalize

@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.device
 
 import android.graphics.Rect
 import android.graphics.RectF
-import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.basick.utilk.exts.normalize
 import kotlin.math.roundToInt
 

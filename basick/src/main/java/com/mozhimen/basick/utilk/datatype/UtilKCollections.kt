@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.datatype
 
 /**
  * @ClassName UtilKCollections
@@ -9,6 +9,35 @@ package com.mozhimen.basick.utilk
  */
 object UtilKCollections {
 
+    /**
+     * 将一个Collection的Item中的某个Element组合起来成一个新Collection
+     * @param iterable Iterable<T>
+     * @param predicate Function1<T, I>
+     * @return List<I>
+     */
+    @JvmStatic
+    fun <T, I> combineElement2List(iterable: Iterable<T>, predicate: (T) -> I): List<I> {
+        return combineElement2List(iterable, ArrayList(), predicate)
+    }
+
+    /**
+     * 将一个Collection的Item中的某个Element组合起来成一个新Collection
+     * @param iterable Iterable<T>
+     * @param newCollection C
+     * @param predicate Function1<T, I>
+     * @return C
+     */
+    @JvmStatic
+    fun <T, I, C : MutableCollection<in I>> combineElement2List(iterable: Iterable<T>, newCollection: C, predicate: (T) -> I): C {
+        for (element in iterable) if (!newCollection.contains(predicate(element))) newCollection.add(predicate(element))
+        return newCollection
+    }
+
+    /**
+     * map2String
+     * @param map Map<*, *>
+     * @return String
+     */
     @JvmStatic
     fun map2String(map: Map<*, *>): String {
         if (map.isEmpty()) return "map is empty"
@@ -24,6 +53,11 @@ object UtilKCollections {
         return stringBuilder.toString()
     }
 
+    /**
+     * list2String
+     * @param list List<*>
+     * @return String
+     */
     @JvmStatic
     fun list2String(list: List<*>): String {
         if (list.isEmpty()) return "list is empty"

@@ -1,7 +1,4 @@
-package com.mozhimen.basick.utilk
-
-import android.R
-import android.util.Log
+package com.mozhimen.basick.utilk.datatype
 
 /**
  * @ClassName UtilKDataType

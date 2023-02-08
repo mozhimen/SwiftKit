@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk
 
+import com.mozhimen.basick.utilk.datatype.UtilKDataType
 import com.mozhimen.basick.utilk.exts.printlog
 import org.junit.Assert
 import org.junit.Test
@@ -18,7 +19,8 @@ class TestUtilKDataType {
     }
 
     @Test
-    fun getTypeName(){
+    fun getTypeName() {
         UtilKDataType.getTypeName(0x000000).printlog()
     }
+
 }
