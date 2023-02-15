@@ -11,9 +11,9 @@ import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.animk.builders.AnimKBuilder
-import com.mozhimen.basick.animk.builders.temps.GradientDrawableColorAnimatorType
-import com.mozhimen.basick.animk.builders.temps.TranslationType
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.temps.GradientDrawableColorAnimatorType
+import com.mozhimen.basick.animk.builder.temps.TranslationType
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R

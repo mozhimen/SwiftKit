@@ -7,11 +7,11 @@ import android.view.View
 import androidx.annotation.FloatRange
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.animk.builders.AnimKBuilder
-import com.mozhimen.basick.animk.builders.commons.IAnimatorUpdateListener
-import com.mozhimen.basick.animk.builders.temps.AlphaAnimatorType
-import com.mozhimen.basick.animk.builders.temps.ColorRecyclerAnimatorType
-import com.mozhimen.basick.taskk.commons.ITaskK
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
+import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
+import com.mozhimen.basick.animk.builder.temps.ColorRecyclerAnimatorType
+import com.mozhimen.basick.taskk.bases.BaseTaskK
 import com.mozhimen.basick.utilk.anim.UtilKAnim
 import com.mozhimen.basick.utilk.anim.UtilKAnimator
 import java.util.concurrent.ConcurrentHashMap
@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap
  * @Date 2022/11/20 22:34
  * @Version 1.0
  */
-class AnimKLifecycleAnimatorHelper(owner: LifecycleOwner) : ITaskK(owner) {
+class AnimKLifecycleAnimatorHelper(owner: LifecycleOwner) : BaseTaskK(owner) {
     private val _viewAndListeners: ConcurrentHashMap<View, Animator> = ConcurrentHashMap()
 
     /**

@@ -1,12 +1,12 @@
 package com.mozhimen.basick.taskk.temps
 
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.taskk.commons.ITaskK
+import com.mozhimen.basick.taskk.bases.BaseTaskK
 import kotlinx.coroutines.*
 
 typealias ITaskKAsyncErrorListener = (Throwable) -> Unit
 
-class TaskKAsync(owner: LifecycleOwner) : ITaskK(owner) {
+class TaskKAsync(owner: LifecycleOwner) : BaseTaskK(owner) {
     private val _exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
         _taskKAsyncErrorListener?.invoke(throwable)        // 发生异常时的捕获

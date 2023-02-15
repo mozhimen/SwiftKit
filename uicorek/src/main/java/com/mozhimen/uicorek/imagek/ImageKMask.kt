@@ -93,8 +93,6 @@ class ImageKMask @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-
         drawRect(canvas)
     }
 

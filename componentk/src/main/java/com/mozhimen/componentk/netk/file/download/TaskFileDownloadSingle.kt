@@ -8,7 +8,7 @@ import com.liulishuo.okdownload.StatusUtil
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.taskk.commons.ITaskK
+import com.mozhimen.basick.taskk.bases.BaseTaskK
 import com.mozhimen.basick.utilk.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.regular.UtilKVerifyUrl
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
@@ -25,7 +25,7 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @Date 2022/11/1 23:27
  * @Version 1.0
  */
-class TaskFileDownloadSingle(owner: LifecycleOwner) : ITaskK(owner) {
+class TaskFileDownloadSingle(owner: LifecycleOwner) : BaseTaskK(owner) {
     private val _downloadUrls = CopyOnWriteArrayList<String>()
     private var _downloadListeners = ConcurrentHashMap<String, IFileDownloadSingleListener>()
     private var _downloadTasks = ConcurrentHashMap<String, DownloadTask>()

@@ -92,19 +92,15 @@ class LayoutKInputItem @JvmOverloads constructor(
         }
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
+    override fun onDraw(canvas: Canvas) {
+        _topCrossLine?.let {
+            canvas.drawRect(it.leftMargin, 0f, measuredWidth - it.rightMargin, 0f + it.height, _topLinePaint)
+        }
 
-        canvas?.let {
-            _topCrossLine?.let {
-                canvas.drawRect(it.leftMargin, 0f, measuredWidth - it.rightMargin, 0f + it.height, _topLinePaint)
-            }
-
-            _bottomCrossLine?.let {
-                canvas.drawRect(
-                    it.leftMargin, measuredHeight.toFloat() - it.height, measuredWidth - it.rightMargin, measuredHeight.toFloat(), _bottomLinePaint
-                )
-            }
+        _bottomCrossLine?.let {
+            canvas.drawRect(
+                it.leftMargin, measuredHeight.toFloat() - it.height, measuredWidth - it.rightMargin, measuredHeight.toFloat(), _bottomLinePaint
+            )
         }
     }
 

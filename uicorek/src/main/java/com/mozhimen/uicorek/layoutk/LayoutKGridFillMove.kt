@@ -7,8 +7,8 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.GridLayout
-import com.mozhimen.basick.animk.builders.AnimKBuilder
-import com.mozhimen.basick.animk.builders.temps.BackgroundColorAnimatorType
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.temps.BackgroundColorAnimatorType
 import com.mozhimen.basick.elemk.mos.MArea
 import com.mozhimen.basick.utilk.exts.colorStr2Int
 import com.mozhimen.basick.utilk.exts.dp2px

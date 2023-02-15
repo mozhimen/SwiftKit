@@ -3,8 +3,8 @@ package com.mozhimen.uicorektest.popwink.temps
 import android.content.Context
 import android.graphics.Color
 import android.view.animation.Animation
-import com.mozhimen.basick.animk.builders.AnimKBuilder
-import com.mozhimen.basick.animk.builders.temps.TranslationType
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.temps.TranslationType
 import com.mozhimen.uicorek.popwink.PopwinKLifecycle
 import com.mozhimen.uicorektest.R
 

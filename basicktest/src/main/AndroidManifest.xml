@@ -71,6 +71,10 @@
         <activity
             android:name=".manifestk.permission.ManifestKPermissionActivity"
             android:exported="false" />
+        <!-- netk-->
+        <activity
+            android:name=".netk.conn.NetKConnActivity"
+            android:exported="false" />
         <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"

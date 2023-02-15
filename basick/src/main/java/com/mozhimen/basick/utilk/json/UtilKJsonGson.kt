@@ -14,23 +14,27 @@ import com.google.gson.reflect.TypeToken
  * @Version 1.0
  */
 object UtilKJsonGson {
-        /**
-     * 转Json
+    private val _gson by lazy { Gson() }
+    private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
+    private val _gsonWithoutExpose: Gson by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
+
+    /**
+     * t转Json
      * @param t Any
      * @return String
      */
     @JvmStatic
     fun <T> t2Json(t: T): String =
-        Gson().toJson(t)
+        _gson.toJson(t)
 
     /**
      * obj转Json
-     * @param any Any
+     * @param obj Any
      * @return String
      */
     @JvmStatic
-    fun any2Json(any: Any): String =
-        Gson().toJson(any)
+    fun obj2Json(obj: Any): String =
+        _gson.toJson(obj)
 
     /**
      * 从Json转
@@ -40,35 +44,64 @@ object UtilKJsonGson {
      */
     @JvmStatic
     fun <T> json2T(json: String, token: TypeToken<T>): T =
-        Gson().fromJson(json, token.type)
+        _gson.fromJson(json, token.type)
 
     /**
      * 从Json转
      * @param json String
-     * @param cls Class<T>
+     * @param clazz Class<T>
      * @return T
      */
     @JvmStatic
-    fun <T> json2T(json: String, cls: Class<T>): T =
-        Gson().fromJson(json, cls)
+    fun <T> json2T(json: String, clazz: Class<T>): T? =
+        _gson.fromJson(json, clazz)
 
     /**
-     * obj转jsonStr
+     * obj转json
      * @param obj Any
      * @return String
      */
     @JvmStatic
-    fun obj2JsonOnField(obj: Any): String =
-        GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create().toJson(obj)
+    fun obj2JsonWithField(obj: Any): String =
+        _gsonWithField.toJson(obj)
 
     /**
-     * json转JsonEle
+     * 从Json转T
+     * @param json String
+     * @param clazz Class<T>
+     * @return T
+     */
+    @JvmStatic
+    fun <T> json2TWithField(json: String, clazz: Class<T>): T =
+        _gsonWithField.fromJson(json, clazz)
+
+    /**
+     * obj转json
+     * @param obj Any
+     * @return String
+     */
+    @JvmStatic
+    fun obj2JsonWithoutExpose(obj: Any): String =
+        _gsonWithoutExpose.toJson(obj)
+
+    /**
+     * 从Json转T
+     * @param json String
+     * @param clazz Class<T>
+     * @return T
+     */
+    @JvmStatic
+    fun <T> json2TWithoutExpose(json: String, clazz: Class<T>): T? =
+        _gsonWithoutExpose.fromJson(json, clazz)
+
+    /**
+     * json转JsonElement
      * @param json String
      * @return JsonElement?
      */
     @JvmStatic
     fun json2JsonElement(json: String): JsonElement? = try {
-        UtilKJsonGson.json2T(json.trim { it <= ' ' }, JsonElement::class.java)
+        json2T(json.trim { it <= ' ' }, JsonElement::class.java)
     } catch (e: Exception) {
         e.printStackTrace()
         null

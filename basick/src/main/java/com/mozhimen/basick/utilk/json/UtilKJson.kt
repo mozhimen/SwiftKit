@@ -15,7 +15,7 @@ import org.json.JSONObject
 object UtilKJson {
 
     @JvmStatic
-    fun wrapJson(jsonStr: String): String {
+    fun wrapJsonStr(jsonStr: String): String {
         var message: String
         if (TextUtils.isEmpty(jsonStr)) return ""
         try {
@@ -54,22 +54,22 @@ object UtilKJson {
      * @return Array<String?>?
      */
     @JvmStatic
-    fun splitJson(json: String): Array<String?>? {
+    fun splitJsonStr(json: String): Array<String?>? {
         val splitArray: Array<String?> = json.split("\t").toTypedArray()
         return if (splitArray.size != 2) null else splitArray
     }
 
     /**
      * Any转JsonObj
-     * @param any Any
+     * @param obj Any
      * @return JSONObject?
      */
     @JvmStatic
-    fun any2JsonObj(any: Any): JSONObject =
-        if (any is String) {
-            JSONObject(any)
+    fun obj2JsonObj(obj: Any): JSONObject =
+        if (obj is String) {
+            JSONObject(obj)
         } else {
-            JSONObject(UtilKJsonGson.any2Json(any))
+            JSONObject(UtilKJsonGson.obj2Json(obj))
         }
 
     /**
@@ -79,7 +79,7 @@ object UtilKJson {
      * @return String?
      */
     @JvmStatic
-    fun getStrFromJson(json: String, name: String): String =
+    fun getStrFromJsonStr(json: String, name: String): String =
         JSONObject(json.trim { it <= ' ' })[name].toString()
 
     /**
@@ -153,18 +153,18 @@ object UtilKJson {
     /**
      * jsonArray转TList
      * @param jsonArray JSONArray
-     * @param cls Class<T>
+     * @param clazz Class<T>
      * @return ArrayList<T?>?
      */
     @JvmStatic
-    fun <T> jsonArray2TList(jsonArray: JSONArray, cls: Class<T>): ArrayList<T?>? {
+    fun <T> jsonArray2TList(jsonArray: JSONArray, clazz: Class<T>): ArrayList<T?>? {
         val arrayList = ArrayList<T?>()
         try {
             val length = jsonArray.length()
             for (i in 0 until length) {
                 val jsonObj = jsonArray[i] as? JSONObject?
                 if (jsonObj != null) {
-                    arrayList.add(UtilKJsonGson.json2T(jsonObj.toString(), cls))
+                    arrayList.add(UtilKJsonGson.json2T(jsonObj.toString(), clazz))
                 } else {
                     arrayList.add(null)
                 }
@@ -179,12 +179,12 @@ object UtilKJson {
     /**
      * json转TList
      * @param json String
-     * @param cls Class<T>
+     * @param clazz Class<T>
      * @return ArrayList<T?>?
      */
     @JvmStatic
-    fun <T> json2TList(json: String, cls: Class<T>): ArrayList<T?>? {
-        return jsonArray2TList(JSONArray(json.trim { json <= " " }), cls)
+    fun <T> json2TList(json: String, clazz: Class<T>): ArrayList<T?>? {
+        return jsonArray2TList(JSONArray(json.trim { json <= " " }), clazz)
     }
 
     /**
@@ -194,7 +194,7 @@ object UtilKJson {
      * @return String?
      */
     @JvmStatic
-    fun combineJson(jsonObj: JSONObject, jsonObj2: JSONObject): String? {
+    fun combineJsonObj2JsonStr(jsonObj: JSONObject, jsonObj2: JSONObject): String {
         val jsonArray = JSONArray()
         jsonArray.put(jsonObj)
         val jsonArray2 = JSONArray()
@@ -230,17 +230,17 @@ object UtilKJson {
     /**
      * 将obj填入
      * @param jsonObj JSONObject
-     * @param any Any
-     * @param strObj Array<out String>
+     * @param obj Any
+     * @param str Array<out String>
      */
     @JvmStatic
-    fun putAny2JsonObj(jsonObj: JSONObject, any: Any, vararg strObj: String) {
-        var name = strObj[0]
-        if (strObj.size > 1) {
-            name = strObj[1]
+    fun putObj2JsonObj(jsonObj: JSONObject, obj: Any, vararg str: String) {
+        var name = str[0]
+        if (str.size > 1) {
+            name = str[1]
         }
         try {
-            jsonObj.put(name, any)
+            jsonObj.put(name, obj)
         } catch (e: Exception) {
             e.printStackTrace()
         }

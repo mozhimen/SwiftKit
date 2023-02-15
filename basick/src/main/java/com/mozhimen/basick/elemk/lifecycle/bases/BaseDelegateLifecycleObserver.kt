@@ -7,13 +7,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
- * @ClassName LifecycleDelegate
+ * @ClassName BaseDelegateLifecycleObserver
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/11/21 21:22
  * @Version 1.0
  */
 open class BaseDelegateLifecycleObserver(private val _owner: LifecycleOwner) : DefaultLifecycleObserver {
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+
     init {
         _owner.lifecycleScope.launch(Dispatchers.Main) {
             _owner.lifecycle.addObserver(this@BaseDelegateLifecycleObserver)
@@ -21,7 +23,7 @@ open class BaseDelegateLifecycleObserver(private val _owner: LifecycleOwner) : D
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        _owner.lifecycle.removeObserver(this)
+        owner.lifecycle.removeObserver(this)
         super.onDestroy(owner)
     }
 }

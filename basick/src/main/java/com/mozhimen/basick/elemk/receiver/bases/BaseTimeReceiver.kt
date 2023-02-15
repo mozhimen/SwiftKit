@@ -23,11 +23,11 @@ Log.v("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDate.getNowLong()} stri
 
  * 动态注册
 class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
-private lateinit var _lifecycleReceiverDelegate: LifecycleReceiverDelegate<ElemKReceiverActivity>
+private lateinit var _receiverDelegate: ReceiverDelegate<ElemKReceiverActivity>
 
 override fun initData(savedInstanceState: Bundle?) {
 Log.d(TAG, "initData: start")
-_lifecycleReceiverDelegate = LifecycleReceiverDelegate(
+_receiverDelegate = ReceiverDelegate(
 this,
 arrayOf(
 Intent.ACTION_TIME_TICK,
@@ -45,9 +45,7 @@ super.initData(savedInstanceState)
  * @Version 1.0
  */
 @ADescription("need register dynamic 需要动态注册")
-open class BaseTimeReceiver(private val _listener: ITimeReceiverListener) : BroadcastReceiver() {
-
-    private val TAG = "BaseTimeReceiver>>>>>"
+open class BaseTimeReceiver(private val _listener: ITimeReceiverListener) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {

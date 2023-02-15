@@ -3,15 +3,17 @@ package com.mozhimen.basick.utilk.net
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.net.wifi.WifiManager
 import android.util.Log
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.net.Inet6Address
 import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.SocketException
 import java.util.*
+import kotlin.math.abs
 
 /**
  * @ClassName UtilKNet
@@ -28,7 +30,26 @@ import java.util.*
 object UtilKNetConn {
     private val TAG = "UtilKNet>>>>>"
     private val _context = UtilKApplication.instance.get()
-    private val _connectivityManager = _context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val _connectivityManager by lazy { _context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
+    private val _wifiManager by lazy { _context.getSystemService(Context.WIFI_SERVICE) as WifiManager }
+
+    /**
+     * 获取Wifi强度
+     * @return Int
+     */
+    @JvmStatic
+    fun getWifiStrength(): Int {
+        return abs(_wifiManager.connectionInfo.rssi)
+    }
+
+    /**
+     * 获取NetworkInfo
+     * @return NetworkInfo?
+     */
+    @JvmStatic
+    fun getActiveNetworkInfo(): NetworkInfo? {
+        return _connectivityManager.activeNetworkInfo
+    }
 
     /**
      * 获取网路IP

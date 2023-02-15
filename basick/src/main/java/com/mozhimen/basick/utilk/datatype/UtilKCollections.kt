@@ -10,6 +10,29 @@ package com.mozhimen.basick.utilk.datatype
 object UtilKCollections {
 
     /**
+     * 判断符合条件的元素是否在Collection中
+     * @param iterable Iterable<T>
+     * @param predicate Function1<T, Boolean>
+     * @return Boolean
+     */
+    @JvmStatic
+    fun <T> containsBy(iterable: Iterable<T>, predicate: (T) -> Boolean): Boolean {
+        return getIndexFirst(iterable, predicate) != null
+    }
+
+    /**
+     * 获取符合条件的元素在该Collection的位置
+     * @param iterable Iterable<T>
+     * @param predicate Function1<T, Boolean>
+     * @return Int
+     */
+    @JvmStatic
+    fun <T> getIndexFirst(iterable: Iterable<T>, predicate: (T) -> Boolean): Int? {
+        val index = iterable.indexOf(iterable.find(predicate))
+        return if (index == -1) null else index
+    }
+
+    /**
      * 将一个Collection的Item中的某个Element组合起来成一个新Collection
      * @param iterable Iterable<T>
      * @param predicate Function1<T, I>

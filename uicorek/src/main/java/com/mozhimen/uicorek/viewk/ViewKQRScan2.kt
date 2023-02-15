@@ -137,18 +137,15 @@ class ViewKQRScan2 @JvmOverloads constructor(
         )
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        canvas?.let {
-            drawBorderLine(canvas)
-            if (!_isSuccess) {
-                drawScanLine(canvas)
-                moveScanLine()
-            } else {
-                scaleScanLine(canvas)
-                scaleSuccessLogo(canvas)
-                changeScaleStep()
-            }
+    override fun onDraw(canvas: Canvas) {
+        drawBorderLine(canvas)
+        if (!_isSuccess) {
+            drawScanLine(canvas)
+            moveScanLine()
+        } else {
+            scaleScanLine(canvas)
+            scaleSuccessLogo(canvas)
+            changeScaleStep()
         }
     }
 

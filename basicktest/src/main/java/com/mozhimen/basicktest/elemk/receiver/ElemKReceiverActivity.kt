@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.elemk.receiver.helpers.LifecycleReceiverDelegate
+import com.mozhimen.basick.elemk.receiver.BaseReceiverDelegate
 import com.mozhimen.basicktest.databinding.ActivityElemkReceiverBinding
 
 
@@ -16,18 +16,16 @@ import com.mozhimen.basicktest.databinding.ActivityElemkReceiverBinding
  * @Version 1.0
  */
 class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
-    private lateinit var _lifecycleReceiverDelegate: LifecycleReceiverDelegate<ElemKReceiverActivity>
+    private lateinit var _receiverDelegate: BaseReceiverDelegate<ElemKReceiverActivity>
 
     override fun initData(savedInstanceState: Bundle?) {
         Log.d(TAG, "initData: start")
-        _lifecycleReceiverDelegate = LifecycleReceiverDelegate(
+        _receiverDelegate = BaseReceiverDelegate(
             this,
-            arrayOf(
-                Intent.ACTION_TIME_TICK,
-                Intent.ACTION_TIMEZONE_CHANGED,
-                Intent.ACTION_TIME_CHANGED
-            ),
-            ElemKTimeReceiver()
+            ElemKTimeReceiver(),
+            Intent.ACTION_TIME_TICK,
+            Intent.ACTION_TIMEZONE_CHANGED,
+            Intent.ACTION_TIME_CHANGED
         )
         super.initData(savedInstanceState)
     }

@@ -9,6 +9,7 @@ import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding
 import com.mozhimen.basicktest.elemk.ElemKActivity
 import com.mozhimen.basicktest.manifestk.ManifestKActivity
+import com.mozhimen.basicktest.netk.conn.NetKConnActivity
 import com.mozhimen.basicktest.taskk.TaskKActivity
 
 class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
@@ -22,6 +23,10 @@ class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
 
     fun goManifestK(view: View) {
         start<ManifestKActivity>()
+    }
+
+    fun goNetK(view: View) {
+        start<NetKConnActivity>()
     }
 
     fun goStackK(view: View) {

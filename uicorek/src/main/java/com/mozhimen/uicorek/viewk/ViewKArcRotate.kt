@@ -98,12 +98,9 @@ class ViewKArcRotate @JvmOverloads constructor(context: Context, attrs: Attribut
         )
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        canvas?.let {
-            drawArcLine(canvas)
-            rotateRing()
-        }
+    override fun onDraw(canvas: Canvas) {
+        drawArcLine(canvas)
+        rotateRing()
     }
 
     private fun rotateRing() {

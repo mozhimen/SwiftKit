@@ -28,10 +28,10 @@ object UtilKBarVirtual {
         val display = windowManager.defaultDisplay
         try {
             @SuppressWarnings("rawtypes")
-            val cls = Class.forName("android.view.Display")
+            val clazz = Class.forName("android.view.Display")
 
             @SuppressWarnings("unchecked")
-            val method = cls.getMethod("getRealMetrics", DisplayMetrics::class.java)
+            val method = clazz.getMethod("getRealMetrics", DisplayMetrics::class.java)
             method.invoke(display, displayMetrics)
             virtualBarHeight = displayMetrics.heightPixels - display.height
         } catch (e: Exception) {

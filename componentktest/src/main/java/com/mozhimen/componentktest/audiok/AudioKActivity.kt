@@ -8,16 +8,14 @@ import android.view.View
 import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.animk.builders.AnimKBuilder
-import com.mozhimen.basick.animk.builders.temps.TranslationType
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.temps.TranslationType
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.UtilKDataBus
-import com.mozhimen.basick.utilk.UtilKNumber
 import com.mozhimen.basick.utilk.exts.normalize
-import com.mozhimen.basick.utilk.exts.printlog
 import com.mozhimen.componentk.audiok.AudioK
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.mos.MAudioK
@@ -28,7 +26,6 @@ import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
 import com.mozhimen.uicorek.popwink.PopwinKLifecycle
-import kotlin.concurrent.thread
 import kotlin.math.roundToInt
 
 @AManifestKRequire(CPermission.WAKE_LOCK)

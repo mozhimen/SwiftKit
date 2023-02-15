@@ -155,7 +155,6 @@ class LayoutKTimeLine @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
         calculateSideRelative()
         if (_isDrawLine) {
             drawTimeLine(canvas)

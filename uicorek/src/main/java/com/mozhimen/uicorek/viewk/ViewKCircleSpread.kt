@@ -143,13 +143,10 @@ class ViewKCircleSpread @JvmOverloads constructor(
             )
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        canvas?.let {
-            drawCircleSpread(canvas)
-            drawCircleCenter(canvas)
-            changeRadiusAndAlpha()
-        }
+    override fun onDraw(canvas: Canvas) {
+        drawCircleSpread(canvas)
+        drawCircleCenter(canvas)
+        changeRadiusAndAlpha()
     }
 
     private fun changeRadiusAndAlpha() {

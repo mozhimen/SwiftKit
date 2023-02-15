@@ -1,6 +1,6 @@
 package com.mozhimen.basick.flowk.helpers
 
-import com.mozhimen.basick.flowk.FlowKNode
+import com.mozhimen.basick.flowk.mos.FlowKNode
 
 /**
  * @ClassName TaskKComparator

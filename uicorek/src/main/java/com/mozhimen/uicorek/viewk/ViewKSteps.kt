@@ -177,8 +177,6 @@ class ViewKSteps @JvmOverloads constructor(
 
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-
         drawLines(canvas)
         drawCircles(canvas)
         drawNumbers(canvas)

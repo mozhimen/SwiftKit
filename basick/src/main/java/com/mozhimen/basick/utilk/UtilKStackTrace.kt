@@ -3,8 +3,6 @@ package com.mozhimen.basick.utilk
 import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.utilk.json.UtilKJson
-import com.mozhimen.basick.utilk.json.UtilKJsonGson
-import com.mozhimen.basick.utilk.json.UtilKJsonMoshi
 import java.util.logging.Logger
 
 /**
@@ -136,6 +134,6 @@ object UtilKStackTrace {
             methodName = element.methodName
             lineNumber = element.lineNumber
         }
-        return "  ($clazzName:$lineNumber) #$methodName: \n${UtilKJson.wrapJson(msg)}"
+        return "  ($clazzName:$lineNumber) #$methodName: \n${UtilKJson.wrapJsonStr(msg)}"
     }
 }

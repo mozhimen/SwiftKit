@@ -1,13 +1,11 @@
 package com.mozhimen.basicktest.elemk
 
 import android.os.Bundle
-import android.util.Log
-import android.view.DragEvent
-import android.view.View
 import android.widget.TextView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.UtilKGesture
+import com.mozhimen.basick.elemk.gesture.DragAndDropDelegate
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
+import java.lang.ref.WeakReference
 
 
 /**
@@ -19,13 +17,14 @@ import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
  */
 class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
 
+    private val _dragAndDropDelegate by lazy { DragAndDropDelegate(this) }
     override fun initView(savedInstanceState: Bundle?) {
-        UtilKGesture.dragAndDrop(vb.elemkGestureTxt1, vb.elemkGestureTxt2) { source, dest ->
-            (dest as TextView).text = (source as TextView).text
+        _dragAndDropDelegate.dragAndDrop(WeakReference(vb.elemkGestureTxt1), WeakReference(vb.elemkGestureTxt2)) { source, dest ->
+            (dest.get() as? TextView?)?.text = (source.get() as? TextView?)?.text.toString()
         }
 
-        UtilKGesture.dragAndDrop(vb.elemkGestureTxt1, vb.elemkGestureTxt3) { source, dest ->
-            (dest as TextView).text = (source as TextView).text
+        _dragAndDropDelegate.dragAndDrop(WeakReference(vb.elemkGestureTxt1), WeakReference(vb.elemkGestureTxt3)) { source, dest ->
+            (dest.get() as? TextView?)?.text = (source.get() as? TextView?)?.text.toString()
         }
 //        vb.elemkGestureTxt1.setOnLongClickListener { view ->
 //            view.startDrag(null, View.DragShadowBuilder(view), vb.elemkGestureTxt1, 0)

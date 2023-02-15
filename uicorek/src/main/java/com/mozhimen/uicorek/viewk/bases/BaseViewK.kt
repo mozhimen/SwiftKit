@@ -27,16 +27,16 @@ abstract class BaseViewK :
 
     val TAG = "${this.javaClass.simpleName}>>>>>"
 
-    var centerX = 30f.dp2px().toFloat()
-    var centerY = 30f.dp2px().toFloat()
-    var sideLength = 30f.dp2px()//真实半径
+    var centerX = 0f
+    var centerY = 0f
+    var sideLength = 0f//真实半径
     var realRadius = sideLength / 2f//最短边长
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         centerX = width / 2f
         centerY = height / 2f
-        realRadius = width.coerceAtMost(height) / 2f
-        sideLength = width.coerceAtMost(height)
+        realRadius = width.coerceAtMost(height).toFloat() / 2f
+        sideLength = width.coerceAtMost(height).toFloat()
         super.onSizeChanged(w, h, oldw, oldh)
     }
 

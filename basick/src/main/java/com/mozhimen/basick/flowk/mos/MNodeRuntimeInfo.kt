@@ -1,7 +1,6 @@
 package com.mozhimen.basick.flowk.mos
 
 import android.util.SparseArray
-import com.mozhimen.basick.flowk.FlowKNode
 import com.mozhimen.basick.flowk.annors.AFlowKState
 
 /**

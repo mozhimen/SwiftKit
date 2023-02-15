@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
-import com.mozhimen.basick.animk.builders.AnimKBuilder
-import com.mozhimen.basick.animk.builders.temps.RotationRecyclerType
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.temps.RotationRecyclerType
 import com.mozhimen.basick.utilk.exts.stopAnim
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.uicorek.R

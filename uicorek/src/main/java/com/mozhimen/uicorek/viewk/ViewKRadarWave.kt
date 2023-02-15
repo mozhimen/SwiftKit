@@ -89,13 +89,10 @@ class ViewKRadarWave @JvmOverloads constructor(
         _radarPaint.shader = SweepGradient(realRadius, realRadius, intArrayOf(Color.TRANSPARENT, _radarColor), null)
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        canvas?.let {
-            drawWave(canvas)
-            drawRadar(canvas)
-            rotateAngle()
-        }
+    override fun onDraw(canvas: Canvas) {
+        drawWave(canvas)
+        drawRadar(canvas)
+        rotateAngle()
     }
 
     private fun drawRadar(canvas: Canvas) {

@@ -11,11 +11,11 @@ import java.lang.ref.WeakReference
  * @Date 2022/2/27 17:56
  * @Version 1.0
  */
-open class BaseWeakClazzHandler<T>(cls: T) : Handler(Looper.getMainLooper()) {
+open class BaseWeakClazzHandler<T>(clazz: T) : Handler(Looper.getMainLooper()) {
     private var _ref: WeakReference<T>? = null
 
     init {
-        _ref = WeakReference(cls)
+        _ref = WeakReference(clazz)
     }
 
     fun getRef(): T? {

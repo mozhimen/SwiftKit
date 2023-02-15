@@ -13,7 +13,7 @@ import com.mozhimen.componentk.audiok.mos.MAudioK
  * @Version 1.0
  */
 internal interface IAudioKListener {
-    fun getPlayList(): ArrayList<MAudioK>
+    fun getPlayList(): List<MAudioK>
     fun addAudiosToPlayList(audios: List<MAudioK>)
     fun addAudioToPlayList(audio: MAudioK)
     fun addAudioToPlayListTop(audioK: MAudioK)

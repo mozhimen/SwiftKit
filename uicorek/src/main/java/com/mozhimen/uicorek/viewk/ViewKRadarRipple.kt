@@ -98,14 +98,11 @@ class ViewKRadarRipple @JvmOverloads constructor(
         _radarPaint.shader = SweepGradient(realRadius, realRadius, intArrayOf(Color.TRANSPARENT, _radarColor), null)
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-        canvas?.let {
-            drawBg(canvas)
-            drawCircle(canvas)
-            drawRadar(canvas)
-            rotateAngle()
-        }
+    override fun onDraw(canvas: Canvas) {
+        drawBg(canvas)
+        drawCircle(canvas)
+        drawRadar(canvas)
+        rotateAngle()
     }
 
     private fun drawBg(canvas: Canvas) {

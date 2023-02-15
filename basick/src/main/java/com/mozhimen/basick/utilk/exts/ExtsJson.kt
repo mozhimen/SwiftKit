@@ -19,7 +19,7 @@ import com.mozhimen.basick.utilk.json.UtilKJsonMoshi
  * @throws Exception
  */
 @Throws(Exception::class)
-inline fun <reified T : Any> T.toJsonMoshi(indent: String = ""): String = UtilKJsonMoshi.t2Json(this, indent)
+inline fun <reified T : Any> T.t2JsonMoshi(indent: String = ""): String = UtilKJsonMoshi.t2Json(this, indent)
 
 /**
  * 转实体
@@ -28,14 +28,14 @@ inline fun <reified T : Any> T.toJsonMoshi(indent: String = ""): String = UtilKJ
  * @throws Exception
  */
 @Throws(Exception::class)
-inline fun <reified T> String.fromJsonMoshi(): T? = UtilKJsonMoshi.json2T(this)
+inline fun <reified T> String.json2TMoshi(): T? = UtilKJsonMoshi.json2T(this)
 
 /**
  * 转Json
  * @receiver Any
  * @return String
  */
-fun Any.toJsonGson(): String = UtilKJsonGson.t2Json(this)
+fun Any.obj2JsonGson(): String = UtilKJsonGson.obj2Json(this)
 
 /**
  * 转实体
@@ -43,12 +43,27 @@ fun Any.toJsonGson(): String = UtilKJsonGson.t2Json(this)
  * @param token TypeToken<T>
  * @return T
  */
-fun <T> String.fromJsonGson(token: TypeToken<T>): T = UtilKJsonGson.json2T(this, token)
+fun <T> String.json2TGson(token: TypeToken<T>): T = UtilKJsonGson.json2T(this, token)
 
 /**
  * 转实体
  * @receiver String
- * @param cls Class<T>
+ * @param clazz Class<T>
  * @return T
  */
-fun <T> String.fromJsonGson(cls: Class<T>): T = UtilKJsonGson.json2T(this, cls)
+fun <T> String.json2TGson(clazz: Class<T>): T? = UtilKJsonGson.json2T(this, clazz)
+
+/**
+ * 转Json
+ * @receiver Any
+ * @return String
+ */
+fun Any.obj2JsonGsonWithoutExpose(): String = UtilKJsonGson.obj2JsonWithoutExpose(this)
+
+/**
+ * 转实体
+ * @receiver String
+ * @param clazz Class<T>
+ * @return T
+ */
+fun <T> String.json2TGsonWithoutExpose(clazz: Class<T>): T? = UtilKJsonGson.json2TWithoutExpose(this, clazz)

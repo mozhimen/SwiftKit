@@ -36,7 +36,7 @@ android:exported="true">
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.RECEIVE_BOOT_COMPLETED)
-open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BroadcastReceiver() {
+open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {

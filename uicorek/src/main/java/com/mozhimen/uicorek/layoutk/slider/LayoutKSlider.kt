@@ -99,7 +99,6 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
         if (!isInEditMode) {
             _layoutKSliderProxy.onDraw(canvas)
         }

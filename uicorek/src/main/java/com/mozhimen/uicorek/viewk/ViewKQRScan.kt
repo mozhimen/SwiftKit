@@ -74,18 +74,14 @@ class ViewKQRScan @JvmOverloads constructor(
         invalidate()
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        if (_borderRect == null) {
-            return
-        }
+    override fun onDraw(canvas: Canvas) {
+        if (_borderRect == null) return
 
-        canvas?.let {
-            // 画边框线
-            drawBorderLine(canvas)
+        // 画边框线
+        drawBorderLine(canvas)
 
-            // 画扫描线
-            drawScanLine(canvas)
-        }
+        // 画扫描线
+        drawScanLine(canvas)
 
         // 移动扫描线的位置
         moveScanLine()

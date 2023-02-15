@@ -120,8 +120,6 @@ class ViewKColorPicker @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
-
         if (_paintCircle == null) {
             _paintCircle = createPaintInside()
         }

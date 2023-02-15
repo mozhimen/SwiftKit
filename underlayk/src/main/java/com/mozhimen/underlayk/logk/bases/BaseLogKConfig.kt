@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.logk.bases
 
-import com.mozhimen.basick.utilk.exts.toJsonMoshi
+import com.mozhimen.basick.utilk.exts.t2JsonMoshi
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.temps.LogKFormatterStackTrace
 import com.mozhimen.underlayk.logk.temps.LogKFormatterThread
@@ -22,7 +22,7 @@ open class BaseLogKConfig {
     open fun injectJsonParser(): IJsonParser? {
         return object : IJsonParser {
             override fun toJson(src: Any): String {
-                return src.toJsonMoshi()
+                return src.t2JsonMoshi()
             }
         }
     }

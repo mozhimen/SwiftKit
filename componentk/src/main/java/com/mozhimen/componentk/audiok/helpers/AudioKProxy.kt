@@ -11,6 +11,7 @@ import com.mozhimen.componentk.audiok.cons.EPlayStatus
 import com.mozhimen.componentk.audiok.mos.MAudioK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.CopyOnWriteArrayList
 
 
 /**
@@ -25,7 +26,7 @@ internal class AudioKProxy(private val _owner: LifecycleOwner) : IAudioKListener
     private val _customAudioPlayer by lazy { CustomAudioPlayer(_owner) }
     private val TAG = "AudioKProxy>>>>>"
 
-    private val _playList: ArrayList<MAudioK> = ArrayList()
+    private val _playList: CopyOnWriteArrayList<MAudioK> = CopyOnWriteArrayList()
     private var _playMode = EPlayMode.LIST_ONCE
     private var _playIndexCurrent: Int = 0
         set(value) {
@@ -57,8 +58,8 @@ internal class AudioKProxy(private val _owner: LifecycleOwner) : IAudioKListener
         }
     }
 
-    override fun getPlayList(): ArrayList<MAudioK> {
-        return _playList
+    override fun getPlayList(): List<MAudioK> {
+        return _playList.toList()
     }
 
     override fun addAudiosToPlayList(audios: List<MAudioK>) {

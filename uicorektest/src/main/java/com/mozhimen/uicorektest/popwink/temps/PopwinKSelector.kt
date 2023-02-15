@@ -5,8 +5,8 @@ import android.graphics.Color
 import android.util.Log
 import android.view.View
 import android.view.animation.Animation
-import com.mozhimen.basick.animk.builders.AnimKBuilder
-import com.mozhimen.basick.animk.builders.temps.TranslationType
+import com.mozhimen.basick.animk.builder.AnimKBuilder
+import com.mozhimen.basick.animk.builder.temps.TranslationType
 import com.mozhimen.uicorek.popwink.PopwinKLifecycle
 import com.mozhimen.uicorek.viewk.wheel.ViewKWheel
 import com.mozhimen.uicorek.viewk.wheel.temps.ArrayWheelAdapter

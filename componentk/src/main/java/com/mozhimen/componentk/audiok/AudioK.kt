@@ -43,7 +43,7 @@ class AudioK : IAudioKListener, LifecycleOwner {
         }
     }
 
-    override fun getPlayList(): ArrayList<MAudioK> {
+    override fun getPlayList(): List<MAudioK> {
         return _audioKProxy.getPlayList()
     }
 

@@ -81,6 +81,15 @@ object UtilKApp {
     }
 
     /**
+     * 退出App
+     */
+    @JvmStatic
+    fun exitApp(isValid: Boolean = true) {
+        Process.killProcess(Process.myPid())
+        exitProcess(if (isValid) 0 else 10)
+    }
+
+    /**
      * isSystemApp
      * @return Boolean
      */
