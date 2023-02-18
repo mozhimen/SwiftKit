@@ -1,6 +1,5 @@
 package com.mozhimen.basick.manifestk.permission.annors
 
-
 /**
  * @ClassName APermissionKCheck
  * @Description TODO

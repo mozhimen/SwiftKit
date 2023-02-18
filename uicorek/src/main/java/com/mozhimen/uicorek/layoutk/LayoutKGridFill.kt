@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.widget.GridLayout
@@ -19,7 +20,6 @@ import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
-import kotlin.math.roundToInt
 
 
 /**
@@ -54,6 +54,7 @@ class LayoutKGridFill @JvmOverloads constructor(context: Context, attrs: Attribu
             initAttrs(attrs, defStyleAttr)
             post {
                 addView(_gridLayout)
+                (_gridLayout.layoutParams as LayoutParams).gravity = Gravity.CENTER
                 initCells()
                 invalidate()
             }
@@ -61,13 +62,13 @@ class LayoutKGridFill @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     private lateinit var _cells: Array<Array<View>>    //二维格子
+    private val _areaCell by lazy { MArea((width - paddingLeft - paddingRight) / _gridColumnCount, (height - paddingTop - paddingBottom) / _gridRowCount) }
     private val _areaGrid by lazy {
-        MArea(
-            width - paddingLeft - paddingRight, height - paddingTop - paddingBottom,
-            paddingLeft, paddingTop
+        MAreaF(
+            (_areaCell.width * _gridColumnCount).toFloat(), (_areaCell.height * _gridRowCount).toFloat(),
+            paddingLeft.toFloat() + (this.width.toFloat() - (_areaCell.width * _gridColumnCount).toFloat()) / 2f, paddingTop.toFloat() + (this.height.toFloat() - (_areaCell.height * _gridRowCount).toFloat()) / 2f
         )
     }
-    private val _areaCell by lazy { MAreaF(_areaGrid.width / _gridColumnCount, _areaGrid.height / _gridRowCount) }
 
     private val _gridLayout by lazy {
         GridLayout(context).apply {
@@ -113,7 +114,7 @@ class LayoutKGridFill @JvmOverloads constructor(context: Context, attrs: Attribu
             Array(_gridColumnCount, init = {
                 View(context).apply {
                     tag = Status.DEFAULT
-                    this.layoutParams = LayoutParams(_areaCell.width.roundToInt(), _areaCell.height.roundToInt())
+                    this.layoutParams = LayoutParams(_areaCell.width, _areaCell.height)
                     setBackgroundColor(_cellDefaultColor)
                     setOnClickListener {
                         if (tag == Status.SELECTED) return@setOnClickListener
@@ -156,7 +157,7 @@ class LayoutKGridFill @JvmOverloads constructor(context: Context, attrs: Attribu
         val y = event.y
         when (event.action) {
             MotionEvent.ACTION_MOVE -> {
-                if (UtilKGesture.isTapInArea(x, y, _areaGrid.left.toFloat(), _areaGrid.top.toFloat(), _areaGrid.right.toFloat(), _areaGrid.bottom.toFloat())) {
+                if (UtilKGesture.isTapInArea(x, y, _areaGrid.left, _areaGrid.top, _areaGrid.right, _areaGrid.bottom)) {
                     startGestureMoveAnim(x, y)
                 }
             }
@@ -177,34 +178,34 @@ class LayoutKGridFill @JvmOverloads constructor(context: Context, attrs: Attribu
         return super.dispatchTouchEvent(event)
     }
 
-    override fun dispatchDraw(canvas: Canvas?) {
+    override fun dispatchDraw(canvas: Canvas) {
         super.dispatchDraw(canvas)
 
-        val left: Float = _areaGrid.left.toFloat()
-        val top: Float = _areaGrid.top.toFloat()
-        val right: Float = _areaGrid.right.toFloat()
-        val bottom: Float = _areaGrid.bottom.toFloat()
+        val left: Float = _areaGrid.left
+        val top: Float = _areaGrid.top
+        val right: Float = _areaGrid.right
+        val bottom: Float = _areaGrid.bottom
         for (i in 0.._gridRowCount) {
-            val y = if (i == _gridRowCount) right - (_outerLineWidth / 2f) else (_areaCell.height * i) + top + if (i == 0) _outerLineWidth / 2f else 0f
+            val y = (_areaCell.height * i) + top
             _linePaint.strokeWidth = if (i == 0 || i == _gridRowCount) _outerLineWidth else _innerLineWidth
             _linePath.moveTo(left, y)
             _linePath.lineTo(left + _areaGrid.width, y)
-            canvas?.drawPath(_linePath, _linePaint)
+            canvas.drawPath(_linePath, _linePaint)
             _linePath.reset()
         }
         for (i in 0.._gridColumnCount) {
-            val x = if (i == _gridColumnCount) right - (_outerLineWidth / 2f) else (_areaCell.width * i) + left + if (i == 0) _outerLineWidth / 2f else 0f
+            val x = (_areaCell.width * i) + left
             _linePaint.strokeWidth = if (i == 0 || i == _gridColumnCount) _outerLineWidth else _innerLineWidth
             _linePath.moveTo(x, top)
             _linePath.lineTo(x, top + _areaGrid.height)
-            canvas?.drawPath(_linePath, _linePaint)
+            canvas.drawPath(_linePath, _linePaint)
             _linePath.reset()
         }
     }
 
     private fun startGestureMoveAnim(x: Float, y: Float) {
-        val i = (x / _areaCell.width.toFloat()).toInt().normalize(0, _gridColumnCount - 1)        //计算索引位置
-        val j = (y / _areaCell.height.toFloat()).toInt().normalize(0, _gridRowCount - 1)
+        val i = (x / _areaCell.width).toInt().normalize(0, _gridColumnCount - 1)        //计算索引位置
+        val j = (y / _areaCell.height).toInt().normalize(0, _gridRowCount - 1)
         if (j >= _gridRowCount || i >= _gridColumnCount) return
         val cell = _cells[j][i]
         if (_cellLast != null && _cellLast == cell) return

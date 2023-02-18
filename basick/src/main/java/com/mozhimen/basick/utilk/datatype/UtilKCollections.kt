@@ -57,6 +57,30 @@ object UtilKCollections {
     }
 
     /**
+     * 将一个Collection的Item中的某个Element组合起来成一个新Collection(忽略重复的)
+     * @param iterable Iterable<T>
+     * @param predicate Function1<T, I>
+     * @return List<I>
+     */
+    @JvmStatic
+    fun <T, I> combineElement2ListIgnoreRepeat(iterable: Iterable<T>, predicate: (T) -> I): List<I> {
+        return combineElement2ListIgnoreRepeat(iterable, ArrayList(), predicate)
+    }
+
+    /**
+     * 将一个Collection的Item中的某个Element组合起来成一个新Collection(忽略重复的)
+     * @param iterable Iterable<T>
+     * @param newCollection C
+     * @param predicate Function1<T, I>
+     * @return C
+     */
+    @JvmStatic
+    fun <T, I, C : MutableCollection<in I>> combineElement2ListIgnoreRepeat(iterable: Iterable<T>, newCollection: C, predicate: (T) -> I): C {
+        for (element in iterable) newCollection.add(predicate(element))
+        return newCollection
+    }
+
+    /**
      * map2String
      * @param map Map<*, *>
      * @return String

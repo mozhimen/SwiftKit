@@ -45,36 +45,36 @@ object CacheK {
     }
 
     private fun <T> toByteArray(body: Any?): ByteArray? {
-        var baos: ByteArrayOutputStream? = null
-        var oos: ObjectOutputStream? = null
+        var byteArrayOutputStream: ByteArrayOutputStream? = null
+        var objectOutputStream: ObjectOutputStream? = null
         try {
-            baos = ByteArrayOutputStream()
-            oos = ObjectOutputStream(baos)
-            oos.writeObject(body)
-            oos.flush()
-            return baos.toByteArray()
+            byteArrayOutputStream = ByteArrayOutputStream()
+            objectOutputStream = ObjectOutputStream(byteArrayOutputStream)
+            objectOutputStream.writeObject(body)
+            objectOutputStream.flush()
+            return byteArrayOutputStream.toByteArray()
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
-            baos?.close()
-            oos?.close()
+            byteArrayOutputStream?.close()
+            objectOutputStream?.close()
         }
 
         return ByteArray(0)
     }
 
     private fun toObject(data: ByteArray?): Any? {
-        var bais: ByteArrayInputStream? = null
-        var ois: ObjectInputStream? = null
+        var byteArrayInputStream: ByteArrayInputStream? = null
+        var objectInputStream: ObjectInputStream? = null
         try {
-            bais = ByteArrayInputStream(data)
-            ois = ObjectInputStream(bais)
-            return ois.readObject()
+            byteArrayInputStream = ByteArrayInputStream(data)
+            objectInputStream = ObjectInputStream(byteArrayInputStream)
+            return objectInputStream.readObject()
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
-            bais?.close()
-            ois?.close()
+            byteArrayInputStream?.close()
+            objectInputStream?.close()
         }
 
         return null

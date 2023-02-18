@@ -10,6 +10,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseDelegateLifecycleObserver
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/9/28 16:02
  * @Version 1.0
  */
+@ADescription("init on create")
 class ServiceDelegate<T>(
     private val _activity: T,
     private val _service: Class<*>,

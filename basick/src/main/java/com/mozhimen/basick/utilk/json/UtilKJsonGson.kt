@@ -16,7 +16,7 @@ import com.google.gson.reflect.TypeToken
 object UtilKJsonGson {
     private val _gson by lazy { Gson() }
     private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
-    private val _gsonWithoutExpose: Gson by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
+    private val _gsonWithExpose: Gson by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
 
     /**
      * t转Json
@@ -81,8 +81,8 @@ object UtilKJsonGson {
      * @return String
      */
     @JvmStatic
-    fun obj2JsonWithoutExpose(obj: Any): String =
-        _gsonWithoutExpose.toJson(obj)
+    fun obj2JsonWithExpose(obj: Any): String =
+        _gsonWithExpose.toJson(obj)
 
     /**
      * 从Json转T
@@ -91,8 +91,8 @@ object UtilKJsonGson {
      * @return T
      */
     @JvmStatic
-    fun <T> json2TWithoutExpose(json: String, clazz: Class<T>): T? =
-        _gsonWithoutExpose.fromJson(json, clazz)
+    fun <T> json2TWithExpose(json: String, clazz: Class<T>): T? =
+        _gsonWithExpose.fromJson(json, clazz)
 
     /**
      * json转JsonElement

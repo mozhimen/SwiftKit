@@ -10,7 +10,7 @@ import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.BR
 import com.mozhimen.componentktest.databinding.FragmentFirstBinding
 import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
-import com.mozhimen.componentktest.navigatek.NavigateKViewModel
+import com.mozhimen.componentk.navigatek.bases.NavigateKViewModel
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
 class FirstFragment : BaseFragmentVBVM<FragmentFirstBinding, NavigateKViewModel>() {

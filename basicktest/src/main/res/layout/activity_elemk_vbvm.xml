@@ -40,5 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
+
+        <fragment
+            android:id="@+id/elemk_vbvm_fragment_dialog_vbvm"
+            android:name="com.mozhimen.basicktest.elemk.fragment.ElemKDialogFragmentVB"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
     </LinearLayout>
 </layout>

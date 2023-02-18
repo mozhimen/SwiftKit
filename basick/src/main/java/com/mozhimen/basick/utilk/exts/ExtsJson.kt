@@ -58,7 +58,7 @@ fun <T> String.json2TGson(clazz: Class<T>): T? = UtilKJsonGson.json2T(this, claz
  * @receiver Any
  * @return String
  */
-fun Any.obj2JsonGsonWithoutExpose(): String = UtilKJsonGson.obj2JsonWithoutExpose(this)
+fun Any.obj2JsonGsonWithExpose(): String = UtilKJsonGson.obj2JsonWithExpose(this)
 
 /**
  * 转实体
@@ -66,4 +66,4 @@ fun Any.obj2JsonGsonWithoutExpose(): String = UtilKJsonGson.obj2JsonWithoutExpos
  * @param clazz Class<T>
  * @return T
  */
-fun <T> String.json2TGsonWithoutExpose(clazz: Class<T>): T? = UtilKJsonGson.json2TWithoutExpose(this, clazz)
+fun <T> String.json2TGsonWithExpose(clazz: Class<T>): T? = UtilKJsonGson.json2TWithExpose(this, clazz)

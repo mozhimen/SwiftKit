@@ -1,9 +1,9 @@
-package com.mozhimen.componentktest.navigatek
+package com.mozhimen.componentk.navigatek.bases
 
 import androidx.lifecycle.MutableLiveData
 import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
 
-class NavigateKViewModel : BaseViewModel() {
+open class BaseNavigateKViewModel : BaseViewModel() {
     val liveFragmentId = MutableLiveData<Int?>(null)
     val liveSetPopupFlag = MutableLiveData<Boolean?>(null)
 }

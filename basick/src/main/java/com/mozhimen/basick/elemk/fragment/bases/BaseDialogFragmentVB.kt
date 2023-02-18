@@ -7,15 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
+import androidx.appcompat.widget.DialogTitle
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.activity.commons.IActivity
 import com.mozhimen.basick.utilk.UtilKViewDataBinding
 
-open class BaseFragmentVB<VB : ViewDataBinding>(
+open class BaseDialogFragmentVB<VB : ViewDataBinding>(
     protected open val _factory: ViewModelProvider.Factory? = null
-) : Fragment(), IActivity {
+) : DialogFragment(), IActivity {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     private var _vb: VB? = null
@@ -25,7 +27,7 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container, 0).apply {
-            lifecycleOwner = this@BaseFragmentVB
+            lifecycleOwner = this@BaseDialogFragmentVB
         }
         return vb.root
     }

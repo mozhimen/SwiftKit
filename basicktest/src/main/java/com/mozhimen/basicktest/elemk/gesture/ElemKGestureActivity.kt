@@ -1,11 +1,14 @@
-package com.mozhimen.basicktest.elemk
+package com.mozhimen.basicktest.elemk.gesture
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.widget.TextView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.gesture.DragAndDropDelegate
+import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
-import java.lang.ref.WeakReference
+import com.mozhimen.componentk.navigatek.NavigateKDelegate
+import com.mozhimen.componentk.navigatek.cons.CNavigateK
 
 
 /**
@@ -16,16 +19,18 @@ import java.lang.ref.WeakReference
  * @Version 1.0
  */
 class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
-
     private val _dragAndDropDelegate by lazy { DragAndDropDelegate(this) }
+    private val _navigateDelegate: NavigateKDelegate<ElemKGestureActivity> = NavigateKDelegate(this, R.id.elemk_gesture_fragment_container, ElemKGestureFragment::class.java)
+
     override fun initView(savedInstanceState: Bundle?) {
-        _dragAndDropDelegate.dragAndDrop(WeakReference(vb.elemkGestureTxt1), WeakReference(vb.elemkGestureTxt2)) { source, dest ->
-            (dest.get() as? TextView?)?.text = (source.get() as? TextView?)?.text.toString()
+        savedInstanceState?.let {
+            _navigateDelegate.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
+        }
+        _dragAndDropDelegate.dragAndDrop(vb.elemkGestureTxt1, vb.elemkGestureTxt2) { source, dest ->
+            (dest as TextView).text = (source as TextView).text.toString()
         }
 
-        _dragAndDropDelegate.dragAndDrop(WeakReference(vb.elemkGestureTxt1), WeakReference(vb.elemkGestureTxt3)) { source, dest ->
-            (dest.get() as? TextView?)?.text = (source.get() as? TextView?)?.text.toString()
-        }
+        //for example
 //        vb.elemkGestureTxt1.setOnLongClickListener { view ->
 //            view.startDrag(null, View.DragShadowBuilder(view), vb.elemkGestureTxt1, 0)
 //            //震动反馈
@@ -71,4 +76,13 @@ class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
 //        }
     }
 
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        outState.putInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, _navigateDelegate.currentItemId)
+        super.onSaveInstanceState(outState, outPersistentState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        _navigateDelegate.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
+    }
 }

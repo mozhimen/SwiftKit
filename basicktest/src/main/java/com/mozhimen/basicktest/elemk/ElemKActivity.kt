@@ -5,6 +5,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.basicktest.databinding.ActivityElemkBinding
 import com.mozhimen.basicktest.elemk.activity.ElemKVBVMActivity
+import com.mozhimen.basicktest.elemk.gesture.ElemKGestureActivity
 import com.mozhimen.basicktest.elemk.receiver.ElemKReceiverActivity
 import com.mozhimen.basicktest.elemk.service.ElemKServiceActivity
 
