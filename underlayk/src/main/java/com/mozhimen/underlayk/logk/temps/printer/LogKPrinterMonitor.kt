@@ -1,4 +1,4 @@
-package com.mozhimen.underlayk.logk.temps
+package com.mozhimen.underlayk.logk.temps.printer
 
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -19,30 +19,29 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKPrinterMonitor : ILogKPrinter {
     private val _printerMonitorProvider: LogKPrinterMonitorProvider = LogKPrinterMonitorProvider(UtilKApplication.instance.get())
-    private var _isShow: Boolean = false
 
+    val isOpen get() = _printerMonitorProvider.isOpen()
     init {
         StackK.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
-                if (isFront) {
-                    LogK.dt(TAG, "PrinterMonitor onChanged log start")
-                    _printerMonitorProvider.openMonitor(true)
-                } else {
+                if (!isFront && isOpen) {
                     LogK.wt(TAG, "PrinterMonitor onChanged log stop")
                     _printerMonitorProvider.closeMonitor()
                 }
+//                if (isFront) {
+//                    if (_isShow) {
+//                        LogK.dt(TAG, "PrinterMonitor onChanged log start")
+//                        _printerMonitorProvider.openMonitor(true)
+//                    }
+//                }
             }
         })
     }
 
-    fun isShow(): Boolean = _isShow
-
     fun toggleMonitor(isFold: Boolean = true) {
-        if (_isShow) {
-            _isShow = false
+        if (isOpen) {
             _printerMonitorProvider.closeMonitor()
         } else {
-            _isShow = true
             _printerMonitorProvider.openMonitor(isFold)
         }
     }

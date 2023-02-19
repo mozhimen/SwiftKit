@@ -2,8 +2,8 @@ package com.mozhimen.underlayk.logk.bases
 
 import com.mozhimen.basick.utilk.exts.t2JsonMoshi
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
-import com.mozhimen.underlayk.logk.temps.LogKFormatterStackTrace
-import com.mozhimen.underlayk.logk.temps.LogKFormatterThread
+import com.mozhimen.underlayk.logk.temps.formatter.LogKFormatterStackTrace
+import com.mozhimen.underlayk.logk.temps.formatter.LogKFormatterThread
 
 /**
  * @ClassName LogKConfig

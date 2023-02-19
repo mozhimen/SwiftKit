@@ -1,4 +1,4 @@
-package com.mozhimen.underlayk.logk.temps
+package com.mozhimen.underlayk.logk.temps.printer
 
 import android.content.Context
 import android.graphics.Color
@@ -112,7 +112,7 @@ class LogKPrinterViewProvider(
 
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         //将log展示添加到recyclerView
-        _adapter.addItem(PrinterViewItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
+        _adapter.addItem(LogKPrinterItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
         //滚动到对应的位置
         _recyclerView!!.smoothScrollToPosition(_adapter.itemCount - 1)
     }

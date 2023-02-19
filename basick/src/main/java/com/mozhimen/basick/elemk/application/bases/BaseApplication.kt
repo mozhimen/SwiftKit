@@ -13,7 +13,7 @@ import com.mozhimen.basick.stackk.StackKMgr
  * @Version 1.0
  */
 open class BaseApplication : Application() {
-    val TAG = "${this.javaClass.simpleName}>>>>>"
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     @CallSuper
     override fun onCreate() {

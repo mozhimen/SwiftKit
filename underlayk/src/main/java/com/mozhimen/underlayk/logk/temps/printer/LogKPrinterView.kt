@@ -1,8 +1,9 @@
-package com.mozhimen.underlayk.logk.temps
+package com.mozhimen.underlayk.logk.temps.printer
 
+import android.R
 import android.app.Activity
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
@@ -14,13 +15,9 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
  * @Date 2021/12/20 17:20
  * @Version 1.0
  */
-class LogKPrinterView(activity: Activity, owner: LifecycleOwner) : ILogKPrinter, DefaultLifecycleObserver {
-    private var _viewProvider: LogKPrinterViewProvider = LogKPrinterViewProvider(activity, activity.findViewById(android.R.id.content))
+class LogKPrinterView<T>(owner: T) : ILogKPrinter, BaseLifecycleObserver(owner) where T: Activity, T: LifecycleOwner {
+    private var _viewProvider: LogKPrinterViewProvider = LogKPrinterViewProvider(owner, owner.findViewById(R.id.content))
     private var _isShow: Boolean = false
-
-    init {
-        owner.lifecycle.addObserver(this)
-    }
 
     fun toggleView(isFold: Boolean = true) {
         if (_isShow) {
@@ -35,14 +32,16 @@ class LogKPrinterView(activity: Activity, owner: LifecycleOwner) : ILogKPrinter,
     fun getViewProvider(): LogKPrinterViewProvider =
         _viewProvider
 
+    override val TAG: String
+        get() = "LogKPrinterView>>>>>"
+
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         _viewProvider.print(config, level, tag, printString)
     }
 
-    override fun onPause(owner: LifecycleOwner) {
-        LogKMgr.instance.removePrinter(this)
+    override fun onDestroy(owner: LifecycleOwner) {
         _viewProvider.closeLogView()
-        owner.lifecycle.removeObserver(this)
-        super.onPause(owner)
+        LogKMgr.instance.removePrinter(this)
+        super.onDestroy(owner)
     }
 }

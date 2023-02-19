@@ -208,7 +208,6 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -869,11 +868,11 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
     }
 
     void waitForFirstActivityOpened(View v, boolean positionMode) {
-        UtilKDataBus.INSTANCE.with(CStackKEvent.first_activity).observeForever(new Observer() {
+        UtilKDataBus.INSTANCE.with(CStackKEvent.STACKK_FIRST_ACTIVITY).observeForever(new Observer() {
             @Override
             public void onChanged(Object o) {
                 tryToShowPopup(v, positionMode);
-                UtilKDataBus.INSTANCE.with(CStackKEvent.first_activity).removeObserver(this);
+                UtilKDataBus.INSTANCE.with(CStackKEvent.STACKK_FIRST_ACTIVITY).removeObserver(this);
             }
         });
     }

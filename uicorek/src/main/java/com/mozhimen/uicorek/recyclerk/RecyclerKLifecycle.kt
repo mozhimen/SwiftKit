@@ -2,10 +2,10 @@ package com.mozhimen.uicorek.recyclerk
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/11/23 11:42
  * @Version 1.0
  */
-class RecyclerKLifecycle @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), DefaultLifecycleObserver {
+class RecyclerKLifecycle @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), IDefaultLifecycleObserver {
 
     fun bindLifecycle(owner: LifecycleOwner) {
         owner.lifecycleScope.launch(Dispatchers.Main) {
@@ -27,7 +27,9 @@ class RecyclerKLifecycle @JvmOverloads constructor(context: Context, attrs: Attr
 
     override fun onPause(owner: LifecycleOwner) {
         this.adapter = null
-        owner.lifecycle.removeObserver(this)
-        super.onPause(owner)
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        owner.lifecycle.removeObserver(this@RecyclerKLifecycle)
     }
 }

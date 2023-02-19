@@ -1,8 +1,9 @@
 package com.mozhimen.underlayk.logk
 
+import com.mozhimen.basick.utilk.exts.containsBy
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
+import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterConsole
 
 /**
  * @ClassName LogKMgr
@@ -26,21 +27,21 @@ import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
  * @Version 1.0
  */
 class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/) {
-    private val _printers: MutableList<ILogKPrinter> = ArrayList()
+    private val _printers: MutableList<ILogKPrinter> = mutableListOf(LogKPrinterConsole())
     private var _config: BaseLogKConfig? = null
 
     companion object {
         @JvmStatic
-        val instance = LogKMgrHolder.holder
+        val instance = LogKMgrProvider.holder
     }
 
-    private object LogKMgrHolder {
+    private object LogKMgrProvider {
         val holder = LogKMgr()
     }
 
     fun init(config: BaseLogKConfig, vararg printers: ILogKPrinter) {
         _config = config
-        _printers.addAll(printers.filterNot { _printers.contains(it) })
+        _printers.addAll(printers.filter { o -> !_printers.containsBy { it.getName() == o.getName() } })
     }
 
     /**
@@ -53,12 +54,8 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
      * 获取打印机列表
      * @return MutableList<IPrinter>
      */
-    fun getPrinters(): MutableList<ILogKPrinter> {
-        return if (_printers.isEmpty()) {
-            mutableListOf<ILogKPrinter>(LogKPrinterConsole()).also { _printers.addAll(it) }
-        } else {
-            _printers
-        }
+    fun getPrinters(): List<ILogKPrinter> {
+        return _printers
     }
 
     /**
@@ -66,7 +63,9 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
      * @param printer IPrinter
      */
     fun addPrinter(printer: ILogKPrinter) {
-        _printers.add(printer)
+        if (!_printers.containsBy { it.getName() == printer.getName() }) {
+            _printers.add(printer)
+        }
     }
 
     /**

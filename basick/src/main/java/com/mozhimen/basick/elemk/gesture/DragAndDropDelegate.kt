@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseDelegateLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
 import com.mozhimen.basick.utilk.exts.et
 import java.lang.reflect.Field
 
@@ -21,7 +21,7 @@ import java.lang.reflect.Field
  * @Version 1.0
  */
 @ADescription("by lazy")
-class DragAndDropDelegate(owner: LifecycleOwner) : BaseDelegateLifecycleObserver(owner) {
+class DragAndDropDelegate(owner: LifecycleOwner) : BaseLifecycleObserver(owner) {
 
     private val _viewList = ArrayList<Pair<View, View>>()
     fun dragAndDrop(sourceView: View, destView: View, onDrop: (sourceWeak: View, destWeak: View) -> Unit) {

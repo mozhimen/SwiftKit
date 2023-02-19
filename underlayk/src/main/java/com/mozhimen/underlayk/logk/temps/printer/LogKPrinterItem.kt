@@ -1,4 +1,4 @@
-package com.mozhimen.underlayk.logk.temps
+package com.mozhimen.underlayk.logk.temps.printer
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import com.mozhimen.underlayk.logk.mos.MLogK
  * @Date 2022/9/23 11:51
  * @Version 1.0
  */
-class PrinterViewItem(private val mLogK: MLogK) : RecyclerKItem<Any, RecyclerKVBViewHolder<LogkPrinterViewItemBinding>>() {
+class LogKPrinterItem(private val mLogK: MLogK) : RecyclerKItem<Any, RecyclerKVBViewHolder<LogkPrinterViewItemBinding>>() {
     override fun onBindData(holder: RecyclerKVBViewHolder<LogkPrinterViewItemBinding>, position: Int) {
         val color = LogKHelper.getLevelColor(mLogK.level)
         holder.vb.logkPrinterViewTag.text = mLogK.getFlattened()

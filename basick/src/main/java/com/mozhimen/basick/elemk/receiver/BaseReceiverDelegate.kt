@@ -6,7 +6,7 @@ import android.content.IntentFilter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseDelegateLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -23,7 +23,7 @@ open class BaseReceiverDelegate<T>(
     private val _activity: T,
     private val _receiver: BroadcastReceiver,
     private vararg val _actions: String
-) : BaseDelegateLifecycleObserver(_activity) where T : Activity, T : LifecycleOwner {
+) : BaseLifecycleObserver(_activity) where T : Activity, T : LifecycleOwner {
     init {
         _activity.lifecycleScope.launch(Dispatchers.Main) {
             registerReceiver()

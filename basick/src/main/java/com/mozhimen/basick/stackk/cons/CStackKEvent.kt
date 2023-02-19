@@ -9,5 +9,5 @@ package com.mozhimen.basick.stackk.cons
  * @Version 1.0
  */
 object CStackKEvent {
-    const val first_activity = "first_activity"
+    const val STACKK_FIRST_ACTIVITY = "STACKK_FIRST_ACTIVITY"
 }

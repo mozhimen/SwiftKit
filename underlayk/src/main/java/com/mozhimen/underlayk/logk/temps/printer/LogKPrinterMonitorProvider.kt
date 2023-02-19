@@ -1,4 +1,4 @@
-package com.mozhimen.underlayk.logk.temps
+package com.mozhimen.underlayk.logk.temps.printer
 
 import android.content.Context
 import android.graphics.PixelFormat
@@ -76,6 +76,8 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
             field = value
         }
 
+    private var _isOpen = false
+
     init {
         _layoutParams.flags = (WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE) or WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -89,9 +91,12 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
     }
 
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
-        _adapter.addItem(PrinterViewItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
+        _adapter.addItem(LogKPrinterItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
         _recyclerView!!.smoothScrollToPosition(_adapter.itemCount - 1)
     }
+
+    fun isOpen(): Boolean =
+        _isOpen
 
     fun openMonitor(isFold: Boolean) {
         if (!UtilKDialog.isOverlayPermissionEnable(_context)) {
@@ -100,8 +105,13 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
             UtilKPermission.openSettingOverlay(_context)
             return
         }
-        _windowManager.addView(_rootView, getWindowLayoutParams(isFold))
-        if (isFold) foldMonitor() else unfoldMonitor()
+        try {
+            _windowManager.addView(_rootView, getWindowLayoutParams(isFold))
+            if (isFold) foldMonitor() else unfoldMonitor()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        _isOpen = true
     }
 
     /**
@@ -114,8 +124,10 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+        _isOpen = false
     }
 
+    @Throws(Exception::class)
     fun foldMonitor() {
         if (_isFold) return
         _isFold = true
@@ -125,6 +137,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         _windowManager.updateViewLayout(_rootView, getWindowLayoutParams(true))
     }
 
+    @Throws(Exception::class)
     fun unfoldMonitor() {
         if (!_isFold) return
         _isFold = false

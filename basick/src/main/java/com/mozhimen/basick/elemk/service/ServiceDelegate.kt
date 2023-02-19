@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseDelegateLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +29,7 @@ class ServiceDelegate<T>(
     private val _activity: T,
     private val _service: Class<*>,
     private val _resListener: IBaseServiceResListener
-) : BaseDelegateLifecycleObserver(_activity)
+) : BaseLifecycleObserver(_activity)
         where T : AppCompatActivity, T : LifecycleOwner {
     private var _connListener: IBaseServiceConnListener? = null
     private val _serviceConnection: ServiceConnection by lazy { BaseServiceConnection() }
@@ -57,12 +57,10 @@ class ServiceDelegate<T>(
                 unRegisterListener(_resListener)
                 onServiceStop()
             }
+            _activity.unbindService(_serviceConnection)
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        _activity.unbindService(
-            _serviceConnection
-        )
     }
 
     @SuppressLint("LongLogTag")

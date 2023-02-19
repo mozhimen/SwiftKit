@@ -33,6 +33,7 @@ object NetKRepErrorParser {
     const val NULL_POINT = -1000
     const val UNKNOWN = 1000//未知错误
 
+    @JvmStatic
     fun getThrowable(e: Throwable): MNetKThrowable {
         e.printStackTrace()
         return when (e) {

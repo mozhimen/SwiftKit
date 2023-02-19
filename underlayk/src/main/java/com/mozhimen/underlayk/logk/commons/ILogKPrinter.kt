@@ -15,5 +15,6 @@ interface ILogKPrinter {
 
     fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String)
 
-    fun getName(): String = TAG
+    fun getName(): String =
+        TAG.replace(">>>>>", "")
 }

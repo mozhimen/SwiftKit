@@ -117,7 +117,7 @@ class StackKMgr private constructor() {
     private inner class InnerActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
             _activityRefs.add(WeakReference(activity))
-            recordFirstActivity()
+            postEventFirstActivity()
         }
 
         override fun onActivityStarted(activity: Activity) {
@@ -125,8 +125,7 @@ class StackKMgr private constructor() {
             //_activityLaunchCount>0 说明应用处在可见状态, 也就是前台
             //!isFront 之前是不是在后台
             if (!_isFront && _activityLaunchCount > 0) {
-                _isFront = true
-                onFrontBackChanged(_isFront)
+                onFrontBackChanged(true.also { _isFront = true })
             }
         }
 
@@ -141,8 +140,7 @@ class StackKMgr private constructor() {
         override fun onActivityStopped(activity: Activity) {
             _activityLaunchCount--
             if (_activityLaunchCount <= 0 && _isFront) {
-                _isFront = false
-                onFrontBackChanged(_isFront)
+                onFrontBackChanged(false.also { _isFront = false })
             }
         }
 
@@ -166,9 +164,9 @@ class StackKMgr private constructor() {
         }
     }
 
-    private fun recordFirstActivity() {
+    private fun postEventFirstActivity() {
         if (_activityRefs.size == 1) {
-            UtilKDataBus.with<Boolean>(CStackKEvent.first_activity).setValue(true)
+            UtilKDataBus.with<Boolean>(CStackKEvent.STACKK_FIRST_ACTIVITY).setValue(true)
         }
     }
 }

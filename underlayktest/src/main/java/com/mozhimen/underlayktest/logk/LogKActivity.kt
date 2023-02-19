@@ -10,14 +10,14 @@ import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.log.cons.CLogType
-import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
-import com.mozhimen.underlayk.logk.temps.LogKPrinterView
+import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
+import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
 
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 @APermissionCheck(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
-    private val _printerView: LogKPrinterView by lazy { LogKPrinterView(this, this) }
+    private val _printerView: LogKPrinterView<LogKActivity> by lazy { LogKPrinterView(this) }
     private val _printerMonitor: LogKPrinterMonitor by lazy {
         LogKMgr.instance.getPrinters().filterIsInstance<LogKPrinterMonitor>().getOrNull(0) ?: kotlin.run {
             Log.d(TAG, "_printerMonitor: init")
@@ -66,7 +66,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
     }
 
     private fun printLog1() {
-        val printers: String = LogKMgr.instance.getPrinters().joinToString { it.getName().replace(">>>>>", "") }
+        val printers: String = LogKMgr.instance.getPrinters().joinToString { it.getName() }
         LogK.dt(TAG, printers)
     }
 

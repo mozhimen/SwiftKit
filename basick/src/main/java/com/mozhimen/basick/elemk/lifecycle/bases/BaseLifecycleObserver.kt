@@ -1,8 +1,8 @@
 package com.mozhimen.basick.elemk.lifecycle.bases
 
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -13,17 +13,16 @@ import kotlinx.coroutines.launch
  * @Date 2022/11/21 21:22
  * @Version 1.0
  */
-open class BaseDelegateLifecycleObserver(private val _owner: LifecycleOwner) : DefaultLifecycleObserver {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+open class BaseLifecycleObserver(private val _owner: LifecycleOwner) : IDefaultLifecycleObserver {
+    protected open val TAG = "${this.javaClass.simpleName}>>>>>"
 
     init {
         _owner.lifecycleScope.launch(Dispatchers.Main) {
-            _owner.lifecycle.addObserver(this@BaseDelegateLifecycleObserver)
+            _owner.lifecycle.addObserver(this@BaseLifecycleObserver)
         }
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        owner.lifecycle.removeObserver(this)
-        super.onDestroy(owner)
+        owner.lifecycle.removeObserver(this@BaseLifecycleObserver)
     }
 }

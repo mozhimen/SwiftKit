@@ -3,11 +3,11 @@ package com.mozhimen.abilityk.transk
 import android.app.Activity
 import android.os.Build
 import android.speech.tts.TextToSpeech
-import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.MText2SpeechConfig
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
 import com.mozhimen.basick.utilk.context.UtilKApplication
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -32,11 +32,9 @@ import java.util.*
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.FOREGROUND_SERVICE, CQuery.TTS_SERVICE)
-class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) :
-    DefaultLifecycleObserver where T : LifecycleOwner, T : Activity {
+class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : BaseLifecycleObserver(owner) where T : LifecycleOwner, T : Activity {
     private var _transKText2Speech: TextToSpeech? = null
     private val _context = UtilKApplication.instance.get()
-    private val TAG = "TransKTTS>>>>>"
 
     init {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
@@ -44,7 +42,6 @@ class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Loc
                 UtilKPermission.openSettingSelf(owner)
             }
         }
-        owner.lifecycle.addObserver(this)
         _transKText2Speech = TextToSpeech(_context) {
             if (it == TextToSpeech.SUCCESS) {
                 val supportRes = _transKText2Speech!!.setLanguage(config.language)
@@ -81,9 +78,10 @@ class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Loc
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        _transKText2Speech?.stop()
-        _transKText2Speech?.shutdown()
-        owner.lifecycle.removeObserver(this)
+        _transKText2Speech?.apply {
+            stop()
+            shutdown()
+        }
         super.onDestroy(owner)
     }
 }

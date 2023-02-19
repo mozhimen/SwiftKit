@@ -3,14 +3,14 @@ package com.mozhimen.underlayktest
 import com.mozhimen.basick.elemk.application.bases.BaseApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.exts.moshiT2Json
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.basick.utilk.exts.e
+import com.mozhimen.basick.utilk.exts.t2JsonMoshi
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.underlayk.logk.temps.LogKPrinterConsole
-import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
-import com.mozhimen.underlayk.logk.temps.LogKPrinterMonitor
+import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterConsole
+import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterFile
+import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
 
 /**
  * @ClassName UnderlayKApplication
@@ -25,7 +25,7 @@ class UnderlayKApplication : BaseApplication() {
         super.onCreate()
 
         //logk
-        LogKMgr.instance.init(_logkConfig, LogKPrinterConsole(), LogKPrinterFile.getInstance(retentionDay = 3), LogKPrinterMonitor())
+        LogKMgr.instance.init(_logkConfig, LogKPrinterConsole()/*, LogKPrinterFile.getInstance(retentionDay = 3)*/, LogKPrinterMonitor())
 
         //crashk
         //CrashKMgr.instance.init(_crashKCallback)
@@ -35,7 +35,7 @@ class UnderlayKApplication : BaseApplication() {
         override fun injectJsonParser(): IJsonParser {
             return object : IJsonParser {
                 override fun toJson(src: Any): String {
-                    return src.moshiT2Json()
+                    return src.t2JsonMoshi()
                 }
             }
         }

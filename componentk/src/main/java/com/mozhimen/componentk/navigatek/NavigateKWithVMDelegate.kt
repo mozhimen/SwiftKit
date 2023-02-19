@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseDelegateLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
 
@@ -18,12 +18,12 @@ import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
  */
 @ADescription("init in onCreate")
 class NavigateKWithVMDelegate<T>(
-    private val _owner: T,
+    private val _activity: T,
     private val _vm: BaseNavigateKViewModel,
     private val _fragmentLayoutId: Int,
     private val _fragments: List<Class<*>>
 ) :
-    BaseDelegateLifecycleObserver(_owner) where T : LifecycleOwner, T : FragmentActivity {
+    BaseLifecycleObserver(_activity) where T : LifecycleOwner, T : FragmentActivity {
 
     lateinit var navController: NavController
     private var _currentItemId: Int = 0
@@ -39,15 +39,15 @@ class NavigateKWithVMDelegate<T>(
         }
 
     override fun onCreate(owner: LifecycleOwner) {
-        navController = NavigateK.buildNavGraph(_owner, _fragmentLayoutId, _fragments, _currentItemId)
-        _vm.liveFragmentId.observe(_owner) {
+        navController = NavigateK.buildNavGraph(_activity, _fragmentLayoutId, _fragments, _currentItemId)
+        _vm.liveFragmentId.observe(_activity) {
             if (it != null) {
                 genNavigateK(it)
             } else {
                 "please add this destination to list".et(TAG)
             }
         }
-        _vm.liveSetPopupFlag.observe(_owner) {
+        _vm.liveSetPopupFlag.observe(_activity) {
             if (it != null) {
                 navController.popBackStack()
             }

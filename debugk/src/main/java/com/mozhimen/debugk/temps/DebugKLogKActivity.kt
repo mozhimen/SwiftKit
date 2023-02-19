@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.file.UtilKFileUri
 import com.mozhimen.debugk.BR
@@ -15,7 +13,7 @@ import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
 import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.mos.MDebugKCrashK
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
-import com.mozhimen.underlayk.logk.temps.LogKPrinterFile
+import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterFile
 
 /**
  * @property _dataSets ArrayList<MDebugKCrashK>

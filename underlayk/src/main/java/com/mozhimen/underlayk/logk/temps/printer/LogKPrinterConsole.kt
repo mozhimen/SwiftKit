@@ -1,4 +1,4 @@
-package com.mozhimen.underlayk.logk.temps
+package com.mozhimen.underlayk.logk.temps.printer
 
 import android.util.Log
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
