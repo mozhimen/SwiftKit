@@ -8,9 +8,8 @@ import android.graphics.Shader
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.uicorek.viewk.commons.IViewK
-import com.mozhimen.basick.utilk.UtilKGesture
+import com.mozhimen.basick.utilk.gesture.UtilKGesture
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ILayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener

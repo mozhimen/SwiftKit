@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import android.widget.TextView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.gesture.DragAndDropDelegate
+import com.mozhimen.basick.utilk.gesture.UtilKDragAndDrop
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
 import com.mozhimen.componentk.navigatek.NavigateKDelegate
@@ -74,6 +75,11 @@ class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
 //            //是否响应拖拽事件，true响应，返回false只能接受到ACTION_DRAG_STARTED事件，后续事件不会收到
 //            true
 //        }
+    }
+
+    override fun onPause() {
+        UtilKDragAndDrop.fixDragAndDropLeak(findViewById(R.id.elemk_gesture_fragment_container))
+        super.onPause()
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {

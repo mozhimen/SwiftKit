@@ -2,7 +2,9 @@ package com.mozhimen.basick.utilk;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @ClassName UtilKReflect
@@ -12,10 +14,61 @@ import java.util.Arrays;
  * @Version 1.0
  */
 public class UtilKReflect {
-    public static Method findMethod(Object instance, String name, Class<?>... parameterTypes) throws NoSuchMethodException {
-        for (Class<?> clazz = instance.getClass(); clazz != null; clazz = clazz.getSuperclass()) {
+    private static final String TAG = "UtilKReflect>>>>>";
+
+    /**
+     * 获取类及其基类所有的field
+     *
+     * @param instance
+     * @return
+     */
+    public static List<Field> getAllFields(Object instance) {
+        return getAllFields(instance.getClass());
+    }
+
+    /**
+     * 获取类及其基类所有的field
+     *
+     * @param clazz
+     * @return
+     */
+    public static List<Field> getAllFields(Class<?> clazz) {
+        ArrayList<Field> fields = new ArrayList<>(Arrays.asList(clazz.getDeclaredFields()));
+        Class<?> superClass = clazz.getSuperclass();
+        while (superClass != null) {
+            Field[] superFields = superClass.getDeclaredFields();
+            fields.addAll(Arrays.asList(superFields));
+            superClass = superClass.getSuperclass();
+        }
+        return fields;
+    }
+
+    /**
+     * 获取method
+     *
+     * @param instance
+     * @param name
+     * @param parameterTypes
+     * @return
+     * @throws NoSuchMethodException
+     */
+    public static Method getMethod(Object instance, String name, Class<?>... parameterTypes) throws NoSuchMethodException {
+        return getMethod(instance.getClass(), name, parameterTypes);
+    }
+
+    /**
+     * 获取method
+     *
+     * @param clazz
+     * @param name
+     * @param parameterTypes
+     * @return
+     * @throws NoSuchMethodException
+     */
+    public static Method getMethod(Class<?> clazz, String name, Class<?>... parameterTypes) throws NoSuchMethodException {
+        for (Class<?> tempClazz = clazz; tempClazz != null; tempClazz = tempClazz.getSuperclass()) {
             try {
-                Method method = clazz.getDeclaredMethod(name, parameterTypes);
+                Method method = tempClazz.getDeclaredMethod(name, parameterTypes);
                 if (!method.isAccessible()) {
                     method.setAccessible(true);
                 }
@@ -24,13 +77,33 @@ public class UtilKReflect {
                 // ignore and search next
             }
         }
-        throw new NoSuchMethodException("Method " + name + " with parameters " + Arrays.asList(parameterTypes) + " not found in " + instance.getClass());
+        throw new NoSuchMethodException("Method " + name + " with parameters " + Arrays.asList(parameterTypes) + " not found in " + clazz);
     }
 
-    public static Field findField(Object instance, String name) throws NoSuchFieldException {
-        for (Class<?> clazz = instance.getClass(); clazz != null; clazz = clazz.getSuperclass()) {
+    /**
+     * 获取field
+     *
+     * @param instance
+     * @param name
+     * @return
+     * @throws NoSuchFieldException
+     */
+    public static Field getField(Object instance, String name) throws NoSuchFieldException {
+        return getField(instance.getClass(), name);
+    }
+
+    /**
+     * 获取field
+     *
+     * @param clazz
+     * @param name
+     * @return
+     * @throws NoSuchMethodException
+     */
+    public static Field getField(Class<?> clazz, String name) throws NoSuchFieldException {
+        for (Class<?> tempClazz = clazz; tempClazz != null; tempClazz = tempClazz.getSuperclass()) {
             try {
-                Field field = clazz.getDeclaredField(name);
+                Field field = tempClazz.getDeclaredField(name);
                 if (!field.isAccessible()) {
                     field.setAccessible(true);
                 }
@@ -39,6 +112,6 @@ public class UtilKReflect {
                 // ignore and search next
             }
         }
-        throw new NoSuchFieldException("Field " + name + " not found in " + instance.getClass());
+        throw new NoSuchFieldException("Field " + name + " not found in " + clazz);
     }
 }

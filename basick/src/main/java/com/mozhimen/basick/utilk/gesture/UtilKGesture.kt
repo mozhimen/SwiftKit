@@ -1,8 +1,6 @@
-package com.mozhimen.basick.utilk
+package com.mozhimen.basick.utilk.gesture
 
-import android.view.DragEvent
 import android.view.MotionEvent
-import android.view.View
 import com.mozhimen.basick.utilk.datatype.UtilKNumber
 
 /**
@@ -23,14 +21,9 @@ object UtilKGesture {
      */
     @JvmStatic
     fun distance(event: MotionEvent): Float {
-        return if (event.pointerCount >= 2) {
-            UtilKNumber.distance(
-                event.getX(0),
-                event.getY(0),
-                event.getX(1),
-                event.getY(1)
-            )
-        } else 0f
+        return if (event.pointerCount >= 2) UtilKNumber.distance(
+            event.getX(0), event.getY(0), event.getX(1), event.getY(1)
+        ) else 0f
     }
 
     /**

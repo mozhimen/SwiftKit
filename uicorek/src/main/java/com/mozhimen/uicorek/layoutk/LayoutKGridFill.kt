@@ -14,7 +14,7 @@ import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.BackgroundColorAnimatorType
 import com.mozhimen.basick.elemk.mos.MArea
 import com.mozhimen.basick.elemk.mos.MAreaF
-import com.mozhimen.basick.utilk.UtilKGesture
+import com.mozhimen.basick.utilk.gesture.UtilKGesture
 import com.mozhimen.basick.utilk.UtilKRes
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.normalize

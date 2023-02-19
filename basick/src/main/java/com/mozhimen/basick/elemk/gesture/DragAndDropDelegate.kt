@@ -6,7 +6,6 @@ import android.view.DragEvent
 import android.view.View
 import android.view.View.DragShadowBuilder
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
@@ -61,48 +60,6 @@ class DragAndDropDelegate(owner: LifecycleOwner) : BaseLifecycleObserver(owner) 
                     true
                 }
                 else -> false
-            }
-        }
-    }
-
-    override fun onStop(owner: LifecycleOwner) {
-        try {
-            _viewList.forEach {
-                fixDragAndDropLeak(it.first, it.second)
-            }
-            _viewList.clear()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        }
-        super.onStop(owner)
-    }
-
-    @Throws(Exception::class)
-    private fun fixDragAndDropLeak(vararg views: View) {
-        var tempView: View
-        var field: Field
-        var fieldObj: Any?
-        views.forEach { v ->
-            tempView = v
-            while (tempView.parent != null && tempView.parent is View) {
-                tempView = tempView.parent as View
-                if (tempView is FragmentContainerView) {
-                    var tempViewGroup: Class<*> = tempView.javaClass
-                    while (tempViewGroup.javaClass.superclass != null) {
-                        tempViewGroup = tempViewGroup.javaClass.superclass!!.javaClass
-                        if (tempViewGroup is ViewGroup){
-                            field = tempViewGroup.getDeclaredField("mCurrentDragChild")
-                            if (!field.isAccessible) field.isAccessible = true
-                            fieldObj = field.get(tempView)
-                            if (fieldObj != null) {
-                                field.set(tempViewGroup, null)
-                                Log.d(TAG, "fixDragAndDropLeak: set viewGroup mCurrentDragChild null")
-                            }
-                            break
-                        }
-                    }
-                }
             }
         }
     }
