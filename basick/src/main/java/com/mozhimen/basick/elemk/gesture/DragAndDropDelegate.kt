@@ -6,6 +6,7 @@ import android.view.DragEvent
 import android.view.View
 import android.view.View.DragShadowBuilder
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
@@ -86,13 +87,20 @@ class DragAndDropDelegate(owner: LifecycleOwner) : BaseLifecycleObserver(owner) 
             tempView = v
             while (tempView.parent != null && tempView.parent is View) {
                 tempView = tempView.parent as View
-                if (tempView is ViewGroup) {
-                    field = tempView.javaClass.getDeclaredField("mCurrentDragChild")
-                    if (!field.isAccessible) field.isAccessible = true
-                    fieldObj = field.get(tempView)
-                    if (fieldObj != null) {
-                        field.set(tempView, null)
-                        Log.d(TAG, "fixDragAndDropLeak: set viewGroup mCurrentDragChild null")
+                if (tempView is FragmentContainerView) {
+                    var tempViewGroup: Class<*> = tempView.javaClass
+                    while (tempViewGroup.javaClass.superclass != null) {
+                        tempViewGroup = tempViewGroup.javaClass.superclass!!.javaClass
+                        if (tempViewGroup is ViewGroup){
+                            field = tempViewGroup.getDeclaredField("mCurrentDragChild")
+                            if (!field.isAccessible) field.isAccessible = true
+                            fieldObj = field.get(tempView)
+                            if (fieldObj != null) {
+                                field.set(tempViewGroup, null)
+                                Log.d(TAG, "fixDragAndDropLeak: set viewGroup mCurrentDragChild null")
+                            }
+                            break
+                        }
                     }
                 }
             }
