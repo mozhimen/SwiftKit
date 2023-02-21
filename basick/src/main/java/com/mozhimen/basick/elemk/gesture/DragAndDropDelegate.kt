@@ -26,7 +26,7 @@ import java.lang.reflect.Field
 class DragAndDropDelegate(owner: LifecycleOwner) : BaseLifecycleObserver(owner) {
 
     private val _viewList = ArrayList<Pair<View, View>>()
-    fun dragAndDrop(sourceView: View, destView: View, onDrop: (sourceWeak: View, destWeak: View) -> Unit) {
+    fun dragAndDrop(sourceView: View, destView: View, onDrop: (sourceView: View, destView: View) -> Unit) {
         _viewList.add(sourceView to destView)
         sourceView.setOnLongClickListener {
             if (Build.VERSION.SDK_INT < CVersionCode.V_24_7_N) {
