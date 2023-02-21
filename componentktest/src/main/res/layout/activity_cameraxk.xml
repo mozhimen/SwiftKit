@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <com.mozhimen.componentk.cameraxk.CameraXKLayout
-            android:id="@+id/camerak_preview_layout"
+            android:id="@+id/cameraxk_preview_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -21,20 +21,20 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/camerak_img"
+                android:id="@+id/cameraxk_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerInside" />
 
             <ImageView
-                android:id="@+id/camerak_img1"
+                android:id="@+id/cameraxk_img1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerInside" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/camerak_btn"
+            android:id="@+id/cameraxk_btn"
             style="@style/BtnStyle"
             android:layout_gravity="bottom"
             android:layout_marginBottom="20dp"

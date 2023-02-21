@@ -10,10 +10,10 @@ import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.FragmentSecondBinding
 import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
-import com.mozhimen.componentk.navigatek.bases.NavigateKViewModel
+import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
-class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, NavigateKViewModel>() {
+class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, BaseNavigateKViewModel>() {
     private val _datas = listOf<MKey>(MKey("01", "01"))
     private var _adapter: RecyclerKVBAdapter<MKey, ItemNavigatekBinding>? = null
     override fun initData(savedInstanceState: Bundle?) {

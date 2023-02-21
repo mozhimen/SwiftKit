@@ -26,6 +26,10 @@
         <activity
             android:name=".audiok.AudioKActivity"
             android:exported="false" />
+        <!--camerak-->
+        <activity
+            android:name="com.mozhimen.componentktest.camerak.CameraKActivity"
+            android:exported="false" />
         <!--cameraxk-->
         <activity
             android:name="com.mozhimen.componentktest.cameraxk.CameraXKActivity"

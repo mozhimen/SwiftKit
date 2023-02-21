@@ -5,15 +5,15 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.fragment.bases.BaseFragmentVBVM
 import com.mozhimen.basick.elemk.mos.MKey
+import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
 import com.mozhimen.componentk.navigatek.exts.getNavigateKId
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.BR
 import com.mozhimen.componentktest.databinding.FragmentFirstBinding
 import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
-import com.mozhimen.componentk.navigatek.bases.NavigateKViewModel
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
-class FirstFragment : BaseFragmentVBVM<FragmentFirstBinding, NavigateKViewModel>() {
+class FirstFragment : BaseFragmentVBVM<FragmentFirstBinding, BaseNavigateKViewModel>() {
     private val _datas = listOf(MKey("01", "01"))
     private var _adapter: RecyclerKVBAdapter<MKey, ItemNavigatekBinding>? = null
     override fun initData(savedInstanceState: Bundle?) {

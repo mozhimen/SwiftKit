@@ -33,7 +33,12 @@ android {
     }
 }
 
+configurations.maybeCreate("default")
+artifacts.add("default", file("libuvccamera-v1.0.3-release.aar"))
+
 dependencies {
+    //fileTree
+    compileOnly files("libuvccamera-v1.0.3-release.aar")
 
     //restfulk
     api 'com.squareup.retrofit2:retrofit:2.9.0'//retrofit
@@ -57,7 +62,7 @@ dependencies {
     api 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     api 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
-    implementation project(project.path.replace(project.name, '') +  ':basick')
-    implementation project(project.path.replace(project.name, '') +  ':uicorek')
-    implementation project(project.path.replace(project.name, '') +  ':underlayk')
+    implementation project(project.path.replace(project.name, '') + ':basick')
+    implementation project(project.path.replace(project.name, '') + ':uicorek')
+    implementation project(project.path.replace(project.name, '') + ':underlayk')
 }

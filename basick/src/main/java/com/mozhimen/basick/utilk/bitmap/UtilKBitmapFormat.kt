@@ -5,9 +5,9 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.Image
 import android.net.Uri
-import com.mozhimen.basick.utilk.file.UtilKFile
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.file.UtilKFile
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.nio.ByteBuffer
@@ -361,5 +361,51 @@ object UtilKBitmapFormat {
             }
         }
         return Bitmap.createBitmap(bitmapSource, width, height, Bitmap.Config.ARGB_8888)
+    }
+
+    /**
+     * yuv422转yuv420sp
+     * @param y ByteArray
+     * @param u ByteArray
+     * @param v ByteArray
+     * @param nv21 ByteArray
+     * @param stride Int
+     * @param height Int
+     */
+    @JvmStatic
+    fun yuv422Bytes2Yuv420spBytes(y: ByteArray, u: ByteArray, v: ByteArray, nv21: ByteArray, stride: Int, height: Int) {
+        System.arraycopy(y, 0, nv21, 0, y.size)
+        val length = y.size + u.size / 2 + v.size / 2
+        var uIndex = 0
+        var vIndex = 0
+        var i = stride * height
+        while (i < length) {
+            nv21[i] = v[vIndex]
+            nv21[i + 1] = u[uIndex]
+            vIndex += 2
+            uIndex += 2
+            i += 2
+        }
+    }
+
+    /**
+     * yuv420转yuv420sp
+     * @param y ByteArray
+     * @param u ByteArray
+     * @param v ByteArray
+     * @param nv21 ByteArray
+     * @param stride Int
+     * @param height Int
+     */
+    @JvmStatic
+    fun yuv420Bytes2Yuv420spBytes(y: ByteArray, u: ByteArray, v: ByteArray, nv21: ByteArray, stride: Int, height: Int) {
+        System.arraycopy(y, 0, nv21, 0, y.size)
+        val length = y.size + u.size + v.size
+        var uIndex = 0
+        var vIndex = 0
+        for (i in stride * height until length) {
+            nv21[i] = v[vIndex++]
+            nv21[i + 1] = u[uIndex++]
+        }
     }
 }
