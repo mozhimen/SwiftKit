@@ -30,6 +30,7 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         _indicator = PointIndicator(this)
+        initBanner(_indicator, _autoPlay)
         vb.layoutkBannerSwitch.isChecked = _autoPlay
         vb.layoutkBannerSwitch.setOnCheckedChangeListener { _, isChecked ->
             _autoPlay = isChecked
@@ -39,15 +40,20 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
             if (_indicator is PointIndicator) {
                 initBanner(NumberIndicator(this), _autoPlay)
             } else {
-                initBanner(PointIndicator(this), _autoPlay)
+                initBanner(_indicator, _autoPlay)
             }
         }
-        initBanner(_indicator, _autoPlay)
+        vb.layoutkBannerPre.setOnClickListener {
+            vb.layoutkBannerContainer.scrollToPreviousItem()
+        }
+        vb.layoutkBannerNext.setOnClickListener {
+            vb.layoutkBannerContainer.scrollToNextItem()
+        }
     }
 
     private fun initBanner(indicator: IBannerIndicator<*>, autoPlay: Boolean) {
         val moList: MutableList<MyBannerMo> = ArrayList()
-        for (i in 0..5) {
+        for (i in _urls.indices) {
             val mo = MyBannerMo()
             mo.url = _urls[i % _urls.size]
             mo.name = "$i: ${_urls[i]}"
@@ -58,10 +64,10 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
             setAutoPlay(autoPlay)
             setIntervalTime(5000)
             setScrollDuration(3000)
-            //setCurrentItem(?)
             setBannerData(R.layout.item_layoutk_banner, moList)
-            setBindAdapter(object : IBannerBindListener {
-                override fun onBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int) {
+            setCurrentPosition(5, false)
+            setBannerBindListener(object : IBannerBindListener {
+                override fun onBannerBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int) {
                     val model = item as MyBannerMo
                     val imageView: ImageView = viewHolder.findViewById(R.id.item_layoutk_banner_img)
                     val titleView: TextView = viewHolder.findViewById(R.id.item_layoutk_banner_title)

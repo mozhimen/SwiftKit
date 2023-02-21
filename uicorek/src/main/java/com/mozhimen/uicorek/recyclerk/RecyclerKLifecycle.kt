@@ -27,9 +27,6 @@ class RecyclerKLifecycle @JvmOverloads constructor(context: Context, attrs: Attr
 
     override fun onPause(owner: LifecycleOwner) {
         this.adapter = null
-    }
-
-    override fun onDestroy(owner: LifecycleOwner) {
         owner.lifecycle.removeObserver(this@RecyclerKLifecycle)
     }
 }

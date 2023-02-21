@@ -38,6 +38,7 @@ class RecyclerKItemBanner : RecyclerKItem<Any, RecyclerKVBViewHolder<ItemRecycle
     inner class BannerItem : MBannerItem()
 
     override fun onBindData(holder: RecyclerKVBViewHolder<ItemRecyclerkBannerBinding>, position: Int) {
+        super.onBindData(holder, position)
         val context = holder.itemView.context ?: return
         val moList: MutableList<MBannerItem> = ArrayList()
         for (i in 0..5) {
@@ -51,14 +52,14 @@ class RecyclerKItemBanner : RecyclerKItem<Any, RecyclerKVBViewHolder<ItemRecycle
             setIntervalTime(5000)
             setScrollDuration(3000)
             setBannerData(R.layout.item_layoutk_banner, moList)
-            setBindAdapter(object : IBannerBindListener {
-                override fun onBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int) {
+            setBannerBindListener(object : IBannerBindListener {
+                override fun onBannerBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int) {
                     val model = item as BannerItem
                     val imageView: ImageView = viewHolder.findViewById(R.id.item_layoutk_banner_img)
                     model.url?.let { imageView.load(it) }
                 }
             })
-            setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            setPagerChangeListener(object : ViewPager.OnPageChangeListener {
                 override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 }
 
@@ -86,6 +87,6 @@ class RecyclerKItemBanner : RecyclerKItem<Any, RecyclerKVBViewHolder<ItemRecycle
     override fun onViewAttachedToWindow(holder: RecyclerKVBViewHolder<ItemRecyclerkBannerBinding>) {
         val index = CacheKSP.instance.with(RECYCLERK_ITEM_BANNER_SP_NAME).getInt("bannerIndex")
         Log.d(TAG, "onViewAttachedToWindow currentIndex $index")
-        holder.vb.itemRecyclerkBanner.setCurrentItem(index)
+        holder.vb.itemRecyclerkBanner.setCurrentPosition(index, false)
     }
 }

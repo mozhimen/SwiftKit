@@ -10,6 +10,6 @@ import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
  * @Date 2022/11/7 2:32
  * @Version 1.0
  */
-interface IOnBannerClickListener {
+interface IBannerItemClickListener {
     fun onBannerClick(viewHolder: BannerViewHolder, item: MBannerItem, position: Int)
 }

@@ -8,7 +8,7 @@ import com.mozhimen.uicorek.layoutk.banner.LayoutKBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
-import com.mozhimen.uicorek.layoutk.banner.commons.IOnBannerClickListener
+import com.mozhimen.uicorek.layoutk.banner.commons.IBannerItemClickListener
 import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
 import com.mozhimen.uicorek.layoutk.banner.temps.PointIndicator
 
@@ -22,8 +22,7 @@ import com.mozhimen.uicorek.layoutk.banner.temps.PointIndicator
  * @Version 1.0
  */
 class LayoutKBannerProxy(
-    private val _context: Context,
-    private val _layoutKBanner: LayoutKBanner
+    private val _context: Context, private val _layoutKBanner: LayoutKBanner
 ) : IBanner, OnPageChangeListener {
 
     private val TAG = "LayoutKBannerProxy>>>>>"
@@ -31,10 +30,10 @@ class LayoutKBannerProxy(
     private var _indicator: IBannerIndicator<*>? = null
     private var _bannerItems: List<MBannerItem>? = null
     private var _onPageChangeListener: OnPageChangeListener? = null
-    private var _iOnBannerClickListener: IOnBannerClickListener? = null
+    private var _bannerItemClickListener: IBannerItemClickListener? = null
     private var _viewPager: BannerViewPager? = null
 
-    private var _currentItemIndex = 0
+    private var _currentItem = -1
 
     private var _autoPlay = false//后期更新也能生效
     private var _scrollDuration = -1
@@ -83,35 +82,41 @@ class LayoutKBannerProxy(
         }
     }
 
-    override fun setCurrentItem(position: Int) {
-        if (_currentItemIndex >= 0 && _currentItemIndex < _bannerItems!!.size) {
-            _currentItemIndex = position
-            _viewPager?.setCurrentItem(_currentItemIndex, false)
+    override fun setCurrentPosition(position: Int, smoothScroll: Boolean) {
+        if (_bannerItems != null && position in _bannerItems!!.indices) {
+            _currentItem = _adapter!!.getFirstItem() + position
+            _viewPager?.setCurrentItemSelf(_currentItem, smoothScroll, true)
         }
     }
 
-    override fun getCurrentItem(): Int {
-        return _currentItemIndex
+    override fun scrollToNextItem() {
+        _viewPager?.scrollToNextItem()
     }
 
-    override fun setBindAdapter(bindAdapter: IBannerBindListener) {
-        _adapter?.setBindAdapter(bindAdapter)
+    override fun scrollToPreviousItem() {
+        _viewPager?.scrollToPreItem()
     }
 
-    override fun setOnPageChangeListener(onPageChangeListener: OnPageChangeListener) {
-        this._onPageChangeListener = onPageChangeListener
+    override fun getCurrentPosition(): Int {
+        return _currentItem % _adapter!!.getRealCount()
     }
 
-    override fun setOnBannerClickListener(IOnBannerClickListener: IOnBannerClickListener) {
-        this._iOnBannerClickListener = IOnBannerClickListener
+    override fun setBannerBindListener(listener: IBannerBindListener) {
+        _adapter?.setBannerBindListener(listener)
+    }
+
+    override fun setPagerChangeListener(listener: OnPageChangeListener) {
+        this._onPageChangeListener = listener
+    }
+
+    override fun setBannerClickListener(listener: IBannerItemClickListener) {
+        this._bannerItemClickListener = listener
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
         if (_onPageChangeListener != null && _adapter?.getRealCount() != 0) {
             _onPageChangeListener!!.onPageScrolled(
-                position % _adapter!!.getRealCount(),
-                positionOffset,
-                positionOffsetPixels
+                position % _adapter!!.getRealCount(), positionOffset, positionOffsetPixels
             )
         }
     }
@@ -123,7 +128,7 @@ class LayoutKBannerProxy(
             return
         }
         val pos = position % _adapter!!.getRealCount()
-        _currentItemIndex = pos
+        _currentItem = pos
         _onPageChangeListener?.onPageSelected(pos)
         _indicator?.onItemChange(pos, _adapter!!.getRealCount())
     }
@@ -147,8 +152,8 @@ class LayoutKBannerProxy(
             setBannerData(_bannerItems!!)
             setAutoPlay(_autoPlay)
             setLoop(_loop)
-            _iOnBannerClickListener?.let {
-                setOnBannerClickListener(it)
+            _bannerItemClickListener?.let {
+                setBannerClickListener(it)
             }
         }
 
@@ -162,13 +167,12 @@ class LayoutKBannerProxy(
             adapter = _adapter
             if ((_loop || _autoPlay) && _adapter!!.getRealCount() != 0) {
                 //无限轮播关键点: 使第一张能反向滑动到最后一张, 已经达到无限滚动的效果
-                val firstItem: Int = if (_currentItemIndex != 0) _currentItemIndex else _adapter!!.getFirstItem()
-                _viewPager!!.setCurrentItem(firstItem, false)
+                val firstItem: Int = if (_currentItem != -1) _currentItem else _adapter!!.getFirstItem()
+                _viewPager!!.setCurrentItemSelf(firstItem, false)
             }
         }
 
-        val layoutParams =
-            FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
+        val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         //清除缓存view
         _layoutKBanner.removeAllViews()
         _layoutKBanner.addView(_viewPager, layoutParams)

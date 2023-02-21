@@ -8,7 +8,7 @@ import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
-import com.mozhimen.uicorek.layoutk.banner.commons.IOnBannerClickListener
+import com.mozhimen.uicorek.layoutk.banner.commons.IBannerItemClickListener
 import com.mozhimen.uicorek.layoutk.banner.helpers.LayoutKBannerProxy
 import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
 
@@ -123,36 +123,54 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
      * 设置当前item
      * @param position Int
      */
-    override fun setCurrentItem(position: Int) {
-        _layoutKBannerProxy.setCurrentItem(position)
+    override fun setCurrentPosition(position: Int, smoothScroll: Boolean) {
+        _layoutKBannerProxy.setCurrentPosition(position, smoothScroll)
     }
 
-    override fun getCurrentItem(): Int {
-        return _layoutKBannerProxy.getCurrentItem()
+    /**
+     * 滑动到下一个Item
+     */
+    override fun scrollToNextItem() {
+        _layoutKBannerProxy.scrollToNextItem()
+    }
+
+    /**
+     * 滑动到上一个Item
+     */
+    override fun scrollToPreviousItem() {
+        _layoutKBannerProxy.scrollToPreviousItem()
+    }
+
+    /**
+     * 获取当前Item
+     * @return Int
+     */
+    override fun getCurrentPosition(): Int {
+        return _layoutKBannerProxy.getCurrentPosition()
     }
 
 
     /**
      * 设置绑定adapter
-     * @param bindAdapter IBannerBindListener
+     * @param listener IBannerBindListener
      */
-    override fun setBindAdapter(bindAdapter: IBannerBindListener) {
-        _layoutKBannerProxy.setBindAdapter(bindAdapter)
+    override fun setBannerBindListener(listener: IBannerBindListener) {
+        _layoutKBannerProxy.setBannerBindListener(listener)
     }
 
     /**
      * 设置页面改换监听器
-     * @param onPageChangeListener OnPageChangeListener
+     * @param listener OnPageChangeListener
      */
-    override fun setOnPageChangeListener(onPageChangeListener: ViewPager.OnPageChangeListener) {
-        _layoutKBannerProxy.setOnPageChangeListener(onPageChangeListener)
+    override fun setPagerChangeListener(listener: ViewPager.OnPageChangeListener) {
+        _layoutKBannerProxy.setPagerChangeListener(listener)
     }
 
     /**
      * 设置页面点击监听器
-     * @param IOnBannerClickListener OnBannerClickListener
+     * @param listener OnBannerClickListener
      */
-    override fun setOnBannerClickListener(IOnBannerClickListener: IOnBannerClickListener) {
-        _layoutKBannerProxy.setOnBannerClickListener(IOnBannerClickListener)
+    override fun setBannerClickListener(listener: IBannerItemClickListener) {
+        _layoutKBannerProxy.setBannerClickListener(listener)
     }
 }

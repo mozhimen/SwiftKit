@@ -16,11 +16,12 @@ import android.view.ViewPropertyAnimator;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import com.mozhimen.basick.utilk.keyboard.UtilKKeyboardChange;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import com.mozhimen.basick.utilk.UtilKGravity;
-import com.mozhimen.basick.utilk.UtilKKeyBoard;
+import com.mozhimen.basick.utilk.keyboard.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKScreen;
 import com.mozhimen.basick.utilk.bar.UtilKBarStatus;
 import com.mozhimen.basick.utilk.view.UtilKView;
@@ -34,7 +35,7 @@ import com.mozhimen.uicorek.popwink.bases.cons.CUI;
  * <p>
  * popupwindow的decorview代理，这里统筹位置、蒙层、事件等
  */
-final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtilKKeyboardListener, IEventObserver, IClearMemoryListener {
+final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyboardChange.IUtilKKeyboardChangeListener, IEventObserver, IClearMemoryListener {
     //蒙层
     private PopupMaskLayout mMaskLayout;
     private int childBottomMargin;
@@ -175,7 +176,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyBoard.IUtil
                 if (focusTarget == null) {
                     focusTarget = contentView.findFocus();
                 }
-                UtilKKeyBoard.openPostDelay(focusTarget == null ? contentView : focusTarget, mHelper.showKeybaordDelay);
+                UtilKKeyBoard.showPostDelay(focusTarget == null ? contentView : focusTarget, mHelper.showKeybaordDelay);
             }
         }
         return wp;

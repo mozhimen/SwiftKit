@@ -42,10 +42,11 @@ import com.mozhimen.basick.utilk.context.UtilKActivity;
 import com.mozhimen.basick.utilk.anim.UtilKAnim;
 import com.mozhimen.basick.utilk.anim.UtilKAnimation;
 import com.mozhimen.basick.utilk.anim.UtilKAnimator;
-import com.mozhimen.basick.utilk.UtilKKeyBoard;
+import com.mozhimen.basick.utilk.keyboard.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.UtilKWindow;
 import com.mozhimen.basick.utilk.bar.UtilKBarNavigation;
 import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
+import com.mozhimen.basick.utilk.keyboard.UtilKKeyboardChange;
 import com.mozhimen.basick.utilk.log.UtilKLogSmart;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
@@ -66,7 +67,7 @@ import java.util.WeakHashMap;
  * PopupHelper，这货与Popup强引用哦~
  */
 @SuppressWarnings("all")
-public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListener, IClearMemoryListener {
+public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboardChangeListener, IClearMemoryListener {
 
     private static final String TAG = "BasePopupHelper>>>>>";
     BasePopwinK mPopupWindow;
@@ -157,8 +158,8 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
 
     public EditText mAutoShowInputEdittext;
 
-    UtilKKeyBoard.IUtilKKeyboardListener mKeyboardStateChangeListener;
-    public UtilKKeyBoard.IUtilKKeyboardListener mUserKeyboardStateChangeListener;
+    UtilKKeyboardChange.IUtilKKeyboardChangeListener mKeyboardStateChangeListener;
+    public UtilKKeyboardChange.IUtilKKeyboardChangeListener mUserKeyboardStateChangeListener;
     public BasePopwinK.KeyEventListener mKeyEventListener;
 
     public int mSoftInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED;
@@ -872,7 +873,7 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
 
     public void onDismiss() {
         if (isAutoShowInputMethod() && hideKeyboardOnDismiss) {
-            UtilKKeyBoard.close(mPopupWindow.getContext());
+            UtilKKeyBoard.hide(mPopupWindow.getContext());
         }
 
         if (mLinkedViewLayoutChangeListenerWrapper != null) {
@@ -957,7 +958,7 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
         showFlag |= BasePopupHelper.STATUS_START_SHOWING;
 
         if (mGlobalLayoutListener == null && mPopupWindow.getContext() != null) {
-            mGlobalLayoutListener = UtilKKeyBoard.observerKeyboardChange(mPopupWindow.getContext(), new UtilKKeyBoard.IUtilKKeyboardListener() {
+            mGlobalLayoutListener = UtilKKeyboardChange.observerKeyboardChange(mPopupWindow.getContext(), new UtilKKeyboardChange.IUtilKKeyboardChangeListener() {
                 @Override
                 public void onKeyboardChange(Rect keyboardBounds, boolean isVisible) {
                     BasePopupHelper.this.onKeyboardChange(keyboardBounds, isVisible);
@@ -1021,7 +1022,7 @@ public final class BasePopupHelper implements UtilKKeyBoard.IUtilKKeyboardListen
         if (mDismissAnimation != null) mDismissAnimation.cancel();
         if (mDismissAnimator != null) mDismissAnimator.cancel();
         if (mPopupWindow != null && hideKeyboardOnDismiss) {
-            UtilKKeyBoard.close(mPopupWindow.getContext());
+            UtilKKeyBoard.hide(mPopupWindow.getContext());
         }
         if (dismissAnimationDelayRunnable != null) {
             dismissAnimationDelayRunnable.run();

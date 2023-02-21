@@ -17,5 +17,5 @@ interface IBannerBindListener {
      * @param mo MBannerItem
      * @param position Int
      */
-    fun onBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int)
+    fun onBannerBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int)
 }

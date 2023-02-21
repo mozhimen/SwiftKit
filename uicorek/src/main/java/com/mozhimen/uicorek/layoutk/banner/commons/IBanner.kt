@@ -62,32 +62,42 @@ interface IBanner {
     fun setIntervalTime(intervalTime: Int)
 
     /**
-     * 设置当前item
+     * 设置当前item的Position
      * @param position Int
      */
-    fun setCurrentItem(position: Int)
+    fun setCurrentPosition(position: Int, smoothScroll: Boolean)
 
     /**
-     * 获取当前Item
+     * 滑动到下一个Item
+     */
+    fun scrollToNextItem()
+
+    /**
+     * 滑动到上一个Item
+     */
+    fun scrollToPreviousItem()
+
+    /**
+     * 获取当前Item的Position
      * @return Int
      */
-    fun getCurrentItem(): Int
+    fun getCurrentPosition(): Int
 
     /**
-     * 绑定adapter
-     * @param bindAdapter IBannerBindListener
+     * 绑定listener
+     * @param listener IBannerBindListener
      */
-    fun setBindAdapter(bindAdapter: IBannerBindListener)
+    fun setBannerBindListener(listener: IBannerBindListener)
 
     /**
      * 页面变换监听器
-     * @param onPageChangeListener OnPageChangeListener
+     * @param listener OnPageChangeListener
      */
-    fun setOnPageChangeListener(onPageChangeListener: OnPageChangeListener)
+    fun setPagerChangeListener(listener: OnPageChangeListener)
 
     /**
      * banner的item点击监听器
-     * @param IOnBannerClickListener OnBannerClickListener
+     * @param listener OnBannerClickListener
      */
-    fun setOnBannerClickListener(IOnBannerClickListener: IOnBannerClickListener)
+    fun setBannerClickListener(listener: IBannerItemClickListener)
 }

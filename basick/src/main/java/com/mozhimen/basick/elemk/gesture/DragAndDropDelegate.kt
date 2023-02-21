@@ -6,11 +6,13 @@ import android.view.DragEvent
 import android.view.View
 import android.view.View.DragShadowBuilder
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
 import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.gesture.UtilKDragAndDrop
 import java.lang.reflect.Field
 
 /**
@@ -62,5 +64,18 @@ class DragAndDropDelegate(owner: LifecycleOwner) : BaseLifecycleObserver(owner) 
                 else -> false
             }
         }
+    }
+
+    override fun onPause(owner: LifecycleOwner) {
+        try {
+            _viewList.forEach {
+                UtilKDragAndDrop.fixDragAndDropLeak(it.first, it.second)
+            }
+            _viewList.clear()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        }
+        super.onPause(owner)
     }
 }

@@ -22,24 +22,29 @@ class BannerViewPager @JvmOverloads constructor(context: Context, attrs: Attribu
     PagerKNoScroll(context, attrs) {
 
     private var _intervalTime = 0
+    private var _scrollDuration = 0
     private var _autoPlay = true//是否开启自动轮播
+    private var _isAutoPlaying = false
     private var _isLayout = false
-    private val _handler = Handler(Looper.getMainLooper())
+    private val _autoPlayHandler = Handler(Looper.getMainLooper())
+    private val _setItemHandler = Handler(Looper.getMainLooper())
+
     private val _runnable: Runnable = object : Runnable {
         override fun run() {
-            nextItem()
-            _handler.postDelayed(this, _intervalTime.toLong()) //延时一定时间执行下一次
+            autoScrollToNextItem()
+            _autoPlayHandler.postDelayed(this, _intervalTime.toLong()) //延时一定时间执行下一次
         }
     }
 
     fun setAutoPlay(autoPlay: Boolean) {
-        this._autoPlay = autoPlay
+        _autoPlay = autoPlay
         if (!_autoPlay) {
-            _handler.removeCallbacks(_runnable)
+            stop()
         }
     }
 
     fun setScrollDuration(duration: Int) {
+        _scrollDuration = duration
         try {
             val scrollerField = ViewPager::class.java.getDeclaredField("mScroller")
             scrollerField.isAccessible = true
@@ -50,18 +55,67 @@ class BannerViewPager @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     fun setIntervalTime(intervalTime: Int) {
-        this._intervalTime = intervalTime
+        _intervalTime = intervalTime
     }
 
-    fun start() {
-        _handler.removeCallbacksAndMessages(null)
-        if (_autoPlay) {
-            _handler.postDelayed(_runnable, _intervalTime.toLong())
+    fun setCurrentItemSelf(item: Int, smoothScroll: Boolean, isDelay: Boolean = false) {
+        if (isDelay) {
+            stop()
+            setCurrentItem(item, smoothScroll)
+            _setItemHandler.postDelayed({
+                start()
+            }, _intervalTime.toLong())
+        } else {
+            setCurrentItem(item, smoothScroll)
         }
     }
 
+    fun start() {
+        stop()
+        if (_autoPlay) {
+            _autoPlayHandler.postDelayed(_runnable, _intervalTime.toLong())
+        }
+        _isAutoPlaying = true
+    }
+
     fun stop() {
-        _handler.removeCallbacksAndMessages(null) //停止Timer
+        _autoPlayHandler.removeCallbacksAndMessages(null) //停止Timer
+        _isAutoPlaying = false
+    }
+
+    fun scrollToPreItem(): Int {
+        var preItem = currentItem - 1
+        //下一个索引大于adapter的view的最大数量时重新开始
+        if (preItem < 0) {
+            preItem = (adapter as BannerAdapter).getFirstItem()
+        }
+        setCurrentItemSelf(preItem, true, true)
+        return preItem
+    }
+
+    fun scrollToNextItem(): Int {
+        var nextItem = currentItem + 1
+        //下一个索引大于adapter的view的最大数量时重新开始
+        if (nextItem >= adapter!!.count) {
+            nextItem = (adapter as BannerAdapter).getFirstItem()
+        }
+        setCurrentItemSelf(nextItem, true, true)
+        return nextItem
+    }
+
+    private fun autoScrollToNextItem(): Int {
+        var nextPosition = -1
+        if (adapter == null || adapter!!.count <= 1) {
+            stop()
+            return nextPosition
+        }
+        nextPosition = currentItem + 1
+        //下一个索引大于adapter的view的最大数量时重新开始
+        if (nextPosition >= adapter!!.count) {
+            nextPosition = (adapter as BannerAdapter).getFirstItem()
+        }
+        setCurrentItemSelf(nextPosition, true)
+        return nextPosition
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -99,20 +153,6 @@ class BannerViewPager @JvmOverloads constructor(context: Context, attrs: Attribu
             super.onDetachedFromWindow()
         }
         stop()
-    }
-
-    private fun nextItem(): Int {
-        var nextPosition = -1
-        if (adapter == null || adapter!!.count <= 1) {
-            stop()
-            return nextPosition
-        }
-        nextPosition = currentItem + 1
-        //下一个索引大于adapter的view的最大数量时重新开始
-        if (nextPosition >= adapter!!.count) {
-            nextPosition = (adapter as BannerAdapter).getFirstItem()
-        }
-        setCurrentItem(nextPosition, true)
-        return nextPosition
+        _setItemHandler.removeCallbacksAndMessages(null)
     }
 }
