@@ -2,6 +2,7 @@ package com.mozhimen.basick.cachek
 
 import com.mozhimen.basick.cachek.commons.CacheKDatabase
 import com.mozhimen.basick.cachek.mos.MCacheK
+import com.mozhimen.basick.utilk.exts.et
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -15,6 +16,7 @@ import java.io.ObjectOutputStream
  * @Version 1.0
  */
 object CacheK {
+    private const val TAG = "CacheK>>>>>"
 
     /**
      * 保存cache
@@ -55,6 +57,7 @@ object CacheK {
             return byteArrayOutputStream.toByteArray()
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             byteArrayOutputStream?.close()
             objectOutputStream?.close()
@@ -72,6 +75,7 @@ object CacheK {
             return objectInputStream.readObject()
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             byteArrayInputStream?.close()
             objectInputStream?.close()
