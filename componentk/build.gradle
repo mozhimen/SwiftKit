@@ -33,13 +33,7 @@ android {
     }
 }
 
-configurations.maybeCreate("default")
-artifacts.add("default", file("libuvccamera-v1.0.3-release.aar"))
-
 dependencies {
-    //fileTree
-    compileOnly files("libuvccamera-v1.0.3-release.aar")
-
     //restfulk
     api 'com.squareup.retrofit2:retrofit:2.9.0'//retrofit
     api "com.squareup.okhttp3:logging-interceptor:4.9.2"
