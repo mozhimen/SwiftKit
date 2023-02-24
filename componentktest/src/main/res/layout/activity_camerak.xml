@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mozhimen.componentk.camerak.preview.ScaleTextureView
+        <com.mozhimen.camerak_uvc.ScaleTextureView
             android:id="@+id/camerak_scale"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

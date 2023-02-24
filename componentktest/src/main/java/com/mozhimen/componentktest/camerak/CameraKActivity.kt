@@ -6,15 +6,11 @@ import android.os.Handler
 import android.os.Looper
 import android.view.TextureView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.componentk.camerak.*
-import com.mozhimen.componentk.camerak.commons.CallBackEvents
-import com.mozhimen.componentk.camerak.cons.CameraApiType
-import com.mozhimen.componentk.camerak.cons.CameraFocus
-import com.mozhimen.componentk.camerak.cons.FacingType
-import com.mozhimen.componentk.camerak.mos.CameraFacing
-import com.mozhimen.componentk.camerak.mos.CameraSize
-import com.mozhimen.componentk.camerak.mos.IAttributes
-import com.mozhimen.componentk.camerak.preview.Direction
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.camerak.*
+import com.mozhimen.camerak_uvc.Direction
 import com.mozhimen.componentktest.databinding.ActivityCamerakBinding
 
 /**
@@ -24,7 +20,14 @@ import com.mozhimen.componentktest.databinding.ActivityCamerakBinding
  * @Date 2023/2/21 21:54
  * @Version 1.0
  */
+@APermissionCheck(CPermission.CAMERA)
 class CameraKActivity : BaseActivityVB<ActivityCamerakBinding>() {
+    override fun initData(savedInstanceState: Bundle?) {
+        ManifestKPermission.initPermissions(this, onSuccess = {
+            super.initData(savedInstanceState)
+        })
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
         initCamera()
     }
@@ -56,16 +59,34 @@ class CameraKActivity : BaseActivityVB<ActivityCamerakBinding>() {
             }
         }
         vb.camerakScale.apply {
-            setDisplayDir(Direction.getDegree(90))
+            setDisplayDir(getDegree(90))
             resetPreviewSize(1280, 800)
             setMirror(false)
         }
     }
 
+    /**
+     * 获取方向
+     * @param degree 0 90 180 270
+     * @return
+     */
+    private fun getDegree(degree: Int): Direction {
+        return when (degree) {
+            0 -> Direction.UP
+            90 -> Direction.LEFT
+            180 -> Direction.DOWN
+            270 -> Direction.RIGHT
+            else -> Direction.AUTO
+        }
+    }
+
     private fun openRgbCamera() {
         _cameraMgrRgb = CameraManager.getInstance(
-            CameraFacing.Builder().setFacingType(FacingType.OTHER)
-                .setCameraId(/*DEFAULT_RGB_CAMERA_FACING*/0).build(),
+            CameraFacing.Builder()
+//                .setFacingType(FacingType.OTHER)
+//                .setCameraId(/*DEFAULT_RGB_CAMERA_FACING*/0)
+                .setFacingType(FacingType.FRONT)
+                .build(),
             CameraApiType.CAMERA1,
             baseContext,
             Handler(Looper.getMainLooper())

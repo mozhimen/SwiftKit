@@ -7,6 +7,7 @@ dependencyResolutionManagement {
         maven { url 'https://maven.aliyun.com/repository/public' }
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         maven { url 'https://maven.aliyun.com/repository/grails-core' }
+        maven { url 'https://raw.githubusercontent.com/saki4510t/libcommon/master/repository/' }
         maven { url 'https://www.jitpack.io' }
         mavenCentral()
         google()
