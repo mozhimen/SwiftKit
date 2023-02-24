@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CManifest
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
@@ -99,6 +98,8 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
                     dismiss()
                 }
             }
+        }.apply {
+            bindLifecycle(this@DebugKDialogFragment)
         }
     }
 }

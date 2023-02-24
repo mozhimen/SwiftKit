@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
 import kotlinx.coroutines.Dispatchers
@@ -24,12 +24,12 @@ import kotlinx.coroutines.launch
  * @Date 2022/9/28 16:02
  * @Version 1.0
  */
-@ADescription("init on create")
+@ADescription("init by lazy")
 class ServiceDelegate<T>(
     private val _activity: T,
     private val _service: Class<*>,
     private val _resListener: IBaseServiceResListener
-) : BaseLifecycleObserver(_activity)
+) : BaseWakeBefDestroyLifecycleObserver()
         where T : AppCompatActivity, T : LifecycleOwner {
     private var _connListener: IBaseServiceConnListener? = null
     private val _serviceConnection: ServiceConnection by lazy { BaseServiceConnection() }

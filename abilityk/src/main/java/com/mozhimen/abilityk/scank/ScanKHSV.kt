@@ -8,7 +8,7 @@ import com.mozhimen.abilityk.scank.cons.EColorHSV
 import com.mozhimen.basick.utilk.exts.drawable2Bitmap
 import com.mozhimen.basick.utilk.exts.t2JsonMoshi
 import com.mozhimen.underlayk.logk.LogK
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import java.io.FileInputStream
 import java.io.FileOutputStream
 

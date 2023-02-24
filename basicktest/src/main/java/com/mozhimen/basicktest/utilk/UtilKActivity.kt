@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.start
-import com.mozhimen.basick.utilk.UtilKDataBus
+import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basicktest.databinding.ActivityUtilkBinding
 
 class UtilKActivity : BaseActivityVB<ActivityUtilkBinding>() {

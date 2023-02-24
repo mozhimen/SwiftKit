@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.exts
 
 import android.app.Activity
 import android.content.Intent
-import com.mozhimen.basick.utilk.context.UtilKActivitySkip
+import com.mozhimen.basick.utilk.content.UtilKActivitySkip
 
 /**
  * @ClassName ExtsKSkip

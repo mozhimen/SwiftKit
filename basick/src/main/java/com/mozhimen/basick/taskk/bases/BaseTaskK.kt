@@ -2,9 +2,9 @@ package com.mozhimen.basick.taskk.bases
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 
-abstract class BaseTaskK(owner: LifecycleOwner) : BaseLifecycleObserver(owner) {
+abstract class BaseTaskK : BaseWakeBefDestroyLifecycleObserver() {
 
     @CallSuper
     override fun onDestroy(owner: LifecycleOwner) {

@@ -14,15 +14,17 @@ import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
 
 class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, BaseNavigateKViewModel>() {
-    private val _datas = listOf<MKey>(MKey("01", "01"))
+    private val _datas = listOf(MKey("01", "01"))
     private var _adapter: RecyclerKVBAdapter<MKey, ItemNavigatekBinding>? = null
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun initView(savedInstanceState: Bundle?) {
         vb.navigatekFragmentSecondTxt.setOnClickListener {
             (requireActivity() as NavigateKActivity).navController.popBackStack()
             //vm.liveFragmentId.value = NavigateK.getId(FirstFragment::class.java)
         }
         vb.navigatekFragmentSecondRecycler.layoutManager = LinearLayoutManager(requireActivity())
-        _adapter = RecyclerKVBAdapter(_datas, R.layout.item_navigatek, BR.item_navigatek)
+        _adapter = RecyclerKVBAdapter<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek).apply {
+            bindLifecycle(this@SecondFragment)
+        }
         vb.navigatekFragmentSecondRecycler.adapter = _adapter
     }
 

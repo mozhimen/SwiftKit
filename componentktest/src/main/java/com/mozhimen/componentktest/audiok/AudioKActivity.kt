@@ -14,7 +14,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.UtilKDataBus
+import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.componentk.audiok.AudioK
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent

@@ -1,19 +1,15 @@
 package com.mozhimen.basick.elemk.gesture
 
 import android.os.Build
-import android.util.Log
 import android.view.DragEvent
 import android.view.View
 import android.view.View.DragShadowBuilder
-import android.view.ViewGroup
-import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefPauseLifecycleObserver
 import com.mozhimen.basick.utilk.exts.et
-import com.mozhimen.basick.utilk.gesture.UtilKDragAndDrop
-import java.lang.reflect.Field
+import com.mozhimen.basick.utilk.view.gesture.UtilKDragAndDrop
 
 /**
  * @ClassName DragAndDropDelegate
@@ -22,8 +18,8 @@ import java.lang.reflect.Field
  * @Date 2023/2/8 17:25
  * @Version 1.0
  */
-@ADescription("by lazy")
-class DragAndDropDelegate(owner: LifecycleOwner) : BaseLifecycleObserver(owner) {
+@ADescription("init by lazy")
+class DragAndDropDelegate : BaseWakeBefPauseLifecycleObserver() {
 
     private val _viewList = ArrayList<Pair<View, View>>()
     fun dragAndDrop(sourceView: View, destView: View, onDrop: (sourceView: View, destView: View) -> Unit) {

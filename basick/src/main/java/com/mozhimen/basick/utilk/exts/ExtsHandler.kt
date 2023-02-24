@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.exts
 
 import android.os.Handler
-import com.mozhimen.basick.utilk.UtilKHandler
+import com.mozhimen.basick.utilk.os.thread.UtilKHandler
 
 /**
  * @ClassName ExtsKHandler
@@ -42,6 +42,6 @@ fun Handler.removeCbs(runnable: Runnable) {
  * 移除
  * @receiver Handler
  */
-fun Handler.removeAll() {
-    UtilKHandler.removeAll(this)
+fun Handler.removeAllCbsAndMsgs() {
+    UtilKHandler.removeAllCbsAndMsgs(this)
 }

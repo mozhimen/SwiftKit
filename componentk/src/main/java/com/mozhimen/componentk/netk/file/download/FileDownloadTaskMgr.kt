@@ -10,7 +10,7 @@ import androidx.lifecycle.LifecycleOwner
  * @Version 1.0
  */
 class FileDownloadTaskMgr(owner: LifecycleOwner) {
-    private val _taskFileDownloadSingle by lazy { TaskFileDownloadSingle(owner) }
+    private val _taskFileDownloadSingle by lazy { TaskFileDownloadSingle().apply { bindLifecycle(owner) } }
 
     fun singleFileTask(): TaskFileDownloadSingle =
         _taskFileDownloadSingle

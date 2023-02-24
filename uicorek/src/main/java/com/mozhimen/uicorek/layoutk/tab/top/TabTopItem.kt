@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.imagek.exts.loadImage
+import com.mozhimen.basick.imagek.loader.exts.loadImage
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative

@@ -6,7 +6,7 @@ import android.content.IntentFilter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -18,16 +18,22 @@ import kotlinx.coroutines.launch
  * @Date 2023/1/10 14:32
  * @Version 1.0
  */
-@ADescription("by lazy")
+@ADescription("init by lazy")
 open class BaseReceiverDelegate<T>(
     private val _activity: T,
     private val _receiver: BroadcastReceiver,
     private vararg val _actions: String
-) : BaseLifecycleObserver(_activity) where T : Activity, T : LifecycleOwner {
+) : BaseWakeBefDestroyLifecycleObserver() where T : Activity, T : LifecycleOwner {
+    
     init {
         _activity.lifecycleScope.launch(Dispatchers.Main) {
             registerReceiver()
         }
+    }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        _activity.unregisterReceiver(_receiver)
+        super.onDestroy(owner)
     }
 
     private fun registerReceiver() {
@@ -38,10 +44,5 @@ open class BaseReceiverDelegate<T>(
             }
         }
         _activity.registerReceiver(_receiver, intentFilter)
-    }
-
-    override fun onDestroy(owner: LifecycleOwner) {
-        _activity.unregisterReceiver(_receiver)
-        super.onDestroy(owner)
     }
 }

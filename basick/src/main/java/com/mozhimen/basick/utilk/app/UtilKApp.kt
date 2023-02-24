@@ -7,11 +7,11 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.os.Process
 import android.util.Log
-import com.mozhimen.basick.utilk.UtilKCmd
-import com.mozhimen.basick.utilk.UtilKPackage
-import com.mozhimen.basick.utilk.context.UtilKActivity
-import com.mozhimen.basick.utilk.context.UtilKActivitySkip
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.java.io.UtilKCmd
+import com.mozhimen.basick.utilk.content.UtilKPackage
+import com.mozhimen.basick.utilk.content.UtilKActivity
+import com.mozhimen.basick.utilk.content.UtilKActivitySkip
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import kotlin.system.exitProcess
 
 

@@ -7,12 +7,12 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
-import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
-import com.mozhimen.basick.utilk.app.UtilKAppRoot
-import com.mozhimen.basick.utilk.context.UtilKApplication
-import com.mozhimen.basick.utilk.file.UtilKFile
+import com.mozhimen.basick.utilk.os.UtilKOSRoot
+import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
 import com.mozhimen.componentk.installk.cons.CCons
 import com.mozhimen.componentk.installk.cons.EInstallMode
@@ -158,12 +158,12 @@ class InstallK {
         when (_installMode) {
             EInstallMode.AUTO -> {
                 //try install root
-                if (UtilKAppRoot.isRoot() && UtilKAppInstall.installRoot(apkPathWithName)) {
+                if (UtilKOSRoot.isRoot() && UtilKAppInstall.installRoot(apkPathWithName)) {
                     Log.d(TAG, "installByMode: AUTO as ROOT success")
                     return
                 }
                 //try install silence
-                if (_silenceReceiverClazz != null && (UtilKAppRoot.isRoot() || !UtilKApp.isUserApp())) {
+                if (_silenceReceiverClazz != null && (UtilKOSRoot.isRoot() || !UtilKApp.isUserApp())) {
                     UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
                     Log.d(TAG, "installByMode: AUTO as SILENCE success")
                     return
@@ -178,13 +178,13 @@ class InstallK {
                 UtilKAppInstall.installHand(apkPathWithName)
             }
             EInstallMode.ROOT -> {
-                require(UtilKAppRoot.isRoot()) { "$TAG this device has not root" }
+                require(UtilKOSRoot.isRoot()) { "$TAG this device has not root" }
                 UtilKAppInstall.installRoot(apkPathWithName)
                 Log.d(TAG, "installByMode: ROOT success")
             }
             EInstallMode.SILENCE -> {
                 requireNotNull(_silenceReceiverClazz) { "$TAG silence receiver must not be null" }
-                require(UtilKAppRoot.isRoot() || !UtilKApp.isUserApp()) { "$TAG this device has not root or its system app" }
+                require(UtilKOSRoot.isRoot() || !UtilKApp.isUserApp()) { "$TAG this device has not root or its system app" }
                 UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
                 Log.d(TAG, "installByMode: ROOT success")
             }

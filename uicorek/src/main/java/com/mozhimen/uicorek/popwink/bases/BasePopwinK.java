@@ -240,13 +240,13 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.stackk.StackK;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
-import com.mozhimen.basick.utilk.UtilKColor;
-import com.mozhimen.basick.utilk.UtilKDataBus;
-import com.mozhimen.basick.utilk.UtilKGravity;
-import com.mozhimen.basick.utilk.UtilKRes;
-import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
-import com.mozhimen.basick.utilk.context.UtilKApplication;
-import com.mozhimen.basick.utilk.keyboard.UtilKKeyboardChange;
+import com.mozhimen.basick.utilk.graphics.UtilKColor;
+import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus;
+import com.mozhimen.basick.utilk.view.UtilKViewGravity;
+import com.mozhimen.basick.utilk.res.UtilKRes;
+import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig;
+import com.mozhimen.basick.utilk.content.UtilKApplication;
+import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
 import com.mozhimen.basick.utilk.log.UtilKLogSmart;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.helpers.BasePopupHelper;
@@ -301,8 +301,8 @@ import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
  * <li><strong>模糊层（Blur层）：</strong>
  * <ul>
  * <li>模糊默认关闭，如果您开启模糊，请设置{@link #setBlurBackgroundEnable(boolean)}为true，默认情况下模糊对象是当前decorView，如果您需要针对模糊某个View，
- * 请设置{@link #setBlurOption(UtilKBitmapBlurOption)}以及{@link UtilKBitmapBlurOption#setBlurView(View)}传入。</li>
- * <li>如果您想修改默认的背景模糊中的模糊配置，您可以调用{@link #setBlurBackgroundEnable(boolean, OnBlurOptionInitListener)}，在{@link OnBlurOptionInitListener#onCreateBlurOption(UtilKBitmapBlurOption)}中进行修改</li>
+ * 请设置{@link #setBlurOption(UtilKBitmapBluConfig)}以及{@link UtilKBitmapBluConfig#setBlurView(View)}传入。</li>
+ * <li>如果您想修改默认的背景模糊中的模糊配置，您可以调用{@link #setBlurBackgroundEnable(boolean, OnBlurOptionInitListener)}，在{@link OnBlurOptionInitListener#onCreateBlurOption(UtilKBitmapBluConfig)}中进行修改</li>
  * </ul>
  * </li>
  * </ul>
@@ -1285,7 +1285,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
      * 设置PopupWindow弹出时是否模糊背景。
      * <br>
      * <br>
-     * 在使用模糊背景前，您可以通过{@link #setBlurOption(UtilKBitmapBlurOption)}传入模糊配置。
+     * 在使用模糊背景前，您可以通过{@link #setBlurOption(UtilKBitmapBluConfig)}传入模糊配置。
      * <br>
      * <br>
      * <strong>本方法默认模糊当前Activity的DecorView</strong>
@@ -1302,10 +1302,10 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
      * 设置PopupWindow弹出时是否模糊背景。
      * <br>
      * <br>
-     * 在使用模糊背景前，您可以通过{@link #setBlurOption(UtilKBitmapBlurOption)}传入模糊配置。
+     * 在使用模糊背景前，您可以通过{@link #setBlurOption(UtilKBitmapBluConfig)}传入模糊配置。
      * <br>
      * <br>
-     * 本方法允许您传入一个初始化监听，您可以在{@link OnBlurOptionInitListener#onCreateBlurOption(UtilKBitmapBlurOption)}中进行展示前的最后一次修改
+     * 本方法允许您传入一个初始化监听，您可以在{@link OnBlurOptionInitListener#onCreateBlurOption(UtilKBitmapBluConfig)}中进行展示前的最后一次修改
      * </p>
      *
      * @param blurBackgroundEnable true for blur decorView
@@ -1317,9 +1317,9 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
             onLogInternal("无法配置默认模糊脚本，因为context不是activity");
             return this;
         }
-        UtilKBitmapBlurOption option = null;
+        UtilKBitmapBluConfig option = null;
         if (blurBackgroundEnable) {
-            option = new UtilKBitmapBlurOption();
+            option = new UtilKBitmapBluConfig();
             option.setFullScreen(true)
                     .setBlurInDuration(-1)
                     .setBlurOutDuration(-1);
@@ -1345,7 +1345,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
      *
      * @param option 模糊配置
      */
-    public BasePopwinK setBlurOption(UtilKBitmapBlurOption option) {
+    public BasePopwinK setBlurOption(UtilKBitmapBluConfig option) {
         mHelper.setToBlur(option);
         return this;
     }
@@ -2151,7 +2151,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
     }
 
     public int computeGravity(@NonNull Rect popupRect, @NonNull Rect anchorRect) {
-        return UtilKGravity.computeGravity(popupRect, anchorRect);
+        return UtilKViewGravity.computeGravity(popupRect, anchorRect);
     }
 
     /**
@@ -2207,7 +2207,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
     }
 
     public interface OnBlurOptionInitListener {
-        void onCreateBlurOption(UtilKBitmapBlurOption option);
+        void onCreateBlurOption(UtilKBitmapBluConfig option);
     }
 
     public static abstract class OnDismissListener implements PopupWindow.OnDismissListener {

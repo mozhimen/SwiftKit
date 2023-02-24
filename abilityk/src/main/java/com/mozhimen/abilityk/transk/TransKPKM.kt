@@ -4,7 +4,7 @@ import android.content.res.AssetManager
 import android.opengl.ETC1
 import android.opengl.ETC1Util.ETC1Texture
 import android.util.Log
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.datatype.UtilKString
 import java.io.FileInputStream
 import java.io.IOException

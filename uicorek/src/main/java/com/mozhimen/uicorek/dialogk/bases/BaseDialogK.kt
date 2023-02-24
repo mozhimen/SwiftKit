@@ -8,15 +8,13 @@ import androidx.annotation.StyleRes
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.UtilKScreen.getCurrentScreenWidth
-import com.mozhimen.basick.utilk.UtilKThread
+import com.mozhimen.basick.utilk.os.thread.UtilKThread
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.annors.DialogMode
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 /**
  * @ClassName BaseDialogK

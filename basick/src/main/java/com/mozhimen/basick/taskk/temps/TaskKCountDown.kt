@@ -1,7 +1,6 @@
 package com.mozhimen.basick.taskk.temps
 
 import android.os.CountDownTimer
-import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.taskk.bases.BaseTaskK
 
 /**
@@ -11,7 +10,7 @@ import com.mozhimen.basick.taskk.bases.BaseTaskK
  * @Date 2022/9/26 15:57
  * @Version 1.0
  */
-class TaskKCountDown(owner: LifecycleOwner) : BaseTaskK(owner) {
+class TaskKCountDown : BaseTaskK() {
 
     private var _taskKCountDownListener: ITaskKCountDownListener? = null
     private var _countDownTimer: CountDownTimer? = null

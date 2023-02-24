@@ -3,7 +3,7 @@ package com.mozhimen.basick.cachek.helpers
 import android.content.Context
 import android.content.SharedPreferences
 import com.mozhimen.basick.utilk.encrypt.UtilKEncryptAES
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKApplication
 
 /**
  * @ClassName CacheKSPProvider

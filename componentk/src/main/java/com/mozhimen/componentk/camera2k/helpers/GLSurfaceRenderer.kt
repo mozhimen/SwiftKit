@@ -14,8 +14,8 @@ import android.widget.ImageView
 import com.mozhimen.componentk.camera2k.commons.AFilter
 import com.mozhimen.componentk.camera2k.commons.ICamera2KFrameListener
 import com.mozhimen.componentk.camera2k.commons.ICamera2KRenderer
-import com.mozhimen.basick.utilk.UtilKGL
-import com.mozhimen.basick.utilk.UtilKMatrix
+import com.mozhimen.basick.utilk.open.UtilKOpenGL
+import com.mozhimen.basick.utilk.open.UtilKMatrix
 import java.nio.ByteBuffer
 import java.util.concurrent.atomic.AtomicBoolean
 import javax.microedition.khronos.egl.EGL10
@@ -175,7 +175,7 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
         _effectFilter?.setFilterFlag(_directionFlag)
         deleteFrameBuffer()
         GLES20.glGenFramebuffers(1, _exportFrame, 0)
-        UtilKGL.genTexturesAndParameterf(
+        UtilKOpenGL.genTexturesAndParameterf(
             1, _exportTexture, 0, GLES20.GL_RGBA, _inputPreviewSize!!.x,
             _inputPreviewSize!!.y
         )
@@ -346,12 +346,12 @@ class GLSurfaceRenderer(context: Context) : GLSurfaceView.Renderer {
                 )
             }
             GLES20.glViewport(0, 0, _frameWidth, _frameHeight)
-            UtilKGL.bindFrameBuffer(_exportFrame[0], _exportTexture[0])
+            UtilKOpenGL.bindFrameBuffer(_exportFrame[0], _exportTexture[0])
             _showFilter?.setMatrix(_callbackOptionMatrix)
             _showFilter?.draw()
             onFrameCallback()
             _isShoot = false
-            UtilKGL.unBindFrameBuffer()
+            UtilKOpenGL.unBindFrameBuffer()
             _showFilter?.setMatrix(_screenMatrix)
         }
     }

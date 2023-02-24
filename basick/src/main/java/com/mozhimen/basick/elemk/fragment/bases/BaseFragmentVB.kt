@@ -11,7 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.activity.commons.IActivity
-import com.mozhimen.basick.utilk.UtilKViewDataBinding
+import com.mozhimen.basick.utilk.jetpack.databinding.UtilKViewDataBinding
 
 open class BaseFragmentVB<VB : ViewDataBinding>(
     protected open val _factory: ViewModelProvider.Factory? = null

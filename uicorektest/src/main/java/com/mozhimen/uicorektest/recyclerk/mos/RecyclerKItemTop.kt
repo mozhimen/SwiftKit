@@ -6,7 +6,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.fitImage
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
 import com.mozhimen.uicorektest.R
 

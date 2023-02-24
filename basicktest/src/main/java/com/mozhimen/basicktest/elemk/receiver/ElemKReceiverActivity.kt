@@ -16,17 +16,16 @@ import com.mozhimen.basicktest.databinding.ActivityElemkReceiverBinding
  * @Version 1.0
  */
 class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
-    private lateinit var _receiverDelegate: BaseReceiverDelegate<ElemKReceiverActivity>
+    private val _receiverDelegate: BaseReceiverDelegate<ElemKReceiverActivity> by lazy { BaseReceiverDelegate(
+        this,
+        ElemKTimeReceiver(),
+        Intent.ACTION_TIME_TICK,
+        Intent.ACTION_TIMEZONE_CHANGED,
+        Intent.ACTION_TIME_CHANGED
+    ) }
 
-    override fun initData(savedInstanceState: Bundle?) {
-        Log.d(TAG, "initData: start")
-        _receiverDelegate = BaseReceiverDelegate(
-            this,
-            ElemKTimeReceiver(),
-            Intent.ACTION_TIME_TICK,
-            Intent.ACTION_TIMEZONE_CHANGED,
-            Intent.ACTION_TIME_CHANGED
-        )
-        super.initData(savedInstanceState)
+    override fun initView(savedInstanceState: Bundle?) {
+        Log.d(TAG, "initView: start")
+        _receiverDelegate.bindLifecycle(this)
     }
 }

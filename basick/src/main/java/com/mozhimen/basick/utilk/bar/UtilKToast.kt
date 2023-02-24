@@ -1,9 +1,9 @@
 package com.mozhimen.basick.utilk.bar
 
 import android.widget.Toast
-import com.mozhimen.basick.utilk.UtilKHandler
-import com.mozhimen.basick.utilk.UtilKThread
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.os.thread.UtilKHandler
+import com.mozhimen.basick.utilk.os.thread.UtilKThread
+import com.mozhimen.basick.utilk.content.UtilKApplication
 
 
 /**

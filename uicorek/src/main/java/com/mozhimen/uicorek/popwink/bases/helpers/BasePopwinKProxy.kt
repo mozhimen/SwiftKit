@@ -9,8 +9,8 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.PopupWindow
-import com.mozhimen.basick.utilk.context.UtilKActivity.getActivityByContext
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.content.UtilKActivity.getActivityByContext
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.UtilKView.removeViewFromParent
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener

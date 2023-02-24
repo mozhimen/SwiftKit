@@ -14,8 +14,8 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.exts.decimal2String
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.utilk.context.UtilKApplication
-import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.bar.UtilKDialog
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsKListener

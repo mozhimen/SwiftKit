@@ -1,10 +1,9 @@
 package com.mozhimen.basick.taskk.temps
 
-import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.taskk.bases.BaseTaskK
 import kotlinx.coroutines.*
 
-class TaskKPoll(owner: LifecycleOwner) : BaseTaskK(owner) {
+class TaskKPoll : BaseTaskK() {
     private var _pollingScope: CoroutineScope? = null
 
     fun isActive(): Boolean =

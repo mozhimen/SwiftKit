@@ -6,7 +6,7 @@ import android.os.Build
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKApplication
 
 /**
  * @ClassName UtilKCamera

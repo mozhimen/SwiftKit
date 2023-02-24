@@ -9,8 +9,8 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.taskk.temps.TaskKPoll
-import com.mozhimen.basick.utilk.UtilKDataBus
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.componentk.audiok.commons.IAudioKFocusListener
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
@@ -24,7 +24,7 @@ import com.mozhimen.componentk.audiok.mos.MAudioKProgress
  * @Date 2022/10/30 19:00
  * @Version 1.0
  */
-class CustomAudioPlayer(owner: LifecycleOwner) :
+class CustomAudioPlayer(private val _owner: LifecycleOwner) :
     MediaPlayer.OnCompletionListener,
     MediaPlayer.OnBufferingUpdateListener,
     MediaPlayer.OnPreparedListener,
@@ -62,7 +62,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
         }
 
     //更新进度Task
-    private val _taskKProUpd by lazy { TaskKPoll(owner) }
+    private val _taskKProUpd by lazy { TaskKPoll() }
 
     //发布更新进度Event
     private val _dataBusProUpd by lazy { UtilKDataBus.with<MAudioKProgress?>(CAudioKEvent.progress_update) }
@@ -233,6 +233,7 @@ class CustomAudioPlayer(owner: LifecycleOwner) :
         }
         _statusMediaPlayer!!.start()
         _wifiLock!!.acquire()//启用wifi锁
+        _taskKProUpd.bindLifecycle(_owner)
         _taskKProUpd.start(2000) {
             //暂停也要更新进度，防止UI不同步，只不过进度一直一样
             if (getPlayStatus() == EPlayStatus.STARTED || getPlayStatus() == EPlayStatus.PAUSED) {

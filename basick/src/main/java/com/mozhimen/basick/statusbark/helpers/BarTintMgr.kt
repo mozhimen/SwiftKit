@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.bar.UtilKBarStatus
+import com.mozhimen.basick.utilk.bar.UtilKStatusBar
 
 /**
  * @ClassName BarTintManager
@@ -57,7 +57,7 @@ class BarTintMgr(activity: Activity) {
     private fun setupBarView(activity: Activity, viewGroup: ViewGroup) {
         _BarTintView = View(activity)
         //设置高度匹配StatusBar的高度
-        val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, UtilKBarStatus.getStatusBarHeight(true))
+        val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, UtilKStatusBar.getStatusBarHeight(true))
         layoutParams.gravity = Gravity.TOP
         _BarTintView.layoutParams = layoutParams
         _BarTintView.setBackgroundColor(DEFAULT_TINT_COLOR)

@@ -6,7 +6,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.underlayk.logk.LogK
 import java.util.*
 

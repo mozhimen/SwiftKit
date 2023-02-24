@@ -8,8 +8,8 @@ import android.os.Bundle
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.CStackKEvent
-import com.mozhimen.basick.utilk.UtilKDataBus
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import java.lang.ref.WeakReference
 
 /**

@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.utilk.exts.et
 
 
@@ -16,13 +16,13 @@ import com.mozhimen.basick.utilk.exts.et
  * @Date 2023/2/17 16:44
  * @Version 1.0
  */
-@ADescription("init in global, no by lazy")
+@ADescription("init by lazy")
 class NavigateKDelegate<T>(
     private val _activity: T,
     private val _fragmentLayoutId: Int,
     vararg val _fragments: Class<*>
 ) :
-    BaseLifecycleObserver(_activity) where T : LifecycleOwner, T : FragmentActivity {
+    BaseWakeBefDestroyLifecycleObserver() where T : LifecycleOwner, T : FragmentActivity {
     private val liveFragmentId = MutableLiveData<Int?>(null)
     private val liveSetPopupFlag = MutableLiveData<Boolean?>(null)
     lateinit var navController: NavController
@@ -37,6 +37,12 @@ class NavigateKDelegate<T>(
             val fragmentId: Int = navController.currentDestination?.id ?: NavigateK.getId(_fragments.getOrNull(0) ?: return 0)
             return fragmentId.also { field = it }
         }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        liveFragmentId.value = null
+        liveSetPopupFlag.value = null
+        super.onDestroy(owner)
+    }
 
     override fun onCreate(owner: LifecycleOwner) {
         navController = NavigateK.buildNavGraph(_activity, _fragmentLayoutId, _fragments.toList(), currentItemId)

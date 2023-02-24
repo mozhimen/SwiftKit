@@ -6,7 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
 import android.util.AttributeSet
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear

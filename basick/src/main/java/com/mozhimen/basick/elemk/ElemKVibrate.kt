@@ -2,11 +2,10 @@ package com.mozhimen.basick.elemk
 
 import android.app.Activity
 import android.os.Vibrator
-import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.taskk.bases.BaseTaskK
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKApplication
 
 /**
  * @ClassName UtilKVibrate
@@ -16,7 +15,7 @@ import com.mozhimen.basick.utilk.context.UtilKApplication
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.VIBRATE)
-class ElemKVibrate(owner: LifecycleOwner) : BaseTaskK(owner) {
+class ElemKVibrate() : BaseTaskK() {
 
     private var _vibrator: Vibrator? = null
 

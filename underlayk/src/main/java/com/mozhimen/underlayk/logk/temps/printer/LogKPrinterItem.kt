@@ -2,7 +2,7 @@ package com.mozhimen.underlayk.logk.temps.printer
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBViewHolder
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
 import com.mozhimen.underlayk.R

@@ -3,10 +3,9 @@ package com.mozhimen.debugk.cons
 import android.app.Activity
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.underlayk.fpsk.FpsK
-import com.mozhimen.basick.utilk.UtilKTheme
-import com.mozhimen.basick.utilk.context.UtilKActivitySkip.start
+import com.mozhimen.basick.utilk.res.UtilKTheme
+import com.mozhimen.basick.utilk.content.UtilKActivitySkip.start
 import com.mozhimen.basick.utilk.net.UtilKNetDeal
 import com.mozhimen.debugk.annors.ADebugKTool
 import com.mozhimen.debugk.temps.DebugKCrashKActivity

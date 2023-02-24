@@ -3,7 +3,7 @@ package com.mozhimen.componentk.camera2k.helpers
 import android.graphics.SurfaceTexture
 import android.opengl.GLES20
 import com.mozhimen.componentk.camera2k.commons.CameraAFilter
-import com.mozhimen.basick.utilk.UtilKGL
+import com.mozhimen.basick.utilk.open.UtilKOpenGL
 
 /**
  * @ClassName CameraFrameFilter
@@ -61,7 +61,7 @@ class CameraFrameFilter : CameraAFilter() {
             //创建FrameBuffer和Texture
             deleteFrameBuffer()
             GLES20.glGenFramebuffers(1, _fFrame, 0)
-            UtilKGL.genTexturesAndParameterf(1, _fTexture, 0, GLES20.GL_RGBA, width, height)
+            UtilKOpenGL.genTexturesAndParameterf(1, _fTexture, 0, GLES20.GL_RGBA, width, height)
         }
     }
 
@@ -75,11 +75,11 @@ class CameraFrameFilter : CameraAFilter() {
             _surfaceTexture!!.getTransformMatrix(_coordOM)
             _filter.setCoordMatrix(_coordOM)
         }
-        UtilKGL.bindFrameBuffer(_fFrame[0], _fTexture[0])
+        UtilKOpenGL.bindFrameBuffer(_fFrame[0], _fTexture[0])
         GLES20.glViewport(0, 0, _width, _height)
         _filter.setTextureId(_cameraTexture[0])
         _filter.draw()
-        UtilKGL.unBindFrameBuffer()
+        UtilKOpenGL.unBindFrameBuffer()
         if (a) {
             GLES20.glEnable(GLES20.GL_DEPTH_TEST)
         }

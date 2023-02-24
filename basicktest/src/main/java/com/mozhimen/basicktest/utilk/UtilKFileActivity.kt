@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basicktest.BR
-import com.mozhimen.basick.utilk.file.UtilKFile
+import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkFileBinding
 import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
@@ -31,7 +31,9 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
         ManifestKPermission.initPermissions(this) {
             if (it) {
                 vb.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
-                _adapterKRecycler = RecyclerKVBAdapter( _logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
+                _adapterKRecycler = RecyclerKVBAdapter<UtilKFileLogBean, ItemUtilkFileLogBinding>( _logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log).apply {
+                    bindLifecycle(this@UtilKFileActivity)
+                }
                 vb.utilkFileRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)

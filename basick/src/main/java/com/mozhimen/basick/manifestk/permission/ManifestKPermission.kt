@@ -8,8 +8,8 @@ import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.permission.helpers.IManifestKPermissionListener
 import com.mozhimen.basick.manifestk.permission.helpers.InvisibleFragment
-import com.mozhimen.basick.utilk.UtilKPermission
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 
 /**

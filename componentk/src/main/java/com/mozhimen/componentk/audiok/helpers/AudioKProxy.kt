@@ -3,7 +3,7 @@ package com.mozhimen.componentk.audiok.helpers
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.utilk.UtilKDataBus
+import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.componentk.audiok.commons.IAudioKListener
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.cons.EPlayMode

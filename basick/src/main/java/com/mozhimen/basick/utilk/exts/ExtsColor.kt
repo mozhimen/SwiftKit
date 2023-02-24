@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.UtilKColor
+import com.mozhimen.basick.utilk.graphics.UtilKColor
 
 /**
  * @ClassName ExtsKColor

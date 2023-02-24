@@ -7,11 +7,11 @@ import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
-import com.mozhimen.basick.utilk.UtilKDataBus
+import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.UtilKDate
-import com.mozhimen.basick.utilk.UtilKPackage
-import com.mozhimen.basick.utilk.context.UtilKApplication
-import com.mozhimen.basick.utilk.file.UtilKFile
+import com.mozhimen.basick.utilk.content.UtilKPackage
+import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener

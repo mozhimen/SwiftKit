@@ -5,7 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.UtilKAsset
+import com.mozhimen.basick.utilk.res.UtilKAsset
 import com.mozhimen.basicktest.BR
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkAssetBinding
@@ -30,7 +30,11 @@ class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
         ManifestKPermission.initPermissions(this) {
             if (it) {
                 vb.utilkAssetRecycler.layoutManager = LinearLayoutManager(this)
-                _adapterKRecycler = RecyclerKVBAdapter( _logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
+                _adapterKRecycler = RecyclerKVBAdapter<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>(
+                    _logs,
+                    R.layout.item_utilk_file_log,
+                    BR.item_utilk_file_log
+                ).apply { bindLifecycle(this@UtilKAssetActivity) }
                 vb.utilkAssetRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)

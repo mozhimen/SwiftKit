@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R

@@ -15,7 +15,7 @@ import android.widget.PopupWindow
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.basick.utilk.bar.UtilKBarNavigation
+import com.mozhimen.basick.utilk.bar.UtilKNavigationBar
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
@@ -323,7 +323,7 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
      * @return Int 如果需要修正且存在NavigationBar则返回高度，否则为0
      */
     private fun getNavigationBarHeightOffset(view: View): Int =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_20_44W_KW) UtilKBarNavigation.getNavigationBarHeight(view) else 0
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_20_44W_KW) UtilKNavigationBar.getNavigationBarHeight(view) else 0
 
     private class PopupProp {
         var direction: EArrowDirection = EArrowDirection.Auto

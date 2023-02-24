@@ -1,9 +1,10 @@
 package com.mozhimen.basick.utilk.exts
 
 import android.graphics.Bitmap
+import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.Drawable
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapFormat
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapFormat
 
 /**
  * @ClassName ExtsKBitmap
@@ -25,8 +26,8 @@ fun ByteArray.bytes2Bitmap(): Bitmap =
  * @receiver Bitmap
  * @return ByteArray?
  */
-fun Bitmap.bitmap2bytes(): ByteArray? =
-    UtilKBitmapFormat.bitmap2Bytes(this)
+fun Bitmap.bitmap2JpegBytes(): ByteArray? =
+    UtilKBitmapFormat.bitmap2JpegBytes(this)
 
 /**
  * gradientDrawable转Bitmap

@@ -7,8 +7,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.basick.statusbark.StatusBarK
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.debugk.databinding.DebugkActivityTabkTopBinding
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop

@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
 
@@ -16,14 +16,14 @@ import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
  * @Date 2023/2/17 16:44
  * @Version 1.0
  */
-@ADescription("init in onCreate")
+@ADescription("init by lazy")
 class NavigateKWithVMDelegate<T>(
     private val _activity: T,
     private val _vm: BaseNavigateKViewModel,
     private val _fragmentLayoutId: Int,
     private val _fragments: List<Class<*>>
 ) :
-    BaseLifecycleObserver(_activity) where T : LifecycleOwner, T : FragmentActivity {
+    BaseWakeBefDestroyLifecycleObserver() where T : LifecycleOwner, T : FragmentActivity {
 
     lateinit var navController: NavController
     private var _currentItemId: Int = 0
@@ -37,6 +37,12 @@ class NavigateKWithVMDelegate<T>(
             val fragmentId: Int = navController.currentDestination?.id ?: NavigateK.getId(_fragments.getOrNull(0) ?: return 0)
             return fragmentId.also { field = it }
         }
+
+    override fun onDestroy(owner: LifecycleOwner) {
+        _vm.liveFragmentId.value = null
+        _vm.liveSetPopupFlag.value = null
+        super.onDestroy(owner)
+    }
 
     override fun onCreate(owner: LifecycleOwner) {
         navController = NavigateK.buildNavGraph(_activity, _fragmentLayoutId, _fragments, _currentItemId)

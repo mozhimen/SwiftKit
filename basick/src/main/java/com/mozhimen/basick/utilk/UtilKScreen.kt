@@ -10,8 +10,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.bar.UtilKBarVirtual
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.bar.UtilKVirtualBar
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import kotlin.math.sqrt
 
 /**
@@ -25,6 +25,15 @@ object UtilKScreen {
     private val TAG = "UtilKScreen>>>>>"
 
     private val _context = UtilKApplication.instance.get()
+
+    /**
+     * 是否全屏
+     * @param activity Activity
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isFullScreen(activity: Activity): Boolean =
+        if (activity.window == null) false else activity.window.attributes.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == WindowManager.LayoutParams.FLAG_FULLSCREEN
 
     /**
      * 设置全屏
@@ -171,7 +180,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenRotation(activity: Activity): Int =
-        UtilKDisplay.getRotation(activity)
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) activity.display!!.rotation else activity.windowManager.defaultDisplay.rotation
 
     /**
      * 截屏
@@ -183,7 +192,7 @@ object UtilKScreen {
         val view = activity.window.decorView
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
-        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKBarVirtual.getVirtualBarHeight(activity))
+        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getVirtualBarHeight(activity))
         view.isDrawingCacheEnabled = false
         view.destroyDrawingCache()
         return bitmap

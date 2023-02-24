@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.exts.printlog
+import com.mozhimen.basick.utilk.java.UtilKConsole
 import org.junit.Test
 
 /**

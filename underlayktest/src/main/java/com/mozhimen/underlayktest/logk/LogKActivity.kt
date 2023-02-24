@@ -38,6 +38,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
     }
 
     private fun initPrinterView() {
+        _printerView.bindLifecycle(this)
         _printerView.toggleView()
     }
 

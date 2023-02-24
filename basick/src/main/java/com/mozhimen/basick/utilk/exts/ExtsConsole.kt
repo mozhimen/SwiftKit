@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.UtilKConsole
+import com.mozhimen.basick.utilk.java.UtilKConsole
 
 /**
  * @ClassName ExtsKConsole

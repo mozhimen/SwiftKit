@@ -19,8 +19,9 @@ import kotlinx.coroutines.launch
  */
 class RecyclerKLifecycle @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), IDefaultLifecycleObserver {
 
-    fun bindLifecycle(owner: LifecycleOwner) {
+    override fun bindLifecycle(owner: LifecycleOwner) {
         owner.lifecycleScope.launch(Dispatchers.Main) {
+            owner.lifecycle.removeObserver(this@RecyclerKLifecycle)
             owner.lifecycle.addObserver(this@RecyclerKLifecycle)
         }
     }

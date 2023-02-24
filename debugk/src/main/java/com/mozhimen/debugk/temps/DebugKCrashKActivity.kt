@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CManifest
-import com.mozhimen.basick.utilk.file.UtilKFile
-import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.basick.utilk.file.UtilKFileUri
+import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.java.io.file.UtilKFileUri
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.databinding.DebugkActivityCrashkBinding
@@ -61,6 +59,8 @@ class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
                     }
                     startActivity(Intent.createChooser(intent, "分享Crash 日志文件"))
                 }
+            }.apply {
+                bindLifecycle(this@DebugKCrashKActivity)
             }
         vb.debugkCrashkRecycler.adapter = adapterKRecycler
     }

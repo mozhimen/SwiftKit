@@ -14,12 +14,12 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.exts.cropBitmap
 import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
-import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import java.util.concurrent.locks.ReentrantLock

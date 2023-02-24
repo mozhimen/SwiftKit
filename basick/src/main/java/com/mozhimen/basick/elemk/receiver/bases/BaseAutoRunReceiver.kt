@@ -1,13 +1,12 @@
 package com.mozhimen.basick.elemk.receiver.bases
 
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.elemk.rxjava.commons.ObserverCallback
-import com.mozhimen.basick.utilk.UtilKRxJavaTrans
-import com.mozhimen.basick.utilk.context.UtilKActivitySkip
+import com.mozhimen.basick.utilk.os.thread.UtilKRxJavaTrans
+import com.mozhimen.basick.utilk.content.UtilKActivitySkip
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 

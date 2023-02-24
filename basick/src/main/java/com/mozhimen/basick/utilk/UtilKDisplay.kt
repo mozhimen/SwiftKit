@@ -1,11 +1,8 @@
 package com.mozhimen.basick.utilk
 
-import android.app.Activity
-import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
-import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import kotlin.math.roundToInt
 
 /**
@@ -58,15 +55,5 @@ object UtilKDisplay {
     fun px2sp(px: Float): Int =
         if (px <= 0f) 0
         else (px / _context.resources.displayMetrics.scaledDensity + 0.5f).roundToInt()
-
-
-    /**
-     * 获取方向
-     * @param activity Activity
-     * @return Int
-     */
-    @JvmStatic
-    fun getRotation(activity: Activity): Int =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) activity.display!!.rotation else activity.windowManager.defaultDisplay.rotation
 
 }

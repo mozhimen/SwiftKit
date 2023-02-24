@@ -2,7 +2,7 @@ package com.mozhimen.componentk.camera2k.helpers
 
 import android.opengl.GLES20
 import com.mozhimen.componentk.camera2k.commons.AFilter
-import com.mozhimen.basick.utilk.UtilKMatrix
+import com.mozhimen.basick.utilk.open.UtilKMatrix
 import java.util.*
 import java.util.concurrent.ConcurrentLinkedQueue
 

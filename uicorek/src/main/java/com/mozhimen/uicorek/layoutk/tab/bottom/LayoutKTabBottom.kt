@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.UtilKScreen.getRealScreenWidth
 import com.mozhimen.basick.utilk.view.UtilKView.findTypeChildView
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
-import com.mozhimen.basick.utilk.UtilKColor
+import com.mozhimen.basick.utilk.graphics.UtilKColor
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import com.mozhimen.uicorek.layoutk.tab.commons.ILayoutKTab

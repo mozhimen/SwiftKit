@@ -16,7 +16,7 @@ import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.basick.utilk.exts.setInputMaxLength
 import com.mozhimen.basick.utilk.exts.setPadding
 import com.mozhimen.basick.utilk.exts.sp2px
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.R
 
 /**

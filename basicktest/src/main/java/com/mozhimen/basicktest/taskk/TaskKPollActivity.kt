@@ -9,8 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class TaskKPollActivity : BaseActivityVB<ActivityTaskkPollBinding>() {
-    private var _taskKPoll: TaskKPoll = TaskKPoll(this)
+    private val _taskKPoll: TaskKPoll by lazy { TaskKPoll() }
     override fun initView(savedInstanceState: Bundle?) {
+        _taskKPoll.bindLifecycle(this)
         vb.eventkTaskPollBtnStart.setOnClickListener {
             _taskKPoll.start(5000) {
                 withContext(Dispatchers.Main) {

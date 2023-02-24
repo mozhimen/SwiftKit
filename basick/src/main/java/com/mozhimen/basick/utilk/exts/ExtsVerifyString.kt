@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.regular.UtilKVerifyString
+import com.mozhimen.basick.utilk.datatype.regular.UtilKVerifyString
 
 /**
  * @ClassName ExtsKVerifyUrl

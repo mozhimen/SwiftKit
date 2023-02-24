@@ -5,7 +5,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.UtilKDrawable.isColorDrawableValid
+import com.mozhimen.basick.utilk.graphics.UtilKDrawable.isColorDrawableValid
 import com.mozhimen.basick.utilk.view.UtilKView.setBackground
 
 

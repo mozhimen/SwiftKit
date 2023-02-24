@@ -2,7 +2,7 @@ package com.mozhimen.uicorek.layoutk.tab.bottom.mos
 
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.utilk.exts.string2Unicode
-import com.mozhimen.basick.utilk.UtilKColor
+import com.mozhimen.basick.utilk.graphics.UtilKColor
 import com.mozhimen.uicorek.layoutk.tab.bottom.cons.ETabBottomType
 import java.io.Serializable
 

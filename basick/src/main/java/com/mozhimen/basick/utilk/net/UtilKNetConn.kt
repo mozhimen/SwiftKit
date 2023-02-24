@@ -7,7 +7,7 @@ import android.net.wifi.WifiManager
 import android.util.Log
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import java.net.Inet6Address
 import java.net.InetAddress
 import java.net.NetworkInterface

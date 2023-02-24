@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.drawablek.arrow.DrawableKArrow
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy

@@ -5,7 +5,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.viewdatabinding.commons.IViewDataBinding
-import com.mozhimen.basick.utilk.UtilKViewModel
+import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKViewModel
 
 /**
  * @ClassName BaseActivity

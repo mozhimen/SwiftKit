@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.util.TypedValue
 import com.mozhimen.basick.utilk.exts.sp2px
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs
 

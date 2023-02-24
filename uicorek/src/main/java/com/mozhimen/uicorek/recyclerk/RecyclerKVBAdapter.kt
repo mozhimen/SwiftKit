@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * @ClassName RecyclerAdapterK
@@ -86,8 +89,16 @@ open class RecyclerKVBAdapter<BEAN, VB : ViewDataBinding>(
         holder.vb.executePendingBindings()
     }
 
+    override fun bindLifecycle(owner: LifecycleOwner) {
+        owner.lifecycleScope.launch(Dispatchers.Main) {
+            owner.lifecycle.removeObserver(this@RecyclerKVBAdapter)
+            owner.lifecycle.addObserver(this@RecyclerKVBAdapter)
+        }
+    }
+
     override fun onPause(owner: LifecycleOwner) {
         if (this::_vb.isInitialized) _vb.unbind()
+        owner.lifecycle.removeObserver(this)
     }
 
     override fun getItemViewType(position: Int) = _defaultLayout

@@ -10,9 +10,9 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.exts.drawable2Bitmap
-import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapDeal
-import com.mozhimen.basick.utilk.bitmap.UtilKBitmapNet
+import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapNet
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkBitmapBinding
 import kotlinx.coroutines.Dispatchers

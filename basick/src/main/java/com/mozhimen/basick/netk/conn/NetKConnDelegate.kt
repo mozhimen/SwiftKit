@@ -18,7 +18,7 @@ import com.mozhimen.basick.netk.conn.helpers.NetKConnReceiver
  * @Date 2023/2/13 15:41
  * @Version 1.0
  */
-@ADescription("init on create")
+@ADescription("init by lazy")
 @AManifestKRequire(
     CPermission.ACCESS_NETWORK_STATE,
     CPermission.ACCESS_WIFI_STATE,

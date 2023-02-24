@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.logk.helpers
 
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.underlayk.R
 import com.mozhimen.basick.utilk.log.cons.CLogType
 

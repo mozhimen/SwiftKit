@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.exts.printlog
+import com.mozhimen.basick.utilk.java.UtilKGeneric
 import org.junit.Test
 
 /**

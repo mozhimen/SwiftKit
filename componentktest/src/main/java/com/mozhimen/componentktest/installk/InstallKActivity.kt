@@ -11,12 +11,12 @@ import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.utilk.UtilKAsset
-import com.mozhimen.basick.utilk.UtilKPackage
-import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.basick.utilk.res.UtilKAsset
+import com.mozhimen.basick.utilk.content.UtilKPackage
+import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.exts.showToast
-import com.mozhimen.basick.utilk.file.UtilKFile
+import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
 import com.mozhimen.componentk.installk.cons.EInstallMode

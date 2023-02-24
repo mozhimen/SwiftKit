@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.postDelayed
-import com.mozhimen.basick.elemk.handler.LifecycleOwnerHandler
+import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.LoadRefreshLoadCallback
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.LoadRefreshRefreshCallback
@@ -33,7 +33,7 @@ class LayoutKLoadRefreshActivity : BaseActivityVB<ActivityLayoutkLoadrefreshBind
                     override fun onLoad() {
                         super.onLoad()
                         _pageIndex++
-                        LifecycleOwnerHandler(this@LayoutKLoadRefreshActivity).postDelayed(1000) {
+                        WakeBefPauseLifecycleHandler(this@LayoutKLoadRefreshActivity).postDelayed(1000) {
                             val dataItems: List<RecyclerKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                                 RecyclerKItemLoadMore(_dataSets.size + 1)
                             )
@@ -51,7 +51,7 @@ class LayoutKLoadRefreshActivity : BaseActivityVB<ActivityLayoutkLoadrefreshBind
                     override fun onRefresh() {
                         super.onRefresh()
                         _pageIndex = 1
-                        LifecycleOwnerHandler(this@LayoutKLoadRefreshActivity).postDelayed(1000) {
+                        WakeBefPauseLifecycleHandler(this@LayoutKLoadRefreshActivity).postDelayed(1000) {
                             //模拟获取到了
                             val dataItems: ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
                                 RecyclerKItemLoadMore(1),

@@ -38,15 +38,15 @@ import androidx.fragment.app.Fragment;
 
 import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.stackk.StackK;
-import com.mozhimen.basick.utilk.context.UtilKActivity;
+import com.mozhimen.basick.utilk.UtilKScreen;
+import com.mozhimen.basick.utilk.content.UtilKActivity;
 import com.mozhimen.basick.utilk.anim.UtilKAnim;
 import com.mozhimen.basick.utilk.anim.UtilKAnimation;
 import com.mozhimen.basick.utilk.anim.UtilKAnimator;
-import com.mozhimen.basick.utilk.keyboard.UtilKKeyBoard;
-import com.mozhimen.basick.utilk.UtilKWindow;
-import com.mozhimen.basick.utilk.bar.UtilKBarNavigation;
-import com.mozhimen.basick.utilk.bitmap.blur.UtilKBitmapBlurOption;
-import com.mozhimen.basick.utilk.keyboard.UtilKKeyboardChange;
+import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyBoard;
+import com.mozhimen.basick.utilk.bar.UtilKNavigationBar;
+import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig;
+import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
 import com.mozhimen.basick.utilk.log.UtilKLogSmart;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
@@ -148,7 +148,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
     Rect mAnchorViewBound;
 
     //模糊option(为空的话则不模糊）
-    UtilKBitmapBlurOption mBlurOption;
+    UtilKBitmapBluConfig mBlurOption;
     //背景颜色
     Drawable mBackgroundDrawable = new ColorDrawable(BasePopwinK.DEFAULT_BACKGROUND_COLOR);
     //背景对齐方向
@@ -390,7 +390,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
     }
 
 
-    public void setToBlur(UtilKBitmapBlurOption option) {
+    public void setToBlur(UtilKBitmapBluConfig option) {
         this.mBlurOption = option;
         if (option != null) {
             if (option.getBlurInDuration() <= 0) {
@@ -581,7 +581,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
     }
 
     void refreshNavigationBarBounds() {
-        UtilKBarNavigation.getNavigationBarBounds(navigationBarBounds, mPopupWindow.getContext());
+        UtilKNavigationBar.getNavigationBarBounds(navigationBarBounds, mPopupWindow.getContext());
     }
 
     int getNavigationBarSize() {
@@ -589,7 +589,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
     }
 
     int getNavigationBarGravity() {
-        return UtilKBarNavigation.getNavigationBarGravity(navigationBarBounds);
+        return UtilKNavigationBar.getNavigationBarGravity(navigationBarBounds);
     }
 
     public int getCutoutGravity() {
@@ -633,7 +633,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
     }
 
     public BasePopupHelper overlayStatusbar(boolean overlay) {
-        if (!overlay && UtilKWindow.isActivityFullScreen(mPopupWindow.getContext())) {
+        if (!overlay && UtilKScreen.isFullScreen(mPopupWindow.getContext())) {
             Log.e(TAG, "setOverlayStatusbar: 全屏Activity下没有StatusBar，此处不能设置为false");
             overlay = true;
         }
@@ -676,7 +676,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
         return this;
     }
 
-    UtilKBitmapBlurOption getBlurOption() {
+    UtilKBitmapBluConfig getBlurOption() {
         return mBlurOption;
     }
 

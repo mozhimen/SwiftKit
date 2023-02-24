@@ -5,14 +5,15 @@ import android.os.Build
 import android.speech.tts.TextToSpeech
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.MText2SpeechConfig
+import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseLifecycleObserver
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
+import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CQuery
-import com.mozhimen.basick.utilk.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKPermission
 import java.util.*
 
 /**
@@ -31,8 +32,9 @@ import java.util.*
  * @Date 2022/6/5 21:08
  * @Version 1.0
  */
+@ADescription("init by lazy")
 @AManifestKRequire(CPermission.FOREGROUND_SERVICE, CQuery.TTS_SERVICE)
-class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : BaseLifecycleObserver(owner) where T : LifecycleOwner, T : Activity {
+class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : BaseWakeBefDestroyLifecycleObserver() where T : LifecycleOwner, T : Activity {
     private var _transKText2Speech: TextToSpeech? = null
     private val _context = UtilKApplication.instance.get()
 

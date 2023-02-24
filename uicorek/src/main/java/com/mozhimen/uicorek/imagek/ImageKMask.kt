@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.uicorek.viewk.commons.IViewK
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.normalize
-import com.mozhimen.basick.utilk.gesture.UtilKGesture
+import com.mozhimen.basick.utilk.view.gesture.UtilKGesture
 import com.mozhimen.basick.utilk.datatype.UtilKNumber
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.uicorek.R
 import kotlin.math.max

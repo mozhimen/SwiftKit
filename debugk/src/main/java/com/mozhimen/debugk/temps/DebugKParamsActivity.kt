@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.debugk.BR
@@ -64,6 +64,8 @@ class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {
             params,
             R.layout.debugk_item_params,
             BR.itemDebugKParams
-        )
+        ).apply {
+            bindLifecycle(this@DebugKParamsActivity)
+        }
     }
 }

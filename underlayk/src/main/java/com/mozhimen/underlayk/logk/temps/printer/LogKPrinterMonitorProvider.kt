@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.UtilKPermission
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.basick.utilk.bar.UtilKDialog
 import com.mozhimen.basick.utilk.exts.showToastOnMain

@@ -15,9 +15,9 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.context.UtilKActivitySkip
-import com.mozhimen.basick.utilk.context.UtilKApplication
-import com.mozhimen.basick.utilk.file.UtilKFileUri
+import com.mozhimen.basick.utilk.content.UtilKActivitySkip
+import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.java.io.file.UtilKFileUri
 import java.io.*
 import java.nio.charset.Charset
 

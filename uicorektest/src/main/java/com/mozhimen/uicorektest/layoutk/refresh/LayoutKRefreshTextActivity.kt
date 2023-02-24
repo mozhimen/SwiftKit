@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.postDelayed
-import com.mozhimen.basick.elemk.handler.LifecycleOwnerHandler
+import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
 import com.mozhimen.uicorek.layoutk.refresh.temps.TextOverView
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkRefreshTextBinding
@@ -17,7 +17,7 @@ class LayoutKRefreshTextActivity : BaseActivityVB<ActivityLayoutkRefreshTextBind
         vb.layoutkRefreshTextContainer.setRefreshParams(90f.dp2px(), 1.6f, null)
         vb.layoutkRefreshTextContainer.setRefreshListener(object : IRefreshListener {
             override fun onRefresh() {
-                LifecycleOwnerHandler(this@LayoutKRefreshTextActivity).postDelayed(1000) { vb.layoutkRefreshTextContainer.refreshFinished() }
+                WakeBefPauseLifecycleHandler(this@LayoutKRefreshTextActivity).postDelayed(1000) { vb.layoutkRefreshTextContainer.refreshFinished() }
             }
 
             override fun enableRefresh(): Boolean {

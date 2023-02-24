@@ -5,8 +5,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.basick.utilk.file.UtilKFileUri
+import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.java.io.file.UtilKFileUri
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
@@ -53,6 +53,8 @@ class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
                     }
                     startActivity(Intent.createChooser(intent, "分享Crash 日志文件"))
                 }
+            }.apply {
+                bindLifecycle(this@DebugKLogKActivity)
             }
         vb.debugkLogkRecycler.adapter = adapterKRecycler
     }

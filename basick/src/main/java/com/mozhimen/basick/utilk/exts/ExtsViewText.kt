@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.exts
 import android.graphics.Typeface
 import android.widget.TextView
 import androidx.annotation.IntRange
-import com.mozhimen.basick.utilk.view.UtilKViewText
+import com.mozhimen.basick.utilk.view.UtilKTextView
 
 /**
  * @ClassName ExtsKViewText
@@ -18,7 +18,7 @@ import com.mozhimen.basick.utilk.view.UtilKViewText
  * @param style Int
  */
 fun TextView.fontStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
-    UtilKViewText.fontStyle(this, style)
+    UtilKTextView.fontStyle(this, style)
 }
 
 /**
@@ -27,5 +27,5 @@ fun TextView.fontStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL)
  * @param iconFont String
  */
 fun TextView.font(iconFont: String = "icons/iconfont.ttf") {
-    UtilKViewText.font(this, iconFont)
+    UtilKTextView.font(this, iconFont)
 }

@@ -12,7 +12,6 @@ import com.mozhimen.basick.utilk.UtilKScreen
  * @Version 1.0
  */
 object UtilKDeviceFoldable {
-    //
     /**
      * 是否是折叠机型
      * 1.官方没有给我们提供api的

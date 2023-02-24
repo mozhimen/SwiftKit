@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.exts
 
 import android.widget.EditText
-import com.mozhimen.basick.utilk.view.UtilKViewTextEdit
+import com.mozhimen.basick.utilk.view.UtilKEditText
 
 /**
  * @ClassName ExtsViewTextEdit
@@ -11,5 +11,5 @@ import com.mozhimen.basick.utilk.view.UtilKViewTextEdit
  * @Version 1.0
  */
 fun EditText.setInputMaxLength(inputMaxLength: Int) {
-    UtilKViewTextEdit.setInputMaxLength(this, inputMaxLength)
+    UtilKEditText.setInputMaxLength(this, inputMaxLength)
 }

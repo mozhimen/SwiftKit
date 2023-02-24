@@ -1,8 +1,8 @@
 package com.mozhimen.basick.statusbark
 
 import android.app.Activity
-import com.mozhimen.basick.utilk.UtilKRes
-import com.mozhimen.basick.utilk.UtilKTheme
+import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKTheme
 import com.mozhimen.basick.statusbark.annors.AStatusBarK
 import com.mozhimen.basick.statusbark.annors.AStatusBarKType
 import com.mozhimen.basick.statusbark.helpers.StatusBarKHelper

@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewGroup
 import com.mozhimen.uicorek.viewk.commons.IViewK
-import com.mozhimen.basick.utilk.gesture.UtilKGesture
+import com.mozhimen.basick.utilk.view.gesture.UtilKGesture
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ILayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener

@@ -5,7 +5,7 @@ import android.os.PersistableBundle
 import android.widget.TextView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.gesture.DragAndDropDelegate
-import com.mozhimen.basick.utilk.gesture.UtilKDragAndDrop
+import com.mozhimen.basick.utilk.view.gesture.UtilKDragAndDrop
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
 import com.mozhimen.componentk.navigatek.NavigateKDelegate
@@ -20,10 +20,11 @@ import com.mozhimen.componentk.navigatek.cons.CNavigateK
  * @Version 1.0
  */
 class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
-    private val _dragAndDropDelegate by lazy { DragAndDropDelegate(this) }
-    private val _navigateDelegate: NavigateKDelegate<ElemKGestureActivity> = NavigateKDelegate(this, R.id.elemk_gesture_fragment_container, ElemKGestureFragment::class.java)
+    private val _dragAndDropDelegate by lazy { DragAndDropDelegate() }
+    private val _navigateDelegate: NavigateKDelegate<ElemKGestureActivity> by lazy { NavigateKDelegate(this, R.id.elemk_gesture_fragment_container, ElemKGestureFragment::class.java) }
 
     override fun initView(savedInstanceState: Bundle?) {
+        _navigateDelegate.bindLifecycle(this)
         savedInstanceState?.let {
             _navigateDelegate.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
         }

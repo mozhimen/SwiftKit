@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
 
-    private lateinit var _serviceDelegate: ServiceDelegate<ElemKServiceActivity>
+    private val _serviceDelegate: ServiceDelegate<ElemKServiceActivity> by lazy { ServiceDelegate(this, ElemKService::class.java, _resListener) }
 
     private var _resListener: BaseServiceResCallback = object : BaseServiceResCallback() {
         override fun onResString(resString: String?) {
@@ -23,8 +23,8 @@ class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
         }
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
-        _serviceDelegate = ServiceDelegate(this, ElemKService::class.java, _resListener)
+    override fun initView(savedInstanceState: Bundle?) {
+        _serviceDelegate.bindLifecycle(this)
         lifecycleScope.launch(Dispatchers.Main) {
             delay(2000)
             Log.d(TAG, "initData: ${_serviceDelegate.getConnListener()?.launchCommand("123")}")
@@ -33,6 +33,5 @@ class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
             delay(2000)
             Log.d(TAG, "initData: ${_serviceDelegate.getConnListener()?.launchCommand("123")}")
         }
-        super.initData(savedInstanceState)
     }
 }

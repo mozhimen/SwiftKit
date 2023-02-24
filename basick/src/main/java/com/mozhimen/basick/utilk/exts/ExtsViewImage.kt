@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.exts
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import com.mozhimen.basick.utilk.view.UtilKViewImage
+import com.mozhimen.basick.utilk.view.UtilKImageView
 
 /**
  * @ClassName ExtsKViewImage
@@ -19,5 +19,5 @@ import com.mozhimen.basick.utilk.view.UtilKViewImage
 fun ImageView.fitImage(
     drawable: Drawable
 ) {
-    UtilKViewImage.fitImage(this, drawable)
+    UtilKImageView.fitImage(this, drawable)
 }

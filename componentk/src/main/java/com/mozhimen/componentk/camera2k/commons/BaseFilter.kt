@@ -2,9 +2,9 @@ package com.mozhimen.componentk.camera2k.commons
 
 import android.opengl.GLES20
 import android.util.SparseArray
-import com.mozhimen.basick.utilk.UtilKAsset
-import com.mozhimen.basick.utilk.UtilKGL
-import com.mozhimen.basick.utilk.UtilKMatrix
+import com.mozhimen.basick.utilk.res.UtilKAsset
+import com.mozhimen.basick.utilk.open.UtilKOpenGL
+import com.mozhimen.basick.utilk.open.UtilKMatrix
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
@@ -159,7 +159,7 @@ abstract class BaseFilter {
     }
 
     protected open fun createProgram(vertex: String, fragment: String) {
-        program = UtilKGL.createGlProgram(vertex, fragment)
+        program = UtilKOpenGL.createGlProgram(vertex, fragment)
         _hPosition = GLES20.glGetAttribLocation(program, "vPosition")
         _hCoord = GLES20.glGetAttribLocation(program, "vCoord")
         _hMatrix = GLES20.glGetUniformLocation(program, "vMatrix")

@@ -2,10 +2,9 @@ package com.mozhimen.basick.utilk.log
 
 import android.util.Log
 import android.view.MotionEvent
-import com.mozhimen.basick.utilk.datatype.UtilKCollections
-import com.mozhimen.basick.utilk.gesture.UtilKGesture
-import com.mozhimen.basick.utilk.UtilKStackTrace
-import com.mozhimen.basick.utilk.UtilKThrowable
+import com.mozhimen.basick.utilk.datatype.UtilKCollection
+import com.mozhimen.basick.utilk.view.gesture.UtilKGesture
+import com.mozhimen.basick.utilk.java.UtilKThrowable
 import com.mozhimen.basick.utilk.log.cons.CLogType
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -156,8 +155,8 @@ object UtilKLogSmart {
         return when (obj) {
             is String -> obj
             is Throwable -> UtilKThrowable.throwable2String(obj)
-            is List<*> -> UtilKCollections.list2String(obj)
-            is Map<*, *> -> UtilKCollections.map2String(obj)
+            is List<*> -> UtilKCollection.list2String(obj)
+            is Map<*, *> -> UtilKCollection.map2String(obj)
             is MotionEvent -> UtilKGesture.motionEvent2String(obj.action)
             else -> obj.toString()
         }

@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Process
 import com.mozhimen.basick.cachek.CacheKSP
 import com.mozhimen.basick.utilk.app.UtilKApp
-import com.mozhimen.basick.utilk.context.UtilKActivitySkip
-import com.mozhimen.basick.utilk.context.UtilKApplication
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
@@ -22,7 +20,6 @@ import javax.net.ssl.X509TrustManager
 object UtilKNetDeal {
     private const val UTILKNET_SP_NAME = "utilknet_sp_name"
     private const val UTILKNET_SP_DEGRADE_HTTP = "utilknet_sp_degrade_http"
-    private val _context = UtilKApplication.instance.get()
 
     /**
      * 获取SSL

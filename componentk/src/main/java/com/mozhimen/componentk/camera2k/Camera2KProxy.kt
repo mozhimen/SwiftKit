@@ -21,6 +21,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.basick.utilk.UtilKDisplay
+import com.mozhimen.basick.utilk.UtilKScreen
 import com.mozhimen.componentk.camera2k.helpers.GLSurfaceRenderer
 import com.mozhimen.underlayk.logk.LogK
 import java.util.*
@@ -380,7 +381,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
     }
 
     private fun getRotation(activity: Activity): Int {
-        var displayRotation = UtilKDisplay.getRotation(activity)
+        var displayRotation = UtilKScreen.getScreenRotation(activity)
         when (displayRotation) {
             Surface.ROTATION_0 -> displayRotation = 90
             Surface.ROTATION_90 -> displayRotation = 0

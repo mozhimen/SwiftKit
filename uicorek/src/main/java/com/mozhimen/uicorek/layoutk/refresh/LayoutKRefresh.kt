@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Scroller
-import com.mozhimen.basick.utilk.UtilKScroll.childScrolled
-import com.mozhimen.basick.utilk.UtilKScroll.findScrollableChild
+import com.mozhimen.basick.utilk.view.UtilKViewScroll.isChildScrolled
+import com.mozhimen.basick.utilk.view.UtilKViewScroll.getChildScrollable
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.recyclerk.load.RecyclerKLoad
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefresh
@@ -57,8 +57,8 @@ open class LayoutKRefresh @JvmOverloads constructor(
                 }
 
                 val head = getChildAt(0)
-                val child: View = findScrollableChild(this@LayoutKRefresh)
-                if (childScrolled(child) || (child is RecyclerKLoad && child.isLoading())) {
+                val child: View = getChildScrollable(this@LayoutKRefresh)
+                if (isChildScrolled(child) || (child is RecyclerKLoad && child.isLoading())) {
                     //如果列表发生了滚动或正在加载则不处理
                     return false
                 }

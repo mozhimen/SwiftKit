@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.slider.mos.MSliderAttrs
 

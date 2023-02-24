@@ -12,8 +12,8 @@ import android.util.Log
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.UtilKCmd
-import com.mozhimen.basick.utilk.context.UtilKApplication
+import com.mozhimen.basick.utilk.java.io.UtilKCmd
+import com.mozhimen.basick.utilk.content.UtilKApplication
 
 import java.io.BufferedReader
 import java.io.FileReader

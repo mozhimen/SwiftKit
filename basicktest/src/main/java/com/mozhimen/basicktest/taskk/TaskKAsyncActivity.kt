@@ -8,9 +8,10 @@ import com.mozhimen.basicktest.databinding.ActivityTaskkAsyncBinding
 import kotlinx.coroutines.delay
 
 class TaskKAsyncActivity : BaseActivityVB<ActivityTaskkAsyncBinding>() {
-    private val _taskKAsync = TaskKAsync(this)
+    private val _taskKAsync by lazy { TaskKAsync() }
 
     override fun initView(savedInstanceState: Bundle?) {
+        _taskKAsync.bindLifecycle(this)
         vb.taskkAsyncBtn.setOnClickListener {
             for (i in 0 until 10) {
                 _taskKAsync.execute {
