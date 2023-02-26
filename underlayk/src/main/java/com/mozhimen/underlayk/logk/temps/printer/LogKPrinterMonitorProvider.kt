@@ -16,8 +16,8 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.basick.utilk.bar.UtilKDialog
+import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.bar.UtilKDialog
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
 import com.mozhimen.underlayk.R

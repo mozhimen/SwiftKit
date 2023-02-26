@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.UtilKDate
+import com.mozhimen.basick.utilk.device.UtilKDate
 import java.util.*
 
 /**

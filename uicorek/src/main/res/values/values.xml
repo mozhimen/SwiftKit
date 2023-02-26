@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!--viewk-->
+    <declare-styleable name="ViewKScanOverlay">
+        <attr name="viewKScanOverlay_isShowLabel" format="boolean" />
+        <attr name="viewKScanOverlay_labelTextSize" format="dimension|reference" />
+        <attr name="viewKScanOverlay_labelTextColor" format="color|reference" />
+        <attr name="viewKScanOverlay_labelBackgroundColor" format="color|reference" />
+        <attr name="viewKScanOverlay_boxType" format="enum">
+            <enum name="rect" value="0" />
+            <enum name="circle" value="1" />
+        </attr>
+        <attr name="viewKScanOverlay_boxLineWidth" format="dimension|reference" />
+        <attr name="viewKScanOverlay_boxLineColor" format="color|reference" />
+    </declare-styleable>
+
+    <!--二维码扫描控件-->
+    <declare-styleable name="ViewKScanQR">
+        <!-- 扫描边框线的宽度，默认值为1dp -->
+        <attr name="viewKScanQR_borderLineWidth" format="dimension|reference" />
+        <!-- 扫描边框的颜色，默认值为@android:color/white -->
+        <attr name="viewKScanQR_borderColor" format="color|reference" />
+        <!-- 扫描线的图片资源，默认值为null -->
+        <attr name="viewKScanQR_lineDrawable" format="reference" />
+        <!-- 扫描线的线宽，默认值为1dp -->
+        <attr name="viewKScanQR_lineWidth" format="dimension|reference" />
+        <!-- 扫描线从顶部移动到底部的动画时间，默认值为1000 -->
+        <attr name="viewKScanQR_animTime" format="integer" />
+        <!-- 扫描线是否来回移动，默认值为true -->
+        <attr name="viewKScanQR_isScanLineReverse" format="boolean" />
+    </declare-styleable>
+
     <!--dialogk-->
     <style name="DialogK_Theme_Transparent" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -132,12 +162,6 @@
     </style>
 
     <!--layoutk-->
-    <!--LayoutK_SpinnerForm-->
-    <style name="LayoutKSpinnerForm_Style">
-        <item name="android:colorControlNormal">@android:color/transparent
-        </item> <!--改变了spinner的箭头颜色  -->
-    </style>
-
     <!--layoutk_NavBar-->
     <style name="LayoutKNavBar_Style">
         <item name="layoutKNavBar_title_textSize">17sp</item>

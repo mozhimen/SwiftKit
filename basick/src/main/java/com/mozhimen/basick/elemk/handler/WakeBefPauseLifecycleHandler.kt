@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.handler
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.utilk.exts.removeAllCbsAndMsgs
-import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzHandler
+import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/6/12 11:34
  * @Version 1.0
  */
-class WakeBefPauseLifecycleHandler<T : LifecycleOwner>(private val _owner: T) : BaseWeakClazzHandler<T>(_owner), IDefaultLifecycleObserver {
+class WakeBefPauseLifecycleHandler<T : LifecycleOwner>(private val _owner: T) : BaseWeakClazzMainHandler<T>(_owner), IDefaultLifecycleObserver {
 
     init {
         _owner.lifecycleScope.launch(Dispatchers.Main) {
@@ -28,7 +28,7 @@ class WakeBefPauseLifecycleHandler<T : LifecycleOwner>(private val _owner: T) : 
 
     override fun onPause(owner: LifecycleOwner) {
         this.removeAllCbsAndMsgs()
-        this.clear()
+        this.clearRef()
         owner.lifecycle.removeObserver(this@WakeBefPauseLifecycleHandler)
     }
 }

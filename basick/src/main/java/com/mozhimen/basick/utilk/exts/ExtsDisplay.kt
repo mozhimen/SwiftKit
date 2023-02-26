@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.UtilKDisplay
+import com.mozhimen.basick.utilk.device.UtilKDisplay
 
 /**
  * @ClassName ExtskDisplay

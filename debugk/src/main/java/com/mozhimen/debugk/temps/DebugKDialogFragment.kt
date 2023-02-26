@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.device.UtilKScreen
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkDialogItemBinding

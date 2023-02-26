@@ -24,7 +24,7 @@
 
     <application>
         <provider
-            android:name=".elemk.provider.ElemKFileProvider"
+            android:name=".elemk.provider.bases.BaseFileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

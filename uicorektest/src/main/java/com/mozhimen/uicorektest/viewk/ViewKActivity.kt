@@ -7,10 +7,6 @@ import com.mozhimen.uicorektest.databinding.ActivityViewkBinding
 
 class ViewKActivity : BaseActivityVB<ActivityViewkBinding>() {
 
-    fun goViewKSteps(view: View) {
-        start<ViewKStepsActivity>()
-    }
-
     fun goViewKViews(view: View) {
         start<ViewKViewsActivity>()
     }

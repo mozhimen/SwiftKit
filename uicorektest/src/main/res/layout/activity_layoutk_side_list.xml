@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         tools:context=".layoutk.side.LayoutKSideActivity">
 
-        <com.mozhimen.uicorek.layoutk.side.LayoutKSideList
+        <com.mozhimen.uicorek.layoutk.side.list.LayoutKSideList
             android:id="@+id/layoutk_side_list"
             android:layout_width="match_parent"
             app:layoutKSideList_contentImgRatio="ratio34"

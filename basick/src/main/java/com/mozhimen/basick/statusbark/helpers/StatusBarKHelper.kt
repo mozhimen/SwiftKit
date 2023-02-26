@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.bar.UtilKStatusBar
+import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.os.UtilKOS
-import com.mozhimen.basick.utilk.bar.UtilKTitleBar
+import com.mozhimen.basick.utilk.view.bar.UtilKTitleBar
 
 /**
  * @ClassName StatusBarKHelper

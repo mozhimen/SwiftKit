@@ -14,7 +14,7 @@ import com.mozhimen.uicorek.imagek.ImageKBlur;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import com.mozhimen.basick.utilk.graphics.UtilKDrawable;
-import com.mozhimen.basick.utilk.bar.UtilKStatusBar;
+import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar;
 import com.mozhimen.uicorek.popwink.bases.commons.IEventObserver;
 import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
 

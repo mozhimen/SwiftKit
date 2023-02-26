@@ -13,24 +13,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.mozhimen.uicorek.viewk.ViewKColorPicker
-                android:id="@+id/viewk_color_picker"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:viewKColorPicker_colorEnd="@color/blue_normal"
-                app:viewKColorPicker_colorStart="@color/white" />
-
-            <com.mozhimen.uicorek.viewk.ViewKQRScan
+            <com.mozhimen.uicorek.viewk.scan.ViewKScanQR
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                app:viewKQRScan_animTime="1000"
-                app:viewKQRScan_borderColor="@android:color/white"
-                app:viewKQRScan_borderLineWidth="3dp"
-                app:viewKQRScan_isScanLineReverse="false"
-                app:viewKQRScan_lineDrawable="@drawable/viewk_qr_scan_line"
-                app:viewKQRScan_lineWidth="2dp" />
+                app:viewKScanQR_animTime="1000"
+                app:viewKScanQR_borderColor="@android:color/white"
+                app:viewKScanQR_borderLineWidth="3dp"
+                app:viewKScanQR_isScanLineReverse="false"
+                app:viewKScanQR_lineDrawable="@drawable/viewk_qr_scan_line"
+                app:viewKScanQR_lineWidth="2dp" />
 
-            <!--<com.mozhimen.uicorek.viewk.SquareQRScan
+            <!--<com.mozhimen.uicorek.viewk.ViewKScanQR
                 android:id="@+id/viewk_squareQrScan"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
@@ -46,69 +39,6 @@
                 app:squareQRScan_successAnimTime="100"
                 app:squareQRScan_successDrawableSize="60dp" />-->
 
-            <!--<com.mozhimen.widgetk.viewk.CircleSpread
-                android:id="@+id/viewk_viewKCircleSpread"
-                android:layout_width="400dp"
-                android:layout_height="400dp"
-                app:viewKCircleSpread_animTime="2000"
-                app:viewKCircleSpread_centerColor="@color/blue_light"
-                app:viewKCircleSpread_centerRadius="100dp"
-                app:viewKCircleSpread_circlesDistance="20dp"
-                app:viewKCircleSpread_spreadColor="@color/white"
-                app:viewKCircleSpread_spreadCount="3"
-                app:viewKCircleSpread_spreadIsRipple="true"/>-->
-
-            <com.mozhimen.uicorek.viewk.ViewKArcRotate
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                app:viewKArcRotate_angleInterval="40"
-                app:viewKArcRotate_angleStep="3"
-                app:viewKArcRotate_animTime="2000"
-                app:viewKArcRotate_arcEndColor="@color/blue_dark"
-                app:viewKArcRotate_arcNum="3"
-                app:viewKArcRotate_arcStartColor="@color/blue_light"
-                app:viewKArcRotate_arcWidth="4dp" />
-
-            <!--<com.mozhimen.widgetk.viewk.RadarRipple
-                android:id="@+id/viewk_viewKRadarRipple"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                app:viewKRadarRipple_angleStep="3"
-                app:viewKRadarRipple_animTime="2000"
-                app:viewKRadarRipple_bgColor="@android:color/transparent"
-                app:viewKRadarRipple_lineAlpha="150"
-                app:viewKRadarRipple_lineColor="@color/blue_light"
-                app:viewKRadarRipple_lineCount="4"
-                app:viewKRadarRipple_lineWidth="1dp"
-                app:viewKRadarRipple_radarColor="@color/blue_normal" />-->
-
-            <!--<com.mozhimen.widgetk.viewk.RadarWave
-                android:id="@+id/viewk_viewKRadarWave"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                app:viewKRadarWave_angleStep="3"
-                app:viewKRadarWave_animTime="2000"
-                app:viewKRadarWave_isWaveOverTurn="false"
-                app:viewKRadarWave_radarColor="@color/blue_light"
-                app:viewKRadarWave_waveColor="@color/blue_normal"
-                app:viewKRadarWave_waveCount="4" />-->
-
-            <!--<androidx.cardview.widget.CardView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                app:cardCornerRadius="12dp">
-
-                <com.mozhimen.uicorek.viewk.ViewKSignature
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:viewKSignature_lineWidth="2dp" />
-            </androidx.cardview.widget.CardView>-->
-
-            <com.mozhimen.uicorek.imagek.ViewKImageMask
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:src="@mipmap/uicorek_img"
-                android:scaleType="centerCrop"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>

@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk
 
+import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.exts.long2String
 import com.mozhimen.basick.utilk.exts.printlog
 import org.junit.Test

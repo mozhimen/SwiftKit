@@ -8,7 +8,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
-import com.mozhimen.basick.utilk.UtilKDate
+import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.content.UtilKPackage
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile

@@ -8,8 +8,8 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.uicorek.recyclerk.RecyclerKViewHolder
-import com.mozhimen.uicorek.layoutk.side.ILayoutKSideListListener
-import com.mozhimen.uicorek.layoutk.side.mos.*
+import com.mozhimen.uicorek.layoutk.side.list.ILayoutKSideListListener
+import com.mozhimen.uicorek.layoutk.side.list.mos.*
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkSideListBinding
 
 @AManifestKRequire(CPermission.INTERNET)

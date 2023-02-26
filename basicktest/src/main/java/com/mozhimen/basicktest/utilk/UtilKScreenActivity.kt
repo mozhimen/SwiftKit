@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.utilk
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.device.UtilKScreen
 import com.mozhimen.basicktest.databinding.ActivityUtilkScreenBinding
 import com.mozhimen.basick.statusbark.annors.AStatusBarK
 import com.mozhimen.basick.statusbark.annors.AStatusBarKType

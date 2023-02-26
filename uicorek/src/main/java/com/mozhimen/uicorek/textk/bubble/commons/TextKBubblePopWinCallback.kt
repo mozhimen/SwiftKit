@@ -14,8 +14,8 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.UtilKScreen
-import com.mozhimen.basick.utilk.bar.UtilKNavigationBar
+import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
@@ -307,11 +307,11 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
 
     private fun getAnimationStyle(direction: EArrowDirection): Int {
         return when (direction) {
-            EArrowDirection.Up -> R.style.AnimK_Scale_Top
-            EArrowDirection.Left -> R.style.AnimK_Scale_Left
-            EArrowDirection.Right -> R.style.AnimK_Scale_Right
-            EArrowDirection.Down -> R.style.AnimK_Scale_Bottom
-            else -> R.style.AnimK_Scale_Center
+            EArrowDirection.Up -> com.mozhimen.basick.R.style.AnimK_Scale_Top
+            EArrowDirection.Left -> com.mozhimen.basick.R.style.AnimK_Scale_Left
+            EArrowDirection.Right -> com.mozhimen.basick.R.style.AnimK_Scale_Right
+            EArrowDirection.Down -> com.mozhimen.basick.R.style.AnimK_Scale_Bottom
+            else -> com.mozhimen.basick.R.style.AnimK_Scale_Center
         }
     }
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextClock
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
-import com.mozhimen.basick.utilk.UtilKDate
+import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.uicorek.R
 
 

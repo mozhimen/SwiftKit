@@ -11,18 +11,19 @@ import java.lang.ref.WeakReference
  * @Date 2022/2/27 17:56
  * @Version 1.0
  */
-open class BaseWeakClazzHandler<T>(clazz: T) : Handler(Looper.getMainLooper()) {
-    private var _ref: WeakReference<T>? = null
+open class BaseWeakClazzHandler<T>(clazz: T, looper: Looper) : Handler(looper) {
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+    protected var _weakReference: WeakReference<T>? = null
 
     init {
-        _ref = WeakReference(clazz)
+        _weakReference = WeakReference(clazz)
     }
 
     fun getRef(): T? {
-        return _ref?.get()
+        return _weakReference?.get()
     }
 
-    fun clear() {
-        _ref?.clear()
+    fun clearRef() {
+        _weakReference?.clear()
     }
 }

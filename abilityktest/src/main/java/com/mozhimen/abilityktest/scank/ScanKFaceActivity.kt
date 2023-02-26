@@ -21,7 +21,7 @@ import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
-import com.mozhimen.uicorek.viewk.ViewKOverlay
+import com.mozhimen.uicorek.viewk.scan.ViewKScanOverlay
 
 
 /**
@@ -79,7 +79,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
                             val eyeDistance = _faces[0]!!.eyesDistance()
                             vb.scankFaceOverlay.setObjectRect(
                                 _rgb565Bitmap!!.width, _rgb565Bitmap!!.height, listOf(
-                                    ViewKOverlay.Detection(
+                                    ViewKScanOverlay.Detection(
                                         RectF(
                                             _facePointF.x - eyeDistance,
                                             _facePointF.y - eyeDistance,

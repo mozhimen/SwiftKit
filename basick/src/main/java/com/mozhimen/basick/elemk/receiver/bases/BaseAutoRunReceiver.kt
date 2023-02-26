@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.elemk.rxjava.commons.ObserverCallback
+import com.mozhimen.basick.elemk.rxjava.bases.BaseObserver
 import com.mozhimen.basick.utilk.os.thread.UtilKRxJavaTrans
 import com.mozhimen.basick.utilk.content.UtilKActivitySkip
 import io.reactivex.Observable
@@ -41,7 +41,7 @@ open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTi
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED -> {
                 if (_delayTime != 0L) {
-                    Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : ObserverCallback<String>() {
+                    Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : BaseObserver<String>() {
                         override fun onComplete() {
                             UtilKActivitySkip.start(context, clazz)
                         }

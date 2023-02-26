@@ -53,24 +53,12 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
         start<LayoutKEmptyActivity>()
     }
 
-    fun goLayoutKGridFill(view: View) {
-        start<LayoutKGridFillActivity>()
-    }
-
-    fun goLayoutKGridFillMove(view: View) {
-        start<LayoutKGridFillMoveActivity>()
-    }
-
     fun goLayoutKInputItem(view: View) {
         start<LayoutKInputItemActivity>()
     }
 
     fun goLayoutKSquare(view: View) {
         start<LayoutKSquareActivity>()
-    }
-
-    fun goLayoutKTimeLine(view: View) {
-        start<LayoutKTimeLineActivity>()
     }
 
     fun goLayoutKVideo(view: View) {

@@ -16,7 +16,7 @@ import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKPermission
-import com.mozhimen.basick.utilk.bar.UtilKDialog
+import com.mozhimen.basick.utilk.view.bar.UtilKDialog
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
 import com.mozhimen.underlayk.logk.LogK

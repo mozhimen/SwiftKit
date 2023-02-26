@@ -11,7 +11,7 @@ import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.UtilKDate
+import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import java.io.BufferedOutputStream

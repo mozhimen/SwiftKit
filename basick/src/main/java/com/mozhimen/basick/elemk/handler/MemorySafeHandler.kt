@@ -25,7 +25,7 @@ import java.util.concurrent.locks.ReentrantLock
  */
 class MemorySafeHandler {
     private val _callback: Handler.Callback?// hard reference to Callback. We need to keep callback in memory
-    private val _baseWeakCallback: BaseWeakCallbackHandler
+    private val _baseWeakCallbackHandler: BaseWeakCallbackHandler
     private val _lock: Lock = ReentrantLock()
     private val _runnables = ChainedRef(_lock, null)
 
@@ -39,11 +39,11 @@ class MemorySafeHandler {
      * so an exception is thrown.
      * @param callback The callback interface in which to handle messages, or null.
      */
-    @JvmOverloads
-    constructor(callback: Handler.Callback? = null) {
-        _callback = callback // Hard referencing body
-        _baseWeakCallback = BaseWeakCallbackHandler(WeakReference(callback)) // Weak referencing inside ExecHandler
-    }
+//    @JvmOverloads
+//    constructor(callback: Handler.Callback? = null) {
+//        _callback = callback // Hard referencing body
+//        _baseWeakCallbackHandler = BaseWeakCallbackHandler(WeakReference(callback)) // Weak referencing inside ExecHandler
+//    }
 
     /**
      * Use the provided [Looper] instead of the default one and take a callback
@@ -54,7 +54,7 @@ class MemorySafeHandler {
     @JvmOverloads
     constructor(looper: Looper, callback: Handler.Callback? = null) {
         _callback = callback
-        _baseWeakCallback = BaseWeakCallbackHandler(looper, WeakReference(callback))
+        _baseWeakCallbackHandler = BaseWeakCallbackHandler(looper, WeakReference(callback))
     }
 
     /**
@@ -67,7 +67,7 @@ class MemorySafeHandler {
      * looper processing the message queue is exiting.
      */
     fun post(runnable: Runnable): Boolean {
-        return _baseWeakCallback.post(wrapRunnable(runnable))
+        return _baseWeakCallbackHandler.post(wrapRunnable(runnable))
     }
 
     /**
@@ -86,7 +86,7 @@ class MemorySafeHandler {
      * occurs then the message will be dropped.
      */
     fun postAtTime(runnable: Runnable, uptimeMillis: Long): Boolean {
-        return _baseWeakCallback.postAtTime(wrapRunnable(runnable), uptimeMillis)
+        return _baseWeakCallbackHandler.postAtTime(wrapRunnable(runnable), uptimeMillis)
     }
 
     /**
@@ -106,7 +106,7 @@ class MemorySafeHandler {
      * @see android.os.SystemClock.uptimeMillis
      */
     fun postAtTime(runnable: Runnable, token: Any, uptimeMillis: Long): Boolean {
-        return _baseWeakCallback.postAtTime(wrapRunnable(runnable), token, uptimeMillis)
+        return _baseWeakCallbackHandler.postAtTime(wrapRunnable(runnable), token, uptimeMillis)
     }
 
     /**
@@ -125,7 +125,7 @@ class MemorySafeHandler {
      * occurs then the message will be dropped.
      */
     fun postDelayed(runnable: Runnable, delayMillis: Long): Boolean {
-        return _baseWeakCallback.postDelayed(wrapRunnable(runnable), delayMillis)
+        return _baseWeakCallbackHandler.postDelayed(wrapRunnable(runnable), delayMillis)
     }
 
     /**
@@ -142,7 +142,7 @@ class MemorySafeHandler {
      * looper processing the message queue is exiting.
      */
     fun postAtFrontOfQueue(runnable: Runnable): Boolean {
-        return _baseWeakCallback.postAtFrontOfQueue(wrapRunnable(runnable))
+        return _baseWeakCallbackHandler.postAtFrontOfQueue(wrapRunnable(runnable))
     }
 
     /**
@@ -151,7 +151,7 @@ class MemorySafeHandler {
     fun removeCallbacks(runnable: Runnable) {
         val tempRunnable = _runnables.remove(runnable)
         if (tempRunnable != null) {
-            _baseWeakCallback.removeCallbacks(tempRunnable)
+            _baseWeakCallbackHandler.removeCallbacks(tempRunnable)
         }
     }
 
@@ -163,7 +163,7 @@ class MemorySafeHandler {
     fun removeCallbacks(runnable: Runnable, token: Any) {
         val tempRunnable = _runnables.remove(runnable)
         if (tempRunnable != null) {
-            _baseWeakCallback.removeCallbacks(tempRunnable, token)
+            _baseWeakCallbackHandler.removeCallbacks(tempRunnable, token)
         }
     }
 
@@ -177,7 +177,7 @@ class MemorySafeHandler {
      * looper processing the message queue is exiting.
      */
     fun sendMessage(msg: Message): Boolean {
-        return _baseWeakCallback.sendMessage(msg)
+        return _baseWeakCallbackHandler.sendMessage(msg)
     }
 
     /**
@@ -188,7 +188,7 @@ class MemorySafeHandler {
      * looper processing the message queue is exiting.
      */
     fun sendEmptyMessage(what: Int): Boolean {
-        return _baseWeakCallback.sendEmptyMessage(what)
+        return _baseWeakCallbackHandler.sendEmptyMessage(what)
     }
 
     /**
@@ -201,7 +201,7 @@ class MemorySafeHandler {
      * @see .sendMessageDelayed
      */
     fun sendEmptyMessageDelayed(what: Int, delayMillis: Long): Boolean {
-        return _baseWeakCallback.sendEmptyMessageDelayed(what, delayMillis)
+        return _baseWeakCallbackHandler.sendEmptyMessageDelayed(what, delayMillis)
     }
 
     /**
@@ -214,7 +214,7 @@ class MemorySafeHandler {
      * @see .sendMessageAtTime
      */
     fun sendEmptyMessageAtTime(what: Int, uptimeMillis: Long): Boolean {
-        return _baseWeakCallback.sendEmptyMessageAtTime(what, uptimeMillis)
+        return _baseWeakCallbackHandler.sendEmptyMessageAtTime(what, uptimeMillis)
     }
 
     /**
@@ -230,7 +230,7 @@ class MemorySafeHandler {
      * occurs then the message will be dropped.
      */
     fun sendMessageDelayed(msg: Message, delayMillis: Long): Boolean {
-        return _baseWeakCallback.sendMessageDelayed(msg, delayMillis)
+        return _baseWeakCallbackHandler.sendMessageDelayed(msg, delayMillis)
     }
 
     /**
@@ -250,7 +250,7 @@ class MemorySafeHandler {
      * occurs then the message will be dropped.
      */
     fun sendMessageAtTime(msg: Message, uptimeMillis: Long): Boolean {
-        return _baseWeakCallback.sendMessageAtTime(msg, uptimeMillis)
+        return _baseWeakCallbackHandler.sendMessageAtTime(msg, uptimeMillis)
     }
 
     /**
@@ -265,7 +265,7 @@ class MemorySafeHandler {
      * looper processing the message queue is exiting.
      */
     fun sendMessageAtFrontOfQueue(msg: Message): Boolean {
-        return _baseWeakCallback.sendMessageAtFrontOfQueue(msg)
+        return _baseWeakCallbackHandler.sendMessageAtFrontOfQueue(msg)
     }
 
     /**
@@ -273,7 +273,7 @@ class MemorySafeHandler {
      * message queue.
      */
     fun removeMessages(what: Int) {
-        _baseWeakCallback.removeMessages(what)
+        _baseWeakCallbackHandler.removeMessages(what)
     }
 
     /**
@@ -282,7 +282,7 @@ class MemorySafeHandler {
      * all messages will be removed.
      */
     fun removeMessages(what: Int, obj: Any) {
-        _baseWeakCallback.removeMessages(what, obj)
+        _baseWeakCallbackHandler.removeMessages(what, obj)
     }
 
     /**
@@ -291,7 +291,7 @@ class MemorySafeHandler {
      * all callbacks and messages will be removed.
      */
     fun removeCallbacksAndMessages(token: Any) {
-        _baseWeakCallback.removeCallbacksAndMessages(token)
+        _baseWeakCallbackHandler.removeCallbacksAndMessages(token)
     }
 
     /**
@@ -299,7 +299,7 @@ class MemorySafeHandler {
      * the message queue.
      */
     fun hasMessages(what: Int): Boolean {
-        return _baseWeakCallback.hasMessages(what)
+        return _baseWeakCallbackHandler.hasMessages(what)
     }
 
     /**
@@ -307,11 +307,11 @@ class MemorySafeHandler {
      * whose obj is 'object' in the message queue.
      */
     fun hasMessages(what: Int, obj: Any): Boolean {
-        return _baseWeakCallback.hasMessages(what, obj)
+        return _baseWeakCallbackHandler.hasMessages(what, obj)
     }
 
     val looper: Looper
-        get() = _baseWeakCallback.looper
+        get() = _baseWeakCallbackHandler.looper
 
     private fun wrapRunnable(runnable: Runnable): WeakRunnable {
         val hardRef = ChainedRef(_lock, runnable)

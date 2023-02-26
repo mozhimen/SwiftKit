@@ -5,7 +5,7 @@ import android.content.res.Configuration
 import android.util.Log
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CMetaData
-import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.device.UtilKScreen
 import me.jessyan.autosize.AutoSizeConfig
 import me.jessyan.autosize.onAdaptListener
 import java.lang.Integer.max

@@ -62,12 +62,7 @@
         <activity
             android:name=".layoutk.LayoutKEmptyActivity"
             android:exported="false" />
-        <activity
-            android:name=".layoutk.LayoutKGridFillActivity"
-            android:exported="false" />
-        <activity
-            android:name=".layoutk.LayoutKGridFillMoveActivity"
-            android:exported="false" />
+
         <activity
             android:name=".layoutk.LayoutKVideoActivity"
             android:exported="false" />
@@ -113,9 +108,6 @@
         <activity
             android:name=".layoutk.tab.LayoutKTabTopLayoutActivity"
             android:exported="false" />
-        <activity
-            android:name=".layoutk.LayoutKTimeLineActivity"
-            android:exported="false" />
         <!--popwink-->
         <activity
             android:name=".popwink.PopwinKActivity"
@@ -135,9 +127,6 @@
             android:exported="false" /> <!-- viewk -->
         <activity
             android:name=".viewk.ViewKActivity"
-            android:exported="false" />
-        <activity
-            android:name=".viewk.ViewKStepsActivity"
             android:exported="false" />
         <activity
             android:name=".viewk.ViewKViewsActivity"

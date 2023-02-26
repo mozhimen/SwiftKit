@@ -38,13 +38,13 @@ import androidx.fragment.app.Fragment;
 
 import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.stackk.StackK;
-import com.mozhimen.basick.utilk.UtilKScreen;
+import com.mozhimen.basick.utilk.device.UtilKScreen;
 import com.mozhimen.basick.utilk.content.UtilKActivity;
 import com.mozhimen.basick.utilk.anim.UtilKAnim;
 import com.mozhimen.basick.utilk.anim.UtilKAnimation;
 import com.mozhimen.basick.utilk.anim.UtilKAnimator;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyBoard;
-import com.mozhimen.basick.utilk.bar.UtilKNavigationBar;
+import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar;
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
 import com.mozhimen.basick.utilk.log.UtilKLogSmart;

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.bar.UtilKStatusBar
+import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 
 /**
  * @ClassName BarTintManager

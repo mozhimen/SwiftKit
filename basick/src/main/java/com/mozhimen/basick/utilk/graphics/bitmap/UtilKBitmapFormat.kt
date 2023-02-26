@@ -6,7 +6,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.Image
 import android.net.Uri
-import com.mozhimen.basick.utilk.UtilKScreen
+import com.mozhimen.basick.utilk.device.UtilKScreen
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.ByteArrayOutputStream

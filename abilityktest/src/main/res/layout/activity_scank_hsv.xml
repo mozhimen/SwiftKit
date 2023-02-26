@@ -15,17 +15,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.mozhimen.uicorek.viewk.ViewKQRScan
+        <com.mozhimen.uicorek.viewk.scan.ViewKScanQR
             android:id="@+id/scank_hsv_qrscan"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
-            app:viewKQRScan_animTime="2000"
-            app:viewKQRScan_borderColor="@android:color/white"
-            app:viewKQRScan_borderLineWidth="2dp"
-            app:viewKQRScan_isScanLineReverse="false"
-            app:viewKQRScan_lineDrawable="@drawable/qrscan_line"
-            app:viewKQRScan_lineWidth="2dp" />
+            app:viewKScanQR_animTime="2000"
+            app:viewKScanQR_borderColor="@android:color/white"
+            app:viewKScanQR_borderLineWidth="2dp"
+            app:viewKScanQR_isScanLineReverse="false"
+            app:viewKScanQR_lineDrawable="@drawable/qrscan_line"
+            app:viewKScanQR_lineWidth="2dp" />
 
         <TextView
             android:id="@+id/scank_hsv_res"

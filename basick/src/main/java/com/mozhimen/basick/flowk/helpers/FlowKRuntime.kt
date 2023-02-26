@@ -3,7 +3,7 @@ package com.mozhimen.basick.flowk.helpers
 import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
-import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzHandler
+import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.flowk.mos.FlowKNode
 import com.mozhimen.basick.flowk.mos.FlowKNodeGroup
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
@@ -101,7 +101,7 @@ internal object FlowKRuntime {
                 head.run()
             } else {
                 for (waitingTask in _waitingTasks) {
-                    BaseWeakClazzHandler(this).postDelayed(waitingTask.delayMills, waitingTask)
+                    BaseWeakClazzMainHandler(this).postDelayed(waitingTask.delayMills, waitingTask)
                 }
                 _waitingTasks.clear()
             }
@@ -117,7 +117,7 @@ internal object FlowKRuntime {
             //else里面的都是在主线程执行的
             //延迟任务，但是如果这个延迟任务它存在着后置任务A(延迟任务)-->B--->C (Block task)
             if (flowKNode.delayMills > 0 && !hasBlockBehindTask(flowKNode)) {
-                BaseWeakClazzHandler(this).postDelayed(flowKNode.delayMills, flowKNode)
+                BaseWeakClazzMainHandler(this).postDelayed(flowKNode.delayMills, flowKNode)
                 return
             }
             if (!hasBlockTasks()) {

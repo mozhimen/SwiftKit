@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.os
 
 import android.os.Build
-import com.mozhimen.basick.utilk.UtilKDate
+import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.exts.joinArray
 import com.mozhimen.basick.utilk.exts.long2String
 

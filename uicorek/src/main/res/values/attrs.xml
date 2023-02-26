@@ -12,20 +12,6 @@
     </declare-styleable>
 
     <!--imagek-->
-    <declare-styleable name="ImageKMask">
-        <!--蒙版类型-->
-        <attr name="imageKMask_maskType" format="enum">
-            <!--蒙版类型:全遮罩-->
-            <enum name="stroke" value="1" />
-            <!--蒙版类型:边框-->
-            <enum name="fill" value="0" />
-        </attr>
-        <!--蒙版颜色-->
-        <attr name="imageKMask_maskColor" format="color|reference" />
-        <!--蒙版边框类型宽-->
-        <attr name="imageKMask_borderWidth" format="dimension|reference" />
-    </declare-styleable>
-
     <declare-styleable name="ImageKSquare">
         <attr name="imageKSquare_measureMode" format="enum">
             <enum name="measureMin" value="0" />
@@ -33,44 +19,6 @@
             <enum name="measureWidth" value="2" />
             <enum name="measureHeight" value="3" />
         </attr>
-    </declare-styleable>
-
-    <!--layoutk-->
-    <declare-styleable name="LayoutKGridFill">
-        <attr name="layoutKGridFill_gridRowCount" format="integer" />
-        <attr name="layoutKGridFill_gridColumnCount" format="integer" />
-        <attr name="layoutKGridFill_gridColor" format="color|reference" />
-        <attr name="layoutKGridFill_cellDefaultColor" format="color|reference" />
-        <attr name="layoutKGridFill_cellHoverColor" format="color|reference" />
-        <attr name="layoutKGridFill_cellSelectColor" format="color|reference" />
-        <attr name="layoutKGridFill_lineColor" format="color|reference" />
-        <attr name="layoutKGridFill_innerLineWidth" format="dimension|reference" />
-        <attr name="layoutKGridFill_outerLineWidth" format="dimension|reference" />
-    </declare-styleable>
-
-    <declare-styleable name="LayoutKTimeLine">
-        <!--时间轴偏移值-->
-        <attr name="layoutKTimeLine_lineMarginOffset" format="dimension|reference" />
-        <!--时间轴动态调整值-->
-        <attr name="layoutKTimeLine_lineDynamicOffset" format="dimension|reference" />
-        <!--线宽-->
-        <attr name="layoutKTimeLine_lineWidth" format="dimension|reference" />
-        <!--线的颜色-->
-        <attr name="layoutKTimeLine_lineColor" format="color|reference" />
-        <!--时间轴的gravity-->
-        <attr name="layoutKTimeLine_lineGravity">
-            <enum name="center" value="0" />
-            <enum name="left" value="2" />
-            <enum name="top" value="1" />
-            <enum name="right" value="4" />
-            <enum name="bottom" value="3" />
-        </attr>
-        <!--点的大小-->
-        <attr name="layoutKTimeLine_pointSize" format="dimension|reference" />
-        <!--点的颜色-->
-        <attr name="layoutKTimeLine_pointColor" format="color|reference" />
-        <!--图标-->
-        <attr name="layoutKTimeLine_pointIconSrc" format="reference" />
     </declare-styleable>
 
     <!--layoutk_search-->
@@ -306,25 +254,6 @@
         <attr name="layoutKBtnIcon_textSize" format="dimension|reference" />
     </declare-styleable>
 
-    <declare-styleable name="LayoutKSpinnerForm">
-        <attr name="layoutKSpinnerForm_isRequired" format="boolean" />
-        <attr name="layoutKSpinnerForm_requiredIconPos" format="enum">
-            <enum name="top" value="0" />
-            <enum name="center" value="1" />
-        </attr>
-        <attr name="layoutKSpinnerForm_label" format="string|reference" />
-        <attr name="layoutKSpinnerForm_labelTextSize" format="dimension|reference" />
-        <attr name="layoutKSpinnerForm_labelColor" format="color|reference" />
-        <attr name="layoutKSpinnerForm_labelMarginLeft" format="dimension|reference" />
-        <attr name="layoutKSpinnerForm_labelMarginRight" format="dimension|reference" />
-        <attr name="layoutKSpinnerForm_labelWidth" format="dimension|reference" />
-        <!--StringArray 字符串数组-->
-        <attr name="layoutKSpinnerForm_spinnerEntries" format="reference" />
-        <!--layout item布局-->
-        <attr name="layoutKSpinnerForm_spinnerItemLayout" format="reference" />
-        <attr name="layoutKSpinnerForm_borderBackground" format="reference" />
-    </declare-styleable>
-
     <declare-styleable name="LayoutKSquare">
         <attr name="layoutKSquare_measureMode" format="enum">
             <enum name="measureMin" value="0" />
@@ -424,49 +353,6 @@
         <attr name="textKUnderLine_underline" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="TextKForm">
-        <attr name="textKForm_isRequired" format="boolean" />
-        <attr name="textKForm_requiredIconPos" format="enum">
-            <enum name="top" value="0" />
-            <enum name="center" value="1" />
-        </attr>
-        <attr name="textKForm_label" format="string|reference" />
-        <attr name="textKForm_labelTextSize" format="dimension|reference" />
-        <attr name="textKForm_labelColor" format="color|reference" />
-        <attr name="textKForm_labelMarginLeft" format="dimension|reference" />
-        <attr name="textKForm_labelMarginRight" format="dimension|reference" />
-        <attr name="textKForm_labelWidth" format="dimension|reference" />
-        <attr name="textKForm_textColor" format="color|reference" />
-        <attr name="textKForm_textHint" format="string|reference" />
-        <attr name="textKForm_textSize" format="dimension|reference" />
-        <attr name="textKForm_borderBackground" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="TextKEditForm">
-        <attr name="textKEditForm_isRequired" format="boolean" />
-        <attr name="textKEditForm_requiredIconPos" format="enum">
-            <enum name="top" value="0" />
-            <enum name="center" value="1" />
-        </attr>
-        <attr name="textKEditForm_label" format="string|reference" />
-        <attr name="textKEditForm_labelTextSize" format="dimension|reference" />
-        <attr name="textKEditForm_labelColor" format="color|reference" />
-        <attr name="textKEditForm_labelMarginLeft" format="dimension|reference" />
-        <attr name="textKEditForm_labelMarginRight" format="dimension|reference" />
-        <attr name="textKEditForm_labelWidth" format="dimension|reference" />
-        <attr name="textKEditForm_editHint" format="string|reference" />
-        <attr name="textKEditForm_editType" format="enum">
-            <enum name="text" value="0" />
-            <enum name="number" value="1" />
-            <enum name="textPassword" value="2" />
-            <enum name="numberPassword" value="3" />
-        </attr>
-        <attr name="textKEditForm_editColor" format="color|reference" />
-        <attr name="textKEditForm_editSize" format="dimension|reference" />
-        <attr name="textKEditForm_borderBackground" format="reference" />
-        <attr name="textKEditForm_borderBackgroundHasFocus" format="reference" />
-    </declare-styleable>
-
     <!--viewk-->
     <declare-styleable name="ViewKWheel">
         <attr name="viewKWheel_gravity">
@@ -482,163 +368,4 @@
         <attr name="viewKWheel_lineSpacingMultiplier" format="float" />
     </declare-styleable>
 
-    <declare-styleable name="ViewKOverlay">
-        <attr name="viewKOverlay_isShowLabel" format="boolean" />
-        <attr name="viewKOverlay_labelTextSize" format="dimension|reference" />
-        <attr name="viewKOverlay_labelTextColor" format="color|reference" />
-        <attr name="viewKOverlay_labelBackgroundColor" format="color|reference" />
-        <attr name="viewKOverlay_boxType" format="enum">
-            <enum name="rect" value="0" />
-            <enum name="circle" value="1" />
-        </attr>
-        <attr name="viewKOverlay_boxLineWidth" format="dimension|reference" />
-        <attr name="viewKOverlay_boxLineColor" format="color|reference" />
-    </declare-styleable>
-
-    <declare-styleable name="ViewKCircleSpread">
-        <!--中心圆颜色-->
-        <attr name="viewKCircleSpread_centerColor" format="reference|color" />
-        <!--中心圆图片-->
-        <attr name="viewKCircleSpread_centerDrawable" format="reference" />
-        <!--中心圆半径-->
-        <attr name="viewKCircleSpread_centerRadius" format="dimension|reference" />
-        <!--扩散圆颜色-->
-        <attr name="viewKCircleSpread_spreadColor" format="reference|color" />
-        <!--扩散圆最大数-->
-        <attr name="viewKCircleSpread_spreadCount" format="integer" />
-        <!--扩散圆波浪叠层效果还是边缘波纹效果-->
-        <attr name="viewKCircleSpread_spreadIsRipple" format="boolean" />
-        <!--扩散间距-->
-        <attr name="viewKCircleSpread_circlesDistance" format="dimension|reference" />
-        <!--扩散时间1-1000ms之间-->
-        <attr name="viewKCircleSpread_animTime" format="integer" />
-    </declare-styleable>
-
-    <declare-styleable name="ViewKArcRotate">
-        <!-- 圆弧的开始渐变色-->
-        <attr name="viewKArcRotate_arcStartColor" format="color|reference" />
-        <!-- 圆弧的结束渐变色-->
-        <attr name="viewKArcRotate_arcEndColor" format="color|reference" />
-        <!-- 圆弧的线宽-->
-        <attr name="viewKArcRotate_arcWidth" format="dimension|reference" />
-        <!-- 圆弧个数 1-11-->
-        <attr name="viewKArcRotate_arcNum" format="integer" />
-        <!-- 圆弧之间的间隔 , 默认30°, 0-360-->
-        <attr name="viewKArcRotate_angleInterval" format="integer" />
-        <!-- 圆弧步长-->
-        <attr name="viewKArcRotate_angleStep" format="integer" />
-        <!-- 圆弧走一轮所需的时间-->
-        <attr name="viewKArcRotate_animTime" format="integer" />
-    </declare-styleable>
-
-    <declare-styleable name="ViewKColorPicker">
-        <attr name="viewKColorPicker_colorStart" format="color|reference" />
-        <attr name="viewKColorPicker_colorEnd" format="color|reference" />
-    </declare-styleable>
-
-    <!--二维码扫描控件-->
-    <declare-styleable name="ViewKQRScan">
-        <!-- 扫描边框线的宽度，默认值为1dp -->
-        <attr name="viewKQRScan_borderLineWidth" format="dimension|reference" />
-        <!-- 扫描边框的颜色，默认值为@android:color/white -->
-        <attr name="viewKQRScan_borderColor" format="color|reference" />
-        <!-- 扫描线的图片资源，默认值为null -->
-        <attr name="viewKQRScan_lineDrawable" format="reference" />
-        <!-- 扫描线的线宽，默认值为1dp -->
-        <attr name="viewKQRScan_lineWidth" format="dimension|reference" />
-        <!-- 扫描线从顶部移动到底部的动画时间，默认值为1000 -->
-        <attr name="viewKQRScan_animTime" format="integer" />
-        <!-- 扫描线是否来回移动，默认值为true -->
-        <attr name="viewKQRScan_isScanLineReverse" format="boolean" />
-    </declare-styleable>
-
-    <declare-styleable name="ViewKQRScan2">
-        <!-- 扫描边框的粗细-->
-        <attr name="viewKQRScan2_borderWidth" format="dimension|reference" />
-        <!-- 扫描边框的颜色-->
-        <attr name="viewKQRScan2_borderColor" format="color|reference" />
-        <!-- 扫描线的图片资源-->
-        <attr name="viewKQRScan2_lineDrawable" format="reference" />
-        <!-- 扫描线的粗细-->
-        <attr name="viewKQRScan2_lineWidth" format="dimension|reference" />
-        <!-- 扫描线的颜色-->
-        <attr name="viewKQRScan2_lineColor" format="color|reference" />
-        <!-- 扫描线每次移动的距离(包括扫描线的移动,收缩和成功logo的展现)-->
-        <attr name="viewKQRScan2_distance" format="dimension|reference" />
-        <!-- 扫描线从顶部移动至底部的动画时间ms-->
-        <attr name="viewKQRScan2_animTime" format="integer" />
-        <!-- 扫描线是否来回移动-->
-        <attr name="viewKQRScan2_isLineReverse" format="boolean" />
-        <!-- 扫描成功的成功图标-->
-        <attr name="viewKQRScan2_successDrawable" format="reference" />
-        <!-- 扫描成功的成功图标大小-->
-        <attr name="viewKQRScan2_successDrawableSize" format="dimension|reference" />
-        <!-- 扫描成功的成功动画时间-->
-        <attr name="viewKQRScan2_successAnimTime" format="integer" />
-    </declare-styleable>
-
-    <declare-styleable name="ViewKRadarRipple">
-        <!-- 扫描雷达背景颜色-->
-        <attr name="viewKRadarRipple_bgColor" format="color|reference" />
-        <!-- 扫描雷达颜色-->
-        <attr name="viewKRadarRipple_radarColor" format="reference|color" />
-        <!-- 扫描雷达线颜色-->
-        <attr name="viewKRadarRipple_lineColor" format="reference|color" />
-        <!-- 扫描雷达线的Alpha-->
-        <attr name="viewKRadarRipple_lineAlpha" format="integer" />
-        <!-- 扫描雷达线宽-->
-        <attr name="viewKRadarRipple_lineWidth" format="dimension|reference" />
-        <!-- 扫描雷达线数-->
-        <attr name="viewKRadarRipple_lineCount" format="integer" />
-        <!-- 扫描雷达扫描角度步长(1-360)-->
-        <attr name="viewKRadarRipple_angleStep" format="integer" />
-        <!-- 扫描雷达扫描一圈的时间ms-->
-        <attr name="viewKRadarRipple_animTime" format="integer" />
-    </declare-styleable>
-
-    <declare-styleable name="ViewKRadarWave">
-        <!-- 扫描雷达颜色-->
-        <attr name="viewKRadarWave_radarColor" format="reference|color" />
-        <!-- 扫描雷达波浪颜色-->
-        <attr name="viewKRadarWave_waveColor" format="reference|color" />
-        <!-- 扫描雷达波浪层级渐变反转-->
-        <attr name="viewKRadarWave_isWaveOverTurn" format="boolean" />
-        <!-- 扫描雷达波浪层数-->
-        <attr name="viewKRadarWave_waveCount" format="integer" />
-        <!-- 扫描雷达扫描角度步长(1-360)-->
-        <attr name="viewKRadarWave_angleStep" format="integer" />
-        <!-- 扫描雷达扫描一圈的时间ms-->
-        <attr name="viewKRadarWave_animTime" format="integer" />
-    </declare-styleable>
-
-    <declare-styleable name="ViewKSignature">
-        <attr name="viewKSignature_lineWidth" format="dimension|reference" />
-    </declare-styleable>
-
-    <declare-styleable name="ViewKSteps">
-        <!--默认距离边缘的距离-->
-        <attr name="viewKSteps_margin" format="dimension|reference" />
-        <!--标题向下偏移-->
-        <attr name="viewKSteps_titleMarginTop" format="dimension|reference" />
-        <!--完成步骤的颜色-->
-        <attr name="viewKSteps_doneLineColor" format="color|reference" />
-        <!--未完成的步骤的颜色-->
-        <attr name="viewKSteps_undoLineColor" format="color|reference" />
-        <!--完成步骤的标题颜色-->
-        <attr name="viewKSteps_doneTitleColor" format="color|reference" />
-        <!--未完成步骤的标题颜色-->
-        <attr name="viewKSteps_undoTitleColor" format="color|reference" />
-        <!--完成步骤的数字颜色-->
-        <attr name="viewKSteps_doneNumberColor" format="color|reference" />
-        <!--未完成步骤的数字颜色-->
-        <attr name="viewKSteps_undoNumberColor" format="color|reference" />
-        <!--圆环的半径-->
-        <attr name="viewKSteps_circleRadius" format="dimension|reference" />
-        <!--线的宽度-->
-        <attr name="viewKSteps_lineWidth" format="dimension|reference" />
-        <!--步骤数字的大小-->
-        <attr name="viewKSteps_numberTextSize" format="dimension|reference" />
-        <!--标题的大小-->
-        <attr name="viewKSteps_titleTextSize" format="dimension|reference" />
-    </declare-styleable>
 </resources>

@@ -13,14 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <com.mozhimen.uicorek.viewk.ViewKOverlay
+        <com.mozhimen.uicorek.viewk.scan.ViewKScanOverlay
             android:id="@+id/scank_face_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:viewKOverlay_isShowLabel="false"
-            app:viewKOverlay_boxType="circle"
-            app:viewKOverlay_boxLineColor="@android:color/holo_red_dark"
-            app:viewKOverlay_boxLineWidth="2dp" />
+            app:viewKScanOverlay_isShowLabel="false"
+            app:viewKScanOverlay_boxType="circle"
+            app:viewKScanOverlay_boxLineColor="@android:color/holo_red_dark"
+            app:viewKScanOverlay_boxLineWidth="2dp" />
 
         <ImageView
             android:id="@+id/scank_face_img"

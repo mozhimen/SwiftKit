@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.widget.ArrayAdapter
 import com.mozhimen.uicorek.R
 
-
 /**
  * @ClassName AdapterKSpinner
  * @Description TODO
@@ -17,12 +16,12 @@ import com.mozhimen.uicorek.R
 class AdapterKSpinner<T> @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = R.attr.spinnerStyle,
+    defStyleAttr: Int = android.R.attr.spinnerStyle,
     mode: Int = -1,
     popupTheme: Theme? = null
 ) : androidx.appcompat.widget.AppCompatSpinner(context, attrs, defStyleAttr, MODE_DROPDOWN, popupTheme) {
 
-    private var _spinnerItemLayout = R.layout.layoutk_spinner_form_item
+    private var _spinnerItemLayout = R.layout.adapterk_spinner_item
     private var _items = arrayListOf<T>()
     private var _arrayAdapter: ArrayAdapter<T>? = null
 
