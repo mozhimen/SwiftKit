@@ -14,7 +14,7 @@ import javax.crypto.spec.DESKeySpec
  * @Date 2022/2/16 20:21
  * @Version 1.0
  */
-object UtilKEncryptDES {
+object UtilKDES {
     private const val DES = "DES"
     private const val ENCODE = "UTF-8"
     private val _charset = charset(ENCODE)

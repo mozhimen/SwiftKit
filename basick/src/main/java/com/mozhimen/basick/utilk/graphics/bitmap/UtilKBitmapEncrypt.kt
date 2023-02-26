@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.util.Base64
+import com.mozhimen.basick.utilk.exts.et
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 
@@ -54,6 +55,7 @@ object UtilKBitmapEncrypt {
             result = Base64.encodeToString(bitmapBytes, Base64.NO_WRAP)
         } catch (e: IOException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             byteArrayOutputStream?.flush()
             byteArrayOutputStream?.close()

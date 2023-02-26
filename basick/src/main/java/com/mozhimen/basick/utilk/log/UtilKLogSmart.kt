@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.log
 import android.util.Log
 import android.view.MotionEvent
 import com.mozhimen.basick.utilk.datatype.UtilKCollection
+import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.view.gesture.UtilKGesture
 import com.mozhimen.basick.utilk.java.UtilKThrowable
 import com.mozhimen.basick.utilk.log.cons.CLogType
@@ -101,6 +102,7 @@ object UtilKLogSmart {
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+                e.message?.et(TAG)
             }
         } else {
             printLog(type, tag, getLogCat(*content))

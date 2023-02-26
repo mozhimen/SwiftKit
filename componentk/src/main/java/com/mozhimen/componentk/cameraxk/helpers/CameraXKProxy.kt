@@ -27,6 +27,7 @@ import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.underlayk.logk.LogK
+import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -119,6 +120,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
             LogK.et(TAG, "OnImageCapturedCallback onError ImageCaptureException ${e.message}")
             _cameraXKCaptureListener?.onCaptureFail()
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
     private val _imageAnalyzer: ImageAnalysis.Analyzer = ImageAnalysis.Analyzer { image ->
@@ -203,6 +205,7 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
             }, ContextCompat.getMainExecutor(_context))
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 

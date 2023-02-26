@@ -14,7 +14,7 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
-import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
@@ -39,7 +39,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf(this)
+                UtilKIntentSkip.startSettingSelf(this)
             }
         }
     }

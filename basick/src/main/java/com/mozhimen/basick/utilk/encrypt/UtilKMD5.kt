@@ -2,6 +2,8 @@ package com.mozhimen.basick.utilk.encrypt
 
 import android.util.Log
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
+import com.mozhimen.basick.utilk.datatype.UtilKDataType
+import com.mozhimen.basick.utilk.exts.et
 import java.io.UnsupportedEncodingException
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -14,7 +16,7 @@ import java.security.NoSuchAlgorithmException
  * @Date 2022/6/11 17:13
  * @Version 1.0
  */
-object UtilKEncryptMD5 {
+object UtilKMD5 {
     private const val TAG = "UtilKEncryptMD5>>>>>"
 
     /**
@@ -28,6 +30,7 @@ object UtilKEncryptMD5 {
             MessageDigest.getInstance("MD5").digest(data.toByteArray())
         } catch (e: NoSuchAlgorithmException) {
             e.printStackTrace()
+            e.message?.et(TAG)
             throw RuntimeException("encrypt: no such md5 algo! ${e.message}")
         }
         var md5code: String = BigInteger(1, secretBytes).toString(16)
@@ -75,6 +78,7 @@ object UtilKEncryptMD5 {
             DigestUtils.md5Hex(data.toByteArray())
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
+            e.message?.et(TAG)
             throw RuntimeException("encrypt32: ${e.message}")
         }
     }

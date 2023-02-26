@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
+import com.mozhimen.basick.utilk.exts.et
 
 /**
  * @ClassName BaseService
@@ -78,6 +79,7 @@ open class BaseService : Service(), LifecycleOwner {
             }
         } catch (e: RemoteException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
         _listeners.finishBroadcast()
     }

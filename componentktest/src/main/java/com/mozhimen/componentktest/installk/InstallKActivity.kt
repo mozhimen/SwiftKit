@@ -13,7 +13,7 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.utilk.res.UtilKAsset
 import com.mozhimen.basick.utilk.content.UtilKPackage
-import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
@@ -89,7 +89,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                                     }
                                 }
                                 EPermissionType.ACCESSIBILITY -> {
-                                    UtilKPermission.openSettingAccessibility(this@InstallKActivity)
+                                    UtilKIntentSkip.startSettingAccessibility(this@InstallKActivity)
                                 }
                                 else -> {}
                             }

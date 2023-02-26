@@ -123,11 +123,11 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             if (_videoPlayer?.isPlaying == true) _videoPlayer?.stop()
             _videoPlayer?.reset()
         } catch (e: IllegalStateException) {
+            e.printStackTrace()
             Log.e(TAG, "onVideoDestroy IllegalStateException ${e.message}")
-            e.printStackTrace()
         } catch (e: Exception) {
-            Log.e(TAG, "onVideoDestroy Exception ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "onVideoDestroy Exception ${e.message}")
         }
     }
 
@@ -137,11 +137,11 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             _videoPlayer?.release()
             _videoPlayer = null
         } catch (e: IllegalStateException) {
+            e.printStackTrace()
             Log.e(TAG, "onVideoDestroy IllegalStateException ${e.message}")
-            e.printStackTrace()
         } catch (e: Exception) {
-            Log.e(TAG, "onVideoDestroy Exception ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "onVideoDestroy Exception ${e.message}")
         }
     }
 
@@ -150,8 +150,8 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             try {
                 _videoPlayer?.start()
             } catch (e: IllegalStateException) {
-                Log.e(TAG, "onVideoLayoutResume: IllegalStateException ${e.message ?: ""}")
                 e.printStackTrace()
+                Log.e(TAG, "onVideoLayoutResume: IllegalStateException ${e.message ?: ""}")
             }
         }
     }
@@ -161,8 +161,8 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             try {
                 _videoPlayer?.pause()
             } catch (e: IllegalStateException) {
-                Log.e(TAG, "onVideoLayoutPause: IllegalStateException ${e.message ?: ""}")
                 e.printStackTrace()
+                Log.e(TAG, "onVideoLayoutPause: IllegalStateException ${e.message ?: ""}")
             }
         }
     }
@@ -179,20 +179,20 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             resetVideo()
             playVideo()
         } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
             Log.e(TAG, "changeVideo IllegalArgumentException ${e.message}")
-            e.printStackTrace()
         } catch (e: SecurityException) {
+            e.printStackTrace()
             Log.e(TAG, "changeVideo SecurityException ${e.message}")
-            e.printStackTrace()
         } catch (e: IllegalStateException) {
+            e.printStackTrace()
             Log.e(TAG, "changeVideo IllegalStateException ${e.message}")
-            e.printStackTrace()
         } catch (e: IOException) {
+            e.printStackTrace()
             Log.e(TAG, "changeVideo IOException ${e.message}")
-            e.printStackTrace()
         } catch (e: Exception) {
-            Log.e(TAG, "changeVideo Exception ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "changeVideo Exception ${e.message}")
         }
     }
 
@@ -204,17 +204,17 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
             }
             _videoSurface?.surfaceTexture?.let { playVideo() }
         } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
             Log.e(TAG, "onSurfaceTextureAvailable IllegalArgumentException ${e.message}")
-            e.printStackTrace()
         } catch (e: SecurityException) {
+            e.printStackTrace()
             Log.e(TAG, "onSurfaceTextureAvailable SecurityException ${e.message}")
-            e.printStackTrace()
         } catch (e: IllegalStateException) {
+            e.printStackTrace()
             Log.e(TAG, "onSurfaceTextureAvailable IllegalStateException ${e.message}")
-            e.printStackTrace()
         } catch (e: IOException) {
-            Log.e(TAG, "onSurfaceTextureAvailable IOException ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "onSurfaceTextureAvailable IOException ${e.message}")
         }
     }
 
@@ -255,11 +255,11 @@ class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeS
                 mediaMetadataRetriever.release()
             }
         } catch (e: IOException) {
+            e.printStackTrace()
             Log.e(TAG, "calculateVideoSize: IOException $${e.message ?: ""}")
-            e.printStackTrace()
         } catch (e: NumberFormatException) {
-            Log.e(TAG, "calculateVideoSize: NumberFormatException $${e.message ?: ""}")
             e.printStackTrace()
+            Log.e(TAG, "calculateVideoSize: NumberFormatException $${e.message ?: ""}")
         }
     }
 

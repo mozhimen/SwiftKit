@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.view
 
 import android.R
 import android.app.Activity
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.TextUtils
@@ -10,6 +11,9 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.UtilKActivity
 import com.mozhimen.basick.utilk.datatype.UtilKDataType
+import com.mozhimen.basick.utilk.device.UtilKDisplay
+import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.exts.et
 import java.util.*
 
 
@@ -21,6 +25,23 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKView {
+    private const val TAG = "UtilKView>>>>>"
+    /**
+     * 显示占比
+     * @param view View
+     * @return Int
+     */
+    @JvmStatic
+    fun getVisiblePercent(view: View): Int {
+        if (view.isShown) {
+            val rect = Rect().apply { view.getGlobalVisibleRect(this) }
+            return if (rect.top > 0 && rect.left < UtilKScreen.getCurrentScreenWidth()) {
+                ((rect.width().toFloat() * rect.height().toFloat()) / (view.width.toFloat() * view.height.toFloat()) * 100).toInt()
+            } else 0
+        }
+        return 0
+    }
+
     /**
      * 是否是DecorView
      * @param view View
@@ -68,6 +89,7 @@ object UtilKView {
             view.viewTreeObserver.addOnGlobalLayoutListener(listener)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -82,6 +104,7 @@ object UtilKView {
             view.viewTreeObserver.removeOnGlobalLayoutListener(listener)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -112,6 +135,7 @@ object UtilKView {
                 if (UtilKDataType.isTypeMatch(view, *matches)) return view
             } catch (e: Exception) {
                 e.printStackTrace()
+                e.message?.et(TAG)
             }
         }
         return null

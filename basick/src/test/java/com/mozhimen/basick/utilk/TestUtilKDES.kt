@@ -1,7 +1,5 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.encrypt.UtilKEncryptAES
-import com.mozhimen.basick.utilk.exts.printlog
 import org.junit.Test
 
 

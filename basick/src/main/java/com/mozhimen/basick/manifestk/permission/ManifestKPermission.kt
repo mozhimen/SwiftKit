@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.permission.helpers.IManifestKPermissionListener
 import com.mozhimen.basick.manifestk.permission.helpers.InvisibleFragment
-import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 
@@ -33,7 +33,7 @@ object ManifestKPermission {
     fun initPermissions(
         activity: AppCompatActivity,
         onSuccess: () -> Unit,
-        onFail: (() -> Unit)? = { UtilKPermission.openSettingSelf(activity) }
+        onFail: (() -> Unit)? = { UtilKIntentSkip.startSettingSelf(activity) }
     ) {
         initPermissions(activity, isGranted = { if (it) onSuccess.invoke() else onFail?.invoke() })
     }

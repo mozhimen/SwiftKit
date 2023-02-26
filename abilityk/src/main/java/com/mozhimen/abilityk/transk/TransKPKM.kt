@@ -6,6 +6,7 @@ import android.opengl.ETC1Util.ETC1Texture
 import android.util.Log
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.datatype.UtilKString
+import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
@@ -53,6 +54,7 @@ class TransKPKM {
             true
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             false
         }
     }
@@ -64,6 +66,7 @@ class TransKPKM {
                 _zipInputStream!!.close()
             } catch (e: Exception) {
                 e.printStackTrace()
+                e.message?.et(TAG)
             } finally {
                 _zipInputStream = null
                 _zipEntry = null
@@ -87,6 +90,7 @@ class TransKPKM {
                 return createTexture(_zipInputStream)
             } catch (e: Exception) {
                 e.printStackTrace()
+                e.message?.et(TAG)
             }
         }
         return null
@@ -102,6 +106,7 @@ class TransKPKM {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
         return false
     }

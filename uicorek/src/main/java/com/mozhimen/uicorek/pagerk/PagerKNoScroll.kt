@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager
 open class PagerKNoScroll @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
 ) : ViewPager(context, attrs) {
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
     protected var _isEnableScroll = true
 
     /**

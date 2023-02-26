@@ -1,20 +1,24 @@
 package com.mozhimen.basick.utilk.device
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Configuration
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
 import android.os.Build
 import android.os.Environment
 import android.os.StatFs
+import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.text.format.Formatter
 import android.util.Log
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.java.io.UtilKCmd
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
-
+import com.mozhimen.basick.utilk.datatype.UtilKDataType
+import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.java.io.UtilKCmd
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
@@ -41,6 +45,23 @@ object UtilKDevice {
     private const val NO_DEFINED = "unknown"
 
     /**
+     * 是否是平板
+     * @return Boolean
+     */
+    fun isPad(): Boolean =
+        if (isHasTelephone()) {        //如果能打电话那可能是平板或手机，再根据配置判断
+            //能打电话可能是手机也可能是平板
+            (_context.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE)
+        } else true //不能打电话一定是平板
+
+    /**
+     * 是否有电话
+     * @return Boolean
+     */
+    fun isHasTelephone(): Boolean =
+        (_context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).phoneType != TelephonyManager.PHONE_TYPE_NONE
+
+    /**
      * 设备内存空间
      * @return String
      */
@@ -63,6 +84,7 @@ object UtilKDevice {
             localBufferedReader.close()
         } catch (e: IOException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
         return Formatter.formatFileSize(_context, memorySize) // Byte转换为KB或者MB，内存大小规格化
     }

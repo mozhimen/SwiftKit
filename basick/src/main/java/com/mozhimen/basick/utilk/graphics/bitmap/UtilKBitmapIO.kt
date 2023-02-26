@@ -9,15 +9,14 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.device.UtilKDate
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import java.io.BufferedOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
+import com.mozhimen.basick.utilk.device.UtilKDate
+import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import java.io.*
 
 /**
  * @ClassName UtilKBitmapIO
@@ -27,7 +26,7 @@ import java.io.OutputStream
  * @Version 1.0
  */
 object UtilKBitmapIO {
-    private val TAG = "UtilKBitmapIO>>>>>"
+    private const val TAG = "UtilKBitmapIO>>>>>"
     private val _context = UtilKApplication.instance.get()
 
     /**
@@ -37,9 +36,9 @@ object UtilKBitmapIO {
      * @return File
      */
     @JvmStatic
-    fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, quality: Int = 100): String {
+    fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
         return if (Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q) {
-            bitmap2JpegAlnumFileAfter29(sourceBitmap, filePathWithName, quality)
+            bitmap2JpegAlbumFileAfter29(sourceBitmap, filePathWithName, quality)
         } else {
             bitmap2JpegAlbumFileBefore29(sourceBitmap, filePathWithName, quality)
         }
@@ -52,7 +51,8 @@ object UtilKBitmapIO {
      * @param quality Int
      * @return String
      */
-    fun bitmap2JpegAlnumFileAfter29(sourceBitmap: Bitmap, filePathWithName: String, quality: Int = 100): String {
+    fun bitmap2JpegAlbumFileAfter29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
+        if (TextUtils.isEmpty(filePathWithName)) return UtilKFile.MSG_WRONG
         var outputStream: OutputStream? = null
         val destFile = UtilKFile.createFile(filePathWithName)
         val pathArray: Array<String> = arrayOf(destFile.absolutePath)
@@ -72,6 +72,7 @@ object UtilKBitmapIO {
             return filePathWithName
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             outputStream?.flush()
             outputStream?.close()
@@ -79,6 +80,7 @@ object UtilKBitmapIO {
                 MediaScannerConnection.scanFile(_context, pathArray, typeArray) { path, uri -> Log.d(TAG, "bitmap2Album: path $path, uri $uri") }
             } catch (e: Exception) {
                 e.printStackTrace()
+                e.message?.et(TAG)
             }
         }
         return UtilKFile.MSG_WRONG
@@ -92,8 +94,22 @@ object UtilKBitmapIO {
      * @return String
      */
     @JvmStatic
-    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, filePathWithName: String, quality: Int = 100): String =
-        bitmap2JpegAlbumFileBefore29(sourceBitmap, File(filePathWithName), quality)
+    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
+        if (TextUtils.isEmpty(filePathWithName)) return UtilKFile.MSG_WRONG
+        return bitmap2JpegAlbumFileBefore29(sourceBitmap, File(filePathWithName), quality)
+    }
+
+    /**
+     * bitmap转文件
+     * @param sourceBitmap Bitmap
+     * @param filePathWithName String
+     * @param quality Int
+     * @return String
+     */
+    @JvmStatic
+    fun bitmap2File(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
+        return bitmap2JpegAlbumFileBefore29(sourceBitmap, filePathWithName, quality)
+    }
 
     /**
      * 保存图片 before 29
@@ -101,7 +117,7 @@ object UtilKBitmapIO {
      * @param sourceBitmap Bitmap?
      */
     @JvmStatic
-    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, destFile: File, quality: Int = 100): String {
+    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, destFile: File, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
         UtilKFile.createFile(destFile)
         var bufferedOutputStream: BufferedOutputStream? = null
         try {
@@ -110,6 +126,7 @@ object UtilKBitmapIO {
             return destFile.absolutePath
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             bufferedOutputStream?.flush()
             bufferedOutputStream?.close()

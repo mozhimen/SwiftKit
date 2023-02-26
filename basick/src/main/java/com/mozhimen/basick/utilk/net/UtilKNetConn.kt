@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.net
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.wifi.WifiManager
@@ -107,6 +108,7 @@ object UtilKNetConn {
      */
     @JvmStatic
     fun isWifiConnected(): Boolean {
+        if (_context.checkCallingOrSelfPermission(CPermission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) return false
         val netWorkInfo = _connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_WIFI
     }

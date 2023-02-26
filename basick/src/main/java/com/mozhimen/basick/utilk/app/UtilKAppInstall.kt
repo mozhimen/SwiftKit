@@ -17,7 +17,8 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.content.UtilKActivitySkip
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.java.io.file.UtilKFileUri
+import com.mozhimen.basick.utilk.content.UtilKIntent
+import com.mozhimen.basick.utilk.content.UtilKUri
 import java.io.*
 import java.nio.charset.Charset
 
@@ -119,18 +120,13 @@ object UtilKAppInstall {
     }
 
     /**
-     * 智能安装
+     * 手动安装
      * if sdk >= 24 add provider
      * @param apkPathWithName String
      */
     @JvmStatic
     fun installHand(apkPathWithName: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)//添加这一句表示对目标应用临时授权该Uri所代表的文件
-        }
-        intent.setDataAndType(UtilKFileUri.file2Uri(apkPathWithName) ?: return, "application/vnd.android.package-archive")
-        UtilKActivitySkip.start(_context, intent)
+        UtilKActivitySkip.start(_context, UtilKIntent.getInstallApp(apkPathWithName) ?: return)
     }
 
     /**

@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CQuery
-import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import java.util.*
 
 /**
@@ -41,7 +41,7 @@ class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Loc
     init {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
             if (!ManifestKPermission.checkPermission(CPermission.FOREGROUND_SERVICE)) {
-                UtilKPermission.openSettingSelf(owner)
+                UtilKIntentSkip.startSettingSelf(owner)
             }
         }
         _transKText2Speech = TextToSpeech(_context) {

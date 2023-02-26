@@ -43,6 +43,7 @@ import com.mozhimen.basick.utilk.content.UtilKActivity;
 import com.mozhimen.basick.utilk.anim.UtilKAnim;
 import com.mozhimen.basick.utilk.anim.UtilKAnimation;
 import com.mozhimen.basick.utilk.anim.UtilKAnimator;
+import com.mozhimen.basick.utilk.log.UtilKLog;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyBoard;
 import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar;
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig;
@@ -267,6 +268,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
             return result;
         } catch (Exception e) {
             e.printStackTrace();
+            UtilKLog.et(TAG,e.getMessage());
         }
         return null;
     }

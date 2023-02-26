@@ -1,6 +1,7 @@
 package com.mozhimen.basick.taskk.temps
 
 import com.mozhimen.basick.taskk.bases.BaseTaskK
+import com.mozhimen.basick.utilk.exts.et
 import kotlinx.coroutines.*
 
 class TaskKPoll : BaseTaskK() {
@@ -19,6 +20,7 @@ class TaskKPoll : BaseTaskK() {
                 } catch (e: Exception) {
                     if (e is CancellationException) return@launch
                     e.printStackTrace()
+                    e.message?.et(TAG)
                 }
                 delay(interval)
             }

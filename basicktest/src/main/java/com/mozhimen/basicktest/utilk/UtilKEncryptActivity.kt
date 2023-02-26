@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.utilk
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.encrypt.UtilKEncryptAES
+import com.mozhimen.basick.utilk.encrypt.UtilKAES
 import com.mozhimen.basicktest.databinding.ActivityUtilkEncryptBinding
 
 
@@ -21,11 +21,11 @@ class UtilKEncryptActivity : BaseActivityVB<ActivityUtilkEncryptBinding>() {
         var res: String = ""
         vb.utilkEncryptTxt1.text = content
         vb.utilkEncryptBtnEncrypt.setOnClickListener {
-            pwd = UtilKEncryptAES.with(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").encryptWithBase64(content)
+            pwd = UtilKAES.with(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").encryptWithBase64(content)
             vb.utilkEncryptTxt2.text = pwd
         }
         vb.utilkEncryptBtnDecrypt.setOnClickListener {
-            res = UtilKEncryptAES.with(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").decryptWithBase64(pwd)
+            res = UtilKAES.with(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").decryptWithBase64(pwd)
             vb.utilkEncryptTxt3.text = res
         }
     }

@@ -4,6 +4,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
+import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 
 /**
  * @ClassName DebugK
@@ -13,6 +14,7 @@ import com.mozhimen.basick.manifestk.cons.CManifest
  * @Version 1.0
  */
 object DebugK {
+    private const val TAG = "DebugK>>>>>"
 
     fun toggleDialog(fragmentManager: FragmentManager){
         try {
@@ -21,6 +23,7 @@ object DebugK {
             target.show(fragmentManager, "debugk_dialog")
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 }

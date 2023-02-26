@@ -7,16 +7,18 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
-import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.os.UtilKOSRoot
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
 import com.mozhimen.componentk.installk.cons.CCons
 import com.mozhimen.componentk.installk.cons.EInstallMode
 import com.mozhimen.componentk.installk.cons.EPermissionType
+import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.*
@@ -124,6 +126,7 @@ class InstallK {
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.e(TAG, "install: ${e.message}")
+                e.message?.et(TAG)
                 _handler.sendMessage(Message().apply {
                     what = CCons.MSG_INSTALL_FAIL
                     obj = e.message ?: ""

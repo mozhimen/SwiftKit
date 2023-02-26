@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec
  * @Date 2021/10/14 15:13
  * @Version 1.0
  */
-object UtilKEncryptAES {
+object UtilKAES {
 
     /**
      * 默认参数配置

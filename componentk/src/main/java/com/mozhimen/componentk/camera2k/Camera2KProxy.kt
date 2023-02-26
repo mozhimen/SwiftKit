@@ -23,6 +23,7 @@ import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.basick.utilk.device.UtilKScreen
 import com.mozhimen.componentk.camera2k.helpers.GLSurfaceRenderer
 import com.mozhimen.underlayk.logk.LogK
+import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 import java.util.*
 import kotlin.math.abs
 
@@ -149,12 +150,12 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
             _renderer.setPreviewSize(_previewSize!!.height, _previewSize!!.width)
             _cameraManager.openCamera(_cameraId.toString(), _cameraStateCallback, _backgroundHandler)// 打开摄像头
         } catch (e: CameraAccessException) {
-            LogK.et(TAG, "openCamera: fail CameraAccessException ${e.message}")
             e.printStackTrace()
+            LogK.et(TAG, "openCamera: fail CameraAccessException ${e.message}")
             "请检查摄像头".showToastOnMain()
         } catch (e: IllegalArgumentException) {
-            LogK.et(TAG, "openCamera: fail IllegalArgumentException ${e.message}")
             e.printStackTrace()
+            LogK.et(TAG, "openCamera: fail IllegalArgumentException ${e.message}")
             "请检查摄像头".showToastOnMain()
         }
     }
@@ -166,6 +167,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
             _cameraCaptureSession!!.setRepeatingRequest(_cameraCaptureRequest!!, null, _backgroundHandler)
         } catch (e: CameraAccessException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -207,6 +209,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
             _cameraCaptureSession!!.stopRepeating()
         } catch (e: CameraAccessException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -319,6 +322,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
             _cameraCaptureSession!!.capture(_previewRequestBuilder!!.build(), _captureCallback, _backgroundHandler)
         } catch (e: CameraAccessException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -359,6 +363,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
                             }, _backgroundHandler)
                         } catch (e: CameraAccessException) {
                             e.printStackTrace()
+                            e.message?.et(TAG)
                         }
                     }
 
@@ -369,6 +374,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
             ) // handle 传入 null 表示使用当前线程的 Looper
         } catch (e: CameraAccessException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -429,6 +435,7 @@ class Camera2KProxy(activity: Activity, renderer: GLSurfaceRenderer) {
             _backgroundHandler = null
         } catch (e: InterruptedException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 

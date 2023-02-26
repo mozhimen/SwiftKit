@@ -6,7 +6,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import com.mozhimen.basicktest.databinding.ActivityManifestkPermissionBinding
 
 @AManifestKRequire(CPermission.INTERNET)
@@ -18,7 +18,7 @@ class ManifestKPermissionActivity : BaseActivityVB<ActivityManifestkPermissionBi
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf(this)
+                UtilKIntentSkip.startSettingSelf(this)
             }
         }
 
@@ -26,7 +26,7 @@ class ManifestKPermissionActivity : BaseActivityVB<ActivityManifestkPermissionBi
         ManifestKPermission.initPermissions(this, onSuccess = {
             initView(savedInstanceState)
         }, onFail = {
-            UtilKPermission.openSettingSelf(this)
+            UtilKIntentSkip.startSettingSelf(this)
         })
 
         //方法三
@@ -34,7 +34,7 @@ class ManifestKPermissionActivity : BaseActivityVB<ActivityManifestkPermissionBi
             if (it) {
                 initView(savedInstanceState)
             } else {
-                UtilKPermission.openSettingSelf(this)
+                UtilKIntentSkip.startSettingSelf(this)
             }
         }
     }

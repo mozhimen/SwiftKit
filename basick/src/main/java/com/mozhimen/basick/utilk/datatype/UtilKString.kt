@@ -18,6 +18,18 @@ object UtilKString {
     private const val TAG = "UtilKString>>>>>"
 
     /**
+     * 包含String
+     * @param content String
+     * @param str String
+     * @return Boolean
+     */
+    @JvmStatic
+    fun containString(content: String, str: String): Boolean {
+        if (content.isEmpty() || str.isEmpty()) return false
+        return content.contains(str)
+    }
+
+    /**
      * 判断是否不为Empty
      * @param str Array<out String>
      * @return Boolean

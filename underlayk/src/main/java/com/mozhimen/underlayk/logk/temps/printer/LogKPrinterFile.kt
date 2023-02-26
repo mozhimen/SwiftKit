@@ -6,6 +6,7 @@ import com.mozhimen.underlayk.logk.mos.MLogK
 import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.exts.et
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -118,6 +119,7 @@ class LogKPrinterFile(
                 _logQueue.put(log)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
+                e.message?.et(TAG)
             }
         }
 
@@ -151,6 +153,7 @@ class LogKPrinterFile(
                 }
             } catch (e: InterruptedException) {
                 e.printStackTrace()
+                e.message?.et(TAG)
                 synchronized(this) { _isRunning = false }
             }
         }
@@ -202,6 +205,7 @@ class LogKPrinterFile(
                 _bufferedWriter = BufferedWriter(FileWriter(_logFile, true))
             } catch (e: Exception) {
                 e.printStackTrace()
+                e.message?.et(TAG)
                 _preFileName = null
                 _logFile = null
                 return false
@@ -218,6 +222,7 @@ class LogKPrinterFile(
                     _bufferedWriter!!.close()
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    e.message?.et(TAG)
                     return false
                 } finally {
                     _bufferedWriter = null
@@ -242,6 +247,7 @@ class LogKPrinterFile(
                 }
             } catch (e: IOException) {
                 e.printStackTrace()
+                e.message?.et(TAG)
             }
         }
     }

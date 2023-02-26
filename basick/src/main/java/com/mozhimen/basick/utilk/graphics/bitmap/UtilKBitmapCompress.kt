@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.util.Log
+import com.mozhimen.basick.utilk.exts.et
 import java.io.ByteArrayOutputStream
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
@@ -34,6 +35,7 @@ object UtilKBitmapCompress {
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.size).also { printBitmapInfo(it, bytes, quality) }
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             byteArrayOutputStream.flush()
             byteArrayOutputStream.close()

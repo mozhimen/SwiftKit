@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.exts.decimal2String
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import com.mozhimen.basick.utilk.view.bar.UtilKDialog
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
@@ -102,7 +102,7 @@ class FpsKView {
 
     private fun play() {
         if (!UtilKDialog.isOverlayPermissionEnable(_context)) {
-            UtilKPermission.openSettingOverlay(_context)
+            UtilKIntentSkip.startSettingOverlay(_context)
             LogK.et(TAG, "FpsKView play app has no overlay permission")
             return
         }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Process
 import com.mozhimen.basick.cachek.CacheKSP
 import com.mozhimen.basick.utilk.app.UtilKApp
+import com.mozhimen.basick.utilk.exts.et
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
@@ -18,6 +19,7 @@ import javax.net.ssl.X509TrustManager
  * @Version 1.0
  */
 object UtilKNetDeal {
+    private const val TAG = "UtilKNetDeal>>>>>"
     private const val UTILKNET_SP_NAME = "utilknet_sp_name"
     private const val UTILKNET_SP_DEGRADE_HTTP = "utilknet_sp_degrade_http"
 
@@ -49,6 +51,7 @@ object UtilKNetDeal {
             )
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
         return sslContext
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
+import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basicktest.databinding.ActivityTaskkExecutorBinding
 
 /**
@@ -25,6 +26,7 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
                         Thread.sleep((1000 - priority * 100).toLong())
                     } catch (e: InterruptedException) {
                         e.printStackTrace()
+                        e.message?.et(TAG)
                     }
                 }
             }

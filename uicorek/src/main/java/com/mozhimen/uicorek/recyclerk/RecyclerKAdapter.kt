@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mozhimen.basick.utilk.exts.et
 import java.lang.ref.WeakReference
 import java.lang.reflect.ParameterizedType
 import java.util.ArrayList
@@ -22,6 +23,7 @@ import java.util.ArrayList
  * @Version 1.0
  */
 class RecyclerKAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private var _inflater: LayoutInflater = LayoutInflater.from(context)
     private var _dataSets = ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
     private var _recyclerViewRef: WeakReference<RecyclerView>? = null
@@ -366,6 +368,7 @@ class RecyclerKAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.Vie
                     return argument.getConstructor(View::class.java).newInstance(view) as RecyclerView.ViewHolder
                 } catch (e: Throwable) {
                     e.printStackTrace()
+                    e.message?.et(TAG)
                 }
             }
         }

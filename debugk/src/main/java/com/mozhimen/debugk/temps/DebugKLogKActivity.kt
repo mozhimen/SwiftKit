@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.java.io.file.UtilKFileUri
+import com.mozhimen.basick.utilk.content.UtilKUri
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
@@ -44,7 +44,7 @@ class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
                     intent.putExtra("subject", "")
                     intent.putExtra("body", "")
 
-                    val uri = UtilKFileUri.file2Uri(itemData.file)
+                    val uri = UtilKUri.file2Uri(itemData.file)
                     intent.putExtra(Intent.EXTRA_STREAM, uri)//添加文件
                     if (itemData.file.name.endsWith(".txt")) {
                         intent.type = "text/plain"//纯文本

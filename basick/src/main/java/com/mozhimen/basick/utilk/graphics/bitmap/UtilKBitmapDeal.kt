@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.graphics.bitmap
 
 import android.graphics.*
+import com.mozhimen.basick.utilk.exts.et
 import java.lang.Integer.min
 
 /**
@@ -200,6 +201,7 @@ object UtilKBitmapDeal {
             BitmapFactory.decodeFile(filePathWithName, options)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             null
         }
     }

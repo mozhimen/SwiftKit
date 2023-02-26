@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.res
 
 import android.util.Log
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.*
 
@@ -47,6 +48,7 @@ object UtilKAsset {
             return UtilKFile.inputStream2String(inputStream).replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             inputStream.close()
         }
@@ -69,6 +71,7 @@ object UtilKAsset {
             return String(data).replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             inputStream.close()
         }
@@ -94,6 +97,7 @@ object UtilKAsset {
             return stringBuilder.toString().replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             inputStream.close()
         }
@@ -120,6 +124,7 @@ object UtilKAsset {
             return UtilKFile.inputStream2File(inputStream, tmpDestFilePath, isOverwrite)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             inputStream.close()
         }

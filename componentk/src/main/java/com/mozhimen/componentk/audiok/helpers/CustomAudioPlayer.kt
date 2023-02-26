@@ -16,6 +16,7 @@ import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
 import com.mozhimen.componentk.audiok.mos.MAudioK
 import com.mozhimen.componentk.audiok.mos.MAudioKProgress
+import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 
 /**
  * @ClassName AudioPlayer
@@ -93,6 +94,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
             setAudioEvent(CAudioKEvent.audio_load, _currentAudio)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             setAudioEvent(CAudioKEvent.audio_error, _currentAudio)
         }
     }

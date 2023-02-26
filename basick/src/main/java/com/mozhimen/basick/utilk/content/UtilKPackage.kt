@@ -50,7 +50,7 @@ object UtilKPackage {
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             Log.e(TAG, "getPkgVersionCode: NameNotFoundException ${e.message}")
-            -1
+            1
         }
     }
 
@@ -60,5 +60,5 @@ object UtilKPackage {
      */
     @JvmStatic
     fun getPackageInfo(): PackageInfo =
-        _context.packageManager.getPackageInfo(_context.packageName, 0)
+        _context.packageManager.getPackageInfo(_context.packageName, PackageInfo.INSTALL_LOCATION_AUTO/*0*/)
 }

@@ -4,6 +4,7 @@ import android.os.Build
 import android.util.Log
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.BufferedReader
 import java.io.File
@@ -32,6 +33,7 @@ object UtilKOSRoot {
             isSuAvailable() || isBusyboxAvailable() || isWhichAvailable() || hasSuperuserApk() || isSystemBeta()
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             false
         }.also { Log.d(TAG, "isRoot: $it") }
     }
@@ -98,6 +100,7 @@ object UtilKOSRoot {
             (bufferedReader.readLine() != null).also { Log.d(TAG, "isWhichAvailable: $it") }
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             false.also { Log.d(TAG, "isWhichAvailable: $it") }
         } finally {
             process?.destroy()

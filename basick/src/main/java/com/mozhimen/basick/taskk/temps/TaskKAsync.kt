@@ -1,6 +1,7 @@
 package com.mozhimen.basick.taskk.temps
 
 import com.mozhimen.basick.taskk.bases.BaseTaskK
+import com.mozhimen.basick.utilk.exts.et
 import kotlinx.coroutines.*
 
 typealias ITaskKAsyncErrorListener = (Throwable) -> Unit
@@ -8,6 +9,7 @@ typealias ITaskKAsyncErrorListener = (Throwable) -> Unit
 class TaskKAsync : BaseTaskK() {
     private val _exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
+        throwable.message?.et(TAG)
         _taskKAsyncErrorListener?.invoke(throwable)        // 发生异常时的捕获
     }
     private var _taskKAsyncErrorListener: ITaskKAsyncErrorListener? = null

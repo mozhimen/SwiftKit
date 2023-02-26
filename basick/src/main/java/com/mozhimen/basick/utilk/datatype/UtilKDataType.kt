@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk.datatype
 
+import com.mozhimen.basick.utilk.exts.et
+
 /**
  * @ClassName UtilKDataType
  * @Description TODO
@@ -32,8 +34,10 @@ object UtilKDataType {
             }
         } catch (e: IllegalAccessException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } catch (e: NoSuchFieldException) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
         return false
     }

@@ -14,6 +14,7 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
+import com.mozhimen.basick.utilk.exts.et
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -60,6 +61,7 @@ class ServiceDelegate<T>(
             _activity.unbindService(_serviceConnection)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -83,6 +85,7 @@ class ServiceDelegate<T>(
                 }
             } catch (e: RemoteException) {
                 e.printStackTrace()
+                e.message?.et(TAG)
             }
         }
 

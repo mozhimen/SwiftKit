@@ -71,8 +71,8 @@ class TabBottomFragmentAdapter constructor(
         try {
             return _moList[position].fragment!!.newInstance()
         } catch (e: Exception) {
-            Log.e(TAG, "getItem Exception ${e.message}")
             e.printStackTrace()
+            Log.e(TAG, "getItem Exception ${e.message}")
         }
         return null
     }

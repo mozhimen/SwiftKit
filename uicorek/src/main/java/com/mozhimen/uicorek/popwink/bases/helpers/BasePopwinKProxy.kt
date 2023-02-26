@@ -10,6 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.PopupWindow
 import com.mozhimen.basick.utilk.content.UtilKActivity.getActivityByContext
+import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.UtilKView.removeViewFromParent
 import com.mozhimen.uicorek.R
@@ -54,6 +55,7 @@ class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context
             _basePopwinKContextWrapper!!.getWindowManagerProxy()!!.update()
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -137,6 +139,7 @@ class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context
             super.dismiss()
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             clear(false)
         }
@@ -156,6 +159,7 @@ class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context
             removeViewFromParent(contentView)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
         if (destroy) {
             _basePopwinKContextWrapper = null

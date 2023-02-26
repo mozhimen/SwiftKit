@@ -2,6 +2,7 @@ package com.mozhimen.componentk.netk.http.helpers
 
 import com.google.gson.JsonParseException
 import com.mozhimen.componentk.netk.http.mos.MNetKThrowable
+import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 import org.json.JSONException
 import retrofit2.HttpException
 import java.lang.NullPointerException
@@ -36,6 +37,7 @@ object NetKRepErrorParser {
     @JvmStatic
     fun getThrowable(e: Throwable): MNetKThrowable {
         e.printStackTrace()
+        e.message?.et(TAG)
         return when (e) {
             is HttpException -> {
                 val message = when (e.code()) {

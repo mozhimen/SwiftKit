@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.text.TextUtils
 import android.util.Log
+import com.mozhimen.basick.utilk.exts.et
 
 import java.io.BufferedReader
 import java.io.IOException
@@ -72,6 +73,7 @@ object UtilKOS {
             version >= 6
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             false
         }
     }
@@ -111,6 +113,7 @@ object UtilKOS {
             version >= 3
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             false
         }
     }
@@ -184,6 +187,7 @@ object UtilKOS {
                     inputBuffer.close()
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    e.message?.et(TAG)
                 }
             }
         }

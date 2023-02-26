@@ -18,6 +18,7 @@ import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
+import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.helpers.RenderScriptHelper
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig
 import java.util.concurrent.atomic.AtomicBoolean
@@ -280,6 +281,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
+                e.message?.et(TAG)
                 Log.e(TAG, "applyBlurOption 模糊异常", e)
                 destroy()
             }

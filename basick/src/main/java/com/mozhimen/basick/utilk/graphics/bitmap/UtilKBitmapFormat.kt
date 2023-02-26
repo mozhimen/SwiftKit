@@ -8,6 +8,7 @@ import android.media.Image
 import android.net.Uri
 import com.mozhimen.basick.utilk.device.UtilKScreen
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
@@ -138,6 +139,7 @@ object UtilKBitmapFormat {
             return UtilKFile.byteArrayOutputStream2File(byteArrayOutputStream, filePathWithName, isOverwrite)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             byteArrayOutputStream?.flush()
             byteArrayOutputStream?.close()
@@ -182,6 +184,7 @@ object UtilKBitmapFormat {
             return byteArrayOutputStream.toByteArray()            //将字节数组输出流转化为字节数组byte[]
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             byteArrayOutputStream?.flush()
             byteArrayOutputStream?.close()

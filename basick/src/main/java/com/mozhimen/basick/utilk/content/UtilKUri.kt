@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.java.io.file
+package com.mozhimen.basick.utilk.content
 
 import android.content.Intent
 import android.net.Uri
@@ -6,7 +6,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.File
 
 
@@ -17,7 +17,7 @@ import java.io.File
  * @Date 2023/1/12 18:58
  * @Version 1.0
  */
-object UtilKFileUri {
+object UtilKUri {
     private val TAG = "UtilKFileUri>>>>>"
 
     private val _context = UtilKApplication.instance.get()
@@ -28,7 +28,7 @@ object UtilKFileUri {
      * @return Uri
      */
     @JvmStatic
-    fun file2Uri(filePathWithName: String): Uri? {
+    fun filePathStr2Uri(filePathWithName: String): Uri? {
         if (filePathWithName.isEmpty()) {
             Log.e(TAG, "file2Uri: isEmpty true")
             return null
