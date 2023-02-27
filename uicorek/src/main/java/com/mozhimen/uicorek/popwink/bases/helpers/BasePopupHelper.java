@@ -962,8 +962,8 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
         if (mGlobalLayoutListener == null && mPopupWindow.getContext() != null) {
             mGlobalLayoutListener = UtilKKeyboardChange.observerKeyboardChange(mPopupWindow.getContext(), new UtilKKeyboardChange.IUtilKKeyboardChangeListener() {
                 @Override
-                public void onKeyboardChange(Rect keyboardBounds, boolean isVisible) {
-                    BasePopupHelper.this.onKeyboardChange(keyboardBounds, isVisible);
+                public void onChange(Rect keyboardBounds, boolean isVisible) {
+                    BasePopupHelper.this.onChange(keyboardBounds, isVisible);
                     if (!mPopupWindow.isShowing()) {
                         UtilKView.safeRemoveGlobalLayoutListener(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
                         return;
@@ -1032,12 +1032,12 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
     }
 
     @Override
-    public void onKeyboardChange(Rect keyboardBounds, boolean isVisible) {
+    public void onChange(Rect keyboardBounds, boolean isVisible) {
         if (mKeyboardStateChangeListener != null) {
-            mKeyboardStateChangeListener.onKeyboardChange(keyboardBounds, isVisible);
+            mKeyboardStateChangeListener.onChange(keyboardBounds, isVisible);
         }
         if (mUserKeyboardStateChangeListener != null) {
-            mUserKeyboardStateChangeListener.onKeyboardChange(keyboardBounds, isVisible);
+            mUserKeyboardStateChangeListener.onChange(keyboardBounds, isVisible);
         }
     }
 

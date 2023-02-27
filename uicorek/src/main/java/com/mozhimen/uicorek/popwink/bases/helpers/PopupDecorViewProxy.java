@@ -743,7 +743,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyboardChange
     @Override
     public void onEvent(Message msg) {
         if (msg.what == CEvent.EVENT_ALIGN_KEYBOARD && keyboardBoundsCache != null) {
-            onKeyboardChange(keyboardBoundsCache, keyboardVisibleCache);
+            onChange(keyboardBoundsCache, keyboardVisibleCache);
         }
     }
 
@@ -757,7 +757,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyboardChange
 
     //-----------------------------------------keyboard-----------------------------------------
     @Override
-    public void onKeyboardChange(Rect keyboardBounds, boolean isVisible) {
+    public void onChange(Rect keyboardBounds, boolean isVisible) {
         if (mHelper.isOutSideTouchable() && !mHelper.isOverlayStatusbar()) return;
         boolean forceAdjust = (mHelper.flag & CFlag.KEYBOARD_FORCE_ADJUST) != 0;
         boolean process = forceAdjust || ((UtilKScreen.getScreenOrientation() != Configuration.ORIENTATION_LANDSCAPE)
