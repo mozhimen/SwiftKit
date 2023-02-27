@@ -4,6 +4,7 @@ import android.content.ContentResolver
 import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.media.MediaScannerConnection
 import android.net.Uri
@@ -13,6 +14,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.datatype.UtilKString
 import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
@@ -28,6 +30,12 @@ import java.io.*
 object UtilKBitmapIO {
     private const val TAG = "UtilKBitmapIO>>>>>"
     private val _context = UtilKApplication.instance.get()
+
+    @JvmStatic
+    fun filePath2Bitmap(filePathWithName: String): Bitmap? {
+        return if (filePathWithName.isEmpty() || UtilKString.isHasSpace(filePathWithName)) null
+        else BitmapFactory.decodeFile(filePathWithName)
+    }
 
     /**
      * 位图转文件
