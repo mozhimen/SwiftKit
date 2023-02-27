@@ -109,6 +109,16 @@ object UtilKString {
         str.substring(str.lastIndexOf(splitStr) + 1, str.length)
 
     /**
+     * 获取分割后的第一个元素
+     * @param str String
+     * @param splitStr String
+     * @return String
+     */
+    @JvmStatic
+    fun getSplitFirst(str: String, splitStr: String): String =
+        str.substring(0, str.indexOf(splitStr))
+
+    /**
      * icon代码转unicode
      * @param str String
      * @return String

@@ -2,10 +2,7 @@ package com.mozhimen.basick.utilk.datatype.regular
 
 import android.util.Log
 import androidx.annotation.MainThread
-import com.mozhimen.basick.utilk.exts.isDoMainValid
-import com.mozhimen.basick.utilk.exts.isIPValid
-import com.mozhimen.basick.utilk.exts.isPortValid
-import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.exts.*
 import java.net.URI
 import java.net.URISyntaxException
 
@@ -84,34 +81,47 @@ object UtilKVerifyUrl {
             "输入为空".showToast()
             return false
         }
-        if (!url.startsWith("http://") && !url.startsWith("https://")) {
-            "请输入正确的协议(http://或https://)".showToast()
+        if (!url.startsWith("http://") && !url.startsWith("https://") && !url.startsWith("tcp://")) {
+            "请输入正确的协议头".showToast()
             return false
         }
         val splitArray = url.split(":")
-        if (splitArray.size != 3 && splitArray.size != 2) {
+        if (splitArray.size < 2) {
             "请输入正确的端口格式".showToast()
             return false
         }
+        //first:http
         if (splitArray.getOrNull(0) == null) {
-            "请输入正确的端口格式(http或https)接IP或域名".showToast()
+            "请输入正确的端口格式(http/https/tcp)接IP或域名".showToast()
             return false
         }
-        if (splitArray[0] != "http" && splitArray[0] != "https") {
-            "请输入正确的协议(http或https)".showToast()
+        val first = splitArray[0]
+        if (first != "http" && first != "https" && first != "tcp") {
+            "请输入正确的协议(http/https/tcp)".showToast()
             return false
         }
+        //second:ip
         if (splitArray.getOrNull(1) == null) {
             "请输入正确的IP或域名".showToast()
             return false
         }
-        if (!splitArray[1].replace("//", "").isIPValid() && !splitArray[1].replace("//", "").isDoMainValid()) {
+        var second = splitArray[1].replace("//", "")
+        if (second.contains("/")) {
+            second = second.getSplitFirst("/")
+        }
+        if (!second.isIPValid() && !second.isDoMainValid()) {
             "请输入正确的IP或域名".showToast()
             return false
         }
-        if (splitArray.getOrNull(2) != null && !splitArray[2].isPortValid()) {
-            "请输入正确的端口".showToast()
-            return false
+        if (splitArray.getOrNull(2) != null) {
+            var third = splitArray[2]
+            if (third.contains("/")) {
+                third = third.getSplitFirst("/")
+            }
+            if (!third.isPortValid()) {
+                "请输入正确的端口".showToast()
+                return false
+            }
         }
         return true
     }

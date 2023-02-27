@@ -12,6 +12,7 @@ import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.view.bar.UtilKVirtualBar
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import kotlin.math.sqrt
 
 /**
@@ -34,6 +35,18 @@ object UtilKScreen {
     @JvmStatic
     fun isFullScreen(activity: Activity): Boolean =
         if (activity.window == null) false else activity.window.attributes.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == WindowManager.LayoutParams.FLAG_FULLSCREEN
+
+    /**
+     * 是否全屏
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isFullScreen(): Boolean {
+        val typedArray = _context.theme.obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
+        val windowFullscreen = typedArray.getBoolean(0, false)
+        typedArray.recycle()
+        return windowFullscreen
+    }
 
     /**
      * 设置全屏

@@ -19,6 +19,14 @@ import java.util.*
 fun String.getSplitLast(splitStr: String): String = UtilKString.getSplitLast(this, splitStr)
 
 /**
+ * 获取分割后的第一个元素
+ * @receiver String
+ * @param splitStr String
+ * @return String
+ */
+fun String.getSplitFirst(splitStr: String): String = UtilKString.getSplitFirst(this, splitStr)
+
+/**
  * icon代码转unicode
  * @receiver String
  * @return String

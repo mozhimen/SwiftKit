@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.view.bar
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Point
 import android.graphics.Rect
 import android.os.Build
@@ -74,6 +75,19 @@ object UtilKNavigationBar {
                 if (navigationBarBounds.width() > navigationBarBounds.height()) Gravity.TOP else Gravity.LEFT
             } else Gravity.BOTTOM
         } else Gravity.RIGHT
+    }
+
+    /**
+     * Return the navigation bar's height.
+     * @return Int
+     */
+    @JvmStatic
+    fun getNavigationBarHeight(): Int {
+        val res = Resources.getSystem()
+        val resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android")
+        return if (resourceId != 0) {
+            res.getDimensionPixelSize(resourceId)
+        } else 0
     }
 
     /**

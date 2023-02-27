@@ -48,7 +48,7 @@ open class NetKHttp(
     var baseUrl: String = baseUrl
         set(value) {
             field = value
-            initRetrofit(value).also { _retrofit = it }
+            _retrofit = initRetrofit(value)
         }
 
     init {
@@ -57,6 +57,9 @@ open class NetKHttp(
 
     @Synchronized
     fun <SERVICE : Any> create(service: Class<SERVICE>): SERVICE {
+        if (_retrofit == null) {
+            _retrofit = initRetrofit(baseUrl)
+        }
         return _retrofit!!.create(service) as SERVICE
     }
 

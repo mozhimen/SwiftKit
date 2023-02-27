@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.view.bar
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Rect
 import android.os.Build
 import android.util.Log
@@ -11,8 +12,9 @@ import android.view.Window
 import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.UtilKActivity
-import com.mozhimen.basick.utilk.os.UtilKOS
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.os.UtilKOS
 
 /**
  * @ClassName UtilKBar
@@ -24,6 +26,17 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
 object UtilKStatusBar {
     private const val TAG = "UtilKStatusBar>>>>>"
     private val _context = UtilKApplication.instance.get()
+
+    /**
+     * Return the status bar's height.
+     * @return Int
+     */
+    @JvmStatic
+    fun getStatusBarHeight(): Int {
+        val resources = Resources.getSystem()
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        return resources.getDimensionPixelSize(resourceId)
+    }
 
     /**
      * 获取状态栏高度2
@@ -47,23 +60,9 @@ object UtilKStatusBar {
      * @return Int
      */
     @JvmStatic
-    fun getStatusBarHeight(isCheckFullScreen: Boolean = false): Int {
-        var statusBarHeight = 0
-        if (isCheckFullScreen) {
-            val typedArray = _context.theme.obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
-            val windowFullscreen = typedArray.getBoolean(0, false)
-            typedArray.recycle()
-            if (windowFullscreen) {
-                return statusBarHeight
-            }
-        }
-        //获取status_bar_height资源的ID
-        val resourceId = _context.resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            //根据资源ID获取响应的尺寸值
-            statusBarHeight = _context.resources.getDimensionPixelSize(resourceId)
-        }
-        return statusBarHeight
+    fun getStatusBarHeight(isCheckFullScreen: Boolean): Int {
+        if (isCheckFullScreen && UtilKScreen.isFullScreen()) return 0
+        return getStatusBarHeight()
     }
 
     /**
