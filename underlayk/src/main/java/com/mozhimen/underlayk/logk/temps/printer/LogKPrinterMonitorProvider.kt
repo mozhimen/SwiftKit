@@ -16,7 +16,7 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.view.bar.UtilKDialog
 import com.mozhimen.basick.utilk.exts.showToastOnMain

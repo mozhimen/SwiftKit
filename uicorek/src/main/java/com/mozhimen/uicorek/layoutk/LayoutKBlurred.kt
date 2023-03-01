@@ -10,7 +10,7 @@ import android.widget.ImageView
 import androidx.annotation.IntRange
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapFormat
-import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.UtilKBitmapBlur
 import com.mozhimen.uicorek.R
 

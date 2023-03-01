@@ -38,7 +38,7 @@ import androidx.fragment.app.Fragment;
 
 import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.stackk.StackK;
-import com.mozhimen.basick.utilk.device.UtilKScreen;
+import com.mozhimen.basick.utilk.view.display.UtilKScreen;
 import com.mozhimen.basick.utilk.content.UtilKActivity;
 import com.mozhimen.basick.utilk.anim.UtilKAnim;
 import com.mozhimen.basick.utilk.anim.UtilKAnimation;

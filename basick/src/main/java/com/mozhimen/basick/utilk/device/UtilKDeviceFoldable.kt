@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.device
 
 import android.os.Build
 import android.text.TextUtils
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 
 /**
  * @ClassName UtilKDeviceFoldable

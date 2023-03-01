@@ -50,7 +50,7 @@ object UtilKWindow {
         val contentView = window.findViewById<View>(R.id.content) ?: return 0
         val outRect = Rect()
         contentView.getWindowVisibleDisplayFrame(outRect)
-        Log.d(UtilKKeyBoard.TAG, "getContentViewInvisibleHeight: " + (contentView.bottom - outRect.bottom))
+        Log.d(TAG, "getContentViewInvisibleHeight: " + (contentView.bottom - outRect.bottom))
         val delta = abs(contentView.bottom - outRect.bottom)
         return if (delta <= UtilKStatusBar.getStatusBarHeight() + UtilKNavigationBar.getNavigationBarHeight()) 0 else delta
     }

@@ -1,11 +1,10 @@
-package com.mozhimen.basick.utilk.device
+package com.mozhimen.basick.utilk.view.display
 
 import android.content.Context
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.WindowManager
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import kotlin.math.roundToInt
 
 /**
  * @ClassName KDisplayUtil

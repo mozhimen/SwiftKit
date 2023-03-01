@@ -13,7 +13,7 @@ import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.UtilKActivity
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.os.UtilKOS
 
 /**

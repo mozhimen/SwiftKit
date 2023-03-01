@@ -20,7 +20,7 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.exts.showToastOnMain
-import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.componentk.camera2k.helpers.GLSurfaceRenderer
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.exts.ExtsLogK.et

@@ -33,7 +33,7 @@ open class NetKHttp(
     private val _okHttpClient by lazy {
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
-                addInterceptor(HttpLoggingInterceptor { msg -> Log.d(TAG, msg) }.also { it.level = HttpLoggingInterceptor.Level.BODY })
+                addInterceptor(HttpLoggingInterceptor { msg -> Log.v(TAG, msg) }.also { it.level = HttpLoggingInterceptor.Level.BODY })
                 if (_intercepters.isNotEmpty()) _intercepters.forEach { addInterceptor(it) }
             }
         }.build()

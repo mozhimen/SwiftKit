@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.device
+package com.mozhimen.basick.utilk.view.display
 
 import android.os.Bundle
 import android.util.Log

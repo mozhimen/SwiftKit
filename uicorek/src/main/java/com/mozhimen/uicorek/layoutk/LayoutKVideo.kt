@@ -11,7 +11,7 @@ import android.util.Log
 import android.view.Surface
 import android.view.TextureView
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
-import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.uicorek.R
 import java.io.IOException
 

@@ -11,8 +11,7 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.UtilKActivity
 import com.mozhimen.basick.utilk.datatype.UtilKDataType
-import com.mozhimen.basick.utilk.device.UtilKDisplay
-import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.exts.et
 import java.util.*
 

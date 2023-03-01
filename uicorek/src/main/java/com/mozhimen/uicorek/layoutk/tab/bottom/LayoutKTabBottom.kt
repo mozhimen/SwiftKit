@@ -11,7 +11,7 @@ import android.widget.FrameLayout
 import android.widget.ScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.device.UtilKScreen.getRealScreenWidth
+import com.mozhimen.basick.utilk.view.display.UtilKScreen.getRealScreenWidth
 import com.mozhimen.basick.utilk.view.UtilKView.findTypeChildView
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.graphics.UtilKColor

@@ -6,7 +6,7 @@ import com.mozhimen.basick.utilk.exts.boolean2String
 import com.mozhimen.basick.utilk.*
 import com.mozhimen.basick.utilk.device.UtilKCamera
 import com.mozhimen.basick.utilk.device.UtilKDevice
-import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.net.UtilKNetConn
 import com.mozhimen.basick.utilk.os.UtilKBuild
 import com.mozhimen.debugk.BuildConfig

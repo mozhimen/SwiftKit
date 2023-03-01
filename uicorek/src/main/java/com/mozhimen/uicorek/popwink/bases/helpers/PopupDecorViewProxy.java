@@ -22,7 +22,7 @@ import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import com.mozhimen.basick.utilk.view.UtilKViewGravity;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyBoard;
-import com.mozhimen.basick.utilk.device.UtilKScreen;
+import com.mozhimen.basick.utilk.view.display.UtilKScreen;
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.popwink.bases.commons.IEventObserver;

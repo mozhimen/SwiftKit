@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.device
+package com.mozhimen.basick.utilk.view.display
 
 import android.app.Activity
 import android.content.Context
@@ -12,7 +12,6 @@ import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.view.bar.UtilKVirtualBar
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import kotlin.math.sqrt
 
 /**

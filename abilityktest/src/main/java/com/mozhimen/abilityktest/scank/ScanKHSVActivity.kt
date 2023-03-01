@@ -13,7 +13,7 @@ import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.exts.cropBitmap
-import com.mozhimen.basick.utilk.device.UtilKScreen
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
