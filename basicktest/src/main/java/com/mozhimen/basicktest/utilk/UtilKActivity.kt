@@ -38,6 +38,10 @@ class UtilKActivity : BaseActivityVB<ActivityUtilkBinding>() {
         start<UtilKGestureActivity>()
     }
 
+    fun goUtilKKeyBoard(view: View) {
+        start<UtilKKeyBoardActivity>()
+    }
+
     fun goUtilKScreen(view: View) {
         start<UtilKScreenActivity>()
     }

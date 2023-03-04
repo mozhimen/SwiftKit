@@ -176,7 +176,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyboardChange
                 if (focusTarget == null) {
                     focusTarget = contentView.findFocus();
                 }
-                UtilKKeyBoard.showPostDelay(focusTarget == null ? contentView : focusTarget, mHelper.showKeybaordDelay);
+                UtilKKeyBoard.showByDelay(focusTarget == null ? contentView : focusTarget, mHelper.showKeybaordDelay);
             }
         }
         return wp;

@@ -6,7 +6,6 @@ import android.os.Build
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewParent
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.mozhimen.basick.elemk.cons.CVersionCode
@@ -38,8 +37,8 @@ object UtilKKeyBoard {
         )
     )
     @JvmStatic
-    fun toggle(activity: Activity) {
-        (activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(0, 0)
+    fun toggle(context: Context) {
+        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(0, 0)
     }
 
     /**
@@ -74,7 +73,7 @@ object UtilKKeyBoard {
      * @param delayMillis Long
      */
     @JvmStatic
-    fun showPostDelay(view: View, delayMillis: Long) {
+    fun showByDelay(view: View, delayMillis: Long) {
         view.postDelayed({ show(view) }, delayMillis)
     }
 
@@ -97,6 +96,48 @@ object UtilKKeyBoard {
     @JvmStatic
     fun hide(view: View) {
         (view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    /**
+     * 点击空白地方隐藏软键盘
+     * Click blank area to hide soft input.
+     * Copy the following code in ur activity.
+     */
+    @JvmStatic
+    fun hideByClickOther() {
+        Log.d(TAG, "hideByClickOther: Please refer to the following code.")
+        //kotlin
+        /*override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+            if (event?.action == MotionEvent.ACTION_DOWN) {
+                val focusView: View? = currentFocus
+                if (focusView != null && UtilKKeyBoard.isShouldHide(focusView, event)) {
+                    UtilKKeyBoard.hide(this)
+                }
+            }
+            return super.dispatchTouchEvent(event)
+        }*/
+        //java
+        /*
+        @Override
+        public boolean dispatchTouchEvent(MotionEvent ev) {
+            if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+                View view = getCurrentFocus();
+                if (UtilKKeyBoard.isShouldHideKeyboard(view, ev)) {
+                    UtilKKeyBoard.hide(this);
+                }
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+        */
+    }
+
+    /**
+     * Click blank area to hide soft input.
+     * Copy the following code in ur activity.
+     */
+    @JvmStatic
+    fun clickBlankAreaToHide() {
+
     }
 
     /**
@@ -128,18 +169,20 @@ object UtilKKeyBoard {
 
     /**
      * 是否需要隐藏软键盘
+     * Return whether touch the view.
      * @param view View 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditView上，和用户用轨迹球选择其他的焦点
      * @param event MotionEvent
      * @return Boolean
      */
-    @JvmStatic
-    fun isNeedHide(view: View, event: MotionEvent): Boolean {
+    fun isShouldHide(view: View, event: MotionEvent): Boolean {
         if (view is EditText) {
-            val ints = intArrayOf(0, 0)//left,top
-            view.getLocationInWindow(ints)
-            val right = ints[0] + view.getWidth()
-            val bottom = ints[1] + view.getHeight()
-            return !(event.x > ints[0] && event.x < right && event.y > ints[1] && event.y < bottom)
+            val ints = intArrayOf(0, 0)
+            view.getLocationOnScreen(ints)
+            val left = ints[0]
+            val top = ints[1]
+            val bottom = top + view.getHeight()
+            val right = left + view.getWidth()
+            return !(event.rawX > left && event.rawX < right && event.rawY > top && event.rawY < bottom)
         }
         return false
     }
@@ -235,35 +278,6 @@ object UtilKKeyBoard {
     }
 }
 
-//package com.mozhimen.basick.utilk.view.keyboard
-//
-//import android.R
-//import android.app.Activity
-//import android.content.Context
-//import android.graphics.Rect
-//import android.os.*
-//import android.util.Log
-//import android.view.*
-//import android.view.inputmethod.InputMethodManager
-//import android.widget.EditText
-//import android.widget.FrameLayout
-//import com.mozhimen.basick.elemk.cons.CVersionCode
-//import com.mozhimen.basick.utilk.content.UtilKApplication
-//import com.mozhimen.basick.utilk.exts.et
-//import com.mozhimen.basick.utilk.java.UtilKReflect
-//import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar
-//import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
-//import com.mozhimen.basick.utilk.view.display.UtilKWindow
-//import java.lang.reflect.Field
-//import kotlin.math.abs
-//
-///**
-// * @ClassName UtilKKeyBoard
-// * @Description 如果你希望他在7.0生效,你还需设置manifest->android:windowSoftInputMode="stateAlwaysHidden"
-// * @Author mozhimen / Kolin Zhao
-// * @Date 2022/1/15 20:01
-// * @Version 1.0
-// */
 //object UtilKKeyBoard {
 //    private const val TAG = "UtilKKeyBoard>>>>>"
 //    private val _context = UtilKApplication.instance.get()
@@ -439,40 +453,23 @@ object UtilKKeyBoard {
 //        return UtilKWindow.getDecorViewInvisibleHeight(activity.window) > 0
 //    }
 //
+//
 //    /**
-//     * Click blank area to hide soft input.
-//     * Copy the following code in ur activity.
+//     * 是否需要隐藏软键盘
+//     * @param view View 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditView上，和用户用轨迹球选择其他的焦点
+//     * @param event MotionEvent
+//     * @return Boolean
 //     */
 //    @JvmStatic
-//    fun clickBlankAreaToHide() {
-//        Log.i("KeyboardUtils", "Please refer to the following code.")
-//        /*
-//        @Override
-//        public boolean dispatchTouchEvent(MotionEvent ev) {
-//            if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-//                View v = getCurrentFocus();
-//                if (isShouldHideKeyboard(v, ev)) {
-//                    KeyboardUtils.hideSoftInput(this);
-//                }
-//            }
-//            return super.dispatchTouchEvent(ev);
+//    fun isNeedHide(view: View, event: MotionEvent): Boolean {
+//        if (view is EditText) {
+//            val ints = intArrayOf(0, 0)//left,top
+//            view.getLocationInWindow(ints)
+//            val right = ints[0] + view.getWidth()
+//            val bottom = ints[1] + view.getHeight()
+//            return !(event.x > ints[0] && event.x < right && event.y > ints[1] && event.y < bottom)
 //        }
-//
-//        // Return whether touch the view.
-//        private boolean isShouldHideKeyboard(View v, MotionEvent event) {
-//            if ((v instanceof EditText)) {
-//                int[] l = {0, 0};
-//                v.getLocationOnScreen(l);
-//                int left = l[0],
-//                        top = l[1],
-//                        bottom = top + v.getHeight(),
-//                        right = left + v.getWidth();
-//                return !(event.getRawX() > left && event.getRawX() < right
-//                        && event.getRawY() > top && event.getRawY() < bottom);
-//            }
-//            return false;
-//        }
-//        */
+//        return false
 //    }
 //
 //    /**
@@ -499,24 +496,6 @@ object UtilKKeyBoard {
 //    @JvmStatic
 //    fun isActive(view: View): Boolean =
 //        (_context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).isActive(view)
-//
-//    /**
-//     * 是否需要隐藏软键盘
-//     * @param view View 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditView上，和用户用轨迹球选择其他的焦点
-//     * @param event MotionEvent
-//     * @return Boolean
-//     */
-//    @JvmStatic
-//    fun isNeedHide(view: View, event: MotionEvent): Boolean {
-//        if (view is EditText) {
-//            val ints = intArrayOf(0, 0)//left,top
-//            view.getLocationInWindow(ints)
-//            val right = ints[0] + view.getWidth()
-//            val bottom = ints[1] + view.getHeight()
-//            return !(event.x > ints[0] && event.x < right && event.y > ints[1] && event.y < bottom)
-//        }
-//        return false
-//    }
 //
 //    /**
 //     * 修复在RecyclerView中持有内存泄漏的问题

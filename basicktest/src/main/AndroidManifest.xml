@@ -98,14 +98,17 @@
             android:exported="false" />
         <!-- utilk -->
         <activity
+            android:name=".utilk.UtilKActivity"
+            android:exported="true" />
+        <activity
             android:name=".utilk.UtilKAssetActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.UtilKGestureActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKActivity"
-            android:exported="true" />
+            android:name=".utilk.UtilKKeyBoardActivity"
+            android:exported="false" />
         <activity
             android:name=".utilk.UtilKScreenActivity"
             android:exported="false" />

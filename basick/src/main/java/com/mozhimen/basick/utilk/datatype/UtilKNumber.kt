@@ -64,7 +64,6 @@ object UtilKNumber {
      */
     @JvmStatic
     fun angleCosInQuadrant(point: MPointF, centerPoint: MPointF): Float {
-        Log.d(TAG, "angleCosInQuadrant: point $point centerPoint $centerPoint")
         return when {
             point.x == centerPoint.x && point.y >= centerPoint.y -> {
                 0f
