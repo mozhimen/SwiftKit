@@ -10,6 +10,7 @@ import com.mozhimen.componentktest.databinding.ActivityComponentkBinding
 import com.mozhimen.componentktest.installk.InstallKActivity
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
 import com.mozhimen.componentktest.netk.NetKActivity
+import com.mozhimen.componentktest.videok.VideoKActivity
 
 class ComponentKActivity : BaseActivityVB<ActivityComponentkBinding>() {
 
@@ -29,12 +30,15 @@ class ComponentKActivity : BaseActivityVB<ActivityComponentkBinding>() {
         start<InstallKActivity>()
     }
 
-    fun goNetK(view: View) {
-        start<NetKActivity>()
-    }
-
     fun goNavigateK(view: View) {
         start<NavigateKActivity>()
     }
 
+    fun goNetK(view: View) {
+        start<NetKActivity>()
+    }
+
+    fun goVideoK(view: View) {
+        start<VideoKActivity>()
+    }
 }

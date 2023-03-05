@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.layoutk
+package com.mozhimen.componentk.videok
 
 import android.content.Context
 import android.graphics.Color
@@ -40,7 +40,7 @@ import java.io.IOException
  * @Date 2021/7/2 22:31
  * @Version 1.0
  */
-class LayoutKVideo @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+class VideoKLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr), TextureView.SurfaceTextureListener {
 
     companion object {

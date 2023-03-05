@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.encrypt
+package com.mozhimen.basick.utilk.java.io.encrypt
 
 import android.util.Base64
 import java.io.IOException

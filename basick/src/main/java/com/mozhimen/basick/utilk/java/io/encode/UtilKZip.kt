@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.java.io.file
+package com.mozhimen.basick.utilk.java.io.encode
 
 import android.util.Log
 import com.mozhimen.basick.utilk.exts.et

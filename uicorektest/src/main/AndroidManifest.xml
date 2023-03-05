@@ -62,10 +62,6 @@
         <activity
             android:name=".layoutk.LayoutKEmptyActivity"
             android:exported="false" />
-
-        <activity
-            android:name=".layoutk.LayoutKVideoActivity"
-            android:exported="false" />
         <activity
             android:name=".layoutk.banner.LayoutKBannerActivity"
             android:exported="false" />

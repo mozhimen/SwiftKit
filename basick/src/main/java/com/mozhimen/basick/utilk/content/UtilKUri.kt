@@ -28,7 +28,7 @@ object UtilKUri {
      * @return Uri
      */
     @JvmStatic
-    fun filePathStr2Uri(filePathWithName: String): Uri? {
+    fun filePathString2Uri(filePathWithName: String): Uri? {
         if (filePathWithName.isEmpty()) {
             Log.e(TAG, "file2Uri: isEmpty true")
             return null

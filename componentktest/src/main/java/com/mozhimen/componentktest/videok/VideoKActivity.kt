@@ -1,15 +1,15 @@
-package com.mozhimen.uicorektest.layoutk
+package com.mozhimen.componentktest.videok
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.res.UtilKAsset
-import com.mozhimen.uicorektest.databinding.ActivityLayoutkVideoBinding
+import com.mozhimen.componentktest.databinding.ActivityVideokBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LayoutKVideoActivity : BaseActivityVB<ActivityLayoutkVideoBinding>() {
+class VideoKActivity : BaseActivityVB<ActivityVideokBinding>() {
 
     private val _path by lazy { this.filesDir.absolutePath + "/videoPath/" }
     private var _currentUrl: String? = null

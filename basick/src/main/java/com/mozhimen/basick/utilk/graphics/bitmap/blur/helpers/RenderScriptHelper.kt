@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.UtilKBitmapBlur
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.exts.colorStr2Int
+import com.mozhimen.basick.utilk.exts.colorString2Int
 import com.mozhimen.basick.utilk.log.UtilKLogSmart
 
 /**
@@ -159,7 +159,7 @@ object RenderScriptHelper {
         canvas.setMatrix(matrix)
         val bgDrawable = view.background
         if (bgDrawable == null) {
-            canvas.drawColor("#FAFAFA".colorStr2Int())
+            canvas.drawColor("#FAFAFA".colorString2Int())
         } else {
             bgDrawable.draw(canvas)
         }

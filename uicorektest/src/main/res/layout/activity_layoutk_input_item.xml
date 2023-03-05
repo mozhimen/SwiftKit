@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.mozhimen.uicorek.layoutk.LayoutKInputItem
+        <com.mozhimen.uicorek.layoutk.edit.LayoutKEditItem
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginBottom="10dp"

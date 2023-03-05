@@ -105,12 +105,6 @@
                 android:text="goLayoutKTimeLine"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
-                android:onClick="goLayoutKVideo"
-                android:text="goLayoutKVideo"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
 
         </LinearLayout>
 

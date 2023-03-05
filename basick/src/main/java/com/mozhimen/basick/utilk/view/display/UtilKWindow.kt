@@ -1,13 +1,11 @@
 package com.mozhimen.basick.utilk.view.display
 
-import android.R
 import android.graphics.Rect
 import android.util.Log
 import android.view.View
 import android.view.Window
 import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
-import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyBoard
 import kotlin.math.abs
 
 /**
@@ -47,7 +45,7 @@ object UtilKWindow {
      */
     @JvmStatic
     fun getContentViewInvisibleHeight(window: Window): Int {
-        val contentView = window.findViewById<View>(R.id.content) ?: return 0
+        val contentView = window.findViewById<View>(android.R.id.content) ?: return 0
         val outRect = Rect()
         contentView.getWindowVisibleDisplayFrame(outRect)
         Log.d(TAG, "getContentViewInvisibleHeight: " + (contentView.bottom - outRect.bottom))

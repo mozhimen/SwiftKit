@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data />
@@ -9,9 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.mozhimen.uicorektest.layoutk.LayoutKVideoActivity">
+        tools:context="com.mozhimen.uicorektest.com.mozhimen.componentktest.videok.LayoutKVideoActivity">
 
-        <!--<com.mozhimen.uicorek.layoutk.LayoutKVideo
+        <!--<com.mozhimen.componentk.videok.LayoutKVideo
             android:id="@+id/layoutk_video1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -21,7 +20,7 @@
             app:layoutKVideo_videoGravity="none"
             app:layoutKVideo_volume="0" />-->
 
-        <com.mozhimen.uicorek.layoutk.LayoutKVideo
+        <com.mozhimen.componentk.videok.VideoKLayout
             android:id="@+id/layoutk_video2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -29,7 +28,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_change_video"
-            style="@style/Btn_Style"
+            style="@style/BtnStyle"
             android:text="换一个视频"
             tools:ignore="HardcodedText" />
     </LinearLayout>

@@ -1,8 +1,7 @@
-package com.mozhimen.basick.utilk.encrypt
+package com.mozhimen.basick.utilk.java.io.hash
 
 import android.util.Log
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
-import com.mozhimen.basick.utilk.datatype.UtilKDataType
 import com.mozhimen.basick.utilk.exts.et
 import java.io.UnsupportedEncodingException
 import java.math.BigInteger

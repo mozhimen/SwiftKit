@@ -77,7 +77,10 @@
         <activity
             android:name=".netk.NetKActivity"
             android:exported="false" />
-
+        <!--videok-->
+        <activity
+            android:name=".videok.VideoKActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

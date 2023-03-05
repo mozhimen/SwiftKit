@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:gravity="center">
 
-        <com.mozhimen.uicorek.layoutk.LayoutKBlurred
+        <com.mozhimen.uicorek.layoutk.LayoutKBlur
             android:id="@+id/demo_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

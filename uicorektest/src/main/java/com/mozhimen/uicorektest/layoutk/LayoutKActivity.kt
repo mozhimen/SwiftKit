@@ -60,8 +60,4 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
     fun goLayoutKSquare(view: View) {
         start<LayoutKSquareActivity>()
     }
-
-    fun goLayoutKVideo(view: View) {
-        start<LayoutKVideoActivity>()
-    }
 }

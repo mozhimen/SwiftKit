@@ -54,7 +54,7 @@ object UtilKColor {
      */
     @JvmStatic
     @ColorInt
-    fun colorStr2Int(colorStr: String): Int = Color.parseColor(colorStr)
+    fun colorString2Int(colorStr: String): Int = Color.parseColor(colorStr)
 
     /**
      * 获取颜色
@@ -63,8 +63,8 @@ object UtilKColor {
      */
     @JvmStatic
     @ColorInt
-    fun colorStr2Int(obj: Any): Int = when (obj) {
-        is String -> colorStr2Int(obj)
+    fun colorString2Int(obj: Any): Int = when (obj) {
+        is String -> colorString2Int(obj)
         is Int -> obj
         else -> Color.WHITE
     }

@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.layoutk
+package com.mozhimen.uicorek.layoutk.touch
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,12 +15,12 @@ import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
  * @Date 2022/9/8 18:05
  * @Version 1.0
  */
-typealias ILayoutKFrameTouchListener = () -> Unit
+typealias ILayoutKTouchFrameListener = () -> Unit
 
-class LayoutKFrameTouch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
+class LayoutKTouchFrame @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr, defStyleRes) {
     //region # variate
-    private var _viewKTouchListener: ILayoutKFrameTouchListener? = null
+    private var _viewKTouchListener: ILayoutKTouchFrameListener? = null
     private var _touchAreaRect: Rect? = null
     //endregion
 
@@ -36,7 +36,7 @@ class LayoutKFrameTouch @JvmOverloads constructor(context: Context, attrs: Attri
      * 设置出发监听器
      * @param listener Function0<Unit>
      */
-    fun setOnTouchListener(listener: ILayoutKFrameTouchListener) {
+    fun setOnTouchListener(listener: ILayoutKTouchFrameListener) {
         _viewKTouchListener = listener
     }
 

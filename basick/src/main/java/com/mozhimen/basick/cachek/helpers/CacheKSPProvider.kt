@@ -2,7 +2,7 @@ package com.mozhimen.basick.cachek.helpers
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.mozhimen.basick.utilk.encrypt.UtilKAES
+import com.mozhimen.basick.utilk.java.io.encrypt.UtilKAES
 import com.mozhimen.basick.utilk.content.UtilKApplication
 
 /**

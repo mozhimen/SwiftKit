@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.layoutk
+package com.mozhimen.uicorek.layoutk.edit
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -26,7 +26,7 @@ import com.mozhimen.uicorek.R
  * @Date 2021/12/18 12:56
  * @Version 1.0
  */
-class LayoutKInputItem @JvmOverloads constructor(
+class LayoutKEditItem @JvmOverloads constructor(
     context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
 ) :
     BaseLayoutKLinear(context, attrs, defStyleAttr) {
