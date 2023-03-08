@@ -11,11 +11,12 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.activity.commons.IActivity
+import com.mozhimen.basick.elemk.activity.commons.IFragment
 import com.mozhimen.basick.utilk.jetpack.databinding.UtilKViewDataBinding
 
 open class BaseFragmentVB<VB : ViewDataBinding>(
     protected open val _factory: ViewModelProvider.Factory? = null
-) : Fragment(), IActivity {
+) : Fragment(), IActivity, IFragment {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     private var _vb: VB? = null
@@ -24,6 +25,7 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
     fun isAlive(): Boolean = !isRemoving && !isDetached && activity != null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        inflateView(container)
         _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container, 0).apply {
             lifecycleOwner = this@BaseFragmentVB
         }
@@ -45,6 +47,10 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
         super.onViewCreated(view, savedInstanceState)
         initLayout()
         initData(savedInstanceState)
+    }
+
+    override fun inflateView(viewGroup: ViewGroup?) {
+
     }
 
     override fun initFlag() {

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.netk.conn.helpers
+package com.mozhimen.basick.packk.netk.conn.helpers
 
 import android.content.Context
 import android.content.Intent
@@ -7,8 +7,8 @@ import android.util.Log
 import com.mozhimen.basick.elemk.receiver.bases.BaseBroadcastReceiver
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.netk.conn.commons.INetKConnListener
-import com.mozhimen.basick.netk.conn.cons.ENetKType
+import com.mozhimen.basick.packk.netk.conn.commons.INetKConnListener
+import com.mozhimen.basick.packk.netk.conn.cons.ENetKType
 
 
 /**

@@ -1,11 +1,11 @@
-package com.mozhimen.basick.netk.conn.helpers
+package com.mozhimen.basick.packk.netk.conn.helpers
 
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.telephony.TelephonyManager
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.netk.conn.cons.ENetKType
+import com.mozhimen.basick.packk.netk.conn.cons.ENetKType
 import com.mozhimen.basick.utilk.net.UtilKNetConn
 
 

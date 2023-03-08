@@ -1,4 +1,4 @@
-package com.mozhimen.basick.netk.conn
+package com.mozhimen.basick.packk.netk.conn
 
 import android.app.Activity
 import android.net.ConnectivityManager
@@ -7,8 +7,8 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.receiver.BaseReceiverDelegate
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.netk.conn.commons.INetKConnListener
-import com.mozhimen.basick.netk.conn.helpers.NetKConnReceiver
+import com.mozhimen.basick.packk.netk.conn.commons.INetKConnListener
+import com.mozhimen.basick.packk.netk.conn.helpers.NetKConnReceiver
 
 
 /**

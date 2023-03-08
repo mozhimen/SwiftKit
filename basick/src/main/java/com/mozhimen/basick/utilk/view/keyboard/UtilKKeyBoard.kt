@@ -84,7 +84,7 @@ object UtilKKeyBoard {
     @JvmStatic
     fun hide(activity: Activity) {
         val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if ((activity.window.peekDecorView() != null || inputMethodManager.isActive) && activity.currentFocus != null) {
+        if (((activity.window.peekDecorView() != null || inputMethodManager.isActive) && activity.currentFocus != null) && isShow(activity)) {
             hide(activity.currentFocus!!)
         }
     }
@@ -170,6 +170,35 @@ object UtilKKeyBoard {
     /**
      * 是否需要隐藏软键盘
      * Return whether touch the view.
+     * for Example:
+     *
+     * inActivity:
+     *
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+    if (event?.action == MotionEvent.ACTION_DOWN) {
+    val focusView: View? = currentFocus
+    if (focusView != null && UtilKKeyBoard.isShouldHide(focusView, event)) {
+    UtilKKeyBoard.hide(this)
+    }
+    }
+    return super.dispatchTouchEvent(event)
+    }
+     *
+     * inFragment:
+     *
+    @SuppressLint("ClickableViewAccessibility")
+    override fun inflateView(viewGroup: ViewGroup?) {
+    viewGroup?.setOnTouchListener { _, event ->
+    if (event?.action == MotionEvent.ACTION_DOWN) {
+    val focusView: View? = requireActivity().currentFocus
+    if (focusView != null && UtilKKeyBoard.isShouldHide(focusView, event)) {
+    UtilKKeyBoard.hide(requireActivity())
+    }
+    }
+    false
+    }
+    super.inflateView(viewGroup)
+    }
      * @param view View 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditView上，和用户用轨迹球选择其他的焦点
      * @param event MotionEvent
      * @return Boolean

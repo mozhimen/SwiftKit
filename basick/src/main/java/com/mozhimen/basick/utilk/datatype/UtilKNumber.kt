@@ -29,6 +29,58 @@ object UtilKNumber {
     }
 
     /**
+     * 保留四位
+     * @param value Double
+     * @return Double
+     */
+    @JvmStatic
+    fun keepFourDigits(value: Double): Double {
+        val format = DecimalFormat("#.####")
+        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.roundingMode = RoundingMode.FLOOR
+        return format.format(value).toDouble()
+    }
+
+    /**
+     * 保留四位
+     * @param value Double
+     * @return Double
+     */
+    @JvmStatic
+    fun keepFourDigits(value: Float): Float {
+        val format = DecimalFormat("#.####")
+        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.roundingMode = RoundingMode.FLOOR
+        return format.format(value).toFloat()
+    }
+
+    /**
+     * 保留三位
+     * @param value Double
+     * @return Double
+     */
+    @JvmStatic
+    fun keepThreeDigits(value: Double): Double {
+        val format = DecimalFormat("#.###")
+        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.roundingMode = RoundingMode.FLOOR
+        return format.format(value).toDouble()
+    }
+
+    /**
+     * 保留三位
+     * @param value Double
+     * @return Double
+     */
+    @JvmStatic
+    fun keepThreeDigits(value: Float): Float {
+        val format = DecimalFormat("#.###")
+        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.roundingMode = RoundingMode.FLOOR
+        return format.format(value).toFloat()
+    }
+
+    /**
      * 保留两位
      * @param value Double
      * @return Double
@@ -47,6 +99,14 @@ object UtilKNumber {
         //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
         format.roundingMode = RoundingMode.FLOOR
         return format.format(value).toFloat()
+    }
+
+    @JvmStatic
+    fun keepOneDigits(value: Double): Double {
+        val format = DecimalFormat("#.#")
+        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.roundingMode = RoundingMode.FLOOR
+        return format.format(value).toDouble()
     }
 
     @JvmStatic

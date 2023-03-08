@@ -1,14 +1,4 @@
-package com.mozhimen.basick.netk.conn.helpers;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.mozhimen.basick.packk.netk.conn.helpers;
 
 /**
  * @ClassName NetStateChangeReceiver

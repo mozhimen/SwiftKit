@@ -1,6 +1,6 @@
-package com.mozhimen.basick.netk.conn.commons
+package com.mozhimen.basick.packk.netk.conn.commons
 
-import com.mozhimen.basick.netk.conn.cons.ENetKType
+import com.mozhimen.basick.packk.netk.conn.cons.ENetKType
 
 
 /**

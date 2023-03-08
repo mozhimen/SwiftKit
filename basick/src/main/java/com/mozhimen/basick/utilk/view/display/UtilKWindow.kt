@@ -32,10 +32,10 @@ object UtilKWindow {
         Log.d(TAG, "getDecorViewInvisibleHeight: " + (decorView.bottom - outRect.bottom))
         val delta = abs(decorView.bottom - outRect.bottom)
         if (delta <= UtilKNavigationBar.getNavigationBarHeight() + UtilKStatusBar.getStatusBarHeight()) {
-            _decorViewDelta = delta
+            //_decorViewDelta = delta
             return 0
         }
-        return delta - _decorViewDelta
+        return delta //- _decorViewDelta
     }
 
     /**
