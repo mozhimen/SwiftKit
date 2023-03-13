@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.view.gesture
 
 import android.view.MotionEvent
 import com.mozhimen.basick.utilk.datatype.UtilKNumber
+import com.mozhimen.basick.utilk.math.UtilKPoint
 
 /**
  * @ClassName UtilKGesture
@@ -21,7 +22,7 @@ object UtilKGesture {
      */
     @JvmStatic
     fun distance(event: MotionEvent): Float {
-        return if (event.pointerCount >= 2) UtilKNumber.distance(
+        return if (event.pointerCount >= 2) UtilKPoint.distance(
             event.getX(0), event.getY(0), event.getX(1), event.getY(1)
         ) else 0f
     }

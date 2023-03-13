@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk
 import com.mozhimen.basick.utilk.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.exts.printlog
 import com.mozhimen.basick.utilk.java.UtilKConsole
+import com.mozhimen.basick.utilk.math.UtilKTriangle
 import org.junit.Test
 
 /**
@@ -23,8 +24,8 @@ class TestUtilKNumber {
 
     @Test
     fun angleSin() {
-        UtilKConsole.printlog(UtilKNumber.angleSin(1f, 2f).toString())
-        UtilKConsole.printlog(UtilKNumber.angleCos(1f, 2f).toString())
+        UtilKConsole.printlog(UtilKTriangle.angleSin(1f, 2f).toString())
+        UtilKConsole.printlog(UtilKTriangle.angleCos(1f, 2f).toString())
     }
 
     @Test

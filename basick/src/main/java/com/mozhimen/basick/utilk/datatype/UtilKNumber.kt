@@ -1,11 +1,9 @@
 package com.mozhimen.basick.utilk.datatype
 
-import android.util.Log
-import com.mozhimen.basick.elemk.mos.MPoint
-import com.mozhimen.basick.elemk.mos.MPointF
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import kotlin.math.*
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * @ClassName UtilKNumber
@@ -115,133 +113,6 @@ object UtilKNumber {
         //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
         format.roundingMode = RoundingMode.FLOOR
         return format.format(value).toFloat()
-    }
-
-    /**
-     * 计算临边对斜边的角度在象限中
-     * @param point MPoint
-     * @return Float
-     */
-    @JvmStatic
-    fun angleCosInQuadrant(point: MPointF, centerPoint: MPointF): Float {
-        return when {
-            point.x == centerPoint.x && point.y >= centerPoint.y -> {
-                0f
-            }
-            point.y == centerPoint.y && point.x >= centerPoint.x -> {
-                90f
-            }
-            point.x == centerPoint.x && point.y < centerPoint.y -> {
-                180f
-            }
-            point.y == centerPoint.y && point.x < centerPoint.x -> {
-                270f
-            }
-            point.x > centerPoint.x && point.y > centerPoint.y -> {
-                angleCos(abs(point.y - centerPoint.y), sqrt(abs(point.x-centerPoint.x) * abs(point.x-centerPoint.x) + abs(point.y-centerPoint.y) * abs(point.y-centerPoint.y)))
-            }
-            point.x > centerPoint.x && point.y < centerPoint.y -> {
-                90f + angleCos(abs(point.x - centerPoint.x), sqrt(abs(point.x-centerPoint.x) * abs(point.x-centerPoint.x) + abs(point.y-centerPoint.y) * abs(point.y-centerPoint.y)))
-            }
-            point.x < centerPoint.x && point.y < centerPoint.y -> {
-                180f + angleCos(abs(point.y - centerPoint.y), sqrt(abs(point.x-centerPoint.x) * abs(point.x-centerPoint.x) + abs(point.y-centerPoint.y) * abs(point.y-centerPoint.y)))
-            }
-            point.x < centerPoint.x && point.y > centerPoint.y -> {
-                270f + angleCos(abs(point.x - centerPoint.x), sqrt(abs(point.x-centerPoint.x) * abs(point.x-centerPoint.x) + abs(point.y-centerPoint.y) * abs(point.y-centerPoint.y)))
-            }
-            else -> {
-                0f
-            }
-        }
-    }
-
-    /**
-     * 计算临边对斜边的角度在象限中
-     * @param point MPoint
-     * @return Float
-     */
-    @JvmStatic
-    fun angleCosInQuadrant(point: MPointF): Float {
-        return when {
-            point.x == 0f && point.y >= 0f -> {
-                0f
-            }
-            point.y == 0f && point.x >= 0f -> {
-                90f
-            }
-            point.x == 0f && point.y < 0f -> {
-                180f
-            }
-            point.y == 0f && point.x < 0f -> {
-                270f
-            }
-            point.x > 0f && point.y > 0f -> {
-                angleCos(abs(point.y), sqrt(abs(point.x) * abs(point.x) + abs(point.y) * abs(point.y)))
-            }
-            point.x > 0f && point.y < 0f -> {
-                90f + angleCos(abs(point.x), sqrt(abs(point.x) * abs(point.x) + abs(point.y) * abs(point.y)))
-            }
-            point.x < 0f && point.y < 0f -> {
-                180f + angleCos(abs(point.y), sqrt(abs(point.x) * abs(point.x) + abs(point.y) * abs(point.y)))
-            }
-            point.x < 0f && point.y > 0f -> {
-                270f + angleCos(abs(point.x), sqrt(abs(point.x) * abs(point.x) + abs(point.y) * abs(point.y)))
-            }
-            else -> {
-                0f
-            }
-        }
-    }
-
-    /**
-     * 计算临边对斜边的角度
-     * @param adjacent Double 临边
-     * @param hypotenuse Double
-     * @return Float
-     */
-    @JvmStatic
-    fun angleCos(adjacent: Double, hypotenuse: Double): Double =
-        Math.toDegrees(acos(adjacent / hypotenuse))
-
-    /**
-     * 计算对边对斜边的角度
-     * @param opposite Double
-     * @param hypotenuse Double
-     * @return Float
-     */
-    @JvmStatic
-    fun angleSin(opposite: Double, hypotenuse: Double): Double =
-        Math.toDegrees(asin(opposite / hypotenuse))
-
-    /**
-     * 计算临边对斜边的角度
-     * @param adjacent Float 临边
-     * @param hypotenuse Float
-     * @return Float
-     */
-    @JvmStatic
-    fun angleCos(adjacent: Float, hypotenuse: Float): Float =
-        Math.toDegrees(acos(adjacent / hypotenuse).toDouble()).toFloat()
-
-    /**
-     * 计算对边对斜边的角度
-     * @param opposite Float
-     * @param hypotenuse Float
-     * @return Float
-     */
-    @JvmStatic
-    fun angleSin(opposite: Float, hypotenuse: Float): Float =
-        Math.toDegrees(asin(opposite / hypotenuse).toDouble()).toFloat()
-
-    @JvmStatic
-    fun center(ax: Float, ay: Float, bx: Float, by: Float): Pair<Float, Float> =
-        Pair((ax + bx) / 2f, (ay + by) / 2f)
-
-    @JvmStatic
-    fun distance(ax: Float, ay: Float, bx: Float, by: Float): Float {
-        val distance1 = abs(bx - ax)
-        val distance2 = abs(by - ay)
-        return sqrt(distance1 * distance1 + distance2 * distance2)
     }
 
     @JvmStatic

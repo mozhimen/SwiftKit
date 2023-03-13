@@ -16,6 +16,7 @@
             android:id="@+id/layoutk_btn_switchApple1"
             android:layout_width="70dp"
             android:layout_height="40dp"
+            app:layoutKBtnSwitch_defaultStatus="false"
             app:layoutKBtnSwitch_bgColorOn="@color/blue_theme" />
     </LinearLayout>
 </layout>

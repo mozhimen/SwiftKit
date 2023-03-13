@@ -16,22 +16,22 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKRes(onSuccess: suspend (data: T) -> Unit,
     collect {
         when (it) {
             is NetKRep.Uninitialized -> {
-                Log.d(NetKHelper.TAG, "asNetKRes: Uninitialized")
+                Log.v(NetKHelper.TAG, "asNetKRes: Uninitialized")
             }
             is NetKRep.Loading -> {
-                Log.d(NetKHelper.TAG, "asNetKRes: Loading")
+                Log.v(NetKHelper.TAG, "asNetKRes: Loading")
             }
             is NetKRep.MSuccess -> {
-                Log.d(NetKHelper.TAG, "asNetKRes: Success data ${it.data}")
+                Log.v(NetKHelper.TAG, "asNetKRes: Success data ${it.data}")
                 onSuccess(it.data)
             }
             is NetKRep.Empty -> {
-                Log.d(NetKHelper.TAG, "asNetKRes: Empty")
+                Log.v(NetKHelper.TAG, "asNetKRes: Empty")
                 onFail(-1, "result is null")
             }
             is NetKRep.MError -> {
                 val netKThrowable = NetKRepErrorParser.getThrowable(it.exception)
-                Log.d(NetKHelper.TAG, "asNetKRes: Error code ${netKThrowable.code} message ${netKThrowable.message}")
+                Log.v(NetKHelper.TAG, "asNetKRes: Error code ${netKThrowable.code} message ${netKThrowable.message}")
                 onFail(netKThrowable.code, netKThrowable.message)
             }
         }

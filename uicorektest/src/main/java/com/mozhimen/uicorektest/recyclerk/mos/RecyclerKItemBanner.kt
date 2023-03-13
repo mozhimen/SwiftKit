@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.ViewPager
 import coil.load
-import com.mozhimen.basick.cachek.CacheKSP
+import com.mozhimen.basick.cachek.cacheksp.CacheKSP
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.temps.PointIndicator
 import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder

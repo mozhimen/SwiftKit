@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.setPadding
+import com.mozhimen.basick.elemk.commons.IValueListener
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.basick.utilk.exts.dp2px
@@ -25,7 +26,7 @@ import com.mozhimen.uicorek.R
  * @Version 1.0
  */
 
-typealias ILayoutKAmountListener = (amount: Int) -> Unit
+typealias ILayoutKAmountListener = IValueListener<Int>//(amount: Int) -> Unit
 
 class LayoutKAmount @JvmOverloads constructor(
     context: Context,

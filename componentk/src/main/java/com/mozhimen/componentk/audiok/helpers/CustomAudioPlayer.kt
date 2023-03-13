@@ -249,7 +249,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
     }
 
     private fun setAudioEvent(eventName: String, audio: MAudioK?) {
-        Log.d(TAG, "setAudioEvent: eventName $eventName audio $audio")
+        Log.d(TAG, "setAudioEvent: eventName [$eventName] audio $audio")
         UtilKDataBus.with<MAudioK?>(eventName).postValue(audio)
     }
 

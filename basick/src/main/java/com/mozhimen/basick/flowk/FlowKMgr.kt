@@ -5,6 +5,7 @@ import androidx.annotation.MainThread
 import com.mozhimen.basick.flowk.helpers.FlowKRuntime
 import com.mozhimen.basick.flowk.mos.FlowKNode
 import com.mozhimen.basick.flowk.mos.FlowKNodeGroup
+import com.mozhimen.basick.utilk.os.thread.UtilKThread
 
 /**
  * @ClassName TaskKMgr
@@ -30,7 +31,7 @@ object FlowKMgr {
     //project任务组，也有可能是独立的一个task
     @MainThread
     fun start(flowKNode: FlowKNode) {
-        assert(Thread.currentThread() == Looper.getMainLooper().thread) {
+        assert(UtilKThread.isMainThread()) {
             "start method must be invoke on MainThread"
         }
         val startTask = if (flowKNode is FlowKNodeGroup) flowKNode.startTask else flowKNode

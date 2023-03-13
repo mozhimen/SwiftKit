@@ -14,9 +14,11 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.GradientDrawableColorAnimatorType
 import com.mozhimen.basick.animk.builder.temps.TranslationType
+import com.mozhimen.basick.elemk.commons.IValueListener
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.bases.BaseAttrsParser
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -29,7 +31,7 @@ import kotlinx.coroutines.launch
  * @Date 2021/11/30 14:35
  * @Version 1.0
  */
-typealias ILayoutKSwitchListener = (status: Boolean) -> Unit
+typealias ILayoutKSwitchListener = IValueListener<Boolean>// (status: Boolean) -> Unit
 
 class LayoutKBtnSwitch @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -37,10 +39,16 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
 
     private val _switch = MSwitch()
     private val _bg = MBG()
-    private val _attrs: LayoutKBtnSwitchAttrs by lazy { AttrsParser.parseAttrs(context, attrs) }
+    private val _attrs: LayoutKBtnSwitchAttrs = AttrsParser.parseAttrs(context, attrs)
     private var _layoutKSwitchListener: ILayoutKSwitchListener? = null
 
-    private var _switchStatus = false
+    private var _defaultStatus = _attrs.defaultStatus
+        set(value) {
+            if (value == field) return
+            _switchStatus = value
+            field = value
+        }
+    private var _switchStatus = _defaultStatus
     private var _isAnimRunning = false
 
     private var _switchView: CardView? = null
@@ -67,7 +75,14 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
     private var _switchOnAnimation: Animation? = null
         get() {
             if (field != null) return field
-            val animation = AnimKBuilder.asAnimation().add(TranslationType().fromX(0f, false).toX(_switch.leftXOn - _switch.leftXOff, false)).setDuration(_attrs.animTime.toLong())
+            val animation = AnimKBuilder.asAnimation().add(TranslationType().apply {
+                //fromX(0f, false).toX(_switch.leftXOn - _switch.leftXOff, false)
+                if (!_defaultStatus) {
+                    fromX(0f, false).toX(_switch.leftXOn - _switch.leftXOff, false)
+                } else {
+                    fromX(_switch.leftXOff - _switch.leftXOn, false).toX(0f, false)
+                }
+            }).setDuration(_attrs.animTime.toLong())
                 .setInterpolator(AccelerateDecelerateInterpolator()).build()
             animation.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation) {
@@ -88,7 +103,14 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
     private var _switchOffAnimation: Animation? = null
         get() {
             if (field != null) return field
-            val animation = AnimKBuilder.asAnimation().add(TranslationType().fromX(_switch.leftXOn - _switch.leftXOff, false).toX(0f, false)).setDuration(_attrs.animTime.toLong())
+            val animation = AnimKBuilder.asAnimation().add(TranslationType().apply {
+                //fromX(_switch.leftXOn - _switch.leftXOff, false).toX(0f, false)
+                if (!_defaultStatus) {
+                    fromX(_switch.leftXOn - _switch.leftXOff, false).toX(0f, false)
+                } else {
+                    fromX(0f, false).toX(_switch.leftXOff - _switch.leftXOn, false)
+                }
+            }).setDuration(_attrs.animTime.toLong())
                 .setInterpolator(AccelerateDecelerateInterpolator()).build()
             animation.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation) {
@@ -132,6 +154,21 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         }
     }
 
+    private fun initBg() {
+        _bg.apply {
+            width = _bgView!!.measuredWidth.toFloat()
+            height = _bgView!!.measuredHeight.toFloat()
+        }
+    }
+
+    private fun initSwitch() {
+        _switch.apply {
+            this.width = _bg.height - _attrs.btnMargin * 2
+            leftXOff = _attrs.btnMargin.toFloat()
+            leftXOn = _bg.width - this.width - _attrs.btnMargin
+        }
+    }
+
     override fun initView() {
         val switchViewLayoutParams = _switchView!!.layoutParams as LayoutParams
         switchViewLayoutParams.width = _switch.width.toInt()
@@ -159,8 +196,8 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
      * 设置初始状态,也可以在xml中设置-> app:switch_defaultStatus = false|true
      * @param status Boolean
      */
-    fun setSwitchStatus(status: Boolean) {
-        _switchStatus = status
+    fun setDefaultStatus(status: Boolean) {
+        _defaultStatus = status
     }
 
     /**
@@ -172,7 +209,6 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
     fun toggleSwitch(status: Boolean) {
         (context as LifecycleOwner).lifecycleScope.launch(Dispatchers.Main) {
             if (_switchStatus == status) return@launch
-            _switchStatus = status
             if (_isAnimRunning) delay(_attrs.animTime.toLong())
             startAnimation(status.also { _switchStatus = status })
         }
@@ -185,21 +221,6 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
     private fun startAnimation(status: Boolean) {
         _switchView!!.startAnimation(if (status) _switchOnAnimation else _switchOffAnimation)
         if (status) _bgOnAnimator.start() else _bgOffAnimator.start()
-    }
-
-    private fun initBg() {
-        _bg.apply {
-            width = _bgView!!.measuredWidth.toFloat()
-            height = _bgView!!.measuredHeight.toFloat()
-        }
-    }
-
-    private fun initSwitch() {
-        _switch.apply {
-            this.width = _bg.height - _attrs.btnMargin * 2
-            leftXOff = _attrs.btnMargin.toFloat()
-            leftXOn = _bg.width - this.width - _attrs.btnMargin
-        }
     }
 
     private class MBG {
@@ -230,7 +251,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         val animTime: Int
     )
 
-    private object AttrsParser {
+    private object AttrsParser : BaseAttrsParser<LayoutKBtnSwitchAttrs> {
         const val DEFAULT_STATUS = false
         val BG_COLOR_ON = UtilKRes.getColor(R.color.blue_normal)
         val BG_COLOR_OFF = UtilKRes.getColor(R.color.blue_light)
@@ -240,7 +261,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         val BORDER_WIDTH = 1f.dp2px()
         const val ANIM_TIME = 300
 
-        fun parseAttrs(context: Context, attrs: AttributeSet?): LayoutKBtnSwitchAttrs {
+        override fun parseAttrs(context: Context, attrs: AttributeSet?): LayoutKBtnSwitchAttrs {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBtnSwitch)
             val defaultStatus =
                 typedArray.getBoolean(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_defaultStatus, DEFAULT_STATUS)

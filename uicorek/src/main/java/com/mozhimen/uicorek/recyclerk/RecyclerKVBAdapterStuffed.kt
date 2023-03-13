@@ -6,7 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * @ClassName HeaderRecyclerAdapterK
@@ -25,7 +30,7 @@ import androidx.recyclerview.widget.RecyclerView
  * }}}
  * viewBinding.mainList.adapter=adapter
  */
-typealias IRecyclerKVBAdapterStuffedListener<DATA, VB> = (holder: RecyclerKVBAdapterStuffed.MultipleViewHolder<VB>, itemData: DATA, position: Int) -> Unit
+typealias IRecyclerKVBAdapterStuffedListener<BEAN, VB> = (holder: RecyclerKVBAdapterStuffed.MultipleViewHolder<VB>, itemData: BEAN, position: Int, currentSelectPos: Int) -> Unit
 
 open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
     private var _itemDatas: List<DATA>,
@@ -34,9 +39,19 @@ open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
     private var _footerLayout: Int?,
     private var _brId: Int,
     private var _listener: IRecyclerKVBAdapterStuffedListener<DATA, VB>? = null
-) : RecyclerView.Adapter<RecyclerKVBAdapterStuffed.MultipleViewHolder<VB>>() {
+) : RecyclerView.Adapter<RecyclerKVBAdapterStuffed.MultipleViewHolder<VB>>(), IDefaultLifecycleObserver {
 
     private val TAG = "RecyclerKVBAdapterStuffed>>>>>"
+
+    private var _selectItemPosition = 0
+    private var _vb: VB? = null
+    protected val vb get() = _vb!!
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun onItemSelected(position: Int) {
+        _selectItemPosition = position
+        notifyDataSetChanged()
+    }
 
     @SuppressLint("NotifyDataSetChanged")
     fun onItemDataChanged(newItemDatas: List<DATA>) {
@@ -91,26 +106,6 @@ open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
         }
     }
 
-    override fun onBindViewHolder(holder: MultipleViewHolder<VB>, position: Int) {
-        if (_headerLayout != null) {
-            if (position != 0 && position <= _itemDatas.size) {
-                holder.binding?.apply {
-                    setVariable(_brId, _itemDatas[position - 1])
-                    _listener?.invoke(holder, _itemDatas[position - 1], position - 1)
-                    executePendingBindings()
-                }
-            }
-        } else {
-            if (position < _itemDatas.size) {
-                holder.binding?.apply {
-                    setVariable(_brId, _itemDatas[position])
-                    _listener?.invoke(holder, _itemDatas[position], position)
-                    executePendingBindings()
-                }
-            }
-        }
-    }
-
     override fun getItemCount(): Int {
         return if (_headerLayout != null && _footerLayout != null) {
             if (_itemDatas.isEmpty()) 2 else _itemDatas.size + 2
@@ -120,6 +115,26 @@ open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
             if (_itemDatas.isEmpty()) 1 else _itemDatas.size + 1
         } else {
             if (_itemDatas.isEmpty()) 0 else _itemDatas.size
+        }
+    }
+
+    override fun onBindViewHolder(holder: MultipleViewHolder<VB>, position: Int) {
+        if (_headerLayout != null) {
+            if (position != 0 && position <= _itemDatas.size) {
+                holder.binding?.apply {
+                    setVariable(_brId, _itemDatas[position - 1])
+                    _listener?.invoke(holder, _itemDatas[position - 1], position - 1, _selectItemPosition)
+                    executePendingBindings()
+                }
+            }
+        } else {
+            if (position < _itemDatas.size) {
+                holder.binding?.apply {
+                    setVariable(_brId, _itemDatas[position])
+                    _listener?.invoke(holder, _itemDatas[position], position, _selectItemPosition)
+                    executePendingBindings()
+                }
+            }
         }
     }
 
@@ -151,5 +166,22 @@ open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
         } else {
             _defaultLayout
         }
+    }
+
+    override fun bindLifecycle(owner: LifecycleOwner) {
+        owner.lifecycleScope.launch(Dispatchers.Main) {
+            owner.lifecycle.removeObserver(this@RecyclerKVBAdapterStuffed)
+            owner.lifecycle.addObserver(this@RecyclerKVBAdapterStuffed)
+        }
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        vb.unbind()
+        super.onDetachedFromRecyclerView(recyclerView)
+    }
+
+    override fun onPause(owner: LifecycleOwner) {
+        _vb = null
+        owner.lifecycle.removeObserver(this)
     }
 }

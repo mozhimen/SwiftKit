@@ -1,6 +1,6 @@
-package com.mozhimen.basick.cachek
+package com.mozhimen.basick.cachek.cacheksp
 
-import com.mozhimen.basick.cachek.helpers.CacheKSPProvider
+import com.mozhimen.basick.cachek.cacheksp.helpers.CacheKSPProvider
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -28,6 +28,7 @@ class CacheKSP {
      * @param spName String
      * @return CacheKSPProvider
      */
+    @Synchronized
     fun with(spName: String): CacheKSPProvider {
         return if (_spMap[spName] != null && _spMap.containsKey(spName)) {
             _spMap[spName]!!

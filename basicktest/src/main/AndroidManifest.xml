@@ -25,6 +25,10 @@
         <activity
             android:name=".animk.AnimKActivity"
             android:exported="false" />
+        <!--cachek-->
+        <activity
+            android:name=".cachek.CacheKActivity"
+            android:exported="false" />
         <!--elemk-->
         <activity
             android:name=".elemk.ElemKActivity"

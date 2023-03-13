@@ -22,6 +22,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/BtnStyle"
+                android:onClick="goCacheK"
+                android:text="goCacheK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/BtnStyle"
                 android:onClick="goElemK"
                 android:text="goElemK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
