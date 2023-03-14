@@ -44,8 +44,7 @@ open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
     private val TAG = "RecyclerKVBAdapterStuffed>>>>>"
 
     private var _selectItemPosition = 0
-    private var _vb: VB? = null
-    protected val vb get() = _vb!!
+    private lateinit var _vb: VB
 
     @SuppressLint("NotifyDataSetChanged")
     fun onItemSelected(position: Int) {
@@ -175,13 +174,8 @@ open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
         }
     }
 
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-        vb.unbind()
-        super.onDetachedFromRecyclerView(recyclerView)
-    }
-
     override fun onPause(owner: LifecycleOwner) {
-        _vb = null
+        if (this::_vb.isInitialized) _vb.unbind()
         owner.lifecycle.removeObserver(this)
     }
 }

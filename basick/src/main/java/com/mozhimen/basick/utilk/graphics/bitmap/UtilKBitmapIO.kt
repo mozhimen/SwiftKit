@@ -44,7 +44,7 @@ object UtilKBitmapIO {
      * @return File
      */
     @JvmStatic
-    fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
+    fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
         return if (Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q) {
             bitmap2JpegAlbumFileAfter29(sourceBitmap, filePathWithName, quality)
         } else {
@@ -59,8 +59,8 @@ object UtilKBitmapIO {
      * @param quality Int
      * @return String
      */
-    fun bitmap2JpegAlbumFileAfter29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
-        if (TextUtils.isEmpty(filePathWithName)) return UtilKFile.MSG_WRONG
+    fun bitmap2JpegAlbumFileAfter29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
+        if (TextUtils.isEmpty(filePathWithName)) return null
         var outputStream: OutputStream? = null
         val destFile = UtilKFile.createFile(filePathWithName)
         val pathArray: Array<String> = arrayOf(destFile.absolutePath)
@@ -77,7 +77,7 @@ object UtilKBitmapIO {
                 outputStream = contentResolver.openOutputStream(uri)
                 sourceBitmap.compress(CompressFormat.JPEG, quality, outputStream)
             }
-            return filePathWithName
+            return destFile
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -91,7 +91,7 @@ object UtilKBitmapIO {
                 e.message?.et(TAG)
             }
         }
-        return UtilKFile.MSG_WRONG
+        return null
     }
 
     /**
@@ -102,8 +102,8 @@ object UtilKBitmapIO {
      * @return String
      */
     @JvmStatic
-    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
-        if (TextUtils.isEmpty(filePathWithName)) return UtilKFile.MSG_WRONG
+    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
+        if (TextUtils.isEmpty(filePathWithName)) return null
         return bitmap2JpegAlbumFileBefore29(sourceBitmap, File(filePathWithName), quality)
     }
 
@@ -115,7 +115,7 @@ object UtilKBitmapIO {
      * @return String
      */
     @JvmStatic
-    fun bitmap2File(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
+    fun bitmap2JpegFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
         return bitmap2JpegAlbumFileBefore29(sourceBitmap, filePathWithName, quality)
     }
 
@@ -125,13 +125,13 @@ object UtilKBitmapIO {
      * @param sourceBitmap Bitmap?
      */
     @JvmStatic
-    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, destFile: File, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): String {
+    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, destFile: File, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
         UtilKFile.createFile(destFile)
         var bufferedOutputStream: BufferedOutputStream? = null
         try {
             bufferedOutputStream = BufferedOutputStream(FileOutputStream(destFile))
             sourceBitmap.compress(CompressFormat.JPEG, quality, bufferedOutputStream)
-            return destFile.absolutePath
+            return destFile
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -139,7 +139,7 @@ object UtilKBitmapIO {
             bufferedOutputStream?.flush()
             bufferedOutputStream?.close()
         }
-        return UtilKFile.MSG_WRONG
+        return null
     }
 
     /**

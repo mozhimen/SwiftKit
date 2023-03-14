@@ -13,6 +13,14 @@ object UtilKDataType {
     private const val TAG = "UtilKDataType>>>>>"
 
     /**
+     * 泛型是否为空
+     * @return Boolean
+     */
+    inline fun <reified T> isTNullable(): Boolean {
+        return kotlin.reflect.typeOf<T>().isMarkedNullable
+    }
+
+    /**
      * 判断数据类型是否是原始数据类型
      * @return Boolean
      */
@@ -73,8 +81,7 @@ object UtilKDataType {
      * @return String
      */
     @JvmStatic
-    fun getTypeName(
-        obj: Any
-    ): String =
-        obj.javaClass.simpleName
+    fun getTypeName(obj: Any): String {
+        return obj.javaClass.simpleName
+    }
 }

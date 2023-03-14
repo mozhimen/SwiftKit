@@ -41,13 +41,8 @@ open class RecyclerKVBAdapter<BEAN, VB : ViewDataBinding>(
     private val _listener: IRecyclerKVBAdapterListener<BEAN, VB>? = null /* = (com.mozhimen.uicorek.recyclerk.datak.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
 ) : RecyclerView.Adapter<RecyclerKVBViewHolder<VB>>(), IDefaultLifecycleObserver {
 
-    companion object {
-        private const val TAG = "RecyclerKVBAdapter>>>>>"
-    }
-
     private var _selectItemPosition = 0
-    private var _vb: VB? = null
-    protected val vb get() = _vb!!
+    private lateinit var _vb: VB
 
     @SuppressLint("NotifyDataSetChanged")
     fun onItemSelected(position: Int) {
@@ -94,8 +89,6 @@ open class RecyclerKVBAdapter<BEAN, VB : ViewDataBinding>(
         holder.vb.executePendingBindings()
     }
 
-    override fun getItemViewType(position: Int) = _defaultLayout
-
     override fun bindLifecycle(owner: LifecycleOwner) {
         owner.lifecycleScope.launch(Dispatchers.Main) {
             owner.lifecycle.removeObserver(this@RecyclerKVBAdapter)
@@ -103,14 +96,10 @@ open class RecyclerKVBAdapter<BEAN, VB : ViewDataBinding>(
         }
     }
 
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-        vb.unbind()
-        super.onDetachedFromRecyclerView(recyclerView)
-    }
-
     override fun onPause(owner: LifecycleOwner) {
-        _vb = null
+        if (this::_vb.isInitialized) _vb.unbind()
         owner.lifecycle.removeObserver(this)
     }
 
+    override fun getItemViewType(position: Int) = _defaultLayout
 }

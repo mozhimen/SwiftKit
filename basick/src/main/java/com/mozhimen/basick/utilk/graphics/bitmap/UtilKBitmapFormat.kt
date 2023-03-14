@@ -7,11 +7,13 @@ import android.graphics.drawable.Drawable
 import android.media.Image
 import android.net.Uri
 import android.util.Base64
+import android.util.Log
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.ByteArrayOutputStream
+import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.nio.ByteBuffer
@@ -247,12 +249,13 @@ object UtilKBitmapFormat {
      * @return File
      */
     @JvmStatic
-    fun nv21Bytes2JpegFile(nv21Bytes: ByteArray, width: Int, height: Int, filePathWithName: String): String {
+    fun nv21Bytes2JpegFile(nv21Bytes: ByteArray, width: Int, height: Int, filePathWithName: String): File? {
         return try {
             UtilKBitmapIO.bitmap2JpegAlbumFile(nv21Bytes2JpegBitmap(nv21Bytes, width, height), filePathWithName)
         } catch (e: Exception) {
             e.printStackTrace()
-            UtilKFile.MSG_WRONG
+            Log.e(TAG, "nv21Bytes2JpegFile: ${e.message ?: ""}")
+            null
         }
     }
 
