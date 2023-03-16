@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.view.display
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.WindowManager
@@ -14,8 +15,6 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
  * @Version 1.0
  */
 object UtilKDisplay {
-    private val _context = UtilKApplication.instance.get()
-
     /**
      * dp转px
      * @param dp Float
@@ -24,7 +23,7 @@ object UtilKDisplay {
     @JvmStatic
     fun dp2px(dp: Float): Int =
         if (dp <= 0f) 0
-        else (dp * (_context.resources.displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).toInt()
+        else (dp * (Resources.getSystem().displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)).toInt()
 
     /**
      * dp转px
@@ -34,7 +33,17 @@ object UtilKDisplay {
     @JvmStatic
     fun dp2px2(dp: Float): Int =
         if (dp <= 0f) 0
-        else (dp * _context.resources.displayMetrics.density).toInt()
+        else (dp * Resources.getSystem().displayMetrics.density).toInt()
+
+    /**
+     * dp转px
+     * @param dp Float
+     * @return Float
+     */
+    @JvmStatic
+    fun dp2px3(dp: Float): Float =
+        if (dp <= 0f) 0f
+        else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().displayMetrics)
 
     /**
      * px转dp
@@ -44,7 +53,7 @@ object UtilKDisplay {
     @JvmStatic
     fun px2dp(px: Float): Int =
         if (px <= 0f) 0
-        else (px / (_context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)).toInt()
+        else (px / (Resources.getSystem().displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)).toInt()
 
     /**
      * px转dp
@@ -54,7 +63,7 @@ object UtilKDisplay {
     @JvmStatic
     fun px2dp2(px: Float): Int =
         if (px <= 0f) 0
-        else (px / _context.resources.displayMetrics.density).toInt()
+        else (px / Resources.getSystem().displayMetrics.density).toInt()
 
     /**
      * px转sp
@@ -64,7 +73,7 @@ object UtilKDisplay {
     @JvmStatic
     fun px2sp(px: Float): Int =
         if (px <= 0f) 0
-        else (px / _context.resources.displayMetrics.scaledDensity + 0.5f).toInt()
+        else (px / Resources.getSystem().displayMetrics.scaledDensity + 0.5f).toInt()
 
     /**
      * sp转px
@@ -74,7 +83,7 @@ object UtilKDisplay {
     @JvmStatic
     fun sp2px(sp: Float): Int =
         if (sp <= 0f) 0
-        else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, _context.resources?.displayMetrics).toInt()
+        else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().displayMetrics).toInt()
 
 
     /**
@@ -83,7 +92,7 @@ object UtilKDisplay {
      */
     @JvmStatic
     fun getDisplayMetrics(): DisplayMetrics {
-        return _context.resources.displayMetrics
+        return Resources.getSystem().displayMetrics
     }
 
     /**
@@ -93,7 +102,7 @@ object UtilKDisplay {
     @JvmStatic
     fun getDisplayMetrics2(): DisplayMetrics {
         val displayMetrics = DisplayMetrics()
-        (_context.getSystemService(Context.WINDOW_SERVICE) as? WindowManager? ?: return displayMetrics).apply {
+        (UtilKApplication.instance.get().getSystemService(Context.WINDOW_SERVICE) as? WindowManager? ?: return displayMetrics).apply {
             defaultDisplay.getMetrics(displayMetrics)
         }
         return displayMetrics
