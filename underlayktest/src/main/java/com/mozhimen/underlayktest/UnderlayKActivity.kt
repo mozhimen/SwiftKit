@@ -6,6 +6,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayktest.databinding.ActivityUnderlaykBinding
+import com.mozhimen.underlayktest.fpsk.FpsKActivity
 import com.mozhimen.underlayktest.logk.LogKActivity
 
 class UnderlayKActivity : BaseActivityVB<ActivityUnderlaykBinding>() {
@@ -15,5 +16,9 @@ class UnderlayKActivity : BaseActivityVB<ActivityUnderlaykBinding>() {
 
     fun goLogK(view: View) {
         start<LogKActivity>()
+    }
+
+    fun goFpsK(view: View) {
+        start<FpsKActivity>()
     }
 }

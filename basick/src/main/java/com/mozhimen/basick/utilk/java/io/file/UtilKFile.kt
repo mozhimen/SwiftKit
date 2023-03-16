@@ -3,9 +3,11 @@ package com.mozhimen.basick.utilk.java.io.file
 import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.device.UtilKDate
 import java.io.*
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.Locale
 
 /**
  * @ClassName UtilKFile
@@ -22,6 +24,11 @@ object UtilKFile {
     private val _context = UtilKApplication.instance.get()
 
     //region # file
+    @JvmStatic
+    fun dateString2FileName(formatDate: String = UtilKDate.FORMAT_yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
+        return UtilKDate.getNowString(formatDate, locale).replace(" ", "~").replace(":", "-")
+    }
+
     /**
      * 判断是否为文件
      * @param file File

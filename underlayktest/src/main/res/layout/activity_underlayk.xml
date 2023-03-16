@@ -19,8 +19,13 @@
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
             android:onClick="goLogK"
-            android:text="LogK"
+            android:text="goLogK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goFpsK"
+            android:text="goFpsK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

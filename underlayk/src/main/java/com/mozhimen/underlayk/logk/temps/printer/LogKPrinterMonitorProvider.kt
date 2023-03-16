@@ -67,7 +67,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         get() {
             if (field != null) return field
             val textView = _rootView!!.findViewById<TextView>(R.id.logk_monitor_view_title)
-            textView.setOnClickListener { if (_isFold) unfoldMonitor() else foldMonitor() }
+            textView.setOnClickListener { if (_isFold) unfold() else fold() }
             return textView.also { field = it }
         }
 
@@ -96,10 +96,11 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         _recyclerView!!.smoothScrollToPosition(_adapter.itemCount - 1)
     }
 
-    fun isOpen(): Boolean =
-        _isOpen
+    fun isOpen(): Boolean {
+        return _isOpen
+    }
 
-    fun openMonitor(isFold: Boolean) {
+    fun open(isFold: Boolean) {
         if (!UtilKDialog.isOverlayPermissionEnable(_context)) {
             LogK.et(TAG, "PrinterMonitor play app has no overlay permission")
             "请打开悬浮窗权限".showToastOnMain()
@@ -108,7 +109,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         }
         try {
             _windowManager.addView(_rootView, getWindowLayoutParams(isFold))
-            if (isFold) foldMonitor() else unfoldMonitor()
+            if (isFold) fold() else unfold()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -119,7 +120,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
     /**
      * 关闭Monitor
      */
-    fun closeMonitor() {
+    fun close() {
         try {
             if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) == null) return
             _windowManager.removeView(_rootView)
@@ -131,7 +132,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
     }
 
     @Throws(Exception::class)
-    fun foldMonitor() {
+    fun fold() {
         if (_isFold) return
         _isFold = true
         _titleView!!.text = TITLE_OPEN_PANEL
@@ -141,7 +142,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
     }
 
     @Throws(Exception::class)
-    fun unfoldMonitor() {
+    fun unfold() {
         if (!_isFold) return
         _isFold = false
         _titleView!!.text = TITLE_CLOSE_PANEL

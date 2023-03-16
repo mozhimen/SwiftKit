@@ -44,7 +44,7 @@ class DebugKTools {
 
     @ADebugKTool("打开/关闭Fps", desc = "打开后可以查看页面实时的FPS")
     fun toggleFps(activity: Activity) {
-        FpsK.instance.toggleView()
+        FpsK.instance.toggle()
     }
 
     @ADebugKTool("打开/关闭暗黑模式", desc = "打开暗黑模式在夜间使用更温和")

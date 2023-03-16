@@ -19,8 +19,12 @@ internal class FrameMonitor : Choreographer.FrameCallback {
 
     private var _listeners = arrayListOf<IFpsKListener>()
 
-    fun addListener(listener: IFpsKListener) {
-        _listeners.add(listener)
+    fun addListener(vararg listener: IFpsKListener) {
+        _listeners.addAll(listener)
+    }
+
+    fun removeListeners() {
+        _listeners.clear()
     }
 
     fun start() {
@@ -29,7 +33,6 @@ internal class FrameMonitor : Choreographer.FrameCallback {
 
     fun stop() {
         _frameStartTime = 0
-        _listeners.clear()
         _choreographer.removeFrameCallback(this)
     }
 
@@ -49,7 +52,7 @@ internal class FrameMonitor : Choreographer.FrameCallback {
                 _frameCount = 0
                 _frameStartTime = currentTimeMills
             }
-        }else {
+        } else {
             _frameStartTime = currentTimeMills
         }
         start()

@@ -52,7 +52,7 @@ class CrashKJava {
 
     private inner class CrashKUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
         private val _defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        private val _launchTime = UtilKDate.getNowString()
+        private val _launchTime = UtilKFile.dateString2FileName()
 
         override fun uncaughtException(t: Thread, e: Throwable) {
             if (!handleException(e) && _defaultExceptionHandler != null) {

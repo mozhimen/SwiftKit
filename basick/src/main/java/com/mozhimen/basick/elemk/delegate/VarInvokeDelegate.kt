@@ -1,6 +1,5 @@
-package com.mozhimen.basick.elemk.delegate.bases
+package com.mozhimen.basick.elemk.delegate
 
-import com.mozhimen.basick.utilk.datatype.UtilKDataType
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -16,7 +15,7 @@ import kotlin.reflect.KProperty
  */
 typealias IVarInvokeListener<T> = (field: T, value: T) -> Boolean
 
-open class BaseVarInvokeDelegate<T>(default: T, private val onSet: IVarInvokeListener<T>) : ReadWriteProperty<Any?, T> {
+open class VarInvokeDelegate<T>(default: T, private val onSet: IVarInvokeListener<T>) : ReadWriteProperty<Any?, T> {
     private var _field = default
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         if (_field == value) return

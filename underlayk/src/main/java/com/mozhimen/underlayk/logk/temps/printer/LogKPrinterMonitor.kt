@@ -20,13 +20,12 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 class LogKPrinterMonitor : ILogKPrinter {
     private val _printerMonitorProvider: LogKPrinterMonitorProvider = LogKPrinterMonitorProvider(UtilKApplication.instance.get())
 
-    val isOpen get() = _printerMonitorProvider.isOpen()
     init {
         StackK.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
-                if (!isFront && isOpen) {
+                if (!isFront && isOpen()) {
                     LogK.wt(TAG, "PrinterMonitor onChanged log stop")
-                    _printerMonitorProvider.closeMonitor()
+                    _printerMonitorProvider.close()
                 }
 //                if (isFront) {
 //                    if (_isShow) {
@@ -38,11 +37,15 @@ class LogKPrinterMonitor : ILogKPrinter {
         })
     }
 
-    fun toggleMonitor(isFold: Boolean = true) {
-        if (isOpen) {
-            _printerMonitorProvider.closeMonitor()
+    fun isOpen(): Boolean {
+        return _printerMonitorProvider.isOpen()
+    }
+
+    fun toggle(isFold: Boolean = true) {
+        if (isOpen()) {
+            _printerMonitorProvider.close()
         } else {
-            _printerMonitorProvider.openMonitor(isFold)
+            _printerMonitorProvider.open(isFold)
         }
     }
 

@@ -22,6 +22,10 @@
         <activity
             android:name="com.mozhimen.underlayktest.logk.LogKActivity"
             android:exported="false" />
+        <!-- fpsk -->
+        <activity
+            android:name="com.mozhimen.underlayktest.fpsk.FpsKActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

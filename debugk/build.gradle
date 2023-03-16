@@ -48,6 +48,7 @@ dependencies {
     implementation project(project.path.replace(project.name, '') + ':componentk')
 
     //leakk
+    debugImplementation 'io.github.knight-zxw:blockcanary:0.0.4'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 //    testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.3'

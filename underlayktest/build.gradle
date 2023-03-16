@@ -37,4 +37,5 @@ android {
 dependencies {
     implementation project(':underlayk')
     implementation project(':basick')
+    implementation project(':debugk')
 }

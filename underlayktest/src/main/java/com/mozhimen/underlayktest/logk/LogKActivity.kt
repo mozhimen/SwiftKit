@@ -44,7 +44,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
 
     private fun initPrinterMonitor() {
         //添加_printerMonitor的时候一定Application要继承BaseApplication, 因为其中实现了前后台切换的监听
-        _printerMonitor.toggleMonitor()
+        _printerMonitor.toggle()
     }
 
     private fun printLog() {

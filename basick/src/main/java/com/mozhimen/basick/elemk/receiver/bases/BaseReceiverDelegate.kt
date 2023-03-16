@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.receiver
+package com.mozhimen.basick.elemk.receiver.bases
 
 import android.app.Activity
 import android.content.BroadcastReceiver

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.elemk.receiver.BaseReceiverDelegate
+import com.mozhimen.basick.elemk.receiver.bases.BaseReceiverDelegate
 import com.mozhimen.basicktest.databinding.ActivityElemkReceiverBinding
 
 

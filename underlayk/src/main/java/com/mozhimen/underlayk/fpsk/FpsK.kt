@@ -2,8 +2,9 @@ package com.mozhimen.underlayk.fpsk
 
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.underlayk.fpsk.commons.IFpsK
 import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
-import com.mozhimen.underlayk.fpsk.helpers.FpsKView
+import com.mozhimen.underlayk.fpsk.helpers.FpsKProxy
 
 /**
  * @ClassName FpsK
@@ -13,15 +14,37 @@ import com.mozhimen.underlayk.fpsk.helpers.FpsKView
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-class FpsK {
-    private val _fpsKViewer by lazy { FpsKView() }
+class FpsK : IFpsK {
+    private val _fpsKProxy = FpsKProxy()
 
-    fun toggleView() {
-        _fpsKViewer.toggle()
+    /**
+     * 是否显示
+     * @return Boolean
+     */
+    override fun isShow(): Boolean {
+        return _fpsKProxy.isShow()
     }
 
-    fun setOnFrameListener(listener: IFpsKListener) {
-        _fpsKViewer.addListener(listener)
+    /**
+     * 开/关
+     */
+    override fun toggle() {
+        _fpsKProxy.toggle()
+    }
+
+    /**
+     * 增加监听器
+     * @param listener IFpsKListener
+     */
+    override fun addListener(listener: IFpsKListener) {
+        _fpsKProxy.addListener(listener)
+    }
+
+    /**
+     * 清空监听器
+     */
+    override fun removeListeners() {
+        _fpsKProxy.removeListeners()
     }
 
     companion object {
