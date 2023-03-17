@@ -15,16 +15,6 @@ object UtilKBitmapDeal {
     private const val TAG = "UtilKBitmapDeal>>>>>"
 
     /**
-     * bitmap转化为rgb565
-     * @param sourceBitmap Bitmap
-     * @return Bitmap
-     */
-    @JvmStatic
-    fun bitmap2Rgb565Bitmap(sourceBitmap: Bitmap): Bitmap {
-        return sourceBitmap.copy(Bitmap.Config.RGB_565, true)
-    }
-
-    /**
      * 旋转位图
      * @param sourceBitmap Bitmap
      * @param degree Int

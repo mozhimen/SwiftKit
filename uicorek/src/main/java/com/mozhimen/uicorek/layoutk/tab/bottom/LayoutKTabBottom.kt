@@ -42,8 +42,8 @@ class LayoutKTabBottom @JvmOverloads constructor(
     private var _preSelectedItem: MTabBottom? = null
     private var _itemList: List<MTabBottom>? = null
     private var _tabBottomAlpha = 1f
-    private var _tabBottomHeight = 50f.dp2px()//TabBottom高度
-    private var _tabBottomLineHeight = 0.5f.dp2px()//TabBottom的头部线条高度
+    private var _tabBottomHeight = 50f.dp2px().toInt()//TabBottom高度
+    private var _tabBottomLineHeight = 0.5f.dp2px().toInt()//TabBottom的头部线条高度
     private var _tabBottomLineColor = 0xdfe0e1//TabBottom的头部线条颜色
     private var _tabBottomContainer: FrameLayout? = null
 

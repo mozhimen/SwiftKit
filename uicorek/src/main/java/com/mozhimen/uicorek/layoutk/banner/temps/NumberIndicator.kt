@@ -36,8 +36,8 @@ class NumberIndicator @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     override fun initView() {
-        _pointHorizontalPadding = 10f.dp2px()
-        _pointVerticalPadding = 10f.dp2px()
+        _pointHorizontalPadding = 10f.dp2px().toInt()
+        _pointVerticalPadding = 10f.dp2px().toInt()
     }
 
     override fun get(): FrameLayout = this

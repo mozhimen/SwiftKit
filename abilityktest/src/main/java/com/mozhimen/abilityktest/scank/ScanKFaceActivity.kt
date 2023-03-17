@@ -16,6 +16,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapFormat
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
@@ -61,7 +62,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
                 if (System.currentTimeMillis() - _currentTime > 2000L) {
                     _currentTime = System.currentTimeMillis()
                     _rgb565Bitmap =
-                        UtilKBitmapDeal.bitmap2Rgb565Bitmap(
+                        UtilKBitmapFormat.bitmap2Rgb565Bitmap(
                             UtilKBitmapDeal.rotateBitmap(
                                 ImageConverter.rgba8888Image2Rgba8888Bitmap(image), -90, flipX = true
                             )

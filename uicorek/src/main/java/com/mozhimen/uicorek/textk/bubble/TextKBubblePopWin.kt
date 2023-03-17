@@ -24,7 +24,7 @@ import com.mozhimen.uicorek.textk.bubble.mos.MRelativePos
 open class TextKBubblePopWin(
     contentView: View, private val textKBubble: ITextKBubble
 ) : TextKBubblePopWinCallback(contentView, textKBubble) {
-    override var _padding = 2f.dp2px()
+    override var _padding = 2f.dp2px().toInt()
     override var _arrowPosOffset = 0
     override var _delayMillis: Long = 2500
     var xOffset: Int = 0
@@ -60,7 +60,7 @@ open class TextKBubblePopWin(
             contentWidth,
             relativePos,
             0,
-            -yOffset - 4f.dp2px() / 2,
+            -yOffset - 4f.dp2px().toInt() / 2,
             _padding,
             outProp
         )

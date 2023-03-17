@@ -42,7 +42,7 @@ class LayoutKTabTop @JvmOverloads constructor(
      * 设置顶部高度 px ,在inflate之前有效
      * @param tabHeight Int
      */
-    fun setTabTopHeight(@Px tabHeight: Int) {
+    fun setTabTopHeight(@Px tabHeight: Float) {
         this._tabTopHeight = tabHeight
     }
 
@@ -190,7 +190,7 @@ class LayoutKTabTop @JvmOverloads constructor(
             rootView.orientation = LinearLayout.HORIZONTAL
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                _tabTopHeight
+                _tabTopHeight.toInt()
             )
             addView(rootView, params)
         } else if (clear) {

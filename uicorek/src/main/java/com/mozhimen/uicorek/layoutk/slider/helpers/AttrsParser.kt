@@ -18,10 +18,10 @@ import com.mozhimen.uicorek.layoutk.slider.mos.MSliderAttrs
 internal object AttrsParser {
 
     //const
-    val DEFAULT_PADDING_VERTICAL = 4f.dp2px()
-    val SLIDER_WIDTH = 100f.dp2px().toFloat()
-    val SLIDER_HEIGHT = 10f.dp2px().toFloat()
-    val SLIDER_HEIGHT_INSIDE = 16f.dp2px().toFloat()
+    val DEFAULT_PADDING_VERTICAL = 4f.dp2px().toInt()
+    val SLIDER_WIDTH = 100f.dp2px()
+    val SLIDER_HEIGHT = 10f.dp2px()
+    val SLIDER_HEIGHT_INSIDE = 16f.dp2px()
     val SLIDER_ROD_LEFT_COLOR = UtilKRes.getColor(R.color.blue_normal)
     val SLIDER_ROD_RIGHT_COLOR = UtilKRes.getColor(R.color.gray_light)
     val ROD_SCROLL_ENABLE = true

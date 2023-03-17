@@ -43,7 +43,7 @@ class RecyclerKItemLoadMore(index: Int) : RecyclerKItem<Int, RecyclerKViewHolder
         textView.setBackgroundColor(UtilKRes.getColor(R.color.blue_theme))
         frameLayout.addView(textView, textLP)
         frameLayout.setBackgroundColor(UtilKRes.getColor(R.color.white))
-        frameLayout.setPadding(0, 0, 0, 10f.dp2px())
+        frameLayout.setPadding(0, 0, 0, 10f.dp2px().toInt())
         return frameLayout
     }
 
@@ -53,7 +53,7 @@ class RecyclerKItemLoadMore(index: Int) : RecyclerKItem<Int, RecyclerKViewHolder
         val params = holder.itemView.layoutParams
         if (params.width != parentWidth) {
             params.width = parentWidth
-            params.height = 140.dp2px()
+            params.height = 140.dp2px().toInt()
             holder.itemView.layoutParams = params
         }
     }

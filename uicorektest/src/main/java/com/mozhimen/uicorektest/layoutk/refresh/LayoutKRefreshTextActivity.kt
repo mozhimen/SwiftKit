@@ -14,7 +14,7 @@ class LayoutKRefreshTextActivity : BaseActivityVB<ActivityLayoutkRefreshTextBind
     override fun initView(savedInstanceState: Bundle?) {
         val textOverView = TextOverView(this)
         vb.layoutkRefreshTextContainer.setRefreshOverView(textOverView)
-        vb.layoutkRefreshTextContainer.setRefreshParams(90f.dp2px(), 1.6f, null)
+        vb.layoutkRefreshTextContainer.setRefreshParams(90f.dp2px().toInt(), 1.6f, null)
         vb.layoutkRefreshTextContainer.setRefreshListener(object : IRefreshListener {
             override fun onRefresh() {
                 WakeBefPauseLifecycleHandler(this@LayoutKRefreshTextActivity).postDelayed(1000) { vb.layoutkRefreshTextContainer.refreshFinished() }

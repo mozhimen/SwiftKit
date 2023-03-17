@@ -34,8 +34,8 @@ class LayoutKBtnSwitchApple @JvmOverloads constructor(
     private var _bgColorOff = 0xFFFFFF
     private var _bgColorBorder = 0xEAEAEA
     private var _iconColorBtn = 0xFFFFFF
-    private var _iconMargin = 1f.dp2px()
-    private var _borderWidth = 1f.dp2px()
+    private var _iconMargin = 1f.dp2px().toInt()
+    private var _borderWidth = 1f.dp2px().toInt()
     private var _animTime = 500
     private var _defaultStatus = false
 

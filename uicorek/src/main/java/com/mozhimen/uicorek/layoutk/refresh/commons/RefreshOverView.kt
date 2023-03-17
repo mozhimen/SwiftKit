@@ -21,7 +21,7 @@ abstract class RefreshOverView @JvmOverloads constructor(
     /**
      * 触发下拉刷新需要的最小高度
      */
-    var minPullRefreshHeight = 90f.dp2px()
+    var minPullRefreshHeight = 90f.dp2px().toInt()
 
     /**
      * 最小阻尼

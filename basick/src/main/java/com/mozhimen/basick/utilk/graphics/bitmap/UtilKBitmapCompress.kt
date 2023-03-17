@@ -75,7 +75,7 @@ object UtilKBitmapCompress {
      */
     @JvmStatic
     fun compressRgb565(sourceBitmap: Bitmap): Bitmap {
-        return UtilKBitmapDeal.bitmap2Rgb565Bitmap(sourceBitmap).also { printBitmapInfo(it, null, 100) }
+        return UtilKBitmapFormat.bitmap2Rgb565Bitmap(sourceBitmap).also { printBitmapInfo(it, null, 100) }
     }
 
     /**

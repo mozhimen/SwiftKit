@@ -24,8 +24,8 @@ class ViewKScanQR @JvmOverloads constructor(
 
     //region # variate
     private var _lineDrawable: Drawable? = null
-    private var _lineWidth = 1f.dp2px()
-    private var _borderLineWidth = 1f.dp2px()
+    private var _lineWidth = 1f.dp2px().toInt()
+    private var _borderLineWidth = 1f.dp2px().toInt()
     private var _borderColor = Color.WHITE
     private var _animTime = 1000
     private var _isScanLineReverse = false
@@ -33,11 +33,11 @@ class ViewKScanQR @JvmOverloads constructor(
     private var _paint: Paint = Paint()
     private var _scanLineBitmap: Bitmap? = null
     private var _scanLineTop = _borderLineWidth
-    private var _moveStepDistance = 2f.dp2px()
+    private var _moveStepDistance = 2f.dp2px().toInt()
     private var _animDelayTime = 0
     private var _borderRect: Rect? = null
-    private var _borderWidth = 200f.dp2px()
-    private var _borderHeight = 200f.dp2px()
+    private var _borderWidth = 200f.dp2px().toInt()
+    private var _borderHeight = 200f.dp2px().toInt()
     //endregion
 
     init {

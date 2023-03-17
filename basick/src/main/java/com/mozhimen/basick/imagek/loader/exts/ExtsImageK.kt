@@ -112,7 +112,7 @@ fun ImageView.loadImageCircle(
  */
 fun ImageView.loadImageRoundedCorner(
     res: Any,
-    @Px cornerRadius: Int = 6f.dp2px()
+    @Px cornerRadius: Float = 6f.dp2px()
 ) {
     ImageKLoader.loadImageRoundedCorner(this, res, cornerRadius)
 }

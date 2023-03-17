@@ -145,10 +145,10 @@ object ImageKLoader {
     fun loadImageRoundedCorner(
         imageView: ImageView,
         res: Any,
-        @Px roundedCornerRadius: Int = 6f.dp2px()
+        @Px roundedCornerRadius: Float = 6f.dp2px()
     ) {
         imageView.load(res) {
-            transformations(RoundedCornersTransformation(roundedCornerRadius.toFloat()))
+            transformations(RoundedCornersTransformation(roundedCornerRadius))
         }
     }
 

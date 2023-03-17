@@ -34,6 +34,12 @@ object ImageKBindingAdapter {
         ImageKLoader.loadImageRoundedCorner(imageView, res, roundedCornerRadius.dp2px())
     }
 
+    @JvmStatic
+    @BindingAdapter(value = ["loadImageRoundedCorner", "roundedCornerRadius"], requireAll = true)
+    fun loadImageRoundedCorner(imageView: ImageView, res: Any, roundedCornerRadius: Float) {
+        ImageKLoader.loadImageRoundedCorner(imageView, res, roundedCornerRadius.dp2px())
+    }
+
     //    /**
 //     * 加载圆角图片
 //     * @param imageView ImageView

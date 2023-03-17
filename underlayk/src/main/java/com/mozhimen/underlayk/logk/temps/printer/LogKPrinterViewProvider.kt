@@ -53,7 +53,7 @@ class LogKPrinterViewProvider(
             if (field != null) return field
             val textView = TextView(_context)
             textView.text = if (_isFold) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
-            textView.setPadding(4f.dp2px())
+            textView.setPadding(4f.dp2px().toInt())
             textView.setTextColor(Color.WHITE)
             textView.setBackgroundColor(Color.BLACK)
             textView.setOnClickListener { if (_isFold) unfoldLogView() else foldLogView() }

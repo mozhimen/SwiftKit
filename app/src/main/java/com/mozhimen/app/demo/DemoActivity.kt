@@ -8,9 +8,7 @@ import com.mozhimen.app.BR
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
-import com.mozhimen.basick.statusbark.annors.AStatusBarK
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
-import com.mozhimen.basick.statusbark.annors.AStatusBarKType
 import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapterStuffed
 import kotlin.math.abs
 
@@ -38,7 +36,7 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
                 R.layout.item_demo_header,
                 null,
                 BR.itemAstro
-            ) { holder, itemData, position ->
+            ) { holder, itemData, position, _ ->
                 if (position in 1 until list.size) {
                     holder.binding?.demoItemListBtn?.setOnClickListener {
                         Log.i(TAG, itemData.name)

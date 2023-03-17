@@ -34,7 +34,7 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
 ) {
     protected val TAG = "TextKBubblePopWinBase>>>>>"
 
-    protected open var _padding: Int = 2f.dp2px()
+    protected open var _padding: Int = 2f.dp2px().toInt()
     protected open var _arrowPosOffset = 0
     protected open var _delayMillis: Long = 0
 

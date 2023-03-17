@@ -44,15 +44,15 @@ class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
-            addLog("isFileExists deviceInfo ${UtilKAsset.isFileExists("deviceInfo")}")
+            addLog("isFileExists deviceInfo ${UtilKAsset.isAssetExists("deviceInfo")}")
             val file2StringTime = System.currentTimeMillis()
-            val file2StringContent = UtilKAsset.file2String("deviceInfo")
+            val file2StringContent = UtilKAsset.asset2String("deviceInfo")
             addLog("file2String1 deviceInfo $file2StringContent time ${System.currentTimeMillis() - file2StringTime}")
             val txt2StringTime = System.currentTimeMillis()
-            val txt2StringContent = UtilKAsset.file2String2("deviceInfo")
+            val txt2StringContent = UtilKAsset.asset2String2("deviceInfo")
             addLog("file2String2 deviceInfo $txt2StringContent time ${System.currentTimeMillis() - txt2StringTime}")
             val txt2String2Time = System.currentTimeMillis()
-            val txt2String2Content = UtilKAsset.file2String3("deviceInfo")
+            val txt2String2Content = UtilKAsset.asset2String3("deviceInfo")
             addLog("file2String3 deviceInfo $txt2String2Content time ${System.currentTimeMillis() - txt2String2Time}")
             addLog("start copy file")
             val assetCopyFileTime = System.currentTimeMillis()

@@ -151,16 +151,16 @@ class TabBottomItem @JvmOverloads constructor(
             }
             if (selected) {
                 _tabImageView.load(_tabBottomItem!!.bitmapSelected!!)
-                _tabImageView.resizeSize(58f.dp2px())
+                _tabImageView.resizeSize(58f.dp2px().toInt())
             } else {
                 _tabImageView.load(_tabBottomItem!!.bitmapDefault!!)
-                _tabImageView.resizeSize(56f.dp2px())
+                _tabImageView.resizeSize(56f.dp2px().toInt())
             }
         } else if (_tabBottomItem!!.tabType == ETabBottomType.IMAGE_TEXT) {
             if (init) {
                 _tabIconView.visibility = GONE
                 _tabImageView.visibility = VISIBLE
-                _tabImageView.resizeSize(32f.dp2px())
+                _tabImageView.resizeSize(32f.dp2px().toInt())
                 _tabNameView.visibility = VISIBLE
                 if (!TextUtils.isEmpty(_tabBottomItem!!.name)) {
                     _tabNameView.text = _tabBottomItem!!.name

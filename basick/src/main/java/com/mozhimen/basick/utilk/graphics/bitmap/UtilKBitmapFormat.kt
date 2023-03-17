@@ -34,6 +34,16 @@ object UtilKBitmapFormat {
     private val _context = UtilKApplication.instance.get()
 
     /**
+     * bitmap转化为rgb565
+     * @param sourceBitmap Bitmap
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun bitmap2Rgb565Bitmap(sourceBitmap: Bitmap): Bitmap {
+        return sourceBitmap.copy(Bitmap.Config.RGB_565, true)
+    }
+
+    /**
      * image转Bytes
      * @param image Image
      * @return ByteArray

@@ -19,6 +19,7 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.datatype.UtilKDataType
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.UtilKCmd
+import com.mozhimen.basick.utilk.res.UtilKConfiguration
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
@@ -51,7 +52,7 @@ object UtilKDevice {
     fun isPad(): Boolean =
         if (isHasTelephone()) {        //如果能打电话那可能是平板或手机，再根据配置判断
             //能打电话可能是手机也可能是平板
-            (_context.resources.configuration.screenLayout and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE)
+            (UtilKConfiguration.getScreenLayout() and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE)
         } else true //不能打电话一定是平板
 
     /**

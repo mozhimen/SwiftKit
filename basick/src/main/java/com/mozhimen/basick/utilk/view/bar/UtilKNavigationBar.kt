@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.view.bar
 
 import android.app.Activity
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Point
 import android.graphics.Rect
 import android.os.Build
@@ -15,6 +14,7 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.UtilKActivity
 import com.mozhimen.basick.utilk.content.UtilKActivity.getActivityByContext
 import com.mozhimen.basick.utilk.content.UtilKActivity.isActivityDestroyed
+import com.mozhimen.basick.utilk.res.UtilKRes
 import java.util.*
 
 /**
@@ -49,7 +49,7 @@ object UtilKNavigationBar {
             val child = decorView.getChildAt(i)
             if (child.id == View.NO_ID || !child.isShown) continue
             try {
-                val resourceEntryName = activity.resources.getResourceEntryName(child.id)
+                val resourceEntryName = UtilKRes.getAppResource().getResourceEntryName(child.id)
                 if (NAVIGATION_BAR_NAMES.containsKey(resourceEntryName.lowercase(Locale.getDefault()))) {
                     rect[child.left, child.top, child.right] = child.bottom
                     return
@@ -83,10 +83,9 @@ object UtilKNavigationBar {
      */
     @JvmStatic
     fun getNavigationBarHeight(): Int {
-        val res = Resources.getSystem()
-        val resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android")
-        return if (resourceId != 0) {
-            res.getDimensionPixelSize(resourceId)
+        val dimensionId = UtilKRes.getSystemResource().getIdentifier("navigation_bar_height", "dimen", "android")
+        return if (dimensionId != 0) {
+            UtilKRes.getDimensionPixelSize(dimensionId, UtilKRes.getSystemResource())
         } else 0
     }
 

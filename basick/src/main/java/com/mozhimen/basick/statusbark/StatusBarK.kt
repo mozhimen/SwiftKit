@@ -2,7 +2,7 @@ package com.mozhimen.basick.statusbark
 
 import android.app.Activity
 import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.res.UtilKTheme
+import com.mozhimen.basick.utilk.os.UtilKUiMode
 import com.mozhimen.basick.statusbark.annors.AStatusBarK
 import com.mozhimen.basick.statusbark.annors.AStatusBarKType
 import com.mozhimen.basick.statusbark.helpers.StatusBarKHelper
@@ -40,10 +40,10 @@ object StatusBarK {
             }
             else -> {
                 val statusBarColor = if (statusBarAnnor.isFollowSystem) {
-                    if (UtilKTheme.isOSLightMode()) statusBarAnnor.bgColorLight
+                    if (UtilKUiMode.isOSLightMode()) statusBarAnnor.bgColorLight
                     else statusBarAnnor.bgColorDark
                 } else statusBarAnnor.bgColorLight
-                val isFontIconDark = if (statusBarAnnor.isFollowSystem) UtilKTheme.isOSLightMode() else statusBarAnnor.isFontIconDark
+                val isFontIconDark = if (statusBarAnnor.isFollowSystem) UtilKUiMode.isOSLightMode() else statusBarAnnor.isFontIconDark
                 StatusBarKHelper.setStatusBarColor(activity, UtilKRes.getColor(statusBarColor))
                 StatusBarKHelper.setStatusBarFontIcon(activity, isFontIconDark)//设置状态栏文字和Icon是否为深色
             }

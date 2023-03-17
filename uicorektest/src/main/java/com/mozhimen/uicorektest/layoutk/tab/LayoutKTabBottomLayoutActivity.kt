@@ -51,6 +51,6 @@ class LayoutKTabBottomLayoutActivity : BaseActivityVB<ActivityLayoutkTabBottomLa
             }
         })
         vb.layoutkTabBottomLayout.defaultSelected(homeInfo)
-        vb.layoutkTabBottomLayout.findTabItem(bottomMoList[1])?.resetTabHeight(66f.dp2px()) //改变某个Tab的高度
+        vb.layoutkTabBottomLayout.findTabItem(bottomMoList[1])?.resetTabHeight(66f.dp2px().toInt()) //改变某个Tab的高度
     }
 }

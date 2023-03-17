@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk.view.bar
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Rect
 import android.os.Build
 import android.util.Log
@@ -15,6 +14,7 @@ import com.mozhimen.basick.utilk.content.UtilKActivity
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.os.UtilKOS
+import com.mozhimen.basick.utilk.res.UtilKRes
 
 /**
  * @ClassName UtilKBar
@@ -33,9 +33,8 @@ object UtilKStatusBar {
      */
     @JvmStatic
     fun getStatusBarHeight(): Int {
-        val resources = Resources.getSystem()
-        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-        return resources.getDimensionPixelSize(resourceId)
+        val dimensionId = UtilKRes.getSystemResource().getIdentifier("status_bar_height", "dimen", "android")
+        return if (dimensionId != 0) UtilKRes.getDimensionPixelSize(dimensionId, UtilKRes.getSystemResource()) else 0
     }
 
     /**

@@ -117,7 +117,7 @@ class LayoutKEditItem @JvmOverloads constructor(
         val titleColor: Int =
             typedArray.getColor(R.styleable.LayoutKInputItem_TitleAppearance_titleAppearance_titleColor, UtilKRes.getColor(R.color.blue_dark))
         val titleSize: Float =
-            typedArray.getDimensionPixelSize(R.styleable.LayoutKInputItem_TitleAppearance_titleAppearance_titleSize, 15f.sp2px()).toFloat()
+            typedArray.getDimensionPixelSize(R.styleable.LayoutKInputItem_TitleAppearance_titleAppearance_titleSize, 15f.sp2px().toInt()).toFloat()
         val leftMargin =
             typedArray.getDimensionPixelOffset(R.styleable.LayoutKInputItem_TitleAppearance_titleAppearance_leftPadding, 0)
         val titleMinWidth: Int =
@@ -147,7 +147,7 @@ class LayoutKEditItem @JvmOverloads constructor(
                 R.styleable.LayoutKInputItem_InputAppearance_inputAppearance_inputColor, UtilKRes.getColor(R.color.blue_normal)
             )
         val inputSize: Int =
-            typedArray.getDimensionPixelSize(R.styleable.LayoutKInputItem_InputAppearance_inputAppearance_textSize, 15f.sp2px())
+            typedArray.getDimensionPixelSize(R.styleable.LayoutKInputItem_InputAppearance_inputAppearance_textSize, 15f.sp2px().toInt())
         val inputMaxLength: Int =
             typedArray.getInteger(R.styleable.LayoutKInputItem_InputAppearance_inputAppearance_maxInputLength, 0)
         typedArray.recycle()

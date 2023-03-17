@@ -78,7 +78,7 @@ class LayoutKTabBottomFragmentActivity : BaseActivityVB<ActivityLayoutkTabBottom
             }
         })
         vb.layoutkTabBottomFragmentContainer.defaultSelected(_infoList[_currentItemIndex])
-        vb.layoutkTabBottomFragmentContainer.findTabItem(_infoList[1])?.resetTabHeight(66f.dp2px()) //改变某个Tab的高度
+        vb.layoutkTabBottomFragmentContainer.findTabItem(_infoList[1])?.resetTabHeight(66f.dp2px().toInt()) //改变某个Tab的高度
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

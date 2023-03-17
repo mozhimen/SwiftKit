@@ -16,10 +16,10 @@ import com.mozhimen.uicorek.layoutk.side.list.mos.MSideAttrs
  * @Version 1.0
  */
 internal object AttrsParser {
-    private val MENU_WIDTH = 90f.dp2px()
-    private val MENU_HEIGHT = 45f.dp2px()
-    private val MENU_ITEM_TEXT_SIZE = 16f.sp2px()
-    private val MENU_ITEM_TEXT_SIZE_SELECT = 17f.sp2px()
+    private val MENU_WIDTH = 90f.dp2px().toInt()
+    private val MENU_HEIGHT = 45f.dp2px().toInt()
+    private val MENU_ITEM_TEXT_SIZE = 16f.sp2px().toInt()
+    private val MENU_ITEM_TEXT_SIZE_SELECT = 17f.sp2px().toInt()
 
     private val MENU_ITEM_TEXT_COLOR = UtilKRes.getColor(R.color.blue_normal)
     private val MENU_ITEM_TEXT_COLOR_SELECT = UtilKRes.getColor(R.color.blue_dark)
@@ -27,12 +27,12 @@ internal object AttrsParser {
     private val MENU_ITEM_BG_COLOR_SELECT = UtilKRes.getColor(R.color.blue_light)
     private val MENU_ITEM_INDICATOR = UtilKRes.getDrawable(R.drawable.layoutk_side_indicator_menu)
 
-    private val SUB_TEXT_SIZE = 16f.sp2px()
+    private val SUB_TEXT_SIZE = 16f.sp2px().toInt()
     private val SUB_TEXT_COLOR = UtilKRes.getColor(R.color.blue_normal)
-    private val SUB_HEIGHT = 40f.dp2px()
-    private val SUB_MARGIN_START = 10f.dp2px()
+    private val SUB_HEIGHT = 40f.dp2px().toInt()
+    private val SUB_MARGIN_START = 10f.dp2px().toInt()
 
-    private val CONTENT_TEXT_SIZE = 15f.sp2px()
+    private val CONTENT_TEXT_SIZE = 15f.sp2px().toInt()
     private val CONTENT_TEXT_COLOR = UtilKRes.getColor(R.color.blue_normal)
     private const val CONTENT_IMG_RATIO = 1f
 

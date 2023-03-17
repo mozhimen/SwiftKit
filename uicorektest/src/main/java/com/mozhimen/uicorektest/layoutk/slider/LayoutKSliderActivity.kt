@@ -33,7 +33,7 @@ class LayoutKSliderActivity : BaseActivityVB<ActivityLayoutkSliderBinding>() {
                     vb.layoutkSlider,
                     currentValue.toInt().toString(),
                     xOffset = /*(currentX - rod.centerX).toInt()*/(rod.currentX - vb.layoutkSlider.width / 2f).toInt(),
-                    yOffset = -(8f).dp2px()
+                    yOffset = -(8f).dp2px().toInt()
                 )
                 vb.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
             }
@@ -54,7 +54,7 @@ class LayoutKSliderActivity : BaseActivityVB<ActivityLayoutkSliderBinding>() {
                     vb.layoutkSliderInside,
                     currentValue.toInt().toString(),
                     xOffset = (rod.currentX - vb.layoutkSlider.width / 2f).toInt(),
-                    yOffset = -(8f).dp2px()
+                    yOffset = -(8f).dp2px().toInt()
                 )
                 vb.layoutkSliderInsideTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
             }

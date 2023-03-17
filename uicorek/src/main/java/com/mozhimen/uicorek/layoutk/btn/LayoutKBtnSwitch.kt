@@ -139,8 +139,8 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
 
     init {
         if (!isInEditMode) {
-            minimumWidth = 20f.dp2px()
-            minimumHeight = 10f.dp2px()
+            minimumWidth = 20f.dp2px().toInt()
+            minimumHeight = 10f.dp2px().toInt()
             setOnClickListener(this)
 
             addView(_bgView)
@@ -245,7 +245,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         val bgColorOn: Int,
         val bgColorOff: Int,
         val btnColor: Int,
-        val btnMargin: Int,
+        val btnMargin: Float,
         val borderColor: Int,
         val borderWidth: Int,
         val animTime: Int
@@ -258,7 +258,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         val BTN_COLOR = UtilKRes.getColor(android.R.color.white)
         val BTN_MARGIN = 3f.dp2px()
         val BORDER_COLOR = UtilKRes.getColor(R.color.blue_light)
-        val BORDER_WIDTH = 1f.dp2px()
+        val BORDER_WIDTH = 1f.dp2px().toInt()
         const val ANIM_TIME = 300
 
         override fun parseAttrs(context: Context, attrs: AttributeSet?): LayoutKBtnSwitchAttrs {
@@ -272,7 +272,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
             val btnColor =
                 typedArray.getColor(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_btnColor, BTN_COLOR)
             val btnMargin =
-                typedArray.getDimensionPixelSize(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_btnMargin, BTN_MARGIN)
+                typedArray.getDimensionPixelSize(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_btnMargin, BTN_MARGIN.toInt()).toFloat()
             val borderColor =
                 typedArray.getColor(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_borderColor, BORDER_COLOR)
             val borderWidth =

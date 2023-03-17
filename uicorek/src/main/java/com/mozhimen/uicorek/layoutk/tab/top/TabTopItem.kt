@@ -141,16 +141,16 @@ class TabTopItem @JvmOverloads constructor(
                 _tabIndicator.visibility = VISIBLE
                 _tabIndicator.setBackgroundColor(_tabTopItem!!.colorIndicator!!)
                 _tabImageView.loadImage(_tabTopItem!!.bitmapSelected!!)
-                _tabImageView.resizeSize(27f.dp2px())
+                _tabImageView.resizeSize(27f.dp2px().toInt())
             } else {
                 _tabIndicator.visibility = GONE
                 _tabImageView.loadImage(_tabTopItem!!.bitmapDefault!!)
-                _tabImageView.resizeSize(26f.dp2px())
+                _tabImageView.resizeSize(26f.dp2px().toInt())
             }
         } else if (_tabTopItem!!.tabType == ETabTopType.IMAGE_TEXT) {
             if (init) {
                 _tabImageView.visibility = VISIBLE
-                _tabImageView.setPadding(0, 0, 4f.dp2px(), 0)
+                _tabImageView.setPadding(0, 0, 4f.dp2px().toInt(), 0)
                 _tabNameView.visibility = VISIBLE
                 if (!TextUtils.isEmpty(_tabTopItem!!.name)) {
                     _tabNameView.text = _tabTopItem!!.name
@@ -160,14 +160,14 @@ class TabTopItem @JvmOverloads constructor(
                 _tabIndicator.visibility = VISIBLE
                 _tabIndicator.setBackgroundColor(_tabTopItem!!.colorSelected!!)
                 _tabImageView.loadImage(_tabTopItem!!.bitmapSelected!!)
-                _tabImageView.resizeSize(25f.dp2px())
+                _tabImageView.resizeSize(25f.dp2px().toInt())
                 _tabNameView.setTextColor(_tabTopItem!!.colorSelected ?: _tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 17f
                 _tabNameView.fontStyle(Typeface.BOLD)
             } else {
                 _tabIndicator.visibility = GONE
                 _tabImageView.loadImage(_tabTopItem!!.bitmapDefault!!)
-                _tabImageView.resizeSize(24f.dp2px())
+                _tabImageView.resizeSize(24f.dp2px().toInt())
                 _tabNameView.setTextColor(_tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 16f
                 _tabNameView.fontStyle(Typeface.NORMAL)

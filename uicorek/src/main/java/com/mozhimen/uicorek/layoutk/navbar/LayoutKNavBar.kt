@@ -130,7 +130,7 @@ class LayoutKNavBar @JvmOverloads constructor(
         paddingHorizontal: Int,
         block: (View.() -> Unit)? = null,
         @ColorInt textColor: Int = Color.BLACK,
-        @Px textSize: Int = 15f.sp2px()
+        @Px textSize: Int = 15f.sp2px().toInt()
     ) {
         val textView = getTitleView(text, textColor, textSize)
         addSideView(textView, boxWidth, paddingHorizontal, true)
@@ -186,7 +186,7 @@ class LayoutKNavBar @JvmOverloads constructor(
         paddingHorizontal: Int,
         block: (View.() -> Unit)? = null,
         @ColorInt textColor: Int = Color.BLACK,
-        @Px textSize: Int = 15f.sp2px()
+        @Px textSize: Int = 15f.sp2px().toInt()
     ) {
         val textView = getTitleView(text, textColor, textSize)
         addSideView(textView, boxWidth, paddingHorizontal, false)
@@ -311,8 +311,8 @@ class LayoutKNavBar @JvmOverloads constructor(
         val btnKIconFont = Button(context)
         btnKIconFont.apply {
             setBackgroundResource(0)
-            minWidth = 10f.dp2px()
-            minHeight = 10f.dp2px()
+            minWidth = 10f.dp2px().toInt()
+            minHeight = 10f.dp2px().toInt()
             gravity = Gravity.CENTER
             includeFontPadding = false
             setTextSize(TypedValue.COMPLEX_UNIT_PX, iconTextSize.toFloat())
@@ -326,8 +326,8 @@ class LayoutKNavBar @JvmOverloads constructor(
     private fun getBtnImage(bitmap: Bitmap): ImageView {
         val btnImage = ImageView(context)
         btnImage.apply {
-            minimumWidth = 10f.dp2px()
-            minimumHeight = 10f.dp2px()
+            minimumWidth = 10f.dp2px().toInt()
+            minimumHeight = 10f.dp2px().toInt()
             gravity = Gravity.CENTER
             setImageBitmap(bitmap)
         }

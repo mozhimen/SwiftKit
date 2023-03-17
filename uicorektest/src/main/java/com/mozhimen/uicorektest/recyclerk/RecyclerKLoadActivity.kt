@@ -31,7 +31,7 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
     private fun initRefresh() {
         _textOverView = TextOverView(this)
         vb.layoutkRefresh.setRefreshOverView(_textOverView)
-        vb.layoutkRefresh.setRefreshParams(90f.dp2px(), 1.6f, null)
+        vb.layoutkRefresh.setRefreshParams(90f.dp2px().toInt(), 1.6f, null)
         vb.layoutkRefresh.setRefreshListener(object : IRefreshListener {
             override fun onRefresh() {
                 if (vb.recyclerkLoad.isLoading()) {

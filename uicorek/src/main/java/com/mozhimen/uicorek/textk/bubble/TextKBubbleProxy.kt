@@ -68,15 +68,15 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, ILayoutK {
     private var _paddingBottom: Float = PADDING
 
     companion object {
-        private val ARROW_HEIGHT = 4f.dp2px().toFloat()
-        private val ARROW_WIDTH = 6f.dp2px().toFloat()
-        private val ARROW_POS_OFFSET = 10f.dp2px().toFloat()
+        private val ARROW_HEIGHT = 4f.dp2px()
+        private val ARROW_WIDTH = 6f.dp2px()
+        private val ARROW_POS_OFFSET = 10f.dp2px()
         private const val BG_COLOR = Color.WHITE
         private const val BORDER_COLOR = Color.GRAY
-        private val BORDER_WIDTH = 1f.dp2px().toFloat()
-        private val GAP_PADDING = 0f.dp2px().toFloat()
-        private val CORNER_RADIUS = 4f.dp2px().toFloat()
-        private val PADDING = 2f.dp2px().toFloat()
+        private val BORDER_WIDTH = 1f.dp2px()
+        private val GAP_PADDING = 0f.dp2px()
+        private val CORNER_RADIUS = 4f.dp2px()
+        private val PADDING = 2f.dp2px()
     }
     //endregion
 

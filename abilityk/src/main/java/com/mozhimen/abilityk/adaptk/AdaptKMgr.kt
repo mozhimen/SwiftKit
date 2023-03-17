@@ -53,7 +53,7 @@ class AdaptKMgr {
             override fun onAdaptBefore(target: Any, activity: Activity) {
                 AutoSizeConfig.getInstance().screenWidth = length
                 AutoSizeConfig.getInstance().screenHeight = width
-                if (activity.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {                //根据屏幕方向，设置适配基准
+                if (UtilKScreen.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {                //根据屏幕方向，设置适配基准
                     AutoSizeConfig.getInstance().designWidthInDp = length.also { _length = length }                //设置横屏基准
                 } else {
                     AutoSizeConfig.getInstance().designWidthInDp = width.also { _width = width }        //设置竖屏基准

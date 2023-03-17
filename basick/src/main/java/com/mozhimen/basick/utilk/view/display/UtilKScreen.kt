@@ -12,6 +12,8 @@ import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.view.bar.UtilKVirtualBar
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.res.UtilKConfiguration
+import com.mozhimen.basick.utilk.res.UtilKDisplay
 import kotlin.math.sqrt
 
 /**
@@ -79,32 +81,40 @@ object UtilKScreen {
      * @return Int
      */
     @JvmStatic
-    fun getScreenDensityDpi(): Int = _context.resources.configuration.densityDpi
+    fun getScreenDensityDpi(): Int =
+        UtilKDisplay.getDensityDpi()
+
+    /**
+     * 获取屏幕密度dp
+     * @return Int
+     */
+    @JvmStatic
+    fun getScreenDensityDpi1(): Int =
+        UtilKConfiguration.getDensityDpi()
 
     /**
      * 获取屏幕密度
      * @return Float
      */
     @JvmStatic
-    fun getScreenDensity(): Float = _context.resources.displayMetrics.density
+    fun getScreenDensity(): Float =
+        UtilKDisplay.getDensity()
 
     /**
      * 获取屏幕宽度
      * @return Int
      */
     @JvmStatic
-    fun getCurrentScreenWidth(): Int {
-        return _context.resources.displayMetrics.widthPixels
-    }
+    fun getCurrentScreenWidth(): Int =
+        UtilKDisplay.getWidthPixels()
 
     /**
      * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
      * @return Int
      */
     @JvmStatic
-    fun getCurrentScreenHeight(): Int {
-        return _context.resources.displayMetrics.heightPixels
-    }
+    fun getCurrentScreenHeight(): Int =
+        UtilKDisplay.getHeightPixels()
 
     /**
      * 获取像素宽
@@ -142,8 +152,8 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenSize(): Float {
-        val xdpi = _context.resources.displayMetrics.xdpi
-        val ydpi = _context.resources.displayMetrics.ydpi
+        val xdpi = UtilKDisplay.getXdpi()
+        val ydpi = UtilKDisplay.getYdpi()
         val width = getCurrentScreenWidth()
         val height = getCurrentScreenHeight()
 
@@ -159,7 +169,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenWidthDp(): Int =
-        _context.resources.configuration.screenWidthDp
+        UtilKConfiguration.getScreenWidthDp()
 
     /**
      * 获取dp高
@@ -167,7 +177,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenHeightDp(): Int =
-        _context.resources.configuration.screenHeightDp
+        UtilKConfiguration.getScreenHeightDp()
 
     /**
      * 获取屏幕方向
@@ -175,7 +185,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenOrientation(): Int =
-        _context.resources.configuration.orientation
+        UtilKConfiguration.getOrientation()
 
     /**
      * 是否为竖屏

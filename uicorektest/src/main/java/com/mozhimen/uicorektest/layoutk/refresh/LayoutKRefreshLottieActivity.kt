@@ -13,7 +13,7 @@ class LayoutKRefreshLottieActivity : BaseActivityVB<ActivityLayoutkRefreshLottie
     override fun initView(savedInstanceState: Bundle?) {
         val lottieOverView = LottieOverView(this)
         vb.layoutkRefreshContainerLottie.setRefreshOverView(lottieOverView)
-        vb.layoutkRefreshContainerLottie.setRefreshParams(90f.dp2px(), null, null)
+        vb.layoutkRefreshContainerLottie.setRefreshParams(90f.dp2px().toInt(), null, null)
         vb.layoutkRefreshContainerLottie.setRefreshListener(object : IRefreshListener {
             override fun onRefresh() {
                 WakeBefPauseLifecycleHandler(this@LayoutKRefreshLottieActivity).postDelayed(1000) { vb.layoutkRefreshContainerLottie.refreshFinished() }

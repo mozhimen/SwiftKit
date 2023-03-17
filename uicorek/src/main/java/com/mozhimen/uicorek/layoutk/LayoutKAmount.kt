@@ -17,6 +17,8 @@ import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.bases.BaseAttrsParser
+import com.mozhimen.uicorek.bases.BaseAttrsParser2
 
 /**
  * @ClassName LayoutKAmount
@@ -130,22 +132,22 @@ class LayoutKAmount @JvmOverloads constructor(
         return button
     }
 
-    private object LayoutKAmountParser {
+    private object LayoutKAmountParser : BaseAttrsParser2<MAmountAttrs> {
 
         const val MIN_VAL: Int = 0
         const val MAX_VAL: Int = 100
         const val DEFAULT_AMOUNT: Int = 0
         val AMOUNT_TEXT_COLOR: Int = UtilKRes.getColor(R.color.blue_normal)
-        val AMOUNT_TEXT_SIZE: Int = 14.sp2px()
+        val AMOUNT_TEXT_SIZE: Int = 14.sp2px().toInt()
         const val AMOUNT_BACKGROUND_COLOR: Int = Color.WHITE
-        val AMOUNT_MARGIN_HORIZONTAL: Int = 0f.dp2px()
-        val AMOUNT_MIN_WIDTH: Int = 20f.dp2px()
+        val AMOUNT_MARGIN_HORIZONTAL: Int = 0f.dp2px().toInt()
+        val AMOUNT_MIN_WIDTH: Int = 20f.dp2px().toInt()
         val BTN_TEXT_COLOR: Int = UtilKRes.getColor(R.color.blue_normal)
-        val BTN_TEXT_SIZE: Int = 14f.sp2px()
+        val BTN_TEXT_SIZE: Int = 14f.sp2px().toInt()
         val BTN_BACKGROUND_COLOR: Int = UtilKRes.getColor(R.color.gray_normal)
-        val BTN_SIZE: Int = 20f.dp2px()
+        val BTN_SIZE: Int = 20f.dp2px().toInt()
 
-        fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MAmountAttrs {
+        override fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MAmountAttrs {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKAmount, defStyleAttr, R.style.LayoutKAmount_Style)
 
             val minVal = typedArray.getInteger(

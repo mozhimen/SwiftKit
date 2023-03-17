@@ -41,8 +41,8 @@ class PointIndicator @JvmOverloads constructor(
     private var _pointVerticalMargin = 0//指示器上下内间距
 
     init {
-        _pointHorizontalMargin = 5f.dp2px()
-        _pointVerticalMargin = 15f.dp2px()
+        _pointHorizontalMargin = 5f.dp2px().toInt()
+        _pointVerticalMargin = 15f.dp2px().toInt()
     }
 
     override fun get(): FrameLayout = this

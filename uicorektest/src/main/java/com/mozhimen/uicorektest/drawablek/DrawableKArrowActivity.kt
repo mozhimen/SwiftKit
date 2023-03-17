@@ -20,14 +20,14 @@ class DrawableKArrowActivity : BaseActivityVB<ActivityDrawablekArrowBinding>() {
                 resetRect(vb.drawablekArrow1.width, vb.drawablekArrow1.height)
 
                 setFillColor(Color.BLACK)
-                setGapWidth(5f.dp2px().toFloat())
-                setCornerRadius(10f.dp2px().toFloat())
+                setGapWidth(5f.dp2px())
+                setCornerRadius(10f.dp2px())
 
-                setBorderWidth(3f.dp2px().toFloat())
+                setBorderWidth(3f.dp2px())
                 setBorderColor(UtilKRes.getColor(R.color.blue_normal))
 
-                setArrowWidth(20f.dp2px().toFloat())
-                setArrowHeight(10f.dp2px().toFloat())
+                setArrowWidth(20f.dp2px())
+                setArrowHeight(10f.dp2px())
                 setArrowDirection(EArrowDirection.Left)
                 setArrowPosPolicy(EArrowPosPolicy.TargetCenter)
                 setArrowToPoint(30f, 30f)

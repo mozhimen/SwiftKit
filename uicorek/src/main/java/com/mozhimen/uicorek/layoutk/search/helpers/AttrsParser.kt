@@ -22,16 +22,16 @@ internal object AttrsParser {
             R.styleable.LayoutKSearch_layoutKSearch_search_icon
         )
         val searchIconSize = typedArray.getDimensionPixelSize(
-            R.styleable.LayoutKSearch_layoutKSearch_search_iconSize, 15f.sp2px()
+            R.styleable.LayoutKSearch_layoutKSearch_search_iconSize, 15f.sp2px().toInt()
         )
         val searchIconPadding = typedArray.getDimensionPixelOffset(
-            R.styleable.LayoutKSearch_layoutKSearch_search_iconPadding, 4f.sp2px()
+            R.styleable.LayoutKSearch_layoutKSearch_search_iconPadding, 4f.sp2px().toInt()
         )
         val searchBackground = typedArray.getDrawable(
             R.styleable.LayoutKSearch_layoutKSearch_search_background
         ) ?: UtilKRes.getDrawable(R.drawable.layoutk_search_background)
         val searchTextSize = typedArray.getDimensionPixelSize(
-            R.styleable.LayoutKSearch_layoutKSearch_search_textSize, 15f.sp2px()
+            R.styleable.LayoutKSearch_layoutKSearch_search_textSize, 15f.sp2px().toInt()
         )
         val searchTextColor = typedArray.getColor(
             R.styleable.LayoutKSearch_layoutKSearch_search_textColor, UtilKRes.getColor(android.R.color.black)
@@ -42,7 +42,7 @@ internal object AttrsParser {
             R.styleable.LayoutKSearch_layoutKSearch_clear_icon
         )
         val clearIconSize = typedArray.getDimensionPixelSize(
-            R.styleable.LayoutKSearch_layoutKSearch_clear_iconSize, 15f.sp2px()
+            R.styleable.LayoutKSearch_layoutKSearch_clear_iconSize, 15f.sp2px().toInt()
         )
 
         //hint
@@ -50,7 +50,7 @@ internal object AttrsParser {
             R.styleable.LayoutKSearch_layoutKSearch_hint_text
         )
         val hintTextSize = typedArray.getDimensionPixelSize(
-            R.styleable.LayoutKSearch_layoutKSearch_hint_textSize, 15f.sp2px()
+            R.styleable.LayoutKSearch_layoutKSearch_hint_textSize, 15f.sp2px().toInt()
         )
         val hintTextColor = typedArray.getColor(
             R.styleable.LayoutKSearch_layoutKSearch_hint_textColor, UtilKRes.getColor(android.R.color.black)
@@ -64,7 +64,7 @@ internal object AttrsParser {
             R.styleable.LayoutKSearch_layoutKSearch_keyword_icon
         )
         val keywordIconSize = typedArray.getDimensionPixelSize(
-            R.styleable.LayoutKSearch_layoutKSearch_keyword_iconSize, 13f.sp2px()
+            R.styleable.LayoutKSearch_layoutKSearch_keyword_iconSize, 13f.sp2px().toInt()
         )
         val keywordIconColor = typedArray.getColor(
             R.styleable.LayoutKSearch_layoutKSearch_keyword_iconColor, Color.WHITE
@@ -76,7 +76,7 @@ internal object AttrsParser {
             R.styleable.LayoutKSearch_layoutKSearch_keyword_maxLength, 10
         )
         val keywordPadding = typedArray.getDimensionPixelOffset(
-            R.styleable.LayoutKSearch_layoutKSearch_keyword_padding, 12f.sp2px()
+            R.styleable.LayoutKSearch_layoutKSearch_keyword_padding, 12f.sp2px().toInt()
         )
 
         typedArray.recycle()

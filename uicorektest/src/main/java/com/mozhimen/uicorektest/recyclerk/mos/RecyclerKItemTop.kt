@@ -21,6 +21,7 @@ class RecyclerKItemTop : RecyclerKItem<Any, RecyclerView.ViewHolder>() {
     private var _parentWidth: Int = 0
 
     override fun onBindData(holder: RecyclerView.ViewHolder, position: Int) {
+        super.onBindData(holder, position)
         val imageView = holder.itemView as ImageView
         /*data?.let {
             if (data!!.title != null && !TextUtils.isEmpty(data!!.title!!)) {*/
@@ -41,7 +42,7 @@ class RecyclerKItemTop : RecyclerKItem<Any, RecyclerView.ViewHolder>() {
         val params = holder.itemView.layoutParams
         if (params.width != _parentWidth) {
             params.width = _parentWidth
-            params.height = 40.dp2px()
+            params.height = 40.dp2px().toInt()
             holder.itemView.layoutParams = params
         }
     }
