@@ -11,7 +11,7 @@ import android.content.Intent
  * @Date 2022/2/27 16:35
  * @Version 1.0
  */
-object UtilKActivitySkip {
+object UtilKActivityStart {
     private const val TAG = "UtilKActivitySkip>>>>>"
 
     /**

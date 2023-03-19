@@ -14,6 +14,7 @@ import com.mozhimen.basick.utilk.view.bar.UtilKVirtualBar
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.res.UtilKConfiguration
 import com.mozhimen.basick.utilk.res.UtilKDisplay
+import com.mozhimen.basick.utilk.res.UtilKTheme
 import kotlin.math.sqrt
 
 /**
@@ -43,7 +44,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun isFullScreen(): Boolean {
-        val typedArray = _context.theme.obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
+        val typedArray = UtilKTheme.getTheme().obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
         val windowFullscreen = typedArray.getBoolean(0, false)
         typedArray.recycle()
         return windowFullscreen
@@ -126,8 +127,8 @@ object UtilKScreen {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.width()
         } else {
             val size = Point()
-            val display = (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-            display.getSize(size)
+            val defaultDisplay = (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+            defaultDisplay.getSize(size)
             size.x
         }
 
@@ -141,8 +142,8 @@ object UtilKScreen {
             (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.height()
         } else {
             val size = Point()
-            val display = (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-            display.getSize(size)
+            val defaultDisplay = (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+            defaultDisplay.getSize(size)
             size.y
         }
 
@@ -156,7 +157,6 @@ object UtilKScreen {
         val ydpi = UtilKDisplay.getYdpi()
         val width = getCurrentScreenWidth()
         val height = getCurrentScreenHeight()
-
         //计算屏幕的物理尺寸
         val widthPhy = (width / xdpi) * (width / xdpi)
         val heightPhy = (height / ydpi) * (height / ydpi)

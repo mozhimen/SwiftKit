@@ -10,7 +10,7 @@ import android.util.Log
 import com.mozhimen.basick.utilk.java.io.UtilKCmd
 import com.mozhimen.basick.utilk.content.UtilKPackage
 import com.mozhimen.basick.utilk.content.UtilKActivity
-import com.mozhimen.basick.utilk.content.UtilKActivitySkip
+import com.mozhimen.basick.utilk.content.UtilKActivityStart
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import kotlin.system.exitProcess
 
@@ -74,7 +74,7 @@ object UtilKApp {
             return
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        UtilKActivitySkip.start(_context, intent)
+        UtilKActivityStart.start(_context, intent)
         if (!isKillProcess) return
         Process.killProcess(Process.myPid())
         exitProcess(if (isValid) 0 else 10)

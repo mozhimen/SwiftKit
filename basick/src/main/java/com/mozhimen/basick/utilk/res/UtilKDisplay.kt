@@ -96,7 +96,7 @@ object UtilKDisplay {
     @JvmStatic
     fun px2sp(px: Float): Float =
         if (px <= 0f) 0f
-        else px / getDisplayMetrics().scaledDensity + 0.5f
+        else px / getScaledDensity() + 0.5f
 
     /**
      * sp转px
@@ -155,4 +155,12 @@ object UtilKDisplay {
     @JvmStatic
     fun getYdpi(): Float =
         getDisplayMetrics().ydpi
+
+    /**
+     * 获取ScaledDensity
+     * @return Float
+     */
+    @JvmStatic
+    fun getScaledDensity(): Float =
+        getDisplayMetrics().scaledDensity
 }

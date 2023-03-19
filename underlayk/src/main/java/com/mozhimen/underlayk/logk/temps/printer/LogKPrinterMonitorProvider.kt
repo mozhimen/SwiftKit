@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.content.UtilKIntentSkip
+import com.mozhimen.basick.utilk.content.UtilKIntentStart
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.exts.et
@@ -104,7 +104,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         if (!UtilKDialog.isOverlayPermissionEnable(_context)) {
             LogK.et(TAG, "PrinterMonitor play app has no overlay permission")
             "请打开悬浮窗权限".showToastOnMain()
-            UtilKIntentSkip.startSettingOverlay(_context)
+            UtilKIntentStart.startSettingOverlay(_context)
             return
         }
         try {

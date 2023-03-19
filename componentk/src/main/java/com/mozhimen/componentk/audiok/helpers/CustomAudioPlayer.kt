@@ -11,6 +11,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.taskk.temps.TaskKPoll
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.res.UtilKAsset
 import com.mozhimen.componentk.audiok.commons.IAudioKFocusListener
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
@@ -85,7 +86,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
                 if (audio.url.contains("/")) {
                     setDataSource(audio.url)
                 } else {
-                    val assetFileDescriptor = _context.assets.openFd(audio.url)
+                    val assetFileDescriptor = UtilKAsset.getAssets().openFd(audio.url)
                     setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
                 }
                 prepareAsync()

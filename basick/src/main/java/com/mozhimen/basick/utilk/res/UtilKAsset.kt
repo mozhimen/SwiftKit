@@ -17,8 +17,8 @@ import java.io.*
  */
 object UtilKAsset {
     private const val TAG = "UtilKAssets>>>>>"
-    private const val msg_not_exist = "fail, make sure it's file or exist"
-    private const val msg_wrong = "something wrong"
+    private const val MSG_NOT_EXIST = "fail, make sure it's file or exist"
+    private const val MSG_WRONG = "something wrong"
 
     /**
      * 获取App的Assets
@@ -58,7 +58,7 @@ object UtilKAsset {
      */
     @JvmStatic
     fun asset2String(assetName: String): String {
-        if (!isAssetExists(assetName)) return msg_not_exist
+        if (!isAssetExists(assetName)) return MSG_NOT_EXIST
         val inputStream = getAssets().open(assetName)
         try {
             return UtilKFile.inputStream2String(inputStream).replace("\\n".toRegex(), "\n")
@@ -68,7 +68,7 @@ object UtilKAsset {
         } finally {
             inputStream.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
@@ -79,7 +79,7 @@ object UtilKAsset {
      */
     @JvmStatic
     fun asset2String2(assetName: String): String {
-        if (!isAssetExists(assetName)) return msg_not_exist
+        if (!isAssetExists(assetName)) return MSG_NOT_EXIST
         val inputStream = getAssets().open(assetName)
         try {
             val data = ByteArray(inputStream.available())
@@ -91,7 +91,7 @@ object UtilKAsset {
         } finally {
             inputStream.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
@@ -101,7 +101,7 @@ object UtilKAsset {
      */
     @JvmStatic
     fun asset2String3(assetName: String): String {
-        if (!isAssetExists(assetName)) return msg_not_exist
+        if (!isAssetExists(assetName)) return MSG_NOT_EXIST
         val inputStream = getAssets().open(assetName)
         val stringBuilder = StringBuilder()
         try {
@@ -117,7 +117,7 @@ object UtilKAsset {
         } finally {
             inputStream.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 
     /**
@@ -128,7 +128,7 @@ object UtilKAsset {
      */
     @JvmStatic
     fun asset2File(assetName: String, destFilePathWithName: String, isOverwrite: Boolean = true): String {
-        if (!isAssetExists(assetName)) return msg_not_exist
+        if (!isAssetExists(assetName)) return MSG_NOT_EXIST
         val inputStream: InputStream = getAssets().open(assetName)
         //整理名称
         var tmpDestFilePath = destFilePathWithName
@@ -144,6 +144,6 @@ object UtilKAsset {
         } finally {
             inputStream.close()
         }
-        return msg_wrong
+        return MSG_WRONG
     }
 }

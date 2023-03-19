@@ -46,7 +46,6 @@ object UtilKPermission {
                     }
                 }
             } else {
-
             }
         } else {
             Log.e(TAG, "isSettingAccessibilityPermissionEnable accessibility is disabled")

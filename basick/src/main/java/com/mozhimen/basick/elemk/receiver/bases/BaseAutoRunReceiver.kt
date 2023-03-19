@@ -6,7 +6,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.elemk.rxjava.bases.BaseObserver
 import com.mozhimen.basick.utilk.os.thread.UtilKRxJavaTrans
-import com.mozhimen.basick.utilk.content.UtilKActivitySkip
+import com.mozhimen.basick.utilk.content.UtilKActivityStart
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
@@ -43,11 +43,11 @@ open class BaseAutoRunReceiver(private val clazz: Class<*>, private val _delayTi
                 if (_delayTime != 0L) {
                     Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : BaseObserver<String>() {
                         override fun onComplete() {
-                            UtilKActivitySkip.start(context, clazz)
+                            UtilKActivityStart.start(context, clazz)
                         }
                     })
                 } else {
-                    UtilKActivitySkip.start(context, clazz)
+                    UtilKActivityStart.start(context, clazz)
                 }
             }
         }

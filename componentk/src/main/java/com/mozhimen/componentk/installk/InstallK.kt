@@ -7,7 +7,6 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
-import com.mozhimen.basick.utilk.content.UtilKIntentSkip
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.os.UtilKOSRoot

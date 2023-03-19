@@ -15,10 +15,9 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.content.UtilKActivitySkip
+import com.mozhimen.basick.utilk.content.UtilKActivityStart
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKIntent
-import com.mozhimen.basick.utilk.content.UtilKUri
 import java.io.*
 import java.nio.charset.Charset
 
@@ -59,7 +58,7 @@ object UtilKAppInstall {
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
     fun openSettingAppInstall(activity: Activity) {
-        UtilKActivitySkip.start(
+        UtilKActivityStart.start(
             activity,
             Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${activity.packageName}"))
         )
@@ -73,7 +72,7 @@ object UtilKAppInstall {
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
     fun openSettingAppInstall(context: Context) {
-        UtilKActivitySkip.start(
+        UtilKActivityStart.start(
             context,
             Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${context.packageName}"))
         )
@@ -126,7 +125,7 @@ object UtilKAppInstall {
      */
     @JvmStatic
     fun installHand(apkPathWithName: String) {
-        UtilKActivitySkip.start(_context, UtilKIntent.getInstallApp(apkPathWithName) ?: return)
+        UtilKActivityStart.start(_context, UtilKIntent.getInstallApp(apkPathWithName) ?: return)
     }
 
     /**

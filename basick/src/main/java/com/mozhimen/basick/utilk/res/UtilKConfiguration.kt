@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.res
 
 import android.content.res.Configuration
+import android.content.res.Resources
 
 
 /**
@@ -11,6 +12,14 @@ import android.content.res.Configuration
  * @Version 1.0
  */
 object UtilKConfiguration {
+    /**
+     * 获取自定义Configuration
+     * @return Configuration
+     */
+    @JvmStatic
+    fun getConfiguration(resources: Resources): Configuration =
+        resources.configuration
+
     /**
      * 获取系统Configuration
      * @return Configuration

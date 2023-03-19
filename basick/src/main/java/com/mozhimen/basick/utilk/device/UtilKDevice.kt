@@ -16,7 +16,6 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.datatype.UtilKDataType
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.UtilKCmd
 import com.mozhimen.basick.utilk.res.UtilKConfiguration

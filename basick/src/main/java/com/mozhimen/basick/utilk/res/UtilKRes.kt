@@ -64,6 +64,7 @@ object UtilKRes {
      * @param resId Int
      * @return Int
      */
+    @JvmOverloads
     @JvmStatic
     fun getColor(@ColorRes resId: Int, context: Context = _context): Int =
         context.getColor(resId)
@@ -73,6 +74,7 @@ object UtilKRes {
      * @param resId Int
      * @return Int
      */
+    @JvmOverloads
     @JvmStatic
     fun getColor2(@ColorRes resId: Int, context: Context = _context): Int =
         ContextCompat.getColor(context, resId)
@@ -82,6 +84,7 @@ object UtilKRes {
      * @param resId Int
      * @return ColorStateList?
      */
+    @JvmOverloads
     @JvmStatic
     fun getColorStateList(@ColorRes resId: Int, context: Context = _context): ColorStateList =
         context.getColorStateList(resId)
@@ -91,6 +94,7 @@ object UtilKRes {
      * @param resId Int
      * @return ColorStateList?
      */
+    @JvmOverloads
     @JvmStatic
     fun getColorStateList2(@ColorRes resId: Int, context: Context = _context): ColorStateList? =
         ContextCompat.getColorStateList(context, resId)
@@ -100,6 +104,7 @@ object UtilKRes {
      * @param drawableId Int
      * @return Drawable?
      */
+    @JvmOverloads
     @JvmStatic
     fun getDrawable(@DrawableRes drawableId: Int, context: Context = _context): Drawable? =
         context.getDrawable(drawableId)
@@ -109,6 +114,7 @@ object UtilKRes {
      * @param drawableId Int
      * @return Drawable?
      */
+    @JvmOverloads
     @JvmStatic
     fun getDrawable2(@DrawableRes drawableId: Int, context: Context = _context): Drawable? =
         ContextCompat.getDrawable(context, drawableId)
@@ -118,6 +124,7 @@ object UtilKRes {
      * @param dimensionId Int
      * @return Int
      */
+    @JvmOverloads
     @JvmStatic
     fun getDimensionPixelSize(dimensionId: Int, context: Context = _context): Int =
         getDimensionPixelSize(dimensionId, context.resources)
@@ -137,6 +144,7 @@ object UtilKRes {
      * @param resId Int
      * @return Array<String>
      */
+    @JvmOverloads
     @JvmStatic
     fun getStringArray(resId: Int, context: Context = _context): Array<String> =
         getStringArray(resId, context.resources)
@@ -156,6 +164,7 @@ object UtilKRes {
      * @param resId Int
      * @return Int
      */
+    @JvmOverloads
     @JvmStatic
     fun getInteger(resId: Int, context: Context = _context): Int =
         getInteger(resId, context.resources)
