@@ -1,17 +1,19 @@
 package com.mozhimen.componentk.audiok.helpers
 
-import android.content.Context
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.wifi.WifiManager
 import android.net.wifi.WifiManager.WifiLock
 import android.os.PowerManager
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.temps.TaskKPoll
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.res.UtilKAsset
+import com.mozhimen.basick.utilk.net.UtilKWifiManager
+import com.mozhimen.basick.utilk.res.UtilKAssets
 import com.mozhimen.componentk.audiok.commons.IAudioKFocusListener
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent
 import com.mozhimen.componentk.audiok.cons.EPlayStatus
@@ -51,7 +53,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
     private var _wifiLock: WifiLock? = null
         get() {
             if (field != null) return field
-            val lock = (_context.getSystemService(Context.WIFI_SERVICE) as WifiManager).createWifiLock(WifiManager.WIFI_MODE_FULL, TAG)
+            val lock = UtilKWifiManager.get(_context).createWifiLock(WifiManager.WIFI_MODE_FULL, TAG)
             return lock.also { field = it }
         }
 
@@ -86,7 +88,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
                 if (audio.url.contains("/")) {
                     setDataSource(audio.url)
                 } else {
-                    val assetFileDescriptor = UtilKAsset.getAssets().openFd(audio.url)
+                    val assetFileDescriptor = UtilKAssets.getAssets().openFd(audio.url)
                     setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
                 }
                 prepareAsync()
@@ -170,6 +172,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
      * 设置音量
      * @param volume Int
      */
+    @RequiresApi(CVersionCode.V_28_9_P)
     fun setVolume(volume: Int) {
         _audioFocusManager!!.setVolume(volume)
     }

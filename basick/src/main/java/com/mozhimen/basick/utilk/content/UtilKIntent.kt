@@ -112,7 +112,7 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getLauncherFromPackage(): Intent? =
-        UtilKPackageManager.get().getLaunchIntentForPackage(UtilKApplication.instance.get().packageName)
+        UtilKPackageManager.get().getLaunchIntentForPackage(UtilKContext.getPackageName(UtilKApplication.instance.get()))
 
     /**
      * 获取安装app的intent

@@ -1,7 +1,9 @@
 package com.mozhimen.basick.utilk.res
 
+import android.content.Context
 import android.content.res.Resources.Theme
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 
 /**
  * @ClassName UtilKTheme
@@ -16,6 +18,7 @@ object UtilKTheme {
      * @return Theme
      */
     @JvmStatic
-    fun getTheme(): Theme =
-        UtilKApplication.instance.get().theme
+    fun get(context: Context): Theme =
+        UtilKContext.getTheme(context)
+
 }

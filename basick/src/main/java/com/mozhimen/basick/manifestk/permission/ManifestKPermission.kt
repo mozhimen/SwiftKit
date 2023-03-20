@@ -10,6 +10,7 @@ import com.mozhimen.basick.manifestk.permission.helpers.IManifestKPermissionList
 import com.mozhimen.basick.manifestk.permission.helpers.InvisibleFragment
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContextCompat
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 
 /**
@@ -134,7 +135,7 @@ object ManifestKPermission {
         return if (permissions.isEmpty()) true
         else {
             permissions.forEach {
-                allGranted = allGranted and (ContextCompat.checkSelfPermission(_context, it) == PackageManager.PERMISSION_GRANTED)
+                allGranted = allGranted and (UtilKContextCompat.checkSelfPermission(_context, it) == PackageManager.PERMISSION_GRANTED)
             }
             allGranted
         }

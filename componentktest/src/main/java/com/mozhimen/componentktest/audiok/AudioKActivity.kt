@@ -2,6 +2,7 @@ package com.mozhimen.componentktest.audiok
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -41,9 +42,11 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         get() = AudioK.instance.getVolume()
         set(value) {
             val volume = value.normalize(AudioK.instance.getVolumeMin()..AudioK.instance.getVolumeMax())
-            AudioK.instance.setVolume(volume).also {
-                vb.audiokSliderVolumeTxt.text = volume.toString()
-                field = volume
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                AudioK.instance.setVolume(volume).also {
+                    vb.audiokSliderVolumeTxt.text = volume.toString()
+                    field = volume
+                }
             }
         }
     private val _intervalVolume: Float by lazy { AudioK.instance.getVolumeMax().toFloat() - AudioK.instance.getVolumeMin().toFloat() }

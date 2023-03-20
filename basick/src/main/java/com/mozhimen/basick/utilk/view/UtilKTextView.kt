@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.view
 import android.graphics.Typeface
 import android.widget.TextView
 import androidx.annotation.IntRange
+import com.mozhimen.basick.utilk.content.UtilKContext
 
 /**
  * @ClassName UtilKViewText
@@ -28,14 +29,13 @@ object UtilKTextView {
     /**
      * 设置字体
      * @param textView TextView
-     * @param fontPath String
+     * @param fontPathWithName String
      */
     @JvmStatic
     fun font(
         textView: TextView,
-        fontPath: String = "fonts/iconfont.ttf"
+        fontPathWithName: String = "fonts/iconfont.ttf"
     ) {
-        val typeface = Typeface.createFromAsset(textView.context.assets, fontPath)
-        textView.typeface = typeface
+        textView.typeface = Typeface.createFromAsset(UtilKContext.getAssets(textView.context), fontPathWithName)
     }
 }

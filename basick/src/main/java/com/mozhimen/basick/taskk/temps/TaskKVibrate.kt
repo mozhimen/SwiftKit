@@ -1,11 +1,11 @@
 package com.mozhimen.basick.taskk.temps
 
-import android.app.Activity
 import android.os.Vibrator
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.taskk.bases.BaseTaskK
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 
 /**
  * @ClassName UtilKVibrate
@@ -25,7 +25,7 @@ class TaskKVibrate : BaseTaskK() {
      */
     fun start(duration: Long = 200L) {
         if (_vibrator == null) {
-            _vibrator = UtilKApplication.instance.get().getSystemService(Activity.VIBRATOR_SERVICE) as Vibrator
+            _vibrator = UtilKContext.getVibrator(UtilKApplication.instance.get())
         }
         _vibrator!!.vibrate(duration)
     }

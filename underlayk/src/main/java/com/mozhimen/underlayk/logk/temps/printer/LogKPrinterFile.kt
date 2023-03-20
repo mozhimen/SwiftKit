@@ -6,6 +6,7 @@ import com.mozhimen.underlayk.logk.mos.MLogK
 import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.exts.et
 import java.io.BufferedWriter
 import java.io.File
@@ -34,7 +35,7 @@ class LogKPrinterFile(
     var logPath: String? = null
         get() {
             if (field != null) return field
-            val logFullPath = UtilKApplication.instance.get().cacheDir.absolutePath + "/logk_printer_file"
+            val logFullPath = UtilKContext.getCacheAbsolutePath(UtilKApplication.instance.get()) + "/logk_printer_file"
             UtilKFile.createFolder(logFullPath)
             return logFullPath.also { field = it }
         }

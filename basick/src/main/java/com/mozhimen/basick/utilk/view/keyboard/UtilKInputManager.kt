@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.UtilKReflect
@@ -34,7 +35,7 @@ object UtilKInputManager {
      */
     @JvmStatic
     fun get(context: Context): InputMethodManager =
-        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        UtilKContext.getInputMethodManager(context)
 
     /**
      * 显示软键盘
@@ -245,7 +246,7 @@ object UtilKInputManager {
     @JvmStatic
     fun fixInputMethodLeakAfterQ(context: Context, tag: String) {
         if (Build.VERSION.SDK_INT < CVersionCode.V_29_10_Q) return
-        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager = get(context)
         try {
             val mCurRootViewField = UtilKReflect.getField(inputMethodManager, "mCurRootView")
             if (!mCurRootViewField.isAccessible) mCurRootViewField.isAccessible = true
@@ -290,7 +291,7 @@ object UtilKInputManager {
     @JvmStatic
     fun fixInputMethodLeakBeforeQ(context: Context, tag: String) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q) return
-        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager = UtilKContext.getInputMethodManager(context)
         val leakViews = arrayOf("mCurRootView", "mServedView", "mNextServedView")
         var leakViewField: Field
         var fieldObj: Any?

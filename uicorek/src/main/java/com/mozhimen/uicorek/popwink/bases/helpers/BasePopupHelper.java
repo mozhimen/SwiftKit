@@ -203,12 +203,12 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
         this.mMaskViewDismissAnimation = new AlphaAnimation(1f, 0f);
         this.mMaskViewShowAnimation.setFillAfter(true);
         this.mMaskViewShowAnimation.setInterpolator(new DecelerateInterpolator());
-        this.mMaskViewShowAnimation.setDuration(UtilKRes.getSystemResource()
+        this.mMaskViewShowAnimation.setDuration(UtilKRes.getSystemResources()
                 .getInteger(android.R.integer.config_shortAnimTime));
         isDefaultMaskViewShowAnimation = true;
         this.mMaskViewDismissAnimation.setFillAfter(true);
         this.mMaskViewDismissAnimation.setInterpolator(new DecelerateInterpolator());
-        this.mMaskViewDismissAnimation.setDuration(UtilKRes.getSystemResource()
+        this.mMaskViewDismissAnimation.setDuration(UtilKRes.getSystemResources()
                 .getInteger(android.R.integer.config_shortAnimTime));
         isDefaultMaskViewDismissAnimation = true;
     }

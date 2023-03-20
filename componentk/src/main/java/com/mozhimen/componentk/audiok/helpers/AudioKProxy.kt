@@ -1,8 +1,10 @@
 package com.mozhimen.componentk.audiok.helpers
 
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.componentk.audiok.commons.IAudioKListener
 import com.mozhimen.componentk.audiok.cons.CAudioKEvent
@@ -164,6 +166,7 @@ internal class AudioKProxy(private val _owner: LifecycleOwner) : IAudioKListener
         _customAudioPlayer.release()
     }
 
+    @RequiresApi(CVersionCode.V_28_9_P)
     override fun setVolume(volume: Int) {
         _customAudioPlayer.setVolume(volume)
     }

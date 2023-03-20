@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Surface
 import android.view.TextureView
+import com.mozhimen.basick.utilk.res.UtilKAssets
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.uicorek.R
@@ -240,7 +241,7 @@ class VideoKLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
             if (_videoIsUrl) {
                 mediaMetadataRetriever.setDataSource(_videoSource, HashMap())
             } else {
-                val assetFileDescriptor = context.assets.openFd(_videoSource!!)
+                val assetFileDescriptor = UtilKAssets.openFd(_videoSource!!)
                 mediaMetadataRetriever.setDataSource(
                     assetFileDescriptor.fileDescriptor,
                     assetFileDescriptor.startOffset,
@@ -299,7 +300,7 @@ class VideoKLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
                 if (_videoSource!!.contains("/")){
                     setDataSource(_videoSource)
                 }else{
-                    val assetFileDescriptor = context.assets.openFd(_videoSource!!)
+                    val assetFileDescriptor = UtilKAssets.openFd(_videoSource!!)
                     setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
                 }
             }

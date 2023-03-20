@@ -35,7 +35,7 @@ object UtilKRenderScript {
 
     @Volatile
     private var _renderScript: RenderScript? = null
-    private val _context: Context = UtilKApplication.instance.get()
+    private val _context = UtilKApplication.instance.get()
 
     @JvmStatic
     fun getRenderScriptInstance(context: Context): RenderScript? {

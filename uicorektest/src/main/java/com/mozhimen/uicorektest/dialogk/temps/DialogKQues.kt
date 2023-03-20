@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.uicorek.dialogk.commons.IDialogKBuilder
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorektest.R
@@ -62,7 +63,7 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
         }
 
         fun create(onSureClick: (() -> Unit)? = null, onCancelClick: (() -> Unit)? = null): DialogKQues {
-            val layoutInflater = _context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val layoutInflater = UtilKContext.getLayoutInflater(_context)
             val dialogKQues = DialogKQues(_context, styleId)
             val view = layoutInflater.inflate(layoutId, null)
             dialogKQues.addContentView(

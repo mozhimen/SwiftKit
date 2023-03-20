@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.device
 import android.content.Context
 import android.telephony.TelephonyManager
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 
 
 /**
@@ -12,14 +13,12 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
  * @Date 2023/3/20 16:03
  * @Version 1.0
  */
-object UtilKTelephony {
-    private val _context = UtilKApplication.instance.get()
+object UtilKTelephonyManager {
+    @JvmStatic
+    fun get(context: Context): TelephonyManager =
+        UtilKContext.getTelephonyManager(context)
 
     @JvmStatic
-    fun getTelephonyManager(): TelephonyManager =
-        _context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-
-    @JvmStatic
-    fun isHasTelephone(): Boolean =
-        getTelephonyManager().phoneType != TelephonyManager.PHONE_TYPE_NONE
+    fun isHasTelephone(context: Context): Boolean =
+        get(context).phoneType != TelephonyManager.PHONE_TYPE_NONE
 }

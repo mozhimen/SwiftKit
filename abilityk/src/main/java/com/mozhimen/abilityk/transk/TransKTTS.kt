@@ -36,7 +36,6 @@ import java.util.*
 @AManifestKRequire(CPermission.FOREGROUND_SERVICE, CQuery.TTS_SERVICE)
 class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : BaseWakeBefDestroyLifecycleObserver() where T : LifecycleOwner, T : Activity {
     private var _transKText2Speech: TextToSpeech? = null
-    private val _context = UtilKApplication.instance.get()
 
     init {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
@@ -44,7 +43,7 @@ class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Loc
                 UtilKLaunchActivity.startSettingAppDetails(owner)
             }
         }
-        _transKText2Speech = TextToSpeech(_context) {
+        _transKText2Speech = TextToSpeech(owner) {
             if (it == TextToSpeech.SUCCESS) {
                 val supportRes = _transKText2Speech!!.setLanguage(config.language)
                 require(supportRes != TextToSpeech.LANG_MISSING_DATA && supportRes != TextToSpeech.LANG_NOT_SUPPORTED) { "$TAG current language is not support" }

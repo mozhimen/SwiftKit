@@ -1,14 +1,14 @@
 package com.mozhimen.basick.utilk.res
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.core.content.ContextCompat
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.content.UtilKContextCompat
 
 /**
  * @ClassName UtilKRes
@@ -19,15 +19,15 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
  */
 object UtilKRes {
     private val _context = UtilKApplication.instance.get()
-    private val _resourcesSys = Resources.getSystem()
-    private val _resourcesApp = _context.resources
+    private val _resourcesSys by lazy { Resources.getSystem() }
+    private val _resourcesApp by lazy { UtilKContext.getResources(_context) }
 
     /**
      * 获取系统Resources
      * @return Resources
      */
     @JvmStatic
-    fun getSystemResource(): Resources =
+    fun getSystemResources(): Resources =
         _resourcesSys
 
     /**
@@ -35,7 +35,7 @@ object UtilKRes {
      * @return Resources
      */
     @JvmStatic
-    fun getAppResource(): Resources =
+    fun getAppResources(): Resources =
         _resourcesApp
 
     /**
@@ -43,10 +43,9 @@ object UtilKRes {
      * @param resId Int
      * @return String
      */
-    @JvmOverloads
     @JvmStatic
-    fun getString(@StringRes resId: Int, context: Context = _context): String =
-        context.getString(resId)
+    fun getString(@StringRes resId: Int): String =
+        UtilKContext.getString(_context, resId)
 
     /**
      * 获取字符串
@@ -54,80 +53,72 @@ object UtilKRes {
      * @param formatArgs Array<out Any?>
      * @return String
      */
-    @JvmOverloads
     @JvmStatic
-    fun getString(@StringRes resId: Int, context: Context = _context, vararg formatArgs: Any): String =
-        context.getString(resId, *formatArgs)
+    fun getString(@StringRes resId: Int, vararg formatArgs: Any): String =
+        UtilKContext.getString(_context, resId, formatArgs)
 
     /**
      * 获取颜色
      * @param resId Int
      * @return Int
      */
-    @JvmOverloads
     @JvmStatic
-    fun getColor(@ColorRes resId: Int, context: Context = _context): Int =
-        context.getColor(resId)
+    fun getColor(@ColorRes resId: Int): Int =
+        UtilKContext.getColor(_context, resId)
 
     /**
      * 获取颜色
      * @param resId Int
      * @return Int
      */
-    @JvmOverloads
     @JvmStatic
-    fun getColor2(@ColorRes resId: Int, context: Context = _context): Int =
-        ContextCompat.getColor(context, resId)
+    fun getColor2(@ColorRes resId: Int): Int =
+        UtilKContextCompat.getColor(_context, resId)
 
     /**
      * 获取颜色list
      * @param resId Int
      * @return ColorStateList?
      */
-    @JvmOverloads
     @JvmStatic
-    fun getColorStateList(@ColorRes resId: Int, context: Context = _context): ColorStateList =
-        context.getColorStateList(resId)
+    fun getColorStateList(@ColorRes resId: Int): ColorStateList =
+        UtilKContext.getColorStateList(_context, resId)
 
     /**
      * 获取颜色list
      * @param resId Int
      * @return ColorStateList?
      */
-    @JvmOverloads
     @JvmStatic
-    fun getColorStateList2(@ColorRes resId: Int, context: Context = _context): ColorStateList? =
-        ContextCompat.getColorStateList(context, resId)
+    fun getColorStateList2(@ColorRes resId: Int): ColorStateList? =
+        UtilKContextCompat.getColorStateList(_context, resId)
 
     /**
      * 获取Drawable
      * @param drawableId Int
      * @return Drawable?
      */
-    @JvmOverloads
     @JvmStatic
-    fun getDrawable(@DrawableRes drawableId: Int, context: Context = _context): Drawable? =
-        context.getDrawable(drawableId)
+    fun getDrawable(@DrawableRes drawableId: Int): Drawable? =
+        UtilKContext.getDrawable(_context, drawableId)
 
     /**
      * 获取Drawable
      * @param drawableId Int
      * @return Drawable?
      */
-    @JvmOverloads
     @JvmStatic
-    fun getDrawable2(@DrawableRes drawableId: Int, context: Context = _context): Drawable? =
-        ContextCompat.getDrawable(context, drawableId)
+    fun getDrawable2(@DrawableRes drawableId: Int): Drawable? =
+        UtilKContextCompat.getDrawable(_context, drawableId)
 
     /**
      * 获取DimensionPixelSize
      * @param dimensionId Int
      * @return Int
      */
-    @JvmOverloads
     @JvmStatic
-    fun getDimensionPixelSize(dimensionId: Int, context: Context = _context): Int =
-        getDimensionPixelSize(dimensionId, context.resources)
+    fun getDimensionPixelSize(dimensionId: Int): Int =
+        getDimensionPixelSize(dimensionId, getAppResources())
 
     /**
      * 获取DimensionPixelSize
@@ -144,10 +135,9 @@ object UtilKRes {
      * @param resId Int
      * @return Array<String>
      */
-    @JvmOverloads
     @JvmStatic
-    fun getStringArray(resId: Int, context: Context = _context): Array<String> =
-        getStringArray(resId, context.resources)
+    fun getStringArray(resId: Int): Array<String> =
+        getStringArray(resId, getAppResources())
 
     /**
      * 获取StringArray
@@ -164,10 +154,9 @@ object UtilKRes {
      * @param resId Int
      * @return Int
      */
-    @JvmOverloads
     @JvmStatic
-    fun getInteger(resId: Int, context: Context = _context): Int =
-        getInteger(resId, context.resources)
+    fun getInteger(resId: Int): Int =
+        getInteger(resId, getAppResources())
 
     /**
      * 获取Integer

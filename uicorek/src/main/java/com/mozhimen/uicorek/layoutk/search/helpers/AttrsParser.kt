@@ -6,13 +6,14 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKTheme
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs
 
 internal object AttrsParser {
     fun parseSearchViewAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MSearchAttrs {
         val value = TypedValue()
-        context.theme.resolveAttribute(R.attr.LayoutKSearch_LayoutKSearch_Style, value, true)
+        UtilKTheme.get(context).resolveAttribute(R.attr.LayoutKSearch_LayoutKSearch_Style, value, true)
         val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKSearch_Style
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSearch, defStyleAttr, defStyleRes)

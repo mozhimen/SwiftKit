@@ -1,8 +1,11 @@
 package com.mozhimen.basick.utilk.res
 
+import android.content.Context
+import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
 import android.util.Log
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.*
@@ -15,10 +18,18 @@ import java.io.*
  * @Date 2022/4/15 3:52
  * @Version 1.0
  */
-object UtilKAsset {
+object UtilKAssets {
     private const val TAG = "UtilKAssets>>>>>"
     private const val MSG_NOT_EXIST = "fail, make sure it's file or exist"
     private const val MSG_WRONG = "something wrong"
+
+    @JvmStatic
+    fun openFd(filePathWithName: String): AssetFileDescriptor =
+        getAssets2().openFd(filePathWithName)
+
+    @JvmStatic
+    fun open(filePathWithName: String): InputStream =
+        getAssets().open(filePathWithName)
 
     /**
      * 获取App的Assets
@@ -26,7 +37,7 @@ object UtilKAsset {
      */
     @JvmStatic
     fun getAssets(): AssetManager =
-        UtilKRes.getAppResource().assets
+        UtilKRes.getAppResources().assets
 
     /**
      * 获取App的Assets
@@ -34,7 +45,15 @@ object UtilKAsset {
      */
     @JvmStatic
     fun getAssets2(): AssetManager =
-        UtilKApplication.instance.get().assets
+        UtilKContext.getAssets(UtilKApplication.instance.get())
+
+    /**
+     * 获取App的Assets
+     * @return AssetManager
+     */
+    @JvmStatic
+    fun getAssets(context: Context): AssetManager =
+        UtilKContext.getAssets(context)
 
     /**
      * Asset是否存在

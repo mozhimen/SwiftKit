@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.os.thread
 
 import android.content.Context
 import android.os.Looper
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 
 /**
@@ -21,7 +22,7 @@ object UtilKThread {
     fun isMainProcess(context: Context): Boolean {
         val runningAppProcesses = UtilKActivity.getActivityManager(context).runningAppProcesses
         for (process in runningAppProcesses) {
-            if (process.processName == context.packageName) {
+            if (process.processName == UtilKContext.getPackageName(context)) {
                 return true
             }
         }

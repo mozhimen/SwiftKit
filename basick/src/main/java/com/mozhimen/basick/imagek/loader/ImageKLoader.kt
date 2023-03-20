@@ -25,8 +25,6 @@ import com.mozhimen.basick.imagek.loader.mos.GrayscaleTransformation
  */
 @AManifestKRequire(CPermission.INTERNET)
 object ImageKLoader {
-    private val _context = UtilKApplication.instance.get()
-
     /**
      * 普通加载
      * @param imageView ImageView
@@ -84,7 +82,7 @@ object ImageKLoader {
             crossfade(crossFadeEnable)
             crossfade(crossFadeTime)
             placeholder(placeholder)
-            transformations(BlurTransformation(_context, radius, sampling))
+            transformations(BlurTransformation(imageView.context, radius, sampling))
         }
     }
 

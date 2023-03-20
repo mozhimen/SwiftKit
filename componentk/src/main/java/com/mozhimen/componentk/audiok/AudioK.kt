@@ -1,9 +1,11 @@
 package com.mozhimen.componentk.audiok
 
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.componentk.audiok.commons.IAudioKListener
@@ -120,6 +122,7 @@ class AudioK : IAudioKListener, LifecycleOwner {
         _audioKProxy.release()
     }
 
+    @RequiresApi(CVersionCode.V_28_9_P)
     override fun setVolume(volume: Int) {
         _audioKProxy.setVolume(volume)
     }

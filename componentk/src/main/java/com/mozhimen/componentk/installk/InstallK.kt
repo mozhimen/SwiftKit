@@ -9,6 +9,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
+import com.mozhimen.basick.utilk.app.UtilKApplicationInfo
 import com.mozhimen.basick.utilk.os.UtilKOSRoot
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKPermission
@@ -148,7 +149,7 @@ class InstallK {
             })
             return
         }
-        if (_context.applicationInfo.targetSdkVersion >= CVersionCode.V_26_8_O && Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable()) {        // 允许安装应用
+        if (UtilKApplicationInfo.getTargetSdkVersion(_context) >= CVersionCode.V_26_8_O && Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable()) {        // 允许安装应用
             Log.w(TAG, "installByMode: onNeedPermissions isAppInstallsPermissionEnable false")
             _handler.sendMessage(Message().apply {
                 what = CCons.MSG_NEED_PERMISSION

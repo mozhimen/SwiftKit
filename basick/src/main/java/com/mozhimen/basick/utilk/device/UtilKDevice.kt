@@ -144,7 +144,7 @@ object UtilKDevice {
      */
     @JvmStatic
     fun isHasPid(vid: Int, pid: Int): Boolean {
-        val devices: Iterator<UsbDevice> = UtilKUsb.getUsbManager().deviceList.values.iterator()
+        val devices: Iterator<UsbDevice> = UtilKUsbManager.get().deviceList.values.iterator()
         while (devices.hasNext()) {
             val usbDevice: UsbDevice = devices.next()
             if (usbDevice.vendorId == vid && usbDevice.productId == pid) return true

@@ -1,12 +1,11 @@
 package com.mozhimen.abilityk.transk
 
-import android.content.res.AssetManager
 import android.opengl.ETC1
 import android.opengl.ETC1Util.ETC1Texture
 import android.util.Log
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.datatype.UtilKString
-import com.mozhimen.basick.utilk.res.UtilKAsset
+import com.mozhimen.basick.utilk.res.UtilKAssets
 import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 import java.io.FileInputStream
 import java.io.IOException
@@ -24,7 +23,6 @@ import java.util.zip.ZipInputStream
  * @Version 1.0
  */
 class TransKPKM {
-    private val _context = UtilKApplication.instance.get()
     private var _path: String? = null
     private var _zipInputStream: ZipInputStream? = null
     private var _zipEntry: ZipEntry? = null
@@ -46,7 +44,7 @@ class TransKPKM {
         }
         return try {
             _zipInputStream = if (_path!!.startsWith("assets/")) {
-                val inputStream = UtilKAsset.getAssets().open(_path!!.substring(7))
+                val inputStream = UtilKAssets.open(_path!!.substring(7))
                 ZipInputStream(inputStream)
             } else {
                 ZipInputStream(FileInputStream(_path))

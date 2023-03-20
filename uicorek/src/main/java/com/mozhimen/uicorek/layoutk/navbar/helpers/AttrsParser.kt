@@ -7,6 +7,7 @@ import android.util.TypedValue
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKTheme
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.navbar.mos.MNavBarAttrs
 
@@ -29,7 +30,7 @@ internal object AttrsParser {
 
     fun parseNavAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MNavBarAttrs {
         val value = TypedValue()
-        context.theme.resolveAttribute(R.attr.LayoutKNavBar_LayoutKNavBar_Style, value, true)
+        UtilKTheme.get(context).resolveAttribute(R.attr.LayoutKNavBar_LayoutKNavBar_Style, value, true)
 
         //xml-->theme.navigationStyle---navigationStyle
         val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKNavBar_Style

@@ -6,6 +6,7 @@ import android.view.Display
 import android.view.WindowManager
 import android.view.WindowMetrics
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 
 
@@ -25,7 +26,7 @@ object UtilKWindowManager {
      */
     @JvmStatic
     fun get(): WindowManager =
-        _context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        UtilKContext.getWindowManager(_context)
 
 
     /**
@@ -80,4 +81,12 @@ object UtilKWindowManager {
     @JvmStatic
     fun getRotation(activity: Activity): Int =
         getDefaultDisplay(activity).rotation
+
+    /**
+     * 获取旋转
+     * @return Int
+     */
+    @JvmStatic
+    fun getRotation(): Int =
+        getDefaultDisplay().rotation
 }

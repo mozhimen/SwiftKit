@@ -11,6 +11,9 @@ import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
+import com.mozhimen.basick.utilk.content.activity.UtilKActivityManager
 import com.mozhimen.basick.utilk.device.UtilKDevice
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKBuild
@@ -36,7 +39,7 @@ class CrashKJava {
     var crashPathJava: String? = null
         get() {
             if (field != null) return field
-            val crashFullPath = _context.cacheDir.absolutePath + "/crashk_java"
+            val crashFullPath = UtilKContext.getCacheAbsolutePath(_context) + "/crashk_java"
             UtilKFile.createFolder(crashFullPath)
             return crashFullPath.also { field = it }
         }
@@ -107,7 +110,7 @@ class CrashKJava {
 
             //storage info
             val memoryInfo = ActivityManager.MemoryInfo()
-            val activityManager = _context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            val activityManager = UtilKActivityManager.get(_context)
             activityManager.getMemoryInfo(memoryInfo)
 
             stringBuilder.append("availableMemory= ${Formatter.formatFileSize(_context, memoryInfo.availMem)}\n")//可用内存

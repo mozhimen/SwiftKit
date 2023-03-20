@@ -10,6 +10,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 import java.net.Inet6Address
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -32,8 +33,6 @@ import kotlin.math.abs
 object UtilKNetConn {
     private val TAG = "UtilKNet>>>>>"
     private val _context = UtilKApplication.instance.get()
-    private val _connectivityManager by lazy { _context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager }
-    private val _wifiManager by lazy { _context.getSystemService(Context.WIFI_SERVICE) as WifiManager }
 
     /**
      * 获取Wifi强度
@@ -41,7 +40,7 @@ object UtilKNetConn {
      */
     @JvmStatic
     fun getWifiStrength(): Int {
-        return abs(_wifiManager.connectionInfo.rssi)
+        return UtilKWifiManager.getRssiAbs(_context)
     }
 
     /**
@@ -50,7 +49,7 @@ object UtilKNetConn {
      */
     @JvmStatic
     fun getActiveNetworkInfo(): NetworkInfo? {
-        return _connectivityManager.activeNetworkInfo
+        return UtilKConnManager.getActiveNetworkInfo(_context)
     }
 
     /**
@@ -75,19 +74,17 @@ object UtilKNetConn {
             }
         } catch (e: SocketException) {
             e.printStackTrace()
-            Log.e(TAG, "getDeviceIP SocketException ${e.message}")
+            Log.e(TAG, "getIP SocketException ${e.message}")
         }
         return null
     }
 
     /**
      * 网络是否连接
-     * @param context Context
      * @return Boolean
      */
-    fun isNetConnected(context: Context): Boolean {
-        val netWorkInfos = _connectivityManager.allNetworkInfo
-        netWorkInfos.forEach {
+    fun isNetConnected(): Boolean {
+        UtilKConnManager.getAllNetworkInfo(_context).forEach {
             if (it.isConnected) return true
         }
         return false
@@ -99,10 +96,8 @@ object UtilKNetConn {
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isNetAvailable(): Boolean {
-        val netWorkInfo = _connectivityManager.activeNetworkInfo
-        return netWorkInfo != null && netWorkInfo.isAvailable
-    }
+    fun isNetAvailable(): Boolean =
+        UtilKConnManager.getActiveNetworkInfo(_context)?.isAvailable ?: false
 
     /**
      * 是否连接无线网
@@ -110,9 +105,9 @@ object UtilKNetConn {
      */
     @JvmStatic
     fun isWifiConnected(): Boolean {
-        if (_context.checkCallingOrSelfPermission(CPermission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) return false
-        val netWorkInfo = _connectivityManager.activeNetworkInfo
-        return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_WIFI
+        if (UtilKContext.checkCallingOrSelfPermission(_context,CPermission.ACCESS_WIFI_STATE) != PackageManager.PERMISSION_GRANTED) return false
+        val activeNetworkInfo = UtilKConnManager.getActiveNetworkInfo(_context)
+        return activeNetworkInfo != null && activeNetworkInfo.state == NetworkInfo.State.CONNECTED && activeNetworkInfo.type == ConnectivityManager.TYPE_WIFI
     }
 
     /**
@@ -121,8 +116,8 @@ object UtilKNetConn {
      */
     @JvmStatic
     fun isMobileConnected(): Boolean {
-        val netWorkInfo = _connectivityManager.activeNetworkInfo
-        return netWorkInfo != null && netWorkInfo.state == NetworkInfo.State.CONNECTED && netWorkInfo.type == ConnectivityManager.TYPE_MOBILE
+        val activeNetworkInfo = UtilKConnManager.getActiveNetworkInfo(_context)
+        return activeNetworkInfo != null && activeNetworkInfo.state == NetworkInfo.State.CONNECTED && activeNetworkInfo.type == ConnectivityManager.TYPE_MOBILE
     }
 
     /**
@@ -130,20 +125,18 @@ object UtilKNetConn {
      * @return Int
      */
     @JvmStatic
-    fun getConnectionType(): Int {
-        val networkInfo = _connectivityManager.activeNetworkInfo
-        return networkInfo?.type ?: -1
-    }
+    fun getConnectionType(): Int =
+        UtilKConnManager.getActiveNetworkInfo(_context)?.type ?: -1
 
     /**
      * 打印连接信息
      */
     @JvmStatic
-    fun printNetworkInfo() {
-        val networkInfo = _connectivityManager.activeNetworkInfo
-        if (networkInfo != null) {
-            Log.i(TAG, "isAvailable " + networkInfo.isAvailable + " isConnected " + networkInfo.isConnected + " networkInfo " + networkInfo.toString())
-            Log.i(TAG, "subtypeName " + networkInfo.subtypeName + " typeName " + networkInfo.typeName + " extraInfo " + networkInfo.extraInfo)
+    fun printActiveNetworkInfo() {
+        val activeNetworkInfo = UtilKConnManager.getActiveNetworkInfo(_context)
+        if (activeNetworkInfo != null) {
+            Log.i(TAG, "isAvailable " + activeNetworkInfo.isAvailable + " isConnected " + activeNetworkInfo.isConnected + " networkInfo " + activeNetworkInfo.toString())
+            Log.i(TAG, "subtypeName " + activeNetworkInfo.subtypeName + " typeName " + activeNetworkInfo.typeName + " extraInfo " + activeNetworkInfo.extraInfo)
         }
     }
 }
