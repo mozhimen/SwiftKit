@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.datatype.json
 
 import android.text.TextUtils
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.exts.et
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -12,7 +14,7 @@ import org.json.JSONObject
  * @Date 2023/2/3 17:30
  * @Version 1.0
  */
-object UtilKJson {
+object UtilKJson : BaseUtilK() {
 
     @JvmStatic
     fun wrapJsonStr(jsonStr: String): String {
@@ -39,10 +41,10 @@ object UtilKJson {
                 <<<<<=====JSONArray=====>>>>>
                 
                 """.trimIndent()
-            } else {
-                message = jsonStr
-            }
+            } else message = jsonStr
         } catch (e: JSONException) {
+            e.printStackTrace()
+            e.message?.et(TAG)
             message = jsonStr
         }
         return message
@@ -54,7 +56,7 @@ object UtilKJson {
      * @return Array<String?>?
      */
     @JvmStatic
-    fun splitJsonStr(json: String): Array<String?>? {
+    fun splitJsonString(json: String): Array<String?>? {
         val splitArray: Array<String?> = json.split("\t").toTypedArray()
         return if (splitArray.size != 2) null else splitArray
     }
@@ -66,11 +68,7 @@ object UtilKJson {
      */
     @JvmStatic
     fun obj2JsonObj(obj: Any): JSONObject =
-        if (obj is String) {
-            JSONObject(obj)
-        } else {
-            JSONObject(UtilKJsonGson.obj2Json(obj))
-        }
+        if (obj is String) JSONObject(obj) else JSONObject(UtilKJsonGson.obj2Json(obj))
 
     /**
      * 从JsonString中摘取string
@@ -91,11 +89,11 @@ object UtilKJson {
     fun json2StrArray(json: String): Array<String?> {
         val jsonArray = JSONArray(json.trim { it <= ' ' })
         val length = jsonArray.length()
-        val strArr = Array<String?>(length) { "" }
+        val strArray = Array<String?>(length) { "" }
         for (i in 0 until length) {
-            strArr[i] = jsonArray[i] as? String?
+            strArray[i] = jsonArray[i] as? String?
         }
-        return strArr
+        return strArray
     }
 
     /**
@@ -110,6 +108,7 @@ object UtilKJson {
             jsonObj.getJSONArray(name)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             null
         }
     }
@@ -126,6 +125,7 @@ object UtilKJson {
             jsonObj.getJSONObject(name)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             null
         }
     }
@@ -144,6 +144,7 @@ object UtilKJson {
                 arrayList.add(obj)
             } catch (e: JSONException) {
                 e.printStackTrace()
+                e.message?.et(TAG)
                 return null
             }
         }
@@ -171,6 +172,7 @@ object UtilKJson {
             }
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             return null
         }
         return arrayList
@@ -183,9 +185,8 @@ object UtilKJson {
      * @return ArrayList<T?>?
      */
     @JvmStatic
-    fun <T> json2TList(json: String, clazz: Class<T>): ArrayList<T?>? {
-        return jsonArray2TList(JSONArray(json.trim { json <= " " }), clazz)
-    }
+    fun <T> json2TList(json: String, clazz: Class<T>): ArrayList<T?>? =
+        jsonArray2TList(JSONArray(json.trim { json <= " " }), clazz)
 
     /**
      * 组合Json
@@ -243,6 +244,7 @@ object UtilKJson {
             jsonObj.put(name, obj)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -258,6 +260,7 @@ object UtilKJson {
             jsonObj[name] as? T?
         } catch (e: JSONException) {
             e.printStackTrace()
+            e.message?.et(TAG)
             null
         }
 
@@ -273,6 +276,7 @@ object UtilKJson {
             jsonArray.getJSONObject(i)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
             null
         }
 }

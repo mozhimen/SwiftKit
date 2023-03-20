@@ -148,7 +148,7 @@ class InstallK {
             })
             return
         }
-        if (_context.applicationInfo.targetSdkVersion >= CVersionCode.V_26_8_O && Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable(_context)) {        // 允许安装应用
+        if (_context.applicationInfo.targetSdkVersion >= CVersionCode.V_26_8_O && Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable()) {        // 允许安装应用
             Log.w(TAG, "installByMode: onNeedPermissions isAppInstallsPermissionEnable false")
             _handler.sendMessage(Message().apply {
                 what = CCons.MSG_NEED_PERMISSION

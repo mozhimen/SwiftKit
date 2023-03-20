@@ -8,6 +8,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.app.UtilKApp
+import com.mozhimen.basick.utilk.content.UtilKContext
 
 /**
  * @ClassName BaseInstallObserverReceiver
@@ -41,7 +42,7 @@ open class BaseInstallObserverReceiver : BaseBroadcastReceiver() {
         when (intent.action) {
             Intent.ACTION_PACKAGE_REPLACED -> {
                 Log.w(TAG, "onReceiveInstall: update one apk, restart program soon packageName $packageName")
-                if (packageName == "package:${context.packageName}") {
+                if (packageName == "package:${UtilKContext.getPackageName(context)}") {
                     UtilKApp.restartApp(isKillProcess = true)
                 }
             }

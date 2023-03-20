@@ -5,6 +5,7 @@ import android.os.Build
 import android.provider.Settings
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -23,21 +24,11 @@ object UtilKDialog {
     private val TAG = "UtilKDialog>>>>>"
 
     /**
-     * 是否有Overlay的权限
-     * @param context Context
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isOverlayPermissionEnable(context: Context): Boolean {
-        return Build.VERSION.SDK_INT < CVersionCode.V_23_6_M || Settings.canDrawOverlays(context)
-    }
-
-    /**
      * 关闭Android9.0弹出框（Detected problems with API compatibility）
      */
     @RequiresApi(CVersionCode.V_28_9_P)
     @JvmStatic
-    fun closeDialogAtAndroidP() {
+    fun closeDialogAtP() {
         try {
             val clazz = Class.forName("android.content.pm.PackageParser\$Package")
             val declaredConstructor = clazz.getDeclaredConstructor(String::class.java)

@@ -13,7 +13,7 @@ import android.view.animation.Animation
  */
 object UtilKClazz {
     @JvmStatic
-    fun clazz2LogLine(clazz: Class<*>, lineNumber: Int): String {
+    fun clazz2Log(clazz: Class<*>, lineNumber: Int): String {
         return ".(" + clazz.simpleName + ".java:" + lineNumber + ")"
     }
 

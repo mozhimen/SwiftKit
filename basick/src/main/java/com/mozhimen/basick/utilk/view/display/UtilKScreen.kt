@@ -1,8 +1,6 @@
 package com.mozhimen.basick.utilk.view.display
 
 import android.app.Activity
-import android.content.Context
-import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Build
@@ -15,6 +13,8 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.res.UtilKConfiguration
 import com.mozhimen.basick.utilk.res.UtilKDisplay
 import com.mozhimen.basick.utilk.res.UtilKTheme
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
+import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 import kotlin.math.sqrt
 
 /**
@@ -36,7 +36,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun isFullScreen(activity: Activity): Boolean =
-        if (activity.window == null) false else activity.window.attributes.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == WindowManager.LayoutParams.FLAG_FULLSCREEN
+        UtilKWindow.isFullScreen(activity)
 
     /**
      * 是否全屏
@@ -71,10 +71,10 @@ object UtilKScreen {
      */
     @JvmStatic
     fun setScreenBrightness(paramFloat: Float, activity: Activity) {
-        val localWindow: Window = activity.window
-        val params: WindowManager.LayoutParams = localWindow.attributes
-        params.screenBrightness = paramFloat
-        localWindow.attributes = params
+        val window: Window = UtilKWindow.get(activity)
+        val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(window)
+        layoutParams.screenBrightness = paramFloat
+        window.attributes = layoutParams
     }
 
     /**
@@ -124,11 +124,10 @@ object UtilKScreen {
     @JvmStatic
     fun getRealScreenWidth(): Int =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
-            (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.width()
+            UtilKWindowManager.getCurrentWindowMetrics().bounds.width()
         } else {
             val size = Point()
-            val defaultDisplay = (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-            defaultDisplay.getSize(size)
+            UtilKWindowManager.getDefaultDisplay().getSize(size)
             size.x
         }
 
@@ -139,11 +138,10 @@ object UtilKScreen {
     @JvmStatic
     fun getRealScreenHeight(): Int =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
-            (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).currentWindowMetrics.bounds.height()
+            UtilKWindowManager.getCurrentWindowMetrics().bounds.height()
         } else {
             val size = Point()
-            val defaultDisplay = (_context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
-            defaultDisplay.getSize(size)
+            UtilKWindowManager.get().defaultDisplay.getSize(size)
             size.y
         }
 
@@ -193,7 +191,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun isScreenPortrait(): Boolean =
-        getScreenOrientation() == Configuration.ORIENTATION_PORTRAIT
+        UtilKConfiguration.isOrientationPortrait()
 
     /**
      * 获取方向
@@ -202,7 +200,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenRotation(activity: Activity): Int =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) activity.display!!.rotation else activity.windowManager.defaultDisplay.rotation
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) UtilKDisplay.getRotation(activity) else UtilKWindowManager.getRotation(activity)
 
     /**
      * 截屏
@@ -211,7 +209,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun captureScreen(activity: Activity): Bitmap {
-        val view = activity.window.decorView
+        val view = UtilKWindow.getDecorView(activity)
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getVirtualBarHeight(activity))

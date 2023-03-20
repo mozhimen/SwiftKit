@@ -21,8 +21,6 @@ object UtilKEditText {
         editText: EditText,
         inputMaxLength: Int
     ) {
-        if (inputMaxLength > 0) {
-            editText.filters = arrayOf(InputFilter.LengthFilter(inputMaxLength))
-        }
+        if (inputMaxLength > 0) editText.filters = arrayOf(InputFilter.LengthFilter(inputMaxLength))
     }
 }

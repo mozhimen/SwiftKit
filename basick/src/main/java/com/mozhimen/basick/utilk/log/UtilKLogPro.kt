@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @Date 2022/11/19 13:53
  * @Version 1.0
  */
-object UtilKLogSmart {
+object UtilKLogPro {
     private const val TAG = "UtilKSmartLog>>>>>"
     private const val MAX_LOG_MSG_LENGTH = 4000//logcat最大长度为4*1024，此处取4000
     private const val LOG_LONG = true//超长Log
@@ -156,10 +156,10 @@ object UtilKLogSmart {
     private fun parseContent(obj: Any): String {
         return when (obj) {
             is String -> obj
-            is Throwable -> UtilKThrowable.throwable2String(obj)
-            is List<*> -> UtilKCollection.list2String(obj)
-            is Map<*, *> -> UtilKCollection.map2String(obj)
-            is MotionEvent -> UtilKGesture.motionEvent2String(obj.action)
+            is Throwable -> UtilKThrowable.throwable2Str(obj)
+            is List<*> -> UtilKCollection.list2Str(obj)
+            is Map<*, *> -> UtilKCollection.map2Str(obj)
+            is MotionEvent -> UtilKGesture.motionEvent2Str(obj.action)
             else -> obj.toString()
         }
     }

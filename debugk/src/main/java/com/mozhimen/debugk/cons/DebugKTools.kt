@@ -5,7 +5,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.fpsk.FpsK
 import com.mozhimen.basick.utilk.os.UtilKUiMode
-import com.mozhimen.basick.utilk.content.UtilKActivityStart.start
+import com.mozhimen.basick.utilk.content.UtilKContextStart.start
 import com.mozhimen.basick.utilk.net.UtilKNetDeal
 import com.mozhimen.debugk.annors.ADebugKTool
 import com.mozhimen.debugk.temps.DebugKCrashKActivity

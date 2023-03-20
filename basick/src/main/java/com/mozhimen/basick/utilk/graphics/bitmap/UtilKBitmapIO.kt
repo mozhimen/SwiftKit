@@ -14,10 +14,11 @@ import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.datatype.UtilKString
-import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import com.squareup.moshi.internal.Util
 import java.io.*
 
 /**
@@ -67,9 +68,9 @@ object UtilKBitmapIO {
         val typeArray: Array<String> = arrayOf("image/jpeg")
         try {
             val contentValues = ContentValues()
-            val contentResolver: ContentResolver = _context.contentResolver
+            val contentResolver: ContentResolver = UtilKContext.getContentResolver(_context)
             contentValues.put(MediaStore.Images.ImageColumns.DATA, destFile.absolutePath)
-            contentValues.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, filePathWithName.split("/").lastOrNull() ?: UtilKFile.dateString2FileName())
+            contentValues.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, filePathWithName.split("/").lastOrNull() ?: UtilKFile.dateStr2FileName())
             contentValues.put(MediaStore.Images.ImageColumns.MIME_TYPE, "image/jpeg")
             contentValues.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
             val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues) // 插入相册
@@ -151,10 +152,10 @@ object UtilKBitmapIO {
     fun uri2Bitmap(uri: Uri): Bitmap? {
         return try {
             if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
-                val source = ImageDecoder.createSource(_context.contentResolver, uri)
+                val source = ImageDecoder.createSource(UtilKContext.getContentResolver(_context), uri)
                 ImageDecoder.decodeBitmap(source)
             } else {
-                MediaStore.Images.Media.getBitmap(_context.contentResolver, uri)
+                MediaStore.Images.Media.getBitmap(UtilKContext.getContentResolver(_context), uri)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -168,6 +169,6 @@ object UtilKBitmapIO {
      */
     @JvmStatic
     fun deleteBitmapFromAlbum(deleteFilePath: String) {
-        _context.contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "${MediaStore.Images.Media.DATA}='${deleteFilePath}'", null)
+        UtilKContext.getContentResolver(_context).delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "${MediaStore.Images.Media.DATA}='${deleteFilePath}'", null)
     }
 }

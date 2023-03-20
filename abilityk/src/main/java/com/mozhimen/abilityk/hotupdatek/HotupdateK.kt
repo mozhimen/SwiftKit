@@ -9,8 +9,9 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.device.UtilKDate
-import com.mozhimen.basick.utilk.content.UtilKPackage
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.netk.file.NetKFile
@@ -44,7 +45,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
         private const val TAG = "HotUpdateK>>>>>"
 
         private val _context = UtilKApplication.instance.get()
-        private val _apkPath = _context.filesDir.absolutePath + "/hotupdatek"
+        private val _apkPath = UtilKContext.getFilesAbsolutePath(_context) + "/hotupdatek"
 
         val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
         const val EVENT_HOTUPDATEK_PROGRESS = "hotupdatek_progress"
@@ -92,7 +93,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      * @return Boolean
      */
     fun isNeedUpdate(remoteVersionCode: Int): Boolean =
-        (UtilKPackage.getVersionCode() < remoteVersionCode).also {
+        (UtilKPackageInfo.getVersionCode() < remoteVersionCode).also {
             Log.d(TAG, "isNeedUpdate: $it")
         }
 

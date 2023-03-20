@@ -11,21 +11,21 @@ import com.mozhimen.basick.utilk.datatype.regular.UtilKFilter
  * @Version 1.0
  */
 fun String.filterNumber(): String {
-    return UtilKFilter.filterNumber(this)
+    return UtilKFilter.outNumber(this)
 }
 
 fun String.filterAlphabet(): String {
-    return UtilKFilter.filterAlphabet(this)
+    return UtilKFilter.outAlphabet(this)
 }
 
 fun String.filterChinese(): String {
-    return UtilKFilter.filterChinese(this)
+    return UtilKFilter.outChinese(this)
 }
 
 fun String.filter(): String {
-    return UtilKFilter.filter(this)
+    return UtilKFilter.outNAC(this)
 }
 
 fun String.filterLength(endIndex: Int): String {
-    return UtilKFilter.filterLength(this, endIndex)
+    return UtilKFilter.outLength(this, endIndex)
 }

@@ -25,8 +25,8 @@ object UtilKFile {
 
     //region # file
     @JvmStatic
-    fun dateString2FileName(formatDate: String = UtilKDate.FORMAT_yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
-        return UtilKDate.getNowString(formatDate, locale).replace(" ", "~").replace(":", "-")
+    fun dateStr2FileName(formatDate: String = UtilKDate.FORMAT_yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
+        return UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
     }
 
     /**
@@ -130,7 +130,7 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    fun string2File(content: String, filePathWithName: String): String {
+    fun str2File(content: String, filePathWithName: String): String {
         val tmpContent = content + "\n"
         val tmpFile = createFile(filePathWithName)
         val randomAccessFile = RandomAccessFile(tmpFile, "rwd")
@@ -152,7 +152,7 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    fun string2File2(content: String, filePathWithName: String): String {
+    fun str2File2(content: String, filePathWithName: String): String {
         val tmpContent = content + "\n"
         val tmpFile = createFile(filePathWithName)
         val fileOutputStream = FileOutputStream(tmpFile)
@@ -174,8 +174,8 @@ object UtilKFile {
      * @return String
      */
     @JvmStatic
-    fun file2String(filePathWithName: String): String =
-        file2String(File(filePathWithName))
+    fun file2Str(filePathWithName: String): String =
+        file2Str(File(filePathWithName))
 
     /**
      * 文件转文本
@@ -183,11 +183,11 @@ object UtilKFile {
      * @return String
      */
     @JvmStatic
-    fun file2String(file: File): String {
+    fun file2Str(file: File): String {
         if (!isFileExist(file)) return MSG_NOT_EXIST
         val fileInputStream = FileInputStream(file)
         try {
-            return inputStream2String(fileInputStream).replace("\\n".toRegex(), "\n")
+            return inputStream2Str(fileInputStream).replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
@@ -202,7 +202,7 @@ object UtilKFile {
      * @return String
      */
     @JvmStatic
-    fun inputStream2String(inputStream: InputStream): String {
+    fun inputStream2Str(inputStream: InputStream): String {
         val stringBuilder = StringBuilder()
         val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
         val bufferedReader = BufferedReader(inputStreamReader)

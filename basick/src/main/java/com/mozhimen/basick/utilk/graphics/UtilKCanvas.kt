@@ -30,15 +30,4 @@ object UtilKCanvas {
         staticLayout.draw(canvas)
         canvas.restore()
     }
-
-    /**
-     * 多行高度
-     * @param textPaint TextPaint
-     * @param text String
-     * @return Float
-     */
-    @JvmStatic
-    fun getMultiLineTextHeight(textPaint: TextPaint, text: String): Float {
-        return text.split("\n").toTypedArray().size * textPaint.textSize
-    }
 }

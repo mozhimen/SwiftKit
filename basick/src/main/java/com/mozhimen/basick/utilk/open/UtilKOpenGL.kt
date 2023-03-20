@@ -98,7 +98,7 @@ object UtilKOpenGL {
 
     @JvmStatic
     fun createGlProgramByRes(vert: String, frag: String): Int =
-        createGlProgram(UtilKAsset.asset2String3(vert), UtilKAsset.asset2String3(frag))
+        createGlProgram(UtilKAsset.asset2Str3(vert), UtilKAsset.asset2Str3(frag))
 
     /**
      * 创建GL程序

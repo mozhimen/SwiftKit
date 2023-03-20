@@ -9,10 +9,10 @@ import android.view.ViewTreeObserver
 import android.view.Window
 import android.view.WindowManager
 import android.widget.FrameLayout
-import com.mozhimen.basick.utilk.content.UtilKActivity
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.view.UtilKView
-import com.mozhimen.basick.utilk.view.display.UtilKWindow
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
 
 
 /**
@@ -110,7 +110,7 @@ object UtilKKeyboardChange {
                 }
                 decorView.getWindowVisibleDisplayFrame(_rect)
                 _keyboardRect[_rect.left, _rect.bottom, _rect.right] = _originalContentRect.bottom
-                val isVisible = _keyboardRect.height() > _originalContentRect.height() shr 2 && UtilKKeyBoard.isActive(UtilKApplication.instance.get())
+                val isVisible = _keyboardRect.height() > _originalContentRect.height() shr 2 && UtilKInputManager.isActive(UtilKApplication.instance.get())
                 if (isVisible == _lastVisible && _keyboardRect.height() == _lastHeight) return
                 _lastVisible = isVisible
                 _lastHeight = _keyboardRect.height()

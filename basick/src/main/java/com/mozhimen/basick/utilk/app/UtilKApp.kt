@@ -1,17 +1,12 @@
 package com.mozhimen.basick.utilk.app
 
-import android.app.ActivityManager
-import android.app.Application
-import android.content.Context
 import android.content.Intent
-import android.content.pm.ApplicationInfo
 import android.os.Process
 import android.util.Log
-import com.mozhimen.basick.utilk.java.io.UtilKCmd
-import com.mozhimen.basick.utilk.content.UtilKPackage
-import com.mozhimen.basick.utilk.content.UtilKActivity
-import com.mozhimen.basick.utilk.content.UtilKActivityStart
-import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.*
+import com.mozhimen.basick.utilk.content.UtilKContextStart
+import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
+import com.mozhimen.basick.utilk.os.UtilKSystemProperties
 import kotlin.system.exitProcess
 
 
@@ -34,7 +29,7 @@ object UtilKApp {
      */
     @JvmStatic
     fun setReboot() {
-        UtilKCmd.setSystemProperties(PKG_POWER, "reboot")
+        UtilKSystemProperties.setSystemProperties(PKG_POWER, "reboot")
     }
 
     /**
@@ -43,24 +38,7 @@ object UtilKApp {
      */
     @JvmStatic
     fun isAutoRun(): Boolean =
-        UtilKCmd.getSystemPropertiesBool(PKG_AUTO_RUN, false)
-
-    /**
-     * 是否在主线程
-     * @param app Application
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isMainProcess(app: Application): Boolean {
-        val activityManager = app.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val runningAppProcesses = activityManager.runningAppProcesses
-        for (process in runningAppProcesses) {
-            if (process.processName == app.packageName) {
-                return true
-            }
-        }
-        return false
-    }
+        UtilKSystemProperties.getSystemPropertiesBool(PKG_AUTO_RUN, false)
 
     /**
      * 重启App
@@ -68,16 +46,15 @@ object UtilKApp {
      */
     @JvmStatic
     fun restartApp(isKillProcess: Boolean, isValid: Boolean = true) {
-        val intent: Intent? = UtilKActivity.getLauncherActivityIntent(_context.packageName)
+        val intent: Intent? = UtilKIntent.getLauncherActivity(UtilKContext.getPackageName(_context))
         if (intent == null) {
             Log.e(TAG, "didn't exist launcher activity.")
             return
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        UtilKActivityStart.start(_context, intent)
+        UtilKContextStart.start(_context, intent)
         if (!isKillProcess) return
-        Process.killProcess(Process.myPid())
-        exitProcess(if (isValid) 0 else 10)
+        exitApp(isValid)
     }
 
     /**
@@ -85,7 +62,7 @@ object UtilKApp {
      */
     @JvmStatic
     fun exitApp(isValid: Boolean = true) {
-        Process.killProcess(Process.myPid())
+        Process.killProcess(Process.myPid())//杀掉当前进程,并主动启动新的启动页,以完成重启的动作
         exitProcess(if (isValid) 0 else 10)
     }
 
@@ -95,7 +72,7 @@ object UtilKApp {
      */
     @JvmStatic
     fun isSystemApp(): Boolean =
-        (UtilKPackage.getPackageInfo().applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+        UtilKPackageInfo.isSystemApp()
 
     /**
      * isSystemUpdateApp
@@ -103,7 +80,7 @@ object UtilKApp {
      */
     @JvmStatic
     fun isSystemUpdateApp(): Boolean =
-        (UtilKPackage.getPackageInfo().applicationInfo.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
+        UtilKPackageInfo.isSystemUpdateApp()
 
     /**
      * isUserApp
@@ -111,5 +88,5 @@ object UtilKApp {
      */
     @JvmStatic
     fun isUserApp(): Boolean =
-        !isSystemApp() && !isSystemUpdateApp()
+        UtilKPackageInfo.isUserApp()
 }

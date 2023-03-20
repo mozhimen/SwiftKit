@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.device.UtilKDevice
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKBuild
-import com.mozhimen.basick.utilk.content.UtilKPackage
+import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
 import com.mozhimen.basick.utilk.device.UtilKDate
 import java.io.*
 import java.util.*
@@ -52,7 +52,7 @@ class CrashKJava {
 
     private inner class CrashKUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
         private val _defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        private val _launchTime = UtilKFile.dateString2FileName()
+        private val _launchTime = UtilKFile.dateStr2FileName()
 
         override fun uncaughtException(t: Thread, e: Throwable) {
             if (!handleException(e) && _defaultExceptionHandler != null) {
@@ -81,7 +81,7 @@ class CrashKJava {
 
         private fun saveCrashInfo2File(log: String) {
             val savePath = crashPathJava + "/crashk_java_${UtilKDate.getNowLong()}.txt"
-            UtilKFile.string2File(log, savePath)
+            UtilKFile.str2File(log, savePath)
         }
 
         private fun collectDeviceInfo(e: Throwable): String {
@@ -94,12 +94,12 @@ class CrashKJava {
             stringBuilder.append("os= ${UtilKBuild.getVersionRelease()}\n")//API版本:9.0
             stringBuilder.append("sdk= ${UtilKBuild.getVersionSDKCode()}\n")//SDK版本:31
             stringBuilder.append("launch_time= $_launchTime\n")//启动APP的时间
-            stringBuilder.append("crash_time= ${UtilKDate.getNowString()}")//crash发生的时间
+            stringBuilder.append("crash_time= ${UtilKDate.getNowStr()}")//crash发生的时间
             stringBuilder.append("foreground= ${StackK.isFront()}")//应用处于前台
             stringBuilder.append("thread= ${Thread.currentThread().name}\n")//异常线程名
 
             //app info
-            val packageInfo = UtilKPackage.getPackageInfo()
+            val packageInfo = UtilKPackageInfo.get()
             stringBuilder.append("version_code= ${packageInfo.versionCode}\n")
             stringBuilder.append("version_name= ${packageInfo.versionName}\n")
             stringBuilder.append("package_code= ${packageInfo.packageName}\n")

@@ -25,7 +25,7 @@ object UtilKVerifyUrl {
      * @return Boolean
      */
     @JvmStatic
-    fun isIPValid(ip: String) =
+    fun checkIP(ip: String) =
         ip.matches(Regex("((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)"))
 
     /**
@@ -34,7 +34,7 @@ object UtilKVerifyUrl {
      * @return Boolean
      */
     @JvmStatic
-    fun isDoMainValid(domain: String) =
+    fun checkDoMain(domain: String) =
         domain.matches(Regex("^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$"))
 
     /**
@@ -43,7 +43,7 @@ object UtilKVerifyUrl {
      * @return Boolean
      */
     @JvmStatic
-    fun isPortValid(port: String) =
+    fun checkPort(port: String) =
         port.matches(Regex("^[-+]?[\\d]{1,6}$"))
 
     /**
@@ -62,7 +62,7 @@ object UtilKVerifyUrl {
         }
         if (uri.host == null) {
             return false
-        } else if (!uri.scheme.equals("http") && !uri.scheme.equals("https")) {
+        } else if (!uri.scheme.equals("http") && !uri.scheme.equals("https") && !uri.scheme.equals("tcp") && !uri.scheme.equals("udp")) {
             return false
         }
         return true
@@ -75,7 +75,7 @@ object UtilKVerifyUrl {
      */
     @JvmStatic
     @MainThread
-    fun isUrlValid(url: String): Boolean {
+    fun checkUrl(url: String): Boolean {
         Log.d(TAG, "isUrlValid: url $url")
         if (url.isEmpty()) {
             "输入为空".showToast()
@@ -109,7 +109,7 @@ object UtilKVerifyUrl {
         if (second.contains("/")) {
             second = second.getSplitFirst("/")
         }
-        if (!second.isIPValid() && !second.isDoMainValid()) {
+        if (!second.checkIP() && !second.checkDoMain()) {
             "请输入正确的IP或域名".showToast()
             return false
         }
@@ -118,7 +118,7 @@ object UtilKVerifyUrl {
             if (third.contains("/")) {
                 third = third.getSplitFirst("/")
             }
-            if (!third.isPortValid()) {
+            if (!third.checkPort()) {
                 "请输入正确的端口".showToast()
                 return false
             }

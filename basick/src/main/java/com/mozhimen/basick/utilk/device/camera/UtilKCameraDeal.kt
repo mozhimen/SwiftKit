@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.device
+package com.mozhimen.basick.utilk.device.camera
 
 import android.graphics.Rect
 import android.graphics.RectF

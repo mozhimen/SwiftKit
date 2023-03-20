@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
  */
 object UtilKRxJava {
 
-    interface UtilKRxJavaListener {
+    interface UtilKIRxJavaListener {
         fun onNext(count: Long)
     }
 
@@ -30,7 +30,7 @@ object UtilKRxJava {
     fun timer(
         millisecond: Long,
         schedulers: Scheduler = AndroidSchedulers.mainThread(),
-        listener: UtilKRxJavaListener
+        listener: UtilKIRxJavaListener
     ): Disposable =
         Observable.timer(millisecond, TimeUnit.MILLISECONDS)
             .observeOn(schedulers)
@@ -47,7 +47,7 @@ object UtilKRxJava {
     fun interval(
         millisecond: Long,
         schedulers: Scheduler = AndroidSchedulers.mainThread(),
-        listener: UtilKRxJavaListener
+        listener: UtilKIRxJavaListener
     ): Disposable =
         Observable.interval(100, millisecond, TimeUnit.MILLISECONDS)
             .observeOn(schedulers)
@@ -66,7 +66,7 @@ object UtilKRxJava {
         millisecond: Long,
         repeatCount: Int,
         schedulers: Scheduler = AndroidSchedulers.mainThread(),
-        listener: UtilKRxJavaListener
+        listener: UtilKIRxJavaListener
     ): Disposable =
         Observable.interval(millisecond, TimeUnit.MILLISECONDS)
             .take(repeatCount.toLong())

@@ -12,12 +12,14 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.delegate.VarNullableInitDelegate
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.exts.decimal2String
+import com.mozhimen.basick.utilk.exts.decimal2Str
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKIntentStart
+import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.view.bar.UtilKDialog
+import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsK
 import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
@@ -49,14 +51,14 @@ class FpsKProxy : IFpsK {
     private var _internalListener = object : IFpsKListener {
         @SuppressLint("SetTextI18n")
         override fun onFrame(fps: Double) {
-            _fpsView?.text = "${fps.decimal2String()} fps"
+            _fpsView?.text = "${fps.decimal2Str()} fps"
         }
     }
 
     //    private var _fpsView: TextView = LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView
     private var _fpsView: TextView? by VarNullableInitDelegate { LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView }
     private val _frameMonitor = FrameMonitor()
-    private var _windowManager: WindowManager = _context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    private var _windowManager: WindowManager = UtilKWindowManager.get()
 
     init {
         StackK.addFrontBackListener(object : IStackKListener {
@@ -99,8 +101,8 @@ class FpsKProxy : IFpsK {
 
     private fun start() {
         if (_isShow) return
-        if (!UtilKDialog.isOverlayPermissionEnable(_context)) {
-            UtilKIntentStart.startSettingOverlay(_context)
+        if (!UtilKPermission.isOverlayPermissionEnable(_context)) {
+            UtilKLaunchActivity.startManageOverlay(_context)
             LogK.et(TAG, "FpsKView play app has no overlay permission")
             return
         }

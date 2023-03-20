@@ -15,6 +15,7 @@ import com.google.android.material.slider.Slider
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
+import com.mozhimen.basick.utilk.res.UtilKDisplay
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
@@ -67,7 +68,7 @@ class CameraXKLayout @JvmOverloads constructor(
      * 显示管理器获取显示更改回调的实例
      * An instance for display manager to get display change callbacks
      */
-    private val _displayManager by lazy { context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager }
+    private val _displayManager by lazy { UtilKDisplay.getDisplayManager(context) }
     private val _displayListener = object : DisplayManager.DisplayListener {
         override fun onDisplayAdded(displayId: Int) = Unit
         override fun onDisplayRemoved(displayId: Int) = Unit

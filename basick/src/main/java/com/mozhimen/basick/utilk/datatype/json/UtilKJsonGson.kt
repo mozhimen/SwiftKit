@@ -5,6 +5,8 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.exts.et
 
 /**
  * @ClassName UtilKJsonGson
@@ -13,7 +15,7 @@ import com.google.gson.reflect.TypeToken
  * @Date 2023/2/3 17:21
  * @Version 1.0
  */
-object UtilKJsonGson {
+object UtilKJsonGson : BaseUtilK() {
     private val _gson by lazy { Gson() }
     private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
     private val _gsonWithExpose: Gson by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
@@ -104,6 +106,7 @@ object UtilKJsonGson {
         json2T(json.trim { it <= ' ' }, JsonElement::class.java)
     } catch (e: Exception) {
         e.printStackTrace()
+        e.message?.et(TAG)
         null
     }
 }

@@ -10,11 +10,11 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.content.UtilKActivity
-import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.os.UtilKOS
 import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
 
 /**
  * @ClassName UtilKBar
@@ -25,7 +25,6 @@ import com.mozhimen.basick.utilk.res.UtilKRes
  */
 object UtilKStatusBar {
     private const val TAG = "UtilKStatusBar>>>>>"
-    private val _context = UtilKApplication.instance.get()
 
     /**
      * Return the status bar's height.
@@ -47,7 +46,7 @@ object UtilKStatusBar {
     @JvmStatic
     fun getStatusBarHeight(activity: Activity): Int {
         val rect = Rect()
-        activity.window.decorView.getWindowVisibleDisplayFrame(rect)
+        UtilKWindow.getDecorView(activity).getWindowVisibleDisplayFrame(rect)
         return rect.top
     }
 
@@ -73,7 +72,7 @@ object UtilKStatusBar {
     fun isStatusBarVisible(context: Context): Boolean {
         val activity = UtilKActivity.getActivityByContext(context, true) ?: return true
         return try {
-            activity.window.attributes.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == 0
+            UtilKWindow.get(activity).attributes.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == 0
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
             true
@@ -87,8 +86,7 @@ object UtilKStatusBar {
     @JvmStatic
     fun hideStatusBar(activity: Activity) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
-            activity.window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            UtilKWindow.getDecorView(activity).systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
     }
 
@@ -120,15 +118,14 @@ object UtilKStatusBar {
     fun setStatusBarFontIcon_MiuiUILarger6(activity: Activity, isDark: Boolean) {
         try {
             val window = activity.window
-            val clazz = activity.window.javaClass
             val layoutParams = Class.forName("android.view.MiuiWindowManager${'$'}LayoutParams")
             val field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE")
             val darkModeFlag = field.getInt(layoutParams)
-            val extraFlagMethod = clazz.getMethod("setExtraFlags", Int::class.java, Int::class.java)
+            val extraFlagMethod = window.javaClass.getMethod("setExtraFlags", Int::class.java, Int::class.java)
             //状态栏亮色且黑色字体
             extraFlagMethod.invoke(window, if (isDark) darkModeFlag else 0, darkModeFlag)
         } catch (e: Exception) {
-            Log.e(TAG, "setMiuiUI: ${e.message}")
+            Log.e(TAG, "setStatusBarFontIcon_MiuiUILarger6: ${e.message}")
             e.printStackTrace()
         }
     }
@@ -141,14 +138,14 @@ object UtilKStatusBar {
     @JvmStatic
     fun setStatusBarFontIcon_CommonUI(activity: Activity, isDark: Boolean) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
-            val window: Window = activity.window
+            val window: Window = UtilKWindow.get(activity)
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             val flag: Int = if (isDark)
-                window.decorView.systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                UtilKWindow.getDecorView(window).systemUiVisibility or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             else
-                window.decorView.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-            window.decorView.systemUiVisibility = flag
+                UtilKWindow.getDecorView(window).systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            UtilKWindow.getDecorView(window).systemUiVisibility = flag
         }
     }
 
@@ -160,10 +157,9 @@ object UtilKStatusBar {
     @JvmStatic
     fun setStatusBarFontIcon_FlymeUI(activity: Activity, isDark: Boolean) {
         try {
-            val window = activity.window
+            val window = UtilKWindow.get(activity)
             val layoutParams = window.attributes
-            val darkFlag =
-                WindowManager.LayoutParams::class.java.getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON")
+            val darkFlag = WindowManager.LayoutParams::class.java.getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON")
             val meizuFlags = WindowManager.LayoutParams::class.java.getDeclaredField("meizuFlags")
             darkFlag.isAccessible = true
             meizuFlags.isAccessible = true
@@ -186,9 +182,6 @@ object UtilKStatusBar {
     @JvmStatic
     fun setStatusBarFontIcon_ColorOSUI(activity: Activity, isDark: Boolean) {
         //控制字体颜色，只有黑白两色
-        val fontColor = if (isDark) 0x00000010 else 0x00190000
-        val window: Window = activity.window
-        val decorView = window.decorView
-        decorView.systemUiVisibility = 0 or fontColor
+        UtilKWindow.getDecorView(activity).systemUiVisibility = 0 or if (isDark) 0x00000010 else 0x00190000
     }
 }

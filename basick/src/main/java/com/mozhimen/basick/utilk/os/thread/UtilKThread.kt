@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.os.thread
 
+import android.content.Context
 import android.os.Looper
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 
 /**
  * @ClassName UtilKThread
@@ -10,6 +12,22 @@ import android.os.Looper
  * @Version 1.0
  */
 object UtilKThread {
+    /**
+     * 是否在主线程
+     * @param context Application
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isMainProcess(context: Context): Boolean {
+        val runningAppProcesses = UtilKActivity.getActivityManager(context).runningAppProcesses
+        for (process in runningAppProcesses) {
+            if (process.processName == context.packageName) {
+                return true
+            }
+        }
+        return false
+    }
+
     /**
      * 是否是主线程
      * @return Boolean

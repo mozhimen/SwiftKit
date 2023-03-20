@@ -1,29 +1,20 @@
 package com.mozhimen.basick.utilk.device
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.res.Configuration
 import android.hardware.usb.UsbDevice
-import android.hardware.usb.UsbManager
-import android.os.Build
 import android.os.Environment
 import android.os.StatFs
-import android.telephony.TelephonyManager
 import android.text.TextUtils
 import android.text.format.Formatter
 import android.util.Log
-import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.exts.et
-import com.mozhimen.basick.utilk.java.io.UtilKCmd
-import com.mozhimen.basick.utilk.res.UtilKConfiguration
+import com.mozhimen.basick.utilk.os.UtilKSystemProperties
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
 import java.io.RandomAccessFile
-import java.util.*
 
 /**
  * @ClassName UtilKDevice
@@ -36,37 +27,16 @@ import java.util.*
 object UtilKDevice {
     private const val TAG = "UtilKDevice>>>>>"
     private val _context = UtilKApplication.instance.get()
-    private const val PKG_ROM_VERSION = "ro.product.rom.version"
-    private const val PKG_HW_VERSION = "ro.product.hw.version"
-    private const val PKG_SERIAL_NUMBER = "ro.serialno"
 
     private const val PATH_MEMINFO = "/proc/meminfo"
     private const val PATH_CPU_USED = "/proc/stat"
-    private const val NO_DEFINED = "unknown"
-
-    /**
-     * 是否是平板
-     * @return Boolean
-     */
-    fun isPad(): Boolean =
-        if (isHasTelephone()) {        //如果能打电话那可能是平板或手机，再根据配置判断
-            //能打电话可能是手机也可能是平板
-            (UtilKConfiguration.getScreenLayout() and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE)
-        } else true //不能打电话一定是平板
-
-    /**
-     * 是否有电话
-     * @return Boolean
-     */
-    fun isHasTelephone(): Boolean =
-        (_context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager).phoneType != TelephonyManager.PHONE_TYPE_NONE
 
     /**
      * 设备内存空间
      * @return String
      */
     @JvmStatic
-    fun getDeviceMemory(): String {
+    fun getMemorySize(): String {
         val readerStr: String
         val arrayOfString: Array<String>
         var memorySize: Long = 0
@@ -94,7 +64,7 @@ object UtilKDevice {
      * @return Float
      */
     @JvmStatic
-    fun getDeviceCpuUsed(): Float {
+    fun getCpuUsed(): Float {
         try {
             val reader = RandomAccessFile(PATH_CPU_USED, "r")
             var load = reader.readLine()
@@ -127,7 +97,7 @@ object UtilKDevice {
      */
     @JvmStatic
     fun getRomVersion(): String =
-        UtilKCmd.getSystemProperties(PKG_ROM_VERSION, NO_DEFINED)
+        UtilKSystemProperties.getRomVersion()
 
     /**
      * 设备硬件版本
@@ -135,20 +105,15 @@ object UtilKDevice {
      */
     @JvmStatic
     fun getHardwareVersion(): String =
-        UtilKCmd.getSystemProperties(PKG_HW_VERSION, NO_DEFINED)
+        UtilKSystemProperties.getHardwareVersion()
 
     /**
      * 序列号
      * @return String
      */
     @JvmStatic
-    fun getSerialNumber(): String = if (Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q) {
-        NO_DEFINED
-    } else if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
-        Build.SERIAL
-    } else {
-        UtilKCmd.getSystemProperties(PKG_SERIAL_NUMBER, NO_DEFINED)
-    }
+    fun getSerialNumber(): String =
+        UtilKSystemProperties.getSerialNumber()
 
     /**
      * 短序列号
@@ -179,14 +144,10 @@ object UtilKDevice {
      */
     @JvmStatic
     fun isHasPid(vid: Int, pid: Int): Boolean {
-        @SuppressLint("WrongConstant")
-        val mUsbManager: UsbManager = _context.getSystemService("usb") as UsbManager
-        val devices: Iterator<UsbDevice> = mUsbManager.deviceList.values.iterator()
+        val devices: Iterator<UsbDevice> = UtilKUsb.getUsbManager().deviceList.values.iterator()
         while (devices.hasNext()) {
-            val device: UsbDevice = devices.next()
-            if (device.vendorId == vid && device.productId == pid) {
-                return true
-            }
+            val usbDevice: UsbDevice = devices.next()
+            if (usbDevice.vendorId == vid && usbDevice.productId == pid) return true
         }
         return false
     }
@@ -196,8 +157,8 @@ object UtilKDevice {
      * @return Boolean
      */
     @JvmStatic
-    fun isHasExternalStorage(): Boolean = Environment.getExternalStorageState() ==
-            Environment.MEDIA_MOUNTED
+    fun isHasExternalStorage(): Boolean =
+        Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
 
     /**
      * 本地存储可用大小
@@ -205,10 +166,9 @@ object UtilKDevice {
      */
     @JvmStatic
     fun getFreeInternalMemorySize(): String? {
-        val path = Environment.getDataDirectory()
-        val stat = StatFs(path.path)
-        val blockSize = stat.blockSizeLong
-        val availableBlocks = stat.availableBlocksLong
+        val statFs = StatFs(Environment.getDataDirectory().path)
+        val blockSize = statFs.blockSizeLong
+        val availableBlocks = statFs.availableBlocksLong
         return Formatter.formatFileSize(_context, availableBlocks * blockSize)
     }
 
@@ -218,10 +178,9 @@ object UtilKDevice {
      */
     @JvmStatic
     fun getTotalInternalMemorySize(): String {
-        val path = Environment.getDataDirectory() //Gets the Android data directory
-        val stat = StatFs(path.path)
-        val blockSize = stat.blockSizeLong //每个block 占字节数
-        val totalBlocks = stat.availableBlocksLong //block总数
+        val statFs = StatFs(Environment.getDataDirectory().path)//Gets the Android data directory
+        val blockSize = statFs.blockSizeLong //每个block 占字节数
+        val totalBlocks = statFs.availableBlocksLong //block总数
         return Formatter.formatFileSize(_context, totalBlocks * blockSize)
     }
 
@@ -232,11 +191,11 @@ object UtilKDevice {
     @JvmStatic
     fun getFreeExternalMemorySize(): String {
         return if (isHasExternalStorage()) {
-            val stat = StatFs(Environment.getExternalStorageDirectory().absolutePath)
-            val blockSize = stat.blockSizeLong
-            val availableBlocks = stat.availableBlocksLong
+            val statFs = StatFs(Environment.getExternalStorageDirectory().absolutePath)
+            val blockSize = statFs.blockSizeLong
+            val availableBlocks = statFs.availableBlocksLong
             Formatter.formatFileSize(_context, availableBlocks * blockSize)
-        } else "-1"
+        } else "0"
     }
 
     /**
@@ -246,10 +205,10 @@ object UtilKDevice {
     @JvmStatic
     fun getTotalExternalMemorySize(): String {
         return if (isHasExternalStorage()) {
-            val stat = StatFs(Environment.getExternalStorageDirectory().absolutePath)
-            val blockSize = stat.blockSizeLong
-            val totalBlocks = stat.blockCountLong
+            val statFs = StatFs(Environment.getExternalStorageDirectory().absolutePath)
+            val blockSize = statFs.blockSizeLong
+            val totalBlocks = statFs.blockCountLong
             Formatter.formatFileSize(_context, totalBlocks * blockSize)
-        } else "-1"
+        } else "0"
     }
 }

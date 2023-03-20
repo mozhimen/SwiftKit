@@ -10,7 +10,7 @@ import android.view.Gravity
  * @Date 2022/11/24 0:08
  * @Version 1.0
  */
-object UtilKViewGravity {
+object UtilKGravity {
     @JvmStatic
     fun computeGravity(sourceRect: Rect, destRect: Rect): Int {
         var gravity = Gravity.NO_GRAVITY

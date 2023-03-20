@@ -11,10 +11,13 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.content.UtilKActivity
-import com.mozhimen.basick.utilk.content.UtilKActivity.getActivityByContext
-import com.mozhimen.basick.utilk.content.UtilKActivity.isActivityDestroyed
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity.getActivityByContext
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity.isDestroyed
+import com.mozhimen.basick.utilk.res.UtilKDisplay
 import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
+import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 import java.util.*
 
 /**
@@ -42,8 +45,8 @@ object UtilKNavigationBar {
     @JvmStatic
     fun getNavigationBarBounds(rect: Rect, context: Context) {
         val activity = getActivityByContext(context, true)
-        if (activity == null || isActivityDestroyed(activity)) return
-        val decorView = activity.window.decorView as ViewGroup
+        if (activity == null || isDestroyed(activity)) return
+        val decorView = UtilKWindow.getDecorView(activity) as ViewGroup
         val childCount = decorView.childCount
         for (i in childCount - 1 downTo 0) {
             val child = decorView.getChildAt(i)
@@ -67,9 +70,7 @@ object UtilKNavigationBar {
      */
     @JvmStatic
     fun getNavigationBarGravity(navigationBarBounds: Rect): Int {
-        if (navigationBarBounds.isEmpty) {
-            return Gravity.NO_GRAVITY
-        }
+        if (navigationBarBounds.isEmpty) return Gravity.NO_GRAVITY
         return if (navigationBarBounds.left <= 0) {
             if (navigationBarBounds.top <= 0) {
                 if (navigationBarBounds.width() > navigationBarBounds.height()) Gravity.TOP else Gravity.LEFT
@@ -98,7 +99,7 @@ object UtilKNavigationBar {
     fun getNavigationBarHeight(view: View): Int {
         val activity: Activity? = UtilKActivity.getActivityByView(view)
         if (activity != null) {
-            val display = activity.windowManager.defaultDisplay
+            val display = UtilKWindowManager.getDefaultDisplay(activity)
             val size = Point()
             display.getSize(size)
             val usableHeight = size.y

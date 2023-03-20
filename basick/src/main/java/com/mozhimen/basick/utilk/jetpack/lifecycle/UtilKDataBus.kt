@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap
  */
 object UtilKDataBus {
     private val _eventMap = ConcurrentHashMap<String, StickyLiveData<*>>()
+
     fun <T> with(eventName: String): StickyLiveData<T> {
         //基于事件名称 订阅,分发消息
         //由于一个liveData只能发送 一种数据类型

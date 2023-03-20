@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.exts.isScroll2Top
  * @Date 2022/2/22 22:30
  * @Version 1.0
  */
-object UtilKViewScroll {
+object UtilKScrollView {
     private val TAG = "UtilKScroll>>>>>"
 
     /**

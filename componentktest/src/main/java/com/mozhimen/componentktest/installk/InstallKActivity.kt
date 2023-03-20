@@ -12,9 +12,9 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.utilk.res.UtilKAsset
-import com.mozhimen.basick.utilk.content.UtilKPackage
-import com.mozhimen.basick.utilk.content.UtilKIntentStart
+import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
+import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
 import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.componentk.installk.InstallK
@@ -56,7 +56,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
     private val _installK by lazy { InstallK() }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.installkTxt.text = UtilKPackage.getVersionCode().toString()
+        vb.installkTxt.text = UtilKPackageInfo.getVersionCode().toString()
         vb.installkBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (!UtilKFile.isFileExist(_apkPathWithName)) {
@@ -89,7 +89,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                                     }
                                 }
                                 EPermissionType.ACCESSIBILITY -> {
-                                    UtilKIntentStart.startSettingAccessibility(this@InstallKActivity)
+                                    UtilKLaunchActivity.startSettingAccessibility(this@InstallKActivity)
                                 }
                                 else -> {}
                             }

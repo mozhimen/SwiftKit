@@ -14,5 +14,5 @@ import com.mozhimen.basick.utilk.graphics.UtilKColor
  * @receiver Any
  * @return Int
  */
-fun String.colorString2Int(): Int =
-    UtilKColor.colorString2Int(this)
+fun String.colorStr2Int(): Int =
+    UtilKColor.colorStr2Int(this)

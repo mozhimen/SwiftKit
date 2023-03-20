@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.graphics.bitmap.blur.helpers
+package com.mozhimen.basick.utilk.graphics
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
@@ -14,8 +14,9 @@ import com.mozhimen.basick.utilk.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.UtilKBitmapBlur
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.exts.colorString2Int
-import com.mozhimen.basick.utilk.log.UtilKLogSmart
+import com.mozhimen.basick.utilk.exts.colorStr2Int
+import com.mozhimen.basick.utilk.log.UtilKLog
+import com.mozhimen.basick.utilk.log.UtilKLogPro
 
 /**
  * @ClassName RenderScriptHelper
@@ -28,7 +29,7 @@ import com.mozhimen.basick.utilk.log.UtilKLogSmart
  * @Version 1.0
  */
 @SuppressLint("StaticFieldLeak")
-object RenderScriptHelper {
+object UtilKRenderScript {
     private const val TAG = "RenderScriptHelper>>>>>"
     private var _startTime: Long = 0
 
@@ -39,9 +40,9 @@ object RenderScriptHelper {
     @JvmStatic
     fun getRenderScriptInstance(context: Context): RenderScript? {
         if (_renderScript == null) {
-            synchronized(RenderScriptHelper::class.java) {
+            synchronized(UtilKRenderScript::class.java) {
                 if (_renderScript == null) {
-                    _renderScript = RenderScript.create(context.applicationContext)
+                    _renderScript = RenderScript.create(context)
                 }
             }
         }
@@ -73,10 +74,10 @@ object RenderScriptHelper {
     fun blur(origin: Bitmap?, resultWidth: Int, resultHeight: Int, radius: Float): Bitmap? {
         _startTime = System.currentTimeMillis()
         return if (isRenderScriptSupported()) {
-            UtilKLogSmart.i(TAG, "blur: 脚本模糊")
+            UtilKLog.dt(TAG, "blur: 脚本模糊")
             scriptBlur(origin, resultWidth, resultHeight, radius)
         } else {
-            UtilKLogSmart.i(TAG, "blur: 快速模糊")
+            UtilKLog.dt(TAG, "blur: 快速模糊")
             fastBlur(origin, resultWidth, resultHeight, radius)
         }
     }
@@ -97,7 +98,7 @@ object RenderScriptHelper {
             }
         }
         if (blur == null) {
-            UtilKLogSmart.e(TAG, "scriptBlur: 脚本模糊失败，转fastBlur")
+            UtilKLogPro.e(TAG, "scriptBlur: 脚本模糊失败，转fastBlur")
             blurInput.destroy()
             blurOutput.destroy()
             return fastBlur(origin, outWidth, outHeight, radius)
@@ -113,8 +114,8 @@ object RenderScriptHelper {
         val result = Bitmap.createScaledBitmap(origin, outWidth, outHeight, true)
         origin.recycle()
         val time = System.currentTimeMillis() - _startTime
-        if (UtilKLogSmart.isOpenLog()) {
-            UtilKLogSmart.i("scriptBlur: 模糊用时：【" + time + "ms】")
+        if (UtilKLogPro.isOpenLog()) {
+            UtilKLogPro.i("scriptBlur: 模糊用时：【" + time + "ms】")
         }
         return result
     }
@@ -127,8 +128,8 @@ object RenderScriptHelper {
         if (tempOrigin == null || tempOrigin.isRecycled) return null
         tempOrigin = Bitmap.createScaledBitmap(tempOrigin, outWidth, outHeight, true)
         val time = System.currentTimeMillis() - _startTime
-        if (UtilKLogSmart.isOpenLog()) {
-            UtilKLogSmart.i("fastBlur: 模糊用时：【" + time + "ms】")
+        if (UtilKLogPro.isOpenLog()) {
+            UtilKLogPro.i("fastBlur: 模糊用时：【" + time + "ms】")
         }
         return tempOrigin
     }
@@ -141,12 +142,12 @@ object RenderScriptHelper {
     @JvmStatic
     fun getViewBitmap(view: View, scaledRatio: Float, fullScreen: Boolean, cutoutX: Int, cutoutY: Int): Bitmap? {
         if (view.width <= 0 || view.height <= 0) {
-            UtilKLogSmart.e("getViewBitmap  >>  宽或者高为空")
+            UtilKLogPro.e("getViewBitmap  >>  宽或者高为空")
             return null
         }
         val statusBarHeight = UtilKStatusBar.getStatusBarHeight(false)
         var tempBitmap: Bitmap
-        UtilKLogSmart.i("getViewBitmap 模糊原始图像分辨率 [" + view.width + " x " + view.height + "]")
+        UtilKLogPro.i("getViewBitmap 模糊原始图像分辨率 [" + view.width + " x " + view.height + "]")
         tempBitmap = try {
             Bitmap.createBitmap((view.width * scaledRatio).toInt(), (view.height * scaledRatio).toInt(), Bitmap.Config.ARGB_8888)
         } catch (error: OutOfMemoryError) {
@@ -159,7 +160,7 @@ object RenderScriptHelper {
         canvas.setMatrix(matrix)
         val bgDrawable = view.background
         if (bgDrawable == null) {
-            canvas.drawColor("#FAFAFA".colorString2Int())
+            canvas.drawColor("#FAFAFA".colorStr2Int())
         } else {
             bgDrawable.draw(canvas)
         }
@@ -173,7 +174,7 @@ object RenderScriptHelper {
             }
         }
         view.draw(canvas)
-        UtilKLogSmart.i("getViewBitmap 模糊缩放图像分辨率 [" + tempBitmap.width + " x " + tempBitmap.height + "]")
+        UtilKLogPro.i("getViewBitmap 模糊缩放图像分辨率 [" + tempBitmap.width + " x " + tempBitmap.height + "]")
         if (cutoutX > 0 || cutoutY > 0) {
             try {
                 val cutLeft = (cutoutX * scaledRatio).toInt()

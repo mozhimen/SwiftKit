@@ -6,18 +6,20 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
-import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.content.UtilKActivityStart
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKIntent
+import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.content.UtilKPermission
+import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 import java.io.*
 import java.nio.charset.Charset
 
@@ -40,14 +42,15 @@ object UtilKAppInstall {
 
     /**
      * 是否有包安装权限
-     * @param context Context
      * @return Boolean
      */
     @JvmStatic
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
-    fun isAppInstallsPermissionEnable(context: Context): Boolean {
-        return context.packageManager.canRequestPackageInstalls().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
+    fun isAppInstallsPermissionEnable(): Boolean {
+        return UtilKPermission.isAppInstallsPermissionEnable().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
     }
 
     /**
@@ -58,10 +61,7 @@ object UtilKAppInstall {
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
     fun openSettingAppInstall(activity: Activity) {
-        UtilKActivityStart.start(
-            activity,
-            Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${activity.packageName}"))
-        )
+        UtilKLaunchActivity.startManageInstallSource(activity)
     }
 
     /**
@@ -72,10 +72,7 @@ object UtilKAppInstall {
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
     fun openSettingAppInstall(context: Context) {
-        UtilKActivityStart.start(
-            context,
-            Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, Uri.parse("package:${context.packageName}"))
-        )
+        UtilKLaunchActivity.startManageInstallSource(context)
     }
 
     @JvmStatic
@@ -125,7 +122,7 @@ object UtilKAppInstall {
      */
     @JvmStatic
     fun installHand(apkPathWithName: String) {
-        UtilKActivityStart.start(_context, UtilKIntent.getInstallApp(apkPathWithName) ?: return)
+        UtilKLaunchActivity.startInstall(_context, apkPathWithName)
     }
 
     /**
@@ -198,7 +195,7 @@ object UtilKAppInstall {
         val msgSuccess = StringBuilder()
         val msgError = StringBuilder()
         val cmd: Array<String> = if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
-            arrayOf("pm", "install", "-i", _context.packageName, "-r", apkPathWithName)
+            arrayOf("pm", "install", "-i", UtilKContext.getPackageName(_context), "-r", apkPathWithName)
         } else {
             arrayOf("pm", "install", "-r", apkPathWithName)
         }
@@ -234,7 +231,7 @@ object UtilKAppInstall {
     fun installSilenceAfter28(apkPathWithName: String, receiver: Class<*>) {
         Log.d(TAG, "installSilenceAfter28 pathApk $apkPathWithName")
         val apkFile = File(apkPathWithName)
-        val packageInstaller = _context.packageManager.packageInstaller
+        val packageInstaller = UtilKPackageManager.getPackageInstaller()
         val sessionParams = PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL)
         sessionParams.setSize(apkFile.length())
         val sessionId: Int = createSession(packageInstaller, sessionParams)

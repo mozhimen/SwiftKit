@@ -63,8 +63,8 @@ object UtilKDate {
      * @return String
      */
     @JvmStatic
-    fun getNowString(formatDate: String = FORMAT_yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String =
-        date2String(getNowDate(), formatDate, locale)
+    fun getNowStr(formatDate: String = FORMAT_yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String =
+        date2Str(getNowDate(), formatDate, locale)
 
     /**
      * 今日
@@ -72,8 +72,8 @@ object UtilKDate {
      * @return String
      */
     @JvmStatic
-    fun getTodayString(locale: Locale = Locale.CHINA): String =
-        date2String(getNowDate(), FORMAT_yyyyMMdd)
+    fun getTodayStr(locale: Locale = Locale.CHINA): String =
+        date2Str(getNowDate(), FORMAT_yyyyMMdd, locale)
 
     /**
      * 今日Long
@@ -82,7 +82,7 @@ object UtilKDate {
      */
     @JvmStatic
     fun getTodayLong(locale: Locale = Locale.CHINA): Long =
-        string2Long(getTodayString(locale), FORMAT_yyyyMMdd)
+        str2Long(getTodayStr(locale), FORMAT_yyyyMMdd)
 
     /**
      * 获得Format
@@ -122,7 +122,7 @@ object UtilKDate {
      * @return String
      */
     @JvmStatic
-    fun date2String(
+    fun date2Str(
         date: Date, formatDate: String, locale: Locale = Locale.CHINA
     ): String {
         return getSdf(formatDate, locale).format(date)
@@ -136,11 +136,11 @@ object UtilKDate {
      * @return Date
      */
     @JvmStatic
-    fun string2Date(
+    fun str2Date(
         dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
     ): Date {
         return getSdf(formatDate, locale).parse(dateStr) ?: kotlin.run {
-            Log.e(TAG, "string2Date Exception time format fail!")
+            Log.e(TAG, "str2Date Exception time format fail!")
             throw Exception("time format fail!")
         }
     }
@@ -153,7 +153,7 @@ object UtilKDate {
      * @return String
      */
     @JvmStatic
-    fun long2String(
+    fun long2Str(
         date: Long, formatDate: String, locale: Locale = Locale.CHINA
     ): String {
         return getSdf(formatDate, locale).format(date)
@@ -167,10 +167,10 @@ object UtilKDate {
      * @return Long
      */
     @JvmStatic
-    fun string2Long(
+    fun str2Long(
         dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
     ): Long {
-        return date2Long(string2Date(dateStr, formatDate, locale))
+        return date2Long(str2Date(dateStr, formatDate, locale))
     }
 
     /**
@@ -192,5 +192,5 @@ object UtilKDate {
      */
     @JvmStatic
     fun dateCompare(date1: String, date2: String, formatDate: String) =
-        dateCompare(string2Date(date1, formatDate), string2Date(date2, formatDate))
+        dateCompare(str2Date(date1, formatDate), str2Date(date2, formatDate))
 }

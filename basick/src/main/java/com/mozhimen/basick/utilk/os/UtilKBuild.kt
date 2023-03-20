@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.os
 import android.os.Build
 import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.exts.joinArray
-import com.mozhimen.basick.utilk.exts.long2String
+import com.mozhimen.basick.utilk.exts.long2Str
 
 /**
  * @ClassName UtilKBuild
@@ -104,5 +104,5 @@ object UtilKBuild {
 
     //构建内部时间
     @JvmStatic
-    fun getTime(): String = Build.TIME.long2String(UtilKDate.FORMAT_yyyyMMddHHmmss)
+    fun getTime(): String = Build.TIME.long2Str(UtilKDate.FORMAT_yyyyMMddHHmmss)
 }

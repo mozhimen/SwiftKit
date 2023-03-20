@@ -124,7 +124,7 @@ object UtilKString {
      * @return String
      */
     @JvmStatic
-    fun string2Unicode(str: String): String {
+    fun str2Unicode(str: String): String {
         if (str.isEmpty()) return ""
         val stringBuffer = StringBuffer()
         if (str.startsWith("&#x")) {
@@ -153,7 +153,7 @@ object UtilKString {
      * @return String
      */
     @JvmStatic
-    fun decimal2String(double: Double, pattern: String = "#.0"): String =
+    fun decimal2Str(double: Double, pattern: String = "#.0"): String =
         DecimalFormat(pattern).format(double)
 
     /**
@@ -163,7 +163,7 @@ object UtilKString {
      * @return String
      */
     @JvmStatic
-    fun boolean2String(bool: Boolean, locale: Locale = Locale.CHINA) =
+    fun boolean2Str(bool: Boolean, locale: Locale = Locale.CHINA) =
         if (locale == Locale.CHINA) if (bool) "是" else "否" else (if (bool) "true" else "false")
 
     /**

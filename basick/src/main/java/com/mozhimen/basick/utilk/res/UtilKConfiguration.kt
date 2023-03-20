@@ -2,6 +2,8 @@ package com.mozhimen.basick.utilk.res
 
 import android.content.res.Configuration
 import android.content.res.Resources
+import com.mozhimen.basick.utilk.device.UtilKTelephony
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 
 
 /**
@@ -75,4 +77,21 @@ object UtilKConfiguration {
     @JvmStatic
     fun getOrientation(): Int =
         getConfiguration().orientation
+
+    /**
+     * 是否为竖屏
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isOrientationPortrait(): Boolean =
+        getOrientation() == Configuration.ORIENTATION_PORTRAIT
+    /**
+     * 是否是平板
+     * @return Boolean
+     */
+    fun isPad(): Boolean =
+        if (UtilKTelephony.isHasTelephone()) {        //如果能打电话那可能是平板或手机，再根据配置判断
+            //能打电话可能是手机也可能是平板
+            (getScreenLayout() and Configuration.SCREENLAYOUT_SIZE_MASK >= Configuration.SCREENLAYOUT_SIZE_LARGE)
+        } else true //不能打电话一定是平板
 }

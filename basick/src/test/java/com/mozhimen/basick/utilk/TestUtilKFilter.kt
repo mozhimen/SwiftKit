@@ -14,11 +14,11 @@ import org.junit.Test
 class TestUtilKFilter {
     @Test
     fun verify() {
-        "192.168.33.102".isIPValid().printlog()
-        "192.168".isIPValid().printlog()
-        "1.1.1.1".isIPValid().printlog()
-        "8080".isPortValid().printlog()
-        "80".isPortValid().printlog()
+        "192.168.33.102".checkIP().printlog()
+        "192.168".checkIP().printlog()
+        "1.1.1.1".checkIP().printlog()
+        "8080".checkPort().printlog()
+        "80".checkPort().printlog()
 
         "0123456789".isNumberic().printlog()
         "12322r".isNumberic().printlog()

@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.content
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -23,12 +24,31 @@ object UtilKUri {
     private val _context = UtilKApplication.instance.get()
 
     /**
+     * 获取PackageUri
+     * @param context Context
+     * @return Uri
+     */
+    @JvmStatic
+    fun getPackageUri(context: Context): Uri =
+        Uri.parse("package:${UtilKContext.getPackageName(context)}")
+
+    /**
+     * 获取PackageUri
+     * @param context Context
+     * @return Uri
+     */
+    @JvmStatic
+    fun getPackageUri2(context: Context): Uri =
+        Uri.fromParts("package", UtilKContext.getPackageName(context), null)
+
+
+    /**
      * 文件转Uri
      * @param filePathWithName String
      * @return Uri
      */
     @JvmStatic
-    fun filePathString2Uri(filePathWithName: String): Uri? {
+    fun filePathStr2Uri(filePathWithName: String): Uri? {
         if (filePathWithName.isEmpty()) {
             Log.e(TAG, "file2Uri: isEmpty true")
             return null
@@ -47,10 +67,10 @@ object UtilKUri {
             return null
         }
         return if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
-            val authority = "${_context.packageName}.fileProvider"
+            val authority = "${UtilKContext.getPackageName(_context)}.fileProvider"
             Log.d(TAG, "file2Uri: authority $authority")
             FileProvider.getUriForFile(_context, authority, file).also {
-                _context.grantUriPermission(_context.packageName, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                UtilKContext.grantUriPermission(_context, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
         } else Uri.fromFile(file)
     }

@@ -14,7 +14,7 @@ object UtilKFilter {
      * @param number String
      * @return String
      */
-    fun filterNumber(number: String): String =
+    fun outNumber(number: String): String =
         number.replace("[^(0-9)]".toRegex(), "")
 
     /**
@@ -22,7 +22,7 @@ object UtilKFilter {
      * @param alphabet String
      * @return String
      */
-    fun filterAlphabet(alphabet: String): String =
+    fun outAlphabet(alphabet: String): String =
         alphabet.replace("[^(A-Za-z)]".toRegex(), "")
 
 
@@ -31,7 +31,7 @@ object UtilKFilter {
      * @param chinese String
      * @return String
      */
-    fun filterChinese(chinese: String): String =
+    fun outChinese(chinese: String): String =
         chinese.replace("[^(\\u4e00-\\u9fa5)]".toRegex(), "")
 
     /**
@@ -39,7 +39,7 @@ object UtilKFilter {
      * @param character String
      * @return String
      */
-    fun filter(character: String): String =
+    fun outNAC(character: String): String =
         character.replace("[^(a-zA-Z0-9\\u4e00-\\u9fa5)]".toRegex(), "")
 
     /**
@@ -48,6 +48,6 @@ object UtilKFilter {
      * @param endIndex Int
      * @return String
      */
-    fun filterLength(str: String, endIndex: Int): String =
+    fun outLength(str: String, endIndex: Int): String =
         if (endIndex in str.indices) str.substring(0, endIndex) else str
 }

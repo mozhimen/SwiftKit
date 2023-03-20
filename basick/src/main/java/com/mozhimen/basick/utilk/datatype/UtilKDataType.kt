@@ -37,9 +37,7 @@ object UtilKDataType {
     @JvmStatic
     fun isObjPrimitive(obj: Any): Boolean {
         //String
-        if (obj.javaClass == String::class.java) {
-            return true
-        }
+        if (obj.javaClass == String::class.java) return true
         try {
             //只适用于int byte short long boolean char double float
             val field = obj.javaClass.getField("TYPE")

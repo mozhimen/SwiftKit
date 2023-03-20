@@ -242,12 +242,12 @@ import com.mozhimen.basick.stackk.StackK;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
 import com.mozhimen.basick.utilk.graphics.UtilKColor;
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus;
-import com.mozhimen.basick.utilk.view.UtilKViewGravity;
+import com.mozhimen.basick.utilk.view.UtilKGravity;
 import com.mozhimen.basick.utilk.res.UtilKRes;
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig;
 import com.mozhimen.basick.utilk.content.UtilKApplication;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
-import com.mozhimen.basick.utilk.log.UtilKLogSmart;
+import com.mozhimen.basick.utilk.log.UtilKLogPro;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.helpers.BasePopupHelper;
 import com.mozhimen.uicorek.popwink.bases.helpers.WindowManagerProxy;
@@ -333,7 +333,7 @@ import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 @SuppressWarnings("All")
 public abstract class BasePopwinK implements PopupWindow.OnDismissListener, LifecycleObserver {
     protected final String TAG = this.getClass().getSimpleName() + ">>>>>";
-    public static int DEFAULT_BACKGROUND_COLOR = UtilKColor.colorString2Int("#8f000000");
+    public static int DEFAULT_BACKGROUND_COLOR = UtilKColor.colorStr2Int("#8f000000");
 
     public static final int FLAG_KEYBOARD_ALIGN_TO_VIEW = CFlag.KEYBOARD_ALIGN_TO_VIEW;
     public static final int FLAG_KEYBOARD_ALIGN_TO_ROOT = CFlag.KEYBOARD_ALIGN_TO_ROOT;
@@ -894,7 +894,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
     }
 
     protected void onShowError(Exception e) {
-        UtilKLogSmart.e(TAG, "onShowError: ", e);
+        UtilKLogPro.e(TAG, "onShowError: ", e);
         onLogInternal(e.getMessage());
     }
 
@@ -2151,7 +2151,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
     }
 
     public int computeGravity(@NonNull Rect popupRect, @NonNull Rect anchorRect) {
-        return UtilKViewGravity.computeGravity(popupRect, anchorRect);
+        return UtilKGravity.computeGravity(popupRect, anchorRect);
     }
 
     /**
@@ -2170,14 +2170,14 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
     }
 
     public static void setDebugMode(boolean debugMode) {
-        UtilKLogSmart.setOpenLog(debugMode);
+        UtilKLogPro.setOpenLog(debugMode);
     }
 
     /**
      * 日志输出口
      */
     protected void onLogInternal(String msg) {
-        UtilKLogSmart.d(TAG, msg);
+        UtilKLogPro.d(TAG, msg);
     }
 
     private String ownerParentLog() {

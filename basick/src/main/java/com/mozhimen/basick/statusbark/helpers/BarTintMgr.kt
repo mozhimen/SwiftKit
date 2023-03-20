@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
 
 /**
  * @ClassName BarTintManager
@@ -27,7 +28,7 @@ class BarTintMgr(activity: Activity) {
     }
 
     init {
-        val window = activity.window
+        val window = UtilKWindow.get(activity)
         //获取DecorView
         val viewGroup = window.decorView
         if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {

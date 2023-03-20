@@ -31,7 +31,7 @@ fun String.getSplitFirst(splitStr: String): String = UtilKString.getSplitFirst(t
  * @receiver String
  * @return String
  */
-fun String.string2Unicode(): String = UtilKString.string2Unicode(this)
+fun String.str2Unicode(): String = UtilKString.str2Unicode(this)
 
 /**
  * bool转String
@@ -39,7 +39,7 @@ fun String.string2Unicode(): String = UtilKString.string2Unicode(this)
  * @param locale Locale
  * @return String
  */
-fun Boolean.boolean2String(locale: Locale = Locale.CHINA): String = UtilKString.boolean2String(this, locale)
+fun Boolean.boolean2Str(locale: Locale = Locale.CHINA): String = UtilKString.boolean2Str(this, locale)
 
 /**
  * decimal转String
@@ -47,7 +47,7 @@ fun Boolean.boolean2String(locale: Locale = Locale.CHINA): String = UtilKString.
  * @param pattern String
  * @return String
  */
-fun Double.decimal2String(pattern: String = "#.0"): String = UtilKString.decimal2String(this, pattern)
+fun Double.decimal2Str(pattern: String = "#.0"): String = UtilKString.decimal2Str(this, pattern)
 
 /**
  * 抛出非法状态异常

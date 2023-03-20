@@ -39,7 +39,7 @@ open class MTabTop {
         this.name = name
         this.bitmapDefault = bitmapDefault
         this.bitmapSelected = bitmapSelected
-        this.colorIndicator = UtilKColor.colorString2Int(colorIndicator)
+        this.colorIndicator = UtilKColor.colorStr2Int(colorIndicator)
         this.tabType = ETabTopType.IMAGE
     }
 
@@ -56,8 +56,8 @@ open class MTabTop {
         colorSelected: Any
     ) {
         this.name = name
-        this.colorDefault = UtilKColor.colorString2Int(colorDefault)
-        this.colorSelected = UtilKColor.colorString2Int(colorSelected)
+        this.colorDefault = UtilKColor.colorStr2Int(colorDefault)
+        this.colorSelected = UtilKColor.colorStr2Int(colorSelected)
         this.tabType = ETabTopType.TEXT
     }
 
@@ -80,8 +80,8 @@ open class MTabTop {
         this.name = name
         this.bitmapDefault = bitmapDefault
         this.bitmapSelected = bitmapSelected
-        this.colorDefault = UtilKColor.colorString2Int(colorDefault)
-        this.colorSelected = UtilKColor.colorString2Int(colorSelected)
+        this.colorDefault = UtilKColor.colorStr2Int(colorDefault)
+        this.colorSelected = UtilKColor.colorStr2Int(colorSelected)
         this.tabType = ETabTopType.IMAGE_TEXT
     }
 }

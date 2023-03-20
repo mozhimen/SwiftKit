@@ -9,10 +9,11 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.UtilKReflect
 import com.mozhimen.basick.utilk.view.UtilKView
-import com.mozhimen.basick.utilk.view.display.UtilKWindow
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
 import java.lang.reflect.Field
 
 /**
@@ -22,13 +23,22 @@ import java.lang.reflect.Field
  * @Date 2022/1/15 20:01
  * @Version 1.0
  */
-object UtilKKeyBoard {
+object UtilKInputManager {
     private const val TAG = "UtilKKeyBoard>>>>>"
     //private val _context = UtilKApplication.instance.get()
 
     /**
+     * 获取InputManager
+     * @param context Context
+     * @return InputMethodManager
+     */
+    @JvmStatic
+    fun get(context: Context): InputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+    /**
      * 显示软键盘
-     * @param activity Activity
+     * @param context Context
      */
     @Deprecated(
         "google Deprecated", ReplaceWith(
@@ -38,7 +48,7 @@ object UtilKKeyBoard {
     )
     @JvmStatic
     fun toggle(context: Context) {
-        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(0, 0)
+        get(context).toggleSoftInput(0, 0)
     }
 
     /**
@@ -47,9 +57,8 @@ object UtilKKeyBoard {
      */
     @JvmStatic
     fun show(activity: Activity) {
-        val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (inputMethodManager.isActive && activity.currentFocus != null) {
-            show(activity.currentFocus!!)
+        if (get(activity).isActive && UtilKActivity.getCurrentFocus(activity) != null) {
+            show(UtilKActivity.getCurrentFocus(activity)!!)
         }
     }
 
@@ -64,7 +73,7 @@ object UtilKKeyBoard {
             UtilKView.requestFocus(view)
             view.findFocus()?.let { focusView = it }
         }
-        (focusView.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).showSoftInput(focusView, 0)
+        get(focusView.context).showSoftInput(focusView, 0)
     }
 
     /**
@@ -83,9 +92,8 @@ object UtilKKeyBoard {
      */
     @JvmStatic
     fun hide(activity: Activity) {
-        val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (((activity.window.peekDecorView() != null || inputMethodManager.isActive) && activity.currentFocus != null) && isShow(activity)) {
-            hide(activity.currentFocus!!)
+        if (((UtilKWindow.getPeekDecorView(activity) != null || get(activity).isActive) && UtilKActivity.getCurrentFocus(activity) != null) && isShow(activity)) {
+            hide(UtilKActivity.getCurrentFocus(activity)!!)
         }
     }
 
@@ -95,7 +103,7 @@ object UtilKKeyBoard {
      */
     @JvmStatic
     fun hide(view: View) {
-        (view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, 0)
+        get(view.context).hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     /**
@@ -146,7 +154,7 @@ object UtilKKeyBoard {
      */
     @JvmStatic
     fun isActive(context: Context): Boolean =
-        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).isActive
+        get(context).isActive
 
     /**
      * 是否激活
@@ -155,7 +163,7 @@ object UtilKKeyBoard {
      */
     @JvmStatic
     fun isActive(view: View): Boolean =
-        (view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).isActive(view)
+        get(view.context).isActive(view)
 
     /**
      * 是否显示
@@ -164,7 +172,7 @@ object UtilKKeyBoard {
      */
     @JvmStatic
     fun isShow(activity: Activity): Boolean {
-        return UtilKWindow.getDecorViewInvisibleHeight(activity.window) > 0
+        return UtilKWindow.getDecorViewInvisibleHeight(UtilKWindow.get(activity)) > 0
     }
 
     /**

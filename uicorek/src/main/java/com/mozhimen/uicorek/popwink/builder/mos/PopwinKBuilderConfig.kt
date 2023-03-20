@@ -14,7 +14,7 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.java.UtilKClazz
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange
-import com.mozhimen.basick.utilk.log.UtilKLogSmart
+import com.mozhimen.basick.utilk.log.UtilKLogPro
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK.KeyEventListener
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK.OnBlurOptionInitListener
@@ -302,7 +302,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         return try {
             PopwinKBuilderProxy::class.java.getMethod(methodName, parameterTypes)
         } catch (e: Exception) {
-            UtilKLogSmart.e("not found", methodName, parameterTypes!!.name)
+            UtilKLogPro.e("not found", methodName, parameterTypes!!.name)
             null
         }
     }

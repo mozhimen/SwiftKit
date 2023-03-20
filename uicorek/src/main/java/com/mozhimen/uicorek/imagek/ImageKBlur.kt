@@ -19,7 +19,7 @@ import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.exts.et
-import com.mozhimen.basick.utilk.graphics.bitmap.blur.helpers.RenderScriptHelper
+import com.mozhimen.basick.utilk.graphics.UtilKRenderScript
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -273,11 +273,11 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         } else {
             try {
                 Log.i(TAG, "applyBlurOption 主线程blur")
-                if (!RenderScriptHelper.isRenderScriptSupported()) {
+                if (!UtilKRenderScript.isRenderScriptSupported()) {
                     Log.e(TAG, "applyBlurOption 不支持脚本模糊。。。最低支持api 17(Android 4.2.2)，将采用fastBlur")
                 }
                 setImageBitmapOnUiThread(
-                    RenderScriptHelper.blur(anchorView, option.getBlurPreScaleRatio(), option.getBlurRadius(), option.isFullScreen(), _cutoutX, _cutoutY), isOnUpdate
+                    UtilKRenderScript.blur(anchorView, option.getBlurPreScaleRatio(), option.getBlurRadius(), option.isFullScreen(), _cutoutX, _cutoutY), isOnUpdate
                 )
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -296,7 +296,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         init {
             _outWidth = target.width
             _outHeight = target.height
-            _bitmap = RenderScriptHelper.getViewBitmap(target, _blurOption!!.getBlurPreScaleRatio(), _blurOption!!.isFullScreen(), _cutoutX, _cutoutY)
+            _bitmap = UtilKRenderScript.getViewBitmap(target, _blurOption!!.getBlurPreScaleRatio(), _blurOption!!.isFullScreen(), _cutoutX, _cutoutY)
         }
 
         override fun run() {
@@ -306,7 +306,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
             }
             Log.i(TAG, "run 子线程模糊执行")
             setImageBitmapOnUiThread(
-                RenderScriptHelper.blur(_bitmap, _outWidth, _outHeight, _blurOption!!.getBlurRadius()), false
+                UtilKRenderScript.blur(_bitmap, _outWidth, _outHeight, _blurOption!!.getBlurRadius()), false
             )
         }
     }

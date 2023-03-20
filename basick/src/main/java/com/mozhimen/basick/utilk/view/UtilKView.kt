@@ -9,10 +9,11 @@ import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.content.UtilKActivity
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.datatype.UtilKDataType
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
 import java.util.*
 
 
@@ -60,7 +61,7 @@ object UtilKView {
      */
     @JvmStatic
     fun getViewDrawHeight(activity: Activity) =
-        activity.window.findViewById<View>(Window.ID_ANDROID_CONTENT).top
+        UtilKWindow.get(activity).findViewById<View>(Window.ID_ANDROID_CONTENT).top
 
     /**
      * 设置背景
@@ -218,7 +219,7 @@ object UtilKView {
     @JvmStatic
     fun removeViewFromParent(view: View): View {
         val viewParent: ViewParent = view.parent
-        if (viewParent is ViewGroup && !UtilKActivity.isActivityDestroyed(view.context)) viewParent.removeView(viewParent)
+        if (viewParent is ViewGroup && !UtilKActivity.isDestroyed(view.context)) viewParent.removeView(viewParent)
         return view
     }
 
@@ -232,7 +233,7 @@ object UtilKView {
         view: View,
         ratio: Float
     ) {
-        view.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        view.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 if (view.height > 0) {
                     view.layoutParams.width = (view.height * ratio).toInt()

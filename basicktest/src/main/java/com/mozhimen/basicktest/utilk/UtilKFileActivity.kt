@@ -52,19 +52,19 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
             "deleteFile deviceInfo1 ${UtilKFile.deleteFile(deviceInfo1Path)}".log()
             "getFileSize deviceInfo size ${UtilKFile.getFileSize(deviceInfoPath)}".log()
 
-            val string2File1Path = this@UtilKFileActivity.filesDir.absolutePath + "/tmp1.txt"
-            val string2File1Time = System.currentTimeMillis()
-            "string2File1 tmp1 ${UtilKFile.string2File("第一行\n第二行", string2File1Path)} time ${System.currentTimeMillis() - string2File1Time}".log()
-            val string2File2Path = this@UtilKFileActivity.filesDir.absolutePath + "/tmp2.txt"
-            val string2File2Time = System.currentTimeMillis()
-            "string2File2 tmp2 ${UtilKFile.string2File2("第一行\n第二行", string2File2Path)} time ${System.currentTimeMillis() - string2File2Time}".log()
+            val str2File1Path = this@UtilKFileActivity.filesDir.absolutePath + "/tmp1.txt"
+            val str2File1Time = System.currentTimeMillis()
+            "str2File1 tmp1 ${UtilKFile.str2File("第一行\n第二行", str2File1Path)} time ${System.currentTimeMillis() - str2File1Time}".log()
+            val str2File2Path = this@UtilKFileActivity.filesDir.absolutePath + "/tmp2.txt"
+            val str2File2Time = System.currentTimeMillis()
+            "str2File2 tmp2 ${UtilKFile.str2File2("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
 
-            val file2StringTime = System.currentTimeMillis()
-            "file2String tmp ${UtilKFile.file2String(string2File1Path)} time ${System.currentTimeMillis() - file2StringTime}".log()
+            val file2StrTime = System.currentTimeMillis()
+            "file2Str tmp ${UtilKFile.file2Str(str2File1Path)} time ${System.currentTimeMillis() - file2StrTime}".log()
 
             val copyFileTime = System.currentTimeMillis()
             val destTmpFilePath = this@UtilKFileActivity.filesDir.absolutePath + "/tmp3.txt"
-            "copyFile tmp -> tmp3 ${UtilKFile.copyFile(string2File1Path, destTmpFilePath)} time ${System.currentTimeMillis() - copyFileTime}".log()
+            "copyFile tmp -> tmp3 ${UtilKFile.copyFile(str2File1Path, destTmpFilePath)} time ${System.currentTimeMillis() - copyFileTime}".log()
 
             "section folder".log()
             val deviceInfoFolder = this@UtilKFileActivity.filesDir.absolutePath

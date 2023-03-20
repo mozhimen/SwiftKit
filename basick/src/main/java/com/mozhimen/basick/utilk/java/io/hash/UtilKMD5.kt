@@ -24,7 +24,7 @@ object UtilKMD5 {
      * @return String
      */
     @JvmStatic
-    fun encrypt16(data: String): String {
+    fun hash16(data: String): String {
         val secretBytes: ByteArray? = try {
             MessageDigest.getInstance("MD5").digest(data.toByteArray())
         } catch (e: NoSuchAlgorithmException) {
@@ -45,7 +45,7 @@ object UtilKMD5 {
      * @return String
      */
     @JvmStatic
-    fun encryptLower32(data: String): String {
+    fun hashLower32(data: String): String {
         val md5: MessageDigest
         try {
             md5 = MessageDigest.getInstance("MD5")
@@ -72,7 +72,7 @@ object UtilKMD5 {
      * @return String
      */
     @JvmStatic
-    fun encrypt32(data: String): String {
+    fun hash32(data: String): String {
         return try {
             DigestUtils.md5Hex(data.toByteArray())
         } catch (e: UnsupportedEncodingException) {

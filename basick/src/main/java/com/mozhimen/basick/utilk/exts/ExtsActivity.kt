@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.exts
 
 import android.app.Activity
 import android.content.Intent
-import com.mozhimen.basick.utilk.content.UtilKActivityStart
+import com.mozhimen.basick.utilk.content.UtilKContextStart
 
 /**
  * @ClassName ExtsKSkip
@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.content.UtilKActivityStart
  * @receiver Context
  */
 inline fun <reified T> Activity.start() where T : Activity {
-    UtilKActivityStart.start<T>(this)
+    UtilKContextStart.start<T>(this)
 }
 
 /**
@@ -25,5 +25,5 @@ inline fun <reified T> Activity.start() where T : Activity {
  * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
  */
 inline fun <reified T> Activity.start(block: Intent.() -> Unit) where T : Activity {
-    UtilKActivityStart.start<T>(this, block)
+    UtilKContextStart.start<T>(this, block)
 }

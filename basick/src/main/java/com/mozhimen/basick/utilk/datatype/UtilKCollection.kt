@@ -81,12 +81,12 @@ object UtilKCollection {
     }
 
     /**
-     * map2String
+     * map2Str
      * @param map Map<*, *>
      * @return String
      */
     @JvmStatic
-    fun map2String(map: Map<*, *>): String {
+    fun map2Str(map: Map<*, *>): String {
         if (map.isEmpty()) return "map is empty"
         val stringBuilder = StringBuilder()
         stringBuilder.append("\n").append("{").append("\n").append("\t")
@@ -101,17 +101,17 @@ object UtilKCollection {
     }
 
     /**
-     * list2String
+     * list2Str
      * @param list List<*>
      * @return String
      */
     @JvmStatic
-    fun list2String(list: List<*>): String {
+    fun list2Str(list: List<*>): String {
         if (list.isEmpty()) return "list is empty"
         val stringBuilder = StringBuilder()
         stringBuilder.append("\n").append("{\n ")
         for (obj in list) {
-            if (obj is List<*>) stringBuilder.append(list2String(obj))
+            if (obj is List<*>) stringBuilder.append(list2Str(obj))
             else stringBuilder.append(obj.toString()).append(" ,\n ")
         }
         stringBuilder.append("}")

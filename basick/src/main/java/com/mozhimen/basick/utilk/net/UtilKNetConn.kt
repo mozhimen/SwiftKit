@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
@@ -97,6 +98,7 @@ object UtilKNetConn {
      * @return Boolean
      */
     @JvmStatic
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun isNetAvailable(): Boolean {
         val netWorkInfo = _connectivityManager.activeNetworkInfo
         return netWorkInfo != null && netWorkInfo.isAvailable

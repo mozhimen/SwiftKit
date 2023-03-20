@@ -1,12 +1,10 @@
-package com.mozhimen.basick.utilk.java.io
+package com.mozhimen.basick.utilk.os
 
 import android.annotation.SuppressLint
-import android.text.TextUtils
+import android.os.Build
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.CVersionCode
 
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStreamReader
 import java.lang.reflect.Method
 
 /**
@@ -16,11 +14,43 @@ import java.lang.reflect.Method
  * @Date 2022/2/22 12:31
  * @Version 1.0
  */
-object UtilKCmd {
+object UtilKSystemProperties {
     private val TAG = "UtilKCmd>>>>>"
     private const val KEY_SYSTEM_PROPERTIES = "android.os.SystemProperties"
+    private const val RO_ROM_VERSION = "ro.product.rom.version"
+    private const val RO_HW_VERSION = "ro.product.hw.version"
+    private const val RO_SERIAL_NO = "ro.serialno"
 
+    private const val NO_DEFINED = "unknown"
 
+    /**
+     * 设备Rom版本
+     * @return String
+     */
+    @JvmStatic
+    fun getRomVersion(): String =
+        getSystemProperties(RO_ROM_VERSION, NO_DEFINED)
+
+    /**
+     * 设备硬件版本
+     * @return String
+     */
+    @JvmStatic
+    fun getHardwareVersion(): String =
+        getSystemProperties(RO_HW_VERSION, NO_DEFINED)
+
+    /**
+     * 序列号
+     * @return String
+     */
+    @JvmStatic
+    fun getSerialNumber(): String = if (Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q) {
+        NO_DEFINED
+    } else if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
+        Build.SERIAL
+    } else {
+        getSystemProperties(RO_SERIAL_NO, NO_DEFINED)
+    }
 
     /**
      * 设置首选项
@@ -80,40 +110,4 @@ object UtilKCmd {
             e.printStackTrace()
             defaultValue
         }
-
-    /**
-     * 发射命令
-     * @param cmd String
-     */
-    @JvmStatic
-    fun executeShellCmd(cmd: String) {
-        var process: Process? = null
-        try {
-            process = Runtime.getRuntime().exec(arrayOf("sh", "-c", cmd))
-        } catch (var8: IOException) {
-            var8.printStackTrace()
-        }
-        var data = ""
-        val inputStream = BufferedReader(InputStreamReader(process!!.inputStream))
-        val errorStream = BufferedReader(InputStreamReader(process.errorStream))
-        var line: String
-        var error: String
-        try {
-            while (inputStream.readLine().also { line = it } != null && !TextUtils.isEmpty(line)) {
-                data = """
-                $data$line
-                
-                """.trimIndent()
-            }
-            while (errorStream.readLine().also { error = it } != null && !TextUtils.isEmpty(error)) {
-                data = """
-                $data$error
-                
-                """.trimIndent()
-            }
-        } catch (e: IOException) {
-            Log.e(TAG, "executeShellCmd: IOException ${e.message}")
-            e.printStackTrace()
-        }
-    }
 }

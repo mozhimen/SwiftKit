@@ -1,12 +1,11 @@
-package com.mozhimen.basick.utilk.device
+package com.mozhimen.basick.utilk.device.camera
 
-import android.content.pm.PackageManager
 import android.hardware.Camera
 import android.os.Build
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 
 /**
  * @ClassName UtilKCamera
@@ -17,7 +16,6 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
  */
 @AManifestKRequire(CPermission.CAMERA)
 object UtilKCamera {
-    private val _context = UtilKApplication.instance.get()
     /**
      * 设备是否有前置摄像
      * @return Boolean
@@ -42,7 +40,7 @@ object UtilKCamera {
     @JvmStatic
     private fun isHasCamera(isFront: Boolean): Boolean {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
-            return _context.packageManager.hasSystemFeature(if (isFront) PackageManager.FEATURE_CAMERA_FRONT else PackageManager.FEATURE_CAMERA)
+            return if (isFront) UtilKPackageManager.hasFrontCamera() else UtilKPackageManager.hasBackCamera()
         } else {
             val cameraInfo = Camera.CameraInfo()
             for (cameraIndex in 0 until Camera.getNumberOfCameras()) {

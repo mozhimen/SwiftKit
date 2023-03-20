@@ -1,7 +1,17 @@
 package com.mozhimen.basick.utilk.content
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
+import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
+import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
+import com.mozhimen.basick.utilk.datatype.UtilKString
 
 /**
  * @ClassName UtilKIntent
@@ -11,13 +21,111 @@ import android.os.Build
  * @Version 1.0
  */
 object UtilKIntent {
+    /**
+     * 获取设置无障碍
+     * @param context Context
+     * @return Intent
+     */
     @JvmStatic
-    fun getInstallApp(filePathWithName: String): Intent? {
+    fun getSettingAccessibility(context: Context): Intent =
+        Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+
+    /**
+     * 管理APP设置
+     * @param context Context
+     * @return Intent
+     */
+    @JvmStatic
+    fun getSettingAppDetails(context: Context): Intent =
+        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUri2(context))
+
+    /**
+     * 获取管理所有APP
+     * @param context Context
+     * @return Intent
+     */
+    @JvmStatic
+    @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
+    fun getManageAll(context: Context): Intent =
+        Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
+
+    /**
+     * 获取管理悬浮窗
+     * @param context Context
+     * @return Intent
+     */
+    @JvmStatic
+    @RequiresApi(CVersionCode.V_30_11_R)
+    fun getManageOverlay(context: Context): Intent =
+        Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
+
+    /**
+     * 获取管理安装
+     * @param context Context
+     * @return Intent
+     */
+    @JvmStatic
+    fun getManageInstallSource(context: Context): Intent =
+        Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
+
+    /**
+     * 获取mainLauncher
+     * @param packageName String
+     * @param launcherActivityName String
+     * @return Intent
+     */
+    @JvmStatic
+    fun getMainLauncher(packageName: String, launcherActivityName: String): Intent =
+        Intent(Intent.ACTION_MAIN).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+            setClassName(packageName, launcherActivityName)
+        }
+
+    /**
+     * 获取mainLauncher
+     * @param packageName String
+     * @param uri Uri?
+     * @return Intent
+     */
+    @JvmStatic
+    fun getMainLauncher(packageName: String, uri: Uri? = null): Intent =
+        Intent(Intent.ACTION_MAIN, uri).apply {
+            addCategory(Intent.CATEGORY_LAUNCHER)
+            setPackage(packageName)
+        }
+
+    /**
+     * 获取启动App的Intent
+     * @param packageName String
+     * @return Intent?
+     */
+    @JvmStatic
+    fun getLauncherActivity(packageName: String): Intent? {
+        val launcherActivityName: String = UtilKActivity.getLauncherActivityName(packageName)
+        if (UtilKString.isHasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return getLauncherFromPackage()
+        return getMainLauncher(packageName, launcherActivityName)
+    }
+
+    /**
+     * getLaunchIntentForPackage
+     * @return Intent?
+     */
+    @JvmStatic
+    fun getLauncherFromPackage(): Intent? =
+        UtilKPackageManager.get().getLaunchIntentForPackage(UtilKApplication.instance.get().packageName)
+
+    /**
+     * 获取安装app的intent
+     * @param filePathWithName String
+     * @return Intent?
+     */
+    @JvmStatic
+    fun getInstall(filePathWithName: String): Intent? {
         val intent = Intent(Intent.ACTION_VIEW)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
-        intent.setDataAndType(UtilKUri.filePathString2Uri(filePathWithName) ?: return null, "application/vnd.android.package-archive")
+        intent.setDataAndType(UtilKUri.filePathStr2Uri(filePathWithName) ?: return null, "application/vnd.android.package-archive")
         return intent
     }
 }

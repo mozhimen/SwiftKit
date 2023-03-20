@@ -8,6 +8,7 @@ import coil.request.ImageRequest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 import java.io.InputStream
 import java.net.URL
 
@@ -29,7 +30,7 @@ object UtilKBitmapNet {
      */
     @JvmStatic
     suspend fun url2BitmapCoroutine(url: String): Bitmap? {
-        return (_context.imageLoader.execute(ImageRequest.Builder(_context).data(url).build()).drawable as? BitmapDrawable)?.bitmap
+        return (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(url).build()).drawable as? BitmapDrawable)?.bitmap
     }
 
     /**

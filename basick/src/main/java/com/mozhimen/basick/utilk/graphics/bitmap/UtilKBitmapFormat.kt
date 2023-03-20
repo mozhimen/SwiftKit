@@ -10,6 +10,7 @@ import android.util.Base64
 import android.util.Log
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.ByteArrayOutputStream
@@ -217,7 +218,7 @@ object UtilKBitmapFormat {
         var inputStream: InputStream? = null
         try {
             //根据uri获取图片的流
-            inputStream = _context.contentResolver.openInputStream(uri)
+            inputStream = UtilKContext.getContentResolver(_context).openInputStream(uri)
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true            //options的in系列的设置了，injustDecodeBound只解析图片的大小，而不加载到内存中去
             //1.如果通过options.outHeight获取图片的宽高，就必须通过decodeStream解析同options赋值
@@ -239,7 +240,7 @@ object UtilKBitmapFormat {
             //解析到内存中去
             options.inJustDecodeBounds = false
             //根据uri重新获取流，inputStream在解析中发生改变了
-            stream = _context.contentResolver.openInputStream(uri)
+            stream = UtilKContext.getContentResolver(_context).openInputStream(uri)
             return BitmapFactory.decodeStream(stream, null, options)
         } catch (e: Exception) {
             e.printStackTrace()

@@ -13,7 +13,7 @@ import java.io.Writer
  */
 object UtilKThrowable {
     @JvmStatic
-    fun throwable2String(throwable: Throwable): String {
+    fun throwable2Str(throwable: Throwable): String {
         val stringWriter: Writer = StringWriter()
         val printWriter = PrintWriter(stringWriter)
         throwable.printStackTrace(printWriter)

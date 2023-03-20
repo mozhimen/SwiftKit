@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.device.UtilKDate
 class ElemKTimeReceiver : BaseTimeReceiver(
     object : ITimeReceiverListener {
         override fun onTimeTick() {
-            Log.v("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDate.getNowLong()} string ${UtilKDate.getNowString(UtilKDate.FORMAT_HHmm)}")
+            Log.v("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDate.getNowLong()} string ${UtilKDate.getNowStr(UtilKDate.FORMAT_HHmm)}")
         }
     }
 )

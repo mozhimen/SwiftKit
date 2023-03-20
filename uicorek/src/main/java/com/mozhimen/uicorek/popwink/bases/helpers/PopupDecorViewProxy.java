@@ -20,8 +20,8 @@ import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
-import com.mozhimen.basick.utilk.view.UtilKViewGravity;
-import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyBoard;
+import com.mozhimen.basick.utilk.view.UtilKGravity;
+import com.mozhimen.basick.utilk.view.keyboard.UtilKInputManager;
 import com.mozhimen.basick.utilk.view.display.UtilKScreen;
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar;
 import com.mozhimen.basick.utilk.view.UtilKView;
@@ -176,7 +176,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyboardChange
                 if (focusTarget == null) {
                     focusTarget = contentView.findFocus();
                 }
-                UtilKKeyBoard.showByDelay(focusTarget == null ? contentView : focusTarget, mHelper.showKeybaordDelay);
+                UtilKInputManager.showByDelay(focusTarget == null ? contentView : focusTarget, mHelper.showKeybaordDelay);
             }
         }
         return wp;
@@ -833,7 +833,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKKeyboardChange
             } else {
                 if (mHelper.isWithAnchor()) {
                     //如果是有anchor，则考虑anchor的情况
-                    int gravity = UtilKViewGravity.computeGravity(popupRect, anchorRect);
+                    int gravity = UtilKGravity.computeGravity(popupRect, anchorRect);
                     if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.TOP) {
                         //显示在anchor顶部，则需要考虑anchor的高度
                         offsetY -= mHelper.getAnchorViewBound().height();

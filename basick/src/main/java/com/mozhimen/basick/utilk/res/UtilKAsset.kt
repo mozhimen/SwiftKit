@@ -57,11 +57,11 @@ object UtilKAsset {
      * @return String
      */
     @JvmStatic
-    fun asset2String(assetName: String): String {
+    fun asset2Str(assetName: String): String {
         if (!isAssetExists(assetName)) return MSG_NOT_EXIST
         val inputStream = getAssets().open(assetName)
         try {
-            return UtilKFile.inputStream2String(inputStream).replace("\\n".toRegex(), "\n")
+            return UtilKFile.inputStream2Str(inputStream).replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -78,7 +78,7 @@ object UtilKAsset {
      * @return String
      */
     @JvmStatic
-    fun asset2String2(assetName: String): String {
+    fun asset2Str2(assetName: String): String {
         if (!isAssetExists(assetName)) return MSG_NOT_EXIST
         val inputStream = getAssets().open(assetName)
         try {
@@ -100,7 +100,7 @@ object UtilKAsset {
      * @return String
      */
     @JvmStatic
-    fun asset2String3(assetName: String): String {
+    fun asset2Str3(assetName: String): String {
         if (!isAssetExists(assetName)) return MSG_NOT_EXIST
         val inputStream = getAssets().open(assetName)
         val stringBuilder = StringBuilder()

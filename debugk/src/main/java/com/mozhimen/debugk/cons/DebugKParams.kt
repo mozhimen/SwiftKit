@@ -2,9 +2,9 @@ package com.mozhimen.debugk.cons
 
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.exts.boolean2String
+import com.mozhimen.basick.utilk.exts.boolean2Str
 import com.mozhimen.basick.utilk.*
-import com.mozhimen.basick.utilk.device.UtilKCamera
+import com.mozhimen.basick.utilk.device.camera.UtilKCamera
 import com.mozhimen.basick.utilk.device.UtilKDevice
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.net.UtilKNetConn
@@ -47,13 +47,13 @@ class DebugKParams {
     fun deviceHardwareVersion(): String = UtilKDevice.getHardwareVersion()
 
     @ADebugKParams("设备是否有sd卡")
-    fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().boolean2String()
+    fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().boolean2Str()
 
     @ADebugKParams("设备是否有前置摄像")
-    fun deviceHasFrontCamera(): String = UtilKCamera.isHasFrontCamera().boolean2String()
+    fun deviceHasFrontCamera(): String = UtilKCamera.isHasFrontCamera().boolean2Str()
 
     @ADebugKParams("设备是否有后置摄像头")
-    fun deviceHasBackCamera(): String = UtilKCamera.isHasBackCamera().boolean2String()
+    fun deviceHasBackCamera(): String = UtilKCamera.isHasBackCamera().boolean2Str()
 
     /**
      * 构建参数

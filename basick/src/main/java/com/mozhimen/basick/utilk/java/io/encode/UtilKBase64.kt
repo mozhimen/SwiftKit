@@ -20,7 +20,7 @@ object UtilKBase64 {
     private const val TAG = "UtilKBase64>>>>>"
 
     @JvmStatic
-    fun string2BitmapDrawable(base64drawableStr: String): BitmapDrawable {
+    fun str2BitmapDrawable(base64drawableStr: String): BitmapDrawable {
         return BitmapDrawable(null, ByteArrayInputStream(Base64.decode(base64drawableStr, Base64.DEFAULT)))
     }
 
@@ -30,7 +30,7 @@ object UtilKBase64 {
      * @return Bitmap?
      */
     @JvmStatic
-    fun string2Bitmap(string: String): Bitmap {
+    fun str2Bitmap(string: String): Bitmap {
         val decode: ByteArray = Base64.decode(string, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(decode, 0, decode.size)
     }
@@ -47,7 +47,7 @@ object UtilKBase64 {
      * @return String?
      */
     @JvmStatic
-    fun bitmap2String(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 50): String? {
+    fun bitmap2Str(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 50): String? {
         var result: String? = null
         var byteArrayOutputStream: ByteArrayOutputStream? = null
         try {

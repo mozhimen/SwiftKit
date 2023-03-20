@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.*
 import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.componentk.navigatek.mos.MNavigateKPageInfo
 import java.util.*
 
@@ -45,7 +46,7 @@ object NavigateK {
                     val navigator = navigatorProvider.getNavigator(ActivityNavigator::class.java)
                     val node: ActivityNavigator.Destination = navigator.createDestination()
                     node.id = page.id
-                    node.setComponentName(ComponentName(activity.packageName, page.clazzName))
+                    node.setComponentName(ComponentName(UtilKContext.getPackageName(activity), page.clazzName))
                     navGraph.addDestination(node)
                 }
                 dest_type_fragment -> {

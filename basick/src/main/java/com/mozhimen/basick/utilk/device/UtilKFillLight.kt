@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.device
 
-import com.mozhimen.basick.utilk.java.io.UtilKCmd
+import com.mozhimen.basick.utilk.os.UtilKShell
 
 
 /**
@@ -19,7 +19,7 @@ object UtilKFillLight {
      */
     @JvmStatic
     fun openFillLight() {
-        UtilKCmd.executeShellCmd(CMD_FILL_LIGHT_OPEN)
+        UtilKShell.execCmd(CMD_FILL_LIGHT_OPEN)
     }
 
     /**
@@ -27,6 +27,6 @@ object UtilKFillLight {
      */
     @JvmStatic
     fun closeFillLight() {
-        UtilKCmd.executeShellCmd(CMD_FILL_LIGHT_CLOSE)
+        UtilKShell.execCmd(CMD_FILL_LIGHT_CLOSE)
     }
 }

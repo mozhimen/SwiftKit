@@ -1,6 +1,8 @@
-package com.mozhimen.basick.utilk.java.io
+package com.mozhimen.basick.utilk.os
 
+import android.text.TextUtils
 import android.util.Log
+import com.mozhimen.basick.utilk.exts.et
 
 import java.io.BufferedReader
 import java.io.DataOutputStream
@@ -28,8 +30,8 @@ object UtilKShell {
      * @return UtilKShellCmd?
      */
     @JvmStatic
-    fun execCmd(cmd: String, isRooted: Boolean): MShellCmd {
-        return execCmd(arrayOf(cmd), isRooted, true)
+    fun execCmds(cmd: String, isRooted: Boolean): MShellCmd {
+        return execCmds(arrayOf(cmd), isRooted, true)
     }
 
     /**
@@ -39,8 +41,8 @@ object UtilKShell {
      * @return UtilKShellCmd?
      */
     @JvmStatic
-    fun execCmd(cmds: List<String>, isRooted: Boolean): MShellCmd {
-        return execCmd(cmds.toTypedArray(), isRooted, true)
+    fun execCmds(cmds: List<String>, isRooted: Boolean): MShellCmd {
+        return execCmds(cmds.toTypedArray(), isRooted, true)
     }
 
     /**
@@ -50,8 +52,44 @@ object UtilKShell {
      * @return UtilKShellCmd?
      */
     @JvmStatic
-    fun execCmd(cmds: Array<String>, isRooted: Boolean): MShellCmd {
-        return execCmd(cmds, isRooted, true)
+    fun execCmds(cmds: Array<String>, isRooted: Boolean): MShellCmd {
+        return execCmds(cmds, isRooted, true)
+    }
+
+    /**
+     * 发射命令
+     * @param cmd String
+     */
+    @JvmStatic
+    fun execCmd(cmd: String) {
+        var process: Process? = null
+        try {
+            process = Runtime.getRuntime().exec(arrayOf("sh", "-c", cmd))
+        } catch (var8: IOException) {
+            var8.printStackTrace()
+        }
+        var data = ""
+        val inputStream = BufferedReader(InputStreamReader(process!!.inputStream))
+        val errorStream = BufferedReader(InputStreamReader(process.errorStream))
+        var line: String
+        var error: String
+        try {
+            while (inputStream.readLine().also { line = it } != null && !TextUtils.isEmpty(line)) {
+                data = """
+                $data$line
+                
+                """.trimIndent()
+            }
+            while (errorStream.readLine().also { error = it } != null && !TextUtils.isEmpty(error)) {
+                data = """
+                $data$error
+                
+                """.trimIndent()
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "executeShellCmd: IOException ${e.message}")
+            e.printStackTrace()
+        }
     }
 
     /**
@@ -61,7 +99,7 @@ object UtilKShell {
      * @param isNeedResultMsg
      * @return
      */
-    private fun execCmd(cmds: Array<String>, isRooted: Boolean, isNeedResultMsg: Boolean): MShellCmd {
+    private fun execCmds(cmds: Array<String>, isRooted: Boolean, isNeedResultMsg: Boolean): MShellCmd {
         var result = -1
         if (cmds.isEmpty()) {
             return MShellCmd(result, "", "")
@@ -121,6 +159,31 @@ object UtilKShell {
             }
         }
         return MShellCmd(result, successMsg?.toString() ?: "", errorMsg?.toString() ?: "")
+    }
+
+    @JvmStatic
+    fun getProp(name: String): String? {
+        val line: String
+        var inputBuffer: BufferedReader? = null
+        try {
+            val process = Runtime.getRuntime().exec("getprop $name")
+            inputBuffer = BufferedReader(InputStreamReader(process.inputStream), 1024)
+            line = inputBuffer.readLine()
+            inputBuffer.close()
+        } catch (e: IOException) {
+            Log.e(TAG, "getProp IOException Unable to read prop $name $e")
+            return null
+        } finally {
+            inputBuffer?.let {
+                try {
+                    inputBuffer.close()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    e.message?.et(TAG)
+                }
+            }
+        }
+        return line
     }
 
     data class MShellCmd(

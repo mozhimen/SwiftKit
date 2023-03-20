@@ -1,15 +1,20 @@
-package com.mozhimen.basick.utilk.content
+package com.mozhimen.basick.utilk.content.activity
 
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
-import android.content.Intent
 import android.os.Build
+import android.view.Display
 import android.view.View
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.stackk.StackK
+import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.content.UtilKIntent
+import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 import com.mozhimen.basick.utilk.datatype.UtilKString
 
 /**
@@ -21,23 +26,26 @@ import com.mozhimen.basick.utilk.datatype.UtilKString
  */
 object UtilKActivity {
 
-    private val _context = UtilKApplication.instance.get()
+    @JvmStatic
+    fun getCurrentFocus(activity: Activity): View? =
+        activity.currentFocus
+
+    @JvmStatic
+    fun getDisplay(activity: Activity): Display =
+        activity.display!!
+
+    @JvmStatic
+    fun getWindowManager(activity: Activity): WindowManager =
+        activity.windowManager
 
     /**
-     * 获取启动App的Intent
-     * @param packageName String
-     * @return Intent?
+     *
+     * @param context Context
+     * @return ActivityManager
      */
     @JvmStatic
-    fun getLauncherActivityIntent(packageName: String): Intent? {
-        val launcherActivityName: String = getLauncherActivityName(packageName)
-        if (UtilKString.isHasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return _context.packageManager.getLaunchIntentForPackage(_context.packageName)
-        val intent = Intent(Intent.ACTION_MAIN).apply {
-            addCategory(Intent.CATEGORY_LAUNCHER)
-            setClassName(packageName, launcherActivityName)
-        }
-        return intent
-    }
+    fun getActivityManager(context: Context): ActivityManager =
+        UtilKContext.getActivityManager(context)
 
     /**
      * 获取启动Activity
@@ -46,36 +54,9 @@ object UtilKActivity {
      */
     @JvmStatic
     fun getLauncherActivityName(packageName: String): String {
-        if (UtilKString.isHasSpace(packageName)) return ""
-        val intent = Intent(Intent.ACTION_MAIN, null).apply {
-            addCategory(Intent.CATEGORY_LAUNCHER)
-            setPackage(packageName)
-        }
-        val resolveInfos = _context.packageManager.queryIntentActivities(intent, 0)
-        return if (resolveInfos.size == 0) "" else resolveInfos[0].activityInfo.name
-    }
-
-    /**
-     * 判断Activity是否被销毁
-     * @param context Context
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isActivityDestroyed(context: Context): Boolean {
-        val activity: Activity? = getActivityByContext(context)
-        return if (activity != null) isActivityDestroyed(activity) else true
-    }
-
-    /**
-     * 判断Activity是否被销毁
-     * @param activity Activity
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isActivityDestroyed(activity: Activity): Boolean {
-        return if (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1) {
-            activity.isDestroyed || activity.isFinishing
-        } else activity.isFinishing
+        if (UtilKString.isHasSpace(packageName) || packageName.isEmpty()) return ""
+        val resolveInfos = UtilKPackageManager.queryIntentActivities(UtilKIntent.getMainLauncher(packageName, null), 0)
+        return if (resolveInfos.isEmpty()) "" else resolveInfos[0].activityInfo.name
     }
 
     /**
@@ -139,4 +120,36 @@ object UtilKActivity {
         }
         return activity
     }
+
+    /**
+     * 判断Activity是否被销毁
+     * @param context Context
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isDestroyed(context: Context): Boolean {
+        val activity: Activity? = getActivityByContext(context)
+        return if (activity != null) isDestroyed(activity) else true
+    }
+
+    /**
+     * 判断Activity是否被销毁
+     * @param activity Activity
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isDestroyed(activity: Activity): Boolean {
+        return if (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1) {
+            activity.isDestroyed || isFinishing(activity)
+        } else isFinishing(activity)
+    }
+
+    /**
+     * 判断Activity是否结束
+     * @param activity Activity
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isFinishing(activity: Activity): Boolean =
+        activity.isFinishing
 }

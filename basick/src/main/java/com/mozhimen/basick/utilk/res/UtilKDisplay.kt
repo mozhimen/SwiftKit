@@ -1,10 +1,17 @@
 package com.mozhimen.basick.utilk.res
 
+import android.app.Activity
 import android.content.Context
+import android.hardware.display.DisplayManager
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import android.view.Display
 import android.view.WindowManager
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
+import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 
 /**
  * @ClassName KDisplayUtil
@@ -15,6 +22,10 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
  */
 object UtilKDisplay {
     private val _displayMetrics = UtilKRes.getSystemResource().displayMetrics
+
+    @JvmStatic
+    fun getDisplayManager(context: Context) : DisplayManager =
+        UtilKContext.getDisplayManager(context)
 
     /**
      * getDisplayMetrics
@@ -32,11 +43,27 @@ object UtilKDisplay {
     @JvmStatic
     fun getDisplayMetrics2(): DisplayMetrics {
         val displayMetrics = DisplayMetrics()
-        (UtilKApplication.instance.get().getSystemService(Context.WINDOW_SERVICE) as? WindowManager? ?: return displayMetrics).apply {
-            defaultDisplay.getMetrics(displayMetrics)
-        }
+        UtilKWindowManager.getDefaultDisplay().getMetrics(displayMetrics)
         return displayMetrics
     }
+
+    /**
+     * 获取display
+     * @param activity Activity
+     * @return Display
+     */
+    @JvmStatic
+    fun getDisplay(activity: Activity): Display =
+        UtilKActivity.getDisplay(activity)
+
+    /**
+     * 获取旋转
+     * @param activity Activity
+     * @return Int
+     */
+    @JvmStatic
+    fun getRotation(activity: Activity): Int =
+        getDisplay(activity).rotation
 
     /**
      * dp转px

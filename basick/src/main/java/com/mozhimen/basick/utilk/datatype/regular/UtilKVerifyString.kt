@@ -14,7 +14,7 @@ object UtilKVerifyString {
      * @param str String
      */
     @JvmStatic
-    fun isNumberic(str: String): Boolean =
+    fun checkAllNumberic(str: String): Boolean =
         str.matches(Regex("^[0-9]*\$"))
 
     /**
@@ -22,6 +22,6 @@ object UtilKVerifyString {
      * @param str String
      * @return Boolean
      */
-    fun hasNumberAndAlphabet(str: String): Boolean =
+    fun checkAllNumberAndAlphabet(str: String): Boolean =
         str.matches(Regex("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{2,}\$"))
 }

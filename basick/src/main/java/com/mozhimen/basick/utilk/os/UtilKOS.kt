@@ -148,15 +148,15 @@ object UtilKOS {
     private fun check(rom: String): Boolean {
         _name?.let { return _name == rom }
 
-        if (!TextUtils.isEmpty(getProp(KEY_VERSION_MIUI).also { _version = it })) {
+        if (!TextUtils.isEmpty(UtilKShell.getProp(KEY_VERSION_MIUI).also { _version = it })) {
             _name = ROM_MIUI
-        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_EMUI).also { _version = it })) {
+        } else if (!TextUtils.isEmpty(UtilKShell.getProp(KEY_VERSION_EMUI).also { _version = it })) {
             _name = ROM_EMUI
-        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_OPPO).also { _version = it })) {
+        } else if (!TextUtils.isEmpty(UtilKShell.getProp(KEY_VERSION_OPPO).also { _version = it })) {
             _name = ROM_OPPO
-        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_VIVO).also { _version = it })) {
+        } else if (!TextUtils.isEmpty(UtilKShell.getProp(KEY_VERSION_VIVO).also { _version = it })) {
             _name = ROM_VIVO
-        } else if (!TextUtils.isEmpty(getProp(KEY_VERSION_SMARTISAN).also { _version = it })) {
+        } else if (!TextUtils.isEmpty(UtilKShell.getProp(KEY_VERSION_SMARTISAN).also { _version = it })) {
             _name = ROM_SMARTISAN
         } else {
             _version = Build.DISPLAY
@@ -168,29 +168,5 @@ object UtilKOS {
             }
         }
         return _name == rom
-    }
-
-    private fun getProp(name: String): String? {
-        val line: String
-        var inputBuffer: BufferedReader? = null
-        try {
-            val process = Runtime.getRuntime().exec("getprop $name")
-            inputBuffer = BufferedReader(InputStreamReader(process.inputStream), 1024)
-            line = inputBuffer.readLine()
-            inputBuffer.close()
-        } catch (e: IOException) {
-            Log.e(TAG, "getProp IOException Unable to read prop $name $e")
-            return null
-        } finally {
-            inputBuffer?.let {
-                try {
-                    inputBuffer.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    e.message?.et(TAG)
-                }
-            }
-        }
-        return line
     }
 }

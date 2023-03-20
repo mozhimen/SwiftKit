@@ -10,6 +10,7 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.os.UtilKOS
 import com.mozhimen.basick.utilk.view.bar.UtilKTitleBar
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
 
 /**
  * @ClassName StatusBarKHelper
@@ -27,7 +28,7 @@ object StatusBarKHelper {
      */
     @JvmStatic
     fun setStatusBarImmersed(activity: Activity) {
-        val window = activity.window
+        val window = UtilKWindow.get(activity)
         val decorView = window.decorView
         //5.0以上状态栏透明
         if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L) {//21
@@ -73,7 +74,7 @@ object StatusBarKHelper {
     @JvmStatic
     fun setStatusBarColor(activity: Activity, colorId: Int) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L) {
-            val window = activity.window
+            val window = UtilKWindow.get(activity)
             window.statusBarColor = colorId
         } else if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明

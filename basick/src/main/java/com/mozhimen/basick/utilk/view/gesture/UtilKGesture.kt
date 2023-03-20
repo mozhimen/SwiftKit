@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.view.gesture
 
 import android.view.MotionEvent
-import com.mozhimen.basick.utilk.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.math.UtilKPoint
 
 /**
@@ -55,12 +54,12 @@ object UtilKGesture {
         x > left && x < right && y > top && y < bottom
 
     /**
-     * motionEvent2String
+     * motionEvent2Str
      * @param action Int
      * @return String
      */
     @JvmStatic
-    fun motionEvent2String(action: Int): String {
+    fun motionEvent2Str(action: Int): String {
         when (action) {
             MotionEvent.ACTION_DOWN -> return "ACTION_DOWN"
             MotionEvent.ACTION_UP -> return "ACTION_UP"

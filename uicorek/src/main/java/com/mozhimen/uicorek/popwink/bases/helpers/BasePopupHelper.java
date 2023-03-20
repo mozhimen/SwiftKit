@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -40,16 +39,16 @@ import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.stackk.StackK;
 import com.mozhimen.basick.utilk.res.UtilKRes;
 import com.mozhimen.basick.utilk.view.display.UtilKScreen;
-import com.mozhimen.basick.utilk.content.UtilKActivity;
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity;
 import com.mozhimen.basick.utilk.anim.UtilKAnim;
 import com.mozhimen.basick.utilk.anim.UtilKAnimation;
 import com.mozhimen.basick.utilk.anim.UtilKAnimator;
 import com.mozhimen.basick.utilk.log.UtilKLog;
-import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyBoard;
+import com.mozhimen.basick.utilk.view.keyboard.UtilKInputManager;
 import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar;
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
-import com.mozhimen.basick.utilk.log.UtilKLogSmart;
+import com.mozhimen.basick.utilk.log.UtilKLogPro;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
@@ -631,7 +630,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
             r.set(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
                     cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
         } catch (Exception e) {
-            UtilKLogSmart.e(e);
+            UtilKLogPro.e(e);
         }
     }
 
@@ -876,7 +875,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
 
     public void onDismiss() {
         if (isAutoShowInputMethod() && hideKeyboardOnDismiss) {
-            UtilKKeyBoard.hide(mPopupWindow.getContext());
+            UtilKInputManager.hide(mPopupWindow.getContext());
         }
 
         if (mLinkedViewLayoutChangeListenerWrapper != null) {
@@ -1025,7 +1024,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
         if (mDismissAnimation != null) mDismissAnimation.cancel();
         if (mDismissAnimator != null) mDismissAnimator.cancel();
         if (mPopupWindow != null && hideKeyboardOnDismiss) {
-            UtilKKeyBoard.hide(mPopupWindow.getContext());
+            UtilKInputManager.hide(mPopupWindow.getContext());
         }
         if (dismissAnimationDelayRunnable != null) {
             dismissAnimationDelayRunnable.run();
