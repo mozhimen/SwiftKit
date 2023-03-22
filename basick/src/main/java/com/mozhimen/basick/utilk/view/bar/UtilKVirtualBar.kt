@@ -25,7 +25,7 @@ object UtilKVirtualBar {
     fun getVirtualBarHeight(context: Context): Int {
         var virtualBarHeight = 0
         val displayMetrics = DisplayMetrics()
-        val display = UtilKWindowManager.getDefaultDisplay()
+        val display = UtilKWindowManager.getDefaultDisplay(context)
         try {
             @SuppressWarnings("rawtypes")
             val clazz = Class.forName("android.view.Display")

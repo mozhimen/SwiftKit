@@ -42,7 +42,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, ILayoutK {
     private val _location = IntArray(2)    // 方便计算用的中间值对象，避免重复创建
     private val _rectTo = Rect()
     private val _rectSelf = Rect()
-    private val _bubbleDrawable = DrawableKArrow()
+    private val _bubbleDrawable by lazy { DrawableKArrow() }
     private var _paddingLeftOffset = 0
     private var _paddingTopOffset = 0
     private var _paddingRightOffset = 0

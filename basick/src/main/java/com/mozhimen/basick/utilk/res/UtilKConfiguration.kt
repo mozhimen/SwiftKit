@@ -89,6 +89,7 @@ object UtilKConfiguration {
      * 是否是平板
      * @return Boolean
      */
+    @JvmStatic
     fun isPad(context: Context): Boolean =
         if (UtilKTelephonyManager.isHasTelephone(context)) {        //如果能打电话那可能是平板或手机，再根据配置判断
             //能打电话可能是手机也可能是平板

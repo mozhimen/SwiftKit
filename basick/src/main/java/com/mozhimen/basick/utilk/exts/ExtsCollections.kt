@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.datatype.UtilKCollection
+import com.mozhimen.basick.utilk.java.datatype.UtilKCollection
 
 
 /**

@@ -21,7 +21,6 @@ object UtilKFile {
     private const val TAG = "UtilKFile>>>>>"
     const val MSG_NOT_EXIST = "fail, make sure it's file or exist"
     const val MSG_WRONG = "something wrong"
-    private val _context = UtilKApplication.instance.get()
 
     //region # file
     @JvmStatic

@@ -16,8 +16,6 @@ import com.mozhimen.basick.utilk.view.UtilKImageView
  * @receiver ImageView
  * @param drawable Drawable
  */
-fun ImageView.fitImage(
-    drawable: Drawable
-) {
+fun ImageView.fitImage(drawable: Drawable) {
     UtilKImageView.fitImage(this, drawable)
 }

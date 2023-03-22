@@ -11,6 +11,7 @@ import com.mozhimen.underlayk.logk.LogK
  * @Version 1.0
  */
 object UtilKLogK {
+    @JvmStatic
     fun et_code_msg(tag: String, code: Int, msg: String) {
         LogK.et(tag, "et_code_msg code $code msg $msg")
     }

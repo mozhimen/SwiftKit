@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
  */
 object UtilKActionBar {
 
+    @JvmStatic
     fun get(activity: AppCompatActivity): ActionBar? {
         return activity.supportActionBar
     }

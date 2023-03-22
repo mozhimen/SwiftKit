@@ -6,8 +6,6 @@ import android.telephony.TelephonyManager
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.packk.netk.conn.cons.ENetKType
-import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.net.UtilKConnManager
 import com.mozhimen.basick.utilk.net.UtilKNetConn
 
 

@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.cameraxk.helpers
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.camera.camera2.internal.Camera2CameraInfoImpl
 import androidx.camera.core.CameraFilter
@@ -18,6 +19,7 @@ import androidx.core.util.Preconditions
 class OtherCameraFilter(private val _id: String) : CameraFilter {
     private val TAG = "OtherCameraFilter>>>>>"
 
+    @SuppressLint("RestrictedApi")
     override fun filter(cameraInfos: MutableList<CameraInfo>): MutableList<CameraInfo> {
         Log.d(TAG, "filter: _id $_id cameraInfos $cameraInfos")
         val tempCameraInfos = ArrayList<CameraInfo>()

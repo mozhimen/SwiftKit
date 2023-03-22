@@ -40,6 +40,7 @@ object ScanKHSV {
      * @param bitmapPathWithName String
      * @return Map<String, Int>?
      */
+    @JvmStatic
     fun colorAnalyze(bitmapPathWithName: String): List<Pair<EColorHSV, Int>>? {
         val outputStream: FileOutputStream? = null
         var inputStream: FileInputStream? = null

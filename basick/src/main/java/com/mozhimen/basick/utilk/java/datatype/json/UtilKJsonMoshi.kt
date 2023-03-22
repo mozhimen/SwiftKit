@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.datatype.json
+package com.mozhimen.basick.utilk.java.datatype.json
 
 import com.mozhimen.basick.utilk.java.UtilKGeneric
 import com.squareup.moshi.Moshi
@@ -13,7 +13,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
  */
 object UtilKJsonMoshi {
 
-    val moshiBuilder = Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
+    val moshiBuilder by lazy { Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build() }
 
     /**
      * 转json

@@ -44,13 +44,12 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
     companion object {
         private const val TAG = "HotUpdateK>>>>>"
 
-        private val _context = UtilKApplication.instance.get()
-        private val _apkPath = UtilKContext.getFilesAbsolutePath(_context) + "/hotupdatek"
-
-        val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
         const val EVENT_HOTUPDATEK_PROGRESS = "hotupdatek_progress"
     }
 
+    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _apkPath by lazy { UtilKContext.getFilesAbsolutePath(_context) + "/hotupdatek" }
+    val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
     private val _netKFile by lazy { NetKFile(owner) }
     private val _installK by lazy { InstallK() }
 
@@ -93,7 +92,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      * @return Boolean
      */
     fun isNeedUpdate(remoteVersionCode: Int): Boolean =
-        (UtilKPackageInfo.getVersionCode() < remoteVersionCode).also {
+        (UtilKPackageInfo.getVersionCode(_context) < remoteVersionCode).also {
             Log.d(TAG, "isNeedUpdate: $it")
         }
 

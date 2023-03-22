@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.content.FileProvider
+import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.File
@@ -20,8 +21,7 @@ import java.io.File
  */
 object UtilKUri {
     private val TAG = "UtilKFileUri>>>>>"
-
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.get() }
 
     /**
      * 获取PackageUri
@@ -61,6 +61,10 @@ object UtilKUri {
      * @return Uri?
      */
     @JvmStatic
+    @ADescription(
+        Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(),
+        Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString()
+    )
     fun file2Uri(file: File): Uri? {
         if (!UtilKFile.isFileExist(file)) {
             Log.e(TAG, "file2Uri: file isFileExist false")

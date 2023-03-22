@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.datatype
+package com.mozhimen.basick.utilk.java.datatype
 
 import android.os.Build
 import com.mozhimen.basick.elemk.cons.CVersionCode
@@ -24,7 +24,7 @@ object UtilKString {
      * @return Boolean
      */
     @JvmStatic
-    fun containString(content: String, str: String): Boolean {
+    fun containStr(content: String, str: String): Boolean {
         if (content.isEmpty() || str.isEmpty()) return false
         return content.contains(str)
     }
@@ -63,7 +63,7 @@ object UtilKString {
     /**
      * 找到第一个匹配的字符的位置
      * @param content String
-     * @param str String
+     * @param char Char
      * @return Int
      */
     @JvmStatic

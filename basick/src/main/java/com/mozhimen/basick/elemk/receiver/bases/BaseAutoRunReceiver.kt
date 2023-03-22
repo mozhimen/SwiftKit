@@ -2,6 +2,7 @@ package com.mozhimen.basick.elemk.receiver.bases
 
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.elemk.rxjava.bases.BaseObserver

@@ -2,11 +2,9 @@ package com.mozhimen.basick.utilk.res
 
 import android.app.Activity
 import android.content.Context
-import android.hardware.display.DisplayManager
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Display
-import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 
@@ -18,11 +16,6 @@ import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
  * @Version 1.0
  */
 object UtilKDisplay {
-    private val _displayMetrics = UtilKRes.getSystemResources().displayMetrics
-
-    @JvmStatic
-    fun getDisplayManager(context: Context) : DisplayManager =
-        UtilKContext.getDisplayManager(context)
 
     /**
      * getDisplayMetrics
@@ -30,7 +23,7 @@ object UtilKDisplay {
      */
     @JvmStatic
     fun getDisplayMetrics(): DisplayMetrics {
-        return _displayMetrics
+        return UtilKRes.getSystemResources().displayMetrics
     }
 
     /**
@@ -38,9 +31,9 @@ object UtilKDisplay {
      * @return DisplayMetrics
      */
     @JvmStatic
-    fun getDisplayMetrics2(): DisplayMetrics {
+    fun getDisplayMetrics(context: Context): DisplayMetrics {
         val displayMetrics = DisplayMetrics()
-        UtilKWindowManager.getDefaultDisplay().getMetrics(displayMetrics)
+        UtilKWindowManager.getDefaultDisplay(context).getMetrics(displayMetrics)
         return displayMetrics
     }
 

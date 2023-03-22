@@ -6,20 +6,26 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
+import android.graphics.drawable.BitmapDrawable
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
+import androidx.annotation.RequiresPermission
+import coil.request.ImageRequest
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
-import com.mozhimen.basick.utilk.datatype.UtilKString
+import com.mozhimen.basick.utilk.java.datatype.UtilKString
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.squareup.moshi.internal.Util
 import java.io.*
+import java.net.URL
 
 /**
  * @ClassName UtilKBitmapIO
@@ -28,9 +34,42 @@ import java.io.*
  * @Date 2022/10/20 16:44
  * @Version 1.0
  */
+@AManifestKRequire(CPermission.INTERNET)
 object UtilKBitmapIO {
     private const val TAG = "UtilKBitmapIO>>>>>"
     private val _context = UtilKApplication.instance.get()
+
+    /**
+     * 协程方式 获取Bitmap
+     * @param url String
+     * @return Bitmap
+     */
+    @JvmStatic
+    @RequiresPermission(CPermission.INTERNET)
+    suspend fun url2BitmapCoroutine(url: String): Bitmap? {
+        return (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(url).build()).drawable as? BitmapDrawable)?.bitmap
+    }
+
+    /**
+     * 获取Bitmap
+     * @param url String
+     * @return Bitmap?
+     */
+    @JvmStatic
+    @RequiresPermission(CPermission.INTERNET)
+    fun url2Bitmap(url: String): Bitmap? {
+        val tempURL = URL(url)
+        var inputStream: InputStream? = null
+        return try {
+            inputStream = tempURL.openStream()
+            BitmapFactory.decodeStream(inputStream)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        } finally {
+            inputStream?.close()
+        }
+    }
 
     @JvmStatic
     fun filePath2Bitmap(filePathWithName: String): Bitmap? {
@@ -60,6 +99,7 @@ object UtilKBitmapIO {
      * @param quality Int
      * @return String
      */
+    @JvmStatic
     fun bitmap2JpegAlbumFileAfter29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
         if (TextUtils.isEmpty(filePathWithName)) return null
         var outputStream: OutputStream? = null
@@ -152,8 +192,7 @@ object UtilKBitmapIO {
     fun uri2Bitmap(uri: Uri): Bitmap? {
         return try {
             if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
-                val source = ImageDecoder.createSource(UtilKContext.getContentResolver(_context), uri)
-                ImageDecoder.decodeBitmap(source)
+                ImageDecoder.decodeBitmap(ImageDecoder.createSource(UtilKContext.getContentResolver(_context), uri))
             } else {
                 MediaStore.Images.Media.getBitmap(UtilKContext.getContentResolver(_context), uri)
             }

@@ -17,7 +17,7 @@ import javax.crypto.spec.DESKeySpec
 object UtilKDES {
     private const val DES = "DES"
     private const val ENCODE = "UTF-8"
-    private val _charset = charset(ENCODE)
+    private val _charset by lazy { charset(ENCODE) }
 
     /**
      * 根据键值进行加密

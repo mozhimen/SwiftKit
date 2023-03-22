@@ -1,6 +1,7 @@
 package com.mozhimen.basick.taskk.temps
 
 import android.os.Vibrator
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.taskk.bases.BaseTaskK
@@ -23,6 +24,7 @@ class TaskKVibrate : BaseTaskK() {
      * 震动
      * @param duration Long
      */
+    @RequiresPermission(CPermission.VIBRATE)
     fun start(duration: Long = 200L) {
         if (_vibrator == null) {
             _vibrator = UtilKContext.getVibrator(UtilKApplication.instance.get())
@@ -33,6 +35,7 @@ class TaskKVibrate : BaseTaskK() {
     /**
      * 停止
      */
+    @RequiresPermission(CPermission.VIBRATE)
     override fun cancel() {
         _vibrator?.cancel()
         _vibrator = null

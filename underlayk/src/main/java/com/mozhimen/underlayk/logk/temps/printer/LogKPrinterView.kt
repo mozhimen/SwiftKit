@@ -16,7 +16,7 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
  * @Version 1.0
  */
 class LogKPrinterView<T>(owner: T) : ILogKPrinter, BaseWakeBefPauseLifecycleObserver() where T : Activity, T : LifecycleOwner {
-    private var _viewProvider: LogKPrinterViewProvider = LogKPrinterViewProvider(owner, owner.findViewById(R.id.content))
+    private val _viewProvider: LogKPrinterViewProvider by lazy { LogKPrinterViewProvider(owner, owner.findViewById(R.id.content)) }
     private var _isFold = false
     private var _isShow: Boolean = false
         set(value) {

@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.datatype.UtilKDataType
+import com.mozhimen.basick.utilk.java.datatype.UtilKDataType
 import com.mozhimen.basick.utilk.exts.printlog
 import org.junit.Assert
 import org.junit.Test

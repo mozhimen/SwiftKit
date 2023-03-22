@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.log
 
 import android.text.TextUtils
 import android.util.Log
-import com.mozhimen.basick.utilk.datatype.json.UtilKJson
+import com.mozhimen.basick.utilk.java.datatype.json.UtilKJson
 import java.util.logging.Logger
 
 /**

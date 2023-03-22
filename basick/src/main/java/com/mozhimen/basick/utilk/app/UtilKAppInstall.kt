@@ -38,7 +38,7 @@ import java.nio.charset.Charset
 )
 object UtilKAppInstall {
     private const val TAG = "UtilKAppInstall>>>>>"
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.get() }
 
     /**
      * 是否有包安装权限
@@ -50,7 +50,7 @@ object UtilKAppInstall {
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun isAppInstallsPermissionEnable(): Boolean {
-        return UtilKPermission.isAppInstallsPermissionEnable().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
+        return UtilKPermission.isAppInstallsPermissionEnable(_context).also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
     }
 
     /**
@@ -78,6 +78,7 @@ object UtilKAppInstall {
     @JvmStatic
     @Throws(Exception::class)
     @ADescription("need you device has rooted")
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installRoot(apkPathWithName: String): Boolean {
         require(apkPathWithName.isNotEmpty()) { "$TAG please check apk file path" }
         var result = false
@@ -121,6 +122,7 @@ object UtilKAppInstall {
      * @param apkPathWithName String
      */
     @JvmStatic
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installHand(apkPathWithName: String) {
         UtilKLaunchActivity.startInstall(_context, apkPathWithName)
     }
@@ -132,6 +134,7 @@ object UtilKAppInstall {
      * @return Boolean
      */
     @JvmStatic
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installSilence(apkPathWithName: String, pkgName: String): Boolean {
         var result = "EMPTY"
         val cmd = if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
@@ -173,6 +176,7 @@ object UtilKAppInstall {
      * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installSilence(apkPathWithName: String, receiver: Class<*>) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
             installSilenceAfter28(apkPathWithName, receiver)
@@ -187,6 +191,7 @@ object UtilKAppInstall {
      * @return Boolean
      */
     @JvmStatic
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installSilenceBefore28(apkPathWithName: String): Boolean {
         var process: Process? = null
         var resSuccessBufferedReader: BufferedReader? = null
@@ -228,10 +233,11 @@ object UtilKAppInstall {
      */
     @JvmStatic
     @RequiresApi(CVersionCode.V_28_9_P)
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installSilenceAfter28(apkPathWithName: String, receiver: Class<*>) {
         Log.d(TAG, "installSilenceAfter28 pathApk $apkPathWithName")
         val apkFile = File(apkPathWithName)
-        val packageInstaller = UtilKPackageManager.getPackageInstaller()
+        val packageInstaller = UtilKPackageManager.getPackageInstaller(_context)
         val sessionParams = PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL)
         sessionParams.setSize(apkFile.length())
         val sessionId: Int = createSession(packageInstaller, sessionParams)
@@ -253,6 +259,7 @@ object UtilKAppInstall {
      * @param receiver Class<*>
      */
     @JvmStatic
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
     private fun execInstall(packageInstaller: PackageInstaller, sessionId: Int, receiver: Class<*>) {
         var session: PackageInstaller.Session? = null
         try {

@@ -99,7 +99,7 @@ object UtilKShell {
      * @param isNeedResultMsg
      * @return
      */
-    private fun execCmds(cmds: Array<String>, isRooted: Boolean, isNeedResultMsg: Boolean): MShellCmd {
+    fun execCmds(cmds: Array<String>, isRooted: Boolean, isNeedResultMsg: Boolean): MShellCmd {
         var result = -1
         if (cmds.isEmpty()) {
             return MShellCmd(result, "", "")

@@ -34,12 +34,9 @@ class LayoutKSearch @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
 
-    private val _attrs: MSearchAttrs =
-        AttrsParser.parseSearchViewAttrs(context, attrs, defStyleAttr)
+    private val _attrs: MSearchAttrs by lazy { AttrsParser.parseSearchViewAttrs(context, attrs, defStyleAttr) }
     private var _searchTextWatcher: SearchTextWatcher? = null
-    private val _debounceRunnable = Runnable {
-        if (_searchTextWatcher != null) _searchTextWatcher!!.afterTextChanged(_editText?.text)
-    }
+    private val _debounceRunnable = Runnable { if (_searchTextWatcher != null) _searchTextWatcher!!.afterTextChanged(_editText?.text) }
     private var _editText: EditText? = null
     private var _hintText: TextView? = null
     private var _keywordContainer: LinearLayout? = null
@@ -222,8 +219,7 @@ class LayoutKSearch @JvmOverloads constructor(
         _keywordText?.filters = arrayOf(InputFilter.LengthFilter(_attrs.keywordMaxLength))
         _keywordText?.id = R.id.layoutk_search_txt_keyword
         _keywordText?.setPadding(
-            _attrs.searchIconPadding, _attrs.searchIconPadding / 2,
-            if (_keywordIcon == null) _attrs.searchIconPadding else 0, _attrs.searchIconPadding / 2
+            _attrs.searchIconPadding, _attrs.searchIconPadding / 2, if (_keywordIcon == null) _attrs.searchIconPadding else 0, _attrs.searchIconPadding / 2
         )
 
         _keywordContainer = LinearLayout(context)
@@ -231,16 +227,13 @@ class LayoutKSearch @JvmOverloads constructor(
         _keywordContainer?.gravity = Gravity.CENTER
         _keywordContainer?.background = _attrs.keywordBackground
         _keywordContainer?.addView(
-            _keywordText,
-            LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            _keywordText, LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         )
 
         if (_keywordIcon != null) {
             _keywordContainer?.addView(
-                _keywordIcon,
-                LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
+                _keywordIcon, LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
                 )
             )
         }

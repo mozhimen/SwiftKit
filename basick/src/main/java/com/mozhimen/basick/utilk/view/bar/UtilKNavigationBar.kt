@@ -28,11 +28,13 @@ import java.util.*
  */
 object UtilKNavigationBar {
     private val TAG = "UtilKNavBar>>>>>"
-    private val NAVIGATION_BAR_NAMES: HashMap<String, Void?> = hashMapOf(
+    private val NAVIGATION_BAR_NAMES: HashMap<String, Void?> by lazy { hashMapOf(
         "navigationbarbackground" to null,
         "immersion_navigation_bar_view" to null
-    )
+    ) }
 
+
+    @JvmStatic
     fun appendNavigationBarID(id: String) {
         NAVIGATION_BAR_NAMES[id] = null
     }

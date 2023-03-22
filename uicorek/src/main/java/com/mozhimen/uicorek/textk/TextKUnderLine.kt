@@ -37,10 +37,8 @@ class TextKUnderLine @JvmOverloads constructor(
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         //Load attributes 加载属性列表R.styleable.UnderLineTextView
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKUnderLine, defStyleAttr, 0)
-
         _underLine =
             typedArray.getBoolean(R.styleable.TextKUnderLine_textKUnderLine_underline, false)        //获取自定义属性,默认是false
-
         typedArray.recycle()
     }
 

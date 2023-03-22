@@ -39,12 +39,11 @@ typealias ILayoutKSideListListener = (holder: RecyclerKViewHolder, item: MSideSu
 @AManifestKRequire(CPermission.INTERNET)
 class LayoutKSideList @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) :
-    BaseLayoutKLinear(context, attrs, defStyleAttr) {
+) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
-    private val _menuView = RecyclerView(context)
-    private val _contentView = RecyclerView(context)
-    private var _attr: MSideAttrs = AttrsParser.parseMenuAttr(context, attrs)
+    private val _menuView by lazy { RecyclerView(context) }
+    private val _contentView by lazy { RecyclerView(context) }
+    private val _attr: MSideAttrs by lazy { AttrsParser.parseMenuAttr(context, attrs) }
     private val _subSpanSizeOffset = SparseIntArray()
 
     private var _menuLayoutId = R.layout.layoutk_side_menu_item

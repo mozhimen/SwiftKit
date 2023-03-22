@@ -39,7 +39,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
 
     private val _switch = MSwitch()
     private val _bg = MBG()
-    private val _attrs: LayoutKBtnSwitchAttrs = AttrsParser.parseAttrs(context, attrs)
+    private val _attrs: LayoutKBtnSwitchAttrs by lazy { AttrsParser.parseAttrs(context, attrs) }
     private var _layoutKSwitchListener: ILayoutKSwitchListener? = null
 
     private var _defaultStatus = _attrs.defaultStatus

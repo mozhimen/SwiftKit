@@ -24,7 +24,7 @@ import java.util.ArrayList
  */
 class RecyclerKAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
-    private var _inflater: LayoutInflater = LayoutInflater.from(context)
+    private val _inflater: LayoutInflater by lazy { LayoutInflater.from(context) }
     private var _dataSets = ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
     private var _recyclerViewRef: WeakReference<RecyclerView>? = null
     private val _typePositions = SparseIntArray();

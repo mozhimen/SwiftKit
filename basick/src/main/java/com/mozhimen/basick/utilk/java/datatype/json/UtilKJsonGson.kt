@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.datatype.json
+package com.mozhimen.basick.utilk.java.datatype.json
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -18,7 +18,7 @@ import com.mozhimen.basick.utilk.exts.et
 object UtilKJsonGson : BaseUtilK() {
     private val _gson by lazy { Gson() }
     private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
-    private val _gsonWithExpose: Gson by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
+    private val _gsonWithExpose by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
 
     /**
      * t转Json

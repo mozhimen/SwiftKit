@@ -240,6 +240,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.stackk.StackK;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity;
 import com.mozhimen.basick.utilk.graphics.UtilKColor;
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus;
 import com.mozhimen.basick.utilk.view.UtilKGravity;
@@ -248,6 +249,7 @@ import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig;
 import com.mozhimen.basick.utilk.content.UtilKApplication;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
 import com.mozhimen.basick.utilk.log.UtilKLogPro;
+import com.mozhimen.basick.utilk.view.window.UtilKWindow;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.helpers.BasePopupHelper;
 import com.mozhimen.uicorek.popwink.bases.helpers.WindowManagerProxy;
@@ -1328,7 +1330,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
             }
             View decorView = getDecorView();
             if (decorView instanceof ViewGroup && decorView.getId() == android.R.id.content) {
-                option.setBlurView(((ViewGroup) activity.getWindow().getDecorView()).getChildAt(0));
+                option.setBlurView(((ViewGroup) UtilKWindow.getDecorView(activity)).getChildAt(0));
                 option.setFullScreen(true);
             } else {
                 option.setBlurView(decorView);

@@ -45,7 +45,7 @@ class InstallK {
         private const val TAG = "InstallK>>>>>"
     }
 
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.get() }
 
     //private var _tempApkPathWithName = "${_context.filesDir.absolutePath}/installk/update.apk"
     private var _installMode = EInstallMode.AUTO
@@ -166,7 +166,7 @@ class InstallK {
                     return
                 }
                 //try install silence
-                if (_silenceReceiverClazz != null && (UtilKOSRoot.isRoot() || !UtilKApp.isUserApp())) {
+                if (_silenceReceiverClazz != null && (UtilKOSRoot.isRoot() || !UtilKApp.isUserApp(_context))) {
                     UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
                     Log.d(TAG, "installByMode: AUTO as SILENCE success")
                     return
@@ -187,7 +187,7 @@ class InstallK {
             }
             EInstallMode.SILENCE -> {
                 requireNotNull(_silenceReceiverClazz) { "$TAG silence receiver must not be null" }
-                require(UtilKOSRoot.isRoot() || !UtilKApp.isUserApp()) { "$TAG this device has not root or its system app" }
+                require(UtilKOSRoot.isRoot() || !UtilKApp.isUserApp(_context)) { "$TAG this device has not root or its system app" }
                 UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
                 Log.d(TAG, "installByMode: ROOT success")
             }

@@ -18,7 +18,7 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKPrinterMonitor : ILogKPrinter {
-    private val _printerMonitorProvider: LogKPrinterMonitorProvider = LogKPrinterMonitorProvider(UtilKApplication.instance.get())
+    private val _printerMonitorProvider: LogKPrinterMonitorProvider by lazy { LogKPrinterMonitorProvider(UtilKApplication.instance.get()) }
 
     init {
         StackK.addFrontBackListener(object : IStackKListener {

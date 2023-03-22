@@ -28,7 +28,6 @@ class NumberIndicator @JvmOverloads constructor(context: Context, attrs: Attribu
     }
 
     private var _pointHorizontalPadding = 0//指示点左右内间距
-
     private var _pointVerticalPadding = 0//指示点上下内间距
 
     init {

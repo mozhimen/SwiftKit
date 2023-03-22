@@ -26,7 +26,7 @@ import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
  */
 class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr), IBanner {
-    private var _layoutKBannerProxy: LayoutKBannerProxy = LayoutKBannerProxy(context, this)
+    private val _layoutKBannerProxy: LayoutKBannerProxy by lazy { LayoutKBannerProxy(context, this) }
 
     private var _autoPlay = true
     private var _loop = true

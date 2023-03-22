@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.datatype.UtilKNumber
+import com.mozhimen.basick.utilk.java.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.exts.printlog
 import com.mozhimen.basick.utilk.java.UtilKConsole
 import com.mozhimen.basick.utilk.math.UtilKTriangle

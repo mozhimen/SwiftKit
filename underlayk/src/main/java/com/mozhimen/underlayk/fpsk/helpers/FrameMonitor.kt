@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
  */
 internal class FrameMonitor : Choreographer.FrameCallback {
     private val TAG = "FrameMonitor>>>>>"
-    private val _choreographer = Choreographer.getInstance()
+    private val _choreographer by lazy { Choreographer.getInstance() }
     private var _frameStartTime: Long = 0//这个是记录上一针到达的时间戳
     private var _frameCount = 0//1s内确切绘制了多少帧
 

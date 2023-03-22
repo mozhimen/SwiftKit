@@ -21,6 +21,7 @@ import javax.net.ssl.HttpsURLConnection
 object UtilKFileNet {
     private const val TAG = "UtilKDownload>>>>>"
 
+    @JvmStatic
     fun downLoadFile(httpUrl: String, saveFileNameWithName: String): String {
         require(httpUrl.isNotEmpty()) { "$TAG httpUrl must be not empty" }
 

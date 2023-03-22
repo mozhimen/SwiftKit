@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.datatype.regular
+package com.mozhimen.basick.utilk.java.datatype.regular
 
 import android.util.Log
 import androidx.annotation.MainThread
@@ -58,6 +58,7 @@ object UtilKVerifyUrl {
             uri = URI(url)
         } catch (e: URISyntaxException) {
             e.printStackTrace()
+            e.message?.et(TAG)
             return false
         }
         if (uri.host == null) {

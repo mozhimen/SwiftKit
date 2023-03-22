@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
-import com.mozhimen.basick.utilk.datatype.UtilKString
+import com.mozhimen.basick.utilk.java.datatype.UtilKString
 import java.util.*
 
 /**

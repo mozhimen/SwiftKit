@@ -12,7 +12,7 @@ import com.mozhimen.basick.utilk.res.UtilKConfiguration
  * @Version 1.0
  */
 object UtilKUiMode {
-    private val TAG = "UtilKTheme>>>>>"
+    private val TAG = "UtilKUiMode>>>>>"
 
     /**
      * 检测是否是浅色主题

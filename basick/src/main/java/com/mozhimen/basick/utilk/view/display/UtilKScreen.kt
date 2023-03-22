@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.view.display
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Build
@@ -27,7 +28,7 @@ import kotlin.math.sqrt
 object UtilKScreen {
     private val TAG = "UtilKScreen>>>>>"
 
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.get() }
 
     /**
      * 是否全屏
@@ -44,7 +45,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun isFullScreen(): Boolean {
-        val typedArray = UtilKTheme.getTheme().obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
+        val typedArray = UtilKTheme.get(_context).obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
         val windowFullscreen = typedArray.getBoolean(0, false)
         typedArray.recycle()
         return windowFullscreen
@@ -124,10 +125,10 @@ object UtilKScreen {
     @JvmStatic
     fun getRealScreenWidth(): Int =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
-            UtilKWindowManager.getCurrentWindowMetrics().bounds.width()
+            UtilKWindowManager.getCurrentWindowMetrics(_context).bounds.width()
         } else {
             val size = Point()
-            UtilKWindowManager.getDefaultDisplay().getSize(size)
+            UtilKWindowManager.getDefaultDisplay(_context).getSize(size)
             size.x
         }
 
@@ -138,10 +139,10 @@ object UtilKScreen {
     @JvmStatic
     fun getRealScreenHeight(): Int =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
-            UtilKWindowManager.getCurrentWindowMetrics().bounds.height()
+            UtilKWindowManager.getCurrentWindowMetrics(_context).bounds.height()
         } else {
             val size = Point()
-            UtilKWindowManager.get().defaultDisplay.getSize(size)
+            UtilKWindowManager.get(_context).defaultDisplay.getSize(size)
             size.y
         }
 

@@ -8,8 +8,8 @@ import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.bases.BaseTaskK
-import com.mozhimen.basick.utilk.datatype.UtilKNumber
-import com.mozhimen.basick.utilk.datatype.regular.UtilKVerifyUrl
+import com.mozhimen.basick.utilk.java.datatype.UtilKNumber
+import com.mozhimen.basick.utilk.java.datatype.regular.UtilKVerifyUrl
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
 import com.mozhimen.underlayk.logk.LogK
 import java.io.File

@@ -26,7 +26,6 @@ import java.lang.reflect.Field
  */
 object UtilKInputManager {
     private const val TAG = "UtilKKeyBoard>>>>>"
-    //private val _context = UtilKApplication.instance.get()
 
     /**
      * 获取InputManager

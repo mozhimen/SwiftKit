@@ -50,10 +50,10 @@ class DebugKParams {
     fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().boolean2Str()
 
     @ADebugKParams("设备是否有前置摄像")
-    fun deviceHasFrontCamera(): String = UtilKCamera.isHasFrontCamera().boolean2Str()
+    fun deviceHasFrontCamera(): String = UtilKDevice.isHasFrontCamera().boolean2Str()
 
     @ADebugKParams("设备是否有后置摄像头")
-    fun deviceHasBackCamera(): String = UtilKCamera.isHasBackCamera().boolean2Str()
+    fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().boolean2Str()
 
     /**
      * 构建参数

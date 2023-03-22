@@ -19,8 +19,6 @@ import com.mozhimen.basick.utilk.content.UtilKContextCompat
  */
 object UtilKRes {
     private val _context = UtilKApplication.instance.get()
-    private val _resourcesSys by lazy { Resources.getSystem() }
-    private val _resourcesApp by lazy { UtilKContext.getResources(_context) }
 
     /**
      * 获取系统Resources
@@ -28,7 +26,7 @@ object UtilKRes {
      */
     @JvmStatic
     fun getSystemResources(): Resources =
-        _resourcesSys
+        Resources.getSystem()
 
     /**
      * 获取App的Resources
@@ -36,7 +34,7 @@ object UtilKRes {
      */
     @JvmStatic
     fun getAppResources(): Resources =
-        _resourcesApp
+        UtilKContext.getResources(_context)
 
     /**
      * 获取字符串

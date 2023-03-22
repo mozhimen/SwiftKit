@@ -44,7 +44,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         private val TITLE_CLOSE_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_close)
     }
 
-    private val _layoutParams: WindowManager.LayoutParams = WindowManager.LayoutParams()
+    private val _layoutParams: WindowManager.LayoutParams by lazy { WindowManager.LayoutParams() }
     private var _rootView: FrameLayout? = null
         get() {
             if (field != null) return field
@@ -52,9 +52,8 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
             frameLayout.tag = TAG_LOGK_MONITOR_VIEW
             return frameLayout.also { field = it }
         }
-    private var _windowManager: WindowManager = UtilKWindowManager.get()
-
-    private var _adapter: RecyclerKAdapter = RecyclerKAdapter(_context)
+    private val _windowManager: WindowManager by lazy { UtilKWindowManager.get(_context) }
+    private val _adapter: RecyclerKAdapter by lazy { RecyclerKAdapter(_context) }
 
     private var _recyclerView: RecyclerView? = null
         get() {

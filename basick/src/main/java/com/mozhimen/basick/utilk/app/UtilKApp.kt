@@ -1,10 +1,13 @@
 package com.mozhimen.basick.utilk.app
 
+import android.content.Context
 import android.content.Intent
 import android.os.Process
 import android.util.Log
-import com.mozhimen.basick.utilk.content.*
+import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.UtilKContextStart
+import com.mozhimen.basick.utilk.content.UtilKIntent
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
 import com.mozhimen.basick.utilk.os.UtilKSystemProperties
 import kotlin.system.exitProcess
@@ -22,7 +25,7 @@ object UtilKApp {
     private const val PKG_POWER = "sys.powered"
     private const val TAG = "UtilKApp>>>>>"
 
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.get() }
 
     /**
      * 重启
@@ -46,7 +49,7 @@ object UtilKApp {
      */
     @JvmStatic
     fun restartApp(isKillProcess: Boolean, isValid: Boolean = true) {
-        val intent: Intent? = UtilKIntent.getLauncherActivity(UtilKContext.getPackageName(_context))
+        val intent: Intent? = UtilKIntent.getLauncherActivity(_context, UtilKContext.getPackageName(_context))
         if (intent == null) {
             Log.e(TAG, "didn't exist launcher activity.")
             return
@@ -71,22 +74,22 @@ object UtilKApp {
      * @return Boolean
      */
     @JvmStatic
-    fun isSystemApp(): Boolean =
-        UtilKPackageInfo.isSystemApp()
+    fun isSystemApp(context: Context): Boolean =
+        UtilKPackageInfo.isSystemApp(context)
 
     /**
      * isSystemUpdateApp
      * @return Boolean
      */
     @JvmStatic
-    fun isSystemUpdateApp(): Boolean =
-        UtilKPackageInfo.isSystemUpdateApp()
+    fun isSystemUpdateApp(context: Context): Boolean =
+        UtilKPackageInfo.isSystemUpdateApp(context)
 
     /**
      * isUserApp
      * @return Boolean
      */
     @JvmStatic
-    fun isUserApp(): Boolean =
-        UtilKPackageInfo.isUserApp()
+    fun isUserApp(context: Context): Boolean =
+        UtilKPackageInfo.isUserApp(context)
 }

@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.content
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
@@ -35,6 +36,7 @@ object UtilKPermission {
      */
     @JvmStatic
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
+    @ADescription(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
     fun isOverlayPermissionEnable(context: Context): Boolean {
         return Build.VERSION.SDK_INT < CVersionCode.V_23_6_M || Settings.canDrawOverlays(context)
     }
@@ -45,6 +47,8 @@ object UtilKPermission {
      * @return Boolean
      */
     @JvmStatic
+    @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
+    @ADescription(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
     fun isExternalStoragePermissionEnable(): Boolean =
         Environment.isExternalStorageManager()
 
@@ -57,8 +61,8 @@ object UtilKPermission {
     @TargetApi(CVersionCode.V_26_8_O)
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-    fun isAppInstallsPermissionEnable(): Boolean =
-        UtilKPackageManager.canRequestPackageInstalls().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
+    fun isAppInstallsPermissionEnable(context: Context): Boolean =
+        UtilKPackageManager.canRequestPackageInstalls(context).also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
 
     /**
      * 是否有无障碍权限

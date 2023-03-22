@@ -117,7 +117,7 @@ object UtilKStatusBar {
     @SuppressLint("PrivateApi")
     fun setStatusBarFontIcon_MiuiUILarger6(activity: Activity, isDark: Boolean) {
         try {
-            val window = activity.window
+            val window = UtilKWindow.get(activity)
             val layoutParams = Class.forName("android.view.MiuiWindowManager${'$'}LayoutParams")
             val field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE")
             val darkModeFlag = field.getInt(layoutParams)

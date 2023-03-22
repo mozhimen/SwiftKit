@@ -25,7 +25,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startInstall(context: Context, apkPathWithName: String) {
-        UtilKContextStart.start(context, UtilKIntent.getInstall(apkPathWithName) ?: return)
+        UtilKContextStart.start(context, UtilKIntent.getInstall(context, apkPathWithName) ?: return)
     }
 
     /**
@@ -87,7 +87,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingAccessibility(activity: Activity) {
-        UtilKContextStart.start(activity, UtilKIntent.getSettingAccessibility(activity))
+        UtilKContextStart.start(activity, UtilKIntent.getSettingAccessibility())
     }
 
     /**
@@ -96,6 +96,6 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingAccessibility(context: Context) {
-        UtilKContextStart.start(context, UtilKIntent.getSettingAccessibility(context))
+        UtilKContextStart.start(context, UtilKIntent.getSettingAccessibility())
     }
 }

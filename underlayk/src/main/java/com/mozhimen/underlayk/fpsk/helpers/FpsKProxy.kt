@@ -36,7 +36,7 @@ import com.mozhimen.underlayk.logk.LogK
 class FpsKProxy : IFpsK {
     private val TAG = "FpsKView>>>>>"
 
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.get() }
     private val _params by lazy {
         WindowManager.LayoutParams().apply {
             width = WindowManager.LayoutParams.WRAP_CONTENT
@@ -57,8 +57,8 @@ class FpsKProxy : IFpsK {
 
     //    private var _fpsView: TextView = LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView
     private var _fpsView: TextView? by VarNullableInitDelegate { LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView }
-    private val _frameMonitor = FrameMonitor()
-    private var _windowManager: WindowManager = UtilKWindowManager.get()
+    private val _frameMonitor by lazy { FrameMonitor() }
+    private val _windowManager: WindowManager by lazy { UtilKWindowManager.get(_context) }
 
     init {
         StackK.addFrontBackListener(object : IStackKListener {

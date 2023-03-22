@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.datatype.json
+package com.mozhimen.basick.utilk.java.datatype.json
 
 import android.text.TextUtils
 import com.mozhimen.basick.utilk.bases.BaseUtilK

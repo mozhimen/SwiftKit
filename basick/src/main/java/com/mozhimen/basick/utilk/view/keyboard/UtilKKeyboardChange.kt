@@ -94,7 +94,7 @@ object UtilKKeyboardChange {
 
     @JvmStatic
     fun observerKeyboardChange(activity: Activity, listener: IUtilKKeyboardChangeListener): ViewTreeObserver.OnGlobalLayoutListener {
-        val decorView = activity.window.decorView
+        val decorView = UtilKWindow.getDecorView(activity)
         val onGlobalLayoutListener: ViewTreeObserver.OnGlobalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
             private var _rect = Rect()
             private var _keyboardRect = Rect()

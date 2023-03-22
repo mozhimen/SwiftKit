@@ -12,7 +12,7 @@ import android.content.Intent
  * @Version 1.0
  */
 object UtilKContextStart {
-    private const val TAG = "UtilKActivitySkip>>>>>"
+    private const val TAG = "UtilKContextStart>>>>>"
 
     /**
      * 不带参数的跳转

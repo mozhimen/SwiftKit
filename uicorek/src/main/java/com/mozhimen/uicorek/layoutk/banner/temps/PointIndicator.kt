@@ -37,7 +37,6 @@ class PointIndicator @JvmOverloads constructor(
     private val _pointSelected = R.drawable.layoutk_banner_indicator_circle_point_selected//选中状态下的指示器
 
     private var _pointHorizontalMargin = 0//指示器左右内间距
-
     private var _pointVerticalMargin = 0//指示器上下内间距
 
     init {

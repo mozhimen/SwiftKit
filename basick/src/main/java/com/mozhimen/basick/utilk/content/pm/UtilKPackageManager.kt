@@ -11,8 +11,8 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 
 
@@ -23,25 +23,24 @@ import com.mozhimen.basick.utilk.content.UtilKContext
  * @Date 2023/3/20 10:50
  * @Version 1.0
  */
+@AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
 object UtilKPackageManager {
-
-    private val _context = UtilKApplication.instance.get()
 
     /**
      * getPackageManager
      * @return PackageManager
      */
     @JvmStatic
-    fun get(): PackageManager =
-        UtilKContext.getPackageManager(_context)
+    fun get(context: Context): PackageManager =
+        UtilKContext.getPackageManager(context)
 
     /**
      * 包安装器
      * @return PackageInstaller
      */
     @JvmStatic
-    fun getPackageInstaller(): PackageInstaller =
-        get().packageInstaller
+    fun getPackageInstaller(context: Context): PackageInstaller =
+        get(context).packageInstaller
 
     /**
      * 查询所有的符合Intent的Activities
@@ -50,8 +49,8 @@ object UtilKPackageManager {
      * @return List<ResolveInfo>
      */
     @JvmStatic
-    fun queryIntentActivities(intent: Intent, flags: Int): List<ResolveInfo> =
-        get().queryIntentActivities(intent, flags)
+    fun queryIntentActivities(context: Context, intent: Intent, flags: Int): List<ResolveInfo> =
+        get(context).queryIntentActivities(intent, flags)
 
     /**
      * 是否有包安装权限
@@ -60,32 +59,32 @@ object UtilKPackageManager {
     @JvmStatic
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-    fun canRequestPackageInstalls(): Boolean =
-        get().canRequestPackageInstalls()
+    fun canRequestPackageInstalls(context: Context): Boolean =
+        get(context).canRequestPackageInstalls()
 
     /**
      * 是否有前置
      * @return Boolean
      */
     @JvmStatic
-    fun hasFrontCamera(): Boolean =
-        hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT)
+    fun hasFrontCamera(context: Context): Boolean =
+        hasSystemFeature(context, PackageManager.FEATURE_CAMERA_FRONT)
 
     /**
      * 是否有后置
      * @return Boolean
      */
     @JvmStatic
-    fun hasBackCamera(): Boolean =
-        hasSystemFeature(PackageManager.FEATURE_CAMERA)
+    fun hasBackCamera(context: Context): Boolean =
+        hasSystemFeature(context, PackageManager.FEATURE_CAMERA)
 
     /**
      * 是否有配置
      * @param featureName String
      */
     @JvmStatic
-    fun hasSystemFeature(featureName: String): Boolean =
-        get().hasSystemFeature(featureName)
+    fun hasSystemFeature(context: Context, featureName: String): Boolean =
+        get(context).hasSystemFeature(featureName)
 }

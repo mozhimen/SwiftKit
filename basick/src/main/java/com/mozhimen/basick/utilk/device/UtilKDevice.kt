@@ -9,6 +9,7 @@ import android.util.Log
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.device.camera.UtilKCamera
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.os.UtilKSystemProperties
 import java.io.BufferedReader
@@ -26,10 +27,18 @@ import java.io.RandomAccessFile
 @AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 object UtilKDevice {
     private const val TAG = "UtilKDevice>>>>>"
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.get() }
 
     private const val PATH_MEMINFO = "/proc/meminfo"
     private const val PATH_CPU_USED = "/proc/stat"
+
+    @JvmStatic
+    fun isHasFrontCamera(): Boolean =
+        UtilKCamera.isHasFrontCamera(_context)
+
+    @JvmStatic
+    fun isHasBackCamera(): Boolean =
+        UtilKCamera.isHasBackCamera(_context)
 
     /**
      * 设备内存空间
@@ -144,7 +153,7 @@ object UtilKDevice {
      */
     @JvmStatic
     fun isHasPid(vid: Int, pid: Int): Boolean {
-        val devices: Iterator<UsbDevice> = UtilKUsbManager.get().deviceList.values.iterator()
+        val devices: Iterator<UsbDevice> = UtilKUsbManager.get(_context).deviceList.values.iterator()
         while (devices.hasNext()) {
             val usbDevice: UsbDevice = devices.next()
             if (usbDevice.vendorId == vid && usbDevice.productId == pid) return true

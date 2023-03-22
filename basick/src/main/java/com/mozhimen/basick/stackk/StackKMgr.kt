@@ -10,6 +10,7 @@ import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.CStackKEvent
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import java.lang.ref.WeakReference
 
 /**
@@ -73,7 +74,7 @@ class StackKMgr private constructor() {
             val activityRef: WeakReference<Activity> = _activityRefs[_activityRefs.size - 1]
             val activity: Activity? = activityRef.get()
             if (onlyAlive) {
-                if (activity == null || activity.isFinishing || (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1 && activity.isDestroyed)) {
+                if (activity == null || UtilKActivity.isFinishing(activity) || (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1 && activity.isDestroyed)) {
                     _activityRefs.remove(activityRef)
                     return getStackTopActivity(onlyAlive)
                 }

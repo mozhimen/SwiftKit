@@ -10,7 +10,7 @@ import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
-import com.mozhimen.basick.utilk.datatype.UtilKDataType
+import com.mozhimen.basick.utilk.java.datatype.UtilKDataType
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.view.window.UtilKWindow

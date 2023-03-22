@@ -1,5 +1,6 @@
 package com.mozhimen.uicorek.pagerk
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -26,6 +27,7 @@ open class PagerKNoScroll @JvmOverloads constructor(
         _isEnableScroll = isEnableScroll
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
         //return false// 可行,不消费,传给父控件
         //return true// 可行,消费,拦截事件

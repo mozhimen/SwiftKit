@@ -23,7 +23,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
     RecyclerView(context, attrs, defStyleAttr) {
 
     private var _viewKRecyclerLinearListener: IRecyclerKLinearListener? = null
-    private val _adapter = RecyclerKAdapter(context)
+    private val _adapter by lazy { RecyclerKAdapter(context) }
     private val _keys = ArrayList<MKey>()
 
     init {

@@ -8,10 +8,11 @@ import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
-import com.mozhimen.basick.utilk.datatype.UtilKString
+import com.mozhimen.basick.utilk.java.datatype.UtilKString
 
 /**
  * @ClassName UtilKIntent
@@ -23,11 +24,10 @@ import com.mozhimen.basick.utilk.datatype.UtilKString
 object UtilKIntent {
     /**
      * 获取设置无障碍
-     * @param context Context
      * @return Intent
      */
     @JvmStatic
-    fun getSettingAccessibility(context: Context): Intent =
+    fun getSettingAccessibility(): Intent =
         Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
 
     /**
@@ -100,9 +100,9 @@ object UtilKIntent {
      * @return Intent?
      */
     @JvmStatic
-    fun getLauncherActivity(packageName: String): Intent? {
-        val launcherActivityName: String = UtilKActivity.getLauncherActivityName(packageName)
-        if (UtilKString.isHasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return getLauncherFromPackage()
+    fun getLauncherActivity(context: Context, packageName: String): Intent? {
+        val launcherActivityName: String = UtilKActivity.getLauncherActivityName(context, packageName)
+        if (UtilKString.isHasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return getLauncherFromPackage(context)
         return getMainLauncher(packageName, launcherActivityName)
     }
 
@@ -111,8 +111,8 @@ object UtilKIntent {
      * @return Intent?
      */
     @JvmStatic
-    fun getLauncherFromPackage(): Intent? =
-        UtilKPackageManager.get().getLaunchIntentForPackage(UtilKContext.getPackageName(UtilKApplication.instance.get()))
+    fun getLauncherFromPackage(context: Context): Intent? =
+        UtilKPackageManager.get(context).getLaunchIntentForPackage(UtilKContext.getPackageName(UtilKApplication.instance.get()))
 
     /**
      * 获取安装app的intent
@@ -120,7 +120,8 @@ object UtilKIntent {
      * @return Intent?
      */
     @JvmStatic
-    fun getInstall(filePathWithName: String): Intent? {
+    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    fun getInstall(context: Context, filePathWithName: String): Intent? {
         val intent = Intent(Intent.ACTION_VIEW)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件

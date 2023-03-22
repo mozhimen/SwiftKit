@@ -37,7 +37,7 @@ class LayoutKAmount @JvmOverloads constructor(
 ) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     //region # private variate
-    private val _attrs = LayoutKAmountParser.parseAttrs(context, attrs, defStyleAttr)
+    private val _attrs by lazy { LayoutKAmountParser.parseAttrs(context, attrs, defStyleAttr) }
     private var _layoutKAmountListener: ILayoutKAmountListener? = null
 
     private var _btnIncrease: Button? = null

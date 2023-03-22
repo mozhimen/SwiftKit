@@ -16,7 +16,6 @@ import java.net.InetAddress
 import java.net.NetworkInterface
 import java.net.SocketException
 import java.util.*
-import kotlin.math.abs
 
 /**
  * @ClassName UtilKNet
@@ -39,6 +38,7 @@ object UtilKNetConn {
      * @return Int
      */
     @JvmStatic
+    @RequiresPermission(CPermission.ACCESS_WIFI_STATE)
     fun getWifiStrength(): Int {
         return UtilKWifiManager.getRssiAbs(_context)
     }
@@ -48,6 +48,7 @@ object UtilKNetConn {
      * @return NetworkInfo?
      */
     @JvmStatic
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun getActiveNetworkInfo(): NetworkInfo? {
         return UtilKConnManager.getActiveNetworkInfo(_context)
     }
@@ -83,6 +84,7 @@ object UtilKNetConn {
      * 网络是否连接
      * @return Boolean
      */
+    @JvmStatic
     fun isNetConnected(): Boolean {
         UtilKConnManager.getAllNetworkInfo(_context).forEach {
             if (it.isConnected) return true

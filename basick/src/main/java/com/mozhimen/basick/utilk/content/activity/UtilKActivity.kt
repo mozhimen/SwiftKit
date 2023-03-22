@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.content.activity
 
 import android.app.Activity
-import android.app.ActivityManager
 import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
@@ -12,10 +11,9 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.stackk.StackK
-import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.UtilKIntent
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
-import com.mozhimen.basick.utilk.datatype.UtilKString
+import com.mozhimen.basick.utilk.java.datatype.UtilKString
 
 /**
  * @ClassName UtilKActivity
@@ -39,23 +37,14 @@ object UtilKActivity {
         activity.windowManager
 
     /**
-     *
-     * @param context Context
-     * @return ActivityManager
-     */
-    @JvmStatic
-    fun getActivityManager(context: Context): ActivityManager =
-        UtilKContext.getActivityManager(context)
-
-    /**
      * 获取启动Activity
      * @param packageName String
      * @return String?
      */
     @JvmStatic
-    fun getLauncherActivityName(packageName: String): String {
+    fun getLauncherActivityName(context: Context, packageName: String): String {
         if (UtilKString.isHasSpace(packageName) || packageName.isEmpty()) return ""
-        val resolveInfos = UtilKPackageManager.queryIntentActivities(UtilKIntent.getMainLauncher(packageName, null), 0)
+        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntent.getMainLauncher(packageName, null), 0)
         return if (resolveInfos.isEmpty()) "" else resolveInfos[0].activityInfo.name
     }
 

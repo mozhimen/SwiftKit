@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Looper
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
+import com.mozhimen.basick.utilk.content.activity.UtilKActivityManager
 
 /**
  * @ClassName UtilKThread
@@ -20,11 +21,9 @@ object UtilKThread {
      */
     @JvmStatic
     fun isMainProcess(context: Context): Boolean {
-        val runningAppProcesses = UtilKActivity.getActivityManager(context).runningAppProcesses
+        val runningAppProcesses = UtilKActivityManager.get(context).runningAppProcesses
         for (process in runningAppProcesses) {
-            if (process.processName == UtilKContext.getPackageName(context)) {
-                return true
-            }
+            if (process.processName == UtilKContext.getPackageName(context)) return true
         }
         return false
     }

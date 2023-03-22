@@ -18,7 +18,7 @@ object DebugK {
 
     fun toggleDialog(fragmentManager: FragmentManager){
         try {
-            val clazz = Class.forName("com.mozhimen.debugk.base.uis.DebugKDialogFragment")
+            val clazz = Class.forName("com.mozhimen.debugk.temps.DebugKDialogFragment")
             val target = clazz.getConstructor().newInstance() as DialogFragment
             target.show(fragmentManager, "debugk_dialog")
         } catch (e: Exception) {

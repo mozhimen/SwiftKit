@@ -35,11 +35,11 @@ class LayoutKNavBar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
 
-    private var _titleView: TextView = TextView(context)
     private var _subTitleView: TextView? = null
-    private val _titleContainer: LinearLayout = LinearLayout(context)
-    private val _leftContainer: LinearLayout = LinearLayout(context)
-    private val _rightContainer: LinearLayout = LinearLayout(context)
+    private var _titleView: TextView = TextView(context)
+    private val _titleContainer: LinearLayout by lazy { LinearLayout(context) }
+    private val _leftContainer: LinearLayout by lazy { LinearLayout(context) }
+    private val _rightContainer: LinearLayout by lazy { LinearLayout(context) }
 
     private val _leftViewList = ArrayList<View>()
     private val _rightViewList = ArrayList<View>()

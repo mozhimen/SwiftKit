@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.graphics.bitmap
 
+import android.content.Context
 import android.graphics.*
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.BitmapDrawable
@@ -32,7 +33,6 @@ import kotlin.math.ceil
  */
 object UtilKBitmapFormat {
     private val TAG = "UtilKBitmapFormat>>>>>"
-    private val _context = UtilKApplication.instance.get()
 
     /**
      * bitmap转化为rgb565
@@ -213,12 +213,12 @@ object UtilKBitmapFormat {
      * @return Bitmap?
      */
     @JvmStatic
-    fun uri2Bitmap(uri: Uri): Bitmap? {
+    fun uri2Bitmap(context: Context, uri: Uri): Bitmap? {
         var stream: InputStream? = null
         var inputStream: InputStream? = null
         try {
             //根据uri获取图片的流
-            inputStream = UtilKContext.getContentResolver(_context).openInputStream(uri)
+            inputStream = UtilKContext.getContentResolver(context).openInputStream(uri)
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true            //options的in系列的设置了，injustDecodeBound只解析图片的大小，而不加载到内存中去
             //1.如果通过options.outHeight获取图片的宽高，就必须通过decodeStream解析同options赋值
@@ -240,7 +240,7 @@ object UtilKBitmapFormat {
             //解析到内存中去
             options.inJustDecodeBounds = false
             //根据uri重新获取流，inputStream在解析中发生改变了
-            stream = UtilKContext.getContentResolver(_context).openInputStream(uri)
+            stream = UtilKContext.getContentResolver(context).openInputStream(uri)
             return BitmapFactory.decodeStream(stream, null, options)
         } catch (e: Exception) {
             e.printStackTrace()

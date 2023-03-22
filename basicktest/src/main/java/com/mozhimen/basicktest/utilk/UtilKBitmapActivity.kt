@@ -12,7 +12,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.exts.drawable2Bitmap
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
-import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapNet
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapIO
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkBitmapBinding
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +26,7 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
         lifecycleScope.launch(Dispatchers.Main) {
             val bitmap: Bitmap?
             withContext(Dispatchers.IO) {
-                bitmap = UtilKBitmapNet.url2BitmapCoroutine("http://192.168.2.6/construction-sites-images/person/20221101/93ea2a3e11e54a76944dfc802519e3cc.jpg")//http://img.crcz.com/allimg/202003/25/1585100748975745.jpg
+                bitmap = UtilKBitmapIO.url2BitmapCoroutine("http://192.168.2.6/construction-sites-images/person/20221101/93ea2a3e11e54a76944dfc802519e3cc.jpg")//http://img.crcz.com/allimg/202003/25/1585100748975745.jpg
             }
             bitmap?.let {
                 vb.utilKBitmapImg.setImageBitmap(it)

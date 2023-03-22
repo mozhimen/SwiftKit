@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.datatype
+package com.mozhimen.basick.utilk.java.datatype
 
 /**
  * @ClassName UtilKCollections

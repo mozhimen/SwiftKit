@@ -15,7 +15,7 @@ import com.mozhimen.underlayk.fpsk.helpers.FpsKProxy
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class FpsK : IFpsK {
-    private val _fpsKProxy = FpsKProxy()
+    private val _fpsKProxy by lazy { FpsKProxy() }
 
     /**
      * 是否显示

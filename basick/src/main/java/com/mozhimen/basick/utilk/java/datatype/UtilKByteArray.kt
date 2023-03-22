@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.datatype
+package com.mozhimen.basick.utilk.java.datatype
 
 import java.nio.ByteBuffer
 

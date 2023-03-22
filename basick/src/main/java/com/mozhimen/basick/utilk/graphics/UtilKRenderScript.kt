@@ -10,7 +10,7 @@ import android.view.View
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.renderscript.*
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.datatype.UtilKNumber
+import com.mozhimen.basick.utilk.java.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.UtilKBitmapBlur
 import com.mozhimen.basick.utilk.content.UtilKApplication
@@ -35,7 +35,6 @@ object UtilKRenderScript {
 
     @Volatile
     private var _renderScript: RenderScript? = null
-    private val _context = UtilKApplication.instance.get()
 
     @JvmStatic
     fun getRenderScriptInstance(context: Context): RenderScript? {
@@ -86,7 +85,7 @@ object UtilKRenderScript {
     @TargetApi(CVersionCode.V_17_42_J1)
     fun scriptBlur(origin: Bitmap?, outWidth: Int, outHeight: Int, radius: Float): Bitmap? {
         if (origin == null || origin.isRecycled) return null
-        val renderScript = getRenderScriptInstance(_context)
+        val renderScript = getRenderScriptInstance(UtilKApplication.instance.get())
         val blurInput = Allocation.createFromBitmap(renderScript, origin)
         val blurOutput = Allocation.createTyped(renderScript, blurInput.type)
         var blur: ScriptIntrinsicBlur? = null

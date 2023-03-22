@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.datatype.regular
+package com.mozhimen.basick.utilk.java.datatype.regular
 
 /**
  * @ClassName UtilKIdentityCard

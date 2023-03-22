@@ -35,8 +35,8 @@ class LayoutKEditItem @JvmOverloads constructor(
     private lateinit var _titleView: TextView
     private var _topCrossLine: CrossLine? = null
     private var _bottomCrossLine: CrossLine? = null
-    private var _topLinePaint = Paint()
-    private var _bottomLinePaint = Paint()
+    private val _topLinePaint = Paint()
+    private val _bottomLinePaint = Paint()
 
     init {
         dividerDrawable = ColorDrawable()

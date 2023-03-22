@@ -23,7 +23,7 @@ class TextKBubble @JvmOverloads constructor(
 
     //region # variate
     private val TAG = "TextKBubble>>>>>"
-    private var _textKBubbleProxy: TextKBubbleProxy = TextKBubbleProxy(context)
+    private val _textKBubbleProxy: TextKBubbleProxy by lazy { TextKBubbleProxy(context) }
     override fun setArrowDirection(arrowDirection: EArrowDirection) {
         _textKBubbleProxy.setArrowDirection(arrowDirection)
     }

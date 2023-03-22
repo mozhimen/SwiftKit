@@ -33,7 +33,7 @@ import java.util.*
 class CrashKJava {
 
     private val TAG = "CrashKJava>>>>>"
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.get() }
     private var _crashListener: ICrashKListener? = null
 
     var crashPathJava: String? = null
@@ -102,7 +102,7 @@ class CrashKJava {
             stringBuilder.append("thread= ${Thread.currentThread().name}\n")//异常线程名
 
             //app info
-            val packageInfo = UtilKPackageInfo.get()
+            val packageInfo = UtilKPackageInfo.get(_context)
             stringBuilder.append("version_code= ${packageInfo.versionCode}\n")
             stringBuilder.append("version_name= ${packageInfo.versionName}\n")
             stringBuilder.append("package_code= ${packageInfo.packageName}\n")

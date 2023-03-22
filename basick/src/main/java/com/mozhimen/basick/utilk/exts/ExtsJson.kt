@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk.exts
 
 import com.google.gson.reflect.TypeToken
-import com.mozhimen.basick.utilk.datatype.json.UtilKJsonGson
-import com.mozhimen.basick.utilk.datatype.json.UtilKJsonMoshi
+import com.mozhimen.basick.utilk.java.datatype.json.UtilKJsonGson
+import com.mozhimen.basick.utilk.java.datatype.json.UtilKJsonMoshi
 
 /**
  * @ClassName JsonUtil

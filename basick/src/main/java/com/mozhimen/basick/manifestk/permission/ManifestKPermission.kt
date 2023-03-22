@@ -22,7 +22,7 @@ import com.mozhimen.basick.utilk.exts.showToastOnMain
  */
 object ManifestKPermission {
     private const val TAG = "ManifestKPermission>>>>>"
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.get() }
 
     /**
      * 作用: 权限申请

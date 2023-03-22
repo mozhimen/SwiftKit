@@ -10,14 +10,9 @@ import android.widget.Scroller
  * @Date 2022/4/19 17:26
  * @Version 1.0
  */
-class BannerScroller : Scroller {
+class BannerScroller @JvmOverloads constructor(context: Context, duration: Int = 1000) : Scroller(context) {
 
-    constructor(context: Context) : this(context, 1000)
-    constructor(context: Context, duration: Int) : super(context) {
-        this._duration = duration
-    }
-
-    private var _duration = 1000//值越大,滑动越慢
+    private var _duration = duration//值越大,滑动越慢
 
     override fun startScroll(startX: Int, startY: Int, dx: Int, dy: Int) {
         super.startScroll(startX, startY, dx, dy, _duration)

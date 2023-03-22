@@ -16,7 +16,7 @@ import java.lang.reflect.Method
  */
 object UtilKSystemProperties {
     private val TAG = "UtilKCmd>>>>>"
-    private const val KEY_SYSTEM_PROPERTIES = "android.os.SystemProperties"
+    private const val PATH_SYSTEM_PROPERTIES = "android.os.SystemProperties"
     private const val RO_ROM_VERSION = "ro.product.rom.version"
     private const val RO_HW_VERSION = "ro.product.hw.version"
     private const val RO_SERIAL_NO = "ro.serialno"
@@ -61,7 +61,7 @@ object UtilKSystemProperties {
     @SuppressLint("PrivateApi")
     fun setSystemProperties(key: String, value: String) {
         try {
-            val clazz = Class.forName(KEY_SYSTEM_PROPERTIES)
+            val clazz = Class.forName(PATH_SYSTEM_PROPERTIES)
             val setMethod: Method = clazz.getMethod("set", String::class.java, String::class.java)
             setMethod.invoke(clazz, key, value)
         } catch (e: Exception) {
@@ -80,7 +80,7 @@ object UtilKSystemProperties {
     @SuppressLint("PrivateApi")
     fun getSystemProperties(key: String, defaultValue: String): String =
         try {
-            val clazz = Class.forName(KEY_SYSTEM_PROPERTIES)
+            val clazz = Class.forName(PATH_SYSTEM_PROPERTIES)
             val getMethod: Method = clazz.getMethod("get", String::class.java)
             (getMethod.invoke(clazz, key) as String).ifEmpty { defaultValue }
         } catch (e: Exception) {
@@ -99,7 +99,7 @@ object UtilKSystemProperties {
     @SuppressLint("PrivateApi")
     fun getSystemPropertiesBool(key: String, defaultValue: Boolean): Boolean =
         try {
-            val clazz = Class.forName(KEY_SYSTEM_PROPERTIES)
+            val clazz = Class.forName(PATH_SYSTEM_PROPERTIES)
             val getMethod: Method = clazz.getMethod("get", String::class.java)
             val resStr = getMethod.invoke(clazz, key) as String
             if (resStr.isNotEmpty()) {
