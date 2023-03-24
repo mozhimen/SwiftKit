@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.view.bar
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CVersionCode
@@ -22,6 +23,7 @@ object UtilKDialog {
     /**
      * 关闭Android9.0弹出框（Detected problems with API compatibility）
      */
+    @SuppressLint("PrivateApi")
     @RequiresApi(CVersionCode.V_28_9_P)
     @JvmStatic
     fun closeDialogAtP() {
@@ -38,7 +40,7 @@ object UtilKDialog {
             hiddenApiWarningShown.isAccessible = true
             hiddenApiWarningShown.setBoolean(activityThread, true)
         } catch (e: Exception) {
-            Log.e(TAG, "closeAndroidPDialog Exception ${e.message}")
+            Log.e(TAG, "closeDialogAtP Exception ${e.message}")
             e.printStackTrace()
             e.message?.et(TAG)
         }

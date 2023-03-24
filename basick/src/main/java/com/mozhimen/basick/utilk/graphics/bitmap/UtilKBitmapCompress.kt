@@ -90,13 +90,13 @@ object UtilKBitmapCompress {
     }
 
     /**
-     * createScaledBitmap方法压缩
+     * compressScaledBitmap方法压缩
      * @param sourceBitmap Bitmap
      */
     @JvmStatic
     fun compressScaledBitmap(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
         val ratio: Float = sqrt(quality.toFloat() / 100f).also { Log.d(TAG, "compressScaledBitmap: ratio $it") }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
-        return Bitmap.createScaledBitmap(sourceBitmap, (sourceBitmap.width * ratio).toInt(), 150, true).also { printBitmapInfo(it, null, quality) }
+        return UtilKBitmapDeal.resizeBitmap(sourceBitmap, (sourceBitmap.width * ratio).toInt(), (sourceBitmap.height * ratio).toInt()).also { printBitmapInfo(it, null, quality) }
     }
 
     /**

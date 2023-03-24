@@ -15,6 +15,17 @@ object UtilKBitmapDeal {
     private const val TAG = "UtilKBitmapDeal>>>>>"
 
     /**
+     * 设置大小
+     * @param bitmap Bitmap
+     * @param destWidth Int
+     * @param destHeight Int
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun resizeBitmap(bitmap: Bitmap, destWidth: Int, destHeight: Int, filter: Boolean = true): Bitmap =
+        Bitmap.createScaledBitmap(bitmap, destWidth, destHeight, filter)
+
+    /**
      * 旋转位图
      * @param sourceBitmap Bitmap
      * @param degree Int

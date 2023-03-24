@@ -15,6 +15,7 @@ import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.UtilKBitmapBlur
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.exts.colorStr2Int
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.log.UtilKLog
 import com.mozhimen.basick.utilk.log.UtilKLogPro
 
@@ -110,7 +111,7 @@ object UtilKRenderScript {
         //释放
         blurInput.destroy()
         blurOutput.destroy()
-        val result = Bitmap.createScaledBitmap(origin, outWidth, outHeight, true)
+        val result = UtilKBitmapDeal.resizeBitmap(origin, outWidth, outHeight)
         origin.recycle()
         val time = System.currentTimeMillis() - _startTime
         if (UtilKLogPro.isOpenLog()) {
@@ -125,7 +126,7 @@ object UtilKRenderScript {
         if (tempOrigin == null || tempOrigin.isRecycled) return null
         tempOrigin = UtilKBitmapBlur.blurBitmap(tempOrigin, UtilKNumber.normalize(radius, 0f, 20f).toInt(), false)
         if (tempOrigin == null || tempOrigin.isRecycled) return null
-        tempOrigin = Bitmap.createScaledBitmap(tempOrigin, outWidth, outHeight, true)
+        tempOrigin = UtilKBitmapDeal.resizeBitmap(tempOrigin, outWidth, outHeight)
         val time = System.currentTimeMillis() - _startTime
         if (UtilKLogPro.isOpenLog()) {
             UtilKLogPro.i("fastBlur: 模糊用时：【" + time + "ms】")

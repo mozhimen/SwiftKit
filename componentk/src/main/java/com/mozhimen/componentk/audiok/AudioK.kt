@@ -122,7 +122,6 @@ class AudioK : IAudioKListener, LifecycleOwner {
         _audioKProxy.release()
     }
 
-    @RequiresApi(CVersionCode.V_28_9_P)
     override fun setVolume(volume: Int) {
         _audioKProxy.setVolume(volume)
     }

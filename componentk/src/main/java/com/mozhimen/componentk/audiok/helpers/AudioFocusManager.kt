@@ -3,6 +3,7 @@ package com.mozhimen.componentk.audiok.helpers
 import android.content.Context
 import android.media.AudioManager
 import android.media.AudioManager.OnAudioFocusChangeListener
+import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.device.UtilKAudioManager
@@ -31,11 +32,11 @@ class AudioFocusManager(
     fun getVolumeMax() =
         _audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
 
-    @RequiresApi(CVersionCode.V_28_9_P)
     fun getVolumeMin() =
-        _audioManager.getStreamMinVolume(AudioManager.STREAM_MUSIC)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            _audioManager.getStreamMinVolume(AudioManager.STREAM_MUSIC)
+        } else 0
 
-    @RequiresApi(CVersionCode.V_28_9_P)
     fun setVolume(volume: Int) {
         _audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume.normalize(getVolumeMin()..getVolumeMax()), AudioManager.FLAG_PLAY_SOUND)
     }

@@ -6,6 +6,7 @@ import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import kotlin.math.min
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -34,7 +35,7 @@ object UtilKBitmapBlur {
     @JvmStatic
     fun blurBitmap(sourceBitmap: Bitmap, bitmapScale: Float = 0.4f, blurRadius: Float = 25f): Bitmap {
         //将缩小后的图片作为预渲染的图片
-        val inputBitmap = Bitmap.createScaledBitmap(sourceBitmap, (sourceBitmap.width * bitmapScale).roundToInt(), (sourceBitmap.height * bitmapScale).roundToInt(), false)
+        val inputBitmap = UtilKBitmapDeal.resizeBitmap(sourceBitmap, (sourceBitmap.width * bitmapScale).roundToInt(), (sourceBitmap.height * bitmapScale).roundToInt(), false)
         //创建一张渲染后的输出图片
         val outputBitmap = Bitmap.createBitmap(inputBitmap)
         //创建RenderScript内核对象

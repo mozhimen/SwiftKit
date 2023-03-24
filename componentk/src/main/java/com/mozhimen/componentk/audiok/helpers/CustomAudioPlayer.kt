@@ -172,7 +172,6 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
      * 设置音量
      * @param volume Int
      */
-    @RequiresApi(CVersionCode.V_28_9_P)
     fun setVolume(volume: Int) {
         _audioFocusManager!!.setVolume(volume)
     }

@@ -166,7 +166,6 @@ internal class AudioKProxy(private val _owner: LifecycleOwner) : IAudioKListener
         _customAudioPlayer.release()
     }
 
-    @RequiresApi(CVersionCode.V_28_9_P)
     override fun setVolume(volume: Int) {
         _customAudioPlayer.setVolume(volume)
     }

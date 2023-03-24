@@ -9,11 +9,14 @@ import android.media.Image
 import android.net.Uri
 import android.util.Base64
 import android.util.Log
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import com.mozhimen.basick.utilk.res.UtilKRes
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -297,12 +300,39 @@ object UtilKBitmapFormat {
     }
 
     /**
+     * 位图转Drawable
+     * @param bitmap Bitmap
+     * @return Drawable
+     */
+    @JvmStatic
+    fun bitmap2drawable(bitmap: Bitmap): Drawable =
+        bitmap.toDrawable(UtilKRes.getSystemResources())
+
+    /**
+     * 位图转Drawable
+     * @param bitmap Bitmap
+     * @return Drawable
+     */
+    @JvmStatic
+    fun bitmap2drawable2(bitmap: Bitmap): Drawable =
+        BitmapDrawable(UtilKRes.getAppResources(), bitmap)
+
+    /**
      * drawable转位图
      * @param drawable Drawable
      * @return Bitmap
      */
     @JvmStatic
-    fun drawable2Bitmap(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight): Bitmap {
+    fun drawable2Bitmap(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
+        drawable.toBitmap(width, height, config)
+
+    /**
+     * drawable转位图
+     * @param drawable Drawable
+     * @return Bitmap
+     */
+    @JvmStatic
+    fun drawable2Bitmap2(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight): Bitmap {
         return if (drawable is BitmapDrawable) {
             drawable.bitmap
         } else {
