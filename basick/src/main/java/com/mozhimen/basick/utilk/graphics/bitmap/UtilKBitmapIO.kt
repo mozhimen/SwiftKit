@@ -13,8 +13,10 @@ import android.os.Build
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import coil.request.ImageRequest
+import com.mozhimen.basick.elemk.cons.CMediaFormat
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -100,18 +102,18 @@ object UtilKBitmapIO {
      * @return String
      */
     @JvmStatic
+    @RequiresApi(CVersionCode.V_29_10_Q)
+    @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
     fun bitmap2JpegAlbumFileAfter29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
         if (TextUtils.isEmpty(filePathWithName)) return null
         var outputStream: OutputStream? = null
         val destFile = UtilKFile.createFile(filePathWithName)
-        val pathArray: Array<String> = arrayOf(destFile.absolutePath)
-        val typeArray: Array<String> = arrayOf("image/jpeg")
         try {
             val contentValues = ContentValues()
             val contentResolver: ContentResolver = UtilKContext.getContentResolver(_context)
             contentValues.put(MediaStore.Images.ImageColumns.DATA, destFile.absolutePath)
             contentValues.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, filePathWithName.split("/").lastOrNull() ?: UtilKFile.dateStr2FileName())
-            contentValues.put(MediaStore.Images.ImageColumns.MIME_TYPE, "image/jpeg")
+            contentValues.put(MediaStore.Images.ImageColumns.MIME_TYPE, CMediaFormat.MIMETYPE_IMAGE_JPEG)
             contentValues.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
             val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues) // 插入相册
             uri?.let {
@@ -126,6 +128,8 @@ object UtilKBitmapIO {
             outputStream?.flush()
             outputStream?.close()
             try {
+                val pathArray: Array<String> = arrayOf(destFile.absolutePath)
+                val typeArray: Array<String> = arrayOf(CMediaFormat.MIMETYPE_IMAGE_JPEG)
                 MediaScannerConnection.scanFile(_context, pathArray, typeArray) { path, uri -> Log.d(TAG, "bitmap2Album: path $path, uri $uri") }
             } catch (e: Exception) {
                 e.printStackTrace()

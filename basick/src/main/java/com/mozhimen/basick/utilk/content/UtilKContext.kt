@@ -115,6 +115,10 @@ object UtilKContext {
         context.filesDir.absolutePath
 
     @JvmStatic
+    fun getExternalRootFilesAbsolutePath(context: Context): String =
+        context.getExternalFilesDir(null)!!.absolutePath
+
+    @JvmStatic
     fun getCacheAbsolutePath(context: Context): String =
         context.cacheDir.absolutePath
 

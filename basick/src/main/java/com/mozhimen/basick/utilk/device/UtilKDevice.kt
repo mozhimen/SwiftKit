@@ -11,6 +11,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.device.camera.UtilKCamera
 import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.os.UtilKSystemProperties
 import java.io.BufferedReader
 import java.io.FileReader
@@ -167,7 +168,7 @@ object UtilKDevice {
      */
     @JvmStatic
     fun isHasExternalStorage(): Boolean =
-        Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+        UtilKEnvironment.isExternalStorageMounted()
 
     /**
      * 本地存储可用大小
@@ -175,7 +176,7 @@ object UtilKDevice {
      */
     @JvmStatic
     fun getFreeInternalMemorySize(): String? {
-        val statFs = StatFs(Environment.getDataDirectory().path)
+        val statFs = StatFs(UtilKEnvironment.getDataPath())
         val blockSize = statFs.blockSizeLong
         val availableBlocks = statFs.availableBlocksLong
         return Formatter.formatFileSize(_context, availableBlocks * blockSize)
@@ -187,7 +188,7 @@ object UtilKDevice {
      */
     @JvmStatic
     fun getTotalInternalMemorySize(): String {
-        val statFs = StatFs(Environment.getDataDirectory().path)//Gets the Android data directory
+        val statFs = StatFs(UtilKEnvironment.getDataPath())//Gets the Android data directory
         val blockSize = statFs.blockSizeLong //每个block 占字节数
         val totalBlocks = statFs.availableBlocksLong //block总数
         return Formatter.formatFileSize(_context, totalBlocks * blockSize)
@@ -200,7 +201,7 @@ object UtilKDevice {
     @JvmStatic
     fun getFreeExternalMemorySize(): String {
         return if (isHasExternalStorage()) {
-            val statFs = StatFs(Environment.getExternalStorageDirectory().absolutePath)
+            val statFs = StatFs(UtilKEnvironment.getExternalStorageAbsolutePath())
             val blockSize = statFs.blockSizeLong
             val availableBlocks = statFs.availableBlocksLong
             Formatter.formatFileSize(_context, availableBlocks * blockSize)
@@ -214,7 +215,7 @@ object UtilKDevice {
     @JvmStatic
     fun getTotalExternalMemorySize(): String {
         return if (isHasExternalStorage()) {
-            val statFs = StatFs(Environment.getExternalStorageDirectory().absolutePath)
+            val statFs = StatFs(UtilKEnvironment.getExternalStorageAbsolutePath())
             val blockSize = statFs.blockSizeLong
             val totalBlocks = statFs.blockCountLong
             Formatter.formatFileSize(_context, totalBlocks * blockSize)
