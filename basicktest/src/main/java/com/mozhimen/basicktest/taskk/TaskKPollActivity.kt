@@ -9,15 +9,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class TaskKPollActivity : BaseActivityVB<ActivityTaskkPollBinding>() {
-    private val _taskKPoll: TaskKPoll by lazy { TaskKPoll() }
+    private val _taskKPoll: TaskKPoll by lazy { TaskKPoll().apply { bindLifecycle(this@TaskKPollActivity) } }
+
     override fun initView(savedInstanceState: Bundle?) {
-        _taskKPoll.bindLifecycle(this)
         vb.eventkTaskPollBtnStart.setOnClickListener {
-            _taskKPoll.start(5000) {
+            _taskKPoll.start(1000, 3, {
                 withContext(Dispatchers.Main) {
-                    System.currentTimeMillis().toString().showToast()
+                    it.toString().showToast()
                 }
-            }
+            })
         }
         vb.eventkTaskPollBtnCancel.setOnClickListener {
             _taskKPoll.cancel()

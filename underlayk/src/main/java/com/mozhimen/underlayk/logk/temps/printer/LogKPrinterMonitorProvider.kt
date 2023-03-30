@@ -93,8 +93,10 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
     }
 
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
-        _adapter.addItem(LogKPrinterItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
-        _recyclerView!!.smoothScrollToPosition(_adapter.itemCount - 1)
+        if (_isOpen) {
+            _adapter.addItem(LogKPrinterItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
+            _recyclerView!!.smoothScrollToPosition(_adapter.itemCount - 1)
+        }
     }
 
     fun isOpen(): Boolean {
@@ -102,7 +104,8 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
     }
 
     fun open(isFold: Boolean) {
-        if (!UtilKPermission.isOverlayPermissionEnable(_context)) {
+        if (_isOpen) return
+        if (!UtilKPermission.isOverlayPermissionEnable()) {
             LogK.et(TAG, "PrinterMonitor play app has no overlay permission")
             "请打开悬浮窗权限".showToastOnMain()
             UtilKLaunchActivity.startManageOverlay(_context)
@@ -122,6 +125,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
      * 关闭Monitor
      */
     fun close() {
+        if (!_isOpen) return
         try {
             if (_rootView!!.findViewWithTag<View?>(TAG_LOGK_MONITOR_VIEW) == null) return
             _windowManager.removeView(_rootView)

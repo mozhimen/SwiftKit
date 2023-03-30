@@ -62,6 +62,10 @@ class TaskFileDownloadSingle : BaseTaskK() {
         _downloadUrls.clear()
     }
 
+    override fun isActive(): Boolean {
+        return _downloadTasks.isNotEmpty() || _downloadUrls.isNotEmpty() || _downloadListeners.isNotEmpty()
+    }
+
     override fun cancel() {
         cancelAll()
     }

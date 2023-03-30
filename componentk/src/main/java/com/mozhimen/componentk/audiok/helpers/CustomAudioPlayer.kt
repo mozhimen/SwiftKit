@@ -6,10 +6,8 @@ import android.net.wifi.WifiManager
 import android.net.wifi.WifiManager.WifiLock
 import android.os.PowerManager
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.taskk.temps.TaskKPoll
+import com.mozhimen.basick.taskk.temps.TaskKPollInfinite
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.net.UtilKWifiManager
@@ -66,7 +64,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
         }
 
     //更新进度Task
-    private val _taskKProUpd by lazy { TaskKPoll() }
+    private val _taskKProUpd by lazy { TaskKPollInfinite() }
 
     //发布更新进度Event
     private val _dataBusProUpd by lazy { UtilKDataBus.with<MAudioKProgress?>(CAudioKEvent.progress_update) }

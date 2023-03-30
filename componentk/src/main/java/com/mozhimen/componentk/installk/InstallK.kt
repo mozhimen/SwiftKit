@@ -172,7 +172,7 @@ class InstallK {
                     return
                 }
                 //try install smart
-                if (_smartServiceClazz != null && UtilKPermission.isAccessibilityPermissionEnable(_context, _smartServiceClazz!!)) {
+                if (_smartServiceClazz != null && UtilKPermission.isAccessibilityPermissionEnable(_smartServiceClazz!!)) {
                     UtilKAppInstall.installHand(apkPathWithName)
                     Log.d(TAG, "installByMode: AUTO as SMART success")
                     return
@@ -193,7 +193,7 @@ class InstallK {
             }
             EInstallMode.SMART -> {
                 requireNotNull(_smartServiceClazz) { "$TAG smart service must not be null" }
-                if (!UtilKPermission.isAccessibilityPermissionEnable(_context, _smartServiceClazz!!)) {
+                if (!UtilKPermission.isAccessibilityPermissionEnable(_smartServiceClazz!!)) {
                     Log.w(TAG, "installByMode: SMART isAccessibilityPermissionEnable false")
                     _handler.sendMessage(Message().apply {
                         what = CCons.MSG_NEED_PERMISSION

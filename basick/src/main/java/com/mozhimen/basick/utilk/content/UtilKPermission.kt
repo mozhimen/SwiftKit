@@ -15,6 +15,7 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
@@ -29,16 +30,17 @@ import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 object UtilKPermission {
     private const val TAG = "UtilKPermission>>>>>"
 
+    private val _context by lazy { UtilKApplication.instance.get() }
+
     /**
      * 是否有Overlay的权限
-     * @param context Context
      * @return Boolean
      */
     @JvmStatic
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
     @ADescription(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-    fun isOverlayPermissionEnable(context: Context): Boolean {
-        return Build.VERSION.SDK_INT < CVersionCode.V_23_6_M || Settings.canDrawOverlays(context)
+    fun isOverlayPermissionEnable(): Boolean {
+        return Build.VERSION.SDK_INT < CVersionCode.V_23_6_M || Settings.canDrawOverlays(_context)
     }
 
 
@@ -59,22 +61,21 @@ object UtilKPermission {
     @JvmStatic
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-    fun isAppInstallsPermissionEnable(context: Context): Boolean =
-        UtilKPackageManager.canRequestPackageInstalls(context).also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
+    fun isAppInstallsPermissionEnable(): Boolean =
+        UtilKPackageManager.canRequestPackageInstalls(_context).also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
 
     /**
      * 是否有无障碍权限
-     * @param context Context
      * @return Boolean
      */
     @JvmStatic
-    fun isAccessibilityPermissionEnable(context: Context, serviceClazz: Class<*>): Boolean {
+    fun isAccessibilityPermissionEnable(serviceClazz: Class<*>): Boolean {
         var permissionEnable = 0
-        val service = "${UtilKContext.getPackageName(context)}/${serviceClazz.canonicalName}"
+        val service = "${UtilKContext.getPackageName(_context)}/${serviceClazz.canonicalName}"
         try {
-            permissionEnable = Settings.Secure.getInt(UtilKContext.getContentResolver(context), Settings.Secure.ACCESSIBILITY_ENABLED)
+            permissionEnable = Settings.Secure.getInt(UtilKContext.getContentResolver(_context), Settings.Secure.ACCESSIBILITY_ENABLED)
             Log.d(TAG, "isSettingAccessibilityPermissionEnable permissionEnable $permissionEnable")
         } catch (e: Settings.SettingNotFoundException) {
             e.printStackTrace()
@@ -83,7 +84,7 @@ object UtilKPermission {
         val stringColonSplitter = TextUtils.SimpleStringSplitter(':')
         if (permissionEnable == 1) {
             Log.d(TAG, "isSettingAccessibilityPermissionEnable accessibility is enabled")
-            val settingValue = Settings.Secure.getString(UtilKContext.getContentResolver(context), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
+            val settingValue = Settings.Secure.getString(UtilKContext.getContentResolver(_context), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
             if (settingValue != null) {
                 stringColonSplitter.setString(settingValue)
                 while (stringColonSplitter.hasNext()) {

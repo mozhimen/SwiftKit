@@ -20,7 +20,7 @@ class TaskKCountDown : BaseTaskK() {
         fun onFinish()
     }
 
-    fun isActive() = _countDownTimer != null
+    override fun isActive() = _countDownTimer != null
 
     fun start(countDownMilliseconds: Long, listener: ITaskKCountDownListener? = null) {
         if (isActive()) return

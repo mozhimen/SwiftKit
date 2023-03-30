@@ -101,18 +101,28 @@ object UtilKNumber {
 
     @JvmStatic
     fun keepOneDigits(value: Double): Double {
-        val format = DecimalFormat("#.#")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
-        return format.format(value).toDouble()
+        return keepOneDigitsStr(value).toDouble()
     }
 
     @JvmStatic
     fun keepOneDigits(value: Float): Float {
+        return keepOneDigitsStr(value).toFloat()
+    }
+
+    @JvmStatic
+    fun keepOneDigitsStr(value: Float): String {
         val format = DecimalFormat("#.#")
         //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
         format.roundingMode = RoundingMode.FLOOR
-        return format.format(value).toFloat()
+        return format.format(value)
+    }
+
+    @JvmStatic
+    fun keepOneDigitsStr(value: Double): String {
+        val format = DecimalFormat("#.#")
+        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.roundingMode = RoundingMode.FLOOR
+        return format.format(value)
     }
 
     @JvmStatic

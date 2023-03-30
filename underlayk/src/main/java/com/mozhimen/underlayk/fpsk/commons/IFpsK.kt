@@ -9,7 +9,7 @@ package com.mozhimen.underlayk.fpsk.commons
  * @Version 1.0
  */
 interface IFpsK {
-    fun isShow(): Boolean
+    fun isOpen(): Boolean
     fun toggle()
     fun addListener(listener: IFpsKListener)
     fun removeListeners()

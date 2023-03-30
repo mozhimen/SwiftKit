@@ -1,7 +1,6 @@
 package com.mozhimen.underlayk.fpsk.helpers
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.PixelFormat
 import android.os.Build
 import android.view.Gravity
@@ -18,7 +17,6 @@ import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.view.bar.UtilKDialog
 import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsK
@@ -47,7 +45,7 @@ class FpsKProxy : IFpsK {
             type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY else WindowManager.LayoutParams.TYPE_TOAST
         }
     }
-    private var _isShow = false
+    private var _isOpen = false
     private var _internalListener = object : IFpsKListener {
         @SuppressLint("SetTextI18n")
         override fun onFrame(fps: Double) {
@@ -63,10 +61,14 @@ class FpsKProxy : IFpsK {
     init {
         StackK.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
-                if (isFront) {
-                    LogK.dt(TAG, "FpsKView onChanged fpsk start")
-                    start()
-                } else {
+//                if (isFront) {
+//                    LogK.dt(TAG, "FpsKView onChanged fpsk start")
+//                    start()
+//                } else {
+//                    LogK.wt(TAG, "FpsKView onChanged fpsk stop")
+//                    stop()
+//                }
+                if (!isFront && isOpen()) {
                     LogK.wt(TAG, "FpsKView onChanged fpsk stop")
                     stop()
                 }
@@ -74,12 +76,10 @@ class FpsKProxy : IFpsK {
         })
     }
 
-    override fun isShow(): Boolean {
-        return _isShow
-    }
+    override fun isOpen(): Boolean = _isOpen
 
     override fun toggle() {
-        if (_isShow) stop() else start()
+        if (_isOpen) stop() else start()
     }
 
     override fun addListener(listener: IFpsKListener) {
@@ -91,8 +91,8 @@ class FpsKProxy : IFpsK {
     }
 
     private fun stop() {
-        if (!_isShow) return
-        _isShow = false
+        if (!_isOpen) return
+        _isOpen = false
         _frameMonitor.stop()
         _frameMonitor.removeListeners()
         _windowManager.removeView(_fpsView)
@@ -100,14 +100,14 @@ class FpsKProxy : IFpsK {
     }
 
     private fun start() {
-        if (_isShow) return
-        if (!UtilKPermission.isOverlayPermissionEnable(_context)) {
+        if (_isOpen) return
+        if (!UtilKPermission.isOverlayPermissionEnable()) {
             UtilKLaunchActivity.startManageOverlay(_context)
             LogK.et(TAG, "FpsKView play app has no overlay permission")
             return
         }
 
-        _isShow = true
+        _isOpen = true
         _windowManager.addView(_fpsView, _params)
         _frameMonitor.addListener(_internalListener)
         _frameMonitor.start()

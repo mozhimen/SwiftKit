@@ -16,7 +16,7 @@ class TaskKAsync : BaseTaskK() {
     private var _taskKAsyncErrorListener: ITaskKAsyncErrorListener? = null
     private var _asyncScope: CoroutineScope = CoroutineScope(Dispatchers.IO + _exceptionHandler)
 
-    fun isActive(): Boolean = _asyncScope.isActive
+    override fun isActive(): Boolean = _asyncScope.isActive
 
     fun setErrorListener(listener: ITaskKAsyncErrorListener) {
         this._taskKAsyncErrorListener = listener

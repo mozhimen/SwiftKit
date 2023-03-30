@@ -27,6 +27,12 @@ fun Double.keepTwoDigits(): Double =
 fun Float.keepTwoDigits(): Float =
     UtilKNumber.keepTwoDigits(this)
 
+fun Double.keepOneDigitsStr(): String =
+    UtilKNumber.keepOneDigitsStr(this)
+
+fun Float.keepOneDigitsStr(): String =
+    UtilKNumber.keepOneDigitsStr(this)
+
 fun Double.keepOneDigits(): Double =
     UtilKNumber.keepOneDigits(this)
 

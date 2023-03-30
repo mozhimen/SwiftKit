@@ -6,6 +6,8 @@ import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObse
 
 abstract class BaseTaskK : BaseWakeBefDestroyLifecycleObserver() {
 
+    abstract fun isActive(): Boolean
+
     @CallSuper
     override fun onDestroy(owner: LifecycleOwner) {
         cancel()

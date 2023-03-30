@@ -21,8 +21,8 @@ class FpsK : IFpsK {
      * 是否显示
      * @return Boolean
      */
-    override fun isShow(): Boolean {
-        return _fpsKProxy.isShow()
+    override fun isOpen(): Boolean {
+        return _fpsKProxy.isOpen()
     }
 
     /**

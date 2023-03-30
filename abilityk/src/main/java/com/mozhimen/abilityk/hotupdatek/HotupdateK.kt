@@ -14,6 +14,7 @@ import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.componentk.installk.InstallK
+import com.mozhimen.componentk.installk.cons.EInstallMode
 import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
 import com.mozhimen.underlayk.logk.LogK
@@ -40,7 +41,7 @@ import kotlin.coroutines.resume
     CPermission.BIND_ACCESSIBILITY_SERVICE,
     CManifest.SERVICE_ACCESSIBILITY
 )
-class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupdateKListener? = null) {
+class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode = EInstallMode.AUTO, private val _hotupdateKListener: IHotupdateKListener? = null) {
     companion object {
         private const val TAG = "HotUpdateK>>>>>"
 
@@ -143,7 +144,7 @@ class HotupdateK(owner: LifecycleOwner, private val _hotupdateKListener: IHotupd
      */
     suspend fun installApk(apkPathWithName: String) {
         withContext(Dispatchers.Main) {
-            _installK.install(apkPathWithName)
+            _installK.setInstallMode(_installMode).install(apkPathWithName)
             //AutoInstaller.getDefault(_context).install(apkPathWithName)
         }
     }

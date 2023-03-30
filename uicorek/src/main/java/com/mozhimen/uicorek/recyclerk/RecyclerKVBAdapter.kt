@@ -41,8 +41,12 @@ open class RecyclerKVBAdapter<BEAN, VB : ViewDataBinding>(
     private val _listener: IRecyclerKVBAdapterListener<BEAN, VB>? = null /* = (com.mozhimen.uicorek.recyclerk.datak.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
 ) : RecyclerView.Adapter<RecyclerKVBViewHolder<VB>>(), IDefaultLifecycleObserver {
 
-    private var _selectItemPosition = 0
+    private var _selectItemPosition = -1
     private lateinit var _vb: VB
+
+    fun getSelectItemPosition(): Int = _selectItemPosition
+
+    fun getItems(): List<BEAN> = _itemDatas
 
     @SuppressLint("NotifyDataSetChanged")
     fun onItemSelected(position: Int) {

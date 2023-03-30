@@ -26,10 +26,15 @@ class TaskKVibrate : BaseTaskK() {
      */
     @RequiresPermission(CPermission.VIBRATE)
     fun start(duration: Long = 200L) {
+        if (isActive()) return
         if (_vibrator == null) {
             _vibrator = UtilKContext.getVibrator(UtilKApplication.instance.get())
         }
         _vibrator!!.vibrate(duration)
+    }
+
+    override fun isActive(): Boolean {
+        return _vibrator != null
     }
 
     /**
@@ -37,6 +42,7 @@ class TaskKVibrate : BaseTaskK() {
      */
     @RequiresPermission(CPermission.VIBRATE)
     override fun cancel() {
+        if (!isActive()) return
         _vibrator?.cancel()
         _vibrator = null
     }

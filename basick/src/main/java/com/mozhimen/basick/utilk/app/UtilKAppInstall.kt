@@ -47,10 +47,10 @@ object UtilKAppInstall {
     @JvmStatic
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun isAppInstallsPermissionEnable(): Boolean {
-        return UtilKPermission.isAppInstallsPermissionEnable(_context).also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
+        return UtilKPermission.isAppInstallsPermissionEnable().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
     }
 
     /**

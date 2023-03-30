@@ -59,6 +59,10 @@ class TaskKAnimator() : BaseTaskK() {
         _viewAndListeners[view] = alphaAnimator
     }
 
+    override fun isActive(): Boolean {
+        return _viewAndListeners.isNotEmpty()
+    }
+
     /**
      * 取消
      */
