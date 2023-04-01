@@ -17,10 +17,7 @@ import com.mozhimen.uicorek.R
  * @Date 2021/6/21 14:18
  * @Version 1.0
  */
-class ViewKScanQR @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
-) :
-    BaseViewK(context, attrs, defStyleAttr, defStyleRes) {
+class ViewKScanQR @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : BaseViewK(context, attrs, defStyleAttr, defStyleRes) {
 
     //region # variate
     private var _lineDrawable: Drawable? = null

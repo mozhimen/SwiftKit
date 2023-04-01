@@ -14,10 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @Date 2021/4/28 16:29
  * @Version 1.0
  */
-class RecyclerKEmpty @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) :
-    RecyclerView(context, attrs, defStyleAttr) {
+class RecyclerKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
     private val TAG = "RecyclerKEmpty>>>>>"
 
     private var _emptyView: View? = null
@@ -33,6 +30,7 @@ class RecyclerKEmpty @JvmOverloads constructor(
         }
 
         override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+            Log.d(TAG, "onItemRangeRemoved clear")
             checkIfEmpty()
         }
     }

@@ -10,4 +10,4 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkInputItemBinding
  * @Date 2022/11/7 1:23
  * @Version 1.0
  */
-class LayoutKInputItemActivity : BaseActivityVB<ActivityLayoutkInputItemBinding>()
+class LayoutKEditItemActivity : BaseActivityVB<ActivityLayoutkInputItemBinding>()

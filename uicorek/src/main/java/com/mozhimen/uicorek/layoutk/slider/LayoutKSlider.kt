@@ -36,8 +36,7 @@ import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
  * @Date 2022/9/8 14:14
  * @Version 1.0
  */
-class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
-    BaseLayoutKFrame(context, attrs, defStyleAttr, defStyleRes), ILayoutKSlider {
+class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleAttr, defStyleRes), ILayoutKSlider {
 
     private val _layoutKSliderProxy: LayoutKSliderProxy by lazy { LayoutKSliderProxy(context) }
 

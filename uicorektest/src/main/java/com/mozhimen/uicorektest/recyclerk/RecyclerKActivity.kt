@@ -14,8 +14,8 @@ import com.mozhimen.uicorektest.databinding.ActivityRecyclerkBinding
  */
 class RecyclerKActivity : BaseActivityVB<ActivityRecyclerkBinding>() {
 
-    fun goRecyclerKAdapter(view: View) {
-        start<RecyclerKAdapterActivity>()
+    fun goRecyclerKLifecycle(view: View) {
+        start<RecyclerKLifecycleActivity>()
     }
 
     fun goRecyclerKLoad(view: View) {

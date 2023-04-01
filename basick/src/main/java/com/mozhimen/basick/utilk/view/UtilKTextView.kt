@@ -19,7 +19,7 @@ object UtilKTextView {
      * @param style Int
      */
     @JvmStatic
-    fun setFontStyle(
+    fun setTextStyle(
         textView: TextView,
         @IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL
     ) {
@@ -32,7 +32,7 @@ object UtilKTextView {
      * @param fontPathWithName String
      */
     @JvmStatic
-    fun setFont(
+    fun setIconFont(
         textView: TextView,
         fontPathWithName: String = "fonts/iconfont.ttf"
     ) {

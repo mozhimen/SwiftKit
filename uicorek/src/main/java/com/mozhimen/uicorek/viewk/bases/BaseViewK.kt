@@ -13,19 +13,9 @@ import com.mozhimen.uicorek.viewk.commons.IViewK
  * @Date 2021/12/7 18:01
  * @Version 1.0
  */
-abstract class BaseViewK :
-    View, IViewK {
-
-    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
-
-    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : super(
-        context,
-        attrs,
-        defStyleAttr,
-        defStyleRes
-    )
-
-    val TAG = "${this.javaClass.simpleName}>>>>>"
+abstract class BaseViewK @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : View(context, attrs, defStyleAttr, defStyleRes),
+    IViewK {
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     var centerX = 0f
     var centerY = 0f
@@ -39,15 +29,4 @@ abstract class BaseViewK :
         sideLength = width.coerceAtMost(height).toFloat()
         super.onSizeChanged(w, h, oldw, oldh)
     }
-
-    override fun initFlag() {}
-
-    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
-
-    override fun initData() {}
-
-    override fun initPaint() {}
-
-    override fun initView() {}
-
 }

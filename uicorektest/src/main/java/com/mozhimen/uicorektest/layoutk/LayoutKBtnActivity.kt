@@ -14,12 +14,12 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkBtnBinding
  * @Version 1.0
  */
 class LayoutKBtnActivity : BaseActivityVB<ActivityLayoutkBtnBinding>() {
-    private lateinit var _layoutKBtnSwitchApple: LayoutKBtnSwitch
+    private lateinit var _layoutKBtnSwitch: LayoutKBtnSwitch
 
     override fun initView(savedInstanceState: Bundle?) {
-        _layoutKBtnSwitchApple = vb.layoutkBtnSwitchApple1
-        _layoutKBtnSwitchApple.setDefaultStatus(false)
-        _layoutKBtnSwitchApple.setOnSwitchListener { status ->
+        _layoutKBtnSwitch = vb.layoutkBtnSwitch
+        _layoutKBtnSwitch.setDefaultStatus(false)
+        _layoutKBtnSwitch.setOnSwitchListener { status ->
             Log.i(TAG, "btnk_switch status $status")
         }
     }

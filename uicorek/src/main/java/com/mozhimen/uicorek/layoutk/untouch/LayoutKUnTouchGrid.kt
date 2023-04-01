@@ -14,6 +14,7 @@ import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKGrid
  */
 class LayoutKUnTouchGrid @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     BaseLayoutKGrid(context, attrs, defStyleAttr, defStyleRes) {
+
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         return true
     }

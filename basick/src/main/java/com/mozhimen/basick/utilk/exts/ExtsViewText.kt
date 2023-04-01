@@ -17,8 +17,8 @@ import com.mozhimen.basick.utilk.view.UtilKTextView
  * @receiver TextView
  * @param style Int
  */
-fun TextView.fontStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
-    UtilKTextView.setFontStyle(this, style)
+fun TextView.setTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
+    UtilKTextView.setTextStyle(this, style)
 }
 
 /**
@@ -26,6 +26,6 @@ fun TextView.fontStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL)
  * @receiver TextView
  * @param iconFont String
  */
-fun TextView.font(iconFont: String = "icons/iconfont.ttf") {
-    UtilKTextView.setFont(this, iconFont)
+fun TextView.setIconFont(iconFont: String = "icons/iconfont.ttf") {
+    UtilKTextView.setIconFont(this, iconFont)
 }

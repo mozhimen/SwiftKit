@@ -6,7 +6,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
-import com.mozhimen.uicorek.popwink.PopwinKBubbleText
+import com.mozhimen.uicorek.popwink.PopwinKTextKBubbleBuilder
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkSliderBinding
 
 /**
@@ -65,10 +65,10 @@ class LayoutKSliderActivity : BaseActivityVB<ActivityLayoutkSliderBinding>() {
         return "currentPercent $currentPercent currentValue $currentValue currentX $currentX"
     }
 
-    private val _popwinKBubbleText: PopwinKBubbleText? = null
+    private val _popwinKTextKBubbleBuilder: PopwinKTextKBubbleBuilder? = null
     fun genPopwinKBubbleText(view: View, tip: String, xOffset: Int = 0, yOffset: Int = 0, delayMillis: Long = 4000) {
-        _popwinKBubbleText?.dismiss()
-        val builder = PopwinKBubbleText.Builder(this)
+        _popwinKTextKBubbleBuilder?.dismiss()
+        val builder = PopwinKTextKBubbleBuilder.Builder(this)
         builder.apply {
             setTip(tip)
             setXOffset(xOffset)

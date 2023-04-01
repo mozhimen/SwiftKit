@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.elemk.commons.IValue2Listener2
 import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.uicorek.databinding.RecyclerkLinearItemBinding
+import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 /**
  * @ClassName ViewKRecyclerLinear
@@ -17,18 +20,17 @@ import com.mozhimen.uicorek.databinding.RecyclerkLinearItemBinding
  * @Date 2022/9/21 15:04
  * @Version 1.0
  */
-typealias IRecyclerKLinearListener = (position: Int, item: MKey) -> Unit
+typealias IRecyclerKLinearListener = IValue2Listener2<Int, MKey>//(position: Int, item: MKey) -> Unit
 
-class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    RecyclerView(context, attrs, defStyleAttr) {
+class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
 
     private var _viewKRecyclerLinearListener: IRecyclerKLinearListener? = null
-    private val _adapter by lazy { RecyclerKAdapter(context) }
+    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
     private val _keys = ArrayList<MKey>()
 
     init {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        adapter = RecyclerKAdapter(context)
+        adapter = _adapterKRecyclerStuffed
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
     }
 
@@ -51,8 +53,8 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
         keys.forEach {
             keyItems.add(RecyclerKLinearItem(it, listener))
         }
-        _adapter.clearItems()
-        _adapter.addItems(keyItems, true)
+        _adapterKRecyclerStuffed.clearItems()
+        _adapterKRecyclerStuffed.addItems(keyItems, true)
     }
 
     /**
@@ -60,7 +62,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
      */
     fun clearKeys() {
         _keys.clear()
-        _adapter.clearItems()
+        _adapterKRecyclerStuffed.clearItems()
     }
 
     /**
@@ -69,7 +71,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
      */
     fun addKey(key: MKey) {
         _keys.add(key)
-        _adapter.addItem(RecyclerKLinearItem(key, _viewKRecyclerLinearListener), true)
+        _adapterKRecyclerStuffed.addItem(RecyclerKLinearItem(key, _viewKRecyclerLinearListener), true)
     }
 
     /**
@@ -88,16 +90,16 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
     fun removeKey(index: Int) {
         if (index in 0 until _keys.size) {
             _keys.removeAt(index)
-            _adapter.removeItemAt(index)
+            _adapterKRecyclerStuffed.removeItemAt(index)
         }
     }
 
     private inner class RecyclerKLinearItem(
         private val _dataKKey: MKey,
         private val _listener: IRecyclerKLinearListener?
-    ) : RecyclerKItem<MKey, RecyclerKVBViewHolder<RecyclerkLinearItemBinding>>() {
+    ) : RecyclerKItem<MKey, VHKRecyclerVB<RecyclerkLinearItemBinding>>() {
 
-        override fun onBindData(holder: RecyclerKVBViewHolder<RecyclerkLinearItemBinding>, position: Int) {
+        override fun onBindData(holder: VHKRecyclerVB<RecyclerkLinearItemBinding>, position: Int) {
             holder.vb.layoutkRecyclerLinearItemTxt.text = _dataKKey.name
             holder.itemView.setOnClickListener {
                 _listener?.invoke(position, _dataKKey)
@@ -108,8 +110,8 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
             return R.layout.recyclerk_linear_item
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup): RecyclerKVBViewHolder<RecyclerkLinearItemBinding> {
-            return RecyclerKVBViewHolder(LayoutInflater.from(parent.context).inflate(getItemLayoutRes(), parent, false))
+        override fun onCreateViewHolder(parent: ViewGroup): VHKRecyclerVB<RecyclerkLinearItemBinding> {
+            return VHKRecyclerVB(LayoutInflater.from(parent.context).inflate(getItemLayoutRes(), parent, false))
         }
     }
 }

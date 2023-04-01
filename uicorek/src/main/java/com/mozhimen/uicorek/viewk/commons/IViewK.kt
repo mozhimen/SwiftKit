@@ -1,6 +1,6 @@
 package com.mozhimen.uicorek.viewk.commons
 
-import android.util.AttributeSet
+import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 
 /**
  * @ClassName IViewK
@@ -9,10 +9,7 @@ import android.util.AttributeSet
  * @Date 2021/12/7 18:16
  * @Version 1.0
  */
-interface IViewK {
-    fun initFlag(){}
-    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int){}
-    fun initPaint(){}
-    fun initData(){}
-    fun initView(){}
+interface IViewK : ILayoutK {
+    fun initPaint() {}
+    fun initData() {}
 }

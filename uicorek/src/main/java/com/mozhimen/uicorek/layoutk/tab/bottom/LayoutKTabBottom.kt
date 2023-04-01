@@ -27,18 +27,14 @@ import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
  * @Date 2022/4/15 15:19
  * @Version 1.0
  */
-class LayoutKTabBottom @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defAttrStyle: Int = 0
-) : BaseLayoutKFrame(context, attrs, defAttrStyle), ILayoutKTab<TabBottomItem, MTabBottom> {
+class LayoutKTabBottom @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defAttrStyle: Int = 0) : BaseLayoutKFrame(context, attrs, defAttrStyle),
+    ILayoutKTab<TabBottomItem, MTabBottom> {
 
     companion object {
         private const val TAG_TAB_BOTTOM_LAYOUT = "TAG_TAB_BOTTOM_LAYOUT"
     }
 
-    private val _tabSelectedListeners: ArrayList<ITabSelectedListener<MTabBottom>> =
-        ArrayList()
+    private val _tabSelectedListeners: ArrayList<ITabSelectedListener<MTabBottom>> = ArrayList()
     private var _preSelectedItem: MTabBottom? = null
     private var _itemList: List<MTabBottom>? = null
     private var _tabBottomAlpha = 1f
@@ -131,7 +127,7 @@ class LayoutKTabBottom @JvmOverloads constructor(
         return null
     }
 
-    override fun addTabItemSelectedListener(listener:ITabSelectedListener<MTabBottom>) {
+    override fun addTabItemSelectedListener(listener: ITabSelectedListener<MTabBottom>) {
         _tabSelectedListeners.add(listener)
     }
 

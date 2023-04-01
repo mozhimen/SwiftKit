@@ -24,10 +24,10 @@ import kotlin.math.abs
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.INTERNET)
-class LayoutKTabTop @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : HorizontalScrollView(context, attrs, defStyleAttr), ILayoutKTab<TabTopItem, MTabTop> {
-    private val TAG = "TabTopLayout>>>>>"
+class LayoutKTabTop @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : HorizontalScrollView(context, attrs, defStyleAttr),
+    ILayoutKTab<TabTopItem, MTabTop> {
+
+    private val TAG = "LayoutKTabTop>>>>>"
     private val _tabSelectedChangeListeners: ArrayList<ITabSelectedListener<MTabTop>> = ArrayList()
     private var _selectedMo: MTabTop? = null
     private var _itemList: List<MTabTop>? = null
@@ -43,7 +43,7 @@ class LayoutKTabTop @JvmOverloads constructor(
      * @param tabHeight Int
      */
     fun setTabTopHeight(@Px tabHeight: Float) {
-        this._tabTopHeight = tabHeight
+        _tabTopHeight = tabHeight
     }
 
     /**
@@ -79,7 +79,7 @@ class LayoutKTabTop @JvmOverloads constructor(
         if (itemList.isEmpty()) {
             return
         }
-        this._itemList = itemList
+        _itemList = itemList
         val container = getRootLayout(true)
         _selectedMo = null
         //清除之前添加的TabTop listener,Tips: Java foreach remove问题
@@ -106,7 +106,7 @@ class LayoutKTabTop @JvmOverloads constructor(
         for (listener in _tabSelectedChangeListeners) {
             listener.onTabItemSelected(_itemList!!.indexOf(nextMo), _selectedMo, nextMo)
         }
-        this._selectedMo = nextMo
+        _selectedMo = nextMo
         autoScroll(nextMo)
     }
 

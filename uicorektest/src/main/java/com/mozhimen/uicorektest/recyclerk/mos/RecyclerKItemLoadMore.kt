@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.fontStyle
+import com.mozhimen.basick.utilk.exts.setTextStyle
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
-import com.mozhimen.uicorek.recyclerk.RecyclerKViewHolder
+import com.mozhimen.uicorek.vhk.VHKRecycler
 import com.mozhimen.uicorektest.R
 
 /**
@@ -20,10 +20,11 @@ import com.mozhimen.uicorektest.R
  * @Date 2022/4/25 0:31
  * @Version 1.0
  */
-class RecyclerKItemLoadMore(index: Int) : RecyclerKItem<Int, RecyclerKViewHolder>(index) {
+class RecyclerKItemLoadMore(index: Int) : RecyclerKItem<Int, VHKRecycler>(index) {
     private var parentWidth: Int = 0
 
-    override fun onBindData(holder: RecyclerKViewHolder, position: Int) {
+    override fun onBindData(holder: VHKRecycler, position: Int) {
+        super.onBindData(holder, position)
         data?.let {
             val frameLayout = holder.itemView as FrameLayout
             val textView = frameLayout.getChildAt(0) as TextView
@@ -38,7 +39,7 @@ class RecyclerKItemLoadMore(index: Int) : RecyclerKItem<Int, RecyclerKViewHolder
         val textView = TextView(parent.context)
         textView.textSize = 18f
         textView.setTextColor(UtilKRes.getColor(R.color.blue_light))
-        textView.fontStyle(Typeface.BOLD)
+        textView.setTextStyle(Typeface.BOLD)
         textView.gravity = Gravity.CENTER
         textView.setBackgroundColor(UtilKRes.getColor(R.color.blue_theme))
         frameLayout.addView(textView, textLP)
@@ -47,7 +48,7 @@ class RecyclerKItemLoadMore(index: Int) : RecyclerKItem<Int, RecyclerKViewHolder
         return frameLayout
     }
 
-    override fun onViewAttachedToWindow(holder: RecyclerKViewHolder) {
+    override fun onViewAttachedToWindow(holder: VHKRecycler) {
         //提前给imageview 预设一个高度值  等于parent的宽度
         parentWidth = (holder.itemView.parent as ViewGroup).measuredWidth
         val params = holder.itemView.layoutParams

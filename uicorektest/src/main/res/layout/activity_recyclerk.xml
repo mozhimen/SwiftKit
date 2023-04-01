@@ -11,8 +11,8 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
-            android:onClick="goRecyclerKAdapter"
-            android:text="goRecyclerKAdapter"
+            android:onClick="goRecyclerKLifecycle"
+            android:text="goRecyclerKLifecycle"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton

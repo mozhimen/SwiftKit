@@ -1,7 +1,9 @@
 package com.mozhimen.basick.utilk.res
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.Resources
+import android.content.res.Resources.Theme
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -33,8 +35,9 @@ object UtilKRes {
      * @return Resources
      */
     @JvmStatic
-    fun getAppResources(): Resources =
-        UtilKContext.getResources(_context)
+    @JvmOverloads
+    fun getAppResources(context: Context = _context): Resources =
+        UtilKContext.getResources(context)
 
     /**
      * 获取字符串
@@ -42,8 +45,9 @@ object UtilKRes {
      * @return String
      */
     @JvmStatic
-    fun getString(@StringRes resId: Int): String =
-        UtilKContext.getString(_context, resId)
+    @JvmOverloads
+    fun getString(@StringRes resId: Int, context: Context = _context): String =
+        UtilKContext.getString(context, resId)
 
     /**
      * 获取字符串
@@ -56,13 +60,14 @@ object UtilKRes {
         UtilKContext.getString(_context, resId, formatArgs)
 
     /**
-     * 获取颜色
+     * 获取字符串
      * @param resId Int
-     * @return Int
+     * @param formatArgs Array<out Any?>
+     * @return String
      */
     @JvmStatic
-    fun getColor(@ColorRes resId: Int): Int =
-        UtilKContext.getColor(_context, resId)
+    fun getString(@StringRes resId: Int, context: Context, vararg formatArgs: Any): String =
+        UtilKContext.getString(context, resId, formatArgs)
 
     /**
      * 获取颜色
@@ -70,8 +75,19 @@ object UtilKRes {
      * @return Int
      */
     @JvmStatic
-    fun getColor2(@ColorRes resId: Int): Int =
-        UtilKContextCompat.getColor(_context, resId)
+    @JvmOverloads
+    fun getColor(@ColorRes resId: Int, context: Context = _context): Int =
+        UtilKContext.getColor(context, resId)
+
+    /**
+     * 获取颜色
+     * @param resId Int
+     * @return Int
+     */
+    @JvmStatic
+    @JvmOverloads
+    fun getColor2(@ColorRes resId: Int, context: Context = _context): Int =
+        UtilKContextCompat.getColor(context, resId)
 
     /**
      * 获取颜色list
@@ -79,8 +95,9 @@ object UtilKRes {
      * @return ColorStateList?
      */
     @JvmStatic
-    fun getColorStateList(@ColorRes resId: Int): ColorStateList =
-        UtilKContext.getColorStateList(_context, resId)
+    @JvmOverloads
+    fun getColorStateList(@ColorRes resId: Int, context: Context = _context): ColorStateList =
+        UtilKContext.getColorStateList(context, resId)
 
     /**
      * 获取颜色list
@@ -88,8 +105,9 @@ object UtilKRes {
      * @return ColorStateList?
      */
     @JvmStatic
-    fun getColorStateList2(@ColorRes resId: Int): ColorStateList? =
-        UtilKContextCompat.getColorStateList(_context, resId)
+    @JvmOverloads
+    fun getColorStateList2(@ColorRes resId: Int, context: Context = _context): ColorStateList? =
+        UtilKContextCompat.getColorStateList(context, resId)
 
     /**
      * 获取Drawable
@@ -97,8 +115,9 @@ object UtilKRes {
      * @return Drawable?
      */
     @JvmStatic
-    fun getDrawable(@DrawableRes drawableId: Int): Drawable? =
-        UtilKContext.getDrawable(_context, drawableId)
+    @JvmOverloads
+    fun getDrawable(@DrawableRes drawableId: Int, context: Context = _context): Drawable? =
+        UtilKContext.getDrawable(context, drawableId)
 
     /**
      * 获取Drawable
@@ -106,8 +125,9 @@ object UtilKRes {
      * @return Drawable?
      */
     @JvmStatic
-    fun getDrawable2(@DrawableRes drawableId: Int): Drawable? =
-        UtilKContextCompat.getDrawable(_context, drawableId)
+    @JvmOverloads
+    fun getDrawable2(@DrawableRes drawableId: Int, context: Context = _context): Drawable? =
+        UtilKContextCompat.getDrawable(context, drawableId)
 
     /**
      * 获取DimensionPixelSize
@@ -165,4 +185,14 @@ object UtilKRes {
     @JvmStatic
     fun getInteger(resId: Int, resources: Resources): Int =
         resources.getInteger(resId)
+
+    /**
+     * 获取主题
+     * @param context Context
+     * @return Theme
+     */
+    @JvmStatic
+    @JvmOverloads
+    fun getTheme(context: Context = _context): Theme =
+        UtilKContext.getTheme(context)
 }

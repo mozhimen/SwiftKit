@@ -17,8 +17,7 @@ import com.mozhimen.basick.utilk.exts.normalize
 import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.bases.BaseAttrsParser
-import com.mozhimen.uicorek.bases.BaseAttrsParser2
+import com.mozhimen.uicorek.commons.IAttrsParser2
 
 /**
  * @ClassName LayoutKAmount
@@ -30,11 +29,7 @@ import com.mozhimen.uicorek.bases.BaseAttrsParser2
 
 typealias ILayoutKAmountListener = IValueListener<Int>//(amount: Int) -> Unit
 
-class LayoutKAmount @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
+class LayoutKAmount @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     //region # private variate
     private val _attrs by lazy { LayoutKAmountParser.parseAttrs(context, attrs, defStyleAttr) }
@@ -132,7 +127,7 @@ class LayoutKAmount @JvmOverloads constructor(
         return button
     }
 
-    private object LayoutKAmountParser : BaseAttrsParser2<MAmountAttrs> {
+    private object LayoutKAmountParser : IAttrsParser2<MAmountAttrs> {
 
         const val MIN_VAL: Int = 0
         const val MAX_VAL: Int = 100
@@ -206,7 +201,7 @@ class LayoutKAmount @JvmOverloads constructor(
         }
     }
 
-    internal data class MAmountAttrs(
+    private data class MAmountAttrs(
         val minVal: Int,
         val maxVal: Int,
         val defaultAmount: Int,

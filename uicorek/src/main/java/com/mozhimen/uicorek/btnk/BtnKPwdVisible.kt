@@ -8,8 +8,8 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatImageButton
-import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.commons.IUicoreK
 
 
 /**
@@ -19,11 +19,8 @@ import com.mozhimen.uicorek.R
  * @Date 2022/11/8 17:42
  * @Version 1.0
  */
-class BtnKPwdEye @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0,
-) : AppCompatImageButton(context, attrs, defStyleAttr), View.OnClickListener, ILayoutK {
+class BtnKPwdVisible @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageButton(context, attrs, defStyleAttr), View.OnClickListener,
+    IUicoreK {
     private var _isShow = false
     private var _pwdTextEdit: EditText? = null
 
@@ -37,8 +34,8 @@ class BtnKPwdEye @JvmOverloads constructor(
         initView()
     }
 
-    override fun initFlag() {
-
+    fun setEditText(editText: EditText) {
+        _pwdTextEdit = editText
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
@@ -54,10 +51,6 @@ class BtnKPwdEye @JvmOverloads constructor(
     override fun initView() {
         toggleStatus(_isShow)
         setOnClickListener(this)
-    }
-
-    fun setEditText(editText: EditText) {
-        _pwdTextEdit = editText
     }
 
     override fun onClick(view: View) {

@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import androidx.viewpager.widget.ViewPager
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.commons.IUicoreK
 import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
@@ -39,13 +40,15 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBanner)
-        _enableScroll = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_enableScroll, _enableScroll)
-        _autoPlay = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_autoPlay, _autoPlay)
-        _loop = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_loop, _loop)
-        _intervalTime = typedArray.getInteger(R.styleable.LayoutKBanner_layoutKBanner_intervalTime, _intervalTime)
-        _scrollDuration = typedArray.getInteger(R.styleable.LayoutKBanner_layoutKBanner_scrollDuration, _scrollDuration)
-        typedArray.recycle()
+        attrs?.let {
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBanner)
+            _enableScroll = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_enableScroll, _enableScroll)
+            _autoPlay = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_autoPlay, _autoPlay)
+            _loop = typedArray.getBoolean(R.styleable.LayoutKBanner_layoutKBanner_loop, _loop)
+            _intervalTime = typedArray.getInteger(R.styleable.LayoutKBanner_layoutKBanner_intervalTime, _intervalTime)
+            _scrollDuration = typedArray.getInteger(R.styleable.LayoutKBanner_layoutKBanner_scrollDuration, _scrollDuration)
+            typedArray.recycle()
+        }
 
         setEnableScroll(_enableScroll)
         setAutoPlay(_autoPlay)

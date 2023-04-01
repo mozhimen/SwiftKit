@@ -18,9 +18,7 @@ import kotlin.math.min
  * @Date 2022/6/25 13:32
  * @Version 1.0
  */
-class ViewKScanOverlay @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : BaseViewK(context, attrs, defStyleAttr) {
+class ViewKScanOverlay @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseViewK(context, attrs, defStyleAttr) {
 
     companion object {
         private const val BOUNDING_RECT_TEXT_PADDING = 8
@@ -49,6 +47,7 @@ class ViewKScanOverlay @JvmOverloads constructor(
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ViewKScanOverlay)
         _isShowLabel = typedArray.getBoolean(R.styleable.ViewKScanOverlay_viewKScanOverlay_isShowLabel, _isShowLabel)
         _labelTextSize =

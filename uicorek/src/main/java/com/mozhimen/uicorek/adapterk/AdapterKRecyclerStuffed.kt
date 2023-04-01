@@ -1,7 +1,6 @@
-package com.mozhimen.uicorek.recyclerk
+package com.mozhimen.uicorek.adapterk
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.util.SparseArray
 import android.util.SparseIntArray
 import android.view.LayoutInflater
@@ -11,6 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.uicorek.recyclerk.RecyclerKItem
+import com.mozhimen.uicorek.vhk.VHKRecycler
 import java.lang.ref.WeakReference
 import java.lang.reflect.ParameterizedType
 import java.util.ArrayList
@@ -22,12 +23,12 @@ import java.util.ArrayList
  * @Date 2021/8/31 16:14
  * @Version 1.0
  */
-class RecyclerKAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+open class AdapterKRecyclerStuffed : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
-    private val _inflater: LayoutInflater by lazy { LayoutInflater.from(context) }
+
     private var _dataSets = ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
     private var _recyclerViewRef: WeakReference<RecyclerView>? = null
-    private val _typePositions = SparseIntArray();
+    private val _typePositions = SparseIntArray()
     private var _headers = SparseArray<View>()
     private var _footers = SparseArray<View>()
     private var BASE_ITEM_TYPE_HEADER = 1000000
@@ -125,37 +126,6 @@ class RecyclerKAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.Vie
     }
 
     /**
-     * 以每种item类型的class.hasCode为该item的viewType
-     * 把type存储起来,为了onCreateViewHolder方法能够为不同类型的item创建不同的viewHolder
-     * @param position Int
-     * @return Int
-     */
-    override fun getItemViewType(position: Int): Int {
-        if (isHeaderPosition(position)) {
-            return _headers.keyAt(position)
-        }
-        if (isFooterPosition(position)) {
-            //footer的位置应该计算一下: position=6, headerCount=1, itemCount=5, footerSize=1
-            val footerPosition = position - getHeaderSize() - getOriginalItemSize()
-            return _footers.keyAt(footerPosition)
-        }
-
-        val itemPosition = position - getHeaderSize()
-        val dataItem = _dataSets[itemPosition]
-        val type = dataItem.javaClass.hashCode()
-
-        //按照原来的写法相同的viewType仅仅只在第一次，会把viewType和dataItem关联
-        _typePositions.put(type, position)
-        return type
-    }
-
-    /**
-     * 获取item数
-     * @return Int
-     */
-    override fun getItemCount() = _dataSets.size + getHeaderSize() + getFooterSize()
-
-    /**
      * 指定刷新某个item的数据
      * @param dataItem DataKItem<*, out ViewHolder>
      */
@@ -237,6 +207,33 @@ class RecyclerKAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.Vie
         return _recyclerViewRef?.get()
     }
 
+    /**
+     * 以每种item类型的class.hasCode为该item的viewType
+     * 把type存储起来,为了onCreateViewHolder方法能够为不同类型的item创建不同的viewHolder
+     * @param position Int
+     * @return Int
+     */
+    override fun getItemViewType(position: Int): Int {
+        if (isHeaderPosition(position)) {
+            return _headers.keyAt(position)
+        }
+        if (isFooterPosition(position)) {
+            //footer的位置应该计算一下: position=6, headerCount=1, itemCount=5, footerSize=1
+            val footerPosition = position - getHeaderSize() - getOriginalItemSize()
+            return _footers.keyAt(footerPosition)
+        }
+
+        val itemPosition = position - getHeaderSize()
+        val dataItem = _dataSets[itemPosition]
+        val type = dataItem.javaClass.hashCode()
+
+        //按照原来的写法相同的viewType仅仅只在第一次，会把viewType和dataItem关联
+        _typePositions.put(type, position)
+        return type
+    }
+
+    override fun getItemCount() = _dataSets.size + getHeaderSize() + getFooterSize()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (_headers.indexOfKey(viewType) >= 0) {
             val view = _headers[viewType]
@@ -262,7 +259,7 @@ class RecyclerKAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.Vie
             if (layoutRes < 0) {
                 throw RuntimeException("dataItem: ${dataItem.javaClass.name} must override getItemView or getItemLayoutRes")
             }
-            view = _inflater.inflate(layoutRes, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(layoutRes, parent, false)
         }
 
         return createViewHolderInternal(dataItem.javaClass, view!!)
@@ -358,10 +355,7 @@ class RecyclerKAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.Vie
             //得到它携带的泛型参数的数组
             val arguments = superClass.actualTypeArguments
             //挨个遍历判单是不是需要的RecyclerView.ViewHolder类型
-            for (argument in arguments) if (argument is Class<*> && RecyclerView.ViewHolder::class.java.isAssignableFrom(
-                    argument
-                )
-            ) {
+            for (argument in arguments) if (argument is Class<*> && RecyclerView.ViewHolder::class.java.isAssignableFrom(argument)) {
                 try {
                     //如果是, 则使用反射实例化类上标记的实际的泛型对象
                     //这里需要try-catch一把, 如果咱们直接在DataKItem子类上标记RecyclerView.ViewHolder, 抽象类是不允许反射的
@@ -372,6 +366,6 @@ class RecyclerKAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.Vie
                 }
             }
         }
-        return object : RecyclerKViewHolder(view) {}
+        return object : VHKRecycler(view) {}
     }
 }

@@ -6,6 +6,7 @@ import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.uicorek.commons.IAttrsParser
 import com.mozhimen.uicorek.layoutk.side.list.mos.MSideAttrs
 
 /**
@@ -15,7 +16,7 @@ import com.mozhimen.uicorek.layoutk.side.list.mos.MSideAttrs
  * @Date 2021/12/25 16:32
  * @Version 1.0
  */
-internal object AttrsParser {
+internal object SideAttrsParser : IAttrsParser<MSideAttrs> {
     private val MENU_WIDTH = 90f.dp2px().toInt()
     private val MENU_HEIGHT = 45f.dp2px().toInt()
     private val MENU_ITEM_TEXT_SIZE = 16f.sp2px().toInt()
@@ -36,7 +37,7 @@ internal object AttrsParser {
     private val CONTENT_TEXT_COLOR = UtilKRes.getColor(R.color.blue_normal)
     private const val CONTENT_IMG_RATIO = 1f
 
-    fun parseMenuAttr(context: Context, attrs: AttributeSet?): MSideAttrs {
+    override fun parseAttrs(context: Context, attrs: AttributeSet?): MSideAttrs {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSideList)
             val menuWidth =

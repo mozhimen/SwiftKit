@@ -5,7 +5,6 @@ import android.view.View
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.textk.bubble.TextKBubble
-import com.mozhimen.uicorek.textk.bubble.TextKBubblePopWin
 
 /**
  * @ClassName PopwinKBubbleText
@@ -14,7 +13,7 @@ import com.mozhimen.uicorek.textk.bubble.TextKBubblePopWin
  * @Date 2022/9/7 11:50
  * @Version 1.0
  */
-class PopwinKBubbleText(contentView: View, textKBubble: TextKBubble) :
+class PopwinKTextKBubbleBuilder(contentView: View, textKBubble: TextKBubble) :
     TextKBubblePopWin(contentView, textKBubble) {
 
     class Builder(private val _context: Activity) {

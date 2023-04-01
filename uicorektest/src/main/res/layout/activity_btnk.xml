@@ -14,7 +14,7 @@
             android:layout_height="50dp"
             android:inputType="numberPassword" />
 
-        <com.mozhimen.uicorek.btnk.BtnKPwdEye
+        <com.mozhimen.uicorek.btnk.BtnKPwdVisible
             android:id="@+id/btnk_pwd_eye"
             android:layout_width="40dp"
             android:layout_height="40dp" />

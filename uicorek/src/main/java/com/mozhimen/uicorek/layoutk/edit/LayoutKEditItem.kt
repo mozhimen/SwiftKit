@@ -26,10 +26,7 @@ import com.mozhimen.uicorek.R
  * @Date 2021/12/18 12:56
  * @Version 1.0
  */
-class LayoutKEditItem @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0
-) :
-    BaseLayoutKLinear(context, attrs, defStyleAttr) {
+class LayoutKEditItem @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     private lateinit var _editView: EditText
     private lateinit var _titleView: TextView
@@ -43,7 +40,7 @@ class LayoutKEditItem @JvmOverloads constructor(
         showDividers = SHOW_DIVIDER_BEGINNING
         orientation = HORIZONTAL
 
-        initAttrs(attrs, defStyleAttr)
+        initAttrs(attrs)
         initPaint()
     }
 
@@ -51,31 +48,31 @@ class LayoutKEditItem @JvmOverloads constructor(
 
     fun getInputView(): EditText = _editView
 
-    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKInputItem)
+    override fun initAttrs(attrs: AttributeSet?) {
+        attrs?.let {
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKInputItem)
+            val titleResId =
+                typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_titleAppearance, 0)
+            val title =
+                typedArray.getString(R.styleable.LayoutKInputItem_layoutKInputItem_title)
+            parseTitleStyle(titleResId, title)
 
-        val titleResId =
-            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_titleAppearance, 0)
-        val title =
-            typedArray.getString(R.styleable.LayoutKInputItem_layoutKInputItem_title)
-        parseTitleStyle(titleResId, title)
+            val editResId =
+                typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_inputAppearance, 0)
+            val hint =
+                typedArray.getString(R.styleable.LayoutKInputItem_layoutKInputItem_hint)
+            val inputType =
+                typedArray.getInteger(R.styleable.LayoutKInputItem_layoutKInputItem_inputType, 0)
+            parseInputStyle(editResId, hint, inputType)
 
-        val editResId =
-            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_inputAppearance, 0)
-        val hint =
-            typedArray.getString(R.styleable.LayoutKInputItem_layoutKInputItem_hint)
-        val inputType =
-            typedArray.getInteger(R.styleable.LayoutKInputItem_layoutKInputItem_inputType, 0)
-        parseInputStyle(editResId, hint, inputType)
-
-        val topResId =
-            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_topLineAppearance, 0)
-        val bottomResId =
-            typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_bottomLineAppearance, 0)
-        _topCrossLine = parseLineStyle(topResId)
-        _bottomCrossLine = parseLineStyle(bottomResId)
-
-        typedArray.recycle()
+            val topResId =
+                typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_topLineAppearance, 0)
+            val bottomResId =
+                typedArray.getResourceId(R.styleable.LayoutKInputItem_layoutKInputItem_bottomLineAppearance, 0)
+            _topCrossLine = parseLineStyle(topResId)
+            _bottomCrossLine = parseLineStyle(bottomResId)
+            typedArray.recycle()
+        }
     }
 
     private fun initPaint() {

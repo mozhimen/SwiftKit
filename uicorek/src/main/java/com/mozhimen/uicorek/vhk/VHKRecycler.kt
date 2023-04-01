@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.recyclerk
+package com.mozhimen.uicorek.vhk
 
 import android.util.SparseArray
 import android.view.View
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @Date 2021/12/25 15:35
  * @Version 1.0
  */
-open class RecyclerKViewHolder(val containerView: View) : RecyclerView.ViewHolder(containerView) {
+open class VHKRecycler(val containerView: View) : RecyclerView.ViewHolder(containerView) {
 
     private var _viewCaches = SparseArray<View>()
 

@@ -15,18 +15,13 @@ import com.mozhimen.uicorek.R
  * @Date 2022/11/11 17:47
  * @Version 1.0
  */
-class TextKClock @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0
-) : TextClock(context, attrs, defStyleAttr, defStyleRes), ILayoutK {
+class TextKClock @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : TextClock(context, attrs, defStyleAttr, defStyleRes),
+    ILayoutK {
     private var _timeFormat: String = getTimeFormat()
 
     init {
         initAttrs(attrs, defStyleAttr)
         initView()
-    }
-
-    override fun initFlag() {
-
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {

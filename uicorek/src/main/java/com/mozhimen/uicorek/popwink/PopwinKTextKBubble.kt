@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.textk.bubble
+package com.mozhimen.uicorek.popwink
 
 import android.graphics.Rect
 import android.util.Log

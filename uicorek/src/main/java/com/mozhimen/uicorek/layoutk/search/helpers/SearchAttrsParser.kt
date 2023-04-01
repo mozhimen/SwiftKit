@@ -8,16 +8,17 @@ import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.res.UtilKTheme
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.commons.IAttrsParser2
 import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs
 
-internal object AttrsParser {
-    fun parseSearchViewAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MSearchAttrs {
+internal object SearchAttrsParser : IAttrsParser2<MSearchAttrs> {
+
+    override fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MSearchAttrs {
         val value = TypedValue()
-        UtilKTheme.get(context).resolveAttribute(R.attr.LayoutKSearch_LayoutKSearch_Style, value, true)
+        UtilKTheme.resolveAttribute(context, R.attr.LayoutKSearch_LayoutKSearch_Style, value, true)
         val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKSearch_Style
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSearch, defStyleAttr, defStyleRes)
-
         //search icon
         val searchIcon = typedArray.getString(
             R.styleable.LayoutKSearch_layoutKSearch_search_icon
@@ -79,7 +80,6 @@ internal object AttrsParser {
         val keywordPadding = typedArray.getDimensionPixelOffset(
             R.styleable.LayoutKSearch_layoutKSearch_keyword_padding, 12f.sp2px().toInt()
         )
-
         typedArray.recycle()
 
         return MSearchAttrs(

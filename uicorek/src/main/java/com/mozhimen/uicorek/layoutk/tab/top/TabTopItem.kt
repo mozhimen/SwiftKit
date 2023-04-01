@@ -13,7 +13,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.fontStyle
+import com.mozhimen.basick.utilk.exts.setTextStyle
 import com.mozhimen.basick.utilk.exts.resizeSize
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabItem
@@ -125,12 +125,12 @@ class TabTopItem @JvmOverloads constructor(
                 _tabIndicator.setBackgroundColor(_tabTopItem!!.colorSelected!!)
                 _tabNameView.setTextColor(_tabTopItem!!.colorSelected!!)
                 _tabNameView.textSize = 17f
-                _tabNameView.fontStyle(Typeface.BOLD)
+                _tabNameView.setTextStyle(Typeface.BOLD)
             } else {
                 _tabIndicator.visibility = GONE
                 _tabNameView.setTextColor(_tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 16f
-                _tabNameView.fontStyle(Typeface.NORMAL)
+                _tabNameView.setTextStyle(Typeface.NORMAL)
             }
         } else if (_tabTopItem!!.tabType == ETabTopType.IMAGE) {
             if (init) {
@@ -163,14 +163,14 @@ class TabTopItem @JvmOverloads constructor(
                 _tabImageView.resizeSize(25f.dp2px().toInt())
                 _tabNameView.setTextColor(_tabTopItem!!.colorSelected ?: _tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 17f
-                _tabNameView.fontStyle(Typeface.BOLD)
+                _tabNameView.setTextStyle(Typeface.BOLD)
             } else {
                 _tabIndicator.visibility = GONE
                 _tabImageView.loadImage(_tabTopItem!!.bitmapDefault!!)
                 _tabImageView.resizeSize(24f.dp2px().toInt())
                 _tabNameView.setTextColor(_tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 16f
-                _tabNameView.fontStyle(Typeface.NORMAL)
+                _tabNameView.setTextStyle(Typeface.NORMAL)
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.recyclerk
+package com.mozhimen.uicorek.adapterk
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -30,16 +30,16 @@ import kotlinx.coroutines.launch
  * }}}
  * viewBinding.mainList.adapter=adapter
  */
-typealias IRecyclerKVBAdapterStuffedListener<BEAN, VB> = (holder: RecyclerKVBAdapterStuffed.MultipleViewHolder<VB>, itemData: BEAN, position: Int, currentSelectPos: Int) -> Unit
+typealias IAdapterKRecyclerVBStuffedListener<BEAN, VB> = (holder: AdapterKRecyclerVBStuffed.MultipleViewHolder<VB>, itemData: BEAN, position: Int, currentSelectPos: Int) -> Unit
 
-open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
+open class AdapterKRecyclerVBStuffed<DATA, VB : ViewDataBinding>(
     private var _itemDatas: List<DATA>,
     private var _defaultLayout: Int,
     private var _headerLayout: Int?,
     private var _footerLayout: Int?,
     private var _brId: Int,
-    private var _listener: IRecyclerKVBAdapterStuffedListener<DATA, VB>? = null
-) : RecyclerView.Adapter<RecyclerKVBAdapterStuffed.MultipleViewHolder<VB>>(), IDefaultLifecycleObserver {
+    private var _listener: IAdapterKRecyclerVBStuffedListener<DATA, VB>? = null
+) : RecyclerView.Adapter<AdapterKRecyclerVBStuffed.MultipleViewHolder<VB>>(), IDefaultLifecycleObserver {
 
     private val TAG = "RecyclerKVBAdapterStuffed>>>>>"
 
@@ -169,8 +169,8 @@ open class RecyclerKVBAdapterStuffed<DATA, VB : ViewDataBinding>(
 
     override fun bindLifecycle(owner: LifecycleOwner) {
         owner.lifecycleScope.launch(Dispatchers.Main) {
-            owner.lifecycle.removeObserver(this@RecyclerKVBAdapterStuffed)
-            owner.lifecycle.addObserver(this@RecyclerKVBAdapterStuffed)
+            owner.lifecycle.removeObserver(this@AdapterKRecyclerVBStuffed)
+            owner.lifecycle.addObserver(this@AdapterKRecyclerVBStuffed)
         }
     }
 

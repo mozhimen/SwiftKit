@@ -15,7 +15,7 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkChipGroupBinding
  */
 class LayoutKChipGroupActivity : BaseActivityVB<ActivityLayoutkChipGroupBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.layoutkChips.bindKeys(
+        vb.layoutkChipGroup.bindKeys(
             arrayListOf(
                 MKey("0", "赛博朋克2077"),
                 MKey("1", "老头环"),
@@ -27,14 +27,14 @@ class LayoutKChipGroupActivity : BaseActivityVB<ActivityLayoutkChipGroupBinding>
                 MKey("7", "文明6")
             )
         )
-        vb.layoutkChips.setOnCheckedListener { _, i, dataKKey ->
+        vb.layoutkChipGroup.setOnCheckedListener { _, i, dataKKey ->
             "index: $i dataKey: ${dataKKey.id} ${dataKKey.name}".showToast()
         }
-        vb.layoutkChipsAdd.setOnClickListener {
-            vb.layoutkChips.addKey(MKey("ss", "原神"))
+        vb.layoutkChipGroupAdd.setOnClickListener {
+            vb.layoutkChipGroup.addKey(MKey("ss", "原神"))
         }
-        vb.layoutkChipsRemove.setOnClickListener {
-            vb.layoutkChips.removeKey(MKey("ss", "原神"))
+        vb.layoutkChipGroupRemove.setOnClickListener {
+            vb.layoutkChipGroup.removeKey(MKey("ss", "原神"))
         }
     }
 }

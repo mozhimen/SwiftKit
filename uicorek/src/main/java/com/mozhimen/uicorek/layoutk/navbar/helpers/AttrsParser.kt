@@ -9,6 +9,7 @@ import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.res.UtilKTheme
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.commons.IAttrsParser2
 import com.mozhimen.uicorek.layoutk.navbar.mos.MNavBarAttrs
 
 /**
@@ -18,7 +19,7 @@ import com.mozhimen.uicorek.layoutk.navbar.mos.MNavBarAttrs
  * @Date 2022/3/2 14:41
  * @Version 1.0
  */
-internal object AttrsParser {
+internal object AttrsParser : IAttrsParser2<MNavBarAttrs> {
     private const val TITLE_TEXT = "请填写你的标题"
     private val TITLE_TEXT_SIZE = 17f.sp2px().toInt()
     private const val TITLE_TEXT_COLOR = Color.BLACK
@@ -28,25 +29,20 @@ internal object AttrsParser {
     private val LINE_COLOR = UtilKRes.getColor(R.color.gray_light)
     private val LINE_WIDTH = 0f.dp2px().toInt()
 
-    fun parseNavAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MNavBarAttrs {
-        val value = TypedValue()
-        UtilKTheme.get(context).resolveAttribute(R.attr.LayoutKNavBar_LayoutKNavBar_Style, value, true)
+    override fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MNavBarAttrs {
+        val typedValue = TypedValue()
+        UtilKTheme.resolveAttribute(context, R.attr.LayoutKNavBar_LayoutKNavBar_Style, typedValue, true)
+        val defStyleRes = if (typedValue.resourceId != 0) typedValue.resourceId else R.style.LayoutKNavBar_Style//xml-->theme.navigationStyle---navigationStyle
 
-        //xml-->theme.navigationStyle---navigationStyle
-        val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKNavBar_Style
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKNavBar, defStyleAttr, defStyleRes)
-
-        //标题
         val titleStr =
-            typedArray.getString(R.styleable.LayoutKNavBar_layoutKNavBar_title) ?: TITLE_TEXT
+            typedArray.getString(R.styleable.LayoutKNavBar_layoutKNavBar_title) ?: TITLE_TEXT//标题
         val titleTextColor =
             typedArray.getColor(R.styleable.LayoutKNavBar_layoutKNavBar_title_textColor, TITLE_TEXT_COLOR)
         val titleTextSize =
             typedArray.getDimensionPixelSize(R.styleable.LayoutKNavBar_layoutKNavBar_title_textSize, TITLE_TEXT_SIZE)
-
-        //副标题
         val subTitleStr =
-            typedArray.getString(R.styleable.LayoutKNavBar_layoutKNavBar_subTitle)
+            typedArray.getString(R.styleable.LayoutKNavBar_layoutKNavBar_subTitle)//副标题
         val subTitleTextSize =
             typedArray.getDimensionPixelSize(R.styleable.LayoutKNavBar_layoutKNavBar_subTitle_textSize, SUBTITLE_TEXT_SIZE)
         val subTitleTextColor =

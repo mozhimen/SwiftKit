@@ -16,18 +16,19 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mozhimen.basick.elemk.commons.IValue2Listener2
 import com.mozhimen.basick.imagek.loader.exts.loadImageComplex
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
-import com.mozhimen.basick.utilk.exts.fontStyle
+import com.mozhimen.basick.utilk.exts.setTextStyle
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.recyclerk.RecyclerKViewHolder
-import com.mozhimen.uicorek.layoutk.side.list.helpers.AttrsParser
+import com.mozhimen.uicorek.vhk.VHKRecycler
+import com.mozhimen.uicorek.layoutk.side.list.helpers.SideAttrsParser
 import com.mozhimen.uicorek.layoutk.side.list.temps.SideSubItemDecoration
 import com.mozhimen.uicorek.layoutk.side.list.mos.*
 
-typealias ILayoutKSideListListener = (holder: RecyclerKViewHolder, item: MSideSubContent?) -> Unit
+typealias ILayoutKSideListListener = IValue2Listener2<VHKRecycler, MSideSubContent?>//(viewHolder: VHKRecycler, content: MSideSubContent?) -> Unit
 
 /**
  * @ClassName LayoutKSideList
@@ -37,13 +38,11 @@ typealias ILayoutKSideListListener = (holder: RecyclerKViewHolder, item: MSideSu
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.INTERNET)
-class LayoutKSideList @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
+class LayoutKSideList @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     private val _menuView by lazy { RecyclerView(context) }
     private val _contentView by lazy { RecyclerView(context) }
-    private val _attr: MSideAttrs by lazy { AttrsParser.parseMenuAttr(context, attrs) }
+    private val _attr: MSideAttrs by lazy { SideAttrsParser.parseAttrs(context, attrs) }
     private val _subSpanSizeOffset = SparseIntArray()
 
     private var _menuLayoutId = R.layout.layoutk_side_menu_item
@@ -169,11 +168,11 @@ class LayoutKSideList @JvmOverloads constructor(
     inner class SideMenuAdapter(
         private val _mo: MSide,
         private val _layoutId: Int,
-    ) : RecyclerView.Adapter<RecyclerKViewHolder>() {
+    ) : RecyclerView.Adapter<VHKRecycler>() {
         private var _currentSelectIndex = 0//本次选中的item的位置
         private var _lastSelectIndex = 0//上一次选中的item的位置
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerKViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VHKRecycler {
             val itemView = LayoutInflater.from(context).inflate(_layoutId, parent, false)
             val layoutParams = RecyclerView.LayoutParams(_attr.menuWidth, _attr.menuHeight)
 
@@ -181,12 +180,12 @@ class LayoutKSideList @JvmOverloads constructor(
             itemView.setBackgroundColor(_attr.menuItemBgColor)
             itemView.findViewById<TextView>(R.id.layoutk_side_menu_item_title)?.setTextColor(_attr.menuItemTextColor)
             itemView.findViewById<ImageView>(R.id.layoutk_side_menu_item_indicator)?.setImageDrawable(_attr.menuItemIndicator)
-            return RecyclerKViewHolder(itemView)
+            return VHKRecycler(itemView)
         }
 
         override fun getItemCount(): Int = _mo.menus.size
 
-        override fun onBindViewHolder(holder: RecyclerKViewHolder, @SuppressLint("RecyclerView") position: Int) {
+        override fun onBindViewHolder(holder: VHKRecycler, @SuppressLint("RecyclerView") position: Int) {
             holder.itemView.setOnClickListener {
                 _currentSelectIndex = position
                 notifyItemChanged(position)
@@ -202,12 +201,12 @@ class LayoutKSideList @JvmOverloads constructor(
             bindMenuView(holder, position)
         }
 
-        private fun bindMenuView(holder: RecyclerKViewHolder, position: Int) {
+        private fun bindMenuView(holder: VHKRecycler, position: Int) {
             if (position in _mo.menus.indices)
                 holder.findViewById<TextView>(R.id.layoutk_side_menu_item_title)?.text = _mo.menus[position].menuName
         }
 
-        private fun applyMenuItemAttr(position: Int, holder: RecyclerKViewHolder) {
+        private fun applyMenuItemAttr(position: Int, holder: VHKRecycler) {
             val selected = position == _currentSelectIndex
             val titleView: TextView? = holder.itemView.findViewById(R.id.layoutk_side_menu_item_title)
             val indicatorView: ImageView? = holder.itemView.findViewById(R.id.layoutk_side_menu_item_indicator)
@@ -215,7 +214,7 @@ class LayoutKSideList @JvmOverloads constructor(
             indicatorView?.visibility = if (selected) View.VISIBLE else View.GONE
             titleView?.apply {
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, (if (selected) _attr.menuItemTextSizeSelect else _attr.menuItemTextSize).toFloat())
-                if (selected) fontStyle(Typeface.BOLD) else fontStyle()
+                if (selected) setTextStyle(Typeface.BOLD) else setTextStyle()
             }
             holder.itemView.setBackgroundColor(if (selected) _attr.menuItemBgColorSelect else _attr.menuItemBgColor)
             titleView?.isSelected = selected
@@ -224,19 +223,19 @@ class LayoutKSideList @JvmOverloads constructor(
 
     inner class SideContentAdapter(
         private var _mo: MSideMenu
-    ) : RecyclerView.Adapter<RecyclerKViewHolder>() {
+    ) : RecyclerView.Adapter<VHKRecycler>() {
 
         fun update(mo: MSideMenu) {
             this._mo = mo
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerKViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VHKRecycler {
             val itemView = LayoutInflater.from(context).inflate(_contentLayoutId, parent, false)
             itemView.findViewById<TextView>(R.id.layoutk_side_content_item_txt)?.apply {
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, _attr.contentTextSize.toFloat())
                 setTextColor(_attr.contentTextColor)
             }
-            return RecyclerKViewHolder(itemView)
+            return VHKRecycler(itemView)
         }
 
         override fun getItemCount(): Int {
@@ -247,21 +246,21 @@ class LayoutKSideList @JvmOverloads constructor(
             return count
         }
 
-        override fun onBindViewHolder(holder: RecyclerKViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: VHKRecycler, position: Int) {
             bindContentView(holder, position)
             holder.itemView.setOnClickListener {
                 _layoutKSideListListener?.invoke(holder, getContentByPosition(_mo, position))
             }
         }
 
-        private fun bindContentView(holder: RecyclerKViewHolder, position: Int) {
+        private fun bindContentView(holder: VHKRecycler, position: Int) {
             val contentMo = getContentByPosition(_mo, position)
             holder.findViewById<TextView>(R.id.layoutk_side_content_item_txt)?.text = contentMo?.contentName ?: "暂无数据"
             holder.findViewById<ImageView>(R.id.layoutk_side_content_item_img)
                 ?.loadImageComplex(contentMo?.contentImageUrl ?: "", placeholder = R.mipmap.layoutk_refresh_loading, error = R.mipmap.layoutk_empty)
         }
 
-        override fun onViewAttachedToWindow(holder: RecyclerKViewHolder) {
+        override fun onViewAttachedToWindow(holder: VHKRecycler) {
             super.onViewAttachedToWindow(holder)
             val remainScope = width - paddingLeft - paddingRight - _attr.menuWidth
             val layoutManager = _contentView.layoutManager

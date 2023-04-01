@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.utilk.exts.font
+import com.mozhimen.basick.utilk.exts.setIconFont
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 
@@ -19,10 +19,7 @@ import com.mozhimen.uicorek.R
  * @Date 2022/4/22 18:28
  * @Version 1.0
  */
-class LayoutKEmpty @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) :
-    BaseLayoutKLinear(context, attrs, defStyleAttr) {
+class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
     private var _imageResId: Int? = null
     private var _iconFont: String? = null
@@ -46,14 +43,16 @@ class LayoutKEmpty @JvmOverloads constructor(
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKEmpty)
-        _imageResId = typedArray.getResourceId(R.styleable.LayoutKEmpty_layoutKEmpty_image, -1)
-        _iconFont = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_iconFont)
-        _titleStr = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_title)
-        _contentStr = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_content)
-        _helpIconFont = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_helpIconFont)
-        _btnStr = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_buttonTitle)
-        typedArray.recycle()
+        attrs?.let {
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKEmpty)
+            _imageResId = typedArray.getResourceId(R.styleable.LayoutKEmpty_layoutKEmpty_image, -1)
+            _iconFont = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_iconFont)
+            _titleStr = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_title)
+            _contentStr = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_content)
+            _helpIconFont = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_helpIconFont)
+            _btnStr = typedArray.getString(R.styleable.LayoutKEmpty_layoutKEmpty_buttonTitle)
+            typedArray.recycle()
+        }
     }
 
     override fun initView() {
@@ -96,7 +95,7 @@ class LayoutKEmpty @JvmOverloads constructor(
     fun setIcon(iconStr: String?) {
         _iconView.visibility = if (iconStr != null && !TextUtils.isEmpty(iconStr)) {
             _iconView.text = iconStr
-            _iconView.font()
+            _iconView.setIconFont()
             VISIBLE
         } else GONE
     }

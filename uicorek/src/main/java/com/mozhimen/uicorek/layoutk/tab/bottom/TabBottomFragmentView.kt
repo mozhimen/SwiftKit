@@ -13,9 +13,7 @@ import com.mozhimen.uicorek.layoutk.tab.bottom.helpers.TabBottomFragmentAdapter
  * @Date 2022/4/15 21:07
  * @Version 1.0
  */
-class TabBottomFragmentView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) :
+class TabBottomFragmentView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr) {
 
     private var _adapter: TabBottomFragmentAdapter? = null

@@ -21,6 +21,7 @@ import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.graphics.UtilKRenderScript
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig
+import com.mozhimen.uicorek.commons.IUicoreK
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -31,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @Version 1.0
  */
 class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatImageView(context, attrs, defStyleAttr) {
+    AppCompatImageView(context, attrs, defStyleAttr), IUicoreK {
 
     companion object {
         private const val TAG = "ImageKBlur>>>>>"

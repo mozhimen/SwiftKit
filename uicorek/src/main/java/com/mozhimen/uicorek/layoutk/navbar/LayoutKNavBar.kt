@@ -18,8 +18,8 @@ import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.drawable2Bitmap
 import com.mozhimen.basick.utilk.exts.sp2px
 import com.mozhimen.basick.utilk.exts.setPaddingHorizontal
-import com.mozhimen.basick.utilk.exts.font
-import com.mozhimen.basick.utilk.exts.fontStyle
+import com.mozhimen.basick.utilk.exts.setIconFont
+import com.mozhimen.basick.utilk.exts.setTextStyle
 import com.mozhimen.uicorek.layoutk.navbar.helpers.AttrsParser
 import com.mozhimen.uicorek.layoutk.navbar.mos.MNavBarAttrs
 import java.util.*
@@ -31,9 +31,7 @@ import java.util.*
  * @Date 2022/3/2 14:35
  * @Version 1.0
  */
-class LayoutKNavBar @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
+class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
 
     private var _subTitleView: TextView? = null
     private var _titleView: TextView = TextView(context)
@@ -208,7 +206,7 @@ class LayoutKNavBar @JvmOverloads constructor(
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        _attrs = AttrsParser.parseNavAttrs(context, attrs, defStyleAttr)
+        _attrs = AttrsParser.parseAttrs(context, attrs, defStyleAttr)
     }
 
     override fun initView() {
@@ -226,7 +224,7 @@ class LayoutKNavBar @JvmOverloads constructor(
             isSingleLine = true
             ellipsize = TextUtils.TruncateAt.END
             setTextColor(titleColor)
-            fontStyle(Typeface.BOLD)
+            setTextStyle(Typeface.BOLD)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())
             text = title
         }
@@ -318,7 +316,7 @@ class LayoutKNavBar @JvmOverloads constructor(
             setTextSize(TypedValue.COMPLEX_UNIT_PX, iconTextSize.toFloat())
             setTextColor(iconColor)
             text = iconStr
-            font(iconFontPath)
+            setIconFont(iconFontPath)
         }
         return btnKIconFont
     }

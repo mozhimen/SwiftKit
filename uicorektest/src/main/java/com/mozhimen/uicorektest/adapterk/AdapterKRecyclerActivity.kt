@@ -1,12 +1,12 @@
-package com.mozhimen.uicorektest.recyclerk
+package com.mozhimen.uicorektest.adapterk
 
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
-import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
-import com.mozhimen.uicorektest.databinding.ActivityRecyclerkAdapterBinding
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorektest.databinding.ActivityAdapterkRecyclerBinding
 import com.mozhimen.uicorektest.recyclerk.mos.*
 
 /**
@@ -16,17 +16,17 @@ import com.mozhimen.uicorektest.recyclerk.mos.*
  * @Date 2021/9/1 16:16
  * @Version 1.0
  */
-class RecyclerKAdapterActivity : BaseActivityVB<ActivityRecyclerkAdapterBinding>() {
+class AdapterKRecyclerActivity : BaseActivityVB<ActivityAdapterkRecyclerBinding>() {
 
+    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
     override fun initView(savedInstanceState: Bundle?) {
         initAdapter()
     }
 
     private fun initAdapter() {
-        val recyclerKAdapter = RecyclerKAdapter(this)
-        vb.recyclerkRecycler.apply {
-            layoutManager = GridLayoutManager(this@RecyclerKAdapterActivity, 2)
-            adapter = recyclerKAdapter
+        vb.adapterkRecycler.apply {
+            layoutManager = GridLayoutManager(this@AdapterKRecyclerActivity, 2)
+            adapter = _adapterKRecyclerStuffed
         }
 
         val dataSets = ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
@@ -47,6 +47,6 @@ class RecyclerKAdapterActivity : BaseActivityVB<ActivityRecyclerkAdapterBinding>
                 dataSets.add(RecyclerKItemImage(1))
             }
         }
-        recyclerKAdapter.addItems(dataSets, false)
+        _adapterKRecyclerStuffed.addItems(dataSets, false)
     }
 }

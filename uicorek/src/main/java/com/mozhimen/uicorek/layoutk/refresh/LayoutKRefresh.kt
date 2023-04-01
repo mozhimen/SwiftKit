@@ -26,9 +26,7 @@ import kotlin.math.abs
  * @Date 2022/4/18 10:57
  * @Version 1.0
  */
-open class LayoutKRefresh @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) :
+open class LayoutKRefresh @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr), IRefresh {
     private lateinit var _gestureDetector: GestureDetector
     private lateinit var _autoScroller: AutoScroller

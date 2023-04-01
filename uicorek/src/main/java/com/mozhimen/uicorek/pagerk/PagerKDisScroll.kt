@@ -13,19 +13,11 @@ import androidx.viewpager.widget.ViewPager
  * @Date 2022/1/27 21:39
  * @Version 1.0
  */
-open class PagerKNoScroll @JvmOverloads constructor(
+open class PagerKDisScroll @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
 ) : ViewPager(context, attrs) {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
-    protected var _isEnableScroll = true
-
-    /**
-     * 是否enableScroll
-     * @param isEnableScroll Boolean
-     */
-    fun setEnableScroll(isEnableScroll: Boolean) {
-        _isEnableScroll = isEnableScroll
-    }
+    protected var isEnableScroll = true//是否enableScroll
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
@@ -34,7 +26,7 @@ open class PagerKNoScroll @JvmOverloads constructor(
         //super.onTouchEvent(ev) //不行,
         //虽然onInterceptTouchEvent中拦截了,
         //但是如果viewpage里面子控件不是viewGroup,还是会调用这个方法.
-        return if (_isEnableScroll) {
+        return if (isEnableScroll) {
             super.onTouchEvent(ev)
         } else {
             true// 可行,消费,拦截事件
@@ -48,7 +40,7 @@ open class PagerKNoScroll @JvmOverloads constructor(
      */
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
         // return false//可行,不拦截事件,
-        return if (_isEnableScroll) {
+        return if (isEnableScroll) {
             super.onInterceptTouchEvent(ev)
         } else {
             false

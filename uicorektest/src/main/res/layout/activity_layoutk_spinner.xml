@@ -7,8 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mozhimen.uicorek.adapterk.AdapterKSpinner
-            android:id="@+id/adapterk_spinner"
+        <com.mozhimen.uicorek.layoutk.LayoutKSpinner
+            android:id="@+id/layoutk_spinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@null"

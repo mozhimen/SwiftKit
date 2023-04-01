@@ -49,12 +49,16 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
         start<LayoutKChipGroupActivity>()
     }
 
+    fun goLayoutKEditItem(view: View) {
+        start<LayoutKEditItemActivity>()
+    }
+
     fun goLayoutKEmpty(view: View) {
         start<LayoutKEmptyActivity>()
     }
 
-    fun goLayoutKInputItem(view: View) {
-        start<LayoutKInputItemActivity>()
+    fun goLayoutKSpinner(view: View) {
+        start<LayoutKSpinnerActivity>()
     }
 
     fun goLayoutKSquare(view: View) {

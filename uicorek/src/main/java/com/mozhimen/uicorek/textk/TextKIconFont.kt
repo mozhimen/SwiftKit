@@ -3,7 +3,8 @@ package com.mozhimen.uicorek.textk
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basick.utilk.exts.font
+import com.mozhimen.basick.utilk.exts.setIconFont
+import com.mozhimen.basick.utilk.view.UtilKTextView
 import com.mozhimen.uicorek.R
 
 /**
@@ -16,20 +17,23 @@ import com.mozhimen.uicorek.R
 class TextKIconFont @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatTextView(context, attrs, defStyleAttr) {
 
-    private var _fontPath = "icons/iconfont.ttf"
+    private var _iconfontPath = "icons/iconfont.ttf"
 
     init {
         initAttrs(attrs)
-        initView()
+        setIconFont(_iconfontPath)
     }
 
     fun initAttrs(attrs: AttributeSet?) {
+        attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKIconFont)
-        _fontPath = typedArray.getString(R.styleable.TextKIconFont_textKIconFont_fontPath) ?: _fontPath
+        _iconfontPath = typedArray.getString(R.styleable.TextKIconFont_textKIconFont_fontPath) ?: _iconfontPath
         typedArray.recycle()
     }
 
-    fun initView() {
-        font(_fontPath)
+    fun setIconFontPath(iconFontPath: String) {
+        UtilKTextView.setIconFont(this, iconFontPath.also { _iconfontPath = it })
     }
+
+    fun getIconFontPath() = _iconfontPath
 }

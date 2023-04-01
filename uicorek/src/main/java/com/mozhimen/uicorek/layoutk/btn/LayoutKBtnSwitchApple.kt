@@ -14,6 +14,7 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
+import com.mozhimen.basick.elemk.commons.IValueListener
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R
@@ -25,9 +26,9 @@ import com.mozhimen.uicorek.R
  * @Date 2021/11/30 14:35
  * @Version 1.0
  */
-class LayoutKBtnSwitchApple @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : BaseLayoutKFrame(context, attrs, defStyleAttr), View.OnClickListener {
+typealias ISwitchAppleListener = IValueListener<Boolean>//(switch: Boolean) -> Unit
+
+class LayoutKBtnSwitchApple @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleAttr), View.OnClickListener {
 
     //region #variate
     private var _bgColorOn = 0x4DD865
@@ -48,15 +49,14 @@ class LayoutKBtnSwitchApple @JvmOverloads constructor(
     private var _switchAppleListener: ISwitchAppleListener? = null
     //endregion
 
-    interface ISwitchAppleListener {
-        fun switch(status: Boolean)
-    }
-
     fun setOnSwitchListener(ISwitchAppleListener: ISwitchAppleListener) {
         _switchAppleListener = ISwitchAppleListener
     }
 
-    //设置初始状态,也可以在xml中设置-> app:switchApple_defaultStatus = false|true
+    /**
+     * 设置初始状态,也可以在xml中设置-> app:switchApple_defaultStatus = false|true
+     * @param status Boolean
+     */
     fun setDefaultStatus(status: Boolean) {
         _defaultStatus = status
         _switchStatus = _defaultStatus
@@ -67,28 +67,6 @@ class LayoutKBtnSwitchApple @JvmOverloads constructor(
 
     //region #private function
     init {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBtnSwitchApple)
-        _defaultStatus =
-            typedArray.getBoolean(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_defaultStatus, _defaultStatus)
-                .also { _switchStatus = it }
-        _bgColorOn = typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_bgColorOn, _bgColorOn)
-        _bgColorOff = typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_bgColorOff, _bgColorOff)
-        _bgColorBorder =
-            typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_borderColor, _bgColorBorder)
-        _iconColorBtn =
-            typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_btnColor, _iconColorBtn)
-        _iconMargin =
-            typedArray.getDimensionPixelSize(
-                R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_btnMargin,
-                _iconMargin
-            )
-        _borderWidth =
-            typedArray.getDimensionPixelSize(
-                R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_borderWidth,
-                _borderWidth
-            )
-        _animTime = typedArray.getInteger(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_animTime, _animTime)
-        typedArray.recycle()
 
         //init view
         _bgView = ImageView(context)
@@ -105,6 +83,25 @@ class LayoutKBtnSwitchApple @JvmOverloads constructor(
 
         //register listener
         setOnClickListener(this)
+    }
+
+    override fun initAttrs(attrs: AttributeSet?) {
+        attrs?.let {
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBtnSwitchApple)
+            _defaultStatus = typedArray.getBoolean(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_defaultStatus, _defaultStatus).also { _switchStatus = it }
+            _bgColorOn = typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_bgColorOn, _bgColorOn)
+            _bgColorOff = typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_bgColorOff, _bgColorOff)
+            _bgColorBorder = typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_borderColor, _bgColorBorder)
+            _iconColorBtn = typedArray.getColor(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_btnColor, _iconColorBtn)
+            _iconMargin = typedArray.getDimensionPixelSize(
+                R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_btnMargin, _iconMargin
+            )
+            _borderWidth = typedArray.getDimensionPixelSize(
+                R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_borderWidth, _borderWidth
+            )
+            _animTime = typedArray.getInteger(R.styleable.LayoutKBtnSwitchApple_layoutKBtnSwitchApple_animTime, _animTime)
+            typedArray.recycle()
+        }
     }
 
     override fun onClick(v: View?) {
@@ -175,33 +172,21 @@ class LayoutKBtnSwitchApple @JvmOverloads constructor(
         animation = if (!_defaultStatus) {
             if (status) {
                 TranslateAnimation(
-                    0f,
-                    w - _iconView.layoutParams.width - _iconMargin * 2,
-                    0f,
-                    0f
+                    0f, w - _iconView.layoutParams.width - _iconMargin * 2, 0f, 0f
                 )
             } else {
                 TranslateAnimation(
-                    w - _iconView.layoutParams.width - _iconMargin * 2,
-                    0f,
-                    0f,
-                    0f
+                    w - _iconView.layoutParams.width - _iconMargin * 2, 0f, 0f, 0f
                 )
             }
         } else {
             if (status) {
                 TranslateAnimation(
-                    -(w - _iconView.layoutParams.width - _iconMargin * 2),
-                    0f,
-                    0f,
-                    0f
+                    -(w - _iconView.layoutParams.width - _iconMargin * 2), 0f, 0f, 0f
                 )
             } else {
                 TranslateAnimation(
-                    0f,
-                    -(w - _iconView.layoutParams.width - _iconMargin * 2),
-                    0f,
-                    0f
+                    0f, -(w - _iconView.layoutParams.width - _iconMargin * 2), 0f, 0f
                 )
             }
         }
@@ -214,7 +199,7 @@ class LayoutKBtnSwitchApple @JvmOverloads constructor(
                 _isAnimRunning = true
 
                 //如果想动画结束再执行回调的话,就把这段话放在onAnimationEnd就阔以了
-                _switchAppleListener?.switch(status)
+                _switchAppleListener?.invoke(status)
             }
 
             override fun onAnimationEnd(animation: Animation) {
@@ -229,17 +214,11 @@ class LayoutKBtnSwitchApple @JvmOverloads constructor(
         val background = _bgView.background as GradientDrawable
         val animator: ValueAnimator = if (status) {
             ObjectAnimator.ofInt(
-                background,
-                "color",
-                _bgColorOff,
-                _bgColorOn
+                background, "color", _bgColorOff, _bgColorOn
             )
         } else {
             ObjectAnimator.ofInt(
-                background,
-                "color",
-                _bgColorOn,
-                _bgColorOff
+                background, "color", _bgColorOn, _bgColorOff
             )
         }
         animator.duration = _animTime.toLong()

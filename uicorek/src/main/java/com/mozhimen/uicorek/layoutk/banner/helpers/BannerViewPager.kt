@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
 import com.mozhimen.basick.utilk.exts.et
-import com.mozhimen.uicorek.pagerk.PagerKNoScroll
+import com.mozhimen.uicorek.pagerk.PagerKDisScroll
 import java.lang.Exception
 
 /**
@@ -20,7 +20,7 @@ import java.lang.Exception
  * @Version 1.0
  */
 class BannerViewPager @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) :
-    PagerKNoScroll(context, attrs) {
+    PagerKDisScroll(context, attrs) {
 
 
     private var _intervalTime = 0

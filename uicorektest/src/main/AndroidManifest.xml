@@ -19,25 +19,25 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--adapterk-->
+        </activity> <!-- adapterk -->
         <activity
             android:name=".adapterk.AdapterKActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".adapterk.AdapterKRecyclerActivity"
             android:exported="false" /> <!-- btnk -->
         <activity
             android:name=".btnk.BtnKActivity"
             android:exported="false" /> <!-- dialogk -->
         <activity
             android:name=".dialogk.DialogKActivity"
-            android:exported="false" />
-        <!--drawablek-->
+            android:exported="false" /> <!-- drawablek -->
         <activity
             android:name=".drawablek.DrawableKArrowActivity"
             android:exported="false" />
         <activity
             android:name=".drawablek.DrawableKActivity"
-            android:exported="false" />
-        <!--imagek -->
+            android:exported="false" /> <!-- imagek -->
         <activity
             android:name=".imagek.ImageKActivity"
             android:exported="false" />
@@ -45,10 +45,13 @@
             android:name=".imagek.ImageKBindingAdapterActivity"
             android:exported="false" /> <!-- layoutk -->
         <activity
+            android:name=".layoutk.LayoutKSpinnerActivity"
+            android:exported="false" />
+        <activity
             android:name=".layoutk.LayoutKActivity"
             android:exported="false" />
         <activity
-            android:name=".layoutk.LayoutKInputItemActivity"
+            android:name=".layoutk.LayoutKEditItemActivity"
             android:exported="false" />
         <activity
             android:name=".layoutk.LayoutKBtnActivity"
@@ -103,18 +106,16 @@
             android:exported="false" />
         <activity
             android:name=".layoutk.tab.LayoutKTabTopLayoutActivity"
-            android:exported="false" />
-        <!--popwink-->
+            android:exported="false" /> <!-- popwink -->
         <activity
             android:name=".popwink.PopwinKActivity"
-            android:exported="false" />
-        <!-- recyclerk -->
+            android:exported="false" /> <!-- recyclerk -->
         <activity
             android:name=".recyclerk.RecyclerKActivity"
             android:exported="false" />
         <activity
-            android:name=".recyclerk.RecyclerKAdapterActivity"
-            android:exported="false" />
+            android:name=".recyclerk.RecyclerKLifecycleActivity"
+            android:exported="false"/>
         <activity
             android:name=".recyclerk.RecyclerKLoadActivity"
             android:exported="false" /> <!-- textk -->

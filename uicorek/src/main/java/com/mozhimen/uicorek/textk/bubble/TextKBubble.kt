@@ -16,14 +16,13 @@ import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubbleListener
  * @Date 2022/9/5 13:09
  * @Version 1.0
  */
-class TextKBubble @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) :
+class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatTextView(context, attrs, defStyleAttr), ITextKBubble, ITextKBubbleListener {
 
     //region # variate
     private val TAG = "TextKBubble>>>>>"
     private val _textKBubbleProxy: TextKBubbleProxy by lazy { TextKBubbleProxy(context) }
+
     override fun setArrowDirection(arrowDirection: EArrowDirection) {
         _textKBubbleProxy.setArrowDirection(arrowDirection)
     }

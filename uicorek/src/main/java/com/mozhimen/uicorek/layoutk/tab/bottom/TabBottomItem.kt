@@ -10,7 +10,7 @@ import android.widget.TextView
 import coil.load
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.font
+import com.mozhimen.basick.utilk.exts.setIconFont
 import com.mozhimen.basick.utilk.exts.resizeSize
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.bottom.cons.ETabBottomType
@@ -128,7 +128,7 @@ class TabBottomItem @JvmOverloads constructor(
                 _tabImageView.visibility = GONE
                 _tabIconView.visibility = VISIBLE
                 _tabNameView.visibility = VISIBLE
-                _tabIconView.font(_tabBottomItem!!.iconFont!!)
+                _tabIconView.setIconFont(_tabBottomItem!!.iconFont!!)
                 if (!TextUtils.isEmpty(_tabBottomItem!!.name)) {
                     _tabNameView.text = _tabBottomItem!!.name
                 }

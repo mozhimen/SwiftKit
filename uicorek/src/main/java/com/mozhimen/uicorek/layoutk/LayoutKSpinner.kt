@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.adapterk
+package com.mozhimen.uicorek.layoutk
 
 import android.content.Context
 import android.content.res.Resources.Theme
@@ -13,12 +13,8 @@ import com.mozhimen.uicorek.R
  * @Date 2023/2/6 15:56
  * @Version 1.0
  */
-class AdapterKSpinner<T> @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = android.R.attr.spinnerStyle,
-    mode: Int = -1,
-    popupTheme: Theme? = null
+class LayoutKSpinner<T> @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = android.R.attr.spinnerStyle, popupTheme: Theme? = null
 ) : androidx.appcompat.widget.AppCompatSpinner(context, attrs, defStyleAttr, MODE_DROPDOWN, popupTheme) {
 
     private var _spinnerItemLayout = R.layout.adapterk_spinner_item
@@ -29,12 +25,12 @@ class AdapterKSpinner<T> @JvmOverloads constructor(
         dropDownWidth = LayoutParams.MATCH_PARENT
     }
 
-    fun setLayout(layoutId: Int): AdapterKSpinner<T> {
+    fun setLayout(layoutId: Int): LayoutKSpinner<T> {
         _arrayAdapter = ArrayAdapter(context, layoutId.also { _spinnerItemLayout = it }, _items).also { this.adapter = it }
         return this
     }
 
-    fun setEntries(list: List<T>): AdapterKSpinner<T> {
+    fun setEntries(list: List<T>): LayoutKSpinner<T> {
         _items.clear()
         _items.addAll(list)
         if (_arrayAdapter != null) {

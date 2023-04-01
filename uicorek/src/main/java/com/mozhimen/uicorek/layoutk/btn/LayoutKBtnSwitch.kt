@@ -18,7 +18,7 @@ import com.mozhimen.basick.elemk.commons.IValueListener
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.bases.BaseAttrsParser
+import com.mozhimen.uicorek.commons.IAttrsParser
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -251,7 +251,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         val animTime: Int
     )
 
-    private object AttrsParser : BaseAttrsParser<LayoutKBtnSwitchAttrs> {
+    private object AttrsParser : IAttrsParser<LayoutKBtnSwitchAttrs> {
         const val DEFAULT_STATUS = false
         val BG_COLOR_ON = UtilKRes.getColor(R.color.blue_normal)
         val BG_COLOR_OFF = UtilKRes.getColor(R.color.blue_light)

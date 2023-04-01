@@ -11,3 +11,4 @@ package com.mozhimen.basick.elemk.commons
 typealias IListener = () -> Unit;
 typealias IValueListener<T> = (value: T) -> Unit;
 typealias IValue2Listener<T> = (value1: T, value2: T) -> Unit;
+typealias IValue2Listener2<T1, T2> = (value1: T1, value2: T2) -> Unit;

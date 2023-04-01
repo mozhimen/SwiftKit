@@ -14,10 +14,5 @@ import com.mozhimen.uicorek.layoutk.commons.ILayoutK
  */
 abstract class BaseLayoutKRelative @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     RelativeLayout(context, attrs, defStyleAttr, defStyleRes), ILayoutK {
-
     protected var TAG = "${this.javaClass.simpleName}>>>>>"
-
-    override fun initFlag() {}
-    override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {}
-    override fun initView() {}
 }

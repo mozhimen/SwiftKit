@@ -11,7 +11,7 @@ import com.mozhimen.basick.utilk.exts.findLastVisibleItem
 import com.mozhimen.basick.utilk.exts.isScroll2End
 import com.mozhimen.basick.utilk.exts.isScroll2Top
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.uicorek.layoutk.refresh.helpers.RefreshGestureDetector
 import com.mozhimen.uicorek.recyclerk.load.commons.IRecyclerKLoadListener
 
@@ -30,7 +30,8 @@ class RecyclerKLoad @JvmOverloads constructor(
     RecyclerView(context, attrs, defStyleAttr) {
 
     private val TAG = "RecyclerKLoad>>>>>"
-    private var _loadScrollListener: OnScrollListener? = null
+
+    private var _onScrollListener: OnScrollListener? = null
     private var _footerView: View? = null
     private var _isLoading: Boolean = false
     private var _isFooterShowing: Boolean = false
@@ -55,30 +56,29 @@ class RecyclerKLoad @JvmOverloads constructor(
      */
     @Throws(Exception::class)
     fun enableLoad(prefetchSize: Int, listener: IRecyclerKLoadListener?) {
-        require(adapter is RecyclerKAdapter) { "$TAG enableLoadMore adapter must use dataKAdapter" }
+        require(adapter is AdapterKRecyclerStuffed) { "$TAG enableLoad adapter must use dataKAdapter" }
 
-        this._prefetchSize = prefetchSize
-        this._recyclerKLoadCallback = listener
-        _loadScrollListener = RecyclerKLoadListener()
-        addOnScrollListener(_loadScrollListener!!)
+        _prefetchSize = prefetchSize
+        _recyclerKLoadCallback = listener
+        _onScrollListener = RecyclerKLoadListener()
+        addOnScrollListener(_onScrollListener!!)
     }
 
     /**
      * 关闭加载更多
      */
     fun disableLoad() {
-        require(adapter is RecyclerKAdapter) { "$TAG enableLoadMore adapter must use dataKAdapter" }
-        val recyclerKAdapter = adapter as RecyclerKAdapter
+        require(adapter is AdapterKRecyclerStuffed) { "$TAG disableLoad adapter must use dataKAdapter" }
         _footerView?.let {
             if (_footerView!!.parent != null) {
-                recyclerKAdapter.removeFooterView(_footerView!!)
+                (adapter as AdapterKRecyclerStuffed).removeFooterView(_footerView!!)
             }
         }
 
-        _loadScrollListener?.let {
-            removeOnScrollListener(_loadScrollListener!!)
+        _onScrollListener?.let {
+            removeOnScrollListener(_onScrollListener!!)
             _recyclerKLoadCallback = null
-            _loadScrollListener = null
+            _onScrollListener = null
             _footerView = null
             _isFooterShowing = false
             _isLoading = false
@@ -95,11 +95,10 @@ class RecyclerKLoad @JvmOverloads constructor(
      * 加载结束
      */
     fun loadFinished() {
-        require(adapter is RecyclerKAdapter) { "$TAG enableLoad must use dataKAdapter" }
+        require(adapter is AdapterKRecyclerStuffed) { "$TAG loadFinished must use dataKAdapter" }
 
-        val recyclerKAdapter = adapter as RecyclerKAdapter
         _footerView?.let {
-            recyclerKAdapter.removeFooterView(_footerView!!)
+            (adapter as AdapterKRecyclerStuffed).removeFooterView(_footerView!!)
         }
         _isFooterShowing = false
         _isLoading = false
@@ -113,7 +112,7 @@ class RecyclerKLoad @JvmOverloads constructor(
     inner class LoadGestureDetector(private val _prefetchSize: Int, private val _listener: IRecyclerKLoadListener?) :
         RefreshGestureDetector() {
         //咱们这里的强转, 因为前面会有前置检查
-        private val _recyclerKAdapter by lazy { adapter as RecyclerKAdapter }
+        private val _adapterKRecyclerStuffed by lazy { adapter as AdapterKRecyclerStuffed }
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
             if (distanceY < 0 && this@RecyclerKLoad.isScroll2Top()) {
@@ -122,7 +121,7 @@ class RecyclerKLoad @JvmOverloads constructor(
                 if (distanceY > 0) {
                     if (_isLoading) return false
 
-                    val totalItemCount = _recyclerKAdapter.itemCount
+                    val totalItemCount = _adapterKRecyclerStuffed.itemCount
                     if (totalItemCount <= 0) return false
 
                     val lastVisibleItem = this@RecyclerKLoad.findLastVisibleItem()
@@ -139,16 +138,16 @@ class RecyclerKLoad @JvmOverloads constructor(
         }
     }
 
-    inner class RecyclerKLoadListener() : OnScrollListener() {
+    inner class RecyclerKLoadListener : OnScrollListener() {
         //咱们这里的强转, 因为前面会有前置检查
-        private val _recyclerKAdapter = adapter as RecyclerKAdapter
+        private val _adapterKRecyclerStuffed by lazy { adapter as AdapterKRecyclerStuffed }
 
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             //需要根据当前的滑动状态, 已决定要不要添加footerView, 要不要执行上拉加载分页的动作
             if (_isFooterShowing) return
 
             //咱们需要判断当前类表上已经显示的item的个数, 如果列表上已显示的item的数量小于0, 退出
-            val totalItemCount = _recyclerKAdapter.itemCount
+            val totalItemCount = _adapterKRecyclerStuffed.itemCount
             if (totalItemCount <= 0) return
 
             //还有一种情况,canScrollVertical 咱们是检查他能不能继续向下滑动,
@@ -177,7 +176,7 @@ class RecyclerKLoad @JvmOverloads constructor(
                     addFooterView()
                 }
             } else {
-                _recyclerKAdapter.addFooterView(footerView)
+                _adapterKRecyclerStuffed.addFooterView(footerView)
             }
         }
 

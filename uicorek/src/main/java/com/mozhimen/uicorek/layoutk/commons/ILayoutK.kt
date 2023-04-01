@@ -1,6 +1,6 @@
 package com.mozhimen.uicorek.layoutk.commons
 
-import android.util.AttributeSet
+import com.mozhimen.uicorek.commons.IUicoreK
 
 /**
  * @ClassName ILayoutK
@@ -9,8 +9,6 @@ import android.util.AttributeSet
  * @Date 2022/4/15 16:34
  * @Version 1.0
  */
-interface ILayoutK {
-    fun initFlag(){}
-    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int){}
-    fun initView(){}
+interface ILayoutK : IUicoreK {
+    fun initFlag() {}
 }

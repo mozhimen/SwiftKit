@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.commons.IUicoreK
 import com.mozhimen.uicorek.layoutk.LayoutKSquare
 
 /**
@@ -14,7 +15,7 @@ import com.mozhimen.uicorek.layoutk.LayoutKSquare
  * @Version 1.0
  */
 class ImageKSquare @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatImageView(context, attrs, defStyleAttr) {
+    AppCompatImageView(context, attrs, defStyleAttr), IUicoreK {
 
     companion object {
         private const val MEASURE_MODE_MIN = 0
@@ -26,10 +27,10 @@ class ImageKSquare @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var _measureMode = MEASURE_MODE_MAX
 
     init {
-        initAttrs(attrs, defStyleAttr)
+        initAttrs(attrs)
     }
 
-    fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+    override fun initAttrs(attrs: AttributeSet?) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageKSquare)
             _measureMode = typedArray.getInt(R.styleable.ImageKSquare_imageKSquare_measureMode, _measureMode)

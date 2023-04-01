@@ -8,7 +8,7 @@ import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.postDelayed
 import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
-import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
 import com.mozhimen.uicorek.layoutk.refresh.temps.TextOverView
 import com.mozhimen.uicorek.layoutk.refresh.cons.ERefreshStatus
@@ -20,7 +20,7 @@ import com.mozhimen.uicorektest.recyclerk.mos.RecyclerKItemLoadMore
 class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
     private var _pageIndex: Int = 1
     private lateinit var _textOverView: TextOverView
-    private lateinit var _adapter: RecyclerKAdapter
+    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
     private val _dataSets = ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -80,18 +80,18 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
             vb.layoutkRefresh.refreshFinished()
             if (success) {
                 //emptyView?.visibility = View.GONE空白布局
-                _adapter.clearItems()
-                _adapter.addItems(dataItems!!, true)
+                _adapterKRecyclerStuffed.clearItems()
+                _adapterKRecyclerStuffed.addItems(dataItems!!, true)
             } else {
                 //此时就需要判断列表上是否已经有数据，如果么有，显示出空页面转态
-                if (_adapter.itemCount <= 0) {
+                if (_adapterKRecyclerStuffed.itemCount <= 0) {
                     //emptyView?.visibility = View.VISIBLE空白布局
                 }
             }
         } else {
             if (success) {
                 _dataSets.addAll(dataItems!!)
-                _adapter.addItems(dataItems, true)
+                _adapterKRecyclerStuffed.addItems(dataItems, true)
             }
             vb.recyclerkLoad.loadFinished()
         }
@@ -99,9 +99,8 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
 
     private fun initRecycler() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        _adapter = RecyclerKAdapter(this)
         vb.recyclerkLoad.layoutManager = layoutManager
-        vb.recyclerkLoad.adapter = _adapter
+        vb.recyclerkLoad.adapter = _adapterKRecyclerStuffed
         vb.recyclerkLoad.setFooterView(R.layout.item_recyclerk_footer_load)
         vb.recyclerkLoad.enableLoad(5, object : IRecyclerKLoadListener {
             override fun onLoad() {
@@ -131,6 +130,6 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
             add(RecyclerKItemLoadMore(4))
             add(RecyclerKItemLoadMore(5))
         }
-        _adapter.addItems(_dataSets, true)
+        _adapterKRecyclerStuffed.addItems(_dataSets, true)
     }
 }

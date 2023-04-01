@@ -21,8 +21,7 @@ import com.mozhimen.uicorek.R
  * @Date 2021/7/5 16:18
  * @Version 1.0
  */
-class LayoutKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    BaseLayoutKRelative(context, attrs, defStyleAttr) {
+class LayoutKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
 
     //region #全局变量
     //是否移动背景图片
@@ -138,11 +137,13 @@ class LayoutKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBlurred)
-        _blurredDrawable = typedArray.getDrawable(R.styleable.LayoutKBlurred_layoutKBlurred_src)
-        _isMove = typedArray.getBoolean(R.styleable.LayoutKBlurred_layoutKBlurred_isMove, false)
-        _isBlurredEnable = typedArray.getBoolean(R.styleable.LayoutKBlurred_layoutKBlurred_isBlurredEnable, true)
-        typedArray.recycle()
+        attrs?.let {
+            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBlurred)
+            _blurredDrawable = typedArray.getDrawable(R.styleable.LayoutKBlurred_layoutKBlurred_src)
+            _isMove = typedArray.getBoolean(R.styleable.LayoutKBlurred_layoutKBlurred_isMove, false)
+            _isBlurredEnable = typedArray.getBoolean(R.styleable.LayoutKBlurred_layoutKBlurred_isBlurredEnable, true)
+            typedArray.recycle()
+        }
     }
 
     override fun onFinishInflate() {

@@ -19,10 +19,8 @@ import com.mozhimen.uicorek.R
  * @Date 2021/4/22 14:58
  * @Version 1.0
  */
-class TextKEditClear @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyle: Int = android.R.attr.editTextStyle
-) :
-    AppCompatEditText(context, attrs, defStyle), OnFocusChangeListener, TextWatcher {
+class TextKEditClear @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = android.R.attr.editTextStyle) : AppCompatEditText(context, attrs, defStyle),
+    OnFocusChangeListener, TextWatcher {
 
     //EditText右侧的删除按钮
     private var _clearDrawable: Drawable? = compoundDrawables[2]

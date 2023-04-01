@@ -71,26 +71,20 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Btn_Style"
+                android:onClick="goLayoutKEditItem"
+                android:text="goLayoutKEditItem"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKEmpty"
                 android:text="goLayoutKEmpty"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Btn_Style"
-                android:onClick="goLayoutKGridFill"
-                android:text="goLayoutKGridFill"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
-                android:onClick="goLayoutKGridFillMove"
-                android:text="goLayoutKGridFillMove"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
-                android:onClick="goLayoutKInputItem"
-                android:text="goLayoutKInputItem"
+                android:onClick="goLayoutKSpinner"
+                android:text="goLayoutKSpinner"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
@@ -98,13 +92,6 @@
                 android:onClick="goLayoutKSquare"
                 android:text="goLayoutKSquare"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-            <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
-                android:onClick="goLayoutKTimeLine"
-                android:text="goLayoutKTimeLine"
-                tools:ignore="HardcodedText,UsingOnClickInXml" />
-
 
         </LinearLayout>
 

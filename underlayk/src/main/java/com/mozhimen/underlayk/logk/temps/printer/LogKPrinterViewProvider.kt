@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
-import com.mozhimen.uicorek.recyclerk.RecyclerKAdapter
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
@@ -36,14 +36,14 @@ class LogKPrinterViewProvider(
         private val TITLE_CLOSE_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_close)
     }
 
-    private val _adapter: RecyclerKAdapter by lazy { RecyclerKAdapter(_context) }
+    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
 
     private var _recyclerView: RecyclerView? = null
         get() {
             if (field != null) return field
             val recyclerView = RecyclerView(_context)
             recyclerView.layoutManager = LinearLayoutManager(_context)
-            recyclerView.adapter = _adapter
+            recyclerView.adapter = _adapterKRecyclerStuffed
             recyclerView.setBackgroundColor(Color.BLACK)
             return recyclerView.also { field = it }
         }
@@ -112,9 +112,9 @@ class LogKPrinterViewProvider(
 
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         //将log展示添加到recyclerView
-        _adapter.addItem(LogKPrinterItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
+        _adapterKRecyclerStuffed.addItem(LogKPrinterItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
         //滚动到对应的位置
-        _recyclerView!!.smoothScrollToPosition(_adapter.itemCount - 1)
+        _recyclerView!!.smoothScrollToPosition(_adapterKRecyclerStuffed.itemCount - 1)
     }
 
     private fun getLayoutParams(isFold: Boolean): FrameLayout.LayoutParams {

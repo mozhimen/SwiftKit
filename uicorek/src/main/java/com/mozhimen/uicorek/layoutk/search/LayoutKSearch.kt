@@ -19,7 +19,7 @@ import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
 import com.mozhimen.basick.utilk.exts.setPadding
 import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
-import com.mozhimen.uicorek.layoutk.search.helpers.AttrsParser
+import com.mozhimen.uicorek.layoutk.search.helpers.SearchAttrsParser
 import com.mozhimen.uicorek.layoutk.search.commons.SearchTextWatcher
 import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs
 
@@ -30,11 +30,9 @@ import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs
  * @Date 2022/3/4 15:28
  * @Version 1.0
  */
-class LayoutKSearch @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
+class LayoutKSearch @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
 
-    private val _attrs: MSearchAttrs by lazy { AttrsParser.parseSearchViewAttrs(context, attrs, defStyleAttr) }
+    private val _attrs: MSearchAttrs by lazy { SearchAttrsParser.parseAttrs(context, attrs, defStyleAttr) }
     private var _searchTextWatcher: SearchTextWatcher? = null
     private val _debounceRunnable = Runnable { if (_searchTextWatcher != null) _searchTextWatcher!!.afterTextChanged(_editText?.text) }
     private var _editText: EditText? = null
@@ -45,7 +43,7 @@ class LayoutKSearch @JvmOverloads constructor(
     private var _searchIcon: TextKIconFont? = null
     private var _searchIconHintContainer: LinearLayout? = null
     private var _clearIcon: TextKIconFont? = null
-    private val _weakRefHandler = BaseWeakClazzMainHandler(this)
+    private val _weakRefHandler by lazy { BaseWeakClazzMainHandler(this) }
 
     companion object {
         const val LEFT = 1

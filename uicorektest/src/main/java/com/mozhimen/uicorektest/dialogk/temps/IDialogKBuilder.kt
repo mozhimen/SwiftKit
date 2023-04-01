@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.dialogk.commons
+package com.mozhimen.uicorektest.dialogk.temps
 
 import android.view.ViewGroup
 

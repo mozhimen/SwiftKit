@@ -10,18 +10,18 @@
         android:orientation="vertical">
 
         <com.mozhimen.uicorek.layoutk.LayoutKChipGroup
-            android:id="@+id/layoutk_chips"
+            android:id="@+id/layoutk_chip_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/layoutk_chips_add"
+            android:id="@+id/layoutk_chip_group_add"
             style="@style/Btn_Style"
             android:text="增加Key"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/layoutk_chips_remove"
+            android:id="@+id/layoutk_chip_group_remove"
             style="@style/Btn_Style"
             android:text="删除Key"
             tools:ignore="HardcodedText" />
