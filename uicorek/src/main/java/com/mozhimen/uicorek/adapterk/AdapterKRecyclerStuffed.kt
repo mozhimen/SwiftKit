@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
 import com.mozhimen.uicorek.recyclerk.RecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import java.lang.ref.WeakReference
@@ -23,33 +24,26 @@ import java.util.ArrayList
  * @Date 2021/8/31 16:14
  * @Version 1.0
  */
-open class AdapterKRecyclerStuffed : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+class AdapterKRecyclerStuffed : RecyclerView.Adapter<RecyclerView.ViewHolder>(), IAdapterKRecycler {
 
     private var _dataSets = ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
     private var _recyclerViewRef: WeakReference<RecyclerView>? = null
     private val _typePositions = SparseIntArray()
     private var _headers = SparseArray<View>()
     private var _footers = SparseArray<View>()
-    private var BASE_ITEM_TYPE_HEADER = 1000000
-    private var BASE_ITEM_TYPE_FOOTER = 2000000
+    private var ITEM_TYPE_HEADER = 1000000
+    private var ITEM_TYPE_FOOTER = 2000000
 
-    /**
-     * 在末尾添加item
-     * @param item DataKItem<*, out ViewHolder>
-     * @param notify Boolean
-     */
-    fun addItem(item: RecyclerKItem<*, out RecyclerView.ViewHolder>, notify: Boolean) {
+    override fun refreshItem(item: RecyclerKItem<*, out RecyclerView.ViewHolder>) {
+        val indexOf = _dataSets.indexOf(item)
+        notifyItemChanged(indexOf)
+    }
+
+    override fun addItem(item: RecyclerKItem<*, out RecyclerView.ViewHolder>, notify: Boolean) {
         addItemAt(-1, item, notify)
     }
 
-    /**
-     * 在指定位上添加item
-     * @param index Int
-     * @param item DataKItem<*, out ViewHolder>
-     * @param notify Boolean
-     */
-    fun addItemAt(index: Int, item: RecyclerKItem<*, out RecyclerView.ViewHolder>, notify: Boolean) {
+    override fun addItemAt(index: Int, item: RecyclerKItem<*, out RecyclerView.ViewHolder>, notify: Boolean) {
         if (index >= 0) {
             _dataSets.add(index, item)
         } else {
@@ -64,12 +58,7 @@ open class AdapterKRecyclerStuffed : RecyclerView.Adapter<RecyclerView.ViewHolde
         item.setAdapter(this)
     }
 
-    /**
-     * 往现有集合的尾部逐年items集合
-     * @param items List<DataKItem<*, out ViewHolder>>
-     * @param notify Boolean
-     */
-    fun addItems(items: List<RecyclerKItem<*, out RecyclerView.ViewHolder>>, notify: Boolean) {
+    override fun addItems(items: List<RecyclerKItem<*, out RecyclerView.ViewHolder>>, notify: Boolean) {
         val start = _dataSets.size
         items.forEach { item ->
             _dataSets.add(item)
@@ -80,12 +69,12 @@ open class AdapterKRecyclerStuffed : RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    /**
-     * 从指定位上移除item
-     * @param index Int
-     * @return DataKItem<*, out RecyclerView.ViewHolder>?
-     */
-    fun removeItemAt(index: Int): RecyclerKItem<*, out RecyclerView.ViewHolder>? {
+    override fun removeItem(item: RecyclerKItem<*, out RecyclerView.ViewHolder>) {
+        val index: Int = _dataSets.indexOf(item)
+        removeItemAt(index)
+    }
+
+    override fun removeItemAt(index: Int): RecyclerKItem<*, out RecyclerView.ViewHolder>? {
         return if (index >= 0 && index < _dataSets.size) {
             val remove = _dataSets.removeAt(index)
             notifyItemRemoved(index)
@@ -95,19 +84,6 @@ open class AdapterKRecyclerStuffed : RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    /**
-     * 移除指定item
-     * @param dataItem DataKItem<*, out ViewHolder>
-     */
-    fun removeItem(dataItem: RecyclerKItem<*, out RecyclerView.ViewHolder>) {
-        val index: Int = _dataSets.indexOf(dataItem)
-        removeItemAt(index)
-    }
-
-    /**
-     * 清出items
-     */
-    @SuppressLint("NotifyDataSetChanged")
     fun clearItems() {
         _dataSets.clear()
         notifyDataSetChanged()
@@ -126,22 +102,13 @@ open class AdapterKRecyclerStuffed : RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     /**
-     * 指定刷新某个item的数据
-     * @param dataItem DataKItem<*, out ViewHolder>
-     */
-    fun refreshItem(dataItem: RecyclerKItem<*, out RecyclerView.ViewHolder>) {
-        val indexOf = _dataSets.indexOf(dataItem)
-        notifyItemChanged(indexOf)
-    }
-
-    /**
      * 添加Header
      * @param view View
      */
     fun addHeaderView(view: View) {
         //没有添加过
         if (_headers.indexOfValue(view) < 0) {
-            _headers.put(BASE_ITEM_TYPE_HEADER++, view)
+            _headers.put(ITEM_TYPE_HEADER++, view)
             notifyItemInserted(_headers.size() - 1)
         }
     }
@@ -164,7 +131,7 @@ open class AdapterKRecyclerStuffed : RecyclerView.Adapter<RecyclerView.ViewHolde
     fun addFooterView(view: View) {
         //说明这个footerView 没有添加过
         if (_footers.indexOfValue(view) < 0) {
-            _footers.put(BASE_ITEM_TYPE_FOOTER++, view)
+            _footers.put(ITEM_TYPE_FOOTER++, view)
             notifyItemInserted(itemCount)
         }
     }
