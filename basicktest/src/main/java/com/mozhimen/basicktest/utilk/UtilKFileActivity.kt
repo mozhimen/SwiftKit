@@ -14,7 +14,7 @@ import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
+import com.mozhimen.uicorek.adapterk.RecyclerKVBAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

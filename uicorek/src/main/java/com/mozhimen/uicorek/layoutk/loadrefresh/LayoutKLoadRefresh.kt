@@ -63,7 +63,7 @@ class LayoutKLoadRefresh @JvmOverloads constructor(context: Context, attrs: Attr
         this.refreshFinished()
         if (success) {
             listener?.onRefreshOrLoad(success)
-            _adapterKRecyclerStuffed.clearItems()
+            _adapterKRecyclerStuffed.removeItemsAll()
             _adapterKRecyclerStuffed.addItems(dataItems!!, true)
         } else {
             if (_adapterKRecyclerStuffed.itemCount <= 0) {

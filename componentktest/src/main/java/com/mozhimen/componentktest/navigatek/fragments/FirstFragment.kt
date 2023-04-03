@@ -11,7 +11,7 @@ import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.BR
 import com.mozhimen.componentktest.databinding.FragmentFirstBinding
 import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
-import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
+import com.mozhimen.uicorek.adapterk.RecyclerKVBAdapter
 
 class FirstFragment : BaseFragmentVBVM<FragmentFirstBinding, BaseNavigateKViewModel>() {
     private val _datas = listOf(MKey("01", "01"))

@@ -11,7 +11,7 @@ import com.mozhimen.componentktest.databinding.FragmentSecondBinding
 import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
 import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
-import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapter
+import com.mozhimen.uicorek.adapterk.RecyclerKVBAdapter
 
 class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, BaseNavigateKViewModel>() {
     private val _datas = listOf(MKey("01", "01"))

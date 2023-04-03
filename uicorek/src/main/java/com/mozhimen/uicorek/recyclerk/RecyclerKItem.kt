@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
 
 /**
  * @ClassName DataItemK
@@ -16,7 +17,7 @@ import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 abstract class RecyclerKItem<BEAN, VH : RecyclerView.ViewHolder>(val data: BEAN? = null) {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
-    private var _adapterKRecycler: AdapterKRecyclerStuffed? = null
+    private var _adapterKRecycler: IAdapterKRecycler? = null
     lateinit var vh: VH
 
     /**
@@ -73,21 +74,21 @@ abstract class RecyclerKItem<BEAN, VH : RecyclerView.ViewHolder>(val data: BEAN?
      * 设置adapter
      * @param adapter DataKAdapter
      */
-    fun setAdapter(adapter: AdapterKRecyclerStuffed) {
-        this._adapterKRecyclerStuffed = adapter
+    fun setAdapter(adapter: IAdapterKRecycler) {
+        _adapterKRecycler = adapter
     }
 
     /**
      * 刷新列表
      */
     fun refreshItem() {
-        _adapterKRecyclerStuffed?.refreshItem(this)
+        _adapterKRecycler?.refreshItem(this)
     }
 
     /**
      * 从列表上移除
      */
     fun removeItem() {
-        _adapterKRecyclerStuffed?.removeItem(this)
+        _adapterKRecycler?.removeItem(this)
     }
 }

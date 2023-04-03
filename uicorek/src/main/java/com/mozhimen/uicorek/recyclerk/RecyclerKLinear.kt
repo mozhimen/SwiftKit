@@ -53,7 +53,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
         keys.forEach {
             keyItems.add(RecyclerKLinearItem(it, listener))
         }
-        _adapterKRecyclerStuffed.clearItems()
+        _adapterKRecyclerStuffed.removeItemsAll()
         _adapterKRecyclerStuffed.addItems(keyItems, true)
     }
 
@@ -62,7 +62,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
      */
     fun clearKeys() {
         _keys.clear()
-        _adapterKRecyclerStuffed.clearItems()
+        _adapterKRecyclerStuffed.removeItemsAll()
     }
 
     /**
