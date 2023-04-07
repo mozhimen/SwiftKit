@@ -10,6 +10,15 @@ import android.view.View
  * @Version 1.0
  */
 interface IDialogKClickListener {
+    /**
+     * 点击确定
+     * @param view View?
+     */
     fun onClickPositive(view: View?)
+
+    /**
+     * 点击取消
+     * @param view View?
+     */
     fun onClickNegative(view: View?)
 }

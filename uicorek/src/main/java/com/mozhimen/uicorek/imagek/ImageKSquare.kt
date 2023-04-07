@@ -31,11 +31,11 @@ class ImageKSquare @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     override fun initAttrs(attrs: AttributeSet?) {
-        attrs?.let {
-            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageKSquare)
-            _measureMode = typedArray.getInt(R.styleable.ImageKSquare_imageKSquare_measureMode, _measureMode)
-            typedArray.recycle()
-        }
+        attrs ?: return
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageKSquare)
+        _measureMode =
+            typedArray.getInt(R.styleable.ImageKSquare_imageKSquare_measureMode, _measureMode)
+        typedArray.recycle()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

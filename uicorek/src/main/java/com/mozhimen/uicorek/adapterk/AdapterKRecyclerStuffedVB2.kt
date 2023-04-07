@@ -9,22 +9,13 @@ import com.mozhimen.uicorek.recyclerk.temps.RecyclerKItemVB
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 /**
- * @ClassName HeaderRecyclerAdapterK
- * @Description TODO
+ * @ClassName AdapterKRecyclerStuffedVB2
+ * @Description 带Header的RecyclerView适配器
  * @Author Kolin Zhao
  * @Date 2021/7/7 14:48
  * @Version 1.0
  */
-/**
- * 作用: 带Header的RecyclerView适配器
- * 用法: viewBinding.mainList.layoutManager = GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false)
- * val adapter: RecyclerAdapterK<User> = object : RecyclerAdapterK<User>(viewModel.userList, R.layout.item_user, BR.item) {
- *  override fun addListener(view: View, itemData: User, position: Int) {
- *      (view.findViewById(R.id.user_pane) as LinearLayout).setOnClickListener {
- *          //逻辑
- * }}}
- * viewBinding.mainList.adapter=adapter
- */
+
 typealias IAdapterKRecyclerStuffedVB2Listener<DATA, VB> = (holder: VHKRecyclerVB<VB>, itemData: DATA, position: Int, currentSelectPos: Int) -> Unit
 
 class AdapterKRecyclerStuffedVB2<DATA, VB : ViewDataBinding>(

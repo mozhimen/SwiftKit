@@ -23,11 +23,6 @@ class LayoutKBtnIcon @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
-    init {
-        initAttrs(attrs, defStyleAttr)
-        initView()
-    }
-
     private var _background = R.drawable.layoutk_btn_icon_background
     private var _iconResId: Int = 0
     private var _iconSize = 50f.dp2px().toInt()
@@ -40,25 +35,28 @@ class LayoutKBtnIcon @JvmOverloads constructor(
     private lateinit var _btnBox: LinearLayout
     private lateinit var _btnText: TextView
 
+    init {
+        initAttrs(attrs, defStyleAttr)
+        initView()
+    }
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        attrs?.let {
-            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBtnIcon)
-            _background =
-                typedArray.getResourceId(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_background, _background)
-            _iconResId =
-                typedArray.getResourceId(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_iconSrc, 0)
-            _iconSize =
-                typedArray.getDimensionPixelOffset(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_iconSize, _iconSize)
-            _iconMarginRight =
-                typedArray.getDimensionPixelOffset(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_iconMarginRight, _iconMarginRight)
-            _text =
-                typedArray.getString(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_text)
-            _textColor =
-                typedArray.getColor(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_textColor, _textColor)
-            _textSize =
-                typedArray.getDimensionPixelSize(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_textSize, _textSize.toInt()).toFloat()
-            typedArray.recycle()
-        }
+        attrs ?: return
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBtnIcon)
+        _background =
+            typedArray.getResourceId(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_background, _background)
+        _iconResId =
+            typedArray.getResourceId(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_iconSrc, 0)
+        _iconSize =
+            typedArray.getDimensionPixelOffset(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_iconSize, _iconSize)
+        _iconMarginRight =
+            typedArray.getDimensionPixelOffset(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_iconMarginRight, _iconMarginRight)
+        _text =
+            typedArray.getString(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_text)
+        _textColor =
+            typedArray.getColor(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_textColor, _textColor)
+        _textSize =
+            typedArray.getDimensionPixelSize(R.styleable.LayoutKBtnIcon_layoutKBtnIcon_textSize, _textSize.toInt()).toFloat()
+        typedArray.recycle()
     }
 
     override fun initView() {

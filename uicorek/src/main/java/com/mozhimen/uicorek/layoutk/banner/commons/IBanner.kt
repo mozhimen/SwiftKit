@@ -50,14 +50,14 @@ interface IBanner {
     fun setLoop(loop: Boolean)
 
     /**
-     * 设置停留时长
+     * 设置滚动时长
      * @param duration Int
      */
     fun setScrollDuration(duration: Int)
 
     /**
-     * 设置滚动间隔时间
-     * @param intervalTime Int
+     * 设置滚动间隔时间，设置单页驻留时长
+     * @param intervalTime Int 默认5000
      */
     fun setIntervalTime(intervalTime: Int)
 

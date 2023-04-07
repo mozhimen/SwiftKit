@@ -20,7 +20,7 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.graphics.UtilKRenderScript
-import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig
+import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig
 import com.mozhimen.uicorek.commons.IUicoreK
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -41,7 +41,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     @Volatile
     private var _abortBlur = false
-    private var _blurOption: UtilKBitmapBluConfig? = null
+    private var _blurOption: UtilKBitmapBlurConfig? = null
     private val _blurFinish = AtomicBoolean(false)
 
     @Volatile
@@ -74,7 +74,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         return this
     }
 
-    fun applyBlurOption(option: UtilKBitmapBluConfig) {
+    fun applyBlurOption(option: UtilKBitmapBlurConfig) {
         applyBlurOption(option, false)
     }
 
@@ -260,7 +260,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         return Thread.currentThread() === Looper.getMainLooper().thread
     }
 
-    private fun applyBlurOption(option: UtilKBitmapBluConfig, isOnUpdate: Boolean) {
+    private fun applyBlurOption(option: UtilKBitmapBlurConfig, isOnUpdate: Boolean) {
         _blurOption = option
         val anchorView = option.getBlurView()
         if (anchorView == null) {

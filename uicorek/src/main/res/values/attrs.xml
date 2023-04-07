@@ -136,44 +136,44 @@
     </declare-styleable>
 
     <!--毛玻璃布局-->
-    <declare-styleable name="LayoutKBlurred">
+    <declare-styleable name="LayoutKBlur">
         <!--图片src-->
-        <attr name="layoutKBlurred_src" format="reference" />
+        <attr name="layoutKBlur_imageSrc" format="reference" />
         <!--是否图片移动-->
-        <attr name="layoutKBlurred_isMove" format="boolean" />
+        <attr name="layoutKBlur_isMoveEnable" format="boolean" />
         <!--是否禁用模糊-->
-        <attr name="layoutKBlurred_isBlurredEnable" format="boolean" />
+        <attr name="layoutKBlur_isBlurEnable" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="LayoutKInputItem">
-        <attr name="layoutKInputItem_hint" format="string|reference" />
-        <attr name="layoutKInputItem_title" format="string|reference" />
-        <attr name="layoutKInputItem_inputType" format="enum">
+    <declare-styleable name="LayoutKEditItem">
+        <attr name="layoutKEditItem_hint" format="string|reference" />
+        <attr name="layoutKEditItem_title" format="string|reference" />
+        <attr name="layoutKEditItem_inputType" format="enum">
             <enum name="text" value="0" />
             <enum name="password" value="1" />
             <enum name="number" value="2" />
         </attr>
-        <attr name="layoutKInputItem_inputAppearance" format="reference" />
-        <attr name="layoutKInputItem_titleAppearance" format="reference" />
-        <attr name="layoutKInputItem_topLineAppearance" format="reference" />
-        <attr name="layoutKInputItem_bottomLineAppearance" format="reference" />
+        <attr name="layoutKEditItem_titleAppearance" format="reference" />
+        <attr name="layoutKEditItem_inputAppearance" format="reference" />
+        <attr name="layoutKEditItem_topLineAppearance" format="reference" />
+        <attr name="layoutKEditItem_bottomLineAppearance" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="LayoutKInputItem_TitleAppearance">
+    <declare-styleable name="LayoutKEditItem_TitleAppearance">
         <attr name="titleAppearance_titleColor" format="reference|color" />
         <attr name="titleAppearance_titleSize" format="dimension|reference" />
         <attr name="titleAppearance_leftPadding" format="dimension|reference" />
         <attr name="titleAppearance_minWidth" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="LayoutKInputItem_InputAppearance">
+    <declare-styleable name="LayoutKEditItem_EditAppearance">
         <attr name="inputAppearance_hintColor" format="reference|color" />
         <attr name="inputAppearance_inputColor" format="color|reference" />
         <attr name="inputAppearance_textSize" format="dimension|reference" />
-        <attr name="inputAppearance_maxInputLength" format="integer" />
+        <attr name="inputAppearance_maxEditLength" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="LayoutKInputItem_LineAppearance">
+    <declare-styleable name="LayoutKEditItem_LineAppearance">
         <attr name="lineAppearance_color" format="reference|color" />
         <attr name="lineAppearance_height" format="dimension|reference" />
         <attr name="lineAppearance_leftMargin" format="dimension|reference" />

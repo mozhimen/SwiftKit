@@ -33,13 +33,28 @@ import kotlinx.coroutines.launch
  */
 typealias ILayoutKSwitchListener = IValueListener<Boolean>// (status: Boolean) -> Unit
 
+interface ILayoutKBtnSwitch {
+    /**
+     * 设置初始状态,也可以在xml中设置-> app:switch_defaultStatus = false|true
+     * @param status Boolean
+     */
+    fun setDefaultStatus(status: Boolean)
+    fun toggleSwitchStatus(status: Boolean)
+    fun toggleSwitchStatus()
+    /**
+     * 获取状态
+     * @return Boolean
+     */
+    fun getSwitchStatus(): Boolean
+    fun setOnSwitchListener(listener: ILayoutKSwitchListener)
+}
 class LayoutKBtnSwitch @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : BaseLayoutKFrame(context, attrs, defStyleAttr), View.OnClickListener {
+) : BaseLayoutKFrame(context, attrs, defStyleAttr), View.OnClickListener, ILayoutKBtnSwitch {
 
-    private val _switch = MSwitch()
-    private val _bg = MBG()
-    private val _attrs: LayoutKBtnSwitchAttrs by lazy { AttrsParser.parseAttrs(context, attrs) }
+    private val _mSwitch = MSwitch()
+    private val _mBg = MBG()
+    private val _attrs: LayoutKBtnSwitchAttrs by lazy { LayoutKBtnSwitchAttrsParser.parseAttrs(context, attrs) }
     private var _layoutKSwitchListener: ILayoutKSwitchListener? = null
 
     private var _defaultStatus = _attrs.defaultStatus
@@ -68,7 +83,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         get() {
             if (field != null) return field
             val drawable = GradientDrawable()
-            drawable.cornerRadius = _bg.height / 2//小球圆角角度
+            drawable.cornerRadius = _mBg.height / 2//小球圆角角度
             drawable.setStroke(_attrs.borderWidth, _attrs.borderColor)//外框颜色
             return drawable.also { field = it }
         }
@@ -78,9 +93,9 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
             val animation = AnimKBuilder.asAnimation().add(TranslationType().apply {
                 //fromX(0f, false).toX(_switch.leftXOn - _switch.leftXOff, false)
                 if (!_defaultStatus) {
-                    fromX(0f, false).toX(_switch.leftXOn - _switch.leftXOff, false)
+                    fromX(0f, false).toX(_mSwitch.leftXOn - _mSwitch.leftXOff, false)
                 } else {
-                    fromX(_switch.leftXOff - _switch.leftXOn, false).toX(0f, false)
+                    fromX(_mSwitch.leftXOff - _mSwitch.leftXOn, false).toX(0f, false)
                 }
             }).setDuration(_attrs.animTime.toLong())
                 .setInterpolator(AccelerateDecelerateInterpolator()).build()
@@ -106,9 +121,9 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
             val animation = AnimKBuilder.asAnimation().add(TranslationType().apply {
                 //fromX(_switch.leftXOn - _switch.leftXOff, false).toX(0f, false)
                 if (!_defaultStatus) {
-                    fromX(_switch.leftXOn - _switch.leftXOff, false).toX(0f, false)
+                    fromX(_mSwitch.leftXOn - _mSwitch.leftXOff, false).toX(0f, false)
                 } else {
-                    fromX(0f, false).toX(_switch.leftXOff - _switch.leftXOn, false)
+                    fromX(0f, false).toX(_mSwitch.leftXOff - _mSwitch.leftXOn, false)
                 }
             }).setDuration(_attrs.animTime.toLong())
                 .setInterpolator(AccelerateDecelerateInterpolator()).build()
@@ -154,59 +169,12 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         }
     }
 
-    private fun initBg() {
-        _bg.apply {
-            width = _bgView!!.measuredWidth.toFloat()
-            height = _bgView!!.measuredHeight.toFloat()
-        }
-    }
 
-    private fun initSwitch() {
-        _switch.apply {
-            this.width = _bg.height - _attrs.btnMargin * 2
-            leftXOff = _attrs.btnMargin.toFloat()
-            leftXOn = _bg.width - this.width - _attrs.btnMargin
-        }
-    }
-
-    override fun initView() {
-        val switchViewLayoutParams = _switchView!!.layoutParams as LayoutParams
-        switchViewLayoutParams.width = _switch.width.toInt()
-        switchViewLayoutParams.height = _switch.height.toInt()
-        _switchView!!.layoutParams = switchViewLayoutParams
-
-        _bgDrawable!!.setColor(if (_switchStatus) _attrs.bgColorOn else _attrs.bgColorOff)
-        _bgView!!.background = _bgDrawable
-
-        _switchView!!.x = if (_switchStatus) _switch.leftXOn else _switch.leftXOff
-        _switchView!!.y = _switch.topY
-        _switchView!!.radius = _switch.radius
-        _switchView!!.setCardBackgroundColor(_attrs.btnColor)
-    }
-
-    override fun onClick(v: View?) {
-        toggleSwitch()
-    }
-
-    fun setOnSwitchListener(listener: ILayoutKSwitchListener) {
-        _layoutKSwitchListener = listener
-    }
-
-    /**
-     * 设置初始状态,也可以在xml中设置-> app:switch_defaultStatus = false|true
-     * @param status Boolean
-     */
-    fun setDefaultStatus(status: Boolean) {
+    override fun setDefaultStatus(status: Boolean) {
         _defaultStatus = status
     }
 
-    /**
-     * 获取状态
-     * @return Boolean
-     */
-    fun getSwitchStatus(): Boolean = _switchStatus
-
-    fun toggleSwitch(status: Boolean) {
+    override fun toggleSwitchStatus(status: Boolean) {
         (context as LifecycleOwner).lifecycleScope.launch(Dispatchers.Main) {
             if (_switchStatus == status) return@launch
             if (_isAnimRunning) delay(_attrs.animTime.toLong())
@@ -214,8 +182,48 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         }
     }
 
-    fun toggleSwitch() {
-        toggleSwitch(!_switchStatus)
+    override fun toggleSwitchStatus() {
+        toggleSwitchStatus(!_switchStatus)
+    }
+
+    override fun getSwitchStatus(): Boolean = _switchStatus
+
+    override fun setOnSwitchListener(listener: ILayoutKSwitchListener) {
+        _layoutKSwitchListener = listener
+    }
+
+    private fun initBg() {
+        _mBg.apply {
+            width = _bgView!!.measuredWidth.toFloat()
+            height = _bgView!!.measuredHeight.toFloat()
+        }
+    }
+
+    private fun initSwitch() {
+        _mSwitch.apply {
+            this.width = _mBg.height - _attrs.btnMargin * 2
+            leftXOff = _attrs.btnMargin
+            leftXOn = _mBg.width - this.width - _attrs.btnMargin
+        }
+    }
+
+    override fun initView() {
+        val switchViewLayoutParams = _switchView!!.layoutParams as LayoutParams
+        switchViewLayoutParams.width = _mSwitch.width.toInt()
+        switchViewLayoutParams.height = _mSwitch.height.toInt()
+        _switchView!!.layoutParams = switchViewLayoutParams
+
+        _bgDrawable!!.setColor(if (_switchStatus) _attrs.bgColorOn else _attrs.bgColorOff)
+        _bgView!!.background = _bgDrawable
+
+        _switchView!!.x = if (_switchStatus) _mSwitch.leftXOn else _mSwitch.leftXOff
+        _switchView!!.y = _mSwitch.topY
+        _switchView!!.radius = _mSwitch.radius
+        _switchView!!.setCardBackgroundColor(_attrs.btnColor)
+    }
+
+    override fun onClick(v: View?) {
+        toggleSwitchStatus()
     }
 
     private fun startAnimation(status: Boolean) {
@@ -251,7 +259,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
         val animTime: Int
     )
 
-    private object AttrsParser : IAttrsParser<LayoutKBtnSwitchAttrs> {
+    private object LayoutKBtnSwitchAttrsParser : IAttrsParser<LayoutKBtnSwitchAttrs> {
         const val DEFAULT_STATUS = false
         val BG_COLOR_ON = UtilKRes.getColor(R.color.blue_normal)
         val BG_COLOR_OFF = UtilKRes.getColor(R.color.blue_light)

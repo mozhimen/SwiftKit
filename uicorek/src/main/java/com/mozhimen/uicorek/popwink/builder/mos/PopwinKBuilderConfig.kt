@@ -12,7 +12,7 @@ import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_HIDE
 import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_SHOW
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.java.UtilKClazz
-import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig
+import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange
 import com.mozhimen.basick.utilk.log.UtilKLogPro
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK
@@ -52,7 +52,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
     private var _flag = CFlag.IDLE
     private var _contentViewLayoutId = 0
     private var _onBlurOptionInitListener: OnBlurOptionInitListener? = null
-    private var _bitmapBlurOption: UtilKBitmapBluConfig? = null
+    private var _bitmapBlurOption: UtilKBitmapBlurConfig? = null
 
     init {
         if (Build.VERSION.SDK_INT == CVersionCode.V_23_6_M) {
@@ -88,7 +88,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         return _onBlurOptionInitListener
     }
 
-    fun getPopupBlurOption(): UtilKBitmapBluConfig? {
+    fun getPopupBlurOption(): UtilKBitmapBlurConfig? {
         return _bitmapBlurOption
     }
 
@@ -127,7 +127,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         return this
     }
 
-    fun setBlurOption(bitmapBlurOption: UtilKBitmapBluConfig): PopwinKBuilderConfig {
+    fun setBlurOption(bitmapBlurOption: UtilKBitmapBlurConfig): PopwinKBuilderConfig {
         _bitmapBlurOption = bitmapBlurOption
         return this
     }

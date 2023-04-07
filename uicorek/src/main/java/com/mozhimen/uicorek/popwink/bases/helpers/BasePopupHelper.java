@@ -46,7 +46,7 @@ import com.mozhimen.basick.utilk.anim.UtilKAnimator;
 import com.mozhimen.basick.utilk.log.UtilKLog;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKInputManager;
 import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar;
-import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBluConfig;
+import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
 import com.mozhimen.basick.utilk.log.UtilKLogPro;
 import com.mozhimen.basick.utilk.view.UtilKView;
@@ -149,7 +149,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
     Rect mAnchorViewBound;
 
     //模糊option(为空的话则不模糊）
-    UtilKBitmapBluConfig mBlurOption;
+    UtilKBitmapBlurConfig mBlurOption;
     //背景颜色
     Drawable mBackgroundDrawable = new ColorDrawable(BasePopwinK.DEFAULT_BACKGROUND_COLOR);
     //背景对齐方向
@@ -392,7 +392,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
     }
 
 
-    public void setToBlur(UtilKBitmapBluConfig option) {
+    public void setToBlur(UtilKBitmapBlurConfig option) {
         this.mBlurOption = option;
         if (option != null) {
             if (option.getBlurInDuration() <= 0) {
@@ -678,7 +678,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
         return this;
     }
 
-    UtilKBitmapBluConfig getBlurOption() {
+    UtilKBitmapBlurConfig getBlurOption() {
         return mBlurOption;
     }
 

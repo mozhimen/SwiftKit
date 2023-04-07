@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.layoutk
+package com.mozhimen.uicorek.layoutk.blur
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -13,6 +13,7 @@ import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapFormat
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.UtilKBitmapBlur
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.layoutk.blur.commons.ILayoutKBlur
 
 /**
  * @ClassName BlurredLayout
@@ -21,29 +22,16 @@ import com.mozhimen.uicorek.R
  * @Date 2021/7/5 16:18
  * @Version 1.0
  */
-class LayoutKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKRelative(context, attrs, defStyleAttr) {
+class LayoutKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKRelative(context, attrs, defStyleAttr), ILayoutKBlur {
 
     //region #全局变量
-    //是否移动背景图片
-    private var _isMove = false
-
-    //是否禁用模糊效果
-    private var _isBlurredEnable = false
-
-    //获得的模糊图片Drawable
-    private var _blurredDrawable: Drawable? = null
-
-    //原图Bitmap
-    private lateinit var _originBitmap: Bitmap
-
-    //模糊的Bitmap
-    private var _blurredBitmap: Bitmap? = null
-
-    //模糊ImageView
-    private lateinit var _blurredImageView: ImageView
-
-    //原图ImageView
-    private lateinit var _originImageView: ImageView
+    private var _isMoveEnable = false    //是否移动背景图片
+    private var _isBlurEnable = false    //是否禁用模糊效果
+    private var _blurredDrawable: Drawable? = null    //获得的模糊图片Drawable
+    private var _blurredBitmap: Bitmap? = null    //模糊的Bitmap
+    private lateinit var _originBitmap: Bitmap    //原图Bitmap
+    private lateinit var _blurredImageView: ImageView    //模糊ImageView
+    private lateinit var _originImageView: ImageView    //原图ImageView
     //endregion
 
     init {
@@ -51,67 +39,46 @@ class LayoutKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSe
         initView()
     }
 
-    /**
-     * 添加待模糊图片
-     */
-    fun setBlurredImageView(blurredBitmap: Bitmap) {
-        _originBitmap = blurredBitmap
-        _blurredBitmap = UtilKBitmapBlur.blurBitmap(blurredBitmap)
+    override fun setBlurImageView(blurBitmap: Bitmap) {
+        _originBitmap = blurBitmap
+        _blurredBitmap = UtilKBitmapBlur.blurBitmap(blurBitmap)
         setImageView(_originBitmap, _blurredBitmap!!)
-        setMove(_isMove)
+        setMove(_isMoveEnable)
     }
 
-    /**
-     * 添加待模糊图片2
-     */
-    fun setBlurredImageView(blurDrawable: Drawable) {
+    override fun setBlurImageView(blurDrawable: Drawable) {
         _originBitmap = UtilKBitmapFormat.drawable2Bitmap(blurDrawable)
         _blurredBitmap = UtilKBitmapBlur.blurBitmap(_originBitmap)
         setImageView(_originBitmap, _blurredBitmap!!)
-        setMove(_isMove)
+        setMove(_isMoveEnable)
     }
 
-    /**
-     * 设置模糊程度
-     */
     @Throws(Exception::class)
-    fun setBlurredLevel(@IntRange(from = 0, to = 100) level: Int) {
+    override fun setBlurLevel(@IntRange(from = 0, to = 100) level: Int) {
         require(level in 0..100) { "$TAG No validate level, the value must be 0~100" }
-        if (_isBlurredEnable) {
+        if (_isBlurEnable) {
             _originImageView.imageAlpha = (255f - level * 2.55).toInt()
         }
     }
 
-    /**
-     * 设置图片上移的距离
-     */
-    fun setBlurredTop(height: Int) {
-        _originImageView.top = -height
-        _blurredImageView.top = -height
+    override fun setBlurOffset(offset: Int) {
+        _originImageView.top = -offset
+        _blurredImageView.top = -offset
     }
 
-    /**
-     * 显示模糊的图片
-     */
-    fun showBlurredImage() {
+    override fun showBlurImageView() {
         _blurredImageView.visibility = VISIBLE
     }
 
-    /**
-     * 禁用模糊效果
-     */
-    fun disableBlurredEffect() {
-        _isBlurredEnable = true
-        _originImageView.alpha = 1f
-        _blurredImageView.visibility = INVISIBLE
-    }
-
-    /**
-     * 启用模糊效果
-     */
-    fun enableBlurredEffect() {
-        _isBlurredEnable = false
-        _blurredImageView.visibility = VISIBLE
+    override fun setBlurEnable(enable: Boolean) {
+        if (enable) {
+            _isBlurEnable = false
+            _blurredImageView.visibility = VISIBLE
+        } else {
+            _isBlurEnable = true
+            _originImageView.alpha = 1f
+            _blurredImageView.visibility = INVISIBLE
+        }
     }
 
     override fun initView() {
@@ -126,24 +93,23 @@ class LayoutKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSe
         }
 
         //设置模糊禁用
-        if (_isBlurredEnable) {
-            _blurredImageView.visibility = VISIBLE
-        }
-
+        if (_isBlurEnable) _blurredImageView.visibility = VISIBLE
         //设置背景位移
         _blurredDrawable?.let {
-            setMove(_isMove)
+            setMove(_isMoveEnable)
         }
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        attrs?.let {
-            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBlurred)
-            _blurredDrawable = typedArray.getDrawable(R.styleable.LayoutKBlurred_layoutKBlurred_src)
-            _isMove = typedArray.getBoolean(R.styleable.LayoutKBlurred_layoutKBlurred_isMove, false)
-            _isBlurredEnable = typedArray.getBoolean(R.styleable.LayoutKBlurred_layoutKBlurred_isBlurredEnable, true)
-            typedArray.recycle()
-        }
+        attrs ?: return
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBlur)
+        _blurredDrawable =
+            typedArray.getDrawable(R.styleable.LayoutKBlur_layoutKBlur_imageSrc)
+        _isMoveEnable =
+            typedArray.getBoolean(R.styleable.LayoutKBlur_layoutKBlur_isMoveEnable, false)
+        _isBlurEnable =
+            typedArray.getBoolean(R.styleable.LayoutKBlur_layoutKBlur_isBlurEnable, true)
+        typedArray.recycle()
     }
 
     override fun onFinishInflate() {

@@ -114,7 +114,6 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
     }
 
     override fun getItemCount() = _items.size
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         //为了解决dataItem成员变量binding, 刷新之后无法被复用的问题
         val position = _typePositions.get(viewType)

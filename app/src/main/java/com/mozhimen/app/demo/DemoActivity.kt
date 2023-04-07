@@ -9,15 +9,17 @@ import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
+import com.mozhimen.basick.statusbark.StatusBarK
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffedVB
 import kotlin.math.abs
 
 @com.mozhimen.basick.statusbark.annors.AStatusBarK(statusBarType = com.mozhimen.basick.statusbark.annors.AStatusBarKType.FULL_SCREEN)
 class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
-
-    var mScrollY = 0
-    var mAlpha = 0
-
+    private var _scrollY = 0
+    private var _alpha = 0
+    override fun initFlag() {
+        StatusBarK.initStatusBar(this)
+    }
     override fun initView(savedInstanceState: Bundle?) {
         val list = arrayListOf(
             Astro("白羊座", "晴天", 90),
@@ -28,8 +30,8 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
             Astro("双子座", "晴天", 90),
             Astro("射手座", "晴天", 90),
         )
-        VB.demoList.layoutManager = LinearLayoutManager(this)
-        VB.demoList.adapter =
+        VB.demoRecycler.layoutManager = LinearLayoutManager(this)
+        VB.demoRecycler.adapter =
             AdapterKRecyclerStuffedVB<Astro, ItemDemoListBinding>(
                 list,
                 R.layout.item_demo_list,
@@ -43,18 +45,18 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
                     }
                 }
             }
-        VB.demoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        VB.demoRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                mScrollY += dy
-                mAlpha = if (abs(mScrollY) > 1000) {
-                    VB.demoBg.setBlurredTop(100)
+                _scrollY += dy
+                _alpha = if (abs(_scrollY) > 1000) {
+                    VB.demoBg.setBlurOffset(100)
                     100
                 } else {
-                    VB.demoBg.setBlurredTop(mScrollY / 10)
-                    abs(mScrollY) / 10
+                    VB.demoBg.setBlurOffset(_scrollY / 10)
+                    abs(_scrollY) / 10
                 }
-                VB.demoBg.setBlurredLevel(mAlpha)
+                VB.demoBg.setBlurLevel(_alpha)
             }
         })
     }

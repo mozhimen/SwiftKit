@@ -12,7 +12,7 @@ import java.lang.ref.WeakReference
  * @Date 2022/11/30 21:41
  * @Version 1.0
  */
-class UtilKBitmapBluConfig {
+class UtilKBitmapBlurConfig {
     companion object {
         private const val DEFAULT_BLUR_RADIUS = 10f
         private const val DEFAULT_PRE_SCALE_RATIO = 0.125f
@@ -60,7 +60,7 @@ class UtilKBitmapBluConfig {
         return getBlurView() != null
     }
 
-    fun setBlurView(blurView: View): UtilKBitmapBluConfig {
+    fun setBlurView(blurView: View): UtilKBitmapBlurConfig {
         _weakBlurView = WeakReference(blurView)
         var isDecorView = false
         if (blurView.parent != null) isDecorView = TextUtils.equals(blurView.parent.javaClass.name, "com.android.internal.policy.DecorView")
@@ -69,7 +69,7 @@ class UtilKBitmapBluConfig {
         return this
     }
 
-    fun setBlurRadius(blurRadius: Float): UtilKBitmapBluConfig {
+    fun setBlurRadius(blurRadius: Float): UtilKBitmapBlurConfig {
         var tempBlurRadius = blurRadius
         if (tempBlurRadius <= 0) {
             tempBlurRadius = 0.1f
@@ -80,27 +80,27 @@ class UtilKBitmapBluConfig {
         return this
     }
 
-    fun setBlurPreScaleRatio(blurPreScaleRatio: Float): UtilKBitmapBluConfig {
+    fun setBlurPreScaleRatio(blurPreScaleRatio: Float): UtilKBitmapBlurConfig {
         _blurPreScaleRatio = blurPreScaleRatio
         return this
     }
 
-    fun setBlurInDuration(blurInDuration: Long): UtilKBitmapBluConfig {
+    fun setBlurInDuration(blurInDuration: Long): UtilKBitmapBlurConfig {
         _blurInDuration = blurInDuration
         return this
     }
 
-    fun setBlurOutDuration(blurOutDuration: Long): UtilKBitmapBluConfig {
+    fun setBlurOutDuration(blurOutDuration: Long): UtilKBitmapBlurConfig {
         _blurOutDuration = blurOutDuration
         return this
     }
 
-    fun setBlurAsync(blurAsync: Boolean): UtilKBitmapBluConfig {
+    fun setBlurAsync(blurAsync: Boolean): UtilKBitmapBlurConfig {
         _blurAsync = blurAsync
         return this
     }
 
-    fun setFullScreen(fullScreen: Boolean): UtilKBitmapBluConfig {
+    fun setFullScreen(fullScreen: Boolean): UtilKBitmapBlurConfig {
         _isFullScreen = fullScreen
         return this
     }

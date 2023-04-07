@@ -19,8 +19,16 @@ import com.mozhimen.uicorek.commons.IUicoreK
  * @Date 2022/11/8 17:42
  * @Version 1.0
  */
+interface IBtnKPwdVisible {
+    /**
+     * 绑定EditText
+     * @param editText EditText
+     */
+    fun bindEditText(editText: EditText)
+}
+
 class BtnKPwdVisible @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageButton(context, attrs, defStyleAttr), View.OnClickListener,
-    IUicoreK {
+    IUicoreK, IBtnKPwdVisible {
     private var _isShow = false
     private var _pwdTextEdit: EditText? = null
 
@@ -34,7 +42,7 @@ class BtnKPwdVisible @JvmOverloads constructor(context: Context, attrs: Attribut
         initView()
     }
 
-    fun setEditText(editText: EditText) {
+    override fun bindEditText(editText: EditText) {
         _pwdTextEdit = editText
     }
 

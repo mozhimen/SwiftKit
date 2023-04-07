@@ -15,8 +15,22 @@ import com.mozhimen.uicorek.commons.IUicoreK
  * @Date 2022/3/2 16:28
  * @Version 1.0
  */
+interface IBtnKIconFont {
+    /**
+     * 设置路径
+     * @param iconFontPath String
+     */
+    fun setIconFontPath(iconFontPath: String)
+
+    /**
+     * 获取路径
+     * @return String
+     */
+    fun getIconFontPath(): String
+}
+
 class BtnKIconFont @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatButton(context, attrs, defStyleAttr), IUicoreK {
+    AppCompatButton(context, attrs, defStyleAttr), IUicoreK, IBtnKIconFont {
 
     private var _iconFontPath = "icons/iconfont.ttf"
 
@@ -25,6 +39,13 @@ class BtnKIconFont @JvmOverloads constructor(context: Context, attrs: AttributeS
         setIconFontPath(_iconFontPath)
     }
 
+    override fun setIconFontPath(iconFontPath: String) {
+        UtilKTextView.setIconFont(this, iconFontPath.also { _iconFontPath = it })
+    }
+
+    override fun getIconFontPath(): String =
+        _iconFontPath
+
     override fun initAttrs(attrs: AttributeSet?) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BtnKIconFont)
@@ -32,11 +53,4 @@ class BtnKIconFont @JvmOverloads constructor(context: Context, attrs: AttributeS
             typedArray.recycle()
         }
     }
-
-    fun setIconFontPath(iconFontPath: String) {
-        UtilKTextView.setIconFont(this, iconFontPath.also { _iconFontPath = it })
-    }
-
-    fun getIconFontPath(): String =
-        _iconFontPath
 }
