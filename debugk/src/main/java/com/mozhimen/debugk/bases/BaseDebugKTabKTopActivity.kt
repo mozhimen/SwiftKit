@@ -31,20 +31,20 @@ abstract class BaseDebugKTabKTopActivity : BaseActivityVB<DebugkActivityTabkTopB
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.debugkUiTabTop.setTabTopHeight(20f.dp2px())
-        vb.debugkUiTabTop.inflateTabItem(_tabList)
-        vb.debugkUiTabTop.addTabItemSelectedListener(object : ITabSelectedListener<MTabTop> {
+        VB.debugkUiTabTop.setTabTopHeight(20f.dp2px())
+        VB.debugkUiTabTop.inflateTabItem(_tabList)
+        VB.debugkUiTabTop.addTabItemSelectedListener(object : ITabSelectedListener<MTabTop> {
             override fun onTabItemSelected(index: Int, prevItem: MTabTop?, currentItem: MTabTop) {
                 showLayoutView((currentItem as DebugKUITabTopItem).viewId)
             }
         })
-        vb.debugkUiTabTop.defaultSelected(_tabList[0])
+        VB.debugkUiTabTop.defaultSelected(_tabList[0])
     }
 
     private fun showLayoutView(viewId: Int) {
-        vb.debugkUiLayoutContainer.removeAllViews()
+        VB.debugkUiLayoutContainer.removeAllViews()
         val view = LayoutInflater.from(this).inflate(viewId, null)
-        vb.debugkUiLayoutContainer.addView(view, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+        VB.debugkUiLayoutContainer.addView(view, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
     }
 
     data class DebugKUITabTopItem(

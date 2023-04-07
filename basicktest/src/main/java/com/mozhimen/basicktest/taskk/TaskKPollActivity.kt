@@ -12,14 +12,14 @@ class TaskKPollActivity : BaseActivityVB<ActivityTaskkPollBinding>() {
     private val _taskKPoll: TaskKPoll by lazy { TaskKPoll().apply { bindLifecycle(this@TaskKPollActivity) } }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.eventkTaskPollBtnStart.setOnClickListener {
+        VB.eventkTaskPollBtnStart.setOnClickListener {
             _taskKPoll.start(1000, 3, {
                 withContext(Dispatchers.Main) {
                     it.toString().showToast()
                 }
             })
         }
-        vb.eventkTaskPollBtnCancel.setOnClickListener {
+        VB.eventkTaskPollBtnCancel.setOnClickListener {
             _taskKPoll.cancel()
         }
     }

@@ -8,8 +8,8 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkVerifyUrlBinding
 
 class UtilKVerifyUrlActivity : BaseActivityVB<ActivityUtilkVerifyUrlBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.utilkVerifyUrlBtnPort.setOnClickListener {
-            "是否合法: ${UtilKVerifyUrl.checkPort(vb.utilkVerifyUrlTxtPort.text.toString())}".showToast()
+        VB.utilkVerifyUrlBtnPort.setOnClickListener {
+            "是否合法: ${UtilKVerifyUrl.checkPort(VB.utilkVerifyUrlTxtPort.text.toString())}".showToast()
         }
     }
 }

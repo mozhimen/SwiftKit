@@ -36,11 +36,10 @@ class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         decoration.setDrawable(UtilKRes.getDrawable(R.drawable.debugk_crashk_divider)!!)
-        vb.debugkCrashkRecycler.addItemDecoration(decoration)
+        VB.debugkCrashkRecycler.addItemDecoration(decoration)
 
-        vb.debugkCrashkRecycler.layoutManager = LinearLayoutManager(this)
-        val adapterKRecycler =
-            AdapterKRecyclerVB<MDebugKCrashK, DebugkItemCrashkFileBinding>(
+        VB.debugkCrashkRecycler.layoutManager = LinearLayoutManager(this)
+        val adapterKRecycler = AdapterKRecyclerVB<MDebugKCrashK, DebugkItemCrashkFileBinding>(
                 _dataSets,
                 R.layout.debugk_item_crashk_file,
                 BR.itemDebugKCrashK
@@ -59,9 +58,7 @@ class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
                     }
                     startActivity(Intent.createChooser(intent, "分享Crash 日志文件"))
                 }
-            }.apply {
-                bindLifecycle(this@DebugKCrashKActivity)
             }
-        vb.debugkCrashkRecycler.adapter = adapterKRecycler
+        VB.debugkCrashkRecycler.adapter = adapterKRecycler
     }
 }

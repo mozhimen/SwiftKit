@@ -44,9 +44,9 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
     }
 
     private fun initCamera() {
-        vb.scankHsvPreview.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK))
-        vb.scankHsvPreview.setCameraXKFrameListener(_frameAnalyzer)
-        vb.scankHsvPreview.startCamera()
+        VB.scankHsvPreview.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK))
+        VB.scankHsvPreview.setCameraXKFrameListener(_frameAnalyzer)
+        VB.scankHsvPreview.startCamera()
     }
 
     private lateinit var _orgBitmap: Bitmap
@@ -66,7 +66,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
                     }
                     val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
-                        vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getRealScreenWidth().toDouble()
+                        VB.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getRealScreenWidth().toDouble()
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),
                         (ratio * rotateBitmap.width).toInt(),

@@ -213,7 +213,7 @@ class LayoutKSideActivity : BaseActivityVB<ActivityLayoutkSideListBinding>() {
                 )
             )
         )
-        vb.layoutkSideList.bindData(mo, spanCount = 3, listener = object : ILayoutKSideListListener {
+        VB.layoutkSideList.bindData(mo, spanCount = 3, listener = object : ILayoutKSideListListener {
             override fun invoke(holder: VHKRecycler, contentMo: MSideSubContent?) {
                 "$contentMo".showToast(Toast.LENGTH_LONG)
             }

@@ -19,14 +19,14 @@ class UtilKEncryptActivity : BaseActivityVB<ActivityUtilkEncryptBinding>() {
         val content = "Lovelive9."
         var pwd: String = ""
         var res: String = ""
-        vb.utilkEncryptTxt1.text = content
-        vb.utilkEncryptBtnEncrypt.setOnClickListener {
+        VB.utilkEncryptTxt1.text = content
+        VB.utilkEncryptBtnEncrypt.setOnClickListener {
             pwd = UtilKAES.with(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").encryptWithBase64(content)
-            vb.utilkEncryptTxt2.text = pwd
+            VB.utilkEncryptTxt2.text = pwd
         }
-        vb.utilkEncryptBtnDecrypt.setOnClickListener {
+        VB.utilkEncryptBtnDecrypt.setOnClickListener {
             res = UtilKAES.with(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv").decryptWithBase64(pwd)
-            vb.utilkEncryptTxt3.text = res
+            VB.utilkEncryptTxt3.text = res
         }
     }
 }

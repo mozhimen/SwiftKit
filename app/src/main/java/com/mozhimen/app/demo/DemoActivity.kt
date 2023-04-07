@@ -9,7 +9,7 @@ import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
-import com.mozhimen.uicorek.recyclerk.RecyclerKVBAdapterStuffed
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffedVB
 import kotlin.math.abs
 
 @com.mozhimen.basick.statusbark.annors.AStatusBarK(statusBarType = com.mozhimen.basick.statusbark.annors.AStatusBarKType.FULL_SCREEN)
@@ -28,9 +28,9 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
             Astro("双子座", "晴天", 90),
             Astro("射手座", "晴天", 90),
         )
-        vb.demoList.layoutManager = LinearLayoutManager(this)
-        vb.demoList.adapter =
-            RecyclerKVBAdapterStuffed<Astro, ItemDemoListBinding>(
+        VB.demoList.layoutManager = LinearLayoutManager(this)
+        VB.demoList.adapter =
+            AdapterKRecyclerStuffedVB<Astro, ItemDemoListBinding>(
                 list,
                 R.layout.item_demo_list,
                 R.layout.item_demo_header,
@@ -43,18 +43,18 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
                     }
                 }
             }
-        vb.demoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        VB.demoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 mScrollY += dy
                 mAlpha = if (abs(mScrollY) > 1000) {
-                    vb.demoBg.setBlurredTop(100)
+                    VB.demoBg.setBlurredTop(100)
                     100
                 } else {
-                    vb.demoBg.setBlurredTop(mScrollY / 10)
+                    VB.demoBg.setBlurredTop(mScrollY / 10)
                     abs(mScrollY) / 10
                 }
-                vb.demoBg.setBlurredLevel(mAlpha)
+                VB.demoBg.setBlurredLevel(mAlpha)
             }
         })
     }

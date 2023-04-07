@@ -16,11 +16,11 @@ import com.mozhimen.underlayktest.databinding.ActivityFpskBinding
  */
 class FpsKActivity : BaseActivityVB<ActivityFpskBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.fpskBtn.setOnClickListener {
+        VB.fpskBtn.setOnClickListener {
             FpsK.instance.toggle()
         }
-        vb.fpskBtnTip.setOnClickListener {
-            FpsK.instance.isShow().toString().showToast()
+        VB.fpskBtnTip.setOnClickListener {
+            FpsK.instance.isOpen().toString().showToast()
         }
     }
 }

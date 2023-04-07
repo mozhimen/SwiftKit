@@ -18,45 +18,45 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkSliderBinding
  */
 class LayoutKSliderActivity : BaseActivityVB<ActivityLayoutkSliderBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.layoutkSliderTxt.text = getTxt(vb.layoutkSlider.rod.currentPercent, vb.layoutkSlider.rod.currentVal, vb.layoutkSlider.rod.currentX)
-        vb.layoutkSlider.setSliderListener(object : ISliderScrollListener {
+        VB.layoutkSliderTxt.text = getTxt(VB.layoutkSlider.rod.currentPercent, VB.layoutkSlider.rod.currentVal, VB.layoutkSlider.rod.currentX)
+        VB.layoutkSlider.setSliderListener(object : ISliderScrollListener {
             override fun onScrollStart() {
 
             }
 
             override fun onScrolling(currentPercent: Float, currentValue: Float, rod: MRod) {
-                vb.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
+                VB.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
             }
 
             override fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod) {
                 genPopwinKBubbleText(
-                    vb.layoutkSlider,
+                    VB.layoutkSlider,
                     currentValue.toInt().toString(),
-                    xOffset = /*(currentX - rod.centerX).toInt()*/(rod.currentX - vb.layoutkSlider.width / 2f).toInt(),
+                    xOffset = /*(currentX - rod.centerX).toInt()*/(rod.currentX - VB.layoutkSlider.width / 2f).toInt(),
                     yOffset = -(8f).dp2px().toInt()
                 )
-                vb.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
+                VB.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
             }
         })
-        vb.layoutkSliderInsideTxt.text = getTxt(vb.layoutkSlider.rod.currentPercent, vb.layoutkSlider.rod.currentVal, vb.layoutkSlider.rod.currentX)
-        vb.layoutkSliderInside.setRodDefaultPercent(0.2f)
-        vb.layoutkSliderInside.setSliderListener(object : ISliderScrollListener {
+        VB.layoutkSliderInsideTxt.text = getTxt(VB.layoutkSlider.rod.currentPercent, VB.layoutkSlider.rod.currentVal, VB.layoutkSlider.rod.currentX)
+        VB.layoutkSliderInside.setRodDefaultPercent(0.2f)
+        VB.layoutkSliderInside.setSliderListener(object : ISliderScrollListener {
             override fun onScrollStart() {
 
             }
 
             override fun onScrolling(currentPercent: Float, currentValue: Float, rod: MRod) {
-                vb.layoutkSliderInsideTxt.text = getTxt(vb.layoutkSliderInside.rod.currentPercent, vb.layoutkSliderInside.rod.currentVal, vb.layoutkSliderInside.rod.currentX)
+                VB.layoutkSliderInsideTxt.text = getTxt(VB.layoutkSliderInside.rod.currentPercent, VB.layoutkSliderInside.rod.currentVal, VB.layoutkSliderInside.rod.currentX)
             }
 
             override fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod) {
                 genPopwinKBubbleText(
-                    vb.layoutkSliderInside,
+                    VB.layoutkSliderInside,
                     currentValue.toInt().toString(),
-                    xOffset = (rod.currentX - vb.layoutkSlider.width / 2f).toInt(),
+                    xOffset = (rod.currentX - VB.layoutkSlider.width / 2f).toInt(),
                     yOffset = -(8f).dp2px().toInt()
                 )
-                vb.layoutkSliderInsideTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
+                VB.layoutkSliderInsideTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
             }
         })
     }

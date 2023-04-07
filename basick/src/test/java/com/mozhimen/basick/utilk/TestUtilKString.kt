@@ -9,7 +9,7 @@ class TestUtilKString {
     @Test
     fun findFirst() {
         val index = UtilKString.findFirst("5a1fbe000000000000f5", "5a")
-        UtilKString.substring("5a1fbe000000000000f5", index, 20).printlog()
+        UtilKString.subStr("5a1fbe000000000000f5", index, 20).printlog()
         UtilKString.isNotEmpty(",",".").printlog()
 
         val str = "http://www.sq.com/construction-sites-images"

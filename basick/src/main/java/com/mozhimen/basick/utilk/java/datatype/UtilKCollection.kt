@@ -81,6 +81,30 @@ object UtilKCollection {
     }
 
     /**
+     * 将一个Collection的Item中的某个Element组合起来成一个新Collection(忽略Null的)
+     * @param iterable Iterable<T?>
+     * @param predicate Function1<T?, I>
+     * @return List<I>
+     */
+    @JvmStatic
+    fun <T, I> combineElement2ListIgnoreNull(iterable: Iterable<T?>, predicate: (T?) -> I): List<I> {
+        return combineElement2ListIgnoreNull(iterable, ArrayList(), predicate)
+    }
+
+    /**
+     * 将一个Collection的Item中的某个Element组合起来成一个新Collection(忽略Null的)
+     * @param iterable Iterable<T?>
+     * @param newCollection C
+     * @param predicate Function1<T?, I>
+     * @return C
+     */
+    @JvmStatic
+    fun <T, I, C : MutableCollection<in I>> combineElement2ListIgnoreNull(iterable: Iterable<T?>, newCollection: C, predicate: (T?) -> I): C {
+        for (element in iterable) newCollection.add(predicate(element))
+        return newCollection
+    }
+
+    /**
      * map2Str
      * @param map Map<*, *>
      * @return String

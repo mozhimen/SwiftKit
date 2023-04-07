@@ -1,6 +1,8 @@
 package com.mozhimen.uicorek.adapterk
 
+import android.util.Log
 import android.util.SparseArray
+import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
-import com.mozhimen.uicorek.recyclerk.RecyclerKItem
+import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import java.lang.ref.WeakReference
 import java.lang.reflect.ParameterizedType
@@ -24,69 +26,73 @@ import java.util.ArrayList
  * @Version 1.0
  */
 open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), IAdapterKRecycler {
-    protected var _dataSets = ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
-    protected var _typeArrays = SparseArray<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
+    protected var _items = ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>>()
+    protected val _typePositions = SparseIntArray()
     protected var _recyclerViewRef: WeakReference<RecyclerView>? = null
 
     //region # IAdapterKRecycler
-    override fun refreshItem(item: RecyclerKItem<*, out RecyclerView.ViewHolder>) {
-        val position = _dataSets.indexOf(item)
-        notifyItemChanged(position)
+    override fun refreshItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean) {
+        if (position < 0 || position >= _items.size) return
+        _items[position] = item
+        if (notify) notifyItemChanged(position)
     }
 
-    override fun addItem(item: RecyclerKItem<*, out RecyclerView.ViewHolder>, notify: Boolean) {
-        addItemAt(-1, item, notify)
+    override fun refreshItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
+        _items.clear()
+        _items.addAll(items)
+        if (notify) notifyDataSetChanged()
     }
 
-    override fun addItemAt(position: Int, item: RecyclerKItem<*, out RecyclerView.ViewHolder>, notify: Boolean) {
+    override fun addItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, notify: Boolean) {
+        addItemAtPosition(item, -1, notify)
+    }
+
+    override fun addItemAtPosition(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean) {
         if (position >= 0) {
-            _dataSets.add(position, item)
+            _items.add(position, item)
         } else {
-            _dataSets.add(item)
+            _items.add(item)
         }
 
-        val notifyPos = if (position >= 0) position else _dataSets.size - 1
-        if (notify) {
-            notifyItemInserted(notifyPos)
-        }
+        val notifyPos = if (position >= 0) position else _items.size - 1
+        if (notify) notifyItemInserted(notifyPos)
 
         item.setAdapter(this)
     }
 
-    override fun addItems(items: List<RecyclerKItem<*, out RecyclerView.ViewHolder>>, notify: Boolean) {
-        val start = _dataSets.size
+    override fun addItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
+        val start = _items.size
         items.forEach { item ->
-            _dataSets.add(item)
+            _items.add(item)
             item.setAdapter(this)
         }
-        if (notify) {
-            notifyItemRangeInserted(start, items.size)
-        }
+        if (notify) notifyItemRangeInserted(start, items.size)
     }
 
-    override fun removeItem(item: RecyclerKItem<*, out RecyclerView.ViewHolder>) {
-        val position = _dataSets.indexOf(item)
-        removeItemAt(position)
+    override fun removeItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, notify: Boolean) {
+        val position = _items.indexOf(item)
+        if (position != -1) removeItemAtPosition(position, notify)
     }
 
-    override fun removeItemAt(position: Int): RecyclerKItem<*, out RecyclerView.ViewHolder>? {
-        return if (position > 0 && position < _dataSets.size) {
-            val remove = _dataSets.removeAt(position)
-            notifyItemRemoved(position)
-            remove
-        } else {
-            null
-        }
+    override fun removeItemAtPosition(position: Int, notify: Boolean): BaseRecyclerKItem<in RecyclerView.ViewHolder>? {
+        if (position < 0 || position >= _items.size) return null
+        val remove = _items.removeAt(position)
+        if (notify) notifyItemRemoved(position)
+        return remove as BaseRecyclerKItem<in RecyclerView.ViewHolder>
     }
 
-    override fun removeItemsAll() {
-        _dataSets.clear()
-        notifyItemRangeRemoved(0, _dataSets.size)
+    override fun removeItemsAll(notify: Boolean) {
+        _items.clear()
+        if (notify) notifyItemRangeRemoved(0, _items.size)
     }
 
-    override fun getItem(position: Int): RecyclerKItem<*, RecyclerView.ViewHolder>? {
-        if (position < 0 || position >= _dataSets.size) return null
-        return _dataSets[position] as RecyclerKItem<*, RecyclerView.ViewHolder>
+    override fun getItem(position: Int): BaseRecyclerKItem<RecyclerView.ViewHolder>? {
+        if (position < 0 || position >= _items.size) return null
+        return _items[position] as BaseRecyclerKItem<RecyclerView.ViewHolder>
+    }
+
+    override fun getItems(): List<BaseRecyclerKItem<in RecyclerView.ViewHolder>> {
+        return _items.toList() as List<BaseRecyclerKItem<in RecyclerView.ViewHolder>>
     }
 
     override fun getAttachedRecyclerView(): RecyclerView? {
@@ -94,38 +100,42 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
     }
     //endregion
 
+    //region # RecyclerView.Adapter
     /**
      * 以每种item类型的class.hasCode为该item的viewType
      * 把type存储起来,为了onCreateViewHolder方法能够为不同类型的item创建不同的viewHolder
      */
     override fun getItemViewType(position: Int): Int {
-        val item = _dataSets[position]
+        val item = _items[position]
         val type = item.javaClass.hashCode()
-        //如果还没有包含这种类型的item,则添加进来
-        if (_typeArrays.indexOfKey(type) < 0) {
-            _typeArrays.put(type, item)
-        }
+
+        _typePositions.put(type, position)
         return type
     }
 
-    override fun getItemCount() = _dataSets.size
+    override fun getItemCount() = _items.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val item = _typeArrays.get(viewType)
+        //为了解决dataItem成员变量binding, 刷新之后无法被复用的问题
+        val position = _typePositions.get(viewType)
+        val item = _items[position]
+        val viewHolder = item.onCreateViewHolder(parent)
+        if (viewHolder != null) return viewHolder
+
         var view: View? = item.getItemView(parent)
         if (view == null) {
-            val layoutRes = item.getItemLayoutRes()
-            if (layoutRes < 0) {
+            val layoutId = item.getItemLayoutId()
+            if (layoutId < 0) {
                 throw RuntimeException("dataItem ${item.javaClass.name} must override getItemView or getItemLayoutRes")
             }
-            view = LayoutInflater.from(parent.context).inflate(layoutRes, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
         }
-        return createViewHolderInternal(item.javaClass, view!!)
+        return onCreateViewHolderInternal(item.javaClass, view!!)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val item = getItem(position)
-        item?.onBindData(holder, position)
+        item?.onBindItem(holder, position)
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -133,34 +143,9 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         onAttachedToRecyclerViewInternal(recyclerView)
     }
 
-    protected open fun onAttachedToRecyclerViewInternal(recyclerView: RecyclerView) {
-        _recyclerViewRef = WeakReference(recyclerView)
-        //为列表上的item适配网格布局
-        val layoutManager = recyclerView.layoutManager
-        if (layoutManager is GridLayoutManager) {
-            val spanCount = layoutManager.spanCount
-            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    if (position < _dataSets.size) {
-                        val dataMKItem = getItem(position)
-                        dataMKItem?.let {
-                            val spanSize = it.getSpanSize()
-                            return if (spanSize <= 0) spanCount else spanSize
-                        }
-                    }
-                    return spanCount
-                }
-            }
-        }
-    }
-
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         super.onDetachedFromRecyclerView(recyclerView)
         onDetachedFromRecyclerViewInternal(recyclerView)
-    }
-
-    protected open fun onDetachedFromRecyclerViewInternal(recyclerView: RecyclerView) {
-        _recyclerViewRef?.clear()
     }
 
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
@@ -172,7 +157,7 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
             val layoutParams = holder.itemView.layoutParams
             if (layoutParams != null && layoutParams is StaggeredGridLayoutManager.LayoutParams) {
                 val manager = recyclerView.layoutManager as StaggeredGridLayoutManager?
-                val spanSize = item.getSpanSize()
+                val spanSize = item.getItemSpanSize()
                 if (spanSize == manager!!.spanCount) {
                     layoutParams.isFullSpan = true
                 }
@@ -185,8 +170,34 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         val item = getItem(holder.adapterPosition) ?: return
         item.onViewDetachedFromWindow(holder)
     }
+    //endregion
 
-    protected fun createViewHolderInternal(clazz: Class<RecyclerKItem<*, out RecyclerView.ViewHolder>>, view: View): RecyclerView.ViewHolder {
+    protected open fun onAttachedToRecyclerViewInternal(recyclerView: RecyclerView) {
+        _recyclerViewRef = WeakReference(recyclerView)
+        //为列表上的item适配网格布局
+        val layoutManager = recyclerView.layoutManager
+        if (layoutManager is GridLayoutManager) {
+            val spanCount = layoutManager.spanCount
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    if (position < _items.size) {
+                        val item = getItem(position)
+                        item?.let {
+                            val spanSize = it.getItemSpanSize()
+                            return if (spanSize <= 0) spanCount else spanSize
+                        }
+                    }
+                    return spanCount
+                }
+            }
+        }
+    }
+
+    protected open fun onDetachedFromRecyclerViewInternal(recyclerView: RecyclerView) {
+        _recyclerViewRef?.clear()
+    }
+
+    protected open fun onCreateViewHolderInternal(clazz: Class<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, view: View): RecyclerView.ViewHolder {
         //得到该item的父类型,即为RecyclerKItem.class. class也是type的一个子类
         //type的子类常见的有class. 泛类型, parameterizedType参数泛型, TypeVariable字段泛型
         //来进一步判断它是不是参数泛型
@@ -200,8 +211,7 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
                     try {
                         //如果是则使用反射 实例化类上标记的实际的泛型对象
                         //这里需要 try-catch, 如果直接在RecyclerKItem子类上标记 RecyclerView.ViewHolder. 抽象类是不允许反射的
-                        return argument.getConstructor(View::class.java)
-                            .newInstance(view) as RecyclerView.ViewHolder
+                        return (argument.getConstructor(View::class.java).newInstance(view) as RecyclerView.ViewHolder).also { Log.d(TAG, "onCreateViewHolderInternal: getViewHolder success") }
                     } catch (e: Throwable) {
                         e.printStackTrace()
                         e.message?.et(TAG)

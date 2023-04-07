@@ -7,7 +7,7 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkEmptyBinding
 
 class LayoutKEmptyActivity : BaseActivityVB<ActivityLayoutkEmptyBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.layoutkEmpty.setButton("点击进入后台") {
+        VB.layoutkEmpty.setButton("点击进入后台") {
             "点击进入后台".showToast()
         }
     }

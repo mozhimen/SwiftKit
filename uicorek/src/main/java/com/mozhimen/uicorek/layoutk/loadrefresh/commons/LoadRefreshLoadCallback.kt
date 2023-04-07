@@ -18,14 +18,14 @@ open class LoadRefreshLoadCallback(
     private val _layoutKRefresh: LayoutKRefresh,
 ) : IRecyclerKLoadListener {
     @CallSuper
-    override fun onLoad() {
+    override fun onLoading() {
         if (_refreshOverView.refreshStatus == ERefreshStatus.VISIBLE ||
             _refreshOverView.refreshStatus == ERefreshStatus.REFRESHING ||
             _refreshOverView.refreshStatus == ERefreshStatus.OVERFLOW ||
             _refreshOverView.refreshStatus == ERefreshStatus.OVERFLOW_RELEASE
         ) {
             //正处于刷新状态
-            _layoutKRefresh.refreshFinished()
+            _layoutKRefresh.finishRefresh()
             return
         }
     }

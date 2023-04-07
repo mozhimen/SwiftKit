@@ -28,7 +28,7 @@ class NetKHttpActivity : BaseActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewM
 
     override fun initView(savedInstanceState: Bundle?) {
 
-        vb.netkBtn1GetWeather.setOnClickListener {
+        VB.netkBtn1GetWeather.setOnClickListener {
             vm.getRealtimeWeatherCoroutine()
         }
     }

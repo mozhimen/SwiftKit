@@ -12,14 +12,16 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkRefreshLottieBinding
 class LayoutKRefreshLottieActivity : BaseActivityVB<ActivityLayoutkRefreshLottieBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         val lottieOverView = LottieOverView(this)
-        vb.layoutkRefreshContainerLottie.setRefreshOverView(lottieOverView)
-        vb.layoutkRefreshContainerLottie.setRefreshParams(90f.dp2px().toInt(), null, null)
-        vb.layoutkRefreshContainerLottie.setRefreshListener(object : IRefreshListener {
-            override fun onRefresh() {
-                WakeBefPauseLifecycleHandler(this@LayoutKRefreshLottieActivity).postDelayed(1000) { vb.layoutkRefreshContainerLottie.refreshFinished() }
+        VB.layoutkRefreshContainerLottie.setRefreshOverView(lottieOverView)
+        VB.layoutkRefreshContainerLottie.setRefreshParams(90f.dp2px().toInt(), null, null)
+        VB.layoutkRefreshContainerLottie.setRefreshListener(object : IRefreshListener {
+            override fun onRefreshing() {
+                WakeBefPauseLifecycleHandler(this@LayoutKRefreshLottieActivity).postDelayed(1000) {
+                    VB.layoutkRefreshContainerLottie.finishRefresh()
+                }
             }
 
-            override fun enableRefresh(): Boolean {
+            override fun onEnableRefresh(): Boolean {
                 return true
             }
         })

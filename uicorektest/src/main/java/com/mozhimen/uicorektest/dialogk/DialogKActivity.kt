@@ -20,23 +20,23 @@ import kotlinx.coroutines.launch
 @APermissionCheck(CPermission.SYSTEM_ALERT_WINDOW)
 class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.dialogkQues.setOnClickListener {
+        VB.dialogkQues.setOnClickListener {
             genDialogKQues("你get到此用法了吗?", onSureClick = {})
         }
 
-        vb.dialogkQuesAnim.setOnClickListener {
+        VB.dialogkQuesAnim.setOnClickListener {
             genDialogKQuesAnim("带弹出动画的毛玻璃效果的弹框~")
         }
 
-        vb.dialogkCustomAnimDrawable.setOnClickListener {
+        VB.dialogkCustomAnimDrawable.setOnClickListener {
             showDialogLoadingAnimDrawable()
         }
 
-        vb.dialogkCustomAnim.setOnClickListener {
+        VB.dialogkCustomAnim.setOnClickListener {
             showDialogLoadingAnim()
         }
 
-        vb.dialogkCustomUpdate.setOnClickListener {
+        VB.dialogkCustomUpdate.setOnClickListener {
             showLoadingUpdateDialog("正在更新", "...")
         }
     }

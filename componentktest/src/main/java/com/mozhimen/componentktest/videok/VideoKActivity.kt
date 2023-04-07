@@ -26,11 +26,11 @@ class VideoKActivity : BaseActivityVB<ActivityVideokBinding>() {
             UtilKAssets.asset2File("layoutk_video.mp4", _path + "layoutk_video.mp4")
             UtilKAssets.asset2File("layoutk_video2.mp4", _path + "layoutk_video2.mp4")
             withContext(Dispatchers.Main) {
-                vb.layoutkVideo2.initVideo(_currentUrl!!)
+                VB.layoutkVideo2.initVideo(_currentUrl!!)
             }
         }
-        vb.btnChangeVideo.setOnClickListener {
-            vb.layoutkVideo2.changeVideo(_currentUrl!!)
+        VB.btnChangeVideo.setOnClickListener {
+            VB.layoutkVideo2.changeVideo(_currentUrl!!)
         }
     }
 }

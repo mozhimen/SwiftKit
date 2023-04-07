@@ -7,8 +7,8 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.postDelayed
 import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
-import com.mozhimen.uicorek.recyclerk.RecyclerKItem
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
 import com.mozhimen.uicorek.layoutk.refresh.temps.TextOverView
 import com.mozhimen.uicorek.layoutk.refresh.cons.ERefreshStatus
@@ -20,8 +20,8 @@ import com.mozhimen.uicorektest.recyclerk.mos.RecyclerKItemLoadMore
 class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
     private var _pageIndex: Int = 1
     private lateinit var _textOverView: TextOverView
-    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
-    private val _dataSets = ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>>()
+    private val _adapterKRecyclerStuffed by lazy { AdapterKRecycler() }
+    private val _dataSets = ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>>()
 
     override fun initView(savedInstanceState: Bundle?) {
         initRefresh()
@@ -30,18 +30,18 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
 
     private fun initRefresh() {
         _textOverView = TextOverView(this)
-        vb.layoutkRefresh.setRefreshOverView(_textOverView)
-        vb.layoutkRefresh.setRefreshParams(90f.dp2px().toInt(), 1.6f, null)
-        vb.layoutkRefresh.setRefreshListener(object : IRefreshListener {
-            override fun onRefresh() {
-                if (vb.recyclerkLoad.isLoading()) {
+        VB.layoutkRefresh.setRefreshOverView(_textOverView)
+        VB.layoutkRefresh.setRefreshParams(90f.dp2px().toInt(), 1.6f, null)
+        VB.layoutkRefresh.setRefreshListener(object : IRefreshListener {
+            override fun onRefreshing() {
+                if (VB.recyclerkLoad.isLoading()) {
                     //正处于分页
                     //复现场景,比较难以复现---》如果下执行上拉分页。。。快速返回  往下拉，松手。会出现一个bug: 转圈圈的停住不动了。
                     //问题的原因在于 立刻调用 refreshFinished 时，refreshHeader的底部bottom值是超过了 它的height的。
                     //refreshLayout#recover（dis） 方法中判定了，如果传递dis 参数 大于 header height ,dis =200,height =100,只能恢复到 刷新的位置。不能恢复到初始位置。
                     //加了延迟之后，他会  等待 松手的动画做完，才去recover 。此时就能恢复最初状态了。
-                    vb.recyclerkLoad.post {
-                        vb.layoutkRefresh.refreshFinished()
+                    VB.recyclerkLoad.post {
+                        VB.layoutkRefresh.finishRefresh()
                     }
                     return
                 }
@@ -49,7 +49,7 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
                 //模拟刷新
                 WakeBefPauseLifecycleHandler(this@RecyclerKLoadActivity).postDelayed(1000) {
                     //模拟获取到了
-                    val dataItems: ArrayList<RecyclerKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
+                    val dataItems: ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(
                         RecyclerKItemLoadMore(1),
                         RecyclerKItemLoadMore(2),
                         RecyclerKItemLoadMore(3),
@@ -62,7 +62,7 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
                 }
             }
 
-            override fun enableRefresh(): Boolean {
+            override fun onEnableRefresh(): Boolean {
                 return true
             }
         })
@@ -73,14 +73,14 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
      * @param isRefresh Boolean 是否是刷新
      * @param dataItems List<DataKItem<*, out ViewHolder>>?
      */
-    fun refreshOrLoad(isRefresh: Boolean, dataItems: List<RecyclerKItem<*, out RecyclerView.ViewHolder>>?) {
+    fun refreshOrLoad(isRefresh: Boolean, dataItems: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>?) {
         val success = dataItems != null && dataItems.isNotEmpty()
         //光真么判断还是不行的，我们还需要别的措施。。。因为可能会出现 下拉单时候，有执行了删上拉分页
         if (isRefresh) {
-            vb.layoutkRefresh.refreshFinished()
+            VB.layoutkRefresh.finishRefresh()
             if (success) {
                 //emptyView?.visibility = View.GONE空白布局
-                _adapterKRecyclerStuffed.clearItems()
+                _adapterKRecyclerStuffed.removeItemsAll(true)
                 _adapterKRecyclerStuffed.addItems(dataItems!!, true)
             } else {
                 //此时就需要判断列表上是否已经有数据，如果么有，显示出空页面转态
@@ -93,30 +93,30 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
                 _dataSets.addAll(dataItems!!)
                 _adapterKRecyclerStuffed.addItems(dataItems, true)
             }
-            vb.recyclerkLoad.loadFinished()
+            VB.recyclerkLoad.finishLoad()
         }
     }
 
     private fun initRecycler() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        vb.recyclerkLoad.layoutManager = layoutManager
-        vb.recyclerkLoad.adapter = _adapterKRecyclerStuffed
-        vb.recyclerkLoad.setFooterView(R.layout.item_recyclerk_footer_load)
-        vb.recyclerkLoad.enableLoad(5, object : IRecyclerKLoadListener {
-            override fun onLoad() {
+        VB.recyclerkLoad.layoutManager = layoutManager
+        VB.recyclerkLoad.adapter = _adapterKRecyclerStuffed
+        VB.recyclerkLoad.setFooterView(R.layout.item_recyclerk_footer_load)
+        VB.recyclerkLoad.enableLoad(5, object : IRecyclerKLoadListener {
+            override fun onLoading() {
                 if (_textOverView.refreshStatus == ERefreshStatus.VISIBLE ||
                     _textOverView.refreshStatus == ERefreshStatus.REFRESHING ||
                     _textOverView.refreshStatus == ERefreshStatus.OVERFLOW ||
                     _textOverView.refreshStatus == ERefreshStatus.OVERFLOW_RELEASE
                 ) {
                     //正处于刷新状态
-                    vb.layoutkRefresh.refreshFinished()
+                    VB.layoutkRefresh.finishRefresh()
                     return
                 }
                 _pageIndex++
                 //模拟加载
                 WakeBefPauseLifecycleHandler(this@RecyclerKLoadActivity).postDelayed(1000) {
-                    val dataItems: List<RecyclerKItem<*, out RecyclerView.ViewHolder>> = arrayListOf(
+                    val dataItems: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(
                         RecyclerKItemLoadMore(_dataSets.size + 1)
                     )
                     refreshOrLoad(false, dataItems)

@@ -33,21 +33,20 @@ import kotlinx.coroutines.launch
  * 在使用Fragment切换,挂起与恢复时, 要使recyclerView.adapter置null
  * 不然持有全局本类, 会引起内存的泄漏
  */
-typealias IAdapterKRecyclerVBListener<BEAN, VB> = (holder: VHKRecyclerVB<VB>, itemData: BEAN, position: Int, currentSelectPos: Int) -> Unit
+typealias IAdapterKRecyclerVBListener<DATA, VB> = (holder: VHKRecyclerVB<VB>, itemData: DATA, position: Int, currentSelectPos: Int) -> Unit
 
-open class AdapterKRecyclerVB<BEAN, VB : ViewDataBinding>(
-    private var _itemDatas: List<BEAN>,
+open class AdapterKRecyclerVB<DATA, VB : ViewDataBinding>(
+    private var _datas: List<DATA>,
     private val _defaultLayout: Int,
     private val _brId: Int,
-    private val _listener: IAdapterKRecyclerVBListener<BEAN, VB>? = null /* = (com.mozhimen.uicorek.recyclerk.datak.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
-) : RecyclerView.Adapter<VHKRecyclerVB<VB>>(), IDefaultLifecycleObserver {
+    private val _listener: IAdapterKRecyclerVBListener<DATA, VB>? = null /* = (com.mozhimen.uicorek.recyclerk.datak.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
+) : RecyclerView.Adapter<VHKRecyclerVB<VB>>() {
 
     private var _selectItemPosition = -1
-    private lateinit var _vb: VB
 
     fun getSelectItemPosition(): Int = _selectItemPosition
 
-    fun getItems(): List<BEAN> = _itemDatas
+    fun getItems(): List<DATA> = _datas
 
     @SuppressLint("NotifyDataSetChanged")
     fun onItemSelected(position: Int) {
@@ -56,23 +55,23 @@ open class AdapterKRecyclerVB<BEAN, VB : ViewDataBinding>(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun onItemDataChanged(newItemDatas: List<BEAN>) {
-        _itemDatas = newItemDatas
+    fun onItemDataChanged(newItemDatas: List<DATA>) {
+        _datas = newItemDatas
         notifyDataSetChanged()
     }
 
-    fun onItemRangeChanged(newItemDatas: List<BEAN>, positionStart: Int, itemCount: Int) {
-        _itemDatas = newItemDatas
+    fun onItemRangeChanged(newItemDatas: List<DATA>, positionStart: Int, itemCount: Int) {
+        _datas = newItemDatas
         notifyItemChanged(positionStart, itemCount)
     }
 
-    fun onItemRangeInserted(newItemDatas: List<BEAN>, positionStart: Int, itemCount: Int) {
-        _itemDatas = newItemDatas
+    fun onItemRangeInserted(newItemDatas: List<DATA>, positionStart: Int, itemCount: Int) {
+        _datas = newItemDatas
         notifyItemRangeInserted(positionStart, itemCount)
     }
 
-    fun onItemRangeRemoved(newItemDatas: List<BEAN>, positionStart: Int, itemCount: Int) {
-        _itemDatas = newItemDatas
+    fun onItemRangeRemoved(newItemDatas: List<DATA>, positionStart: Int, itemCount: Int) {
+        _datas = newItemDatas
         notifyItemRangeRemoved(positionStart, itemCount)
     }
 
@@ -86,24 +85,12 @@ open class AdapterKRecyclerVB<BEAN, VB : ViewDataBinding>(
         return VHKRecyclerVB(binding.root, binding)
     }
 
-    override fun getItemCount() = if (_itemDatas.isEmpty()) 0 else _itemDatas.size
+    override fun getItemCount() = if (_datas.isEmpty()) 0 else _datas.size
 
     override fun onBindViewHolder(holder: VHKRecyclerVB<VB>, position: Int) {
-        holder.vb.setVariable(_brId, _itemDatas[position]).also { _vb = holder.vb }
-        _listener?.invoke(holder, _itemDatas[position], position, _selectItemPosition)
+        holder.vb.setVariable(_brId, _datas[position])
+        _listener?.invoke(holder, _datas[position], position, _selectItemPosition)
         holder.vb.executePendingBindings()
-    }
-
-    override fun bindLifecycle(owner: LifecycleOwner) {
-        owner.lifecycleScope.launch(Dispatchers.Main) {
-            owner.lifecycle.removeObserver(this@AdapterKRecyclerVB)
-            owner.lifecycle.addObserver(this@AdapterKRecyclerVB)
-        }
-    }
-
-    override fun onPause(owner: LifecycleOwner) {
-        if (this::_vb.isInitialized) _vb.unbind()
-        owner.lifecycle.removeObserver(this)
     }
 
     override fun getItemViewType(position: Int) = _defaultLayout

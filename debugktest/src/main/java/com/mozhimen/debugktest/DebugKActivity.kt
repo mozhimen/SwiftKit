@@ -7,15 +7,13 @@ import android.view.KeyEvent
 import android.view.MotionEvent
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.gesture.commons.GestureFlingCallback
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.debugk.DebugK
 import com.mozhimen.debugktest.databinding.ActivityDebugkBinding
 
 class DebugKActivity : BaseActivityVB<ActivityDebugkBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.debugkTxt.setOnClickListener {
+        VB.debugkTxt.setOnClickListener {
             toggleDebugDialog()
         }
     }

@@ -16,7 +16,7 @@ class UtilKDataBusActivity : BaseActivityVB<ActivityUtilkDataBusBinding>() {
             "非黏性事件: $it".showToast()
         }
 
-        vb.utilkDataBusMsgBtn.setOnClickListener {
+        VB.utilkDataBusMsgBtn.setOnClickListener {
             UtilKDataBus.with<String>("stickyData").setStickyData("即时消息当前界面")
         }
     }

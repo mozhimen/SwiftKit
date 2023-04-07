@@ -22,10 +22,17 @@
         </activity> <!-- adapterk -->
         <activity
             android:name=".adapterk.AdapterKActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".adapterk.AdapterKRecyclerActivity"
-            android:exported="false" /> <!-- btnk -->
+            android:exported="false" />
+        <activity
+            android:name=".adapterk.AdapterKRecyclerStuffedActivity"
+            android:exported="false" />
+        <activity
+            android:name=".adapterk.AdapterKRecyclerVB2Activity"
+            android:exported="false" />
+        <!-- btnk -->
         <activity
             android:name=".btnk.BtnKActivity"
             android:exported="false" /> <!-- dialogk -->
@@ -115,7 +122,7 @@
             android:exported="false" />
         <activity
             android:name=".recyclerk.RecyclerKLifecycleActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".recyclerk.RecyclerKLoadActivity"
             android:exported="false" /> <!-- textk -->

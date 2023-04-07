@@ -20,13 +20,22 @@ fun <T, I> Iterable<T>.combineElement2List(predicate: (T) -> I): List<I> =
     UtilKCollection.combineElement2List(this, predicate)
 
 /**
- * 将一个Collection的Item中的某个Element组合起来成一个新Collection
+ * 将一个Collection的Item中的某个Element组合起来成一个新Collection(忽略重复)
  * @receiver Iterable<T>
  * @param predicate Function1<T, I>
  * @return List<I>
  */
 fun <T, I> Iterable<T>.combineElement2ListIgnoreRepeat(predicate: (T) -> I): List<I> =
     UtilKCollection.combineElement2ListIgnoreRepeat(this, predicate)
+
+/**
+ * 将一个Collection的Item中的某个Element组合起来成一个新Collection(忽略Null)
+ * @receiver Iterable<T?>
+ * @param predicate Function1<T?, I>
+ * @return List<I>
+ */
+fun <T, I> Iterable<T>.combineElement2ListIgnoreNull(predicate: (T?) -> I): List<I> =
+    UtilKCollection.combineElement2ListIgnoreNull(this, predicate)
 
 /**
  * 获取符合条件的元素在该Collection的位置

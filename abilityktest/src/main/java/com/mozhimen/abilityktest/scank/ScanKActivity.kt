@@ -13,16 +13,16 @@ class ScanKActivity : BaseActivityVB<ActivityScankBinding>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
-        vb.scankDemoBtnCreate.setOnClickListener {
-            if (vb.scankDemoEdit.text.isEmpty()) {
+        VB.scankDemoBtnCreate.setOnClickListener {
+            if (VB.scankDemoEdit.text.isEmpty()) {
                 Toast.makeText(this, "请输入code", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            vb.scankDemoImg.setImageBitmap(
+            VB.scankDemoImg.setImageBitmap(
                 ScanKQR.createQRCodeBitmap(
-                    vb.scankDemoEdit.text.toString(),
-                    vb.scankDemoImg.width
+                    VB.scankDemoEdit.text.toString(),
+                    VB.scankDemoImg.width
                 )
             )
         }

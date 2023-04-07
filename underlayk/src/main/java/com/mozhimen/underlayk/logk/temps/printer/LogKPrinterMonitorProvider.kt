@@ -21,7 +21,7 @@ import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
@@ -52,14 +52,14 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
             return frameLayout.also { field = it }
         }
     private val _windowManager: WindowManager by lazy { UtilKWindowManager.get(_context) }
-    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
+    private val _adapterKRecycler by lazy { AdapterKRecycler() }
 
     private var _recyclerView: RecyclerView? = null
         get() {
             if (field != null) return field
             val recyclerView = _rootView!!.findViewById<RecyclerView>(R.id.logk_monitor_view_msg)
             recyclerView.layoutManager = LinearLayoutManager(_context)
-            recyclerView.adapter = _adapterKRecyclerStuffed
+            recyclerView.adapter = _adapterKRecycler
             return recyclerView.also { field = it }
         }
 
@@ -93,8 +93,8 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
 
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         if (_isOpen) {
-            _adapterKRecyclerStuffed.addItem(LogKPrinterItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
-            _recyclerView!!.smoothScrollToPosition(_adapterKRecyclerStuffed.itemCount - 1)
+            _adapterKRecycler.addItem(LogKPrinterItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
+            _recyclerView!!.smoothScrollToPosition(_adapterKRecycler.itemCount - 1)
         }
     }
 

@@ -20,6 +20,7 @@ import com.mozhimen.basick.utilk.view.gesture.UtilKDragAndDrop
  */
 @ADescription("init by lazy")
 class DragAndDropDelegate : BaseWakeBefPauseLifecycleObserver() {
+    private val TAG = "DragAndDropDelegate>>>>>"
 
     private val _viewList = ArrayList<Pair<View, View>>()
     fun dragAndDrop(sourceView: View, destView: View, onDrop: (sourceView: View, destView: View) -> Unit) {

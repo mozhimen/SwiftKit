@@ -11,20 +11,18 @@ import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.BR
 import com.mozhimen.componentktest.databinding.FragmentFirstBinding
 import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
-import com.mozhimen.uicorek.adapterk.RecyclerKVBAdapter
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 
 class FirstFragment : BaseFragmentVBVM<FragmentFirstBinding, BaseNavigateKViewModel>() {
     private val _datas = listOf(MKey("01", "01"))
-    private var _adapter: RecyclerKVBAdapter<MKey, ItemNavigatekBinding>? = null
+    private var _adapter: AdapterKRecyclerVB<MKey, ItemNavigatekBinding>? = null
     override fun initView(savedInstanceState: Bundle?) {
-        vb.navigatekFragmentFirstTxt.setOnClickListener {
+        VB.navigatekFragmentFirstTxt.setOnClickListener {
             vm.liveFragmentId.value = SecondFragment::class.java.getNavigateKId()
         }
-        vb.navigatekFragmentFirstRecycler.layoutManager = LinearLayoutManager(requireActivity())
-        _adapter = RecyclerKVBAdapter<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek).apply {
-            bindLifecycle(this@FirstFragment)
-        }
-        vb.navigatekFragmentFirstRecycler.adapter = _adapter
+        VB.navigatekFragmentFirstRecycler.layoutManager = LinearLayoutManager(requireActivity())
+        _adapter = AdapterKRecyclerVB<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek)
+        VB.navigatekFragmentFirstRecycler.adapter = _adapter
     }
 
     override fun bindViewVM(vb: FragmentFirstBinding) {
@@ -42,7 +40,7 @@ class FirstFragment : BaseFragmentVBVM<FragmentFirstBinding, BaseNavigateKViewMo
     }
 
     override fun onPause() {
-        vb.navigatekFragmentFirstRecycler.adapter = null
+        VB.navigatekFragmentFirstRecycler.adapter = null
         super.onPause()
         Log.d(TAG, "onPause: ")
     }

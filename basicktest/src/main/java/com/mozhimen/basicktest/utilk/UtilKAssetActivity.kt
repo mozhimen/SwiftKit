@@ -13,7 +13,7 @@ import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.uicorek.adapterk.RecyclerKVBAdapter
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -21,7 +21,7 @@ import kotlinx.coroutines.withContext
 @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
 @APermissionCheck(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
 class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
-    private lateinit var _adapterKRecycler: RecyclerKVBAdapter<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>
+    private lateinit var _adapterKRecycler: AdapterKRecyclerVB<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileActivity.UtilKFileLogBean(0, "start asset file process >>>>>")
     )
@@ -29,13 +29,13 @@ class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         ManifestKPermission.initPermissions(this) {
             if (it) {
-                vb.utilkAssetRecycler.layoutManager = LinearLayoutManager(this)
-                _adapterKRecycler = RecyclerKVBAdapter<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>(
+                VB.utilkAssetRecycler.layoutManager = LinearLayoutManager(this)
+                _adapterKRecycler = AdapterKRecyclerVB<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>(
                     _logs,
                     R.layout.item_utilk_file_log,
                     BR.item_utilk_file_log
-                ).apply { bindLifecycle(this@UtilKAssetActivity) }
-                vb.utilkAssetRecycler.adapter = _adapterKRecycler
+                )
+                VB.utilkAssetRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)
             }

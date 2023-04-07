@@ -6,12 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * @ClassName HeaderRecyclerAdapterK
@@ -30,21 +25,20 @@ import kotlinx.coroutines.launch
  * }}}
  * viewBinding.mainList.adapter=adapter
  */
-typealias IAdapterKRecyclerVBStuffedListener<BEAN, VB> = (holder: AdapterKRecyclerVBStuffed.MultipleViewHolder<VB>, itemData: BEAN, position: Int, currentSelectPos: Int) -> Unit
+typealias IAdapterKRecyclerStuffedVBListener<DATA, VB> = (holder: AdapterKRecyclerStuffedVB.MultipleViewHolder<VB>, itemData: DATA, position: Int, currentSelectPos: Int) -> Unit
 
-open class AdapterKRecyclerVBStuffed<DATA, VB : ViewDataBinding>(
+open class AdapterKRecyclerStuffedVB<DATA, VB : ViewDataBinding>(
     private var _itemDatas: List<DATA>,
     private var _defaultLayout: Int,
     private var _headerLayout: Int?,
     private var _footerLayout: Int?,
     private var _brId: Int,
-    private var _listener: IAdapterKRecyclerVBStuffedListener<DATA, VB>? = null
-) : RecyclerView.Adapter<AdapterKRecyclerVBStuffed.MultipleViewHolder<VB>>(), IDefaultLifecycleObserver {
+    private var _listener: IAdapterKRecyclerStuffedVBListener<DATA, VB>? = null
+) : RecyclerView.Adapter<AdapterKRecyclerStuffedVB.MultipleViewHolder<VB>>() {
 
-    private val TAG = "RecyclerKVBAdapterStuffed>>>>>"
+    private val TAG = "AdapterKRecyclerVBStuffed>>>>>"
 
     private var _selectItemPosition = 0
-    private lateinit var _vb: VB
 
     @SuppressLint("NotifyDataSetChanged")
     fun onItemSelected(position: Int) {
@@ -165,17 +159,5 @@ open class AdapterKRecyclerVBStuffed<DATA, VB : ViewDataBinding>(
         } else {
             _defaultLayout
         }
-    }
-
-    override fun bindLifecycle(owner: LifecycleOwner) {
-        owner.lifecycleScope.launch(Dispatchers.Main) {
-            owner.lifecycle.removeObserver(this@AdapterKRecyclerVBStuffed)
-            owner.lifecycle.addObserver(this@AdapterKRecyclerVBStuffed)
-        }
-    }
-
-    override fun onPause(owner: LifecycleOwner) {
-        if (this::_vb.isInitialized) _vb.unbind()
-        owner.lifecycle.removeObserver(this)
     }
 }

@@ -13,6 +13,7 @@ import com.mozhimen.basick.utilk.exts.isScroll2Top
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.uicorek.layoutk.refresh.helpers.RefreshGestureDetector
+import com.mozhimen.uicorek.recyclerk.load.commons.IRecyclerKLoad
 import com.mozhimen.uicorek.recyclerk.load.commons.IRecyclerKLoadListener
 
 /**
@@ -22,52 +23,32 @@ import com.mozhimen.uicorek.recyclerk.load.commons.IRecyclerKLoadListener
  * @Date 2022/4/22 17:30
  * @Version 1.0
  */
-class RecyclerKLoad @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) :
-    RecyclerView(context, attrs, defStyleAttr) {
-
-    private val TAG = "RecyclerKLoad>>>>>"
+class RecyclerKLoad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), IRecyclerKLoad {
 
     private var _onScrollListener: OnScrollListener? = null
     private var _footerView: View? = null
     private var _isLoading: Boolean = false
     private var _isFooterShowing: Boolean = false
-    private var _recyclerKLoadCallback: IRecyclerKLoadListener? = null
+    private var _recyclerKLoadListener: IRecyclerKLoadListener? = null
     private var _prefetchSize: Int = 5
-    private val _gestureDetector: GestureDetector by lazy {
-        GestureDetector(context, LoadGestureDetector(_prefetchSize, _recyclerKLoadCallback))
-    }
+    private val _gestureDetector: GestureDetector by lazy { GestureDetector(context, RecyclerKLoadGestureDetector(_prefetchSize, _recyclerKLoadListener)) }
 
-    /**
-     * 设置底部加载视图
-     * @param layoutId Int
-     */
-    fun setFooterView(layoutId: Int) {
+    override fun setFooterView(layoutId: Int) {
         _footerView = LayoutInflater.from(context).inflate(layoutId, this, false)
     }
 
-    /**
-     * 打开加载更多
-     * @param prefetchSize Int
-     * @param listener Function0<Unit>
-     */
     @Throws(Exception::class)
-    fun enableLoad(prefetchSize: Int, listener: IRecyclerKLoadListener?) {
+    override fun enableLoad(prefetchSize: Int, listener: IRecyclerKLoadListener?) {
         require(adapter is AdapterKRecyclerStuffed) { "$TAG enableLoad adapter must use dataKAdapter" }
 
         _prefetchSize = prefetchSize
-        _recyclerKLoadCallback = listener
-        _onScrollListener = RecyclerKLoadListener()
+        _recyclerKLoadListener = listener
+        _onScrollListener = RecyclerKLoadScrollCallback()
         addOnScrollListener(_onScrollListener!!)
     }
 
-    /**
-     * 关闭加载更多
-     */
-    fun disableLoad() {
+    @Throws(Exception::class)
+    override fun disableLoad() {
         require(adapter is AdapterKRecyclerStuffed) { "$TAG disableLoad adapter must use dataKAdapter" }
         _footerView?.let {
             if (_footerView!!.parent != null) {
@@ -77,7 +58,7 @@ class RecyclerKLoad @JvmOverloads constructor(
 
         _onScrollListener?.let {
             removeOnScrollListener(_onScrollListener!!)
-            _recyclerKLoadCallback = null
+            _recyclerKLoadListener = null
             _onScrollListener = null
             _footerView = null
             _isFooterShowing = false
@@ -85,16 +66,9 @@ class RecyclerKLoad @JvmOverloads constructor(
         }
     }
 
-    /**
-     * 是否正在加载
-     * @return Boolean
-     */
-    fun isLoading(): Boolean = _isLoading
+    override fun isLoading(): Boolean = _isLoading
 
-    /**
-     * 加载结束
-     */
-    fun loadFinished() {
+    override fun finishLoad() {
         require(adapter is AdapterKRecyclerStuffed) { "$TAG loadFinished must use dataKAdapter" }
 
         _footerView?.let {
@@ -109,8 +83,7 @@ class RecyclerKLoad @JvmOverloads constructor(
         return if (_gestureDetector.onTouchEvent(ev)) true else super.dispatchTouchEvent(ev)
     }
 
-    inner class LoadGestureDetector(private val _prefetchSize: Int, private val _listener: IRecyclerKLoadListener?) :
-        RefreshGestureDetector() {
+    inner class RecyclerKLoadGestureDetector(private val _prefetchSize: Int, private val _listener: IRecyclerKLoadListener?) : RefreshGestureDetector() {
         //咱们这里的强转, 因为前面会有前置检查
         private val _adapterKRecyclerStuffed by lazy { adapter as AdapterKRecyclerStuffed }
 
@@ -130,7 +103,7 @@ class RecyclerKLoad @JvmOverloads constructor(
                     val arrivePrefetchPosition = totalItemCount - lastVisibleItem <= _prefetchSize
                     if (!arrivePrefetchPosition) return false//不在预加载范围内则返回
 
-                    _listener?.onLoad()
+                    _listener?.onLoading()
                     _isLoading = true
                 }
                 return false
@@ -138,7 +111,7 @@ class RecyclerKLoad @JvmOverloads constructor(
         }
     }
 
-    inner class RecyclerKLoadListener : OnScrollListener() {
+    inner class RecyclerKLoadScrollCallback : OnScrollListener() {
         //咱们这里的强转, 因为前面会有前置检查
         private val _adapterKRecyclerStuffed by lazy { adapter as AdapterKRecyclerStuffed }
 

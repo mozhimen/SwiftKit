@@ -44,7 +44,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
             val volume = value.normalize(AudioK.instance.getVolumeMin()..AudioK.instance.getVolumeMax())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 AudioK.instance.setVolume(volume).also {
-                    vb.audiokSliderVolumeTxt.text = volume.toString()
+                    VB.audiokSliderVolumeTxt.text = volume.toString()
                     field = volume
                 }
             }
@@ -55,9 +55,9 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         Log.d(TAG, "initData: volume $_currentVolume")
         Log.d(TAG, "initData: volume min ${AudioK.instance.getVolumeMin()}")
         Log.d(TAG, "initData: volume max ${AudioK.instance.getVolumeMax()}")
-        vb.audiokSliderVolumeTxt.text = AudioK.instance.getVolume().toString()
-        vb.audiokSliderVolume.setRodDefaultPercent(_currentVolume / _intervalVolume)
-        vb.audiokSliderVolume.setSliderListener(object : ISliderScrollListener {
+        VB.audiokSliderVolumeTxt.text = AudioK.instance.getVolume().toString()
+        VB.audiokSliderVolume.setRodDefaultPercent(_currentVolume / _intervalVolume)
+        VB.audiokSliderVolume.setSliderListener(object : ISliderScrollListener {
             override fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod) {
                 _currentVolume = (currentPercent * _intervalVolume).roundToInt()
             }

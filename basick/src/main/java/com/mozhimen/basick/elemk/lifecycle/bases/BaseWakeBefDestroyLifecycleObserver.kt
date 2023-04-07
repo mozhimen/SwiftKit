@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
  * @Version 1.0
  */
 open class BaseWakeBefDestroyLifecycleObserver : IDefaultLifecycleObserver {
-    protected open val TAG = "${this.javaClass.simpleName}>>>>>"
+    protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     override fun bindLifecycle(owner: LifecycleOwner) {
         owner.lifecycleScope.launch(Dispatchers.Main) {

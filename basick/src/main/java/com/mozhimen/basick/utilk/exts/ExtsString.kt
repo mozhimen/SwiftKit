@@ -64,7 +64,7 @@ fun String.throwIllegalStateException() {
  * @param splitChar String
  * @return String
  */
-fun <T> Array<T>.joinArray(defaultValue: String = "", splitChar: String = ","): String = UtilKString.joinArray(this, defaultValue, splitChar)
+fun <T> Array<T>.combineArray2Str(defaultValue: String = "", splitChar: String = ","): String = UtilKString.combineArray2Str(this, defaultValue, splitChar)
 
 /**
  * 聚合list
@@ -73,4 +73,4 @@ fun <T> Array<T>.joinArray(defaultValue: String = "", splitChar: String = ","): 
  * @param splitStr String
  * @return String
  */
-fun <T> List<T>.joinList(defaultValue: String = "", splitStr: String = ","): String = UtilKString.joinList(this, defaultValue, splitStr)
+fun <T> List<T>.combineList2Str(defaultValue: String = "", splitStr: String = ","): String = UtilKString.combineList2Str(this, defaultValue, splitStr)

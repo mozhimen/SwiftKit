@@ -3,7 +3,6 @@ package com.mozhimen.uicorek.layoutk.loadrefresh.commons
 import androidx.annotation.CallSuper
 import com.mozhimen.uicorek.recyclerk.load.RecyclerKLoad
 import com.mozhimen.uicorek.layoutk.refresh.LayoutKRefresh
-import com.mozhimen.uicorek.layoutk.refresh.commons.IRefresh
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
 
 /**
@@ -18,14 +17,14 @@ open class LoadRefreshRefreshCallback(
     private val _recyclerKLoad: RecyclerKLoad,
 ) : IRefreshListener {
     @CallSuper
-    override fun onRefresh() {
+    override fun onRefreshing() {
         if (_recyclerKLoad.isLoading()) {
             _layoutKRefresh.post {
-                _layoutKRefresh.refreshFinished()
+                _layoutKRefresh.finishRefresh()
             }
             return
         }
     }
 
-    override fun enableRefresh(): Boolean = true
+    override fun onEnableRefresh(): Boolean = true
 }

@@ -8,7 +8,7 @@ import com.mozhimen.uicorektest.databinding.ActivityTextkBinding
 
 class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.textkBubbleBtn.setOnClickListener {
+        VB.textkBubbleBtn.setOnClickListener {
             genPopwinKBubbleText(it, "弹出了一个气泡提示")
         }
     }

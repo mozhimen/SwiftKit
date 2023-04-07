@@ -18,9 +18,9 @@ class CacheKActivity : BaseActivityVB<ActivityCachekBinding>() {
     private val _spPro by lazy { CacheKSP.instance.with("cachek_sp_test") }
     private var _editText by CacheKSPDelegateString(_spPro, "key", "")
     override fun initView(savedInstanceState: Bundle?) {
-        vb.cachekEdit.setText(_editText)
-        vb.cachekBtn.setOnClickListener {
-            _editText = vb.cachekEdit.text.toString()
+        VB.cachekEdit.setText(_editText)
+        VB.cachekBtn.setOnClickListener {
+            _editText = VB.cachekEdit.text.toString()
         }
     }
 }

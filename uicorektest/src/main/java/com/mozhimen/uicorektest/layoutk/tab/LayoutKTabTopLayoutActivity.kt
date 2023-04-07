@@ -62,13 +62,13 @@ class LayoutKTabTopLayoutActivity : BaseActivityVB<ActivityLayoutkTabTopLayoutBi
             val info = MTabTop(it, colorDefault, colorSelected)
             infoList.add(info)
         }
-        vb.layoutkTabTopLayout.inflateTabItem(infoList)
-        vb.layoutkTabTopLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabTop> {
+        VB.layoutkTabTopLayout.inflateTabItem(infoList)
+        VB.layoutkTabTopLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabTop> {
             override fun onTabItemSelected(index: Int, prevItem: MTabTop?, currentItem: MTabTop) {
                 currentItem.name!!.showToast()
             }
         })
-        vb.layoutkTabTopLayout.defaultSelected(infoList[0])
-        vb.layoutkTabTopLayout.setTabTopBackground(UtilKRes.getColor(R.color.blue_light))
+        VB.layoutkTabTopLayout.defaultSelected(infoList[0])
+        VB.layoutkTabTopLayout.setTabTopBackground(UtilKRes.getColor(R.color.blue_light))
     }
 }

@@ -46,9 +46,9 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.scankFaceCamera.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.FRONT, format = ACameraXKFormat.RGBA_8888))
-        vb.scankFaceCamera.setCameraXKFrameListener(_frameAnalyzer)
-        vb.scankFaceCamera.startCamera()
+        VB.scankFaceCamera.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.FRONT, format = ACameraXKFormat.RGBA_8888))
+        VB.scankFaceCamera.setCameraXKFrameListener(_frameAnalyzer)
+        VB.scankFaceCamera.startCamera()
     }
 
     private var _rgb565Bitmap: Bitmap? = null
@@ -74,11 +74,11 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
                     Log.v(TAG, "faceCount: $faceCount")
 
                     runOnUiThread {
-                        vb.scankFaceImg.setImageBitmap(_rgb565Bitmap)
+                        VB.scankFaceImg.setImageBitmap(_rgb565Bitmap)
                         if (_faces.getOrNull(0) != null && faceCount != 0) {
                             _faces[0]!!.getMidPoint(_facePointF)
                             val eyeDistance = _faces[0]!!.eyesDistance()
-                            vb.scankFaceOverlay.setObjectRect(
+                            VB.scankFaceOverlay.setObjectRect(
                                 _rgb565Bitmap!!.width, _rgb565Bitmap!!.height, listOf(
                                     ViewKScanOverlay.Detection(
                                         RectF(
@@ -91,7 +91,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
                                 )
                             )
                         } else {
-                            vb.scankFaceOverlay.clearObjectRect()
+                            VB.scankFaceOverlay.clearObjectRect()
                         }
                     }
                 }

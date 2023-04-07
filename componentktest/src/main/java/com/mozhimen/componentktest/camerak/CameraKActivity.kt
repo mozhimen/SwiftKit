@@ -38,7 +38,7 @@ class CameraKActivity : BaseActivityVB<ActivityCamerakBinding>() {
     @Transient
     private var _bytesRgb: ByteArray? = null
     private fun initCamera() {
-        vb.camerakScale.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
+        VB.camerakScale.surfaceTextureListener = object : TextureView.SurfaceTextureListener {
             override fun onSurfaceTextureAvailable(surface: SurfaceTexture, p1: Int, p2: Int) {
                 _surfaceRbg = surface
                 openRgbCamera()
@@ -58,7 +58,7 @@ class CameraKActivity : BaseActivityVB<ActivityCamerakBinding>() {
             override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {
             }
         }
-        vb.camerakScale.apply {
+        VB.camerakScale.apply {
             setDisplayDir(getDegree(90))
             resetPreviewSize(1280, 800)
             setMirror(false)

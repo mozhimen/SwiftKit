@@ -23,7 +23,7 @@ import com.mozhimen.basick.utilk.exts.et
 open class BaseService : Service(), LifecycleOwner {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
     private val _listeners = RemoteCallbackList<IBaseServiceResListener>()
-    protected open var binder: IBaseServiceConnListener.Stub? = BaseServiceBinder()
+    protected open val BINDER: IBaseServiceConnListener.Stub = BaseServiceBinder()
 
     open inner class BaseServiceBinder : IBaseServiceConnListener.Stub() {
         override fun onServiceStart() {
@@ -48,7 +48,7 @@ open class BaseService : Service(), LifecycleOwner {
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        return binder
+        return BINDER
     }
 
     protected fun onCallback(res: Any) {

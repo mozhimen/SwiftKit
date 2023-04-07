@@ -8,6 +8,6 @@ package com.mozhimen.uicorek.layoutk.refresh.commons
  * @Version 1.0
  */
 interface IRefreshListener {
-    fun onRefresh()
-    fun enableRefresh(): Boolean
+    fun onRefreshing()
+    fun onEnableRefresh(): Boolean
 }

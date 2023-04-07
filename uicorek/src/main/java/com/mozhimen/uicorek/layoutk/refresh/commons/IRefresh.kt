@@ -11,7 +11,6 @@ interface IRefresh {
 
     /**
      * 设置下拉刷新的视图
-     *
      * @param overView 下拉刷新的视图
      */
     fun setRefreshOverView(overView: RefreshOverView)
@@ -29,21 +28,19 @@ interface IRefresh {
     )
 
     /**
-     * 设置下拉刷新的监听器
-     *
-     * @param listener 刷新的监听器
-     */
-    fun setRefreshListener(listener: IRefreshListener)
-
-    /**
      * 刷新时是否禁止滚动
-     *
      * @param disableRefreshScroll 否禁止滚动
      */
     fun setDisableRefreshScroll(disableRefreshScroll: Boolean)
 
     /**
-     * 刷新完成
+     * 设置下拉刷新的监听器
+     * @param listener IRefreshListener? 刷新的监听器
      */
-    fun refreshFinished()
+    fun setRefreshListener(listener: IRefreshListener?)
+
+    /**
+     * 刷新完成/停止
+     */
+    fun finishRefresh()
 }

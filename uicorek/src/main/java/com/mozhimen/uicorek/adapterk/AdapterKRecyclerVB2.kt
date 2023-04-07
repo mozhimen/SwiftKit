@@ -1,19 +1,11 @@
-package com.mozhimen.uicorek.recyclerk
+package com.mozhimen.uicorek.adapterk
 
-import android.annotation.SuppressLint
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.basick.utilk.exts.combineElement2List
+import com.mozhimen.basick.utilk.exts.combineElement2ListIgnoreNull
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVB
+import com.mozhimen.uicorek.recyclerk.temps.RecyclerKItemVB
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * @ClassName RecyclerAdapterK
@@ -35,65 +27,68 @@ import kotlinx.coroutines.launch
  * 在使用Fragment切换,挂起与恢复时, 要使recyclerView.adapter置null
  * 不然持有全局本类, 会引起内存的泄漏
  */
-typealias IAdapterKRecyclerVBListener<BEAN, VB> = (holder: VHKRecyclerVB<VB>, itemData: BEAN, position: Int, currentSelectPos: Int) -> Unit
+typealias IAdapterKRecyclerVB2Listener<DATA, VB> = (holder: VHKRecyclerVB<VB>, data: DATA, position: Int, selectItemPos: Int) -> Unit
 
-open class AdapterKRecyclerVB<BEAN, VB : ViewDataBinding>(
-    private var _itemDatas: List<BEAN>,
-    private val _defaultLayout: Int,
+class AdapterKRecyclerVB2<DATA, VB : ViewDataBinding>(
+    private val _datas: List<DATA>,
+    private val _defaultLayoutId: Int,
     private val _brId: Int,
-    private val _listener: IAdapterKRecyclerVBListener<BEAN, VB>? = null /* = (com.mozhimen.uicorek.recyclerk.datak.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
-) : AdapterKRecycler(), IAdapterKRecyclerVB/*RecyclerView.Adapter<VHKRecyclerVB<VB>>()*/ {
+    private val _listener: IAdapterKRecyclerVB2Listener<DATA, VB>? = null
+) : AdapterKRecycler(), IAdapterKRecyclerVB<DATA, VB> {
 
     private var _selectItemPosition = -1
 
-    fun getSelectItemPosition(): Int = _selectItemPosition
-
-    override fun setCurrentPosition(position: Int) {
-        _selectItemPosition = position
+    init {
+        onItemsAdd(_datas, false)
     }
 
-    override fun getCurrentPosition(): Int = _selectItemPosition
+    override fun onItemRefresh(item: DATA, position: Int, notify: Boolean) {
+        refreshItem(RecyclerKItemVB(item, _brId, _defaultLayoutId, _selectItemPosition, _listener), position, notify)
+    }
 
-//    @SuppressLint("NotifyDataSetChanged")
-//    fun onItemSelected(position: Int) {
-//        _selectItemPosition = position
-//        notifyDataSetChanged()
-//    }
-//
-//    @SuppressLint("NotifyDataSetChanged")
-//    fun onItemDataChanged(newItemDatas: List<BEAN>) {
-//        _itemDatas = newItemDatas
-//        notifyDataSetChanged()
-//    }
-//
-//    fun onItemRangeChanged(newItemDatas: List<BEAN>, positionStart: Int, itemCount: Int) {
-//        _itemDatas = newItemDatas
-//        notifyItemChanged(positionStart, itemCount)
-//    }
-//
-//    fun onItemRangeInserted(newItemDatas: List<BEAN>, positionStart: Int, itemCount: Int) {
-//        _itemDatas = newItemDatas
-//        notifyItemRangeInserted(positionStart, itemCount)
-//    }
-//
-//    fun onItemRangeRemoved(newItemDatas: List<BEAN>, positionStart: Int, itemCount: Int) {
-//        _itemDatas = newItemDatas
-//        notifyItemRangeRemoved(positionStart, itemCount)
-//    }
+    override fun onItemsRefresh(items: List<DATA>, notify: Boolean) {
+        refreshItems(items.combineElement2List { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
+    }
 
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VHKRecyclerVB<VB> {
-//        val binding = DataBindingUtil.inflate<VB>(LayoutInflater.from(parent.context), viewType, parent, false)
-//        return VHKRecyclerVB(binding.root, binding)
-//    }
-//
-//    override fun getItemCount() = if (_itemDatas.isEmpty()) 0 else _itemDatas.size
-//
-//    override fun onBindViewHolder(holder: VHKRecyclerVB<VB>, position: Int) {
-//        holder.vb.setVariable(_brId, _itemDatas[position])
-//        _listener?.invoke(holder, _itemDatas[position], position, _selectItemPosition)
-//        holder.vb.executePendingBindings()
-//    }
-//
-//    override fun getItemViewType(position: Int) = _defaultLayout
+    override fun onItemAdd(item: DATA, notify: Boolean) {
+        addItem(RecyclerKItemVB(item, _brId, _defaultLayoutId, _selectItemPosition, _listener), notify)
+    }
 
+    override fun onItemAddAtPosition(item: DATA, position: Int, notify: Boolean) {
+        addItemAtPosition(RecyclerKItemVB(item, _brId, _defaultLayoutId, _selectItemPosition, _listener), position, notify)
+    }
+
+    override fun onItemsAdd(items: List<DATA>, notify: Boolean) {
+        addItems(items.combineElement2List { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
+    }
+
+    override fun onItemRemove(item: DATA, notify: Boolean) {
+        _items.find { (it as? RecyclerKItemVB<DATA, VB>?)?.data == item }?.let { removeItem(it, notify) }
+    }
+
+    override fun onItemRemoveAtPosition(position: Int, notify: Boolean): DATA? {
+        return (removeItemAtPosition(position, notify) as? RecyclerKItemVB<DATA, VB>?)?.data
+    }
+
+    override fun onItemsRemoveAll(notify: Boolean) {
+        removeItemsAll(notify)
+    }
+
+    override fun onItemGet(position: Int): DATA? {
+        return (getItem(position) as? RecyclerKItemVB<DATA, VB>?)?.data
+    }
+
+    override fun onItemsGet(): List<DATA?> {
+        return _items.combineElement2ListIgnoreNull { (it as? RecyclerKItemVB<DATA, VB>?)?.data }
+    }
+
+    override fun onSelectItemPositionSet(position: Int, listener: IAdapterKRecyclerVB2Listener<DATA, VB>) {
+        if (position < 0 || position >= _items.size) return
+        _selectItemPosition = position
+        val item = getItem(_selectItemPosition) as RecyclerKItemVB<DATA, VB>
+        listener.invoke(item.vh as VHKRecyclerVB<VB>, item.data, _selectItemPosition, _selectItemPosition)
+    }
+
+    override fun onSelectItemPositionGet(): Int =
+        _selectItemPosition
 }

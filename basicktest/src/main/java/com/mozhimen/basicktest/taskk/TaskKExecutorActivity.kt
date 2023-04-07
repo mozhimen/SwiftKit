@@ -19,7 +19,7 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
     private var _isPaused = false
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.taskkExecutorBtnOrder.setOnClickListener {
+        VB.taskkExecutorBtnOrder.setOnClickListener {
             for (priority in 0..10) {
                 TaskKExecutor.execute(TAG, priority) {
                     try {
@@ -32,7 +32,7 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
             }
         }
 
-        vb.taskkExecutorBtnAllTask.setOnClickListener {
+        VB.taskkExecutorBtnAllTask.setOnClickListener {
             if (_isPaused) {
                 TaskKExecutor.resume()
             } else {
@@ -41,7 +41,7 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
             _isPaused = !_isPaused
         }
 
-        vb.taskkExecutorBtnAsync.setOnClickListener {
+        VB.taskkExecutorBtnAsync.setOnClickListener {
             TaskKExecutor.execute(TAG, runnable = object : TaskKExecutor.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
                     Log.e(TAG, "onBackground: 当前线程: ${Thread.currentThread().name}")

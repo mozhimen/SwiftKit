@@ -17,9 +17,9 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkSpinnerBinding
  */
 class LayoutKSpinnerActivity : BaseActivityVB<ActivityLayoutkSpinnerBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.layoutkSpinner.setEntries(listOf("GTA6", "唱跳", "Rap")).onItemSelectedListener = object : OnItemSelectedListener {
+        VB.layoutkSpinner.setEntries(listOf("GTA6", "唱跳", "Rap")).onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                vb.layoutkSpinner.getSelectItem().toString().showToast()
+                VB.layoutkSpinner.getSelectItem().toString().showToast()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

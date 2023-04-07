@@ -39,17 +39,17 @@ interface IAdapterKRecyclerStuffed {
      * 获取Header数量
      * @return Int
      */
-    fun getHeaderSize(): Int
+    fun getHeaderViewSize(): Int
 
     /**
      * 获取Footer数量
      * @return Int
      */
-    fun getFooterSize(): Int
+    fun getFooterViewSize(): Int
 
     /**
      * 获取item数量
      * @return Int
      */
-    fun getOriginalItemSize(): Int
+    fun getNormalItemSize(): Int
 }

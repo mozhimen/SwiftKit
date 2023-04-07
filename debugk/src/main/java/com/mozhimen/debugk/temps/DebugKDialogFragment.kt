@@ -98,8 +98,6 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
                     dismiss()
                 }
             }
-        }.apply {
-            bindLifecycle(this@DebugKDialogFragment)
         }
     }
 }

@@ -17,7 +17,7 @@ class LayoutKBtnActivity : BaseActivityVB<ActivityLayoutkBtnBinding>() {
     private lateinit var _layoutKBtnSwitch: LayoutKBtnSwitch
 
     override fun initView(savedInstanceState: Bundle?) {
-        _layoutKBtnSwitch = vb.layoutkBtnSwitch
+        _layoutKBtnSwitch = VB.layoutkBtnSwitch
         _layoutKBtnSwitch.setDefaultStatus(false)
         _layoutKBtnSwitch.setOnSwitchListener { status ->
             Log.i(TAG, "btnk_switch status $status")

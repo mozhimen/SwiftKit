@@ -44,7 +44,7 @@ open class LayoutKRefresh @JvmOverloads constructor(context: Context, attrs: Att
     final override fun initView() {
         _gestureDetector = GestureDetector(context, object : RefreshGestureDetector() {
             override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-                if (abs(distanceX) > abs(distanceY) || _refreshListener != null && !_refreshListener!!.enableRefresh()) {
+                if (abs(distanceX) > abs(distanceY) || _refreshListener != null && !_refreshListener!!.onEnableRefresh()) {
                     //横向滑动，或刷新被禁止则不处理
                     return false
                 }
@@ -86,10 +86,6 @@ open class LayoutKRefresh @JvmOverloads constructor(context: Context, attrs: Att
         _autoScroller = AutoScroller()
     }
 
-    /**
-     * 设置overview
-     * @param overView RefreshOverView
-     */
     override fun setRefreshOverView(overView: RefreshOverView) {
         if (_refreshOverView != null) {
             removeView(_refreshOverView)
@@ -97,12 +93,6 @@ open class LayoutKRefresh @JvmOverloads constructor(context: Context, attrs: Att
         this._refreshOverView = overView
     }
 
-    /**
-     * 设置下拉参数, 触发才生效
-     * @param minPullRefreshHeight Int? 触发下拉刷新需要的最小高度
-     * @param minDamp Float? 最小阻尼
-     * @param maxDamp Float? 最大阻尼
-     */
     @Throws(Exception::class)
     override fun setRefreshParams(
         minPullRefreshHeight: Int?,
@@ -116,26 +106,15 @@ open class LayoutKRefresh @JvmOverloads constructor(context: Context, attrs: Att
         addView(_refreshOverView, 0, params)
     }
 
-    /**
-     * 是否禁用滚动
-     * @param disableRefreshScroll Boolean
-     */
     override fun setDisableRefreshScroll(disableRefreshScroll: Boolean) {
         this._disableRefreshScroll = disableRefreshScroll
     }
 
-    /**
-     * 设置监听器
-     * @param listener IRefreshListener?
-     */
-    override fun setRefreshListener(listener: IRefreshListener) {
+    override fun setRefreshListener(listener: IRefreshListener?) {
         this._refreshListener = listener
     }
 
-    /**
-     * 刷新停止
-     */
-    override fun refreshFinished() {
+    override fun finishRefresh() {
         val head = getChildAt(0)
         _refreshOverView?.apply {
             onFinish()
@@ -206,22 +185,6 @@ open class LayoutKRefresh @JvmOverloads constructor(context: Context, attrs: Att
         }
     }
 
-    /**
-     * 恢复头部
-     * @param distance Int 滚动的距离
-     */
-    @Throws(Exception::class)
-    private fun recoverHead(distance: Int) {
-        requireNotNull(_refreshOverView ) { "$TAG _refreshOverView must not be null!" }
-        if (_refreshListener != null && distance > _refreshOverView!!.minPullRefreshHeight) {
-            //滚动到指定位置distance-kOverView.mPullRefreshHeight
-            _autoScroller.recover(distance - _refreshOverView!!.minPullRefreshHeight)
-            _refreshStatus = ERefreshStatus.OVERFLOW_RELEASE
-        } else {
-            _autoScroller.recover(distance)
-        }
-    }
-
     private inner class AutoScroller : Runnable {
         private val _scroller: Scroller = Scroller(context, LinearInterpolator())
         private var _lastY = 0
@@ -251,6 +214,22 @@ open class LayoutKRefresh @JvmOverloads constructor(context: Context, attrs: Att
         }
 
         fun isFinished(): Boolean = _isFinished
+    }
+
+    /**
+     * 恢复头部
+     * @param distance Int 滚动的距离
+     */
+    @Throws(Exception::class)
+    private fun recoverHead(distance: Int) {
+        requireNotNull(_refreshOverView ) { "$TAG _refreshOverView must not be null!" }
+        if (_refreshListener != null && distance > _refreshOverView!!.minPullRefreshHeight) {
+            //滚动到指定位置distance-kOverView.mPullRefreshHeight
+            _autoScroller.recover(distance - _refreshOverView!!.minPullRefreshHeight)
+            _refreshStatus = ERefreshStatus.OVERFLOW_RELEASE
+        } else {
+            _autoScroller.recover(distance)
+        }
     }
 
     /**
@@ -314,7 +293,7 @@ open class LayoutKRefresh @JvmOverloads constructor(context: Context, attrs: Att
             _refreshStatus = ERefreshStatus.REFRESHING
             _refreshOverView!!.onStartRefresh()
             _refreshOverView!!.setStatus(ERefreshStatus.REFRESHING)
-            _refreshListener!!.onRefresh()
+            _refreshListener!!.onRefreshing()
         }
     }
 }

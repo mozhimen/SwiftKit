@@ -31,23 +31,23 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         _indicator = PointIndicator(this)
         initBanner(_indicator, _autoPlay)
-        vb.layoutkBannerSwitch.isChecked = _autoPlay
-        vb.layoutkBannerSwitch.setOnCheckedChangeListener { _, isChecked ->
+        VB.layoutkBannerSwitch.isChecked = _autoPlay
+        VB.layoutkBannerSwitch.setOnCheckedChangeListener { _, isChecked ->
             _autoPlay = isChecked
             initBanner(_indicator, _autoPlay)
         }
-        vb.layoutkBannerIndicator.setOnClickListener {
+        VB.layoutkBannerIndicator.setOnClickListener {
             if (_indicator is PointIndicator) {
                 initBanner(NumberIndicator(this), _autoPlay)
             } else {
                 initBanner(_indicator, _autoPlay)
             }
         }
-        vb.layoutkBannerPre.setOnClickListener {
-            vb.layoutkBannerContainer.scrollToPreviousItem()
+        VB.layoutkBannerPre.setOnClickListener {
+            VB.layoutkBannerContainer.scrollToPreviousItem()
         }
-        vb.layoutkBannerNext.setOnClickListener {
-            vb.layoutkBannerContainer.scrollToNextItem()
+        VB.layoutkBannerNext.setOnClickListener {
+            VB.layoutkBannerContainer.scrollToNextItem()
         }
     }
 
@@ -59,7 +59,7 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
             mo.name = "$i: ${_urls[i]}"
             moList.add(mo)
         }
-        vb.layoutkBannerContainer.apply {
+        VB.layoutkBannerContainer.apply {
             setBannerIndicator(indicator)
             setAutoPlay(autoPlay)
             setIntervalTime(5000)

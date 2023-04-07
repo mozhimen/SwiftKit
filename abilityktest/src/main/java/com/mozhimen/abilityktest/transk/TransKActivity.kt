@@ -30,8 +30,8 @@ class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         _transKTTS.bindLifecycle(this)
-        vb.transkT2sBtn.setOnClickListener {
-            _transKTTS.play(vb.transkT2sEdt.text.toString())
+        VB.transkT2sBtn.setOnClickListener {
+            _transKTTS.play(VB.transkT2sEdt.text.toString())
         }
     }
 }

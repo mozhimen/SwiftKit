@@ -11,21 +11,19 @@ import com.mozhimen.componentktest.databinding.FragmentSecondBinding
 import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
 import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
-import com.mozhimen.uicorek.adapterk.RecyclerKVBAdapter
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 
 class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, BaseNavigateKViewModel>() {
     private val _datas = listOf(MKey("01", "01"))
-    private var _adapter: RecyclerKVBAdapter<MKey, ItemNavigatekBinding>? = null
+    private var _adapter: AdapterKRecyclerVB<MKey, ItemNavigatekBinding>? = null
     override fun initView(savedInstanceState: Bundle?) {
-        vb.navigatekFragmentSecondTxt.setOnClickListener {
+        VB.navigatekFragmentSecondTxt.setOnClickListener {
             (requireActivity() as NavigateKActivity).navController.popBackStack()
             //vm.liveFragmentId.value = NavigateK.getId(FirstFragment::class.java)
         }
-        vb.navigatekFragmentSecondRecycler.layoutManager = LinearLayoutManager(requireActivity())
-        _adapter = RecyclerKVBAdapter<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek).apply {
-            bindLifecycle(this@SecondFragment)
-        }
-        vb.navigatekFragmentSecondRecycler.adapter = _adapter
+        VB.navigatekFragmentSecondRecycler.layoutManager = LinearLayoutManager(requireActivity())
+        _adapter = AdapterKRecyclerVB<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek)
+        VB.navigatekFragmentSecondRecycler.adapter = _adapter
     }
 
     override fun bindViewVM(vb: FragmentSecondBinding) {
@@ -43,7 +41,7 @@ class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, BaseNavigateKView
     }
 
     override fun onPause() {
-        vb.navigatekFragmentSecondRecycler.adapter = null
+        VB.navigatekFragmentSecondRecycler.adapter = null
         super.onPause()
         Log.d(TAG, "onPause: ")
     }

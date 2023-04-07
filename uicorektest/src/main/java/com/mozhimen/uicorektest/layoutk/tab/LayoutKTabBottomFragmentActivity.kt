@@ -38,7 +38,7 @@ class LayoutKTabBottomFragmentActivity : BaseActivityVB<ActivityLayoutkTabBottom
     }
 
     private fun initTabBottom() {
-        vb.layoutkTabBottomFragmentContainer.setTabBottomAlpha(0.85f)
+        VB.layoutkTabBottomFragmentContainer.setTabBottomAlpha(0.85f)
         val homeInfo = MTabBottom(
             "首页",
             "fonts/iconfont.ttf",
@@ -68,17 +68,17 @@ class LayoutKTabBottomFragmentActivity : BaseActivityVB<ActivityLayoutkTabBottom
             add(moreInfo)
             add(mineInfo)
         }
-        vb.layoutkTabBottomFragmentContainer.inflateTabItem(_infoList)
+        VB.layoutkTabBottomFragmentContainer.inflateTabItem(_infoList)
         val tabBottomFragmentAdapter = TabBottomFragmentAdapter(supportFragmentManager, _infoList)
-        vb.layoutkTabBottomFragmentView.setAdapter(tabBottomFragmentAdapter)
-        vb.layoutkTabBottomFragmentContainer.addTabItemSelectedListener(object : ITabSelectedListener<MTabBottom> {
+        VB.layoutkTabBottomFragmentView.setAdapter(tabBottomFragmentAdapter)
+        VB.layoutkTabBottomFragmentContainer.addTabItemSelectedListener(object : ITabSelectedListener<MTabBottom> {
             override fun onTabItemSelected(index: Int, prevItem: MTabBottom?, currentItem: MTabBottom) {
-                vb.layoutkTabBottomFragmentView.setCurrentItem(index)
+                VB.layoutkTabBottomFragmentView.setCurrentItem(index)
                 _currentItemIndex = index
             }
         })
-        vb.layoutkTabBottomFragmentContainer.defaultSelected(_infoList[_currentItemIndex])
-        vb.layoutkTabBottomFragmentContainer.findTabItem(_infoList[1])?.resetTabHeight(66f.dp2px().toInt()) //改变某个Tab的高度
+        VB.layoutkTabBottomFragmentContainer.defaultSelected(_infoList[_currentItemIndex])
+        VB.layoutkTabBottomFragmentContainer.findTabItem(_infoList[1])?.resetTabHeight(66f.dp2px().toInt()) //改变某个Tab的高度
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

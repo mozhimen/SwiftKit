@@ -8,5 +8,5 @@ package com.mozhimen.uicorek.recyclerk.load.commons
  * @Version 1.0
  */
 interface IRecyclerKLoadListener {
-    fun onLoad()
+    fun onLoading()
 }

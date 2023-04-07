@@ -17,7 +17,7 @@ class DrawableKArrowActivity : BaseActivityVB<ActivityDrawablekArrowBinding>() {
             if (field != null) return field
             val drawableKArrow = DrawableKArrow()
             drawableKArrow.apply {
-                resetRect(vb.drawablekArrow1.width, vb.drawablekArrow1.height)
+                resetRect(VB.drawablekArrow1.width, VB.drawablekArrow1.height)
 
                 setFillColor(Color.BLACK)
                 setGapWidth(5f.dp2px())
@@ -39,8 +39,8 @@ class DrawableKArrowActivity : BaseActivityVB<ActivityDrawablekArrowBinding>() {
         }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.drawablekArrow1.post {
-            vb.drawablekArrow1.background = drawableKArrow
+        VB.drawablekArrow1.post {
+            VB.drawablekArrow1.background = drawableKArrow
         }
     }
 }

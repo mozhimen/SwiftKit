@@ -12,7 +12,7 @@ import com.mozhimen.uicorek.layoutk.banner.temps.PointIndicator
 import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder
 import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
-import com.mozhimen.uicorek.recyclerk.RecyclerKItem
+import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ItemRecyclerkBannerBinding
 
@@ -23,7 +23,7 @@ import com.mozhimen.uicorektest.databinding.ItemRecyclerkBannerBinding
  * @Date 2021/9/1 14:39
  * @Version 1.0
  */
-class RecyclerKItemBanner : RecyclerKItem<Any, VHKRecyclerVB<ItemRecyclerkBannerBinding>>() {
+class RecyclerKItemBanner : BaseRecyclerKItem<VHKRecyclerVB<ItemRecyclerkBannerBinding>>() {
     private val RECYCLERK_ITEM_BANNER_SP_NAME = "recyclerk_item_banner_sp_name"
     private var _index = 0
     private var _urls = arrayOf(
@@ -37,8 +37,8 @@ class RecyclerKItemBanner : RecyclerKItem<Any, VHKRecyclerVB<ItemRecyclerkBanner
 
     inner class BannerItem : MBannerItem()
 
-    override fun onBindData(holder: VHKRecyclerVB<ItemRecyclerkBannerBinding>, position: Int) {
-        super.onBindData(holder, position)
+    override fun onBindItem(holder: VHKRecyclerVB<ItemRecyclerkBannerBinding>, position: Int) {
+        super.onBindItem(holder, position)
         val context = holder.itemView.context ?: return
         val moList: MutableList<MBannerItem> = ArrayList()
         for (i in 0..5) {
@@ -75,10 +75,10 @@ class RecyclerKItemBanner : RecyclerKItem<Any, VHKRecyclerVB<ItemRecyclerkBanner
 
 
     override fun onCreateViewHolder(parent: ViewGroup): VHKRecyclerVB<ItemRecyclerkBannerBinding> {
-        return VHKRecyclerVB(LayoutInflater.from(parent.context).inflate(getItemLayoutRes(), parent, false))
+        return VHKRecyclerVB(LayoutInflater.from(parent.context).inflate(getItemLayoutId(), parent, false))
     }
 
-    override fun getItemLayoutRes() = R.layout.item_recyclerk_banner
+    override fun getItemLayoutId() = R.layout.item_recyclerk_banner
 
     override fun onViewDetachedFromWindow(holder: VHKRecyclerVB<ItemRecyclerkBannerBinding>) {
         CacheKSP.instance.with(RECYCLERK_ITEM_BANNER_SP_NAME).putInt("bannerIndex", _index)

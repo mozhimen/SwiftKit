@@ -13,14 +13,14 @@ class LayoutKRefreshTextActivity : BaseActivityVB<ActivityLayoutkRefreshTextBind
 
     override fun initView(savedInstanceState: Bundle?) {
         val textOverView = TextOverView(this)
-        vb.layoutkRefreshTextContainer.setRefreshOverView(textOverView)
-        vb.layoutkRefreshTextContainer.setRefreshParams(90f.dp2px().toInt(), 1.6f, null)
-        vb.layoutkRefreshTextContainer.setRefreshListener(object : IRefreshListener {
-            override fun onRefresh() {
-                WakeBefPauseLifecycleHandler(this@LayoutKRefreshTextActivity).postDelayed(1000) { vb.layoutkRefreshTextContainer.refreshFinished() }
+        VB.layoutkRefreshTextContainer.setRefreshOverView(textOverView)
+        VB.layoutkRefreshTextContainer.setRefreshParams(90f.dp2px().toInt(), 1.6f, null)
+        VB.layoutkRefreshTextContainer.setRefreshListener(object : IRefreshListener {
+            override fun onRefreshing() {
+                WakeBefPauseLifecycleHandler(this@LayoutKRefreshTextActivity).postDelayed(1000) { VB.layoutkRefreshTextContainer.finishRefresh() }
             }
 
-            override fun enableRefresh(): Boolean {
+            override fun onEnableRefresh(): Boolean {
                 return true
             }
         })

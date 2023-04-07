@@ -14,7 +14,7 @@ import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.uicorek.adapterk.RecyclerKVBAdapter
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,7 +22,7 @@ import kotlinx.coroutines.withContext
 @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
 @APermissionCheck(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE)
 class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
-    private lateinit var _adapterKRecycler: RecyclerKVBAdapter<UtilKFileLogBean, ItemUtilkFileLogBinding>
+    private lateinit var _adapterKRecycler: AdapterKRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>
     private val _logs = arrayListOf(
         UtilKFileLogBean(0, "start file process >>>>>")
     )
@@ -30,11 +30,9 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         ManifestKPermission.initPermissions(this) {
             if (it) {
-                vb.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
-                _adapterKRecycler = RecyclerKVBAdapter<UtilKFileLogBean, ItemUtilkFileLogBinding>( _logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log).apply {
-                    bindLifecycle(this@UtilKFileActivity)
-                }
-                vb.utilkFileRecycler.adapter = _adapterKRecycler
+                VB.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
+                _adapterKRecycler = AdapterKRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>( _logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
+                VB.utilkFileRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)
             }

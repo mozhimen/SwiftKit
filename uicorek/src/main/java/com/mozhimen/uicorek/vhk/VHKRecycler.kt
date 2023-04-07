@@ -26,6 +26,6 @@ open class VHKRecycler(val containerView: View) : RecyclerView.ViewHolder(contai
             view = itemView.findViewById<VIEW>(viewId)
             _viewCaches.put(viewId, view)
         }
-        return view as? VIEW
+        return view as? VIEW?
     }
 }

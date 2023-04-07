@@ -15,8 +15,6 @@ import kotlinx.coroutines.launch
  * @Version 1.0
  */
 open class BaseWakeBefPauseLifecycleObserver : IDefaultLifecycleObserver {
-    protected open val TAG = "${this.javaClass.simpleName}>>>>>"
-
     override fun bindLifecycle(owner: LifecycleOwner) {
         owner.lifecycleScope.launch(Dispatchers.Main) {
             owner.lifecycle.removeObserver(this@BaseWakeBefPauseLifecycleObserver)

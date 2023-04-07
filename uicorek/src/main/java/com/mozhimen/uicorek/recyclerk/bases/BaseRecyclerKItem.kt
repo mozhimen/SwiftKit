@@ -1,10 +1,9 @@
-package com.mozhimen.uicorek.recyclerk
+package com.mozhimen.uicorek.recyclerk.bases
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
 
 /**
@@ -14,11 +13,34 @@ import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
  * @Date 2021/8/31 15:56
  * @Version 1.0
  */
-abstract class RecyclerKItem<BEAN, VH : RecyclerView.ViewHolder>(val data: BEAN? = null) {
+open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     private var _adapterKRecycler: IAdapterKRecycler? = null
-    lateinit var vh: VH
+    var vh: VH? = null
+    var pos: Int = -1
+
+    /**
+     * 设置adapter
+     * @param adapter DataKAdapter
+     */
+    fun setAdapter(adapter: IAdapterKRecycler) {
+        _adapterKRecycler = adapter
+    }
+
+    /**
+     * 刷新列表
+     */
+    fun refreshItem(notify: Boolean) {
+        _adapterKRecycler?.refreshItem(this, pos, notify)
+    }
+
+    /**
+     * 从列表上移除
+     */
+    fun removeItem(notify: Boolean) {
+        _adapterKRecycler?.removeItem(this, notify)
+    }
 
     /**
      * 绑定数据
@@ -26,15 +48,16 @@ abstract class RecyclerKItem<BEAN, VH : RecyclerView.ViewHolder>(val data: BEAN?
      * @param position Int
      */
     @CallSuper
-    open fun onBindData(holder: VH, position: Int) {
+    open fun onBindItem(holder: VH, position: Int) {
         vh = holder
+        pos = position
     }
 
     /**
      * 返回该item的资源id
      * @return Int
      */
-    open fun getItemLayoutRes(): Int = -1
+    open fun getItemLayoutId(): Int = -1
 
     /**
      * 返回该item的视图view
@@ -47,7 +70,7 @@ abstract class RecyclerKItem<BEAN, VH : RecyclerView.ViewHolder>(val data: BEAN?
      * 获取item所占列数
      * @return Int
      */
-    open fun getSpanSize() = 0
+    open fun getItemSpanSize() = 0
 
     /**
      * 该item被滑进屏幕
@@ -68,27 +91,5 @@ abstract class RecyclerKItem<BEAN, VH : RecyclerView.ViewHolder>(val data: BEAN?
      */
     open fun onCreateViewHolder(parent: ViewGroup): VH? {
         return null
-    }
-
-    /**
-     * 设置adapter
-     * @param adapter DataKAdapter
-     */
-    fun setAdapter(adapter: IAdapterKRecycler) {
-        _adapterKRecycler = adapter
-    }
-
-    /**
-     * 刷新列表
-     */
-    fun refreshItem() {
-        _adapterKRecycler?.refreshItem(this)
-    }
-
-    /**
-     * 从列表上移除
-     */
-    fun removeItem() {
-        _adapterKRecycler?.removeItem(this)
     }
 }

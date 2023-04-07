@@ -12,7 +12,7 @@ class ElemKDialogFragmentVB : BaseDialogFragmentVB<FragmentElemkDialogFragmentVb
 
     override fun initView(savedInstanceState: Bundle?) {
         Log.d(TAG, "initData: 1")
-        vb.elemkFragmentVbvmBtn.setOnClickListener {
+        VB.elemkFragmentVbvmBtn.setOnClickListener {
             Log.d(TAG, "initData: 2")
             vm.genNum()
         }

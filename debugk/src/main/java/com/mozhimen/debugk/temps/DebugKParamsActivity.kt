@@ -37,7 +37,7 @@ class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         val itemDecoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         itemDecoration.setDrawable(UtilKRes.getDrawable(R.drawable.debugk_crashk_divider)!!)
-        vb.debugkParamsRecycler.addItemDecoration(itemDecoration)
+        VB.debugkParamsRecycler.addItemDecoration(itemDecoration)
 
         val params = mutableListOf<MDebugKMethod>()
         val size = _debugParams.size
@@ -59,13 +59,11 @@ class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {
             }
         }
 
-        vb.debugkParamsRecycler.layoutManager = LinearLayoutManager(this)
-        vb.debugkParamsRecycler.adapter = AdapterKRecyclerVB<MDebugKMethod, DebugkDialogItemBinding>(
+        VB.debugkParamsRecycler.layoutManager = LinearLayoutManager(this)
+        VB.debugkParamsRecycler.adapter = AdapterKRecyclerVB<MDebugKMethod, DebugkDialogItemBinding>(
             params,
             R.layout.debugk_item_params,
             BR.itemDebugKParams
-        ).apply {
-            bindLifecycle(this@DebugKParamsActivity)
-        }
+        )
     }
 }

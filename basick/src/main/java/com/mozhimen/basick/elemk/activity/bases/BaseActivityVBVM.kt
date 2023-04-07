@@ -24,6 +24,6 @@ abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel>(
     override fun initLayout() {
         super.initLayout()
         vm = UtilKViewModel.get(this, _factory, 1)
-        bindViewVM(vb)
+        bindViewVM(VB)
     }
 }

@@ -28,7 +28,7 @@ class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
         savedInstanceState?.let {
             _navigateDelegate.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
         }
-        _dragAndDropDelegate.dragAndDrop(vb.elemkGestureTxt1, vb.elemkGestureTxt2) { source, dest ->
+        _dragAndDropDelegate.dragAndDrop(VB.elemkGestureTxt1, VB.elemkGestureTxt2) { source, dest ->
             (dest as TextView).text = (source as TextView).text.toString()
         }
 

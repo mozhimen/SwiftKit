@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.exts.fitImage
 import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.uicorek.recyclerk.RecyclerKItem
+import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorektest.R
 
 /**
@@ -17,11 +17,11 @@ import com.mozhimen.uicorektest.R
  * @Date 2022/4/21 23:29
  * @Version 1.0
  */
-class RecyclerKItemTop : RecyclerKItem<Any, RecyclerView.ViewHolder>() {
+class RecyclerKItemTop : BaseRecyclerKItem<RecyclerView.ViewHolder>() {
     private var _parentWidth: Int = 0
 
-    override fun onBindData(holder: RecyclerView.ViewHolder, position: Int) {
-        super.onBindData(holder, position)
+    override fun onBindItem(holder: RecyclerView.ViewHolder, position: Int) {
+        super.onBindItem(holder, position)
         val imageView = holder.itemView as ImageView
         /*data?.let {
             if (data!!.title != null && !TextUtils.isEmpty(data!!.title!!)) {*/

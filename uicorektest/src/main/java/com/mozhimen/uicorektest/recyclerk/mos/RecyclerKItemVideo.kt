@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.recyclerk.mos
 
 import android.widget.ImageView
-import com.mozhimen.uicorek.recyclerk.RecyclerKItem
+import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import com.mozhimen.uicorektest.R
 
@@ -13,13 +13,15 @@ import com.mozhimen.uicorektest.R
  * @Version 1.0
  */
 class RecyclerKItemVideo(private var _spanCount: Int) :
-    RecyclerKItem<Any, VHKRecycler>() {
-    override fun onBindData(holder: VHKRecycler, position: Int) {
-        super.onBindData(holder, position)
+    BaseRecyclerKItem<VHKRecycler>() {
+    override fun onBindItem(holder: VHKRecycler, position: Int) {
+        super.onBindItem(holder, position)
         holder.findViewById<ImageView>(R.id.datak_item_video_img)?.setImageResource(R.mipmap.datak_item_video)
     }
 
-    override fun getItemLayoutRes() = R.layout.item_recyclerk_video
+    override fun getItemLayoutId() =
+        R.layout.item_recyclerk_video
 
-    override fun getSpanSize() = _spanCount
+    override fun getItemSpanSize() =
+        _spanCount
 }

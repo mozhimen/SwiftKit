@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
@@ -36,7 +36,7 @@ class LogKPrinterViewProvider(
         private val TITLE_CLOSE_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_close)
     }
 
-    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
+    private val _adapterKRecyclerStuffed by lazy { AdapterKRecycler() }
 
     private var _recyclerView: RecyclerView? = null
         get() {

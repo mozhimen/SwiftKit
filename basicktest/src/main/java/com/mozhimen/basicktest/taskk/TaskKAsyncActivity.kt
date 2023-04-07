@@ -12,7 +12,7 @@ class TaskKAsyncActivity : BaseActivityVB<ActivityTaskkAsyncBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         _taskKAsync.bindLifecycle(this)
-        vb.taskkAsyncBtn.setOnClickListener {
+        VB.taskkAsyncBtn.setOnClickListener {
             for (i in 0 until 10) {
                 _taskKAsync.execute {
                     val time = System.currentTimeMillis()

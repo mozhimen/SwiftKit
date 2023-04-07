@@ -20,7 +20,7 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     private var _vb: VB? = null
-    protected val vb get() = _vb!!
+    protected val VB get() = _vb!!
 
     fun isAlive(): Boolean = !isRemoving && !isDetached && activity != null
 
@@ -29,7 +29,7 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
         _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container, 0).apply {
             lifecycleOwner = this@BaseFragmentVB
         }
-        return vb.root
+        return VB.root
     }
 
     /**
@@ -37,7 +37,7 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
      */
     @CallSuper
     override fun onDestroyView() {
-        vb.unbind()
+        VB.unbind()
         _vb = null
         super.onDestroyView()
     }

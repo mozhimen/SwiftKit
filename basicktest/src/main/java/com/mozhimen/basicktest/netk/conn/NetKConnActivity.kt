@@ -35,12 +35,12 @@ class NetKConnActivity : BaseActivityVB<ActivityNetkConnBinding>() {
     private val _netKConnDelegate: NetKConnDelegate<NetKConnActivity> by lazy { NetKConnDelegate(this, _netKConnListener) }
     private val _netKConnListener = object : INetKConnListener {
         override fun onDisconnected() {
-            vb.netkConnTxt.text = "断网了"
+            VB.netkConnTxt.text = "断网了"
         }
 
         @SuppressLint("SetTextI18n")
         override fun onConnected(type: ENetKType) {
-            vb.netkConnTxt.text = "联网了 type ${
+            VB.netkConnTxt.text = "联网了 type ${
                 when (type) {
                     ENetKType.WIFI -> {
                         "WIFI risi ${UtilKNetConn.getWifiStrength()}"

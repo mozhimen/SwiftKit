@@ -13,7 +13,7 @@ abstract class BaseActivityVB<VB : ViewDataBinding>(
 ) : AppCompatActivity(), IActivity {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
-    protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
+    protected val VB: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
         UtilKViewDataBinding.get<VB>(this::class.java, layoutInflater, 0).apply {
             lifecycleOwner = this@BaseActivityVB
         }
@@ -29,7 +29,7 @@ abstract class BaseActivityVB<VB : ViewDataBinding>(
 
     @CallSuper
     override fun onDestroy() {
-        vb.unbind()
+        VB.unbind()
         super.onDestroy()
     }
 
@@ -39,7 +39,7 @@ abstract class BaseActivityVB<VB : ViewDataBinding>(
 
     @CallSuper
     override fun initLayout() {
-        setContentView(vb.root)
+        setContentView(VB.root)
     }
 
     @CallSuper

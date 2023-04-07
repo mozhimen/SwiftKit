@@ -87,7 +87,7 @@ object UtilKString {
      * @return String
      */
     @JvmStatic
-    fun substring(content: String, firstIndex: Int, length: Int): String =
+    fun subStr(content: String, firstIndex: Int, length: Int): String =
         content.substring(firstIndex.normalize(content.indices), if (firstIndex + length > content.length) content.length else firstIndex + length)
 
     /**
@@ -174,8 +174,8 @@ object UtilKString {
      * @return String
      */
     @JvmStatic
-    fun <T> joinArray(array: Array<T>, defaultValue: String = "", splitChar: String = ","): String =
-        joinList(array.toList(), defaultValue, splitChar)
+    fun <T> combineArray2Str(array: Array<T>, defaultValue: String = "", splitChar: String = ","): String =
+        combineList2Str(array.toList(), defaultValue, splitChar)
 
     /**
      * 聚合list
@@ -185,7 +185,7 @@ object UtilKString {
      * @return String
      */
     @JvmStatic
-    fun <T> joinList(list: List<T>, defaultValue: String = "", splitChar: String = ","): String =
+    fun <T> combineList2Str(list: List<T>, defaultValue: String = "", splitChar: String = ","): String =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
             val ret = list.stream().map { elem: T? -> elem?.toString() ?: "" }
                 .collect(Collectors.joining(splitChar))

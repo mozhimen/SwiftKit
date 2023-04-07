@@ -17,7 +17,7 @@ open class PagerKDisScroll @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
 ) : ViewPager(context, attrs) {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
-    protected var isEnableScroll = true//是否enableScroll
+    protected var _isEnableScroll = true//是否enableScroll
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(ev: MotionEvent?): Boolean {
@@ -26,7 +26,7 @@ open class PagerKDisScroll @JvmOverloads constructor(
         //super.onTouchEvent(ev) //不行,
         //虽然onInterceptTouchEvent中拦截了,
         //但是如果viewpage里面子控件不是viewGroup,还是会调用这个方法.
-        return if (isEnableScroll) {
+        return if (_isEnableScroll) {
             super.onTouchEvent(ev)
         } else {
             true// 可行,消费,拦截事件
@@ -40,7 +40,7 @@ open class PagerKDisScroll @JvmOverloads constructor(
      */
     override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
         // return false//可行,不拦截事件,
-        return if (isEnableScroll) {
+        return if (_isEnableScroll) {
             super.onInterceptTouchEvent(ev)
         } else {
             false

@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  */
 class ElemKService : BaseService() {
 
-    override var binder: IBaseServiceConnListener.Stub? = object : BaseServiceBinder() {
+    override var BINDER: IBaseServiceConnListener.Stub = object : BaseServiceBinder() {
         override fun launchCommand(cmd: String?): String {
             return if (cmd == "123") "456" else "123"
         }

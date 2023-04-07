@@ -15,7 +15,7 @@ class StackKActivity : BaseActivityVB<ActivityStackkBinding>(), IStackKListener 
     override fun initView(savedInstanceState: Bundle?) {
         val stackTopActivity = StackK.getStackTopActivity()
         val stackCount = StackK.getStackCount()
-        vb.stackkTitle.text = "StackTop: ${stackTopActivity?.javaClass?.simpleName ?: "Null"}, StackCount: $stackCount"
+        VB.stackkTitle.text = "StackTop: ${stackTopActivity?.javaClass?.simpleName ?: "Null"}, StackCount: $stackCount"
 
         StackK.addFrontBackListener(this)
     }

@@ -29,10 +29,10 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
         initPrinterView()
         initPrinterMonitor()
 
-        vb.logkBtnPrint.setOnClickListener {
+        VB.logkBtnPrint.setOnClickListener {
             printLog()
         }
-        vb.logkBtnPrinterList.setOnClickListener {
+        VB.logkBtnPrinterList.setOnClickListener {
             printLog1()
         }
     }

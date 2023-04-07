@@ -16,7 +16,7 @@ class LayoutKTabBottomLayoutActivity : BaseActivityVB<ActivityLayoutkTabBottomLa
     }
 
     private fun initTabBottom() {
-        vb.layoutkTabBottomLayout.setTabBottomAlpha(0.85f)
+        VB.layoutkTabBottomLayout.setTabBottomAlpha(0.85f)
         val bottomMoList: MutableList<MTabBottom> = ArrayList()
         val homeInfo = MTabBottom(
             "首页",
@@ -44,13 +44,13 @@ class LayoutKTabBottomLayoutActivity : BaseActivityVB<ActivityLayoutkTabBottomLa
             add(moreInfo)
             add(mineInfo)
         }
-        vb.layoutkTabBottomLayout.inflateTabItem(bottomMoList)
-        vb.layoutkTabBottomLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabBottom> {
+        VB.layoutkTabBottomLayout.inflateTabItem(bottomMoList)
+        VB.layoutkTabBottomLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabBottom> {
             override fun onTabItemSelected(index: Int, prevItem: MTabBottom?, currentItem: MTabBottom) {
                 currentItem.name!!.showToast()
             }
         })
-        vb.layoutkTabBottomLayout.defaultSelected(homeInfo)
-        vb.layoutkTabBottomLayout.findTabItem(bottomMoList[1])?.resetTabHeight(66f.dp2px().toInt()) //改变某个Tab的高度
+        VB.layoutkTabBottomLayout.defaultSelected(homeInfo)
+        VB.layoutkTabBottomLayout.findTabItem(bottomMoList[1])?.resetTabHeight(66f.dp2px().toInt()) //改变某个Tab的高度
     }
 }

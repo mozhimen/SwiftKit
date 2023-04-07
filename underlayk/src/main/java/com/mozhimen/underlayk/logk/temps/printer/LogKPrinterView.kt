@@ -38,9 +38,6 @@ class LogKPrinterView<T>(owner: T) : ILogKPrinter, BaseWakeBefPauseLifecycleObse
     fun getViewProvider(): LogKPrinterViewProvider =
         _viewProvider
 
-    override val TAG: String
-        get() = "LogKPrinterView>>>>>"
-
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         _viewProvider.print(config, level, tag, printString)
     }

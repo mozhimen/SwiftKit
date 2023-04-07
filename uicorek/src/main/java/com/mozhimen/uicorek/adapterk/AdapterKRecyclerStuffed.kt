@@ -1,7 +1,6 @@
 package com.mozhimen.uicorek.adapterk
 
 import android.util.SparseArray
-import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +17,8 @@ import java.lang.ref.WeakReference
  * @Date 2021/8/31 16:14
  * @Version 1.0
  */
-class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
+open class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
 
-    private val _typePositions = SparseIntArray()
     private var _headers = SparseArray<View>()
     private var _footers = SparseArray<View>()
     private var ITEM_TYPE_HEADER = 1000000
@@ -29,10 +27,9 @@ class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
     //region # IAdapterKRecyclerStuffed
     override fun addHeaderView(view: View) {
         //没有添加过
-        if (_headers.indexOfValue(view) < 0) {
-            _headers.put(ITEM_TYPE_HEADER++, view)
-            notifyItemInserted(_headers.size() - 1)
-        }
+        if (_headers.indexOfValue(view) >= 0) return
+        _headers.put(ITEM_TYPE_HEADER++, view)
+        notifyItemInserted(_headers.size() - 1)
     }
 
     override fun removeHeaderView(view: View) {
@@ -44,10 +41,9 @@ class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
 
     override fun addFooterView(view: View) {
         //说明这个footerView 没有添加过
-        if (_footers.indexOfValue(view) < 0) {
-            _footers.put(ITEM_TYPE_FOOTER++, view)
-            notifyItemInserted(itemCount)
-        }
+        if (_footers.indexOfValue(view) >= 0) return
+        _footers.put(ITEM_TYPE_FOOTER++, view)
+        notifyItemInserted(itemCount)
     }
 
     override fun removeFooterView(view: View) {
@@ -55,16 +51,17 @@ class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
         if (indexOfValue < 0) return
         _footers.removeAt(indexOfValue)
         //position代表的是在列表中分位置
-        notifyItemRemoved(indexOfValue + getHeaderSize() + getOriginalItemSize())
+        notifyItemRemoved(indexOfValue + getHeaderViewSize() + getNormalItemSize())
     }
 
-    override fun getHeaderSize(): Int = _headers.size()
+    override fun getHeaderViewSize(): Int = _headers.size()
 
-    override fun getFooterSize(): Int = _footers.size()
+    override fun getFooterViewSize(): Int = _footers.size()
 
-    override fun getOriginalItemSize(): Int = _dataSets.size
+    override fun getNormalItemSize(): Int = _items.size
     //endregion
 
+    //region # AdapterKRecycler
     /**
      * 以每种item类型的class.hasCode为该item的viewType
      * 把type存储起来,为了onCreateViewHolder方法能够为不同类型的item创建不同的viewHolder
@@ -77,20 +74,20 @@ class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
         }
         if (isFooterPosition(position)) {
             //footer的位置应该计算一下: position=6, headerCount=1, itemCount=5, footerSize=1
-            val footerPosition = position - getHeaderSize() - getOriginalItemSize()
+            val footerPosition = position - getHeaderViewSize() - getNormalItemSize()
             return _footers.keyAt(footerPosition)
         }
 
-        val itemPosition = position - getHeaderSize()
-        val dataItem = _dataSets[itemPosition]
-        val type = dataItem.javaClass.hashCode()
+        val itemPosition = position - getHeaderViewSize()
+        val item = _items[itemPosition]
+        val type = item.javaClass.hashCode()
 
         //按照原来的写法相同的viewType仅仅只在第一次，会把viewType和dataItem关联
         _typePositions.put(type, position)
         return type
     }
 
-    override fun getItemCount() = _dataSets.size + getHeaderSize() + getFooterSize()
+    override fun getItemCount() = _items.size + getHeaderViewSize() + getFooterViewSize()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (_headers.indexOfKey(viewType) >= 0) {
@@ -107,52 +104,27 @@ class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
 
         //为了解决dataItem成员变量binding, 刷新之后无法被复用的问题
         val position = _typePositions.get(viewType)
-        val item = _dataSets[position]
-        val vh = item.onCreateViewHolder(parent)
-        if (vh != null) return vh
+        val item = _items[position]
+        val viewHolder = item.onCreateViewHolder(parent)
+        if (viewHolder != null) return viewHolder
 
         var view: View? = item.getItemView(parent)
         if (view == null) {
-            val layoutRes = item.getItemLayoutRes()
-            if (layoutRes < 0) {
-                throw RuntimeException("dataItem: ${item.javaClass.name} must override getItemView or getItemLayoutRes")
+            val layoutId = item.getItemLayoutId()
+            if (layoutId < 0) {
+                throw RuntimeException("onCreateViewHolder item: ${item.javaClass.name} must override getItemView or getItemLayoutId")
             }
-            view = LayoutInflater.from(parent.context).inflate(layoutRes, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
         }
 
-        return createViewHolderInternal(item.javaClass, view!!)
+        return onCreateViewHolderInternal(item.javaClass, view!!)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (isHeaderPosition(position) || isFooterPosition(position)) return
-        val itemPosition = position - getHeaderSize()
+        val itemPosition = position - getHeaderViewSize()
         val item = getItem(itemPosition)
-        item?.onBindData(holder, itemPosition)
-    }
-
-    override fun onAttachedToRecyclerViewInternal(recyclerView: RecyclerView) {
-        _recyclerViewRef = WeakReference(recyclerView)
-        //为列表上的item适配网格布局
-        val layoutManager = recyclerView.layoutManager
-        if (layoutManager is GridLayoutManager) {
-            val spanCount = layoutManager.spanCount
-            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    if (isHeaderPosition(position) || isFooterPosition(position)) {
-                        return spanCount
-                    }
-                    val itemPosition = position - getHeaderSize()
-                    if (itemPosition < _dataSets.size) {
-                        val dataItem = getItem(itemPosition)
-                        dataItem?.let {
-                            val spanSize = it.getSpanSize()
-                            return if (spanSize <= 0) spanCount else spanSize
-                        }
-                    }
-                    return spanCount
-                }
-            }
-        }
+        item?.onBindItem(holder, itemPosition)
     }
 
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
@@ -161,7 +133,7 @@ class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
             //瀑布流的item占比
             val position = recyclerView.getChildAdapterPosition(holder.itemView)
             val isHeaderFooter = isHeaderPosition(position) || isFooterPosition(position)
-            val itemPosition = position - getHeaderSize()
+            val itemPosition = position - getHeaderViewSize()
 
             val item = getItem(itemPosition) ?: return
             val layoutParams = holder.itemView.layoutParams
@@ -171,7 +143,7 @@ class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
                     layoutParams.isFullSpan = true
                     return
                 }
-                val spanSize = item.getSpanSize()
+                val spanSize = item.getItemSpanSize()
                 if (spanSize == manager!!.spanCount) {
                     layoutParams.isFullSpan = true
                 }
@@ -184,13 +156,39 @@ class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
         val position = holder.adapterPosition
         if (isHeaderPosition(position) || isFooterPosition(position))
             return
-        val itemPosition = position - getHeaderSize()
+        val itemPosition = position - getHeaderViewSize()
         val item = getItem(itemPosition) ?: return
         item.onViewDetachedFromWindow(holder)
+    }
+    //endregion
+
+    override fun onAttachedToRecyclerViewInternal(recyclerView: RecyclerView) {
+        _recyclerViewRef = WeakReference(recyclerView)
+        //为列表上的item适配网格布局
+        val layoutManager = recyclerView.layoutManager
+        if (layoutManager is GridLayoutManager) {
+            val spanCount = layoutManager.spanCount
+            layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    if (isHeaderPosition(position) || isFooterPosition(position)) {
+                        return spanCount
+                    }
+                    val itemPosition = position - getHeaderViewSize()
+                    if (itemPosition < _items.size) {
+                        val dataItem = getItem(itemPosition)
+                        dataItem?.let {
+                            val spanSize = it.getItemSpanSize()
+                            return if (spanSize <= 0) spanCount else spanSize
+                        }
+                    }
+                    return spanCount
+                }
+            }
+        }
     }
 
     private fun isHeaderPosition(position: Int): Boolean = position < _headers.size() // 5 --> 4 3 2 1
 
     private fun isFooterPosition(position: Int): Boolean =
-        position >= getHeaderSize() + getOriginalItemSize() // 10->  4+ 4.
+        position >= getHeaderViewSize() + getNormalItemSize() // 10->  4+ 4.
 }
