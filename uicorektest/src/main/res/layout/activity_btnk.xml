@@ -9,7 +9,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/btnk_pwd_eye_edit"
+            android:id="@+id/btnk_pwd_visible_edit"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:inputType="numberPassword" />
