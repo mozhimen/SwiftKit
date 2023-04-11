@@ -13,13 +13,13 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginBottom="10dp"
-            app:layoutKInputItem_bottomLineAppearance="@style/LayoutKInputItem_Style_LineAppearance"
-            app:layoutKInputItem_hint="请输入"
-            app:layoutKInputItem_inputAppearance="@style/LayoutKInputItem_Style_InputAppearance"
-            app:layoutKInputItem_inputType="text"
-            app:layoutKInputItem_title="示例"
-            app:layoutKInputItem_titleAppearance="@style/LayoutKInputItem_Style_TitleAppearance"
-            app:layoutKInputItem_topLineAppearance="@style/LayoutKInputItem_Style_LineAppearance" />
+            app:layoutKEditItem_bottomLineAppearance="@style/LayoutKEditItem_Style_LineAppearance"
+            app:layoutKEditItem_hint="请输入"
+            app:layoutKEditItem_inputAppearance="@style/LayoutKEditItem_Style_EditAppearance"
+            app:layoutKEditItem_inputType="text"
+            app:layoutKEditItem_title="示例"
+            app:layoutKEditItem_titleAppearance="@style/LayoutKEditItem_Style_TitleAppearance"
+            app:layoutKEditItem_topLineAppearance="@style/LayoutKEditItem_Style_LineAppearance" />
 
     </LinearLayout>
 </layout>

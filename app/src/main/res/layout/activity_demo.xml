@@ -13,9 +13,9 @@
             android:id="@+id/demo_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutKBlurred_src="@mipmap/demo_bg"
-            app:layoutKBlurred_isBlurredEnable="true"
-            app:layoutKBlurred_isMove="true"/>
+            app:layoutKBlur_imageSrc="@mipmap/demo_bg"
+            app:layoutKBlur_isBlurEnable="true"
+            app:layoutKBlur_isMoveEnable="true"/>
         
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/demo_recycler"
