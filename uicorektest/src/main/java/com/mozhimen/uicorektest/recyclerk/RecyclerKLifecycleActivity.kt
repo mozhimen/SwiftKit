@@ -20,7 +20,7 @@ class RecyclerKLifecycleActivity : BaseActivityVB<ActivityRecyclerkLifecycleBind
 //        vb.recyclerkLifecycle.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
 //        vb.recyclerkLifecycle.adapter =
 //            AdapterKRecyclerVB<MKey, ItemRecyclerkLifecycleBinding>(list, R.layout.item_recyclerk_lifecycle, BR.item_recyclerk_lifecycle) { holder, itemData, position, currentSelectPos ->
-//                holder.vb.itemRecyclerkLifecycleBox.setOnClickListener {
+//                holder.VB.itemRecyclerkLifecycleBox.setOnClickListener {
 //                    position.toString().showToast()
 //                }
 //            }.apply {

@@ -5,13 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * @ClassName AdapterKRecyclerVB
@@ -79,9 +74,9 @@ open class AdapterKRecyclerVB<DATA, VB : ViewDataBinding>(
     override fun getItemCount() = if (_datas.isEmpty()) 0 else _datas.size
 
     override fun onBindViewHolder(holder: VHKRecyclerVB<VB>, position: Int) {
-        holder.vb.setVariable(_brId, _datas[position])
+        holder.VB.setVariable(_brId, _datas[position])
         _listener?.invoke(holder, _datas[position], position, _selectItemPosition)
-        holder.vb.executePendingBindings()
+        holder.VB.executePendingBindings()
     }
 
     override fun getItemViewType(position: Int) = _defaultLayout

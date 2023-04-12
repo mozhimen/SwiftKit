@@ -42,7 +42,7 @@ class AdapterKRecyclerVB2Activity : BaseActivityVB<ActivityAdapterkRecyclerVb2Bi
             R.layout.item_adapterk_recycler_vb2,
             BR.item_adapterk_recycler_vb2
         ) { holder: VHKRecyclerVB<ItemAdapterkRecyclerVb2Binding>, data: MKey, position: Int, _: Int ->
-            holder.vb.itemAdapterkRecyclerVb2Name.setOnClickListener {
+            holder.VB.itemAdapterkRecyclerVb2Name.setOnClickListener {
                 "${position}: data:${data}".showToastLong()
             }
         }

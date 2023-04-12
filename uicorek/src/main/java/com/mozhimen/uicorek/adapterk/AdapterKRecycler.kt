@@ -1,7 +1,6 @@
 package com.mozhimen.uicorek.adapterk
 
 import android.util.Log
-import android.util.SparseArray
 import android.util.SparseIntArray
 import android.view.LayoutInflater
 import android.view.View
@@ -57,14 +56,14 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         val notifyPos = if (position >= 0) position else _items.size - 1
         if (notify) notifyItemInserted(notifyPos)
 
-        item.setAdapter(this)
+        item.bindAdapter(this)
     }
 
     override fun addItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
         val start = _items.size
         items.forEach { item ->
             _items.add(item)
-            item.setAdapter(this)
+            item.bindAdapter(this)
         }
         if (notify) notifyItemRangeInserted(start, items.size)
     }

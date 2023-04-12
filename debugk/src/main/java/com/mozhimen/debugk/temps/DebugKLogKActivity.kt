@@ -39,7 +39,7 @@ class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
                 R.layout.debugk_item_crashk_file,
                 BR.itemDebugKCrashK
             ) { holder, itemData, _, _ ->
-                holder.vb.debugkCrashkFileShare.setOnClickListener {
+                holder.VB.debugkCrashkFileShare.setOnClickListener {
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.putExtra("subject", "")
                     intent.putExtra("body", "")

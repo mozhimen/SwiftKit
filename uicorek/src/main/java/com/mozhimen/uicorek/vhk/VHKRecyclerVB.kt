@@ -11,4 +11,4 @@ import androidx.databinding.ViewDataBinding
  * @Date 2022/4/22 10:25
  * @Version 1.0
  */
-class VHKRecyclerVB<VB : ViewDataBinding>(view: View, val vb: VB = DataBindingUtil.bind(view)!!) : VHKRecycler(vb.root)
+class VHKRecyclerVB<ViewBinding : ViewDataBinding>(view: View, val VB: ViewBinding = DataBindingUtil.bind(view)!!) : VHKRecycler(VB.root)

@@ -84,7 +84,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
             BR.itemDebugKDialog
         ) { holder, itemData, _, _ ->
 
-            val descView = holder.vb.debugkDialogItemDesc
+            val descView = holder.VB.debugkDialogItemDesc
             if (TextUtils.isEmpty(itemData.desc)) {
                 descView.visibility = View.GONE
             } else {

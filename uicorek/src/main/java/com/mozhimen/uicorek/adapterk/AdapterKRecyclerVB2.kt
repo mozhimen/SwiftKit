@@ -77,7 +77,7 @@ class AdapterKRecyclerVB2<DATA, VB : ViewDataBinding>(
         if (position < 0 || position >= _items.size) return
         _selectItemPosition = position
         val item = getItem(_selectItemPosition) as RecyclerKItemVB<DATA, VB>
-        listener.invoke(item.vh as VHKRecyclerVB<VB>, item.data, _selectItemPosition, _selectItemPosition)
+        listener.invoke(item._vh as VHKRecyclerVB<VB>, item.data, _selectItemPosition, _selectItemPosition)
     }
 
     override fun onSelectItemPositionGet(): Int =

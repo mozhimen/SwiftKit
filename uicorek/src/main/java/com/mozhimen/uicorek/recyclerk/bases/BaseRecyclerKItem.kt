@@ -16,15 +16,15 @@ import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
 open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
-    private var _adapterKRecycler: IAdapterKRecycler? = null
-    var vh: VH? = null
-    var pos: Int = -1
+    protected var _adapterKRecycler: IAdapterKRecycler? = null
+    protected lateinit var _vh: VH
+    protected var _pos: Int = -1
 
     /**
      * 设置adapter
      * @param adapter DataKAdapter
      */
-    fun setAdapter(adapter: IAdapterKRecycler) {
+    fun bindAdapter(adapter: IAdapterKRecycler) {
         _adapterKRecycler = adapter
     }
 
@@ -32,7 +32,7 @@ open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
      * 刷新列表
      */
     fun refreshItem(notify: Boolean) {
-        _adapterKRecycler?.refreshItem(this, pos, notify)
+        _adapterKRecycler?.refreshItem(this, _pos, notify)
     }
 
     /**
@@ -49,8 +49,8 @@ open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
      */
     @CallSuper
     open fun onBindItem(holder: VH, position: Int) {
-        vh = holder
-        pos = position
+        _vh = holder
+        _pos = position
     }
 
     /**

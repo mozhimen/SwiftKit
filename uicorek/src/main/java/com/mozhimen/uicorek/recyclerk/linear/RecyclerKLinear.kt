@@ -79,7 +79,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
     ) : BaseRecyclerKItem<VHKRecyclerVB<RecyclerkLinearItemBinding>>() {
 
         override fun onBindItem(holder: VHKRecyclerVB<RecyclerkLinearItemBinding>, position: Int) {
-            holder.vb.layoutkRecyclerLinearItemTxt.text = _data.name
+            holder.VB.layoutkRecyclerLinearItemTxt.text = _data.name
             holder.itemView.setOnClickListener {
                 _listener?.invoke(position, _data)
             }

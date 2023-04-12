@@ -22,10 +22,10 @@ class LogKPrinterItem(private val _logK: MLogK) : BaseRecyclerKItem<VHKRecyclerV
     override fun onBindItem(holder: VHKRecyclerVB<LogkPrinterViewItemBinding>, position: Int) {
         super.onBindItem(holder, position)
         val color = LogKHelper.getLevelColor(_logK.level)
-        holder.vb.logkPrinterViewTag.text = _logK.getFlattened()
-        holder.vb.logkPrinterViewTag.setTextColor(color)
-        holder.vb.logkPrinterViewMsg.text = _logK.log.replace("\\n".toRegex(), "\n").replace(UtilKContext.getPackageName(UtilKApplication.instance.get()), "")
-        holder.vb.logkPrinterViewMsg.setTextColor(color)
+        holder.VB.logkPrinterViewTag.text = _logK.getFlattened()
+        holder.VB.logkPrinterViewTag.setTextColor(color)
+        holder.VB.logkPrinterViewMsg.text = _logK.log.replace("\\n".toRegex(), "\n").replace(UtilKContext.getPackageName(UtilKApplication.instance.get()), "")
+        holder.VB.logkPrinterViewMsg.setTextColor(color)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): VHKRecyclerVB<LogkPrinterViewItemBinding> {
