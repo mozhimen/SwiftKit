@@ -17,8 +17,8 @@ open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     protected var _adapterKRecycler: IAdapterKRecycler? = null
-    protected lateinit var _vh: VH
-    protected var _pos: Int = -1
+    lateinit var vh: VH
+    var pos: Int = -1
 
     /**
      * 设置adapter
@@ -32,7 +32,7 @@ open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
      * 刷新列表
      */
     fun refreshItem(notify: Boolean) {
-        _adapterKRecycler?.refreshItem(this, _pos, notify)
+        _adapterKRecycler?.refreshItem(this, pos, notify)
     }
 
     /**
@@ -49,8 +49,8 @@ open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
      */
     @CallSuper
     open fun onBindItem(holder: VH, position: Int) {
-        _vh = holder
-        _pos = position
+        vh = holder
+        pos = position
     }
 
     /**
