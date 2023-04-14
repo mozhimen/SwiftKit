@@ -170,11 +170,15 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     //endregion
 
     init {
-        _textKBubbleProxy.init(this, attrs)
+        if (!isInEditMode) {
+            _textKBubbleProxy.init(this, attrs)
+        }
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        _textKBubbleProxy.updateDrawable(right - left, bottom - top, true)
+        if (!isInEditMode) {
+            _textKBubbleProxy.updateDrawable(right - left, bottom - top, true)
+        }
     }
 }

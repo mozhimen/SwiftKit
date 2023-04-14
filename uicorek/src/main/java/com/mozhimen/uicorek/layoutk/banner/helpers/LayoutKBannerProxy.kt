@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.FrameLayout
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.layoutk.banner.IBannerItemChangeListener
 import com.mozhimen.uicorek.layoutk.banner.LayoutKBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
@@ -105,7 +106,7 @@ class LayoutKBannerProxy(
         _adapter?.setBannerBindListener(listener)
     }
 
-    override fun setPagerChangeListener(listener: OnPageChangeListener) {
+    override fun setPagerChangeListener(listener: IBannerItemChangeListener) {
         this._onPageChangeListener = listener
     }
 

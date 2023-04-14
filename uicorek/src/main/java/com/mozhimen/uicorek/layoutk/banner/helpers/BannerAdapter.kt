@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.viewpager.widget.PagerAdapter
+import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
+import com.mozhimen.uicorek.layoutk.banner.commons.IBannerAdapter
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerItemClickListener
 import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
@@ -19,7 +21,7 @@ import java.util.*
  * @Date 2022/4/19 14:45
  * @Version 1.0
  */
-class BannerAdapter(private var _context: Context) : PagerAdapter() {
+class BannerAdapter(private var _context: Context) : PagerAdapter(), IBannerAdapter {
     private val TAG = "BannerAdapter>>>>>"
     private var _cachedViews: SparseArray<BannerViewHolder> = SparseArray<BannerViewHolder>()
     private var _bannerClickListenerI: IBannerItemClickListener? = null
@@ -29,78 +31,39 @@ class BannerAdapter(private var _context: Context) : PagerAdapter() {
     private var _loop = false //非自动轮播状态下是否可以循环切换
     private var _layoutResId = -1
 
-    /**
-     * 设置BannerData
-     * @param mos List<MBannerItem>
-     */
-    fun setBannerData(mos: List<MBannerItem>) {
+    override fun setBannerData(mos: List<MBannerItem>) {
         _bannerItems = LinkedList(mos)
         initCachedView()//初始化数据
         notifyDataSetChanged()
     }
 
-    /**
-     * 设置adapter
-     * @param listener IBannerBindListener
-     */
-    fun setBannerBindListener(listener: IBannerBindListener) {
+    override fun setBannerBindListener(listener: IBannerBindListener) {
         _bannerBindListener = listener
     }
 
-    /**
-     * 设置监听器
-     * @param listener OnBannerClickListener
-     */
-    fun setBannerClickListener(listener: IBannerItemClickListener) {
+    override fun setBannerClickListener(listener: IBannerItemClickListener) {
         _bannerClickListenerI = listener
     }
 
-    /**
-     * 设置资源id
-     * @param layoutResId Int
-     */
-    fun setLayoutResId(@LayoutRes layoutResId: Int) {
-        _layoutResId = layoutResId
+    override fun setLayoutResId(@LayoutRes layoutId: Int) {
+        _layoutResId = layoutId
     }
 
-    /**
-     * 设置自动播放
-     * @param autoPlay Boolean
-     */
-    fun setAutoPlay(autoPlay: Boolean) {
+    override fun setAutoPlay(autoPlay: Boolean) {
         _autoPlay = autoPlay
     }
 
-    /**
-     * 设置循环播放
-     * @param loop Boolean
-     */
-    fun setLoop(loop: Boolean) {
+    override fun setLoop(loop: Boolean) {
         _loop = loop
     }
 
-    /**
-     * 获取真实的item数
-     * @return Int
-     */
-    fun getRealCount(): Int =
+    override fun getRealCount(): Int =
         _bannerItems?.size ?: 0
 
-    /**
-     * 获取初次展示的item位置
-     * @return Int
-     */
-    fun getFirstItem(): Int {
+    override fun getFirstItem(): Int {
         //这里是为了配合instantiateItem方法中realPosition = position % getRealCount();
         // - (Integer.MAX_VALUE / 2) % getRealCount()的主要目的是用于获取realPosition=0的位置
         return Int.MAX_VALUE / 2 - Int.MAX_VALUE / 2 % getRealCount()
-    }
-
-    protected fun onBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int) {
-        viewHolder.rootView.setOnClickListener {
-            _bannerClickListenerI?.onBannerClick(viewHolder, item, position)
-        }
-        _bannerBindListener?.onBannerBind(viewHolder, item, position)
     }
 
     /**
@@ -151,6 +114,13 @@ class BannerAdapter(private var _context: Context) : PagerAdapter() {
      * @param `object` Any
      */
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {}
+
+    private fun onBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int) {
+        viewHolder.rootView.setOnClickListener {
+            _bannerClickListenerI?.onBannerClick(viewHolder, item, position)
+        }
+        _bannerBindListener?.onBannerBind(viewHolder, item, position)
+    }
 
     @Throws(Exception::class)
     private fun initCachedView() {

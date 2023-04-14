@@ -2,6 +2,7 @@ package com.mozhimen.uicorek.layoutk.banner.commons
 
 import androidx.annotation.LayoutRes
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
+import com.mozhimen.uicorek.layoutk.banner.IBannerItemChangeListener
 import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
 
 /**
@@ -93,7 +94,7 @@ interface IBanner {
      * 页面变换监听器
      * @param listener OnPageChangeListener
      */
-    fun setPagerChangeListener(listener: OnPageChangeListener)
+    fun setPagerChangeListener(listener: IBannerItemChangeListener)
 
     /**
      * banner的item点击监听器

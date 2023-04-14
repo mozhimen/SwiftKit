@@ -90,7 +90,7 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
         _layoutKBannerProxy.setBannerBindListener(listener)
     }
 
-    override fun setPagerChangeListener(listener: ViewPager.OnPageChangeListener) {
+    override fun setPagerChangeListener(listener: IBannerItemChangeListener) {
         _layoutKBannerProxy.setPagerChangeListener(listener)
     }
 

@@ -12,10 +12,9 @@ import androidx.camera.core.Preview
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.cons.CUseFeature
-import com.mozhimen.basick.utilk.res.UtilKDisplay
 import com.mozhimen.basick.utilk.res.UtilKDisplayManager
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing

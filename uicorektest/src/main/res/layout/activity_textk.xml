@@ -29,17 +29,23 @@
 
         <com.mozhimen.uicorek.textk.TextKEditClear
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.mozhimen.uicorek.textk.TextKEditForm
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <com.mozhimen.uicorek.textk.TextKEditFocus
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/textk_edit_form" />
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/textk_edit_form"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-
+        <com.mozhimen.uicorek.textk.TextKProgress
+            android:id="@+id/textk_progress"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="这是一个进度条文本"
+            app:textKProgress_progressColor="@color/blue_theme"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 </layout>
