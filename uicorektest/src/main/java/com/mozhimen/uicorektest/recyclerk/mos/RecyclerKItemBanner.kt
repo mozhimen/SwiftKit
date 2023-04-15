@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.viewpager.widget.ViewPager
 import coil.load
 import com.mozhimen.basick.cachek.cacheksp.CacheKSP
+import com.mozhimen.uicorek.layoutk.banner.IBannerItemChangeListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.temps.PointIndicator
 import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder
@@ -59,16 +60,11 @@ class RecyclerKItemBanner : BaseRecyclerKItem<VHKRecyclerVB<ItemRecyclerkBannerB
                     model.url?.let { imageView.load(it) }
                 }
             })
-            setPagerChangeListener(object : ViewPager.OnPageChangeListener {
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                }
-
+            setPagerChangeListener(object : IBannerItemChangeListener {
                 override fun onPageSelected(position: Int) {
                     _index = position
                     Log.d(TAG, "onPageSelected $position")
                 }
-
-                override fun onPageScrollStateChanged(state: Int) {}
             })
         }
     }

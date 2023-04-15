@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.content
 
 import android.content.Context
+import android.os.Environment
 
 
 /**
@@ -14,14 +15,18 @@ object UtilKDir {
     private val _context by lazy { UtilKApplication.instance.get() }
 
     @JvmStatic
-    fun getFilesAbsolutePath(): String =
+    fun getInternalFilesAbsolutePath(): String =
         UtilKContext.getFilesAbsolutePath(_context)
+
+    @JvmStatic
+    fun getInternalCacheAbsolutePath(): String =
+        UtilKContext.getCacheAbsolutePath(_context)
 
     @JvmStatic
     fun getExternalRootFilesAbsolutePath(): String =
         UtilKContext.getExternalRootFilesAbsolutePath(_context)
 
     @JvmStatic
-    fun getCacheAbsolutePath(): String =
-        UtilKContext.getCacheAbsolutePath(_context)
+    fun getExternalSdCardDCIMAbsolutePath(): String =
+        Environment.DIRECTORY_DCIM
 }

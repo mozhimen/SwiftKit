@@ -9,6 +9,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.content.UtilKDir
 import com.mozhimen.basick.utilk.exts.drawable2Bitmap
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
@@ -71,5 +72,9 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
                 VB.utilkBitmapImgBmpScale.setImageBitmap(scaleBmp)
             }
         })
+
+        VB.utilkBitmapBtnSave.setOnClickListener {
+            UtilKBitmapIO.bitmap2JpegAlbumFile(bitmap,UtilKDir.getCacheAbsolutePath())
+        }
     }
 }

@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import coil.load
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.imagek.loader.exts.loadImage
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 import com.mozhimen.uicorek.layoutk.banner.temps.NumberIndicator
@@ -16,7 +17,7 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkBannerBinding
 
 class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
 
-    private var _autoPlay = true
+    private var _autoPlay = false
     private lateinit var _indicator: IBannerIndicator<*>
 
     private var _urls = arrayOf(
@@ -29,18 +30,25 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
     )
 
     override fun initView(savedInstanceState: Bundle?) {
+        val moList: MutableList<MyBannerMo> = ArrayList()
+        for (i in _urls.indices) {
+            val mo = MyBannerMo()
+            mo.url = _urls[i % _urls.size]
+            mo.name = "$i: ${_urls[i]}"
+            moList.add(mo)
+        }
         _indicator = PointIndicator(this)
-        initBanner(_indicator, _autoPlay)
+        initBanner(_indicator, moList, _autoPlay)
         VB.layoutkBannerSwitch.isChecked = _autoPlay
         VB.layoutkBannerSwitch.setOnCheckedChangeListener { _, isChecked ->
             _autoPlay = isChecked
-            initBanner(_indicator, _autoPlay)
+            initBanner(_indicator, moList, _autoPlay)
         }
         VB.layoutkBannerIndicator.setOnClickListener {
             if (_indicator is PointIndicator) {
-                initBanner(NumberIndicator(this), _autoPlay)
+                initBanner(NumberIndicator(this), moList, _autoPlay)
             } else {
-                initBanner(_indicator, _autoPlay)
+                initBanner(_indicator, moList, _autoPlay)
             }
         }
         VB.layoutkBannerPre.setOnClickListener {
@@ -49,29 +57,31 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
         VB.layoutkBannerNext.setOnClickListener {
             VB.layoutkBannerContainer.scrollToNextItem()
         }
+        VB.layoutkBannerAdd.setOnClickListener {
+            moList.removeAt(moList.size - 1)
+            initBanner(_indicator, moList, _autoPlay)
+        }
+        VB.layoutkBannerDelete.setOnClickListener {
+            moList.add(MyBannerMo().apply { name = "...";url = "https://images.pexels.com/photos/6679876/pexels-photo-6679876.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" })
+            initBanner(_indicator, moList, _autoPlay)
+        }
     }
 
-    private fun initBanner(indicator: IBannerIndicator<*>, autoPlay: Boolean) {
-        val moList: MutableList<MyBannerMo> = ArrayList()
-        for (i in _urls.indices) {
-            val mo = MyBannerMo()
-            mo.url = _urls[i % _urls.size]
-            mo.name = "$i: ${_urls[i]}"
-            moList.add(mo)
-        }
+    private fun initBanner(indicator: IBannerIndicator<*>, moList: List<MBannerItem>, autoPlay: Boolean, currentPos: Int = 0) {
         VB.layoutkBannerContainer.apply {
             setBannerIndicator(indicator)
             setAutoPlay(autoPlay)
             setIntervalTime(5000)
             setScrollDuration(3000)
             setBannerData(R.layout.item_layoutk_banner, moList)
-            setCurrentPosition(5, false)
+            setCurrentPosition(currentPos, false)
+            setLoop(false)
             setBannerBindListener(object : IBannerBindListener {
                 override fun onBannerBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int) {
                     val model = item as MyBannerMo
                     val imageView: ImageView = viewHolder.findViewById(R.id.item_layoutk_banner_img)
                     val titleView: TextView = viewHolder.findViewById(R.id.item_layoutk_banner_title)
-                    model.url?.let { imageView.load(it) }
+                    model.url?.let { imageView.loadImage(it) }
                     model.name?.let { titleView.text = it }
                 }
             })

@@ -8,6 +8,13 @@ package com.mozhimen.uicorek.layoutk.banner.mos
  * @Version 1.0
  */
 abstract class MBannerItem {
-    var name: String? = null
-    var url: String? = null
+    var name: String = ""
+    var url: String = ""
+
+    constructor()
+
+    constructor(name: String, url: String) {
+        this.name = name
+        this.url = url
+    }
 }

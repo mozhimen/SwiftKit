@@ -14,9 +14,9 @@
             android:id="@+id/layoutk_banner_container"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/black"
             app:layoutKBanner_autoPlay="false"
-            app:layoutKBanner_loop="true"
+            app:layoutKBanner_loop="false"
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
@@ -45,6 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="center">
 
             <TextView
@@ -60,6 +61,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="下一个"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/layoutk_banner_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="增加"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/layoutk_banner_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="删除"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
     </LinearLayout>
