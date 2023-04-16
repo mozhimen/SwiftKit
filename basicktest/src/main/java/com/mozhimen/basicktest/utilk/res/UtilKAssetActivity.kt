@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.utilk
+package com.mozhimen.basicktest.utilk.res
 
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +13,7 @@ import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basicktest.utilk.java.UtilKFileActivity
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

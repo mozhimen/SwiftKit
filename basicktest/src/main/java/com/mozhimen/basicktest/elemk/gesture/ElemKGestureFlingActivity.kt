@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.utilk
+package com.mozhimen.basicktest.elemk.gesture
 
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -7,7 +7,7 @@ import com.mozhimen.basick.elemk.gesture.commons.GestureFlingCallback
 import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.basicktest.databinding.ActivityUtilkGestureBinding
 
-class UtilKGestureActivity : BaseActivityVB<ActivityUtilkGestureBinding>() {
+class ElemKGestureFlingActivity : BaseActivityVB<ActivityUtilkGestureBinding>() {
 
     private val _gestureDetector: GestureDetector by lazy {
         GestureDetector(this, object : GestureFlingCallback() {

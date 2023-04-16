@@ -13,10 +13,10 @@ import com.mozhimen.basicktest.databinding.ActivityAnimkBinding
  */
 class AnimKActivity : BaseActivityVB<ActivityAnimkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        //animk.animkFormat.animationFormat.kind.build
-        //----.-------------.IAnimation-----.
+//        animk.animkFormat.animationFormat.kind.build
+//        ----.-------------.IAnimation-----.
 //        AnimKBuilder.asAnimation().TO_TOP.TO_HIDE.SHAKE.build()
 //        AnimKBuilder.asAnimation().asAlpha(AlphaConfig().show()).build()
-        //AnimKBuilder.asAnimation().asScale(ScaleConfig.BOTTOM_TO_TOP)
+//        AnimKBuilder.asAnimation().asScale(ScaleConfig.BOTTOM_TO_TOP)
     }
 }

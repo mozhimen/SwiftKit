@@ -6,6 +6,7 @@ import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.basicktest.databinding.ActivityElemkBinding
 import com.mozhimen.basicktest.elemk.activity.ElemKVBVMActivity
 import com.mozhimen.basicktest.elemk.gesture.ElemKGestureActivity
+import com.mozhimen.basicktest.elemk.gesture.ElemKGestureFlingActivity
 import com.mozhimen.basicktest.elemk.receiver.ElemKReceiverActivity
 import com.mozhimen.basicktest.elemk.service.ElemKServiceActivity
 
@@ -18,19 +19,23 @@ import com.mozhimen.basicktest.elemk.service.ElemKServiceActivity
  */
 class ElemKActivity : BaseActivityVB<ActivityElemkBinding>() {
 
-    fun goElemKActivityVBVM(view: View) {
+    fun goElemKVBVM(view: View) {
         start<ElemKVBVMActivity>()
     }
 
-    fun goElemKServiceActivity(view: View) {
+    fun goElemKService(view: View) {
         start<ElemKServiceActivity>()
     }
 
-    fun goElemKReceiverActivity(view: View) {
+    fun goElemKReceiver(view: View) {
         start<ElemKReceiverActivity>()
     }
 
-    fun goElemKGestureActivity(view: View) {
+    fun goElemKGesture(view: View) {
         start<ElemKGestureActivity>()
+    }
+
+    fun goElemKGestureFling(view: View) {
+        start<ElemKGestureFlingActivity>()
     }
 }

@@ -22,7 +22,7 @@ import com.mozhimen.basick.utilk.view.window.UtilKWindow
  * @Date 2023/2/20 15:16
  * @Version 1.0
  */
-object UtilKKeyboardChange {
+object UtilKInputChange {
     private const val TAG_ON_GLOBAL_LAYOUT_LISTENER = -8
 
     /**

@@ -105,31 +105,34 @@
             android:name=".utilk.UtilKActivity"
             android:exported="true" />
         <activity
-            android:name=".utilk.UtilKAssetActivity"
+            android:name=".utilk.res.UtilKAssetActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKGestureActivity"
+            android:name=".elemk.gesture.ElemKGestureFlingActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKKeyBoardActivity"
+            android:name=".utilk.content.UtilKIntentActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKScreenActivity"
+            android:name=".utilk.view.UtilKInputActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKVerifyUrlActivity"
+            android:name=".utilk.view.UtilKScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKBitmapActivity"
+            android:name=".utilk.java.UtilKVerifyUrlActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKDataBusActivity"
+            android:name=".utilk.graphics.UtilKBitmapActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKEncryptActivity"
+            android:name=".utilk.jetpack.UtilKDataBusActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKFileActivity"
+            android:name=".utilk.java.UtilKEncryptActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.java.UtilKFileActivity"
             android:exported="false" />
     </application>
 

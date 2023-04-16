@@ -13,7 +13,7 @@ import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_SHOW
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.java.UtilKClazz
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig
-import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange
+import com.mozhimen.basick.utilk.view.keyboard.UtilKInputChange
 import com.mozhimen.basick.utilk.log.UtilKLogPro
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK.KeyEventListener
@@ -274,7 +274,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         return this
     }
 
-    fun setOnKeyboardChangeListener(listener: UtilKKeyboardChange.IUtilKKeyboardChangeListener): PopwinKBuilderConfig {
+    fun setOnKeyboardChangeListener(listener: UtilKInputChange.IUtilKKeyboardChangeListener): PopwinKBuilderConfig {
         set("setOnKeyboardChangeListener", listener)
         return this
     }

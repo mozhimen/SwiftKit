@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.utilk
+package com.mozhimen.basicktest.utilk.graphics
 
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -74,7 +74,7 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
         })
 
         VB.utilkBitmapBtnSave.setOnClickListener {
-            UtilKBitmapIO.bitmap2JpegAlbumFile(bitmap,UtilKDir.getCacheAbsolutePath())
+            UtilKBitmapIO.bitmap2JpegAlbumFile(bitmap,UtilKDir.getInternalCacheAbsolutePath())
         }
     }
 }

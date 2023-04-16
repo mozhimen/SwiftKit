@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.utilk
+package com.mozhimen.basicktest.utilk.view
 
 import android.view.MotionEvent
 import android.view.View
@@ -14,7 +14,7 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkKeyboardBinding
  * @Date 2023/3/2 17:49
  * @Version 1.0
  */
-class UtilKKeyBoardActivity : BaseActivityVB<ActivityUtilkKeyboardBinding>() {
+class UtilKInputActivity : BaseActivityVB<ActivityUtilkKeyboardBinding>() {
     override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
             val focusView: View? = currentFocus

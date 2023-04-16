@@ -11,8 +11,8 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goTaskKPolling"
-            android:text="goTaskKPolling"
+            android:onClick="goTaskKPoll"
+            android:text="goTaskKPoll"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
@@ -23,8 +23,8 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goTaskKThreadPool"
-            android:text="goTaskKThreadPool"
+            android:onClick="goTaskKExecutor"
+            android:text="goTaskKExecutor"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

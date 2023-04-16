@@ -246,7 +246,7 @@ import com.mozhimen.basick.utilk.view.UtilKGravity;
 import com.mozhimen.basick.utilk.res.UtilKRes;
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig;
 import com.mozhimen.basick.utilk.content.UtilKApplication;
-import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
+import com.mozhimen.basick.utilk.view.keyboard.UtilKInputChange;
 import com.mozhimen.basick.utilk.log.UtilKLogPro;
 import com.mozhimen.basick.utilk.view.window.UtilKWindow;
 import com.mozhimen.uicorek.R;
@@ -1914,7 +1914,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
     /**
      * 设置键盘监听回调
      */
-    public BasePopwinK setOnKeyboardChangeListener(UtilKKeyboardChange.IUtilKKeyboardChangeListener listener) {
+    public BasePopwinK setOnKeyboardChangeListener(UtilKInputChange.IUtilKKeyboardChangeListener listener) {
         mHelper.mUserKeyboardStateChangeListener = listener;
         return this;
     }

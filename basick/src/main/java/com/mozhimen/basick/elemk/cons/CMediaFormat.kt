@@ -9,6 +9,7 @@ package com.mozhimen.basick.elemk.cons
  * @Version 1.0
  */
 object CMediaFormat {
+    const val MIMETYPE_IMAGE_ALL = "image/*"
     const val MIMETYPE_IMAGE_PNG = "image/png"
     const val MIMETYPE_IMAGE_JPEG = "image/jpeg"
     const val MIMETYPE_VIDEO_VP8 = "video/x-vnd.on2.vp8"

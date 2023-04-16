@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.provider.MediaStore
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.cons.CMediaFormat
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -22,6 +24,22 @@ import com.mozhimen.basick.utilk.java.datatype.UtilKString
  * @Version 1.0
  */
 object UtilKIntent {
+    /**
+     * 选择系统文件
+     * @return Intent
+     */
+    @JvmStatic
+    fun getPick(): Intent =
+        Intent(Intent.ACTION_PICK)
+
+    /**
+     * 选择系统图像
+     * @return Intent
+     */
+    @JvmStatic
+    fun getPickImage(): Intent =
+        getPick().apply { setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL) }
+
     /**
      * 获取设置无障碍
      * @return Intent

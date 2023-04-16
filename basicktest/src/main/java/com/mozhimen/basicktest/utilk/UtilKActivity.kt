@@ -6,24 +6,28 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basicktest.databinding.ActivityUtilkBinding
+import com.mozhimen.basicktest.utilk.content.UtilKIntentActivity
+import com.mozhimen.basicktest.utilk.graphics.UtilKBitmapActivity
+import com.mozhimen.basicktest.utilk.java.UtilKEncryptActivity
+import com.mozhimen.basicktest.utilk.java.UtilKFileActivity
+import com.mozhimen.basicktest.utilk.java.UtilKVerifyUrlActivity
+import com.mozhimen.basicktest.utilk.jetpack.UtilKDataBusActivity
+import com.mozhimen.basicktest.utilk.res.UtilKAssetActivity
+import com.mozhimen.basicktest.utilk.view.UtilKInputActivity
+import com.mozhimen.basicktest.utilk.view.UtilKScreenActivity
 
 class UtilKActivity : BaseActivityVB<ActivityUtilkBinding>() {
-
     override fun initData(savedInstanceState: Bundle?) {
         UtilKDataBus.with<String>("stickyData").setStickyData("即时消息主界面")
         super.initData(savedInstanceState)
     }
 
-    fun goUtilKAsset(view: View) {
-        start<UtilKAssetActivity>()
+    fun goUtilKIntent(view: View) {
+        start<UtilKIntentActivity>()
     }
 
     fun goUtilKBitmap(view: View) {
         start<UtilKBitmapActivity>()
-    }
-
-    fun goUtilKDataBus(view: View) {
-        start<UtilKDataBusActivity>()
     }
 
     fun goUtilKEncrypt(view: View) {
@@ -34,19 +38,25 @@ class UtilKActivity : BaseActivityVB<ActivityUtilkBinding>() {
         start<UtilKFileActivity>()
     }
 
-    fun goUtilKGesture(view: View) {
-        start<UtilKGestureActivity>()
+    fun goUtilKVerifyUrl(view: View) {
+        start<UtilKVerifyUrlActivity>()
     }
 
-    fun goUtilKKeyBoard(view: View) {
-        start<UtilKKeyBoardActivity>()
+    fun goUtilKDataBus(view: View) {
+        start<UtilKDataBusActivity>()
+    }
+
+    fun goUtilKAsset(view: View) {
+        start<UtilKAssetActivity>()
+    }
+
+    fun goUtilKInput(view: View) {
+        start<UtilKInputActivity>()
     }
 
     fun goUtilKScreen(view: View) {
         start<UtilKScreenActivity>()
     }
 
-    fun goUtilKVerifyUrl(view: View) {
-        start<UtilKVerifyUrlActivity>()
-    }
+
 }

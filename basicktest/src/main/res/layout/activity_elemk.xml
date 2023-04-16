@@ -11,26 +11,32 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goElemKActivityVBVM"
-            android:text="goElemKActivityVBVM"
+            android:onClick="goElemKVBVM"
+            android:text="goElemKVBVM"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goElemKServiceActivity"
-            android:text="goElemKServiceActivity"
+            android:onClick="goElemKService"
+            android:text="goElemKService"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goElemKReceiverActivity"
-            android:text="goElemKReceiverActivity"
+            android:onClick="goElemKReceiver"
+            android:text="goElemKReceiver"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goElemKGestureActivity"
-            android:text="goElemKGestureActivity"
+            android:onClick="goElemKGesture"
+            android:text="goElemKGesture"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BtnStyle"
+            android:onClick="goElemKGestureFling"
+            android:text="goElemKGestureFling"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

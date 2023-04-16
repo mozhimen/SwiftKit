@@ -6,7 +6,7 @@ import com.mozhimen.basick.utilk.exts.start
 import com.mozhimen.basicktest.databinding.ActivityTaskkBinding
 
 class TaskKActivity : BaseActivityVB<ActivityTaskkBinding>() {
-    fun goTaskKPolling(view: View) {
+    fun goTaskKPoll(view: View) {
         start<TaskKPollActivity>()
     }
 
@@ -14,7 +14,7 @@ class TaskKActivity : BaseActivityVB<ActivityTaskkBinding>() {
         start<TaskKAsyncActivity>()
     }
 
-    fun goTaskKThreadPool(view: View) {
+    fun goTaskKExecutor(view: View) {
         start<TaskKExecutorActivity>()
     }
 }

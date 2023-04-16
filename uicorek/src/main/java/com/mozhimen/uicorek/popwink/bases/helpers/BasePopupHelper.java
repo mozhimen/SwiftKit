@@ -47,7 +47,7 @@ import com.mozhimen.basick.utilk.log.UtilKLog;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKInputManager;
 import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar;
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig;
-import com.mozhimen.basick.utilk.view.keyboard.UtilKKeyboardChange;
+import com.mozhimen.basick.utilk.view.keyboard.UtilKInputChange;
 import com.mozhimen.basick.utilk.log.UtilKLogPro;
 import com.mozhimen.basick.utilk.view.UtilKView;
 import com.mozhimen.uicorek.R;
@@ -68,7 +68,7 @@ import java.util.WeakHashMap;
  * PopupHelper，这货与Popup强引用哦~
  */
 @SuppressWarnings("all")
-public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboardChangeListener, IClearMemoryListener {
+public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardChangeListener, IClearMemoryListener {
 
     private static final String TAG = "BasePopupHelper>>>>>";
     BasePopwinK mPopupWindow;
@@ -159,8 +159,8 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
 
     public EditText mAutoShowInputEdittext;
 
-    UtilKKeyboardChange.IUtilKKeyboardChangeListener mKeyboardStateChangeListener;
-    public UtilKKeyboardChange.IUtilKKeyboardChangeListener mUserKeyboardStateChangeListener;
+    UtilKInputChange.IUtilKKeyboardChangeListener mKeyboardStateChangeListener;
+    public UtilKInputChange.IUtilKKeyboardChangeListener mUserKeyboardStateChangeListener;
     public BasePopwinK.KeyEventListener mKeyEventListener;
 
     public int mSoftInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED;
@@ -960,7 +960,7 @@ public final class BasePopupHelper implements UtilKKeyboardChange.IUtilKKeyboard
         showFlag |= BasePopupHelper.STATUS_START_SHOWING;
 
         if (mGlobalLayoutListener == null && mPopupWindow.getContext() != null) {
-            mGlobalLayoutListener = UtilKKeyboardChange.observerKeyboardChange(mPopupWindow.getContext(), new UtilKKeyboardChange.IUtilKKeyboardChangeListener() {
+            mGlobalLayoutListener = UtilKInputChange.observerKeyboardChange(mPopupWindow.getContext(), new UtilKInputChange.IUtilKKeyboardChangeListener() {
                 @Override
                 public void onChange(Rect keyboardBounds, boolean isVisible) {
                     BasePopupHelper.this.onChange(keyboardBounds, isVisible);

@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.utilk
+package com.mozhimen.basicktest.utilk.view
 
 import android.os.Bundle
 import android.util.Log

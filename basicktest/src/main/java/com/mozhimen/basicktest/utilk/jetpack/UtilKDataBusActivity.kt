@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.utilk
+package com.mozhimen.basicktest.utilk.jetpack
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
