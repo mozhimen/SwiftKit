@@ -12,8 +12,8 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/BtnStyle"
-            android:onClick="goUtilKIntent"
-            android:text="goUtilKIntent"
+            android:onClick="goUtilKContent"
+            android:text="goUtilKContent"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton

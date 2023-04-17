@@ -12,6 +12,7 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.device.camera.UtilKCamera
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.os.UtilKEnvironment
+import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.basick.utilk.os.UtilKSystemProperties
 import java.io.BufferedReader
 import java.io.FileReader
@@ -176,7 +177,7 @@ object UtilKDevice {
      */
     @JvmStatic
     fun getFreeInternalMemorySize(): String? {
-        val statFs = StatFs(UtilKEnvironment.getDataPath())
+        val statFs = StatFs(UtilKPath.Absolute.External.getDataDir())
         val blockSize = statFs.blockSizeLong
         val availableBlocks = statFs.availableBlocksLong
         return Formatter.formatFileSize(_context, availableBlocks * blockSize)
@@ -188,7 +189,7 @@ object UtilKDevice {
      */
     @JvmStatic
     fun getTotalInternalMemorySize(): String {
-        val statFs = StatFs(UtilKEnvironment.getDataPath())//Gets the Android data directory
+        val statFs = StatFs(UtilKPath.Absolute.External.getDataDir())//Gets the Android data directory
         val blockSize = statFs.blockSizeLong //每个block 占字节数
         val totalBlocks = statFs.availableBlocksLong //block总数
         return Formatter.formatFileSize(_context, totalBlocks * blockSize)
@@ -201,7 +202,7 @@ object UtilKDevice {
     @JvmStatic
     fun getFreeExternalMemorySize(): String {
         return if (isHasExternalStorage()) {
-            val statFs = StatFs(UtilKEnvironment.getExternalStorageAbsolutePath())
+            val statFs = StatFs(UtilKPath.Absolute.External.getStorageDir())
             val blockSize = statFs.blockSizeLong
             val availableBlocks = statFs.availableBlocksLong
             Formatter.formatFileSize(_context, availableBlocks * blockSize)
@@ -215,7 +216,7 @@ object UtilKDevice {
     @JvmStatic
     fun getTotalExternalMemorySize(): String {
         return if (isHasExternalStorage()) {
-            val statFs = StatFs(UtilKEnvironment.getExternalStorageAbsolutePath())
+            val statFs = StatFs(UtilKPath.Absolute.External.getStorageDir())
             val blockSize = statFs.blockSizeLong
             val totalBlocks = statFs.blockCountLong
             Formatter.formatFileSize(_context, totalBlocks * blockSize)

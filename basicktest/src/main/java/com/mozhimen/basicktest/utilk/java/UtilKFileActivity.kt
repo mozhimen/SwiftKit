@@ -62,7 +62,7 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
 
             val copyFileTime = System.currentTimeMillis()
             val destTmpFilePath = this@UtilKFileActivity.filesDir.absolutePath + "/tmp3.txt"
-            "copyFile tmp -> tmp3 ${UtilKFile.copyFile(str2File1Path, destTmpFilePath)} time ${System.currentTimeMillis() - copyFileTime}".log()
+            "copyFile tmp -> tmp3 ${UtilKFile.copyFile(str2File1Path, destTmpFilePath)?.absolutePath} time ${System.currentTimeMillis() - copyFileTime}".log()
 
             "section folder".log()
             val deviceInfoFolder = this@UtilKFileActivity.filesDir.absolutePath

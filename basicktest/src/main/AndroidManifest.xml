@@ -102,6 +102,12 @@
             android:exported="false" />
         <!-- utilk -->
         <activity
+            android:name=".utilk.content.UtilKContentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.content.UtilKContextDirActivity"
+            android:exported="false" />
+        <activity
             android:name=".utilk.UtilKActivity"
             android:exported="true" />
         <activity

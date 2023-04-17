@@ -146,8 +146,8 @@ object UtilKAssets {
      * @return String
      */
     @JvmStatic
-    fun asset2File(assetName: String, destFilePathWithName: String, isOverwrite: Boolean = true): String {
-        if (!isAssetExists(assetName)) return MSG_NOT_EXIST
+    fun asset2File(assetName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? {
+        if (!isAssetExists(assetName)) return null
         val inputStream: InputStream = getAssets().open(assetName)
         //整理名称
         var tmpDestFilePath = destFilePathWithName
@@ -163,6 +163,6 @@ object UtilKAssets {
         } finally {
             inputStream.close()
         }
-        return MSG_WRONG
+        return null
     }
 }

@@ -1,9 +1,11 @@
 package com.mozhimen.basick.utilk.java.io.file
 
+import android.os.FileUtils
 import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.device.UtilKDate
+import com.mozhimen.basick.utilk.exts.et
 import java.io.*
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -138,6 +140,7 @@ object UtilKFile {
             return tmpFile.absolutePath
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             randomAccessFile.close()
         }
@@ -160,6 +163,7 @@ object UtilKFile {
             return tmpFile.absolutePath
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             fileOutputStream.flush()
             fileOutputStream.close()
@@ -189,6 +193,7 @@ object UtilKFile {
             return inputStream2Str(fileInputStream).replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             fileInputStream.close()
         }
@@ -213,6 +218,7 @@ object UtilKFile {
             return stringBuilder.deleteCharAt(stringBuilder.length - 1).toString().replace("\\n".toRegex(), "\n")
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             bufferedReader.close()
             inputStreamReader.close()
@@ -228,7 +234,7 @@ object UtilKFile {
      * @return String
      */
     @JvmStatic
-    fun inputStream2File(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): String =
+    fun inputStream2File(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
         inputStream2File(inputStream, File(destFilePathWithName), isOverwrite)
 
     /**
@@ -237,7 +243,7 @@ object UtilKFile {
      * @return String
      */
     @JvmStatic
-    fun inputStream2File(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): String {
+    fun inputStream2File(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
         var fileInputStream: FileInputStream? = null
         if (!isFileExist(destFile)) {
             createFile(destFile)
@@ -245,7 +251,7 @@ object UtilKFile {
             fileInputStream = FileInputStream(destFile)
             if (isFilesSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
                 Log.d(TAG, "assetCopyFile: the two files is same")
-                return "the two files is same, don't need overwrite"
+                return null//"the two files is same, don't need overwrite"
             }
         }
         val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
@@ -255,16 +261,63 @@ object UtilKFile {
             while (inputStream.read(buffer).also { bufferLength = it } != -1) {
                 fileOutputStream.write(buffer, 0, bufferLength)
             }
-            return destFile.absolutePath
+            return destFile
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             fileOutputStream.flush()
             fileOutputStream.close()
             fileInputStream?.close()
             inputStream.close()
         }
-        return MSG_WRONG
+        return null
+    }
+
+    /**
+     * 输入流转文件
+     * @param inputStream InputStream
+     * @param destFilePathWithName String
+     * @param isOverwrite Boolean
+     * @return File?
+     */
+    @JvmStatic
+    fun inputStream2File2(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
+        inputStream2File2(inputStream, File(destFilePathWithName), isOverwrite)
+
+    /**
+     * 输入流转文件
+     * @param inputStream InputStream
+     * @param destFile File
+     * @param isOverwrite Boolean
+     * @return File?
+     */
+    @JvmStatic
+    fun inputStream2File2(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
+        var fileInputStream: FileInputStream? = null
+        if (!isFileExist(destFile)) {
+            createFile(destFile)
+        } else {
+            fileInputStream = FileInputStream(destFile)
+            if (isFilesSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
+                Log.d(TAG, "assetCopyFile: the two files is same")
+                return null//"the two files is same, don't need overwrite"
+            }
+        }
+        val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
+        try {
+            FileUtils.copy(inputStream, fileOutputStream)
+            return destFile
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            fileOutputStream.flush()
+            fileOutputStream.close()
+            fileInputStream?.close()
+            inputStream.close()
+        }
+        return null
     }
 
     /**
@@ -293,6 +346,7 @@ object UtilKFile {
             return destFile.absolutePath
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             byteArrayOutputStream.flush()
             byteArrayOutputStream.close()
@@ -309,7 +363,7 @@ object UtilKFile {
      * @throws Exception
      */
     @JvmStatic
-    fun copyFile(sourceFilePathWithName: String, destFilePathWithName: String): String =
+    fun copyFile(sourceFilePathWithName: String, destFilePathWithName: String): File? =
         copyFile(File(sourceFilePathWithName), File(destFilePathWithName))
 
     /**
@@ -318,17 +372,18 @@ object UtilKFile {
      * @param destFile File
      */
     @JvmStatic
-    fun copyFile(sourceFile: File, destFile: File, isOverwrite: Boolean = true): String {
-        if (!isFileExist(sourceFile)) return MSG_NOT_EXIST
+    fun copyFile(sourceFile: File, destFile: File, isOverwrite: Boolean = true): File? {
+        if (!isFileExist(sourceFile)) return null
         val fileInputStream = FileInputStream(sourceFile)
         try {
             return inputStream2File(fileInputStream, destFile, isOverwrite)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             fileInputStream.close()
         }
-        return MSG_WRONG
+        return null
     }
 
     /**
@@ -349,6 +404,7 @@ object UtilKFile {
             return bigInteger.toString(16)
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         }
         return MSG_WRONG
     }
@@ -389,6 +445,7 @@ object UtilKFile {
             return fileInputStream.available().toLong()
         } catch (e: Exception) {
             e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             fileInputStream.close()
         }

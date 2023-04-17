@@ -13,6 +13,7 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.cons.EInstallMode
 import com.mozhimen.componentk.netk.file.NetKFile
@@ -49,7 +50,7 @@ class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode =
     }
 
     private val _context by lazy { UtilKApplication.instance.get() }
-    private val _apkPath by lazy { UtilKContext.getFilesAbsolutePath(_context) + "/hotupdatek" }
+    private val _apkPath by lazy { UtilKPath.Absolute.Internal.getFilesDir() + "/hotupdatek" }
     val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
     private val _netKFile by lazy { NetKFile(owner) }
     private val _installK by lazy { InstallK() }
