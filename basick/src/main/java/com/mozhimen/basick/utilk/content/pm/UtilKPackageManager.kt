@@ -3,9 +3,11 @@ package com.mozhimen.basick.utilk.content.pm
 import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
+import android.graphics.drawable.Drawable
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
@@ -41,6 +43,26 @@ object UtilKPackageManager {
     @JvmStatic
     fun getPackageInstaller(context: Context): PackageInstaller =
         get(context).packageInstaller
+
+    /**
+     * 得到应用名
+     * @param packageManager PackageManager
+     * @param applicationInfo ApplicationInfo
+     * @return String
+     */
+    @JvmStatic
+    fun getApplicationLabel(packageManager: PackageManager, applicationInfo: ApplicationInfo): String =
+        packageManager.getApplicationLabel(applicationInfo).toString()
+
+    /**
+     * 得到图标信息
+     * @param packageManager PackageManager
+     * @param applicationInfo ApplicationInfo
+     * @return Drawable
+     */
+    @JvmStatic
+    fun getApplicationIcon(packageManager: PackageManager, applicationInfo: ApplicationInfo): Drawable =
+        packageManager.getApplicationIcon(applicationInfo)
 
     /**
      * 查询所有的符合Intent的Activities

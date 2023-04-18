@@ -9,7 +9,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
-import com.mozhimen.basick.utilk.app.UtilKApplicationInfo
+import com.mozhimen.basick.utilk.content.UtilKApplicationInfo
 import com.mozhimen.basick.utilk.os.UtilKOSRoot
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKPermission

@@ -1,9 +1,8 @@
 package com.mozhimen.uicorek.layoutk.banner.commons
 
 import androidx.annotation.LayoutRes
-import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.mozhimen.uicorek.layoutk.banner.IBannerItemChangeListener
-import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
+import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 
 /**
  * @ClassName IBanner
@@ -17,14 +16,14 @@ interface IBanner {
      * 设置banner数据
      * @param mos List<MBannerItem>
      */
-    fun setBannerData(mos: List<MBannerItem>)
+    fun setBannerData(mos: List<BaseBannerItem>)
 
     /**
      * 设置banner数据
      * @param layoutResId Int
      * @param mos List<MBannerItem>
      */
-    fun setBannerData(@LayoutRes layoutResId: Int, mos: List<MBannerItem>)
+    fun setBannerData(@LayoutRes layoutResId: Int, mos: List<BaseBannerItem>)
 
     /**
      * 设置banner指示器

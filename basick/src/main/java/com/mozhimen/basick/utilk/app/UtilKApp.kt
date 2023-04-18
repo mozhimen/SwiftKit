@@ -55,7 +55,7 @@ object UtilKApp {
             return
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        UtilKContextStart.start(_context, intent)
+        UtilKContextStart.startContext(_context, intent)
         if (!isKillProcess) return
         exitApp(isValid)
     }

@@ -25,7 +25,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startInstall(context: Context, apkPathWithName: String) {
-        UtilKContextStart.start(context, UtilKIntent.getInstall(context, apkPathWithName) ?: return)
+        UtilKContextStart.startContext(context, UtilKIntent.getInstall(context, apkPathWithName) ?: return)
     }
 
     /**
@@ -36,7 +36,7 @@ object UtilKLaunchActivity {
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
     fun startManageInstallSource(activity: Activity) {
-        UtilKContextStart.start(activity, UtilKIntent.getManageInstallSource(activity))
+        UtilKContextStart.startActivity(activity, UtilKIntent.getManageInstallSource(activity))
     }
 
     /**
@@ -47,7 +47,7 @@ object UtilKLaunchActivity {
     @RequiresApi(CVersionCode.V_26_8_O)
     @TargetApi(CVersionCode.V_26_8_O)
     fun startManageInstallSource(context: Context) {
-        UtilKContextStart.start(context, UtilKIntent.getManageInstallSource(context))
+        UtilKContextStart.startContext(context, UtilKIntent.getManageInstallSource(context))
     }
 
     /**
@@ -57,7 +57,7 @@ object UtilKLaunchActivity {
     @JvmStatic
     @RequiresApi(CVersionCode.V_30_11_R)
     fun startManageOverlay(context: Context) {
-        UtilKContextStart.start(context, UtilKIntent.getManageOverlay(context))
+        UtilKContextStart.startContext(context, UtilKIntent.getManageOverlay(context))
     }
 
     /**
@@ -68,7 +68,7 @@ object UtilKLaunchActivity {
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun startManageAll(activity: Activity) {
         //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
-        UtilKContextStart.start(activity, UtilKIntent.getManageAll(activity))
+        UtilKContextStart.startActivity(activity, UtilKIntent.getManageAll(activity))
         //}
     }
 
@@ -78,7 +78,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingAppDetails(activity: Activity) {
-        UtilKContextStart.start(activity, UtilKIntent.getSettingAppDetails(activity))
+        UtilKContextStart.startActivity(activity, UtilKIntent.getSettingAppDetails(activity))
     }
 
     /**
@@ -87,7 +87,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingAccessibility(activity: Activity) {
-        UtilKContextStart.start(activity, UtilKIntent.getSettingAccessibility())
+        UtilKContextStart.startActivity(activity, UtilKIntent.getSettingAccessibility())
     }
 
     /**
@@ -96,6 +96,6 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingAccessibility(context: Context) {
-        UtilKContextStart.start(context, UtilKIntent.getSettingAccessibility())
+        UtilKContextStart.startContext(context, UtilKIntent.getSettingAccessibility())
     }
 }

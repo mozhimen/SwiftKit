@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.layoutk.banner.commons
 
 import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder
-import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
+import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 
 /**
  * @ClassName IOnBannerClickListener
@@ -11,5 +11,5 @@ import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
  * @Version 1.0
  */
 interface IBannerItemClickListener {
-    fun onBannerClick(viewHolder: BannerViewHolder, item: MBannerItem, position: Int)
+    fun onBannerClick(viewHolder: BannerViewHolder, item: BaseBannerItem, position: Int)
 }

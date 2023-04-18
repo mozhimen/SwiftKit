@@ -1,8 +1,7 @@
 package com.mozhimen.uicorek.layoutk.banner.commons
 
 import androidx.annotation.LayoutRes
-import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder
-import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
+import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 
 /**
  * @ClassName IBannerAdapter
@@ -16,7 +15,7 @@ interface IBannerAdapter {
      * 设置BannerData
      * @param mos List<MBannerItem>
      */
-    fun setBannerData(mos: List<MBannerItem>)
+    fun setBannerData(mos: List<BaseBannerItem>)
 
     /**
      * 设置adapter

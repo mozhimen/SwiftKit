@@ -109,7 +109,10 @@
             android:exported="false" />
         <activity
             android:name=".utilk.UtilKActivity"
-            android:exported="true" />
+            android:exported="false" />
+        <activity
+            android:name=".utilk.app.UtilKApkActivity"
+            android:exported="false" />
         <activity
             android:name=".utilk.res.UtilKAssetActivity"
             android:exported="false" />

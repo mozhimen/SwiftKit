@@ -27,13 +27,10 @@ object UtilKPackageInfo : BaseUtilK() {
     fun get(context: Context): PackageInfo =
         UtilKPackageManager.get(context).getPackageInfo(UtilKContext.getPackageName(context), PackageInfo.INSTALL_LOCATION_AUTO/*0*/)
 
-    /**
-     * 获取ApplicationInfo
-     * @return ApplicationInfo
-     */
     @JvmStatic
-    fun getApplicationInfo(context: Context): ApplicationInfo =
-        get(context).applicationInfo
+    fun getPackageArchiveInfo(apkPathWithName: String, context: Context): PackageInfo? =
+        UtilKPackageManager.get(context).getPackageArchiveInfo(apkPathWithName, PackageManager.GET_ACTIVITIES)
+
 
     /**
      * 获取flags
@@ -73,8 +70,13 @@ object UtilKPackageInfo : BaseUtilK() {
      */
     @JvmStatic
     fun getVersionName(context: Context): String {
+        return getVersionName(get(context))
+    }
+
+    @JvmStatic
+    fun getVersionName(packageInfo: PackageInfo): String {
         return try {
-            get(context).versionName ?: ""
+            packageInfo.versionName ?: ""
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             Log.e(TAG, "getVersionName: NameNotFoundException ${e.message}")
@@ -88,11 +90,16 @@ object UtilKPackageInfo : BaseUtilK() {
      */
     @JvmStatic
     fun getVersionCode(context: Context): Int {
+        return getVersionCode(get(context))
+    }
+
+    @JvmStatic
+    fun getVersionCode(packageInfo: PackageInfo): Int {
         return try {
             if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
-                get(context).longVersionCode.toInt()
+                packageInfo.longVersionCode.toInt()
             } else {
-                get(context).versionCode
+                packageInfo.versionCode
             }
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()

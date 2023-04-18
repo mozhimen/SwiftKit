@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.layoutk.banner.commons
 
 import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder
-import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
+import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 
 /**
  * @ClassName IBannerBindListener
@@ -17,5 +17,5 @@ interface IBannerBindListener {
      * @param mo MBannerItem
      * @param position Int
      */
-    fun onBannerBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int)
+    fun onBannerBind(viewHolder: BannerViewHolder, item: BaseBannerItem, position: Int)
 }

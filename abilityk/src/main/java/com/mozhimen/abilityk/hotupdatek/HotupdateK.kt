@@ -7,11 +7,13 @@ import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
+import com.mozhimen.basick.utilk.app.UtilKApk
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
+import com.mozhimen.basick.utilk.exts.getSplitLast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
@@ -51,7 +53,8 @@ class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode =
 
     private val _context by lazy { UtilKApplication.instance.get() }
     private val _apkPath by lazy { UtilKPath.Absolute.Internal.getFilesDir() + "/hotupdatek" }
-    val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
+
+    //val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
     private val _netKFile by lazy { NetKFile(owner) }
     private val _installK by lazy { InstallK() }
 
@@ -69,23 +72,43 @@ class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode =
                 _hotupdateKListener?.onComplete()
                 return@withContext
             }
-            //delete all cache
-            if (!deleteAllOldPkgs()) {
-                Log.e(TAG, "updateApk: deleteAllOldPkgs fail")
-                _hotupdateKListener?.onFail("delete all old apks fail")
-                return@withContext
-            }
-            //download new apk
-            if (!downloadApk(apkUrl)) {
-                Log.e(TAG, "updateApk: downloadApk fail")
-                _hotupdateKListener?.onFail("download new apk fail")
-                return@withContext
+            val apkPathWithName = _apkPath + "/${getApkNameFromUrl(apkUrl)}"
+            if (!isDownloadApk(apkPathWithName, remoteVersionCode)) {
+                //delete all cache
+                if (!deleteAllOldPkgs()) {
+                    Log.e(TAG, "updateApk: deleteAllOldPkgs fail")
+                    _hotupdateKListener?.onFail("delete all old apks fail")
+                    return@withContext
+                }
+                //download new apk
+                if (!downloadApk(apkUrl, apkPathWithName)) {
+                    Log.e(TAG, "updateApk: downloadApk fail")
+                    deleteAllOldPkgs()
+                    _hotupdateKListener?.onFail("download new apk fail")
+                    return@withContext
+                }
             }
             //install new apk
             Log.d(TAG, "updateApk: installApk start")
             installApk(apkPathWithName)
             _hotupdateKListener?.onComplete()
         }
+    }
+
+    private fun isDownloadApk(apkPathWithName: String, destVersionCode: Int): Boolean {
+        return (UtilKFile.isFileExist(apkPathWithName) && UtilKApk.getVersionCode(apkPathWithName) != null && UtilKApk.getVersionCode(apkPathWithName)!! >= destVersionCode).also {
+            Log.d(TAG, "isDownloadApk: $it")
+        }
+    }
+
+
+    /**
+     * 从url获取Apk文件
+     * @param apkUrl String
+     * @return String
+     */
+    fun getApkNameFromUrl(apkUrl: String): String {
+        return apkUrl.getSplitLast("/").also { Log.d(TAG, "getApkNameFromUrl: $it") }
     }
 
     /**
@@ -118,8 +141,8 @@ class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode =
      * 下载更新
      * @param url String
      */
-    suspend fun downloadApk(url: String): Boolean = suspendCancellableCoroutine { coroutine ->
-        _netKFile.download().singleFileTask().start(url, apkPathWithName, object : IFileDownloadSingleListener {
+    suspend fun downloadApk(url: String, destApkPathWithName: String): Boolean = suspendCancellableCoroutine { coroutine ->
+        _netKFile.download().singleFileTask().start(url, destApkPathWithName, object : IFileDownloadSingleListener {
             override fun onComplete(task: DownloadTask) {
                 task.file?.let {
                     coroutine.resume(true)
@@ -128,7 +151,7 @@ class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode =
 
             override fun onProgress(task: DownloadTask, totalIndex: Int, totalBytes: Long) {
                 super.onProgress(task, totalIndex, totalBytes)
-                UtilKDataBus.with<String>(EVENT_HOTUPDATEK_PROGRESS).postValue("${totalIndex}% ${totalBytes / 1024 / 1024}MB")
+                UtilKDataBus.with<String>(EVENT_HOTUPDATEK_PROGRESS).postValue("${totalBytes / 1024 / 1024}MB")
             }
 
             override fun onFail(task: DownloadTask, e: Exception?) {

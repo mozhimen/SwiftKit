@@ -10,7 +10,7 @@ import androidx.viewpager.widget.PagerAdapter
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerAdapter
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerItemClickListener
-import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
+import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 import java.util.*
 
 /**
@@ -25,12 +25,12 @@ class BannerAdapter(private var _context: Context) : PagerAdapter(), IBannerAdap
     private var _cachedViews: SparseArray<BannerViewHolder> = SparseArray<BannerViewHolder>()
     private var _bannerClickListener: IBannerItemClickListener? = null
     private var _bannerBindListener: IBannerBindListener? = null
-    private var _bannerItems: LinkedList<MBannerItem>? = null
+    private var _bannerItems: LinkedList<BaseBannerItem>? = null
     private var _autoPlay = true //是否开启自动轮播
     private var _loop = false //非自动轮播状态下是否可以循环切换
     private var _layoutResId = -1
 
-    override fun setBannerData(mos: List<MBannerItem>) {
+    override fun setBannerData(mos: List<BaseBannerItem>) {
         _bannerItems = LinkedList(mos)
         initCachedView()//初始化数据
         notifyDataSetChanged()
@@ -114,7 +114,7 @@ class BannerAdapter(private var _context: Context) : PagerAdapter(), IBannerAdap
      */
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {}
 
-    private fun onBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int) {
+    private fun onBind(viewHolder: BannerViewHolder, item: BaseBannerItem, position: Int) {
         viewHolder.rootView.setOnClickListener {
             _bannerClickListener?.onBannerClick(viewHolder, item, position)
         }

@@ -114,7 +114,7 @@ object UtilKUri {
     }
 
     @JvmStatic
-    fun uri2File(uri: Uri): File? {
+    fun uri2File(uri: Uri, filePathWithName: String): File? {
         //android10以上转换
         when (uri.scheme) {
             ContentResolver.SCHEME_FILE -> {
@@ -130,7 +130,7 @@ object UtilKUri {
                     inputStream = contentResolver.openInputStream(uri) ?: return null
                     return UtilKFile.inputStream2File2(
                         inputStream,
-                        "${UtilKPath.Absolute.Internal.getCacheDir()}/${UtilKFile.dateStr2FileName()}.${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}"
+                        filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}"
                     )
                 } catch (e: IOException) {
                     e.printStackTrace()

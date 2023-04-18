@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.content.UtilKContextStart
  * @receiver Context
  */
 inline fun <reified T> Activity.start() where T : Activity {
-    UtilKContextStart.start<T>(this)
+    UtilKContextStart.startActivity<T>(this)
 }
 
 /**
@@ -25,5 +25,5 @@ inline fun <reified T> Activity.start() where T : Activity {
  * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
  */
 inline fun <reified T> Activity.start(block: Intent.() -> Unit) where T : Activity {
-    UtilKContextStart.start<T>(this, block)
+    UtilKContextStart.startActivity<T>(this, block)
 }

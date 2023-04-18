@@ -2,16 +2,14 @@ package com.mozhimen.uicorek.layoutk.banner
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.viewpager.widget.ViewPager
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.commons.IUicoreK
 import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerItemClickListener
 import com.mozhimen.uicorek.layoutk.banner.helpers.LayoutKBannerProxy
-import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
+import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 
 /**
  * @ClassName LayoutKBanner
@@ -38,11 +36,11 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
         initAttrs(attrs, defStyleAttr)
     }
 
-    override fun setBannerData(mos: List<MBannerItem>) {
+    override fun setBannerData(mos: List<BaseBannerItem>) {
         _layoutKBannerProxy.setBannerData(mos)
     }
 
-    override fun setBannerData(layoutResId: Int, mos: List<MBannerItem>) {
+    override fun setBannerData(layoutResId: Int, mos: List<BaseBannerItem>) {
         _layoutKBannerProxy.setBannerData(layoutResId, mos)
     }
 

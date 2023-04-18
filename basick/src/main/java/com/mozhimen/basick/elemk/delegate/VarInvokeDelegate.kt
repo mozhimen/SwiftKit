@@ -16,6 +16,7 @@ import kotlin.reflect.KProperty
 typealias IVarInvokeListener<T> = (field: T, value: T) -> Boolean
 
 open class VarInvokeDelegate<T>(default: T, private val onSet: IVarInvokeListener<T>) : ReadWriteProperty<Any?, T> {
+    @Volatile
     private var _field = default
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         if (_field == value) return

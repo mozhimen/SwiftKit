@@ -10,7 +10,7 @@ import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerItemClickListener
-import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
+import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 import com.mozhimen.uicorek.layoutk.banner.temps.PointIndicator
 
 /**
@@ -29,7 +29,7 @@ class LayoutKBannerProxy(
     private val TAG = "LayoutKBannerProxy>>>>>"
     private var _adapter: BannerAdapter? = null
     private var _indicator: IBannerIndicator<*>? = null
-    private var _bannerItems: List<MBannerItem>? = null
+    private var _bannerItems: List<BaseBannerItem>? = null
     private var _onPageChangeListener: OnPageChangeListener? = null
     private var _bannerItemClickListener: IBannerItemClickListener? = null
     private var _viewPager: BannerViewPager? = null
@@ -43,11 +43,11 @@ class LayoutKBannerProxy(
     private var _enableScroll = true
     private var _intervalTime = 5000
 
-    override fun setBannerData(mos: List<MBannerItem>) {
+    override fun setBannerData(mos: List<BaseBannerItem>) {
         setBannerData(R.layout.layoutk_banner, mos)
     }
 
-    override fun setBannerData(layoutResId: Int, mos: List<MBannerItem>) {
+    override fun setBannerData(layoutResId: Int, mos: List<BaseBannerItem>) {
         _bannerItems = mos
         init(layoutResId)
     }

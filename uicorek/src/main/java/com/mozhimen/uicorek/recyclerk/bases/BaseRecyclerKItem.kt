@@ -70,7 +70,7 @@ open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
      * 获取item所占列数
      * @return Int
      */
-    open fun getItemSpanSize() = 0
+    open fun getItemSpanSize() = 1
 
     /**
      * 该item被滑进屏幕
