@@ -5,7 +5,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.fpsk.FpsK
 import com.mozhimen.basick.utilk.os.UtilKUiMode
-import com.mozhimen.basick.utilk.content.UtilKContextStart.start
+import com.mozhimen.basick.utilk.content.UtilKContextStart.startActivity
 import com.mozhimen.basick.utilk.net.UtilKNetDeal
 import com.mozhimen.debugk.annors.ADebugKTool
 import com.mozhimen.debugk.temps.DebugKCrashKActivity
@@ -29,17 +29,17 @@ class DebugKTools {
 
     @ADebugKTool("查看本地参数", "查看构建参数,设备参数,硬件参数等")
     fun checkDeviceParams(activity: Activity) {
-        start<DebugKParamsActivity>(activity)
+        startActivity<DebugKParamsActivity>(activity)
     }
 
     @ADebugKTool("查看CrashK日志", "可以一键分享给研发,迅速定位偶现问题")
     fun toggleCrash(activity: Activity) {
-        start<DebugKCrashKActivity>(activity)
+        startActivity<DebugKCrashKActivity>(activity)
     }
 
     @ADebugKTool("查看LogK日志", "可以一键分享给研发,迅速定位偶现问题")
     fun toggleLog(activity: Activity) {
-        start<DebugKLogKActivity>(activity)
+        startActivity<DebugKLogKActivity>(activity)
     }
 
     @ADebugKTool("打开/关闭Fps", desc = "打开后可以查看页面实时的FPS")

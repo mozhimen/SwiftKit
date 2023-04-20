@@ -14,16 +14,16 @@ class TestUtilKDate {
         UtilKDate.apply {
             nowDate.printlog()
             long2Date(nowTime).printlog()
-            str2Date(nowString, FORMAT_yyyyMMddHHmmssS).printlog()
+            str2Date(nowString, UtilKDate.Format.yyyyMMddHHmmssS).printlog()
             nowTime.printlog()
             date2Long(nowDate).printlog()
-            str2Long(nowString, FORMAT_yyyyMMddHHmmssS).printlog()
+            str2Long(nowString, UtilKDate.Format.yyyyMMddHHmmssS).printlog()
         }
 
         val todayString = UtilKDate.getTodayStr()
         todayString.printlog()
         UtilKDate.getNowLong().printlog()
         UtilKDate.getTodayLong().printlog()
-        UtilKDate.getTodayLong().long2Str(UtilKDate.FORMAT_yyyyMMdd).printlog()
+        UtilKDate.getTodayLong().long2Str(UtilKDate.Format.yyyyMMdd).printlog()
     }
 }

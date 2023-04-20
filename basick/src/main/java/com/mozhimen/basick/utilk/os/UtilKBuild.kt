@@ -104,5 +104,5 @@ object UtilKBuild {
 
     //构建内部时间
     @JvmStatic
-    fun getTime(): String = Build.TIME.long2Str(UtilKDate.FORMAT_yyyyMMddHHmmss)
+    fun getTime(): String = Build.TIME.long2Str(UtilKDate.Format.yyyyMMddHHmmss)
 }

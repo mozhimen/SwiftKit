@@ -1,5 +1,6 @@
 package com.mozhimen.abilityk.hotupdatek
 
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.liulishuo.okdownload.DownloadTask
@@ -9,21 +10,20 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.app.UtilKApk
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
-import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
 import com.mozhimen.basick.utilk.exts.getSplitLast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.cons.EInstallMode
-import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
+import com.mozhimen.netkfiledownloader.*
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
+import java.io.File
 import kotlin.coroutines.resume
 
 /**
@@ -52,10 +52,11 @@ class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode =
     }
 
     private val _context by lazy { UtilKApplication.instance.get() }
-    private val _apkPath by lazy { UtilKPath.Absolute.Internal.getFilesDir() + "/hotupdatek" }
+    private val _apkPath by lazy { UtilKPath.Absolute.Internal.getCacheDir() + "/hotupdatek" }
 
     //val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
-    private val _netKFile by lazy { NetKFile(owner) }
+    //private val _netKFile by lazy { NetKFile(owner) }
+    private var _downloadRequest: DownloadRequest? = null
     private val _installK by lazy { InstallK() }
 
     suspend fun updateApk(remoteVersionCode: Int, apkUrl: String) {
@@ -79,6 +80,11 @@ class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode =
                     Log.e(TAG, "updateApk: deleteAllOldPkgs fail")
                     _hotupdateKListener?.onFail("delete all old apks fail")
                     return@withContext
+                }
+                //create apk file
+                if (!UtilKFile.isFileExist(apkPathWithName)) {
+                    Log.d(TAG, "updateApk: create apk file")
+                    UtilKFile.createFile(apkPathWithName)
                 }
                 //download new apk
                 if (!downloadApk(apkUrl, apkPathWithName)) {
@@ -142,25 +148,56 @@ class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode =
      * @param url String
      */
     suspend fun downloadApk(url: String, destApkPathWithName: String): Boolean = suspendCancellableCoroutine { coroutine ->
-        _netKFile.download().singleFileTask().start(url, destApkPathWithName, object : IFileDownloadSingleListener {
-            override fun onComplete(task: DownloadTask) {
-                task.file?.let {
-                    coroutine.resume(true)
-                } ?: coroutine.resume(false)
+//        _netKFile.download().singleFileTask().start(url, destApkPathWithName, object : IFileDownloadSingleListener {
+//            override fun onComplete(task: DownloadTask) {
+//                task.file?.let {
+//                    coroutine.resume(true)
+//                } ?: coroutine.resume(false)
+//            }
+//
+//            override fun onProgress(task: DownloadTask, totalIndex: Int, totalBytes: Long) {
+//                super.onProgress(task, totalIndex, totalBytes)
+//                UtilKDataBus.with<String>(EVENT_HOTUPDATEK_PROGRESS).postValue("${totalBytes / 1024 / 1024}MB")
+//            }
+//
+//            override fun onFail(task: DownloadTask, e: Exception?) {
+//                e?.printStackTrace()
+//                LogK.et(TAG, "downloadApk fail msg: ${e?.message}")
+//                coroutine.resume(false)
+//            }
+//        })
+        ///////////////////////////////////////////////////////////////////
+        _downloadRequest = createCommonRequest(url, destApkPathWithName)
+        _downloadRequest?.registerListener(object : DownloadListener {
+            override fun onDownloadStart() {
+                Log.d(TAG, "downloadApk onDownloadStart")
             }
 
-            override fun onProgress(task: DownloadTask, totalIndex: Int, totalBytes: Long) {
-                super.onProgress(task, totalIndex, totalBytes)
-                UtilKDataBus.with<String>(EVENT_HOTUPDATEK_PROGRESS).postValue("${totalBytes / 1024 / 1024}MB")
+            override fun onProgressUpdate(percent: Int) {
+                Log.d(TAG, "downloadApk onProgressUpdate: percent $percent")
+                UtilKDataBus.with<String>(EVENT_HOTUPDATEK_PROGRESS).postValue("$percent")
             }
 
-            override fun onFail(task: DownloadTask, e: Exception?) {
-                e?.printStackTrace()
-                LogK.et(TAG, "downloadApk fail msg: ${e?.message}")
+            override fun onDownloadComplete(uri: Uri) {
+                Log.d(TAG, "onDownloadComplete: path ${uri.path}")
+                Log.d(TAG, "onDownloadComplete: isFileExists ${uri.path?.let { UtilKFile.isFileExist(it) }?: "null" }")
+                coroutine.resume(true)
+            }
+
+            override fun onDownloadFailed(e: Throwable) {
+                e.printStackTrace()
+                LogK.et(TAG, "downloadApk fail msg: ${e.message}")
                 coroutine.resume(false)
             }
         })
+        _downloadRequest?.startDownload()
     }
+
+    private fun createCommonRequest(url: String, destApkPathWithName: String): DownloadRequest =
+        DownloadRequest(_context, url, DOWNLOAD_ENGINE_EMBED)
+            .setNotificationVisibility(NOTIFIER_HIDDEN)
+            .setShowNotificationDisableTip(false)
+            .setDestinationUri(Uri.fromFile(File(destApkPathWithName)))
 
     /**
      * 安装更新

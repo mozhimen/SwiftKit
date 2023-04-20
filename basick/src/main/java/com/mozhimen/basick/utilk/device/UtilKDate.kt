@@ -15,39 +15,22 @@ import java.util.*
 object UtilKDate {
     private const val TAG = "UtilKDate>>>>>"
 
-    const val FORMAT_yyyyMMddHHmmssS = "yyyy-MM-dd HH:mm:ss S"
-
-    const val FORMAT_yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss"
-
-    const val FORMAT_yyyyMMddHHmm = "yyyy-MM-dd HH:mm"
-
-    const val FORMAT_yyyyMMdd = "yyyy-MM-dd"
-
-    const val FORMAT_HHmmss = "HH:mm:ss"
-
-    const val FORMAT_HHmm = "HH:mm"
-
-    const val FORMAT_mmss = "mm:ss"
-
-    const val FORMAT_yyyy = "yyyy"
-
-    const val FORMAT_MM = "MM"
-
-    const val FORMAT_dd = "dd"
-
-    const val FORMAT_HH = "HH"
-
-    const val FORMAT_mm = "mm"
-
-    const val FORMAT_ss = "ss"
-
-    /**
-     * 获取现在日期
-     * @return Long
-     */
-    @JvmStatic
-    fun getNowLong(): Long =
-        date2Long(getNowDate())
+    object Format {
+        const val yyyyMMddHHmmssS = "yyyy-MM-dd HH:mm:ss S"
+        const val yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss"
+        const val yyyyMMddHHmm = "yyyy-MM-dd HH:mm"
+        const val yyyyMMddHH = "yyyy-MM-dd HH"
+        const val yyyyMMdd = "yyyy-MM-dd"
+        const val HHmmss = "HH:mm:ss S"
+        const val HHmm = "HH:mm"
+        const val mmss = "mm:ss"
+        const val yyyy = "yyyy"
+        const val MM = "MM"
+        const val dd = "dd"
+        const val HH = "HH"
+        const val mm = "mmS"
+        const val ss = "ss"
+    }
 
     /**
      * 获取现在日期
@@ -63,8 +46,33 @@ object UtilKDate {
      * @return String
      */
     @JvmStatic
-    fun getNowStr(formatDate: String = FORMAT_yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String =
+    fun getNowStr(formatDate: String = Format.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String =
         date2Str(getNowDate(), formatDate, locale)
+
+    /**
+     * 获取现在日期
+     * @return Long
+     */
+    @JvmStatic
+    fun getNowLong(): Long =
+        date2Long(getNowDate())
+
+    /**
+     * 获取当前小时
+     * @param locale Locale
+     * @return String
+     */
+    @JvmStatic
+    fun getCurrentHourStr(locale: Locale = Locale.CHINA): String =
+        date2Str(getNowDate(), Format.yyyyMMddHH, locale)
+
+    /**
+     * 获取当前小时
+     * @return Long
+     */
+    @JvmStatic
+    fun getCurrentHourLong(locale: Locale = Locale.CHINA): Long =
+        str2Long(getCurrentHourStr(locale), Format.yyyyMMddHH, locale)
 
     /**
      * 今日
@@ -73,7 +81,7 @@ object UtilKDate {
      */
     @JvmStatic
     fun getTodayStr(locale: Locale = Locale.CHINA): String =
-        date2Str(getNowDate(), FORMAT_yyyyMMdd, locale)
+        date2Str(getNowDate(), Format.yyyyMMdd, locale)
 
     /**
      * 今日Long
@@ -82,7 +90,7 @@ object UtilKDate {
      */
     @JvmStatic
     fun getTodayLong(locale: Locale = Locale.CHINA): Long =
-        str2Long(getTodayStr(locale), FORMAT_yyyyMMdd)
+        str2Long(getTodayStr(locale), Format.yyyyMMdd, locale)
 
     /**
      * 获得Format
@@ -101,6 +109,7 @@ object UtilKDate {
      * @param date Date
      * @return Long
      */
+    @JvmStatic
     fun date2Long(date: Date): Long {
         return date.time
     }

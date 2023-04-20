@@ -8,6 +8,7 @@ dependencyResolutionManagement {
         maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
         maven { url 'https://maven.aliyun.com/repository/grails-core' }
         maven { url 'https://raw.githubusercontent.com/saki4510t/libcommon/master/repository/' }
+        maven { url 'https://gitee.com/liuchaoya/libcommon/raw/master/repository/' }
         maven { url 'https://www.jitpack.io' }
         mavenCentral()
         google()
@@ -28,3 +29,6 @@ include ':componentktest'
 include ':debugk'
 include ':debugktest'
 include ':abilityktest'
+include ':NetKit_FileDownloader'
+project(':NetKit_FileDownloader').projectDir = new File("D:\\WorkSpace\\GitHub\\NetKit_FileDownloader")
+include ':NetKit_FileDownloader:netkfiledownloader'

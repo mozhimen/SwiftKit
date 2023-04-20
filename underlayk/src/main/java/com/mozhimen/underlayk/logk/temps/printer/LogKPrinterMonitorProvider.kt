@@ -104,7 +104,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
 
     fun open(isFold: Boolean) {
         if (_isOpen) return
-        if (!UtilKPermission.isOverlayPermissionEnable()) {
+        if (!UtilKPermission.hasOverlay()) {
             LogK.et(TAG, "PrinterMonitor play app has no overlay permission")
             "请打开悬浮窗权限".showToastOnMain()
             UtilKLaunchActivity.startManageOverlay(_context)

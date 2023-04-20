@@ -1,7 +1,6 @@
 package com.mozhimen.underlayk.crashk
 
 import android.app.ActivityManager
-import android.content.Context
 import android.text.format.Formatter
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -11,8 +10,6 @@ import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKContext
-import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.content.activity.UtilKActivityManager
 import com.mozhimen.basick.utilk.device.UtilKDevice
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
@@ -54,15 +51,18 @@ class CrashKJava {
         return File(crashPathJava!!).listFiles() ?: emptyArray()
     }
 
-    private inner class CrashKUncaughtExceptionHandler : Thread.UncaughtExceptionHandler {
+    private inner class CrashKUncaughtExceptionHandler(private val _isRestart: Boolean = true) : Thread.UncaughtExceptionHandler {
         private val _defaultExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        private val _launchTime = UtilKFile.dateStr2FileName()
+        private val _launchTime = UtilKDate.getNowStr()
 
         override fun uncaughtException(t: Thread, e: Throwable) {
             if (!handleException(e) && _defaultExceptionHandler != null) {
                 _defaultExceptionHandler.uncaughtException(t, e)
             }
-            UtilKApp.restartApp(isKillProcess = true, isValid = false)
+            if (_isRestart) {
+                Thread.sleep(500)
+                UtilKApp.restartApp(isKillProcess = true, isValid = false)
+            }
         }
 
         /**
@@ -84,7 +84,7 @@ class CrashKJava {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val savePath = crashPathJava + "/crashk_java_${UtilKDate.getNowLong()}.txt"
+            val savePath = crashPathJava + "/${UtilKFile.nowStr2FileName()}.txt"
             UtilKFile.str2File(log, savePath)
         }
 

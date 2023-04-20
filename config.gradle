@@ -1,12 +1,13 @@
 ext {
     android = [
             compileSdk           : 33,
+            namespace            : "com.mozhimen.app",
             applicationId        : "com.mozhimen.app",
             minSdk               : 21,
             targetSdk            : 33,
             versionCode          : 3,
             renderscriptTargetApi: 18,
-            versionName          : "2.0.2",
+            versionName          : "0.0.3",
             multiDexEnabled      : true
     ]
 }

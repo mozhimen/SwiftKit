@@ -86,7 +86,7 @@ class LogKPrinterFile(
     }
 
     private fun genFileName(): String {
-        return "logk_${UtilKDate.getNowLong()}.txt"
+        return "${UtilKFile.currentHourStr2FileName()}.txt"
     }
 
     /**

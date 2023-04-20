@@ -111,7 +111,7 @@ object UtilKBitmapIO {
             val contentValues = ContentValues()
             val contentResolver: ContentResolver = UtilKContext.getContentResolver(_context)
             contentValues.put(MediaStore.Images.ImageColumns.DATA, destFile.absolutePath)
-            contentValues.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, filePathWithName.split("/").lastOrNull() ?: UtilKFile.dateStr2FileName())
+            contentValues.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, filePathWithName.split("/").lastOrNull() ?: UtilKFile.nowStr2FileName())
             contentValues.put(MediaStore.Images.ImageColumns.MIME_TYPE, CMediaFormat.MIMETYPE_IMAGE_JPEG)
             contentValues.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
             val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues) // 插入相册

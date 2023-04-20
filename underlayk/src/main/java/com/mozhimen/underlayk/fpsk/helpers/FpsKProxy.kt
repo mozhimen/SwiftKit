@@ -101,7 +101,7 @@ class FpsKProxy : IFpsK {
 
     private fun start() {
         if (_isOpen) return
-        if (!UtilKPermission.isOverlayPermissionEnable()) {
+        if (!UtilKPermission.hasOverlay()) {
             UtilKLaunchActivity.startManageOverlay(_context)
             LogK.et(TAG, "FpsKView play app has no overlay permission")
             return

@@ -27,6 +27,10 @@ object UtilKDir {
 
     object External {
         @JvmStatic
+        fun getCacheDir(): File? =
+            UtilKContextDir.External.getCacheDir(_context)
+
+        @JvmStatic
         fun getFilesRootDir(): File? =
             UtilKContextDir.External.getFilesRootDir(_context)
 

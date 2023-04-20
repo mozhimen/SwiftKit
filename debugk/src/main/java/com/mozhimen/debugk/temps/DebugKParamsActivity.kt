@@ -8,6 +8,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityParamsBinding
@@ -19,6 +20,10 @@ import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 
 @AManifestKRequire(
     CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE, CPermission.CAMERA,
+    CPermission.ACCESS_NETWORK_STATE, CPermission.ACCESS_WIFI_STATE, CPermission.INTERNET
+)
+@APermissionCheck(
+    CPermission.READ_PHONE_STATE, CPermission.CAMERA,
     CPermission.ACCESS_NETWORK_STATE, CPermission.ACCESS_WIFI_STATE, CPermission.INTERNET
 )
 class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {

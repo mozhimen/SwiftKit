@@ -38,18 +38,18 @@ class TextKClock @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     private fun getTimeFormat(index: Int = 0): String {
         return when (index) {
-            1 -> UtilKDate.FORMAT_yyyyMMddHHmm
-            2 -> UtilKDate.FORMAT_yyyyMMdd
-            3 -> UtilKDate.FORMAT_HHmmss
-            4 -> UtilKDate.FORMAT_HHmm
-            5 -> UtilKDate.FORMAT_mmss
-            6 -> UtilKDate.FORMAT_yyyy
-            7 -> UtilKDate.FORMAT_MM
-            8 -> UtilKDate.FORMAT_dd
-            9 -> UtilKDate.FORMAT_HH
-            10 -> UtilKDate.FORMAT_mm
-            11 -> UtilKDate.FORMAT_ss
-            else -> UtilKDate.FORMAT_yyyyMMddHHmmss
+            1 -> UtilKDate.Format.yyyyMMddHHmm
+            2 -> UtilKDate.Format.yyyyMMdd
+            3 -> UtilKDate.Format.HHmmss
+            4 -> UtilKDate.Format.HHmm
+            5 -> UtilKDate.Format.mmss
+            6 -> UtilKDate.Format.yyyy
+            7 -> UtilKDate.Format.MM
+            8 -> UtilKDate.Format.dd
+            9 -> UtilKDate.Format.HH
+            10 -> UtilKDate.Format.mm
+            11 -> UtilKDate.Format.ss
+            else -> UtilKDate.Format.yyyyMMddHHmmss
         }
     }
 }

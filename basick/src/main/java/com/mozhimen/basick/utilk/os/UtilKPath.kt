@@ -23,6 +23,10 @@ object UtilKPath {
 
         object External {
             @JvmStatic
+            fun getCacheDir(): String? =
+                UtilKDir.External.getCacheDir()?.absolutePath
+
+            @JvmStatic
             fun getDataDir(): String =
                 UtilKDir.External.getDataDir().absolutePath
 

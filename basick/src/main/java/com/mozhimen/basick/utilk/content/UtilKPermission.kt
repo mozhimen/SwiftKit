@@ -1,23 +1,16 @@
 package com.mozhimen.basick.utilk.content
 
 import android.annotation.TargetApi
-import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.annotation.RequiresFeature
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.app.UtilKApp
-import com.mozhimen.basick.utilk.app.UtilKAppInstall
-import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 
 /**
@@ -39,7 +32,7 @@ object UtilKPermission {
     @JvmStatic
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
     @ADescription(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-    fun isOverlayPermissionEnable(): Boolean {
+    fun hasOverlay(): Boolean {
         return Build.VERSION.SDK_INT < CVersionCode.V_23_6_M || Settings.canDrawOverlays(_context)
     }
 
@@ -51,8 +44,19 @@ object UtilKPermission {
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     @ADescription(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-    fun isExternalStoragePermissionEnable(): Boolean =
+    fun hasExternalStorage(): Boolean =
         Environment.isExternalStorageManager()
+
+    /**
+     * 是否有包安装权限
+     * @return Boolean
+     */
+    @JvmStatic
+    fun hasPackageInstalls(): Boolean {
+        return if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
+            hasPackageInstallsAfterO()
+        } else true
+    }
 
     /**
      * 是否有包安装权限
@@ -63,7 +67,7 @@ object UtilKPermission {
     @TargetApi(CVersionCode.V_26_8_O)
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-    fun isAppInstallsPermissionEnable(): Boolean =
+    fun hasPackageInstallsAfterO(): Boolean =
         UtilKPackageManager.canRequestPackageInstalls(_context).also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
 
     /**
@@ -71,7 +75,7 @@ object UtilKPermission {
      * @return Boolean
      */
     @JvmStatic
-    fun isAccessibilityPermissionEnable(serviceClazz: Class<*>): Boolean {
+    fun hasAccessibility(serviceClazz: Class<*>): Boolean {
         var permissionEnable = 0
         val service = "${UtilKContext.getPackageName(_context)}/${serviceClazz.canonicalName}"
         try {

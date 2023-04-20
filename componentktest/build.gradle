@@ -11,8 +11,8 @@ android {
         applicationId "com.mozhimen.componentktest"
         minSdk rootProject.android.minSdk
         targetSdk 25
-        versionCode 1
-        versionName "1.0.0"
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -42,5 +42,8 @@ dependencies {
     implementation project(':debugk')
     implementation 'com.github.mozhimen.CameraKit_UVC:camerak_uvc:1.0.4'
 
+    //test
     testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

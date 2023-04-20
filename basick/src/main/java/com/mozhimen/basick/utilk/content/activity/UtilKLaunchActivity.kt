@@ -25,7 +25,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startInstall(context: Context, apkPathWithName: String) {
-        UtilKContextStart.startContext(context, UtilKIntent.getInstall(context, apkPathWithName) ?: return)
+        UtilKContextStart.startContext(context, UtilKIntent.getInstall(apkPathWithName) ?: return)
     }
 
     /**

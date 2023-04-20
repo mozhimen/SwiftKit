@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk.java.io.file
 import android.os.FileUtils
 import android.text.TextUtils
 import android.util.Log
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.exts.et
 import java.io.*
@@ -25,8 +24,32 @@ object UtilKFile {
     const val MSG_WRONG = "something wrong"
 
     //region # file
+    /**
+     * 当前小时转文件名
+     * @param locale Locale
+     * @return String
+     */
     @JvmStatic
-    fun dateStr2FileName(formatDate: String = UtilKDate.FORMAT_yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
+    fun currentHourStr2FileName(locale: Locale = Locale.CHINA) =
+        dateStr2FileName(UtilKDate.Format.yyyyMMddHH, locale)
+
+    /**
+     * 当前时间转文件名
+     * @param locale Locale
+     * @return String
+     */
+    @JvmStatic
+    fun nowStr2FileName(locale: Locale = Locale.CHINA): String =
+        dateStr2FileName(locale = locale)
+
+    /**
+     * 时间转文件名
+     * @param formatDate String
+     * @param locale Locale
+     * @return String
+     */
+    @JvmStatic
+    fun dateStr2FileName(formatDate: String = UtilKDate.Format.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
         return UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
     }
 
