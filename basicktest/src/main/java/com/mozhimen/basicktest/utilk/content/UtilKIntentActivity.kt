@@ -18,14 +18,14 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkIntentBinding
 class UtilKIntentActivity : BaseActivityVB<ActivityUtilkIntentBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
-        val register = registerForActivityResult(ActivityResultContracts.GetContent()) {
+        val activityResultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
             VB.utilkIntentImg.setImageURI(it)
         }
         VB.utilkIntentBtn.setOnClickListener {
             startActivityForResult(UtilKIntent.getPickImage(), 0)
         }
         VB.utilkIntentBtn2.setOnClickListener {
-            register.launch(CMediaFormat.MIMETYPE_IMAGE_ALL)
+            activityResultLauncher.launch(CMediaFormat.MIMETYPE_IMAGE_ALL)
         }
     }
 
