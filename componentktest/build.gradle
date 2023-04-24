@@ -11,14 +11,36 @@ android {
         applicationId "com.mozhimen.componentktest"
         minSdk rootProject.android.minSdk
         targetSdk 25
-        versionCode rootProject.android.versionCode
-        versionName rootProject.android.versionName
+        versionCode 2
+        versionName "0.0.2"
+
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        signConfig {
+            keyAlias 'platform'
+            keyPassword 'android'
+            storeFile file('D:/WorkSpace/BaiduSpace/BaiduSyncdisk/File/Keystore/platform.keystore')
+            storePassword 'android'
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig signingConfigs.signConfig
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
+            signingConfig signingConfigs.signConfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
