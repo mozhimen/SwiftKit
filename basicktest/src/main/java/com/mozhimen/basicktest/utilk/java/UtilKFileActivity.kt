@@ -14,6 +14,7 @@ import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,7 +32,7 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
         ManifestKPermission.initPermissions(this) {
             if (it) {
                 VB.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
-                _adapterKRecycler = AdapterKRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>( _logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
+                _adapterKRecycler = AdapterKRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>(_logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
                 VB.utilkFileRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)
@@ -43,17 +44,17 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
         lifecycleScope.launch(Dispatchers.IO) {
             "section file".log()
             "filePath getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) ${this@UtilKFileActivity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.absolutePath}".log()
-            val deviceInfoPath = this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo"
+            val deviceInfoPath = UtilKPath.Absolute.Internal.getFilesDir() + "/deviceInfo"
             "isFile deviceInfo ${UtilKFile.isFile(deviceInfoPath)}".log()
-            val deviceInfo1Path = this@UtilKFileActivity.filesDir.absolutePath + "/deviceInfo1"
+            val deviceInfo1Path = UtilKPath.Absolute.Internal.getFilesDir() + "/deviceInfo1"
             "createFile deviceInfo1 ${UtilKFile.createFile(deviceInfo1Path).absolutePath}".log()
             "deleteFile deviceInfo1 ${UtilKFile.deleteFile(deviceInfo1Path)}".log()
             "getFileSize deviceInfo size ${UtilKFile.getFileSize(deviceInfoPath)}".log()
 
-            val str2File1Path = this@UtilKFileActivity.filesDir.absolutePath + "/tmp1.txt"
+            val str2File1Path = UtilKPath.Absolute.Internal.getFilesDir() + "/tmp1.txt"
             val str2File1Time = System.currentTimeMillis()
             "str2File1 tmp1 ${UtilKFile.str2File("第一行\n第二行", str2File1Path)} time ${System.currentTimeMillis() - str2File1Time}".log()
-            val str2File2Path = this@UtilKFileActivity.filesDir.absolutePath + "/tmp2.txt"
+            val str2File2Path = UtilKPath.Absolute.Internal.getFilesDir() + "/tmp2.txt"
             val str2File2Time = System.currentTimeMillis()
             "str2File2 tmp2 ${UtilKFile.str2File2("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
 
@@ -61,13 +62,13 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
             "file2Str tmp ${UtilKFile.file2Str(str2File1Path)} time ${System.currentTimeMillis() - file2StrTime}".log()
 
             val copyFileTime = System.currentTimeMillis()
-            val destTmpFilePath = this@UtilKFileActivity.filesDir.absolutePath + "/tmp3.txt"
+            val destTmpFilePath = UtilKPath.Absolute.Internal.getFilesDir() + "/tmp3.txt"
             "copyFile tmp -> tmp3 ${UtilKFile.copyFile(str2File1Path, destTmpFilePath)?.absolutePath} time ${System.currentTimeMillis() - copyFileTime}".log()
 
             "section folder".log()
-            val deviceInfoFolder = this@UtilKFileActivity.filesDir.absolutePath
+            val deviceInfoFolder = UtilKPath.Absolute.Internal.getFilesDir()
             "isFolder filesDir ${UtilKFile.isFolder(deviceInfoFolder)}".log()
-            val createFolderPath = this@UtilKFileActivity.filesDir.absolutePath + "/folder/"
+            val createFolderPath = UtilKPath.Absolute.Internal.getFilesDir() + "/folder/"
             "createFolder folder ${UtilKFile.createFolder(createFolderPath).absolutePath}".log()
             "deleteFolder folder ${UtilKFile.deleteFolder(createFolderPath)}".log()
         }

@@ -47,7 +47,6 @@ class InstallK {
 
     private val _context by lazy { UtilKApplication.instance.get() }
 
-    //private var _tempApkPathWithName = "${_context.filesDir.absolutePath}/installk/update.apk"
     private var _installMode = EInstallMode.AUTO
     private var _installStateChangeListener: IInstallStateChangedListener? = null
     private var _smartServiceClazz: Class<*>? = null

@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.download.commons
+package com.mozhimen.componentk.netk.file.download_deprecated.commons
 
 import com.liulishuo.okdownload.DownloadTask
 
@@ -9,6 +9,7 @@ import com.liulishuo.okdownload.DownloadTask
  * @Date 2022/11/1 21:58
  * @Version 1.0
  */
+@Deprecated("okdownload is deprecated")
 interface IFileDownloadSingleListener {
     fun onStart(task: DownloadTask) {}
     fun onProgress(task: DownloadTask, totalIndex: Int, totalBytes: Long) {}

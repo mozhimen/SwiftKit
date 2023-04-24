@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.download
+package com.mozhimen.componentk.netk.file.download_deprecated
 
 import android.os.Build
 import android.util.Log
@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.bases.BaseTaskK
 import com.mozhimen.basick.utilk.java.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.java.datatype.regular.UtilKVerifyUrl
-import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
+import com.mozhimen.componentk.netk.file.download_deprecated.commons.IFileDownloadSingleListener
 import com.mozhimen.underlayk.logk.LogK
 import java.io.File
 import java.lang.Exception
@@ -24,6 +24,7 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @Date 2022/11/1 23:27
  * @Version 1.0
  */
+@Deprecated("okdownload is deprecated")
 class TaskFileDownloadSingle : BaseTaskK() {
     private val _downloadUrls = CopyOnWriteArrayList<String>()
     private var _downloadListeners = ConcurrentHashMap<String, IFileDownloadSingleListener>()

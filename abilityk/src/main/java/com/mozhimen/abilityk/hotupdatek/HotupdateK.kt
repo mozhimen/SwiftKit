@@ -3,7 +3,6 @@ package com.mozhimen.abilityk.hotupdatek
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -17,7 +16,6 @@ import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.cons.EInstallMode
-import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
 import com.mozhimen.netkfiledownloader.*
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers

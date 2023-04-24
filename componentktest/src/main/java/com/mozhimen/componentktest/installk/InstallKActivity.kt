@@ -17,6 +17,7 @@ import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.content.pm.UtilKPackage
 import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
 import com.mozhimen.componentk.installk.cons.EInstallMode
@@ -52,7 +53,7 @@ import kotlinx.coroutines.launch
     CPermission.READ_INSTALL_SESSIONS,
 )
 class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
-    private val _apkPathWithName by lazy { this.filesDir.absolutePath + "/installk/componentktest.apk" }
+    private val _apkPathWithName by lazy { UtilKPath.Absolute.Internal.getFilesDir() + "/installk/componentktest.apk" }
     private val _installK by lazy { InstallK() }
 
     override fun initView(savedInstanceState: Bundle?) {

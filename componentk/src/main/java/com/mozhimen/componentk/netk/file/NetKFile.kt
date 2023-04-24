@@ -3,7 +3,7 @@ package com.mozhimen.componentk.netk.file
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.componentk.netk.file.download.FileDownloadTaskMgr
+import com.mozhimen.componentk.netk.file.download_deprecated.FileDownloadTaskMgr
 
 
 /**

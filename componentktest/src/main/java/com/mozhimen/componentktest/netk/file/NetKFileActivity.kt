@@ -7,10 +7,11 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.componentk.audiok.AudioK
 import com.mozhimen.componentk.audiok.mos.MAudioK
 import com.mozhimen.componentk.netk.file.NetKFile
-import com.mozhimen.componentk.netk.file.download.commons.IFileDownloadSingleListener
+import com.mozhimen.componentk.netk.file.download_deprecated.commons.IFileDownloadSingleListener
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentktest.databinding.ActivityNetkFileBinding
 
 @AManifestKRequire(
@@ -26,7 +27,7 @@ import com.mozhimen.componentktest.databinding.ActivityNetkFileBinding
 class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
     private val _netKFile by lazy { NetKFile(this) }
     private val _musicUrl = "http://192.168.2.6/construction-sites-images/voice/20221102/176f9197f0694591b16ffd47a0f117fe.wav"
-    private val _musicPath by lazy { this.filesDir.absolutePath + "/netkfile/" + "music.wav" }
+    private val _musicPath by lazy { UtilKPath.Absolute.Internal.getFilesDir() + "/netkfile/music.wav" }
     private val _fileDownloadSingleListener = object : IFileDownloadSingleListener {
         override fun onComplete(task: DownloadTask) {
             task.file?.let {
