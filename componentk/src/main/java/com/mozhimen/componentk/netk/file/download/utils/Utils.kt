@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.download
+package com.mozhimen.componentk.netk.file.download.utils
 
 import android.content.Context
 import android.database.Cursor
@@ -7,6 +7,8 @@ import android.os.Build
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
+import com.mozhimen.componentk.R
+import com.mozhimen.componentk.netk.file.download.DownloadException
 import java.io.File
 import java.net.ConnectException
 import java.net.SocketException

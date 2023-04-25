@@ -188,7 +188,7 @@ class InstallK {
                 requireNotNull(_silenceReceiverClazz) { "$TAG silence receiver must not be null" }
                 require(UtilKOSRoot.isRoot() || !UtilKApp.isUserApp(_context)) { "$TAG this device has not root or its system app" }
                 UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
-                Log.d(TAG, "installByMode: ROOT success")
+                Log.d(TAG, "installByMode: SILENCE success")
             }
             EInstallMode.SMART -> {
                 requireNotNull(_smartServiceClazz) { "$TAG smart service must not be null" }

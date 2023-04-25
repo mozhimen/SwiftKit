@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.layoutk.refresh
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkRefreshBinding
 
 /**
@@ -14,10 +14,10 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkRefreshBinding
  */
 class LayoutKRefreshActivity : BaseActivityVB<ActivityLayoutkRefreshBinding>() {
     fun goLayoutKRefreshLottie(view: View) {
-        start<LayoutKRefreshLottieActivity>()
+        startContext<LayoutKRefreshLottieActivity>()
     }
 
     fun goLayoutKRefreshText(view: View) {
-        start<LayoutKRefreshTextActivity>()
+        startContext<LayoutKRefreshTextActivity>()
     }
 }

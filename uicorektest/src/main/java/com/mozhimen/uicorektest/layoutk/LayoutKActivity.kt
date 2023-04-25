@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.layoutk
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkBinding
 import com.mozhimen.uicorektest.layoutk.banner.LayoutKBannerActivity
 import com.mozhimen.uicorektest.layoutk.loadrefresh.LayoutKLoadRefreshActivity
@@ -14,54 +14,54 @@ import com.mozhimen.uicorektest.layoutk.tab.LayoutKTabActivity
 
 class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
     fun goLayoutKBanner(view: View) {
-        start<LayoutKBannerActivity>()
+        startContext<LayoutKBannerActivity>()
     }
 
     fun goLayoutKLoadRefresh(view: View) {
-        start<LayoutKLoadRefreshActivity>()
+        startContext<LayoutKLoadRefreshActivity>()
     }
 
     fun goLayoutKNavBar(view: View) {
-        start<LayoutKNavBarActivity>()
+        startContext<LayoutKNavBarActivity>()
     }
 
     fun goLayoutKRefresh(view: View) {
-        start<LayoutKRefreshActivity>()
+        startContext<LayoutKRefreshActivity>()
     }
 
     fun goLayoutKSide(view: View) {
-        start<LayoutKSideActivity>()
+        startContext<LayoutKSideActivity>()
     }
 
     fun goLayoutKSlider(view: View) {
-        start<LayoutKSliderActivity>()
+        startContext<LayoutKSliderActivity>()
     }
 
     fun goLayoutKTab(view: View) {
-        start<LayoutKTabActivity>()
+        startContext<LayoutKTabActivity>()
     }
 
     fun goLayoutKBtn(view: View) {
-        start<LayoutKBtnActivity>()
+        startContext<LayoutKBtnActivity>()
     }
 
     fun goLayoutKChipGroup(view: View) {
-        start<LayoutKChipGroupActivity>()
+        startContext<LayoutKChipGroupActivity>()
     }
 
     fun goLayoutKEditItem(view: View) {
-        start<LayoutKEditItemActivity>()
+        startContext<LayoutKEditItemActivity>()
     }
 
     fun goLayoutKEmpty(view: View) {
-        start<LayoutKEmptyActivity>()
+        startContext<LayoutKEmptyActivity>()
     }
 
     fun goLayoutKSpinner(view: View) {
-        start<LayoutKSpinnerActivity>()
+        startContext<LayoutKSpinnerActivity>()
     }
 
     fun goLayoutKSquare(view: View) {
-        start<LayoutKSquareActivity>()
+        startContext<LayoutKSquareActivity>()
     }
 }

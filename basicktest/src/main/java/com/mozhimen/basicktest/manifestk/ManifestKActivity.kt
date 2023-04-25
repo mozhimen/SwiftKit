@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.manifestk
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 import com.mozhimen.basicktest.databinding.ActivityManifestkBinding
 import com.mozhimen.basicktest.manifestk.permission.ManifestKPermissionActivity
 
@@ -16,6 +16,6 @@ import com.mozhimen.basicktest.manifestk.permission.ManifestKPermissionActivity
  */
 class ManifestKActivity : BaseActivityVB<ActivityManifestkBinding>() {
     fun goManifestKPermission(view: View) {
-        start<ManifestKPermissionActivity>()
+        startContext<ManifestKPermissionActivity>()
     }
 }

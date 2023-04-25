@@ -26,9 +26,18 @@
         tools:ignore="ScopedStorage" />
 
     <application
+        android:allowBackup="true"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
 
+<!--        <receiver-->
+<!--            android:name=".netk.file.download.SystemDownloadReceiver"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />-->
+<!--                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
     </application>
 
 </manifest>

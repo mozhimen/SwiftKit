@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.download
+package com.mozhimen.componentk.netk.file.download.utils
 
 import java.io.InputStream
 import java.security.MessageDigest

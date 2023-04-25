@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
+import com.mozhimen.componentk.netk.file.download.utils.Utils.getValue
 
 /**
  * 'download' table record

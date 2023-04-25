@@ -3,7 +3,7 @@ package com.mozhimen.underlayktest
 import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayktest.databinding.ActivityUnderlaykBinding
 import com.mozhimen.underlayktest.fpsk.FpsKActivity
@@ -15,10 +15,10 @@ class UnderlayKActivity : BaseActivityVB<ActivityUnderlaykBinding>() {
     }
 
     fun goLogK(view: View) {
-        start<LogKActivity>()
+        startContext<LogKActivity>()
     }
 
     fun goFpsK(view: View) {
-        start<FpsKActivity>()
+        startContext<FpsKActivity>()
     }
 }

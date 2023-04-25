@@ -12,16 +12,22 @@ android {
         targetSdk rootProject.android.targetSdk
         multiDexEnabled rootProject.android.multiDexEnabled
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
+        //fileProvider
+        manifestPlaceholders = [fileProviderAuthoritiesSuffix: ".fileProvider"]
+        buildConfigField("String", "FILE_PROVIDER_AUTHORITIES_SUFFIX", "\"${manifestPlaceholders['fileProviderAuthoritiesSuffix']}\"")
 
         //renderscript
         renderscriptTargetApi rootProject.android.renderscriptTargetApi
         renderscriptSupportModeEnabled true
 
+        //test
         testOptions {
             unitTests.returnDefaultValues = true
         }
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //minify
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {

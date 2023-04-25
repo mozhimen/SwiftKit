@@ -57,6 +57,17 @@ object UtilKIntent {
         Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUri2(context))
 
     /**
+     * 管理通知
+     * @param context Context
+     * @return Intent
+     */
+    @JvmStatic
+    fun getSettingNotification(context: Context): Intent =
+        Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+            putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+        }
+
+    /**
      * 获取管理所有APP
      * @param context Context
      * @return Intent

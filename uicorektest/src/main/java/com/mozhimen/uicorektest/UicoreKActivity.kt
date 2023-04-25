@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 import com.mozhimen.uicorektest.adapterk.AdapterKActivity
 import com.mozhimen.uicorektest.btnk.BtnKActivity
 import com.mozhimen.uicorektest.databinding.ActivityUicorekBinding
@@ -18,43 +18,43 @@ import com.mozhimen.uicorektest.viewk.ViewKActivity
 class UicoreKActivity : BaseActivityVB<ActivityUicorekBinding>() {
 
     fun goAdapterK(view: View) {
-        start<AdapterKActivity>()
+        startContext<AdapterKActivity>()
     }
 
     fun goBtnK(view: View) {
-        start<BtnKActivity>()
+        startContext<BtnKActivity>()
     }
 
     fun goDialogK(view: View) {
-        start<DialogKActivity>()
+        startContext<DialogKActivity>()
     }
 
     fun goDrawableK(view: View) {
-        start<DrawableKActivity>()
+        startContext<DrawableKActivity>()
     }
 
     fun goImageK(view: View) {
-        start<ImageKActivity>()
+        startContext<ImageKActivity>()
     }
 
     fun goLayoutK(view: View) {
-        start<LayoutKActivity>()
+        startContext<LayoutKActivity>()
     }
 
     fun goPopwinK(view: View) {
-        start<PopwinKActivity>()
+        startContext<PopwinKActivity>()
     }
 
     fun goRecyclerK(view: View) {
-        start<RecyclerKActivity>()
+        startContext<RecyclerKActivity>()
     }
 
     fun goTextK(view: View) {
-        start<TextKActivity>()
+        startContext<TextKActivity>()
     }
 
     fun goViewK(view: View) {
-        start<ViewKActivity>()
+        startContext<ViewKActivity>()
     }
 
 }

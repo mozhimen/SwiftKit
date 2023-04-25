@@ -20,8 +20,8 @@ import javax.net.ssl.X509TrustManager
  */
 object UtilKNetDeal {
     private const val TAG = "UtilKNetDeal>>>>>"
-    private const val UTILKNET_SP_NAME = "utilknet_sp_name"
-    private const val UTILKNET_SP_DEGRADE_HTTP = "utilknet_sp_degrade_http"
+//    private const val UTILKNET_SP_NAME = "utilknet_sp_name"
+//    private const val UTILKNET_SP_DEGRADE_HTTP = "utilknet_sp_degrade_http"
 
     /**
      * 获取SSL
@@ -59,11 +59,11 @@ object UtilKNetDeal {
     /**
      * 协议降级
      */
-    @JvmStatic
-    fun degrade2Http() {
-        if (CacheKSP.instance.with(UTILKNET_SP_NAME).getBoolean(UTILKNET_SP_DEGRADE_HTTP, false)) return
-        CacheKSP.instance.with(UTILKNET_SP_NAME).putBoolean(UTILKNET_SP_DEGRADE_HTTP, true)
-        Thread.sleep(100)
-        UtilKApp.restartApp(isKillProcess = true)
-    }
+//    @JvmStatic
+//    fun degrade2Http() {
+//        if (CacheKSP.instance.with(UTILKNET_SP_NAME).getBoolean(UTILKNET_SP_DEGRADE_HTTP, false)) return
+//        CacheKSP.instance.with(UTILKNET_SP_NAME).putBoolean(UTILKNET_SP_DEGRADE_HTTP, true)
+//        Thread.sleep(100)
+//        UtilKApp.restartApp(isKillProcess = true)
+//    }
 }

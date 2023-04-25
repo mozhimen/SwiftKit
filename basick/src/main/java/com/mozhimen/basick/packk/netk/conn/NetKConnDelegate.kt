@@ -29,6 +29,7 @@ class NetKConnDelegate<T>(
     private val _listener: INetKConnListener,
     private val _receiver: NetKConnReceiver = NetKConnReceiver(),
 ) : BaseReceiverDelegate<T>(_activity, _receiver, ConnectivityManager.CONNECTIVITY_ACTION) where T : Activity, T : LifecycleOwner {
+
     init {
         _receiver.registerListener(_listener)
     }

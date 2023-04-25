@@ -5,15 +5,15 @@ import com.mozhimen.abilityktest.databinding.ActivityAbilitykBinding
 import com.mozhimen.abilityktest.scank.ScanKActivity
 import com.mozhimen.abilityktest.transk.TransKActivity
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 
 class AbilityKActivity : BaseActivityVB<ActivityAbilitykBinding>() {
 
     fun goScanK(view: View) {
-        start<ScanKActivity>()
+        startContext<ScanKActivity>()
     }
 
     fun goTransK(view: View) {
-        start<TransKActivity>()
+        startContext<TransKActivity>()
     }
 }

@@ -15,8 +15,8 @@ import com.mozhimen.basick.utilk.content.UtilKContextStart
  * 不带参数的跳转
  * @receiver Context
  */
-inline fun <reified T> Activity.start() where T : Activity {
-    UtilKContextStart.startActivity<T>(this)
+inline fun <reified T> Activity.startContext() where T : Activity {
+    UtilKContextStart.startContext<T>(this)
 }
 
 /**
@@ -24,6 +24,6 @@ inline fun <reified T> Activity.start() where T : Activity {
  * @receiver Context
  * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
  */
-inline fun <reified T> Activity.start(block: Intent.() -> Unit) where T : Activity {
-    UtilKContextStart.startActivity<T>(this, block)
+inline fun <reified T> Activity.startContext(block: Intent.() -> Unit) where T : Activity {
+    UtilKContextStart.startContext<T>(this, block)
 }

@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.imagek
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 import com.mozhimen.uicorektest.databinding.ActivityImagekBinding
 
 
@@ -16,6 +16,6 @@ import com.mozhimen.uicorektest.databinding.ActivityImagekBinding
 class ImageKActivity : BaseActivityVB<ActivityImagekBinding>() {
 
     fun goImageKBindingAdapter(view: View) {
-        start<ImageKBindingAdapterActivity>()
+        startContext<ImageKBindingAdapterActivity>()
     }
 }

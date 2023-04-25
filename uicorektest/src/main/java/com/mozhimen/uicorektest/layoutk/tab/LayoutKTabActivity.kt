@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.layoutk.tab
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabBinding
 
 /**
@@ -15,22 +15,22 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabBinding
 class LayoutKTabActivity : BaseActivityVB<ActivityLayoutkTabBinding>() {
 
     fun goLayoutKTabBottom(view: View) {
-        start<LayoutKTabBottomActivity>()
+        startContext<LayoutKTabBottomActivity>()
     }
 
     fun goLayoutKTabBottomFragment(view: View) {
-        start<LayoutKTabBottomFragmentActivity>()
+        startContext<LayoutKTabBottomFragmentActivity>()
     }
 
     fun goLayoutKTabBottomLayout(view: View) {
-        start<LayoutKTabBottomLayoutActivity>()
+        startContext<LayoutKTabBottomLayoutActivity>()
     }
 
     fun goLayoutKTabTop(view: View) {
-        start<LayoutKTabTopActivity>()
+        startContext<LayoutKTabTopActivity>()
     }
 
     fun goLayoutKTabTopLayout(view: View) {
-        start<LayoutKTabTopLayoutActivity>()
+        startContext<LayoutKTabTopLayoutActivity>()
     }
 }

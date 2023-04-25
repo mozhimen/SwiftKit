@@ -11,8 +11,8 @@ android {
         applicationId "com.mozhimen.componentktest"
         minSdk rootProject.android.minSdk
         targetSdk 25
-        versionCode 2
-        versionName "0.0.2"
+        versionCode 1
+        versionName "0.0.1"
 
         lintOptions {
             checkReleaseBuilds false

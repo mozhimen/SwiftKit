@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.download
+package com.mozhimen.componentk.netk.file.download.utils
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -25,7 +25,6 @@ internal class SpHelper private constructor(context: Context) {
         }
 
     }
-
 
     fun putInt(key: String, value: Int): SpHelper {
         sp.edit().putInt(key, value).apply()

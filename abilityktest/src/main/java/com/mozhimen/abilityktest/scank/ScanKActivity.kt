@@ -7,7 +7,7 @@ import android.widget.Toast
 import com.mozhimen.abilityk.scank.ScanKQR
 import com.mozhimen.abilityktest.databinding.ActivityScankBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 
 class ScanKActivity : BaseActivityVB<ActivityScankBinding>() {
 
@@ -29,10 +29,10 @@ class ScanKActivity : BaseActivityVB<ActivityScankBinding>() {
     }
 
     fun goScanKHSV(view: View) {
-        start<ScanKHSVActivity>()
+        startContext<ScanKHSVActivity>()
     }
 
     fun goScanKFace(view: View) {
-        start<ScanKFaceActivity>()
+        startContext<ScanKFaceActivity>()
     }
 }

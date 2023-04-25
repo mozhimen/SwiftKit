@@ -2,7 +2,7 @@ package com.mozhimen.basicktest
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 import com.mozhimen.basicktest.animk.AnimKActivity
 import com.mozhimen.basicktest.cachek.CacheKActivity
 import com.mozhimen.basicktest.stackk.StackKActivity
@@ -15,39 +15,39 @@ import com.mozhimen.basicktest.taskk.TaskKActivity
 
 class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
     fun goAnimK(view: View) {
-        start<AnimKActivity>()
+        startContext<AnimKActivity>()
     }
 
     fun goCacheK(view: View) {
-        start<CacheKActivity>()
+        startContext<CacheKActivity>()
     }
 
     fun goElemK(view: View) {
-        start<ElemKActivity>()
+        startContext<ElemKActivity>()
     }
 
     fun goManifestK(view: View) {
-        start<ManifestKActivity>()
+        startContext<ManifestKActivity>()
     }
 
     fun goNetK(view: View) {
-        start<NetKConnActivity>()
+        startContext<NetKConnActivity>()
     }
 
     fun goStackK(view: View) {
-        start<StackKActivity>()
+        startContext<StackKActivity>()
     }
 
     fun goStatusBarK(view: View) {
-        start<com.mozhimen.basicktest.statusbark.StatusBarKActivity>()
+        startContext<com.mozhimen.basicktest.statusbark.StatusBarKActivity>()
     }
 
     fun goTaskK(view: View) {
-        start<TaskKActivity>()
+        startContext<TaskKActivity>()
     }
 
     fun goUtilK(view: View) {
-        start<UtilKActivity>()
+        startContext<UtilKActivity>()
     }
 
 }

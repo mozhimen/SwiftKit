@@ -22,16 +22,23 @@ object UtilKWifiManager {
     fun get(context: Context): WifiManager =
         UtilKContext.getWifiManager(context)
 
+    /**
+     * 获取ConnectionInfo
+     * @param context Context
+     * @return WifiInfo
+     */
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getConnectionInfo(context: Context): WifiInfo =
         get(context).connectionInfo
 
+    /**
+     * 获取Rssi
+     * @param context Context
+     * @return Int
+     */
     @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getRssi(context: Context): Int =
         getConnectionInfo(context).rssi
-
-    @JvmStatic
-    fun getRssiAbs(context: Context): Int =
-        abs(getRssi(context))
 }

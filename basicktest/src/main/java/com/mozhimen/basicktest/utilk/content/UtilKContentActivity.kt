@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.utilk.content
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.start
+import com.mozhimen.basick.utilk.exts.startContext
 import com.mozhimen.basicktest.databinding.ActivityUtilkContentBinding
 
 /**
@@ -14,10 +14,10 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkContentBinding
  */
 class UtilKContentActivity : BaseActivityVB<ActivityUtilkContentBinding>() {
     fun goUtilKContextDir(view: View) {
-        start<UtilKContextDirActivity>()
+        startContext<UtilKContextDirActivity>()
     }
 
     fun goUtilKIntent(view: View) {
-        start<UtilKIntentActivity>()
+        startContext<UtilKIntentActivity>()
     }
 }
