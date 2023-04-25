@@ -31,7 +31,8 @@ fun String.getSplitFirst(splitStr: String): String = UtilKString.getSplitFirst(t
  * @receiver String
  * @return String
  */
-fun String.str2Unicode(): String = UtilKString.str2Unicode(this)
+fun String.str2Unicode(): String =
+    UtilKString.str2Unicode(this)
 
 /**
  * bool转String
@@ -39,7 +40,8 @@ fun String.str2Unicode(): String = UtilKString.str2Unicode(this)
  * @param locale Locale
  * @return String
  */
-fun Boolean.boolean2Str(locale: Locale = Locale.CHINA): String = UtilKString.boolean2Str(this, locale)
+fun Boolean.boolean2Str(locale: Locale = Locale.CHINA): String =
+    UtilKString.boolean2Str(this, locale)
 
 /**
  * decimal转String
@@ -47,7 +49,8 @@ fun Boolean.boolean2Str(locale: Locale = Locale.CHINA): String = UtilKString.boo
  * @param pattern String
  * @return String
  */
-fun Double.decimal2Str(pattern: String = "#.0"): String = UtilKString.decimal2Str(this, pattern)
+fun Double.decimal2Str(pattern: String = "#.0"): String =
+    UtilKString.decimal2Str(this, pattern)
 
 /**
  * 抛出非法状态异常
@@ -64,7 +67,8 @@ fun String.throwIllegalStateException() {
  * @param splitChar String
  * @return String
  */
-fun <T> Array<T>.combineArray2Str(defaultValue: String = "", splitChar: String = ","): String = UtilKString.combineArray2Str(this, defaultValue, splitChar)
+fun <T> Array<T>.joinArray2Str(defaultValue: String = "", splitChar: String = ","): String =
+    UtilKString.joinArray2Str(this, defaultValue, splitChar)
 
 /**
  * 聚合list
@@ -73,4 +77,5 @@ fun <T> Array<T>.combineArray2Str(defaultValue: String = "", splitChar: String =
  * @param splitStr String
  * @return String
  */
-fun <T> List<T>.combineList2Str(defaultValue: String = "", splitStr: String = ","): String = UtilKString.combineList2Str(this, defaultValue, splitStr)
+fun <T> List<T>.joinList2Str(defaultValue: String = "", splitStr: String = ","): String =
+    UtilKString.joinList2Str(this, defaultValue, splitStr)

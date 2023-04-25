@@ -10,18 +10,18 @@ class TestUtilKDate {
     fun getTimeZone() {
         val nowDate = UtilKDate.getNowDate()
         val nowTime = UtilKDate.getNowLong()
-        val nowString = UtilKDate.getNowStr()
+        val nowStr = UtilKDate.getNowStr()
         UtilKDate.apply {
             nowDate.printlog()
             long2Date(nowTime).printlog()
-            str2Date(nowString, UtilKDate.Format.yyyyMMddHHmmssS).printlog()
+            str2Date(nowStr, UtilKDate.Format.yyyyMMddHHmmssS).printlog()
             nowTime.printlog()
             date2Long(nowDate).printlog()
-            str2Long(nowString, UtilKDate.Format.yyyyMMddHHmmssS).printlog()
+            str2Long(nowStr, UtilKDate.Format.yyyyMMddHHmmssS).printlog()
         }
 
-        val todayString = UtilKDate.getTodayStr()
-        todayString.printlog()
+        val todayStr = UtilKDate.getTodayStr()
+        todayStr.printlog()
         UtilKDate.getNowLong().printlog()
         UtilKDate.getTodayLong().printlog()
         UtilKDate.getTodayLong().long2Str(UtilKDate.Format.yyyyMMdd).printlog()

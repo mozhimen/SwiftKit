@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.util.Log
+import com.mozhimen.basick.utilk.java.io.hash.UtilKMD5
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ERROR_CANNOT_RESUME
 import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ERROR_MISSING_LOCATION_WHEN_REDIRECT
@@ -12,7 +13,6 @@ import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ER
 import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ERROR_UNHANDLED
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getPercent
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getTipFromException
-import com.mozhimen.componentk.netk.file.download.utils.MD5
 import com.mozhimen.componentk.netk.file.download.utils.NotifierUtils
 import java.io.File
 import java.io.FileOutputStream
@@ -75,7 +75,7 @@ class EmbedDownloader(request: DownloadRequest) :
             val ext: String = request.url.substringAfterLast(".", "").run {
                 if (length > 10) "" else ".${this}"
             }
-            return File(file, "${MD5.md5(request.url)}$ext")
+            return File(file, "${UtilKMD5.hash(request.url)}$ext")
         }
         return file
     }

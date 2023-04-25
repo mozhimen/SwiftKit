@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.cons.CMediaFormat
+import com.mozhimen.basick.utilk.content.UtilKContextStart
 import com.mozhimen.basick.utilk.content.UtilKIntent
 import com.mozhimen.basicktest.databinding.ActivityUtilkIntentBinding
 
@@ -22,7 +23,7 @@ class UtilKIntentActivity : BaseActivityVB<ActivityUtilkIntentBinding>() {
             VB.utilkIntentImg.setImageURI(it)
         }
         VB.utilkIntentBtn.setOnClickListener {
-            startActivityForResult(UtilKIntent.getPickImage(), 0)
+            UtilKContextStart.startActivityForResult(this, 0, UtilKIntent.getPickImage())
         }
         VB.utilkIntentBtn2.setOnClickListener {
             activityResultLauncher.launch(CMediaFormat.MIMETYPE_IMAGE_ALL)

@@ -1,10 +1,9 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.exts.combineElement2List
+import com.mozhimen.basick.utilk.exts.joinElement2List
 import com.mozhimen.basick.utilk.exts.getIndexFirst
 import com.mozhimen.basick.utilk.exts.printlog
 import org.junit.Test
-import java.util.concurrent.CopyOnWriteArrayList
 
 
 /**
@@ -47,7 +46,7 @@ class TestUtilKCollections {
     }
 
     @Test
-    fun combineElement() {
+    fun joinElement() {
 
         val elements = listOf(
             User("赵", 11),
@@ -55,8 +54,8 @@ class TestUtilKCollections {
             User("孙", 12),
             User("赵", 13),
         )
-        elements.combineElement2List { it.name }.printlog()
-        elements.combineElement2List { it.age }.printlog()
+        elements.joinElement2List { it.name }.printlog()
+        elements.joinElement2List { it.age }.printlog()
     }
 
     @Test

@@ -1,6 +1,6 @@
 @file:JvmName("InstallUtils")
 
-package com.mozhimen.componentk.netk.file.download
+package com.mozhimen.componentk.netk.file.download.utils
 
 import android.app.Activity
 import android.content.Context
@@ -10,10 +10,12 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import com.mozhimen.basick.utilk.log.UtilKLog.et
 import com.mozhimen.componentk.BuildConfig
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getRealPathFromURI
 import java.io.File
 
+private const val TAG = "InstallUtils>>>>>"
 private const val DOWNLOAD_COMPONENT_PACKAGE = "com.android.providers.downloads"
 
 fun hasInstallPermission(context: Context): Boolean {
@@ -87,8 +89,8 @@ private fun compare(context: Context, uri: Uri): Boolean {
             PackageManager.GET_CONFIGURATIONS
         )
         if (BuildConfig.DEBUG) {
-            e("apk file package=${apkFileInfo.packageName},versionCode=${apkFileInfo.versionCode}")
-            e("current package=${packageInfo.packageName},versionCode=${packageInfo.versionCode}")
+            et(TAG, "apk file package=${apkFileInfo.packageName},versionCode=${apkFileInfo.versionCode}")
+            et(TAG, "current package=${packageInfo.packageName},versionCode=${packageInfo.versionCode}")
         }
         //String appName = pm.getApplicationLabel(appInfo).toString();
         //Drawable icon = pm.getApplicationIcon(appInfo);//得到图标信息
@@ -144,7 +146,7 @@ private fun intentAvailable(context: Context, intent: Intent): Boolean {
 
 fun showDownloadComponentSetting(context: Context) {
     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-    intent.data = Uri.parse("package:${DOWNLOAD_COMPONENT_PACKAGE}")
+    intent.data = Uri.parse("package:$DOWNLOAD_COMPONENT_PACKAGE")
     if (intentAvailable(context, intent)) {
         context.startActivity(intent)
     }

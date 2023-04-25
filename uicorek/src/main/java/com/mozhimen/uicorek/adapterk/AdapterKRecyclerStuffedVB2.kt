@@ -2,8 +2,8 @@ package com.mozhimen.uicorek.adapterk
 
 import android.view.View
 import androidx.databinding.ViewDataBinding
-import com.mozhimen.basick.utilk.exts.combineElement2List
-import com.mozhimen.basick.utilk.exts.combineElement2ListIgnoreNull
+import com.mozhimen.basick.utilk.exts.joinElement2List
+import com.mozhimen.basick.utilk.exts.joinElement2ListIgnoreNull
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerStuffedVB
 import com.mozhimen.uicorek.recyclerk.temps.RecyclerKItemVB
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
@@ -37,7 +37,7 @@ class AdapterKRecyclerStuffedVB2<DATA, VB : ViewDataBinding>(
     }
 
     override fun onItemsRefresh(items: List<DATA>, notify: Boolean) {
-        refreshItems(items.combineElement2List { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
+        refreshItems(items.joinElement2List { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
     }
 
     override fun onItemAdd(item: DATA, notify: Boolean) {
@@ -49,7 +49,7 @@ class AdapterKRecyclerStuffedVB2<DATA, VB : ViewDataBinding>(
     }
 
     override fun onItemsAdd(items: List<DATA>, notify: Boolean) {
-        addItems(items.combineElement2List { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
+        addItems(items.joinElement2List { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
     }
 
     override fun onItemRemove(item: DATA, notify: Boolean) {
@@ -69,7 +69,7 @@ class AdapterKRecyclerStuffedVB2<DATA, VB : ViewDataBinding>(
     }
 
     override fun onItemsGet(): List<DATA?> {
-        return _items.combineElement2ListIgnoreNull { (it as? RecyclerKItemVB<DATA, VB>?)?.data }
+        return _items.joinElement2ListIgnoreNull { (it as? RecyclerKItemVB<DATA, VB>?)?.data }
     }
 
     override fun onSelectItemPositionSet(position: Int, listener: IAdapterKRecyclerVB2Listener<DATA, VB>) {

@@ -16,8 +16,8 @@ import com.mozhimen.basick.utilk.java.datatype.UtilKCollection
  * @param predicate Function1<T, I>
  * @return List<I>
  */
-fun <T, I> Iterable<T>.combineElement2List(predicate: (T) -> I): List<I> =
-    UtilKCollection.combineElement2List(this, predicate)
+fun <T, I> Iterable<T>.joinElement2List(predicate: (T) -> I): List<I> =
+    UtilKCollection.joinElement2List(this, predicate)
 
 /**
  * 将一个Collection的Item中的某个Element组合起来成一个新Collection(忽略重复)
@@ -25,8 +25,8 @@ fun <T, I> Iterable<T>.combineElement2List(predicate: (T) -> I): List<I> =
  * @param predicate Function1<T, I>
  * @return List<I>
  */
-fun <T, I> Iterable<T>.combineElement2ListIgnoreRepeat(predicate: (T) -> I): List<I> =
-    UtilKCollection.combineElement2ListIgnoreRepeat(this, predicate)
+fun <T, I> Iterable<T>.joinElement2ListIgnoreRepeat(predicate: (T) -> I): List<I> =
+    UtilKCollection.joinElement2ListIgnoreRepeat(this, predicate)
 
 /**
  * 将一个Collection的Item中的某个Element组合起来成一个新Collection(忽略Null)
@@ -34,8 +34,8 @@ fun <T, I> Iterable<T>.combineElement2ListIgnoreRepeat(predicate: (T) -> I): Lis
  * @param predicate Function1<T?, I>
  * @return List<I>
  */
-fun <T, I> Iterable<T>.combineElement2ListIgnoreNull(predicate: (T?) -> I): List<I> =
-    UtilKCollection.combineElement2ListIgnoreNull(this, predicate)
+fun <T, I> Iterable<T>.joinElement2ListIgnoreNull(predicate: (T?) -> I): List<I> =
+    UtilKCollection.joinElement2ListIgnoreNull(this, predicate)
 
 /**
  * 获取符合条件的元素在该Collection的位置

@@ -39,8 +39,8 @@ object UtilKCollection {
      * @return List<I>
      */
     @JvmStatic
-    fun <T, I> combineElement2List(iterable: Iterable<T>, predicate: (T) -> I): List<I> {
-        return combineElement2List(iterable, ArrayList(), predicate)
+    fun <T, I> joinElement2List(iterable: Iterable<T>, predicate: (T) -> I): List<I> {
+        return joinElement2List(iterable, ArrayList(), predicate)
     }
 
     /**
@@ -51,7 +51,7 @@ object UtilKCollection {
      * @return C
      */
     @JvmStatic
-    fun <T, I, C : MutableCollection<in I>> combineElement2List(iterable: Iterable<T>, newCollection: C, predicate: (T) -> I): C {
+    fun <T, I, C : MutableCollection<in I>> joinElement2List(iterable: Iterable<T>, newCollection: C, predicate: (T) -> I): C {
         for (element in iterable) if (!newCollection.contains(predicate(element))) newCollection.add(predicate(element))
         return newCollection
     }
@@ -63,8 +63,8 @@ object UtilKCollection {
      * @return List<I>
      */
     @JvmStatic
-    fun <T, I> combineElement2ListIgnoreRepeat(iterable: Iterable<T>, predicate: (T) -> I): List<I> {
-        return combineElement2ListIgnoreRepeat(iterable, ArrayList(), predicate)
+    fun <T, I> joinElement2ListIgnoreRepeat(iterable: Iterable<T>, predicate: (T) -> I): List<I> {
+        return joinElement2ListIgnoreRepeat(iterable, ArrayList(), predicate)
     }
 
     /**
@@ -75,7 +75,7 @@ object UtilKCollection {
      * @return C
      */
     @JvmStatic
-    fun <T, I, C : MutableCollection<in I>> combineElement2ListIgnoreRepeat(iterable: Iterable<T>, newCollection: C, predicate: (T) -> I): C {
+    fun <T, I, C : MutableCollection<in I>> joinElement2ListIgnoreRepeat(iterable: Iterable<T>, newCollection: C, predicate: (T) -> I): C {
         for (element in iterable) newCollection.add(predicate(element))
         return newCollection
     }
@@ -87,8 +87,8 @@ object UtilKCollection {
      * @return List<I>
      */
     @JvmStatic
-    fun <T, I> combineElement2ListIgnoreNull(iterable: Iterable<T?>, predicate: (T?) -> I): List<I> {
-        return combineElement2ListIgnoreNull(iterable, ArrayList(), predicate)
+    fun <T, I> joinElement2ListIgnoreNull(iterable: Iterable<T?>, predicate: (T?) -> I): List<I> {
+        return joinElement2ListIgnoreNull(iterable, ArrayList(), predicate)
     }
 
     /**
@@ -99,7 +99,7 @@ object UtilKCollection {
      * @return C
      */
     @JvmStatic
-    fun <T, I, C : MutableCollection<in I>> combineElement2ListIgnoreNull(iterable: Iterable<T?>, newCollection: C, predicate: (T?) -> I): C {
+    fun <T, I, C : MutableCollection<in I>> joinElement2ListIgnoreNull(iterable: Iterable<T?>, newCollection: C, predicate: (T?) -> I): C {
         for (element in iterable) newCollection.add(predicate(element))
         return newCollection
     }

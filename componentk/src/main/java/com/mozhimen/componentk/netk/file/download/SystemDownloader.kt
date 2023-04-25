@@ -6,6 +6,8 @@ import android.widget.Toast
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.utils.Utils
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getRealPathFromURI
+import com.mozhimen.componentk.netk.file.download.utils.checkDownloadComponentEnable
+import com.mozhimen.componentk.netk.file.download.utils.showDownloadComponentSetting
 import java.io.File
 
 internal class SystemDownloader(request: DownloadRequest) : Downloader(request) {

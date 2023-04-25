@@ -195,7 +195,7 @@ object UtilKJson : BaseUtilK() {
      * @return String?
      */
     @JvmStatic
-    fun combineJsonObj2JsonStr(jsonObj: JSONObject, jsonObj2: JSONObject): String {
+    fun joinJsonObj2JsonStr(jsonObj: JSONObject, jsonObj2: JSONObject): String {
         val jsonArray = JSONArray()
         jsonArray.put(jsonObj)
         val jsonArray2 = JSONArray()

@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.os
 
 import android.os.Build
 import com.mozhimen.basick.utilk.device.UtilKDate
-import com.mozhimen.basick.utilk.exts.combineArray2Str
+import com.mozhimen.basick.utilk.exts.joinArray2Str
 import com.mozhimen.basick.utilk.exts.long2Str
 
 /**
@@ -52,15 +52,15 @@ object UtilKBuild {
 
     //设备支持架构
     @JvmStatic
-    fun getSupportABIs(): String = Build.SUPPORTED_ABIS.combineArray2Str()
+    fun getSupportABIs(): String = Build.SUPPORTED_ABIS.joinArray2Str()
 
     //设备支持32位架构
     @JvmStatic
-    fun getSupport32BitABIs(): String = Build.SUPPORTED_32_BIT_ABIS.combineArray2Str()
+    fun getSupport32BitABIs(): String = Build.SUPPORTED_32_BIT_ABIS.joinArray2Str()
 
     //设备支持64位架构
     @JvmStatic
-    fun getSupport64BitABIs(): String = Build.SUPPORTED_64_BIT_ABIS.combineArray2Str()
+    fun getSupport64BitABIs(): String = Build.SUPPORTED_64_BIT_ABIS.joinArray2Str()
 
     //设备开发板名称
     @JvmStatic

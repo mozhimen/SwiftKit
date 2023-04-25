@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
+import com.mozhimen.basick.utilk.log.UtilKLog.dt
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getValue
 
 /**
@@ -26,6 +27,7 @@ class DownloadRecord(
 ) {
 
     companion object {
+        const val TAG = "DownloadRecord>>>>>"
         const val TABLE_NAME = "t_download"
         const val COLUMN_ID = "id"
         const val COLUMN_URL = "url"
@@ -141,9 +143,9 @@ class DownloadRecord(
             -1
         }
         if (rowId > 0) {
-            d("record insert success $this")
+            dt(TAG, "record insert success $this")
         } else {
-            d("record insert failed $rowId $this")
+            dt(TAG, "record insert failed $rowId $this")
         }
         return rowId
     }
@@ -165,9 +167,9 @@ class DownloadRecord(
             -1
         }
         if (result > 0) {
-            d("record update success $this")
+            dt(TAG,"record update success $this")
         } else {
-            d("record update failed $result $this")
+            dt(TAG,"record update failed $result $this")
         }
         return result
     }
@@ -184,9 +186,9 @@ class DownloadRecord(
             -1
         }
         if (rows > 0) {
-            d("record delete success $this")
+            dt(TAG, "record delete success $this")
         } else {
-            d("record delete failed $this")
+            dt(TAG, "record delete failed $this")
         }
         return rows
     }

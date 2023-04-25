@@ -3,7 +3,9 @@
 package com.mozhimen.componentk.netk.file.download
 
 import android.app.DownloadManager
+import com.mozhimen.basick.utilk.log.UtilKLog.dt
 
+const val TAG = "DownloadConstants>>>>>"
 const val STATUS_PENDING = DownloadManager.STATUS_PENDING
 const val STATUS_PAUSED = DownloadManager.STATUS_PAUSED
 const val STATUS_RUNNING = DownloadManager.STATUS_RUNNING
@@ -48,11 +50,11 @@ const val DOWNLOAD_ENGINE_SYSTEM_DM = 1
 
 fun printDownloadStatus(downloadId: Long, status: Int) {
     when (status) {
-        STATUS_PENDING -> d("downloadId=$downloadId, status=STATUS_PENDING")
-        STATUS_PAUSED -> d("downloadId=$downloadId, status=STATUS_PAUSED")
-        STATUS_RUNNING -> d("downloadId=$downloadId, status=STATUS_RUNNING")
-        STATUS_SUCCESSFUL -> d("downloadId=$downloadId, status=STATUS_SUCCESSFUL")
-        STATUS_FAILED -> d("downloadId=$downloadId, status=STATUS_FAILED")
-        STATUS_UNKNOWN -> d("downloadId=$downloadId, status=STATUS_UNKNOWN")
+        STATUS_PENDING -> dt(TAG, "downloadId=$downloadId, status=STATUS_PENDING")
+        STATUS_PAUSED -> dt(TAG, "downloadId=$downloadId, status=STATUS_PAUSED")
+        STATUS_RUNNING -> dt(TAG, "downloadId=$downloadId, status=STATUS_RUNNING")
+        STATUS_SUCCESSFUL -> dt(TAG, "downloadId=$downloadId, status=STATUS_SUCCESSFUL")
+        STATUS_FAILED -> dt(TAG, "downloadId=$downloadId, status=STATUS_FAILED")
+        STATUS_UNKNOWN -> dt(TAG, "downloadId=$downloadId, status=STATUS_UNKNOWN")
     }
 }

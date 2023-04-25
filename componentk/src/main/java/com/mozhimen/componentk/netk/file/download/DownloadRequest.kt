@@ -3,6 +3,7 @@ package com.mozhimen.componentk.netk.file.download
 import android.content.Context
 import android.net.Uri
 import androidx.annotation.DrawableRes
+import com.mozhimen.basick.utilk.log.UtilKLog.et
 import com.mozhimen.componentk.BuildConfig
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.utils.DownloadEngine
@@ -20,6 +21,10 @@ class DownloadRequest(
     @DownloadEngine
     val engine: Int = DOWNLOAD_ENGINE_EMBED
 ) {
+    companion object {
+        private const val TAG = "DownloadRequest>>>>>"
+    }
+
     /**
      * 文件下载的目标地址
      *
@@ -220,7 +225,7 @@ class DownloadRequest(
      */
     fun startDownload(): Boolean {
         if (DownloaderManager.isRunning(this)) {
-            if (BuildConfig.DEBUG) e("下载任务已经存在")
+            if (BuildConfig.DEBUG) et(TAG, "下载任务已经存在")
             return false
         }
         if (notificationVisibility != NOTIFIER_HIDDEN && showNotificationDisableTip) {
