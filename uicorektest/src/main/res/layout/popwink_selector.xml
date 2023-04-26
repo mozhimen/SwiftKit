@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:viewKWheel_dividerColor="@color/blue_theme"
+            app:viewKWheel_dividerColor="@color/ui_blue_633"
             app:viewKWheel_lineSpacingMultiplier="2"
             app:viewKWheel_dividerWidth="1dp" />
     </androidx.cardview.widget.CardView>

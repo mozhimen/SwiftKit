@@ -105,6 +105,25 @@ fun ImageView.loadImageCircle(
 }
 
 /**
+ * 加载圆形图片
+ * @receiver ImageView
+ * @param res Any
+ * @param placeholder Int
+ * @param error Int
+ * @param crossFadeEnable Boolean
+ * @param crossFadeTime Int
+ */
+fun ImageView.loadImageCircleComplex(
+    res: Any,
+    placeholder: Int,
+    error: Int,
+    crossFadeEnable: Boolean = true,
+    crossFadeTime: Int = 1000
+) {
+    ImageKLoader.loadImageCircleComplex(this, res, placeholder, error, crossFadeEnable, crossFadeTime)
+}
+
+/**
  * 加载圆角图片
  * @receiver ImageView
  * @param res Any

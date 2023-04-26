@@ -10,13 +10,13 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:onClick="goUtilKContextDir"
             android:text="goUtilKContextDir"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:onClick="goUtilKIntent"
             android:text="goUtilKIntent"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

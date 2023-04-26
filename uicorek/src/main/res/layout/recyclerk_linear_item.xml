@@ -23,6 +23,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/gray_normal" />
+            android:background="@color/ui_gray_350" />
     </LinearLayout>
 </layout>

@@ -7,11 +7,11 @@
     android:layout_gravity="center_vertical"
     android:ellipsize="end"
     android:maxLength="10"
-    android:textColor="@color/blue_normal"
+    android:textColor="@color/ui_blue_650"
     android:textSize="13sp"
     android:textStyle="bold"
     app:checkedIconVisible="false"
-    app:chipBackgroundColor="@color/blue_light"
+    app:chipBackgroundColor="@color/ui_blue_050"
     app:chipCornerRadius="20dp"
     app:closeIconVisible="false"
     app:rippleColor="@android:color/white" />

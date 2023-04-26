@@ -20,7 +20,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/utilk_verify_url_btn_port"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:layout_marginBottom="10dp"
             android:text="UtilKVerifyUrl(校验端口)"
             tools:ignore="HardcodedText" />

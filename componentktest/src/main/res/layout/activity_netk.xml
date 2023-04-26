@@ -11,13 +11,13 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:onClick="goNetKFile"
             android:text="goNetKFile"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:onClick="goNetKHttp"
             android:text="goNetKHttp"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

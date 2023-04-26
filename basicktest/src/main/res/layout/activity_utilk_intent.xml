@@ -23,7 +23,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/utilk_intent_btn"
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:text="点击导入(startActivityForRes)"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +32,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/utilk_intent_btn2"
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:text="点击导入(registerForActivityRes)"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

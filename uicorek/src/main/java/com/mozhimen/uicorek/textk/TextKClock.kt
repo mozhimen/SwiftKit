@@ -25,11 +25,10 @@ class TextKClock @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        attrs?.let {
-            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKClock)
-            _timeFormat = getTimeFormat(typedArray.getInt(R.styleable.TextKClock_textkClock_timeFormat, 0))
-            typedArray.recycle()
-        }
+        attrs ?: return
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKClock)
+        _timeFormat = getTimeFormat(typedArray.getInt(R.styleable.TextKClock_textkClock_timeFormat, 0))
+        typedArray.recycle()
     }
 
     override fun initView() {

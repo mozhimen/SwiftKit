@@ -15,13 +15,13 @@
             android:orientation="vertical">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goScanK"
                 android:text="goScanK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goTransK"
                 android:text="goTransK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

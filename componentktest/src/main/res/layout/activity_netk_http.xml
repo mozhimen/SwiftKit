@@ -19,14 +19,14 @@
             android:id="@+id/netk_txt1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue_light"
+            android:background="@color/ui_blue_050"
             android:hint="当前的天气"
             android:text="@{vm.uiWeather2}"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/netk_btn1_get_weather"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="查询天气(协程方法)"
             tools:ignore="HardcodedText" />
 

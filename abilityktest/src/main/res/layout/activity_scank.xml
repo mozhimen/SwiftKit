@@ -17,9 +17,9 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_marginBottom="12dp"
-            android:background="@color/blue_normal"
+            android:background="@color/ui_blue_650"
             android:scaleType="centerCrop"
-            android:src="@color/blue_light" />
+            android:src="@color/ui_blue_050" />
 
         <EditText
             android:id="@+id/scank_demo_edit"
@@ -31,18 +31,18 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/scank_demo_btn_create"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="生成QrCode"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="图片色彩比例"
             android:onClick="goScanKHSV"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="人脸识别"
             android:onClick="goScanKFace"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

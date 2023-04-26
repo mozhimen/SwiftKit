@@ -18,7 +18,7 @@
             <com.mozhimen.uicorek.layoutk.tab.top.TabTopItem
                 android:id="@+id/layoutk_tab_top"
                 android:layout_width="0dp"
-                android:background="@color/blue_normal"
+                android:background="@color/ui_blue_650"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
@@ -26,13 +26,13 @@
                 android:id="@+id/layoutk_tab_top2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/blue_dark"
+                android:background="@color/ui_blue_666"
                 android:layout_weight="1" />
 
             <com.mozhimen.uicorek.layoutk.tab.top.TabTopItem
                 android:id="@+id/layoutk_tab_top3"
                 android:layout_width="0dp"
-                android:background="@color/blue_normal"
+                android:background="@color/ui_blue_650"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
         </LinearLayout>

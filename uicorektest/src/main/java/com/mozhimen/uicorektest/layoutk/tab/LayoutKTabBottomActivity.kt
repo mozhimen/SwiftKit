@@ -28,7 +28,7 @@ class LayoutKTabBottomActivity : BaseActivityVB<ActivityLayoutkTabBottomBinding>
             getString(R.string.icon_home),
             getString(R.string.icon_more),
             "#ff000000",//UtilKRes.getColor(android.R.color.black),
-            "#ff287FF1"//UtilKRes.getColor(R.color.blue_normal)
+            "#ff287FF1"//UtilKRes.getColor(R.color.ui_blue_650)
         )
     }
 
@@ -46,7 +46,7 @@ class LayoutKTabBottomActivity : BaseActivityVB<ActivityLayoutkTabBottomBinding>
             R.mipmap.layoutk_tab_bottom_layout_fire,
             R.mipmap.layoutk_tab_bottom_layout_fire,
             UtilKRes.getColor(android.R.color.black),
-            UtilKRes.getColor(R.color.blue_normal)
+            UtilKRes.getColor(R.color.ui_blue_650)
         )
     }
 }

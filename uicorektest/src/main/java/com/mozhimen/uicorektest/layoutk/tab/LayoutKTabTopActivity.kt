@@ -21,7 +21,7 @@ class LayoutKTabTopActivity : BaseActivityVB<ActivityLayoutkTabTopBinding>() {
         MTabTop(
             "home",
             UtilKRes.getColor(R.color.white),
-            UtilKRes.getColor(R.color.blue_light)
+            UtilKRes.getColor(R.color.ui_blue_050)
         )
     }
 
@@ -30,7 +30,7 @@ class LayoutKTabTopActivity : BaseActivityVB<ActivityLayoutkTabTopBinding>() {
             "more",
             R.mipmap.layoutk_tab_bottom_layout_fire,
             R.mipmap.layoutk_tab_bottom_layout_fire,
-            UtilKRes.getColor(R.color.blue_theme)
+            UtilKRes.getColor(R.color.ui_blue_633)
         )
     }
 
@@ -40,7 +40,7 @@ class LayoutKTabTopActivity : BaseActivityVB<ActivityLayoutkTabTopBinding>() {
             R.mipmap.layoutk_tab_bottom_layout_fire,
             R.mipmap.layoutk_tab_bottom_layout_fire,
             UtilKRes.getColor(R.color.white),
-            UtilKRes.getColor(R.color.blue_light)
+            UtilKRes.getColor(R.color.ui_blue_050)
         )
     }
 

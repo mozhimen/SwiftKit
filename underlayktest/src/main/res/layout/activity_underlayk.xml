@@ -12,18 +12,18 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/underlayk_print_log"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="打印log"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:onClick="goLogK"
             android:text="goLogK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:onClick="goFpsK"
             android:text="goFpsK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

@@ -50,5 +50,5 @@ abstract class BaseDebugKTabKTopActivity : BaseActivityVB<DebugkActivityTabkTopB
     data class DebugKUITabTopItem(
         val tabName: String,
         val viewId: Int
-    ) : MTabTop(tabName, UtilKRes.getColor(com.mozhimen.uicorek.R.color.blue_normal), UtilKRes.getColor(com.mozhimen.uicorek.R.color.blue_dark))
+    ) : MTabTop(tabName, UtilKRes.getColor(com.mozhimen.uicorek.R.color.ui_blue_650), UtilKRes.getColor(com.mozhimen.uicorek.R.color.ui_blue_650))
 }

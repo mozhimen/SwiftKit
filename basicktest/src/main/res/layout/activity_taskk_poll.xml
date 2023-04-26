@@ -11,13 +11,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/eventk_task_poll_btn_start"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="开始轮询任务"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/eventk_task_poll_btn_cancel"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="取消轮询任务"
             tools:ignore="HardcodedText" />
     </LinearLayout>

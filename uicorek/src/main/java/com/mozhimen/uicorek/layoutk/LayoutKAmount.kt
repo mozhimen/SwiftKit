@@ -132,14 +132,14 @@ class LayoutKAmount @JvmOverloads constructor(context: Context, attrs: Attribute
         const val MIN_VAL: Int = 0
         const val MAX_VAL: Int = 100
         const val DEFAULT_AMOUNT: Int = 0
-        val AMOUNT_TEXT_COLOR: Int = UtilKRes.getColor(R.color.blue_normal)
+        val AMOUNT_TEXT_COLOR: Int = UtilKRes.getColor(R.color.ui_blue_650)
         val AMOUNT_TEXT_SIZE: Int = 14.sp2px().toInt()
         const val AMOUNT_BACKGROUND_COLOR: Int = Color.WHITE
         val AMOUNT_MARGIN_HORIZONTAL: Int = 0f.dp2px().toInt()
         val AMOUNT_MIN_WIDTH: Int = 20f.dp2px().toInt()
-        val BTN_TEXT_COLOR: Int = UtilKRes.getColor(R.color.blue_normal)
+        val BTN_TEXT_COLOR: Int = UtilKRes.getColor(R.color.ui_blue_650)
         val BTN_TEXT_SIZE: Int = 14f.sp2px().toInt()
-        val BTN_BACKGROUND_COLOR: Int = UtilKRes.getColor(R.color.gray_normal)
+        val BTN_BACKGROUND_COLOR: Int = UtilKRes.getColor(R.color.ui_gray_350)
         val BTN_SIZE: Int = 20f.dp2px().toInt()
 
         override fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MAmountAttrs {

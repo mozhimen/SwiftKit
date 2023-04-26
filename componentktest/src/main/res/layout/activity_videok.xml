@@ -28,7 +28,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_change_video"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="换一个视频"
             tools:ignore="HardcodedText" />
     </LinearLayout>

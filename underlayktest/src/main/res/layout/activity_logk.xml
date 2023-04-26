@@ -11,14 +11,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logk_btn_print"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:layout_gravity="center"
             android:text="打印日志"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logk_btn_printer_list"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:layout_gravity="center"
             android:text="打印printers列表"
             tools:ignore="HardcodedText" />

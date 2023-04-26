@@ -261,11 +261,11 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
 
     private object LayoutKBtnSwitchAttrsParser : IAttrsParser<LayoutKBtnSwitchAttrs> {
         const val DEFAULT_STATUS = false
-        val BG_COLOR_ON = UtilKRes.getColor(R.color.blue_normal)
-        val BG_COLOR_OFF = UtilKRes.getColor(R.color.blue_light)
+        val BG_COLOR_ON = UtilKRes.getColor(R.color.ui_blue_650)
+        val BG_COLOR_OFF = UtilKRes.getColor(R.color.ui_blue_050)
         val BTN_COLOR = UtilKRes.getColor(android.R.color.white)
         val BTN_MARGIN = 3f.dp2px()
-        val BORDER_COLOR = UtilKRes.getColor(R.color.blue_light)
+        val BORDER_COLOR = UtilKRes.getColor(R.color.ui_blue_050)
         val BORDER_WIDTH = 1f.dp2px().toInt()
         const val ANIM_TIME = 300
 

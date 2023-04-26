@@ -1,36 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!--viewk-->
-    <declare-styleable name="ViewKScanOverlay">
-        <attr name="viewKScanOverlay_isShowLabel" format="boolean" />
-        <attr name="viewKScanOverlay_labelTextSize" format="dimension|reference" />
-        <attr name="viewKScanOverlay_labelTextColor" format="color|reference" />
-        <attr name="viewKScanOverlay_labelBackgroundColor" format="color|reference" />
-        <attr name="viewKScanOverlay_boxType" format="enum">
-            <enum name="rect" value="0" />
-            <enum name="circle" value="1" />
-        </attr>
-        <attr name="viewKScanOverlay_boxLineWidth" format="dimension|reference" />
-        <attr name="viewKScanOverlay_boxLineColor" format="color|reference" />
-    </declare-styleable>
-
-    <!--二维码扫描控件-->
-    <declare-styleable name="ViewKScanQR">
-        <!-- 扫描边框线的宽度，默认值为1dp -->
-        <attr name="viewKScanQR_borderLineWidth" format="dimension|reference" />
-        <!-- 扫描边框的颜色，默认值为@android:color/white -->
-        <attr name="viewKScanQR_borderColor" format="color|reference" />
-        <!-- 扫描线的图片资源，默认值为null -->
-        <attr name="viewKScanQR_lineDrawable" format="reference" />
-        <!-- 扫描线的线宽，默认值为1dp -->
-        <attr name="viewKScanQR_lineWidth" format="dimension|reference" />
-        <!-- 扫描线从顶部移动到底部的动画时间，默认值为1000 -->
-        <attr name="viewKScanQR_animTime" format="integer" />
-        <!-- 扫描线是否来回移动，默认值为true -->
-        <attr name="viewKScanQR_isScanLineReverse" format="boolean" />
-    </declare-styleable>
-
     <!--dialogk-->
     <style name="DialogK_Theme_Transparent" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -60,8 +30,6 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-
-
     <style name="DialogK_Theme_Fullscreen" parent="android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
@@ -73,7 +41,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginVertical" tools:targetApi="o">14dp</item>
-        <item name="android:textColor">@color/blue_dark</item>
+        <item name="android:textColor">@color/ui_blue_666</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
@@ -82,15 +50,15 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">5dp</item>
-        <item name="android:backgroundTint">@color/blue_light</item>
-        <item name="android:textColor">@color/blue_dark</item>
+        <item name="android:backgroundTint">@color/ui_blue_050</item>
+        <item name="android:textColor">@color/ui_blue_666</item>
         <item name="android:textSize">16sp</item>
         <item name="cornerRadius">4dp</item>
     </style>
 
     <style name="DialogK_Style_BtnSure" parent="DialogK_Style_BtnCancel">
-        <item name="android:backgroundTint">@color/blue_normal</item>
-        <item name="android:textColor">@color/blue_light</item>
+        <item name="android:backgroundTint">@color/ui_blue_650</item>
+        <item name="android:textColor">@color/ui_blue_050</item>
     </style>
 
     <!--layoutk-->
@@ -98,22 +66,22 @@
         <item name="layoutKAmount_minVal">0</item>
         <item name="layoutKAmount_maxVal">100</item>
         <item name="layoutKAmount_defaultAmount">0</item>
-        <item name="layoutKAmount_amountTextColor">@color/blue_normal</item>
+        <item name="layoutKAmount_amountTextColor">@color/ui_blue_650</item>
         <item name="layoutKAmount_amountBackgroundColor">@android:color/white</item>
         <item name="layoutKAmount_amountMarginHorizontal">0dp</item>
         <item name="layoutKAmount_amountMinWidth">20dp</item>
-        <item name="layoutKAmount_btnTextColor">@color/blue_normal</item>
+        <item name="layoutKAmount_btnTextColor">@color/ui_blue_650</item>
         <item name="layoutKAmount_btnTextSize">14sp</item>
-        <item name="layoutKAmount_btnBackgroundColor">@color/gray_normal</item>
+        <item name="layoutKAmount_btnBackgroundColor">@color/ui_gray_350</item>
         <item name="layoutKAmount_btnSize">20dp</item>
     </style>
 
     <style name="LayoutKEmpty_Style_BtnCancel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">@color/gray_light</item>
+        <item name="android:backgroundTint">@color/ui_gray_200</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:shadowColor">@color/gray_light</item>
+        <item name="android:shadowColor">@color/ui_gray_200</item>
         <item name="android:textSize">14sp</item>
         <item name="cornerRadius">16dp</item>
         <item name="strokeColor">@android:color/darker_gray</item>
@@ -127,13 +95,13 @@
     </style>
 
     <style name="LayoutKEditItem_Style_EditAppearance">
-        <item name="inputAppearance_hintColor">@color/blue_light</item>
-        <item name="inputAppearance_inputColor">@color/blue_normal</item>
+        <item name="inputAppearance_hintColor">@color/ui_blue_050</item>
+        <item name="inputAppearance_inputColor">@color/ui_blue_650</item>
         <item name="inputAppearance_textSize">15sp</item>
     </style>
 
     <style name="LayoutKEditItem_Style_LineAppearance">
-        <item name="lineAppearance_color">@color/blue_dark</item>
+        <item name="lineAppearance_color">@color/ui_blue_666</item>
         <item name="lineAppearance_height">1.5dp</item>
         <item name="lineAppearance_leftMargin">0dp</item>
         <item name="lineAppearance_rightMargin">0dp</item>
@@ -170,10 +138,10 @@
         <item name="layoutKNavBar_title_textColor">@android:color/black</item>
 
         <item name="layoutKNavBar_subTitle_textSize">14sp</item>
-        <item name="layoutKNavBar_subTitle_textColor">@color/gray_normal</item>
+        <item name="layoutKNavBar_subTitle_textColor">@color/ui_gray_350</item>
         <item name="layoutKNavBar_subTitle_marginTop">1dp</item>
 
-        <item name="layoutKNavBar_lineColor">@color/gray_light</item>
+        <item name="layoutKNavBar_lineColor">@color/ui_gray_200</item>
         <item name="layoutKNavBar_lineWidth">0dp</item>
     </style>
 
@@ -191,7 +159,7 @@
         <item name="textKBubble_arrowHeight">8dp</item>
         <item name="textKBubble_arrowWidth">16dp</item>
         <item name="textKBubble_bgColor">@android:color/white</item>
-        <item name="textKBubble_borderColor">@color/blue_normal</item>
+        <item name="textKBubble_borderColor">@color/ui_blue_650</item>
         <item name="textKBubble_borderWidth">2dp</item>
         <item name="textKBubble_cornerRadius">6dp</item>
     </style>

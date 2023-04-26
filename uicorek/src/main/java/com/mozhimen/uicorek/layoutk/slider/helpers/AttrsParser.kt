@@ -22,11 +22,11 @@ internal object AttrsParser {
     val SLIDER_WIDTH = 100f.dp2px()
     val SLIDER_HEIGHT = 10f.dp2px()
     val SLIDER_HEIGHT_INSIDE = 16f.dp2px()
-    val SLIDER_ROD_LEFT_COLOR = UtilKRes.getColor(R.color.blue_normal)
-    val SLIDER_ROD_RIGHT_COLOR = UtilKRes.getColor(R.color.gray_light)
+    val SLIDER_ROD_LEFT_COLOR = UtilKRes.getColor(R.color.ui_blue_650)
+    val SLIDER_ROD_RIGHT_COLOR = UtilKRes.getColor(R.color.ui_gray_200)
     val ROD_SCROLL_ENABLE = true
     val ROD_COLOR = Color.WHITE
-    val ROD_COLOR_INSIDE = UtilKRes.getColor(R.color.blue_dark)
+    val ROD_COLOR_INSIDE = UtilKRes.getColor(R.color.ui_blue_650)
     val ROD_IS_INSIDE = false
     val ROD_MIN_VAL = 0f
     val ROD_MAX_VAL = 100f

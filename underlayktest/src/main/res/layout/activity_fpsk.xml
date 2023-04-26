@@ -11,13 +11,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/fpsk_btn"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="打开Fps"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/fpsk_btn_tip"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="当前状态"
             tools:ignore="HardcodedText" />
     </LinearLayout>

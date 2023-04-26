@@ -10,7 +10,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/elemk_fragment_vb_btn"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="Add Num(VB)"
             tools:ignore="HardcodedText" />
 

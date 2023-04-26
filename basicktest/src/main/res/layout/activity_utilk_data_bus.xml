@@ -11,7 +11,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/utilk_data_bus_msg_btn"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="即时消息发送"
             tools:ignore="HardcodedText" />
     </LinearLayout>

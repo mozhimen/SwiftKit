@@ -71,7 +71,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/utilk_bitmap_btn_save"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:text="UtilKBitmap(保存到相册)"
             tools:ignore="HardcodedText" />
     </LinearLayout>

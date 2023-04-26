@@ -6,12 +6,12 @@ import android.widget.TextView
 import coil.load
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.imagek.loader.exts.loadImage
+import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 import com.mozhimen.uicorek.layoutk.banner.temps.NumberIndicator
 import com.mozhimen.uicorek.layoutk.banner.temps.PointIndicator
 import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder
-import com.mozhimen.uicorek.layoutk.banner.mos.MBannerItem
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkBannerBinding
 
@@ -67,7 +67,7 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
         }
     }
 
-    private fun initBanner(indicator: IBannerIndicator<*>, moList: List<MBannerItem>, autoPlay: Boolean, currentPos: Int = 0) {
+    private fun initBanner(indicator: IBannerIndicator<*>, moList: List<BaseBannerItem>, autoPlay: Boolean, currentPos: Int = 0) {
         VB.layoutkBannerContainer.apply {
             setBannerIndicator(indicator)
             setAutoPlay(autoPlay)
@@ -77,16 +77,16 @@ class LayoutKBannerActivity : BaseActivityVB<ActivityLayoutkBannerBinding>() {
             setCurrentPosition(currentPos, false)
             setLoop(false)
             setBannerBindListener(object : IBannerBindListener {
-                override fun onBannerBind(viewHolder: BannerViewHolder, item: MBannerItem, position: Int) {
+                override fun onBannerBind(viewHolder: BannerViewHolder, item: BaseBannerItem, position: Int) {
                     val model = item as MyBannerMo
                     val imageView: ImageView = viewHolder.findViewById(R.id.item_layoutk_banner_img)
                     val titleView: TextView = viewHolder.findViewById(R.id.item_layoutk_banner_title)
-                    model.url?.let { imageView.loadImage(it) }
-                    model.name?.let { titleView.text = it }
+                    model.url.let { imageView.loadImage(it) }
+                    model.name.let { titleView.text = it }
                 }
             })
         }
     }
 
-    inner class MyBannerMo : MBannerItem()
+    inner class MyBannerMo : BaseBannerItem()
 }

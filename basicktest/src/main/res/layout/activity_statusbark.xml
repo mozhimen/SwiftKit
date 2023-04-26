@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="状态栏组件"
-            android:textColor="@color/blue_normal"
+            android:textColor="@color/ui_blue_650"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

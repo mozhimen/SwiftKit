@@ -33,7 +33,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="某"
-        android:textColor="@color/blue_normal"
+        android:textColor="@color/ui_blue_650"
         android:textSize="16sp"
         tools:ignore="HardcodedText" />
 </LinearLayout>

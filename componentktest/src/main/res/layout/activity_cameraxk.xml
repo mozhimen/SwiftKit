@@ -35,7 +35,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/cameraxk_btn"
-            style="@style/BtnStyle"
+            style="@style/Btn_Style"
             android:layout_gravity="bottom"
             android:layout_marginBottom="20dp"
             android:text="take"

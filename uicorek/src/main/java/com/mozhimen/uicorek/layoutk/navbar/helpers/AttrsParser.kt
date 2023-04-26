@@ -24,9 +24,9 @@ internal object AttrsParser : IAttrsParser2<MNavBarAttrs> {
     private val TITLE_TEXT_SIZE = 17f.sp2px().toInt()
     private const val TITLE_TEXT_COLOR = Color.BLACK
     private val SUBTITLE_TEXT_SIZE = 14f.sp2px().toInt()
-    private val SUBTITLE_TEXT_COLOR = UtilKRes.getColor(R.color.gray_normal)
+    private val SUBTITLE_TEXT_COLOR = UtilKRes.getColor(R.color.ui_gray_350)
     private val SUBTITLE_TEXT_MARGIN_TOP = 1f.dp2px().toInt()
-    private val LINE_COLOR = UtilKRes.getColor(R.color.gray_light)
+    private val LINE_COLOR = UtilKRes.getColor(R.color.ui_gray_200)
     private val LINE_WIDTH = 0f.dp2px().toInt()
 
     override fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MNavBarAttrs {

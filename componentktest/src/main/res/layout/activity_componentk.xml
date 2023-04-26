@@ -15,43 +15,43 @@
             android:orientation="vertical">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goAudioK"
                 android:text="goAudioK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goCameraK"
                 android:text="goCameraK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goCameraXK"
                 android:text="goCameraXK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goInstallK"
                 android:text="goInstallK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goNavigateK"
                 android:text="goNavigateK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goNetK"
                 android:text="goNetK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/BtnStyle"
+                style="@style/Btn_Style"
                 android:onClick="goVideoK"
                 android:text="goVideoK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

@@ -14,7 +14,7 @@
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/blue_theme"
+            android:background="@color/ui_blue_633"
             android:gravity="center"
             android:text="123"
             tools:ignore="HardcodedText" />
@@ -24,7 +24,7 @@
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/blue_theme"
+            android:background="@color/ui_blue_633"
             android:gravity="center"
             android:text="345"
             tools:ignore="HardcodedText" />

@@ -134,6 +134,34 @@ object ImageKLoader {
     }
 
     /**
+     * 加载圆形图片
+     * @param imageView ImageView
+     * @param res Any
+     * @param placeholder Int
+     * @param error Int
+     * @param crossFadeEnable Boolean
+     * @param crossFadeTime Int
+     */
+    @JvmStatic
+    fun loadImageCircleComplex(
+        imageView: ImageView,
+        res: Any,
+        placeholder: Int,
+        error: Int,
+        crossFadeEnable: Boolean = true,
+        crossFadeTime: Int = 1000
+    ) {
+        imageView.load(res) {
+            transformations(CircleCropTransformation())
+            crossfade(crossFadeEnable)
+            crossfade(crossFadeTime)
+            placeholder(placeholder)
+            error(error)
+        }
+    }
+
+
+    /**
      * 加载圆角图片
      * @param imageView ImageView
      * @param res Any
