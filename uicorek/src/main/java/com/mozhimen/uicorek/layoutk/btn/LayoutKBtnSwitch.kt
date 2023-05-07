@@ -20,6 +20,8 @@ import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.commons.IAttrsParser
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
+import com.mozhimen.uicorek.layoutk.btn.helpers.LayoutKBtnSwitchAttrsParser
+import com.mozhimen.uicorek.layoutk.btn.mos.LayoutKBtnSwitchAttrs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,6 +43,7 @@ interface ILayoutKBtnSwitch {
     fun setDefaultStatus(status: Boolean)
     fun toggleSwitchStatus(status: Boolean)
     fun toggleSwitchStatus()
+
     /**
      * 获取状态
      * @return Boolean
@@ -48,6 +51,7 @@ interface ILayoutKBtnSwitch {
     fun getSwitchStatus(): Boolean
     fun setOnSwitchListener(listener: ILayoutKSwitchListener)
 }
+
 class LayoutKBtnSwitch @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : BaseLayoutKFrame(context, attrs, defStyleAttr), View.OnClickListener, ILayoutKBtnSwitch {
@@ -57,7 +61,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
     private val _attrs: LayoutKBtnSwitchAttrs by lazy { LayoutKBtnSwitchAttrsParser.parseAttrs(context, attrs) }
     private var _layoutKSwitchListener: ILayoutKSwitchListener? = null
 
-    private var _defaultStatus = _attrs.defaultStatus
+    private var _defaultStatus = false
         set(value) {
             if (value == field) return
             _switchStatus = value
@@ -161,6 +165,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
             addView(_bgView)
             addView(_switchView)
 
+            _defaultStatus = _attrs.defaultStatus
             this.post {
                 initBg()
                 initSwitch()
@@ -246,49 +251,5 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
             get() = width
         val radius: Float
             get() = width / 2f
-    }
-
-    private data class LayoutKBtnSwitchAttrs(
-        val defaultStatus: Boolean,
-        val bgColorOn: Int,
-        val bgColorOff: Int,
-        val btnColor: Int,
-        val btnMargin: Float,
-        val borderColor: Int,
-        val borderWidth: Int,
-        val animTime: Int
-    )
-
-    private object LayoutKBtnSwitchAttrsParser : IAttrsParser<LayoutKBtnSwitchAttrs> {
-        const val DEFAULT_STATUS = false
-        val BG_COLOR_ON = UtilKRes.getColor(R.color.ui_blue_650)
-        val BG_COLOR_OFF = UtilKRes.getColor(R.color.ui_blue_050)
-        val BTN_COLOR = UtilKRes.getColor(android.R.color.white)
-        val BTN_MARGIN = 3f.dp2px()
-        val BORDER_COLOR = UtilKRes.getColor(R.color.ui_blue_050)
-        val BORDER_WIDTH = 1f.dp2px().toInt()
-        const val ANIM_TIME = 300
-
-        override fun parseAttrs(context: Context, attrs: AttributeSet?): LayoutKBtnSwitchAttrs {
-            val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBtnSwitch)
-            val defaultStatus =
-                typedArray.getBoolean(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_defaultStatus, DEFAULT_STATUS)
-            val bgColorOn =
-                typedArray.getColor(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_bgColorOn, BG_COLOR_ON)
-            val bgColorOff =
-                typedArray.getColor(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_bgColorOff, BG_COLOR_OFF)
-            val btnColor =
-                typedArray.getColor(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_btnColor, BTN_COLOR)
-            val btnMargin =
-                typedArray.getDimensionPixelSize(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_btnMargin, BTN_MARGIN.toInt()).toFloat()
-            val borderColor =
-                typedArray.getColor(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_borderColor, BORDER_COLOR)
-            val borderWidth =
-                typedArray.getDimensionPixelSize(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_borderWidth, BORDER_WIDTH)
-            val animTime =
-                typedArray.getInt(R.styleable.LayoutKBtnSwitch_layoutKBtnSwitch_animTime, ANIM_TIME)
-            typedArray.recycle()
-            return LayoutKBtnSwitchAttrs(defaultStatus, bgColorOn, bgColorOff, btnColor, btnMargin, borderColor, borderWidth, animTime)
-        }
     }
 }
