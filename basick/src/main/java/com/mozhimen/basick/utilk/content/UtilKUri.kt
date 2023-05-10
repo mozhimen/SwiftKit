@@ -91,6 +91,20 @@ object UtilKUri {
     }
 
     /**
+     * file2Uri
+     * @param filePathWithName String
+     * @return Uri?
+     */
+    @JvmStatic
+    @ADescription(
+        Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(),
+        Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString()
+    )
+    fun file2Uri(filePathWithName: String): Uri? {
+        return file2Uri(File(filePathWithName))
+    }
+
+    /**
      * @param file File
      * @return Uri?
      */
@@ -122,6 +136,7 @@ object UtilKUri {
                     return File(it)
                 }
             }
+
             ContentResolver.SCHEME_CONTENT -> {
                 //把文件复制到沙盒目录
                 val contentResolver = _context.contentResolver
