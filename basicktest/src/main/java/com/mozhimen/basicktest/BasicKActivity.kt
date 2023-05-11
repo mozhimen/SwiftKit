@@ -1,5 +1,6 @@
 package com.mozhimen.basicktest
 
+import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.exts.startContext
@@ -50,4 +51,8 @@ class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
         startContext<UtilKActivity>()
     }
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 }

@@ -12,16 +12,16 @@ import kotlin.concurrent.thread
 class ExampleUnitTest {
     @Test
     fun finalize() {
-        var lastTime = System.currentTimeMillis()
-        var time = 0
-        thread {
-            while (time < 11) {
-                if (System.currentTimeMillis() - lastTime > 1000) {
-                    time++
-                    time.printlog()
-                    lastTime = System.currentTimeMillis()
-                }
-            }
-        }.start()
+//        var lastTime = System.currentTimeMillis()
+//        var time = 0
+//        thread {
+//            while (time < 11) {
+//                if (System.currentTimeMillis() - lastTime > 1000) {
+//                    time++
+//                    time.printlog()
+//                    lastTime = System.currentTimeMillis()
+//                }
+//            }
+//        }.start()
     }
 }
