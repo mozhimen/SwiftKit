@@ -35,7 +35,7 @@ dependencies {
     implementation project(project.path.replace(project.name, '') + ':uicorek')
     implementation project(project.path.replace(project.name, '') + ':underlayk')
     implementation project(project.path.replace(project.name, '') + ':componentk')
-    implementation project(/*project.path.replace(project.name, '') +*/ ':NetKit_FileDownloader:netkfiledownloader')
+    //implementation project(/*project.path.replace(project.name, '') +*/ ':NetKit_FileDownloader:netkfiledownloader')
 
     //qrcodek
     implementation 'com.google.zxing:android-core:3.3.0'
