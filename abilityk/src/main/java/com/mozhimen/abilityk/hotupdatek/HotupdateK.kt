@@ -16,7 +16,10 @@ import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.cons.EInstallMode
-import com.mozhimen.netkfiledownloader.*
+import com.mozhimen.componentk.netk.file.download.DOWNLOAD_ENGINE_EMBED
+import com.mozhimen.componentk.netk.file.download.DownloadListener
+import com.mozhimen.componentk.netk.file.download.DownloadRequest
+import com.mozhimen.componentk.netk.file.download.NOTIFIER_HIDDEN
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -177,8 +180,8 @@ class HotupdateK(owner: LifecycleOwner, private val _installMode: EInstallMode =
             }
 
             override fun onDownloadComplete(uri: Uri) {
-                Log.d(TAG, "onDownloadComplete: path ${uri.path}")
-                Log.d(TAG, "onDownloadComplete: isFileExists ${uri.path?.let { UtilKFile.isFileExist(it) }?: "null" }")
+                Log.d(TAG, "downloadApk onDownloadComplete: path ${uri.path}")
+                Log.d(TAG, "downloadApk onDownloadComplete: isFileExists ${uri.path?.let { UtilKFile.isFileExist(it) }?: "null" }")
                 coroutine.resume(true)
             }
 

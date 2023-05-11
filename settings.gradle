@@ -29,6 +29,3 @@ include ':componentktest'
 include ':debugk'
 include ':debugktest'
 include ':abilityktest'
-include ':NetKit_FileDownloader'
-project(':NetKit_FileDownloader').projectDir = new File("D:\\WorkSpace\\GitHub\\NetKit_FileDownloader")
-include ':NetKit_FileDownloader:netkfiledownloader'
