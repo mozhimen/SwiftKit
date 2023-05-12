@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.SnackbarContentLayout
 import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.utilk.os.thread.UtilKThread
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.os.thread.UtilKHandler
 
 /**
  * @ClassName UtilKSnackBar
@@ -96,7 +97,7 @@ object UtilKSnackbar {
      */
     @JvmStatic
     fun showOnMain(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar {
-        return if (UtilKThread.isMainLooper()) {
+        return if (UtilKHandler.isMainLooper()) {
             show(view, msg, duration, action, listener)
         } else {
             val snackbar = make(view, msg, duration, action, listener)
@@ -116,7 +117,7 @@ object UtilKSnackbar {
      */
     @JvmStatic
     fun showOnMain(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar {
-        return if (UtilKThread.isMainLooper()) {
+        return if (UtilKHandler.isMainLooper()) {
             show(view, msgId, duration, action, listener)
         } else {
             val snackbar = make(view, msgId, duration, action, listener)
@@ -140,7 +141,7 @@ object UtilKSnackbar {
         view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
         maxLines: Int = SNACK_BAR_MAX_LINES
     ): Snackbar {
-        return if (UtilKThread.isMainLooper()) {
+        return if (UtilKHandler.isMainLooper()) {
             showMultiLines(view, msg, duration, action, listener, maxLines)
         } else {
             val snackbar = make(view, msg, duration, action, listener)
@@ -164,7 +165,7 @@ object UtilKSnackbar {
         view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
         maxLines: Int = SNACK_BAR_MAX_LINES
     ): Snackbar {
-        return if (UtilKThread.isMainLooper()) {
+        return if (UtilKHandler.isMainLooper()) {
             showMultiLines(view, msgId, duration, action, listener, maxLines)
         } else {
             val snackbar = makeMultiLines(view, msgId, duration, action, listener, maxLines)

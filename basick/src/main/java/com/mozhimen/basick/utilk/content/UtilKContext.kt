@@ -150,5 +150,4 @@ object UtilKContext {
     @JvmStatic
     fun getTheme(context: Context): Theme =
         context.theme
-
 }

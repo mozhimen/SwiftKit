@@ -8,12 +8,14 @@ import android.os.Build
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.utilk.content.UtilKIntent
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
+import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKLifecycle
 
 /**
  * @ClassName UtilKActivity
@@ -97,9 +99,11 @@ object UtilKActivity {
             is Context -> {
                 activity = getActivityByContext(obj, true)
             }
+
             is Fragment -> {
                 activity = obj.activity
             }
+
             is Dialog -> {
                 activity = getActivityByContext(obj.context, true)
             }
@@ -141,4 +145,13 @@ object UtilKActivity {
     @JvmStatic
     fun isFinishing(activity: Activity): Boolean =
         activity.isFinishing
+
+    @JvmStatic
+    fun isFinishingOrDestroyed(activity: Activity): Boolean =
+        isFinishing(activity) || isDestroyed(activity)
+
+    @JvmStatic
+    fun runOnBackThread(appCompatActivity: AppCompatActivity, block: () -> Unit) {
+        UtilKLifecycle.runOnBackThread(appCompatActivity, block)
+    }
 }

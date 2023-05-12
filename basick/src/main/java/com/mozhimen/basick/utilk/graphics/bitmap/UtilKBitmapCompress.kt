@@ -1,10 +1,13 @@
 package com.mozhimen.basick.utilk.graphics.bitmap
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.util.Log
 import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.exts.getFilenameExtension
+import com.mozhimen.basick.utilk.java.datatype.UtilKString
 import java.io.ByteArrayOutputStream
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
@@ -105,6 +108,7 @@ object UtilKBitmapCompress {
      * @param bytes ByteArray?
      * @param quality Int
      */
+    @SuppressLint("LongLogTag")
     @JvmStatic
     private fun printBitmapInfo(bitmap: Bitmap, bytes: ByteArray?, quality: Int) {
         Log.v(
@@ -112,4 +116,12 @@ object UtilKBitmapCompress {
             "compress after bitmap size: ${bitmap.byteCount / 1024 / 1024}MB width: ${bitmap.width} height: ${bitmap.height} bytes.length: ${bytes?.let { it.size / 1024 } ?: 0}KB quality: $quality"
         )
     }
+
+    @JvmStatic
+    fun getCompressFormat(compressFormatStr: String): CompressFormat =
+        when (UtilKString.getFilenameExtension(compressFormatStr).lowercase()) {
+            "png" -> CompressFormat.PNG
+            "webp" -> CompressFormat.WEBP
+            else -> CompressFormat.JPEG
+        }
 }

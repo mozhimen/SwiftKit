@@ -30,5 +30,19 @@
             android:text="查询天气(协程方法)"
             tools:ignore="HardcodedText" />
 
+        <TextView
+            android:id="@+id/netk_txt2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ui_blue_050"
+            android:hint="当前的天气"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/netk_btn2_get_weather"
+            style="@style/Btn_Style"
+            android:text="查询天气(异步转同步方法)"
+            tools:ignore="HardcodedText" />
+
     </LinearLayout>
 </layout>

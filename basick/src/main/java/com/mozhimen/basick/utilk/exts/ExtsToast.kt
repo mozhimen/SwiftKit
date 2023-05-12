@@ -1,7 +1,9 @@
 package com.mozhimen.basick.utilk.exts
 
+import android.content.Context
 import android.widget.Toast
 import com.mozhimen.basick.utilk.view.bar.UtilKToast
+import java.lang.Exception
 
 /**
  * @ClassName UtilKToast
@@ -21,20 +23,20 @@ fun String.showToast(duration: Int = Toast.LENGTH_SHORT) {
 }
 
 /**
- * 长时土司
- * @receiver String
- */
-fun String.showToastLong() {
-    UtilKToast.show(this, Toast.LENGTH_LONG)
-}
-
-/**
  * resId展示吐司
  * @receiver Int
  * @param duration Int
  */
 fun Int.showToast(duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.show(this, duration)
+}
+
+/**
+ * 长时土司
+ * @receiver String
+ */
+fun String.showToastLong() {
+    UtilKToast.show(this, Toast.LENGTH_LONG)
 }
 
 /**
@@ -52,7 +54,7 @@ fun Int.showToastLong() {
  * @receiver String
  * @param duration Int
  */
-fun String.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
+fun String.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
     UtilKToast.showOnMain(this, duration)
 }
 
@@ -63,4 +65,16 @@ fun String.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
  */
 fun Int.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.showOnMain(this, duration)
+}
+
+fun Context.showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showOnMain(msg, duration)
+}
+
+fun Context.showToastOnMain(id: Int, duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showOnMain(getString(id), duration)
+}
+
+fun Exception.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
+    this.message?.let { UtilKToast.showOnMain(it, duration) }
 }

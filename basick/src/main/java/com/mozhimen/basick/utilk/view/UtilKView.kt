@@ -26,6 +26,7 @@ import java.util.*
  */
 object UtilKView {
     private const val TAG = "UtilKView>>>>>"
+
     /**
      * 显示占比
      * @param view View
@@ -315,4 +316,37 @@ object UtilKView {
     ) {
         resizeSize(view, size, size)
     }
+
+    @JvmStatic
+    fun toVisible(view: View) {
+        view.visibility = View.VISIBLE
+    }
+
+    @JvmStatic
+    fun toGone(view: View) {
+        view.visibility = View.GONE
+    }
+
+    @JvmStatic
+    fun toGoneIf(view: View, boolean: Boolean) {
+        toVisibleIf(view, !boolean)
+    }
+
+    @JvmStatic
+    fun toVisibleIf(view: View, boolean: Boolean) {
+        if (boolean) toVisible(view) else toGone(view)
+    }
+
+    @JvmStatic
+    fun isVisible(view: View): Boolean =
+        view.visibility == View.VISIBLE
+
+    @JvmStatic
+    fun isInvisible(view: View): Boolean =
+        view.visibility == View.INVISIBLE
+
+    @JvmStatic
+    fun isGone(view: View): Boolean =
+        view.visibility == View.GONE
+
 }

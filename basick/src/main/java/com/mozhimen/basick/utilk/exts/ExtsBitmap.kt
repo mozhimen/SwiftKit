@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.exts
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.Drawable
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapCompress
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapFormat
 
@@ -48,3 +49,6 @@ fun Drawable.drawable2Bitmap(width: Int = this.intrinsicWidth, height: Int = thi
  */
 fun Bitmap.cropBitmap(width: Int, height: Int, x: Int, y: Int): Bitmap =
     UtilKBitmapDeal.cropBitmap(this, width, height, x, y)
+
+fun String.getCompressFormat(): CompressFormat =
+    UtilKBitmapCompress.getCompressFormat(this)

@@ -22,6 +22,7 @@ import com.mozhimen.basick.packk.netk.conn.helpers.NetKConnReceiver
 @AManifestKRequire(
     CPermission.ACCESS_NETWORK_STATE,
     CPermission.ACCESS_WIFI_STATE,
+    CPermission.ACCESS_FINE_LOCATION,
     CPermission.INTERNET
 )
 class NetKConnDelegate<T>(

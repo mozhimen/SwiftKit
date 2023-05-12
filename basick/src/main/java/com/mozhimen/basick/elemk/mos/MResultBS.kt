@@ -8,7 +8,7 @@ package com.mozhimen.basick.elemk.mos
  * @Date 2022/12/20 12:13
  * @Version 1.0
  */
-data class MResult2(
+data class MResultBS(
     val isSuccess: Boolean,
     val msg: String?,
 )

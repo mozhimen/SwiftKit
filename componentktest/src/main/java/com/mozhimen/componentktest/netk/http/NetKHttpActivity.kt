@@ -1,7 +1,9 @@
 package com.mozhimen.componentktest.netk.http
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
@@ -9,6 +11,9 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.componentktest.databinding.ActivityNetkHttpBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AManifestKRequire(CPermission.INTERNET, CApplication.USES_CLEAR_TEXT_TRAFFIC_TRUE)
 @APermissionCheck(CPermission.INTERNET)
@@ -26,10 +31,22 @@ class NetKHttpActivity : BaseActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewM
         vb.vm = vm
     }
 
+    @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
 
         VB.netkBtn1GetWeather.setOnClickListener {
             vm.getRealtimeWeatherCoroutine()
+        }
+
+        VB.netkBtn2GetWeather.setOnClickListener {
+            val time = System.currentTimeMillis()
+            lifecycleScope.launch(Dispatchers.IO) {
+                vm.getRealtimeWeatherCoroutineSync()?.bean?.let { bean ->
+                    withContext(Dispatchers.Main) {
+                        VB.netkTxt2.text = bean.result.realtime.temperature.toString() + " ${System.currentTimeMillis() - time}"
+                    }
+                }
+            }
         }
     }
 }

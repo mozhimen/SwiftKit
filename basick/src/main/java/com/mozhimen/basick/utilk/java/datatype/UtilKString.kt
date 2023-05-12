@@ -230,4 +230,12 @@ object UtilKString {
     @JvmStatic
     fun getRandomUuid(): String =
         UUID.randomUUID().toString().replace("-", "")
+
+    /**
+     * 获取扩展名
+     * @param str String
+     * @return String
+     */
+    @JvmStatic
+    fun getFilenameExtension(str: String): String = str.substring(str.lastIndexOf(".") + 1)
 }

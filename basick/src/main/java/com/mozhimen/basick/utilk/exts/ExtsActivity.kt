@@ -2,7 +2,9 @@ package com.mozhimen.basick.utilk.exts
 
 import android.app.Activity
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import com.mozhimen.basick.utilk.content.UtilKContextStart
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 
 /**
  * @ClassName ExtsKSkip
@@ -26,4 +28,11 @@ inline fun <reified T> Activity.startContext() where T : Activity {
  */
 inline fun <reified T> Activity.startContext(block: Intent.() -> Unit) where T : Activity {
     UtilKContextStart.startContext<T>(this, block)
+}
+
+fun Activity.isFinishingOrDestroyed(): Boolean =
+    UtilKActivity.isFinishingOrDestroyed(this)
+
+fun AppCompatActivity.runOnBackThread(block: () -> Unit) {
+    UtilKActivity.runOnBackThread(this, block)
 }

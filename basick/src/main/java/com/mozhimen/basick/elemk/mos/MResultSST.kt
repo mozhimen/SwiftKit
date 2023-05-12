@@ -8,8 +8,8 @@ package com.mozhimen.basick.elemk.mos
  * @Date 2022/12/20 12:13
  * @Version 1.0
  */
-data class MResult<T>(
-    val isSuccess: Boolean,
+data class MResultSST<T>(
+    val code: String,
     val msg: String?,
     val bean: T
 )

@@ -71,4 +71,18 @@ object UtilKHandler {
             myLooper.quit()
         }
     }
+
+    @JvmStatic
+    fun postOnMain(block: () -> Unit) {
+        Handler(Looper.getMainLooper()).post(block)
+    }
+
+    /**
+     * 是否是MainLooper
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isMainLooper(): Boolean {
+        return Looper.myLooper() == Looper.getMainLooper()
+    }
 }

@@ -19,3 +19,11 @@ import com.mozhimen.basick.utilk.view.UtilKImageView
 fun ImageView.fitImage(drawable: Drawable) {
     UtilKImageView.fitImage(this, drawable)
 }
+
+fun ImageView.applyColorFilter(colorRes: Int) {
+    UtilKImageView.setColorFilter(this, colorRes)
+}
+
+fun ImageView.toastContentDescriptionOnLongClick() {
+    UtilKImageView.toastContentDescriptionOnLongClick(this)
+}

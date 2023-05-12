@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.exts
 
+import android.graphics.Bitmap
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
 import java.util.*
 
@@ -79,3 +80,6 @@ fun <T> Array<T>.joinArray2Str(defaultValue: String = "", splitChar: String = ",
  */
 fun <T> List<T>.joinList2Str(defaultValue: String = "", splitStr: String = ","): String =
     UtilKString.joinList2Str(this, defaultValue, splitStr)
+
+fun String.getFilenameExtension(): String =
+    UtilKString.getFilenameExtension(this)
