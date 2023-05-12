@@ -12,9 +12,7 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
-import com.mozhimen.basick.utilk.os.UtilKPath
 import java.io.File
-import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 
@@ -143,7 +141,7 @@ object UtilKUri {
                 val inputStream: InputStream?
                 try {
                     inputStream = contentResolver.openInputStream(uri) ?: return null
-                    return UtilKFile.inputStream2File2(
+                    return UtilKFile.inputStream2File(
                         inputStream,
                         filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}"
                     )
