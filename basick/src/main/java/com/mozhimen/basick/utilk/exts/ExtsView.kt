@@ -88,3 +88,7 @@ fun View.isInvisible(): Boolean =
 
 fun View.isGone(): Boolean =
     UtilKView.isGone(this)
+
+fun View.setOnGlobalLayoutObserver(callback: () -> Unit) {
+    UtilKView.setOnGlobalLayoutObserver(this, callback)
+}

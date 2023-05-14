@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import kotlin.math.roundToInt
 
 /**
  * @ClassName UtilKColor
@@ -67,5 +68,19 @@ object UtilKColor {
         is String -> colorStr2Int(obj)
         is Int -> obj
         else -> Color.WHITE
+    }
+
+    /**
+     *
+     * @param factor Float 比例 0-1
+     * @return Int
+     */
+    @JvmStatic
+    fun adjustAlpha(color: Int, factor: Float): Int {
+        val alpha = (Color.alpha(color) * factor).roundToInt()
+        val red = Color.red(color)
+        val green = Color.green(color)
+        val blue = Color.blue(color)
+        return Color.argb(alpha, red, green, blue)
     }
 }

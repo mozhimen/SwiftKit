@@ -1,16 +1,23 @@
 package com.mozhimen.basick.utilk.content
 
 import android.content.ContentResolver
+import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
+import android.provider.DocumentsContract
+import android.provider.MediaStore
 import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.exts.getStringValue
+import com.mozhimen.basick.utilk.java.datatype.UtilKString
+import com.mozhimen.basick.utilk.java.datatype.regular.UtilKVerifyString
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.File
 import java.io.IOException
@@ -150,6 +157,73 @@ object UtilKUri {
                     e.message?.et(TAG)
                 }
             }
+        }
+        return null
+    }
+
+    @JvmStatic
+    fun isDownloadsDocument(uri: Uri) = uri.authority == "com.android.providers.downloads.documents"
+
+    @JvmStatic
+    fun isExternalStorageDocument(uri: Uri) = uri.authority == "com.android.externalstorage.documents"
+
+    @JvmStatic
+    fun isMediaDocument(uri: Uri) = uri.authority == "com.android.providers.media.documents"
+
+    @JvmStatic
+    fun uri2filePathWithName(uri: Uri): String? {
+        if (uri.scheme == "file") return uri.path
+
+        if (isDownloadsDocument(uri)) {
+            val id = DocumentsContract.getDocumentId(uri)
+            if (UtilKVerifyString.checkAllDigitsOnly(id)) {
+                val newUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), id.toLong())
+                val path = getDataColumn(newUri)
+                if (path != null) {
+                    return path
+                }
+            }
+        } else if (isExternalStorageDocument(uri)) {
+            val documentId = DocumentsContract.getDocumentId(uri)
+            val parts = documentId.split(":")
+            if (parts[0].equals("primary", true)) {
+                return "${Environment.getExternalStorageDirectory().absolutePath}/${parts[1]}"
+            }
+        } else if (isMediaDocument(uri)) {
+            val documentId = DocumentsContract.getDocumentId(uri)
+            val split = documentId.split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
+            val type = split[0]
+
+            val contentUri = when (type) {
+                "video" -> MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                "audio" -> MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                else -> MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            }
+
+            val selection = "_id=?"
+            val selectionArgs = arrayOf(split[1])
+            val path = getDataColumn(contentUri, selection, selectionArgs)
+            if (path != null) {
+                return path
+            }
+        }
+
+        return getDataColumn(uri)
+    }
+
+    fun getDataColumn(uri: Uri, selection: String? = null, selectionArgs: Array<String>? = null): String? {
+        try {
+            val projection = arrayOf(MediaStore.Files.FileColumns.DATA)
+            val cursor = _context.contentResolver.query(uri, projection, selection, selectionArgs, null)
+            cursor?.use {
+                if (cursor.moveToFirst()) {
+                    val data = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
+                    if (data != "null") {
+                        return data
+                    }
+                }
+            }
+        } catch (e: Exception) {
         }
         return null
     }

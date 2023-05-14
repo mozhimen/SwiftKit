@@ -24,4 +24,8 @@ object UtilKVerifyString {
      */
     fun checkAllNumberAndAlphabet(str: String): Boolean =
         str.matches(Regex("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{2,}\$"))
+
+    @JvmStatic
+    fun checkAllDigitsOnly(str: String) =
+        str.matches(Regex("[0-9]+"))
 }

@@ -1,7 +1,9 @@
 package com.mozhimen.basick.utilk.graphics.bitmap
 
+import android.Manifest
 import android.content.ContentResolver
 import android.content.ContentValues
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
@@ -15,6 +17,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import androidx.core.app.ActivityCompat
 import coil.request.ImageRequest
 import com.mozhimen.basick.elemk.cons.CMediaFormat
 import com.mozhimen.basick.elemk.cons.CVersionCode
@@ -87,6 +90,16 @@ object UtilKBitmapIO {
     @JvmStatic
     fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
         return if (Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q) {
+            if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return null
+            }
             bitmap2JpegAlbumFileAfter29(sourceBitmap, filePathWithName, quality)
         } else {
             bitmap2JpegAlbumFileBefore29(sourceBitmap, filePathWithName, quality)

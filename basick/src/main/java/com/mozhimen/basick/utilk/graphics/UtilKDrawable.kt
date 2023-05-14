@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.graphics
 
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 
@@ -20,5 +21,10 @@ object UtilKDrawable {
     @JvmStatic
     fun isColorDrawableValid(drawable: Drawable): Boolean {
         return drawable !is ColorDrawable || drawable.color != Color.TRANSPARENT
+    }
+
+    @JvmStatic
+    fun applyColorFilter(drawable: Drawable, colorResId: Int) {
+        drawable.mutate().setColorFilter(colorResId, PorterDuff.Mode.SRC_IN)
     }
 }

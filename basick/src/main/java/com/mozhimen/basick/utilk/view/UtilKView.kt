@@ -94,6 +94,17 @@ object UtilKView {
         }
     }
 
+    fun setOnGlobalLayoutObserver(view: View, callback: () -> Unit) {
+        view.viewTreeObserver?.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                if (view.viewTreeObserver != null) {
+                    view.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                    callback()
+                }
+            }
+        })
+    }
+
     /**
      * 删除全局监听
      * @param view View

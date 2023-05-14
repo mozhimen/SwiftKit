@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.os
 
 import android.os.Build
+import androidx.annotation.ChecksSdkIntAtLeast
 import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.exts.joinArray2Str
 import com.mozhimen.basick.utilk.exts.long2Str
@@ -105,4 +106,10 @@ object UtilKBuild {
     //构建内部时间
     @JvmStatic
     fun getTime(): String = Build.TIME.long2Str(UtilKDate.Format.yyyyMMddHHmmss)
+
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.Q)
+    fun isQPlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
+    @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.N)
+    fun isNougatPlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
 }

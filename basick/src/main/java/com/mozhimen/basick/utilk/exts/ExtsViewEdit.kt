@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk.exts
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
 import com.mozhimen.basick.utilk.view.UtilKEditText
 
@@ -12,4 +14,11 @@ import com.mozhimen.basick.utilk.view.UtilKEditText
  */
 fun EditText.setInputMaxLength(inputMaxLength: Int) {
     UtilKEditText.setInputMaxLength(this, inputMaxLength)
+}
+
+val EditText.value: String
+    get() = UtilKEditText.getValue(this)
+
+fun EditText.setOnTextChangeObserver(onTextChangedAction: (newText: String) -> Unit) {
+    UtilKEditText.setOnTextChangeObserver(this, onTextChangedAction)
 }
