@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.java.io.hash.UtilKMD5
 import java.io.*
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -421,7 +422,7 @@ object UtilKFile {
      */
     @JvmStatic
     fun file2Md5(inputStream: InputStream): String {
-        val messageDigest: MessageDigest = MessageDigest.getInstance("md5") ?: throw Exception("get md5 fail")
+        val messageDigest: MessageDigest = UtilKMD5.get()
         try {
             var bufferLength: Int
             val buffer = ByteArray(1024)

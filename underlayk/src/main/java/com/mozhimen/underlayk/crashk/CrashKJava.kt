@@ -74,6 +74,7 @@ class CrashKJava {
         private fun handleException(e: Throwable): Boolean {
             val log = collectDeviceInfo(e)
             if (BuildConfig.DEBUG) {
+                e.printStackTrace()
                 LogK.et(TAG, "UncaughtExceptionHandler handleException log $log")
             }
 
