@@ -67,14 +67,31 @@ fun Int.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.showOnMain(this, duration)
 }
 
+/**
+ *
+ * @receiver Context
+ * @param msg String
+ * @param duration Int
+ */
 fun Context.showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.showOnMain(msg, duration)
 }
 
+/**
+ *
+ * @receiver Context
+ * @param id Int
+ * @param duration Int
+ */
 fun Context.showToastOnMain(id: Int, duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.showOnMain(getString(id), duration)
 }
 
+/**
+ *
+ * @receiver Exception
+ * @param duration Int
+ */
 fun Exception.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
     this.message?.let { UtilKToast.showOnMain(it, duration) }
 }

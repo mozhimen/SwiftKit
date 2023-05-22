@@ -4,23 +4,23 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 /**
- * @ClassName BaseDataDelegate
+ * @ClassName VarInvokeDelegate
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/3/13 15:07
+ * @Date 2023/5/19 17:47
  * @Version 1.0
  */
 /**
  * true 则赋值, 否则不赋值
  */
-typealias IVarInvokeListener<T> = (field: T, value: T) -> Boolean
+typealias IVarDelegate_SetFun_R_Invoke<T> = (field: T, value: T) -> Boolean
 
-open class VarInvokeDelegate<T>(default: T, private val onSet: IVarInvokeListener<T>) : ReadWriteProperty<Any?, T> {
+open class VarDelegate_SetFun_R_SameNonnull<T>(default: T, private val _onSet: IVarDelegate_SetFun_R_Invoke<T>) : ReadWriteProperty<Any?, T> {
     @Volatile
     private var _field = default
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        if (_field == value) return
-        if (onSet.invoke(_field, value)) {
+        if (value == null) return
+        if (_onSet.invoke(_field, value)) {
             _field = value
         }
     }

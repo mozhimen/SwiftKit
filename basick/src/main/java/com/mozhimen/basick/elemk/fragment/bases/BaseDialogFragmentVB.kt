@@ -64,9 +64,14 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
     @CallSuper
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
+        initObserver()
     }
 
     override fun initView(savedInstanceState: Bundle?) {
+
+    }
+
+    override fun initObserver() {
 
     }
 

@@ -14,6 +14,7 @@ import com.mozhimen.basick.utilk.os.UtilKOSRoot
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import com.mozhimen.componentk.installk.commons.IInstallK
 import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
 import com.mozhimen.componentk.installk.cons.CCons
 import com.mozhimen.componentk.installk.cons.EInstallMode
@@ -39,7 +40,7 @@ import java.io.*
     CPermission.BIND_ACCESSIBILITY_SERVICE,
     CManifest.SERVICE_ACCESSIBILITY
 )
-class InstallK {
+class InstallK : IInstallK {
 
     companion object {
         private const val TAG = "InstallK>>>>>"
@@ -55,21 +56,11 @@ class InstallK {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             when (msg.what) {
-                CCons.MSG_DOWNLOAD_START -> {
-                    _installStateChangeListener?.onDownloadStart()
-                }
-                CCons.MSG_INSTALL_START -> {
-                    _installStateChangeListener?.onInstallStart()
-                }
-                CCons.MSG_INSTALL_FINISH -> {
-                    _installStateChangeListener?.onInstallFinish()
-                }
-                CCons.MSG_INSTALL_FAIL -> {
-                    _installStateChangeListener?.onInstallFail(msg.obj as String)
-                }
-                CCons.MSG_NEED_PERMISSION -> {
-                    _installStateChangeListener?.onNeedPermissions(msg.obj as EPermissionType)
-                }
+                CCons.MSG_DOWNLOAD_START -> _installStateChangeListener?.onDownloadStart()
+                CCons.MSG_INSTALL_START -> _installStateChangeListener?.onInstallStart()
+                CCons.MSG_INSTALL_FINISH -> _installStateChangeListener?.onInstallFinish()
+                CCons.MSG_INSTALL_FAIL -> _installStateChangeListener?.onInstallFail(msg.obj as String)
+                CCons.MSG_NEED_PERMISSION -> _installStateChangeListener?.onNeedPermissions(msg.obj as EPermissionType)
             }
         }
     }
@@ -79,7 +70,7 @@ class InstallK {
      * @param receiverClazz Class<*>
      * @return InstallK
      */
-    fun setInstallSilenceReceiver(receiverClazz: Class<*>): InstallK {
+    override fun setInstallSilenceReceiver(receiverClazz: Class<*>): InstallK {
         _silenceReceiverClazz = receiverClazz
         return this
     }
@@ -88,7 +79,7 @@ class InstallK {
      * 设置监听器
      * @param listener IInstallStateChangedListener
      */
-    fun setInstallStateChangeListener(listener: IInstallStateChangedListener): InstallK {
+    override fun setInstallStateChangeListener(listener: IInstallStateChangedListener): InstallK {
         _installStateChangeListener = listener
         return this
     }
@@ -98,7 +89,7 @@ class InstallK {
      * @param mode EInstallMode
      * @return InstallK
      */
-    fun setInstallMode(mode: EInstallMode): InstallK {
+    override fun setInstallMode(mode: EInstallMode): InstallK {
         _installMode = mode
         return this
     }
@@ -108,7 +99,7 @@ class InstallK {
      * @param serviceClazz Class<*>
      * @return InstallK
      */
-    fun setInstallSmartService(serviceClazz: Class<*>): InstallK {
+    override fun setInstallSmartService(serviceClazz: Class<*>): InstallK {
         _smartServiceClazz = serviceClazz
         return this
     }
@@ -179,17 +170,20 @@ class InstallK {
                 //try install hand
                 UtilKAppInstall.installHand(apkPathWithName)
             }
+
             EInstallMode.ROOT -> {
                 require(UtilKOSRoot.isRoot()) { "$TAG this device has not root" }
                 UtilKAppInstall.installRoot(apkPathWithName)
                 Log.d(TAG, "installByMode: ROOT success")
             }
+
             EInstallMode.SILENCE -> {
                 requireNotNull(_silenceReceiverClazz) { "$TAG silence receiver must not be null" }
                 require(UtilKOSRoot.isRoot() || !UtilKApp.isUserApp(_context)) { "$TAG this device has not root or its system app" }
                 UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
                 Log.d(TAG, "installByMode: SILENCE success")
             }
+
             EInstallMode.SMART -> {
                 requireNotNull(_smartServiceClazz) { "$TAG smart service must not be null" }
                 if (!UtilKPermission.hasAccessibility(_smartServiceClazz!!)) {
@@ -203,6 +197,7 @@ class InstallK {
                 UtilKAppInstall.installHand(apkPathWithName)
                 Log.d(TAG, "installByMode: SMART success")
             }
+
             EInstallMode.HAND -> {
                 UtilKAppInstall.installHand(apkPathWithName)
                 Log.d(TAG, "installByMode: HAND success")

@@ -10,10 +10,11 @@ import kotlin.reflect.KProperty
  * @Date 2023/3/13 15:07
  * @Version 1.0
  */
-open class VarDelegate<T>(default: T) : ReadWriteProperty<Any?, T> {
+open class VarDelegate_Set_VaryNullable<T>(default: T) : ReadWriteProperty<Any?, T> {
     @Volatile
     private var _field = default
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        if (value == _field) return
         _field = value
     }
 

@@ -17,6 +17,11 @@ object UtilKLogK {
     }
 
     @JvmStatic
+    fun dt_code_msg(tag: String, code: Int, msg: String) {
+        LogK.dt(tag, "dt_code_msg code $code msg $msg")
+    }
+
+    @JvmStatic
     fun et_code_msg(tag: String, code: String, msg: String) {
         LogK.et(tag, "et_code_msg code $code msg $msg")
     }

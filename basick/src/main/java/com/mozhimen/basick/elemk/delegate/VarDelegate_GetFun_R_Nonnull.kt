@@ -19,9 +19,10 @@ return (LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) a
  * @Date 2023/3/15 16:58
  * @Version 1.0
  */
-typealias IVarNullableInitListener<T> = () -> T
+typealias IVarDelegate_GetFun_R_Invoke<T> = () -> T
 
-open class VarNullableInitDelegate<T>(private val onGet: IVarNullableInitListener<T>) : ReadWriteProperty<Any?, T> {
+open class VarDelegate_GetFun_R_Nonnull<T>(private val _onGet: IVarDelegate_GetFun_R_Invoke<T>) : ReadWriteProperty<Any?, T> {
+    @Volatile
     private var _field: T? = null
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         _field = value
@@ -29,6 +30,6 @@ open class VarNullableInitDelegate<T>(private val onGet: IVarNullableInitListene
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {
         if (_field != null) return _field!!
-        return onGet.invoke().also { _field = it }
+        return _onGet.invoke().also { _field = it }
     }
 }

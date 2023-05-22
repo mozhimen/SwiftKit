@@ -21,6 +21,17 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="ImageKCircleText">
+        <attr name="imageKCircleText_borderWidth" format="dimension|reference" />
+        <attr name="imageKCircleText_borderColor" format="color|reference" />
+        <attr name="imageKCircleText_borderOverlay" format="boolean" />
+        <attr name="imageKCircleText_fillColor" format="color|reference" />
+        <attr name="imageKCircleText_textContent" format="string|reference" />
+        <attr name="imageKCircleText_textColor" format="color|reference" />
+        <attr name="imageKCircleText_textSize" format="dimension|reference" />
+        <attr name="imageKCircleText_textPadding" format="dimension|reference" />
+    </declare-styleable>
+
     <!--layoutk_search-->
     <attr name="LayoutKSearch_LayoutKSearch_Style" format="reference" />
     <declare-styleable name="LayoutKSearch">

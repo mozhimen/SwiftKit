@@ -29,3 +29,12 @@ fun TextView.setTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORM
 fun TextView.setIconFont(iconFont: String = "icons/iconfont.ttf") {
     UtilKTextView.setIconFont(this, iconFont)
 }
+
+fun TextView.getValue(): String =
+    text.toStringTrim()
+
+fun TextView.valueIfNotEmpty(invoke: (value: String) -> Unit) {
+    if (getValue().isNotEmpty()) {
+        invoke.invoke(getValue())
+    }
+}

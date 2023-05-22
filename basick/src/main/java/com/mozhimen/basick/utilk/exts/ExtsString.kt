@@ -83,3 +83,9 @@ fun <T> List<T>.joinList2Str(defaultValue: String = "", splitStr: String = ","):
 
 fun String.getFilenameExtension(): String =
     UtilKString.getFilenameExtension(this)
+
+fun CharSequence.toStringTrim(): String =
+    toString().trim()
+
+fun Any.toStringTrim(): String =
+    toString().trim()

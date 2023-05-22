@@ -41,14 +41,18 @@ open class BaseInstallObserverReceiver : BaseBroadcastReceiver() {
         val packageName = intent.dataString
         when (intent.action) {
             Intent.ACTION_PACKAGE_REPLACED -> {
-                Log.w(TAG, "onReceiveInstall: update one apk, restart program soon packageName $packageName")
+                Log.w(TAG, "onReceiveInstall: update one apk, restart program soon packageName $packageName // package:${UtilKContext.getPackageName(context)}")
                 if (packageName == "package:${UtilKContext.getPackageName(context)}") {
-                    UtilKApp.restartApp(isKillProcess = true)
+                    UtilKApp.restartApp(isKillProcess = true, context = context)
+                } else {
+                    Log.w(TAG, "onReceiveInstall: packageName is different")
                 }
             }
+
             Intent.ACTION_PACKAGE_ADDED -> {
                 Log.w(TAG, "onReceiveInstall: install one apk $packageName")
             }
+
             Intent.ACTION_PACKAGE_REMOVED -> {
                 Log.w(TAG, "onReceiveInstall: uninstall one apk $packageName")
             }

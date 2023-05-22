@@ -7,7 +7,7 @@ package com.mozhimen.abilityk.hotupdatek.commons
  * @Date 2022/6/13 15:35
  * @Version 1.0
  */
-interface IHotupdateKListener {
-    fun onComplete()
-    fun onFail(msg: String)
+interface ISuspendHotupdateKListener {
+    suspend fun onComplete()
+    suspend fun onFail(msg: String)
 }

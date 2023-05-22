@@ -4,16 +4,17 @@ import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 /**
- * @ClassName BaseDataDelegate
+ * @ClassName VarInvokeDelegate
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
- * @Date 2023/3/13 15:07
+ * @Date 2023/5/19 17:47
  * @Version 1.0
  */
-open class VarDelegate<T>(default: T) : ReadWriteProperty<Any?, T> {
+open class VarDelegate_SetFun_SameNullable<T>(default: T, private val _onSet: IVarDelegate_SetFun_Invoke<T>) : ReadWriteProperty<Any?, T> {
     @Volatile
     private var _field = default
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
+        _onSet.invoke(_field, value)
         _field = value
     }
 
