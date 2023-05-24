@@ -31,7 +31,7 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
     private lateinit var _imageView: ImageView
     private lateinit var _iconView: TextView
     private lateinit var _titleView: TextView
-    private lateinit var _txtView: TextView
+    private lateinit var _contentView: TextView
     private lateinit var _btn: Button
     private lateinit var _helpView: TextView
 
@@ -64,7 +64,7 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
         _iconView = findViewById(R.id.layoutk_empty_icon_font)
         _imageView = findViewById(R.id.layoutk_empty_img)
         _titleView = findViewById(R.id.layoutk_empty_title)
-        _txtView = findViewById(R.id.layoutk_empty_txt)
+        _contentView = findViewById(R.id.layoutk_empty_txt)
         _helpView = findViewById(R.id.layoutk_empty_help_icon_font)
         _btn = findViewById(R.id.layoutk_empty_btn)
 
@@ -122,15 +122,23 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
         } else GONE
     }
 
+    fun applyTitle(invoke: TextView.() -> Unit) {
+        _titleView.invoke()
+    }
+
     /**
      * 设置正文
      * @param content String?
      */
     fun setContent(content: String?) {
-        _txtView.visibility = if (content != null && !TextUtils.isEmpty(content)) {
-            _txtView.text = content
+        _contentView.visibility = if (content != null && !TextUtils.isEmpty(content)) {
+            _contentView.text = content
             VISIBLE
         } else GONE
+    }
+
+    fun applyContent(invoke: TextView.() -> Unit) {
+        _contentView.invoke()
     }
 
     /**
@@ -149,7 +157,6 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
     /**
      * 设置按钮
      * @param text String?
-     * @param listener OnClickListener?
      */
     fun setButton(text: String?, listener: OnClickListener? = null) {
         _btn.visibility = if (text != null && !TextUtils.isEmpty(text)) {
@@ -159,5 +166,9 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
         } else {
             GONE
         }
+    }
+
+    fun applyButton(invoke: Button.() -> Unit) {
+        _btn.invoke()
     }
 }
