@@ -14,18 +14,24 @@ object UtilKVerifyString {
      * @param str String
      */
     @JvmStatic
-    fun checkAllNumberic(str: String): Boolean =
+    fun checkAllDigits(str: String): Boolean =
         str.matches(Regex("^[0-9]*\$"))
+
+    /**
+     * 是否是数字
+     * @param str String
+     * @return Boolean
+     */
+    @JvmStatic
+    fun checkAllDigits2(str: String) =
+        str.matches(Regex("[0-9]+"))
 
     /**
      * 同时包含数字和字母
      * @param str String
      * @return Boolean
      */
-    fun checkAllNumberAndAlphabet(str: String): Boolean =
-        str.matches(Regex("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{2,}\$"))
-
     @JvmStatic
-    fun checkAllDigitsOnly(str: String) =
-        str.matches(Regex("[0-9]+"))
+    fun checkAllDigitsAndAlphabets(str: String): Boolean =
+        str.matches(Regex("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{2,}\$"))
 }

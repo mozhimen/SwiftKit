@@ -11,6 +11,11 @@ import com.mozhimen.basick.utilk.os.thread.UtilKThread
  * @Version 1.0
  */
 object UtilKLifecycle {
+    /**
+     * 在子线程上运行
+     * @param lifecycleOwner LifecycleOwner
+     * @param block Function0<Unit>
+     */
     @JvmStatic
     fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: () -> Unit) {
         UtilKThread.runOnBackThread(lifecycleOwner, block)

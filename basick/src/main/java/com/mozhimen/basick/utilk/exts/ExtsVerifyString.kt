@@ -10,6 +10,11 @@ import com.mozhimen.basick.utilk.java.datatype.regular.UtilKVerifyString
  * @Version 1.0
  */
 
-fun String.isNumberic(): Boolean = UtilKVerifyString.checkAllNumberic(this)
+fun String.checkAllDigits(): Boolean =
+    UtilKVerifyString.checkAllDigits(this)
 
-fun String.hasNumberAndAlphabet(): Boolean = UtilKVerifyString.checkAllNumberAndAlphabet(this)
+fun String.checkAllDigits2(): Boolean =
+    UtilKVerifyString.checkAllDigits2(this)
+
+fun String.checkAllDigitsAndAlphabets(): Boolean =
+    UtilKVerifyString.checkAllDigitsAndAlphabets(this)

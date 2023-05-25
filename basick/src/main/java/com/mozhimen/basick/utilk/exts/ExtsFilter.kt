@@ -10,22 +10,17 @@ import com.mozhimen.basick.utilk.java.datatype.regular.UtilKFilter
  * @Date 2022/12/19 11:18
  * @Version 1.0
  */
-fun String.filterNumber(): String {
-    return UtilKFilter.outNumber(this)
-}
+fun String.outNumber(): String =
+    UtilKFilter.outNumber(this)
 
-fun String.filterAlphabet(): String {
-    return UtilKFilter.outAlphabet(this)
-}
+fun String.outAlphabet(): String =
+    UtilKFilter.outAlphabet(this)
 
-fun String.filterChinese(): String {
-    return UtilKFilter.outChinese(this)
-}
+fun String.outChinese(): String =
+    UtilKFilter.outChinese(this)
 
-fun String.filter(): String {
-    return UtilKFilter.outNAC(this)
-}
+fun String.outNAC(): String =
+    UtilKFilter.outNAC(this)
 
-fun String.filterLength(endIndex: Int): String {
-    return UtilKFilter.outLength(this, endIndex)
-}
+fun String.outLength(endIndex: Int): String =
+    UtilKFilter.outLength(this, endIndex)

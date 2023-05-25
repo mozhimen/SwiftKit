@@ -19,7 +19,8 @@ import com.mozhimen.basick.utilk.java.datatype.json.UtilKJsonMoshi
  * @throws Exception
  */
 @Throws(Exception::class)
-inline fun <reified T : Any> T.t2JsonMoshi(indent: String = ""): String = UtilKJsonMoshi.t2Json(this, indent)
+inline fun <reified T : Any> T.moshiT2Json(indent: String = ""): String =
+    UtilKJsonMoshi.t2Json(this, indent)
 
 /**
  * 转实体
@@ -28,14 +29,16 @@ inline fun <reified T : Any> T.t2JsonMoshi(indent: String = ""): String = UtilKJ
  * @throws Exception
  */
 @Throws(Exception::class)
-inline fun <reified T> String.json2TMoshi(): T? = UtilKJsonMoshi.json2T(this)
+inline fun <reified T> String.moshiJson2T(): T? =
+    UtilKJsonMoshi.json2T(this)
 
 /**
  * 转Json
  * @receiver Any
  * @return String
  */
-fun Any.obj2JsonGson(): String = UtilKJsonGson.obj2Json(this)
+fun Any.gsonObj2Json(): String =
+    UtilKJsonGson.obj2Json(this)
 
 /**
  * 转实体
@@ -43,7 +46,8 @@ fun Any.obj2JsonGson(): String = UtilKJsonGson.obj2Json(this)
  * @param token TypeToken<T>
  * @return T
  */
-fun <T> String.json2TGson(token: TypeToken<T>): T = UtilKJsonGson.json2T(this, token)
+fun <T> String.gsonJson2T(token: TypeToken<T>): T =
+    UtilKJsonGson.json2T(this, token)
 
 /**
  * 转实体
@@ -51,14 +55,16 @@ fun <T> String.json2TGson(token: TypeToken<T>): T = UtilKJsonGson.json2T(this, t
  * @param clazz Class<T>
  * @return T
  */
-fun <T> String.json2TGson(clazz: Class<T>): T? = UtilKJsonGson.json2T(this, clazz)
+fun <T> String.gsonJson2T(clazz: Class<T>): T? =
+    UtilKJsonGson.json2T(this, clazz)
 
 /**
  * 转Json
  * @receiver Any
  * @return String
  */
-fun Any.obj2JsonGsonWithExpose(): String = UtilKJsonGson.obj2JsonWithExpose(this)
+fun Any.gsonObj2JsonWithExpose(): String =
+    UtilKJsonGson.obj2JsonWithExpose(this)
 
 /**
  * 转实体
@@ -66,4 +72,5 @@ fun Any.obj2JsonGsonWithExpose(): String = UtilKJsonGson.obj2JsonWithExpose(this
  * @param clazz Class<T>
  * @return T
  */
-fun <T> String.json2TGsonWithExpose(clazz: Class<T>): T? = UtilKJsonGson.json2TWithExpose(this, clazz)
+fun <T> String.gsonJson2TWithExpose(clazz: Class<T>): T? =
+    UtilKJsonGson.json2TWithExpose(this, clazz)

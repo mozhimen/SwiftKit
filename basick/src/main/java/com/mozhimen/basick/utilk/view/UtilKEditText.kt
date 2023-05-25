@@ -2,8 +2,9 @@ package com.mozhimen.basick.utilk.view
 
 import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.widget.EditText
+import com.mozhimen.basick.elemk.view.commons.BaseTextChangedObserver
+import com.mozhimen.basick.utilk.exts.toStringTrim
 
 /**
  * @ClassName UtilKViewTextEdit
@@ -19,27 +20,26 @@ object UtilKEditText {
      * @param inputMaxLength Int
      */
     @JvmStatic
-    fun setInputMaxLength(
-        editText: EditText,
-        inputMaxLength: Int
-    ) {
+    fun setInputMaxLength(editText: EditText, inputMaxLength: Int) {
         if (inputMaxLength > 0) editText.filters = arrayOf(InputFilter.LengthFilter(inputMaxLength))
     }
 
+    /**
+     * 获取text
+     * @param editText EditText
+     * @return String
+     */
     @JvmStatic
     fun getValue(editText: EditText): String =
-        editText.text.toString().trim()
+        editText.text.toStringTrim()
+
 
     @JvmStatic
-    fun setOnTextChangeObserver(editText: EditText, onTextChangedAction: (newText: String) -> Unit) {
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                onTextChangedAction(s.toString())
+    fun setOnTextChangedObserver(editText: EditText, onTextChangedInvoke: (newTextStr: String) -> Unit) {
+        editText.addTextChangedListener(object : BaseTextChangedObserver() {
+            override fun afterTextChanged(s: Editable) {
+                onTextChangedInvoke(s.toString())
             }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         })
     }
 }

@@ -14,31 +14,33 @@ import kotlin.math.roundToInt
  * @Version 1.0
  */
 object UtilKColor {
+    @JvmStatic
+    @ColorInt
+    fun getContrastColor(@ColorInt colorInt: Int): Int {
+        val y = (299 * Color.red(colorInt) + 587 * Color.green(colorInt) + 114 * Color.blue(colorInt)) / 1000
+        return if (y >= 149 && colorInt != Color.BLACK) 0xFF333333.toInt() else Color.WHITE
+    }
+
     /**
      * 渐变色值
-     * @param startColor Int 开始颜色
-     * @param endColor Int 结束颜色
+     * @param startColorInt Int 开始颜色
+     * @param endColorInt Int 结束颜色
      * @param ratio Float
      * @return Int
      */
     @JvmStatic
     @ColorInt
     @RequiresApi(CVersionCode.V_26_8_O)
-    fun getMedianColor(startColor: Int, endColor: Int, ratio: Float): Int {
-        val startRed = Color.red(startColor)
-        val startBlue = Color.blue(startColor)
-        val startGreen = Color.green(startColor)
-        val startAlpha = Color.alpha(startColor)
+    fun getMedianColor(@ColorInt startColorInt: Int, @ColorInt endColorInt: Int, ratio: Float): Int {
+        val startRed = Color.red(startColorInt)
+        val startBlue = Color.blue(startColorInt)
+        val startGreen = Color.green(startColorInt)
+        val startAlpha = Color.alpha(startColorInt)
 
-        val endRed = Color.red(endColor)
-        val endBlue = Color.blue(endColor)
-        val endGreen = Color.green(endColor)
-        val endAlpha = Color.alpha(endColor)
-
-        val disRed = endRed - startRed
-        val disBlue = endBlue - startBlue
-        val disGreen = endGreen - startGreen
-        val disAlpha = endAlpha - startAlpha
+        val disRed = Color.red(endColorInt) - startRed
+        val disBlue = Color.blue(endColorInt) - startBlue
+        val disGreen = Color.green(endColorInt) - startGreen
+        val disAlpha = Color.alpha(endColorInt) - startAlpha
 
         val medRed = startRed + ratio * disRed
         val medBlue = startBlue + ratio * disBlue
@@ -55,7 +57,8 @@ object UtilKColor {
      */
     @JvmStatic
     @ColorInt
-    fun colorStr2Int(colorStr: String): Int = Color.parseColor(colorStr)
+    fun colorStr2colorInt(colorStr: String): Int =
+        Color.parseColor(colorStr)
 
     /**
      * 获取颜色
@@ -64,23 +67,24 @@ object UtilKColor {
      */
     @JvmStatic
     @ColorInt
-    fun colorStr2Int(obj: Any): Int = when (obj) {
-        is String -> colorStr2Int(obj)
-        is Int -> obj
-        else -> Color.WHITE
-    }
+    fun obj2colorInt(obj: Any): Int =
+        when (obj) {
+            is String -> colorStr2colorInt(obj)
+            is Int -> obj
+            else -> Color.WHITE
+        }
 
     /**
      *
-     * @param factor Float 比例 0-1
+     * @param ratio Float 比例 0-1
      * @return Int
      */
     @JvmStatic
-    fun adjustAlpha(color: Int, factor: Float): Int {
-        val alpha = (Color.alpha(color) * factor).roundToInt()
-        val red = Color.red(color)
-        val green = Color.green(color)
-        val blue = Color.blue(color)
-        return Color.argb(alpha, red, green, blue)
-    }
+    @ColorInt
+    fun adjustAlpha(@ColorInt colorInt: Int, ratio: Float): Int =
+        Color.argb((Color.alpha(colorInt) * ratio).roundToInt(), Color.red(colorInt), Color.green(colorInt), Color.blue(colorInt))
+
+    @JvmStatic
+    fun colorInt2HexStr(@ColorInt colorInt: Int): String =
+        String.format("#%06X", 0xFFFFFF and colorInt).uppercase()
 }

@@ -130,6 +130,25 @@ object UtilKRes {
         UtilKContextCompat.getDrawable(context, drawableId)
 
     /**
+     * 获取DimensionPixelOffset
+     * @param dimensionId Int
+     * @return Int
+     */
+    @JvmStatic
+    fun getDimensionPixelOffset(dimensionId: Int): Int =
+        getDimensionPixelOffset(dimensionId, getAppResources())
+
+    /**
+     * 获取DimensionPixelOffset
+     * @param dimensionId Int
+     * @param resources Resources
+     * @return Int
+     */
+    @JvmStatic
+    fun getDimensionPixelOffset(dimensionId: Int, resources: Resources): Int =
+        resources.getDimensionPixelOffset(dimensionId)
+
+    /**
      * 获取DimensionPixelSize
      * @param dimensionId Int
      * @return Int
@@ -147,6 +166,25 @@ object UtilKRes {
     @JvmStatic
     fun getDimensionPixelSize(dimensionId: Int, resources: Resources): Int =
         resources.getDimensionPixelSize(dimensionId)
+
+    /**
+     * 获取getDimension
+     * @param dimensionId Int
+     * @return Int
+     */
+    @JvmStatic
+    fun getDimension(dimensionId: Int): Float =
+        getDimension(dimensionId, getAppResources())
+
+    /**
+     * 获取getDimension
+     * @param dimensionId Int
+     * @param resources Resources
+     * @return Int
+     */
+    @JvmStatic
+    fun getDimension(dimensionId: Int, resources: Resources): Float =
+        resources.getDimension(dimensionId)
 
     /**
      * 获取StringArray

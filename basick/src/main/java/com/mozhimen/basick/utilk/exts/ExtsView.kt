@@ -64,21 +64,59 @@ fun View.resizeSize(width: Int, height: Int) {
     UtilKView.resizeSize(this, width, height)
 }
 
+/////////////////////////////////////////////////
+
+fun View.toVisible() {
+    UtilKView.toVisible(this)
+}
+
+fun View.toInVisible() {
+    UtilKView.toInVisible(this)
+}
+
 fun View.toGone() {
     UtilKView.toGone(this)
 }
 
-fun View.toVisible() {
-    UtilKView.toVisible(this)
+/////////////////////////////////////////////////
+
+fun View.toVisibleIfElseGone(invoke: () -> Boolean) {
+    UtilKView.toVisibleIfElseGone(this, invoke)
+}
+
+fun View.toVisibleIfElseGone(boolean: Boolean) {
+    UtilKView.toVisibleIfElseGone(this, boolean)
+}
+
+/////////////////////////////////////////////////
+
+fun View.toVisibleIf(invoke: () -> Boolean) {
+    UtilKView.toVisibleIf(this, invoke)
+}
+
+fun View.toInVisibleIf(invoke: () -> Boolean) {
+    UtilKView.toInVisibleIf(this, invoke)
+}
+
+fun View.toGoneIf(invoke: () -> Boolean) {
+    UtilKView.toGoneIf(this, invoke)
+}
+
+/////////////////////////////////////////////////
+
+fun View.toVisibleIf(boolean: Boolean) {
+    UtilKView.toVisibleIf(this, boolean)
+}
+
+fun View.toInVisibleIf(boolean: Boolean) {
+    UtilKView.toInVisibleIf(this, boolean)
 }
 
 fun View.toGoneIf(boolean: Boolean) {
     UtilKView.toGoneIf(this, boolean)
 }
 
-fun View.toVisibleIf(boolean: Boolean) {
-    UtilKView.toVisibleIf(this, boolean)
-}
+/////////////////////////////////////////////////
 
 fun View.isVisible(): Boolean =
     UtilKView.isVisible(this)
@@ -88,6 +126,8 @@ fun View.isInvisible(): Boolean =
 
 fun View.isGone(): Boolean =
     UtilKView.isGone(this)
+
+/////////////////////////////////////////////////
 
 fun View.setOnGlobalLayoutObserver(callback: () -> Unit) {
     UtilKView.setOnGlobalLayoutObserver(this, callback)

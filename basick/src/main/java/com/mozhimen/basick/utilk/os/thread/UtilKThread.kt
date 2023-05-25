@@ -10,6 +10,7 @@ import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.content.activity.UtilKActivityManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * @ClassName UtilKThread
@@ -26,8 +27,7 @@ object UtilKThread {
      */
     @JvmStatic
     fun isMainProcess(context: Context): Boolean {
-        val runningAppProcesses = UtilKActivityManager.get(context).runningAppProcesses
-        for (process in runningAppProcesses) {
+        for (process in UtilKActivityManager.get(context).runningAppProcesses) {
             if (process.processName == UtilKContext.getPackageName(context)) return true
         }
         return false
@@ -38,16 +38,31 @@ object UtilKThread {
      * @return Boolean
      */
     @JvmStatic
-    fun isMainThread(): Boolean {
-        return Looper.getMainLooper().thread == Thread.currentThread()
-    }
+    fun isMainThread(): Boolean =
+        Looper.getMainLooper().thread == Thread.currentThread()
 
+    /**
+     * 在子线程运行
+     * @param lifecycleOwner LifecycleOwner
+     * @param block Function0<Unit>
+     */
     @JvmStatic
     fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: () -> Unit) {
         if (isMainThread()) {
-            lifecycleOwner.lifecycleScope.launch(Dispatchers.IO){
-                block.invoke()
-            }
+            lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { block.invoke() }
+        } else {
+            block.invoke()
+        }
+    }
+
+    /**
+     * 在子线程运行
+     * @param block SuspendFunction0<Unit>
+     */
+    @JvmStatic
+    suspend fun runOnBackThread(block: suspend () -> Unit) {
+        if (isMainThread()) {
+            withContext(Dispatchers.IO) { block.invoke() }
         } else {
             block.invoke()
         }

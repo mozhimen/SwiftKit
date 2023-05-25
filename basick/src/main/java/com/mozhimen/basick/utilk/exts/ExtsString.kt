@@ -85,7 +85,7 @@ fun String.getFilenameExtension(): String =
     UtilKString.getFilenameExtension(this)
 
 fun CharSequence.toStringTrim(): String =
-    toString().trim()
+    UtilKString.toStringTrim(this)
 
 fun Any.toStringTrim(): String =
-    toString().trim()
+    UtilKString.toStringTrim(this)

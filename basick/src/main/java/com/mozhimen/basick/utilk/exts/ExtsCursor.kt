@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.exts
 
-import android.annotation.SuppressLint
 import android.database.Cursor
+import com.mozhimen.basick.utilk.database.UtilKCursor
 
-@SuppressLint("Range")
-fun Cursor.getStringValue(key: String) = getString(getColumnIndex(key))
+fun Cursor.getStringValue(key: String): String =
+    UtilKCursor.getStringValue(this, key)

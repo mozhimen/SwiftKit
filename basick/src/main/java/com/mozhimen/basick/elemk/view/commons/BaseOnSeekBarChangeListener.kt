@@ -2,7 +2,7 @@ package com.mozhimen.basick.elemk.view.commons
 
 import android.widget.SeekBar
 
-open class BaseOnSeekBarChangeListener:SeekBar.OnSeekBarChangeListener {
+open class BaseOnSeekBarChangeListener : SeekBar.OnSeekBarChangeListener {
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
     }
 

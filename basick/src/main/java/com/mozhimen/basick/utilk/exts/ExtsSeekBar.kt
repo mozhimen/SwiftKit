@@ -1,27 +1,12 @@
 package com.mozhimen.basick.utilk.exts
 
 import android.widget.SeekBar
+import com.mozhimen.basick.utilk.view.bar.UtilKSeekBar
 
 fun SeekBar.setOnSeekBarChangeObserver(seekBarChangeListener: (progress: Int) -> Unit) {
-    setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-            seekBarChangeListener(progress)
-        }
-
-        override fun onStartTrackingTouch(seekBar: SeekBar) {}
-
-        override fun onStopTrackingTouch(seekBar: SeekBar) {}
-    })
+    UtilKSeekBar.setOnSeekBarChangeObserver(this, seekBarChangeListener)
 }
 
 fun SeekBar.setOnSeekBarFinishObserver(seekBarChangeListener: (progress: Int) -> Unit) {
-    setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-        override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {}
-
-        override fun onStartTrackingTouch(seekBar: SeekBar) {}
-
-        override fun onStopTrackingTouch(seekBar: SeekBar) {
-            seekBarChangeListener(progress)
-        }
-    })
+    UtilKSeekBar.setOnSeekBarFinishObserver(this, seekBarChangeListener)
 }

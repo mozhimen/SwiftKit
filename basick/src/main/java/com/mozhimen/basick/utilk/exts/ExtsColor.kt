@@ -15,7 +15,13 @@ import com.mozhimen.basick.utilk.graphics.UtilKColor
  * @return Int
  */
 fun String.colorStr2Int(): Int =
-    UtilKColor.colorStr2Int(this)
+    UtilKColor.colorStr2colorInt(this)
 
+/**
+ * 调整alpha通道
+ * @receiver Int
+ * @param factor Float
+ * @return Int
+ */
 fun Int.adjustAlpha(factor: Float) =
     UtilKColor.adjustAlpha(this, factor)

@@ -965,13 +965,13 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
                 public void onChange(Rect keyboardBounds, boolean isVisible) {
                     BasePopupHelper.this.onChange(keyboardBounds, isVisible);
                     if (!mPopupWindow.isShowing()) {
-                        UtilKView.safeRemoveGlobalLayoutListener(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
+                        UtilKView.safeRemoveOnGlobalLayoutObserver(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
                         return;
                     }
                 }
             });
         }
-        UtilKView.safeAddGlobalLayoutListener(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
+        UtilKView.safeAddOnGlobalLayoutObserver(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
         if (mLinkedTarget != null) {
             if (mLinkedViewLayoutChangeListenerWrapper == null) {
                 mLinkedViewLayoutChangeListenerWrapper = new LinkedViewLayoutChangeListenerWrapper(
@@ -1261,7 +1261,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
             mShowInfo.mAnchorView = null;
         }
         if (mGlobalLayoutListener != null) {
-            UtilKView.safeRemoveGlobalLayoutListener(mPopupWindow.getContext()
+            UtilKView.safeRemoveOnGlobalLayoutObserver(mPopupWindow.getContext()
                             .getWindow()
                             .getDecorView(),
                     mGlobalLayoutListener);

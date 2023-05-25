@@ -14,25 +14,29 @@ import com.mozhimen.basick.utilk.java.datatype.regular.UtilKVerifyUrl
  * @receiver String
  * @return Boolean
  */
-fun String.checkIP(): Boolean = UtilKVerifyUrl.checkIP(this)
+fun String.checkIP(): Boolean =
+    UtilKVerifyUrl.checkIP(this)
 
 /**
  * 域名是否合法
  * @receiver String
  * @return Boolean
  */
-fun String.checkDoMain(): Boolean = UtilKVerifyUrl.checkDoMain(this)
+fun String.checkDoMain(): Boolean =
+    UtilKVerifyUrl.checkDoMain(this)
 
 /**
  * 端口是否合法
  * @receiver String
  * @return Boolean
  */
-fun String.checkPort(): Boolean = UtilKVerifyUrl.checkPort(this)
+fun String.checkPort(): Boolean =
+    UtilKVerifyUrl.checkPort(this)
 
 /**
  * url是都合法
  * @receiver String
  * @return Boolean
  */
-fun String.checkUrl(): Boolean = UtilKVerifyUrl.checkUrl(this)
+fun String.checkUrl(): Boolean =
+    UtilKVerifyUrl.checkUrl(this)

@@ -30,9 +30,19 @@ inline fun <reified T> Activity.startContext(block: Intent.() -> Unit) where T :
     UtilKContextStart.startContext<T>(this, block)
 }
 
+/**
+ * 是否停止或被销毁
+ * @receiver Activity
+ * @return Boolean
+ */
 fun Activity.isFinishingOrDestroyed(): Boolean =
     UtilKActivity.isFinishingOrDestroyed(this)
 
+/**
+ * 在子线程运行
+ * @receiver AppCompatActivity
+ * @param block Function0<Unit>
+ */
 fun AppCompatActivity.runOnBackThread(block: () -> Unit) {
     UtilKActivity.runOnBackThread(this, block)
 }

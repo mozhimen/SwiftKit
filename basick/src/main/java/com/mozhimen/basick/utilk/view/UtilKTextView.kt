@@ -4,6 +4,8 @@ import android.graphics.Typeface
 import android.widget.TextView
 import androidx.annotation.IntRange
 import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.exts.getValue
+import com.mozhimen.basick.utilk.exts.toStringTrim
 
 /**
  * @ClassName UtilKViewText
@@ -37,5 +39,15 @@ object UtilKTextView {
         fontPathWithName: String = "fonts/iconfont.ttf"
     ) {
         textView.typeface = Typeface.createFromAsset(UtilKContext.getAssets(textView.context), fontPathWithName)
+    }
+
+    @JvmStatic
+    fun getValue(textView: TextView): String =
+        textView.text.toStringTrim()
+
+    @JvmStatic
+    fun getValueIfNotEmpty(textView: TextView, invoke: (value: String) -> Unit) {
+        val value = getValue(textView)
+        if (value.isNotEmpty()) invoke.invoke(value)
     }
 }

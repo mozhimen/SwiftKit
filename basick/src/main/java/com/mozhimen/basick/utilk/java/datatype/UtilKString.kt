@@ -17,6 +17,14 @@ import java.util.stream.Collectors
 object UtilKString {
     private const val TAG = "UtilKString>>>>>"
 
+    @JvmStatic
+    fun toStringTrim(charSequence: CharSequence): String =
+        charSequence.toString().trim()
+
+    @JvmStatic
+    fun toStringTrim(obj: Any): String =
+        obj.toString().trim()
+
     /**
      * 包含String
      * @param content String
@@ -37,9 +45,7 @@ object UtilKString {
     @JvmStatic
     fun isNotEmpty(vararg str: String): Boolean {
         str.forEach {
-            if (it.isEmpty()) {
-                return false
-            }
+            if (it.isEmpty()) return false
         }
         return true
     }
@@ -95,7 +101,7 @@ object UtilKString {
      */
     @JvmStatic
     fun isEmpty(str: CharSequence?): Boolean {
-        return str == null || str.isEmpty()
+        return str.isNullOrEmpty()
     }
 
     /**

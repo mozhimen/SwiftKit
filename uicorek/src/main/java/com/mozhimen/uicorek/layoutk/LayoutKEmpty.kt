@@ -5,10 +5,15 @@ import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.mozhimen.basick.utilk.exts.setIconFont
+import com.mozhimen.basick.utilk.exts.toGone
+import com.mozhimen.basick.utilk.exts.toVisible
+import com.mozhimen.basick.utilk.exts.toVisibleIf
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 
@@ -21,6 +26,7 @@ import com.mozhimen.uicorek.R
  */
 class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 
+    private lateinit var _bgView: View
     private var _imageResId: Int? = null
     private var _iconFont: String? = null
     private var _btnStr: String? = null
@@ -36,10 +42,8 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
     private lateinit var _helpView: TextView
 
     init {
-        if (!isInEditMode) {
-            initAttrs(attrs, defStyleAttr)
-            initView()
-        }
+        initAttrs(attrs, defStyleAttr)
+        initView()
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
@@ -59,67 +63,62 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
         orientation = VERTICAL
         gravity = Gravity.CENTER
 
-        LayoutInflater.from(context).inflate(R.layout.layoutk_empty, this, true)
+        _bgView = LayoutInflater.from(context).inflate(R.layout.layoutk_empty, this, true)
+        _iconView = _bgView.findViewById(R.id.layoutk_empty_icon_font)
+        _imageView = _bgView.findViewById(R.id.layoutk_empty_img)
+        _titleView = _bgView.findViewById(R.id.layoutk_empty_title)
+        _contentView = _bgView.findViewById(R.id.layoutk_empty_txt)
+        _helpView = _bgView.findViewById(R.id.layoutk_empty_help_icon_font)
+        _btn = _bgView.findViewById(R.id.layoutk_empty_btn)
 
-        _iconView = findViewById(R.id.layoutk_empty_icon_font)
-        _imageView = findViewById(R.id.layoutk_empty_img)
-        _titleView = findViewById(R.id.layoutk_empty_title)
-        _contentView = findViewById(R.id.layoutk_empty_txt)
-        _helpView = findViewById(R.id.layoutk_empty_help_icon_font)
-        _btn = findViewById(R.id.layoutk_empty_btn)
+        _iconFont?.let { setIcon(it) }
+        if (_imageResId != -1 && _imageResId != null) setImage(_imageResId!!)
+        _titleStr?.let { setTitle(it) }
+        _contentStr?.let { setContent(it) }
+        _helpIconFont?.let { setHelpAction(it) }
+        _btnStr?.let { setButton(it) }
+    }
 
-        _iconFont?.let {
-            setIcon(it)
-        }
-        if (_imageResId != -1) {
-            setImage(_imageResId)
-        }
-        _titleStr?.let {
-            setTitle(it)
-        }
-        _contentStr?.let {
-            setContent(it)
-        }
-        _helpIconFont?.let {
-            setHelpAction(it)
-        }
-        _btnStr?.let {
-            setButton(_btnStr)
-        }
+    fun applyBgView(invoke: View.() -> Unit) {
+        _bgView.invoke()
     }
 
     /**
      * 设置icon，需要在string.xml中定义 iconfont.ttf中的unicode码
      * @param iconStr String?
      */
-    fun setIcon(iconStr: String?) {
-        _iconView.visibility = if (iconStr != null && !TextUtils.isEmpty(iconStr)) {
+    fun setIcon(iconStr: String) {
+        if (!TextUtils.isEmpty(iconStr)) {
             _iconView.text = iconStr
             _iconView.setIconFont()
-            VISIBLE
-        } else GONE
+            _iconView.toVisible()
+        } else _iconView.toGone()
     }
 
     /**
      * 设置图片
      * @param resId Int
      */
-    fun setImage(resId: Int? = R.mipmap.layoutk_empty) {
-        _imageView.visibility = if (resId != null) {
+    fun setImage(resId: Int = R.mipmap.layoutk_empty) {
+        if (resId != null) {
             _imageView.setImageResource(resId)
-            VISIBLE
-        } else GONE
+            _imageView.toVisible()
+        } else _imageView.toGone()
+    }
+
+    fun applyImage(invoke: ImageView.() -> Unit) {
+        _imageView.invoke()
     }
 
     /**
      * 设置标题
      * @param title String?
      */
-    fun setTitle(title: String?) {
-        _titleView.visibility = if (title != null && !TextUtils.isEmpty(title)) {
+    fun setTitle(title: String) {
+        if (!TextUtils.isEmpty(title)) {
             _titleView.text = title
-            VISIBLE
-        } else GONE
+            _titleView.toVisible()
+        } else _titleView.toGone()
     }
 
     fun applyTitle(invoke: TextView.() -> Unit) {
@@ -130,11 +129,11 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 设置正文
      * @param content String?
      */
-    fun setContent(content: String?) {
-        _contentView.visibility = if (content != null && !TextUtils.isEmpty(content)) {
+    fun setContent(content: String) {
+        if (!TextUtils.isEmpty(content)) {
             _contentView.text = content
-            VISIBLE
-        } else GONE
+            _contentView.toVisible()
+        } else _contentView.toGone()
     }
 
     fun applyContent(invoke: TextView.() -> Unit) {
@@ -146,26 +145,24 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
      * @param iconStr String?
      * @param listener OnClickListener?
      */
-    fun setHelpAction(iconStr: String?, listener: OnClickListener? = null) {
-        _helpView.visibility = if (iconStr != null && !TextUtils.isEmpty(iconStr)) {
+    fun setHelpAction(iconStr: String, listener: OnClickListener? = null) {
+        if (!TextUtils.isEmpty(iconStr)) {
             _helpView.text = iconStr
             listener?.let { _helpView.setOnClickListener(it) }
-            VISIBLE
-        } else GONE
+            _helpView.toVisible()
+        } else _helpView.toGone()
     }
 
     /**
      * 设置按钮
      * @param text String?
      */
-    fun setButton(text: String?, listener: OnClickListener? = null) {
-        _btn.visibility = if (text != null && !TextUtils.isEmpty(text)) {
+    fun setButton(text: String, listener: OnClickListener? = null) {
+        if (!TextUtils.isEmpty(text)) {
             _btn.text = text
             listener?.let { _btn.setOnClickListener(it) }
-            VISIBLE
-        } else {
-            GONE
-        }
+            _btn.toVisible()
+        } else _btn.toGone()
     }
 
     fun applyButton(invoke: Button.() -> Unit) {

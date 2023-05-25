@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@android:color/white"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -70,13 +69,17 @@
             android:gravity="center"
             android:textColor="@color/ui_blue_650"
             android:textSize="14sp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/layoutk_empty_btn"
-        style="@style/LayoutKEmpty_Style_BtnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/ui_gray_200"
         android:text="刷新"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
         android:visibility="gone"
         tools:ignore="HardcodedText"
         tools:visibility="visible" />

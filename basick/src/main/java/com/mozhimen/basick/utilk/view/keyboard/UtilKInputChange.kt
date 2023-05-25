@@ -117,7 +117,7 @@ object UtilKInputChange {
                 listener.onChange(_keyboardRect, isVisible)
             }
         }
-        UtilKView.safeAddGlobalLayoutListener(decorView, onGlobalLayoutListener)
+        UtilKView.safeAddOnGlobalLayoutObserver(decorView, onGlobalLayoutListener)
         return onGlobalLayoutListener
     }
 

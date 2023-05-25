@@ -2,8 +2,12 @@ package com.mozhimen.basick.utilk.view
 
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.ColorInt
+import com.mozhimen.basick.utilk.exts.adjustAlpha
+import com.mozhimen.basick.utilk.exts.getContrastColor
 import com.mozhimen.basick.utilk.exts.showToastOnMain
 
 /**
@@ -20,30 +24,39 @@ object UtilKImageView {
      * @param drawable Drawable
      */
     @JvmStatic
-    fun fitImage(
-        imageView: ImageView,
-        drawable: Drawable
-    ) {
+    fun fitImage(imageView: ImageView, drawable: Drawable) {
         val layoutParams = imageView.layoutParams ?: ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         layoutParams.height = (drawable.intrinsicHeight / (drawable.intrinsicWidth * 1.0f / layoutParams.width)).toInt()
         imageView.layoutParams = layoutParams
     }
 
     @JvmStatic
-    fun setColorFilter(
-        imageView: ImageView,
-        colorRes: Int
-    ) {
-        imageView.setColorFilter(colorRes, PorterDuff.Mode.SRC_IN)
+    fun applyColorFilter(imageView: ImageView, @ColorInt colorInt: Int) {
+        imageView.setColorFilter(colorInt, PorterDuff.Mode.SRC_IN)
     }
 
     @JvmStatic
     fun toastContentDescriptionOnLongClick(imageView: ImageView) {
-        imageView.setOnLongClickListener { toastContentDescription(imageView);true }
+        imageView.setOnLongClickListener {
+            toastContentDescription(imageView);true
+        }
     }
 
     @JvmStatic
     fun toastContentDescription(imageView: ImageView) {
         imageView.contentDescription?.toString()?.showToastOnMain()
+    }
+
+    @JvmStatic
+    fun setFillWithStroke(imageView: ImageView, @ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
+        GradientDrawable().apply {
+            shape = if (isDrawRectangle) GradientDrawable.RECTANGLE else GradientDrawable.OVAL
+            setColor(fillColorInt)
+            imageView.background = this
+
+            if (backgroundColorInt == fillColorInt || fillColorInt == -2 && backgroundColorInt == -1) {
+                setStroke(2, backgroundColorInt.getContrastColor().adjustAlpha(0.5f))
+            }
+        }
     }
 }

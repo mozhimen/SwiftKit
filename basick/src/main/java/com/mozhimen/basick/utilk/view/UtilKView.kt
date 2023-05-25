@@ -84,7 +84,7 @@ object UtilKView {
      * @param listener OnGlobalLayoutListener
      */
     @JvmStatic
-    fun safeAddGlobalLayoutListener(view: View, listener: OnGlobalLayoutListener) {
+    fun safeAddOnGlobalLayoutObserver(view: View, listener: OnGlobalLayoutListener) {
         try {
             view.viewTreeObserver.removeOnGlobalLayoutListener(listener)
             view.viewTreeObserver.addOnGlobalLayoutListener(listener)
@@ -94,12 +94,13 @@ object UtilKView {
         }
     }
 
+    @JvmStatic
     fun setOnGlobalLayoutObserver(view: View, callback: () -> Unit) {
         view.viewTreeObserver?.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 if (view.viewTreeObserver != null) {
                     view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    callback()
+                    callback.invoke()
                 }
             }
         })
@@ -111,7 +112,7 @@ object UtilKView {
      * @param listener OnGlobalLayoutListener?
      */
     @JvmStatic
-    fun safeRemoveGlobalLayoutListener(view: View, listener: OnGlobalLayoutListener?) {
+    fun safeRemoveOnGlobalLayoutObserver(view: View, listener: OnGlobalLayoutListener?) {
         try {
             view.viewTreeObserver.removeOnGlobalLayoutListener(listener)
         } catch (e: Exception) {
@@ -126,11 +127,7 @@ object UtilKView {
      */
     @JvmStatic
     fun requestFocus(view: View) {
-        if (view.isInTouchMode) {
-            view.requestFocusFromTouch()
-        } else {
-            view.requestFocus()
-        }
+        if (view.isInTouchMode) view.requestFocusFromTouch() else view.requestFocus()
     }
 
     /**
@@ -328,25 +325,7 @@ object UtilKView {
         resizeSize(view, size, size)
     }
 
-    @JvmStatic
-    fun toVisible(view: View) {
-        view.visibility = View.VISIBLE
-    }
-
-    @JvmStatic
-    fun toGone(view: View) {
-        view.visibility = View.GONE
-    }
-
-    @JvmStatic
-    fun toGoneIf(view: View, boolean: Boolean) {
-        toVisibleIf(view, !boolean)
-    }
-
-    @JvmStatic
-    fun toVisibleIf(view: View, boolean: Boolean) {
-        if (boolean) toVisible(view) else toGone(view)
-    }
+    /////////////////////////////////////////////////
 
     @JvmStatic
     fun isVisible(view: View): Boolean =
@@ -360,4 +339,64 @@ object UtilKView {
     fun isGone(view: View): Boolean =
         view.visibility == View.GONE
 
+    /////////////////////////////////////////////////
+
+    @JvmStatic
+    fun toVisible(view: View) {
+        if (!isVisible(view)) view.visibility = View.VISIBLE
+    }
+
+    @JvmStatic
+    fun toInVisible(view: View) {
+        if (!isInvisible(view)) view.visibility = View.INVISIBLE
+    }
+
+    @JvmStatic
+    fun toGone(view: View) {
+        if (!isGone(view)) view.visibility = View.GONE
+    }
+
+    /////////////////////////////////////////////////
+
+    @JvmStatic
+    fun toVisibleIfElseGone(view: View, invoke: () -> Boolean) {
+        if (invoke.invoke()) toVisible(view) else toGone(view)
+    }
+
+    @JvmStatic
+    fun toVisibleIfElseGone(view: View, boolean: Boolean) {
+        if (boolean) toVisible(view) else toGone(view)
+    }
+
+    /////////////////////////////////////////////////
+
+    @JvmStatic
+    fun toVisibleIf(view: View, invoke: () -> Boolean) {
+        if (invoke.invoke()) toVisible(view)
+    }
+
+    @JvmStatic
+    fun toVisibleIf(view: View, boolean: Boolean) {
+        if (boolean) toVisible(view)
+    }
+
+    @JvmStatic
+    fun toInVisibleIf(view: View, invoke: () -> Boolean) {
+        if (invoke.invoke()) toInVisible(view)
+    }
+
+    @JvmStatic
+    fun toInVisibleIf(view: View, boolean: Boolean) {
+        if (boolean) toInVisible(view)
+    }
+
+    @JvmStatic
+    fun toGoneIf(view: View, invoke: () -> Boolean) {
+        if (invoke.invoke()) toGone(view)
+    }
+
+    @JvmStatic
+    fun toGoneIf(view: View, boolean: Boolean) {
+        if (boolean) toGone(view)
+    }
 }

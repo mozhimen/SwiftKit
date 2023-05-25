@@ -6,7 +6,7 @@ import android.graphics.Color
 import android.util.Log
 import com.mozhimen.abilityk.scank.cons.EColorHSV
 import com.mozhimen.basick.utilk.exts.drawable2Bitmap
-import com.mozhimen.basick.utilk.exts.t2JsonMoshi
+import com.mozhimen.basick.utilk.exts.moshiT2Json
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.res.UtilKRes
 import java.io.FileInputStream
@@ -90,7 +90,7 @@ object ScanKHSV {
                     }
                 }
             }
-            Log.d(TAG, "colorAnalyze: colorMap ${_colorMap.t2JsonMoshi()}")
+            Log.d(TAG, "colorAnalyze: colorMap ${_colorMap.moshiT2Json()}")
             return colorPercentage(rows * cols)
         } catch (e: Exception) {
             LogK.et(TAG, "colorAnalyze Exception $e")

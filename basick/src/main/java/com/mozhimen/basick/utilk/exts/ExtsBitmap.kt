@@ -50,5 +50,10 @@ fun Drawable.drawable2Bitmap(width: Int = this.intrinsicWidth, height: Int = thi
 fun Bitmap.cropBitmap(width: Int, height: Int, x: Int, y: Int): Bitmap =
     UtilKBitmapDeal.cropBitmap(this, width, height, x, y)
 
+/**
+ * 获取压缩格式
+ * @receiver String
+ * @return CompressFormat
+ */
 fun String.getCompressFormat(): CompressFormat =
     UtilKBitmapCompress.getCompressFormat(this)

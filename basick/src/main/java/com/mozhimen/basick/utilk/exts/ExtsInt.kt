@@ -1,10 +1,9 @@
 package com.mozhimen.basick.utilk.exts
 
-import android.graphics.Color
+import com.mozhimen.basick.utilk.graphics.UtilKColor
 
-fun Int.getContrastColor(): Int {
-    val y = (299 * Color.red(this) + 587 * Color.green(this) + 114 * Color.blue(this)) / 1000
-    return if (y >= 149 && this != Color.BLACK) 0xFF333333.toInt() else Color.WHITE
-}
+fun Int.getContrastColor(): Int =
+    UtilKColor.getContrastColor(this)
 
-fun Int.toHex() = String.format("#%06X", 0xFFFFFF and this).toUpperCase()
+fun Int.colorInt2HexStr() =
+    UtilKColor.colorInt2HexStr(this)

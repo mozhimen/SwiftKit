@@ -30,11 +30,19 @@ fun TextView.setIconFont(iconFont: String = "icons/iconfont.ttf") {
     UtilKTextView.setIconFont(this, iconFont)
 }
 
+/**
+ * 获得文本
+ * @receiver TextView
+ * @return String
+ */
 fun TextView.getValue(): String =
-    text.toStringTrim()
+    UtilKTextView.getValue(this)
 
-fun TextView.valueIfNotEmpty(invoke: (value: String) -> Unit) {
-    if (getValue().isNotEmpty()) {
-        invoke.invoke(getValue())
-    }
+/**
+ * 获得文本如果不为空
+ * @receiver TextView
+ * @param invoke Function1<[@kotlin.ParameterName] String, Unit>
+ */
+fun TextView.getValueIfNotEmpty(invoke: (value: String) -> Unit) {
+    UtilKTextView.getValueIfNotEmpty(this, invoke)
 }
