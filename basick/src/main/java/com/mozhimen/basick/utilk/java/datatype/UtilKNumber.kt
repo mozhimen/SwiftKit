@@ -26,88 +26,109 @@ object UtilKNumber {
         return Character.getNumericValue(ascii)
     }
 
-    /**
-     * 保留四位
-     * @param value Double
-     * @return Double
-     */
+    ////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun keepFourDigits(value: Double): Double {
+    fun keepFourDigits(value: Double): Double =
+        keepFourDigitsStr(value).toDouble()
+
+    @JvmStatic
+    fun keepFourDigitsStr(value: Double): String {
         val format = DecimalFormat("#.####")
         //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
         format.roundingMode = RoundingMode.FLOOR
-        return format.format(value).toDouble()
+        return format.format(value)
     }
 
-    /**
-     * 保留四位
-     * @param value Double
-     * @return Double
-     */
+    ////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun keepFourDigits(value: Float): Float {
+    fun keepFourDigits(value: Float): Float =
+        keepFourDigitsStr(value).toFloat()
+
+    @JvmStatic
+    fun keepFourDigitsStr(value: Float): String {
         val format = DecimalFormat("#.####")
         //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
         format.roundingMode = RoundingMode.FLOOR
-        return format.format(value).toFloat()
+        return format.format(value)
     }
 
-    /**
-     * 保留三位
-     * @param value Double
-     * @return Double
-     */
+    ////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun keepThreeDigits(value: Double): Double {
+    fun keepThreeDigits(value: Double): Double =
+        keepThreeDigitsStr(value).toDouble()
+
+    @JvmStatic
+    fun keepThreeDigitsStr(value: Double): String {
         val format = DecimalFormat("#.###")
         //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
         format.roundingMode = RoundingMode.FLOOR
-        return format.format(value).toDouble()
+        return format.format(value)
     }
 
-    /**
-     * 保留三位
-     * @param value Double
-     * @return Double
-     */
+    ////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun keepThreeDigits(value: Float): Float {
+    fun keepThreeDigits(value: Float): Float =
+        keepThreeDigitsStr(value).toFloat()
+
+    @JvmStatic
+    fun keepThreeDigitsStr(value: Float): String {
         val format = DecimalFormat("#.###")
         //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
         format.roundingMode = RoundingMode.FLOOR
-        return format.format(value).toFloat()
+        return format.format(value)
     }
 
-    /**
-     * 保留两位
-     * @param value Double
-     * @return Double
-     */
+    ////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun keepTwoDigits(value: Double): Double {
+    fun keepTwoDigits(value: Double): Double =
+        keepTwoDigitsStr(value).toDouble()
+
+    @JvmStatic
+    fun keepTwoDigitsStr(value: Double): String {
         val format = DecimalFormat("#.##")
         //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
         format.roundingMode = RoundingMode.FLOOR
-        return format.format(value).toDouble()
+        return format.format(value)
     }
 
+    ////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun keepTwoDigits(value: Float): Float {
+    fun keepTwoDigits(value: Float): Float =
+        keepTwoDigitsStr(value).toFloat()
+
+    @JvmStatic
+    fun keepTwoDigitsStr(value: Float): String {
         val format = DecimalFormat("#.##")
         //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
         format.roundingMode = RoundingMode.FLOOR
-        return format.format(value).toFloat()
+        return format.format(value)
     }
 
-    @JvmStatic
-    fun keepOneDigits(value: Double): Double {
-        return keepOneDigitsStr(value).toDouble()
-    }
+    ////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun keepOneDigits(value: Float): Float {
-        return keepOneDigitsStr(value).toFloat()
+    fun keepOneDigits(value: Double): Double =
+        keepOneDigitsStr(value).toDouble()
+
+    @JvmStatic
+    fun keepOneDigitsStr(value: Double): String {
+        val format = DecimalFormat("#.#")
+        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
+        format.roundingMode = RoundingMode.FLOOR
+        return format.format(value)
     }
+
+    ////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun keepOneDigits(value: Float): Float =
+        keepOneDigitsStr(value).toFloat()
 
     @JvmStatic
     fun keepOneDigitsStr(value: Float): String {
@@ -117,13 +138,7 @@ object UtilKNumber {
         return format.format(value)
     }
 
-    @JvmStatic
-    fun keepOneDigitsStr(value: Double): String {
-        val format = DecimalFormat("#.#")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
-        return format.format(value)
-    }
+    ////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun normalize(value: Long, min: Long, max: Long): Long {

@@ -12,32 +12,66 @@ import com.mozhimen.basick.utilk.java.datatype.UtilKNumber
 fun Double.keepFourDigits(): Double =
     UtilKNumber.keepFourDigits(this)
 
+fun Double.keepFourDigitsStr(): String =
+    UtilKNumber.keepFourDigitsStr(this)
+
+/////////////////////////////////////////////////////
+
 fun Float.keepFourDigits(): Float =
     UtilKNumber.keepFourDigits(this)
+
+fun Float.keepFourDigitsStr(): String =
+    UtilKNumber.keepFourDigitsStr(this)
+
+/////////////////////////////////////////////////////
 
 fun Double.keepThreeDigits(): Double =
     UtilKNumber.keepThreeDigits(this)
 
+fun Double.keepThreeDigitsStr(): String =
+    UtilKNumber.keepThreeDigitsStr(this)
+
+/////////////////////////////////////////////////////
+
 fun Float.keepThreeDigits(): Float =
     UtilKNumber.keepThreeDigits(this)
+
+fun Float.keepThreeDigitsStr(): String =
+    UtilKNumber.keepThreeDigitsStr(this)
+
+/////////////////////////////////////////////////////
 
 fun Double.keepTwoDigits(): Double =
     UtilKNumber.keepTwoDigits(this)
 
+fun Double.keepTwoDigitsStr(): String =
+    UtilKNumber.keepTwoDigitsStr(this)
+
+/////////////////////////////////////////////////////
+
 fun Float.keepTwoDigits(): Float =
     UtilKNumber.keepTwoDigits(this)
 
-fun Double.keepOneDigitsStr(): String =
-    UtilKNumber.keepOneDigitsStr(this)
+fun Float.keepTwoDigitsStr(): String =
+    UtilKNumber.keepTwoDigitsStr(this)
 
-fun Float.keepOneDigitsStr(): String =
-    UtilKNumber.keepOneDigitsStr(this)
+/////////////////////////////////////////////////////
 
 fun Double.keepOneDigits(): Double =
     UtilKNumber.keepOneDigits(this)
 
+fun Double.keepOneDigitsStr(): String =
+    UtilKNumber.keepOneDigitsStr(this)
+
+/////////////////////////////////////////////////////
+
 fun Float.keepOneDigits(): Float =
     UtilKNumber.keepOneDigits(this)
+
+fun Float.keepOneDigitsStr(): String =
+    UtilKNumber.keepOneDigitsStr(this)
+
+/////////////////////////////////////////////////////
 
 fun Long.normalize(min: Long, max: Long): Long =
     UtilKNumber.normalize(this, min, max)
