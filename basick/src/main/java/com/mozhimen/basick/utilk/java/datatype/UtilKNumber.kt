@@ -180,6 +180,8 @@ object UtilKNumber {
         }
     }
 
+    ////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun percent(value: Double, start: Double, end: Double): Double {
         if (start == end) return 0.0

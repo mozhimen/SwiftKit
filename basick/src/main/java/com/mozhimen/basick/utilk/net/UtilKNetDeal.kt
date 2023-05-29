@@ -1,9 +1,6 @@
 package com.mozhimen.basick.utilk.net
 
 import android.annotation.SuppressLint
-import android.os.Process
-import com.mozhimen.basick.cachek.cacheksp.CacheKSP
-import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.exts.et
 import java.security.SecureRandom
 import java.security.cert.X509Certificate

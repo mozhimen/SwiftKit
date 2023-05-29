@@ -1,8 +1,11 @@
 package com.mozhimen.uicorek.viewk.helpers
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
+import androidx.annotation.StyleRes
 import androidx.databinding.BindingAdapter
 import com.mozhimen.basick.utilk.view.UtilKView
 
@@ -32,6 +35,26 @@ object ViewKBindingAdapter {
             view.setBackgroundColor(loadBackgroundColorWhen_statusTrue)
         } else {
             view.setBackgroundColor(loadBackgroundColorWhen_statusFalse)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["loadBackgroundResourceWhen", "loadBackgroundResourceWhen_statusTrue", "loadBackgroundResourceWhen_statusFalse"], requireAll = true)
+    fun loadBackgroundResourceWhen(view: View, boolean: Boolean,@DrawableRes loadBackgroundResourceWhen_statusTrue: Int,@DrawableRes loadBackgroundResourceWhen_statusFalse: Int) {
+        if (boolean) {
+            view.setBackgroundResource(loadBackgroundResourceWhen_statusTrue)
+        } else {
+            view.setBackgroundResource(loadBackgroundResourceWhen_statusFalse)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["loadBackgroundDrawableWhen", "loadBackgroundDrawableWhen_statusTrue", "loadBackgroundDrawableWhen_statusFalse"], requireAll = true)
+    fun loadBackgroundDrawableWhen(view: View, boolean: Boolean, loadBackgroundDrawableWhen_statusTrue: Drawable, loadBackgroundDrawableWhen_statusFalse: Drawable) {
+        if (boolean) {
+            view.setBackgroundDrawable(loadBackgroundDrawableWhen_statusTrue)
+        } else {
+            view.setBackgroundDrawable(loadBackgroundDrawableWhen_statusFalse)
         }
     }
 }
