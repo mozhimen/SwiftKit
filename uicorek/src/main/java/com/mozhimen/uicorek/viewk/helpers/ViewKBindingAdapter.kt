@@ -40,7 +40,7 @@ object ViewKBindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["loadBackgroundResourceWhen", "loadBackgroundResourceWhen_statusTrue", "loadBackgroundResourceWhen_statusFalse"], requireAll = true)
-    fun loadBackgroundResourceWhen(view: View, boolean: Boolean,@DrawableRes loadBackgroundResourceWhen_statusTrue: Int,@DrawableRes loadBackgroundResourceWhen_statusFalse: Int) {
+    fun loadBackgroundResourceWhen(view: View, boolean: Boolean, @DrawableRes loadBackgroundResourceWhen_statusTrue: Int, @DrawableRes loadBackgroundResourceWhen_statusFalse: Int) {
         if (boolean) {
             view.setBackgroundResource(loadBackgroundResourceWhen_statusTrue)
         } else {
