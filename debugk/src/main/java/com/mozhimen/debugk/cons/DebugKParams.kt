@@ -9,6 +9,8 @@ import com.mozhimen.basick.utilk.device.UtilKDevice
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.net.UtilKNetConn
 import com.mozhimen.basick.utilk.os.UtilKBuild
+import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar
+import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import com.mozhimen.debugk.BuildConfig
 import com.mozhimen.debugk.annors.ADebugKParams
 
@@ -165,7 +167,12 @@ class DebugKParams {
     @ADebugKParams("屏幕密度dp")
     fun screenDensityDpi(): String = UtilKScreen.getScreenDensityDpi().toString()
 
+    @ADebugKParams("状态栏高度")
+    fun screenStatusBarHeight(): String = UtilKStatusBar.getStatusBarHeight().toString()
+
+    @ADebugKParams("导航栏高度")
+    fun screenNavigationBarHeight(): String = UtilKNavigationBar.getNavigationBarHeight().toString()
+
     @ADebugKParams("屏幕竖屏")
     fun screenIsPortrait(): String = if (UtilKScreen.isScreenPortrait()) "是" else "否"
-
 }

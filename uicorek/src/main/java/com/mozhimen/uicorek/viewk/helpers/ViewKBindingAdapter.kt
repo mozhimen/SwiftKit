@@ -52,9 +52,9 @@ object ViewKBindingAdapter {
     @BindingAdapter(value = ["loadBackgroundDrawableWhen", "loadBackgroundDrawableWhen_statusTrue", "loadBackgroundDrawableWhen_statusFalse"], requireAll = true)
     fun loadBackgroundDrawableWhen(view: View, boolean: Boolean, loadBackgroundDrawableWhen_statusTrue: Drawable, loadBackgroundDrawableWhen_statusFalse: Drawable) {
         if (boolean) {
-            view.setBackgroundDrawable(loadBackgroundDrawableWhen_statusTrue)
+            view.background = loadBackgroundDrawableWhen_statusTrue
         } else {
-            view.setBackgroundDrawable(loadBackgroundDrawableWhen_statusFalse)
+            view.background = loadBackgroundDrawableWhen_statusFalse
         }
     }
 }

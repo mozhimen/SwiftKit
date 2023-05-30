@@ -11,7 +11,7 @@ import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObse
  * @Date 2023/4/16 22:40
  * @Version 1.0
  */
-class RegisterDelegate<T>() : BaseWakeBefDestroyLifecycleObserver() {
+class ResultLauncherDelegate<T>() : BaseWakeBefDestroyLifecycleObserver() {
     private var _resultLauncher: ActivityResultLauncher<T>? = null
 
     fun getResultLauncher(): ActivityResultLauncher<T>? =

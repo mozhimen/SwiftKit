@@ -68,6 +68,10 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKResSync(): MResultIST<T?> {
                 Log.e(NetKHelper.TAG, "asNetKResSync: Error code ${netKThrowable.code} message ${netKThrowable.message}")
                 res = MResultIST(netKThrowable.code, netKThrowable.message, null)
             }
+
+            else -> {
+                res = MResultIST(CResCode.UNKNOWN, "result is error", null)
+            }
         }
     }
     return res
