@@ -32,7 +32,7 @@ class NetKHttpViewModel : BaseViewModel() {
     fun getRealtimeWeatherCoroutine() {
         val time = System.currentTimeMillis()
         viewModelScope.launch(Dispatchers.IO) {
-            NetKHelper.createFlow { ApiFactory.api.getRealTimeWeatherCoroutine("121.321504,31.194874") }.asNetKRes(
+            NetKHelper.createFlow { ApiFactory.apis.getRealTimeWeatherCoroutine("121.321504,31.194874") }.asNetKRes(
                 onSuccess = { data ->
                     uiWeather2.postValue(data.result.realtime.temperature.toString() + " ${System.currentTimeMillis() - time}")
                 }, onFail = { code, msg ->
@@ -44,7 +44,7 @@ class NetKHttpViewModel : BaseViewModel() {
     suspend fun getRealtimeWeatherCoroutine1(): String = suspendCancellableCoroutine { coroutine ->
         viewModelScope.launch(Dispatchers.IO) {
             val time = System.currentTimeMillis()
-            NetKHelper.createFlow { ApiFactory.api.getRealTimeWeatherCoroutine("121.321504,31.194874") }.asNetKRes(
+            NetKHelper.createFlow { ApiFactory.apis.getRealTimeWeatherCoroutine("121.321504,31.194874") }.asNetKRes(
                 onSuccess = { data ->
                     coroutine.resume(data.result.realtime.temperature.toString() + " ${System.currentTimeMillis() - time}")
                 }, onFail = { code, msg ->
@@ -54,6 +54,6 @@ class NetKHttpViewModel : BaseViewModel() {
     }
 
     suspend fun getRealtimeWeatherCoroutineSync(): MResultIST<Weather?> {
-        return NetKHelper.createFlow { ApiFactory.api.getRealTimeWeatherCoroutine("121.321504,31.194874") }.asNetKResSync()
+        return NetKHelper.createFlow { ApiFactory.apis.getRealTimeWeatherCoroutine("121.321504,31.194874") }.asNetKResSync()
     }
 }

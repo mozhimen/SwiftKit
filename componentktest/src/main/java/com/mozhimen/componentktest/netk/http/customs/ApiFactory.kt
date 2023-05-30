@@ -16,9 +16,14 @@ import com.mozhimen.componentk.netk.http.NetKHttp
 object ApiFactory {
     private val _baseUrl = "https://api.caiyunapp.com/v2.5/cIecnVlovchAFYIk/"
 
-    val netk = NetKHttp(_baseUrl)
+    val netKHttp = NetKHttp(_baseUrl)
 
-    val api = netk.create(Apis::class.java)
+    val apis: Apis = netKHttp.create(Apis::class.java)
+
+    //示例
+    val apis1: Apis = netKHttp.create()
+
+    /////////////////////////////////////////////////////////////////
 
 //    private val _baseUrl get() = Config.restfulSP.baseUrl
 //

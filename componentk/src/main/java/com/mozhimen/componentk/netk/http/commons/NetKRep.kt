@@ -7,7 +7,7 @@ package com.mozhimen.componentk.netk.http.commons
  * @Date 2022/10/22 18:42
  * @Version 1.0
  */
-open class NetKRep<out T> {
+sealed class NetKRep<out T> {
     object Uninitialized : NetKRep<Nothing>()
 
     object Loading : NetKRep<Nothing>()

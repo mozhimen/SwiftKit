@@ -26,6 +26,8 @@ object UtilKViewDataBinding {
             getDeclaredMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java).invoke(null, inflater, container, false) as VB
         } ?: throw Exception("inflate fragment vb fail!")
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
 //    fun <VM : ViewDataBinding> ComponentActivity.createViewModel(position: Int): VM {
 //        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<*>>()
 //        val viewModel = vbClass[position] as Class<VM>
