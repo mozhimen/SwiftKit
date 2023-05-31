@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.device.UtilKDevice
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKBuild
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
-import com.mozhimen.basick.utilk.device.UtilKDate
+import com.mozhimen.basick.utilk.os.UtilKDate
 import com.mozhimen.basick.utilk.os.UtilKPath
 import java.io.*
 import java.util.*

@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.logk.mos
 
-import com.mozhimen.basick.utilk.device.UtilKDate
+import com.mozhimen.basick.utilk.os.UtilKDate
 import com.mozhimen.basick.utilk.log.cons.CLogType
 
 /**

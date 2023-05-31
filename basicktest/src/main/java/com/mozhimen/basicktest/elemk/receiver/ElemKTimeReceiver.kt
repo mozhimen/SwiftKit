@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.elemk.receiver
 import android.util.Log
 import com.mozhimen.basick.elemk.receiver.bases.BaseTimeReceiver
 import com.mozhimen.basick.elemk.receiver.commons.ITimeReceiverListener
-import com.mozhimen.basick.utilk.device.UtilKDate
+import com.mozhimen.basick.utilk.os.UtilKDate
 
 
 /**

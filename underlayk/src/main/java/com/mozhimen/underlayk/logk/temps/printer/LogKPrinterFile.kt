@@ -3,10 +3,7 @@ package com.mozhimen.underlayk.logk.temps.printer
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.mos.MLogK
-import com.mozhimen.basick.utilk.device.UtilKDate
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
-import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.os.UtilKPath
 import java.io.BufferedWriter

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.device
+package com.mozhimen.basick.utilk.os
 
 import android.util.Log
 import java.lang.Exception
