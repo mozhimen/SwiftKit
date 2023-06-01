@@ -8,12 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import com.mozhimen.basick.utilk.exts.setIconFont
-import com.mozhimen.basick.utilk.exts.toGone
-import com.mozhimen.basick.utilk.exts.toVisible
-import com.mozhimen.basick.utilk.exts.toVisibleIf
+import com.mozhimen.basick.utilk.view.setIconFont
+import com.mozhimen.basick.utilk.view.toGone
+import com.mozhimen.basick.utilk.view.toVisible
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 

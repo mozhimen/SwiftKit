@@ -9,9 +9,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import coil.load
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
-import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.setIconFont
-import com.mozhimen.basick.utilk.exts.resizeSize
+import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.view.resizeSize
+import com.mozhimen.basick.utilk.view.setIconFont
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.bottom.cons.ETabBottomType
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom

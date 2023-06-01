@@ -5,8 +5,8 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.util.Log
-import com.mozhimen.basick.utilk.exts.et
-import com.mozhimen.basick.utilk.exts.getFilenameExtension
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
 import java.io.ByteArrayOutputStream
 import kotlin.math.roundToInt
@@ -20,8 +20,7 @@ import kotlin.math.sqrt
  * @Date 2023/1/4 14:35
  * @Version 1.0
  */
-object UtilKBitmapCompress {
-    private const val TAG = "UtilKBitmapCompress>>>>>"
+object UtilKBitmapCompress : BaseUtilK() {
 
     /**
      * 压缩质量

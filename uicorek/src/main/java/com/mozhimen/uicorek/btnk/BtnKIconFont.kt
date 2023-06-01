@@ -3,7 +3,6 @@ package com.mozhimen.uicorek.btnk
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatButton
-import com.mozhimen.basick.utilk.exts.setIconFont
 import com.mozhimen.basick.utilk.view.UtilKTextView
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.commons.IUicoreK

@@ -3,7 +3,7 @@ package com.mozhimen.basicktest
 import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.startContext
+import com.mozhimen.basick.utilk.content.startContext
 import com.mozhimen.basicktest.animk.AnimKActivity
 import com.mozhimen.basicktest.cachek.CacheKActivity
 import com.mozhimen.basicktest.stackk.StackKActivity

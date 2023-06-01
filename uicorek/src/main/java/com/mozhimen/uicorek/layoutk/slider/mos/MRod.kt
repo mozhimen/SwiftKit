@@ -2,8 +2,7 @@ package com.mozhimen.uicorek.layoutk.slider.mos
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.utilk.exts.normalize
+import com.mozhimen.basick.utilk.java.datatype.normalize
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.helpers.AttrsParser
 

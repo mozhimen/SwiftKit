@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.java.datatype.regular
 
-
 /**
  * @ClassName UtilKVerifyString
  * @Description TODO
@@ -8,6 +7,21 @@ package com.mozhimen.basick.utilk.java.datatype.regular
  * @Date 2022/12/19 11:08
  * @Version 1.0
  */
+fun String.outNumber(): String =
+    UtilKFilter.outNumber(this)
+
+fun String.outAlphabet(): String =
+    UtilKFilter.outAlphabet(this)
+
+fun String.outChinese(): String =
+    UtilKFilter.outChinese(this)
+
+fun String.outNAC(): String =
+    UtilKFilter.outNAC(this)
+
+fun String.outLength(endIndex: Int): String =
+    UtilKFilter.outLength(this, endIndex)
+
 object UtilKFilter {
     /**
      * 过滤出数字

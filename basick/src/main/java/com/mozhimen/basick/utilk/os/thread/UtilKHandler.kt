@@ -12,6 +12,22 @@ import android.os.Message
  * @Date 2022/6/12 10:31
  * @Version 1.0
  */
+fun Handler.applyPostDelayed(delayMills: Long, runnable: Runnable) {
+    UtilKHandler.applyPostDelayed(this, delayMills, runnable)
+}
+
+fun Handler.sendMsgAtFrontOfQueue(runnable: Runnable) {
+    UtilKHandler.sendMsgAtFrontOfQueue(this, runnable)
+}
+
+fun Handler.removeCbs(runnable: Runnable) {
+    UtilKHandler.removeCbs(this, runnable)
+}
+
+fun Handler.removeAllCbsAndMsgs() {
+    UtilKHandler.removeAllCbsAndMsgs(this)
+}
+
 object UtilKHandler {
     /**
      * postDelay
@@ -20,7 +36,7 @@ object UtilKHandler {
      * @param runnable Runnable
      */
     @JvmStatic
-    fun postDelayed(handler: Handler, delayMills: Long, runnable: Runnable) {
+    fun applyPostDelayed(handler: Handler, delayMills: Long, runnable: Runnable) {
         handler.postDelayed(runnable, delayMills)
     }
 

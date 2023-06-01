@@ -20,8 +20,6 @@ import com.mozhimen.componentk.mediak.status.cons.EPlayStatus
 import com.mozhimen.componentk.mediak.audio.mos.MAudioK
 import com.mozhimen.componentk.mediak.audio.mos.MAudioKProgress
 import com.mozhimen.componentk.mediak.status.MediaKStatusPlayer
-import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
-import kotlin.math.abs
 
 /**
  * @ClassName AudioPlayer

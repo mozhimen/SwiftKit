@@ -7,6 +7,21 @@ package com.mozhimen.basick.utilk.java.datatype
  * @Date 2022/11/27 0:24
  * @Version 1.0
  */
+fun <T, I> Iterable<T>.joinElement2List(predicate: (T) -> I): List<I> =
+    UtilKCollection.joinElement2List(this, predicate)
+
+fun <T, I> Iterable<T>.joinElement2ListIgnoreRepeat(predicate: (T) -> I): List<I> =
+    UtilKCollection.joinElement2ListIgnoreRepeat(this, predicate)
+
+fun <T, I> Iterable<T>.joinElement2ListIgnoreNull(predicate: (T?) -> I): List<I> =
+    UtilKCollection.joinElement2ListIgnoreNull(this, predicate)
+
+fun <T> Iterable<T>.getIndexFirst(predicate: (T) -> Boolean): Int? =
+    UtilKCollection.getIndexFirst(this, predicate)
+
+fun <T> Iterable<T>.containsBy(predicate: (T) -> Boolean): Boolean =
+    UtilKCollection.containsBy(this, predicate)
+
 object UtilKCollection {
 
     /**

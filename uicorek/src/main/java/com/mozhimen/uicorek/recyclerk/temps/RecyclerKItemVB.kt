@@ -25,9 +25,9 @@ class RecyclerKItemVB<DATA, VB : ViewDataBinding>(
 ) : BaseRecyclerKItem<VHKRecyclerVB<VB>>() {
     override fun onBindItem(holder: VHKRecyclerVB<VB>, position: Int) {
         super.onBindItem(holder, position)
-        holder.VB.setVariable(_brId, data)
+        holder.vb.setVariable(_brId, data)
         _onBind?.invoke(holder, data, position, _selectItemPos)
-        holder.VB.executePendingBindings()
+        holder.vb.executePendingBindings()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): VHKRecyclerVB<VB> {

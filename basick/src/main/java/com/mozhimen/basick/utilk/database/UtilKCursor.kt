@@ -10,6 +10,9 @@ import android.database.Cursor
  * @Date 2023/5/25 10:31
  * @Version 1.0
  */
+fun Cursor.getStringValue(key: String): String =
+    UtilKCursor.getStringValue(this, key)
+
 object UtilKCursor {
     @SuppressLint("Range")
     @JvmStatic

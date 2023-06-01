@@ -8,9 +8,8 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.imagek.loader.mos.BlurTransformation
 import com.mozhimen.basick.imagek.loader.mos.ColorFilterTransformation
 import com.mozhimen.basick.imagek.loader.mos.CropTransformation
@@ -23,6 +22,76 @@ import com.mozhimen.basick.imagek.loader.mos.GrayscaleTransformation
  * @Date 2022/11/6 0:25
  * @Version 1.0
  */
+fun ImageView.loadImage(
+    res: Any
+) {
+    ImageKLoader.loadImage(this, res)
+}
+
+fun ImageView.loadImageComplex(
+    res: Any,
+    placeholder: Int,
+    error: Int,
+    crossFadeEnable: Boolean = true,
+    crossFadeTime: Int = 1500
+) {
+    ImageKLoader.loadImageComplex(this, res, placeholder, error, crossFadeEnable, crossFadeTime)
+}
+
+fun ImageView.loadImageBlur(
+    res: Any,
+    placeholder: Int,
+    crossFadeEnable: Boolean = true,
+    crossFadeTime: Int = 1500,
+    @FloatRange(from = 0.0, to = 25.0) radius: Float = BlurTransformation.DEFAULT_RADIUS,
+    @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = BlurTransformation.DEFAULT_SAMPLING
+) {
+    ImageKLoader.loadImageBlur(this, res, placeholder, crossFadeEnable, crossFadeTime, radius, sampling)
+}
+
+fun ImageView.loadImageGray(
+    res: Any
+) {
+    ImageKLoader.loadImageGray(this, res)
+}
+
+fun ImageView.loadImageColorFilter(
+    res: Any,
+    @ColorInt color: Int
+) {
+    ImageKLoader.loadImageColorFilter(this, res, color)
+}
+
+fun ImageView.loadImageCircle(
+    res: Any
+) {
+    ImageKLoader.loadImageCircle(this, res)
+}
+
+fun ImageView.loadImageCircleComplex(
+    res: Any,
+    placeholder: Int,
+    error: Int,
+    crossFadeEnable: Boolean = true,
+    crossFadeTime: Int = 1000
+) {
+    ImageKLoader.loadImageCircleComplex(this, res, placeholder, error, crossFadeEnable, crossFadeTime)
+}
+
+fun ImageView.loadImageRoundedCorner(
+    res: Any,
+    @Px cornerRadius: Float = 6f.dp2px()
+) {
+    ImageKLoader.loadImageRoundedCorner(this, res, cornerRadius)
+}
+
+fun ImageView.loadImageCrop(
+    res: Any,
+    cropType: CropTransformation.ECropType = CropTransformation.ECropType.CENTER
+) {
+    ImageKLoader.loadImageCrop(this, res, cropType)
+}
+
 @AManifestKRequire(CPermission.INTERNET)
 object ImageKLoader {
     /**

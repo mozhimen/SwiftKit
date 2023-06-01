@@ -5,7 +5,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
@@ -62,13 +62,13 @@ class LayoutKTabTopLayoutActivity : BaseActivityVB<ActivityLayoutkTabTopLayoutBi
             val info = MTabTop(it, colorDefault, colorSelected)
             infoList.add(info)
         }
-        VB.layoutkTabTopLayout.inflateTabItem(infoList)
-        VB.layoutkTabTopLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabTop> {
+        vb.layoutkTabTopLayout.inflateTabItem(infoList)
+        vb.layoutkTabTopLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabTop> {
             override fun onTabItemSelected(index: Int, prevItem: MTabTop?, currentItem: MTabTop) {
                 currentItem.name!!.showToast()
             }
         })
-        VB.layoutkTabTopLayout.defaultSelected(infoList[0])
-        VB.layoutkTabTopLayout.setTabTopBackground(UtilKRes.getColor(R.color.ui_blue_050))
+        vb.layoutkTabTopLayout.defaultSelected(infoList[0])
+        vb.layoutkTabTopLayout.setTabTopBackground(UtilKRes.getColor(R.color.ui_blue_050))
     }
 }

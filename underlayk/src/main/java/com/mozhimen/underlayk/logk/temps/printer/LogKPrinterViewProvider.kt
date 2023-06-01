@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler

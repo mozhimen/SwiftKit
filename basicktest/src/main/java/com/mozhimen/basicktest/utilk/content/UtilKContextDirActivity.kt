@@ -2,12 +2,11 @@ package com.mozhimen.basicktest.utilk.content
 
 import android.os.Build
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.utilk.content.UtilKContextDir
-import com.mozhimen.basick.utilk.exts.i
+import com.mozhimen.basick.utilk.log.i
 import com.mozhimen.basicktest.databinding.ActivityUtilkContextDirBinding
 
 /**

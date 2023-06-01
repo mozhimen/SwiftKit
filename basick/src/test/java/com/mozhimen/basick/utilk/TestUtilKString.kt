@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
-import com.mozhimen.basick.utilk.exts.checkUrl
-import com.mozhimen.basick.utilk.exts.printlog
+import com.mozhimen.basick.utilk.java.datatype.regular.checkUrl
+import com.mozhimen.basick.utilk.java.printlog
 import org.junit.Test
 
 class TestUtilKString {

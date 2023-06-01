@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.mos.MKey
-import com.mozhimen.basick.utilk.exts.showToastLong
+import com.mozhimen.basick.utilk.view.bar.showToastLong
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB2
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 import com.mozhimen.uicorektest.R
@@ -42,11 +42,11 @@ class AdapterKRecyclerVB2Activity : BaseActivityVB<ActivityAdapterkRecyclerVb2Bi
             R.layout.item_adapterk_recycler_vb2,
             BR.item_adapterk_recycler_vb2
         ) { holder: VHKRecyclerVB<ItemAdapterkRecyclerVb2Binding>, data: MKey, position: Int, _: Int ->
-            holder.VB.itemAdapterkRecyclerVb2Name.setOnClickListener {
+            holder.vb.itemAdapterkRecyclerVb2Name.setOnClickListener {
                 "${position}: data:${data}".showToastLong()
             }
         }
-        VB.adapterkRecyclerVb2Recycler.apply {
+        vb.adapterkRecyclerVb2Recycler.apply {
             layoutManager = LinearLayoutManager(this@AdapterKRecyclerVB2Activity)
             adapter = _adapterRecyclerVb2
         }

@@ -3,7 +3,6 @@ package com.mozhimen.uicorek.viewk.bases
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import com.mozhimen.basick.utilk.exts.dp2px
 import com.mozhimen.uicorek.viewk.commons.IViewK
 
 /**

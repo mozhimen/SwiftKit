@@ -14,12 +14,12 @@ import com.mozhimen.basick.utilk.os.UtilKOSRoot
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.componentk.installk.commons.IInstallK
 import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
 import com.mozhimen.componentk.installk.cons.CCons
 import com.mozhimen.componentk.installk.cons.EInstallMode
 import com.mozhimen.componentk.installk.cons.EPermissionType
-import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.*

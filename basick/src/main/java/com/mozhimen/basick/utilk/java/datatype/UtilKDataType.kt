@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.java.datatype
 
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 
 /**
  * @ClassName UtilKDataType

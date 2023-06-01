@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.logk.bases
 
-import com.mozhimen.basick.utilk.exts.moshiT2Json
+import com.mozhimen.basick.utilk.java.datatype.json.moshiT2Json
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.temps.formatter.LogKFormatterStackTrace
 import com.mozhimen.underlayk.logk.temps.formatter.LogKFormatterThread

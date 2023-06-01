@@ -11,7 +11,7 @@ class ElemKGestureFragment : BaseFragmentVB<FragmentElemkGestureBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         _dragAndDropDelegate.bindLifecycle(this)
-        _dragAndDropDelegate.dragAndDrop(VB.elemkGestureFragmentTxt1, VB.elemkGestureFragmentTxt2) { source, dest ->
+        _dragAndDropDelegate.dragAndDrop(vb.elemkGestureFragmentTxt1, vb.elemkGestureFragmentTxt2) { source, dest ->
             (dest as TextView).text = (source as TextView).text.toString()
         }
     }

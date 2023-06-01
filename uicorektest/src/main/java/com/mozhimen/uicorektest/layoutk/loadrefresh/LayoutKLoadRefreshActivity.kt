@@ -3,8 +3,8 @@ package com.mozhimen.uicorektest.layoutk.loadrefresh
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.postDelayed
 import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
+import com.mozhimen.basick.utilk.os.thread.applyPostDelayed
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.LoadRefreshLoadCallback
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.LoadRefreshRefreshCallback
@@ -25,18 +25,18 @@ class LayoutKLoadRefreshActivity : BaseActivityVB<ActivityLayoutkLoadrefreshBind
             add(RecyclerKItemLoadMore(5))
         }
         val lottieOverView = LottieOverView(this)
-        VB.loadkContainer.apply {
+        vb.loadkContainer.apply {
             initLoadParams(
                 5,
                 _dataSets,
-                object : LoadRefreshLoadCallback(lottieOverView, VB.loadkContainer) {
+                object : LoadRefreshLoadCallback(lottieOverView, vb.loadkContainer) {
                     override fun onLoading() {
                         super.onLoading()
                         _pageIndex++
-                        WakeBefPauseLifecycleHandler(this@LayoutKLoadRefreshActivity).postDelayed(1000) {
+                        WakeBefPauseLifecycleHandler(this@LayoutKLoadRefreshActivity).applyPostDelayed(1000) {
                             val items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(RecyclerKItemLoadMore(_dataSets.size + 1))
                             _dataSets.addAll(items)
-                            VB.loadkContainer.startLoad(items, null)
+                            vb.loadkContainer.startLoad(items, null)
                         }
                     }
                 })
@@ -45,11 +45,11 @@ class LayoutKLoadRefreshActivity : BaseActivityVB<ActivityLayoutkLoadrefreshBind
                 null,
                 null,
                 null,
-                object : LoadRefreshRefreshCallback(VB.loadkContainer, VB.loadkContainer.getRecyclerKLoad()) {
+                object : LoadRefreshRefreshCallback(vb.loadkContainer, vb.loadkContainer.getRecyclerKLoad()) {
                     override fun onRefreshing() {
                         super.onRefreshing()
                         _pageIndex = 1
-                        WakeBefPauseLifecycleHandler(this@LayoutKLoadRefreshActivity).postDelayed(1000) {
+                        WakeBefPauseLifecycleHandler(this@LayoutKLoadRefreshActivity).applyPostDelayed(1000) {
                             //模拟获取到了
                             val items: ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(
                                 RecyclerKItemLoadMore(1),

@@ -3,7 +3,7 @@ package com.mozhimen.uicorektest.layoutk.slider
 import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
 import com.mozhimen.uicorek.popwink.PopwinKTextKBubbleBuilder
@@ -18,45 +18,45 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkSliderBinding
  */
 class LayoutKSliderActivity : BaseActivityVB<ActivityLayoutkSliderBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        VB.layoutkSliderTxt.text = getTxt(VB.layoutkSlider.rod.currentPercent, VB.layoutkSlider.rod.currentVal, VB.layoutkSlider.rod.currentX)
-        VB.layoutkSlider.setSliderListener(object : ISliderScrollListener {
+        vb.layoutkSliderTxt.text = getTxt(vb.layoutkSlider.rod.currentPercent, vb.layoutkSlider.rod.currentVal, vb.layoutkSlider.rod.currentX)
+        vb.layoutkSlider.setSliderListener(object : ISliderScrollListener {
             override fun onScrollStart() {
 
             }
 
             override fun onScrolling(currentPercent: Float, currentValue: Float, rod: MRod) {
-                VB.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
+                vb.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
             }
 
             override fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod) {
                 genPopwinKBubbleText(
-                    VB.layoutkSlider,
+                    vb.layoutkSlider,
                     currentValue.toInt().toString(),
-                    xOffset = /*(currentX - rod.centerX).toInt()*/(rod.currentX - VB.layoutkSlider.width / 2f).toInt(),
+                    xOffset = /*(currentX - rod.centerX).toInt()*/(rod.currentX - vb.layoutkSlider.width / 2f).toInt(),
                     yOffset = -(8f).dp2px().toInt()
                 )
-                VB.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
+                vb.layoutkSliderTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
             }
         })
-        VB.layoutkSliderInsideTxt.text = getTxt(VB.layoutkSlider.rod.currentPercent, VB.layoutkSlider.rod.currentVal, VB.layoutkSlider.rod.currentX)
-        VB.layoutkSliderInside.setRodDefaultPercent(0.2f)
-        VB.layoutkSliderInside.setSliderListener(object : ISliderScrollListener {
+        vb.layoutkSliderInsideTxt.text = getTxt(vb.layoutkSlider.rod.currentPercent, vb.layoutkSlider.rod.currentVal, vb.layoutkSlider.rod.currentX)
+        vb.layoutkSliderInside.setRodDefaultPercent(0.2f)
+        vb.layoutkSliderInside.setSliderListener(object : ISliderScrollListener {
             override fun onScrollStart() {
 
             }
 
             override fun onScrolling(currentPercent: Float, currentValue: Float, rod: MRod) {
-                VB.layoutkSliderInsideTxt.text = getTxt(VB.layoutkSliderInside.rod.currentPercent, VB.layoutkSliderInside.rod.currentVal, VB.layoutkSliderInside.rod.currentX)
+                vb.layoutkSliderInsideTxt.text = getTxt(vb.layoutkSliderInside.rod.currentPercent, vb.layoutkSliderInside.rod.currentVal, vb.layoutkSliderInside.rod.currentX)
             }
 
             override fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod) {
                 genPopwinKBubbleText(
-                    VB.layoutkSliderInside,
+                    vb.layoutkSliderInside,
                     currentValue.toInt().toString(),
-                    xOffset = (rod.currentX - VB.layoutkSlider.width / 2f).toInt(),
+                    xOffset = (rod.currentX - vb.layoutkSlider.width / 2f).toInt(),
                     yOffset = -(8f).dp2px().toInt()
                 )
-                VB.layoutkSliderInsideTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
+                vb.layoutkSliderInsideTxt.text = getTxt(currentPercent, currentValue, rod.currentX)
             }
         })
     }

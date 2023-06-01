@@ -10,7 +10,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.device.camera.UtilKCamera
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.basick.utilk.os.UtilKSystemProperties

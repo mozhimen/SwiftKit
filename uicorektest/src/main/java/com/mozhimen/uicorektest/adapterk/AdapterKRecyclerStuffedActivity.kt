@@ -24,7 +24,7 @@ class AdapterKRecyclerStuffedActivity : BaseActivityVB<ActivityAdapterkRecyclerS
     }
 
     private fun initAdapter() {
-        VB.adapterkRecyclerStuffed.apply {
+        vb.adapterkRecyclerStuffed.apply {
             layoutManager = GridLayoutManager(this@AdapterKRecyclerStuffedActivity, 2)
             adapter = _adapterKRecyclerStuffed
         }

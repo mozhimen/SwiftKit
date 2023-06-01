@@ -26,7 +26,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.*
 import java.net.URL

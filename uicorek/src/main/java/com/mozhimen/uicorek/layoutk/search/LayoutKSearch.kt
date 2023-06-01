@@ -14,11 +14,11 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
-import com.mozhimen.basick.utilk.exts.setPaddingHorizontal
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
-import com.mozhimen.basick.utilk.exts.setPadding
 import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
+import com.mozhimen.basick.utilk.view.applyPadding
+import com.mozhimen.basick.utilk.view.applyPaddingHorizontal
 import com.mozhimen.uicorek.layoutk.search.helpers.SearchAttrsParser
 import com.mozhimen.uicorek.layoutk.search.commons.SearchTextWatcher
 import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs
@@ -141,7 +141,7 @@ class LayoutKSearch @JvmOverloads constructor(context: Context, attrs: Attribute
         _searchIcon?.setTextColor(_attrs.hintTextColor)
         _searchIcon?.text = _attrs.searchIcon
         _searchIcon?.id = R.id.layoutk_search_txt_icon_search
-        _searchIcon?.setPaddingHorizontal(_attrs.searchIconPadding)
+        _searchIcon?.applyPaddingHorizontal(_attrs.searchIconPadding)
 
         //hint icon container
         _searchIconHintContainer = LinearLayout(context)
@@ -205,7 +205,7 @@ class LayoutKSearch @JvmOverloads constructor(context: Context, attrs: Attribute
             _keywordIcon?.setTextColor(_attrs.keywordIconColor)
             _keywordIcon?.text = _attrs.keywordIcon
             _keywordIcon?.id = R.id.layoutk_search_txt_icon_keyword
-            _keywordIcon?.setPadding(_attrs.searchIconPadding, _attrs.searchIconPadding / 2)
+            _keywordIcon?.applyPadding(_attrs.searchIconPadding, _attrs.searchIconPadding / 2)
         }
 
         _keywordText = TextView(context)

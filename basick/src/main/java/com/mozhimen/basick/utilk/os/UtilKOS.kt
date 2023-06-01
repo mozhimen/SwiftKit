@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.text.TextUtils
 import android.util.Log
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 
 import java.io.BufferedReader
 import java.io.IOException

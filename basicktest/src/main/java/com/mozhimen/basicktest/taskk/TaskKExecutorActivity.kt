@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basicktest.databinding.ActivityTaskkExecutorBinding
 
 /**
@@ -19,7 +19,7 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
     private var _isPaused = false
 
     override fun initView(savedInstanceState: Bundle?) {
-        VB.taskkExecutorBtnOrder.setOnClickListener {
+        vb.taskkExecutorBtnOrder.setOnClickListener {
             for (priority in 0..10) {
                 TaskKExecutor.execute(TAG, priority) {
                     try {
@@ -32,7 +32,7 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
             }
         }
 
-        VB.taskkExecutorBtnAllTask.setOnClickListener {
+        vb.taskkExecutorBtnAllTask.setOnClickListener {
             if (_isPaused) {
                 TaskKExecutor.resume()
             } else {
@@ -41,7 +41,7 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
             _isPaused = !_isPaused
         }
 
-        VB.taskkExecutorBtnAsync.setOnClickListener {
+        vb.taskkExecutorBtnAsync.setOnClickListener {
             TaskKExecutor.execute(TAG, runnable = object : TaskKExecutor.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
                     Log.e(TAG, "onBackground: 当前线程: ${Thread.currentThread().name}")

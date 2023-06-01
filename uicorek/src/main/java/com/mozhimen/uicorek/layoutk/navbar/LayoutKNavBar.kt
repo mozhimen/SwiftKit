@@ -13,13 +13,13 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
+import com.mozhimen.basick.utilk.graphics.bitmap.drawable2Bitmap
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
-import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.drawable2Bitmap
-import com.mozhimen.basick.utilk.exts.sp2px
-import com.mozhimen.basick.utilk.exts.setPaddingHorizontal
-import com.mozhimen.basick.utilk.exts.setIconFont
-import com.mozhimen.basick.utilk.exts.setTextStyle
+import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.res.sp2px
+import com.mozhimen.basick.utilk.view.applyPaddingHorizontal
+import com.mozhimen.basick.utilk.view.setIconFont
+import com.mozhimen.basick.utilk.view.setTextStyle
 import com.mozhimen.uicorek.layoutk.navbar.helpers.AttrsParser
 import com.mozhimen.uicorek.layoutk.navbar.mos.MNavBarAttrs
 import java.util.*
@@ -290,7 +290,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
             if (_leftViewList.isEmpty()) {
                 view.setPadding(paddingHorizontal * 2, 0, paddingHorizontal, 0)
             } else {
-                view.setPaddingHorizontal(paddingHorizontal)
+                view.applyPaddingHorizontal(paddingHorizontal)
             }
             _leftContainer.addView(view)
             _leftViewList.add(view)
@@ -298,7 +298,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
             if (_rightViewList.isEmpty()) {
                 view.setPadding(paddingHorizontal, 0, paddingHorizontal * 2, 0)
             } else {
-                view.setPaddingHorizontal(paddingHorizontal)
+                view.applyPaddingHorizontal(paddingHorizontal)
             }
             _rightContainer.addView(view)
             _rightViewList.add(view)

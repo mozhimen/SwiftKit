@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.graphics.bitmap
 
 import android.graphics.*
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import java.lang.Integer.min
 
 /**

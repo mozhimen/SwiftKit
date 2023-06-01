@@ -13,7 +13,7 @@ class ElemKFragmentVBVM : BaseFragmentVBVM<FragmentElemkFragmentVbvmBinding, Ele
 
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        VB.elemkFragmentVbvmBtn.setOnClickListener {
+        vb.elemkFragmentVbvmBtn.setOnClickListener {
             vm.genNum()
         }
     }

@@ -1,7 +1,7 @@
 package com.mozhimen.basick.elemk
 
 import com.mozhimen.basick.elemk.delegate.VarDelegate_SetFun_VaryNonnull
-import com.mozhimen.basick.utilk.exts.printlog
+import com.mozhimen.basick.utilk.java.printlog
 import org.junit.Test
 
 /**

@@ -11,6 +11,15 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
  * @Date 2022/4/14 20:23
  * @Version 1.0
  */
+
+@Throws(Exception::class)
+inline fun <reified T : Any> T.moshiT2Json(indent: String = ""): String =
+    UtilKJsonMoshi.t2Json(this, indent)
+
+@Throws(Exception::class)
+inline fun <reified T> String.moshiJson2T(): T? =
+    UtilKJsonMoshi.json2T(this)
+
 object UtilKJsonMoshi {
 
     val moshiBuilder by lazy { Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build() }

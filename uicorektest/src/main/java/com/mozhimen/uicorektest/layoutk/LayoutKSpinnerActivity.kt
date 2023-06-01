@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkSpinnerBinding
 
 /**
@@ -17,9 +17,9 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkSpinnerBinding
  */
 class LayoutKSpinnerActivity : BaseActivityVB<ActivityLayoutkSpinnerBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        VB.layoutkSpinner.setEntries(listOf("GTA6", "唱跳", "Rap")).onItemSelectedListener = object : OnItemSelectedListener {
+        vb.layoutkSpinner.setEntries(listOf("GTA6", "唱跳", "Rap")).onItemSelectedListener = object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                VB.layoutkSpinner.getSelectItem().toString().showToast()
+                vb.layoutkSpinner.getSelectItem().toString().showToast()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

@@ -17,13 +17,13 @@ class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, BaseNavigateKView
     private val _datas = listOf(MKey("01", "01"))
     private var _adapter: AdapterKRecyclerVB<MKey, ItemNavigatekBinding>? = null
     override fun initView(savedInstanceState: Bundle?) {
-        VB.navigatekFragmentSecondTxt.setOnClickListener {
+        vb.navigatekFragmentSecondTxt.setOnClickListener {
             (requireActivity() as NavigateKActivity).navController.popBackStack()
             //vm.liveFragmentId.value = NavigateK.getId(FirstFragment::class.java)
         }
-        VB.navigatekFragmentSecondRecycler.layoutManager = LinearLayoutManager(requireActivity())
+        vb.navigatekFragmentSecondRecycler.layoutManager = LinearLayoutManager(requireActivity())
         _adapter = AdapterKRecyclerVB<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek)
-        VB.navigatekFragmentSecondRecycler.adapter = _adapter
+        vb.navigatekFragmentSecondRecycler.adapter = _adapter
     }
 
     override fun bindViewVM(vb: FragmentSecondBinding) {
@@ -41,7 +41,7 @@ class SecondFragment : BaseFragmentVBVM<FragmentSecondBinding, BaseNavigateKView
     }
 
     override fun onPause() {
-        VB.navigatekFragmentSecondRecycler.adapter = null
+        vb.navigatekFragmentSecondRecycler.adapter = null
         super.onPause()
         Log.d(TAG, "onPause: ")
     }

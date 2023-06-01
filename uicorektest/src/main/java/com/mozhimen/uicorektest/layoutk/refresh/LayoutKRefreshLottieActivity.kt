@@ -2,9 +2,9 @@ package com.mozhimen.uicorektest.layoutk.refresh
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.postDelayed
+import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
+import com.mozhimen.basick.utilk.os.thread.applyPostDelayed
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
 import com.mozhimen.uicorek.layoutk.refresh.temps.LottieOverView
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkRefreshLottieBinding
@@ -12,12 +12,12 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkRefreshLottieBinding
 class LayoutKRefreshLottieActivity : BaseActivityVB<ActivityLayoutkRefreshLottieBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         val lottieOverView = LottieOverView(this)
-        VB.layoutkRefreshContainerLottie.setRefreshOverView(lottieOverView)
-        VB.layoutkRefreshContainerLottie.setRefreshParams(90f.dp2px().toInt(), null, null)
-        VB.layoutkRefreshContainerLottie.setRefreshListener(object : IRefreshListener {
+        vb.layoutkRefreshContainerLottie.setRefreshOverView(lottieOverView)
+        vb.layoutkRefreshContainerLottie.setRefreshParams(90f.dp2px().toInt(), null, null)
+        vb.layoutkRefreshContainerLottie.setRefreshListener(object : IRefreshListener {
             override fun onRefreshing() {
-                WakeBefPauseLifecycleHandler(this@LayoutKRefreshLottieActivity).postDelayed(1000) {
-                    VB.layoutkRefreshContainerLottie.finishRefresh()
+                WakeBefPauseLifecycleHandler(this@LayoutKRefreshLottieActivity).applyPostDelayed(1000) {
+                    vb.layoutkRefreshContainerLottie.finishRefresh()
                 }
             }
 

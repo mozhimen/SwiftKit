@@ -6,15 +6,12 @@ import android.util.Log
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.componentk.audiok.AudioK
-import com.mozhimen.componentk.audiok.mos.MAudioK
 import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.download_deprecated.commons.IFileDownloadSingleListener
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
-import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.netk.file.download.DOWNLOAD_ENGINE_EMBED
 import com.mozhimen.componentk.netk.file.download.DownloadListener
@@ -44,13 +41,13 @@ class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
         override fun onComplete(task: DownloadTask) {
             Log.d(TAG, "onComplete: path ${task.uri?.path}")
             Log.d(TAG, "onComplete: isFileExists ${task.uri.path?.let { UtilKFile.isFileExist(it) } ?: "null"}")
-            VB.netkFileBtn1.isClickable = true
+            vb.netkFileBtn1.isClickable = true
         }
 
         override fun onFail(task: DownloadTask, e: Exception?) {
             e?.printStackTrace()
             Log.e(TAG, "onFail fail msg: ${e?.message}")
-            VB.netkFileBtn1.isClickable = true
+            vb.netkFileBtn1.isClickable = true
         }
     }
 
@@ -66,13 +63,13 @@ class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
         override fun onDownloadComplete(uri: Uri) {
             Log.d(TAG, "onDownloadComplete: path ${uri.path}")
             Log.d(TAG, "onDownloadComplete: isFileExists ${uri.path?.let { UtilKFile.isFileExist(it) } ?: "null"}")
-            VB.netkFileBtn2.isClickable = true
+            vb.netkFileBtn2.isClickable = true
         }
 
         override fun onDownloadFailed(e: Throwable) {
             e.printStackTrace()
             Log.e(TAG, "onDownloadFailed fail msg: ${e.message}")
-            VB.netkFileBtn2.isClickable = true
+            vb.netkFileBtn2.isClickable = true
         }
     }
 
@@ -85,13 +82,13 @@ class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        VB.netkFileBtn1.setOnClickListener {
-            VB.netkFileBtn1.isClickable = false
+        vb.netkFileBtn1.setOnClickListener {
+            vb.netkFileBtn1.isClickable = false
             _netKFile.download().singleFileTask().start(_musicUrl, _musicPath, _fileDownloadSingleListener)
         }
 
-        VB.netkFileBtn2.setOnClickListener {
-            VB.netkFileBtn2.isClickable = false
+        vb.netkFileBtn2.setOnClickListener {
+            vb.netkFileBtn2.isClickable = false
             _downloadRequest = createCommonRequest(_musicUrl, _musicPath)
             _downloadRequest!!.registerListener(_downloadListener)
             _downloadRequest!!.startDownload()

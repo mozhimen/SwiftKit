@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.navigation.NavController
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
 import com.mozhimen.componentk.navigatek.cons.CNavigateK

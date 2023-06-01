@@ -11,7 +11,7 @@ import android.widget.EditText
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.UtilKReflect
 import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.basick.utilk.view.window.UtilKWindow

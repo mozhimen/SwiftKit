@@ -16,7 +16,7 @@ import com.mozhimen.basick.animk.builder.temps.GradientDrawableColorAnimatorType
 import com.mozhimen.basick.animk.builder.temps.TranslationType
 import com.mozhimen.basick.elemk.commons.IValueListener
 import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.commons.IAttrsParser
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame

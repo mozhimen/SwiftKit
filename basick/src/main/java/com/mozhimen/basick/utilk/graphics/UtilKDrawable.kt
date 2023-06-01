@@ -12,6 +12,10 @@ import android.graphics.drawable.Drawable
  * @Date 2022/11/22 22:42
  * @Version 1.0
  */
+fun Drawable.applyColorFilter(colorResId: Int) {
+    UtilKDrawable.applyColorFilter(this, colorResId)
+}
+
 object UtilKDrawable {
     /**
      * 是否正常的drawable

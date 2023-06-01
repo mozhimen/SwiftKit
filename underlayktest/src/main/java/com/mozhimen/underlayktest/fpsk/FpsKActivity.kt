@@ -2,7 +2,7 @@ package com.mozhimen.underlayktest.fpsk
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.underlayk.fpsk.FpsK
 import com.mozhimen.underlayktest.databinding.ActivityFpskBinding
 
@@ -16,10 +16,10 @@ import com.mozhimen.underlayktest.databinding.ActivityFpskBinding
  */
 class FpsKActivity : BaseActivityVB<ActivityFpskBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        VB.fpskBtn.setOnClickListener {
+        vb.fpskBtn.setOnClickListener {
             FpsK.instance.toggle()
         }
-        VB.fpskBtnTip.setOnClickListener {
+        vb.fpskBtnTip.setOnClickListener {
             FpsK.instance.isOpen().toString().showToast()
         }
     }

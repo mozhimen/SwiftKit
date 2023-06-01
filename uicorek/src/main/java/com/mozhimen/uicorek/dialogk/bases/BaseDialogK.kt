@@ -8,7 +8,7 @@ import androidx.annotation.StyleRes
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.os.thread.UtilKThread
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.annors.DialogMode

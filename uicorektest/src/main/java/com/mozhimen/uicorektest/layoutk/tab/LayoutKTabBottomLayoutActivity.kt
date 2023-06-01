@@ -2,8 +2,8 @@ package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 import com.mozhimen.uicorektest.R
@@ -16,7 +16,7 @@ class LayoutKTabBottomLayoutActivity : BaseActivityVB<ActivityLayoutkTabBottomLa
     }
 
     private fun initTabBottom() {
-        VB.layoutkTabBottomLayout.setTabBottomAlpha(0.85f)
+        vb.layoutkTabBottomLayout.setTabBottomAlpha(0.85f)
         val bottomMoList: MutableList<MTabBottom> = ArrayList()
         val homeInfo = MTabBottom(
             "首页",
@@ -44,13 +44,13 @@ class LayoutKTabBottomLayoutActivity : BaseActivityVB<ActivityLayoutkTabBottomLa
             add(moreInfo)
             add(mineInfo)
         }
-        VB.layoutkTabBottomLayout.inflateTabItem(bottomMoList)
-        VB.layoutkTabBottomLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabBottom> {
+        vb.layoutkTabBottomLayout.inflateTabItem(bottomMoList)
+        vb.layoutkTabBottomLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabBottom> {
             override fun onTabItemSelected(index: Int, prevItem: MTabBottom?, currentItem: MTabBottom) {
                 currentItem.name!!.showToast()
             }
         })
-        VB.layoutkTabBottomLayout.defaultSelected(homeInfo)
-        VB.layoutkTabBottomLayout.findTabItem(bottomMoList[1])?.resetTabHeight(66f.dp2px().toInt()) //改变某个Tab的高度
+        vb.layoutkTabBottomLayout.defaultSelected(homeInfo)
+        vb.layoutkTabBottomLayout.findTabItem(bottomMoList[1])?.resetTabHeight(66f.dp2px().toInt()) //改变某个Tab的高度
     }
 }

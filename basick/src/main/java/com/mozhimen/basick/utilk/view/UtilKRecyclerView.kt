@@ -12,6 +12,36 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * @Date 2022/11/6 0:30
  * @Version 1.0
  */
+fun RecyclerView.isScroll2Top(): Boolean =
+    UtilKRecyclerView.isScroll2Top(this)
+
+fun RecyclerView.isScroll2End(): Boolean =
+    UtilKRecyclerView.isScroll2End(this)
+
+fun RecyclerView.isScroll2Top2(): Boolean =
+    UtilKRecyclerView.isScroll2Top2(this)
+
+fun RecyclerView.isScroll2End2(): Boolean =
+    UtilKRecyclerView.isScroll2End2(this)
+
+fun RecyclerView.isScroll2VerticalEdge(): Boolean =
+    UtilKRecyclerView.isScroll2VerticalEdge(this)
+
+fun RecyclerView.isScroll2VerticalEdge2(): Boolean =
+    UtilKRecyclerView.isScroll2VerticalEdge2(this)
+
+fun RecyclerView.isScrollUp(dy: Int): Boolean =
+    UtilKRecyclerView.isScrollUp(dy)
+
+fun RecyclerView.isScrollDown(dx: Int): Boolean =
+    UtilKRecyclerView.isScrollDown(dx)
+
+fun RecyclerView.findLastVisibleItem(): Int =
+    UtilKRecyclerView.findLastVisibleItem(this)
+
+fun RecyclerView.findFirstVisibleItem(): Int =
+    UtilKRecyclerView.findFirstVisibleItem(this)
+
 object UtilKRecyclerView {
     /**
      * 是否滑动到底部

@@ -12,7 +12,6 @@ import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.exts.cropBitmap
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
@@ -20,6 +19,7 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.graphics.bitmap.cropBitmap
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import java.util.concurrent.locks.ReentrantLock
@@ -44,9 +44,9 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
     }
 
     private fun initCamera() {
-        VB.scankHsvPreview.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK))
-        VB.scankHsvPreview.setCameraXKFrameListener(_frameAnalyzer)
-        VB.scankHsvPreview.startCamera()
+        vb.scankHsvPreview.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK))
+        vb.scankHsvPreview.setCameraXKFrameListener(_frameAnalyzer)
+        vb.scankHsvPreview.startCamera()
     }
 
     private lateinit var _orgBitmap: Bitmap
@@ -66,7 +66,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
                     }
                     val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
-                        VB.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getRealScreenWidth().toDouble()
+                        vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getRealScreenWidth().toDouble()
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),
                         (ratio * rotateBitmap.width).toInt(),

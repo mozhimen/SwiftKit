@@ -42,12 +42,12 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     private val _format = ACameraXKFormat.RGBA_8888
 
     private fun initCamera() {
-        VB.cameraxkPreviewLayout.initCamera(this, CameraXKConfig(_format, ACameraXKFacing.FRONT))
-        VB.cameraxkPreviewLayout.setCameraXKFrameListener(_frameAnalyzer)
-        VB.cameraxkPreviewLayout.setCameraXKCaptureListener(_cameraXKCaptureListener)
-        VB.cameraxkPreviewLayout.startCamera()
-        VB.cameraxkBtn.setOnClickListener {
-            VB.cameraxkPreviewLayout.takePicture()
+        vb.cameraxkPreviewLayout.initCamera(this, CameraXKConfig(_format, ACameraXKFacing.FRONT))
+        vb.cameraxkPreviewLayout.setCameraXKFrameListener(_frameAnalyzer)
+        vb.cameraxkPreviewLayout.setCameraXKCaptureListener(_cameraXKCaptureListener)
+        vb.cameraxkPreviewLayout.startCamera()
+        vb.cameraxkBtn.setOnClickListener {
+            vb.cameraxkPreviewLayout.takePicture()
         }
     }
 
@@ -66,7 +66,7 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
                 }
                 _outputBitmap?.let {
                     runOnUiThread {
-                        VB.cameraxkImg1.setImageBitmap(_outputBitmap)
+                        vb.cameraxkImg1.setImageBitmap(_outputBitmap)
                     }
                 }
                 image.close()
@@ -77,7 +77,7 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     private val _cameraXKCaptureListener = object : ICameraXKCaptureListener {
         override fun onCaptureSuccess(bitmap: Bitmap, imageRotation: Int) {
             runOnUiThread {
-                VB.cameraxkImg.setImageBitmap(bitmap)
+                vb.cameraxkImg.setImageBitmap(bitmap)
             }
         }
 

@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.anim
 import android.animation.Animator
 import android.view.View
 import android.view.animation.Animation
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
  * @ClassName UtilKAnim
@@ -11,8 +12,12 @@ import android.view.animation.Animation
  * @Date 2022/4/18 0:25
  * @Version 1.0
  */
-object UtilKAnim {
-    private const val TAG = "UtilKAnim>>>>>"
+
+fun View.stopAnim() {
+    UtilKAnim.stopAnim(this)
+}
+
+object UtilKAnim : BaseUtilK() {
 
     /**
      * 释放Anim
@@ -22,11 +27,8 @@ object UtilKAnim {
     fun releaseAnim(vararg objs: Any) {
         if (objs.isEmpty()) return
         for (obj in objs) {
-            if (obj is Animation) {
-                UtilKAnimation.releaseAnimation(obj)
-            } else if (obj is Animator) {
-                UtilKAnimator.releaseAnimator(obj)
-            }
+            if (obj is Animation) UtilKAnimation.releaseAnimation(obj)
+            else if (obj is Animator) UtilKAnimator.releaseAnimator(obj)
         }
     }
 

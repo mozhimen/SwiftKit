@@ -20,12 +20,12 @@ class UtilKIntentActivity : BaseActivityVB<ActivityUtilkIntentBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         val activityResultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) {
-            VB.utilkIntentImg.setImageURI(it)
+            vb.utilkIntentImg.setImageURI(it)
         }
-        VB.utilkIntentBtn.setOnClickListener {
+        vb.utilkIntentBtn.setOnClickListener {
             UtilKContextStart.startActivityForResult(this, 0, UtilKIntent.getPickImage())
         }
-        VB.utilkIntentBtn2.setOnClickListener {
+        vb.utilkIntentBtn2.setOnClickListener {
             activityResultLauncher.launch(CMediaFormat.MIMETYPE_IMAGE_ALL)
         }
     }
@@ -35,7 +35,7 @@ class UtilKIntentActivity : BaseActivityVB<ActivityUtilkIntentBinding>() {
         if (requestCode == 0) {
             val uri = data?.data
             if (uri != null) {
-                VB.utilkIntentImg.setImageURI(uri)
+                vb.utilkIntentImg.setImageURI(uri)
             }
         }
     }

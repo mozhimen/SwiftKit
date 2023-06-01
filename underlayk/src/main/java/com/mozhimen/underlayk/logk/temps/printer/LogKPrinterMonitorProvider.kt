@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -18,8 +19,8 @@ import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
-import com.mozhimen.basick.utilk.exts.et
-import com.mozhimen.basick.utilk.exts.showToastOnMain
+import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.view.bar.showToastOnMain
 import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import com.mozhimen.underlayk.R
@@ -102,6 +103,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         return _isOpen
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     fun open(isFold: Boolean) {
         if (_isOpen) return
         if (!UtilKPermission.hasOverlay()) {

@@ -2,7 +2,7 @@ package com.mozhimen.basick.cachek
 
 import com.mozhimen.basick.cachek.commons.CacheKDatabase
 import com.mozhimen.basick.cachek.mos.MCacheK
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream

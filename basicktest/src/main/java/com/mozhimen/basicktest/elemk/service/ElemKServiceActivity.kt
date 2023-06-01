@@ -18,7 +18,7 @@ class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
     private var _resListener: BaseServiceResCallback = object : BaseServiceResCallback() {
         override fun onResString(resString: String?) {
             runOnUiThread {
-                VB.elemkServiceTxt.text = resString ?: "loss"
+                vb.elemkServiceTxt.text = resString ?: "loss"
             }
         }
     }

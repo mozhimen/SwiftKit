@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import androidx.annotation.Px
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.basick.utilk.view.display.UtilKScreen.getRealScreenWidth
 import com.mozhimen.uicorek.layoutk.tab.commons.ILayoutKTab
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener

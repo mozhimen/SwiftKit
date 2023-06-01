@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
@@ -27,7 +28,6 @@ import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import com.mozhimen.underlayk.logk.LogK
-import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

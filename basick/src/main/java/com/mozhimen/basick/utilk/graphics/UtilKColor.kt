@@ -13,6 +13,19 @@ import kotlin.math.roundToInt
  * @Date 2022/2/9 15:05
  * @Version 1.0
  */
+
+fun String.colorStr2Int(): Int =
+    UtilKColor.colorStr2colorInt(this)
+
+fun Int.adjustAlpha(factor: Float) =
+    UtilKColor.adjustAlpha(this, factor)
+
+fun Int.getContrastColor(): Int =
+    UtilKColor.getContrastColor(this)
+
+fun Int.colorInt2HexStr() =
+    UtilKColor.colorInt2HexStr(this)
+
 object UtilKColor {
     @JvmStatic
     @ColorInt

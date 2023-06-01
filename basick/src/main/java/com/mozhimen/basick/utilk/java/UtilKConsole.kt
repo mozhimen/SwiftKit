@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk.java
 
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+
 /**
  * @ClassName UtilKConsole
  * @Description TODO
@@ -7,9 +9,23 @@ package com.mozhimen.basick.utilk.java
  * @Date 2022/8/31 11:19
  * @Version 1.0
  */
-object UtilKConsole {
-    const val TAG = "UtilKConsole>>>>>"
+fun <T> T.print() {
+    UtilKConsole.print(this)
+}
 
+fun <T> T.println() {
+    UtilKConsole.println(this)
+}
+
+fun <T> T.printlog() {
+    UtilKConsole.printlog(this)
+}
+
+fun <T> T.printlog(tag: String) {
+    UtilKConsole.printlog(tag, this)
+}
+
+object UtilKConsole : BaseUtilK() {
     @JvmStatic
     fun <T> print(msg: T) {
         kotlin.io.print(msg)
@@ -27,6 +43,6 @@ object UtilKConsole {
 
     @JvmStatic
     fun <T> printlog(tag: String, msg: T) {
-        kotlin.io.println("$tag: $msg")
+        println("$tag: $msg")
     }
 }

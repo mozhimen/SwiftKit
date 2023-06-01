@@ -34,16 +34,16 @@ class NetKHttpActivity : BaseActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewM
     @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
 
-        VB.netkBtn1GetWeather.setOnClickListener {
+        vb.netkBtn1GetWeather.setOnClickListener {
             vm.getRealtimeWeatherCoroutine()
         }
 
-        VB.netkBtn2GetWeather.setOnClickListener {
+        vb.netkBtn2GetWeather.setOnClickListener {
             val time = System.currentTimeMillis()
             lifecycleScope.launch(Dispatchers.IO) {
                 vm.getRealtimeWeatherCoroutineSync().root?.let { bean ->
                     withContext(Dispatchers.Main) {
-                        VB.netkTxt2.text = bean.result.realtime.temperature.toString() + " ${System.currentTimeMillis() - time}"
+                        vb.netkTxt2.text = bean.result.realtime.temperature.toString() + " ${System.currentTimeMillis() - time}"
                     }
                 }
             }

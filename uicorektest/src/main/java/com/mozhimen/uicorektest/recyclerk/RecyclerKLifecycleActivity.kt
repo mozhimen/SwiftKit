@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.mos.MKey
-import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.BR
@@ -20,7 +20,7 @@ class RecyclerKLifecycleActivity : BaseActivityVB<ActivityRecyclerkLifecycleBind
 //        vb.recyclerkLifecycle.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
 //        vb.recyclerkLifecycle.adapter =
 //            AdapterKRecyclerVB<MKey, ItemRecyclerkLifecycleBinding>(list, R.layout.item_recyclerk_lifecycle, BR.item_recyclerk_lifecycle) { holder, itemData, position, currentSelectPos ->
-//                holder.VB.itemRecyclerkLifecycleBox.setOnClickListener {
+//                holder.vb.itemRecyclerkLifecycleBox.setOnClickListener {
 //                    position.toString().showToast()
 //                }
 //            }.apply {

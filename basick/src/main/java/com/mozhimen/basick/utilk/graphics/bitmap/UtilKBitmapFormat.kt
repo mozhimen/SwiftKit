@@ -11,10 +11,11 @@ import android.util.Base64
 import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.res.UtilKRes
 import java.io.ByteArrayOutputStream
@@ -34,8 +35,23 @@ import kotlin.math.ceil
  * @Date 2022/1/3 4:54
  * @Version 1.0
  */
-object UtilKBitmapFormat {
-    private val TAG = "UtilKBitmapFormat>>>>>"
+
+fun ByteArray.bytes2Bitmap(): Bitmap =
+    UtilKBitmapFormat.bytes2Bitmap(this)
+
+fun Bitmap.bitmap2JpegBytes(): ByteArray? =
+    UtilKBitmapFormat.bitmap2JpegBytes(this)
+
+fun Drawable.drawable2Bitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
+    UtilKBitmapFormat.drawable2Bitmap(this, width, height, config)
+
+fun Bitmap.cropBitmap(width: Int, height: Int, x: Int, y: Int): Bitmap =
+    UtilKBitmapDeal.cropBitmap(this, width, height, x, y)
+
+fun String.getCompressFormat(): CompressFormat =
+    UtilKBitmapCompress.getCompressFormat(this)
+
+object UtilKBitmapFormat : BaseUtilK() {
 
     /**
      * bitmap转化为rgb565
@@ -59,9 +75,11 @@ object UtilKBitmapFormat {
             ImageFormat.JPEG -> {
                 JpegImage2JpegBytes(image)
             }
+
             ImageFormat.YUV_420_888 -> {
                 yuv420888Image2JpegBytes(image)
             }
+
             else -> {
                 throw Exception("cannot handle this format")
             }

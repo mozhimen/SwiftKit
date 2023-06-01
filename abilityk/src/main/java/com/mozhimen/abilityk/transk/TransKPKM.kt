@@ -3,10 +3,9 @@ package com.mozhimen.abilityk.transk
 import android.opengl.ETC1
 import android.opengl.ETC1Util.ETC1Texture
 import android.util.Log
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.res.UtilKAssets
-import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream

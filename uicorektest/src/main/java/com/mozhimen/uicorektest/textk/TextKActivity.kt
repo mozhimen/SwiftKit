@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        VB.textkBubbleBtn.setOnClickListener {
+        vb.textkBubbleBtn.setOnClickListener {
             genPopwinKBubbleText(it, "弹出了一个气泡提示")
         }
     }

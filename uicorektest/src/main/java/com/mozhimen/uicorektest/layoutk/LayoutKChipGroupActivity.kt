@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.layoutk
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkChipGroupBinding
 
@@ -15,7 +15,7 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkChipGroupBinding
  */
 class LayoutKChipGroupActivity : BaseActivityVB<ActivityLayoutkChipGroupBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        VB.layoutkChipGroup.bindKeys(
+        vb.layoutkChipGroup.bindKeys(
             arrayListOf(
                 MKey("0", "赛博朋克2077"),
                 MKey("1", "老头环"),
@@ -27,14 +27,14 @@ class LayoutKChipGroupActivity : BaseActivityVB<ActivityLayoutkChipGroupBinding>
                 MKey("7", "文明6")
             )
         )
-        VB.layoutkChipGroup.setOnCheckedListener { _, i, dataKKey ->
+        vb.layoutkChipGroup.setOnCheckedListener { _, i, dataKKey ->
             "index: $i dataKey: ${dataKKey.id} ${dataKKey.name}".showToast()
         }
-        VB.layoutkChipGroupAdd.setOnClickListener {
-            VB.layoutkChipGroup.addKey(MKey("ss", "原神"))
+        vb.layoutkChipGroupAdd.setOnClickListener {
+            vb.layoutkChipGroup.addKey(MKey("ss", "原神"))
         }
-        VB.layoutkChipGroupRemove.setOnClickListener {
-            VB.layoutkChipGroup.removeKey(MKey("ss", "原神"))
+        vb.layoutkChipGroupRemove.setOnClickListener {
+            vb.layoutkChipGroup.removeKey(MKey("ss", "原神"))
         }
     }
 }

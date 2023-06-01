@@ -2,8 +2,7 @@ package com.mozhimen.basick.utilk.os
 
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
-import com.mozhimen.basick.utilk.exts.joinArray2Str
-import com.mozhimen.basick.utilk.exts.long2Str
+import com.mozhimen.basick.utilk.java.datatype.joinArray2Str
 
 /**
  * @ClassName UtilKBuild

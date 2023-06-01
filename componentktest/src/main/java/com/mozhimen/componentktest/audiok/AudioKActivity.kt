@@ -15,12 +15,12 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.java.datatype.normalize
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
-import com.mozhimen.basick.utilk.exts.normalize
-import com.mozhimen.componentk.audiok.AudioK
-import com.mozhimen.componentk.audiok.cons.CAudioKEvent
-import com.mozhimen.componentk.audiok.mos.MAudioK
-import com.mozhimen.componentk.audiok.mos.MAudioKProgress
+import com.mozhimen.componentk.mediak.audio.MediaKAudio
+import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
+import com.mozhimen.componentk.mediak.audio.mos.MAudioK
+import com.mozhimen.componentk.mediak.audio.mos.MAudioKProgress
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.ActivityAudiokBinding
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
@@ -38,33 +38,33 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         MAudioK("3777061809", "http://sq-sycdn.kuwo.cn/resource/n1/98/51/3777061809.mp3", 0),
     )
     private val _popwinAudio: PopwinAudio by lazy { PopwinAudio(this) }
-    private var _currentVolume: Int = AudioK.instance.getVolume()
-        get() = AudioK.instance.getVolume()
+    private var _currentVolume: Int = MediaKAudio.instance.getVolumeCurrent()
+        get() = MediaKAudio.instance.getVolumeCurrent()
         set(value) {
-            val volume = value.normalize(AudioK.instance.getVolumeMin()..AudioK.instance.getVolumeMax())
+            val volume = value.normalize(MediaKAudio.instance.getVolumeMin()..MediaKAudio.instance.getVolumeMax())
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                AudioK.instance.setVolume(volume).also {
-                    VB.audiokSliderVolumeTxt.text = volume.toString()
+                MediaKAudio.instance.setVolume(volume).also {
+                    vb.audiokSliderVolumeTxt.text = volume.toString()
                     field = volume
                 }
             }
         }
-    private val _intervalVolume: Float by lazy { AudioK.instance.getVolumeMax().toFloat() - AudioK.instance.getVolumeMin().toFloat() }
+    private val _intervalVolume: Float by lazy { MediaKAudio.instance.getVolumeMax().toFloat() - MediaKAudio.instance.getVolumeMin().toFloat() }
 
     override fun initView(savedInstanceState: Bundle?) {
         Log.d(TAG, "initData: volume $_currentVolume")
-        Log.d(TAG, "initData: volume min ${AudioK.instance.getVolumeMin()}")
-        Log.d(TAG, "initData: volume max ${AudioK.instance.getVolumeMax()}")
-        VB.audiokSliderVolumeTxt.text = AudioK.instance.getVolume().toString()
-        VB.audiokSliderVolume.setRodDefaultPercent(_currentVolume / _intervalVolume)
-        VB.audiokSliderVolume.setSliderListener(object : ISliderScrollListener {
+        Log.d(TAG, "initData: volume min ${MediaKAudio.instance.getVolumeMin()}")
+        Log.d(TAG, "initData: volume max ${MediaKAudio.instance.getVolumeMax()}")
+        vb.audiokSliderVolumeTxt.text = MediaKAudio.instance.getVolumeCurrent().toString()
+        vb.audiokSliderVolume.setRodDefaultPercent(_currentVolume / _intervalVolume)
+        vb.audiokSliderVolume.setSliderListener(object : ISliderScrollListener {
             override fun onScrollEnd(currentPercent: Float, currentValue: Float, rod: MRod) {
                 _currentVolume = (currentPercent * _intervalVolume).roundToInt()
             }
         })
 
-        AudioK.instance.addAudiosToPlayList(_audioList)
-        UtilKDataBus.with<MAudioK?>(CAudioKEvent.audio_start).observe(this) {
+        MediaKAudio.instance.addAudiosToPlayList(_audioList)
+        UtilKDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_START).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_start")
                 _popwinAudio.setTitle(it.name)
@@ -73,7 +73,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                 }
             }
         }
-        UtilKDataBus.with<Pair<MAudioK, Boolean>?>(CAudioKEvent.audio_popup).observe(this) {
+        UtilKDataBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_popup")
                 if (!it.second) {
@@ -84,7 +84,6 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
     }
 
     class PopwinAudio(context: Context) : PopwinKLifecycle(context) {
-        private val TAG = "PopwinAudio>>>>>"
         private lateinit var _txtName: TextView
         private lateinit var _slider: LayoutKSlider
         private lateinit var _btnClose: ImageView
@@ -116,7 +115,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                     dismiss()
                 }
             }
-            UtilKDataBus.with<MAudioKProgress?>(CAudioKEvent.progress_update).observe(this) {
+            UtilKDataBus.with<MAudioKProgress?>(CAudioEvent.EVENT_PROGRESS_UPDATE).observe(this) {
                 if (it != null) {
                     Log.d(TAG, "initData: progress_update" + " progress status ${it.status} currentPos ${it.currentPos} duration ${it.duration} audioInfo ${it.audioInfo}")
                     _slider.updateRodPercent(it.currentPos.toFloat() / it.duration.toFloat())

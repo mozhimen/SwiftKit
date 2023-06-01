@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.sp2px
+import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.res.sp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.viewk.bases.BaseViewK
 import java.util.*

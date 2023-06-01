@@ -13,7 +13,7 @@ import com.mozhimen.debugktest.databinding.ActivityDebugkBinding
 class DebugKActivity : BaseActivityVB<ActivityDebugkBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
-        VB.debugkTxt.setOnClickListener {
+        vb.debugkTxt.setOnClickListener {
             toggleDebugDialog()
         }
     }

@@ -2,9 +2,6 @@ package com.mozhimen.debugk
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.manifestk.cons.CManifest
-import com.mozhimen.underlayk.logk.exts.ExtsLogK.et
 
 /**
  * @ClassName DebugK

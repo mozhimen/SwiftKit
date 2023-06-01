@@ -4,8 +4,7 @@ import android.graphics.Typeface
 import android.widget.TextView
 import androidx.annotation.IntRange
 import com.mozhimen.basick.utilk.content.UtilKContext
-import com.mozhimen.basick.utilk.exts.getValue
-import com.mozhimen.basick.utilk.exts.toStringTrim
+import com.mozhimen.basick.utilk.java.datatype.toStringTrim
 
 /**
  * @ClassName UtilKViewText
@@ -14,6 +13,21 @@ import com.mozhimen.basick.utilk.exts.toStringTrim
  * @Date 2022/11/6 0:27
  * @Version 1.0
  */
+fun TextView.setTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
+    UtilKTextView.setTextStyle(this, style)
+}
+
+fun TextView.setIconFont(iconFont: String = "icons/iconfont.ttf") {
+    UtilKTextView.setIconFont(this, iconFont)
+}
+
+fun TextView.getContent(): String =
+    UtilKTextView.getValue(this)
+
+fun TextView.getValueIfNotEmpty(invoke: (value: String) -> Unit) {
+    UtilKTextView.getValueIfNotEmpty(this, invoke)
+}
+
 object UtilKTextView {
     /**
      * 设置字体的细或粗

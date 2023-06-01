@@ -2,10 +2,9 @@ package com.mozhimen.debugk.cons
 
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.exts.boolean2Str
 import com.mozhimen.basick.utilk.*
-import com.mozhimen.basick.utilk.device.camera.UtilKCamera
 import com.mozhimen.basick.utilk.device.UtilKDevice
+import com.mozhimen.basick.utilk.java.datatype.boolean2Str
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.net.UtilKNetConn
 import com.mozhimen.basick.utilk.os.UtilKBuild

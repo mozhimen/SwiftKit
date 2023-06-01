@@ -4,7 +4,7 @@ import android.os.Build
 import android.util.Log
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.BufferedReader
 import java.io.File

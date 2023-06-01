@@ -1,5 +1,6 @@
 package com.mozhimen.underlayk.logk
 
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.log.UtilKStackTrace
@@ -31,8 +32,55 @@ import kotlin.collections.ArrayList
  * @Date 2021/12/20 21:49
  * @Version 1.0
  */
-object LogK {
-    private const val TAG = "LogK>>>>>"
+fun String.kv() {
+    LogK.v(this)
+}
+
+fun String.kvt(tag: String) {
+    LogK.vt(tag, this)
+}
+
+fun String.kd() {
+    LogK.d(this)
+}
+
+fun String.kdt(tag: String) {
+    LogK.dt(tag, this)
+}
+
+fun String.ki() {
+    LogK.i(this)
+}
+
+fun String.kit(tag: String) {
+    LogK.it(tag, this)
+}
+
+fun String.kw() {
+    LogK.w(this)
+}
+
+fun String.kwt(tag: String) {
+    LogK.wt(tag, this)
+}
+
+fun String.ke() {
+    LogK.e(this)
+}
+
+fun String.ket(tag: String) {
+    LogK.et(tag, this)
+}
+
+fun String.ka() {
+    LogK.a(this)
+}
+
+fun String.kat(tag: String) {
+    LogK.at(tag, this)
+}
+
+object LogK : BaseUtilK() {
     private var LOGK_PACKAGE: String
 
     init {

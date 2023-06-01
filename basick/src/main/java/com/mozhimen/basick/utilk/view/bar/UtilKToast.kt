@@ -5,7 +5,8 @@ import android.content.Context
 import android.widget.Toast
 import com.mozhimen.basick.utilk.os.thread.UtilKHandler
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.exts.isFinishingOrDestroyed
+import com.mozhimen.basick.utilk.content.activity.isFinishingOrDestroyed
+import java.lang.Exception
 
 
 /**
@@ -15,16 +16,58 @@ import com.mozhimen.basick.utilk.exts.isFinishingOrDestroyed
  * @Date 2022/6/12 1:11
  * @Version 1.0
  */
+fun String.showToast(duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToast(this, duration)
+}
+
+fun Int.showToast(duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToast(this, duration)
+}
+
+fun String.showToastLong() {
+    UtilKToast.showToast(this, Toast.LENGTH_LONG)
+}
+
+fun Int.showToastLong() {
+    UtilKToast.showToast(this, Toast.LENGTH_LONG)
+}
+
+////////////////////////////////////////////////////////////////
+
+fun String.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
+    UtilKToast.showToastOnMain(this, duration)
+}
+
+fun Int.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToastOnMain(this, duration)
+}
+
+////////////////////////////////////////////////////////////////
+
+fun Context.showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToastOnMain(msg, duration)
+}
+
+fun Context.showToastOnMain(id: Int, duration: Int = Toast.LENGTH_SHORT) {
+    UtilKToast.showToastOnMain(getString(id), duration)
+}
+
+////////////////////////////////////////////////////////////////
+
+fun Exception.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
+    this.message?.let { UtilKToast.showToastOnMain(it, duration) }
+}
+
 object UtilKToast {
     private val _context = UtilKApplication.instance.get()
 
     /**
-     * show
+     * 用法1: "...".showToast(context)
      * @param msg String
      * @param duration Int
      */
     @JvmStatic
-    fun show(msg: String, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
+    fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
         if (context is Activity) {
             if (!context.isFinishingOrDestroyed()) {
                 makeToast(context, msg, duration)
@@ -35,12 +78,12 @@ object UtilKToast {
     }
 
     /**
-     * show
+     * 用法2: R.string.app_name.showToast(context)
      * @param msgId Int
      * @param duration Int
      */
     @JvmStatic
-    fun show(msgId: Int, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
+    fun showToast(msgId: Int, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
         if (context is Activity) {
             if (!context.isFinishingOrDestroyed()) {
                 makeToast(context, msgId, duration)
@@ -52,29 +95,31 @@ object UtilKToast {
 
     /**
      * 在主线程show
+     * 用法1: "...".showToastOnMain(context)
      * @param msg String
      * @param duration Int
      */
     @JvmStatic
-    fun showOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+    fun showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
         if (UtilKHandler.isMainLooper()) {
-            show(msg, duration)
+            showToast(msg, duration)
         } else {
-            UtilKHandler.postOnMain { show(msg, duration) }
+            UtilKHandler.postOnMain { showToast(msg, duration) }
         }
     }
 
     /**
      * 在主线程show
-     * @param msg String
+     * 用法2: R.string.app_name.showToastOnMain(context)
+     * @param msgId Int
      * @param duration Int
      */
     @JvmStatic
-    fun showOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
+    fun showToastOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
         if (UtilKHandler.isMainLooper()) {
-            show(msgId, duration)
+            showToast(msgId, duration)
         } else {
-            UtilKHandler.postOnMain { show(msgId, duration) }
+            UtilKHandler.postOnMain { showToast(msgId, duration) }
         }
     }
 

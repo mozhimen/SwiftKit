@@ -40,7 +40,7 @@ class NetKConnActivity : BaseActivityVB<ActivityNetkConnBinding>() {
     private val _netKConnDelegate: NetKConnDelegate<NetKConnActivity> by lazy { NetKConnDelegate(this, _netKConnListener).apply { bindLifecycle(this@NetKConnActivity) } }
     private val _netKConnListener = object : INetKConnListener {
         override fun onDisconnected() {
-            VB.netkConnTxt.text = "断网了"
+            vb.netkConnTxt.text = "断网了"
         }
 
         @SuppressLint("SetTextI18n")
@@ -67,7 +67,7 @@ class NetKConnActivity : BaseActivityVB<ActivityNetkConnBinding>() {
 
                     else -> "其他"
                 }
-            VB.netkConnTxt.text = "联网了 type $str"
+            vb.netkConnTxt.text = "联网了 type $str"
         }
     }
 

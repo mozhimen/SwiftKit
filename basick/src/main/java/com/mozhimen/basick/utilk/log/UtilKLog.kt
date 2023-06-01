@@ -1,9 +1,49 @@
 package com.mozhimen.basick.utilk.log
 
 import android.util.Log
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 
-object UtilKLog {
-    private const val TAG = "UtilKLog>>>>>"
+fun String.v() {
+    UtilKLog.v(this)
+}
+
+fun String.vt(tag: String) {
+    UtilKLog.vt(tag, this)
+}
+
+fun String.d() {
+    UtilKLog.d(this)
+}
+
+fun String.dt(tag: String) {
+    UtilKLog.dt(tag, this)
+}
+
+fun String.i() {
+    UtilKLog.i(this)
+}
+
+fun String.it(tag: String) {
+    UtilKLog.it(tag, this)
+}
+
+fun String.w() {
+    UtilKLog.w(this)
+}
+
+fun String.wt(tag: String) {
+    UtilKLog.wt(tag, this)
+}
+
+fun String.e() {
+    UtilKLog.e(this)
+}
+
+fun String.et(tag: String) {
+    UtilKLog.et(tag, this)
+}
+
+object UtilKLog : BaseUtilK() {
 
     @JvmStatic
     fun v(msg: String) {

@@ -6,6 +6,6 @@ import com.mozhimen.uicorektest.databinding.ActivityBtnkBinding
 
 class BtnKActivity : BaseActivityVB<ActivityBtnkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        VB.btnkPwdVisible.bindEditText(VB.btnkPwdVisibleEdit)
+        vb.btnkPwdVisible.bindEditText(vb.btnkPwdVisibleEdit)
     }
 }

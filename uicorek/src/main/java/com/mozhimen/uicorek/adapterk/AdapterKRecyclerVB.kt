@@ -74,9 +74,9 @@ open class AdapterKRecyclerVB<DATA, VB : ViewDataBinding>(
     override fun getItemCount() = if (_datas.isEmpty()) 0 else _datas.size
 
     override fun onBindViewHolder(holder: VHKRecyclerVB<VB>, position: Int) {
-        holder.VB.setVariable(_brId, _datas[position])
+        holder.vb.setVariable(_brId, _datas[position])
         _listener?.invoke(holder, _datas[position], position, _selectItemPosition)
-        holder.VB.executePendingBindings()
+        holder.vb.executePendingBindings()
     }
 
     override fun getItemViewType(position: Int) = _defaultLayout

@@ -6,9 +6,9 @@ import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.utilk.exts.adjustAlpha
-import com.mozhimen.basick.utilk.exts.getContrastColor
-import com.mozhimen.basick.utilk.exts.showToastOnMain
+import com.mozhimen.basick.utilk.graphics.adjustAlpha
+import com.mozhimen.basick.utilk.graphics.getContrastColor
+import com.mozhimen.basick.utilk.view.bar.showToastOnMain
 
 /**
  * @ClassName UtilKViewImage
@@ -17,6 +17,22 @@ import com.mozhimen.basick.utilk.exts.showToastOnMain
  * @Date 2022/11/6 2:35
  * @Version 1.0
  */
+fun ImageView.fitImage(drawable: Drawable) {
+    UtilKImageView.fitImage(this, drawable)
+}
+
+fun ImageView.applyColorFilter(colorRes: Int) {
+    UtilKImageView.applyColorFilter(this, colorRes)
+}
+
+fun ImageView.toastContentDescriptionOnLongClick() {
+    UtilKImageView.toastContentDescriptionOnLongClick(this)
+}
+
+fun ImageView.setFillWithStroke(@ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
+    UtilKImageView.setFillWithStroke(this, fillColorInt, backgroundColorInt, isDrawRectangle)
+}
+
 object UtilKImageView {
     /**
      * 适应图片

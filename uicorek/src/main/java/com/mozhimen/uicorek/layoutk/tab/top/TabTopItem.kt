@@ -8,13 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.imagek.loader.exts.loadImage
+import com.mozhimen.basick.imagek.loader.loadImage
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
-import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.setTextStyle
-import com.mozhimen.basick.utilk.exts.resizeSize
+import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.view.resizeSize
+import com.mozhimen.basick.utilk.view.setTextStyle
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabItem
 import com.mozhimen.uicorek.layoutk.tab.top.cons.ETabTopType

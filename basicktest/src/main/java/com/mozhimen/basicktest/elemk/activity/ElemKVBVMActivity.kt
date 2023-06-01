@@ -13,7 +13,7 @@ class ElemKVBVMActivity :
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        VB.elemkVbvmBtn.setOnClickListener {
+        vb.elemkVbvmBtn.setOnClickListener {
             vm.genNum()
         }
     }

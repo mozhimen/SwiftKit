@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.res.UtilKAssets
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.content.pm.UtilKPackage
-import com.mozhimen.basick.utilk.exts.showToast
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
@@ -57,8 +57,8 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
     private val _installK by lazy { InstallK() }
 
     override fun initView(savedInstanceState: Bundle?) {
-        VB.installkTxt.text = UtilKPackage.getVersionCode().toString()
-        VB.installkBtn.setOnClickListener {
+        vb.installkTxt.text = UtilKPackage.getVersionCode().toString()
+        vb.installkBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (!UtilKFile.isFileExist(_apkPathWithName)) {
                     UtilKAssets.asset2File("componentktest.apk", _apkPathWithName, false)

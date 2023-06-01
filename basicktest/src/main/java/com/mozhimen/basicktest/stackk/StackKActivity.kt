@@ -4,9 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.showToast
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.basicktest.databinding.ActivityStackkBinding
 
 class StackKActivity : BaseActivityVB<ActivityStackkBinding>(), IStackKListener {
@@ -15,7 +15,7 @@ class StackKActivity : BaseActivityVB<ActivityStackkBinding>(), IStackKListener 
     override fun initView(savedInstanceState: Bundle?) {
         val stackTopActivity = StackK.getStackTopActivity()
         val stackCount = StackK.getStackCount()
-        VB.stackkTitle.text = "StackTop: ${stackTopActivity?.javaClass?.simpleName ?: "Null"}, StackCount: $stackCount"
+        vb.stackkTitle.text = "StackTop: ${stackTopActivity?.javaClass?.simpleName ?: "Null"}, StackCount: $stackCount"
 
         StackK.addFrontBackListener(this)
     }

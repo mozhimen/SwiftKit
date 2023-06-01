@@ -14,7 +14,6 @@ import com.mozhimen.basick.utilk.java.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.UtilKBitmapBlur
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.exts.colorStr2Int
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.log.UtilKLog
 import com.mozhimen.basick.utilk.log.UtilKLogPro

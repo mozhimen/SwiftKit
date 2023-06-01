@@ -7,10 +7,11 @@ import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.permission.helpers.IManifestKPermissionListener
 import com.mozhimen.basick.manifestk.permission.helpers.InvisibleFragment
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContextCompat
-import com.mozhimen.basick.utilk.exts.showToastOnMain
+import com.mozhimen.basick.utilk.view.bar.showToastOnMain
 
 /**
  * @ClassName ManifestKPermission
@@ -19,8 +20,7 @@ import com.mozhimen.basick.utilk.exts.showToastOnMain
  * @Date 2021/4/14 17:08
  * @Version 1.0
  */
-object ManifestKPermission {
-    private const val TAG = "ManifestKPermission>>>>>"
+object ManifestKPermission : BaseUtilK() {
     private val _context by lazy { UtilKApplication.instance.get() }
 
     /**

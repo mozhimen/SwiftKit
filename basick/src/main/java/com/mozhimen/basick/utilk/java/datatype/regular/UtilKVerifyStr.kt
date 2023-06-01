@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.java.datatype.regular
 
-
 /**
  * @ClassName UtilKVerifyNumber
  * @Description TODO
@@ -8,7 +7,16 @@ package com.mozhimen.basick.utilk.java.datatype.regular
  * @Date 2022/12/26 16:59
  * @Version 1.0
  */
-object UtilKVerifyString {
+fun String.checkAllDigits(): Boolean =
+    UtilKVerifyStr.checkAllDigits(this)
+
+fun String.checkAllDigits2(): Boolean =
+    UtilKVerifyStr.checkAllDigits2(this)
+
+fun String.checkAllDigitsAndAlphabets(): Boolean =
+    UtilKVerifyStr.checkAllDigitsAndAlphabets(this)
+
+object UtilKVerifyStr {
     /**
      * 是否是数字
      * @param str String

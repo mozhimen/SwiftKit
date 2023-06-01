@@ -7,22 +7,22 @@ import android.widget.Toast
 import com.mozhimen.abilityk.scank.ScanKQR
 import com.mozhimen.abilityktest.databinding.ActivityScankBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.startContext
+import com.mozhimen.basick.utilk.content.startContext
 
 class ScanKActivity : BaseActivityVB<ActivityScankBinding>() {
 
     @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
-        VB.scankDemoBtnCreate.setOnClickListener {
-            if (VB.scankDemoEdit.text.isEmpty()) {
+        vb.scankDemoBtnCreate.setOnClickListener {
+            if (vb.scankDemoEdit.text.isEmpty()) {
                 Toast.makeText(this, "请输入code", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            VB.scankDemoImg.setImageBitmap(
+            vb.scankDemoImg.setImageBitmap(
                 ScanKQR.createQRCodeBitmap(
-                    VB.scankDemoEdit.text.toString(),
-                    VB.scankDemoImg.width
+                    vb.scankDemoEdit.text.toString(),
+                    vb.scankDemoImg.width
                 )
             )
         }

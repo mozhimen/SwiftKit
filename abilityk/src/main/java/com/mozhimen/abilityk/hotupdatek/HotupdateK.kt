@@ -11,13 +11,10 @@ import com.mozhimen.basick.utilk.app.UtilKApk
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
-import com.mozhimen.basick.utilk.exts.getSplitLast
+import com.mozhimen.basick.utilk.java.datatype.getSplitLast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
-import com.mozhimen.componentk.installk.commons.IInstallK
-import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
-import com.mozhimen.componentk.installk.cons.EInstallMode
 import com.mozhimen.componentk.netk.file.download.DOWNLOAD_ENGINE_EMBED
 import com.mozhimen.componentk.netk.file.download.DownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest

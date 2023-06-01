@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.java.io.hash
 
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.datatype.UtilKByteArray
 import java.io.InputStream
 import java.io.UnsupportedEncodingException

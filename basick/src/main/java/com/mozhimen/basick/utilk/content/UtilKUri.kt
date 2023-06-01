@@ -14,9 +14,9 @@ import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.exts.et
-import com.mozhimen.basick.utilk.exts.getStringValue
-import com.mozhimen.basick.utilk.java.datatype.regular.UtilKVerifyString
+import com.mozhimen.basick.utilk.database.getStringValue
+import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.java.datatype.regular.UtilKVerifyStr
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.File
 import java.io.IOException
@@ -175,7 +175,7 @@ object UtilKUri {
 
         if (isDownloadsDocument(uri)) {
             val id = DocumentsContract.getDocumentId(uri)
-            if (UtilKVerifyString.checkAllDigits2(id)) {
+            if (UtilKVerifyStr.checkAllDigits2(id)) {
                 val newUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), id.toLong())
                 val path = getDataColumn(newUri)
                 if (path != null) {

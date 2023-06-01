@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 
 /**
  * @ClassName UtilKJsonGson
@@ -15,6 +15,21 @@ import com.mozhimen.basick.utilk.exts.et
  * @Date 2023/2/3 17:21
  * @Version 1.0
  */
+fun Any.gsonObj2Json(): String =
+    UtilKJsonGson.obj2Json(this)
+
+fun <T> String.gsonJson2T(token: TypeToken<T>): T =
+    UtilKJsonGson.json2T(this, token)
+
+fun <T> String.gsonJson2T(clazz: Class<T>): T? =
+    UtilKJsonGson.json2T(this, clazz)
+
+fun Any.gsonObj2JsonWithExpose(): String =
+    UtilKJsonGson.obj2JsonWithExpose(this)
+
+fun <T> String.gsonJson2TWithExpose(clazz: Class<T>): T? =
+    UtilKJsonGson.json2TWithExpose(this, clazz)
+
 object UtilKJsonGson : BaseUtilK() {
     private val _gson by lazy { Gson() }
     private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }

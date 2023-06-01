@@ -9,10 +9,11 @@ import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.java.datatype.UtilKDataType
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
-import com.mozhimen.basick.utilk.exts.et
 import com.mozhimen.basick.utilk.view.window.UtilKWindow
 import java.util.*
 
@@ -24,8 +25,96 @@ import java.util.*
  * @Date 2022/2/27 16:50
  * @Version 1.0
  */
-object UtilKView {
-    private const val TAG = "UtilKView>>>>>"
+fun View.applyPadding(paddingHorizontal: Int, paddingVertical: Int) {
+    UtilKView.applyPadding(this, paddingHorizontal, paddingVertical)
+}
+
+fun View.applyPaddingHorizontal(padding: Int) {
+    UtilKView.applyPaddingHorizontal(this, padding)
+}
+
+fun View.applyPaddingVertical(padding: Int) {
+    UtilKView.applyPaddingVertical(this, padding)
+}
+
+fun View.resizeSize(size: Int) {
+    UtilKView.resizeSize(this, size)
+}
+
+fun View.resizeSize(width: Int, height: Int) {
+    UtilKView.resizeSize(this, width, height)
+}
+
+/////////////////////////////////////////////////
+
+fun View.toVisible() {
+    UtilKView.toVisible(this)
+}
+
+fun View.toInVisible() {
+    UtilKView.toInVisible(this)
+}
+
+fun View.toGone() {
+    UtilKView.toGone(this)
+}
+
+/////////////////////////////////////////////////
+
+fun View.toVisibleIfElseGone(invoke: () -> Boolean) {
+    UtilKView.toVisibleIfElseGone(this, invoke)
+}
+
+fun View.toVisibleIfElseGone(boolean: Boolean) {
+    UtilKView.toVisibleIfElseGone(this, boolean)
+}
+
+/////////////////////////////////////////////////
+
+fun View.toVisibleIf(invoke: () -> Boolean) {
+    UtilKView.toVisibleIf(this, invoke)
+}
+
+fun View.toInVisibleIf(invoke: () -> Boolean) {
+    UtilKView.toInVisibleIf(this, invoke)
+}
+
+fun View.toGoneIf(invoke: () -> Boolean) {
+    UtilKView.toGoneIf(this, invoke)
+}
+
+/////////////////////////////////////////////////
+
+fun View.toVisibleIf(boolean: Boolean) {
+    UtilKView.toVisibleIf(this, boolean)
+}
+
+fun View.toInVisibleIf(boolean: Boolean) {
+    UtilKView.toInVisibleIf(this, boolean)
+}
+
+fun View.toGoneIf(boolean: Boolean) {
+    UtilKView.toGoneIf(this, boolean)
+}
+
+/////////////////////////////////////////////////
+
+fun View.isVisible(): Boolean =
+    UtilKView.isVisible(this)
+
+fun View.isInvisible(): Boolean =
+    UtilKView.isInvisible(this)
+
+fun View.isGone(): Boolean =
+    UtilKView.isGone(this)
+
+/////////////////////////////////////////////////
+
+fun View.setOnGlobalLayoutObserver(callback: () -> Unit) {
+    UtilKView.setOnGlobalLayoutObserver(this, callback)
+}
+
+object UtilKView : BaseUtilK() {
 
     /**
      * 显示占比
@@ -260,7 +349,7 @@ object UtilKView {
      * @param paddingVertical Int
      */
     @JvmStatic
-    fun setPadding(
+    fun applyPadding(
         view: View,
         paddingHorizontal: Int,
         paddingVertical: Int
@@ -274,7 +363,7 @@ object UtilKView {
      * @param padding Int
      */
     @JvmStatic
-    fun setPaddingHorizontal(
+    fun applyPaddingHorizontal(
         view: View,
         padding: Int
     ) {
@@ -287,7 +376,7 @@ object UtilKView {
      * @param padding Int
      */
     @JvmStatic
-    fun setPaddingVertical(
+    fun applyPaddingVertical(
         view: View,
         padding: Int
     ) {

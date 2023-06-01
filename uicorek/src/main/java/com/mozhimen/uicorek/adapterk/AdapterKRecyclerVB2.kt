@@ -1,8 +1,8 @@
 package com.mozhimen.uicorek.adapterk
 
 import androidx.databinding.ViewDataBinding
-import com.mozhimen.basick.utilk.exts.joinElement2List
-import com.mozhimen.basick.utilk.exts.joinElement2ListIgnoreNull
+import com.mozhimen.basick.utilk.java.datatype.joinElement2List
+import com.mozhimen.basick.utilk.java.datatype.joinElement2ListIgnoreNull
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVB
 import com.mozhimen.uicorek.recyclerk.temps.RecyclerKItemVB
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB

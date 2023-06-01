@@ -12,6 +12,24 @@ import java.util.*
  * @Date 2022/1/15 14:08
  * @Version 1.0
  */
+fun Date.date2Long(): Long =
+    UtilKDate.date2Long(this)
+
+fun Long.long2Date(): Date =
+    UtilKDate.long2Date(this)
+
+fun Date.date2Str(formatDate: String, locale: Locale = Locale.CHINA): String =
+    UtilKDate.date2Str(this, formatDate, locale)
+
+fun String.str2Date(formatDate: String, locale: Locale = Locale.CHINA): Date =
+    UtilKDate.str2Date(this, formatDate, locale)
+
+fun Long.long2Str(formatDate: String, locale: Locale = Locale.CHINA): String =
+    UtilKDate.long2Str(this, formatDate, locale)
+
+fun String.str2Long(formatDate: String, locale: Locale = Locale.CHINA): Long =
+    UtilKDate.str2Long(this, formatDate, locale)
+
 object UtilKDate {
     private const val TAG = "UtilKDate>>>>>"
 

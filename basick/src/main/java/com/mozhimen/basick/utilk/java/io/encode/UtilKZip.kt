@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.java.io.encode
 
 import android.util.Log
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 
 import java.io.*
 import java.util.zip.ZipEntry

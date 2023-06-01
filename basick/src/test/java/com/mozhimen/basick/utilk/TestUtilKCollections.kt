@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.exts.joinElement2List
-import com.mozhimen.basick.utilk.exts.getIndexFirst
-import com.mozhimen.basick.utilk.exts.printlog
+import com.mozhimen.basick.utilk.java.datatype.getIndexFirst
+import com.mozhimen.basick.utilk.java.datatype.joinElement2List
+import com.mozhimen.basick.utilk.java.printlog
 import org.junit.Test
 
 

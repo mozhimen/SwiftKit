@@ -31,9 +31,9 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         ManifestKPermission.initPermissions(this) {
             if (it) {
-                VB.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
+                vb.utilkFileRecycler.layoutManager = LinearLayoutManager(this)
                 _adapterKRecycler = AdapterKRecyclerVB<UtilKFileLogBean, ItemUtilkFileLogBinding>(_logs, R.layout.item_utilk_file_log, BR.item_utilk_file_log)
-                VB.utilkFileRecycler.adapter = _adapterKRecycler
+                vb.utilkFileRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)
             }

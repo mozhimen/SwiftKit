@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.java.datatype
 
 import android.os.Build
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.exts.normalize
 import java.text.DecimalFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -14,6 +13,40 @@ import java.util.stream.Collectors
  * @Date 2022/4/29 21:43
  * @Version 1.0
  */
+fun String.getSplitLast(splitStr: String): String =
+    UtilKString.getSplitLast(this, splitStr)
+
+fun String.getSplitFirst(splitStr: String): String =
+    UtilKString.getSplitFirst(this, splitStr)
+
+fun String.str2Unicode(): String =
+    UtilKString.str2Unicode(this)
+
+fun Boolean.boolean2Str(locale: Locale = Locale.CHINA): String =
+    UtilKString.boolean2Str(this, locale)
+
+fun Double.decimal2Str(pattern: String = "#.0"): String =
+    UtilKString.decimal2Str(this, pattern)
+
+fun String.throwIllegalStateException() {
+    UtilKString.throwIllegalStateException(this)
+}
+
+fun <T> Array<T>.joinArray2Str(defaultValue: String = "", splitChar: String = ","): String =
+    UtilKString.joinArray2Str(this, defaultValue, splitChar)
+
+fun <T> List<T>.joinList2Str(defaultValue: String = "", splitStr: String = ","): String =
+    UtilKString.joinList2Str(this, defaultValue, splitStr)
+
+fun String.getFilenameExtension(): String =
+    UtilKString.getFilenameExtension(this)
+
+fun CharSequence.toStringTrim(): String =
+    UtilKString.toStringTrim(this)
+
+fun Any.toStringTrim(): String =
+    UtilKString.toStringTrim(this)
+
 object UtilKString {
     private const val TAG = "UtilKString>>>>>"
 
@@ -244,4 +277,9 @@ object UtilKString {
      */
     @JvmStatic
     fun getFilenameExtension(str: String): String = str.substring(str.lastIndexOf(".") + 1)
+
+    @JvmStatic
+    fun throwIllegalStateException(msgStr: String) {
+        throw IllegalStateException(msgStr)
+    }
 }

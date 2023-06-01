@@ -30,8 +30,8 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
             Astro("双子座", "晴天", 90),
             Astro("射手座", "晴天", 90),
         )
-        VB.demoRecycler.layoutManager = LinearLayoutManager(this)
-        VB.demoRecycler.adapter =
+        vb.demoRecycler.layoutManager = LinearLayoutManager(this)
+        vb.demoRecycler.adapter =
             AdapterKRecyclerStuffedVB<Astro, ItemDemoListBinding>(
                 list,
                 R.layout.item_demo_list,
@@ -45,18 +45,18 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
                     }
                 }
             }
-        VB.demoRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        vb.demoRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 _scrollY += dy
                 _alpha = if (abs(_scrollY) > 1000) {
-                    VB.demoBg.setBlurOffset(100)
+                    vb.demoBg.setBlurOffset(100)
                     100
                 } else {
-                    VB.demoBg.setBlurOffset(_scrollY / 10)
+                    vb.demoBg.setBlurOffset(_scrollY / 10)
                     abs(_scrollY) / 10
                 }
-                VB.demoBg.setBlurLevel(_alpha)
+                vb.demoBg.setBlurLevel(_alpha)
             }
         })
     }

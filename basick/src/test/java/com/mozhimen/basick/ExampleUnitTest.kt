@@ -1,8 +1,6 @@
 package com.mozhimen.basick
 
-import com.mozhimen.basick.utilk.exts.printlog
 import org.junit.Test
-import kotlin.concurrent.thread
 
 /**
  * Example local unit test, which will execute on the development machine (host).

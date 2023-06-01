@@ -3,7 +3,7 @@ package com.mozhimen.uicorektest.drawablek
 import android.graphics.Color
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.exts.dp2px
+import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.uicorek.drawablek.arrow.DrawableKArrow
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
@@ -17,7 +17,7 @@ class DrawableKArrowActivity : BaseActivityVB<ActivityDrawablekArrowBinding>() {
             if (field != null) return field
             val drawableKArrow = DrawableKArrow()
             drawableKArrow.apply {
-                resetRect(VB.drawablekArrow1.width, VB.drawablekArrow1.height)
+                resetRect(vb.drawablekArrow1.width, vb.drawablekArrow1.height)
 
                 setFillColor(Color.BLACK)
                 setGapWidth(5f.dp2px())
@@ -39,8 +39,8 @@ class DrawableKArrowActivity : BaseActivityVB<ActivityDrawablekArrowBinding>() {
         }
 
     override fun initView(savedInstanceState: Bundle?) {
-        VB.drawablekArrow1.post {
-            VB.drawablekArrow1.background = drawableKArrow
+        vb.drawablekArrow1.post {
+            vb.drawablekArrow1.background = drawableKArrow
         }
     }
 }

@@ -30,13 +30,13 @@ class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         ManifestKPermission.initPermissions(this) {
             if (it) {
-                VB.utilkAssetRecycler.layoutManager = LinearLayoutManager(this)
+                vb.utilkAssetRecycler.layoutManager = LinearLayoutManager(this)
                 _adapterKRecycler = AdapterKRecyclerVB<UtilKFileActivity.UtilKFileLogBean, ItemUtilkFileLogBinding>(
                     _logs,
                     R.layout.item_utilk_file_log,
                     BR.item_utilk_file_log
                 )
-                VB.utilkAssetRecycler.adapter = _adapterKRecycler
+                vb.utilkAssetRecycler.adapter = _adapterKRecycler
 
                 super.initData(savedInstanceState)
             }

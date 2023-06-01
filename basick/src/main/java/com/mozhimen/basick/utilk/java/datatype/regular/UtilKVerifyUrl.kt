@@ -2,23 +2,33 @@ package com.mozhimen.basick.utilk.java.datatype.regular
 
 import android.util.Log
 import androidx.annotation.MainThread
-import com.mozhimen.basick.utilk.exts.*
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.datatype.getSplitFirst
+import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.view.bar.showToast
 import java.net.URI
 import java.net.URISyntaxException
 
 /**
  * @ClassName Verifier
- * @Description TODO
+ * @Description 密码校验
  * @Author mozhimen
  * @Date 2021/4/21 13:59
  * @Version 1.0
  */
-/**
- * 密码校验
- */
-object UtilKVerifyUrl {
-    private val TAG = "UtilKVerifyUrl>>>>>"
+fun String.checkIP(): Boolean =
+    UtilKVerifyUrl.checkIP(this)
 
+fun String.checkDoMain(): Boolean =
+    UtilKVerifyUrl.checkDoMain(this)
+
+fun String.checkPort(): Boolean =
+    UtilKVerifyUrl.checkPort(this)
+
+fun String.checkUrl(): Boolean =
+    UtilKVerifyUrl.checkUrl(this)
+
+object UtilKVerifyUrl : BaseUtilK() {
     /**
      * ip是否合法
      * @param ip String

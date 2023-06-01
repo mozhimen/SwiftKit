@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.device.camera
 
 import android.graphics.Rect
 import android.graphics.RectF
-import com.mozhimen.basick.utilk.exts.normalize
+import com.mozhimen.basick.utilk.java.datatype.normalize
 import kotlin.math.roundToInt
 
 

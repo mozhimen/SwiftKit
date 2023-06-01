@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.net
 
 import android.annotation.SuppressLint
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext

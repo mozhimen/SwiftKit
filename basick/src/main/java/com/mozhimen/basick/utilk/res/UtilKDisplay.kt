@@ -15,6 +15,68 @@ import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
  * @Date 2021/12/24 14:27
  * @Version 1.0
  */
+val Float.dp2px: Float
+    get() = dp2px()
+
+fun Float.dp2px(): Float =
+    UtilKDisplay.dp2px(this)
+
+////////////////////////////////////
+
+val Int.dp2px: Float
+    get() = dp2px()
+
+fun Int.dp2px(): Float =
+    UtilKDisplay.dp2px(this.toFloat())
+
+////////////////////////////////////
+
+val Float.sp2px: Float
+    get() = sp2px()
+
+fun Float.sp2px(): Float =
+    UtilKDisplay.sp2px(this)
+
+////////////////////////////////////
+
+val Int.sp2px: Float
+    get() = sp2px()
+
+fun Int.sp2px(): Float =
+    UtilKDisplay.sp2px(this.toFloat())
+
+////////////////////////////////////
+
+val Int.px2dp: Float
+    get() = px2dp()
+
+fun Int.px2dp(): Float =
+    UtilKDisplay.px2dp(this.toFloat())
+
+////////////////////////////////////
+
+val Float.px2dp: Float
+    get() = px2dp()
+
+fun Float.px2dp(): Float =
+    UtilKDisplay.px2dp(this)
+
+////////////////////////////////////
+
+val Int.px2sp: Float
+    get() = px2sp()
+
+fun Int.px2sp(): Float =
+    UtilKDisplay.px2sp(this.toFloat())
+
+////////////////////////////////////
+
+val Float.px2sp: Float
+    get() = px2sp()
+
+fun Float.px2sp(): Float =
+    UtilKDisplay.px2sp(this)
+
 object UtilKDisplay {
 
     /**
@@ -23,7 +85,7 @@ object UtilKDisplay {
      */
     @JvmStatic
     fun getDisplayMetrics(): DisplayMetrics {
-        return UtilKRes.getSystemResources().displayMetrics
+        return UtilKRes.getDisplayMetrics()
     }
 
     /**

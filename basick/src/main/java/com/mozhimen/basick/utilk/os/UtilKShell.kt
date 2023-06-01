@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.os
 
 import android.text.TextUtils
 import android.util.Log
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 
 import java.io.BufferedReader
 import java.io.DataOutputStream

@@ -7,8 +7,8 @@ import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.flowk.mos.FlowKNode
 import com.mozhimen.basick.flowk.mos.FlowKNodeGroup
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
-import com.mozhimen.basick.utilk.exts.postDelayed
 import com.mozhimen.basick.flowk.mos.MNodeRuntimeInfo
+import com.mozhimen.basick.utilk.os.thread.applyPostDelayed
 import java.util.*
 
 /**
@@ -101,7 +101,7 @@ internal object FlowKRuntime {
                 head.run()
             } else {
                 for (waitingTask in _waitingTasks) {
-                    BaseWeakClazzMainHandler(this).postDelayed(waitingTask.delayMills, waitingTask)
+                    BaseWeakClazzMainHandler(this).applyPostDelayed(waitingTask.delayMills, waitingTask)
                 }
                 _waitingTasks.clear()
             }
@@ -117,7 +117,7 @@ internal object FlowKRuntime {
             //else里面的都是在主线程执行的
             //延迟任务，但是如果这个延迟任务它存在着后置任务A(延迟任务)-->B--->C (Block task)
             if (flowKNode.delayMills > 0 && !hasBlockBehindTask(flowKNode)) {
-                BaseWeakClazzMainHandler(this).postDelayed(flowKNode.delayMills, flowKNode)
+                BaseWeakClazzMainHandler(this).applyPostDelayed(flowKNode.delayMills, flowKNode)
                 return
             }
             if (!hasBlockTasks()) {

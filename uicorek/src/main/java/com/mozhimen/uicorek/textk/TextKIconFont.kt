@@ -3,8 +3,8 @@ package com.mozhimen.uicorek.textk
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basick.utilk.exts.setIconFont
 import com.mozhimen.basick.utilk.view.UtilKTextView
+import com.mozhimen.basick.utilk.view.setIconFont
 import com.mozhimen.uicorek.R
 
 /**

@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.java.datatype.json
 
 import android.text.TextUtils
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.exts.et
+import com.mozhimen.basick.utilk.log.et
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject

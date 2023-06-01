@@ -10,6 +10,10 @@ import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.componentk.navigatek.mos.MNavigateKPageInfo
 import java.util.*
 
+fun Class<*>.getNavigateKId(): Int {
+    return NavigateK.getId(this)
+}
+
 object NavigateK {
 
     private const val TAG = "NavigateK>>>>>"

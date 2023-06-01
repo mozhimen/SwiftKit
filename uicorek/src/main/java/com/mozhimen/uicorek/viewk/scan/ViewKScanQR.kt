@@ -5,9 +5,9 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import com.mozhimen.basick.utilk.graphics.bitmap.drawable2Bitmap
 import com.mozhimen.uicorek.viewk.bases.BaseViewK
-import com.mozhimen.basick.utilk.exts.dp2px
-import com.mozhimen.basick.utilk.exts.drawable2Bitmap
+import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.uicorek.R
 
 /**

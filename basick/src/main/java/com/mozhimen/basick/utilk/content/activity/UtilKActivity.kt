@@ -24,6 +24,13 @@ import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKLifecycle
  * @Date 2022/6/13 13:44
  * @Version 1.0
  */
+fun Activity.isFinishingOrDestroyed(): Boolean =
+    UtilKActivity.isFinishingOrDestroyed(this)
+
+fun AppCompatActivity.runOnBackThread(block: () -> Unit) {
+    UtilKActivity.runOnBackThread(this, block)
+}
+
 object UtilKActivity {
 
     @JvmStatic
