@@ -1,8 +1,8 @@
 package com.mozhimen.basicktest.cachek
 
 import android.os.Bundle
-import com.mozhimen.basick.cachek.cacheksp.CacheKSP
-import com.mozhimen.basick.cachek.cacheksp.temps.CacheKSPDelegateString
+import com.mozhimen.basick.cachek.shared_preferences.CacheKSP
+import com.mozhimen.basick.cachek.shared_preferences.temps.CacheKSPDelegateString
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basicktest.databinding.ActivityCachekBinding
 
@@ -15,12 +15,13 @@ import com.mozhimen.basicktest.databinding.ActivityCachekBinding
  * @Version 1.0
  */
 class CacheKActivity : BaseActivityVB<ActivityCachekBinding>() {
-    private val _spPro by lazy { CacheKSP.instance.with("cachek_sp_test") }
-    private var _editText by CacheKSPDelegateString(_spPro, "key", "")
+    private val _spTestPro by lazy { CacheKSP.instance.with("sp_test") }
+    private var _editStr: String by CacheKSPDelegateString(_spTestPro, "editStr", "")
+
     override fun initView(savedInstanceState: Bundle?) {
-        vb.cachekEdit.setText(_editText)
+        vb.cachekEdit.setText(_editStr)
         vb.cachekBtn.setOnClickListener {
-            _editText = vb.cachekEdit.text.toString()
+            _editStr = vb.cachekEdit.text.toString()
         }
     }
 }

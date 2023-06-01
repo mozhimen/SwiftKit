@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
+import com.mozhimen.basick.manifestk.permission.annors.APermissionsCheck
 import com.mozhimen.basick.manifestk.permission.helpers.IManifestKPermissionListener
 import com.mozhimen.basick.manifestk.permission.helpers.InvisibleFragment
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -50,8 +51,13 @@ object ManifestKPermission : BaseUtilK() {
         isGranted: ((Boolean) -> Unit)? = null,
     ) {
         val permissionAnnor = activity.javaClass.getAnnotation(APermissionCheck::class.java)
-        requireNotNull(permissionAnnor) { "$TAG you may be forget add annor" }
-        initPermissions(activity, permissionAnnor.permission, isGranted)
+        val permissionsAnnor = activity.javaClass.getAnnotation(APermissionsCheck::class.java)
+        require(permissionAnnor != null || permissionsAnnor != null) { "$TAG you may be forget add annor" }
+        if (permissionAnnor != null) {
+            initPermissions(activity, permissionAnnor.permission, isGranted)
+        } else if (permissionsAnnor != null) {
+            initPermissions(activity, permissionsAnnor.permissions, isGranted)
+        }
     }
 
     /**
