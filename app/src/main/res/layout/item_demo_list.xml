@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{itemAstro.name}"
-                android:textColor="@color/white"
+                android:textColor="@color/ui_gray_000"
                 android:textSize="30sp"
                 tools:ignore="HardcodedText" />
 
@@ -39,7 +39,7 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="sans-serif-thin"
                 android:text="@{itemAstro.weather}"
-                android:textColor="@color/white"
+                android:textColor="@color/ui_gray_000"
                 android:textSize="20sp"
                 tools:ignore="HardcodedText" />
         </LinearLayout>
@@ -50,7 +50,7 @@
             android:layout_gravity="right|center_vertical"
             android:fontFamily="sans-serif-thin"
             android:text="@{String.valueOf(itemAstro.num)}"
-            android:textColor="@color/white"
+            android:textColor="@color/ui_gray_000"
             android:textSize="60sp"
             tools:ignore="HardcodedText,RtlHardcoded" />
     </FrameLayout>

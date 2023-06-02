@@ -7,18 +7,22 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnim
 import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnimDrawable
 import com.mozhimen.uicorektest.dialogk.temps.DialogKQues
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityDialogkBinding
 import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingUpdate
+import com.mozhimen.uicorektest.dialogk.temps.DialogKTipVB
+import com.mozhimen.uicorektest.dialogk.temps.IDialogKTipListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 @APermissionCheck(CPermission.SYSTEM_ALERT_WINDOW)
 class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
+
     override fun initView(savedInstanceState: Bundle?) {
         vb.dialogkQues.setOnClickListener {
             genDialogKQues("你get到此用法了吗?", onSureClick = {})
@@ -38,6 +42,14 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
 
         vb.dialogkCustomUpdate.setOnClickListener {
             showLoadingUpdateDialog("正在更新", "...")
+        }
+
+        vb.dialogkCustomVb.setOnClickListener {
+            //如此使用
+            showDialogTip("你提出的问题,亲?") {
+                ///////////////////////////
+                "你点击了确定".showToast()
+            }
         }
     }
 
@@ -104,5 +116,21 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
                 _dialogKLoadingUpdate!!.setUpdateDesc(str)
             }
         }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+
+    private var _dialogKTipVB: DialogKTipVB? = null
+
+    fun showDialogTip(txt: String, onSure: IDialogKTipListener) {
+        if (_dialogKTipVB == null) {
+            _dialogKTipVB = DialogKTipVB.create(this, txt, onSure)
+        } else {
+            _dialogKTipVB!!.apply {
+                setTxt(txt)
+                setOnSureListener(onSure)
+            }
+        }
+        _dialogKTipVB!!.show()
     }
 }

@@ -15,7 +15,7 @@
         android:layout_height="40dp"
         android:layout_gravity="bottom"
         android:alpha="0.7"
-        android:background="@color/black"
+        android:background="@color/ui_gray_999"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:paddingHorizontal="12dp"

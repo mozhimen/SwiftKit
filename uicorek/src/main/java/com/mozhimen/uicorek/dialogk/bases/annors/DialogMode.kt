@@ -1,8 +1,6 @@
 package com.mozhimen.uicorek.dialogk.bases.annors
 
 import androidx.annotation.IntDef
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 
 /**
  * @ClassName DialogMode
@@ -11,7 +9,7 @@ import java.lang.annotation.RetentionPolicy
  * @Date 2022/11/24 22:33
  * @Version 1.0
  */
-@Retention(RetentionPolicy.SOURCE)
+@Retention(AnnotationRetention.SOURCE)
 @IntDef(DialogMode.POSITIVE, DialogMode.NEGATIVE, DialogMode.BOTH, DialogMode.NONE)
 annotation class DialogMode {
     companion object {

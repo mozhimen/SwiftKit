@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_015">
+
+        <TextView
+            android:id="@+id/dialogk_tip_txt"
+            style="@style/Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/dp_010"
+            tools:text="这是提示" />
+
+        <Button
+            android:id="@+id/dialogk_tip_btn_sure"
+            style="@style/Btn_Style.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040.Back_Null"
+            android:layout_marginBottom="@dimen/dp_010"
+            android:text="确认"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/dialogk_tip_btn_cancel"
+            style="@style/Btn_Style.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040.Back_Null"
+            android:text="取消"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+</layout>

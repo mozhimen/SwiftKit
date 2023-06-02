@@ -26,7 +26,7 @@ import com.mozhimen.componentktest.databinding.ActivityAudiokBinding
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
-import com.mozhimen.uicorek.popwink.PopwinKLifecycle
+import com.mozhimen.uicorek.popwink.bases.BasePopwinKLifecycle
 import kotlin.math.roundToInt
 
 @AManifestKRequire(CPermission.WAKE_LOCK)
@@ -37,7 +37,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         MAudioK("1237378768e7q8e7r8qwesafdasdfasdfaxss111", "http://192.168.2.9/construction-sites-images/voice/20221024/1237378768e7q8e7r8qwesafdasdfasdfaxss111.speex", 0),
         MAudioK("3777061809", "http://sq-sycdn.kuwo.cn/resource/n1/98/51/3777061809.mp3", 0),
     )
-    private val _popwinAudio: PopwinAudio by lazy { PopwinAudio(this) }
+    private val _popwinAudio: PopwinKAudio by lazy { PopwinKAudio(this) }
     private var _currentVolume: Int = MediaKAudio.instance.getVolumeCurrent()
         get() = MediaKAudio.instance.getVolumeCurrent()
         set(value) {
@@ -83,7 +83,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         }
     }
 
-    class PopwinAudio(context: Context) : PopwinKLifecycle(context) {
+    class PopwinKAudio(context: Context) : BasePopwinKLifecycle(context) {
         private lateinit var _txtName: TextView
         private lateinit var _slider: LayoutKSlider
         private lateinit var _btnClose: ImageView

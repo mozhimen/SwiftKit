@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <!--btnk-->
     <declare-styleable name="BtnKIconFont">
         <attr name="btnKIconFont_fontPath" format="string" />
@@ -10,6 +13,8 @@
         <attr name="btnKPwdEye_openEyeDrawable" format="reference" />
         <attr name="btnKPwdEye_closeEyeDrawable" format="reference" />
     </declare-styleable>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <!--imagek-->
     <declare-styleable name="ImageKSquare">
@@ -31,6 +36,8 @@
         <attr name="imageKCircleText_textSize" format="dimension|reference" />
         <attr name="imageKCircleText_textPadding" format="dimension|reference" />
     </declare-styleable>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <!--layoutk_search-->
     <attr name="LayoutKSearch_LayoutKSearch_Style" format="reference" />
@@ -274,6 +281,8 @@
         </attr>
     </declare-styleable>
 
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <!--textk-->
     <declare-styleable name="TextKBubble">
         <!--设置箭头朝向-->
@@ -363,6 +372,8 @@
         <!--下划线是否出现-->
         <attr name="textKUnderLine_underline" format="boolean" />
     </declare-styleable>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <!--viewk-->
     <declare-styleable name="ViewKWheel">

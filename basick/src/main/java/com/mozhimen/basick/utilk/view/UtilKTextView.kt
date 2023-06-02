@@ -21,11 +21,15 @@ fun TextView.setIconFont(iconFont: String = "icons/iconfont.ttf") {
     UtilKTextView.setIconFont(this, iconFont)
 }
 
-fun TextView.getContent(): String =
-    UtilKTextView.getValue(this)
+val TextView.value: String
+    get() = UtilKTextView.getValue(this)
 
 fun TextView.getValueIfNotEmpty(invoke: (value: String) -> Unit) {
     UtilKTextView.getValueIfNotEmpty(this, invoke)
+}
+
+fun TextView.setValueIfNotEmpty(str: String?) {
+    UtilKTextView.setValueIfNotEmpty(this, str)
 }
 
 object UtilKTextView {
@@ -63,5 +67,13 @@ object UtilKTextView {
     fun getValueIfNotEmpty(textView: TextView, invoke: (value: String) -> Unit) {
         val value = getValue(textView)
         if (value.isNotEmpty()) invoke.invoke(value)
+    }
+
+    @JvmStatic
+    fun setValueIfNotEmpty(textView: TextView, str: String?): Boolean {
+        return if (!str.isNullOrEmpty()) {
+            textView.text = str
+            true
+        } else false
     }
 }

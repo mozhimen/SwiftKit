@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="ui_transparent">#00FFFFFF</color>
+    <color name="ui_white">@color/ui_gray_000</color>
+    <color name="ui_black">@color/ui_gray_999</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <color name="ui_amber_100">#FFECB3</color>
     <color name="ui_amber_200">#FFE082</color>

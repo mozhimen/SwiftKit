@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.popwink
+package com.mozhimen.uicorek.popwink.bases
 
 import android.content.Context
 import android.view.View
@@ -14,7 +14,7 @@ import com.mozhimen.uicorek.popwink.bases.BasePopwinK
  * @Date 2022/5/31 23:09
  * @Version 1.0
  */
-open class PopwinKLifecycle(context: Context) : BasePopwinK(context), LifecycleOwner {
+open class BasePopwinKLifecycle(context: Context) : BasePopwinK(context), LifecycleOwner {
     protected var _lifecycleRegistry: LifecycleRegistry? = null
 
     init {

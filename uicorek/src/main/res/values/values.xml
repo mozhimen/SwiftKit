@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--dialogk-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <style name="DialogK_Theme_Transparent" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -37,6 +40,8 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <style name="DialogK_Style_Title">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -45,6 +50,8 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="DialogK_Style_BtnCancel">
         <item name="android:layout_width">wrap_content</item>
@@ -126,7 +133,8 @@
         <item name="layoutKSearch_keyword_icon">&#xe611;</item>
         <item name="layoutKSearch_keyword_iconSize">14sp</item>
         <item name="layoutKSearch_keyword_iconColor">#ffffff</item>
-        <item name="layoutKSearch_keyword_background">@drawable/layoutk_search_keyword_background</item>
+        <item name="layoutKSearch_keyword_background">@drawable/layoutk_search_keyword_background
+        </item>
         <item name="layoutKSearch_keyword_maxLength">10</item>
         <item name="layoutKSearch_keyword_padding">4dp</item>
     </style>

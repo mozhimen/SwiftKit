@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.dialogk.commons
+package com.mozhimen.uicorek.dialogk.bases.commons
 
 import android.view.View
 

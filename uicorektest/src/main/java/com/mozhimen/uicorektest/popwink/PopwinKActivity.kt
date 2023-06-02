@@ -3,7 +3,7 @@ package com.mozhimen.uicorektest.popwink
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityPopwinkBinding
-import com.mozhimen.uicorektest.popwink.temps.PopwinK
+import com.mozhimen.uicorektest.popwink.temps.PopwinKAnim
 import com.mozhimen.uicorektest.popwink.temps.PopwinKSelector
 import com.mozhimen.uicorektest.popwink.temps.PopwinKTest
 
@@ -17,7 +17,7 @@ import com.mozhimen.uicorektest.popwink.temps.PopwinKTest
  */
 class PopwinKActivity : BaseActivityVB<ActivityPopwinkBinding>() {
 
-    private val _popwinK by lazy { PopwinK(this) }
+    private val _popwinK by lazy { PopwinKAnim(this) }
     fun showPopwinK(view: View) {
         _popwinK.showPopupWindow()
     }

@@ -13,8 +13,11 @@ import com.mozhimen.basick.utilk.java.datatype.toStringTrim
  * @Date 2022/11/6 0:28
  * @Version 1.0
  */
-val EditText.content: String
-    get() = UtilKEditText.getContent(this)
+val EditText.value: String
+    get() = value()
+
+fun EditText.value(): String =
+    UtilKEditText.value(this)
 
 fun EditText.setInputMaxLength(inputMaxLength: Int) {
     UtilKEditText.setInputMaxLength(this, inputMaxLength)
@@ -41,7 +44,7 @@ object UtilKEditText {
      * @return String
      */
     @JvmStatic
-    fun getContent(editText: EditText): String =
+    fun value(editText: EditText): String =
         editText.text.toStringTrim()
 
     /**
