@@ -60,21 +60,30 @@ dependencies {
     api 'androidx.core:core-ktx:1.7.0'
     api 'com.google.android.material:material:1.5.0'
 
+    //////////////////////////////////////////////////////////////////
     //multidex
     api 'androidx.multidex:multidex:2.0.1'
 
+    //////////////////////////////////////////////////////////////////
+    //thread
     //coroutine
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
+
+    //concurrent
+    api "androidx.concurrent:concurrent-futures:1.1.0"
+    api "androidx.concurrent:concurrent-futures-ktx:1.1.0"
 
     //rxjava
     api "io.reactivex.rxjava2:rxjava:2.2.14"
     api "io.reactivex.rxjava2:rxandroid:2.1.1"
 
+    //////////////////////////////////////////////////////////////////
     //databinding
     api 'androidx.databinding:databinding-common:7.1.2'
     api 'androidx.databinding:databinding-runtime:7.1.2'
 
+    //////////////////////////////////////////////////////////////////
     //lifecycle
     api "androidx.fragment:fragment-ktx:1.4.0"
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.0-alpha03'
@@ -83,10 +92,13 @@ dependencies {
     api "androidx.lifecycle:lifecycle-extensions:2.2.0"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
 
+    //////////////////////////////////////////////////////////////////
     //room cachek
     api 'androidx.room:room-runtime:2.4.2'
     kapt 'androidx.room:room-compiler:2.4.2'
 
+    //////////////////////////////////////////////////////////////////
+    //serialize
     //moshi
     api 'com.squareup.moshi:moshi:1.13.0'
     api 'com.squareup.moshi:moshi-kotlin:1.13.0'
@@ -95,21 +107,23 @@ dependencies {
     //gson
     implementation 'com.google.code.gson:gson:2.10.1'
 
+    //////////////////////////////////////////////////////////////////
+    //load image
     //coil
     api 'io.coil-kt:coil:2.2.0'
     api 'io.coil-kt:coil-gif:2.2.0'
     api 'io.coil-kt:coil-svg:2.2.0'
     api 'com.squareup.okhttp3:okhttp:5.0.0-alpha.2'
+
+    //glide
     //api 'com.github.bumptech.glide:glide:4.12.0'//图片加载库
     //kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
-    //concurrent
-    api "androidx.concurrent:concurrent-futures:1.1.0"
-    api "androidx.concurrent:concurrent-futures-ktx:1.1.0"
-
+    //////////////////////////////////////////////////////////////////
     //firebase
     api 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
 
+    //////////////////////////////////////////////////////////////////
     //test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
