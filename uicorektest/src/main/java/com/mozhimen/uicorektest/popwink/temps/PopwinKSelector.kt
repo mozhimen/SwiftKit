@@ -7,7 +7,7 @@ import android.view.View
 import android.view.animation.Animation
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.TranslationType
-import com.mozhimen.uicorek.popwink.PopwinKLifecycle
+import com.mozhimen.uicorek.popwink.bases.BasePopwinKLifecycle
 import com.mozhimen.uicorek.viewk.wheel.ViewKWheel
 import com.mozhimen.uicorek.viewk.wheel.temps.ArrayWheelAdapter
 import com.mozhimen.uicorektest.R
@@ -23,7 +23,7 @@ import com.mozhimen.uicorektest.R
 class PopwinKSelector(
     context: Context,
     private var _items: List<String>
-) : PopwinKLifecycle(context) {
+) : BasePopwinKLifecycle(context) {
     private var _viewKWheel: ViewKWheel? = null
 
     init {

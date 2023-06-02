@@ -48,7 +48,8 @@
                 android:text="重新加载"
                 android:textColor="@android:color/white"
                 android:visibility="gone"
-                tools:ignore="HardcodedText" />
+                tools:ignore="HardcodedText"
+                tools:visibility="visible" />
         </LinearLayout>
     </com.mozhimen.uicorek.layoutk.LayoutKSquare>
 </FrameLayout>

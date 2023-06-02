@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--///Txt_Style-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="Txt_Style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">@color/ui_gray_999</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014.Width_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center" />
+
+    <style name="Txt_Style.Font_Sans_Serif" />
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--///Btn_Style-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="Btn_Style" parent="Txt_Style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_040</item>
+        <item name="android:paddingStart">@dimen/dp_010</item>
+        <item name="android:paddingEnd">@dimen/dp_010</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Btn_Style.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040.Back_Null" />
+
+    <style name="Btn_Style.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040" />
+
+    <style name="Btn_Style.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat" />
+
+    <style name="Btn_Style.Ellip_End.StateL_Anim_Null.PH_10" />
+
+    <style name="Btn_Style.Ellip_End.StateL_Anim_Null" />
+
+    <style name="Btn_Style.Ellip_End" />
+</resources>

@@ -44,6 +44,12 @@
                 style="@style/Btn_Style"
                 android:text="自定义弹框更新进度(基于BaseDialogK)"
                 tools:ignore="HardcodedText" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/dialogk_custom_vb"
+                style="@style/Btn_Style"
+                android:text="自定义弹框提示/提问(基于BaseDialogKVB)"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </FrameLayout>
 

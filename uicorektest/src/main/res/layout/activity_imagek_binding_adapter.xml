@@ -21,7 +21,7 @@
         <com.mozhimen.uicorek.imagek.ImageKCircleText
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/black"
+            android:background="@color/ui_gray_999"
             app:imageKCircleText_borderColor="@color/ui_gray_000"
             app:imageKCircleText_borderOverlay="true"
             app:imageKCircleText_borderWidth="2dp"

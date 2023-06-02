@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.view.animation.Animation
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.TranslationType
-import com.mozhimen.uicorek.popwink.PopwinKLifecycle
+import com.mozhimen.uicorek.popwink.bases.BasePopwinKLifecycle
 import com.mozhimen.uicorektest.R
 
 
@@ -16,7 +16,7 @@ import com.mozhimen.uicorektest.R
  * @Date 2023/1/31 13:08
  * @Version 1.0
  */
-class PopwinK(context: Context) : PopwinKLifecycle(context) {
+class PopwinKAnim(context: Context) : BasePopwinKLifecycle(context) {
     init {
         setContentView(R.layout.popwink)
         setBackgroundColor(Color.TRANSPARENT)

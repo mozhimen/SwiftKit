@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="这是一个Popwin"
-            android:textColor="@color/black"
+            android:textColor="@color/ui_gray_999"
             android:textSize="16sp"
             tools:ignore="HardcodedText" />
     </androidx.cardview.widget.CardView>

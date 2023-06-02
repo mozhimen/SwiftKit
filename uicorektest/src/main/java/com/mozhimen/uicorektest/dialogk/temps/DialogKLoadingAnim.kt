@@ -1,7 +1,6 @@
 package com.mozhimen.uicorektest.dialogk.temps
 
 import android.content.Context
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -11,8 +10,9 @@ import com.mozhimen.basick.animk.builder.temps.RotationRecyclerType
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.anim.stopAnim
+import com.mozhimen.basick.utilk.view.setValueIfNotEmpty
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
-import com.mozhimen.uicorek.dialogk.commons.IDialogKClickListener
+import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R
 
 /**
@@ -49,15 +49,13 @@ class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, pr
         return inflater.inflate(R.layout.dialogk_loading_anim, null)
     }
 
-    override fun onFindView(dialogView: View) {
-        _imgProgress = dialogView.findViewById(R.id.dialogk_loading_img_progress)
-        _txtDesc = dialogView.findViewById(R.id.dialogk_loading_txt_desc)
+    override fun onViewCreated(view: View) {
+        _imgProgress = view.findViewById(R.id.dialogk_loading_img_progress)
+        _txtDesc = view.findViewById(R.id.dialogk_loading_txt_desc)
         setDesc(_desc)
     }
 
     fun setDesc(desc: String?) {
-        if (!TextUtils.isEmpty(desc)) {
-            _txtDesc?.text = desc.also { _desc = it }
-        }
+        _txtDesc?.setValueIfNotEmpty(desc)
     }
 }
