@@ -23,7 +23,7 @@ import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 object UtilKPermission {
     private const val TAG = "UtilKPermission>>>>>"
 
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 是否有Overlay的权限

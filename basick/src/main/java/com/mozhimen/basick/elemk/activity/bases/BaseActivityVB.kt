@@ -19,6 +19,8 @@ abstract class BaseActivityVB<VB : ViewDataBinding>(
         }
     }
 
+    ///////////////////////////////////////////////////////////////
+
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,8 @@ abstract class BaseActivityVB<VB : ViewDataBinding>(
         vb.unbind()
         super.onDestroy()
     }
+
+    ///////////////////////////////////////////////////////////////
 
     override fun initFlag() {
 

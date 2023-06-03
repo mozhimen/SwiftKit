@@ -25,7 +25,7 @@ object UtilKApp {
     private const val PKG_POWER = "sys.powered"
     private const val TAG = "UtilKApp>>>>>"
 
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 重启

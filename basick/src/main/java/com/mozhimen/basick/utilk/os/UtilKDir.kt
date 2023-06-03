@@ -13,7 +13,7 @@ import java.io.File
  * @Version 1.0
  */
 object UtilKDir {
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     object Internal {
         @JvmStatic

@@ -317,7 +317,7 @@ object UtilKInputManager {
 
 //object UtilKKeyBoard {
 //    private const val TAG = "UtilKKeyBoard>>>>>"
-//    private val _context = UtilKApplication.instance.get()
+//    private val _context = UtilKApplication.instance.applicationContext
 //
 //    /**
 //     * 显示软键盘

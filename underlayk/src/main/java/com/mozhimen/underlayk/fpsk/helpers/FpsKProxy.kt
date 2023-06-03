@@ -35,7 +35,7 @@ import com.mozhimen.underlayk.logk.LogK
 class FpsKProxy : IFpsK {
     private val TAG = "FpsKView>>>>>"
 
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
     private val _params by lazy {
         WindowManager.LayoutParams().apply {
             width = WindowManager.LayoutParams.WRAP_CONTENT

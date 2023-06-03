@@ -1,5 +1,11 @@
 package com.mozhimen.basick.utilk.java.datatype
 
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.log.et
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.ObjectInputStream
+import java.io.ObjectOutputStream
 import java.nio.ByteBuffer
 
 
@@ -10,7 +16,14 @@ import java.nio.ByteBuffer
  * @Date 2023/2/3 13:15
  * @Version 1.0
  */
-object UtilKByteArray {
+
+fun <T> T.t2ByteArray(): ByteArray? =
+    UtilKByteArray.t2ByteArray(this)
+
+fun ByteArray.byteArray2Obj(): Any? =
+    UtilKByteArray.byteArray2Obj(this)
+
+object UtilKByteArray : BaseUtilK() {
     private val HEX_DIGITS = arrayOf(
         "0", "1", "2", "3", "4", "5",
         "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"
@@ -18,6 +31,48 @@ object UtilKByteArray {
     private const val LO_BYTE: Int = 0x0f
     private const val MOVE_BIT: Int = 4
     private const val HI_BYTE: Int = 0xf0
+
+    @JvmStatic
+    fun byteArray2Obj(bytes: ByteArray): Any? {
+        var byteArrayInputStream: ByteArrayInputStream? = null
+        var objectInputStream: ObjectInputStream? = null
+        try {
+            byteArrayInputStream = ByteArrayInputStream(bytes)
+            objectInputStream = ObjectInputStream(byteArrayInputStream)
+            return objectInputStream.readObject()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            byteArrayInputStream?.close()
+            objectInputStream?.close()
+        }
+        return null
+    }
+
+    @JvmStatic
+    fun <T> t2ByteArray(obj: T): ByteArray? =
+        obj2ByteArray(obj!!)
+
+    @JvmStatic
+    fun obj2ByteArray(obj: Any): ByteArray? {
+        var byteArrayOutputStream: ByteArrayOutputStream? = null
+        var objectOutputStream: ObjectOutputStream? = null
+        try {
+            byteArrayOutputStream = ByteArrayOutputStream()
+            objectOutputStream = ObjectOutputStream(byteArrayOutputStream)
+            objectOutputStream.writeObject(obj)
+            objectOutputStream.flush()
+            return byteArrayOutputStream.toByteArray()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            byteArrayOutputStream?.close()
+            objectOutputStream?.close()
+        }
+        return null
+    }
 
     /**
      * byteBuffer转ByteArray
@@ -141,4 +196,6 @@ object UtilKByteArray {
     fun byte2HexStr(byte: Byte): String {
         return HEX_DIGITS[(byte.toInt() and HI_BYTE) shr MOVE_BIT] + HEX_DIGITS[byte.toInt() and LO_BYTE]
     }
+
+
 }

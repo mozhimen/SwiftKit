@@ -20,7 +20,7 @@ import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
  */
 object UtilKApk {
     private const val TAG = "UtilKApk>>>>>"
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     @JvmStatic
     fun getPackageInfo(apkPathWithName: String): PackageInfo? =

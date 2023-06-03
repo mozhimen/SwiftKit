@@ -59,7 +59,7 @@ userInfo: null
 object UtilKUri {
 
     private val TAG = "UtilKFileUri>>>>>"
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 获取PackageUri

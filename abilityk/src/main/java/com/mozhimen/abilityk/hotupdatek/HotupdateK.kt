@@ -51,7 +51,7 @@ class HotupdateK {
         const val EVENT_HOTUPDATEK_PROGRESS = "hotupdatek_progress"
     }
 
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.getContext() }
     private val _apkPath by lazy { UtilKPath.Absolute.Internal.getCacheDir() + "/hotupdatek" }
     private val _installK by lazy { InstallK() }
     private var _downloadRequest: DownloadRequest? = null

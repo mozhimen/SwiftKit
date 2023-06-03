@@ -28,7 +28,7 @@ import kotlin.math.sqrt
 object UtilKScreen {
     private val TAG = "UtilKScreen>>>>>"
 
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 是否全屏

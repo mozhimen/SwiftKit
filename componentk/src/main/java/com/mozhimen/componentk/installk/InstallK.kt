@@ -46,7 +46,7 @@ class InstallK : IInstallK {
         private const val TAG = "InstallK>>>>>"
     }
 
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     private var _installMode = EInstallMode.AUTO
     private var _installStateChangeListener: IInstallStateChangedListener? = null

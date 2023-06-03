@@ -97,6 +97,10 @@ dependencies {
     api 'androidx.room:room-runtime:2.4.2'
     kapt 'androidx.room:room-compiler:2.4.2'
 
+    //datastore
+    api "androidx.datastore:datastore-preferences:1.0.0"
+    api "androidx.datastore:datastore:1.0.0"
+
     //////////////////////////////////////////////////////////////////
     //serialize
     //moshi

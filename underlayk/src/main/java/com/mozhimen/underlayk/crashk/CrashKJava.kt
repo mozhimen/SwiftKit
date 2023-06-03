@@ -9,6 +9,7 @@ import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.StackK
 import com.mozhimen.basick.utilk.app.UtilKApp
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.activity.UtilKActivityManager
 import com.mozhimen.basick.utilk.device.UtilKDevice
@@ -28,10 +29,9 @@ import java.util.*
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
-class CrashKJava {
+class CrashKJava : BaseUtilK() {
 
-    private val TAG = "CrashKJava>>>>>"
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
     private var _crashListener: ICrashKListener? = null
 
     var crashPathJava: String? = null

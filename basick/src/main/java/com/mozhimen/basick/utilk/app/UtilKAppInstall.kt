@@ -38,7 +38,7 @@ import java.nio.charset.Charset
 )
 object UtilKAppInstall {
     private const val TAG = "UtilKAppInstall>>>>>"
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 是否有包安装权限

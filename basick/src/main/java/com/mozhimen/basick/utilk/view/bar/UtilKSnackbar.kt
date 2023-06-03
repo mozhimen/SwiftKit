@@ -20,7 +20,7 @@ import com.mozhimen.basick.utilk.os.thread.UtilKHandler
  */
 object UtilKSnackbar {
     private const val SNACK_BAR_MAX_LINES = 50//能显示的最多行数
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 显示

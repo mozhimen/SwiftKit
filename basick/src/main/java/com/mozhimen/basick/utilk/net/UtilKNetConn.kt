@@ -31,7 +31,7 @@ import kotlin.math.abs
 )
 object UtilKNetConn {
     private val TAG = "UtilKNetConn>>>>>"
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     @JvmStatic
     fun getConnectivityManager(): ConnectivityManager =

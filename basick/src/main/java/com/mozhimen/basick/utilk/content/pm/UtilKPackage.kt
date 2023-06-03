@@ -11,7 +11,7 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
  * @Version 1.0
  */
 object UtilKPackage {
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     @JvmStatic
     fun getVersionCode(): Int =

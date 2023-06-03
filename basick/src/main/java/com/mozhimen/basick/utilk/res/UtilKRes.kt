@@ -21,7 +21,7 @@ import com.mozhimen.basick.utilk.content.UtilKContextCompat
  * @Version 1.0
  */
 object UtilKRes {
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 获取系统Resources

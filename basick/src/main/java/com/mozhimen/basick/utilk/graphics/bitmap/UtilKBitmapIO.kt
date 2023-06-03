@@ -41,7 +41,7 @@ import java.net.URL
 @AManifestKRequire(CPermission.INTERNET)
 object UtilKBitmapIO {
     private const val TAG = "UtilKBitmapIO>>>>>"
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 协程方式 获取Bitmap

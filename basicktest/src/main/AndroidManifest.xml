@@ -11,7 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
-
+        <activity
+            android:name=".cachek.CacheKDSActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cachek.CacheKRMActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cachek.CacheKSPActivity"
+            android:exported="false" />
         <activity
             android:name=".BasicKActivity"
             android:exported="true">
@@ -20,16 +28,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--animk-->
+        </activity> <!-- animk -->
         <activity
             android:name=".animk.AnimKActivity"
-            android:exported="false" />
-        <!--cachek-->
+            android:exported="false" /> <!-- cachek -->
         <activity
             android:name=".cachek.CacheKActivity"
-            android:exported="false" />
-        <!--elemk-->
+            android:exported="false" /> <!-- elemk -->
         <activity
             android:name=".elemk.ElemKActivity"
             android:exported="false" />
@@ -67,23 +72,19 @@
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver>
-        <!-- manifestk -->
+        </receiver> <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"
             android:exported="false" />
         <activity
             android:name=".manifestk.permission.ManifestKPermissionActivity"
-            android:exported="false" />
-        <!-- netk-->
+            android:exported="false" /> <!-- netk -->
         <activity
             android:name=".netk.conn.NetKConnActivity"
-            android:exported="false" />
-        <!-- stackk -->
+            android:exported="false" /> <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
-            android:exported="false" />
-        <!-- taskk -->
+            android:exported="false" /> <!-- taskk -->
         <activity
             android:name=".taskk.TaskKExecutorActivity"
             android:exported="false" />
@@ -95,12 +96,10 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKAsyncActivity"
-            android:exported="false" />
-        <!--statusbark-->
+            android:exported="false" /> <!-- statusbark -->
         <activity
             android:name=".statusbark.StatusBarKActivity"
-            android:exported="false" />
-        <!-- utilk -->
+            android:exported="false" /> <!-- utilk -->
         <activity
             android:name=".utilk.content.UtilKContentActivity"
             android:exported="false" />

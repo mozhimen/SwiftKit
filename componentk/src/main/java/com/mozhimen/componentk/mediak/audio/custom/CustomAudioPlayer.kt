@@ -41,7 +41,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
         private const val TAG = "CustomAudioPlayer>>>>>"
     }
 
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
     private var _mediaKStatusPlayer: MediaKStatusPlayer? = null
         get() {
             if (field != null) return field

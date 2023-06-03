@@ -10,16 +10,22 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/cachek_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="goCachekDS"
+            android:text="goCachekDS (Datastore)"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/cachek_btn"
             style="@style/Btn_Style"
-            android:text="保存"
-            tools:ignore="HardcodedText" />
+            android:onClick="goCachekRM"
+            android:text="goCachekDS (Room)"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="goCachekSP"
+            android:text="goCachekSP (SharedPreferences)"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

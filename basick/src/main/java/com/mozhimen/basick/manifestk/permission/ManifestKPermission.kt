@@ -22,7 +22,7 @@ import com.mozhimen.basick.utilk.view.bar.showToastOnMain
  * @Version 1.0
  */
 object ManifestKPermission : BaseUtilK() {
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 作用: 权限申请

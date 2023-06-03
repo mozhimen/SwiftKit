@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.content
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
 import java.lang.Exception
 
 /**
@@ -25,6 +26,8 @@ class UtilKApplication {
 
     private var _application: Application? = null
 
+    /////////////////////////////////////////////////////////////
+
     /**
      * 获取全局上下文
      * @return Application?
@@ -42,4 +45,7 @@ class UtilKApplication {
         }
         return _application!!
     }
+
+    val applicationContext: Context
+        get() = get().applicationContext
 }

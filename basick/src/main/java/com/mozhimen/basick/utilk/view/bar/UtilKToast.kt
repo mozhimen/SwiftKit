@@ -59,7 +59,7 @@ fun Exception.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
 }
 
 object UtilKToast {
-    private val _context = UtilKApplication.instance.get()
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 用法1: "...".showToast(context)

@@ -29,7 +29,7 @@ import java.io.RandomAccessFile
 @AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 object UtilKDevice {
     private const val TAG = "UtilKDevice>>>>>"
-    private val _context by lazy { UtilKApplication.instance.get() }
+    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     private const val PATH_MEMINFO = "/proc/meminfo"
     private const val PATH_CPU_USED = "/proc/stat"
