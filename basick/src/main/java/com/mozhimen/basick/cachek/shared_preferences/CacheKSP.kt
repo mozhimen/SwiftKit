@@ -1,5 +1,6 @@
 package com.mozhimen.basick.cachek.shared_preferences
 
+import com.mozhimen.basick.cachek.commons.ICacheK
 import com.mozhimen.basick.cachek.shared_preferences.helpers.CacheKSPProvider
 import java.util.concurrent.ConcurrentHashMap
 
@@ -10,26 +11,18 @@ import java.util.concurrent.ConcurrentHashMap
  * @Date 2022/2/28 14:09
  * @Version 1.0
  */
-class CacheKSP {
 
+
+class CacheKSP : ICacheK<CacheKSPProvider> {
     companion object {
         @JvmStatic
-        val instance = UtilKSPProvider.holder
-    }
-
-    private object UtilKSPProvider {
-        val holder = CacheKSP()
+        val instance = INSTANCE.holder
     }
 
     private val _spMap = ConcurrentHashMap<String, CacheKSPProvider>()
 
-    /**
-     * 携带sp名称
-     * @param spName String
-     * @return CacheKSPProvider
-     */
     @Synchronized
-    fun with(spName: String): CacheKSPProvider {
+    override fun with(spName: String): CacheKSPProvider {
         return if (_spMap[spName] != null && _spMap.containsKey(spName)) {
             _spMap[spName]!!
         } else {
@@ -37,5 +30,9 @@ class CacheKSP {
             _spMap[spName] = provider
             provider
         }
+    }
+
+    private object INSTANCE {
+        val holder = CacheKSP()
     }
 }

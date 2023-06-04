@@ -1,10 +1,6 @@
 package com.mozhimen.basicktest.cachek
 
-import android.os.Bundle
 import android.view.View
-import com.mozhimen.basick.cachek.datastore.CacheKDS
-import com.mozhimen.basick.cachek.shared_preferences.CacheKSP
-import com.mozhimen.basick.cachek.shared_preferences.temps.CacheKSPDelegateString
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.content.startContext
 import com.mozhimen.basicktest.databinding.ActivityCachekBinding

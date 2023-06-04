@@ -15,44 +15,30 @@ import com.mozhimen.underlayk.fpsk.helpers.FpsKProxy
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class FpsK : IFpsK {
+    companion object {
+        @JvmStatic
+        val instance = INSTANCE.holder
+    }
+
     private val _fpsKProxy by lazy { FpsKProxy() }
 
-    /**
-     * 是否显示
-     * @return Boolean
-     */
     override fun isOpen(): Boolean {
         return _fpsKProxy.isOpen()
     }
 
-    /**
-     * 开/关
-     */
     override fun toggle() {
         _fpsKProxy.toggle()
     }
 
-    /**
-     * 增加监听器
-     * @param listener IFpsKListener
-     */
     override fun addListener(listener: IFpsKListener) {
         _fpsKProxy.addListener(listener)
     }
 
-    /**
-     * 清空监听器
-     */
     override fun removeListeners() {
         _fpsKProxy.removeListeners()
     }
 
-    companion object {
-        @JvmStatic
-        val instance = FpsKProvider.holder
-    }
-
-    private object FpsKProvider {
+    private object INSTANCE {
         val holder = FpsK()
     }
 }

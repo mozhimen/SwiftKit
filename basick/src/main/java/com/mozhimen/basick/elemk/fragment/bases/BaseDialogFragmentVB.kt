@@ -20,7 +20,7 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     private var _vb: VB? = null
-    protected val VB get() = _vb!!
+    protected val vb get() = _vb!!
 
     fun isAlive(): Boolean = !isRemoving && !isDetached && activity != null
 
@@ -29,7 +29,7 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
         _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container, 0).apply {
             lifecycleOwner = this@BaseDialogFragmentVB
         }
-        return VB.root
+        return vb.root
     }
 
     /**
@@ -37,7 +37,7 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
      */
     @CallSuper
     override fun onDestroyView() {
-        VB.unbind()
+        vb.unbind()
         _vb = null
         super.onDestroyView()
     }

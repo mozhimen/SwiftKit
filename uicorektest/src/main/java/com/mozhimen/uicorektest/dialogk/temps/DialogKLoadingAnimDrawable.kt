@@ -24,7 +24,7 @@ import com.mozhimen.uicorektest.R
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Context, private val _descStr: String?, private val _actionStr: String?, private val _listener: View.OnClickListener?) :
-    BaseDialogK<IDialogKClickListener>(context, R.style.DialogK_Theme_Translucent) {
+    BaseDialogK<IDialogKClickListener>(context, com.mozhimen.uicorek.R.style.DialogK_Theme_Translucent) {
 
     companion object {
         @JvmOverloads

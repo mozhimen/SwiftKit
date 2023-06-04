@@ -46,7 +46,7 @@ class LayoutKTabBottomActivity : BaseActivityVB<ActivityLayoutkTabBottomBinding>
             R.mipmap.layoutk_tab_bottom_layout_fire,
             R.mipmap.layoutk_tab_bottom_layout_fire,
             UtilKRes.getColor(android.R.color.black),
-            UtilKRes.getColor(R.color.ui_blue_650)
+            UtilKRes.getColor(com.mozhimen.uicorek.R.color.ui_blue_650)
         )
     }
 }

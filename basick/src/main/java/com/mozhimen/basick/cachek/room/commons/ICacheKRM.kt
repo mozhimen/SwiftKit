@@ -13,14 +13,17 @@ interface ICacheKRM {
      * @param key String
      * @param body T
      */
-    fun <T> saveCache(key: String, body: T)
+    fun <T> putObj(key: String, body: T)
 
     /**
      * 获取cache
      * @param key String
      * @return T?
      */
-    fun <T> getCache(key: String): T?
+    fun <T> getObj(key: String): T?
 
-    
+    /**
+     * 删除cache
+     */
+    fun remove(key: String)
 }

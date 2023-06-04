@@ -19,7 +19,7 @@
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
             android:onClick="goCachekRM"
-            android:text="goCachekDS (Room)"
+            android:text="goCachekRM (Room)"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton

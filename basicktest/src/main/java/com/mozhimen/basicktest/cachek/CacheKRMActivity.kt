@@ -2,11 +2,12 @@ package com.mozhimen.basicktest.cachek
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basicktest.R
+import com.mozhimen.basicktest.databinding.ActivityCachekRmBinding
 
-class CacheKRMActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_cachek_rm)
+class CacheKRMActivity : BaseActivityVB<ActivityCachekRmBinding>() {
+    override fun initView(savedInstanceState: Bundle?) {
+
     }
 }

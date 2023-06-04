@@ -25,11 +25,8 @@ import com.mozhimen.basick.packk.netk.conn.cons.ENetKType
 )
 class NetKConnReceiver : BaseBroadcastReceiver() {
     companion object {
-        val instance = NetKConnReceiverProvider.holder
-    }
-
-    private object NetKConnReceiverProvider {
-        val holder = NetKConnReceiver()
+        @JvmStatic
+        val instance = INSTANCE.holder
     }
 
     private val _listeners: ArrayList<INetKConnListener> = ArrayList()
@@ -62,5 +59,9 @@ class NetKConnReceiver : BaseBroadcastReceiver() {
                 listener.onConnected(eNetKType)
             }
         }
+    }
+
+    private object INSTANCE {
+        val holder = NetKConnReceiver()
     }
 }

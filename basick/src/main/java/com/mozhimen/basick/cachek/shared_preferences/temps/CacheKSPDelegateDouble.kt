@@ -1,8 +1,7 @@
 package com.mozhimen.basick.cachek.shared_preferences.temps
 
+import com.mozhimen.basick.cachek.bases.BaseCacheKDelegateDouble
 import com.mozhimen.basick.cachek.shared_preferences.helpers.CacheKSPProvider
-import kotlin.properties.ReadWriteProperty
-import kotlin.reflect.KProperty
 
 
 /**
@@ -13,15 +12,5 @@ import kotlin.reflect.KProperty
  * @Version 1.0
  */
 class CacheKSPDelegateDouble(
-    private val _cacheKSPProvider: CacheKSPProvider,
-    private val _key: String,
-    private val _default: Double = 0.0
-) : ReadWriteProperty<Any?, Double> {
-    override fun getValue(thisRef: Any?, property: KProperty<*>): Double {
-        return _cacheKSPProvider.getDouble(_key, _default)
-    }
-
-    override fun setValue(thisRef: Any?, property: KProperty<*>, value: Double) {
-        _cacheKSPProvider.putDouble(_key, value)
-    }
-}
+    cacheKSPProvider: CacheKSPProvider, key: String, default: Double = 0.0
+) : BaseCacheKDelegateDouble<CacheKSPProvider>(cacheKSPProvider, key, default)

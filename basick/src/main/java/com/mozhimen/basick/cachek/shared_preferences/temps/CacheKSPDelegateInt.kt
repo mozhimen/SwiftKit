@@ -1,8 +1,7 @@
 package com.mozhimen.basick.cachek.shared_preferences.temps
 
+import com.mozhimen.basick.cachek.bases.BaseCacheKDelegateInt
 import com.mozhimen.basick.cachek.shared_preferences.helpers.CacheKSPProvider
-import kotlin.properties.ReadWriteProperty
-import kotlin.reflect.KProperty
 
 
 /**
@@ -13,15 +12,5 @@ import kotlin.reflect.KProperty
  * @Version 1.0
  */
 class CacheKSPDelegateInt(
-    private val _cacheKSPProvider: CacheKSPProvider,
-    private val _key: String,
-    private val _default: Int = 0
-) : ReadWriteProperty<Any?, Int> {
-    override fun getValue(thisRef: Any?, property: KProperty<*>): Int {
-        return _cacheKSPProvider.getInt(_key, _default)
-    }
-
-    override fun setValue(thisRef: Any?, property: KProperty<*>, value: Int) {
-        _cacheKSPProvider.putInt(_key, value)
-    }
-}
+    cacheKSPProvider: CacheKSPProvider, key: String, default: Int = 0
+) : BaseCacheKDelegateInt<CacheKSPProvider>(cacheKSPProvider, key, default)

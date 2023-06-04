@@ -24,7 +24,7 @@ class DrawableKArrowActivity : BaseActivityVB<ActivityDrawablekArrowBinding>() {
                 setCornerRadius(10f.dp2px())
 
                 setBorderWidth(3f.dp2px())
-                setBorderColor(UtilKRes.getColor(R.color.ui_blue_650))
+                setBorderColor(UtilKRes.getColor(com.mozhimen.uicorek.R.color.ui_blue_650))
 
                 setArrowWidth(20f.dp2px())
                 setArrowHeight(10f.dp2px())

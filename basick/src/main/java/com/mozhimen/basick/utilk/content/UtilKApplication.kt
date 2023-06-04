@@ -17,11 +17,7 @@ import java.lang.Exception
 class UtilKApplication {
     companion object {
         @JvmStatic//单例内部静态类,线程安全
-        val instance = UtilKGlobalProvider.holder
-    }
-
-    private object UtilKGlobalProvider {
-        val holder = UtilKApplication()
+        val instance = INSTANCE.holder
     }
 
     private var _application: Application? = null
@@ -48,4 +44,8 @@ class UtilKApplication {
 
     val applicationContext: Context
         get() = get().applicationContext
+
+    private object INSTANCE {
+        val holder = UtilKApplication()
+    }
 }

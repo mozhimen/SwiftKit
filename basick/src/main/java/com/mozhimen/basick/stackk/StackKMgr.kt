@@ -8,6 +8,7 @@ import android.os.Bundle
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.CStackKEvent
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
@@ -20,16 +21,10 @@ import java.lang.ref.WeakReference
  * @Date 2021/12/20 21:58
  * @Version 1.0
  */
-class StackKMgr private constructor() {
+class StackKMgr private constructor() : BaseUtilK() {
     companion object {
-        private val TAG = "StackKMgr>>>>>"
-
         @JvmStatic
-        val instance = StackKMgrProvider.holder
-    }
-
-    private object StackKMgrProvider {
-        val holder = StackKMgr()
+        val instance = INSTANCE.holder
     }
 
     private val _activityRefs = ArrayList<WeakReference<Activity>>()
@@ -169,5 +164,9 @@ class StackKMgr private constructor() {
         if (_activityRefs.size == 1) {
             UtilKDataBus.with<Boolean>(CStackKEvent.STACKK_FIRST_ACTIVITY).setValue(true)
         }
+    }
+
+    private object INSTANCE {
+        val holder = StackKMgr()
     }
 }

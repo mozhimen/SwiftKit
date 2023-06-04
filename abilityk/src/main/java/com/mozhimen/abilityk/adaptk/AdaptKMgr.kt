@@ -21,6 +21,11 @@ import java.lang.Integer.min
  */
 @AManifestKRequire(CMetaData.DESIGN_WIDTH_IN_DP, CMetaData.DESIGN_WIDTH_IN_DP)
 class AdaptKMgr {
+    companion object {
+        @JvmStatic
+        val instance = INSTANCE.holder
+    }
+
     private val TAG = "AdaptKMgr>>>>>"
     private var _length: Int
     private var _width: Int
@@ -76,12 +81,7 @@ class AdaptKMgr {
      */
     fun getWidth(): Int = _width
 
-    companion object {
-        @JvmStatic
-        val instance = AdaptKMgrProvider.holder
-    }
-
-    private object AdaptKMgrProvider {
+    private object INSTANCE {
         val holder = AdaptKMgr()
     }
 }

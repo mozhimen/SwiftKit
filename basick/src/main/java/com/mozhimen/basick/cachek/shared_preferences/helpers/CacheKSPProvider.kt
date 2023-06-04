@@ -3,6 +3,7 @@ package com.mozhimen.basick.cachek.shared_preferences.helpers
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
+import com.mozhimen.basick.cachek.commons.ICacheKProvider
 import com.mozhimen.basick.utilk.java.io.encrypt.UtilKAES
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import java.lang.IllegalArgumentException
@@ -14,7 +15,7 @@ import java.lang.IllegalArgumentException
  * @Date 2022/5/25 16:35
  * @Version 1.0
  */
-class CacheKSPProvider(spName: String) {
+class CacheKSPProvider(spName: String) : ICacheKProvider {
     companion object {
         private const val CACHEK_SP_ENCRYPT_ALIAS = "5rfj4FVG&Td#$*Jd"
     }
@@ -30,7 +31,7 @@ class CacheKSPProvider(spName: String) {
     fun getEditor(): Editor =
         _sharedPreferences.edit()
 
-    fun getPutEditor(key: String, value: Any) =
+    fun <T> getPutEditor(key: String, value: T): Editor =
         when (value) {
             is String -> getEditor().putString(key, value)
             is Boolean -> getEditor().putBoolean(key, value)
@@ -42,83 +43,136 @@ class CacheKSPProvider(spName: String) {
 
     /////////////////////////////////////////////////////////////////////
 
-    fun putObj(key: String, value: Any, sync: Boolean = false) {
-        if (sync) getPutEditor(key, value).commit() else getPutEditor(key, value).apply()
+    fun <T> putObjSync(key: String, value: T) {
+        getPutEditor(key, value).commit()
     }
 
-    /////////////////////////////////////////////////////////////////////
-
-    fun putString(key: String, value: String, sync: Boolean = false) {
-        putObj(key, value, sync)
+    fun putStringSync(key: String, value: String) {
+        putObjSync(key, value)
     }
 
-    fun getString(key: String, defaultValue: String = ""): String? =
-        _sharedPreferences.getString(key, defaultValue)
+    fun putBooleanSync(key: String, value: String) {
+        putObjSync(key, value)
+    }
 
-    /////////////////////////////////////////////////////////////////////
+    fun putIntSync(key: String, value: String) {
+        putObjSync(key, value)
+    }
 
-    fun putStringEncrypt(key: String, value: String, sync: Boolean = false) {
+    fun putLongSync(key: String, value: String) {
+        putObjSync(key, value)
+    }
+
+    fun putFloatSync(key: String, value: String) {
+        putObjSync(key, value)
+    }
+
+    fun putDoubleSync(key: String, value: String) {
+        putObjSync(key, value)
+    }
+
+    fun putStringSetSync(key: String, value: Set<String>) {
+        getEditor().putStringSet(key, value).commit()
+    }
+
+    fun putStringEncryptSync(key: String, value: String) {
         if (value.isEmpty()) return
-        putObj(key, UtilKAES.with(secretKey = CACHEK_SP_ENCRYPT_ALIAS).encryptWithBase64(value), sync)
+        putObjSync(key, UtilKAES.with(secretKey = CACHEK_SP_ENCRYPT_ALIAS).encryptWithBase64(value))
     }
+
+    /////////////////////////////////////////////////////////////////////
+
+    fun <T> putObj(key: String, value: T) {
+        getPutEditor(key, value).apply()
+    }
+
+    override fun putString(key: String, value: String) {
+        putObj(key, value)
+    }
+
+    override fun putBoolean(key: String, value: Boolean) {
+        putObj(key, value)
+    }
+
+    override fun putInt(key: String, value: Int) {
+        putObj(key, value)
+    }
+
+    override fun putLong(key: String, value: Long) {
+        putObj(key, value)
+    }
+
+    override fun putFloat(key: String, value: Float) {
+        putObj(key, value)
+    }
+
+    override fun putDouble(key: String, value: Double) {
+        putObj(key, java.lang.Double.doubleToRawLongBits(value))
+    }
+
+    fun putStringSet(key: String, value: Set<String>) {
+        getEditor().putStringSet(key, value).apply()
+    }
+
+    fun putStringEncrypt(key: String, value: String) {
+        if (value.isEmpty()) return
+        putObj(key, UtilKAES.with(secretKey = CACHEK_SP_ENCRYPT_ALIAS).encryptWithBase64(value))
+    }
+
+    /////////////////////////////////////////////////////////////////////
+
+    @Suppress("UNCHECKED_CAST")
+    fun <T> getObj(key: String, defaultValue: T): T =
+        when (defaultValue) {
+            is String -> getString(key, defaultValue)
+            is Boolean -> getBoolean(key, defaultValue)
+            is Int -> getInt(key, defaultValue)
+            is Long -> getLong(key, defaultValue)
+            is Float -> getFloat(key, defaultValue)
+            is Double -> getDouble(key, defaultValue)
+            else -> throw IllegalArgumentException("Unknown Type.")
+        } as T
+
+    override fun getString(key: String): String =
+        getString(key, "")
+
+    override fun getString(key: String, defaultValue: String): String =
+        _sharedPreferences.getString(key, defaultValue) ?: defaultValue
+
+    override fun getBoolean(key: String): Boolean =
+        getBoolean(key, false)
+
+    override fun getBoolean(key: String, defaultValue: Boolean): Boolean =
+        _sharedPreferences.getBoolean(key, defaultValue)
+
+    override fun getInt(key: String): Int =
+        getInt(key, 0)
+
+    override fun getInt(key: String, defaultValue: Int): Int =
+        _sharedPreferences.getInt(key, defaultValue)
+
+    override fun getLong(key: String): Long =
+        getLong(key, 0L)
+
+    override fun getLong(key: String, defaultValue: Long): Long =
+        _sharedPreferences.getLong(key, defaultValue)
+
+    override fun getFloat(key: String): Float =
+        getFloat(key, 0F)
+
+    override fun getFloat(key: String, defaultValue: Float): Float =
+        _sharedPreferences.getFloat(key, defaultValue)
+
+    override fun getDouble(key: String): Double =
+        getDouble(key, 0.0)
+
+    override fun getDouble(key: String, defaultValue: Double): Double =
+        java.lang.Double.longBitsToDouble(_sharedPreferences.getLong(key, defaultValue.toLong()))
 
     fun getStringDecrypt(key: String, defaultValue: String = ""): String {
         val valueDecrypted = _sharedPreferences.getString(key, null) ?: return defaultValue
         return UtilKAES.with(secretKey = CACHEK_SP_ENCRYPT_ALIAS).decryptWithBase64(valueDecrypted)
     }
-
-    /////////////////////////////////////////////////////////////////////
-
-    fun putBoolean(key: String, value: Boolean, sync: Boolean = false) {
-        putObj(key, value, sync)
-    }
-
-    fun getBoolean(key: String, defaultValue: Boolean = false): Boolean =
-        _sharedPreferences.getBoolean(key, defaultValue)
-
-    /////////////////////////////////////////////////////////////////////
-
-    fun putInt(key: String, value: Int, sync: Boolean = false) {
-        putObj(key, value, sync)
-    }
-
-    fun getInt(key: String, defaultValue: Int = 0): Int =
-        _sharedPreferences.getInt(key, defaultValue)
-
-    /////////////////////////////////////////////////////////////////////
-
-    fun putLong(key: String, value: Long, sync: Boolean = false) {
-        putObj(key, value, sync)
-    }
-
-    fun getLong(key: String, defaultValue: Long = 0): Long =
-        _sharedPreferences.getLong(key, defaultValue)
-
-    /////////////////////////////////////////////////////////////////////
-
-    fun putFloat(key: String, value: Float, sync: Boolean = false) {
-        putObj(key, value, sync)
-    }
-
-    fun getFloat(key: String, defaultValue: Float = 0F): Float =
-        _sharedPreferences.getFloat(key, defaultValue)
-
-    /////////////////////////////////////////////////////////////////////
-
-    fun putDouble(key: String, value: Double, sync: Boolean = false) {
-        putObj(key, java.lang.Double.doubleToRawLongBits(value), sync)
-    }
-
-    fun getDouble(key: String, defaultValue: Double = 0.0): Double =
-        java.lang.Double.longBitsToDouble(_sharedPreferences.getLong(key, defaultValue.toLong()))
-
-    /////////////////////////////////////////////////////////////////////
-
-    fun putStringSet(key: String, value: Set<String>, sync: Boolean = false) {
-        if (sync) getEditor().putStringSet(key, value).commit() else getEditor().putStringSet(key, value).apply()
-    }
-
-    /////////////////////////////////////////////////////////////////////
 
     fun getAll(): MutableMap<String, *> =
         _sharedPreferences.all

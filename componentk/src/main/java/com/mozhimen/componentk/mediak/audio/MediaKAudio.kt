@@ -30,11 +30,7 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
     companion object {
         @JvmStatic
-        val instance = AudioKProvider.holder
-    }
-
-    private object AudioKProvider {
-        val holder = MediaKAudio()
+        val instance = INSTANCE.holder
     }
 
     init {
@@ -156,5 +152,9 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
     override fun getLifecycle(): Lifecycle {
         return _lifecycleRegistry
+    }
+
+    private object INSTANCE {
+        val holder = MediaKAudio()
     }
 }

@@ -17,10 +17,10 @@ class CrashKMgr {
 
     companion object {
         @JvmStatic
-        val instance = CrashKMgrHolder.holder
+        val instance = INSTANCE.holder
     }
 
-    private object CrashKMgrHolder {
+    private object INSTANCE {
         val holder = CrashKMgr()
     }
 
