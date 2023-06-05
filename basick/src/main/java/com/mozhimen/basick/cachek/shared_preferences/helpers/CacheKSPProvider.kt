@@ -82,8 +82,8 @@ class CacheKSPProvider(spName: String) : ICacheKProvider {
 
     /////////////////////////////////////////////////////////////////////
 
-    fun <T> putObj(key: String, value: T) {
-        getPutEditor(key, value).apply()
+    override fun <T> putObj(key: String, obj: T) {
+        getPutEditor(key, obj).apply()
     }
 
     override fun putString(key: String, value: String) {
@@ -122,14 +122,14 @@ class CacheKSPProvider(spName: String) : ICacheKProvider {
     /////////////////////////////////////////////////////////////////////
 
     @Suppress("UNCHECKED_CAST")
-    fun <T> getObj(key: String, defaultValue: T): T =
-        when (defaultValue) {
-            is String -> getString(key, defaultValue)
-            is Boolean -> getBoolean(key, defaultValue)
-            is Int -> getInt(key, defaultValue)
-            is Long -> getLong(key, defaultValue)
-            is Float -> getFloat(key, defaultValue)
-            is Double -> getDouble(key, defaultValue)
+    override fun <T> getObj(key: String, default: T): T =
+        when (default) {
+            is String -> getString(key, default)
+            is Boolean -> getBoolean(key, default)
+            is Int -> getInt(key, default)
+            is Long -> getLong(key, default)
+            is Float -> getFloat(key, default)
+            is Double -> getDouble(key, default)
             else -> throw IllegalArgumentException("Unknown Type.")
         } as T
 
@@ -182,13 +182,11 @@ class CacheKSPProvider(spName: String) : ICacheKProvider {
     fun contains(key: String): Boolean =
         _sharedPreferences.contains(key)
 
-    /////////////////////////////////////////////////////////////////////
-
     fun remove(key: String) {
         getEditor().remove(key).apply()
     }
 
-    fun clear() {
+    override fun clear() {
         getEditor().clear().apply()
     }
 }

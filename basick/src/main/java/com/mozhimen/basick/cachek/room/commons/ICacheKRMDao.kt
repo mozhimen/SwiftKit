@@ -21,6 +21,6 @@ interface ICacheKRMDao {
     @Query("delete from cachekrm where `key`=:key")
     fun deleteCacheByKey(key: String)
 
-//    @Delete(entity = MCacheKRM::class)
-//    fun deleteCache(cache: MCacheKRM)
+    @Query("delete from cachekrm")
+    fun deleteAllCaches()
 }

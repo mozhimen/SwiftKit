@@ -1,9 +1,11 @@
 package com.mozhimen.basicktest.cachek
 
 import android.os.Bundle
+import com.mozhimen.basick.cachek.room.CacheKRM
 import com.mozhimen.basick.cachek.shared_preferences.CacheKSP
 import com.mozhimen.basick.cachek.shared_preferences.temps.CacheKSPDelegateString
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.utilk.view.bar.showToast
 import com.mozhimen.basicktest.databinding.ActivityCachekSpBinding
 
 class CacheKSPActivity : BaseActivityVB<ActivityCachekSpBinding>() {
@@ -15,6 +17,9 @@ class CacheKSPActivity : BaseActivityVB<ActivityCachekSpBinding>() {
         vb.cachekSpEdit.setText(_editStr)
         vb.cachekSpBtn.setOnClickListener {
             _editStr = vb.cachekSpEdit.text.toString()
+        }
+        vb.cachekSpBtn1.setOnClickListener {
+            "${_spTestPro.contains("editStr")}".showToast()
         }
     }
 }

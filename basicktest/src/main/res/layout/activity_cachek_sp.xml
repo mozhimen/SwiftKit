@@ -22,5 +22,11 @@
             style="@style/Btn_Style"
             android:text="保存"
             tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cachek_sp_btn1"
+            style="@style/Btn_Style"
+            android:text="是否包含"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 </layout>

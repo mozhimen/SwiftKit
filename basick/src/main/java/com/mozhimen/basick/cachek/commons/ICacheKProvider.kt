@@ -8,6 +8,7 @@ package com.mozhimen.basick.cachek.commons
  * @Version 1.0
  */
 interface ICacheKProvider {
+    fun <T> putObj(key: String, obj: T)
     fun putString(key: String, value: String)
     fun putBoolean(key: String, value: Boolean)
     fun putInt(key: String, value: Int)
@@ -17,6 +18,7 @@ interface ICacheKProvider {
 
     /////////////////////////////////////////////////////////////////////
 
+    fun <T> getObj(key: String, default: T): T
     fun getInt(key: String): Int
     fun getLong(key: String): Long
     fun getString(key: String): String
@@ -32,4 +34,6 @@ interface ICacheKProvider {
     fun getBoolean(key: String, defaultValue: Boolean): Boolean
     fun getFloat(key: String, defaultValue: Float): Float
     fun getDouble(key: String, defaultValue: Double): Double
+
+    fun clear()
 }

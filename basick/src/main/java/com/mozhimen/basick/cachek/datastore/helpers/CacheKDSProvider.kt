@@ -1,20 +1,18 @@
 package com.mozhimen.basick.cachek.datastore.helpers
 
 import android.content.Context
-import android.os.Bundle
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.mozhimen.basick.cachek.commons.ICacheKProvider
 import com.mozhimen.basick.utilk.content.UtilKApplication
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 
 class CacheKDSProvider(dsName: String) : ICacheKProvider {
     private val Context._dataStore: DataStore<Preferences> by preferencesDataStore(name = dsName)
-    private val _dataStore: DataStore<Preferences> by lazy { UtilKApplication.instance.applicationContext._dataStore }
+    val dataStore: DataStore<Preferences> by lazy { UtilKApplication.instance.applicationContext._dataStore }
 
     /////////////////////////////////////////////////////////////////////
 
@@ -37,7 +35,7 @@ class CacheKDSProvider(dsName: String) : ICacheKProvider {
     /////////////////////////////////////////////////////////////////////
 
     suspend fun <T> putObjAsync(key: String, value: T) {
-        _dataStore.editBy(key, value, ::transform)
+        dataStore.editBy(key, value, ::transform)
     }
 
     suspend fun putStringAsync(key: String, value: String) {
@@ -65,13 +63,13 @@ class CacheKDSProvider(dsName: String) : ICacheKProvider {
     }
 
     suspend fun putStringSetAsync(key: String, value: Set<String>) {
-        _dataStore.edit { it[stringSetPreferencesKey(key)] = value }
+        dataStore.edit { it[stringSetPreferencesKey(key)] = value }
     }
 
     /////////////////////////////////////////////////////////////////////
 
-    fun <T> putObj(key: String, value: T) {
-        runBlocking { putObjAsync(key, value) }
+    override fun <T> putObj(key: String, obj: T) {
+        runBlocking { putObjAsync(key, obj) }
     }
 
     override fun putString(key: String, value: String) {
@@ -105,14 +103,14 @@ class CacheKDSProvider(dsName: String) : ICacheKProvider {
     /////////////////////////////////////////////////////////////////////
 
     @Suppress("UNCHECKED_CAST")
-    fun <T> getObj(key: String, defaultValue: T): T =
-        when (defaultValue) {
-            is Int -> getInt(key, defaultValue)
-            is Long -> getLong(key, defaultValue)
-            is String -> getString(key, defaultValue)
-            is Boolean -> getBoolean(key, defaultValue)
-            is Float -> getFloat(key, defaultValue)
-            is Double -> getDouble(key, defaultValue)
+    override fun <T> getObj(key: String, default: T): T =
+        when (default) {
+            is Int -> getInt(key, default)
+            is Long -> getLong(key, default)
+            is String -> getString(key, default)
+            is Boolean -> getBoolean(key, default)
+            is Float -> getFloat(key, default)
+            is Double -> getDouble(key, default)
             else -> throw IllegalArgumentException("This type cannot be saved to the Data Store")
         } as T
 
@@ -122,45 +120,67 @@ class CacheKDSProvider(dsName: String) : ICacheKProvider {
         getInt(key, 0)
 
     override fun getInt(key: String, defaultValue: Int): Int =
-        runBlocking { return@runBlocking _dataStore.data.map { it[intPreferencesKey(key)] ?: defaultValue }.first() }
+        runBlocking { return@runBlocking dataStore.data.map { it[intPreferencesKey(key)] ?: defaultValue }.first() }
 
     override fun getLong(key: String): Long =
         getLong(key, 0L)
 
     override fun getLong(key: String, defaultValue: Long): Long =
-        runBlocking { return@runBlocking _dataStore.data.map { it[longPreferencesKey(key)] ?: defaultValue }.first() }
+        runBlocking { return@runBlocking dataStore.data.map { it[longPreferencesKey(key)] ?: defaultValue }.first() }
 
     override fun getString(key: String): String =
         getString(key, "")
 
     override fun getString(key: String, defaultValue: String): String =
-        runBlocking { return@runBlocking _dataStore.data.map { it[stringPreferencesKey(key)] ?: defaultValue }.first() }
+        runBlocking { return@runBlocking dataStore.data.map { it[stringPreferencesKey(key)] ?: defaultValue }.first() }
 
     override fun getBoolean(key: String): Boolean =
         getBoolean(key, false)
 
     override fun getBoolean(key: String, defaultValue: Boolean): Boolean =
-        runBlocking { return@runBlocking _dataStore.data.map { it[booleanPreferencesKey(key)] ?: defaultValue }.first() }
+        runBlocking { return@runBlocking dataStore.data.map { it[booleanPreferencesKey(key)] ?: defaultValue }.first() }
 
     override fun getFloat(key: String): Float =
         getFloat(key, 0f)
 
     override fun getFloat(key: String, defaultValue: Float): Float =
-        runBlocking { return@runBlocking _dataStore.data.map { it[floatPreferencesKey(key)] ?: defaultValue }.first() }
+        runBlocking { return@runBlocking dataStore.data.map { it[floatPreferencesKey(key)] ?: defaultValue }.first() }
 
     override fun getDouble(key: String): Double =
         getDouble(key, 0.0)
 
     override fun getDouble(key: String, defaultValue: Double): Double =
-        runBlocking { return@runBlocking _dataStore.data.map { it[doublePreferencesKey(key)] ?: defaultValue }.first() }
+        runBlocking { return@runBlocking dataStore.data.map { it[doublePreferencesKey(key)] ?: defaultValue }.first() }
+
 
     fun getStringSet(key: String, defaultValue: Set<String> = emptySet()): Set<String> =
-        runBlocking { return@runBlocking _dataStore.data.map { it[stringSetPreferencesKey(key)] ?: defaultValue }.first() }
+        runBlocking { return@runBlocking dataStore.data.map { it[stringSetPreferencesKey(key)] ?: defaultValue }.first() }
 
     /////////////////////////////////////////////////////////////////////
 
-    fun clear() {
-        runBlocking { _dataStore.edit { it.clear() } }
+    inline fun <reified T> getPreferencesKey(key: String): Preferences.Key<out Any> =
+        when (T::class) {
+            String::class -> stringPreferencesKey(key)//putString(key, value)
+            Boolean::class -> booleanPreferencesKey(key)
+            Int::class -> intPreferencesKey(key)
+            Long::class -> longPreferencesKey(key)
+            Float::class -> floatPreferencesKey(key)
+            Double::class -> doublePreferencesKey(key)
+            else -> throw IllegalArgumentException("This type cannot be saved to the Data Store")
+        }
+
+    inline fun <reified T> remove(key: String) {
+        runBlocking {
+            val preferencesKey = getPreferencesKey<T>(key)
+            dataStore.edit { if (it.contains(preferencesKey)) it.remove(preferencesKey) }
+        }
+    }
+
+    inline fun <reified T> contains(key: String): Boolean =
+        runBlocking { return@runBlocking dataStore.data.map { it.contains(getPreferencesKey<T>(key)) }.first() }
+
+    override fun clear() {
+        runBlocking { dataStore.edit { it.clear() } }
     }
 
 //    // At the top level of your kotlin file:

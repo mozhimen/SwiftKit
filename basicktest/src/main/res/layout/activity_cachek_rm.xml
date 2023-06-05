@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
 
     <data />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".cachek.CacheKRMActivity">
+        android:orientation="vertical">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/cachek_rm_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:inputType="text" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cachek_rm_btn"
+            style="@style/Btn_Style"
+            android:text="保存"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cachek_rm_btn1"
+            style="@style/Btn_Style"
+            android:text="是否包含"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
 </layout>
