@@ -9,7 +9,7 @@ import android.view.Gravity
 import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.setPadding
-import com.mozhimen.basick.elemk.commons.IValueListener
+import com.mozhimen.basick.elemk.commons.IValue1Listener
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.java.datatype.normalize
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
@@ -27,7 +27,7 @@ import com.mozhimen.uicorek.commons.IAttrsParser2
  * @Version 1.0
  */
 
-typealias ILayoutKAmountListener = IValueListener<Int>//(amount: Int) -> Unit
+typealias ILayoutKAmountListener = IValue1Listener<Int>//(amount: Int) -> Unit
 
 class LayoutKAmount @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKLinear(context, attrs, defStyleAttr) {
 

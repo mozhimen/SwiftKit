@@ -4,7 +4,11 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.annotation.IntRange
+import com.mozhimen.basick.taskk.executor.commons.ITaskKExecutor
 import com.mozhimen.basick.taskk.executor.helpers.PriorityRunnable
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import kotlinx.coroutines.ExecutorCoroutineDispatcher
+import kotlinx.coroutines.asCoroutineDispatcher
 import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicLong
 import java.util.concurrent.locks.Condition
@@ -20,13 +24,12 @@ import java.util.concurrent.locks.ReentrantLock
  * @Version 1.0
  * 线程池能力监控,耗时任务检测,定时,延迟
  */
-object TaskKExecutor {
-    private const val TAG = "ExecutorK>>>>>"
+object TaskKExecutor : ITaskKExecutor, BaseUtilK() {
 
     private var _isPaused = false
-    private var _executork: ThreadPoolExecutor
-    private var _lock: ReentrantLock = ReentrantLock()
-    private var _pauseCondition: Condition = _lock.newCondition()
+    private var _threadPoolExecutor: ThreadPoolExecutor
+    private var _reentrantLock: ReentrantLock = ReentrantLock()
+    private var _pauseCondition: Condition = _reentrantLock.newCondition()
     private val _mainHandler = Handler(Looper.getMainLooper())
 
     init {
@@ -40,12 +43,10 @@ object TaskKExecutor {
         val seq = AtomicLong()
         val threadFactory = ThreadFactory {
             val thread = Thread(it)
-            //executork-thread0
-            thread.name = "executork-thread${seq.getAndIncrement()}"
+            thread.name = "executork-thread${seq.getAndIncrement()}"//executork-thread0
             return@ThreadFactory thread
         }
-
-        _executork = object : ThreadPoolExecutor(
+        _threadPoolExecutor = object : ThreadPoolExecutor(
             corePoolSize,
             maxPoolSize,
             keepAliveTime,
@@ -55,11 +56,11 @@ object TaskKExecutor {
         ) {
             override fun beforeExecute(t: Thread?, r: Runnable?) {
                 if (_isPaused) {
-                    _lock.lock()
+                    _reentrantLock.lock()
                     try {
                         _pauseCondition.await()
                     } finally {
-                        _lock.unlock()
+                        _reentrantLock.unlock()
                     }
                 }
             }
@@ -72,70 +73,61 @@ object TaskKExecutor {
         }
     }
 
-    /**
-     * 插入任务
-     * @param name String
-     * @param priority Int 越小,优先级越大
-     * @param runnable Runnable
-     */
-    @JvmOverloads
-    fun execute(name: String, @IntRange(from = 0, to = 10) priority: Int = 0, runnable: Runnable) {
-        _executork.execute(PriorityRunnable(name, priority, runnable))
+    override fun getThreadPoolExecutor(): ThreadPoolExecutor =
+        _threadPoolExecutor
+
+    override fun getTaskKExecutorCoroutineDispatcher(): ExecutorCoroutineDispatcher =
+        getThreadPoolExecutor().asCoroutineDispatcher()
+
+    override fun execute(name: String, runnable: Runnable) {
+        execute(name, 0, runnable)
     }
 
-    /**
-     * 插入任务
-     * @param name String
-     * @param priority Int 越小,优先级越大
-     * @param runnable ExecutorKCallable<*>
-     */
-    @JvmOverloads
-    fun execute(name: String, @IntRange(from = 0, to = 10) priority: Int = 0, runnable: ExecutorKCallable<*>) {
-        _executork.execute(PriorityRunnable(name, priority, runnable))
+    override fun execute(name: String, @IntRange(from = 0, to = 10) priority: Int, runnable: Runnable) {
+        _threadPoolExecutor.execute(PriorityRunnable(name, priority, runnable))
     }
 
-    /**
-     * 暂停
-     */
+    override fun execute(name: String, runnable: ExecutorKCallable<*>) {
+        execute(name, 0, runnable)
+    }
+
+    override fun execute(name: String, @IntRange(from = 0, to = 10) priority: Int, runnable: ExecutorKCallable<*>) {
+        _threadPoolExecutor.execute(PriorityRunnable(name, priority, runnable))
+    }
+
     @Synchronized
-    fun pause() {
-        _lock.lock()
+    override fun pause() {
+        _reentrantLock.lock()
         try {
             _isPaused = true
             Log.w(TAG, "executork is paused")
         } finally {
-            _lock.unlock()
+            _reentrantLock.unlock()
         }
     }
 
-    /**
-     * 继续
-     */
     @Synchronized
-    fun resume() {
-        _lock.lock()
+    override fun resume() {
+        _reentrantLock.lock()
         try {
             _isPaused = false
             _pauseCondition.signalAll()
             Log.w(TAG, "executork is resumed")
         } finally {
-            _lock.unlock()
+            _reentrantLock.unlock()
         }
     }
 
-    /**
-     * 释放
-     */
     @Synchronized
-    fun release() {
-        _lock.lock()
+    override fun release() {
+        _reentrantLock.lock()
         try {
-            if (!_executork.isShutdown) {
-                _executork.shutdown()
+            if (!_threadPoolExecutor.isShutdown) {
+                _threadPoolExecutor.shutdown()
             }
             Log.w(TAG, "executork is shutdown")
         } finally {
-            _lock.unlock()
+            _reentrantLock.unlock()
         }
     }
 

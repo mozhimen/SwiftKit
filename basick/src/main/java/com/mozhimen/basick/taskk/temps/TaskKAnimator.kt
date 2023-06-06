@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap
  * @Date 2022/11/20 22:34
  * @Version 1.0
  */
-class TaskKAnimator() : BaseTaskK() {
+class TaskKAnimator : BaseTaskK() {
     private val _viewAndListeners: ConcurrentHashMap<View, Animator> = ConcurrentHashMap()
 
     /**

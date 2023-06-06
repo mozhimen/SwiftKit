@@ -14,7 +14,7 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
-import com.mozhimen.basick.elemk.commons.IValueListener
+import com.mozhimen.basick.elemk.commons.IValue1Listener
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.uicorek.R
@@ -26,7 +26,7 @@ import com.mozhimen.uicorek.R
  * @Date 2021/11/30 14:35
  * @Version 1.0
  */
-typealias ISwitchAppleListener = IValueListener<Boolean>//(switch: Boolean) -> Unit
+typealias ISwitchAppleListener = IValue1Listener<Boolean>//(switch: Boolean) -> Unit
 
 class LayoutKBtnSwitchApple @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleAttr), View.OnClickListener {
 

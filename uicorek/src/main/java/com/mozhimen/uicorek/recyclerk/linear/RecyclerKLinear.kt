@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.commons.IValue2Listener2
+import com.mozhimen.basick.elemk.commons.IValue2T1T2Listener
 import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
@@ -22,7 +22,7 @@ import com.mozhimen.uicorek.vhk.VHKRecyclerVB
  * @Date 2022/9/21 15:04
  * @Version 1.0
  */
-typealias IRecyclerKLinearListener = IValue2Listener2<Int, MKey>//(position: Int, item: MKey) -> Unit
+typealias IRecyclerKLinearListener = IValue2T1T2Listener<Int, MKey>//(position: Int, item: MKey) -> Unit
 
 class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), IRecyclerKLinear {
 

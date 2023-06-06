@@ -14,11 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.GradientDrawableColorAnimatorType
 import com.mozhimen.basick.animk.builder.temps.TranslationType
-import com.mozhimen.basick.elemk.commons.IValueListener
-import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.elemk.commons.IValue1Listener
 import com.mozhimen.basick.utilk.res.dp2px
-import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.commons.IAttrsParser
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.btn.helpers.LayoutKBtnSwitchAttrsParser
 import com.mozhimen.uicorek.layoutk.btn.mos.LayoutKBtnSwitchAttrs
@@ -33,7 +30,7 @@ import kotlinx.coroutines.launch
  * @Date 2021/11/30 14:35
  * @Version 1.0
  */
-typealias ILayoutKSwitchListener = IValueListener<Boolean>// (status: Boolean) -> Unit
+typealias ILayoutKSwitchListener = IValue1Listener<Boolean>// (status: Boolean) -> Unit
 
 interface ILayoutKBtnSwitch {
     /**

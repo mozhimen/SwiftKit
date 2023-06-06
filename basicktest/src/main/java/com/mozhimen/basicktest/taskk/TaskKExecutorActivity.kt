@@ -2,10 +2,14 @@ package com.mozhimen.basicktest.taskk
 
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basicktest.databinding.ActivityTaskkExecutorBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * @ClassName ExecutorKActivity
@@ -53,6 +57,13 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
                     Log.e(TAG, "onCompleted: 任务结果是: $t")
                 }
             })
+        }
+
+        //这里演示ExectorK转化为协程调度器, 使用use是因为我们需要使用完毕主动关闭以免线程泄露
+        TaskKExecutor.getTaskKExecutorCoroutineDispatcher().use {
+            lifecycleScope.launch(it/*Dispatchers.IO*/) {
+                /////////////////////
+            }
         }
     }
 }
