@@ -18,7 +18,9 @@ abstract class CacheKRMDatabase : RoomDatabase() {
     abstract val cacheKDao: ICacheKRMDao
 
     companion object {
-        private var _db: CacheKRMDatabase = Room.databaseBuilder(UtilKApplication.instance.applicationContext, CacheKRMDatabase::class.java, "basick_cachek_rm").allowMainThreadQueries().build()
+        private val _db: CacheKRMDatabase by lazy {
+            Room.databaseBuilder(UtilKApplication.instance.applicationContext, CacheKRMDatabase::class.java, "basick_cachek_rm").enableMultiInstanceInvalidation().allowMainThreadQueries().build()
+        }
 
         @JvmStatic
         fun get(): CacheKRMDatabase =
