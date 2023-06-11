@@ -1,11 +1,10 @@
 package com.mozhimen.basicktest.elemk.service
 
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.service.bases.BaseService
+import com.mozhimen.basick.elemk.service.bases.BaseLifecycleService2
+import com.mozhimen.basick.elemk.service.bases.BaseServiceBinder
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -16,9 +15,9 @@ import kotlinx.coroutines.launch
  * @Date 2022/9/27 0:59
  * @Version 1.0
  */
-class ElemKService : BaseService() {
+class ElemKService : BaseLifecycleService2() {
 
-    override var BINDER: IBaseServiceConnListener.Stub = object : BaseServiceBinder() {
+    override var binder: IBaseServiceConnListener.Stub = object : BaseServiceBinder(serviceResListeners) {
         override fun launchCommand(cmd: String?): String {
             return if (cmd == "123") "456" else "123"
         }

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.imagek.loader.commons
+package com.mozhimen.basick.imagek.coil.commons
 
 import android.graphics.Bitmap
 

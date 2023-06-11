@@ -1,4 +1,4 @@
-package com.mozhimen.basick.imagek.loader.mos
+package com.mozhimen.basick.imagek.coil.mos
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -6,7 +6,7 @@ import android.graphics.RectF
 import androidx.core.graphics.createBitmap
 import coil.size.Size
 import coil.transform.Transformation
-import com.mozhimen.basick.imagek.loader.commons.ITransformation
+import com.mozhimen.basick.imagek.coil.commons.ITransformation
 import java.lang.Float.max
 
 /**

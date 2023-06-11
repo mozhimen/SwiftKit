@@ -238,7 +238,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.mozhimen.basick.elemk.cons.CVersionCode;
-import com.mozhimen.basick.stackk.StackK;
+import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
 import com.mozhimen.basick.utilk.graphics.UtilKColor;
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus;
@@ -825,7 +825,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
         }
         checkActivity();
         if (mContext == null) {
-            if (StackK.INSTANCE.getStackTopActivity(true) == null) {
+            if (StackKCb.getInstance().getStackTopActivity(true) == null) {
                 waitForFirstActivityOpened(v, positionMode);
                 return;
             }

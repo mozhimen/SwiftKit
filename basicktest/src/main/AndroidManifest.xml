@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
         <activity
+            android:name=".stackk.StackKProcessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".stackk.StackKCbActivity"
+            android:exported="false" />
+        <activity
             android:name=".cachek.CacheKDSActivity"
             android:exported="false" />
         <activity

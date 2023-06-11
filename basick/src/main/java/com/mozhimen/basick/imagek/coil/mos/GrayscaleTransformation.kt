@@ -1,4 +1,4 @@
-package com.mozhimen.basick.imagek.loader.mos
+package com.mozhimen.basick.imagek.coil.mos
 
 import android.graphics.Bitmap
 import android.graphics.ColorMatrix
@@ -8,7 +8,7 @@ import androidx.core.graphics.applyCanvas
 import androidx.core.graphics.createBitmap
 import coil.size.Size
 import coil.transform.Transformation
-import com.mozhimen.basick.imagek.loader.commons.ITransformation
+import com.mozhimen.basick.imagek.coil.commons.ITransformation
 
 /**
  * @ClassName GrayscaleTransformation

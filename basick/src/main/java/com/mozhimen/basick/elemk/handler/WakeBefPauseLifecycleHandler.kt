@@ -18,13 +18,15 @@ import kotlinx.coroutines.launch
 class WakeBefPauseLifecycleHandler<T : LifecycleOwner>(private val _owner: T) : BaseWeakClazzMainHandler<T>(_owner), IDefaultLifecycleObserver {
 
     init {
+        bindLifecycle(_owner)
+    }
+
+    override fun bindLifecycle(owner: LifecycleOwner) {
         _owner.lifecycleScope.launch(Dispatchers.Main) {
             _owner.lifecycle.removeObserver(this@WakeBefPauseLifecycleHandler)
             _owner.lifecycle.addObserver(this@WakeBefPauseLifecycleHandler)
         }
     }
-
-    override fun bindLifecycle(owner: LifecycleOwner) {}
 
     override fun onPause(owner: LifecycleOwner) {
         this.removeAllCbsAndMsgs()

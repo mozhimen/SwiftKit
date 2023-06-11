@@ -1,11 +1,11 @@
-package com.mozhimen.basick.imagek.loader.mos
+package com.mozhimen.basick.imagek.coil.mos
 
 import android.graphics.*
 import androidx.annotation.ColorInt
 import androidx.core.graphics.createBitmap
 import coil.size.Size
 import coil.transform.Transformation
-import com.mozhimen.basick.imagek.loader.commons.ITransformation
+import com.mozhimen.basick.imagek.coil.commons.ITransformation
 
 /**
  * @ClassName ColorFilterTransformation

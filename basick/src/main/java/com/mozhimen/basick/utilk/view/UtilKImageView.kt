@@ -34,6 +34,7 @@ fun ImageView.setFillWithStroke(@ColorInt fillColorInt: Int, @ColorInt backgroun
 }
 
 object UtilKImageView {
+
     /**
      * 适应图片
      * @param imageView ImageView

@@ -36,7 +36,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.mozhimen.basick.elemk.cons.CVersionCode;
-import com.mozhimen.basick.stackk.StackK;
+import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.utilk.res.UtilKRes;
 import com.mozhimen.basick.utilk.view.display.UtilKScreen;
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity;
@@ -1191,7 +1191,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
             act = UtilKActivity.getActivityByContext(((Dialog) parent).getContext(), true);
         }
         if (act == null && returnTopIfNull) {
-            act = StackK.INSTANCE.getStackTopActivity(true);
+            act = StackKCb.getInstance().getStackTopActivity(true);
         }
         return act;
     }

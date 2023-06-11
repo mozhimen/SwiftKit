@@ -12,7 +12,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.delegate.VarDelegate_GetFun_R_Nonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.stackk.StackK
+import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKPermission
@@ -60,7 +60,7 @@ class FpsKProxy : IFpsK {
     private val _windowManager: WindowManager by lazy { UtilKWindowManager.get(_context) }
 
     init {
-        StackK.addFrontBackListener(object : IStackKListener {
+        StackKCb.instance.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
 //                if (isFront) {
 //                    LogK.dt(TAG, "FpsKView onChanged fpsk start")

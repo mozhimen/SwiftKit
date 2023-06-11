@@ -11,7 +11,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.stackk.StackK
+import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.content.UtilKIntent
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
@@ -80,7 +80,7 @@ object UtilKActivity {
             tempContext = tempContext.baseContext
             tryCount++
         }
-        return if (returnTopIfNull) StackK.getStackTopActivity() else null
+        return if (returnTopIfNull) StackKCb.instance.getStackTopActivity() else null
     }
 
     /**
@@ -116,7 +116,7 @@ object UtilKActivity {
             }
         }
         if (activity == null && returnTopIfNull) {
-            activity = StackK.getStackTopActivity()
+            activity = StackKCb.instance.getStackTopActivity()
         }
         return activity
     }

@@ -7,16 +7,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/stackk_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/ui_blue_633"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="goStackKCb"
+            android:text="goStackKCb"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="goStackKProcess"
+            android:text="goStackKProcess"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

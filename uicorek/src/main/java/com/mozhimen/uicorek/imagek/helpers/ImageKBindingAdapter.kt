@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.res.dp2px
-import com.mozhimen.basick.imagek.loader.ImageKLoader
+import com.mozhimen.basick.imagek.coil.ImageKLoader
 
 /**
  * @ClassName ImageKBindingAdapter

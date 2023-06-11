@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.view
 
-import android.R
 import android.app.Activity
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
@@ -139,7 +138,7 @@ object UtilKView : BaseUtilK() {
      */
     @JvmStatic
     fun isDecorView(view: View): Boolean {
-        return if (view.id == R.id.content) true
+        return if (view.id == android.R.id.content) true
         else TextUtils.equals(view.javaClass.name, "com.android.internal.policy.DecorView")
     }
 
@@ -327,10 +326,7 @@ object UtilKView : BaseUtilK() {
      * @param ratio Float
      */
     @JvmStatic
-    fun setViewRatio(
-        view: View,
-        ratio: Float
-    ) {
+    fun setViewRatio(view: View, ratio: Float) {
         view.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 if (view.height > 0) {
@@ -349,11 +345,7 @@ object UtilKView : BaseUtilK() {
      * @param paddingVertical Int
      */
     @JvmStatic
-    fun applyPadding(
-        view: View,
-        paddingHorizontal: Int,
-        paddingVertical: Int
-    ) {
+    fun applyPadding(view: View, paddingHorizontal: Int, paddingVertical: Int) {
         view.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical)
     }
 
@@ -363,10 +355,7 @@ object UtilKView : BaseUtilK() {
      * @param padding Int
      */
     @JvmStatic
-    fun applyPaddingHorizontal(
-        view: View,
-        padding: Int
-    ) {
+    fun applyPaddingHorizontal(view: View, padding: Int) {
         view.setPadding(padding, 0, padding, 0)
     }
 
@@ -376,10 +365,7 @@ object UtilKView : BaseUtilK() {
      * @param padding Int
      */
     @JvmStatic
-    fun applyPaddingVertical(
-        view: View,
-        padding: Int
-    ) {
+    fun applyPaddingVertical(view: View, padding: Int) {
         view.setPadding(0, padding, 0, padding)
     }
 
@@ -390,11 +376,7 @@ object UtilKView : BaseUtilK() {
      * @param height Int
      */
     @JvmStatic
-    fun resizeSize(
-        view: View,
-        width: Int,
-        height: Int
-    ) {
+    fun resizeSize(view: View, width: Int, height: Int) {
         val layoutParams = view.layoutParams
         layoutParams.width = width
         layoutParams.height = height
@@ -407,10 +389,7 @@ object UtilKView : BaseUtilK() {
      * @param size Int
      */
     @JvmStatic
-    fun resizeSize(
-        view: View,
-        size: Int
-    ) {
+    fun resizeSize(view: View, size: Int) {
         resizeSize(view, size, size)
     }
 

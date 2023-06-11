@@ -7,7 +7,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogK
-import com.mozhimen.basick.stackk.StackK
+import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
@@ -100,7 +100,7 @@ class CrashKJava : BaseUtilK() {
             stringBuilder.append("sdk= ${UtilKBuild.getVersionSDKCode()}\n")//SDK版本:31
             stringBuilder.append("launch_time= $_launchTime\n")//启动APP的时间
             stringBuilder.append("crash_time= ${UtilKDate.getNowStr()}")//crash发生的时间
-            stringBuilder.append("foreground= ${StackK.isFront()}")//应用处于前台
+            stringBuilder.append("foreground= ${StackKCb.instance.isFront()}")//应用处于前台
             stringBuilder.append("thread= ${Thread.currentThread().name}\n")//异常线程名
 
             //app info

@@ -1,14 +1,9 @@
 package com.mozhimen.basick.elemk.service.bases
 
 import android.app.Service
-import android.content.Intent
-import android.os.IBinder
 import android.os.RemoteCallbackList
 import android.os.RemoteException
-import androidx.annotation.CallSuper
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
+import com.mozhimen.basick.elemk.service.commons.IBaseService
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
 import com.mozhimen.basick.utilk.log.et
@@ -16,64 +11,45 @@ import com.mozhimen.basick.utilk.log.et
 /**
  * @ClassName BaseService
  * @Description TODO
- * @Author mozhimen / Kolin Zhao
- * @Date 2022/9/27 0:36
+ * @Author Mozhimen / Kolin Zhao
+ * @Date 2023/6/10 19:03
  * @Version 1.0
  */
-open class BaseService : Service(), LifecycleOwner {
+abstract class BaseService : Service(), IBaseService {
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
-    private val _listeners = RemoteCallbackList<IBaseServiceResListener>()
-    protected open val BINDER: IBaseServiceConnListener.Stub = BaseServiceBinder()
 
-    open inner class BaseServiceBinder : IBaseServiceConnListener.Stub() {
-        override fun onServiceStart() {
+    protected val serviceResListeners = RemoteCallbackList<IBaseServiceResListener>()
+    protected open val binder: IBaseServiceConnListener.Stub = BaseServiceBinder(serviceResListeners)
 
-        }
-
-        override fun registerListener(listener: IBaseServiceResListener?) {
-            listener?.let { _listeners.register(it) }
-        }
-
-        override fun launchCommand(cmd: String?): String {
-            return ""
-        }
-
-        override fun unRegisterListener(listener: IBaseServiceResListener?) {
-            listener?.let { _listeners.unregister(it) }
-        }
-
-        override fun onServiceStop() {
-            _listeners.kill()
-        }
-    }
-
-    override fun onBind(intent: Intent?): IBinder? {
-        return BINDER
-    }
-
-    protected fun onCallback(res: Any) {
-        val listenerSize = _listeners.beginBroadcast()
+    override fun onCallback(obj: Any) {
+        val listenerSize = serviceResListeners.beginBroadcast()
         try {
             for (i in 0 until listenerSize) {
-                when (res) {
+                when (obj) {
                     is Int -> {
-                        _listeners.getBroadcastItem(i).onResInt(res)
+                        serviceResListeners.getBroadcastItem(i).onResInt(obj)
                     }
+
                     is Long -> {
-                        _listeners.getBroadcastItem(i).onResLong(res)
+                        serviceResListeners.getBroadcastItem(i).onResLong(obj)
                     }
+
                     is Boolean -> {
-                        _listeners.getBroadcastItem(i).onResBoolean(res)
+                        serviceResListeners.getBroadcastItem(i).onResBoolean(obj)
                     }
+
                     is Float -> {
-                        _listeners.getBroadcastItem(i).onResFloat(res)
+                        serviceResListeners.getBroadcastItem(i).onResFloat(obj)
                     }
+
                     is Double -> {
-                        _listeners.getBroadcastItem(i).onResDouble(res)
+                        serviceResListeners.getBroadcastItem(i).onResDouble(obj)
                     }
+
                     is String -> {
-                        _listeners.getBroadcastItem(i).onResString(res)
+                        serviceResListeners.getBroadcastItem(i).onResString(obj)
                     }
+
                     else -> {}
                 }
             }
@@ -81,24 +57,6 @@ open class BaseService : Service(), LifecycleOwner {
             e.printStackTrace()
             e.message?.et(TAG)
         }
-        _listeners.finishBroadcast()
-    }
-
-    private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
-
-    @CallSuper
-    override fun onCreate() {
-        super.onCreate()
-        _lifecycleRegistry.currentState = Lifecycle.State.STARTED
-    }
-
-    @CallSuper
-    override fun onDestroy() {
-        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
-        super.onDestroy()
-    }
-
-    override fun getLifecycle(): Lifecycle {
-        return _lifecycleRegistry
+        serviceResListeners.finishBroadcast()
     }
 }

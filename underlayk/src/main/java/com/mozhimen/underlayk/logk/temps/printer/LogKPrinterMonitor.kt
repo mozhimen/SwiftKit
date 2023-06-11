@@ -2,7 +2,7 @@ package com.mozhimen.underlayk.logk.temps.printer
 
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.stackk.StackK
+import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.underlayk.logk.LogK
@@ -21,7 +21,7 @@ class LogKPrinterMonitor : ILogKPrinter {
     private val _printerMonitorProvider: LogKPrinterMonitorProvider by lazy { LogKPrinterMonitorProvider(UtilKApplication.instance.get()) }
 
     init {
-        StackK.addFrontBackListener(object : IStackKListener {
+        StackKCb.instance.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
                 if (!isFront && isOpen()) {
                     LogK.wt(TAG, "PrinterMonitor onChanged log stop")

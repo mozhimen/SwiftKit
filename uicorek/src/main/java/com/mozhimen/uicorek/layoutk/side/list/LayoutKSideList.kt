@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mozhimen.basick.elemk.commons.IValue2T1T2Listener
-import com.mozhimen.basick.imagek.loader.loadImageComplex
+import com.mozhimen.basick.imagek.coil.loadImageComplex
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.view.setTextStyle
