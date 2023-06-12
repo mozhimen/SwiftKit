@@ -1,4 +1,4 @@
-package com.mozhimen.basick.flowk.annors
+package com.mozhimen.basick.chaink.annors
 
 import androidx.annotation.IntDef
 
@@ -11,12 +11,12 @@ import androidx.annotation.IntDef
  */
 @Retention(AnnotationRetention.SOURCE)
 @IntDef(
-    AFlowKState.IDLE,
-    AFlowKState.RUNNING,
-    AFlowKState.FINISHED,
-    AFlowKState.START
+    AChainKState.IDLE,
+    AChainKState.RUNNING,
+    AChainKState.FINISHED,
+    AChainKState.START
 )
-annotation class AFlowKState {
+annotation class AChainKState {
     companion object {
         const val IDLE = 0 //静止
         const val START = 1 //启动,可能需要等待调度，

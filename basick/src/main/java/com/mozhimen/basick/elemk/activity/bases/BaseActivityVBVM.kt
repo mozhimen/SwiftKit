@@ -15,8 +15,14 @@ import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKViewModel
  * @Version 1.0
  */
 abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel>(
-    private val _factory: ViewModelProvider.Factory? = null
+    private val _factory: ViewModelProvider.Factory?
 ) : BaseActivityVB<VB>(_factory), IViewDataBinding<VB> {
+
+    /**
+     * 针对Hilt(@JvmOverloads kotlin默认参数值无效)
+     * @constructor
+     */
+    constructor() : this(null)
 
     protected lateinit var vm: VM
 

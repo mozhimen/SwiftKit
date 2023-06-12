@@ -1,11 +1,11 @@
-package com.mozhimen.basick.flowk.mos
+package com.mozhimen.basick.chaink.mos
 
 import androidx.core.os.TraceCompat
-import com.mozhimen.basick.flowk.annors.AFlowKState
-import com.mozhimen.basick.flowk.commons.IFlowKListener
-import com.mozhimen.basick.flowk.helpers.FlowKRuntime
-import com.mozhimen.basick.flowk.helpers.RuntimeCallback
-import com.mozhimen.basick.flowk.helpers.NodeComparator
+import com.mozhimen.basick.chaink.annors.AChainKState
+import com.mozhimen.basick.chaink.commons.IChainKListener
+import com.mozhimen.basick.chaink.helpers.ChainKRuntime
+import com.mozhimen.basick.chaink.helpers.ChainKCallback
+import com.mozhimen.basick.chaink.helpers.NodeComparator
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
  * @Date 2022/3/29 15:15
  * @Version 1.0
  */
-abstract class FlowKNode @JvmOverloads constructor(
+abstract class ChainKNode @JvmOverloads constructor(
     /**任务名称**/
     val id: String,
     /**是否是异步任务**/
@@ -25,42 +25,42 @@ abstract class FlowKNode @JvmOverloads constructor(
     val delayMills: Long = 0,
     /**任务的优先级**/
     var priority: Int = 0
-) : Runnable, Comparable<FlowKNode> {
+) : Runnable, Comparable<ChainKNode> {
     var executeTime: Long = 0
         //任务执行时间
         protected set
-    var state: Int = AFlowKState.IDLE
+    var state: Int = AChainKState.IDLE
         //任务的状态
         protected set
 
-    val dependTasks: MutableList<FlowKNode> = ArrayList()//当前task依赖了那些前置任务，只有当dependTasks集合中的所有任务执行完，当前才可以被执行
-    val behindTasks: MutableList<FlowKNode> = ArrayList()//当前task被那些后置任务依赖，只有当当前这个task执行完，behindTasks集合中的后置任务才可以执行
-    private val _iTaskKListeners: MutableList<IFlowKListener> = ArrayList()//任务运行状态监听器集
-    private var _taskKRuntimeListener: RuntimeCallback? = RuntimeCallback()//用于输出task运行时的日志
+    val dependTasks: MutableList<ChainKNode> = ArrayList()//当前task依赖了那些前置任务，只有当dependTasks集合中的所有任务执行完，当前才可以被执行
+    val behindTasks: MutableList<ChainKNode> = ArrayList()//当前task被那些后置任务依赖，只有当当前这个task执行完，behindTasks集合中的后置任务才可以执行
+    private val _iTaskKListeners: MutableList<IChainKListener> = ArrayList()//任务运行状态监听器集
+    private var _taskKRuntimeListener: ChainKCallback? = ChainKCallback()//用于输出task运行时的日志
     val dependTasksName: MutableList<String> = ArrayList()//用于运行时log统计输出，输出当前task依赖了那些前置任务， 这些前置任务的名称我们将它存储在这里
 
     open fun start() {
-        if (state != AFlowKState.IDLE) {
+        if (state != AChainKState.IDLE) {
             throw RuntimeException("cannot run task $id again")
         }
         toStart()
         executeTime = System.currentTimeMillis()
         //执行当前任务
-        FlowKRuntime.executeTask(this)
+        ChainKRuntime.executeTask(this)
     }
 
-    fun addTaskKListener(ITaskKListener: IFlowKListener) {
+    fun addTaskKListener(ITaskKListener: IChainKListener) {
         if (!_iTaskKListeners.contains(ITaskKListener)) {
             _iTaskKListeners.add(ITaskKListener)
         }
     }
 
     //给当前task添加-个前置的依赖任务
-    open fun dependOn(dependFlowKNode: FlowKNode) {
-        var taskK = dependFlowKNode
+    open fun dependOn(node: ChainKNode) {
+        var taskK = node
         if (taskK != this) {
-            if (dependFlowKNode is FlowKNodeGroup) {
-                taskK = dependFlowKNode.endTask
+            if (node is ChainKNodeGroup) {
+                taskK = node.endTask
                 dependTasks.add(taskK)
                 dependTasksName.add(taskK.id)
                 //当前task依赖了dependTask， 那么我们还需要吧dependTask-里面的behindTask添加进去当前的task
@@ -72,10 +72,10 @@ abstract class FlowKNode @JvmOverloads constructor(
     }
 
     //给当前task移除一个前置依赖任务
-    open fun removeDependence(dependTask: FlowKNode) {
+    open fun removeDependence(dependTask: ChainKNode) {
         var taskK = dependTask
         if (dependTask != this) {
-            if (dependTask is FlowKNodeGroup) {
+            if (dependTask is ChainKNodeGroup) {
                 taskK = dependTask.endTask
             }
             dependTasks.remove(taskK)
@@ -90,10 +90,10 @@ abstract class FlowKNode @JvmOverloads constructor(
 
     //给当前任务添加后置依赖项
     //他和dependOn 是相反的
-    open fun behind(behindTask: FlowKNode) {
+    open fun behind(behindTask: ChainKNode) {
         var taskK = behindTask
         if (behindTask != this) {
-            if (behindTask is FlowKNodeGroup) {
+            if (behindTask is ChainKNodeGroup) {
                 taskK = behindTask.startTask
             }
             //这个是把behindTask添加到当前task的后面
@@ -104,10 +104,10 @@ abstract class FlowKNode @JvmOverloads constructor(
     }
 
     //给当前task移除-个后置的任务
-    open fun removeBehind(behindTask: FlowKNode) {
+    open fun removeBehind(behindTask: ChainKNode) {
         var taskK = behindTask
         if (behindTask != this) {
-            if (behindTask is FlowKNodeGroup) {
+            if (behindTask is ChainKNodeGroup) {
                 taskK = behindTask.startTask
             }
             behindTasks.remove(taskK)
@@ -138,7 +138,7 @@ abstract class FlowKNode @JvmOverloads constructor(
         //通知后置任务去尝试执行
         if (behindTasks.isNotEmpty()) {
             if (behindTasks.size > 1) {
-                Collections.sort(behindTasks, FlowKRuntime.flowKNodeComparator)
+                Collections.sort(behindTasks, ChainKRuntime.chainKNodeComparator)
             }
 
             //遍历behindTask后置任务，通知他们，告诉他们你的一个前置依赖任务已经执行完成了
@@ -150,14 +150,14 @@ abstract class FlowKNode @JvmOverloads constructor(
         }
     }
 
-    private fun dependTaskFinished(dependFlowKNode: FlowKNode) {
+    private fun dependTaskFinished(node: ChainKNode) {
         // A behindTasks ->(B,C) A执行完成之后， B,C7可以执行。
         // task= B,C , dependTask=A
         if (dependTasks.isEmpty()) {
             return
         }
         //把A从B, C的前置依赖任务集合中移除
-        dependTasks.remove(dependFlowKNode)
+        dependTasks.remove(node)
         //B, C的所有前置任务是否都执行完了
         if (dependTasks.isEmpty()) {
             start()
@@ -165,8 +165,8 @@ abstract class FlowKNode @JvmOverloads constructor(
     }
 
     private fun toStart() {
-        state = AFlowKState.START
-        FlowKRuntime.setStateInfo(this)
+        state = AChainKState.START
+        ChainKRuntime.setStateInfo(this)
         for (listener in _iTaskKListeners) {
             listener.onStart(this)
         }
@@ -174,9 +174,9 @@ abstract class FlowKNode @JvmOverloads constructor(
     }
 
     private fun toFinish() {
-        state = AFlowKState.FINISHED
-        FlowKRuntime.setStateInfo(this)
-        FlowKRuntime.removeBlockTask(this.id)
+        state = AChainKState.FINISHED
+        ChainKRuntime.setStateInfo(this)
+        ChainKRuntime.removeBlockTask(this.id)
         for (listener in _iTaskKListeners) {
             listener.onFinished(this)
         }
@@ -184,9 +184,9 @@ abstract class FlowKNode @JvmOverloads constructor(
     }
 
     private fun toRunning() {
-        state = AFlowKState.RUNNING
-        FlowKRuntime.setStateInfo(this)
-        FlowKRuntime.setThreadName(this,Thread.currentThread().name)
+        state = AChainKState.RUNNING
+        ChainKRuntime.setStateInfo(this)
+        ChainKRuntime.setThreadName(this,Thread.currentThread().name)
         for (listener in _iTaskKListeners) {
             listener.onRunning(this)
         }
@@ -195,7 +195,7 @@ abstract class FlowKNode @JvmOverloads constructor(
 
     abstract fun run(id: String)
 
-    override fun compareTo(other: FlowKNode): Int {
+    override fun compareTo(other: ChainKNode): Int {
         return NodeComparator.compareNode(this, other)
     }
 }

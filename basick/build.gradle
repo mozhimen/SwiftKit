@@ -55,7 +55,7 @@ android {
 }
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib:1.7.20"
+    api "org.jetbrains.kotlin:kotlin-stdlib:1.8.0"
     api 'androidx.appcompat:appcompat:1.4.1'
     api 'androidx.core:core-ktx:1.7.0'
     api 'com.google.android.material:material:1.5.0'
@@ -98,8 +98,8 @@ dependencies {
 
     //////////////////////////////////////////////////////////////////
     //room cachek
-    api 'androidx.room:room-runtime:2.4.2'
-    kapt 'androidx.room:room-compiler:2.4.2'
+    api 'androidx.room:room-runtime:2.5.1'
+    kapt 'androidx.room:room-compiler:2.5.1'
 
     //datastore
     api "androidx.datastore:datastore-preferences:1.0.0"

@@ -1,13 +1,13 @@
-package com.mozhimen.basick.flowk.helpers
+package com.mozhimen.basick.chaink.helpers
 
 import android.util.Log
 import androidx.annotation.CallSuper
 import com.mozhimen.basick.BuildConfig
-import com.mozhimen.basick.flowk.mos.FlowKNode
-import com.mozhimen.basick.flowk.mos.FlowKNodeGroup
-import com.mozhimen.basick.flowk.helpers.FlowKRuntime.getTaskKRuntimeInfo
-import com.mozhimen.basick.flowk.annors.AFlowKState
-import com.mozhimen.basick.flowk.commons.IFlowKListener
+import com.mozhimen.basick.chaink.mos.ChainKNode
+import com.mozhimen.basick.chaink.mos.ChainKNodeGroup
+import com.mozhimen.basick.chaink.helpers.ChainKRuntime.getTaskKRuntimeInfo
+import com.mozhimen.basick.chaink.annors.AChainKState
+import com.mozhimen.basick.chaink.commons.IChainKListener
 
 /**
  * @ClassName TaskKRuntimeListener
@@ -16,29 +16,29 @@ import com.mozhimen.basick.flowk.commons.IFlowKListener
  * @Date 2022/3/29 15:50
  * @Version 1.0
  */
-class RuntimeCallback : IFlowKListener {
+class ChainKCallback : IChainKListener {
     @CallSuper
-    override fun onStart(flowKNode: FlowKNode) {
+    override fun onStart(node: ChainKNode) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "ITaskKRuntimeListener id ${flowKNode.id} method $METHOD_START")
+            Log.d(TAG, "ITaskKRuntimeListener id ${node.id} method $METHOD_START")
         }
     }
 
-    override fun onRunning(flowKNode: FlowKNode) {
+    override fun onRunning(node: ChainKNode) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "ITaskKRuntimeListener id ${flowKNode.id} method $METHOD_RUNNING")
+            Log.d(TAG, "ITaskKRuntimeListener id ${node.id} method $METHOD_RUNNING")
         }
     }
 
-    override fun onFinished(flowKNode: FlowKNode) {
-        logTaskKRuntimeInfo(flowKNode)
+    override fun onFinished(node: ChainKNode) {
+        logTaskKRuntimeInfo(node)
     }
 
-    private fun logTaskKRuntimeInfo(flowKNode: FlowKNode) {
-        val taskKRuntimeInfo = getTaskKRuntimeInfo(flowKNode.id) ?: return
-        val startTime = taskKRuntimeInfo.stateTime[AFlowKState.START]
-        val runningTime = taskKRuntimeInfo.stateTime[AFlowKState.RUNNING]
-        val finishedTime = taskKRuntimeInfo.stateTime[AFlowKState.FINISHED]
+    private fun logTaskKRuntimeInfo(node: ChainKNode) {
+        val taskKRuntimeInfo = getTaskKRuntimeInfo(node.id) ?: return
+        val startTime = taskKRuntimeInfo.stateTime[AChainKState.START]
+        val runningTime = taskKRuntimeInfo.stateTime[AChainKState.RUNNING]
+        val finishedTime = taskKRuntimeInfo.stateTime[AChainKState.FINISHED]
 
         val builder = StringBuilder()
         builder.append(WRAPPER)
@@ -47,10 +47,10 @@ class RuntimeCallback : IFlowKListener {
 
         builder.append(WRAPPER)
         builder.append(HALF_LINE)
-        builder.append(if (flowKNode is FlowKNodeGroup) "TaskKGroup" else "taskK ${flowKNode.id} " + METHOD_FINISHED)
+        builder.append(if (node is ChainKNodeGroup) "TaskKGroup" else "taskK ${node.id} " + METHOD_FINISHED)
         builder.append(HALF_LINE)
 
-        addTaskInfoLineInfo(builder, DEPENDENCIES, getTaskDependenciesInfo(flowKNode))
+        addTaskInfoLineInfo(builder, DEPENDENCIES, getTaskDependenciesInfo(node))
         addTaskInfoLineInfo(builder, IS_BLOCK_TASK, taskKRuntimeInfo.isBlockTask.toString())
         addTaskInfoLineInfo(builder, THREAD_NAME, taskKRuntimeInfo.threadName!!)
         addTaskInfoLineInfo(builder, START_TIME, startTime.toString() + "ms")
@@ -66,9 +66,9 @@ class RuntimeCallback : IFlowKListener {
         }
     }
 
-    private fun getTaskDependenciesInfo(flowKNode: FlowKNode): String {
+    private fun getTaskDependenciesInfo(node: ChainKNode): String {
         val builder = StringBuilder()
-        for (s in flowKNode.dependTasksName) {
+        for (s in node.dependTasksName) {
             builder.append("$s ")
         }
         return builder.toString()
