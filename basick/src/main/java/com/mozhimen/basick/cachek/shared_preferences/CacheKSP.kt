@@ -6,13 +6,13 @@ import java.util.concurrent.ConcurrentHashMap
 
 /**
  * @ClassName UtilKSharedPreferences
- * @Description UtilKSP.INSTANCE.with("123").getAll()
+ * @Description CacheKSP.INSTANCE.with("123").getAll()
  * @Author Kolin Zhao / Mozhimen
  * @Date 2022/2/28 14:09
  * @Version 1.0
  */
 
-
+@Deprecated("replace with datastore 用datastore替代sharedPreferences")
 class CacheKSP : ICacheK<CacheKSPProvider> {
     companion object {
         @JvmStatic
