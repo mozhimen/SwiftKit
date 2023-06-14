@@ -4,10 +4,10 @@ import com.mozhimen.basick.elemk.application.bases.BaseApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.java.datatype.json.moshiT2Json
+import com.mozhimen.basick.utilk.log.e
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.underlayk.logk.e
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterConsole
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
 

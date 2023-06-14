@@ -32,6 +32,7 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
     private var _enableScroll = true
     private var _intervalTime = -1
     private var _scrollDuration = -1
+
     init {
         initAttrs(attrs, defStyleAttr)
     }
@@ -95,6 +96,7 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
     override fun setBannerClickListener(listener: IBannerItemClickListener) {
         _layoutKBannerProxy.setBannerClickListener(listener)
     }
+
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {
             val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKBanner)

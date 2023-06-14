@@ -108,11 +108,11 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
     }
 
     protected fun finalize() {
-        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         release()
     }
 
     override fun release() {
+        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
         _audioKProxy.release()
     }
 

@@ -3,7 +3,6 @@ package com.mozhimen.underlayk.fpsk
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.fpsk.commons.IFpsK
-import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
 import com.mozhimen.underlayk.fpsk.helpers.FpsKProxy
 
 /**
