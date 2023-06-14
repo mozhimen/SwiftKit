@@ -19,7 +19,7 @@ import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.basick.utilk.res.sp2px
 import com.mozhimen.basick.utilk.view.applyPaddingHorizontal
 import com.mozhimen.basick.utilk.view.setIconFont
-import com.mozhimen.basick.utilk.view.setTextStyle
+import com.mozhimen.basick.utilk.view.applyTextStyle
 import com.mozhimen.uicorek.layoutk.navbar.helpers.AttrsParser
 import com.mozhimen.uicorek.layoutk.navbar.mos.MNavBarAttrs
 import java.util.*
@@ -224,7 +224,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
             isSingleLine = true
             ellipsize = TextUtils.TruncateAt.END
             setTextColor(titleColor)
-            setTextStyle(Typeface.BOLD)
+            applyTextStyle(Typeface.BOLD)
             setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize.toFloat())
             text = title
         }

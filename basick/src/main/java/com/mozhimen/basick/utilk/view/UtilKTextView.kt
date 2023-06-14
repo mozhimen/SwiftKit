@@ -13,8 +13,8 @@ import com.mozhimen.basick.utilk.java.datatype.toStringTrim
  * @Date 2022/11/6 0:27
  * @Version 1.0
  */
-fun TextView.setTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
-    UtilKTextView.setTextStyle(this, style)
+fun TextView.applyTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
+    UtilKTextView.applyTextStyle(this, style)
 }
 
 fun TextView.setIconFont(iconFont: String = "icons/iconfont.ttf") {
@@ -39,7 +39,7 @@ object UtilKTextView {
      * @param style Int
      */
     @JvmStatic
-    fun setTextStyle(
+    fun applyTextStyle(
         textView: TextView,
         @IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL
     ) {

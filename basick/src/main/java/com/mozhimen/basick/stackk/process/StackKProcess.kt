@@ -13,52 +13,11 @@ import java.lang.ref.WeakReference
  * @Date 2023/6/11 14:32
  * @Version 1.0
  */
-class StackKProcess private constructor() : IStackK {
+class StackKProcess private constructor() : IStackK by StackKProcessProxy() {
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder
     }
-
-    private val _stackKProcessProxy by lazy { StackKProcessProxy() }
-
-    /////////////////////////////////////////////////////////////////////////
-
-    override fun init() {
-        _stackKProcessProxy.init()
-    }
-
-    override fun getStackTopActivity(): Activity? =
-        _stackKProcessProxy.getStackTopActivity()
-
-    override fun getStackTopActivity(onlyAlive: Boolean): Activity? =
-        _stackKProcessProxy.getStackTopActivity(onlyAlive)
-
-    override fun addFrontBackListener(listener: IStackKListener) {
-        _stackKProcessProxy.addFrontBackListener(listener)
-    }
-
-    override fun removeFrontBackListener(listener: IStackKListener) {
-        _stackKProcessProxy.removeFrontBackListener(listener)
-    }
-
-    override fun getFrontBackListeners(): ArrayList<IStackKListener> =
-        _stackKProcessProxy.getFrontBackListeners()
-
-    override fun finishAllActivity() {
-        _stackKProcessProxy.finishAllActivity()
-    }
-
-    override fun isFront(): Boolean =
-        _stackKProcessProxy.isFront()
-
-    override fun getActivityRefs(): ArrayList<WeakReference<Activity>> =
-        _stackKProcessProxy.getActivityRefs()
-
-    override fun getStackCount(): Int =
-        _stackKProcessProxy.getStackCount()
-
-    override fun getLaunchCount(): Int =
-        _stackKProcessProxy.getLaunchCount()
 
     /////////////////////////////////////////////////////////////////////////
 

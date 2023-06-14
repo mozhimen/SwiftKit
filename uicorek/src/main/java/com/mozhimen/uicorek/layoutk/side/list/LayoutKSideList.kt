@@ -20,7 +20,7 @@ import com.mozhimen.basick.elemk.commons.IValue2T1T2Listener
 import com.mozhimen.basick.imagek.coil.loadImageComplex
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.view.setTextStyle
+import com.mozhimen.basick.utilk.view.applyTextStyle
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.vhk.VHKRecycler
@@ -214,7 +214,7 @@ class LayoutKSideList @JvmOverloads constructor(context: Context, attrs: Attribu
             indicatorView?.visibility = if (selected) View.VISIBLE else View.GONE
             titleView?.apply {
                 setTextSize(TypedValue.COMPLEX_UNIT_PX, (if (selected) _attr.menuItemTextSizeSelect else _attr.menuItemTextSize).toFloat())
-                if (selected) setTextStyle(Typeface.BOLD) else setTextStyle()
+                if (selected) applyTextStyle(Typeface.BOLD) else applyTextStyle()
             }
             holder.itemView.setBackgroundColor(if (selected) _attr.menuItemBgColorSelect else _attr.menuItemBgColor)
             titleView?.isSelected = selected

@@ -15,50 +15,11 @@ import java.lang.ref.WeakReference
  * @Date 2021/12/20 21:58
  * @Version 1.0
  */
-class StackKCb private constructor() : IStackK {
+class StackKCb private constructor() : IStackK by StackKCbProxy() {
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder
     }
-
-    private val _stackKCbProxy by lazy { StackKCbProxy() }
-
-    override fun init() {
-        _stackKCbProxy.init()
-    }
-
-    override fun getStackTopActivity(): Activity? =
-        _stackKCbProxy.getStackTopActivity()
-
-    override fun getStackTopActivity(onlyAlive: Boolean): Activity? =
-        _stackKCbProxy.getStackTopActivity(onlyAlive)
-
-    override fun addFrontBackListener(listener: IStackKListener) {
-        _stackKCbProxy.addFrontBackListener(listener)
-    }
-
-    override fun removeFrontBackListener(listener: IStackKListener) {
-        _stackKCbProxy.removeFrontBackListener(listener)
-    }
-
-    override fun getFrontBackListeners(): ArrayList<IStackKListener> =
-        _stackKCbProxy.getFrontBackListeners()
-
-    override fun finishAllActivity() {
-        _stackKCbProxy.finishAllActivity()
-    }
-
-    override fun isFront(): Boolean =
-        _stackKCbProxy.isFront()
-
-    override fun getActivityRefs(): ArrayList<WeakReference<Activity>> =
-        _stackKCbProxy.getActivityRefs()
-
-    override fun getStackCount(): Int =
-        _stackKCbProxy.getStackCount()
-
-    override fun getLaunchCount(): Int =
-        _stackKCbProxy.getLaunchCount()
 
     /////////////////////////////////////////////////////////////////////////
 
