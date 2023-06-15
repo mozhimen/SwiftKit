@@ -7,7 +7,6 @@ import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.SnackbarContentLayout
 import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
-import com.mozhimen.basick.utilk.os.thread.UtilKThread
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.os.thread.UtilKHandler
 
@@ -22,204 +21,117 @@ object UtilKSnackbar {
     private const val SNACK_BAR_MAX_LINES = 50//能显示的最多行数
     private val _context by lazy { UtilKApplication.instance.applicationContext }
 
-    /**
-     * 显示
-     * @param view View
-     * @param msg String
-     * @param duration Int
-     * @param action String
-     * @param listener OnClickListener?
-     * @return Snackbar
-     */
     @JvmStatic
-    fun show(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar {
-        return make(view, msg, duration, action, listener).also { it.show() }
+    fun showSnackbar(
+        view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null
+    ) {
+        make(view, msg, duration, action, listener).show()
     }
 
-    /**
-     * 显示
-     * @param view View
-     * @param msgId Int
-     * @param duration Int
-     * @param action String
-     * @param listener OnClickListener?
-     * @return Snackbar
-     */
     @JvmStatic
-    fun show(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar {
-        return make(view, msgId, duration, action, listener).also { it.show() }
+    fun showSnackbar(
+        view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null
+    ) {
+        make(view, msgId, duration, action, listener).show()
     }
 
-    /**
-     * 多行显示
-     * @param view View
-     * @param msg String
-     * @param duration Int
-     * @param action String
-     * @param listener OnClickListener?
-     * @param maxLines Int
-     * @return Snackbar
-     */
+    //////////////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun showMultiLines(
+    fun showSnackbarMultiLines(
         view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
         maxLines: Int = SNACK_BAR_MAX_LINES
-    ): Snackbar {
-        return makeMultiLines(view, msg, duration, action, listener, maxLines).also { it.show() }
+    ) {
+        makeMultiLines(view, msg, duration, action, listener, maxLines).show()
     }
 
-    /**
-     * 多行显示
-     * @param view View
-     * @param msgId Int
-     * @param duration Int
-     * @param action String
-     * @param listener OnClickListener?
-     * @param maxLines Int
-     * @return Snackbar
-     */
     @JvmStatic
-    fun showMultiLines(
+    fun showSnackbarMultiLines(
         view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
         maxLines: Int = SNACK_BAR_MAX_LINES
-    ): Snackbar {
-        return makeMultiLines(view, msgId, duration, action, listener, maxLines).also { it.show() }
+    ) {
+        makeMultiLines(view, msgId, duration, action, listener, maxLines).show()
     }
 
-    /**
-     * 主线程显示
-     * @param view View
-     * @param msg String
-     * @param duration Int
-     * @param action String
-     * @param listener OnClickListener?
-     * @return Snackbar
-     */
+    //////////////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun showOnMain(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar {
-        return if (UtilKHandler.isMainLooper()) {
-            show(view, msg, duration, action, listener)
+    fun showSnackbarOnMain(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
+        if (UtilKHandler.isMainLooper()) {
+            showSnackbar(view, msg, duration, action, listener)
         } else {
-            val snackbar = make(view, msg, duration, action, listener)
-            BaseWeakClazzMainHandler(_context).post { snackbar.show() }
-            return snackbar
+            BaseWeakClazzMainHandler(_context).post { showSnackbar(view, msg, duration, action, listener) }
         }
     }
 
-    /**
-     * 主线程显示
-     * @param view View
-     * @param msgId Int
-     * @param duration Int
-     * @param action String
-     * @param listener OnClickListener?
-     * @return Snackbar
-     */
     @JvmStatic
-    fun showOnMain(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar {
-        return if (UtilKHandler.isMainLooper()) {
-            show(view, msgId, duration, action, listener)
+    fun showSnackbarOnMain(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
+        if (UtilKHandler.isMainLooper()) {
+            showSnackbar(view, msgId, duration, action, listener)
         } else {
-            val snackbar = make(view, msgId, duration, action, listener)
-            BaseWeakClazzMainHandler(_context).post { snackbar.show() }
-            return snackbar
+            BaseWeakClazzMainHandler(_context).post { showSnackbar(view, msgId, duration, action, listener) }
         }
     }
 
-    /**
-     * 主线程多行显示
-     * @param view View
-     * @param msg String
-     * @param duration Int
-     * @param action String
-     * @param listener OnClickListener?
-     * @param maxLines Int
-     * @return Snackbar
-     */
+    //////////////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun showMultiLinesOnMain(
+    fun showSnackbarMultiLinesOnMain(
         view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
         maxLines: Int = SNACK_BAR_MAX_LINES
-    ): Snackbar {
-        return if (UtilKHandler.isMainLooper()) {
-            showMultiLines(view, msg, duration, action, listener, maxLines)
+    ) {
+        if (UtilKHandler.isMainLooper()) {
+            showSnackbarMultiLines(view, msg, duration, action, listener, maxLines)
         } else {
-            val snackbar = make(view, msg, duration, action, listener)
-            BaseWeakClazzMainHandler(_context).post { snackbar.show() }
-            return snackbar
+            BaseWeakClazzMainHandler(_context).post { showSnackbarMultiLines(view, msg, duration, action, listener, maxLines) }
         }
     }
 
-    /**
-     * 主线程多行显示
-     * @param view View
-     * @param msgId Int
-     * @param duration Int
-     * @param action String
-     * @param listener OnClickListener?
-     * @param maxLines Int
-     * @return Snackbar
-     */
     @JvmStatic
-    fun showMultiLinesOnMain(
+    fun showSnackbarMultiLinesOnMain(
         view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
         maxLines: Int = SNACK_BAR_MAX_LINES
-    ): Snackbar {
-        return if (UtilKHandler.isMainLooper()) {
-            showMultiLines(view, msgId, duration, action, listener, maxLines)
+    ) {
+        if (UtilKHandler.isMainLooper()) {
+            showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines)
         } else {
-            val snackbar = makeMultiLines(view, msgId, duration, action, listener, maxLines)
-            BaseWeakClazzMainHandler(_context).post { snackbar.show() }
-            return snackbar
+            BaseWeakClazzMainHandler(_context).post { showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines) }
         }
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////
 
     @SuppressLint("ShowToast")
     @JvmStatic
-    private fun make(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar {
-        Snackbar.make(view, msg, duration).apply {
-            if (action.isNotEmpty() && listener != null) setAction(action, listener)
-            return this
-        }
-    }
+    fun make(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar =
+        Snackbar.make(view, msg, duration).apply { if (action.isNotEmpty() && listener != null) setAction(action, listener) }
 
     @SuppressLint("ShowToast")
     @JvmStatic
-    private fun make(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar {
-        Snackbar.make(view, msgId, duration).apply {
-            if (action.isNotEmpty() && listener != null) setAction(action, listener)
-            return this
-        }
-    }
+    fun make(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null): Snackbar =
+        Snackbar.make(view, msgId, duration).apply { if (action.isNotEmpty() && listener != null) setAction(action, listener) }
+
+    //////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    private fun makeMultiLines(
+    fun makeMultiLines(
         view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
         maxLines: Int = SNACK_BAR_MAX_LINES
-    ): Snackbar {
-        val snackbar = Snackbar.make(view, msg, duration)
-        enableMultiLines(snackbar, maxLines)
-        snackbar.apply {
-            if (action.isNotEmpty() && listener != null) setAction(action, listener)
-            return this
-        }
-    }
+    ): Snackbar =
+        make(view, msg, duration, action, listener).apply { enableMultiLines(this, maxLines) }
 
     @JvmStatic
-    private fun makeMultiLines(
+    fun makeMultiLines(
         view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
         maxLines: Int = SNACK_BAR_MAX_LINES
-    ): Snackbar {
-        val snackbar = Snackbar.make(view, msgId, duration)
-        enableMultiLines(snackbar, maxLines)
-        snackbar.apply {
-            if (action.isNotEmpty() && listener != null) setAction(action, listener)
-            return this
-        }
-    }
+    ): Snackbar =
+        make(view, msgId, duration, action, listener).apply { enableMultiLines(this, maxLines) }
 
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
     @SuppressLint("RestrictedApi")
-    private fun enableMultiLines(snackbar: Snackbar, maxLines: Int) {
+    fun enableMultiLines(snackbar: Snackbar, maxLines: Int) {
         ((snackbar.view as ViewGroup).getChildAt(0) as SnackbarContentLayout).messageView.maxLines = maxLines
     }
 }

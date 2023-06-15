@@ -93,6 +93,8 @@ object UtilKToast {
         }
     }
 
+    ////////////////////////////////////////////////////////////////
+
     /**
      * 在主线程show
      * 用法1: "...".showToastOnMain(context)
@@ -122,6 +124,8 @@ object UtilKToast {
             UtilKHandler.postOnMain { showToast(msgId, duration) }
         }
     }
+
+    ////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun makeToast(context: Context, msg: String, duration: Int) {
