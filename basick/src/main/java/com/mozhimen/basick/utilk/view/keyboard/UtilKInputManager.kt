@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Build
 import android.util.Log
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -146,6 +147,11 @@ object UtilKInputManager {
     @JvmStatic
     fun clickBlankAreaToHide() {
 
+    }
+
+    @JvmStatic
+    fun handleKeyEventHide(view: View, keyCode: Int) {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) hide(view)
     }
 
     /**
