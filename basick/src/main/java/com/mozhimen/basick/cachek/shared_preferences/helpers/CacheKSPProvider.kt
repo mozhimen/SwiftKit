@@ -16,9 +16,6 @@ import java.lang.IllegalArgumentException
  * @Version 1.0
  */
 class CacheKSPProvider(spName: String) : ICacheKProvider {
-    companion object {
-        private const val CACHEK_SP_ENCRYPT_ALIAS = "5rfj4FVG&Td#$*Jd"
-    }
 
     private var _sharedPreferences: SharedPreferences
 
@@ -77,7 +74,7 @@ class CacheKSPProvider(spName: String) : ICacheKProvider {
 
     fun putStringEncryptSync(key: String, value: String) {
         if (value.isEmpty()) return
-        putObjSync(key, UtilKAES.with(secretKey = CACHEK_SP_ENCRYPT_ALIAS).encryptWithBase64(value))
+        putObjSync(key, UtilKAES.with(secretKey = "5rfj4FVG&Td#$*Jd").encryptWithBase64(value))
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -116,7 +113,7 @@ class CacheKSPProvider(spName: String) : ICacheKProvider {
 
     fun putStringEncrypt(key: String, value: String) {
         if (value.isEmpty()) return
-        putObj(key, UtilKAES.with(secretKey = CACHEK_SP_ENCRYPT_ALIAS).encryptWithBase64(value))
+        putObj(key, UtilKAES.with(secretKey = "5rfj4FVG&Td#$*Jd").encryptWithBase64(value))
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -171,7 +168,7 @@ class CacheKSPProvider(spName: String) : ICacheKProvider {
 
     fun getStringDecrypt(key: String, defaultValue: String = ""): String {
         val valueDecrypted = _sharedPreferences.getString(key, null) ?: return defaultValue
-        return UtilKAES.with(secretKey = CACHEK_SP_ENCRYPT_ALIAS).decryptWithBase64(valueDecrypted)
+        return UtilKAES.with(secretKey = "5rfj4FVG&Td#$*Jd").decryptWithBase64(valueDecrypted)
     }
 
     fun getAll(): MutableMap<String, *> =

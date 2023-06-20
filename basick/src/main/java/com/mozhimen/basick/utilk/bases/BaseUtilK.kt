@@ -8,6 +8,6 @@ package com.mozhimen.basick.utilk.bases
  * @Date 2023/3/20 10:54
  * @Version 1.0
  */
-open class BaseUtilK {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+open class BaseUtilK : IUtilK {
+    override val TAG = "${this.javaClass.simpleName}>>>>>"
 }

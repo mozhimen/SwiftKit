@@ -34,10 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatImageView(context, attrs, defStyleAttr), IUicoreK {
 
-    companion object {
-        private const val TAG = "ImageKBlur>>>>>"
-        private const val BLUR_TASK_WAIT_TIMEOUT: Long = 1000 //图片模糊超时1秒
-    }
+    override val TAG: String = "ImageKBlur>>>>>"
 
     @Volatile
     private var _abortBlur = false
@@ -317,7 +314,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
     ) {
         private val _startTime: Long = System.currentTimeMillis()
         private val _isOverTime: Boolean
-            get() = System.currentTimeMillis() - _startTime > BLUR_TASK_WAIT_TIMEOUT
+            get() = System.currentTimeMillis() - _startTime > 1000 //图片模糊超时1秒
 
         fun restore() {
             if (_isOverTime) {

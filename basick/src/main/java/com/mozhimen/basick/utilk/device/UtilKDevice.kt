@@ -6,8 +6,10 @@ import android.os.StatFs
 import android.text.TextUtils
 import android.text.format.Formatter
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.device.camera.UtilKCamera
 import com.mozhimen.basick.utilk.log.et
@@ -27,12 +29,8 @@ import java.io.RandomAccessFile
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
-object UtilKDevice {
-    private const val TAG = "UtilKDevice>>>>>"
+object UtilKDevice : BaseUtilK() {
     private val _context by lazy { UtilKApplication.instance.applicationContext }
-
-    private const val PATH_MEMINFO = "/proc/meminfo"
-    private const val PATH_CPU_USED = "/proc/stat"
 
     @JvmStatic
     fun isHasFrontCamera(): Boolean =
@@ -52,7 +50,7 @@ object UtilKDevice {
         val arrayOfString: Array<String>
         var memorySize: Long = 0
         try {
-            val localFileReader = FileReader(PATH_MEMINFO)
+            val localFileReader = FileReader(CPath.PROC_MEMINFO)
             val localBufferedReader = BufferedReader(
                 localFileReader, 8192
             )
@@ -77,7 +75,7 @@ object UtilKDevice {
     @JvmStatic
     fun getCpuUsed(): Float {
         try {
-            val reader = RandomAccessFile(PATH_CPU_USED, "r")
+            val reader = RandomAccessFile(CPath.PROC_STAT, "r")
             var load = reader.readLine()
             var toks = load.split(" ".toRegex()).toTypedArray()
             val idle1 = toks[5].toLong()

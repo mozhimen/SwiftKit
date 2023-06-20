@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.netk.http.helpers
 
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.componentk.netk.http.commons.NetKRep
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -11,9 +12,7 @@ import kotlinx.coroutines.flow.*
  * @Date 2022/10/26 11:01
  * @Version 1.0
  */
-object NetKHelper {
-    const val TAG = "NetKHelper>>>>>"
-
+object NetKHelper : BaseUtilK() {
     fun <T> createFlow(call: suspend () -> T?): Flow<NetKRep<T>> = flow {
         val result: T? = call()
         result?.let {

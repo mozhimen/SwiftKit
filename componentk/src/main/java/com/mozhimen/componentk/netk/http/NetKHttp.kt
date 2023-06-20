@@ -4,6 +4,7 @@ import android.util.Log
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.datatype.json.UtilKJson
 import com.mozhimen.basick.utilk.java.datatype.json.UtilKJsonMoshi
 import com.mozhimen.componentk.BuildConfig
@@ -24,11 +25,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 open class NetKHttp(
     baseUrl: String,
     interceptors: List<Interceptor> = emptyList()
-) {
-    companion object {
-        private const val TAG = "NetKHttp>>>>>"
-    }
-
+) : BaseUtilK() {
     private val _intercepters: ArrayList<Interceptor> = ArrayList()
     private val _okHttpClient by lazy {
         OkHttpClient.Builder().apply {

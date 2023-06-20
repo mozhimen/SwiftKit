@@ -1,16 +1,17 @@
 package com.mozhimen.componentk.netk.file.download
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.util.Log
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.hash.UtilKMD5
 import com.mozhimen.componentk.R
-import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ERROR_CANNOT_RESUME
-import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ERROR_MISSING_LOCATION_WHEN_REDIRECT
-import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ERROR_TOO_MANY_REDIRECTS
-import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ERROR_UNHANDLED
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
+import com.mozhimen.componentk.netk.file.download.cons.CErrorCode
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getPercent
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getTipFromException
 import com.mozhimen.componentk.netk.file.download.utils.NotifierUtils
@@ -24,17 +25,8 @@ import java.net.URL
  * @author by chiclaim@google.com
  */
 class EmbedDownloader(request: DownloadRequest) :
-    Downloader(request) {
-
-
-    companion object {
-        private const val TAG = "EmbedDownloader>>>>>"
-
-        private const val HTTP_TEMP_REDIRECT = 307
-        private const val HTTP_PERM_REDIRECT = 308
-        private const val HTTP_REQUESTED_RANGE_NOT_SATISFIABLE = 416
-        private const val MAX_REDIRECTS = 5  // can't be more than 7.
-    }
+    Downloader(request), IUtilK {
+    override val TAG: String = "EmbedDownloader>>>>>"
 
     private val handler by lazy {
         Handler(Looper.getMainLooper())
@@ -80,6 +72,7 @@ class EmbedDownloader(request: DownloadRequest) :
         return file
     }
 
+    @SuppressLint("WrongConstant")
     private fun fillRequestFromDB(dbRecord: DownloadRecord) {
         dbRecord.notificationTitle?.let {
             request.setNotificationTitle(it)
@@ -105,7 +98,7 @@ class EmbedDownloader(request: DownloadRequest) :
             notificationTitle = request.notificationTitle.toString(),
             notificationContent = request.notificationContent.toString(),
             notificationVisibility = request.notificationVisibility,
-            status = STATUS_RUNNING
+            status = CDownloadConstants.STATUS_RUNNING
         )
         inputRecord = inputRecord.queryByUrl(request.context).firstOrNull().run {
             if (this == null) {
@@ -119,7 +112,7 @@ class EmbedDownloader(request: DownloadRequest) :
                 // 来自通知栏点击(request 中只有 url 属性值)
                 if (request.fromNotifier) {
                     fillRequestFromDB(this)
-                    this.status = STATUS_RUNNING
+                    this.status = CDownloadConstants.STATUS_RUNNING
                     this
                 }
                 // 普通下载，以传递进来的 request 为准，设置 id、totalBytes 即可
@@ -141,8 +134,8 @@ class EmbedDownloader(request: DownloadRequest) :
     private fun callPercent(percent: Int) {
         handler.post {
             request.onProgressUpdate(percent)
-            if (request.notificationVisibility == NOTIFIER_VISIBLE_NOTIFY_COMPLETED
-                || request.notificationVisibility == NOTIFIER_VISIBLE
+            if (request.notificationVisibility == CDownloadConstants.NOTIFIER_VISIBLE_NOTIFY_COMPLETED
+                || request.notificationVisibility == CDownloadConstants.NOTIFIER_VISIBLE
             ) {
                 NotifierUtils.showNotification(
                     request.context,
@@ -151,7 +144,7 @@ class EmbedDownloader(request: DownloadRequest) :
                     percent,
                     request.notificationTitle ?: "",
                     request.notificationContent,
-                    STATUS_RUNNING,
+                    CDownloadConstants.STATUS_RUNNING,
                 )
             }
         }
@@ -159,11 +152,11 @@ class EmbedDownloader(request: DownloadRequest) :
     }
 
     private fun callSuccessful(record: DownloadRecord, destinationFile: File) {
-        record.status = STATUS_SUCCESSFUL
+        record.status = CDownloadConstants.STATUS_SUCCESSFUL
         record.update(request.context)
         handler.post {
             when (request.notificationVisibility) {
-                NOTIFIER_VISIBLE_NOTIFY_COMPLETED, NOTIFIER_VISIBLE_NOTIFY_ONLY_COMPLETION -> {
+                CDownloadConstants.NOTIFIER_VISIBLE_NOTIFY_COMPLETED, CDownloadConstants.NOTIFIER_VISIBLE_NOTIFY_ONLY_COMPLETION -> {
                     NotifierUtils.showNotification(
                         request.context,
                         request.url.hashCode(),
@@ -171,11 +164,12 @@ class EmbedDownloader(request: DownloadRequest) :
                         100,
                         request.notificationTitle ?: "",
                         request.context.getString(R.string.downloader_notifier_success_to_install),
-                        STATUS_SUCCESSFUL,
+                        CDownloadConstants.STATUS_SUCCESSFUL,
                         destinationFile
                     )
                 }
-                NOTIFIER_VISIBLE -> {
+
+                CDownloadConstants.NOTIFIER_VISIBLE -> {
                     NotifierUtils.cancelNotification(request.context, request.url.hashCode())
                 }
 
@@ -189,11 +183,11 @@ class EmbedDownloader(request: DownloadRequest) :
 
     private fun callFailed(record: DownloadRecord?, e: Exception) {
         record?.let {
-            it.status = STATUS_FAILED
+            it.status = CDownloadConstants.STATUS_FAILED
             it.update(request.context)
         }
         handler.post {
-            if (request.notificationVisibility != NOTIFIER_HIDDEN
+            if (request.notificationVisibility != CDownloadConstants.NOTIFIER_HIDDEN
             ) {
                 NotifierUtils.showNotification(
                     request.context,
@@ -202,7 +196,7 @@ class EmbedDownloader(request: DownloadRequest) :
                     -1,
                     request.notificationTitle ?: "",
                     getTipFromException(request.context, e),
-                    STATUS_FAILED,
+                    CDownloadConstants.STATUS_FAILED,
                     url = request.url
                 )
             }
@@ -219,8 +213,8 @@ class EmbedDownloader(request: DownloadRequest) :
             while (true) {
                 var record: DownloadRecord? = null
                 try {
-                    if (redirectCount >= MAX_REDIRECTS) {
-                        throw DownloadException(ERROR_TOO_MANY_REDIRECTS, "too many redirect times")
+                    if (redirectCount >= CDownloadParameter.EMBED_MAX_REDIRECTS) {
+                        throw DownloadException(CErrorCode.ERROR_TOO_MANY_REDIRECTS, "too many redirect times")
                     }
 
                     val destinationFile = prepareDestinationFile().also {
@@ -270,7 +264,7 @@ class EmbedDownloader(request: DownloadRequest) :
                         HttpURLConnection.HTTP_OK -> {
                             if (resuming) {
                                 throw DownloadException(
-                                    ERROR_CANNOT_RESUME,
+                                    CErrorCode.ERROR_CANNOT_RESUME,
                                     "Expected partial, but received OK"
                                 )
                             }
@@ -282,7 +276,7 @@ class EmbedDownloader(request: DownloadRequest) :
                         HttpURLConnection.HTTP_PARTIAL -> {
                             if (!resuming) {
                                 throw DownloadException(
-                                    ERROR_CANNOT_RESUME,
+                                    CErrorCode.ERROR_CANNOT_RESUME,
                                     "Expected OK, but received partial"
                                 )
                             }
@@ -292,12 +286,12 @@ class EmbedDownloader(request: DownloadRequest) :
                         HttpURLConnection.HTTP_MOVED_PERM,
                         HttpURLConnection.HTTP_MOVED_TEMP,
                         HttpURLConnection.HTTP_SEE_OTHER,
-                        HTTP_TEMP_REDIRECT, HTTP_PERM_REDIRECT -> {
+                        CDownloadParameter.EMBED_HTTP_TEMP_REDIRECT, CDownloadParameter.EMBED_HTTP_PERM_REDIRECT -> {
                             conn.disconnect()
                             val locationUrl: String =
                                 conn.getHeaderField("Location")
                                     ?: throw DownloadException(
-                                        ERROR_MISSING_LOCATION_WHEN_REDIRECT,
+                                        CErrorCode.ERROR_MISSING_LOCATION_WHEN_REDIRECT,
                                         "missing Location in redirect"
                                     )
                             // 获取最新的地址后，重新下载
@@ -306,7 +300,7 @@ class EmbedDownloader(request: DownloadRequest) :
                             continue
                         }
                         // 416 服务器无法处理所请求的数据区间
-                        HTTP_REQUESTED_RANGE_NOT_SATISFIABLE -> {
+                        CDownloadParameter.EMBED_HTTP_REQUESTED_RANGE_NOT_SATISFIABLE -> {
                             conn.disconnect()
                             record.delete(request.context)
                             request.setIgnoreLocal(true)
@@ -315,7 +309,7 @@ class EmbedDownloader(request: DownloadRequest) :
                         // unmatched case
                         else -> {
                             throw DownloadException(
-                                ERROR_UNHANDLED,
+                                CErrorCode.ERROR_UNHANDLED,
                                 "Download Failed: ${conn.responseCode}",
                                 conn.responseCode
                             )

@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.WindowManager
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 
 /**
@@ -13,8 +15,7 @@ import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
  * @Date 2022/11/23 23:44
  * @Version 1.0
  */
-object UtilKVirtualBar {
-    private val TAG = "UtilKVirtualBar>>>>>"
+object UtilKVirtualBar : BaseUtilK() {
 
     /**
      * 获取虚拟功能键的高度
@@ -25,18 +26,17 @@ object UtilKVirtualBar {
     fun getVirtualBarHeight(context: Context): Int {
         var virtualBarHeight = 0
         val displayMetrics = DisplayMetrics()
-        val display = UtilKWindowManager.getDefaultDisplay(context)
         try {
             @SuppressWarnings("rawtypes")
             val clazz = Class.forName("android.view.Display")
 
             @SuppressWarnings("unchecked")
             val method = clazz.getMethod("getRealMetrics", DisplayMetrics::class.java)
-            method.invoke(display, displayMetrics)
-            virtualBarHeight = displayMetrics.heightPixels - display.height
+            method.invoke(UtilKWindowManager.getDefaultDisplay(context), displayMetrics)
+            virtualBarHeight = displayMetrics.heightPixels - UtilKWindowManager.getDefaultDisplayWidth(context)
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e(TAG, "getVirtualBarHeight Exception ${e.message}")
+            "getVirtualBarHeight Exception ${e.message}".et(TAG)
         }
         return virtualBarHeight
     }

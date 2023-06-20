@@ -10,11 +10,13 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
-import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.UtilKReflect
+import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.view.UtilKView
+import com.mozhimen.basick.utilk.view.window.UtilKDecorView
 import com.mozhimen.basick.utilk.view.window.UtilKWindow
 import java.lang.reflect.Field
 
@@ -25,8 +27,7 @@ import java.lang.reflect.Field
  * @Date 2022/1/15 20:01
  * @Version 1.0
  */
-object UtilKInputManager {
-    private const val TAG = "UtilKKeyBoard>>>>>"
+object UtilKInputManager : BaseUtilK() {
 
     /**
      * 获取InputManager
@@ -178,7 +179,7 @@ object UtilKInputManager {
      */
     @JvmStatic
     fun isShow(activity: Activity): Boolean {
-        return UtilKWindow.getDecorViewInvisibleHeight(UtilKWindow.get(activity)) > 0
+        return UtilKDecorView.getInvisibleHeight(activity) > 0
     }
 
     /**
@@ -322,7 +323,6 @@ object UtilKInputManager {
 }
 
 //object UtilKKeyBoard {
-//    private const val TAG = "UtilKKeyBoard>>>>>"
 //    private val _context = UtilKApplication.instance.applicationContext
 //
 //    /**
@@ -658,7 +658,7 @@ object UtilKInputManager {
 //    @JvmStatic
 //    fun fixAndroidBug5497(window: Window) {
 //        val softInputMode = window.attributes.softInputMode
-//        window.setSoftInputMode(softInputMode and WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE.inv())
+//        window.setSoftInputMode(softInputMode and CWinMgrLP.SOFT_INPUT_ADJUST_RESIZE.inv())
 //        val contentView = window.findViewById<FrameLayout>(R.id.content)
 //        val contentViewChild = contentView.getChildAt(0)
 //        val paddingBottom = contentViewChild.paddingBottom

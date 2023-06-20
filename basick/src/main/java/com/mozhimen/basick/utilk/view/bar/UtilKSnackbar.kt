@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.SnackbarContentLayout
+import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.os.thread.UtilKHandler
@@ -18,7 +19,6 @@ import com.mozhimen.basick.utilk.os.thread.UtilKHandler
  * @Version 1.0
  */
 object UtilKSnackbar {
-    private const val SNACK_BAR_MAX_LINES = 50//能显示的最多行数
     private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     @JvmStatic
@@ -40,7 +40,7 @@ object UtilKSnackbar {
     @JvmStatic
     fun showSnackbarMultiLines(
         view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
-        maxLines: Int = SNACK_BAR_MAX_LINES
+        maxLines: Int = CParameter.UTILK_SNACK_BAR_MAX_LINES
     ) {
         makeMultiLines(view, msg, duration, action, listener, maxLines).show()
     }
@@ -48,7 +48,7 @@ object UtilKSnackbar {
     @JvmStatic
     fun showSnackbarMultiLines(
         view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
-        maxLines: Int = SNACK_BAR_MAX_LINES
+        maxLines: Int = CParameter.UTILK_SNACK_BAR_MAX_LINES
     ) {
         makeMultiLines(view, msgId, duration, action, listener, maxLines).show()
     }
@@ -78,7 +78,7 @@ object UtilKSnackbar {
     @JvmStatic
     fun showSnackbarMultiLinesOnMain(
         view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
-        maxLines: Int = SNACK_BAR_MAX_LINES
+        maxLines: Int = CParameter.UTILK_SNACK_BAR_MAX_LINES
     ) {
         if (UtilKHandler.isMainLooper()) {
             showSnackbarMultiLines(view, msg, duration, action, listener, maxLines)
@@ -90,7 +90,7 @@ object UtilKSnackbar {
     @JvmStatic
     fun showSnackbarMultiLinesOnMain(
         view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
-        maxLines: Int = SNACK_BAR_MAX_LINES
+        maxLines: Int = CParameter.UTILK_SNACK_BAR_MAX_LINES
     ) {
         if (UtilKHandler.isMainLooper()) {
             showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines)
@@ -116,14 +116,14 @@ object UtilKSnackbar {
     @JvmStatic
     fun makeMultiLines(
         view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
-        maxLines: Int = SNACK_BAR_MAX_LINES
+        maxLines: Int = CParameter.UTILK_SNACK_BAR_MAX_LINES
     ): Snackbar =
         make(view, msg, duration, action, listener).apply { enableMultiLines(this, maxLines) }
 
     @JvmStatic
     fun makeMultiLines(
         view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
-        maxLines: Int = SNACK_BAR_MAX_LINES
+        maxLines: Int = CParameter.UTILK_SNACK_BAR_MAX_LINES
     ): Snackbar =
         make(view, msgId, duration, action, listener).apply { enableMultiLines(this, maxLines) }
 

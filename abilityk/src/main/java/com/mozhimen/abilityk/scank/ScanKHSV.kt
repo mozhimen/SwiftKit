@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.util.Log
 import com.mozhimen.abilityk.scank.cons.EColorHSV
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.graphics.bitmap.drawable2Bitmap
 import com.mozhimen.basick.utilk.java.datatype.json.moshiT2Json
 import com.mozhimen.underlayk.logk.LogK
@@ -19,9 +20,7 @@ import java.io.FileOutputStream
  * @Date 2022/5/10 18:23
  * @Version 1.0
  */
-object ScanKHSV {
-
-    private const val TAG = "ScanKHSV>>>>>"
+object ScanKHSV : BaseUtilK() {
 
     private val _colorMap = HashMap<EColorHSV, Int>()
 

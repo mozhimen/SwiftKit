@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.elemk.cons.CWinMgrLP
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
+import com.mozhimen.basick.utilk.view.window.UtilKContentView
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkDialogItemBinding
@@ -35,10 +37,10 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
 
     private lateinit var _debugKRecycler: RecyclerView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val parent = dialog?.window?.findViewById(android.R.id.content) ?: container
+        val parent = dialog?.window?.let { UtilKContentView.getViewGroup(it) } ?: container
         val view = inflater.inflate(R.layout.debugk_dialog, parent, false)
 
-        dialog?.window?.setLayout((UtilKScreen.getRealScreenWidth() * 0.8f).toInt(), WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setLayout((UtilKScreen.getRealScreenWidth() * 0.8f).toInt(), CWinMgrLP.WRAP_CONTENT)
         dialog?.window?.setBackgroundDrawableResource(R.drawable.debugk_crashk_dialog)
         return view
     }

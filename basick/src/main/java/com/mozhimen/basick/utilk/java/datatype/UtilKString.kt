@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.java.datatype
 
 import android.os.Build
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.text.DecimalFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -47,8 +48,7 @@ fun CharSequence.toStringTrim(): String =
 fun Any.toStringTrim(): String =
     UtilKString.toStringTrim(this)
 
-object UtilKString {
-    private const val TAG = "UtilKString>>>>>"
+object UtilKString : BaseUtilK() {
 
     @JvmStatic
     fun toStringTrim(charSequence: CharSequence): String =

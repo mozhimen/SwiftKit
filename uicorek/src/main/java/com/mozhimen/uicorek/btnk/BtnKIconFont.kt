@@ -31,6 +31,7 @@ interface IBtnKIconFont {
 class BtnKIconFont @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     AppCompatButton(context, attrs, defStyleAttr), IUicoreK, IBtnKIconFont {
 
+    override val TAG: String = "BtnKIconFont>>>>>"
     private var _iconFontPath = "icons/iconfont.ttf"
 
     init {

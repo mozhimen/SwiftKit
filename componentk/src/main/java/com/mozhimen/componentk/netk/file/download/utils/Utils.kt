@@ -7,15 +7,16 @@ import android.os.Build
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.java.io.hash.UtilKMD5
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.DownloadException
+import com.mozhimen.componentk.netk.file.download.cons.CErrorCode
 import java.io.File
 import java.net.ConnectException
 import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-
 
 internal object Utils {
 
@@ -69,7 +70,7 @@ internal object Utils {
 
 
     fun getRealPathFromURI(context: Context, contentURI: Uri): String? {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
             val cursor = context.contentResolver.query(
                 contentURI, null,
                 null, null, null
@@ -88,13 +89,13 @@ internal object Utils {
     fun getTipFromException(context: Context, exception: Throwable): String {
         if (exception is DownloadException) {
             return when (exception.errorType) {
-                DownloadException.ERROR_NO_NETWORK ->
+                CErrorCode.ERROR_NO_NETWORK ->
                     context.getString(R.string.downloader_notifier_content_without_network)
-                DownloadException.ERROR_CANNOT_RESUME ->
+                CErrorCode.ERROR_CANNOT_RESUME ->
                     context.getString(R.string.downloader_notifier_content_partial_error)
-                DownloadException.ERROR_TOO_MANY_REDIRECTS ->
+                CErrorCode.ERROR_TOO_MANY_REDIRECTS ->
                     context.getString(R.string.downloader_notifier_content_too_many_redirects)
-                DownloadException.ERROR_MISSING_LOCATION_WHEN_REDIRECT ->
+                CErrorCode.ERROR_MISSING_LOCATION_WHEN_REDIRECT ->
                     context.getString(R.string.downloader_notifier_content_missing_location)
                 else ->
                     context.getString(
@@ -116,6 +117,4 @@ internal object Utils {
             }
         }
     }
-
-
 }

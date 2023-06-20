@@ -10,6 +10,7 @@ import android.view.View
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.renderscript.*
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.datatype.UtilKNumber
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.UtilKBitmapBlur
@@ -29,8 +30,7 @@ import com.mozhimen.basick.utilk.log.UtilKLogPro
  * @Version 1.0
  */
 @SuppressLint("StaticFieldLeak")
-object UtilKRenderScript {
-    private const val TAG = "RenderScriptHelper>>>>>"
+object UtilKRenderScript : BaseUtilK() {
     private var _startTime: Long = 0
 
     @Volatile

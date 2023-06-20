@@ -8,6 +8,7 @@ import com.mozhimen.basick.chaink.mos.ChainKNode
 import com.mozhimen.basick.chaink.mos.ChainKNodeGroup
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.chaink.mos.MNodeRuntimeInfo
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.os.thread.applyPostDelayed
 import java.util.*
 
@@ -25,8 +26,7 @@ import java.util.*
 * 3.校验依赖树中是否存在taskId相同的任务
 * 4.统计所有task的运行时信息(线程，状态，开始执行时间，电时的4.是否是阻塞任务)，用于log输出
  */
-internal object ChainKRuntime {
-    private const val TAG = "TaskKRuntime>>>>>"
+internal object ChainKRuntime : BaseUtilK() {
 
     //通过addBlockTask (String name)指定启动阶段需要阻完成的任务，只有当blockTasksId当中的任务都执行完了
     //才会释放application的阻塞，才会拉起launchActivity

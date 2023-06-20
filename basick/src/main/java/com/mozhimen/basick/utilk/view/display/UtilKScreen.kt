@@ -1,19 +1,20 @@
 package com.mozhimen.basick.utilk.view.display
 
 import android.app.Activity
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.FloatRange
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.view.bar.UtilKVirtualBar
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.res.UtilKConfiguration
 import com.mozhimen.basick.utilk.res.UtilKDisplay
 import com.mozhimen.basick.utilk.res.UtilKTheme
+import com.mozhimen.basick.utilk.view.window.UtilKDecorView
 import com.mozhimen.basick.utilk.view.window.UtilKWindow
 import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 import kotlin.math.sqrt
@@ -53,11 +54,11 @@ object UtilKScreen {
 
     /**
      * 设置全屏
-     * @param view View
+     * @param decorView View
      */
     @JvmStatic
-    fun setFullScreen(view: View) {
-        view.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE or
+    fun setFullScreen(decorView: View) {
+        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE or
                 View.SYSTEM_UI_FLAG_FULLSCREEN or
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
@@ -71,7 +72,7 @@ object UtilKScreen {
      * @param activity Activity
      */
     @JvmStatic
-    fun setScreenBrightness(paramFloat: Float, activity: Activity) {
+    fun setScreenBrightness(@FloatRange(from = 0.0, to = 1.0) paramFloat: Float, activity: Activity) {
         val window: Window = UtilKWindow.get(activity)
         val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(window)
         layoutParams.screenBrightness = paramFloat
@@ -125,10 +126,10 @@ object UtilKScreen {
     @JvmStatic
     fun getRealScreenWidth(): Int =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
-            UtilKWindowManager.getCurrentWindowMetrics(_context).bounds.width()
+            UtilKWindowManager.getBoundsWidth(_context)
         } else {
             val size = Point()
-            UtilKWindowManager.getDefaultDisplay(_context).getSize(size)
+            UtilKWindowManager.getSize(_context, size)
             size.x
         }
 
@@ -139,10 +140,10 @@ object UtilKScreen {
     @JvmStatic
     fun getRealScreenHeight(): Int =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
-            UtilKWindowManager.getCurrentWindowMetrics(_context).bounds.height()
+            UtilKWindowManager.getBoundsHeight(_context)
         } else {
             val size = Point()
-            UtilKWindowManager.get(_context).defaultDisplay.getSize(size)
+            UtilKWindowManager.getSize(_context, size)
             size.y
         }
 
@@ -159,7 +160,7 @@ object UtilKScreen {
         //计算屏幕的物理尺寸
         val widthPhy = (width / xdpi) * (width / xdpi)
         val heightPhy = (height / ydpi) * (height / ydpi)
-        return sqrt((widthPhy + heightPhy).toDouble()).toFloat()
+        return sqrt(widthPhy + heightPhy)
     }
 
     /**
@@ -201,7 +202,11 @@ object UtilKScreen {
      */
     @JvmStatic
     fun getScreenRotation(activity: Activity): Int =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) UtilKDisplay.getRotation(activity) else UtilKWindowManager.getRotation(activity)
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
+            UtilKDisplay.getRotation(activity)
+        } else {
+            UtilKWindowManager.getRotation(activity)
+        }
 
     /**
      * 截屏
@@ -210,7 +215,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun captureScreen(activity: Activity): Bitmap {
-        val view = UtilKWindow.getDecorView(activity)
+        val view = UtilKDecorView.get(activity)
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
         val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getVirtualBarHeight(activity))

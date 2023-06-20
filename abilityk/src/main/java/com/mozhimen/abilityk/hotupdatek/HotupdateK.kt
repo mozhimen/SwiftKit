@@ -4,10 +4,12 @@ import android.net.Uri
 import android.util.Log
 import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
 import com.mozhimen.abilityk.hotupdatek.commons.ISuspendHotupdateKListener
+import com.mozhimen.abilityk.hotupdatek.cons.CHotupdateKEvent
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.app.UtilKApk
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
@@ -15,10 +17,10 @@ import com.mozhimen.basick.utilk.java.datatype.getSplitLast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
-import com.mozhimen.componentk.netk.file.download.DOWNLOAD_ENGINE_EMBED
 import com.mozhimen.componentk.netk.file.download.DownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest
-import com.mozhimen.componentk.netk.file.download.NOTIFIER_HIDDEN
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -44,12 +46,7 @@ import kotlin.coroutines.resume
     CPermission.BIND_ACCESSIBILITY_SERVICE,
     CManifest.SERVICE_ACCESSIBILITY
 )
-class HotupdateK {
-    companion object {
-        private const val TAG = "HotUpdateK>>>>>"
-
-        const val EVENT_HOTUPDATEK_PROGRESS = "hotupdatek_progress"
-    }
+class HotupdateK : BaseUtilK() {
 
     private val _context by lazy { UtilKApplication.instance.applicationContext }
     private val _apkPath by lazy { UtilKPath.Absolute.Internal.getCacheDir() + "/hotupdatek" }
@@ -153,7 +150,7 @@ class HotupdateK {
 
             override fun onProgressUpdate(percent: Int) {
                 Log.d(TAG, "downloadApk onProgressUpdate: percent $percent")
-                UtilKDataBus.with<String>(EVENT_HOTUPDATEK_PROGRESS).postValue("$percent")
+                UtilKDataBus.with<String>(CHotupdateKEvent.HOTUPDATEK_PROGRESS).postValue("$percent")
             }
 
             override fun onDownloadComplete(uri: Uri) {
@@ -224,8 +221,8 @@ class HotupdateK {
     }
 
     private fun createCommonRequest(url: String, destApkPathWithName: String): DownloadRequest =
-        DownloadRequest(_context, url, DOWNLOAD_ENGINE_EMBED)
-            .setNotificationVisibility(NOTIFIER_HIDDEN)
+        DownloadRequest(_context, url, CDownloadParameter.DOWNLOAD_ENGINE_EMBED)
+            .setNotificationVisibility(CDownloadConstants.NOTIFIER_HIDDEN)
             .setShowNotificationDisableTip(false)
             .setDestinationUri(Uri.fromFile(File(destApkPathWithName)))
 

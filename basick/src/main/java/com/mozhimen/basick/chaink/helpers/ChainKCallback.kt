@@ -8,6 +8,8 @@ import com.mozhimen.basick.chaink.mos.ChainKNodeGroup
 import com.mozhimen.basick.chaink.helpers.ChainKRuntime.getTaskKRuntimeInfo
 import com.mozhimen.basick.chaink.annors.AChainKState
 import com.mozhimen.basick.chaink.commons.IChainKListener
+import com.mozhimen.basick.elemk.cons.CMsg
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
  * @ClassName TaskKRuntimeListener
@@ -16,17 +18,17 @@ import com.mozhimen.basick.chaink.commons.IChainKListener
  * @Date 2022/3/29 15:50
  * @Version 1.0
  */
-class ChainKCallback : IChainKListener {
+class ChainKCallback : IChainKListener, BaseUtilK() {
     @CallSuper
     override fun onStart(node: ChainKNode) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "ITaskKRuntimeListener id ${node.id} method $METHOD_START")
+            Log.d(TAG, "ITaskKRuntimeListener id ${node.id} method -- onStart --")
         }
     }
 
     override fun onRunning(node: ChainKNode) {
         if (BuildConfig.DEBUG) {
-            Log.d(TAG, "ITaskKRuntimeListener id ${node.id} method $METHOD_RUNNING")
+            Log.d(TAG, "ITaskKRuntimeListener id ${node.id} method -- onRunning --")
         }
     }
 
@@ -41,26 +43,26 @@ class ChainKCallback : IChainKListener {
         val finishedTime = taskKRuntimeInfo.stateTime[AChainKState.FINISHED]
 
         val builder = StringBuilder()
-        builder.append(WRAPPER)
+        builder.append(CMsg.LINE_BREAK)
         builder.append(TAG)
-        builder.append(WRAPPER)
+        builder.append(CMsg.LINE_BREAK)
 
-        builder.append(WRAPPER)
-        builder.append(HALF_LINE)
-        builder.append(if (node is ChainKNodeGroup) "TaskKGroup" else "taskK ${node.id} " + METHOD_FINISHED)
-        builder.append(HALF_LINE)
+        builder.append(CMsg.LINE_BREAK)
+        builder.append(CMsg.PART_LINE)
+        builder.append(if (node is ChainKNodeGroup) "TaskKGroup" else "taskK ${node.id} -- onFinished --")
+        builder.append(CMsg.PART_LINE)
 
-        addTaskInfoLineInfo(builder, DEPENDENCIES, getTaskDependenciesInfo(node))
-        addTaskInfoLineInfo(builder, IS_BLOCK_TASK, taskKRuntimeInfo.isBlockTask.toString())
-        addTaskInfoLineInfo(builder, THREAD_NAME, taskKRuntimeInfo.threadName!!)
-        addTaskInfoLineInfo(builder, START_TIME, startTime.toString() + "ms")
-        addTaskInfoLineInfo(builder, WAITING_TIME, (runningTime - startTime).toString() + "ms")
-        addTaskInfoLineInfo(builder, TASK_CONSUME, (finishedTime - runningTime).toString() + "ms")
-        addTaskInfoLineInfo(builder, FINISHED_TIME, finishedTime.toString() + "ms")
-        builder.append(HALF_LINE)
-        builder.append(HALF_LINE)
-        builder.append(WRAPPER)
-        builder.append(WRAPPER)
+        addTaskInfoLineInfo(builder, "依赖任务", getTaskDependenciesInfo(node))
+        addTaskInfoLineInfo(builder, "是否是阻塞任务", taskKRuntimeInfo.isBlockTask.toString())
+        addTaskInfoLineInfo(builder, "线程名称", taskKRuntimeInfo.threadName!!)
+        addTaskInfoLineInfo(builder, "开始执行时刻", startTime.toString() + "ms")
+        addTaskInfoLineInfo(builder, "等待执行耗时", (runningTime - startTime).toString() + "ms")
+        addTaskInfoLineInfo(builder, "任务执行耗时", (finishedTime - runningTime).toString() + "ms")
+        addTaskInfoLineInfo(builder, "任务结束时刻", finishedTime.toString() + "ms")
+        builder.append(CMsg.PART_LINE)
+        builder.append(CMsg.PART_LINE)
+        builder.append(CMsg.LINE_BREAK)
+        builder.append(CMsg.LINE_BREAK)
         if (BuildConfig.DEBUG) {
             Log.e(TAG, "logTaskKRuntimeInfo builder $builder")
         }
@@ -80,22 +82,5 @@ class ChainKCallback : IChainKListener {
         value: String
     ) {
         builder.append("I $key:$value")
-    }
-
-    companion object {
-        const val TAG: String = "TaskKRuntimeListener"
-        const val METHOD_START = "-- onStart --"
-        const val METHOD_RUNNING = "-- onRunning --"
-        const val METHOD_FINISHED = "-- onFinished --"
-
-        const val DEPENDENCIES = "依赖任务"
-        const val THREAD_NAME = "线程名称"
-        const val START_TIME = "开始执行时刻"
-        const val WAITING_TIME = "等待执行耗时"
-        const val TASK_CONSUME = "任务执行耗时"
-        const val IS_BLOCK_TASK = "是否是阻塞任务"
-        const val FINISHED_TIME = "任务结束时刻"
-        const val WRAPPER = "\n"
-        const val HALF_LINE = "==============================="
     }
 }

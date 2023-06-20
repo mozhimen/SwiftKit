@@ -11,6 +11,7 @@ import androidx.annotation.DrawableRes
 import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.cons.CUiParameter
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 
 /**
@@ -26,9 +27,6 @@ class PointIndicator @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) :
     BaseLayoutKFrame(context, attrs, defStyleAttr), IBannerIndicator<FrameLayout> {
-    companion object {
-        private const val VMC = ViewGroup.LayoutParams.WRAP_CONTENT
-    }
 
     @DrawableRes
     private val _pointNormal = R.drawable.layoutk_banner_indicator_circle_point_normal//正常状态下的指示器
@@ -55,7 +53,7 @@ class PointIndicator @JvmOverloads constructor(
         groupView.orientation = LinearLayout.HORIZONTAL
 
         var imageView: ImageView
-        val imageViewParams = LinearLayout.LayoutParams(VMC, VMC)
+        val imageViewParams = LinearLayout.LayoutParams(CUiParameter.VLWC,CUiParameter.VLWC)
         imageViewParams.gravity = Gravity.CENTER_VERTICAL
         imageViewParams.setMargins(
             _pointHorizontalMargin,
@@ -73,7 +71,7 @@ class PointIndicator @JvmOverloads constructor(
             }
             groupView.addView(imageView)
         }
-        val groupViewParams = LayoutParams(VMC, VMC)
+        val groupViewParams = LayoutParams(CUiParameter.VLWC,CUiParameter.VLWC)
         groupViewParams.gravity = Gravity.CENTER or Gravity.BOTTOM
         addView(groupView, groupViewParams)
     }

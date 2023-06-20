@@ -2,9 +2,12 @@ package com.mozhimen.basick.utilk.res
 
 import android.app.Activity
 import android.content.Context
+import android.os.Build
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Display
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 
@@ -104,6 +107,7 @@ object UtilKDisplay {
      * @param activity Activity
      * @return Display
      */
+    @RequiresApi(CVersionCode.V_30_11_R)
     @JvmStatic
     fun getDisplay(activity: Activity): Display =
         UtilKActivity.getDisplay(activity)
@@ -114,6 +118,7 @@ object UtilKDisplay {
      * @return Int
      */
     @JvmStatic
+    @RequiresApi(CVersionCode.V_30_11_R)
     fun getRotation(activity: Activity): Int =
         getDisplay(activity).rotation
 

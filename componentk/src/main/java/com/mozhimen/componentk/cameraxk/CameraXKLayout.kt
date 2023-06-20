@@ -23,6 +23,7 @@ import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
+import com.mozhimen.componentk.cameraxk.cons.CAspectRatio
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
 import com.mozhimen.componentk.cameraxk.helpers.CameraXKProxy
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
@@ -45,11 +46,6 @@ class CameraXKLayout @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) :
     FrameLayout(context, attrs, defStyleAttr), ICameraXKAction {
-
-    companion object {
-        private const val RATIO_4_3_VALUE = 4.0 / 3.0 // aspect ratio 4x3
-        private const val RATIO_16_9_VALUE = 16.0 / 9.0 // aspect ratio 16x9
-    }
 
     private lateinit var _cameraXKProxy: CameraXKProxy
     private lateinit var _preview: Preview
@@ -190,7 +186,7 @@ class CameraXKLayout @JvmOverloads constructor(
      */
     private fun aspectRatio(width: Int, height: Int): Int {
         val previewRatio = max(width, height).toDouble() / min(width, height)
-        if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
+        if (abs(previewRatio - CAspectRatio.RATIO_4_3) <= abs(previewRatio - CAspectRatio.RATIO_16_9)) {
             return AspectRatio.RATIO_4_3
         }
         return AspectRatio.RATIO_16_9

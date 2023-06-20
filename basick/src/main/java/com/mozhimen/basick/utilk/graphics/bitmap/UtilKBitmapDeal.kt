@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.graphics.bitmap
 
 import android.graphics.*
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 import java.lang.Integer.min
 
@@ -11,9 +12,7 @@ import java.lang.Integer.min
  * @Date 2022/2/27 22:49
  * @Version 1.0
  */
-object UtilKBitmapDeal {
-    private const val TAG = "UtilKBitmapDeal>>>>>"
-
+object UtilKBitmapDeal : BaseUtilK() {
     /**
      * 设置大小
      * @param bitmap Bitmap

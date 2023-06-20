@@ -8,6 +8,7 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.taskk.temps.TaskKPollInfinite
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.log.et
@@ -35,11 +36,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
     MediaPlayer.OnBufferingUpdateListener,
     MediaPlayer.OnPreparedListener,
     MediaPlayer.OnErrorListener,
-    IMediaKAudioFocusListener {
-
-    companion object {
-        private const val TAG = "CustomAudioPlayer>>>>>"
-    }
+    IMediaKAudioFocusListener, BaseUtilK() {
 
     private val _context by lazy { UtilKApplication.instance.applicationContext }
     private var _mediaKStatusPlayer: MediaKStatusPlayer? = null

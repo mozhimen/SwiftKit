@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import java.io.File
@@ -38,7 +39,7 @@ object UtilKContextDir {
         fun getFilesDir(context: Context): File =
             context.filesDir
 
-        @RequiresApi(Build.VERSION_CODES.N)
+        @RequiresApi(CVersionCode.V_24_7_N)
         @JvmStatic
         fun getDataDir(context: Context): File =
             context.dataDir
@@ -106,7 +107,7 @@ object UtilKContextDir {
         fun getFilesAlarmsDir(context: Context): File? =
             context.getExternalFilesDir(Environment.DIRECTORY_ALARMS)
 
-        @RequiresApi(Build.VERSION_CODES.Q)
+        @RequiresApi(CVersionCode.V_29_10_Q)
         @JvmStatic
         fun getFilesAudiobooksDir(context: Context): File? =
             context.getExternalFilesDir(Environment.DIRECTORY_AUDIOBOOKS)
@@ -143,12 +144,12 @@ object UtilKContextDir {
         fun getFilesPodcastsDir(context: Context): File? =
             context.getExternalFilesDir(Environment.DIRECTORY_PODCASTS)
 
-        @RequiresApi(Build.VERSION_CODES.S)
+        @RequiresApi(CVersionCode.V_31_11_S)
         @JvmStatic
         fun getFilesRecordingsDir(context: Context): File? =
             context.getExternalFilesDir(Environment.DIRECTORY_RECORDINGS)
 
-        @RequiresApi(Build.VERSION_CODES.Q)
+        @RequiresApi(CVersionCode.V_29_10_Q)
         @JvmStatic
         fun getFilesScreenshotsDir(context: Context): File? =
             context.getExternalFilesDir(Environment.DIRECTORY_SCREENSHOTS)

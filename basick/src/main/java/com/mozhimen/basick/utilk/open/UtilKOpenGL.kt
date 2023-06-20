@@ -4,6 +4,7 @@ import android.opengl.GLES20
 import android.opengl.Matrix
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.res.UtilKAssets
 
 /**
@@ -13,8 +14,7 @@ import com.mozhimen.basick.utilk.res.UtilKAssets
  * @Date 2022/6/16 12:32
  * @Version 1.0
  */
-object UtilKOpenGL {
-    private const val TAG = "UtilKGL>>>>>"
+object UtilKOpenGL : BaseUtilK() {
 
     @JvmStatic
     fun useTexParameterf() {

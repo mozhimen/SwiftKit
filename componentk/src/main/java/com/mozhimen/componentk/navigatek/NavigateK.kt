@@ -6,7 +6,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.*
 import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.componentk.navigatek.cons.CDestType
 import com.mozhimen.componentk.navigatek.mos.MNavigateKPageInfo
 import java.util.*
 
@@ -14,12 +16,7 @@ fun Class<*>.getNavigateKId(): Int {
     return NavigateK.getId(this)
 }
 
-object NavigateK {
-
-    private const val TAG = "NavigateK>>>>>"
-    private const val dest_type_activity = "Activity"
-    private const val dest_type_fragment = "Fragment"
-    private const val dest_type_dialog = "Dialog"
+object NavigateK : BaseUtilK() {
 
     fun getId(clazz: Class<*>): Int {
         return kotlin.math.abs(clazz.name.hashCode())
@@ -46,21 +43,23 @@ object NavigateK {
         while (iterator.hasNext()) {
             val page = iterator.next()
             when (page.destType) {
-                dest_type_activity -> {
+                CDestType.ACTIVITY -> {
                     val navigator = navigatorProvider.getNavigator(ActivityNavigator::class.java)
                     val node: ActivityNavigator.Destination = navigator.createDestination()
                     node.id = page.id
                     node.setComponentName(ComponentName(UtilKContext.getPackageName(activity), page.clazzName))
                     navGraph.addDestination(node)
                 }
-                dest_type_fragment -> {
+
+                CDestType.FRAGMENT -> {
                     val navigator = navigatorProvider.getNavigator(FragmentNavigator::class.java)
                     val node: FragmentNavigator.Destination = navigator.createDestination()
                     node.id = page.id
                     node.setClassName(page.clazzName)
                     navGraph.addDestination(node)
                 }
-                dest_type_dialog -> {
+
+                CDestType.DIALOG -> {
                     val navigator = navigatorProvider.getNavigator(DialogFragmentNavigator::class.java)
                     val node: DialogFragmentNavigator.Destination = navigator.createDestination()
                     node.id = page.id
@@ -98,15 +97,9 @@ object NavigateK {
     private fun getDestinationType(clazz: Class<*>): String? {
         val superClazzName: String = clazz.superclass.toString()
         return when {
-            superClazzName.contains(dest_type_activity) -> {
-                dest_type_activity
-            }
-            superClazzName.contains(dest_type_fragment) -> {
-                dest_type_fragment
-            }
-            superClazzName.contains(dest_type_dialog) -> {
-                dest_type_dialog
-            }
+            superClazzName.contains(CDestType.ACTIVITY) -> CDestType.ACTIVITY
+            superClazzName.contains(CDestType.FRAGMENT) -> CDestType.FRAGMENT
+            superClazzName.contains(CDestType.DIALOG) -> CDestType.DIALOG
             else -> null
         }
     }

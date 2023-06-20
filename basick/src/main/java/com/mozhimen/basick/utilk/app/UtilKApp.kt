@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Process
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.UtilKContextStart
@@ -20,11 +22,7 @@ import kotlin.system.exitProcess
  * @Date 2022/5/26 16:42
  * @Version 1.0
  */
-object UtilKApp {
-    private const val PKG_AUTO_RUN = "persist.sensepass.autorun"
-    private const val PKG_POWER = "sys.powered"
-    private const val TAG = "UtilKApp>>>>>"
-
+object UtilKApp : BaseUtilK() {
     private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
@@ -32,7 +30,7 @@ object UtilKApp {
      */
     @JvmStatic
     fun setReboot() {
-        UtilKSystemProperties.setSystemProperties(PKG_POWER, "reboot")
+        UtilKSystemProperties.setSystemProperties(CPackage.SYS_POWERED, "reboot")
     }
 
     /**
@@ -41,7 +39,7 @@ object UtilKApp {
      */
     @JvmStatic
     fun isAutoRun(): Boolean =
-        UtilKSystemProperties.getSystemPropertiesBool(PKG_AUTO_RUN, false)
+        UtilKSystemProperties.getSystemPropertiesBool(CPackage.PERSIST_SENSEPASS_AUTORUN, false)
 
     /**
      * 重启App

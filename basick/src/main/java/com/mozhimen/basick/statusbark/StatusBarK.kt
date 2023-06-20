@@ -5,7 +5,8 @@ import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.os.UtilKUiMode
 import com.mozhimen.basick.statusbark.annors.AStatusBarK
 import com.mozhimen.basick.statusbark.annors.AStatusBarKType
-import com.mozhimen.basick.statusbark.helpers.StatusBarKHelper
+import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
+import com.mozhimen.basick.utilk.view.bar.UtilKStatusBarFontIcon
 
 /**
  * @ClassName StatusBarK
@@ -32,11 +33,11 @@ object StatusBarK {
 
         when (statusBarAnnor.statusBarType) {
             AStatusBarKType.FULL_SCREEN -> {
-                StatusBarKHelper.setStatusBarFullScreen(activity)//设置状态栏全屏
+                UtilKStatusBar.setFullScreen(activity)//设置状态栏全屏
             }
             AStatusBarKType.IMMERSED -> {
-                StatusBarKHelper.setStatusBarImmersed(activity)//设置状态栏沉浸式
-                StatusBarKHelper.setStatusBarFontIcon(activity, statusBarAnnor.isFontIconDark)//设置状态栏文字和Icon是否为深色
+                UtilKStatusBar.setImmersed(activity)//设置状态栏沉浸式
+                UtilKStatusBarFontIcon.setStatusBarFontIcon(activity, statusBarAnnor.isFontIconDark)//设置状态栏文字和Icon是否为深色
             }
             else -> {
                 val statusBarColor = if (statusBarAnnor.isFollowSystem) {
@@ -44,8 +45,8 @@ object StatusBarK {
                     else statusBarAnnor.bgColorDark
                 } else statusBarAnnor.bgColorLight
                 val isFontIconDark = if (statusBarAnnor.isFollowSystem) UtilKUiMode.isOSLightMode() else statusBarAnnor.isFontIconDark
-                StatusBarKHelper.setStatusBarColor(activity, UtilKRes.getColor(statusBarColor))
-                StatusBarKHelper.setStatusBarFontIcon(activity, isFontIconDark)//设置状态栏文字和Icon是否为深色
+                UtilKStatusBar.setStatusBarColor(activity, UtilKRes.getColor(statusBarColor))
+                UtilKStatusBarFontIcon.setStatusBarFontIcon(activity, isFontIconDark)//设置状态栏文字和Icon是否为深色
             }
         }
     }

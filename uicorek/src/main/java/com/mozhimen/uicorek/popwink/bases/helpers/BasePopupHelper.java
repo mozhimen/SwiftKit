@@ -36,6 +36,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.mozhimen.basick.elemk.cons.CVersionCode;
+import com.mozhimen.basick.elemk.cons.CWinMgrLP;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.utilk.res.UtilKRes;
 import com.mozhimen.basick.utilk.view.display.UtilKScreen;
@@ -50,6 +51,7 @@ import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig;
 import com.mozhimen.basick.utilk.view.keyboard.UtilKInputChange;
 import com.mozhimen.basick.utilk.log.UtilKLogPro;
 import com.mozhimen.basick.utilk.view.UtilKView;
+import com.mozhimen.basick.utilk.view.window.UtilKContentView;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
@@ -163,7 +165,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     public UtilKInputChange.IUtilKKeyboardChangeListener mUserKeyboardStateChangeListener;
     public BasePopwinK.KeyEventListener mKeyEventListener;
 
-    public int mSoftInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED;
+    public int mSoftInputMode = CWinMgrLP.SOFT_INPUT_STATE_UNCHANGED;
     ViewGroup.MarginLayoutParams layoutParams;
 
     public int maxWidth;
@@ -268,7 +270,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
             return result;
         } catch (Exception e) {
             e.printStackTrace();
-            UtilKLog.et(TAG,e.getMessage());
+            UtilKLog.et(TAG, e.getMessage());
         }
         return null;
     }
@@ -1212,7 +1214,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
             decorView = ((Fragment) parent).getView();
         } else if (parent instanceof Context) {
             Activity act = UtilKActivity.getActivityByContext((Context) parent, true);
-            decorView = act == null ? null : act.findViewById(android.R.id.content);
+            decorView = act == null ? null : UtilKContentView.get(act);
         }
 
         if (decorView != null) {

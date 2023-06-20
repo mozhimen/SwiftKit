@@ -5,6 +5,7 @@ import android.app.DownloadManager
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
 import com.mozhimen.componentk.netk.file.download.utils.SpHelper
 
 /**
@@ -81,7 +82,7 @@ internal class SystemDownloadManager(context: Context) {
                 return c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))
             }
         }
-        return STATUS_UNKNOWN
+        return CDownloadConstants.STATUS_UNKNOWN
     }
 
     fun removeTask(downloadId: Long): Int {
@@ -117,7 +118,7 @@ internal class SystemDownloadManager(context: Context) {
                 index = c.getColumnIndex(DownloadManager.COLUMN_STATUS)
                 if (index != -1) info.status = c.getInt(index)
 
-                if (info.status == STATUS_FAILED) {
+                if (info.status == DownloadManager.STATUS_FAILED) {
                     index = c.getColumnIndex(DownloadManager.COLUMN_REASON)
                     if (index != -1) info.reason = c.getString(index)
                 }

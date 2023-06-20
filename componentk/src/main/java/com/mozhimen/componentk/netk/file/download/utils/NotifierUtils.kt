@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.netk.file.download.utils
 
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -8,11 +9,10 @@ import android.content.Intent
 import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.componentk.R
-import com.mozhimen.componentk.netk.file.download.DownloadService
-import com.mozhimen.componentk.netk.file.download.STATUS_FAILED
-import com.mozhimen.componentk.netk.file.download.STATUS_RUNNING
-import com.mozhimen.componentk.netk.file.download.STATUS_SUCCESSFUL
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
 import java.io.File
 
 
@@ -23,11 +23,10 @@ import java.io.File
 internal class NotifierUtils private constructor() {
 
     companion object {
-        private const val CHANNEL_ID = "download_channel_normal"
-
         private fun getPendingIntentFlag() =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            else PendingIntent.FLAG_UPDATE_CURRENT
+            if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            } else PendingIntent.FLAG_UPDATE_CURRENT
 
 
         private fun getNotificationManager(context: Context): NotificationManager {
@@ -35,6 +34,7 @@ internal class NotifierUtils private constructor() {
                     as NotificationManager
         }
 
+        @SuppressLint("SwitchIntDef")
         fun showNotification(
             context: Context,
             id: Int,
@@ -48,19 +48,19 @@ internal class NotifierUtils private constructor() {
         ) {
             val notificationManager = getNotificationManager(context)
             // 在 Android 8.0 及更高版本上，需要在系统中注册应用的通知渠道
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
                 val channel = NotificationChannel(
-                    CHANNEL_ID,
+                    CDownloadParameter.NOTIFICATION_CHANNEL_ID,
                     context.getString(R.string.downloader_notifier_channel_name),
                     NotificationManager.IMPORTANCE_LOW
                 )
                 notificationManager.createNotificationChannel(channel)
             }
 
-            val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            val builder = NotificationCompat.Builder(context, CDownloadParameter.NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(notifierSmallIcon)
                 .setContentTitle(title)
-                .setAutoCancel(status == STATUS_SUCCESSFUL) // canceled when it is clicked by the user.
+                .setAutoCancel(status == CDownloadConstants.STATUS_SUCCESSFUL) // canceled when it is clicked by the user.
                 .setOngoing(percent != 100)
 
             if (percent >= 0) {
@@ -72,7 +72,7 @@ internal class NotifierUtils private constructor() {
                 )
             }
             when (status) {
-                STATUS_SUCCESSFUL -> {
+                CDownloadConstants.STATUS_SUCCESSFUL -> {
                     // click to install
                     file?.let {
 //                        val clickIntent = createInstallIntent(context, it)
@@ -85,15 +85,17 @@ internal class NotifierUtils private constructor() {
 //                        builder.setContentIntent(pendingIntent)
                     }
                 }
-                STATUS_RUNNING -> {
+
+                CDownloadConstants.STATUS_RUNNING -> {
                     builder.setProgress(100, percent, percent <= 0)
                 }
-                STATUS_FAILED -> {
+
+                CDownloadConstants.STATUS_FAILED -> {
                     val intent =
                         Intent("${context.packageName}.DownloadService")
                     intent.setPackage(context.packageName)
-                    intent.putExtra(DownloadService.EXTRA_URL, url)
-                    intent.putExtra(DownloadService.EXTRA_FROM, DownloadService.FROM_NOTIFIER)
+                    intent.putExtra(CDownloadParameter.EXTRA_URL, url)
+                    intent.putExtra(CDownloadParameter.EXTRA_FROM, CDownloadParameter.EXTRA_FROM_NOTIFIER)
                     val pendingIntent =
                         PendingIntent.getService(context, 1, intent, getPendingIntentFlag())
                     builder.setContentIntent(pendingIntent)

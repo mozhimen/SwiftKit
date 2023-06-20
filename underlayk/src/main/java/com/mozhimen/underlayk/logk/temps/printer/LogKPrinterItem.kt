@@ -18,13 +18,13 @@ import com.mozhimen.underlayk.logk.mos.MLogK
  * @Date 2022/9/23 11:51
  * @Version 1.0
  */
-class LogKPrinterItem(private val _logK: MLogK) : BaseRecyclerKItem<VHKRecyclerVB<LogkPrinterViewItemBinding>>() {
+class LogKPrinterItem(private val _log: MLogK) : BaseRecyclerKItem<VHKRecyclerVB<LogkPrinterViewItemBinding>>() {
     override fun onBindItem(holder: VHKRecyclerVB<LogkPrinterViewItemBinding>, position: Int) {
         super.onBindItem(holder, position)
-        val color = LogKHelper.getLevelColor(_logK.level)
-        holder.vb.logkPrinterViewTag.text = _logK.getFlattened()
+        val color = LogKHelper.getLevelColor(_log.level)
+        holder.vb.logkPrinterViewTag.text = _log.getFlattened()
         holder.vb.logkPrinterViewTag.setTextColor(color)
-        holder.vb.logkPrinterViewMsg.text = _logK.log.replace("\\n".toRegex(), "\n").replace(UtilKContext.getPackageName(UtilKApplication.instance.get()), "")
+        holder.vb.logkPrinterViewMsg.text = _log.log.replace("\\n".toRegex(), "\n").replace(UtilKContext.getPackageName(UtilKApplication.instance.get()), "")
         holder.vb.logkPrinterViewMsg.setTextColor(color)
     }
 

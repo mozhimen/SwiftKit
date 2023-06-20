@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.os
 
+import com.mozhimen.basick.elemk.cons.CDateFormat
 import java.lang.Exception
 
 /**
@@ -33,7 +34,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun isOnTheMinuteOf(hourAndMinuteTwoBits: Pair<String, String>): Boolean =
-        isOnTheMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, UtilKDate.getNowStr(UtilKDate.Format.HHmm))
+        isOnTheMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, UtilKDate.getNowStr(CDateFormat.HHmm))
 
     /**
      * 是否对齐时间
@@ -69,7 +70,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun isOnTheHourOf(hourStrTwoBits: String): Boolean =
-        isOnTheHourOf(hourStrTwoBits, UtilKDate.getNowStr(UtilKDate.Format.HHmm))
+        isOnTheHourOf(hourStrTwoBits, UtilKDate.getNowStr(CDateFormat.HHmm))
 
     /**
      * 是否是指定整点
@@ -92,7 +93,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun getCurrentHourStrDoubleBits(): String =
-        UtilKDate.getNowStr(UtilKDate.Format.mm)
+        UtilKDate.getNowStr(CDateFormat.mm)
 
     /**
      * 是否是整小时
@@ -108,7 +109,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun isOnTheHour(): Boolean =
-        isOnTheHour(UtilKDate.getNowStr(UtilKDate.Format.mm))
+        isOnTheHour(UtilKDate.getNowStr(CDateFormat.mm))
 
     /**
      * 是否是整小时

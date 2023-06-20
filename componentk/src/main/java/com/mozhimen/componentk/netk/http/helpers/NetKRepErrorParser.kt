@@ -1,6 +1,7 @@
 package com.mozhimen.componentk.netk.http.helpers
 
 import com.google.gson.JsonParseException
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.componentk.netk.http.mos.MNetKThrowable
 import org.json.JSONException
@@ -9,6 +10,7 @@ import java.lang.NullPointerException
 import java.net.ConnectException
 import javax.net.ssl.SSLHandshakeException
 import com.mozhimen.componentk.netk.http.cons.CResCode
+
 /**
  * @ClassName ExceptionParser
  * @Description TODO
@@ -16,9 +18,7 @@ import com.mozhimen.componentk.netk.http.cons.CResCode
  * @Date 2022/5/12 13:30
  * @Version 1.0
  */
-object NetKRepErrorParser {
-    private const val TAG = "NetKRepErrorParser>>>>>"
-
+object NetKRepErrorParser : BaseUtilK() {
     @JvmStatic
     fun getThrowable(e: Throwable): MNetKThrowable {
         e.printStackTrace()

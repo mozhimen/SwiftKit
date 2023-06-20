@@ -17,6 +17,7 @@ import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
+import com.mozhimen.underlayk.logk.cons.CLogKParameter
 import com.mozhimen.underlayk.logk.mos.MLogK
 
 /**
@@ -31,7 +32,6 @@ class LogKPrinterViewProvider(
     private val _rootView: FrameLayout
 ) : ILogKPrinter {
     private companion object {
-        private const val TAG_LOGK_CONTAINER_VIEW = "TAG_LOGK_CONTAINER_VIEW"
         private val TITLE_OPEN_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_open)
         private val TITLE_CLOSE_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_close)
     }
@@ -64,7 +64,7 @@ class LogKPrinterViewProvider(
         get() {
             if (field != null) return field
             val containerView = FrameLayout(_context)
-            containerView.tag = TAG_LOGK_CONTAINER_VIEW
+            containerView.tag = CLogKParameter.TAG_LOGK_CONTAINER_VIEW
             containerView.setBackgroundColor(Color.BLACK)
             val recyclerLayoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             containerView.addView(_recyclerView, recyclerLayoutParams)
@@ -81,14 +81,14 @@ class LogKPrinterViewProvider(
         }
 
     fun showLogView(isFold: Boolean) {
-        if (_rootView.findViewWithTag<View?>(TAG_LOGK_CONTAINER_VIEW) != null) return
+        if (_rootView.findViewWithTag<View?>(CLogKParameter.TAG_LOGK_CONTAINER_VIEW) != null) return
         if (isFold) foldLogView() else unfoldLogView()
         //add to root
         _rootView.addView(_containerView, getLayoutParams(isFold))
     }
 
     fun closeLogView() {
-        if (_rootView.findViewWithTag<View?>(TAG_LOGK_CONTAINER_VIEW) == null) return
+        if (_rootView.findViewWithTag<View?>(CLogKParameter.TAG_LOGK_CONTAINER_VIEW) == null) return
         _rootView.removeView(_containerView)
     }
 

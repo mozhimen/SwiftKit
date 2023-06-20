@@ -18,6 +18,10 @@ object UtilKClazz {
     }
 
     @JvmStatic
+    fun getSuperClazz(clazz: Class<*>): Class<*> =
+        clazz.superclass
+
+    @JvmStatic
     fun obj2Clazz(obj: Any): Class<*> {
         return when (obj) {
             is Int -> Int::class.java

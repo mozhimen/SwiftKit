@@ -6,17 +6,13 @@ import android.net.Uri
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
 
 /**
  *
  * @author by chiclaim@google.com
  */
 internal class DownloadService : Service(), DownloadListener {
-    companion object {
-        const val EXTRA_URL = "url"
-        const val EXTRA_FROM = "from"
-        const val FROM_NOTIFIER = 2
-    }
 
     private val handler by lazy {
         Handler(Looper.getMainLooper())
@@ -28,9 +24,9 @@ internal class DownloadService : Service(), DownloadListener {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val c = super.onStartCommand(intent, flags, startId)
-        val url = intent?.getStringExtra(EXTRA_URL) ?: return c
+        val url = intent?.getStringExtra(CDownloadParameter.EXTRA_URL) ?: return c
         // 来自通知栏
-        if (intent?.getIntExtra(EXTRA_FROM, -1) == FROM_NOTIFIER) {
+        if (intent.getIntExtra(CDownloadParameter.EXTRA_FROM, -1) == CDownloadParameter.EXTRA_FROM_NOTIFIER) {
             DownloadRequest(applicationContext, url)
                 .registerListener(this)
                 .setFromNotifier(true)

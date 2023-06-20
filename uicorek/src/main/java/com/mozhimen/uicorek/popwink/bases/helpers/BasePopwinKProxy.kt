@@ -9,10 +9,13 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.PopupWindow
+import com.mozhimen.basick.elemk.cons.CParameter
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity.getActivityByContext
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.UtilKView.removeViewFromParent
+import com.mozhimen.basick.utilk.view.window.UtilKWindow
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener
 
@@ -24,16 +27,8 @@ import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener
  * @Date 2022/12/27 12:05
  * @Version 1.0
  */
-class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context), IClearMemoryListener {
-    companion object {
-        private const val TAG = "BasePopwinKProxy>>>>>"
-        private const val FULL_SCREEN_FLAG = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_FULLSCREEN)
-    }
+class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context), IClearMemoryListener, IUtilK {
+    override val TAG: String = "BasePopwinKProxy>>>>>"
 
     private var _basePopwinKContextWrapper: BasePopwinKContextWrapper? = null
     private var _oldFocusable = true
@@ -95,33 +90,20 @@ class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context
         onAfterShowExec(activity)
     }
 
-    fun onBeforeShowExec(act: Activity?) {
-        if (isFullScreen(act)) {
+    fun onBeforeShowExec(activity: Activity) {
+        if (UtilKWindow.isFullScreen(activity)) {
             handleFullScreenFocusable()
         }
     }
 
     fun onAfterShowExec(act: Activity?) {
         if (_isHandledFullScreen) {
-            var flag = FULL_SCREEN_FLAG
+            var flag = CParameter.UTILK_SCREEN_FULL_SCREEN_FLAG
             if (act != null) {
                 flag = act.window.decorView.systemUiVisibility
             }
             contentView.systemUiVisibility = flag
             restoreFocusable()
-        }
-    }
-
-    fun isFullScreen(act: Activity?): Boolean {
-        return if (act == null) false else try {
-            val decorView = act.window.decorView
-            val lp = act.window.attributes
-            val i = lp.flags
-            val f = decorView.windowSystemUiVisibility
-            (i and WindowManager.LayoutParams.FLAG_FULLSCREEN != 0
-                    || f and View.SYSTEM_UI_FLAG_HIDE_NAVIGATION != 0 || f and View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION != 0)
-        } catch (e: Exception) {
-            false
         }
     }
 

@@ -112,6 +112,8 @@ internal class LayoutKSliderProxy(
         _paintLeftSlider.color = _attrs.sliderRodLeftColor
     }
 
+    override val TAG: String = "LayoutKSliderProxy>>>>>"
+
     override fun initView() {
         _isEnableScroll = _attrs.rodScrollEnable
         initSlider()
@@ -234,6 +236,7 @@ internal class LayoutKSliderProxy(
                 }
                 _rodIsScrolling = false
             }
+
             MotionEvent.ACTION_DOWN -> {
                 _rodIsScrolling = if (!UtilKGesture.isTapInArea(
                         event,
@@ -254,6 +257,7 @@ internal class LayoutKSliderProxy(
                 }
                 _scrollableParentView?.requestDisallowInterceptTouchEvent(true)
             }
+
             MotionEvent.ACTION_MOVE -> {
                 if (_rodIsScrolling) {
                     _rod.currentPercent = event.x / _rod.intervalX

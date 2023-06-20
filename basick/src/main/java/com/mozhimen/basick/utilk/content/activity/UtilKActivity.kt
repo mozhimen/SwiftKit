@@ -7,7 +7,9 @@ import android.content.ContextWrapper
 import android.os.Build
 import android.view.Display
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.cons.CVersionCode
@@ -34,9 +36,15 @@ fun AppCompatActivity.runOnBackThread(block: () -> Unit) {
 object UtilKActivity {
 
     @JvmStatic
+    fun requestWindowFeature(activity: Activity, featureId: Int) {
+        activity.requestWindowFeature(featureId)
+    }
+
+    @JvmStatic
     fun getCurrentFocus(activity: Activity): View? =
         activity.currentFocus
 
+    @RequiresApi(CVersionCode.V_30_11_R)
     @JvmStatic
     fun getDisplay(activity: Activity): Display =
         activity.display!!
@@ -58,7 +66,7 @@ object UtilKActivity {
     }
 
     /**
-     * 判断context是否是Activity
+     * 判断context是否是Activity 这里注意一定要再Application中加入StackK并初始化
      * @param context Context
      * @param returnTopIfNull Boolean
      * @return Activity?
@@ -89,9 +97,8 @@ object UtilKActivity {
      * @return Activity?
      */
     @JvmStatic
-    fun getActivityByView(view: View): Activity? {
-        return getActivityByContext(view.context)
-    }
+    fun getActivityByView(view: View): Activity? =
+        getActivityByContext(view.context)
 
     /**
      * 寻找Activity从Obj

@@ -5,7 +5,6 @@ import android.text.TextPaint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.uicorek.viewk.commons.IViewK
 
 /**
@@ -40,4 +39,6 @@ class TextKUnderLine @JvmOverloads constructor(context: Context, attrs: Attribut
             _textPaint.isUnderlineText = true
         }
     }
+
+    override val TAG: String = "TextKUnderLine>>>>>"
 }

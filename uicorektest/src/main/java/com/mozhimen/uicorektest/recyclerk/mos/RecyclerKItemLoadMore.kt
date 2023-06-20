@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.view.setTextStyle
+import com.mozhimen.basick.utilk.view.applyTextStyle
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import com.mozhimen.uicorektest.R
@@ -39,7 +39,7 @@ class RecyclerKItemLoadMore(private val index: Int?=null) : BaseRecyclerKItem<VH
         val textView = TextView(parent.context)
         textView.textSize = 18f
         textView.setTextColor(UtilKRes.getColor(com.mozhimen.uicorek.R.color.ui_blue_050))
-        textView.setTextStyle(Typeface.BOLD)
+        textView.applyTextStyle(Typeface.BOLD)
         textView.gravity = Gravity.CENTER
         textView.setBackgroundColor(UtilKRes.getColor(com.mozhimen.uicorek.R.color.ui_blue_633))
         frameLayout.addView(textView, textLP)

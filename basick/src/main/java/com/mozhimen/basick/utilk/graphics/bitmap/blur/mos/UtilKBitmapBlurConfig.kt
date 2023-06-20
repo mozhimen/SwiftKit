@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.graphics.bitmap.blur.mos
 
 import android.text.TextUtils
 import android.view.View
+import com.mozhimen.basick.utilk.graphics.bitmap.blur.cons.CBlurParameter
 import com.mozhimen.basick.utilk.view.UtilKView
 import java.lang.ref.WeakReference
 
@@ -13,19 +14,12 @@ import java.lang.ref.WeakReference
  * @Version 1.0
  */
 class UtilKBitmapBlurConfig {
-    companion object {
-        private const val DEFAULT_BLUR_RADIUS = 10f
-        private const val DEFAULT_PRE_SCALE_RATIO = 0.125f
-        private const val DEFAULT_ANIMATION_DURATION: Long = 500
-        private const val DEFAULT_BLUR_ASYNC = true //默认子线程blur
-    }
-
     private var _weakBlurView: WeakReference<View>? = null
-    private var _blurRadius = DEFAULT_BLUR_RADIUS
-    private var _blurPreScaleRatio = DEFAULT_PRE_SCALE_RATIO
-    private var _blurInDuration = DEFAULT_ANIMATION_DURATION
-    private var _blurOutDuration = DEFAULT_ANIMATION_DURATION
-    private var _blurAsync = DEFAULT_BLUR_ASYNC
+    private var _blurRadius = CBlurParameter.RADIUS
+    private var _blurPreScaleRatio = CBlurParameter.PRE_SCALE_RATIO
+    private var _blurInDuration = CBlurParameter.ANIMATION_DURATION
+    private var _blurOutDuration = CBlurParameter.ANIMATION_DURATION
+    private var _blurAsync = CBlurParameter.BLUR_ASYNC
     private var _isFullScreen = true
 
     fun getBlurView(): View? {
@@ -45,11 +39,11 @@ class UtilKBitmapBlurConfig {
     }
 
     fun getBlurInDuration(): Long {
-        return if (_blurInDuration < 0) DEFAULT_ANIMATION_DURATION else _blurInDuration
+        return if (_blurInDuration < 0) CBlurParameter.ANIMATION_DURATION else _blurInDuration
     }
 
     fun getBlurOutDuration(): Long {
-        return if (_blurOutDuration < 0) DEFAULT_ANIMATION_DURATION else _blurOutDuration
+        return if (_blurOutDuration < 0) CBlurParameter.ANIMATION_DURATION else _blurOutDuration
     }
 
     fun isBlurAsync(): Boolean {

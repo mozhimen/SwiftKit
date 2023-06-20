@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.java.io.hash
 
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.datatype.UtilKByteArray
 import java.io.InputStream
@@ -16,8 +17,7 @@ import java.security.NoSuchAlgorithmException
  * @Date 2022/6/11 17:13
  * @Version 1.0
  */
-object UtilKMD5 {
-    private const val TAG = "UtilKMD5>>>>>"
+object UtilKMD5 : BaseUtilK() {
 
     /**
      * 获取md5

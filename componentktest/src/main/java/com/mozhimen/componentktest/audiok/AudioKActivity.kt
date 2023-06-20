@@ -12,6 +12,7 @@ import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.TranslationType
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -42,7 +43,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         get() = MediaKAudio.instance.getVolumeCurrent()
         set(value) {
             val volume = value.normalize(MediaKAudio.instance.getVolumeMin()..MediaKAudio.instance.getVolumeMax())
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
                 MediaKAudio.instance.setVolume(volume).also {
                     vb.audiokSliderVolumeTxt.text = volume.toString()
                     field = volume

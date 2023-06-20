@@ -9,6 +9,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.uicorek.cons.CUiParameter
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 
@@ -22,10 +23,6 @@ import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 class NumberIndicator @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr),
     IBannerIndicator<FrameLayout> {
-
-    companion object {
-        private const val VMC = ViewGroup.LayoutParams.WRAP_CONTENT
-    }
 
     private var _pointHorizontalPadding = 0//指示点左右内间距
     private var _pointVerticalPadding = 0//指示点上下内间距
@@ -66,7 +63,7 @@ class NumberIndicator @JvmOverloads constructor(context: Context, attrs: Attribu
         countTv.setTextColor(Color.WHITE)
         groupView.addView(countTv)
 
-        val groupViewParams = LayoutParams(VMC, VMC)
+        val groupViewParams = LayoutParams(CUiParameter.VLWC, CUiParameter.VLWC)
         groupViewParams.gravity = Gravity.END or Gravity.BOTTOM
         addView(groupView, groupViewParams)
     }

@@ -2,7 +2,6 @@ package com.mozhimen.underlayk.logk.temps.printer
 
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.underlayk.logk.mos.MLogK
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.os.UtilKPath
@@ -13,6 +12,7 @@ import java.io.IOException
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
+import com.mozhimen.underlayk.logk.mos.MLogK
 
 /**
  * @ClassName FilePrinter
@@ -46,8 +46,6 @@ class LogKPrinterFile(
 
     companion object {
         private var instance: LogKPrinterFile? = null
-        private const val TAG = "PrinterFile>>>>>"
-        //const val LOGK_DIR = "logk"
 
         /**
          * @param retentionDay Long? 单位天
@@ -157,7 +155,7 @@ class LogKPrinterFile(
             }
         }
 
-        private fun doPrint(mLogK: MLogK) {
+        private fun doPrint(log: MLogK) {
             val lastFileName: String? = _writer.getPreFileName()
             if (lastFileName == null) {
                 val newFileName: String = genFileName()
@@ -168,7 +166,7 @@ class LogKPrinterFile(
                     return
                 }
             }
-            _writer.append(mLogK.flattenedLog())
+            _writer.append(log.flattenedLog())
         }
     }
 

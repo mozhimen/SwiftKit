@@ -11,6 +11,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 
 /**
@@ -20,8 +21,7 @@ import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
  * @Date 2023/2/26 23:06
  * @Version 1.0
  */
-object UtilKPermission {
-    private const val TAG = "UtilKPermission>>>>>"
+object UtilKPermission : BaseUtilK() {
 
     private val _context by lazy { UtilKApplication.instance.applicationContext }
 

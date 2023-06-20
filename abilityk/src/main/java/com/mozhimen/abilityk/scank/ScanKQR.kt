@@ -6,6 +6,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.underlayk.logk.LogK
 import java.util.*
@@ -17,8 +18,7 @@ import java.util.*
  * @Date 2022/1/25 14:02
  * @Version 1.0
  */
-object ScanKQR {
-    private const val TAG = "ScanKQR>>>>>"
+object ScanKQR : BaseUtilK() {
 
     /**
      * 创建QRCode

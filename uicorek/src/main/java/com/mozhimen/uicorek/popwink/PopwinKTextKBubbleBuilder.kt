@@ -23,7 +23,7 @@ class PopwinKTextKBubbleBuilder(contentView: View, textKBubble: TextKBubble) :
         private var _xOffset = 0
         private var _yOffset = 0
         private var _tip: String? = null
-        private var _delayMillis: Long = DEFAULT_DISMISS_DELAY
+        private var _delayMillis: Long = 4000L
         private var _arrowDirection: EArrowDirection = EArrowDirection.Up
         private var _isCancelOnTouch: Boolean = true
         private var _isCancelOnTouchOutside: Boolean = true
@@ -65,7 +65,7 @@ class PopwinKTextKBubbleBuilder(contentView: View, textKBubble: TextKBubble) :
 
         fun create(anchorView: View): TextKBubblePopWin {
             val rootView = View.inflate(_context, layoutId, null) as TextKBubble
-            rootView.text = _tip ?: DEFAULT_TEXT
+            rootView.text = _tip ?: "请设置你的信息"
 
             val textKBubblePopWin = TextKBubblePopWin(rootView, rootView)
             textKBubblePopWin.xOffset = _xOffset
@@ -78,8 +78,4 @@ class PopwinKTextKBubbleBuilder(contentView: View, textKBubble: TextKBubble) :
         }
     }
 
-    private companion object {
-        const val DEFAULT_TEXT = "请设置你的信息"
-        const val DEFAULT_DISMISS_DELAY = 4000L
-    }
 }

@@ -47,7 +47,7 @@ object UtilKConnectivityManager {
         get(context).allNetworkInfo
 
     @JvmStatic
-    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(CVersionCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun getActiveNetwork(context: Context): Network? =
         get(context).activeNetwork
@@ -63,7 +63,7 @@ object UtilKConnectivityManager {
     }
 
     @JvmStatic
-    @RequiresApi(Build.VERSION_CODES.M)
+    @RequiresApi(CVersionCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun isNetworkConnectedAfterM(context: Context): Boolean {
         val networkCapabilities = get(context).getNetworkCapabilities(getActiveNetwork(context) ?: return false) ?: return false

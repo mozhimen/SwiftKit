@@ -5,7 +5,8 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.log.UtilKStackTrace
 import com.mozhimen.underlayk.logk.annors.ALogKType
-import com.mozhimen.basick.utilk.log.cons.CLogType
+import com.mozhimen.basick.elemk.cons.CLogType
+import com.mozhimen.underlayk.logk.cons.CLogKParameter
 import java.lang.StringBuilder
 import kotlin.collections.ArrayList
 
@@ -222,11 +223,11 @@ object LogK : BaseUtilK() {
         }
         val builder = StringBuilder()
         if (config.includeThread()) {
-            val threadInfo: String = BaseLogKConfig.formatterThread.format(Thread.currentThread())
+            val threadInfo: String = CLogKParameter.FORMATTER_THREAD.format(Thread.currentThread())
             builder.append(threadInfo).append("\n")
         }
         if (config.stackTraceDepth() > 0 || (config.stackTraceDepth() <= 0 && type >= CLogType.E)) {
-            val stackTrace: String? = BaseLogKConfig.formatterStackTrace.format(
+            val stackTrace: String? = CLogKParameter.FORMATTER_STACK_TRACE.format(
                 UtilKStackTrace.getCroppedRealStackTrack(
                     Throwable().stackTrace,
                     LOGK_PACKAGE,

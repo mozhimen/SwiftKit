@@ -30,10 +30,6 @@ import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener
 class LayoutKTabBottom @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defAttrStyle: Int = 0) : BaseLayoutKFrame(context, attrs, defAttrStyle),
     ILayoutKTab<TabBottomItem, MTabBottom> {
 
-    companion object {
-        private const val TAG_TAB_BOTTOM_LAYOUT = "TAG_TAB_BOTTOM_LAYOUT"
-    }
-
     private val _tabSelectedListeners: ArrayList<ITabSelectedListener<MTabBottom>> = ArrayList()
     private var _preSelectedItem: MTabBottom? = null
     private var _itemList: List<MTabBottom>? = null
@@ -115,7 +111,7 @@ class LayoutKTabBottom @JvmOverloads constructor(context: Context, attrs: Attrib
     }
 
     override fun findTabItem(item: MTabBottom): TabBottomItem? {
-        val tabBottom = findViewWithTag<ViewGroup>(TAG_TAB_BOTTOM_LAYOUT)
+        val tabBottom = findViewWithTag<ViewGroup>("TAG_TAB_BOTTOM_LAYOUT")
         for (i in 0 until tabBottom.childCount) {
             val child = tabBottom.getChildAt(i)
             if (child is TabBottomItem) {
@@ -158,7 +154,7 @@ class LayoutKTabBottom @JvmOverloads constructor(context: Context, attrs: Attrib
         val height = _tabBottomHeight
         //不用LinearLayout的原因: 当动态改变child大小后Gravity.Bottom会失效.
         _tabBottomContainer = FrameLayout(context)
-        _tabBottomContainer!!.tag = TAG_TAB_BOTTOM_LAYOUT
+        _tabBottomContainer!!.tag = "TAG_TAB_BOTTOM_LAYOUT"
         for (i in infoList.indices) {
             val info = infoList[i]
             val itemLP = LayoutParams(width, height)

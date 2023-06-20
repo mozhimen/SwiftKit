@@ -12,6 +12,7 @@ import androidx.core.graphics.createBitmap
 import coil.size.Size
 import coil.transform.Transformation
 import com.mozhimen.basick.imagek.coil.commons.ITransformation
+import com.mozhimen.basick.imagek.coil.cons.CCoilBlur
 
 /**
  * @ClassName BlurTransformation
@@ -30,8 +31,8 @@ import com.mozhimen.basick.imagek.coil.commons.ITransformation
  */
 class BlurTransformation @JvmOverloads constructor(
     private val context: Context,
-    private val radius: Float = DEFAULT_RADIUS,
-    private val sampling: Float = DEFAULT_SAMPLING
+    private val radius: Float = CCoilBlur.RADIUS,
+    private val sampling: Float = CCoilBlur.SAMPLING
 ) : Transformation, ITransformation {
     private val TAG = "BlurTransformation>>>>>"
 
@@ -96,10 +97,5 @@ class BlurTransformation @JvmOverloads constructor(
 
     override fun toString(): String {
         return "BlurTransformation(context=$context, radius=$radius, sampling=$sampling)"
-    }
-
-    companion object {
-        const val DEFAULT_RADIUS = 5f
-        const val DEFAULT_SAMPLING = 5f
     }
 }

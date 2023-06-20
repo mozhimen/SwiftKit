@@ -23,6 +23,7 @@ import com.mozhimen.basick.elemk.cons.CMediaFormat
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
@@ -39,8 +40,7 @@ import java.net.URL
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.INTERNET)
-object UtilKBitmapIO {
-    private const val TAG = "UtilKBitmapIO>>>>>"
+object UtilKBitmapIO : BaseUtilK() {
     private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**

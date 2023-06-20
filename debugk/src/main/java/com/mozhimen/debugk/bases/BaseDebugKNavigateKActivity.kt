@@ -1,5 +1,6 @@
 package com.mozhimen.debugk.bases
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.navigation.NavController
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
@@ -33,13 +34,7 @@ abstract class BaseDebugKNavigateKActivity : BaseActivityVBVM<DebugkActivityNavi
         com.mozhimen.basick.statusbark.StatusBarK.initStatusBar(this)
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
-        savedInstanceState?.let {
-            _currentItemId = savedInstanceState.getInt(DEBUGK_NAVIGATEK_SAVED_CURRENT_ID, -1)
-        }
-        super.initData(savedInstanceState)
-    }
-
+    @SuppressLint("RestrictedApi")
     override fun initView(savedInstanceState: Bundle?) {
         _navController = NavigateK.buildNavGraph(this, R.id.debugk_navigatek_fragment_container, _fragments, _currentItemId)
         vm.liveFragmentId.observe(this) {
@@ -51,20 +46,6 @@ abstract class BaseDebugKNavigateKActivity : BaseActivityVBVM<DebugkActivityNavi
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(DEBUGK_NAVIGATEK_SAVED_CURRENT_ID, _currentItemId)
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        _currentItemId = savedInstanceState.getInt(DEBUGK_NAVIGATEK_SAVED_CURRENT_ID, -1)
-    }
-
     override fun bindViewVM(vb: DebugkActivityNavigatekBinding) {
-    }
-
-    companion object {
-        private const val DEBUGK_NAVIGATEK_SAVED_CURRENT_ID = "debugk_navigatek_saved_current_id"
     }
 }

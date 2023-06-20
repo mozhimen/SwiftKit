@@ -28,9 +28,6 @@ object UtilKByteArray : BaseUtilK() {
         "0", "1", "2", "3", "4", "5",
         "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"
     )
-    private const val LO_BYTE: Int = 0x0f
-    private const val MOVE_BIT: Int = 4
-    private const val HI_BYTE: Int = 0xf0
 
     @JvmStatic
     fun byteArray2Obj(bytes: ByteArray): Any? {
@@ -194,7 +191,7 @@ object UtilKByteArray : BaseUtilK() {
      */
     @JvmStatic
     fun byte2HexStr(byte: Byte): String {
-        return HEX_DIGITS[(byte.toInt() and HI_BYTE) shr MOVE_BIT] + HEX_DIGITS[byte.toInt() and LO_BYTE]
+        return HEX_DIGITS[(byte.toInt() and 0xf0) shr 4] + HEX_DIGITS[byte.toInt() and 0x0f]
     }
 
 

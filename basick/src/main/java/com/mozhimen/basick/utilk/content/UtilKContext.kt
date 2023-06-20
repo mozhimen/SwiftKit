@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.content
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.ContentResolver
@@ -18,16 +19,18 @@ import android.net.ConnectivityManager
 import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Vibrator
+import android.os.VibratorManager
 import android.telephony.TelephonyManager
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import coil.ImageLoader
 import coil.imageLoader
+import com.mozhimen.basick.elemk.cons.CVersionCode
 
 
 /**
@@ -71,6 +74,11 @@ object UtilKContext {
     fun getVibrator(context: Context): Vibrator =
         context.getSystemService(Activity.VIBRATOR_SERVICE) as Vibrator
 
+    @RequiresApi(CVersionCode.V_31_11_S)
+    @JvmStatic
+    fun getVibratorManager(context: Context): VibratorManager =
+        context.getSystemService(Activity.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+
     @JvmStatic
     fun getWindowManager(context: Context): WindowManager =
         context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -85,7 +93,7 @@ object UtilKContext {
 
     @JvmStatic
     fun getWifiManager(context: Context): WifiManager =
-        context.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        getApplicationContext(context).getSystemService(Context.WIFI_SERVICE) as WifiManager
 
     @JvmStatic
     fun getAudioManager(context: Context): AudioManager =
@@ -131,14 +139,17 @@ object UtilKContext {
     fun getString(context: Context, @StringRes resId: Int, vararg formatArgs: Any): String =
         context.getString(resId, *formatArgs)
 
+    @RequiresApi(CVersionCode.V_23_6_M)
     @JvmStatic
     fun getColor(context: Context, @ColorRes resId: Int): Int =
         context.getColor(resId)
 
+    @RequiresApi(CVersionCode.V_23_6_M)
     @JvmStatic
     fun getColorStateList(context: Context, @ColorRes resId: Int): ColorStateList =
         context.getColorStateList(resId)
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @JvmStatic
     fun getDrawable(context: Context, @DrawableRes drawableId: Int): Drawable? =
         context.getDrawable(drawableId)

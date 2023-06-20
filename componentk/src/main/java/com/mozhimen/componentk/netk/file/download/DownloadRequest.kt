@@ -3,9 +3,12 @@ package com.mozhimen.componentk.netk.file.download
 import android.content.Context
 import android.net.Uri
 import androidx.annotation.DrawableRes
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.UtilKLog.et
 import com.mozhimen.componentk.BuildConfig
 import com.mozhimen.componentk.R
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
 import com.mozhimen.componentk.netk.file.download.utils.DownloadEngine
 import com.mozhimen.componentk.netk.file.download.utils.NotifierVisibility
 import com.mozhimen.componentk.netk.file.download.utils.Utils
@@ -19,12 +22,8 @@ class DownloadRequest(
     val context: Context,
     val url: String,
     @DownloadEngine
-    val engine: Int = DOWNLOAD_ENGINE_EMBED
-) {
-    companion object {
-        private const val TAG = "DownloadRequest>>>>>"
-    }
-
+    val engine: Int = CDownloadParameter.DOWNLOAD_ENGINE_EMBED
+) : BaseUtilK() {
     /**
      * 文件下载的目标地址
      *
@@ -52,7 +51,7 @@ class DownloadRequest(
     var needInstall = false
         private set
 
-    var notificationVisibility = NOTIFIER_VISIBLE_NOTIFY_COMPLETED
+    var notificationVisibility = CDownloadConstants.NOTIFIER_VISIBLE_NOTIFY_COMPLETED
         private set
 
     var notificationSmallIcon = -1
@@ -208,7 +207,7 @@ class DownloadRequest(
 
     private fun createDownloader(@DownloadEngine engine: Int): Downloader {
         return when (engine) {
-            DOWNLOAD_ENGINE_SYSTEM_DM -> SystemDownloader(this)
+            CDownloadParameter.DOWNLOAD_ENGINE_SYSTEM_DM -> SystemDownloader(this)
             else -> EmbedDownloader(this)
         }
     }
@@ -228,7 +227,7 @@ class DownloadRequest(
             if (BuildConfig.DEBUG) et(TAG, "下载任务已经存在")
             return false
         }
-        if (notificationVisibility != NOTIFIER_HIDDEN && showNotificationDisableTip) {
+        if (notificationVisibility != CDownloadConstants.NOTIFIER_HIDDEN && showNotificationDisableTip) {
             Utils.checkNotificationsEnabled(context)
         }
         val downloader = createDownloader(engine)

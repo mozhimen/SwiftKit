@@ -3,6 +3,7 @@ package com.mozhimen.uicorek.textk
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextClock
+import com.mozhimen.basick.elemk.cons.CDateFormat
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.basick.utilk.os.UtilKDate
 import com.mozhimen.uicorek.R
@@ -24,6 +25,8 @@ class TextKClock @JvmOverloads constructor(context: Context, attrs: AttributeSet
         initView()
     }
 
+    override val TAG: String = "TextKClock>>>>>"
+
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKClock)
@@ -37,18 +40,18 @@ class TextKClock @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     private fun getTimeFormat(index: Int = 0): String {
         return when (index) {
-            1 -> UtilKDate.Format.yyyyMMddHHmm
-            2 -> UtilKDate.Format.yyyyMMdd
-            3 -> UtilKDate.Format.HHmmss
-            4 -> UtilKDate.Format.HHmm
-            5 -> UtilKDate.Format.mmss
-            6 -> UtilKDate.Format.yyyy
-            7 -> UtilKDate.Format.MM
-            8 -> UtilKDate.Format.dd
-            9 -> UtilKDate.Format.HH
-            10 -> UtilKDate.Format.mm
-            11 -> UtilKDate.Format.ss
-            else -> UtilKDate.Format.yyyyMMddHHmmss
+            1 -> CDateFormat.yyyyMMddHHmm
+            2 -> CDateFormat.yyyyMMdd
+            3 -> CDateFormat.HHmmss
+            4 -> CDateFormat.HHmm
+            5 -> CDateFormat.mmss
+            6 -> CDateFormat.yyyy
+            7 -> CDateFormat.MM
+            8 -> CDateFormat.dd
+            9 -> CDateFormat.HH
+            10 -> CDateFormat.mm
+            11 -> CDateFormat.ss
+            else -> CDateFormat.yyyyMMddHHmmss
         }
     }
 }

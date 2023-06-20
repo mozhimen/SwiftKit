@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.util.Log
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKApplicationInfo
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
@@ -18,8 +19,7 @@ import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
  * @Date 2023/4/18 11:06
  * @Version 1.0
  */
-object UtilKApk {
-    private const val TAG = "UtilKApk>>>>>"
+object UtilKApk : BaseUtilK() {
     private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     @JvmStatic

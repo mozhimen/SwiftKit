@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.java.io.encrypt
 
 import android.util.Base64
+import com.mozhimen.basick.elemk.cons.CAlgorithm
+import com.mozhimen.basick.elemk.cons.CCharsetName
 import java.io.IOException
 import java.security.SecureRandom
 import javax.crypto.Cipher
@@ -15,9 +17,7 @@ import javax.crypto.spec.DESKeySpec
  * @Version 1.0
  */
 object UtilKDES {
-    private const val DES = "DES"
-    private const val ENCODE = "UTF-8"
-    private val _charset by lazy { charset(ENCODE) }
+    private val _charset by lazy { charset(CCharsetName.UTF_8) }
 
     /**
      * 根据键值进行加密
@@ -68,10 +68,10 @@ object UtilKDES {
         // 从原始密钥数据创建DESKeySpec对象
         val dks = DESKeySpec(secretKey)
         // 创建一个密钥工厂，然后用它把DESKeySpec转换成SecretKey对象
-        val keyFactory = SecretKeyFactory.getInstance(DES)
+        val keyFactory = SecretKeyFactory.getInstance(CAlgorithm.DES)
         val secureKey = keyFactory.generateSecret(dks)
         // Cipher对象实际完成加密操作
-        val cipher = Cipher.getInstance(DES)
+        val cipher = Cipher.getInstance(CAlgorithm.DES)
         // 用密钥初始化Cipher对象
         cipher.init(Cipher.ENCRYPT_MODE, secureKey, sr)
         return cipher.doFinal(data)
@@ -92,10 +92,10 @@ object UtilKDES {
         // 从原始密钥数据创建DESKeySpec对象
         val dks = DESKeySpec(secretKey)
         // 创建一个密钥工厂，然后用它把DESKeySpec转换成SecretKey对象
-        val keyFactory = SecretKeyFactory.getInstance(DES)
+        val keyFactory = SecretKeyFactory.getInstance(CAlgorithm.DES)
         val secureKey = keyFactory.generateSecret(dks)
         // Cipher对象实际完成解密操作
-        val cipher = Cipher.getInstance(DES)
+        val cipher = Cipher.getInstance(CAlgorithm.DES)
         // 用密钥初始化Cipher对象
         cipher.init(Cipher.DECRYPT_MODE, secureKey, sr)
         return cipher.doFinal(data)

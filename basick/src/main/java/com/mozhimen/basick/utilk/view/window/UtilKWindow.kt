@@ -1,13 +1,20 @@
 package com.mozhimen.basick.utilk.view.window
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Rect
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.ColorInt
+import com.mozhimen.basick.elemk.cons.CView
+import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar
 import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
+import java.util.jar.Attributes
 import kotlin.math.abs
 
 /**
@@ -17,71 +24,87 @@ import kotlin.math.abs
  * @Date 2023/2/27 23:14
  * @Version 1.0
  */
-object UtilKWindow {
-    private const val TAG = "UtilKWindow>>>>>"
+object UtilKWindow : BaseUtilK() {
 
-    /**
-     * 获取window
-     * @param activity Activity
-     * @return Window
-     */
     @JvmStatic
     fun get(activity: Activity): Window =
         activity.window
 
-    /**
-     * 获取DecorView
-     * @param activity Activity
-     * @return View
-     */
+    //////////////////////////////////////////////////////////////////
     @JvmStatic
-    fun getDecorView(activity: Activity) =
-        get(activity).decorView
+    fun getDecorView(activity: Activity): View =
+        getDecorView(get(activity))
 
-    /**
-     * 获取PeekDecorView
-     * @param activity Activity
-     * @return View
-     */
     @JvmStatic
-    fun getPeekDecorView(activity: Activity) =
-        get(activity).peekDecorView()
-
-    /**
-     * 获取DecorView
-     * @param window Window
-     * @return View
-     */
-    @JvmStatic
-    fun getDecorView(window: Window) =
+    fun getDecorView(window: Window): View =
         window.decorView
 
-    /**
-     * 获取DecorView
-     * @param window Window
-     * @return View
-     */
     @JvmStatic
-    fun getPeekDecorView(window: Window) =
+    fun getPeekDecorView(activity: Activity): View? =
+        getPeekDecorView(get(activity))
+
+    @JvmStatic
+    fun getPeekDecorView(window: Window): View? =
         window.peekDecorView()
 
-    /**
-     * 获取Attributes
-     * @param activity Activity
-     * @return (LayoutParams..LayoutParams?)
-     */
     @JvmStatic
-    fun getAttributes(activity: Activity) =
-        get(activity).attributes
+    fun getContentView(activity: Activity): View? =
+        getContentView(get(activity))
 
-    /**
-     * 获取Attributes
-     * @param window Window
-     * @return (LayoutParams..LayoutParams?)
-     */
     @JvmStatic
-    fun getAttributes(window: Window) =
+    fun getContentView(window: Window): View? =
+        window.findViewById(android.R.id.content)
+
+    //////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun setAttributes(activity: Activity, attributes: WindowManager.LayoutParams) {
+        setAttributes(get(activity), attributes)
+    }
+
+    @JvmStatic
+    fun setAttributes(window: Window, attributes: WindowManager.LayoutParams) {
+        window.attributes = attributes
+    }
+
+    @JvmStatic
+    fun getAttributes(activity: Activity): WindowManager.LayoutParams =
+        getAttributes(get(activity))
+
+    @JvmStatic
+    fun getAttributes(window: Window): WindowManager.LayoutParams =
         window.attributes
+
+    @JvmStatic
+    fun getFlags(activity: Activity): Int =
+        getFlags(get(activity))
+
+    @JvmStatic
+    fun getFlags(window: Window): Int =
+        getAttributes(window).flags
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun clearFlags(activity: Activity, flags: Int) {
+        get(activity).clearFlags(flags)
+    }
+
+    @JvmStatic
+    fun addFlags(activity: Activity, flags: Int) {
+        get(activity).addFlags(flags)
+    }
+
+    @JvmStatic
+    fun setStatusBarColor(activity: Activity, @ColorInt colorInt: Int) {
+        get(activity).statusBarColor = colorInt
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun isFullScreenInFlag(activity: Activity): Boolean =
+        getFlags(activity) and CWinMgrLP.FLAG_FULLSCREEN != 0
 
     /**
      * 是否全屏
@@ -89,37 +112,11 @@ object UtilKWindow {
      * @return Boolean
      */
     @JvmStatic
+    fun isFullScreenInFlag2(activity: Activity): Boolean =
+        getFlags(activity) and CWinMgrLP.FLAG_FULLSCREEN == CWinMgrLP.FLAG_FULLSCREEN
+
+    @JvmStatic
     fun isFullScreen(activity: Activity): Boolean =
-        if (activity.window == null) false else getAttributes(activity).flags and WindowManager.LayoutParams.FLAG_FULLSCREEN == WindowManager.LayoutParams.FLAG_FULLSCREEN
-
-
-    /**
-     * 获取DecorView区域高度
-     * @param window Window
-     * @return Int
-     */
-    @JvmStatic
-    fun getDecorViewInvisibleHeight(window: Window): Int {
-        val decorView = getDecorView(window)
-        val outRect = Rect()
-        decorView.getWindowVisibleDisplayFrame(outRect)
-        Log.d(TAG, "getDecorViewInvisibleHeight: " + (decorView.bottom - outRect.bottom))
-        val delta = abs(decorView.bottom - outRect.bottom)
-        return if (delta <= UtilKNavigationBar.getNavigationBarHeight() + UtilKStatusBar.getStatusBarHeight()) 0 else delta
-    }
-
-    /**
-     * 获取其ContentView区域高度
-     * @param window Window
-     * @return Int
-     */
-    @JvmStatic
-    fun getContentViewInvisibleHeight(window: Window): Int {
-        val contentView = window.findViewById<View>(android.R.id.content) ?: return 0
-        val outRect = Rect()
-        contentView.getWindowVisibleDisplayFrame(outRect)
-        Log.d(TAG, "getContentViewInvisibleHeight: " + (contentView.bottom - outRect.bottom))
-        val delta = abs(contentView.bottom - outRect.bottom)
-        return if (delta <= UtilKStatusBar.getStatusBarHeight() + UtilKNavigationBar.getNavigationBarHeight()) 0 else delta
-    }
+        isFullScreenInFlag2(activity) || !UtilKNavigationBar.isNavigationBarVisible(activity) || !UtilKStatusBar.isStatusBarVisible(activity)
 }
+

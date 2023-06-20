@@ -4,10 +4,10 @@ import android.app.DownloadManager
 import android.net.Uri
 import android.widget.Toast
 import com.mozhimen.componentk.R
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
+import com.mozhimen.componentk.netk.file.download.utils.InstallUtils
 import com.mozhimen.componentk.netk.file.download.utils.Utils
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getRealPathFromURI
-import com.mozhimen.componentk.netk.file.download.utils.checkDownloadComponentEnable
-import com.mozhimen.componentk.netk.file.download.utils.showDownloadComponentSetting
 import java.io.File
 
 internal class SystemDownloader(request: DownloadRequest) : Downloader(request) {
@@ -19,13 +19,13 @@ internal class SystemDownloader(request: DownloadRequest) : Downloader(request) 
     }
 
     override fun startDownload() {
-        if (!checkDownloadComponentEnable(request.context)) {
+        if (!InstallUtils.checkDownloadComponentEnable(request.context)) {
             Toast.makeText(
                 request.context,
                 R.string.downloader_component_disable,
                 Toast.LENGTH_SHORT
             ).show()
-            showDownloadComponentSetting(request.context)
+            InstallUtils.showDownloadComponentSetting(request.context)
             return
         }
 
@@ -43,7 +43,7 @@ internal class SystemDownloader(request: DownloadRequest) : Downloader(request) 
             }
             //获取下载状态
             when (downloadInfo.status) {
-                STATUS_SUCCESSFUL -> {
+                CDownloadConstants.STATUS_SUCCESSFUL -> {
                     val uri = downloader.getDownloadedFileUri(downloadId)
                     if (uri != null) {
                         val path = getRealPathFromURI(request.context, uri)
@@ -59,13 +59,13 @@ internal class SystemDownloader(request: DownloadRequest) : Downloader(request) 
                     //重新下载
                     download()
                 }
-                STATUS_RUNNING -> {
+                CDownloadConstants.STATUS_RUNNING -> {
                     registerListener(downloadId)
                 }
-                STATUS_FAILED, STATUS_UNKNOWN -> {
+                CDownloadConstants.STATUS_FAILED, CDownloadConstants.STATUS_UNKNOWN -> {
                     download()
                 }
-                else -> printDownloadStatus(downloadId, downloadInfo.status)
+                else -> CDownloadConstants.printDownloadStatus(downloadId, downloadInfo.status)
             }
         } else {
             download()

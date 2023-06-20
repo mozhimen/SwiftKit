@@ -15,6 +15,7 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.UtilKPermission
@@ -36,8 +37,7 @@ import java.nio.charset.Charset
     CPermission.READ_INSTALL_SESSIONS,
     CPermission.REPLACE_EXISTING_PACKAGE
 )
-object UtilKAppInstall {
-    private const val TAG = "UtilKAppInstall>>>>>"
+object UtilKAppInstall : BaseUtilK() {
     private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**

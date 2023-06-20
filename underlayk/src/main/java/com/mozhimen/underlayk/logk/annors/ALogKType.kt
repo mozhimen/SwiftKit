@@ -1,7 +1,7 @@
 package com.mozhimen.underlayk.logk.annors
 
 import androidx.annotation.IntDef
-import com.mozhimen.basick.utilk.log.cons.CLogType
+import com.mozhimen.basick.elemk.cons.CLogType
 
 /**
  * @ClassName LogKType

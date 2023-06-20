@@ -9,9 +9,13 @@ import android.view.ViewTreeObserver
 import android.view.Window
 import android.view.WindowManager
 import android.widget.FrameLayout
+import com.mozhimen.basick.elemk.cons.CParameter
+import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CWinMgrLP
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.view.UtilKView
+import com.mozhimen.basick.utilk.view.window.UtilKDecorView
 import com.mozhimen.basick.utilk.view.window.UtilKWindow
 
 
@@ -23,8 +27,6 @@ import com.mozhimen.basick.utilk.view.window.UtilKWindow
  * @Version 1.0
  */
 object UtilKInputChange {
-    private const val TAG_ON_GLOBAL_LAYOUT_LISTENER = -8
-
     /**
      * Register soft input changed listener.
      * @param activity The activity.
@@ -43,20 +45,20 @@ object UtilKInputChange {
     @JvmStatic
     fun registerKeyBoardChangeListener(window: Window, listener: IUtilKKeyboardChangeListener2) {
         val flags = window.attributes.flags
-        if (flags and WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS != 0) {
-            window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        if (flags and CWinMgrLP.FLAG_LAYOUT_NO_LIMITS != 0) {
+            window.clearFlags(CWinMgrLP.FLAG_LAYOUT_NO_LIMITS)
         }
         val contentView = window.findViewById<FrameLayout>(R.id.content)
-        val decorViewInvisibleHeightPre = intArrayOf(UtilKWindow.getDecorViewInvisibleHeight(window))
+        val decorViewInvisibleHeightPre = intArrayOf(UtilKDecorView.getInvisibleHeight(window))
         val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
-            val height = UtilKWindow.getDecorViewInvisibleHeight(window)
+            val height = UtilKDecorView.getInvisibleHeight(window)
             if (decorViewInvisibleHeightPre[0] != height) {
                 listener.onChange(height)
                 decorViewInvisibleHeightPre[0] = height
             }
         }
         contentView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
-        contentView.setTag(TAG_ON_GLOBAL_LAYOUT_LISTENER, onGlobalLayoutListener)
+        contentView.setTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, onGlobalLayoutListener)
     }
 
     /**
@@ -66,12 +68,12 @@ object UtilKInputChange {
     @JvmStatic
     fun unregisterKeyBoardChangedListener(window: Window) {
         val contentView = window.findViewById<View>(R.id.content) ?: return
-        val tag = contentView.getTag(TAG_ON_GLOBAL_LAYOUT_LISTENER)
+        val tag = contentView.getTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER)
         if (tag is ViewTreeObserver.OnGlobalLayoutListener) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (Build.VERSION.SDK_INT >= CVersionCode.V_16_41_J) {
                 contentView.viewTreeObserver.removeOnGlobalLayoutListener(tag)
                 //这里会发生内存泄漏 如果不设置为null
-                contentView.setTag(TAG_ON_GLOBAL_LAYOUT_LISTENER, null)
+                contentView.setTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, null)
             }
         }
     }
@@ -94,7 +96,7 @@ object UtilKInputChange {
 
     @JvmStatic
     fun observerKeyboardChange(activity: Activity, listener: IUtilKKeyboardChangeListener): ViewTreeObserver.OnGlobalLayoutListener {
-        val decorView = UtilKWindow.getDecorView(activity)
+        val decorView = UtilKDecorView.get(activity)
         val onGlobalLayoutListener: ViewTreeObserver.OnGlobalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
             private var _rect = Rect()
             private var _keyboardRect = Rect()

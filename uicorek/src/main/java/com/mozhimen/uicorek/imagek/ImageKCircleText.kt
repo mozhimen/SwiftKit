@@ -35,11 +35,12 @@ import kotlin.math.min
  */
 class ImageKCircleText @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     androidx.appcompat.widget.AppCompatImageView(context, attrs, defStyleAttr), IUicoreK {
+    override val TAG: String = "ImageKCircleText>>>>>"
     companion object {
         private val SCALE_TYPE = ScaleType.CENTER_CROP
         private val BITMAP_CONFIG = Bitmap.Config.ARGB_8888
 
-        private const val COLOR_DRAWABLE_DIMENSION = 2
+        private const val DEFAULT_COLOR_DRAWABLE_DIMENSION = 2
         private const val DEFAULT_BORDER_WIDTH = 0
         private const val DEFAULT_BORDER_COLOR = Color.BLACK
         private const val DEFAULT_BORDER_OVERLAY = false
@@ -301,7 +302,7 @@ class ImageKCircleText @JvmOverloads constructor(context: Context, attrs: Attrib
             drawable.bitmap
         } else try {
             val bitmap: Bitmap = if (drawable is ColorDrawable) {
-                Bitmap.createBitmap(COLOR_DRAWABLE_DIMENSION, COLOR_DRAWABLE_DIMENSION, BITMAP_CONFIG)
+                Bitmap.createBitmap(DEFAULT_COLOR_DRAWABLE_DIMENSION, DEFAULT_COLOR_DRAWABLE_DIMENSION, BITMAP_CONFIG)
             } else {
                 Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, BITMAP_CONFIG)
             }

@@ -3,6 +3,7 @@ package com.mozhimen.componentk.netk.file
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.componentk.netk.file.download_deprecated.FileDownloadTaskMgr
 
 
@@ -16,10 +17,7 @@ import com.mozhimen.componentk.netk.file.download_deprecated.FileDownloadTaskMgr
 @AManifestKRequire(
     CPermission.INTERNET, CPermission.READ_EXTERNAL_STORAGE, CPermission.WRITE_EXTERNAL_STORAGE
 )
-class NetKFile(owner: LifecycleOwner) {
-    companion object {
-        private const val TAG = "NetKFile>>>>>"
-    }
+class NetKFile(owner: LifecycleOwner) : BaseUtilK() {
 
     private val _fileDownloadTaskMgr by lazy { FileDownloadTaskMgr(owner) }
 

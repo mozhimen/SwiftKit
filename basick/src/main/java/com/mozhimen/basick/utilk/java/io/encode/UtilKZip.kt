@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.java.io.encode
 
 import android.util.Log
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 
 import java.io.*
@@ -14,8 +15,7 @@ import java.util.zip.ZipOutputStream
  * @Date 2022/6/12 12:12
  * @Version 1.0
  */
-object UtilKZip {
-    private const val TAG = "UtilKZip>>>>>"
+object UtilKZip : BaseUtilK() {
 
     /**
      * 压缩

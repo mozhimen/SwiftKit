@@ -20,7 +20,7 @@
             app:layoutKVideo_videoGravity="none"
             app:layoutKVideo_volume="0" />-->
 
-        <com.mozhimen.componentk.videok.VideoKLayout
+        <com.mozhimen.componentk.mediak.video.layout.MediaKVideoLayout
             android:id="@+id/layoutk_video2"
             android:layout_width="match_parent"
             android:layout_height="0dp"

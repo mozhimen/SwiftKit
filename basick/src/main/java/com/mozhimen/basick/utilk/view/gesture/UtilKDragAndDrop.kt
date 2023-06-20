@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.view.gesture
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.UtilKReflect
 import com.mozhimen.basick.utilk.log.et
 import java.lang.reflect.Field
@@ -14,8 +15,7 @@ import java.lang.reflect.Field
  * @Date 2023/2/19 17:10
  * @Version 1.0
  */
-object UtilKDragAndDrop {
-    private const val TAG = "UtilKDragAndDrop>>>>>"
+object UtilKDragAndDrop : BaseUtilK() {
 
     @JvmStatic
     @Throws(Exception::class)

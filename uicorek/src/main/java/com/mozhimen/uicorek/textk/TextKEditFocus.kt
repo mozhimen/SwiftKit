@@ -18,6 +18,7 @@ class TextKEditFocus @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : AppCompatEditText(context, attrs, defStyleAttr), View.OnFocusChangeListener, ILayoutK {
 
+    override val TAG: String = "TextKEditFocus>>>>>"
     private var _focusBackground: Int = R.drawable.textk_edit_form_focus
     private var _unFocusBackground: Int = R.drawable.textk_edit_form
 
@@ -25,6 +26,7 @@ class TextKEditFocus @JvmOverloads constructor(
         initAttrs(attrs, defStyleAttr)
         initView()
     }
+
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs?.let {

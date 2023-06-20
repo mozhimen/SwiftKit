@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.dialogk.bases.commons
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import com.mozhimen.uicorek.dialogk.bases.annors.DialogMode
+import com.mozhimen.uicorek.dialogk.bases.annors.ADialogMode
 
 /**
  * @ClassName IBaseDialogK
@@ -19,7 +19,7 @@ interface IBaseDialogK<T> {
      * 弹框模式
      * @return Int
      */
-    @DialogMode
+    @ADialogMode
     fun getDialogMode(): Int
 
     fun setDialogClickListener(listener: T): IBaseDialogK<*>
@@ -28,7 +28,7 @@ interface IBaseDialogK<T> {
      * 设置dialog的模式, 设置后会回调到[.onInitMode]
      * @param mode
      */
-    fun setDialogMode(@DialogMode mode: Int): IBaseDialogK<*>
+    fun setDialogMode(@ADialogMode mode: Int): IBaseDialogK<*>
 
     /**
      * 设置dialog的模式
@@ -36,7 +36,7 @@ interface IBaseDialogK<T> {
      * @param mode
      * @param callModeChange false 禁止回调[.onInitMode]
      */
-    fun setDialogMode(@DialogMode mode: Int, callModeChange: Boolean): IBaseDialogK<*>
+    fun setDialogMode(@ADialogMode mode: Int, callModeChange: Boolean): IBaseDialogK<*>
 
     /**
      * 设置可取消
@@ -107,5 +107,5 @@ interface IBaseDialogK<T> {
      * 初始化Mode
      * @param mode Int
      */
-    fun onInitMode(@DialogMode mode: Int) {}
+    fun onInitMode(@ADialogMode mode: Int) {}
 }

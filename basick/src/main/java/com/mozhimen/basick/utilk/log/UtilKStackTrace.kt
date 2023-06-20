@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.log
 
 import android.text.TextUtils
 import android.util.Log
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.datatype.json.UtilKJson
 import java.util.logging.Logger
 
@@ -12,8 +13,7 @@ import java.util.logging.Logger
  * @Date 2021/12/20 18:42
  * @Version 1.0
  */
-object UtilKStackTrace {
-    private const val TAG = "UtilKStackTrace>>>>>"
+object UtilKStackTrace : BaseUtilK() {
 
     /**
      * 获取真正的堆栈跟踪，然后用最大深度裁剪它。

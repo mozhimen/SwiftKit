@@ -20,16 +20,11 @@ import kotlin.math.min
  */
 class ViewKScanOverlay @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseViewK(context, attrs, defStyleAttr) {
 
-    companion object {
-        private const val BOUNDING_RECT_TEXT_PADDING = 8
-        private const val BOX_TYPE_RECT = 0
-    }
-
     private var _isShowLabel = true
     private var _labelTextSize = 16f.sp2px().toInt()
     private var _labelTextColor = Color.WHITE
     private var _labelBackgroundColor = UtilKRes.getColor(android.R.color.holo_blue_dark)
-    private var _boxType = BOX_TYPE_RECT
+    private var _boxType = 0
     private var _boxLineWidth = 2f.dp2px().toInt()
     private var _boxLineColor = UtilKRes.getColor(android.R.color.holo_blue_dark)
 
@@ -109,7 +104,7 @@ class ViewKScanOverlay @JvmOverloads constructor(context: Context, attrs: Attrib
                 val left = boundingBox.left * _scaleFactorWidth
                 val right = boundingBox.right * _scaleFactorWidth
 
-                if (_boxType == BOX_TYPE_RECT) {
+                if (_boxType == 0) {
                     drawRect(canvas, left, top, right, bottom)
                 } else {
                     drawCircle(canvas, left, top, right, bottom)
@@ -142,8 +137,8 @@ class ViewKScanOverlay @JvmOverloads constructor(context: Context, attrs: Attrib
         canvas.drawRect(
             left,
             top,
-            left + textWidth + BOUNDING_RECT_TEXT_PADDING,
-            top + textHeight + BOUNDING_RECT_TEXT_PADDING,
+            left + textWidth + 8,
+            top + textHeight + 8,
             _textBackgroundPaint
         )
 

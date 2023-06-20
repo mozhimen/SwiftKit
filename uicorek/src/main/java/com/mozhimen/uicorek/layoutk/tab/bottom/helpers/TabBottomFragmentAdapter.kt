@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import java.lang.Exception
@@ -17,12 +18,10 @@ import java.lang.Exception
  * @Date 2022/4/15 21:16
  * @Version 1.0
  */
-class TabBottomFragmentAdapter constructor(
+class TabBottomFragmentAdapter(
     private var _fragmentManager: FragmentManager, private var _moList: List<MTabBottom>
-) {
-    companion object{
-        private const val TAG = "TabBottomFragmentAdapter>>>>>"
-    }
+) : BaseUtilK() {
+
     private var _currentFragment: Fragment? = null
 
     /**

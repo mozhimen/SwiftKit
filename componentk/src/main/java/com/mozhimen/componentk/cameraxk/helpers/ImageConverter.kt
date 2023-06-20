@@ -5,6 +5,7 @@ import android.media.Image.Plane
 import android.util.Log
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.LogK
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
@@ -17,9 +18,7 @@ import java.nio.ByteBuffer
  * @Date 2022/2/10 18:46
  * @Version 1.0
  */
-object ImageConverter {
-
-    private const val TAG = "ImageConverter>>>>>"
+object ImageConverter : BaseUtilK() {
 
     /**
      * rgba8888转Bitmap

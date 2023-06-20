@@ -9,7 +9,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.basick.utilk.log.cons.CLogType
+import com.mozhimen.basick.elemk.cons.CLogType
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding

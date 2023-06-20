@@ -30,7 +30,7 @@ import kotlin.math.abs
  */
 class TextKBubbleProxy(private val _context: Context) : ITextKBubble, ILayoutK {
     //region # variate
-    private val TAG = "TextKBubbleProxy>>>>>"
+    override val TAG = "TextKBubbleProxy>>>>>"
     private lateinit var _textKBubble: TextKBubble
     private lateinit var _textKBubbleListener: ITextKBubbleListener
 
@@ -71,8 +71,8 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, ILayoutK {
         private val ARROW_HEIGHT = 4f.dp2px()
         private val ARROW_WIDTH = 6f.dp2px()
         private val ARROW_POS_OFFSET = 10f.dp2px()
-        private const val BG_COLOR = Color.WHITE
-        private const val BORDER_COLOR = Color.GRAY
+        private val BG_COLOR = Color.WHITE
+        private val BORDER_COLOR = Color.GRAY
         private val BORDER_WIDTH = 1f.dp2px()
         private val GAP_PADDING = 0f.dp2px()
         private val CORNER_RADIUS = 4f.dp2px()

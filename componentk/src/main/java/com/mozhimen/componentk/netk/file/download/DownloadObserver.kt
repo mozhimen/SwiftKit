@@ -5,8 +5,8 @@ import android.database.ContentObserver
 import android.os.Handler
 import android.os.Looper
 import com.mozhimen.componentk.R
-import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ERROR_DM_FAILED
-import com.mozhimen.componentk.netk.file.download.DownloadException.Companion.ERROR_MISSING_URI
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
+import com.mozhimen.componentk.netk.file.download.cons.CErrorCode
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getPercent
 
 
@@ -35,13 +35,13 @@ internal class DownloadObserver(
             handler.post {
                 downloader.request.onProgressUpdate(getPercent(info.totalSize, info.downloadedSize))
                 when (info.status) {
-                    STATUS_SUCCESSFUL -> {
+                    CDownloadConstants.STATUS_SUCCESSFUL -> {
                         context.contentResolver.unregisterContentObserver(this)
                         val uri = info.uri
                         if (uri == null) {
                             downloader.request.onFailed(
                                 DownloadException(
-                                    ERROR_MISSING_URI,
+                                    CErrorCode.ERROR_MISSING_URI,
                                     context.getString(R.string.downloader_notifier_failed_missing_uri)
                                 )
                             )
@@ -49,11 +49,11 @@ internal class DownloadObserver(
                             downloader.request.onComplete(uri)
                         }
                     }
-                    STATUS_FAILED -> {
+                    CDownloadConstants.STATUS_FAILED -> {
                         context.contentResolver.unregisterContentObserver(this)
                         downloader.request.onFailed(
                             DownloadException(
-                                ERROR_DM_FAILED,
+                                CErrorCode.ERROR_DM_FAILED,
                                 context.getString(
                                     R.string.downloader_notifier_content_err_placeholder,
                                     info.reason ?: "-"

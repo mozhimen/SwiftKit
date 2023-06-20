@@ -3,10 +3,11 @@ package com.mozhimen.basick.utilk.log
 import android.util.Log
 import android.view.MotionEvent
 import com.mozhimen.basick.utilk.java.datatype.UtilKCollection
-import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.view.gesture.UtilKGesture
 import com.mozhimen.basick.utilk.java.UtilKThrowable
-import com.mozhimen.basick.utilk.log.cons.CLogType
+import com.mozhimen.basick.elemk.cons.CLogType
+import com.mozhimen.basick.elemk.cons.CParameter
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -16,10 +17,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @Date 2022/11/19 13:53
  * @Version 1.0
  */
-object UtilKLogPro {
-    private const val TAG = "UtilKSmartLog>>>>>"
-    private const val MAX_LOG_MSG_LENGTH = 4000//logcat最大长度为4*1024，此处取4000
-    private const val LOG_LONG = true//超长Log
+object UtilKLogPro : BaseUtilK() {
 
     private val _sLOG = AtomicBoolean(false)
 
@@ -86,15 +84,15 @@ object UtilKLogPro {
     @JvmStatic
     private fun printLog(type: Int, tag: String, vararg content: Any) {
         if (!isOpenLog()) return
-        if (LOG_LONG) {
+        if (CParameter.UTILK_LOG_PRO_SUPPORT_LONG_LOG) {
             try {
                 var logCat = getLogCat(*content)
                 val length = logCat.length.toLong()
-                if (length <= MAX_LOG_MSG_LENGTH) {
+                if (length <= CParameter.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
                     printLog(type, tag, logCat)
                 } else {
-                    while (logCat.length > MAX_LOG_MSG_LENGTH) {
-                        val logContent = logCat.substring(0, MAX_LOG_MSG_LENGTH)
+                    while (logCat.length > CParameter.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
+                        val logContent = logCat.substring(0, CParameter.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH)
                         logCat = logCat.replace(logContent, "")
                         printLog(type, tag, logCat)
                     }

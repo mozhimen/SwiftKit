@@ -9,6 +9,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplicationInfo
 import com.mozhimen.basick.utilk.os.UtilKOSRoot
 import com.mozhimen.basick.utilk.content.UtilKApplication
@@ -17,7 +18,7 @@ import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.componentk.installk.commons.IInstallK
 import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
-import com.mozhimen.componentk.installk.cons.CCons
+import com.mozhimen.componentk.installk.cons.CInstallKCons
 import com.mozhimen.componentk.installk.cons.EInstallMode
 import com.mozhimen.componentk.installk.cons.EPermissionType
 import kotlinx.coroutines.Dispatchers
@@ -40,11 +41,7 @@ import java.io.*
     CPermission.BIND_ACCESSIBILITY_SERVICE,
     CManifest.SERVICE_ACCESSIBILITY
 )
-class InstallK : IInstallK {
-
-    companion object {
-        private const val TAG = "InstallK>>>>>"
-    }
+class InstallK : IInstallK, BaseUtilK() {
 
     private val _context by lazy { UtilKApplication.instance.applicationContext }
 
@@ -56,11 +53,11 @@ class InstallK : IInstallK {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             when (msg.what) {
-                CCons.MSG_DOWNLOAD_START -> _installStateChangeListener?.onDownloadStart()
-                CCons.MSG_INSTALL_START -> _installStateChangeListener?.onInstallStart()
-                CCons.MSG_INSTALL_FINISH -> _installStateChangeListener?.onInstallFinish()
-                CCons.MSG_INSTALL_FAIL -> _installStateChangeListener?.onInstallFail(msg.obj as String)
-                CCons.MSG_NEED_PERMISSION -> _installStateChangeListener?.onNeedPermissions(msg.obj as EPermissionType)
+                CInstallKCons.MSG_DOWNLOAD_START -> _installStateChangeListener?.onDownloadStart()
+                CInstallKCons.MSG_INSTALL_START -> _installStateChangeListener?.onInstallStart()
+                CInstallKCons.MSG_INSTALL_FINISH -> _installStateChangeListener?.onInstallFinish()
+                CInstallKCons.MSG_INSTALL_FAIL -> _installStateChangeListener?.onInstallFail(msg.obj as String)
+                CInstallKCons.MSG_NEED_PERMISSION -> _installStateChangeListener?.onNeedPermissions(msg.obj as EPermissionType)
             }
         }
     }
@@ -111,18 +108,18 @@ class InstallK : IInstallK {
     suspend fun install(apkPathWithName: String) {
         withContext(Dispatchers.Main) {
             try {
-                _handler.sendEmptyMessage(CCons.MSG_INSTALL_START)
+                _handler.sendEmptyMessage(CInstallKCons.MSG_INSTALL_START)
                 installByMode(apkPathWithName)
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.e(TAG, "install: ${e.message}")
                 e.message?.et(TAG)
                 _handler.sendMessage(Message().apply {
-                    what = CCons.MSG_INSTALL_FAIL
+                    what = CInstallKCons.MSG_INSTALL_FAIL
                     obj = e.message ?: ""
                 })
             } finally {
-                _handler.sendEmptyMessage(CCons.MSG_INSTALL_FINISH)
+                _handler.sendEmptyMessage(CInstallKCons.MSG_INSTALL_FINISH)
             }
         }
     }
@@ -131,10 +128,10 @@ class InstallK : IInstallK {
     private fun installByMode(apkPathWithName: String) {
         require(apkPathWithName.isNotEmpty() && apkPathWithName.endsWith(".apk")) { "$TAG $apkPathWithName not a correct apk file path" }
         require(UtilKFile.isFileExist(apkPathWithName)) { "$TAG $apkPathWithName is not exist" }
-        if (!ManifestKPermission.checkPermissions(CCons.PERMISSIONS)) {
+        if (!ManifestKPermission.checkPermissions(CInstallKCons.PERMISSIONS)) {
             Log.w(TAG, "installByMode: onNeedPermissions PERMISSIONS")
             _handler.sendMessage(Message().apply {
-                what = CCons.MSG_NEED_PERMISSION
+                what = CInstallKCons.MSG_NEED_PERMISSION
                 obj = EPermissionType.COMMON
             })
             return
@@ -142,7 +139,7 @@ class InstallK : IInstallK {
         if (UtilKApplicationInfo.getTargetSdkVersion(_context) >= CVersionCode.V_26_8_O && Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable()) {        // 允许安装应用
             Log.w(TAG, "installByMode: onNeedPermissions isAppInstallsPermissionEnable false")
             _handler.sendMessage(Message().apply {
-                what = CCons.MSG_NEED_PERMISSION
+                what = CInstallKCons.MSG_NEED_PERMISSION
                 obj = EPermissionType.INSTALL
             })
             return
@@ -189,7 +186,7 @@ class InstallK : IInstallK {
                 if (!UtilKPermission.hasAccessibility(_smartServiceClazz!!)) {
                     Log.w(TAG, "installByMode: SMART isAccessibilityPermissionEnable false")
                     _handler.sendMessage(Message().apply {
-                        what = CCons.MSG_NEED_PERMISSION
+                        what = CInstallKCons.MSG_NEED_PERMISSION
                         obj = EPermissionType.ACCESSIBILITY
                     })
                     return

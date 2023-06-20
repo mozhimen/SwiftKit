@@ -2,6 +2,8 @@ package com.mozhimen.basick.utilk.os
 
 import android.text.TextUtils
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 
 import java.io.BufferedReader
@@ -19,9 +21,8 @@ import java.lang.StringBuilder
  * @Date 2022/6/13 17:52
  * @Version 1.0
  */
-object UtilKShell {
-    private const val TAG = "UtilKShell>>>>>"
-    private val SHELL_SEP = System.getProperty("line.separator")
+object UtilKShell : BaseUtilK() {
+    private val SHELL_SEP = System.getProperty(CPackage.LINE_SEPARATOR)
 
     /**
      * 执行单条shell命令

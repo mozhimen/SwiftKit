@@ -14,5 +14,5 @@ import com.mozhimen.uicorek.layoutk.commons.ILayoutK
  */
 abstract class BaseLayoutKFrame @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     FrameLayout(context, attrs, defStyleAttr, defStyleRes), ILayoutK {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+    override val TAG = "${this.javaClass.simpleName}>>>>>"
 }

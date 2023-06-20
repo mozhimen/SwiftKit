@@ -5,7 +5,10 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.UtilKLog.dt
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getValue
 
 /**
@@ -19,63 +22,46 @@ class DownloadRecord(
     var destinationUri: String? = null,
     var ignoreLocal: Boolean = false,
     var needInstall: Boolean = false,
-    var notificationVisibility: Int = NOTIFIER_VISIBLE_NOTIFY_COMPLETED,
+    var notificationVisibility: Int = CDownloadConstants.NOTIFIER_VISIBLE_NOTIFY_COMPLETED,
     var notificationTitle: String? = null,
     var notificationContent: String? = null,
     var totalBytes: Long = 0L,
-    var status: Int = STATUS_UNKNOWN
-) {
-
-    companion object {
-        const val TAG = "DownloadRecord>>>>>"
-        const val TABLE_NAME = "t_download"
-        const val COLUMN_ID = "id"
-        const val COLUMN_URL = "url"
-        const val COLUMN_FILENAME = "fileName"
-        const val COLUMN_DESTINATION_URI = "dest_uri"
-        const val COLUMN_IGNORE_LOCAL = "ignore_local"
-        const val COLUMN_NEED_INSTALL = "need_install"
-        const val COLUMN_NOTIFICATION_VISIBILITY = "notifier_visibility"
-        const val COLUMN_NOTIFICATION_TITLE = "notifier_title"
-        const val COLUMN_NOTIFICATION_CONTENT = "notifier_content"
-        const val COLUMN_TOTAL_BYTES = "totalBytes"
-        const val COLUMN_STATUS = "status"
-    }
-
+    var status: Int = CDownloadConstants.STATUS_UNKNOWN
+) : BaseUtilK() {
 
     private fun createFromCursor(cursor: Cursor): DownloadRecord {
         val record = DownloadRecord()
-        cursor.getValue<Long>(COLUMN_ID)?.let {
+        cursor.getValue<Long>(CDownloadParameter.COLUMN_ID)?.let {
             record.id = it
         }
-        cursor.getValue<String>(COLUMN_URL)?.let {
+        cursor.getValue<String>(CDownloadParameter.COLUMN_URL)?.let {
             record.url = it
         }
-        cursor.getValue<String>(COLUMN_FILENAME)?.let {
+        cursor.getValue<String>(CDownloadParameter.COLUMN_FILENAME)?.let {
             record.fileName = it
         }
-        cursor.getValue<String>(COLUMN_DESTINATION_URI)?.let {
+        cursor.getValue<String>(CDownloadParameter.COLUMN_DESTINATION_URI)?.let {
             record.destinationUri = it
         }
-        cursor.getValue<Boolean>(COLUMN_IGNORE_LOCAL)?.let {
+        cursor.getValue<Boolean>(CDownloadParameter.COLUMN_IGNORE_LOCAL)?.let {
             record.ignoreLocal = it
         }
-        cursor.getValue<Boolean>(COLUMN_NEED_INSTALL)?.let {
+        cursor.getValue<Boolean>(CDownloadParameter.COLUMN_NEED_INSTALL)?.let {
             record.needInstall = it
         }
-        cursor.getValue<Int>(COLUMN_NOTIFICATION_VISIBILITY)?.let {
+        cursor.getValue<Int>(CDownloadParameter.COLUMN_NOTIFICATION_VISIBILITY)?.let {
             record.notificationVisibility = it
         }
-        cursor.getValue<String>(COLUMN_NOTIFICATION_TITLE)?.let {
+        cursor.getValue<String>(CDownloadParameter.COLUMN_NOTIFICATION_TITLE)?.let {
             record.notificationTitle = it
         }
-        cursor.getValue<String>(COLUMN_NOTIFICATION_CONTENT)?.let {
+        cursor.getValue<String>(CDownloadParameter.COLUMN_NOTIFICATION_CONTENT)?.let {
             record.notificationContent = it
         }
-        cursor.getValue<Long>(COLUMN_TOTAL_BYTES)?.let {
+        cursor.getValue<Long>(CDownloadParameter.COLUMN_TOTAL_BYTES)?.let {
             record.totalBytes = it
         }
-        cursor.getValue<Int>(COLUMN_STATUS)?.let {
+        cursor.getValue<Int>(CDownloadParameter.COLUMN_STATUS)?.let {
             record.status = it
         }
         return record
@@ -91,21 +77,21 @@ class DownloadRecord(
                 return this
             }
             db.query(
-                TABLE_NAME,
+                CDownloadParameter.TABLE_NAME,
                 arrayOf(
-                    COLUMN_ID,
-                    COLUMN_URL,
-                    COLUMN_FILENAME,
-                    COLUMN_DESTINATION_URI,
-                    COLUMN_IGNORE_LOCAL,
-                    COLUMN_NEED_INSTALL,
-                    COLUMN_NOTIFICATION_VISIBILITY,
-                    COLUMN_NOTIFICATION_TITLE,
-                    COLUMN_NOTIFICATION_CONTENT,
-                    COLUMN_TOTAL_BYTES,
-                    COLUMN_STATUS
+                    CDownloadParameter.COLUMN_ID,
+                    CDownloadParameter.COLUMN_URL,
+                    CDownloadParameter.COLUMN_FILENAME,
+                    CDownloadParameter.COLUMN_DESTINATION_URI,
+                    CDownloadParameter.COLUMN_IGNORE_LOCAL,
+                    CDownloadParameter.COLUMN_NEED_INSTALL,
+                    CDownloadParameter.COLUMN_NOTIFICATION_VISIBILITY,
+                    CDownloadParameter.COLUMN_NOTIFICATION_TITLE,
+                    CDownloadParameter.COLUMN_NOTIFICATION_CONTENT,
+                    CDownloadParameter.COLUMN_TOTAL_BYTES,
+                    CDownloadParameter.COLUMN_STATUS
                 ),
-                " $COLUMN_URL=? ",
+                " ${CDownloadParameter.COLUMN_URL}=? ",
                 arrayOf(url), null, null, null
             )?.use { cursor ->
                 while (cursor.moveToNext()) {
@@ -118,16 +104,16 @@ class DownloadRecord(
 
     private fun toContentValues(): ContentValues {
         return ContentValues().apply {
-            put(COLUMN_URL, url)
-            put(COLUMN_FILENAME, fileName)
-            put(COLUMN_DESTINATION_URI, destinationUri)
-            put(COLUMN_IGNORE_LOCAL, if (ignoreLocal) 1 else 0)
-            put(COLUMN_NEED_INSTALL, if (needInstall) 1 else 0)
-            put(COLUMN_NOTIFICATION_VISIBILITY, notificationVisibility)
-            put(COLUMN_NOTIFICATION_TITLE, notificationTitle)
-            put(COLUMN_NOTIFICATION_CONTENT, notificationContent)
-            put(COLUMN_TOTAL_BYTES, totalBytes)
-            put(COLUMN_STATUS, status)
+            put(CDownloadParameter.COLUMN_URL, url)
+            put(CDownloadParameter.COLUMN_FILENAME, fileName)
+            put(CDownloadParameter.COLUMN_DESTINATION_URI, destinationUri)
+            put(CDownloadParameter.COLUMN_IGNORE_LOCAL, if (ignoreLocal) 1 else 0)
+            put(CDownloadParameter.COLUMN_NEED_INSTALL, if (needInstall) 1 else 0)
+            put(CDownloadParameter.COLUMN_NOTIFICATION_VISIBILITY, notificationVisibility)
+            put(CDownloadParameter.COLUMN_NOTIFICATION_TITLE, notificationTitle)
+            put(CDownloadParameter.COLUMN_NOTIFICATION_CONTENT, notificationContent)
+            put(CDownloadParameter.COLUMN_TOTAL_BYTES, totalBytes)
+            put(CDownloadParameter.COLUMN_STATUS, status)
         }
     }
 
@@ -137,7 +123,7 @@ class DownloadRecord(
     fun insert(context: Context): Long {
         val rowId = try {
             val db = DBManager.getDB(context).writableDatabase
-            db.insert(TABLE_NAME, null, toContentValues())
+            db.insert(CDownloadParameter.TABLE_NAME, null, toContentValues())
         } catch (e: SQLiteException) {
             e.printStackTrace()
             -1
@@ -157,9 +143,9 @@ class DownloadRecord(
         val result = try {
             val db = DBManager.getDB(context).writableDatabase
             db.update(
-                TABLE_NAME,
+                CDownloadParameter.TABLE_NAME,
                 toContentValues(),
-                " $COLUMN_ID=? ",
+                " ${CDownloadParameter.COLUMN_ID}=? ",
                 arrayOf(id.toString())
             )
         } catch (e: SQLiteException) {
@@ -167,9 +153,9 @@ class DownloadRecord(
             -1
         }
         if (result > 0) {
-            dt(TAG,"record update success $this")
+            dt(TAG, "record update success $this")
         } else {
-            dt(TAG,"record update failed $result $this")
+            dt(TAG, "record update failed $result $this")
         }
         return result
     }
@@ -180,7 +166,7 @@ class DownloadRecord(
     fun delete(context: Context): Int {
         val rows = try {
             val db = DBManager.getDB(context).writableDatabase
-            db.delete(TABLE_NAME, "$COLUMN_ID=?", arrayOf(id.toString()))
+            db.delete(CDownloadParameter.TABLE_NAME, "${CDownloadParameter.COLUMN_ID}=?", arrayOf(id.toString()))
         } catch (e: SQLiteException) {
             e.printStackTrace()
             -1

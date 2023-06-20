@@ -29,6 +29,7 @@ interface IBtnKPwdVisible {
 
 class BtnKPwdVisible @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatImageButton(context, attrs, defStyleAttr), View.OnClickListener,
     IUicoreK, IBtnKPwdVisible {
+    override val TAG: String = "BtnKPwdVisible>>>>>"
     private var _isShow = false
     private var _pwdTextEdit: EditText? = null
 

@@ -14,7 +14,7 @@ import com.mozhimen.uicorek.viewk.commons.IViewK
  */
 abstract class BaseViewK @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : View(context, attrs, defStyleAttr, defStyleRes),
     IViewK {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+    override val TAG = "${this.javaClass.simpleName}>>>>>"
 
     var centerX = 0f
     var centerY = 0f

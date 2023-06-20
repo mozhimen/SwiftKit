@@ -11,6 +11,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import coil.util.CoilUtils
+import com.mozhimen.basick.imagek.coil.cons.CCoilBlur
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -40,8 +41,8 @@ fun ImageView.loadImageComplex(
 fun ImageView.loadImageBlur(
     res: Any, placeholder: Int,
     crossFadeEnable: Boolean = true, crossFadeTime: Int = 1500,
-    @FloatRange(from = 0.0, to = 25.0) radius: Float = BlurTransformation.DEFAULT_RADIUS,
-    @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = BlurTransformation.DEFAULT_SAMPLING
+    @FloatRange(from = 0.0, to = 25.0) radius: Float = CCoilBlur.RADIUS,
+    @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CCoilBlur.SAMPLING
 ) {
     ImageKLoader.loadImageBlur(this, res, placeholder, crossFadeEnable, crossFadeTime, radius, sampling)
 }
@@ -123,8 +124,8 @@ object ImageKLoader {
     fun loadImageBlur(
         imageView: ImageView, res: Any, placeholder: Int,
         crossFadeEnable: Boolean = true, crossFadeTime: Int = 1500,
-        @FloatRange(from = 0.0, to = 25.0) radius: Float = BlurTransformation.DEFAULT_RADIUS,
-        @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = BlurTransformation.DEFAULT_SAMPLING
+        @FloatRange(from = 0.0, to = 25.0) radius: Float = CCoilBlur.RADIUS,
+        @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CCoilBlur.SAMPLING
     ) {
         imageView.load(res) {
             crossfade(crossFadeEnable)

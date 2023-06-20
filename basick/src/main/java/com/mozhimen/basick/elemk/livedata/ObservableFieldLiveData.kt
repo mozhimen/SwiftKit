@@ -16,12 +16,7 @@ import androidx.lifecycle.Observer
  */
 class ObservableFieldLiveData<T>() : ObservableField<T>() {
     private var _mutableLiveData: MutableLiveData<T>? = null
-
-    companion object {
-        const val START_VERSION = -1
-    }
-
-    private var _version = START_VERSION
+    private var _version = -1
 
     /**
      * Wraps the given object and creates an observable object
@@ -76,7 +71,7 @@ class ObservableFieldLiveData<T>() : ObservableField<T>() {
     private fun activeMutableLiveData() {
         if (_mutableLiveData == null) {
             _mutableLiveData = MutableLiveData()
-            if (_version > START_VERSION) {
+            if (_version > -1) {
                 _mutableLiveData!!.value = get()
             }
         }

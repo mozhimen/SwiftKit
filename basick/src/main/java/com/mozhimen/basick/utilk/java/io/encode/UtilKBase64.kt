@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.util.Base64
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
@@ -16,8 +17,7 @@ import java.io.IOException
  * @Date 2023/2/26 19:56
  * @Version 1.0
  */
-object UtilKBase64 {
-    private const val TAG = "UtilKBase64>>>>>"
+object UtilKBase64 : BaseUtilK() {
 
     @JvmStatic
     fun str2BitmapDrawable(base64drawableStr: String): BitmapDrawable {

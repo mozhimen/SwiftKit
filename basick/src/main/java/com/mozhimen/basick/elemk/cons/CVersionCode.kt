@@ -39,6 +39,7 @@ object CVersionCode {
     const val V_28_9_P = 28//P
     const val V_29_10_Q = 29//Q
     const val V_30_11_R = 30//R
-    const val V_31_NULL_S2 = 31//S_V2
-    const val V_33_NULL_T = 33//TIRAMISU
+    const val V_31_11_S = 31//S
+    const val V_32_11_S_V2 = 31//S
+    const val V_33_11_TIRAMISU = 33//TIRAMISU
 }

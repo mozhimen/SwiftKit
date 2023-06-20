@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.device
 
+import com.mozhimen.basick.elemk.cons.CCmd
 import com.mozhimen.basick.utilk.os.UtilKShell
 
 
@@ -11,15 +12,13 @@ import com.mozhimen.basick.utilk.os.UtilKShell
  * @Version 1.0
  */
 object UtilKFillLight {
-    private const val CMD_FILL_LIGHT_OPEN = "echo 255 > /sys/devices/platform/pwm-leds/leds/rgb:leds/brightness"
-    private const val CMD_FILL_LIGHT_CLOSE = "echo 0 > /sys/devices/platform/pwm-leds/leds/rgb:leds/brightness"
 
     /**
      * 开补光灯
      */
     @JvmStatic
     fun openFillLight() {
-        UtilKShell.execCmd(CMD_FILL_LIGHT_OPEN)
+        UtilKShell.execCmd(CCmd.FILL_LIGHT_OPEN)
     }
 
     /**
@@ -27,6 +26,6 @@ object UtilKFillLight {
      */
     @JvmStatic
     fun closeFillLight() {
-        UtilKShell.execCmd(CMD_FILL_LIGHT_CLOSE)
+        UtilKShell.execCmd(CCmd.FILL_LIGHT_CLOSE)
     }
 }

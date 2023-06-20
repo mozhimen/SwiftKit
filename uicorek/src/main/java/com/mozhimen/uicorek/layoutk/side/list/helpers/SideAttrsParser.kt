@@ -35,7 +35,7 @@ internal object SideAttrsParser : IAttrsParser<MSideAttrs> {
 
     private val CONTENT_TEXT_SIZE = 15f.sp2px().toInt()
     private val CONTENT_TEXT_COLOR = UtilKRes.getColor(R.color.ui_blue_650)
-    private const val CONTENT_IMG_RATIO = 1f
+    private val CONTENT_IMG_RATIO = 1f
 
     override fun parseAttrs(context: Context, attrs: AttributeSet?): MSideAttrs {
         attrs?.let {

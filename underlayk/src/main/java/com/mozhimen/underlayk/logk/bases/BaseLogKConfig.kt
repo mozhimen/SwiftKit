@@ -13,12 +13,6 @@ import com.mozhimen.underlayk.logk.temps.formatter.LogKFormatterThread
  * @Version 1.0
  */
 open class BaseLogKConfig {
-    companion object {
-        const val MAX_LEN = 512
-        var formatterThread: LogKFormatterThread = LogKFormatterThread()
-        var formatterStackTrace: LogKFormatterStackTrace = LogKFormatterStackTrace()
-    }
-
     open fun injectJsonParser(): IJsonParser? {
         return object : IJsonParser {
             override fun toJson(src: Any): String {

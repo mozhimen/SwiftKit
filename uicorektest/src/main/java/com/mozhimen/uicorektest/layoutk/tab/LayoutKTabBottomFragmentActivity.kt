@@ -22,18 +22,10 @@ import com.mozhimen.uicorektest.layoutk.tab.fragments.MoreFragment
  */
 class LayoutKTabBottomFragmentActivity : BaseActivityVB<ActivityLayoutkTabBottomFragmentBinding>() {
 
-    companion object {
-        private const val SAVED_CURRENT_ID = "SAVED_CURRENT_ID"
-    }
-
     private var _infoList = ArrayList<MTabBottom>()
     private var _currentItemIndex = 0
 
     override fun initView(savedInstanceState: Bundle?) {
-        savedInstanceState?.let {
-            _currentItemIndex = savedInstanceState.getInt(SAVED_CURRENT_ID)
-        }
-
         initTabBottom()
     }
 
@@ -79,10 +71,5 @@ class LayoutKTabBottomFragmentActivity : BaseActivityVB<ActivityLayoutkTabBottom
         })
         vb.layoutkTabBottomFragmentContainer.defaultSelected(_infoList[_currentItemIndex])
         vb.layoutkTabBottomFragmentContainer.findTabItem(_infoList[1])?.resetTabHeight(66f.dp2px().toInt()) //改变某个Tab的高度
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(SAVED_CURRENT_ID, _currentItemIndex)
-        super.onSaveInstanceState(outState)
     }
 }

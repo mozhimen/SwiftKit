@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.view.bar
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.graphics.Point
@@ -11,10 +12,12 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity.getActivityByContext
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity.isDestroyed
 import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.view.window.UtilKDecorView
 import com.mozhimen.basick.utilk.view.window.UtilKWindow
 import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 import java.util.*
@@ -28,11 +31,18 @@ import java.util.*
  */
 object UtilKNavigationBar {
     private val TAG = "UtilKNavBar>>>>>"
-    private val NAVIGATION_BAR_NAMES: HashMap<String, Void?> by lazy { hashMapOf(
-        "navigationbarbackground" to null,
-        "immersion_navigation_bar_view" to null
-    ) }
+    private val NAVIGATION_BAR_NAMES: HashMap<String, Void?> by lazy {
+        hashMapOf(
+            "navigationbarbackground" to null,
+            "immersion_navigation_bar_view" to null
+        )
+    }
 
+    @JvmStatic
+    fun isNavigationBarVisible(activity: Activity): Boolean {
+        val windowSystemUiVisibility = UtilKDecorView.getWindowSystemUiVisibility(activity)
+        return windowSystemUiVisibility and CView.FLAG_HIDE_NAVIGATION == 0 && windowSystemUiVisibility and CView.FLAG_LAYOUT_HIDE_NAVIGATION == 0
+    }
 
     @JvmStatic
     fun appendNavigationBarID(id: String) {
@@ -47,7 +57,7 @@ object UtilKNavigationBar {
     fun getNavigationBarBounds(rect: Rect, context: Context) {
         val activity = getActivityByContext(context, true)
         if (activity == null || isDestroyed(activity)) return
-        val decorView = UtilKWindow.getDecorView(activity) as ViewGroup
+        val decorView = UtilKDecorView.get(activity) as ViewGroup
         val childCount = decorView.childCount
         for (i in childCount - 1 downTo 0) {
             val child = decorView.getChildAt(i)
@@ -83,12 +93,11 @@ object UtilKNavigationBar {
      * Return the navigation bar's height.
      * @return Int
      */
+    @SuppressLint("DiscouragedApi", "InternalInsetResource")
     @JvmStatic
     fun getNavigationBarHeight(): Int {
         val dimensionId = UtilKRes.getSystemResources().getIdentifier("navigation_bar_height", "dimen", "android")
-        return if (dimensionId != 0) {
-            UtilKRes.getDimensionPixelSize(dimensionId, UtilKRes.getSystemResources())
-        } else 0
+        return if (dimensionId != 0) UtilKRes.getDimensionPixelSize(dimensionId, UtilKRes.getSystemResources()) else 0
     }
 
     /**
@@ -102,10 +111,10 @@ object UtilKNavigationBar {
         if (activity != null) {
             val display = UtilKWindowManager.getDefaultDisplay(activity)
             val size = Point()
-            display.getSize(size)
+            UtilKWindowManager.getSize(activity, size)
             val usableHeight = size.y
             if (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1) {
-                display.getRealSize(size) // getRealMetrics is only available with API 17 and +
+                UtilKWindowManager.getRealSize(activity, size) // getRealMetrics is only available with API 17 and +
             } else {
                 try {
                     size.x = (Display::class.java.getMethod("getRawWidth").invoke(display) as Int)

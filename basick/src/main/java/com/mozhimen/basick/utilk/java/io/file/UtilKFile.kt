@@ -4,7 +4,10 @@ import android.os.FileUtils
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.cons.CDateFormat
+import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.os.UtilKDate
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.io.hash.UtilKMD5
@@ -20,11 +23,7 @@ import java.util.Locale
  * @Date 2022/2/22 11:59
  * @Version 1.0
  */
-object UtilKFile {
-
-    private const val TAG = "UtilKFile>>>>>"
-    const val MSG_NOT_EXIST = "fail, make sure it's file or exist"
-    const val MSG_WRONG = "something wrong"
+object UtilKFile : BaseUtilK() {
 
     //region # file
     /**
@@ -34,7 +33,7 @@ object UtilKFile {
      */
     @JvmStatic
     fun currentHourStr2FileName(locale: Locale = Locale.CHINA) =
-        dateStr2FileName(UtilKDate.Format.yyyyMMddHH, locale)
+        dateStr2FileName(CDateFormat.yyyyMMddHH, locale)
 
     /**
      * 当前时间转文件名
@@ -52,7 +51,7 @@ object UtilKFile {
      * @return String
      */
     @JvmStatic
-    fun dateStr2FileName(formatDate: String = UtilKDate.Format.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
+    fun dateStr2FileName(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
         return UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
     }
 
@@ -170,7 +169,7 @@ object UtilKFile {
         } finally {
             randomAccessFile.close()
         }
-        return MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**
@@ -194,7 +193,7 @@ object UtilKFile {
             fileOutputStream.flush()
             fileOutputStream.close()
         }
-        return MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**
@@ -213,7 +212,7 @@ object UtilKFile {
      */
     @JvmStatic
     fun file2Str(file: File): String {
-        if (!isFileExist(file)) return MSG_NOT_EXIST
+        if (!isFileExist(file)) return CMsg.NOT_EXIST
         val fileInputStream = FileInputStream(file)
         try {
             return inputStream2Str(fileInputStream).replace("\\n".toRegex(), "\n")
@@ -223,7 +222,7 @@ object UtilKFile {
         } finally {
             fileInputStream.close()
         }
-        return MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**
@@ -249,7 +248,7 @@ object UtilKFile {
             bufferedReader.close()
             inputStreamReader.close()
         }
-        return MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**
@@ -381,7 +380,7 @@ object UtilKFile {
             fileOutputStream.flush()
             fileOutputStream.close()
         }
-        return MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**
@@ -434,7 +433,7 @@ object UtilKFile {
             e.printStackTrace()
             e.message?.et(TAG)
         }
-        return MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**

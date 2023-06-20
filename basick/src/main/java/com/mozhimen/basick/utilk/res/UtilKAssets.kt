@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.CMsg
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.log.et
@@ -18,10 +20,7 @@ import java.io.*
  * @Date 2022/4/15 3:52
  * @Version 1.0
  */
-object UtilKAssets {
-    private const val TAG = "UtilKAssets>>>>>"
-    private const val MSG_NOT_EXIST = "fail, make sure it's file or exist"
-    private const val MSG_WRONG = "something wrong"
+object UtilKAssets : BaseUtilK() {
 
     @JvmStatic
     fun openFd(filePathWithName: String): AssetFileDescriptor =
@@ -77,7 +76,7 @@ object UtilKAssets {
      */
     @JvmStatic
     fun asset2Str(assetName: String): String {
-        if (!isAssetExists(assetName)) return MSG_NOT_EXIST
+        if (!isAssetExists(assetName)) return CMsg.NOT_EXIST
         val inputStream = getAssets().open(assetName)
         try {
             return UtilKFile.inputStream2Str(inputStream).replace("\\n".toRegex(), "\n")
@@ -87,7 +86,7 @@ object UtilKAssets {
         } finally {
             inputStream.close()
         }
-        return MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**
@@ -98,7 +97,7 @@ object UtilKAssets {
      */
     @JvmStatic
     fun asset2Str2(assetName: String): String {
-        if (!isAssetExists(assetName)) return MSG_NOT_EXIST
+        if (!isAssetExists(assetName)) return CMsg.NOT_EXIST
         val inputStream = getAssets().open(assetName)
         try {
             val data = ByteArray(inputStream.available())
@@ -110,7 +109,7 @@ object UtilKAssets {
         } finally {
             inputStream.close()
         }
-        return MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**
@@ -120,7 +119,7 @@ object UtilKAssets {
      */
     @JvmStatic
     fun asset2Str3(assetName: String): String {
-        if (!isAssetExists(assetName)) return MSG_NOT_EXIST
+        if (!isAssetExists(assetName)) return CMsg.NOT_EXIST
         val inputStream = getAssets().open(assetName)
         val stringBuilder = StringBuilder()
         try {
@@ -136,7 +135,7 @@ object UtilKAssets {
         } finally {
             inputStream.close()
         }
-        return MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**

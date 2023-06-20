@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 
 
@@ -17,13 +18,12 @@ import com.mozhimen.basick.utilk.log.et
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-object UtilKDialog {
-    private val TAG = "UtilKDialog>>>>>"
+object UtilKDialog : BaseUtilK() {
 
     /**
      * 关闭Android9.0弹出框（Detected problems with API compatibility）
      */
-    @SuppressLint("PrivateApi")
+    @SuppressLint("PrivateApi", "DiscouragedPrivateApi", "SoonBlockedPrivateApi")
     @RequiresApi(CVersionCode.V_28_9_P)
     @JvmStatic
     fun closeDialogAtP() {
@@ -40,7 +40,6 @@ object UtilKDialog {
             hiddenApiWarningShown.isAccessible = true
             hiddenApiWarningShown.setBoolean(activityThread, true)
         } catch (e: Exception) {
-            Log.e(TAG, "closeDialogAtP Exception ${e.message}")
             e.printStackTrace()
             e.message?.et(TAG)
         }

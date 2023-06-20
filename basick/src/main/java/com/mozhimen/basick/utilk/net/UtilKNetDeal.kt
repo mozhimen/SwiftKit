@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.net
 
 import android.annotation.SuppressLint
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
@@ -15,10 +16,9 @@ import javax.net.ssl.X509TrustManager
  * @Date 2023/1/7 23:42
  * @Version 1.0
  */
-object UtilKNetDeal {
-    private const val TAG = "UtilKNetDeal>>>>>"
-//    private const val UTILKNET_SP_NAME = "utilknet_sp_name"
-//    private const val UTILKNET_SP_DEGRADE_HTTP = "utilknet_sp_degrade_http"
+object UtilKNetDeal : BaseUtilK() {
+//    private val UTILKNET_SP_NAME = "utilknet_sp_name"
+//    private val UTILKNET_SP_DEGRADE_HTTP = "utilknet_sp_degrade_http"
 
     /**
      * 获取SSL

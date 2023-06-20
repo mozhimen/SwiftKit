@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
@@ -41,10 +42,7 @@ import kotlin.properties.Delegates
  * @Date 2022/1/3 1:17
  * @Version 1.0
  */
-class CameraXKProxy(private val _context: Context) : ICameraXKAction {
-    companion object {
-        private const val TAG = "CameraXKProxy>>>>>"
-    }
+class CameraXKProxy(private val _context: Context) : ICameraXKAction, BaseUtilK() {
 
     private var _cameraXKListener: ICameraXKListener? = null
     private var _cameraXKCaptureListener: ICameraXKCaptureListener? = null
@@ -101,10 +99,12 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                     _captureBitmap = ImageConverter.yuv420888Image2JpegBitmap(image)
                     Log.d(TAG, "onCaptureSuccess: YUV_420_888")
                 }
+
                 ImageFormat.JPEG -> {
                     _captureBitmap = ImageConverter.jpegImage2JpegBitmap(image)
                     Log.d(TAG, "onCaptureSuccess: JPEG")
                 }
+
                 ImageFormat.FLEX_RGBA_8888 -> {
                     _captureBitmap = ImageConverter.rgba8888Image2Rgba8888Bitmap(image)
                     Log.d(TAG, "onCaptureSuccess: FLEX_RGBA_8888")
@@ -252,9 +252,11 @@ class CameraXKProxy(private val _context: Context) : ICameraXKAction {
                 ECameraXKTimer.S3 -> for (i in 3 downTo 1) {
                     delay(1000)
                 }
+
                 ECameraXKTimer.S10 -> for (i in 10 downTo 1) {
                     delay(1000)
                 }
+
                 else -> {
                 }
             }

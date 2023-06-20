@@ -20,9 +20,8 @@ import com.mozhimen.uicorek.layoutk.navbar.mos.MNavBarAttrs
  * @Version 1.0
  */
 internal object AttrsParser : IAttrsParser2<MNavBarAttrs> {
-    private const val TITLE_TEXT = "请填写你的标题"
     private val TITLE_TEXT_SIZE = 17f.sp2px().toInt()
-    private const val TITLE_TEXT_COLOR = Color.BLACK
+    private val TITLE_TEXT_COLOR = Color.BLACK
     private val SUBTITLE_TEXT_SIZE = 14f.sp2px().toInt()
     private val SUBTITLE_TEXT_COLOR = UtilKRes.getColor(R.color.ui_gray_350)
     private val SUBTITLE_TEXT_MARGIN_TOP = 1f.dp2px().toInt()
@@ -36,7 +35,7 @@ internal object AttrsParser : IAttrsParser2<MNavBarAttrs> {
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKNavBar, defStyleAttr, defStyleRes)
         val titleStr =
-            typedArray.getString(R.styleable.LayoutKNavBar_layoutKNavBar_title) ?: TITLE_TEXT//标题
+            typedArray.getString(R.styleable.LayoutKNavBar_layoutKNavBar_title) ?: "请填写你的标题"//标题
         val titleTextColor =
             typedArray.getColor(R.styleable.LayoutKNavBar_layoutKNavBar_title_textColor, TITLE_TEXT_COLOR)
         val titleTextSize =

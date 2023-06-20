@@ -11,6 +11,7 @@ import android.util.Base64
 import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
+import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.content.UtilKApplication
@@ -180,7 +181,7 @@ object UtilKBitmapFormat : BaseUtilK() {
             byteArrayOutputStream?.flush()
             byteArrayOutputStream?.close()
         }
-        return UtilKFile.MSG_WRONG
+        return CMsg.WRONG
     }
 
     /**

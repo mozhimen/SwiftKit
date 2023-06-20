@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.java.datatype
 
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
 
 /**
@@ -9,8 +10,7 @@ import com.mozhimen.basick.utilk.log.et
  * @Date 2022/5/11 18:32
  * @Version 1.0
  */
-object UtilKDataType {
-    private const val TAG = "UtilKDataType>>>>>"
+object UtilKDataType : BaseUtilK() {
 
     /**
      * 泛型是否为空

@@ -9,7 +9,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
  * @Date 2023/1/9 14:45
  * @Version 1.0
  */
-object CCons {
+object CInstallKCons {
     val PERMISSIONS = arrayOf(
         CPermission.INTERNET,
         CPermission.READ_EXTERNAL_STORAGE,

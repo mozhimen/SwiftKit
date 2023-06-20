@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.log.cons
+package com.mozhimen.basick.elemk.cons
 
 import android.util.Log
 

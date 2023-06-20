@@ -1,6 +1,7 @@
 package com.mozhimen.componentk.netk.file.download
 
 import android.content.Intent
+import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
 
 abstract class Downloader(internal val request: DownloadRequest) {
 
@@ -20,7 +21,7 @@ abstract class Downloader(internal val request: DownloadRequest) {
         DownloaderManager.addIfAbsent(this)
         val intent = Intent("${request.context.packageName}.DownloadService")
         intent.setPackage(request.context.packageName)
-        intent.putExtra(DownloadService.EXTRA_URL, request.url)
+        intent.putExtra(CDownloadParameter.EXTRA_URL, request.url)
         request.context.startService(intent)
     }
 

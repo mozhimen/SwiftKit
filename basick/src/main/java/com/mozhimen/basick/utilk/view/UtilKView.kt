@@ -115,6 +115,11 @@ fun View.setOnGlobalLayoutObserver(callback: () -> Unit) {
 
 object UtilKView : BaseUtilK() {
 
+    @JvmStatic
+    fun getWindowVisibleDisplayFrame(view: View, rect: Rect) {
+        view.getWindowVisibleDisplayFrame(rect)
+    }
+
     /**
      * 显示占比
      * @param view View

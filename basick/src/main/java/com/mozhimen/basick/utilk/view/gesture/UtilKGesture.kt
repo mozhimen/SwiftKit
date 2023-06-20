@@ -12,8 +12,6 @@ import com.mozhimen.basick.utilk.math.UtilKPoint
  */
 object UtilKGesture {
 
-    private const val TAG = "UtilKGesture>>>>>"
-
     /**
      * 计算手指间间距
      * @param event MotionEvent

@@ -1,8 +1,6 @@
 package com.mozhimen.basick.elemk.handler.bases
 
-import android.os.Handler
 import android.os.Looper
-import java.lang.ref.WeakReference
 
 /**
  * @ClassName UtilKHandler

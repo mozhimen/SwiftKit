@@ -46,10 +46,8 @@ class LayoutKSearch @JvmOverloads constructor(context: Context, attrs: Attribute
     private val _weakRefHandler by lazy { BaseWeakClazzMainHandler(this) }
 
     companion object {
-        const val LEFT = 1
-        const val CENTER = 0
-
-        const val DEBOUNCE_TRIGGER_DURATION = 200L
+        const val GRAVITY_LEFT = 1
+        const val GRAVITY_CENTER = 0
     }
 
     init {
@@ -120,7 +118,7 @@ class LayoutKSearch @JvmOverloads constructor(context: Context, attrs: Attribute
                 changeVisibility(_searchIconHintContainer, !hasContent)
                 if (_searchTextWatcher != null) {
                     _weakRefHandler.removeCallbacks(_debounceRunnable)
-                    _weakRefHandler.postDelayed(_debounceRunnable, DEBOUNCE_TRIGGER_DURATION)
+                    _weakRefHandler.postDelayed(_debounceRunnable, 200L)
                 }
             }
         })
@@ -154,8 +152,8 @@ class LayoutKSearch @JvmOverloads constructor(context: Context, attrs: Attribute
         val layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
         layoutParams.addRule(CENTER_VERTICAL)
         when (_attrs.hintGravity) {
-            CENTER -> layoutParams.addRule(CENTER_IN_PARENT)
-            LEFT -> layoutParams.addRule(ALIGN_PARENT_LEFT)
+            GRAVITY_CENTER -> layoutParams.addRule(CENTER_IN_PARENT)
+            GRAVITY_LEFT -> layoutParams.addRule(ALIGN_PARENT_LEFT)
             else -> throw IllegalStateException("not support this gravity")
         }
         addView(_searchIconHintContainer, layoutParams)

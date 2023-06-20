@@ -3,6 +3,7 @@ package com.mozhimen.abilityk.transk
 import android.opengl.ETC1
 import android.opengl.ETC1Util.ETC1Texture
 import android.util.Log
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.res.UtilKAssets
@@ -21,15 +22,11 @@ import java.util.zip.ZipInputStream
  * @Date 2022/6/28 23:26
  * @Version 1.0
  */
-class TransKPKM {
+class TransKPKM : BaseUtilK() {
     private var _path: String? = null
     private var _zipInputStream: ZipInputStream? = null
     private var _zipEntry: ZipEntry? = null
     private var _headerBuffer: ByteBuffer? = null
-
-    companion object {
-        private const val TAG = "ZipKPkmReader>>>>>"
-    }
 
     fun setZipPath(path: String) {
         this._path = path

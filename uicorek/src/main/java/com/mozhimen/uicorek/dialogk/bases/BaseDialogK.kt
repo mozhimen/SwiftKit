@@ -6,12 +6,13 @@ import android.view.*
 import androidx.activity.ComponentDialog
 import androidx.annotation.StyleRes
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.elemk.cons.CWinMgrLP
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.os.thread.UtilKThread
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.dialogk.bases.annors.DialogMode
+import com.mozhimen.uicorek.dialogk.bases.annors.ADialogMode
 import com.mozhimen.uicorek.dialogk.bases.commons.IBaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +32,7 @@ abstract class BaseDialogK<T : IDialogKClickListener> @JvmOverloads constructor(
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     private var _isHasSetWindowAttr = false
-    private var _dialogMode = DialogMode.BOTH
+    private var _dialogMode = ADialogMode.BOTH
     private var _dialogView: View? = null
     private var _dialogClickListener: T? = null
 
@@ -39,7 +40,7 @@ abstract class BaseDialogK<T : IDialogKClickListener> @JvmOverloads constructor(
         return _dialogClickListener
     }
 
-    @DialogMode
+    @ADialogMode
     override fun getDialogMode(): Int {
         return _dialogMode
     }
@@ -49,11 +50,11 @@ abstract class BaseDialogK<T : IDialogKClickListener> @JvmOverloads constructor(
         return this
     }
 
-    override fun setDialogMode(@DialogMode mode: Int): BaseDialogK<*> {
+    override fun setDialogMode(@ADialogMode mode: Int): BaseDialogK<*> {
         return setDialogMode(mode, true)
     }
 
-    override fun setDialogMode(@DialogMode mode: Int, callModeChange: Boolean): BaseDialogK<*> {
+    override fun setDialogMode(@ADialogMode mode: Int, callModeChange: Boolean): BaseDialogK<*> {
         val hasChange = this._dialogMode != mode
         this._dialogMode = mode
         if (hasChange && callModeChange) {
@@ -89,7 +90,7 @@ abstract class BaseDialogK<T : IDialogKClickListener> @JvmOverloads constructor(
     override fun showInSystemWindow() {
         try {
             val window = window ?: return
-            window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
+            window.setType(CWinMgrLP.TYPE_SYSTEM_ALERT)
             show()
         } catch (e: Exception) {
             e.printStackTrace()

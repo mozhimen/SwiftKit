@@ -3,6 +3,7 @@ package com.mozhimen.componentk.mediak.audio.helpers
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.componentk.mediak.audio.commons.IMediaKAudio
 import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
@@ -22,11 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @Date 2022/10/31 15:19
  * @Version 1.0
  */
-internal class MediaKAudioProxy(private val _owner: LifecycleOwner) : IMediaKAudio {
-
-    companion object {
-        private const val TAG = "AudioKProxy>>>>>"
-    }
+internal class MediaKAudioProxy(private val _owner: LifecycleOwner) : IMediaKAudio, BaseUtilK() {
 
     private val _customAudioPlayer by lazy { CustomAudioPlayer(_owner) }
 

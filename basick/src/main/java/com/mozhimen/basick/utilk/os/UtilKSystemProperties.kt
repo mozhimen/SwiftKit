@@ -3,7 +3,9 @@ package com.mozhimen.basick.utilk.os
 import android.annotation.SuppressLint
 import android.os.Build
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 import java.lang.reflect.Method
 
@@ -14,14 +16,7 @@ import java.lang.reflect.Method
  * @Date 2022/2/22 12:31
  * @Version 1.0
  */
-object UtilKSystemProperties {
-    private val TAG = "UtilKCmd>>>>>"
-    private const val PATH_SYSTEM_PROPERTIES = "android.os.SystemProperties"
-    private const val RO_ROM_VERSION = "ro.product.rom.version"
-    private const val RO_HW_VERSION = "ro.product.hw.version"
-    private const val RO_SERIAL_NO = "ro.serialno"
-
-    private const val NO_DEFINED = "unknown"
+object UtilKSystemProperties : BaseUtilK() {
 
     /**
      * 设备Rom版本
@@ -29,7 +24,7 @@ object UtilKSystemProperties {
      */
     @JvmStatic
     fun getRomVersion(): String =
-        getSystemProperties(RO_ROM_VERSION, NO_DEFINED)
+        getSystemProperties(CPackage.RO_PRODUCT_ROM_VERSION, CPackage.UNKNOWN)
 
     /**
      * 设备硬件版本
@@ -37,19 +32,20 @@ object UtilKSystemProperties {
      */
     @JvmStatic
     fun getHardwareVersion(): String =
-        getSystemProperties(RO_HW_VERSION, NO_DEFINED)
+        getSystemProperties(CPackage.RO_PRODUCT_HW_VERSION, CPackage.UNKNOWN)
 
     /**
      * 序列号
      * @return String
      */
+    @SuppressLint("HardwareIds")
     @JvmStatic
     fun getSerialNumber(): String = if (Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q) {
-        NO_DEFINED
+        CPackage.UNKNOWN
     } else if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
         Build.SERIAL
     } else {
-        getSystemProperties(RO_SERIAL_NO, NO_DEFINED)
+        getSystemProperties(CPackage.RO_SERIAL_NO, CPackage.UNKNOWN)
     }
 
     /**
@@ -61,7 +57,7 @@ object UtilKSystemProperties {
     @SuppressLint("PrivateApi")
     fun setSystemProperties(key: String, value: String) {
         try {
-            val clazz = Class.forName(PATH_SYSTEM_PROPERTIES)
+            val clazz = Class.forName(CPackage.ANDROID_OS_SYSTEM_PROPERTIES)
             val setMethod: Method = clazz.getMethod("set", String::class.java, String::class.java)
             setMethod.invoke(clazz, key, value)
         } catch (e: Exception) {
@@ -80,7 +76,7 @@ object UtilKSystemProperties {
     @SuppressLint("PrivateApi")
     fun getSystemProperties(key: String, defaultValue: String): String =
         try {
-            val clazz = Class.forName(PATH_SYSTEM_PROPERTIES)
+            val clazz = Class.forName(CPackage.ANDROID_OS_SYSTEM_PROPERTIES)
             val getMethod: Method = clazz.getMethod("get", String::class.java)
             (getMethod.invoke(clazz, key) as String).ifEmpty { defaultValue }
         } catch (e: Exception) {
@@ -99,7 +95,7 @@ object UtilKSystemProperties {
     @SuppressLint("PrivateApi")
     fun getSystemPropertiesBool(key: String, defaultValue: Boolean): Boolean =
         try {
-            val clazz = Class.forName(PATH_SYSTEM_PROPERTIES)
+            val clazz = Class.forName(CPackage.ANDROID_OS_SYSTEM_PROPERTIES)
             val getMethod: Method = clazz.getMethod("get", String::class.java)
             val resStr = getMethod.invoke(clazz, key) as String
             if (resStr.isNotEmpty()) {
