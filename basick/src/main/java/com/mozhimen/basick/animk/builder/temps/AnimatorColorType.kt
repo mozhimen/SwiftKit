@@ -15,18 +15,18 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/26 16:36
  * @Version 1.0
  */
-open class ColorAnimatorType : BaseAnimatorType<ColorAnimatorType>() {
+open class AnimatorColorType : BaseAnimatorType<AnimatorColorType>() {
     private var _colorStart: Int = Color.WHITE
     private var _colorEnd: Int = Color.BLACK
     override lateinit var _animator: Animator
 
-    fun setColorRange(colorStart: Int, colorEnd: Int): ColorAnimatorType {
+    fun setColorRange(colorStart: Int, colorEnd: Int): AnimatorColorType {
         _colorStart = colorStart
         _colorEnd = colorEnd
         return this
     }
 
-    fun addAnimatorUpdateListener(listener: IAnimatorUpdateListener): ColorAnimatorType {
+    fun addAnimatorUpdateListener(listener: IAnimatorUpdateListener): AnimatorColorType {
         (_animator as ObjectAnimator).addUpdateListener {
             listener.onChange(it.animatedValue as Int)
         }

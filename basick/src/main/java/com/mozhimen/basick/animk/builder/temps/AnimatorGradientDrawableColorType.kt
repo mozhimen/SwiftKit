@@ -16,17 +16,17 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/26 19:07
  * @Version 1.0
  */
-open class GradientDrawableColorAnimatorType : BaseAnimatorType<GradientDrawableColorAnimatorType>() {
+open class AnimatorGradientDrawableColorType : BaseAnimatorType<AnimatorGradientDrawableColorType>() {
     private var _gradientDrawable: GradientDrawable? = null
     private var _colors: IntArray = intArrayOf(Color.WHITE, Color.BLACK)
     override lateinit var _animator: Animator
 
-    fun setGradientDrawable(gradientDrawable: GradientDrawable): GradientDrawableColorAnimatorType {
+    fun setGradientDrawable(gradientDrawable: GradientDrawable): AnimatorGradientDrawableColorType {
         _gradientDrawable = gradientDrawable
         return this
     }
 
-    fun setColors(@ColorInt vararg colorInt: Int): GradientDrawableColorAnimatorType {
+    fun setColors(@ColorInt vararg colorInt: Int): AnimatorGradientDrawableColorType {
         _colors = colorInt
         return this
     }

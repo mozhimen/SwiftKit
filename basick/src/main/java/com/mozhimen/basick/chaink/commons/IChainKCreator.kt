@@ -1,6 +1,6 @@
 package com.mozhimen.basick.chaink.commons
 
-import com.mozhimen.basick.chaink.mos.ChainKNode
+import com.mozhimen.basick.chaink.bases.BaseChainKTask
 
 /**
  * @ClassName ITaskKCreator
@@ -10,5 +10,5 @@ import com.mozhimen.basick.chaink.mos.ChainKNode
  * @Version 1.0
  */
 interface IChainKCreator {
-    fun createChain(chainName: String): ChainKNode
+    fun createChain(chainName: String): BaseChainKTask
 }

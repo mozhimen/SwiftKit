@@ -12,8 +12,8 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.animk.builder.AnimKBuilder
-import com.mozhimen.basick.animk.builder.temps.GradientDrawableColorAnimatorType
-import com.mozhimen.basick.animk.builder.temps.TranslationType
+import com.mozhimen.basick.animk.builder.temps.AnimatorGradientDrawableColorType
+import com.mozhimen.basick.animk.builder.temps.AnimKTranslationType
 import com.mozhimen.basick.elemk.commons.IValue1Listener
 import com.mozhimen.basick.utilk.res.dp2px
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
@@ -91,7 +91,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
     private var _switchOnAnimation: Animation? = null
         get() {
             if (field != null) return field
-            val animation = AnimKBuilder.asAnimation().add(TranslationType().apply {
+            val animation = AnimKBuilder.asAnimation().add(AnimKTranslationType().apply {
                 //fromX(0f, false).toX(_switch.leftXOn - _switch.leftXOff, false)
                 if (!_defaultStatus) {
                     fromX(0f, false).toX(_mSwitch.leftXOn - _mSwitch.leftXOff, false)
@@ -119,7 +119,7 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
     private var _switchOffAnimation: Animation? = null
         get() {
             if (field != null) return field
-            val animation = AnimKBuilder.asAnimation().add(TranslationType().apply {
+            val animation = AnimKBuilder.asAnimation().add(AnimKTranslationType().apply {
                 //fromX(_switch.leftXOn - _switch.leftXOff, false).toX(0f, false)
                 if (!_defaultStatus) {
                     fromX(_mSwitch.leftXOn - _mSwitch.leftXOff, false).toX(0f, false)
@@ -145,11 +145,11 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
             return animation.also { field = it }
         }
     private val _bgOnAnimator by lazy {
-        AnimKBuilder.asAnimator().add(GradientDrawableColorAnimatorType().setGradientDrawable(_bgView!!.background as GradientDrawable).setColors(_attrs.bgColorOff, _attrs.bgColorOn))
+        AnimKBuilder.asAnimator().add(AnimatorGradientDrawableColorType().setGradientDrawable(_bgView!!.background as GradientDrawable).setColors(_attrs.bgColorOff, _attrs.bgColorOn))
             .setDuration(_attrs.animTime.toLong()).build()
     }
     private val _bgOffAnimator by lazy {
-        AnimKBuilder.asAnimator().add(GradientDrawableColorAnimatorType().setGradientDrawable(_bgView!!.background as GradientDrawable).setColors(_attrs.bgColorOn, _attrs.bgColorOff))
+        AnimKBuilder.asAnimator().add(AnimatorGradientDrawableColorType().setGradientDrawable(_bgView!!.background as GradientDrawable).setColors(_attrs.bgColorOn, _attrs.bgColorOff))
             .setDuration(_attrs.animTime.toLong()).build()
     }
 

@@ -16,24 +16,24 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/17 22:46
  * @Version 1.0
  */
-open class AlphaType : BaseAnimKType<AlphaType>() {
+open class AnimKAlphaType : BaseAnimKType<AnimKAlphaType>() {
     protected var _alphaFrom = 0f
     protected var _alphaTo = 1f
     override lateinit var _animator: Animator
 
-    fun setAlpha(@FloatRange(from = 0.0, to = 1.0) fromAlpha: Float, @FloatRange(from = 0.0, to = 1.0) toAlpha: Float): AlphaType {
+    fun setAlpha(@FloatRange(from = 0.0, to = 1.0) fromAlpha: Float, @FloatRange(from = 0.0, to = 1.0) toAlpha: Float): AnimKAlphaType {
         _alphaFrom = fromAlpha
         _alphaTo = toAlpha
         return this
     }
 
-    fun show(): AlphaType {
+    fun show(): AnimKAlphaType {
         _alphaFrom = 0f
         _alphaTo = 1f
         return this
     }
 
-    fun hide(): AlphaType {
+    fun hide(): AnimKAlphaType {
         _alphaFrom = 1f
         _alphaTo = 0f
         return this
@@ -52,8 +52,8 @@ open class AlphaType : BaseAnimKType<AlphaType>() {
     }
 
     companion object {
-        val SHOW: AlphaType = AlphaType().show()
+        val SHOW: AnimKAlphaType = AnimKAlphaType().show()
 
-        val HIDE: AlphaType = AlphaType().hide()
+        val HIDE: AnimKAlphaType = AnimKAlphaType().hide()
     }
 }

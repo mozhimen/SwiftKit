@@ -6,16 +6,15 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Build
-import android.view.View
-import android.view.WindowManager
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.elemk.cons.CWinMgrLP
-import com.mozhimen.basick.utilk.view.bar.helpers.ColorfulStatusBar
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
-import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.elemk.view.bar.ColorfulStatusBar
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.view.window.UtilKContentView
 import com.mozhimen.basick.utilk.view.window.UtilKDecorView
 import com.mozhimen.basick.utilk.view.window.UtilKWindow
@@ -47,7 +46,7 @@ object UtilKStatusBar : BaseUtilK() {
     fun setImmersed(activity: Activity) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L) {//21//5.0以上状态栏透明
             UtilKWindow.clearFlags(activity, CWinMgrLP.FLAG_TRANSLUCENT_STATUS)//清除透明状态栏
-            UtilKDecorView.setSystemUiVisibility(activity, View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+            UtilKDecorView.setSystemUiVisibility(activity, CView.FLAG_LAYOUT_FULLSCREEN or CView.FLAG_LAYOUT_STABLE)
             UtilKWindow.addFlags(activity, CWinMgrLP.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
             UtilKWindow.setStatusBarColor(activity, Color.TRANSPARENT)//设置透明
         } else if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {//19
@@ -64,7 +63,7 @@ object UtilKStatusBar : BaseUtilK() {
             UtilKWindow.setStatusBarColor(activity, colorInt)
         } else if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明
-            UtilKStatusBar.setImmersed(activity)
+            setImmersed(activity)
             val colorfulStatusBar = ColorfulStatusBar(activity)
             colorfulStatusBar.setEnable(true)//显示状态栏
             colorfulStatusBar.setColor(colorInt)//显示状态栏颜色
@@ -78,7 +77,7 @@ object UtilKStatusBar : BaseUtilK() {
     @JvmStatic
     fun hideStatusBar(activity: Activity) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
-            UtilKDecorView.setSystemUiVisibility(activity, View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+            UtilKDecorView.setSystemUiVisibility(activity, CView.FLAG_FULLSCREEN or CView.FLAG_LIGHT_STATUS_BAR)
         }
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -5,6 +5,7 @@ import android.content.res.Resources.Theme
 import android.util.TypedValue
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 
 /**
  * @ClassName UtilKTheme
@@ -41,4 +42,16 @@ object UtilKTheme {
     @JvmStatic
     fun resolveAttribute(context: Context, resId: Int, outValue: TypedValue, resolveRefs: Boolean) =
         get(context).resolveAttribute(resId, outValue, resolveRefs)
+
+    /**
+     * 是否全屏
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isFullScreen2(context: Context): Boolean {
+        val typedArray = get(context).obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
+        val windowFullscreen = typedArray.getBoolean(0, false)
+        typedArray.recycle()
+        return windowFullscreen
+    }
 }

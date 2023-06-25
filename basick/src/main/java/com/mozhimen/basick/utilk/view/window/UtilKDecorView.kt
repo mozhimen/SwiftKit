@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar
@@ -22,7 +23,7 @@ import kotlin.math.abs
 object UtilKDecorView : BaseUtilK() {
     @JvmStatic
     fun get(activity: Activity): View =
-        UtilKWindow.getDecorView(activity)
+        get(activity.window)
 
     @JvmStatic
     fun get(window: Window): View =
@@ -30,25 +31,32 @@ object UtilKDecorView : BaseUtilK() {
 
     @JvmStatic
     fun getViewGroup(activity: Activity): ViewGroup =
-        get(activity) as ViewGroup
+        getViewGroup(activity.window)
 
     @JvmStatic
     fun getViewGroup(window: Window): ViewGroup =
         get(window) as ViewGroup
 
+    ///////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun setSystemUiVisibility(activity: Activity, visibility: Int) {
-        get(activity).systemUiVisibility = visibility
+        setSystemUiVisibility(activity.window, visibility)
     }
 
     @JvmStatic
     fun setSystemUiVisibility(window: Window, visibility: Int) {
-        get(window).systemUiVisibility = visibility
+        setSystemUiVisibility(get(window), visibility)
+    }
+
+    @JvmStatic
+    fun setSystemUiVisibility(decorView: View, visibility: Int) {
+        decorView.systemUiVisibility = visibility
     }
 
     @JvmStatic
     fun getSystemUiVisibility(activity: Activity): Int =
-        get(activity).systemUiVisibility
+        getSystemUiVisibility(activity.window)
 
     @JvmStatic
     fun getSystemUiVisibility(window: Window): Int =
@@ -56,25 +64,29 @@ object UtilKDecorView : BaseUtilK() {
 
     @JvmStatic
     fun getWindowSystemUiVisibility(activity: Activity): Int =
-        get(activity).windowSystemUiVisibility
+        getWindowSystemUiVisibility(activity.window)
 
     @JvmStatic
     fun getWindowSystemUiVisibility(window: Window): Int =
         get(window).windowSystemUiVisibility
 
-    @JvmStatic
-    fun getInvisibleHeight(activity: Activity): Int =
-        getInvisibleHeight(UtilKWindow.get(activity))
+    ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getWindowVisibleDisplayFrame(activity: Activity, rect: Rect) {
-        UtilKView.getWindowVisibleDisplayFrame(get(activity), rect)
+        getWindowVisibleDisplayFrame(get(activity), rect)
     }
 
     @JvmStatic
     fun getWindowVisibleDisplayFrame(view: View, rect: Rect) {
         UtilKView.getWindowVisibleDisplayFrame(view, rect)
     }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getInvisibleHeight(activity: Activity): Int =
+        getInvisibleHeight(UtilKWindow.get(activity))
 
     /**
      * 获取DecorView区域高度
@@ -89,5 +101,33 @@ object UtilKDecorView : BaseUtilK() {
         Log.d(TAG, "getInvisibleHeight: " + (decorView.bottom - outRect.bottom))
         val delta = abs(decorView.bottom - outRect.bottom)
         return if (delta <= UtilKNavigationBar.getNavigationBarHeight() + UtilKStatusBar.getStatusBarHeight()) 0 else delta
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun setFullScreen(activity: Activity) {
+        setFullScreen(activity.window)
+    }
+
+    @JvmStatic
+    fun setFullScreen(window: Window) {
+        setFullScreen(get(window))
+    }
+
+    /**
+     * 设置全屏
+     * @param decorView View
+     */
+    @JvmStatic
+    fun setFullScreen(decorView: View) {
+        setSystemUiVisibility(
+            decorView, (CView.FLAG_LOW_PROFILE or
+                    CView.FLAG_FULLSCREEN or
+                    CView.FLAG_LAYOUT_STABLE or
+                    CView.FLAG_IMMERSIVE_STICKY or
+                    CView.FLAG_LAYOUT_HIDE_NAVIGATION or
+                    CView.FLAG_HIDE_NAVIGATION)
+        )
     }
 }

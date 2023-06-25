@@ -1,21 +1,24 @@
 package com.mozhimen.basick.animk.builder.temps
 
 import android.animation.Animator
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
 
 /**
- * @ClassName AlphaRecyclerType
- * @Description TODO
+ * @ClassName ScaleRecyclerType
+ * @Description 开始扩大然后缩小.像波浪一样
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/20 16:37
+ * @Date 2022/11/20 16:42
  * @Version 1.0
  */
-class AlphaRecyclerType : AlphaType() {
+class AnimKScaleRecyclerType : AnimKScaleType() {
     init {
         setInterpolator(LinearInterpolator())
+        scale(1f, 1f)
+        hide()
     }
 
     override fun formatAnimation(animKConfig: AnimKConfig, animation: Animation) {
@@ -28,13 +31,11 @@ class AlphaRecyclerType : AlphaType() {
 
     override fun formatAnimator(animKConfig: AnimKConfig, animator: Animator) {
         super.formatAnimator(animKConfig, animator)
-        (animator as ObjectAnimator).apply {
-            repeatCount = ObjectAnimator.INFINITE
-            repeatMode = ObjectAnimator.REVERSE
+        (animator as AnimatorSet).childAnimations.forEach {
+            (it as ObjectAnimator).apply {
+                repeatCount = ObjectAnimator.INFINITE
+                repeatMode = ObjectAnimator.REVERSE
+            }
         }
-    }
-
-    companion object {
-        val FLASH: AlphaType = AlphaRecyclerType().hide()
     }
 }

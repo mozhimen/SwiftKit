@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.animation.Animation
 import com.mozhimen.basick.animk.builder.AnimKBuilder
-import com.mozhimen.basick.animk.builder.temps.TranslationType
+import com.mozhimen.basick.animk.builder.temps.AnimKTranslationType
 import com.mozhimen.uicorek.popwink.bases.BasePopwinKLifecycle
 import com.mozhimen.uicorektest.R
 
@@ -23,10 +23,10 @@ class PopwinKAnim(context: Context) : BasePopwinKLifecycle(context) {
     }
 
     override fun onCreateShowAnimation(): Animation {
-        return AnimKBuilder.asAnimation().add(TranslationType.FROM_TOP_SHOW).build()
+        return AnimKBuilder.asAnimation().add(AnimKTranslationType.FROM_TOP_SHOW).build()
     }
 
     override fun onCreateDismissAnimation(): Animation {
-        return AnimKBuilder.asAnimation().add(TranslationType.TO_TOP_HIDE).build()
+        return AnimKBuilder.asAnimation().add(AnimKTranslationType.TO_TOP_HIDE).build()
     }
 }

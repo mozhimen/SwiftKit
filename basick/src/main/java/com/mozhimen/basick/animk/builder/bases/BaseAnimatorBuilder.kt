@@ -42,7 +42,7 @@ open class BaseAnimatorBuilder<T> : BaseAnimKBuilder() {
     }
 
     private fun appendConfigs(type: IAnimatorType) {
-        _types.delete((type as BaseType<*>).getKey())//同类型的只能作用一个
+        _types.delete((type as BasePropertyType<*>).getKey())//同类型的只能作用一个
         _types.append(type.getKey(), type)
         Log.d(TAG, "appendConfigs: $_types")
     }

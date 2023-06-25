@@ -11,7 +11,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/26 17:46
  * @Version 1.0
  */
-abstract class BaseAnimationType<T> : BaseType<T>(), IAnimationType {
+abstract class BaseAnimationType<T> : BasePropertyType<T>(), IAnimationType {
     override fun formatAnimation(animKConfig: AnimKConfig, animation: Animation) {
         super.formatAnimation(animKConfig, animation)
         animation.interpolator = _interpolator ?: animKConfig.interpolator

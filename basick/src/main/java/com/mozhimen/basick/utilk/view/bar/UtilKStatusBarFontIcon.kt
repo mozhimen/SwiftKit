@@ -7,6 +7,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.elemk.cons.CWinMgrLP
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.log.et
@@ -88,9 +89,9 @@ object UtilKStatusBarFontIcon : BaseUtilK() {
             window.addFlags(CWinMgrLP.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(CWinMgrLP.FLAG_TRANSLUCENT_STATUS)
             val flag: Int = if (isDark)
-                UtilKDecorView.getSystemUiVisibility(window) or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                UtilKDecorView.getSystemUiVisibility(window) or CView.FLAG_LIGHT_STATUS_BAR
             else
-                UtilKDecorView.getSystemUiVisibility(window) and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+                UtilKDecorView.getSystemUiVisibility(window) and CView.FLAG_LIGHT_STATUS_BAR.inv()
             UtilKDecorView.setSystemUiVisibility(window, flag)
         }
     }

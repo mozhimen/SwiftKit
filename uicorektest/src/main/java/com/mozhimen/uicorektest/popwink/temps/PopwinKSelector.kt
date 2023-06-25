@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import com.mozhimen.basick.animk.builder.AnimKBuilder
-import com.mozhimen.basick.animk.builder.temps.TranslationType
+import com.mozhimen.basick.animk.builder.temps.AnimKTranslationType
 import com.mozhimen.uicorek.popwink.bases.BasePopwinKLifecycle
 import com.mozhimen.uicorek.viewk.wheel.ViewKWheel
 import com.mozhimen.uicorek.viewk.wheel.temps.ArrayWheelAdapter
@@ -47,10 +47,10 @@ class PopwinKSelector(
     }
 
     override fun onCreateShowAnimation(): Animation {
-        return AnimKBuilder.asAnimation().add(TranslationType.FROM_BOTTOM_SHOW).build()
+        return AnimKBuilder.asAnimation().add(AnimKTranslationType.FROM_BOTTOM_SHOW).build()
     }
 
     override fun onCreateDismissAnimation(): Animation {
-        return AnimKBuilder.asAnimation().add(TranslationType.TO_BOTTOM_HIDE).build()
+        return AnimKBuilder.asAnimation().add(AnimKTranslationType.TO_BOTTOM_HIDE).build()
     }
 }

@@ -19,7 +19,11 @@ class CacheKSP : ICacheK<CacheKSPProvider> {
         val instance = INSTANCE.holder
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////
+
     private val _spMap = ConcurrentHashMap<String, CacheKSPProvider>()
+
+    /////////////////////////////////////////////////////////////////////////////////////
 
     @Synchronized
     override fun with(spName: String): CacheKSPProvider {
@@ -31,6 +35,8 @@ class CacheKSP : ICacheK<CacheKSPProvider> {
             provider
         }
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////
 
     private object INSTANCE {
         val holder = CacheKSP()

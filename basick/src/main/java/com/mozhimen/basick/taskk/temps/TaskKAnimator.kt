@@ -8,8 +8,8 @@ import androidx.annotation.FloatRange
 import androidx.core.view.ViewCompat
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
-import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
-import com.mozhimen.basick.animk.builder.temps.ColorRecyclerAnimatorType
+import com.mozhimen.basick.animk.builder.temps.AnimatorAlphaType
+import com.mozhimen.basick.animk.builder.temps.AnimatorColorRecyclerType
 import com.mozhimen.basick.taskk.bases.BaseTaskK
 import com.mozhimen.basick.utilk.anim.UtilKAnim
 import com.mozhimen.basick.utilk.anim.UtilKAnimator
@@ -33,7 +33,7 @@ class TaskKAnimator : BaseTaskK() {
      */
     fun betweenColors(view: View, colorStart: Int, colorEnd: Int) {
         val colorDrawable = ColorDrawable(colorStart)
-        val colorAnimator = AnimKBuilder.asAnimator().add(ColorRecyclerAnimatorType().setColorRange(colorStart, colorEnd).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        val colorAnimator = AnimKBuilder.asAnimator().add(AnimatorColorRecyclerType().setColorRange(colorStart, colorEnd).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
             override fun onChange(value: Int) {
                 colorDrawable.color = value
                 ViewCompat.setBackground(view, colorDrawable)
@@ -50,7 +50,7 @@ class TaskKAnimator : BaseTaskK() {
      */
     fun alphaFlash(view: View, @FloatRange(from = 0.0, to = 1.0) alphaEnd: Float, @FloatRange(from = 0.0, to = 1.0) alphaStart: Float = 1f) {
         val alphaDrawable = view.background
-        val alphaAnimator = AnimKBuilder.asAnimator().add(AlphaAnimatorType().addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        val alphaAnimator = AnimKBuilder.asAnimator().add(AnimatorAlphaType().addAnimatorUpdateListener(object : IAnimatorUpdateListener {
             override fun onChange(value: Int) {
                 alphaDrawable.alpha = value
                 ViewCompat.setBackground(view, alphaDrawable)

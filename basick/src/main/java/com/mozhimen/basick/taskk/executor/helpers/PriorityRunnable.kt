@@ -7,8 +7,7 @@ package com.mozhimen.basick.taskk.executor.helpers
  * @Date 2021/12/20 14:54
  * @Version 1.0
  */
-class PriorityRunnable(val name: String, val priority: Int, private val runnable: Runnable) : Runnable,
-    Comparable<PriorityRunnable> {
+class PriorityRunnable(val name: String, val priority: Int, private val runnable: Runnable) : Runnable, Comparable<PriorityRunnable> {
     override fun run() {
         runnable.run()
     }

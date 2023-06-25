@@ -1,20 +1,19 @@
 package com.mozhimen.basick.animk.builder.temps
 
 import android.animation.Animator
-import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
 
 /**
- * @ClassName TranslationRecyclerType
- * @Description 来回移动
+ * @ClassName RotateRecyclerType
+ * @Description 不断旋转
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/20 16:08
+ * @Date 2022/11/20 15:50
  * @Version 1.0
  */
-class TranslationRecyclerType : TranslationType() {
+class AnimKRotationRecyclerType : AnimKRotationType() {
 
     init {
         setInterpolator(LinearInterpolator())
@@ -24,17 +23,15 @@ class TranslationRecyclerType : TranslationType() {
         super.formatAnimation(animKConfig, animation)
         animation.apply {
             repeatCount = Animation.INFINITE
-            repeatMode = Animation.REVERSE
+            repeatMode = Animation.RESTART
         }
     }
 
     override fun formatAnimator(animKConfig: AnimKConfig, animator: Animator) {
         super.formatAnimator(animKConfig, animator)
-        (animator as AnimatorSet).childAnimations.forEach {
-            (it as ObjectAnimator).apply {
-                repeatCount = ObjectAnimator.INFINITE
-                repeatMode = ObjectAnimator.REVERSE
-            }
+        (animator as ObjectAnimator).apply {
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.RESTART
         }
     }
 }

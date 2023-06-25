@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
-import com.mozhimen.basick.animk.builder.temps.RotationRecyclerType
+import com.mozhimen.basick.animk.builder.temps.AnimKRotationRecyclerType
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.anim.stopAnim
@@ -26,7 +26,7 @@ import com.mozhimen.uicorektest.R
 class DialogKLoadingAnim @JvmOverloads internal constructor(context: Context, private var _desc: String? = null) : BaseDialogK<IDialogKClickListener>(context) {
     private var _imgProgress: ImageView? = null
     private var _txtDesc: TextView? = null
-    private val _rotateAnimation by lazy { AnimKBuilder.asAnimation().add(RotationRecyclerType()).setDuration(1000).build() }
+    private val _rotateAnimation by lazy { AnimKBuilder.asAnimation().add(AnimKRotationRecyclerType()).setDuration(1000).build() }
 
     init {
         setDialogCancelable(true)

@@ -9,6 +9,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.utilk.view.bar.UtilKVirtualBar
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.res.UtilKConfiguration
@@ -27,9 +28,9 @@ import kotlin.math.sqrt
  * @Version 1.0
  */
 object UtilKScreen {
-    private val TAG = "UtilKScreen>>>>>"
-
     private val _context by lazy { UtilKApplication.instance.applicationContext }
+
+    ////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 是否全屏
@@ -45,12 +46,8 @@ object UtilKScreen {
      * @return Boolean
      */
     @JvmStatic
-    fun isFullScreen(): Boolean {
-        val typedArray = UtilKTheme.get(_context).obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
-        val windowFullscreen = typedArray.getBoolean(0, false)
-        typedArray.recycle()
-        return windowFullscreen
-    }
+    fun isFullScreen(): Boolean =
+        UtilKTheme.isFullScreen2(_context)
 
     /**
      * 设置全屏
@@ -58,12 +55,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun setFullScreen(decorView: View) {
-        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE or
-                View.SYSTEM_UI_FLAG_FULLSCREEN or
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        UtilKDecorView.setFullScreen(decorView)
     }
 
     /**
@@ -73,11 +65,12 @@ object UtilKScreen {
      */
     @JvmStatic
     fun setScreenBrightness(@FloatRange(from = 0.0, to = 1.0) paramFloat: Float, activity: Activity) {
-        val window: Window = UtilKWindow.get(activity)
-        val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(window)
+        val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(activity)
         layoutParams.screenBrightness = paramFloat
-        window.attributes = layoutParams
+        UtilKWindow.setAttributes(activity, layoutParams)
     }
+
+    ////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 获取屏幕密度dp
@@ -207,6 +200,8 @@ object UtilKScreen {
         } else {
             UtilKWindowManager.getRotation(activity)
         }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 截屏

@@ -10,7 +10,7 @@ import android.view.animation.Animation
 import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
-import com.mozhimen.basick.animk.builder.temps.TranslationType
+import com.mozhimen.basick.animk.builder.temps.AnimKTranslationType
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
@@ -125,11 +125,11 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         }
 
         override fun onCreateShowAnimation(): Animation {
-            return AnimKBuilder.asAnimation().add(TranslationType.FROM_TOP_SHOW).build()
+            return AnimKBuilder.asAnimation().add(AnimKTranslationType.FROM_TOP_SHOW).build()
         }
 
         override fun onCreateDismissAnimation(): Animation {
-            return AnimKBuilder.asAnimation().add(TranslationType.TO_TOP_HIDE).build()
+            return AnimKBuilder.asAnimation().add(AnimKTranslationType.TO_TOP_HIDE).build()
         }
     }
 }

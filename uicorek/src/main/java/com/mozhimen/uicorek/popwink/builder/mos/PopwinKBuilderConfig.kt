@@ -8,8 +8,8 @@ import android.util.Pair
 import android.view.View
 import android.view.animation.Animation
 import com.mozhimen.basick.animk.builder.AnimKBuilder.asAnimation
-import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_HIDE
-import com.mozhimen.basick.animk.builder.temps.ScaleType.Companion.CENTER_SHOW
+import com.mozhimen.basick.animk.builder.temps.AnimKScaleType.Companion.CENTER_HIDE
+import com.mozhimen.basick.animk.builder.temps.AnimKScaleType.Companion.CENTER_SHOW
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.java.UtilKClazz
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig

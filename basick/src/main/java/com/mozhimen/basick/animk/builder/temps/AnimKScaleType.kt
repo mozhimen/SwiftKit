@@ -16,7 +16,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/17 23:02
  * @Version 1.0
  */
-open class ScaleType : BaseAnimKType<ScaleType>() {
+open class AnimKScaleType : BaseAnimKType<AnimKScaleType>() {
     private var _scaleFromX = 0f
     private var _scaleToX = 1f
     private var _scaleFromY = 0f
@@ -29,7 +29,7 @@ open class ScaleType : BaseAnimKType<ScaleType>() {
         setPivot2(.5f, .5f)
     }
 
-    fun fromDirection(vararg from: EDirection): ScaleType {
+    fun fromDirection(vararg from: EDirection): AnimKScaleType {
         if (from.isNotEmpty()) {
             var flag = 0
             for (direction in from) {
@@ -57,7 +57,7 @@ open class ScaleType : BaseAnimKType<ScaleType>() {
         return this
     }
 
-    fun toDirection(vararg to: EDirection): ScaleType {
+    fun toDirection(vararg to: EDirection): AnimKScaleType {
         if (to.isNotEmpty()) {
             var flag = 0
             for (direction in to) {
@@ -85,29 +85,29 @@ open class ScaleType : BaseAnimKType<ScaleType>() {
         return this
     }
 
-    fun show(): ScaleType {
+    fun show(): AnimKScaleType {
         _isDismiss = false
         return this
     }
 
-    fun hide(): ScaleType {
+    fun hide(): AnimKScaleType {
         _isDismiss = true
         return this
     }
 
-    fun scaleX(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): ScaleType {
+    fun scaleX(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): AnimKScaleType {
         _scaleFromX = fromVal
         _scaleToX = toVal
         return this
     }
 
-    fun scaleY(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): ScaleType {
+    fun scaleY(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): AnimKScaleType {
         _scaleFromY = fromVal
         _scaleToY = toVal
         return this
     }
 
-    fun scale(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): ScaleType {
+    fun scale(@FloatRange(from = 0.0, to = 1.0) fromVal: Float, @FloatRange(from = 0.0, to = 1.0) toVal: Float): AnimKScaleType {
         scaleX(fromVal, toVal)
         scaleY(fromVal, toVal)
         return this
@@ -162,43 +162,43 @@ open class ScaleType : BaseAnimKType<ScaleType>() {
     }
 
     companion object {
-        val LEFT_TO_RIGHT_SHOW = ScaleType().apply {
+        val LEFT_TO_RIGHT_SHOW = AnimKScaleType().apply {
             fromDirection(EDirection.LEFT).toDirection(EDirection.RIGHT).show()
         }
 
-        val LEFT_TO_RIGHT_HIDE = ScaleType().apply {
+        val LEFT_TO_RIGHT_HIDE = AnimKScaleType().apply {
             fromDirection(EDirection.LEFT).toDirection(EDirection.RIGHT).hide()
         }
 
-        val RIGHT_TO_LEFT_SHOW = ScaleType().apply {
+        val RIGHT_TO_LEFT_SHOW = AnimKScaleType().apply {
             fromDirection(EDirection.RIGHT).toDirection(EDirection.LEFT).show()
         }
 
-        val RIGHT_TO_LEFT_HIDE = ScaleType().apply {
+        val RIGHT_TO_LEFT_HIDE = AnimKScaleType().apply {
             fromDirection(EDirection.RIGHT).toDirection(EDirection.LEFT).hide()
         }
 
-        val TOP_TO_BOTTOM_SHOW = ScaleType().apply {
+        val TOP_TO_BOTTOM_SHOW = AnimKScaleType().apply {
             fromDirection(EDirection.TOP).toDirection(EDirection.BOTTOM).show()
         }
 
-        val TOP_TO_BOTTOM_HIDE = ScaleType().apply {
+        val TOP_TO_BOTTOM_HIDE = AnimKScaleType().apply {
             fromDirection(EDirection.TOP).toDirection(EDirection.BOTTOM).hide()
         }
 
-        val BOTTOM_TO_TOP_SHOW = ScaleType().apply {
+        val BOTTOM_TO_TOP_SHOW = AnimKScaleType().apply {
             fromDirection(EDirection.BOTTOM).toDirection(EDirection.TOP).show()
         }
 
-        val BOTTOM_TO_TOP_HIDE = ScaleType().apply {
+        val BOTTOM_TO_TOP_HIDE = AnimKScaleType().apply {
             fromDirection(EDirection.BOTTOM).toDirection(EDirection.TOP).hide()
         }
 
-        val CENTER_SHOW = ScaleType().apply {
+        val CENTER_SHOW = AnimKScaleType().apply {
             fromDirection(EDirection.CENTER).toDirection(EDirection.CENTER).show()
         }
 
-        val CENTER_HIDE = ScaleType().apply {
+        val CENTER_HIDE = AnimKScaleType().apply {
             fromDirection(EDirection.CENTER).toDirection(EDirection.CENTER).hide()
         }
     }

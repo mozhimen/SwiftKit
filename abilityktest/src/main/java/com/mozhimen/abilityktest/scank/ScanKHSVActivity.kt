@@ -73,7 +73,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
                         ((1 - ratio) * rotateBitmap.width / 2).toInt(),
                         ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
                     )
-                    val scaleBitmap = UtilKBitmapDeal.scaleBitmap(cropBitmap, cropBitmap.width / 5, cropBitmap.height / 5)//降低分辨率提高运算速度
+                    val scaleBitmap = UtilKBitmapDeal.scaleBitmapRatio(cropBitmap, cropBitmap.width / 5f, cropBitmap.height / 5f)//降低分辨率提高运算速度
                     val results = ScanKHSV.colorAnalyze(scaleBitmap)
                     Log.i(TAG, "analyze: $results")
                 } finally {

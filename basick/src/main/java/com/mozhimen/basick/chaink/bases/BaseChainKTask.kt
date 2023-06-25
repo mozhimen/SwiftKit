@@ -1,11 +1,13 @@
-package com.mozhimen.basick.chaink.mos
+package com.mozhimen.basick.chaink.bases
 
 import androidx.core.os.TraceCompat
+import com.mozhimen.basick.chaink.temps.ChainKTaskGroup
 import com.mozhimen.basick.chaink.annors.AChainKState
 import com.mozhimen.basick.chaink.commons.IChainKListener
+import com.mozhimen.basick.chaink.commons.IChainKTask
 import com.mozhimen.basick.chaink.helpers.ChainKRuntime
-import com.mozhimen.basick.chaink.helpers.ChainKCallback
-import com.mozhimen.basick.chaink.helpers.NodeComparator
+import com.mozhimen.basick.chaink.helpers.ChainKImpl
+import com.mozhimen.basick.chaink.helpers.ChainKTaskComparator
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -16,7 +18,7 @@ import kotlin.collections.ArrayList
  * @Date 2022/3/29 15:15
  * @Version 1.0
  */
-abstract class ChainKNode @JvmOverloads constructor(
+abstract class BaseChainKTask @JvmOverloads constructor(
     /**任务名称**/
     val id: String,
     /**是否是异步任务**/
@@ -25,94 +27,30 @@ abstract class ChainKNode @JvmOverloads constructor(
     val delayMills: Long = 0,
     /**任务的优先级**/
     var priority: Int = 0
-) : Runnable, Comparable<ChainKNode> {
+) : Runnable, Comparable<BaseChainKTask>, IChainKTask {
+
+    //任务执行时间
     var executeTime: Long = 0
-        //任务执行时间
-        protected set
-    var state: Int = AChainKState.IDLE
-        //任务的状态
         protected set
 
-    val dependTasks: MutableList<ChainKNode> = ArrayList()//当前task依赖了那些前置任务，只有当dependTasks集合中的所有任务执行完，当前才可以被执行
-    val behindTasks: MutableList<ChainKNode> = ArrayList()//当前task被那些后置任务依赖，只有当当前这个task执行完，behindTasks集合中的后置任务才可以执行
-    private val _iTaskKListeners: MutableList<IChainKListener> = ArrayList()//任务运行状态监听器集
-    private var _taskKRuntimeListener: ChainKCallback? = ChainKCallback()//用于输出task运行时的日志
+    //任务的状态
+    var state: Int = AChainKState.IDLE
+        protected set
+
+    val dependTasks: MutableList<BaseChainKTask> = ArrayList()//当前task依赖了那些前置任务，只有当dependTasks集合中的所有任务执行完，当前才可以被执行
+    val behindTasks: MutableList<BaseChainKTask> = ArrayList()//当前task被那些后置任务依赖，只有当当前这个task执行完，behindTasks集合中的后置任务才可以执行
     val dependTasksName: MutableList<String> = ArrayList()//用于运行时log统计输出，输出当前task依赖了那些前置任务， 这些前置任务的名称我们将它存储在这里
 
-    open fun start() {
-        if (state != AChainKState.IDLE) {
-            throw RuntimeException("cannot run task $id again")
-        }
-        toStart()
-        executeTime = System.currentTimeMillis()
-        //执行当前任务
-        ChainKRuntime.executeTask(this)
-    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 
-    fun addTaskKListener(ITaskKListener: IChainKListener) {
-        if (!_iTaskKListeners.contains(ITaskKListener)) {
-            _iTaskKListeners.add(ITaskKListener)
-        }
-    }
+    private val _chainkListeners: MutableList<IChainKListener> = ArrayList()//任务运行状态监听器集
+    private val _chainkTaskComparator by lazy { ChainKTaskComparator() }
+    private var _chainkImpl: ChainKImpl? = ChainKImpl()//用于输出task运行时的日志
 
-    //给当前task添加-个前置的依赖任务
-    open fun dependOn(node: ChainKNode) {
-        var taskK = node
-        if (taskK != this) {
-            if (node is ChainKNodeGroup) {
-                taskK = node.endTask
-                dependTasks.add(taskK)
-                dependTasksName.add(taskK.id)
-                //当前task依赖了dependTask， 那么我们还需要吧dependTask-里面的behindTask添加进去当前的task
-                if (!taskK.behindTasks.contains(this)) {
-                    taskK.behindTasks.add(this)
-                }
-            }
-        }
-    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //给当前task移除一个前置依赖任务
-    open fun removeDependence(dependTask: ChainKNode) {
-        var taskK = dependTask
-        if (dependTask != this) {
-            if (dependTask is ChainKNodeGroup) {
-                taskK = dependTask.endTask
-            }
-            dependTasks.remove(taskK)
-            dependTasksName.remove(taskK.id)
-            //把当前task从dependTask的 后置依赖任务集合behindTasks中移除
-            //达到接触两个任务依赖关系的目的
-            if (taskK.behindTasks.contains(this)) {
-                taskK.behindTasks.remove(this)
-            }
-        }
-    }
-
-    //给当前任务添加后置依赖项
-    //他和dependOn 是相反的
-    open fun behind(behindTask: ChainKNode) {
-        var taskK = behindTask
-        if (behindTask != this) {
-            if (behindTask is ChainKNodeGroup) {
-                taskK = behindTask.startTask
-            }
-            //这个是把behindTask添加到当前task的后面
-            behindTasks.add(taskK)
-            //把当前task添加到behindTask 的前面
-            behindTask.dependOn(this)
-        }
-    }
-
-    //给当前task移除-个后置的任务
-    open fun removeBehind(behindTask: ChainKNode) {
-        var taskK = behindTask
-        if (behindTask != this) {
-            if (behindTask is ChainKNodeGroup) {
-                taskK = behindTask.startTask
-            }
-            behindTasks.remove(taskK)
-            behindTask.removeDependence(this)
-        }
+    override fun compareTo(other: BaseChainKTask): Int {
+        return ChainKTaskComparator().compare(this, other)
     }
 
     override fun run() {
@@ -127,18 +65,91 @@ abstract class ChainKNode @JvmOverloads constructor(
         TraceCompat.endSection()
     }
 
+    override fun start() {
+        if (state != AChainKState.IDLE) {
+            throw RuntimeException("cannot run task $id again")
+        }
+        toStart()
+        executeTime = System.currentTimeMillis()
+        //执行当前任务
+        ChainKRuntime.executeTask(this)
+    }
+
+    override fun addTaskKListener(listener: IChainKListener) {
+        if (!_chainkListeners.contains(listener)) {
+            _chainkListeners.add(listener)
+        }
+    }
+
+    override fun dependOn(node: BaseChainKTask) {
+        var taskK = node
+        if (taskK != this) {
+            if (node is ChainKTaskGroup) {
+                taskK = node.endTask
+                dependTasks.add(taskK)
+                dependTasksName.add(taskK.id)
+                //当前task依赖了dependTask， 那么我们还需要吧dependTask-里面的behindTask添加进去当前的task
+                if (!taskK.behindTasks.contains(this)) {
+                    taskK.behindTasks.add(this)
+                }
+            }
+        }
+    }
+
+    override fun removeDependence(dependTask: BaseChainKTask) {
+        var taskK = dependTask
+        if (dependTask != this) {
+            if (dependTask is ChainKTaskGroup) {
+                taskK = dependTask.endTask
+            }
+            dependTasks.remove(taskK)
+            dependTasksName.remove(taskK.id)
+            //把当前task从dependTask的 后置依赖任务集合behindTasks中移除
+            //达到接触两个任务依赖关系的目的
+            if (taskK.behindTasks.contains(this)) {
+                taskK.behindTasks.remove(this)
+            }
+        }
+    }
+
+    override fun behind(behindTask: BaseChainKTask) {
+        var taskK = behindTask
+        if (behindTask != this) {
+            if (behindTask is ChainKTaskGroup) {
+                taskK = behindTask.startTask
+            }
+            //这个是把behindTask添加到当前task的后面
+            behindTasks.add(taskK)
+            //把当前task添加到behindTask 的前面
+            behindTask.dependOn(this)
+        }
+    }
+
+    override fun removeBehind(behindTask: BaseChainKTask) {
+        var taskK = behindTask
+        if (behindTask != this) {
+            if (behindTask is ChainKTaskGroup) {
+                taskK = behindTask.startTask
+            }
+            behindTasks.remove(taskK)
+            behindTask.removeDependence(this)
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
     private fun recycle() {
         dependTasks.clear()
         behindTasks.clear()
-        _iTaskKListeners.clear()
-        _taskKRuntimeListener = null
+        _chainkListeners.clear()
+        _chainkImpl = null
     }
 
     private fun notifyBehindTasks() {
         //通知后置任务去尝试执行
         if (behindTasks.isNotEmpty()) {
             if (behindTasks.size > 1) {
-                Collections.sort(behindTasks, ChainKRuntime.chainKNodeComparator)
+                Collections.sort(behindTasks, _chainkTaskComparator)
             }
 
             //遍历behindTask后置任务，通知他们，告诉他们你的一个前置依赖任务已经执行完成了
@@ -150,7 +161,7 @@ abstract class ChainKNode @JvmOverloads constructor(
         }
     }
 
-    private fun dependTaskFinished(node: ChainKNode) {
+    private fun dependTaskFinished(node: BaseChainKTask) {
         // A behindTasks ->(B,C) A执行完成之后， B,C7可以执行。
         // task= B,C , dependTask=A
         if (dependTasks.isEmpty()) {
@@ -166,37 +177,31 @@ abstract class ChainKNode @JvmOverloads constructor(
 
     private fun toStart() {
         state = AChainKState.START
-        ChainKRuntime.setStateInfo(this)
-        for (listener in _iTaskKListeners) {
+        ChainKRuntime.setTaskStateInfo(this)
+        for (listener in _chainkListeners) {
             listener.onStart(this)
         }
-        _taskKRuntimeListener?.onStart(this)
+        _chainkImpl?.onStart(this)
     }
 
     private fun toFinish() {
         state = AChainKState.FINISHED
-        ChainKRuntime.setStateInfo(this)
+        ChainKRuntime.setTaskStateInfo(this)
         ChainKRuntime.removeBlockTask(this.id)
-        for (listener in _iTaskKListeners) {
+        for (listener in _chainkListeners) {
             listener.onFinished(this)
         }
-        _taskKRuntimeListener?.onFinished(this)
+        _chainkImpl?.onFinished(this)
     }
 
     private fun toRunning() {
         state = AChainKState.RUNNING
-        ChainKRuntime.setStateInfo(this)
-        ChainKRuntime.setThreadName(this,Thread.currentThread().name)
-        for (listener in _iTaskKListeners) {
+        ChainKRuntime.setTaskStateInfo(this)
+        ChainKRuntime.setThreadName(this, Thread.currentThread().name)
+        for (listener in _chainkListeners) {
             listener.onRunning(this)
         }
-        _taskKRuntimeListener?.onRunning(this)
-    }
-
-    abstract fun run(id: String)
-
-    override fun compareTo(other: ChainKNode): Int {
-        return NodeComparator.compareNode(this, other)
+        _chainkImpl?.onRunning(this)
     }
 }
 

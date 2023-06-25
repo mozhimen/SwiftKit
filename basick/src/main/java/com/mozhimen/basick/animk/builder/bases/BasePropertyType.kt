@@ -11,7 +11,7 @@ import androidx.annotation.FloatRange
  * @Version 1.0
  */
 @Suppress("UNCHECKED_CAST")
-abstract class BaseType<T> {
+abstract class BasePropertyType<T> {
 
     protected val TAG = "${this.javaClass.simpleName}>>>>>"
     protected var _interpolator: Interpolator? = null

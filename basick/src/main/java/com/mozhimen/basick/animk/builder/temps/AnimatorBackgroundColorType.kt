@@ -17,17 +17,17 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2023/1/29 16:08
  * @Version 1.0
  */
-class BackgroundColorAnimatorType : BaseAnimatorType<BackgroundColorAnimatorType>() {
+class AnimatorBackgroundColorType : BaseAnimatorType<AnimatorBackgroundColorType>() {
     private var _colors: IntArray = intArrayOf(Color.WHITE, Color.BLACK)
     override lateinit var _animator: Animator
     private var _view: View? = null
 
-    fun setColors(@ColorInt vararg colorInt: Int): BackgroundColorAnimatorType {
+    fun setColors(@ColorInt vararg colorInt: Int): AnimatorBackgroundColorType {
         _colors = colorInt
         return this
     }
 
-    fun setView(view: View): BackgroundColorAnimatorType {
+    fun setView(view: View): AnimatorBackgroundColorType {
         _view = view
         return this
     }

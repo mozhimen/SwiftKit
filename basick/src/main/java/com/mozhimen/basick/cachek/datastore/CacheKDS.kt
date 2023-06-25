@@ -17,7 +17,11 @@ class CacheKDS : ICacheK<CacheKDSProvider> {
         val instance = INSTANCE.holder
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+
     private val _spMap = ConcurrentHashMap<String, CacheKDSProvider>()
+
+    ////////////////////////////////////////////////////////////////////////////
 
     @Synchronized
     override fun with(spName: String): CacheKDSProvider {
@@ -29,6 +33,8 @@ class CacheKDS : ICacheK<CacheKDSProvider> {
             provider
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////
 
     private object INSTANCE {
         val holder = CacheKDS()

@@ -15,7 +15,7 @@ import android.view.animation.AccelerateInterpolator
 import androidx.appcompat.widget.AppCompatImageView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
-import com.mozhimen.basick.animk.builder.temps.AlphaAnimatorType
+import com.mozhimen.basick.animk.builder.temps.AnimatorAlphaType
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.log.et
@@ -164,7 +164,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
 //        valueAnimator.addUpdateListener { animation -> imageAlpha = (animation.animatedValue as Int) }
 //        valueAnimator.start()
 
-        AnimKBuilder.asAnimator().add(AlphaAnimatorType().setAlpha(0f, 1f).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        AnimKBuilder.asAnimator().add(AnimatorAlphaType().setAlpha(0f, 1f).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
             override fun onChange(value: Int) {
                 imageAlpha = value
             }
@@ -187,7 +187,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
 //        valueAnimator.addUpdateListener { animation -> imageAlpha = (animation.animatedValue as Int) }
 //        valueAnimator.start()
 
-        AnimKBuilder.asAnimator().add(AlphaAnimatorType().setAlpha(1f, 0f).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        AnimKBuilder.asAnimator().add(AnimatorAlphaType().setAlpha(1f, 0f).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
             override fun onChange(value: Int) {
                 imageAlpha = value
             }

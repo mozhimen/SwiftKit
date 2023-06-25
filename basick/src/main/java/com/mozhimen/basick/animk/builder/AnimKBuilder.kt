@@ -10,7 +10,7 @@ import com.mozhimen.basick.animk.builder.helpers.AnimatorBuilder
  * @Date 2022/9/24 23:58
  * @Version 1.0
  */
-object AnimKBuilder {
+class AnimKBuilder {
 
     fun asAnimation(): AnimationBuilder {
         return AnimationBuilder()

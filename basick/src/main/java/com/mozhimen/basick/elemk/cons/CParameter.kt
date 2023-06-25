@@ -14,10 +14,12 @@ object CParameter {
     const val UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER = -8
     const val UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH = 4000//logcat最大长度为4*1024，此处取4000
     const val UTILK_LOG_PRO_SUPPORT_LONG_LOG = true//超长Log
-    const val UTILK_SCREEN_FULL_SCREEN_FLAG = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            or View.SYSTEM_UI_FLAG_FULLSCREEN)
+    const val UTILK_SCREEN_FULL_SCREEN_FLAG = (
+            CView.FLAG_LAYOUT_STABLE
+                    or CView.FLAG_LAYOUT_HIDE_NAVIGATION
+                    or CView.FLAG_HIDE_NAVIGATION
+                    or CView.FLAG_IMMERSIVE_STICKY
+                    or CView.FLAG_LAYOUT_FULLSCREEN
+                    or CView.FLAG_FULLSCREEN
+            )
 }

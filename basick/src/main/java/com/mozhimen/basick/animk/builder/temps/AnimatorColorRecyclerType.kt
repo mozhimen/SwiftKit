@@ -12,7 +12,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/20 17:34
  * @Version 1.0
  */
-class ColorRecyclerAnimatorType : ColorAnimatorType() {
+class AnimatorColorRecyclerType : AnimatorColorType() {
     init {
         setInterpolator(LinearInterpolator())
     }

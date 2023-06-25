@@ -2,19 +2,28 @@ package com.mozhimen.basick.animk.builder.temps
 
 import android.animation.Animator
 import android.animation.ObjectAnimator
+import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
 
 /**
- * @ClassName AlphaRecyclerAnimatorType
+ * @ClassName AlphaRecyclerType
  * @Description TODO
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/26 18:38
+ * @Date 2022/11/20 16:37
  * @Version 1.0
  */
-class AlphaRecyclerAnimatorType : AlphaAnimatorType() {
+class AnimKAlphaRecyclerType : AnimKAlphaType() {
     init {
         setInterpolator(LinearInterpolator())
+    }
+
+    override fun formatAnimation(animKConfig: AnimKConfig, animation: Animation) {
+        super.formatAnimation(animKConfig, animation)
+        animation.apply {
+            repeatCount = Animation.INFINITE
+            repeatMode = Animation.REVERSE
+        }
     }
 
     override fun formatAnimator(animKConfig: AnimKConfig, animator: Animator) {
@@ -23,5 +32,9 @@ class AlphaRecyclerAnimatorType : AlphaAnimatorType() {
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
         }
+    }
+
+    companion object {
+        val FLASH: AnimKAlphaType = AnimKAlphaRecyclerType().hide()
     }
 }

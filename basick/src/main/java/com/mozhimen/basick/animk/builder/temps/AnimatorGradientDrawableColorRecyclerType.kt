@@ -12,7 +12,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/26 19:21
  * @Version 1.0
  */
-class GradientDrawableColorRecyclerAnimatorType: GradientDrawableColorAnimatorType() {
+class AnimatorGradientDrawableColorRecyclerType: AnimatorGradientDrawableColorType() {
     init {
         setInterpolator(LinearInterpolator())
     }

@@ -17,7 +17,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/17 23:01
  * @Version 1.0
  */
-open class RotationType : BaseAnimKType<RotationType>() {
+open class AnimKRotationType : BaseAnimKType<AnimKRotationType>() {
     private var _from = 0f
     private var _to = 360f
     override lateinit var _animator: Animator
@@ -26,7 +26,7 @@ open class RotationType : BaseAnimKType<RotationType>() {
         setPivot(0.5f, 0.5f)
     }
 
-    open fun rotate(@FloatRange(from = 0.0, to = 360.0) from: Float, @FloatRange(from = 0.0, to = 360.0) to: Float): RotationType {
+    open fun rotate(@FloatRange(from = 0.0, to = 360.0) from: Float, @FloatRange(from = 0.0, to = 360.0) to: Float): AnimKRotationType {
         this._from = from
         this._to = to
         return this
@@ -54,16 +54,16 @@ open class RotationType : BaseAnimKType<RotationType>() {
     }
 
     companion object {
-        val CLOCKWISE_360 = RotationType().rotate(0f, 360f)
+        val CLOCKWISE_360 = AnimKRotationType().rotate(0f, 360f)
 
-        val ANTICLOCKWISE_360 = RotationType().rotate(360f, 0f)
+        val ANTICLOCKWISE_360 = AnimKRotationType().rotate(360f, 0f)
 
-        val CLOCKWISE_90 = RotationType().rotate(0f, 90f)
+        val CLOCKWISE_90 = AnimKRotationType().rotate(0f, 90f)
 
-        val ANTICLOCKWISE_90 = RotationType().rotate(90f, 0f)
+        val ANTICLOCKWISE_90 = AnimKRotationType().rotate(90f, 0f)
 
-        val CLOCKWISE_180 = RotationType().rotate(0f, 180f)
+        val CLOCKWISE_180 = AnimKRotationType().rotate(0f, 180f)
 
-        val ANTICLOCKWISE_180 = RotationType().rotate(180f, 0f)
+        val ANTICLOCKWISE_180 = AnimKRotationType().rotate(180f, 0f)
     }
 }

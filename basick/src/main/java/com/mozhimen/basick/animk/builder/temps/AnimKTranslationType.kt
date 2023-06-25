@@ -18,7 +18,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/17 23:03
  * @Version 1.0
  */
-open class TranslationType() : BaseAnimKType<TranslationType>() {
+open class AnimKTranslationType() : BaseAnimKType<AnimKTranslationType>() {
     private var _fromX = 0f
     private var _toX = 0f
     private var _fromY = 0f
@@ -29,7 +29,7 @@ open class TranslationType() : BaseAnimKType<TranslationType>() {
     private var _isPercentageToY = false
     override lateinit var _animator: Animator
 
-    fun from(vararg directions: EDirection): TranslationType {
+    fun from(vararg directions: EDirection): AnimKTranslationType {
         if (directions.isNotEmpty()) {
             _fromY = 0f
             _fromX = _fromY
@@ -63,7 +63,7 @@ open class TranslationType() : BaseAnimKType<TranslationType>() {
         return this
     }
 
-    fun to(vararg directions: EDirection): TranslationType {
+    fun to(vararg directions: EDirection): AnimKTranslationType {
         if (directions.isNotEmpty()) {
             _toY = 0f
             _toX = _toY
@@ -97,65 +97,65 @@ open class TranslationType() : BaseAnimKType<TranslationType>() {
         return this
     }
 
-    fun fromX(fromX: Float): TranslationType {
+    fun fromX(fromX: Float): AnimKTranslationType {
         fromX(fromX, true)
         return this
     }
 
-    fun toX(toX: Float): TranslationType {
+    fun toX(toX: Float): AnimKTranslationType {
         toX(toX, true)
         return this
     }
 
-    fun fromY(fromY: Float): TranslationType {
+    fun fromY(fromY: Float): AnimKTranslationType {
         fromY(fromY, true)
         return this
     }
 
-    fun toY(toY: Float): TranslationType {
+    fun toY(toY: Float): AnimKTranslationType {
         toY(toY, true)
         return this
     }
 
-    fun fromX(fromX: Int): TranslationType {
+    fun fromX(fromX: Int): AnimKTranslationType {
         fromX(fromX.toFloat(), false)
         return this
     }
 
-    fun toX(toX: Int): TranslationType {
+    fun toX(toX: Int): AnimKTranslationType {
         toX(toX.toFloat(), false)
         return this
     }
 
-    fun fromY(fromY: Int): TranslationType {
+    fun fromY(fromY: Int): AnimKTranslationType {
         fromY(fromY.toFloat(), false)
         return this
     }
 
-    fun toY(toY: Int): TranslationType {
+    fun toY(toY: Int): AnimKTranslationType {
         toY(toY.toFloat(), false)
         return this
     }
 
-    fun fromX(fromX: Float, percentage: Boolean): TranslationType {
+    fun fromX(fromX: Float, percentage: Boolean): AnimKTranslationType {
         _isPercentageFromX = percentage
         this._fromX = fromX
         return this
     }
 
-    fun toX(toX: Float, percentage: Boolean): TranslationType {
+    fun toX(toX: Float, percentage: Boolean): AnimKTranslationType {
         _isPercentageToX = percentage
         this._toX = toX
         return this
     }
 
-    fun fromY(fromY: Float, percentage: Boolean): TranslationType {
+    fun fromY(fromY: Float, percentage: Boolean): AnimKTranslationType {
         _isPercentageFromY = percentage
         this._fromY = fromY
         return this
     }
 
-    fun toY(toY: Float, percentage: Boolean): TranslationType {
+    fun toY(toY: Float, percentage: Boolean): AnimKTranslationType {
         _isPercentageToY = percentage
         this._toY = toY
         return this
@@ -220,28 +220,28 @@ open class TranslationType() : BaseAnimKType<TranslationType>() {
     }
 
     companion object {
-        val FROM_LEFT_SHOW: TranslationType = TranslationType().apply {
+        val FROM_LEFT_SHOW: AnimKTranslationType = AnimKTranslationType().apply {
             from(EDirection.LEFT)
         }
-        val FROM_TOP_SHOW: TranslationType = TranslationType().apply {
+        val FROM_TOP_SHOW: AnimKTranslationType = AnimKTranslationType().apply {
             from(EDirection.TOP)
         }
-        val FROM_RIGHT_SHOW: TranslationType = TranslationType().apply {
+        val FROM_RIGHT_SHOW: AnimKTranslationType = AnimKTranslationType().apply {
             from(EDirection.RIGHT)
         }
-        val FROM_BOTTOM_SHOW: TranslationType = TranslationType().apply {
+        val FROM_BOTTOM_SHOW: AnimKTranslationType = AnimKTranslationType().apply {
             from(EDirection.BOTTOM)
         }
-        val TO_LEFT_HIDE: TranslationType = TranslationType().apply {
+        val TO_LEFT_HIDE: AnimKTranslationType = AnimKTranslationType().apply {
             to(EDirection.LEFT)
         }
-        val TO_TOP_HIDE: TranslationType = TranslationType().apply {
+        val TO_TOP_HIDE: AnimKTranslationType = AnimKTranslationType().apply {
             to(EDirection.TOP)
         }
-        val TO_RIGHT_HIDE: TranslationType = TranslationType().apply {
+        val TO_RIGHT_HIDE: AnimKTranslationType = AnimKTranslationType().apply {
             to(EDirection.RIGHT)
         }
-        val TO_BOTTOM_HIDE: TranslationType = TranslationType().apply {
+        val TO_BOTTOM_HIDE: AnimKTranslationType = AnimKTranslationType().apply {
             to(EDirection.BOTTOM)
         }
     }

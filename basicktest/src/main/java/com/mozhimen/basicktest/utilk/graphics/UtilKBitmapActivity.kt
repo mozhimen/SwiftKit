@@ -50,7 +50,7 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
                 Log.i(TAG, "onStopTrackingTouch: bmp w ${bitmap.width} h ${bitmap.height}")
                 val zoomBmp = UtilKBitmapDeal.zoomBitmap(bitmap, ratio)
                 Log.i(TAG, "onStopTrackingTouch: zoomBmp w ${zoomBmp.width} h ${zoomBmp.height}")
-                val scaleBmp = UtilKBitmapDeal.scaleBitmap(zoomBmp, bitmap.width, bitmap.height)
+                val scaleBmp = UtilKBitmapDeal.scaleBitmapRatio(zoomBmp, bitmap.width, bitmap.height)
                 Log.i(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
                 Log.i(TAG, "onStopTrackingTouch: --->")
                 vb.utilkBitmapImgBmpZoom.setImageBitmap(scaleBmp)
@@ -68,7 +68,7 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
                 val progress = seekBar!!.progress
                 var ratio: Float = 5 * progress / 100f
                 if (ratio < 1) ratio = 1f
-                val scaleBmp = UtilKBitmapDeal.scaleBitmap(bitmap, (bitmap.width / ratio).toInt(), (bitmap.height / ratio).toInt())
+                val scaleBmp = UtilKBitmapDeal.scaleBitmapRatio(bitmap, (bitmap.width / ratio).toInt(), (bitmap.height / ratio).toInt())
                 Log.i(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
                 vb.utilkBitmapImgBmpScale.setImageBitmap(scaleBmp)
             }

@@ -1,6 +1,6 @@
 package com.mozhimen.basick.chaink.commons
 
-import com.mozhimen.basick.chaink.mos.ChainKNode
+import com.mozhimen.basick.chaink.bases.BaseChainKTask
 
 /**
  * @ClassName TaskKListener
@@ -10,7 +10,7 @@ import com.mozhimen.basick.chaink.mos.ChainKNode
  * @Version 1.0
  */
 interface IChainKListener {
-    fun onStart(node: ChainKNode)
-    fun onRunning(node: ChainKNode)
-    fun onFinished(node: ChainKNode)
+    fun onStart(node: BaseChainKTask)
+    fun onRunning(node: BaseChainKTask)
+    fun onFinished(node: BaseChainKTask)
 }

@@ -8,17 +8,16 @@ import android.view.animation.LinearInterpolator
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
 
 /**
- * @ClassName ScaleRecyclerType
- * @Description 开始扩大然后缩小.像波浪一样
+ * @ClassName TranslationRecyclerType
+ * @Description 来回移动
  * @Author mozhimen / Kolin Zhao
- * @Date 2022/11/20 16:42
+ * @Date 2022/11/20 16:08
  * @Version 1.0
  */
-class ScaleRecyclerType : ScaleType() {
+class AnimKTranslationRecyclerType : AnimKTranslationType() {
+
     init {
         setInterpolator(LinearInterpolator())
-        scale(1f, 1f)
-        hide()
     }
 
     override fun formatAnimation(animKConfig: AnimKConfig, animation: Animation) {

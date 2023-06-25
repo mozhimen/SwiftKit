@@ -67,7 +67,7 @@ object UtilKBitmapCompress : BaseUtilK() {
     @JvmStatic
     fun compressMatrix(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
         val ratio: Float = sqrt(quality.toFloat() / 100f).also { Log.v(TAG, "compressMatrix: ratio $it") }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
-        return UtilKBitmapDeal.scaleBitmap(sourceBitmap, ratio).also { printBitmapInfo(it, null, quality) }
+        return UtilKBitmapDeal.scaleBitmapRatio(sourceBitmap, ratio).also { printBitmapInfo(it, null, quality) }
     }
 
     /**
