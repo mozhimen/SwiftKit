@@ -28,7 +28,7 @@ class TaskKVibrate : BaseTaskK() {
     fun start(duration: Long = 200L) {
         if (isActive()) return
         if (_vibrator == null) {
-            _vibrator = UtilKContext.getVibrator(UtilKApplication.instance.get())
+            _vibrator = UtilKContext.getVibrator(_context)
         }
         _vibrator!!.vibrate(duration)
     }

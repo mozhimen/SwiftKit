@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 
 import com.mozhimen.basick.utilk.log.UtilKStackTrace;
 import com.mozhimen.basick.utilk.log.UtilKLogPro;
+import com.mozhimen.basick.utilk.os.thread.UtilKCurrentThread;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 
 import java.util.HashMap;
@@ -150,7 +151,7 @@ public enum BasePopupUnsafe {
         private static final Map<String, StackDumpInfo> STACK_MAP = new HashMap<>();
 
         private static StackTraceElement getCurrentStackTrace() {
-            StackTraceElement[] trace = Thread.currentThread().getStackTrace();
+            StackTraceElement[] trace = UtilKCurrentThread.getStackTrace();
             int stackOffset = UtilKStackTrace.getStackTraceOffset(trace, BasePopupUnsafe.class);
             if (stackOffset == -1) {
                 stackOffset = UtilKStackTrace.getStackTraceOffset(trace, StackFetcher.class);

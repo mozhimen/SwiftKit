@@ -1,9 +1,11 @@
 package com.mozhimen.basick.utilk.content.pm
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageInfo
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
@@ -28,41 +30,21 @@ import com.mozhimen.basick.utilk.content.UtilKContext
 @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
 object UtilKPackageManager {
 
-    /**
-     * getPackageManager
-     * @return PackageManager
-     */
     @JvmStatic
     fun get(context: Context): PackageManager =
         UtilKContext.getPackageManager(context)
 
-    /**
-     * 包安装器
-     * @return PackageInstaller
-     */
+    @JvmStatic
+    fun getPackageInfo(context: Context, packageName: String, flags: Int): PackageInfo? =
+        get(context).getPackageInfo(packageName, flags)
+
+    @JvmStatic
+    fun getPackageArchiveInfo(context: Context, archiveFilePath: String, flags: Int): PackageInfo? =
+        get(context).getPackageArchiveInfo(archiveFilePath, flags)
+
     @JvmStatic
     fun getPackageInstaller(context: Context): PackageInstaller =
         get(context).packageInstaller
-
-    /**
-     * 得到应用名
-     * @param packageManager PackageManager
-     * @param applicationInfo ApplicationInfo
-     * @return String
-     */
-    @JvmStatic
-    fun getApplicationLabel(packageManager: PackageManager, applicationInfo: ApplicationInfo): String =
-        packageManager.getApplicationLabel(applicationInfo).toString()
-
-    /**
-     * 得到图标信息
-     * @param packageManager PackageManager
-     * @param applicationInfo ApplicationInfo
-     * @return Drawable
-     */
-    @JvmStatic
-    fun getApplicationIcon(packageManager: PackageManager, applicationInfo: ApplicationInfo): Drawable =
-        packageManager.getApplicationIcon(applicationInfo)
 
     /**
      * 查询所有的符合Intent的Activities
@@ -70,9 +52,11 @@ object UtilKPackageManager {
      * @param flags Int
      * @return List<ResolveInfo>
      */
+    @SuppressLint("QueryPermissionsNeeded")
     @JvmStatic
     fun queryIntentActivities(context: Context, intent: Intent, flags: Int): List<ResolveInfo> =
         get(context).queryIntentActivities(intent, flags)
+
 
     /**
      * 是否有包安装权限
@@ -85,6 +69,31 @@ object UtilKPackageManager {
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun canRequestPackageInstalls(context: Context): Boolean =
         get(context).canRequestPackageInstalls()
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 得到应用名
+     * @param context Context
+     * @param applicationInfo ApplicationInfo
+     * @return String
+     */
+    @JvmStatic
+    fun getApplicationLabel(context: Context, applicationInfo: ApplicationInfo): String =
+        get(context).getApplicationLabel(applicationInfo).toString()
+
+    /**
+     * 得到图标信息
+     * @param context Context
+     * @param applicationInfo ApplicationInfo
+     * @return Drawable
+     */
+    @JvmStatic
+    fun getApplicationIcon(context: Context, applicationInfo: ApplicationInfo): Drawable =
+        get(context).getApplicationIcon(applicationInfo)
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 是否有前置

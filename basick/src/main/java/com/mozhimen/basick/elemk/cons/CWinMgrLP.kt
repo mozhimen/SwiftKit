@@ -22,7 +22,7 @@ object CWinMgrLP {
     const val FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS = WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
     const val FLAG_LAYOUT_NO_LIMITS = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @RequiresApi(CVersionCode.V_26_8_O)
     const val TYPE_APPLICATION_OVERLAY = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
     const val TYPE_SYSTEM_ALERT = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
     const val TYPE_TOAST = WindowManager.LayoutParams.TYPE_TOAST

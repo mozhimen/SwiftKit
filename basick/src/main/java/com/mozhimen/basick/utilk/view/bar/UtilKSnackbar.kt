@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.SnackbarContentLayout
 import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.os.thread.UtilKHandler
 
@@ -18,9 +19,7 @@ import com.mozhimen.basick.utilk.os.thread.UtilKHandler
  * @Date 2022/11/27 17:37
  * @Version 1.0
  */
-object UtilKSnackbar {
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
-
+object UtilKSnackbar : BaseUtilK() {
     @JvmStatic
     fun showSnackbar(
         view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null

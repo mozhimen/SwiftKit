@@ -10,7 +10,6 @@ import com.mozhimen.basick.manifestk.permission.helpers.IManifestKPermissionList
 import com.mozhimen.basick.manifestk.permission.helpers.InvisibleFragment
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContextCompat
 import com.mozhimen.basick.utilk.view.bar.showToastOnMain
 
@@ -22,7 +21,6 @@ import com.mozhimen.basick.utilk.view.bar.showToastOnMain
  * @Version 1.0
  */
 object ManifestKPermission : BaseUtilK() {
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 作用: 权限申请

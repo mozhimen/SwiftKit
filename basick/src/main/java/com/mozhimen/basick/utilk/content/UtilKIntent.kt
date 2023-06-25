@@ -12,6 +12,7 @@ import com.mozhimen.basick.elemk.cons.CMediaFormat
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
+import com.mozhimen.basick.utilk.content.pm.UtilKPackage
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
 
@@ -61,6 +62,7 @@ object UtilKIntent {
      * @param context Context
      * @return Intent
      */
+    @RequiresApi(CVersionCode.V_26_8_O)
     @JvmStatic
     fun getSettingNotification(context: Context): Intent =
         Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
@@ -72,6 +74,7 @@ object UtilKIntent {
      * @param context Context
      * @return Intent
      */
+    @RequiresApi(CVersionCode.V_30_11_R)
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun getManageAll(context: Context): Intent =
@@ -92,6 +95,7 @@ object UtilKIntent {
      * @param context Context
      * @return Intent
      */
+    @RequiresApi(CVersionCode.V_26_8_O)
     @JvmStatic
     fun getManageInstallSource(context: Context): Intent =
         Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
@@ -140,7 +144,7 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getLauncherFromPackage(context: Context): Intent? =
-        UtilKPackageManager.get(context).getLaunchIntentForPackage(UtilKContext.getPackageName(UtilKApplication.instance.get()))
+        UtilKPackageManager.get(context).getLaunchIntentForPackage(UtilKPackage.getPackageName())
 
     /**
      * 获取安装app的intent

@@ -85,7 +85,7 @@ object UtilKRenderScript : BaseUtilK() {
     @TargetApi(CVersionCode.V_17_42_J1)
     fun scriptBlur(origin: Bitmap?, outWidth: Int, outHeight: Int, radius: Float): Bitmap? {
         if (origin == null || origin.isRecycled) return null
-        val renderScript = getRenderScriptInstance(UtilKApplication.instance.get())
+        val renderScript = getRenderScriptInstance(_context)
         val blurInput = Allocation.createFromBitmap(renderScript, origin)
         val blurOutput = Allocation.createTyped(renderScript, blurInput.type)
         var blur: ScriptIntrinsicBlur? = null

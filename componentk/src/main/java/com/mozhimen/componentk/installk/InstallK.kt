@@ -10,9 +10,8 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.content.UtilKApplicationInfo
+import com.mozhimen.basick.utilk.content.pm.UtilKApplicationInfo
 import com.mozhimen.basick.utilk.os.UtilKOSRoot
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.log.et
@@ -42,8 +41,6 @@ import java.io.*
     CManifest.SERVICE_ACCESSIBILITY
 )
 class InstallK : IInstallK, BaseUtilK() {
-
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     private var _installMode = EInstallMode.AUTO
     private var _installStateChangeListener: IInstallStateChangedListener? = null
@@ -136,7 +133,9 @@ class InstallK : IInstallK, BaseUtilK() {
             })
             return
         }
-        if (UtilKApplicationInfo.getTargetSdkVersion(_context) >= CVersionCode.V_26_8_O && Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable()) {        // 允许安装应用
+        val targetSdkVersion = UtilKApplicationInfo.getTargetSdkVersion(_context)
+        requireNotNull(targetSdkVersion)
+        if (targetSdkVersion >= CVersionCode.V_26_8_O && Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable()) {        // 允许安装应用
             Log.w(TAG, "installByMode: onNeedPermissions isAppInstallsPermissionEnable false")
             _handler.sendMessage(Message().apply {
                 what = CInstallKCons.MSG_NEED_PERMISSION

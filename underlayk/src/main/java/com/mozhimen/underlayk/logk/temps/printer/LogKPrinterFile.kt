@@ -1,5 +1,6 @@
 package com.mozhimen.underlayk.logk.temps.printer
 
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
@@ -28,7 +29,7 @@ import com.mozhimen.underlayk.logk.mos.MLogK
  */
 class LogKPrinterFile(
     private val _retentionTime: Long
-) : ILogKPrinter {
+) : ILogKPrinter, BaseUtilK() {
 
     var logPath: String? = null
         get() {
@@ -248,4 +249,5 @@ class LogKPrinterFile(
             }
         }
     }
+
 }

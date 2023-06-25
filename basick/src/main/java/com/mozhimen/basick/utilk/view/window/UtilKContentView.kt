@@ -59,7 +59,7 @@ object UtilKContentView : BaseUtilK() {
      */
     @JvmStatic
     fun setFitsSystemWindows(activity: Activity, fitSystemWindows: Boolean = true) {//华为,OPPO机型在StatusUtil.setLightStatusBar后布局被顶到状态栏上去了
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
             getContent(activity)?.fitsSystemWindows = fitSystemWindows
         }
     }

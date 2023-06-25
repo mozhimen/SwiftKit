@@ -14,6 +14,8 @@ import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.content.pm.UtilKPackage
 import com.mozhimen.basick.utilk.database.getStringValue
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.datatype.regular.UtilKVerifyStr
@@ -56,10 +58,7 @@ scheme: content
 schemeSpecificPart: //com.android.providers.media.documents/document/image:27391
 userInfo: null
  */
-object UtilKUri {
-
-    private val TAG = "UtilKFileUri>>>>>"
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
+object UtilKUri : BaseUtilK() {
 
     /**
      * 获取PackageUri
@@ -123,7 +122,7 @@ object UtilKUri {
             return null
         }
         return if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
-            val authority = "${UtilKContext.getPackageName(_context)}.fileProvider"
+            val authority = "${UtilKPackage.getPackageName()}.fileProvider"
             Log.d(TAG, "file2Uri: authority $authority")
             FileProvider.getUriForFile(_context, authority, file).also {
                 UtilKContext.grantUriPermission(_context, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)

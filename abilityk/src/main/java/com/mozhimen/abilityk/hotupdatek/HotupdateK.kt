@@ -11,7 +11,6 @@ import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.app.UtilKApk
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
 import com.mozhimen.basick.utilk.java.datatype.getSplitLast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
@@ -48,7 +47,6 @@ import kotlin.coroutines.resume
 )
 class HotupdateK : BaseUtilK() {
 
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
     private val _apkPath by lazy { UtilKPath.Absolute.Internal.getCacheDir() + "/hotupdatek" }
     private val _installK by lazy { InstallK() }
     private var _downloadRequest: DownloadRequest? = null

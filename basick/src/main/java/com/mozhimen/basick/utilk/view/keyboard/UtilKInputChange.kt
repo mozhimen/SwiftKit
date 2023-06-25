@@ -7,16 +7,14 @@ import android.os.Build
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.Window
-import android.view.WindowManager
 import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.basick.utilk.view.window.UtilKDecorView
-import com.mozhimen.basick.utilk.view.window.UtilKWindow
 
 
 /**
@@ -26,7 +24,7 @@ import com.mozhimen.basick.utilk.view.window.UtilKWindow
  * @Date 2023/2/20 15:16
  * @Version 1.0
  */
-object UtilKInputChange {
+object UtilKInputChange : BaseUtilK() {
     /**
      * Register soft input changed listener.
      * @param activity The activity.
@@ -112,7 +110,7 @@ object UtilKInputChange {
                 }
                 decorView.getWindowVisibleDisplayFrame(_rect)
                 _keyboardRect[_rect.left, _rect.bottom, _rect.right] = _originalContentRect.bottom
-                val isVisible = _keyboardRect.height() > _originalContentRect.height() shr 2 && UtilKInputManager.isActive(UtilKApplication.instance.get())
+                val isVisible = _keyboardRect.height() > _originalContentRect.height() shr 2 && UtilKInputManager.isActive(_context)
                 if (isVisible == _lastVisible && _keyboardRect.height() == _lastHeight) return
                 _lastVisible = isVisible
                 _lastHeight = _keyboardRect.height()

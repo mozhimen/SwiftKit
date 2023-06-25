@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.net
 
-import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.wifi.WifiManager
@@ -8,8 +7,7 @@ import android.util.Log
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.net.Inet6Address
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -29,9 +27,7 @@ import kotlin.math.abs
     CPermission.ACCESS_WIFI_STATE,
     CPermission.INTERNET
 )
-object UtilKNetConn {
-    private val TAG = "UtilKNetConn>>>>>"
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
+object UtilKNetConn : BaseUtilK() {
 
     @JvmStatic
     fun getConnectivityManager(): ConnectivityManager =

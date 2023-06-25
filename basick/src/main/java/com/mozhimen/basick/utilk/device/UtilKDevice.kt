@@ -30,7 +30,6 @@ import java.io.RandomAccessFile
  */
 @AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 object UtilKDevice : BaseUtilK() {
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     @JvmStatic
     fun isHasFrontCamera(): Boolean =

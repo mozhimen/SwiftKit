@@ -39,6 +39,7 @@ import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.elemk.cons.CWinMgrLP;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.utilk.res.UtilKRes;
+import com.mozhimen.basick.utilk.res.UtilKResource;
 import com.mozhimen.basick.utilk.view.display.UtilKScreen;
 import com.mozhimen.basick.utilk.content.activity.UtilKActivity;
 import com.mozhimen.basick.utilk.anim.UtilKAnim;
@@ -205,12 +206,12 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
         this.mMaskViewDismissAnimation = new AlphaAnimation(1f, 0f);
         this.mMaskViewShowAnimation.setFillAfter(true);
         this.mMaskViewShowAnimation.setInterpolator(new DecelerateInterpolator());
-        this.mMaskViewShowAnimation.setDuration(UtilKRes.getSystemResources()
+        this.mMaskViewShowAnimation.setDuration(UtilKResource.getSystemResources()
                 .getInteger(android.R.integer.config_shortAnimTime));
         isDefaultMaskViewShowAnimation = true;
         this.mMaskViewDismissAnimation.setFillAfter(true);
         this.mMaskViewDismissAnimation.setInterpolator(new DecelerateInterpolator());
-        this.mMaskViewDismissAnimation.setDuration(UtilKRes.getSystemResources()
+        this.mMaskViewDismissAnimation.setDuration(UtilKResource.getSystemResources()
                 .getInteger(android.R.integer.config_shortAnimTime));
         isDefaultMaskViewDismissAnimation = true;
     }

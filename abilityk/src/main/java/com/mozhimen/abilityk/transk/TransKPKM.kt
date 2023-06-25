@@ -6,7 +6,7 @@ import android.util.Log
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.datatype.UtilKString
 import com.mozhimen.basick.utilk.log.et
-import com.mozhimen.basick.utilk.res.UtilKAssets
+import com.mozhimen.basick.utilk.res.UtilKAsset
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
@@ -40,7 +40,7 @@ class TransKPKM : BaseUtilK() {
         }
         return try {
             _zipInputStream = if (_path!!.startsWith("assets/")) {
-                val inputStream = UtilKAssets.open(_path!!.substring(7))
+                val inputStream = UtilKAsset.open(_path!!.substring(7))
                 ZipInputStream(inputStream)
             } else {
                 ZipInputStream(FileInputStream(_path))

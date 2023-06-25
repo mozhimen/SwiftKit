@@ -49,9 +49,7 @@ object UtilKStatusBarFontIcon : BaseUtilK() {
         } else {
             if (UtilKRomVersion.isMIUILarger6()) {
                 setStatusBarFontIcon_MiuiUILarger6(activity, isDark)
-            } else {
-                "setStatusBarFontIcon_MiuiUI: dont support this miui version".et(TAG)
-            }
+            } else "setStatusBarFontIcon_MiuiUI: dont support this miui version".et(TAG)
         }
     }
 
@@ -115,7 +113,7 @@ object UtilKStatusBarFontIcon : BaseUtilK() {
             var value = meizuFlags.getInt(layoutParams)
             value = if (isDark) value or bit else value and bit.inv()
             meizuFlags.setInt(layoutParams, value)
-            UtilKWindow.setAttributes(window,layoutParams)
+            UtilKWindow.setAttributes(window, layoutParams)
         } catch (e: Exception) {
             e.printStackTrace()
         }

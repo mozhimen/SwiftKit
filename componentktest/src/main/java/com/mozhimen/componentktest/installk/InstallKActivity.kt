@@ -1,17 +1,15 @@
 package com.mozhimen.componentktest.installk
 
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.utilk.res.UtilKAssets
+import com.mozhimen.basick.utilk.res.UtilKAsset
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.app.UtilKAppInstall
 import com.mozhimen.basick.utilk.content.pm.UtilKPackage
@@ -61,7 +59,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
         vb.installkBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (!UtilKFile.isFileExist(_apkPathWithName)) {
-                    UtilKAssets.asset2File("componentktest.apk", _apkPathWithName, false)
+                    UtilKAsset.asset2File("componentktest.apk", _apkPathWithName, false)
                 }
                 delay(500)
                 _installK.setInstallMode(EInstallMode.ROOT).setInstallSmartService(InstallKService::class.java).setInstallSilenceReceiver(InstallKReceiver::class.java)
@@ -84,14 +82,15 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                                 EPermissionType.COMMON -> {
                                     ManifestKPermission.initPermissions(this@InstallKActivity, onSuccess = { "权限申请成功".showToast() })
                                 }
+
                                 EPermissionType.INSTALL -> {
-                                    if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
-                                        UtilKAppInstall.openSettingAppInstall(this@InstallKActivity)
-                                    }
+                                    UtilKAppInstall.openSettingAppInstall(this@InstallKActivity)
                                 }
+
                                 EPermissionType.ACCESSIBILITY -> {
                                     UtilKLaunchActivity.startSettingAccessibility(this@InstallKActivity)
                                 }
+
                                 else -> {}
                             }
                         }

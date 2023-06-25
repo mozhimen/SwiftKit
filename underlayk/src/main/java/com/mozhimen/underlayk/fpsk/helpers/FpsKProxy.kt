@@ -15,6 +15,7 @@ import com.mozhimen.basick.elemk.delegate.VarDelegate_GetFun_R_Nonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
@@ -33,10 +34,7 @@ import com.mozhimen.underlayk.logk.LogK
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-class FpsKProxy : IFpsK {
-    private val TAG = "FpsKView>>>>>"
-
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
+class FpsKProxy : IFpsK, BaseUtilK() {
     private val _params by lazy {
         WindowManager.LayoutParams().apply {
             width = CWinMgrLP.WRAP_CONTENT
@@ -101,7 +99,6 @@ class FpsKProxy : IFpsK {
         _fpsView = null
     }
 
-    @RequiresApi(CVersionCode.V_30_11_R)
     private fun start() {
         if (_isOpen) return
         if (!UtilKPermission.hasOverlay()) {

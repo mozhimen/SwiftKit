@@ -4,6 +4,7 @@ import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.datatype.json.UtilKJson
+import com.mozhimen.basick.utilk.os.thread.UtilKCurrentThread
 import java.util.logging.Logger
 
 /**
@@ -88,7 +89,7 @@ object UtilKStackTrace : BaseUtilK() {
 
     @JvmStatic
     fun getCurrentStackTrace(clazz: Class<*>): StackTraceElement? {
-        val stackTrace = Thread.currentThread().stackTrace
+        val stackTrace = UtilKCurrentThread.getStackTrace()
         var stackOffset = getStackTraceOffset(stackTrace, clazz)
         if (stackOffset == -1) {
             stackOffset = getStackTraceOffset(stackTrace, Logger::class.java)

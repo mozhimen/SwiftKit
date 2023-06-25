@@ -1,25 +1,22 @@
 package com.mozhimen.basick.utilk.app
 
-import android.annotation.TargetApi
 import android.app.Activity
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInstaller
 import android.os.Build
-import android.provider.Settings
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.content.pm.UtilKPackage
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 import java.io.*
 import java.nio.charset.Charset
@@ -38,7 +35,6 @@ import java.nio.charset.Charset
     CPermission.REPLACE_EXISTING_PACKAGE
 )
 object UtilKAppInstall : BaseUtilK() {
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 是否有包安装权限
@@ -46,7 +42,6 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun isAppInstallsPermissionEnable(): Boolean {
         return UtilKPermission.hasPackageInstalls().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
     }
@@ -56,8 +51,6 @@ object UtilKAppInstall : BaseUtilK() {
      * @param activity Activity
      */
     @JvmStatic
-    @RequiresApi(CVersionCode.V_26_8_O)
-    @TargetApi(CVersionCode.V_26_8_O)
     fun openSettingAppInstall(activity: Activity) {
         UtilKLaunchActivity.startManageInstallSource(activity)
     }
@@ -67,8 +60,6 @@ object UtilKAppInstall : BaseUtilK() {
      * @param context Context
      */
     @JvmStatic
-    @RequiresApi(CVersionCode.V_26_8_O)
-    @TargetApi(CVersionCode.V_26_8_O)
     fun openSettingAppInstall(context: Context) {
         UtilKLaunchActivity.startManageInstallSource(context)
     }
@@ -198,7 +189,7 @@ object UtilKAppInstall : BaseUtilK() {
         val msgSuccess = StringBuilder()
         val msgError = StringBuilder()
         val cmd: Array<String> = if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
-            arrayOf("pm", "install", "-i", UtilKContext.getPackageName(_context), "-r", apkPathWithName)
+            arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
         } else {
             arrayOf("pm", "install", "-r", apkPathWithName)
         }

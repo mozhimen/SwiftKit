@@ -1,13 +1,13 @@
 package com.mozhimen.basick.utilk.res
 
-import android.content.Context
 import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CMsg
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.java.datatype.regexLineBreak2Str
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.*
@@ -20,66 +20,49 @@ import java.io.*
  * @Date 2022/4/15 3:52
  * @Version 1.0
  */
-object UtilKAssets : BaseUtilK() {
+@AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
+object UtilKAsset : BaseUtilK() {
+
+    @JvmStatic
+    fun getFromRes(): AssetManager =
+        UtilKAssetManager.getFromRes(_context)
+
+    ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun openFd(filePathWithName: String): AssetFileDescriptor =
-        getAssets2().openFd(filePathWithName)
+        UtilKAssetManager.openFd(filePathWithName, _context)
 
     @JvmStatic
     fun open(filePathWithName: String): InputStream =
-        getAssets().open(filePathWithName)
+        UtilKAssetManager.open(filePathWithName, _context)
 
-    /**
-     * 获取App的Assets
-     * @return AssetManager
-     */
     @JvmStatic
-    fun getAssets(): AssetManager =
-        UtilKRes.getAppResources().assets
+    fun list(assetFileName: String): Array<String>? =
+        UtilKAssetManager.list(assetFileName, _context)
 
-    /**
-     * 获取App的Assets
-     * @return AssetManager
-     */
-    @JvmStatic
-    fun getAssets2(): AssetManager =
-        UtilKContext.getAssets(UtilKApplication.instance.get())
-
-    /**
-     * 获取App的Assets
-     * @return AssetManager
-     */
-    @JvmStatic
-    fun getAssets(context: Context): AssetManager =
-        UtilKContext.getAssets(context)
-
-    /**
-     * Asset是否存在
-     * @param assetFileName String
-     * @return Boolean
-     */
     @JvmStatic
     fun isAssetExists(assetFileName: String): Boolean {
-        val listAssets = getAssets().list("")
-        val tmpAssetName = assetFileName.trim()
-        for (index in listAssets!!.indices) {
-            if (listAssets[index] == tmpAssetName) return true
+        val assets = list("") ?: return false
+        for (index in assets.indices) {
+            if (assets[index] == assetFileName) return true
         }
         return false
     }
 
+    ///////////////////////////////////////////////////////////////////
+
     /**
      * 文件转String:分析json文件,从资产文件加载内容:license,获取txt文本文件内容等
-     * @param assetName String
+     * @param assetFileName String
      * @return String
      */
     @JvmStatic
-    fun asset2Str(assetName: String): String {
-        if (!isAssetExists(assetName)) return CMsg.NOT_EXIST
-        val inputStream = getAssets().open(assetName)
+    fun asset2Str(assetFileName: String): String {
+        if (!isAssetExists(assetFileName)) return CMsg.NOT_EXIST
+        val inputStream = open(assetFileName)
         try {
-            return UtilKFile.inputStream2Str(inputStream).replace("\\n".toRegex(), "\n")
+            return UtilKFile.inputStream2Str(inputStream)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -98,11 +81,11 @@ object UtilKAssets : BaseUtilK() {
     @JvmStatic
     fun asset2Str2(assetName: String): String {
         if (!isAssetExists(assetName)) return CMsg.NOT_EXIST
-        val inputStream = getAssets().open(assetName)
+        val inputStream = open(assetName)
         try {
             val data = ByteArray(inputStream.available())
             inputStream.read(data)
-            return String(data).replace("\\n".toRegex(), "\n")
+            return String(data).regexLineBreak2Str()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -120,7 +103,7 @@ object UtilKAssets : BaseUtilK() {
     @JvmStatic
     fun asset2Str3(assetName: String): String {
         if (!isAssetExists(assetName)) return CMsg.NOT_EXIST
-        val inputStream = getAssets().open(assetName)
+        val inputStream = open(assetName)
         val stringBuilder = StringBuilder()
         try {
             var bufferLength: Int
@@ -128,7 +111,7 @@ object UtilKAssets : BaseUtilK() {
             while (inputStream.read(buffer).also { bufferLength = it } != -1) {
                 stringBuilder.append(String(buffer, 0, bufferLength))
             }
-            return stringBuilder.toString().replace("\\n".toRegex(), "\n")
+            return stringBuilder.toString().regexLineBreak2Str()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -147,7 +130,7 @@ object UtilKAssets : BaseUtilK() {
     @JvmStatic
     fun asset2File(assetName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? {
         if (!isAssetExists(assetName)) return null
-        val inputStream: InputStream = getAssets().open(assetName)
+        val inputStream: InputStream = getFromRes().open(assetName)
         //整理名称
         var tmpDestFilePath = destFilePathWithName
         if (tmpDestFilePath.endsWith("/")) {

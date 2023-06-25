@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -14,8 +15,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/11/21 21:22
  * @Version 1.0
  */
-open class BaseWakeBefDestroyLifecycleObserver : IDefaultLifecycleObserver {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+open class BaseWakeBefDestroyLifecycleObserver : IDefaultLifecycleObserver, BaseUtilK() {
 
     override fun bindLifecycle(owner: LifecycleOwner) {
         owner.lifecycleScope.launch(Dispatchers.Main) {

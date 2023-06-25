@@ -8,6 +8,7 @@ import com.mozhimen.basick.chaink.commons.IChainKTask
 import com.mozhimen.basick.chaink.helpers.ChainKRuntime
 import com.mozhimen.basick.chaink.helpers.ChainKImpl
 import com.mozhimen.basick.chaink.helpers.ChainKTaskComparator
+import com.mozhimen.basick.utilk.os.thread.UtilKCurrentThread
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -197,7 +198,7 @@ abstract class BaseChainKTask @JvmOverloads constructor(
     private fun toRunning() {
         state = AChainKState.RUNNING
         ChainKRuntime.setTaskStateInfo(this)
-        ChainKRuntime.setThreadName(this, Thread.currentThread().name)
+        ChainKRuntime.setThreadName(this, UtilKCurrentThread.getName())
         for (listener in _chainkListeners) {
             listener.onRunning(this)
         }

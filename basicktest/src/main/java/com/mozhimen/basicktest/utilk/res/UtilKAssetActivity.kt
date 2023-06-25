@@ -5,7 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.res.UtilKAssets
+import com.mozhimen.basick.utilk.res.UtilKAsset
 import com.mozhimen.basicktest.BR
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkAssetBinding
@@ -45,19 +45,19 @@ class UtilKAssetActivity : BaseActivityVB<ActivityUtilkAssetBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
-            addLog("isFileExists deviceInfo ${UtilKAssets.isAssetExists("deviceInfo")}")
+            addLog("isFileExists deviceInfo ${UtilKAsset.isAssetExists("deviceInfo")}")
             val file2StrTime = System.currentTimeMillis()
-            val file2StrContent = UtilKAssets.asset2Str("deviceInfo")
+            val file2StrContent = UtilKAsset.asset2Str("deviceInfo")
             addLog("file2Str1 deviceInfo $file2StrContent time ${System.currentTimeMillis() - file2StrTime}")
             val txt2StrTime = System.currentTimeMillis()
-            val txt2StrContent = UtilKAssets.asset2Str2("deviceInfo")
+            val txt2StrContent = UtilKAsset.asset2Str2("deviceInfo")
             addLog("file2Str2 deviceInfo $txt2StrContent time ${System.currentTimeMillis() - txt2StrTime}")
             val txt2Str2Time = System.currentTimeMillis()
-            val txt2Str2Content = UtilKAssets.asset2Str3("deviceInfo")
+            val txt2Str2Content = UtilKAsset.asset2Str3("deviceInfo")
             addLog("file2Str3 deviceInfo $txt2Str2Content time ${System.currentTimeMillis() - txt2Str2Time}")
             addLog("start copy file")
             val assetCopyFileTime = System.currentTimeMillis()
-            val assetCopyFile = UtilKAssets.asset2File("deviceInfo", this@UtilKAssetActivity.cacheDir.absolutePath + "/utilk_asset/")
+            val assetCopyFile = UtilKAsset.asset2File("deviceInfo", this@UtilKAssetActivity.cacheDir.absolutePath + "/utilk_asset/")
             addLog("assetCopyFile deviceInfo path ${assetCopyFile?.absolutePath} time ${System.currentTimeMillis() - assetCopyFileTime}")
         }
     }

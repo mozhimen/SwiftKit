@@ -5,14 +5,15 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.mozhimen.basick.cachek.commons.ICacheKProvider
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 
-class CacheKDSProvider(dsName: String) : ICacheKProvider {
+class CacheKDSProvider(dsName: String) : ICacheKProvider, BaseUtilK() {
     private val Context._dataStore: DataStore<Preferences> by preferencesDataStore(name = dsName)
-    val dataStore: DataStore<Preferences> by lazy { UtilKApplication.instance.applicationContext._dataStore }
+    val dataStore: DataStore<Preferences> by lazy { _context._dataStore }
 
     /////////////////////////////////////////////////////////////////////
 

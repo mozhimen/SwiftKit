@@ -5,13 +5,13 @@ import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Build
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.elemk.cons.CView
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.view.bar.UtilKVirtualBar
 import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.res.UtilKConfiguration
 import com.mozhimen.basick.utilk.res.UtilKDisplay
 import com.mozhimen.basick.utilk.res.UtilKTheme
@@ -27,10 +27,7 @@ import kotlin.math.sqrt
  * @Date 2021/4/21 9:16
  * @Version 1.0
  */
-object UtilKScreen {
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
-
-    ////////////////////////////////////////////////////////////////////////////////
+object UtilKScreen : BaseUtilK() {
 
     /**
      * 是否全屏
@@ -47,7 +44,7 @@ object UtilKScreen {
      */
     @JvmStatic
     fun isFullScreen(): Boolean =
-        UtilKTheme.isFullScreen2(_context)
+        UtilKTheme.isFullScreen(_context)
 
     /**
      * 设置全屏
@@ -209,13 +206,6 @@ object UtilKScreen {
      * @return Bitmap
      */
     @JvmStatic
-    fun captureScreen(activity: Activity): Bitmap {
-        val view = UtilKDecorView.get(activity)
-        view.isDrawingCacheEnabled = true
-        view.buildDrawingCache()
-        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getVirtualBarHeight(activity))
-        view.isDrawingCacheEnabled = false
-        view.destroyDrawingCache()
-        return bitmap
-    }
+    fun captureScreen(activity: Activity): Bitmap =
+        UtilKBitmapDeal.getBitmapForScreen(activity)
 }

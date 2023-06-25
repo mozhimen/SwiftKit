@@ -1,13 +1,13 @@
 package com.mozhimen.underlayk.logk.temps.printer
 
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.underlayk.logk.LogK
-import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
+import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 
 /**
  * @ClassName PrinterMonitor
@@ -17,9 +17,12 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-class LogKPrinterMonitor : ILogKPrinter {
-    private val _printerMonitorProvider: LogKPrinterMonitorProvider by lazy { LogKPrinterMonitorProvider(UtilKApplication.instance.get()) }
+class LogKPrinterMonitor : ILogKPrinter, IUtilK {
 
+    private val _printerMonitorProvider: LogKPrinterMonitorProvider by lazy { LogKPrinterMonitorProvider() }
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+    
     init {
         StackKCb.instance.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
@@ -49,10 +52,16 @@ class LogKPrinterMonitor : ILogKPrinter {
         }
     }
 
-    fun getPrinterMonitorProvider(): LogKPrinterMonitorProvider =
-        _printerMonitorProvider
+//    fun getPrinterMonitorProvider(): LogKPrinterMonitorProvider =
+//        _printerMonitorProvider
+
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    override val TAG: String = "LogKPrinterMonitor>>>>>"
+
 
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
         _printerMonitorProvider.print(config, level, tag, printString)
     }
+
 }

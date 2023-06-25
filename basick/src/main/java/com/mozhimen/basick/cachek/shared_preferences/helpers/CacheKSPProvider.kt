@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import com.mozhimen.basick.cachek.commons.ICacheKProvider
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.encrypt.UtilKAES
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import java.lang.IllegalArgumentException
@@ -15,9 +16,9 @@ import java.lang.IllegalArgumentException
  * @Date 2022/5/25 16:35
  * @Version 1.0
  */
-class CacheKSPProvider(spName: String) : ICacheKProvider {
+class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
 
-    private val _sharedPreferences: SharedPreferences by lazy { UtilKApplication.instance.applicationContext.getSharedPreferences(spName, Context.MODE_PRIVATE) }
+    private val _sharedPreferences: SharedPreferences by lazy { _context.getSharedPreferences(spName, Context.MODE_PRIVATE) }
 
     /////////////////////////////////////////////////////////////////////
 

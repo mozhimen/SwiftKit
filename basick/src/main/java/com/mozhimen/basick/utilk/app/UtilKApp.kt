@@ -6,12 +6,12 @@ import android.os.Process
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.content.UtilKContextStart
 import com.mozhimen.basick.utilk.content.UtilKIntent
-import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
+import com.mozhimen.basick.utilk.content.pm.UtilKApplicationInfo
 import com.mozhimen.basick.utilk.os.UtilKSystemProperties
+import java.lang.IllegalArgumentException
 import kotlin.system.exitProcess
 
 
@@ -23,7 +23,6 @@ import kotlin.system.exitProcess
  * @Version 1.0
  */
 object UtilKApp : BaseUtilK() {
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
 
     /**
      * 重启
@@ -47,10 +46,8 @@ object UtilKApp : BaseUtilK() {
      */
     @JvmStatic
     fun restartApp(isKillProcess: Boolean, isValid: Boolean = true, context: Context = _context) {
-        val intent: Intent? = UtilKIntent.getLauncherActivity(context, UtilKContext.getPackageName(context))
-        if (intent == null) {
-            Log.e(TAG, "didn't exist launcher activity.")
-            return
+        val intent: Intent = UtilKIntent.getLauncherActivity(context, UtilKContext.getPackageName(context)) ?: run {
+            Log.e(TAG, "didn't exist launcher activity.");return
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         UtilKContextStart.startContext(context, intent)
@@ -72,8 +69,9 @@ object UtilKApp : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
+    @Throws(IllegalArgumentException::class)
     fun isSystemApp(context: Context): Boolean =
-        UtilKPackageInfo.isSystemApp(context)
+        UtilKApplicationInfo.isSystemApp(context)
 
     /**
      * isSystemUpdateApp
@@ -81,7 +79,7 @@ object UtilKApp : BaseUtilK() {
      */
     @JvmStatic
     fun isSystemUpdateApp(context: Context): Boolean =
-        UtilKPackageInfo.isSystemUpdateApp(context)
+        UtilKApplicationInfo.isSystemUpdateApp(context)
 
     /**
      * isUserApp
@@ -89,5 +87,5 @@ object UtilKApp : BaseUtilK() {
      */
     @JvmStatic
     fun isUserApp(context: Context): Boolean =
-        UtilKPackageInfo.isUserApp(context)
+        UtilKApplicationInfo.isUserApp(context)
 }

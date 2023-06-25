@@ -222,7 +222,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.PopupWindow;
@@ -241,6 +240,7 @@ import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.elemk.cons.CWinMgrLP;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
+import com.mozhimen.basick.utilk.bases.BaseUtilK;
 import com.mozhimen.basick.utilk.graphics.UtilKColor;
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus;
 import com.mozhimen.basick.utilk.view.UtilKGravity;
@@ -334,7 +334,7 @@ import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
  * @since 2016/1/14
  */
 @SuppressWarnings("All")
-public abstract class BasePopwinK implements PopupWindow.OnDismissListener, LifecycleObserver {
+public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDismissListener, LifecycleObserver {
     protected final String TAG = this.getClass().getSimpleName() + ">>>>>";
     public static int DEFAULT_BACKGROUND_COLOR = UtilKColor.colorStr2colorInt("#8f000000");
 
@@ -1503,7 +1503,7 @@ public abstract class BasePopwinK implements PopupWindow.OnDismissListener, Life
     Context getContextInner(boolean appContextIfNoContext) {
         Context ctx = getContext();
         if (ctx == null && appContextIfNoContext) {
-            ctx = UtilKApplication.getInstance().get();
+            ctx = get_context();
         }
         return ctx;
     }

@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.java
 
+import com.mozhimen.basick.utilk.java.datatype.regexLineBreak2Str
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer
@@ -24,6 +25,6 @@ object UtilKThrowable {
         }
         val crashString = stringWriter.toString()
         printWriter.close()
-        return crashString
+        return crashString.regexLineBreak2Str()
     }
 }

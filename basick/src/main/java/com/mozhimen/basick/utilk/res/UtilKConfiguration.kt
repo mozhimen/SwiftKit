@@ -19,7 +19,7 @@ object UtilKConfiguration {
      * @return Configuration
      */
     @JvmStatic
-    fun getConfiguration(resources: Resources): Configuration =
+    fun get(resources: Resources): Configuration =
         resources.configuration
 
     /**
@@ -27,8 +27,8 @@ object UtilKConfiguration {
      * @return Configuration
      */
     @JvmStatic
-    fun getConfiguration(): Configuration =
-        UtilKRes.getSystemResources().configuration
+    fun get(): Configuration =
+        UtilKResource.getSystemConfiguration()
 
     /**
      * 获取uiMode
@@ -36,7 +36,7 @@ object UtilKConfiguration {
      */
     @JvmStatic
     fun getUiMode(): Int =
-        getConfiguration().uiMode
+        get().uiMode
 
     /**
      * 获取screenLayout
@@ -44,7 +44,7 @@ object UtilKConfiguration {
      */
     @JvmStatic
     fun getScreenLayout(): Int =
-        getConfiguration().screenLayout
+        get().screenLayout
 
     /**
      * 获取密度dp
@@ -52,7 +52,7 @@ object UtilKConfiguration {
      */
     @JvmStatic
     fun getDensityDpi(): Int =
-        getConfiguration().densityDpi
+        get().densityDpi
 
     /**
      * 获取dp宽
@@ -60,7 +60,7 @@ object UtilKConfiguration {
      */
     @JvmStatic
     fun getScreenWidthDp(): Int =
-        getConfiguration().screenWidthDp
+        get().screenWidthDp
 
     /**
      * 获取dp高
@@ -68,7 +68,7 @@ object UtilKConfiguration {
      */
     @JvmStatic
     fun getScreenHeightDp(): Int =
-        getConfiguration().screenHeightDp
+        get().screenHeightDp
 
     /**
      * 获取屏幕方向
@@ -76,7 +76,7 @@ object UtilKConfiguration {
      */
     @JvmStatic
     fun getOrientation(): Int =
-        getConfiguration().orientation
+        get().orientation
 
     /**
      * 是否为竖屏
@@ -85,6 +85,7 @@ object UtilKConfiguration {
     @JvmStatic
     fun isOrientationPortrait(): Boolean =
         getOrientation() == Configuration.ORIENTATION_PORTRAIT
+
     /**
      * 是否是平板
      * @return Boolean

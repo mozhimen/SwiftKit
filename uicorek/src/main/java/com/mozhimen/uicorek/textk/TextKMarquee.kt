@@ -28,7 +28,7 @@ class TextKMarquee @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     override fun initView() {
         ellipsize = TextUtils.TruncateAt.MARQUEE
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
             focusable = View.FOCUSABLE
         }
         isFocusableInTouchMode = true

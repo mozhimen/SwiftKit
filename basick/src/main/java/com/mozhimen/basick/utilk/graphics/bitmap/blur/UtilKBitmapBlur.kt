@@ -5,6 +5,7 @@ import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
 import android.renderscript.ScriptIntrinsicBlur
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
 import kotlin.math.min
@@ -23,7 +24,7 @@ import kotlin.math.roundToInt
  * @Date 2022/11/30 22:07
  * @Version 1.0
  */
-object UtilKBitmapBlur {
+object UtilKBitmapBlur : BaseUtilK() {
 
     /**
      * 模糊图片,API>=17
@@ -39,7 +40,7 @@ object UtilKBitmapBlur {
         //创建一张渲染后的输出图片
         val outputBitmap = Bitmap.createBitmap(inputBitmap)
         //创建RenderScript内核对象
-        val renderScript = RenderScript.create(UtilKApplication.instance.get())
+        val renderScript = RenderScript.create(_context)
         //创建一个模糊效果的RenderScript的工具对象
         val scriptIntrinsicBlur = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
         //由于RenderScript并没有使用VM来分配内存,所以需要使用Allocation类来创建和分配内存空间

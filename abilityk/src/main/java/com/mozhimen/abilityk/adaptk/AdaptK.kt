@@ -22,7 +22,7 @@ object AdaptK {
             private var _oldResources: Resources = Resources(super.getResources().assets, super.getResources().displayMetrics, super.getResources().configuration)
 
             override fun getResources(): Resources {
-                if (UtilKConfiguration.getConfiguration(_oldResources).orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                if (UtilKConfiguration.get(_oldResources).orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     AutoSizeCompat.autoConvertDensityBaseOnWidth(_oldResources, AdaptKMgr.instance.getLength().toFloat())
                 } else {
                     AutoSizeCompat.autoConvertDensityBaseOnHeight(_oldResources, AdaptKMgr.instance.getLength().toFloat())

@@ -32,21 +32,20 @@ object StatusBarK {
             activity.javaClass.getAnnotation(AStatusBarK::class.java) ?: AStatusBarK(statusBarType = AStatusBarKType.FULL_SCREEN)
 
         when (statusBarAnnor.statusBarType) {
-            AStatusBarKType.FULL_SCREEN -> {
-                UtilKStatusBar.setFullScreen(activity)//设置状态栏全屏
-            }
+            AStatusBarKType.FULL_SCREEN -> UtilKStatusBar.setFullScreen(activity)//设置状态栏全屏
             AStatusBarKType.IMMERSED -> {
                 UtilKStatusBar.setImmersed(activity)//设置状态栏沉浸式
-                UtilKStatusBarFontIcon.setStatusBarFontIcon(activity, statusBarAnnor.isFontIconDark)//设置状态栏文字和Icon是否为深色
+                UtilKStatusBarFontIcon.setStatusBarFontIcon(activity, if (statusBarAnnor.isFollowSystem) UtilKUiMode.isOSLightMode() else statusBarAnnor.isFontIconDark)//设置状态栏文字和Icon是否为深色
             }
+
             else -> {
                 val statusBarColor = if (statusBarAnnor.isFollowSystem) {
-                    if (UtilKUiMode.isOSLightMode()) statusBarAnnor.bgColorLight
-                    else statusBarAnnor.bgColorDark
-                } else statusBarAnnor.bgColorLight
-                val isFontIconDark = if (statusBarAnnor.isFollowSystem) UtilKUiMode.isOSLightMode() else statusBarAnnor.isFontIconDark
+                    if (UtilKUiMode.isOSLightMode()) statusBarAnnor.bgColorLight else statusBarAnnor.bgColorDark
+                } else {
+                    if (statusBarAnnor.isFontIconDark) statusBarAnnor.bgColorLight else statusBarAnnor.bgColorDark
+                }
                 UtilKStatusBar.setStatusBarColor(activity, UtilKRes.getColor(statusBarColor))
-                UtilKStatusBarFontIcon.setStatusBarFontIcon(activity, isFontIconDark)//设置状态栏文字和Icon是否为深色
+                UtilKStatusBarFontIcon.setStatusBarFontIcon(activity, if (statusBarAnnor.isFollowSystem) UtilKUiMode.isOSLightMode() else statusBarAnnor.isFontIconDark)//设置状态栏文字和Icon是否为深色
             }
         }
     }

@@ -7,7 +7,10 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CDateFormat
 import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.datatype.regexLineBreak2Str
 import com.mozhimen.basick.utilk.os.UtilKDate
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.io.hash.UtilKMD5
@@ -23,6 +26,7 @@ import java.util.Locale
  * @Date 2022/2/22 11:59
  * @Version 1.0
  */
+@AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
 object UtilKFile : BaseUtilK() {
 
     //region # file
@@ -215,7 +219,7 @@ object UtilKFile : BaseUtilK() {
         if (!isFileExist(file)) return CMsg.NOT_EXIST
         val fileInputStream = FileInputStream(file)
         try {
-            return inputStream2Str(fileInputStream).replace("\\n".toRegex(), "\n")
+            return inputStream2Str(fileInputStream)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -240,7 +244,7 @@ object UtilKFile : BaseUtilK() {
             while (bufferedReader.readLine()?.also { lineString = it } != null) {
                 stringBuilder.append(lineString).append("\n")
             }
-            return stringBuilder.deleteCharAt(stringBuilder.length - 1).toString().replace("\\n".toRegex(), "\n")
+            return stringBuilder.deleteCharAt(stringBuilder.length - 1).toString().regexLineBreak2Str()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -501,6 +505,8 @@ object UtilKFile : BaseUtilK() {
         return file.length()
     }
     //endregion
+
+    /////////////////////////////////////////////////////////////////////////////////////////
 
     //region # folder
     /**

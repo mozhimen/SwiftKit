@@ -10,11 +10,7 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
  * @Version 1.0
  */
 interface ILogKPrinter {
-    val TAG: String
-        get() = "${this.javaClass.simpleName}>>>>>"
-
     fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String)
 
-    fun getName(): String =
-        TAG.replace(">>>>>", "")
+    fun getName(): String = this.javaClass.simpleName
 }

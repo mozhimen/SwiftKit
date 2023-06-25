@@ -88,7 +88,7 @@ object UtilKDisplay {
      */
     @JvmStatic
     fun getDisplayMetrics(): DisplayMetrics {
-        return UtilKRes.getDisplayMetrics()
+        return UtilKResource.getDisplayMetrics()
     }
 
     /**

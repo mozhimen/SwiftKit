@@ -6,6 +6,8 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.os.thread.UtilKCurrentThread
+import com.mozhimen.basick.utilk.os.thread.UtilKThread
 import com.mozhimen.basicktest.databinding.ActivityTaskkExecutorBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,12 +50,12 @@ class TaskKExecutorActivity : BaseActivityVB<ActivityTaskkExecutorBinding>() {
         vb.taskkExecutorBtnAsync.setOnClickListener {
             TaskKExecutor.execute(TAG, runnable = object : TaskKExecutor.ExecutorKCallable<String>() {
                 override fun onBackground(): String {
-                    Log.e(TAG, "onBackground: 当前线程: ${Thread.currentThread().name}")
+                    Log.e(TAG, "onBackground: 当前线程: ${UtilKCurrentThread.get()}")
                     return "我是异步任务的结果"
                 }
 
                 override fun onCompleted(t: String?) {
-                    Log.e(TAG, "onCompleted: 当前线程是: ${Thread.currentThread().name}")
+                    Log.e(TAG, "onCompleted: 当前线程是: ${UtilKCurrentThread.getName()}")
                     Log.e(TAG, "onCompleted: 任务结果是: $t")
                 }
             })

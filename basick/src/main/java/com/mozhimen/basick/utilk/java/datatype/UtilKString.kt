@@ -1,6 +1,9 @@
 package com.mozhimen.basick.utilk.java.datatype
 
 import android.os.Build
+import com.mozhimen.basick.elemk.cons.CMsg
+import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.text.DecimalFormat
@@ -47,6 +50,9 @@ fun CharSequence.toStringTrim(): String =
 
 fun Any.toStringTrim(): String =
     UtilKString.toStringTrim(this)
+
+fun String.regexLineBreak2Str(): String =
+    UtilKString.regexLineBreak2Str(this)
 
 object UtilKString : BaseUtilK() {
 
@@ -282,4 +288,8 @@ object UtilKString : BaseUtilK() {
     fun throwIllegalStateException(msgStr: String) {
         throw IllegalStateException(msgStr)
     }
+
+    @JvmStatic
+    fun regexLineBreak2Str(str: String): String =
+        str.replace("\\n".toRegex(), CMsg.LINE_BREAK)
 }

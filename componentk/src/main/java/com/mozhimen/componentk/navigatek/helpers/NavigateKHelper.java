@@ -22,7 +22,9 @@ import androidx.navigation.Navigator;
 import androidx.navigation.NavigatorProvider;
 
 import com.mozhimen.basick.utilk.content.UtilKContext;
+import com.mozhimen.basick.utilk.content.pm.UtilKPackage;
 import com.mozhimen.basick.utilk.res.UtilKRes;
+import com.mozhimen.basick.utilk.res.UtilKResource;
 import com.mozhimen.componentk.R;
 
 import java.util.ArrayDeque;
@@ -152,7 +154,7 @@ public class NavigateKHelper extends Navigator<NavigateKHelper.Destination> {
         }
         String className = destination.getClassName();
         if (className.charAt(0) == '.') {
-            className = UtilKContext.getPackageName(_context) + className;
+            className = UtilKPackage.getPackageName() + className;
         }
 
         //android.fragment.app.xxx->xxx
@@ -309,8 +311,8 @@ public class NavigateKHelper extends Navigator<NavigateKHelper.Destination> {
         @Override
         public void onInflate(@NonNull Context context, @NonNull AttributeSet attrs) {
             super.onInflate(context, attrs);
-            TypedArray a = UtilKRes.getAppResources().obtainAttributes(attrs,
-                    androidx.navigation.fragment.R.styleable.FragmentNavigator);
+            TypedArray a = UtilKResource.obtainAttributes(attrs,
+                    androidx.navigation.fragment.R.styleable.FragmentNavigator, context);
             String className = a.getString(androidx.navigation.fragment.R.styleable.FragmentNavigator_android_name);
             if (className != null) {
                 setClassName(className);

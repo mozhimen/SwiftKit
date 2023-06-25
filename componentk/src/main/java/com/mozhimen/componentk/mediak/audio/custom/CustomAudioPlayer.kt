@@ -13,7 +13,8 @@ import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.net.UtilKWifiManager
-import com.mozhimen.basick.utilk.res.UtilKAssets
+import com.mozhimen.basick.utilk.res.UtilKAsset
+import com.mozhimen.basick.utilk.res.UtilKAssetManager
 import com.mozhimen.componentk.mediak.audio.focus.commons.IMediaKAudioFocusListener
 import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
 import com.mozhimen.componentk.mediak.audio.custom.commons.ICustomAudioPlayer
@@ -38,7 +39,6 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
     MediaPlayer.OnErrorListener,
     IMediaKAudioFocusListener, BaseUtilK() {
 
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
     private var _mediaKStatusPlayer: MediaKStatusPlayer? = null
         get() {
             if (field != null) return field
@@ -88,7 +88,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
                 if (audio.url.contains("/")) {
                     setDataSource(audio.url)
                 } else {
-                    val assetFileDescriptor = UtilKAssets.getAssets().openFd(audio.url)
+                    val assetFileDescriptor = UtilKAsset.openFd(audio.url)
                     setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
                 }
                 prepareAsync()

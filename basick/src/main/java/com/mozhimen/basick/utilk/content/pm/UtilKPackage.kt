@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.content.pm
 
-import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.content.UtilKContext
+import java.util.Arrays
 
 
 /**
@@ -10,10 +12,21 @@ import com.mozhimen.basick.utilk.content.UtilKApplication
  * @Date 2023/3/21 16:19
  * @Version 1.0
  */
-object UtilKPackage {
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
+object UtilKPackage : BaseUtilK() {
 
     @JvmStatic
     fun getVersionCode(): Int =
         UtilKPackageInfo.getVersionCode(_context)
+
+    @JvmStatic
+    fun getPackageName(): String =
+        UtilKContext.getPackageName(_context)
+
+    @JvmStatic
+    fun getVersionName(): String =
+        UtilKPackageInfo.getVersionName(_context)
+
+    @JvmStatic
+    fun getRequestedPermissionsStr(): String =
+        Arrays.toString(UtilKPackageInfo.getRequestedPermissions(_context))
 }

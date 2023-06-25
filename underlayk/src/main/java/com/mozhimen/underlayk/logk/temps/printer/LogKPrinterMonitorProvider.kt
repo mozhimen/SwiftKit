@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.logk.temps.printer
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.graphics.PixelFormat
 import android.os.Build
 import android.view.Gravity
@@ -9,26 +9,25 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.cons.CWinMgrLP
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKPermission
 import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.res.UtilKRes
 import com.mozhimen.basick.utilk.view.bar.showToastOnMain
+import com.mozhimen.basick.utilk.view.display.UtilKScreen
 import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.uicorek.cons.CUiParameter
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.LogK
-import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
+import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.cons.CLogKParameter
 import com.mozhimen.underlayk.logk.mos.MLogK
 
@@ -40,7 +39,7 @@ import com.mozhimen.underlayk.logk.mos.MLogK
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
+class LogKPrinterMonitorProvider : ILogKPrinter, BaseUtilK() {
     private companion object {
         private val TITLE_OPEN_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_open)
         private val TITLE_CLOSE_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_close)
@@ -48,6 +47,7 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
 
     private val _layoutParams: WindowManager.LayoutParams by lazy { WindowManager.LayoutParams() }
     private var _rootView: FrameLayout? = null
+        @SuppressLint("InflateParams")
         get() {
             if (field != null) return field
             val frameLayout = LayoutInflater.from(_context).inflate(R.layout.logk_monitor_view, null, false) as FrameLayout
@@ -100,7 +100,6 @@ class LogKPrinterMonitorProvider(private val _context: Context) : ILogKPrinter {
         return _isOpen
     }
 
-    @RequiresApi(CVersionCode.V_30_11_R)
     fun open(isFold: Boolean) {
         if (_isOpen) return
         if (!UtilKPermission.hasOverlay()) {

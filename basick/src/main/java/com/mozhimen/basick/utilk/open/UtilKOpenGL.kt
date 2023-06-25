@@ -5,7 +5,7 @@ import android.opengl.Matrix
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.res.UtilKAssets
+import com.mozhimen.basick.utilk.res.UtilKAsset
 
 /**
  * @ClassName UtilKOpenGL
@@ -98,7 +98,7 @@ object UtilKOpenGL : BaseUtilK() {
 
     @JvmStatic
     fun createGlProgramByRes(vert: String, frag: String): Int =
-        createGlProgram(UtilKAssets.asset2Str3(vert), UtilKAssets.asset2Str3(frag))
+        createGlProgram(UtilKAsset.asset2Str3(vert), UtilKAsset.asset2Str3(frag))
 
     /**
      * 创建GL程序

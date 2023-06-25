@@ -19,50 +19,20 @@ import com.mozhimen.basick.utilk.content.UtilKContext
  * @Version 1.0
  */
 object UtilKPackageInfo : BaseUtilK() {
-    /**
-     * getPackageInfo
-     * @return PackageInfo
-     */
     @JvmStatic
-    fun get(context: Context): PackageInfo =
-        UtilKPackageManager.get(context).getPackageInfo(UtilKContext.getPackageName(context), PackageInfo.INSTALL_LOCATION_AUTO/*0*/)
+    @JvmOverloads
+    fun get(context: Context, flags: Int = PackageInfo.INSTALL_LOCATION_AUTO): PackageInfo? =
+        UtilKPackageManager.getPackageInfo(context, UtilKContext.getPackageName(context), flags /*0*/)
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getPackageArchiveInfo(apkPathWithName: String, context: Context): PackageInfo? =
-        UtilKPackageManager.get(context).getPackageArchiveInfo(apkPathWithName, PackageManager.GET_ACTIVITIES)
+    fun getApplicationInfo(context: Context): ApplicationInfo? =
+        get(context)?.applicationInfo
 
-
-    /**
-     * 获取flags
-     * @return Int
-     */
     @JvmStatic
-    fun getFlags(context: Context): Int =
-        get(context).applicationInfo.flags
-
-    /**
-     * isSystemApp
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isSystemApp(context: Context): Boolean =
-        (getFlags(context) and ApplicationInfo.FLAG_SYSTEM) != 0
-
-    /**
-     * isSystemUpdateApp
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isSystemUpdateApp(context: Context): Boolean =
-        (getFlags(context) and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
-
-    /**
-     * isUserApp
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isUserApp(context: Context): Boolean =
-        !isSystemApp(context) && !isSystemUpdateApp(context)
+    fun getRequestedPermissions(context: Context): Array<String>? =
+        get(context)?.requestedPermissions
 
     /**
      * 获取程序包名
@@ -70,7 +40,7 @@ object UtilKPackageInfo : BaseUtilK() {
      */
     @JvmStatic
     fun getVersionName(context: Context): String {
-        return getVersionName(get(context))
+        return getVersionName(get(context) ?: return "")
     }
 
     @JvmStatic
@@ -90,7 +60,7 @@ object UtilKPackageInfo : BaseUtilK() {
      */
     @JvmStatic
     fun getVersionCode(context: Context): Int {
-        return getVersionCode(get(context))
+        return getVersionCode(get(context) ?: return 0)
     }
 
     @JvmStatic

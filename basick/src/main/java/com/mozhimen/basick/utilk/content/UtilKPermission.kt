@@ -12,6 +12,7 @@ import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.content.pm.UtilKPackage
 import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
 
 /**
@@ -23,16 +24,21 @@ import com.mozhimen.basick.utilk.content.pm.UtilKPackageManager
  */
 object UtilKPermission : BaseUtilK() {
 
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
+    @JvmStatic
+    fun hasOverlay(): Boolean =
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
+            hasOverlay2()
+        } else true
 
     /**
      * 是否有Overlay的权限
      * @return Boolean
      */
+    @RequiresApi(CVersionCode.V_23_6_M)
     @JvmStatic
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
     @ADescription(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-    fun hasOverlay(): Boolean {
+    fun hasOverlay2(): Boolean {
         return Build.VERSION.SDK_INT < CVersionCode.V_23_6_M || Settings.canDrawOverlays(_context)
     }
 
@@ -41,6 +47,7 @@ object UtilKPermission : BaseUtilK() {
      * 是否有文件管理权限
      * @return Boolean
      */
+    @RequiresApi(CVersionCode.V_30_11_R)
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     @ADescription(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
@@ -52,6 +59,7 @@ object UtilKPermission : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     fun hasPackageInstalls(): Boolean {
         return if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
             hasPackageInstallsAfterO()
@@ -77,7 +85,7 @@ object UtilKPermission : BaseUtilK() {
     @JvmStatic
     fun hasAccessibility(serviceClazz: Class<*>): Boolean {
         var permissionEnable = 0
-        val service = "${UtilKContext.getPackageName(_context)}/${serviceClazz.canonicalName}"
+        val service = "${UtilKPackage.getPackageName()}/${serviceClazz.canonicalName}"
         try {
             permissionEnable = Settings.Secure.getInt(UtilKContext.getContentResolver(_context), Settings.Secure.ACCESSIBILITY_ENABLED)
             Log.d(TAG, "isSettingAccessibilityPermissionEnable permissionEnable $permissionEnable")
@@ -99,7 +107,6 @@ object UtilKPermission : BaseUtilK() {
                         return true
                     }
                 }
-            } else {
             }
         } else {
             Log.e(TAG, "isSettingAccessibilityPermissionEnable accessibility is disabled")

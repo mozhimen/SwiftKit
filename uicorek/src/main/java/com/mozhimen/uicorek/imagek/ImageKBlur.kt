@@ -5,8 +5,6 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Rect
-import android.os.Build
-import android.os.Looper
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
@@ -16,11 +14,12 @@ import androidx.appcompat.widget.AppCompatImageView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.temps.AnimatorAlphaType
-import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.graphics.UtilKRenderScript
 import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig
+import com.mozhimen.basick.utilk.os.thread.UtilKThread
+import com.mozhimen.basick.utilk.view.applyBackgroundNull
 import com.mozhimen.uicorek.commons.IUicoreK
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -54,11 +53,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         isFocusable = false
         isFocusableInTouchMode = false
         scaleType = ScaleType.MATRIX
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_16_41_J) {
-            background = null
-        } else {
-            setBackgroundDrawable(null)
-        }
+        applyBackgroundNull()
     }
 
     fun setCutoutX(cutoutX: Int): ImageKBlur {
@@ -211,7 +206,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
      * @param blurBitmap
      */
     private fun setImageBitmapOnUiThread(blurBitmap: Bitmap?, isOnUpdate: Boolean) {
-        if (isUiThread()) {
+        if (UtilKThread.isMainThread()) {
             handleSetImageBitmap(blurBitmap, isOnUpdate)
         } else {
             if (!_isAttachedToWindow) {
@@ -251,10 +246,6 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
             _attachedCache!!.destroy()
             _attachedCache = null
         }
-    }
-
-    private fun isUiThread(): Boolean {
-        return Thread.currentThread() === Looper.getMainLooper().thread
     }
 
     private fun applyBlurOption(option: UtilKBitmapBlurConfig, isOnUpdate: Boolean) {

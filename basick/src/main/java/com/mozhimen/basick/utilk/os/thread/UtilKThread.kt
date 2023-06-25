@@ -20,6 +20,7 @@ import kotlinx.coroutines.withContext
  * @Version 1.0
  */
 object UtilKThread {
+
     /**
      * 是否在主线程
      * @param context Application
@@ -39,7 +40,7 @@ object UtilKThread {
      */
     @JvmStatic
     fun isMainThread(): Boolean =
-        Looper.getMainLooper().thread == Thread.currentThread()
+        Looper.getMainLooper().thread == UtilKCurrentThread.get()
 
     /**
      * 在子线程运行

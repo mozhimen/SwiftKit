@@ -36,6 +36,10 @@ fun View.applyPaddingVertical(padding: Int) {
     UtilKView.applyPaddingVertical(this, padding)
 }
 
+fun View.applyBackgroundNull() {
+    UtilKView.applyBackgroundNull(this)
+}
+
 fun View.resizeSize(size: Int) {
     UtilKView.resizeSize(this, size)
 }
@@ -114,6 +118,14 @@ fun View.setOnGlobalLayoutObserver(callback: () -> Unit) {
 }
 
 object UtilKView : BaseUtilK() {
+    @JvmStatic
+    fun applyBackgroundNull(view: View) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_16_41_J) {
+            view.background = null
+        } else {
+            view.setBackgroundDrawable(null)
+        }
+    }
 
     @JvmStatic
     fun getWindowVisibleDisplayFrame(view: View, rect: Rect) {

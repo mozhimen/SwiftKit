@@ -10,16 +10,15 @@ import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.app.UtilKApp
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.activity.UtilKActivityManager
+import com.mozhimen.basick.utilk.content.pm.UtilKPackage
 import com.mozhimen.basick.utilk.device.UtilKDevice
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKBuild
-import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
 import com.mozhimen.basick.utilk.os.UtilKDate
 import com.mozhimen.basick.utilk.os.UtilKPath
+import com.mozhimen.basick.utilk.os.thread.UtilKCurrentThread
 import java.io.*
-import java.util.*
 
 /**
  * @ClassName CrashKJava
@@ -31,8 +30,7 @@ import java.util.*
 @AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 class CrashKJava : BaseUtilK() {
 
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
-    private var _crashListener: ICrashKListener? = null
+    private var _crashKListener: ICrashKListener? = null
 
     var crashPathJava: String? = null
         get() {
@@ -43,7 +41,7 @@ class CrashKJava : BaseUtilK() {
         }
 
     fun init(listener: ICrashKListener?) {
-        listener?.let { this._crashListener = it }
+        listener?.let { this._crashKListener = it }
         Thread.setDefaultUncaughtExceptionHandler(CrashKUncaughtExceptionHandler())
     }
 
@@ -78,7 +76,7 @@ class CrashKJava : BaseUtilK() {
                 LogK.et(TAG, "UncaughtExceptionHandler handleException log $log")
             }
 
-            _crashListener?.onGetCrashJava(log)
+            _crashKListener?.onGetCrashJava(log)
 
             saveCrashInfo2File(log)
             return true
@@ -101,14 +99,13 @@ class CrashKJava : BaseUtilK() {
             stringBuilder.append("launch_time= $_launchTime\n")//启动APP的时间
             stringBuilder.append("crash_time= ${UtilKDate.getNowStr()}")//crash发生的时间
             stringBuilder.append("foreground= ${StackKCb.instance.isFront()}")//应用处于前台
-            stringBuilder.append("thread= ${Thread.currentThread().name}\n")//异常线程名
+            stringBuilder.append("thread= ${UtilKCurrentThread.getName()}\n")//异常线程名
 
             //app info
-            val packageInfo = UtilKPackageInfo.get(_context)
-            stringBuilder.append("version_code= ${packageInfo.versionCode}\n")
-            stringBuilder.append("version_name= ${packageInfo.versionName}\n")
-            stringBuilder.append("package_code= ${packageInfo.packageName}\n")
-            stringBuilder.append("requested_permissions= ${Arrays.toString(packageInfo.requestedPermissions)}\n")
+            stringBuilder.append("version_code= ${UtilKPackage.getVersionCode()}\n")
+            stringBuilder.append("version_name= ${UtilKPackage.getVersionName()}\n")
+            stringBuilder.append("package_code= ${UtilKPackage.getPackageName()}\n")
+            stringBuilder.append("requested_permissions= ${UtilKPackage.getRequestedPermissionsStr()}\n")
 
             //storage info
             val memoryInfo = ActivityManager.MemoryInfo()

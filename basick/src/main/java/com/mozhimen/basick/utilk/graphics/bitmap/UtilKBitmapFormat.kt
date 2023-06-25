@@ -19,6 +19,7 @@ import com.mozhimen.basick.utilk.content.UtilKContext
 import com.mozhimen.basick.utilk.log.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.res.UtilKResource
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -325,7 +326,7 @@ object UtilKBitmapFormat : BaseUtilK() {
      */
     @JvmStatic
     fun bitmap2drawable(bitmap: Bitmap): Drawable =
-        bitmap.toDrawable(UtilKRes.getSystemResources())
+        bitmap.toDrawable(UtilKResource.getSystemResources())
 
     /**
      * 位图转Drawable
@@ -334,7 +335,7 @@ object UtilKBitmapFormat : BaseUtilK() {
      */
     @JvmStatic
     fun bitmap2drawable2(bitmap: Bitmap): Drawable =
-        BitmapDrawable(UtilKRes.getAppResources(), bitmap)
+        BitmapDrawable(UtilKResource.getAppResources(_context), bitmap)
 
     /**
      * drawable转位图

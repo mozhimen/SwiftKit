@@ -7,7 +7,6 @@ import android.content.ContextWrapper
 import android.os.Build
 import android.view.Display
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity

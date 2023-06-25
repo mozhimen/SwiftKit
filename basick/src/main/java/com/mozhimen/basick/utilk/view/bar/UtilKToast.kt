@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.view.bar
 import android.app.Activity
 import android.content.Context
 import android.widget.Toast
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.os.thread.UtilKHandler
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.activity.isFinishingOrDestroyed
@@ -58,9 +59,7 @@ fun Exception.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
     this.message?.let { UtilKToast.showToastOnMain(it, duration) }
 }
 
-object UtilKToast {
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
-
+object UtilKToast : BaseUtilK() {
     /**
      * 用法1: "...".showToast(context)
      * @param msg String

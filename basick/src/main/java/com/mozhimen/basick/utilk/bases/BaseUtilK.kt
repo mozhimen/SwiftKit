@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk.bases
 
+import com.mozhimen.basick.utilk.content.UtilKApplication
+
 
 /**
  * @ClassName BaseUtilK
@@ -10,4 +12,6 @@ package com.mozhimen.basick.utilk.bases
  */
 open class BaseUtilK : IUtilK {
     override val TAG = "${this.javaClass.simpleName}>>>>>"
+
+    protected val _context by lazy { UtilKApplication.instance.applicationContext }
 }

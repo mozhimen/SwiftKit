@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.os
 
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.content.UtilKApplication
 import com.mozhimen.basick.utilk.content.UtilKContextDir
 import java.io.File
@@ -12,8 +13,7 @@ import java.io.File
  * @Date 2023/3/27 16:41
  * @Version 1.0
  */
-object UtilKDir {
-    private val _context by lazy { UtilKApplication.instance.applicationContext }
+object UtilKDir : BaseUtilK() {
 
     object Internal {
         @JvmStatic
