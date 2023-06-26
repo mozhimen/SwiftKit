@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import com.mozhimen.basick.utilk.android.view.dp2px
 import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.view.applyTextStyle
+import com.mozhimen.basick.utilk.android.widget.applyTextStyle
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import com.mozhimen.uicorektest.R

@@ -11,5 +11,10 @@ object CMsg {
     const val NOT_EXIST = "fail, make sure it's file or exist"
     const val WRONG = "something wrong"
     const val LINE_BREAK = "\n"
-    const val PART_LINE = "/////////////////////////////////////////////////////////////////////"
+    const val LINE_BREAK_STR = "\\n"
+    const val BLANK = "\t"
+    const val TAB_STR = "    "
+    const val BLANK_STR = "\\t"
+    const val PART_LINE_BIAS = "/////////////////////////////////////////////////////////////////////"
+    const val PART_LINE_HOR = "----------------------------------------------------------------------"
 }

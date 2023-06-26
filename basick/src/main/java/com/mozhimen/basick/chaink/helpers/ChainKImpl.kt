@@ -49,9 +49,9 @@ class ChainKImpl : IChainKListener, BaseUtilK() {
         //////////////////////////////////////////////////////////////////////////////////
 
         builder.append(CMsg.LINE_BREAK)
-        builder.append(CMsg.PART_LINE)
+        builder.append(CMsg.PART_LINE_BIAS)
         builder.append(if (node is ChainKTaskGroup) "TaskKGroup" else "taskK ${node.id} -- onFinished --")
-        builder.append(CMsg.PART_LINE)
+        builder.append(CMsg.PART_LINE_BIAS)
 
         //////////////////////////////////////////////////////////////////////////////////
 
@@ -65,8 +65,8 @@ class ChainKImpl : IChainKListener, BaseUtilK() {
 
         //////////////////////////////////////////////////////////////////////////////////
 
-        builder.append(CMsg.PART_LINE)
-        builder.append(CMsg.PART_LINE)
+        builder.append(CMsg.PART_LINE_BIAS)
+        builder.append(CMsg.PART_LINE_BIAS)
         builder.append(CMsg.LINE_BREAK)
         builder.append(CMsg.LINE_BREAK)
 

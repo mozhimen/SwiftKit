@@ -9,8 +9,8 @@ import android.widget.TextView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.view.applyValueIfNotEmpty
-import com.mozhimen.basick.utilk.view.toVisibleIfElseGone
+import com.mozhimen.basick.utilk.android.widget.applyValueIfNotEmpty
+import com.mozhimen.basick.utilk.android.view.toVisibleIfElseGone
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R

@@ -5,7 +5,6 @@ import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.utilk.android.util.println
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.bases.BaseLogKPrinter
-import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.cons.CLogKParameter
 
 /**
@@ -29,14 +28,13 @@ class LogKPrinterConsole(private val _ignoreLineBreak: Boolean = false) : BaseLo
                     printlog(level, tag, printString.substring(index, index + CLogKParameter.LOG_MAX_LEN))
                     index += CLogKParameter.LOG_MAX_LEN
                 }
-                if (index != len) {
-                    printlog(level, tag, printString.substring(index, len))
-                }
-            } else {
-                printlog(level, tag, printString)
-            }
+                if (index != len) printlog(level, tag, printString.substring(index, len))
+            } else printlog(level, tag, printString)
         } else {
-            
+            val logs: List<String> = printString.split(CMsg.LINE_BREAK)
+            val lines: List<String>? = logs.lastOrNull()?.replace(CMsg.BLANK_STR, CMsg.TAB_STR)?.split(CMsg.LINE_BREAK_STR)
+            for (log in logs) printlog(level, tag, log)
+            if (!lines.isNullOrEmpty()) for (line in lines) printlog(level, tag, line)
         }
     }
 

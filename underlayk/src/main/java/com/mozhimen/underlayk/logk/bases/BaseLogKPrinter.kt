@@ -15,6 +15,6 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 open class BaseLogKPrinter : ILogKPrinter {
     @CallSuper
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
-        (getName() + CMsg.PART_LINE).println(level, tag)
+        (getName() + CMsg.PART_LINE_HOR).println(level, tag)
     }
 }

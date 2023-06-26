@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.mos.MKey
-import com.mozhimen.basick.utilk.view.bar.showToastLong
+import com.mozhimen.basick.utilk.android.widget.showToastLong
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB2
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 import com.mozhimen.uicorektest.R

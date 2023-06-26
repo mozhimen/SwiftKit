@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
-import com.mozhimen.basick.utilk.view.applyValueIfNotEmpty
+import com.mozhimen.basick.utilk.android.widget.applyValueIfNotEmpty
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R

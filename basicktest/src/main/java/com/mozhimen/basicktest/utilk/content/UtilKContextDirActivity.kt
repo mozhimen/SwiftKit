@@ -8,7 +8,7 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.content.UtilKContextDir
-import com.mozhimen.basick.utilk.log.i
+import com.mozhimen.basick.utilk.android.util.i
 import com.mozhimen.basicktest.databinding.ActivityUtilkContextDirBinding
 
 /**

@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.AnimKRotationRecyclerType
 import com.mozhimen.basick.utilk.android.animation.stopAnim
-import com.mozhimen.basick.utilk.view.applyValueIfNotEmpty
+import com.mozhimen.basick.utilk.android.widget.applyValueIfNotEmpty
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R

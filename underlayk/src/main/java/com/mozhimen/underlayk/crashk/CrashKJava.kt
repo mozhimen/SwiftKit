@@ -97,6 +97,7 @@ class CrashKJava : BaseUtilK() {
             val stringBuilder = StringBuilder()
 
             //device info
+            stringBuilder.append(CMsg.LINE_BREAK).append(CMsg.PART_LINE_BIAS).append(CMsg.LINE_BREAK)
             stringBuilder.append("brand= ${UtilKBuild.getBrand()}").append(CMsg.LINE_BREAK)//手机品牌
             stringBuilder.append("cpu_arch= ${UtilKBuild.getSupportABIs()}").append(CMsg.LINE_BREAK)//CPU架构
             stringBuilder.append("model= ${UtilKBuild.getModel()}").append(CMsg.LINE_BREAK)//手机系列
@@ -121,6 +122,7 @@ class CrashKJava : BaseUtilK() {
 
             //sd storage size
             stringBuilder.append("availableStorage= ${UtilKDevice.getFreeExternalMemorySize()}").append(CMsg.LINE_BREAK)//存储空间
+            stringBuilder.append(CMsg.PART_LINE_BIAS).append(CMsg.LINE_BREAK)
 
             //stack info
             val write: Writer = StringWriter()
