@@ -11,9 +11,15 @@
         tools:context="com.mozhimen.underlayktest.UnderlayKActivity">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/underlayk_print_log"
             style="@style/Btn_Style"
-            android:text="打印log"
+            android:onClick="goCrashK"
+            android:text="goCrashK"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="goFpsK"
+            android:text="goFpsK"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
@@ -23,9 +29,9 @@
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/underlayk_print_log"
             style="@style/Btn_Style"
-            android:onClick="goFpsK"
-            android:text="goFpsK"
+            android:text="打印log"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

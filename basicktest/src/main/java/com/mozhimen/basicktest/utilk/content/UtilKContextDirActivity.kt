@@ -6,7 +6,8 @@ import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.utilk.content.UtilKContextDir
+import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.content.UtilKContextDir
 import com.mozhimen.basick.utilk.log.i
 import com.mozhimen.basicktest.databinding.ActivityUtilkContextDirBinding
 
@@ -24,7 +25,7 @@ class UtilKContextDirActivity : BaseActivityVB<ActivityUtilkContextDirBinding>()
             if (it) {
                 super.initData(savedInstanceState)
             } else {
-                com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity.startSettingAppDetails(this)
+                UtilKLaunchActivity.startSettingAppDetails(this)
             }
         }
     }

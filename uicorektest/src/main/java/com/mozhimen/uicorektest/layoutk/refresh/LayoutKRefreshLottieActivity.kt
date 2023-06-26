@@ -2,9 +2,9 @@ package com.mozhimen.uicorektest.layoutk.refresh
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.android.view.dp2px
 import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
-import com.mozhimen.basick.utilk.os.thread.applyPostDelayed
+import com.mozhimen.basick.utilk.android.os.applyPostDelayed
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
 import com.mozhimen.uicorek.layoutk.refresh.temps.LottieOverView
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkRefreshLottieBinding

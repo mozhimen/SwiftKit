@@ -5,6 +5,7 @@ import com.mozhimen.basick.elemk.mos.MResultBST
 import com.mozhimen.basick.elemk.mos.MResultIST
 import com.mozhimen.componentk.netk.http.commons.NetKRep
 import com.mozhimen.componentk.netk.http.cons.CResCode
+import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
@@ -42,7 +43,7 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKRes(onSuccess: suspend (data: T) -> Unit,
 
             is NetKRep.MError -> {
                 val netKThrowable = NetKRepErrorParser.getThrowable(it.exception)
-                Log.v(NetKHelper.TAG, "asNetKRes: Error code ${netKThrowable.code} message ${netKThrowable.message}")
+                LogK.et(NetKHelper.TAG, "asNetKRes: Error code ${netKThrowable.code} message ${netKThrowable.message}")
                 onFail(netKThrowable.code, netKThrowable.message)
             }
         }
@@ -65,7 +66,7 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKResSync(): MResultIST<T?> {
 
             is NetKRep.MError -> {
                 val netKThrowable = NetKRepErrorParser.getThrowable(it.exception)
-                Log.e(NetKHelper.TAG, "asNetKResSync: Error code ${netKThrowable.code} message ${netKThrowable.message}")
+                LogK.et(NetKHelper.TAG, "asNetKResSync: Error code ${netKThrowable.code} message ${netKThrowable.message}")
                 res = MResultIST(netKThrowable.code, netKThrowable.message, null)
             }
 

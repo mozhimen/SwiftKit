@@ -10,15 +10,20 @@ import com.mozhimen.basick.taskk.bases.BaseTaskK
  * @Date 2022/9/26 15:57
  * @Version 1.0
  */
+interface ITaskKCountDownListener {
+    fun onTick(millisUntilFinished: Long)
+    fun onFinish()
+}
+
+open class TaskKCountDownCallback : ITaskKCountDownListener {
+    override fun onTick(millisUntilFinished: Long) {}
+    override fun onFinish() {}
+}
+
 class TaskKCountDown : BaseTaskK() {
 
     private var _taskKCountDownListener: ITaskKCountDownListener? = null
     private var _countDownTimer: CountDownTimer? = null
-
-    interface ITaskKCountDownListener {
-        fun onTick(millisUntilFinished: Long)
-        fun onFinish()
-    }
 
     override fun isActive() = _countDownTimer != null
 

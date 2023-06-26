@@ -3,7 +3,7 @@ package com.mozhimen.basick.animk.builder.bases
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
-import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.android.content.UtilKRes
 
 /**
  * @ClassName IBaseAnimKBuilder

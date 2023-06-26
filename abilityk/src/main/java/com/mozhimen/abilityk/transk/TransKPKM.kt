@@ -4,8 +4,8 @@ import android.opengl.ETC1
 import android.opengl.ETC1Util.ETC1Texture
 import android.util.Log
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.datatype.UtilKString
-import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.kotlin.UtilKString
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.res.UtilKAsset
 import java.io.FileInputStream
 import java.io.IOException

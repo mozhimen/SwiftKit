@@ -9,9 +9,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.utilk.view.setIconFont
-import com.mozhimen.basick.utilk.view.toGone
-import com.mozhimen.basick.utilk.view.toVisible
+import com.mozhimen.basick.utilk.android.view.toGone
+import com.mozhimen.basick.utilk.android.view.toVisible
+import com.mozhimen.basick.utilk.android.widget.applyIconFont
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 
@@ -88,7 +88,7 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
     fun setIcon(iconStr: String) {
         if (!TextUtils.isEmpty(iconStr)) {
             _iconView.text = iconStr
-            _iconView.setIconFont()
+            _iconView.applyIconFont()
             _iconView.toVisible()
         } else _iconView.toGone()
     }

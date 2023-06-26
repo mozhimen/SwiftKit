@@ -11,14 +11,14 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
-            android:onClick="goTaskKPoll"
-            android:text="goTaskKPoll"
+            android:onClick="goTaskKAsync"
+            android:text="goTaskKAsync"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
-            android:onClick="goTaskKAsync"
-            android:text="goTaskKAsync"
+            android:onClick="goTaskKCountDown"
+            android:text="goTaskKCountDown"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
@@ -26,5 +26,12 @@
             android:onClick="goTaskKExecutor"
             android:text="goTaskKExecutor"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="goTaskKPoll"
+            android:text="goTaskKPoll"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
     </LinearLayout>
 </layout>

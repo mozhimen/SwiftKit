@@ -3,7 +3,7 @@ package com.mozhimen.debugk
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.android.util.et
 
 /**
  * @ClassName DebugK

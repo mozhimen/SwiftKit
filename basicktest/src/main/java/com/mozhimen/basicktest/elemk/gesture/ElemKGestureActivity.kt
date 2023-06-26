@@ -5,7 +5,7 @@ import android.os.PersistableBundle
 import android.widget.TextView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.gesture.DragAndDropDelegate
-import com.mozhimen.basick.utilk.view.gesture.UtilKDragAndDrop
+import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
 import com.mozhimen.componentk.navigatek.NavigateKDelegate

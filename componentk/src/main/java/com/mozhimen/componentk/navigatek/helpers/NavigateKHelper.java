@@ -21,11 +21,9 @@ import androidx.navigation.NavOptions;
 import androidx.navigation.Navigator;
 import androidx.navigation.NavigatorProvider;
 
-import com.mozhimen.basick.utilk.content.UtilKContext;
-import com.mozhimen.basick.utilk.content.pm.UtilKPackage;
-import com.mozhimen.basick.utilk.res.UtilKRes;
-import com.mozhimen.basick.utilk.res.UtilKResource;
-import com.mozhimen.componentk.R;
+import com.mozhimen.basick.utilk.android.content.UtilKContext;
+import com.mozhimen.basick.utilk.android.content.UtilKPackage;
+import com.mozhimen.basick.utilk.android.content.UtilKResource;
 
 import java.util.ArrayDeque;
 import java.util.Collections;

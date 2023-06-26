@@ -7,7 +7,7 @@ import com.google.zxing.EncodeHintType
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.underlayk.logk.LogK
 import java.util.*
 

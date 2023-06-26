@@ -3,8 +3,8 @@ package com.mozhimen.componentk.netk.file.download
 import android.content.Context
 import android.net.Uri
 import androidx.annotation.DrawableRes
+import com.mozhimen.basick.utilk.android.util.UtilKLog.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.log.UtilKLog.et
 import com.mozhimen.componentk.BuildConfig
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants

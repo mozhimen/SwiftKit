@@ -12,7 +12,7 @@ import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObse
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CQuery
-import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import java.util.*
 
 /**

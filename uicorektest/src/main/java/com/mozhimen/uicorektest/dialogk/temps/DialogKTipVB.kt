@@ -2,8 +2,8 @@ package com.mozhimen.uicorektest.dialogk.temps
 
 import android.content.Context
 import android.view.View
-import com.mozhimen.basick.utilk.view.display.UtilKScreen
-import com.mozhimen.basick.utilk.view.setValueIfNotEmpty
+import com.mozhimen.basick.utilk.android.view.UtilKScreen
+import com.mozhimen.basick.utilk.view.applyValueIfNotEmpty
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogKVB
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.databinding.DialogkTipBinding
@@ -16,7 +16,8 @@ import kotlin.math.roundToInt
  * @Date 2023/6/2 18:54
  * @Version 1.0
  */
-class DialogKTipVB(context: Context, private val _txt: String, private var _onSure: IDialogKTipListener) : BaseDialogKVB<DialogkTipBinding, IDialogKClickListener>(context) {
+class DialogKTipVB(context: Context, private val _txt: String, private var _onSure: IDialogKTipListener) :
+    BaseDialogKVB<DialogkTipBinding, IDialogKClickListener>(context) {
 
     companion object {
         @JvmStatic
@@ -40,7 +41,7 @@ class DialogKTipVB(context: Context, private val _txt: String, private var _onSu
     }
 
     fun setTxt(txt: String) {
-        vb.dialogkTipTxt.setValueIfNotEmpty(txt)
+        vb.dialogkTipTxt.applyValueIfNotEmpty(txt)
     }
 
     fun setOnSureListener(onSure: IDialogKTipListener) {

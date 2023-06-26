@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.utilk.app
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.app.UtilKApk
+import com.mozhimen.basick.utilk.android.content.UtilKApk
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.basick.utilk.res.UtilKAsset

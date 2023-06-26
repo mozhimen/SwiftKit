@@ -2,8 +2,8 @@ package com.mozhimen.underlayk.logk.temps.printer
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mozhimen.basick.utilk.content.pm.UtilKPackage
-import com.mozhimen.basick.utilk.java.datatype.regexLineBreak2Str
+import com.mozhimen.basick.utilk.android.content.UtilKPackage
+import com.mozhimen.basick.utilk.kotlin.regexLineBreak2Str
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.underlayk.R

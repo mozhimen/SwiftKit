@@ -1,12 +1,12 @@
 package com.mozhimen.basick.statusbark
 
 import android.app.Activity
-import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.os.UtilKUiMode
+import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.androidx.appcompat.UtilKUiMode
 import com.mozhimen.basick.statusbark.annors.AStatusBarK
 import com.mozhimen.basick.statusbark.annors.AStatusBarKType
-import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
-import com.mozhimen.basick.utilk.view.bar.UtilKStatusBarFontIcon
+import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
+import com.mozhimen.basick.utilk.android.view.UtilKStatusBarFontIcon
 
 /**
  * @ClassName StatusBarK

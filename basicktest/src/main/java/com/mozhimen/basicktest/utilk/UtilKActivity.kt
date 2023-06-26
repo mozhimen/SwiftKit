@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.utilk
 import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.content.startContext
+import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basicktest.databinding.ActivityUtilkBinding
 import com.mozhimen.basicktest.utilk.app.UtilKApkActivity

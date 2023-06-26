@@ -12,9 +12,9 @@ import com.mozhimen.basick.imagek.coil.loadImage
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
-import com.mozhimen.basick.utilk.res.dp2px
-import com.mozhimen.basick.utilk.view.resizeSize
-import com.mozhimen.basick.utilk.view.applyTextStyle
+import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.view.resizeSize
+import com.mozhimen.basick.utilk.android.widget.applyTextStyle
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabItem
 import com.mozhimen.uicorek.layoutk.tab.top.cons.ETabTopType

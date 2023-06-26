@@ -3,7 +3,7 @@ package com.mozhimen.underlayk.logk
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.basick.utilk.log.UtilKStackTrace
+import com.mozhimen.basick.utilk.java.util.UtilKStackTrace
 import com.mozhimen.underlayk.logk.annors.ALogKType
 import com.mozhimen.basick.elemk.cons.CLogType
 import com.mozhimen.underlayk.logk.cons.CLogKParameter

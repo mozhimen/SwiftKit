@@ -6,7 +6,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.view.bar.showToast
+import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import com.mozhimen.uicorek.layoutk.side.list.ILayoutKSideListListener
 import com.mozhimen.uicorek.layoutk.side.list.mos.*

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
-import com.mozhimen.basick.utilk.os.thread.applyPostDelayed
+import com.mozhimen.basick.utilk.android.os.applyPostDelayed
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.LoadRefreshLoadCallback
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.LoadRefreshRefreshCallback

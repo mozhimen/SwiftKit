@@ -5,9 +5,9 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import com.mozhimen.basick.utilk.res.dp2px
-import com.mozhimen.basick.utilk.view.display.UtilKScreen
-import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar
+import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.view.UtilKScreen
+import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.textk.bubble.commons.ITextKBubble

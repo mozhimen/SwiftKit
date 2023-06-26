@@ -16,7 +16,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.mozhimen.basick.utilk.res.UtilKDisplay;
+import com.mozhimen.basick.utilk.android.view.UtilKDisplay;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.viewk.wheel.commons.IWheelAdapter;
 import com.mozhimen.uicorek.viewk.wheel.commons.IPickerViewData;

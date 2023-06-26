@@ -8,7 +8,7 @@ import com.mozhimen.basick.chaink.commons.IChainKTask
 import com.mozhimen.basick.chaink.helpers.ChainKRuntime
 import com.mozhimen.basick.chaink.helpers.ChainKImpl
 import com.mozhimen.basick.chaink.helpers.ChainKTaskComparator
-import com.mozhimen.basick.utilk.os.thread.UtilKCurrentThread
+import com.mozhimen.basick.utilk.java.lang.UtilKCurrentThread
 import java.util.*
 import kotlin.collections.ArrayList
 

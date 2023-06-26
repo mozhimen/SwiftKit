@@ -11,11 +11,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
+
         <activity
-            android:name=".stackk.StackKProcessActivity"
+            android:name=".BasicKActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- animk -->
+        <activity
+            android:name=".animk.AnimKActivity"
             android:exported="false" />
+        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- cachek -->
         <activity
-            android:name=".stackk.StackKCbActivity"
+            android:name=".cachek.CacheKActivity"
             android:exported="false" />
         <activity
             android:name=".cachek.CacheKDSActivity"
@@ -26,21 +40,11 @@
         <activity
             android:name=".cachek.CacheKSPActivity"
             android:exported="false" />
+        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- elemk -->
         <activity
-            android:name=".BasicKActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- animk -->
-        <activity
-            android:name=".animk.AnimKActivity"
-            android:exported="false" /> <!-- cachek -->
-        <activity
-            android:name=".cachek.CacheKActivity"
-            android:exported="false" /> <!-- elemk -->
+            android:name=".elemk.gesture.ElemKGestureFlingActivity"
+            android:exported="false" />
         <activity
             android:name=".elemk.ElemKActivity"
             android:exported="false" />
@@ -78,34 +82,62 @@
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver> <!-- manifestk -->
+        </receiver>
+        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"
             android:exported="false" />
         <activity
             android:name=".manifestk.permission.ManifestKPermissionActivity"
-            android:exported="false" /> <!-- netk -->
+            android:exported="false" />
+        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- packk -->
         <activity
-            android:name=".netk.conn.NetKConnActivity"
-            android:exported="false" /> <!-- stackk -->
+            android:name=".packk.PackKActivity"
+            android:exported="false" />
+        <!-- netk -->
+        <activity
+            android:name=".packk.netk.conn.NetKConnActivity"
+            android:exported="false" />
+        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
-            android:exported="false" /> <!-- taskk -->
-        <activity
-            android:name=".taskk.TaskKExecutorActivity"
             android:exported="false" />
         <activity
+            android:name=".stackk.StackKProcessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".stackk.StackKCbActivity"
+            android:exported="false" />
+        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- statusbark -->
+        <activity
+            android:name=".statusbark.StatusBarKActivity"
+            android:exported="false" />
+        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- taskk -->
+        <activity
             android:name=".taskk.TaskKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".taskk.TaskKExecutorActivity"
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKPollActivity"
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKAsyncActivity"
-            android:exported="false" /> <!-- statusbark -->
+            android:exported="false" />
         <activity
-            android:name=".statusbark.StatusBarKActivity"
-            android:exported="false" /> <!-- utilk -->
+            android:name=".taskk.TaskKCountDownActivity"
+            android:exported="false" />
+        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <!-- utilk -->
+        <activity
+            android:name=".utilk.UtilKActivity"
+            android:exported="false" />
         <activity
             android:name=".utilk.content.UtilKContentActivity"
             android:exported="false" />
@@ -113,16 +145,10 @@
             android:name=".utilk.content.UtilKContextDirActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.UtilKActivity"
-            android:exported="false" />
-        <activity
             android:name=".utilk.app.UtilKApkActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.res.UtilKAssetActivity"
-            android:exported="false" />
-        <activity
-            android:name=".elemk.gesture.ElemKGestureFlingActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.content.UtilKIntentActivity"

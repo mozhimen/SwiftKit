@@ -22,7 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -38,21 +37,20 @@ import androidx.fragment.app.Fragment;
 import com.mozhimen.basick.elemk.cons.CVersionCode;
 import com.mozhimen.basick.elemk.cons.CWinMgrLP;
 import com.mozhimen.basick.stackk.cb.StackKCb;
-import com.mozhimen.basick.utilk.res.UtilKRes;
-import com.mozhimen.basick.utilk.res.UtilKResource;
-import com.mozhimen.basick.utilk.view.display.UtilKScreen;
-import com.mozhimen.basick.utilk.content.activity.UtilKActivity;
-import com.mozhimen.basick.utilk.anim.UtilKAnim;
-import com.mozhimen.basick.utilk.anim.UtilKAnimation;
-import com.mozhimen.basick.utilk.anim.UtilKAnimator;
-import com.mozhimen.basick.utilk.log.UtilKLog;
-import com.mozhimen.basick.utilk.view.keyboard.UtilKInputManager;
-import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar;
-import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig;
-import com.mozhimen.basick.utilk.view.keyboard.UtilKInputChange;
-import com.mozhimen.basick.utilk.log.UtilKLogPro;
-import com.mozhimen.basick.utilk.view.UtilKView;
-import com.mozhimen.basick.utilk.view.window.UtilKContentView;
+import com.mozhimen.basick.utilk.android.content.UtilKResource;
+import com.mozhimen.basick.utilk.android.util.UtilKLog;
+import com.mozhimen.basick.utilk.android.view.UtilKScreen;
+import com.mozhimen.basick.utilk.android.app.UtilKActivity;
+import com.mozhimen.basick.utilk.android.animation.UtilKAnim;
+import com.mozhimen.basick.utilk.android.animation.UtilKAnimation;
+import com.mozhimen.basick.utilk.android.animation.UtilKAnimator;
+import com.mozhimen.basick.utilk.android.view.UtilKInputManager;
+import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar;
+import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig;
+import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
+import com.mozhimen.basick.utilk.android.util.UtilKLogPro;
+import com.mozhimen.basick.utilk.android.view.UtilKContentView;
+import com.mozhimen.basick.utilk.android.view.UtilKView;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
@@ -152,7 +150,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     Rect mAnchorViewBound;
 
     //模糊option(为空的话则不模糊）
-    UtilKBitmapBlurConfig mBlurOption;
+    ImageKBlurConfig mBlurOption;
     //背景颜色
     Drawable mBackgroundDrawable = new ColorDrawable(BasePopwinK.DEFAULT_BACKGROUND_COLOR);
     //背景对齐方向
@@ -395,7 +393,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     }
 
 
-    public void setToBlur(UtilKBitmapBlurConfig option) {
+    public void setToBlur(ImageKBlurConfig option) {
         this.mBlurOption = option;
         if (option != null) {
             if (option.getBlurInDuration() <= 0) {
@@ -681,7 +679,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
         return this;
     }
 
-    UtilKBitmapBlurConfig getBlurOption() {
+    ImageKBlurConfig getBlurOption() {
         return mBlurOption;
     }
 

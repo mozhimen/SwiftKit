@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.AnimKRotationRecyclerType
-import com.mozhimen.basick.utilk.anim.stopAnim
-import com.mozhimen.basick.utilk.view.setValueIfNotEmpty
+import com.mozhimen.basick.utilk.android.animation.stopAnim
+import com.mozhimen.basick.utilk.view.applyValueIfNotEmpty
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R
@@ -63,10 +63,10 @@ class DialogKLoadingUpdate @JvmOverloads internal constructor(
     }
 
     fun setDesc(desc: String?) {
-        _txtDesc?.setValueIfNotEmpty(desc)
+        _txtDesc?.applyValueIfNotEmpty(desc)
     }
 
     fun setUpdateDesc(desc: String?) {
-        _txtUpdateDesc?.setValueIfNotEmpty(desc)
+        _txtUpdateDesc?.applyValueIfNotEmpty(desc)
     }
 }

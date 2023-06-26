@@ -11,11 +11,11 @@ import android.widget.TextView
 import androidx.core.view.setPadding
 import com.mozhimen.basick.elemk.commons.IValue1Listener
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.java.datatype.normalize
+import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
-import com.mozhimen.basick.utilk.res.dp2px
-import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.res.sp2px
+import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.android.view.sp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.commons.IAttrsParser2
 

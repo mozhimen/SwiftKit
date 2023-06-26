@@ -5,8 +5,8 @@ import android.media.AudioManager
 import android.media.AudioManager.OnAudioFocusChangeListener
 import android.os.Build
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.device.UtilKAudioManager
-import com.mozhimen.basick.utilk.java.datatype.normalize
+import com.mozhimen.basick.utilk.android.media.UtilKAudioManager
+import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.componentk.mediak.audio.focus.commons.IAudioKFocusManager
 import com.mozhimen.componentk.mediak.audio.focus.commons.IMediaKAudioFocusListener
 import kotlin.math.abs

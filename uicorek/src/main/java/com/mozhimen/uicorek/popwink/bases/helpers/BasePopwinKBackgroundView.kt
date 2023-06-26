@@ -5,8 +5,8 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.graphics.UtilKDrawable.isColorDrawableValid
-import com.mozhimen.basick.utilk.view.UtilKView.setBackground
+import com.mozhimen.basick.utilk.android.graphics.UtilKDrawable.isColorDrawableValid
+import com.mozhimen.basick.utilk.android.view.UtilKView
 
 
 /**
@@ -49,6 +49,6 @@ class BasePopwinKBackgroundView @JvmOverloads constructor(context: Context, attr
         }
         this._helper = helper
         visibility = VISIBLE
-        setBackground(this, helper.popupBackground)
+        UtilKView.applyBackground(this, helper.popupBackground)
     }
 }

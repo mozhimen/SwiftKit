@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.bases
 
-import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.android.app.UtilKApplication
 
 
 /**

@@ -5,10 +5,10 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
-import com.mozhimen.basick.utilk.view.toGone
-import com.mozhimen.basick.utilk.view.toVisibleIfElseGone
-import com.mozhimen.basick.utilk.view.window.UtilKDecorView
+import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
+import com.mozhimen.basick.utilk.android.view.UtilKDecorView
+import com.mozhimen.basick.utilk.android.view.toGone
+import com.mozhimen.basick.utilk.android.view.toVisibleIfElseGone
 
 /**
  * @ClassName BarTintManager

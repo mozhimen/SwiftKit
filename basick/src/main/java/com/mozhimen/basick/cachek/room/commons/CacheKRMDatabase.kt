@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mozhimen.basick.cachek.room.mos.MCacheKRM
-import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.android.app.UtilKApplication
 
 /**
  * @ClassName CacheDatabase

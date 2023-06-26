@@ -5,8 +5,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.datatype.json.UtilKJson
-import com.mozhimen.basick.utilk.java.datatype.json.UtilKJsonMoshi
+import com.mozhimen.basick.utilk.squareup.moshi.UtilKJsonMoshi
 import com.mozhimen.componentk.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

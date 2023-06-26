@@ -2,12 +2,10 @@ package com.mozhimen.uicorek.viewk.helpers
 
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.annotation.StyleRes
 import androidx.databinding.BindingAdapter
-import com.mozhimen.basick.utilk.view.UtilKView
+import com.mozhimen.basick.utilk.android.view.UtilKView
 
 /**
  * @ClassName ViewKBindingAdapter

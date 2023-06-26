@@ -7,7 +7,7 @@ import android.os.Looper
 import android.os.SystemClock
 import android.util.Log
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.java.io.hash.UtilKMD5
+import com.mozhimen.basick.utilk.java.security.UtilKMD5
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
 import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter

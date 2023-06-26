@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Scroller
-import com.mozhimen.basick.utilk.view.UtilKScrollView.isChildScrolled
-import com.mozhimen.basick.utilk.view.UtilKScrollView.getChildScrollable
+import com.mozhimen.basick.utilk.android.view.UtilKViewGroup.isChildScrolled
+import com.mozhimen.basick.utilk.android.view.UtilKViewGroup.getChildScrollable
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.recyclerk.load.RecyclerKLoad
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefresh

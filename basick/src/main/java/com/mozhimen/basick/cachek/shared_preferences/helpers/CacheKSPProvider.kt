@@ -5,8 +5,7 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import com.mozhimen.basick.cachek.commons.ICacheKProvider
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.encrypt.UtilKAES
-import com.mozhimen.basick.utilk.content.UtilKApplication
+import com.mozhimen.basick.utilk.javax.crypto.UtilKAES
 import java.lang.IllegalArgumentException
 
 /**

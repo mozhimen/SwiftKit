@@ -8,7 +8,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.java.io.hash.UtilKMD5
+import com.mozhimen.basick.utilk.java.security.UtilKMD5
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.DownloadException
 import com.mozhimen.componentk.netk.file.download.cons.CErrorCode

@@ -11,11 +11,11 @@ import android.view.WindowManager
 import android.widget.PopupWindow
 import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.content.activity.UtilKActivity.getActivityByContext
-import com.mozhimen.basick.utilk.log.et
-import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.view.UtilKView.removeViewFromParent
-import com.mozhimen.basick.utilk.view.window.UtilKWindow
+import com.mozhimen.basick.utilk.android.app.UtilKActivity.getActivityByContext
+import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.android.view.UtilKView.removeViewFromParent
+import com.mozhimen.basick.utilk.android.view.UtilKWindow
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener
 

@@ -10,8 +10,8 @@ import android.os.Build
 import android.provider.Settings
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.utilk.android.util.UtilKLog.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.log.UtilKLog.et
 import com.mozhimen.componentk.BuildConfig
 import com.mozhimen.componentk.netk.file.download.utils.Utils.getRealPathFromURI
 import java.io.File

@@ -3,12 +3,14 @@ package com.mozhimen.underlayktest
 import com.mozhimen.basick.elemk.application.bases.BaseApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.java.datatype.json.moshiT2Json
-import com.mozhimen.basick.utilk.log.e
+import com.mozhimen.basick.utilk.squareup.moshi.moshiT2Json
+import com.mozhimen.basick.utilk.android.util.e
+import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.underlayk.crashk.CrashKMgr
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterConsole
+import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterLog
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
 
 /**
@@ -24,10 +26,10 @@ class UnderlayKApplication : BaseApplication() {
         super.onCreate()
 
         //logk
-        LogKMgr.instance.init(_logkConfig, LogKPrinterConsole()/*, LogKPrinterFile.getInstance(retentionDay = 3)*/, LogKPrinterMonitor())
+        LogKMgr.instance.init(_logkConfig, LogKPrinterLog()/*, LogKPrinterFile.getInstance(retentionDay = 3)*/, LogKPrinterMonitor())
 
         //crashk
-        //CrashKMgr.instance.init(_crashKCallback)
+        CrashKMgr.instance.init(_crashKCallback)
     }
 
     private val _logkConfig = object : BaseLogKConfig() {
@@ -59,15 +61,11 @@ class UnderlayKApplication : BaseApplication() {
     private val _crashKCallback = object : ICrashKListener {
 
         override fun onGetCrashJava(msg: String?) {
-            msg?.let {
-
-            } ?: "Ops! A crash happened, but i didn't get it messages".e()
+            //msg?.et(TAG) ?: "Ops! A crash happened, but i didn't get it messages".e()
         }
 
         override fun onGetCrashNative(msg: String?) {
-            msg?.let {
-
-            } ?: "Ops! A crash happened, but i didn't get it messages".e()
+            //msg?.et(TAG) ?: "Ops! A crash happened, but i didn't get it messages".e()
         }
     }
 }

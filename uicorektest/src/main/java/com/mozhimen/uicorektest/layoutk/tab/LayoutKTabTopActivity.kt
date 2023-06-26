@@ -5,7 +5,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.uicorek.layoutk.tab.top.mos.MTabTop
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkTabTopBinding

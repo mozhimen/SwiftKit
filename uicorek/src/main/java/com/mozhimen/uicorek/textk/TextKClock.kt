@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.widget.TextClock
 import com.mozhimen.basick.elemk.cons.CDateFormat
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
-import com.mozhimen.basick.utilk.os.UtilKDate
 import com.mozhimen.uicorek.R
 
 

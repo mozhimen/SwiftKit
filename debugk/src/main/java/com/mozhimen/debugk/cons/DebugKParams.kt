@@ -2,14 +2,13 @@ package com.mozhimen.debugk.cons
 
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.*
-import com.mozhimen.basick.utilk.device.UtilKDevice
-import com.mozhimen.basick.utilk.java.datatype.boolean2Str
-import com.mozhimen.basick.utilk.view.display.UtilKScreen
-import com.mozhimen.basick.utilk.net.UtilKNetConn
-import com.mozhimen.basick.utilk.os.UtilKBuild
-import com.mozhimen.basick.utilk.view.bar.UtilKNavigationBar
-import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar
+import com.mozhimen.basick.utilk.android.hardware.UtilKDevice
+import com.mozhimen.basick.utilk.kotlin.boolean2Str
+import com.mozhimen.basick.utilk.android.view.UtilKScreen
+import com.mozhimen.basick.utilk.android.net.UtilKNetConn
+import com.mozhimen.basick.utilk.android.os.UtilKBuild
+import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar
+import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
 import com.mozhimen.debugk.BuildConfig
 import com.mozhimen.debugk.annors.ADebugKParams
 

@@ -9,8 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.cons.CWinMgrLP
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.log.et
-import com.mozhimen.basick.utilk.os.thread.UtilKThread
+import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.java.lang.UtilKThread
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.annors.ADialogMode
 import com.mozhimen.uicorek.dialogk.bases.commons.IBaseDialogK

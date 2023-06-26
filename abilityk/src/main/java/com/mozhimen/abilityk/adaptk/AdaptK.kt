@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.content.res.Resources
-import com.mozhimen.basick.utilk.res.UtilKConfiguration
+import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import me.jessyan.autosize.AutoSizeCompat
 
 

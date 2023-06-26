@@ -10,12 +10,12 @@ import android.widget.AbsListView
 import android.widget.FrameLayout
 import android.widget.ScrollView
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.utilk.res.dp2px
-import com.mozhimen.basick.utilk.view.display.UtilKScreen.getRealScreenWidth
-import com.mozhimen.basick.utilk.view.UtilKView.findTypeChildView
-import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
-import com.mozhimen.basick.utilk.graphics.UtilKColor
+import com.mozhimen.basick.utilk.android.graphics.UtilKColor
+import com.mozhimen.basick.utilk.android.view.UtilKScreen.getRealScreenWidth
+import com.mozhimen.basick.utilk.android.view.UtilKView.findTypeChildView
+import com.mozhimen.basick.utilk.android.view.dp2px
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import com.mozhimen.uicorek.layoutk.tab.commons.ILayoutKTab
 import com.mozhimen.uicorek.layoutk.tab.commons.ITabSelectedListener

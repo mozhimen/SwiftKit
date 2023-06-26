@@ -8,8 +8,8 @@ import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefPauseLifecycleObserver
-import com.mozhimen.basick.utilk.log.et
-import com.mozhimen.basick.utilk.view.gesture.UtilKDragAndDrop
+import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
 
 /**
  * @ClassName DragAndDropDelegate

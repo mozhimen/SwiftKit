@@ -1,19 +1,15 @@
 package com.mozhimen.basick.imagek.coil
 
-import android.content.Context
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.Px
-import coil.Coil
-import coil.imageLoader
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
-import coil.util.CoilUtils
 import com.mozhimen.basick.imagek.coil.cons.CCoilBlur
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.android.view.dp2px
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.imagek.coil.mos.BlurTransformation
 import com.mozhimen.basick.imagek.coil.mos.ColorFilterTransformation

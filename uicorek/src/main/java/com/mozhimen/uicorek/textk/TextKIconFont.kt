@@ -3,8 +3,8 @@ package com.mozhimen.uicorek.textk
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basick.utilk.view.UtilKTextView
-import com.mozhimen.basick.utilk.view.setIconFont
+import com.mozhimen.basick.utilk.android.widget.UtilKTextView
+import com.mozhimen.basick.utilk.android.widget.applyIconFont
 import com.mozhimen.uicorek.R
 
 /**
@@ -21,7 +21,7 @@ class TextKIconFont @JvmOverloads constructor(context: Context, attrs: Attribute
 
     init {
         initAttrs(attrs)
-        setIconFont(_iconfontPath)
+        applyIconFont(_iconfontPath)
     }
 
     fun initAttrs(attrs: AttributeSet?) {

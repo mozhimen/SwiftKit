@@ -1,12 +1,11 @@
 package com.mozhimen.basick.elemk.receiver.bases
 
 import android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.app.UtilKAppInstall
+import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
 
 
 /**

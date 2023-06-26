@@ -9,9 +9,9 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionsCheck
 import com.mozhimen.basick.manifestk.permission.helpers.IManifestKPermissionListener
 import com.mozhimen.basick.manifestk.permission.helpers.InvisibleFragment
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.content.UtilKContextCompat
-import com.mozhimen.basick.utilk.view.bar.showToastOnMain
+import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.content.UtilKContextCompat
+import com.mozhimen.basick.utilk.android.widget.showToastOnMain
 
 /**
  * @ClassName ManifestKPermission

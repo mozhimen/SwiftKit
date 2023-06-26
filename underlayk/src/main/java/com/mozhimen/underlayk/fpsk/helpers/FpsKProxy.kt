@@ -7,7 +7,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.cons.CWinMgrLP
@@ -16,11 +15,10 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKPermission
-import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.java.datatype.decimal2Str
-import com.mozhimen.basick.utilk.view.window.UtilKWindowManager
+import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.kotlin.decimal2Str
+import com.mozhimen.basick.utilk.android.view.UtilKWindowManager
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsK
 import com.mozhimen.underlayk.fpsk.commons.IFpsKListener

@@ -4,7 +4,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.cons.CDateFormat
 import com.mozhimen.basick.elemk.receiver.bases.BaseTimeReceiver
 import com.mozhimen.basick.elemk.receiver.commons.ITimeReceiverListener
-import com.mozhimen.basick.utilk.os.UtilKDate
+import com.mozhimen.basick.utilk.java.util.UtilKDate
 
 
 /**

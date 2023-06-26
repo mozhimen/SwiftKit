@@ -20,7 +20,7 @@ import com.mozhimen.basick.elemk.commons.IValue2T1T2Listener
 import com.mozhimen.basick.imagek.coil.loadImageComplex
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.view.applyTextStyle
+import com.mozhimen.basick.utilk.android.widget.applyTextStyle
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.vhk.VHKRecycler

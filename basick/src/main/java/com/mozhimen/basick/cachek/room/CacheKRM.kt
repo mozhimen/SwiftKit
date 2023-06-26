@@ -4,9 +4,9 @@ import com.mozhimen.basick.cachek.commons.ICacheKProvider
 import com.mozhimen.basick.cachek.room.commons.CacheKRMDatabase
 import com.mozhimen.basick.cachek.room.mos.MCacheKRM
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.datatype.byteArray2Obj
-import com.mozhimen.basick.utilk.java.datatype.t2ByteArray
-import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.kotlin.byteArray2Obj
+import com.mozhimen.basick.utilk.kotlin.t2ByteArray
+import com.mozhimen.basick.utilk.android.util.et
 
 /**
  * @ClassName CacheK

@@ -5,7 +5,7 @@ import com.mozhimen.abilityktest.databinding.ActivityAbilitykBinding
 import com.mozhimen.abilityktest.scank.ScanKActivity
 import com.mozhimen.abilityktest.transk.TransKActivity
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.content.startContext
+import com.mozhimen.basick.utilk.android.content.startContext
 
 class AbilityKActivity : BaseActivityVB<ActivityAbilitykBinding>() {
 

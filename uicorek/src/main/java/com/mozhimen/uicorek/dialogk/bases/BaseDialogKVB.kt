@@ -7,7 +7,7 @@ import androidx.annotation.StyleRes
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.jetpack.databinding.UtilKViewDataBinding
+import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 

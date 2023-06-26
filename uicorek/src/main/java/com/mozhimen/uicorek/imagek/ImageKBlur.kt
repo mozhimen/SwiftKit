@@ -15,11 +15,11 @@ import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
 import com.mozhimen.basick.animk.builder.temps.AnimatorAlphaType
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
-import com.mozhimen.basick.utilk.log.et
-import com.mozhimen.basick.utilk.graphics.UtilKRenderScript
-import com.mozhimen.basick.utilk.graphics.bitmap.blur.mos.UtilKBitmapBlurConfig
-import com.mozhimen.basick.utilk.os.thread.UtilKThread
-import com.mozhimen.basick.utilk.view.applyBackgroundNull
+import com.mozhimen.basick.utilk.androidx.renderscript.UtilKRenderScript
+import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig
+import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.view.applyBackgroundNull
+import com.mozhimen.basick.utilk.java.lang.UtilKThread
 import com.mozhimen.uicorek.commons.IUicoreK
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -37,7 +37,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     @Volatile
     private var _abortBlur = false
-    private var _blurOption: UtilKBitmapBlurConfig? = null
+    private var _blurOption: ImageKBlurConfig? = null
     private val _blurFinish = AtomicBoolean(false)
 
     @Volatile
@@ -66,7 +66,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         return this
     }
 
-    fun applyBlurOption(option: UtilKBitmapBlurConfig) {
+    fun applyBlurOption(option: ImageKBlurConfig) {
         applyBlurOption(option, false)
     }
 
@@ -248,7 +248,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
     }
 
-    private fun applyBlurOption(option: UtilKBitmapBlurConfig, isOnUpdate: Boolean) {
+    private fun applyBlurOption(option: ImageKBlurConfig, isOnUpdate: Boolean) {
         _blurOption = option
         val anchorView = option.getBlurView()
         if (anchorView == null) {

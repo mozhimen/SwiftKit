@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.layoutk.refresh.commons
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
-import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.android.view.dp2px
 import com.mozhimen.uicorek.layoutk.refresh.cons.ERefreshStatus
 
 /**

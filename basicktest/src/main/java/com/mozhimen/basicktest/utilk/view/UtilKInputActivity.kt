@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.utilk.view
 import android.view.MotionEvent
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.view.keyboard.UtilKInputManager
+import com.mozhimen.basick.utilk.android.view.UtilKInputManager
 import com.mozhimen.basicktest.databinding.ActivityUtilkKeyboardBinding
 
 

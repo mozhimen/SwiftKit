@@ -12,7 +12,7 @@ import com.mozhimen.basick.cachek.datastore.temps.CacheKDSDelegateString
 import com.mozhimen.basick.cachek.shared_preferences.CacheKSP
 import com.mozhimen.basick.cachek.shared_preferences.temps.CacheKSPDelegateString
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.view.bar.showToast
+import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basicktest.databinding.ActivityCachekDsBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

@@ -6,7 +6,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.utilk.view.bar.showToast
+import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basicktest.databinding.ActivityStackkCbBinding
 
 class StackKCbActivity : BaseActivityVB<ActivityStackkCbBinding>(), IStackKListener {

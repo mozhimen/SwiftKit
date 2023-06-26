@@ -2,10 +2,10 @@ package com.mozhimen.uicorek.layoutk.side.list.helpers
 
 import android.content.Context
 import android.util.AttributeSet
-import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.android.view.dp2px
 import com.mozhimen.uicorek.R
-import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.res.sp2px
+import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.android.view.sp2px
 import com.mozhimen.uicorek.commons.IAttrsParser
 import com.mozhimen.uicorek.layoutk.side.list.mos.MSideAttrs
 

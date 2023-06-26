@@ -5,7 +5,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.utilk.net.UtilKNetConn
+import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 
 /**
  * @ClassName NetKConnSimpleDelegate

@@ -5,8 +5,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.taskk.bases.BaseTaskK
-import com.mozhimen.basick.utilk.content.UtilKApplication
-import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.android.content.UtilKContext
 
 /**
  * @ClassName UtilKVibrate

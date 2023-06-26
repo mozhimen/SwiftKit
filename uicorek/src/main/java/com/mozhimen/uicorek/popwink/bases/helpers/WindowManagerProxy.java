@@ -19,7 +19,7 @@ import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.mozhimen.basick.utilk.log.UtilKLogPro;
+import com.mozhimen.basick.utilk.android.util.UtilKLogPro;
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 import com.mozhimen.uicorek.popwink.bases.cons.CUI;
 

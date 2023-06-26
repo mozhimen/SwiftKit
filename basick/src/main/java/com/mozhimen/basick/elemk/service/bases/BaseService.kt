@@ -6,7 +6,7 @@ import android.os.RemoteException
 import com.mozhimen.basick.elemk.service.commons.IBaseService
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
-import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.android.util.et
 
 /**
  * @ClassName BaseService

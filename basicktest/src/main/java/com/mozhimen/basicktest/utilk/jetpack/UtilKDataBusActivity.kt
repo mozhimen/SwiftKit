@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.utilk.jetpack
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.view.bar.showToast
+import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basicktest.databinding.ActivityUtilkDataBusBinding
 

@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.elemk
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.content.startContext
+import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basicktest.databinding.ActivityElemkBinding
 import com.mozhimen.basicktest.elemk.activity.ElemKVBVMActivity
 import com.mozhimen.basicktest.elemk.gesture.ElemKGestureActivity

@@ -4,8 +4,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.utilk.res.dp2px
-import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.view.fitImage
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorektest.R

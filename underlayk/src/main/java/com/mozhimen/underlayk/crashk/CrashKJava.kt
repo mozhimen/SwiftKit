@@ -1,24 +1,26 @@
 package com.mozhimen.underlayk.crashk
 
-import android.app.ActivityManager
-import android.text.format.Formatter
 import com.mozhimen.basick.BuildConfig
-import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.underlayk.crashk.commons.ICrashKListener
-import com.mozhimen.underlayk.logk.LogK
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.stackk.cb.StackKCb
-import com.mozhimen.basick.utilk.app.UtilKApp
+import com.mozhimen.basick.utilk.android.app.UtilKActivityManager
+import com.mozhimen.basick.utilk.android.content.UtilKApp
+import com.mozhimen.basick.utilk.android.content.UtilKPackage
+import com.mozhimen.basick.utilk.android.hardware.UtilKDevice
+import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.content.activity.UtilKActivityManager
-import com.mozhimen.basick.utilk.content.pm.UtilKPackage
-import com.mozhimen.basick.utilk.device.UtilKDevice
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
-import com.mozhimen.basick.utilk.os.UtilKBuild
-import com.mozhimen.basick.utilk.os.UtilKDate
+import com.mozhimen.basick.utilk.java.lang.UtilKCurrentThread
+import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.utilk.os.UtilKPath
-import com.mozhimen.basick.utilk.os.thread.UtilKCurrentThread
-import java.io.*
+import com.mozhimen.underlayk.crashk.commons.ICrashKListener
+import com.mozhimen.underlayk.logk.ket
+import java.io.File
+import java.io.PrintWriter
+import java.io.StringWriter
+import java.io.Writer
 
 /**
  * @ClassName CrashKJava
@@ -73,10 +75,14 @@ class CrashKJava : BaseUtilK() {
             val log = collectDeviceInfo(e)
             if (BuildConfig.DEBUG) {
                 e.printStackTrace()
-                LogK.et(TAG, "UncaughtExceptionHandler handleException log $log")
             }
+            "UncaughtExceptionHandler handleException log $log".ket(TAG)
+
+            ///////////////////////////////////////////////////////////////////////////////
 
             _crashKListener?.onGetCrashJava(log)
+
+            ///////////////////////////////////////////////////////////////////////////////
 
             saveCrashInfo2File(log)
             return true
@@ -89,34 +95,32 @@ class CrashKJava : BaseUtilK() {
 
         private fun collectDeviceInfo(e: Throwable): String {
             val stringBuilder = StringBuilder()
+
             //device info
-            stringBuilder.append("brand= ${UtilKBuild.getBrand()}\n")//手机品牌
-            stringBuilder.append("cpu_arch= ${UtilKBuild.getSupportABIs()}")//CPU架构
-            stringBuilder.append("model= ${UtilKBuild.getModel()}\n")//手机系列
-            stringBuilder.append("rom= ${UtilKDevice.getRomVersion()}\n")//rom
-            stringBuilder.append("os= ${UtilKBuild.getVersionRelease()}\n")//API版本:9.0
-            stringBuilder.append("sdk= ${UtilKBuild.getVersionSDKCode()}\n")//SDK版本:31
-            stringBuilder.append("launch_time= $_launchTime\n")//启动APP的时间
-            stringBuilder.append("crash_time= ${UtilKDate.getNowStr()}")//crash发生的时间
-            stringBuilder.append("foreground= ${StackKCb.instance.isFront()}")//应用处于前台
-            stringBuilder.append("thread= ${UtilKCurrentThread.getName()}\n")//异常线程名
+            stringBuilder.append("brand= ${UtilKBuild.getBrand()}").append(CMsg.LINE_BREAK)//手机品牌
+            stringBuilder.append("cpu_arch= ${UtilKBuild.getSupportABIs()}").append(CMsg.LINE_BREAK)//CPU架构
+            stringBuilder.append("model= ${UtilKBuild.getModel()}").append(CMsg.LINE_BREAK)//手机系列
+            stringBuilder.append("rom= ${UtilKDevice.getRomVersion()}").append(CMsg.LINE_BREAK)//rom
+            stringBuilder.append("os= ${UtilKBuild.getVersionRelease()}").append(CMsg.LINE_BREAK)//API版本:9.0
+            stringBuilder.append("sdk= ${UtilKBuild.getVersionSDKCode()}").append(CMsg.LINE_BREAK)//SDK版本:31
+            stringBuilder.append("launch_time= $_launchTime").append(CMsg.LINE_BREAK)//启动APP的时间
+            stringBuilder.append("crash_time= ${UtilKDate.getNowStr()}").append(CMsg.LINE_BREAK)//crash发生的时间
+            stringBuilder.append("foreground= ${StackKCb.instance.isFront()}").append(CMsg.LINE_BREAK)//应用处于前台
+            stringBuilder.append("thread= ${UtilKCurrentThread.getName()}").append(CMsg.LINE_BREAK)//异常线程名
 
             //app info
-            stringBuilder.append("version_code= ${UtilKPackage.getVersionCode()}\n")
-            stringBuilder.append("version_name= ${UtilKPackage.getVersionName()}\n")
-            stringBuilder.append("package_code= ${UtilKPackage.getPackageName()}\n")
-            stringBuilder.append("requested_permissions= ${UtilKPackage.getRequestedPermissionsStr()}\n")
+            stringBuilder.append("version_code= ${UtilKPackage.getVersionCode()}").append(CMsg.LINE_BREAK)
+            stringBuilder.append("version_name= ${UtilKPackage.getVersionName()}").append(CMsg.LINE_BREAK)
+            stringBuilder.append("package_code= ${UtilKPackage.getPackageName()}").append(CMsg.LINE_BREAK)
+            stringBuilder.append("requested_permissions= ${UtilKPackage.getRequestedPermissionsStr()}").append(CMsg.LINE_BREAK)
 
             //storage info
-            val memoryInfo = ActivityManager.MemoryInfo()
-            val activityManager = UtilKActivityManager.get(_context)
-            activityManager.getMemoryInfo(memoryInfo)
-
-            stringBuilder.append("availableMemory= ${Formatter.formatFileSize(_context, memoryInfo.availMem)}\n")//可用内存
-            stringBuilder.append("totalMemory= ${Formatter.formatFileSize(_context, memoryInfo.totalMem)}\n")//设备总内存
+            val memoryInfo = UtilKActivityManager.getMemoryInfo(_context)
+            stringBuilder.append("availableMemory= ${UtilKActivityManager.getAvailMemSizeStr(memoryInfo)}").append(CMsg.LINE_BREAK)//可用内存
+            stringBuilder.append("totalMemory= ${UtilKActivityManager.getTotalMenSizeStr(memoryInfo)}").append(CMsg.LINE_BREAK)//设备总内存
 
             //sd storage size
-            stringBuilder.append("availableStorage= ${UtilKDevice.getFreeExternalMemorySize()}\n")//存储空间
+            stringBuilder.append("availableStorage= ${UtilKDevice.getFreeExternalMemorySize()}").append(CMsg.LINE_BREAK)//存储空间
 
             //stack info
             val write: Writer = StringWriter()

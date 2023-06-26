@@ -12,7 +12,7 @@ import android.view.Surface
 import android.view.TextureView
 import com.mozhimen.basick.utilk.res.UtilKAsset
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
-import com.mozhimen.basick.utilk.view.display.UtilKScreen
+import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.componentk.mediak.video.cons.CGravity
 import com.mozhimen.uicorek.R
 import java.io.IOException

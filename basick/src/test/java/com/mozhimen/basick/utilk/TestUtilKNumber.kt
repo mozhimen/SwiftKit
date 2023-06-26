@@ -1,9 +1,9 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.java.datatype.UtilKNumber
-import com.mozhimen.basick.utilk.java.printlog
-import com.mozhimen.basick.utilk.java.UtilKConsole
-import com.mozhimen.basick.utilk.math.UtilKTriangle
+import com.mozhimen.basick.utilk.kotlin.UtilKNumber
+import com.mozhimen.basick.utilk.kotlin.printlog
+import com.mozhimen.basick.utilk.kotlin.UtilKConsole
+import com.mozhimen.basick.utilk.kotlin.math.UtilKTriangle
 import org.junit.Test
 
 /**

@@ -1,14 +1,13 @@
 package com.mozhimen.basick.elemk.receiver.bases
 
 import android.annotation.TargetApi
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.app.UtilKApp
-import com.mozhimen.basick.utilk.content.UtilKContext
+import com.mozhimen.basick.utilk.android.content.UtilKApp
+import com.mozhimen.basick.utilk.android.content.UtilKContext
 
 /**
  * @ClassName BaseInstallObserverReceiver

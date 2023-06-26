@@ -40,8 +40,8 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Btn_Style"
-                android:onClick="goNetK"
-                android:text="goNetK"
+                android:onClick="goPackK"
+                android:text="goPackK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton

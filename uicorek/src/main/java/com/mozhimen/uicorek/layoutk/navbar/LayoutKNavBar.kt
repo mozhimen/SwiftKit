@@ -13,13 +13,13 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
-import com.mozhimen.basick.utilk.graphics.bitmap.drawable2Bitmap
+import com.mozhimen.basick.utilk.android.graphics.drawable2Bitmap
+import com.mozhimen.basick.utilk.android.view.applyPaddingHorizontal
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
-import com.mozhimen.basick.utilk.res.dp2px
-import com.mozhimen.basick.utilk.res.sp2px
-import com.mozhimen.basick.utilk.view.applyPaddingHorizontal
-import com.mozhimen.basick.utilk.view.setIconFont
-import com.mozhimen.basick.utilk.view.applyTextStyle
+import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.view.sp2px
+import com.mozhimen.basick.utilk.android.widget.applyIconFont
+import com.mozhimen.basick.utilk.android.widget.applyTextStyle
 import com.mozhimen.uicorek.layoutk.navbar.helpers.AttrsParser
 import com.mozhimen.uicorek.layoutk.navbar.mos.MNavBarAttrs
 import java.util.*
@@ -316,7 +316,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
             setTextSize(TypedValue.COMPLEX_UNIT_PX, iconTextSize.toFloat())
             setTextColor(iconColor)
             text = iconStr
-            setIconFont(iconFontPath)
+            applyIconFont(iconFontPath)
         }
         return btnKIconFont
     }

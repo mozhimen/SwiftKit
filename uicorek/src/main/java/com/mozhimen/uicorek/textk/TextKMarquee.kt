@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 

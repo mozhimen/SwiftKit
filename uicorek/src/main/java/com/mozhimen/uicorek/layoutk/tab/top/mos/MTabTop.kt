@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.layoutk.tab.top.mos
 
 import androidx.fragment.app.Fragment
-import com.mozhimen.basick.utilk.graphics.UtilKColor
+import com.mozhimen.basick.utilk.android.graphics.UtilKColor
 import com.mozhimen.uicorek.layoutk.tab.top.cons.ETabTopType
 
 /**

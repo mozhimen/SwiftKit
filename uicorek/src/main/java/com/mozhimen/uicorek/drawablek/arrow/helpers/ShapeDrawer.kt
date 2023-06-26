@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.drawablek.arrow.helpers
 import android.graphics.Path
 import android.graphics.PointF
 import android.graphics.RectF
-import com.mozhimen.basick.utilk.java.datatype.normalize
+import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.drawablek.arrow.mos.MShape

@@ -1,6 +1,6 @@
 package com.mozhimen.componentktest
 
-import com.mozhimen.basick.utilk.java.printlog
+import com.mozhimen.basick.utilk.kotlin.printlog
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.componentktest.navigatek.fragments.FirstFragment
 import org.junit.Test

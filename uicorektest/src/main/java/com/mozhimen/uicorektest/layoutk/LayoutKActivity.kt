@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.layoutk
 
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.content.startContext
+import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkBinding
 import com.mozhimen.uicorektest.layoutk.banner.LayoutKBannerActivity
 import com.mozhimen.uicorektest.layoutk.loadrefresh.LayoutKLoadRefreshActivity

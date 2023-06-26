@@ -12,12 +12,12 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.widget.EditText
 import android.widget.TextView
-import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
-import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.res.sp2px
-import com.mozhimen.basick.utilk.view.setInputMaxLength
-import com.mozhimen.basick.utilk.view.applyPadding
+import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.android.view.applyPadding
+import com.mozhimen.basick.utilk.android.view.sp2px
+import com.mozhimen.basick.utilk.android.widget.setInputMaxLength
 import com.mozhimen.uicorek.R
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 
 /**
  * @ClassName LayoutKInputItem

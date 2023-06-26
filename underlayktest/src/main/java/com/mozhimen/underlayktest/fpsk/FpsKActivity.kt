@@ -2,7 +2,7 @@ package com.mozhimen.underlayktest.fpsk
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.view.bar.showToast
+import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.underlayk.fpsk.FpsK
 import com.mozhimen.underlayktest.databinding.ActivityFpskBinding
 

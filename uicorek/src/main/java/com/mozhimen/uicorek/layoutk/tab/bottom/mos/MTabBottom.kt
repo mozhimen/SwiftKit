@@ -1,8 +1,8 @@
 package com.mozhimen.uicorek.layoutk.tab.bottom.mos
 
 import androidx.fragment.app.Fragment
-import com.mozhimen.basick.utilk.graphics.UtilKColor
-import com.mozhimen.basick.utilk.java.datatype.str2Unicode
+import com.mozhimen.basick.utilk.android.graphics.UtilKColor
+import com.mozhimen.basick.utilk.kotlin.str2Unicode
 import com.mozhimen.uicorek.layoutk.tab.bottom.cons.ETabBottomType
 import java.io.Serializable
 

@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.mozhimen.basick.utilk.res.UtilKRes
+import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener
 import com.mozhimen.uicorek.popwink.builder.mos.PopwinKBuilderConfig

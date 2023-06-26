@@ -17,8 +17,8 @@ import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
 import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
-import com.mozhimen.basick.utilk.view.applyPadding
-import com.mozhimen.basick.utilk.view.applyPaddingHorizontal
+import com.mozhimen.basick.utilk.android.view.applyPadding
+import com.mozhimen.basick.utilk.android.view.applyPaddingHorizontal
 import com.mozhimen.uicorek.layoutk.search.helpers.SearchAttrsParser
 import com.mozhimen.uicorek.layoutk.search.commons.SearchTextWatcher
 import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs

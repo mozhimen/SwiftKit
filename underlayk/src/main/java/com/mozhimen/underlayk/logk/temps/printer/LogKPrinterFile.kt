@@ -4,7 +4,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
-import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.os.UtilKPath
 import java.io.BufferedWriter
 import java.io.File

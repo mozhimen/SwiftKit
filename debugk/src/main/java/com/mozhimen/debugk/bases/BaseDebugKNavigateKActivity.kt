@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.navigation.NavController
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
-import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityNavigatekBinding

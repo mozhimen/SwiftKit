@@ -9,9 +9,9 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.res.dp2px
+import com.mozhimen.basick.utilk.android.view.UtilKView
+import com.mozhimen.basick.utilk.android.view.dp2px
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
-import com.mozhimen.basick.utilk.view.UtilKView
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.drawablek.arrow.DrawableKArrow
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection

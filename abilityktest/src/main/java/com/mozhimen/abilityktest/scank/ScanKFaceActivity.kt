@@ -14,9 +14,9 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
-import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapDeal
-import com.mozhimen.basick.utilk.graphics.bitmap.UtilKBitmapFormat
+import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
+import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener

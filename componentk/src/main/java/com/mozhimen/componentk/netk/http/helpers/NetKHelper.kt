@@ -13,8 +13,8 @@ import kotlinx.coroutines.flow.*
  * @Version 1.0
  */
 object NetKHelper : BaseUtilK() {
-    fun <T> createFlow(call: suspend () -> T?): Flow<NetKRep<T>> = flow {
-        val result: T? = call()
+    fun <T> createFlow(invoke: suspend () -> T?): Flow<NetKRep<T>> = flow {
+        val result: T? = invoke()
         result?.let {
             emit(NetKRep.MSuccess(result))
         } ?: emit(NetKRep.Empty)

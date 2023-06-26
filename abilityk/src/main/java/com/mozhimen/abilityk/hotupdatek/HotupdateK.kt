@@ -8,11 +8,11 @@ import com.mozhimen.abilityk.hotupdatek.cons.CHotupdateKEvent
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
-import com.mozhimen.basick.utilk.app.UtilKApk
+import com.mozhimen.basick.utilk.android.content.UtilKApk
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
-import com.mozhimen.basick.utilk.content.pm.UtilKPackageInfo
-import com.mozhimen.basick.utilk.java.datatype.getSplitLast
+import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
+import com.mozhimen.basick.utilk.kotlin.getSplitLast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK

@@ -1,8 +1,8 @@
 package com.mozhimen.componentk.netk.file.download.cons
 
 import android.app.DownloadManager
+import com.mozhimen.basick.utilk.android.util.UtilKLog.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.log.UtilKLog.dt
 
 object CDownloadConstants : BaseUtilK() {
     const val STATUS_PENDING = DownloadManager.STATUS_PENDING

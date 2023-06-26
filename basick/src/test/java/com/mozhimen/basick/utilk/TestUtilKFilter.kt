@@ -1,13 +1,13 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.java.datatype.regular.checkAllDigits
-import com.mozhimen.basick.utilk.java.datatype.regular.checkAllDigits2
-import com.mozhimen.basick.utilk.java.datatype.regular.checkAllDigitsAndAlphabets
-import com.mozhimen.basick.utilk.java.datatype.regular.outAlphabet
-import com.mozhimen.basick.utilk.java.datatype.regular.outChinese
-import com.mozhimen.basick.utilk.java.datatype.regular.outNAC
-import com.mozhimen.basick.utilk.java.datatype.regular.outNumber
-import com.mozhimen.basick.utilk.java.printlog
+import com.mozhimen.basick.utilk.kotlin.text.checkAllDigits
+import com.mozhimen.basick.utilk.kotlin.text.checkAllDigits2
+import com.mozhimen.basick.utilk.kotlin.text.checkAllDigitsAndAlphabets
+import com.mozhimen.basick.utilk.kotlin.text.outAlphabet
+import com.mozhimen.basick.utilk.kotlin.text.outChinese
+import com.mozhimen.basick.utilk.kotlin.text.outNAC
+import com.mozhimen.basick.utilk.kotlin.text.outNumber
+import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
 

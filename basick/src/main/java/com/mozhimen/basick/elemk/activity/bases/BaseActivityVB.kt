@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.activity.commons.IActivity
-import com.mozhimen.basick.utilk.jetpack.databinding.UtilKViewDataBinding
+import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 
 abstract class BaseActivityVB<VB : ViewDataBinding>(
     private val _factory: ViewModelProvider.Factory? = null

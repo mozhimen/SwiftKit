@@ -5,7 +5,7 @@ import com.mozhimen.basick.chaink.bases.BaseChainKTask
 import com.mozhimen.basick.chaink.commons.IChainK
 import com.mozhimen.basick.chaink.helpers.ChainKRuntime
 import com.mozhimen.basick.chaink.temps.ChainKTaskGroup
-import com.mozhimen.basick.utilk.os.thread.UtilKThread
+import com.mozhimen.basick.utilk.java.lang.UtilKThread
 
 /**
  * @ClassName TaskKMgr

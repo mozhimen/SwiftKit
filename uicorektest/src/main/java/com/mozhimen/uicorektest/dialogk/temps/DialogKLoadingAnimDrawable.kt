@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.res.UtilKRes
-import com.mozhimen.basick.utilk.view.setValueIfNotEmpty
+import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.view.applyValueIfNotEmpty
 import com.mozhimen.basick.utilk.view.toVisibleIfElseGone
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
@@ -70,7 +70,7 @@ class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Con
     }
 
     fun setDesc(desc: String?) {
-        _txtDesc?.setValueIfNotEmpty(desc)
+        _txtDesc?.applyValueIfNotEmpty(desc)
     }
 
     fun setAction(actionStr: String?) {
@@ -79,7 +79,7 @@ class DialogKLoadingAnimDrawable @JvmOverloads internal constructor(context: Con
 
     fun setAction(actionStr: String?, listener: View.OnClickListener?) {
         _txtAction?.apply {
-            setValueIfNotEmpty(actionStr)
+            applyValueIfNotEmpty(actionStr)
             listener?.let { setOnClickListener(it) }
             toVisibleIfElseGone { !actionStr.isNullOrEmpty() }
         }

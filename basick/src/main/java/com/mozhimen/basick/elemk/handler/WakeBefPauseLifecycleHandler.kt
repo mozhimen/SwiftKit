@@ -4,7 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
-import com.mozhimen.basick.utilk.os.thread.removeAllCbsAndMsgs
+import com.mozhimen.basick.utilk.android.os.removeAllCbsAndMsgs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

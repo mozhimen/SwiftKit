@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.java.printlog
-import com.mozhimen.basick.utilk.os.isOnTheHourOf
-import com.mozhimen.basick.utilk.os.isOnTheMinuteOf
+import com.mozhimen.basick.utilk.kotlin.printlog
+import com.mozhimen.basick.utilk.java.util.isOnTheHourOf
+import com.mozhimen.basick.utilk.java.util.isOnTheMinuteOf
 import org.junit.Test
 
 /**

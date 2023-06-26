@@ -6,7 +6,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.content.activity.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basicktest.databinding.ActivityManifestkPermissionBinding
 
 @AManifestKRequire(CPermission.INTERNET)

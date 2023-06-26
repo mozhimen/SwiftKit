@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import com.mozhimen.basick.utilk.view.display.UtilKScreen
-import com.mozhimen.basick.utilk.view.setValueIfNotEmpty
+import com.mozhimen.basick.utilk.android.view.UtilKScreen
+import com.mozhimen.basick.utilk.view.applyValueIfNotEmpty
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R
@@ -42,7 +42,7 @@ class DialogKTip(context: Context, private val _txt: String, private var _onSure
     }
 
     fun setTxt(txt: String) {
-        _txtView?.setValueIfNotEmpty(txt)
+        _txtView?.applyValueIfNotEmpty(txt)
     }
 
     fun setSureListener(onSure: IDialogKTipListener) {

@@ -17,15 +17,15 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.mozhimen.basick.elemk.cons.CWinMgrLP;
-import com.mozhimen.basick.utilk.view.keyboard.UtilKInputChange;
+import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
+import com.mozhimen.basick.utilk.android.view.UtilKView;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
-import com.mozhimen.basick.utilk.view.UtilKGravity;
-import com.mozhimen.basick.utilk.view.keyboard.UtilKInputManager;
-import com.mozhimen.basick.utilk.view.display.UtilKScreen;
-import com.mozhimen.basick.utilk.view.bar.UtilKStatusBar;
-import com.mozhimen.basick.utilk.view.UtilKView;
+import com.mozhimen.basick.utilk.android.view.UtilKGravity;
+import com.mozhimen.basick.utilk.android.view.UtilKInputManager;
+import com.mozhimen.basick.utilk.android.view.UtilKScreen;
+import com.mozhimen.basick.utilk.android.view.UtilKStatusBar;
 import com.mozhimen.uicorek.popwink.bases.commons.IEventObserver;
 import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag;

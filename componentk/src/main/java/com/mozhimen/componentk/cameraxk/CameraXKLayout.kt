@@ -15,7 +15,7 @@ import com.google.android.material.slider.Slider
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.cons.CUseFeature
-import com.mozhimen.basick.utilk.res.UtilKDisplayManager
+import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
@@ -91,7 +91,7 @@ class CameraXKLayout @JvmOverloads constructor(
     init {
         if (!isInEditMode) {
             initView()
-            _cameraXKProxy = CameraXKProxy(context)
+            _cameraXKProxy = CameraXKProxy()
             _cameraXKProxy.apply {
                 slider = _slider
                 previewView = _previewView

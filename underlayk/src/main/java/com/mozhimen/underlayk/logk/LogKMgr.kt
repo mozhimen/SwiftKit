@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.logk
 
-import com.mozhimen.basick.utilk.java.datatype.containsBy
+import com.mozhimen.basick.utilk.kotlin.collections.containsBy
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.commons.ILogKMgr

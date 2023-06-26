@@ -1,7 +1,6 @@
 package com.mozhimen.componentk.cameraxk.helpers
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import android.os.Handler
@@ -18,7 +17,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.log.et
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
@@ -42,7 +41,7 @@ import kotlin.properties.Delegates
  * @Date 2022/1/3 1:17
  * @Version 1.0
  */
-class CameraXKProxy(private val _context: Context) : ICameraXKAction, BaseUtilK() {
+class CameraXKProxy() : ICameraXKAction, BaseUtilK() {
 
     private var _cameraXKListener: ICameraXKListener? = null
     private var _cameraXKCaptureListener: ICameraXKCaptureListener? = null
