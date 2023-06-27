@@ -4,7 +4,7 @@ import android.os.Vibrator
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.taskk.bases.BaseTaskK
+import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
 /**
@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.VIBRATE)
-class TaskKVibrate : BaseTaskK() {
+class TaskKVibrate : BaseWakeBefDestroyTaskK() {
 
     private var _vibrator: Vibrator? = null
 

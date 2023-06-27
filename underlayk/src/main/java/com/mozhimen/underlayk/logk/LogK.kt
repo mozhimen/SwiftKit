@@ -82,11 +82,11 @@ fun String.kat(tag: String) {
 }
 
 object LogK : BaseUtilK() {
-    private var LOGK_PACKAGE: String
+    private var _logKPackageName: String
 
     init {
         val className = LogK::class.java.name
-        LOGK_PACKAGE = className.substring(0, className.lastIndexOf(".") + 1)
+        _logKPackageName = className.substring(0, className.lastIndexOf(".") + 1)
     }
 
     /**
@@ -230,7 +230,7 @@ object LogK : BaseUtilK() {
             val stackTrace: String? = CLogKParameter.FORMATTER_STACK_TRACE.format(
                 UtilKStackTrace.getCroppedRealStackTrack(
                     Throwable().stackTrace,
-                    LOGK_PACKAGE,
+                    _logKPackageName,
                     if (config.stackTraceDepth() <= 0) 5 else config.stackTraceDepth()
                 )
             )

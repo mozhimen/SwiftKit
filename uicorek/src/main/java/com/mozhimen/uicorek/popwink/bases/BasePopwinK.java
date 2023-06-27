@@ -242,7 +242,7 @@ import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
 import com.mozhimen.basick.utilk.bases.BaseUtilK;
 import com.mozhimen.basick.utilk.android.graphics.UtilKColor;
-import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus;
+import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus;
 import com.mozhimen.basick.utilk.android.view.UtilKGravity;
 import com.mozhimen.basick.utilk.android.content.UtilKRes;
 import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig;

@@ -25,6 +25,10 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
         }
     }
 
+    override fun initData(savedInstanceState: Bundle?) {
+        super.initData(savedInstanceState)
+    }
+
     override fun initView(savedInstanceState: Bundle?) {
         initPrinterView()
         initPrinterMonitor()

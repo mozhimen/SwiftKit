@@ -7,7 +7,7 @@ import com.liulishuo.okdownload.StatusUtil
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.taskk.bases.BaseTaskK
+import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.kotlin.text.UtilKVerifyUrl
 import com.mozhimen.componentk.netk.file.download_deprecated.commons.IFileDownloadSingleListener
@@ -25,7 +25,7 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @Version 1.0
  */
 @Deprecated("okdownload is deprecated")
-class TaskFileDownloadSingle : BaseTaskK() {
+class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
     private val _downloadUrls = CopyOnWriteArrayList<String>()
     private var _downloadListeners = ConcurrentHashMap<String, IFileDownloadSingleListener>()
     private var _downloadTasks = ConcurrentHashMap<String, DownloadTask>()

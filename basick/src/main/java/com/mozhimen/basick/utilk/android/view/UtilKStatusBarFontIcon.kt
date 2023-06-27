@@ -84,9 +84,9 @@ object UtilKStatusBarFontIcon : BaseUtilK() {
             window.addFlags(CWinMgrLP.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(CWinMgrLP.FLAG_TRANSLUCENT_STATUS)
             val flag: Int = if (isDark)
-                UtilKDecorView.getSystemUiVisibility(window) or CView.FLAG_LIGHT_STATUS_BAR
+                UtilKDecorView.getSystemUiVisibility(window) or CView.SystemUi.FLAG_LIGHT_STATUS_BAR
             else
-                UtilKDecorView.getSystemUiVisibility(window) and CView.FLAG_LIGHT_STATUS_BAR.inv()
+                UtilKDecorView.getSystemUiVisibility(window) and CView.SystemUi.FLAG_LIGHT_STATUS_BAR.inv()
             UtilKDecorView.setSystemUiVisibility(window, flag)
         }
     }

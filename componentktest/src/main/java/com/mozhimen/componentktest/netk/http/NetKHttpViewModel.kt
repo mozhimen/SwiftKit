@@ -53,7 +53,6 @@ class NetKHttpViewModel : BaseViewModel() {
         }
     }
 
-    suspend fun getRealtimeWeatherCoroutineSync(): MResultIST<Weather?> {
-        return NetKHelper.createFlow { ApiFactory.apis.getRealTimeWeatherCoroutine("121.321504,31.194874") }.asNetKResSync()
-    }
+    suspend fun getRealtimeWeatherCoroutineSync(): MResultIST<Weather?> =
+        NetKHelper.createFlow { ApiFactory.apis.getRealTimeWeatherCoroutine("121.321504,31.194874") }.asNetKResSync()
 }

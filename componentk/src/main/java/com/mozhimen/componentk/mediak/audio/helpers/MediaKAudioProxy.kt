@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
+import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
 import com.mozhimen.componentk.mediak.audio.commons.IMediaKAudio
 import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
 import com.mozhimen.componentk.mediak.audio.cons.EAudioPlayMode

@@ -4,7 +4,7 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 
-abstract class BaseTaskK : BaseWakeBefDestroyLifecycleObserver() {
+abstract class BaseWakeBefDestroyTaskK : BaseWakeBefDestroyLifecycleObserver() {
 
     abstract fun isActive(): Boolean
 

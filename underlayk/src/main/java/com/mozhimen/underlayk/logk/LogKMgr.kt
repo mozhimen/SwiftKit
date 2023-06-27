@@ -28,15 +28,18 @@ import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterConsole
  * @Version 1.0
  */
 class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/) : ILogKMgr {
-    private val _printers: MutableList<ILogKPrinter> = mutableListOf(LogKPrinterConsole())
-    private var _config: BaseLogKConfig? = null
-
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////
 
+    private val _printers: MutableList<ILogKPrinter> = mutableListOf(LogKPrinterConsole())
+    private var _config: BaseLogKConfig? = null
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    
     override fun init(config: BaseLogKConfig, vararg printers: ILogKPrinter) {
         _config = config
         _printers.addAll(printers.filter { o -> !_printers.containsBy { it.getName() == o.getName() } })
@@ -57,6 +60,8 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
     override fun removePrinter(printer: ILogKPrinter) {
         _printers.remove(printer)
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////
 
     private object INSTANCE {
         val holder = LogKMgr()

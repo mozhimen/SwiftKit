@@ -1,10 +1,10 @@
 package com.mozhimen.basick.taskk.temps
 
-import com.mozhimen.basick.taskk.bases.BaseTaskK
+import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.util.et
 import kotlinx.coroutines.*
 
-class TaskKPollInfinite : BaseTaskK() {
+class TaskKPollInfinite : BaseWakeBefDestroyTaskK() {
     private var _pollingScope: CoroutineScope? = null
 
     override fun isActive(): Boolean =

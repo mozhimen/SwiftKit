@@ -119,12 +119,12 @@ object UtilKDecorView : BaseUtilK() {
     @JvmStatic
     fun setFullScreen(decorView: View) {
         setSystemUiVisibility(
-            decorView, (CView.FLAG_LOW_PROFILE or
-                    CView.FLAG_FULLSCREEN or
-                    CView.FLAG_LAYOUT_STABLE or
-                    CView.FLAG_IMMERSIVE_STICKY or
-                    CView.FLAG_LAYOUT_HIDE_NAVIGATION or
-                    CView.FLAG_HIDE_NAVIGATION)
+            decorView, (CView.SystemUi.FLAG_LOW_PROFILE or
+                    CView.SystemUi.FLAG_FULLSCREEN or
+                    CView.SystemUi.FLAG_LAYOUT_STABLE or
+                    CView.SystemUi.FLAG_IMMERSIVE_STICKY or
+                    CView.SystemUi.FLAG_LAYOUT_HIDE_NAVIGATION or
+                    CView.SystemUi.FLAG_HIDE_NAVIGATION)
         )
     }
 }

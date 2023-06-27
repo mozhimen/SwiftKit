@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 @AManifestKRequire(CPermission.WAKE_LOCK)
 class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
-    private val _lifecycleRegistry by lazy { LifecycleRegistry(this) }
+    private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
 
     private val _audioKProxy by lazy { MediaKAudioProxy(this) }
 

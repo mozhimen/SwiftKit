@@ -9,7 +9,7 @@ import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.taskk.temps.TaskKPollInfinite
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
+import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.net.UtilKWifiManager
 import com.mozhimen.basick.utilk.res.UtilKAsset

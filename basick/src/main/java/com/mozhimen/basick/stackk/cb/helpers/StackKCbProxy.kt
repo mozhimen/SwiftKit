@@ -10,7 +10,7 @@ import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.CStackKEvent
 import com.mozhimen.basick.utilk.android.app.UtilKApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
-import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
+import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
 import java.lang.ref.WeakReference
 
 /**

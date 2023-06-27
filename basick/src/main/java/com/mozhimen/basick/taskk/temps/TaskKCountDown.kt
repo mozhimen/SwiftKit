@@ -1,7 +1,8 @@
 package com.mozhimen.basick.taskk.temps
 
 import android.os.CountDownTimer
-import com.mozhimen.basick.taskk.bases.BaseTaskK
+import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
+import com.mozhimen.basick.taskk.bases.BaseWakeBefPauseTaskK
 
 /**
  * @ClassName UtilKCountDown
@@ -20,7 +21,7 @@ open class TaskKCountDownCallback : ITaskKCountDownListener {
     override fun onFinish() {}
 }
 
-class TaskKCountDown : BaseTaskK() {
+class TaskKCountDown : BaseWakeBefPauseTaskK() {
 
     private var _taskKCountDownListener: ITaskKCountDownListener? = null
     private var _countDownTimer: CountDownTimer? = null
@@ -36,6 +37,7 @@ class TaskKCountDown : BaseTaskK() {
 
     override fun cancel() {
         if (!isActive()) return
+        _taskKCountDownListener = null
         _countDownTimer?.cancel()
         _countDownTimer = null
     }

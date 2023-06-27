@@ -74,8 +74,6 @@ object UtilKWindow : BaseUtilK() {
     fun getFlags(window: Window): Int =
         getAttributes(window).flags
 
-    ///////////////////////////////////////////////////////////////////////////////////////
-
     @JvmStatic
     fun clearFlags(activity: Activity, flags: Int) {
         get(activity).clearFlags(flags)
@@ -87,11 +85,26 @@ object UtilKWindow : BaseUtilK() {
     }
 
     @JvmStatic
+    fun setFlags(activity: Activity, flags: Int, mask: Int) {
+        setFlags(get(activity), flags, mask)
+    }
+
+    @JvmStatic
+    fun setFlags(window: Window, flags: Int, mask: Int) {
+        window.setFlags(flags, mask)
+    }
+
+    @JvmStatic
     fun setStatusBarColor(activity: Activity, @ColorInt colorInt: Int) {
         get(activity).statusBarColor = colorInt
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun setFullScreen(window: Window) {
+        setFlags(window, CWinMgrLP.FLAG_FULLSCREEN, CWinMgrLP.FLAG_FULLSCREEN)
+    }
 
     @JvmStatic
     fun isFullScreenInFlag(activity: Activity): Boolean =

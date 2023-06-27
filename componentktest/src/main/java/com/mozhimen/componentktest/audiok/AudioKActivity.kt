@@ -17,9 +17,9 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.kotlin.normalize
-import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.componentk.mediak.audio.MediaKAudio
 import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
+import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
 import com.mozhimen.componentk.mediak.audio.mos.MAudioK
 import com.mozhimen.componentk.mediak.audio.mos.MAudioKProgress
 import com.mozhimen.componentktest.R

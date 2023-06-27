@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.jetpack.lifecycle
+package com.mozhimen.basick.utilk.androidx.lifecycle
 
 import androidx.lifecycle.*
 import java.util.concurrent.ConcurrentHashMap

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.io.reactivex
+package com.mozhimen.basick.utilk.io.reactivex
 
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers

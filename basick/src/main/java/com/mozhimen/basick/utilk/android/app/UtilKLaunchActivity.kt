@@ -56,7 +56,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startManageOverlay(context: Context) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
             UtilKContextStart.startContext(context, UtilKIntent.getManageOverlay(context))
         }
     }

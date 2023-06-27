@@ -31,10 +31,6 @@ class LogKPrinterViewProvider(
     private val _context: Context,
     private val _rootView: FrameLayout
 ) : ILogKPrinter {
-    private companion object {
-        private val TITLE_OPEN_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_open)
-        private val TITLE_CLOSE_PANEL = UtilKRes.getString(R.string.logk_view_provider_title_close)
-    }
 
     private val _adapterKRecyclerStuffed by lazy { AdapterKRecycler() }
 
@@ -52,7 +48,7 @@ class LogKPrinterViewProvider(
         get() {
             if (field != null) return field
             val textView = TextView(_context)
-            textView.text = if (_isFold) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
+            textView.text = if (_isFold) CLogKParameter.TITLE_OPEN_PANEL else CLogKParameter.TITLE_CLOSE_PANEL
             textView.setPadding(4f.dp2px().toInt())
             textView.setTextColor(Color.WHITE)
             textView.setBackgroundColor(Color.BLACK)
@@ -76,7 +72,7 @@ class LogKPrinterViewProvider(
 
     private var _isFold = false
         set(value) {
-            _titleView!!.text = if (value) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
+            _titleView!!.text = if (value) CLogKParameter.TITLE_OPEN_PANEL else CLogKParameter.TITLE_CLOSE_PANEL
             field = value
         }
 
@@ -95,7 +91,7 @@ class LogKPrinterViewProvider(
     fun foldLogView() {
         if (_isFold) return
         _isFold = true
-        _titleView!!.text = TITLE_OPEN_PANEL
+        _titleView!!.text = CLogKParameter.TITLE_OPEN_PANEL
         _recyclerView!!.visibility = View.GONE
         //transform
         _containerView!!.layoutParams = getLayoutParams(true)
@@ -104,7 +100,7 @@ class LogKPrinterViewProvider(
     fun unfoldLogView() {
         if (!_isFold) return
         _isFold = false
-        _titleView!!.text = TITLE_CLOSE_PANEL
+        _titleView!!.text = CLogKParameter.TITLE_CLOSE_PANEL
         _recyclerView!!.visibility = View.VISIBLE
         //transform
         _containerView!!.layoutParams = getLayoutParams(false)

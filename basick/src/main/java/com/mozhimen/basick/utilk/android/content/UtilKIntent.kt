@@ -84,8 +84,8 @@ object UtilKIntent {
      * @param context Context
      * @return Intent
      */
+    @RequiresApi(CVersionCode.V_23_6_M)
     @JvmStatic
-    @RequiresApi(CVersionCode.V_30_11_R)
     fun getManageOverlay(context: Context): Intent =
         Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
 

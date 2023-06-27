@@ -39,7 +39,8 @@ object UtilKNavigationBar : BaseUtilK() {
     @JvmStatic
     fun isNavigationBarVisible(activity: Activity): Boolean {
         val windowSystemUiVisibility = UtilKDecorView.getWindowSystemUiVisibility(activity)
-        return windowSystemUiVisibility and CView.FLAG_HIDE_NAVIGATION == 0 && windowSystemUiVisibility and CView.FLAG_LAYOUT_HIDE_NAVIGATION == 0
+        return (windowSystemUiVisibility and CView.SystemUi.FLAG_HIDE_NAVIGATION == 0 &&
+                windowSystemUiVisibility and CView.SystemUi.FLAG_LAYOUT_HIDE_NAVIGATION == 0)
     }
 
     @JvmStatic

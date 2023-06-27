@@ -10,6 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.PopupWindow
 import com.mozhimen.basick.elemk.cons.CParameter
+import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.getActivityByContext
 import com.mozhimen.basick.utilk.android.util.et
@@ -98,7 +99,14 @@ class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context
 
     fun onAfterShowExec(act: Activity?) {
         if (_isHandledFullScreen) {
-            var flag = CParameter.UTILK_SCREEN_FULL_SCREEN_FLAG
+            var flag = (
+                    CView.SystemUi.FLAG_LAYOUT_STABLE
+                            or CView.SystemUi.FLAG_LAYOUT_HIDE_NAVIGATION
+                            or CView.SystemUi.FLAG_HIDE_NAVIGATION
+                            or CView.SystemUi.FLAG_IMMERSIVE_STICKY
+                            or CView.SystemUi.FLAG_LAYOUT_FULLSCREEN
+                            or CView.SystemUi.FLAG_FULLSCREEN
+                    )
             if (act != null) {
                 flag = act.window.decorView.systemUiVisibility
             }
