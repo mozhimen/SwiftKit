@@ -237,7 +237,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.mozhimen.basick.elemk.cons.CVersionCode;
-import com.mozhimen.basick.elemk.cons.CWinMgrLP;
+import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
 import com.mozhimen.basick.utilk.bases.BaseUtilK;
@@ -987,7 +987,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
      *                 <br>
      */
     public BasePopwinK setKeyboardAdaptive(boolean adaptive) {
-        mHelper.mSoftInputMode = adaptive ? CWinMgrLP.SOFT_INPUT_ADJUST_RESIZE : CWinMgrLP.SOFT_INPUT_STATE_UNCHANGED;
+        mHelper.mSoftInputMode = adaptive ? CWinMgr.Lps.SOFT_INPUT_ADJUST_RESIZE : CWinMgr.Lps.SOFT_INPUT_STATE_UNCHANGED;
         return this;
     }
 
@@ -1959,7 +1959,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
         if (isShowing()) {
             ((BasePopwinKProxy) getPopupWindow()).updateFlag(touchable ? CFlag.MODE_REMOVE : CFlag.MODE_ADD,
                     true,
-                    CWinMgrLP.FLAG_NOT_TOUCHABLE, CWinMgrLP.FLAG_NOT_FOCUSABLE);
+                    CWinMgr.Lpf.FLAG_NOT_TOUCHABLE, CWinMgr.Lpf.FLAG_NOT_FOCUSABLE);
         }
         return this;
     }

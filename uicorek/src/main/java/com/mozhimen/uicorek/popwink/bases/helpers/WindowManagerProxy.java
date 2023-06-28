@@ -13,7 +13,7 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 
 import com.mozhimen.basick.elemk.cons.CVersionCode;
-import com.mozhimen.basick.elemk.cons.CWinMgrLP;
+import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import androidx.annotation.Nullable;
@@ -153,9 +153,9 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
             ViewGroup.LayoutParams params = popupDecorViewProxy.getLayoutParams();
             if (params instanceof LayoutParams) {
                 if (focus) {
-                    ((LayoutParams) params).flags &= ~(CWinMgrLP.FLAG_NOT_FOCUSABLE | LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                    ((LayoutParams) params).flags &= ~(CWinMgr.Lpf.FLAG_NOT_FOCUSABLE | LayoutParams.FLAG_ALT_FOCUSABLE_IM);
                 } else {
-                    ((LayoutParams) params).flags |= CWinMgrLP.FLAG_NOT_FOCUSABLE;
+                    ((LayoutParams) params).flags |= CWinMgr.Lpf.FLAG_NOT_FOCUSABLE;
                 }
             }
             mWindowManager.updateViewLayout(popupDecorViewProxy, params);

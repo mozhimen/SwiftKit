@@ -10,7 +10,7 @@ import android.view.Window
 import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 
@@ -41,8 +41,8 @@ object UtilKInputChange : BaseUtilK() {
     @JvmStatic
     fun registerKeyBoardChangeListener(window: Window, listener: IUtilKKeyboardChangeListener2) {
         val flags = window.attributes.flags
-        if (flags and CWinMgrLP.FLAG_LAYOUT_NO_LIMITS != 0) {
-            window.clearFlags(CWinMgrLP.FLAG_LAYOUT_NO_LIMITS)
+        if (flags and CWinMgr.Lpf.FLAG_LAYOUT_NO_LIMITS != 0) {
+            window.clearFlags(CWinMgr.Lpf.FLAG_LAYOUT_NO_LIMITS)
         }
         val contentView = window.findViewById<FrameLayout>(R.id.content)
         val decorViewInvisibleHeightPre = intArrayOf(UtilKDecorView.getInvisibleHeight(window))

@@ -35,7 +35,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.mozhimen.basick.elemk.cons.CVersionCode;
-import com.mozhimen.basick.elemk.cons.CWinMgrLP;
+import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.utilk.android.content.UtilKResource;
 import com.mozhimen.basick.utilk.android.util.UtilKLog;
@@ -164,7 +164,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     public UtilKInputChange.IUtilKKeyboardChangeListener mUserKeyboardStateChangeListener;
     public BasePopwinK.KeyEventListener mKeyEventListener;
 
-    public int mSoftInputMode = CWinMgrLP.SOFT_INPUT_STATE_UNCHANGED;
+    public int mSoftInputMode = CWinMgr.Lps.SOFT_INPUT_STATE_UNCHANGED;
     ViewGroup.MarginLayoutParams layoutParams;
 
     public int maxWidth;

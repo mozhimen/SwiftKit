@@ -7,7 +7,7 @@ import android.view.Window
 import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.cons.CView
-import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.os.UtilKRom
@@ -81,8 +81,8 @@ object UtilKStatusBarFontIcon : BaseUtilK() {
     fun setStatusBarFontIcon_CommonUI(activity: Activity, isDark: Boolean) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
             val window: Window = UtilKWindow.get(activity)
-            window.addFlags(CWinMgrLP.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.clearFlags(CWinMgrLP.FLAG_TRANSLUCENT_STATUS)
+            window.addFlags(CWinMgr.Lpf.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.clearFlags(CWinMgr.Lpf.FLAG_TRANSLUCENT_STATUS)
             val flag: Int = if (isDark)
                 UtilKDecorView.getSystemUiVisibility(window) or CView.SystemUi.FLAG_LIGHT_STATUS_BAR
             else

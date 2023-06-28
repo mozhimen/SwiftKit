@@ -9,7 +9,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.elemk.delegate.VarDelegate_GetFun_R_Nonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.stackk.cb.StackKCb
@@ -35,12 +35,12 @@ import com.mozhimen.underlayk.logk.LogK
 class FpsKProxy : IFpsK, BaseUtilK() {
     private val _params by lazy {
         WindowManager.LayoutParams().apply {
-            width = CWinMgrLP.WRAP_CONTENT
-            height = CWinMgrLP.WRAP_CONTENT
-            flags = CWinMgrLP.FLAG_NOT_FOCUSABLE or CWinMgrLP.FLAG_NOT_TOUCHABLE or CWinMgrLP.FLAG_NOT_TOUCH_MODAL
+            width = CWinMgr.Lp.WRAP_CONTENT
+            height = CWinMgr.Lp.WRAP_CONTENT
+            flags = CWinMgr.Lpf.FLAG_NOT_FOCUSABLE or CWinMgr.Lpf.FLAG_NOT_TOUCHABLE or CWinMgr.Lpf.FLAG_NOT_TOUCH_MODAL
             format = PixelFormat.TRANSLUCENT
             gravity = Gravity.END or Gravity.BOTTOM
-            type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgrLP.TYPE_APPLICATION_OVERLAY else CWinMgrLP.TYPE_TOAST
+            type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgr.Lpt.TYPE_APPLICATION_OVERLAY else CWinMgr.Lpt.TYPE_TOAST
         }
     }
     private var _isOpen = false

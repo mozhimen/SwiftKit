@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.content.UtilKRes
@@ -39,7 +39,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
         val parent = dialog?.window?.let { UtilKContentView.getViewGroup(it) } ?: container
         val view = inflater.inflate(R.layout.debugk_dialog, parent, false)
 
-        dialog?.window?.setLayout((UtilKScreen.getRealScreenWidth() * 0.8f).toInt(), CWinMgrLP.WRAP_CONTENT)
+        dialog?.window?.setLayout((UtilKScreen.getRealScreenWidth() * 0.8f).toInt(), CWinMgr.Lp.WRAP_CONTENT)
         dialog?.window?.setBackgroundDrawableResource(R.drawable.debugk_crashk_dialog)
         return view
     }

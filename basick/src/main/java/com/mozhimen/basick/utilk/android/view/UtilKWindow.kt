@@ -5,7 +5,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
@@ -103,12 +103,12 @@ object UtilKWindow : BaseUtilK() {
 
     @JvmStatic
     fun setFullScreen(window: Window) {
-        setFlags(window, CWinMgrLP.FLAG_FULLSCREEN, CWinMgrLP.FLAG_FULLSCREEN)
+        setFlags(window, CWinMgr.Lpf.FLAG_FULLSCREEN, CWinMgr.Lpf.FLAG_FULLSCREEN)
     }
 
     @JvmStatic
     fun isFullScreenInFlag(activity: Activity): Boolean =
-        getFlags(activity) and CWinMgrLP.FLAG_FULLSCREEN != 0
+        getFlags(activity) and CWinMgr.Lpf.FLAG_FULLSCREEN != 0
 
     /**
      * 是否全屏
@@ -117,7 +117,7 @@ object UtilKWindow : BaseUtilK() {
      */
     @JvmStatic
     fun isFullScreenInFlag2(activity: Activity): Boolean =
-        getFlags(activity) and CWinMgrLP.FLAG_FULLSCREEN == CWinMgrLP.FLAG_FULLSCREEN
+        getFlags(activity) and CWinMgr.Lpf.FLAG_FULLSCREEN == CWinMgr.Lpf.FLAG_FULLSCREEN
 
     @JvmStatic
     fun isFullScreen(activity: Activity): Boolean =

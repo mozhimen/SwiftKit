@@ -6,7 +6,7 @@ import android.view.*
 import androidx.activity.ComponentDialog
 import androidx.annotation.StyleRes
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.util.et
@@ -90,7 +90,7 @@ abstract class BaseDialogK<T : IDialogKClickListener> @JvmOverloads constructor(
     override fun showInSystemWindow() {
         try {
             val window = window ?: return
-            window.setType(CWinMgrLP.TYPE_SYSTEM_ALERT)
+            window.setType(CWinMgr.Lpt.TYPE_SYSTEM_ALERT)
             show()
         } catch (e: Exception) {
             e.printStackTrace()

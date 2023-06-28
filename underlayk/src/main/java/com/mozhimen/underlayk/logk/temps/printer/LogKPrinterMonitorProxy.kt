@@ -16,7 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.elemk.delegate.VarDelegate_SetFun_VaryNonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -24,7 +24,6 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.view.UtilKWindowManager
 import com.mozhimen.basick.utilk.android.widget.showToastOnMain
@@ -94,10 +93,10 @@ class LogKPrinterMonitorProxy : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(), 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     init {
-        _layoutParams.flags = (CWinMgrLP.FLAG_NOT_TOUCH_MODAL or CWinMgrLP.FLAG_NOT_FOCUSABLE) or CWinMgrLP.FLAG_FULLSCREEN
+        _layoutParams.flags = (CWinMgr.Lpf.FLAG_NOT_TOUCH_MODAL or CWinMgr.Lpf.FLAG_NOT_FOCUSABLE) or CWinMgr.Lpf.FLAG_FULLSCREEN
         _layoutParams.format = PixelFormat.TRANSLUCENT
         _layoutParams.gravity = Gravity.END or Gravity.BOTTOM
-        _layoutParams.type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgrLP.TYPE_APPLICATION_OVERLAY else CWinMgrLP.TYPE_TOAST
+        _layoutParams.type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgr.Lpt.TYPE_APPLICATION_OVERLAY else CWinMgr.Lpt.TYPE_TOAST
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -209,8 +208,8 @@ class LogKPrinterMonitorProxy : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(), 
     }
 
     private fun getWindowLayoutParams(isFold: Boolean): WindowManager.LayoutParams {
-        _layoutParams.width = if (isFold) CWinMgrLP.WRAP_CONTENT else CWinMgrLP.MATCH_PARENT
-        _layoutParams.height = if (isFold) CWinMgrLP.WRAP_CONTENT else (UtilKScreen.getRealScreenHeight() / 3)
+        _layoutParams.width = if (isFold) CWinMgr.Lp.WRAP_CONTENT else CWinMgr.Lp.MATCH_PARENT
+        _layoutParams.height = if (isFold) CWinMgr.Lp.WRAP_CONTENT else (UtilKScreen.getRealScreenHeight() / 3)
         return _layoutParams
     }
 

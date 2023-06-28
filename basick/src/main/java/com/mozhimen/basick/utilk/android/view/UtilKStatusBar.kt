@@ -9,7 +9,7 @@ import android.os.Build
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.elemk.cons.CView
-import com.mozhimen.basick.elemk.cons.CWinMgrLP
+import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.content.UtilKRes
@@ -42,12 +42,12 @@ object UtilKStatusBar : BaseUtilK() {
     @JvmStatic
     fun setImmersed(activity: Activity) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L) {//21//5.0以上状态栏透明
-            UtilKWindow.clearFlags(activity, CWinMgrLP.FLAG_TRANSLUCENT_STATUS)//清除透明状态栏
+            UtilKWindow.clearFlags(activity, CWinMgr.Lpf.FLAG_TRANSLUCENT_STATUS)//清除透明状态栏
             UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUi.FLAG_LAYOUT_FULLSCREEN or CView.SystemUi.FLAG_LAYOUT_STABLE)
-            UtilKWindow.addFlags(activity, CWinMgrLP.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
+            UtilKWindow.addFlags(activity, CWinMgr.Lpf.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
             UtilKWindow.setStatusBarColor(activity, Color.TRANSPARENT)//设置透明
         } else if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {//19
-            UtilKWindow.addFlags(activity, CWinMgrLP.FLAG_TRANSLUCENT_STATUS)
+            UtilKWindow.addFlags(activity, CWinMgr.Lpf.FLAG_TRANSLUCENT_STATUS)
         }
     }
 
@@ -150,7 +150,7 @@ object UtilKStatusBar : BaseUtilK() {
         } finally {
             typedArray.recycle()
         }
-        if (UtilKWindow.getFlags(activity) and CWinMgrLP.FLAG_TRANSLUCENT_STATUS != 0) {
+        if (UtilKWindow.getFlags(activity) and CWinMgr.Lpf.FLAG_TRANSLUCENT_STATUS != 0) {
             isStatusBarAvailable = true
         }
         return isStatusBarAvailable
