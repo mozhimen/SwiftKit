@@ -14,14 +14,14 @@ import java.util.List;
  * @Version 1.0
  */
 public class UtilKReflect {
-    /**
-     * 获取field
-     *
-     * @param clazz
-     * @param name
-     * @return
-     * @throws NoSuchMethodException
-     */
+    public static int getFieldValue(Object obj, String name) throws NoSuchFieldException, IllegalAccessException {
+        return getField(obj, name).getInt(obj);
+    }
+
+    public static Field getField(Object obj, String name) throws NoSuchFieldException {
+        return getField(obj.getClass(), name);
+    }
+
     public static Field getField(Class<?> clazz, String name) throws NoSuchFieldException {
         for (Class<?> tempClazz = clazz; tempClazz != null; tempClazz = tempClazz.getSuperclass()) {
             try {
@@ -39,9 +39,6 @@ public class UtilKReflect {
 
     /**
      * 获取类及其基类所有的field
-     *
-     * @param obj
-     * @return
      */
     public static List<Field> getAllFields(Object obj) {
         return getAllFields(obj.getClass());
@@ -49,9 +46,6 @@ public class UtilKReflect {
 
     /**
      * 获取类及其基类所有的field
-     *
-     * @param clazz
-     * @return
      */
     public static List<Field> getAllFields(Class<?> clazz) {
         ArrayList<Field> fields = new ArrayList<>(Arrays.asList(clazz.getDeclaredFields()));
@@ -64,28 +58,12 @@ public class UtilKReflect {
         return fields;
     }
 
-    /**
-     * 获取method
-     *
-     * @param obj
-     * @param name
-     * @param parameterTypes
-     * @return
-     * @throws NoSuchMethodException
-     */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public static Method getMethod(Object obj, String name, Class<?>... parameterTypes) throws NoSuchMethodException {
         return getMethod(obj.getClass(), name, parameterTypes);
     }
 
-    /**
-     * 获取method
-     *
-     * @param clazz
-     * @param name
-     * @param parameterTypes
-     * @return
-     * @throws NoSuchMethodException
-     */
     public static Method getMethod(Class<?> clazz, String name, Class<?>... parameterTypes) throws NoSuchMethodException {
         for (Class<?> tempClazz = clazz; tempClazz != null; tempClazz = tempClazz.getSuperclass()) {
             try {
@@ -99,17 +77,5 @@ public class UtilKReflect {
             }
         }
         throw new NoSuchMethodException("Method " + name + " with parameters " + Arrays.asList(parameterTypes) + " not found in " + clazz);
-    }
-
-    /**
-     * 获取field
-     *
-     * @param obj
-     * @param name
-     * @return
-     * @throws NoSuchFieldException
-     */
-    public static Field getField(Object obj, String name) throws NoSuchFieldException {
-        return getField(obj.getClass(), name);
     }
 }

@@ -63,12 +63,10 @@ object UtilKStatusBar : BaseUtilK() {
      */
     @JvmStatic
     fun hide(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
-            UtilKDecorView.setSystemUiVisibility(
-                activity, CView.SystemUi.FLAG_FULLSCREEN or CView.SystemUi.FLAG_LIGHT_STATUS_BAR
-            )
-        }
+        UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUi.FLAG_FULLSCREEN /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
     }
+
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**

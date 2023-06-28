@@ -1,13 +1,8 @@
 package com.mozhimen.basick.sensek.systembar
 
 import android.app.Activity
-import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.androidx.appcompat.UtilKUiMode
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBar
-import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarType
 import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
-import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
-import com.mozhimen.basick.utilk.android.view.UtilKStatusBarFontIcon
 import com.mozhimen.basick.utilk.android.view.UtilKSystemBar
 
 /**

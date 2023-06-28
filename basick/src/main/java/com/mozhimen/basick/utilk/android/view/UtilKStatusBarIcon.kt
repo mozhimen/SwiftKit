@@ -20,47 +20,35 @@ import com.mozhimen.basick.utilk.android.os.UtilKRomVersion
  * @Date 2023/6/20 15:06
  * @Version 1.0
  */
-object UtilKStatusBarFontIcon : BaseUtilK() {
+object UtilKStatusBarIcon : BaseUtilK() {
     /**
      * 状态栏字体和图标是否是深色
      */
     @JvmStatic
-    fun setStatusBarFontIcon(activity: Activity, isDark: Boolean) {
+    fun setIcon(activity: Activity, isDark: Boolean) {
         when {
-            UtilKRom.isMiui() -> setStatusBarFontIcon_MiuiUI(activity, isDark)
-            UtilKRom.isOppo() -> setStatusBarFontIcon_ColorOSUI(activity, isDark)
-            UtilKRom.isFlyme() -> setStatusBarFontIcon_FlymeUI(activity, isDark)
-            else -> setStatusBarFontIcon_CommonUI(activity, isDark)
+            UtilKRom.isMiui() -> setIcon_MiuiUi(activity, isDark)
+            UtilKRom.isOppo() -> setIcon_ColorOsUi(activity, isDark)
+            UtilKRom.isFlyme() -> setIcon_FlymeUi(activity, isDark)
+            else -> setIcon_CommonUi(activity, isDark)
         }
     }
 
-    /**
-     * 设置Miui状态栏字符
-     * @param activity Activity
-     * @param isDark Boolean
-     */
     @JvmStatic
-    fun setStatusBarFontIcon_MiuiUI(activity: Activity, isDark: Boolean) {
+    fun setIcon_MiuiUi(activity: Activity, isDark: Boolean) {
         if (Build.VERSION.SDK_INT > CVersionCode.V_23_6_M) {
-            setStatusBarFontIcon_CommonUI(activity, isDark)
-        } else {
-            if (UtilKRomVersion.isMIUILarger6()) {
-                setStatusBarFontIcon_MiuiUILarger6(activity, isDark)
-            } else "setStatusBarFontIcon_MiuiUI: dont support this miui version".et(TAG)
-        }
+            setIcon_CommonUi(activity, isDark)
+        } else if (UtilKRomVersion.isMIUILarger6()) {
+            setIcon_MiuiUi_After6(activity, isDark)
+        } else "setStatusBarFontIcon_MiuiUI: dont support this miui version".et(TAG)
     }
 
-    /**
-     * 设置MIUI<6样式状态栏字符
-     * @param activity Activity
-     * @param isDark Boolean
-     */
     @JvmStatic
     @SuppressLint("PrivateApi")
-    fun setStatusBarFontIcon_MiuiUILarger6(activity: Activity, isDark: Boolean) {
+    fun setIcon_MiuiUi_After6(activity: Activity, isDark: Boolean) {
         try {
             val window = UtilKWindow.get(activity)
-            val layoutParams = Class.forName("android.view.MiuiWindowManager${'$'}LayoutParams")
+            val layoutParams: Class<*> = Class.forName("android.view.MiuiWindowManager${'$'}LayoutParams")
             val field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE")
             val darkModeFlag = field.getInt(layoutParams)
             val extraFlagMethod = window.javaClass.getMethod("setExtraFlags", Int::class.java, Int::class.java)
@@ -72,13 +60,8 @@ object UtilKStatusBarFontIcon : BaseUtilK() {
         }
     }
 
-    /**
-     * 设置原生状态栏字符
-     * @param activity Activity
-     * @param isDark Boolean
-     */
     @JvmStatic
-    fun setStatusBarFontIcon_CommonUI(activity: Activity, isDark: Boolean) {
+    fun setIcon_CommonUi(activity: Activity, isDark: Boolean) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
             val window: Window = UtilKWindow.get(activity)
             window.addFlags(CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -91,13 +74,8 @@ object UtilKStatusBarFontIcon : BaseUtilK() {
         }
     }
 
-    /**
-     * 设置Flyme样式状态栏字符
-     * @param activity Activity
-     * @param isDark Boolean
-     */
     @JvmStatic
-    fun setStatusBarFontIcon_FlymeUI(activity: Activity, isDark: Boolean) {
+    fun setIcon_FlymeUi(activity: Activity, isDark: Boolean) {
         try {
             val window = UtilKWindow.get(activity)
             val layoutParams = window.attributes
@@ -116,13 +94,8 @@ object UtilKStatusBarFontIcon : BaseUtilK() {
         }
     }
 
-    /**
-     * 设置ColorOS的状态栏字符
-     * @param activity Activity
-     * @param isDark Boolean
-     */
     @JvmStatic
-    fun setStatusBarFontIcon_ColorOSUI(activity: Activity, isDark: Boolean) {
+    fun setIcon_ColorOsUi(activity: Activity, isDark: Boolean) {
         //控制字体颜色，只有黑白两色
         UtilKDecorView.setSystemUiVisibility(activity, 0 or if (isDark) 0x00000010 else 0x00190000)
     }
