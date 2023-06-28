@@ -10,6 +10,8 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
+import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBar
+import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarType
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
@@ -20,7 +22,7 @@ import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 @APermissionCheck(CPermission.CAMERA)
-@com.mozhimen.basick.statusbark.annors.AStatusBarK(statusBarType = com.mozhimen.basick.statusbark.annors.AStatusBarKType.FULL_SCREEN)
+@ASenseKSystemBar(systemBarType = ASenseKSystemBarType.FULL_SCREEN)
 class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 
     /*private val outputDirectory: String by lazy {

@@ -9,7 +9,7 @@ import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.utilk.res.UtilKAsset
+import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
 import com.mozhimen.basick.utilk.android.content.UtilKPackage

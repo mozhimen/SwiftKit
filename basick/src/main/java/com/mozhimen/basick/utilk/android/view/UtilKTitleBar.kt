@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
-import android.view.Window
+import com.mozhimen.basick.elemk.cons.CWindow
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import kotlin.math.abs
 
@@ -20,7 +20,7 @@ object UtilKTitleBar {
      * @return Int
      */
     @JvmStatic
-    fun getTitleBarHeight(activity: Activity) =
+    fun getHeight(activity: Activity) =
         abs(UtilKView.getViewDrawHeight(activity) - UtilKStatusBar.getStatusBarHeight(activity))
 
     /**
@@ -28,7 +28,7 @@ object UtilKTitleBar {
      * @param activity Activity
      */
     @JvmStatic
-    fun hideTitleBar(activity: Activity) {
-        UtilKActivity.requestWindowFeature(activity, Window.FEATURE_NO_TITLE)
+    fun hide(activity: Activity) {
+        UtilKActivity.requestWindowFeature(activity, CWindow.Feature.NO_TITLE)
     }
 }

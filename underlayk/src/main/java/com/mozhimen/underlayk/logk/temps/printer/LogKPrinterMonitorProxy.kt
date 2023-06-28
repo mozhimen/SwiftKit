@@ -93,10 +93,10 @@ class LogKPrinterMonitorProxy : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(), 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     init {
-        _layoutParams.flags = (CWinMgr.Lpf.FLAG_NOT_TOUCH_MODAL or CWinMgr.Lpf.FLAG_NOT_FOCUSABLE) or CWinMgr.Lpf.FLAG_FULLSCREEN
+        _layoutParams.flags = (CWinMgr.Lpf.NOT_TOUCH_MODAL or CWinMgr.Lpf.NOT_FOCUSABLE) or CWinMgr.Lpf.FULLSCREEN
         _layoutParams.format = PixelFormat.TRANSLUCENT
         _layoutParams.gravity = Gravity.END or Gravity.BOTTOM
-        _layoutParams.type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgr.Lpt.TYPE_APPLICATION_OVERLAY else CWinMgr.Lpt.TYPE_TOAST
+        _layoutParams.type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgr.Lpt.APPLICATION_OVERLAY else CWinMgr.Lpt.TOAST
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////

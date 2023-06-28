@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mozhimen.basicktest">
+    package="com.mozhimen.basicktest" >
 
     <application
         android:name=".BasicKApplication"
@@ -10,23 +10,32 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SwiftKit">
-
+        android:theme="@style/Theme.SwiftKit" >
+        <activity
+            android:name=".utilk.kotlin.UtilKKotlinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.javax.UtilKJavaXActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.java.UtilKJavaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.androidx.UtilKAndroidXActivity"
+            android:exported="false" />
         <activity
             android:name=".BasicKActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        </activity> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- animk -->
         <activity
             android:name=".animk.AnimKActivity"
-            android:exported="false" />
-        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- cachek -->
         <activity
             android:name=".cachek.CacheKActivity"
@@ -39,8 +48,7 @@
             android:exported="false" />
         <activity
             android:name=".cachek.CacheKSPActivity"
-            android:exported="false" />
-        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- elemk -->
         <activity
             android:name=".elemk.gesture.ElemKGestureFlingActivity"
@@ -66,41 +74,40 @@
         <receiver
             android:name=".elemk.receiver.ElemKAutoRunReceiver"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter android:priority="1000">
+            android:exported="true" >
+            <intent-filter android:priority="1000" >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".elemk.receiver.ElemKInstallObserverReceiver"
             android:enabled="true"
-            android:exported="true">
-            <intent-filter android:priority="100">
+            android:exported="true" >
+            <intent-filter android:priority="100" >
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver>
-        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        </receiver> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"
             android:exported="false" />
         <activity
             android:name=".manifestk.permission.ManifestKPermissionActivity"
-            android:exported="false" />
-        <!--/////////////////////////////////////////////////////////////////////////////////////-->
-        <!-- packk -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- sensek -->
         <activity
-            android:name=".packk.PackKActivity"
-            android:exported="false" />
-        <!-- netk -->
+            android:name=".sensek.SenseKActivity"
+            android:exported="false" /> <!-- netk -->
         <activity
-            android:name=".packk.netk.conn.NetKConnActivity"
+            android:name=".sensek.NetConnActivity"
             android:exported="false" />
-        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+        <activity
+            android:name=".sensek.SystemBarActivity"
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
@@ -110,13 +117,7 @@
             android:exported="false" />
         <activity
             android:name=".stackk.StackKCbActivity"
-            android:exported="false" />
-        <!--/////////////////////////////////////////////////////////////////////////////////////-->
-        <!-- statusbark -->
-        <activity
-            android:name=".statusbark.StatusBarKActivity"
-            android:exported="false" />
-        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- taskk -->
         <activity
             android:name=".taskk.TaskKActivity"
@@ -132,44 +133,43 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKCountDownActivity"
-            android:exported="false" />
-        <!--/////////////////////////////////////////////////////////////////////////////////////-->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- utilk -->
         <activity
             android:name=".utilk.UtilKActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.content.UtilKContentActivity"
+            android:name=".utilk.android.UtilKAndroidActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.content.UtilKContextDirActivity"
+            android:name=".utilk.android.UtilKContextDirActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.app.UtilKApkActivity"
+            android:name=".utilk.android.UtilKApkActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.res.UtilKAssetActivity"
+            android:name=".utilk.android.UtilKAssetActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.content.UtilKIntentActivity"
+            android:name=".utilk.android.UtilKIntentActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.view.UtilKInputActivity"
+            android:name=".utilk.android.UtilKInputActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.view.UtilKScreenActivity"
+            android:name=".utilk.android.UtilKScreenActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.java.UtilKVerifyUrlActivity"
+            android:name=".utilk.kotlin.UtilKVerifyUrlActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.graphics.UtilKBitmapActivity"
+            android:name=".utilk.android.UtilKBitmapActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.jetpack.UtilKDataBusActivity"
+            android:name=".utilk.androidx.UtilKDataBusActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.java.UtilKEncryptActivity"
+            android:name=".utilk.javax.UtilKEncryptActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.java.UtilKFileActivity"

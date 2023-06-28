@@ -37,10 +37,10 @@ class FpsKProxy : IFpsK, BaseUtilK() {
         WindowManager.LayoutParams().apply {
             width = CWinMgr.Lp.WRAP_CONTENT
             height = CWinMgr.Lp.WRAP_CONTENT
-            flags = CWinMgr.Lpf.FLAG_NOT_FOCUSABLE or CWinMgr.Lpf.FLAG_NOT_TOUCHABLE or CWinMgr.Lpf.FLAG_NOT_TOUCH_MODAL
+            flags = CWinMgr.Lpf.NOT_FOCUSABLE or CWinMgr.Lpf.NOT_TOUCHABLE or CWinMgr.Lpf.NOT_TOUCH_MODAL
             format = PixelFormat.TRANSLUCENT
             gravity = Gravity.END or Gravity.BOTTOM
-            type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgr.Lpt.TYPE_APPLICATION_OVERLAY else CWinMgr.Lpt.TYPE_TOAST
+            type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgr.Lpt.APPLICATION_OVERLAY else CWinMgr.Lpt.TOAST
         }
     }
     private var _isOpen = false

@@ -762,8 +762,8 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
         if (mHelper.isOutSideTouchable() && !mHelper.isOverlayStatusbar()) return;
         boolean forceAdjust = (mHelper.flag & CFlag.KEYBOARD_FORCE_ADJUST) != 0;
         boolean process = forceAdjust || ((UtilKScreen.getScreenOrientation() != Configuration.ORIENTATION_LANDSCAPE)
-                && (mHelper.getSoftInputMode() == CWinMgr.Lps.SOFT_INPUT_ADJUST_PAN ||
-                mHelper.getSoftInputMode() == CWinMgr.Lps.SOFT_INPUT_ADJUST_RESIZE));
+                && (mHelper.getSoftInputMode() == CWinMgr.Lpsi.ADJUST_PAN ||
+                mHelper.getSoftInputMode() == CWinMgr.Lpsi.ADJUST_RESIZE));
 
         if (!process) return;
         if (keyboardBoundsCache == null) {

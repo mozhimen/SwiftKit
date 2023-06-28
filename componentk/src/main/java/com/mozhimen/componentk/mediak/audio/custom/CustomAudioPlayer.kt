@@ -12,7 +12,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.net.UtilKWifiManager
-import com.mozhimen.basick.utilk.res.UtilKAsset
+import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.componentk.mediak.audio.focus.commons.IMediaKAudioFocusListener
 import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
 import com.mozhimen.componentk.mediak.audio.custom.commons.ICustomAudioPlayer

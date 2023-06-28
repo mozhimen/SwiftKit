@@ -153,9 +153,9 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
             ViewGroup.LayoutParams params = popupDecorViewProxy.getLayoutParams();
             if (params instanceof LayoutParams) {
                 if (focus) {
-                    ((LayoutParams) params).flags &= ~(CWinMgr.Lpf.FLAG_NOT_FOCUSABLE | LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                    ((LayoutParams) params).flags &= ~(CWinMgr.Lpf.NOT_FOCUSABLE | LayoutParams.FLAG_ALT_FOCUSABLE_IM);
                 } else {
-                    ((LayoutParams) params).flags |= CWinMgr.Lpf.FLAG_NOT_FOCUSABLE;
+                    ((LayoutParams) params).flags |= CWinMgr.Lpf.NOT_FOCUSABLE;
                 }
             }
             mWindowManager.updateViewLayout(popupDecorViewProxy, params);

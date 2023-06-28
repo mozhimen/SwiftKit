@@ -164,7 +164,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     public UtilKInputChange.IUtilKKeyboardChangeListener mUserKeyboardStateChangeListener;
     public BasePopwinK.KeyEventListener mKeyEventListener;
 
-    public int mSoftInputMode = CWinMgr.Lps.SOFT_INPUT_STATE_UNCHANGED;
+    public int mSoftInputMode = CWinMgr.Lpsi.STATE_UNCHANGED;
     ViewGroup.MarginLayoutParams layoutParams;
 
     public int maxWidth;

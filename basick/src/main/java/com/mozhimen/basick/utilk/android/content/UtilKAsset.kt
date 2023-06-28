@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.res
+package com.mozhimen.basick.utilk.android.content
 
 import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
@@ -6,7 +6,6 @@ import android.util.Log
 import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
-import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.regexLineBreak2Str
 import com.mozhimen.basick.utilk.android.util.et

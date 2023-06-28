@@ -24,16 +24,6 @@ import com.mozhimen.basick.utilk.android.content.UtilKResource
  * @Version 1.0
  */
 object UtilKStatusBar : BaseUtilK() {
-    /**
-     * 设置状态栏全屏
-     * @param activity Activity
-     */
-    @JvmStatic
-    fun setFullScreen(activity: Activity) {
-        UtilKTitleBar.hideTitleBar(activity)
-        hideStatusBar(activity)
-        UtilKContentView.setFitsSystemWindows(activity)
-    }
 
     /**
      * 设置状态栏沉浸式
@@ -42,12 +32,12 @@ object UtilKStatusBar : BaseUtilK() {
     @JvmStatic
     fun setImmersed(activity: Activity) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L) {//21//5.0以上状态栏透明
-            UtilKWindow.clearFlags(activity, CWinMgr.Lpf.FLAG_TRANSLUCENT_STATUS)//清除透明状态栏
+            UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)//清除透明状态栏
             UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUi.FLAG_LAYOUT_FULLSCREEN or CView.SystemUi.FLAG_LAYOUT_STABLE)
-            UtilKWindow.addFlags(activity, CWinMgr.Lpf.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
+            UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
             UtilKWindow.setStatusBarColor(activity, Color.TRANSPARENT)//设置透明
         } else if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {//19
-            UtilKWindow.addFlags(activity, CWinMgr.Lpf.FLAG_TRANSLUCENT_STATUS)
+            UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)
         }
     }
 
@@ -72,7 +62,7 @@ object UtilKStatusBar : BaseUtilK() {
      * @param activity Activity
      */
     @JvmStatic
-    fun hideStatusBar(activity: Activity) {
+    fun hide(activity: Activity) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
             UtilKDecorView.setSystemUiVisibility(
                 activity, CView.SystemUi.FLAG_FULLSCREEN or CView.SystemUi.FLAG_LIGHT_STATUS_BAR
@@ -150,7 +140,7 @@ object UtilKStatusBar : BaseUtilK() {
         } finally {
             typedArray.recycle()
         }
-        if (UtilKWindow.getFlags(activity) and CWinMgr.Lpf.FLAG_TRANSLUCENT_STATUS != 0) {
+        if (UtilKWindow.getFlags(activity) and CWinMgr.Lpf.TRANSLUCENT_STATUS != 0) {
             isStatusBarAvailable = true
         }
         return isStatusBarAvailable

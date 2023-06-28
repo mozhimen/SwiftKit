@@ -12,62 +12,32 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
-            android:onClick="goUtilKApk"
-            android:text="goUtilKApk"
+            android:onClick="goUtilKAndroid"
+            android:text="goUtilKAndroid"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
-            android:onClick="goUtilKContent"
-            android:text="goUtilKContent"
+            android:onClick="goUtilKAndroidX"
+            android:text="goUtilKAndroidX"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
-            android:onClick="goUtilKBitmap"
-            android:text="goUtilKBitmap"
+            android:onClick="goUtilKJava"
+            android:text="goUtilKJava"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
-            android:onClick="goUtilKEncrypt"
-            android:text="goUtilKEncrypt"
+            android:onClick="goUtilKJavaX"
+            android:text="goUtilKJavaX"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
-            android:onClick="goUtilKFile"
-            android:text="goUtilKFile"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
-            android:onClick="goUtilKVerifyUrl"
-            android:text="goUtilKVerifyUrl"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
-            android:onClick="goUtilKDataBus"
-            android:text="goUtilKDataBus"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
-            android:onClick="goUtilKAsset"
-            android:text="goUtilKAsset"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
-            android:onClick="goUtilKInput"
-            android:text="goUtilKInput"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
-
-        <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
-            android:onClick="goUtilKScreen"
-            android:text="goUtilKScreen"
+            android:onClick="goUtilKKotlin"
+            android:text="goUtilKKotlin"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
     </LinearLayout>

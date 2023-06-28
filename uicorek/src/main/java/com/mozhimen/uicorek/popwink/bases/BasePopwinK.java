@@ -987,7 +987,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
      *                 <br>
      */
     public BasePopwinK setKeyboardAdaptive(boolean adaptive) {
-        mHelper.mSoftInputMode = adaptive ? CWinMgr.Lps.SOFT_INPUT_ADJUST_RESIZE : CWinMgr.Lps.SOFT_INPUT_STATE_UNCHANGED;
+        mHelper.mSoftInputMode = adaptive ? CWinMgr.Lpsi.ADJUST_RESIZE : CWinMgr.Lpsi.STATE_UNCHANGED;
         return this;
     }
 
@@ -1959,7 +1959,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
         if (isShowing()) {
             ((BasePopwinKProxy) getPopupWindow()).updateFlag(touchable ? CFlag.MODE_REMOVE : CFlag.MODE_ADD,
                     true,
-                    CWinMgr.Lpf.FLAG_NOT_TOUCHABLE, CWinMgr.Lpf.FLAG_NOT_FOCUSABLE);
+                    CWinMgr.Lpf.NOT_TOUCHABLE, CWinMgr.Lpf.NOT_FOCUSABLE);
         }
         return this;
     }

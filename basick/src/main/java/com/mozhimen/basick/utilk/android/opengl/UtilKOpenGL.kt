@@ -5,7 +5,7 @@ import android.opengl.Matrix
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.res.UtilKAsset
+import com.mozhimen.basick.utilk.android.content.UtilKAsset
 
 /**
  * @ClassName UtilKOpenGL

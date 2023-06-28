@@ -10,8 +10,8 @@ import com.mozhimen.basicktest.utilk.UtilKActivity
 import com.mozhimen.basicktest.databinding.ActivityBasickBinding
 import com.mozhimen.basicktest.elemk.ElemKActivity
 import com.mozhimen.basicktest.manifestk.ManifestKActivity
-import com.mozhimen.basicktest.packk.PackKActivity
-import com.mozhimen.basicktest.statusbark.StatusBarKActivity
+import com.mozhimen.basicktest.sensek.SenseKActivity
+import com.mozhimen.basicktest.sensek.SystemBarActivity
 import com.mozhimen.basicktest.taskk.TaskKActivity
 
 class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
@@ -31,16 +31,12 @@ class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
         startContext<ManifestKActivity>()
     }
 
-    fun goPackK(view: View) {
-        startContext<PackKActivity>()
+    fun goSenseK(view: View) {
+        startContext<SenseKActivity>()
     }
 
     fun goStackK(view: View) {
         startContext<StackKActivity>()
-    }
-
-    fun goStatusBarK(view: View) {
-        startContext<StatusBarKActivity>()
     }
 
     fun goTaskK(view: View) {

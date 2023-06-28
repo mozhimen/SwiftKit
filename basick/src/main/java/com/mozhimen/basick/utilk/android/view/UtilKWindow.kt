@@ -99,16 +99,21 @@ object UtilKWindow : BaseUtilK() {
         get(activity).statusBarColor = colorInt
     }
 
+    @JvmStatic
+    fun setNavigationBarColor(activity: Activity, @ColorInt colorInt: Int) {
+        get(activity).navigationBarColor = colorInt
+    }
+
     ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun setFullScreen(window: Window) {
-        setFlags(window, CWinMgr.Lpf.FLAG_FULLSCREEN, CWinMgr.Lpf.FLAG_FULLSCREEN)
+    fun setFlagsFullScreen(window: Window) {
+        setFlags(window, CWinMgr.Lpf.FULLSCREEN, CWinMgr.Lpf.FULLSCREEN)
     }
 
     @JvmStatic
     fun isFullScreenInFlag(activity: Activity): Boolean =
-        getFlags(activity) and CWinMgr.Lpf.FLAG_FULLSCREEN != 0
+        getFlags(activity) and CWinMgr.Lpf.FULLSCREEN != 0
 
     /**
      * 是否全屏
@@ -117,7 +122,7 @@ object UtilKWindow : BaseUtilK() {
      */
     @JvmStatic
     fun isFullScreenInFlag2(activity: Activity): Boolean =
-        getFlags(activity) and CWinMgr.Lpf.FLAG_FULLSCREEN == CWinMgr.Lpf.FLAG_FULLSCREEN
+        getFlags(activity) and CWinMgr.Lpf.FULLSCREEN == CWinMgr.Lpf.FULLSCREEN
 
     @JvmStatic
     fun isFullScreen(activity: Activity): Boolean =

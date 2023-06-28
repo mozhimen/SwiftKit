@@ -90,7 +90,7 @@ abstract class BaseDialogK<T : IDialogKClickListener> @JvmOverloads constructor(
     override fun showInSystemWindow() {
         try {
             val window = window ?: return
-            window.setType(CWinMgr.Lpt.TYPE_SYSTEM_ALERT)
+            window.setType(CWinMgr.Lpt.SYSTEM_ALERT)
             show()
         } catch (e: Exception) {
             e.printStackTrace()

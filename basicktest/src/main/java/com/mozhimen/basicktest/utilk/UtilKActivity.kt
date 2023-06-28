@@ -1,67 +1,40 @@
 package com.mozhimen.basicktest.utilk
 
-import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.content.startContext
-import com.mozhimen.basick.utilk.jetpack.lifecycle.UtilKDataBus
 import com.mozhimen.basicktest.databinding.ActivityUtilkBinding
-import com.mozhimen.basicktest.utilk.app.UtilKApkActivity
-import com.mozhimen.basicktest.utilk.content.UtilKContentActivity
-import com.mozhimen.basicktest.utilk.graphics.UtilKBitmapActivity
-import com.mozhimen.basicktest.utilk.java.UtilKEncryptActivity
-import com.mozhimen.basicktest.utilk.java.UtilKFileActivity
-import com.mozhimen.basicktest.utilk.java.UtilKVerifyUrlActivity
-import com.mozhimen.basicktest.utilk.jetpack.UtilKDataBusActivity
-import com.mozhimen.basicktest.utilk.res.UtilKAssetActivity
-import com.mozhimen.basicktest.utilk.view.UtilKInputActivity
-import com.mozhimen.basicktest.utilk.view.UtilKScreenActivity
+import com.mozhimen.basicktest.utilk.android.UtilKApkActivity
+import com.mozhimen.basicktest.utilk.android.UtilKAndroidActivity
+import com.mozhimen.basicktest.utilk.android.UtilKBitmapActivity
+import com.mozhimen.basicktest.utilk.kotlin.UtilKVerifyUrlActivity
+import com.mozhimen.basicktest.utilk.android.UtilKAssetActivity
+import com.mozhimen.basicktest.utilk.android.UtilKInputActivity
+import com.mozhimen.basicktest.utilk.android.UtilKScreenActivity
+import com.mozhimen.basicktest.utilk.androidx.UtilKAndroidXActivity
+import com.mozhimen.basicktest.utilk.java.UtilKJavaActivity
+import com.mozhimen.basicktest.utilk.javax.UtilKJavaXActivity
+import com.mozhimen.basicktest.utilk.kotlin.UtilKKotlinActivity
 
 class UtilKActivity : BaseActivityVB<ActivityUtilkBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-        UtilKDataBus.with<String>("stickyData").setStickyData("即时消息主界面")
-        super.initData(savedInstanceState)
+
+    fun goUtilKAndroid(view: View) {
+        startContext<UtilKAndroidActivity>()
     }
 
-    fun goUtilKApk(view: View) {
-        startContext<UtilKApkActivity>()
+    fun goUtilKAndroidX(view: View) {
+        startContext<UtilKAndroidXActivity>()
     }
 
-    fun goUtilKContent(view: View) {
-        startContext<UtilKContentActivity>()
+    fun goUtilKJava(view: View) {
+        startContext<UtilKJavaActivity>()
     }
 
-    fun goUtilKBitmap(view: View) {
-        startContext<UtilKBitmapActivity>()
+    fun goUtilKJavaX(view: View) {
+        startContext<UtilKJavaXActivity>()
     }
 
-    fun goUtilKEncrypt(view: View) {
-        startContext<UtilKEncryptActivity>()
+    fun goUtilKKotlin(view: View) {
+        startContext<UtilKKotlinActivity>()
     }
-
-    fun goUtilKFile(view: View) {
-        startContext<UtilKFileActivity>()
-    }
-
-    fun goUtilKVerifyUrl(view: View) {
-        startContext<UtilKVerifyUrlActivity>()
-    }
-
-    fun goUtilKDataBus(view: View) {
-        startContext<UtilKDataBusActivity>()
-    }
-
-    fun goUtilKAsset(view: View) {
-        startContext<UtilKAssetActivity>()
-    }
-
-    fun goUtilKInput(view: View) {
-        startContext<UtilKInputActivity>()
-    }
-
-    fun goUtilKScreen(view: View) {
-        startContext<UtilKScreenActivity>()
-    }
-
-
 }

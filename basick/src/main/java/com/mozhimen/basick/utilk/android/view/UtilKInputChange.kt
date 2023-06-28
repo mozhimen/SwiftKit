@@ -41,8 +41,8 @@ object UtilKInputChange : BaseUtilK() {
     @JvmStatic
     fun registerKeyBoardChangeListener(window: Window, listener: IUtilKKeyboardChangeListener2) {
         val flags = window.attributes.flags
-        if (flags and CWinMgr.Lpf.FLAG_LAYOUT_NO_LIMITS != 0) {
-            window.clearFlags(CWinMgr.Lpf.FLAG_LAYOUT_NO_LIMITS)
+        if (flags and CWinMgr.Lpf.LAYOUT_NO_LIMITS != 0) {
+            window.clearFlags(CWinMgr.Lpf.LAYOUT_NO_LIMITS)
         }
         val contentView = window.findViewById<FrameLayout>(R.id.content)
         val decorViewInvisibleHeightPre = intArrayOf(UtilKDecorView.getInvisibleHeight(window))
