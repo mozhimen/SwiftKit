@@ -584,7 +584,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     }
 
     void refreshNavigationBarBounds() {
-        UtilKNavigationBar.getNavigationBarBounds(navigationBarBounds, mPopupWindow.getContext());
+        UtilKNavigationBar.getBounds(navigationBarBounds, mPopupWindow.getContext());
     }
 
     int getNavigationBarSize() {
@@ -592,7 +592,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     }
 
     int getNavigationBarGravity() {
-        return UtilKNavigationBar.getNavigationBarGravity(navigationBarBounds);
+        return UtilKNavigationBar.getGravity(navigationBarBounds);
     }
 
     public int getCutoutGravity() {

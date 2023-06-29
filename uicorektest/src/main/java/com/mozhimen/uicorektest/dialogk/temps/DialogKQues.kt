@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorektest.R
 
 /**

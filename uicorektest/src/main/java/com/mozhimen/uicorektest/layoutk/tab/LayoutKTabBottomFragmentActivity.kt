@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.layoutk.tab
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.uicorek.layoutk.tab.bottom.helpers.TabBottomFragmentAdapter
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom

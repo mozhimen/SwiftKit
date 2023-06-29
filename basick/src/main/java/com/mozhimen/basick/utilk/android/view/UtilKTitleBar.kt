@@ -21,12 +21,8 @@ object UtilKTitleBar {
      */
     @JvmStatic
     fun getHeight(activity: Activity) =
-        abs(UtilKView.getViewDrawHeight(activity) - UtilKStatusBar.getStatusBarHeight(activity))
+        abs(UtilKView.getViewDrawHeight(activity) - UtilKStatusBar.getHeight(activity))
 
-    /**
-     * 隐藏标题栏
-     * @param activity Activity
-     */
     @JvmStatic
     fun hide(activity: Activity) {
         UtilKActivity.requestWindowFeature(activity, CWindow.Feature.NO_TITLE)

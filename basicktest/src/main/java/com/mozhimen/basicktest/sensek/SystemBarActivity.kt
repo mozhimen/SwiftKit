@@ -6,7 +6,10 @@ import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBar
 import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
 import com.mozhimen.basicktest.databinding.ActivitySensekSystembarBinding
 
-@ASenseKSystemBar(systemBarType = CSystemBarType.IMMERSED_LIGHT)
+@ASenseKSystemBar(systemBarType = CSystemBarType.LOW_PROFILE)
+//@ASenseKSystemBar(systemBarType = CSystemBarType.IMMERSED_LIGHT)
+//@ASenseKSystemBar(systemBarType = CSystemBarType.IMMERSED_FORCE)
+//@ASenseKSystemBar(systemBarType = CSystemBarType.IMMERSED_STICKY)
 //@ASenseKSystemBar(systemBarType = ASenseKSystemBarType.CUSTOM, isFontIconDark = false, bgColorLight = android.R.color.black)
 class SystemBarActivity : BaseActivityVB<ActivitySensekSystembarBinding>() {
     override fun initFlag() {

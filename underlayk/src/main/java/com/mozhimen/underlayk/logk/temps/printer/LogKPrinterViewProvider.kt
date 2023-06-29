@@ -10,13 +10,11 @@ import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.utilk.android.view.dp2px
-import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.underlayk.R
-import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
+import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.cons.CLogKParameter
 import com.mozhimen.underlayk.logk.mos.MLogK
 
@@ -124,8 +122,8 @@ class LogKPrinterViewProvider(
             layoutParams.width = _titleView!!.width
             layoutParams.height = _titleView!!.height
         } else {
-            layoutParams.width = UtilKScreen.getRealScreenWidth()
-            layoutParams.height = UtilKScreen.getRealScreenHeight() / 3
+            layoutParams.width = UtilKScreen.getRealWidth()
+            layoutParams.height = UtilKScreen.getRealHeight() / 3
         }
         return layoutParams
     }

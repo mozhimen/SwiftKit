@@ -1,5 +1,6 @@
 package com.mozhimen.basick.elemk.cons
 
+import android.view.Gravity
 import android.view.View
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.annors.ADescription
@@ -31,7 +32,8 @@ object CView {
          */
         @ASenseKSystemBarMultiProperty(
             CSystemBarType.LOW_PROFILE,
-            CSystemBarType.COLORFUL
+            CSystemBarType.COLORFUL,
+            Gravity.BOTTOM
         )
         @ADescription("状态栏", "低调模式/颜色模式", "隐藏不重要的状态栏图标")
         const val FLAG_LOW_PROFILE = View.SYSTEM_UI_FLAG_LOW_PROFILE
@@ -45,7 +47,10 @@ object CView {
         @ASenseKSystemBarMultiProperty(
             CSystemBarType.IMMERSED_LIGHT,
             CSystemBarType.IMMERSED_FORCE,
-            CSystemBarType.IMMERSED_STICKY
+            CSystemBarType.IMMERSED_STICKY,
+            CSystemBarType.IMMERSED_EXPAND_LIGHT,
+            CSystemBarType.IMMERSED_EXPAND_FORCE,
+            CSystemBarType.IMMERSED_EXPAND_STICKY
         )
         @ADescription("导航栏", "沉浸模式", "隐藏,点击屏幕才会显示导航栏")
         const val FLAG_HIDE_NAVIGATION = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
@@ -62,7 +67,9 @@ object CView {
          */
         @ASenseKSystemBarMultiProperty(
             CSystemBarType.IMMERSED_FORCE,
-            CSystemBarType.IMMERSED_STICKY
+            CSystemBarType.IMMERSED_STICKY,
+            CSystemBarType.IMMERSED_EXPAND_FORCE,
+            CSystemBarType.IMMERSED_EXPAND_STICKY
         )
         @ADescription("状态栏", "沉浸模式", "隐藏,点击屏幕区域不会出现,状态栏位置下拉才会出现")
         const val FLAG_FULLSCREEN = View.SYSTEM_UI_FLAG_FULLSCREEN//隐藏状态栏, 点击屏幕区域不会出现, 需要从状态栏位置下拉才会出现
@@ -77,7 +84,10 @@ object CView {
         @ASenseKSystemBarMultiProperty(
             CSystemBarType.IMMERSED_LIGHT,
             CSystemBarType.IMMERSED_FORCE,
-            CSystemBarType.IMMERSED_STICKY
+            CSystemBarType.IMMERSED_STICKY,
+            CSystemBarType.IMMERSED_EXPAND_LIGHT,
+            CSystemBarType.IMMERSED_EXPAND_FORCE,
+            CSystemBarType.IMMERSED_EXPAND_STICKY
         )
         @ADescription("系统栏", "沉浸模式/全屏模式", "稳定的布局,不会随系统栏的隐藏/显示而变化", "须FLAG_LAYOUT_FULLSCREEN", "FLAG_LAYOUT_HIDE_NAVIGATION", "android:fitsSystemWindows要设置为true")
         const val FLAG_LAYOUT_STABLE = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -91,6 +101,9 @@ object CView {
             CSystemBarType.IMMERSED_LIGHT,
             CSystemBarType.IMMERSED_FORCE,
             CSystemBarType.IMMERSED_STICKY,
+            CSystemBarType.IMMERSED_EXPAND_LIGHT,
+            CSystemBarType.IMMERSED_EXPAND_FORCE,
+            CSystemBarType.IMMERSED_EXPAND_STICKY,
             CSystemBarType.EXPAND_STATUS_BAR,
             CSystemBarType.EXPAND_NAVIGATION_BAR,
             CSystemBarType.EXPAND_ALL
@@ -107,6 +120,9 @@ object CView {
             CSystemBarType.IMMERSED_LIGHT,
             CSystemBarType.IMMERSED_FORCE,
             CSystemBarType.IMMERSED_STICKY,
+            CSystemBarType.IMMERSED_EXPAND_LIGHT,
+            CSystemBarType.IMMERSED_EXPAND_FORCE,
+            CSystemBarType.IMMERSED_EXPAND_STICKY,
             CSystemBarType.EXPAND_STATUS_BAR,
             CSystemBarType.EXPAND_NAVIGATION_BAR,
             CSystemBarType.EXPAND_ALL
@@ -126,7 +142,10 @@ object CView {
         @ASenseKSystemBarMultiProperty(
             CSystemBarType.IMMERSED_LIGHT,
             CSystemBarType.IMMERSED_FORCE,
-            CSystemBarType.IMMERSED_STICKY
+            CSystemBarType.IMMERSED_STICKY,
+            CSystemBarType.IMMERSED_EXPAND_LIGHT,
+            CSystemBarType.IMMERSED_EXPAND_FORCE,
+            CSystemBarType.IMMERSED_EXPAND_STICKY
         )
         @ADescription("系统栏", "沉浸模式")
         const val FLAG_IMMERSIVE = View.SYSTEM_UI_FLAG_IMMERSIVE
@@ -134,8 +153,7 @@ object CView {
         /**
          * 沉浸模式, 用户可以交互的界面.同时, 用户上下拉系统栏时, 会自动隐藏系统栏跟
          * @see FLAG_IMMERSIVE 一样
-         * 但是, 它在全屏模式下, 用户上下拉状态栏或者导航栏时, 这些系统栏只是以半透明的状态显示出来, 并且在一定时间后会自动消失
-         * 用
+         * 但是, 它在全屏模式下, 用户上下拉状态栏或者导航栏时, 这些系统栏只是以半透明的状态显示出来, 并且在一定时间后会自动消失, 用
          * @see FLAG_HIDE_NAVIGATION 隐藏导航栏，配合使用此Flag,只有用户的
          * @see EGesture.WINDOW_CHANGE 第四种操作会导致状态栏或（和）导航栏的隐藏状态被系统自动清除。否则任何交互都会导致相应状态的清除。
          * 此Flag只有配合
@@ -145,7 +163,10 @@ object CView {
         @ASenseKSystemBarMultiProperty(
             CSystemBarType.IMMERSED_LIGHT,
             CSystemBarType.IMMERSED_FORCE,
-            CSystemBarType.IMMERSED_STICKY
+            CSystemBarType.IMMERSED_STICKY,
+            CSystemBarType.IMMERSED_EXPAND_LIGHT,
+            CSystemBarType.IMMERSED_EXPAND_FORCE,
+            CSystemBarType.IMMERSED_EXPAND_STICKY
         )
         @ADescription("系统栏", "沉浸模式", "用户上下拉系统栏时, 会自动隐藏系统栏")
         const val FLAG_IMMERSIVE_STICKY = View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -155,8 +176,8 @@ object CView {
          * 设置状态栏的颜色
          * 在使用了FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS 并且没有使用 FLAG_TRANSLUCENT_STATUS的时候才有效，也就是只有在状态栏全透明的时候才有效
          * 另在一Activity多Fragment，各Fragment之间字体效果可能要求不同，需动态设置字体颜色
-         *  if (isDark) getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//黑色
-         *  else getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);//白色
+         *  if (isDark) getWindow().getDecorView().setSystemUiVisibility(CView.System.FLAG_LIGHT_STATUS_BAR);//黑色
+         *  else getWindow().getDecorView().setSystemUiVisibility(CView.SystemUi.FLAG_VISIBLE);//白色
          */
         @ADescription("设置状态栏的颜色")
         @RequiresApi(CVersionCode.V_23_6_M)

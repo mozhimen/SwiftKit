@@ -29,23 +29,25 @@ import java.util.*
  * @Version 1.0
  */
 object UtilKNavigationBar : BaseUtilK() {
-    private val NAVIGATION_BAR_NAMES: HashMap<String, Void?> by lazy {
-        hashMapOf(
-            "navigationbarbackground" to null,
-            "immersion_navigation_bar_view" to null
-        )
+    private val _navigationBarNames: HashMap<String, Void?> by lazy {
+        hashMapOf("navigationbarbackground" to null, "immersion_navigation_bar_view" to null)
     }
 
     @JvmStatic
-    fun isNavigationBarVisible(activity: Activity): Boolean {
+    fun hide(activity: Activity) {
+        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUi.FLAG_HIDE_NAVIGATION /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
+    }
+
+    @JvmStatic
+    fun isVisible(activity: Activity): Boolean {
         val windowSystemUiVisibility = UtilKDecorView.getWindowSystemUiVisibility(activity)
         return (windowSystemUiVisibility and CView.SystemUi.FLAG_HIDE_NAVIGATION == 0 &&
                 windowSystemUiVisibility and CView.SystemUi.FLAG_LAYOUT_HIDE_NAVIGATION == 0)
     }
 
     @JvmStatic
-    fun appendNavigationBarID(id: String) {
-        NAVIGATION_BAR_NAMES[id] = null
+    fun appendID(id: String) {
+        _navigationBarNames[id] = null
     }
 
     /**
@@ -53,7 +55,7 @@ object UtilKNavigationBar : BaseUtilK() {
      * https://juejin.im/post/5bb5c4e75188255c72285b54
      */
     @JvmStatic
-    fun getNavigationBarBounds(rect: Rect, context: Context) {
+    fun getBounds(rect: Rect, context: Context) {
         val activity = getActivityByContext(context, true)
         if (activity == null || isDestroyed(activity)) return
         val decorView = UtilKDecorView.get(activity) as ViewGroup
@@ -63,7 +65,7 @@ object UtilKNavigationBar : BaseUtilK() {
             if (child.id == View.NO_ID || !child.isShown) continue
             try {
                 val resourceEntryName = UtilKResource.getResourceEntryName(child.id, context)
-                if (NAVIGATION_BAR_NAMES.containsKey(resourceEntryName.lowercase(Locale.getDefault()))) {
+                if (_navigationBarNames.containsKey(resourceEntryName.lowercase(Locale.getDefault()))) {
                     rect[child.left, child.top, child.right] = child.bottom
                     return
                 }
@@ -78,8 +80,9 @@ object UtilKNavigationBar : BaseUtilK() {
      * @param navigationBarBounds Rect
      * @return Int
      */
+    @SuppressLint("RtlHardcoded")
     @JvmStatic
-    fun getNavigationBarGravity(navigationBarBounds: Rect): Int {
+    fun getGravity(navigationBarBounds: Rect): Int {
         if (navigationBarBounds.isEmpty) return Gravity.NO_GRAVITY
         return if (navigationBarBounds.left <= 0) {
             if (navigationBarBounds.top <= 0) {
@@ -94,7 +97,7 @@ object UtilKNavigationBar : BaseUtilK() {
      */
     @SuppressLint("DiscouragedApi", "InternalInsetResource")
     @JvmStatic
-    fun getNavigationBarHeight(): Int {
+    fun getHeight(): Int {
         val dimensionId = UtilKResource.getIdentifier("navigation_bar_height", "dimen", "android")
         return if (dimensionId != 0) UtilKRes.getDimensionPixelSize(dimensionId) else 0
     }
@@ -105,7 +108,7 @@ object UtilKNavigationBar : BaseUtilK() {
      * @return Int 如果存在NavigationBar则返回高度，否则0
      */
     @JvmStatic
-    fun getNavigationBarHeight(view: View): Int {
+    fun getHeight(view: View): Int {
         val activity: Activity? = UtilKActivity.getActivityByView(view)
         if (activity != null) {
             val display = UtilKWindowManager.getDefaultDisplay(activity)

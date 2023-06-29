@@ -16,8 +16,8 @@ import androidx.annotation.Px
 import com.mozhimen.basick.utilk.android.graphics.drawable2Bitmap
 import com.mozhimen.basick.utilk.android.view.applyPaddingHorizontal
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
-import com.mozhimen.basick.utilk.android.view.dp2px
-import com.mozhimen.basick.utilk.android.view.sp2px
+import com.mozhimen.basick.utilk.android.util.dp2px
+import com.mozhimen.basick.utilk.android.util.sp2px
 import com.mozhimen.basick.utilk.android.widget.applyIconFont
 import com.mozhimen.basick.utilk.android.widget.applyTextStyle
 import com.mozhimen.uicorek.layoutk.navbar.helpers.AttrsParser

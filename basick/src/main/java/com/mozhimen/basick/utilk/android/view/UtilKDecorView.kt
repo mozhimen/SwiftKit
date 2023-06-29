@@ -52,12 +52,32 @@ object UtilKDecorView : BaseUtilK() {
     }
 
     @JvmStatic
+    fun setSystemUiVisibilityOr(activity: Activity, visibility: Int) {
+        setSystemUiVisibilityOr(activity.window, visibility)
+    }
+
+    @JvmStatic
+    fun setSystemUiVisibilityOr(window: Window, visibility: Int) {
+        setSystemUiVisibilityOr(get(window), visibility)
+    }
+
+    @JvmStatic
+    fun setSystemUiVisibilityOr(decorView: View, visibility: Int) {
+        val systemUiVisibility = getSystemUiVisibility(decorView)
+        decorView.systemUiVisibility = systemUiVisibility or visibility
+    }
+
+    @JvmStatic
     fun getSystemUiVisibility(activity: Activity): Int =
         getSystemUiVisibility(activity.window)
 
     @JvmStatic
     fun getSystemUiVisibility(window: Window): Int =
-        get(window).systemUiVisibility
+        getSystemUiVisibility(get(window))
+
+    @JvmStatic
+    fun getSystemUiVisibility(decorView: View): Int =
+        decorView.systemUiVisibility
 
     @JvmStatic
     fun getWindowSystemUiVisibility(activity: Activity): Int =
@@ -97,7 +117,7 @@ object UtilKDecorView : BaseUtilK() {
         getWindowVisibleDisplayFrame(decorView, outRect)
         Log.d(TAG, "getInvisibleHeight: " + (decorView.bottom - outRect.bottom))
         val delta = abs(decorView.bottom - outRect.bottom)
-        return if (delta <= UtilKNavigationBar.getNavigationBarHeight() + UtilKStatusBar.getStatusBarHeight()) 0 else delta
+        return if (delta <= UtilKNavigationBar.getHeight() + UtilKStatusBar.getHeight()) 0 else delta
     }
 
     ///////////////////////////////////////////////////////////////////////////

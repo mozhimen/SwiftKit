@@ -66,7 +66,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
                     }
                     val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =
-                        vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getRealScreenWidth().toDouble()
+                        vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getRealWidth().toDouble()
                     val cropBitmap = rotateBitmap.cropBitmap(
                         (ratio * rotateBitmap.width).toInt(),
                         (ratio * rotateBitmap.width).toInt(),

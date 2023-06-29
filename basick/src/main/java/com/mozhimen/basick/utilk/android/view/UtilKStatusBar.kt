@@ -45,7 +45,7 @@ object UtilKStatusBar : BaseUtilK() {
      * 修改状态栏颜色,支持4.4以上的版本
      */
     @JvmStatic
-    fun setStatusBarColor(activity: Activity, @ColorInt colorInt: Int) {
+    fun setColor(activity: Activity, @ColorInt colorInt: Int) {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L) {
             UtilKWindow.setStatusBarColor(activity, colorInt)
         } else if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {
@@ -57,13 +57,9 @@ object UtilKStatusBar : BaseUtilK() {
         }
     }
 
-    /**
-     * 隐藏状态栏
-     * @param activity Activity
-     */
     @JvmStatic
     fun hide(activity: Activity) {
-        UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUi.FLAG_FULLSCREEN /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
+        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUi.FLAG_FULLSCREEN /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
     }
 
 
@@ -75,7 +71,7 @@ object UtilKStatusBar : BaseUtilK() {
      */
     @SuppressLint("InternalInsetResource", "DiscouragedApi")
     @JvmStatic
-    fun getStatusBarHeight(): Int {
+    fun getHeight(): Int {
         val dimensionId = UtilKResource.getIdentifier("status_bar_height", "dimen", "android")
         return if (dimensionId != 0) UtilKRes.getDimensionPixelSize(dimensionId) else 0
     }
@@ -88,7 +84,7 @@ object UtilKStatusBar : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getStatusBarHeight(activity: Activity): Int {
+    fun getHeight(activity: Activity): Int {
         val rect = Rect()
         UtilKDecorView.getWindowVisibleDisplayFrame(activity, rect)
         return rect.top
@@ -102,9 +98,9 @@ object UtilKStatusBar : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getStatusBarHeight(isCheckFullScreen: Boolean): Int {
+    fun getHeight(isCheckFullScreen: Boolean): Int {
         if (isCheckFullScreen && UtilKScreen.isFullScreen()) return 0
-        return getStatusBarHeight()
+        return getHeight()
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,8 +111,8 @@ object UtilKStatusBar : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun isStatusBarVisible(context: Context): Boolean {
-        return isStatusBarVisible(UtilKActivity.getActivityByContext(context, true) ?: return true)
+    fun isVisible(context: Context): Boolean {
+        return isVisible(UtilKActivity.getActivityByContext(context, true) ?: return true)
     }
 
     /**
@@ -125,11 +121,11 @@ object UtilKStatusBar : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun isStatusBarVisible(activity: Activity): Boolean =
+    fun isVisible(activity: Activity): Boolean =
         !UtilKWindow.isFullScreenInFlag(activity)
 
     @JvmStatic
-    fun isStatusBarTranslucent(activity: Activity): Boolean {
+    fun isTranslucent(activity: Activity): Boolean {
         var isStatusBarAvailable: Boolean
         //检查主题中是否有透明的状态栏
         val typedArray = activity.obtainStyledAttributes(intArrayOf(android.R.attr.windowTranslucentStatus))

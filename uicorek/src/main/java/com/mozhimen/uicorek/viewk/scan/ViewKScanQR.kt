@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import com.mozhimen.basick.utilk.android.graphics.drawable2Bitmap
 import com.mozhimen.uicorek.viewk.bases.BaseViewK
-import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorek.R
 
 /**

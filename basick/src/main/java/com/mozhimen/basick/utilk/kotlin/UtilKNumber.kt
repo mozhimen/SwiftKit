@@ -12,67 +12,17 @@ import kotlin.math.min
  * @Date 2022/5/31 17:33
  * @Version 1.0
  */
-fun Double.keepFourDigits(): Double =
-    UtilKNumber.keepFourDigits(this)
+fun Double.keepDigits(digit: Int): Double =
+    UtilKNumber.keepDigits(this, digit)
 
-fun Double.keepFourDigitsStr(): String =
-    UtilKNumber.keepFourDigitsStr(this)
+fun Float.keepDigits(digit: Int): Float =
+    UtilKNumber.keepDigits(this, digit)
 
-/////////////////////////////////////////////////////
+fun Double.keepDigitsStr(digit: Int): String =
+    UtilKNumber.keepDigitsStr(this, digit)
 
-fun Float.keepFourDigits(): Float =
-    UtilKNumber.keepFourDigits(this)
-
-fun Float.keepFourDigitsStr(): String =
-    UtilKNumber.keepFourDigitsStr(this)
-
-/////////////////////////////////////////////////////
-
-fun Double.keepThreeDigits(): Double =
-    UtilKNumber.keepThreeDigits(this)
-
-fun Double.keepThreeDigitsStr(): String =
-    UtilKNumber.keepThreeDigitsStr(this)
-
-/////////////////////////////////////////////////////
-
-fun Float.keepThreeDigits(): Float =
-    UtilKNumber.keepThreeDigits(this)
-
-fun Float.keepThreeDigitsStr(): String =
-    UtilKNumber.keepThreeDigitsStr(this)
-
-/////////////////////////////////////////////////////
-
-fun Double.keepTwoDigits(): Double =
-    UtilKNumber.keepTwoDigits(this)
-
-fun Double.keepTwoDigitsStr(): String =
-    UtilKNumber.keepTwoDigitsStr(this)
-
-/////////////////////////////////////////////////////
-
-fun Float.keepTwoDigits(): Float =
-    UtilKNumber.keepTwoDigits(this)
-
-fun Float.keepTwoDigitsStr(): String =
-    UtilKNumber.keepTwoDigitsStr(this)
-
-/////////////////////////////////////////////////////
-
-fun Double.keepOneDigits(): Double =
-    UtilKNumber.keepOneDigits(this)
-
-fun Double.keepOneDigitsStr(): String =
-    UtilKNumber.keepOneDigitsStr(this)
-
-/////////////////////////////////////////////////////
-
-fun Float.keepOneDigits(): Float =
-    UtilKNumber.keepOneDigits(this)
-
-fun Float.keepOneDigitsStr(): String =
-    UtilKNumber.keepOneDigitsStr(this)
+fun Float.keepDigitsStr(digit: Int): String =
+    UtilKNumber.keepDigitsStr(this, digit)
 
 /////////////////////////////////////////////////////
 
@@ -141,112 +91,21 @@ object UtilKNumber {
     ////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun keepFourDigits(value: Double): Double =
-        keepFourDigitsStr(value).toDouble()
+    fun keepDigits(value: Double, @androidx.annotation.IntRange(from = 1) digit: Int): Double =
+        keepDigitsStr(value, digit).toDouble()
 
     @JvmStatic
-    fun keepFourDigitsStr(value: Double): String {
-        val format = DecimalFormat("#.####")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
-        return format.format(value)
-    }
-
-    ////////////////////////////////////////////////////////////
+    fun keepDigits(value: Float, @androidx.annotation.IntRange(from = 1) digit: Int): Float =
+        keepDigitsStr(value, digit).toFloat()
 
     @JvmStatic
-    fun keepFourDigits(value: Float): Float =
-        keepFourDigitsStr(value).toFloat()
-
-    @JvmStatic
-    fun keepFourDigitsStr(value: Float): String {
-        val format = DecimalFormat("#.####")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
-        return format.format(value)
-    }
-
-    ////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun keepThreeDigits(value: Double): Double =
-        keepThreeDigitsStr(value).toDouble()
-
-    @JvmStatic
-    fun keepThreeDigitsStr(value: Double): String {
-        val format = DecimalFormat("#.###")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
-        return format.format(value)
-    }
-
-    ////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun keepThreeDigits(value: Float): Float =
-        keepThreeDigitsStr(value).toFloat()
-
-    @JvmStatic
-    fun keepThreeDigitsStr(value: Float): String {
-        val format = DecimalFormat("#.###")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
-        return format.format(value)
-    }
-
-    ////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun keepTwoDigits(value: Double): Double =
-        keepTwoDigitsStr(value).toDouble()
-
-    @JvmStatic
-    fun keepTwoDigitsStr(value: Double): String {
-        val format = DecimalFormat("#.##")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
-        return format.format(value)
-    }
-
-    ////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun keepTwoDigits(value: Float): Float =
-        keepTwoDigitsStr(value).toFloat()
-
-    @JvmStatic
-    fun keepTwoDigitsStr(value: Float): String {
-        val format = DecimalFormat("#.##")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
-        return format.format(value)
-    }
-
-    ////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun keepOneDigits(value: Double): Double =
-        keepOneDigitsStr(value).toDouble()
-
-    @JvmStatic
-    fun keepOneDigitsStr(value: Double): String {
-        val format = DecimalFormat("#.#")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
-        return format.format(value)
-    }
-
-    ////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun keepOneDigits(value: Float): Float =
-        keepOneDigitsStr(value).toFloat()
-
-    @JvmStatic
-    fun keepOneDigitsStr(value: Float): String {
-        val format = DecimalFormat("#.#")
-        //舍弃规则，RoundingMode.FLOOR表示直接舍弃。
-        format.roundingMode = RoundingMode.FLOOR
+    fun keepDigitsStr(value: Any, @androidx.annotation.IntRange(from = 1) digit: Int): String {
+        val stringBuilder = StringBuilder("#.")
+        repeat(digit) {
+            stringBuilder.append("#")
+        }
+        val format = DecimalFormat(stringBuilder.toString())
+        format.roundingMode = RoundingMode.HALF_UP
         return format.format(value)
     }
 

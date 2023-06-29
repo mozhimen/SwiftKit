@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics;
 import com.mozhimen.basick.utilk.android.view.UtilKDisplay;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.viewk.wheel.commons.IWheelAdapter;
@@ -307,7 +308,7 @@ public class ViewKWheel extends View {
 
     public final void setTextSize(float size) {
         if (size > 0.0F) {
-            textSize = (int) (UtilKDisplay.getDensity() * size);
+            textSize = (int) (UtilKDisplayMetrics.getDensity() * size);
             paintOuterText.setTextSize(textSize);
             paintCenterText.setTextSize(textSize);
         }

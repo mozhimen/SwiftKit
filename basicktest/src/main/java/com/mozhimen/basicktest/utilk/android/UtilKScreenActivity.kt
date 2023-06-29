@@ -20,11 +20,11 @@ import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
 class UtilKScreenActivity : BaseActivityVB<ActivityUtilkScreenBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
-        Log.d(TAG, "initData: getScreenWidthDp ${UtilKScreen.getScreenWidthDp()}")
-        Log.d(TAG, "initData: getScreenHeightDp ${UtilKScreen.getScreenHeightDp()}")
-        Log.d(TAG, "initData: getScreenWidth ${UtilKScreen.getRealScreenWidth()}")
-        Log.d(TAG, "initData: getScreenHeight ${UtilKScreen.getRealScreenHeight()}")
-        Log.d(TAG, "initData: getScreenWidth2 ${UtilKScreen.getCurrentScreenWidth()}")
-        Log.d(TAG, "initData: getScreenHeight2 ${UtilKScreen.getCurrentScreenHeight()}")
+        Log.d(TAG, "initData: getScreenWidthDp ${UtilKScreen.getWidthDp()}")
+        Log.d(TAG, "initData: getScreenHeightDp ${UtilKScreen.getHeightDp()}")
+        Log.d(TAG, "initData: getScreenWidth ${UtilKScreen.getRealWidth()}")
+        Log.d(TAG, "initData: getScreenHeight ${UtilKScreen.getRealHeight()}")
+        Log.d(TAG, "initData: getScreenWidth2 ${UtilKScreen.getCurrentWidth()}")
+        Log.d(TAG, "initData: getScreenHeight2 ${UtilKScreen.getCurrentHeight()}")
     }
 }

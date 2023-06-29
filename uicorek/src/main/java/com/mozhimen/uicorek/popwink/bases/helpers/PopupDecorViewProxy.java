@@ -75,7 +75,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
 
     PopupDecorViewProxy(Context context, BasePopupHelper helper) {
         this(context);
-        isStatusBarVisible = UtilKStatusBar.isStatusBarVisible(context);
+        isStatusBarVisible = UtilKStatusBar.isVisible(context);
         init(helper);
     }
 
@@ -230,7 +230,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         if ((mHelper.overlayStatusBarMode & overlayTarget) == 0 && isStatusBarVisible) {
-            heightSize -= UtilKStatusBar.getStatusBarHeight(false);
+            heightSize -= UtilKStatusBar.getHeight(false);
         }
         if ((mHelper.overlayNavigationBarMode & overlayTarget) == 0) {
             int navigationBarGravity = mHelper.getNavigationBarGravity();
@@ -391,7 +391,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
 
             //状态栏判断
             if ((mHelper.overlayStatusBarMode & (child == mMaskLayout ? CFlag.OVERLAY_MASK : CFlag.OVERLAY_CONTENT)) == 0) {
-                contentBounds.top = contentBounds.top == 0 ? contentBounds.top + UtilKStatusBar.getStatusBarHeight(false) : contentBounds.top;
+                contentBounds.top = contentBounds.top == 0 ? contentBounds.top + UtilKStatusBar.getHeight(false) : contentBounds.top;
             } else {
                 contentBounds.top = 0;
             }
@@ -761,7 +761,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
     public void onChange(Rect keyboardBounds, boolean isVisible) {
         if (mHelper.isOutSideTouchable() && !mHelper.isOverlayStatusbar()) return;
         boolean forceAdjust = (mHelper.flag & CFlag.KEYBOARD_FORCE_ADJUST) != 0;
-        boolean process = forceAdjust || ((UtilKScreen.getScreenOrientation() != Configuration.ORIENTATION_LANDSCAPE)
+        boolean process = forceAdjust || ((UtilKScreen.getOrientation() != Configuration.ORIENTATION_LANDSCAPE)
                 && (mHelper.getSoftInputMode() == CWinMgr.Lpsi.ADJUST_PAN ||
                 mHelper.getSoftInputMode() == CWinMgr.Lpsi.ADJUST_RESIZE));
 

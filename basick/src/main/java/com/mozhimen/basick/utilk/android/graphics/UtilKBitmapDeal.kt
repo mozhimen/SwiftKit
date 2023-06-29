@@ -178,7 +178,7 @@ object UtilKBitmapDeal : BaseUtilK() {
         val view = UtilKDecorView.get(activity)
         view.isDrawingCacheEnabled = true
         view.buildDrawingCache()
-        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getVirtualBarHeight(activity))
+        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getHeight(activity))
         view.isDrawingCacheEnabled = false
         view.destroyDrawingCache()
         return bitmap

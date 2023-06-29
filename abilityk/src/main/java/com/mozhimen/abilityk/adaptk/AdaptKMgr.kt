@@ -31,8 +31,8 @@ class AdaptKMgr {
     private var _width: Int
 
     init {
-        val length = UtilKScreen.getRealScreenHeight()
-        val width = UtilKScreen.getRealScreenWidth()
+        val length = UtilKScreen.getRealHeight()
+        val width = UtilKScreen.getRealWidth()
         _length = max(length, width)
         _width = min(length, width)
     }
@@ -58,7 +58,7 @@ class AdaptKMgr {
             override fun onAdaptBefore(target: Any, activity: Activity) {
                 AutoSizeConfig.getInstance().screenWidth = length
                 AutoSizeConfig.getInstance().screenHeight = width
-                if (UtilKScreen.getScreenOrientation() == Configuration.ORIENTATION_LANDSCAPE) {                //根据屏幕方向，设置适配基准
+                if (UtilKScreen.getOrientation() == Configuration.ORIENTATION_LANDSCAPE) {                //根据屏幕方向，设置适配基准
                     AutoSizeConfig.getInstance().designWidthInDp = length.also { _length = length }                //设置横屏基准
                 } else {
                     AutoSizeConfig.getInstance().designWidthInDp = width.also { _width = width }        //设置竖屏基准

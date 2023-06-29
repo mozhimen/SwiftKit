@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.view
 
+import android.annotation.SuppressLint
 import android.graphics.Rect
 import android.view.Gravity
 
@@ -11,6 +12,7 @@ import android.view.Gravity
  * @Version 1.0
  */
 object UtilKGravity {
+    @SuppressLint("RtlHardcoded")
     @JvmStatic
     fun computeGravity(sourceRect: Rect, destRect: Rect): Int {
         var gravity = Gravity.NO_GRAVITY

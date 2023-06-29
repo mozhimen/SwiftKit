@@ -192,7 +192,7 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (mPopupHelper != null) {
             if (!mPopupHelper.isOverlayStatusbar()) {
-                ev.offsetLocation(0, UtilKStatusBar.getStatusBarHeight(false));
+                ev.offsetLocation(0, UtilKStatusBar.getHeight(false));
             }
             mPopupHelper.dispatchOutSideEvent(ev,
                                               maskRect.contains(ev.getRawX(), ev.getRawY()),

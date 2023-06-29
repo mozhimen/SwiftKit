@@ -20,7 +20,7 @@ object UtilKVirtualBar : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getVirtualBarHeight(context: Context): Int {
+    fun getHeight(context: Context): Int {
         var virtualBarHeight = 0
         val displayMetrics = DisplayMetrics()
         try {

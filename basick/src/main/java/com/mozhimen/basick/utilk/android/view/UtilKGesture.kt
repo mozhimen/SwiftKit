@@ -51,11 +51,6 @@ object UtilKGesture {
     fun isTapInArea(x: Float, y: Float, left: Float, top: Float, right: Float, bottom: Float): Boolean =
         x > left && x < right && y > top && y < bottom
 
-    /**
-     * motionEvent2Str
-     * @param action Int
-     * @return String
-     */
     @JvmStatic
     fun motionEvent2Str(action: Int): String {
         when (action) {

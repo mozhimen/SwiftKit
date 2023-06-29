@@ -15,7 +15,7 @@ import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.AnimatorGradientDrawableColorType
 import com.mozhimen.basick.animk.builder.temps.AnimKTranslationType
 import com.mozhimen.basick.elemk.commons.IValue1Listener
-import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.btn.helpers.LayoutKBtnSwitchAttrsParser
 import com.mozhimen.uicorek.layoutk.btn.mos.LayoutKBtnSwitchAttrs

@@ -22,7 +22,7 @@ class ColorfulStatusBar(private val _activity: Activity) {
     private lateinit var _colorfulStatusBarView: View
 
     init {
-        if (UtilKStatusBar.isStatusBarTranslucent(_activity)) {
+        if (UtilKStatusBar.isTranslucent(_activity)) {
             setupColorfulStatusBarView(_activity)
         }
     }
@@ -33,14 +33,14 @@ class ColorfulStatusBar(private val _activity: Activity) {
     }
 
     fun setColor(@ColorInt colorInt: Int) {
-        if (UtilKStatusBar.isStatusBarTranslucent(_activity)) _colorfulStatusBarView.setBackgroundColor(colorInt)
+        if (UtilKStatusBar.isTranslucent(_activity)) _colorfulStatusBarView.setBackgroundColor(colorInt)
     }
 
     private fun setupColorfulStatusBarView(activity: Activity) {
         _colorfulStatusBarView = View(activity)
         //设置高度匹配StatusBar的高度
         val layoutParams =
-            FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, UtilKStatusBar.getStatusBarHeight(false)).apply {
+            FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, UtilKStatusBar.getHeight(false)).apply {
                 gravity = Gravity.TOP
             }
         _colorfulStatusBarView.layoutParams = layoutParams

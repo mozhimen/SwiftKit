@@ -144,7 +144,7 @@ object UtilKRenderScript : BaseUtilK() {
             UtilKLogPro.e("getViewBitmap  >>  宽或者高为空")
             return null
         }
-        val statusBarHeight = UtilKStatusBar.getStatusBarHeight(false)
+        val statusBarHeight = UtilKStatusBar.getHeight(false)
         var tempBitmap: Bitmap
         UtilKLogPro.i("getViewBitmap 模糊原始图像分辨率 [" + view.width + " x " + view.height + "]")
         tempBitmap = try {

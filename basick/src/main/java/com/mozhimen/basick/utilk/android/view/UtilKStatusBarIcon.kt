@@ -21,6 +21,11 @@ import com.mozhimen.basick.utilk.android.os.UtilKRomVersion
  * @Version 1.0
  */
 object UtilKStatusBarIcon : BaseUtilK() {
+    @JvmStatic
+    fun setLowProfile(activity: Activity) {
+        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUi.FLAG_LOW_PROFILE)
+    }
+
     /**
      * 状态栏字体和图标是否是深色
      */

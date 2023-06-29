@@ -12,6 +12,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.content.UtilKTheme
+import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics
 import kotlin.math.sqrt
 
 /**
@@ -55,7 +56,7 @@ object UtilKScreen : BaseUtilK() {
      * @param activity Activity
      */
     @JvmStatic
-    fun setScreenBrightness(@FloatRange(from = 0.0, to = 1.0) paramFloat: Float, activity: Activity) {
+    fun setBrightness(@FloatRange(from = 0.0, to = 1.0) paramFloat: Float, activity: Activity) {
         val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(activity)
         layoutParams.screenBrightness = paramFloat
         UtilKWindow.setAttributes(activity, layoutParams)
@@ -68,15 +69,15 @@ object UtilKScreen : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getScreenDensityDpi(): Int =
-        UtilKDisplay.getDensityDpi()
+    fun getDensityDpi(): Int =
+        UtilKDisplayMetrics.getDensityDpi()
 
     /**
      * 获取屏幕密度dp
      * @return Int
      */
     @JvmStatic
-    fun getScreenDensityDpi1(): Int =
+    fun getDensityDpi1(): Int =
         UtilKConfiguration.getDensityDpi()
 
     /**
@@ -84,31 +85,31 @@ object UtilKScreen : BaseUtilK() {
      * @return Float
      */
     @JvmStatic
-    fun getScreenDensity(): Float =
-        UtilKDisplay.getDensity()
+    fun getDensity(): Float =
+        UtilKDisplayMetrics.getDensity()
 
     /**
      * 获取屏幕宽度
      * @return Int
      */
     @JvmStatic
-    fun getCurrentScreenWidth(): Int =
-        UtilKDisplay.getWidthPixels()
+    fun getCurrentWidth(): Int =
+        UtilKDisplayMetrics.getWidthPixels()
 
     /**
      * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
      * @return Int
      */
     @JvmStatic
-    fun getCurrentScreenHeight(): Int =
-        UtilKDisplay.getHeightPixels()
+    fun getCurrentHeight(): Int =
+        UtilKDisplayMetrics.getHeightPixels()
 
     /**
      * 获取像素宽
      * @return Int
      */
     @JvmStatic
-    fun getRealScreenWidth(): Int =
+    fun getRealWidth(): Int =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
             UtilKWindowManager.getBoundsWidth(_context)
         } else {
@@ -122,7 +123,7 @@ object UtilKScreen : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getRealScreenHeight(): Int =
+    fun getRealHeight(): Int =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
             UtilKWindowManager.getBoundsHeight(_context)
         } else {
@@ -136,11 +137,11 @@ object UtilKScreen : BaseUtilK() {
      * @return Float
      */
     @JvmStatic
-    fun getScreenSize(): Float {
-        val xdpi = UtilKDisplay.getXdpi()
-        val ydpi = UtilKDisplay.getYdpi()
-        val width = getCurrentScreenWidth()
-        val height = getCurrentScreenHeight()
+    fun getSize(): Float {
+        val xdpi = UtilKDisplayMetrics.getXdpi()
+        val ydpi = UtilKDisplayMetrics.getYdpi()
+        val width = getCurrentWidth()
+        val height = getCurrentHeight()
         //计算屏幕的物理尺寸
         val widthPhy = (width / xdpi) * (width / xdpi)
         val heightPhy = (height / ydpi) * (height / ydpi)
@@ -152,7 +153,7 @@ object UtilKScreen : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getScreenWidthDp(): Int =
+    fun getWidthDp(): Int =
         UtilKConfiguration.getScreenWidthDp()
 
     /**
@@ -160,7 +161,7 @@ object UtilKScreen : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getScreenHeightDp(): Int =
+    fun getHeightDp(): Int =
         UtilKConfiguration.getScreenHeightDp()
 
     /**
@@ -168,7 +169,7 @@ object UtilKScreen : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getScreenOrientation(): Int =
+    fun getOrientation(): Int =
         UtilKConfiguration.getOrientation()
 
     /**
@@ -176,7 +177,7 @@ object UtilKScreen : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun isScreenPortrait(): Boolean =
+    fun isPortrait(): Boolean =
         UtilKConfiguration.isOrientationPortrait()
 
     /**
@@ -185,7 +186,7 @@ object UtilKScreen : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getScreenRotation(activity: Activity): Int =
+    fun getRotation(activity: Activity): Int =
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
             UtilKDisplay.getRotation(activity)
         } else {
@@ -200,6 +201,6 @@ object UtilKScreen : BaseUtilK() {
      * @return Bitmap
      */
     @JvmStatic
-    fun captureScreen(activity: Activity): Bitmap =
+    fun capture(activity: Activity): Bitmap =
         UtilKBitmapDeal.getBitmapForScreen(activity)
 }

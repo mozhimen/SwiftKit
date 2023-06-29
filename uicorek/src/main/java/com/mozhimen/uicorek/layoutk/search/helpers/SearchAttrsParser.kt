@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.content.UtilKTheme
-import com.mozhimen.basick.utilk.android.view.sp2px
+import com.mozhimen.basick.utilk.android.util.sp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.commons.IAttrsParser2
 import com.mozhimen.uicorek.layoutk.search.mos.MSearchAttrs

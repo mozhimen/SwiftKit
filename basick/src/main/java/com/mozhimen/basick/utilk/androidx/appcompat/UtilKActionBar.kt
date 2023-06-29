@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.androidx.appcompat
 
+import android.app.Activity
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 
@@ -22,14 +23,15 @@ object UtilKActionBar {
      * @param activity AppCompatActivity
      */
     @JvmStatic
-    fun enableBackIfActionBarExists(activity: AppCompatActivity) {
+    fun setDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
         get(activity)?.setDisplayHomeAsUpEnabled(true)
     }
 
-    /**
-     * 隐藏ActionBar
-     * @param activity AppCompatActivity
-     */
+    @JvmStatic
+    fun hide(activity: Activity) {
+        if (activity is AppCompatActivity) hide(activity)
+    }
+
     @JvmStatic
     fun hide(activity: AppCompatActivity) {
         get(activity)?.hide()

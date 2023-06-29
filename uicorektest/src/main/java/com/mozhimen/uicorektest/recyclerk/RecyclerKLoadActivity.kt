@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
 import com.mozhimen.basick.utilk.android.os.applyPostDelayed
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem

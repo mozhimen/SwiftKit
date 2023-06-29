@@ -148,29 +148,29 @@ class DebugKParams {
     fun screenParams(): String = ""
 
     @ADebugKParams("屏幕尺寸")
-    fun screenSize(): String = UtilKScreen.getScreenSize().toString()
+    fun screenSize(): String = UtilKScreen.getSize().toString()
 
     @ADebugKParams("屏幕真实分辨率px")
-    fun screenResolution(): String = "设备分辨率: w " + UtilKScreen.getRealScreenWidth() + " h " + UtilKScreen.getRealScreenHeight()
+    fun screenResolution(): String = "设备分辨率: w " + UtilKScreen.getRealWidth() + " h " + UtilKScreen.getRealHeight()
 
     @ADebugKParams("屏幕当前分辨率px")
-    fun screenResolution2(): String = "设备分辨率: w " + UtilKScreen.getCurrentScreenWidth() + " h " + UtilKScreen.getCurrentScreenHeight()
+    fun screenResolution2(): String = "设备分辨率: w " + UtilKScreen.getCurrentWidth() + " h " + UtilKScreen.getCurrentHeight()
 
     @ADebugKParams("屏幕分辨率dp")
-    fun screenResolutionDpi(): String = "设备分辨率: w " + UtilKScreen.getScreenWidthDp() + " h " + UtilKScreen.getScreenHeightDp()
+    fun screenResolutionDpi(): String = "设备分辨率: w " + UtilKScreen.getWidthDp() + " h " + UtilKScreen.getHeightDp()
 
     @ADebugKParams("屏幕密度px")
-    fun screenDensity(): String = UtilKScreen.getScreenDensity().toString()
+    fun screenDensity(): String = UtilKScreen.getDensity().toString()
 
     @ADebugKParams("屏幕密度dp")
-    fun screenDensityDpi(): String = UtilKScreen.getScreenDensityDpi().toString()
+    fun screenDensityDpi(): String = UtilKScreen.getDensityDpi().toString()
 
     @ADebugKParams("状态栏高度")
-    fun screenStatusBarHeight(): String = UtilKStatusBar.getStatusBarHeight().toString()
+    fun screenStatusBarHeight(): String = UtilKStatusBar.getHeight().toString()
 
     @ADebugKParams("导航栏高度")
-    fun screenNavigationBarHeight(): String = UtilKNavigationBar.getNavigationBarHeight().toString()
+    fun screenNavigationBarHeight(): String = UtilKNavigationBar.getHeight().toString()
 
     @ADebugKParams("屏幕竖屏")
-    fun screenIsPortrait(): String = if (UtilKScreen.isScreenPortrait()) "是" else "否"
+    fun screenIsPortrait(): String = if (UtilKScreen.isPortrait()) "是" else "否"
 }

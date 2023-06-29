@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.kotlin.printlog
 import com.mozhimen.basick.utilk.kotlin.UtilKConsole
+import com.mozhimen.basick.utilk.kotlin.keepDigits
 import com.mozhimen.basick.utilk.kotlin.math.UtilKTriangle
 import org.junit.Test
 
@@ -43,8 +44,12 @@ class TestUtilKNumber {
     }
 
     @Test
-    fun keepTwo() {
-        UtilKNumber.keepTwoDigits(2.33333f).printlog()
+    fun keepDigits() {
+        2.33333f.keepDigits(1).printlog()
+        2.33333f.keepDigits(2).printlog()
+        2.33333f.keepDigits(3).printlog()
+        2.33333f.keepDigits(4).printlog()
+        2.33333f.keepDigits(5).printlog()
     }
 
     @Test

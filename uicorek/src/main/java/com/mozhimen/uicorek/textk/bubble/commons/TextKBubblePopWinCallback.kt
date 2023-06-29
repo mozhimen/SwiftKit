@@ -13,7 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
@@ -142,8 +142,8 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
     @SuppressLint("LongLogTag")
     open fun showArrowTo(anchorView: View, relativePos: MRelativePos, marginH: Int, marginV: Int) {
         dismiss()
-        val screenWidth = UtilKScreen.getRealScreenWidth()
-        val screenHeight = UtilKScreen.getRealScreenHeight()
+        val screenWidth = UtilKScreen.getRealWidth()
+        val screenHeight = UtilKScreen.getRealHeight()
 
         val navigationBarHeight = getNavigationBarHeightOffset(anchorView)
         val anchorRect = getRectInWindow(anchorView)
@@ -322,7 +322,7 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
      * @return Int 如果需要修正且存在NavigationBar则返回高度，否则为0
      */
     private fun getNavigationBarHeightOffset(view: View): Int =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_20_44W_KW) UtilKNavigationBar.getNavigationBarHeight(view) else 0
+        if (Build.VERSION.SDK_INT >= CVersionCode.V_20_44W_KW) UtilKNavigationBar.getHeight(view) else 0
 
     private class PopupProp {
         var direction: EArrowDirection = EArrowDirection.Auto

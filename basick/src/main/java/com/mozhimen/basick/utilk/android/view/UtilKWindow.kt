@@ -126,6 +126,6 @@ object UtilKWindow : BaseUtilK() {
 
     @JvmStatic
     fun isFullScreen(activity: Activity): Boolean =
-        isFullScreenInFlag2(activity) || !UtilKNavigationBar.isNavigationBarVisible(activity) || !UtilKStatusBar.isStatusBarVisible(activity)
+        isFullScreenInFlag2(activity) || !UtilKNavigationBar.isVisible(activity) || !UtilKStatusBar.isVisible(activity)
 }
 

@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import com.mozhimen.basick.utilk.android.view.dp2px
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
@@ -40,8 +40,8 @@ open class TextKBubblePopWin(
     override fun showArrowTo(anchorView: View, relativePos: MRelativePos, marginH: Int, marginV: Int) {
         dismiss()
 
-        val screenWidth = UtilKScreen.getRealScreenWidth()
-        val screenHeight = UtilKScreen.getRealScreenHeight()
+        val screenWidth = UtilKScreen.getRealWidth()
+        val screenHeight = UtilKScreen.getRealHeight()
         val navigationBarHeight = getNavigationBarHeightOffset(anchorView)
         val anchorRect = getRectInWindow(anchorView)
 
@@ -105,7 +105,7 @@ open class TextKBubblePopWin(
      * @return Int 如果需要修正且存在NavigationBar则返回高度，否则为0
      */
     private fun getNavigationBarHeightOffset(view: View): Int =
-        UtilKNavigationBar.getNavigationBarHeight(view)
+        UtilKNavigationBar.getHeight(view)
 
     private inner class PopupProp {
         var direction: EArrowDirection = EArrowDirection.Auto

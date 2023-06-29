@@ -1,9 +1,5 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.view.UtilKView
-import org.junit.Assert
-import org.junit.Test
-
 /**
  * @ClassName TestUtilKView
  * @Description TODO

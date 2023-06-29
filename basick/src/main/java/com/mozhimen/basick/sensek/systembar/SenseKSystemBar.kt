@@ -3,6 +3,7 @@ package com.mozhimen.basick.sensek.systembar
 import android.app.Activity
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBar
 import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
+import com.mozhimen.basick.sensek.systembar.helpers.SenseKSystemBarHelper
 import com.mozhimen.basick.utilk.android.view.UtilKSystemBar
 
 /**
@@ -39,19 +40,19 @@ object SenseKSystemBar {
             }
 
             CSystemBarType.LOW_PROFILE -> {
-
+                SenseKSystemBarHelper.setLowProfile(activity)
             }
 
             CSystemBarType.IMMERSED_LIGHT -> {
-                UtilKSystemBar.setImmersed(activity)
+                SenseKSystemBarHelper.setImmersedLight(activity)
             }
 
             CSystemBarType.IMMERSED_FORCE -> {
-
+                SenseKSystemBarHelper.setImmersedForce(activity)
             }
 
             CSystemBarType.IMMERSED_STICKY -> {
-
+                SenseKSystemBarHelper.setImmersedSticky(activity)
             }
 
             CSystemBarType.EXPAND_STATUS_BAR -> {
