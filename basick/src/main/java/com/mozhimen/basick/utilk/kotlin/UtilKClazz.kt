@@ -11,7 +11,21 @@ import android.view.animation.Animation
  * @Date 2022/11/26 23:54
  * @Version 1.0
  */
+fun String.packageStr2Clazz(): Class<*> =
+    UtilKClazz.packageStr2Clazz(this)
+
+fun Class<*>.getPackageStr(): String =
+    UtilKClazz.getPackageStr(this)
+
 object UtilKClazz {
+    @JvmStatic
+    fun packageStr2Clazz(packageStr: String): Class<*> =
+        Class.forName(packageStr)
+
+    @JvmStatic
+    fun getPackageStr(clazz: Class<*>): String =
+        clazz.name
+
     @JvmStatic
     fun clazz2Log(clazz: Class<*>, lineNumber: Int): String {
         return ".(" + clazz.simpleName + ".java:" + lineNumber + ")"

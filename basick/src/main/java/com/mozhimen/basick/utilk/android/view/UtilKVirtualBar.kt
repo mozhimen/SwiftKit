@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.view
 
 import android.content.Context
 import android.util.DisplayMetrics
+import android.view.Display
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 
@@ -24,13 +25,8 @@ object UtilKVirtualBar : BaseUtilK() {
         var virtualBarHeight = 0
         val displayMetrics = DisplayMetrics()
         try {
-            @SuppressWarnings("rawtypes")
-            val clazz = Class.forName("android.view.Display")
-
-            @SuppressWarnings("unchecked")
-            val method = clazz.getMethod("getRealMetrics", DisplayMetrics::class.java)
-            method.invoke(UtilKWindowManager.getDefaultDisplay(context), displayMetrics)
-            virtualBarHeight = displayMetrics.heightPixels - UtilKWindowManager.getDefaultDisplayWidth(context)
+            Display::class.java.getMethod("getRealMetrics", DisplayMetrics::class.java).invoke(UtilKDisplay.getDefault(context), displayMetrics)
+            virtualBarHeight = displayMetrics.heightPixels - UtilKDisplay.getDefaultWidth(context)
         } catch (e: Exception) {
             e.printStackTrace()
             "getVirtualBarHeight Exception ${e.message}".et(TAG)

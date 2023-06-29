@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.UtilKDataType
+import com.mozhimen.basick.utilk.kotlin.isObjPrimitive
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Assert
 import org.junit.Test
@@ -23,4 +24,8 @@ class TestUtilKDataType {
         UtilKDataType.getTypeName(0x000000).printlog()
     }
 
+    @Test
+    fun isObjPrimitive() {
+        2.isObjPrimitive().printlog()
+    }
 }

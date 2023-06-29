@@ -34,24 +34,6 @@ object UtilKWindowManager {
     fun getDefaultDisplay(context: Context): Display =
         get(context).defaultDisplay
 
-    /**
-     * 获取旋转
-     * @return Int
-     */
-    @JvmStatic
-    fun getRotation(context: Context): Int =
-        getDefaultDisplay(context).rotation
-
-    @JvmStatic
-    fun getSize(context: Context, size: Point) {
-        getDefaultDisplay(context).getSize(size)
-    }
-
-    @JvmStatic
-    fun getRealSize(context: Context, size: Point) {
-        getDefaultDisplay(context).getRealSize(size)
-    }
-
     @RequiresApi(CVersionCode.V_30_11_R)
     @JvmStatic
     fun getBounds(context: Context): Rect =
@@ -66,12 +48,4 @@ object UtilKWindowManager {
     @JvmStatic
     fun getBoundsHeight(context: Context): Int =
         getBounds(context).height()
-
-    @JvmStatic
-    fun getDefaultDisplayWidth(context: Context): Int =
-        getDefaultDisplay(context).width
-
-    @JvmStatic
-    fun getDefaultDisplayHeight(context: Context): Int =
-        getDefaultDisplay(context).height
 }

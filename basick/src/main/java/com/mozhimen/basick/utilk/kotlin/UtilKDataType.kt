@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.java.lang.UtilKReflect
 
 /**
  * @ClassName UtilKDataType
@@ -10,6 +11,9 @@ import com.mozhimen.basick.utilk.android.util.et
  * @Date 2022/5/11 18:32
  * @Version 1.0
  */
+fun Any.isObjPrimitive(): Boolean =
+    UtilKDataType.isObjPrimitive(this)
+
 object UtilKDataType : BaseUtilK() {
 
     /**
@@ -40,11 +44,9 @@ object UtilKDataType : BaseUtilK() {
         if (obj.javaClass == String::class.java) return true
         try {
             //只适用于int byte short long boolean char double float
-            val field = obj.javaClass.getField("TYPE")
+            val field = UtilKReflect.getField(obj, "TYPE")
             val clazz = field[null] as Class<*>
-            if (clazz.isPrimitive) {
-                return true
-            }
+            if (clazz.isPrimitive) return true
         } catch (e: IllegalAccessException) {
             e.printStackTrace()
             e.message?.et(TAG)

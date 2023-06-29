@@ -14,8 +14,4 @@ object CSystemBarProperty {
         const val IMMERSED_HARD = 0b1100000000
         const val IMMERSED_HARD_STICKY = 0b1110000000
     }
-
-    object Show {
-        const val SystemBar = 0b
-    }
 }

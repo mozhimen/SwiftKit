@@ -163,16 +163,16 @@ object UtilKShell : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getProp(name: String): String? {
+    fun getProp(packageStr: String): String? {
         val line: String
         var inputBuffer: BufferedReader? = null
         try {
-            val process = Runtime.getRuntime().exec("getprop $name")
+            val process = Runtime.getRuntime().exec("getprop $packageStr")
             inputBuffer = BufferedReader(InputStreamReader(process.inputStream), 1024)
             line = inputBuffer.readLine()
             inputBuffer.close()
         } catch (e: IOException) {
-            Log.e(TAG, "getProp IOException Unable to read prop $name $e")
+            Log.e(TAG, "getProp IOException Unable to read prop $packageStr $e")
             return null
         } finally {
             inputBuffer?.let {

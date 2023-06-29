@@ -4,6 +4,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.kotlin.getPackageStr
+import com.mozhimen.basick.utilk.kotlin.packageStr2Clazz
+import com.mozhimen.debugk.temps.DebugKDialogFragment
 
 /**
  * @ClassName DebugK
@@ -15,8 +18,7 @@ import com.mozhimen.basick.utilk.android.util.et
 object DebugK : BaseUtilK() {
     fun toggleDialog(fragmentManager: FragmentManager) {
         try {
-            val clazz = Class.forName("com.mozhimen.debugk.temps.DebugKDialogFragment")
-            val target = clazz.getConstructor().newInstance() as DialogFragment
+            val target = DebugKDialogFragment::class.java.getConstructor().newInstance() as DialogFragment
             target.show(fragmentManager, "debugk_dialog")
         } catch (e: Exception) {
             e.printStackTrace()

@@ -12,6 +12,8 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.os.UtilKRom
 import com.mozhimen.basick.utilk.android.os.UtilKRomVersion
+import com.mozhimen.basick.utilk.java.lang.UtilKReflect
+import com.mozhimen.basick.utilk.kotlin.packageStr2Clazz
 
 /**
  * @ClassName UtilKStatusBarIcon
@@ -53,12 +55,10 @@ object UtilKStatusBarIcon : BaseUtilK() {
     fun setIcon_MiuiUi_After6(activity: Activity, isDark: Boolean) {
         try {
             val window = UtilKWindow.get(activity)
-            val layoutParams: Class<*> = Class.forName("android.view.MiuiWindowManager${'$'}LayoutParams")
-            val field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE")
-            val darkModeFlag = field.getInt(layoutParams)
+            val EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ = UtilKReflect.getFieldInt("android.view.MiuiWindowManager${'$'}LayoutParams".packageStr2Clazz(), "EXTRA_FLAG_STATUS_BAR_DARK_MODE")
             val extraFlagMethod = window.javaClass.getMethod("setExtraFlags", Int::class.java, Int::class.java)
             //状态栏亮色且黑色字体
-            extraFlagMethod.invoke(window, if (isDark) darkModeFlag else 0, darkModeFlag)
+            extraFlagMethod.invoke(window, if (isDark) EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ else 0, EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ)
         } catch (e: Exception) {
             "setStatusBarFontIcon_MiuiUILarger6: ${e.message}".et(TAG)
             e.printStackTrace()

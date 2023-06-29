@@ -14,27 +14,32 @@ import java.util.List;
  * @Version 1.0
  */
 public class UtilKReflect {
-    public static int getFieldValue(Object obj, String name) throws NoSuchFieldException, IllegalAccessException {
-        return getField(obj, name).getInt(obj);
+    public static int getFieldInt(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
+        return getField(obj, fieldName).getInt(obj);
     }
 
-    public static Field getField(Object obj, String name) throws NoSuchFieldException {
-        return getField(obj.getClass(), name);
+    public static Field getField(Object obj, String fieldName) throws NoSuchFieldException {
+        return getField(obj.getClass(), fieldName);
     }
 
-    public static Field getField(Class<?> clazz, String name) throws NoSuchFieldException {
+    /**
+     * 仅能获取类本身的属性成员（包括私有、共有、保护）
+     * @param clazz
+     * @param fieldName
+     * @return
+     * @throws NoSuchFieldException
+     */
+    public static Field getField(Class<?> clazz, String fieldName) throws NoSuchFieldException {
         for (Class<?> tempClazz = clazz; tempClazz != null; tempClazz = tempClazz.getSuperclass()) {
             try {
-                Field field = tempClazz.getDeclaredField(name);
-                if (!field.isAccessible()) {
-                    field.setAccessible(true);
-                }
+                Field field = tempClazz.getDeclaredField(fieldName);
+                if (!field.isAccessible()) field.setAccessible(true);
                 return field;
             } catch (NoSuchFieldException e) {
                 // ignore and search next
             }
         }
-        throw new NoSuchFieldException("Field " + name + " not found in " + clazz);
+        throw new NoSuchFieldException("Field " + fieldName + " not found in " + clazz);
     }
 
     /**
@@ -60,14 +65,14 @@ public class UtilKReflect {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static Method getMethod(Object obj, String name, Class<?>... parameterTypes) throws NoSuchMethodException {
-        return getMethod(obj.getClass(), name, parameterTypes);
+    public static Method getMethod(Object obj, String methodName, Class<?>... parameterTypes) throws NoSuchMethodException {
+        return getMethod(obj.getClass(), methodName, parameterTypes);
     }
 
-    public static Method getMethod(Class<?> clazz, String name, Class<?>... parameterTypes) throws NoSuchMethodException {
+    public static Method getMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) throws NoSuchMethodException {
         for (Class<?> tempClazz = clazz; tempClazz != null; tempClazz = tempClazz.getSuperclass()) {
             try {
-                Method method = tempClazz.getDeclaredMethod(name, parameterTypes);
+                Method method = tempClazz.getDeclaredMethod(methodName, parameterTypes);
                 if (!method.isAccessible()) {
                     method.setAccessible(true);
                 }
@@ -76,6 +81,6 @@ public class UtilKReflect {
                 // ignore and search next
             }
         }
-        throw new NoSuchMethodException("Method " + name + " with parameters " + Arrays.asList(parameterTypes) + " not found in " + clazz);
+        throw new NoSuchMethodException("Method " + methodName + " with parameters " + Arrays.asList(parameterTypes) + " not found in " + clazz);
     }
 }

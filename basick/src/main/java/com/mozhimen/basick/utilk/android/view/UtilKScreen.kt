@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.os.Build
@@ -114,7 +115,7 @@ object UtilKScreen : BaseUtilK() {
             UtilKWindowManager.getBoundsWidth(_context)
         } else {
             val size = Point()
-            UtilKWindowManager.getSize(_context, size)
+            UtilKDisplay.getDefaultSize(_context, size)
             size.x
         }
 
@@ -128,7 +129,7 @@ object UtilKScreen : BaseUtilK() {
             UtilKWindowManager.getBoundsHeight(_context)
         } else {
             val size = Point()
-            UtilKWindowManager.getSize(_context, size)
+            UtilKDisplay.getDefaultSize(_context, size)
             size.y
         }
 
@@ -190,7 +191,7 @@ object UtilKScreen : BaseUtilK() {
         if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
             UtilKDisplay.getRotation(activity)
         } else {
-            UtilKWindowManager.getRotation(activity)
+            UtilKDisplay.getDefaultRotation(activity as Context)
         }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////

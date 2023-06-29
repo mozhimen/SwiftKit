@@ -5,7 +5,7 @@ import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.utilk.android.content.UtilKResource
-import com.mozhimen.basick.utilk.android.view.UtilKWindowManager
+import com.mozhimen.basick.utilk.android.view.UtilKDisplay
 
 /**
  * @ClassName UtilKDisplayMetrics
@@ -86,7 +86,7 @@ object UtilKDisplayMetrics {
     @JvmStatic
     fun get(context: Context): DisplayMetrics {
         val displayMetrics = DisplayMetrics()
-        UtilKWindowManager.getDefaultDisplay(context).getMetrics(displayMetrics)
+        UtilKDisplay.getDefaultMetrics(context, displayMetrics)
         return displayMetrics
     }
 
@@ -158,7 +158,7 @@ object UtilKDisplayMetrics {
 
     @JvmStatic
     fun px2sp(@FloatRange(from = 0.0) px: Float): Float =
-       px / getScaledDensity() + 0.5f
+        px / getScaledDensity() + 0.5f
 
     @JvmStatic
     fun sp2px(@FloatRange(from = 0.0) sp: Float): Float =

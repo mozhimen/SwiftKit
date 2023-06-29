@@ -6,6 +6,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CVersionCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.kotlin.packageStr2Clazz
 
 import java.lang.reflect.Method
 
@@ -57,7 +58,7 @@ object UtilKSystemProperties : BaseUtilK() {
     @SuppressLint("PrivateApi")
     fun setSystemProperties(key: String, value: String) {
         try {
-            val clazz = Class.forName(CPackage.ANDROID_OS_SYSTEM_PROPERTIES)
+            val clazz = CPackage.ANDROID_OS_SYSTEM_PROPERTIES.packageStr2Clazz()
             val setMethod: Method = clazz.getMethod("set", String::class.java, String::class.java)
             setMethod.invoke(clazz, key, value)
         } catch (e: Exception) {
@@ -68,17 +69,17 @@ object UtilKSystemProperties : BaseUtilK() {
 
     /**
      * 获取首选项
-     * @param key String?
+     * @param packageStr String?
      * @param defaultValue String
      * @return String
      */
     @JvmStatic
     @SuppressLint("PrivateApi")
-    fun getSystemProperties(key: String, defaultValue: String): String =
+    fun getSystemProperties(packageStr: String, defaultValue: String): String =
         try {
-            val clazz = Class.forName(CPackage.ANDROID_OS_SYSTEM_PROPERTIES)
+            val clazz = CPackage.ANDROID_OS_SYSTEM_PROPERTIES.packageStr2Clazz()
             val getMethod: Method = clazz.getMethod("get", String::class.java)
-            (getMethod.invoke(clazz, key) as String).ifEmpty { defaultValue }
+            (getMethod.invoke(clazz, packageStr) as String).ifEmpty { defaultValue }
         } catch (e: Exception) {
             Log.e(TAG, "getSystemProperties Exception ${e.message}")
             e.printStackTrace()
@@ -95,7 +96,7 @@ object UtilKSystemProperties : BaseUtilK() {
     @SuppressLint("PrivateApi")
     fun getSystemPropertiesBool(key: String, defaultValue: Boolean): Boolean =
         try {
-            val clazz = Class.forName(CPackage.ANDROID_OS_SYSTEM_PROPERTIES)
+            val clazz = CPackage.ANDROID_OS_SYSTEM_PROPERTIES.packageStr2Clazz()
             val getMethod: Method = clazz.getMethod("get", String::class.java)
             val resStr = getMethod.invoke(clazz, key) as String
             if (resStr.isNotEmpty()) {

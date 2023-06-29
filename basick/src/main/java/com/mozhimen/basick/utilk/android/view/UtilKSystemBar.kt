@@ -1,9 +1,6 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
-import com.mozhimen.basick.elemk.cons.CView
-import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarMultiProperty
-import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
 import com.mozhimen.basick.utilk.androidx.appcompat.UtilKActionBar
 
 /**

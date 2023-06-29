@@ -7,6 +7,8 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.java.lang.UtilKReflect
+import com.mozhimen.basick.utilk.kotlin.packageStr2Clazz
 
 
 /**
@@ -27,15 +29,14 @@ object UtilKDialog : BaseUtilK() {
     @JvmStatic
     fun closeDialogAtP() {
         try {
-            val clazz = Class.forName("android.content.pm.PackageParser\$Package")
-            val declaredConstructor = clazz.getDeclaredConstructor(String::class.java)
+            val declaredConstructor = "android.content.pm.PackageParser\$Package".packageStr2Clazz().getDeclaredConstructor(String::class.java)
             declaredConstructor.isAccessible = true
 
-            val clazz1 = Class.forName("android.app.ActivityThread")
-            val declaredMethod = clazz1.getDeclaredMethod("currentActivityThread")
+            val activityThreadClazz = "android.app.ActivityThread".packageStr2Clazz()
+            val declaredMethod = activityThreadClazz.getDeclaredMethod("currentActivityThread")
             declaredMethod.isAccessible = true
             val activityThread = declaredMethod.invoke(null)
-            val hiddenApiWarningShown = clazz1.getDeclaredField("mHiddenApiWarningShown")
+            val hiddenApiWarningShown = activityThreadClazz.getDeclaredField("mHiddenApiWarningShown")
             hiddenApiWarningShown.isAccessible = true
             hiddenApiWarningShown.setBoolean(activityThread, true)
         } catch (e: Exception) {
