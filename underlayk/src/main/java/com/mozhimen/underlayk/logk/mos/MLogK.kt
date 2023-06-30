@@ -3,6 +3,7 @@ package com.mozhimen.underlayk.logk.mos
 import com.mozhimen.basick.elemk.cons.CDateFormat
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.elemk.cons.CLogType
+import com.mozhimen.underlayk.logk.helpers.LogKHelper
 
 /**
  * @ClassName LogKMo
@@ -18,6 +19,6 @@ class MLogK(private var _timeMillis: Long, var level: Int, var tag: String, var 
     }
 
     fun getFlattened(): String {
-        return "${UtilKDate.long2Str(_timeMillis, CDateFormat.yyyyMMddHHmmss)} | Level: ${CLogType.getTypeName(level)} | Tag: $tag :"
+        return "${UtilKDate.long2Str(_timeMillis, CDateFormat.yyyyMMddHHmmss)} | Level: ${LogKHelper.getTypeName(level)} | Tag: $tag :"
     }
 }

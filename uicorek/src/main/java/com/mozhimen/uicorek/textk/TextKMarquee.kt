@@ -4,11 +4,9 @@ import android.content.Context
 import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basick.elemk.cons.CVersionCode
-import com.mozhimen.uicorek.R
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 
 
@@ -29,7 +27,7 @@ class TextKMarquee @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     override fun initView() {
         ellipsize = TextUtils.TruncateAt.MARQUEE
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) {
             focusable = View.FOCUSABLE
         }
         isFocusableInTouchMode = true

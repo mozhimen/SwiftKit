@@ -1,8 +1,8 @@
 package com.mozhimen.abilityk.adaptk
 
 import android.app.Activity
-import android.content.res.Configuration
 import android.util.Log
+import com.mozhimen.basick.elemk.cons.CConfig
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CMetaData
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
@@ -58,7 +58,7 @@ class AdaptKMgr {
             override fun onAdaptBefore(target: Any, activity: Activity) {
                 AutoSizeConfig.getInstance().screenWidth = length
                 AutoSizeConfig.getInstance().screenHeight = width
-                if (UtilKScreen.getOrientation() == Configuration.ORIENTATION_LANDSCAPE) {                //根据屏幕方向，设置适配基准
+                if (UtilKScreen.isOrientationLandscape()) {                //根据屏幕方向，设置适配基准
                     AutoSizeConfig.getInstance().designWidthInDp = length.also { _length = length }                //设置横屏基准
                 } else {
                     AutoSizeConfig.getInstance().designWidthInDp = width.also { _width = width }        //设置竖屏基准

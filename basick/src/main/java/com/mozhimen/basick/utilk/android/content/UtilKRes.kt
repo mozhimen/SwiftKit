@@ -6,7 +6,7 @@ import android.os.Build
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
@@ -34,7 +34,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getColor(@ColorRes resId: Int): Int =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) UtilKContext.getColor(_context, resId)
+        if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) UtilKContext.getColor(_context, resId)
         else getColor2(resId)
 
     @JvmStatic
@@ -43,7 +43,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getColorStateList(@ColorRes resId: Int): ColorStateList? =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) UtilKContext.getColorStateList(_context, resId)
+        if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) UtilKContext.getColorStateList(_context, resId)
         else getColorStateList2(resId)
 
     @JvmStatic

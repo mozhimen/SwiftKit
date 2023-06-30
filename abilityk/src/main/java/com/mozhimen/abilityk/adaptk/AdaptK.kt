@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.content.res.Resources
+import com.mozhimen.basick.elemk.cons.CConfig
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import me.jessyan.autosize.AutoSizeCompat
 
@@ -22,7 +23,7 @@ object AdaptK {
             private var _oldResources: Resources = Resources(super.getResources().assets, super.getResources().displayMetrics, super.getResources().configuration)
 
             override fun getResources(): Resources {
-                if (UtilKConfiguration.get(_oldResources).orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                if (UtilKConfiguration.isOrientationLandscape(_oldResources)) {
                     AutoSizeCompat.autoConvertDensityBaseOnWidth(_oldResources, AdaptKMgr.instance.getLength().toFloat())
                 } else {
                     AutoSizeCompat.autoConvertDensityBaseOnHeight(_oldResources, AdaptKMgr.instance.getLength().toFloat())

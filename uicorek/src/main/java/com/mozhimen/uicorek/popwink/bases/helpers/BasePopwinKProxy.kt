@@ -9,10 +9,9 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.PopupWindow
-import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.android.app.UtilKActivity.getActivityByContext
+import com.mozhimen.basick.utilk.android.app.UtilKActivity.getByContext
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.view.UtilKView.removeViewFromParent
@@ -81,7 +80,7 @@ class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context
 
     override fun showAtLocation(parent: View, gravity: Int, x: Int, y: Int) {
         if (isShowing) return
-        val activity = getActivityByContext(parent.context, false)
+        val activity = getByContext(parent.context, false)
         if (activity == null) {
             Log.e(TAG, UtilKRes.getString(R.string.base_popwink_error_non_act_context))
             return
@@ -100,12 +99,12 @@ class BasePopwinKProxy(context: BasePopwinKContextWrapper) : PopupWindow(context
     fun onAfterShowExec(act: Activity?) {
         if (_isHandledFullScreen) {
             var flag = (
-                    CView.SystemUi.FLAG_LAYOUT_STABLE
-                            or CView.SystemUi.FLAG_LAYOUT_HIDE_NAVIGATION
-                            or CView.SystemUi.FLAG_HIDE_NAVIGATION
-                            or CView.SystemUi.FLAG_IMMERSIVE_STICKY
-                            or CView.SystemUi.FLAG_LAYOUT_FULLSCREEN
-                            or CView.SystemUi.FLAG_FULLSCREEN
+                    CView.SystemUiFlag.LAYOUT_STABLE
+                            or CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION
+                            or CView.SystemUiFlag.HIDE_NAVIGATION
+                            or CView.SystemUiFlag.IMMERSIVE_STICKY
+                            or CView.SystemUiFlag.LAYOUT_FULLSCREEN
+                            or CView.SystemUiFlag.FULLSCREEN
                     )
             if (act != null) {
                 flag = act.window.decorView.systemUiVisibility

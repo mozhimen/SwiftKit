@@ -4,6 +4,7 @@ import android.app.Activity
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBar
 import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
 import com.mozhimen.basick.sensek.systembar.helpers.SenseKSystemBarHelper
+import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.view.UtilKSystemBar
 
 /**
@@ -25,6 +26,46 @@ import com.mozhimen.basick.utilk.android.view.UtilKSystemBar
 object SenseKSystemBar {
 
     @JvmStatic
+    fun init(
+        activity: Activity,
+        isImmersed: Boolean = false,
+        isImmersedHard: Boolean = false,
+        isImmersedSticky: Boolean = false,
+        //////////////////////////////////////
+        isStatusBarHide: Boolean = false,
+        isNavigationBarHide: Boolean = false,
+        isTitleBarHide: Boolean = false,
+        isActionBarHide: Boolean = false,
+        //////////////////////////////////////
+        isStatusBarOverlay: Boolean = false,
+        isNavigationBarOverlay: Boolean = false,
+        isLayoutStable: Boolean = false,//设置布局不受系统栏出现隐藏的而改变位置
+        isFitsSystemWindows: Boolean = false,//设置系统栏在控件上方的时候,不遮挡控件
+        //////////////////////////////////////
+        isStatusBarIconLowProfile: Boolean = false,
+        isThemeCustom: Boolean = false,
+        isThemeDark: Boolean = false
+    ) {
+        if (isStatusBarIconLowProfile) {
+            SenseKSystemBarHelper.setSystemBarLowProfile(activity)
+        }
+
+        if (isThemeCustom) {
+            SenseKSystemBarHelper.setSystemBarTheme(activity, isThemeDark)
+        } else {
+            SenseKSystemBarHelper.setSystemBarTheme(activity, UtilKConfiguration.isDarkMode())
+        }
+
+        if (isImmersed) {
+            SenseKSystemBarHelper.hideSystemBar(activity, isStatusBarHide, isNavigationBarHide, isTitleBarHide, isActionBarHide)
+            SenseKSystemBarHelper.overlaySystemBar(activity, isStatusBarOverlay, isNavigationBarOverlay)
+            if (isLayoutStable) SenseKSystemBarHelper.setLayoutStable(activity)
+            if (isFitsSystemWindows) SenseKSystemBarHelper.setFitsSystemWindows(activity)
+            SenseKSystemBarHelper.setImmersed(activity, isImmersedHard, isImmersedSticky)
+        }
+    }
+
+    @JvmStatic
     fun init(activity: Activity) {
         val statusBarAnnor: ASenseKSystemBar =
             activity.javaClass.getAnnotation(ASenseKSystemBar::class.java) ?: ASenseKSystemBar(systemBarType = CSystemBarType.NORMAL)
@@ -40,19 +81,15 @@ object SenseKSystemBar {
             }
 
             CSystemBarType.LOW_PROFILE -> {
-                SenseKSystemBarHelper.setLowProfile(activity)
             }
 
             CSystemBarType.IMMERSED_LIGHT -> {
-                SenseKSystemBarHelper.setImmersedLight(activity)
             }
 
             CSystemBarType.IMMERSED_FORCE -> {
-                SenseKSystemBarHelper.setImmersedForce(activity)
             }
 
             CSystemBarType.IMMERSED_STICKY -> {
-                SenseKSystemBarHelper.setImmersedSticky(activity)
             }
 
             CSystemBarType.EXPAND_STATUS_BAR -> {

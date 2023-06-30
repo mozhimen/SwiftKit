@@ -14,7 +14,7 @@ import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 
@@ -62,8 +62,8 @@ object UtilKPackageManager {
      * @return Boolean
      */
     @JvmStatic
-    @RequiresApi(CVersionCode.V_26_8_O)
-    @TargetApi(CVersionCode.V_26_8_O)
+    @RequiresApi(CVersCode.V_26_8_O)
+    @TargetApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun canRequestPackageInstalls(context: Context): Boolean =

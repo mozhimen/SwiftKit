@@ -63,8 +63,22 @@ object UtilKDecorView : BaseUtilK() {
 
     @JvmStatic
     fun setSystemUiVisibilityOr(decorView: View, visibility: Int) {
-        val systemUiVisibility = getSystemUiVisibility(decorView)
-        decorView.systemUiVisibility = systemUiVisibility or visibility
+        setSystemUiVisibility(decorView, getSystemUiVisibility(decorView) or visibility)
+    }
+
+    @JvmStatic
+    fun setSystemUiVisibilityAnd(activity: Activity, visibility: Int) {
+        setSystemUiVisibilityAnd(activity.window, visibility)
+    }
+
+    @JvmStatic
+    fun setSystemUiVisibilityAnd(window: Window, visibility: Int) {
+        setSystemUiVisibilityAnd(get(window), visibility)
+    }
+
+    @JvmStatic
+    fun setSystemUiVisibilityAnd(decorView: View, visibility: Int) {
+        setSystemUiVisibility(decorView, getSystemUiVisibility(decorView) and visibility)
     }
 
     @JvmStatic
@@ -97,6 +111,23 @@ object UtilKDecorView : BaseUtilK() {
     @JvmStatic
     fun getWindowVisibleDisplayFrame(view: View, rect: Rect) {
         UtilKView.getWindowVisibleDisplayFrame(view, rect)
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun setLayoutStable(activity: Activity) {
+        setSystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_STABLE)
+    }
+
+    @JvmStatic
+    fun setImmersedHard(activity: Activity) {
+        setSystemUiVisibilityOr(activity, CView.SystemUiFlag.IMMERSIVE)
+    }
+
+    @JvmStatic
+    fun setImmersedSticky(activity: Activity) {
+        setSystemUiVisibilityOr(activity, CView.SystemUiFlag.IMMERSIVE_STICKY)
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -139,12 +170,12 @@ object UtilKDecorView : BaseUtilK() {
     @JvmStatic
     fun setFullScreen(decorView: View) {
         setSystemUiVisibility(
-            decorView, (CView.SystemUi.FLAG_LOW_PROFILE or
-                    CView.SystemUi.FLAG_FULLSCREEN or
-                    CView.SystemUi.FLAG_LAYOUT_STABLE or
-                    CView.SystemUi.FLAG_IMMERSIVE_STICKY or
-                    CView.SystemUi.FLAG_LAYOUT_HIDE_NAVIGATION or
-                    CView.SystemUi.FLAG_HIDE_NAVIGATION)
+            decorView, (CView.SystemUiFlag.LOW_PROFILE or
+                    CView.SystemUiFlag.FULLSCREEN or
+                    CView.SystemUiFlag.LAYOUT_STABLE or
+                    CView.SystemUiFlag.IMMERSIVE_STICKY or
+                    CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION or
+                    CView.SystemUiFlag.HIDE_NAVIGATION)
         )
     }
 }

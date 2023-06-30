@@ -9,7 +9,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -27,7 +27,7 @@ object UtilKPermission : BaseUtilK() {
 
     @JvmStatic
     fun hasOverlay(): Boolean =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) {
             hasOverlay2()
         } else true
 
@@ -35,12 +35,12 @@ object UtilKPermission : BaseUtilK() {
      * 是否有Overlay的权限
      * @return Boolean
      */
-    @RequiresApi(CVersionCode.V_23_6_M)
+    @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
     @ADescription(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
     fun hasOverlay2(): Boolean {
-        return Build.VERSION.SDK_INT < CVersionCode.V_23_6_M || Settings.canDrawOverlays(_context)
+        return Build.VERSION.SDK_INT < CVersCode.V_23_6_M || Settings.canDrawOverlays(_context)
     }
 
 
@@ -48,7 +48,7 @@ object UtilKPermission : BaseUtilK() {
      * 是否有文件管理权限
      * @return Boolean
      */
-    @RequiresApi(CVersionCode.V_30_11_R)
+    @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     @ADescription(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
@@ -62,7 +62,7 @@ object UtilKPermission : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     fun hasPackageInstalls(): Boolean {
-        return if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
+        return if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) {
             hasPackageInstallsAfterO()
         } else true
     }
@@ -72,8 +72,8 @@ object UtilKPermission : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    @RequiresApi(CVersionCode.V_26_8_O)
-    @TargetApi(CVersionCode.V_26_8_O)
+    @RequiresApi(CVersCode.V_26_8_O)
+    @TargetApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun hasPackageInstallsAfterO(): Boolean =

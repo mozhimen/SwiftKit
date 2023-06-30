@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
-import com.mozhimen.basick.elemk.cons.CWindow
+import com.mozhimen.basick.elemk.cons.CWin
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import kotlin.math.abs
 
@@ -25,6 +25,6 @@ object UtilKTitleBar {
 
     @JvmStatic
     fun hide(activity: Activity) {
-        UtilKActivity.requestWindowFeature(activity, CWindow.Feature.NO_TITLE)
+        UtilKActivity.requestWindowFeature(activity, CWin.Feature.NO_TITLE)
     }
 }

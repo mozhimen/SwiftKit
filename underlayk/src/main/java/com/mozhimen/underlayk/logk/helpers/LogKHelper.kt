@@ -24,4 +24,15 @@ object LogKHelper {
             else -> -0x100
         }
     )
+
+    @JvmStatic
+    fun getTypeName(level: Int): String = when (level) {
+        2 -> "V"
+        3 -> "D"
+        4 -> "I"
+        5 -> "W"
+        6 -> "E"
+        7 -> "A"
+        else -> "UNKNOWN"
+    }
 }

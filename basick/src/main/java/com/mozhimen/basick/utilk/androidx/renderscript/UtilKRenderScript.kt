@@ -9,7 +9,7 @@ import android.os.Build
 import android.view.View
 import androidx.annotation.ChecksSdkIntAtLeast
 import androidx.renderscript.*
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
@@ -48,10 +48,10 @@ object UtilKRenderScript : BaseUtilK() {
         return _renderScript
     }
 
-    @ChecksSdkIntAtLeast(api = CVersionCode.V_18_43_J2)
+    @ChecksSdkIntAtLeast(api = CVersCode.V_18_43_J2)
     @JvmStatic
     fun isRenderScriptSupported(): Boolean {
-        return Build.VERSION.SDK_INT > CVersionCode.V_17_42_J1
+        return Build.VERSION.SDK_INT > CVersCode.V_17_42_J1
     }
 
     @JvmStatic
@@ -82,7 +82,7 @@ object UtilKRenderScript : BaseUtilK() {
     }
 
     @JvmStatic
-    @TargetApi(CVersionCode.V_17_42_J1)
+    @TargetApi(CVersCode.V_17_42_J1)
     fun scriptBlur(origin: Bitmap?, outWidth: Int, outHeight: Int, radius: Float): Bitmap? {
         if (origin == null || origin.isRecycled) return null
         val renderScript = getRenderScriptInstance(_context)
@@ -164,7 +164,7 @@ object UtilKRenderScript : BaseUtilK() {
             bgDrawable.draw(canvas)
         }
         if (fullScreen) {
-            if (statusBarHeight > 0 && Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L && view.context is Activity) {
+            if (statusBarHeight > 0 && Build.VERSION.SDK_INT >= CVersCode.V_21_5_L && view.context is Activity) {
                 val statusBarColor = (view.context as Activity).window.statusBarColor
                 val paint = Paint(Paint.ANTI_ALIAS_FLAG)
                 paint.color = statusBarColor

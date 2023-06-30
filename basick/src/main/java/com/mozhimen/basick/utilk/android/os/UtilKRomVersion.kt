@@ -18,7 +18,7 @@ object UtilKRomVersion : BaseUtilK() {
 
     @JvmStatic
     @SuppressLint("PrivateApi")
-    fun isMIUILarger6(): Boolean {
+    fun isMIUIAfter6(): Boolean {
         return try {
             val clazz = "android.os.SystemProperties".packageStr2Clazz()
             val method: Method = clazz.getMethod("get", String::class.java)
@@ -39,7 +39,7 @@ object UtilKRomVersion : BaseUtilK() {
      */
     @JvmStatic
     @SuppressLint("PrivateApi")
-    fun isColorOSLarger3(): Boolean {
+    fun isColorOSAfter3(): Boolean {
         return try {
             val clazz = "android.os.SystemProperties".packageStr2Clazz()
             val method = clazz.getMethod("get", String::class.java)

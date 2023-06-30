@@ -11,7 +11,7 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
@@ -43,7 +43,7 @@ object UtilKActivity {
     fun getCurrentFocus(activity: Activity): View? =
         activity.currentFocus
 
-    @RequiresApi(CVersionCode.V_30_11_R)
+    @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     fun getDisplay(activity: Activity): Display =
         activity.display!!
@@ -71,7 +71,7 @@ object UtilKActivity {
      * @return Activity?
      */
     @JvmStatic
-    fun getActivityByContext(context: Context, returnTopIfNull: Boolean = false): Activity? {
+    fun getByContext(context: Context, returnTopIfNull: Boolean = false): Activity? {
         var tempContext = context
         if (tempContext is Activity) {
             return tempContext
@@ -96,8 +96,8 @@ object UtilKActivity {
      * @return Activity?
      */
     @JvmStatic
-    fun getActivityByView(view: View): Activity? =
-        getActivityByContext(view.context)
+    fun getByView(view: View): Activity? =
+        getByContext(view.context)
 
     /**
      * 寻找Activity从Obj
@@ -106,11 +106,11 @@ object UtilKActivity {
      * @return Activity?
      */
     @JvmStatic
-    fun getActivityByObj(obj: Any, returnTopIfNull: Boolean = false): Activity? {
+    fun getByObj(obj: Any, returnTopIfNull: Boolean = false): Activity? {
         var activity: Activity? = null
         when (obj) {
             is Context -> {
-                activity = getActivityByContext(obj, true)
+                activity = getByContext(obj, true)
             }
 
             is Fragment -> {
@@ -118,7 +118,7 @@ object UtilKActivity {
             }
 
             is Dialog -> {
-                activity = getActivityByContext(obj.context, true)
+                activity = getByContext(obj.context, true)
             }
         }
         if (activity == null && returnTopIfNull) {
@@ -134,7 +134,7 @@ object UtilKActivity {
      */
     @JvmStatic
     fun isDestroyed(context: Context): Boolean {
-        val activity: Activity? = getActivityByContext(context)
+        val activity: Activity? = getByContext(context)
         return if (activity != null) isDestroyed(activity) else true
     }
 
@@ -145,7 +145,7 @@ object UtilKActivity {
      */
     @JvmStatic
     fun isDestroyed(activity: Activity): Boolean {
-        return if (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1) {
+        return if (Build.VERSION.SDK_INT >= CVersCode.V_17_42_J1) {
             activity.isDestroyed || isFinishing(activity)
         } else isFinishing(activity)
     }

@@ -9,7 +9,7 @@ import android.view.Window
  * @Date 2023/6/28 17:19
  * @Version 1.0
  */
-object CWindow {
+object CWin {
     object Feature {
         const val OPTIONS_PANEL = Window.FEATURE_OPTIONS_PANEL
         const val NO_TITLE = Window.FEATURE_NO_TITLE

@@ -61,7 +61,7 @@ object UtilKContentView : BaseUtilK() {
 
     /**
      * 采用谷歌原生状态栏文字颜色的方法进行设置,携带
-     * @see CView.SystemUi.FLAG_LAYOUT_FULLSCREEN 这个flag那么默认界面会变成全屏模式,
+     * @see CView.SystemUiFlag.LAYOUT_FULLSCREEN 这个flag那么默认界面会变成全屏模式,
      * 需要在根布局中设置FitSystemWindows属性为true, 所以添加Process方法中加入如下的代码
      * 或者在xml中添加android:fitSystemWindows="true"
      * 华为,OPPO机型在StatusUtil.setLightStatusBar后布局被顶到状态栏上去了

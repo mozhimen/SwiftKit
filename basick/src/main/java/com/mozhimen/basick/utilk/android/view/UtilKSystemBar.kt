@@ -17,10 +17,52 @@ object UtilKSystemBar {
     }
 
     @JvmStatic
-    fun setImmersed(activity: Activity) {
+    fun hideTitleBar(activity: Activity) {
         UtilKTitleBar.hide(activity)
+    }
+
+    @JvmStatic
+    fun hideActionBar(activity: Activity) {
         UtilKActionBar.hide(activity)
+    }
+
+    @JvmStatic
+    fun hideStatusBar(activity: Activity) {
         UtilKStatusBar.hide(activity)
+    }
+
+    @JvmStatic
+    fun hideNavigationBar(activity: Activity) {
         UtilKNavigationBar.hide(activity)
+    }
+
+    @JvmStatic
+    fun overlayStatusBar(activity: Activity) {
+        UtilKStatusBar.overlay(activity)
+    }
+
+    @JvmStatic
+    fun overlayNavigationBar(activity: Activity) {
+        UtilKNavigationBar.overlay(activity)
+    }
+
+    @JvmStatic
+    fun setLayoutStable(activity: Activity) {
+        UtilKDecorView.setLayoutStable(activity)
+    }
+
+    @JvmStatic
+    fun setFitsSystemWindows(activity: Activity) {
+        UtilKContentView.setFitsSystemWindows(activity)
+    }
+
+    @JvmStatic
+    fun setImmersedHard(activity: Activity) {
+        UtilKDecorView.setImmersedHard(activity)
+    }
+
+    @JvmStatic
+    fun setImmersedSticky(activity: Activity) {
+        UtilKDecorView.setImmersedSticky(activity)
     }
 }

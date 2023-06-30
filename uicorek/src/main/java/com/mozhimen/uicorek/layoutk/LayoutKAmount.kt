@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.mozhimen.basick.elemk.commons.IValue1Listener
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.basick.utilk.android.util.dp2px
@@ -116,7 +116,7 @@ class LayoutKAmount @JvmOverloads constructor(context: Context, attrs: Attribute
     private fun genBtn(): Button {
         val button = Button(context)
         button.setBackgroundResource(0)
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L) button.elevation = 0f
+        if (Build.VERSION.SDK_INT >= CVersCode.V_21_5_L) button.elevation = 0f
         button.setPadding(0)
         button.includeFontPadding = false
         button.setTextColor(_attrs.btnTextColor)

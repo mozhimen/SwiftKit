@@ -17,15 +17,4 @@ object CLogType {
     const val W = Log.WARN
     const val E = Log.ERROR
     const val A = Log.ASSERT
-
-    @JvmStatic
-    fun getTypeName(level: Int): String = when (level) {
-        2 -> "V"
-        3 -> "D"
-        4 -> "I"
-        5 -> "W"
-        6 -> "E"
-        7 -> "A"
-        else -> "UNKNOWN"
-    }
 }

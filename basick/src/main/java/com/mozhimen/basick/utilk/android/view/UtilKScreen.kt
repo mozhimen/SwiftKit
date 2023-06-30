@@ -8,7 +8,7 @@ import android.os.Build
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.FloatRange
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
@@ -111,12 +111,10 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getRealWidth(): Int =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_30_11_R) {
             UtilKWindowManager.getBoundsWidth(_context)
         } else {
-            val size = Point()
-            UtilKDisplay.getDefaultSize(_context, size)
-            size.x
+            UtilKWindowManager.getSizeX(_context)
         }
 
     /**
@@ -125,12 +123,10 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getRealHeight(): Int =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_30_11_R) {
             UtilKWindowManager.getBoundsHeight(_context)
         } else {
-            val size = Point()
-            UtilKDisplay.getDefaultSize(_context, size)
-            size.y
+            UtilKWindowManager.getSizeY(_context)
         }
 
     /**
@@ -178,8 +174,12 @@ object UtilKScreen : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun isPortrait(): Boolean =
+    fun isOrientationPortrait(): Boolean =
         UtilKConfiguration.isOrientationPortrait()
+
+    @JvmStatic
+    fun isOrientationLandscape(): Boolean =
+        UtilKConfiguration.isOrientationLandscape()
 
     /**
      * 获取方向
@@ -188,7 +188,7 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getRotation(activity: Activity): Int =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_30_11_R) {
             UtilKDisplay.getRotation(activity)
         } else {
             UtilKDisplay.getDefaultRotation(activity as Context)

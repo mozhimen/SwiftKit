@@ -8,7 +8,7 @@ package com.mozhimen.basick.elemk.cons
  * @Date 2023/1/9 17:55
  * @Version 1.0
  */
-object CVersionCode {
+object CVersCode {
     const val V_1_1_B = 1//BASE
     const val V_2_11_B11 = 2//BASE_1_1
     const val V_3_15_C = 3//CUPCAKE

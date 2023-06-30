@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.elemk.delegate.VarDelegate_GetFun_R_Nonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -40,7 +40,7 @@ class FpsKProxy : IFpsK, BaseUtilK() {
             flags = CWinMgr.Lpf.NOT_FOCUSABLE or CWinMgr.Lpf.NOT_TOUCHABLE or CWinMgr.Lpf.NOT_TOUCH_MODAL
             format = PixelFormat.TRANSLUCENT
             gravity = Gravity.END or Gravity.BOTTOM
-            type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgr.Lpt.APPLICATION_OVERLAY else CWinMgr.Lpt.TOAST
+            type = if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) CWinMgr.Lpt.APPLICATION_OVERLAY else CWinMgr.Lpt.TOAST
         }
     }
     private var _isOpen = false

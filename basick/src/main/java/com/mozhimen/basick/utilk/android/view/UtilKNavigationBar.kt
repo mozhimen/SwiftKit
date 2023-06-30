@@ -11,10 +11,10 @@ import android.view.Display
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
-import com.mozhimen.basick.utilk.android.app.UtilKActivity.getActivityByContext
+import com.mozhimen.basick.utilk.android.app.UtilKActivity.getByContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.isDestroyed
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.content.UtilKResource
@@ -35,14 +35,19 @@ object UtilKNavigationBar : BaseUtilK() {
 
     @JvmStatic
     fun hide(activity: Activity) {
-        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUi.FLAG_HIDE_NAVIGATION /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
+        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUiFlag.HIDE_NAVIGATION /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
+    }
+
+    @JvmStatic
+    fun overlay(activity: Activity) {
+        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION)
     }
 
     @JvmStatic
     fun isVisible(activity: Activity): Boolean {
         val windowSystemUiVisibility = UtilKDecorView.getWindowSystemUiVisibility(activity)
-        return (windowSystemUiVisibility and CView.SystemUi.FLAG_HIDE_NAVIGATION == 0 &&
-                windowSystemUiVisibility and CView.SystemUi.FLAG_LAYOUT_HIDE_NAVIGATION == 0)
+        return (windowSystemUiVisibility and CView.SystemUiFlag.HIDE_NAVIGATION == 0 &&
+                windowSystemUiVisibility and CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION == 0)
     }
 
     @JvmStatic
@@ -56,7 +61,7 @@ object UtilKNavigationBar : BaseUtilK() {
      */
     @JvmStatic
     fun getBounds(rect: Rect, context: Context) {
-        val activity = getActivityByContext(context, true)
+        val activity = getByContext(context, true)
         if (activity == null || isDestroyed(activity)) return
         val decorView = UtilKDecorView.get(activity) as ViewGroup
         val childCount = decorView.childCount
@@ -109,13 +114,13 @@ object UtilKNavigationBar : BaseUtilK() {
      */
     @JvmStatic
     fun getHeight(view: View): Int {
-        val activity: Activity? = UtilKActivity.getActivityByView(view)
+        val activity: Activity? = UtilKActivity.getByView(view)
         if (activity != null) {
             val display = UtilKDisplay.getDefault(activity)
             val size = Point()
             UtilKDisplay.getDefaultSize(activity, size)
             val usableHeight = size.y
-            if (Build.VERSION.SDK_INT >= CVersionCode.V_17_42_J1) {
+            if (Build.VERSION.SDK_INT >= CVersCode.V_17_42_J1) {
                 UtilKDisplay.getDefaultRealSize(activity, size) // getRealMetrics is only available with API 17 and +
             } else {
                 try {

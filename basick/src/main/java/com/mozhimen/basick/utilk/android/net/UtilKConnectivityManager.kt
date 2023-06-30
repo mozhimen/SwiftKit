@@ -8,7 +8,7 @@ import android.net.NetworkInfo
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
@@ -47,7 +47,7 @@ object UtilKConnectivityManager {
         get(context).allNetworkInfo
 
     @JvmStatic
-    @RequiresApi(CVersionCode.V_23_6_M)
+    @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun getActiveNetwork(context: Context): Network? =
         get(context).activeNetwork
@@ -55,7 +55,7 @@ object UtilKConnectivityManager {
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun isNetworkConnected(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
+        return if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) {
             isNetworkConnectedAfterM(context)
         } else {
             isNetworkConnectedBeforeM(context)
@@ -63,7 +63,7 @@ object UtilKConnectivityManager {
     }
 
     @JvmStatic
-    @RequiresApi(CVersionCode.V_23_6_M)
+    @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun isNetworkConnectedAfterM(context: Context): Boolean {
         val networkCapabilities = get(context).getNetworkCapabilities(getActiveNetwork(context) ?: return false) ?: return false

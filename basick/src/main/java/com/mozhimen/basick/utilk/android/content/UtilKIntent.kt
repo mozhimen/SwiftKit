@@ -9,7 +9,7 @@ import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CMediaFormat
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
@@ -61,7 +61,7 @@ object UtilKIntent {
      * @param context Context
      * @return Intent
      */
-    @RequiresApi(CVersionCode.V_26_8_O)
+    @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getSettingNotification(context: Context): Intent =
         Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
@@ -73,7 +73,7 @@ object UtilKIntent {
      * @param context Context
      * @return Intent
      */
-    @RequiresApi(CVersionCode.V_30_11_R)
+    @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun getManageAll(context: Context): Intent =
@@ -84,7 +84,7 @@ object UtilKIntent {
      * @param context Context
      * @return Intent
      */
-    @RequiresApi(CVersionCode.V_23_6_M)
+    @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     fun getManageOverlay(context: Context): Intent =
         Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
@@ -94,7 +94,7 @@ object UtilKIntent {
      * @param context Context
      * @return Intent
      */
-    @RequiresApi(CVersionCode.V_26_8_O)
+    @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getManageInstallSource(context: Context): Intent =
         Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
@@ -154,7 +154,7 @@ object UtilKIntent {
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     fun getInstall(filePathWithName: String): Intent? {
         val intent = Intent(Intent.ACTION_VIEW)
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
+        if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
         intent.setDataAndType(UtilKUri.filePathStr2Uri(filePathWithName) ?: return null, "application/vnd.android.package-archive")

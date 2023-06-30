@@ -16,6 +16,7 @@ import android.view.ViewPropertyAnimator;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
+import com.mozhimen.basick.elemk.cons.CConfig;
 import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
 import com.mozhimen.basick.utilk.android.view.UtilKView;
@@ -761,7 +762,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
     public void onChange(Rect keyboardBounds, boolean isVisible) {
         if (mHelper.isOutSideTouchable() && !mHelper.isOverlayStatusbar()) return;
         boolean forceAdjust = (mHelper.flag & CFlag.KEYBOARD_FORCE_ADJUST) != 0;
-        boolean process = forceAdjust || ((UtilKScreen.getOrientation() != Configuration.ORIENTATION_LANDSCAPE)
+        boolean process = forceAdjust || (!UtilKScreen.isOrientationLandscape()
                 && (mHelper.getSoftInputMode() == CWinMgr.Lpsi.ADJUST_PAN ||
                 mHelper.getSoftInputMode() == CWinMgr.Lpsi.ADJUST_RESIZE));
 

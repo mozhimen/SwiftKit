@@ -6,7 +6,7 @@ import com.mozhimen.abilityk.transk.TransKTTS
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -19,7 +19,7 @@ class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
             ManifestKPermission.initPermissions(this, arrayOf(CPermission.FOREGROUND_SERVICE)) {
                 super.initData(savedInstanceState)
             }

@@ -13,7 +13,7 @@ import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
@@ -122,7 +122,7 @@ object UtilKUri : BaseUtilK() {
             Log.e(TAG, "file2Uri: file isFileExist false")
             return null
         }
-        return if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
+        return if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {
             val authority = "${UtilKPackage.getPackageName()}.fileProvider"
             Log.d(TAG, "file2Uri: authority $authority")
             FileProvider.getUriForFile(_context, authority, file).also {

@@ -34,7 +34,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.mozhimen.basick.elemk.cons.CVersionCode;
+import com.mozhimen.basick.elemk.cons.CVersCode;
 import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.utilk.android.content.UtilKResource;
@@ -614,7 +614,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
 
     void getSafeInsetBounds(Rect r) {
         if (r == null) return;
-        if (Build.VERSION.SDK_INT < CVersionCode.V_28_9_P) {
+        if (Build.VERSION.SDK_INT < CVersCode.V_28_9_P) {
             r.setEmpty();
             return;
         }
@@ -1185,11 +1185,11 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     static Activity findActivity(Object parent, boolean returnTopIfNull) {
         Activity act = null;
         if (parent instanceof Context) {
-            act = UtilKActivity.getActivityByContext((Context) parent, true);
+            act = UtilKActivity.getByContext((Context) parent, true);
         } else if (parent instanceof Fragment) {
             act = ((Fragment) parent).getActivity();
         } else if (parent instanceof Dialog) {
-            act = UtilKActivity.getActivityByContext(((Dialog) parent).getContext(), true);
+            act = UtilKActivity.getByContext(((Dialog) parent).getContext(), true);
         }
         if (act == null && returnTopIfNull) {
             act = StackKCb.getInstance().getStackTopActivity(true);
@@ -1212,7 +1212,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
         } else if (parent instanceof Fragment) {
             decorView = ((Fragment) parent).getView();
         } else if (parent instanceof Context) {
-            Activity act = UtilKActivity.getActivityByContext((Context) parent, true);
+            Activity act = UtilKActivity.getByContext((Context) parent, true);
             decorView = act == null ? null : UtilKContentView.get(act);
         }
 

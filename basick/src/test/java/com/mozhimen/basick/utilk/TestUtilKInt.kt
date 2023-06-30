@@ -16,5 +16,8 @@ class TestUtilKInt {
     fun test() {
         (0b11 or 0b100).getByteStr(8).printlog()
         (0b11 or 0b100).getByteStr().printlog()
+        (0b1 shl 7).getByteStr(8).printlog()
+
+        (0b11 shl 8).getByteStr(10).printlog()
     }
 }

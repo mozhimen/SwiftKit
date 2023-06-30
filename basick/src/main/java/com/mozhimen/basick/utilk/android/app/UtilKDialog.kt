@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.app
 
 import android.annotation.SuppressLint
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -25,7 +25,7 @@ object UtilKDialog : BaseUtilK() {
      * 关闭Android9.0弹出框（Detected problems with API compatibility）
      */
     @SuppressLint("PrivateApi", "DiscouragedPrivateApi", "SoonBlockedPrivateApi")
-    @RequiresApi(CVersionCode.V_28_9_P)
+    @RequiresApi(CVersCode.V_28_9_P)
     @JvmStatic
     fun closeDialogAtP() {
         try {

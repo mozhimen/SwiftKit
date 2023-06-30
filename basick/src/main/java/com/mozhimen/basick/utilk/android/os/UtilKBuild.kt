@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.os
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
 import com.mozhimen.basick.elemk.cons.CDateFormat
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.kotlin.joinArray2Str
 import com.mozhimen.basick.utilk.java.util.long2Str
 
@@ -108,9 +108,9 @@ object UtilKBuild {
     @JvmStatic
     fun getTime(): String = Build.TIME.long2Str(CDateFormat.yyyyMMddHHmmss)
 
-    @ChecksSdkIntAtLeast(api = CVersionCode.V_29_10_Q)
-    fun isQPlus() = Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q
+    @ChecksSdkIntAtLeast(api = CVersCode.V_29_10_Q)
+    fun isQPlus() = Build.VERSION.SDK_INT >= CVersCode.V_29_10_Q
 
-    @ChecksSdkIntAtLeast(api = CVersionCode.V_24_7_N)
-    fun isNougatPlus() = Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N
+    @ChecksSdkIntAtLeast(api = CVersCode.V_24_7_N)
+    fun isNougatPlus() = Build.VERSION.SDK_INT >= CVersCode.V_24_7_N
 }

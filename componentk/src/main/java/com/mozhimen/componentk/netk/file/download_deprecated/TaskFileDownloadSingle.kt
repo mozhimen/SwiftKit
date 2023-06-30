@@ -6,7 +6,7 @@ import com.liulishuo.okdownload.DownloadTask
 import com.liulishuo.okdownload.StatusUtil
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.kotlin.text.UtilKVerifyUrl
@@ -45,7 +45,7 @@ class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
     }
 
     private fun popupDownloadTask(url: String) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {
             _downloadUrls.removeIf { it == url }
         } else {
             _downloadUrls.remove(url)

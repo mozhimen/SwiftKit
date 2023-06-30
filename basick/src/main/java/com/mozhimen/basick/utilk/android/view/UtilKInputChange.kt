@@ -9,7 +9,7 @@ import android.view.ViewTreeObserver
 import android.view.Window
 import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.cons.CParameter
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
@@ -66,7 +66,7 @@ object UtilKInputChange : BaseUtilK() {
         val contentView = window.findViewById<View>(R.id.content) ?: return
         val tag = contentView.getTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER)
         if (tag is ViewTreeObserver.OnGlobalLayoutListener) {
-            if (Build.VERSION.SDK_INT >= CVersionCode.V_16_41_J) {
+            if (Build.VERSION.SDK_INT >= CVersCode.V_16_41_J) {
                 contentView.viewTreeObserver.removeOnGlobalLayoutListener(tag)
                 //这里会发生内存泄漏 如果不设置为null
                 contentView.setTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, null)
@@ -76,7 +76,7 @@ object UtilKInputChange : BaseUtilK() {
 
     @JvmStatic
     fun observerKeyboardChangeByView(view: View): ViewTreeObserver.OnGlobalLayoutListener? {
-        val activity: Activity = UtilKActivity.getActivityByContext(view.context, true) ?: return null
+        val activity: Activity = UtilKActivity.getByContext(view.context, true) ?: return null
         return observerKeyboardChange(activity, object : IUtilKKeyboardChangeListener {
             private val _location = intArrayOf(0, 0)
             override fun onChange(keyboardBounds: Rect, isVisible: Boolean) {

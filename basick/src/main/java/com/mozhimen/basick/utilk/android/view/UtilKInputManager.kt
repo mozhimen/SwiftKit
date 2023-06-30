@@ -9,7 +9,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
@@ -234,7 +234,7 @@ object UtilKInputManager : BaseUtilK() {
      */
     @JvmStatic
     fun fixInputMethodLeak(context: Context, tag: String) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_29_10_Q) {
             fixInputMethodLeakAfterQ(context, tag)
         } else {
             fixInputMethodLeakBeforeQ(context, tag)
@@ -248,7 +248,7 @@ object UtilKInputManager : BaseUtilK() {
      */
     @JvmStatic
     fun fixInputMethodLeakAfterQ(context: Context, tag: String) {
-        if (Build.VERSION.SDK_INT < CVersionCode.V_29_10_Q) return
+        if (Build.VERSION.SDK_INT < CVersCode.V_29_10_Q) return
         val inputMethodManager = get(context)
         try {
             val mCurRootViewField = UtilKReflect.getField(inputMethodManager, "mCurRootView")
@@ -293,7 +293,7 @@ object UtilKInputManager : BaseUtilK() {
      */
     @JvmStatic
     fun fixInputMethodLeakBeforeQ(context: Context, tag: String) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_29_10_Q) return
+        if (Build.VERSION.SDK_INT >= CVersCode.V_29_10_Q) return
         val inputMethodManager = UtilKContext.getInputMethodManager(context)
         val leakViews = arrayOf("mCurRootView", "mServedView", "mNextServedView")
         var leakViewField: Field

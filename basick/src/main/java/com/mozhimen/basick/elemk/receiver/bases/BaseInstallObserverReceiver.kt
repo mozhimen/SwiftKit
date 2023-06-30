@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.android.content.UtilKApp
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
@@ -33,7 +33,7 @@ android:enabled="true">
  * @Version 1.0
  */
 @ADescription("you should set your target sdk as 25, because android 8 later all limited")
-@TargetApi(CVersionCode.V_25_71_N1)
+@TargetApi(CVersCode.V_25_71_N1)
 open class BaseInstallObserverReceiver : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

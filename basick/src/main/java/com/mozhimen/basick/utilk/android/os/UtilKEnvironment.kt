@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.os
 
 import android.os.Environment
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import java.io.File
@@ -30,7 +30,7 @@ object UtilKEnvironment {
     fun getDownloadCacheDir(): File =
         Environment.getDownloadCacheDirectory()
 
-    @RequiresApi(CVersionCode.V_30_11_R)
+    @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     fun getStorageDir(): File =
         Environment.getStorageDirectory()
@@ -47,12 +47,12 @@ object UtilKEnvironment {
     fun getExternalStoragePublicAlarmsDir(): File=
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS)
 
-    @RequiresApi(CVersionCode.V_29_10_Q)
+    @RequiresApi(CVersCode.V_29_10_Q)
     @JvmStatic
     fun getExternalStoragePublicScreenshotsDir(): File=
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_SCREENSHOTS)
 
-    @RequiresApi(CVersionCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_11_S)
     @JvmStatic
     fun getExternalStoragePublicRecordingsDir(): File=
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RECORDINGS)
@@ -89,7 +89,7 @@ object UtilKEnvironment {
     fun getExternalStoragePublicDCIMDir(): File=
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
 
-    @RequiresApi(CVersionCode.V_29_10_Q)
+    @RequiresApi(CVersCode.V_29_10_Q)
     @JvmStatic
     fun getExternalStoragePublicAudiobooksDir(): File=
         Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_AUDIOBOOKS)

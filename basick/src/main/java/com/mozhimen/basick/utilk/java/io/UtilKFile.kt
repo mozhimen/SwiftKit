@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CDateFormat
 import com.mozhimen.basick.elemk.cons.CMsg
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -310,7 +310,7 @@ object UtilKFile : BaseUtilK() {
      * @param isOverwrite Boolean
      * @return File?
      */
-    @RequiresApi(CVersionCode.V_29_10_Q)
+    @RequiresApi(CVersCode.V_29_10_Q)
     @JvmStatic
     fun inputStream2File2(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
         inputStream2File2(inputStream, File(destFilePathWithName), isOverwrite)
@@ -322,7 +322,7 @@ object UtilKFile : BaseUtilK() {
      * @param isOverwrite Boolean
      * @return File?
      */
-    @RequiresApi(CVersionCode.V_29_10_Q)
+    @RequiresApi(CVersCode.V_29_10_Q)
     @JvmStatic
     fun inputStream2File2(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
         var fileInputStream: FileInputStream? = null

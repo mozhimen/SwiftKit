@@ -107,6 +107,10 @@ object UtilKWindow : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    fun isFlagStatusBarTranslucent(activity: Activity): Boolean =
+        getFlags(activity) and CWinMgr.Lpf.TRANSLUCENT_STATUS != 0
+
+    @JvmStatic
     fun setFlagsFullScreen(window: Window) {
         setFlags(window, CWinMgr.Lpf.FULLSCREEN, CWinMgr.Lpf.FULLSCREEN)
     }

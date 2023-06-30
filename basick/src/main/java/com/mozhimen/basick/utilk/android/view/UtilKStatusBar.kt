@@ -7,7 +7,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.os.Build
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -25,18 +25,20 @@ import com.mozhimen.basick.utilk.android.content.UtilKResource
  */
 object UtilKStatusBar : BaseUtilK() {
 
+
+
     /**
      * 设置状态栏沉浸式
      * @param activity Activity
      */
     @JvmStatic
     fun setImmersed(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L) {//21//5.0以上状态栏透明
+        if (Build.VERSION.SDK_INT >= CVersCode.V_21_5_L) {//21//5.0以上状态栏透明
             UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)//清除透明状态栏
-            UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUi.FLAG_LAYOUT_FULLSCREEN or CView.SystemUi.FLAG_LAYOUT_STABLE)
+            UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
             UtilKWindow.setStatusBarColor(activity, Color.TRANSPARENT)//设置透明
-        } else if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {//19
+        } else if (Build.VERSION.SDK_INT >= CVersCode.V_19_44_K) {//19
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)
         }
     }
@@ -46,9 +48,9 @@ object UtilKStatusBar : BaseUtilK() {
      */
     @JvmStatic
     fun setColor(activity: Activity, @ColorInt colorInt: Int) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_21_5_L) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_21_5_L) {
             UtilKWindow.setStatusBarColor(activity, colorInt)
-        } else if (Build.VERSION.SDK_INT >= CVersionCode.V_19_44_K) {
+        } else if (Build.VERSION.SDK_INT >= CVersCode.V_19_44_K) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明
             setImmersed(activity)
             val colorfulStatusBar = ColorfulStatusBar(activity)
@@ -59,9 +61,13 @@ object UtilKStatusBar : BaseUtilK() {
 
     @JvmStatic
     fun hide(activity: Activity) {
-        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUi.FLAG_FULLSCREEN /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
+        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUiFlag.FULLSCREEN /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
     }
 
+    @JvmStatic
+    fun overlay(activity: Activity) {
+        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN)
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -112,7 +118,7 @@ object UtilKStatusBar : BaseUtilK() {
      */
     @JvmStatic
     fun isVisible(context: Context): Boolean {
-        return isVisible(UtilKActivity.getActivityByContext(context, true) ?: return true)
+        return isVisible(UtilKActivity.getByContext(context, true) ?: return true)
     }
 
     /**
@@ -127,16 +133,10 @@ object UtilKStatusBar : BaseUtilK() {
     @JvmStatic
     fun isTranslucent(activity: Activity): Boolean {
         var isStatusBarAvailable: Boolean
-        //检查主题中是否有透明的状态栏
-        val typedArray = activity.obtainStyledAttributes(intArrayOf(android.R.attr.windowTranslucentStatus))
-        try {
-            isStatusBarAvailable = typedArray.getBoolean(0, false)
-        } finally {
-            typedArray.recycle()
-        }
-        if (UtilKWindow.getFlags(activity) and CWinMgr.Lpf.TRANSLUCENT_STATUS != 0) {
-            isStatusBarAvailable = true
-        }
+        val typedArray = activity.obtainStyledAttributes(intArrayOf(android.R.attr.windowTranslucentStatus))//检查主题中是否有透明的状态栏
+        isStatusBarAvailable = typedArray.getBoolean(0, false)
+        typedArray.recycle()
+        if (UtilKWindow.isFlagStatusBarTranslucent(activity)) isStatusBarAvailable = true
         return isStatusBarAvailable
     }
 }

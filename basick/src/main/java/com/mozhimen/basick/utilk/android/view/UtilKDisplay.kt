@@ -6,7 +6,7 @@ import android.graphics.Point
 import android.util.DisplayMetrics
 import android.view.Display
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 
 /**
@@ -18,7 +18,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity
  */
 object UtilKDisplay {
 
-    @RequiresApi(CVersionCode.V_30_11_R)
+    @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     fun get(activity: Activity): Display =
         UtilKActivity.getDisplay(activity)
@@ -64,7 +64,7 @@ object UtilKDisplay {
      * @return Int
      */
     @JvmStatic
-    @RequiresApi(CVersionCode.V_30_11_R)
+    @RequiresApi(CVersCode.V_30_11_R)
     fun getRotation(activity: Activity): Int =
         get(activity).rotation
 }

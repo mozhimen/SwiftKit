@@ -4,8 +4,8 @@ import android.app.Activity
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.fpsk.FpsK
-import com.mozhimen.basick.utilk.androidx.appcompat.UtilKUiMode
 import com.mozhimen.basick.utilk.android.content.UtilKContextStart.startContext
+import com.mozhimen.basick.utilk.androidx.appcompat.UtilKAppCompatDelegate
 import com.mozhimen.debugk.annors.ADebugKTool
 import com.mozhimen.debugk.temps.DebugKCrashKActivity
 import com.mozhimen.debugk.temps.DebugKLogKActivity
@@ -47,7 +47,7 @@ class DebugKTools {
     }
 
     @ADebugKTool("打开/关闭暗黑模式", desc = "打开暗黑模式在夜间使用更温和")
-    fun toggleTheme(activity: Activity) {
-        UtilKUiMode.toggleMode()
+    fun toggleMode(activity: Activity) {
+        UtilKAppCompatDelegate.toggleMode()
     }
 }

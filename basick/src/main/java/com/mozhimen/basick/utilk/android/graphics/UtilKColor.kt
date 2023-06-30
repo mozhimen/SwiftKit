@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.graphics
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import kotlin.math.roundToInt
 
 /**
@@ -43,7 +43,7 @@ object UtilKColor {
      */
     @JvmStatic
     @ColorInt
-    @RequiresApi(CVersionCode.V_26_8_O)
+    @RequiresApi(CVersCode.V_26_8_O)
     fun getMedianColor(@ColorInt startColorInt: Int, @ColorInt endColorInt: Int, ratio: Float): Int {
         val startRed = Color.red(startColorInt)
         val startBlue = Color.blue(startColorInt)

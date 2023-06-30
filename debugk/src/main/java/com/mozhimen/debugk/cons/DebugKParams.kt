@@ -172,5 +172,5 @@ class DebugKParams {
     fun screenNavigationBarHeight(): String = UtilKNavigationBar.getHeight().toString()
 
     @ADebugKParams("屏幕竖屏")
-    fun screenIsPortrait(): String = if (UtilKScreen.isPortrait()) "是" else "否"
+    fun screenIsPortrait(): String = if (UtilKScreen.isOrientationPortrait()) "是" else "否"
 }

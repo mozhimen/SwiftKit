@@ -2,10 +2,9 @@ package com.mozhimen.basick.sensek.systembar.helpers
 
 import android.app.Activity
 import com.mozhimen.basick.elemk.cons.CView
-import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarMultiProperty
-import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
+import com.mozhimen.basick.utilk.android.view.UtilKStatusBarIcon
 import com.mozhimen.basick.utilk.android.view.UtilKSystemBar
 
 /**
@@ -17,28 +16,52 @@ import com.mozhimen.basick.utilk.android.view.UtilKSystemBar
  */
 object SenseKSystemBarHelper {
     @JvmStatic
-    @ASenseKSystemBarMultiProperty(CSystemBarType.LOW_PROFILE)
-    fun setLowProfile(activity: Activity) {
+    fun setSystemBarLowProfile(activity: Activity) {
         UtilKSystemBar.setStatusBarLowProfile(activity)
     }
 
     @JvmStatic
-    @ASenseKSystemBarMultiProperty(CSystemBarType.IMMERSED_LIGHT)
-    fun setImmersedLight(activity: Activity) {
-        UtilKSystemBar.setImmersed(activity)
+    fun setSystemBarTheme(activity: Activity, isThemeDark: Boolean) {
+        UtilKStatusBarIcon.setIcon(activity, isThemeDark)
     }
 
     @JvmStatic
-    @ASenseKSystemBarMultiProperty(CSystemBarType.IMMERSED_FORCE)
-    fun setImmersedForce(activity: Activity) {
-        UtilKSystemBar.setImmersed(activity)
-        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUi.FLAG_IMMERSIVE)
+    fun hideSystemBar(
+        activity: Activity,
+        isStatusBarHide: Boolean = false,
+        isNavigationBarHide: Boolean = false,
+        isTitleBarHide: Boolean = false,
+        isActionBarHide: Boolean = false
+    ) {
+        if (isStatusBarHide) UtilKSystemBar.hideStatusBar(activity)
+        if (isNavigationBarHide) UtilKSystemBar.hideNavigationBar(activity)
+        if (isTitleBarHide) UtilKSystemBar.hideTitleBar(activity)
+        if (isActionBarHide) UtilKSystemBar.hideActionBar(activity)
     }
 
     @JvmStatic
-    @ASenseKSystemBarMultiProperty(CSystemBarType.IMMERSED_STICKY)
-    fun setImmersedSticky(activity: Activity) {
-        UtilKSystemBar.setImmersed(activity)
-        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUi.FLAG_IMMERSIVE_STICKY)
+    fun overlaySystemBar(
+        activity: Activity,
+        isStatusBarOverlay: Boolean = false,
+        isNavigationBarOverlay: Boolean = false,
+    ) {
+        if (isStatusBarOverlay) UtilKSystemBar.overlayStatusBar(activity)
+        if (isNavigationBarOverlay) UtilKSystemBar.overlayNavigationBar(activity)
+    }
+
+    @JvmStatic
+    fun setLayoutStable(activity: Activity) {
+        UtilKSystemBar.setLayoutStable(activity)
+    }
+
+    @JvmStatic
+    fun setFitsSystemWindows(activity: Activity) {
+        UtilKSystemBar.setFitsSystemWindows(activity)
+    }
+
+    @JvmStatic
+    fun setImmersed(activity: Activity, isImmersedHard: Boolean = false, isImmersedSticky: Boolean = false) {
+        if (isImmersedHard) UtilKSystemBar.setImmersedHard(activity)
+        if (isImmersedSticky) UtilKSystemBar.setImmersedSticky(activity)
     }
 }

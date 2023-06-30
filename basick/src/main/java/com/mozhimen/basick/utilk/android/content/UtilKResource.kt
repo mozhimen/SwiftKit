@@ -38,7 +38,11 @@ object UtilKResource {
      */
     @JvmStatic
     fun getSystemConfiguration(): Configuration =
-        getSystemResources().configuration
+        getConfiguration(getSystemResources())
+
+    @JvmStatic
+    fun getConfiguration(resources: Resources): Configuration =
+        resources.configuration
 
     @JvmStatic
     fun getDisplayMetrics(): DisplayMetrics =

@@ -15,7 +15,7 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.elemk.delegate.VarDelegate_SetFun_VaryNonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -96,7 +96,7 @@ class LogKPrinterMonitorProxy : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(), 
         _layoutParams.flags = (CWinMgr.Lpf.NOT_TOUCH_MODAL or CWinMgr.Lpf.NOT_FOCUSABLE) or CWinMgr.Lpf.FULLSCREEN
         _layoutParams.format = PixelFormat.TRANSLUCENT
         _layoutParams.gravity = Gravity.END or Gravity.BOTTOM
-        _layoutParams.type = if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) CWinMgr.Lpt.APPLICATION_OVERLAY else CWinMgr.Lpt.TOAST
+        _layoutParams.type = if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) CWinMgr.Lpt.APPLICATION_OVERLAY else CWinMgr.Lpt.TOAST
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////

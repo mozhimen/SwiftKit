@@ -7,7 +7,7 @@ import android.os.Build
 import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.util.et
@@ -118,7 +118,7 @@ fun View.setOnGlobalLayoutObserver(callback: () -> Unit) {
 object UtilKView : BaseUtilK() {
     @JvmStatic
     fun applyBackgroundNull(view: View) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_16_41_J) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_16_41_J) {
             view.background = null
         } else {
             view.setBackgroundDrawable(null)
@@ -174,7 +174,7 @@ object UtilKView : BaseUtilK() {
      */
     @JvmStatic
     fun applyBackground(view: View, background: Drawable) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_16_41_J) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_16_41_J) {
             view.background = background
         } else {
             view.setBackgroundDrawable(background)

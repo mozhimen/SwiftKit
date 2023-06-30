@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContextStart
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
@@ -34,7 +34,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startManageInstallSource(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) {
             UtilKContextStart.startContext(activity, UtilKIntent.getManageInstallSource(activity))
         }
     }
@@ -45,7 +45,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startManageInstallSource(context: Context) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_26_8_O) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) {
             UtilKContextStart.startContext(context, UtilKIntent.getManageInstallSource(context))
         }
     }
@@ -56,7 +56,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startManageOverlay(context: Context) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_23_6_M) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) {
             UtilKContextStart.startContext(context, UtilKIntent.getManageOverlay(context))
         }
     }
@@ -68,7 +68,7 @@ object UtilKLaunchActivity {
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun startManageAll(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_30_11_R) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_30_11_R) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
             UtilKContextStart.startContext(activity, UtilKIntent.getManageAll(activity))
             //}

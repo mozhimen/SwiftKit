@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.kotlin
 
 import android.os.Build
 import com.mozhimen.basick.elemk.cons.CMsg
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.text.DecimalFormat
 import java.util.*
@@ -229,7 +229,7 @@ object UtilKString : BaseUtilK() {
      */
     @JvmStatic
     fun <T> joinList2Str(list: List<T>, defaultValue: String = "", splitChar: String = ","): String =
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {
             val ret = list.stream().map { elem: T? -> elem?.toString() ?: "" }
                 .collect(Collectors.joining(splitChar))
             ret.ifEmpty { defaultValue }

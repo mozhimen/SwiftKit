@@ -30,7 +30,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import coil.ImageLoader
 import coil.imageLoader
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 
 
 /**
@@ -74,7 +74,7 @@ object UtilKContext {
     fun getVibrator(context: Context): Vibrator =
         context.getSystemService(Activity.VIBRATOR_SERVICE) as Vibrator
 
-    @RequiresApi(CVersionCode.V_31_11_S)
+    @RequiresApi(CVersCode.V_31_11_S)
     @JvmStatic
     fun getVibratorManager(context: Context): VibratorManager =
         context.getSystemService(Activity.VIBRATOR_MANAGER_SERVICE) as VibratorManager
@@ -139,12 +139,12 @@ object UtilKContext {
     fun getString(context: Context, @StringRes resId: Int, vararg formatArgs: Any): String =
         context.getString(resId, *formatArgs)
 
-    @RequiresApi(CVersionCode.V_23_6_M)
+    @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     fun getColor(context: Context, @ColorRes resId: Int): Int =
         context.getColor(resId)
 
-    @RequiresApi(CVersionCode.V_23_6_M)
+    @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     fun getColorStateList(context: Context, @ColorRes resId: Int): ColorStateList =
         context.getColorStateList(resId)

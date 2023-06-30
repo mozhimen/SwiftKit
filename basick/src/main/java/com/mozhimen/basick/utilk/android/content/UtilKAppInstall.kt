@@ -10,7 +10,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.cons.CVersionCode
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -124,7 +124,7 @@ object UtilKAppInstall : BaseUtilK() {
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installSilence(apkPathWithName: String, pkgName: String): Boolean {
         var result = "EMPTY"
-        val cmd = if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
+        val cmd = if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {
             arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPathWithName)
         } else {
             arrayOf("pm", "install", "-i", pkgName, "-r", apkPathWithName)
@@ -165,7 +165,7 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installSilence(apkPathWithName: String, receiver: Class<*>) {
-        if (Build.VERSION.SDK_INT >= CVersionCode.V_28_9_P) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
             installSilenceAfter28(apkPathWithName, receiver)
         } else {
             installSilenceBefore28(apkPathWithName)
@@ -186,7 +186,7 @@ object UtilKAppInstall : BaseUtilK() {
 
         val msgSuccess = StringBuilder()
         val msgError = StringBuilder()
-        val cmd: Array<String> = if (Build.VERSION.SDK_INT >= CVersionCode.V_24_7_N) {
+        val cmd: Array<String> = if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {
             arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
         } else {
             arrayOf("pm", "install", "-r", apkPathWithName)
@@ -219,7 +219,7 @@ object UtilKAppInstall : BaseUtilK() {
      * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
-    @RequiresApi(CVersionCode.V_28_9_P)
+    @RequiresApi(CVersCode.V_28_9_P)
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installSilenceAfter28(apkPathWithName: String, receiver: Class<*>) {
         Log.d(TAG, "installSilenceAfter28 pathApk $apkPathWithName")
