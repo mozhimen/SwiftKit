@@ -45,7 +45,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
     fun setIcon_MiuiUi(activity: Activity, isDark: Boolean) {
         if (Build.VERSION.SDK_INT > CVersCode.V_23_6_M) {
             setIcon_CommonUi(activity, isDark)
-        } else if (UtilKRomVersion.isMIUIAfter6()) {
+        } else if (UtilKRomVersion.isMIUI_after6()) {
             setIcon_MiuiUi_After6(activity, isDark)
         } else "setIcon_MiuiUi: don't support this miui version".et(TAG)
     }
@@ -98,7 +98,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
             fielf_meizuFlags.setInt(layoutParams, value_meizuFlags)
             UtilKWindow.setAttributes(window, layoutParams)
         } catch (e: Exception) {
-            e.message.et(TAG)
+            e.message?.et(TAG)
             e.printStackTrace()
         }
     }
