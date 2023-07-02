@@ -16,6 +16,7 @@ import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
 import com.mozhimen.basick.imagek.blur.ImageKBlur
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.graphics.colorStr2Int
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.util.UtilKLog
 import com.mozhimen.basick.utilk.android.util.UtilKLogPro
 
@@ -50,9 +51,8 @@ object UtilKRenderScript : BaseUtilK() {
 
     @ChecksSdkIntAtLeast(api = CVersCode.V_18_43_J2)
     @JvmStatic
-    fun isRenderScriptSupported(): Boolean {
-        return Build.VERSION.SDK_INT > CVersCode.V_17_42_J1
-    }
+    fun isRenderScriptSupported(): Boolean =
+        UtilKBuildVers.isAfterV_18_43_J2()
 
     @JvmStatic
     fun blur(view: View, scaledRatio: Float, radius: Float): Bitmap? {
@@ -164,7 +164,7 @@ object UtilKRenderScript : BaseUtilK() {
             bgDrawable.draw(canvas)
         }
         if (fullScreen) {
-            if (statusBarHeight > 0 && Build.VERSION.SDK_INT >= CVersCode.V_21_5_L && view.context is Activity) {
+            if (statusBarHeight > 0 && UtilKBuildVers.isAfterV_21_5_L() && view.context is Activity) {
                 val statusBarColor = (view.context as Activity).window.statusBarColor
                 val paint = Paint(Paint.ANTI_ALIAS_FLAG)
                 paint.color = statusBarColor

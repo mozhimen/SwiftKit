@@ -43,7 +43,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         get() = MediaKAudio.instance.getVolumeCurrent()
         set(value) {
             val volume = value.normalize(MediaKAudio.instance.getVolumeMin()..MediaKAudio.instance.getVolumeMax())
-            if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
+            if (UtilKBuildVers.isAfterV_28_9_P()) {
                 MediaKAudio.instance.setVolume(volume).also {
                     vb.audiokSliderVolumeTxt.text = volume.toString()
                     field = volume

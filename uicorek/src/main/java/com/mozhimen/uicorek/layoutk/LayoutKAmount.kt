@@ -2,7 +2,6 @@ package com.mozhimen.uicorek.layoutk
 
 import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -10,12 +9,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.view.setPadding
 import com.mozhimen.basick.elemk.commons.IValue1Listener
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.util.sp2px
+import com.mozhimen.basick.utilk.android.view.applyElevation
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.commons.IAttrsParser2
 
@@ -116,7 +116,7 @@ class LayoutKAmount @JvmOverloads constructor(context: Context, attrs: Attribute
     private fun genBtn(): Button {
         val button = Button(context)
         button.setBackgroundResource(0)
-        if (Build.VERSION.SDK_INT >= CVersCode.V_21_5_L) button.elevation = 0f
+        button.applyElevation(0f)
         button.setPadding(0)
         button.includeFontPadding = false
         button.setTextColor(_attrs.btnTextColor)

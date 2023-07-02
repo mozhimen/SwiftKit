@@ -18,6 +18,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.database.getStringValue
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.text.UtilKVerifyStr
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
@@ -122,7 +123,7 @@ object UtilKUri : BaseUtilK() {
             Log.e(TAG, "file2Uri: file isFileExist false")
             return null
         }
-        return if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {
+        return if (UtilKBuildVers.isAfterV_24_7_N()) {
             val authority = "${UtilKPackage.getPackageName()}.fileProvider"
             Log.d(TAG, "file2Uri: authority $authority")
             FileProvider.getUriForFile(_context, authority, file).also {

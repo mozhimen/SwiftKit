@@ -3,13 +3,12 @@ package com.mozhimen.basick.utilk.android.view
 import android.app.Activity
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.UtilKDataType
 import java.util.*
@@ -32,10 +31,6 @@ fun View.applyPaddingHorizontal(padding: Int) {
 
 fun View.applyPaddingVertical(padding: Int) {
     UtilKView.applyPaddingVertical(this, padding)
-}
-
-fun View.applyBackgroundNull() {
-    UtilKView.applyBackgroundNull(this)
 }
 
 fun View.resizeSize(size: Int) {
@@ -111,17 +106,52 @@ fun View.isGone(): Boolean =
 
 /////////////////////////////////////////////////
 
+fun View.applyBackgroundNull() =
+    UtilKView.applyBackgroundNull(this)
+
+fun View.applyBackground(drawable: Drawable) {
+    UtilKView.applyBackground(this, drawable)
+}
+
+fun View.applyElevation(elevation: Float) {
+    UtilKView.applyElevation(this, elevation)
+}
+
+fun View.applyFocusable(){
+    UtilKView.applyFocusable(this)
+}
+
 fun View.setOnGlobalLayoutObserver(callback: () -> Unit) {
     UtilKView.setOnGlobalLayoutObserver(this, callback)
 }
 
 object UtilKView : BaseUtilK() {
     @JvmStatic
+    fun applyElevation(view: View, elevation: Float) {
+        if (UtilKBuildVers.isAfterV_21_5_L()) view.elevation = elevation
+    }
+
+    @JvmStatic
+    fun applyFocusable(view: View) {
+        if (UtilKBuildVers.isAfterV_26_8_O()) view.focusable = View.FOCUSABLE
+    }
+
+    @JvmStatic
     fun applyBackgroundNull(view: View) {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_16_41_J) {
-            view.background = null
+        applyBackground(view, null)
+    }
+
+    /**
+     * 设置背景
+     * @param view View
+     * @param background Drawable
+     */
+    @JvmStatic
+    fun applyBackground(view: View, background: Drawable?) {
+        if (UtilKBuildVers.isAfterV_16_41_J()) {
+            view.background = background
         } else {
-            view.setBackgroundDrawable(null)
+            view.setBackgroundDrawable(background)
         }
     }
 
@@ -167,19 +197,6 @@ object UtilKView : BaseUtilK() {
     fun getViewDrawHeight(activity: Activity) =
         UtilKWindow.get(activity).findViewById<View>(Window.ID_ANDROID_CONTENT).top
 
-    /**
-     * 设置背景
-     * @param view View
-     * @param background Drawable
-     */
-    @JvmStatic
-    fun applyBackground(view: View, background: Drawable) {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_16_41_J) {
-            view.background = background
-        } else {
-            view.setBackgroundDrawable(background)
-        }
-    }
 
     /**
      * 添加全局监听

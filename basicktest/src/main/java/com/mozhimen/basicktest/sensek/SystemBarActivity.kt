@@ -1,18 +1,15 @@
 package com.mozhimen.basicktest.sensek
 
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.sensek.systembar.SenseKSystemBar
-import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBar
-import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
+import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarProperty
+import com.mozhimen.basick.sensek.systembar.cons.CProperty
+import com.mozhimen.basick.sensek.systembar.initSenseKSystemBar
 import com.mozhimen.basicktest.databinding.ActivitySensekSystembarBinding
 
-@ASenseKSystemBar(systemBarType = CSystemBarType.LOW_PROFILE)
-//@ASenseKSystemBar(systemBarType = CSystemBarType.IMMERSED_LIGHT)
-//@ASenseKSystemBar(systemBarType = CSystemBarType.IMMERSED_FORCE)
-//@ASenseKSystemBar(systemBarType = CSystemBarType.IMMERSED_STICKY)
-//@ASenseKSystemBar(systemBarType = ASenseKSystemBarType.CUSTOM, isFontIconDark = false, bgColorLight = android.R.color.black)
+//Normal
+@ASenseKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
 class SystemBarActivity : BaseActivityVB<ActivitySensekSystembarBinding>() {
     override fun initFlag() {
-        SenseKSystemBar.init(this)
+        initSenseKSystemBar()
     }
 }

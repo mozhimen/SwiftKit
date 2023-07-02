@@ -8,6 +8,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
 import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.java.security.UtilKMD5
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.DownloadException
@@ -70,7 +71,7 @@ internal object Utils {
 
 
     fun getRealPathFromURI(context: Context, contentURI: Uri): String? {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {
+        if (UtilKBuildVers.isAfterV_24_7_N()) {
             val cursor = context.contentResolver.query(
                 contentURI, null,
                 null, null, null

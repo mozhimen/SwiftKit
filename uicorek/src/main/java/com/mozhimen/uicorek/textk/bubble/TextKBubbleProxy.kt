@@ -9,8 +9,10 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basick.utilk.android.util.dp2px
+import com.mozhimen.basick.utilk.android.view.applyBackground
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.drawablek.arrow.DrawableKArrow
@@ -201,11 +203,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, ILayoutK {
             _bubbleDrawable.setArrowHeight(_arrowHeight)
             _bubbleDrawable.setArrowWidth(_arrowWidth)
             _bubbleDrawable.updateShapes()
-            if (Build.VERSION.SDK_INT >= CVersCode.V_16_41_J) {
-                _textKBubble.background = _bubbleDrawable
-            } else {
-                _textKBubble.setBackgroundDrawable(_bubbleDrawable) // noinspection deprecation
-            }
+            _textKBubble.applyBackground(_bubbleDrawable)
         }
     }
 
@@ -320,7 +318,7 @@ class TextKBubbleProxy(private val _context: Context) : ITextKBubble, ILayoutK {
 
     override fun setPadding(left: Float, top: Float, right: Float, bottom: Float) {
         Log.d(TAG, "setPadding: _bubbleListener is not null")
-        if (Build.VERSION.SDK_INT <= CVersCode.V_16_41_J) {
+        if (UtilKBuildVers.getSDKInt() <= CVersCode.V_16_41_J) {
             val stack = Throwable().stackTrace
             for (i in 0..6) {
                 if (stack[i].className == View::class.java.name && (stack[i].methodName == "recomputePadding")

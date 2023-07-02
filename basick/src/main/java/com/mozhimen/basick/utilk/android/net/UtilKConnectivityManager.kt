@@ -12,6 +12,7 @@ import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 
 /**
  * @ClassName UtilKConnManager
@@ -54,13 +55,12 @@ object UtilKConnectivityManager {
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isNetworkConnected(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) {
+    fun isNetworkConnected(context: Context): Boolean =
+        if (UtilKBuildVers.isAfterV_23_6_M()) {
             isNetworkConnectedAfterM(context)
         } else {
             isNetworkConnectedBeforeM(context)
         }
-    }
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)

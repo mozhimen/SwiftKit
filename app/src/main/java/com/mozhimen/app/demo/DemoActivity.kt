@@ -10,12 +10,12 @@ import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
 import com.mozhimen.basick.sensek.systembar.SenseKSystemBar
-import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBar
-import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarType
+import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarProperty
+import com.mozhimen.basick.sensek.systembar.cons.CProperty
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffedVB
 import kotlin.math.abs
 
-@ASenseKSystemBar(systemBarType = ASenseKSystemBarType.FULL_SCREEN)
+@ASenseKSystemBarProperty(property = CProperty.IMMERSED_HARD_STICKY)
 class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
     private var _scrollY = 0
     private var _alpha = 0

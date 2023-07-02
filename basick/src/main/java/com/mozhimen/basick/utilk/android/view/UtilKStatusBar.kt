@@ -15,6 +15,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.elemk.view.bar.ColorfulStatusBar
 import com.mozhimen.basick.utilk.android.content.UtilKResource
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 
 /**
  * @ClassName UtilKBar
@@ -24,21 +25,18 @@ import com.mozhimen.basick.utilk.android.content.UtilKResource
  * @Version 1.0
  */
 object UtilKStatusBar : BaseUtilK() {
-
-
-
     /**
      * 设置状态栏沉浸式
      * @param activity Activity
      */
     @JvmStatic
     fun setImmersed(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_21_5_L) {//21//5.0以上状态栏透明
+        if (UtilKBuildVers.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
             UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)//清除透明状态栏
             UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
             UtilKWindow.setStatusBarColor(activity, Color.TRANSPARENT)//设置透明
-        } else if (Build.VERSION.SDK_INT >= CVersCode.V_19_44_K) {//19
+        } else if (UtilKBuildVers.isAfterV_19_44_K()) {//19
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)
         }
     }
@@ -48,9 +46,9 @@ object UtilKStatusBar : BaseUtilK() {
      */
     @JvmStatic
     fun setColor(activity: Activity, @ColorInt colorInt: Int) {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_21_5_L) {
+        if (UtilKBuildVers.isAfterV_21_5_L()) {
             UtilKWindow.setStatusBarColor(activity, colorInt)
-        } else if (Build.VERSION.SDK_INT >= CVersCode.V_19_44_K) {
+        } else if (UtilKBuildVers.isAfterV_19_44_K()) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明
             setImmersed(activity)
             val colorfulStatusBar = ColorfulStatusBar(activity)

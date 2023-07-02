@@ -11,6 +11,7 @@ import android.view.Display
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
@@ -18,6 +19,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity.getByContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.isDestroyed
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.content.UtilKResource
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.util.*
 
@@ -113,6 +115,7 @@ object UtilKNavigationBar : BaseUtilK() {
      * @return Int 如果存在NavigationBar则返回高度，否则0
      */
     @JvmStatic
+    @RequiresApi(CVersCode.V_20_44W_KW)
     fun getHeight(view: View): Int {
         val activity: Activity? = UtilKActivity.getByView(view)
         if (activity != null) {
@@ -120,7 +123,7 @@ object UtilKNavigationBar : BaseUtilK() {
             val size = Point()
             UtilKDisplay.getDefaultSize(activity, size)
             val usableHeight = size.y
-            if (Build.VERSION.SDK_INT >= CVersCode.V_17_42_J1) {
+            if (UtilKBuildVers.isAfterV_17_42_J1()) {
                 UtilKDisplay.getDefaultRealSize(activity, size) // getRealMetrics is only available with API 17 and +
             } else {
                 try {

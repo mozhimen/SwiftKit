@@ -2,14 +2,14 @@ package com.mozhimen.basick.stackk.cb.helpers
 
 import android.app.Activity
 import android.app.Application
-import android.os.Build
 import android.os.Bundle
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.CStackKEvent
 import com.mozhimen.basick.utilk.android.app.UtilKApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
+import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
 import java.lang.ref.WeakReference
 
@@ -42,7 +42,7 @@ internal class StackKCbProxy : IStackK {
             val activityRef: WeakReference<Activity> = _activityRefs[getStackCount() - 1]
             val activity: Activity? = activityRef.get()
             if (onlyAlive) {
-                if (activity == null || UtilKActivity.isFinishing(activity) || (Build.VERSION.SDK_INT >= CVersCode.V_17_42_J1 && activity.isDestroyed)) {
+                if (activity == null || activity.isFinishingOrDestroyed()) {
                     _activityRefs.remove(activityRef)
                     return getStackTopActivity(onlyAlive)
                 }
@@ -84,7 +84,7 @@ internal class StackKCbProxy : IStackK {
     override fun getStackCount(): Int =
         getActivityRefs().size
 
-    override fun getLaunchCount() :Int =
+    override fun getLaunchCount(): Int =
         _activityLaunchCount
 
     //////////////////////////////////////////////////////////////////////////////////////////////

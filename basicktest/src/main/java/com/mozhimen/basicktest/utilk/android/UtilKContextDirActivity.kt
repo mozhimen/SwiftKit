@@ -8,6 +8,7 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.content.UtilKContextDir
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.util.i
 import com.mozhimen.basicktest.databinding.ActivityUtilkContextDirBinding
 
@@ -33,7 +34,7 @@ class UtilKContextDirActivity : BaseActivityVB<ActivityUtilkContextDirBinding>()
     override fun initView(savedInstanceState: android.os.Bundle?) {
         UtilKContextDir.Internal.getCacheDir(this).absolutePath.i()///data/user/0/com.mozhimen.basicktest/cache
         UtilKContextDir.Internal.getFilesDir(this).absolutePath.i()///data/user/0/com.mozhimen.basicktest/files
-        if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {
+        if (UtilKBuildVers.isAfterV_24_7_N()) {
             UtilKContextDir.Internal.getDataDir(this).absolutePath.i()///data/user/0/com.mozhimen.basicktest
         }
         UtilKContextDir.Internal.getObbDir(this).absolutePath.i()///storage/emulated/0/Android/obb/com.mozhimen.basicktest
@@ -46,7 +47,7 @@ class UtilKContextDirActivity : BaseActivityVB<ActivityUtilkContextDirBinding>()
         UtilKContextDir.External.getCacheDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/cache
         UtilKContextDir.External.getFilesRootDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files
         UtilKContextDir.External.getFilesAlarmsDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files/Alarms
-        if (Build.VERSION.SDK_INT >= CVersCode.V_29_10_Q) {
+        if (UtilKBuildVers.isAfterV_29_10_Q()) {
             UtilKContextDir.External.getFilesAudiobooksDir(this)?.absolutePath?.i()
         }
         UtilKContextDir.External.getFilesDCIMDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files/DCIM
@@ -57,10 +58,10 @@ class UtilKContextDirActivity : BaseActivityVB<ActivityUtilkContextDirBinding>()
         UtilKContextDir.External.getFilesNotificationsDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files/Notifications
         UtilKContextDir.External.getFilesPicturesDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files/Pictures
         UtilKContextDir.External.getFilesPodcastsDir(this)?.absolutePath?.i()///storage/emulated/0/Android/data/com.mozhimen.basicktest/files/Podcasts
-        if (Build.VERSION.SDK_INT >= CVersCode.V_31_11_S) {
+        if (UtilKBuildVers.isAfterV_31_11_S()) {
             UtilKContextDir.External.getFilesRecordingsDir(this)?.absolutePath?.i()
         }
-        if (Build.VERSION.SDK_INT >= CVersCode.V_29_10_Q) {
+        if (UtilKBuildVers.isAfterV_29_10_Q()) {
             UtilKContextDir.External.getFilesScreenshotsDir(this)?.absolutePath?.i()
         }
     }

@@ -14,6 +14,7 @@ import android.view.WindowManager;
 
 import com.mozhimen.basick.elemk.cons.CVersCode;
 import com.mozhimen.basick.elemk.cons.CWinMgr;
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
 import androidx.annotation.Nullable;
@@ -40,7 +41,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
     static final WindowFlagCompat FLAG_COMPAT;
 
     static {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_30_11_R) {
+        if (UtilKBuildVers.isAfterV_30_11_R()) {
             FLAG_COMPAT = new WindowFlagCompat.Api30Impl();
         } else {
             FLAG_COMPAT = new WindowFlagCompat.BeforeApi30Impl();
@@ -66,7 +67,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
         if (mWindowManager == null || view == null) return;
         if (isPopupInnerDecorView(view) && mPopupDecorViewProxy != null) {
             PopupDecorViewProxy popupDecorViewProxy = mPopupDecorViewProxy;
-            if (Build.VERSION.SDK_INT >= CVersCode.V_19_44_K) {
+            if (UtilKBuildVers.isAfterV_19_44_K()) {
                 if (!popupDecorViewProxy.isAttachedToWindow()) return;
             }
             mWindowManager.removeViewImmediate(popupDecorViewProxy);
@@ -153,7 +154,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
             ViewGroup.LayoutParams params = popupDecorViewProxy.getLayoutParams();
             if (params instanceof LayoutParams) {
                 if (focus) {
-                    ((LayoutParams) params).flags &= ~(CWinMgr.Lpf.NOT_FOCUSABLE | LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                    ((LayoutParams) params).flags &= ~(CWinMgr.Lpf.NOT_FOCUSABLE | CWinMgr.Lpf.ALT_FOCUSABLE_IM);
                 } else {
                     ((LayoutParams) params).flags |= CWinMgr.Lpf.NOT_FOCUSABLE;
                 }
@@ -317,7 +318,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
             public void setupFlag(ViewGroup.LayoutParams params, BasePopupHelper helper) {
                 if (params instanceof LayoutParams && helper != null) {
                     LayoutParams p = (LayoutParams) params;
-                    if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
+                    if (UtilKBuildVers.isAfterV_28_9_P()) {
                         Activity decorAct = helper.mPopupWindow.getContext();
                         if (decorAct != null) {
                             LayoutParams lp = decorAct.getWindow().getAttributes();
@@ -326,7 +327,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
                     }
                     if (helper.isOverlayStatusbar()) {
                         UtilKLogPro.i(TAG, "applyHelper  >>>  覆盖状态栏");
-                        if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
+                        if (UtilKBuildVers.isAfterV_28_9_P()) {
                             int cutoutGravity = helper.getCutoutGravity();
                             if (cutoutGravity == Gravity.TOP || cutoutGravity == Gravity.BOTTOM) {
                                 //垂直方向允许占用刘海
@@ -336,10 +337,10 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
                         }
                     }
                     // 状态栏和导航栏相关处理交给decorview proxy，这里永远占用
-                    p.flags |= LayoutParams.FLAG_LAYOUT_IN_SCREEN;
-                    p.flags |= LayoutParams.FLAG_LAYOUT_NO_LIMITS;
-                    if (Build.VERSION.SDK_INT >= CVersCode.V_18_43_J2) {
-                        p.flags |= LayoutParams.FLAG_LAYOUT_IN_OVERSCAN;
+                    p.flags |= CWinMgr.Lpf.LAYOUT_IN_SCREEN;
+                    p.flags |= CWinMgr.Lpf.LAYOUT_NO_LIMITS;
+                    if (UtilKBuildVers.isAfterV_18_43_J2()) {
+                        p.flags |= CWinMgr.Lpf.LAYOUT_IN_OVERSCAN;
                     }
                 }
             }
@@ -352,7 +353,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
             public void setupFlag(ViewGroup.LayoutParams params, BasePopupHelper helper) {
                 if (params instanceof LayoutParams && helper != null) {
                     LayoutParams p = (LayoutParams) params;
-                    if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
+                    if (UtilKBuildVers.isAfterV_28_9_P()) {
                         Activity decorAct = helper.mPopupWindow.getContext();
                         if (decorAct != null) {
                             LayoutParams lp = decorAct.getWindow().getAttributes();
@@ -362,7 +363,7 @@ public final class WindowManagerProxy implements WindowManager, IClearMemoryList
                     int insetsType = p.getFitInsetsTypes();
                     if (helper.isOverlayStatusbar()) {
                         UtilKLogPro.i(TAG, "applyHelper  >>>  覆盖状态栏");
-                        if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
+                        if (UtilKBuildVers.isAfterV_28_9_P()) {
                             int cutoutGravity = helper.getCutoutGravity();
                             if (cutoutGravity == Gravity.TOP || cutoutGravity == Gravity.BOTTOM) {
                                 //垂直方向允许占用刘海

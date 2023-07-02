@@ -8,6 +8,7 @@ import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.elemk.cons.CWinMgr
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.os.UtilKRom
@@ -30,6 +31,8 @@ object UtilKStatusBarIcon : BaseUtilK() {
 
     /**
      * 状态栏字体和图标是否是深色
+     * @param activity Activity
+     * @param isThemeDark Boolean
      */
     @JvmStatic
     fun setIcon(activity: Activity, isThemeDark: Boolean) {
@@ -42,11 +45,11 @@ object UtilKStatusBarIcon : BaseUtilK() {
     }
 
     @JvmStatic
-    fun setIcon_MiuiUi(activity: Activity, isDark: Boolean) {
-        if (Build.VERSION.SDK_INT > CVersCode.V_23_6_M) {
-            setIcon_CommonUi(activity, isDark)
+    fun setIcon_MiuiUi(activity: Activity, isThemeDark: Boolean) {
+        if (UtilKBuildVers.isAfterV_23_6_M()) {
+            setIcon_CommonUi(activity, isThemeDark)
         } else if (UtilKRomVersion.isMIUI_after6()) {
-            setIcon_MiuiUi_After6(activity, isDark)
+            setIcon_MiuiUi_After6(activity, isThemeDark)
         } else "setIcon_MiuiUi: don't support this miui version".et(TAG)
     }
 
@@ -67,7 +70,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
 
     @JvmStatic
     fun setIcon_CommonUi(activity: Activity, isDarkMode: Boolean) {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) {
+        if (UtilKBuildVers.isAfterV_23_6_M()) {
             val window: Window = UtilKWindow.get(activity)
             window.addFlags(CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(CWinMgr.Lpf.TRANSLUCENT_STATUS)
@@ -83,7 +86,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
     }
 
     @JvmStatic
-    fun setIcon_FlymeUi(activity: Activity, isDark: Boolean) {
+    fun setIcon_FlymeUi(activity: Activity, isDarkMode: Boolean) {
         try {
             val window = UtilKWindow.get(activity)
             val layoutParams = window.attributes
@@ -94,7 +97,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
 
             val value_MEIZU_FLAG_DARK_STATUS_BAR_ICON = field_MEIZU_FLAG_DARK_STATUS_BAR_ICON.getInt(null)
             var value_meizuFlags = fielf_meizuFlags.getInt(layoutParams)
-            value_meizuFlags = if (isDark) value_meizuFlags or value_MEIZU_FLAG_DARK_STATUS_BAR_ICON else value_meizuFlags and value_MEIZU_FLAG_DARK_STATUS_BAR_ICON.inv()
+            value_meizuFlags = if (isDarkMode) value_meizuFlags or value_MEIZU_FLAG_DARK_STATUS_BAR_ICON else value_meizuFlags and value_MEIZU_FLAG_DARK_STATUS_BAR_ICON.inv()
             fielf_meizuFlags.setInt(layoutParams, value_meizuFlags)
             UtilKWindow.setAttributes(window, layoutParams)
         } catch (e: Exception) {

@@ -19,7 +19,7 @@ class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
+        if (UtilKBuildVers.isAfterV_28_9_P()) {
             ManifestKPermission.initPermissions(this, arrayOf(CPermission.FOREGROUND_SERVICE)) {
                 super.initData(savedInstanceState)
             }

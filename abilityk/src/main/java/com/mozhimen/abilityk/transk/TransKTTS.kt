@@ -13,6 +13,7 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CQuery
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import java.util.*
 
 /**
@@ -37,7 +38,7 @@ class TransKTTS<T>(owner: T, config: MText2SpeechConfig = MText2SpeechConfig(Loc
     private var _transKText2Speech: TextToSpeech? = null
 
     init {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
+        if (UtilKBuildVers.isAfterV_28_9_P()) {
             if (!ManifestKPermission.checkPermission(CPermission.FOREGROUND_SERVICE)) {
                 UtilKLaunchActivity.startSettingAppDetails(owner)
             }

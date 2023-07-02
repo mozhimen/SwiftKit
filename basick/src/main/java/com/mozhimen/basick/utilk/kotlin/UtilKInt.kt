@@ -15,6 +15,9 @@ fun Int.getByteStr(): String =
 fun Int.getByteStr(@IntRange(from = 1) digit: Int): String =
     UtilKInt.getByteStr(this, digit)
 
+fun Int.toBoolean(): Boolean =
+    UtilKInt.toBoolean(this)
+
 object UtilKInt {
 //    fun getByteStr(byteInt: Int, @IntRange(from = 1) digit: Int) {
 //        val binaryString = String.format("%0${bit}s", Integer.toBinaryString(num))
@@ -24,9 +27,15 @@ object UtilKInt {
 //        }
 //    }
 
+    fun toBoolean(int: Int) =
+        int == 1
+
     fun getByteStr(byteInt: Int): String =
         Integer.toBinaryString(byteInt)
 
-    fun getByteStr(byteInt: Int, @IntRange(from = 1) digit: Int): String =
-        String.format("%${digit}s", Integer.toBinaryString(byteInt)).replace(" ", "0")
+    fun getByteStr(byteInt: Int, @IntRange(from = 1) digit: Int): String {
+        var byteStr = String.format("%${digit}s", Integer.toBinaryString(byteInt)).replace(" ", "0")
+        if (byteStr.length > digit) byteStr = byteStr.substring(byteStr.length - digit, byteStr.length)
+        return byteStr
+    }
 }

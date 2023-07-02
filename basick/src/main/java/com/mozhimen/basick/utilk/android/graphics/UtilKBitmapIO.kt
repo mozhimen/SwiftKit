@@ -25,6 +25,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
@@ -86,23 +87,13 @@ object UtilKBitmapIO : BaseUtilK() {
      * @return File
      */
     @JvmStatic
-    fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
-        return if (Build.VERSION.SDK_INT >= CVersCode.V_29_10_Q) {
-            if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return null
-            }
-            bitmap2JpegAlbumFileAfter29(sourceBitmap, filePathWithName, quality)
+    fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        if (UtilKBuildVers.isAfterV_29_10_Q()) {
+            if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) null
+            else bitmap2JpegAlbumFileAfter29(sourceBitmap, filePathWithName, quality)
         } else {
             bitmap2JpegAlbumFileBefore29(sourceBitmap, filePathWithName, quality)
         }
-    }
 
     /**
      * 存相册 after 29
@@ -205,7 +196,7 @@ object UtilKBitmapIO : BaseUtilK() {
     @JvmStatic
     fun uri2Bitmap(uri: Uri): Bitmap? {
         return try {
-            if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
+            if (UtilKBuildVers.isAfterV_28_9_P()) {
                 ImageDecoder.decodeBitmap(ImageDecoder.createSource(UtilKContext.getContentResolver(_context), uri))
             } else {
                 MediaStore.Images.Media.getBitmap(UtilKContext.getContentResolver(_context), uri)

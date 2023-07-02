@@ -240,6 +240,7 @@ import com.mozhimen.basick.elemk.cons.CVersCode;
 import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers;
 import com.mozhimen.basick.utilk.bases.BaseUtilK;
 import com.mozhimen.basick.utilk.android.graphics.UtilKColor;
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus;
@@ -1238,7 +1239,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
         if (drawableIds == 0) {
             return setBackground(null);
         }
-        if (Build.VERSION.SDK_INT >= CVersCode.V_21_5_L) {
+        if (UtilKBuildVers.isAfterV_21_5_L()) {
             return setBackground(getContextInner(true).getDrawable(drawableIds));
         } else {
             return setBackground(getContextInner(true).getResources().getDrawable(drawableIds));

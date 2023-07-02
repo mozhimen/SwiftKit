@@ -13,6 +13,7 @@ import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 
 /**
@@ -154,7 +155,7 @@ object UtilKIntent {
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     fun getInstall(filePathWithName: String): Intent? {
         val intent = Intent(Intent.ACTION_VIEW)
-        if (Build.VERSION.SDK_INT >= CVersCode.V_24_7_N) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
+        if (UtilKBuildVers.isAfterV_24_7_N()) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
         intent.setDataAndType(UtilKUri.filePathStr2Uri(filePathWithName) ?: return null, "application/vnd.android.package-archive")

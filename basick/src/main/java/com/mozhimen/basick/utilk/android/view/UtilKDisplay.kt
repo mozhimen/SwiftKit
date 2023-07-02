@@ -46,6 +46,7 @@ object UtilKDisplay {
     }
 
     @JvmStatic
+    @RequiresApi(CVersCode.V_17_42_J1)
     fun getDefaultRealSize(context: Context, size: Point) {
         getDefault(context).getRealSize(size)
     }

@@ -1,5 +1,8 @@
 package com.mozhimen.basicktest
 
+import com.mozhimen.basick.sensek.systembar.cons.CProperty
+import com.mozhimen.basick.utilk.kotlin.getByteStr
+import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -19,5 +22,14 @@ class ExampleUnitTest {
     fun test() {
         val jsons = arrayOf("2022-01-01", "2022-01-01")
         jsons.joinToString()
+    }
+
+    @Test
+    fun test1() {
+        CProperty.Or.THEME_CUSTOM.getByteStr(16).printlog()
+        CProperty.Or.THEME_CUSTOM.inv().getByteStr(16).printlog()
+       0b1.inv().getByteStr(16).forEach {
+           it.printlog()
+       }
     }
 }

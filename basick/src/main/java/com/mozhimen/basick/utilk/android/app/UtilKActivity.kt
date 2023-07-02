@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.ContextWrapper
-import android.os.Build
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
@@ -15,8 +14,10 @@ import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKLifecycle
+import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 
 /**
  * @ClassName UtilKActivity
@@ -32,7 +33,14 @@ fun AppCompatActivity.runOnBackThread(block: () -> Unit) {
     UtilKActivity.runOnBackThread(this, block)
 }
 
+fun <T : Annotation> Activity.getAnnotation(annotationClazz: Class<T>): T? =
+    UtilKActivity.getAnnotation(this, annotationClazz)
+
 object UtilKActivity {
+
+    @JvmStatic
+    fun <T : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<T>): T? =
+        UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
 
     @JvmStatic
     fun requestWindowFeature(activity: Activity, featureId: Int) {
@@ -138,30 +146,19 @@ object UtilKActivity {
         return if (activity != null) isDestroyed(activity) else true
     }
 
-    /**
-     * 判断Activity是否被销毁
-     * @param activity Activity
-     * @return Boolean
-     */
     @JvmStatic
-    fun isDestroyed(activity: Activity): Boolean {
-        return if (Build.VERSION.SDK_INT >= CVersCode.V_17_42_J1) {
-            activity.isDestroyed || isFinishing(activity)
-        } else isFinishing(activity)
-    }
+    fun isFinishingOrDestroyed(activity: Activity): Boolean =
+        isFinishing(activity) || isDestroyed(activity)
 
-    /**
-     * 判断Activity是否结束
-     * @param activity Activity
-     * @return Boolean
-     */
     @JvmStatic
     fun isFinishing(activity: Activity): Boolean =
         activity.isFinishing
 
     @JvmStatic
-    fun isFinishingOrDestroyed(activity: Activity): Boolean =
-        isFinishing(activity) || isDestroyed(activity)
+    fun isDestroyed(activity: Activity): Boolean =
+        if (UtilKBuildVers.isAfterV_17_42_J1()) {
+            activity.isDestroyed || isFinishing(activity)
+        } else isFinishing(activity)
 
     @JvmStatic
     fun runOnBackThread(appCompatActivity: AppCompatActivity, block: () -> Unit) {

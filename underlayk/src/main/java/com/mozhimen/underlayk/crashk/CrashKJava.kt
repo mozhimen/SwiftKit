@@ -103,7 +103,7 @@ class CrashKJava : BaseUtilK() {
             stringBuilder.append("model= ${UtilKBuild.getModel()}").append(CMsg.LINE_BREAK)//手机系列
             stringBuilder.append("rom= ${UtilKDevice.getRomVersion()}").append(CMsg.LINE_BREAK)//rom
             stringBuilder.append("os= ${UtilKBuild.getVersionRelease()}").append(CMsg.LINE_BREAK)//API版本:9.0
-            stringBuilder.append("sdk= ${UtilKBuild.getVersionSDKCode()}").append(CMsg.LINE_BREAK)//SDK版本:31
+            stringBuilder.append("sdk= ${UtilKBuild.getVersionSDKStr()}").append(CMsg.LINE_BREAK)//SDK版本:31
             stringBuilder.append("launch_time= $_launchTime").append(CMsg.LINE_BREAK)//启动APP的时间
             stringBuilder.append("crash_time= ${UtilKDate.getNowStr()}").append(CMsg.LINE_BREAK)//crash发生的时间
             stringBuilder.append("foreground= ${StackKCb.instance.isFront()}").append(CMsg.LINE_BREAK)//应用处于前台

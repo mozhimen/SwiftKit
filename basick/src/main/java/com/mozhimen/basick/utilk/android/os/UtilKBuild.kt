@@ -1,7 +1,8 @@
 package com.mozhimen.basick.utilk.android.os
 
+import android.annotation.SuppressLint
 import android.os.Build
-import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CDateFormat
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.kotlin.joinArray2Str
@@ -15,6 +16,11 @@ import com.mozhimen.basick.utilk.java.util.long2Str
  * @Version 1.0
  */
 object UtilKBuild {
+
+    @SuppressLint("HardwareIds")
+    @JvmStatic
+    @RequiresApi(CVersCode.V_26_8_O)
+    fun getSerial(): String = Build.SERIAL
 
     //设备名
     @JvmStatic
@@ -30,7 +36,7 @@ object UtilKBuild {
 
     //构建SDK版本
     @JvmStatic
-    fun getVersionSDKCode(): String = Build.VERSION.SDK_INT.toString()
+    fun getVersionSDKStr(): String = UtilKBuildVers.getSDKStr()
 
     //构建Release版本号
     @JvmStatic
@@ -108,9 +114,5 @@ object UtilKBuild {
     @JvmStatic
     fun getTime(): String = Build.TIME.long2Str(CDateFormat.yyyyMMddHHmmss)
 
-    @ChecksSdkIntAtLeast(api = CVersCode.V_29_10_Q)
-    fun isQPlus() = Build.VERSION.SDK_INT >= CVersCode.V_29_10_Q
 
-    @ChecksSdkIntAtLeast(api = CVersCode.V_24_7_N)
-    fun isNougatPlus() = Build.VERSION.SDK_INT >= CVersCode.V_24_7_N
 }

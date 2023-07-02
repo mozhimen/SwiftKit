@@ -17,7 +17,12 @@ fun String.packageStr2Clazz(): Class<*> =
 fun Class<*>.getPackageStr(): String =
     UtilKClazz.getPackageStr(this)
 
+
 object UtilKClazz {
+    @JvmStatic
+    fun <T : Annotation> getAnnotation(clazz: Class<*>, annotationClazz: Class<T>): T? =
+        clazz.getAnnotation(annotationClazz)
+
     @JvmStatic
     fun packageStr2Clazz(packageStr: String): Class<*> =
         Class.forName(packageStr)
@@ -27,17 +32,16 @@ object UtilKClazz {
         clazz.name
 
     @JvmStatic
-    fun clazz2Log(clazz: Class<*>, lineNumber: Int): String {
-        return ".(" + clazz.simpleName + ".java:" + lineNumber + ")"
-    }
+    fun clazz2Log(clazz: Class<*>, lineNumber: Int): String =
+        ".(" + clazz.simpleName + ".java:" + lineNumber + ")"
 
     @JvmStatic
     fun getSuperClazz(clazz: Class<*>): Class<*> =
         clazz.superclass
 
     @JvmStatic
-    fun obj2Clazz(obj: Any): Class<*> {
-        return when (obj) {
+    fun obj2Clazz(obj: Any): Class<*> =
+        when (obj) {
             is Int -> Int::class.java
             is Boolean -> Boolean::class.java
             is Double -> Double::class.java
@@ -48,5 +52,4 @@ object UtilKClazz {
             is Drawable -> Drawable::class.java
             else -> obj.javaClass
         }
-    }
 }

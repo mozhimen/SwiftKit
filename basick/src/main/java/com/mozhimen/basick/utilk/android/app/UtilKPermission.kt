@@ -15,6 +15,8 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.isBeforeVersion
 
 /**
  * @ClassName UtilKPermission
@@ -27,7 +29,7 @@ object UtilKPermission : BaseUtilK() {
 
     @JvmStatic
     fun hasOverlay(): Boolean =
-        if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) {
+        if (UtilKBuildVers.isAfterV_23_6_M()) {
             hasOverlay2()
         } else true
 
@@ -40,7 +42,7 @@ object UtilKPermission : BaseUtilK() {
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
     @ADescription(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
     fun hasOverlay2(): Boolean {
-        return Build.VERSION.SDK_INT < CVersCode.V_23_6_M || Settings.canDrawOverlays(_context)
+        return CVersCode.V_23_6_M.isBeforeVersion() || Settings.canDrawOverlays(_context)
     }
 
 
@@ -61,11 +63,10 @@ object UtilKPermission : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    fun hasPackageInstalls(): Boolean {
-        return if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) {
+    fun hasPackageInstalls(): Boolean =
+        if (UtilKBuildVers.isAfterV_26_8_O()) {
             hasPackageInstallsAfterO()
         } else true
-    }
 
     /**
      * 是否有包安装权限

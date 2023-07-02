@@ -10,6 +10,7 @@ import android.os.Build
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
 import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
 import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
@@ -24,7 +25,7 @@ internal class NotifierUtils private constructor() {
 
     companion object {
         private fun getPendingIntentFlag() =
-            if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) {
+            if (UtilKBuildVers.isAfterV_23_6_M()) {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             } else PendingIntent.FLAG_UPDATE_CURRENT
 
@@ -48,7 +49,7 @@ internal class NotifierUtils private constructor() {
         ) {
             val notificationManager = getNotificationManager(context)
             // 在 Android 8.0 及更高版本上，需要在系统中注册应用的通知渠道
-            if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) {
+            if (UtilKBuildVers.isAfterV_26_8_O()) {
                 val channel = NotificationChannel(
                     CDownloadParameter.NOTIFICATION_CHANNEL_ID,
                     context.getString(R.string.downloader_notifier_channel_name),

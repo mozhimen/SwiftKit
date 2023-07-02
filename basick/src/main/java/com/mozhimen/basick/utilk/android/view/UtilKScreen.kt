@@ -13,6 +13,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.content.UtilKTheme
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics
 import kotlin.math.sqrt
 
@@ -111,7 +112,7 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getRealWidth(): Int =
-        if (Build.VERSION.SDK_INT >= CVersCode.V_30_11_R) {
+        if (UtilKBuildVers.isAfterV_30_11_R()) {
             UtilKWindowManager.getBoundsWidth(_context)
         } else {
             UtilKWindowManager.getSizeX(_context)
@@ -123,7 +124,7 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getRealHeight(): Int =
-        if (Build.VERSION.SDK_INT >= CVersCode.V_30_11_R) {
+        if (UtilKBuildVers.isAfterV_30_11_R()) {
             UtilKWindowManager.getBoundsHeight(_context)
         } else {
             UtilKWindowManager.getSizeY(_context)
@@ -188,7 +189,7 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun getRotation(activity: Activity): Int =
-        if (Build.VERSION.SDK_INT >= CVersCode.V_30_11_R) {
+        if (UtilKBuildVers.isAfterV_30_11_R()) {
             UtilKDisplay.getRotation(activity)
         } else {
             UtilKDisplay.getDefaultRotation(activity as Context)

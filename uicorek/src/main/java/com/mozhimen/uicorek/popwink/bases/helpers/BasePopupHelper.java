@@ -38,6 +38,7 @@ import com.mozhimen.basick.elemk.cons.CVersCode;
 import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.utilk.android.content.UtilKResource;
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers;
 import com.mozhimen.basick.utilk.android.util.UtilKLog;
 import com.mozhimen.basick.utilk.android.view.UtilKScreen;
 import com.mozhimen.basick.utilk.android.app.UtilKActivity;
@@ -614,24 +615,24 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
 
     void getSafeInsetBounds(Rect r) {
         if (r == null) return;
-        if (Build.VERSION.SDK_INT < CVersCode.V_28_9_P) {
-            r.setEmpty();
-            return;
-        }
-        try {
-            DisplayCutout cutout = mPopupWindow.getContext()
-                    .getWindow()
-                    .getDecorView()
-                    .getRootWindowInsets()
-                    .getDisplayCutout();
-            if (cutout == null) {
-                r.setEmpty();
-                return;
+        if (UtilKBuildVers.isAfterV_28_9_P()) {
+            try {
+                DisplayCutout cutout = mPopupWindow.getContext()
+                        .getWindow()
+                        .getDecorView()
+                        .getRootWindowInsets()
+                        .getDisplayCutout();
+                if (cutout == null) {
+                    r.setEmpty();
+                    return;
+                }
+                r.set(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
+                        cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
+            } catch (Exception e) {
+                UtilKLogPro.e(e);
             }
-            r.set(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
-                    cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
-        } catch (Exception e) {
-            UtilKLogPro.e(e);
+        } else {
+            r.setEmpty();
         }
     }
 

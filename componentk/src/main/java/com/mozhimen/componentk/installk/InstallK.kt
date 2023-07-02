@@ -13,6 +13,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKApplicationInfo
 import com.mozhimen.basick.utilk.android.os.UtilKOSRoot
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.componentk.installk.commons.IInstallK
@@ -135,7 +136,7 @@ class InstallK : IInstallK, BaseUtilK() {
         }
         val targetSdkVersion = UtilKApplicationInfo.getTargetSdkVersion(_context)
         requireNotNull(targetSdkVersion)
-        if (targetSdkVersion >= CVersCode.V_26_8_O && Build.VERSION.SDK_INT >= CVersCode.V_26_8_O && !UtilKAppInstall.isAppInstallsPermissionEnable()) {        // 允许安装应用
+        if (targetSdkVersion >= CVersCode.V_26_8_O && UtilKBuildVers.isAfterV_26_8_O() && !UtilKAppInstall.isAppInstallsPermissionEnable()) {        // 允许安装应用
             Log.w(TAG, "installByMode: onNeedPermissions isAppInstallsPermissionEnable false")
             _handler.sendMessage(Message().apply {
                 what = CInstallKCons.MSG_NEED_PERMISSION

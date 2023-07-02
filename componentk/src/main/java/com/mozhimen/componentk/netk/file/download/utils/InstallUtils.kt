@@ -10,6 +10,7 @@ import android.os.Build
 import android.provider.Settings
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.util.UtilKLog.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.componentk.BuildConfig
@@ -18,14 +19,14 @@ import java.io.File
 
 object InstallUtils : BaseUtilK() {
     fun hasInstallPermission(context: Context): Boolean {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) {
+        if (UtilKBuildVers.isAfterV_26_8_O()) {
             return context.packageManager.canRequestPackageInstalls()
         }
         return true
     }
 
     fun settingPackageInstall(activity: Activity, requestCode: Int) {
-        if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) {
+        if (UtilKBuildVers.isAfterV_26_8_O()) {
             val intentSetting = Intent(
                 Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
                 Uri.parse("package:" + activity.packageName)
@@ -119,7 +120,7 @@ object InstallUtils : BaseUtilK() {
             return null
         }
         val pm = context.packageManager
-        return if (Build.VERSION.SDK_INT >= CVersCode.V_28_9_P) {
+        return if (UtilKBuildVers.isAfterV_28_9_P()) {
             pm.getPackageArchiveInfo(
                 path,
                 PackageManager.GET_SIGNING_CERTIFICATES

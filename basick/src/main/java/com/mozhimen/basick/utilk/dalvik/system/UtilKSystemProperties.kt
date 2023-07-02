@@ -5,6 +5,8 @@ import android.os.Build
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.utilk.android.os.UtilKBuild
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.packageStr2Clazz
 
@@ -41,10 +43,10 @@ object UtilKSystemProperties : BaseUtilK() {
      */
     @SuppressLint("HardwareIds")
     @JvmStatic
-    fun getSerialNumber(): String = if (Build.VERSION.SDK_INT >= CVersCode.V_29_10_Q) {
+    fun getSerialNumber(): String = if (UtilKBuildVers.isAfterV_29_10_Q()) {
         CPackage.UNKNOWN
-    } else if (Build.VERSION.SDK_INT >= CVersCode.V_26_8_O) {
-        Build.SERIAL
+    } else if (UtilKBuildVers.isAfterV_26_8_O()) {
+        UtilKBuild.getSerial()
     } else {
         getSystemProperties(CPackage.RO_SERIAL_NO, CPackage.UNKNOWN)
     }

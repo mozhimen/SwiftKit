@@ -5,8 +5,8 @@ import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basicktest.databinding.ActivityUtilkScreenBinding
-import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBar
-import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
+import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarProperty
+import com.mozhimen.basick.sensek.systembar.cons.CProperty
 
 
 /**
@@ -16,7 +16,7 @@ import com.mozhimen.basick.sensek.systembar.cons.CSystemBarType
  * @Date 2022/11/24 14:35
  * @Version 1.0
  */
-@ASenseKSystemBar(systemBarType = CSystemBarType.IMMERSED_LIGHT)
+@ASenseKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
 class UtilKScreenActivity : BaseActivityVB<ActivityUtilkScreenBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         super.initData(savedInstanceState)
