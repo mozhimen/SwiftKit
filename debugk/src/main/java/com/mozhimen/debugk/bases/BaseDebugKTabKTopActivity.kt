@@ -7,6 +7,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.sensek.systembar.SenseKSystemBar
+import com.mozhimen.basick.sensek.systembar.initSenseKSystemBar
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.debugk.databinding.DebugkActivityTabkTopBinding
@@ -28,7 +29,7 @@ abstract class BaseDebugKTabKTopActivity : BaseActivityVB<DebugkActivityTabkTopB
     abstract fun getTabList(): ArrayList<DebugKUITabTopItem>
 
     override fun initFlag() {
-        SenseKSystemBar.init(this)
+        initSenseKSystemBar()
     }
 
     override fun initView(savedInstanceState: Bundle?) {

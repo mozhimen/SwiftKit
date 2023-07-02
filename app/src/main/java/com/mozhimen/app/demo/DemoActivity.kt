@@ -12,6 +12,7 @@ import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
 import com.mozhimen.basick.sensek.systembar.SenseKSystemBar
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarProperty
 import com.mozhimen.basick.sensek.systembar.cons.CProperty
+import com.mozhimen.basick.sensek.systembar.initSenseKSystemBar
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffedVB
 import kotlin.math.abs
 
@@ -20,7 +21,7 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
     private var _scrollY = 0
     private var _alpha = 0
     override fun initFlag() {
-        SenseKSystemBar.init(this)
+        initSenseKSystemBar()
     }
     override fun initView(savedInstanceState: Bundle?) {
         val list = arrayListOf(
