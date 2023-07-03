@@ -36,7 +36,7 @@ class DebugKDialogFragment : AppCompatDialogFragment() {
 
     private lateinit var _debugKRecycler: RecyclerView
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val parent = dialog?.window?.let { UtilKContentView.getViewGroup(it) } ?: container
+        val parent = dialog?.window?.let { UtilKContentView.getAsViewGroup(it) } ?: container
         val view = inflater.inflate(R.layout.debugk_dialog, parent, false)
 
         dialog?.window?.setLayout((UtilKScreen.getRealWidth() * 0.8f).toInt(), CWinMgr.Lp.WRAP_CONTENT)

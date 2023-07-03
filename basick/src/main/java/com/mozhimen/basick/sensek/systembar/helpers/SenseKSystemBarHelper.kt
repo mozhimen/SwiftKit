@@ -1,11 +1,17 @@
 package com.mozhimen.basick.sensek.systembar.helpers
 
 import android.app.Activity
+import android.graphics.Color
+import android.view.WindowManager
 import com.mozhimen.basick.elemk.cons.CView
+import com.mozhimen.basick.elemk.cons.CWinMgr
+import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
 import com.mozhimen.basick.utilk.android.view.UtilKStatusBarIcon
 import com.mozhimen.basick.utilk.android.view.UtilKSystemBar
+import com.mozhimen.basick.utilk.android.view.UtilKWindow
 
 /**
  * @ClassName SenseKSystemBarHelper
@@ -16,22 +22,32 @@ import com.mozhimen.basick.utilk.android.view.UtilKSystemBar
  */
 object SenseKSystemBarHelper {
     @JvmStatic
-    fun setSystemBarLowProfile(activity: Activity) {
-        UtilKSystemBar.setStatusBarLowProfile(activity)
+    fun setSystemBarProperty(
+        activity: Activity,
+        isStatusBarBgTranslucent: Boolean,
+        isStatusBarIconLowProfile: Boolean,
+    ) {
+        if (isStatusBarBgTranslucent) UtilKSystemBar.setTranslucent(activity)
+        if (isStatusBarIconLowProfile) UtilKSystemBar.setStatusBarLowProfile(activity)
     }
 
     @JvmStatic
-    fun setSystemBarTheme(activity: Activity, isThemeDark: Boolean) {
-        UtilKStatusBarIcon.setIcon(activity, isThemeDark)
+    fun setSystemBarTheme(
+        activity: Activity,
+        isThemeCustom: Boolean,
+        isThemeDark: Boolean
+    ) {
+        if (isThemeCustom) UtilKStatusBarIcon.setIcon(activity, isThemeDark)
+        else UtilKStatusBarIcon.setIcon(activity, UtilKConfiguration.isDarkMode())
     }
 
     @JvmStatic
     fun hideSystemBar(
         activity: Activity,
-        isStatusBarHide: Boolean = false,
-        isNavigationBarHide: Boolean = false,
-        isTitleBarHide: Boolean = false,
-        isActionBarHide: Boolean = false
+        isStatusBarHide: Boolean,
+        isNavigationBarHide: Boolean,
+        isTitleBarHide: Boolean,
+        isActionBarHide: Boolean
     ) {
         if (isStatusBarHide) UtilKSystemBar.hideStatusBar(activity)
         if (isNavigationBarHide) UtilKSystemBar.hideNavigationBar(activity)
@@ -42,21 +58,21 @@ object SenseKSystemBarHelper {
     @JvmStatic
     fun overlaySystemBar(
         activity: Activity,
-        isStatusBarOverlay: Boolean = false,
-        isNavigationBarOverlay: Boolean = false,
+        isStatusBarOverlay: Boolean,
+        isNavigationBarOverlay: Boolean
     ) {
         if (isStatusBarOverlay) UtilKSystemBar.overlayStatusBar(activity)
         if (isNavigationBarOverlay) UtilKSystemBar.overlayNavigationBar(activity)
     }
 
     @JvmStatic
-    fun setLayoutStable(activity: Activity) {
-        UtilKSystemBar.setLayoutStable(activity)
-    }
-
-    @JvmStatic
-    fun setFitsSystemWindows(activity: Activity) {
-        UtilKSystemBar.setFitsSystemWindows(activity)
+    fun setLayoutProperty(
+        activity: Activity,
+        isLayoutStable: Boolean,
+        isFitsSystemWindows: Boolean
+    ) {
+        if (isLayoutStable) UtilKSystemBar.setLayoutStable(activity)
+        if (isFitsSystemWindows) UtilKSystemBar.setFitsSystemWindows(activity)
     }
 
     @JvmStatic

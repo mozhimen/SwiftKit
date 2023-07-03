@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.view
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Point
 import android.graphics.Rect
 import android.os.Build
@@ -12,8 +13,10 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CView
+import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.getByContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.isDestroyed
@@ -33,6 +36,23 @@ import java.util.*
 object UtilKNavigationBar : BaseUtilK() {
     private val _navigationBarNames: HashMap<String, Void?> by lazy {
         hashMapOf("navigationbarbackground" to null, "immersion_navigation_bar_view" to null)
+    }
+
+    /**
+     * 设置状态栏沉浸式
+     * @param activity Activity
+     */
+    @JvmStatic
+    @ADescription("需要${CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION or CView.SystemUiFlag.LAYOUT_STABLE}")
+    fun setTranslucent(activity: Activity) {
+        if (UtilKBuildVers.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
+            UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_NAVIGATION)//清除透明状态栏
+            //UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
+            UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
+            UtilKWindow.setNavigationBarColor(activity, Color.TRANSPARENT)//设置透明
+        } else if (UtilKBuildVers.isAfterV_19_44_K()) {//19
+            UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_NAVIGATION)
+        }
     }
 
     @JvmStatic

@@ -5,9 +5,8 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Rect
-import android.os.Build
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -30,10 +29,11 @@ object UtilKStatusBar : BaseUtilK() {
      * @param activity Activity
      */
     @JvmStatic
-    fun setImmersed(activity: Activity) {
+    @ADescription("需要${CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE}")
+    fun setTranslucent(activity: Activity) {
         if (UtilKBuildVers.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
             UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)//清除透明状态栏
-            UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
+            //UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
             UtilKWindow.setStatusBarColor(activity, Color.TRANSPARENT)//设置透明
         } else if (UtilKBuildVers.isAfterV_19_44_K()) {//19
@@ -50,7 +50,7 @@ object UtilKStatusBar : BaseUtilK() {
             UtilKWindow.setStatusBarColor(activity, colorInt)
         } else if (UtilKBuildVers.isAfterV_19_44_K()) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明
-            setImmersed(activity)
+            setTranslucent(activity)
             val colorfulStatusBar = ColorfulStatusBar(activity)
             colorfulStatusBar.setEnable(true)//显示状态栏
             colorfulStatusBar.setColor(colorInt)//显示状态栏颜色

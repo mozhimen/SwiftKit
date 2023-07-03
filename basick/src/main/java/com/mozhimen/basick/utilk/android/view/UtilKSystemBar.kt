@@ -17,6 +17,22 @@ object UtilKSystemBar {
     }
 
     @JvmStatic
+    fun setTranslucent(activity: Activity){
+        setStatusBarTranslucent(activity)
+        setNavigationBarTranslucent(activity)
+    }
+
+    @JvmStatic
+    fun setStatusBarTranslucent(activity: Activity) {
+        UtilKStatusBar.setTranslucent(activity)
+    }
+
+    @JvmStatic
+    fun setNavigationBarTranslucent(activity: Activity) {
+        UtilKNavigationBar.setTranslucent(activity)
+    }
+
+    @JvmStatic
     fun hideTitleBar(activity: Activity) {
         UtilKTitleBar.hide(activity)
     }

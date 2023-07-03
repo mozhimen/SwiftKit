@@ -26,8 +26,8 @@ class ExampleUnitTest {
 
     @Test
     fun test1() {
-        CProperty.Or.THEME_CUSTOM.getByteStr(16).printlog()
-        CProperty.Or.THEME_CUSTOM.inv().getByteStr(16).printlog()
+        CProperty.CPropertyOr.THEME_CUSTOM.getByteStr(16).printlog()
+        CProperty.CPropertyOr.THEME_CUSTOM.inv().getByteStr(16).printlog()
        0b1.inv().getByteStr(16).forEach {
            it.printlog()
        }

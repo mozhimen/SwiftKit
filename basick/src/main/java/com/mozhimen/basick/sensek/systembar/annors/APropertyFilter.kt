@@ -5,7 +5,7 @@ import com.mozhimen.basick.sensek.systembar.cons.CProperty
 
 /**
  * @ClassName StatusBarKType
- * @Description TODO
+ * @Description 后期还会加, 目前先预制这么多
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/7/17 17:41
  * @Version 1.0

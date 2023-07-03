@@ -22,6 +22,7 @@ data class MPropertyConfig(
     var isLayoutStable: Boolean = false,//设置布局不受系统栏出现隐藏的而改变位置
     var isFitsSystemWindows: Boolean = false,//设置系统栏在控件上方的时候,不遮挡控件
     //////////////////////////////////////
+    var isStatusBarBgTranslucent:Boolean = false,
     var isStatusBarIconLowProfile: Boolean = false,
     var isThemeCustom: Boolean = false,
     var isThemeDark: Boolean = false

@@ -2,11 +2,15 @@ package com.mozhimen.basick.sensek.systembar
 
 import android.app.Activity
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarProperty
+import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarPropertyAnd
+import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarPropertyOr
 import com.mozhimen.basick.sensek.systembar.cons.CProperty
 import com.mozhimen.basick.sensek.systembar.helpers.SenseKSystemBarHelper
 import com.mozhimen.basick.sensek.systembar.mos.MPropertyConfig
 import com.mozhimen.basick.utilk.android.app.getAnnotation
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
+import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.getByteStr
 import com.mozhimen.basick.utilk.kotlin.toBoolean
 
@@ -20,23 +24,48 @@ import com.mozhimen.basick.utilk.kotlin.toBoolean
 /**
  * 作用: 状态栏管理
  * 用法:
- * @StatusBarKAnnor(statusBarType = StatusBarKType.CUSTOM, isFontIconDark = false, bgColorLight = android.R.color.black)
- * class StatusBarKActivity : BaseActivity<ActivityStatusbarkBinding, BaseViewModel>() {
- *  override fun initFlag() {
- *      StatusBarK.initStatusBar(this)
- *  }}
+ * //简单用法, 直接使用预制的属性
+ * //@ASenseKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
+ * //高级用法自己组合
+ * @ASenseKSystemBarProperty(CProperty.NORMAL)
+ * @ASenseKSystemBarPropertyOr(CPropertyOr.IMMERSED_OPEN, CPropertyOr.HIDE_STATUS_BAR, CPropertyOr.HIDE_NAVIGATION_BAR)
+ * class SystemBarActivity : BaseActivityVB<ActivitySensekSystembarBinding>() {
+ *     override fun initFlag() {
+ *         initSenseKSystemBar()
+ *     }
+ * }
  */
 fun Activity.initSenseKSystemBar() {
     SenseKSystemBar.initAnnor(this)
 }
 
-object SenseKSystemBar {
+fun Activity.initSenseKSystemBar(byteInt: Int) {
+    SenseKSystemBar.init(this)
+}
+
+object SenseKSystemBar : BaseUtilK() {
 
     @JvmStatic
     internal fun initAnnor(activity: Activity) {
-        val systemBarAnnor: ASenseKSystemBarProperty = activity.getAnnotation(ASenseKSystemBarProperty::class.java) ?: ASenseKSystemBarProperty(CProperty.NORMAL)
-        val propertyInt = systemBarAnnor.property
-        init(activity, getConfigForByteInt(propertyInt))
+        var aSenseKSystemBarPropertyInt: Int = (activity.getAnnotation(ASenseKSystemBarProperty::class.java) ?: ASenseKSystemBarProperty(CProperty.NORMAL)).property
+        val aSenseKSystemBarPropertyOrs: IntArray? = activity.getAnnotation(ASenseKSystemBarPropertyOr::class.java)?.propertyOr
+        val aSenseKSystemBarPropertyAnds: IntArray? = activity.getAnnotation(ASenseKSystemBarPropertyAnd::class.java)?.propertyAnd
+        if (aSenseKSystemBarPropertyOrs != null && aSenseKSystemBarPropertyOrs.isNotEmpty()) {
+            aSenseKSystemBarPropertyOrs.forEach {
+                aSenseKSystemBarPropertyInt = aSenseKSystemBarPropertyInt or it
+            }
+        }
+        if (aSenseKSystemBarPropertyAnds != null && aSenseKSystemBarPropertyAnds.isNotEmpty()) {
+            aSenseKSystemBarPropertyAnds.forEach {
+                aSenseKSystemBarPropertyInt = aSenseKSystemBarPropertyInt and it
+            }
+        }
+        init(activity, aSenseKSystemBarPropertyInt)
+    }
+
+    @JvmStatic
+    fun init(activity: Activity, byteInt: Int) {
+        init(activity, getConfigForByteInt(byteInt))
     }
 
     @JvmStatic
@@ -54,6 +83,7 @@ object SenseKSystemBar {
             mPropertyConfig.isOverlayNavigationBar,
             mPropertyConfig.isLayoutStable,
             mPropertyConfig.isFitsSystemWindows,
+            mPropertyConfig.isStatusBarBgTranslucent,
             mPropertyConfig.isStatusBarIconLowProfile,
             mPropertyConfig.isThemeCustom,
             mPropertyConfig.isThemeDark
@@ -77,48 +107,47 @@ object SenseKSystemBar {
         isLayoutStable: Boolean = false,//设置布局不受系统栏出现隐藏的而改变位置
         isFitsSystemWindows: Boolean = false,//设置系统栏在控件上方的时候,不遮挡控件
         //////////////////////////////////////
+        isStatusBarBgTranslucent: Boolean = false,
         isStatusBarIconLowProfile: Boolean = false,
         isThemeCustom: Boolean = false,
         isThemeDark: Boolean = false
     ) {
-        if (isStatusBarIconLowProfile) SenseKSystemBarHelper.setSystemBarLowProfile(activity)
-        if (isThemeCustom) SenseKSystemBarHelper.setSystemBarTheme(activity, isThemeDark) else SenseKSystemBarHelper.setSystemBarTheme(activity, UtilKConfiguration.isDarkMode())
-        if (isImmersed) {
-            SenseKSystemBarHelper.hideSystemBar(activity, isHideStatusBar, isHideNavigationBar, isHideTitleBar, isHideActionBar)
-            SenseKSystemBarHelper.overlaySystemBar(activity, isOverlayStatusBar, isOverlayNavigationBar)
-            if (isLayoutStable) SenseKSystemBarHelper.setLayoutStable(activity)
-            if (isFitsSystemWindows) SenseKSystemBarHelper.setFitsSystemWindows(activity)
-            SenseKSystemBarHelper.setImmersed(activity, isImmersedHard, isImmersedSticky)
-        }
+        SenseKSystemBarHelper.setSystemBarProperty(activity, isStatusBarBgTranslucent, isStatusBarIconLowProfile)
+        SenseKSystemBarHelper.setSystemBarTheme(activity, isThemeCustom, isThemeDark)
+        SenseKSystemBarHelper.hideSystemBar(activity, isHideStatusBar, isHideNavigationBar, isHideTitleBar, isHideActionBar)
+        SenseKSystemBarHelper.overlaySystemBar(activity, isOverlayStatusBar, isOverlayNavigationBar)
+        SenseKSystemBarHelper.setImmersed(activity, isImmersed && isImmersedHard, isImmersed && isImmersedSticky)
+        SenseKSystemBarHelper.setLayoutProperty(activity, isLayoutStable, isFitsSystemWindows)
     }
 
     private fun getConfigForByteInt(byteInt: Int): MPropertyConfig {
         val mPropertyConfig = MPropertyConfig()
         val byteStr = byteInt.getByteStr(16)
-        var byteBoolean = false
+        var byteBoolean: Boolean
         byteStr.forEachIndexed { position, c ->
             byteBoolean = c.digitToInt().toBoolean()
             when (position) {
-                1-> mPropertyConfig.isImmersed = byteBoolean
-                2-> mPropertyConfig.isImmersedHard = byteBoolean
-                3-> mPropertyConfig.isImmersedSticky = byteBoolean
+                1 -> mPropertyConfig.isImmersed = byteBoolean
+                2 -> mPropertyConfig.isImmersedHard = byteBoolean
+                3 -> mPropertyConfig.isImmersedSticky = byteBoolean
                 ////////////////////////////////////////////
-                4-> mPropertyConfig.isHideStatusBar = byteBoolean
-                5-> mPropertyConfig.isHideNavigationBar = byteBoolean
-                6-> mPropertyConfig.isHideTitleBar = byteBoolean
-                7-> mPropertyConfig.isHideActionBar = byteBoolean
+                4 -> mPropertyConfig.isHideStatusBar = byteBoolean
+                5 -> mPropertyConfig.isHideNavigationBar = byteBoolean
+                6 -> mPropertyConfig.isHideTitleBar = byteBoolean
+                7 -> mPropertyConfig.isHideActionBar = byteBoolean
                 ////////////////////////////////////////////
-                8-> mPropertyConfig.isOverlayStatusBar = byteBoolean
-                9-> mPropertyConfig.isOverlayNavigationBar = byteBoolean
-                10-> mPropertyConfig.isLayoutStable = byteBoolean
-                11-> mPropertyConfig.isFitsSystemWindows = byteBoolean
+                8 -> mPropertyConfig.isOverlayStatusBar = byteBoolean
+                9 -> mPropertyConfig.isOverlayNavigationBar = byteBoolean
+                10 -> mPropertyConfig.isLayoutStable = byteBoolean
+                11 -> mPropertyConfig.isFitsSystemWindows = byteBoolean
                 ////////////////////////////////////////////
-                13-> mPropertyConfig.isStatusBarIconLowProfile = byteBoolean
-                14-> mPropertyConfig.isThemeCustom = byteBoolean
-                15-> mPropertyConfig.isThemeDark = byteBoolean
+                12 -> mPropertyConfig.isStatusBarBgTranslucent = byteBoolean
+                13 -> mPropertyConfig.isStatusBarIconLowProfile = byteBoolean
+                14 -> mPropertyConfig.isThemeCustom = byteBoolean
+                15 -> mPropertyConfig.isThemeDark = byteBoolean
             }
         }
-        return mPropertyConfig
+        return mPropertyConfig.also { "getConfigForByteInt mPropertyConfig $it".dt(TAG) }
     }
 
 

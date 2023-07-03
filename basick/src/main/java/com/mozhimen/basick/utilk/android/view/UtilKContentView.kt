@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import com.mozhimen.basick.elemk.cons.CView
+import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlin.math.abs
 
@@ -25,23 +27,23 @@ object UtilKContentView : BaseUtilK() {
 
     @JvmStatic
     fun get(window: Window): View? =
-        UtilKWindow.getContentView(window)
+        UtilKWindow.getContentView(window).also { "getContentView is null ${it == null}".dt(TAG) }
 
     @JvmStatic
-    fun getViewGroup(activity: Activity): ViewGroup? =
-        getViewGroup(activity.window)
+    fun getAsViewGroup(activity: Activity): ViewGroup? =
+        getAsViewGroup(activity.window)
 
     @JvmStatic
-    fun getViewGroup(window: Window): ViewGroup? =
-        get(window) as? ViewGroup?
+    fun getAsViewGroup(window: Window): ViewGroup? =
+        (get(window) as? ViewGroup?).also { "getAsViewGroup is null ${it == null} ${it?.childCount}".dt(TAG) }
 
     @JvmStatic
-    fun getContent(activity: Activity): View? =
-        getViewGroup(activity.window)
+    fun getChild0(activity: Activity): View? =
+        getChild0(activity.window)
 
     @JvmStatic
-    fun getContent(window: Window): View? =
-        getViewGroup(window)?.getChildAt(0)
+    fun getChild0(window: Window): View? =
+        getAsViewGroup(window)?.getChildAt(0).also { "getChild0 is null ${it == null}".dt(TAG) }
 
     @JvmStatic
     fun getInvisibleHeight(activity: Activity): Int =
@@ -65,9 +67,13 @@ object UtilKContentView : BaseUtilK() {
      * 需要在根布局中设置FitSystemWindows属性为true, 所以添加Process方法中加入如下的代码
      * 或者在xml中添加android:fitSystemWindows="true"
      * 华为,OPPO机型在StatusUtil.setLightStatusBar后布局被顶到状态栏上去了
+     *
+     * 延迟加载不然getChild0为空
      */
     @JvmStatic
-    fun setFitsSystemWindows(activity: Activity, fitSystemWindows: Boolean = true) {
-        getContent(activity)?.fitsSystemWindows = fitSystemWindows
+    fun setFitsSystemWindows(activity: Activity) {
+        activity.window.decorView.post {
+            getChild0(activity)?.applyFitSystemWindow() ?: "setFitsSystemWindows contentView is null".et(TAG)
+        }
     }
 }

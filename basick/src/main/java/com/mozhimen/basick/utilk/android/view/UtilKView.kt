@@ -117,7 +117,7 @@ fun View.applyElevation(elevation: Float) {
     UtilKView.applyElevation(this, elevation)
 }
 
-fun View.applyFocusable(){
+fun View.applyFocusable() {
     UtilKView.applyFocusable(this)
 }
 
@@ -125,7 +125,16 @@ fun View.setOnGlobalLayoutObserver(callback: () -> Unit) {
     UtilKView.setOnGlobalLayoutObserver(this, callback)
 }
 
+fun View.applyFitSystemWindow() {
+    UtilKView.applyFitSystemWindow(this)
+}
+
 object UtilKView : BaseUtilK() {
+    @JvmStatic
+    fun applyFitSystemWindow(view: View) {
+        view.fitsSystemWindows = true
+    }
+
     @JvmStatic
     fun applyElevation(view: View, elevation: Float) {
         if (UtilKBuildVers.isAfterV_21_5_L()) view.elevation = elevation
