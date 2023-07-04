@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CDateFormat
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.kotlin.joinArray2Str
-import com.mozhimen.basick.utilk.java.util.long2Str
+import com.mozhimen.basick.utilk.java.util.toDateStr
 
 /**
  * @ClassName UtilKBuild
@@ -112,7 +112,7 @@ object UtilKBuild {
 
     //构建内部时间
     @JvmStatic
-    fun getTime(): String = Build.TIME.long2Str(CDateFormat.yyyyMMddHHmmss)
+    fun getTime(): String = Build.TIME.toDateStr(CDateFormat.yyyyMMddHHmmss)
 
 
 }

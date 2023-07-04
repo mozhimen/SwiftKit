@@ -3,6 +3,7 @@ package com.mozhimen.basicktest.utilk.android
 import android.view.View
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.content.startContext
+import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basicktest.databinding.ActivityUtilkAndroidBinding
 
 /**
@@ -39,5 +40,9 @@ class UtilKAndroidActivity : BaseActivityVB<ActivityUtilkAndroidBinding>() {
 
     fun goUtilKScreen(view: View) {
         startContext<UtilKScreenActivity>()
+    }
+
+    fun goUtilKView(view: View) {
+        startContext<UtilKViewActivity>()
     }
 }

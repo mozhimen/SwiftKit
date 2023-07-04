@@ -6,11 +6,19 @@ import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import com.mozhimen.basick.elemk.commons.IListener
+import com.mozhimen.basick.elemk.commons.IValue1Listener
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.UtilKDataType
+import com.mozhimen.basick.utilk.kotlinx.coroutines.asViewClickFlow
+import com.mozhimen.basick.utilk.kotlinx.coroutines.throttleFirst
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import java.util.*
 
 
@@ -129,7 +137,16 @@ fun View.applyFitSystemWindow() {
     UtilKView.applyFitSystemWindow(this)
 }
 
+fun View.applyDebounceClickListener(scope: CoroutineScope, thresholdMillis: Long = 500, block: IValue1Listener<View>) {
+    UtilKView.applyDebounceClickListener(this, scope, block, thresholdMillis)
+}
+
 object UtilKView : BaseUtilK() {
+    @JvmStatic
+    fun applyDebounceClickListener(view: View, scope: CoroutineScope, block: IValue1Listener<View>, thresholdMillis: Long = 500) {
+        view.asViewClickFlow().throttleFirst(thresholdMillis).onEach { block.invoke(view) }.launchIn(scope)
+    }
+
     @JvmStatic
     fun applyFitSystemWindow(view: View) {
         view.fitsSystemWindows = true
