@@ -1,5 +1,6 @@
 package com.mozhimen.basick.elemk.delegate
 
+import com.mozhimen.basick.elemk.commons.I_AListener
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -19,7 +20,7 @@ return (LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) a
  * @Date 2023/3/15 16:58
  * @Version 1.0
  */
-typealias IVarDelegate_GetFun_R_Invoke<T> = () -> T
+typealias IVarDelegate_GetFun_R_Invoke<T> = I_AListener<T>
 
 open class VarDelegate_GetFun_R_Nonnull<T>(private val _onGet: IVarDelegate_GetFun_R_Invoke<T>) : ReadWriteProperty<Any?, T> {
     @Volatile

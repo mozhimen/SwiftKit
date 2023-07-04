@@ -1,5 +1,7 @@
 package com.mozhimen.basick.elemk.mos
 
+import com.mozhimen.basick.elemk.commons.I_Listener
+
 
 /**
  * @ClassName MBlock
@@ -10,6 +12,6 @@ package com.mozhimen.basick.elemk.mos
  */
 data class MBlock(
     val name: String,
-    val block: () -> Unit,
+    val block: I_Listener,
     val resId: Int = 0
 )

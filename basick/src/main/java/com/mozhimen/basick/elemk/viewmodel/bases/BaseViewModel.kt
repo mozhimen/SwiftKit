@@ -1,6 +1,7 @@
 package com.mozhimen.basick.elemk.viewmodel.bases
 
 import androidx.lifecycle.ViewModel
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName BaseViewModel
@@ -9,6 +10,5 @@ import androidx.lifecycle.ViewModel
  * @Date 2022/2/25 14:46
  * @Version 1.0
  */
-open class BaseViewModel : ViewModel() {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+open class BaseViewModel : ViewModel(), IUtilK {
 }

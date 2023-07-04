@@ -5,6 +5,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.viewpager.widget.ViewPager
+import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.uicorek.commons.IUicoreK
 
 /**
  * @ClassName ViewPagerMKNoScroll
@@ -15,8 +17,7 @@ import androidx.viewpager.widget.ViewPager
  */
 open class PagerKDisScroll @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null,
-) : ViewPager(context, attrs) {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+) : ViewPager(context, attrs), IUtilK {
     protected var _isEnableScroll = true//是否enableScroll
 
     @SuppressLint("ClickableViewAccessibility")

@@ -12,17 +12,17 @@ import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObse
  * @Version 1.0
  */
 class ResultLauncherDelegate<T>() : BaseWakeBefDestroyLifecycleObserver() {
-    private var _resultLauncher: ActivityResultLauncher<T>? = null
+    private var _activityResultLauncher: ActivityResultLauncher<T>? = null
 
     fun getResultLauncher(): ActivityResultLauncher<T>? =
-        _resultLauncher
+        _activityResultLauncher
 
     override fun onCreate(owner: LifecycleOwner) {
 
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        _resultLauncher?.unregister()
+        _activityResultLauncher?.unregister()
         super.onDestroy(owner)
     }
 }

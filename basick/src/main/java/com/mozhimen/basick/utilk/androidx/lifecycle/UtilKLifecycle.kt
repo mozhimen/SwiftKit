@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.androidx.lifecycle
 
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.java.lang.UtilKThread
 
 /**
@@ -17,7 +18,7 @@ object UtilKLifecycle {
      * @param block Function0<Unit>
      */
     @JvmStatic
-    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: () -> Unit) {
+    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
         UtilKThread.runOnBackThread(lifecycleOwner, block)
     }
 }

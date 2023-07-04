@@ -10,6 +10,7 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
@@ -29,7 +30,7 @@ import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 fun Activity.isFinishingOrDestroyed(): Boolean =
     UtilKActivity.isFinishingOrDestroyed(this)
 
-fun AppCompatActivity.runOnBackThread(block: () -> Unit) {
+fun AppCompatActivity.runOnBackThread(block: I_Listener) {
     UtilKActivity.runOnBackThread(this, block)
 }
 
@@ -161,7 +162,7 @@ object UtilKActivity {
         } else isFinishing(activity)
 
     @JvmStatic
-    fun runOnBackThread(appCompatActivity: AppCompatActivity, block: () -> Unit) {
+    fun runOnBackThread(appCompatActivity: AppCompatActivity, block: I_Listener) {
         UtilKLifecycle.runOnBackThread(appCompatActivity, block)
     }
 }

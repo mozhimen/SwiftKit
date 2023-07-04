@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin.collections
 
+import com.mozhimen.basick.elemk.commons.IA_BListener
+
 /**
  * @ClassName UtilKCollections
  * @Description TODO
@@ -7,19 +9,19 @@ package com.mozhimen.basick.utilk.kotlin.collections
  * @Date 2022/11/27 0:24
  * @Version 1.0
  */
-fun <T, I> Iterable<T>.joinElement2List(predicate: (T) -> I): List<I> =
+fun <T, I> Iterable<T>.joinElement2List(predicate: IA_BListener<T, I>): List<I> =
     UtilKCollection.joinElement2List(this, predicate)
 
-fun <T, I> Iterable<T>.joinElement2ListIgnoreRepeat(predicate: (T) -> I): List<I> =
+fun <T, I> Iterable<T>.joinElement2ListIgnoreRepeat(predicate: IA_BListener<T, I>): List<I> =
     UtilKCollection.joinElement2ListIgnoreRepeat(this, predicate)
 
-fun <T, I> Iterable<T>.joinElement2ListIgnoreNull(predicate: (T?) -> I): List<I> =
+fun <T, I> Iterable<T>.joinElement2ListIgnoreNull(predicate: IA_BListener<T?, I>): List<I> =
     UtilKCollection.joinElement2ListIgnoreNull(this, predicate)
 
-fun <T> Iterable<T>.getIndexFirst(predicate: (T) -> Boolean): Int? =
+fun <T> Iterable<T>.getIndexFirst(predicate: IA_BListener<T, Boolean>): Int? =
     UtilKCollection.getIndexFirst(this, predicate)
 
-fun <T> Iterable<T>.containsBy(predicate: (T) -> Boolean): Boolean =
+fun <T> Iterable<T>.containsBy(predicate: IA_BListener<T, Boolean>): Boolean =
     UtilKCollection.containsBy(this, predicate)
 
 object UtilKCollection {
@@ -31,7 +33,7 @@ object UtilKCollection {
      * @return Boolean
      */
     @JvmStatic
-    fun <T> containsBy(iterable: Iterable<T>, predicate: (T) -> Boolean): Boolean {
+    fun <T> containsBy(iterable: Iterable<T>, predicate: IA_BListener<T, Boolean>): Boolean {
         return getIndexFirst(iterable, predicate) != null
     }
 
@@ -42,7 +44,7 @@ object UtilKCollection {
      * @return Int
      */
     @JvmStatic
-    fun <T> getIndexFirst(iterable: Iterable<T>, predicate: (T) -> Boolean): Int? {
+    fun <T> getIndexFirst(iterable: Iterable<T>, predicate: IA_BListener<T, Boolean>): Int? {
         val index = iterable.indexOf(iterable.find(predicate))
         return if (index == -1) null else index
     }
@@ -54,7 +56,7 @@ object UtilKCollection {
      * @return List<I>
      */
     @JvmStatic
-    fun <T, I> joinElement2List(iterable: Iterable<T>, predicate: (T) -> I): List<I> {
+    fun <T, I> joinElement2List(iterable: Iterable<T>, predicate: IA_BListener<T, I>): List<I> {
         return joinElement2List(iterable, ArrayList(), predicate)
     }
 
@@ -66,7 +68,7 @@ object UtilKCollection {
      * @return C
      */
     @JvmStatic
-    fun <T, I, C : MutableCollection<in I>> joinElement2List(iterable: Iterable<T>, newCollection: C, predicate: (T) -> I): C {
+    fun <T, I, C : MutableCollection<in I>> joinElement2List(iterable: Iterable<T>, newCollection: C, predicate: IA_BListener<T, I>): C {
         for (element in iterable) if (!newCollection.contains(predicate(element))) newCollection.add(predicate(element))
         return newCollection
     }
@@ -78,7 +80,7 @@ object UtilKCollection {
      * @return List<I>
      */
     @JvmStatic
-    fun <T, I> joinElement2ListIgnoreRepeat(iterable: Iterable<T>, predicate: (T) -> I): List<I> {
+    fun <T, I> joinElement2ListIgnoreRepeat(iterable: Iterable<T>, predicate: IA_BListener<T, I>): List<I> {
         return joinElement2ListIgnoreRepeat(iterable, ArrayList(), predicate)
     }
 
@@ -90,7 +92,7 @@ object UtilKCollection {
      * @return C
      */
     @JvmStatic
-    fun <T, I, C : MutableCollection<in I>> joinElement2ListIgnoreRepeat(iterable: Iterable<T>, newCollection: C, predicate: (T) -> I): C {
+    fun <T, I, C : MutableCollection<in I>> joinElement2ListIgnoreRepeat(iterable: Iterable<T>, newCollection: C, predicate: IA_BListener<T, I>): C {
         for (element in iterable) newCollection.add(predicate(element))
         return newCollection
     }
@@ -102,7 +104,7 @@ object UtilKCollection {
      * @return List<I>
      */
     @JvmStatic
-    fun <T, I> joinElement2ListIgnoreNull(iterable: Iterable<T?>, predicate: (T?) -> I): List<I> {
+    fun <T, I> joinElement2ListIgnoreNull(iterable: Iterable<T?>, predicate: IA_BListener<T?, I>): List<I> {
         return joinElement2ListIgnoreNull(iterable, ArrayList(), predicate)
     }
 
@@ -114,7 +116,7 @@ object UtilKCollection {
      * @return C
      */
     @JvmStatic
-    fun <T, I, C : MutableCollection<in I>> joinElement2ListIgnoreNull(iterable: Iterable<T?>, newCollection: C, predicate: (T?) -> I): C {
+    fun <T, I, C : MutableCollection<in I>> joinElement2ListIgnoreNull(iterable: Iterable<T?>, newCollection: C, predicate: IA_BListener<T?, I>): C {
         for (element in iterable) newCollection.add(predicate(element))
         return newCollection
     }

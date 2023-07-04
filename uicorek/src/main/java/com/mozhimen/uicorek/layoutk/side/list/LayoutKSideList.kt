@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.mozhimen.basick.elemk.commons.IValue2T1T2Listener
+import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.imagek.coil.loadImageComplex
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -28,7 +28,7 @@ import com.mozhimen.uicorek.layoutk.side.list.helpers.SideAttrsParser
 import com.mozhimen.uicorek.layoutk.side.list.temps.SideSubItemDecoration
 import com.mozhimen.uicorek.layoutk.side.list.mos.*
 
-typealias ILayoutKSideListListener = IValue2T1T2Listener<VHKRecycler, MSideSubContent?>//(viewHolder: VHKRecycler, content: MSideSubContent?) -> Unit
+typealias ILayoutKSideListListener = IAB_Listener<VHKRecycler, MSideSubContent?>//(viewHolder: VHKRecycler, content: MSideSubContent?) -> Unit
 
 /**
  * @ClassName LayoutKSideList

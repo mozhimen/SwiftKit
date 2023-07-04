@@ -7,11 +7,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.activity.commons.IActivity
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 abstract class BaseActivityVB<VB : ViewDataBinding>(
     private val _factory: ViewModelProvider.Factory? = null
-) : AppCompatActivity(), IActivity {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+) : AppCompatActivity(), IActivity, IUtilK {
 
     protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {
         UtilKViewDataBinding.get<VB>(this::class.java, layoutInflater, 0).apply {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -54,14 +55,14 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
     }
 
     private var _dialogKQues: DialogKQues? = null
-    private fun genDialogKQues(ques: String, onSureClick: () -> Unit, onCancelClick: (() -> Unit)? = null) {
+    private fun genDialogKQues(ques: String, onSureClick: I_Listener, onCancelClick: I_Listener? = null) {
         _dialogKQues?.dismiss()
         val builder = DialogKQues.Builder(this).setQuestion(title = ques)
         _dialogKQues = builder.create(onSureClick, onCancelClick)
         _dialogKQues!!.show()
     }
 
-    private fun genDialogKQuesAnim(ques: String, onSureClick: (() -> Unit)? = null, onCancelClick: (() -> Unit)? = null) {
+    private fun genDialogKQuesAnim(ques: String, onSureClick: I_Listener? = null, onCancelClick: I_Listener? = null) {
         _dialogKQues?.dismiss()
         val builder = DialogKQues.Builder(this)
         builder.apply {

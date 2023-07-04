@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.os
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import com.mozhimen.basick.elemk.commons.I_Listener
 
 
 /**
@@ -75,7 +76,7 @@ object UtilKHandler {
      * @param block Function0<Unit>
      */
     @JvmStatic
-    fun prepareAndLoop(block: () -> Unit) {
+    fun prepareAndLoop(block: I_Listener) {
         var myLooper = Looper.myLooper()
         if (myLooper == null) {
             Looper.prepare()
@@ -89,7 +90,7 @@ object UtilKHandler {
     }
 
     @JvmStatic
-    fun postOnMain(block: () -> Unit) {
+    fun postOnMain(block: I_Listener) {
         Handler(Looper.getMainLooper()).post(block)
     }
 

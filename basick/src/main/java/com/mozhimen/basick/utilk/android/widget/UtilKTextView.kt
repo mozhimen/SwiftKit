@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.widget
 import android.graphics.Typeface
 import android.widget.TextView
 import androidx.annotation.IntRange
+import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.kotlin.toStringTrim
 
@@ -24,7 +25,7 @@ fun TextView.applyIconFont(iconFont: String = "icons/iconfont.ttf") {
 val TextView.value: String
     get() = UtilKTextView.getValue(this)
 
-fun TextView.getValueIfNotEmpty(invoke: (value: String) -> Unit) {
+fun TextView.getValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
     UtilKTextView.getValueIfNotEmpty(this, invoke)
 }
 
@@ -64,7 +65,7 @@ object UtilKTextView {
         textView.text.toStringTrim()
 
     @JvmStatic
-    fun getValueIfNotEmpty(textView: TextView, invoke: (value: String) -> Unit) {
+    fun getValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
         val value = getValue(textView)
         if (value.isNotEmpty()) invoke.invoke(value)
     }

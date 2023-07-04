@@ -3,6 +3,7 @@ package com.mozhimen.uicorek.dialogk.bases.commons
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.uicorek.dialogk.bases.annors.ADialogMode
 
 /**
@@ -12,7 +13,7 @@ import com.mozhimen.uicorek.dialogk.bases.annors.ADialogMode
  * @Date 2023/6/2 15:38
  * @Version 1.0
  */
-interface IBaseDialogK<T> {
+interface IBaseDialogK<T> : IUtilK {
     fun getDialogClickListener(): T?
 
     /**

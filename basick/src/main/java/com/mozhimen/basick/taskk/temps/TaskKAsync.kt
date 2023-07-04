@@ -1,11 +1,12 @@
 package com.mozhimen.basick.taskk.temps
 
-import com.mozhimen.basick.elemk.commons.IValue1Listener
+import com.mozhimen.basick.elemk.commons.ISusp_Listener
+import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.util.et
 import kotlinx.coroutines.*
 
-typealias ITaskKAsyncErrorListener = IValue1Listener<Throwable>//(Throwable) -> Unit
+typealias ITaskKAsyncErrorListener = IA_Listener<Throwable>//(Throwable) -> Unit
 
 class TaskKAsync : BaseWakeBefDestroyTaskK() {
     private val _exceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -22,7 +23,7 @@ class TaskKAsync : BaseWakeBefDestroyTaskK() {
         this._taskKAsyncErrorListener = listener
     }
 
-    fun execute(task: suspend () -> Unit) {
+    fun execute(task: ISusp_Listener) {
         if (isActive()) return
         _asyncScope.launch {
             task.invoke()
@@ -30,7 +31,7 @@ class TaskKAsync : BaseWakeBefDestroyTaskK() {
     }
 
     override fun cancel() {
-        if(!isActive()) return
+        if (!isActive()) return
         _asyncScope.cancel()
     }
 }

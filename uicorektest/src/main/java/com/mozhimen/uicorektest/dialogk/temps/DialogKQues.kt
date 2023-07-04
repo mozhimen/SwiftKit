@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
+import com.mozhimen.basick.elemk.commons.IExts_Listener
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorektest.R
@@ -44,23 +46,23 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
             return this
         }
 
-        fun genBackground(block: FrameLayout.() -> Unit) {
+        fun genBackground(block: IExts_Listener<FrameLayout>) {
             _bg.block()
         }
 
-        fun genTitle(block: TextView.() -> Unit) {
+        fun genTitle(block: IExts_Listener<TextView>) {
             _titleView.block()
         }
 
-        fun genBtnCancel(block: MaterialButton.() -> Unit) {
+        fun genBtnCancel(block: IExts_Listener<MaterialButton>) {
             _btnCancel.block()
         }
 
-        fun genBtnSure(block: MaterialButton.() -> Unit) {
+        fun genBtnSure(block: IExts_Listener<MaterialButton>) {
             _btnSure.block()
         }
 
-        fun create(onSureClick: (() -> Unit)? = null, onCancelClick: (() -> Unit)? = null): DialogKQues {
+        fun create(onSureClick: I_Listener? = null, onCancelClick: I_Listener? = null): DialogKQues {
             val layoutInflater = UtilKContext.getLayoutInflater(_context)
             val dialogKQues = DialogKQues(_context, styleId)
             val view = layoutInflater.inflate(layoutId, null)

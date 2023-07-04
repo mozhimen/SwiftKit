@@ -5,6 +5,7 @@ import android.view.View
 import android.view.View.DragShadowBuilder
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.elemk.commons.IAA_Listener
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefPauseLifecycleObserver
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.util.et
@@ -19,10 +20,8 @@ import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
  */
 @ADescription("init by lazy")
 class DragAndDropDelegate : BaseWakeBefPauseLifecycleObserver() {
-    private val TAG = "DragAndDropDelegate>>>>>"
-
     private val _viewList = ArrayList<Pair<View, View>>()
-    fun dragAndDrop(sourceView: View, destView: View, onDrop: (sourceView: View, destView: View) -> Unit) {
+    fun dragAndDrop(sourceView: View, destView: View, onDrop: IAA_Listener<View>/*(sourceView: View, destView: View) -> Unit*/) {
         _viewList.add(sourceView to destView)
         sourceView.setOnLongClickListener {
             if (UtilKBuildVers.isAfterV_24_7_N()) {

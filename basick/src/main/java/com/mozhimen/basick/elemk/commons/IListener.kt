@@ -8,7 +8,9 @@ package com.mozhimen.basick.elemk.commons
  * @Date 2023/3/13 14:50
  * @Version 1.0
  */
-typealias IListener = () -> Unit
-typealias IValue1Listener<T> = (value: T) -> Unit
-typealias IValue2TListener<T> = (value1: T, value2: T) -> Unit
-typealias IValue2T1T2Listener<T1, T2> = (value1: T1, value2: T2) -> Unit
+typealias I_Listener = () -> Unit
+typealias I_AListener<A> = () -> A
+typealias IA_Listener<A> = (a: A) -> Unit
+typealias IA_BListener<A, B> = (a: A) -> B
+typealias IAA_Listener<A> = (a1: A, a2: A) -> Unit
+typealias IAB_Listener<A, B> = (a: A, b: B) -> Unit

@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.androidx.lifecycle
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import com.mozhimen.basick.elemk.commons.ISusp_AListener
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
@@ -46,7 +48,7 @@ object UtilKLiveData {
      *   result.exceptionOrNull()?.printStackTrace()}})
      */
     @JvmStatic
-    fun <T> fire(context: CoroutineContext, block: suspend () -> Result<T>) =
+    fun <T> fire(context: CoroutineContext, block: ISusp_AListener<Result<T>>/* suspend () -> Result<T>*/): LiveData<Result<T>> =
         liveData(context) {
             val result = try {
                 block()

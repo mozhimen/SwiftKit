@@ -11,7 +11,5 @@ import com.mozhimen.basick.utilk.android.app.UtilKApplication
  * @Version 1.0
  */
 open class BaseUtilK : IUtilK {
-    override val TAG = "${this.javaClass.simpleName}>>>>>"
-
     protected val _context by lazy { UtilKApplication.instance.applicationContext }
 }

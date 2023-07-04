@@ -16,8 +16,6 @@ import com.mozhimen.basick.utilk.android.util.et
  * @Version 1.0
  */
 abstract class BaseService : Service(), IBaseService {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
-
     protected val serviceResListeners = RemoteCallbackList<IBaseServiceResListener>()
     protected open val binder: IBaseServiceConnListener.Stub = BaseServiceBinder(serviceResListeners)
 

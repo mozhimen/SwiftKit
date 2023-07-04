@@ -2,6 +2,7 @@ package com.mozhimen.basick.elemk.handler.bases
 
 import android.os.Handler
 import android.os.Looper
+import com.mozhimen.basick.utilk.bases.IUtilK
 import java.lang.ref.WeakReference
 
 /**
@@ -11,8 +12,7 @@ import java.lang.ref.WeakReference
  * @Date 2022/2/27 17:56
  * @Version 1.0
  */
-open class BaseWeakClazzHandler<T>(clazz: T, looper: Looper) : Handler(looper) {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+open class BaseWeakClazzHandler<T>(clazz: T, looper: Looper) : Handler(looper), IUtilK {
     protected var _weakReference: WeakReference<T>? = null
 
     init {

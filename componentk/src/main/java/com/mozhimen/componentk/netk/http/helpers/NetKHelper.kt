@@ -1,5 +1,8 @@
 package com.mozhimen.componentk.netk.http.helpers
 
+import com.mozhimen.basick.elemk.commons.ISuspAB_Listener
+import com.mozhimen.basick.elemk.commons.ISuspA_Listener
+import com.mozhimen.basick.elemk.commons.ISusp_AListener
 import com.mozhimen.basick.elemk.mos.MResultIST
 import com.mozhimen.basick.utilk.android.util.vt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -16,7 +19,10 @@ import kotlinx.coroutines.flow.*
  * @Date 2022/10/26 11:01
  * @Version 1.0
  */
-suspend fun <T> Flow<NetKRep<T>>.asNetKRes(onSuccess: suspend (data: T) -> Unit, onFail: suspend (code: Int, msg: String) -> Unit) {
+suspend fun <T> Flow<NetKRep<T>>.asNetKRes(
+    onSuccess: ISuspA_Listener<T>,
+    onFail: ISuspAB_Listener<Int, String>/*onSuccess: suspend (data: T) -> Unit, onFail: suspend (code: Int, msg: String) -> Unit*/
+) {
     NetKHelper.asNetRes(this, onSuccess, onFail)
 }
 
@@ -25,7 +31,7 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKResSync(): MResultIST<T?> =
 
 object NetKHelper : BaseUtilK() {
     @JvmStatic
-    fun <T> createFlow(invoke: suspend () -> T?): Flow<NetKRep<T>> = flow {
+    fun <T> createFlow(invoke: ISusp_AListener<T?>): Flow<NetKRep<T>> = flow {
         emit(NetKRep.Uninitialized)
         val result: T? = invoke()
         result?.let {
@@ -38,7 +44,7 @@ object NetKHelper : BaseUtilK() {
     }.flowOn(Dispatchers.IO)
 
     @JvmStatic
-    suspend fun <T> asNetRes(flow: Flow<NetKRep<T>>, onSuccess: suspend (data: T) -> Unit, onFail: suspend (code: Int, msg: String) -> Unit) {
+    suspend fun <T> asNetRes(flow: Flow<NetKRep<T>>, onSuccess: ISuspA_Listener<T>, onFail: ISuspAB_Listener<Int, String>) {
         flow.onEach {
             "asNetRes: ${it::class.simpleName}".vt(TAG)
         }.collectLatest {
@@ -50,6 +56,7 @@ object NetKHelper : BaseUtilK() {
                     "asNetKRes: Error code ${netKThrowable.code} message ${netKThrowable.message}".ket(TAG)
                     onFail(netKThrowable.code, netKThrowable.message)
                 }
+
                 else -> {}
             }
         }

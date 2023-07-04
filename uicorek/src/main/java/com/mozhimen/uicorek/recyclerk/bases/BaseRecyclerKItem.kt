@@ -14,8 +14,6 @@ import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
  * @Version 1.0
  */
 open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
-
     protected var _adapterKRecycler: IAdapterKRecycler? = null
     lateinit var vh: VH
     var pos: Int = -1

@@ -1,6 +1,7 @@
 package com.mozhimen.basick.elemk.receiver.bases
 
 import android.content.BroadcastReceiver
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 
 /**
@@ -10,6 +11,5 @@ import android.content.BroadcastReceiver
  * @Date 2023/2/13 15:23
  * @Version 1.0
  */
-abstract class BaseBroadcastReceiver : BroadcastReceiver() {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
+abstract class BaseBroadcastReceiver : BroadcastReceiver(), IUtilK {
 }

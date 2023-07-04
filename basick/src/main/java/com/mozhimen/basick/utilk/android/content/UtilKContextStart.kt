@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.content
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import com.mozhimen.basick.elemk.commons.IExts_Listener
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
@@ -25,7 +26,7 @@ inline fun <reified T> Context.startContext() where T : Activity {
     UtilKContextStart.startContext<T>(this)
 }
 
-inline fun <reified T> Context.startContext(block: Intent.() -> Unit) where T : Activity {
+inline fun <reified T> Context.startContext(block: IExts_Listener<Intent>) where T : Activity {
     UtilKContextStart.startContext<T>(this, block)
 }
 
@@ -66,7 +67,7 @@ object UtilKContextStart : BaseUtilK() {
      * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
      */
     @JvmStatic
-    inline fun <reified T> startContext(context: Context, block: Intent.() -> Unit) where T : Activity {
+    inline fun <reified T> startContext(context: Context, block: IExts_Listener<Intent>) where T : Activity {
         startContext(context, Intent(context, T::class.java).apply(block))
     }
 
@@ -97,7 +98,7 @@ object UtilKContextStart : BaseUtilK() {
      * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
      */
     @JvmStatic
-    inline fun <reified T> startActivityForResult(activity: Activity, requestCode: Int, block: Intent.() -> Unit) where T : Activity {
+    inline fun <reified T> startActivityForResult(activity: Activity, requestCode: Int, block: IExts_Listener<Intent>) where T : Activity {
         startActivityForResult(activity, requestCode, Intent(activity, T::class.java).apply(block))
     }
 }

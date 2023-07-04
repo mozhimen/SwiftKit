@@ -4,6 +4,8 @@ import android.content.pm.PackageManager
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
+import com.mozhimen.basick.elemk.commons.IA_Listener
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.permission.annors.APermissionsCheck
 import com.mozhimen.basick.manifestk.permission.helpers.IManifestKPermissionListener
@@ -31,30 +33,30 @@ object ManifestKPermission : BaseUtilK() {
     @JvmStatic
     fun initPermissions(
         activity: AppCompatActivity,
-        onSuccess: () -> Unit,
-        onFail: (() -> Unit)? = { UtilKLaunchActivity.startSettingAppDetails(activity) }
+        onSuccess: I_Listener,
+        onFail: I_Listener? = { UtilKLaunchActivity.startSettingAppDetails(activity) }
     ) {
-        initPermissions(activity, isGranted = { if (it) onSuccess.invoke() else onFail?.invoke() })
+        initPermissions(activity, onResult = { if (it) onSuccess.invoke() else onFail?.invoke() })
     }
 
     /**
      * 作用: 权限申请
      * @param activity AppCompatActivity
-     * @param isGranted Function1<Boolean, Unit>
+     * @param onResult Function1<Boolean, Unit>
      */
     @JvmStatic
     @Throws(Exception::class)
     fun initPermissions(
         activity: AppCompatActivity,
-        isGranted: ((Boolean) -> Unit)? = null,
+        onResult: (IA_Listener<Boolean>/*(isGranted: Boolean) -> Unit*/)? = null,
     ) {
         val permissionAnnor = activity.javaClass.getAnnotation(APermissionCheck::class.java)
         val permissionsAnnor = activity.javaClass.getAnnotation(APermissionsCheck::class.java)
         require(permissionAnnor != null || permissionsAnnor != null) { "$TAG you may be forget add annor" }
         if (permissionAnnor != null) {
-            initPermissions(activity, permissionAnnor.permission, isGranted)
+            initPermissions(activity, permissionAnnor.permission, onResult)
         } else if (permissionsAnnor != null) {
-            initPermissions(activity, permissionsAnnor.permissions, isGranted)
+            initPermissions(activity, permissionsAnnor.permissions, onResult)
         }
     }
 
@@ -62,25 +64,25 @@ object ManifestKPermission : BaseUtilK() {
      * 作用: 权限申请
      * @param activity AppCompatActivity
      * @param permissions Array<String>
-     * @param isGranted Function1<Boolean, Unit>
+     * @param onResult Function1<Boolean, Unit>
      */
     @JvmStatic
     fun initPermissions(
         activity: AppCompatActivity,
         permissions: Array<out String>,
-        isGranted: ((Boolean) -> Unit)? = null
+        onResult: (IA_Listener<Boolean>/*(isGranted: Boolean) -> Unit*/)? = null
     ) {
         if (permissions.isNotEmpty()) {
             if (!checkPermissions(permissions)) {
                 requestPermissions(activity, *permissions) { allGranted, deniedList ->
                     printDeniedList(deniedList)
-                    isGranted?.invoke(allGranted)
+                    onResult?.invoke(allGranted)
                 }
             } else {
-                isGranted?.invoke(true)
+                onResult?.invoke(true)
             }
         } else {
-            isGranted?.invoke(true)
+            onResult?.invoke(true)
         }
     }
 

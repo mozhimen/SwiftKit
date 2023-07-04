@@ -3,6 +3,7 @@ package com.mozhimen.basick.elemk.viewmodel.bases
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName BaseAndroidViewModel
@@ -11,9 +12,7 @@ import androidx.lifecycle.AndroidViewModel
  * @Date 2023/6/11 21:50
  * @Version 1.0
  */
-open class BaseAndroidViewModel(application: Application) : AndroidViewModel(application) {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
-
+open class BaseAndroidViewModel(application: Application) : AndroidViewModel(application), IUtilK {
     val context: Context
         get() = getApplication<Application>().applicationContext
 }

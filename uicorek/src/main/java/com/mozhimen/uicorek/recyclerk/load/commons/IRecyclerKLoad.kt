@@ -1,5 +1,7 @@
 package com.mozhimen.uicorek.recyclerk.load.commons
 
+import com.mozhimen.basick.utilk.bases.IUtilK
+
 
 /**
  * @ClassName IRecyclerKLoad
@@ -8,9 +10,7 @@ package com.mozhimen.uicorek.recyclerk.load.commons
  * @Date 2023/4/6 10:19
  * @Version 1.0
  */
-interface IRecyclerKLoad {
-    val TAG get() = "${this.javaClass.simpleName}>>>>>"
-
+interface IRecyclerKLoad : IUtilK {
     /**
      * 设置底部加载视图
      * @param layoutId Int

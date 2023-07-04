@@ -6,8 +6,9 @@ import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import com.mozhimen.basick.elemk.commons.IListener
-import com.mozhimen.basick.elemk.commons.IValue1Listener
+import com.mozhimen.basick.elemk.commons.IA_Listener
+import com.mozhimen.basick.elemk.commons.I_Listener
+import com.mozhimen.basick.elemk.commons.I_AListener
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
@@ -16,7 +17,6 @@ import com.mozhimen.basick.utilk.kotlin.UtilKDataType
 import com.mozhimen.basick.utilk.kotlinx.coroutines.asViewClickFlow
 import com.mozhimen.basick.utilk.kotlinx.coroutines.throttleFirst
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import java.util.*
@@ -65,7 +65,7 @@ fun View.toGone() {
 
 /////////////////////////////////////////////////
 
-fun View.toVisibleIfElseGone(invoke: () -> Boolean) {
+fun View.toVisibleIfElseGone(invoke: I_AListener<Boolean>) {
     UtilKView.toVisibleIfElseGone(this, invoke)
 }
 
@@ -75,15 +75,15 @@ fun View.toVisibleIfElseGone(boolean: Boolean) {
 
 /////////////////////////////////////////////////
 
-fun View.toVisibleIf(invoke: () -> Boolean) {
+fun View.toVisibleIf(invoke: I_AListener<Boolean>) {
     UtilKView.toVisibleIf(this, invoke)
 }
 
-fun View.toInVisibleIf(invoke: () -> Boolean) {
+fun View.toInVisibleIf(invoke: I_AListener<Boolean>) {
     UtilKView.toInVisibleIf(this, invoke)
 }
 
-fun View.toGoneIf(invoke: () -> Boolean) {
+fun View.toGoneIf(invoke: I_AListener<Boolean>) {
     UtilKView.toGoneIf(this, invoke)
 }
 
@@ -129,21 +129,21 @@ fun View.applyFocusable() {
     UtilKView.applyFocusable(this)
 }
 
-fun View.setOnGlobalLayoutObserver(callback: () -> Unit) {
-    UtilKView.setOnGlobalLayoutObserver(this, callback)
+fun View.setOnGlobalLayoutObserver(invoke: I_Listener) {
+    UtilKView.setOnGlobalLayoutObserver(this, invoke)
 }
 
 fun View.applyFitSystemWindow() {
     UtilKView.applyFitSystemWindow(this)
 }
 
-fun View.applyDebounceClickListener(scope: CoroutineScope, thresholdMillis: Long = 500, block: IValue1Listener<View>) {
+fun View.applyDebounceClickListener(scope: CoroutineScope, thresholdMillis: Long = 500, block: IA_Listener<View>) {
     UtilKView.applyDebounceClickListener(this, scope, block, thresholdMillis)
 }
 
 object UtilKView : BaseUtilK() {
     @JvmStatic
-    fun applyDebounceClickListener(view: View, scope: CoroutineScope, block: IValue1Listener<View>, thresholdMillis: Long = 500) {
+    fun applyDebounceClickListener(view: View, scope: CoroutineScope, block: IA_Listener<View>, thresholdMillis: Long = 500) {
         view.asViewClickFlow().throttleFirst(thresholdMillis).onEach { block.invoke(view) }.launchIn(scope)
     }
 
@@ -241,12 +241,12 @@ object UtilKView : BaseUtilK() {
     }
 
     @JvmStatic
-    fun setOnGlobalLayoutObserver(view: View, callback: () -> Unit) {
+    fun setOnGlobalLayoutObserver(view: View, invoke: I_Listener) {
         view.viewTreeObserver?.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 if (view.viewTreeObserver != null) {
                     view.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                    callback.invoke()
+                    invoke.invoke()
                 }
             }
         })
@@ -485,7 +485,7 @@ object UtilKView : BaseUtilK() {
     /////////////////////////////////////////////////
 
     @JvmStatic
-    fun toVisibleIfElseGone(view: View, invoke: () -> Boolean) {
+    fun toVisibleIfElseGone(view: View, invoke: I_AListener<Boolean>) {
         if (invoke.invoke()) toVisible(view) else toGone(view)
     }
 
@@ -497,7 +497,7 @@ object UtilKView : BaseUtilK() {
     /////////////////////////////////////////////////
 
     @JvmStatic
-    fun toVisibleIf(view: View, invoke: () -> Boolean) {
+    fun toVisibleIf(view: View, invoke: I_AListener<Boolean>) {
         if (invoke.invoke()) toVisible(view)
     }
 
@@ -507,7 +507,7 @@ object UtilKView : BaseUtilK() {
     }
 
     @JvmStatic
-    fun toInVisibleIf(view: View, invoke: () -> Boolean) {
+    fun toInVisibleIf(view: View, invoke: I_AListener<Boolean>) {
         if (invoke.invoke()) toInVisible(view)
     }
 
@@ -517,7 +517,7 @@ object UtilKView : BaseUtilK() {
     }
 
     @JvmStatic
-    fun toGoneIf(view: View, invoke: () -> Boolean) {
+    fun toGoneIf(view: View, invoke: I_AListener<Boolean>) {
         if (invoke.invoke()) toGone(view)
     }
 

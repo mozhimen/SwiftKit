@@ -25,7 +25,7 @@ open class AdapterKRecyclerVB<DATA, VB : ViewDataBinding>(
     private var _datas: List<DATA>,
     private val _defaultLayout: Int,
     private val _brId: Int,
-    private val _listener: IAdapterKRecyclerVBListener<DATA, VB>? = null /* = (com.mozhimen.uicorek.recyclerk.datak.BindKViewHolder<androidx.databinding.ViewDataBinding>, T, kotlin.Int) -> kotlin.Unit */
+    private val _listener: IAdapterKRecyclerVBListener<DATA, VB>? = null /* = (BindKViewHolder<ViewDataBinding>, T, Int) -> Unit */
 ) : RecyclerView.Adapter<VHKRecyclerVB<VB>>() {
 
     private var _selectItemPosition = -1

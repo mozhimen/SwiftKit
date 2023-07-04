@@ -1,6 +1,6 @@
 package com.mozhimen.basick.taskk.executor.bases
 
-import com.mozhimen.basick.elemk.commons.IValue1Listener
+import com.mozhimen.basick.elemk.commons.IA_Listener
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlin.coroutines.CoroutineContext
 
@@ -11,7 +11,7 @@ import kotlin.coroutines.CoroutineContext
  * @Date 2023/6/6 23:42
  * @Version 1.0
  */
-typealias IGlobalCoroutineExceptionHandlerListener = IValue1Listener<Throwable>
+typealias IGlobalCoroutineExceptionHandlerListener = IA_Listener<Throwable>
 
 open class BaseGlobalCoroutineExceptionHandler(private val _listener: IGlobalCoroutineExceptionHandlerListener? = null) : CoroutineExceptionHandler {
     override val key: CoroutineContext.Key<*> = CoroutineExceptionHandler

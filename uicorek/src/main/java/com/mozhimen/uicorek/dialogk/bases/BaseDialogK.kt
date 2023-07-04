@@ -29,7 +29,6 @@ import kotlinx.coroutines.launch
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 abstract class BaseDialogK<T : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.DialogK_Theme_Blur) : ComponentDialog(context, themeResId),
     IBaseDialogK<T> {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
 
     private var _isHasSetWindowAttr = false
     private var _dialogMode = ADialogMode.BOTH

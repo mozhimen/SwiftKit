@@ -1,6 +1,7 @@
 package com.mozhimen.uicorek.adapterk.commons
 
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 
 /**
@@ -10,20 +11,18 @@ import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
  * @Date 2023/4/1 11:10
  * @Version 1.0
  */
-interface IAdapterKRecycler {
-    val TAG get() = "${this.javaClass.simpleName}>>>>>"
-
+interface IAdapterKRecycler : IUtilK {
     /**
      * 刷新Item
      * @param item BaseRecyclerKItem<DATA, ViewHolder>
      */
-    fun refreshItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, position: Int,notify: Boolean)
+    fun refreshItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean)
 
     /**
      * 刷新Item
      * @param items List<BaseRecyclerKItem<DATA, ViewHolder>>
      */
-    fun refreshItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>,notify: Boolean)
+    fun refreshItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean)
 
     /**
      * 在末尾添加item
@@ -51,14 +50,14 @@ interface IAdapterKRecycler {
      * 移除item
      * @param item BaseRecyclerKItem<DATA, ViewHolder>
      */
-    fun removeItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>,notify: Boolean)
+    fun removeItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, notify: Boolean)
 
     /**
      * 从指定位上移除item
      * @param position Int
      * @return BaseRecyclerKItem<DATA, VH>?
      */
-    fun removeItemAtPosition(position: Int,notify: Boolean): BaseRecyclerKItem<in RecyclerView.ViewHolder>?
+    fun removeItemAtPosition(position: Int, notify: Boolean): BaseRecyclerKItem<in RecyclerView.ViewHolder>?
 
     /**
      * 删除所有的item

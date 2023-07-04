@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.annotation.CallSuper
 import androidx.multidex.MultiDex
 import com.mozhimen.basick.stackk.cb.StackKCb
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName BaseApplication
@@ -12,9 +13,7 @@ import com.mozhimen.basick.stackk.cb.StackKCb
  * @Date 2022/2/27 13:00
  * @Version 1.0
  */
-open class BaseApplication : Application() {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
-
+open class BaseApplication : Application(), IUtilK {
     @CallSuper
     override fun onCreate() {
         super.onCreate()

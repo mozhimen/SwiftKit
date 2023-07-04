@@ -1,5 +1,6 @@
 package com.mozhimen.basick.elemk.delegate
 
+import com.mozhimen.basick.elemk.commons.IAA_Listener
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -13,7 +14,7 @@ import kotlin.reflect.KProperty
 /**
  * true 则赋值, 否则不赋值
  */
-typealias IVarDelegate_SetFun_R_Invoke<T> = (field: T, value: T) -> Boolean
+typealias IVarDelegate_SetFun_R_Invoke<T> = IAA_Listener<T>/*(field: T, value: T) -> Boolean*/
 
 open class VarDelegate_SetFun_R_SameNonnull<T>(default: T, private val _onSet: IVarDelegate_SetFun_R_Invoke<T>) : ReadWriteProperty<Any?, T> {
     @Volatile

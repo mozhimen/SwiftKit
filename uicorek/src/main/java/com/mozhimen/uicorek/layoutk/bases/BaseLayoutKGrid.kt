@@ -14,5 +14,4 @@ import com.mozhimen.uicorek.layoutk.commons.ILayoutK
  */
 abstract class BaseLayoutKGrid @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     GridLayout(context, attrs, defStyleAttr, defStyleRes), ILayoutK {
-    override val TAG = "${this.javaClass.simpleName}>>>>>"
 }

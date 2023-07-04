@@ -3,7 +3,8 @@ package com.mozhimen.basick.utilk.android.widget
 import android.text.Editable
 import android.text.InputFilter
 import android.widget.EditText
-import com.mozhimen.basick.elemk.view.commons.BaseTextChangedObserver
+import com.mozhimen.basick.elemk.commons.IA_Listener
+import com.mozhimen.basick.elemk.view.bases.BaseTextWatcher
 import com.mozhimen.basick.utilk.kotlin.toStringTrim
 
 /**
@@ -23,8 +24,8 @@ fun EditText.setInputMaxLength(inputMaxLength: Int) {
     UtilKEditText.setInputMaxLength(this, inputMaxLength)
 }
 
-fun EditText.setOnTextChangedObserver(onTextChangedInvoke: (newText: String) -> Unit) {
-    UtilKEditText.setOnTextChangedObserver(this, onTextChangedInvoke)
+fun EditText.setOnTextChangedObserver(onTextChanged: IA_Listener<String>/*(newText: String) -> Unit*/) {
+    UtilKEditText.setOnTextChangedObserver(this, onTextChanged)
 }
 
 object UtilKEditText {
@@ -50,13 +51,13 @@ object UtilKEditText {
     /**
      * 变化观察
      * @param editText EditText
-     * @param onTextChangedInvoke Function1<[@kotlin.ParameterName] String, Unit>
+     * @param onTextChanged Function1<[@kotlin.ParameterName] String, Unit>
      */
     @JvmStatic
-    fun setOnTextChangedObserver(editText: EditText, onTextChangedInvoke: (newTextStr: String) -> Unit) {
-        editText.addTextChangedListener(object : BaseTextChangedObserver() {
+    fun setOnTextChangedObserver(editText: EditText, onTextChanged: IA_Listener<String>/*(newTextStr: String) -> Unit*/) {
+        editText.addTextChangedListener(object : BaseTextWatcher() {
             override fun afterTextChanged(s: Editable) {
-                onTextChangedInvoke(s.toString())
+                onTextChanged(s.toString())
             }
         })
     }

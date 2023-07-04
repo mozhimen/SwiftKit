@@ -2,6 +2,7 @@ package com.mozhimen.basick.manifestk.permission.helpers
 
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
+import com.mozhimen.basick.elemk.commons.IAB_Listener
 
 /**
  * @ClassName InvisibleFragment
@@ -10,7 +11,7 @@ import androidx.fragment.app.Fragment
  * @Date 2021/4/14 17:07
  * @Version 1.0
  */
-typealias IManifestKPermissionListener = (Boolean, List<String>) -> Unit
+typealias IManifestKPermissionListener = IAB_Listener<Boolean, List<String>> /*(Boolean, List<String>) -> Unit*/
 
 class InvisibleFragment : Fragment() {
     private var _listener: IManifestKPermissionListener? = null

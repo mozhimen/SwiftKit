@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Looper
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.elemk.commons.ISusp_Listener
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivityManager
 import kotlinx.coroutines.Dispatchers
@@ -46,7 +48,7 @@ object UtilKThread {
      * @param block Function0<Unit>
      */
     @JvmStatic
-    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: () -> Unit) {
+    fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
         if (isMainThread()) {
             lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { block.invoke() }
         } else {
@@ -59,7 +61,7 @@ object UtilKThread {
      * @param block SuspendFunction0<Unit>
      */
     @JvmStatic
-    suspend fun runOnBackThread(block: suspend () -> Unit) {
+    suspend fun runOnBackThread(block: ISusp_Listener) {
         if (isMainThread()) {
             withContext(Dispatchers.IO) { block.invoke() }
         } else {

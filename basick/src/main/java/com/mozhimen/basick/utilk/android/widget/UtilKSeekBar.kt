@@ -1,7 +1,8 @@
 package com.mozhimen.basick.utilk.android.widget
 
 import android.widget.SeekBar
-import com.mozhimen.basick.elemk.view.commons.BaseOnSeekBarChangeListener
+import com.mozhimen.basick.elemk.commons.IA_Listener
+import com.mozhimen.basick.elemk.view.bases.BaseOnSeekBarChangeListener
 
 /**
  * @ClassName UtilKSeekBar
@@ -10,29 +11,29 @@ import com.mozhimen.basick.elemk.view.commons.BaseOnSeekBarChangeListener
  * @Date 2023/5/25 13:21
  * @Version 1.0
  */
-fun SeekBar.setOnSeekBarChangeObserver(seekBarChangeListener: (progress: Int) -> Unit) {
-    UtilKSeekBar.setOnSeekBarChangeObserver(this, seekBarChangeListener)
+fun SeekBar.setOnSeekBarChangeObserver(onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
+    UtilKSeekBar.setOnSeekBarChangeObserver(this, onSeekBarChange)
 }
 
-fun SeekBar.setOnSeekBarFinishObserver(seekBarChangeListener: (progress: Int) -> Unit) {
-    UtilKSeekBar.setOnSeekBarFinishObserver(this, seekBarChangeListener)
+fun SeekBar.setOnSeekBarFinishObserver(onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
+    UtilKSeekBar.setOnSeekBarFinishObserver(this, onSeekBarChange)
 }
 
 object UtilKSeekBar {
     @JvmStatic
-    fun setOnSeekBarChangeObserver(bar: SeekBar, seekBarChangeListener: (progress: Int) -> Unit) {
+    fun setOnSeekBarChangeObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
         bar.setOnSeekBarChangeListener(object : BaseOnSeekBarChangeListener() {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                seekBarChangeListener(progress)
+                onSeekBarChange(progress)
             }
         })
     }
 
     @JvmStatic
-    fun setOnSeekBarFinishObserver(bar: SeekBar, seekBarChangeListener: (progress: Int) -> Unit) {
+    fun setOnSeekBarFinishObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
         bar.setOnSeekBarChangeListener(object : BaseOnSeekBarChangeListener() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                seekBarChangeListener(seekBar.progress)
+                onSeekBarChange(seekBar.progress)
             }
         })
     }

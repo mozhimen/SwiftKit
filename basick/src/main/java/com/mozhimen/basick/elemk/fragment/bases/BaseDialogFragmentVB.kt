@@ -13,12 +13,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.activity.commons.IActivity
 import com.mozhimen.basick.elemk.activity.commons.IFragment
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 open class BaseDialogFragmentVB<VB : ViewDataBinding>(
     protected open val _factory: ViewModelProvider.Factory? = null
-) : DialogFragment(), IActivity, IFragment {
-    protected val TAG = "${this.javaClass.simpleName}>>>>>"
-
+) : DialogFragment(), IActivity, IFragment, IUtilK {
     private var _vb: VB? = null
     protected val vb get() = _vb!!
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.widget.applyValueIfNotEmpty
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
@@ -12,7 +13,7 @@ import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R
 import kotlin.math.roundToInt
 
-typealias IDialogKTipListener = () -> Unit
+typealias IDialogKTipListener = I_Listener
 
 class DialogKTip(context: Context, private val _txt: String, private var _onSure: IDialogKTipListener) : BaseDialogK<IDialogKClickListener>(context) {
 
