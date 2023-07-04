@@ -50,5 +50,11 @@
             android:onClick="goUtilKScreen"
             android:text="goUtilKScreen"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="goUtilKView"
+            android:text="goUtilKView"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

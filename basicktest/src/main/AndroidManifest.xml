@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mozhimen.basicktest" >
+    package="com.mozhimen.basicktest">
 
     <application
         android:name=".BasicKApplication"
@@ -10,7 +10,10 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SwiftKit" >
+        android:theme="@style/Theme.SwiftKit">
+        <activity
+            android:name=".utilk.android.UtilKViewActivity"
+            android:exported="false" />
         <activity
             android:name=".utilk.kotlin.UtilKKotlinActivity"
             android:exported="false" />
@@ -25,7 +28,7 @@
             android:exported="false" />
         <activity
             android:name=".BasicKActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -74,16 +77,16 @@
         <receiver
             android:name=".elemk.receiver.ElemKAutoRunReceiver"
             android:enabled="true"
-            android:exported="true" >
-            <intent-filter android:priority="1000" >
+            android:exported="true">
+            <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <receiver
             android:name=".elemk.receiver.ElemKInstallObserverReceiver"
             android:enabled="true"
-            android:exported="true" >
-            <intent-filter android:priority="100" >
+            android:exported="true">
+            <intent-filter android:priority="100">
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />

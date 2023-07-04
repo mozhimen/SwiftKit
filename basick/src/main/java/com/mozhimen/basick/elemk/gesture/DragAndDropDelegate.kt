@@ -1,6 +1,5 @@
 package com.mozhimen.basick.elemk.gesture
 
-import android.os.Build
 import android.view.DragEvent
 import android.view.View
 import android.view.View.DragShadowBuilder
