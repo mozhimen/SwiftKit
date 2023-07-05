@@ -27,15 +27,15 @@ import kotlinx.coroutines.launch
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-abstract class BaseDialogK<T : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.DialogK_Theme_Blur) : ComponentDialog(context, themeResId),
-    IBaseDialogK<T> {
+abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.DialogK_Theme_Blur) : ComponentDialog(context, themeResId),
+    IBaseDialogK<I> {
 
     private var _isHasSetWindowAttr = false
     private var _dialogMode = ADialogMode.BOTH
     private var _dialogView: View? = null
-    private var _dialogClickListener: T? = null
+    private var _dialogClickListener: I? = null
 
-    override fun getDialogClickListener(): T? {
+    override fun getDialogClickListener(): I? {
         return _dialogClickListener
     }
 
@@ -44,7 +44,7 @@ abstract class BaseDialogK<T : IDialogKClickListener> @JvmOverloads constructor(
         return _dialogMode
     }
 
-    override fun setDialogClickListener(listener: T): BaseDialogK<*> {
+    override fun setDialogClickListener(listener: I): BaseDialogK<*> {
         this._dialogClickListener = listener
         return this
     }

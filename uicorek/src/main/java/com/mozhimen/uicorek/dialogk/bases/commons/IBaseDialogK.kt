@@ -13,8 +13,8 @@ import com.mozhimen.uicorek.dialogk.bases.annors.ADialogMode
  * @Date 2023/6/2 15:38
  * @Version 1.0
  */
-interface IBaseDialogK<T> : IUtilK {
-    fun getDialogClickListener(): T?
+interface IBaseDialogK<I : IDialogKClickListener> : IUtilK {
+    fun getDialogClickListener(): I?
 
     /**
      * 弹框模式
@@ -23,7 +23,7 @@ interface IBaseDialogK<T> : IUtilK {
     @ADialogMode
     fun getDialogMode(): Int
 
-    fun setDialogClickListener(listener: T): IBaseDialogK<*>
+    fun setDialogClickListener(listener: I): IBaseDialogK<*>
 
     /**
      * 设置dialog的模式, 设置后会回调到[.onInitMode]

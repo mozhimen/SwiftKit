@@ -20,7 +20,7 @@ fun Class<*>.getPackageStr(): String =
 
 object UtilKClazz {
     @JvmStatic
-    fun <T : Annotation> getAnnotation(clazz: Class<*>, annotationClazz: Class<T>): T? =
+    fun <A : Annotation> getAnnotation(clazz: Class<*>, annotationClazz: Class<A>): A? =
         clazz.getAnnotation(annotationClazz)
 
     @JvmStatic

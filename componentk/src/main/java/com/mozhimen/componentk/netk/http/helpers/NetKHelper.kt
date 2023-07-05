@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.*
  */
 suspend fun <T> Flow<NetKRep<T>>.asNetKRes(
     onSuccess: ISuspA_Listener<T>,
-    onFail: ISuspAB_Listener<Int, String>/*onSuccess: suspend (data: T) -> Unit, onFail: suspend (code: Int, msg: String) -> Unit*/
+    onFail: ISuspAB_Listener<Int, String>/*onSuccess: suspend (data: R) -> Unit, onFail: suspend (code: Int, msg: String) -> Unit*/
 ) {
     NetKHelper.asNetRes(this, onSuccess, onFail)
 }
@@ -31,9 +31,9 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKResSync(): MResultIST<T?> =
 
 object NetKHelper : BaseUtilK() {
     @JvmStatic
-    fun <T> createFlow(invoke: ISusp_AListener<T?>): Flow<NetKRep<T>> = flow {
+    fun <R> createFlow(invoke: ISusp_AListener<R?>): Flow<NetKRep<R>> = flow {
         emit(NetKRep.Uninitialized)
-        val result: T? = invoke()
+        val result: R? = invoke()
         result?.let {
             emit(NetKRep.MSuccess(result))
         } ?: emit(NetKRep.Empty)

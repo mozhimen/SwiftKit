@@ -11,6 +11,6 @@ import android.util.AttributeSet
  * @Date 2023/3/17 18:27
  * @Version 1.0
  */
-interface IAttrsParser2<T> {
-    fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): T
+interface IAttrsParser2<M> {
+    fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): M
 }

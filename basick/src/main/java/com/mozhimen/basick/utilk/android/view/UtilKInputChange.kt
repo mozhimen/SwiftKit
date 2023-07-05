@@ -1,15 +1,12 @@
 package com.mozhimen.basick.utilk.android.view
 
-import android.R
 import android.app.Activity
 import android.graphics.Rect
-import android.os.Build
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.Window
 import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.cons.CParameter
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
@@ -41,11 +38,9 @@ object UtilKInputChange : BaseUtilK() {
      */
     @JvmStatic
     fun registerKeyBoardChangeListener(window: Window, listener: IUtilKKeyboardChangeListener2) {
-        val flags = window.attributes.flags
-        if (flags and CWinMgr.Lpf.LAYOUT_NO_LIMITS != 0) {
-            window.clearFlags(CWinMgr.Lpf.LAYOUT_NO_LIMITS)
-        }
-        val contentView = window.findViewById<FrameLayout>(R.id.content)
+        val flags = UtilKWindow.getFlags(window)
+        if (flags and CWinMgr.Lpf.LAYOUT_NO_LIMITS != 0) window.clearFlags(CWinMgr.Lpf.LAYOUT_NO_LIMITS)
+        val contentView = UtilKContentView.get<FrameLayout>(window)
         val decorViewInvisibleHeightPre = intArrayOf(UtilKDecorView.getInvisibleHeight(window))
         val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
             val height = UtilKDecorView.getInvisibleHeight(window)
@@ -64,13 +59,12 @@ object UtilKInputChange : BaseUtilK() {
      */
     @JvmStatic
     fun unregisterKeyBoardChangedListener(window: Window) {
-        val contentView = window.findViewById<View>(R.id.content) ?: return
+        val contentView = UtilKContentView.get<View>(window)
         val tag = contentView.getTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER)
         if (tag is ViewTreeObserver.OnGlobalLayoutListener) {
             if (UtilKBuildVers.isAfterV_16_41_J()) {
                 contentView.viewTreeObserver.removeOnGlobalLayoutListener(tag)
-                //这里会发生内存泄漏 如果不设置为null
-                contentView.setTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, null)
+                contentView.setTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, null)//这里会发生内存泄漏 如果不设置为null
             }
         }
     }

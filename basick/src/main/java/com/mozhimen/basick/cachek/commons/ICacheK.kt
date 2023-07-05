@@ -7,11 +7,11 @@ package com.mozhimen.basick.cachek.commons
  * @Date 2023/6/4 13:56
  * @Version 1.0
  */
-interface ICacheK<T : ICacheKProvider> {
+interface ICacheK<P : ICacheKProvider> {
     /**
      * 携带sp名称
      * @param spName String
      * @return T
      */
-    fun with(spName: String): T
+    fun with(spName: String): P
 }

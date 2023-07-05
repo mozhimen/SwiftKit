@@ -17,13 +17,13 @@ import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
  * @Version 1.0
  */
 @ADescription("init by lazy")
-class NavigateKWithVMDelegate<T>(
-    private val _activity: T,
+class NavigateKWithVMDelegate<A>(
+    private val _activity: A,
     private val _vm: BaseNavigateKViewModel,
     private val _fragmentLayoutId: Int,
     private val _fragments: List<Class<*>>
 ) :
-    BaseWakeBefDestroyLifecycleObserver() where T : LifecycleOwner, T : FragmentActivity {
+    BaseWakeBefDestroyLifecycleObserver() where A : LifecycleOwner, A : FragmentActivity {
 
     lateinit var navController: NavController
     private var _currentItemId: Int = 0

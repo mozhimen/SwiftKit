@@ -15,19 +15,19 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  * @Date 2023/2/3 17:21
  * @Version 1.0
  */
-fun Any.gsonObj2Json(): String =
+fun Any.toJsonGson(): String =
     UtilKJsonGson.obj2Json(this)
 
-fun <T> String.gsonJson2T(token: TypeToken<T>): T =
+fun <T> String.toTGson(token: TypeToken<T>): T =
     UtilKJsonGson.json2T(this, token)
 
-fun <T> String.gsonJson2T(clazz: Class<T>): T? =
+fun <T> String.toTGson(clazz: Class<T>): T? =
     UtilKJsonGson.json2T(this, clazz)
 
-fun Any.gsonObj2JsonWithExpose(): String =
+fun Any.toJsonWithExposeGson(): String =
     UtilKJsonGson.obj2JsonWithExpose(this)
 
-fun <T> String.gsonJson2TWithExpose(clazz: Class<T>): T? =
+fun <T> String.toTWithExposeGson(clazz: Class<T>): T? =
     UtilKJsonGson.json2TWithExpose(this, clazz)
 
 object UtilKJsonGson : BaseUtilK() {

@@ -56,10 +56,10 @@ class ImageKBlurConfig {
 
     fun setBlurView(blurView: View): ImageKBlurConfig {
         _weakBlurView = WeakReference(blurView)
-        var isDecorView = false
-        if (blurView.parent != null) isDecorView = TextUtils.equals(blurView.parent.javaClass.name, "com.android.internal.policy.DecorView")
-        if (!isDecorView) isDecorView = UtilKView.isDecorView(blurView)
-        setFullScreen(isDecorView)
+        var isContentOrDecorView = false
+        if (blurView.parent != null) isContentOrDecorView = TextUtils.equals(blurView.parent.javaClass.name, "com.android.internal.policy.DecorView")
+        if (!isContentOrDecorView) isContentOrDecorView = UtilKView.isContentOrDecorView(blurView)
+        setFullScreen(isContentOrDecorView)
         return this
     }
 

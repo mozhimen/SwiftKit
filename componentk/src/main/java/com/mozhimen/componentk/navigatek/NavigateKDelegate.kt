@@ -17,12 +17,12 @@ import com.mozhimen.basick.utilk.android.util.et
  * @Version 1.0
  */
 @ADescription("init by lazy")
-class NavigateKDelegate<T>(
-    private val _activity: T,
+class NavigateKDelegate<A>(
+    private val _activity: A,
     private val _fragmentLayoutId: Int,
     vararg val _fragments: Class<*>
 ) :
-    BaseWakeBefDestroyLifecycleObserver() where T : LifecycleOwner, T : FragmentActivity {
+    BaseWakeBefDestroyLifecycleObserver() where A : LifecycleOwner, A : FragmentActivity {
     private val liveFragmentId = MutableLiveData<Int?>(null)
     private val liveSetPopupFlag = MutableLiveData<Boolean?>(null)
     lateinit var navController: NavController

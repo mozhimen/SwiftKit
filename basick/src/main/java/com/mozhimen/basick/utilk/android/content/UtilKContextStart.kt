@@ -22,12 +22,12 @@ fun Context.startContext(clazz: Class<*>) {
     UtilKContextStart.startContext(this, clazz)
 }
 
-inline fun <reified T> Context.startContext() where T : Activity {
-    UtilKContextStart.startContext<T>(this)
+inline fun <reified A : Activity> Context.startContext() {
+    UtilKContextStart.startContext<A>(this)
 }
 
-inline fun <reified T> Context.startContext(block: IExts_Listener<Intent>) where T : Activity {
-    UtilKContextStart.startContext<T>(this, block)
+inline fun <reified A : Activity> Context.startContext(block: IExts_Listener<Intent>) {
+    UtilKContextStart.startContext<A>(this, block)
 }
 
 object UtilKContextStart : BaseUtilK() {
@@ -57,7 +57,7 @@ object UtilKContextStart : BaseUtilK() {
      * @param context Context
      */
     @JvmStatic
-    inline fun <reified T> startContext(context: Context) where T : Activity {
+    inline fun <reified T : Activity> startContext(context: Context) {
         startContext(context, Intent(context, T::class.java))
     }
 
@@ -67,7 +67,7 @@ object UtilKContextStart : BaseUtilK() {
      * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
      */
     @JvmStatic
-    inline fun <reified T> startContext(context: Context, block: IExts_Listener<Intent>) where T : Activity {
+    inline fun <reified T : Activity> startContext(context: Context, block: IExts_Listener<Intent>) {
         startContext(context, Intent(context, T::class.java).apply(block))
     }
 
@@ -87,7 +87,7 @@ object UtilKContextStart : BaseUtilK() {
      * @param activity Activity
      */
     @JvmStatic
-    inline fun <reified T> startActivityForResult(activity: Activity, requestCode: Int) where T : Activity {
+    inline fun <reified T : Activity> startActivityForResult(activity: Activity, requestCode: Int) {
         startActivityForResult(activity, requestCode, Intent(activity, T::class.java))
     }
 
@@ -98,7 +98,7 @@ object UtilKContextStart : BaseUtilK() {
      * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
      */
     @JvmStatic
-    inline fun <reified T> startActivityForResult(activity: Activity, requestCode: Int, block: IExts_Listener<Intent>) where T : Activity {
+    inline fun <reified T : Activity> startActivityForResult(activity: Activity, requestCode: Int, block: IExts_Listener<Intent>) {
         startActivityForResult(activity, requestCode, Intent(activity, T::class.java).apply(block))
     }
 }

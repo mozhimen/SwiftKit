@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/6/12 11:34
  * @Version 1.0
  */
-class WakeBefPauseLifecycleHandler<T : LifecycleOwner>(private val _owner: T) : BaseWeakClazzMainHandler<T>(_owner), IDefaultLifecycleObserver {
+class WakeBefPauseLifecycleHandler<O : LifecycleOwner>(private val _owner: O) : BaseWeakClazzMainHandler<O>(_owner), IDefaultLifecycleObserver {
 
     init {
         bindLifecycle(_owner)

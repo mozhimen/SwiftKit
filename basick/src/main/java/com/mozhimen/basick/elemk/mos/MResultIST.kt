@@ -11,5 +11,5 @@ package com.mozhimen.basick.elemk.mos
 data class MResultIST<T>(
     val code: Int,
     val msg: String?,
-    val root: T
+    val bean: T
 )

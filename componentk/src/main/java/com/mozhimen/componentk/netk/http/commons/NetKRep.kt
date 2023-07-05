@@ -14,7 +14,7 @@ sealed class NetKRep<out T> {
 
     object Empty : NetKRep<Nothing>()
 
-    data class MSuccess<T>(val data: T) : NetKRep<T>()
+    data class MSuccess<R>(val data: R) : NetKRep<R>()
 
     data class MError(val exception: Throwable) : NetKRep<Nothing>()
 }

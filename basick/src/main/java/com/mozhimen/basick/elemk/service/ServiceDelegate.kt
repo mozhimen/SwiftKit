@@ -26,12 +26,12 @@ import kotlinx.coroutines.launch
  * @Version 1.0
  */
 @ADescription("init by lazy")
-class ServiceDelegate<T>(
-    private val _activity: T,
+class ServiceDelegate<A>(
+    private val _activity: A,
     private val _service: Class<*>,
     private val _resListener: IBaseServiceResListener
 ) : BaseWakeBefDestroyLifecycleObserver()
-        where T : AppCompatActivity, T : LifecycleOwner {
+        where A : AppCompatActivity, A : LifecycleOwner {
     private var _connListener: IBaseServiceConnListener? = null
     private val _serviceConnection: ServiceConnection by lazy { BaseServiceConnection() }
     private var _isBindService = false

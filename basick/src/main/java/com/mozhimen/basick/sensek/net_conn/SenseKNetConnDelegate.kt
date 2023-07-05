@@ -25,11 +25,11 @@ import com.mozhimen.basick.sensek.net_conn.helpers.NetConnReceiver
     CPermission.ACCESS_FINE_LOCATION,
     CPermission.INTERNET
 )
-class SenseKNetConnDelegate<T>(
-    _activity: T,
+class SenseKNetConnDelegate<A>(
+    _activity: A,
     private val _listener: INetConnListener,
     private val _receiver: NetConnReceiver = NetConnReceiver(),
-) : BaseReceiverDelegate<T>(_activity, _receiver, ConnectivityManager.CONNECTIVITY_ACTION) where T : Activity, T : LifecycleOwner {
+) : BaseReceiverDelegate<A>(_activity, _receiver, ConnectivityManager.CONNECTIVITY_ACTION) where A : Activity, A : LifecycleOwner {
 
     init {
         _receiver.registerListener(_listener)

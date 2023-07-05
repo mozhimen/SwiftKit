@@ -27,12 +27,17 @@ object UtilKDecorView : BaseUtilK() {
         UtilKWindow.getDecorView(window)
 
     @JvmStatic
-    fun getViewGroup(activity: Activity): ViewGroup =
-        getViewGroup(activity.window)
+    fun getAsViewGroup(activity: Activity): ViewGroup =
+        getAsViewGroup(activity.window)
 
     @JvmStatic
-    fun getViewGroup(window: Window): ViewGroup =
-        get(window) as ViewGroup
+    fun getAsViewGroup(window: Window): ViewGroup =
+        getAs(window)
+
+    @Suppress("UNCHECKED_CAST")
+    @JvmStatic
+    fun <V : View> getAs(window: Window): V =
+        get(window) as V
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -153,29 +158,29 @@ object UtilKDecorView : BaseUtilK() {
 
     ///////////////////////////////////////////////////////////////////////////
 
-    @JvmStatic
-    fun setFullScreen(activity: Activity) {
-        setFullScreen(activity.window)
-    }
-
-    @JvmStatic
-    fun setFullScreen(window: Window) {
-        setFullScreen(get(window))
-    }
-
-    /**
-     * 设置全屏
-     * @param decorView View
-     */
-    @JvmStatic
-    fun setFullScreen(decorView: View) {
-        setSystemUiVisibility(
-            decorView, (CView.SystemUiFlag.LOW_PROFILE or
-                    CView.SystemUiFlag.FULLSCREEN or
-                    CView.SystemUiFlag.LAYOUT_STABLE or
-                    CView.SystemUiFlag.IMMERSIVE_STICKY or
-                    CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION or
-                    CView.SystemUiFlag.HIDE_NAVIGATION)
-        )
-    }
+//    @JvmStatic
+//    fun setFullScreen(activity: Activity) {
+//        setFullScreen(activity.window)
+//    }
+//
+//    @JvmStatic
+//    fun setFullScreen(window: Window) {
+//        setFullScreen(get(window))
+//    }
+//
+//    /**
+//     * 设置全屏
+//     * @param decorView View
+//     */
+//    @JvmStatic
+//    fun setFullScreen(decorView: View) {
+//        setSystemUiVisibility(
+//            decorView, (CView.SystemUiFlag.LOW_PROFILE or
+//                    CView.SystemUiFlag.FULLSCREEN or
+//                    CView.SystemUiFlag.LAYOUT_STABLE or
+//                    CView.SystemUiFlag.IMMERSIVE_STICKY or
+//                    CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION or
+//                    CView.SystemUiFlag.HIDE_NAVIGATION)
+//        )
+//    }
 }

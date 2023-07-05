@@ -43,14 +43,14 @@ object UtilKScreen : BaseUtilK() {
     fun isFullScreen(): Boolean =
         UtilKTheme.isFullScreen(_context)
 
-    /**
-     * 设置全屏
-     * @param decorView View
-     */
-    @JvmStatic
-    fun setFullScreen(decorView: View) {
-        UtilKDecorView.setFullScreen(decorView)
-    }
+//    /**
+//     * 设置全屏
+//     * @param decorView View
+//     */
+//    @JvmStatic
+//    fun setFullScreen(decorView: View) {
+//        UtilKDecorView.setFullScreen(decorView)
+//    }
 
     /**
      * 设置屏幕亮度

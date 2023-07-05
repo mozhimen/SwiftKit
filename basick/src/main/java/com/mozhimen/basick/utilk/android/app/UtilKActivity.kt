@@ -7,6 +7,7 @@ import android.content.ContextWrapper
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
+import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKLifecycle
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
@@ -34,19 +36,17 @@ fun AppCompatActivity.runOnBackThread(block: I_Listener) {
     UtilKActivity.runOnBackThread(this, block)
 }
 
-fun <T : Annotation> Activity.getAnnotation(annotationClazz: Class<T>): T? =
+fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
     UtilKActivity.getAnnotation(this, annotationClazz)
+
+fun <V : View> Activity.getContentView(): V =
+    UtilKContentView.get(this)
 
 object UtilKActivity {
 
     @JvmStatic
-    fun <T : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<T>): T? =
+    fun <A : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<A>): A? =
         UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
-
-    @JvmStatic
-    fun requestWindowFeature(activity: Activity, featureId: Int) {
-        activity.requestWindowFeature(featureId)
-    }
 
     @JvmStatic
     fun getCurrentFocus(activity: Activity): View? =
@@ -60,6 +60,17 @@ object UtilKActivity {
     @JvmStatic
     fun getWindowManager(activity: Activity): WindowManager =
         activity.windowManager
+
+    @JvmStatic
+    fun <V : View> getContentView(activity: Activity): V =
+        UtilKContentView.get(activity)
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun requestWindowFeature(activity: Activity, featureId: Int) {
+        activity.requestWindowFeature(featureId)
+    }
 
     /**
      * 获取启动Activity

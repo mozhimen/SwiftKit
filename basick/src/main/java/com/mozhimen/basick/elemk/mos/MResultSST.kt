@@ -8,8 +8,8 @@ package com.mozhimen.basick.elemk.mos
  * @Date 2022/12/20 12:13
  * @Version 1.0
  */
-data class MResultSST<T>(
+data class MResultSST<B>(
     val code: String,
     val msg: String?,
-    val bean: T
+    val bean: B
 )

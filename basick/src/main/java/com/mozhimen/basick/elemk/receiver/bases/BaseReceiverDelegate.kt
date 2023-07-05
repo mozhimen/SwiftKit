@@ -19,11 +19,11 @@ import kotlinx.coroutines.launch
  * @Version 1.0
  */
 @ADescription("init by lazy")
-open class BaseReceiverDelegate<T>(
-    private val _activity: T,
+open class BaseReceiverDelegate<A>(
+    private val _activity: A,
     private val _receiver: BroadcastReceiver,
     private vararg val _actions: String
-) : BaseWakeBefDestroyLifecycleObserver() where T : Activity, T : LifecycleOwner {
+) : BaseWakeBefDestroyLifecycleObserver() where A : Activity, A : LifecycleOwner {
     
     init {
         _activity.lifecycleScope.launch(Dispatchers.Main) {

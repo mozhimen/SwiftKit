@@ -41,7 +41,7 @@ class NetKHttpActivity : BaseActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewM
         vb.netkBtn2GetWeather.setOnClickListener {
             val time = System.currentTimeMillis()
             lifecycleScope.launch(Dispatchers.IO) {
-                vm.getRealtimeWeatherCoroutineSync().root?.let { bean ->
+                vm.getRealtimeWeatherCoroutineSync().bean?.let { bean ->
                     withContext(Dispatchers.Main) {
                         vb.netkTxt2.text = bean.result.realtime.temperature.toString() + " ${System.currentTimeMillis() - time}"
                     }

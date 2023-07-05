@@ -10,12 +10,12 @@ import android.view.View
  * @Date 2022/4/19 14:41
  * @Version 1.0
  */
-interface IBannerIndicator<T : View> {
+interface IBannerIndicator<V : View> {
     /**
      * 获取指示器
      * @return T
      */
-    fun get(): T
+    fun get(): V
 
     /**
      * 初始化Indicator

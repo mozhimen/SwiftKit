@@ -9,7 +9,7 @@ import android.os.Looper
  * @Date 2022/2/27 17:56
  * @Version 1.0
  */
-open class BaseWeakClazzMainHandler<T>(clazz: T) : BaseWeakClazzHandler<T>(clazz, Looper.getMainLooper())
+open class BaseWeakClazzMainHandler<C>(clazz: C) : BaseWeakClazzHandler<C>(clazz, Looper.getMainLooper())
 
 //open class BaseWeakClazzMainHandler<T>(clazz: T) : Handler(Looper.getMainLooper()) {
 //    protected var _weakReference: WeakReference<T>? = null

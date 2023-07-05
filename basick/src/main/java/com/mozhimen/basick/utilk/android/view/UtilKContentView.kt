@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import com.mozhimen.basick.elemk.cons.CView
-import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlin.math.abs
@@ -22,20 +21,26 @@ import kotlin.math.abs
 object UtilKContentView : BaseUtilK() {
 
     @JvmStatic
-    fun get(activity: Activity): View? =
+    fun <V : View> get(activity: Activity): V =
         get(activity.window)
 
     @JvmStatic
-    fun get(window: Window): View? =
-        UtilKWindow.getContentView(window).also { "getContentView is null ${it == null}".dt(TAG) }
+    fun <V : View> get(window: Window): V =
+        UtilKWindow.getContentView(window)
 
     @JvmStatic
-    fun getAsViewGroup(activity: Activity): ViewGroup? =
-        getAsViewGroup(activity.window)
+    fun getAsViewGroup(activity: Activity): ViewGroup =
+        get(activity.window)
 
     @JvmStatic
-    fun getAsViewGroup(window: Window): ViewGroup? =
-        (get(window) as? ViewGroup?).also { "getAsViewGroup is null ${it == null} ${it?.childCount}".dt(TAG) }
+    fun getAsViewGroup(window: Window): ViewGroup =
+        get(window)
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getTag(window: Window, tag: Int): Any? =
+        get<View>(window).getTag(tag)
 
     @JvmStatic
     fun getChild0(activity: Activity): View? =
@@ -43,7 +48,7 @@ object UtilKContentView : BaseUtilK() {
 
     @JvmStatic
     fun getChild0(window: Window): View? =
-        getAsViewGroup(window)?.getChildAt(0).also { "getChild0 is null ${it == null}".dt(TAG) }
+        getAsViewGroup(window).getChildAt(0)
 
     @JvmStatic
     fun getInvisibleHeight(activity: Activity): Int =
@@ -51,7 +56,7 @@ object UtilKContentView : BaseUtilK() {
 
     @JvmStatic
     fun getInvisibleHeight(window: Window): Int {
-        val contentView = get(window) ?: return 0
+        val contentView = get<View>(window)
         val outRect = Rect()
         UtilKView.getWindowVisibleDisplayFrame(contentView, outRect)
         Log.d(TAG, "getInvisibleHeight: " + (contentView.bottom - outRect.bottom))

@@ -182,6 +182,13 @@ object UtilKView : BaseUtilK() {
     }
 
     @JvmStatic
+    fun getWindowVisibleDisplayFrame(view: View): Rect {
+        val rect = Rect()
+        getWindowVisibleDisplayFrame(view, rect)
+        return rect
+    }
+
+    @JvmStatic
     fun getWindowVisibleDisplayFrame(view: View, rect: Rect) {
         view.getWindowVisibleDisplayFrame(rect)
     }
@@ -208,7 +215,7 @@ object UtilKView : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun isDecorView(view: View): Boolean {
+    fun isContentOrDecorView(view: View): Boolean {
         return if (view.id == android.R.id.content) true
         else TextUtils.equals(view.javaClass.name, "com.android.internal.policy.DecorView")
     }

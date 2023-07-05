@@ -12,8 +12,8 @@ import kotlin.reflect.KProperty
  * @Date 2023/3/13 15:17
  * @Version 1.0
  */
-open class BaseCacheKDelegateString<T : ICacheKProvider>(
-    private val _cacheKProvider: T,
+open class BaseCacheKDelegateString<P : ICacheKProvider>(
+    private val _cacheKProvider: P,
     private val _key: String,
     private val _default: String = ""
 ) : ReadWriteProperty<Any?, String> {

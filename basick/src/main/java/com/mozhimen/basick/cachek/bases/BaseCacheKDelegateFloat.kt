@@ -12,8 +12,8 @@ import kotlin.reflect.KProperty
  * @Date 2023/3/13 15:17
  * @Version 1.0
  */
-open class BaseCacheKDelegateFloat<T : ICacheKProvider>(
-    private val _cacheKProvider: T,
+open class BaseCacheKDelegateFloat<P : ICacheKProvider>(
+    private val _cacheKProvider: P,
     private val _key: String,
     private val _default: Float = 0f
 ) : ReadWriteProperty<Any?, Float> {

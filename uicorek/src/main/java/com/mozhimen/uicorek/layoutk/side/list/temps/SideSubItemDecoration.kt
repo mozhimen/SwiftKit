@@ -20,7 +20,7 @@ class SideSubItemDecoration(
     private val _marginStart: Int,
     private val _textSize: Int,
     private val _textColor: Int,
-    val onGetGroupNameByPos: IA_BListener<Int, String>/*(position: Int) -> String?*/
+    val onGetGroupNameByPos: IA_BListener<Int, String?>/*(position: Int) -> String?*/
 ) : RecyclerView.ItemDecoration() {
     private val _groupFirstPositions = mutableMapOf<String, Int>()
     private val _paint = Paint(Paint.ANTI_ALIAS_FLAG)

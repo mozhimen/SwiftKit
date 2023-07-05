@@ -2,6 +2,7 @@ package com.mozhimen.basick.animk.builder.commons
 
 import android.animation.Animator
 import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName IAnimatorType
@@ -10,7 +11,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Date 2022/11/26 17:31
  * @Version 1.0
  */
-interface IAnimatorType {
+interface IAnimatorType : IUtilK {
     var _animator: Animator
 
     fun buildAnimator(animKConfig: AnimKConfig): Animator

@@ -12,14 +12,14 @@ import java.lang.ref.WeakReference
  * @Date 2022/2/27 17:56
  * @Version 1.0
  */
-open class BaseWeakClazzHandler<T>(clazz: T, looper: Looper) : Handler(looper), IUtilK {
-    protected var _weakReference: WeakReference<T>? = null
+open class BaseWeakClazzHandler<C>(clazz: C, looper: Looper) : Handler(looper), IUtilK {
+    protected var _weakReference: WeakReference<C>? = null
 
     init {
         _weakReference = WeakReference(clazz)
     }
 
-    fun getRef(): T? {
+    fun getRef(): C? {
         return _weakReference?.get()
     }
 

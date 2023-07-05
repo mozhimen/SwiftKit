@@ -48,6 +48,6 @@ class ColorfulStatusBar(private val _activity: Activity) {
         //默认不显示
         _colorfulStatusBarView.toGone()
         //decorView添加状态栏高度的View
-        UtilKDecorView.getViewGroup(activity).addView(_colorfulStatusBarView)
+        UtilKDecorView.getAsViewGroup(activity).addView(_colorfulStatusBarView)
     }
 }
