@@ -2,7 +2,6 @@ package com.mozhimen.underlayk.logk.temps.printer
 
 import android.annotation.SuppressLint
 import android.graphics.PixelFormat
-import android.os.Build
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +14,8 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CWinMgr
-import com.mozhimen.basick.elemk.delegate.VarDelegate_SetFun_VaryNonnull
+import com.mozhimen.basick.elemk.delegate.VarDeleg_SetFun_VaryNonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -85,7 +83,7 @@ class LogKPrinterMonitorProxy : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(), 
             field = value
         }
 
-    private var _isOpen by VarDelegate_SetFun_VaryNonnull(false) { _, value ->
+    private var _isOpen by VarDeleg_SetFun_VaryNonnull(false) { _, value ->
         if (value) _lifecycleRegistry.currentState = Lifecycle.State.STARTED else _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
     }
 

@@ -2,15 +2,13 @@ package com.mozhimen.underlayk.fpsk.helpers
 
 import android.annotation.SuppressLint
 import android.graphics.PixelFormat
-import android.os.Build
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CWinMgr
-import com.mozhimen.basick.elemk.delegate.VarDelegate_GetFun_R_Nonnull
+import com.mozhimen.basick.elemk.delegate.VarDeleg_GetFun_R_Nonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
@@ -53,7 +51,7 @@ class FpsKProxy : IFpsK, BaseUtilK() {
     }
 
     //    private var _fpsView: TextView = LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView
-    private var _fpsView: TextView? by VarDelegate_GetFun_R_Nonnull { LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView }
+    private var _fpsView: TextView? by VarDeleg_GetFun_R_Nonnull { LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView }
     private val _frameMonitor by lazy { FrameMonitor() }
     private val _windowManager: WindowManager by lazy { UtilKWindowManager.get(_context) }
 

@@ -1,6 +1,6 @@
 package com.mozhimen.basick.elemk
 
-import com.mozhimen.basick.elemk.delegate.VarDelegate_SetFun_VaryNonnull
+import com.mozhimen.basick.elemk.delegate.VarDeleg_SetFun_VaryNonnull
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
@@ -12,7 +12,7 @@ import org.junit.Test
  * @Version 1.0
  */
 class TestDelegate {
-    var test by VarDelegate_SetFun_VaryNonnull("") { field, value -> if (value == "123") return@VarDelegate_SetFun_VaryNonnull }
+    var test by VarDeleg_SetFun_VaryNonnull("") { field, value -> if (value == "123") return@VarDeleg_SetFun_VaryNonnull }
 
     @Test
     fun testReturn() {

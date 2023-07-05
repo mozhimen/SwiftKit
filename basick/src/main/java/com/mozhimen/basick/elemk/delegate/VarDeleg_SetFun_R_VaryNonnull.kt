@@ -13,13 +13,14 @@ import kotlin.reflect.KProperty
 /**
  * true 则赋值, 否则不赋值
  */
-open class VarDelegate_SetFun_VaryNonnull<T>(default: T, private val _onSet: IVarDelegate_SetFun_Invoke<T>) : ReadWriteProperty<Any?, T> {
+open class VarDeleg_SetFun_R_VaryNonnull<T>(default: T, private val _onSet: IVarDelegate_SetFun_R_Invoke<T>) : ReadWriteProperty<Any?, T> {
     @Volatile
     private var _field = default
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         if (_field == value || value == null) return
-        _onSet.invoke(_field, value)
-        _field = value
+        if (_onSet.invoke(_field, value)) {
+            _field = value
+        }
     }
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {

@@ -20,9 +20,7 @@ return (LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) a
  * @Date 2023/3/15 16:58
  * @Version 1.0
  */
-typealias IVarDelegate_GetFun_R_Invoke<T> = I_AListener<T>
-
-open class VarDelegate_GetFun_R_Nonnull<T>(private val _onGet: IVarDelegate_GetFun_R_Invoke<T>) : ReadWriteProperty<Any?, T> {
+open class VarDeleg_GetFun_R_Nonnull<T>(private val _onFieldNull: I_AListener<T>) : ReadWriteProperty<Any?, T> {
     @Volatile
     private var _field: T? = null
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
@@ -31,6 +29,6 @@ open class VarDelegate_GetFun_R_Nonnull<T>(private val _onGet: IVarDelegate_GetF
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {
         if (_field != null) return _field!!
-        return _onGet.invoke().also { _field = it }
+        return _onFieldNull.invoke().also { _field = it }
     }
 }
