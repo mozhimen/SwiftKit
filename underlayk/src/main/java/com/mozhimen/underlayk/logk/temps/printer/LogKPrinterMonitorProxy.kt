@@ -15,7 +15,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.cons.CWinMgr
-import com.mozhimen.basick.elemk.delegate.VarDeleg_SetFun_VaryNonnull
+import com.mozhimen.basick.elemk.delegate.VarDeleg_SetVaryNonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -83,8 +83,9 @@ class LogKPrinterMonitorProxy : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(), 
             field = value
         }
 
-    private var _isOpen by VarDeleg_SetFun_VaryNonnull(false) { _, value ->
+    private var _isOpen by VarDeleg_SetVaryNonnull(false) { _, value ->
         if (value) _lifecycleRegistry.currentState = Lifecycle.State.STARTED else _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
+        true
     }
 
     private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }

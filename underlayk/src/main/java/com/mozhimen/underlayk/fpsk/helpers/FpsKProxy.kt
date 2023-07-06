@@ -8,7 +8,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CWinMgr
-import com.mozhimen.basick.elemk.delegate.VarDeleg_GetFun_R_Nonnull
+import com.mozhimen.basick.elemk.delegate.VarDeleg_GetNonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
@@ -51,7 +51,7 @@ class FpsKProxy : IFpsK, BaseUtilK() {
     }
 
     //    private var _fpsView: TextView = LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView
-    private var _fpsView: TextView? by VarDeleg_GetFun_R_Nonnull { LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView }
+    private var _fpsView: TextView? by VarDeleg_GetNonnull { LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) as TextView }
     private val _frameMonitor by lazy { FrameMonitor() }
     private val _windowManager: WindowManager by lazy { UtilKWindowManager.get(_context) }
 

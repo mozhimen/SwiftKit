@@ -1,5 +1,6 @@
 package com.mozhimen.basick.elemk.delegate
 
+import com.mozhimen.basick.elemk.commons.IAA_BListener
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
@@ -10,13 +11,21 @@ import kotlin.reflect.KProperty
  * @Date 2023/3/13 15:07
  * @Version 1.0
  */
-
-open class VarDeleg_SetFun_R_VaryNullable<T>(default: T, private val _onSet: IVarDelegate_SetFun_R_Invoke<T>) : ReadWriteProperty<Any?, T> {
+/**
+ * true 则赋值, 否则不赋值
+ */
+open class VarDeleg_Set<T>(
+    default: T,
+    private val _isOpenCheckEquals: Boolean = true,
+    private val _isOpenCheckNull: Boolean = true,
+    private val _onSetField: IAA_BListener<T, Boolean>
+) : ReadWriteProperty<Any?, T> {
     @Volatile
     private var _field = default
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        if (_field == value) return
-        if (_onSet.invoke(_field, value)) {
+        if (_isOpenCheckEquals && _field == value) return
+        if (_isOpenCheckNull && value == null) return
+        if (_onSetField.invoke(_field, value)) {
             _field = value
         }
     }

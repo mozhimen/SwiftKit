@@ -20,7 +20,9 @@ return (LayoutInflater.from(_context).inflate(R.layout.fpsk_view, null, false) a
  * @Date 2023/3/15 16:58
  * @Version 1.0
  */
-open class VarDeleg_GetFun_R_Nonnull<T>(private val _onFieldNull: I_AListener<T>) : ReadWriteProperty<Any?, T> {
+typealias IOnFieldNull<T> = I_AListener<T>
+
+open class VarDeleg_GetNonnull<T>(private val _onFieldNull: IOnFieldNull<T>) : ReadWriteProperty<Any?, T> {
     @Volatile
     private var _field: T? = null
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
