@@ -2,6 +2,7 @@ package com.mozhimen.basick.elemk.lifecycle.bases
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
  * @Date 2023/2/24 17:47
  * @Version 1.0
  */
+@AOptLazyInit
 open class BaseWakeBefPauseLifecycleObserver : IDefaultLifecycleObserver {
     override fun bindLifecycle(owner: LifecycleOwner) {
         owner.lifecycleScope.launch(Dispatchers.Main) {

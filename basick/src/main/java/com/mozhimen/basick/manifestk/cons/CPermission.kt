@@ -42,11 +42,11 @@ object CPermission {
     const val BIND_CALL_REDIRECTION_SERVICE = "android.permission.BIND_CALL_REDIRECTION_SERVICE"
     const val BIND_CARRIER_MESSAGING_CLIENT_SERVICE = "android.permission.BIND_CARRIER_MESSAGING_CLIENT_SERVICE"
 
-    @Deprecated("")
+    @Deprecated("android.permission.BIND_CARRIER_MESSAGING_SERVICE")
     val BIND_CARRIER_MESSAGING_SERVICE = "android.permission.BIND_CARRIER_MESSAGING_SERVICE"
     const val BIND_CARRIER_SERVICES = "android.permission.BIND_CARRIER_SERVICES"
 
-    @Deprecated("")
+    @Deprecated("android.permission.BIND_CHOOSER_TARGET_SERVICE")
     val BIND_CHOOSER_TARGET_SERVICE = "android.permission.BIND_CHOOSER_TARGET_SERVICE"
     const val BIND_COMPANION_DEVICE_SERVICE = "android.permission.BIND_COMPANION_DEVICE_SERVICE"
     const val BIND_CONDITION_PROVIDER_SERVICE = "android.permission.BIND_CONDITION_PROVIDER_SERVICE"
@@ -109,7 +109,7 @@ object CPermission {
     const val GET_ACCOUNTS_PRIVILEGED = "android.permission.GET_ACCOUNTS_PRIVILEGED"
     const val GET_PACKAGE_SIZE = "android.permission.GET_PACKAGE_SIZE"
 
-    @Deprecated("")
+    @Deprecated("android.permission.GET_TASKS")
     const val GET_TASKS = "android.permission.GET_TASKS"
     const val GLOBAL_SEARCH = "android.permission.GLOBAL_SEARCH"
     const val HIDE_OVERLAY_WINDOWS = "android.permission.HIDE_OVERLAY_WINDOWS"
@@ -144,11 +144,11 @@ object CPermission {
     const val OVERRIDE_WIFI_CONFIG = "android.permission.OVERRIDE_WIFI_CONFIG"
     const val PACKAGE_USAGE_STATS = "android.permission.PACKAGE_USAGE_STATS"
 
-    @Deprecated("")
+    @Deprecated("android.permission.PERSISTENT_ACTIVITY")
     val PERSISTENT_ACTIVITY = "android.permission.PERSISTENT_ACTIVITY"
     const val POST_NOTIFICATIONS = "android.permission.POST_NOTIFICATIONS"
 
-    @Deprecated("")
+    @Deprecated("android.permission.PROCESS_OUTGOING_CALLS")
     val PROCESS_OUTGOING_CALLS = "android.permission.PROCESS_OUTGOING_CALLS"
     const val QUERY_ALL_PACKAGES = "android.permission.QUERY_ALL_PACKAGES"
     const val READ_ASSISTANT_APP_SEARCH_DATA = "android.permission.READ_ASSISTANT_APP_SEARCH_DATA"
@@ -159,7 +159,7 @@ object CPermission {
     const val READ_EXTERNAL_STORAGE = "android.permission.READ_EXTERNAL_STORAGE"
     const val READ_HOME_APP_SEARCH_DATA = "android.permission.READ_HOME_APP_SEARCH_DATA"
 
-    @Deprecated("")
+    @Deprecated("android.permission.READ_INPUT_STATE")
     val READ_INPUT_STATE = "android.permission.READ_INPUT_STATE"
     const val READ_LOGS = "android.permission.READ_LOGS"
     const val READ_MEDIA_AUDIO = "android.permission.READ_MEDIA_AUDIO"
@@ -194,7 +194,7 @@ object CPermission {
     const val REQUEST_OBSERVE_COMPANION_DEVICE_PRESENCE = "android.permission.REQUEST_OBSERVE_COMPANION_DEVICE_PRESENCE"
     const val REQUEST_PASSWORD_COMPLEXITY = "android.permission.REQUEST_PASSWORD_COMPLEXITY"
 
-    @Deprecated("")
+    @Deprecated("android.permission.RESTART_PACKAGES")
     val RESTART_PACKAGES = "android.permission.RESTART_PACKAGES"
     const val SCHEDULE_EXACT_ALARM = "android.permission.SCHEDULE_EXACT_ALARM"
     const val SEND_RESPOND_VIA_MESSAGE = "android.permission.SEND_RESPOND_VIA_MESSAGE"
@@ -204,7 +204,7 @@ object CPermission {
     const val SET_ANIMATION_SCALE = "android.permission.SET_ANIMATION_SCALE"
     const val SET_DEBUG_APP = "android.permission.SET_DEBUG_APP"
 
-    @Deprecated("")
+    @Deprecated("android.permission.SET_PREFERRED_APPLICATIONS")
     val SET_PREFERRED_APPLICATIONS = "android.permission.SET_PREFERRED_APPLICATIONS"
     const val SET_PROCESS_LIMIT = "android.permission.SET_PROCESS_LIMIT"
     const val SET_TIME = "android.permission.SET_TIME"
@@ -213,7 +213,7 @@ object CPermission {
     const val SET_WALLPAPER_HINTS = "android.permission.SET_WALLPAPER_HINTS"
     const val SIGNAL_PERSISTENT_PROCESSES = "android.permission.SIGNAL_PERSISTENT_PROCESSES"
 
-    @Deprecated("")
+    @Deprecated("android.permission.SMS_FINANCIAL_TRANSACTIONS")
     val SMS_FINANCIAL_TRANSACTIONS = "android.permission.SMS_FINANCIAL_TRANSACTIONS"
     const val START_FOREGROUND_SERVICES_FROM_BACKGROUND = "android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND"
     const val START_VIEW_APP_FEATURES = "android.permission.START_VIEW_APP_FEATURES"
@@ -228,7 +228,7 @@ object CPermission {
     const val USE_BIOMETRIC = "android.permission.USE_BIOMETRIC"
     const val USE_EXACT_ALARM = "android.permission.USE_EXACT_ALARM"
 
-    @Deprecated("")
+    @Deprecated("android.permission.USE_FINGERPRINT")
     val USE_FINGERPRINT = "android.permission.USE_FINGERPRINT"
     const val USE_FULL_SCREEN_INTENT = "android.permission.USE_FULL_SCREEN_INTENT"
     const val USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER = "android.permission.USE_ICC_AUTH_WITH_DEVICE_IDENTIFIER"

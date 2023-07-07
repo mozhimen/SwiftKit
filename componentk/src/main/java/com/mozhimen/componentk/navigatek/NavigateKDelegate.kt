@@ -4,7 +4,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.utilk.android.util.et
 
@@ -16,7 +17,7 @@ import com.mozhimen.basick.utilk.android.util.et
  * @Date 2023/2/17 16:44
  * @Version 1.0
  */
-@ADescription("init by lazy")
+@AOptLazyInit
 class NavigateKDelegate<A>(
     private val _activity: A,
     private val _fragmentLayoutId: Int,

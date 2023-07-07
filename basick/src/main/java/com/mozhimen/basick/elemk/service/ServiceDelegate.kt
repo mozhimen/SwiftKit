@@ -10,7 +10,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/9/28 16:02
  * @Version 1.0
  */
-@ADescription("init by lazy")
+@AOptLazyInit
 class ServiceDelegate<A>(
     private val _activity: A,
     private val _service: Class<*>,

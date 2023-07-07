@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.TextView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.gesture.DragAndDropDelegate
 import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
 import com.mozhimen.basicktest.R
@@ -20,11 +21,15 @@ import com.mozhimen.componentk.navigatek.cons.CNavigateK
  * @Version 1.0
  */
 class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
+    @OptIn(AOptLazyInit::class)
     private val _dragAndDropDelegate by lazy { DragAndDropDelegate() }
+    @OptIn(AOptLazyInit::class)
     private val _navigateDelegate: NavigateKDelegate<ElemKGestureActivity> by lazy { NavigateKDelegate(this, R.id.elemk_gesture_fragment_container, ElemKGestureFragment::class.java) }
 
+    @OptIn(AOptLazyInit::class)
     override fun initView(savedInstanceState: Bundle?) {
         _navigateDelegate.bindLifecycle(this)
+        _dragAndDropDelegate.bindLifecycle(this)
         savedInstanceState?.let {
             _navigateDelegate.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
         }
@@ -83,11 +88,13 @@ class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
         super.onPause()
     }
 
+    @OptIn(AOptLazyInit::class)
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         outState.putInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, _navigateDelegate.currentItemId)
         super.onSaveInstanceState(outState, outPersistentState)
     }
 
+    @OptIn(AOptLazyInit::class)
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         _navigateDelegate.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)

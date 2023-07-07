@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
 import com.mozhimen.basick.elemk.receiver.commons.ITimeReceiverListener
 
 

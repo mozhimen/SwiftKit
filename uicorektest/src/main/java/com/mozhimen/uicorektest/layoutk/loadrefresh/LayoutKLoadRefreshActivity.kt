@@ -3,6 +3,7 @@ package com.mozhimen.uicorektest.layoutk.loadrefresh
 import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.handler.WakeBefPauseLifecycleHandler
 import com.mozhimen.basick.utilk.android.os.applyPostDelayed
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
@@ -16,6 +17,7 @@ class LayoutKLoadRefreshActivity : BaseActivityVB<ActivityLayoutkLoadrefreshBind
     private val _dataSets = ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>>()
     private var _pageIndex = 0
 
+    @OptIn(AOptLazyInit::class)
     override fun initView(savedInstanceState: Bundle?) {
         _dataSets.apply {
             add(RecyclerKItemLoadMore(1))

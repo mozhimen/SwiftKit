@@ -9,7 +9,7 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission

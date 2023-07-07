@@ -1,17 +1,17 @@
-package com.mozhimen.componentk.netk.file.download_deprecated
+package com.mozhimen.componentk.netk.file.okdownload
 
-import android.os.Build
 import android.util.Log
 import com.liulishuo.okdownload.DownloadTask
 import com.liulishuo.okdownload.StatusUtil
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.lintk.optin.annors.AOptDeprecatedThirdParty
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.kotlin.text.UtilKVerifyUrl
-import com.mozhimen.componentk.netk.file.download_deprecated.commons.IFileDownloadSingleListener
+import com.mozhimen.componentk.netk.file.okdownload.commons.IFileDownloadSingleListener
 import com.mozhimen.underlayk.logk.LogK
 import java.io.File
 import java.lang.Exception
@@ -25,6 +25,8 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @Date 2022/11/1 23:27
  * @Version 1.0
  */
+@AOptLazyInit
+@AOptDeprecatedThirdParty
 @Deprecated("okdownload is deprecated")
 class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
     private val _downloadUrls = CopyOnWriteArrayList<String>()

@@ -4,7 +4,8 @@ import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackK
@@ -19,12 +20,14 @@ import java.lang.ref.WeakReference
  * @Version 1.0
  */
 internal class StackKProcessProxy : IStackK {
+    @OptIn(AOptLazyInit::class)
     private val _applicationObserver by lazy { ApplicationObserver() }
     private val _frontBackListeners = ArrayList<IStackKListener>()
     private var _isFront = true
 
     /////////////////////////////////////////////////////////////////////////
 
+    @OptIn(AOptLazyInit::class)
     override fun init() {
         _applicationObserver.bindLifecycle(ProcessLifecycleOwner.get())
     }
@@ -68,7 +71,7 @@ internal class StackKProcessProxy : IStackK {
 
     /////////////////////////////////////////////////////////////////////////
 
-    @ADescription("init by lazy")
+    @AOptLazyInit
     private inner class ApplicationObserver : BaseWakeBefDestroyLifecycleObserver() {
 
         /**

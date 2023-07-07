@@ -1,11 +1,13 @@
 package com.mozhimen.basick.taskk.temps
 
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.commons.ISuspA_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.util.et
 import kotlinx.coroutines.*
 
+@AOptLazyInit
 class TaskKPoll : BaseWakeBefDestroyTaskK() {
     private var _pollingScope: CoroutineScope? = null
     private var _time = 0

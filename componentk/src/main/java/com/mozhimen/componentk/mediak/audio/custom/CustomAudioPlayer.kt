@@ -7,6 +7,7 @@ import android.net.wifi.WifiManager.WifiLock
 import android.os.PowerManager
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.taskk.temps.TaskKPollInfinite
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
@@ -67,6 +68,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
             return manager.also { field = it }
         }
 
+    @OptIn(AOptLazyInit::class)
     private val _taskKAudioProgressUpdate by lazy { TaskKPollInfinite() }//更新进度Task
 
     private val _dataBusAudioProgressUpdate by lazy { UtilKDataBus.with<MAudioKProgress?>(CAudioEvent.EVENT_PROGRESS_UPDATE) }//发布更新进度Event
@@ -104,6 +106,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
         if (getPlayStatus() == EPlayStatus.PAUSED) start()
     }
 
+    @OptIn(AOptLazyInit::class)
     override fun pause() {
         if (getPlayStatus() != EPlayStatus.STARTED) return
         _mediaKStatusPlayer!!.pause()
@@ -119,6 +122,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
         setAudioEvent(CAudioEvent.EVENT_AUDIO_PAUSE, _currentAudioK)
     }
 
+    @OptIn(AOptLazyInit::class)
     override fun release() {
         if (_mediaKStatusPlayer == null) return
         _mediaKStatusPlayer!!.release()
@@ -239,6 +243,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
     /**
      * prepare以后自动调用start方法,外部不能调用
      */
+    @OptIn(AOptLazyInit::class)
     private fun start() {
         if (!requestAudioFocus()) {// 获取音频焦点,保证我们的播放器顺利播放
             Log.e(TAG, "获取音频焦点失败")

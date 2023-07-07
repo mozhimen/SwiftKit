@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.receiver.bases.BaseReceiverDelegate
 import com.mozhimen.basicktest.databinding.ActivityElemkReceiverBinding
 
@@ -16,6 +17,7 @@ import com.mozhimen.basicktest.databinding.ActivityElemkReceiverBinding
  * @Version 1.0
  */
 class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
+    @OptIn(AOptLazyInit::class)
     private val _receiverDelegate: BaseReceiverDelegate<ElemKReceiverActivity> by lazy { BaseReceiverDelegate(
         this,
         ElemKTimeReceiver(),
@@ -24,6 +26,7 @@ class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
         Intent.ACTION_TIME_CHANGED
     ) }
 
+    @OptIn(AOptLazyInit::class)
     override fun initView(savedInstanceState: Bundle?) {
         Log.d(TAG, "initView: start")
         _receiverDelegate.bindLifecycle(this)

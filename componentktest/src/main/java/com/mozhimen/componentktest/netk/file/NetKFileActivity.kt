@@ -7,7 +7,7 @@ import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.componentk.netk.file.NetKFile
-import com.mozhimen.componentk.netk.file.download_deprecated.commons.IFileDownloadSingleListener
+import com.mozhimen.componentk.netk.file.okdownload.commons.IFileDownloadSingleListener
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -19,7 +19,6 @@ import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
 import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
 import com.mozhimen.componentktest.databinding.ActivityNetkFileBinding
 import java.io.File
-import kotlin.coroutines.resume
 
 @AManifestKRequire(
     CPermission.READ_EXTERNAL_STORAGE,

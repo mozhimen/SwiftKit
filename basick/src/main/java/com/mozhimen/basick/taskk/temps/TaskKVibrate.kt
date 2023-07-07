@@ -2,6 +2,7 @@ package com.mozhimen.basick.taskk.temps
 
 import android.os.Vibrator
 import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
@@ -14,6 +15,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
  * @Date 2022/2/27 18:28
  * @Version 1.0
  */
+@AOptLazyInit
 @AManifestKRequire(CPermission.VIBRATE)
 class TaskKVibrate : BaseWakeBefDestroyTaskK() {
 

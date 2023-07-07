@@ -5,7 +5,8 @@ import android.content.BroadcastReceiver
 import android.content.IntentFilter
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
  * @Date 2023/1/10 14:32
  * @Version 1.0
  */
-@ADescription("init by lazy")
+@AOptLazyInit
 open class BaseReceiverDelegate<A>(
     private val _activity: A,
     private val _receiver: BroadcastReceiver,

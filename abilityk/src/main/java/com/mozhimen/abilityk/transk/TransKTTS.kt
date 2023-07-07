@@ -5,7 +5,8 @@ import android.os.Build
 import android.speech.tts.TextToSpeech
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.MText2SpeechConfig
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
@@ -32,7 +33,7 @@ import java.util.*
  * @Date 2022/6/5 21:08
  * @Version 1.0
  */
-@ADescription("init by lazy")
+@AOptLazyInit
 @AManifestKRequire(CPermission.FOREGROUND_SERVICE, CQuery.TTS_SERVICE)
 class TransKTTS<O>(owner: O, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : BaseWakeBefDestroyLifecycleObserver() where O : LifecycleOwner, O : Activity {
     private var _transKText2Speech: TextToSpeech? = null

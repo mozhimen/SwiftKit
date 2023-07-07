@@ -2,6 +2,7 @@ package com.mozhimen.basick.elemk.handler
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.elemk.lifecycle.commons.IDefaultLifecycleObserver
 import com.mozhimen.basick.utilk.android.os.removeAllCbsAndMsgs
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/6/12 11:34
  * @Version 1.0
  */
+@OptIn(AOptLazyInit::class)
 class WakeBefPauseLifecycleHandler<O : LifecycleOwner>(private val _owner: O) : BaseWeakClazzMainHandler<O>(_owner), IDefaultLifecycleObserver {
 
     init {

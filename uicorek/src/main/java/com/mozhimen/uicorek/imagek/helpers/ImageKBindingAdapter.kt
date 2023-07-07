@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.util.dp2px
-import com.mozhimen.basick.imagek.coil.ImageKLoader
+import com.mozhimen.basick.imagek.coil.ImageKCoil
 
 /**
  * @ClassName ImageKBindingAdapter
@@ -21,9 +21,9 @@ object ImageKBindingAdapter {
     @BindingAdapter(value = ["loadImageWhen", "loadImageWhen_statusTrue", "loadImageWhen_statusFalse"], requireAll = true)
     fun loadImageWhen(imageView: ImageView, loadImageWhen: Boolean, loadImageWhen_statusTrue: Any, loadImageWhen_statusFalse: Any) {
         if (loadImageWhen) {
-            ImageKLoader.loadImage(imageView, loadImageWhen_statusTrue)
+            ImageKCoil.loadImage(imageView, loadImageWhen_statusTrue)
         } else {
-            ImageKLoader.loadImage(imageView, loadImageWhen_statusFalse)
+            ImageKCoil.loadImage(imageView, loadImageWhen_statusFalse)
         }
     }
 
@@ -39,35 +39,35 @@ object ImageKBindingAdapter {
         loadImageWhen2_status4: Any
     ) {
         when {
-            loadImageWhen2 && loadImageWhen2_condition2 -> ImageKLoader.loadImage(imageView, loadImageWhen2_status1)
-            loadImageWhen2 && !loadImageWhen2_condition2 -> ImageKLoader.loadImage(imageView, loadImageWhen2_status2)
-            !loadImageWhen2 && loadImageWhen2_condition2 -> ImageKLoader.loadImage(imageView, loadImageWhen2_status3)
-            !loadImageWhen2 && !loadImageWhen2_condition2 -> ImageKLoader.loadImage(imageView, loadImageWhen2_status4)
+            loadImageWhen2 && loadImageWhen2_condition2 -> ImageKCoil.loadImage(imageView, loadImageWhen2_status1)
+            loadImageWhen2 && !loadImageWhen2_condition2 -> ImageKCoil.loadImage(imageView, loadImageWhen2_status2)
+            !loadImageWhen2 && loadImageWhen2_condition2 -> ImageKCoil.loadImage(imageView, loadImageWhen2_status3)
+            !loadImageWhen2 && !loadImageWhen2_condition2 -> ImageKCoil.loadImage(imageView, loadImageWhen2_status4)
         }
     }
 
     @JvmStatic
     @BindingAdapter("loadImage")
     fun loadImage(imageView: ImageView, res: Any) {
-        ImageKLoader.loadImage(imageView, res)
+        ImageKCoil.loadImage(imageView, res)
     }
 
     @JvmStatic
     @BindingAdapter(value = ["loadImageBlur", "placeholder"], requireAll = true)
     fun loadImageBlur(imageView: ImageView, res: Any, placeholder: Int) {
-        ImageKLoader.loadImageBlur(imageView, res, placeholder)
+        ImageKCoil.loadImageBlur(imageView, res, placeholder)
     }
 
     @JvmStatic
     @BindingAdapter(value = ["loadImageRoundedCorner", "roundedCornerRadius"], requireAll = true)
     fun loadImageRoundedCorner(imageView: ImageView, res: Any, roundedCornerRadius: Int) {
-        ImageKLoader.loadImageRoundedCorner(imageView, res, roundedCornerRadius.dp2px())
+        ImageKCoil.loadImageRoundedCorner(imageView, res, roundedCornerRadius.dp2px())
     }
 
     @JvmStatic
     @BindingAdapter(value = ["loadImageRoundedCorner", "roundedCornerRadius"], requireAll = true)
     fun loadImageRoundedCorner(imageView: ImageView, res: Any, roundedCornerRadius: Float) {
-        ImageKLoader.loadImageRoundedCorner(imageView, res, roundedCornerRadius.dp2px())
+        ImageKCoil.loadImageRoundedCorner(imageView, res, roundedCornerRadius.dp2px())
     }
 
     //    /**

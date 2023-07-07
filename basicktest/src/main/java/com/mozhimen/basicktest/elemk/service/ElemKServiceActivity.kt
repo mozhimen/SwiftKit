@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.service.bases.BaseServiceResCallback
 import com.mozhimen.basick.elemk.service.ServiceDelegate
 import com.mozhimen.basicktest.databinding.ActivityElemkServiceBinding
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 
 class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
 
+    @OptIn(AOptLazyInit::class)
     private val _serviceDelegate: ServiceDelegate<ElemKServiceActivity> by lazy { ServiceDelegate(this, ElemKService::class.java, _resListener) }
 
     private var _resListener: BaseServiceResCallback = object : BaseServiceResCallback() {
@@ -23,6 +25,7 @@ class ElemKServiceActivity : BaseActivityVB<ActivityElemkServiceBinding>() {
         }
     }
 
+    @OptIn(AOptLazyInit::class)
     override fun initView(savedInstanceState: Bundle?) {
         _serviceDelegate.bindLifecycle(this)
         lifecycleScope.launch(Dispatchers.Main) {

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.mozhimen.basick.imagek.coil.loadImage
+import com.mozhimen.basick.imagek.coil.coilLoadImage
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
@@ -140,11 +140,11 @@ class TabTopItem @JvmOverloads constructor(
             if (selected) {
                 _tabIndicator.visibility = VISIBLE
                 _tabIndicator.setBackgroundColor(_tabTopItem!!.colorIndicator!!)
-                _tabImageView.loadImage(_tabTopItem!!.bitmapSelected!!)
+                _tabImageView.coilLoadImage(_tabTopItem!!.bitmapSelected!!)
                 _tabImageView.resizeSize(27f.dp2px().toInt())
             } else {
                 _tabIndicator.visibility = GONE
-                _tabImageView.loadImage(_tabTopItem!!.bitmapDefault!!)
+                _tabImageView.coilLoadImage(_tabTopItem!!.bitmapDefault!!)
                 _tabImageView.resizeSize(26f.dp2px().toInt())
             }
         } else if (_tabTopItem!!.tabType == ETabTopType.IMAGE_TEXT) {
@@ -159,14 +159,14 @@ class TabTopItem @JvmOverloads constructor(
             if (selected) {
                 _tabIndicator.visibility = VISIBLE
                 _tabIndicator.setBackgroundColor(_tabTopItem!!.colorSelected!!)
-                _tabImageView.loadImage(_tabTopItem!!.bitmapSelected!!)
+                _tabImageView.coilLoadImage(_tabTopItem!!.bitmapSelected!!)
                 _tabImageView.resizeSize(25f.dp2px().toInt())
                 _tabNameView.setTextColor(_tabTopItem!!.colorSelected ?: _tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 17f
                 _tabNameView.applyTextStyle(Typeface.BOLD)
             } else {
                 _tabIndicator.visibility = GONE
-                _tabImageView.loadImage(_tabTopItem!!.bitmapDefault!!)
+                _tabImageView.coilLoadImage(_tabTopItem!!.bitmapDefault!!)
                 _tabImageView.resizeSize(24f.dp2px().toInt())
                 _tabNameView.setTextColor(_tabTopItem!!.colorDefault!!)
                 _tabNameView.textSize = 16f

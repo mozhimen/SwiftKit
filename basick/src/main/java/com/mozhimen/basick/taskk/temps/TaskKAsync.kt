@@ -1,5 +1,6 @@
 package com.mozhimen.basick.taskk.temps
 
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
 import com.mozhimen.basick.elemk.commons.ISusp_Listener
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
@@ -8,6 +9,7 @@ import kotlinx.coroutines.*
 
 typealias ITaskKAsyncErrorListener = IA_Listener<Throwable>//(Throwable) -> Unit
 
+@AOptLazyInit
 class TaskKAsync : BaseWakeBefDestroyTaskK() {
     private val _exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()

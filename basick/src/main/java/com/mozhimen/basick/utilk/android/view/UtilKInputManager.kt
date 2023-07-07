@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
 import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
@@ -10,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.RequiresApi
+import com.mozhimen.basick.lintk.optin.annors.AOptDeprecatedOfficial
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
@@ -41,12 +41,7 @@ object UtilKInputManager : BaseUtilK() {
      * 显示软键盘
      * @param context Context
      */
-    @Deprecated(
-        "google Deprecated", ReplaceWith(
-            "(context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(0, 0)",
-            "android.content.Context", "android.view.inputmethod.InputMethodManager"
-        )
-    )
+    @AOptDeprecatedOfficial
     @JvmStatic
     fun toggle(context: Context) {
         get(context).toggleSoftInput(0, 0)

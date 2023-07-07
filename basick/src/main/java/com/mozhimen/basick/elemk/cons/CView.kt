@@ -2,7 +2,7 @@ package com.mozhimen.basick.elemk.cons
 
 import android.view.View
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
 
 /**
  * @ClassName CView
@@ -111,7 +111,7 @@ object CView {
         @RequiresApi(CVersCode.V_23_6_M)
         const val LIGHT_STATUS_BAR = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        @ADescription("")
+        @ADescription("设置导航栏的颜色")
         @RequiresApi(CVersCode.V_26_8_O)
         const val LIGHT_NAVIGATION_BAR = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
     }

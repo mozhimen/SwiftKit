@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.os
 
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CVersCode
 
 /**

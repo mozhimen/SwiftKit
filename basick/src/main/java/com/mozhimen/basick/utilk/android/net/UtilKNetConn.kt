@@ -1,13 +1,18 @@
 package com.mozhimen.basick.utilk.android.net
 
+import android.Manifest
+import android.content.pm.FeatureGroupInfo
+import android.content.pm.FeatureInfo
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.util.Log
+import androidx.annotation.RequiresFeature
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basicktest.Manifest
 import java.net.Inet6Address
 import java.net.InetAddress
 import java.net.NetworkInterface
@@ -42,6 +47,7 @@ object UtilKNetConn : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
+    @RequiresFeature(name = )
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getWifiStrength(): Int {
         return abs(UtilKWifiManager.getRssi(_context))

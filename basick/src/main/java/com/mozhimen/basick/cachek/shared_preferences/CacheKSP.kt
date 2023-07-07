@@ -2,6 +2,7 @@ package com.mozhimen.basick.cachek.shared_preferences
 
 import com.mozhimen.basick.cachek.commons.ICacheK
 import com.mozhimen.basick.cachek.shared_preferences.helpers.CacheKSPProvider
+import com.mozhimen.basick.utilk.kotlin.getPackageStr
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -12,7 +13,13 @@ import java.util.concurrent.ConcurrentHashMap
  * @Version 1.0
  */
 
-@Deprecated("replace with datastore 用datastore替代sharedPreferences")
+@Deprecated(
+    message = "replace with datastore 用datastore替代sharedPreferences",
+    replaceWith = ReplaceWith(
+        "CacheKDS",
+        imports = ["com.mozhimen.basic.cachek.datastore.CacheKDS"]
+    )
+)
 class CacheKSP : ICacheK<CacheKSPProvider> {
     companion object {
         @JvmStatic

@@ -4,7 +4,7 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.android.content.UtilKApp
 import com.mozhimen.basick.utilk.android.content.UtilKContext

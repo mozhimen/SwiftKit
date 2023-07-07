@@ -3,7 +3,9 @@ package com.mozhimen.basick.sensek.net_conn
 import android.app.Activity
 import android.net.ConnectivityManager
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
+import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.elemk.receiver.bases.BaseReceiverDelegate
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -18,7 +20,7 @@ import com.mozhimen.basick.sensek.net_conn.helpers.NetConnReceiver
  * @Date 2023/2/13 15:41
  * @Version 1.0
  */
-@ADescription("init by lazy")
+@AOptLazyInit
 @AManifestKRequire(
     CPermission.ACCESS_NETWORK_STATE,
     CPermission.ACCESS_WIFI_STATE,
