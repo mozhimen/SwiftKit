@@ -1,5 +1,5 @@
 // IBaseServiceResListener.aidl
-package com.mozhimen.basick.elemk.service.commons;
+package com.mozhimen.basick.elemk.android.app.commons;
 
 // Declare any non-default types here with import statements
 

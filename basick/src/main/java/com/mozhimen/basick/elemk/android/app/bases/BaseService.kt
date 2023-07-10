@@ -4,8 +4,8 @@ import android.app.Service
 import android.os.RemoteCallbackList
 import android.os.RemoteException
 import com.mozhimen.basick.elemk.android.app.commons.IBaseService
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
+import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceConnListener
+import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceResListener
 import com.mozhimen.basick.utilk.android.util.et
 
 /**

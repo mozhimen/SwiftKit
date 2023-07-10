@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.android.content.temps
+package com.mozhimen.basick.elemk.android.content.bases
 
 import android.annotation.TargetApi
 import android.content.Context
@@ -35,7 +35,7 @@ android:enabled="true">
  */
 @ADescription("you should set your target sdk as 25, because android 8 later all limited")
 @TargetApi(CVersCode.V_25_71_N1)
-open class InstallObserverReceiver : BaseBroadcastReceiver() {
+open class BaseInstallObserverBroadcastReceiver : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val packageName = intent.dataString

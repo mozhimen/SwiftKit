@@ -6,7 +6,7 @@ import kotlin.reflect.KProperty
 
 
 /**
- * @ClassName CacheKSPDelegateString
+ * @ClassName BaseCacheKVarPropertyString
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
  * @Date 2023/3/13 15:17

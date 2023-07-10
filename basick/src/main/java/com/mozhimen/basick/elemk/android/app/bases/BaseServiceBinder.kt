@@ -1,8 +1,8 @@
 package com.mozhimen.basick.elemk.android.app.bases
 
 import android.os.RemoteCallbackList
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
+import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceConnListener
+import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceResListener
 
 /**
  * @ClassName BaseServiceBinder

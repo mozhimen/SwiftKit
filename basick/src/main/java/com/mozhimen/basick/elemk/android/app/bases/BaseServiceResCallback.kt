@@ -1,6 +1,6 @@
 package com.mozhimen.basick.elemk.android.app.bases
 
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
+import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceResListener
 
 /**
  * @ClassName BaseServiceResCallback

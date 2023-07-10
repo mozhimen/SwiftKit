@@ -19,8 +19,8 @@ import kotlinx.coroutines.launch
  * @Date 2022/11/23 11:42
  * @Version 1.0
  */
+@OptIn(AOptInInitByLazy::class)
 @AOptInNeedCallBindLifecycle
-@AOptInInitByLazy
 class RecyclerKLifecycle @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), IDefaultLifecycleObserver {
 
     override fun bindLifecycle(owner: LifecycleOwner) {

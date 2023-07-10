@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.android.content.temps
+package com.mozhimen.basick.elemk.android.content.bases
 
 import android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE
 import android.content.Context
@@ -34,7 +34,7 @@ android:exported="false">
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
-open class DownloadInstallReceiver(private val _apkPathWithName: String) : BaseBroadcastReceiver() {
+open class BaseDownloadInstallBroadcastReceiver(private val _apkPathWithName: String) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {

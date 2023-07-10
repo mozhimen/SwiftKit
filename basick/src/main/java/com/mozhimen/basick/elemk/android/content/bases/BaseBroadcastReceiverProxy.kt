@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
  */
 @AOptInNeedCallBindLifecycle
 @AOptInInitByLazy
-open class BaseReceiverProxy<A>(
+open class BaseBroadcastReceiverProxy<A>(
     private val _activity: A,
     private val _receiver: BroadcastReceiver,
     private vararg val _actions: String

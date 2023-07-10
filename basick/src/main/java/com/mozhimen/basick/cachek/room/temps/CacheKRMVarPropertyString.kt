@@ -5,7 +5,7 @@ import com.mozhimen.basick.cachek.room.CacheKRM
 
 
 /**
- * @ClassName CacheKSPDelegateString
+ * @ClassName CacheKRMVarPropertyString
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
  * @Date 2023/3/13 15:17

@@ -5,7 +5,7 @@ import com.mozhimen.basick.cachek.datastore.helpers.CacheKDSProvider
 
 
 /**
- * @ClassName CacheKSPDelegateString
+ * @ClassName CacheKDSVarPropertyString
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
  * @Date 2023/3/13 15:17

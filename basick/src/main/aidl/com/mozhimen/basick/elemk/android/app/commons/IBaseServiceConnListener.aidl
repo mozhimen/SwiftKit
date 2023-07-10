@@ -1,8 +1,8 @@
 // IBaseServiceConnListener.aidl
-package com.mozhimen.basick.elemk.service.commons;
+package com.mozhimen.basick.elemk.android.app.commons;
 
 // Declare any non-default types here with import statements
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener;
+import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceResListener;
 
 interface IBaseServiceConnListener {
     /**

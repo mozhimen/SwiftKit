@@ -15,10 +15,10 @@ import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 @AOptInDeprecatedThirdParty
 @Deprecated("okdownload is deprecated")
 class FileDownloadTaskMgr(owner: LifecycleOwner) {
-    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
+    @OptIn(AOptInNeedCallBindLifecycle::class, AOptInInitByLazy::class)
     private val _taskFileDownloadSingle by lazy { TaskFileDownloadSingle().apply { bindLifecycle(owner) } }
 
-    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
+    @OptIn(AOptInNeedCallBindLifecycle::class, AOptInInitByLazy::class)
     fun singleFileTask(): TaskFileDownloadSingle =
         _taskFileDownloadSingle
 }

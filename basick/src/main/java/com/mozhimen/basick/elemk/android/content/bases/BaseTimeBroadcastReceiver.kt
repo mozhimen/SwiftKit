@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.android.content.temps
+package com.mozhimen.basick.elemk.android.content.bases
 
 import android.content.Context
 import android.content.Intent
@@ -44,7 +44,7 @@ super.initData(savedInstanceState)
  * @Version 1.0
  */
 @ADescription("need register dynamic 需要动态注册")
-open class TimeReceiver(private val _listener: ITimeReceiverListener) : BaseBroadcastReceiver() {
+open class BaseTimeBroadcastReceiver(private val _listener: ITimeReceiverListener) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {

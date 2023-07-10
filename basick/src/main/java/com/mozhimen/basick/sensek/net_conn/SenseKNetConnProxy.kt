@@ -4,7 +4,7 @@ import android.app.Activity
 import android.net.ConnectivityManager
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
-import com.mozhimen.basick.elemk.android.content.bases.BaseReceiverProxy
+import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiverProxy
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -31,7 +31,7 @@ class SenseKNetConnProxy<A>(
     _activity: A,
     private val _listener: INetConnListener,
     private val _receiver: NetConnReceiver = NetConnReceiver(),
-) : BaseReceiverProxy<A>(_activity, _receiver, ConnectivityManager.CONNECTIVITY_ACTION) where A : Activity, A : LifecycleOwner {
+) : BaseBroadcastReceiverProxy<A>(_activity, _receiver, ConnectivityManager.CONNECTIVITY_ACTION) where A : Activity, A : LifecycleOwner {
 
     init {
         _receiver.registerListener(_listener)

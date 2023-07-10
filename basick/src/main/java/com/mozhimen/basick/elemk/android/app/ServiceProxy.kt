@@ -10,10 +10,10 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceConnListener
+import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceResListener
 import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceResListener
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.utilk.android.util.et
 import kotlinx.coroutines.Dispatchers

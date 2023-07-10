@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.android.content.temps
+package com.mozhimen.basick.elemk.android.content.bases
 
 import android.content.Context
 import android.content.Intent
@@ -36,7 +36,7 @@ android:exported="true">
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.RECEIVE_BOOT_COMPLETED)
-open class AutoRunReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BaseBroadcastReceiver() {
+open class BaseAutoRunBroadcastReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {

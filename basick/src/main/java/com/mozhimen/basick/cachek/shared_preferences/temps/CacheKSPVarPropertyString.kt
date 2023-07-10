@@ -5,7 +5,7 @@ import com.mozhimen.basick.cachek.shared_preferences.helpers.CacheKSPProvider
 
 
 /**
- * @ClassName CacheKSPDelegateString
+ * @ClassName CacheKSPVarPropertyString
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
  * @Date 2023/3/13 15:17
