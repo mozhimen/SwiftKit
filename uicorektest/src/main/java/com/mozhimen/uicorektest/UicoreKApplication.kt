@@ -1,6 +1,6 @@
 package com.mozhimen.uicorektest
 
-import com.mozhimen.basick.elemk.application.bases.BaseApplication
+import com.mozhimen.basick.elemk.android.app.bases.BaseApplication
 
 
 /**

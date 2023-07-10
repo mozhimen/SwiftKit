@@ -7,7 +7,7 @@ import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.SnackbarContentLayout
 import com.mozhimen.basick.elemk.cons.CParameter
-import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
+import com.mozhimen.basick.elemk.android.os.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKHandler
 

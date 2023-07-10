@@ -7,14 +7,14 @@ import androidx.annotation.Px
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
-import com.mozhimen.basick.imagek.coil.cons.CCoilBlur
+import com.mozhimen.basick.imagek.coil.cons.CImageKCoilBlur
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.imagek.coil.mos.BlurTransformation
-import com.mozhimen.basick.imagek.coil.mos.ColorFilterTransformation
-import com.mozhimen.basick.imagek.coil.mos.CropTransformation
-import com.mozhimen.basick.imagek.coil.mos.GrayscaleTransformation
+import com.mozhimen.basick.imagek.coil.temps.BlurTransformation
+import com.mozhimen.basick.imagek.coil.temps.ColorFilterTransformation
+import com.mozhimen.basick.imagek.coil.temps.CropTransformation
+import com.mozhimen.basick.imagek.coil.temps.GrayscaleTransformation
 
 /**
  * @ClassName UtilKImageLoader
@@ -23,52 +23,52 @@ import com.mozhimen.basick.imagek.coil.mos.GrayscaleTransformation
  * @Date 2022/11/6 0:25
  * @Version 1.0
  */
-fun ImageView.coilLoadImage(res: Any) {
+fun ImageView.loadImageCoil(res: Any) {
     ImageKCoil.loadImage(this, res)
 }
 
-fun ImageView.coilLoadImageComplex(
+fun ImageView.loadImageComplexCoil(
     res: Any, placeholder: Int, error: Int,
     crossFadeEnable: Boolean = true, crossFadeTime: Int = 1500
 ) {
     ImageKCoil.loadImageComplex(this, res, placeholder, error, crossFadeEnable, crossFadeTime)
 }
 
-fun ImageView.coilLoadImageBlur(
+fun ImageView.loadImageBlurCoil(
     res: Any, placeholder: Int,
     crossFadeEnable: Boolean = true, crossFadeTime: Int = 1500,
-    @FloatRange(from = 0.0, to = 25.0) radius: Float = CCoilBlur.RADIUS,
-    @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CCoilBlur.SAMPLING
+    @FloatRange(from = 0.0, to = 25.0) radius: Float = CImageKCoilBlur.RADIUS,
+    @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CImageKCoilBlur.SAMPLING
 ) {
     ImageKCoil.loadImageBlur(this, res, placeholder, crossFadeEnable, crossFadeTime, radius, sampling)
 }
 
-fun ImageView.coilLoadImageGray(res: Any) {
+fun ImageView.loadImageGrayCoil(res: Any) {
     ImageKCoil.loadImageGray(this, res)
 }
 
-fun ImageView.coilLoadImageColorFilter(res: Any, @ColorInt color: Int) {
+fun ImageView.loadImageColorFilterCoil(res: Any, @ColorInt color: Int) {
     ImageKCoil.loadImageColorFilter(this, res, color)
 }
 
-fun ImageView.coilLoadImageCircle(res: Any) {
+fun ImageView.loadImageCircleCoil(res: Any) {
     ImageKCoil.loadImageCircle(this, res)
 }
 
-fun ImageView.coilLoadImageCircleComplex(
+fun ImageView.loadImageCircleComplexCoil(
     res: Any, placeholder: Int, error: Int,
     crossFadeEnable: Boolean = true, crossFadeTime: Int = 1000
 ) {
     ImageKCoil.loadImageCircleComplex(this, res, placeholder, error, crossFadeEnable, crossFadeTime)
 }
 
-fun ImageView.coilLoadImageRoundedCorner(
+fun ImageView.loadImageRoundedCornerCoil(
     res: Any, @Px cornerRadius: Float = 6f.dp2px()
 ) {
     ImageKCoil.loadImageRoundedCorner(this, res, cornerRadius)
 }
 
-fun ImageView.coilLoadImageCrop(
+fun ImageView.loadImageCropCoil(
     res: Any, cropType: CropTransformation.ECropType = CropTransformation.ECropType.CENTER
 ) {
     ImageKCoil.loadImageCrop(this, res, cropType)
@@ -77,29 +77,22 @@ fun ImageView.coilLoadImageCrop(
 @AManifestKRequire(CPermission.INTERNET)
 object ImageKCoil {
 
-    /**
-     * 普通加载
-     * @param imageView ImageView
-     * @param res Any
-     */
     @JvmStatic
-    fun loadImage(imageView: ImageView, res: Any) {
+    fun loadImage(
+        imageView: ImageView,
+        res: Any
+    ) {
         imageView.load(res)
     }
 
-    /**
-     * 加载复杂设置图片
-     * @param imageView ImageView
-     * @param res Any
-     * @param placeholder Int
-     * @param error Int
-     * @param crossFadeEnable Boolean
-     * @param crossFadeTime Int
-     */
     @JvmStatic
     fun loadImageComplex(
-        imageView: ImageView, res: Any, placeholder: Int, error: Int,
-        crossFadeEnable: Boolean = true, crossFadeTime: Int = 1000
+        imageView: ImageView,
+        res: Any,
+        placeholder: Int,
+        error: Int,
+        crossFadeEnable: Boolean = true,
+        crossFadeTime: Int = 1000
     ) {
         imageView.load(res) {
             crossfade(crossFadeEnable)
@@ -120,8 +113,8 @@ object ImageKCoil {
     fun loadImageBlur(
         imageView: ImageView, res: Any, placeholder: Int,
         crossFadeEnable: Boolean = true, crossFadeTime: Int = 1500,
-        @FloatRange(from = 0.0, to = 25.0) radius: Float = CCoilBlur.RADIUS,
-        @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CCoilBlur.SAMPLING
+        @FloatRange(from = 0.0, to = 25.0) radius: Float = CImageKCoilBlur.RADIUS,
+        @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CImageKCoilBlur.SAMPLING
     ) {
         imageView.load(res) {
             crossfade(crossFadeEnable)

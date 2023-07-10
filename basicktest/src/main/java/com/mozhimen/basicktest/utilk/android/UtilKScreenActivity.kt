@@ -2,7 +2,7 @@ package com.mozhimen.basicktest.utilk.android
 
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basicktest.databinding.ActivityUtilkScreenBinding
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarProperty

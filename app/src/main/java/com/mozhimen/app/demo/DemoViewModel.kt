@@ -1,6 +1,6 @@
 package com.mozhimen.app.demo
 
-import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
+import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseViewModel
 
 /**
  * @ClassName DemoViewModel

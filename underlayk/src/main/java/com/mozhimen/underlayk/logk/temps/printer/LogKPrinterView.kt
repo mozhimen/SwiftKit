@@ -2,8 +2,9 @@ package com.mozhimen.underlayk.logk.temps.printer
 
 import android.app.Activity
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefPauseLifecycleObserver
+import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
+import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefPauseLifecycleObserver
+import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.utilk.android.app.getContentView
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
@@ -16,7 +17,7 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
  * @Date 2021/12/20 17:20
  * @Version 1.0
  */
-@OptIn(AOptLazyInit::class)
+@OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
 class LogKPrinterView<A>(owner: A) : ILogKPrinter, BaseWakeBefPauseLifecycleObserver() where A : Activity, A : LifecycleOwner {
     private val _viewProvider: LogKPrinterViewProvider by lazy { LogKPrinterViewProvider(owner, owner.getContentView()) }
     private var _isFold = false

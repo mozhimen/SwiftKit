@@ -4,7 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import com.liulishuo.okdownload.DownloadTask
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.okdownload.commons.IFileDownloadSingleListener

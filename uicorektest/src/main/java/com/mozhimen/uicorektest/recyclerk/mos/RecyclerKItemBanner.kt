@@ -56,7 +56,7 @@ class RecyclerKItemBanner : BaseRecyclerKItem<VHKRecyclerVB<ItemRecyclerkBannerB
                 override fun onBannerBind(viewHolder: BannerViewHolder, item: BaseBannerItem, position: Int) {
                     val model = item as BannerItem
                     val imageView: ImageView = viewHolder.findViewById(R.id.item_layoutk_banner_img)
-                    model.url?.let { imageView.load(it) }
+                    model.url.let { imageView.load(it) }
                 }
             })
             setPagerChangeListener(object : IBannerItemChangeListener {

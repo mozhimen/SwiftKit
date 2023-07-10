@@ -9,7 +9,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.componentk.mediak.audio.commons.IMediaKAudio
 import com.mozhimen.componentk.mediak.audio.cons.EAudioPlayMode
 import com.mozhimen.componentk.mediak.status.cons.EPlayStatus
-import com.mozhimen.componentk.mediak.audio.helpers.MediaKAudioProxy
+import com.mozhimen.componentk.mediak.audio.helpers.MediaKAudioDelegate
 import com.mozhimen.componentk.mediak.audio.mos.MAudioK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
     private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
 
-    private val _audioKProxy by lazy { MediaKAudioProxy(this) }
+    private val _mediaKAudioDelegate by lazy { MediaKAudioDelegate(this) }
 
     companion object {
         @JvmStatic
@@ -42,69 +42,69 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
     ///////////////////////////////////////////////////////////////////////
 
     override fun getPlayList(): List<MAudioK> {
-        return _audioKProxy.getPlayList()
+        return _mediaKAudioDelegate.getPlayList()
     }
 
     override fun addAudiosToPlayList(audios: List<MAudioK>) {
-        _audioKProxy.addAudiosToPlayList(audios)
+        _mediaKAudioDelegate.addAudiosToPlayList(audios)
     }
 
     override fun addAudioToPlayList(audio: MAudioK) {
-        _audioKProxy.addAudioToPlayList(audio)
+        _mediaKAudioDelegate.addAudioToPlayList(audio)
     }
 
     override fun addAudioToPlayListTop(audioK: MAudioK) {
-        _audioKProxy.addAudioToPlayListTop(audioK)
+        _mediaKAudioDelegate.addAudioToPlayListTop(audioK)
     }
 
     override fun clearPLayList() {
-        _audioKProxy.clearPLayList()
+        _mediaKAudioDelegate.clearPLayList()
     }
 
     override fun getPlayMode(): EAudioPlayMode {
-        return _audioKProxy.getPlayMode()
+        return _mediaKAudioDelegate.getPlayMode()
     }
 
     override fun setPlayMode(playMode: EAudioPlayMode) {
-        _audioKProxy.setPlayMode(playMode)
+        _mediaKAudioDelegate.setPlayMode(playMode)
     }
 
     override fun setPlayPositionCurrent(playIndex: Int) {
-        _audioKProxy.setPlayPositionCurrent(playIndex)
+        _mediaKAudioDelegate.setPlayPositionCurrent(playIndex)
     }
 
     override fun getPlayPositionCurrent(): Int {
-        return _audioKProxy.getPlayPositionCurrent()
+        return _mediaKAudioDelegate.getPlayPositionCurrent()
     }
 
     override fun getPlayPositionNext(): Int {
-        return _audioKProxy.getPlayPositionNext()
+        return _mediaKAudioDelegate.getPlayPositionNext()
     }
 
     override fun getPlayPositionPrevious(): Int {
-        return _audioKProxy.getPlayPositionPrevious()
+        return _mediaKAudioDelegate.getPlayPositionPrevious()
     }
 
     override fun getAudioFromPlayList(index: Int): MAudioK? {
-        return _audioKProxy.getAudioFromPlayList(index)
+        return _mediaKAudioDelegate.getAudioFromPlayList(index)
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     override fun play() {
-        _audioKProxy.play()
+        _mediaKAudioDelegate.play()
     }
 
     override fun playNext() {
-        _audioKProxy.playNext()
+        _mediaKAudioDelegate.playNext()
     }
 
     override fun playPrevious() {
-        _audioKProxy.playPrevious()
+        _mediaKAudioDelegate.playPrevious()
     }
 
     override fun pause() {
-        _audioKProxy.pause()
+        _mediaKAudioDelegate.pause()
     }
 
     protected fun finalize() {
@@ -113,39 +113,39 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
     override fun release() {
         _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
-        _audioKProxy.release()
+        _mediaKAudioDelegate.release()
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     override fun setVolume(volume: Int) {
-        _audioKProxy.setVolume(volume)
+        _mediaKAudioDelegate.setVolume(volume)
     }
 
     override fun setVolumePercent(volumePercent: Float) {
-        _audioKProxy.setVolumePercent(volumePercent)
+        _mediaKAudioDelegate.setVolumePercent(volumePercent)
     }
 
     override fun getVolumeCurrent(): Int {
-        return _audioKProxy.getVolumeCurrent()
+        return _mediaKAudioDelegate.getVolumeCurrent()
     }
 
     override fun getVolumeMin(): Int {
-        return _audioKProxy.getVolumeMin()
+        return _mediaKAudioDelegate.getVolumeMin()
     }
 
     override fun getVolumeMax(): Int {
-        return _audioKProxy.getVolumeMax()
+        return _mediaKAudioDelegate.getVolumeMax()
     }
 
     override fun getVolumeInterval(): Int {
-        return _audioKProxy.getVolumeInterval()
+        return _mediaKAudioDelegate.getVolumeInterval()
     }
 
     ///////////////////////////////////////////////////////////////////////
 
     override fun getPlayStatus(): EPlayStatus {
-        return _audioKProxy.getPlayStatus()
+        return _mediaKAudioDelegate.getPlayStatus()
     }
 
     ////////////////////////////////////////////////////////////////////////

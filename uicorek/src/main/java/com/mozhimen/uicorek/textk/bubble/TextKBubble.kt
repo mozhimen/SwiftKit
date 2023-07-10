@@ -20,132 +20,131 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
     AppCompatTextView(context, attrs, defStyleAttr), ITextKBubble, ITextKBubbleListener {
 
     //region # variate
-    private val TAG = "TextKBubble>>>>>"
-    private val _textKBubbleProxy: TextKBubbleProxy by lazy { TextKBubbleProxy(context) }
+    private val _textKBubbleDelegate: TextKBubbleDelegate by lazy { TextKBubbleDelegate(context) }
 
     override fun setArrowDirection(arrowDirection: EArrowDirection) {
-        _textKBubbleProxy.setArrowDirection(arrowDirection)
+        _textKBubbleDelegate.setArrowDirection(arrowDirection)
     }
 
     override fun getArrowDirection(): EArrowDirection =
-        _textKBubbleProxy.getArrowDirection()
+        _textKBubbleDelegate.getArrowDirection()
 
     override fun setArrowHeight(arrowHeight: Float) {
-        _textKBubbleProxy.setArrowHeight(arrowHeight)
+        _textKBubbleDelegate.setArrowHeight(arrowHeight)
     }
 
     override fun getArrowHeight(): Float =
-        _textKBubbleProxy.getArrowHeight()
+        _textKBubbleDelegate.getArrowHeight()
 
     override fun setArrowWidth(arrowWidth: Float) {
-        _textKBubbleProxy.setArrowWidth(arrowWidth)
+        _textKBubbleDelegate.setArrowWidth(arrowWidth)
     }
 
     override fun getArrowWidth(): Float =
-        _textKBubbleProxy.getArrowWidth()
+        _textKBubbleDelegate.getArrowWidth()
 
     override fun setArrowPosPolicy(arrowPosPolicy: EArrowPosPolicy) {
-        _textKBubbleProxy.setArrowPosPolicy(arrowPosPolicy)
+        _textKBubbleDelegate.setArrowPosPolicy(arrowPosPolicy)
     }
 
     override fun getArrowPosPolicy(): EArrowPosPolicy =
-        _textKBubbleProxy.getArrowPosPolicy()
+        _textKBubbleDelegate.getArrowPosPolicy()
 
     override fun setArrowPosOffset(offset: Float) {
-        _textKBubbleProxy.setArrowPosOffset(offset)
+        _textKBubbleDelegate.setArrowPosOffset(offset)
     }
 
     override fun getArrowPosOffset(): Float =
-        _textKBubbleProxy.getArrowPosOffset()
+        _textKBubbleDelegate.getArrowPosOffset()
 
     override fun setArrowToByViewId(targetViewId: Int) {
-        _textKBubbleProxy.setArrowToByViewId(targetViewId)
+        _textKBubbleDelegate.setArrowToByViewId(targetViewId)
     }
 
     override fun getArrowToByViewId(): Int =
-        _textKBubbleProxy.getArrowToByViewId()
+        _textKBubbleDelegate.getArrowToByViewId()
 
     override fun setArrowTo(targetView: View) {
-        _textKBubbleProxy.setArrowTo(targetView)
+        _textKBubbleDelegate.setArrowTo(targetView)
     }
 
     override fun getArrowTo(): View? =
-        _textKBubbleProxy.getArrowTo()
+        _textKBubbleDelegate.getArrowTo()
 
     override fun setBgColor(bgColor: Int) {
-        _textKBubbleProxy.setBgColor(bgColor)
+        _textKBubbleDelegate.setBgColor(bgColor)
     }
 
     override fun getBgColor(): Int =
-        _textKBubbleProxy.getBgColor()
+        _textKBubbleDelegate.getBgColor()
 
     override fun setBorderColor(borderColor: Int) {
-        _textKBubbleProxy.setBorderColor(borderColor)
+        _textKBubbleDelegate.setBorderColor(borderColor)
     }
 
     override fun getBorderColor(): Int =
-        _textKBubbleProxy.getBorderColor()
+        _textKBubbleDelegate.getBorderColor()
 
     override fun setBorderWidth(borderWidth: Float) {
-        _textKBubbleProxy.setBorderWidth(borderWidth)
+        _textKBubbleDelegate.setBorderWidth(borderWidth)
     }
 
     override fun getBorderWidth(): Float =
-        _textKBubbleProxy.getBorderWidth()
+        _textKBubbleDelegate.getBorderWidth()
 
     override fun setGapPadding(gapPadding: Float) {
-        _textKBubbleProxy.setGapPadding(gapPadding)
+        _textKBubbleDelegate.setGapPadding(gapPadding)
     }
 
     override fun getGapPadding(): Float =
-        _textKBubbleProxy.getGapPadding()
+        _textKBubbleDelegate.getGapPadding()
 
     override fun setCornerRadius(topLeft: Float, topRight: Float, bottomRight: Float, bottomLeft: Float) {
-        _textKBubbleProxy.setCornerRadius(topLeft, topRight, bottomRight, bottomLeft)
+        _textKBubbleDelegate.setCornerRadius(topLeft, topRight, bottomRight, bottomLeft)
     }
 
     override fun setCornerRadius(radius: Float) {
-        _textKBubbleProxy.setCornerRadius(radius)
+        _textKBubbleDelegate.setCornerRadius(radius)
     }
 
     override fun getCornerTopLeftRadius(): Float =
-        _textKBubbleProxy.getCornerTopLeftRadius()
+        _textKBubbleDelegate.getCornerTopLeftRadius()
 
     override fun getCornerTopRightRadius(): Float =
-        _textKBubbleProxy.getCornerTopRightRadius()
+        _textKBubbleDelegate.getCornerTopRightRadius()
 
     override fun getCornerBottomLeftRadius(): Float =
-        _textKBubbleProxy.getCornerBottomLeftRadius()
+        _textKBubbleDelegate.getCornerBottomLeftRadius()
 
     override fun getCornerBottomRightRadius(): Float =
-        _textKBubbleProxy.getCornerBottomRightRadius()
+        _textKBubbleDelegate.getCornerBottomRightRadius()
 
     override fun setPadding(padding: Float) {
-        _textKBubbleProxy.setPadding(padding)
+        _textKBubbleDelegate.setPadding(padding)
     }
 
     override fun setPadding(paddingHorizontal: Float, paddingVertical: Float) {
-        _textKBubbleProxy.setPadding(paddingHorizontal, paddingVertical)
+        _textKBubbleDelegate.setPadding(paddingHorizontal, paddingVertical)
     }
 
     override fun setPadding(left: Float, top: Float, right: Float, bottom: Float) {
-        _textKBubbleProxy.setPadding(left, top, right, bottom)
+        _textKBubbleDelegate.setPadding(left, top, right, bottom)
     }
 
     override fun getPaddingLeft(): Int =
-        _textKBubbleProxy.getPaddingLeft()
+        _textKBubbleDelegate.getPaddingLeft()
 
     override fun getPaddingTop(): Int =
-        _textKBubbleProxy.getPaddingTop()
+        _textKBubbleDelegate.getPaddingTop()
 
     override fun getPaddingRight(): Int =
-        _textKBubbleProxy.getPaddingRight()
+        _textKBubbleDelegate.getPaddingRight()
 
     override fun getPaddingBottom(): Int =
-        _textKBubbleProxy.getPaddingBottom()
+        _textKBubbleDelegate.getPaddingBottom()
 
     override fun requestUpdateBubble() {
-        _textKBubbleProxy.requestUpdateBubble()
+        _textKBubbleDelegate.requestUpdateBubble()
     }
 
     override fun setSuperPadding(left: Int, top: Int, right: Int, bottom: Int) {
@@ -171,14 +170,14 @@ class TextKBubble @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
     init {
         if (!isInEditMode) {
-            _textKBubbleProxy.init(this, attrs)
+            _textKBubbleDelegate.init(this, attrs)
         }
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         if (!isInEditMode) {
-            _textKBubbleProxy.updateDrawable(right - left, bottom - top, true)
+            _textKBubbleDelegate.updateDrawable(right - left, bottom - top, true)
         }
     }
 }

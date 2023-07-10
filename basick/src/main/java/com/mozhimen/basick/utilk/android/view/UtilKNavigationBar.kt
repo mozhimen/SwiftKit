@@ -6,14 +6,13 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.Rect
-import android.os.Build
 import android.util.Log
 import android.view.Display
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.lintk.optin.annors.ADescription
+import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.elemk.cons.CWinMgr

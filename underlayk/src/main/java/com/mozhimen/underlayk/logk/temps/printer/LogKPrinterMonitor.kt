@@ -20,7 +20,7 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinterMonitor
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKPrinterMonitor : ILogKPrinter, ILogKPrinterMonitor, IUtilK {
 
-    private val _printerMonitorProvider: LogKPrinterMonitorProxy = LogKPrinterMonitorProxy()
+    private val _logKPrinterMonitorDelegate: LogKPrinterMonitorDelegate = LogKPrinterMonitorDelegate()
 
     /////////////////////////////////////////////////////////////////////////////////////////
 
@@ -29,7 +29,7 @@ class LogKPrinterMonitor : ILogKPrinter, ILogKPrinterMonitor, IUtilK {
             override fun onChanged(isFront: Boolean) {
                 if (!isFront && isOpen()) {
                     LogK.wt(TAG, "PrinterMonitor onChanged log stop")
-                    _printerMonitorProvider.close()
+                    _logKPrinterMonitorDelegate.close()
                 }
 //                if (isFront) {
 //                    if (_isShow) {
@@ -42,31 +42,31 @@ class LogKPrinterMonitor : ILogKPrinter, ILogKPrinterMonitor, IUtilK {
     }
 
     override fun isOpen(): Boolean =
-        _printerMonitorProvider.isOpen()
+        _logKPrinterMonitorDelegate.isOpen()
 
     override fun open() {
-        _printerMonitorProvider.open()
+        _logKPrinterMonitorDelegate.open()
     }
 
     override fun open(isFold: Boolean) {
-        _printerMonitorProvider.open(isFold)
+        _logKPrinterMonitorDelegate.open(isFold)
     }
 
     override fun toggle() {
-        _printerMonitorProvider.toggle()
+        _logKPrinterMonitorDelegate.toggle()
     }
 
     override fun toggle(isFold: Boolean) {
-        _printerMonitorProvider.toggle(isFold)
+        _logKPrinterMonitorDelegate.toggle(isFold)
     }
 
     override fun close() {
-        _printerMonitorProvider.close()
+        _logKPrinterMonitorDelegate.close()
     }
 
     override val TAG: String = "LogKPrinterMonitor>>>>>"
 
     override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
-        _printerMonitorProvider.print(config, level, tag, printString)
+        _logKPrinterMonitorDelegate.print(config, level, tag, printString)
     }
 }

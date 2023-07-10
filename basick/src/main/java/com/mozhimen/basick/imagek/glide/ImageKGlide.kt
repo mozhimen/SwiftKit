@@ -1,5 +1,13 @@
 package com.mozhimen.basick.imagek.glide
 
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.mozhimen.basick.imagek.glide.temps.CircleBorderTransform
+
 /**
  * @ClassName ImageKGlide
  * @Description TODO
@@ -17,27 +25,15 @@ package com.mozhimen.basick.imagek.glide
 object ImageKGlide {
 
 
-    /**
-     * 加载普通图片
-     * @param imageView ImageView
-     * @param res Any
-     */
     @JvmStatic
     fun loadImage(
         imageView: ImageView,
         res: Any
     ) {
-        if (!isGlideTypeMatch(res)) return
-        Glide.with(imageView).load(res).into(imageView)
+        Glide.with(imageView).load(res)
+            .into(imageView)
     }
 
-    /**
-     * 加载普通图片(复杂)
-     * @param imageView ImageView
-     * @param res Any
-     * @param placeholder Int
-     * @param error Int
-     */
     @JvmStatic
     fun loadImageComplex(
         imageView: ImageView,
@@ -45,8 +41,10 @@ object ImageKGlide {
         placeholder: Int,
         error: Int
     ) {
-        if (!isGlideTypeMatch(res)) return
-        Glide.with(imageView).load(res).transition(DrawableTransitionOptions.withCrossFade()).error(error).placeholder(placeholder)
+        Glide.with(imageView).load(res)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .error(error)
+            .placeholder(placeholder)
             .into(imageView)
     }
 
@@ -64,9 +62,11 @@ object ImageKGlide {
         placeholder: Int,
         error: Int
     ) {
-        if (!isGlideTypeMatch(res)) return
-        Glide.with(imageView).load(res).transition(DrawableTransitionOptions.withCrossFade())
-            .transform(CircleCrop()).placeholder(placeholder).error(error)
+        Glide.with(imageView).load(res)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .transform(CircleCrop())
+            .placeholder(placeholder)
+            .error(error)
             .into(imageView)
     }
 
@@ -80,7 +80,7 @@ object ImageKGlide {
      * @param error Int
      */
     @JvmStatic
-    fun loadImageCircleBorder(
+    fun loadImageBorderRoundedCorner(
         imageView: ImageView,
         res: Any,
         borderWidth: Float,
@@ -88,9 +88,11 @@ object ImageKGlide {
         placeholder: Int,
         error: Int
     ) {
-        if (!isGlideTypeMatch(res)) return
-        Glide.with(imageView).load(res).transition(DrawableTransitionOptions.withCrossFade())
-            .transform(CircleBorderTransform(borderWidth, borderColor)).placeholder(placeholder).error(error)
+        Glide.with(imageView).load(res)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .transform(CircleBorderTransform(borderWidth, borderColor))
+            .placeholder(placeholder)
+            .error(error)
             .into(imageView)
     }
 
@@ -103,53 +105,17 @@ object ImageKGlide {
      * @param error Int
      */
     @JvmStatic
-    fun loadImageCorner(
+    fun loadImageRoundedCorner(
         imageView: ImageView,
         res: Any,
         cornerRadius: Int,
         placeholder: Int,
         error: Int
     ) {
-        if (!isGlideTypeMatch(res)) return
-        Glide.with(imageView).load(res).transition(DrawableTransitionOptions.withCrossFade())
-            .transform(CenterCrop(), RoundedCorners(cornerRadius)).placeholder(placeholder).error(error)
+        Glide.with(imageView).load(res)
+            .transition(DrawableTransitionOptions.withCrossFade())
+            .transform(CenterCrop(), RoundedCorners(cornerRadius))
+            .placeholder(placeholder).error(error)
             .into(imageView)
-    }
-
-    /**
-     * glide类型匹配
-     * @param arg Any
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isGlideTypeMatch(arg: Any): Boolean =
-        UtilKDataType.isTypeMatch(
-            arg,
-            String::class.java, Bitmap::class.java, Uri::class.java, File::class.java, Number::class.java, ByteArray::class.java,
-        )
-
-    private class CircleBorderTransform(private val _borderWidth: Float, borderColor: Int) : CircleCrop() {
-        private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-
-        init {
-            borderPaint.color = borderColor
-            borderPaint.style = Paint.Style.STROKE
-            borderPaint.strokeWidth = _borderWidth
-        }
-
-        override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap {
-            val transform = super.transform(pool, toTransform, outWidth, outHeight)
-            val canvas = Canvas(transform)
-            val radiusWidth = outWidth / 2f
-            val radiusHeight = outHeight / 2f
-            canvas.drawCircle(
-                radiusWidth,
-                radiusHeight,
-                radiusWidth.coerceAtMost(radiusHeight) - _borderWidth / 2f,
-                borderPaint
-            )
-            canvas.setBitmap(null)
-            return transform
-        }
     }
 }

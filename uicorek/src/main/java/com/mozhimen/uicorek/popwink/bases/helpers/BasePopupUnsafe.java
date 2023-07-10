@@ -38,10 +38,10 @@ public enum BasePopupUnsafe {
      */
     @Deprecated
     public void dismissAllPopup(boolean animateDismiss) {
-        HashMap<String, LinkedList<WindowManagerProxy>> allCache = new HashMap<>(WindowManagerProxy.PopupWindowQueueManager.sQueueMap);
+        HashMap<String, LinkedList<WindowManagerDelegate>> allCache = new HashMap<>(WindowManagerDelegate.PopupWindowQueueManager.sQueueMap);
         if (!allCache.isEmpty()) {
-            for (LinkedList<WindowManagerProxy> value : allCache.values()) {
-                for (WindowManagerProxy proxy : value) {
+            for (LinkedList<WindowManagerDelegate> value : allCache.values()) {
+                for (WindowManagerDelegate proxy : value) {
                     if (proxy.mPopupHelper != null && proxy.mPopupHelper.mPopupWindow != null) {
                         proxy.mPopupHelper.mPopupWindow.dismiss(animateDismiss);
                     }
@@ -58,8 +58,8 @@ public enum BasePopupUnsafe {
      */
     @Deprecated
     @Nullable
-    public HashMap<String, LinkedList<WindowManagerProxy>> getPopupQueueMap() {
-        return WindowManagerProxy.PopupWindowQueueManager.sQueueMap;
+    public HashMap<String, LinkedList<WindowManagerDelegate>> getPopupQueueMap() {
+        return WindowManagerDelegate.PopupWindowQueueManager.sQueueMap;
     }
 
     /**
@@ -67,7 +67,7 @@ public enum BasePopupUnsafe {
      */
     @Deprecated
     @Nullable
-    public BasePopwinK getPopupFromWindowManagerProxy(WindowManagerProxy proxy) {
+    public BasePopwinK getPopupFromWindowManagerProxy(WindowManagerDelegate proxy) {
         if (proxy == null) return null;
         if (proxy.mPopupHelper != null) {
             return proxy.mPopupHelper.mPopupWindow;
@@ -102,7 +102,7 @@ public enum BasePopupUnsafe {
     @Nullable
     public WindowManager getWindowManager(BasePopwinK p) {
         try {
-            return Objects.requireNonNull(p.mPopupWindowProxy.getBasePopwinKContextWrapper().getWindowManagerProxy());
+            return Objects.requireNonNull(p.mPopupWindowProxy.getBasePopwinKContextWrapper().getWindowManagerDelegate());
         } catch (Exception e) {
             return null;
         }
@@ -115,7 +115,7 @@ public enum BasePopupUnsafe {
     @Nullable
     public View getBasePopupDecorViewProxy(BasePopwinK p) {
         try {
-            return Objects.requireNonNull(((WindowManagerProxy) getWindowManager(p)).mPopupDecorViewProxy);
+            return Objects.requireNonNull(((WindowManagerDelegate) getWindowManager(p)).mPopupDecorViewProxy);
         } catch (Exception e) {
             return null;
         }

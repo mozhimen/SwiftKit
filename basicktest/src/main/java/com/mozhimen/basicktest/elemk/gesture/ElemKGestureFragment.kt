@@ -2,19 +2,20 @@ package com.mozhimen.basicktest.elemk.gesture
 
 import android.os.Bundle
 import android.widget.TextView
-import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
-import com.mozhimen.basick.elemk.fragment.bases.BaseFragmentVB
-import com.mozhimen.basick.elemk.gesture.DragAndDropDelegate
+import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
+import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
+import com.mozhimen.basick.elemk.android.view.DragAndDropProxy
+import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basicktest.databinding.FragmentElemkGestureBinding
 
 class ElemKGestureFragment : BaseFragmentVB<FragmentElemkGestureBinding>() {
-    @OptIn(AOptLazyInit::class)
-    private val _dragAndDropDelegate by lazy { DragAndDropDelegate() }
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
+    private val _dragAndDropProxy by lazy { DragAndDropProxy() }
 
-    @OptIn(AOptLazyInit::class)
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
-        _dragAndDropDelegate.bindLifecycle(this)
-        _dragAndDropDelegate.dragAndDrop(vb.elemkGestureFragmentTxt1, vb.elemkGestureFragmentTxt2) { source, dest ->
+        _dragAndDropProxy.bindLifecycle(this)
+        _dragAndDropProxy.dragAndDrop(vb.elemkGestureFragmentTxt1, vb.elemkGestureFragmentTxt2) { source, dest ->
             (dest as TextView).text = (source as TextView).text.toString()
         }
     }

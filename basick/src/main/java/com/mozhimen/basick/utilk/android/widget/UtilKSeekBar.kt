@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.widget
 
 import android.widget.SeekBar
 import com.mozhimen.basick.elemk.commons.IA_Listener
-import com.mozhimen.basick.elemk.view.bases.BaseOnSeekBarChangeListener
+import com.mozhimen.basick.elemk.android.view.bases.BaseOnSeekBarChangeListener
 
 /**
  * @ClassName UtilKSeekBar

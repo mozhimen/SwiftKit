@@ -1,6 +1,6 @@
 package com.mozhimen.underlayktest
 
-import com.mozhimen.basick.elemk.application.bases.BaseApplication
+import com.mozhimen.basick.elemk.android.app.bases.BaseApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.squareup.moshi.moshiT2Json

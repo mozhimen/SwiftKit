@@ -1,6 +1,7 @@
 package com.mozhimen.uicorek.layoutk.banner.commons
 
 import androidx.annotation.LayoutRes
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.uicorek.layoutk.banner.IBannerItemChangeListener
 import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 
@@ -11,7 +12,7 @@ import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
  * @Date 2022/4/19 14:33
  * @Version 1.0
  */
-interface IBanner {
+interface IBanner : IUtilK {
     /**
      * 设置banner数据
      * @param mos List<MBannerItem>

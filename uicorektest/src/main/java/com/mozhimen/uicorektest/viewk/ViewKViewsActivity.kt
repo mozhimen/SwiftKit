@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.viewk
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityViewkViewsBinding
 
 class ViewKViewsActivity : BaseActivityVB<ActivityViewkViewsBinding>() {

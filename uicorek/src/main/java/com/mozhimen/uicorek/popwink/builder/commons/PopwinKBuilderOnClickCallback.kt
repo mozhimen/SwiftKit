@@ -1,7 +1,7 @@
 package com.mozhimen.uicorek.popwink.builder.commons
 
 import android.view.View
-import com.mozhimen.uicorek.popwink.builder.PopwinKBuilderProxy
+import com.mozhimen.uicorek.popwink.builder.PopwinKBuilderDelegate
 
 /**
  * @ClassName OnQuickPopupClickListenerWrapper
@@ -11,11 +11,11 @@ import com.mozhimen.uicorek.popwink.builder.PopwinKBuilderProxy
  * @Version 1.0
  */
 abstract class PopwinKBuilderOnClickCallback : View.OnClickListener {
-    var popwinKBuilderProxy: PopwinKBuilderProxy? = null
+    var popwinKBuilderDelegate: PopwinKBuilderDelegate? = null
 
     override fun onClick(view: View?) {
-        onClick(popwinKBuilderProxy, view)
+        onClick(popwinKBuilderDelegate, view)
     }
 
-    abstract fun onClick(basePopup: PopwinKBuilderProxy?, view: View?)
+    abstract fun onClick(basePopup: PopwinKBuilderDelegate?, view: View?)
 }

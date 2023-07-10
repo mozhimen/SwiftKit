@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.elemk.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
+import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseViewModel
 
 /**
  * @ClassName ElemKDemoViewModel

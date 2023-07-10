@@ -3,7 +3,7 @@ package com.mozhimen.basick.chaink.helpers
 import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
-import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
+import com.mozhimen.basick.elemk.android.os.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.chaink.bases.BaseChainKTask
 import com.mozhimen.basick.chaink.commons.IChainKRuntime
 import com.mozhimen.basick.taskk.executor.TaskKExecutor

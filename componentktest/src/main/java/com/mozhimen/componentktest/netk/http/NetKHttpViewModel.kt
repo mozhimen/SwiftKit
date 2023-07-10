@@ -3,7 +3,7 @@ package com.mozhimen.componentktest.netk.http
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mozhimen.basick.elemk.mos.MResultIST
-import com.mozhimen.basick.elemk.viewmodel.bases.BaseViewModel
+import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseViewModel
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.manifestk.cons.CPermission

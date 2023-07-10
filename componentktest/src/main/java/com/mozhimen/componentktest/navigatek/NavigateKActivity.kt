@@ -3,7 +3,7 @@ package com.mozhimen.componentktest.navigatek
 import android.os.Bundle
 import android.util.Log
 import androidx.navigation.NavController
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVBVM
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel

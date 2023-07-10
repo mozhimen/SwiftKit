@@ -1,7 +1,7 @@
 package com.mozhimen.componentk.netk.file
 
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.lintk.optin.annors.AOptDeprecatedThirdParty
+import com.mozhimen.basick.lintk.optin.annors.AOptInDeprecatedThirdParty
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.componentk.netk.file.okdownload.FileDownloadTaskMgr
@@ -19,10 +19,10 @@ import com.mozhimen.componentk.netk.file.okdownload.FileDownloadTaskMgr
 )
 class NetKFile(owner: LifecycleOwner) {
 
-    @AOptDeprecatedThirdParty
+    @AOptInDeprecatedThirdParty
     private val _fileDownloadTaskMgr by lazy { FileDownloadTaskMgr(owner) }
 
-    @AOptDeprecatedThirdParty
+    @AOptInDeprecatedThirdParty
     fun download(): FileDownloadTaskMgr =
         _fileDownloadTaskMgr
 

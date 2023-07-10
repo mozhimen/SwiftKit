@@ -1,7 +1,6 @@
 package com.mozhimen.componentktest.installk
 
-import com.mozhimen.basick.elemk.receiver.bases.BaseInstallObserverReceiver
-
+import com.mozhimen.basick.elemk.android.content.temps.InstallObserverReceiver
 
 /**
  * @ClassName InstallReceiver
@@ -10,4 +9,4 @@ import com.mozhimen.basick.elemk.receiver.bases.BaseInstallObserverReceiver
  * @Date 2023/1/13 17:32
  * @Version 1.0
  */
-class InstallKReceiver : BaseInstallObserverReceiver()
+class InstallKReceiver : InstallObserverReceiver()

@@ -3,13 +3,14 @@ package com.mozhimen.basicktest.elemk.gesture
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.TextView
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
-import com.mozhimen.basick.elemk.gesture.DragAndDropDelegate
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
+import com.mozhimen.basick.elemk.android.view.DragAndDropProxy
+import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
-import com.mozhimen.componentk.navigatek.NavigateKDelegate
+import com.mozhimen.componentk.navigatek.NavigateKProxy
 import com.mozhimen.componentk.navigatek.cons.CNavigateK
 
 
@@ -21,19 +22,19 @@ import com.mozhimen.componentk.navigatek.cons.CNavigateK
  * @Version 1.0
  */
 class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
-    @OptIn(AOptLazyInit::class)
-    private val _dragAndDropDelegate by lazy { DragAndDropDelegate() }
-    @OptIn(AOptLazyInit::class)
-    private val _navigateDelegate: NavigateKDelegate<ElemKGestureActivity> by lazy { NavigateKDelegate(this, R.id.elemk_gesture_fragment_container, ElemKGestureFragment::class.java) }
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
+    private val _dragAndDropProxy by lazy { DragAndDropProxy() }
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
+    private val _navigateProxy: NavigateKProxy<ElemKGestureActivity> by lazy { NavigateKProxy(this, R.id.elemk_gesture_fragment_container, ElemKGestureFragment::class.java) }
 
-    @OptIn(AOptLazyInit::class)
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
-        _navigateDelegate.bindLifecycle(this)
-        _dragAndDropDelegate.bindLifecycle(this)
+        _navigateProxy.bindLifecycle(this)
+        _dragAndDropProxy.bindLifecycle(this)
         savedInstanceState?.let {
-            _navigateDelegate.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
+            _navigateProxy.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
         }
-        _dragAndDropDelegate.dragAndDrop(vb.elemkGestureTxt1, vb.elemkGestureTxt2) { source, dest ->
+        _dragAndDropProxy.dragAndDrop(vb.elemkGestureTxt1, vb.elemkGestureTxt2) { source, dest ->
             (dest as TextView).text = (source as TextView).text.toString()
         }
 
@@ -88,15 +89,15 @@ class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
         super.onPause()
     }
 
-    @OptIn(AOptLazyInit::class)
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        outState.putInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, _navigateDelegate.currentItemId)
+        outState.putInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, _navigateProxy.currentItemId)
         super.onSaveInstanceState(outState, outPersistentState)
     }
 
-    @OptIn(AOptLazyInit::class)
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        _navigateDelegate.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
+        _navigateProxy.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
     }
 }

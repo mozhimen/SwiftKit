@@ -2,10 +2,12 @@ package com.mozhimen.basick.taskk.bases
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
+import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
+import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
+import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 
-@AOptLazyInit
+@AOptInNeedCallBindLifecycle
+@AOptInInitByLazy
 abstract class BaseWakeBefDestroyTaskK : BaseWakeBefDestroyLifecycleObserver() {
 
     abstract fun isActive(): Boolean

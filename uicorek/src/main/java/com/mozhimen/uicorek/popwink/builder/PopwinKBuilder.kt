@@ -76,30 +76,30 @@ class PopwinKBuilder(obj: Any) : IClearMemoryListener {
         return this
     }
 
-    fun build(): PopwinKBuilderProxy {
+    fun build(): PopwinKBuilderDelegate {
         if (_popupHost is Context) {
-            return PopwinKBuilderProxy(_popupHost as Context, this)
+            return PopwinKBuilderDelegate(_popupHost as Context, this)
         }
         if (_popupHost is Fragment) {
-            return PopwinKBuilderProxy(_popupHost as Fragment, this)
+            return PopwinKBuilderDelegate(_popupHost as Fragment, this)
         }
         if (_popupHost is Dialog) {
-            return PopwinKBuilderProxy(_popupHost as Dialog, this)
+            return PopwinKBuilderDelegate(_popupHost as Dialog, this)
         }
         throw NullPointerException(UtilKRes.getString(R.string.base_popwink_host_destroyed))
     }
 
-    fun show(): PopwinKBuilderProxy {
+    fun show(): PopwinKBuilderDelegate {
         return show(null)
     }
 
-    fun show(anchorView: View?): PopwinKBuilderProxy {
+    fun show(anchorView: View?): PopwinKBuilderDelegate {
         val quickPopup = build()
         quickPopup.showPopupWindow(anchorView)
         return quickPopup
     }
 
-    fun show(x: Int, y: Int): PopwinKBuilderProxy {
+    fun show(x: Int, y: Int): PopwinKBuilderDelegate {
         val quickPopup = build()
         quickPopup.showPopupWindow(x, y)
         return quickPopup

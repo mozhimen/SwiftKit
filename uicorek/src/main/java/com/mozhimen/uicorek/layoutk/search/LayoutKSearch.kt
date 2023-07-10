@@ -16,7 +16,7 @@ import androidx.core.view.setPadding
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.textk.TextKIconFont
-import com.mozhimen.basick.elemk.handler.bases.BaseWeakClazzMainHandler
+import com.mozhimen.basick.elemk.android.os.bases.BaseWeakClazzMainHandler
 import com.mozhimen.basick.utilk.android.view.applyPadding
 import com.mozhimen.basick.utilk.android.view.applyPaddingHorizontal
 import com.mozhimen.uicorek.layoutk.search.helpers.SearchAttrsParser

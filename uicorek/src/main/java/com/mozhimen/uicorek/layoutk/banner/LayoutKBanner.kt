@@ -8,7 +8,7 @@ import com.mozhimen.uicorek.layoutk.banner.commons.IBanner
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerItemClickListener
-import com.mozhimen.uicorek.layoutk.banner.helpers.LayoutKBannerProxy
+import com.mozhimen.uicorek.layoutk.banner.helpers.LayoutKBannerDelegate
 import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 
 /**
@@ -25,7 +25,7 @@ import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
  */
 class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     BaseLayoutKFrame(context, attrs, defStyleAttr), IBanner {
-    private val _layoutKBannerProxy: LayoutKBannerProxy by lazy { LayoutKBannerProxy(context, this) }
+    private val _layoutKBannerDelegate: LayoutKBannerDelegate by lazy { LayoutKBannerDelegate(context, this) }
 
     private var _autoPlay = true
     private var _loop = true
@@ -38,63 +38,63 @@ class LayoutKBanner @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun setBannerData(mos: List<BaseBannerItem>) {
-        _layoutKBannerProxy.setBannerData(mos)
+        _layoutKBannerDelegate.setBannerData(mos)
     }
 
     override fun setBannerData(layoutResId: Int, mos: List<BaseBannerItem>) {
-        _layoutKBannerProxy.setBannerData(layoutResId, mos)
+        _layoutKBannerDelegate.setBannerData(layoutResId, mos)
     }
 
     override fun setBannerIndicator(indicator: IBannerIndicator<*>) {
-        _layoutKBannerProxy.setBannerIndicator(indicator)
+        _layoutKBannerDelegate.setBannerIndicator(indicator)
     }
 
     override fun setEnableScroll(enable: Boolean) {
-        _layoutKBannerProxy.setEnableScroll(enable)
+        _layoutKBannerDelegate.setEnableScroll(enable)
     }
 
     override fun setAutoPlay(autoPlay: Boolean) {
-        _layoutKBannerProxy.setAutoPlay(autoPlay)
+        _layoutKBannerDelegate.setAutoPlay(autoPlay)
     }
 
     override fun setLoop(loop: Boolean) {
-        _layoutKBannerProxy.setLoop(loop)
+        _layoutKBannerDelegate.setLoop(loop)
     }
 
     override fun setScrollDuration(duration: Int) {
-        _layoutKBannerProxy.setScrollDuration(duration)
+        _layoutKBannerDelegate.setScrollDuration(duration)
     }
 
     override fun setIntervalTime(intervalTime: Int) {
-        _layoutKBannerProxy.setIntervalTime(intervalTime)
+        _layoutKBannerDelegate.setIntervalTime(intervalTime)
     }
 
     override fun setCurrentPosition(position: Int, smoothScroll: Boolean) {
-        _layoutKBannerProxy.setCurrentPosition(position, smoothScroll)
+        _layoutKBannerDelegate.setCurrentPosition(position, smoothScroll)
     }
 
     override fun scrollToNextItem() {
-        _layoutKBannerProxy.scrollToNextItem()
+        _layoutKBannerDelegate.scrollToNextItem()
     }
 
     override fun scrollToPreviousItem() {
-        _layoutKBannerProxy.scrollToPreviousItem()
+        _layoutKBannerDelegate.scrollToPreviousItem()
     }
 
     override fun getCurrentPosition(): Int {
-        return _layoutKBannerProxy.getCurrentPosition()
+        return _layoutKBannerDelegate.getCurrentPosition()
     }
 
     override fun setBannerBindListener(listener: IBannerBindListener) {
-        _layoutKBannerProxy.setBannerBindListener(listener)
+        _layoutKBannerDelegate.setBannerBindListener(listener)
     }
 
     override fun setPagerChangeListener(listener: IBannerItemChangeListener) {
-        _layoutKBannerProxy.setPagerChangeListener(listener)
+        _layoutKBannerDelegate.setPagerChangeListener(listener)
     }
 
     override fun setBannerClickListener(listener: IBannerItemClickListener) {
-        _layoutKBannerProxy.setBannerClickListener(listener)
+        _layoutKBannerDelegate.setBannerClickListener(listener)
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {

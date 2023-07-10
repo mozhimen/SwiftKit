@@ -4,7 +4,7 @@ import android.text.Editable
 import android.text.InputFilter
 import android.widget.EditText
 import com.mozhimen.basick.elemk.commons.IA_Listener
-import com.mozhimen.basick.elemk.view.bases.BaseTextWatcher
+import com.mozhimen.basick.elemk.android.view.bases.BaseTextWatcher
 import com.mozhimen.basick.utilk.kotlin.toStringTrim
 
 /**

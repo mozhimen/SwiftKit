@@ -1,6 +1,6 @@
 package com.mozhimen.uicorektest.layoutk
 
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkInputItemBinding
 
 /**

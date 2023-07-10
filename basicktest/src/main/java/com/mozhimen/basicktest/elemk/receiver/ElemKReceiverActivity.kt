@@ -3,9 +3,10 @@ package com.mozhimen.basicktest.elemk.receiver
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
-import com.mozhimen.basick.elemk.receiver.bases.BaseReceiverDelegate
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
+import com.mozhimen.basick.elemk.android.content.bases.BaseReceiverProxy
+import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basicktest.databinding.ActivityElemkReceiverBinding
 
 
@@ -17,8 +18,8 @@ import com.mozhimen.basicktest.databinding.ActivityElemkReceiverBinding
  * @Version 1.0
  */
 class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
-    @OptIn(AOptLazyInit::class)
-    private val _receiverDelegate: BaseReceiverDelegate<ElemKReceiverActivity> by lazy { BaseReceiverDelegate(
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
+    private val _receiverProxy: BaseReceiverProxy<ElemKReceiverActivity> by lazy { BaseReceiverProxy(
         this,
         ElemKTimeReceiver(),
         Intent.ACTION_TIME_TICK,
@@ -26,9 +27,9 @@ class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
         Intent.ACTION_TIME_CHANGED
     ) }
 
-    @OptIn(AOptLazyInit::class)
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
         Log.d(TAG, "initView: start")
-        _receiverDelegate.bindLifecycle(this)
+        _receiverProxy.bindLifecycle(this)
     }
 }

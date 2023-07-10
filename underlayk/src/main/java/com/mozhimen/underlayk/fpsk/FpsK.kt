@@ -3,7 +3,7 @@ package com.mozhimen.underlayk.fpsk
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.fpsk.commons.IFpsK
-import com.mozhimen.underlayk.fpsk.helpers.FpsKProxy
+import com.mozhimen.underlayk.fpsk.helpers.FpsKDelegate
 
 /**
  * @ClassName FpsK
@@ -13,7 +13,7 @@ import com.mozhimen.underlayk.fpsk.helpers.FpsKProxy
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-class FpsK : IFpsK by FpsKProxy() {
+class FpsK : IFpsK by FpsKDelegate() {
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder

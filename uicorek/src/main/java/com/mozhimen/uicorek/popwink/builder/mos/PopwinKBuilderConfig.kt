@@ -3,7 +3,6 @@ package com.mozhimen.uicorek.popwink.builder.mos
 import android.animation.Animator
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.util.Pair
 import android.view.View
 import android.view.animation.Animation
@@ -21,7 +20,7 @@ import com.mozhimen.uicorek.popwink.bases.BasePopwinK.KeyEventListener
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK.OnBlurOptionInitListener
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag
-import com.mozhimen.uicorek.popwink.builder.PopwinKBuilderProxy
+import com.mozhimen.uicorek.popwink.builder.PopwinKBuilderDelegate
 import java.lang.reflect.Method
 
 /**
@@ -301,7 +300,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
 
     private fun findMethod(methodName: String, parameterTypes: Class<*>?): Method? {
         return try {
-            PopwinKBuilderProxy::class.java.getMethod(methodName, parameterTypes)
+            PopwinKBuilderDelegate::class.java.getMethod(methodName, parameterTypes)
         } catch (e: Exception) {
             UtilKLogPro.e("not found", methodName, parameterTypes!!.name)
             null

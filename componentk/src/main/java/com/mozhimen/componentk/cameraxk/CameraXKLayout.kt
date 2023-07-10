@@ -25,7 +25,7 @@ import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.componentk.cameraxk.cons.CAspectRatio
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
-import com.mozhimen.componentk.cameraxk.helpers.CameraXKProxy
+import com.mozhimen.componentk.cameraxk.helpers.CameraXKDelegate
 import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
 import kotlin.math.abs
 import kotlin.math.max
@@ -47,16 +47,16 @@ class CameraXKLayout @JvmOverloads constructor(
 ) :
     FrameLayout(context, attrs, defStyleAttr), ICameraXKAction {
 
-    private lateinit var _cameraXKProxy: CameraXKProxy
+    private lateinit var _cameraXKDelegate: CameraXKDelegate
     private lateinit var _preview: Preview
     private lateinit var _previewView: PreviewView
     private lateinit var _slider: Slider
     private lateinit var _sliderContainer: FrameLayout
     private var _aspectRatio: Int by Delegates.observable(AspectRatio.RATIO_16_9) { _, _, new ->
-        _cameraXKProxy.aspectRatio = new
+        _cameraXKDelegate.aspectRatio = new
     }
     private var _rotation: Int by Delegates.observable(ACameraXKRotation.ROTATION_90) { _, _, new ->
-        _cameraXKProxy.rotation = new
+        _cameraXKDelegate.rotation = new
     }
     private var _displayId = -1
 
@@ -91,60 +91,60 @@ class CameraXKLayout @JvmOverloads constructor(
     init {
         if (!isInEditMode) {
             initView()
-            _cameraXKProxy = CameraXKProxy()
-            _cameraXKProxy.apply {
+            _cameraXKDelegate = CameraXKDelegate()
+            _cameraXKDelegate.apply {
                 slider = _slider
                 previewView = _previewView
             }
             this.post {
                 initPreview()
-                _cameraXKProxy.preview = _preview
+                _cameraXKDelegate.preview = _preview
             }
         }
     }
 
     //region # open fun
     override fun setCameraXKListener(listener: ICameraXKListener) {
-        _cameraXKProxy.setCameraXKListener(listener)
+        _cameraXKDelegate.setCameraXKListener(listener)
     }
 
     override fun setCameraXKCaptureListener(listener: ICameraXKCaptureListener) {
-        _cameraXKProxy.setCameraXKCaptureListener(listener)
+        _cameraXKDelegate.setCameraXKCaptureListener(listener)
     }
 
     fun initCamera(
         owner: LifecycleOwner,
         cameraXKConfig: CameraXKConfig
     ) {
-        _cameraXKProxy.initCamera(owner, cameraXKConfig)
+        _cameraXKDelegate.initCamera(owner, cameraXKConfig)
     }
 
     fun startCamera() {
-        _cameraXKProxy.startCamera()
+        _cameraXKDelegate.startCamera()
     }
 
     override fun setCameraXKFrameListener(listener: ICameraXKFrameListener) {
-        _cameraXKProxy.setCameraXKFrameListener(listener)
+        _cameraXKDelegate.setCameraXKFrameListener(listener)
     }
 
     override fun changeHdr(isOpen: Boolean) {
-        _cameraXKProxy.changeHdr(isOpen)
+        _cameraXKDelegate.changeHdr(isOpen)
     }
 
     override fun changeFlash(flashMode: Int) {
-        _cameraXKProxy.changeFlash(flashMode)
+        _cameraXKDelegate.changeFlash(flashMode)
     }
 
     override fun changeCountDownTimer(timer: ECameraXKTimer) {
-        _cameraXKProxy.changeCountDownTimer(timer)
+        _cameraXKDelegate.changeCountDownTimer(timer)
     }
 
     override fun changeCameraFacing(@ACameraXKFacing facing: Int) {
-        _cameraXKProxy.changeCameraFacing(facing)
+        _cameraXKDelegate.changeCameraFacing(facing)
     }
 
     override fun takePicture() {
-        _cameraXKProxy.takePicture()
+        _cameraXKDelegate.takePicture()
     }
     //endregion
 
@@ -158,7 +158,7 @@ class CameraXKLayout @JvmOverloads constructor(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        _cameraXKProxy.onFrameFinished()
+        _cameraXKDelegate.onFrameFinished()
         _displayManager.unregisterDisplayListener(_displayListener)
     }
 

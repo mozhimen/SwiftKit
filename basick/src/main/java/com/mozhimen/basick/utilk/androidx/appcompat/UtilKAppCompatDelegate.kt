@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.androidx.appcompat
 
 import androidx.appcompat.app.AppCompatDelegate
-import com.mozhimen.basick.elemk.cons.CAppComDeleg
+import com.mozhimen.basick.elemk.cons.CAppCompatDelegate
 
 /**
  * @ClassName UtilKAppCompatDelegate
@@ -26,22 +26,22 @@ object UtilKAppCompatDelegate {
      */
     @JvmStatic
     fun isLightMode(): Boolean =
-        getDefaultNightMode() == CAppComDeleg.MODE_NIGHT_NO
+        getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_NO
 
     @JvmStatic
     fun isDarkMode(): Boolean =
-        getDefaultNightMode() == CAppComDeleg.MODE_NIGHT_YES
+        getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_YES
 
     @JvmStatic
     fun setLightMode() {
         if (isLightMode()) return
-        setDefaultNightMode(CAppComDeleg.MODE_NIGHT_NO)
+        setDefaultNightMode(CAppCompatDelegate.MODE_NIGHT_NO)
     }
 
     @JvmStatic
     fun setDarkMode() {
         if (isDarkMode()) return
-        setDefaultNightMode(CAppComDeleg.MODE_NIGHT_YES)
+        setDefaultNightMode(CAppCompatDelegate.MODE_NIGHT_YES)
     }
 
     /**

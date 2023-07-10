@@ -3,7 +3,7 @@ package com.mozhimen.debugk.bases
 import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.navigation.NavController
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVBVM
 import com.mozhimen.basick.sensek.systembar.SenseKSystemBar
 import com.mozhimen.basick.sensek.systembar.initSenseKSystemBar
 import com.mozhimen.basick.utilk.android.util.et

@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.utilk.androidx
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
 import com.mozhimen.basicktest.databinding.ActivityUtilkDataBusBinding

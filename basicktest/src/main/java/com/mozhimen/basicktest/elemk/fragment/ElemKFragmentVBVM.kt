@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest.elemk.fragment
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.fragment.bases.BaseFragmentVBVM
+import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVBVM
 import com.mozhimen.basicktest.databinding.FragmentElemkFragmentVbvmBinding
 import com.mozhimen.basicktest.elemk.viewmodel.ElemKViewModel
 

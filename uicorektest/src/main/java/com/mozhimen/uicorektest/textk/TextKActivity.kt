@@ -3,7 +3,7 @@ package com.mozhimen.uicorektest.textk
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.uicorek.popwink.PopwinKTextKBubbleBuilder
 import com.mozhimen.uicorektest.databinding.ActivityTextkBinding
 import kotlinx.coroutines.Dispatchers

@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.adapterk
 
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.basick.utilk.android.widget.showToastLong
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB2

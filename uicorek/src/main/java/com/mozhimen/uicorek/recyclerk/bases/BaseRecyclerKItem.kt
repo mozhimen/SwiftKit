@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
 
 /**
@@ -13,7 +14,7 @@ import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
  * @Date 2021/8/31 15:56
  * @Version 1.0
  */
-open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> {
+open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> : IUtilK {
     protected var _adapterKRecycler: IAdapterKRecycler? = null
     lateinit var vh: VH
     var pos: Int = -1

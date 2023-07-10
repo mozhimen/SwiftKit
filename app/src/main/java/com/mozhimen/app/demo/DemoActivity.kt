@@ -8,7 +8,7 @@ import com.mozhimen.app.BR
 import com.mozhimen.app.R
 import com.mozhimen.app.databinding.ActivityDemoBinding
 import com.mozhimen.app.databinding.ItemDemoListBinding
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVBVM
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVBVM
 import com.mozhimen.basick.sensek.systembar.SenseKSystemBar
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarProperty
 import com.mozhimen.basick.sensek.systembar.cons.CProperty

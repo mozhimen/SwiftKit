@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.layoutk.tab.fragments
 
 import android.os.Bundle
-import com.mozhimen.basick.elemk.fragment.bases.BaseFragmentVB
+import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
 import com.mozhimen.uicorektest.databinding.FragmentTabBottomHomeBinding
 
 /**

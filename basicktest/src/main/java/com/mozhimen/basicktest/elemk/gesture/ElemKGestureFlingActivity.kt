@@ -2,8 +2,8 @@ package com.mozhimen.basicktest.elemk.gesture
 
 import android.view.GestureDetector
 import android.view.MotionEvent
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.elemk.gesture.commons.GestureFlingCallback
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.android.view.commons.GestureFlingCallback
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basicktest.databinding.ActivityUtilkGestureBinding
 

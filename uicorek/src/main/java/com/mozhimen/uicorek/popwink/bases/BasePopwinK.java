@@ -211,7 +211,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Message;
@@ -236,7 +235,6 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
-import com.mozhimen.basick.elemk.cons.CVersCode;
 import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
@@ -252,8 +250,8 @@ import com.mozhimen.basick.utilk.android.util.UtilKLogPro;
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.helpers.BasePopupHelper;
-import com.mozhimen.uicorek.popwink.bases.helpers.WindowManagerProxy;
-import com.mozhimen.uicorek.popwink.bases.helpers.BasePopwinKProxy;
+import com.mozhimen.uicorek.popwink.bases.helpers.WindowManagerDelegate;
+import com.mozhimen.uicorek.popwink.bases.helpers.BasePopwinKDelegate;
 import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 
@@ -374,7 +372,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
     boolean pendingPopupWindow;
 
     //元素定义
-    public BasePopwinKProxy mPopupWindowProxy;
+    public BasePopwinKDelegate mPopupWindowProxy;
     //popup视图
     public View mContentView;
     public View mDisplayAnimateView;
@@ -497,7 +495,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
 
         //默认占满全屏
         if (mPopupWindowProxy == null) {
-            mPopupWindowProxy = new BasePopwinKProxy(new BasePopwinKProxy.BasePopwinKContextWrapper(
+            mPopupWindowProxy = new BasePopwinKDelegate(new BasePopwinKDelegate.BasePopwinKContextWrapper(
                     getContext(),
                     mHelper));
         }
@@ -909,7 +907,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
     public void dispatchOutSideEvent(MotionEvent event, boolean touchInBackground, boolean isMaskPressed) {
         boolean consumeEvent = onOutSideTouch(event, touchInBackground, isMaskPressed);
         if (mHelper.isOutSideTouchable()) {
-            WindowManagerProxy proxy = mPopupWindowProxy.prevWindow();
+            WindowManagerDelegate proxy = mPopupWindowProxy.prevWindow();
             if (proxy == null) {
                 if (consumeEvent) {
                     event.setAction(MotionEvent.ACTION_CANCEL);
@@ -1958,7 +1956,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
     public BasePopwinK setTouchable(boolean touchable) {
         mHelper.setFlag(CFlag.TOUCHABLE, touchable);
         if (isShowing()) {
-            ((BasePopwinKProxy) getPopupWindow()).updateFlag(touchable ? CFlag.MODE_REMOVE : CFlag.MODE_ADD,
+            ((BasePopwinKDelegate) getPopupWindow()).updateFlag(touchable ? CFlag.MODE_REMOVE : CFlag.MODE_ADD,
                     true,
                     CWinMgr.Lpf.NOT_TOUCHABLE, CWinMgr.Lpf.NOT_FOCUSABLE);
         }

@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Message;
 import android.util.LayoutDirection;
 import android.util.Log;
@@ -34,7 +33,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.mozhimen.basick.elemk.cons.CVersCode;
 import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.utilk.android.content.UtilKResource;
@@ -1226,19 +1224,19 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
 
     boolean isPrePopupBackgroundExists() {
         if (mPopupWindow == null) return false;
-        LinkedList<WindowManagerProxy> popupList = WindowManagerProxy.PopupWindowQueueManager.getInstance()
+        LinkedList<WindowManagerDelegate> popupList = WindowManagerDelegate.PopupWindowQueueManager.getInstance()
                 .getPopupList(mPopupWindow.getContext());
         if (popupList == null || popupList.isEmpty()) return false;
         final int size = popupList.size();
         if (size == 1) {
             // 只有一个popup的时候需要留意这个popup是否正在dismiss
-            WindowManagerProxy proxy = popupList.get(0);
+            WindowManagerDelegate proxy = popupList.get(0);
             if (proxy.mPopupHelper != null && (proxy.mPopupHelper.showFlag & BasePopupHelper.STATUS_START_DISMISS) != 0) {
                 return false;
             }
         }
-        for (WindowManagerProxy windowManagerProxy : popupList) {
-            BasePopupHelper helper = windowManagerProxy.mPopupHelper;
+        for (WindowManagerDelegate windowManagerDelegate : popupList) {
+            BasePopupHelper helper = windowManagerDelegate.mPopupHelper;
             if (helper != null && helper.hasBackground()) {
                 return true;
             }

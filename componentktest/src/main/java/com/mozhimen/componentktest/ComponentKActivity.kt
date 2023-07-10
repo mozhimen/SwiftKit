@@ -1,7 +1,7 @@
 package com.mozhimen.componentktest
 
 import android.view.View
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.componentktest.audiok.AudioKActivity
 import com.mozhimen.componentktest.camerak.CameraKActivity

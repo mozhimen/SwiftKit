@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mozhimen.basick.elemk.commons.IAB_Listener
-import com.mozhimen.basick.imagek.coil.coilLoadImageComplex
+import com.mozhimen.basick.imagek.coil.loadImageComplexCoil
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.widget.applyTextStyle
@@ -257,7 +257,7 @@ class LayoutKSideList @JvmOverloads constructor(context: Context, attrs: Attribu
             val contentMo = getContentByPosition(_mo, position)
             holder.findViewById<TextView>(R.id.layoutk_side_content_item_txt)?.text = contentMo?.contentName ?: "暂无数据"
             holder.findViewById<ImageView>(R.id.layoutk_side_content_item_img)
-                ?.coilLoadImageComplex(contentMo?.contentImageUrl ?: "", placeholder = R.mipmap.layoutk_refresh_loading, error = R.mipmap.layoutk_empty)
+                ?.loadImageComplexCoil(contentMo?.contentImageUrl ?: "", placeholder = R.mipmap.layoutk_refresh_loading, error = R.mipmap.layoutk_empty)
         }
 
         override fun onViewAttachedToWindow(holder: VHKRecycler) {

@@ -1,15 +1,13 @@
 package com.mozhimen.abilityk.transk
 
 import android.app.Activity
-import android.os.Build
 import android.speech.tts.TextToSpeech
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.abilityk.transk.mos.MText2SpeechConfig
-import com.mozhimen.basick.lintk.optin.annors.ADescription
-import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
+import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.elemk.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
+import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
+import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CQuery
@@ -33,7 +31,8 @@ import java.util.*
  * @Date 2022/6/5 21:08
  * @Version 1.0
  */
-@AOptLazyInit
+@AOptInNeedCallBindLifecycle
+@AOptInInitByLazy
 @AManifestKRequire(CPermission.FOREGROUND_SERVICE, CQuery.TTS_SERVICE)
 class TransKTTS<O>(owner: O, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : BaseWakeBefDestroyLifecycleObserver() where O : LifecycleOwner, O : Activity {
     private var _transKText2Speech: TextToSpeech? = null

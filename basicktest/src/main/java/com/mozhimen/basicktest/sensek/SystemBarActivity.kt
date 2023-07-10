@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest.sensek
 
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarProperty
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarPropertyAnd
 import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarPropertyOr

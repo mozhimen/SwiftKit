@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.slider.commons.ILayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
-import com.mozhimen.uicorek.layoutk.slider.helpers.LayoutKSliderProxy
+import com.mozhimen.uicorek.layoutk.slider.helpers.LayoutKSliderDelegate
 import com.mozhimen.uicorek.layoutk.slider.mos.MRod
 import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
 
@@ -38,52 +38,52 @@ import com.mozhimen.uicorek.layoutk.slider.mos.MSlider
  */
 class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleAttr, defStyleRes), ILayoutKSlider {
 
-    private val _layoutKSliderProxy: LayoutKSliderProxy by lazy { LayoutKSliderProxy(context) }
+    private val _layoutKSliderDelegate: LayoutKSliderDelegate by lazy { LayoutKSliderDelegate(context) }
 
     init {
         if (!isInEditMode) {
             setWillNotDraw(false)
-            _layoutKSliderProxy.init(this)
+            _layoutKSliderDelegate.init(this)
             initAttrs(attrs, defStyleAttr)
             initPaint()
             initView()
-            minimumHeight = _layoutKSliderProxy.getHeightMeasureSpec()
+            minimumHeight = _layoutKSliderDelegate.getHeightMeasureSpec()
         }
     }
 
     val rod: MRod
-        get() = _layoutKSliderProxy.getRod()
+        get() = _layoutKSliderDelegate.getRod()
 
     val slider: MSlider
-        get() = _layoutKSliderProxy.getSlider()
+        get() = _layoutKSliderDelegate.getSlider()
 
     fun setSliderListener(sliderListener: ISliderScrollListener) {
-        _layoutKSliderProxy.setSliderListener(sliderListener)
+        _layoutKSliderDelegate.setSliderListener(sliderListener)
     }
 
     fun setRodDefaultPercent(@FloatRange(from = 0.0, to = 1.0) percent: Float) {
-        _layoutKSliderProxy.setRodDefaultPercent(percent)
+        _layoutKSliderDelegate.setRodDefaultPercent(percent)
     }
 
     override fun updateRodPercent(@FloatRange(from = 0.0, to = 1.0) percent: Float) {
-        _layoutKSliderProxy.updateRodPercent(percent)
+        _layoutKSliderDelegate.updateRodPercent(percent)
     }
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
-        _layoutKSliderProxy.initAttrs(attrs, defStyleAttr)
+        _layoutKSliderDelegate.initAttrs(attrs, defStyleAttr)
     }
 
     private fun initPaint() {
-        _layoutKSliderProxy.initPaint()
+        _layoutKSliderDelegate.initPaint()
     }
 
     override fun initView() {
-        _layoutKSliderProxy.initView()
+        _layoutKSliderDelegate.initView()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         if (!isInEditMode) {
-            val newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(_layoutKSliderProxy.getHeightMeasureSpec(), MeasureSpec.EXACTLY)
+            val newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(_layoutKSliderDelegate.getHeightMeasureSpec(), MeasureSpec.EXACTLY)
             super.onMeasure(widthMeasureSpec, newHeightMeasureSpec)
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
@@ -93,20 +93,20 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
         if (!isInEditMode) {
-            _layoutKSliderProxy.refreshView()
+            _layoutKSliderDelegate.refreshView()
         }
     }
 
     override fun onDraw(canvas: Canvas) {
         if (!isInEditMode) {
-            _layoutKSliderProxy.onDraw(canvas)
+            _layoutKSliderDelegate.onDraw(canvas)
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return if (!isInEditMode) {
-            _layoutKSliderProxy.onTouchEvent(event)
+            _layoutKSliderDelegate.onTouchEvent(event)
         } else {
             super.onTouchEvent(event)
         }
@@ -115,7 +115,7 @@ class LayoutKSlider @JvmOverloads constructor(context: Context, attrs: Attribute
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         if (!isInEditMode) {
-            _layoutKSliderProxy.attachScrollableParentView(UtilKView.getParentViewMatch(this, ScrollView::class.java, NestedScrollView::class.java, RecyclerView::class.java) as ViewGroup?)
+            _layoutKSliderDelegate.attachScrollableParentView(UtilKView.getParentViewMatch(this, ScrollView::class.java, NestedScrollView::class.java, RecyclerView::class.java) as ViewGroup?)
         }
     }
 }

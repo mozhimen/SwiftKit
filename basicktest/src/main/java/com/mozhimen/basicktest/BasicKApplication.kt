@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest
 
-import com.mozhimen.basick.elemk.application.bases.BaseApplication
+import com.mozhimen.basick.elemk.android.app.bases.BaseApplication
 import com.mozhimen.basick.stackk.process.StackKProcess
 
 class BasicKApplication : BaseApplication() {

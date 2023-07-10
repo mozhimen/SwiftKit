@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
-import com.mozhimen.basick.lintk.optin.annors.AOptLazyInit
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.elemk.mos.MKey
+import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 import com.mozhimen.uicorektest.R
@@ -15,7 +16,7 @@ import com.mozhimen.uicorektest.databinding.ActivityRecyclerkLifecycleBinding
 import com.mozhimen.uicorektest.databinding.ItemRecyclerkLifecycleBinding
 
 class RecyclerKLifecycleActivity : BaseActivityVB<ActivityRecyclerkLifecycleBinding>() {
-    @OptIn(AOptLazyInit::class)
+    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
         val list = listOf(MKey("1", "1"), MKey("2", "2"))
         vb.recyclerkLifecycle.bindLifecycle(this)

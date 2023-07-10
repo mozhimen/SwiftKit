@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.stackk
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import com.mozhimen.basick.elemk.activity.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.process.StackKProcess
 import com.mozhimen.basick.utilk.android.widget.showToast
