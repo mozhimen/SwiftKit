@@ -6,7 +6,7 @@ import com.mozhimen.basick.elemk.androidx.lifecycle.StickyObserver
 import java.util.concurrent.ConcurrentHashMap
 
 /**
- * @ClassName DataBusK
+ * @ClassName SenseKLiveDataEventBus
  * @Description
  * 基于事件名称 订阅,分发消息
  * 由于一个liveData只能发送 一种数据类型
