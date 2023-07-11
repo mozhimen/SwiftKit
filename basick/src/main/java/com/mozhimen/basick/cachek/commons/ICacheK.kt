@@ -10,8 +10,8 @@ package com.mozhimen.basick.cachek.commons
 interface ICacheK<P : ICacheKProvider> {
     /**
      * 携带sp名称
-     * @param spName String
+     * @param name String
      * @return T
      */
-    fun with(spName: String): P
+    fun with(name: String): P
 }

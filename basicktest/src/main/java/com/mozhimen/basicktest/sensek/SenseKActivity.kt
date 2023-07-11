@@ -9,7 +9,7 @@ import com.mozhimen.basicktest.databinding.ActivitySensekBinding
 
 class SenseKActivity : BaseActivityVB<ActivitySensekBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
-        SenseKLiveDataEventBus.with<String>("stickyData").setStickyData("即时消息主界面")
+        SenseKLiveDataEventBus.with<String>("stickyData").setStickyValue("即时消息主界面")
         super.initData(savedInstanceState)
     }
 

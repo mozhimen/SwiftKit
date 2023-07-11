@@ -19,19 +19,17 @@ class CacheKDS : ICacheK<CacheKDSProvider> {
 
     ////////////////////////////////////////////////////////////////////////////
 
-    private val _spMap = ConcurrentHashMap<String, CacheKDSProvider>()
+    private val _dsMap = ConcurrentHashMap<String, CacheKDSProvider>()
 
     ////////////////////////////////////////////////////////////////////////////
 
-    @Synchronized
-    override fun with(spName: String): CacheKDSProvider {
-        return if (_spMap[spName] != null && _spMap.containsKey(spName)) {
-            _spMap[spName]!!
-        } else {
-            val provider = CacheKDSProvider(spName)
-            _spMap[spName] = provider
-            provider
+    override fun with(name: String): CacheKDSProvider {
+        var sp = _dsMap[name]
+        if (sp == null) {
+            sp = CacheKDSProvider(name)
+            _dsMap[name] = sp
         }
+        return sp
     }
 
     ////////////////////////////////////////////////////////////////////////////

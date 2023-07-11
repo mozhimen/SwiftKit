@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap
 @AOptInNeedCallBindLifecycle
 @AOptInInitByLazy
 class TaskKAnimator : BaseWakeBefDestroyTaskK() {
-    private val _viewAndListeners: ConcurrentHashMap<View, Animator> = ConcurrentHashMap()
+    private val _viewAnimMap: ConcurrentHashMap<View, Animator> = ConcurrentHashMap()
 
     /**
      * 背景变换
@@ -43,7 +43,7 @@ class TaskKAnimator : BaseWakeBefDestroyTaskK() {
                 ViewCompat.setBackground(view, colorDrawable)
             }
         })).build()
-        _viewAndListeners[view] = colorAnimator
+        _viewAnimMap[view] = colorAnimator
     }
 
     /**
@@ -60,22 +60,22 @@ class TaskKAnimator : BaseWakeBefDestroyTaskK() {
                 ViewCompat.setBackground(view, alphaDrawable)
             }
         }).setAlpha(alphaStart, alphaEnd)).build()
-        _viewAndListeners[view] = alphaAnimator
+        _viewAnimMap[view] = alphaAnimator
     }
 
     override fun isActive(): Boolean {
-        return _viewAndListeners.isNotEmpty()
+        return _viewAnimMap.isNotEmpty()
     }
 
     /**
      * 取消
      */
     override fun cancel() {
-        _viewAndListeners.forEach {
+        _viewAnimMap.forEach {
             (it.value as ValueAnimator).removeAllUpdateListeners()
             UtilKAnimator.releaseAnimator(it.value)
             UtilKAnim.stopAnim(it.key)
         }
-        _viewAndListeners.clear()
+        _viewAnimMap.clear()
     }
 }

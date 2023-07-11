@@ -17,7 +17,7 @@ class LiveDataEventBusActivity : BaseActivityVB<ActivityUtilkDataBusBinding>() {
         }
 
         vb.utilkDataBusMsgBtn.setOnClickListener {
-            SenseKLiveDataEventBus.with<String>("stickyData").setStickyData("即时消息当前界面")
+            SenseKLiveDataEventBus.with<String>("stickyData").setStickyValue("即时消息当前界面")
         }
     }
 }

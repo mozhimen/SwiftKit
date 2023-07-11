@@ -1,6 +1,8 @@
 package com.mozhimen.basick.utilk.javax.crypto
 
 import android.util.Base64
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.cons.CVersCode
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 import javax.crypto.Cipher
@@ -50,24 +52,14 @@ object UtilKAES {
         var cipherAlgorithm: String    //加解密算法/工作模式/填充方式
     )
 
-    class UtilKAESProvider(
-        private val _config: UtilKEncryptAESConfig
-    ) {
+    class UtilKAESProvider(private val _config: UtilKEncryptAESConfig) {
 
-        fun encryptWithBase64(data: String): String {
-            return Base64.encodeToString(
-                encrypt(data.toByteArray(_config.charset)), Base64.DEFAULT
-            )
-        }
+        fun encryptWithBase64(data: String): String =
+            Base64.encodeToString(encrypt(data.toByteArray(_config.charset)), Base64.DEFAULT)
 
-        fun decryptWithBase64(data: String): String {
-            return String(
-                decrypt(
-                    Base64.decode(data.toByteArray(_config.charset), Base64.DEFAULT)
-                ) ?: throw Exception("decode by aes fail"),
-                _config.charset
-            )
-        }
+        fun decryptWithBase64(data: String): String =
+            String(decrypt(Base64.decode(data.toByteArray(_config.charset), Base64.DEFAULT)) ?: throw Exception("decode by aes fail"), _config.charset)
+
 
         /**
          * 采用AES128加密
@@ -95,6 +87,7 @@ object UtilKAES {
          * @return String?
          */
         @Throws(Exception::class)
+        @RequiresApi(CVersCode.V_19_44_K)
         fun decrypt(data: ByteArray): ByteArray? {
             // 获得密匙数据
             val rawKeyData = getAESKey(_config.secretKey.toByteArray(_config.charset)) // secureKey.getBytes();
@@ -115,6 +108,7 @@ object UtilKAES {
          * @return ByteArray
          * @throws UnsupportedEncodingException
          */
+        @RequiresApi(CVersCode.V_19_44_K)
         @Throws(Exception::class)
         fun getAESKey(byteArray: ByteArray): ByteArray {
             val keyBytes16 = ByteArray(_config.secureKeyLength)

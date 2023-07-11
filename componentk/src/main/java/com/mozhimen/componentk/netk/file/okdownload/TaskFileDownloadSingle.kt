@@ -32,8 +32,8 @@ import java.util.concurrent.CopyOnWriteArrayList
 @Deprecated("okdownload is deprecated")
 class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
     private val _downloadUrls = CopyOnWriteArrayList<String>()
-    private var _downloadListeners = ConcurrentHashMap<String, IFileDownloadSingleListener>()
-    private var _downloadTasks = ConcurrentHashMap<String, DownloadTask>()
+    private var _downloadListenerMap = ConcurrentHashMap<String, IFileDownloadSingleListener>()
+    private var _downloadTaskMap = ConcurrentHashMap<String, DownloadTask>()
 
     fun start(url: String, filePathWithName: String, listener: IFileDownloadSingleListener? = null) {
         start(url, File(filePathWithName), listener)
@@ -43,10 +43,10 @@ class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
         if (!UtilKVerifyUrl.isUrlAvailable(url) || _downloadUrls.contains(url)) return
 
         _downloadUrls.add(url)
-        listener?.let { _downloadListeners[url] = it }
+        listener?.let { _downloadListenerMap[url] = it }
         val downloadTask = DownloadTask.Builder(url, file).build()
         downloadTask.enqueue(DownloadCallback2(listener))
-        _downloadTasks[url] = downloadTask
+        _downloadTaskMap[url] = downloadTask
     }
 
     private fun popupDownloadTask(url: String) {
@@ -55,19 +55,19 @@ class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
         } else {
             _downloadUrls.remove(url)
         }
-        _downloadListeners.remove(url)
-        _downloadTasks.remove(url)
+        _downloadListenerMap.remove(url)
+        _downloadTaskMap.remove(url)
     }
 
     private fun cancelAll() {
-        for (task in _downloadTasks) task.value.cancel()
-        _downloadTasks.clear()
-        _downloadListeners.clear()
+        for (task in _downloadTaskMap) task.value.cancel()
+        _downloadTaskMap.clear()
+        _downloadListenerMap.clear()
         _downloadUrls.clear()
     }
 
     override fun isActive(): Boolean {
-        return _downloadTasks.isNotEmpty() || _downloadUrls.isNotEmpty() || _downloadListeners.isNotEmpty()
+        return _downloadTaskMap.isNotEmpty() || _downloadUrls.isNotEmpty() || _downloadListenerMap.isNotEmpty()
     }
 
     override fun cancel() {

@@ -31,15 +31,13 @@ class CacheKSP : ICacheK<CacheKSPProvider> {
 
     /////////////////////////////////////////////////////////////////////////////////////
 
-    @Synchronized
-    override fun with(spName: String): CacheKSPProvider {
-        return if (_spMap[spName] != null && _spMap.containsKey(spName)) {
-            _spMap[spName]!!
-        } else {
-            val provider = CacheKSPProvider(spName)
-            _spMap[spName] = provider
-            provider
+    override fun with(name: String): CacheKSPProvider {
+        var sp = _spMap[name]
+        if (sp == null) {
+            sp = CacheKSPProvider(name)
+            _spMap[name] = sp
         }
+        return sp
     }
 
     /////////////////////////////////////////////////////////////////////////////////////
