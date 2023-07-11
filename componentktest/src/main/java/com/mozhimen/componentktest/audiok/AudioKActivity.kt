@@ -2,7 +2,6 @@ package com.mozhimen.componentktest.audiok
 
 import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -12,15 +11,14 @@ import android.widget.TextView
 import com.mozhimen.basick.animk.builder.AnimKBuilder
 import com.mozhimen.basick.animk.builder.temps.AnimKTranslationType
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.componentk.mediak.audio.MediaKAudio
 import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
-import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
+import com.mozhimen.basick.sensek.eventbus.UtilKLiveDataBus
 import com.mozhimen.componentk.mediak.audio.mos.MAudioK
 import com.mozhimen.componentk.mediak.audio.mos.MAudioKProgress
 import com.mozhimen.componentktest.R
@@ -44,7 +42,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         get() = MediaKAudio.instance.getVolumeCurrent()
         set(value) {
             val volume = value.normalize(MediaKAudio.instance.getVolumeMin()..MediaKAudio.instance.getVolumeMax())
-            if (UtilKBuildVers.isAfterV_28_9_P()) {
+            if (UtilKBuildVersion.isAfterV_28_9_P()) {
                 MediaKAudio.instance.setVolume(volume).also {
                     vb.audiokSliderVolumeTxt.text = volume.toString()
                     field = volume
@@ -66,7 +64,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         })
 
         MediaKAudio.instance.addAudiosToPlayList(_audioList)
-        UtilKDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_START).observe(this) {
+        UtilKLiveDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_START).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_start")
                 _popwinAudio.setTitle(it.name)
@@ -75,7 +73,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                 }
             }
         }
-        UtilKDataBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).observe(this) {
+        UtilKLiveDataBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_popup")
                 if (!it.second) {
@@ -117,7 +115,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                     dismiss()
                 }
             }
-            UtilKDataBus.with<MAudioKProgress?>(CAudioEvent.EVENT_PROGRESS_UPDATE).observe(this) {
+            UtilKLiveDataBus.with<MAudioKProgress?>(CAudioEvent.EVENT_PROGRESS_UPDATE).observe(this) {
                 if (it != null) {
                     Log.d(TAG, "initData: progress_update" + " progress status ${it.status} currentPos ${it.currentPos} duration ${it.duration} audioInfo ${it.audioInfo}")
                     _slider.updateRodPercent(it.currentPos.toFloat() / it.duration.toFloat())

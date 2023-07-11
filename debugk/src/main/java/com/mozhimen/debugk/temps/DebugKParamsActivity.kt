@@ -30,7 +30,7 @@ class DebugKParamsActivity : BaseActivityVB<DebugkActivityParamsBinding>() {
     private val _debugParams = arrayOf(DebugKParams::class.java)
 
     override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.initPermissions(this) {
+        ManifestKPermission.requestPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {

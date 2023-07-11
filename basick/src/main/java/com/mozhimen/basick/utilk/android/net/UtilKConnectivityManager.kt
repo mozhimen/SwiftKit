@@ -2,17 +2,18 @@ package com.mozhimen.basick.utilk.android.net
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkInfo
-import android.os.Build
+import android.net.NetworkRequest
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**
  * @ClassName UtilKConnManager
@@ -26,6 +27,17 @@ object UtilKConnectivityManager {
     @JvmStatic
     fun get(context: Context): ConnectivityManager =
         UtilKContext.getConnectivityManager(context)
+
+    @JvmStatic
+    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
+    fun registerNetworkCallback(context: Context, request: NetworkRequest, networkCallback: NetworkCallback) {
+        get(context).registerNetworkCallback(request, networkCallback)
+    }
+
+    @JvmStatic
+    fun unregisterNetworkCallback(context: Context, networkCallback: NetworkCallback) {
+        get(context).unregisterNetworkCallback(networkCallback)
+    }
 
     /**
      * 获取可获得的网络信息
@@ -56,7 +68,7 @@ object UtilKConnectivityManager {
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun isNetworkConnected(context: Context): Boolean =
-        if (UtilKBuildVers.isAfterV_23_6_M()) {
+        if (UtilKBuildVersion.isAfterV_23_6_M()) {
             isNetworkConnectedAfterM(context)
         } else {
             isNetworkConnectedBeforeM(context)

@@ -1,7 +1,9 @@
 package com.mozhimen.basick.utilk.android.net
 
+import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.net.NetworkRequest
 import android.net.wifi.WifiManager
 import android.util.Log
 import androidx.annotation.RequiresPermission
@@ -36,6 +38,18 @@ object UtilKNetConn : BaseUtilK() {
     @JvmStatic
     fun getWifiManager(): WifiManager =
         UtilKWifiManager.get(_context)
+
+    @JvmStatic
+    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
+    fun registerNetworkCallback(request: NetworkRequest, networkCallback: ConnectivityManager.NetworkCallback) {
+        UtilKConnectivityManager.get(_context).registerNetworkCallback(request, networkCallback)
+    }
+
+    @JvmStatic
+    fun unregisterNetworkCallback(networkCallback: ConnectivityManager.NetworkCallback) {
+        UtilKConnectivityManager.get(_context).unregisterNetworkCallback(networkCallback)
+    }
+
 
     /**
      * 获取Wifi强度

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IDefaultLifecycleObserver
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
+import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
 class RecyclerKLifecycle @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), IDefaultLifecycleObserver {
 
     override fun bindLifecycle(owner: LifecycleOwner) {
-        owner.lifecycleScope.launch(Dispatchers.Main) {
+        owner.runOnMainThread {
             owner.lifecycle.removeObserver(this@RecyclerKLifecycle)
             owner.lifecycle.addObserver(this@RecyclerKLifecycle)
         }

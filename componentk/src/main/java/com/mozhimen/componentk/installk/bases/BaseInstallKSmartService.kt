@@ -1,12 +1,14 @@
 package com.mozhimen.componentk.installk.bases
 
 import android.accessibilityservice.AccessibilityService
-import android.annotation.SuppressLint
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName InstallKSmartService
@@ -33,16 +35,13 @@ android:resource="@xml/installk_smart_accessibility_service_config" />
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.BIND_ACCESSIBILITY_SERVICE)
-open class BaseInstallKSmartService : AccessibilityService() {
-    private val TAG = "${this::class.java.simpleName}>>>>>"
-    private var _handledMap: MutableMap<Int, Boolean?> = HashMap()
+@RequiresApi(CVersCode.V_16_41_J)
+open class BaseInstallKSmartService : AccessibilityService(), IUtilK {
+//    private var _handledMap: MutableMap<Int, Boolean?> = HashMap()
 
-    @SuppressLint("LongLogTag")
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         val packageName = event.packageName.toString()
-        if (!packageName.contains("packageinstaller") && !packageName.contains("accessibility") && !packageName.contains("settings")) {            //不写完整包名，是因为某些手机(如小米)安装器包名是自定义的
-            return
-        }
+        if (!packageName.contains("packageinstaller") && !packageName.contains("accessibility") && !packageName.contains("settings")) return
 
         val nodeInfo = event.source
         if (nodeInfo != null) {
@@ -60,7 +59,6 @@ open class BaseInstallKSmartService : AccessibilityService() {
 
     }
 
-    @SuppressLint("LongLogTag")
     private fun iterateNodesAndHandle(nodeInfo: AccessibilityNodeInfo?): Boolean {
         if (nodeInfo != null) {
             val childCount = nodeInfo.childCount

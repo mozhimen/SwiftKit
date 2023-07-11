@@ -8,7 +8,7 @@ import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.elemk.commons.IAA_Listener
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefPauseLifecycleObserver
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
 
@@ -26,7 +26,7 @@ class DragAndDropProxy : BaseWakeBefPauseLifecycleObserver() {
     fun dragAndDrop(sourceView: View, destView: View, onDrop: IAA_Listener<View>/*(sourceView: View, destView: View) -> Unit*/) {
         _viewList.add(sourceView to destView)
         sourceView.setOnLongClickListener {
-            if (UtilKBuildVers.isAfterV_24_7_N()) {
+            if (UtilKBuildVersion.isAfterV_24_7_N()) {
                 //supports Nougat and beyond
                 sourceView.startDragAndDrop(null, DragShadowBuilder(sourceView), sourceView, 0)
             } else {
@@ -71,9 +71,7 @@ class DragAndDropProxy : BaseWakeBefPauseLifecycleObserver() {
 
     override fun onPause(owner: LifecycleOwner) {
         try {
-            _viewList.forEach {
-                UtilKDragAndDrop.fixDragAndDropLeak(it.first, it.second)
-            }
+            for (view in _viewList) UtilKDragAndDrop.fixDragAndDropLeak(view.first, view.second)
             _viewList.clear()
         } catch (e: Exception) {
             e.printStackTrace()

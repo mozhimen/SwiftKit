@@ -1,12 +1,23 @@
 package com.mozhimen.basicktest.sensek
 
+import android.os.Bundle
 import android.view.View
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.sensek.eventbus.SenseKLiveDataEventBus
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basicktest.databinding.ActivitySensekBinding
 
 class SenseKActivity : BaseActivityVB<ActivitySensekBinding>() {
-    fun goSystemBar(view: View){
+    override fun initData(savedInstanceState: Bundle?) {
+        SenseKLiveDataEventBus.with<String>("stickyData").setStickyData("即时消息主界面")
+        super.initData(savedInstanceState)
+    }
+
+    fun goLiveDataEventBus(view: View) {
+        startContext<LiveDataEventBusActivity>()
+    }
+
+    fun goSystemBar(view: View) {
         startContext<SystemBarActivity>()
     }
 

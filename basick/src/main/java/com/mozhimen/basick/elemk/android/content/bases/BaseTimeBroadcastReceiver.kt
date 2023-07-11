@@ -3,9 +3,6 @@ package com.mozhimen.basick.elemk.android.content.bases
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.annors.ADescription
-import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiver
-import com.mozhimen.basick.elemk.android.content.commons.ITimeReceiverListener
-
 
 /**
  * @ClassName BaseTimeReceiver
@@ -43,6 +40,12 @@ super.initData(savedInstanceState)
  * @Date 2023/1/10 14:01
  * @Version 1.0
  */
+interface ITimeReceiverListener {
+    fun onTimeZoneChanged() {}
+    fun onTimeTick() {}
+    fun onTimeChanged() {}
+}
+
 @ADescription("need register dynamic 需要动态注册")
 open class BaseTimeBroadcastReceiver(private val _listener: ITimeReceiverListener) : BaseBroadcastReceiver() {
 

@@ -11,7 +11,6 @@ import android.graphics.ImageDecoder
 import android.graphics.drawable.BitmapDrawable
 import android.media.MediaScannerConnection
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
@@ -25,7 +24,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
@@ -88,7 +87,7 @@ object UtilKBitmapIO : BaseUtilK() {
      */
     @JvmStatic
     fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        if (UtilKBuildVers.isAfterV_29_10_Q()) {
+        if (UtilKBuildVersion.isAfterV_29_10_Q()) {
             if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) null
             else bitmap2JpegAlbumFileAfter29(sourceBitmap, filePathWithName, quality)
         } else {
@@ -196,7 +195,7 @@ object UtilKBitmapIO : BaseUtilK() {
     @JvmStatic
     fun uri2Bitmap(uri: Uri): Bitmap? {
         return try {
-            if (UtilKBuildVers.isAfterV_28_9_P()) {
+            if (UtilKBuildVersion.isAfterV_28_9_P()) {
                 ImageDecoder.decodeBitmap(ImageDecoder.createSource(UtilKContext.getContentResolver(_context), uri))
             } else {
                 MediaStore.Images.Media.getBitmap(UtilKContext.getContentResolver(_context), uri)

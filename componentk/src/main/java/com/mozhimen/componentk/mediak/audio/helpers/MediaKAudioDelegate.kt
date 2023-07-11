@@ -2,17 +2,15 @@ package com.mozhimen.componentk.mediak.audio.helpers
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
+import com.mozhimen.basick.sensek.eventbus.UtilKLiveDataBus
+import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import com.mozhimen.componentk.mediak.audio.commons.IMediaKAudio
 import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
 import com.mozhimen.componentk.mediak.audio.cons.EAudioPlayMode
 import com.mozhimen.componentk.mediak.audio.custom.CustomAudioPlayer
 import com.mozhimen.componentk.mediak.status.cons.EPlayStatus
 import com.mozhimen.componentk.mediak.audio.mos.MAudioK
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.util.concurrent.CopyOnWriteArrayList
 
 
@@ -47,12 +45,12 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
         }
 
     init {
-        _owner.lifecycleScope.launch(Dispatchers.Main) {
-            UtilKDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_COMPLETE).observe(_owner) {
+        _owner.runOnMainThread {
+            UtilKLiveDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_COMPLETE).observe(_owner) {
                 Log.d(TAG, "init: onCompleted id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
-            UtilKDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_ERROR).observe(_owner) {
+            UtilKLiveDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_ERROR).observe(_owner) {
                 Log.d(TAG, "init: onError id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
@@ -215,7 +213,7 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
                 if (index in _playList.indices) {
                     _playList.removeAt(index)
                 }
-                UtilKDataBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).setValue(audio to (_playList.size != 0))
+                UtilKLiveDataBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).setValue(audio to (_playList.size != 0))
                 getPlayPositionNext()
             }
         }

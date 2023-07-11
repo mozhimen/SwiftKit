@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.UtilKString
@@ -107,7 +109,7 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @param bytes ByteArray?
      * @param quality Int
      */
-    @SuppressLint("LongLogTag")
+    @RequiresApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @JvmStatic
     private fun printBitmapInfo(bitmap: Bitmap, bytes: ByteArray?, quality: Int) {
         Log.v(

@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar
@@ -106,7 +106,7 @@ open class TextKBubblePopWin(
      * @return Int 如果需要修正且存在NavigationBar则返回高度，否则为0
      */
     private fun getNavigationBarHeightOffset(view: View): Int =
-        if (UtilKBuildVers.isAfterV_20_44W_KW()) UtilKNavigationBar.getHeight(view) else 0
+        if (UtilKBuildVersion.isAfterV_20_44W_KW()) UtilKNavigationBar.getHeight(view) else 0
 
     private inner class PopupProp {
         var direction: EArrowDirection = EArrowDirection.Auto

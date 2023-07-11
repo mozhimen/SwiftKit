@@ -2,10 +2,8 @@ package com.mozhimen.basick.utilk.android.hardware
 
 import android.content.Context
 import android.hardware.Camera
-import android.os.Build
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**
  * @ClassName UtilKCamera
@@ -38,7 +36,7 @@ object UtilKCamera {
      */
     @JvmStatic
     fun isHasCamera(context: Context, isFront: Boolean): Boolean {
-        if (UtilKBuildVers.isAfterV_28_9_P()) {
+        if (UtilKBuildVersion.isAfterV_28_9_P()) {
             return if (isFront) UtilKPackageManager.hasFrontCamera(context) else UtilKPackageManager.hasBackCamera(context)
         } else {
             val cameraInfo = Camera.CameraInfo()

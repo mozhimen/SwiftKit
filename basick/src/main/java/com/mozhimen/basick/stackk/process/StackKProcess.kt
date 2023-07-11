@@ -1,10 +1,7 @@
 package com.mozhimen.basick.stackk.process
 
-import android.app.Activity
 import com.mozhimen.basick.stackk.commons.IStackK
-import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.stackk.process.helpers.StackKProcessProxy
-import java.lang.ref.WeakReference
+import com.mozhimen.basick.stackk.process.helpers.StackKProcessDelegate
 
 /**
  * @ClassName StackKProcess
@@ -13,7 +10,7 @@ import java.lang.ref.WeakReference
  * @Date 2023/6/11 14:32
  * @Version 1.0
  */
-class StackKProcess private constructor() : IStackK by StackKProcessProxy() {
+class StackKProcess private constructor() : IStackK by StackKProcessDelegate() {
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder

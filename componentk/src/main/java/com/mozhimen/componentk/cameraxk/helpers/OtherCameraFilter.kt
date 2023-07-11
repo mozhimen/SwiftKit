@@ -28,9 +28,7 @@ class OtherCameraFilter(private val _id: String) : CameraFilter {
             it as CameraInfoInternal
             val id = it.cameraId
             Log.v(TAG, "filter: id $id")
-            if (id.contains(_id) || id == _id) {
-                tempCameraInfos.add(it)
-            }
+            if (id.contains(_id) || id == _id) tempCameraInfos.add(it)
         }
         Log.d(TAG, "filter: cameraInfos ${tempCameraInfos.joinToString { (it as CameraInfoInternal).cameraId }}")
         return tempCameraInfos

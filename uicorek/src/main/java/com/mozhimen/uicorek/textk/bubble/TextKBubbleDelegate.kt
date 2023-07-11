@@ -8,7 +8,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.applyBackground
@@ -316,7 +316,7 @@ class TextKBubbleDelegate(private val _context: Context) : ITextKBubble, ILayout
 
     override fun setPadding(left: Float, top: Float, right: Float, bottom: Float) {
         Log.d(TAG, "setPadding: _bubbleListener is not null")
-        if (UtilKBuildVers.getSDKInt() <= CVersCode.V_16_41_J) {
+        if (UtilKBuildVersion.getSDKInt() <= CVersCode.V_16_41_J) {
             val stack = Throwable().stackTrace
             for (i in 0..6) {
                 if (stack[i].className == View::class.java.name && (stack[i].methodName == "recomputePadding")

@@ -10,7 +10,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 @AManifestKRequire(CPermission.FOREGROUND_SERVICE)
 @APermissionCheck(CPermission.FOREGROUND_SERVICE)
@@ -21,8 +21,8 @@ class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        if (UtilKBuildVers.isAfterV_28_9_P()) {
-            ManifestKPermission.initPermissions(this, arrayOf(CPermission.FOREGROUND_SERVICE)) {
+        if (UtilKBuildVersion.isAfterV_28_9_P()) {
+            ManifestKPermission.requestPermissions(this, arrayOf(CPermission.FOREGROUND_SERVICE)) {
                 super.initData(savedInstanceState)
             }
         } else {

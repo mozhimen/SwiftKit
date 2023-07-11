@@ -18,6 +18,8 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
+import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
@@ -245,19 +247,12 @@ class CameraXKDelegate : ICameraXKAction, BaseUtilK() {
     }
 
     override fun takePicture() {
-        _owner.lifecycleScope.launch(Dispatchers.Main) {
+        _owner.runOnMainScope {
             // Show a timer based on user selection
             when (_selectedTimer) {
-                ECameraXKTimer.S3 -> for (i in 3 downTo 1) {
-                    delay(1000)
-                }
-
-                ECameraXKTimer.S10 -> for (i in 10 downTo 1) {
-                    delay(1000)
-                }
-
-                else -> {
-                }
+                ECameraXKTimer.S3 -> for (i in 3 downTo 1) delay(1000)
+                ECameraXKTimer.S10 -> for (i in 10 downTo 1) delay(1000)
+                else -> {}
             }
             captureImage()
         }

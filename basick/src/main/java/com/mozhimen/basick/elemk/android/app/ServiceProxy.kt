@@ -1,6 +1,5 @@
 package com.mozhimen.basick.elemk.android.app
 
-import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
@@ -12,10 +11,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceResListener
-import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
+import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,35 +26,39 @@ import kotlinx.coroutines.launch
  * @Date 2022/9/28 16:02
  * @Version 1.0
  */
+interface IServiceProxy {
+    fun getConnListener(): IBaseServiceConnListener?
+    fun bindService()
+    fun unbindService()
+}
+
 @AOptInNeedCallBindLifecycle
 @AOptInInitByLazy
 class ServiceProxy<A>(
     private val _activity: A,
     private val _service: Class<*>,
     private val _resListener: IBaseServiceResListener
-) : BaseWakeBefDestroyLifecycleObserver()
+) : BaseWakeBefDestroyLifecycleObserver(), IServiceProxy
         where A : AppCompatActivity, A : LifecycleOwner {
     private var _connListener: IBaseServiceConnListener? = null
     private val _serviceConnection: ServiceConnection by lazy { BaseServiceConnection() }
     private var _isBindService = false
 
     init {
-        _activity.lifecycleScope.launch(Dispatchers.Main) {
-            bindService()
-        }
+        _activity.runOnMainThread(::bindService)
     }
 
-    fun getConnListener(): IBaseServiceConnListener? = _connListener
+    override fun getConnListener(): IBaseServiceConnListener? =
+        _connListener
 
-    @SuppressLint("LongLogTag")
-    fun bindService() {
+    override fun bindService() {
         _isBindService = true
         _activity.bindService(
             Intent(_activity, _service), _serviceConnection, AppCompatActivity.BIND_AUTO_CREATE
         ).also { Log.d(TAG, "bindService: _isBindService $_isBindService") }
     }
 
-    fun unbindService() {
+    override fun unbindService() {
         try {
             _connListener?.apply {
                 unRegisterListener(_resListener)
@@ -67,7 +71,6 @@ class ServiceProxy<A>(
         }
     }
 
-    @SuppressLint("LongLogTag")
     override fun onDestroy(owner: LifecycleOwner) {
         if (_isBindService) {
             Log.d(TAG, "onDestroy: unbindService")

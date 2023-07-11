@@ -3,7 +3,7 @@ package com.mozhimen.basicktest.elemk.service
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.android.app.bases.BaseLifecycleService2
 import com.mozhimen.basick.elemk.android.app.bases.BaseServiceBinder
-import com.mozhimen.basick.elemk.service.commons.IBaseServiceConnListener
+import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceConnListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

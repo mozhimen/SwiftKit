@@ -16,6 +16,7 @@ import com.mozhimen.basick.animk.builder.temps.AnimatorGradientDrawableColorType
 import com.mozhimen.basick.animk.builder.temps.AnimKTranslationType
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.util.dp2px
+import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.btn.helpers.LayoutKBtnSwitchAttrsParser
 import com.mozhimen.uicorek.layoutk.btn.mos.LayoutKBtnSwitchAttrs
@@ -177,8 +178,8 @@ class LayoutKBtnSwitch @JvmOverloads constructor(
     }
 
     override fun toggleSwitchStatus(status: Boolean) {
-        (context as LifecycleOwner).lifecycleScope.launch(Dispatchers.Main) {
-            if (_switchStatus == status) return@launch
+        (context as LifecycleOwner).runOnMainScope {
+            if (_switchStatus == status) return@runOnMainScope
             if (_isAnimRunning) delay(_attrs.animTime.toLong())
             startAnimation(status.also { _switchStatus = status })
         }

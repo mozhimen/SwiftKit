@@ -169,7 +169,7 @@
             android:name=".utilk.android.UtilKBitmapActivity"
             android:exported="false" />
         <activity
-            android:name=".utilk.androidx.UtilKDataBusActivity"
+            android:name=".sensek.UtilKDataBusActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.javax.UtilKEncryptActivity"

@@ -81,8 +81,7 @@ interface IBaseDialogK<I : IDialogKClickListener> : IUtilK {
 
     /**
      * 初始化window的gravity
-     * @return 默认返回 Gravity.CENTER
-     * @see Gravity
+     * @return 默认返回 Gravity.CENTER [Gravity]
      */
     fun onInitWindowGravity(): Int
 

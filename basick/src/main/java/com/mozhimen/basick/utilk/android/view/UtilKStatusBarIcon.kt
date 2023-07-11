@@ -2,13 +2,11 @@ package com.mozhimen.basick.utilk.android.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.os.Build
 import android.view.Window
 import android.view.WindowManager
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.elemk.cons.CWinMgr
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.os.UtilKRom
@@ -46,7 +44,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
 
     @JvmStatic
     fun setIcon_MiuiUi(activity: Activity, isThemeDark: Boolean) {
-        if (UtilKBuildVers.isAfterV_23_6_M()) {
+        if (UtilKBuildVersion.isAfterV_23_6_M()) {
             setIcon_CommonUi(activity, isThemeDark)
         } else if (UtilKRomVersion.isMIUI_after6()) {
             setIcon_MiuiUi_After6(activity, isThemeDark)
@@ -70,7 +68,7 @@ object UtilKStatusBarIcon : BaseUtilK() {
 
     @JvmStatic
     fun setIcon_CommonUi(activity: Activity, isDarkMode: Boolean) {
-        if (UtilKBuildVers.isAfterV_23_6_M()) {
+        if (UtilKBuildVersion.isAfterV_23_6_M()) {
             val window: Window = UtilKWindow.get(activity)
             window.addFlags(CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.clearFlags(CWinMgr.Lpf.TRANSLUCENT_STATUS)

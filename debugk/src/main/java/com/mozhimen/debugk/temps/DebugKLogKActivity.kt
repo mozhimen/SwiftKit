@@ -24,9 +24,7 @@ class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         val logFiles = LogKPrinterFile.getInstance(0).getLogFiles()
 
-        logFiles.forEach {
-            _dataSets.add(MDebugKCrashK(it.name, it))
-        }
+        for (logFile in logFiles) _dataSets.add(MDebugKCrashK(logFile.name, logFile))
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         decoration.setDrawable(UtilKRes.getDrawable(R.drawable.debugk_crashk_divider)!!)

@@ -11,7 +11,7 @@ import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.taskk.temps.TaskKPollInfinite
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
+import com.mozhimen.basick.sensek.eventbus.UtilKLiveDataBus
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.net.UtilKWifiManager
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
@@ -72,7 +72,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
     @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
     private val _taskKAudioProgressUpdate by lazy { TaskKPollInfinite() }//更新进度Task
 
-    private val _dataBusAudioProgressUpdate by lazy { UtilKDataBus.with<MAudioKProgress?>(CAudioEvent.EVENT_PROGRESS_UPDATE) }//发布更新进度Event
+    private val _dataBusAudioProgressUpdate by lazy { UtilKLiveDataBus.with<MAudioKProgress?>(CAudioEvent.EVENT_PROGRESS_UPDATE) }//发布更新进度Event
 
     private var _isPausedByFocusLossTransient = false
 
@@ -266,7 +266,7 @@ class CustomAudioPlayer(private val _owner: LifecycleOwner) :
 
     private fun setAudioEvent(eventName: String, audio: MAudioK?) {
         Log.d(TAG, "setAudioEvent: eventName [$eventName] audio $audio")
-        UtilKDataBus.with<MAudioK?>(eventName).postValue(audio)
+        UtilKLiveDataBus.with<MAudioK?>(eventName).postValue(audio)
     }
 
     private fun setMediaVolume(left: Float, right: Float) {

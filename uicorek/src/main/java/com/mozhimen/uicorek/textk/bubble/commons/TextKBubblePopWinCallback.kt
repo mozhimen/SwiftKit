@@ -1,10 +1,8 @@
 package com.mozhimen.uicorek.textk.bubble.commons
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -12,11 +10,13 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowDirection
 import com.mozhimen.uicorek.drawablek.arrow.cons.EArrowPosPolicy
 import com.mozhimen.uicorek.textk.bubble.mos.MRelativePos
@@ -28,12 +28,12 @@ import com.mozhimen.uicorek.textk.bubble.mos.MRelativePos
  * @Date 2022/9/6 20:58
  * @Version 1.0
  */
+@RequiresApi(CVersCode.V_3_15_C)
 open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble) : PopupWindow(
     contentView,
     ViewGroup.LayoutParams.WRAP_CONTENT,
     ViewGroup.LayoutParams.WRAP_CONTENT
-) {
-    protected val TAG = "TextKBubblePopWinBase>>>>>"
+), IUtilK {
 
     protected open var _padding: Int = 2f.dp2px().toInt()
     protected open var _arrowPosOffset = 0
@@ -140,7 +140,6 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
      * @param marginH Int
      * @param marginV Int
      */
-    @SuppressLint("LongLogTag")
     open fun showArrowTo(anchorView: View, relativePos: MRelativePos, marginH: Int, marginV: Int) {
         dismiss()
         val screenWidth = UtilKScreen.getRealWidth()
@@ -212,12 +211,14 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
                 MRelativePos.ALIGN_RIGHT -> outProp.arrowPosPolicy = EArrowPosPolicy.SelfEnd
                 else -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
             }
+
             EArrowDirection.Left, EArrowDirection.Right -> when (relativePos.getVerticalRelate()) {
                 MRelativePos.CENTER_HORIZONTAL -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
                 MRelativePos.ALIGN_TOP -> outProp.arrowPosPolicy = EArrowPosPolicy.SelfBegin
                 MRelativePos.ALIGN_BOTTOM -> outProp.arrowPosPolicy = EArrowPosPolicy.SelfEnd
                 else -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
             }
+
             else -> outProp.arrowPosPolicy = EArrowPosPolicy.TargetCenter
         }
     }
@@ -236,18 +237,22 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
                 outProp.gravity = outProp.gravity or Gravity.LEFT
                 outProp.x = anchorRect.left + marginH
             }
+
             MRelativePos.TO_RIGHT_OF -> {
                 outProp.gravity = outProp.gravity or Gravity.LEFT
                 outProp.x = anchorRect.right + marginH
             }
+
             MRelativePos.TO_LEFT_OF -> {
                 outProp.gravity = outProp.gravity or Gravity.RIGHT
                 outProp.x = screenWidth - anchorRect.left + marginH
             }
+
             MRelativePos.ALIGN_RIGHT -> {
                 outProp.gravity = outProp.gravity or Gravity.RIGHT
                 outProp.x = screenWidth - anchorRect.right + marginH
             }
+
             MRelativePos.CENTER_HORIZONTAL -> {
                 if (anchorRect.centerX() < contentWidth / 2 + padding) {
                     outProp.gravity = outProp.gravity or Gravity.LEFT
@@ -286,18 +291,22 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
                 outProp.gravity = outProp.gravity or Gravity.TOP
                 outProp.y = anchorRect.top + marginV
             }
+
             MRelativePos.BELOW -> {
                 outProp.gravity = outProp.gravity or Gravity.TOP
                 outProp.y = anchorRect.bottom + marginV
             }
+
             MRelativePos.ALIGN_BOTTOM -> {
                 outProp.gravity = outProp.gravity or Gravity.BOTTOM
                 outProp.y = screenHeight + navigationBarHeight - anchorRect.bottom + marginV
             }
+
             MRelativePos.ABOVE -> {
                 outProp.gravity = outProp.gravity or Gravity.BOTTOM
                 outProp.y = screenHeight + navigationBarHeight - anchorRect.top + marginV
             }
+
             MRelativePos.CENTER_VERTICAL -> {
                 outProp.gravity = outProp.gravity or Gravity.CENTER_VERTICAL
                 outProp.y = anchorRect.centerY() - navigationBarHeight / 2 - screenHeight / 2
@@ -323,7 +332,7 @@ open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble
      * @return Int 如果需要修正且存在NavigationBar则返回高度，否则为0
      */
     private fun getNavigationBarHeightOffset(view: View): Int =
-        if (UtilKBuildVers.isAfterV_20_44W_KW()) UtilKNavigationBar.getHeight(view) else 0
+        if (UtilKBuildVersion.isAfterV_20_44W_KW()) UtilKNavigationBar.getHeight(view) else 0
 
     private class PopupProp {
         var direction: EArrowDirection = EArrowDirection.Auto

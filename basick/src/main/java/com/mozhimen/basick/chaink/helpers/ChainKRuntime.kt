@@ -3,7 +3,7 @@ package com.mozhimen.basick.chaink.helpers
 import android.text.TextUtils
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
-import com.mozhimen.basick.elemk.android.os.bases.BaseWeakClazzMainHandler
+import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefMainHandler
 import com.mozhimen.basick.chaink.bases.BaseChainKTask
 import com.mozhimen.basick.chaink.commons.IChainKRuntime
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
@@ -97,8 +97,8 @@ internal object ChainKRuntime : BaseUtilK(), IChainKRuntime {
                 val head = _waitingTasks.removeAt(0)
                 head.run()
             } else {
-                for (waitingTask in _waitingTasks) {
-                    BaseWeakClazzMainHandler(this).applyPostDelayed(waitingTask.delayMills, waitingTask)
+                for (task in _waitingTasks) {
+                    BaseWeakRefMainHandler(this).applyPostDelayed(task.delayMills, task)
                 }
                 _waitingTasks.clear()
             }
@@ -112,7 +112,7 @@ internal object ChainKRuntime : BaseUtilK(), IChainKRuntime {
             //else里面的都是在主线程执行的
             //延迟任务，但是如果这个延迟任务它存在着后置任务A(延迟任务)-->B--->C (Block task)
             if (task.delayMills > 0 && !hasBlockBehindTask(task)) {
-                BaseWeakClazzMainHandler(this).applyPostDelayed(task.delayMills, task)
+                BaseWeakRefMainHandler(this).applyPostDelayed(task.delayMills, task)
                 return
             }
             if (!hasBlockTasks()) {

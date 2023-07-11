@@ -6,6 +6,7 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import com.mozhimen.componentk.mediak.audio.commons.IMediaKAudio
 import com.mozhimen.componentk.mediak.audio.cons.EAudioPlayMode
 import com.mozhimen.componentk.mediak.status.cons.EPlayStatus
@@ -34,7 +35,7 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
     }
 
     init {
-        this.lifecycleScope.launch(Dispatchers.Main) {
+        runOnMainThread {
             _lifecycleRegistry.currentState = Lifecycle.State.STARTED
         }
     }

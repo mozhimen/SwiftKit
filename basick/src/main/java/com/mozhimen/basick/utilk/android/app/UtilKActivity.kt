@@ -7,7 +7,6 @@ import android.content.ContextWrapper
 import android.view.Display
 import android.view.View
 import android.view.WindowManager
-import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,7 +15,7 @@ import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKLifecycle
@@ -34,6 +33,10 @@ fun Activity.isFinishingOrDestroyed(): Boolean =
 
 fun AppCompatActivity.runOnBackThread(block: I_Listener) {
     UtilKActivity.runOnBackThread(this, block)
+}
+
+fun AppCompatActivity.runOnMainThread(block: I_Listener) {
+    UtilKActivity.runOnMainThread(this, block)
 }
 
 fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
@@ -168,12 +171,17 @@ object UtilKActivity {
 
     @JvmStatic
     fun isDestroyed(activity: Activity): Boolean =
-        if (UtilKBuildVers.isAfterV_17_42_J1()) {
+        if (UtilKBuildVersion.isAfterV_17_42_J1()) {
             activity.isDestroyed || isFinishing(activity)
         } else isFinishing(activity)
 
     @JvmStatic
     fun runOnBackThread(appCompatActivity: AppCompatActivity, block: I_Listener) {
         UtilKLifecycle.runOnBackThread(appCompatActivity, block)
+    }
+
+    @JvmStatic
+    fun runOnMainThread(appCompatActivity: AppCompatActivity, block: I_Listener) {
+        UtilKLifecycle.runOnMainThread(appCompatActivity, block)
     }
 }

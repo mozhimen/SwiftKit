@@ -14,7 +14,7 @@ import com.mozhimen.basicktest.databinding.ActivityManifestkPermissionBinding
 class ManifestKPermissionActivity : BaseActivityVB<ActivityManifestkPermissionBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
         //方法一,need APermissionCheck 注解
-        ManifestKPermission.initPermissions(this) {
+        ManifestKPermission.requestPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {
@@ -23,14 +23,14 @@ class ManifestKPermissionActivity : BaseActivityVB<ActivityManifestkPermissionBi
         }
 
         //方法二,need APermissionCheck 注解
-        ManifestKPermission.initPermissions(this, onSuccess = {
+        ManifestKPermission.requestPermissions(this, onSuccess = {
             initView(savedInstanceState)
         }, onFail = {
             UtilKLaunchActivity.startSettingAppDetails(this)
         })
 
         //方法三
-        ManifestKPermission.initPermissions(this, arrayOf(CPermission.INTERNET)) {
+        ManifestKPermission.requestPermissions(this, arrayOf(CPermission.INTERNET)) {
             if (it) {
                 initView(savedInstanceState)
             } else {

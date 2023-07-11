@@ -5,7 +5,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.IntRange
 import com.mozhimen.basick.taskk.executor.commons.ITaskKExecutor
-import com.mozhimen.basick.taskk.executor.helpers.PriorityRunnable
+import com.mozhimen.basick.elemk.java.lang.PriorityRunnable
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlinx.coroutines.ExecutorCoroutineDispatcher
 import kotlinx.coroutines.asCoroutineDispatcher

@@ -4,7 +4,7 @@ import android.content.Context
 import android.media.AudioManager
 import android.media.AudioManager.OnAudioFocusChangeListener
 import com.mozhimen.basick.utilk.android.media.UtilKAudioManager
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.componentk.mediak.audio.focus.commons.IAudioKFocusManager
 import com.mozhimen.componentk.mediak.audio.focus.commons.IMediaKAudioFocusListener
@@ -34,7 +34,7 @@ class MediaKAudioFocusManager(
         getAudioManager().getStreamMaxVolume(AudioManager.STREAM_MUSIC)
 
     override fun getVolumeMin(): Int =
-        if (UtilKBuildVers.isAfterV_28_9_P()) getAudioManager().getStreamMinVolume(AudioManager.STREAM_MUSIC) else 0
+        if (UtilKBuildVersion.isAfterV_28_9_P()) getAudioManager().getStreamMinVolume(AudioManager.STREAM_MUSIC) else 0
 
     override fun getVolumeInterval(): Int =
         abs(getVolumeMax() - getVolumeMin())

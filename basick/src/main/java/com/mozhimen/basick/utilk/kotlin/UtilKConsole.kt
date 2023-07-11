@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName UtilKConsole
@@ -25,7 +26,11 @@ fun <T> T.printlog(tag: String) {
     UtilKConsole.printlog(tag, this)
 }
 
-object UtilKConsole : BaseUtilK() {
+fun String.printlogEach() {
+    UtilKConsole.printlogEach(this)
+}
+
+object UtilKConsole : IUtilK {
     @JvmStatic
     fun <T> print(msg: T) {
         kotlin.io.print(msg)
@@ -42,7 +47,13 @@ object UtilKConsole : BaseUtilK() {
     }
 
     @JvmStatic
+    fun printlogEach(msg: String) {
+        for (char in msg) printlog(TAG, char)
+    }
+
+    @JvmStatic
     fun <T> printlog(tag: String, msg: T) {
         println("$tag: $msg")
     }
+
 }

@@ -11,6 +11,12 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
+            android:onClick="goLiveDataEventBus"
+            android:text="goLiveDataEventBus"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
             android:onClick="goSystemBar"
             android:text="goSystemBar"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

@@ -12,9 +12,7 @@ internal object DownloaderManager {
     }
 
     fun remove(vararg requests: DownloadRequest) {
-        requests.forEach {
-            downloadingList.remove(it)
-        }
+        for (request in requests) downloadingList.remove(request)
     }
 
     fun runningCount() = downloadingList.size

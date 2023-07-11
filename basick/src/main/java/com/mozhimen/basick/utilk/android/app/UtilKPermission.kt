@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.isBeforeVersion
 
 /**
@@ -28,7 +28,7 @@ object UtilKPermission : BaseUtilK() {
 
     @JvmStatic
     fun hasOverlay(): Boolean =
-        if (UtilKBuildVers.isAfterV_23_6_M()) {
+        if (UtilKBuildVersion.isAfterV_23_6_M()) {
             hasOverlay2()
         } else true
 
@@ -63,7 +63,7 @@ object UtilKPermission : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     fun hasPackageInstalls(): Boolean =
-        if (UtilKBuildVers.isAfterV_26_8_O()) {
+        if (UtilKBuildVersion.isAfterV_26_8_O()) {
             hasPackageInstallsAfterO()
         } else true
 

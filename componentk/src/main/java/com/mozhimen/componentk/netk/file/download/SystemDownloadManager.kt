@@ -28,10 +28,11 @@ internal class SystemDownloadManager(context: Context) {
     /**
      * 获取文件保存的路径
      *
-     * @param downloadId an ID for the download, unique across the system.
+     * @param downloadId
+     * an ID for the download, unique across the system.
      * This ID is used to make future calls related to this download.
-     * @return file path
-     * @see SystemDownloadManager.getDownloadedFileUri
+     * 下载的ID，在整个系统中是唯一的。此ID用于进行与此下载相关的未来调用。
+     * [SystemDownloadManager.getDownloadedFileUri]
      */
     @SuppressLint("Range")
     private fun getDownloadPath(downloadId: Long): String? {
@@ -47,10 +48,9 @@ internal class SystemDownloadManager(context: Context) {
 
     /**
      * 获取保存文件的地址
-     *
+     * 下载的ID，在整个系统中唯一。此ID用于进行与此下载相关的未来调用。
      * @param downloadId an ID for the download, unique across the system.
-     * This ID is used to make future calls related to this download.
-     * @see SystemDownloadManager.getDownloadPath
+     * This ID is used to make future calls related to this download. [SystemDownloadManager.getDownloadPath]
      */
     fun getDownloadedFileUri(downloadId: Long): Uri? {
         return downloadManager.getUriForDownloadedFile(downloadId)
@@ -63,15 +63,7 @@ internal class SystemDownloadManager(context: Context) {
      * @param downloadId an ID for the download, unique across the system.
      * This ID is used to make future calls related to this download.
      * @return int
-     * @see STATUS_PENDING
-     *
-     * @see STATUS_PAUSED
-     *
-     * @see STATUS_RUNNING
-     *
-     * @see STATUS_SUCCESSFUL
-     *
-     * @see STATUS_UNKNOWN
+     * [STATUS_PENDING] [STATUS_PAUSED] [STATUS_RUNNING] [STATUS_SUCCESSFUL] [STATUS_UNKNOWN]
      */
     @SuppressLint("Range")
     fun getDownloadStatus(downloadId: Long): Int {

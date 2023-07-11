@@ -21,7 +21,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity.getByContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.isDestroyed
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.content.UtilKResource
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.util.*
 
@@ -44,12 +44,12 @@ object UtilKNavigationBar : BaseUtilK() {
     @JvmStatic
     @ADescription("需要${CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION or CView.SystemUiFlag.LAYOUT_STABLE}")
     fun setTranslucent(activity: Activity) {
-        if (UtilKBuildVers.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
+        if (UtilKBuildVersion.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
             UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_NAVIGATION)//清除透明状态栏
             //UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
             UtilKWindow.setNavigationBarColor(activity, Color.TRANSPARENT)//设置透明
-        } else if (UtilKBuildVers.isAfterV_19_44_K()) {//19
+        } else if (UtilKBuildVersion.isAfterV_19_44_K()) {//19
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_NAVIGATION)
         }
     }
@@ -142,7 +142,7 @@ object UtilKNavigationBar : BaseUtilK() {
             val size = Point()
             UtilKDisplay.getDefaultSize(activity, size)
             val usableHeight = size.y
-            if (UtilKBuildVers.isAfterV_17_42_J1()) {
+            if (UtilKBuildVersion.isAfterV_17_42_J1()) {
                 UtilKDisplay.getDefaultRealSize(activity, size) // getRealMetrics is only available with API 17 and +
             } else {
                 try {

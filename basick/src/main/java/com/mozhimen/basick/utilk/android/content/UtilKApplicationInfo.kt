@@ -31,8 +31,7 @@ object UtilKApplicationInfo {
         get(context)?.flags
 
     /**
-     * 和这个方法一样
-     * @see UtilKPackageManager.getApplicationIcon
+     * 和这个方法一样[UtilKPackageManager.getApplicationIcon]
      */
     @JvmStatic
     fun loadIcon(context: Context, packageManager: PackageManager): Drawable? =

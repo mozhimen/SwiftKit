@@ -80,7 +80,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                             Log.w(TAG, "onNeedPermissions: $type")
                             when (type) {
                                 EPermissionType.COMMON -> {
-                                    ManifestKPermission.initPermissions(this@InstallKActivity, onSuccess = { "权限申请成功".showToast() })
+                                    ManifestKPermission.requestPermissions(this@InstallKActivity, onSuccess = { "权限申请成功".showToast() })
                                 }
 
                                 EPermissionType.INSTALL -> {

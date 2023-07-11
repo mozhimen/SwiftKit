@@ -29,7 +29,7 @@ import java.util.concurrent.locks.ReentrantLock
 class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.initPermissions(this) {
+        ManifestKPermission.requestPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {

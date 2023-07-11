@@ -30,7 +30,7 @@ open class NetKHttp(
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
                 addInterceptor(HttpLoggingInterceptor { msg -> Log.v(TAG, msg) }.also { it.level = HttpLoggingInterceptor.Level.BODY })
-                if (_intercepters.isNotEmpty()) _intercepters.forEach { addInterceptor(it) }
+                if (_intercepters.isNotEmpty()) for (interceptor in _intercepters) addInterceptor(interceptor)
             }
         }.build()
     }

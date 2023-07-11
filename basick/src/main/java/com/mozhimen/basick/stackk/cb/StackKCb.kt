@@ -1,12 +1,8 @@
 package com.mozhimen.basick.stackk.cb
 
 
-import android.app.Activity
-import com.mozhimen.basick.stackk.cb.helpers.StackKCbProxy
+import com.mozhimen.basick.stackk.cb.helpers.StackKCbDelegate
 import com.mozhimen.basick.stackk.commons.IStackK
-import com.mozhimen.basick.stackk.commons.IStackKListener
-import com.mozhimen.basick.utilk.bases.BaseUtilK
-import java.lang.ref.WeakReference
 
 /**
  * @ClassName StackKMgr
@@ -15,7 +11,7 @@ import java.lang.ref.WeakReference
  * @Date 2021/12/20 21:58
  * @Version 1.0
  */
-class StackKCb private constructor() : IStackK by StackKCbProxy() {
+class StackKCb private constructor() : IStackK by StackKCbDelegate() {
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder

@@ -73,7 +73,7 @@ class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.initPermissions(this) {
+        ManifestKPermission.requestPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             }

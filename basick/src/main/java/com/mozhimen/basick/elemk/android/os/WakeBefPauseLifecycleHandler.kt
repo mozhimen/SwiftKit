@@ -2,11 +2,12 @@ package com.mozhimen.basick.elemk.android.os
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.android.os.bases.BaseWeakClazzMainHandler
+import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefMainHandler
 import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IDefaultLifecycleObserver
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.utilk.android.os.removeAllCbsAndMsgs
+import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -18,16 +19,16 @@ import kotlinx.coroutines.launch
  * @Version 1.0
  */
 @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
-class WakeBefPauseLifecycleHandler<O : LifecycleOwner>(private val _owner: O) : BaseWeakClazzMainHandler<O>(_owner), IDefaultLifecycleObserver {
+class WakeBefPauseLifecycleHandler<O : LifecycleOwner>(private val _lifecycleOwner: O) : BaseWeakRefMainHandler<O>(_lifecycleOwner), IDefaultLifecycleObserver {
 
     init {
-        bindLifecycle(_owner)
+        bindLifecycle(_lifecycleOwner)
     }
 
     override fun bindLifecycle(owner: LifecycleOwner) {
-        _owner.lifecycleScope.launch(Dispatchers.Main) {
-            _owner.lifecycle.removeObserver(this@WakeBefPauseLifecycleHandler)
-            _owner.lifecycle.addObserver(this@WakeBefPauseLifecycleHandler)
+        owner.runOnMainThread {
+            _lifecycleOwner.lifecycle.removeObserver(this@WakeBefPauseLifecycleHandler)
+            _lifecycleOwner.lifecycle.addObserver(this@WakeBefPauseLifecycleHandler)
         }
     }
 

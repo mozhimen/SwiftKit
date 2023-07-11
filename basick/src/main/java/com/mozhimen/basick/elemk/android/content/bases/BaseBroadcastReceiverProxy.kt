@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
+import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,11 +27,9 @@ open class BaseBroadcastReceiverProxy<A>(
     private val _receiver: BroadcastReceiver,
     private vararg val _actions: String
 ) : BaseWakeBefDestroyLifecycleObserver() where A : Activity, A : LifecycleOwner {
-    
+
     init {
-        _activity.lifecycleScope.launch(Dispatchers.Main) {
-            registerReceiver()
-        }
+        _activity.runOnMainThread(::registerReceiver)
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
@@ -40,11 +39,7 @@ open class BaseBroadcastReceiverProxy<A>(
 
     private fun registerReceiver() {
         val intentFilter = IntentFilter()
-        if (_actions.isNotEmpty()){
-            _actions.forEach {
-                intentFilter.addAction(it)
-            }
-        }
+        if (_actions.isNotEmpty()) for (action in _actions) intentFilter.addAction(action)
         _activity.registerReceiver(_receiver, intentFilter)
     }
 }

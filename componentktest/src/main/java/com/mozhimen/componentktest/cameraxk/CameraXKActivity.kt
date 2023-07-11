@@ -34,7 +34,7 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     }*/
 
     override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.initPermissions(this, onSuccess = { super.initData(savedInstanceState) })
+        ManifestKPermission.requestPermissions(this, onSuccess = { super.initData(savedInstanceState) })
     }
 
     override fun initView(savedInstanceState: Bundle?) {

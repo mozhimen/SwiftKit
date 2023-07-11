@@ -10,7 +10,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.utilk.android.content.UtilKApk
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKDataBus
+import com.mozhimen.basick.sensek.eventbus.UtilKLiveDataBus
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
 import com.mozhimen.basick.utilk.kotlin.getSplitLast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
@@ -148,7 +148,7 @@ class HotupdateK : BaseUtilK() {
 
             override fun onProgressUpdate(percent: Int) {
                 Log.d(TAG, "downloadApk onProgressUpdate: percent $percent")
-                UtilKDataBus.with<String>(CHotupdateKEvent.HOTUPDATEK_PROGRESS).postValue("$percent")
+                UtilKLiveDataBus.with<String>(CHotupdateKEvent.HOTUPDATEK_PROGRESS).postValue("$percent")
             }
 
             override fun onDownloadComplete(uri: Uri) {

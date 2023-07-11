@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
 import java.lang.Exception
@@ -19,8 +20,9 @@ import java.lang.Exception
  * @Version 1.0
  */
 class TabBottomFragmentAdapter(
-    private var _fragmentManager: FragmentManager, private var _moList: List<MTabBottom>
-) : BaseUtilK() {
+    private var _fragmentManager: FragmentManager,
+    private var _moList: List<MTabBottom>
+) : IUtilK {
 
     private var _currentFragment: Fragment? = null
 
@@ -65,7 +67,6 @@ class TabBottomFragmentAdapter(
      * @param position Int
      * @return Fragment?
      */
-    @SuppressLint("LongLogTag")
     fun getItem(position: Int): Fragment? {
         try {
             return _moList[position].fragment!!.newInstance()

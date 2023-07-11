@@ -240,9 +240,7 @@ class LayoutKSideList @JvmOverloads constructor(context: Context, attrs: Attribu
 
         override fun getItemCount(): Int {
             var count = 0
-            _mo.menuSubs.forEach {
-                count += it.subContents.size
-            }
+            for (sub in _mo.menuSubs) count += sub.subContents.size
             return count
         }
 
@@ -291,9 +289,7 @@ class LayoutKSideList @JvmOverloads constructor(context: Context, attrs: Attribu
 
     private fun getContentByPosition(mo: MSideMenu, position: Int): MSideSubContent? {
         val lengthList = arrayListOf<Int>()//3,4,6
-        mo.menuSubs.forEach {
-            lengthList.add(it.subContents.size)
-        }
+        for (sub in mo.menuSubs) lengthList.add(sub.subContents.size)
         if (lengthList.isNotEmpty()) {
             var totalSize = lengthList[0]
             lengthList.forEachIndexed { index, item ->

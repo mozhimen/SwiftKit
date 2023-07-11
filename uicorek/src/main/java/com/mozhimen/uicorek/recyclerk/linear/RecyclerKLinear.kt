@@ -44,9 +44,7 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
     override fun bindKeys(keys: List<MKey>, listener: IRecyclerKLinearListener) {
         _keys.addAll(keys)
         val items = mutableListOf<RecyclerKLinearItem>()
-        keys.forEach {
-            items.add(RecyclerKLinearItem(it, listener))
-        }
+        for (key in keys) items.add(RecyclerKLinearItem(key, listener))
         _adapterKRecycler.removeItemsAll(true)
         _adapterKRecycler.addItems(items.toList(), true)
     }

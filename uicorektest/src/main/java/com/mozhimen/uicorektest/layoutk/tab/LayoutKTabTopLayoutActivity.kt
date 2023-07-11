@@ -58,10 +58,7 @@ class LayoutKTabTopLayoutActivity : BaseActivityVB<ActivityLayoutkTabTopLayoutBi
             add(_tabTop1)
             add(_tabTop2)
         }
-        _tabStr.forEach {
-            val info = MTabTop(it, colorDefault, colorSelected)
-            infoList.add(info)
-        }
+        for (str in _tabStr) infoList.add(MTabTop(str, colorDefault, colorSelected))
         vb.layoutkTabTopLayout.inflateTabItem(infoList)
         vb.layoutkTabTopLayout.addTabItemSelectedListener(object : ITabSelectedListener<MTabTop> {
             override fun onTabItemSelected(index: Int, prevItem: MTabTop?, currentItem: MTabTop) {

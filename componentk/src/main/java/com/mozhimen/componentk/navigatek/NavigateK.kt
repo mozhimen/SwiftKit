@@ -69,9 +69,7 @@ object NavigateK : BaseUtilK() {
             }
         }
         val fragmentIds = arrayListOf<Int>()
-        clazzes.forEach {
-            fragmentIds.add(it.hashCode())
-        }
+        for (clazz in clazzes) fragmentIds.add(clazz.hashCode())
         Log.d(TAG, "buildNavGraph: defaultFragmentId $defaultFragmentId fragmentIds $fragmentIds")
         navGraph.setStartDestination(if (defaultFragmentId != 0 && defaultFragmentId in fragmentIds) defaultFragmentId else pageInfos[0].id)
         navController.graph = navGraph

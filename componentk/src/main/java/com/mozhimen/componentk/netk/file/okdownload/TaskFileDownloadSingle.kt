@@ -9,7 +9,7 @@ import com.mozhimen.basick.lintk.optin.annors.AOptInDeprecatedThirdParty
 import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.kotlin.text.UtilKVerifyUrl
 import com.mozhimen.componentk.netk.file.okdownload.commons.IFileDownloadSingleListener
@@ -50,7 +50,7 @@ class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
     }
 
     private fun popupDownloadTask(url: String) {
-        if (UtilKBuildVers.isAfterV_24_7_N()) {
+        if (UtilKBuildVersion.isAfterV_24_7_N()) {
             _downloadUrls.removeIf { it == url }
         } else {
             _downloadUrls.remove(url)
@@ -60,9 +60,7 @@ class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
     }
 
     private fun cancelAll() {
-        _downloadTasks.forEach {
-            it.value.cancel()
-        }
+        for (task in _downloadTasks) task.value.cancel()
         _downloadTasks.clear()
         _downloadListeners.clear()
         _downloadUrls.clear()

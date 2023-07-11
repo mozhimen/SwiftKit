@@ -1,13 +1,9 @@
 package com.mozhimen.uicorek.textk
 
 import android.content.Context
-import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
-import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.view.applyFocusable
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 

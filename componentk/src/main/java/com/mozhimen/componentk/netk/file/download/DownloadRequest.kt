@@ -121,10 +121,7 @@ class DownloadRequest(
 
     /**
      * 设置通知栏可见性，默认为 [NOTIFIER_VISIBLE_NOTIFY_COMPLETED]
-     * @see [NOTIFIER_VISIBLE]
-     * @see [NOTIFIER_HIDDEN]
-     * @see [NOTIFIER_VISIBLE_NOTIFY_COMPLETED]
-     * @see [NOTIFIER_VISIBLE_NOTIFY_ONLY_COMPLETION]
+     * [NOTIFIER_VISIBLE] [NOTIFIER_HIDDEN] [NOTIFIER_VISIBLE_NOTIFY_COMPLETED] [NOTIFIER_VISIBLE_NOTIFY_ONLY_COMPLETION]
      */
     fun setNotificationVisibility(@NotifierVisibility visibility: Int): DownloadRequest {
         notificationVisibility = visibility
@@ -151,13 +148,13 @@ class DownloadRequest(
         )
     }
 
-    private var listeners: MutableSet<DownloadListener>? = null
+    private var _listeners: MutableSet<DownloadListener>? = null
 
     private fun initListenerList() {
-        if (listeners == null) {
+        if (_listeners == null) {
             synchronized(this) {
-                if (listeners == null) {
-                    listeners = mutableSetOf()
+                if (_listeners == null) {
+                    _listeners = mutableSetOf()
                 }
             }
         }
@@ -168,39 +165,39 @@ class DownloadRequest(
      */
     fun registerListener(listener: DownloadListener): DownloadRequest {
         initListenerList()
-        listeners?.add(listener)
+        _listeners?.add(listener)
         return this
     }
 
     fun unregisterListener(listener: DownloadListener) {
-        if (listeners == null) return
-        listeners?.remove(listener)
+        if (_listeners == null) return
+        _listeners?.remove(listener)
     }
 
     internal fun onStart() {
-        this.listeners?.forEach {
+        this._listeners?.forEach {
             it.onDownloadStart()
         }
     }
 
     internal fun onComplete(uri: Uri) {
-        this.listeners?.forEach {
+        this._listeners?.forEach {
             it.onDownloadComplete(uri)
         }
         DownloaderManager.remove(this)
-        listeners?.clear()
+        _listeners?.clear()
     }
 
     internal fun onFailed(e: Throwable) {
-        this.listeners?.forEach {
+        this._listeners?.forEach {
             it.onDownloadFailed(e)
         }
         DownloaderManager.remove(this)
-        listeners?.clear()
+        _listeners?.clear()
     }
 
     internal fun onProgressUpdate(percent: Int) {
-        this.listeners?.forEach {
+        this._listeners?.forEach {
             it.onProgressUpdate(percent)
         }
     }

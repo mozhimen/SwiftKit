@@ -6,15 +6,15 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.elemk.commons.IConnectionListener
 import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
 import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.sensek.net_conn.SenseKNetConnProxy
-import com.mozhimen.basick.sensek.net_conn.commons.INetConnListener
-import com.mozhimen.basick.sensek.net_conn.cons.ENetType
+import com.mozhimen.basick.sensek.netconnection.SenseKNetConnectionProxy
+import com.mozhimen.basick.elemk.cons.ENetType
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basicktest.databinding.ActivitySensekNetConnBinding
 
@@ -40,14 +40,14 @@ import com.mozhimen.basicktest.databinding.ActivitySensekNetConnBinding
 )
 class NetConnActivity : BaseActivityVB<ActivitySensekNetConnBinding>() {
     @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
-    private val _sensekNetConnProxy: SenseKNetConnProxy<NetConnActivity> by lazy { SenseKNetConnProxy(this, _netKConnListener).apply { bindLifecycle(this@NetConnActivity) } }
-    private val _netKConnListener = object : INetConnListener {
-        override fun onDisconnected() {
+    private val _sensekNetConnectionProxy: SenseKNetConnectionProxy<NetConnActivity> by lazy { SenseKNetConnectionProxy(this, _netKConnListener).apply { bindLifecycle(this@NetConnActivity) } }
+    private val _netKConnListener = object : IConnectionListener {
+        override fun onDisconnect() {
             vb.netkConnTxt.text = "断网了"
         }
 
         @SuppressLint("SetTextI18n")
-        override fun onConnected(type: ENetType) {
+        override fun onConnect(type: ENetType) {
             val str =
                 when (type) {
                     ENetType.WIFI -> {
@@ -64,9 +64,7 @@ class NetConnActivity : BaseActivityVB<ActivitySensekNetConnBinding>() {
                             "WIFI risi ${UtilKNetConn.getWifiStrength()}"
                     }
 
-                    ENetType.M4G, ENetType.M2G, ENetType.M3G -> {
-                        "移动网"
-                    }
+                    ENetType.M4G, ENetType.M2G, ENetType.M3G -> "移动网"
 
                     else -> "其他"
                 }
@@ -76,11 +74,11 @@ class NetConnActivity : BaseActivityVB<ActivitySensekNetConnBinding>() {
 
     @OptIn(AOptInNeedCallBindLifecycle::class, AOptInInitByLazy::class)
     override fun initView(savedInstanceState: Bundle?) {
-        _sensekNetConnProxy.bindLifecycle(this)
+        _sensekNetConnectionProxy.bindLifecycle(this)
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.initPermissions(this, onSuccess = {
+        ManifestKPermission.requestPermissions(this, onSuccess = {
             super.initData(savedInstanceState)
         })
     }

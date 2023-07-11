@@ -7,7 +7,7 @@ import androidx.annotation.StringRes
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.SnackbarContentLayout
 import com.mozhimen.basick.elemk.cons.CParameter
-import com.mozhimen.basick.elemk.android.os.bases.BaseWeakClazzMainHandler
+import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefMainHandler
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKHandler
 
@@ -58,7 +58,7 @@ object UtilKSnackbar : BaseUtilK() {
         if (UtilKHandler.isMainLooper()) {
             showSnackbar(view, msg, duration, action, listener)
         } else {
-            BaseWeakClazzMainHandler(_context).post { showSnackbar(view, msg, duration, action, listener) }
+            BaseWeakRefMainHandler(_context).post { showSnackbar(view, msg, duration, action, listener) }
         }
     }
 
@@ -67,7 +67,7 @@ object UtilKSnackbar : BaseUtilK() {
         if (UtilKHandler.isMainLooper()) {
             showSnackbar(view, msgId, duration, action, listener)
         } else {
-            BaseWeakClazzMainHandler(_context).post { showSnackbar(view, msgId, duration, action, listener) }
+            BaseWeakRefMainHandler(_context).post { showSnackbar(view, msgId, duration, action, listener) }
         }
     }
 
@@ -81,7 +81,7 @@ object UtilKSnackbar : BaseUtilK() {
         if (UtilKHandler.isMainLooper()) {
             showSnackbarMultiLines(view, msg, duration, action, listener, maxLines)
         } else {
-            BaseWeakClazzMainHandler(_context).post { showSnackbarMultiLines(view, msg, duration, action, listener, maxLines) }
+            BaseWeakRefMainHandler(_context).post { showSnackbarMultiLines(view, msg, duration, action, listener, maxLines) }
         }
     }
 
@@ -93,7 +93,7 @@ object UtilKSnackbar : BaseUtilK() {
         if (UtilKHandler.isMainLooper()) {
             showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines)
         } else {
-            BaseWeakClazzMainHandler(_context).post { showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines) }
+            BaseWeakRefMainHandler(_context).post { showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines) }
         }
     }
 

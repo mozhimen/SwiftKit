@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.os.Build
 import android.util.Log
-import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 
@@ -66,7 +64,7 @@ object UtilKPackageInfo : BaseUtilK() {
     @JvmStatic
     fun getVersionCode(packageInfo: PackageInfo): Int {
         return try {
-            if (UtilKBuildVers.isAfterV_28_9_P()) {
+            if (UtilKBuildVersion.isAfterV_28_9_P()) {
                 packageInfo.longVersionCode.toInt()
             } else {
                 packageInfo.versionCode

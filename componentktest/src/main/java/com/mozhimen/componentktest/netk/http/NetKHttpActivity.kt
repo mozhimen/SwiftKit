@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 @APermissionCheck(CPermission.INTERNET)
 class NetKHttpActivity : BaseActivityVBVM<ActivityNetkHttpBinding, NetKHttpViewModel>() {
     override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.initPermissions(this) {
+        ManifestKPermission.requestPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             }

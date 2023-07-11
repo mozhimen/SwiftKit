@@ -2,13 +2,11 @@ package com.mozhimen.basick.utilk.android.app
 
 import android.app.Activity
 import android.content.Context
-import android.os.Build
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContextStart
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 /**
  * @ClassName UtilKPermission
@@ -35,7 +33,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startManageInstallSource(activity: Activity) {
-        if (UtilKBuildVers.isAfterV_26_8_O()) {
+        if (UtilKBuildVersion.isAfterV_26_8_O()) {
             UtilKContextStart.startContext(activity, UtilKIntent.getManageInstallSource(activity))
         }
     }
@@ -46,7 +44,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startManageInstallSource(context: Context) {
-        if (UtilKBuildVers.isAfterV_26_8_O()) {
+        if (UtilKBuildVersion.isAfterV_26_8_O()) {
             UtilKContextStart.startContext(context, UtilKIntent.getManageInstallSource(context))
         }
     }
@@ -57,7 +55,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startManageOverlay(context: Context) {
-        if (UtilKBuildVers.isAfterV_23_6_M()) {
+        if (UtilKBuildVersion.isAfterV_23_6_M()) {
             UtilKContextStart.startContext(context, UtilKIntent.getManageOverlay(context))
         }
     }
@@ -69,7 +67,7 @@ object UtilKLaunchActivity {
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun startManageAll(activity: Activity) {
-        if (UtilKBuildVers.isAfterV_30_11_R()) {
+        if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
             UtilKContextStart.startContext(activity, UtilKIntent.getManageAll(activity))
             //}

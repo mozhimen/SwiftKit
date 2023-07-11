@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName RecyclerKEmpty
@@ -14,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
  * @Date 2021/4/28 16:29
  * @Version 1.0
  */
-class RecyclerKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
-    private val TAG = "RecyclerKEmpty>>>>>"
+class RecyclerKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    RecyclerView(context, attrs, defStyleAttr), IUtilK {
 
     private var _emptyView: View? = null
     private val _adapterDataObserver: AdapterDataObserver = object : AdapterDataObserver() {
@@ -23,7 +24,6 @@ class RecyclerKEmpty @JvmOverloads constructor(context: Context, attrs: Attribut
             checkIfEmpty()
         }
 
-        @SuppressLint("LongLogTag")
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
             Log.d(TAG, "onItemRangeInserted $itemCount")
             checkIfEmpty()

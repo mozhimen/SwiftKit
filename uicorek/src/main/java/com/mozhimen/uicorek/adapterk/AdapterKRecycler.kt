@@ -61,10 +61,7 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
 
     override fun addItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
         val start = _items.size
-        items.forEach { item ->
-            _items.add(item)
-            item.bindAdapter(this)
-        }
+        for (item in _items) _items.add(item.apply { bindAdapter(this@AdapterKRecycler) })
         if (notify) notifyItemRangeInserted(start, items.size)
     }
 

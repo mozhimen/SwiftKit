@@ -15,7 +15,7 @@ import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.decimal2Str
 import com.mozhimen.basick.utilk.android.view.UtilKWindowManager
 import com.mozhimen.underlayk.R
@@ -39,7 +39,7 @@ class FpsKDelegate : IFpsK, BaseUtilK() {
             flags = CWinMgr.Lpf.NOT_FOCUSABLE or CWinMgr.Lpf.NOT_TOUCHABLE or CWinMgr.Lpf.NOT_TOUCH_MODAL
             format = PixelFormat.TRANSLUCENT
             gravity = Gravity.END or Gravity.BOTTOM
-            type = if (UtilKBuildVers.isAfterV_26_8_O()) CWinMgr.Lpt.APPLICATION_OVERLAY else CWinMgr.Lpt.TOAST
+            type = if (UtilKBuildVersion.isAfterV_26_8_O()) CWinMgr.Lpt.APPLICATION_OVERLAY else CWinMgr.Lpt.TOAST
         }
     }
     private var _isOpen = false

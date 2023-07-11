@@ -8,6 +8,7 @@ import com.mozhimen.basick.elemk.commons.ISusp_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivityManager
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -42,17 +43,28 @@ object UtilKThread {
     fun isMainThread(): Boolean =
         Looper.getMainLooper().thread == UtilKCurrentThread.get()
 
-    /**
-     * 在子线程运行
-     * @param lifecycleOwner LifecycleOwner
-     * @param block Function0<Unit>
-     */
     @JvmStatic
     fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
         if (isMainThread()) {
             lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { block.invoke() }
         } else {
             block.invoke()
+        }
+    }
+
+    @JvmStatic
+    fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
+        if (isMainThread()) {
+            block.invoke()
+        } else {
+            lifecycleOwner.lifecycleScope.launch(Dispatchers.Main) { block.invoke() }
+        }
+    }
+
+    @JvmStatic
+    fun runOnMainScope(lifecycleOwner: LifecycleOwner, block: suspend CoroutineScope.() -> Unit) {
+        lifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            this.block()
         }
     }
 

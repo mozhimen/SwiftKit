@@ -36,7 +36,7 @@ import com.mozhimen.uicorek.viewk.scan.ViewKScanOverlay
 @APermissionCheck(CPermission.CAMERA)
 class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
-        ManifestKPermission.initPermissions(this) {
+        ManifestKPermission.requestPermissions(this) {
             if (it) {
                 super.initData(savedInstanceState)
             } else {

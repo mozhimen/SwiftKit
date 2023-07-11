@@ -51,14 +51,10 @@ object SenseKSystemBar : BaseUtilK() {
         val aSenseKSystemBarPropertyOrs: IntArray? = activity.getAnnotation(ASenseKSystemBarPropertyOr::class.java)?.propertyOr
         val aSenseKSystemBarPropertyAnds: IntArray? = activity.getAnnotation(ASenseKSystemBarPropertyAnd::class.java)?.propertyAnd
         if (aSenseKSystemBarPropertyOrs != null && aSenseKSystemBarPropertyOrs.isNotEmpty()) {
-            aSenseKSystemBarPropertyOrs.forEach {
-                aSenseKSystemBarPropertyInt = aSenseKSystemBarPropertyInt or it
-            }
+            for (propertyOr in aSenseKSystemBarPropertyOrs) aSenseKSystemBarPropertyInt = aSenseKSystemBarPropertyInt or propertyOr
         }
         if (aSenseKSystemBarPropertyAnds != null && aSenseKSystemBarPropertyAnds.isNotEmpty()) {
-            aSenseKSystemBarPropertyAnds.forEach {
-                aSenseKSystemBarPropertyInt = aSenseKSystemBarPropertyInt and it
-            }
+            for (propertyAnd in aSenseKSystemBarPropertyAnds) aSenseKSystemBarPropertyInt = aSenseKSystemBarPropertyInt and propertyAnd
         }
         init(activity, aSenseKSystemBarPropertyInt)
     }

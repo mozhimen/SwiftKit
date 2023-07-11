@@ -31,8 +31,7 @@ object CWinMgr {
 
         /**
          * 用于隐藏StatusBar
-         * 使用此flag,系统会自动忽略输入法的
-         * @see Lpsi.ADJUST_RESIZE 的特性
+         * 使用此flag,系统会自动忽略输入法的[Lpsi.ADJUST_RESIZE]的特性
          */
         const val FULLSCREEN = WindowManager.LayoutParams.FLAG_FULLSCREEN
         const val FORCE_NOT_FULLSCREEN = WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN
@@ -53,16 +52,14 @@ object CWinMgr {
 
         /**
          * 半透明StatusBar,并且不会因用户交互而被清除。设置了此flag,系统会自动设置
-         * @see CView.SystemUiFlag.LAYOUT_STABLE 和
-         * @see CView.SystemUiFlag.LAYOUT_FULLSCREEN
+         * [CView.SystemUiFlag.LAYOUT_STABLE] 和 [CView.SystemUiFlag.LAYOUT_FULLSCREEN]
          */
         const val TRANSLUCENT_STATUS = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
 
         /**
          * 半透明NavigationBar,并且不会因用户交互而被清除。
          * 设置了此flag,系统会自动设置
-         * @see CView.SystemUiFlag.LAYOUT_STABLE 和
-         * @see CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION
+         * [CView.SystemUiFlag.LAYOUT_STABLE] 和 [CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION]
          */
         const val TRANSLUCENT_NAVIGATION = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION
         const val LOCAL_FOCUS_MODE = WindowManager.LayoutParams.FLAG_LOCAL_FOCUS_MODE
@@ -80,9 +77,7 @@ object CWinMgr {
 
     object Lpsi {
         /**
-         * 在使用同时
-         * @see CView.SystemUiFlag.LAYOUT_FULLSCREEN 或
-         * @see CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION 时，
+         * 在使用同时 [CView.SystemUiFlag.LAYOUT_FULLSCREEN] 或 [CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION] 时，
          * 当键盘弹出时，只会fitSystemWindow=true的view所占区域会被resize，其他view将会被软键盘覆盖
          */
         const val ADJUST_RESIZE = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE

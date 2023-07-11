@@ -1,9 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import android.os.Build
 import com.mozhimen.basick.elemk.cons.CMsg
-import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.text.DecimalFormat
 import java.util.*
@@ -82,9 +80,7 @@ object UtilKString : BaseUtilK() {
      */
     @JvmStatic
     fun isNotEmpty(vararg str: String): Boolean {
-        str.forEach {
-            if (it.isEmpty()) return false
-        }
+        for (char in str) if (char.isEmpty()) return false
         return true
     }
 
@@ -230,15 +226,13 @@ object UtilKString : BaseUtilK() {
      */
     @JvmStatic
     fun <T> joinList2Str(list: List<T>, defaultValue: String = "", splitChar: String = ","): String =
-        if (UtilKBuildVers.isAfterV_24_7_N()) {
+        if (UtilKBuildVersion.isAfterV_24_7_N()) {
             val ret = list.stream().map { elem: T? -> elem?.toString() ?: "" }
                 .collect(Collectors.joining(splitChar))
             ret.ifEmpty { defaultValue }
         } else {
             val stringBuilder = StringBuilder()
-            list.forEach {
-                stringBuilder.append(it?.toString() ?: "").append(splitChar)
-            }
+            for (obj in list) stringBuilder.append(obj?.toString() ?: "").append(splitChar)
             if (stringBuilder.isNotEmpty()) stringBuilder.deleteAt(stringBuilder.length - 1).toString() else defaultValue
         }
 
