@@ -14,7 +14,7 @@ import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.lang.UtilKReflect
 import java.lang.reflect.Field
@@ -231,7 +231,7 @@ object UtilKInputManager : BaseUtilK() {
      */
     @JvmStatic
     fun fixInputMethodLeak(context: Context, tag: String) {
-        if (UtilKBuildVers.isAfterV_29_10_Q()) {
+        if (UtilKBuildVersion.isAfterV_29_10_Q()) {
             fixInputMethodLeakAfterQ(context, tag)
         } else {
             fixInputMethodLeakBeforeQ(context, tag)
@@ -290,7 +290,7 @@ object UtilKInputManager : BaseUtilK() {
      */
     @JvmStatic
     fun fixInputMethodLeakBeforeQ(context: Context, tag: String) {
-        if (UtilKBuildVers.isAfterV_29_10_Q()) return
+        if (UtilKBuildVersion.isAfterV_29_10_Q()) return
         val inputMethodManager = UtilKContext.getInputMethodManager(context)
         val leakViews = arrayOf("mCurRootView", "mServedView", "mNextServedView")
         var leakViewField: Field

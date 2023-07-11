@@ -36,7 +36,7 @@ import androidx.fragment.app.Fragment;
 import com.mozhimen.basick.elemk.cons.CWinMgr;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.utilk.android.content.UtilKResource;
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers;
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
 import com.mozhimen.basick.utilk.android.util.UtilKLog;
 import com.mozhimen.basick.utilk.android.view.UtilKScreen;
 import com.mozhimen.basick.utilk.android.app.UtilKActivity;
@@ -613,7 +613,7 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
 
     void getSafeInsetBounds(Rect r) {
         if (r == null) return;
-        if (UtilKBuildVers.isAfterV_28_9_P()) {
+        if (UtilKBuildVersion.isAfterV_28_9_P()) {
             try {
                 DisplayCutout cutout = mPopupWindow.getContext()
                         .getWindow()

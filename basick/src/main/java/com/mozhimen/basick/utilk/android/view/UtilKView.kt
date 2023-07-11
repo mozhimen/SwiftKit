@@ -11,7 +11,7 @@ import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.commons.I_AListener
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.UtilKDataType
 import com.mozhimen.basick.utilk.kotlinx.coroutines.asViewClickFlow
@@ -154,12 +154,12 @@ object UtilKView : BaseUtilK() {
 
     @JvmStatic
     fun applyElevation(view: View, elevation: Float) {
-        if (UtilKBuildVers.isAfterV_21_5_L()) view.elevation = elevation
+        if (UtilKBuildVersion.isAfterV_21_5_L()) view.elevation = elevation
     }
 
     @JvmStatic
     fun applyFocusable(view: View) {
-        if (UtilKBuildVers.isAfterV_26_8_O()) view.focusable = View.FOCUSABLE
+        if (UtilKBuildVersion.isAfterV_26_8_O()) view.focusable = View.FOCUSABLE
     }
 
     @JvmStatic
@@ -174,7 +174,7 @@ object UtilKView : BaseUtilK() {
      */
     @JvmStatic
     fun applyBackground(view: View, background: Drawable?) {
-        if (UtilKBuildVers.isAfterV_16_41_J()) {
+        if (UtilKBuildVersion.isAfterV_16_41_J()) {
             view.background = background
         } else {
             view.setBackgroundDrawable(background)

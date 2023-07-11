@@ -1,12 +1,9 @@
 package com.mozhimen.uicorek.popwink.bases.helpers
 
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
 import android.view.View
-import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.android.graphics.UtilKDrawable.isColorDrawableValid
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
 import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basick.utilk.android.view.applyBackground
 

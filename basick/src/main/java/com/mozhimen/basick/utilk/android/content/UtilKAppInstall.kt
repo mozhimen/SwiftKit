@@ -15,7 +15,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import java.io.*
 import java.nio.charset.Charset
 
@@ -125,7 +125,7 @@ object UtilKAppInstall : BaseUtilK() {
     fun installSilence(apkPathWithName: String, pkgName: String): Boolean {
         var result = "EMPTY"
         val cmd =
-            if (UtilKBuildVers.isAfterV_24_7_N()) {
+            if (UtilKBuildVersion.isAfterV_24_7_N()) {
                 arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPathWithName)
             } else {
                 arrayOf("pm", "install", "-i", pkgName, "-r", apkPathWithName)
@@ -166,7 +166,7 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installSilence(apkPathWithName: String, receiver: Class<*>) {
-        if (UtilKBuildVers.isAfterV_28_9_P()) {
+        if (UtilKBuildVersion.isAfterV_28_9_P()) {
             installSilenceAfter28(apkPathWithName, receiver)
         } else {
             installSilenceBefore28(apkPathWithName)
@@ -188,7 +188,7 @@ object UtilKAppInstall : BaseUtilK() {
         val msgSuccess = StringBuilder()
         val msgError = StringBuilder()
         val cmd: Array<String> =
-            if (UtilKBuildVers.isAfterV_24_7_N()) {
+            if (UtilKBuildVersion.isAfterV_24_7_N()) {
                 arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
             } else {
                 arrayOf("pm", "install", "-r", apkPathWithName)

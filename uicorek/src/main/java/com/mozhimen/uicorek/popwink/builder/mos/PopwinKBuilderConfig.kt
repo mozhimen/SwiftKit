@@ -12,7 +12,7 @@ import com.mozhimen.basick.animk.builder.temps.AnimKScaleType.Companion.CENTER_S
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKInputChange
 import com.mozhimen.basick.utilk.android.util.UtilKLogPro
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK
@@ -39,7 +39,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
             return PopwinKBuilderConfig()
                 .setShowAnimation(asAnimation().add(CENTER_SHOW).build())
                 .setDismissAnimation(asAnimation().add(CENTER_HIDE).build())
-                .setFadeInAndOut(UtilKBuildVers.getSDKInt() != CVersCode.V_23_6_M)
+                .setFadeInAndOut(UtilKBuildVersion.getSDKInt() != CVersCode.V_23_6_M)
         }
     }
 
@@ -55,7 +55,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
     private var _bitmapBlurOption: ImageKBlurConfig? = null
 
     init {
-        if (UtilKBuildVers.getSDKInt() == CVersCode.V_23_6_M) {
+        if (UtilKBuildVersion.getSDKInt() == CVersCode.V_23_6_M) {
             _flag = _flag and CFlag.FADE_ENABLE.inv()
         }
     }

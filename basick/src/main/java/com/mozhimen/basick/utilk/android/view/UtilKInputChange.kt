@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 
 
 /**
@@ -62,7 +62,7 @@ object UtilKInputChange : BaseUtilK() {
         val contentView = UtilKContentView.get<View>(window)
         val tag = contentView.getTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER)
         if (tag is ViewTreeObserver.OnGlobalLayoutListener) {
-            if (UtilKBuildVers.isAfterV_16_41_J()) {
+            if (UtilKBuildVersion.isAfterV_16_41_J()) {
                 contentView.viewTreeObserver.removeOnGlobalLayoutListener(tag)
                 contentView.setTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, null)//这里会发生内存泄漏 如果不设置为null
             }

@@ -1,17 +1,9 @@
 package com.mozhimen.basick.sensek.systembar.helpers
 
 import android.app.Activity
-import android.graphics.Color
-import android.view.WindowManager
-import com.mozhimen.basick.elemk.cons.CView
-import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVers
-import com.mozhimen.basick.utilk.android.view.UtilKContentView
-import com.mozhimen.basick.utilk.android.view.UtilKDecorView
 import com.mozhimen.basick.utilk.android.view.UtilKStatusBarIcon
 import com.mozhimen.basick.utilk.android.view.UtilKSystemBar
-import com.mozhimen.basick.utilk.android.view.UtilKWindow
 
 /**
  * @ClassName SenseKSystemBarHelper
