@@ -4,8 +4,8 @@ import android.os.Bundle
 import com.mozhimen.abilityk.transk.TransKTTS
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
-import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 @AManifestKRequire(CPermission.FOREGROUND_SERVICE)
 @APermissionCheck(CPermission.FOREGROUND_SERVICE)
 class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
-    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
+    @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
     private val _transKTTS by lazy {
         TransKTTS(this)
     }
@@ -30,7 +30,7 @@ class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
         }
     }
 
-    @OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
+    @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
         _transKTTS.bindLifecycle(this)
         vb.transkT2sBtn.setOnClickListener {

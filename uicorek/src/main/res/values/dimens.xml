@@ -9,6 +9,14 @@
     <dimen name="sp_18">18sp</dimen>
     <dimen name="sp_20">20sp</dimen>
 
+    <!--/////////////////////////////////////////////////-->
+
+    <dimen name="dp_004">4dp</dimen>
+    <dimen name="dp_008">8dp</dimen>
+
+    <!--/////////////////////////////////////////////////-->
+
+    <dimen name="dp_005">5dp</dimen>
     <dimen name="dp_010">10dp</dimen>
     <dimen name="dp_015">15dp</dimen>
     <dimen name="dp_020">20dp</dimen>

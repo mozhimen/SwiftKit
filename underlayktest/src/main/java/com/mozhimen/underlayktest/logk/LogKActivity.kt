@@ -9,7 +9,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.basick.elemk.cons.CLogType
+import com.mozhimen.basick.elemk.cons.CLogPriority
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
@@ -56,7 +56,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
         LogK.i("just a test1!")
 
         //中级用法
-        LogK.log(CLogType.W, TAG, "just a test2!")
+        LogK.log(CLogPriority.W, TAG, "just a test2!")
 
         //高级用法
         LogK.log(object : BaseLogKConfig() {
@@ -67,7 +67,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
             override fun stackTraceDepth(): Int {
                 return 5
             }
-        }, CLogType.E, TAG, "just a test3!")
+        }, CLogPriority.E, TAG, "just a test3!")
     }
 
     private fun printLog1() {

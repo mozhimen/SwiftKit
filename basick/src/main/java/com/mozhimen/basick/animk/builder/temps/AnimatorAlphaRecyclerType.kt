@@ -3,7 +3,7 @@ package com.mozhimen.basick.animk.builder.temps
 import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.view.animation.LinearInterpolator
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
  * @ClassName AlphaRecyclerAnimatorType
@@ -17,7 +17,7 @@ class AnimatorAlphaRecyclerType : AnimatorAlphaType() {
         setInterpolator(LinearInterpolator())
     }
 
-    override fun formatAnimator(animKConfig: AnimKConfig, animator: Animator) {
+    override fun formatAnimator(animKConfig: MAnimKConfig, animator: Animator) {
         super.formatAnimator(animKConfig, animator)
         (animator as ObjectAnimator).apply {
             repeatCount = ObjectAnimator.INFINITE

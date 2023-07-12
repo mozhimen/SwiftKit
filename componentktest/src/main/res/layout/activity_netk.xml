@@ -12,6 +12,12 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
+            android:onClick="goNetConn"
+            android:text="goNetConn"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
             android:onClick="goNetKFile"
             android:text="goNetKFile"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

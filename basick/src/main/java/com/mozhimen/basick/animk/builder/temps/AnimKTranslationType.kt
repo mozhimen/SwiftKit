@@ -9,7 +9,7 @@ import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
 import com.mozhimen.basick.animk.builder.bases.BaseAnimKType
 import com.mozhimen.basick.animk.builder.cons.EDirection
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
  * @ClassName TranslationConfig
@@ -161,7 +161,7 @@ open class AnimKTranslationType() : BaseAnimKType<AnimKTranslationType>() {
         return this
     }
 
-    override fun buildAnimation(animKConfig: AnimKConfig): Animation {
+    override fun buildAnimation(animKConfig: MAnimKConfig): Animation {
         val animation: Animation = TranslateAnimation(
             if (_isPercentageFromX) Animation.RELATIVE_TO_SELF else Animation.ABSOLUTE,
             _fromX,
@@ -176,7 +176,7 @@ open class AnimKTranslationType() : BaseAnimKType<AnimKTranslationType>() {
         return animation
     }
 
-    override fun buildAnimator(animKConfig: AnimKConfig): Animator {
+    override fun buildAnimator(animKConfig: MAnimKConfig): Animator {
         _animator = AnimatorSet()
         val translationXProperty = if (_isPercentageFromX && _isPercentageToY) object : FloatPropertyCompat<View>(
             View.TRANSLATION_X.name

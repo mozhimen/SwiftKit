@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest
 
-import com.mozhimen.basick.sensek.systembar.cons.CPropertyOr
+import com.mozhimen.uicorek.adaptk.systembar.cons.CPropertyOr
 import com.mozhimen.basick.utilk.kotlin.getByteStr
 import com.mozhimen.basick.utilk.kotlin.printlog
 import com.mozhimen.basick.utilk.kotlin.printlogEach

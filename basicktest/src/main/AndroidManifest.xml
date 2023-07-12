@@ -11,21 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
-        <activity
-            android:name=".utilk.android.UtilKViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.kotlin.UtilKKotlinActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.javax.UtilKJavaXActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.java.UtilKJavaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".utilk.androidx.UtilKAndroidXActivity"
-            android:exported="false" />
+
         <activity
             android:name=".BasicKActivity"
             android:exported="true">
@@ -93,24 +79,24 @@
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        </receiver>
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"
             android:exported="false" />
         <activity
-            android:name=".manifestk.permission.ManifestKPermissionActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
-        <!-- sensek -->
+            android:name=".manifestk.ManifestKPermissionActivity"
+            android:exported="false" />
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- postk -->
         <activity
-            android:name=".sensek.SenseKActivity"
-            android:exported="false" /> <!-- netk -->
-        <activity
-            android:name=".sensek.NetConnActivity"
+            android:name=".postk.PostKActivity"
             android:exported="false" />
         <activity
-            android:name=".sensek.SystemBarActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:name=".postk.PostKLiveDataEventBusActivity"
+            android:exported="false" />
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
@@ -120,7 +106,8 @@
             android:exported="false" />
         <activity
             android:name=".stackk.StackKCbActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" />
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- taskk -->
         <activity
             android:name=".taskk.TaskKActivity"
@@ -136,10 +123,26 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKCountDownActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" />
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- utilk -->
         <activity
             android:name=".utilk.UtilKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.android.UtilKViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.kotlin.UtilKKotlinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.javax.UtilKJavaXActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.java.UtilKJavaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".utilk.androidx.UtilKAndroidXActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKAndroidActivity"
@@ -167,9 +170,6 @@
             android:exported="false" />
         <activity
             android:name=".utilk.android.UtilKBitmapActivity"
-            android:exported="false" />
-        <activity
-            android:name=".sensek.UtilKDataBusActivity"
             android:exported="false" />
         <activity
             android:name=".utilk.javax.UtilKEncryptActivity"

@@ -10,19 +10,19 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
-import com.mozhimen.basick.sensek.systembar.annors.ASenseKSystemBarProperty
-import com.mozhimen.basick.sensek.systembar.cons.CProperty
+import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
+import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
-import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
+import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
 import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 @APermissionCheck(CPermission.CAMERA)
-@ASenseKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
+@AAdaptKSystemBarProperty(CProperty.IMMERSED_HARD_STICKY)
 class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
 
     /*private val outputDirectory: String by lazy {
@@ -44,7 +44,7 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     private val _format = ACameraXKFormat.RGBA_8888
 
     private fun initCamera() {
-        vb.cameraxkPreviewLayout.initCamera(this, CameraXKConfig(_format, ACameraXKFacing.FRONT))
+        vb.cameraxkPreviewLayout.initCamera(this, MCameraXKConfig(_format, ACameraXKFacing.FRONT))
         vb.cameraxkPreviewLayout.setCameraXKFrameListener(_frameAnalyzer)
         vb.cameraxkPreviewLayout.setCameraXKCaptureListener(_cameraXKCaptureListener)
         vb.cameraxkPreviewLayout.startCamera()

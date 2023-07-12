@@ -1,5 +1,7 @@
 package com.mozhimen.basick.elemk.mos
 
+import java.io.Serializable
+
 
 /**
  * @ClassName MResult
@@ -8,8 +10,8 @@ package com.mozhimen.basick.elemk.mos
  * @Date 2022/12/20 12:13
  * @Version 1.0
  */
-data class MResultSST<B>(
+data class MResultSST<T>(
     val code: String,
     val msg: String?,
-    val bean: B
-)
+    val bean: T
+) : Serializable

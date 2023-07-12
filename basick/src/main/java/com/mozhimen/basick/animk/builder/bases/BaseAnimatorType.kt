@@ -2,7 +2,7 @@ package com.mozhimen.basick.animk.builder.bases
 
 import android.animation.Animator
 import com.mozhimen.basick.animk.builder.commons.IAnimatorType
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
  * @ClassName BaseAnimatorType
@@ -12,7 +12,7 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Version 1.0
  */
 abstract class BaseAnimatorType<T> : BasePropertyType<T>(), IAnimatorType {
-    override fun formatAnimator(animKConfig: AnimKConfig, animator: Animator) {
+    override fun formatAnimator(animKConfig: MAnimKConfig, animator: Animator) {
         super.formatAnimator(animKConfig, animator)
         animator.interpolator = _interpolator ?: animKConfig.interpolator
     }

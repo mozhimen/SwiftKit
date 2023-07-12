@@ -6,7 +6,7 @@ import android.os.Process
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.dalvik.system.UtilKSystemProperties
+import com.mozhimen.basick.utilk.java.lang.UtilKSystemProperties
 import java.lang.IllegalArgumentException
 import kotlin.system.exitProcess
 

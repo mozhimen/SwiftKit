@@ -7,7 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.animk.builder.bases.BaseAnimatorType
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
  * @ClassName DrawableColorAnimatorType
@@ -31,7 +31,7 @@ open class AnimatorGradientDrawableColorType : BaseAnimatorType<AnimatorGradient
         return this
     }
 
-    override fun buildAnimator(animKConfig: AnimKConfig): Animator {
+    override fun buildAnimator(animKConfig: MAnimKConfig): Animator {
         requireNotNull(_gradientDrawable) { "$TAG you should set _drawable" }
         _animator = ObjectAnimator.ofInt(_gradientDrawable!!, "color", *_colors)
         (_animator as ObjectAnimator).setEvaluator(ArgbEvaluator())

@@ -99,10 +99,7 @@ object UtilKUri : BaseUtilK() {
      * @return Uri?
      */
     @JvmStatic
-    @ADescription(
-        Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(),
-        Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString()
-    )
+    @ADescription(Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(), Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun file2Uri(filePathWithName: String): Uri? {
         return file2Uri(File(filePathWithName))
     }
@@ -112,10 +109,7 @@ object UtilKUri : BaseUtilK() {
      * @return Uri?
      */
     @JvmStatic
-    @ADescription(
-        Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(),
-        Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString()
-    )
+    @ADescription(Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(), Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun file2Uri(file: File): Uri? {
         if (!UtilKFile.isFileExist(file)) {
             Log.e(TAG, "file2Uri: file isFileExist false")

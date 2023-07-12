@@ -11,7 +11,7 @@ import androidx.annotation.DrawableRes
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.cons.CUiParameter
+import com.mozhimen.basick.elemk.cons.CViewGroup
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 
 /**
@@ -53,7 +53,7 @@ class PointIndicator @JvmOverloads constructor(
         groupView.orientation = LinearLayout.HORIZONTAL
 
         var imageView: ImageView
-        val imageViewParams = LinearLayout.LayoutParams(CUiParameter.VLWC,CUiParameter.VLWC)
+        val imageViewParams = LinearLayout.LayoutParams(CViewGroup.Lp.WRAP_CONTENT, CViewGroup.Lp.WRAP_CONTENT)
         imageViewParams.gravity = Gravity.CENTER_VERTICAL
         imageViewParams.setMargins(
             _pointHorizontalMargin,
@@ -71,7 +71,7 @@ class PointIndicator @JvmOverloads constructor(
             }
             groupView.addView(imageView)
         }
-        val groupViewParams = LayoutParams(CUiParameter.VLWC,CUiParameter.VLWC)
+        val groupViewParams = LayoutParams(CViewGroup.Lp.WRAP_CONTENT, CViewGroup.Lp.WRAP_CONTENT)
         groupViewParams.gravity = Gravity.CENTER or Gravity.BOTTOM
         addView(groupView, groupViewParams)
     }

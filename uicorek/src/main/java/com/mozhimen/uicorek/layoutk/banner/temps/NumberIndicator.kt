@@ -9,7 +9,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.mozhimen.basick.utilk.android.util.dp2px
-import com.mozhimen.uicorek.cons.CUiParameter
+import com.mozhimen.basick.elemk.cons.CViewGroup
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 
@@ -63,7 +63,7 @@ class NumberIndicator @JvmOverloads constructor(context: Context, attrs: Attribu
         countTv.setTextColor(Color.WHITE)
         groupView.addView(countTv)
 
-        val groupViewParams = LayoutParams(CUiParameter.VLWC, CUiParameter.VLWC)
+        val groupViewParams = LayoutParams(CViewGroup.Lp.WRAP_CONTENT, CViewGroup.Lp.WRAP_CONTENT)
         groupViewParams.gravity = Gravity.END or Gravity.BOTTOM
         addView(groupView, groupViewParams)
     }

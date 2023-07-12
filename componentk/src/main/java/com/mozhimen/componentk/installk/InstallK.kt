@@ -3,6 +3,7 @@ package com.mozhimen.componentk.installk
 import android.os.*
 import android.util.Log
 import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_DeviceRoot
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -32,6 +33,7 @@ import java.io.*
  * @Date 2023/1/7 0:04
  * @Version 1.0
  */
+@ALintKOptIn_DeviceRoot
 @AManifestKRequire(
     CPermission.READ_EXTERNAL_STORAGE,
     CPermission.REQUEST_INSTALL_PACKAGES,

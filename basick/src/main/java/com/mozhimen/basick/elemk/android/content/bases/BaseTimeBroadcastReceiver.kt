@@ -3,6 +3,7 @@ package com.mozhimen.basick.elemk.android.content.bases
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_RegisterDynamic
 
 /**
  * @ClassName BaseTimeReceiver
@@ -46,7 +47,7 @@ interface ITimeReceiverListener {
     fun onTimeChanged() {}
 }
 
-@ADescription("need register dynamic 需要动态注册")
+@ALintKOptIn_ApiCall_RegisterDynamic
 open class BaseTimeBroadcastReceiver(private val _listener: ITimeReceiverListener) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {

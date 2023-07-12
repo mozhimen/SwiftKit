@@ -1,7 +1,7 @@
 package com.mozhimen.underlayk.logk.annors
 
 import androidx.annotation.IntDef
-import com.mozhimen.basick.elemk.cons.CLogType
+import com.mozhimen.basick.elemk.cons.CLogPriority
 
 /**
  * @ClassName LogKType
@@ -11,12 +11,12 @@ import com.mozhimen.basick.elemk.cons.CLogType
  * @Version 1.0
  */
 @IntDef(
-    CLogType.V,
-    CLogType.D,
-    CLogType.I,
-    CLogType.W,
-    CLogType.E,
-    CLogType.A
+    CLogPriority.V,
+    CLogPriority.D,
+    CLogPriority.I,
+    CLogPriority.W,
+    CLogPriority.E,
+    CLogPriority.A
 )
 @Retention(AnnotationRetention.SOURCE)
 annotation class ALogKType

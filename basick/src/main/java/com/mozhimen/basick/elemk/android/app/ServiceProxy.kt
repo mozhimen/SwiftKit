@@ -8,16 +8,13 @@ import android.os.RemoteException
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceResListener
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
-import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * @ClassName ServiceProxy
@@ -32,8 +29,8 @@ interface IServiceProxy {
     fun unbindService()
 }
 
-@AOptInNeedCallBindLifecycle
-@AOptInInitByLazy
+@ALintKOptIn_ApiCall_BindLifecycle
+@ALintKOptIn_ApiInit_ByLazy
 class ServiceProxy<A>(
     private val _activity: A,
     private val _service: Class<*>,

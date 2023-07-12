@@ -37,13 +37,11 @@ dependencies {
     implementation project(project.path.replace(project.name, '') + ':componentk')
     //implementation project(/*project.path.replace(project.name, '') +*/ ':NetKit_FileDownloader:netkfiledownloader')
 
-    //qrcodek
+    //scank
     implementation 'com.google.zxing:android-core:3.3.0'
     implementation 'com.google.zxing:core:3.3.3'
-    //implementation 'com.github.a-voyager:AutoInstaller:v1.1'
 
-    //adaptk
-    api 'me.jessyan:autosize:1.2.1'
+    //implementation 'com.github.a-voyager:AutoInstaller:v1.1'
 
     //test
     testImplementation 'junit:junit:4.13.2'

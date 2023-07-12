@@ -6,7 +6,7 @@ import android.animation.ObjectAnimator
 import android.graphics.Color
 import com.mozhimen.basick.animk.builder.bases.BaseAnimatorType
 import com.mozhimen.basick.animk.builder.commons.IAnimatorUpdateListener
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
  * @ClassName DrawableColorType
@@ -33,7 +33,7 @@ open class AnimatorColorType : BaseAnimatorType<AnimatorColorType>() {
         return this
     }
 
-    override fun buildAnimator(animKConfig: AnimKConfig): Animator {
+    override fun buildAnimator(animKConfig: MAnimKConfig): Animator {
         _animator = ObjectAnimator.ofObject(ArgbEvaluator(), _colorStart, _colorEnd)
         formatAnimator(animKConfig, _animator)
         return _animator

@@ -21,6 +21,14 @@
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014" />
 
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_012.Width_Wrap.Height_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_012.Width_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_012">
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
+
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal" />

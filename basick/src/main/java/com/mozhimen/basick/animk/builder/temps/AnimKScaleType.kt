@@ -7,7 +7,7 @@ import android.view.animation.ScaleAnimation
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.animk.builder.bases.BaseAnimKType
 import com.mozhimen.basick.animk.builder.cons.EDirection
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
  * @ClassName ScaleConfig
@@ -113,7 +113,7 @@ open class AnimKScaleType : BaseAnimKType<AnimKScaleType>() {
         return this
     }
 
-    override fun buildAnimation(animKConfig: AnimKConfig): Animation {
+    override fun buildAnimation(animKConfig: MAnimKConfig): Animation {
         val values = genConfigs()
         val animation: Animation = ScaleAnimation(
             values[0], values[1], values[2], values[3],
@@ -124,7 +124,7 @@ open class AnimKScaleType : BaseAnimKType<AnimKScaleType>() {
         return animation
     }
 
-    override fun buildAnimator(animKConfig: AnimKConfig): Animator {
+    override fun buildAnimator(animKConfig: MAnimKConfig): Animator {
         val values = genConfigs()
         _animator = AnimatorSet()
         val scaleX: Animator = ObjectAnimator.ofFloat(null, View.SCALE_X, values[0], values[1])

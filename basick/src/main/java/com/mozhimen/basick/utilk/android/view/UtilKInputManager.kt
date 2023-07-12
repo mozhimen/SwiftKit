@@ -9,7 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.lintk.optin.annors.AOptInDeprecatedOfficial
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiDeprecated_Official
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
@@ -41,7 +41,7 @@ object UtilKInputManager : BaseUtilK() {
      * 显示软键盘
      * @param context Context
      */
-    @AOptInDeprecatedOfficial
+    @ALintKOptIn_ApiDeprecated_Official
     @JvmStatic
     fun toggle(context: Context) {
         get(context).toggleSoftInput(0, 0)

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/toastk_radius_border"
+    android:orientation="vertical"
+    tools:background="@color/ui_amber_100">
+
+    <TextView
+        android:id="@+id/toast_text"
+        style="@style/Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_012.Width_Wrap.Height_Wrap"
+        android:layout_marginHorizontal="@dimen/dp_008"
+        android:layout_marginVertical="@dimen/dp_004"
+        tools:text="this is test" />
+</LinearLayout>

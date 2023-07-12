@@ -1,7 +1,7 @@
 package com.mozhimen.basick.animk.builder.commons
 
 import android.view.animation.Animation
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
  * @ClassName IAnimationType
@@ -11,9 +11,9 @@ import com.mozhimen.basick.animk.builder.mos.AnimKConfig
  * @Version 1.0
  */
 interface IAnimationType {
-    fun buildAnimation(animKConfig: AnimKConfig): Animation
+    fun buildAnimation(animKConfig: MAnimKConfig): Animation
 
-    fun formatAnimation(animKConfig: AnimKConfig, animation: Animation) {
+    fun formatAnimation(animKConfig: MAnimKConfig, animation: Animation) {
         animation.fillBefore = animKConfig.fillBefore
         animation.fillAfter = animKConfig.fillAfter
         animation.duration = animKConfig.duration

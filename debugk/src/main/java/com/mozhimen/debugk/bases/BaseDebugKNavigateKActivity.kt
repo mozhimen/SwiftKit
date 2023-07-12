@@ -4,8 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.navigation.NavController
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVBVM
-import com.mozhimen.basick.sensek.systembar.SenseKSystemBar
-import com.mozhimen.basick.sensek.systembar.initSenseKSystemBar
+import com.mozhimen.uicorek.adaptk.systembar.initSenseKSystemBar
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.debugk.R

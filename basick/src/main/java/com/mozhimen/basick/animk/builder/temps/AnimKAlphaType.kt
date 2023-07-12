@@ -7,7 +7,7 @@ import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.animk.builder.bases.BaseAnimKType
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 /**
  * @ClassName AlphaConfig
@@ -39,13 +39,13 @@ open class AnimKAlphaType : BaseAnimKType<AnimKAlphaType>() {
         return this
     }
 
-    override fun buildAnimation(animKConfig: AnimKConfig): Animation {
+    override fun buildAnimation(animKConfig: MAnimKConfig): Animation {
         val animation = AlphaAnimation(_alphaFrom, _alphaTo)
         formatAnimation(animKConfig, animation)
         return animation
     }
 
-    override fun buildAnimator(animKConfig: AnimKConfig): Animator {
+    override fun buildAnimator(animKConfig: MAnimKConfig): Animator {
         _animator = ObjectAnimator.ofFloat(null, View.ALPHA, _alphaFrom, _alphaTo)
         formatAnimator(animKConfig, _animator)
         return _animator

@@ -5,11 +5,10 @@ import android.view.MotionEvent
 import com.mozhimen.basick.utilk.kotlin.collections.UtilKCollection
 import com.mozhimen.basick.utilk.android.view.UtilKGesture
 import com.mozhimen.basick.utilk.kotlin.UtilKThrowable
-import com.mozhimen.basick.elemk.cons.CLogType
+import com.mozhimen.basick.elemk.cons.CLogPriority
 import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.util.UtilKStackTrace
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.java.lang.UtilKStackTrace
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -21,17 +20,26 @@ import java.util.concurrent.atomic.AtomicBoolean
  */
 object UtilKLogPro : BaseUtilK() {
 
-    private val _sLOG = AtomicBoolean(false)
+    private val _isOpenLog = AtomicBoolean(false)
+    private val _isSupportLongLog = AtomicBoolean(true)
 
     @JvmStatic
-    fun setOpenLog(openLog: Boolean) {
-        _sLOG.set(openLog)
+    fun setSupportLongLog(isSupportLongLog: Boolean) {
+        _isSupportLongLog.set(isSupportLongLog)
     }
 
     @JvmStatic
-    fun isOpenLog(): Boolean {
-        return _sLOG.get()
+    fun isSupportLongLog(): Boolean =
+        _isSupportLongLog.get()
+
+    @JvmStatic
+    fun setOpenLog(isOpenLog: Boolean) {
+        _isOpenLog.set(isOpenLog)
     }
+
+    @JvmStatic
+    fun isOpenLog(): Boolean =
+        _isOpenLog.get()
 
     @JvmStatic
     fun v(vararg content: Any) {
@@ -40,7 +48,7 @@ object UtilKLogPro : BaseUtilK() {
 
     @JvmStatic
     fun vt(tag: String, vararg content: Any) {
-        printLog(CLogType.V, tag, *content)
+        log(CLogPriority.V, tag, *content)
     }
 
     @JvmStatic
@@ -50,7 +58,7 @@ object UtilKLogPro : BaseUtilK() {
 
     @JvmStatic
     fun dt(tag: String, vararg content: Any) {
-        printLog(CLogType.D, tag, *content)
+        log(CLogPriority.D, tag, *content)
     }
 
     @JvmStatic
@@ -60,7 +68,7 @@ object UtilKLogPro : BaseUtilK() {
 
     @JvmStatic
     fun it(tag: String, vararg content: Any) {
-        printLog(CLogType.I, tag, *content)
+        log(CLogPriority.I, tag, *content)
     }
 
     @JvmStatic
@@ -70,7 +78,7 @@ object UtilKLogPro : BaseUtilK() {
 
     @JvmStatic
     fun wt(tag: String, vararg content: Any) {
-        printLog(CLogType.W, tag, *content)
+        log(CLogPriority.W, tag, *content)
     }
 
     @JvmStatic
@@ -80,53 +88,51 @@ object UtilKLogPro : BaseUtilK() {
 
     @JvmStatic
     fun et(tag: String, vararg content: Any) {
-        printLog(CLogType.E, tag, *content)
+        log(CLogPriority.E, tag, *content)
     }
 
     @JvmStatic
-    private fun printLog(type: Int, tag: String, vararg content: Any) {
+    private fun log(type: Int, tag: String, vararg content: Any) {
         if (!isOpenLog()) return
-        if (CParameter.UTILK_LOG_PRO_SUPPORT_LONG_LOG) {
+        if (isSupportLongLog()) {
             try {
                 var logCat = getLogCat(*content)
                 val length = logCat.length.toLong()
                 if (length <= CParameter.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
-                    printLog(type, tag, logCat)
+                    log(type, tag, logCat)
                 } else {
                     while (logCat.length > CParameter.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
                         val logContent = logCat.substring(0, CParameter.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH)
                         logCat = logCat.replace(logContent, "")
-                        printLog(type, tag, logCat)
+                        log(type, tag, logCat)
                     }
-                    printLog(type, tag, logCat)
+                    log(type, tag, logCat)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
                 e.message?.et(TAG)
             }
         } else {
-            printLog(type, tag, getLogCat(*content))
+            log(type, tag, getLogCat(*content))
         }
     }
 
     @JvmStatic
-    private fun printLog(type: Int, tag: String, logCat: String) {
+    private fun log(type: Int, tag: String, logCat: String) {
         if (!isOpenLog()) return
         when (type) {
-            CLogType.V -> Log.v(tag, logCat)
-            CLogType.D -> Log.d(tag, logCat)
-            CLogType.I -> Log.i(tag, logCat)
-            CLogType.W -> Log.w(tag, logCat)
-            CLogType.E -> Log.e(tag, logCat)
+            CLogPriority.V -> Log.v(tag, logCat)
+            CLogPriority.D -> Log.d(tag, logCat)
+            CLogPriority.I -> Log.i(tag, logCat)
+            CLogPriority.W -> Log.w(tag, logCat)
+            CLogPriority.E -> Log.e(tag, logCat)
             else -> Log.i(tag, logCat)
         }
     }
 
     @JvmStatic
-    private fun getLogCat(vararg content: Any): String {
-        val result: String = parseContents(*content)
-        return UtilKStackTrace.getStackTraceInfo(result)
-    }
+    private fun getLogCat(vararg content: Any): String =
+        UtilKStackTrace.getStackTraceInfo(parseContents(*content))
 
     @JvmStatic
     private fun parseContents(vararg objs: Any): String {

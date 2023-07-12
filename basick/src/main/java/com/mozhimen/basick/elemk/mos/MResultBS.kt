@@ -1,5 +1,7 @@
 package com.mozhimen.basick.elemk.mos
 
+import java.io.Serializable
+
 
 /**
  * @ClassName MResult
@@ -11,4 +13,4 @@ package com.mozhimen.basick.elemk.mos
 data class MResultBS(
     val isSuccess: Boolean,
     val msg: String?,
-)
+) : Serializable

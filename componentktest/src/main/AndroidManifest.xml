@@ -69,6 +69,9 @@
             android:exported="false" />
         <!--netk-->
         <activity
+            android:name="com.mozhimen.componentktest.netk.connection.NetKConnectionActivity"
+            android:exported="false" />
+        <activity
             android:name=".netk.file.NetKFileActivity"
             android:exported="false" />
         <activity

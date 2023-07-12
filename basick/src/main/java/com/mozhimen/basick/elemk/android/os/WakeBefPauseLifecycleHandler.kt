@@ -1,15 +1,12 @@
 package com.mozhimen.basick.elemk.android.os
 
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefMainHandler
-import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IDefaultLifecycleObserver
-import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.android.os.removeAllCbsAndMsgs
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 /**
  * @ClassName EventKHandler
@@ -18,7 +15,7 @@ import kotlinx.coroutines.launch
  * @Date 2022/6/12 11:34
  * @Version 1.0
  */
-@OptIn(AOptInInitByLazy::class, AOptInNeedCallBindLifecycle::class)
+@OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
 class WakeBefPauseLifecycleHandler<O : LifecycleOwner>(private val _lifecycleOwner: O) : BaseWeakRefMainHandler<O>(_lifecycleOwner), IDefaultLifecycleObserver {
 
     init {

@@ -19,7 +19,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- adapterk -->
+        </activity> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- adaptk -->
+        <activity
+            android:name=".adaptk.AdaptKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".adaptk.AdaptKSystemBarActivity"
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- adapterk -->
         <activity
             android:name=".adapterk.AdapterKActivity"
             android:exported="false" />
@@ -31,26 +39,30 @@
             android:exported="false" />
         <activity
             android:name=".adapterk.AdapterKRecyclerVB2Activity"
-            android:exported="false" />
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- btnk -->
         <activity
             android:name=".btnk.BtnKActivity"
-            android:exported="false" /> <!-- dialogk -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- dialogk -->
         <activity
             android:name=".dialogk.DialogKActivity"
-            android:exported="false" /> <!-- drawablek -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- drawablek -->
         <activity
             android:name=".drawablek.DrawableKArrowActivity"
             android:exported="false" />
         <activity
             android:name=".drawablek.DrawableKActivity"
-            android:exported="false" /> <!-- imagek -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- imagek -->
         <activity
             android:name=".imagek.ImageKActivity"
             android:exported="false" />
         <activity
             android:name=".imagek.ImageKBindingAdapterActivity"
-            android:exported="false" /> <!-- layoutk -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- layoutk -->
         <activity
             android:name=".layoutk.LayoutKSpinnerActivity"
             android:exported="false" />
@@ -113,10 +125,12 @@
             android:exported="false" />
         <activity
             android:name=".layoutk.tab.LayoutKTabTopLayoutActivity"
-            android:exported="false" /> <!-- popwink -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- popwink -->
         <activity
             android:name=".popwink.PopwinKActivity"
-            android:exported="false" /> <!-- recyclerk -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- recyclerk -->
         <activity
             android:name=".recyclerk.RecyclerKActivity"
             android:exported="false" />
@@ -125,10 +139,12 @@
             android:exported="false" />
         <activity
             android:name=".recyclerk.RecyclerKLoadActivity"
-            android:exported="false" /> <!-- textk -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- textk -->
         <activity
             android:name=".textk.TextKActivity"
-            android:exported="false" /> <!-- viewk -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        <!-- viewk -->
         <activity
             android:name=".viewk.ViewKActivity"
             android:exported="false" />

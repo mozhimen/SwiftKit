@@ -97,11 +97,11 @@ object CView {
          *  if (isDark) getWindow().getDecorView().setSystemUiVisibility(CView.System.FLAG_LIGHT_STATUS_BAR);//黑色
          *  else getWindow().getDecorView().setSystemUiVisibility(CView.SystemUi.FLAG_VISIBLE);//白色
          */
-        @ADescription("设置状态栏的颜色")
+        @ADescription("状态栏", "颜色模式", "设置状态栏的颜色")
         @RequiresApi(CVersCode.V_23_6_M)
         const val LIGHT_STATUS_BAR = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        @ADescription("设置导航栏的颜色")
+        @ADescription("导航栏", "颜色模式", "设置导航栏的颜色")
         @RequiresApi(CVersCode.V_26_8_O)
         const val LIGHT_NAVIGATION_BAR = View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
     }

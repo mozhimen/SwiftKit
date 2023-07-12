@@ -7,7 +7,7 @@ import android.graphics.Color
 import android.view.View
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.animk.builder.bases.BaseAnimatorType
-import com.mozhimen.basick.animk.builder.mos.AnimKConfig
+import com.mozhimen.basick.animk.builder.mos.MAnimKConfig
 
 
 /**
@@ -32,7 +32,7 @@ class AnimatorBackgroundColorType : BaseAnimatorType<AnimatorBackgroundColorType
         return this
     }
 
-    override fun buildAnimator(animKConfig: AnimKConfig): Animator {
+    override fun buildAnimator(animKConfig: MAnimKConfig): Animator {
         requireNotNull(_view) { "$TAG you should set _view" }
         _animator = ObjectAnimator.ofInt(_view!!, "backgroundColor", *_colors)
         (_animator as ObjectAnimator).setEvaluator(ArgbEvaluator())

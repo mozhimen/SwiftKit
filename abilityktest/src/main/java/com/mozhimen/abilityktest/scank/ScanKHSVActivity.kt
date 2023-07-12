@@ -21,7 +21,7 @@ import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.graphics.cropBitmap
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
+import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
 import java.util.concurrent.locks.ReentrantLock
 
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
@@ -44,7 +44,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
     }
 
     private fun initCamera() {
-        vb.scankHsvPreview.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.BACK))
+        vb.scankHsvPreview.initCamera(this, MCameraXKConfig(facing = ACameraXKFacing.BACK))
         vb.scankHsvPreview.setCameraXKFrameListener(_frameAnalyzer)
         vb.scankHsvPreview.startCamera()
     }

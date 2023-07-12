@@ -21,7 +21,7 @@ import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
-import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
+import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
 import com.mozhimen.uicorek.viewk.scan.ViewKScanOverlay
 
 
@@ -46,7 +46,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.scankFaceCamera.initCamera(this, CameraXKConfig(facing = ACameraXKFacing.FRONT, format = ACameraXKFormat.RGBA_8888))
+        vb.scankFaceCamera.initCamera(this, MCameraXKConfig(facing = ACameraXKFacing.FRONT, format = ACameraXKFormat.RGBA_8888))
         vb.scankFaceCamera.setCameraXKFrameListener(_frameAnalyzer)
         vb.scankFaceCamera.startCamera()
     }

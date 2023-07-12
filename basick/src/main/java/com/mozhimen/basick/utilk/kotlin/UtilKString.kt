@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -51,7 +52,16 @@ fun Any.toStringTrim(): String =
 fun String.regexLineBreak2Str(): String =
     UtilKString.regexLineBreak2Str(this)
 
+fun String.isNotEmptyOrElse(isNotEmptyBlock: I_Listener, orElseBlock: I_Listener) {
+    UtilKString.isNotEmptyOrElse(this, isNotEmptyBlock, orElseBlock)
+}
+
 object UtilKString : BaseUtilK() {
+
+    @JvmStatic
+    fun isNotEmptyOrElse(str: String, isNotEmptyBlock: I_Listener, orElseBlock: I_Listener) {
+        if (str.isNotEmpty()) isNotEmptyBlock.invoke() else orElseBlock.invoke()
+    }
 
     @JvmStatic
     fun toStringTrim(charSequence: CharSequence): String =

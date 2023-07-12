@@ -5,9 +5,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 
 /**
@@ -17,8 +17,8 @@ import com.mozhimen.basick.utilk.android.net.UtilKNetConn
  * @Date 2023/4/25 11:51
  * @Version 1.0
  */
-@AOptInNeedCallBindLifecycle
-@AOptInInitByLazy
+@ALintKOptIn_ApiCall_BindLifecycle
+@ALintKOptIn_ApiInit_ByLazy
 class NetworkCallbackProxy(context: Context, private val _networkCallback: ConnectivityManager.NetworkCallback) : BaseWakeBefDestroyLifecycleObserver() {
 
     init {

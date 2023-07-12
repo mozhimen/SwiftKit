@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.commons.IConnectionListener
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.cons.ENetType
-import com.mozhimen.basick.sensek.netconnection.helpers.NetConnectionHelper
+import com.mozhimen.componentk.netk.connection.helpers.NetConnectionHelper
 import com.mozhimen.basick.utilk.android.util.wt
 
 
@@ -46,7 +46,7 @@ class NetConnectionBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiv
 
     override fun onReceive(context: Context?, intent: Intent) {
         if (ConnectivityManager.CONNECTIVITY_ACTION == intent.action) {
-            val netType: ENetType = NetConnectionHelper.getENetKType()
+            val netType: ENetType = com.mozhimen.componentk.netk.connection.helpers.NetConnectionHelper.getENetKType()
             "onReceive: eNetKType $netType".wt(TAG)
             notifyListeners(netType)
         }

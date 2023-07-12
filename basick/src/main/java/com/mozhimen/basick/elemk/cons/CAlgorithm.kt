@@ -9,5 +9,5 @@ package com.mozhimen.basick.elemk.cons
  */
 object CAlgorithm {
     const val DES = "DES"
-
+    const val AES = "AES"
 }

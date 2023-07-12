@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_DeviceRoot
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -64,7 +65,7 @@ object UtilKAppInstall : BaseUtilK() {
 
     @JvmStatic
     @Throws(Exception::class)
-    @ADescription("need you device has rooted")
+    @ALintKOptIn_DeviceRoot
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installRoot(apkPathWithName: String): Boolean {
         require(apkPathWithName.isNotEmpty()) { "$TAG please check apk file path" }

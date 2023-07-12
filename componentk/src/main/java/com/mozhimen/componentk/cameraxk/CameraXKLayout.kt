@@ -26,7 +26,7 @@ import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.componentk.cameraxk.cons.CAspectRatio
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
 import com.mozhimen.componentk.cameraxk.helpers.CameraXKDelegate
-import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
+import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -114,7 +114,7 @@ class CameraXKLayout @JvmOverloads constructor(
 
     fun initCamera(
         owner: LifecycleOwner,
-        cameraXKConfig: CameraXKConfig
+        cameraXKConfig: MCameraXKConfig
     ) {
         _cameraXKDelegate.initCamera(owner, cameraXKConfig)
     }

@@ -7,6 +7,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiver
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiTargetVersion_V_25_71_N1
 import com.mozhimen.basick.utilk.android.content.UtilKApp
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
@@ -33,7 +34,7 @@ android:enabled="true">
  * @Date 2022/6/13 12:04
  * @Version 1.0
  */
-@ADescription("you should set your target sdk as 25, because android 8 later all limited")
+@ALintKOptIn_ApiTargetVersion_V_25_71_N1
 @TargetApi(CVersCode.V_25_71_N1)
 open class BaseInstallObserverBroadcastReceiver : BaseBroadcastReceiver() {
 

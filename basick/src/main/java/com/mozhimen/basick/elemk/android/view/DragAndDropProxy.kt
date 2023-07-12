@@ -4,10 +4,10 @@ import android.view.DragEvent
 import android.view.View
 import android.view.View.DragShadowBuilder
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.lintk.optin.annors.AOptInInitByLazy
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
 import com.mozhimen.basick.elemk.commons.IAA_Listener
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefPauseLifecycleObserver
-import com.mozhimen.basick.lintk.optin.annors.AOptInNeedCallBindLifecycle
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
@@ -19,8 +19,8 @@ import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
  * @Date 2023/2/8 17:25
  * @Version 1.0
  */
-@AOptInNeedCallBindLifecycle
-@AOptInInitByLazy
+@ALintKOptIn_ApiCall_BindLifecycle
+@ALintKOptIn_ApiInit_ByLazy
 class DragAndDropProxy : BaseWakeBefPauseLifecycleObserver() {
     private val _viewList = ArrayList<Pair<View, View>>()
     fun dragAndDrop(sourceView: View, destView: View, onDrop: IAA_Listener<View>/*(sourceView: View, destView: View) -> Unit*/) {

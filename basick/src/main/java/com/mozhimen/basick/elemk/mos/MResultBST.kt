@@ -1,5 +1,7 @@
 package com.mozhimen.basick.elemk.mos
 
+import java.io.Serializable
+
 
 /**
  * @ClassName MResult
@@ -12,4 +14,4 @@ data class MResultBST<T>(
     val isSuccess: Boolean,
     val msg: String?,
     val bean: T
-)
+) : Serializable

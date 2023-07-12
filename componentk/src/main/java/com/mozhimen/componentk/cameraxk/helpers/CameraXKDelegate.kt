@@ -14,12 +14,10 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
-import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
@@ -28,11 +26,9 @@ import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
-import com.mozhimen.componentk.cameraxk.mos.CameraXKConfig
+import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
 import com.mozhimen.underlayk.logk.LogK
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import java.util.concurrent.ExecutionException
 import kotlin.properties.Delegates
 
@@ -139,7 +135,7 @@ class CameraXKDelegate : ICameraXKAction, BaseUtilK() {
 
     fun initCamera(
         owner: LifecycleOwner,
-        cameraXKConfig: CameraXKConfig
+        cameraXKConfig: MCameraXKConfig
     ) {
         _owner = owner
         _lensFacing = cameraXKConfig.facing
