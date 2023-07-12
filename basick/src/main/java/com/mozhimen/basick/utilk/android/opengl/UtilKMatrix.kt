@@ -10,15 +10,7 @@ import androidx.annotation.IntDef
  * @Date 2022/6/16 13:03
  * @Version 1.0
  */
-@IntDef(
-    value = [
-        AMatrixType.MATRIX_FIT_XY,
-        AMatrixType.MATRIX_CENTER_CROP,
-        AMatrixType.MATRIX_CENTER_IN_SIDE,
-        AMatrixType.MATRIX_FIT_START,
-        AMatrixType.MATRIX_FIT_END
-    ]
-)
+@IntDef(value = [AMatrixType.MATRIX_FIT_XY, AMatrixType.MATRIX_CENTER_CROP, AMatrixType.MATRIX_CENTER_IN_SIDE, AMatrixType.MATRIX_FIT_START, AMatrixType.MATRIX_FIT_END])
 annotation class AMatrixType {
     companion object {
         const val MATRIX_FIT_XY = 0

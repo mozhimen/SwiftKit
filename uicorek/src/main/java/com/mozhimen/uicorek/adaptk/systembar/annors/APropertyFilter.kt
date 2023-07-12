@@ -10,12 +10,5 @@ import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
  * @Date 2022/7/17 17:41
  * @Version 1.0
  */
-@IntDef(
-    value = [
-        CProperty.NORMAL,
-        CProperty.IMMERSED_SOFT,
-        CProperty.IMMERSED_HARD,
-        CProperty.IMMERSED_HARD_STICKY,
-    ]
-)
+@IntDef(value = [CProperty.NORMAL, CProperty.IMMERSED_SOFT, CProperty.IMMERSED_HARD, CProperty.IMMERSED_HARD_STICKY])
 annotation class APropertyFilter

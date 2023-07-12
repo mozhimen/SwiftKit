@@ -7,9 +7,6 @@ import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
  *
  * @author by chiclaim@google.com
  */
-@IntDef(
-    CDownloadParameter.DOWNLOAD_ENGINE_EMBED,
-    CDownloadParameter.DOWNLOAD_ENGINE_SYSTEM_DM
-)
+@IntDef(value = [CDownloadParameter.DOWNLOAD_ENGINE_EMBED, CDownloadParameter.DOWNLOAD_ENGINE_SYSTEM_DM])
 @Retention(AnnotationRetention.SOURCE)
 annotation class DownloadEngine

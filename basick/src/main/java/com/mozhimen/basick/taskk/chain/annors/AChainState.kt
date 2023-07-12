@@ -10,12 +10,7 @@ import androidx.annotation.IntDef
  * @Version 1.0
  */
 @Retention(AnnotationRetention.SOURCE)
-@IntDef(
-    AChainState.IDLE,
-    AChainState.RUNNING,
-    AChainState.FINISHED,
-    AChainState.START
-)
+@IntDef(value = [AChainState.IDLE, AChainState.RUNNING, AChainState.FINISHED, AChainState.START])
 annotation class AChainState {
     companion object {
         const val IDLE = 0 //静止

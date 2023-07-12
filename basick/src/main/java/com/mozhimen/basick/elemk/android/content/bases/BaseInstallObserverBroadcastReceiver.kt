@@ -4,10 +4,8 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiver
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiTargetVersion_V_25_71_N1
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiTarget_AtV_25_71_N1
 import com.mozhimen.basick.utilk.android.content.UtilKApp
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
@@ -34,7 +32,7 @@ android:enabled="true">
  * @Date 2022/6/13 12:04
  * @Version 1.0
  */
-@ALintKOptIn_ApiTargetVersion_V_25_71_N1
+@ALintKOptIn_ApiTarget_AtV_25_71_N1
 @TargetApi(CVersCode.V_25_71_N1)
 open class BaseInstallObserverBroadcastReceiver : BaseBroadcastReceiver() {
 

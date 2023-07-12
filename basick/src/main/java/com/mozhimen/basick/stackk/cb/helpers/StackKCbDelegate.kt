@@ -3,12 +3,13 @@ package com.mozhimen.basick.stackk.cb.helpers
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
+import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.CStackKEvent
 import com.mozhimen.basick.utilk.android.app.UtilKApplication
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
-import com.mozhimen.basick.sensek.eventbus.UtilKLiveDataBus
 import java.lang.ref.WeakReference
 
 /**
@@ -138,8 +139,6 @@ internal class StackKCbDelegate : IStackK {
     }
 
     private fun postEventFirstActivity() {
-        if (getStackCount() == 1) {
-            UtilKLiveDataBus.with<Boolean>(CStackKEvent.STACKK_FIRST_ACTIVITY).setValue(true)
-        }
+        if (getStackCount() == 1)  PostKLiveDataEventBus.with<Boolean>(CStackKEvent.STACKK_FIRST_ACTIVITY).setValue(true)
     }
 }

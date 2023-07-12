@@ -2,6 +2,7 @@ package com.mozhimen.underlayktest.fpsk
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.underlayk.fpsk.FpsK
 import com.mozhimen.underlayktest.databinding.ActivityFpskBinding
@@ -14,6 +15,7 @@ import com.mozhimen.underlayktest.databinding.ActivityFpskBinding
  * @Date 2023/3/15 17:16
  * @Version 1.0
  */
+@OptIn(ALintKOptIn_ApiInit_InApplication::class)
 class FpsKActivity : BaseActivityVB<ActivityFpskBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         vb.fpskBtn.setOnClickListener {

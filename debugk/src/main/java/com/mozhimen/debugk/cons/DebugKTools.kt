@@ -1,6 +1,7 @@
 package com.mozhimen.debugk.cons
 
 import android.app.Activity
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.fpsk.FpsK
@@ -18,6 +19,7 @@ import com.mozhimen.debugk.temps.DebugKParamsActivity
  * @Date 2022/1/18 15:12
  * @Version 1.0
  */
+@ALintKOptIn_ApiInit_InApplication
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class DebugKTools {
 

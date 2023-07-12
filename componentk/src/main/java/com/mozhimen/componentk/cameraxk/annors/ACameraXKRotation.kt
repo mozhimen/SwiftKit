@@ -11,15 +11,9 @@ import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
  * @Version 1.0
  */
 
-@IntDef(
-    value = [
-        ACameraXKRotation.ROTATION_0,
-        ACameraXKRotation.ROTATION_90,
-        ACameraXKRotation.ROTATION_180,
-        ACameraXKRotation.ROTATION_270]
-)
+@IntDef(value = [ACameraXKRotation.ROTATION_0, ACameraXKRotation.ROTATION_90, ACameraXKRotation.ROTATION_180, ACameraXKRotation.ROTATION_270])
 annotation class ACameraXKRotation {
-    companion object{
+    companion object {
         const val ROTATION_0 = 0
         const val ROTATION_90 = 1
         const val ROTATION_180 = 2

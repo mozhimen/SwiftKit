@@ -10,10 +10,12 @@ import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.elemk.cons.CLogPriority
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
 
+@OptIn(ALintKOptIn_ApiInit_InApplication::class)
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 @APermissionCheck(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {

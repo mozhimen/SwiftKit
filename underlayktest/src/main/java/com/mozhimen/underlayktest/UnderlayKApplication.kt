@@ -1,6 +1,7 @@
 package com.mozhimen.underlayktest
 
 import com.mozhimen.basick.elemk.android.app.bases.BaseApplication
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.squareup.moshi.moshiT2Json
@@ -18,6 +19,7 @@ import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
  * @Date 2022/9/24 17:41
  * @Version 1.0
  */
+@ALintKOptIn_ApiInit_InApplication
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class UnderlayKApplication : BaseApplication() {
     override fun onCreate() {

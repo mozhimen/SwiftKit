@@ -10,7 +10,7 @@ import androidx.annotation.IntDef
  * @Version 1.0
  */
 @Retention(AnnotationRetention.SOURCE)
-@IntDef(ADialogMode.POSITIVE, ADialogMode.NEGATIVE, ADialogMode.BOTH, ADialogMode.NONE)
+@IntDef(value = [ADialogMode.POSITIVE, ADialogMode.NEGATIVE, ADialogMode.BOTH, ADialogMode.NONE])
 annotation class ADialogMode {
     companion object {
         const val POSITIVE = 0x10

@@ -1,5 +1,6 @@
 package com.mozhimen.underlayk.crashk
 
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
@@ -12,6 +13,7 @@ import java.io.File
  * @Date 2022/3/28 14:32
  * @Version 1.0
  */
+@ALintKOptIn_ApiInit_InApplication
 @AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
 class CrashKMgr {
 

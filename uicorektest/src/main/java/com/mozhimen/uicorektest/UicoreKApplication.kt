@@ -1,6 +1,8 @@
 package com.mozhimen.uicorektest
 
 import com.mozhimen.basick.elemk.android.app.bases.BaseApplication
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiDeclare_InManifest
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
 
 
 /**
@@ -11,9 +13,10 @@ import com.mozhimen.basick.elemk.android.app.bases.BaseApplication
  * @Version 1.0
  */
 class UicoreKApplication : BaseApplication() {
+    @OptIn(ALintKOptIn_ApiInit_InApplication::class, ALintKOptIn_ApiDeclare_InManifest::class)
     override fun onCreate() {
         super.onCreate()
 
-        //AdaptKMgr.instance.init(960, 540)
+        //AdaptKAutoSize.instance.init(640, 400)
     }
 }

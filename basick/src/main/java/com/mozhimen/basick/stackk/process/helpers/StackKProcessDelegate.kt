@@ -7,6 +7,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
@@ -19,6 +20,7 @@ import java.lang.ref.WeakReference
  * @Date 2023/6/11 14:34
  * @Version 1.0
  */
+@ALintKOptIn_ApiInit_InApplication
 internal class StackKProcessDelegate : IStackK {
     @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
     private val _applicationObserver by lazy { ApplicationObserver() }

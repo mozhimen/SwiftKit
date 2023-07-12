@@ -2,8 +2,8 @@ package com.mozhimen.componentk.mediak.audio.helpers
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
+import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.sensek.eventbus.UtilKLiveDataBus
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import com.mozhimen.componentk.mediak.audio.commons.IMediaKAudio
 import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
@@ -46,11 +46,11 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
 
     init {
         _owner.runOnMainThread {
-            UtilKLiveDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_COMPLETE).observe(_owner) {
+            PostKLiveDataEventBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_COMPLETE).observe(_owner) {
                 Log.d(TAG, "init: onCompleted id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
-            UtilKLiveDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_ERROR).observe(_owner) {
+            PostKLiveDataEventBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_ERROR).observe(_owner) {
                 Log.d(TAG, "init: onError id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
@@ -213,7 +213,7 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
                 if (index in _playList.indices) {
                     _playList.removeAt(index)
                 }
-                UtilKLiveDataBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).setValue(audio to (_playList.size != 0))
+                PostKLiveDataEventBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).setValue(audio to (_playList.size != 0))
                 getPlayPositionNext()
             }
         }

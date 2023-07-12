@@ -236,12 +236,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.OnLifecycleEvent;
 
 import com.mozhimen.basick.elemk.cons.CWinMgr;
+import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.stackk.cons.CStackKEvent;
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
 import com.mozhimen.basick.utilk.bases.BaseUtilK;
 import com.mozhimen.basick.utilk.android.graphics.UtilKColor;
-import com.mozhimen.basick.sensek.eventbus.UtilKLiveDataBus;
 import com.mozhimen.basick.utilk.android.view.UtilKGravity;
 import com.mozhimen.basick.utilk.android.content.UtilKRes;
 import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig;
@@ -868,11 +868,11 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
     }
 
     void waitForFirstActivityOpened(View v, boolean positionMode) {
-        UtilKLiveDataBus.INSTANCE.with(CStackKEvent.STACKK_FIRST_ACTIVITY).observeForever(new Observer() {
+        PostKLiveDataEventBus.INSTANCE.with(CStackKEvent.STACKK_FIRST_ACTIVITY).observeForever(new Observer() {
             @Override
             public void onChanged(Object o) {
                 tryToShowPopup(v, positionMode);
-                UtilKLiveDataBus.INSTANCE.with(CStackKEvent.STACKK_FIRST_ACTIVITY).removeObserver(this);
+                PostKLiveDataEventBus.INSTANCE.with(CStackKEvent.STACKK_FIRST_ACTIVITY).removeObserver(this);
             }
         });
     }
