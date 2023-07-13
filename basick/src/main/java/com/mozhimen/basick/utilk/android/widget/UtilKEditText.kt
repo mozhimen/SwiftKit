@@ -39,6 +39,12 @@ fun EditText.textChangeFlow(): Flow<Editable> = callbackFlow {
 
 
 object UtilKEditText {
+
+    @JvmStatic
+    fun applyDebounceTextChangeListener(editText: EditText,scope:) {
+
+    }
+
     /**
      * 最多可输入的字符数
      * @param editText EditText

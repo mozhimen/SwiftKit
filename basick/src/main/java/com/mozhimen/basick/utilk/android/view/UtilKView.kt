@@ -146,6 +146,7 @@ fun View.applySuspendDebounceClickListener(scope: CoroutineScope, thresholdMilli
 }
 
 object UtilKView : BaseUtilK() {
+
     @JvmStatic
     fun applyDebounceClickListener(view: View, scope: CoroutineScope, block: IA_Listener<View>, thresholdMillis: Long = 500) {
         view.asViewClickFlow().throttleFirst(thresholdMillis).onEach { block.invoke(view) }.launchIn(scope)

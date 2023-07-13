@@ -19,8 +19,11 @@ import kotlinx.coroutines.flow.flow
 fun <T> Flow<T>.throttleFirst(thresholdMillis: Long): Flow<T> =
     UtilKFlow.throttleFirst(this, thresholdMillis)
 
-fun View.asViewClickFlow() =
+fun View.asViewClickFlow(): Flow<Unit> =
     UtilKFlow.asViewClickFlow(this)
+
+fun EditText.asEditTextChangeFlow(): Flow<CharSequence> =
+    UtilKFlow.asEditTextChangeFlow(this)
 
 object UtilKFlow {
     @JvmStatic
