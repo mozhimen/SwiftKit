@@ -14,6 +14,7 @@ import com.mozhimen.uicorektest.popwink.PopwinKActivity
 import com.mozhimen.uicorektest.recyclerk.RecyclerKActivity
 import com.mozhimen.uicorektest.adaptk.AdaptKActivity
 import com.mozhimen.uicorektest.textk.TextKActivity
+import com.mozhimen.uicorektest.toastk.ToastKActivity
 import com.mozhimen.uicorektest.viewk.ViewKActivity
 
 class UicoreKActivity : BaseActivityVB<ActivityUicorekBinding>() {
@@ -56,6 +57,10 @@ class UicoreKActivity : BaseActivityVB<ActivityUicorekBinding>() {
 
     fun goTextK(view: View) {
         startContext<TextKActivity>()
+    }
+
+    fun goToastK(view: View) {
+        startContext<ToastKActivity>()
     }
 
     fun goViewK(view: View) {

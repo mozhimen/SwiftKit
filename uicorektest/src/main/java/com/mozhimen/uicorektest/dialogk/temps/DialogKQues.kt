@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
-import com.mozhimen.basick.elemk.commons.IExts_Listener
+import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.util.dp2px
@@ -46,19 +46,19 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
             return this
         }
 
-        fun genBackground(block: IExts_Listener<FrameLayout>) {
+        fun genBackground(block: IExtension_Listener<FrameLayout>) {
             _bg.block()
         }
 
-        fun genTitle(block: IExts_Listener<TextView>) {
+        fun genTitle(block: IExtension_Listener<TextView>) {
             _titleView.block()
         }
 
-        fun genBtnCancel(block: IExts_Listener<MaterialButton>) {
+        fun genBtnCancel(block: IExtension_Listener<MaterialButton>) {
             _btnCancel.block()
         }
 
-        fun genBtnSure(block: IExts_Listener<MaterialButton>) {
+        fun genBtnSure(block: IExtension_Listener<MaterialButton>) {
             _btnSure.block()
         }
 

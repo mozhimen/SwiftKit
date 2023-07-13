@@ -34,12 +34,12 @@ import com.mozhimen.basick.utilk.kotlin.toBoolean
  *     }
  * }
  */
-fun Activity.initSenseKSystemBar() {
+fun Activity.initAdaptKSystemBar() {
     AdaptKSystemBar.initAnnor(this)
 }
 
-fun Activity.initSenseKSystemBar(byteInt: Int) {
-    AdaptKSystemBar.init(this)
+fun Activity.initAdaptKSystemBar(byteInt: Int) {
+    AdaptKSystemBar.init(this, byteInt)
 }
 
 object AdaptKSystemBar : BaseUtilK() {

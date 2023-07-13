@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.TextClock
 import com.mozhimen.basick.elemk.cons.CDateFormat
+import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.uicorek.R
 
@@ -24,8 +25,6 @@ class TextKClock @JvmOverloads constructor(context: Context, attrs: AttributeSet
         initView()
     }
 
-    override val TAG: String = "TextKClock>>>>>"
-
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKClock)
@@ -34,11 +33,12 @@ class TextKClock @JvmOverloads constructor(context: Context, attrs: AttributeSet
     }
 
     override fun initView() {
-        format24Hour = _timeFormat
+        format24Hour = _timeFormat.also { it.dt(TAG) }
     }
 
     private fun getTimeFormat(index: Int = 0): String {
         return when (index) {
+            0 -> CDateFormat.yyyyMMddHHmmss
             1 -> CDateFormat.yyyyMMddHHmm
             2 -> CDateFormat.yyyyMMdd
             3 -> CDateFormat.HHmmss

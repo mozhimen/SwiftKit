@@ -1,7 +1,7 @@
 package com.mozhimen.basick.taskk.temps
 
 import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
-import com.mozhimen.basick.elemk.commons.ISuspA_Listener
+import com.mozhimen.basick.elemk.commons.ISuspendA_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
@@ -23,7 +23,7 @@ class TaskKPoll : BaseWakeBefDestroyTaskK() {
      * @param times Int 循环次数
      * @param task SuspendFunction1<Int, Unit>
      */
-    fun start(interval: Long, times: Int, task: ISuspA_Listener<Int>/*suspend (Int) -> Unit*/, onFinish: I_Listener? = null) {
+    fun start(interval: Long, times: Int, task: ISuspendA_Listener<Int>/*suspend (Int) -> Unit*/, onFinish: I_Listener? = null) {
         if (isActive()) return
         _time = times
         val scope = CoroutineScope(Dispatchers.IO)

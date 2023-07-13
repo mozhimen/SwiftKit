@@ -4,9 +4,9 @@ import android.os.Bundle
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus
 import com.mozhimen.basick.utilk.android.widget.showToast
-import com.mozhimen.basicktest.databinding.ActivityUtilkDataBusBinding
+import com.mozhimen.basicktest.databinding.ActivityPostkLiveDataEventBusBinding
 
-class PostKLiveDataEventBusActivity : BaseActivityVB<ActivityUtilkDataBusBinding>() {
+class PostKLiveDataEventBusActivity : BaseActivityVB<ActivityPostkLiveDataEventBusBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         PostKLiveDataEventBus.with<String>("stickyData").observeSticky(this) {
             "黏性事件: $it".showToast()

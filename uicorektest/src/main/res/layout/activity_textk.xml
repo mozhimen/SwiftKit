@@ -27,6 +27,12 @@
             android:layout_marginBottom="20dp"
             app:textkClock_timeFormat="yyyyMMddHHmmss" />
 
+        <TextClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:format24Hour="HH:mm:ss:SS" />
+
         <com.mozhimen.uicorek.textk.TextKEditClear
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

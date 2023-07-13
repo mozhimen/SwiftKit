@@ -13,7 +13,7 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
-import com.mozhimen.basick.elemk.commons.IExts_Listener
+import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.utilk.android.graphics.drawable2Bitmap
 import com.mozhimen.basick.utilk.android.view.applyPaddingHorizontal
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
@@ -56,7 +56,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         title: String = _attrs.titleStr,
         titleColor: Int = _attrs.titleTextColor,
         titleSize: Int = _attrs.titleTextSize,
-        block: (IExts_Listener<TextView>)? = null
+        block: (IExtension_Listener<TextView>)? = null
     ) {
         _titleView.apply {
             text = title
@@ -71,7 +71,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         titleColor: Int = _attrs.subTitleTextColor,
         titleSize: Int = _attrs.subTitleTextSize,
         marginTop: Int = _attrs.subTitleMarginTop,
-        block: (IExts_Listener<TextView>)? = null
+        block: (IExtension_Listener<TextView>)? = null
     ) {
         if (_subTitleView == null) {
             _subTitleView = getTitleView(subTitle, titleColor, titleSize)
@@ -101,7 +101,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         iconColor: Int,
         paddingHorizontal: Int,
         iconFontPath: String,
-        block: (IExts_Listener<Button>)? = null
+        block: (IExtension_Listener<Button>)? = null
     ) {
         val btnKIconFont = getBtnKIconFont(iconStr, iconTextSize, iconColor, iconFontPath)
         addSideView(btnKIconFont, boxWidth, paddingHorizontal, true)
@@ -114,7 +114,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         drawable: Drawable,
         boxWidth: Int,
         paddingHorizontal: Int,
-        block: (IExts_Listener<ImageView>)? = null
+        block: (IExtension_Listener<ImageView>)? = null
     ) {
         val btnImage = getBtnImage(drawable.drawable2Bitmap(boxWidth, boxWidth))
         addSideView(btnImage, boxWidth, paddingHorizontal, true)
@@ -127,7 +127,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         text: String,
         boxWidth: Int,
         paddingHorizontal: Int,
-        block: (IExts_Listener<View>)? = null,
+        block: (IExtension_Listener<View>)? = null,
         @ColorInt textColor: Int = Color.BLACK,
         @Px textSize: Int = 15f.sp2px().toInt()
     ) {
@@ -142,7 +142,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         view: View,
         boxWidth: Int,
         paddingHorizontal: Int,
-        block: (IExts_Listener<View>)? = null
+        block: (IExtension_Listener<View>)? = null
     ) {
         addSideView(view, boxWidth, paddingHorizontal, true)
         block?.let {
@@ -157,7 +157,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         iconColor: Int,
         paddingHorizontal: Int,
         iconFontPath: String,
-        block: (IExts_Listener<Button>)? = null
+        block: (IExtension_Listener<Button>)? = null
     ) {
         val btnKIconFont = getBtnKIconFont(iconStr, iconTextSize, iconColor, iconFontPath)
         addSideView(btnKIconFont, boxWidth, paddingHorizontal, false)
@@ -170,7 +170,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         drawable: Drawable,
         boxWidth: Int,
         paddingHorizontal: Int,
-        block: (IExts_Listener<ImageView>)? = null
+        block: (IExtension_Listener<ImageView>)? = null
     ) {
         val btnImage = getBtnImage(drawable.drawable2Bitmap(boxWidth, boxWidth))
         addSideView(btnImage, boxWidth, paddingHorizontal, false)
@@ -183,7 +183,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         text: String,
         boxWidth: Int,
         paddingHorizontal: Int,
-        block: (IExts_Listener<View>)? = null,
+        block: (IExtension_Listener<View>)? = null,
         @ColorInt textColor: Int = Color.BLACK,
         @Px textSize: Int = 15f.sp2px().toInt()
     ) {
@@ -198,7 +198,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         view: View,
         boxWidth: Int,
         paddingHorizontal: Int,
-        block: (IExts_Listener<View>)? = null
+        block: (IExtension_Listener<View>)? = null
     ) {
         addSideView(view, boxWidth, paddingHorizontal, false)
         block?.let {

@@ -30,7 +30,7 @@ class BasicKActivity : BaseActivityVB<ActivityBasickBinding>() {
         startContext<ManifestKActivity>()
     }
 
-    fun goSenseK(view: View) {
+    fun goPostK(view: View) {
         startContext<PostKActivity>()
     }
 

@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Looper
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.commons.ISusp_Listener
+import com.mozhimen.basick.elemk.commons.ISuspend_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivityManager
@@ -73,7 +73,7 @@ object UtilKThread {
      * @param block SuspendFunction0<Unit>
      */
     @JvmStatic
-    suspend fun runOnBackThread(block: ISusp_Listener) {
+    suspend fun runOnBackThread(block: ISuspend_Listener) {
         if (isMainThread()) {
             withContext(Dispatchers.IO) { block.invoke() }
         } else {

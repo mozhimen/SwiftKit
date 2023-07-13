@@ -1,7 +1,7 @@
 package com.mozhimen.basick.taskk.temps
 
 import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
-import com.mozhimen.basick.elemk.commons.ISusp_Listener
+import com.mozhimen.basick.elemk.commons.ISuspend_Listener
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
@@ -27,7 +27,7 @@ class TaskKAsync : BaseWakeBefDestroyTaskK() {
         this._taskKAsyncErrorListener = listener
     }
 
-    fun execute(task: ISusp_Listener) {
+    fun execute(task: ISuspend_Listener) {
         if (isActive()) return
         _asyncScope.launch {
             task.invoke()

@@ -40,8 +40,8 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Btn_Style"
-                android:onClick="goSenseK"
-                android:text="goSenseK"
+                android:onClick="goPostK"
+                android:text="goPostK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton

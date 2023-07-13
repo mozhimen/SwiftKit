@@ -141,10 +141,19 @@ fun View.applyDebounceClickListener(scope: CoroutineScope, thresholdMillis: Long
     UtilKView.applyDebounceClickListener(this, scope, block, thresholdMillis)
 }
 
+fun View.applySuspendDebounceClickListener(scope: CoroutineScope, thresholdMillis: Long = 500, block: suspend CoroutineScope.(View) -> Unit) {
+    UtilKView.applySuspendDebounceClickListener(this, scope, block, thresholdMillis)
+}
+
 object UtilKView : BaseUtilK() {
     @JvmStatic
     fun applyDebounceClickListener(view: View, scope: CoroutineScope, block: IA_Listener<View>, thresholdMillis: Long = 500) {
         view.asViewClickFlow().throttleFirst(thresholdMillis).onEach { block.invoke(view) }.launchIn(scope)
+    }
+
+    @JvmStatic
+    fun applySuspendDebounceClickListener(view: View, scope: CoroutineScope, block: suspend CoroutineScope.(View) -> Unit, thresholdMillis: Long = 500) {
+        view.asViewClickFlow().throttleFirst(thresholdMillis).onEach { scope.block(view) }.launchIn(scope)
     }
 
     @JvmStatic

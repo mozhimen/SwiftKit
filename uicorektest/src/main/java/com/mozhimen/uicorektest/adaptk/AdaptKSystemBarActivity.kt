@@ -5,7 +5,7 @@ import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarPropertyOr
 import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
 import com.mozhimen.uicorek.adaptk.systembar.cons.CPropertyOr
-import com.mozhimen.uicorek.adaptk.systembar.initSenseKSystemBar
+import com.mozhimen.uicorek.adaptk.systembar.initAdaptKSystemBar
 import com.mozhimen.uicorektest.databinding.ActivityAdaptkSystembarBinding
 
 //简单用法, 直接使用预制的属性
@@ -16,6 +16,6 @@ import com.mozhimen.uicorektest.databinding.ActivityAdaptkSystembarBinding
 @AAdaptKSystemBarPropertyOr(CPropertyOr.IMMERSED_OPEN, CPropertyOr.HIDE_STATUS_BAR, CPropertyOr.HIDE_NAVIGATION_BAR)
 class AdaptKSystemBarActivity : BaseActivityVB<ActivityAdaptkSystembarBinding>() {
     override fun initFlag() {
-        initSenseKSystemBar()
+        initAdaptKSystemBar()
     }
 }

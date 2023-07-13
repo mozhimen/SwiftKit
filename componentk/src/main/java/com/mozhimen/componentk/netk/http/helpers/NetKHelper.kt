@@ -1,8 +1,8 @@
 package com.mozhimen.componentk.netk.http.helpers
 
-import com.mozhimen.basick.elemk.commons.ISuspAB_Listener
-import com.mozhimen.basick.elemk.commons.ISuspA_Listener
-import com.mozhimen.basick.elemk.commons.ISusp_AListener
+import com.mozhimen.basick.elemk.commons.ISuspendAB_Listener
+import com.mozhimen.basick.elemk.commons.ISuspendA_Listener
+import com.mozhimen.basick.elemk.commons.ISuspend_AListener
 import com.mozhimen.basick.elemk.mos.MResultIST
 import com.mozhimen.basick.utilk.android.util.vt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -20,8 +20,8 @@ import kotlinx.coroutines.flow.*
  * @Version 1.0
  */
 suspend fun <T> Flow<NetKRep<T>>.asNetKRes(
-    onSuccess: ISuspA_Listener<T>,
-    onFail: ISuspAB_Listener<Int, String>/*onSuccess: suspend (data: R) -> Unit, onFail: suspend (code: Int, msg: String) -> Unit*/
+    onSuccess: ISuspendA_Listener<T>,
+    onFail: ISuspendAB_Listener<Int, String>/*onSuccess: suspend (data: R) -> Unit, onFail: suspend (code: Int, msg: String) -> Unit*/
 ) {
     NetKHelper.asNetRes(this, onSuccess, onFail)
 }
@@ -31,7 +31,7 @@ suspend fun <T> Flow<NetKRep<T>>.asNetKResSync(): MResultIST<T?> =
 
 object NetKHelper : BaseUtilK() {
     @JvmStatic
-    fun <R> createFlow(invoke: ISusp_AListener<R?>): Flow<NetKRep<R>> = flow {
+    fun <R> createFlow(invoke: ISuspend_AListener<R?>): Flow<NetKRep<R>> = flow {
         emit(NetKRep.Uninitialized)
         val result: R? = invoke()
         result?.let {
@@ -44,7 +44,7 @@ object NetKHelper : BaseUtilK() {
     }.flowOn(Dispatchers.IO)
 
     @JvmStatic
-    suspend fun <T> asNetRes(flow: Flow<NetKRep<T>>, onSuccess: ISuspA_Listener<T>, onFail: ISuspAB_Listener<Int, String>) {
+    suspend fun <T> asNetRes(flow: Flow<NetKRep<T>>, onSuccess: ISuspendA_Listener<T>, onFail: ISuspendAB_Listener<Int, String>) {
         flow.onEach {
             "asNetRes: ${it::class.simpleName}".vt(TAG)
         }.collectLatest {

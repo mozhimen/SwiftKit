@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.navigation.NavController
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVBVM
-import com.mozhimen.uicorek.adaptk.systembar.initSenseKSystemBar
+import com.mozhimen.uicorek.adaptk.systembar.initAdaptKSystemBar
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.debugk.R
@@ -32,7 +32,7 @@ abstract class BaseDebugKNavigateKActivity : BaseActivityVBVM<DebugkActivityNavi
     abstract fun getFragments(): List<Class<*>>
 
     override fun initFlag() {
-        initSenseKSystemBar()
+        initAdaptKSystemBar()
     }
 
     @SuppressLint("RestrictedApi")

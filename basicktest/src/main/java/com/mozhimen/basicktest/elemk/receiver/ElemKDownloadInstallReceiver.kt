@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest.elemk.receiver
 
-import com.mozhimen.basick.elemk.android.content.temps.DownloadInstallReceiver
+import com.mozhimen.basick.elemk.android.content.bases.BaseDownloadInstallBroadcastReceiver
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 
@@ -13,4 +13,4 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
-class ElemKDownloadInstallReceiver : DownloadInstallReceiver("")
+class ElemKDownloadInstallReceiver : BaseDownloadInstallBroadcastReceiver("")

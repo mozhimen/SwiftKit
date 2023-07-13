@@ -75,6 +75,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Btn_Style"
+                android:onClick="goToastK"
+                android:text="goToastK"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn_Style"
                 android:onClick="goViewK"
                 android:text="goViewK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

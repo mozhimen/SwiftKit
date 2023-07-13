@@ -1,6 +1,9 @@
 package com.mozhimen.basick.utilk.kotlinx.coroutines
 
+import android.text.Editable
 import android.view.View
+import android.widget.EditText
+import com.mozhimen.basick.elemk.android.view.bases.BaseTextWatcher
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -24,6 +27,17 @@ object UtilKFlow {
     fun asViewClickFlow(view: View): Flow<Unit> = callbackFlow {
         view.setOnClickListener { this.trySend(Unit).isSuccess }
         awaitClose { view.setOnClickListener(null) }
+    }
+
+    @JvmStatic
+    fun asEditTextChangeFlow(editText: EditText): Flow<CharSequence> = callbackFlow {
+        val textWatcher = object : BaseTextWatcher() {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {// 在文本变化后向流发射数据
+                s?.let { this@callbackFlow.trySend(it).isSuccess }
+            }
+        }
+        editText.addTextChangedListener(textWatcher) // 设置输入框监听器
+        awaitClose { editText.removeTextChangedListener(textWatcher) } // 阻塞以保证流一直运行
     }
 
     @JvmStatic
