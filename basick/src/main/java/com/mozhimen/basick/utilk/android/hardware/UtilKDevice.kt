@@ -1,16 +1,19 @@
 package com.mozhimen.basick.utilk.android.hardware
 
 import android.hardware.usb.UsbDevice
+import android.os.Build
 import android.os.Environment
 import android.os.StatFs
 import android.text.TextUtils
 import android.text.format.Formatter
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
+import com.mozhimen.basick.utilk.android.telephony.UtilKIMEI
 import com.mozhimen.basick.utilk.android.text.getFormatFileSize
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.os.UtilKPath
@@ -37,6 +40,13 @@ object UtilKDevice : BaseUtilK() {
     @JvmStatic
     fun isHasBackCamera(): Boolean =
         UtilKCamera.isHasBackCamera(_context)
+
+    @JvmStatic
+    @RequiresPermission(CPermission.READ_PHONE_STATE)
+    fun getIMEI(): String =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            UtilKIMEI.getIMEI1(_context)
+        } else ""
 
     /**
      * 设备内存空间

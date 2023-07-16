@@ -21,7 +21,7 @@ import java.lang.StringBuilder
  * @Date 2022/6/13 17:52
  * @Version 1.0
  */
-object UtilKProcess : BaseUtilK() {
+object UtilKRuntime : BaseUtilK() {
     private val SHELL_SEP = System.getProperty(CPackage.LINE_SEPARATOR)
 
     /**

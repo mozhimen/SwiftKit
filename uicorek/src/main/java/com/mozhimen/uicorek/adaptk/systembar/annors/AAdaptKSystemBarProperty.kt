@@ -10,6 +10,7 @@ import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
  * @Version 1.0
  */
 /**
+ * 原设计参考, 此为废弃方案
  * @Target(AnnotationTarget.CLASS)
  * @Retention(AnnotationRetention.RUNTIME)
  * annotation class ASenseKSystemBar(

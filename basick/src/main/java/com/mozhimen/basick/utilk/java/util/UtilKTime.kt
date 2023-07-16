@@ -29,7 +29,6 @@ object UtilKTime {
     /**
      * 是否对齐时间
      * @param hourAndMinuteTwoBits Pair<String, String> 小时两位,分钟两位
-     * @param timeStr String 格式HHmm
      * @return Boolean
      */
     @JvmStatic

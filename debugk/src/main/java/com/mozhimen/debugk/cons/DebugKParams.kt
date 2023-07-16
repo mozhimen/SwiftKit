@@ -7,6 +7,7 @@ import com.mozhimen.basick.utilk.kotlin.boolean2Str
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
+import com.mozhimen.basick.utilk.android.telephony.UtilKIMEI
 import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar
 import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
 import com.mozhimen.debugk.BuildConfig
@@ -54,6 +55,9 @@ class DebugKParams {
 
     @ADebugKParams("设备是否有后置摄像头")
     fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().boolean2Str()
+
+    @ADebugKParams("设备默认IMEI")
+    fun deviceIMEI():String = UtilKDevice.getIMEI()
 
     /**
      * 构建参数

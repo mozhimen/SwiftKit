@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.android.hardware
 
 import com.mozhimen.basick.elemk.cons.CCmd
-import com.mozhimen.basick.utilk.java.lang.UtilKProcess
+import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 
 
 /**
@@ -18,7 +18,7 @@ object UtilKFillLight {
      */
     @JvmStatic
     fun openFillLight() {
-        UtilKProcess.execCmd(CCmd.FILL_LIGHT_OPEN)
+        UtilKRuntime.execCmd(CCmd.FILL_LIGHT_OPEN)
     }
 
     /**
@@ -26,6 +26,6 @@ object UtilKFillLight {
      */
     @JvmStatic
     fun closeFillLight() {
-        UtilKProcess.execCmd(CCmd.FILL_LIGHT_CLOSE)
+        UtilKRuntime.execCmd(CCmd.FILL_LIGHT_CLOSE)
     }
 }

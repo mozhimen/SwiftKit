@@ -105,7 +105,7 @@ object CProperty {
     const val IMMERSED_SOFT = PreProperty.IMMERSED_SOFT or PreProperty.HIDE_ALL
     const val IMMERSED_HARD = PreProperty.IMMERSED_HARD or PreProperty.HIDE_ALL or PreProperty.OVERLAY_ALL or PreProperty.LAYOUT_DEFAULT
     const val IMMERSED_HARD_STICKY = PreProperty.IMMERSED_HARD_STICKY or PreProperty.HIDE_ALL or PreProperty.OVERLAY_ALL or PreProperty.LAYOUT_DEFAULT
-    const val TRANSLUCENT = PreProperty.NORMAL or PreProperty.OVERLAY_ALL or PreProperty.LAYOUT_DEFAULT or CPropertyOr.STATUS_BAR_BG_TRANSLUCENT
+    const val TRANSLUCENT = PreProperty.NORMAL or PreProperty.OVERLAY_ALL or CPropertyOr.STATUS_BAR_BG_TRANSLUCENT
 
     internal object PreProperty {
         const val NORMAL = CPropertyOr.NORMAL//0b0000_0000_0000_0000

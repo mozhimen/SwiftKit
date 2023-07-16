@@ -2,12 +2,10 @@ package com.mozhimen.basick.utilk.android.widget
 
 import android.text.Editable
 import android.text.InputFilter
-import android.text.TextWatcher
 import android.widget.EditText
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.android.view.bases.BaseTextWatcher
 import com.mozhimen.basick.utilk.kotlin.toStringTrim
-import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
@@ -18,11 +16,8 @@ import kotlinx.coroutines.flow.callbackFlow
  * @Date 2022/11/6 0:28
  * @Version 1.0
  */
-val EditText.value: String
-    get() = value()
-
-fun EditText.value(): String =
-    UtilKEditText.value(this)
+fun EditText.getValue(): String =
+    UtilKEditText.getValue(this)
 
 fun EditText.setInputMaxLength(inputMaxLength: Int) {
     UtilKEditText.setInputMaxLength(this, inputMaxLength)
@@ -40,10 +35,10 @@ fun EditText.textChangeFlow(): Flow<Editable> = callbackFlow {
 
 object UtilKEditText {
 
-    @JvmStatic
-    fun applyDebounceTextChangeListener(editText: EditText,scope:) {
-
-    }
+//    @JvmStatic
+//    fun applyDebounceTextChangeListener(editText: EditText,scope:) {
+//
+//    }
 
     /**
      * 最多可输入的字符数
@@ -61,7 +56,7 @@ object UtilKEditText {
      * @return String
      */
     @JvmStatic
-    fun value(editText: EditText): String =
+    fun getValue(editText: EditText): String =
         editText.text.toStringTrim()
 
     /**

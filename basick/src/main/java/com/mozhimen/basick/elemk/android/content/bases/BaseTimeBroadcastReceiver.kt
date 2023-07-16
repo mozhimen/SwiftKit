@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_RegisterDynamic
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName BaseTimeReceiver
@@ -41,7 +42,7 @@ super.initData(savedInstanceState)
  * @Date 2023/1/10 14:01
  * @Version 1.0
  */
-interface ITimeReceiverListener {
+interface ITimeReceiverListener : IUtilK {
     fun onTimeZoneChanged() {}
     fun onTimeTick() {}
     fun onTimeChanged() {}

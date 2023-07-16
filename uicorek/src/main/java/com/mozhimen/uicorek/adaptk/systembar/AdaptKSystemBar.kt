@@ -1,6 +1,7 @@
 package com.mozhimen.uicorek.adaptk.systembar
 
 import android.app.Activity
+import android.util.Log
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarPropertyAnd
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarPropertyOr

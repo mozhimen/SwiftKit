@@ -66,4 +66,7 @@ object UtilKActivityManager {
     fun getTotalMenSizeStr(memoryInfo: MemoryInfo): String =
         getTotalMen(memoryInfo).getFormatFileSize()
 
+    @JvmStatic
+    fun getRunningAppProcesses(context: Context): List<ActivityManager.RunningAppProcessInfo> =
+        get(context).runningAppProcesses
 }

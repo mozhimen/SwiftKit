@@ -56,7 +56,26 @@ fun String.isNotEmptyOrElse(isNotEmptyBlock: I_Listener, orElseBlock: I_Listener
     UtilKString.isNotEmptyOrElse(this, isNotEmptyBlock, orElseBlock)
 }
 
+fun CharSequence.applyEquals(charSequence: CharSequence): Boolean =
+    UtilKString.applyEquals(this, charSequence)
+
 object UtilKString : BaseUtilK() {
+
+    @JvmStatic
+    fun applyEquals(charSequence1: CharSequence, charSequence2: CharSequence): Boolean {
+        if (charSequence1 === charSequence2) return true
+        var length: Int
+        return if (charSequence1.length.also { length = it } == charSequence2.length) {
+            if (charSequence1 is String && charSequence2 is String) {
+                charSequence1 == charSequence2
+            } else {
+                for (i in 0 until length) {
+                    if (charSequence1[i] != charSequence2[i]) return false
+                }
+                true
+            }
+        } else false
+    }
 
     @JvmStatic
     fun isNotEmptyOrElse(str: String, isNotEmptyBlock: I_Listener, orElseBlock: I_Listener) {
@@ -144,8 +163,8 @@ object UtilKString : BaseUtilK() {
      * 是否为空
      */
     @JvmStatic
-    fun isEmpty(str: CharSequence?): Boolean {
-        return str.isNullOrEmpty()
+    fun isEmpty(str: CharSequence): Boolean {
+        return str.isEmpty()
     }
 
     /**

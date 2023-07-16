@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.UtilKString
@@ -109,7 +110,7 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @param bytes ByteArray?
      * @param quality Int
      */
-    @RequiresApi(Build.VERSION_CODES.HONEYCOMB_MR1)
+    @RequiresApi(CVersCode.V_12_31_H1)
     @JvmStatic
     private fun printBitmapInfo(bitmap: Bitmap, bytes: ByteArray?, quality: Int) {
         Log.v(
