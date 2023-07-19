@@ -6,7 +6,7 @@ import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiMultiDex_InApplicat
 import com.mozhimen.basick.stackk.process.StackKProcess
 
 @OptIn(ALintKOptIn_ApiMultiDex_InApplication::class)
-class BasicKApplication : BaseApplication(false) {
+class BasicKApplication : BaseApplication() {
     @OptIn(ALintKOptIn_ApiInit_InApplication::class)
     override fun onCreate() {
         super.onCreate()

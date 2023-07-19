@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
-
+        <activity
+            android:name=".utilk.kotlin.UtilKGenerateNoActivity"
+            android:exported="false" />
         <activity
             android:name=".BasicKActivity"
             android:exported="true">
@@ -79,24 +81,21 @@
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver>
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+        </receiver> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- manifestk -->
         <activity
             android:name=".manifestk.ManifestKActivity"
             android:exported="false" />
         <activity
             android:name=".manifestk.ManifestKPermissionActivity"
-            android:exported="false" />
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- postk -->
         <activity
             android:name=".postk.PostKActivity"
             android:exported="false" />
         <activity
             android:name=".postk.PostKLiveDataEventBusActivity"
-            android:exported="false" />
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- stackk -->
         <activity
             android:name=".stackk.StackKActivity"
@@ -106,8 +105,7 @@
             android:exported="false" />
         <activity
             android:name=".stackk.StackKCbActivity"
-            android:exported="false" />
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- taskk -->
         <activity
             android:name=".taskk.TaskKActivity"
@@ -123,8 +121,7 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKCountDownActivity"
-            android:exported="false" />
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- utilk -->
         <activity
             android:name=".utilk.UtilKActivity"

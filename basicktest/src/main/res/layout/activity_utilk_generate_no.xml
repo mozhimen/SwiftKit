@@ -9,16 +9,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
-            android:onClick="goUtilKVerifyUrl"
-            android:text="goUtilKVerifyUrl"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
+        <TextView
+            android:id="@+id/utilk_generate_no_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/utilk_generate_no_btn"
             style="@style/Btn_Style"
-            android:onClick="goUtilKGenerateNo"
-            android:text="goUtilKGenerateNo"
-            tools:ignore="HardcodedText,UsingOnClickInXml" />
+            android:text="Generate"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 </layout>

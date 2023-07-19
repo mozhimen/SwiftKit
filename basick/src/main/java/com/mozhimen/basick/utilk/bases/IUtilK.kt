@@ -8,5 +8,6 @@ package com.mozhimen.basick.utilk.bases
  * @Version 1.0
  */
 interface IUtilK {
-    val TAG: String get() = "${this.javaClass.simpleName}>>>>>"
+    val NAME :String get() = this.javaClass.simpleName
+    val TAG: String get() = "$NAME>>>>>"
 }

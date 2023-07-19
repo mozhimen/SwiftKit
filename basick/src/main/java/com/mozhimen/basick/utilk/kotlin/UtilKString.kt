@@ -6,7 +6,10 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.text.DecimalFormat
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import java.util.stream.Collectors
+
 
 /**
  * @ClassName UtilKString
@@ -60,10 +63,6 @@ fun CharSequence.applyEquals(charSequence: CharSequence): Boolean =
     UtilKString.applyEquals(this, charSequence)
 
 object UtilKString : BaseUtilK() {
-
-    fun toStringCharset(str: String): String {
-        return Charsets.toString()
-    }
 
     @JvmStatic
     fun applyEquals(charSequence1: CharSequence, charSequence2: CharSequence): Boolean {

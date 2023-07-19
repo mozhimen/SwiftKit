@@ -75,7 +75,11 @@ fun Double.percent(range: Pair<Double, Double>): Double =
     UtilKNumber.percent(this, range.first, range.second)
 
 object UtilKNumber {
-    private val TAG = "UtilKNumber>>>>>"
+
+    @JvmStatic
+    fun complementBy0(number: Number, decimal: Int): String {
+        return String.format("%0${decimal}d", number)
+    }
 
     /**
      * ASCII转整型
