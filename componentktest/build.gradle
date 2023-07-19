@@ -17,23 +17,23 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        signConfig {
-            keyAlias 'platform'
-            keyPassword 'android'
-            storeFile file('D:/WorkSpace/BaiduSpace/BaiduSyncdisk/File/Keystore/platform.keystore')
-            storePassword 'android'
-        }
-    }
+//    signingConfigs {
+//        signConfig {
+//            keyAlias 'platform'
+//            keyPassword 'android'
+//            storeFile file('D:/WorkSpace/BaiduSpace/BaiduSyncdisk/File/Keystore/platform.keystore')
+//            storePassword 'android'
+//        }
+//    }
 
     buildTypes {
         debug {
-            signingConfig signingConfigs.signConfig
+            //signingConfig signingConfigs.signConfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
-            signingConfig signingConfigs.signConfig
+            //signingConfig signingConfigs.signConfig
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
