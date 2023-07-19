@@ -11,8 +11,8 @@ import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVBVM
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
-import com.mozhimen.uicorek.adaptk.systembar.initSenseKSystemBar
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffedVB
+import com.mozhimen.uicorek.adaptk.systembar.initAdaptKSystemBar
 import kotlin.math.abs
 
 @AAdaptKSystemBarProperty(property = CProperty.IMMERSED_HARD_STICKY)
@@ -20,7 +20,7 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
     private var _scrollY = 0
     private var _alpha = 0
     override fun initFlag() {
-        initSenseKSystemBar()
+        initAdaptKSystemBar()
     }
     override fun initView(savedInstanceState: Bundle?) {
         val list = arrayListOf(

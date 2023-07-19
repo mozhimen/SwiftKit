@@ -166,8 +166,8 @@ object UtilKString : BaseUtilK() {
      * 是否为空
      */
     @JvmStatic
-    fun isEmpty(charSequence: CharSequence?): Boolean {
-        return charSequence.isNullOrEmpty()
+    fun isEmpty(str: CharSequence?): Boolean {
+        return str.isNullOrEmpty()
     }
 
     /**

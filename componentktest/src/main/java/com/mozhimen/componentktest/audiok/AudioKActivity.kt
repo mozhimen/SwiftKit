@@ -14,11 +14,11 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.componentk.mediak.audio.MediaKAudio
 import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
-import com.mozhimen.basick.sensek.eventbus.UtilKLiveDataBus
 import com.mozhimen.componentk.mediak.audio.mos.MAudioK
 import com.mozhimen.componentk.mediak.audio.mos.MAudioKProgress
 import com.mozhimen.componentktest.R
@@ -64,7 +64,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         })
 
         MediaKAudio.instance.addAudiosToPlayList(_audioList)
-        UtilKLiveDataBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_START).observe(this) {
+        PostKLiveDataEventBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_START).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_start")
                 _popwinAudio.setTitle(it.name)
@@ -73,7 +73,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                 }
             }
         }
-        UtilKLiveDataBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).observe(this) {
+        PostKLiveDataEventBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_popup")
                 if (!it.second) {
@@ -115,7 +115,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                     dismiss()
                 }
             }
-            UtilKLiveDataBus.with<MAudioKProgress?>(CAudioEvent.EVENT_PROGRESS_UPDATE).observe(this) {
+            PostKLiveDataEventBus.with<MAudioKProgress?>(CAudioEvent.EVENT_PROGRESS_UPDATE).observe(this) {
                 if (it != null) {
                     Log.d(TAG, "initData: progress_update" + " progress status ${it.status} currentPos ${it.currentPos} duration ${it.duration} audioInfo ${it.audioInfo}")
                     _slider.updateRodPercent(it.currentPos.toFloat() / it.duration.toFloat())
