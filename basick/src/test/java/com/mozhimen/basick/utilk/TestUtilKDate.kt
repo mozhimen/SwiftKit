@@ -1,10 +1,13 @@
 package com.mozhimen.basick.utilk
 
+import com.mozhimen.basick.utilk.android.util.println
+import com.mozhimen.basick.utilk.java.util.UtilKDate
+import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
 class TestUtilKDate {
     @Test
-    fun getTimeZone() {
+    fun test() {
 //        val nowDate = UtilKDate.getNowDate()
 //        val nowTime = UtilKDate.getNowLong()
 //        val nowStr = UtilKDate.getNowStr()
@@ -22,5 +25,7 @@ class TestUtilKDate {
 //        UtilKDate.getNowLong().printlog()
 //        UtilKDate.getTodayLong().printlog()
 //        UtilKDate.getTodayLong().long2Str(UtilKDate.Format.yyyyMMdd).printlog()
+
+//        UtilKDate.getWaterNumberForHour().printlog()
     }
 }

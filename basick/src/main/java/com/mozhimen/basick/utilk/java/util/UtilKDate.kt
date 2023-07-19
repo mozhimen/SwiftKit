@@ -4,6 +4,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.cons.CDateFormat
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.lang.Exception
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -81,8 +82,9 @@ object UtilKDate : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun getTodayStr(locale: Locale = Locale.CHINA): String =
-        date2Str(getNowDate(), CDateFormat.yyyyMMdd, locale)
+    @JvmOverloads
+    fun getTodayStr(locale: Locale = Locale.CHINA, formatDate: String = CDateFormat.yyyyMMdd): String =
+        date2Str(getNowDate(), formatDate, locale)
 
     /**
      * 今日Long

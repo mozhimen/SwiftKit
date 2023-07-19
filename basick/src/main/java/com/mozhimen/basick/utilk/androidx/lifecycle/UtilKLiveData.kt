@@ -1,8 +1,10 @@
 package com.mozhimen.basick.utilk.androidx.lifecycle
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.mozhimen.basick.elemk.commons.ISuspend_AListener
+import com.mozhimen.basick.utilk.kotlin.toStringTrim
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
@@ -13,7 +15,13 @@ import kotlin.coroutines.CoroutineContext
  * @Date 2023/6/7 15:09
  * @Version 1.0
  */
+fun MutableLiveData<String>.gainValue() =
+    UtilKLiveData.gainValue(this)
+
 object UtilKLiveData {
+    fun gainValue(mutableLiveData: MutableLiveData<String>): String =
+        mutableLiveData.value?.toStringTrim() ?: ""
+
     /**
      * 作用: 消息机制
      * 依赖: implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'

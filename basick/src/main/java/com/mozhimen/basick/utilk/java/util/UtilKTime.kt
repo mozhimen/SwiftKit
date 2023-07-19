@@ -92,7 +92,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun getCurrentHourStrDoubleBits(): String =
-        UtilKDate.getNowStr(CDateFormat.mm)
+        UtilKDate.getNowStr(CDateFormat.HH)
 
     /**
      * 是否是整小时

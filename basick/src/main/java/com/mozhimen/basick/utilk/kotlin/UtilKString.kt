@@ -61,6 +61,10 @@ fun CharSequence.applyEquals(charSequence: CharSequence): Boolean =
 
 object UtilKString : BaseUtilK() {
 
+    fun toStringCharset(str: String): String {
+        return Charsets.toString()
+    }
+
     @JvmStatic
     fun applyEquals(charSequence1: CharSequence, charSequence2: CharSequence): Boolean {
         if (charSequence1 === charSequence2) return true
@@ -163,9 +167,13 @@ object UtilKString : BaseUtilK() {
      * 是否为空
      */
     @JvmStatic
-    fun isEmpty(str: CharSequence): Boolean {
-        return str.isEmpty()
+    fun isEmpty(charSequence: CharSequence?): Boolean {
+        return charSequence.isNullOrEmpty()
     }
+
+    /**
+     * 是否为空
+     */
 
     /**
      * 获取分割后的最后一个元素
