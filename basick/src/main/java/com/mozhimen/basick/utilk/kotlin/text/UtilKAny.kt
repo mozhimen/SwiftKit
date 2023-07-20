@@ -19,7 +19,8 @@ import java.lang.reflect.Array
  */
 object UtilKAny {
     @JvmStatic
-    fun isEmpty(obj: Any): Boolean {
+    fun isNullOrEmpty(obj: Any?): Boolean {
+        if (obj == null) return true
         if (obj.javaClass.isArray && Array.getLength(obj) == 0) {
             return true
         }
