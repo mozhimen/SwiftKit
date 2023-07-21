@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.media.Image
 import android.net.Uri
 import android.util.Log
+import androidx.annotation.IntRange
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.drawable.toDrawable
 import com.mozhimen.basick.elemk.cons.CMsg
@@ -204,17 +205,12 @@ object UtilKBitmapFormat : BaseUtilK() {
         return bitmap
     }
 
-    /**
-     * 位图转bytes
-     * @param sourceBitmap Bitmap
-     * @return ByteArray?
-     */
     @JvmStatic
-    fun bitmap2JpegBytes(sourceBitmap: Bitmap): ByteArray? {
+    fun bitmap2Bytes(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray? {
         var byteArrayOutputStream: ByteArrayOutputStream? = null
         try {
             byteArrayOutputStream = ByteArrayOutputStream(sourceBitmap.width * sourceBitmap.height * 4)
-            sourceBitmap.compress(CompressFormat.JPEG, 100, byteArrayOutputStream)            //设置位图的压缩格式，质量为100%，并放入字节数组输出流中
+            sourceBitmap.compress(compressFormat, quality, byteArrayOutputStream)            //设置位图的压缩格式，质量为100%，并放入字节数组输出流中
             return byteArrayOutputStream.toByteArray()            //将字节数组输出流转化为字节数组byte[]
         } catch (e: Exception) {
             e.printStackTrace()
@@ -225,6 +221,10 @@ object UtilKBitmapFormat : BaseUtilK() {
         }
         return null
     }
+
+    @JvmStatic
+    fun bitmap2JpegBytes(sourceBitmap: Bitmap, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray? =
+        bitmap2Bytes(sourceBitmap, CompressFormat.JPEG, quality)
 
     /**
      * uri转bitmap

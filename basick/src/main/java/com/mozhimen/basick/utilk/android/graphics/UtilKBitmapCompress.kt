@@ -32,20 +32,9 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @return Bitmap
      */
     @JvmStatic
-    fun compressQuality(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int = 50): Bitmap? {
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        try {
-            sourceBitmap.compress(CompressFormat.JPEG, quality, byteArrayOutputStream)
-            val bytes: ByteArray = byteArrayOutputStream.toByteArray()
-            return BitmapFactory.decodeByteArray(bytes, 0, bytes.size).also { printBitmapInfo(it, bytes, quality) }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            byteArrayOutputStream.flush()
-            byteArrayOutputStream.close()
-        }
-        return null
+    fun compressQuality(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int = 50): Bitmap? {
+        val bytes: ByteArray = UtilKBitmapFormat.bitmap2Bytes(sourceBitmap, compressFormat, quality) ?: return null
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size).also { printBitmapInfo(it, bytes, quality) }
     }
 
     /**
