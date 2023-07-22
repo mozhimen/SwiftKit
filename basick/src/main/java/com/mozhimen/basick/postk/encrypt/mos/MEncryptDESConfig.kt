@@ -12,8 +12,8 @@ import java.nio.charset.Charset
  * @Version 1.0
  */
 class MEncryptDESConfig(
-    secretKey: String,//key
-    charset: Charset,  //字符编码
+    secretKey: String= "saaierForTodoKey",//key
+    charset: Charset= Charsets.UTF_8,  //字符编码
 ) : BaseEncryptConfig(
     secretKey,
     "",

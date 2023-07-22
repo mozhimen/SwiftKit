@@ -3,7 +3,7 @@ package com.mozhimen.basick.postk.encrypt.helpers
 import android.util.Base64
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.postk.encrypt.commons.IEncrypt
+import com.mozhimen.basick.postk.encrypt.commons.IEncryptProvider
 import com.mozhimen.basick.postk.encrypt.mos.MEncryptAESConfig
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
@@ -16,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec
  * @Date 2023/7/12 15:58
  * @Version 1.0
  */
-class EncryptAESProvider(private val _config: MEncryptAESConfig) : IEncrypt {
+class EncryptAESProvider(private val _config: MEncryptAESConfig) : IEncryptProvider {
 
     @Throws(Exception::class)
     @RequiresApi(CVersCode.V_19_44_K)

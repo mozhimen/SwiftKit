@@ -1,5 +1,6 @@
 package com.mozhimen.basick.postk.encrypt
 
+import com.mozhimen.basick.postk.encrypt.commons.IEncrypt
 import com.mozhimen.basick.postk.encrypt.helpers.EncryptAESProvider
 import com.mozhimen.basick.postk.encrypt.mos.MEncryptAESConfig
 import java.nio.charset.Charset
@@ -11,26 +12,23 @@ import java.nio.charset.Charset
  * @Date 2021/10/14 15:13
  * @Version 1.0
  */
-object PostKEncryptAES {
+object PostKEncryptAES : IEncrypt<MEncryptAESConfig, EncryptAESProvider> {
 
     /**
      * 默认参数配置
-     * @param secretKey String 需要16位
-     * @param ivString String 需要16位
-     * @param secureKeyLength Int
-     * @param defaultFill String
-     * @param charset Charset
-     * @param cipherAlgorithm String
-     * @return UtilKAESProvider
+     *
+     * secretKey: String = "saaierForTodoKey",
+     * ivString: String = "ihaierForTodo_Iv",
+     * secureKeyLength: Int = 16,
+     * defaultFill: String = "0",
+     * charset: Charset = Charsets.UTF_8,
+     * cipherAlgorithm: String = "AES/CBC/PKCS5Padding"
+     *
+     * @return EncryptAESProvider
      */
-    @JvmStatic
-    fun with(
-        secretKey: String = "saaierForTodoKey",
-        ivString: String = "ihaierForTodo_Iv",
-        secureKeyLength: Int = 16,
-        defaultFill: String = "0",
-        charset: Charset = Charsets.UTF_8,
-        cipherAlgorithm: String = "AES/CBC/PKCS5Padding"
-    ): EncryptAESProvider =
-        EncryptAESProvider(MEncryptAESConfig(secretKey, ivString, secureKeyLength, defaultFill, charset, cipherAlgorithm))
+    override fun with(config: MEncryptAESConfig): EncryptAESProvider =
+        EncryptAESProvider(config)
+
+    override fun with(): EncryptAESProvider =
+        with(MEncryptAESConfig())
 }

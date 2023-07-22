@@ -15,6 +15,19 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="Edit_Style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:paddingStart">@dimen/dp_010</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:paddingEnd">@dimen/dp_010</item>
+        <item name="android:cursorVisible">true</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014.Width_Wrap" />
