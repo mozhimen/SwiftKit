@@ -6,8 +6,6 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.text.DecimalFormat
 import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 import java.util.stream.Collectors
 
 
@@ -24,13 +22,13 @@ fun String.getSplitLast(splitStr: String): String =
 fun String.getSplitFirst(splitStr: String): String =
     UtilKString.getSplitFirst(this, splitStr)
 
-fun String.str2Unicode(): String =
+fun String.toUnicode(): String =
     UtilKString.str2Unicode(this)
 
-fun Boolean.boolean2Str(locale: Locale = Locale.CHINA): String =
+fun Boolean.toStr(locale: Locale = Locale.CHINA): String =
     UtilKString.boolean2Str(this, locale)
 
-fun Double.decimal2Str(pattern: String = "#.0"): String =
+fun Double.toStr(pattern: String = "#.0"): String =
     UtilKString.decimal2Str(this, pattern)
 
 fun String.throwIllegalStateException() {
@@ -61,6 +59,10 @@ fun String.isNotEmptyOrElse(isNotEmptyBlock: I_Listener, orElseBlock: I_Listener
 
 fun CharSequence.applyEquals(charSequence: CharSequence): Boolean =
     UtilKString.applyEquals(this, charSequence)
+
+fun String.isHasSpace(): Boolean =
+    UtilKString.isHasSpace(this)
+
 
 object UtilKString : BaseUtilK() {
 
@@ -169,10 +171,6 @@ object UtilKString : BaseUtilK() {
     fun isEmpty(str: CharSequence?): Boolean {
         return str.isNullOrEmpty()
     }
-
-    /**
-     * 是否为空
-     */
 
     /**
      * 获取分割后的最后一个元素

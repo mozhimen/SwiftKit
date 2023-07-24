@@ -89,9 +89,9 @@ object UtilKBitmapIO : BaseUtilK() {
     fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? =
         if (UtilKBuildVersion.isAfterV_29_10_Q()) {
             if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) null
-            else bitmap2JpegAlbumFileAfter29(sourceBitmap, filePathWithName, quality)
+            else bitmap2AlbumFileAfter29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
         } else {
-            bitmap2JpegAlbumFileBefore29(sourceBitmap, filePathWithName, quality)
+            bitmap2AlbumFileBefore29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
         }
 
     /**
@@ -104,7 +104,12 @@ object UtilKBitmapIO : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
-    fun bitmap2JpegAlbumFileAfter29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
+    fun bitmap2AlbumFileAfter29(
+        sourceBitmap: Bitmap,
+        filePathWithName: String,
+        compressFormat: CompressFormat = CompressFormat.JPEG,
+        @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100
+    ): File? {
         if (TextUtils.isEmpty(filePathWithName)) return null
         var outputStream: OutputStream? = null
         val destFile = UtilKFile.createFile(filePathWithName)
@@ -118,7 +123,7 @@ object UtilKBitmapIO : BaseUtilK() {
             val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues) // 插入相册
             uri?.let {
                 outputStream = contentResolver.openOutputStream(uri)
-                sourceBitmap.compress(CompressFormat.JPEG, quality, outputStream)
+                sourceBitmap.compress(compressFormat, quality, outputStream)
             }
             return destFile
         } catch (e: Exception) {
@@ -147,10 +152,13 @@ object UtilKBitmapIO : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
-        if (TextUtils.isEmpty(filePathWithName)) return null
-        return bitmap2JpegAlbumFileBefore29(sourceBitmap, File(filePathWithName), quality)
-    }
+    fun bitmap2AlbumFileBefore29(
+        sourceBitmap: Bitmap,
+        filePathWithName: String,
+        compressFormat: CompressFormat = CompressFormat.JPEG,
+        @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100
+    ): File? =
+        bitmap2AlbumFileBefore29(sourceBitmap, File(filePathWithName), compressFormat, quality)
 
     /**
      * bitmap转文件
@@ -160,9 +168,13 @@ object UtilKBitmapIO : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun bitmap2JpegFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
-        return bitmap2JpegAlbumFileBefore29(sourceBitmap, filePathWithName, quality)
-    }
+    fun bitmap2JpegFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        bitmap2AlbumFileBefore29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
+
+    @JvmStatic
+    fun bitmap2PngFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        bitmap2AlbumFileBefore29(sourceBitmap, filePathWithName, CompressFormat.PNG, quality)
+
 
     /**
      * 保存图片 before 29
@@ -170,12 +182,17 @@ object UtilKBitmapIO : BaseUtilK() {
      * @param sourceBitmap Bitmap?
      */
     @JvmStatic
-    fun bitmap2JpegAlbumFileBefore29(sourceBitmap: Bitmap, destFile: File, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? {
+    fun bitmap2AlbumFileBefore29(
+        sourceBitmap: Bitmap,
+        destFile: File,
+        compressFormat: CompressFormat = CompressFormat.JPEG,
+        @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100
+    ): File? {
         UtilKFile.createFile(destFile)
         var bufferedOutputStream: BufferedOutputStream? = null
         try {
             bufferedOutputStream = BufferedOutputStream(FileOutputStream(destFile))
-            sourceBitmap.compress(CompressFormat.JPEG, quality, bufferedOutputStream)
+            sourceBitmap.compress(compressFormat, quality, bufferedOutputStream)
             return destFile
         } catch (e: Exception) {
             e.printStackTrace()

@@ -16,7 +16,7 @@ import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
+import com.mozhimen.componentk.cameraxk.helpers.ImageProxyUtil
 import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
 import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 
@@ -60,10 +60,10 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
             override fun onFrame(image: ImageProxy) {
                 when (_format) {
                     ACameraXKFormat.RGBA_8888 -> {
-                        _outputBitmap = ImageConverter.rgba8888Image2Rgba8888Bitmap(image)
+                        _outputBitmap = ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(image)
                     }
                     ACameraXKFormat.YUV_420_888 -> {
-                        _outputBitmap = ImageConverter.yuv420888Image2JpegBitmap(image)
+                        _outputBitmap = ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(image)
                     }
                 }
                 _outputBitmap?.let {

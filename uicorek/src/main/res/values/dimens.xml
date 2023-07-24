@@ -13,6 +13,7 @@
     <!--/////////////////////////////////////////////////-->
 
     <dimen name="dp_004">4dp</dimen>
+    <dimen name="dp_006">6dp</dimen>
     <dimen name="dp_008">8dp</dimen>
 
     <!--/////////////////////////////////////////////////-->
@@ -22,8 +23,10 @@
     <dimen name="dp_015">15dp</dimen>
     <dimen name="dp_018">18dp</dimen>
     <dimen name="dp_020">20dp</dimen>
+    <dimen name="dp_024">24dp</dimen>
     <dimen name="dp_030">30dp</dimen>
     <dimen name="dp_040">40dp</dimen>
+    <dimen name="dp_045">45dp</dimen>
     <dimen name="dp_050">50dp</dimen>
     <dimen name="dp_060">60dp</dimen>
     <dimen name="dp_070">70dp</dimen>

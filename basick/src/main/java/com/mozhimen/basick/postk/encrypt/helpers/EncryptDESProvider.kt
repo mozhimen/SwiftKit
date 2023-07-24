@@ -2,9 +2,8 @@ package com.mozhimen.basick.postk.encrypt.helpers
 
 import android.util.Base64
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CAlgorithm
 import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.postk.encrypt.commons.IEncrypt
+import com.mozhimen.basick.postk.encrypt.commons.IEncryptProvider
 import com.mozhimen.basick.postk.encrypt.mos.MEncryptDESConfig
 import java.io.IOException
 import java.security.SecureRandom
@@ -19,7 +18,7 @@ import javax.crypto.spec.DESKeySpec
  * @Date 2023/7/12 16:24
  * @Version 1.0
  */
-class EncryptDESProvider(private val _config: MEncryptDESConfig) : IEncrypt {
+class EncryptDESProvider(private val _config: MEncryptDESConfig) : IEncryptProvider {
     /**
      * 根据键值进行加密
      * @param str String 待加密数据

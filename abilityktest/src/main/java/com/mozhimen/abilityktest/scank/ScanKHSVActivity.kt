@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.camera.core.ImageProxy
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
-import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
+import com.mozhimen.componentk.cameraxk.helpers.ImageProxyUtil
 import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
@@ -60,9 +60,9 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
                 try {
                     _reentrantLock.lock()
                     val bitmap: Bitmap = if (image.format == ImageFormat.YUV_420_888) {
-                        ImageConverter.yuv420888Image2JpegBitmap(image)!!
+                        ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(image)!!
                     } else {
-                        ImageConverter.jpegImage2JpegBitmap(image)
+                        ImageProxyUtil.jpegImageProxy2JpegBitmap(image)
                     }
                     val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
                     val ratio: Double =

@@ -3,11 +3,10 @@ package com.mozhimen.debugk.cons
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.hardware.UtilKDevice
-import com.mozhimen.basick.utilk.kotlin.boolean2Str
+import com.mozhimen.basick.utilk.kotlin.toStr
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
-import com.mozhimen.basick.utilk.android.telephony.UtilKIMEI
 import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar
 import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
 import com.mozhimen.debugk.BuildConfig
@@ -48,13 +47,13 @@ class DebugKParams {
     fun deviceHardwareVersion(): String = UtilKDevice.getHardwareVersion()
 
     @ADebugKParams("设备是否有sd卡")
-    fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().boolean2Str()
+    fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().toStr()
 
     @ADebugKParams("设备是否有前置摄像")
-    fun deviceHasFrontCamera(): String = UtilKDevice.isHasFrontCamera().boolean2Str()
+    fun deviceHasFrontCamera(): String = UtilKDevice.isHasFrontCamera().toStr()
 
     @ADebugKParams("设备是否有后置摄像头")
-    fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().boolean2Str()
+    fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().toStr()
 
     @ADebugKParams("设备默认IMEI")
     fun deviceIMEI():String = UtilKDevice.getIMEI()
