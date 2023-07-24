@@ -11,7 +11,7 @@ import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityElemkGestureBinding
 import com.mozhimen.componentk.navigatek.NavigateKProxy
-import com.mozhimen.componentk.navigatek.cons.CNavigateK
+import com.mozhimen.componentk.navigatek.cons.CNavigateKConstants
 
 
 /**
@@ -32,7 +32,7 @@ class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
         _navigateProxy.bindLifecycle(this)
         _dragAndDropProxy.bindLifecycle(this)
         savedInstanceState?.let {
-            _navigateProxy.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
+            _navigateProxy.currentItemId = savedInstanceState.getInt(CNavigateKConstants.SAVED_NAVIGATEK_CURRENT_ID, -1)
         }
         _dragAndDropProxy.dragAndDrop(vb.elemkGestureTxt1, vb.elemkGestureTxt2) { source, dest ->
             (dest as TextView).text = (source as TextView).text.toString()
@@ -91,13 +91,13 @@ class ElemKGestureActivity : BaseActivityVB<ActivityElemkGestureBinding>() {
 
     @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        outState.putInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, _navigateProxy.currentItemId)
+        outState.putInt(CNavigateKConstants.SAVED_NAVIGATEK_CURRENT_ID, _navigateProxy.currentItemId)
         super.onSaveInstanceState(outState, outPersistentState)
     }
 
     @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        _navigateProxy.currentItemId = savedInstanceState.getInt(CNavigateK.NAVIGATEK_SAVED_CURRENT_ID, -1)
+        _navigateProxy.currentItemId = savedInstanceState.getInt(CNavigateKConstants.SAVED_NAVIGATEK_CURRENT_ID, -1)
     }
 }

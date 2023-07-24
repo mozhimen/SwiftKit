@@ -53,7 +53,7 @@ import java.util.Map;
  * (i.e., in callbacks to {@link NavController.OnDestinationChangedListener}).
  */
 @Navigator.Name("navigatek")
-public class NavigateKHelper extends Navigator<NavigateKHelper.Destination> {
+public class CommonNavigator extends Navigator<CommonNavigator.Destination> {
     private static final String KEY_BACK_STACK_IDS = "androidx-nav-fragment:navigator:backStackIds";
 
     private final Context _context;
@@ -62,7 +62,7 @@ public class NavigateKHelper extends Navigator<NavigateKHelper.Destination> {
     private ArrayDeque<Integer> _backStack = new ArrayDeque<>();
     private final String TAG = "NavigateKHelper>>>>>";
 
-    public NavigateKHelper(@NonNull Context context, @NonNull FragmentManager manager,
+    public CommonNavigator(@NonNull Context context, @NonNull FragmentManager manager,
                            int containerId) {
         _context = context;
         _fragmentManager = manager;
@@ -289,7 +289,7 @@ public class NavigateKHelper extends Navigator<NavigateKHelper.Destination> {
          *                          will be associated with.
          */
         public Destination(@NonNull NavigatorProvider navigatorProvider) {
-            this(navigatorProvider.getNavigator(NavigateKHelper.class));
+            this(navigatorProvider.getNavigator(CommonNavigator.class));
         }
 
         /**

@@ -8,7 +8,7 @@ import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.componentk.navigatek.cons.CDestType
+import com.mozhimen.componentk.navigatek.cons.CNavigateKDestType
 import com.mozhimen.componentk.navigatek.mos.MNavigateKPageInfo
 import java.util.*
 
@@ -43,7 +43,7 @@ object NavigateK : BaseUtilK() {
         while (iterator.hasNext()) {
             val page = iterator.next()
             when (page.destType) {
-                CDestType.ACTIVITY -> {
+                CNavigateKDestType.ACTIVITY -> {
                     val navigator = navigatorProvider.getNavigator(ActivityNavigator::class.java)
                     val node: ActivityNavigator.Destination = navigator.createDestination()
                     node.id = page.id
@@ -51,7 +51,7 @@ object NavigateK : BaseUtilK() {
                     navGraph.addDestination(node)
                 }
 
-                CDestType.FRAGMENT -> {
+                CNavigateKDestType.FRAGMENT -> {
                     val navigator = navigatorProvider.getNavigator(FragmentNavigator::class.java)
                     val node: FragmentNavigator.Destination = navigator.createDestination()
                     node.id = page.id
@@ -59,7 +59,7 @@ object NavigateK : BaseUtilK() {
                     navGraph.addDestination(node)
                 }
 
-                CDestType.DIALOG -> {
+                CNavigateKDestType.DIALOG -> {
                     val navigator = navigatorProvider.getNavigator(DialogFragmentNavigator::class.java)
                     val node: DialogFragmentNavigator.Destination = navigator.createDestination()
                     node.id = page.id
@@ -95,9 +95,9 @@ object NavigateK : BaseUtilK() {
     private fun getDestinationType(clazz: Class<*>): String? {
         val superClazzName: String = clazz.superclass.toString()
         return when {
-            superClazzName.contains(CDestType.ACTIVITY) -> CDestType.ACTIVITY
-            superClazzName.contains(CDestType.FRAGMENT) -> CDestType.FRAGMENT
-            superClazzName.contains(CDestType.DIALOG) -> CDestType.DIALOG
+            superClazzName.contains(CNavigateKDestType.ACTIVITY) -> CNavigateKDestType.ACTIVITY
+            superClazzName.contains(CNavigateKDestType.FRAGMENT) -> CNavigateKDestType.FRAGMENT
+            superClazzName.contains(CNavigateKDestType.DIALOG) -> CNavigateKDestType.DIALOG
             else -> null
         }
     }
