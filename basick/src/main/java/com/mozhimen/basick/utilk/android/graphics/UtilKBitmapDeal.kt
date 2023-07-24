@@ -17,6 +17,9 @@ import java.lang.Integer.min
  * @Date 2022/2/27 22:49
  * @Version 1.0
  */
+fun Bitmap.rotate(degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap =
+    UtilKBitmapDeal.rotateBitmap(this, degree, flipX, flipY)
+
 object UtilKBitmapDeal : BaseUtilK() {
     /**
      * 设置大小
@@ -40,7 +43,7 @@ object UtilKBitmapDeal : BaseUtilK() {
      * 将两个图片裁剪成一致
      */
     @JvmStatic
-    fun scaleBitmap2SameSize(sourceBitmap1: Bitmap, sourceBitmap2: Bitmap,@FloatRange() ratio: Float = 1f): Pair<Bitmap, Bitmap> {
+    fun scaleBitmap2SameSize(sourceBitmap1: Bitmap, sourceBitmap2: Bitmap, @FloatRange() ratio: Float = 1f): Pair<Bitmap, Bitmap> {
         val minWidth = min(sourceBitmap1.width, sourceBitmap2.width) * ratio
         val minHeight = min(sourceBitmap1.height, sourceBitmap2.height) * ratio
         return scaleBitmap(sourceBitmap1, minWidth, minHeight) to scaleBitmapRatio(sourceBitmap2, minWidth, minHeight)

@@ -5,6 +5,7 @@ import android.media.Image.Plane
 import android.util.Log
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
+import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_FieldCall_Close
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.LogK
 import java.io.ByteArrayOutputStream
@@ -18,7 +19,7 @@ import java.nio.ByteBuffer
  * @Date 2022/2/10 18:46
  * @Version 1.0
  */
-object ImageConverter : BaseUtilK() {
+object ImageProxyUtil : BaseUtilK() {
 
     /**
      * rgba8888转Bitmap
@@ -26,7 +27,7 @@ object ImageConverter : BaseUtilK() {
      * @return Bitmap
      */
     @JvmStatic
-    fun rgba8888Image2Rgba8888Bitmap(imageProxy: ImageProxy): Bitmap {
+    fun rgba8888ImageProxy2Rgba8888Bitmap(imageProxy: ImageProxy): Bitmap {
         Log.v(TAG, "rgba8888Image2Rgba8888Bitmap: width ${imageProxy.width} height ${imageProxy.height}")
         val bitmap = Bitmap.createBitmap(imageProxy.width, imageProxy.height, Bitmap.Config.ARGB_8888)
         // Copy out RGB bits to the shared bitmap buffer
@@ -39,11 +40,13 @@ object ImageConverter : BaseUtilK() {
      * @param imageProxy ImageProxy
      * @return Bitmap?
      */
+
     @JvmStatic
     @ExperimentalGetImage
-    fun yuv420888Image2JpegBitmap(imageProxy: ImageProxy): Bitmap? {
+    @ALintKOptIn_FieldCall_Close
+    fun yuv420888ImageProxy2JpegBitmap(imageProxy: ImageProxy): Bitmap? {
         val nv21Bytes = yuv420888Planes2Nv21Bytes(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
-        return nv21Bytes2JpegBitmap(ByteBuffer.wrap(nv21Bytes), imageProxy.width, imageProxy.height)
+        return nv21Buffer2JpegBitmap(ByteBuffer.wrap(nv21Bytes), imageProxy.width, imageProxy.height)
     }
 
     /**
@@ -52,7 +55,7 @@ object ImageConverter : BaseUtilK() {
      * @return Bitmap
      */
     @JvmStatic
-    fun jpegImage2JpegBitmap(imageProxy: ImageProxy): Bitmap {
+    fun jpegImageProxy2JpegBitmap(imageProxy: ImageProxy): Bitmap {
         val buffer = imageProxy.planes[0].buffer
         val size = buffer.remaining()
         val jpegBytes = ByteArray(size)
@@ -67,22 +70,22 @@ object ImageConverter : BaseUtilK() {
      */
     @JvmStatic
     @ExperimentalGetImage
-    fun yuv4208882Nv21Bytes(imageProxy: ImageProxy): ByteArray {
+    fun yuv420888ImageProxy2Nv21Bytes(imageProxy: ImageProxy): ByteArray {
         return yuv420888Planes2Nv21Bytes(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
     }
 
     /**
      * 将 NV21 格式字节缓冲区转换为Bitmap
-     * @param nv21Bytes ByteBuffer
+     * @param nv21Buffer ByteBuffer
      * @param width Int
      * @param height Int
      * @return Bitmap?
      */
     @JvmStatic
-    fun nv21Bytes2JpegBitmap(nv21Bytes: ByteBuffer, width: Int, height: Int): Bitmap? {
-        nv21Bytes.rewind()
-        val imageInBuffer = ByteArray(nv21Bytes.limit())
-        nv21Bytes[imageInBuffer, 0, imageInBuffer.size]
+    fun nv21Buffer2JpegBitmap(nv21Buffer: ByteBuffer, width: Int, height: Int): Bitmap? {
+        nv21Buffer.rewind()
+        val imageInBuffer = ByteArray(nv21Buffer.limit())
+        nv21Buffer[imageInBuffer, 0, imageInBuffer.size]
         val byteArrayOutputStream = ByteArrayOutputStream()
         try {
             val yuvImage = YuvImage(imageInBuffer, ImageFormat.NV21, width, height, null)
@@ -114,6 +117,8 @@ object ImageConverter : BaseUtilK() {
         return outBytes
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 检查 YUV_420_888 图像的 UV平面缓冲区是否为 NV21 格式
      * @param planes Array<Plane>
@@ -122,7 +127,7 @@ object ImageConverter : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    private fun isYuv420888PlanesNv21(planes: Array<Plane>, width: Int, height: Int): Boolean {
+    fun isYuv420888PlanesNv21(planes: Array<Plane>, width: Int, height: Int): Boolean {
         val imageSize = width * height
         val uBuffer = planes[1].buffer
         val vBuffer = planes[2].buffer
@@ -156,7 +161,7 @@ object ImageConverter : BaseUtilK() {
      * @param pixelStride Int
      */
     @JvmStatic
-    private fun unpackYuv420888Plane(plane: Plane, width: Int, height: Int, out: ByteArray, offset: Int, pixelStride: Int) {
+    fun unpackYuv420888Plane(plane: Plane, width: Int, height: Int, out: ByteArray, offset: Int, pixelStride: Int) {
         val buffer = plane.buffer
         buffer.rewind()
 

@@ -19,14 +19,15 @@ import com.mozhimen.basick.utilk.android.hardware.UtilKDisplayManager
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKRotation
-import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
+import com.mozhimen.componentk.cameraxk.commons.ICameraXK
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
-import com.mozhimen.componentk.cameraxk.cons.CAspectRatio
+import com.mozhimen.componentk.cameraxk.cons.CCameraXKAspectRatio
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
 import com.mozhimen.componentk.cameraxk.helpers.CameraXKDelegate
 import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
+import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -40,24 +41,29 @@ import kotlin.properties.Delegates
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
-class CameraXKLayout @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) :
-    FrameLayout(context, attrs, defStyleAttr), ICameraXKAction {
+class CameraXKLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
+    BaseLayoutKFrame(context, attrs, defStyleAttr), ICameraXK {
 
     private lateinit var _cameraXKDelegate: CameraXKDelegate
     private lateinit var _preview: Preview
     private lateinit var _previewView: PreviewView
     private lateinit var _slider: Slider
     private lateinit var _sliderContainer: FrameLayout
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     private var _aspectRatio: Int by Delegates.observable(AspectRatio.RATIO_16_9) { _, _, new ->
         _cameraXKDelegate.aspectRatio = new
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     private var _rotation: Int by Delegates.observable(ACameraXKRotation.ROTATION_90) { _, _, new ->
         _cameraXKDelegate.rotation = new
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     private var _displayId = -1
 
     /**
@@ -88,6 +94,8 @@ class CameraXKLayout @JvmOverloads constructor(
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     init {
         if (!isInEditMode) {
             initView()
@@ -112,14 +120,15 @@ class CameraXKLayout @JvmOverloads constructor(
         _cameraXKDelegate.setCameraXKCaptureListener(listener)
     }
 
-    fun initCamera(
-        owner: LifecycleOwner,
-        cameraXKConfig: MCameraXKConfig
-    ) {
-        _cameraXKDelegate.initCamera(owner, cameraXKConfig)
+    override fun initCamera(owner: LifecycleOwner, config: MCameraXKConfig) {
+        _cameraXKDelegate.initCamera(owner, config)
     }
 
-    fun startCamera() {
+    override fun initCamera(owner: LifecycleOwner) {
+        _cameraXKDelegate.initCamera(owner)
+    }
+
+    override fun startCamera() {
         _cameraXKDelegate.startCamera()
     }
 
@@ -148,7 +157,7 @@ class CameraXKLayout @JvmOverloads constructor(
     }
     //endregion
 
-    private fun initView() {
+    override fun initView() {
         val view = LayoutInflater.from(context).inflate(R.layout.cameraxk_preview_layout, this)
         _previewView = view.findViewById(R.id.cameraxk_preview)
         _previewView.addOnAttachStateChangeListener(_onAttachStateChangeListener)
@@ -162,11 +171,13 @@ class CameraXKLayout @JvmOverloads constructor(
         _displayManager.unregisterDisplayListener(_displayListener)
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     private fun initPreview() {
         _displayId = _previewView.display.displayId
 
         //输出图像和预览图像的比率 The ratio for the output image and preview
-        _aspectRatio = aspectRatio(_previewView.width, _previewView.height)
+        _aspectRatio = getFitAspectRatio(_previewView.width, _previewView.height)
 
         //rotation
         _rotation = _previewView.display.rotation
@@ -184,9 +195,9 @@ class CameraXKLayout @JvmOverloads constructor(
      *  @param height - preview height
      *  @return suitable aspect ratio
      */
-    private fun aspectRatio(width: Int, height: Int): Int {
+    private fun getFitAspectRatio(width: Int, height: Int): Int {
         val previewRatio = max(width, height).toDouble() / min(width, height)
-        if (abs(previewRatio - CAspectRatio.RATIO_4_3) <= abs(previewRatio - CAspectRatio.RATIO_16_9)) {
+        if (abs(previewRatio - CCameraXKAspectRatio.RATIO_4_3) <= abs(previewRatio - CCameraXKAspectRatio.RATIO_16_9)) {
             return AspectRatio.RATIO_4_3
         }
         return AspectRatio.RATIO_16_9

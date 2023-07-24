@@ -1,6 +1,7 @@
 package com.mozhimen.componentk.cameraxk.commons
 
 import androidx.camera.core.ImageProxy
+import com.mozhimen.basick.elemk.commons.IA_Listener
 
 /**
  * @ClassName ICameraXKFrameListener
@@ -9,6 +10,7 @@ import androidx.camera.core.ImageProxy
  * @Date 2023/1/4 0:36
  * @Version 1.0
  */
-interface ICameraXKFrameListener {
-    fun onFrame(image: ImageProxy)
-}
+typealias ICameraXKFrameListener = IA_Listener<ImageProxy>
+//interface ICameraXKFrameListener {
+//    fun onFrame(image: ImageProxy)
+//}

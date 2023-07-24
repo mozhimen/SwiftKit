@@ -15,18 +15,20 @@ import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
+import com.mozhimen.basick.elemk.java.util.BaseHandlerExecutor
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
-import com.mozhimen.componentk.cameraxk.commons.ICameraXKAction
+import com.mozhimen.componentk.cameraxk.commons.ICameraXK
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKListener
 import com.mozhimen.componentk.cameraxk.cons.CCameraXKRotation
 import com.mozhimen.componentk.cameraxk.cons.ECameraXKTimer
 import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
+import com.mozhimen.componentk.cameraxk.temps.OtherCameraFilter
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.delay
 import java.util.concurrent.ExecutionException
@@ -39,7 +41,7 @@ import kotlin.properties.Delegates
  * @Date 2022/1/3 1:17
  * @Version 1.0
  */
-class CameraXKDelegate : ICameraXKAction, BaseUtilK() {
+class CameraXKDelegate : ICameraXK, BaseUtilK() {
 
     private var _cameraXKListener: ICameraXKListener? = null
     private var _cameraXKCaptureListener: ICameraXKCaptureListener? = null
@@ -51,12 +53,19 @@ class CameraXKDelegate : ICameraXKAction, BaseUtilK() {
 
     private var _format = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
     private var _selectedTimer = ECameraXKTimer.OFF
+    private var _isSingleCamera = false
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     internal var aspectRatio: Int = AspectRatio.RATIO_16_9
     internal var rotation = CCameraXKRotation.ROTATION_90
-    private var _isSingleCamera = false
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
 
     private lateinit var _owner: LifecycleOwner
     private lateinit var _analyzerThread: HandlerThread
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
     internal lateinit var slider: Slider
     internal lateinit var previewView: PreviewView
     internal lateinit var preview: Preview
@@ -93,17 +102,17 @@ class CameraXKDelegate : ICameraXKAction, BaseUtilK() {
             Log.d(TAG, "onCaptureSuccess: ${image.format} ${image.width}x${image.height}")
             when (image.format) {
                 ImageFormat.YUV_420_888 -> {
-                    _captureBitmap = ImageConverter.yuv420888Image2JpegBitmap(image)
+                    _captureBitmap = ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(image)
                     Log.d(TAG, "onCaptureSuccess: YUV_420_888")
                 }
 
                 ImageFormat.JPEG -> {
-                    _captureBitmap = ImageConverter.jpegImage2JpegBitmap(image)
+                    _captureBitmap = ImageProxyUtil.jpegImageProxy2JpegBitmap(image)
                     Log.d(TAG, "onCaptureSuccess: JPEG")
                 }
 
                 ImageFormat.FLEX_RGBA_8888 -> {
-                    _captureBitmap = ImageConverter.rgba8888Image2Rgba8888Bitmap(image)
+                    _captureBitmap = ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(image)
                     Log.d(TAG, "onCaptureSuccess: FLEX_RGBA_8888")
                 }
             }
@@ -120,8 +129,8 @@ class CameraXKDelegate : ICameraXKAction, BaseUtilK() {
             e.message?.et(TAG)
         }
     }
-    private val _imageAnalyzer: ImageAnalysis.Analyzer = ImageAnalysis.Analyzer { image ->
-        this._cameraXKFrameListener?.onFrame(image)
+    private val _imageAnalyzer: ImageAnalysis.Analyzer = ImageAnalysis.Analyzer { imageProxy ->
+        this._cameraXKFrameListener?.invoke(imageProxy)
     }
 
     //region open fun
@@ -133,24 +142,25 @@ class CameraXKDelegate : ICameraXKAction, BaseUtilK() {
         this._cameraXKCaptureListener = listener
     }
 
-    fun initCamera(
-        owner: LifecycleOwner,
-        cameraXKConfig: MCameraXKConfig
-    ) {
+    override fun initCamera(owner: LifecycleOwner, config: MCameraXKConfig) {
         _owner = owner
-        _lensFacing = cameraXKConfig.facing
-        _lensFacingSelector = when (cameraXKConfig.facing) {
+        _lensFacing = config.facing
+        _lensFacingSelector = when (config.facing) {
             ACameraXKFacing.FRONT -> CameraSelector.DEFAULT_FRONT_CAMERA
             else -> CameraSelector.DEFAULT_BACK_CAMERA
         }
-        _format = when (cameraXKConfig.format) {
+        _format = when (config.format) {
             ACameraXKFormat.RGBA_8888 -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888
             else -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
         }
     }
 
+    override fun initCamera(owner: LifecycleOwner) {
+        initCamera(owner, MCameraXKConfig())
+    }
+
     @Throws(Exception::class)
-    fun startCamera() {
+    override fun startCamera() {
         try {
             val cameraProviderFuture = ProcessCameraProvider.getInstance(_context)
             cameraProviderFuture.addListener({
@@ -343,7 +353,7 @@ class CameraXKDelegate : ICameraXKAction, BaseUtilK() {
         //使用工作线程进行图像分析，以防止故障 Use a worker thread for image analysis to prevent glitches
         _cameraXKFrameListener?.let {
             _analyzerThread = HandlerThread("CameraXKLuminosityAnalysis").apply { start() }
-            imageAnalysis.setAnalyzer(ThreadExecutor(Handler(_analyzerThread.looper)), _imageAnalyzer)
+            imageAnalysis.setAnalyzer(BaseHandlerExecutor(Handler(_analyzerThread.looper)), _imageAnalyzer)
         }
     }
 }

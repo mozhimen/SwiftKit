@@ -20,7 +20,7 @@ import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.cameraxk.helpers.ImageConverter
+import com.mozhimen.componentk.cameraxk.helpers.ImageProxyUtil
 import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
 import com.mozhimen.uicorek.viewk.scan.ViewKScanOverlay
 
@@ -64,7 +64,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
                     _rgb565Bitmap =
                         UtilKBitmapFormat.bitmap2Rgb565Bitmap(
                             UtilKBitmapDeal.rotateBitmap(
-                                ImageConverter.rgba8888Image2Rgba8888Bitmap(image), -90, flipX = true
+                                ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(image), -90, flipX = true
                             )
                         )
                     if (_faceDetector == null) {
