@@ -41,14 +41,11 @@ fun ByteArray.bytes2Bitmap(): Bitmap =
 fun Bitmap.bitmap2JpegBytes(): ByteArray? =
     UtilKBitmapFormat.bitmap2JpegBytes(this)
 
+fun Bitmap.toRgb565Bitmap(): Bitmap =
+    UtilKBitmapFormat.bitmap2Rgb565Bitmap(this)
+
 fun Drawable.drawable2Bitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
     UtilKBitmapFormat.drawable2Bitmap(this, width, height, config)
-
-fun Bitmap.cropBitmap(width: Int, height: Int, x: Int, y: Int): Bitmap =
-    UtilKBitmapDeal.cropBitmap(this, width, height, x, y)
-
-fun String.getCompressFormat(): CompressFormat =
-    UtilKBitmapCompress.getCompressFormat(this)
 
 object UtilKBitmapFormat : BaseUtilK() {
 

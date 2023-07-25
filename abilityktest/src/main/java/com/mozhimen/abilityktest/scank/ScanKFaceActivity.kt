@@ -15,15 +15,14 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
+import com.mozhimen.basick.utilk.android.graphics.rotate
+import com.mozhimen.basick.utilk.android.graphics.toRgb565Bitmap
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
 import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.helpers.ImageProxyUtil
 import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
 import com.mozhimen.uicorek.viewk.scan.ViewKScanOverlay
-
 
 /**
  * @ClassName ScanKFaceActivity
@@ -46,9 +45,11 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.scankFaceCamera.initCamera(this, MCameraXKConfig(facing = ACameraXKFacing.FRONT, format = ACameraXKFormat.RGBA_8888))
-        vb.scankFaceCamera.setCameraXKFrameListener(_frameAnalyzer)
-        vb.scankFaceCamera.startCamera()
+        vb.scankFaceCamera.apply {
+            initCamera(this@ScanKFaceActivity, MCameraXKConfig(facing = ACameraXKFacing.FRONT, format = ACameraXKFormat.RGBA_8888))
+            setCameraXKFrameListener(_frameAnalyzer)
+            startCamera()
+        }
     }
 
     private var _rgb565Bitmap: Bitmap? = null
@@ -58,18 +59,11 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     private var _currentTime = System.currentTimeMillis()
     private val _frameAnalyzer: ICameraXKFrameListener by lazy {
         object : ICameraXKFrameListener {
-            override fun onFrame(image: ImageProxy) {
+            override fun invoke(imageProxy: ImageProxy) {
                 if (System.currentTimeMillis() - _currentTime > 2000L) {
-                    _currentTime = System.currentTimeMillis()
-                    _rgb565Bitmap =
-                        UtilKBitmapFormat.bitmap2Rgb565Bitmap(
-                            UtilKBitmapDeal.rotateBitmap(
-                                ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(image), -90, flipX = true
-                            )
-                        )
-                    if (_faceDetector == null) {
+                    _rgb565Bitmap = ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(imageProxy).toRgb565Bitmap().rotate(-90, flipX = true)
+                    if (_faceDetector == null)
                         _faceDetector = FaceDetector(_rgb565Bitmap!!.width, _rgb565Bitmap!!.height, 1)
-                    }
                     val faceCount = _faceDetector!!.findFaces(_rgb565Bitmap!!, _faces)
                     Log.v(TAG, "faceCount: $faceCount")
 
@@ -94,8 +88,9 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
                             vb.scankFaceOverlay.clearObjectRect()
                         }
                     }
+                    _currentTime = System.currentTimeMillis()
                 }
-                image.close()
+                imageProxy.close()
             }
         }
     }

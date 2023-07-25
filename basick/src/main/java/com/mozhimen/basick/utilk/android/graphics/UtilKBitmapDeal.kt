@@ -17,8 +17,14 @@ import java.lang.Integer.min
  * @Date 2022/2/27 22:49
  * @Version 1.0
  */
+fun Bitmap.crop(width: Int, height: Int, x: Int, y: Int): Bitmap =
+    UtilKBitmapDeal.cropBitmap(this, width, height, x, y)
+
 fun Bitmap.rotate(degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap =
     UtilKBitmapDeal.rotateBitmap(this, degree, flipX, flipY)
+
+fun Bitmap.scaleRatio(ratioX: Float, ratioY: Float) =
+    UtilKBitmapDeal.scaleBitmapRatio(this, ratioX, ratioY)
 
 object UtilKBitmapDeal : BaseUtilK() {
     /**

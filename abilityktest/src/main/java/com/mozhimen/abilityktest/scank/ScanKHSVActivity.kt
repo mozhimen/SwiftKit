@@ -19,10 +19,11 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.graphics.cropBitmap
+import com.mozhimen.basick.utilk.android.graphics.crop
+import com.mozhimen.basick.utilk.android.graphics.rotate
+import com.mozhimen.basick.utilk.android.graphics.scaleRatio
 import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
-import java.util.concurrent.locks.ReentrantLock
 
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 @APermissionCheck(CPermission.CAMERA)
@@ -44,43 +45,42 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
     }
 
     private fun initCamera() {
-        vb.scankHsvPreview.initCamera(this, MCameraXKConfig(facing = ACameraXKFacing.BACK))
-        vb.scankHsvPreview.setCameraXKFrameListener(_frameAnalyzer)
-        vb.scankHsvPreview.startCamera()
+        vb.scankHsvPreview.apply {
+            initCamera(this@ScanKHSVActivity, MCameraXKConfig(facing = ACameraXKFacing.BACK))
+            setCameraXKFrameListener(_frameAnalyzer)
+            startCamera()
+        }
     }
 
-    private lateinit var _orgBitmap: Bitmap
-
+    private var _orgBitmap: Bitmap? = null
+    private var _lastTime: Long = System.currentTimeMillis()
+    private val _ratio: Double by lazy { vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getRealWidth().toDouble() }
     private val _frameAnalyzer: ICameraXKFrameListener by lazy {
         object : ICameraXKFrameListener {
-            private val _reentrantLock = ReentrantLock()
 
             @SuppressLint("UnsafeOptInUsageError")
-            override fun onFrame(image: ImageProxy) {
-                try {
-                    _reentrantLock.lock()
-                    val bitmap: Bitmap = if (image.format == ImageFormat.YUV_420_888) {
-                        ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(image)!!
+            override fun invoke(imageProxy: ImageProxy) {
+                if (System.currentTimeMillis() - _lastTime >= 1000) {
+                    _orgBitmap = if (imageProxy.format == ImageFormat.YUV_420_888) {
+                        ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(imageProxy)!!
                     } else {
-                        ImageProxyUtil.jpegImageProxy2JpegBitmap(image)
+                        ImageProxyUtil.jpegImageProxy2JpegBitmap(imageProxy)
+                    }.rotate(90).apply {
+                        crop(
+                            (_ratio * this.width).toInt(),
+                            (_ratio * this.width).toInt(),
+                            ((1 - _ratio) * this.width / 2).toInt(),
+                            ((this.height - _ratio * this.width) / 2).toInt()
+                        ).apply {
+                            scaleRatio( this.width / 5f, this.height / 5f)//降低分辨率提高运算速度
+                        }
                     }
-                    val rotateBitmap = UtilKBitmapDeal.rotateBitmap(bitmap, 90)
-                    val ratio: Double =
-                        vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getRealWidth().toDouble()
-                    val cropBitmap = rotateBitmap.cropBitmap(
-                        (ratio * rotateBitmap.width).toInt(),
-                        (ratio * rotateBitmap.width).toInt(),
-                        ((1 - ratio) * rotateBitmap.width / 2).toInt(),
-                        ((rotateBitmap.height - ratio * rotateBitmap.width) / 2).toInt()
-                    )
-                    val scaleBitmap = UtilKBitmapDeal.scaleBitmapRatio(cropBitmap, cropBitmap.width / 5f, cropBitmap.height / 5f)//降低分辨率提高运算速度
-                    val results = ScanKHSV.colorAnalyze(scaleBitmap)
+                    val results = ScanKHSV.colorAnalyze(_orgBitmap!!)
                     Log.i(TAG, "analyze: $results")
-                } finally {
-                    _reentrantLock.unlock()
+                    _lastTime = System.currentTimeMillis()
                 }
 
-                image.close()
+                imageProxy.close()
             }
         }
     }

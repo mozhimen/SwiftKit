@@ -9,6 +9,7 @@ import androidx.navigation.Navigator
 import androidx.navigation.NavigatorProvider
 import androidx.navigation.fragment.R
 import com.mozhimen.basick.utilk.android.content.UtilKResource
+import com.mozhimen.componentk.navigatek.temps.ShowHideFragmentNavigator
 
 
 /**
@@ -28,7 +29,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKResource
  *                          {@link NavigatorProvider#getNavigator(Class)} method.
  */
 @NavDestination.ClassType(Fragment::class)
-class BaseDestination(fragmentNavigator: Navigator<out BaseDestination>) : NavDestination(fragmentNavigator) {
+class BaseFragmentDestination(fragmentNavigator: BaseFragmentNavigator) : NavDestination(fragmentNavigator) {
 
     /**
      * Construct a new fragment destination. This destination is not valid until you set the
@@ -37,7 +38,7 @@ class BaseDestination(fragmentNavigator: Navigator<out BaseDestination>) : NavDe
      * @param navigatorProvider The {@link NavController} which this destination
      *                          will be associated with.
      */
-    constructor(navigatorProvider: NavigatorProvider) : this(navigatorProvider.getNavigator(ShowHideFragmentNavigator::class.java))
+    constructor(navigatorProvider: NavigatorProvider) : this(navigatorProvider.getNavigator(BaseFragmentNavigator::class.java))
 
     @CallSuper
     override fun onInflate(context: Context, attrs: AttributeSet) {
@@ -55,7 +56,7 @@ class BaseDestination(fragmentNavigator: Navigator<out BaseDestination>) : NavDe
      *                  destination
      * @return this {@link Destination}
      */
-    fun setClassName(className: String): BaseDestination {
+    fun setClassName(className: String): BaseFragmentDestination {
         _className = className
         return this
     }
@@ -86,7 +87,7 @@ class BaseDestination(fragmentNavigator: Navigator<out BaseDestination>) : NavDe
     }
 
     override fun equals(other: Any?): Boolean {
-        if (other == null || other !is BaseDestination) return false
+        if (other == null || other !is BaseFragmentDestination) return false
         return super.equals(other) && _className == other._className
     }
 

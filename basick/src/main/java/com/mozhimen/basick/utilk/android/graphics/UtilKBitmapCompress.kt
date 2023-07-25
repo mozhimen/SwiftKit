@@ -23,6 +23,9 @@ import kotlin.math.sqrt
  * @Date 2023/1/4 14:35
  * @Version 1.0
  */
+fun String.getCompressFormat(): CompressFormat =
+    UtilKBitmapCompress.getCompressFormat(this)
+
 object UtilKBitmapCompress : BaseUtilK() {
 
     /**

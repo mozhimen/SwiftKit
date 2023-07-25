@@ -13,8 +13,9 @@ import androidx.navigation.Navigator
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.componentk.navigatek.bases.BaseDestination
+import com.mozhimen.componentk.navigatek.bases.BaseFragmentDestination
 import com.mozhimen.componentk.navigatek.bases.BaseExtras
+import com.mozhimen.componentk.navigatek.bases.BaseFragmentNavigator
 import com.mozhimen.componentk.navigatek.cons.CNavigateKConstants
 import java.util.ArrayDeque
 
@@ -41,10 +42,10 @@ import java.util.ArrayDeque
  */
 @Navigator.Name("navigatek_fragment")
 open class ShowHideFragmentNavigator(
-    private val _context: Context,
-    private val _fragmentManager: FragmentManager,
-    private val _containerId: Int
-) : Navigator<BaseDestination>(), IUtilK {
+    context: Context,
+    fragmentManager: FragmentManager,
+    containerId: Int
+) : BaseFragmentNavigator(context, fragmentManager, containerId) {
     private val _backStack = ArrayDeque<Int>()
 
     /**
@@ -63,19 +64,19 @@ open class ShowHideFragmentNavigator(
         if (_backStack.isEmpty()) {
             return false
         }
-        if (_fragmentManager.isStateSaved) {
+        if (fragmentManager.isStateSaved) {
             Log.d(TAG, "Ignoring popBackStack() call: FragmentManager has already saved its state")
             return false
         }
-        _fragmentManager.popBackStack(
+        fragmentManager.popBackStack(
             generateBackStackName(_backStack.size, _backStack.peekLast()), FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
         _backStack.removeLast()
         return true
     }
 
-    override fun createDestination(): BaseDestination {
-        return BaseDestination(this)
+    override fun createDestination(): BaseFragmentDestination {
+        return BaseFragmentDestination(this)
     }
 
     /**
@@ -122,12 +123,12 @@ open class ShowHideFragmentNavigator(
     @SuppressWarnings("deprecation")
     /* Using instantiateFragment for forward compatibility */ /* Using instantiateFragment for forward compatibility */
     override fun navigate(
-        destination: BaseDestination,
+        destination: BaseFragmentDestination,
         args: Bundle?,
         navOptions: NavOptions?,
         navigatorExtras: Extras?
     ): NavDestination? {
-        if (_fragmentManager.isStateSaved) {
+        if (fragmentManager.isStateSaved) {
             Log.d(TAG, "Ignoring navigate() call: FragmentManager has already" + " saved its state")
             return null
         }
@@ -156,7 +157,7 @@ open class ShowHideFragmentNavigator(
                 // back stack, a simple replace() isn't enough so we
                 // remove it from the back stack and put our replacement
                 // on the back stack in its place
-                _fragmentManager.popBackStack(generateBackStackName(_backStack.size, _backStack.peekLast()), FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                fragmentManager.popBackStack(generateBackStackName(_backStack.size, _backStack.peekLast()), FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 ft.addToBackStack(generateBackStackName(_backStack.size, destId))
             }
             isAdded = false
@@ -186,7 +187,7 @@ open class ShowHideFragmentNavigator(
     }
 
     open fun createFragmentTransaction(
-        destination: BaseDestination,
+        destination: BaseFragmentDestination,
         args: Bundle?,
         navOptions: NavOptions?
     ): FragmentTransaction {
@@ -197,10 +198,10 @@ open class ShowHideFragmentNavigator(
 
         //android.fragment.app.xxx->xxx
         val tag = className.substring(className.lastIndexOf(".") + 1)
-        var frag = _fragmentManager.findFragmentByTag(tag)
-        if (frag == null) frag = instantiateFragment(_context, _fragmentManager, className, args)
+        var frag = fragmentManager.findFragmentByTag(tag)
+        if (frag == null) frag = instantiateFragment(context, fragmentManager, className, args)
         frag.arguments = args
-        val ft = _fragmentManager.beginTransaction()
+        val ft = fragmentManager.beginTransaction()
 
         ///////////////////////////////////////////////////////////////////////////////
 
@@ -217,9 +218,9 @@ open class ShowHideFragmentNavigator(
         }
 
         //ft.replace(mContainerId, frag);
-        val fragments = _fragmentManager.fragments
+        val fragments = fragmentManager.fragments
         for (fragment in fragments) ft.hide(fragment!!)
-        if (!frag.isAdded) ft.add(_containerId, frag, tag)
+        if (!frag.isAdded) ft.add(containerId, frag, tag)
         ft.show(frag)
         ft.setPrimaryNavigationFragment(frag)
         ft.setReorderingAllowed(true)
