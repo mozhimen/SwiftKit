@@ -30,7 +30,8 @@ open class NetKHttp(
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
                 addInterceptor(HttpLoggingInterceptor { msg -> Log.v(TAG, msg) }.also { it.level = HttpLoggingInterceptor.Level.BODY })
-                if (_intercepters.isNotEmpty()) for (interceptor in _intercepters) addInterceptor(interceptor)
+                if (_intercepters.isNotEmpty())
+                    for (interceptor in _intercepters) addInterceptor(interceptor)
             }
         }.build()
     }
@@ -47,9 +48,13 @@ open class NetKHttp(
             _retrofit = initRetrofit(value)
         }
 
+    /////////////////////////////////////////////////////////////////////////
+
     init {
         if (interceptors.isNotEmpty()) this._intercepters.addAll(interceptors)
     }
+
+    /////////////////////////////////////////////////////////////////////////
 
     @Synchronized
     fun <SERVICE : Any> create(service: Class<SERVICE>): SERVICE {

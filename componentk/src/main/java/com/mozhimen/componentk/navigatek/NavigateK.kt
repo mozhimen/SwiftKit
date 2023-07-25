@@ -8,83 +8,108 @@ import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.componentk.navigatek.cons.CNavigateKDestType
+import com.mozhimen.basick.utilk.kotlin.collections.joinElement2List
+import com.mozhimen.componentk.navigatek.cons.CNavigateKDestinationType
+import com.mozhimen.componentk.navigatek.helpers.getDestinationId
+import com.mozhimen.componentk.navigatek.mos.MNavigateKConfig
 import com.mozhimen.componentk.navigatek.mos.MNavigateKPageInfo
+import com.mozhimen.componentk.navigatek.temps.ShowHideFragmentNavigator
 import java.util.*
 
-fun Class<*>.getNavigateKId(): Int {
-    return NavigateK.getId(this)
-}
+class NavigateK(private val _activity: FragmentActivity) : BaseUtilK() {
 
-object NavigateK : BaseUtilK() {
+    private var _mNavigateKConfig: MNavigateKConfig = MNavigateKConfig()
 
-    fun getId(clazz: Class<*>): Int {
-        return kotlin.math.abs(clazz.name.hashCode())
+    fun setNavigateKConfig(config: MNavigateKConfig): NavigateK {
+        _mNavigateKConfig = config
+        return this
     }
 
-    fun buildNavGraph(
-        activity: FragmentActivity,
+    fun setupNavGraph(
         containerId: Int,
         clazzes: List<Class<*>>,
-        defaultFragmentId: Int = 0
+        defaultDestinationId: Int = 0
     ): NavController {
-        val navController = activity.findNavController(containerId)
-        //val childFragmentManager = activity.supportFragmentManager.findFragmentById(containerId)!!.childFragmentManager
-        val pageInfos = clazzes2PageInfos(clazzes)
-        Log.d(TAG, "buildNavGraph: $pageInfos")
-        val iterator: Iterator<MNavigateKPageInfo> = pageInfos.iterator()
+        if (clazzes.isEmpty()) throw Exception("clazzes must not be empty!")
 
-        val navigatorProvider = navController.navigatorProvider
-        val graphNavigator = navigatorProvider.getNavigator(NavGraphNavigator::class.java)
-        val navGraph = NavGraph(graphNavigator)
+        //1
+        val navController = _activity.findNavController(containerId)
+        /////////////////////////////////////////////////////////////////////////////
 
-//        val navigateKHelper = NavigateKHelper(activity, childFragmentManager, containerId)
-//        navigatorProvider.addNavigator(navigateKHelper)
-        while (iterator.hasNext()) {
-            val page = iterator.next()
-            when (page.destType) {
-                CNavigateKDestType.ACTIVITY -> {
-                    val navigator = navigatorProvider.getNavigator(ActivityNavigator::class.java)
-                    val node: ActivityNavigator.Destination = navigator.createDestination()
-                    node.id = page.id
-                    node.setComponentName(ComponentName(UtilKContext.getPackageName(activity), page.clazzName))
-                    navGraph.addDestination(node)
-                }
-
-                CNavigateKDestType.FRAGMENT -> {
-                    val navigator = navigatorProvider.getNavigator(FragmentNavigator::class.java)
-                    val node: FragmentNavigator.Destination = navigator.createDestination()
-                    node.id = page.id
-                    node.setClassName(page.clazzName)
-                    navGraph.addDestination(node)
-                }
-
-                CNavigateKDestType.DIALOG -> {
-                    val navigator = navigatorProvider.getNavigator(DialogFragmentNavigator::class.java)
-                    val node: DialogFragmentNavigator.Destination = navigator.createDestination()
-                    node.id = page.id
-                    node.setClassName(page.clazzName)
-                    navGraph.addDestination(node)
+        //2
+        val navigatorProvider =
+            navController.navigatorProvider.apply {
+                if (_mNavigateKConfig.isFragmentShowHide) {
+                    addNavigator(ShowHideFragmentNavigator(_activity, _activity.supportFragmentManager.findFragmentById(containerId)!!.childFragmentManager, containerId))
                 }
             }
-        }
-        val fragmentIds = arrayListOf<Int>()
-        for (clazz in clazzes) fragmentIds.add(clazz.hashCode())
-        Log.d(TAG, "buildNavGraph: defaultFragmentId $defaultFragmentId fragmentIds $fragmentIds")
-        navGraph.setStartDestination(if (defaultFragmentId != 0 && defaultFragmentId in fragmentIds) defaultFragmentId else pageInfos[0].id)
+        /////////////////////////////////////////////////////////////////////////////
+
+        //3
+        val navGraph = NavGraph(navigatorProvider.getNavigator(NavGraphNavigator::class.java))
+        /////////////////////////////////////////////////////////////////////////////
+
+        //4
+        addDestinations(navGraph, navigatorProvider, clazzes, defaultDestinationId)
+        /////////////////////////////////////////////////////////////////////////////
+
+        //5
         navController.graph = navGraph
+        /////////////////////////////////////////////////////////////////////////////
         return navController
     }
 
-    private fun clazzes2PageInfos(clazzes: List<Class<*>>): List<MNavigateKPageInfo> {
-        val navigateKPageInfos: ArrayList<MNavigateKPageInfo> = arrayListOf()
-        clazzes.forEach {
-            val destType = getDestinationType(it) ?: throw Exception("this class is not fragment, dialog, or activity")
-            val clazzName = it.name
-            val id = kotlin.math.abs(clazzName.hashCode())
-            navigateKPageInfos.add(MNavigateKPageInfo(destType, id, clazzName))
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    private fun addDestinations(navGraph: NavGraph, navigatorProvider: NavigatorProvider, clazzes: List<Class<*>>, defaultDestinationId: Int) {
+        val pageInfos = createPageInfos(clazzes).also { Log.d(TAG, "addDestinations: $it") }
+        for (pageInfo in pageInfos)
+            addDestination(navGraph, createDestination(navigatorProvider, pageInfo) ?: continue)
+        val destinationIds = pageInfos.joinElement2List { it.id }.also { Log.d(TAG, "addDestinations: defaultDestinationId $defaultDestinationId destinationIds $it") }
+        navGraph.setStartDestination(if (defaultDestinationId != 0 && defaultDestinationId in destinationIds) defaultDestinationId else destinationIds[0])
+    }
+
+    private fun createDestination(navigatorProvider: NavigatorProvider, pageInfo: MNavigateKPageInfo): NavDestination? {
+        return when (pageInfo.destType) {
+            CNavigateKDestinationType.ACTIVITY -> {
+                val destination: ActivityNavigator.Destination = navigatorProvider.getNavigator(ActivityNavigator::class.java).createDestination()
+                destination.setComponentName(ComponentName(UtilKContext.getPackageName(_activity), pageInfo.clazzName))
+                destination.id = pageInfo.id
+                destination
+            }
+
+            CNavigateKDestinationType.FRAGMENT -> {
+                val destination = if (_mNavigateKConfig.isFragmentShowHide) {
+                    navigatorProvider.getNavigator(ShowHideFragmentNavigator::class.java).createDestination().apply { setClassName(pageInfo.clazzName) }
+                } else navigatorProvider.getNavigator(FragmentNavigator::class.java).createDestination().apply { setClassName(pageInfo.clazzName) }
+                destination.id = pageInfo.id
+                destination
+            }
+
+            CNavigateKDestinationType.DIALOG -> {
+                val destination: DialogFragmentNavigator.Destination = navigatorProvider.getNavigator(DialogFragmentNavigator::class.java).createDestination()
+                destination.setClassName(pageInfo.clazzName)
+                destination.id = pageInfo.id
+                destination
+            }
+
+            else -> null
         }
-        return navigateKPageInfos
+    }
+
+    private fun addDestination(navGraph: NavGraph, destination: NavDestination) {
+        navGraph.addDestination(destination)
+    }
+
+    private fun createPageInfos(clazzes: List<Class<*>>): List<MNavigateKPageInfo> {
+        val infos: ArrayList<MNavigateKPageInfo> = arrayListOf()
+        for (clazz in clazzes) {
+            val destType = getDestinationType(clazz) ?: throw Exception("this class is not fragment, dialog, or activity")
+            val clazzName = clazz.name
+            val id = clazz.getDestinationId()/* kotlin.math.abs(clazzName.hashCode())*/
+            infos.add(MNavigateKPageInfo(destType, id, clazzName))
+        }
+        return infos
     }
 
     /**
@@ -95,9 +120,9 @@ object NavigateK : BaseUtilK() {
     private fun getDestinationType(clazz: Class<*>): String? {
         val superClazzName: String = clazz.superclass.toString()
         return when {
-            superClazzName.contains(CNavigateKDestType.ACTIVITY) -> CNavigateKDestType.ACTIVITY
-            superClazzName.contains(CNavigateKDestType.FRAGMENT) -> CNavigateKDestType.FRAGMENT
-            superClazzName.contains(CNavigateKDestType.DIALOG) -> CNavigateKDestType.DIALOG
+            superClazzName.contains(CNavigateKDestinationType.ACTIVITY) -> CNavigateKDestinationType.ACTIVITY
+            superClazzName.contains(CNavigateKDestinationType.FRAGMENT) -> CNavigateKDestinationType.FRAGMENT
+            superClazzName.contains(CNavigateKDestinationType.DIALOG) -> CNavigateKDestinationType.DIALOG
             else -> null
         }
     }

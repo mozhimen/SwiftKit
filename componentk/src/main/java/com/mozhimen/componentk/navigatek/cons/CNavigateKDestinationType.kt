@@ -7,7 +7,7 @@ package com.mozhimen.componentk.navigatek.cons
  * @Date 2023/6/20 17:37
  * @Version 1.0
  */
-object CNavigateKDestType {
+object CNavigateKDestinationType {
     const val ACTIVITY = "Activity"
     const val FRAGMENT = "Fragment"
     const val DIALOG = "Dialog"

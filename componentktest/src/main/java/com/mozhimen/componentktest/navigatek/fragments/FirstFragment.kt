@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVBVM
 import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
-import com.mozhimen.componentk.navigatek.getNavigateKId
+import com.mozhimen.componentk.navigatek.helpers.getDestinationId
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.BR
 import com.mozhimen.componentktest.databinding.FragmentFirstBinding
@@ -18,7 +18,7 @@ class FirstFragment : BaseFragmentVBVM<FragmentFirstBinding, BaseNavigateKViewMo
     private var _adapter: AdapterKRecyclerVB<MKey, ItemNavigatekBinding>? = null
     override fun initView(savedInstanceState: Bundle?) {
         vb.navigatekFragmentFirstTxt.setOnClickListener {
-            vm.liveFragmentId.value = SecondFragment::class.java.getNavigateKId()
+            vm.liveFragmentId.value = SecondFragment::class.java.getDestinationId()
         }
         vb.navigatekFragmentFirstRecycler.layoutManager = LinearLayoutManager(requireActivity())
         _adapter = AdapterKRecyclerVB<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek)

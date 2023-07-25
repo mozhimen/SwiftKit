@@ -7,7 +7,7 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVBVM
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.componentk.navigatek.NavigateK
 import com.mozhimen.componentk.navigatek.bases.BaseNavigateKViewModel
-import com.mozhimen.componentk.navigatek.cons.CNavigateKConstants
+import com.mozhimen.componentk.navigatek.helpers.DestinationUtil
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.ActivityNavigatekBinding
 import com.mozhimen.componentktest.navigatek.fragments.FirstFragment
@@ -26,27 +26,9 @@ class NavigateKActivity : BaseActivityVBVM<ActivityNavigatekBinding, BaseNavigat
         }
         get() {
             if (field != 0 || !this::navController.isInitialized) return field
-            val fragmentId: Int = navController.currentDestination?.id ?: NavigateK.getId(_fragments[0])
+            val fragmentId: Int = navController.currentDestination?.id ?: DestinationUtil.getId(_fragments[0])
             return fragmentId.also { field = it }
         }
-
-    override fun initData(savedInstanceState: Bundle?) {
-        savedInstanceState?.let {
-            _currentItemId = savedInstanceState.getInt(CNavigateKConstants.SAVED_NAVIGATEK_CURRENT_ID, -1)
-        }
-        super.initData(savedInstanceState)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(CNavigateKConstants.SAVED_NAVIGATEK_CURRENT_ID, _currentItemId)
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        _currentItemId = savedInstanceState.getInt(CNavigateKConstants.SAVED_NAVIGATEK_CURRENT_ID, -1)
-    }
-
 
     override fun initView(savedInstanceState: Bundle?) {
         navController = NavigateK.buildNavGraph(this, R.id.navigatek_fragment_container, _fragments, _currentItemId)
