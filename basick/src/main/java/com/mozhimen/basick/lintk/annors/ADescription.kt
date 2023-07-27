@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.annors
+package com.mozhimen.basick.lintk.annors
 
 /**
  * @ClassName Description

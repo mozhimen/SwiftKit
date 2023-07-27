@@ -7,7 +7,7 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.util.Log
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.cons.CView
 import com.mozhimen.basick.elemk.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK

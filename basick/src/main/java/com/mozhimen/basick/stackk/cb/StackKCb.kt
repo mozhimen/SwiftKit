@@ -6,7 +6,7 @@ import com.mozhimen.basick.stackk.cb.helpers.StackKCbDelegate
 import com.mozhimen.basick.stackk.commons.IStackK
 
 /**
- * @ClassName StackKMgr
+ * @ClassName StackKCb
  * @Description 提供前后台状态监听 以及栈顶activity的服务
  * @Author mozhimen / Kolin Zhao
  * @Date 2021/12/20 21:58

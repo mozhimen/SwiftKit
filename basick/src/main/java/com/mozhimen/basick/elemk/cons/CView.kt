@@ -2,7 +2,7 @@ package com.mozhimen.basick.elemk.cons
 
 import android.view.View
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.annors.ADescription
+import com.mozhimen.basick.lintk.annors.ADescription
 
 /**
  * @ClassName CView

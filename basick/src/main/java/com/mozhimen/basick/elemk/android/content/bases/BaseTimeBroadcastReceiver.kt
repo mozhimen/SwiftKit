@@ -2,7 +2,6 @@ package com.mozhimen.basick.elemk.android.content.bases
 
 import android.content.Context
 import android.content.Intent
-import com.mozhimen.basick.elemk.annors.ADescription
 import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_RegisterDynamic
 import com.mozhimen.basick.utilk.bases.IUtilK
 
