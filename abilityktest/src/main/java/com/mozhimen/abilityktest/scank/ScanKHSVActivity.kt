@@ -6,14 +6,13 @@ import android.graphics.ImageFormat
 import android.os.Bundle
 import android.util.Log
 import androidx.camera.core.ImageProxy
-import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
-import com.mozhimen.componentk.cameraxk.helpers.ImageProxyUtil
+import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFacing
+import com.mozhimen.componentk.camerak.camerax.helpers.ImageProxyUtil
 import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -22,8 +21,8 @@ import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.graphics.crop
 import com.mozhimen.basick.utilk.android.graphics.rotate
 import com.mozhimen.basick.utilk.android.graphics.scaleRatio
-import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
+import com.mozhimen.componentk.camerak.camerax.commons.ICameraXKFrameListener
+import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
 
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
 @APermissionCheck(CPermission.CAMERA)
@@ -46,9 +45,9 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
 
     private fun initCamera() {
         vb.scankHsvPreview.apply {
-            initCamera(this@ScanKHSVActivity, MCameraXKConfig(facing = ACameraXKFacing.BACK))
-            setCameraXKFrameListener(_frameAnalyzer)
-            startCamera()
+            initCameraX(this@ScanKHSVActivity, MCameraKXConfig(facing = ACameraKXFacing.BACK))
+            setCameraXFrameListener(_frameAnalyzer)
+            startCameraX()
         }
     }
 

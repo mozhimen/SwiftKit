@@ -10,7 +10,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.mozhimen.componentk.cameraxk.CameraXKLayout
+        <com.mozhimen.componentk.camerak.camerax.CameraKXLayout
             android:id="@+id/cameraxk_preview_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

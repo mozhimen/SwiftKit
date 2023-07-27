@@ -1,7 +1,7 @@
 package com.mozhimen.componentktest
 
 import com.mozhimen.basick.utilk.kotlin.printlog
-import com.mozhimen.componentk.navigatek.NavigateK
+import com.mozhimen.componentk.navigatek.helpers.DestinationUtil
 import com.mozhimen.componentktest.navigatek.fragments.FirstFragment
 import org.junit.Test
 
@@ -17,7 +17,7 @@ class ExampleUnitTest {
     fun addition_isCorrect() {
         FirstFragment::class.java.name.toString().printlog()
         FirstFragment::class.java.canonicalName?.toString().printlog()
-        NavigateK.getId(FirstFragment::class.java).printlog()
+        DestinationUtil.getId(FirstFragment::class.java).printlog()
         abs(FirstFragment::class.java.name.hashCode()).printlog()
     }
 }

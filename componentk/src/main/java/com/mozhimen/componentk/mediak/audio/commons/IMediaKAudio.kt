@@ -1,8 +1,8 @@
 package com.mozhimen.componentk.mediak.audio.commons
 
-import com.mozhimen.componentk.mediak.audio.cons.EAudioPlayMode
-import com.mozhimen.componentk.mediak.status.cons.EPlayStatus
-import com.mozhimen.componentk.mediak.audio.mos.MAudioK
+import com.mozhimen.componentk.mediak.audio.cons.EMediaKAudioPlayMode
+import com.mozhimen.componentk.mediak.player.status.cons.EMediaKPlayerStatus
+import com.mozhimen.componentk.mediak.audio.mos.MAudioKInfo
 
 
 /**
@@ -17,18 +17,18 @@ internal interface IMediaKAudio {
      * 获取播放列表
      * @return List<MAudioK>
      */
-    fun getPlayList(): List<MAudioK>
-    fun addAudiosToPlayList(audios: List<MAudioK>)
-    fun addAudioToPlayList(audio: MAudioK)
-    fun addAudioToPlayListTop(audioK: MAudioK)
+    fun getPlayList(): List<MAudioKInfo>
+    fun addAudiosToPlayList(audios: List<MAudioKInfo>)
+    fun addAudioToPlayList(audio: MAudioKInfo)
+    fun addAudioToPlayListTop(audioK: MAudioKInfo)
     fun clearPLayList()
-    fun getPlayMode(): EAudioPlayMode
-    fun setPlayMode(playMode: EAudioPlayMode)
+    fun getPlayMode(): EMediaKAudioPlayMode
+    fun setPlayMode(playMode: EMediaKAudioPlayMode)
     fun setPlayPositionCurrent(playIndex: Int)
     fun getPlayPositionCurrent(): Int?
     fun getPlayPositionNext(): Int
     fun getPlayPositionPrevious(): Int
-    fun getAudioFromPlayList(index: Int): MAudioK?
+    fun getAudioFromPlayList(index: Int): MAudioKInfo?
 
     //control
     fun play()
@@ -48,5 +48,5 @@ internal interface IMediaKAudio {
 
     /////////////////////////////////////////////////////
 
-    fun getPlayStatus(): EPlayStatus
+    fun getPlayStatus(): EMediaKPlayerStatus
 }

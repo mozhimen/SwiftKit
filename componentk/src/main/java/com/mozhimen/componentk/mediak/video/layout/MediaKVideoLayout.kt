@@ -13,7 +13,7 @@ import android.view.TextureView
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
-import com.mozhimen.componentk.mediak.video.cons.CGravity
+import com.mozhimen.componentk.mediak.video.cons.CMediaKVideoGravity
 import com.mozhimen.uicorek.R
 import java.io.IOException
 
@@ -50,7 +50,7 @@ class MediaKVideoLayout @JvmOverloads constructor(context: Context, attrs: Attri
             Log.d(TAG, "_videoSource set $value")
             field = value
         }
-    private var _videoGravity = CGravity.NONE
+    private var _videoGravity = CMediaKVideoGravity.NONE
     private var _videoIsLoop = false
     private var _videoVolume = 0f
 
@@ -72,7 +72,7 @@ class MediaKVideoLayout @JvmOverloads constructor(context: Context, attrs: Attri
         _videoSource =
             typedArray.getString(R.styleable.LayoutKVideo_layoutKVideo_pathOrUrl)
         _videoGravity =
-            typedArray.getInt(R.styleable.LayoutKVideo_layoutKVideo_videoGravity, CGravity.CENTER_CROP)
+            typedArray.getInt(R.styleable.LayoutKVideo_layoutKVideo_videoGravity, CMediaKVideoGravity.CENTER_CROP)
         _videoIsLoop =
             typedArray.getBoolean(R.styleable.LayoutKVideo_layoutKVideo_isLoop, false)
         _videoVolume =
@@ -88,7 +88,7 @@ class MediaKVideoLayout @JvmOverloads constructor(context: Context, attrs: Attri
             addView(_videoSurface)
         }
 
-        if (_videoGravity != CGravity.NONE) {
+        if (_videoGravity != CMediaKVideoGravity.NONE) {
             zoomVideoSize()
             zoomTextureSize()
         }
@@ -100,7 +100,7 @@ class MediaKVideoLayout @JvmOverloads constructor(context: Context, attrs: Attri
 
     fun initVideo(
         pathOrUrl: String,
-        videoGravity: Int = CGravity.NONE,
+        videoGravity: Int = CMediaKVideoGravity.NONE,
         videoIsLoop: Boolean = false,
         videoVolume: Float = 0f,
         listener: MediaPlayer.OnCompletionListener? = null
@@ -164,7 +164,7 @@ class MediaKVideoLayout @JvmOverloads constructor(context: Context, attrs: Attri
 
     fun changeVideo(
         pathOrUrl: String,
-        videoGravity: Int = CGravity.NONE,
+        videoGravity: Int = CMediaKVideoGravity.NONE,
         videoIsLoop: Boolean = false,
         videoVolume: Float = 0f,
         listener: MediaPlayer.OnCompletionListener? = null

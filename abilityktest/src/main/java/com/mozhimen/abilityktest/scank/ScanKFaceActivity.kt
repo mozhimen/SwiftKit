@@ -17,11 +17,11 @@ import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.graphics.rotate
 import com.mozhimen.basick.utilk.android.graphics.toRgb565Bitmap
-import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
-import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
-import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.cameraxk.helpers.ImageProxyUtil
-import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
+import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFacing
+import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFormat
+import com.mozhimen.componentk.camerak.camerax.commons.ICameraXKFrameListener
+import com.mozhimen.componentk.camerak.camerax.helpers.ImageProxyUtil
+import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
 import com.mozhimen.uicorek.viewk.scan.ViewKScanOverlay
 
 /**
@@ -45,10 +45,10 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
     }
 
     override fun initView(savedInstanceState: Bundle?) {
-        vb.scankFaceCamera.apply {
-            initCamera(this@ScanKFaceActivity, MCameraXKConfig(facing = ACameraXKFacing.FRONT, format = ACameraXKFormat.RGBA_8888))
-            setCameraXKFrameListener(_frameAnalyzer)
-            startCamera()
+        vb.scankFaceCamerax.apply {
+            initCameraX(this@ScanKFaceActivity, MCameraKXConfig(facing = ACameraKXFacing.FRONT, format = ACameraKXFormat.RGBA_8888))
+            setCameraXFrameListener(_frameAnalyzer)
+            startCameraX()
         }
     }
 

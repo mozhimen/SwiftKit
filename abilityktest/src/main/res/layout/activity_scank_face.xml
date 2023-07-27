@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mozhimen.componentk.cameraxk.CameraXKLayout
-            android:id="@+id/scank_face_camera"
+        <com.mozhimen.componentk.camerak.camerax.CameraKXLayout
+            android:id="@+id/scank_face_camerax"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

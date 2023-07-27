@@ -18,8 +18,8 @@ import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.componentk.mediak.audio.MediaKAudio
-import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
-import com.mozhimen.componentk.mediak.audio.mos.MAudioK
+import com.mozhimen.componentk.mediak.audio.cons.CMediaKAudioEvent
+import com.mozhimen.componentk.mediak.audio.mos.MAudioKInfo
 import com.mozhimen.componentk.mediak.audio.mos.MAudioKProgress
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.ActivityAudiokBinding
@@ -33,9 +33,9 @@ import kotlin.math.roundToInt
 @APermissionCheck(CPermission.WAKE_LOCK)
 class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
     private val _audioList = arrayListOf(
-        MAudioK("9b94d721ed244fa892b15112bc11a3ce", "http://192.168.2.6/construction-sites-images/voice/20221018//9b94d721ed244fa892b15112bc11a3ce.wav", 0),
-        MAudioK("1237378768e7q8e7r8qwesafdasdfasdfaxss111", "http://192.168.2.9/construction-sites-images/voice/20221024/1237378768e7q8e7r8qwesafdasdfasdfaxss111.speex", 0),
-        MAudioK("3777061809", "http://sq-sycdn.kuwo.cn/resource/n1/98/51/3777061809.mp3", 0),
+        MAudioKInfo("9b94d721ed244fa892b15112bc11a3ce", "http://192.168.2.6/construction-sites-images/voice/20221018//9b94d721ed244fa892b15112bc11a3ce.wav", 0),
+        MAudioKInfo("1237378768e7q8e7r8qwesafdasdfasdfaxss111", "http://192.168.2.9/construction-sites-images/voice/20221024/1237378768e7q8e7r8qwesafdasdfasdfaxss111.speex", 0),
+        MAudioKInfo("3777061809", "http://sq-sycdn.kuwo.cn/resource/n1/98/51/3777061809.mp3", 0),
     )
     private val _popwinAudio: PopwinKAudio by lazy { PopwinKAudio(this) }
     private var _currentVolume: Int = MediaKAudio.instance.getVolumeCurrent()
@@ -64,7 +64,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         })
 
         MediaKAudio.instance.addAudiosToPlayList(_audioList)
-        PostKLiveDataEventBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_START).observe(this) {
+        PostKLiveDataEventBus.with<MAudioKInfo?>(CMediaKAudioEvent.EVENT_AUDIO_START).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_start")
                 _popwinAudio.setTitle(it.name)
@@ -73,7 +73,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                 }
             }
         }
-        PostKLiveDataEventBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).observe(this) {
+        PostKLiveDataEventBus.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioEvent.EVENT_AUDIO_POPUP).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_popup")
                 if (!it.second) {
@@ -115,7 +115,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                     dismiss()
                 }
             }
-            PostKLiveDataEventBus.with<MAudioKProgress?>(CAudioEvent.EVENT_PROGRESS_UPDATE).observe(this) {
+            PostKLiveDataEventBus.with<MAudioKProgress?>(CMediaKAudioEvent.EVENT_PROGRESS_UPDATE).observe(this) {
                 if (it != null) {
                     Log.d(TAG, "initData: progress_update" + " progress status ${it.status} currentPos ${it.currentPos} duration ${it.duration} audioInfo ${it.audioInfo}")
                     _slider.updateRodPercent(it.currentPos.toFloat() / it.duration.toFloat())

@@ -3,17 +3,14 @@ package com.mozhimen.componentk.mediak.audio
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import com.mozhimen.componentk.mediak.audio.commons.IMediaKAudio
-import com.mozhimen.componentk.mediak.audio.cons.EAudioPlayMode
-import com.mozhimen.componentk.mediak.status.cons.EPlayStatus
+import com.mozhimen.componentk.mediak.audio.cons.EMediaKAudioPlayMode
+import com.mozhimen.componentk.mediak.player.status.cons.EMediaKPlayerStatus
 import com.mozhimen.componentk.mediak.audio.helpers.MediaKAudioDelegate
-import com.mozhimen.componentk.mediak.audio.mos.MAudioK
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.mozhimen.componentk.mediak.audio.mos.MAudioKInfo
 
 /**
  * @ClassName AudioK
@@ -42,19 +39,19 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
     ///////////////////////////////////////////////////////////////////////
 
-    override fun getPlayList(): List<MAudioK> {
+    override fun getPlayList(): List<MAudioKInfo> {
         return _mediaKAudioDelegate.getPlayList()
     }
 
-    override fun addAudiosToPlayList(audios: List<MAudioK>) {
+    override fun addAudiosToPlayList(audios: List<MAudioKInfo>) {
         _mediaKAudioDelegate.addAudiosToPlayList(audios)
     }
 
-    override fun addAudioToPlayList(audio: MAudioK) {
+    override fun addAudioToPlayList(audio: MAudioKInfo) {
         _mediaKAudioDelegate.addAudioToPlayList(audio)
     }
 
-    override fun addAudioToPlayListTop(audioK: MAudioK) {
+    override fun addAudioToPlayListTop(audioK: MAudioKInfo) {
         _mediaKAudioDelegate.addAudioToPlayListTop(audioK)
     }
 
@@ -62,11 +59,11 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
         _mediaKAudioDelegate.clearPLayList()
     }
 
-    override fun getPlayMode(): EAudioPlayMode {
+    override fun getPlayMode(): EMediaKAudioPlayMode {
         return _mediaKAudioDelegate.getPlayMode()
     }
 
-    override fun setPlayMode(playMode: EAudioPlayMode) {
+    override fun setPlayMode(playMode: EMediaKAudioPlayMode) {
         _mediaKAudioDelegate.setPlayMode(playMode)
     }
 
@@ -86,7 +83,7 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
         return _mediaKAudioDelegate.getPlayPositionPrevious()
     }
 
-    override fun getAudioFromPlayList(index: Int): MAudioK? {
+    override fun getAudioFromPlayList(index: Int): MAudioKInfo? {
         return _mediaKAudioDelegate.getAudioFromPlayList(index)
     }
 
@@ -145,7 +142,7 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
     ///////////////////////////////////////////////////////////////////////
 
-    override fun getPlayStatus(): EPlayStatus {
+    override fun getPlayStatus(): EMediaKPlayerStatus {
         return _mediaKAudioDelegate.getPlayStatus()
     }
 

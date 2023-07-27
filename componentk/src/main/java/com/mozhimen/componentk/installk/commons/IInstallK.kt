@@ -1,7 +1,7 @@
 package com.mozhimen.componentk.installk.commons
 
 import com.mozhimen.componentk.installk.InstallK
-import com.mozhimen.componentk.installk.cons.EInstallMode
+import com.mozhimen.componentk.installk.cons.EInstallKMode
 
 /**
  * @ClassName IInstallK
@@ -11,8 +11,8 @@ import com.mozhimen.componentk.installk.cons.EInstallMode
  * @Version 1.0
  */
 interface IInstallK {
-    fun setInstallMode(mode: EInstallMode): InstallK
+    fun setInstallMode(mode: EInstallKMode): InstallK
     fun setInstallSilenceReceiver(receiverClazz: Class<*>): InstallK
     fun setInstallSmartService(serviceClazz: Class<*>): InstallK
-    fun setInstallStateChangeListener(listener: IInstallStateChangedListener): InstallK
+    fun setInstallStateChangeListener(listener: IInstallKStateListener): InstallK
 }

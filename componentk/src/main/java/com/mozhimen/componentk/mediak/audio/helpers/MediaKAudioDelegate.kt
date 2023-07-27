@@ -6,11 +6,11 @@ import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import com.mozhimen.componentk.mediak.audio.commons.IMediaKAudio
-import com.mozhimen.componentk.mediak.audio.cons.CAudioEvent
-import com.mozhimen.componentk.mediak.audio.cons.EAudioPlayMode
-import com.mozhimen.componentk.mediak.audio.custom.CustomAudioPlayer
-import com.mozhimen.componentk.mediak.status.cons.EPlayStatus
-import com.mozhimen.componentk.mediak.audio.mos.MAudioK
+import com.mozhimen.componentk.mediak.audio.cons.CMediaKAudioEvent
+import com.mozhimen.componentk.mediak.audio.cons.EMediaKAudioPlayMode
+import com.mozhimen.componentk.mediak.audio.player.custom.MediaKAudioPlayerCustom
+import com.mozhimen.componentk.mediak.player.status.cons.EMediaKPlayerStatus
+import com.mozhimen.componentk.mediak.audio.mos.MAudioKInfo
 import java.util.concurrent.CopyOnWriteArrayList
 
 
@@ -23,10 +23,10 @@ import java.util.concurrent.CopyOnWriteArrayList
  */
 internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaKAudio, BaseUtilK() {
 
-    private val _customAudioPlayer by lazy { CustomAudioPlayer(_owner) }
+    private val _mediaKAudioPlayerCustom by lazy { MediaKAudioPlayerCustom(_owner) }
 
-    private val _playList: CopyOnWriteArrayList<MAudioK> = CopyOnWriteArrayList()
-    private var _playMode = EAudioPlayMode.LIST_ONCE
+    private val _playList: CopyOnWriteArrayList<MAudioKInfo> = CopyOnWriteArrayList()
+    private var _playMode = EMediaKAudioPlayMode.LIST_ONCE
     private var _playPositionCurrent: Int = 0
         set(value) {
             if (_playList.isEmpty()) {
@@ -40,17 +40,17 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
                 field = 0
                 return
             }
-            _customAudioPlayer.load(mAudioK)
+            _mediaKAudioPlayerCustom.load(mAudioK)
             field = tmpIndex
         }
 
     init {
         _owner.runOnMainThread {
-            PostKLiveDataEventBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_COMPLETE).observe(_owner) {
+            PostKLiveDataEventBus.with<MAudioKInfo?>(CMediaKAudioEvent.EVENT_AUDIO_COMPLETE).observe(_owner) {
                 Log.d(TAG, "init: onCompleted id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
-            PostKLiveDataEventBus.with<MAudioK?>(CAudioEvent.EVENT_AUDIO_ERROR).observe(_owner) {
+            PostKLiveDataEventBus.with<MAudioKInfo?>(CMediaKAudioEvent.EVENT_AUDIO_ERROR).observe(_owner) {
                 Log.d(TAG, "init: onError id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
@@ -59,22 +59,22 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
 
     ////////////////////////////////////////////////////////////////////////////
 
-    override fun getPlayList(): List<MAudioK> {
+    override fun getPlayList(): List<MAudioKInfo> {
         return _playList.toList()
     }
 
-    override fun addAudiosToPlayList(audios: List<MAudioK>) {
+    override fun addAudiosToPlayList(audios: List<MAudioKInfo>) {
         _playList.addAll(audios)
         play()
     }
 
-    override fun addAudioToPlayList(audio: MAudioK) {
+    override fun addAudioToPlayList(audio: MAudioKInfo) {
         _playList.add(audio)
         play()
     }
 
-    override fun addAudioToPlayListTop(audioK: MAudioK) {
-        if (getPlayStatus() == EPlayStatus.STARTED || _playList.size > 0)
+    override fun addAudioToPlayListTop(audioK: MAudioKInfo) {
+        if (getPlayStatus() == EMediaKPlayerStatus.STARTED || _playList.size > 0)
             _playList.add(1, audioK)
         else _playList.add(0, audioK)
         play()
@@ -84,11 +84,11 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
         _playList.clear()
     }
 
-    override fun getPlayMode(): EAudioPlayMode {
+    override fun getPlayMode(): EMediaKAudioPlayMode {
         return _playMode
     }
 
-    override fun setPlayMode(playMode: EAudioPlayMode) {
+    override fun setPlayMode(playMode: EMediaKAudioPlayMode) {
         _playMode = playMode
     }
 
@@ -102,19 +102,19 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
 
     override fun getPlayPositionNext(): Int {
         return when (_playMode) {
-            EAudioPlayMode.LIST_ONCE -> {
+            EMediaKAudioPlayMode.LIST_ONCE -> {
                 return 0
             }
 
-            EAudioPlayMode.LIST_LOOP -> {
+            EMediaKAudioPlayMode.LIST_LOOP -> {
                 (_playPositionCurrent + 1) % _playList.size
             }
 
-            EAudioPlayMode.LIST_RANDOM -> {
+            EMediaKAudioPlayMode.LIST_RANDOM -> {
                 (0 until _playList.size).random() % _playList.size
             }
 
-            EAudioPlayMode.SINGLE_REPEAT -> {
+            EMediaKAudioPlayMode.SINGLE_REPEAT -> {
                 _playPositionCurrent
             }
         }
@@ -122,25 +122,25 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
 
     override fun getPlayPositionPrevious(): Int {
         return when (_playMode) {
-            EAudioPlayMode.LIST_ONCE -> {
+            EMediaKAudioPlayMode.LIST_ONCE -> {
                 0
             }
 
-            EAudioPlayMode.LIST_LOOP -> {
+            EMediaKAudioPlayMode.LIST_LOOP -> {
                 (_playPositionCurrent + _playList.size - 1) % _playList.size
             }
 
-            EAudioPlayMode.LIST_RANDOM -> {
+            EMediaKAudioPlayMode.LIST_RANDOM -> {
                 (0 until _playList.size).random() % _playList.size
             }
 
-            EAudioPlayMode.SINGLE_REPEAT -> {
+            EMediaKAudioPlayMode.SINGLE_REPEAT -> {
                 _playPositionCurrent
             }
         }
     }
 
-    override fun getAudioFromPlayList(index: Int): MAudioK? {
+    override fun getAudioFromPlayList(index: Int): MAudioKInfo? {
         return if (_playList.isNotEmpty() && index >= 0 && index < _playList.size) {
             _playList[index]
         } else null
@@ -149,8 +149,8 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
     ////////////////////////////////////////////////////////////////////////////
 
     override fun play() {
-        if (getPlayStatus() == EPlayStatus.STOPPED) _customAudioPlayer.resume()
-        else if (getPlayStatus() == EPlayStatus.COMPLETED || getPlayStatus() == EPlayStatus.IDLE) _playPositionCurrent = 0
+        if (getPlayStatus() == EMediaKPlayerStatus.STOPPED) _mediaKAudioPlayerCustom.resume()
+        else if (getPlayStatus() == EMediaKPlayerStatus.COMPLETED || getPlayStatus() == EMediaKPlayerStatus.IDLE) _playPositionCurrent = 0
     }
 
     override fun playNext() {
@@ -162,58 +162,58 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
     }
 
     override fun pause() {
-        if (getPlayStatus() == EPlayStatus.STARTED) _customAudioPlayer.pause()
+        if (getPlayStatus() == EMediaKPlayerStatus.STARTED) _mediaKAudioPlayerCustom.pause()
     }
 
     override fun release() {
-        _customAudioPlayer.release()
+        _mediaKAudioPlayerCustom.release()
     }
 
     ////////////////////////////////////////////////////////////////////////////
 
     override fun setVolume(volume: Int) {
-        _customAudioPlayer.setVolume(volume)
+        _mediaKAudioPlayerCustom.setVolume(volume)
     }
 
     override fun setVolumePercent(volumePercent: Float) {
-        _customAudioPlayer.setVolumePercent(volumePercent)
+        _mediaKAudioPlayerCustom.setVolumePercent(volumePercent)
     }
 
     override fun getVolumeCurrent(): Int {
-        return _customAudioPlayer.getVolumeCurrent()
+        return _mediaKAudioPlayerCustom.getVolumeCurrent()
     }
 
     override fun getVolumeMin(): Int {
-        return _customAudioPlayer.getVolumeMin()
+        return _mediaKAudioPlayerCustom.getVolumeMin()
     }
 
     override fun getVolumeMax(): Int {
-        return _customAudioPlayer.getVolumeMax()
+        return _mediaKAudioPlayerCustom.getVolumeMax()
     }
 
     override fun getVolumeInterval(): Int {
-        return _customAudioPlayer.getVolumeInterval()
+        return _mediaKAudioPlayerCustom.getVolumeInterval()
     }
 
     ////////////////////////////////////////////////////////////////////////////
 
-    override fun getPlayStatus(): EPlayStatus {
-        return _customAudioPlayer.getPlayStatus()
+    override fun getPlayStatus(): EMediaKPlayerStatus {
+        return _mediaKAudioPlayerCustom.getPlayStatus()
     }
 
-    private fun genNextAudio(audio: MAudioK?) {
+    private fun genNextAudio(audio: MAudioKInfo?) {
         if (audio == null) return
         _playPositionCurrent = when (_playMode) {
-            EAudioPlayMode.LIST_RANDOM, EAudioPlayMode.LIST_LOOP, EAudioPlayMode.SINGLE_REPEAT -> {
+            EMediaKAudioPlayMode.LIST_RANDOM, EMediaKAudioPlayMode.LIST_LOOP, EMediaKAudioPlayMode.SINGLE_REPEAT -> {
                 getPlayPositionNext()
             }
 
-            EAudioPlayMode.LIST_ONCE -> {
+            EMediaKAudioPlayMode.LIST_ONCE -> {
                 val index = _playList.indexOf(audio)
                 if (index in _playList.indices) {
                     _playList.removeAt(index)
                 }
-                PostKLiveDataEventBus.with<Pair<MAudioK, Boolean>?>(CAudioEvent.EVENT_AUDIO_POPUP).setValue(audio to (_playList.size != 0))
+                PostKLiveDataEventBus.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioEvent.EVENT_AUDIO_POPUP).setValue(audio to (_playList.size != 0))
                 getPlayPositionNext()
             }
         }

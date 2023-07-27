@@ -12,12 +12,12 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
-import com.mozhimen.componentk.cameraxk.annors.ACameraXKFacing
-import com.mozhimen.componentk.cameraxk.annors.ACameraXKFormat
-import com.mozhimen.componentk.cameraxk.commons.ICameraXKCaptureListener
-import com.mozhimen.componentk.cameraxk.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.cameraxk.helpers.ImageProxyUtil
-import com.mozhimen.componentk.cameraxk.mos.MCameraXKConfig
+import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFacing
+import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFormat
+import com.mozhimen.componentk.camerak.camerax.commons.ICameraKXCaptureListener
+import com.mozhimen.componentk.camerak.camerax.commons.ICameraXKFrameListener
+import com.mozhimen.componentk.camerak.camerax.helpers.ImageProxyUtil
+import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
 import com.mozhimen.componentktest.databinding.ActivityCameraxkBinding
 
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
@@ -41,15 +41,17 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
         initCamera()
     }
 
-    private val _format = ACameraXKFormat.RGBA_8888
+    private val _format = ACameraKXFormat.RGBA_8888
 
     private fun initCamera() {
-        vb.cameraxkPreviewLayout.initCamera(this, MCameraXKConfig(_format, ACameraXKFacing.FRONT))
-        vb.cameraxkPreviewLayout.setCameraXKFrameListener(_frameAnalyzer)
-        vb.cameraxkPreviewLayout.setCameraXKCaptureListener(_cameraXKCaptureListener)
-        vb.cameraxkPreviewLayout.startCamera()
+        vb.cameraxkPreviewLayout.apply {
+            initCameraX(this@CameraXKActivity, MCameraKXConfig(_format, ACameraKXFacing.FRONT))
+            setCameraXFrameListener(_frameAnalyzer)
+            setCameraXCaptureListener(_cameraXKCaptureListener)
+            startCameraX()
+        }
         vb.cameraxkBtn.setOnClickListener {
-            vb.cameraxkPreviewLayout.takePicture()
+            vb.cameraxkPreviewLayout.startCapture()
         }
     }
 
@@ -57,13 +59,13 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     private val _frameAnalyzer: ICameraXKFrameListener by lazy {
         object : ICameraXKFrameListener {
             @SuppressLint("UnsafeOptInUsageError")
-            override fun onFrame(image: ImageProxy) {
+            override fun invoke(imageProxy: ImageProxy) {
                 when (_format) {
-                    ACameraXKFormat.RGBA_8888 -> {
-                        _outputBitmap = ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(image)
+                    ACameraKXFormat.RGBA_8888 -> {
+                        _outputBitmap = ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(imageProxy)
                     }
-                    ACameraXKFormat.YUV_420_888 -> {
-                        _outputBitmap = ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(image)
+                    ACameraKXFormat.YUV_420_888 -> {
+                        _outputBitmap = ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(imageProxy)
                     }
                 }
                 _outputBitmap?.let {
@@ -71,12 +73,12 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
                         vb.cameraxkImg1.setImageBitmap(_outputBitmap)
                     }
                 }
-                image.close()
+                imageProxy.close()
             }
         }
     }
 
-    private val _cameraXKCaptureListener = object : ICameraXKCaptureListener {
+    private val _cameraXKCaptureListener = object : ICameraKXCaptureListener {
         override fun onCaptureSuccess(bitmap: Bitmap, imageRotation: Int) {
             runOnUiThread {
                 vb.cameraxkImg.setImageBitmap(bitmap)

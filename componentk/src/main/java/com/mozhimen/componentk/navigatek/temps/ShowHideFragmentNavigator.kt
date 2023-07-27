@@ -12,11 +12,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
-import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.componentk.navigatek.bases.BaseFragmentDestination
 import com.mozhimen.componentk.navigatek.bases.BaseExtras
 import com.mozhimen.componentk.navigatek.bases.BaseFragmentNavigator
-import com.mozhimen.componentk.navigatek.cons.CNavigateKConstants
+import com.mozhimen.componentk.navigatek.cons.CNavigateKCons
 import java.util.ArrayDeque
 
 
@@ -234,12 +233,12 @@ open class ShowHideFragmentNavigator(
         for (id in _backStack) {
             backStack[index++] = id
         }
-        b.putIntArray(CNavigateKConstants.KEY_BACK_STACK_IDS, backStack)
+        b.putIntArray(CNavigateKCons.KEY_BACK_STACK_IDS, backStack)
         return b
     }
 
     override fun onRestoreState(savedState: Bundle) {
-        val backStack = savedState.getIntArray(CNavigateKConstants.KEY_BACK_STACK_IDS)
+        val backStack = savedState.getIntArray(CNavigateKCons.KEY_BACK_STACK_IDS)
         if (backStack != null) {
             _backStack.clear()
             for (destId in backStack) {

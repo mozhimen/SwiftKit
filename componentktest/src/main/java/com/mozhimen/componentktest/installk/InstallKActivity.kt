@@ -17,9 +17,9 @@ import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.os.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
-import com.mozhimen.componentk.installk.commons.IInstallStateChangedListener
-import com.mozhimen.componentk.installk.cons.EInstallMode
-import com.mozhimen.componentk.installk.cons.EPermissionType
+import com.mozhimen.componentk.installk.commons.IInstallKStateListener
+import com.mozhimen.componentk.installk.cons.EInstallKMode
+import com.mozhimen.componentk.installk.cons.EInstallKPermissionType
 import com.mozhimen.componentktest.databinding.ActivityInstallkBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -62,8 +62,8 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                     UtilKAsset.asset2File("componentktest.apk", _apkPathWithName, false)
                 }
                 delay(500)
-                _installK.setInstallMode(EInstallMode.ROOT).setInstallSmartService(InstallKService::class.java).setInstallSilenceReceiver(InstallKReceiver::class.java)
-                    .setInstallStateChangeListener(object : IInstallStateChangedListener {
+                _installK.setInstallMode(EInstallKMode.ROOT).setInstallSmartService(InstallKService::class.java).setInstallSilenceReceiver(InstallKReceiver::class.java)
+                    .setInstallStateChangeListener(object : IInstallKStateListener {
                         override fun onInstallStart() {
                             Log.d(TAG, "onInstallStart:")
                         }
@@ -76,18 +76,18 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                             Log.e(TAG, "onInstallFail: ${msg ?: ""}")
                         }
 
-                        override fun onNeedPermissions(type: EPermissionType) {
+                        override fun onNeedPermissions(type: EInstallKPermissionType) {
                             Log.w(TAG, "onNeedPermissions: $type")
                             when (type) {
-                                EPermissionType.COMMON -> {
+                                EInstallKPermissionType.COMMON -> {
                                     ManifestKPermission.requestPermissions(this@InstallKActivity, onSuccess = { "权限申请成功".showToast() })
                                 }
 
-                                EPermissionType.INSTALL -> {
+                                EInstallKPermissionType.INSTALL -> {
                                     UtilKAppInstall.openSettingAppInstall(this@InstallKActivity)
                                 }
 
-                                EPermissionType.ACCESSIBILITY -> {
+                                EInstallKPermissionType.ACCESSIBILITY -> {
                                     UtilKLaunchActivity.startSettingAccessibility(this@InstallKActivity)
                                 }
 
