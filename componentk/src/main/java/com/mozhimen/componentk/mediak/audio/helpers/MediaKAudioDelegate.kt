@@ -46,11 +46,11 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
 
     init {
         _owner.runOnMainThread {
-            PostKEventLiveData.with<MAudioKInfo?>(CMediaKAudioCons.EVENT_AUDIO_COMPLETE).observe(_owner) {
+            PostKEventLiveData.instance.with<MAudioKInfo?>(CMediaKAudioCons.Event.AUDIO_COMPLETE).observe(_owner) {
                 Log.d(TAG, "init: onCompleted id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
-            PostKEventLiveData.with<MAudioKInfo?>(CMediaKAudioCons.EVENT_AUDIO_ERROR).observe(_owner) {
+            PostKEventLiveData.instance.with<MAudioKInfo?>(CMediaKAudioCons.Event.AUDIO_ERROR).observe(_owner) {
                 Log.d(TAG, "init: onError id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
@@ -213,7 +213,7 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
                 if (index in _playList.indices) {
                     _playList.removeAt(index)
                 }
-                PostKEventLiveData.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioCons.EVENT_AUDIO_POPUP).setValue(audio to (_playList.size != 0))
+                PostKEventLiveData.instance.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioCons.Event.AUDIO_POPUP).setValue(audio to (_playList.size != 0))
                 getPlayPositionNext()
             }
         }

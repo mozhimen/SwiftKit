@@ -14,28 +14,41 @@ import java.util.concurrent.ConcurrentHashMap
  * @Date 2022/2/6 16:53
  * @Version 1.0
  */
-object PostKEventLiveData {
-    private val _eventLiveDataMap = ConcurrentHashMap<String, EventBusStickyLiveData<*>>()
+class PostKEventLiveData {
+    companion object {
+        @JvmStatic
+        val instance = INSTANCE.holder
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    private val _eventLiveDataMap = ConcurrentHashMap<String, StickyEventLiveData<*>>()
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 
     fun <T> with(eventName: String): StickyLiveData<T> {
         var liveData = _eventLiveDataMap[eventName]
         if (liveData == null) {
-            liveData = EventBusStickyLiveData<T>(eventName)
+            liveData = StickyEventLiveData<T>(eventName)
             _eventLiveDataMap[eventName] = liveData
         }
-        return liveData as EventBusStickyLiveData<T>
+        return liveData as StickyEventLiveData<T>
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 
-    class EventBusStickyLiveData<T>(private val _name: String) : StickyLiveData<T>() {
+    inner class StickyEventLiveData<T>(private val _name: String) : StickyLiveData<T>() {
         override fun observeSticky(owner: LifecycleOwner, observer: Observer<in T>) {
             owner.lifecycle.addObserver(LifecycleEventObserver { _, event ->
                 if (event == Lifecycle.Event.ON_DESTROY) _eventLiveDataMap.remove(_name)//监听宿主 发生销毁事件, 主动把liveData移除掉
             })
             super.observeSticky(owner, observer)
         }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    private object INSTANCE {
+        val holder = PostKEventLiveData()
     }
 }

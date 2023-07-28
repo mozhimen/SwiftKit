@@ -868,11 +868,11 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
     }
 
     void waitForFirstActivityOpened(View v, boolean positionMode) {
-        PostKEventLiveData.INSTANCE.with(CStackKCons.Event.STACKK_FIRST_ACTIVITY).observeForever(new Observer() {
+        PostKEventLiveData.getInstance().with(CStackKCons.Event.STACKK_FIRST_ACTIVITY).observeForever(new Observer() {
             @Override
             public void onChanged(Object o) {
                 tryToShowPopup(v, positionMode);
-                PostKEventLiveData.INSTANCE.with(CStackKCons.Event.STACKK_FIRST_ACTIVITY).removeObserver(this);
+                PostKEventLiveData.getInstance().with(CStackKCons.Event.STACKK_FIRST_ACTIVITY).removeObserver(this);
             }
         });
     }

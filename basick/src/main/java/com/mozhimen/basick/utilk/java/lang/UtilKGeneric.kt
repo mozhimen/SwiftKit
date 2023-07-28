@@ -19,7 +19,7 @@ object UtilKGeneric {
      * @return Type?
      */
     @JvmStatic
-    inline fun <reified T> getGenericType(index: Int = 0): Type? =
+    fun <T> getGenericType(index: Int = 0): Type? =
         object : UtilKTypeRef<T>() {}::class.java
             .genericSuperclass
             .let { it as ParameterizedType }
@@ -37,11 +37,13 @@ object UtilKGeneric {
      * @return Class<*>?
      */
     @JvmStatic
-    inline fun <reified T> getGenericTypeClazz(index: Int = 0): Class<*>? =
+    fun <T> getGenericTypeClazz(index: Int = 0): Class<*>? =
         getGenericType<T>(index) as? Class<*>?
 
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
-     * 获取泛型类
+     * 获取父类泛型类
      * @param clazz Class<*>
      * @param index Int
      * @return Class<*>?
@@ -51,7 +53,7 @@ object UtilKGeneric {
         getParentGenericType(clazz, index) as? Class<*>?
 
     /**
-     * 获取泛型type
+     * 获取父类泛型type
      * @param clazz Class<*>
      * @param index Int
      * @return Type?
@@ -70,6 +72,8 @@ object UtilKGeneric {
             }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 获取继承父类的泛型类
      * @param index Int
@@ -87,5 +91,4 @@ object UtilKGeneric {
     @JvmStatic
     inline fun <reified T> getParentGenericType(index: Int = 0): Type? =
         getParentGenericType(T::class.java, index)
-
 }

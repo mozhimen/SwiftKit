@@ -9,7 +9,7 @@ import com.mozhimen.basicktest.databinding.ActivityPostkBinding
 
 class PostKActivity : BaseActivityVB<ActivityPostkBinding>() {
     override fun initData(savedInstanceState: Bundle?) {
-        PostKEventLiveData.with<String>("stickyData").setStickyValue("即时消息主界面")
+        PostKEventLiveData.instance.with<String>("stickyData").setStickyValue("即时消息主界面")
         super.initData(savedInstanceState)
     }
 

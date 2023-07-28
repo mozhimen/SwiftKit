@@ -7,6 +7,9 @@ import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.lang.UtilKGeneric
+import java.lang.reflect.Type
+import kotlin.jvm.Throws
 
 /**
  * @ClassName UtilKJsonGson
@@ -15,64 +18,103 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  * @Date 2023/2/3 17:21
  * @Version 1.0
  */
-fun Any.toJsonGson(): String =
-    UtilKJsonGson.obj2Json(this)
+@Throws(Exception::class)
+fun <T : Any> T.toJsonGson(): String =
+    UtilKJsonGson.t2Json(this)
 
-fun <T> String.toTGson(token: TypeToken<T>): T =
-    UtilKJsonGson.json2T(this, token)
+@Throws(Exception::class)
+fun <T> String.toTGson(): T? =
+    UtilKJsonGson.json2T(this)
 
-fun <T> String.toTGson(clazz: Class<T>): T? =
-    UtilKJsonGson.json2T(this, clazz)
-
-fun Any.toJsonWithExposeGson(): String =
-    UtilKJsonGson.obj2JsonWithExpose(this)
-
-fun <T> String.toTWithExposeGson(clazz: Class<T>): T? =
-    UtilKJsonGson.json2TWithExpose(this, clazz)
+//fun Any.toJsonWithExposeGson(): String =
+//    UtilKJsonGson.obj2JsonWithExpose(this)
+//
+//fun <T> String.toTWithExposeGson(clazz: Class<T>): T? =
+//    UtilKJsonGson.json2TWithExpose(this, clazz)
 
 object UtilKJsonGson : BaseUtilK() {
-    private val _gson by lazy { Gson() }
-    private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
-    private val _gsonWithExpose by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
+    val gson by lazy { Gson() }
 
+    @Throws(Exception::class)
+    @JvmStatic
+    fun <T> t2Json(gson: Gson, t: T): String =
+        gson.toJson(t)
+
+    @Throws(Exception::class)
     @JvmStatic
     fun <T> t2Json(t: T): String =
-        _gson.toJson(t)
+        t2Json(gson, t)
 
+    @Throws(Exception::class)
     @JvmStatic
     fun obj2Json(obj: Any): String =
-        _gson.toJson(obj)
+        t2Json(obj)
 
+    /////////////////////////////////////////////////////////////////////////////
+
+    @Throws(Exception::class)
+    @JvmStatic
+    fun <T> json2T(gson: Gson, json: String, typeToken: TypeToken<T>): T =
+        gson.fromJson(json, typeToken.type)
+
+    @Throws(Exception::class)
+    @JvmStatic
+    fun <T> json2T(gson: Gson, json: String, clazz: Class<T>): T? =
+        gson.fromJson(json, clazz)
+
+    @Throws(Exception::class)
+    @JvmStatic
+    fun <T> json2T(gson: Gson, json: String, type: Type): T? =
+        gson.fromJson(json, type)
+
+    @Throws(Exception::class)
     @JvmStatic
     fun <T> json2T(json: String, typeToken: TypeToken<T>): T =
-        _gson.fromJson(json, typeToken.type)
+        json2T(gson, json, typeToken)
 
+    @Throws(Exception::class)
     @JvmStatic
     fun <T> json2T(json: String, clazz: Class<T>): T? =
-        _gson.fromJson(json, clazz)
+        json2T(gson, json, clazz)
 
+    @Throws(Exception::class)
     @JvmStatic
-    fun obj2JsonWithField(obj: Any): String =
-        _gsonWithField.toJson(obj)
+    fun <T> json2T(json: String, type: Type): T? =
+        json2T(gson, json, type)
 
+    @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2TWithField(json: String, clazz: Class<T>): T =
-        _gsonWithField.fromJson(json, clazz)
+    fun <T> json2T(json: String): T? =
+        json2T(json, UtilKGeneric.getGenericType<T>()!!)
 
+    @Throws(Exception::class)
     @JvmStatic
-    fun obj2JsonWithExpose(obj: Any): String =
-        _gsonWithExpose.toJson(obj)
+    inline fun <reified T> json2T2(json: String): T? =
+        json2T(json, T::class.java)
 
-    @JvmStatic
-    fun <T> json2TWithExpose(json: String, clazz: Class<T>): T? =
-        _gsonWithExpose.fromJson(json, clazz)
+    ///////////////////////////////////////////////////////////////////////////////
 
+//    private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
+//    private val _gsonWithExpose by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
+//
+//    @JvmStatic
+//    fun obj2JsonWithField(obj: Any): String =
+//        _gsonWithField.toJson(obj)
+//
+//    @JvmStatic
+//    fun <T> json2TWithField(json: String, clazz: Class<T>): T =
+//        _gsonWithField.fromJson(json, clazz)
+//
+//    @JvmStatic
+//    fun obj2JsonWithExpose(obj: Any): String =
+//        _gsonWithExpose.toJson(obj)
+//
+//    @JvmStatic
+//    fun <T> json2TWithExpose(json: String, clazz: Class<T>): T? =
+//        _gsonWithExpose.fromJson(json, clazz)
+
+    @Throws(Exception::class)
     @JvmStatic
-    fun json2JsonElement(json: String): JsonElement? = try {
+    fun json2JsonElement(json: String): JsonElement? =
         json2T(json.trim { it <= ' ' }, JsonElement::class.java)
-    } catch (e: Exception) {
-        e.printStackTrace()
-        e.message?.et(TAG)
-        null
-    }
 }

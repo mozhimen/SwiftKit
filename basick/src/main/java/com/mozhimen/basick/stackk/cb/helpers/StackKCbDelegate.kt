@@ -138,6 +138,6 @@ internal class StackKCbDelegate : IStackK {
     }
 
     private fun postEventFirstActivity() {
-        if (getStackCount() == 1)  PostKEventLiveData.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
+        if (getStackCount() == 1)  PostKEventLiveData.instance.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
     }
 }

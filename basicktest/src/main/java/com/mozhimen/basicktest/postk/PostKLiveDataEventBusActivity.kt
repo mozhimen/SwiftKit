@@ -8,16 +8,16 @@ import com.mozhimen.basicktest.databinding.ActivityPostkLiveDataEventBusBinding
 
 class PostKLiveDataEventBusActivity : BaseActivityVB<ActivityPostkLiveDataEventBusBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        PostKEventLiveData.with<String>("stickyData").observeSticky(this) {
+        PostKEventLiveData.instance.with<String>("stickyData").observeSticky(this) {
             "黏性事件: $it".showToast()
         }
 
-        PostKEventLiveData.with<String>("stickyData").observe(this) {
+        PostKEventLiveData.instance.with<String>("stickyData").observe(this) {
             "非黏性事件: $it".showToast()
         }
 
         vb.utilkDataBusMsgBtn.setOnClickListener {
-            PostKEventLiveData.with<String>("stickyData").setStickyValue("即时消息当前界面")
+            PostKEventLiveData.instance.with<String>("stickyData").setStickyValue("即时消息当前界面")
         }
     }
 }

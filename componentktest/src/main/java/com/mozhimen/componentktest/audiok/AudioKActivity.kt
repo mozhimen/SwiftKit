@@ -64,7 +64,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         })
 
         MediaKAudio.instance.addAudiosToPlayList(_audioList)
-        PostKEventLiveData.with<MAudioKInfo?>(CMediaKAudioCons.EVENT_AUDIO_START).observe(this) {
+        PostKEventLiveData.instance.with<MAudioKInfo?>(CMediaKAudioCons.Event.AUDIO_START).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_start")
                 _popwinAudio.setTitle(it.name)
@@ -73,7 +73,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                 }
             }
         }
-        PostKEventLiveData.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioCons.EVENT_AUDIO_POPUP).observe(this) {
+        PostKEventLiveData.instance.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioCons.Event.AUDIO_POPUP).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_popup")
                 if (!it.second) {
@@ -115,7 +115,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                     dismiss()
                 }
             }
-            PostKEventLiveData.with<MAudioKProgress?>(CMediaKAudioCons.EVENT_PROGRESS_UPDATE).observe(this) {
+            PostKEventLiveData.instance.with<MAudioKProgress?>(CMediaKAudioCons.Event.PROGRESS_UPDATE).observe(this) {
                 if (it != null) {
                     Log.d(TAG, "initData: progress_update" + " progress status ${it.status} currentPos ${it.currentPos} duration ${it.duration} audioInfo ${it.audioInfo}")
                     _slider.updateRodPercent(it.currentPos.toFloat() / it.duration.toFloat())

@@ -148,7 +148,7 @@ class HotupdateK : BaseUtilK() {
 
             override fun onProgressUpdate(percent: Int) {
                 Log.d(TAG, "downloadApk onProgressUpdate: percent $percent")
-                PostKEventLiveData.with<String>(CHotupdateKEvent.HOTUPDATEK_PROGRESS).postValue("$percent")
+                PostKEventLiveData.instance.with<String>(CHotupdateKEvent.HOTUPDATEK_PROGRESS).postValue("$percent")
             }
 
             override fun onDownloadComplete(uri: Uri) {

@@ -72,7 +72,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
     @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     private val _taskKAudioProgressUpdate by lazy { TaskKPollInfinite() }//更新进度Task
 
-    private val _dataBusAudioProgressUpdate by lazy { PostKEventLiveData.with<MAudioKProgress?>(CMediaKAudioCons.EVENT_PROGRESS_UPDATE) }//发布更新进度Event
+    private val _dataBusAudioProgressUpdate by lazy { PostKEventLiveData.instance.with<MAudioKProgress?>(CMediaKAudioCons.Event.PROGRESS_UPDATE) }//发布更新进度Event
 
     private var _isPausedByFocusLossTransient = false
 
@@ -95,11 +95,11 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
                 prepareAsync()
             }
             //发送加载音频事件，UI类型处理事件
-            setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_LOAD, _currentAudioK)
+            setAudioEvent(CMediaKAudioCons.Event.AUDIO_LOAD, _currentAudioK)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
-            setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_ERROR, _currentAudioK)
+            setAudioEvent(CMediaKAudioCons.Event.AUDIO_ERROR, _currentAudioK)
         }
     }
 
@@ -120,7 +120,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
         //停止发送进度消息
         _taskKAudioProgressUpdate.cancel()
         //发送暂停事件,UI类型事件
-        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_PAUSE, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.Event.AUDIO_PAUSE, _currentAudioK)
     }
 
     @OptIn(OptInApiInit_ByLazy::class)
@@ -138,7 +138,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
         }
         _taskKAudioProgressUpdate.cancel()
         //发送销毁播放器事件,清除通知等
-        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_RELEASE, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.Event.AUDIO_RELEASE, _currentAudioK)
     }
 
     override fun getCurrentPlayPosition(): Int =
@@ -192,7 +192,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
 
     override fun onCompletion(mp: MediaPlayer?) {
         //发送播放完成事件,逻辑类型事件
-        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_COMPLETE, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.Event.AUDIO_COMPLETE, _currentAudioK)
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -210,7 +210,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
 
     override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
         //发送当次播放实败事件,逻辑类型事件
-        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_ERROR, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.Event.AUDIO_ERROR, _currentAudioK)
         return false
     }
 
@@ -261,12 +261,12 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
                 })
             }
         }
-        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_START, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.Event.AUDIO_START, _currentAudioK)
     }
 
     private fun setAudioEvent(eventName: String, audio: MAudioKInfo?) {
         Log.d(TAG, "setAudioEvent: eventName [$eventName] audio $audio")
-        PostKEventLiveData.with<MAudioKInfo?>(eventName).postValue(audio)
+        PostKEventLiveData.instance.with<MAudioKInfo?>(eventName).postValue(audio)
     }
 
     private fun setMediaVolume(left: Float, right: Float) {
