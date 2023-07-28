@@ -24,7 +24,7 @@ class ExampleUnitTest {
 //        }.start()
         val a = 0b010
         val b = 0b100
-        read(a or b, 8)
+        //read(a or b, 8)
     }
 
     fun read(num: Int, bit: Int) {

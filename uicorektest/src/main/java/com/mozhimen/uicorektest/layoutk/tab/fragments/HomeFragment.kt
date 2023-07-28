@@ -12,7 +12,4 @@ import com.mozhimen.uicorektest.databinding.FragmentTabBottomHomeBinding
  * @Version 1.0
  */
 class HomeFragment : BaseFragmentVB<FragmentTabBottomHomeBinding>() {
-    override fun initData(savedInstanceState: Bundle?) {
-
-    }
 }

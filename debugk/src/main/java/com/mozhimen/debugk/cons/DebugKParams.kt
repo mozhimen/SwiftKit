@@ -1,5 +1,6 @@
 package com.mozhimen.debugk.cons
 
+import android.annotation.SuppressLint
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.hardware.UtilKDevice
@@ -55,6 +56,7 @@ class DebugKParams {
     @ADebugKParams("设备是否有后置摄像头")
     fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().toStr()
 
+    @SuppressLint("MissingPermission")
     @ADebugKParams("设备默认IMEI")
     fun deviceIMEI():String = UtilKDevice.getIMEI()
 
