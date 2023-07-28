@@ -1,11 +1,11 @@
 package com.mozhimen.underlayktest
 
 import com.mozhimen.basick.elemk.android.app.bases.BaseApplication
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiMultiDex_InApplication
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
+import com.mozhimen.basick.lintk.optin.OptInApiMultiDex_InApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.squareup.moshi.moshiT2Json
+import com.mozhimen.basick.utilk.squareup.moshi.toJsonMoshi
 import com.mozhimen.underlayk.crashk.CrashKMgr
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
@@ -20,8 +20,8 @@ import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
  * @Date 2022/9/24 17:41
  * @Version 1.0
  */
-@OptIn(ALintKOptIn_ApiMultiDex_InApplication::class)
-@ALintKOptIn_ApiInit_InApplication
+@OptIn(OptInApiMultiDex_InApplication::class)
+@OptInApiInit_InApplication
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class UnderlayKApplication : BaseApplication() {
     override fun onCreate() {
@@ -38,7 +38,7 @@ class UnderlayKApplication : BaseApplication() {
         override fun injectJsonParser(): IJsonParser {
             return object : IJsonParser {
                 override fun toJson(src: Any): String {
-                    return src.moshiT2Json()
+                    return src.toJsonMoshi()
                 }
             }
         }

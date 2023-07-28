@@ -14,11 +14,11 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus
+import com.mozhimen.basick.postk.event.PostKEventLiveData
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.componentk.mediak.audio.MediaKAudio
-import com.mozhimen.componentk.mediak.audio.cons.CMediaKAudioEvent
+import com.mozhimen.componentk.mediak.audio.cons.CMediaKAudioCons
 import com.mozhimen.componentk.mediak.audio.mos.MAudioKInfo
 import com.mozhimen.componentk.mediak.audio.mos.MAudioKProgress
 import com.mozhimen.componentktest.R
@@ -64,7 +64,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
         })
 
         MediaKAudio.instance.addAudiosToPlayList(_audioList)
-        PostKLiveDataEventBus.with<MAudioKInfo?>(CMediaKAudioEvent.EVENT_AUDIO_START).observe(this) {
+        PostKEventLiveData.with<MAudioKInfo?>(CMediaKAudioCons.EVENT_AUDIO_START).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_start")
                 _popwinAudio.setTitle(it.name)
@@ -73,7 +73,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                 }
             }
         }
-        PostKLiveDataEventBus.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioEvent.EVENT_AUDIO_POPUP).observe(this) {
+        PostKEventLiveData.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioCons.EVENT_AUDIO_POPUP).observe(this) {
             if (it != null) {
                 Log.d(TAG, "initData: audio_popup")
                 if (!it.second) {
@@ -115,7 +115,7 @@ class AudioKActivity : BaseActivityVB<ActivityAudiokBinding>() {
                     dismiss()
                 }
             }
-            PostKLiveDataEventBus.with<MAudioKProgress?>(CMediaKAudioEvent.EVENT_PROGRESS_UPDATE).observe(this) {
+            PostKEventLiveData.with<MAudioKProgress?>(CMediaKAudioCons.EVENT_PROGRESS_UPDATE).observe(this) {
                 if (it != null) {
                     Log.d(TAG, "initData: progress_update" + " progress status ${it.status} currentPos ${it.currentPos} duration ${it.duration} audioInfo ${it.audioInfo}")
                     _slider.updateRodPercent(it.currentPos.toFloat() / it.duration.toFloat())

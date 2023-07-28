@@ -13,7 +13,7 @@ import java.io.IOException
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
-import com.mozhimen.underlayk.logk.mos.MLogK
+import com.mozhimen.underlayk.logk.mos.MLogKConfig
 
 /**
  * @ClassName FilePrinter
@@ -78,7 +78,7 @@ class LogKPrinterFile(
         if (!_worker.isRunning()) {
             _worker.start()
         }
-        _worker.put(MLogK(timeMillis, level, tag, printString))
+        _worker.put(MLogKConfig(timeMillis, level, tag, printString))
     }
 
     private fun genFileName(): String {
@@ -102,7 +102,7 @@ class LogKPrinterFile(
     }
 
     private inner class PrinterWorker : Runnable {
-        private val _logQueue: BlockingQueue<MLogK> = LinkedBlockingQueue()
+        private val _logQueue: BlockingQueue<MLogKConfig> = LinkedBlockingQueue()
 
         @Volatile
         private var _isRunning = false
@@ -112,7 +112,7 @@ class LogKPrinterFile(
          *
          * @param log 要被打印的log
          */
-        fun put(log: MLogK) {
+        fun put(log: MLogKConfig) {
             try {
                 _logQueue.put(log)
             } catch (e: InterruptedException) {
@@ -143,7 +143,7 @@ class LogKPrinterFile(
         }
 
         override fun run() {
-            var log: MLogK?
+            var log: MLogKConfig?
             try {
                 while (true) {
                     log = _logQueue.take()
@@ -156,7 +156,7 @@ class LogKPrinterFile(
             }
         }
 
-        private fun doPrint(log: MLogK) {
+        private fun doPrint(log: MLogKConfig) {
             val lastFileName: String? = _writer.getPreFileName()
             if (lastFileName == null) {
                 val newFileName: String = genFileName()

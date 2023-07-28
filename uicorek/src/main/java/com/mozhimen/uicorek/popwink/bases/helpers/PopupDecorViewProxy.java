@@ -16,8 +16,7 @@ import android.view.ViewPropertyAnimator;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
-import com.mozhimen.basick.elemk.cons.CConfig;
-import com.mozhimen.basick.elemk.cons.CWinMgr;
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr;
 import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
 import com.mozhimen.basick.utilk.android.view.UtilKView;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;

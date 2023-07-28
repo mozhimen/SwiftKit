@@ -3,8 +3,8 @@
 //import android.content.Context
 //import android.content.ContextWrapper
 //import android.content.res.Resources
-//import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiDeclare_InManifest
-//import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
+//import com.mozhimen.basick.lintk.optin.ALintKOptIn_ApiDeclare_InManifest
+//import com.mozhimen.basick.lintk.optin.ALintKOptIn_ApiInit_InApplication
 //import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 //import com.mozhimen.uicorek.adaptk.autosize.AdaptKAutoSize
 //import me.jessyan.autosize.AutoSizeCompat

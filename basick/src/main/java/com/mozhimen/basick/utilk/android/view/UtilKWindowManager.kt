@@ -7,7 +7,7 @@ import android.view.Display
 import android.view.WindowManager
 import android.view.WindowMetrics
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
 

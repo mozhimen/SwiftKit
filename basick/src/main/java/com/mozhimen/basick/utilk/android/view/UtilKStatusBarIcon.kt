@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.view.Window
 import android.view.WindowManager
-import com.mozhimen.basick.elemk.cons.CView
-import com.mozhimen.basick.elemk.cons.CWinMgr
+import com.mozhimen.basick.elemk.android.view.cons.CView
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et

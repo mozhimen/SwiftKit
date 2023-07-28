@@ -7,7 +7,7 @@ import androidx.annotation.Px
 import coil.load
 import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
-import com.mozhimen.basick.imagek.coil.cons.CImageKCoilBlur
+import com.mozhimen.basick.imagek.coil.cons.CCoilBlurCons
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -37,8 +37,8 @@ fun ImageView.loadImageComplexCoil(
 fun ImageView.loadImageBlurCoil(
     res: Any, placeholder: Int,
     crossFadeEnable: Boolean = true, crossFadeTime: Int = 1500,
-    @FloatRange(from = 0.0, to = 25.0) radius: Float = CImageKCoilBlur.RADIUS,
-    @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CImageKCoilBlur.SAMPLING
+    @FloatRange(from = 0.0, to = 25.0) radius: Float = CCoilBlurCons.RADIUS,
+    @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CCoilBlurCons.SAMPLING
 ) {
     ImageKCoil.loadImageBlur(this, res, placeholder, crossFadeEnable, crossFadeTime, radius, sampling)
 }
@@ -113,8 +113,8 @@ object ImageKCoil {
     fun loadImageBlur(
         imageView: ImageView, res: Any, placeholder: Int,
         crossFadeEnable: Boolean = true, crossFadeTime: Int = 1500,
-        @FloatRange(from = 0.0, to = 25.0) radius: Float = CImageKCoilBlur.RADIUS,
-        @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CImageKCoilBlur.SAMPLING
+        @FloatRange(from = 0.0, to = 25.0) radius: Float = CCoilBlurCons.RADIUS,
+        @FloatRange(from = 0.0, to = Double.MAX_VALUE) sampling: Float = CCoilBlurCons.SAMPLING
     ) {
         imageView.load(res) {
             crossfade(crossFadeEnable)

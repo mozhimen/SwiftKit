@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.java.util
 
-import com.mozhimen.basick.elemk.cons.CDateFormat
+import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import java.lang.Exception
 
 /**

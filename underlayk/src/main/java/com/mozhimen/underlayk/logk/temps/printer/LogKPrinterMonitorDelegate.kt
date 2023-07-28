@@ -14,7 +14,7 @@ import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.elemk.cons.CWinMgr
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.elemk.kotlin.properties.VarProperty_SetVaryNonnull
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -33,8 +33,8 @@ import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.commons.ILogKPrinterMonitor
-import com.mozhimen.underlayk.logk.cons.CLogKParameter
-import com.mozhimen.underlayk.logk.mos.MLogK
+import com.mozhimen.underlayk.logk.cons.CLogKCons
+import com.mozhimen.underlayk.logk.mos.MLogKConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -54,7 +54,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
         get() {
             if (field != null) return field
             val frameLayout = LayoutInflater.from(_context).inflate(R.layout.logk_monitor_view, null, false) as FrameLayout
-            frameLayout.tag = CLogKParameter.TAG_LOGK_MONITOR_VIEW
+            frameLayout.tag = CLogKCons.TAG_LOGK_MONITOR_VIEW
             return frameLayout.also { field = it }
         }
     private val _windowManager: WindowManager by lazy { UtilKWindowManager.get(_context) }
@@ -79,7 +79,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
 
     private var _isFold = false
         set(value) {
-            _titleView!!.text = if (value) CLogKParameter.TITLE_OPEN_PANEL else CLogKParameter.TITLE_CLOSE_PANEL
+            _titleView!!.text = if (value) CLogKCons.TITLE_OPEN_PANEL else CLogKCons.TITLE_CLOSE_PANEL
             field = value
         }
 
@@ -155,7 +155,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     override fun close() {
         if (!_isOpen) return
         try {
-            if (_rootView!!.findViewWithTag<View?>(CLogKParameter.TAG_LOGK_MONITOR_VIEW) == null) return
+            if (_rootView!!.findViewWithTag<View?>(CLogKCons.TAG_LOGK_MONITOR_VIEW) == null) return
             _windowManager.removeView(_rootView)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -167,7 +167,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun printInView(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
-        _adapterKRecycler.addItem(LogKPrinterItem(MLogK(System.currentTimeMillis(), level, tag, printString)), true)
+        _adapterKRecycler.addItem(LogKPrinterItem(MLogKConfig(System.currentTimeMillis(), level, tag, printString)), true)
         _recyclerView!!.smoothScrollToPosition(_adapterKRecycler.itemCount - 1)
     }
 
@@ -175,7 +175,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     private fun fold() {
         if (_isFold) return
         _isFold = true
-        _titleView!!.text = CLogKParameter.TITLE_OPEN_PANEL
+        _titleView!!.text = CLogKCons.TITLE_OPEN_PANEL
         _recyclerView!!.visibility = View.GONE
         _rootView!!.layoutParams = getLayoutParams(true)
         _windowManager.updateViewLayout(_rootView, getWindowLayoutParams(true))
@@ -185,7 +185,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     private fun unfold() {
         if (!_isFold) return
         _isFold = false
-        _titleView!!.text = CLogKParameter.TITLE_CLOSE_PANEL
+        _titleView!!.text = CLogKCons.TITLE_CLOSE_PANEL
         _recyclerView!!.visibility = View.VISIBLE
         _rootView!!.layoutParams = getLayoutParams(false)
         _windowManager.updateViewLayout(_rootView, getWindowLayoutParams(false))

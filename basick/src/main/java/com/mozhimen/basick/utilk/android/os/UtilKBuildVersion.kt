@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.os
 
 import android.os.Build
 import androidx.annotation.ChecksSdkIntAtLeast
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 
 /**
  * @ClassName UtilKBuildVersion

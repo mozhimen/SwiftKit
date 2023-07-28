@@ -4,9 +4,9 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.java.lang.UtilKStackTrace
-import com.mozhimen.underlayk.logk.annors.ALogKType
-import com.mozhimen.basick.elemk.cons.CLogPriority
-import com.mozhimen.underlayk.logk.cons.CLogKParameter
+import com.mozhimen.basick.lintk.annors.ALogPriority
+import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
+import com.mozhimen.underlayk.logk.cons.CLogKCons
 import java.lang.StringBuilder
 import kotlin.collections.ArrayList
 
@@ -196,7 +196,7 @@ object LogK : BaseUtilK() {
      * @param type Int
      * @param contents Array<out Any>
      */
-    fun log(@ALogKType type: Int, vararg contents: Any) {
+    fun log(@ALogPriority type: Int, vararg contents: Any) {
         log(type, LogKMgr.instance.getConfig().getGlobalTag(), contents)
     }
 
@@ -206,7 +206,7 @@ object LogK : BaseUtilK() {
      * @param tag String
      * @param contents Array<out Any>
      */
-    fun log(@ALogKType type: Int, tag: String, vararg contents: Any) {
+    fun log(@ALogPriority type: Int, tag: String, vararg contents: Any) {
         log(LogKMgr.instance.getConfig(), type, tag, *contents)
     }
 
@@ -217,17 +217,17 @@ object LogK : BaseUtilK() {
      * @param tag String
      * @param contents Array<out Any?>
      */
-    fun log(config: BaseLogKConfig, @ALogKType type: Int, tag: String, vararg contents: Any?) {
+    fun log(config: BaseLogKConfig, @ALogPriority type: Int, tag: String, vararg contents: Any?) {
         if (!config.enable()) {
             return
         }
         val builder = StringBuilder()
         if (config.includeThread()) {
-            val threadInfo: String = CLogKParameter.FORMATTER_THREAD.format(Thread.currentThread())
+            val threadInfo: String = CLogKCons.FORMATTER_THREAD.format(Thread.currentThread())
             builder.append(threadInfo).append("\n")
         }
         if (config.stackTraceDepth() > 0 || (config.stackTraceDepth() <= 0 && type >= CLogPriority.E)) {
-            val stackTrace: String? = CLogKParameter.FORMATTER_STACK_TRACE.format(
+            val stackTrace: String? = CLogKCons.FORMATTER_STACK_TRACE.format(
                 UtilKStackTrace.getCroppedRealStackTrack(
                     Throwable().stackTrace,
                     _logKPackageName,

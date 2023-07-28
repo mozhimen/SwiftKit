@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.androidx.appcompat
 
 import androidx.appcompat.app.AppCompatDelegate
-import com.mozhimen.basick.elemk.cons.CAppCompatDelegate
+import com.mozhimen.basick.elemk.androidx.appcompat.cons.CAppCompatDelegate
 
 /**
  * @ClassName UtilKAppCompatDelegate

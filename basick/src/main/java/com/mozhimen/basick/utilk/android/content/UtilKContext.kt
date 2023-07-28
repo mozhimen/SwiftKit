@@ -30,7 +30,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import coil.ImageLoader
 import coil.imageLoader
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 
 
 /**

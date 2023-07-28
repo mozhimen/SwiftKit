@@ -7,14 +7,14 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.commons.IConnectionListener
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.componentk.netk.connection.NetKConnectionProxy
-import com.mozhimen.basick.elemk.cons.ENetType
+import com.mozhimen.basick.elemk.android.net.cons.ENetType
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.componentktest.databinding.ActivityNetkConnectionBinding
 
@@ -39,7 +39,7 @@ import com.mozhimen.componentktest.databinding.ActivityNetkConnectionBinding
     CPermission.INTERNET
 )
 class NetKConnectionActivity : BaseActivityVB<ActivityNetkConnectionBinding>() {
-    @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
+    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     private val _netKConnectionProxy: NetKConnectionProxy<NetKConnectionActivity> by lazy { NetKConnectionProxy(this, _netKConnListener).apply { bindLifecycle(this@NetKConnectionActivity) } }
     private val _netKConnListener = object : IConnectionListener {
         override fun onDisconnect() {
@@ -72,7 +72,7 @@ class NetKConnectionActivity : BaseActivityVB<ActivityNetkConnectionBinding>() {
         }
     }
 
-    @OptIn(ALintKOptIn_ApiCall_BindLifecycle::class, ALintKOptIn_ApiInit_ByLazy::class)
+    @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     override fun initView(savedInstanceState: Bundle?) {
         _netKConnectionProxy.bindLifecycle(this)
     }

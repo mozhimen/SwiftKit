@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.graphics
 import android.graphics.Color
 import androidx.annotation.ColorInt
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import kotlin.math.roundToInt
 
 /**

@@ -2,8 +2,8 @@ package com.mozhimen.basicktest.utilk.javax
 
 import android.os.Bundle
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.basick.postk.encrypt.PostKEncryptAES
-import com.mozhimen.basick.postk.encrypt.mos.MEncryptAESConfig
+import com.mozhimen.basick.postk.crypto.PostKCryptoAES
+import com.mozhimen.basick.postk.crypto.mos.MCryptoAESConfig
 import com.mozhimen.basicktest.databinding.ActivityUtilkEncryptBinding
 
 
@@ -22,11 +22,11 @@ class UtilKEncryptActivity : BaseActivityVB<ActivityUtilkEncryptBinding>() {
         var res: String = ""
         vb.utilkEncryptTxt1.text = content
         vb.utilkEncryptBtnEncrypt.setOnClickListener {
-            pwd = PostKEncryptAES.with(MEncryptAESConfig(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv")).encryptWithBase64(content)
+            pwd = PostKCryptoAES.with(MCryptoAESConfig(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv")).encryptWithBase64(content)
             vb.utilkEncryptTxt2.text = pwd
         }
         vb.utilkEncryptBtnDecrypt.setOnClickListener {
-            res = PostKEncryptAES.with(MEncryptAESConfig(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv")).decryptWithBase64(pwd)
+            res = PostKCryptoAES.with(MCryptoAESConfig(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv")).decryptWithBase64(pwd)
             vb.utilkEncryptTxt3.text = res
         }
     }

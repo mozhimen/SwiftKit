@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import com.mozhimen.basick.elemk.cons.CView
+import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlin.math.abs
 

@@ -3,9 +3,9 @@ package com.mozhimen.componentk.navigatek
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import com.mozhimen.componentk.navigatek.helpers.getDestinationId
 import com.mozhimen.componentk.navigatek.helpers.startDestinationId
@@ -18,8 +18,8 @@ import com.mozhimen.componentk.navigatek.mos.MNavigateKConfig
  * @Date 2023/2/17 16:44
  * @Version 1.0
  */
-@ALintKOptIn_ApiCall_BindLifecycle
-@ALintKOptIn_ApiInit_ByLazy
+@OptInApiCall_BindLifecycle
+@OptInApiInit_ByLazy
 class NavigateKProxy<A>(
     private val _activity: A,
     private val _containerId: Int,

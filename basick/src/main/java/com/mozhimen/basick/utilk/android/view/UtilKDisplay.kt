@@ -6,7 +6,7 @@ import android.graphics.Point
 import android.util.DisplayMetrics
 import android.view.Display
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 
 /**

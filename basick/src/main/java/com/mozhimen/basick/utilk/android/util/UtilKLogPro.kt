@@ -5,7 +5,7 @@ import android.view.MotionEvent
 import com.mozhimen.basick.utilk.kotlin.collections.UtilKCollection
 import com.mozhimen.basick.utilk.android.view.UtilKGesture
 import com.mozhimen.basick.utilk.kotlin.UtilKThrowable
-import com.mozhimen.basick.elemk.cons.CLogPriority
+import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKStackTrace

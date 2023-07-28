@@ -5,7 +5,7 @@ import android.media.Image.Plane
 import android.util.Log
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_FieldCall_Close
+import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.LogK
 import java.io.ByteArrayOutputStream
@@ -43,7 +43,7 @@ object ImageProxyUtil : BaseUtilK() {
 
     @JvmStatic
     @ExperimentalGetImage
-    @ALintKOptIn_FieldCall_Close
+    @OptInFieldCall_Close
     fun yuv420888ImageProxy2JpegBitmap(imageProxy: ImageProxy): Bitmap? {
         val nv21Bytes = yuv420888Planes2Nv21Bytes(imageProxy.image!!.planes, imageProxy.width, imageProxy.height)
         return nv21Buffer2JpegBitmap(ByteBuffer.wrap(nv21Bytes), imageProxy.width, imageProxy.height)

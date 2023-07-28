@@ -1,6 +1,6 @@
 package com.mozhimen.basick.animk.builder.cons
 
-import android.view.Gravity
+import com.mozhimen.basick.elemk.android.view.cons.CGravity
 
 /**
  * @ClassName Direction
@@ -10,19 +10,17 @@ import android.view.Gravity
  * @Version 1.0
  */
 enum class EDirection(val flag: Int) {
-    IDLE(Gravity.NO_GRAVITY),
-    LEFT(Gravity.LEFT),
-    TOP(Gravity.TOP),
-    RIGHT(Gravity.RIGHT),
-    BOTTOM(Gravity.BOTTOM),
-    CENTER(Gravity.CENTER),
-    CENTER_HORIZONTAL(Gravity.CENTER_HORIZONTAL),
-    CENTER_VERTICAL(Gravity.CENTER_VERTICAL);
+    IDLE(CGravity.NO_GRAVITY),
+    LEFT(CGravity.LEFT),
+    TOP(CGravity.TOP),
+    RIGHT(CGravity.RIGHT),
+    BOTTOM(CGravity.BOTTOM),
+    CENTER(CGravity.CENTER),
+    CENTER_HORIZONTAL(CGravity.CENTER_HORIZONTAL),
+    CENTER_VERTICAL(CGravity.CENTER_VERTICAL);
 
     companion object {
-        fun isDirectionFlag(direction: EDirection, flag: Int): Boolean {
-            return flag and Gravity.HORIZONTAL_GRAVITY_MASK == direction.flag ||
-                    flag and Gravity.VERTICAL_GRAVITY_MASK == direction.flag
-        }
+        fun isDirectionFlag(direction: EDirection, flag: Int): Boolean =
+            flag and CGravity.HORIZONTAL_GRAVITY_MASK == direction.flag || flag and CGravity.VERTICAL_GRAVITY_MASK == direction.flag
     }
 }

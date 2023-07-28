@@ -3,9 +3,9 @@ package com.mozhimen.componentk.netk.connection
 import android.app.Activity
 import android.net.ConnectivityManager
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiverProxy
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.android.content.NetConnectionBroadcastReceiver
@@ -19,8 +19,8 @@ import com.mozhimen.basick.elemk.commons.IConnectionListener
  * @Date 2023/2/13 15:41
  * @Version 1.0
  */
-@ALintKOptIn_ApiCall_BindLifecycle
-@ALintKOptIn_ApiInit_ByLazy
+@OptInApiCall_BindLifecycle
+@OptInApiInit_ByLazy
 @AManifestKRequire(
     CPermission.ACCESS_NETWORK_STATE,
     CPermission.ACCESS_WIFI_STATE,

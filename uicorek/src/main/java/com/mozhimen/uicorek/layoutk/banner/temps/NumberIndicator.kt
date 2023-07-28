@@ -9,7 +9,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.mozhimen.basick.utilk.android.util.dp2px
-import com.mozhimen.basick.elemk.cons.CViewGroup
+import com.mozhimen.basick.elemk.android.view.cons.CViewGroup
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 

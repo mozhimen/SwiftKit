@@ -13,9 +13,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.lintk.annors.ADescription
-import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.elemk.cons.CView
-import com.mozhimen.basick.elemk.cons.CWinMgr
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.view.cons.CView
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.getByContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.isDestroyed

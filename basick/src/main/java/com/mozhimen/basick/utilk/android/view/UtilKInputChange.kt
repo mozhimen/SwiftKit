@@ -7,7 +7,7 @@ import android.view.ViewTreeObserver
 import android.view.Window
 import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.cons.CParameter
-import com.mozhimen.basick.elemk.cons.CWinMgr
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion

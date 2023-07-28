@@ -4,10 +4,10 @@ import android.app.Activity
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
@@ -20,16 +20,16 @@ import java.lang.ref.WeakReference
  * @Date 2023/6/11 14:34
  * @Version 1.0
  */
-@ALintKOptIn_ApiInit_InApplication
+@OptInApiInit_InApplication
 internal class StackKProcessDelegate : IStackK {
-    @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
+    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     private val _applicationObserver by lazy { ApplicationObserver() }
     private val _frontBackListeners = ArrayList<IStackKListener>()
     private var _isFront = true
 
     /////////////////////////////////////////////////////////////////////////
 
-    @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
+    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     override fun init() {
         _applicationObserver.bindLifecycle(ProcessLifecycleOwner.get())
     }
@@ -73,8 +73,8 @@ internal class StackKProcessDelegate : IStackK {
 
     /////////////////////////////////////////////////////////////////////////
 
-    @ALintKOptIn_ApiCall_BindLifecycle
-    @ALintKOptIn_ApiInit_ByLazy
+    @OptInApiCall_BindLifecycle
+    @OptInApiInit_ByLazy
     private inner class ApplicationObserver : BaseWakeBefDestroyLifecycleObserver() {
 
         /**

@@ -4,9 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.commons.IDefaultLifecycleObserver
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 
 
@@ -17,8 +17,8 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
  * @Date 2022/11/23 11:42
  * @Version 1.0
  */
-@OptIn(ALintKOptIn_ApiInit_ByLazy::class)
-@ALintKOptIn_ApiCall_BindLifecycle
+@OptIn(OptInApiInit_ByLazy::class)
+@OptInApiCall_BindLifecycle
 class RecyclerKLifecycle @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), IDefaultLifecycleObserver {
 
     override fun bindLifecycle(owner: LifecycleOwner) {

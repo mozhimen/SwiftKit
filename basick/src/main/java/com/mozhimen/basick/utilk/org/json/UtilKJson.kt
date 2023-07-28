@@ -18,12 +18,12 @@ import org.json.JSONObject
 object UtilKJson : BaseUtilK() {
 
     @JvmStatic
-    fun wrapJsonStr(jsonStr: String): String {
+    fun wrapJson(json: String): String {
         var message: String
-        if (TextUtils.isEmpty(jsonStr)) return ""
+        if (TextUtils.isEmpty(json)) return ""
         try {
-            if (jsonStr.startsWith("{")) {
-                val jsonObject = JSONObject(jsonStr)
+            if (json.startsWith("{")) {
+                val jsonObject = JSONObject(json)
                 message = jsonObject.toString(2)
                 message = """
                 
@@ -32,8 +32,8 @@ object UtilKJson : BaseUtilK() {
                 <<<<<=====JSONObject=====>>>>>
                 
                 """.trimIndent()
-            } else if (jsonStr.startsWith("[")) {
-                val jsonArray = JSONArray(jsonStr)
+            } else if (json.startsWith("[")) {
+                val jsonArray = JSONArray(json)
                 message = jsonArray.toString(4)
                 message = """
                 
@@ -42,11 +42,11 @@ object UtilKJson : BaseUtilK() {
                 <<<<<=====JSONArray=====>>>>>
                 
                 """.trimIndent()
-            } else message = jsonStr
+            } else message = json
         } catch (e: JSONException) {
             e.printStackTrace()
             e.message?.et(TAG)
-            message = jsonStr
+            message = json
         }
         return message
     }
@@ -57,7 +57,7 @@ object UtilKJson : BaseUtilK() {
      * @return Array<String?>?
      */
     @JvmStatic
-    fun splitJsonString(json: String): Array<String?>? {
+    fun splitJson(json: String): Array<String?>? {
         val splitArray: Array<String?> = json.split("\t").toTypedArray()
         return if (splitArray.size != 2) null else splitArray
     }
@@ -72,13 +72,13 @@ object UtilKJson : BaseUtilK() {
         if (obj is String) JSONObject(obj) else JSONObject(UtilKJsonGson.obj2Json(obj))
 
     /**
-     * 从JsonString中摘取string
+     * 从Json中摘取string
      * @param json String
      * @param name String
      * @return String?
      */
     @JvmStatic
-    fun getStrFromJsonStr(json: String, name: String): String =
+    fun getStrFromJson(json: String, name: String): String =
         JSONObject(json.trim { it <= ' ' })[name].toString()
 
     /**
@@ -196,7 +196,7 @@ object UtilKJson : BaseUtilK() {
      * @return String?
      */
     @JvmStatic
-    fun joinJsonObj2JsonStr(jsonObj: JSONObject, jsonObj2: JSONObject): String {
+    fun joinJsonObj2Json(jsonObj: JSONObject, jsonObj2: JSONObject): String {
         val jsonArray = JSONArray()
         jsonArray.put(jsonObj)
         val jsonArray2 = JSONArray()

@@ -2,8 +2,8 @@
 //
 //import android.app.Activity
 //import android.util.Log
-//import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiDeclare_InManifest
-//import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
+//import com.mozhimen.basick.lintk.optin.ALintKOptIn_ApiDeclare_InManifest
+//import com.mozhimen.basick.lintk.optin.ALintKOptIn_ApiInit_InApplication
 //import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 //import com.mozhimen.basick.manifestk.cons.CMetaData
 //import com.mozhimen.basick.utilk.android.view.UtilKScreen

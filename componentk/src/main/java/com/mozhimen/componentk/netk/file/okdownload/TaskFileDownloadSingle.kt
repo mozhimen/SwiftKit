@@ -5,9 +5,9 @@ import com.liulishuo.okdownload.DownloadTask
 import com.liulishuo.okdownload.StatusUtil
 import com.liulishuo.okdownload.core.cause.EndCause
 import com.liulishuo.okdownload.core.listener.DownloadListener2
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiDeprecated_ThirdParty
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_ThirdParty
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
@@ -26,9 +26,9 @@ import java.util.concurrent.CopyOnWriteArrayList
  * @Date 2022/11/1 23:27
  * @Version 1.0
  */
-@ALintKOptIn_ApiCall_BindLifecycle
-@ALintKOptIn_ApiInit_ByLazy
-@ALintKOptIn_ApiDeprecated_ThirdParty
+@OptInApiCall_BindLifecycle
+@OptInApiInit_ByLazy
+@OptInApiDeprecated_ThirdParty
 @Deprecated("okdownload is deprecated")
 class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
     private val _downloadUrls = CopyOnWriteArrayList<String>()

@@ -1,7 +1,7 @@
 package com.mozhimen.basick.lintk.annors
 
-import android.widget.Toast
 import androidx.annotation.IntDef
+import com.mozhimen.basick.elemk.android.widget.cons.CToast
 
 /**
  * @ClassName @AToastDuration
@@ -10,5 +10,6 @@ import androidx.annotation.IntDef
  * @Date 2023/7/12 21:35
  * @Version 1.0
  */
-@IntDef(value = [Toast.LENGTH_SHORT, Toast.LENGTH_LONG])
+@IntDef(value = [CToast.LENGTH_SHORT, CToast.LENGTH_LONG])
+@Retention(AnnotationRetention.SOURCE)
 annotation class AToastDuration

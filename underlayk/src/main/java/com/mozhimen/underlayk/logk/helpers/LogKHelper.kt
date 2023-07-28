@@ -2,7 +2,7 @@ package com.mozhimen.underlayk.logk.helpers
 
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.underlayk.R
-import com.mozhimen.basick.elemk.cons.CLogPriority
+import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 
 /**
  * @ClassName LogKHelper

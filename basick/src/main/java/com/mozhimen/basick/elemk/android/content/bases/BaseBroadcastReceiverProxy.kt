@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.IntentFilter
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 
 
@@ -17,8 +17,8 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
  * @Date 2023/1/10 14:32
  * @Version 1.0
  */
-@ALintKOptIn_ApiCall_BindLifecycle
-@ALintKOptIn_ApiInit_ByLazy
+@OptInApiCall_BindLifecycle
+@OptInApiInit_ByLazy
 open class BaseBroadcastReceiverProxy<A>(
     private val _activity: A,
     private val _receiver: BroadcastReceiver,

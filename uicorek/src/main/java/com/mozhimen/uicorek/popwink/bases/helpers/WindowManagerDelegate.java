@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 
-import com.mozhimen.basick.elemk.cons.CVersCode;
-import com.mozhimen.basick.elemk.cons.CWinMgr;
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode;
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr;
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 

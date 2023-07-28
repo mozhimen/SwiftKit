@@ -1,17 +1,13 @@
 package com.mozhimen.basick.utilk.android.graphics
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.UtilKString
-import java.io.ByteArrayOutputStream
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 

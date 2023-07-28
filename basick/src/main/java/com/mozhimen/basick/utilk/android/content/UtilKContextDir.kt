@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.content
 import android.content.Context
 import android.os.Environment
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import java.io.File

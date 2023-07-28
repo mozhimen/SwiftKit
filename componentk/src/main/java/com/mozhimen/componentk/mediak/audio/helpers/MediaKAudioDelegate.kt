@@ -2,11 +2,11 @@ package com.mozhimen.componentk.mediak.audio.helpers
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus
+import com.mozhimen.basick.postk.event.PostKEventLiveData
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainThread
 import com.mozhimen.componentk.mediak.audio.commons.IMediaKAudio
-import com.mozhimen.componentk.mediak.audio.cons.CMediaKAudioEvent
+import com.mozhimen.componentk.mediak.audio.cons.CMediaKAudioCons
 import com.mozhimen.componentk.mediak.audio.cons.EMediaKAudioPlayMode
 import com.mozhimen.componentk.mediak.audio.player.custom.MediaKAudioPlayerCustom
 import com.mozhimen.componentk.mediak.player.status.cons.EMediaKPlayerStatus
@@ -46,11 +46,11 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
 
     init {
         _owner.runOnMainThread {
-            PostKLiveDataEventBus.with<MAudioKInfo?>(CMediaKAudioEvent.EVENT_AUDIO_COMPLETE).observe(_owner) {
+            PostKEventLiveData.with<MAudioKInfo?>(CMediaKAudioCons.EVENT_AUDIO_COMPLETE).observe(_owner) {
                 Log.d(TAG, "init: onCompleted id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
-            PostKLiveDataEventBus.with<MAudioKInfo?>(CMediaKAudioEvent.EVENT_AUDIO_ERROR).observe(_owner) {
+            PostKEventLiveData.with<MAudioKInfo?>(CMediaKAudioCons.EVENT_AUDIO_ERROR).observe(_owner) {
                 Log.d(TAG, "init: onError id ${it?.id} url ${it?.url}")
                 genNextAudio(it)
             }
@@ -213,7 +213,7 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
                 if (index in _playList.indices) {
                     _playList.removeAt(index)
                 }
-                PostKLiveDataEventBus.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioEvent.EVENT_AUDIO_POPUP).setValue(audio to (_playList.size != 0))
+                PostKEventLiveData.with<Pair<MAudioKInfo, Boolean>?>(CMediaKAudioCons.EVENT_AUDIO_POPUP).setValue(audio to (_playList.size != 0))
                 getPlayPositionNext()
             }
         }

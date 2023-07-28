@@ -7,16 +7,16 @@ import android.net.wifi.WifiManager.WifiLock
 import android.os.PowerManager
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_ByLazy
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiCall_BindLifecycle
-import com.mozhimen.basick.postk.livedata.PostKLiveDataEventBus
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.postk.event.PostKEventLiveData
 import com.mozhimen.basick.taskk.temps.TaskKPollInfinite
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.net.UtilKWifiManager
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.componentk.mediak.audio.manager.focus.commons.IMediaKAudioManagerFocusListener
-import com.mozhimen.componentk.mediak.audio.cons.CMediaKAudioEvent
+import com.mozhimen.componentk.mediak.audio.cons.CMediaKAudioCons
 import com.mozhimen.componentk.mediak.audio.player.custom.commons.IMediaKAudioPlayerCustom
 import com.mozhimen.componentk.mediak.audio.manager.focus.MediaKAudioManagerFocus
 import com.mozhimen.componentk.mediak.player.status.cons.EMediaKPlayerStatus
@@ -69,10 +69,10 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
             return manager.also { field = it }
         }
 
-    @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
+    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     private val _taskKAudioProgressUpdate by lazy { TaskKPollInfinite() }//更新进度Task
 
-    private val _dataBusAudioProgressUpdate by lazy { PostKLiveDataEventBus.with<MAudioKProgress?>(CMediaKAudioEvent.EVENT_PROGRESS_UPDATE) }//发布更新进度Event
+    private val _dataBusAudioProgressUpdate by lazy { PostKEventLiveData.with<MAudioKProgress?>(CMediaKAudioCons.EVENT_PROGRESS_UPDATE) }//发布更新进度Event
 
     private var _isPausedByFocusLossTransient = false
 
@@ -95,11 +95,11 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
                 prepareAsync()
             }
             //发送加载音频事件，UI类型处理事件
-            setAudioEvent(CMediaKAudioEvent.EVENT_AUDIO_LOAD, _currentAudioK)
+            setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_LOAD, _currentAudioK)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
-            setAudioEvent(CMediaKAudioEvent.EVENT_AUDIO_ERROR, _currentAudioK)
+            setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_ERROR, _currentAudioK)
         }
     }
 
@@ -107,7 +107,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
         if (getPlayStatus() == EMediaKPlayerStatus.PAUSED) start()
     }
 
-    @OptIn(ALintKOptIn_ApiInit_ByLazy::class)
+    @OptIn(OptInApiInit_ByLazy::class)
     override fun pause() {
         if (getPlayStatus() != EMediaKPlayerStatus.STARTED) return
         _mediaKPlayerStatus!!.pause()
@@ -120,10 +120,10 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
         //停止发送进度消息
         _taskKAudioProgressUpdate.cancel()
         //发送暂停事件,UI类型事件
-        setAudioEvent(CMediaKAudioEvent.EVENT_AUDIO_PAUSE, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_PAUSE, _currentAudioK)
     }
 
-    @OptIn(ALintKOptIn_ApiInit_ByLazy::class)
+    @OptIn(OptInApiInit_ByLazy::class)
     override fun release() {
         if (_mediaKPlayerStatus == null) return
         _mediaKPlayerStatus!!.release()
@@ -138,7 +138,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
         }
         _taskKAudioProgressUpdate.cancel()
         //发送销毁播放器事件,清除通知等
-        setAudioEvent(CMediaKAudioEvent.EVENT_AUDIO_RELEASE, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_RELEASE, _currentAudioK)
     }
 
     override fun getCurrentPlayPosition(): Int =
@@ -192,7 +192,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
 
     override fun onCompletion(mp: MediaPlayer?) {
         //发送播放完成事件,逻辑类型事件
-        setAudioEvent(CMediaKAudioEvent.EVENT_AUDIO_COMPLETE, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_COMPLETE, _currentAudioK)
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -210,7 +210,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
 
     override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
         //发送当次播放实败事件,逻辑类型事件
-        setAudioEvent(CMediaKAudioEvent.EVENT_AUDIO_ERROR, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_ERROR, _currentAudioK)
         return false
     }
 
@@ -244,7 +244,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
     /**
      * prepare以后自动调用start方法,外部不能调用
      */
-    @OptIn(ALintKOptIn_ApiInit_ByLazy::class, ALintKOptIn_ApiCall_BindLifecycle::class)
+    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     private fun start() {
         if (!requestAudioFocus()) {// 获取音频焦点,保证我们的播放器顺利播放
             Log.e(TAG, "获取音频焦点失败")
@@ -261,12 +261,12 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
                 })
             }
         }
-        setAudioEvent(CMediaKAudioEvent.EVENT_AUDIO_START, _currentAudioK)
+        setAudioEvent(CMediaKAudioCons.EVENT_AUDIO_START, _currentAudioK)
     }
 
     private fun setAudioEvent(eventName: String, audio: MAudioKInfo?) {
         Log.d(TAG, "setAudioEvent: eventName [$eventName] audio $audio")
-        PostKLiveDataEventBus.with<MAudioKInfo?>(eventName).postValue(audio)
+        PostKEventLiveData.with<MAudioKInfo?>(eventName).postValue(audio)
     }
 
     private fun setMediaVolume(left: Float, right: Float) {

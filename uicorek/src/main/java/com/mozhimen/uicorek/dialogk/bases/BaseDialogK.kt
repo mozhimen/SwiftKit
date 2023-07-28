@@ -6,7 +6,7 @@ import android.view.*
 import androidx.activity.ComponentDialog
 import androidx.annotation.StyleRes
 import androidx.lifecycle.lifecycleScope
-import com.mozhimen.basick.elemk.cons.CWinMgr
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.util.et

@@ -5,7 +5,7 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.elemk.cons.CWinMgr
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**

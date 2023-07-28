@@ -1,5 +1,6 @@
 package com.mozhimen.underlayk.logk
 
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.kotlin.collections.containsBy
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
@@ -27,6 +28,7 @@ import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterConsole
  * @Date 2021/12/20 21:58
  * @Version 1.0
  */
+@OptInApiInit_InApplication
 class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/) : ILogKMgr {
     companion object {
         @JvmStatic
@@ -39,7 +41,7 @@ class LogKMgr(/*private val config: LogKConfig, printers: Array<out IPrinter>*/)
     private var _config: BaseLogKConfig? = null
 
     /////////////////////////////////////////////////////////////////////////////////////
-    
+
     override fun init(config: BaseLogKConfig, vararg printers: ILogKPrinter) {
         _config = config
         _printers.addAll(printers.filter { o -> !_printers.containsBy { it.getName() == o.getName() } })

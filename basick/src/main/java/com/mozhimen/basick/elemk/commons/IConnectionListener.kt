@@ -1,6 +1,6 @@
 package com.mozhimen.basick.elemk.commons
 
-import com.mozhimen.basick.elemk.cons.ENetType
+import com.mozhimen.basick.elemk.android.net.cons.ENetType
 
 
 /**

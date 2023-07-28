@@ -9,7 +9,7 @@ import com.mozhimen.basick.elemk.android.content.commons.IBroadcastReceiver
 import com.mozhimen.basick.elemk.commons.IConnectionListener
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.elemk.cons.ENetType
+import com.mozhimen.basick.elemk.android.net.cons.ENetType
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basick.utilk.android.util.wt
 

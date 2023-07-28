@@ -128,6 +128,6 @@ object UtilKStackTrace : IUtilK {
             methodName = element.methodName
             lineNumber = element.lineNumber
         }
-        return "  ($clazzName:$lineNumber) #$methodName: \n${UtilKJson.wrapJsonStr(msg)}"
+        return "  ($clazzName:$lineNumber) #$methodName: \n${UtilKJson.wrapJson(msg)}"
     }
 }

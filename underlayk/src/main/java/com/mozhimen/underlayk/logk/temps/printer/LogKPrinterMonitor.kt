@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.logk.temps.printer
 
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.stackk.cb.StackKCb
@@ -18,7 +18,7 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinterMonitor
  * @Date 2022/9/22 15:52
  * @Version 1.0
  */
-@ALintKOptIn_ApiInit_InApplication
+@OptInApiInit_InApplication
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKPrinterMonitor : ILogKPrinter, ILogKPrinterMonitor, IUtilK {
 

@@ -1,11 +1,10 @@
 package com.mozhimen.underlayk.logk.temps.printer
 
-import android.util.Log
 import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.utilk.android.util.println
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.bases.BaseLogKPrinter
-import com.mozhimen.underlayk.logk.cons.CLogKParameter
+import com.mozhimen.underlayk.logk.cons.CLogKCons
 
 /**
  * @ClassName ConsolePrinter
@@ -21,12 +20,12 @@ class LogKPrinterConsole(private val _ignoreLineBreak: Boolean = false) : BaseLo
 
         if (_ignoreLineBreak) {
             val len = printString.length
-            val countOfSub = len / CLogKParameter.LOG_MAX_LEN
+            val countOfSub = len / CLogKCons.LOG_MAX_LEN
             if (countOfSub > 0) {
                 var index = 0
                 for (i in 0 until countOfSub) {
-                    printlog(level, tag, printString.substring(index, index + CLogKParameter.LOG_MAX_LEN))
-                    index += CLogKParameter.LOG_MAX_LEN
+                    printlog(level, tag, printString.substring(index, index + CLogKCons.LOG_MAX_LEN))
+                    index += CLogKCons.LOG_MAX_LEN
                 }
                 if (index != len) printlog(level, tag, printString.substring(index, len))
             } else printlog(level, tag, printString)

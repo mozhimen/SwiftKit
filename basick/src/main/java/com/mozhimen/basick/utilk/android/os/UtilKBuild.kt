@@ -3,8 +3,8 @@ package com.mozhimen.basick.utilk.android.os
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CDateFormat
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.kotlin.joinArray2Str
 import com.mozhimen.basick.utilk.java.util.toDateStr
 

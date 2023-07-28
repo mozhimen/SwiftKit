@@ -8,8 +8,8 @@ import android.content.pm.PackageInstaller
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_DeviceRoot
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.lintk.optin.OptInDeviceRoot
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -64,7 +64,7 @@ object UtilKAppInstall : BaseUtilK() {
 
     @JvmStatic
     @Throws(Exception::class)
-    @ALintKOptIn_DeviceRoot
+    @OptInDeviceRoot
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installRoot(apkPathWithName: String): Boolean {
         require(apkPathWithName.isNotEmpty()) { "$TAG please check apk file path" }

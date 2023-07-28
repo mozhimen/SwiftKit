@@ -12,7 +12,7 @@ import androidx.core.graphics.createBitmap
 import coil.size.Size
 import coil.transform.Transformation
 import com.mozhimen.basick.imagek.coil.commons.ITransformation
-import com.mozhimen.basick.imagek.coil.cons.CImageKCoilBlur
+import com.mozhimen.basick.imagek.coil.cons.CCoilBlurCons
 
 /**
  * @ClassName BlurTransformation
@@ -31,8 +31,8 @@ import com.mozhimen.basick.imagek.coil.cons.CImageKCoilBlur
  */
 class BlurTransformation @JvmOverloads constructor(
     private val context: Context,
-    private val radius: Float = CImageKCoilBlur.RADIUS,
-    private val sampling: Float = CImageKCoilBlur.SAMPLING
+    private val radius: Float = CCoilBlurCons.RADIUS,
+    private val sampling: Float = CCoilBlurCons.SAMPLING
 ) : Transformation, ITransformation {
     private val TAG = "BlurTransformation>>>>>"
 

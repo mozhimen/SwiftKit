@@ -11,8 +11,8 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.commons.I_Listener
-import com.mozhimen.basick.elemk.cons.CVersCode
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
@@ -94,7 +94,7 @@ object UtilKActivity {
      * @param returnTopIfNull Boolean
      * @return Activity?
      */
-    @ALintKOptIn_ApiInit_InApplication
+    @OptInApiInit_InApplication
     @JvmStatic
     fun getByContext(context: Context, returnTopIfNull: Boolean = false): Activity? {
         var tempContext = context
@@ -130,7 +130,7 @@ object UtilKActivity {
      * @param returnTopIfNull Boolean
      * @return Activity?
      */
-    @ALintKOptIn_ApiInit_InApplication
+    @OptInApiInit_InApplication
     @JvmStatic
     fun getByObj(obj: Any, returnTopIfNull: Boolean = false): Activity? {
         var activity: Activity? = null

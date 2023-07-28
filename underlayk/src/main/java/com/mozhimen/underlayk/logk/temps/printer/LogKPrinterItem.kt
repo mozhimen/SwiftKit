@@ -9,7 +9,7 @@ import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.databinding.LogkPrinterViewItemBinding
 import com.mozhimen.underlayk.logk.helpers.LogKHelper
-import com.mozhimen.underlayk.logk.mos.MLogK
+import com.mozhimen.underlayk.logk.mos.MLogKConfig
 
 /**
  * @ClassName PrinterViewItem
@@ -18,7 +18,7 @@ import com.mozhimen.underlayk.logk.mos.MLogK
  * @Date 2022/9/23 11:51
  * @Version 1.0
  */
-class LogKPrinterItem(private val _log: MLogK) : BaseRecyclerKItem<VHKRecyclerVB<LogkPrinterViewItemBinding>>() {
+class LogKPrinterItem(private val _log: MLogKConfig) : BaseRecyclerKItem<VHKRecyclerVB<LogkPrinterViewItemBinding>>() {
     override fun onBindItem(holder: VHKRecyclerVB<LogkPrinterViewItemBinding>, position: Int) {
         super.onBindItem(holder, position)
         val colorInt = LogKHelper.getLevelColor(_log.level)

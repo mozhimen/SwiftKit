@@ -1,10 +1,9 @@
 package com.mozhimen.basick.utilk.java.util
 
 import android.util.Log
-import com.mozhimen.basick.elemk.cons.CDateFormat
+import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import java.lang.Exception
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 

@@ -4,9 +4,9 @@ import android.os.FileUtils
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.cons.CDateFormat
+import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.elemk.cons.CMsg
-import com.mozhimen.basick.elemk.cons.CVersCode
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK

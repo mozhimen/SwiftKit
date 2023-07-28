@@ -13,11 +13,11 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
  */
 
 @Throws(Exception::class)
-inline fun <reified T : Any> T.moshiT2Json(indent: String = ""): String =
+inline fun <reified T : Any> T.toJsonMoshi(indent: String = ""): String =
     UtilKJsonMoshi.t2Json(this, indent)
 
 @Throws(Exception::class)
-inline fun <reified T> String.moshiJson2T(): T? =
+inline fun <reified T> String.toTMoshi(): T? =
     UtilKJsonMoshi.json2T(this)
 
 object UtilKJsonMoshi {

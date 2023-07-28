@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.net
 
-import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.NetworkRequest
@@ -8,7 +7,7 @@ import android.net.wifi.WifiManager
 import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.cons.ENetType
+import com.mozhimen.basick.elemk.android.net.cons.ENetType
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK

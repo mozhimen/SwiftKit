@@ -1,7 +1,7 @@
 package com.mozhimen.debugktest
 
 import com.mozhimen.basick.elemk.android.app.bases.BaseApplication
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiMultiDex_InApplication
+import com.mozhimen.basick.lintk.optin.OptInApiMultiDex_InApplication
 
 /**
  * @ClassName DebugKApplication
@@ -10,7 +10,7 @@ import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiMultiDex_InApplicat
  * @Date 2022/12/16 14:51
  * @Version 1.0
  */
-@OptIn(ALintKOptIn_ApiMultiDex_InApplication::class)
+@OptIn(OptInApiMultiDex_InApplication::class)
 class DebugKApplication : BaseApplication() {
 
     override fun onCreate() {

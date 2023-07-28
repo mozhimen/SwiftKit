@@ -5,8 +5,8 @@ import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import com.mozhimen.basick.cachek.commons.ICacheKProvider
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.postk.encrypt.PostKEncryptAES
-import com.mozhimen.basick.postk.encrypt.mos.MEncryptAESConfig
+import com.mozhimen.basick.postk.crypto.PostKCryptoAES
+import com.mozhimen.basick.postk.crypto.mos.MCryptoAESConfig
 import java.lang.IllegalArgumentException
 
 /**
@@ -71,7 +71,7 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
 
     fun putStringEncryptSync(key: String, value: String) {
         if (value.isEmpty()) return
-        putObjSync(key, PostKEncryptAES.with(MEncryptAESConfig(secretKey = "5rfj4FVG&Td#$*Jd")).encryptWithBase64(value))
+        putObjSync(key, PostKCryptoAES.with(MCryptoAESConfig(secretKey = "5rfj4FVG&Td#$*Jd")).encryptWithBase64(value))
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -110,7 +110,7 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
 
     fun putStringEncrypt(key: String, value: String) {
         if (value.isEmpty()) return
-        putObj(key, PostKEncryptAES.with(MEncryptAESConfig(secretKey = "5rfj4FVG&Td#$*Jd")).encryptWithBase64(value))
+        putObj(key, PostKCryptoAES.with(MCryptoAESConfig(secretKey = "5rfj4FVG&Td#$*Jd")).encryptWithBase64(value))
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -165,7 +165,7 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
 
     fun getStringDecrypt(key: String, defaultValue: String = ""): String {
         val valueDecrypted = _sharedPreferences.getString(key, null) ?: return defaultValue
-        return PostKEncryptAES.with(MEncryptAESConfig(secretKey = "5rfj4FVG&Td#$*Jd")).decryptWithBase64(valueDecrypted)
+        return PostKCryptoAES.with(MCryptoAESConfig(secretKey = "5rfj4FVG&Td#$*Jd")).decryptWithBase64(valueDecrypted)
     }
 
     fun getAll(): MutableMap<String, *> =

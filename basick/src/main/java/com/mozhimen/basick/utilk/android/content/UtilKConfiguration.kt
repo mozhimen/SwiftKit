@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.content
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
-import com.mozhimen.basick.elemk.cons.CConfig
+import com.mozhimen.basick.elemk.android.content.cons.CConfiguration
 import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
 
 
@@ -81,23 +81,23 @@ object UtilKConfiguration {
      */
     @JvmStatic
     fun isOrientationPortrait(): Boolean =
-        getOrientation() == CConfig.Orientation.PORTRAIT
+        getOrientation() == CConfiguration.Orientation.PORTRAIT
 
     @JvmStatic
     fun isOrientationLandscape(): Boolean =
-        getOrientation() == CConfig.Orientation.LANDSCAPE
+        getOrientation() == CConfiguration.Orientation.LANDSCAPE
 
     @JvmStatic
     fun isOrientationPortrait(resources: Resources): Boolean =
-        getOrientation(resources) == CConfig.Orientation.PORTRAIT
+        getOrientation(resources) == CConfiguration.Orientation.PORTRAIT
 
     @JvmStatic
     fun isOrientationLandscape(resources: Resources): Boolean =
-        getOrientation(resources) == CConfig.Orientation.LANDSCAPE
+        getOrientation(resources) == CConfiguration.Orientation.LANDSCAPE
 
     @JvmStatic
     fun getUiModeAndNightMask(): Int =
-        getUiMode() and CConfig.UiMode.NIGHT_MASK
+        getUiMode() and CConfiguration.UiMode.NIGHT_MASK
 
     /**
      * 检测系统是否是浅色主题
@@ -105,11 +105,11 @@ object UtilKConfiguration {
      */
     @JvmStatic
     fun isLightMode(): Boolean =
-        getUiModeAndNightMask() == CConfig.UiMode.NIGHT_NO
+        getUiModeAndNightMask() == CConfiguration.UiMode.NIGHT_NO
 
     @JvmStatic
     fun isDarkMode(): Boolean =
-        getUiModeAndNightMask() == CConfig.UiMode.NIGHT_YES
+        getUiModeAndNightMask() == CConfiguration.UiMode.NIGHT_YES
 
     /**
      * 是否是平板
@@ -119,6 +119,6 @@ object UtilKConfiguration {
     fun isPad(context: Context): Boolean =
         if (UtilKTelephonyManager.isHasTelephone(context)) {        //如果能打电话那可能是平板或手机，再根据配置判断
             //能打电话可能是手机也可能是平板
-            (getScreenLayout() and CConfig.ScreenLayout.SIZE_MASK >= CConfig.ScreenLayout.SIZE_LARGE)
+            (getScreenLayout() and CConfiguration.ScreenLayout.SIZE_MASK >= CConfiguration.ScreenLayout.SIZE_LARGE)
         } else true //不能打电话一定是平板
 }

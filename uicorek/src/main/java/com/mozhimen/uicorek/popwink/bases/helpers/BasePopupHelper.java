@@ -33,7 +33,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-import com.mozhimen.basick.elemk.cons.CWinMgr;
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr;
 import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.utilk.android.content.UtilKResource;
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;

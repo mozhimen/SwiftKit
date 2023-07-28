@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.WindowManager
 import android.widget.TextView
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.elemk.cons.CWinMgr
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.elemk.kotlin.properties.VarProperty_GetNonnull
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
@@ -31,7 +31,7 @@ import com.mozhimen.underlayk.logk.LogK
  * @Date 2022/9/22 16:04
  * @Version 1.0
  */
-@ALintKOptIn_ApiInit_InApplication
+@OptInApiInit_InApplication
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class FpsKDelegate : IFpsK, BaseUtilK() {
     private val _params by lazy {

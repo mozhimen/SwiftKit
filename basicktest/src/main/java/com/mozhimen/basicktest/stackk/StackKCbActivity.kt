@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiInit_InApplication
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.utilk.android.widget.showToast
@@ -12,7 +12,7 @@ import com.mozhimen.basicktest.databinding.ActivityStackkCbBinding
 
 class StackKCbActivity : BaseActivityVB<ActivityStackkCbBinding>(), IStackKListener {
 
-    @OptIn(ALintKOptIn_ApiInit_InApplication::class)
+    @OptIn(OptInApiInit_InApplication::class)
     @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
         val stackTopActivity = StackKCb.instance.getStackTopActivity()
@@ -22,7 +22,7 @@ class StackKCbActivity : BaseActivityVB<ActivityStackkCbBinding>(), IStackKListe
         StackKCb.instance.addFrontBackListener(this)
     }
 
-    @OptIn(ALintKOptIn_ApiInit_InApplication::class)
+    @OptIn(OptInApiInit_InApplication::class)
     override fun onDestroy() {
         StackKCb.instance.removeFrontBackListener(this)
         super.onDestroy()

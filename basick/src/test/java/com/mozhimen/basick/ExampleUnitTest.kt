@@ -24,14 +24,14 @@ class ExampleUnitTest {
 //        }.start()
         val a = 0b010
         val b = 0b100
-        read(a or b,8)
+        read(a or b, 8)
     }
 
-    fun read(num: Int,bit:Int) {
+    fun read(num: Int, bit: Int) {
         val binaryString = String.format("%0${bit}s", Integer.toBinaryString(num)).apply { printlog() }
         for (i in binaryString.indices) {
-            val bit = binaryString[i]
-            "Bit at position $i is $bit".printlog()
+            val b = binaryString[i]
+            "Bit at position $i is $b".printlog()
         }
     }
 }

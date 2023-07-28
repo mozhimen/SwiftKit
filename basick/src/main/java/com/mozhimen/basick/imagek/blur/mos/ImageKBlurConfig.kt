@@ -2,7 +2,7 @@ package com.mozhimen.basick.imagek.blur.mos
 
 import android.text.TextUtils
 import android.view.View
-import com.mozhimen.basick.imagek.blur.cons.CBlurParameter
+import com.mozhimen.basick.imagek.blur.cons.CBlurCons
 import com.mozhimen.basick.utilk.android.view.UtilKView
 import java.lang.ref.WeakReference
 
@@ -15,11 +15,11 @@ import java.lang.ref.WeakReference
  */
 class ImageKBlurConfig {
     private var _weakBlurView: WeakReference<View>? = null
-    private var _blurRadius = CBlurParameter.RADIUS
-    private var _blurPreScaleRatio = CBlurParameter.PRE_SCALE_RATIO
-    private var _blurInDuration = CBlurParameter.ANIMATION_DURATION
-    private var _blurOutDuration = CBlurParameter.ANIMATION_DURATION
-    private var _blurAsync = CBlurParameter.BLUR_ASYNC
+    private var _blurRadius = CBlurCons.RADIUS
+    private var _blurPreScaleRatio = CBlurCons.PRE_SCALE_RATIO
+    private var _blurInDuration = CBlurCons.ANIMATION_DURATION
+    private var _blurOutDuration = CBlurCons.ANIMATION_DURATION
+    private var _blurAsync = CBlurCons.BLUR_ASYNC
     private var _isFullScreen = true
 
     fun getBlurView(): View? {
@@ -39,11 +39,11 @@ class ImageKBlurConfig {
     }
 
     fun getBlurInDuration(): Long {
-        return if (_blurInDuration < 0) CBlurParameter.ANIMATION_DURATION else _blurInDuration
+        return if (_blurInDuration < 0) CBlurCons.ANIMATION_DURATION else _blurInDuration
     }
 
     fun getBlurOutDuration(): Long {
-        return if (_blurOutDuration < 0) CBlurParameter.ANIMATION_DURATION else _blurOutDuration
+        return if (_blurOutDuration < 0) CBlurCons.ANIMATION_DURATION else _blurOutDuration
     }
 
     fun isBlurAsync(): Boolean {

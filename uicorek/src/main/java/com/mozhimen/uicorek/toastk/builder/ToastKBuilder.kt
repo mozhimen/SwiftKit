@@ -6,10 +6,10 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.mozhimen.basick.lintk.annors.AToastDuration
-import com.mozhimen.basick.lintk.optin.annors.ALintKOptIn_ApiDeprecated_Official_AfterV_30_11_R
+import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_Official_AfterV_30_11_R
 import com.mozhimen.uicorek.R
 
-@ALintKOptIn_ApiDeprecated_Official_AfterV_30_11_R
+@OptInApiDeprecated_Official_AfterV_30_11_R
 class ToastKBuilder(activity: Activity) {
     private val _toast: Toast by lazy { Toast(activity) }
     private var _toastTextView: TextView
