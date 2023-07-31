@@ -45,6 +45,7 @@ object UtilKIMEI : IUtilK {
      * @return
      */
     @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.READ_PHONE_STATE)
     fun getIMEI2(context: Context): String {
         //imei2必须与 imei1不一样
         val imeiDefault = getIMEI1(context)
