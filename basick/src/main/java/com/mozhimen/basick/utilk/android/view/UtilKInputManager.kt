@@ -28,14 +28,11 @@ import java.lang.reflect.Field
  */
 object UtilKInputManager : BaseUtilK() {
 
-    /**
-     * 获取InputManager
-     * @param context Context
-     * @return InputMethodManager
-     */
     @JvmStatic
     fun get(context: Context): InputMethodManager =
         UtilKContext.getInputMethodManager(context)
+
+    ///////////////////////////////////////////////////////////////////
 
     /**
      * 显示软键盘
@@ -315,6 +312,8 @@ object UtilKInputManager : BaseUtilK() {
         }
     }
 }
+
+/////////////////////////////////////////////////////////////////////////
 
 //object UtilKKeyBoard {
 //    private val _context = UtilKApplication.instance.applicationContext

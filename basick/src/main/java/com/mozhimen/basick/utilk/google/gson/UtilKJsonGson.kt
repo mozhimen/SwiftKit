@@ -1,11 +1,8 @@
 package com.mozhimen.basick.utilk.google.gson
 
-import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKGeneric
 import java.lang.reflect.Type
@@ -19,12 +16,12 @@ import kotlin.jvm.Throws
  * @Version 1.0
  */
 @Throws(Exception::class)
-fun <T : Any> T.toJsonGson(): String =
-    UtilKJsonGson.t2Json(this)
+fun <T : Any> T.asJsonGson(): String =
+    UtilKJsonGson.t2json(this)
 
 @Throws(Exception::class)
-fun <T> String.toTGson(): T? =
-    UtilKJsonGson.json2T(this)
+fun <T> String.asTGson(): T? =
+    UtilKJsonGson.json2t(this)
 
 //fun Any.toJsonWithExposeGson(): String =
 //    UtilKJsonGson.obj2JsonWithExpose(this)
@@ -37,60 +34,60 @@ object UtilKJsonGson : BaseUtilK() {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2Json(gson: Gson, t: T): String =
+    fun <T> t2json(gson: Gson, t: T): String =
         gson.toJson(t)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2Json(t: T): String =
-        t2Json(gson, t)
+    fun <T> t2json(t: T): String =
+        t2json(gson, t)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun obj2Json(obj: Any): String =
-        t2Json(obj)
+    fun obj2json(obj: Any): String =
+        t2json(obj)
 
     /////////////////////////////////////////////////////////////////////////////
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(gson: Gson, json: String, typeToken: TypeToken<T>): T =
+    fun <T> json2t(gson: Gson, json: String, typeToken: TypeToken<T>): T =
         gson.fromJson(json, typeToken.type)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(gson: Gson, json: String, clazz: Class<T>): T? =
+    fun <T> json2t(gson: Gson, json: String, clazz: Class<T>): T? =
         gson.fromJson(json, clazz)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(gson: Gson, json: String, type: Type): T? =
+    fun <T> json2t(gson: Gson, json: String, type: Type): T? =
         gson.fromJson(json, type)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(json: String, typeToken: TypeToken<T>): T =
-        json2T(gson, json, typeToken)
+    fun <T> json2t(json: String, typeToken: TypeToken<T>): T =
+        json2t(gson, json, typeToken)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(json: String, clazz: Class<T>): T? =
-        json2T(gson, json, clazz)
+    fun <T> json2t(json: String, clazz: Class<T>): T? =
+        json2t(gson, json, clazz)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(json: String, type: Type): T? =
-        json2T(gson, json, type)
+    fun <T> json2t(json: String, type: Type): T? =
+        json2t(gson, json, type)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(json: String): T? =
-        json2T(json, UtilKGeneric.getGenericType<T>()!!)
+    fun <T> json2t(json: String): T? =
+        json2t(json, UtilKGeneric.getGenericType<T>()!!)
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> json2T2(json: String): T? =
-        json2T(json, T::class.java)
+    inline fun <reified T> json2t2(json: String): T? =
+        json2t(json, T::class.java)
 
     ///////////////////////////////////////////////////////////////////////////////
 
@@ -115,6 +112,6 @@ object UtilKJsonGson : BaseUtilK() {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun json2JsonElement(json: String): JsonElement? =
-        json2T(json.trim { it <= ' ' }, JsonElement::class.java)
+    fun json2jsonElement(json: String): JsonElement? =
+        json2t(json.trim { it <= ' ' }, JsonElement::class.java)
 }

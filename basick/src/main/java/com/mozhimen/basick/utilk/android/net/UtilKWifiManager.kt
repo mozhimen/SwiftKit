@@ -21,6 +21,8 @@ object UtilKWifiManager {
     fun get(context: Context): WifiManager =
         UtilKContext.getWifiManager(context)
 
+    /////////////////////////////////////////////////////////////////////////////
+
     /**
      * 获取ConnectionInfo
      * @param context Context

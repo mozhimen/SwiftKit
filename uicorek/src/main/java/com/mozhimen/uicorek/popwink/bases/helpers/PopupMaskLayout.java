@@ -71,7 +71,7 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
         if (mHelper.getBackgroundView() != null) {
             mBackgroundViewHolder = new BackgroundViewHolder(mHelper.getBackgroundView(), mHelper);
         } else {
-            if (UtilKDrawable.isColorDrawableValid(mHelper.getPopupBackground())) {
+            if (UtilKDrawable.isColorDrawableNormal(mHelper.getPopupBackground())) {
                 mBackgroundViewHolder = new BackgroundViewHolder(BasePopwinKBackgroundView.create(context, mHelper), mHelper);
             }
         }

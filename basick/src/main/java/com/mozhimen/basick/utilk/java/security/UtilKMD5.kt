@@ -28,15 +28,19 @@ object UtilKMD5 : BaseUtilK() {
     fun get(): MessageDigest =
         MessageDigest.getInstance("MD5")
 
+    @JvmStatic
+    fun hash(str: String): String =
+        bytes2Md5Str(str.toByteArray())
+
     /**
      * md5 hash 16位
-     * @param data String
+     * @param str String
      * @return String
      */
     @JvmStatic
-    fun hash16(data: String): String {
+    fun hash16(str: String): String {
         val md5Bytes: ByteArray? = try {
-            get().digest(data.toByteArray())
+            get().digest(str.toByteArray())
         } catch (e: NoSuchAlgorithmException) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -49,13 +53,13 @@ object UtilKMD5 : BaseUtilK() {
 
     /**
      * MD5 32位小写哈希
-     * @param data String
+     * @param str String
      * @return String
      */
     @JvmStatic
-    fun hash32LowerCase(data: String): String {
+    fun hash32LowerCase(str: String): String {
         val md5Bytes = try {
-            get().digest(data.toByteArray())
+            get().digest(str.toByteArray())
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -72,13 +76,13 @@ object UtilKMD5 : BaseUtilK() {
 
     /**
      * MD5_32加密
-     * @param data String
+     * @param str String
      * @return String
      */
     @JvmStatic
-    fun hash32(data: String): String {
+    fun hash32(str: String): String {
         return try {
-            DigestUtils.md5Hex(data.toByteArray())
+            DigestUtils.md5Hex(str.toByteArray())
         } catch (e: UnsupportedEncodingException) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -88,21 +92,12 @@ object UtilKMD5 : BaseUtilK() {
 
     /**
      * MD5 hash
-     * @param byteArray ByteArray
+     * @param bytes ByteArray
      * @return String
      */
     @JvmStatic
-    fun hash(byteArray: ByteArray): String =
-        UtilKByteArray.byteArray2HexStr(get().digest(byteArray))
-
-    /**
-     * MD5 hash
-     * @param str String
-     * @return String
-     */
-    @JvmStatic
-    fun hash(str: String): String =
-        hash(str.toByteArray())
+    fun bytes2Md5Str(bytes: ByteArray): String =
+        UtilKByteArray.bytes2hexStr(get().digest(bytes))
 
     /**
      * MD5 hash
@@ -110,11 +105,11 @@ object UtilKMD5 : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun hash(inputStream: InputStream): String {
+    fun inputStream2Md5Str(inputStream: InputStream): String {
         val messageDigest = get()
         val buffer = ByteArray(1024 * 1024)
         var length: Int
         while (inputStream.read(buffer).also { length = it } > 0) messageDigest.update(buffer, 0, length)
-        return UtilKByteArray.byteArray2HexStr(messageDigest.digest())
+        return UtilKByteArray.bytes2hexStr(messageDigest.digest())
     }
 }

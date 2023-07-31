@@ -308,7 +308,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
     }
 
     private fun set(name: String, obj: Any) {
-        if (appendInvokeMap(name, UtilKClazz.obj2Clazz(obj))) {
+        if (appendInvokeMap(name, UtilKClazz.obj2clazz(obj))) {
             _invokeParams[name] = obj
         }
     }

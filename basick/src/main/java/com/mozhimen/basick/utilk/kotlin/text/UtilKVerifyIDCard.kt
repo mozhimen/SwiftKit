@@ -14,7 +14,7 @@ object UtilKVerifyIDCard {
      * @return Boolean
      */
     @JvmStatic
-    fun checkIdCard(id: String): Boolean =
+    fun isIdCard(id: String): Boolean =
         id.matches(Regex("^(([1][1-5])|([2][1-3])|([3][1-7])|([4][1-6])|([5][0-4])|([6][1-5])|([7][1])|([8][1-2]))\\d{4}(([1][9]\\d{2})|([2]\\d{3}))(([0][1-9])|([1][0-2]))(([0][1-9])|([1-2][0-9])|([3][0-1]))\\d{3}[0-9xX]$"))
 
     /**
@@ -27,7 +27,7 @@ object UtilKVerifyIDCard {
      * @return Boolean
      */
     @JvmStatic
-    fun checkHKCard(id: String): Boolean =
+    fun isHKCard(id: String): Boolean =
         id.matches(Regex("^([A-Z]\\d{6,10}(\\(\\w{1}\\))?)\$"))
 
     /**
@@ -40,7 +40,7 @@ object UtilKVerifyIDCard {
      * @return Boolean
      */
     @JvmStatic
-    fun checkTWCard(id: String): Boolean =
+    fun isTWCard(id: String): Boolean =
         id.matches(Regex("^\\d{8}|^[a-zA-Z0-9]{10}|^\\d{18}\$"))
 
 
@@ -54,7 +54,7 @@ object UtilKVerifyIDCard {
      * @return Boolean
      */
     @JvmStatic
-    fun checkPPCard(id: String): Boolean =
+    fun isPPCard(id: String): Boolean =
         id.matches(Regex("^([a-zA-z]|[0-9]){5,17}\$"))
 
 }

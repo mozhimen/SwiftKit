@@ -11,17 +11,17 @@ import com.mozhimen.basick.elemk.android.view.bases.BaseOnSeekBarChangeListener
  * @Date 2023/5/25 13:21
  * @Version 1.0
  */
-fun SeekBar.setOnSeekBarChangeObserver(onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
-    UtilKSeekBar.setOnSeekBarChangeObserver(this, onSeekBarChange)
+fun SeekBar.applySeekBarChangeObserver(onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
+    UtilKSeekBar.applySeekBarChangeObserver(this, onSeekBarChange)
 }
 
-fun SeekBar.setOnSeekBarFinishObserver(onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
-    UtilKSeekBar.setOnSeekBarFinishObserver(this, onSeekBarChange)
+fun SeekBar.applySeekBarFinishObserver(onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
+    UtilKSeekBar.applySeekBarFinishObserver(this, onSeekBarChange)
 }
 
 object UtilKSeekBar {
     @JvmStatic
-    fun setOnSeekBarChangeObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
+    fun applySeekBarChangeObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
         bar.setOnSeekBarChangeListener(object : BaseOnSeekBarChangeListener() {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 onSeekBarChange(progress)
@@ -30,7 +30,7 @@ object UtilKSeekBar {
     }
 
     @JvmStatic
-    fun setOnSeekBarFinishObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
+    fun applySeekBarFinishObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
         bar.setOnSeekBarChangeListener(object : BaseOnSeekBarChangeListener() {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 onSeekBarChange(seekBar.progress)

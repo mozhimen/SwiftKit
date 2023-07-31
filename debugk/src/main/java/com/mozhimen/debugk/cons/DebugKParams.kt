@@ -3,7 +3,7 @@ package com.mozhimen.debugk.cons
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.hardware.UtilKDevice
-import com.mozhimen.basick.utilk.kotlin.toStr
+import com.mozhimen.basick.utilk.kotlin.asStr
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
@@ -47,13 +47,13 @@ class DebugKParams {
     fun deviceHardwareVersion(): String = UtilKDevice.getHardwareVersion()
 
     @ADebugKParams("设备是否有sd卡")
-    fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().toStr()
+    fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().asStr()
 
     @ADebugKParams("设备是否有前置摄像")
-    fun deviceHasFrontCamera(): String = UtilKDevice.isHasFrontCamera().toStr()
+    fun deviceHasFrontCamera(): String = UtilKDevice.isHasFrontCamera().asStr()
 
     @ADebugKParams("设备是否有后置摄像头")
-    fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().toStr()
+    fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().asStr()
 
     @ADebugKParams("设备默认IMEI")
     fun deviceIMEI():String = UtilKDevice.getIMEI()

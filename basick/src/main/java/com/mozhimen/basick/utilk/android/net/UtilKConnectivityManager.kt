@@ -28,6 +28,8 @@ object UtilKConnectivityManager {
     fun get(context: Context): ConnectivityManager =
         UtilKContext.getConnectivityManager(context)
 
+    ////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
     fun registerNetworkCallback(context: Context, request: NetworkRequest, networkCallback: NetworkCallback) {

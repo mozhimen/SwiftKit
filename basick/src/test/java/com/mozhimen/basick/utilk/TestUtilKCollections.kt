@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.collections.getIndexFirst
-import com.mozhimen.basick.utilk.kotlin.collections.joinElement2List
+import com.mozhimen.basick.utilk.kotlin.collections.joinElement2list
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
@@ -54,8 +54,8 @@ class TestUtilKCollections {
             User("孙", 12),
             User("赵", 13),
         )
-        elements.joinElement2List { it.name }.printlog()
-        elements.joinElement2List { it.age }.printlog()
+        elements.joinElement2list { it.name }.printlog()
+        elements.joinElement2list { it.age }.printlog()
     }
 
     @Test

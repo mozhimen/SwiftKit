@@ -28,8 +28,8 @@ fun ImageView.toastContentDescriptionOnLongClick() {
     UtilKImageView.toastContentDescriptionOnLongClick(this)
 }
 
-fun ImageView.setFillWithStroke(@ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
-    UtilKImageView.setFillWithStroke(this, fillColorInt, backgroundColorInt, isDrawRectangle)
+fun ImageView.applyFillWithStroke(@ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
+    UtilKImageView.applyFillWithStroke(this, fillColorInt, backgroundColorInt, isDrawRectangle)
 }
 
 object UtilKImageView {
@@ -64,7 +64,7 @@ object UtilKImageView {
     }
 
     @JvmStatic
-    fun setFillWithStroke(imageView: ImageView, @ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
+    fun applyFillWithStroke(imageView: ImageView, @ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
         GradientDrawable().apply {
             shape = if (isDrawRectangle) GradientDrawable.RECTANGLE else GradientDrawable.OVAL
             setColor(fillColorInt)

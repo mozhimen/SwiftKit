@@ -16,12 +16,12 @@ import java.lang.reflect.ParameterizedType
  */
 
 @Throws(Exception::class)
-fun <T : Any> T.toJsonMoshi(indent: String = ""): String =
-    UtilKJsonMoshi.t2Json(this, indent)
+fun <T : Any> T.asJsonMoshi(indent: String = ""): String =
+    UtilKJsonMoshi.t2json(this, indent)
 
 @Throws(Exception::class)
-fun <T> String.toTMoshi(): T? =
-    UtilKJsonMoshi.json2T(this)
+fun <T> String.asTMoshi(): T? =
+    UtilKJsonMoshi.json2t(this)
 
 object UtilKJsonMoshi {
 
@@ -29,58 +29,57 @@ object UtilKJsonMoshi {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2Json(adapter: JsonAdapter<T>, t: T, indent: String = ""): String =
+    fun <T> t2json(adapter: JsonAdapter<T>, t: T, indent: String = ""): String =
         adapter.indent(indent).toJson(t)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2Json(t: T, indent: String = ""): String =
-        t2Json(moshiBuilder.adapter(UtilKGeneric.getGenericType<T>()!!), t, indent)
+    fun <T> t2json(t: T, indent: String = ""): String =
+        t2json(moshiBuilder.adapter(UtilKGeneric.getGenericType<T>()!!), t, indent)
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> t2Json2(t: T, indent: String = ""): String =
-        t2Json(moshiBuilder.adapter(T::class.java), t, indent)
+    inline fun <reified T> t2json2(t: T, indent: String = ""): String =
+        t2json(moshiBuilder.adapter(T::class.java), t, indent)
 
     /**
      * 将 T 序列化为 json，指定 parameterizedType，适合复杂类型
      */
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2Json(t: T, parameterizedType: ParameterizedType, indent: String = ""): String =
-        t2Json(moshiBuilder.adapter(parameterizedType), t, indent)
+    fun <T> t2json(t: T, parameterizedType: ParameterizedType, indent: String = ""): String =
+        t2json(moshiBuilder.adapter(parameterizedType), t, indent)
 
     /////////////////////////////////////////////////////////////////////////////
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(adapter: JsonAdapter<T>, json: String): T? =
+    fun <T> json2t(adapter: JsonAdapter<T>, json: String): T? =
         adapter.fromJson(json)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(json: String, parameterizedType: ParameterizedType): T? =
-        json2T(moshiBuilder.adapter<T>(parameterizedType), json)
+    fun <T> json2t(json: String, parameterizedType: ParameterizedType): T? =
+        json2t(moshiBuilder.adapter<T>(parameterizedType), json)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2List(json: String): MutableList<T>? =
-        json2T<MutableList<T>>(json, Types.newParameterizedType(MutableList::class.java, UtilKGeneric.getGenericType<T>()!!))
+    fun <T> json2list(json: String): MutableList<T>? =
+        json2t<MutableList<T>>(json, Types.newParameterizedType(MutableList::class.java, UtilKGeneric.getGenericType<T>()!!))
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> json2List2(json: String): MutableList<T>? =
-        json2T<MutableList<T>>(json, Types.newParameterizedType(MutableList::class.java, T::class.java))
+    inline fun <reified T> json2list2(json: String): MutableList<T>? =
+        json2t<MutableList<T>>(json, Types.newParameterizedType(MutableList::class.java, T::class.java))
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2T(json: String): T? =
-        json2T(moshiBuilder.adapter<T>(UtilKGeneric.getGenericType<T>()!!), json)
+    fun <T> json2t(json: String): T? =
+        json2t(moshiBuilder.adapter<T>(UtilKGeneric.getGenericType<T>()!!), json)
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> json2T2(json: String): T? =
-        json2T(moshiBuilder.adapter(T::class.java), json)
-
+    inline fun <reified T> json2t2(json: String): T? =
+        json2t(moshiBuilder.adapter(T::class.java), json)
 
 }

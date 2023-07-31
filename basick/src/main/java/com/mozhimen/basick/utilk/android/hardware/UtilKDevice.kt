@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.android.telephony.UtilKIMEI
 import com.mozhimen.basick.utilk.android.text.getFormatFileSize
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.os.UtilKPath
+import com.mozhimen.basick.utilk.java.io.UtilKPath
 import com.mozhimen.basick.utilk.java.lang.UtilKSystemProperties
 import java.io.BufferedReader
 import java.io.FileReader

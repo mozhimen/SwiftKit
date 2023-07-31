@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.io.reactivex
 
+import com.mozhimen.basick.elemk.commons.IA_Listener
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,9 +16,9 @@ import java.util.concurrent.TimeUnit
  */
 object UtilKRxJava {
 
-    interface UtilKIRxJavaListener {
-        fun onNext(count: Long)
-    }
+//    interface UtilKIRxJavaListener {
+//        fun onNext(count: Long)
+//    }
 
     /**
      * 毫秒后执行next操作
@@ -30,11 +31,11 @@ object UtilKRxJava {
     fun timer(
         millisecond: Long,
         schedulers: Scheduler = AndroidSchedulers.mainThread(),
-        listener: UtilKIRxJavaListener
+        listener: IA_Listener<Long>
     ): Disposable =
         Observable.timer(millisecond, TimeUnit.MILLISECONDS)
             .observeOn(schedulers)
-            .subscribe { c -> listener.onNext(c) }
+            .subscribe { c -> listener.invoke(c) }
 
     /**
      * 每隔毫秒后执行next操作
@@ -47,11 +48,11 @@ object UtilKRxJava {
     fun interval(
         millisecond: Long,
         schedulers: Scheduler = AndroidSchedulers.mainThread(),
-        listener: UtilKIRxJavaListener
+        listener: IA_Listener<Long>
     ): Disposable =
         Observable.interval(100, millisecond, TimeUnit.MILLISECONDS)
             .observeOn(schedulers)
-            .subscribe { c -> listener.onNext(c) }
+            .subscribe { c -> listener.invoke(c) }
 
     /**
      * 每隔毫秒后执行next操作
@@ -66,10 +67,10 @@ object UtilKRxJava {
         millisecond: Long,
         repeatCount: Int,
         schedulers: Scheduler = AndroidSchedulers.mainThread(),
-        listener: UtilKIRxJavaListener
+        listener: IA_Listener<Long>
     ): Disposable =
         Observable.interval(millisecond, TimeUnit.MILLISECONDS)
             .take(repeatCount.toLong())
             .observeOn(schedulers)
-            .subscribe { c -> listener.onNext(c) }
+            .subscribe { c -> listener.invoke(c) }
 }

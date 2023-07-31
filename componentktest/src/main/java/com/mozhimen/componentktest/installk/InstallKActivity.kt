@@ -14,8 +14,8 @@ import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.widget.showToast
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
-import com.mozhimen.basick.utilk.os.UtilKPath
+import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.commons.IInstallKStateListener
 import com.mozhimen.componentk.installk.cons.EInstallKMode

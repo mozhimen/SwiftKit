@@ -1,7 +1,6 @@
 package com.mozhimen.uicorek.adaptk.systembar
 
 import android.app.Activity
-import android.util.Log
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarPropertyAnd
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarPropertyOr
@@ -12,7 +11,7 @@ import com.mozhimen.basick.utilk.android.app.getAnnotation
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.getByteStr
-import com.mozhimen.basick.utilk.kotlin.toBoolean
+import com.mozhimen.basick.utilk.kotlin.asBoolean
 
 /**
  * @ClassName StatusBarK
@@ -121,7 +120,7 @@ object AdaptKSystemBar : BaseUtilK() {
         val byteStr = byteInt.getByteStr(16)
         var byteBoolean: Boolean
         byteStr.forEachIndexed { position, c ->
-            byteBoolean = c.digitToInt().toBoolean()
+            byteBoolean = c.digitToInt().asBoolean()
             when (position) {
                 1 -> mPropertyConfig.isImmersed = byteBoolean
                 2 -> mPropertyConfig.isImmersedHard = byteBoolean

@@ -6,10 +6,10 @@ import android.graphics.Color
 import android.util.Log
 import com.mozhimen.abilityk.scank.cons.EColorHSV
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.graphics.drawable2Bitmap
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.squareup.moshi.toJsonMoshi
+import com.mozhimen.basick.utilk.android.graphics.asBitmap
+import com.mozhimen.basick.utilk.squareup.moshi.asJsonMoshi
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
@@ -31,7 +31,7 @@ object ScanKHSV : BaseUtilK() {
      */
     @JvmStatic
     fun colorAnalyze(resId: Int): List<Pair<EColorHSV, Int>>? {
-        return colorAnalyze(UtilKRes.getDrawable(resId)!!.drawable2Bitmap())
+        return colorAnalyze(UtilKRes.getDrawable(resId)!!.asBitmap())
     }
 
     /**
@@ -89,7 +89,7 @@ object ScanKHSV : BaseUtilK() {
                     }
                 }
             }
-            Log.d(TAG, "colorAnalyze: colorMap ${_colorMap.toJsonMoshi()}")
+            Log.d(TAG, "colorAnalyze: colorMap ${_colorMap.asJsonMoshi()}")
             return colorPercentage(rows * cols)
         } catch (e: Exception) {
             LogK.et(TAG, "colorAnalyze Exception $e")

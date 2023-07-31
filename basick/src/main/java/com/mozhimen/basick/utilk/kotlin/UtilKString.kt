@@ -22,36 +22,36 @@ fun String.getSplitLast(splitStr: String): String =
 fun String.getSplitFirst(splitStr: String): String =
     UtilKString.getSplitFirst(this, splitStr)
 
-fun String.toUnicode(): String =
-    UtilKString.str2Unicode(this)
+fun String.asUnicode(): String =
+    UtilKString.str2unicode(this)
 
-fun Boolean.toStr(locale: Locale = Locale.CHINA): String =
-    UtilKString.boolean2Str(this, locale)
+fun Boolean.asStr(locale: Locale = Locale.CHINA): String =
+    UtilKString.boolean2str(this, locale)
 
-fun Double.toStr(pattern: String = "#.0"): String =
-    UtilKString.decimal2Str(this, pattern)
+fun Double.decimal2str(pattern: String = "#.0"): String =
+    UtilKString.decimal2str(this, pattern)
 
 fun String.throwIllegalStateException() {
     UtilKString.throwIllegalStateException(this)
 }
 
-fun <T> Array<T>.joinArray2Str(defaultValue: String = "", splitChar: String = ","): String =
+fun <T> Array<T>.joinArray2str(defaultValue: String = "", splitChar: String = ","): String =
     UtilKString.joinArray2Str(this, defaultValue, splitChar)
 
-fun <T> List<T>.joinList2Str(defaultValue: String = "", splitStr: String = ","): String =
+fun <T> List<T>.joinList2str(defaultValue: String = "", splitStr: String = ","): String =
     UtilKString.joinList2Str(this, defaultValue, splitStr)
 
 fun String.getFilenameExtension(): String =
     UtilKString.getFilenameExtension(this)
 
-fun CharSequence.toStringTrim(): String =
-    UtilKString.toStringTrim(this)
+fun CharSequence.asStringTrim(): String =
+    UtilKString.asStringTrim(this)
 
-fun Any.toStringTrim(): String =
-    UtilKString.toStringTrim(this)
+fun Any.asStringTrim(): String =
+    UtilKString.asStringTrim(this)
 
-fun String.regexLineBreak2Str(): String =
-    UtilKString.regexLineBreak2Str(this)
+fun String.regexLineBreak2str(): String =
+    UtilKString.regexLineBreak2str(this)
 
 fun String.isNotEmptyOrElse(isNotEmptyBlock: I_Listener, orElseBlock: I_Listener) {
     UtilKString.isNotEmptyOrElse(this, isNotEmptyBlock, orElseBlock)
@@ -88,11 +88,11 @@ object UtilKString : BaseUtilK() {
     }
 
     @JvmStatic
-    fun toStringTrim(charSequence: CharSequence): String =
+    fun asStringTrim(charSequence: CharSequence): String =
         charSequence.toString().trim()
 
     @JvmStatic
-    fun toStringTrim(obj: Any): String =
+    fun asStringTrim(obj: Any): String =
         obj.toString().trim()
 
     /**
@@ -198,7 +198,7 @@ object UtilKString : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun str2Unicode(str: String): String {
+    fun str2unicode(str: String): String {
         if (str.isEmpty()) return ""
         val stringBuffer = StringBuffer()
         if (str.startsWith("&#x")) {
@@ -227,7 +227,7 @@ object UtilKString : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun decimal2Str(double: Double, pattern: String = "#.0"): String =
+    fun decimal2str(double: Double, pattern: String = "#.0"): String =
         DecimalFormat(pattern).format(double)
 
     /**
@@ -237,7 +237,7 @@ object UtilKString : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun boolean2Str(bool: Boolean, locale: Locale = Locale.CHINA) =
+    fun boolean2str(bool: Boolean, locale: Locale = Locale.CHINA) =
         if (locale == Locale.CHINA) if (bool) "是" else "否" else (if (bool) "true" else "false")
 
     /**
@@ -317,6 +317,6 @@ object UtilKString : BaseUtilK() {
     }
 
     @JvmStatic
-    fun regexLineBreak2Str(str: String): String =
+    fun regexLineBreak2str(str: String): String =
         str.replace("\\n".toRegex(), CMsg.LINE_BREAK)
 }

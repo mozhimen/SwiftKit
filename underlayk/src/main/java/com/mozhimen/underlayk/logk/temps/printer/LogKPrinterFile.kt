@@ -3,9 +3,9 @@ package com.mozhimen.underlayk.logk.temps.printer
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.os.UtilKPath
+import com.mozhimen.basick.utilk.java.io.UtilKPath
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -82,7 +82,7 @@ class LogKPrinterFile(
     }
 
     private fun genFileName(): String {
-        return "${UtilKFile.currentHourStr2FileName()}.txt"
+        return "${UtilKFile.currentHourStr2fileName()}.txt"
     }
 
     /**

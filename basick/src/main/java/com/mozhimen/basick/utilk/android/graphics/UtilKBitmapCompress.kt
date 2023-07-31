@@ -4,8 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.util.Log
-import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import kotlin.math.roundToInt
@@ -22,6 +20,9 @@ import kotlin.math.sqrt
 fun String.getCompressFormat(): CompressFormat =
     UtilKBitmapCompress.getCompressFormat(this)
 
+fun Bitmap.compressScaled(@androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap =
+    UtilKBitmapCompress.compressScaledBitmap(this, quality)
+
 object UtilKBitmapCompress : BaseUtilK() {
 
     /**
@@ -32,7 +33,7 @@ object UtilKBitmapCompress : BaseUtilK() {
      */
     @JvmStatic
     fun compressQuality(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int = 50): Bitmap? {
-        val bytes: ByteArray = UtilKBitmapFormat.bitmap2Bytes(sourceBitmap, compressFormat, quality) ?: return null
+        val bytes: ByteArray = UtilKBitmapFormat.bitmap2bytes(sourceBitmap, compressFormat, quality) ?: return null
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size).also { printBitmapInfo(it, bytes, quality) }
     }
 
@@ -68,18 +69,18 @@ object UtilKBitmapCompress : BaseUtilK() {
      */
     @JvmStatic
     fun compressRgb565(sourceBitmap: Bitmap): Bitmap {
-        return UtilKBitmapFormat.bitmap2Rgb565Bitmap(sourceBitmap).also { printBitmapInfo(it, null, 100) }
+        return UtilKBitmapFormat.bitmap2rgb565Bitmap(sourceBitmap).also { printBitmapInfo(it, null, 100) }
     }
 
     /**
      * rgb565压缩方法
-     * @param filePathWithName String
+     * @param bitmapPathWithName String
      */
     @JvmStatic
-    fun compressRgb565(filePathWithName: String): Bitmap {
+    fun compressRgb565(bitmapPathWithName: String): Bitmap {
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        return BitmapFactory.decodeFile(filePathWithName, options).also { printBitmapInfo(it, null, 100) }
+        return BitmapFactory.decodeFile(bitmapPathWithName, options).also { printBitmapInfo(it, null, 100) }
     }
 
     /**
@@ -98,7 +99,6 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @param bytes ByteArray?
      * @param quality Int
      */
-    @RequiresApi(CVersCode.V_12_31_H1)
     @JvmStatic
     private fun printBitmapInfo(bitmap: Bitmap, bytes: ByteArray?, quality: Int) {
         Log.v(

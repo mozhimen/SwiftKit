@@ -128,7 +128,7 @@ object UtilKStatusBar : BaseUtilK() {
      */
     @JvmStatic
     fun isVisible(activity: Activity): Boolean =
-        !UtilKWindow.isFullScreenInFlag(activity)
+        !UtilKWindow.isFlagFullScreen(activity)
 
     @JvmStatic
     fun isTranslucent(activity: Activity): Boolean {

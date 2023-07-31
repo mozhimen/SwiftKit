@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.kotlin.text.checkAllDigits
-import com.mozhimen.basick.utilk.kotlin.text.checkAllDigits2
-import com.mozhimen.basick.utilk.kotlin.text.checkAllDigitsAndAlphabets
+import com.mozhimen.basick.utilk.kotlin.text.isAllDigits
+import com.mozhimen.basick.utilk.kotlin.text.isAllDigits2
+import com.mozhimen.basick.utilk.kotlin.text.isAllDigitsAndAlphabets
 import com.mozhimen.basick.utilk.kotlin.text.outAlphabet
 import com.mozhimen.basick.utilk.kotlin.text.outChinese
 import com.mozhimen.basick.utilk.kotlin.text.outNAC
@@ -27,18 +27,18 @@ class TestUtilKFilter {
 //        "8080".checkPort().printlog()
 //        "80".checkPort().printlog()
 
-        "0123456789".checkAllDigits().printlog()
-        "12322r".checkAllDigits().printlog()
-        "ree".checkAllDigits().printlog()
+        "0123456789".isAllDigits().printlog()
+        "12322r".isAllDigits().printlog()
+        "ree".isAllDigits().printlog()
 
-        "0123456789".checkAllDigits2().printlog()
-        "12322r".checkAllDigits2().printlog()
-        "ree".checkAllDigits2().printlog()
+        "0123456789".isAllDigits2().printlog()
+        "12322r".isAllDigits2().printlog()
+        "ree".isAllDigits2().printlog()
 
-        "ree123".checkAllDigitsAndAlphabets().printlog()
-        "123456".checkAllDigitsAndAlphabets().printlog()
-        "123".checkAllDigitsAndAlphabets().printlog()
-        "ree".checkAllDigitsAndAlphabets().printlog()
+        "ree123".isAllDigitsAndAlphabets().printlog()
+        "123456".isAllDigitsAndAlphabets().printlog()
+        "123".isAllDigitsAndAlphabets().printlog()
+        "ree".isAllDigitsAndAlphabets().printlog()
     }
 
     @Test

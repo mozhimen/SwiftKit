@@ -157,7 +157,7 @@ object UtilKIntent {
         if (UtilKBuildVersion.isAfterV_24_7_N()) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
         }
-        intent.setDataAndType(UtilKUri.filePathStr2Uri(filePathWithName) ?: return null, "application/vnd.android.package-archive")
+        intent.setDataAndType(UtilKUri.pathStr2uri(filePathWithName) ?: return null, "application/vnd.android.package-archive")
         return intent
     }
 }

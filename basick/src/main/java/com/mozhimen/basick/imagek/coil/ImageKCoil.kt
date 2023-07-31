@@ -9,7 +9,6 @@ import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
 import com.mozhimen.basick.imagek.coil.cons.CCoilBlurCons
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.imagek.coil.temps.BlurTransformation
 import com.mozhimen.basick.imagek.coil.temps.ColorFilterTransformation

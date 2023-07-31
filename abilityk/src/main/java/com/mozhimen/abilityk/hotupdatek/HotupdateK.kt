@@ -13,8 +13,8 @@ import com.mozhimen.basick.utilk.android.content.UtilKApk
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
 import com.mozhimen.basick.utilk.kotlin.getSplitLast
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
-import com.mozhimen.basick.utilk.os.UtilKPath
+import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.netk.file.download.DownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest

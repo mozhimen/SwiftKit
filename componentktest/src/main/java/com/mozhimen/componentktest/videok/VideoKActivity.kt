@@ -3,7 +3,7 @@ package com.mozhimen.componentktest.videok
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.os.UtilKPath
+import com.mozhimen.basick.utilk.java.io.UtilKPath
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.componentktest.databinding.ActivityVideokBinding
 import kotlinx.coroutines.Dispatchers

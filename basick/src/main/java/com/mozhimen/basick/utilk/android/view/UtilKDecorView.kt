@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
+import android.graphics.Bitmap
 import android.graphics.Rect
 import android.util.Log
 import android.view.View
@@ -157,6 +158,20 @@ object UtilKDecorView : BaseUtilK() {
     }
 
     ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 截屏
+     */
+    @JvmStatic
+    fun getBitmap(activity: Activity): Bitmap {
+        val view = get(activity)
+        view.isDrawingCacheEnabled = true
+        view.buildDrawingCache()
+        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getHeight(activity))
+        view.isDrawingCacheEnabled = false
+        view.destroyDrawingCache()
+        return bitmap
+    }
 
 //    @JvmStatic
 //    fun setFullScreen(activity: Activity) {

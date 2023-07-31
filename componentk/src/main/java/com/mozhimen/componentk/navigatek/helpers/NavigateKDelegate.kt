@@ -6,10 +6,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.*
 import androidx.navigation.fragment.DialogFragmentNavigator
 import androidx.navigation.fragment.FragmentNavigator
-import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.kotlin.collections.joinElement2List
+import com.mozhimen.basick.utilk.kotlin.collections.joinElement2list
 import com.mozhimen.componentk.navigatek.commons.INavigateK
 import com.mozhimen.componentk.navigatek.cons.CNavigateKDestinationType
 import com.mozhimen.componentk.navigatek.mos.MNavigateKConfig
@@ -62,7 +61,7 @@ internal class NavigateKDelegate(private val _activity: FragmentActivity) : INav
         val pageInfos = createPageInfos(clazzes).also { Log.d(TAG, "addDestinations: $it") }
         for (pageInfo in pageInfos)
             addDestination(navGraph, createDestination(navigatorProvider, pageInfo) ?: continue)
-        val destinationIds = pageInfos.joinElement2List { it.id }.also { Log.d(TAG, "addDestinations: defaultDestinationId $defaultDestinationId destinationIds $it") }
+        val destinationIds = pageInfos.joinElement2list { it.id }.also { Log.d(TAG, "addDestinations: defaultDestinationId $defaultDestinationId destinationIds $it") }
         navGraph.setStartDestination(if (defaultDestinationId != 0 && defaultDestinationId in destinationIds) defaultDestinationId else destinationIds[0])
     }
 

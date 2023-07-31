@@ -178,18 +178,4 @@ object UtilKBitmapDeal : BaseUtilK() {
         canvas.drawBitmap(fgSourceBitmap, ((bgSourceBitmap.height - fgSourceBitmap.width) / 2).toFloat(), ((bgSourceBitmap.height - fgSourceBitmap.height) / 2).toFloat(), null)
         return destBitmap
     }
-
-    /**
-     * 截屏
-     */
-    @JvmStatic
-    fun getBitmapForScreen(activity: Activity): Bitmap {
-        val view = UtilKDecorView.get(activity)
-        view.isDrawingCacheEnabled = true
-        view.buildDrawingCache()
-        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getHeight(activity))
-        view.isDrawingCacheEnabled = false
-        view.destroyDrawingCache()
-        return bitmap
-    }
 }

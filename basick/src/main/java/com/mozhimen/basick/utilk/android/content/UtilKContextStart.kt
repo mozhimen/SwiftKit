@@ -57,42 +57,21 @@ object UtilKContextStart : BaseUtilK() {
         activity.finish()
     }
 
-    /**
-     * 带参数的跳转
-     * @param context Context
-     * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
-     */
     @JvmStatic
     inline fun <reified T : Context> startContext(context: Context, block: IExtension_Listener<Intent>) {
         startContext(context, Intent(context, T::class.java).apply(block))
     }
 
-    /**
-     * startActivityForResult
-     * @param activity Activity
-     * @param intent Intent
-     * @param requestCode Int
-     */
     @JvmStatic
     fun startActivityForResult(activity: Activity, requestCode: Int, intent: Intent) {
         activity.startActivityForResult(intent, requestCode)
     }
 
-    /**
-     * startActivityForResult
-     * @param activity Activity
-     */
     @JvmStatic
     inline fun <reified T : Activity> startActivityForResult(activity: Activity, requestCode: Int) {
         startActivityForResult(activity, requestCode, Intent(activity, T::class.java))
     }
 
-    /**
-     * startActivityForResult
-     * @param activity Activity
-     * @param requestCode Int
-     * @param block [@kotlin.ExtensionFunctionType] Function1<Intent, Unit>
-     */
     @JvmStatic
     inline fun <reified T : Activity> startActivityForResult(activity: Activity, requestCode: Int, block: IExtension_Listener<Intent>) {
         startActivityForResult(activity, requestCode, Intent(activity, T::class.java).apply(block))

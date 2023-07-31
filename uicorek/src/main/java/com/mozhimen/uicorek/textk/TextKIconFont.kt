@@ -32,7 +32,7 @@ class TextKIconFont @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     fun setIconFontPath(iconFontPath: String) {
-        UtilKTextView.setIconFont(this, iconFontPath.also { _iconfontPath = it })
+        UtilKTextView.applyIconFont(this, iconFontPath.also { _iconfontPath = it })
     }
 
     fun getIconFontPath() = _iconfontPath

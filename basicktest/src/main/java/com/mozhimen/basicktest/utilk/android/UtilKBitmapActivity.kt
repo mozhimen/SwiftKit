@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapIO
 import com.mozhimen.basick.utilk.android.graphics.drawable2Bitmap
-import com.mozhimen.basick.utilk.os.UtilKPath
+import com.mozhimen.basick.utilk.java.io.UtilKPath
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkBitmapBinding
 import kotlinx.coroutines.Dispatchers

@@ -10,17 +10,17 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
-import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKLifecycle
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
+import com.mozhimen.basick.utilk.kotlin.UtilKString
 
 /**
  * @ClassName UtilKActivity
@@ -120,6 +120,7 @@ object UtilKActivity {
      * @param view View
      * @return Activity?
      */
+    @OptInApiInit_InApplication
     @JvmStatic
     fun getByView(view: View): Activity? =
         getByContext(view.context)
@@ -158,6 +159,7 @@ object UtilKActivity {
      * @param context Context
      * @return Boolean
      */
+    @OptInApiInit_InApplication
     @JvmStatic
     fun isDestroyed(context: Context): Boolean {
         val activity: Activity? = getByContext(context)
@@ -187,4 +189,6 @@ object UtilKActivity {
     fun runOnMainThread(appCompatActivity: AppCompatActivity, block: I_Listener) {
         UtilKLifecycle.runOnMainThread(appCompatActivity, block)
     }
+
+
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.mozhimen.basick.elemk.commons.ISuspend_AListener
-import com.mozhimen.basick.utilk.kotlin.toStringTrim
+import com.mozhimen.basick.utilk.kotlin.asStringTrim
 import java.lang.Exception
 import kotlin.coroutines.CoroutineContext
 
@@ -20,7 +20,7 @@ fun MutableLiveData<String>.gainValue() =
 
 object UtilKLiveData {
     fun gainValue(mutableLiveData: MutableLiveData<String>): String =
-        mutableLiveData.value?.toStringTrim() ?: ""
+        mutableLiveData.value?.asStringTrim() ?: ""
 
     /**
      * 作用: 消息机制

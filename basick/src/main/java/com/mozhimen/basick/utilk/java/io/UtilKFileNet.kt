@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk.java.io
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.android.net.UtilKNetDeal
 import java.io.File
 import java.io.FileOutputStream

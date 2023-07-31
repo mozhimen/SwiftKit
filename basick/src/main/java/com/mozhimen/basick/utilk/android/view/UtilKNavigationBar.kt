@@ -134,7 +134,6 @@ object UtilKNavigationBar : BaseUtilK() {
      * @return Int 如果存在NavigationBar则返回高度，否则0
      */
     @JvmStatic
-    @RequiresApi(CVersCode.V_20_44W_KW)
     fun getHeight(view: View): Int {
         val activity: Activity? = UtilKActivity.getByView(view)
         if (activity != null) {

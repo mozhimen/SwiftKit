@@ -40,7 +40,7 @@ class BtnKIconFont @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     override fun setIconFontPath(iconFontPath: String) {
-        UtilKTextView.setIconFont(this, iconFontPath.also { _iconFontPath = it })
+        UtilKTextView.applyIconFont(this, iconFontPath.also { _iconFontPath = it })
     }
 
     override fun getIconFontPath(): String =

@@ -5,9 +5,21 @@ import android.text.InputFilter
 import android.widget.EditText
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.android.view.bases.BaseTextWatcher
-import com.mozhimen.basick.utilk.kotlin.toStringTrim
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import com.mozhimen.basick.elemk.commons.IAB_Listener
+import com.mozhimen.basick.elemk.commons.IA_BListener
+import com.mozhimen.basick.utilk.kotlin.asStringTrim
+import com.mozhimen.basick.utilk.kotlinx.coroutines.UtilKFlow.asSearchFlow
+import com.mozhimen.basick.utilk.kotlinx.coroutines.asEditTextChangeFlow
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 /**
  * @ClassName UtilKViewTextEdit
@@ -19,26 +31,45 @@ import kotlinx.coroutines.flow.callbackFlow
 fun EditText.getValue(): String =
     UtilKEditText.getValue(this)
 
-fun EditText.setInputMaxLength(inputMaxLength: Int) {
-    UtilKEditText.setInputMaxLength(this, inputMaxLength)
+fun EditText.applyInputMaxLength(inputMaxLength: Int) {
+    UtilKEditText.applyInputMaxLength(this, inputMaxLength)
 }
 
 fun EditText.addTextChangeWatcher(onTextChanged: IA_Listener<String>/*(newText: String) -> Unit*/) {
     UtilKEditText.addTextChangeWatcher(this, onTextChanged)
 }
 
-// 构建输入框文字变化流
-fun EditText.textChangeFlow(): Flow<Editable> = callbackFlow {
-
-}
-
-
 object UtilKEditText {
 
-//    @JvmStatic
-//    fun applyDebounceTextChangeListener(editText: EditText,scope:) {
-//
-//    }
+    @ExperimentalCoroutinesApi
+    @FlowPreview
+    @JvmStatic
+    fun applyDebounceTextChangeListener(
+        editText: EditText,
+        scope: CoroutineScope,
+        searchBlock: suspend CoroutineScope.(String) -> List<String>,
+        resBlock: IAB_Listener<EditText, List<String>>,
+        thresholdMillis: Long = 500
+    ) {
+        editText.asEditTextChangeFlow().filter { it.isNotEmpty() }.debounce(thresholdMillis).flatMapLatest { asSearchFlow(it.toString(), scope, searchBlock) }.flowOn(Dispatchers.IO).onEach {
+            resBlock(editText, it)
+        }.launchIn(scope)
+    }
+
+    @ExperimentalCoroutinesApi
+    @FlowPreview
+    @JvmStatic
+    fun applySuspendDebounceTextChangeListener(
+        editText: EditText,
+        scope: CoroutineScope,
+        searchBlock: suspend CoroutineScope.(String) -> List<String>,
+        resBlock: suspend CoroutineScope.(EditText, List<String>) -> Unit,
+        thresholdMillis: Long = 500
+    ) {
+        editText.asEditTextChangeFlow().filter { it.isNotEmpty() }.debounce(thresholdMillis).flatMapLatest { asSearchFlow(it.toString(), scope, searchBlock) }.flowOn(Dispatchers.IO).onEach {
+            scope.resBlock(editText, it)
+        }.launchIn(scope)
+    }
 
     /**
      * 最多可输入的字符数
@@ -46,7 +77,7 @@ object UtilKEditText {
      * @param inputMaxLength Int
      */
     @JvmStatic
-    fun setInputMaxLength(editText: EditText, inputMaxLength: Int) {
+    fun applyInputMaxLength(editText: EditText, inputMaxLength: Int) {
         if (inputMaxLength > 0) editText.filters = arrayOf(InputFilter.LengthFilter(inputMaxLength))
     }
 
@@ -57,7 +88,7 @@ object UtilKEditText {
      */
     @JvmStatic
     fun getValue(editText: EditText): String =
-        editText.text.toStringTrim()
+        editText.text.asStringTrim()
 
     /**
      * 变化观察

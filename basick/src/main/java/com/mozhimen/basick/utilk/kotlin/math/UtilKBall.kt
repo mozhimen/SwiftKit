@@ -23,9 +23,9 @@ object UtilKBall {
      */
     @JvmStatic
     fun distance(longitude1: Double, latitude1: Double, longitude2: Double, latitude2: Double): Double {
-        var dist = (sin(angle2Radian(latitude1)) * sin(angle2Radian(latitude2)) + (cos(angle2Radian(latitude1)) * cos(angle2Radian(latitude2)) * cos(angle2Radian(longitude1 - longitude2))))
+        var dist = (sin(angle2radian(latitude1)) * sin(angle2radian(latitude2)) + (cos(angle2radian(latitude1)) * cos(angle2radian(latitude2)) * cos(angle2radian(longitude1 - longitude2))))
         dist = acos(dist)
-        dist = radian2Angle(dist)
+        dist = radian2angle(dist)
         return dist * 60 * 1.1515
     }
 
@@ -35,7 +35,7 @@ object UtilKBall {
      * @return Double
      */
     @JvmStatic
-    fun angle2Radian(degree: Double): Double {
+    fun angle2radian(degree: Double): Double {
         return degree / 180 * Math.PI
     }
 
@@ -45,7 +45,7 @@ object UtilKBall {
      * @return Double
      */
     @JvmStatic
-    fun radian2Angle(radian: Double): Double {
+    fun radian2angle(radian: Double): Double {
         return radian * 180 / Math.PI
     }
 }

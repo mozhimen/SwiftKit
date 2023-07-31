@@ -5,9 +5,8 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import com.mozhimen.basick.utilk.android.graphics.drawable2Bitmap
+import com.mozhimen.basick.utilk.android.graphics.asBitmap
 import com.mozhimen.uicorek.viewk.bases.BaseViewK
-import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorek.R
 
 /**
@@ -64,7 +63,7 @@ class ViewKScanQR @JvmOverloads constructor(context: Context, attrs: AttributeSe
             _scanLineBitmap = if (_lineDrawable is BitmapDrawable) {
                 (_lineDrawable as BitmapDrawable).bitmap
             } else {
-                it.drawable2Bitmap(_borderWidth, _lineWidth)
+                it.asBitmap(_borderWidth, _lineWidth)
             }
         }
         invalidate()

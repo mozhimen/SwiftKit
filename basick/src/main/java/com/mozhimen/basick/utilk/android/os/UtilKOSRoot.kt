@@ -5,7 +5,7 @@ import android.util.Log
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFile
 import java.io.BufferedReader
 import java.io.File
 import java.io.InputStreamReader

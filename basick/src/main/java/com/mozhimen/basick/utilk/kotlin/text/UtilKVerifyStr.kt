@@ -7,14 +7,14 @@ package com.mozhimen.basick.utilk.kotlin.text
  * @Date 2022/12/26 16:59
  * @Version 1.0
  */
-fun String.checkAllDigits(): Boolean =
-    UtilKVerifyStr.checkAllDigits(this)
+fun String.isAllDigits(): Boolean =
+    UtilKVerifyStr.isAllDigits(this)
 
-fun String.checkAllDigits2(): Boolean =
-    UtilKVerifyStr.checkAllDigits2(this)
+fun String.isAllDigits2(): Boolean =
+    UtilKVerifyStr.isAllDigits2(this)
 
-fun String.checkAllDigitsAndAlphabets(): Boolean =
-    UtilKVerifyStr.checkAllDigitsAndAlphabets(this)
+fun String.isAllDigitsAndAlphabets(): Boolean =
+    UtilKVerifyStr.isAllDigitsAndAlphabets(this)
 
 object UtilKVerifyStr {
     /**
@@ -22,7 +22,7 @@ object UtilKVerifyStr {
      * @param str String
      */
     @JvmStatic
-    fun checkAllDigits(str: String): Boolean =
+    fun isAllDigits(str: String): Boolean =
         str.matches(Regex("^[0-9]*\$"))
 
     /**
@@ -31,7 +31,7 @@ object UtilKVerifyStr {
      * @return Boolean
      */
     @JvmStatic
-    fun checkAllDigits2(str: String) =
+    fun isAllDigits2(str: String) =
         str.matches(Regex("[0-9]+"))
 
     /**
@@ -40,6 +40,6 @@ object UtilKVerifyStr {
      * @return Boolean
      */
     @JvmStatic
-    fun checkAllDigitsAndAlphabets(str: String): Boolean =
+    fun isAllDigitsAndAlphabets(str: String): Boolean =
         str.matches(Regex("^(?![0-9]+\$)(?![a-zA-Z]+\$)[0-9A-Za-z]{2,}\$"))
 }

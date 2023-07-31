@@ -1,30 +1,36 @@
 package com.mozhimen.basick.utilk.android.graphics
 
-import android.content.Context
+import android.Manifest
+import android.content.ContentResolver
+import android.content.ContentValues
+import android.content.pm.PackageManager
 import android.graphics.*
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.media.Image
-import android.net.Uri
+import android.media.MediaScannerConnection
+import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.IntRange
-import androidx.core.graphics.drawable.toBitmap
+import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
+import androidx.core.app.ActivityCompat
 import androidx.core.graphics.drawable.toDrawable
-import com.mozhimen.basick.elemk.cons.CMsg
+import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.view.UtilKScreen
-import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import com.mozhimen.basick.utilk.android.content.UtilKResource
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.java.io.UtilKFile
+import java.io.BufferedOutputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.io.InputStream
-import java.nio.ByteBuffer
-import java.nio.IntBuffer
-import javax.microedition.khronos.opengles.GL10
-import kotlin.math.ceil
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 
 /**
@@ -35,175 +41,21 @@ import kotlin.math.ceil
  * @Version 1.0
  */
 
-fun ByteArray.bytes2Bitmap(): Bitmap =
-    UtilKBitmapFormat.bytes2Bitmap(this)
+fun Bitmap.asJpegBytes(): ByteArray? =
+    UtilKBitmapFormat.bitmap2jpegBytes(this)
 
-fun Bitmap.bitmap2JpegBytes(): ByteArray? =
-    UtilKBitmapFormat.bitmap2JpegBytes(this)
-
-fun Bitmap.toRgb565Bitmap(): Bitmap =
-    UtilKBitmapFormat.bitmap2Rgb565Bitmap(this)
-
-fun Drawable.drawable2Bitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
-    UtilKBitmapFormat.drawable2Bitmap(this, width, height, config)
+fun Bitmap.asRgb565Bitmap(): Bitmap =
+    UtilKBitmapFormat.bitmap2rgb565Bitmap(this)
 
 object UtilKBitmapFormat : BaseUtilK() {
 
-    /**
-     * bitmap转化为rgb565
-     * @param sourceBitmap Bitmap
-     * @return Bitmap
-     */
     @JvmStatic
-    fun bitmap2Rgb565Bitmap(sourceBitmap: Bitmap): Bitmap {
+    fun bitmap2rgb565Bitmap(sourceBitmap: Bitmap): Bitmap {
         return sourceBitmap.copy(Bitmap.Config.RGB_565, true)
     }
 
-    /**
-     * image转Bytes
-     * @param image Image
-     * @return ByteArray
-     */
     @JvmStatic
-    @Throws(Exception::class)
-    fun image2JpegBytes(image: Image): ByteArray {
-        val bytes: ByteArray = when (image.format) {
-            ImageFormat.JPEG -> {
-                JpegImage2JpegBytes(image)
-            }
-
-            ImageFormat.YUV_420_888 -> {
-                yuv420888Image2JpegBytes(image)
-            }
-
-            else -> {
-                throw Exception("cannot handle this format")
-            }
-        }
-        return bytes
-    }
-
-    /**
-     * yuv420888Image转JpegBytes
-     * @param image Image
-     * @return ByteArray
-     */
-    @JvmStatic
-    fun yuv420888Image2JpegBytes(image: Image): ByteArray {
-        return nv21Bytes2JpegBytes(yuv420888Image2Nv21Bytes(image), image.width, image.height)
-    }
-
-    /**
-     * JpegImage转JpegBytes
-     * @param image Image
-     * @return ByteArray
-     */
-    @JvmStatic
-    fun JpegImage2JpegBytes(image: Image): ByteArray {
-        val bytes: ByteArray
-        val buffer = image.planes[0].buffer
-        bytes = ByteArray(buffer.capacity())
-        buffer.get(bytes)
-        return bytes
-    }
-
-    /**
-     * yuv420转nv21Bytes
-     * @param image Image
-     * @return ByteArray
-     */
-    @JvmStatic
-    fun yuv420888Image2Nv21Bytes(image: Image): ByteArray {
-        val nv21Bytes: ByteArray
-        val yBuffer = image.planes[0].buffer
-        val uBuffer = image.planes[1].buffer
-        val vBuffer = image.planes[2].buffer
-        val ySize = yBuffer.remaining()
-        val uSize = uBuffer.remaining()
-        val vSize = vBuffer.remaining()
-        nv21Bytes = ByteArray(ySize + uSize + vSize)
-
-        //U and V are swapped
-        yBuffer[nv21Bytes, 0, ySize]
-        vBuffer[nv21Bytes, ySize, vSize]
-        uBuffer[nv21Bytes, ySize + vSize, uSize]
-        return nv21Bytes
-    }
-
-    /**
-     * nv21Bytes转JpegBytes
-     * @param nv21Bytes ByteArray
-     * @param width Int
-     * @param height Int
-     * @return ByteArray
-     */
-    @JvmStatic
-    @Throws(Exception::class)
-    fun nv21Bytes2JpegBytes(nv21Bytes: ByteArray, width: Int, height: Int, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): ByteArray {
-        var byteArrayOutputStream: ByteArrayOutputStream? = null
-        try {
-            byteArrayOutputStream = ByteArrayOutputStream()
-            val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
-            yuvImage.compressToJpeg(Rect(0, 0, width, height), quality, byteArrayOutputStream)
-            return byteArrayOutputStream.toByteArray()
-        } catch (e: Exception) {
-            throw e
-        } finally {
-            byteArrayOutputStream?.flush()
-            byteArrayOutputStream?.close()
-        }
-    }
-
-    /**
-     * yuv流转Jpeg文件
-     * @param nv21Bytes ByteArray
-     * @param filePathWithName String
-     * @param width Int
-     * @param height Int
-     */
-    @JvmStatic
-    fun yuvBytes2JpegFile(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, isOverwrite: Boolean = true): String {
-        val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
-        var byteArrayOutputStream: ByteArrayOutputStream? = null
-        try {
-            byteArrayOutputStream = ByteArrayOutputStream()
-            yuvImage.compressToJpeg(Rect(0, 0, width, height), 100, byteArrayOutputStream)
-            return UtilKFile.byteArrayOutputStream2File(byteArrayOutputStream, filePathWithName, isOverwrite)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            byteArrayOutputStream?.flush()
-            byteArrayOutputStream?.close()
-        }
-        return CMsg.WRONG
-    }
-
-    /**
-     * bytes转位图
-     * @param bytes ByteArray
-     * @return Bitmap
-     */
-    @JvmStatic
-    fun bytes2Bitmap(bytes: ByteArray): Bitmap =
-        BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-
-    /**
-     * bytes转位图
-     * @param bytes ByteArray
-     * @param width Int
-     * @param height Int
-     * @return Bitmap
-     */
-    @JvmStatic
-    fun grba8888Bytes2Rgba8888Bitmap(bytes: ByteArray, width: Int, height: Int): Bitmap {
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(bytes))
-        return bitmap
-    }
-
-    @JvmStatic
-    fun bitmap2Bytes(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray? {
+    fun bitmap2bytes(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray? {
         var byteArrayOutputStream: ByteArrayOutputStream? = null
         try {
             byteArrayOutputStream = ByteArrayOutputStream(sourceBitmap.width * sourceBitmap.height * 4)
@@ -220,264 +72,134 @@ object UtilKBitmapFormat : BaseUtilK() {
     }
 
     @JvmStatic
-    fun bitmap2JpegBytes(sourceBitmap: Bitmap, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray? =
-        bitmap2Bytes(sourceBitmap, CompressFormat.JPEG, quality)
+    fun bitmap2jpegBytes(sourceBitmap: Bitmap, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray? =
+        bitmap2bytes(sourceBitmap, CompressFormat.JPEG, quality)
 
-    /**
-     * uri转bitmap
-     * @param uri Uri
-     * @return Bitmap?
-     */
     @JvmStatic
-    fun uri2Bitmap(context: Context, uri: Uri): Bitmap? {
-        var stream: InputStream? = null
-        var inputStream: InputStream? = null
-        try {
-            //根据uri获取图片的流
-            inputStream = UtilKContext.getContentResolver(context).openInputStream(uri)
-            val options = BitmapFactory.Options()
-            options.inJustDecodeBounds = true            //options的in系列的设置了，injustDecodeBound只解析图片的大小，而不加载到内存中去
-            //1.如果通过options.outHeight获取图片的宽高，就必须通过decodeStream解析同options赋值
-            //否则options.outHeight获取不到宽高
-            BitmapFactory.decodeStream(inputStream, null, options)
-            //2.通过 btm.getHeight()获取图片的宽高就不需要1的解析，我这里采取第一张方式
-            //Bitmap btm = BitmapFactory.decodeStream(inputStream)
-            //获取图片的宽高
-            val outHeight = options.outHeight.toDouble()
-            val outWidth = options.outWidth.toDouble()
-            //heightPixels就是要压缩后的图片高度，宽度也一样
-            val a = ceil((outHeight / UtilKScreen.getCurrentHeight().toDouble())).toInt()
-            val b = ceil((outWidth / UtilKScreen.getCurrentWidth().toDouble())).toInt()
-            //比例计算,一般是图片比较大的情况下进行压缩
-            val max = a.coerceAtLeast(b)
-            if (max > 1) {
-                options.inSampleSize = max
-            }
-            //解析到内存中去
-            options.inJustDecodeBounds = false
-            //根据uri重新获取流，inputStream在解析中发生改变了
-            stream = UtilKContext.getContentResolver(context).openInputStream(uri)
-            return BitmapFactory.decodeStream(stream, null, options)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return null
-        } finally {
-            inputStream?.close()
-            stream?.close()
-        }
-    }
+    fun bitmap2drawable(sourceBitmap: Bitmap): Drawable =
+        sourceBitmap.toDrawable(UtilKResource.getSystemResources())
 
-    /**
-     * nv21转文件
-     * @param nv21Bytes ByteArray
-     * @param width Int
-     * @param height Int
-     * @param filePathWithName String
-     * @return File
-     */
     @JvmStatic
-    fun nv21Bytes2JpegFile(nv21Bytes: ByteArray, width: Int, height: Int, filePathWithName: String): File? {
-        return try {
-            UtilKBitmapIO.bitmap2JpegAlbumFile(nv21Bytes2JpegBitmap(nv21Bytes, width, height), filePathWithName)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e(TAG, "nv21Bytes2JpegFile: ${e.message ?: ""}")
-            null
-        }
-    }
+    fun bitmap2drawable2(sourceBitmap: Bitmap): Drawable =
+        BitmapDrawable(UtilKResource.getAppResources(_context), sourceBitmap)
 
-    /**
-     * nv21转位图 for camera1
-     * @param nv21Bytes ByteArray
-     * @param width Int
-     * @param height Int
-     * @return Bitmap
-     */
     @JvmStatic
-    @Throws(Exception::class)
-    fun nv21Bytes2JpegBitmap(nv21Bytes: ByteArray, width: Int, height: Int): Bitmap {
-        val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
-        var byteArrayOutputStream: ByteArrayOutputStream? = null
-        var byteArray: ByteArray?
-        try {
-            byteArrayOutputStream = ByteArrayOutputStream()
-            yuvImage.compressToJpeg(Rect(0, 0, yuvImage.width, yuvImage.height), 100, byteArrayOutputStream)
-            byteArray = byteArrayOutputStream.toByteArray()
-            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-        } catch (e: Exception) {
-            throw e
-        } finally {
-            byteArrayOutputStream?.flush()
-            byteArrayOutputStream?.close()
-        }
-    }
-
-    /**
-     * 位图转Drawable
-     * @param bitmap Bitmap
-     * @return Drawable
-     */
-    @JvmStatic
-    fun bitmap2drawable(bitmap: Bitmap): Drawable =
-        bitmap.toDrawable(UtilKResource.getSystemResources())
-
-    /**
-     * 位图转Drawable
-     * @param bitmap Bitmap
-     * @return Drawable
-     */
-    @JvmStatic
-    fun bitmap2drawable2(bitmap: Bitmap): Drawable =
-        BitmapDrawable(UtilKResource.getAppResources(_context), bitmap)
-
-    /**
-     * drawable转位图
-     * @param drawable Drawable
-     * @return Bitmap
-     */
-    @JvmStatic
-    fun drawable2Bitmap(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
-        drawable.toBitmap(width, height, config)
-
-    /**
-     * drawable转位图
-     * @param drawable Drawable
-     * @return Bitmap
-     */
-    @JvmStatic
-    fun drawable2Bitmap2(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight): Bitmap {
-        return if (drawable is BitmapDrawable) {
-            drawable.bitmap
+    fun bitmap2jpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        if (UtilKBuildVersion.isAfterV_29_10_Q()) {
+            if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) null
+            else bitmap2albumFileAfter29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
         } else {
-            val bitmap: Bitmap = if (width <= 0 || height <= 0) {
-                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-            } else {
-                Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            bitmap2albumFileBefore29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
+        }
+
+    /**
+     * 存相册 after 29
+     * @param sourceBitmap Bitmap
+     * @param filePathWithName String
+     * @param quality Int
+     * @return String
+     */
+    @JvmStatic
+    @RequiresApi(CVersCode.V_29_10_Q)
+    @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
+    fun bitmap2albumFileAfter29(
+        sourceBitmap: Bitmap,
+        filePathWithName: String,
+        compressFormat: CompressFormat = CompressFormat.JPEG,
+        @IntRange(from = 0, to = 100) quality: Int = 100
+    ): File? {
+        if (TextUtils.isEmpty(filePathWithName)) return null
+        var outputStream: OutputStream? = null
+        val destFile = UtilKFile.createFile(filePathWithName)
+        try {
+            val contentValues = ContentValues()
+            val contentResolver: ContentResolver = UtilKContentResolver.get(_context)
+            contentValues.put(MediaStore.Images.ImageColumns.DATA, destFile.absolutePath)
+            contentValues.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, filePathWithName.split("/").lastOrNull() ?: UtilKFile.nowStr2fileName())
+            contentValues.put(MediaStore.Images.ImageColumns.MIME_TYPE, CMediaFormat.MIMETYPE_IMAGE_JPEG)
+            contentValues.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
+            val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues) // 插入相册
+            uri?.let {
+                outputStream = contentResolver.openOutputStream(uri)
+                sourceBitmap.compress(compressFormat, quality, outputStream)
             }
-            val canvas = Canvas(bitmap)
-            drawable.setBounds(0, 0, canvas.width, canvas.height)
-            drawable.draw(canvas)
-            bitmap
-        }
-    }
-
-    /**
-     * 裁剪nv21Bytes
-     * @param nv21Bytes ByteArray 原始数据
-     * @param width Int 原始图像的width
-     * @param height Int 原始图像height
-     * @param cropX Int 裁剪区域左上角的x
-     * @param cropY Int 裁剪区域左上角的y
-     * @param cropWidth Int 裁剪的宽度
-     * @param cropHeight Int 裁剪的高度
-     * @return ByteArray 裁剪后的图像数据
-     */
-    @JvmStatic
-    fun clipNv21Bytes(nv21Bytes: ByteArray, width: Int, height: Int, cropX: Int, cropY: Int, cropWidth: Int, cropHeight: Int): ByteArray {
-        // 目标区域取偶(YUV420SP要求图像高度是偶数)
-        var left = cropX
-        var top = cropY
-        val begin = System.nanoTime()
-        if (left % 2 == 1) {
-            left--
-        }
-        if (top % 2 == 1) {
-            top--
-        }
-        val bottom = top + cropHeight
-        // 裁剪后的占用的大小
-        val size = cropWidth * cropHeight * 3 / 2
-        val data = ByteArray(size)
-        // 按照YUV420SP格式，复制Y
-        for (i in top until bottom) {
-            System.arraycopy(nv21Bytes, left + i * width, data, (i - top) * cropWidth, cropWidth)
-        }
-        // 按照YUV420SP格式，复制UV
-        val startH = height + top / 2
-        val endH = height + bottom / 2
-        for (i in startH until endH) {
-            System.arraycopy(nv21Bytes, left + i * width, data, (i - startH + cropHeight) * cropWidth, cropWidth)
-        }
-        val end = System.nanoTime()
-        return data
-    }
-
-    /**
-     * gl10转bitmap
-     * @param gl10 GL10
-     * @param width Int
-     * @param height Int
-     * @param x Int
-     * @param y Int
-     * @return Bitmap
-     */
-    @JvmStatic
-    @Throws(Exception::class)
-    fun gl102Bitmap(gl10: GL10, width: Int, height: Int, x: Int, y: Int): Bitmap {
-        val bitmapBuffer = IntArray(width * height)
-        val bitmapSource = IntArray(width * height)
-        val intBuffer = IntBuffer.wrap(bitmapBuffer)
-        intBuffer.position(0)
-        gl10.glReadPixels(x, y, width, height, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, intBuffer)
-        var offset1: Int
-        var offset2: Int
-        for (i in 0 until height) {
-            offset1 = i * width
-            offset2 = (height - i - 1) * width
-            for (j in 0 until width) {
-                val texturePixel = bitmapBuffer[offset1 + j]
-                val blue = texturePixel shr 16 and 0xff
-                val red = texturePixel shl 16 and 0x00ff0000
-                val pixel = texturePixel and -0xff0100 or red or blue
-                bitmapSource[offset2 + j] = pixel
+            return destFile
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            outputStream?.flush()
+            outputStream?.close()
+            try {
+                val pathArray: Array<String> = arrayOf(destFile.absolutePath)
+                val typeArray: Array<String> = arrayOf(CMediaFormat.MIMETYPE_IMAGE_JPEG)
+                MediaScannerConnection.scanFile(_context, pathArray, typeArray) { path, uri -> Log.d(TAG, "bitmap2Album: path $path, uri $uri") }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                e.message?.et(TAG)
             }
         }
-        return Bitmap.createBitmap(bitmapSource, width, height, Bitmap.Config.ARGB_8888)
+        return null
     }
 
     /**
-     * yuv422转yuv420sp
-     * @param y ByteArray
-     * @param u ByteArray
-     * @param v ByteArray
-     * @param nv21 ByteArray
-     * @param stride Int
-     * @param height Int
+     * 保存图片 before 29
+     * @param sourceBitmap Bitmap
+     * @param filePathWithName String
+     * @param quality Int
+     * @return String
      */
     @JvmStatic
-    fun yuv422Bytes2Yuv420spBytes(y: ByteArray, u: ByteArray, v: ByteArray, nv21: ByteArray, stride: Int, height: Int) {
-        System.arraycopy(y, 0, nv21, 0, y.size)
-        val length = y.size + u.size / 2 + v.size / 2
-        var uIndex = 0
-        var vIndex = 0
-        var i = stride * height
-        while (i < length) {
-            nv21[i] = v[vIndex]
-            nv21[i + 1] = u[uIndex]
-            vIndex += 2
-            uIndex += 2
-            i += 2
+    fun bitmap2albumFileBefore29(
+        sourceBitmap: Bitmap,
+        filePathWithName: String,
+        compressFormat: CompressFormat = CompressFormat.JPEG,
+        @IntRange(from = 0, to = 100) quality: Int = 100
+    ): File? =
+        bitmap2albumFileBefore29(sourceBitmap, File(filePathWithName), compressFormat, quality)
+
+    /**
+     * 保存图片 before 29
+     * @param destFile String
+     * @param sourceBitmap Bitmap?
+     */
+    @JvmStatic
+    fun bitmap2albumFileBefore29(
+        sourceBitmap: Bitmap,
+        destFile: File,
+        compressFormat: CompressFormat = CompressFormat.JPEG,
+        @IntRange(from = 0, to = 100) quality: Int = 100
+    ): File? {
+        UtilKFile.createFile(destFile)
+        var bufferedOutputStream: BufferedOutputStream? = null
+        try {
+            bufferedOutputStream = BufferedOutputStream(FileOutputStream(destFile))
+            sourceBitmap.compress(compressFormat, quality, bufferedOutputStream)
+            return destFile
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            bufferedOutputStream?.flush()
+            bufferedOutputStream?.close()
         }
+        return null
     }
 
     /**
-     * yuv420转yuv420sp
-     * @param y ByteArray
-     * @param u ByteArray
-     * @param v ByteArray
-     * @param nv21 ByteArray
-     * @param stride Int
-     * @param height Int
+     * bitmap转文件
+     * @param sourceBitmap Bitmap
+     * @param filePathWithName String
+     * @param quality Int
+     * @return String
      */
     @JvmStatic
-    fun yuv420Bytes2Yuv420spBytes(y: ByteArray, u: ByteArray, v: ByteArray, nv21: ByteArray, stride: Int, height: Int) {
-        System.arraycopy(y, 0, nv21, 0, y.size)
-        val length = y.size + u.size + v.size
-        var uIndex = 0
-        var vIndex = 0
-        for (i in stride * height until length) {
-            nv21[i] = v[vIndex++]
-            nv21[i + 1] = u[uIndex++]
-        }
-    }
+    fun bitmap2jpegFile(sourceBitmap: Bitmap, filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        bitmap2albumFileBefore29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
+
+    @JvmStatic
+    fun bitmap2pngFile(sourceBitmap: Bitmap, filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        bitmap2albumFileBefore29(sourceBitmap, filePathWithName, CompressFormat.PNG, quality)
+
+
 }

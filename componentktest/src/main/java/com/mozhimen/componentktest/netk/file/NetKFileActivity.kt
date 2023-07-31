@@ -11,8 +11,8 @@ import com.mozhimen.componentk.netk.file.okdownload.commons.IFileDownloadSingleL
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
-import com.mozhimen.basick.utilk.os.UtilKPath
+import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKPath
 import com.mozhimen.componentk.netk.file.download.DownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest
 import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants

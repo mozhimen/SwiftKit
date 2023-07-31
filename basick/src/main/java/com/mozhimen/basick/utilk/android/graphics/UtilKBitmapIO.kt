@@ -1,33 +1,17 @@
 package com.mozhimen.basick.utilk.android.graphics
 
-import android.Manifest
-import android.content.ContentResolver
-import android.content.ContentValues
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
 import android.graphics.drawable.BitmapDrawable
-import android.media.MediaScannerConnection
-import android.net.Uri
 import android.provider.MediaStore
-import android.text.TextUtils
-import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import androidx.core.app.ActivityCompat
 import coil.request.ImageRequest
-import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.UtilKString
-import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
 import java.io.*
 import java.net.URL
 
@@ -41,26 +25,16 @@ import java.net.URL
 @AManifestKRequire(CPermission.INTERNET)
 object UtilKBitmapIO : BaseUtilK() {
 
-    /**
-     * 协程方式 获取Bitmap
-     * @param url String
-     * @return Bitmap
-     */
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
-    suspend fun url2BitmapCoroutine(url: String): Bitmap? {
-        return (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(url).build()).drawable as? BitmapDrawable)?.bitmap
+    suspend fun urlStr2bitmap(urlStr: String): Bitmap? {
+        return (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(urlStr).build()).drawable as? BitmapDrawable)?.bitmap
     }
 
-    /**
-     * 获取Bitmap
-     * @param url String
-     * @return Bitmap?
-     */
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
-    fun url2Bitmap(url: String): Bitmap? {
-        val tempURL = URL(url)
+    fun urlStr2bitmap2(urlStr: String): Bitmap? {
+        val tempURL = URL(urlStr)
         var inputStream: InputStream? = null
         return try {
             inputStream = tempURL.openStream()
@@ -74,161 +48,16 @@ object UtilKBitmapIO : BaseUtilK() {
     }
 
     @JvmStatic
-    fun filePath2Bitmap(filePathWithName: String): Bitmap? {
-        return if (filePathWithName.isEmpty() || UtilKString.isHasSpace(filePathWithName)) null
+    fun pathStr2bitmap(filePathWithName: String): Bitmap? =
+        if (filePathWithName.isEmpty() || UtilKString.isHasSpace(filePathWithName)) null
         else BitmapFactory.decodeFile(filePathWithName)
-    }
-
-    /**
-     * 位图转文件
-     * @param sourceBitmap Bitmap
-     * @param filePathWithName String
-     * @return File
-     */
-    @JvmStatic
-    fun bitmap2JpegAlbumFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        if (UtilKBuildVersion.isAfterV_29_10_Q()) {
-            if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) null
-            else bitmap2AlbumFileAfter29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
-        } else {
-            bitmap2AlbumFileBefore29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
-        }
-
-    /**
-     * 存相册 after 29
-     * @param sourceBitmap Bitmap
-     * @param filePathWithName String
-     * @param quality Int
-     * @return String
-     */
-    @JvmStatic
-    @RequiresApi(CVersCode.V_29_10_Q)
-    @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
-    fun bitmap2AlbumFileAfter29(
-        sourceBitmap: Bitmap,
-        filePathWithName: String,
-        compressFormat: CompressFormat = CompressFormat.JPEG,
-        @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100
-    ): File? {
-        if (TextUtils.isEmpty(filePathWithName)) return null
-        var outputStream: OutputStream? = null
-        val destFile = UtilKFile.createFile(filePathWithName)
-        try {
-            val contentValues = ContentValues()
-            val contentResolver: ContentResolver = UtilKContext.getContentResolver(_context)
-            contentValues.put(MediaStore.Images.ImageColumns.DATA, destFile.absolutePath)
-            contentValues.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, filePathWithName.split("/").lastOrNull() ?: UtilKFile.nowStr2FileName())
-            contentValues.put(MediaStore.Images.ImageColumns.MIME_TYPE, CMediaFormat.MIMETYPE_IMAGE_JPEG)
-            contentValues.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
-            val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues) // 插入相册
-            uri?.let {
-                outputStream = contentResolver.openOutputStream(uri)
-                sourceBitmap.compress(compressFormat, quality, outputStream)
-            }
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            outputStream?.flush()
-            outputStream?.close()
-            try {
-                val pathArray: Array<String> = arrayOf(destFile.absolutePath)
-                val typeArray: Array<String> = arrayOf(CMediaFormat.MIMETYPE_IMAGE_JPEG)
-                MediaScannerConnection.scanFile(_context, pathArray, typeArray) { path, uri -> Log.d(TAG, "bitmap2Album: path $path, uri $uri") }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                e.message?.et(TAG)
-            }
-        }
-        return null
-    }
-
-    /**
-     * 保存图片 before 29
-     * @param sourceBitmap Bitmap
-     * @param filePathWithName String
-     * @param quality Int
-     * @return String
-     */
-    @JvmStatic
-    fun bitmap2AlbumFileBefore29(
-        sourceBitmap: Bitmap,
-        filePathWithName: String,
-        compressFormat: CompressFormat = CompressFormat.JPEG,
-        @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100
-    ): File? =
-        bitmap2AlbumFileBefore29(sourceBitmap, File(filePathWithName), compressFormat, quality)
-
-    /**
-     * bitmap转文件
-     * @param sourceBitmap Bitmap
-     * @param filePathWithName String
-     * @param quality Int
-     * @return String
-     */
-    @JvmStatic
-    fun bitmap2JpegFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        bitmap2AlbumFileBefore29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
-
-    @JvmStatic
-    fun bitmap2PngFile(sourceBitmap: Bitmap, filePathWithName: String, @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        bitmap2AlbumFileBefore29(sourceBitmap, filePathWithName, CompressFormat.PNG, quality)
-
-
-    /**
-     * 保存图片 before 29
-     * @param destFile String
-     * @param sourceBitmap Bitmap?
-     */
-    @JvmStatic
-    fun bitmap2AlbumFileBefore29(
-        sourceBitmap: Bitmap,
-        destFile: File,
-        compressFormat: CompressFormat = CompressFormat.JPEG,
-        @androidx.annotation.IntRange(from = 0, to = 100) quality: Int = 100
-    ): File? {
-        UtilKFile.createFile(destFile)
-        var bufferedOutputStream: BufferedOutputStream? = null
-        try {
-            bufferedOutputStream = BufferedOutputStream(FileOutputStream(destFile))
-            sourceBitmap.compress(compressFormat, quality, bufferedOutputStream)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            bufferedOutputStream?.flush()
-            bufferedOutputStream?.close()
-        }
-        return null
-    }
-
-    /**
-     * 从相册获得图片
-     * @param uri Uri
-     * @return Bitmap?
-     */
-    @JvmStatic
-    fun uri2Bitmap(uri: Uri): Bitmap? {
-        return try {
-            if (UtilKBuildVersion.isAfterV_28_9_P()) {
-                ImageDecoder.decodeBitmap(ImageDecoder.createSource(UtilKContext.getContentResolver(_context), uri))
-            } else {
-                MediaStore.Images.Media.getBitmap(UtilKContext.getContentResolver(_context), uri)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return null
-        }
-    }
 
     /**
      * 删除图片
-     * @param deleteFilePath String
+     * @param filePathWithName String
      */
     @JvmStatic
-    fun deleteBitmapFromAlbum(deleteFilePath: String) {
-        UtilKContext.getContentResolver(_context).delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "${MediaStore.Images.Media.DATA}='${deleteFilePath}'", null)
+    fun deleteBitmapFromAlbum(filePathWithName: String) {
+        UtilKContentResolver.delete(_context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "${MediaStore.Images.Media.DATA}='${filePathWithName}'", null)
     }
 }
