@@ -15,7 +15,6 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.graphics.rotate
 import com.mozhimen.basick.utilk.android.graphics.asRgb565Bitmap
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFormat

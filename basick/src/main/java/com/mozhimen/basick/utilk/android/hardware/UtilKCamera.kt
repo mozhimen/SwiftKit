@@ -18,16 +18,16 @@ object UtilKCamera {
      * @return Boolean
      */
     @JvmStatic
-    fun isHasFrontCamera(context: Context): Boolean =
-        isHasCamera(context, true)
+    fun hasFrontCamera(context: Context): Boolean =
+        hasCamera(context, true)
 
     /**
      * 设备是否有后置摄像头
      * @return Boolean
      */
     @JvmStatic
-    fun isHasBackCamera(context: Context): Boolean =
-        isHasCamera(context, false)
+    fun hasBackCamera(context: Context): Boolean =
+        hasCamera(context, false)
 
     /**
      * 是否含有相机
@@ -35,7 +35,7 @@ object UtilKCamera {
      * @return Boolean
      */
     @JvmStatic
-    fun isHasCamera(context: Context, isFront: Boolean): Boolean {
+    fun hasCamera(context: Context, isFront: Boolean): Boolean {
         if (UtilKBuildVersion.isAfterV_28_9_P()) {
             return if (isFront) UtilKPackageManager.hasFrontCamera(context) else UtilKPackageManager.hasBackCamera(context)
         } else {

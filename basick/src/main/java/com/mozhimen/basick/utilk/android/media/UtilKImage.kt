@@ -51,9 +51,9 @@ object UtilKImage {
     }
 
     @JvmStatic
-    fun yuv420888Image2jpegBytes(image: Image): ByteArray {
-        return image.yuv420888Image2nv21Bytes().nv21Bytes2jpegBytes(image.width, image.height)
-    }
+    fun yuv420888Image2jpegBytes(image: Image): ByteArray =
+        image.yuv420888Image2nv21Bytes().nv21Bytes2jpegBytes(image.width, image.height)
+
 
     @JvmStatic
     fun jpegImage2jpegBytes(image: Image): ByteArray {

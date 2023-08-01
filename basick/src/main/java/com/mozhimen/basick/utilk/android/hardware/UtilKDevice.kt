@@ -34,14 +34,6 @@ import java.io.RandomAccessFile
 object UtilKDevice : BaseUtilK() {
 
     @JvmStatic
-    fun isHasFrontCamera(): Boolean =
-        UtilKCamera.isHasFrontCamera(_context)
-
-    @JvmStatic
-    fun isHasBackCamera(): Boolean =
-        UtilKCamera.isHasBackCamera(_context)
-
-    @JvmStatic
     @RequiresPermission(CPermission.READ_PHONE_STATE)
     fun getIMEI(): String =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -146,38 +138,6 @@ object UtilKDevice : BaseUtilK() {
     }
 
     /**
-     * 设备是否有sd卡
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isHasSdcard(): Boolean =
-        TextUtils.equals(Environment.getExternalStorageState(), "mounted")
-
-    /**
-     * 设备是否有USB外设
-     * @param vid Int
-     * @param pid Int
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isHasPid(vid: Int, pid: Int): Boolean {
-        val devices: Iterator<UsbDevice> = UtilKUsbManager.get(_context).deviceList.values.iterator()
-        while (devices.hasNext()) {
-            val usbDevice: UsbDevice = devices.next()
-            if (usbDevice.vendorId == vid && usbDevice.productId == pid) return true
-        }
-        return false
-    }
-
-    /**
-     * 是否有外部存储
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isHasExternalStorage(): Boolean =
-        UtilKEnvironment.isExternalStorageMounted()
-
-    /**
      * 本地存储可用大小
      * @return String?
      */
@@ -207,7 +167,7 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun getFreeExternalMemorySize(): String {
-        return if (isHasExternalStorage()) {
+        return if (hasExternalStorage()) {
             val statFs = StatFs(UtilKStringPath.Absolute.External.getStorageDir())
             (statFs.availableBlocksLong * statFs.blockSizeLong).getFormatFileSize()
         } else "0"
@@ -219,11 +179,53 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun getTotalExternalMemorySize(): String {
-        return if (isHasExternalStorage()) {
+        return if (hasExternalStorage()) {
             val statFs = StatFs(UtilKStringPath.Absolute.External.getStorageDir())
             val blockSize = statFs.blockSizeLong
             val totalBlocks = statFs.blockCountLong
             Formatter.formatFileSize(_context, totalBlocks * blockSize)
         } else "0"
     }
+
+    ///////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun hasFrontCamera(): Boolean =
+        UtilKCamera.hasFrontCamera(_context)
+
+    @JvmStatic
+    fun hasBackCamera(): Boolean =
+        UtilKCamera.hasBackCamera(_context)
+
+    /**
+     * 设备是否有sd卡
+     * @return Boolean
+     */
+    @JvmStatic
+    fun hasSdcard(): Boolean =
+        TextUtils.equals(Environment.getExternalStorageState(), "mounted")
+
+    /**
+     * 设备是否有USB外设
+     * @param vid Int
+     * @param pid Int
+     * @return Boolean
+     */
+    @JvmStatic
+    fun hasPid(vid: Int, pid: Int): Boolean {
+        val devices: Iterator<UsbDevice> = UtilKUsbManager.get(_context).deviceList.values.iterator()
+        while (devices.hasNext()) {
+            val usbDevice: UsbDevice = devices.next()
+            if (usbDevice.vendorId == vid && usbDevice.productId == pid) return true
+        }
+        return false
+    }
+
+    /**
+     * 是否有外部存储
+     * @return Boolean
+     */
+    @JvmStatic
+    fun hasExternalStorage(): Boolean =
+        UtilKEnvironment.isExternalStorageMounted()
 }

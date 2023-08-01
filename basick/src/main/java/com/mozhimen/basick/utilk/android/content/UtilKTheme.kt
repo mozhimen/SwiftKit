@@ -28,9 +28,8 @@ object UtilKTheme {
      */
     @JvmStatic
     fun isFullScreen(context: Context): Boolean {
-        val typedArray = get(context).obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen))
-        val windowFullscreen = typedArray.getBoolean(0, false)
-        typedArray.recycle()
+        var windowFullscreen: Boolean
+        get(context).obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen)).use { windowFullscreen = it.getBoolean(0, false) }
         return windowFullscreen
     }
 }

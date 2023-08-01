@@ -48,8 +48,7 @@ object UtilKHandler {
      */
     @JvmStatic
     fun sendMsgAtFrontOfQueue(handler: Handler, runnable: Runnable) {
-        val msg = Message.obtain(handler, runnable)
-        handler.sendMessageAtFrontOfQueue(msg)
+        handler.sendMessageAtFrontOfQueue(Message.obtain(handler, runnable))
     }
 
     /**
@@ -99,7 +98,6 @@ object UtilKHandler {
      * @return Boolean
      */
     @JvmStatic
-    fun isMainLooper(): Boolean {
-        return Looper.myLooper() == Looper.getMainLooper()
-    }
+    fun isMainLooper(): Boolean =
+        Looper.myLooper() == Looper.getMainLooper()
 }

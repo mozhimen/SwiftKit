@@ -13,15 +13,7 @@ import android.text.TextPaint
  * @Version 1.0
  */
 object UtilKCanvas {
-    /**
-     * 文本书写
-     * @param canvas Canvas
-     * @param paint TextPaint
-     * @param text String
-     * @param x Float
-     * @param y Float
-     * @param alignment Alignment
-     */
+
     @JvmStatic
     fun drawText(canvas: Canvas, paint: TextPaint, text: String, x: Float, y: Float, alignment: Layout.Alignment) {
         canvas.save()

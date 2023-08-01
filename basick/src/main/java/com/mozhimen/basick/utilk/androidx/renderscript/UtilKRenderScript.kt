@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
 import com.mozhimen.basick.imagek.blur.ImageKBlur
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
-import com.mozhimen.basick.utilk.android.graphics.asColorInt
+import com.mozhimen.basick.utilk.android.graphics.colorStr2colorInt
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKLog
 import com.mozhimen.basick.utilk.android.util.UtilKLogPro
@@ -158,7 +158,7 @@ object UtilKRenderScript : BaseUtilK() {
         canvas.setMatrix(matrix)
         val bgDrawable = view.background
         if (bgDrawable == null) {
-            canvas.drawColor("#FAFAFA".asColorInt())
+            canvas.drawColor("#FAFAFA".colorStr2colorInt())
         } else {
             bgDrawable.draw(canvas)
         }

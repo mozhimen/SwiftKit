@@ -27,8 +27,8 @@ import java.io.InputStream
 object UtilKAsset : BaseUtilK() {
 
     @JvmStatic
-    fun getFromRes(): AssetManager =
-        UtilKAssetManager.getFromRes(_context)
+    fun getForRes(): AssetManager =
+        UtilKAssetManager.getForRes(_context)
 
     ///////////////////////////////////////////////////////////////////
 
@@ -137,7 +137,7 @@ object UtilKAsset : BaseUtilK() {
     @JvmStatic
     fun asset2file(assetName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? {
         if (!isAssetExists(assetName)) return null
-        val inputStream: InputStream = getFromRes().open(assetName)
+        val inputStream: InputStream = getForRes().open(assetName)
         //整理名称
         var tmpDestFilePath = destFilePathWithName
         if (tmpDestFilePath.endsWith("/")) {

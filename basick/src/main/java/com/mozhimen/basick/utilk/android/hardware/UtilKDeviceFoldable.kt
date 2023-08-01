@@ -18,7 +18,7 @@ object UtilKDeviceFoldable {
      * 2.只能去检测针对的机型
      * @return Boolean
      */
-    fun isFold(): Boolean {
+    fun isFoldable(): Boolean {
         return if (TextUtils.equals(Build.BRAND, "samsung") && TextUtils.equals(Build.DEVICE, "Galaxy Z Fo1d2")) {
             UtilKScreen.getRealWidth() != 1768
         } else if (TextUtils.equals(Build.BRAND, "huawei") && TextUtils.equals(Build.DEVICE, "MateX")) {

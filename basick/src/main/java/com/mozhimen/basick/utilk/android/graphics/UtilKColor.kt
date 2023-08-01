@@ -19,8 +19,11 @@ fun Int.adjustAlpha(factor: Float) =
 fun Int.getContrastColor(): Int =
     UtilKColor.getContrastColor(this)
 
-fun Int.asColorHexStr() =
-    UtilKColor.colorInt2colorHexStr(this)
+fun Int.colorInt2colorStr() =
+    UtilKColor.colorInt2colorStr(this)
+
+fun String.colorStr2colorInt(): Int =
+    UtilKColor.colorStr2colorInt(this)
 
 object UtilKColor {
     @JvmStatic
@@ -60,21 +63,6 @@ object UtilKColor {
     }
 
     /**
-     * 获取颜色
-     * @param obj Any
-     * @return Int
-     */
-    @JvmStatic
-    @ColorInt
-    fun obj2colorInt(obj: Any): Int =
-        when (obj) {
-            is String -> obj.asColorInt()
-            is Int -> obj
-            else -> Color.WHITE
-        }
-
-    /**
-     *
      * @param ratio Float 比例 0-1
      * @return Int
      */
@@ -83,7 +71,28 @@ object UtilKColor {
     fun adjustAlpha(@ColorInt colorInt: Int, ratio: Float): Int =
         Color.argb((Color.alpha(colorInt) * ratio).roundToInt(), Color.red(colorInt), Color.green(colorInt), Color.blue(colorInt))
 
+    /////////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun colorInt2colorHexStr(@ColorInt colorInt: Int): String =
+    @ColorInt
+    fun obj2colorInt(obj: Any): Int =
+        when (obj) {
+            is String -> obj.colorStr2colorInt()
+            is Int -> obj
+            else -> Color.WHITE
+        }
+
+    /**
+     * 获取颜色
+     * @param colorStr String
+     * @return Int
+     */
+    @JvmStatic
+    @ColorInt
+    fun colorStr2colorInt(colorStr: String): Int =
+        Color.parseColor(colorStr)
+
+    @JvmStatic
+    fun colorInt2colorStr(@ColorInt colorInt: Int): String =
         String.format("#%06X", 0xFFFFFF and colorInt).uppercase()
 }

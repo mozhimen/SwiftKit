@@ -19,7 +19,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
-import com.mozhimen.basick.utilk.android.database.getStringValue
+import com.mozhimen.basick.utilk.android.database.getString
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
@@ -92,7 +92,7 @@ object UtilKUri : BaseUtilK() {
             val cursor = _context.contentResolver.query(uri, projection, selection, selectionArgs, null)
             cursor?.use {
                 if (cursor.moveToFirst()) {
-                    val data = cursor.getStringValue(MediaStore.Files.FileColumns.DATA)
+                    val data = cursor.getString(MediaStore.Files.FileColumns.DATA)
                     if (data != "null") {
                         return data
                     }
@@ -123,7 +123,7 @@ object UtilKUri : BaseUtilK() {
      */
     @JvmStatic
     @ADescription(Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(), Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
-    fun pathStr2uri(filePathWithName: String): Uri? {
+    fun strPath2uri(filePathWithName: String): Uri? {
         if (filePathWithName.isEmpty()) {
             Log.e(TAG, "file2Uri: isEmpty true")
             return null
@@ -180,7 +180,7 @@ object UtilKUri : BaseUtilK() {
     }
 
     @JvmStatic
-    fun uri2pathStr(uri: Uri): String? {
+    fun uri2strPath(uri: Uri): String? {
         if (uri.scheme == "file") return uri.path
 
         if (isDownloadsDocument(uri)) {

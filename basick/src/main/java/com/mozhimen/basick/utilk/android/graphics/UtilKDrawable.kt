@@ -7,6 +7,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import androidx.annotation.ColorInt
 import androidx.core.graphics.drawable.toBitmap
 
 /**
@@ -16,8 +17,8 @@ import androidx.core.graphics.drawable.toBitmap
  * @Date 2022/11/22 22:42
  * @Version 1.0
  */
-fun Drawable.applyColorFilter(colorResId: Int) {
-    UtilKDrawable.applyColorFilter(this, colorResId)
+fun Drawable.applyColorFilter(@ColorInt colorInt: Int) {
+    UtilKDrawable.applyColorFilter(this, colorInt)
 }
 
 fun Drawable.asBitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
@@ -38,24 +39,19 @@ object UtilKDrawable {
     }
 
     @JvmStatic
-    fun applyColorFilter(drawable: Drawable, colorResId: Int) {
-        drawable.mutate().setColorFilter(colorResId, PorterDuff.Mode.SRC_IN)
+    fun applyColorFilter(drawable: Drawable, @ColorInt colorInt: Int) {
+        drawable.mutate().setColorFilter(colorInt, PorterDuff.Mode.SRC_IN)
     }
 
-    /**
-     * drawable转位图
-     * @param drawable Drawable
-     * @return Bitmap
-     */
+    /////////////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun drawable2bitmap(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
         drawable.toBitmap(width, height, config)
 
     @JvmStatic
-    fun drawable2bitmap2(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight): Bitmap {
-        return if (drawable is BitmapDrawable) {
-            drawable.bitmap
-        } else {
+    fun drawable2bitmap2(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight): Bitmap =
+        if (drawable is BitmapDrawable) drawable.bitmap else {
             val bitmap: Bitmap = if (width <= 0 || height <= 0) {
                 Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
             } else {
@@ -66,5 +62,4 @@ object UtilKDrawable {
             drawable.draw(canvas)
             bitmap
         }
-    }
 }

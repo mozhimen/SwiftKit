@@ -48,13 +48,13 @@ class DebugKParams {
     fun deviceHardwareVersion(): String = UtilKDevice.getHardwareVersion()
 
     @ADebugKParams("设备是否有sd卡")
-    fun deviceHasSdcard(): String = UtilKDevice.isHasSdcard().asStr()
+    fun deviceHasSdcard(): String = UtilKDevice.hasSdcard().asStr()
 
     @ADebugKParams("设备是否有前置摄像")
-    fun deviceHasFrontCamera(): String = UtilKDevice.isHasFrontCamera().asStr()
+    fun deviceHasFrontCamera(): String = UtilKDevice.hasFrontCamera().asStr()
 
     @ADebugKParams("设备是否有后置摄像头")
-    fun deviceHasBackCamera(): String = UtilKDevice.isHasBackCamera().asStr()
+    fun deviceHasBackCamera(): String = UtilKDevice.hasBackCamera().asStr()
 
     @SuppressLint("MissingPermission")
     @ADebugKParams("设备默认IMEI")

@@ -28,9 +28,8 @@ object UtilKPermission : BaseUtilK() {
 
     @JvmStatic
     fun hasOverlay(): Boolean =
-        if (UtilKBuildVersion.isAfterV_23_6_M()) {
-            hasOverlay2()
-        } else true
+        if (UtilKBuildVersion.isAfterV_23_6_M()) hasOverlay2()
+        else true
 
     /**
      * 是否有Overlay的权限
@@ -40,9 +39,8 @@ object UtilKPermission : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
     @ADescription(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-    fun hasOverlay2(): Boolean {
-        return CVersCode.V_23_6_M.isBeforeVersion() || Settings.canDrawOverlays(_context)
-    }
+    fun hasOverlay2(): Boolean =
+        CVersCode.V_23_6_M.isBeforeVersion() || Settings.canDrawOverlays(_context)
 
 
     /**
@@ -63,9 +61,8 @@ object UtilKPermission : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     fun hasPackageInstalls(): Boolean =
-        if (UtilKBuildVersion.isAfterV_26_8_O()) {
-            hasPackageInstallsAfterO()
-        } else true
+        if (UtilKBuildVersion.isAfterV_26_8_O()) hasPackageInstallsAfterO()
+        else true
 
     /**
      * 是否有包安装权限

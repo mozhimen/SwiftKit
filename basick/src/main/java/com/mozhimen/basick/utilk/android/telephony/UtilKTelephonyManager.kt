@@ -20,6 +20,6 @@ object UtilKTelephonyManager {
     //////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun isHasTelephone(context: Context): Boolean =
+    fun hasTelephone(context: Context): Boolean =
         get(context).phoneType != TelephonyManager.PHONE_TYPE_NONE
 }

@@ -337,7 +337,7 @@ import kotlin.jvm.functions.Function2;
 @SuppressWarnings("All")
 public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDismissListener, LifecycleObserver {
     protected final String TAG = this.getClass().getSimpleName() + ">>>>>";
-    public static int DEFAULT_BACKGROUND_COLOR = UtilKColorStr.colorStr2colorInt("#8f000000");
+    public static int DEFAULT_BACKGROUND_COLOR = UtilKColor.colorStr2colorInt("#8f000000");
 
     public static final int FLAG_KEYBOARD_ALIGN_TO_VIEW = CFlag.KEYBOARD_ALIGN_TO_VIEW;
     public static final int FLAG_KEYBOARD_ALIGN_TO_ROOT = CFlag.KEYBOARD_ALIGN_TO_ROOT;

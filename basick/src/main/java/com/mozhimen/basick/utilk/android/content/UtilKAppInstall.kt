@@ -249,7 +249,7 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    private fun execInstall(packageInstaller: PackageInstaller, sessionId: Int, receiver: Class<*>) {
+    fun execInstall(packageInstaller: PackageInstaller, sessionId: Int, receiver: Class<*>) {
         var session: PackageInstaller.Session? = null
         try {
             session = packageInstaller.openSession(sessionId)
@@ -273,7 +273,7 @@ object UtilKAppInstall : BaseUtilK() {
      * @param sessionParams SessionParams
      * @return Int
      */
-    private fun createSession(packageInstaller: PackageInstaller, sessionParams: PackageInstaller.SessionParams): Int {
+    fun createSession(packageInstaller: PackageInstaller, sessionParams: PackageInstaller.SessionParams): Int {
         var sessionId = -1
         try {
             sessionId = packageInstaller.createSession(sessionParams)
@@ -291,11 +291,7 @@ object UtilKAppInstall : BaseUtilK() {
      * @param apkFilePathWithName String
      * @return Boolean
      */
-    fun copyApkFile(
-        packageInstaller: PackageInstaller,
-        sessionId: Int,
-        apkFilePathWithName: String
-    ): Boolean {
+    fun copyApkFile(packageInstaller: PackageInstaller, sessionId: Int, apkFilePathWithName: String): Boolean {
         var fileInputStream: FileInputStream? = null
         var outputStream: OutputStream? = null
         var session: PackageInstaller.Session? = null

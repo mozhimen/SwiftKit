@@ -189,6 +189,4 @@ object UtilKActivity {
     fun runOnMainThread(appCompatActivity: AppCompatActivity, block: I_Listener) {
         UtilKLifecycle.runOnMainThread(appCompatActivity, block)
     }
-
-
 }

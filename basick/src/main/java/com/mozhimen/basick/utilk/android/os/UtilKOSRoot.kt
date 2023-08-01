@@ -5,6 +5,7 @@ import android.util.Log
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import java.io.BufferedReader
 import java.io.File
@@ -19,8 +20,7 @@ import java.io.InputStreamReader
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.READ_EXTERNAL_STORAGE)
-object UtilKOSRoot {
-    private val TAG = "UtilKAppRoot>>>>>"
+object UtilKOSRoot : IUtilK {
 
     /**
      * 判断手机是否拥有Root权限:
@@ -44,7 +44,7 @@ object UtilKOSRoot {
      */
     @JvmStatic
     @Throws(Exception::class)
-    private fun isSuAvailable(): Boolean {
+    fun isSuAvailable(): Boolean {
         var file: File
         val paths = arrayOf(
             "/system/bin/su", "/system/xbin/su", "/system/sbin/su",

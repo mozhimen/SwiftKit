@@ -29,12 +29,7 @@ object UtilKOpenGL : BaseUtilK() {
     }
 
     @JvmStatic
-    fun useTexParameterf(
-        glWrapS: Int,
-        glWrapT: Int,
-        glMinFilter: Int,
-        glMagFilter: Int
-    ) {
+    fun useTexParameterf(glWrapS: Int, glWrapT: Int, glMinFilter: Int, glMagFilter: Int) {
         GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, glWrapS.toFloat())
         GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, glWrapT.toFloat())
         GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, glMinFilter.toFloat())
@@ -42,14 +37,7 @@ object UtilKOpenGL : BaseUtilK() {
     }
 
     @JvmStatic
-    fun genTexturesAndParameterf(
-        size: Int,
-        textures: IntArray,
-        start: Int,
-        glFormat: Int,
-        width: Int,
-        height: Int
-    ) {
+    fun genTexturesAndParameterf(size: Int, textures: IntArray, start: Int, glFormat: Int, width: Int, height: Int) {
         GLES20.glGenTextures(size, textures, start)
         for (i in 0 until size) {
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[i])
@@ -60,10 +48,7 @@ object UtilKOpenGL : BaseUtilK() {
     }
 
     @JvmStatic
-    fun bindFrameBuffer(
-        frameBufferId: Int,
-        textureId: Int
-    ) {
+    fun bindFrameBuffer(frameBufferId: Int, textureId: Int) {
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, frameBufferId)
         GLES20.glFramebufferTexture2D(GLES20.GL_FRAMEBUFFER, GLES20.GL_COLOR_ATTACHMENT0, GLES20.GL_TEXTURE_2D, textureId, 0)
     }
@@ -74,13 +59,7 @@ object UtilKOpenGL : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getShowMatrix(
-        matrix: FloatArray,
-        imgWidth: Int,
-        imgHeight: Int,
-        viewWidth: Int,
-        viewHeight: Int
-    ) {
+    fun getShowMatrix(matrix: FloatArray, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
         if (imgHeight > 0 && imgWidth > 0 && viewWidth > 0 && viewHeight > 0) {
             val sWhView = viewWidth.toFloat() / viewHeight
             val sWhImg = imgWidth.toFloat() / imgHeight

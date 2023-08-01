@@ -71,15 +71,15 @@ object UtilKConnectivityManager {
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun isNetworkConnected(context: Context): Boolean =
         if (UtilKBuildVersion.isAfterV_23_6_M()) {
-            isNetworkConnectedAfterM(context)
+            isNetworkConnectedAfter23(context)
         } else {
-            isNetworkConnectedBeforeM(context)
+            isNetworkConnectedBefore23(context)
         }
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isNetworkConnectedAfterM(context: Context): Boolean {
+    fun isNetworkConnectedAfter23(context: Context): Boolean {
         val networkCapabilities = get(context).getNetworkCapabilities(getActiveNetwork(context) ?: return false) ?: return false
         return when {
             networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
@@ -91,7 +91,7 @@ object UtilKConnectivityManager {
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isNetworkConnectedBeforeM(context: Context): Boolean {
+    fun isNetworkConnectedBefore23(context: Context): Boolean {
         return getActiveNetworkInfo(context)?.let {
             when (it.type) {
                 ConnectivityManager.TYPE_WIFI -> true

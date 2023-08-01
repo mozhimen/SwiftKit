@@ -14,14 +14,7 @@ import com.mozhimen.basick.lintk.annors.AMatrixType
 object UtilKMatrix {
 
     @JvmStatic
-    fun getMatrix(
-        matrix: FloatArray,
-        @AMatrixType type: Int,
-        imgWidth: Int,
-        imgHeight: Int,
-        viewWidth: Int,
-        viewHeight: Int
-    ) {
+    fun getMatrix(matrix: FloatArray, @AMatrixType type: Int, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
         if (imgHeight > 0 && imgWidth > 0 && viewWidth > 0 && viewHeight > 0) {
             val projection = FloatArray(16)
             val camera = FloatArray(16)
@@ -53,6 +46,9 @@ object UtilKMatrix {
     }
 
     @JvmStatic
+    fun getOriginalMatrix(): FloatArray = floatArrayOf(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f)
+
+    @JvmStatic
     fun getCenterInsideMatrix(matrix: FloatArray, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
         if (imgHeight > 0 && imgWidth > 0 && viewWidth > 0 && viewHeight > 0) {
             val sWhView = viewWidth.toFloat() / viewHeight
@@ -82,7 +78,4 @@ object UtilKMatrix {
         }
         return matrix
     }
-
-    @JvmStatic
-    fun getOriginalMatrix(): FloatArray = floatArrayOf(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f)
 }

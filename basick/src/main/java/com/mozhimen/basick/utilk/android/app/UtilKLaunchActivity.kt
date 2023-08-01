@@ -29,24 +29,12 @@ object UtilKLaunchActivity {
 
     /**
      * 打开包安装权限
-     * @param activity Activity
-     */
-    @JvmStatic
-    fun startManageInstallSource(activity: Activity) {
-        if (UtilKBuildVersion.isAfterV_26_8_O()) {
-            UtilKContextStart.startContext(activity, UtilKIntent.getManageInstallSource(activity))
-        }
-    }
-
-    /**
-     * 打开包安装权限
      * @param context Context
      */
     @JvmStatic
     fun startManageInstallSource(context: Context) {
-        if (UtilKBuildVersion.isAfterV_26_8_O()) {
+        if (UtilKBuildVersion.isAfterV_26_8_O())
             UtilKContextStart.startContext(context, UtilKIntent.getManageInstallSource(context))
-        }
     }
 
     /**
@@ -55,41 +43,30 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startManageOverlay(context: Context) {
-        if (UtilKBuildVersion.isAfterV_23_6_M()) {
+        if (UtilKBuildVersion.isAfterV_23_6_M())
             UtilKContextStart.startContext(context, UtilKIntent.getManageOverlay(context))
-        }
     }
 
     /**
      * 设置申请权限 当系统在11及以上
-     * @param activity Activity
+     * @param context Context
      */
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    fun startManageAll(activity: Activity) {
-        if (UtilKBuildVersion.isAfterV_30_11_R()) {
-            //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
-            UtilKContextStart.startContext(activity, UtilKIntent.getManageAll(activity))
-            //}
-        }
+    fun startManageAll(context: Context) {
+        if (UtilKBuildVersion.isAfterV_30_11_R())
+        //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
+            UtilKContextStart.startContext(context, UtilKIntent.getManageAll(context))
+        //}
     }
 
     /**
      * 设置申请app权限
-     * @param activity Activity
+     * @param context Context
      */
     @JvmStatic
-    fun startSettingAppDetails(activity: Activity) {
-        UtilKContextStart.startContext(activity, UtilKIntent.getSettingAppDetails(activity))
-    }
-
-    /**
-     * 设置申请无障碍权限
-     * @param activity Activity
-     */
-    @JvmStatic
-    fun startSettingAccessibility(activity: Activity) {
-        UtilKContextStart.startContext(activity, UtilKIntent.getSettingAccessibility())
+    fun startSettingAppDetails(context: Context) {
+        UtilKContextStart.startContext(context, UtilKIntent.getSettingAppDetails(context))
     }
 
     /**

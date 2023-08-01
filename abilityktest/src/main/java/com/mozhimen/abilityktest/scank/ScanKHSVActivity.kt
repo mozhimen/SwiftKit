@@ -18,9 +18,9 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.graphics.crop
-import com.mozhimen.basick.utilk.android.graphics.rotate
-import com.mozhimen.basick.utilk.android.graphics.scaleRatio
+import com.mozhimen.basick.utilk.android.graphics.anyBitmapCrop
+import com.mozhimen.basick.utilk.android.graphics.anyBitmapRotate
+import com.mozhimen.basick.utilk.android.graphics.anyBitmapScaleRatio
 import com.mozhimen.componentk.camerak.camerax.commons.ICameraXKFrameListener
 import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
 
@@ -64,14 +64,14 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
                         ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(imageProxy)!!
                     } else {
                         ImageProxyUtil.jpegImageProxy2JpegBitmap(imageProxy)
-                    }.rotate(90).apply {
-                        crop(
+                    }.anyBitmapRotate(90).apply {
+                        anyBitmapCrop(
                             (_ratio * this.width).toInt(),
                             (_ratio * this.width).toInt(),
                             ((1 - _ratio) * this.width / 2).toInt(),
                             ((this.height - _ratio * this.width) / 2).toInt()
                         ).apply {
-                            scaleRatio( this.width / 5f, this.height / 5f)//降低分辨率提高运算速度
+                            anyBitmapScaleRatio( this.width / 5f, this.height / 5f)//降低分辨率提高运算速度
                         }
                     }
                     val results = ScanKHSV.colorAnalyze(_orgBitmap!!)

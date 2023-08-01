@@ -17,26 +17,20 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import androidx.core.graphics.drawable.toDrawable
-import coil.request.ImageRequest
 import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
-import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKResource
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.asAnyBitmap
-import com.mozhimen.basick.utilk.kotlin.UtilKString
 import java.io.BufferedOutputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
-import java.io.InputStream
 import java.io.OutputStream
-import java.net.URL
 
 
 /**
@@ -87,16 +81,16 @@ object UtilKBitmapFormat : BaseUtilK() {
 
     @JvmStatic
     fun anyBitmap2jpegFile(sourceBitmap: Bitmap, filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        anyBitmap2anyFile(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
+        anyBitmap2file(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
 
     @JvmStatic
     fun anyBitmap2pngFile(sourceBitmap: Bitmap, filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        anyBitmap2anyFile(sourceBitmap, filePathWithName, CompressFormat.PNG, quality)
+        anyBitmap2file(sourceBitmap, filePathWithName, CompressFormat.PNG, quality)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
-    fun anyBitmap2anyFileAfter29(sourceBitmap: Bitmap, filePathWithName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
+    fun anyBitmap2fileAfter29(sourceBitmap: Bitmap, filePathWithName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
         if (TextUtils.isEmpty(filePathWithName)) return null
         var outputStream: OutputStream? = null
         val destFile = UtilKFile.createFile(filePathWithName)
@@ -139,8 +133,8 @@ object UtilKBitmapFormat : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun anyBitmap2anyFile(sourceBitmap: Bitmap, filePathWithName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        anyBitmap2anyFile(sourceBitmap, File(filePathWithName), compressFormat, quality)
+    fun anyBitmap2file(sourceBitmap: Bitmap, filePathWithName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        anyBitmap2file(sourceBitmap, File(filePathWithName), compressFormat, quality)
 
     /**
      * 保存图片 before 29
@@ -148,7 +142,7 @@ object UtilKBitmapFormat : BaseUtilK() {
      * @param sourceBitmap Bitmap?
      */
     @JvmStatic
-    fun anyBitmap2anyFile(sourceBitmap: Bitmap, destFile: File, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
+    fun anyBitmap2file(sourceBitmap: Bitmap, destFile: File, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
         UtilKFile.createFile(destFile)
         var bufferedOutputStream: BufferedOutputStream? = null
         try {
@@ -169,7 +163,7 @@ object UtilKBitmapFormat : BaseUtilK() {
     fun jpegBitmap2jpegFile(sourceBitmap: Bitmap, filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
         if (UtilKBuildVersion.isAfterV_29_10_Q()) {
             if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) null
-            else anyBitmap2anyFileAfter29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
+            else anyBitmap2fileAfter29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
         } else {
             anyBitmap2jpegFile(sourceBitmap, filePathWithName, quality)
         }
