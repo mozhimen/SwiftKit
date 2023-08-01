@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.UtilKString
-import com.mozhimen.basick.utilk.kotlin.text.checkUrl
+import com.mozhimen.basick.utilk.kotlin.text.isUrl
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
@@ -14,6 +14,6 @@ class TestUtilKString {
 
         val str = "http://www.sq.com/construction-sites-images"
         UtilKString.getSplitFirst(str,"/").printlog()
-        str.checkUrl().printlog()
+        str.isUrl().printlog()
     }
 }

@@ -3,8 +3,8 @@ package com.mozhimen.uicorek.layoutk.slider.helpers
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.slider.mos.MSliderAttrs
 

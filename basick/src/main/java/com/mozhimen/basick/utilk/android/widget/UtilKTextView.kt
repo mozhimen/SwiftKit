@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.annotation.IntRange
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.kotlin.toStringTrim
+import com.mozhimen.basick.utilk.kotlin.asStringTrim
 
 /**
  * @ClassName UtilKViewText
@@ -19,7 +19,7 @@ fun TextView.applyTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NO
 }
 
 fun TextView.applyIconFont(iconFont: String = "icons/iconfont.ttf") {
-    UtilKTextView.setIconFont(this, iconFont)
+    UtilKTextView.applyIconFont(this, iconFont)
 }
 
 val TextView.value: String
@@ -30,7 +30,7 @@ fun TextView.getValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> 
 }
 
 fun TextView.applyValueIfNotEmpty(str: String?) {
-    UtilKTextView.setValueIfNotEmpty(this, str)
+    UtilKTextView.applyValueIfNotEmpty(this, str)
 }
 
 object UtilKTextView {
@@ -53,7 +53,7 @@ object UtilKTextView {
      * @param fontPathWithName String
      */
     @JvmStatic
-    fun setIconFont(
+    fun applyIconFont(
         textView: TextView,
         fontPathWithName: String = "fonts/iconfont.ttf"
     ) {
@@ -62,7 +62,7 @@ object UtilKTextView {
 
     @JvmStatic
     fun getValue(textView: TextView): String =
-        textView.text.toStringTrim()
+        textView.text.asStringTrim()
 
     @JvmStatic
     fun getValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
@@ -71,7 +71,7 @@ object UtilKTextView {
     }
 
     @JvmStatic
-    fun setValueIfNotEmpty(textView: TextView, str: String?): Boolean {
+    fun applyValueIfNotEmpty(textView: TextView, str: String?): Boolean {
         return if (!str.isNullOrEmpty()) {
             textView.text = str
             true

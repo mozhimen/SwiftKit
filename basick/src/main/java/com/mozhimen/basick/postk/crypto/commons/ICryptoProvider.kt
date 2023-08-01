@@ -10,6 +10,6 @@ package com.mozhimen.basick.postk.crypto.commons
 interface ICryptoProvider {
     fun encryptWithBase64(str: String): String
     fun decryptWithBase64(str: String): String
-    fun encrypt(byteArray: ByteArray): ByteArray
-    fun decrypt(byteArray: ByteArray): ByteArray
+    fun encrypt(bytes: ByteArray): ByteArray
+    fun decrypt(bytes: ByteArray): ByteArray
 }

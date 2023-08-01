@@ -16,16 +16,16 @@ import java.net.URISyntaxException
  * @Date 2021/4/21 13:59
  * @Version 1.0
  */
-fun String.checkIP(): Boolean =
-    UtilKVerifyUrl.checkIP(this)
+fun String.isIP(): Boolean =
+    UtilKVerifyUrl.isIP(this)
 
-fun String.checkDoMain(): Boolean =
-    UtilKVerifyUrl.checkDoMain(this)
+fun String.isDoMain(): Boolean =
+    UtilKVerifyUrl.isDoMain(this)
 
-fun String.checkPort(): Boolean =
-    UtilKVerifyUrl.checkPort(this)
+fun String.isPort(): Boolean =
+    UtilKVerifyUrl.isPort(this)
 
-fun String.checkUrl(): Boolean =
+fun String.isUrl(): Boolean =
     UtilKVerifyUrl.checkUrl(this)
 
 object UtilKVerifyUrl : BaseUtilK() {
@@ -35,7 +35,7 @@ object UtilKVerifyUrl : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun checkIP(ip: String) =
+    fun isIP(ip: String) =
         ip.matches(Regex("((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)"))
 
     /**
@@ -44,7 +44,7 @@ object UtilKVerifyUrl : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun checkDoMain(domain: String) =
+    fun isDoMain(domain: String) =
         domain.matches(Regex("^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$"))
 
     /**
@@ -53,7 +53,7 @@ object UtilKVerifyUrl : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun checkPort(port: String) =
+    fun isPort(port: String) =
         port.matches(Regex("^[-+]?[\\d]{1,6}$"))
 
     /**
@@ -120,7 +120,7 @@ object UtilKVerifyUrl : BaseUtilK() {
         if (second.contains("/")) {
             second = second.getSplitFirst("/")
         }
-        if (!second.checkIP() && !second.checkDoMain()) {
+        if (!second.isIP() && !second.isDoMain()) {
             "请输入正确的IP或域名".showToast()
             return false
         }
@@ -129,7 +129,7 @@ object UtilKVerifyUrl : BaseUtilK() {
             if (third.contains("/")) {
                 third = third.getSplitFirst("/")
             }
-            if (!third.checkPort()) {
+            if (!third.isPort()) {
                 "请输入正确的端口".showToast()
                 return false
             }

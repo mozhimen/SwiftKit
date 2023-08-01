@@ -9,14 +9,14 @@ import com.mozhimen.basick.elemk.commons.IA_BListener
  * @Date 2022/11/27 0:24
  * @Version 1.0
  */
-fun <T, I> Iterable<T>.joinElement2List(predicate: IA_BListener<T, I>): List<I> =
-    UtilKCollection.joinElement2List(this, predicate)
+fun <T, I> Iterable<T>.joinElement2list(predicate: IA_BListener<T, I>): List<I> =
+    UtilKCollection.joinElement2list(this, predicate)
 
-fun <T, I> Iterable<T>.joinElement2ListIgnoreRepeat(predicate: IA_BListener<T, I>): List<I> =
-    UtilKCollection.joinElement2ListIgnoreRepeat(this, predicate)
+fun <T, I> Iterable<T>.joinElement2listIgnoreRepeat(predicate: IA_BListener<T, I>): List<I> =
+    UtilKCollection.joinElement2listIgnoreRepeat(this, predicate)
 
-fun <T, I> Iterable<T>.joinElement2ListIgnoreNull(predicate: IA_BListener<T?, I>): List<I> =
-    UtilKCollection.joinElement2ListIgnoreNull(this, predicate)
+fun <T, I> Iterable<T>.joinElement2listIgnoreNull(predicate: IA_BListener<T?, I>): List<I> =
+    UtilKCollection.joinElement2listIgnoreNull(this, predicate)
 
 fun <T> Iterable<T>.getIndexFirst(predicate: IA_BListener<T, Boolean>): Int? =
     UtilKCollection.getIndexFirst(this, predicate)
@@ -56,8 +56,8 @@ object UtilKCollection {
      * @return List<I>
      */
     @JvmStatic
-    fun <T, I> joinElement2List(iterable: Iterable<T>, predicate: IA_BListener<T, I>): List<I> {
-        return joinElement2List(iterable, ArrayList(), predicate)
+    fun <T, I> joinElement2list(iterable: Iterable<T>, predicate: IA_BListener<T, I>): List<I> {
+        return joinElement2list(iterable, ArrayList(), predicate)
     }
 
     /**
@@ -68,7 +68,7 @@ object UtilKCollection {
      * @return C
      */
     @JvmStatic
-    fun <T, I, C : MutableCollection<in I>> joinElement2List(iterable: Iterable<T>, newCollection: C, predicate: IA_BListener<T, I>): C {
+    fun <T, I, C : MutableCollection<in I>> joinElement2list(iterable: Iterable<T>, newCollection: C, predicate: IA_BListener<T, I>): C {
         for (element in iterable) if (!newCollection.contains(predicate(element))) newCollection.add(predicate(element))
         return newCollection
     }
@@ -80,8 +80,8 @@ object UtilKCollection {
      * @return List<I>
      */
     @JvmStatic
-    fun <T, I> joinElement2ListIgnoreRepeat(iterable: Iterable<T>, predicate: IA_BListener<T, I>): List<I> {
-        return joinElement2ListIgnoreRepeat(iterable, ArrayList(), predicate)
+    fun <T, I> joinElement2listIgnoreRepeat(iterable: Iterable<T>, predicate: IA_BListener<T, I>): List<I> {
+        return joinElement2listIgnoreRepeat(iterable, ArrayList(), predicate)
     }
 
     /**
@@ -92,7 +92,7 @@ object UtilKCollection {
      * @return C
      */
     @JvmStatic
-    fun <T, I, C : MutableCollection<in I>> joinElement2ListIgnoreRepeat(iterable: Iterable<T>, newCollection: C, predicate: IA_BListener<T, I>): C {
+    fun <T, I, C : MutableCollection<in I>> joinElement2listIgnoreRepeat(iterable: Iterable<T>, newCollection: C, predicate: IA_BListener<T, I>): C {
         for (element in iterable) newCollection.add(predicate(element))
         return newCollection
     }
@@ -104,8 +104,8 @@ object UtilKCollection {
      * @return List<I>
      */
     @JvmStatic
-    fun <T, I> joinElement2ListIgnoreNull(iterable: Iterable<T?>, predicate: IA_BListener<T?, I>): List<I> {
-        return joinElement2ListIgnoreNull(iterable, ArrayList(), predicate)
+    fun <T, I> joinElement2listIgnoreNull(iterable: Iterable<T?>, predicate: IA_BListener<T?, I>): List<I> {
+        return joinElement2listIgnoreNull(iterable, ArrayList(), predicate)
     }
 
     /**
@@ -116,7 +116,7 @@ object UtilKCollection {
      * @return C
      */
     @JvmStatic
-    fun <T, I, C : MutableCollection<in I>> joinElement2ListIgnoreNull(iterable: Iterable<T?>, newCollection: C, predicate: IA_BListener<T?, I>): C {
+    fun <T, I, C : MutableCollection<in I>> joinElement2listIgnoreNull(iterable: Iterable<T?>, newCollection: C, predicate: IA_BListener<T?, I>): C {
         for (element in iterable) newCollection.add(predicate(element))
         return newCollection
     }
@@ -127,7 +127,7 @@ object UtilKCollection {
      * @return String
      */
     @JvmStatic
-    fun map2Str(map: Map<*, *>): String {
+    fun map2str(map: Map<*, *>): String {
         if (map.isEmpty()) return "map is empty"
         val stringBuilder = StringBuilder()
         stringBuilder.append("\n").append("{").append("\n").append("\t")
@@ -147,12 +147,12 @@ object UtilKCollection {
      * @return String
      */
     @JvmStatic
-    fun list2Str(list: List<*>): String {
+    fun list2str(list: List<*>): String {
         if (list.isEmpty()) return "list is empty"
         val stringBuilder = StringBuilder()
         stringBuilder.append("\n").append("{\n ")
         for (obj in list) {
-            if (obj is List<*>) stringBuilder.append(list2Str(obj))
+            if (obj is List<*>) stringBuilder.append(list2str(obj))
             else stringBuilder.append(obj.toString()).append(" ,\n ")
         }
         stringBuilder.append("}")

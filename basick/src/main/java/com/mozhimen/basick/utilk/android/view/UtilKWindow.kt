@@ -119,20 +119,11 @@ object UtilKWindow : BaseUtilK() {
     }
 
     @JvmStatic
-    fun isFullScreenInFlag(activity: Activity): Boolean =
+    fun isFlagFullScreen(activity: Activity): Boolean =
         getFlags(activity) and CWinMgr.Lpf.FULLSCREEN != 0
-
-    /**
-     * 是否全屏
-     * @param activity Activity
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isFullScreenInFlag2(activity: Activity): Boolean =
-        getFlags(activity) and CWinMgr.Lpf.FULLSCREEN == CWinMgr.Lpf.FULLSCREEN
 
     @JvmStatic
     fun isFullScreen(activity: Activity): Boolean =
-        isFullScreenInFlag2(activity) || !UtilKNavigationBar.isVisible(activity) || !UtilKStatusBar.isVisible(activity)
+        isFlagFullScreen(activity) || !UtilKNavigationBar.isVisible(activity) || !UtilKStatusBar.isVisible(activity)
 }
 

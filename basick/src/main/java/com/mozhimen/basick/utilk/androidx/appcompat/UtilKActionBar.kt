@@ -23,7 +23,7 @@ object UtilKActionBar {
      * @param activity AppCompatActivity
      */
     @JvmStatic
-    fun setDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
+    fun applyDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
         get(activity)?.setDisplayHomeAsUpEnabled(true)
     }
 

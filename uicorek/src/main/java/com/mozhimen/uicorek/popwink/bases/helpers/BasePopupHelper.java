@@ -34,21 +34,21 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr;
+import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig;
 import com.mozhimen.basick.stackk.cb.StackKCb;
-import com.mozhimen.basick.utilk.android.content.UtilKResource;
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
-import com.mozhimen.basick.utilk.android.util.UtilKLog;
-import com.mozhimen.basick.utilk.android.view.UtilKScreen;
-import com.mozhimen.basick.utilk.android.app.UtilKActivity;
 import com.mozhimen.basick.utilk.android.animation.UtilKAnim;
 import com.mozhimen.basick.utilk.android.animation.UtilKAnimation;
 import com.mozhimen.basick.utilk.android.animation.UtilKAnimator;
-import com.mozhimen.basick.utilk.android.view.UtilKInputManager;
-import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar;
-import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig;
-import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
+import com.mozhimen.basick.utilk.android.app.UtilKActivity;
+import com.mozhimen.basick.utilk.android.content.UtilKResource;
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
+import com.mozhimen.basick.utilk.android.util.UtilKLog;
 import com.mozhimen.basick.utilk.android.util.UtilKLogPro;
 import com.mozhimen.basick.utilk.android.view.UtilKContentView;
+import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
+import com.mozhimen.basick.utilk.android.view.UtilKInputManager;
+import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar;
+import com.mozhimen.basick.utilk.android.view.UtilKScreen;
 import com.mozhimen.basick.utilk.android.view.UtilKView;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
@@ -62,13 +62,16 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
+
 /**
  * Created by 大灯泡 on 2017/12/12.
  * <p>
  * PopupHelper，这货与Popup强引用哦~
  */
 @SuppressWarnings("all")
-public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardChangeListener, IClearMemoryListener {
+public final class BasePopupHelper implements Function2<Rect, Boolean, Unit>, IClearMemoryListener {
 
     private static final String TAG = "BasePopupHelper>>>>>";
     BasePopwinK mPopupWindow;
@@ -76,7 +79,6 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     WeakHashMap<Object, IEventObserver> eventObserverMap;
 
     Map<Integer, Boolean> mFlagCacheMap;
-
 
     enum ShowMode {
         RELATIVE_TO_ANCHOR,
@@ -159,8 +161,8 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
 
     public EditText mAutoShowInputEdittext;
 
-    UtilKInputChange.IUtilKKeyboardChangeListener mKeyboardStateChangeListener;
-    public UtilKInputChange.IUtilKKeyboardChangeListener mUserKeyboardStateChangeListener;
+    Function2<Rect, Boolean, Unit> mKeyboardStateChangeListener;
+    public Function2<Rect, Boolean, Unit> mUserKeyboardStateChangeListener;
     public BasePopwinK.KeyEventListener mKeyEventListener;
 
     public int mSoftInputMode = CWinMgr.Lpsi.STATE_UNCHANGED;
@@ -960,14 +962,15 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
         showFlag |= BasePopupHelper.STATUS_START_SHOWING;
 
         if (mGlobalLayoutListener == null && mPopupWindow.getContext() != null) {
-            mGlobalLayoutListener = UtilKInputChange.observerKeyboardChange(mPopupWindow.getContext(), new UtilKInputChange.IUtilKKeyboardChangeListener() {
+            mGlobalLayoutListener = UtilKInputChange.observerKeyboardChange(mPopupWindow.getContext(), new Function2<Rect, Boolean, Unit>() {
                 @Override
-                public void onChange(Rect keyboardBounds, boolean isVisible) {
-                    BasePopupHelper.this.onChange(keyboardBounds, isVisible);
+                public Unit invoke(Rect keyboardBounds, Boolean isVisible) {
+                    BasePopupHelper.this.invoke(keyboardBounds, isVisible);
                     if (!mPopupWindow.isShowing()) {
                         UtilKView.safeRemoveOnGlobalLayoutObserver(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
-                        return;
+                        return null;
                     }
+                    return null;
                 }
             });
         }
@@ -1032,13 +1035,14 @@ public final class BasePopupHelper implements UtilKInputChange.IUtilKKeyboardCha
     }
 
     @Override
-    public void onChange(Rect keyboardBounds, boolean isVisible) {
+    public Unit invoke(Rect rect, Boolean aBoolean/*Rect keyboardBounds, boolean isVisible*/) {
         if (mKeyboardStateChangeListener != null) {
-            mKeyboardStateChangeListener.onChange(keyboardBounds, isVisible);
+            mKeyboardStateChangeListener.invoke(rect, aBoolean);
         }
         if (mUserKeyboardStateChangeListener != null) {
-            mUserKeyboardStateChangeListener.onChange(keyboardBounds, isVisible);
+            mUserKeyboardStateChangeListener.invoke(rect, aBoolean);
         }
+        return null;
     }
 
     public void update(View v, boolean positionMode) {

@@ -8,6 +8,8 @@ import android.view.Window
 import android.widget.FrameLayout
 import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
+import com.mozhimen.basick.elemk.commons.IAB_Listener
+import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -20,6 +22,16 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  * @Date 2023/2/20 15:16
  * @Version 1.0
  */
+//interface IUtilKKeyboardChangeListener {
+//    fun onChange(keyboardBounds: Rect, isVisible: Boolean)
+//}
+//interface IUtilKKeyboardChangeListener2 {
+//    fun onChange(height: Int)
+//}
+
+//typealias IUtilKKeyboardChangeListener = IAB_Listener<Rect, Boolean>
+//typealias IUtilKKeyboardChangeListener2 = IA_Listener<Int>
+
 object UtilKInputChange : BaseUtilK() {
     /**
      * Register soft input changed listener.
@@ -27,7 +39,7 @@ object UtilKInputChange : BaseUtilK() {
      * @param listener The soft input changed listener.
      */
     @JvmStatic
-    fun registerKeyBoardChangeListener(activity: Activity, listener: IUtilKKeyboardChangeListener2) {
+    fun registerKeyBoardChangeListener(activity: Activity, listener: IA_Listener<Int>) {
         registerKeyBoardChangeListener(activity.window, listener)
     }
 
@@ -37,7 +49,7 @@ object UtilKInputChange : BaseUtilK() {
      * @param listener The soft input changed listener.
      */
     @JvmStatic
-    fun registerKeyBoardChangeListener(window: Window, listener: IUtilKKeyboardChangeListener2) {
+    fun registerKeyBoardChangeListener(window: Window, listener: IA_Listener<Int>) {
         val flags = UtilKWindow.getFlags(window)
         if (flags and CWinMgr.Lpf.LAYOUT_NO_LIMITS != 0) window.clearFlags(CWinMgr.Lpf.LAYOUT_NO_LIMITS)
         val contentView = UtilKContentView.get<FrameLayout>(window)
@@ -45,7 +57,7 @@ object UtilKInputChange : BaseUtilK() {
         val onGlobalLayoutListener = ViewTreeObserver.OnGlobalLayoutListener {
             val height = UtilKDecorView.getInvisibleHeight(window)
             if (decorViewInvisibleHeightPre[0] != height) {
-                listener.onChange(height)
+                listener.invoke(height)
                 decorViewInvisibleHeightPre[0] = height
             }
         }
@@ -72,9 +84,9 @@ object UtilKInputChange : BaseUtilK() {
     @JvmStatic
     fun observerKeyboardChangeByView(view: View): ViewTreeObserver.OnGlobalLayoutListener? {
         val activity: Activity = UtilKActivity.getByContext(view.context, true) ?: return null
-        return observerKeyboardChange(activity, object : IUtilKKeyboardChangeListener {
+        return observerKeyboardChange(activity, object : IAB_Listener<Rect, Boolean> {
             private val _location = intArrayOf(0, 0)
-            override fun onChange(keyboardBounds: Rect, isVisible: Boolean) {
+            override fun invoke(keyboardBounds: Rect, isVisible: Boolean) {
                 if (isVisible) {
                     view.getLocationOnScreen(_location)
                     view.translationY = view.translationY + keyboardBounds.top - (_location[1] + view.height)
@@ -86,7 +98,7 @@ object UtilKInputChange : BaseUtilK() {
     }
 
     @JvmStatic
-    fun observerKeyboardChange(activity: Activity, listener: IUtilKKeyboardChangeListener): ViewTreeObserver.OnGlobalLayoutListener {
+    fun observerKeyboardChange(activity: Activity, listener: IAB_Listener<Rect, Boolean>): ViewTreeObserver.OnGlobalLayoutListener {
         val decorView = UtilKDecorView.get(activity)
         val onGlobalLayoutListener: ViewTreeObserver.OnGlobalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
             private var _rect = Rect()
@@ -107,18 +119,10 @@ object UtilKInputChange : BaseUtilK() {
                 if (isVisible == _lastVisible && _keyboardRect.height() == _lastHeight) return
                 _lastVisible = isVisible
                 _lastHeight = _keyboardRect.height()
-                listener.onChange(_keyboardRect, isVisible)
+                listener.invoke(_keyboardRect, isVisible)
             }
         }
         UtilKView.safeAddOnGlobalLayoutObserver(decorView, onGlobalLayoutListener)
         return onGlobalLayoutListener
-    }
-
-    interface IUtilKKeyboardChangeListener {
-        fun onChange(keyboardBounds: Rect, isVisible: Boolean)
-    }
-
-    interface IUtilKKeyboardChangeListener2 {
-        fun onChange(height: Int)
     }
 }

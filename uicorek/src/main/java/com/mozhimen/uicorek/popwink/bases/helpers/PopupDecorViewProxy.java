@@ -31,12 +31,15 @@ import com.mozhimen.uicorek.popwink.bases.cons.CEvent;
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 import com.mozhimen.uicorek.popwink.bases.cons.CUI;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
+
 /**
  * Created by 大灯泡 on 2017/12/25.
  * <p>
  * popupwindow的decorview代理，这里统筹位置、蒙层、事件等
  */
-final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IUtilKKeyboardChangeListener, IEventObserver, IClearMemoryListener {
+final class PopupDecorViewProxy extends ViewGroup implements Function2<Rect, Boolean, Unit>, IEventObserver, IClearMemoryListener {
     //蒙层
     private PopupMaskLayout mMaskLayout;
     private int childBottomMargin;
@@ -744,7 +747,7 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
     @Override
     public void onEvent(Message msg) {
         if (msg.what == CEvent.EVENT_ALIGN_KEYBOARD && keyboardBoundsCache != null) {
-            onChange(keyboardBoundsCache, keyboardVisibleCache);
+            invoke(keyboardBoundsCache, keyboardVisibleCache);
         }
     }
 
@@ -758,19 +761,19 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
 
     //-----------------------------------------keyboard-----------------------------------------
     @Override
-    public void onChange(Rect keyboardBounds, boolean isVisible) {
-        if (mHelper.isOutSideTouchable() && !mHelper.isOverlayStatusbar()) return;
+    public Unit invoke(Rect rect, Boolean aBoolean/*keyboardBounds isVisible*/) {
+        if (mHelper.isOutSideTouchable() && !mHelper.isOverlayStatusbar()) return null;
         boolean forceAdjust = (mHelper.flag & CFlag.KEYBOARD_FORCE_ADJUST) != 0;
         boolean process = forceAdjust || (!UtilKScreen.isOrientationLandscape()
                 && (mHelper.getSoftInputMode() == CWinMgr.Lpsi.ADJUST_PAN ||
                 mHelper.getSoftInputMode() == CWinMgr.Lpsi.ADJUST_RESIZE));
 
-        if (!process) return;
+        if (!process) return null;
         if (keyboardBoundsCache == null) {
             keyboardBoundsCache = new Rect();
         }
-        keyboardBoundsCache.set(keyboardBounds);
-        keyboardVisibleCache = isVisible;
+        keyboardBoundsCache.set(rect);
+        keyboardVisibleCache = aBoolean;
         View alignWhat = mHelper.keybaordAlignView;
 
         if ((mHelper.flag & CFlag.KEYBOARD_ALIGN_TO_VIEW) != 0) {
@@ -801,10 +804,10 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
                 offsetX = -left;
                 break;
             case Gravity.RIGHT:
-                offsetX = keyboardBounds.right - right;
+                offsetX = rect.right - right;
                 break;
             case Gravity.CENTER_HORIZONTAL:
-                offsetX = keyboardBounds.centerX() - centerX;
+                offsetX = rect.centerX() - centerX;
                 break;
             default:
                 offsetX = 0;
@@ -815,20 +818,20 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
                 offsetY = -top;
                 break;
             case Gravity.BOTTOM:
-                offsetY = keyboardBounds.top - bottom;
+                offsetY = rect.top - bottom;
                 break;
             case Gravity.CENTER_VERTICAL:
-                offsetY = (keyboardBounds.top >> 1) - centerY;
+                offsetY = (rect.top >> 1) - centerY;
                 break;
             default:
                 offsetY = 0;
                 break;
         }
 
-        if (isVisible && keyboardBounds.height() > 0) {
+        if (aBoolean && rect.height() > 0) {
             if ((mHelper.flag & CFlag.KEYBOARD_IGNORE_OVER_KEYBOARD) != 0) {
                 // 忽略basepopup在键盘上方
-                if (bottom <= keyboardBounds.height() && lastKeyboardBounds.isEmpty()) {
+                if (bottom <= rect.height() && lastKeyboardBounds.isEmpty()) {
                     offsetY = 0;
                 }
             } else {
@@ -850,15 +853,16 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
         if (animate) {
             animateTranslate(mTarget, offsetX, offsetY);
         } else {
-            mTarget.setTranslationX(isVisible ? mTarget.getTranslationX() + offsetX : offsetX);
-            mTarget.setTranslationY(isVisible ? mTarget.getTranslationY() + offsetY : offsetY);
+            mTarget.setTranslationX(aBoolean ? mTarget.getTranslationX() + offsetX : offsetX);
+            mTarget.setTranslationY(aBoolean ? mTarget.getTranslationY() + offsetY : offsetY);
         }
 
-        if (isVisible) {
-            lastKeyboardBounds.set(keyboardBounds);
+        if (aBoolean) {
+            lastKeyboardBounds.set(rect);
         } else {
             lastKeyboardBounds.setEmpty();
         }
+        return null;
     }
 
     private void animateTranslate(View target, int offsetX, int offsetY) {
@@ -893,4 +897,6 @@ final class PopupDecorViewProxy extends ViewGroup implements UtilKInputChange.IU
         mHelper = null;
         mTarget = null;
     }
+
+
 }

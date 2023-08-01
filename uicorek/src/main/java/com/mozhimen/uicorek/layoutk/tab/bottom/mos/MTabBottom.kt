@@ -2,7 +2,7 @@ package com.mozhimen.uicorek.layoutk.tab.bottom.mos
 
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.utilk.android.graphics.UtilKColor
-import com.mozhimen.basick.utilk.kotlin.toUnicode
+import com.mozhimen.basick.utilk.kotlin.asUnicode
 import com.mozhimen.uicorek.layoutk.tab.bottom.cons.ETabBottomType
 import java.io.Serializable
 
@@ -88,8 +88,8 @@ class MTabBottom : Serializable {
     ) {
         this.name = name
         this.iconFont = iconFont
-        this.iconNameDefault = iconNameDefault.toUnicode()
-        this.iconNameSelected = iconNameSelected.toUnicode()
+        this.iconNameDefault = iconNameDefault.asUnicode()
+        this.iconNameSelected = iconNameSelected.asUnicode()
         this.iconColorDefault = UtilKColor.obj2colorInt(iconColorDefault)
         this.iconColorSelected = UtilKColor.obj2colorInt(iconColorSelected)
         this.tabType = ETabBottomType.ICONFONT_TEXT

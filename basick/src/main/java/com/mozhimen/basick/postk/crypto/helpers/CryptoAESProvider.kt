@@ -31,13 +31,13 @@ class CryptoAESProvider(private val _config: MCryptoAESConfig) : ICryptoProvider
 
     /**
      * 采用AES128加密
-     * @param byteArray ByteArray
+     * @param bytes ByteArray
      * @return ByteArray
      * @throws Exception
      */
     @Throws(Exception::class)
     @RequiresApi(CVersCode.V_19_44_K)
-    override fun encrypt(byteArray: ByteArray): ByteArray {
+    override fun encrypt(bytes: ByteArray): ByteArray {
         // 从原始密匙数据创建KeySpec对象
         val secretKeySpec = SecretKeySpec(getAESKey(_config.secretKey.toByteArray(_config.charset)), _config.keyAlgorithm)
         // 用密匙初始化Cipher对象
@@ -47,18 +47,18 @@ class CryptoAESProvider(private val _config: MCryptoAESConfig) : ICryptoProvider
         // 用密钥初始化Cipher对象
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec)
         // 正式执行加密操作
-        return cipher.doFinal(byteArray)
+        return cipher.doFinal(bytes)
     }
 
     /**
      * 采用AES128解密,API>=19
-     * @param byteArray ByteArray
+     * @param bytes ByteArray
      * @return ByteArray
      * @throws Exception
      */
     @Throws(Exception::class)
     @RequiresApi(CVersCode.V_19_44_K)
-    override fun decrypt(byteArray: ByteArray): ByteArray {
+    override fun decrypt(bytes: ByteArray): ByteArray {
         // 从原始密匙数据创建一个KeySpec对象
         val secretKeySpec = SecretKeySpec(getAESKey(_config.secretKey.toByteArray(_config.charset)) /*secureKey.getBytes();*/, _config.keyAlgorithm)
         // 用密匙初始化Cipher对象
@@ -68,20 +68,20 @@ class CryptoAESProvider(private val _config: MCryptoAESConfig) : ICryptoProvider
         // 用密钥初始化Cipher对象
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec)
         // 正式执行解密操作
-        return cipher.doFinal(byteArray)
+        return cipher.doFinal(bytes)
     }
 
     /**
      * >=19
-     * @param byteArray ByteArray
+     * @param bytes ByteArray
      * @return ByteArray
      * @throws Exception
      */
     @Throws(Exception::class)
     @RequiresApi(CVersCode.V_19_44_K)
-    fun getAESKey(byteArray: ByteArray): ByteArray {
+    fun getAESKey(bytes: ByteArray): ByteArray {
         val keyBytes16 = ByteArray(_config.secureKeyLength)
-        System.arraycopy(byteArray, 0, keyBytes16, 0, byteArray.size.coerceAtMost(_config.secureKeyLength))
+        System.arraycopy(bytes, 0, keyBytes16, 0, bytes.size.coerceAtMost(_config.secureKeyLength))
         return keyBytes16
     }
 }

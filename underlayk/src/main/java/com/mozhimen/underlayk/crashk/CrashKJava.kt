@@ -12,10 +12,10 @@ import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.hardware.UtilKDevice
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.file.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.lang.UtilKCurrentThread
 import com.mozhimen.basick.utilk.java.util.UtilKDate
-import com.mozhimen.basick.utilk.os.UtilKPath
+import com.mozhimen.basick.utilk.kotlin.UtilKStringPath
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.ket
 import java.io.File
@@ -39,7 +39,7 @@ class CrashKJava : BaseUtilK() {
     var crashPathJava: String? = null
         get() {
             if (field != null) return field
-            val crashFullPath = UtilKPath.Absolute.Internal.getCacheDir() + "/crashk_java"
+            val crashFullPath = UtilKStringPath.Absolute.Internal.getCacheDir() + "/crashk_java"
             UtilKFile.createFolder(crashFullPath)
             return crashFullPath.also { field = it }
         }
@@ -92,8 +92,8 @@ class CrashKJava : BaseUtilK() {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val savePath = crashPathJava + "/${UtilKFile.nowStr2FileName()}.txt"
-            UtilKFile.str2File(log, savePath)
+            val savePath = crashPathJava + "/${UtilKFile.nowStr2fileName()}.txt"
+            UtilKFile.str2file(log, savePath)
         }
 
         private fun collectDeviceInfo(e: Throwable): String {

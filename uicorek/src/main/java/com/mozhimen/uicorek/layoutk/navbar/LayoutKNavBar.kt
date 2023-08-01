@@ -14,10 +14,10 @@ import android.widget.*
 import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
-import com.mozhimen.basick.utilk.android.graphics.drawable2Bitmap
+import com.mozhimen.basick.utilk.android.graphics.asBitmap
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.applyPaddingHorizontal
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
-import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.util.sp2px
 import com.mozhimen.basick.utilk.android.widget.applyIconFont
 import com.mozhimen.basick.utilk.android.widget.applyTextStyle
@@ -116,7 +116,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         paddingHorizontal: Int,
         block: (IExtension_Listener<ImageView>)? = null
     ) {
-        val btnImage = getBtnImage(drawable.drawable2Bitmap(boxWidth, boxWidth))
+        val btnImage = getBtnImage(drawable.asBitmap(boxWidth, boxWidth))
         addSideView(btnImage, boxWidth, paddingHorizontal, true)
         block?.let {
             btnImage.it()
@@ -172,7 +172,7 @@ class LayoutKNavBar @JvmOverloads constructor(context: Context, attrs: Attribute
         paddingHorizontal: Int,
         block: (IExtension_Listener<ImageView>)? = null
     ) {
-        val btnImage = getBtnImage(drawable.drawable2Bitmap(boxWidth, boxWidth))
+        val btnImage = getBtnImage(drawable.asBitmap(boxWidth, boxWidth))
         addSideView(btnImage, boxWidth, paddingHorizontal, false)
         block?.let {
             btnImage.it()

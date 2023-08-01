@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.opengl
 
 import android.opengl.Matrix
 import androidx.annotation.IntDef
+import com.mozhimen.basick.lintk.annors.AMatrixType
 
 /**
  * @ClassName UtilKMatrix
@@ -10,17 +11,6 @@ import androidx.annotation.IntDef
  * @Date 2022/6/16 13:03
  * @Version 1.0
  */
-@IntDef(value = [AMatrixType.MATRIX_FIT_XY, AMatrixType.MATRIX_CENTER_CROP, AMatrixType.MATRIX_CENTER_IN_SIDE, AMatrixType.MATRIX_FIT_START, AMatrixType.MATRIX_FIT_END])
-annotation class AMatrixType {
-    companion object {
-        const val MATRIX_FIT_XY = 0
-        const val MATRIX_CENTER_CROP = 1
-        const val MATRIX_CENTER_IN_SIDE = 2
-        const val MATRIX_FIT_START = 3
-        const val MATRIX_FIT_END = 4
-    }
-}
-
 object UtilKMatrix {
 
     @JvmStatic

@@ -19,20 +19,23 @@ object UtilKZip : BaseUtilK() {
 
     /**
      * 压缩
-     * @param sourceFilePathWithName String
+     * @param filePathWithName String
      * @param zipFilePathWithName String
      */
     @JvmStatic
-    fun zip(sourceFilePathWithName: String, zipFilePathWithName: String) {
-        val zipOutputStream = ZipOutputStream(FileOutputStream(zipFilePathWithName))
+    fun zip(filePathWithName: String, zipFilePathWithName: String) {
+        val fileOutputStream = FileOutputStream(zipFilePathWithName)
+        val zipOutputStream = ZipOutputStream(fileOutputStream)
         val bufferedOutputStream = BufferedOutputStream(zipOutputStream)
         try {
-            val file = File(sourceFilePathWithName)
+            val file = File(filePathWithName)
             compress(zipOutputStream, bufferedOutputStream, file, file.name)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
         } finally {
+            fileOutputStream.flush()
+            fileOutputStream.close()
             bufferedOutputStream.flush()
             bufferedOutputStream.close()
             zipOutputStream.flush()

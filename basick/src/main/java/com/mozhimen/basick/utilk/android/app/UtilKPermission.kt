@@ -10,7 +10,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
@@ -88,7 +88,7 @@ object UtilKPermission : BaseUtilK() {
         var permissionEnable = 0
         val service = "${UtilKPackage.getPackageName()}/${serviceClazz.canonicalName}"
         try {
-            permissionEnable = Settings.Secure.getInt(UtilKContext.getContentResolver(_context), Settings.Secure.ACCESSIBILITY_ENABLED)
+            permissionEnable = Settings.Secure.getInt(UtilKContentResolver.get(_context), Settings.Secure.ACCESSIBILITY_ENABLED)
             Log.d(TAG, "isSettingAccessibilityPermissionEnable permissionEnable $permissionEnable")
         } catch (e: Settings.SettingNotFoundException) {
             e.printStackTrace()
@@ -97,7 +97,7 @@ object UtilKPermission : BaseUtilK() {
         val stringColonSplitter = TextUtils.SimpleStringSplitter(':')
         if (permissionEnable == 1) {
             Log.d(TAG, "isSettingAccessibilityPermissionEnable accessibility is enabled")
-            val settingValue = Settings.Secure.getString(UtilKContext.getContentResolver(_context), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
+            val settingValue = Settings.Secure.getString(UtilKContentResolver.get(_context), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
             if (settingValue != null) {
                 stringColonSplitter.setString(settingValue)
                 while (stringColonSplitter.hasNext()) {

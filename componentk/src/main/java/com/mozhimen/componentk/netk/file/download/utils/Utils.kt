@@ -7,7 +7,7 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.core.app.NotificationManagerCompat
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.java.security.UtilKMD5
+import com.mozhimen.basick.utilk.java.security.UtilKMd5
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.DownloadException
 import com.mozhimen.componentk.netk.file.download.cons.CErrorCode
@@ -20,11 +20,11 @@ import java.net.UnknownHostException
 internal object Utils {
 
     fun getLocalDownloadId(context: Context, url: String): Long {
-        return SpHelper.get(context).getLong("${UtilKMD5.hash(url)}-id", -1L)
+        return SpHelper.get(context).getLong("${UtilKMd5.hash(url)}-id", -1L)
     }
 
     fun saveDownloadId(context: Context, url: String, id: Long) {
-        SpHelper.get(context).putLong("${UtilKMD5.hash(url)}-id", id)
+        SpHelper.get(context).putLong("${UtilKMd5.hash(url)}-id", id)
     }
 
     inline fun <reified T> Cursor.getValue(column: String): T? {

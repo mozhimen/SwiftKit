@@ -11,8 +11,8 @@ import android.view.animation.Animation
  * @Date 2022/11/26 23:54
  * @Version 1.0
  */
-fun String.packageStr2Clazz(): Class<*> =
-    UtilKClazz.packageStr2Clazz(this)
+fun String.packageStr2clazz(): Class<*> =
+    UtilKClazz.packageStr2clazz(this)
 
 fun Class<*>.getPackageStr(): String =
     UtilKClazz.getPackageStr(this)
@@ -24,7 +24,7 @@ object UtilKClazz {
         clazz.getAnnotation(annotationClazz)
 
     @JvmStatic
-    fun packageStr2Clazz(packageStr: String): Class<*> =
+    fun packageStr2clazz(packageStr: String): Class<*> =
         Class.forName(packageStr)
 
     @JvmStatic
@@ -32,7 +32,7 @@ object UtilKClazz {
         clazz.name
 
     @JvmStatic
-    fun clazz2Log(clazz: Class<*>, lineNumber: Int): String =
+    fun clazz2log(clazz: Class<*>, lineNumber: Int): String =
         ".(" + clazz.simpleName + ".java:" + lineNumber + ")"
 
     @JvmStatic
@@ -40,7 +40,7 @@ object UtilKClazz {
         clazz.superclass
 
     @JvmStatic
-    fun obj2Clazz(obj: Any): Class<*> =
+    fun obj2clazz(obj: Any): Class<*> =
         when (obj) {
             is Int -> Int::class.java
             is Boolean -> Boolean::class.java

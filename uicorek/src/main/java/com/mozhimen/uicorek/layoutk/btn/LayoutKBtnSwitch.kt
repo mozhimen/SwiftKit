@@ -10,19 +10,16 @@ import android.view.animation.Animation
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.animk.builder.AnimKBuilder
-import com.mozhimen.basick.animk.builder.temps.AnimatorGradientDrawableColorType
 import com.mozhimen.basick.animk.builder.temps.AnimKTranslationType
+import com.mozhimen.basick.animk.builder.temps.AnimatorGradientDrawableColorType
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.btn.helpers.LayoutKBtnSwitchAttrsParser
 import com.mozhimen.uicorek.layoutk.btn.mos.LayoutKBtnSwitchAttrs
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 /**
  * @ClassName LayoutKBtnSwitch

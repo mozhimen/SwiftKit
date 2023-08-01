@@ -12,6 +12,8 @@ object UtilKCurrentThread {
     fun get(): Thread =
         Thread.currentThread()
 
+    /////////////////////////////////////////////////////////
+
     @JvmStatic
     fun getName(): String =
         get().name

@@ -4,6 +4,7 @@ import android.text.Editable
 import android.view.View
 import android.widget.EditText
 import com.mozhimen.basick.elemk.android.view.bases.BaseTextWatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -26,6 +27,9 @@ fun EditText.asEditTextChangeFlow(): Flow<CharSequence> =
     UtilKFlow.asEditTextChangeFlow(this)
 
 object UtilKFlow {
+    @JvmStatic
+    fun asSearchFlow(str: String, scope: CoroutineScope, block: suspend CoroutineScope.(String) -> List<String>) = flow { emit(scope.block(str)) }
+
     @JvmStatic
     fun asViewClickFlow(view: View): Flow<Unit> = callbackFlow {
         view.setOnClickListener { this.trySend(Unit).isSuccess }

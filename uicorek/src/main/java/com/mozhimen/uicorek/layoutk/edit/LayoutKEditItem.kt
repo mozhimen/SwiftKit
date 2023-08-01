@@ -15,7 +15,7 @@ import android.widget.TextView
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.view.applyPadding
 import com.mozhimen.basick.utilk.android.util.sp2px
-import com.mozhimen.basick.utilk.android.widget.setInputMaxLength
+import com.mozhimen.basick.utilk.android.widget.applyInputMaxLength
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 
@@ -138,7 +138,7 @@ class LayoutKEditItem @JvmOverloads constructor(context: Context, attrs: Attribu
         typedArray.recycle()
 
         _editView = EditText(context)
-        _editView.setInputMaxLength(inputMaxLength)
+        _editView.applyInputMaxLength(inputMaxLength)
         _editView.applyPadding(0, 0)
         val params = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
         params.weight = 1f

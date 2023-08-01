@@ -16,6 +16,8 @@ object UtilKTheme {
     fun get(context: Context): Theme =
         UtilKContext.getTheme(context)
 
+    ////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun resolveAttribute(context: Context, resId: Int, outValue: TypedValue, resolveRefs: Boolean) =
         get(context).resolveAttribute(resId, outValue, resolveRefs)

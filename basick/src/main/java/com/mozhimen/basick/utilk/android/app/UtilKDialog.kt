@@ -7,7 +7,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.kotlin.packageStr2Clazz
+import com.mozhimen.basick.utilk.kotlin.packageStr2clazz
 
 
 /**
@@ -26,12 +26,12 @@ object UtilKDialog : BaseUtilK() {
     @SuppressLint("PrivateApi", "DiscouragedPrivateApi", "SoonBlockedPrivateApi")
     @RequiresApi(CVersCode.V_28_9_P)
     @JvmStatic
-    fun closeDialogAtP() {
+    fun closeDialogAt28() {
         try {
-            val declaredConstructor = "android.content.pm.PackageParser\$Package".packageStr2Clazz().getDeclaredConstructor(String::class.java)
+            val declaredConstructor = "android.content.pm.PackageParser\$Package".packageStr2clazz().getDeclaredConstructor(String::class.java)
             declaredConstructor.isAccessible = true
 
-            val activityThreadClazz = "android.app.ActivityThread".packageStr2Clazz()
+            val activityThreadClazz = "android.app.ActivityThread".packageStr2clazz()
             val declaredMethod = activityThreadClazz.getDeclaredMethod("currentActivityThread")
             declaredMethod.isAccessible = true
             val activityThread = declaredMethod.invoke(null)

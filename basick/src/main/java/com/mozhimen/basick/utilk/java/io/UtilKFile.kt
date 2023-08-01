@@ -1,22 +1,17 @@
-package com.mozhimen.basick.utilk.java.io.file
+package com.mozhimen.basick.utilk.java.io
 
-import android.os.FileUtils
-import android.text.TextUtils
 import android.util.Log
-import androidx.annotation.RequiresApi
-import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.elemk.cons.CMsg
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
-import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.regexLineBreak2Str
-import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.java.security.UtilKMD5
-import java.io.*
-import java.math.BigInteger
-import java.security.MessageDigest
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.util.UtilKDate
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.RandomAccessFile
 import java.util.Locale
 
 /**
@@ -36,8 +31,8 @@ object UtilKFile : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun currentHourStr2FileName(locale: Locale = Locale.CHINA) =
-        dateStr2FileName(CDateFormat.yyyyMMddHH, locale)
+    fun currentHourStr2fileName(locale: Locale = Locale.CHINA) =
+        dateStr2fileName(CDateFormat.yyyyMMddHH, locale)
 
     /**
      * 当前时间转文件名
@@ -45,8 +40,8 @@ object UtilKFile : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun nowStr2FileName(locale: Locale = Locale.CHINA): String =
-        dateStr2FileName(locale = locale)
+    fun nowStr2fileName(locale: Locale = Locale.CHINA): String =
+        dateStr2fileName(locale = locale)
 
     /**
      * 时间转文件名
@@ -55,7 +50,7 @@ object UtilKFile : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun dateStr2FileName(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
+    fun dateStr2fileName(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
         return UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
     }
 
@@ -160,7 +155,7 @@ object UtilKFile : BaseUtilK() {
      * @throws Exception
      */
     @JvmStatic
-    fun str2File(content: String, filePathWithName: String): String {
+    fun str2file(content: String, filePathWithName: String): String {
         val tmpContent = content + "\n"
         val tmpFile = createFile(filePathWithName)
         val randomAccessFile = RandomAccessFile(tmpFile, "rwd")
@@ -183,7 +178,7 @@ object UtilKFile : BaseUtilK() {
      * @throws Exception
      */
     @JvmStatic
-    fun str2File2(content: String, filePathWithName: String): String {
+    fun str2file2(content: String, filePathWithName: String): String {
         val tmpContent = content + "\n"
         val tmpFile = createFile(filePathWithName)
         val fileOutputStream = FileOutputStream(tmpFile)
@@ -200,14 +195,17 @@ object UtilKFile : BaseUtilK() {
         return CMsg.WRONG
     }
 
+    fun file2Bytes(filePathWithName: String): ByteArray? =
+        FileInputStream(filePathWithName).asBytes()
+
     /**
      * 文件转文本
      * @param filePathWithName String
      * @return String
      */
     @JvmStatic
-    fun file2Str(filePathWithName: String): String =
-        file2Str(File(filePathWithName))
+    fun file2str(filePathWithName: String): String =
+        file2str(File(filePathWithName))
 
     /**
      * 文件转文本
@@ -215,11 +213,11 @@ object UtilKFile : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun file2Str(file: File): String {
+    fun file2str(file: File): String {
         if (!isFileExist(file)) return CMsg.NOT_EXIST
         val fileInputStream = FileInputStream(file)
         try {
-            return inputStream2Str(fileInputStream)
+            return fileInputStream.asStr()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -229,162 +227,9 @@ object UtilKFile : BaseUtilK() {
         return CMsg.WRONG
     }
 
-    /**
-     * 流转字符串
-     * @param inputStream InputStream
-     * @return String
-     */
-    @JvmStatic
-    fun inputStream2Str(inputStream: InputStream): String {
-        val stringBuilder = StringBuilder()
-        val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
-        val bufferedReader = BufferedReader(inputStreamReader)
-        try {
-            var lineString = ""
-            while (bufferedReader.readLine()?.also { lineString = it } != null) {
-                stringBuilder.append(lineString).append("\n")
-            }
-            return stringBuilder.deleteCharAt(stringBuilder.length - 1).toString().regexLineBreak2Str()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            bufferedReader.close()
-            inputStreamReader.close()
-        }
-        return CMsg.WRONG
-    }
-
-    /**
-     * 流转文件
-     * @param inputStream InputStream
-     * @param destFilePathWithName String
-     * @param isOverwrite Boolean
-     * @return String
-     */
-    @JvmStatic
-    fun inputStream2File(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-        inputStream2File(inputStream, File(destFilePathWithName), isOverwrite)
-
-    /**
-     * 输入流转文件
-     * @param inputStream InputStream
-     * @return String
-     */
-    @JvmStatic
-    fun inputStream2File(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
-        var fileInputStream: FileInputStream? = null
-        if (!isFileExist(destFile)) {
-            createFile(destFile)
-        } else {
-            fileInputStream = FileInputStream(destFile)
-            if (isFilesSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
-                Log.d(TAG, "assetCopyFile: the two files is same")
-                return null//"the two files is same, don't need overwrite"
-            }
-        }
-        val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
-        try {
-            var bufferLength: Int
-            val buffer = ByteArray(1024)
-            while (inputStream.read(buffer).also { bufferLength = it } != -1) {
-                fileOutputStream.write(buffer, 0, bufferLength)
-            }
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            fileOutputStream.flush()
-            fileOutputStream.close()
-            fileInputStream?.close()
-            inputStream.close()
-        }
-        return null
-    }
-
-    /**
-     * 输入流转文件
-     * @param inputStream InputStream
-     * @param destFilePathWithName String
-     * @param isOverwrite Boolean
-     * @return File?
-     */
-    @RequiresApi(CVersCode.V_29_10_Q)
-    @JvmStatic
-    fun inputStream2File2(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-        inputStream2File2(inputStream, File(destFilePathWithName), isOverwrite)
-
-    /**
-     * 输入流转文件
-     * @param inputStream InputStream
-     * @param destFile File
-     * @param isOverwrite Boolean
-     * @return File?
-     */
-    @RequiresApi(CVersCode.V_29_10_Q)
-    @JvmStatic
-    fun inputStream2File2(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
-        var fileInputStream: FileInputStream? = null
-        if (!isFileExist(destFile)) {
-            createFile(destFile)
-        } else {
-            fileInputStream = FileInputStream(destFile)
-            if (isFilesSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
-                Log.d(TAG, "assetCopyFile: the two files is same")
-                return null//"the two files is same, don't need overwrite"
-            }
-        }
-        val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
-        try {
-            FileUtils.copy(inputStream, fileOutputStream)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            fileOutputStream.flush()
-            fileOutputStream.close()
-            fileInputStream?.close()
-            inputStream.close()
-        }
-        return null
-    }
-
-    /**
-     * 输出流转文件
-     * @param byteArrayOutputStream ByteArrayOutputStream
-     * @param filePathWithName String
-     * @param isOverwrite Boolean
-     * @return String
-     */
-    @JvmStatic
-    fun byteArrayOutputStream2File(byteArrayOutputStream: ByteArrayOutputStream, filePathWithName: String, isOverwrite: Boolean = true): String =
-        byteArrayOutputStream2File(byteArrayOutputStream, File(filePathWithName), isOverwrite)
-
-    /**
-     * 输出流转文件
-     * @param byteArrayOutputStream ByteArrayOutputStream
-     * @param destFile File
-     * @param isOverwrite Boolean
-     */
-    @JvmStatic
-    fun byteArrayOutputStream2File(byteArrayOutputStream: ByteArrayOutputStream, destFile: File, isOverwrite: Boolean = true): String {
-        createFile(destFile)
-        val fileOutputStream = FileOutputStream(destFile)
-        try {
-            fileOutputStream.write(byteArrayOutputStream.toByteArray())
-            return destFile.absolutePath
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            byteArrayOutputStream.flush()
-            byteArrayOutputStream.close()
-            fileOutputStream.flush()
-            fileOutputStream.close()
-        }
-        return CMsg.WRONG
+    fun file2bytes2(filePathWithName: String): ByteArray? {
+        val file = File(filePathWithName)
+        return FileInputStream(file).asBytes2(file.length())
     }
 
     /**
@@ -407,7 +252,7 @@ object UtilKFile : BaseUtilK() {
         if (!isFileExist(sourceFile)) return null
         val fileInputStream = FileInputStream(sourceFile)
         try {
-            return inputStream2File(fileInputStream, destFile, isOverwrite)
+            return fileInputStream.asFile(destFile, isOverwrite)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -415,40 +260,6 @@ object UtilKFile : BaseUtilK() {
             fileInputStream.close()
         }
         return null
-    }
-
-    /**
-     * 文件转Md5
-     * @param inputStream InputStream
-     * @return String
-     */
-    @JvmStatic
-    fun file2Md5(inputStream: InputStream): String {
-        val messageDigest: MessageDigest = UtilKMD5.get()
-        try {
-            var bufferLength: Int
-            val buffer = ByteArray(1024)
-            while (inputStream.read(buffer, 0, 1024).also { bufferLength = it } != -1) {
-                messageDigest.update(buffer, 0, bufferLength)
-            }
-            val bigInteger = BigInteger(1, messageDigest.digest())
-            return bigInteger.toString(16)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        }
-        return CMsg.WRONG
-    }
-
-    /**
-     * 文件内容是否一样
-     * @param inputStream1 InputStream
-     * @param inputStream2 InputStream
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isFilesSame(inputStream1: InputStream, inputStream2: InputStream): Boolean {
-        return TextUtils.equals(file2Md5(inputStream1), file2Md5(inputStream2))
     }
 
     /**

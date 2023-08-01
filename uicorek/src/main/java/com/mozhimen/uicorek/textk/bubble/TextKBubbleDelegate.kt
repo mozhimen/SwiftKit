@@ -9,8 +9,8 @@ import android.util.Log
 import android.view.View
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basick.utilk.android.util.dp2px
+import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basick.utilk.android.view.applyBackground
 import com.mozhimen.uicorek.layoutk.commons.ILayoutK
 import com.mozhimen.uicorek.R

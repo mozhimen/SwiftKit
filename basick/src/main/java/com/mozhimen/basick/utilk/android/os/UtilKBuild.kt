@@ -5,8 +5,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.utilk.kotlin.joinArray2Str
-import com.mozhimen.basick.utilk.java.util.toDateStr
+import com.mozhimen.basick.utilk.kotlin.joinArray2str
+import com.mozhimen.basick.utilk.java.util.asDateStr
 
 /**
  * @ClassName UtilKBuild
@@ -60,15 +60,15 @@ object UtilKBuild {
 
     //设备支持架构
     @JvmStatic
-    fun getSupportABIs(): String = Build.SUPPORTED_ABIS.joinArray2Str()
+    fun getSupportABIs(): String = Build.SUPPORTED_ABIS.joinArray2str()
 
     //设备支持32位架构
     @JvmStatic
-    fun getSupport32BitABIs(): String = Build.SUPPORTED_32_BIT_ABIS.joinArray2Str()
+    fun getSupport32BitABIs(): String = Build.SUPPORTED_32_BIT_ABIS.joinArray2str()
 
     //设备支持64位架构
     @JvmStatic
-    fun getSupport64BitABIs(): String = Build.SUPPORTED_64_BIT_ABIS.joinArray2Str()
+    fun getSupport64BitABIs(): String = Build.SUPPORTED_64_BIT_ABIS.joinArray2str()
 
     //设备开发板名称
     @JvmStatic
@@ -112,7 +112,7 @@ object UtilKBuild {
 
     //构建内部时间
     @JvmStatic
-    fun getTime(): String = Build.TIME.toDateStr(CDateFormat.yyyyMMddHHmmss)
+    fun getTime(): String = Build.TIME.asDateStr(CDateFormat.yyyyMMddHHmmss)
 
 
 }

@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.java.util
 
-import com.mozhimen.basick.utilk.kotlin.UtilKString
 import java.util.Locale
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -13,11 +12,11 @@ import java.util.regex.Pattern
  * @Date 2023/7/19 19:33
  * @Version 1.0
  */
-fun String.toUnderline(): String =
-    UtilKPattern.humpToUnderline(this)
+fun String.asUnderline(): String =
+    UtilKPattern.hump2underline(this)
 
-fun String.toHump(): String =
-    UtilKPattern.underlineToHump(this)
+fun String.asHump(): String =
+    UtilKPattern.underline2hump(this)
 
 object UtilKPattern {
     /**
@@ -27,7 +26,7 @@ object UtilKPattern {
      * @return
      */
     @JvmStatic
-    fun humpToUnderline(str: String): String {
+    fun hump2underline(str: String): String {
         var newStr = str
         val matcher: Matcher = Pattern.compile("([A-Z])").matcher(newStr)
         while (matcher.find()) {
@@ -45,7 +44,7 @@ object UtilKPattern {
      * @return
      */
     @JvmStatic
-    fun underlineToHump(str: String): String {
+    fun underline2hump(str: String): String {
         var newStr = str
         val matcher: Matcher = Pattern.compile("_(.)").matcher(newStr)
         while (matcher.find()) {

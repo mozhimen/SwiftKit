@@ -28,7 +28,6 @@ import com.mozhimen.uicorek.textk.bubble.mos.MRelativePos
  * @Date 2022/9/6 20:58
  * @Version 1.0
  */
-@RequiresApi(CVersCode.V_3_15_C)
 open class TextKBubblePopWinCallback(contentView: View, bubbleView: ITextKBubble) : PopupWindow(
     contentView,
     ViewGroup.LayoutParams.WRAP_CONTENT,

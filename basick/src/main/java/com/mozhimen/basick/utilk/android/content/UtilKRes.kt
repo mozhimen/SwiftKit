@@ -3,7 +3,9 @@ package com.mozhimen.basick.utilk.android.content
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.IntegerRes
 import androidx.annotation.StringRes
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -52,30 +54,30 @@ object UtilKRes : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getDrawable(@DrawableRes drawableId: Int): Drawable? =
-        UtilKContext.getDrawable(_context, drawableId)
+    fun getDrawable(@DrawableRes resId: Int): Drawable? =
+        UtilKContext.getDrawable(_context, resId)
 
     @JvmStatic
-    fun getDrawable2(@DrawableRes drawableId: Int): Drawable? =
-        UtilKContextCompat.getDrawable(_context, drawableId)
+    fun getDrawable2(@DrawableRes resId: Int): Drawable? =
+        UtilKContextCompat.getDrawable(_context, resId)
 
     /////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getDimensionPixelOffset(dimensionId: Int): Int =
-        UtilKResource.getDimensionPixelOffset(dimensionId, _context)
+    fun getDimensionPixelOffset(@DimenRes resId: Int): Int =
+        UtilKResource.getDimensionPixelOffset(resId, _context)
 
     @JvmStatic
-    fun getDimensionPixelSize(dimensionId: Int): Int =
-        UtilKResource.getDimensionPixelSize(dimensionId, _context)
+    fun getDimensionPixelSize(@DimenRes resId: Int): Int =
+        UtilKResource.getDimensionPixelSize(resId, _context)
 
     @JvmStatic
-    fun getDimension(dimensionId: Int): Float =
-        UtilKResource.getDimension(dimensionId, _context)
+    fun getDimension(@DimenRes resId: Int): Float =
+        UtilKResource.getDimension(resId, _context)
 
     /////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getInteger(resId: Int): Int =
+    fun getInteger(@IntegerRes resId: Int): Int =
         UtilKResource.getInteger(resId, _context)
 }

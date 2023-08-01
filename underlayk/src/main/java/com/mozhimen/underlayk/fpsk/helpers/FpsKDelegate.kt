@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.kotlin.toStr
+import com.mozhimen.basick.utilk.kotlin.decimal2str
 import com.mozhimen.basick.utilk.android.view.UtilKWindowManager
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsK
@@ -48,7 +48,7 @@ class FpsKDelegate : IFpsK, BaseUtilK() {
     private var _internalListener = object : IFpsKListener {
         @SuppressLint("SetTextI18n")
         override fun onFrame(fps: Double) {
-            _fpsView?.text = "${fps.toStr()} fps"
+            _fpsView?.text = "${fps.decimal2str()} fps"
         }
     }
 

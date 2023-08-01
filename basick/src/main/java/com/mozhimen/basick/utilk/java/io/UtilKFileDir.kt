@@ -13,7 +13,7 @@ import java.io.File
  * @Date 2023/3/27 16:41
  * @Version 1.0
  */
-object UtilKDir : BaseUtilK() {
+object UtilKFileDir : BaseUtilK() {
 
     object Internal {
         @JvmStatic

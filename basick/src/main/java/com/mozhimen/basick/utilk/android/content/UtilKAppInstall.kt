@@ -291,7 +291,7 @@ object UtilKAppInstall : BaseUtilK() {
      * @param apkFilePathWithName String
      * @return Boolean
      */
-    private fun copyApkFile(
+    fun copyApkFile(
         packageInstaller: PackageInstaller,
         sessionId: Int,
         apkFilePathWithName: String

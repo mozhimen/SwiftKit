@@ -10,13 +10,13 @@ import java.nio.ByteBuffer
  * @Date 2023/7/24 18:45
  * @Version 1.0
  */
-fun ByteBuffer.toByteArray(): ByteArray =
-    UtilKByteBuffer.toByteArray(this)
+fun ByteBuffer.asBytes(): ByteArray =
+    UtilKByteBuffer.byteBuffer2bytes(this)
 
 object UtilKByteBuffer {
 
     @JvmStatic
-    fun toByteArray(byteBuffer: ByteBuffer): ByteArray {
+    fun byteBuffer2bytes(byteBuffer: ByteBuffer): ByteArray {
         byteBuffer.rewind()    // Rewind the buffer to zero
         val bytes = ByteArray(byteBuffer.remaining())
         byteBuffer.get(bytes)   // Copy the buffer into a byte array

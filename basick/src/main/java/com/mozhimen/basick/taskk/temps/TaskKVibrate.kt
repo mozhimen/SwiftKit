@@ -2,12 +2,12 @@ package com.mozhimen.basick.taskk.temps
 
 import android.os.Vibrator
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
-import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
-import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.android.os.UtilKVibrator
 
 /**
  * @ClassName UtilKVibrate
@@ -31,7 +31,7 @@ class TaskKVibrate : BaseWakeBefDestroyTaskK() {
     fun start(duration: Long = 200L) {
         if (isActive()) return
         if (_vibrator == null) {
-            _vibrator = UtilKContext.getVibrator(_context)
+            _vibrator = UtilKVibrator.get(_context)
         }
         _vibrator!!.vibrate(duration)
     }

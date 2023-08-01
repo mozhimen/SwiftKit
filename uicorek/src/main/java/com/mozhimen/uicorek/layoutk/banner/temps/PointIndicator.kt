@@ -8,10 +8,10 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
-import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.R
 import com.mozhimen.basick.elemk.android.view.cons.CViewGroup
+import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerIndicator
 
 /**

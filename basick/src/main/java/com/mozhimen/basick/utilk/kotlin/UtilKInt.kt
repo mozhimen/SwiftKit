@@ -15,8 +15,8 @@ fun Int.getByteStr(): String =
 fun Int.getByteStr(@IntRange(from = 1) digit: Int): String =
     UtilKInt.getByteStr(this, digit)
 
-fun Int.toBoolean(): Boolean =
-    UtilKInt.toBoolean(this)
+fun Int.asBoolean(): Boolean =
+    UtilKInt.int2Boolean(this)
 
 object UtilKInt {
 //    fun getByteStr(byteInt: Int, @IntRange(from = 1) digit: Int) {
@@ -27,7 +27,7 @@ object UtilKInt {
 //        }
 //    }
 
-    fun toBoolean(int: Int) =
+    fun int2Boolean(int: Int) =
         int == 1
 
     fun getByteStr(byteInt: Int): String =

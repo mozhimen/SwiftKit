@@ -93,7 +93,7 @@ object ImageProxyUtil : BaseUtilK() {
             return BitmapFactory.decodeByteArray(byteArrayOutputStream.toByteArray(), 0, byteArrayOutputStream.size())
         } catch (e: Exception) {
             e.printStackTrace()
-            LogK.et(TAG, "buffer2Bitmap Exception ${e.message}")
+            LogK.et(TAG, "buffer2bitmap Exception ${e.message}")
         } finally {
             byteArrayOutputStream.close()
         }

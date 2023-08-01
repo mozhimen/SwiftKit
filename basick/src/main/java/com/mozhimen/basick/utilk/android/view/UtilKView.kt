@@ -51,54 +51,54 @@ fun View.resizeSize(width: Int, height: Int) {
 
 /////////////////////////////////////////////////
 
-fun View.toVisible() {
-    UtilKView.toVisible(this)
+fun View.asVisible() {
+    UtilKView.asVisible(this)
 }
 
-fun View.toInVisible() {
-    UtilKView.toInVisible(this)
+fun View.asInVisible() {
+    UtilKView.asInVisible(this)
 }
 
-fun View.toGone() {
-    UtilKView.toGone(this)
-}
-
-/////////////////////////////////////////////////
-
-fun View.toVisibleIfElseGone(invoke: I_AListener<Boolean>) {
-    UtilKView.toVisibleIfElseGone(this, invoke)
-}
-
-fun View.toVisibleIfElseGone(boolean: Boolean) {
-    UtilKView.toVisibleIfElseGone(this, boolean)
+fun View.asGone() {
+    UtilKView.asGone(this)
 }
 
 /////////////////////////////////////////////////
 
-fun View.toVisibleIf(invoke: I_AListener<Boolean>) {
-    UtilKView.toVisibleIf(this, invoke)
+fun View.asVisibleIfElseGone(invoke: I_AListener<Boolean>) {
+    UtilKView.asVisibleIfElseGone(this, invoke)
 }
 
-fun View.toInVisibleIf(invoke: I_AListener<Boolean>) {
-    UtilKView.toInVisibleIf(this, invoke)
-}
-
-fun View.toGoneIf(invoke: I_AListener<Boolean>) {
-    UtilKView.toGoneIf(this, invoke)
+fun View.asVisibleIfElseGone(boolean: Boolean) {
+    UtilKView.asVisibleIfElseGone(this, boolean)
 }
 
 /////////////////////////////////////////////////
 
-fun View.toVisibleIf(boolean: Boolean) {
-    UtilKView.toVisibleIf(this, boolean)
+fun View.asVisibleIf(invoke: I_AListener<Boolean>) {
+    UtilKView.asVisibleIf(this, invoke)
 }
 
-fun View.toInVisibleIf(boolean: Boolean) {
-    UtilKView.toInVisibleIf(this, boolean)
+fun View.asInVisibleIf(invoke: I_AListener<Boolean>) {
+    UtilKView.asInVisibleIf(this, invoke)
 }
 
-fun View.toGoneIf(boolean: Boolean) {
-    UtilKView.toGoneIf(this, boolean)
+fun View.asGoneIf(invoke: I_AListener<Boolean>) {
+    UtilKView.asGoneIf(this, invoke)
+}
+
+/////////////////////////////////////////////////
+
+fun View.asVisibleIf(boolean: Boolean) {
+    UtilKView.asVisibleIf(this, boolean)
+}
+
+fun View.asInVisibleIf(boolean: Boolean) {
+    UtilKView.asInVisibleIf(this, boolean)
+}
+
+fun View.asGoneIf(boolean: Boolean) {
+    UtilKView.asGoneIf(this, boolean)
 }
 
 /////////////////////////////////////////////////
@@ -129,8 +129,8 @@ fun View.applyFocusable() {
     UtilKView.applyFocusable(this)
 }
 
-fun View.setOnGlobalLayoutObserver(invoke: I_Listener) {
-    UtilKView.setOnGlobalLayoutObserver(this, invoke)
+fun View.applyOnGlobalLayoutObserver(invoke: I_Listener) {
+    UtilKView.applyOnGlobalLayoutObserver(this, invoke)
 }
 
 fun View.applyFitSystemWindow() {
@@ -258,7 +258,7 @@ object UtilKView : BaseUtilK() {
     }
 
     @JvmStatic
-    fun setOnGlobalLayoutObserver(view: View, invoke: I_Listener) {
+    fun applyOnGlobalLayoutObserver(view: View, invoke: I_Listener) {
         view.viewTreeObserver?.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 if (view.viewTreeObserver != null) {
@@ -485,61 +485,61 @@ object UtilKView : BaseUtilK() {
     /////////////////////////////////////////////////
 
     @JvmStatic
-    fun toVisible(view: View) {
+    fun asVisible(view: View) {
         if (!isVisible(view)) view.visibility = View.VISIBLE
     }
 
     @JvmStatic
-    fun toInVisible(view: View) {
+    fun asInVisible(view: View) {
         if (!isInvisible(view)) view.visibility = View.INVISIBLE
     }
 
     @JvmStatic
-    fun toGone(view: View) {
+    fun asGone(view: View) {
         if (!isGone(view)) view.visibility = View.GONE
     }
 
     /////////////////////////////////////////////////
 
     @JvmStatic
-    fun toVisibleIfElseGone(view: View, invoke: I_AListener<Boolean>) {
-        if (invoke.invoke()) toVisible(view) else toGone(view)
+    fun asVisibleIfElseGone(view: View, invoke: I_AListener<Boolean>) {
+        if (invoke.invoke()) asVisible(view) else asGone(view)
     }
 
     @JvmStatic
-    fun toVisibleIfElseGone(view: View, boolean: Boolean) {
-        if (boolean) toVisible(view) else toGone(view)
+    fun asVisibleIfElseGone(view: View, boolean: Boolean) {
+        if (boolean) asVisible(view) else asGone(view)
     }
 
     /////////////////////////////////////////////////
 
     @JvmStatic
-    fun toVisibleIf(view: View, invoke: I_AListener<Boolean>) {
-        if (invoke.invoke()) toVisible(view)
+    fun asVisibleIf(view: View, invoke: I_AListener<Boolean>) {
+        if (invoke.invoke()) asVisible(view)
     }
 
     @JvmStatic
-    fun toVisibleIf(view: View, boolean: Boolean) {
-        if (boolean) toVisible(view)
+    fun asVisibleIf(view: View, boolean: Boolean) {
+        if (boolean) asVisible(view)
     }
 
     @JvmStatic
-    fun toInVisibleIf(view: View, invoke: I_AListener<Boolean>) {
-        if (invoke.invoke()) toInVisible(view)
+    fun asInVisibleIf(view: View, invoke: I_AListener<Boolean>) {
+        if (invoke.invoke()) asInVisible(view)
     }
 
     @JvmStatic
-    fun toInVisibleIf(view: View, boolean: Boolean) {
-        if (boolean) toInVisible(view)
+    fun asInVisibleIf(view: View, boolean: Boolean) {
+        if (boolean) asInVisible(view)
     }
 
     @JvmStatic
-    fun toGoneIf(view: View, invoke: I_AListener<Boolean>) {
-        if (invoke.invoke()) toGone(view)
+    fun asGoneIf(view: View, invoke: I_AListener<Boolean>) {
+        if (invoke.invoke()) asGone(view)
     }
 
     @JvmStatic
-    fun toGoneIf(view: View, boolean: Boolean) {
-        if (boolean) toGone(view)
+    fun asGoneIf(view: View, boolean: Boolean) {
+        if (boolean) asGone(view)
     }
 }

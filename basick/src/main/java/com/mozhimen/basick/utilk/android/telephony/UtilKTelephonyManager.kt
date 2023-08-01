@@ -17,6 +17,8 @@ object UtilKTelephonyManager {
     fun get(context: Context): TelephonyManager =
         UtilKContext.getTelephonyManager(context)
 
+    //////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun isHasTelephone(context: Context): Boolean =
         get(context).phoneType != TelephonyManager.PHONE_TYPE_NONE

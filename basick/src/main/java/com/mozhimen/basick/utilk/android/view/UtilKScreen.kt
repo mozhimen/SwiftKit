@@ -200,5 +200,5 @@ object UtilKScreen : BaseUtilK() {
      */
     @JvmStatic
     fun capture(activity: Activity): Bitmap =
-        UtilKBitmapDeal.getBitmapForScreen(activity)
+        UtilKDecorView.getBitmap(activity)
 }

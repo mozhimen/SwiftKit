@@ -2,11 +2,10 @@ package com.mozhimen.basick.elemk.android.content.bases
 
 import android.content.Context
 import android.content.Intent
-import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiver
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.elemk.io.reactivex.bases.BaseObserver
-import com.mozhimen.basick.utilk.io.reactivex.UtilKRxJavaTrans
+import com.mozhimen.basick.utilk.io.reactivex.UtilKTransformer
 import com.mozhimen.basick.utilk.android.content.UtilKContextStart
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
@@ -42,7 +41,7 @@ open class BaseAutoRunBroadcastReceiver(private val clazz: Class<*>, private val
         when (intent.action) {
             Intent.ACTION_BOOT_COMPLETED -> {
                 if (_delayTime != 0L) {
-                    Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKRxJavaTrans.io2mainObservable()).subscribe(object : BaseObserver<String>() {
+                    Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKTransformer.io2mainObservable()).subscribe(object : BaseObserver<String>() {
                         override fun onComplete() {
                             UtilKContextStart.startContext(context, clazz)
                         }

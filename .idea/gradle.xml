@@ -24,6 +24,7 @@
             <option value="$PROJECT_DIR$/underlayktest" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

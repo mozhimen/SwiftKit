@@ -68,8 +68,8 @@ object UtilKJson : BaseUtilK() {
      * @return JSONObject?
      */
     @JvmStatic
-    fun obj2JsonObj(obj: Any): JSONObject =
-        if (obj is String) JSONObject(obj) else JSONObject(UtilKJsonGson.obj2Json(obj))
+    fun obj2jsonObj(obj: Any): JSONObject =
+        if (obj is String) JSONObject(obj) else JSONObject(UtilKJsonGson.obj2json(obj))
 
     /**
      * 从Json中摘取string
@@ -87,7 +87,7 @@ object UtilKJson : BaseUtilK() {
      * @return Array<String>?
      */
     @JvmStatic
-    fun json2StrArray(json: String): Array<String?> {
+    fun json2strArray(json: String): Array<String?> {
         val jsonArray = JSONArray(json.trim { it <= ' ' })
         val length = jsonArray.length()
         val strArray = Array<String?>(length) { "" }
@@ -104,7 +104,7 @@ object UtilKJson : BaseUtilK() {
      * @return JSONArray?
      */
     @JvmStatic
-    fun getJsonArrayFromJsonObj(jsonObj: JSONObject, name: String): JSONArray? {
+    fun getJsonArrayForJsonObj(jsonObj: JSONObject, name: String): JSONArray? {
         return try {
             jsonObj.getJSONArray(name)
         } catch (e: Exception) {
@@ -121,7 +121,7 @@ object UtilKJson : BaseUtilK() {
      * @return JSONObject?
      */
     @JvmStatic
-    fun getJsonObjFromJsonObj(jsonObj: JSONObject, name: String): JSONObject? {
+    fun getJsonObjForJsonObj(jsonObj: JSONObject, name: String): JSONObject? {
         return try {
             jsonObj.getJSONObject(name)
         } catch (e: Exception) {
@@ -137,7 +137,7 @@ object UtilKJson : BaseUtilK() {
      * @return ArrayList<String?>?
      */
     @JvmStatic
-    fun jsonArray2StrList(jsonArray: JSONArray): ArrayList<String?>? {
+    fun jsonArray2strList(jsonArray: JSONArray): ArrayList<String?>? {
         val arrayList = ArrayList<String?>()
         for (i in 0 until jsonArray.length()) {
             try {
@@ -159,14 +159,14 @@ object UtilKJson : BaseUtilK() {
      * @return ArrayList<T?>?
      */
     @JvmStatic
-    fun <T> jsonArray2TList(jsonArray: JSONArray, clazz: Class<T>): ArrayList<T?>? {
+    fun <T> jsonArray2tList(jsonArray: JSONArray, clazz: Class<T>): ArrayList<T?>? {
         val arrayList = ArrayList<T?>()
         try {
             val length = jsonArray.length()
             for (i in 0 until length) {
                 val jsonObj = jsonArray[i] as? JSONObject?
                 if (jsonObj != null) {
-                    arrayList.add(UtilKJsonGson.json2T(jsonObj.toString(), clazz))
+                    arrayList.add(UtilKJsonGson.json2t(jsonObj.toString(), clazz))
                 } else {
                     arrayList.add(null)
                 }
@@ -186,8 +186,8 @@ object UtilKJson : BaseUtilK() {
      * @return ArrayList<T?>?
      */
     @JvmStatic
-    fun <T> json2TList(json: String, clazz: Class<T>): ArrayList<T?>? =
-        jsonArray2TList(JSONArray(json.trim { json <= " " }), clazz)
+    fun <T> json2tList(json: String, clazz: Class<T>): ArrayList<T?>? =
+        jsonArray2tList(JSONArray(json.trim { json <= " " }), clazz)
 
     /**
      * 组合Json
@@ -196,7 +196,7 @@ object UtilKJson : BaseUtilK() {
      * @return String?
      */
     @JvmStatic
-    fun joinJsonObj2Json(jsonObj: JSONObject, jsonObj2: JSONObject): String {
+    fun joinJsonObj2json(jsonObj: JSONObject, jsonObj2: JSONObject): String {
         val jsonArray = JSONArray()
         jsonArray.put(jsonObj)
         val jsonArray2 = JSONArray()
@@ -217,7 +217,7 @@ object UtilKJson : BaseUtilK() {
      * @return JSONObject
      */
     @JvmStatic
-    fun json2JsonObj(json: String): JSONObject =
+    fun json2jsonObj(json: String): JSONObject =
         JSONObject(json)
 
     /**
@@ -226,7 +226,7 @@ object UtilKJson : BaseUtilK() {
      * @return JSONArray
      */
     @JvmStatic
-    fun json2JsonArray(json: String): JSONArray =
+    fun json2jsonArray(json: String): JSONArray =
         JSONArray(json)
 
     /**
@@ -236,7 +236,7 @@ object UtilKJson : BaseUtilK() {
      * @param str Array<out String>
      */
     @JvmStatic
-    fun putObj2JsonObj(jsonObj: JSONObject, obj: Any, vararg str: String) {
+    fun putObj2jsonObj(jsonObj: JSONObject, obj: Any, vararg str: String) {
         var name = str[0]
         if (str.size > 1) {
             name = str[1]
@@ -256,7 +256,7 @@ object UtilKJson : BaseUtilK() {
      * @return T?
      */
     @JvmStatic
-    fun <T> getTFromJsonObj(jsonObj: JSONObject, name: String): T? =
+    fun <T> getTForJsonObj(jsonObj: JSONObject, name: String): T? =
         try {
             jsonObj[name] as? T?
         } catch (e: JSONException) {
@@ -272,7 +272,7 @@ object UtilKJson : BaseUtilK() {
      * @return JSONObject?
      */
     @JvmStatic
-    fun getJsonObjFromJsonArray(jsonArray: JSONArray, i: Int): JSONObject? =
+    fun getJsonObjForJsonArray(jsonArray: JSONArray, i: Int): JSONObject? =
         try {
             jsonArray.getJSONObject(i)
         } catch (e: Exception) {

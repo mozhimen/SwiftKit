@@ -50,7 +50,7 @@ object UtilKResource {
 
     @SuppressLint("DiscouragedApi")
     @JvmStatic
-    fun getIdentifier(name: String, defType: String, defPackage: String) =
+    fun getIdentifier(name: String, defType: String, defPackage: String): Int =
         getSystemResources().getIdentifier(name, defType, defPackage)
 
     ////////////////////////////////////////////////////////////////////////////
@@ -68,16 +68,16 @@ object UtilKResource {
         getAppResources(context).obtainAttributes(set, attrs)
 
     @JvmStatic
-    fun getDimensionPixelOffset(@DimenRes dimensionId: Int, context: Context): Int =
-        getAppResources(context).getDimensionPixelOffset(dimensionId)
+    fun getDimensionPixelOffset(@DimenRes resId: Int, context: Context): Int =
+        getAppResources(context).getDimensionPixelOffset(resId)
 
     @JvmStatic
-    fun getDimensionPixelSize(@DimenRes dimensionId: Int, context: Context): Int =
-        getAppResources(context).getDimensionPixelSize(dimensionId)
+    fun getDimensionPixelSize(@DimenRes resId: Int, context: Context): Int =
+        getAppResources(context).getDimensionPixelSize(resId)
 
     @JvmStatic
-    fun getDimension(@DimenRes dimensionId: Int, context: Context): Float =
-        getAppResources(context).getDimension(dimensionId)
+    fun getDimension(@DimenRes resId: Int, context: Context): Float =
+        getAppResources(context).getDimension(resId)
 
     @JvmStatic
     fun getStringArray(@ArrayRes resId: Int, context: Context): Array<String> =

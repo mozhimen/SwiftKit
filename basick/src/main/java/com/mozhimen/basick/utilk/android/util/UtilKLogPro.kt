@@ -162,10 +162,10 @@ object UtilKLogPro : BaseUtilK() {
     private fun parseContent(obj: Any): String {
         return when (obj) {
             is String -> obj
-            is Throwable -> UtilKThrowable.throwable2Str(obj)
-            is List<*> -> UtilKCollection.list2Str(obj)
-            is Map<*, *> -> UtilKCollection.map2Str(obj)
-            is MotionEvent -> UtilKGesture.motionEvent2Str(obj.action)
+            is Throwable -> UtilKThrowable.throwable2str(obj)
+            is List<*> -> UtilKCollection.list2str(obj)
+            is Map<*, *> -> UtilKCollection.map2str(obj)
+            is MotionEvent -> UtilKGesture.motionEvent2str(obj.action)
             else -> obj.toString()
         }
     }

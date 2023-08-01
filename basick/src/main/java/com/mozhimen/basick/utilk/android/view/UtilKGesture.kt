@@ -52,7 +52,7 @@ object UtilKGesture {
         x > left && x < right && y > top && y < bottom
 
     @JvmStatic
-    fun motionEvent2Str(action: Int): String {
+    fun motionEvent2str(action: Int): String {
         when (action) {
             MotionEvent.ACTION_DOWN -> return "ACTION_DOWN"
             MotionEvent.ACTION_UP -> return "ACTION_UP"
