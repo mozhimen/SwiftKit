@@ -53,13 +53,13 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
 
             val str2File1Path = UtilKPath.Absolute.Internal.getFilesDir() + "/tmp1.txt"
             val str2File1Time = System.currentTimeMillis()
-            "str2File1 tmp1 ${UtilKFile.str2File("第一行\n第二行", str2File1Path)} time ${System.currentTimeMillis() - str2File1Time}".log()
+            "str2File1 tmp1 ${UtilKFile.str2file("第一行\n第二行", str2File1Path)} time ${System.currentTimeMillis() - str2File1Time}".log()
             val str2File2Path = UtilKPath.Absolute.Internal.getFilesDir() + "/tmp2.txt"
             val str2File2Time = System.currentTimeMillis()
-            "str2File2 tmp2 ${UtilKFile.str2File2("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
+            "str2File2 tmp2 ${UtilKFile.str2file2("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
 
             val file2StrTime = System.currentTimeMillis()
-            "file2Str tmp ${UtilKFile.file2Str(str2File1Path)} time ${System.currentTimeMillis() - file2StrTime}".log()
+            "file2Str tmp ${UtilKFile.file2str(str2File1Path)} time ${System.currentTimeMillis() - file2StrTime}".log()
 
             val copyFileTime = System.currentTimeMillis()
             val destTmpFilePath = UtilKPath.Absolute.Internal.getFilesDir() + "/tmp3.txt"

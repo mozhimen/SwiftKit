@@ -1,6 +1,7 @@
 package com.mozhimen.uicorek.popwink.builder.mos
 
 import android.animation.Animator
+import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.util.Pair
@@ -37,9 +38,9 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         @JvmStatic
         fun generateDefault(): PopwinKBuilderConfig {
             return PopwinKBuilderConfig()
-                .setShowAnimation(asAnimation().add(CENTER_SHOW).build())
-                .setDismissAnimation(asAnimation().add(CENTER_HIDE).build())
-                .setFadeInAndOut(UtilKBuildVersion.getSDKInt() != CVersCode.V_23_6_M)
+                    .setShowAnimation(asAnimation().add(CENTER_SHOW).build())
+                    .setDismissAnimation(asAnimation().add(CENTER_HIDE).build())
+                    .setFadeInAndOut(UtilKBuildVersion.getSDKInt() != CVersCode.V_23_6_M)
         }
     }
 
@@ -274,7 +275,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         return this
     }
 
-    fun setOnKeyboardChangeListener(listener: UtilKInputChange.IUtilKKeyboardChangeListener): PopwinKBuilderConfig {
+    fun setOnKeyboardChangeListener(listener: Function2<Rect, Boolean, Unit>): PopwinKBuilderConfig {
         set("setOnKeyboardChangeListener", listener)
         return this
     }

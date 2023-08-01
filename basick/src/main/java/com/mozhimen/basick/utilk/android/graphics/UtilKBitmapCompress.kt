@@ -20,8 +20,8 @@ import kotlin.math.sqrt
 fun String.getCompressFormat(): CompressFormat =
     UtilKBitmapCompress.getCompressFormat(this)
 
-fun Bitmap.compressScaled(@androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap =
-    UtilKBitmapCompress.compressScaledBitmap(this, quality)
+fun Bitmap.anyBitmapCompressScaled(@androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap =
+    UtilKBitmapCompress.anyBitmapCompressScaled(this, quality)
 
 object UtilKBitmapCompress : BaseUtilK() {
 
@@ -32,8 +32,8 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @return Bitmap
      */
     @JvmStatic
-    fun compressQuality(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int = 50): Bitmap? {
-        val bytes: ByteArray = UtilKBitmapFormat.bitmap2bytes(sourceBitmap, compressFormat, quality) ?: return null
+    fun anyBitmapCompressQuality(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int = 50): Bitmap? {
+        val bytes: ByteArray = UtilKBitmapFormat.anyBitmap2anyBytes(sourceBitmap, compressFormat, quality) ?: return null
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size).also { printBitmapInfo(it, bytes, quality) }
     }
 
@@ -44,7 +44,7 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @return Bitmap
      */
     @JvmStatic
-    fun compressSampleSize(bitmapPathWithName: String, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
+    fun anyBitmapCompressSampleSize(bitmapPathWithName: String, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
         val options = BitmapFactory.Options()
         options.inSampleSize = (100f / quality.toFloat()).roundToInt().also { Log.v(TAG, "compressSampleSize: inSampleSize $it") }
         return BitmapFactory.decodeFile(bitmapPathWithName, options).also { printBitmapInfo(it, null, quality) }
@@ -57,9 +57,9 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @return Bitmap
      */
     @JvmStatic
-    fun compressMatrix(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
+    fun anyBitmapCompressMatrix(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
         val ratio: Float = sqrt(quality.toFloat() / 100f).also { Log.v(TAG, "compressMatrix: ratio $it") }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
-        return UtilKBitmapDeal.scaleBitmapRatio(sourceBitmap, ratio).also { printBitmapInfo(it, null, quality) }
+        return UtilKBitmapDeal.anyBitmapScaleRatio(sourceBitmap, ratio).also { printBitmapInfo(it, null, quality) }
     }
 
     /**
@@ -68,8 +68,8 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @return Bitmap
      */
     @JvmStatic
-    fun compressRgb565(sourceBitmap: Bitmap): Bitmap {
-        return UtilKBitmapFormat.bitmap2rgb565Bitmap(sourceBitmap).also { printBitmapInfo(it, null, 100) }
+    fun anyBitmapCompress2rgb565Bitmap(sourceBitmap: Bitmap): Bitmap {
+        return UtilKBitmapFormat.anyBitmap2rgb565Bitmap(sourceBitmap).also { printBitmapInfo(it, null, 100) }
     }
 
     /**
@@ -77,7 +77,7 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @param bitmapPathWithName String
      */
     @JvmStatic
-    fun compressRgb565(bitmapPathWithName: String): Bitmap {
+    fun pathBitmapCompress2rgb565Bitmap(bitmapPathWithName: String): Bitmap {
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         return BitmapFactory.decodeFile(bitmapPathWithName, options).also { printBitmapInfo(it, null, 100) }
@@ -88,10 +88,18 @@ object UtilKBitmapCompress : BaseUtilK() {
      * @param sourceBitmap Bitmap
      */
     @JvmStatic
-    fun compressScaledBitmap(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
+    fun anyBitmapCompressScaled(sourceBitmap: Bitmap, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap {
         val ratio: Float = sqrt(quality.toFloat() / 100f).also { Log.d(TAG, "compressScaledBitmap: ratio $it") }//这里很好理解, 我们是对面的比例, 开方才是边的缩小比例
-        return UtilKBitmapDeal.resizeBitmap(sourceBitmap, (sourceBitmap.width * ratio).toInt(), (sourceBitmap.height * ratio).toInt()).also { printBitmapInfo(it, null, quality) }
+        return UtilKBitmapDeal.anyBitmapResize(sourceBitmap, (sourceBitmap.width * ratio).toInt(), (sourceBitmap.height * ratio).toInt()).also { printBitmapInfo(it, null, quality) }
     }
+
+    @JvmStatic
+    fun getCompressFormat(compressFormatStr: String): CompressFormat =
+        when (UtilKString.getFilenameExtension(compressFormatStr).lowercase()) {
+            "png" -> CompressFormat.PNG
+            "webp" -> CompressFormat.WEBP
+            else -> CompressFormat.JPEG
+        }
 
     /**
      * 打印bitmap信息
@@ -106,12 +114,4 @@ object UtilKBitmapCompress : BaseUtilK() {
             "compress after bitmap size: ${bitmap.byteCount / 1024 / 1024}MB width: ${bitmap.width} height: ${bitmap.height} bytes.length: ${bytes?.let { it.size / 1024 } ?: 0}KB quality: $quality"
         )
     }
-
-    @JvmStatic
-    fun getCompressFormat(compressFormatStr: String): CompressFormat =
-        when (UtilKString.getFilenameExtension(compressFormatStr).lowercase()) {
-            "png" -> CompressFormat.PNG
-            "webp" -> CompressFormat.WEBP
-            else -> CompressFormat.JPEG
-        }
 }

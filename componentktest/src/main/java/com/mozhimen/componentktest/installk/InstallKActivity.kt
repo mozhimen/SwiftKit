@@ -59,7 +59,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
         vb.installkBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (!UtilKFile.isFileExist(_apkPathWithName)) {
-                    UtilKAsset.asset2File("componentktest.apk", _apkPathWithName, false)
+                    UtilKAsset.asset2file("componentktest.apk", _apkPathWithName, false)
                 }
                 delay(500)
                 _installK.setInstallMode(EInstallKMode.ROOT).setInstallSmartService(InstallKService::class.java).setInstallSilenceReceiver(InstallKReceiver::class.java)

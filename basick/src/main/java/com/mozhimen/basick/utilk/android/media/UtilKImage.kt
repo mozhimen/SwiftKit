@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.media
 
 import android.graphics.ImageFormat
 import android.media.Image
+import com.mozhimen.basick.utilk.kotlin.nv21Bytes2jpegBytes
 
 /**
  * @ClassName UtilKImage
@@ -10,27 +11,23 @@ import android.media.Image
  * @Date 2023/7/31 17:40
  * @Version 1.0
  */
+fun Image.anyImage2jpegBytes(): ByteArray =
+    UtilKImage.anyImage2jpegBytes(this)
+
+fun Image.yuv420888Image2nv21Bytes(): ByteArray =
+    UtilKImage.yuv420888Image2nv21Bytes(this)
+
+fun Image.jpegImage2jpegBytes(): ByteArray =
+    UtilKImage.jpegImage2jpegBytes(this)
+
 object UtilKImage {
-    /**
-     * image转Bytes
-     * @param image Image
-     * @return ByteArray
-     */
     @JvmStatic
     @Throws(Exception::class)
-    fun image2jpegBytes(image: Image): ByteArray {
+    fun anyImage2jpegBytes(image: Image): ByteArray {
         val bytes: ByteArray = when (image.format) {
-            ImageFormat.JPEG -> {
-                jpegImage2jpegBytes(image)
-            }
-
-            ImageFormat.YUV_420_888 -> {
-                yuv420888Image2jpegBytes(image)
-            }
-
-            else -> {
-                throw Exception("cannot handle this format")
-            }
+            ImageFormat.JPEG -> jpegImage2jpegBytes(image)
+            ImageFormat.YUV_420_888 -> yuv420888Image2jpegBytes(image)
+            else -> throw Exception("cannot handle this format")
         }
         return bytes
     }
@@ -53,14 +50,9 @@ object UtilKImage {
         return nv21Bytes
     }
 
-    /**
-     * yuv420888Image转JpegBytes
-     * @param image Image
-     * @return ByteArray
-     */
     @JvmStatic
     fun yuv420888Image2jpegBytes(image: Image): ByteArray {
-        return UtilKImageByteArray.nv21Bytes2jpegBytes(yuv420888Image2nv21Bytes(image), image.width, image.height)
+        return image.yuv420888Image2nv21Bytes().nv21Bytes2jpegBytes(image.width, image.height)
     }
 
     @JvmStatic

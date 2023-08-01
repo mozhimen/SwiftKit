@@ -11,8 +11,9 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
+import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapIO
-import com.mozhimen.basick.utilk.android.graphics.drawable2Bitmap
+import com.mozhimen.basick.utilk.android.graphics.asBitmap
 import com.mozhimen.basick.utilk.java.io.UtilKPath
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkBitmapBinding
@@ -28,14 +29,14 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
             val bitmap: Bitmap?
             withContext(Dispatchers.IO) {
                 bitmap =
-                    UtilKBitmapIO.url2BitmapCoroutine("http://192.168.2.6/construction-sites-images/person/20221101/93ea2a3e11e54a76944dfc802519e3cc.jpg")//http://img.crcz.com/allimg/202003/25/1585100748975745.jpg
+                    UtilKBitmapIO.urlStr2bitmap("http://192.168.2.6/construction-sites-images/person/20221101/93ea2a3e11e54a76944dfc802519e3cc.jpg")//http://img.crcz.com/allimg/202003/25/1585100748975745.jpg
             }
             bitmap?.let {
                 vb.utilKBitmapImg.setImageBitmap(it)
             }
         }
 
-        val bitmap = UtilKRes.getDrawable(R.mipmap.utilk_img)!!.drawable2Bitmap()
+        val bitmap = UtilKRes.getDrawable(R.mipmap.utilk_img)!!.asBitmap()
         vb.utilkBitmapSeekbarBmpZoom.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 
@@ -75,7 +76,7 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
         })
 
         vb.utilkBitmapBtnSave.setOnClickListener {
-            UtilKBitmapIO.bitmap2JpegAlbumFile(bitmap, UtilKPath.Absolute.Internal.getCacheDir())
+            UtilKBitmapFormat.bitmap2jpegAlbumFile(bitmap, UtilKPath.Absolute.Internal.getCacheDir())
         }
     }
 }

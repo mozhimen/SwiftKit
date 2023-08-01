@@ -24,8 +24,8 @@ class VideoKActivity : BaseActivityVB<ActivityVideokBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
-            UtilKAsset.asset2File("layoutk_video.mp4", _path + "layoutk_video.mp4")
-            UtilKAsset.asset2File("layoutk_video2.mp4", _path + "layoutk_video2.mp4")
+            UtilKAsset.asset2file("layoutk_video.mp4", _path + "layoutk_video.mp4")
+            UtilKAsset.asset2file("layoutk_video2.mp4", _path + "layoutk_video2.mp4")
             withContext(Dispatchers.Main) {
                 vb.layoutkVideo2.initVideo(_currentUrl!!)
             }

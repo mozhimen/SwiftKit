@@ -83,7 +83,7 @@ object UtilKActivity {
      */
     @JvmStatic
     fun getLauncherActivityName(context: Context, packageName: String): String {
-        if (UtilKString.isHasSpace(packageName) || packageName.isEmpty()) return ""
+        if (UtilKString.hasSpace(packageName) || packageName.isEmpty()) return ""
         val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntent.getMainLauncher(packageName, null), 0)
         return if (resolveInfos.isEmpty()) "" else resolveInfos[0].activityInfo.name
     }

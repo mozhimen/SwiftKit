@@ -133,7 +133,7 @@ object UtilKIntent {
     @JvmStatic
     fun getLauncherActivity(context: Context, packageName: String): Intent? {
         val launcherActivityName: String = UtilKActivity.getLauncherActivityName(context, packageName)
-        if (UtilKString.isHasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return getLauncherFromPackage(context)
+        if (UtilKString.hasSpace(launcherActivityName) || launcherActivityName.isEmpty()) return getLauncherFromPackage(context)
         return getMainLauncher(packageName, launcherActivityName)
     }
 

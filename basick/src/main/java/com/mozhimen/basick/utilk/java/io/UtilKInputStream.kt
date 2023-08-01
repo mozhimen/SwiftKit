@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk.java.io
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.FileUtils
 import android.text.TextUtils
 import android.util.Log
@@ -7,7 +9,8 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.java.security.UtilKMD5
+import com.mozhimen.basick.utilk.java.security.UtilKMd5
+import com.mozhimen.basick.utilk.java.security.asMd5Str2
 import com.mozhimen.basick.utilk.kotlin.regexLineBreak2str
 import java.io.BufferedReader
 import java.io.File
@@ -26,9 +29,6 @@ import java.security.MessageDigest
  * @Date 2023/7/31 11:42
  * @Version 1.0
  */
-fun InputStream.asMd5(): String =
-    UtilKInputStream.inputStream2md5(this)
-
 fun InputStream.asBytes(): ByteArray? =
     UtilKInputStream.inputStream2bytes(this)
 
@@ -52,7 +52,14 @@ fun InputStream.asFile2(destFilePathWithName: String, isOverwrite: Boolean = tru
 fun InputStream.asFile2(destFile: File, isOverwrite: Boolean = true): File? =
     UtilKInputStream.inputStream2file2(this, destFile, isOverwrite)
 
+fun InputStream.asAnyBitmap(): Bitmap =
+    UtilKInputStream.inputStream2anyBitmap(this)
+
 object UtilKInputStream {
+    @JvmStatic
+    fun inputStream2anyBitmap(inputStream: InputStream): Bitmap =
+        BitmapFactory.decodeStream(inputStream)
+
     /**
      * 流转文件
      * @param inputStream InputStream
@@ -210,30 +217,7 @@ object UtilKInputStream {
         return null
     }
 
-    /**
-     * 文件转Md5
-     * @param inputStream InputStream
-     * @return String
-     */
-    @JvmStatic
-    fun inputStream2md5(inputStream: InputStream): String {
-        val messageDigest: MessageDigest = UtilKMD5.get()
-        try {
-            var bufferLength: Int
-            val buffer = ByteArray(1024)
-            while (inputStream.read(buffer, 0, 1024).also { bufferLength = it } != -1) {
-                messageDigest.update(buffer, 0, bufferLength)
-            }
-            val bigInteger = BigInteger(1, messageDigest.digest())
-            return bigInteger.toString(16)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(UtilKFile.TAG)
-        }
-        return CMsg.WRONG
-    }
-
     @JvmStatic
     fun isSame(inputStream1: InputStream, inputStream2: InputStream): Boolean =
-        TextUtils.equals(inputStream2md5(inputStream1), inputStream2md5(inputStream2))
+        TextUtils.equals(inputStream1.asMd5Str2(), inputStream2.asMd5Str2())
 }

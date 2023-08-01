@@ -21,9 +21,9 @@ import kotlinx.coroutines.launch
 class UtilKApkActivity : BaseActivityVB<ActivityUtilkApkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val apkPathWithName = UtilKPath.Absolute.Internal.getCacheDir() + "/temp/${UtilKFile.nowStr2FileName()}.apk"
+            val apkPathWithName = UtilKPath.Absolute.Internal.getCacheDir() + "/temp/${UtilKFile.nowStr2fileName()}.apk"
             if (!UtilKFile.isFileExist(apkPathWithName)) {
-                UtilKAsset.asset2File("basicktest-debug.apk", apkPathWithName)
+                UtilKAsset.asset2file("basicktest-debug.apk", apkPathWithName)
             }
             UtilKApk.printApkInfo(apkPathWithName)
         }

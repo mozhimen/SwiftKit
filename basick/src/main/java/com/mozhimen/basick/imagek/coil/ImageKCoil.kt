@@ -14,6 +14,7 @@ import com.mozhimen.basick.imagek.coil.temps.BlurTransformation
 import com.mozhimen.basick.imagek.coil.temps.ColorFilterTransformation
 import com.mozhimen.basick.imagek.coil.temps.CropTransformation
 import com.mozhimen.basick.imagek.coil.temps.GrayscaleTransformation
+import com.mozhimen.basick.utilk.android.util.dp2px
 
 /**
  * @ClassName UtilKImageLoader

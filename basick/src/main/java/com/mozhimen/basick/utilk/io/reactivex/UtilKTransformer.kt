@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
  * @Date 2022/11/14 14:08
  * @Version 1.0
  */
-object UtilKRxJavaTrans {
+object UtilKTransformer {
     @JvmStatic
     fun <T> io2mainObservable(): ObservableTransformer<T, T> {
         return ObservableTransformer { upstream: Observable<T> ->
