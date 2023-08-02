@@ -12,17 +12,6 @@ import kotlin.math.max
  * @Version 1.0
  */
 object UtilKAnimator {
-
-    /**
-     * 释放Animator
-     * @param animator Animator
-     */
-    @JvmStatic
-    fun releaseAnimator(animator: Animator) {
-        animator.cancel()
-        animator.removeAllListeners()
-    }
-
     /**
      * 获取时长
      * @param animator Animator
@@ -42,5 +31,17 @@ object UtilKAnimator {
             duration = animator.duration
         }
         return if (duration <= 0) 0 else duration
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 释放Animator
+     * @param animator Animator
+     */
+    @JvmStatic
+    fun releaseAnimator(animator: Animator) {
+        animator.cancel()
+        animator.removeAllListeners()
     }
 }

@@ -39,7 +39,7 @@ class DebugKParams {
     fun deviceSerialNoShort(): String = UtilKDevice.getSerialNumberShort()
 
     @ADebugKParams("设备IP")
-    fun deviceIP(): String = UtilKNetConn.getIP() ?: "unknown"
+    fun deviceIP(): String = UtilKNetConn.getIp() ?: "unknown"
 
     @ADebugKParams("设备Rom版本")
     fun deviceRomVersion(): String = UtilKDevice.getRomVersion()

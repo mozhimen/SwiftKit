@@ -12,9 +12,9 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapIO
-import com.mozhimen.basick.utilk.android.graphics.asBitmap
-import com.mozhimen.basick.utilk.java.io.UtilKPath
+import com.mozhimen.basick.utilk.android.graphics.drawable2bitmap
+import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
+import com.mozhimen.basick.utilk.kotlin.UtilKStrUrl
 import com.mozhimen.basicktest.R
 import com.mozhimen.basicktest.databinding.ActivityUtilkBitmapBinding
 import kotlinx.coroutines.Dispatchers
@@ -29,14 +29,14 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
             val bitmap: Bitmap?
             withContext(Dispatchers.IO) {
                 bitmap =
-                    UtilKBitmapIO.urlStr2bitmap("http://192.168.2.6/construction-sites-images/person/20221101/93ea2a3e11e54a76944dfc802519e3cc.jpg")//http://img.crcz.com/allimg/202003/25/1585100748975745.jpg
+                    UtilKStrUrl.strUrl2bitmap("http://192.168.2.6/construction-sites-images/person/20221101/93ea2a3e11e54a76944dfc802519e3cc.jpg")//http://img.crcz.com/allimg/202003/25/1585100748975745.jpg
             }
             bitmap?.let {
                 vb.utilKBitmapImg.setImageBitmap(it)
             }
         }
 
-        val bitmap = UtilKRes.getDrawable(R.mipmap.utilk_img)!!.asBitmap()
+        val bitmap = UtilKRes.getDrawable(R.mipmap.utilk_img)!!.drawable2bitmap()
         vb.utilkBitmapSeekbarBmpZoom.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 
@@ -49,9 +49,9 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
                 val ratio: Float = 1 + progress / 100f
                 Log.i(TAG, "onStopTrackingTouch: ratio $ratio")
                 Log.i(TAG, "onStopTrackingTouch: bmp w ${bitmap.width} h ${bitmap.height}")
-                val zoomBmp = UtilKBitmapDeal.zoomBitmap(bitmap, ratio)
+                val zoomBmp = UtilKBitmapDeal.applyAnyBitmapZoom(bitmap, ratio)
                 Log.i(TAG, "onStopTrackingTouch: zoomBmp w ${zoomBmp.width} h ${zoomBmp.height}")
-                val scaleBmp = UtilKBitmapDeal.scaleBitmapRatio(zoomBmp, bitmap.width.toFloat(), bitmap.height.toFloat())
+                val scaleBmp = UtilKBitmapDeal.applyAnyBitmapScaleRatio(zoomBmp, bitmap.width.toFloat(), bitmap.height.toFloat())
                 Log.i(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
                 Log.i(TAG, "onStopTrackingTouch: --->")
                 vb.utilkBitmapImgBmpZoom.setImageBitmap(scaleBmp)
@@ -69,14 +69,14 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
                 val progress = seekBar!!.progress
                 var ratio: Float = 5 * progress / 100f
                 if (ratio < 1) ratio = 1f
-                val scaleBmp = UtilKBitmapDeal.scaleBitmapRatio(bitmap, bitmap.width.toFloat() / ratio, bitmap.height.toFloat() / ratio)
+                val scaleBmp = UtilKBitmapDeal.applyAnyBitmapScaleRatio(bitmap, bitmap.width.toFloat() / ratio, bitmap.height.toFloat() / ratio)
                 Log.i(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
                 vb.utilkBitmapImgBmpScale.setImageBitmap(scaleBmp)
             }
         })
 
         vb.utilkBitmapBtnSave.setOnClickListener {
-            UtilKBitmapFormat.bitmap2jpegAlbumFile(bitmap, UtilKPath.Absolute.Internal.getCacheDir())
+            UtilKBitmapFormat.anyBitmap2jpegFile(bitmap, UtilKStrPath.Absolute.Internal.getCacheDir())
         }
     }
 }

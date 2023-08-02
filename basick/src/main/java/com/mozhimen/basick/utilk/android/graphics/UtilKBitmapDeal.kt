@@ -14,28 +14,28 @@ import java.lang.Integer.min
  * @Date 2022/2/27 22:49
  * @Version 1.0
  */
-fun Bitmap.anyBitmapCrop(width: Int, height: Int, x: Int, y: Int): Bitmap =
-    UtilKBitmapDeal.anyBitmapCrop(this, width, height, x, y)
+fun Bitmap.applyAnyBitmapCrop(width: Int, height: Int, x: Int, y: Int): Bitmap =
+    UtilKBitmapDeal.applyAnyBitmapCrop(this, width, height, x, y)
 
-fun Bitmap.anyBitmapRotate(degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap =
-    UtilKBitmapDeal.anyBitmapRotate(this, degree, flipX, flipY)
+fun Bitmap.applyAnyBitmapRotate(degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap =
+    UtilKBitmapDeal.applyAnyBitmapRotate(this, degree, flipX, flipY)
 
-fun Bitmap.anyBitmapScaleRatio(ratioX: Float, ratioY: Float) =
-    UtilKBitmapDeal.anyBitmapScaleRatio(this, ratioX, ratioY)
+fun Bitmap.applyAnyBitmapScaleRatio(ratioX: Float, ratioY: Float) =
+    UtilKBitmapDeal.applyAnyBitmapScaleRatio(this, ratioX, ratioY)
 
 object UtilKBitmapDeal : BaseUtilK() {
     /**
      * 设置大小
      */
     @JvmStatic
-    fun anyBitmapResize(bitmap: Bitmap, destWidth: Int, destHeight: Int, filter: Boolean = true): Bitmap =
+    fun applyAnyBitmapResize(bitmap: Bitmap, destWidth: Int, destHeight: Int, filter: Boolean = true): Bitmap =
         Bitmap.createScaledBitmap(bitmap, destWidth, destHeight, filter)
 
     /**
      * 旋转位图
      */
     @JvmStatic
-    fun anyBitmapRotate(sourceBitmap: Bitmap, degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap {
+    fun applyAnyBitmapRotate(sourceBitmap: Bitmap, degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap {
         val matrix = Matrix()
         matrix.postRotate((degree).toFloat())
         matrix.postScale(if (flipX) -1f else 1f, if (flipY) -1f else 1f)
@@ -46,33 +46,33 @@ object UtilKBitmapDeal : BaseUtilK() {
      * 将两个图片裁剪成一致
      */
     @JvmStatic
-    fun anyBitmapScale2sameSize(sourceBitmap1: Bitmap, sourceBitmap2: Bitmap, @FloatRange() ratio: Float = 1f): Pair<Bitmap, Bitmap> {
+    fun applyAnyBitmapScale2sameSize(sourceBitmap1: Bitmap, sourceBitmap2: Bitmap, @FloatRange() ratio: Float = 1f): Pair<Bitmap, Bitmap> {
         val minWidth = min(sourceBitmap1.width, sourceBitmap2.width) * ratio
         val minHeight = min(sourceBitmap1.height, sourceBitmap2.height) * ratio
-        return anyBitmapScale(sourceBitmap1, minWidth, minHeight) to anyBitmapScaleRatio(sourceBitmap2, minWidth, minHeight)
+        return applyAnyBitmapScale(sourceBitmap1, minWidth, minHeight) to applyAnyBitmapScaleRatio(sourceBitmap2, minWidth, minHeight)
     }
 
     /**
      * 缩放原图
      */
     @JvmStatic
-    fun anyBitmapScale(sourceBitmap: Bitmap, destWidth: Float, destHeight: Float): Bitmap =
-        anyBitmapScaleRatio(sourceBitmap, destWidth / sourceBitmap.width.toFloat(), destHeight / sourceBitmap.height.toFloat())
+    fun applyAnyBitmapScale(sourceBitmap: Bitmap, destWidth: Float, destHeight: Float): Bitmap =
+        applyAnyBitmapScaleRatio(sourceBitmap, destWidth / sourceBitmap.width.toFloat(), destHeight / sourceBitmap.height.toFloat())
 
     /**
      * 缩放原图
      */
     @JvmStatic
     @Throws(Exception::class)
-    fun anyBitmapScaleRatio(sourceBitmap: Bitmap, @FloatRange(from = 0.0) ratio: Float): Bitmap =
-        anyBitmapScaleRatio(sourceBitmap, ratio, ratio)
+    fun applyAnyBitmapScaleRatio(sourceBitmap: Bitmap, @FloatRange(from = 0.0) ratio: Float): Bitmap =
+        applyAnyBitmapScaleRatio(sourceBitmap, ratio, ratio)
 
     /**
      * 缩放原图
      */
     @JvmStatic
     @Throws(Exception::class)
-    fun anyBitmapScaleRatio(sourceBitmap: Bitmap, ratioX: Float, ratioY: Float): Bitmap {
+    fun applyAnyBitmapScaleRatio(sourceBitmap: Bitmap, ratioX: Float, ratioY: Float): Bitmap {
         require(ratioX > 0f && ratioY > 0) { "$TAG ratioX or ratioY must bigger than 0" }
         val matrix = Matrix()
         matrix.postScale(ratioX, ratioY)
@@ -84,20 +84,20 @@ object UtilKBitmapDeal : BaseUtilK() {
      * @return Bitmap
      */
     @JvmStatic
-    fun anyBitmapZoom(sourceBitmap: Bitmap, ratio: Float): Bitmap {
+    fun applyAnyBitmapZoom(sourceBitmap: Bitmap, ratio: Float): Bitmap {
         if (ratio <= 1) return sourceBitmap
         val zoomWidth: Float = sourceBitmap.width / ratio
         val zoomHeight: Float = sourceBitmap.height / ratio
         val x: Float = (ratio - 1) * sourceBitmap.width / 2f / ratio
         val y: Float = (ratio - 1) * sourceBitmap.height / 2f / ratio
-        return anyBitmapCrop(sourceBitmap, zoomWidth.toInt(), zoomHeight.toInt(), x.toInt(), y.toInt())
+        return applyAnyBitmapCrop(sourceBitmap, zoomWidth.toInt(), zoomHeight.toInt(), x.toInt(), y.toInt())
     }
 
     /**
      * 裁剪图片
      */
     @JvmStatic
-    fun anyBitmapCrop(sourceBitmap: Bitmap, width: Int, height: Int, x: Int, y: Int): Bitmap {
+    fun applyAnyBitmapCrop(sourceBitmap: Bitmap, width: Int, height: Int, x: Int, y: Int): Bitmap {
         val sourceWidth: Int = sourceBitmap.width // 得到图片的宽，高
         val sourceHeight: Int = sourceBitmap.height
         val cropWidth = if (width >= sourceWidth) sourceWidth else width // 裁切后所取的正方形区域边长
@@ -111,7 +111,7 @@ object UtilKBitmapDeal : BaseUtilK() {
      * 匹配角度
      */
     @JvmStatic
-    fun anyBitmapAdjustRotation(sourceBitmap: Bitmap, degree: Int): Bitmap {
+    fun applyAnyBitmapAdjustRotation(sourceBitmap: Bitmap, degree: Int): Bitmap {
         val matrix = Matrix()
         matrix.setRotate(degree.toFloat(), sourceBitmap.width.toFloat() / 2, sourceBitmap.height.toFloat() / 2)
         val outputX: Float
@@ -135,7 +135,7 @@ object UtilKBitmapDeal : BaseUtilK() {
      * 滤镜图片
      */
     @JvmStatic
-    fun anyBitmapFilter(sourceBitmap: Bitmap, @ColorInt filterColorInt: Int): Bitmap {
+    fun applyAnyBitmapFilter(sourceBitmap: Bitmap, @ColorInt filterColorInt: Int): Bitmap {
         val destBitmap = Bitmap.createBitmap(sourceBitmap.width, sourceBitmap.height, sourceBitmap.config)
         Canvas(destBitmap).drawBitmap(sourceBitmap, 0f, 0f, Paint().apply { colorFilter = PorterDuffColorFilter(filterColorInt, PorterDuff.Mode.SRC_IN) })
         return destBitmap
@@ -145,7 +145,7 @@ object UtilKBitmapDeal : BaseUtilK() {
      * 将本地图片文件转换成可解码二维码的 Bitmap,为了避免图片太大，这里对图片进行了压缩
      */
     @JvmStatic
-    fun anyBitmapDecode(filePathWithName: String): Bitmap? {
+    fun applyAnyBitmapDecode(filePathWithName: String): Bitmap? {
         return try {
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true
@@ -168,7 +168,7 @@ object UtilKBitmapDeal : BaseUtilK() {
      * 堆叠Bitmap,最左边的在下面
      */
     @JvmStatic
-    fun anyBitmapPileUp(bgSourceBitmap: Bitmap, fgSourceBitmap: Bitmap): Bitmap {
+    fun applyAnyBitmapPileUp(bgSourceBitmap: Bitmap, fgSourceBitmap: Bitmap): Bitmap {
         val destBitmap = Bitmap.createBitmap(bgSourceBitmap.width, bgSourceBitmap.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(destBitmap)
         canvas.drawBitmap(bgSourceBitmap, 0f, 0f, null)

@@ -75,6 +75,8 @@ object UtilKConfiguration {
     fun getOrientation(resources: Resources): Int =
         get(resources).orientation
 
+    ///////////////////////////////////////////////////////////////////
+
     /**
      * 是否为竖屏
      * @return Boolean

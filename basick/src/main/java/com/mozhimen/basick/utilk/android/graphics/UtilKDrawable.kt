@@ -21,10 +21,10 @@ fun Drawable.applyColorFilter(@ColorInt colorInt: Int) {
     UtilKDrawable.applyColorFilter(this, colorInt)
 }
 
-fun Drawable.asBitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
+fun Drawable.drawable2bitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
     UtilKDrawable.drawable2bitmap(this, width, height, config)
 
-fun Drawable.asBitmap2(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight): Bitmap =
+fun Drawable.drawable2bitmap2(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight): Bitmap =
     UtilKDrawable.drawable2bitmap2(this, width, height)
 
 object UtilKDrawable {
@@ -37,6 +37,8 @@ object UtilKDrawable {
     fun isColorDrawableNormal(drawable: Drawable): Boolean {
         return drawable !is ColorDrawable || drawable.color != Color.TRANSPARENT
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun applyColorFilter(drawable: Drawable, @ColorInt colorInt: Int) {

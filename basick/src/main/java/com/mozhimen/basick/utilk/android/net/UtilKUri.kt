@@ -19,15 +19,13 @@ import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
-import com.mozhimen.basick.utilk.android.database.getString
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.provider.getDataColumn
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.kotlin.text.UtilKMatchStr
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.inputStream2file
 import java.io.File
-import java.io.IOException
 import java.io.InputStream
 import kotlin.math.ceil
 
@@ -85,24 +83,6 @@ object UtilKUri : BaseUtilK() {
     fun getPackageUri2(context: Context): Uri =
         Uri.fromParts("package", UtilKContext.getPackageName(context), null)
 
-    @JvmStatic
-    fun getDataColumn(uri: Uri, selection: String? = null, selectionArgs: Array<String>? = null): String? {
-        try {
-            val projection = arrayOf(MediaStore.Files.FileColumns.DATA)
-            val cursor = _context.contentResolver.query(uri, projection, selection, selectionArgs, null)
-            cursor?.use {
-                if (cursor.moveToFirst()) {
-                    val data = cursor.getString(MediaStore.Files.FileColumns.DATA)
-                    if (data != "null") {
-                        return data
-                    }
-                }
-            }
-        } catch (e: Exception) {
-        }
-        return null
-    }
-
     /////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -123,13 +103,8 @@ object UtilKUri : BaseUtilK() {
      */
     @JvmStatic
     @ADescription(Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(), Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
-    fun strPath2uri(filePathWithName: String): Uri? {
-        if (filePathWithName.isEmpty()) {
-            Log.e(TAG, "file2Uri: isEmpty true")
-            return null
-        }
-        return file2uri(File(filePathWithName))
-    }
+    fun strFilePath2uri(filePathWithName: String): Uri? =
+        file2uri(File(filePathWithName))
 
     /**
      * @param file File
@@ -164,30 +139,21 @@ object UtilKUri : BaseUtilK() {
             ContentResolver.SCHEME_CONTENT -> {
                 //把文件复制到沙盒目录
                 val contentResolver = _context.contentResolver
-                var inputStream: InputStream? = null
-                try {
-                    inputStream = contentResolver.openInputStream(uri) ?: return null
-                    return inputStream.inputStream2file(filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}")
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    e.message?.et(TAG)
-                } finally {
-                    inputStream?.close()
-                }
+                return contentResolver.openInputStream(uri)?.use { it.inputStream2file(filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}") }
             }
         }
         return null
     }
 
     @JvmStatic
-    fun uri2strPath(uri: Uri): String? {
+    fun uri2strFilePath(uri: Uri): String? {
         if (uri.scheme == "file") return uri.path
 
         if (isDownloadsDocument(uri)) {
             val id = DocumentsContract.getDocumentId(uri)
             if (UtilKMatchStr.isStrDigits2(id)) {
                 val newUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), id.toLong())
-                val path = getDataColumn(newUri)
+                val path = newUri.getDataColumn()
                 if (path != null) {
                     return path
                 }
@@ -211,13 +177,13 @@ object UtilKUri : BaseUtilK() {
 
             val selection = "_id=?"
             val selectionArgs = arrayOf(split[1])
-            val path = getDataColumn(contentUri, selection, selectionArgs)
+            val path = contentUri.getDataColumn(selection, selectionArgs)
             if (path != null) {
                 return path
             }
         }
 
-        return getDataColumn(uri)
+        return uri.getDataColumn()
     }
 
     /**

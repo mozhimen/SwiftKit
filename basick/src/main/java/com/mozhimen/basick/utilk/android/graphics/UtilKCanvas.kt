@@ -15,7 +15,7 @@ import android.text.TextPaint
 object UtilKCanvas {
 
     @JvmStatic
-    fun drawText(canvas: Canvas, paint: TextPaint, text: String, x: Float, y: Float, alignment: Layout.Alignment) {
+    fun applyDrawText(canvas: Canvas, paint: TextPaint, text: String, x: Float, y: Float, alignment: Layout.Alignment) {
         canvas.save()
         canvas.translate(x, y)
         val staticLayout = StaticLayout(text, paint, paint.measureText(text).toInt(), alignment, 1f, 0f, false)

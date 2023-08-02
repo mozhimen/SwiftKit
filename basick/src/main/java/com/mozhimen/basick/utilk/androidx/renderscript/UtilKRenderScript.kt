@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.androidx.renderscript
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
 import android.graphics.*
@@ -108,7 +107,7 @@ object UtilKRenderScript : BaseUtilK() {
         //释放
         blurInput.destroy()
         blurOutput.destroy()
-        val result = UtilKBitmapDeal.anyBitmapResize(origin, outWidth, outHeight)
+        val result = UtilKBitmapDeal.applyAnyBitmapResize(origin, outWidth, outHeight)
         origin.recycle()
         val time = System.currentTimeMillis() - _startTime
         if (UtilKLogPro.isOpenLog()) {
@@ -123,7 +122,7 @@ object UtilKRenderScript : BaseUtilK() {
         if (tempOrigin == null || tempOrigin.isRecycled) return null
         tempOrigin = ImageKBlur.blurBitmap(tempOrigin, UtilKNumber.normalize(radius, 0f, 20f).toInt(), false)
         if (tempOrigin == null || tempOrigin.isRecycled) return null
-        tempOrigin = UtilKBitmapDeal.anyBitmapResize(tempOrigin, outWidth, outHeight)
+        tempOrigin = UtilKBitmapDeal.applyAnyBitmapResize(tempOrigin, outWidth, outHeight)
         val time = System.currentTimeMillis() - _startTime
         if (UtilKLogPro.isOpenLog()) {
             UtilKLogPro.i("fastBlur: 模糊用时：【" + time + "ms】")

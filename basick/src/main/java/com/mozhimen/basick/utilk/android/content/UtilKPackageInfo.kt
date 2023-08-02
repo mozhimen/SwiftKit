@@ -22,8 +22,6 @@ object UtilKPackageInfo : BaseUtilK() {
     fun get(context: Context, flags: Int = PackageInfo.INSTALL_LOCATION_AUTO): PackageInfo? =
         UtilKPackageManager.getPackageInfo(context, UtilKContext.getPackageName(context), flags /*0*/)
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-
     @JvmStatic
     fun getApplicationInfo(context: Context): ApplicationInfo? =
         get(context)?.applicationInfo

@@ -41,10 +41,6 @@ object UtilKRom {
     fun isFlyme(): Boolean =
         checkRom(CRom.FLYME)
 
-    /**
-     * 是否是360系统
-     * @return Boolean
-     */
     @JvmStatic
     fun is360(): Boolean =
         checkRom(CRom.QIKU) || checkRom(CRom.`360`)
@@ -56,8 +52,8 @@ object UtilKRom {
     ///////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun checkRom(romStr: String): Boolean {
-        _name?.let { return _name == romStr }
+    fun checkRom(strRom: String): Boolean {
+        _name?.let { return _name == strRom }
         if (!TextUtils.isEmpty(UtilKRuntime.getProp(CPackage.RO_MIUI_UI_VERSION_NAME).also { _version = it })) {
             _name = CRom.MIUI
         } else if (!TextUtils.isEmpty(UtilKRuntime.getProp(CPackage.RO_BUILD_VERSION_EMUI).also { _version = it })) {
@@ -77,6 +73,6 @@ object UtilKRom {
                 _name = Build.MANUFACTURER.uppercase(Locale.ROOT)
             }
         }
-        return _name == romStr
+        return _name == strRom
     }
 }

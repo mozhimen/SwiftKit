@@ -29,14 +29,6 @@ object UtilKApp : BaseUtilK() {
     }
 
     /**
-     * 是否自启动
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isAutoRun(): Boolean =
-        UtilKSystemProperties.getSystemPropertiesBool(CPackage.PERSIST_SENSEPASS_AUTORUN, false)
-
-    /**
      * 重启App
      * @param isKillProcess Boolean
      */
@@ -59,6 +51,16 @@ object UtilKApp : BaseUtilK() {
         Process.killProcess(Process.myPid())//杀掉当前进程,并主动启动新的启动页,以完成重启的动作
         exitProcess(if (isValid) 0 else 10)
     }
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 是否自启动
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isAutoRun(): Boolean =
+        UtilKSystemProperties.getSystemPropertiesBool(CPackage.PERSIST_SENSEPASS_AUTORUN, false)
 
     /**
      * isSystemApp

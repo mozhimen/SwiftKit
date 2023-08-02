@@ -8,7 +8,7 @@ import com.mozhimen.abilityk.scank.cons.EColorHSV
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.android.graphics.asBitmap
+import com.mozhimen.basick.utilk.android.graphics.drawable2bitmap
 import com.mozhimen.basick.utilk.squareup.moshi.t2json
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -31,7 +31,7 @@ object ScanKHSV : BaseUtilK() {
      */
     @JvmStatic
     fun colorAnalyze(resId: Int): List<Pair<EColorHSV, Int>>? {
-        return colorAnalyze(UtilKRes.getDrawable(resId)!!.asBitmap())
+        return colorAnalyze(UtilKRes.getDrawable(resId)!!.drawable2bitmap())
     }
 
     /**

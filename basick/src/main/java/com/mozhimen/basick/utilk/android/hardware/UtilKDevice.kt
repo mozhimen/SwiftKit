@@ -16,6 +16,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.android.telephony.UtilKImei
 import com.mozhimen.basick.utilk.android.text.getFormatFileSize
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.java.lang.UtilKSystemProperties
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import java.io.BufferedReader
@@ -188,6 +189,24 @@ object UtilKDevice : BaseUtilK() {
     }
 
     ///////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 是否是折叠机型
+     * 1.官方没有给我们提供api的
+     * 2.只能去检测针对的机型
+     * @return Boolean
+     */
+    fun isFoldable(): Boolean {
+        return if (TextUtils.equals(Build.BRAND, "samsung") && TextUtils.equals(Build.DEVICE, "Galaxy Z Fo1d2")) {
+            UtilKScreen.getRealWidth() != 1768
+        } else if (TextUtils.equals(Build.BRAND, "huawei") && TextUtils.equals(Build.DEVICE, "MateX")) {
+            UtilKScreen.getRealWidth() != 2200
+        } else if (TextUtils.equals(Build.BRAND, "google") && TextUtils.equals(Build.DEVICE, "generic_x86")) {
+            UtilKScreen.getRealWidth() != 2200
+        } else {
+            true
+        }
+    }
 
     @JvmStatic
     fun hasFrontCamera(): Boolean =

@@ -28,19 +28,6 @@ object UtilKConnectivityManager {
     fun get(context: Context): ConnectivityManager =
         UtilKContext.getConnectivityManager(context)
 
-    ////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
-    fun registerNetworkCallback(context: Context, request: NetworkRequest, networkCallback: NetworkCallback) {
-        get(context).registerNetworkCallback(request, networkCallback)
-    }
-
-    @JvmStatic
-    fun unregisterNetworkCallback(context: Context, networkCallback: NetworkCallback) {
-        get(context).unregisterNetworkCallback(networkCallback)
-    }
-
     /**
      * 获取可获得的网络信息
      * @param context Context
@@ -66,6 +53,21 @@ object UtilKConnectivityManager {
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
     fun getActiveNetwork(context: Context): Network? =
         get(context).activeNetwork
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
+    fun registerNetworkCallback(context: Context, request: NetworkRequest, networkCallback: NetworkCallback) {
+        get(context).registerNetworkCallback(request, networkCallback)
+    }
+
+    @JvmStatic
+    fun unregisterNetworkCallback(context: Context, networkCallback: NetworkCallback) {
+        get(context).unregisterNetworkCallback(networkCallback)
+    }
+
+    ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)

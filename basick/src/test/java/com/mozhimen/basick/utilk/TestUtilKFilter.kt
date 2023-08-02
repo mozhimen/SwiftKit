@@ -1,12 +1,12 @@
 package com.mozhimen.basick.utilk
 
+import com.mozhimen.basick.utilk.kotlin.filterAlphabet
+import com.mozhimen.basick.utilk.kotlin.filterChinese
+import com.mozhimen.basick.utilk.kotlin.filterNAC
+import com.mozhimen.basick.utilk.kotlin.filterNumber
 import com.mozhimen.basick.utilk.kotlin.text.isStrDigits
 import com.mozhimen.basick.utilk.kotlin.text.isStrDigits2
 import com.mozhimen.basick.utilk.kotlin.text.isStrDigitsAndAlphabets
-import com.mozhimen.basick.utilk.kotlin.text.filterAlphabet
-import com.mozhimen.basick.utilk.kotlin.text.filterChinese
-import com.mozhimen.basick.utilk.kotlin.text.filterNAC
-import com.mozhimen.basick.utilk.kotlin.text.filterNumber
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 

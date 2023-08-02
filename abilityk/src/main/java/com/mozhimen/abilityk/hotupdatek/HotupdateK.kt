@@ -14,7 +14,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
 import com.mozhimen.basick.utilk.kotlin.getSplitLast
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.UtilKPath
+import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.netk.file.download.DownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest
@@ -47,7 +47,7 @@ import kotlin.coroutines.resume
 )
 class HotupdateK : BaseUtilK() {
 
-    private val _apkPath by lazy { UtilKPath.Absolute.Internal.getCacheDir() + "/hotupdatek" }
+    private val _apkPath by lazy { UtilKStrPath.Absolute.Internal.getCacheDir() + "/hotupdatek" }
     private val _installK by lazy { InstallK() }
     private var _downloadRequest: DownloadRequest? = null
     private var _hotupdateKListener: IHotupdateKListener? = null

@@ -46,6 +46,26 @@ object UtilKPackageManager {
         get(context).packageInstaller
 
     /**
+     * 得到应用名
+     * @param context Context
+     * @param applicationInfo ApplicationInfo
+     * @return String
+     */
+    @JvmStatic
+    fun getApplicationLabel(context: Context, applicationInfo: ApplicationInfo): String =
+        get(context).getApplicationLabel(applicationInfo).toString()
+
+    /**
+     * 得到图标信息
+     * @param context Context
+     * @param applicationInfo ApplicationInfo
+     * @return Drawable
+     */
+    @JvmStatic
+    fun getApplicationIcon(context: Context, applicationInfo: ApplicationInfo): Drawable =
+        get(context).getApplicationIcon(applicationInfo)
+
+    /**
      * 查询所有的符合Intent的Activities
      * @param intent Intent
      * @param flags Int
@@ -68,29 +88,6 @@ object UtilKPackageManager {
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun canRequestPackageInstalls(context: Context): Boolean =
         get(context).canRequestPackageInstalls()
-
-    //////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 得到应用名
-     * @param context Context
-     * @param applicationInfo ApplicationInfo
-     * @return String
-     */
-    @JvmStatic
-    fun getApplicationLabel(context: Context, applicationInfo: ApplicationInfo): String =
-        get(context).getApplicationLabel(applicationInfo).toString()
-
-    /**
-     * 得到图标信息
-     * @param context Context
-     * @param applicationInfo ApplicationInfo
-     * @return Drawable
-     */
-    @JvmStatic
-    fun getApplicationIcon(context: Context, applicationInfo: ApplicationInfo): Drawable =
-        get(context).getApplicationIcon(applicationInfo)
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

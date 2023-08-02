@@ -69,13 +69,6 @@ object UtilKActivity {
     fun <V : View> getContentView(activity: Activity): V =
         UtilKContentView.get(activity)
 
-    //////////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun requestWindowFeature(activity: Activity, featureId: Int) {
-        activity.requestWindowFeature(featureId)
-    }
-
     /**
      * 获取启动Activity
      * @param packageName String
@@ -154,6 +147,8 @@ object UtilKActivity {
         return activity
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 判断Activity是否被销毁
      * @param context Context
@@ -179,6 +174,13 @@ object UtilKActivity {
         if (UtilKBuildVersion.isAfterV_17_42_J1()) {
             activity.isDestroyed || isFinishing(activity)
         } else isFinishing(activity)
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun requestWindowFeature(activity: Activity, featureId: Int) {
+        activity.requestWindowFeature(featureId)
+    }
 
     @JvmStatic
     fun runOnBackThread(appCompatActivity: AppCompatActivity, block: I_Listener) {

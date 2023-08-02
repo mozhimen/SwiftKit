@@ -12,7 +12,7 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.UtilKPath
+import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.componentk.netk.file.download.DownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest
 import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
@@ -33,7 +33,7 @@ import java.io.File
 class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
     private val _netKFile by lazy { NetKFile(this) }
     private val _musicUrl = "http://192.168.2.6/construction-sites-images/voice/20221102/176f9197f0694591b16ffd47a0f117fe.wav"
-    private val _musicPath by lazy { UtilKPath.Absolute.Internal.getFilesDir() + "/netkfile/music.wav" }
+    private val _musicPath by lazy { UtilKStrPath.Absolute.Internal.getFilesDir() + "/netkfile/music.wav" }
     private var _downloadRequest: DownloadRequest? = null
 
     private val _fileDownloadSingleListener = object : IFileDownloadSingleListener {

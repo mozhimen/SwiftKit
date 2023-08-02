@@ -11,7 +11,7 @@ import androidx.annotation.IntRange
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.imagek.blur.ImageKBlur
-import com.mozhimen.basick.utilk.android.graphics.asBitmap
+import com.mozhimen.basick.utilk.android.graphics.drawable2bitmap
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.blur.commons.ILayoutKBlur
 
@@ -47,7 +47,7 @@ class LayoutKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSe
     }
 
     override fun setBlurImageView(blurDrawable: Drawable) {
-        _originBitmap = blurDrawable.asBitmap()
+        _originBitmap = blurDrawable.drawable2bitmap()
         _blurredBitmap = ImageKBlur.blurBitmap(_originBitmap)
         setImageView(_originBitmap, _blurredBitmap!!)
         setMove(_isMoveEnable)
@@ -88,7 +88,7 @@ class LayoutKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSe
 
         //模糊图片
         _blurredDrawable?.let {
-            _originBitmap = it.asBitmap()
+            _originBitmap = it.drawable2bitmap()
             _blurredBitmap = ImageKBlur.blurBitmap(_originBitmap)
         }
 

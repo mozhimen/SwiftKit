@@ -3,8 +3,8 @@ package com.mozhimen.componentktest.videok
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.basick.utilk.java.io.UtilKPath
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
+import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.componentktest.databinding.ActivityVideokBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 
 class VideoKActivity : BaseActivityVB<ActivityVideokBinding>() {
 
-    private val _path by lazy { UtilKPath.Absolute.Internal.getFilesDir() + "/videoPath/" }
+    private val _path by lazy { UtilKStrPath.Absolute.Internal.getFilesDir() + "/videoPath/" }
     private var _currentUrl: String? = null
         get() {
             return when (field) {

@@ -6,7 +6,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorInt
-import com.mozhimen.basick.utilk.android.graphics.adjustAlpha
+import com.mozhimen.basick.utilk.android.graphics.applyAdjustAlpha
 import com.mozhimen.basick.utilk.android.graphics.getContrastColor
 
 /**
@@ -59,7 +59,7 @@ object UtilKImageView {
             imageView.background = this
 
             if (backgroundColorInt == fillColorInt || fillColorInt == -2 && backgroundColorInt == -1) {
-                setStroke(2, backgroundColorInt.getContrastColor().adjustAlpha(0.5f))
+                setStroke(2, backgroundColorInt.getContrastColor().applyAdjustAlpha(0.5f))
             }
         }
     }

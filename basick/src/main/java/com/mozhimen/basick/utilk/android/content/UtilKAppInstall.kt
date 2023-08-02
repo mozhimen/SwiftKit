@@ -44,6 +44,8 @@ object UtilKAppInstall : BaseUtilK() {
         return UtilKPermission.hasPackageInstalls().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+
     /**
      * 打开包安装权限
      * @param activity Activity

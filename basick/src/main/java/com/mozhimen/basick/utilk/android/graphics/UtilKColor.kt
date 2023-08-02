@@ -13,15 +13,18 @@ import kotlin.math.roundToInt
  * @Date 2022/2/9 15:05
  * @Version 1.0
  */
-fun Int.adjustAlpha(factor: Float) =
-    UtilKColor.adjustAlpha(this, factor)
+@ColorInt
+fun Int.applyAdjustAlpha(factor: Float): Int =
+    UtilKColor.applyAdjustAlpha(this, factor)
 
+@ColorInt
 fun Int.getContrastColor(): Int =
     UtilKColor.getContrastColor(this)
 
-fun Int.colorInt2colorStr() =
+fun Int.colorInt2colorStr(): String =
     UtilKColor.colorInt2colorStr(this)
 
+@ColorInt
 fun String.colorStr2colorInt(): Int =
     UtilKColor.colorStr2colorInt(this)
 
@@ -62,13 +65,15 @@ object UtilKColor {
         return Color.argb(medAlpha, medRed, medGreen, medBlue)
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+
     /**
      * @param ratio Float 比例 0-1
      * @return Int
      */
     @JvmStatic
     @ColorInt
-    fun adjustAlpha(@ColorInt colorInt: Int, ratio: Float): Int =
+    fun applyAdjustAlpha(@ColorInt colorInt: Int, ratio: Float): Int =
         Color.argb((Color.alpha(colorInt) * ratio).roundToInt(), Color.red(colorInt), Color.green(colorInt), Color.blue(colorInt))
 
     /////////////////////////////////////////////////////////////////////////////////

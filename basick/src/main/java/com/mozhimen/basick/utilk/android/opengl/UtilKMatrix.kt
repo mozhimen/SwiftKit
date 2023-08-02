@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.android.opengl
 
 import android.opengl.Matrix
-import androidx.annotation.IntDef
 import com.mozhimen.basick.lintk.annors.AMatrixType
 
 /**
@@ -12,9 +11,24 @@ import com.mozhimen.basick.lintk.annors.AMatrixType
  * @Version 1.0
  */
 object UtilKMatrix {
+    @JvmStatic
+    fun rotateMatrix(matrix: FloatArray, angle: Float): FloatArray {
+        Matrix.rotateM(matrix, 0, angle, 0f, 0f, 1f)
+        return matrix
+    }
 
     @JvmStatic
-    fun getMatrix(matrix: FloatArray, @AMatrixType type: Int, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
+    fun flipMatrix(matrix: FloatArray, isFlipX: Boolean, isFlipY: Boolean): FloatArray {
+        if (isFlipX || isFlipY) {
+            Matrix.scaleM(matrix, 0, if (isFlipX) -1f else 1f, if (isFlipY) -1f else 1f, 1f)
+        }
+        return matrix
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getMatrixOf(matrix: FloatArray, @AMatrixType type: Int, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
         if (imgHeight > 0 && imgWidth > 0 && viewWidth > 0 && viewHeight > 0) {
             val projection = FloatArray(16)
             val camera = FloatArray(16)
@@ -46,7 +60,8 @@ object UtilKMatrix {
     }
 
     @JvmStatic
-    fun getOriginalMatrix(): FloatArray = floatArrayOf(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f)
+    fun getOriginalMatrix(): FloatArray =
+        floatArrayOf(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f)
 
     @JvmStatic
     fun getCenterInsideMatrix(matrix: FloatArray, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
@@ -63,19 +78,5 @@ object UtilKMatrix {
             Matrix.setLookAtM(camera, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
             Matrix.multiplyMM(matrix, 0, projection, 0, camera, 0)
         }
-    }
-
-    @JvmStatic
-    fun rotateMatrix(matrix: FloatArray, angle: Float): FloatArray {
-        Matrix.rotateM(matrix, 0, angle, 0f, 0f, 1f)
-        return matrix
-    }
-
-    @JvmStatic
-    fun flipMatrix(matrix: FloatArray, isFlipX: Boolean, isFlipY: Boolean): FloatArray {
-        if (isFlipX || isFlipY) {
-            Matrix.scaleM(matrix, 0, if (isFlipX) -1f else 1f, if (isFlipY) -1f else 1f, 1f)
-        }
-        return matrix
     }
 }

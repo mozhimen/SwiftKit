@@ -40,18 +40,6 @@ object UtilKNetConn : BaseUtilK() {
     fun getWifiManager(): WifiManager =
         UtilKWifiManager.get(_context)
 
-    @JvmStatic
-    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
-    fun registerNetworkCallback(request: NetworkRequest, networkCallback: ConnectivityManager.NetworkCallback) {
-        UtilKConnectivityManager.get(_context).registerNetworkCallback(request, networkCallback)
-    }
-
-    @JvmStatic
-    fun unregisterNetworkCallback(networkCallback: ConnectivityManager.NetworkCallback) {
-        UtilKConnectivityManager.get(_context).unregisterNetworkCallback(networkCallback)
-    }
-
-
     /**
      * 获取Wifi强度
      * @return Int
@@ -77,7 +65,7 @@ object UtilKNetConn : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun getIP(): String? {
+    fun getIp(): String? {
         try {
             val networkInterfaces: Enumeration<NetworkInterface> = NetworkInterface.getNetworkInterfaces()
             var inetAddress: InetAddress
@@ -126,6 +114,30 @@ object UtilKNetConn : BaseUtilK() {
     }
 
     /**
+     * 获取连接类型
+     * @return Int
+     */
+    @JvmStatic
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    fun getConnectionType(): Int =
+        UtilKConnectivityManager.getActiveNetworkInfo(_context)?.type ?: -1
+
+    /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
+    fun registerNetworkCallback(request: NetworkRequest, networkCallback: ConnectivityManager.NetworkCallback) {
+        UtilKConnectivityManager.get(_context).registerNetworkCallback(request, networkCallback)
+    }
+
+    @JvmStatic
+    fun unregisterNetworkCallback(networkCallback: ConnectivityManager.NetworkCallback) {
+        UtilKConnectivityManager.get(_context).unregisterNetworkCallback(networkCallback)
+    }
+
+    /////////////////////////////////////////////////////////////////////////
+
+    /**
      * 网络是否连接
      * @return Boolean
      */
@@ -169,14 +181,7 @@ object UtilKNetConn : BaseUtilK() {
         return activeNetworkInfo != null && activeNetworkInfo.state == NetworkInfo.State.CONNECTED && activeNetworkInfo.type == ConnectivityManager.TYPE_MOBILE
     }
 
-    /**
-     * 获取连接类型
-     * @return Int
-     */
-    @JvmStatic
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun getConnectionType(): Int =
-        UtilKConnectivityManager.getActiveNetworkInfo(_context)?.type ?: -1
+    /////////////////////////////////////////////////////////////////////////
 
     /**
      * 打印连接信息

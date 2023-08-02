@@ -44,6 +44,8 @@ object UtilKAsset : BaseUtilK() {
     fun list(assetFileName: String): Array<String>? =
         UtilKAssetManager.list(assetFileName, _context)
 
+    ///////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun isAssetExists(assetFileName: String): Boolean {
         val assets = list("") ?: return false
@@ -56,7 +58,7 @@ object UtilKAsset : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun asset2bytes(assetFileName: String): ByteArray? =
+    fun asset2bytes(assetFileName: String): ByteArray =
         open(assetFileName).inputStream2bytes()
 
     /**
