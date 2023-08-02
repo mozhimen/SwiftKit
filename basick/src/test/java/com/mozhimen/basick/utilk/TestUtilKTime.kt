@@ -1,8 +1,8 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.printlog
-import com.mozhimen.basick.utilk.java.util.isOnTheHourOf
-import com.mozhimen.basick.utilk.java.util.isOnTheMinuteOf
+import com.mozhimen.basick.utilk.java.util.isTimeAtHourOf
+import com.mozhimen.basick.utilk.java.util.isTimeAtMinuteOf
 import org.junit.Test
 
 /**
@@ -15,13 +15,13 @@ import org.junit.Test
 class TestUtilKTime {
     @Test
     fun test() {
-        "00".isOnTheHourOf("00:11").printlog()
-        "10".isOnTheHourOf("00:11").printlog()
-        "10".isOnTheHourOf("00:00").printlog()
-        "00".isOnTheHourOf("00:00").printlog()
+        "00".isTimeAtHourOf("00:11").printlog()
+        "10".isTimeAtHourOf("00:11").printlog()
+        "10".isTimeAtHourOf("00:00").printlog()
+        "00".isTimeAtHourOf("00:00").printlog()
 
-        ("00" to "11").isOnTheMinuteOf("00:11").printlog()
-        ("00" to "10").isOnTheMinuteOf("00:11").printlog()
-        ("01" to "11").isOnTheMinuteOf("00:11").printlog()
+        ("00" to "11").isTimeAtMinuteOf("00:11").printlog()
+        ("00" to "10").isTimeAtMinuteOf("00:11").printlog()
+        ("01" to "11").isTimeAtMinuteOf("00:11").printlog()
     }
 }

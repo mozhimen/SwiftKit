@@ -15,11 +15,6 @@ import java.util.concurrent.TimeUnit
  * @Version 1.0
  */
 object UtilKRxJava {
-
-//    interface UtilKIRxJavaListener {
-//        fun onNext(count: Long)
-//    }
-
     /**
      * 毫秒后执行next操作
      * @param millisecond Long
@@ -74,3 +69,7 @@ object UtilKRxJava {
             .observeOn(schedulers)
             .subscribe { c -> listener.invoke(c) }
 }
+
+//    interface UtilKIRxJavaListener {
+//        fun onNext(count: Long)
+//    }

@@ -18,15 +18,6 @@ object UtilKActionBar {
         return activity.supportActionBar
     }
 
-    /**
-     * enableBackIfActionBarExists
-     * @param activity AppCompatActivity
-     */
-    @JvmStatic
-    fun applyDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
-        get(activity)?.setDisplayHomeAsUpEnabled(true)
-    }
-
     @JvmStatic
     fun hide(activity: Activity) {
         if (activity is AppCompatActivity) hide(activity)
@@ -35,5 +26,14 @@ object UtilKActionBar {
     @JvmStatic
     fun hide(activity: AppCompatActivity) {
         get(activity)?.hide()
+    }
+
+    /**
+     * enableBackIfActionBarExists
+     * @param activity AppCompatActivity
+     */
+    @JvmStatic
+    fun applyDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
+        get(activity)?.setDisplayHomeAsUpEnabled(true)
     }
 }

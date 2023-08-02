@@ -1,9 +1,8 @@
 package com.mozhimen.basick.utilk.java.util
 
 import android.util.Log
-import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
-
+import com.mozhimen.basick.utilk.bases.IUtilK
 import java.io.*
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
@@ -15,7 +14,7 @@ import java.util.zip.ZipOutputStream
  * @Date 2022/6/12 12:12
  * @Version 1.0
  */
-object UtilKZip : BaseUtilK() {
+object UtilKZipOutputStream : IUtilK {
 
     /**
      * 压缩
@@ -23,23 +22,32 @@ object UtilKZip : BaseUtilK() {
      * @param zipFilePathWithName String
      */
     @JvmStatic
-    fun zip(filePathWithName: String, zipFilePathWithName: String) {
+    fun file2zipFile(filePathWithName: String, zipFilePathWithName: String) {
+        file2zipFile(File(filePathWithName), zipFilePathWithName)
+    }
+
+    /**
+     * 压缩
+     * @param filePathWithName String
+     * @param zipFilePathWithName String
+     */
+    @JvmStatic
+    fun file2zipFile(sourceFile: File, zipFilePathWithName: String) {
         val fileOutputStream = FileOutputStream(zipFilePathWithName)
         val zipOutputStream = ZipOutputStream(fileOutputStream)
         val bufferedOutputStream = BufferedOutputStream(zipOutputStream)
         try {
-            val file = File(filePathWithName)
-            compress(zipOutputStream, bufferedOutputStream, file, file.name)
+            file2zipFile(zipOutputStream, bufferedOutputStream, sourceFile, sourceFile.name)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
         } finally {
-            fileOutputStream.flush()
-            fileOutputStream.close()
             bufferedOutputStream.flush()
             bufferedOutputStream.close()
             zipOutputStream.flush()
             zipOutputStream.close()
+            fileOutputStream.flush()
+            fileOutputStream.close()
         }
     }
 
@@ -47,13 +55,13 @@ object UtilKZip : BaseUtilK() {
      * 压缩
      * @param zipOutputStream ZipOutputStream
      * @param bufferedOutputStream BufferedOutputStream
-     * @param compressFile File
+     * @param sourceFile File
      * @param filePathWithName String
      */
     @JvmStatic
-    fun compress(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, compressFile: File, filePathWithName: String) {
-        if (compressFile.isDirectory) {
-            val listFiles = compressFile.listFiles() ?: emptyArray()
+    fun file2zipFile(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, sourceFile: File, filePathWithName: String) {
+        if (sourceFile.isDirectory) {
+            val listFiles = sourceFile.listFiles() ?: emptyArray()
             if (listFiles.isEmpty()) {
                 val stringBuilder = StringBuilder().apply {
                     append(filePathWithName).append("/")
@@ -65,12 +73,12 @@ object UtilKZip : BaseUtilK() {
                     val stringBuilder = StringBuilder().apply {
                         append(filePathWithName).append("/").append(listFiles[i].name)
                     }
-                    compress(zipOutputStream, bufferedOutputStream, childListFiles, stringBuilder.toString())
+                    file2zipFile(zipOutputStream, bufferedOutputStream, childListFiles, stringBuilder.toString())
                 }
             }
         } else {
             zipOutputStream.putNextEntry(ZipEntry(filePathWithName))
-            val fileInputStream = FileInputStream(compressFile)
+            val fileInputStream = FileInputStream(sourceFile)
             val bufferedInputStream = BufferedInputStream(fileInputStream)
             while (true) {
                 val read = bufferedInputStream.read()

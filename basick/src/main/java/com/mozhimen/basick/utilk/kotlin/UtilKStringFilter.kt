@@ -1,4 +1,4 @@
-package com.mozhimen.basick.utilk.kotlin.text
+package com.mozhimen.basick.utilk.kotlin
 
 /**
  * @ClassName UtilKVerifyString
@@ -7,20 +7,20 @@ package com.mozhimen.basick.utilk.kotlin.text
  * @Date 2022/12/19 11:08
  * @Version 1.0
  */
-fun String.outNumber(): String =
-    UtilKFilter.outNumber(this)
+fun String.filterNumber(): String =
+        UtilKFilter.filterNumber(this)
 
-fun String.outAlphabet(): String =
-    UtilKFilter.outAlphabet(this)
+fun String.filterAlphabet(): String =
+        UtilKFilter.filterAlphabet(this)
 
-fun String.outChinese(): String =
-    UtilKFilter.outChinese(this)
+fun String.filterChinese(): String =
+        UtilKFilter.filterChinese(this)
 
-fun String.outNAC(): String =
-    UtilKFilter.outNAC(this)
+fun String.filterNAC(): String =
+        UtilKFilter.filterNAC(this)
 
-fun String.outLength(endIndex: Int): String =
-    UtilKFilter.outLength(this, endIndex)
+fun String.filterLength(endIndex: Int): String =
+        UtilKFilter.filterLength(this, endIndex)
 
 object UtilKFilter {
     /**
@@ -28,7 +28,8 @@ object UtilKFilter {
      * @param number String
      * @return String
      */
-    fun outNumber(number: String): String =
+    @JvmStatic
+    fun filterNumber(number: String): String =
         number.replace("[^(0-9)]".toRegex(), "")
 
     /**
@@ -36,7 +37,8 @@ object UtilKFilter {
      * @param alphabet String
      * @return String
      */
-    fun outAlphabet(alphabet: String): String =
+    @JvmStatic
+    fun filterAlphabet(alphabet: String): String =
         alphabet.replace("[^(A-Za-z)]".toRegex(), "")
 
 
@@ -45,7 +47,8 @@ object UtilKFilter {
      * @param chinese String
      * @return String
      */
-    fun outChinese(chinese: String): String =
+    @JvmStatic
+    fun filterChinese(chinese: String): String =
         chinese.replace("[^(\\u4e00-\\u9fa5)]".toRegex(), "")
 
     /**
@@ -53,7 +56,8 @@ object UtilKFilter {
      * @param character String
      * @return String
      */
-    fun outNAC(character: String): String =
+    @JvmStatic
+    fun filterNAC(character: String): String =
         character.replace("[^(a-zA-Z0-9\\u4e00-\\u9fa5)]".toRegex(), "")
 
     /**
@@ -62,6 +66,7 @@ object UtilKFilter {
      * @param endIndex Int
      * @return String
      */
-    fun outLength(str: String, endIndex: Int): String =
+    @JvmStatic
+    fun filterLength(str: String, endIndex: Int): String =
         if (endIndex in str.indices) str.substring(0, endIndex) else str
 }

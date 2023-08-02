@@ -16,86 +16,74 @@ object UtilKQuadrant {
 
     /**
      * 计算临边对斜边的角度在象限中
-     * @param point MPoint
+     * @param pointF MPoint
      * @return Float
      */
     @JvmStatic
-    fun angleCosInQuadrant(point: MPointF, centerPoint: MPointF): Float {
+    fun angleCosInQuadrant(pointF: MPointF, centerPointF: MPointF): Float {
         return when {
-            point.x == centerPoint.x && point.y >= centerPoint.y -> {
-                0f
-            }
-            point.y == centerPoint.y && point.x >= centerPoint.x -> {
-                90f
-            }
-            point.x == centerPoint.x && point.y < centerPoint.y -> {
-                180f
-            }
-            point.y == centerPoint.y && point.x < centerPoint.x -> {
-                270f
-            }
-            point.x > centerPoint.x && point.y > centerPoint.y -> {
-                UtilKTriangle.angleCos(abs(point.y - centerPoint.y), sqrt(abs(point.x - centerPoint.x) * abs(point.x - centerPoint.x) + abs(point.y - centerPoint.y) * abs(point.y - centerPoint.y)))
-            }
-            point.x > centerPoint.x && point.y < centerPoint.y -> {
+            pointF.x == centerPointF.x && pointF.y >= centerPointF.y -> 0f
+
+            pointF.y == centerPointF.y && pointF.x >= centerPointF.x -> 90f
+
+            pointF.x == centerPointF.x && pointF.y < centerPointF.y -> 180f
+
+            pointF.y == centerPointF.y && pointF.x < centerPointF.x -> 270f
+
+            pointF.x > centerPointF.x && pointF.y > centerPointF.y ->
+                UtilKTriangle.angleCos(abs(pointF.y - centerPointF.y), sqrt(abs(pointF.x - centerPointF.x) * abs(pointF.x - centerPointF.x) + abs(pointF.y - centerPointF.y) * abs(pointF.y - centerPointF.y)))
+
+            pointF.x > centerPointF.x && pointF.y < centerPointF.y ->
                 90f + UtilKTriangle.angleCos(
-                    abs(point.x - centerPoint.x),
-                    sqrt(abs(point.x - centerPoint.x) * abs(point.x - centerPoint.x) + abs(point.y - centerPoint.y) * abs(point.y - centerPoint.y))
+                        abs(pointF.x - centerPointF.x),
+                        sqrt(abs(pointF.x - centerPointF.x) * abs(pointF.x - centerPointF.x) + abs(pointF.y - centerPointF.y) * abs(pointF.y - centerPointF.y))
                 )
-            }
-            point.x < centerPoint.x && point.y < centerPoint.y -> {
+
+            pointF.x < centerPointF.x && pointF.y < centerPointF.y ->
                 180f + UtilKTriangle.angleCos(
-                    abs(point.y - centerPoint.y),
-                    sqrt(abs(point.x - centerPoint.x) * abs(point.x - centerPoint.x) + abs(point.y - centerPoint.y) * abs(point.y - centerPoint.y))
+                        abs(pointF.y - centerPointF.y),
+                        sqrt(abs(pointF.x - centerPointF.x) * abs(pointF.x - centerPointF.x) + abs(pointF.y - centerPointF.y) * abs(pointF.y - centerPointF.y))
                 )
-            }
-            point.x < centerPoint.x && point.y > centerPoint.y -> {
+
+            pointF.x < centerPointF.x && pointF.y > centerPointF.y ->
                 270f + UtilKTriangle.angleCos(
-                    abs(point.x - centerPoint.x),
-                    sqrt(abs(point.x - centerPoint.x) * abs(point.x - centerPoint.x) + abs(point.y - centerPoint.y) * abs(point.y - centerPoint.y))
+                        abs(pointF.x - centerPointF.x),
+                        sqrt(abs(pointF.x - centerPointF.x) * abs(pointF.x - centerPointF.x) + abs(pointF.y - centerPointF.y) * abs(pointF.y - centerPointF.y))
                 )
-            }
-            else -> {
-                0f
-            }
+
+            else -> 0f
         }
     }
 
     /**
      * 计算临边对斜边的角度在象限中
-     * @param point MPoint
+     * @param pointF MPoint
      * @return Float
      */
     @JvmStatic
-    fun angleCosInQuadrant(point: MPointF): Float {
+    fun angleCosInQuadrant(pointF: MPointF): Float {
         return when {
-            point.x == 0f && point.y >= 0f -> {
-                0f
-            }
-            point.y == 0f && point.x >= 0f -> {
-                90f
-            }
-            point.x == 0f && point.y < 0f -> {
-                180f
-            }
-            point.y == 0f && point.x < 0f -> {
-                270f
-            }
-            point.x > 0f && point.y > 0f -> {
-                UtilKTriangle.angleCos(abs(point.y), sqrt(abs(point.x) * abs(point.x) + abs(point.y) * abs(point.y)))
-            }
-            point.x > 0f && point.y < 0f -> {
-                90f + UtilKTriangle.angleCos(abs(point.x), sqrt(abs(point.x) * abs(point.x) + abs(point.y) * abs(point.y)))
-            }
-            point.x < 0f && point.y < 0f -> {
-                180f + UtilKTriangle.angleCos(abs(point.y), sqrt(abs(point.x) * abs(point.x) + abs(point.y) * abs(point.y)))
-            }
-            point.x < 0f && point.y > 0f -> {
-                270f + UtilKTriangle.angleCos(abs(point.x), sqrt(abs(point.x) * abs(point.x) + abs(point.y) * abs(point.y)))
-            }
-            else -> {
-                0f
-            }
+            pointF.x == 0f && pointF.y >= 0f -> 0f
+
+            pointF.y == 0f && pointF.x >= 0f -> 90f
+
+            pointF.x == 0f && pointF.y < 0f -> 180f
+
+            pointF.y == 0f && pointF.x < 0f -> 270f
+
+            pointF.x > 0f && pointF.y > 0f ->
+                UtilKTriangle.angleCos(abs(pointF.y), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
+
+            pointF.x > 0f && pointF.y < 0f ->
+                90f + UtilKTriangle.angleCos(abs(pointF.x), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
+
+            pointF.x < 0f && pointF.y < 0f ->
+                180f + UtilKTriangle.angleCos(abs(pointF.y), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
+
+            pointF.x < 0f && pointF.y > 0f ->
+                270f + UtilKTriangle.angleCos(abs(pointF.x), sqrt(abs(pointF.x) * abs(pointF.x) + abs(pointF.y) * abs(pointF.y)))
+
+            else -> 0f
         }
     }
 }

@@ -7,7 +7,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.kotlin.packageStr2clazz
+import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 
 
 /**
@@ -28,10 +28,10 @@ object UtilKDialog : BaseUtilK() {
     @JvmStatic
     fun closeDialogAt28() {
         try {
-            val declaredConstructor = "android.content.pm.PackageParser\$Package".packageStr2clazz().getDeclaredConstructor(String::class.java)
+            val declaredConstructor = "android.content.pm.PackageParser\$Package".strPackage2clazz().getDeclaredConstructor(String::class.java)
             declaredConstructor.isAccessible = true
 
-            val activityThreadClazz = "android.app.ActivityThread".packageStr2clazz()
+            val activityThreadClazz = "android.app.ActivityThread".strPackage2clazz()
             val declaredMethod = activityThreadClazz.getDeclaredMethod("currentActivityThread")
             declaredMethod.isAccessible = true
             val activityThread = declaredMethod.invoke(null)

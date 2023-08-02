@@ -2,8 +2,7 @@ package com.mozhimen.basick.utilk.java.io
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.kotlin.asFile
+import com.mozhimen.basick.utilk.kotlin.bytes2file
 import java.io.ByteArrayOutputStream
 import java.io.File
 
@@ -14,24 +13,27 @@ import java.io.File
  * @Date 2023/7/31 14:07
  * @Version 1.0
  */
-fun ByteArrayOutputStream.asBytes(): ByteArray =
-    UtilKByteArrayOutputStream.asBytes(this)
+fun ByteArrayOutputStream.byteArrayOutputStream2bytes(): ByteArray =
+        UtilKByteArrayOutputStream.byteArrayOutputStream2bytes(this)
 
-fun ByteArrayOutputStream.asFile(destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-    UtilKByteArrayOutputStream.asFile(this, destFilePathWithName, isOverwrite)
+fun ByteArrayOutputStream.byteArrayOutputStream2anyBitmap(): Bitmap =
+        UtilKByteArrayOutputStream.byteArrayOutputStream2anyBitmap(this)
 
-fun ByteArrayOutputStream.asFile(destFile: File, isOverwrite: Boolean = true): File? =
-    UtilKByteArrayOutputStream.asFile(this, destFile, isOverwrite)
+fun ByteArrayOutputStream.byteArrayOutputStream2file(filePathWithName: String, isOverwrite: Boolean = true): File =
+        UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, filePathWithName, isOverwrite)
+
+fun ByteArrayOutputStream.byteArrayOutputStream2file(destFile: File, isOverwrite: Boolean = true): File =
+        UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, destFile, isOverwrite)
 
 object UtilKByteArrayOutputStream {
     @JvmStatic
     @Throws(Exception::class)
-    fun asBytes(byteArrayOutputStream: ByteArrayOutputStream): ByteArray =
-        byteArrayOutputStream.use { it.toByteArray() }
+    fun byteArrayOutputStream2bytes(byteArrayOutputStream: ByteArrayOutputStream): ByteArray =
+            byteArrayOutputStream.flushClose { it.toByteArray() }
 
     @JvmStatic
-    fun asBitmap(byteArrayOutputStream: ByteArrayOutputStream): Bitmap =
-        byteArrayOutputStream.use { BitmapFactory.decodeByteArray(byteArrayOutputStream.asBytes(), 0, byteArrayOutputStream.size()) }
+    fun byteArrayOutputStream2anyBitmap(byteArrayOutputStream: ByteArrayOutputStream): Bitmap =
+            byteArrayOutputStream.flushClose { BitmapFactory.decodeByteArray(byteArrayOutputStream.byteArrayOutputStream2bytes(), 0, byteArrayOutputStream.size()) }
 
     /**
      * 输出流转文件
@@ -41,8 +43,8 @@ object UtilKByteArrayOutputStream {
      * @return String
      */
     @JvmStatic
-    fun asFile(byteArrayOutputStream: ByteArrayOutputStream, filePathWithName: String, isOverwrite: Boolean = true): File? =
-        asFile(byteArrayOutputStream, File(filePathWithName), isOverwrite)
+    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, filePathWithName: String, isOverwrite: Boolean = true): File =
+            byteArrayOutputStream2file(byteArrayOutputStream, File(filePathWithName), isOverwrite)
 
     /**
      * 输出流转文件
@@ -51,17 +53,6 @@ object UtilKByteArrayOutputStream {
      * @param isOverwrite Boolean
      */
     @JvmStatic
-    fun asFile(byteArrayOutputStream: ByteArrayOutputStream, destFile: File, isOverwrite: Boolean = true): File? {
-        try {
-            byteArrayOutputStream.asBytes().asFile(destFile, isOverwrite)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(UtilKFile.TAG)
-        } finally {
-            byteArrayOutputStream.flush()
-            byteArrayOutputStream.close()
-        }
-        return null
-    }
+    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, destFile: File, isOverwrite: Boolean = true): File =
+            byteArrayOutputStream.flushClose { it.byteArrayOutputStream2bytes().bytes2file(destFile, isOverwrite) }
 }

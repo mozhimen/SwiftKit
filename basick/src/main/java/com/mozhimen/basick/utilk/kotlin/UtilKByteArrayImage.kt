@@ -5,17 +5,15 @@ import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.graphics.Rect
 import android.graphics.YuvImage
-import android.util.Log
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.java.io.asFile
+import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2file
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.ByteBuffer
 import androidx.annotation.IntRange
 import com.mozhimen.basick.utilk.android.graphics.jpegBitmap2jpegFile
-import com.mozhimen.basick.utilk.java.io.asBytes
+import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
 
 /**
  * @ClassName UtilKImageByteArray
@@ -87,7 +85,7 @@ object UtilKByteArrayImage : IUtilK {
         return try {
             byteArrayOutputStream = ByteArrayOutputStream()
             yuvImage.compressToJpeg(Rect(0, 0, width, height), 100, byteArrayOutputStream)
-            byteArrayOutputStream.asFile(filePathWithName, isOverwrite)
+            byteArrayOutputStream.byteArrayOutputStream2file(filePathWithName, isOverwrite)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -98,7 +96,6 @@ object UtilKByteArrayImage : IUtilK {
         }
     }
 
-
     @JvmStatic
     @Throws(Exception::class)
     fun nv21Bytes2jpegBitmap(nv21Bytes: ByteArray, width: Int, height: Int): Bitmap {
@@ -107,7 +104,7 @@ object UtilKByteArrayImage : IUtilK {
         try {
             byteArrayOutputStream = ByteArrayOutputStream()
             yuvImage.compressToJpeg(Rect(0, 0, yuvImage.width, yuvImage.height), 100, byteArrayOutputStream)
-            return byteArrayOutputStream.asBytes().jpegBytes2jpegBitmap()
+            return byteArrayOutputStream.byteArrayOutputStream2bytes().jpegBytes2jpegBitmap()
         } catch (e: Exception) {
             throw e
         } finally {
@@ -117,6 +114,7 @@ object UtilKByteArrayImage : IUtilK {
     }
 
     @JvmStatic
+    @Throws(Exception::class)
     fun nv21Bytes2jpegFile(nv21Bytes: ByteArray, width: Int, height: Int, filePathWithName: String): File? =
         nv21Bytes2jpegBitmap(nv21Bytes, width, height).jpegBitmap2jpegFile(filePathWithName)
 
@@ -126,6 +124,8 @@ object UtilKByteArrayImage : IUtilK {
         bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(grba8888Bytes))
         return bitmap
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 裁剪nv21Bytes

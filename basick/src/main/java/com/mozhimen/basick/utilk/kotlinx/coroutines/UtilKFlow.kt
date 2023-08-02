@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.kotlinx.coroutines
 
-import android.text.Editable
 import android.view.View
 import android.widget.EditText
 import com.mozhimen.basick.elemk.android.view.bases.BaseTextWatcher
@@ -20,24 +19,24 @@ import kotlinx.coroutines.flow.flow
 fun <T> Flow<T>.throttleFirst(thresholdMillis: Long): Flow<T> =
     UtilKFlow.throttleFirst(this, thresholdMillis)
 
-fun View.asViewClickFlow(): Flow<Unit> =
-    UtilKFlow.asViewClickFlow(this)
+fun View.createViewClickFlow(): Flow<Unit> =
+    UtilKFlow.createViewClickFlow(this)
 
-fun EditText.asEditTextChangeFlow(): Flow<CharSequence> =
-    UtilKFlow.asEditTextChangeFlow(this)
+fun EditText.createEditTextChangeFlow(): Flow<CharSequence> =
+    UtilKFlow.createEditTextChangeFlow(this)
 
 object UtilKFlow {
     @JvmStatic
-    fun asSearchFlow(str: String, scope: CoroutineScope, block: suspend CoroutineScope.(String) -> List<String>) = flow { emit(scope.block(str)) }
+    fun createSearchFlow(str: String, scope: CoroutineScope, block: suspend CoroutineScope.(String) -> List<String>) = flow { emit(scope.block(str)) }
 
     @JvmStatic
-    fun asViewClickFlow(view: View): Flow<Unit> = callbackFlow {
+    fun createViewClickFlow(view: View): Flow<Unit> = callbackFlow {
         view.setOnClickListener { this.trySend(Unit).isSuccess }
         awaitClose { view.setOnClickListener(null) }
     }
 
     @JvmStatic
-    fun asEditTextChangeFlow(editText: EditText): Flow<CharSequence> = callbackFlow {
+    fun createEditTextChangeFlow(editText: EditText): Flow<CharSequence> = callbackFlow {
         val textWatcher = object : BaseTextWatcher() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {// 在文本变化后向流发射数据
                 s?.let { this@callbackFlow.trySend(it).isSuccess }
@@ -46,6 +45,8 @@ object UtilKFlow {
         editText.addTextChangedListener(textWatcher) // 设置输入框监听器
         awaitClose { editText.removeTextChangedListener(textWatcher) } // 阻塞以保证流一直运行
     }
+
+    ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun <T> throttleFirst(flow: Flow<T>, thresholdMillis: Long): Flow<T> = flow {

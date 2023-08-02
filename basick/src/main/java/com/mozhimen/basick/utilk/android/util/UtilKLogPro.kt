@@ -2,13 +2,14 @@ package com.mozhimen.basick.utilk.android.util
 
 import android.util.Log
 import android.view.MotionEvent
-import com.mozhimen.basick.utilk.kotlin.collections.UtilKCollection
 import com.mozhimen.basick.utilk.android.view.UtilKGesture
-import com.mozhimen.basick.utilk.kotlin.UtilKThrowable
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.elemk.cons.CParameter
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKStackTrace
+import com.mozhimen.basick.utilk.kotlin.collections.UtilKList
+import com.mozhimen.basick.utilk.kotlin.collections.UtilKMap
+import com.mozhimen.basick.utilk.kotlin.throwable2str
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -24,22 +25,32 @@ object UtilKLogPro : BaseUtilK() {
     private val _isSupportLongLog = AtomicBoolean(true)
 
     @JvmStatic
-    fun setSupportLongLog(isSupportLongLog: Boolean) {
+    fun applySupportLongLog(isSupportLongLog: Boolean) {
         _isSupportLongLog.set(isSupportLongLog)
     }
+
+    @JvmStatic
+    fun applyOpenLog(isOpenLog: Boolean) {
+        _isOpenLog.set(isOpenLog)
+    }
+
+    ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun isSupportLongLog(): Boolean =
         _isSupportLongLog.get()
 
     @JvmStatic
-    fun setOpenLog(isOpenLog: Boolean) {
-        _isOpenLog.set(isOpenLog)
-    }
-
-    @JvmStatic
     fun isOpenLog(): Boolean =
         _isOpenLog.get()
+
+    ///////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    private fun getLogCat(vararg content: Any): String =
+            UtilKStackTrace.getStackTraceInfo(parseContents(*content))
+
+    ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun v(vararg content: Any) {
@@ -131,10 +142,6 @@ object UtilKLogPro : BaseUtilK() {
     }
 
     @JvmStatic
-    private fun getLogCat(vararg content: Any): String =
-        UtilKStackTrace.getStackTraceInfo(parseContents(*content))
-
-    @JvmStatic
     private fun parseContents(vararg objs: Any): String {
         val stringBuilder = StringBuilder()
         if (objs.isNotEmpty()) {
@@ -162,9 +169,9 @@ object UtilKLogPro : BaseUtilK() {
     private fun parseContent(obj: Any): String {
         return when (obj) {
             is String -> obj
-            is Throwable -> UtilKThrowable.throwable2str(obj)
-            is List<*> -> UtilKCollection.list2str(obj)
-            is Map<*, *> -> UtilKCollection.map2str(obj)
+            is Throwable -> obj.throwable2str()
+            is List<*> -> UtilKList.list2str(obj)
+            is Map<*, *> -> UtilKMap.map2str(obj)
             is MotionEvent -> UtilKGesture.motionEvent2str(obj.action)
             else -> obj.toString()
         }

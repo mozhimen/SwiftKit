@@ -4,7 +4,6 @@ import java.util.Locale
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-
 /**
  * @ClassName UtilKPattern
  * @Description TODO
@@ -12,11 +11,11 @@ import java.util.regex.Pattern
  * @Date 2023/7/19 19:33
  * @Version 1.0
  */
-fun String.asUnderline(): String =
-    UtilKPattern.hump2underline(this)
+fun String.strHump2strUnderline(): String =
+    UtilKPattern.strHump2strUnderline(this)
 
-fun String.asHump(): String =
-    UtilKPattern.underline2hump(this)
+fun String.strUnderline2strHump(): String =
+    UtilKPattern.strUnderline2strHump(this)
 
 object UtilKPattern {
     /**
@@ -26,7 +25,7 @@ object UtilKPattern {
      * @return
      */
     @JvmStatic
-    fun hump2underline(str: String): String {
+    fun strHump2strUnderline(str: String): String {
         var newStr = str
         val matcher: Matcher = Pattern.compile("([A-Z])").matcher(newStr)
         while (matcher.find()) {
@@ -44,7 +43,7 @@ object UtilKPattern {
      * @return
      */
     @JvmStatic
-    fun underline2hump(str: String): String {
+    fun strUnderline2strHump(str: String): String {
         var newStr = str
         val matcher: Matcher = Pattern.compile("_(.)").matcher(newStr)
         while (matcher.find()) {

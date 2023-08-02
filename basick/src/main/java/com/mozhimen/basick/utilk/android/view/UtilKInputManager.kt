@@ -63,7 +63,7 @@ object UtilKInputManager : BaseUtilK() {
     fun show(view: View) {
         var focusView = view
         if (!view.hasFocus()) {
-            UtilKView.requestFocus(view)
+            UtilKView.applyRequestFocus(view)
             view.findFocus()?.let { focusView = it }
         }
         get(focusView.context).showSoftInput(focusView, 0)
@@ -229,9 +229,9 @@ object UtilKInputManager : BaseUtilK() {
     @JvmStatic
     fun fixInputMethodLeak(context: Context, tag: String) {
         if (UtilKBuildVersion.isAfterV_29_10_Q()) {
-            fixInputMethodLeakAfterQ(context, tag)
+            fixInputMethodLeakAfter29(context, tag)
         } else {
-            fixInputMethodLeakBeforeQ(context, tag)
+            fixInputMethodLeakBefore29(context, tag)
         }
     }
 
@@ -242,7 +242,7 @@ object UtilKInputManager : BaseUtilK() {
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun fixInputMethodLeakAfterQ(context: Context, tag: String) {
+    fun fixInputMethodLeakAfter29(context: Context, tag: String) {
         val inputMethodManager = get(context)
         try {
             val mCurRootViewField = UtilKReflect.getField(inputMethodManager, "mCurRootView")
@@ -286,7 +286,7 @@ object UtilKInputManager : BaseUtilK() {
      * @param tag String
      */
     @JvmStatic
-    fun fixInputMethodLeakBeforeQ(context: Context, tag: String) {
+    fun fixInputMethodLeakBefore29(context: Context, tag: String) {
         if (UtilKBuildVersion.isAfterV_29_10_Q()) return
         val inputMethodManager = UtilKContext.getInputMethodManager(context)
         val leakViews = arrayOf("mCurRootView", "mServedView", "mNextServedView")

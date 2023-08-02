@@ -48,8 +48,8 @@ object UtilKRenderScript : BaseUtilK() {
         return _renderScript
     }
 
-    @ChecksSdkIntAtLeast(api = CVersCode.V_18_43_J2)
     @JvmStatic
+    @ChecksSdkIntAtLeast(api = CVersCode.V_18_43_J2)
     fun isRenderScriptSupported(): Boolean =
         UtilKBuildVersion.isAfterV_18_43_J2()
 
@@ -81,7 +81,6 @@ object UtilKRenderScript : BaseUtilK() {
     }
 
     @JvmStatic
-    @TargetApi(CVersCode.V_17_42_J1)
     fun scriptBlur(origin: Bitmap?, outWidth: Int, outHeight: Int, radius: Float): Bitmap? {
         if (origin == null || origin.isRecycled) return null
         val renderScript = getRenderScriptInstance(_context)

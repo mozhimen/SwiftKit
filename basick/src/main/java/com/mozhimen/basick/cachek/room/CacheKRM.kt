@@ -4,9 +4,9 @@ import com.mozhimen.basick.cachek.commons.ICacheKProvider
 import com.mozhimen.basick.cachek.room.commons.CacheKRMDatabase
 import com.mozhimen.basick.cachek.room.mos.MCacheKRM
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.asObj
+import com.mozhimen.basick.utilk.kotlin.bytes2obj
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.kotlin.UtilKByteArrayFormat
+import com.mozhimen.basick.utilk.kotlin.UtilKT
 
 /**
  * @ClassName CacheK
@@ -17,7 +17,7 @@ import com.mozhimen.basick.utilk.kotlin.UtilKByteArrayFormat
  */
 object CacheKRM : BaseUtilK(), ICacheKProvider {
     override fun <T> putObj(key: String, obj: T) {
-        val cache = MCacheKRM(key, UtilKByteArrayFormat.t2bytes(obj) ?: run { "serialize fail!".et(TAG);return })
+        val cache = MCacheKRM(key, UtilKT.t2bytes(obj) ?: run { "serialize fail!".et(TAG);return })
         CacheKRMDatabase.get().cacheKDao.saveCache(cache)
     }
 
@@ -50,7 +50,7 @@ object CacheKRM : BaseUtilK(), ICacheKProvider {
     @Suppress("UNCHECKED_CAST")
     override fun <T> getObj(key: String, default: T): T {
         val cache = CacheKRMDatabase.get().cacheKDao.getCache(key)
-        return ((if (cache?.data != null) cache.data.asObj() else null) as? T?) ?: default
+        return ((if (cache?.data != null) cache.data.bytes2obj() else null) as? T?) ?: default
     }
 
     override fun getInt(key: String): Int =

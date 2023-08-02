@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.hardware.UtilKDevice
-import com.mozhimen.basick.utilk.kotlin.asStr
+import com.mozhimen.basick.utilk.kotlin.boolean2str
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
@@ -48,13 +48,13 @@ class DebugKParams {
     fun deviceHardwareVersion(): String = UtilKDevice.getHardwareVersion()
 
     @ADebugKParams("设备是否有sd卡")
-    fun deviceHasSdcard(): String = UtilKDevice.hasSdcard().asStr()
+    fun deviceHasSdcard(): String = UtilKDevice.hasSdcard().boolean2str()
 
     @ADebugKParams("设备是否有前置摄像")
-    fun deviceHasFrontCamera(): String = UtilKDevice.hasFrontCamera().asStr()
+    fun deviceHasFrontCamera(): String = UtilKDevice.hasFrontCamera().boolean2str()
 
     @ADebugKParams("设备是否有后置摄像头")
-    fun deviceHasBackCamera(): String = UtilKDevice.hasBackCamera().asStr()
+    fun deviceHasBackCamera(): String = UtilKDevice.hasBackCamera().boolean2str()
 
     @SuppressLint("MissingPermission")
     @ADebugKParams("设备默认IMEI")

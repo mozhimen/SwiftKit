@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
+import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer
@@ -11,6 +12,9 @@ import java.io.Writer
  * @Date 2022/11/27 0:19
  * @Version 1.0
  */
+fun Throwable.throwable2str(): String =
+        UtilKThrowable.throwable2str(this)
+
 object UtilKThrowable {
     @JvmStatic
     fun throwable2str(throwable: Throwable): String {
@@ -24,6 +28,6 @@ object UtilKThrowable {
         }
         val crashString = stringWriter.toString()
         printWriter.close()
-        return crashString.regexLineBreak2str()
+        return crashString.replaceRegexLineBreak()
     }
 }

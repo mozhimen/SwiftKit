@@ -23,7 +23,7 @@ object ViewKBindingAdapter {
     @JvmStatic
     @BindingAdapter("viewRatio")
     fun setViewRatio(view: View, viewRatio: Float) {
-        UtilKView.setViewRatio(view, viewRatio)
+        UtilKView.applyViewRatio(view, viewRatio)
     }
 
     @JvmStatic

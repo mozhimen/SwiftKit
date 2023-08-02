@@ -16,18 +16,12 @@ import kotlin.jvm.Throws
  * @Version 1.0
  */
 @Throws(Exception::class)
-fun <T : Any> T.asJsonGson(): String =
+fun <T : Any> T.t2json(): String =
     UtilKJsonGson.t2json(this)
 
 @Throws(Exception::class)
-fun <T> String.asTGson(): T? =
+fun <T> String.json2t(): T? =
     UtilKJsonGson.json2t(this)
-
-//fun Any.toJsonWithExposeGson(): String =
-//    UtilKJsonGson.obj2JsonWithExpose(this)
-//
-//fun <T> String.toTWithExposeGson(clazz: Class<T>): T? =
-//    UtilKJsonGson.json2TWithExpose(this, clazz)
 
 object UtilKJsonGson : BaseUtilK() {
     val gson by lazy { Gson() }
@@ -91,6 +85,11 @@ object UtilKJsonGson : BaseUtilK() {
 
     ///////////////////////////////////////////////////////////////////////////////
 
+    @Throws(Exception::class)
+    @JvmStatic
+    fun json2jsonElement(json: String): JsonElement? =
+        json2t(json.trim { it <= ' ' }, JsonElement::class.java)
+
 //    private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
 //    private val _gsonWithExpose by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
 //
@@ -109,9 +108,10 @@ object UtilKJsonGson : BaseUtilK() {
 //    @JvmStatic
 //    fun <T> json2TWithExpose(json: String, clazz: Class<T>): T? =
 //        _gsonWithExpose.fromJson(json, clazz)
-
-    @Throws(Exception::class)
-    @JvmStatic
-    fun json2jsonElement(json: String): JsonElement? =
-        json2t(json.trim { it <= ' ' }, JsonElement::class.java)
 }
+
+//fun Any.toJsonWithExposeGson(): String =
+//    UtilKJsonGson.obj2JsonWithExpose(this)
+//
+//fun <T> String.toTWithExposeGson(clazz: Class<T>): T? =
+//    UtilKJsonGson.json2TWithExpose(this, clazz)

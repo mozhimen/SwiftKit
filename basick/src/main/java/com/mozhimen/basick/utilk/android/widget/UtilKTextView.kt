@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.annotation.IntRange
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.kotlin.asStringTrim
+import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
 
 /**
  * @ClassName UtilKViewText
@@ -22,15 +22,14 @@ fun TextView.applyIconFont(iconFont: String = "icons/iconfont.ttf") {
     UtilKTextView.applyIconFont(this, iconFont)
 }
 
-val TextView.value: String
-    get() = UtilKTextView.getValue(this)
+fun TextView.applyValueIfNotEmpty(str: String?) {
+    UtilKTextView.applyValueIfNotEmpty(this, str)
+}
+
+val TextView.value: String get() = UtilKTextView.getValue(this)
 
 fun TextView.getValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
     UtilKTextView.getValueIfNotEmpty(this, invoke)
-}
-
-fun TextView.applyValueIfNotEmpty(str: String?) {
-    UtilKTextView.applyValueIfNotEmpty(this, str)
 }
 
 object UtilKTextView {
@@ -40,10 +39,7 @@ object UtilKTextView {
      * @param style Int
      */
     @JvmStatic
-    fun applyTextStyle(
-        textView: TextView,
-        @IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL
-    ) {
+    fun applyTextStyle(textView: TextView, @IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
         textView.typeface = Typeface.defaultFromStyle(style)
     }
 
@@ -53,21 +49,8 @@ object UtilKTextView {
      * @param fontPathWithName String
      */
     @JvmStatic
-    fun applyIconFont(
-        textView: TextView,
-        fontPathWithName: String = "fonts/iconfont.ttf"
-    ) {
+    fun applyIconFont(textView: TextView, fontPathWithName: String = "fonts/iconfont.ttf") {
         textView.typeface = Typeface.createFromAsset(UtilKContext.getAssets(textView.context), fontPathWithName)
-    }
-
-    @JvmStatic
-    fun getValue(textView: TextView): String =
-        textView.text.asStringTrim()
-
-    @JvmStatic
-    fun getValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
-        val value = getValue(textView)
-        if (value.isNotEmpty()) invoke.invoke(value)
     }
 
     @JvmStatic
@@ -76,5 +59,17 @@ object UtilKTextView {
             textView.text = str
             true
         } else false
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getValue(textView: TextView): String =
+            textView.text.obj2stringTrim()
+
+    @JvmStatic
+    fun getValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
+        val value = getValue(textView)
+        if (value.isNotEmpty()) invoke.invoke(value)
     }
 }

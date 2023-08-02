@@ -15,6 +15,6 @@ fun Long.getFormatFileSize(): String =
 
 object UtilKFormatter : BaseUtilK() {
     @JvmStatic
-    fun getFormatFileSize(sizeBytes: Long): String =
-        Formatter.formatFileSize(_context, sizeBytes)
+    fun getFormatFileSize(bytes: Long): String =
+        Formatter.formatFileSize(_context, bytes)
 }

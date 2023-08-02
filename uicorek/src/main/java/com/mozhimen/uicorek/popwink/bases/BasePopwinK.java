@@ -246,7 +246,6 @@ import com.mozhimen.basick.utilk.android.graphics.UtilKColor;
 import com.mozhimen.basick.utilk.android.view.UtilKGravity;
 import com.mozhimen.basick.utilk.android.content.UtilKRes;
 import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig;
-import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
 import com.mozhimen.basick.utilk.android.util.UtilKLogPro;
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView;
 import com.mozhimen.uicorek.R;
@@ -2173,7 +2172,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
     }
 
     public static void setDebugMode(boolean debugMode) {
-        UtilKLogPro.setOpenLog(debugMode);
+        UtilKLogPro.applyOpenLog(debugMode);
     }
 
     /**

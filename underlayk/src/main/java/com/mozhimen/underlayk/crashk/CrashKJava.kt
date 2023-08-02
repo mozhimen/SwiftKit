@@ -15,7 +15,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.lang.UtilKCurrentThread
 import com.mozhimen.basick.utilk.java.util.UtilKDate
-import com.mozhimen.basick.utilk.kotlin.UtilKStringPath
+import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.ket
 import java.io.File
@@ -39,7 +39,7 @@ class CrashKJava : BaseUtilK() {
     var crashPathJava: String? = null
         get() {
             if (field != null) return field
-            val crashFullPath = UtilKStringPath.Absolute.Internal.getCacheDir() + "/crashk_java"
+            val crashFullPath = UtilKStrPath.Absolute.Internal.getCacheDir() + "/crashk_java"
             UtilKFile.createFolder(crashFullPath)
             return crashFullPath.also { field = it }
         }
@@ -92,7 +92,7 @@ class CrashKJava : BaseUtilK() {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val savePath = crashPathJava + "/${UtilKFile.nowStr2fileName()}.txt"
+            val savePath = crashPathJava + "/${UtilKFile.nowDateStr2fileName()}.txt"
             UtilKFile.str2file(log, savePath)
         }
 

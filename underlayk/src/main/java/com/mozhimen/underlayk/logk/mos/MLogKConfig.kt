@@ -18,6 +18,6 @@ class MLogKConfig(private var _timeMillis: Long, var level: Int, var tag: String
     }
 
     fun getFlattened(): String {
-        return "${UtilKDate.dateLong2dateStr(_timeMillis, CDateFormat.yyyyMMddHHmmss)} | Level: ${LogKHelper.getTypeName(level)} | Tag: $tag :"
+        return "${UtilKDate.longDate2strDate(_timeMillis, CDateFormat.yyyyMMddHHmmss)} | Level: ${LogKHelper.getTypeName(level)} | Tag: $tag :"
     }
 }

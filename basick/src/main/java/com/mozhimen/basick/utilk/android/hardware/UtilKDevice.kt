@@ -13,11 +13,11 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
-import com.mozhimen.basick.utilk.android.telephony.UtilKIMEI
+import com.mozhimen.basick.utilk.android.telephony.UtilKImei
 import com.mozhimen.basick.utilk.android.text.getFormatFileSize
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.lang.UtilKSystemProperties
-import com.mozhimen.basick.utilk.kotlin.UtilKStringPath
+import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
@@ -37,7 +37,7 @@ object UtilKDevice : BaseUtilK() {
     @RequiresPermission(CPermission.READ_PHONE_STATE)
     fun getIMEI(): String =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            UtilKIMEI.getIMEI1(_context)
+            UtilKImei.getImei(_context)
         } else ""
 
     /**
@@ -143,7 +143,7 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun getFreeInternalMemorySize(): String? {
-        val statFs = StatFs(UtilKStringPath.Absolute.External.getDataDir())
+        val statFs = StatFs(UtilKStrPath.Absolute.External.getDataDir())
         val blockSize = statFs.blockSizeLong
         val availableBlocks = statFs.availableBlocksLong
         return Formatter.formatFileSize(_context, availableBlocks * blockSize)
@@ -155,7 +155,7 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun getTotalInternalMemorySize(): String {
-        val statFs = StatFs(UtilKStringPath.Absolute.External.getDataDir())//Gets the Android data directory
+        val statFs = StatFs(UtilKStrPath.Absolute.External.getDataDir())//Gets the Android data directory
         val blockSize = statFs.blockSizeLong //每个block 占字节数
         val totalBlocks = statFs.availableBlocksLong //block总数
         return Formatter.formatFileSize(_context, totalBlocks * blockSize)
@@ -168,7 +168,7 @@ object UtilKDevice : BaseUtilK() {
     @JvmStatic
     fun getFreeExternalMemorySize(): String {
         return if (hasExternalStorage()) {
-            val statFs = StatFs(UtilKStringPath.Absolute.External.getStorageDir())
+            val statFs = StatFs(UtilKStrPath.Absolute.External.getStorageDir())
             (statFs.availableBlocksLong * statFs.blockSizeLong).getFormatFileSize()
         } else "0"
     }
@@ -180,7 +180,7 @@ object UtilKDevice : BaseUtilK() {
     @JvmStatic
     fun getTotalExternalMemorySize(): String {
         return if (hasExternalStorage()) {
-            val statFs = StatFs(UtilKStringPath.Absolute.External.getStorageDir())
+            val statFs = StatFs(UtilKStrPath.Absolute.External.getStorageDir())
             val blockSize = statFs.blockSizeLong
             val totalBlocks = statFs.blockCountLong
             Formatter.formatFileSize(_context, totalBlocks * blockSize)

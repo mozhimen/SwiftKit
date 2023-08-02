@@ -31,13 +31,13 @@ object UtilKStatusBar : BaseUtilK() {
      */
     @JvmStatic
     @ADescription("需要${CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE}")
-    fun setTranslucent(activity: Activity) {
+    fun applyTranslucent(activity: Activity) {
         if (UtilKBuildVersion.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
             UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)//清除透明状态栏
             //UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
             Log.d(TAG, "setTranslucent: ${(UtilKDecorView.getWindowSystemUiVisibility(activity) or CView.SystemUiFlag.LAYOUT_FULLSCREEN)== CView.SystemUiFlag.LAYOUT_FULLSCREEN}")
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
-            UtilKWindow.setStatusBarColor(activity, Color.TRANSPARENT)//设置透明
+            UtilKWindow.applyStatusBarColor(activity, Color.TRANSPARENT)//设置透明
         } else if (UtilKBuildVersion.isAfterV_19_44_K()) {//19
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)
         }
@@ -47,12 +47,12 @@ object UtilKStatusBar : BaseUtilK() {
      * 修改状态栏颜色,支持4.4以上的版本
      */
     @JvmStatic
-    fun setColor(activity: Activity, @ColorInt colorInt: Int) {
+    fun applyColor(activity: Activity, @ColorInt colorInt: Int) {
         if (UtilKBuildVersion.isAfterV_21_5_L()) {
-            UtilKWindow.setStatusBarColor(activity, colorInt)
+            UtilKWindow.applyStatusBarColor(activity, colorInt)
         } else if (UtilKBuildVersion.isAfterV_19_44_K()) {
             //使用SystemBarTintManager,需要先将状态栏设置为透明
-            setTranslucent(activity)
+            applyTranslucent(activity)
             val colorfulStatusBar = ColorfulStatusBar(activity)
             colorfulStatusBar.setEnable(true)//显示状态栏
             colorfulStatusBar.setColor(colorInt)//显示状态栏颜色
@@ -61,12 +61,12 @@ object UtilKStatusBar : BaseUtilK() {
 
     @JvmStatic
     fun hide(activity: Activity) {
-        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUiFlag.FULLSCREEN /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
+        UtilKDecorView.applySystemUiVisibilityOr(activity, CView.SystemUiFlag.FULLSCREEN /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
     }
 
     @JvmStatic
     fun overlay(activity: Activity) {
-        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN)
+        UtilKDecorView.applySystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN)
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

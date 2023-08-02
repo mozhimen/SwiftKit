@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.java.util.asHump
-import com.mozhimen.basick.utilk.java.util.asUnderline
+import com.mozhimen.basick.utilk.java.util.strUnderline2strHump
+import com.mozhimen.basick.utilk.java.util.strHump2strUnderline
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
@@ -16,7 +16,7 @@ import org.junit.Test
 class TestUtilKPattern {
     @Test
     fun test() {
-        "TestUtilKPattern".asHump().printlog()
-        "TestUtilKPattern".asUnderline().printlog()
+        "TestUtilKPattern".strUnderline2strHump().printlog()
+        "TestUtilKPattern".strHump2strUnderline().printlog()
     }
 }

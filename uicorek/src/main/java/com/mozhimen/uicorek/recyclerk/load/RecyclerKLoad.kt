@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.utilk.androidx.recyclerview.findLastVisibleItem
-import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2End
-import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2Top
+import com.mozhimen.basick.utilk.androidx.recyclerview.getRVLastVisibleItemPosition
+import com.mozhimen.basick.utilk.androidx.recyclerview.isRVScroll2end
+import com.mozhimen.basick.utilk.androidx.recyclerview.isRVScroll2top
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.uicorek.layoutk.refresh.helpers.RefreshGestureDetector
@@ -88,7 +88,7 @@ class RecyclerKLoad @JvmOverloads constructor(context: Context, attrs: Attribute
         private val _adapterKRecyclerStuffed by lazy { adapter as AdapterKRecyclerStuffed }
 
         override fun onScroll(e1: MotionEvent, e2: MotionEvent, distanceX: Float, distanceY: Float): Boolean {
-            if (distanceY < 0 && this@RecyclerKLoad.isScroll2Top()) {
+            if (distanceY < 0 && this@RecyclerKLoad.isRVScroll2top()) {
                 return true
             } else {
                 if (distanceY > 0) {
@@ -97,7 +97,7 @@ class RecyclerKLoad @JvmOverloads constructor(context: Context, attrs: Attribute
                     val totalItemCount = _adapterKRecyclerStuffed.itemCount
                     if (totalItemCount <= 0) return false
 
-                    val lastVisibleItem = this@RecyclerKLoad.findLastVisibleItem()
+                    val lastVisibleItem = this@RecyclerKLoad.getRVLastVisibleItemPosition()
 
                     //预加载, 就是不需要等待滑动到最后一个item的时候, 就出发下一页的加载动作
                     val arrivePrefetchPosition = totalItemCount - lastVisibleItem <= _prefetchSize
@@ -125,14 +125,14 @@ class RecyclerKLoad @JvmOverloads constructor(context: Context, attrs: Attribute
 
             //还有一种情况,canScrollVertical 咱们是检查他能不能继续向下滑动,
             //特殊情况, 咱们的列表已经滑动到底部了, 但是分页失败了。
-            val lastVisibleItem = recyclerView.findLastVisibleItem()
+            val lastVisibleItem = recyclerView.getRVLastVisibleItemPosition()
             if (lastVisibleItem <= 0) return
 
             if (newState == SCROLL_STATE_DRAGGING) {
                 //这边分三个情况: 列表没有铺满屏幕, 铺满但firstVisibleItem还是停留在0, firstVisibleItem>0
                 //列表不可滑动,但列表没有撑满屏幕,此时lastVisibleItem就等于最后一条item,为了避免这种能情况，还需要加firstVisibleItem!=0
                 //可以向下滑动, 或者当前已经滑动到最底下了, 此时在拖动列表, 那也是允许分页的
-                if (this@RecyclerKLoad.isScroll2End()) {
+                if (this@RecyclerKLoad.isRVScroll2end()) {
                     _isFooterShowing = true
                     addFooterView()
                 }

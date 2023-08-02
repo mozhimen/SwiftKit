@@ -35,9 +35,8 @@ object UtilKBall {
      * @return Double
      */
     @JvmStatic
-    fun angle2radian(degree: Double): Double {
-        return degree / 180 * Math.PI
-    }
+    fun angle2radian(degree: Double): Double =
+            degree / 180 * Math.PI
 
     /**
      * 将弧度转换为角度
@@ -45,7 +44,6 @@ object UtilKBall {
      * @return Double
      */
     @JvmStatic
-    fun radian2angle(radian: Double): Double {
-        return radian * 180 / Math.PI
-    }
+    fun radian2angle(radian: Double): Double =
+            radian * 180 / Math.PI
 }

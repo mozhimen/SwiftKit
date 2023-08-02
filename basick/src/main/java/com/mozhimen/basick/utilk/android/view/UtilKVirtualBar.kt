@@ -5,6 +5,7 @@ import android.util.DisplayMetrics
 import android.view.Display
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName UtilKVirtualBar
@@ -13,7 +14,7 @@ import com.mozhimen.basick.utilk.android.util.et
  * @Date 2022/11/23 23:44
  * @Version 1.0
  */
-object UtilKVirtualBar : BaseUtilK() {
+object UtilKVirtualBar : IUtilK {
 
     /**
      * 获取虚拟功能键的高度

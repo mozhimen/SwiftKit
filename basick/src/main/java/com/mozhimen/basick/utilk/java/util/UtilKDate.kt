@@ -14,23 +14,23 @@ import java.util.*
  * @Date 2022/1/15 14:08
  * @Version 1.0
  */
-fun Date.asDateLong(): Long =
-    UtilKDate.date2dateLong(this)
+fun Date.date2longDate(): Long =
+    UtilKDate.date2longDate(this)
 
-fun Date.asDateStr(formatDate: String, locale: Locale = Locale.CHINA): String =
-    UtilKDate.date2dateStr(this, formatDate, locale)
+fun Long.longDate2date(): Date =
+        UtilKDate.longDate2date(this)
 
-fun Long.asDate(): Date =
-    UtilKDate.dateLong2Date(this)
+fun Date.date2strDate(formatDate: String, locale: Locale = Locale.CHINA): String =
+    UtilKDate.date2strDate(this, formatDate, locale)
 
-fun Long.asDateStr(formatDate: String, locale: Locale = Locale.CHINA): String =
-    UtilKDate.dateLong2dateStr(this, formatDate, locale)
+fun Long.longDate2strDate(formatDate: String, locale: Locale = Locale.CHINA): String =
+    UtilKDate.longDate2strDate(this, formatDate, locale)
 
-fun String.asDate(formatDate: String, locale: Locale = Locale.CHINA): Date =
-    UtilKDate.dateStr2date(this, formatDate, locale)
+fun String.strDate2date(formatDate: String, locale: Locale = Locale.CHINA): Date =
+    UtilKDate.strDate2date(this, formatDate, locale)
 
-fun String.asDateLong(formatDate: String, locale: Locale = Locale.CHINA): Long =
-    UtilKDate.dateStr2dateLong(this, formatDate, locale)
+fun String.strDate2longDate(formatDate: String, locale: Locale = Locale.CHINA): Long =
+    UtilKDate.strDate2longDate(this, formatDate, locale)
 
 object UtilKDate : BaseUtilK() {
     /**
@@ -48,7 +48,7 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     fun getNowStr(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String =
-        date2dateStr(getNowDate(), formatDate, locale)
+        date2strDate(getNowDate(), formatDate, locale)
 
     /**
      * 获取现在日期
@@ -56,7 +56,7 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     fun getNowLong(): Long =
-        date2dateLong(getNowDate())
+        date2longDate(getNowDate())
 
     /**
      * 获取当前小时
@@ -65,7 +65,7 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     fun getCurrentHourStr(locale: Locale = Locale.CHINA): String =
-        date2dateStr(getNowDate(), CDateFormat.yyyyMMddHH, locale)
+        date2strDate(getNowDate(), CDateFormat.yyyyMMddHH, locale)
 
     /**
      * 获取当前小时
@@ -73,7 +73,7 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     fun getCurrentHourLong(locale: Locale = Locale.CHINA): Long =
-        dateStr2dateLong(getCurrentHourStr(locale), CDateFormat.yyyyMMddHH, locale)
+        strDate2longDate(getCurrentHourStr(locale), CDateFormat.yyyyMMddHH, locale)
 
     /**
      * 今日
@@ -83,7 +83,7 @@ object UtilKDate : BaseUtilK() {
     @JvmStatic
     @JvmOverloads
     fun getTodayStr(locale: Locale = Locale.CHINA, formatDate: String = CDateFormat.yyyyMMdd): String =
-        date2dateStr(getNowDate(), formatDate, locale)
+        date2strDate(getNowDate(), formatDate, locale)
 
     /**
      * 今日Long
@@ -92,7 +92,7 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     fun getTodayLong(locale: Locale = Locale.CHINA): Long =
-        dateStr2dateLong(getTodayStr(locale), CDateFormat.yyyyMMdd, locale)
+        strDate2longDate(getTodayStr(locale), CDateFormat.yyyyMMdd, locale)
 
     /**
      * 获得Format
@@ -106,23 +106,25 @@ object UtilKDate : BaseUtilK() {
     ): SimpleDateFormat =
         SimpleDateFormat(formatDate, locale)
 
+    /////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * date转long
      * @param date Date
      * @return Long
      */
     @JvmStatic
-    fun date2dateLong(date: Date): Long {
+    fun date2longDate(date: Date): Long {
         return date.time
     }
 
     /**
      * long转date
-     * @param date Long
+     * @param longDate Long
      * @return Date
      */
-    fun dateLong2Date(date: Long): Date {
-        return Date(date)
+    fun longDate2date(longDate: Long): Date {
+        return Date(longDate)
     }
 
     /**
@@ -133,24 +135,20 @@ object UtilKDate : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun date2dateStr(
-        date: Date, formatDate: String, locale: Locale = Locale.CHINA
-    ): String {
+    fun date2strDate(date: Date, formatDate: String, locale: Locale = Locale.CHINA): String {
         return getSdf(formatDate, locale).format(date)
     }
 
     /**
      * 字符串转日期
-     * @param dateStr String
+     * @param strDate String
      * @param formatDate String
      * @param locale Locale?
      * @return Date
      */
     @JvmStatic
-    fun dateStr2date(
-        dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
-    ): Date {
-        return getSdf(formatDate, locale).parse(dateStr) ?: kotlin.run {
+    fun strDate2date(strDate: String, formatDate: String, locale: Locale = Locale.CHINA): Date {
+        return getSdf(formatDate, locale).parse(strDate) ?: kotlin.run {
             Log.e(TAG, "str2Date Exception time format fail!")
             throw Exception("time format fail!")
         }
@@ -158,30 +156,26 @@ object UtilKDate : BaseUtilK() {
 
     /**
      * 长整型转字符串
-     * @param dateLong Long
+     * @param longDate Long
      * @param formatDate String
      * @param locale Locale?
      * @return String
      */
     @JvmStatic
-    fun dateLong2dateStr(
-        dateLong: Long, formatDate: String, locale: Locale = Locale.CHINA
-    ): String {
-        return getSdf(formatDate, locale).format(dateLong)
+    fun longDate2strDate(longDate: Long, formatDate: String, locale: Locale = Locale.CHINA): String {
+        return getSdf(formatDate, locale).format(longDate)
     }
 
     /**
      * String转long
-     * @param dateStr String
+     * @param strDate String
      * @param formatDate String
      * @param locale Locale
      * @return Long
      */
     @JvmStatic
-    fun dateStr2dateLong(
-        dateStr: String, formatDate: String, locale: Locale = Locale.CHINA
-    ): Long {
-        return date2dateLong(dateStr2date(dateStr, formatDate, locale))
+    fun strDate2longDate(strDate: String, formatDate: String, locale: Locale = Locale.CHINA): Long {
+        return date2longDate(strDate2date(strDate, formatDate, locale))
     }
 
     /**
@@ -203,5 +197,5 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     fun dateCompare(date1: String, date2: String, formatDate: String) =
-        dateCompare(dateStr2date(date1, formatDate), dateStr2date(date2, formatDate))
+        dateCompare(strDate2date(date1, formatDate), strDate2date(date2, formatDate))
 }

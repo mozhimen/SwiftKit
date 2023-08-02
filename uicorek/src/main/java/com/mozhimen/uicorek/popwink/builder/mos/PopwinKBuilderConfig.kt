@@ -16,6 +16,7 @@ import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKInputChange
 import com.mozhimen.basick.utilk.android.util.UtilKLogPro
+import com.mozhimen.basick.utilk.kotlin.UtilKAny
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK.KeyEventListener
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK.OnBlurOptionInitListener
@@ -309,7 +310,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
     }
 
     private fun set(name: String, obj: Any) {
-        if (appendInvokeMap(name, UtilKClazz.obj2clazz(obj))) {
+        if (appendInvokeMap(name, UtilKAny.obj2clazz(obj))) {
             _invokeParams[name] = obj
         }
     }

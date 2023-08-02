@@ -967,14 +967,14 @@ public final class BasePopupHelper implements Function2<Rect, Boolean, Unit>, IC
                 public Unit invoke(Rect keyboardBounds, Boolean isVisible) {
                     BasePopupHelper.this.invoke(keyboardBounds, isVisible);
                     if (!mPopupWindow.isShowing()) {
-                        UtilKView.safeRemoveOnGlobalLayoutObserver(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
+                        UtilKView.applySafeRemoveOnGlobalLayoutObserver(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
                         return null;
                     }
                     return null;
                 }
             });
         }
-        UtilKView.safeAddOnGlobalLayoutObserver(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
+        UtilKView.applySafeAddOnGlobalLayoutObserver(mPopupWindow.getContext().getWindow().getDecorView(), mGlobalLayoutListener);
         if (mLinkedTarget != null) {
             if (mLinkedViewLayoutChangeListenerWrapper == null) {
                 mLinkedViewLayoutChangeListenerWrapper = new LinkedViewLayoutChangeListenerWrapper(
@@ -1265,7 +1265,7 @@ public final class BasePopupHelper implements Function2<Rect, Boolean, Unit>, IC
             mShowInfo.mAnchorView = null;
         }
         if (mGlobalLayoutListener != null) {
-            UtilKView.safeRemoveOnGlobalLayoutObserver(mPopupWindow.getContext()
+            UtilKView.applySafeRemoveOnGlobalLayoutObserver(mPopupWindow.getContext()
                             .getWindow()
                             .getDecorView(),
                     mGlobalLayoutListener);

@@ -23,9 +23,9 @@ import com.mozhimen.basick.utilk.android.database.getString
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
-import com.mozhimen.basick.utilk.kotlin.text.UtilKVerifyStr
+import com.mozhimen.basick.utilk.kotlin.text.UtilKMatchStr
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.asFile
+import com.mozhimen.basick.utilk.java.io.inputStream2file
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
@@ -167,7 +167,7 @@ object UtilKUri : BaseUtilK() {
                 var inputStream: InputStream? = null
                 try {
                     inputStream = contentResolver.openInputStream(uri) ?: return null
-                    return inputStream.asFile(filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}")
+                    return inputStream.inputStream2file(filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}")
                 } catch (e: IOException) {
                     e.printStackTrace()
                     e.message?.et(TAG)
@@ -185,7 +185,7 @@ object UtilKUri : BaseUtilK() {
 
         if (isDownloadsDocument(uri)) {
             val id = DocumentsContract.getDocumentId(uri)
-            if (UtilKVerifyStr.isAllDigits2(id)) {
+            if (UtilKMatchStr.isStrDigits2(id)) {
                 val newUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), id.toLong())
                 val path = getDataColumn(newUri)
                 if (path != null) {

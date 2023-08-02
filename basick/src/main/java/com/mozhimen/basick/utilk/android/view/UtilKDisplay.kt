@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 
 /**
- * @ClassName KDisplayUtil
+ * @ClassName UtilKDisplay
  * @Description TODO
  * @Author Kolin Zhao / Mozhimen
  * @Date 2021/12/24 14:27
@@ -59,6 +59,8 @@ object UtilKDisplay {
     @JvmStatic
     fun getDefaultRotation(context: Context): Int =
         getDefault(context).rotation
+
+    ///////////////////////////////////////////////////////////
 
     /**
      * 获取旋转

@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.java.io
 
 import android.util.Log
-import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
@@ -32,7 +31,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun currentHourStr2fileName(locale: Locale = Locale.CHINA) =
-        dateStr2fileName(CDateFormat.yyyyMMddHH, locale)
+            strDate2fileName(CDateFormat.yyyyMMddHH, locale)
 
     /**
      * 当前时间转文件名
@@ -40,8 +39,8 @@ object UtilKFile : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun nowStr2fileName(locale: Locale = Locale.CHINA): String =
-        dateStr2fileName(locale = locale)
+    fun nowDateStr2fileName(locale: Locale = Locale.CHINA): String =
+            strDate2fileName(locale = locale)
 
     /**
      * 时间转文件名
@@ -50,9 +49,69 @@ object UtilKFile : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun dateStr2fileName(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
+    fun strDate2fileName(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
         return UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
     }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun str2file(str: String, filePathWithName: String): File =
+            str2file(str, createFile(filePathWithName))
+
+    /**
+     * Str2file
+     * 文本转文件
+     * @param str
+     * @param destFile
+     * @return
+     */
+    @JvmStatic
+    fun str2file(str: String, destFile: File): File {
+        createFile(destFile)
+        RandomAccessFile(destFile, "rwd").use { str.str2randomAccessFile(it) }
+        return destFile
+    }
+
+    @JvmStatic
+    fun str2file2(str: String, filePathWithName: String): File =
+            str2file2(str, createFile(filePathWithName))
+
+    @JvmStatic
+    fun str2file2(str: String, destFile: File): File {
+        createFile(destFile)
+        FileOutputStream(destFile).flushClose { str.writeStr2fileOutputStream(it) }
+        return destFile
+    }
+
+    @JvmStatic
+    fun file2str(filePathWithName: String): String =
+            file2str(File(filePathWithName))
+
+    @JvmStatic
+    fun file2str(file: File): String =
+            if (!isFileExist(file)) ""
+            else FileInputStream(file).use { it.inputStream2str() }
+
+    @JvmStatic
+    fun file2Bytes(filePathWithName: String): ByteArray? =
+            file2Bytes(File(filePathWithName))
+
+    @JvmStatic
+    fun file2Bytes(file: File): ByteArray? =
+            if (!isFileExist(file)) null
+            else FileInputStream(file).use { it.inputStream2bytes() }
+
+    @JvmStatic
+    fun file2bytes2(filePathWithName: String): ByteArray? =
+            file2bytes2(File(filePathWithName))
+
+    @JvmStatic
+    fun file2bytes2(file: File): ByteArray? =
+            if (!isFileExist(file)) null
+            else FileInputStream(file).use { it.inputStream2bytes2(file.length()) }
+
+    /////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 判断是否为文件
@@ -61,7 +120,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFile(file: File): Boolean =
-        file.exists() && file.isFile
+            file.exists() && file.isFile
 
     /**
      * 判断是否为文件
@@ -70,7 +129,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFile(filePathWithName: String): Boolean =
-        isFile(File(filePathWithName))
+            isFile(File(filePathWithName))
 
     /**
      * 文件是否存在
@@ -79,7 +138,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFileExist(file: File): Boolean =
-        isFile(file)
+            isFile(file)
 
     /**
      * 文件是否存在
@@ -88,7 +147,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFileExist(filePathWithName: String) =
-        isFileExist(File(filePathWithName))
+            isFileExist(File(filePathWithName))
 
     /**
      * 创建文件
@@ -114,7 +173,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun createFile(filePathWithName: String): File =
-        createFile(File(filePathWithName))
+            createFile(File(filePathWithName))
 
     /**
      * 批量删除
@@ -146,91 +205,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun deleteFile(filePathWithName: String): Boolean =
-        deleteFile(File(filePathWithName))
-
-    /**
-     * 文本转文件
-     * @param content String
-     * @param filePathWithName String
-     * @throws Exception
-     */
-    @JvmStatic
-    fun str2file(content: String, filePathWithName: String): String {
-        val tmpContent = content + "\n"
-        val tmpFile = createFile(filePathWithName)
-        val randomAccessFile = RandomAccessFile(tmpFile, "rwd")
-        try {
-            randomAccessFile.write(tmpContent.toByteArray())
-            return tmpFile.absolutePath
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            randomAccessFile.close()
-        }
-        return CMsg.WRONG
-    }
-
-    /**
-     * 文本转文件
-     * @param content String
-     * @param filePathWithName String
-     * @throws Exception
-     */
-    @JvmStatic
-    fun str2file2(content: String, filePathWithName: String): String {
-        val tmpContent = content + "\n"
-        val tmpFile = createFile(filePathWithName)
-        val fileOutputStream = FileOutputStream(tmpFile)
-        try {
-            fileOutputStream.write(tmpContent.toByteArray())
-            return tmpFile.absolutePath
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            fileOutputStream.flush()
-            fileOutputStream.close()
-        }
-        return CMsg.WRONG
-    }
-
-    fun file2Bytes(filePathWithName: String): ByteArray? =
-        FileInputStream(filePathWithName).asBytes()
-
-    /**
-     * 文件转文本
-     * @param filePathWithName String
-     * @return String
-     */
-    @JvmStatic
-    fun file2str(filePathWithName: String): String =
-        file2str(File(filePathWithName))
-
-    /**
-     * 文件转文本
-     * @param file File
-     * @return String
-     */
-    @JvmStatic
-    fun file2str(file: File): String {
-        if (!isFileExist(file)) return CMsg.NOT_EXIST
-        val fileInputStream = FileInputStream(file)
-        try {
-            return fileInputStream.asStr()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            fileInputStream.close()
-        }
-        return CMsg.WRONG
-    }
-
-    fun file2bytes2(filePathWithName: String): ByteArray? {
-        val file = File(filePathWithName)
-        return FileInputStream(file).asBytes2(file.length())
-    }
+            deleteFile(File(filePathWithName))
 
     /**
      * 复制文件
@@ -240,7 +215,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun copyFile(sourceFilePathWithName: String, destFilePathWithName: String): File? =
-        copyFile(File(sourceFilePathWithName), File(destFilePathWithName))
+            copyFile(File(sourceFilePathWithName), File(destFilePathWithName))
 
     /**
      * 复制文件
@@ -252,7 +227,7 @@ object UtilKFile : BaseUtilK() {
         if (!isFileExist(sourceFile)) return null
         val fileInputStream = FileInputStream(sourceFile)
         try {
-            return fileInputStream.asFile(destFile, isOverwrite)
+            return fileInputStream.inputStream2file(destFile, isOverwrite)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -315,11 +290,11 @@ object UtilKFile : BaseUtilK() {
         if (!isFileExist(file)) return 0L
         return file.length()
     }
-    //endregion
+//endregion
 
-    /////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////
 
-    //region # folder
+//region # folder
     /**
      * 判断是否是文件夹
      * @param folder File
@@ -327,7 +302,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFolder(folder: File): Boolean =
-        folder.exists() && folder.isDirectory
+            folder.exists() && folder.isDirectory
 
     /**
      * 判断是否是文件夹
@@ -336,7 +311,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFolder(folderPath: String): Boolean =
-        isFolder(File(folderPath))
+            isFolder(File(folderPath))
 
     /**
      * 文件夹是否存在
@@ -345,7 +320,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFolderExist(folderPath: String) =
-        isFolderExist(File(genFolderPath(folderPath)))
+            isFolderExist(File(genFolderPath(folderPath)))
 
     /**
      * 文件夹是否存在
@@ -354,7 +329,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFolderExist(folder: File): Boolean =
-        isFolder(folder)
+            isFolder(folder)
 
     /**
      * 创建文件夹
@@ -363,7 +338,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun createFolder(folderPath: String) =
-        createFolder(File(genFolderPath(folderPath)))
+            createFolder(File(genFolderPath(folderPath)))
 
     /**
      * 创建文件夹
@@ -386,7 +361,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun deleteFolder(folderPath: String): Boolean =
-        deleteFolder(File(genFolderPath(folderPath)))
+            deleteFolder(File(genFolderPath(folderPath)))
 
     /**
      * 删除文件夹
@@ -411,12 +386,14 @@ object UtilKFile : BaseUtilK() {
         return true
     }
 
+/////////////////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun genFolderPath(folderPath: String): String {
         var tmpFolderPath = folderPath
         if (!tmpFolderPath.endsWith("/")) tmpFolderPath += "/"
         return tmpFolderPath
     }
-    //endregion
+//endregion
 }
 

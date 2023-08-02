@@ -11,11 +11,10 @@ import android.view.Display
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import com.mozhimen.basick.lintk.annors.ADescription
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.getByContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.isDestroyed
@@ -43,12 +42,12 @@ object UtilKNavigationBar : BaseUtilK() {
      */
     @JvmStatic
     @ADescription("需要${CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION or CView.SystemUiFlag.LAYOUT_STABLE}")
-    fun setTranslucent(activity: Activity) {
+    fun applyTranslucent(activity: Activity) {
         if (UtilKBuildVersion.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
             UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_NAVIGATION)//清除透明状态栏
             //UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
-            UtilKWindow.setNavigationBarColor(activity, Color.TRANSPARENT)//设置透明
+            UtilKWindow.applyNavigationBarColor(activity, Color.TRANSPARENT)//设置透明
         } else if (UtilKBuildVersion.isAfterV_19_44_K()) {//19
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_NAVIGATION)
         }
@@ -56,12 +55,12 @@ object UtilKNavigationBar : BaseUtilK() {
 
     @JvmStatic
     fun hide(activity: Activity) {
-        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUiFlag.HIDE_NAVIGATION /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
+        UtilKDecorView.applySystemUiVisibilityOr(activity, CView.SystemUiFlag.HIDE_NAVIGATION /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
     }
 
     @JvmStatic
     fun overlay(activity: Activity) {
-        UtilKDecorView.setSystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION)
+        UtilKDecorView.applySystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION)
     }
 
     @JvmStatic
@@ -71,15 +70,11 @@ object UtilKNavigationBar : BaseUtilK() {
                 windowSystemUiVisibility and CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION == 0)
     }
 
-    @JvmStatic
-    fun appendID(id: String) {
-        _navigationBarNames[id] = null
-    }
-
     /**
      * 方法参考
      * https://juejin.im/post/5bb5c4e75188255c72285b54
      */
+    @OptInApiInit_InApplication
     @JvmStatic
     fun getBounds(rect: Rect, context: Context) {
         val activity = getByContext(context, true)
@@ -156,4 +151,9 @@ object UtilKNavigationBar : BaseUtilK() {
         }
         return 0
     }
+
+//    @JvmStatic
+//    fun appendID(id: String) {
+//        _navigationBarNames[id] = null
+//    }
 }

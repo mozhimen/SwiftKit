@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr;
-import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
 import com.mozhimen.basick.utilk.android.view.UtilKView;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
@@ -172,7 +171,7 @@ final class PopupDecorViewProxy extends ViewGroup implements Function2<Rect, Boo
                 if (contentView instanceof ViewGroup) {
                     ((ViewGroup) contentView).setDescendantFocusability(FOCUS_AFTER_DESCENDANTS);
                 }
-                UtilKView.requestFocus(contentView);
+                UtilKView.applyRequestFocus(contentView);
             }
 
             if (mHelper.isAutoShowInputMethod()) {

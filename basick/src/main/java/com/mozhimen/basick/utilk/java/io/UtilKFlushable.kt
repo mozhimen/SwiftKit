@@ -15,10 +15,10 @@ import kotlin.contracts.contract
  * @Version 1.0
  */
 inline fun <T, R> T.flushClose(block: (T) -> R): R where T : Closeable?, T : Flushable? =
-    UtilKFlushable.flushClose(this, block)
+        UtilKFlushable.flushClose(this, block)
 
-fun Closeable?.closeFinally(cause: Throwable?) =
-    UtilKFlushable.closeFinally(this, cause)
+fun <T> T?.flushCloseFinally(cause: Throwable?): Unit where T : Closeable?, T : Flushable? =
+        UtilKFlushable.flushCloseFinally(this, cause)
 
 object UtilKFlushable {
     @OptIn(ExperimentalContracts::class)
@@ -34,12 +34,17 @@ object UtilKFlushable {
             throw e
         } finally {
             when {
-                UtilKPlatformImplementations.apiVersionIsAtLeast(1, 1, 0) -> t.closeFinally(exception)
+                UtilKPlatformImplementations.apiVersionIsAtLeast(1, 1, 0) -> t.flushCloseFinally(exception)
                 t == null -> {}
-                exception == null -> t.apply { flush();close() }
+                exception == null -> {
+                    t.flush()
+                    t.close()
+                }
+
                 else ->
                     try {
-                        t.apply { flush();close() }
+                        t.flush()
+                        t.close()
                     } catch (closeException: Throwable) {
                         // cause.addSuppressed(closeException) // ignored here
                     }
@@ -50,15 +55,21 @@ object UtilKFlushable {
     @SinceKotlin("1.1")
     @PublishedApi
     @JvmStatic
-    internal fun closeFinally(closeable: Closeable?, cause: Throwable?): Unit =
+    internal fun <T> flushCloseFinally(t: T, cause: Throwable?): Unit where T : Closeable?, T : Flushable? {
         when {
-            closeable == null -> {}
-            cause == null -> closeable.close()
+            t == null -> {}
+            cause == null -> {
+                t.flush()
+                t.close()
+            }
+
             else ->
                 try {
-                    closeable.close()
+                    t.flush()
+                    t.close()
                 } catch (closeException: Throwable) {
                     cause.addSuppressed(closeException)
                 }
         }
+    }
 }

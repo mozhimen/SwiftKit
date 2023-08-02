@@ -6,9 +6,9 @@ import android.widget.EditText
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.android.view.bases.BaseTextWatcher
 import com.mozhimen.basick.elemk.commons.IAB_Listener
-import com.mozhimen.basick.utilk.kotlin.asStringTrim
-import com.mozhimen.basick.utilk.kotlinx.coroutines.UtilKFlow.asSearchFlow
-import com.mozhimen.basick.utilk.kotlinx.coroutines.asEditTextChangeFlow
+import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
+import com.mozhimen.basick.utilk.kotlinx.coroutines.UtilKFlow.createSearchFlow
+import com.mozhimen.basick.utilk.kotlinx.coroutines.createEditTextChangeFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,8 +27,25 @@ import kotlinx.coroutines.flow.onEach
  * @Date 2022/11/6 0:28
  * @Version 1.0
  */
-fun EditText.getValue(): String =
-    UtilKEditText.getValue(this)
+@FlowPreview
+@ExperimentalCoroutinesApi
+fun EditText.applyDebounceTextChangeListener(
+        scope: CoroutineScope,
+        searchBlock: suspend CoroutineScope.(String) -> List<String>,
+        resBlock: IAB_Listener<EditText, List<String>>,
+        thresholdMillis: Long = 500) {
+    UtilKEditText.applyDebounceTextChangeListener(this, scope, searchBlock, resBlock, thresholdMillis)
+}
+
+@FlowPreview
+@ExperimentalCoroutinesApi
+fun EditText.applySuspendDebounceTextChangeListener(
+        scope: CoroutineScope,
+        searchBlock: suspend CoroutineScope.(String) -> List<String>,
+        resBlock: suspend CoroutineScope.(EditText, List<String>) -> Unit,
+        thresholdMillis: Long = 500) {
+    UtilKEditText.applySuspendDebounceTextChangeListener(this, scope, searchBlock, resBlock, thresholdMillis)
+}
 
 fun EditText.applyInputMaxLength(inputMaxLength: Int) {
     UtilKEditText.applyInputMaxLength(this, inputMaxLength)
@@ -38,19 +55,21 @@ fun EditText.addTextChangeWatcher(onTextChanged: IA_Listener<String>/*(newText: 
     UtilKEditText.addTextChangeWatcher(this, onTextChanged)
 }
 
+val EditText.value: String get() = UtilKEditText.getValue(this)
+
 object UtilKEditText {
 
     @ExperimentalCoroutinesApi
     @FlowPreview
     @JvmStatic
     fun applyDebounceTextChangeListener(
-        editText: EditText,
-        scope: CoroutineScope,
-        searchBlock: suspend CoroutineScope.(String) -> List<String>,
-        resBlock: IAB_Listener<EditText, List<String>>,
-        thresholdMillis: Long = 500
+            editText: EditText,
+            scope: CoroutineScope,
+            searchBlock: suspend CoroutineScope.(String) -> List<String>,
+            resBlock: IAB_Listener<EditText, List<String>>,
+            thresholdMillis: Long = 500
     ) {
-        editText.asEditTextChangeFlow().filter { it.isNotEmpty() }.debounce(thresholdMillis).flatMapLatest { asSearchFlow(it.toString(), scope, searchBlock) }.flowOn(Dispatchers.IO).onEach {
+        editText.createEditTextChangeFlow().filter { it.isNotEmpty() }.debounce(thresholdMillis).flatMapLatest { createSearchFlow(it.toString(), scope, searchBlock) }.flowOn(Dispatchers.IO).onEach {
             resBlock(editText, it)
         }.launchIn(scope)
     }
@@ -59,13 +78,13 @@ object UtilKEditText {
     @FlowPreview
     @JvmStatic
     fun applySuspendDebounceTextChangeListener(
-        editText: EditText,
-        scope: CoroutineScope,
-        searchBlock: suspend CoroutineScope.(String) -> List<String>,
-        resBlock: suspend CoroutineScope.(EditText, List<String>) -> Unit,
-        thresholdMillis: Long = 500
+            editText: EditText,
+            scope: CoroutineScope,
+            searchBlock: suspend CoroutineScope.(String) -> List<String>,
+            resBlock: suspend CoroutineScope.(EditText, List<String>) -> Unit,
+            thresholdMillis: Long = 500
     ) {
-        editText.asEditTextChangeFlow().filter { it.isNotEmpty() }.debounce(thresholdMillis).flatMapLatest { asSearchFlow(it.toString(), scope, searchBlock) }.flowOn(Dispatchers.IO).onEach {
+        editText.createEditTextChangeFlow().filter { it.isNotEmpty() }.debounce(thresholdMillis).flatMapLatest { createSearchFlow(it.toString(), scope, searchBlock) }.flowOn(Dispatchers.IO).onEach {
             scope.resBlock(editText, it)
         }.launchIn(scope)
     }
@@ -81,15 +100,6 @@ object UtilKEditText {
     }
 
     /**
-     * 获取text
-     * @param editText EditText
-     * @return String
-     */
-    @JvmStatic
-    fun getValue(editText: EditText): String =
-        editText.text.asStringTrim()
-
-    /**
      * 变化观察
      * @param editText EditText
      * @param onTextChanged Function1<[@kotlin.ParameterName] String, Unit>
@@ -102,4 +112,15 @@ object UtilKEditText {
             }
         })
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 获取text
+     * @param editText EditText
+     * @return String
+     */
+    @JvmStatic
+    fun getValue(editText: EditText): String =
+            editText.text.obj2stringTrim()
 }

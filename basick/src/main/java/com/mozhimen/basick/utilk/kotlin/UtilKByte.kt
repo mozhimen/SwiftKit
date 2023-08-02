@@ -7,7 +7,7 @@ package com.mozhimen.basick.utilk.kotlin
  * @Date 2023/8/1 16:19
  * @Version 1.0
  */
-fun Byte.asHexStr(): String =
+fun Byte.bytes2hexStr(): String =
     UtilKByte.byte2hexStr(this)
 
 object UtilKByte {

@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.telephony
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
@@ -26,17 +25,17 @@ import java.lang.reflect.Method
  * @Date 2023/7/16 10:53
  * @Version 1.0
  */
-
-object UtilKIMEI : IUtilK {
+object UtilKImei : IUtilK {
     /**
      * 获取默认的imei  一般都是IMEI 1
      * //优先获取IMEI(即使是电信卡)  不行的话就获取MEID
      * @param context
      * @return
      */
+    @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.READ_PHONE_STATE)
-    fun getIMEI1(context: Context): String =
+    fun getImei(context: Context): String =
         getImeiOrMeid(context, 0)
 
     /**
@@ -45,11 +44,12 @@ object UtilKIMEI : IUtilK {
      * @param context
      * @return
      */
+    @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.READ_PHONE_STATE)
-    fun getIMEI2(context: Context): String {
+    fun getImei2(context: Context): String {
         //imei2必须与 imei1不一样
-        val imeiDefault = getIMEI1(context)
+        val imeiDefault = getImei(context)
         if (imeiDefault.isEmpty()) {
             //默认的 imei 竟然为空，说明权限还没拿到，或者是平板
             //这种情况下，返回 imei2也应该是空串
@@ -80,6 +80,7 @@ object UtilKIMEI : IUtilK {
      * @param slotId  slotId为卡槽Id，它的值为 0、1；
      * @return
      */
+    @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     @RequiresPermission(CPermission.READ_PHONE_STATE)
     fun getImeiOrMeid(context: Context, slotId: Int): String {
@@ -110,6 +111,7 @@ object UtilKIMEI : IUtilK {
      * @param slotId slotId为卡槽Id，它的值为 0、1；
      * @return
      */
+    @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     fun getImeiOnly(context: Context, slotId: Int): String {
         var imei = ""
@@ -151,6 +153,7 @@ object UtilKIMEI : IUtilK {
      * @param slotId  slotId为卡槽Id，它的值为 0、1；
      * @return
      */
+    @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     fun getMeidOnly(context: Context, slotId: Int): String {
         var meid = ""
@@ -189,6 +192,7 @@ object UtilKIMEI : IUtilK {
      * @param context 上下文
      * @return 获取到的值 或者 空串""
      */
+    @JvmStatic
     fun getDeviceId(context: Context): String {
         var imei = ""
         //Android 6.0 以后需要获取动态权限  检查权限
@@ -197,7 +201,7 @@ object UtilKIMEI : IUtilK {
         }
 
         // 1. 尝试通过系统api获取imei
-        imei = getDeviceIdFromSystemApi(context)
+        imei = getDeviceIdForSystemApi(context)
         if (TextUtils.isEmpty(imei)) {
             imei = getDeviceIdByReflect(context)
         }
@@ -211,11 +215,12 @@ object UtilKIMEI : IUtilK {
      * @param slotId  slotId为卡槽Id，它的值为 0、1；
      * @return 获取到的值 或者 空串""
      */
+    @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
     fun getDeviceId(context: Context, slotId: Int): String {
         var imei = ""
         // 1. 尝试通过系统api获取imei
-        imei = getDeviceIdFromSystemApi(context, slotId)
+        imei = getDeviceIdForSystemApi(context, slotId)
         if (TextUtils.isEmpty(imei)) {
             imei = getDeviceIdByReflect(context, slotId)
         }
@@ -232,8 +237,9 @@ object UtilKIMEI : IUtilK {
      * @param context 上下文
      * @return 获取到的值 或者 空串""
      */
+    @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
-    fun getDeviceIdFromSystemApi(context: Context, slotId: Int): String {
+    fun getDeviceIdForSystemApi(context: Context, slotId: Int): String {
         var imei = ""
         try {
             val telephonyManager = context.applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
@@ -245,7 +251,8 @@ object UtilKIMEI : IUtilK {
         return imei
     }
 
-    fun getDeviceIdFromSystemApi(context: Context): String {
+    @JvmStatic
+    fun getDeviceIdForSystemApi(context: Context): String {
         var imei = ""
         try {
             val telephonyManager = context.applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
@@ -267,6 +274,7 @@ object UtilKIMEI : IUtilK {
      * @param context 上下文
      * @return 获取到的值 或者 空串""
      */
+    @JvmStatic
     fun getDeviceIdByReflect(context: Context): String {
         try {
             val tm = context.applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
@@ -295,6 +303,7 @@ object UtilKIMEI : IUtilK {
      * @param slotId  slotId为卡槽Id，它的值为 0、1；
      * @return
      */
+    @JvmStatic
     fun getDeviceIdByReflect(context: Context, slotId: Int): String {
         try {
             val tm = context.applicationContext.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager

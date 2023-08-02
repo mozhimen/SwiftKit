@@ -23,11 +23,8 @@ object UtilKStackTrace : IUtilK {
      * @return Array<StackTraceElement?> 裁剪后的真实堆栈跟踪
      */
     @JvmStatic
-    fun getCroppedRealStackTrack(
-        stackTrace: Array<StackTraceElement?>,
-        ignoredPackage: String,
-        maxDepth: Int
-    ): Array<StackTraceElement?> =
+    @Throws(Exception::class)
+    fun getCroppedRealStackTrack(stackTrace: Array<StackTraceElement?>, ignoredPackage: String, maxDepth: Int): Array<StackTraceElement?> =
         getCroppedStackTrace(getRealStackTrack(stackTrace, ignoredPackage), maxDepth)
 
     /**
@@ -39,10 +36,7 @@ object UtilKStackTrace : IUtilK {
      */
     @JvmStatic
     @Throws(Exception::class)
-    fun getRealStackTrack(
-        stackTrace: Array<StackTraceElement?>,
-        ignorePackage: String?
-    ): Array<StackTraceElement?> {
+    fun getRealStackTrack(stackTrace: Array<StackTraceElement?>, ignorePackage: String?): Array<StackTraceElement?> {
         var ignoreDepth = 0
         val allDepth = stackTrace.size
         require(allDepth > 0) { "$TAG stackTrace's size is 0" }
@@ -67,10 +61,7 @@ object UtilKStackTrace : IUtilK {
      * @return Array<StackTraceElement?> 裁剪后的堆栈跟踪
      */
     @JvmStatic
-    fun getCroppedStackTrace(
-        callStack: Array<StackTraceElement?>,
-        maxDepth: Int
-    ): Array<StackTraceElement?> {
+    fun getCroppedStackTrace(callStack: Array<StackTraceElement?>, maxDepth: Int): Array<StackTraceElement?> {
         var realDepth = callStack.size
         if (maxDepth > 0) {
             realDepth = maxDepth.coerceAtMost(realDepth)

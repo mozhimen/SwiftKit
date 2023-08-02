@@ -75,7 +75,7 @@ object UtilKContentView : BaseUtilK() {
      * 延迟加载不然getChild0为空
      */
     @JvmStatic
-    fun setFitsSystemWindows(activity: Activity) {
+    fun applyFitsSystemWindows(activity: Activity) {
         activity.window.decorView.post {
             getChild0(activity)?.applyFitSystemWindow() ?: "setFitsSystemWindows contentView is null".et(TAG)
         }

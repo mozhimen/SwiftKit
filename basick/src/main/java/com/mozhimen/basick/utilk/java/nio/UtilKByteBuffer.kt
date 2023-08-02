@@ -10,7 +10,7 @@ import java.nio.ByteBuffer
  * @Date 2023/7/24 18:45
  * @Version 1.0
  */
-fun ByteBuffer.asBytes(): ByteArray =
+fun ByteBuffer.byteBuffer2bytes(): ByteArray =
     UtilKByteBuffer.byteBuffer2bytes(this)
 
 object UtilKByteBuffer {

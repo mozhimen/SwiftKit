@@ -347,7 +347,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
 
         class Api30Impl implements WindowFlagCompat {
 
-            @RequiresApi(api = CVersCode.V_30_11_R)
+            @RequiresApi(CVersCode.V_30_11_R)
             @Override
             public void setupFlag(ViewGroup.LayoutParams params, BasePopupHelper helper) {
                 if (params instanceof LayoutParams && helper != null) {

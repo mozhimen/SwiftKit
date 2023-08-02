@@ -12,13 +12,10 @@ import com.mozhimen.basick.elemk.androidx.appcompat.cons.CAppCompatDelegate
  */
 object UtilKAppCompatDelegate {
     @JvmStatic
-    fun applyDefaultNightMode(mode: Int) {
-        AppCompatDelegate.setDefaultNightMode(mode)
-    }
-
-    @JvmStatic
     fun getDefaultNightMode(): Int =
-        AppCompatDelegate.getDefaultNightMode()
+            AppCompatDelegate.getDefaultNightMode()
+
+    ////////////////////////////////////////////////////////////////
 
     /**
      * 检测是否是浅色主题
@@ -26,11 +23,18 @@ object UtilKAppCompatDelegate {
      */
     @JvmStatic
     fun isLightMode(): Boolean =
-        getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_NO
+            getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_NO
 
     @JvmStatic
     fun isDarkMode(): Boolean =
-        getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_YES
+            getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_YES
+
+    ////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyDefaultNightMode(mode: Int) {
+        AppCompatDelegate.setDefaultNightMode(mode)
+    }
 
     @JvmStatic
     fun applyLightMode() {
@@ -44,9 +48,6 @@ object UtilKAppCompatDelegate {
         applyDefaultNightMode(CAppCompatDelegate.MODE_NIGHT_YES)
     }
 
-    /**
-     * 改变主题
-     */
     @JvmStatic
     fun toggleMode() {
         if (isLightMode()) applyDarkMode() else applyLightMode()

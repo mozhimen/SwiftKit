@@ -12,7 +12,7 @@ import java.io.File
  * @Date 2023/8/1 15:42
  * @Version 1.0
  */
-object UtilKStringPath {
+object UtilKStrPath {
     @JvmStatic
     fun strPath2bitmap(filePathWithName: String): Bitmap? =
         if (filePathWithName.isEmpty() || filePathWithName.hasSpace()) null

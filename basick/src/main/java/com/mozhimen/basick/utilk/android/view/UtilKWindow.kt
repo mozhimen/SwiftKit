@@ -49,33 +49,58 @@ object UtilKWindow : BaseUtilK() {
     fun <V : View> getContentView(window: Window): V =
         window.findViewById(android.R.id.content)
 
+    @JvmStatic
+    fun getAttributes(activity: Activity): WindowManager.LayoutParams =
+            getAttributes(get(activity))
+
+    @JvmStatic
+    fun getAttributes(window: Window): WindowManager.LayoutParams =
+            window.attributes
+
+    @JvmStatic
+    fun getAttributesFlags(activity: Activity): Int =
+            getAttributesFlags(get(activity))
+
+    @JvmStatic
+    fun getAttributesFlags(window: Window): Int =
+            getAttributes(window).flags
+
     //////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun setAttributes(activity: Activity, attributes: WindowManager.LayoutParams) {
-        setAttributes(get(activity), attributes)
+    fun applyFlagsFullScreen(window: Window) {
+        applyFlags(window, CWinMgr.Lpf.FULLSCREEN, CWinMgr.Lpf.FULLSCREEN)
     }
 
     @JvmStatic
-    fun setAttributes(window: Window, attributes: WindowManager.LayoutParams) {
+    fun applyFlags(activity: Activity, flags: Int, mask: Int) {
+        applyFlags(get(activity), flags, mask)
+    }
+
+    @JvmStatic
+    fun applyFlags(window: Window, flags: Int, mask: Int) {
+        window.setFlags(flags, mask)
+    }
+
+    @JvmStatic
+    fun applyAttributes(activity: Activity, attributes: WindowManager.LayoutParams) {
+        applyAttributes(get(activity), attributes)
+    }
+
+    @JvmStatic
+    fun applyAttributes(window: Window, attributes: WindowManager.LayoutParams) {
         window.attributes = attributes
     }
 
     @JvmStatic
-    fun getAttributes(activity: Activity): WindowManager.LayoutParams =
-        getAttributes(get(activity))
+    fun applyStatusBarColor(activity: Activity, @ColorInt colorInt: Int) {
+        get(activity).statusBarColor = colorInt
+    }
 
     @JvmStatic
-    fun getAttributes(window: Window): WindowManager.LayoutParams =
-        window.attributes
-
-    @JvmStatic
-    fun getFlags(activity: Activity): Int =
-        getFlags(get(activity))
-
-    @JvmStatic
-    fun getFlags(window: Window): Int =
-        getAttributes(window).flags
+    fun applyNavigationBarColor(activity: Activity, @ColorInt colorInt: Int) {
+        get(activity).navigationBarColor = colorInt
+    }
 
     @JvmStatic
     fun clearFlags(activity: Activity, flags: Int) {
@@ -87,40 +112,15 @@ object UtilKWindow : BaseUtilK() {
         get(activity).addFlags(flags)
     }
 
-    @JvmStatic
-    fun setFlags(activity: Activity, flags: Int, mask: Int) {
-        setFlags(get(activity), flags, mask)
-    }
-
-    @JvmStatic
-    fun setFlags(window: Window, flags: Int, mask: Int) {
-        window.setFlags(flags, mask)
-    }
-
-    @JvmStatic
-    fun setStatusBarColor(activity: Activity, @ColorInt colorInt: Int) {
-        get(activity).statusBarColor = colorInt
-    }
-
-    @JvmStatic
-    fun setNavigationBarColor(activity: Activity, @ColorInt colorInt: Int) {
-        get(activity).navigationBarColor = colorInt
-    }
-
     ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun isFlagStatusBarTranslucent(activity: Activity): Boolean =
-        getFlags(activity) and CWinMgr.Lpf.TRANSLUCENT_STATUS != 0
-
-    @JvmStatic
-    fun setFlagsFullScreen(window: Window) {
-        setFlags(window, CWinMgr.Lpf.FULLSCREEN, CWinMgr.Lpf.FULLSCREEN)
-    }
+        getAttributesFlags(activity) and CWinMgr.Lpf.TRANSLUCENT_STATUS != 0
 
     @JvmStatic
     fun isFlagFullScreen(activity: Activity): Boolean =
-        getFlags(activity) and CWinMgr.Lpf.FULLSCREEN != 0
+        getAttributesFlags(activity) and CWinMgr.Lpf.FULLSCREEN != 0
 
     @JvmStatic
     fun isFullScreen(activity: Activity): Boolean =

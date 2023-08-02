@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.app
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import com.mozhimen.basick.utilk.kotlin.packageStr2clazz
+import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 import java.lang.Exception
 
 /**
@@ -33,7 +33,7 @@ class UtilKApplication {
     fun get(): Application {
         if (_application == null) {
             try {
-                _application = "android.app.ActivityThread".packageStr2clazz().getMethod("currentApplication").invoke(null) as Application
+                _application = "android.app.ActivityThread".strPackage2clazz().getMethod("currentApplication").invoke(null) as Application
             } catch (e: Exception) {
                 e.printStackTrace()
             }

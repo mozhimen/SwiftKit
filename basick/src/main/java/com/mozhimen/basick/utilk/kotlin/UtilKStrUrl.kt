@@ -8,13 +8,16 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.net.UtilKNetDeal
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.asAnyBitmap
+import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.net.HttpURLConnection
+import java.net.URI
+import java.net.URISyntaxException
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
@@ -25,12 +28,41 @@ import javax.net.ssl.HttpsURLConnection
  * @Date 2023/8/1 15:42
  * @Version 1.0
  */
-object UtilKStringUrl : BaseUtilK() {
+fun String.isStrUrlAvailable(): Boolean =
+        UtilKStrUrl.isStrUrlAvailable(this)
+
+object UtilKStrUrl : BaseUtilK() {
+
+    /**
+     * 判断url是否可连
+     * @param strUrl String
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isStrUrlAvailable(strUrl: String): Boolean {
+        val uri: URI?
+        try {
+            uri = URI(strUrl)
+        } catch (e: URISyntaxException) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+            return false
+        }
+        if (uri.host == null) {
+            return false
+        } else if (!uri.scheme.equals("http") && !uri.scheme.equals("https") && !uri.scheme.equals("tcp") && !uri.scheme.equals("udp")) {
+            return false
+        }
+        return true
+    }
+
+    /////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.INTERNET)
     suspend fun strUrl2bitmap(strUrl: String): Bitmap? =
-        (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(strUrl).build()).drawable as? BitmapDrawable)?.bitmap
+            (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(strUrl).build()).drawable as? BitmapDrawable)?.bitmap
 
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
@@ -40,7 +72,7 @@ object UtilKStringUrl : BaseUtilK() {
         var inputStream: InputStream? = null
         return try {
             inputStream = tempURL.openStream()
-            inputStream.asAnyBitmap()
+            inputStream.inputStream2anyBitmap()
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -50,7 +82,7 @@ object UtilKStringUrl : BaseUtilK() {
     }
 
     @JvmStatic
-    @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE,CPermission.READ_EXTERNAL_STORAGE,CPermission.INTERNET)
+    @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
     fun strUrl2file(strUrl: String, fileNameWithName: String): String {
         require(strUrl.isNotEmpty()) { "$TAG httpUrl must be not empty" }
 

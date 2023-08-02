@@ -2,12 +2,9 @@ package com.mozhimen.basick.utilk.kotlin.text
 
 import android.util.Log
 import androidx.annotation.MainThread
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.getSplitFirst
-import java.net.URI
-import java.net.URISyntaxException
 
 /**
  * @ClassName Verifier
@@ -16,26 +13,26 @@ import java.net.URISyntaxException
  * @Date 2021/4/21 13:59
  * @Version 1.0
  */
-fun String.isIP(): Boolean =
-    UtilKVerifyUrl.isIP(this)
+fun String.isStrUrlIp(): Boolean =
+    UtilKMatchStrUrl.isStrUrlIp(this)
 
-fun String.isDoMain(): Boolean =
-    UtilKVerifyUrl.isDoMain(this)
+fun String.isStrUrlDomain(): Boolean =
+    UtilKMatchStrUrl.isStrUrlDomain(this)
 
-fun String.isPort(): Boolean =
-    UtilKVerifyUrl.isPort(this)
+fun String.isStrUrlPort(): Boolean =
+    UtilKMatchStrUrl.isStrUrlPort(this)
 
 fun String.isUrl(): Boolean =
-    UtilKVerifyUrl.checkUrl(this)
+    UtilKMatchStrUrl.checkStrUrl(this)
 
-object UtilKVerifyUrl : BaseUtilK() {
+object UtilKMatchStrUrl : BaseUtilK() {
     /**
      * ip是否合法
      * @param ip String
      * @return Boolean
      */
     @JvmStatic
-    fun isIP(ip: String) =
+    fun isStrUrlIp(ip: String) =
         ip.matches(Regex("((25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)\\.){3}(25[0-5]|2[0-4]\\d|1\\d\\d|[1-9]?\\d)"))
 
     /**
@@ -44,7 +41,7 @@ object UtilKVerifyUrl : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun isDoMain(domain: String) =
+    fun isStrUrlDomain(domain: String) =
         domain.matches(Regex("^(?=^.{3,255}$)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+$"))
 
     /**
@@ -53,31 +50,8 @@ object UtilKVerifyUrl : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun isPort(port: String) =
+    fun isStrUrlPort(port: String) =
         port.matches(Regex("^[-+]?[\\d]{1,6}$"))
-
-    /**
-     * 判断url是否可连
-     * @param url String
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isUrlAvailable(url: String): Boolean {
-        val uri: URI?
-        try {
-            uri = URI(url)
-        } catch (e: URISyntaxException) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-            return false
-        }
-        if (uri.host == null) {
-            return false
-        } else if (!uri.scheme.equals("http") && !uri.scheme.equals("https") && !uri.scheme.equals("tcp") && !uri.scheme.equals("udp")) {
-            return false
-        }
-        return true
-    }
 
     /**
      * 判断url是否合法
@@ -86,7 +60,7 @@ object UtilKVerifyUrl : BaseUtilK() {
      */
     @JvmStatic
     @MainThread
-    fun checkUrl(url: String): Boolean {
+    fun checkStrUrl(url: String): Boolean {
         Log.d(TAG, "isUrlValid: url $url")
         if (url.isEmpty()) {
             "输入为空".showToast()
@@ -120,7 +94,7 @@ object UtilKVerifyUrl : BaseUtilK() {
         if (second.contains("/")) {
             second = second.getSplitFirst("/")
         }
-        if (!second.isIP() && !second.isDoMain()) {
+        if (!second.isStrUrlIp() && !second.isStrUrlDomain()) {
             "请输入正确的IP或域名".showToast()
             return false
         }
@@ -129,7 +103,7 @@ object UtilKVerifyUrl : BaseUtilK() {
             if (third.contains("/")) {
                 third = third.getSplitFirst("/")
             }
-            if (!third.isPort()) {
+            if (!third.isStrUrlPort()) {
                 "请输入正确的端口".showToast()
                 return false
             }

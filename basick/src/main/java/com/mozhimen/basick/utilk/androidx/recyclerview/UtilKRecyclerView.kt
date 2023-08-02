@@ -12,35 +12,35 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * @Date 2022/11/6 0:30
  * @Version 1.0
  */
-fun RecyclerView.isScroll2Top(): Boolean =
-    UtilKRecyclerView.isScroll2Top(this)
+fun RecyclerView.isRVScroll2top(): Boolean =
+    UtilKRecyclerView.isRVScroll2top(this)
 
-fun RecyclerView.isScroll2End(): Boolean =
-    UtilKRecyclerView.isScroll2End(this)
+fun RecyclerView.isRVScroll2end(): Boolean =
+    UtilKRecyclerView.isRVScroll2end(this)
 
-fun RecyclerView.isScroll2Top2(): Boolean =
-    UtilKRecyclerView.isScroll2Top2(this)
+fun RecyclerView.isRVScroll2top2(): Boolean =
+    UtilKRecyclerView.isRVScroll2top2(this)
 
-fun RecyclerView.isScroll2End2(): Boolean =
-    UtilKRecyclerView.isScroll2End2(this)
+fun RecyclerView.isRVScroll2end2(): Boolean =
+    UtilKRecyclerView.isRVScroll2end2(this)
 
-fun RecyclerView.isScroll2VerticalEdge(): Boolean =
-    UtilKRecyclerView.isScroll2VerticalEdge(this)
+fun RecyclerView.isRVScroll2VerticalEdge(): Boolean =
+    UtilKRecyclerView.isRVScroll2VerticalEdge(this)
 
-fun RecyclerView.isScroll2VerticalEdge2(): Boolean =
-    UtilKRecyclerView.isScroll2VerticalEdge2(this)
+fun RecyclerView.isRVScroll2VerticalEdge2(): Boolean =
+    UtilKRecyclerView.isRVScroll2VerticalEdge2(this)
 
-fun RecyclerView.isScrollUp(dy: Int): Boolean =
-    UtilKRecyclerView.isScrollUp(dy)
+fun RecyclerView.isRVScrollUp(dy: Int): Boolean =
+    UtilKRecyclerView.isRVScrollUp(dy)
 
-fun RecyclerView.isScrollDown(dx: Int): Boolean =
-    UtilKRecyclerView.isScrollDown(dx)
+fun RecyclerView.isRVScrollDown(dx: Int): Boolean =
+    UtilKRecyclerView.isRVScrollDown(dx)
 
-fun RecyclerView.findLastVisibleItem(): Int =
-    UtilKRecyclerView.findLastVisibleItem(this)
+fun RecyclerView.getRVLastVisibleItemPosition(): Int =
+    UtilKRecyclerView.getRVLastVisibleItemPosition(this)
 
-fun RecyclerView.findFirstVisibleItem(): Int =
-    UtilKRecyclerView.findFirstVisibleItem(this)
+fun RecyclerView.getRVFirstVisibleItemPosition(): Int =
+    UtilKRecyclerView.getRVFirstVisibleItemPosition(this)
 
 object UtilKRecyclerView {
     /**
@@ -49,9 +49,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isScroll2Top(
-        recyclerView: RecyclerView
-    ): Boolean =
+    fun isRVScroll2top(recyclerView: RecyclerView): Boolean =
         !recyclerView.canScrollVertically(-1)
 
     /**
@@ -60,9 +58,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isScroll2End(
-        recyclerView: RecyclerView
-    ): Boolean =
+    fun isRVScroll2end(recyclerView: RecyclerView): Boolean =
         !recyclerView.canScrollVertically(1)
 
     /**
@@ -71,9 +67,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isScroll2Top2(
-        recyclerView: RecyclerView
-    ): Boolean {
+    fun isRVScroll2top2(recyclerView: RecyclerView): Boolean {
         if (recyclerView.layoutManager is LinearLayoutManager) {
             val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
             val firstItemPos = linearLayoutManager.findFirstVisibleItemPosition()
@@ -106,9 +100,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isScroll2End2(
-        recyclerView: RecyclerView
-    ): Boolean {
+    fun isRVScroll2end2(recyclerView: RecyclerView): Boolean {
         if (recyclerView.layoutManager is LinearLayoutManager) {
             val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
             val firstItem = linearLayoutManager.findFirstVisibleItemPosition()
@@ -126,10 +118,8 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isScroll2VerticalEdge(
-        recyclerView: RecyclerView
-    ): Boolean =
-        isScroll2End(recyclerView) || isScroll2Top(recyclerView)
+    fun isRVScroll2VerticalEdge(recyclerView: RecyclerView): Boolean =
+        isRVScroll2end(recyclerView) || isRVScroll2top(recyclerView)
 
     /**
      * 是否滑动到边缘2
@@ -137,10 +127,8 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isScroll2VerticalEdge2(
-        recyclerView: RecyclerView
-    ): Boolean =
-        isScroll2End2(recyclerView) || isScroll2Top2(recyclerView)
+    fun isRVScroll2VerticalEdge2(recyclerView: RecyclerView): Boolean =
+        isRVScroll2end2(recyclerView) || isRVScroll2top2(recyclerView)
 
     /**
      * 是否向上滚动
@@ -148,9 +136,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isScrollUp(
-        dy: Int
-    ): Boolean =
+    fun isRVScrollUp(dy: Int): Boolean =
         dy < 0
 
     /**
@@ -159,9 +145,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isScrollDown(
-        dx: Int
-    ): Boolean =
+    fun isRVScrollDown(dx: Int): Boolean =
         dx > 0
 
     /**
@@ -170,9 +154,7 @@ object UtilKRecyclerView {
      * @return Int
      */
     @JvmStatic
-    fun findLastVisibleItem(
-        recyclerView: RecyclerView
-    ): Int {
+    fun getRVLastVisibleItemPosition(recyclerView: RecyclerView): Int {
         when (val layoutManager = recyclerView.layoutManager) {
             //layoutManager is GridLayoutManager
             is LinearLayoutManager -> {
@@ -191,9 +173,7 @@ object UtilKRecyclerView {
      * @return Int
      */
     @JvmStatic
-    fun findFirstVisibleItem(
-        recyclerView: RecyclerView
-    ): Int {
+    fun getRVFirstVisibleItemPosition(recyclerView: RecyclerView): Int {
         when (val layoutManager = recyclerView.layoutManager) {
             //layoutManager is GridLayoutManager
             is LinearLayoutManager -> {

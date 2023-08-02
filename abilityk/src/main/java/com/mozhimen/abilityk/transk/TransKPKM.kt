@@ -7,6 +7,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
+import com.mozhimen.basick.utilk.kotlin.UtilKCharSequence
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
@@ -33,7 +34,7 @@ class TransKPKM : BaseUtilK() {
     }
 
     fun open(): Boolean {
-        if (_path == null && UtilKString.isEmpty(_path)) {
+        if (_path == null && UtilKCharSequence.isEmpty(_path)) {
             _zipInputStream = null
             _zipEntry = null
             return false

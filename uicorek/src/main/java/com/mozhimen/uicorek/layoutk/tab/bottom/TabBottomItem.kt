@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import coil.load
 import com.mozhimen.basick.utilk.android.util.dp2px
-import com.mozhimen.basick.utilk.android.view.resizeSize
+import com.mozhimen.basick.utilk.android.view.applyResizeSize
 import com.mozhimen.basick.utilk.android.widget.applyIconFont
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKRelative
@@ -151,16 +151,16 @@ class TabBottomItem @JvmOverloads constructor(
             }
             if (selected) {
                 _tabImageView.load(_tabBottomItem!!.bitmapSelected!!)
-                _tabImageView.resizeSize(58f.dp2px().toInt())
+                _tabImageView.applyResizeSize(58f.dp2px().toInt())
             } else {
                 _tabImageView.load(_tabBottomItem!!.bitmapDefault!!)
-                _tabImageView.resizeSize(56f.dp2px().toInt())
+                _tabImageView.applyResizeSize(56f.dp2px().toInt())
             }
         } else if (_tabBottomItem!!.tabType == ETabBottomType.IMAGE_TEXT) {
             if (init) {
                 _tabIconView.visibility = GONE
                 _tabImageView.visibility = VISIBLE
-                _tabImageView.resizeSize(32f.dp2px().toInt())
+                _tabImageView.applyResizeSize(32f.dp2px().toInt())
                 _tabNameView.visibility = VISIBLE
                 if (!TextUtils.isEmpty(_tabBottomItem!!.name)) {
                     _tabNameView.text = _tabBottomItem!!.name

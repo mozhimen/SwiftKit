@@ -24,6 +24,33 @@ import java.lang.StringBuilder
 object UtilKRuntime : BaseUtilK() {
     private val SHELL_SEP = System.getProperty(CPackage.LINE_SEPARATOR)
 
+    @JvmStatic
+    fun getProp(packageStr: String): String? {
+        val line: String
+        var inputBuffer: BufferedReader? = null
+        try {
+            val process = Runtime.getRuntime().exec("getprop $packageStr")
+            inputBuffer = BufferedReader(InputStreamReader(process.inputStream), 1024)
+            line = inputBuffer.readLine()
+            inputBuffer.close()
+        } catch (e: IOException) {
+            Log.e(TAG, "getProp IOException Unable to read prop $packageStr $e")
+            return null
+        } finally {
+            inputBuffer?.let {
+                try {
+                    inputBuffer.close()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    e.message?.et(TAG)
+                }
+            }
+        }
+        return line
+    }
+
+    ///////////////////////////////////////////////////////////
+
     /**
      * 执行单条shell命令
      * @param cmd String
@@ -161,30 +188,5 @@ object UtilKRuntime : BaseUtilK() {
             }
         }
         return MResultISS(result, successMsg?.toString() ?: "", errorMsg?.toString() ?: "")
-    }
-
-    @JvmStatic
-    fun getProp(packageStr: String): String? {
-        val line: String
-        var inputBuffer: BufferedReader? = null
-        try {
-            val process = Runtime.getRuntime().exec("getprop $packageStr")
-            inputBuffer = BufferedReader(InputStreamReader(process.inputStream), 1024)
-            line = inputBuffer.readLine()
-            inputBuffer.close()
-        } catch (e: IOException) {
-            Log.e(TAG, "getProp IOException Unable to read prop $packageStr $e")
-            return null
-        } finally {
-            inputBuffer?.let {
-                try {
-                    inputBuffer.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    e.message?.et(TAG)
-                }
-            }
-        }
-        return line
     }
 }

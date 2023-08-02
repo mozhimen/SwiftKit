@@ -10,30 +10,40 @@ import java.lang.Exception
  * @Date 2023/5/31 18:01
  * @Version 1.0
  */
-fun Long.isOnTheHour(): Boolean =
-    UtilKTime.isOnTheHour(this)
+fun Long.isTimeAtHour(): Boolean =
+    UtilKTime.isTimeAtHour(this)
 
-fun String.isOnTheHourOf(): Boolean =
-    UtilKTime.isOnTheHourOf(this)
+fun String.isTimeAtHourOf(): Boolean =
+    UtilKTime.isTimeAtHourOf(this)
 
-fun String.isOnTheHourOf(timeStr: String): Boolean =
-    UtilKTime.isOnTheHourOf(this, timeStr)
+fun String.isTimeAtHourOf(timeStr: String): Boolean =
+    UtilKTime.isTimeAtHourOf(this, timeStr)
 
-fun Pair<String, String>.isOnTheMinuteOf() =
-    UtilKTime.isOnTheMinuteOf(this)
+fun Pair<String, String>.isTimeAtMinuteOf() =
+    UtilKTime.isTimeAtMinuteOf(this)
 
-fun Pair<String, String>.isOnTheMinuteOf(timeStr: String) =
-    UtilKTime.isOnTheMinuteOf(this, timeStr)
+fun Pair<String, String>.isTimeAtMinuteOf(timeStr: String) =
+    UtilKTime.isTimeAtMinuteOf(this, timeStr)
 
 object UtilKTime {
+    /**
+     * 获取当前小时2位
+     * @return String
+     */
+    @JvmStatic
+    fun getCurrentHourStrDoubleBits(): String =
+            UtilKDate.getNowStr(CDateFormat.HH)
+
+    //////////////////////////////////////////////////////////////////////
+
     /**
      * 是否对齐时间
      * @param hourAndMinuteTwoBits Pair<String, String> 小时两位,分钟两位
      * @return Boolean
      */
     @JvmStatic
-    fun isOnTheMinuteOf(hourAndMinuteTwoBits: Pair<String, String>): Boolean =
-        isOnTheMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, UtilKDate.getNowStr(CDateFormat.HHmm))
+    fun isTimeAtMinuteOf(hourAndMinuteTwoBits: Pair<String, String>): Boolean =
+        isTimeAtMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, UtilKDate.getNowStr(CDateFormat.HHmm))
 
     /**
      * 是否对齐时间
@@ -42,8 +52,8 @@ object UtilKTime {
      * @return Boolean
      */
     @JvmStatic
-    fun isOnTheMinuteOf(hourAndMinuteTwoBits: Pair<String, String>, timeStr: String): Boolean =
-        isOnTheMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, timeStr)
+    fun isTimeAtMinuteOf(hourAndMinuteTwoBits: Pair<String, String>, timeStr: String): Boolean =
+        isTimeAtMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, timeStr)
 
     /**
      * 是否对齐时间
@@ -53,7 +63,7 @@ object UtilKTime {
      * @return Boolean
      */
     @JvmStatic
-    fun isOnTheMinuteOf(hourStrTwoBits: String, minuteStrTwoBits: String, timeStr: String): Boolean {
+    fun isTimeAtMinuteOf(hourStrTwoBits: String, minuteStrTwoBits: String, timeStr: String): Boolean {
         val time = timeStr.split(":")
         return try {
             time[0] == hourStrTwoBits && time[1] == minuteStrTwoBits
@@ -68,8 +78,8 @@ object UtilKTime {
      * @return Boolean
      */
     @JvmStatic
-    fun isOnTheHourOf(hourStrTwoBits: String): Boolean =
-        isOnTheHourOf(hourStrTwoBits, UtilKDate.getNowStr(CDateFormat.HHmm))
+    fun isTimeAtHourOf(hourStrTwoBits: String): Boolean =
+        isTimeAtHourOf(hourStrTwoBits, UtilKDate.getNowStr(CDateFormat.HHmm))
 
     /**
      * 是否是指定整点
@@ -77,7 +87,7 @@ object UtilKTime {
      * @param timeStr String HHmm格式
      */
     @JvmStatic
-    fun isOnTheHourOf(hourStrTwoBits: String, timeStr: String): Boolean {
+    fun isTimeAtHourOf(hourStrTwoBits: String, timeStr: String): Boolean {
         val time = timeStr.split(":")
         return try {
             time[0] == hourStrTwoBits && time[1] == "00"
@@ -87,19 +97,11 @@ object UtilKTime {
     }
 
     /**
-     * 获取当前小时2位
-     * @return String
-     */
-    @JvmStatic
-    fun getCurrentHourStrDoubleBits(): String =
-        UtilKDate.getNowStr(CDateFormat.HH)
-
-    /**
      * 是否是整小时
      * @param timeLong Long
      */
     @JvmStatic
-    fun isOnTheHour(timeLong: Long): Boolean =
+    fun isTimeAtHour(timeLong: Long): Boolean =
         (timeLong / 1000) % 3600 == 0L
 
     /**
@@ -107,8 +109,8 @@ object UtilKTime {
      * @return Boolean
      */
     @JvmStatic
-    fun isOnTheHour(): Boolean =
-        isOnTheHour(UtilKDate.getNowStr(CDateFormat.mm))
+    fun isTimeAtHour(): Boolean =
+        isTimeAtHour(UtilKDate.getNowStr(CDateFormat.mm))
 
     /**
      * 是否是整小时
@@ -116,7 +118,7 @@ object UtilKTime {
      * @return Boolean
      */
     @JvmStatic
-    fun isOnTheHour(timeStr: String): Boolean {
+    fun isTimeAtHour(timeStr: String): Boolean {
         return try {
             timeStr == "00"
         } catch (e: Exception) {

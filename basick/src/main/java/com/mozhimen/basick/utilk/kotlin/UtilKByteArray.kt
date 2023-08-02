@@ -1,18 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import com.mozhimen.basick.elemk.cons.CMsg
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFile
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
-
 
 /**
  * @ClassName UtilKByteArray

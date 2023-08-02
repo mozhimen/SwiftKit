@@ -1,7 +1,5 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import com.mozhimen.basick.elemk.cons.CMsg
-
 /**
  * @ClassName UtilKStringFormat
  * @Description TODO
@@ -9,24 +7,10 @@ import com.mozhimen.basick.elemk.cons.CMsg
  * @Date 2023/8/1 16:31
  * @Version 1.0
  */
-fun String.asUnicode(): String =
+fun String.str2unicode(): String =
     UtilKStringFormat.str2unicode(this)
 
-fun Any.asStringTrim(): String =
-    UtilKStringFormat.asStringTrim(this)
-
-fun String.regexLineBreak2str(): String =
-    UtilKStringFormat.regexLineBreak2str(this)
-
 object UtilKStringFormat {
-    @JvmStatic
-    fun asStringTrim(charSequence: CharSequence): String =
-        charSequence.toString().trim()
-
-    @JvmStatic
-    fun asStringTrim(obj: Any): String =
-        obj.toString().trim()
-
     /**
      * icon代码转unicode
      * @param str String
@@ -54,8 +38,4 @@ object UtilKStringFormat {
 
         return stringBuffer.toString()
     }
-
-    @JvmStatic
-    fun regexLineBreak2str(str: String): String =
-        str.replace("\\n".toRegex(), CMsg.LINE_BREAK)
 }

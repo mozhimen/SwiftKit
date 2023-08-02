@@ -17,60 +17,6 @@ import org.json.JSONObject
  */
 object UtilKJson : BaseUtilK() {
 
-    @JvmStatic
-    fun wrapJson(json: String): String {
-        var message: String
-        if (TextUtils.isEmpty(json)) return ""
-        try {
-            if (json.startsWith("{")) {
-                val jsonObject = JSONObject(json)
-                message = jsonObject.toString(2)
-                message = """
-                
-                <<<<<=====JSONObject=====>>>>>
-                $message
-                <<<<<=====JSONObject=====>>>>>
-                
-                """.trimIndent()
-            } else if (json.startsWith("[")) {
-                val jsonArray = JSONArray(json)
-                message = jsonArray.toString(4)
-                message = """
-                
-                <<<<<=====JSONArray=====>>>>>
-                $message
-                <<<<<=====JSONArray=====>>>>>
-                
-                """.trimIndent()
-            } else message = json
-        } catch (e: JSONException) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-            message = json
-        }
-        return message
-    }
-
-    /**
-     * 分割json
-     * @param json String
-     * @return Array<String?>?
-     */
-    @JvmStatic
-    fun splitJson(json: String): Array<String?>? {
-        val splitArray: Array<String?> = json.split("\t").toTypedArray()
-        return if (splitArray.size != 2) null else splitArray
-    }
-
-    /**
-     * Any转JsonObj
-     * @param obj Any
-     * @return JSONObject?
-     */
-    @JvmStatic
-    fun obj2jsonObj(obj: Any): JSONObject =
-        if (obj is String) JSONObject(obj) else JSONObject(UtilKJsonGson.obj2json(obj))
-
     /**
      * 从Json中摘取string
      * @param json String
@@ -78,24 +24,8 @@ object UtilKJson : BaseUtilK() {
      * @return String?
      */
     @JvmStatic
-    fun getStrFromJson(json: String, name: String): String =
-        JSONObject(json.trim { it <= ' ' })[name].toString()
-
-    /**
-     * json转Array
-     * @param json String
-     * @return Array<String>?
-     */
-    @JvmStatic
-    fun json2strArray(json: String): Array<String?> {
-        val jsonArray = JSONArray(json.trim { it <= ' ' })
-        val length = jsonArray.length()
-        val strArray = Array<String?>(length) { "" }
-        for (i in 0 until length) {
-            strArray[i] = jsonArray[i] as? String?
-        }
-        return strArray
-    }
+    fun getStrForJson(json: String, name: String): String =
+            JSONObject(json.trim { it <= ' ' })[name].toString()
 
     /**
      * 从JsonObj找到JsonArray
@@ -130,6 +60,93 @@ object UtilKJson : BaseUtilK() {
             null
         }
     }
+
+    /**
+     * 从jsonObj获取T
+     * @param jsonObj JSONObject
+     * @param name String
+     * @return T?
+     */
+    @JvmStatic
+    fun <T> getTForJsonObj(jsonObj: JSONObject, name: String): T? =
+            try {
+                jsonObj[name] as? T?
+            } catch (e: JSONException) {
+                e.printStackTrace()
+                e.message?.et(TAG)
+                null
+            }
+
+    /**
+     * 从JsonObj获取JsonArray
+     * @param jsonArray JSONArray
+     * @param i Int
+     * @return JSONObject?
+     */
+    @JvmStatic
+    fun getJsonObjForJsonArray(jsonArray: JSONArray, i: Int): JSONObject? =
+            try {
+                jsonArray.getJSONObject(i)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                e.message?.et(TAG)
+                null
+            }
+
+    ////////////////////////////////////////////////////////////////////
+
+    /**
+     * json转JsonArray
+     * @param json String
+     * @return JSONArray
+     */
+    @JvmStatic
+    fun json2jsonArray(json: String): JSONArray =
+            JSONArray(json)
+
+    /**
+     * json转Array
+     * @param json String
+     * @return Array<String>?
+     */
+    @JvmStatic
+    fun json2strArray(json: String): Array<String?> {
+        val jsonArray = JSONArray(json.trim { it <= ' ' })
+        val length = jsonArray.length()
+        val strArray = Array<String?>(length) { "" }
+        for (i in 0 until length) {
+            strArray[i] = jsonArray[i] as? String?
+        }
+        return strArray
+    }
+
+    /**
+     * json转JsonObj
+     * @param json String
+     * @return JSONObject
+     */
+    @JvmStatic
+    fun json2jsonObj(json: String): JSONObject =
+            JSONObject(json)
+
+    /**
+     * json转TList
+     * @param json String
+     * @param clazz Class<T>
+     * @return ArrayList<T?>?
+     */
+    @JvmStatic
+    fun <T> json2tList(json: String, clazz: Class<T>): ArrayList<T?>? =
+            jsonArray2tList(JSONArray(json.trim { json <= " " }), clazz)
+
+    /**
+     * Any转JsonObj
+     * @param obj Any
+     * @return JSONObject?
+     */
+    @JvmStatic
+    fun obj2jsonObj(obj: Any): JSONObject =
+            if (obj is String) JSONObject(obj) else JSONObject(UtilKJsonGson.obj2json(obj))
 
     /**
      * jsonArray转StrList
@@ -179,15 +196,52 @@ object UtilKJson : BaseUtilK() {
         return arrayList
     }
 
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun wrapJson(json: String): String {
+        var message: String
+        if (TextUtils.isEmpty(json)) return ""
+        try {
+            if (json.startsWith("{")) {
+                val jsonObject = JSONObject(json)
+                message = jsonObject.toString(2)
+                message = """
+                
+                <<<<<=====JSONObject=====>>>>>
+                $message
+                <<<<<=====JSONObject=====>>>>>
+                
+                """.trimIndent()
+            } else if (json.startsWith("[")) {
+                val jsonArray = JSONArray(json)
+                message = jsonArray.toString(4)
+                message = """
+                
+                <<<<<=====JSONArray=====>>>>>
+                $message
+                <<<<<=====JSONArray=====>>>>>
+                
+                """.trimIndent()
+            } else message = json
+        } catch (e: JSONException) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+            message = json
+        }
+        return message
+    }
+
     /**
-     * json转TList
+     * 分割json
      * @param json String
-     * @param clazz Class<T>
-     * @return ArrayList<T?>?
+     * @return Array<String?>?
      */
     @JvmStatic
-    fun <T> json2tList(json: String, clazz: Class<T>): ArrayList<T?>? =
-        jsonArray2tList(JSONArray(json.trim { json <= " " }), clazz)
+    fun splitJson(json: String): Array<String?>? {
+        val splitArray: Array<String?> = json.split("\t").toTypedArray()
+        return if (splitArray.size != 2) null else splitArray
+    }
 
     /**
      * 组合Json
@@ -212,24 +266,6 @@ object UtilKJson : BaseUtilK() {
     }
 
     /**
-     * json转JsonObj
-     * @param json String
-     * @return JSONObject
-     */
-    @JvmStatic
-    fun json2jsonObj(json: String): JSONObject =
-        JSONObject(json)
-
-    /**
-     * json转JsonArray
-     * @param json String
-     * @return JSONArray
-     */
-    @JvmStatic
-    fun json2jsonArray(json: String): JSONArray =
-        JSONArray(json)
-
-    /**
      * 将obj填入
      * @param jsonObj JSONObject
      * @param obj Any
@@ -248,36 +284,4 @@ object UtilKJson : BaseUtilK() {
             e.message?.et(TAG)
         }
     }
-
-    /**
-     * 从jsonObj获取T
-     * @param jsonObj JSONObject
-     * @param name String
-     * @return T?
-     */
-    @JvmStatic
-    fun <T> getTForJsonObj(jsonObj: JSONObject, name: String): T? =
-        try {
-            jsonObj[name] as? T?
-        } catch (e: JSONException) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-            null
-        }
-
-    /**
-     * 从JsonObj获取JsonArray
-     * @param jsonArray JSONArray
-     * @param i Int
-     * @return JSONObject?
-     */
-    @JvmStatic
-    fun getJsonObjForJsonArray(jsonArray: JSONArray, i: Int): JSONObject? =
-        try {
-            jsonArray.getJSONObject(i)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-            null
-        }
 }

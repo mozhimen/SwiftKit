@@ -6,7 +6,7 @@ import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.packageStr2clazz
+import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 
 import java.lang.reflect.Method
 
@@ -18,6 +18,26 @@ import java.lang.reflect.Method
  * @Version 1.0
  */
 object UtilKSystemProperties : BaseUtilK() {
+
+    /**
+     * 设置首选项
+     * @param key String?
+     * @param value String?
+     */
+    @JvmStatic
+    @SuppressLint("PrivateApi")
+    fun applySystemProperties(key: String, value: String) {
+        try {
+            val clazz = CPackage.ANDROID_OS_SYSTEM_PROPERTIES.strPackage2clazz()
+            val setMethod: Method = clazz.getMethod("set", String::class.java, String::class.java)
+            setMethod.invoke(clazz, key, value)
+        } catch (e: Exception) {
+            Log.e(TAG, "setSystemProperties Exception ${e.message}")
+            e.printStackTrace()
+        }
+    }
+
+    //////////////////////////////////////////////////
 
     /**
      * 设备Rom版本
@@ -50,24 +70,6 @@ object UtilKSystemProperties : BaseUtilK() {
     }
 
     /**
-     * 设置首选项
-     * @param key String?
-     * @param value String?
-     */
-    @JvmStatic
-    @SuppressLint("PrivateApi")
-    fun setSystemProperties(key: String, value: String) {
-        try {
-            val clazz = CPackage.ANDROID_OS_SYSTEM_PROPERTIES.packageStr2clazz()
-            val setMethod: Method = clazz.getMethod("set", String::class.java, String::class.java)
-            setMethod.invoke(clazz, key, value)
-        } catch (e: Exception) {
-            Log.e(TAG, "setSystemProperties Exception ${e.message}")
-            e.printStackTrace()
-        }
-    }
-
-    /**
      * 获取首选项
      * @param packageStr String?
      * @param defaultValue String
@@ -77,7 +79,7 @@ object UtilKSystemProperties : BaseUtilK() {
     @SuppressLint("PrivateApi")
     fun getSystemProperties(packageStr: String, defaultValue: String): String =
         try {
-            val clazz = CPackage.ANDROID_OS_SYSTEM_PROPERTIES.packageStr2clazz()
+            val clazz = CPackage.ANDROID_OS_SYSTEM_PROPERTIES.strPackage2clazz()
             val getMethod: Method = clazz.getMethod("get", String::class.java)
             (getMethod.invoke(clazz, packageStr) as String).ifEmpty { defaultValue }
         } catch (e: Exception) {
@@ -96,7 +98,7 @@ object UtilKSystemProperties : BaseUtilK() {
     @SuppressLint("PrivateApi")
     fun getSystemPropertiesBool(key: String, defaultValue: Boolean): Boolean =
         try {
-            val clazz = CPackage.ANDROID_OS_SYSTEM_PROPERTIES.packageStr2clazz()
+            val clazz = CPackage.ANDROID_OS_SYSTEM_PROPERTIES.strPackage2clazz()
             val getMethod: Method = clazz.getMethod("get", String::class.java)
             val resStr = getMethod.invoke(clazz, key) as String
             if (resStr.isNotEmpty()) {

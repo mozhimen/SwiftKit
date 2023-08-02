@@ -2,12 +2,12 @@ package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.writeBytes2fileOutputStream
+import com.mozhimen.basick.utilk.java.io.flushClose
 import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
 
 /**
  * @ClassName UtilKByteArrayFormat
@@ -16,31 +16,31 @@ import java.io.ObjectOutputStream
  * @Date 2023/8/1 16:13
  * @Version 1.0
  */
-fun ByteArray.asFile(destFile: File, isOverwrite: Boolean = true): File? =
-    UtilKByteArrayFormat.bytes2file(this, destFile, isOverwrite)
+fun ByteArray.bytes2file(filePathWithName: String, isOverwrite: Boolean = true): File =
+        UtilKByteArrayFormat.bytes2file(this, filePathWithName, isOverwrite)
 
-fun ByteArray.asObj(): Any? =
-    UtilKByteArrayFormat.bytes2obj(this)
+fun ByteArray.bytes2file(destFile: File, isOverwrite: Boolean = true): File =
+        UtilKByteArrayFormat.bytes2file(this, destFile, isOverwrite)
 
-fun ByteArray.asHexStr(): String =
-    UtilKByteArrayFormat.bytes2hexStr(this)
+fun ByteArray.bytes2obj(): Any? =
+        UtilKByteArrayFormat.bytes2obj(this)
+
+fun ByteArray.bytes2hexStr(size: Int): String =
+        UtilKByteArrayFormat.bytes2hexStr(this, size)
+
+fun ByteArray.bytes2hexStr(): String =
+        UtilKByteArrayFormat.bytes2hexStr(this)
 
 object UtilKByteArrayFormat {
     @JvmStatic
-    fun bytes2file(bytes: ByteArray, destFile: File, isOverwrite: Boolean = true): File? {
+    fun bytes2file(bytes: ByteArray, filePathWithName: String, isOverwrite: Boolean = true): File =
+            bytes2file(bytes, UtilKFile.createFile(filePathWithName), isOverwrite)
+
+    @JvmStatic
+    fun bytes2file(bytes: ByteArray, destFile: File, isOverwrite: Boolean = true): File {
         UtilKFile.createFile(destFile)
-        val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
-        try {
-            fileOutputStream.write(bytes)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(UtilKFile.TAG)
-        } finally {
-            fileOutputStream.flush()
-            fileOutputStream.close()
-        }
-        return null
+        FileOutputStream(destFile, !isOverwrite).flushClose { bytes.writeBytes2fileOutputStream(it) }
+        return destFile
     }
 
     @JvmStatic
@@ -57,30 +57,6 @@ object UtilKByteArrayFormat {
         } finally {
             byteArrayInputStream?.close()
             objectInputStream?.close()
-        }
-        return null
-    }
-
-    @JvmStatic
-    fun <T> t2bytes(obj: T): ByteArray? =
-        obj2bytes(obj!!)
-
-    @JvmStatic
-    fun obj2bytes(obj: Any): ByteArray? {
-        var byteArrayOutputStream: ByteArrayOutputStream? = null
-        var objectOutputStream: ObjectOutputStream? = null
-        try {
-            byteArrayOutputStream = ByteArrayOutputStream()
-            objectOutputStream = ObjectOutputStream(byteArrayOutputStream)
-            objectOutputStream.writeObject(obj)
-            objectOutputStream.flush()
-            return byteArrayOutputStream.toByteArray()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(UtilKByteArray.TAG)
-        } finally {
-            byteArrayOutputStream?.close()
-            objectOutputStream?.close()
         }
         return null
     }
@@ -111,7 +87,7 @@ object UtilKByteArrayFormat {
     fun bytes2hexStr(bytes: ByteArray): String {
         val stringBuilder = StringBuilder()
         for (byte in bytes) {
-            stringBuilder.append(byte.asHexStr())
+            stringBuilder.append(byte.bytes2hexStr())
             // 也可以使用下面的方式。 X 表示大小字母，x 表示小写字母，对应的是 HEX_DIGITS 中字母
             // buf.append(String.format("%02X", value));
         }

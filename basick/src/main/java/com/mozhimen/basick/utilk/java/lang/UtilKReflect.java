@@ -18,6 +18,8 @@ public class UtilKReflect {
         return getField(obj, fieldName).getInt(obj);
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public static Field getField(Object obj, String fieldName) throws NoSuchFieldException {
         return getField(obj.getClass(), fieldName);
     }

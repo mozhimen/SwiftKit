@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.view.WindowManager
 import androidx.annotation.FloatRange
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.content.UtilKTheme
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -54,10 +53,10 @@ object UtilKScreen : BaseUtilK() {
      * @param activity Activity
      */
     @JvmStatic
-    fun setBrightness(@FloatRange(from = 0.0, to = 1.0) paramFloat: Float, activity: Activity) {
+    fun applyBrightness(@FloatRange(from = 0.0, to = 1.0) paramFloat: Float, activity: Activity) {
         val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(activity)
         layoutParams.screenBrightness = paramFloat
-        UtilKWindow.setAttributes(activity, layoutParams)
+        UtilKWindow.applyAttributes(activity, layoutParams)
     }
 
     ////////////////////////////////////////////////////////////////////////////////

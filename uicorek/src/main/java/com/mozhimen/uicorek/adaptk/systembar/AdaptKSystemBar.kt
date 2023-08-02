@@ -11,7 +11,7 @@ import com.mozhimen.basick.utilk.android.app.getAnnotation
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.getByteStr
-import com.mozhimen.basick.utilk.kotlin.asBoolean
+import com.mozhimen.basick.utilk.kotlin.int2boolean
 
 /**
  * @ClassName StatusBarK
@@ -120,7 +120,7 @@ object AdaptKSystemBar : BaseUtilK() {
         val byteStr = byteInt.getByteStr(16)
         var byteBoolean: Boolean
         byteStr.forEachIndexed { position, c ->
-            byteBoolean = c.digitToInt().asBoolean()
+            byteBoolean = c.digitToInt().int2boolean()
             when (position) {
                 1 -> mPropertyConfig.isImmersed = byteBoolean
                 2 -> mPropertyConfig.isImmersedHard = byteBoolean

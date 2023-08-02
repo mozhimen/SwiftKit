@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.java.lang
 
+import com.mozhimen.basick.elemk.java.lang.bases.BaseGeneric
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
@@ -11,8 +12,6 @@ import java.lang.reflect.Type
  * @Version 1.0
  */
 object UtilKGeneric {
-    abstract class UtilKTypeRef<T> // 自定义的类,用来包装泛型
-
     /**
      * 获取当前<>里面的泛型实例
      * @param index Int
@@ -20,7 +19,7 @@ object UtilKGeneric {
      */
     @JvmStatic
     fun <T> getGenericType(index: Int = 0): Type? =
-        object : UtilKTypeRef<T>() {}::class.java
+        object : BaseGeneric<T>() {}::class.java
             .genericSuperclass
             .let { it as ParameterizedType }
             .actualTypeArguments.filterIsInstance<Class<*>>()

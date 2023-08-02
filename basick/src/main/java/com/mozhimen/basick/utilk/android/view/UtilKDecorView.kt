@@ -43,48 +43,48 @@ object UtilKDecorView : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun setSystemUiVisibility(activity: Activity, visibility: Int) {
-        setSystemUiVisibility(activity.window, visibility)
+    fun applySystemUiVisibility(activity: Activity, visibility: Int) {
+        applySystemUiVisibility(activity.window, visibility)
     }
 
     @JvmStatic
-    fun setSystemUiVisibility(window: Window, visibility: Int) {
-        setSystemUiVisibility(get(window), visibility)
+    fun applySystemUiVisibility(window: Window, visibility: Int) {
+        applySystemUiVisibility(get(window), visibility)
     }
 
     @JvmStatic
-    fun setSystemUiVisibility(decorView: View, visibility: Int) {
+    fun applySystemUiVisibility(decorView: View, visibility: Int) {
         decorView.systemUiVisibility = visibility
     }
 
     @JvmStatic
-    fun setSystemUiVisibilityOr(activity: Activity, visibility: Int) {
-        setSystemUiVisibilityOr(activity.window, visibility)
+    fun applySystemUiVisibilityOr(activity: Activity, visibility: Int) {
+        applySystemUiVisibilityOr(activity.window, visibility)
     }
 
     @JvmStatic
-    fun setSystemUiVisibilityOr(window: Window, visibility: Int) {
-        setSystemUiVisibilityOr(get(window), visibility)
+    fun applySystemUiVisibilityOr(window: Window, visibility: Int) {
+        applySystemUiVisibilityOr(get(window), visibility)
     }
 
     @JvmStatic
-    fun setSystemUiVisibilityOr(decorView: View, visibility: Int) {
-        setSystemUiVisibility(decorView, getSystemUiVisibility(decorView) or visibility)
+    fun applySystemUiVisibilityOr(decorView: View, visibility: Int) {
+        applySystemUiVisibility(decorView, getSystemUiVisibility(decorView) or visibility)
     }
 
     @JvmStatic
-    fun setSystemUiVisibilityAnd(activity: Activity, visibility: Int) {
-        setSystemUiVisibilityAnd(activity.window, visibility)
+    fun applySystemUiVisibilityAnd(activity: Activity, visibility: Int) {
+        applySystemUiVisibilityAnd(activity.window, visibility)
     }
 
     @JvmStatic
-    fun setSystemUiVisibilityAnd(window: Window, visibility: Int) {
-        setSystemUiVisibilityAnd(get(window), visibility)
+    fun applySystemUiVisibilityAnd(window: Window, visibility: Int) {
+        applySystemUiVisibilityAnd(get(window), visibility)
     }
 
     @JvmStatic
-    fun setSystemUiVisibilityAnd(decorView: View, visibility: Int) {
-        setSystemUiVisibility(decorView, getSystemUiVisibility(decorView) and visibility)
+    fun applySystemUiVisibilityAnd(decorView: View, visibility: Int) {
+        applySystemUiVisibility(decorView, getSystemUiVisibility(decorView) and visibility)
     }
 
     @JvmStatic
@@ -122,18 +122,18 @@ object UtilKDecorView : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun setLayoutStable(activity: Activity) {
-        setSystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_STABLE)
+    fun applyLayoutStable(activity: Activity) {
+        applySystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_STABLE)
     }
 
     @JvmStatic
-    fun setImmersedHard(activity: Activity) {
-        setSystemUiVisibilityOr(activity, CView.SystemUiFlag.IMMERSIVE)
+    fun applyImmersedHard(activity: Activity) {
+        applySystemUiVisibilityOr(activity, CView.SystemUiFlag.IMMERSIVE)
     }
 
     @JvmStatic
-    fun setImmersedSticky(activity: Activity) {
-        setSystemUiVisibilityOr(activity, CView.SystemUiFlag.IMMERSIVE_STICKY)
+    fun applyImmersedSticky(activity: Activity) {
+        applySystemUiVisibilityOr(activity, CView.SystemUiFlag.IMMERSIVE_STICKY)
     }
 
     ///////////////////////////////////////////////////////////////////////////

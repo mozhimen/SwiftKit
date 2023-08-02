@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.kotlin.UtilKDataType
+import com.mozhimen.basick.utilk.kotlin.UtilKAny
 import com.mozhimen.basick.utilk.kotlin.isObjPrimitive
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Assert
@@ -13,15 +13,15 @@ import org.junit.Test
  * @Date 2022/8/30 23:57
  * @Version 1.0
  */
-class TestUtilKDataType {
+class TestUtilKAny {
     @Test
-    fun isTypeMatch() {
-        Assert.assertTrue(UtilKDataType.isTypeMatch("123", String::class.java))
+    fun isObjTypeMatch() {
+        Assert.assertTrue(UtilKAny.isObjTypeMatch("123", String::class.java))
     }
 
     @Test
     fun getTypeName() {
-        UtilKDataType.getTypeName(0x000000).printlog()
+        UtilKAny.getObjTypeName(0x000000).printlog()
     }
 
     @Test

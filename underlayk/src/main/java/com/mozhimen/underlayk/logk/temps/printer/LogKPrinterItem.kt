@@ -3,7 +3,7 @@ package com.mozhimen.underlayk.logk.temps.printer
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
-import com.mozhimen.basick.utilk.kotlin.regexLineBreak2str
+import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.underlayk.R
@@ -24,7 +24,7 @@ class LogKPrinterItem(private val _log: MLogKConfig) : BaseRecyclerKItem<VHKRecy
         val colorInt = LogKHelper.getLevelColor(_log.level)
         holder.vb.logkPrinterViewTag.text = _log.getFlattened()
         holder.vb.logkPrinterViewTag.setTextColor(colorInt)
-        holder.vb.logkPrinterViewMsg.text = _log.log.regexLineBreak2str().replace(UtilKPackage.getPackageName(), "")
+        holder.vb.logkPrinterViewMsg.text = _log.log.replaceRegexLineBreak().replace(UtilKPackage.getPackageName(), "")
         holder.vb.logkPrinterViewMsg.setTextColor(colorInt)
     }
 

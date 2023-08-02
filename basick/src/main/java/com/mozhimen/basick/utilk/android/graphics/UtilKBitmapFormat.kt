@@ -42,19 +42,22 @@ import java.io.OutputStream
  */
 
 fun Bitmap.anyBitmap2jpegBytes(): ByteArray? =
-    UtilKBitmapFormat.anyBitmap2jpegBytes(this)
+        UtilKBitmapFormat.anyBitmap2jpegBytes(this)
 
 fun Bitmap.anyBitmap2rgb565Bitmap(): Bitmap =
-    UtilKBitmapFormat.anyBitmap2rgb565Bitmap(this)
+        UtilKBitmapFormat.anyBitmap2rgb565Bitmap(this)
 
 fun Bitmap.jpegBitmap2jpegFile(filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-    UtilKBitmapFormat.jpegBitmap2jpegFile(this, filePathWithName, quality)
+        UtilKBitmapFormat.jpegBitmap2jpegFile(this, filePathWithName, quality)
+
+fun Bitmap.anyBitmap2anyBytes(compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray? =
+        UtilKBitmapFormat.anyBitmap2anyBytes(this, compressFormat, quality)
 
 object UtilKBitmapFormat : BaseUtilK() {
 
     @JvmStatic
     fun anyBitmap2rgb565Bitmap(sourceBitmap: Bitmap): Bitmap =
-        sourceBitmap.copy(Bitmap.Config.RGB_565, true)
+            sourceBitmap.copy(Bitmap.Config.RGB_565, true)
 
     @JvmStatic
     fun anyBitmap2anyBytes(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray? {
@@ -75,17 +78,17 @@ object UtilKBitmapFormat : BaseUtilK() {
 
     @JvmStatic
     fun anyBitmap2jpegBytes(sourceBitmap: Bitmap, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray? =
-        anyBitmap2anyBytes(sourceBitmap, CompressFormat.JPEG, quality)
+            anyBitmap2anyBytes(sourceBitmap, CompressFormat.JPEG, quality)
 
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun anyBitmap2jpegFile(sourceBitmap: Bitmap, filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        anyBitmap2file(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
+            anyBitmap2file(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
 
     @JvmStatic
     fun anyBitmap2pngFile(sourceBitmap: Bitmap, filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        anyBitmap2file(sourceBitmap, filePathWithName, CompressFormat.PNG, quality)
+            anyBitmap2file(sourceBitmap, filePathWithName, CompressFormat.PNG, quality)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
@@ -98,7 +101,7 @@ object UtilKBitmapFormat : BaseUtilK() {
             val contentValues = ContentValues()
             val contentResolver: ContentResolver = UtilKContentResolver.get(_context)
             contentValues.put(MediaStore.Images.ImageColumns.DATA, destFile.absolutePath)
-            contentValues.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, filePathWithName.split("/").lastOrNull() ?: UtilKFile.nowStr2fileName())
+            contentValues.put(MediaStore.Images.ImageColumns.DISPLAY_NAME, filePathWithName.split("/").lastOrNull() ?: UtilKFile.nowDateStr2fileName())
             contentValues.put(MediaStore.Images.ImageColumns.MIME_TYPE, CMediaFormat.MIMETYPE_IMAGE_JPEG)
             contentValues.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString())
             val uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues) // 插入相册
@@ -134,7 +137,7 @@ object UtilKBitmapFormat : BaseUtilK() {
      */
     @JvmStatic
     fun anyBitmap2file(sourceBitmap: Bitmap, filePathWithName: String, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        anyBitmap2file(sourceBitmap, File(filePathWithName), compressFormat, quality)
+            anyBitmap2file(sourceBitmap, File(filePathWithName), compressFormat, quality)
 
     /**
      * 保存图片 before 29
@@ -161,12 +164,12 @@ object UtilKBitmapFormat : BaseUtilK() {
 
     @JvmStatic
     fun jpegBitmap2jpegFile(sourceBitmap: Bitmap, filePathWithName: String, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        if (UtilKBuildVersion.isAfterV_29_10_Q()) {
-            if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) null
-            else anyBitmap2fileAfter29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
-        } else {
-            anyBitmap2jpegFile(sourceBitmap, filePathWithName, quality)
-        }
+            if (UtilKBuildVersion.isAfterV_29_10_Q()) {
+                if (ActivityCompat.checkSelfPermission(_context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) null
+                else anyBitmap2fileAfter29(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
+            } else {
+                anyBitmap2jpegFile(sourceBitmap, filePathWithName, quality)
+            }
 
     @JvmStatic
     fun deleteBitmap(filePathWithName: String) {
@@ -177,9 +180,9 @@ object UtilKBitmapFormat : BaseUtilK() {
 
     @JvmStatic
     fun anyBitmap2drawable(sourceBitmap: Bitmap): Drawable =
-        sourceBitmap.toDrawable(UtilKResource.getSystemResources())
+            sourceBitmap.toDrawable(UtilKResource.getSystemResources())
 
     @JvmStatic
     fun anyBitmap2drawable2(sourceBitmap: Bitmap): Drawable =
-        BitmapDrawable(UtilKResource.getAppResources(_context), sourceBitmap)
+            BitmapDrawable(UtilKResource.getAppResources(_context), sourceBitmap)
 }

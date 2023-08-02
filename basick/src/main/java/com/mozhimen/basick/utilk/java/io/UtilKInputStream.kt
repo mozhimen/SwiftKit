@@ -7,11 +7,10 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.java.security.UtilKMd5
-import com.mozhimen.basick.utilk.java.security.asMd5Str2
-import com.mozhimen.basick.utilk.kotlin.regexLineBreak2str
+import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.java.security.inputStream2md5Str2
+import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
@@ -19,8 +18,6 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.math.BigInteger
-import java.security.MessageDigest
 
 /**
  * @ClassName UtilKInputStream
@@ -29,138 +26,64 @@ import java.security.MessageDigest
  * @Date 2023/7/31 11:42
  * @Version 1.0
  */
-fun InputStream.asBytes(): ByteArray? =
-    UtilKInputStream.inputStream2bytes(this)
+fun InputStream.inputStream2bytes(): ByteArray =
+        UtilKInputStream.inputStream2bytes(this)
 
-fun InputStream.asBytes2(fileLength: Long): ByteArray? =
-    UtilKInputStream.inputStream2bytes2(this, fileLength)
+fun ByteArray.readBytes2inputStream(inputStream: InputStream) {
+    UtilKInputStream.readBytes2inputStream(this, inputStream)
+}
 
-fun InputStream.asStr(): String =
-    UtilKInputStream.inputStream2str(this)
+fun InputStream.inputStream2bytes2(fileLength: Long): ByteArray =
+        UtilKInputStream.inputStream2bytes2(this, fileLength)
 
-fun InputStream.asFile(destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-    UtilKInputStream.inputStream2file(this, destFilePathWithName, isOverwrite)
+fun InputStream.inputStream2anyBitmap(): Bitmap =
+        UtilKInputStream.inputStream2anyBitmap(this)
 
-fun InputStream.asFile(destFile: File, isOverwrite: Boolean = true): File? =
-    UtilKInputStream.inputStream2file(this, destFile, isOverwrite)
+fun InputStream.inputStream2str(): String =
+        UtilKInputStream.inputStream2str(this)
+
+fun InputStream.inputStream2file(destFilePathWithName: String, isOverwrite: Boolean = true): File? =
+        UtilKInputStream.inputStream2file(this, destFilePathWithName, isOverwrite)
+
+fun InputStream.inputStream2file(destFile: File, isOverwrite: Boolean = true): File? =
+        UtilKInputStream.inputStream2file(this, destFile, isOverwrite)
 
 @RequiresApi(CVersCode.V_29_10_Q)
-fun InputStream.asFile2(destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-    UtilKInputStream.inputStream2file2(this, destFilePathWithName, isOverwrite)
+fun InputStream.inputStream2file2(destFilePathWithName: String, isOverwrite: Boolean = true): File? =
+        UtilKInputStream.inputStream2file2(this, destFilePathWithName, isOverwrite)
 
 @RequiresApi(CVersCode.V_29_10_Q)
-fun InputStream.asFile2(destFile: File, isOverwrite: Boolean = true): File? =
-    UtilKInputStream.inputStream2file2(this, destFile, isOverwrite)
+fun InputStream.inputStream2file2(destFile: File, isOverwrite: Boolean = true): File? =
+        UtilKInputStream.inputStream2file2(this, destFile, isOverwrite)
 
-fun InputStream.asAnyBitmap(): Bitmap =
-    UtilKInputStream.inputStream2anyBitmap(this)
-
-object UtilKInputStream {
+object UtilKInputStream : IUtilK {
     @JvmStatic
-    fun inputStream2anyBitmap(inputStream: InputStream): Bitmap =
-        BitmapFactory.decodeStream(inputStream)
-
-    /**
-     * 流转文件
-     * @param inputStream InputStream
-     * @param destFilePathWithName String
-     * @param isOverwrite Boolean
-     * @return String
-     */
-    @JvmStatic
-    fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-        inputStream2file(inputStream, File(destFilePathWithName), isOverwrite)
-
-    /**
-     * 输入流转文件
-     * @param inputStream InputStream
-     * @return String
-     */
-    @JvmStatic
-    fun inputStream2file(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
-        var fileInputStream: FileInputStream? = null
-        if (!UtilKFile.isFileExist(destFile)) {
-            UtilKFile.createFile(destFile)
-        } else {
-            fileInputStream = FileInputStream(destFile)
-            if (isSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
-                Log.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
-                return null//"the two files is same, don't need overwrite"
-            }
-        }
-        val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
-        try {
-            var bufferLength: Int
-            val buffer = ByteArray(1024)
-            while (inputStream.read(buffer).also { bufferLength = it } != -1) {
-                fileOutputStream.write(buffer, 0, bufferLength)
-            }
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(UtilKFile.TAG)
-        } finally {
-            fileOutputStream.flush()
-            fileOutputStream.close()
-            fileInputStream?.close()
-            inputStream.close()
-        }
-        return null
+    fun inputStream2bytes(inputStream: InputStream): ByteArray {
+        val bytes = ByteArray(inputStream.available())
+        inputStream.use { bytes.readBytes2inputStream(inputStream) }
+        return bytes
     }
 
-    /**
-     * 输入流转文件
-     * @param inputStream InputStream
-     * @param destFilePathWithName String
-     * @param isOverwrite Boolean
-     * @return File?
-     */
-    @RequiresApi(CVersCode.V_29_10_Q)
     @JvmStatic
-    fun inputStream2file2(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-        inputStream2file2(inputStream, File(destFilePathWithName), isOverwrite)
-
-    /**
-     * 输入流转文件
-     * @param inputStream InputStream
-     * @param destFile File
-     * @param isOverwrite Boolean
-     * @return File?
-     */
-    @RequiresApi(CVersCode.V_29_10_Q)
-    @JvmStatic
-    fun inputStream2file2(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
-        var fileInputStream: FileInputStream? = null
-        if (!UtilKFile.isFileExist(destFile)) {
-            UtilKFile.createFile(destFile)
-        } else {
-            fileInputStream = FileInputStream(destFile)
-            if (UtilKInputStream.isSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
-                Log.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
-                return null//"the two files is same, don't need overwrite"
-            }
-        }
-        val fileOutputStream = FileOutputStream(destFile, !isOverwrite)
-        try {
-            FileUtils.copy(inputStream, fileOutputStream)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(UtilKFile.TAG)
-        } finally {
-            fileOutputStream.flush()
-            fileOutputStream.close()
-            fileInputStream?.close()
-            inputStream.close()
-        }
-        return null
+    fun readBytes2inputStream(bytes: ByteArray, inputStream: InputStream) {
+        inputStream.use { inputStream.read(bytes) }
     }
 
-    /**
-     * 流转字符串
-     * @param inputStream InputStream
-     * @return String
-     */
+    @JvmStatic
+    fun inputStream2bytes2(inputStream: InputStream, fileLength: Long): ByteArray {
+        inputStream.use {
+            val bytes = ByteArray(fileLength.toInt())
+            var offset = 0
+            var numRead = 0
+            while (offset < bytes.size && inputStream.read(bytes, offset, bytes.size - offset).also { numRead = it } >= 0) {
+                offset += numRead
+            }
+            // 确保所有数据均被读取
+            if (offset != bytes.size) throw IOException("Could not completely read file.")
+            return bytes
+        }
+    }
+
     @JvmStatic
     fun inputStream2str(inputStream: InputStream): String {
         val stringBuilder = StringBuilder()
@@ -171,7 +94,7 @@ object UtilKInputStream {
             while (bufferedReader.readLine()?.also { lineString = it } != null) {
                 stringBuilder.append(lineString).append("\n")
             }
-            return stringBuilder.deleteCharAt(stringBuilder.length - 1).toString().regexLineBreak2str()
+            return stringBuilder.deleteCharAt(stringBuilder.length - 1).toString().replaceRegexLineBreak()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(UtilKFile.TAG)
@@ -179,45 +102,64 @@ object UtilKInputStream {
             bufferedReader.close()
             inputStreamReader.close()
         }
-        return CMsg.WRONG
+        return ""
     }
 
     @JvmStatic
-    fun inputStream2bytes(inputStream: InputStream): ByteArray? {
-        try {
-            val bytes = ByteArray(inputStream.available())
-            inputStream.read(bytes)
-            return bytes
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(UtilKFile.TAG)
-        } finally {
-            inputStream.close()
-        }
-        return null
-    }
+    fun inputStream2anyBitmap(inputStream: InputStream): Bitmap =
+            inputStream.use { BitmapFactory.decodeStream(it) }
 
-    fun inputStream2bytes2(inputStream: InputStream, fileLength: Long): ByteArray? {
+    @JvmStatic
+    fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
+            inputStream.use { inputStream2file(it, UtilKFile.createFile(destFilePathWithName), isOverwrite) }
+
+    @JvmStatic
+    fun inputStream2file(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
+        UtilKFile.createFile(destFile)
+        val fileInputStream = FileInputStream(destFile)
+        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
+            Log.d(TAG, "assetCopyFile: the two files is same")
+            return destFile//"the two files is same, don't need overwrite"
+        }
         try {
-            val bytes = ByteArray(fileLength.toInt())
-            var offset = 0
-            var numRead = 0
-            while (offset < bytes.size && inputStream.read(bytes, offset, bytes.size - offset).also { numRead = it } >= 0) {
-                offset += numRead
-            }
-            // 确保所有数据均被读取
-            if (offset != bytes.size) throw IOException("Could not completely read file.")
-            return bytes
+            return FileOutputStream(destFile, !isOverwrite).flushClose { it.fileOutputStream2file(inputStream, destFile) }
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(UtilKFile.TAG)
         } finally {
+            fileInputStream.close()
             inputStream.close()
         }
         return null
     }
 
     @JvmStatic
-    fun isSame(inputStream1: InputStream, inputStream2: InputStream): Boolean =
-        TextUtils.equals(inputStream1.asMd5Str2(), inputStream2.asMd5Str2())
+    @RequiresApi(CVersCode.V_29_10_Q)
+    fun inputStream2file2(inputStream: InputStream, filePathWithName: String, isOverwrite: Boolean = true): File? =
+            inputStream2file2(inputStream, UtilKFile.createFile(filePathWithName), isOverwrite)
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_29_10_Q)
+    fun inputStream2file2(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
+        UtilKFile.createFile(destFile)
+        val fileInputStream = FileInputStream(destFile)
+        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
+            Log.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
+            return destFile//"the two files is same, don't need overwrite"
+        }
+        try {
+            return FileOutputStream(destFile, !isOverwrite).flushClose { it.fileOutputStream2file2(inputStream,destFile) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(UtilKFile.TAG)
+        } finally {
+            fileInputStream.close()
+            inputStream.close()
+        }
+        return null
+    }
+
+    @JvmStatic
+    fun isInputStreamSame(inputStream1: InputStream, inputStream2: InputStream): Boolean =
+            TextUtils.equals(inputStream1.inputStream2md5Str2(), inputStream2.inputStream2md5Str2())
 }

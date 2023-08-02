@@ -12,25 +12,49 @@ import com.mozhimen.basick.utilk.androidx.appcompat.UtilKActionBar
  */
 object UtilKSystemBar {
     @JvmStatic
-    fun setStatusBarLowProfile(activity: Activity) {
-        UtilKStatusBarIcon.setLowProfile(activity)
+    fun applyStatusBarLowProfile(activity: Activity) {
+        UtilKStatusBarIcon.applyIconLowProfile(activity)
     }
 
     @JvmStatic
-    fun setTranslucent(activity: Activity){
-        setStatusBarTranslucent(activity)
-        setNavigationBarTranslucent(activity)
+    fun applyTranslucent(activity: Activity){
+        applyStatusBarTranslucent(activity)
+        applyNavigationBarTranslucent(activity)
     }
 
     @JvmStatic
-    fun setStatusBarTranslucent(activity: Activity) {
-        UtilKStatusBar.setTranslucent(activity)
+    fun applyStatusBarTranslucent(activity: Activity) {
+        UtilKStatusBar.applyTranslucent(activity)
     }
 
     @JvmStatic
-    fun setNavigationBarTranslucent(activity: Activity) {
-        UtilKNavigationBar.setTranslucent(activity)
+    fun applyNavigationBarTranslucent(activity: Activity) {
+        UtilKNavigationBar.applyTranslucent(activity)
     }
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyLayoutStable(activity: Activity) {
+        UtilKDecorView.applyLayoutStable(activity)
+    }
+
+    @JvmStatic
+    fun applyFitsSystemWindows(activity: Activity) {
+        UtilKContentView.applyFitsSystemWindows(activity)
+    }
+
+    @JvmStatic
+    fun applyImmersedHard(activity: Activity) {
+        UtilKDecorView.applyImmersedHard(activity)
+    }
+
+    @JvmStatic
+    fun applyImmersedSticky(activity: Activity) {
+        UtilKDecorView.applyImmersedSticky(activity)
+    }
+
+    ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun hideTitleBar(activity: Activity) {
@@ -60,25 +84,5 @@ object UtilKSystemBar {
     @JvmStatic
     fun overlayNavigationBar(activity: Activity) {
         UtilKNavigationBar.overlay(activity)
-    }
-
-    @JvmStatic
-    fun setLayoutStable(activity: Activity) {
-        UtilKDecorView.setLayoutStable(activity)
-    }
-
-    @JvmStatic
-    fun setFitsSystemWindows(activity: Activity) {
-        UtilKContentView.setFitsSystemWindows(activity)
-    }
-
-    @JvmStatic
-    fun setImmersedHard(activity: Activity) {
-        UtilKDecorView.setImmersedHard(activity)
-    }
-
-    @JvmStatic
-    fun setImmersedSticky(activity: Activity) {
-        UtilKDecorView.setImmersedSticky(activity)
     }
 }

@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2Top
+import com.mozhimen.basick.utilk.androidx.recyclerview.isRVScroll2top
 
 /**
  * @ClassName UtilKScroll
@@ -21,7 +21,7 @@ object UtilKViewGroup {
      * @return Boolean
      */
     @JvmStatic
-    fun isChildScrolled(child: View): Boolean {
+    fun isVGChildScrolled(child: View): Boolean {
         if (child is AdapterView<*>) {
             if (child.firstVisiblePosition != 0 || child.firstVisiblePosition == 0 && child.getChildAt(0) != null && child.getChildAt(0).top < 0) {
                 return true
@@ -32,7 +32,7 @@ object UtilKViewGroup {
         if (child is RecyclerView) {
             val view = child.getChildAt(0)
             val firstPosition = child.getChildAdapterPosition(view)
-            return firstPosition != 0 || !child.isScroll2Top()
+            return firstPosition != 0 || !child.isRVScroll2top()
         }
         return false
     }
@@ -43,7 +43,7 @@ object UtilKViewGroup {
      * @return View?
      */
     @JvmStatic
-    fun getChildScrollable(viewGroup: ViewGroup): View {
+    fun getVGChildScrollable(viewGroup: ViewGroup): View {
         var child = viewGroup.getChildAt(1)
         if (child is RecyclerView || child is AdapterView<*>) {
             return child

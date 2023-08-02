@@ -25,7 +25,7 @@ object UtilKApp : BaseUtilK() {
      */
     @JvmStatic
     fun applyReboot() {
-        UtilKSystemProperties.setSystemProperties(CPackage.SYS_POWERED, "reboot")
+        UtilKSystemProperties.applySystemProperties(CPackage.SYS_POWERED, "reboot")
     }
 
     /**

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.kotlin.packageStr2clazz
+import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 import java.lang.reflect.Method
 
 /**
@@ -20,7 +20,7 @@ object UtilKRomVersion : BaseUtilK() {
     @SuppressLint("PrivateApi")
     fun isMIUIAfter6(): Boolean {
         return try {
-            val clazz = "android.os.SystemProperties".packageStr2clazz()
+            val clazz = "android.os.SystemProperties".strPackage2clazz()
             val method: Method = clazz.getMethod("get", String::class.java)
             var value = method.invoke(null, CPackage.RO_MIUI_UI_VERSION_NAME) as String
             value = value.replace("[vV]".toRegex(), "")
@@ -41,7 +41,7 @@ object UtilKRomVersion : BaseUtilK() {
     @SuppressLint("PrivateApi")
     fun isColorOSAfter3(): Boolean {
         return try {
-            val clazz = "android.os.SystemProperties".packageStr2clazz()
+            val clazz = "android.os.SystemProperties".strPackage2clazz()
             val method = clazz.getMethod("get", String::class.java)
             var value = method.invoke(null, CPackage.RO_BUILD_VERSION_OPPOROM) as String
             value = value.replace("[vV]".toRegex(), "")

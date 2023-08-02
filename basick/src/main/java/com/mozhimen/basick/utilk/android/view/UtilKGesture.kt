@@ -13,18 +13,6 @@ import com.mozhimen.basick.utilk.kotlin.math.UtilKPoint
 object UtilKGesture {
 
     /**
-     * 计算手指间间距
-     * @param event MotionEvent
-     * @return Float
-     */
-    @JvmStatic
-    fun distance(event: MotionEvent): Float {
-        return if (event.pointerCount >= 2) UtilKPoint.distance(
-            event.getX(0), event.getY(0), event.getX(1), event.getY(1)
-        ) else 0f
-    }
-
-    /**
      * 是否点击区域内
      * @param event MotionEvent
      * @param ax Float
@@ -50,6 +38,20 @@ object UtilKGesture {
     @JvmStatic
     fun isTapInArea(x: Float, y: Float, left: Float, top: Float, right: Float, bottom: Float): Boolean =
         x > left && x < right && y > top && y < bottom
+
+    /**
+     * 计算手指间间距
+     * @param event MotionEvent
+     * @return Float
+     */
+    @JvmStatic
+    fun distance(event: MotionEvent): Float {
+        return if (event.pointerCount >= 2) UtilKPoint.distance(
+                event.getX(0), event.getY(0), event.getX(1), event.getY(1)
+        ) else 0f
+    }
+
+    //////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun motionEvent2str(action: Int): String {

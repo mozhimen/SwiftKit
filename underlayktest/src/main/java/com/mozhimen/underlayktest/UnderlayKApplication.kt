@@ -5,7 +5,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.lintk.optin.OptInApiMultiDex_InApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.squareup.moshi.asJsonMoshi
+import com.mozhimen.basick.utilk.squareup.moshi.t2json
 import com.mozhimen.underlayk.crashk.CrashKMgr
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
@@ -38,7 +38,7 @@ class UnderlayKApplication : BaseApplication() {
         override fun injectJsonParser(): IJsonParser {
             return object : IJsonParser {
                 override fun toJson(src: Any): String {
-                    return src.asJsonMoshi()
+                    return src.t2json()
                 }
             }
         }

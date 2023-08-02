@@ -19,8 +19,8 @@ internal object AdaptKSystemBarHelper {
         isStatusBarBgTranslucent: Boolean,
         isStatusBarIconLowProfile: Boolean,
     ) {
-        if (isStatusBarBgTranslucent) UtilKSystemBar.setTranslucent(activity)
-        if (isStatusBarIconLowProfile) UtilKSystemBar.setStatusBarLowProfile(activity)
+        if (isStatusBarBgTranslucent) UtilKSystemBar.applyTranslucent(activity)
+        if (isStatusBarIconLowProfile) UtilKSystemBar.applyStatusBarLowProfile(activity)
     }
 
     @JvmStatic
@@ -29,8 +29,8 @@ internal object AdaptKSystemBarHelper {
         isThemeCustom: Boolean,
         isThemeDark: Boolean
     ) {
-        if (isThemeCustom) UtilKStatusBarIcon.setIcon(activity, isThemeDark)
-        else UtilKStatusBarIcon.setIcon(activity, UtilKConfiguration.isDarkMode())
+        if (isThemeCustom) UtilKStatusBarIcon.applyIcon(activity, isThemeDark)
+        else UtilKStatusBarIcon.applyIcon(activity, UtilKConfiguration.isDarkMode())
     }
 
     @JvmStatic
@@ -63,13 +63,13 @@ internal object AdaptKSystemBarHelper {
         isLayoutStable: Boolean,
         isFitsSystemWindows: Boolean
     ) {
-        if (isLayoutStable) UtilKSystemBar.setLayoutStable(activity)
-        if (isFitsSystemWindows) UtilKSystemBar.setFitsSystemWindows(activity)
+        if (isLayoutStable) UtilKSystemBar.applyLayoutStable(activity)
+        if (isFitsSystemWindows) UtilKSystemBar.applyFitsSystemWindows(activity)
     }
 
     @JvmStatic
     fun setImmersed(activity: Activity, isImmersedHard: Boolean = false, isImmersedSticky: Boolean = false) {
-        if (isImmersedHard) UtilKSystemBar.setImmersedHard(activity)
-        if (isImmersedSticky) UtilKSystemBar.setImmersedSticky(activity)
+        if (isImmersedHard) UtilKSystemBar.applyImmersedHard(activity)
+        if (isImmersedSticky) UtilKSystemBar.applyImmersedSticky(activity)
     }
 }

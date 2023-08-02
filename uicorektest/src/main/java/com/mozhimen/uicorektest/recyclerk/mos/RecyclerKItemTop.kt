@@ -6,7 +6,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.android.widget.fitImage
+import com.mozhimen.basick.utilk.android.widget.applyFitDrawable
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorektest.R
 
@@ -25,7 +25,7 @@ class RecyclerKItemTop : BaseRecyclerKItem<RecyclerView.ViewHolder>() {
         val imageView = holder.itemView as ImageView
         /*data?.let {
             if (data!!.title != null && !TextUtils.isEmpty(data!!.title!!)) {*/
-        imageView.fitImage(UtilKRes.getDrawable(R.mipmap.datak_item_top)!!)
+        imageView.applyFitDrawable(UtilKRes.getDrawable(R.mipmap.datak_item_top)!!)
         imageView.setImageResource(R.mipmap.datak_item_top)
     }
 

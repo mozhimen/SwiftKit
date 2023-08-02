@@ -1,12 +1,12 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.kotlin.text.isAllDigits
-import com.mozhimen.basick.utilk.kotlin.text.isAllDigits2
-import com.mozhimen.basick.utilk.kotlin.text.isAllDigitsAndAlphabets
-import com.mozhimen.basick.utilk.kotlin.text.outAlphabet
-import com.mozhimen.basick.utilk.kotlin.text.outChinese
-import com.mozhimen.basick.utilk.kotlin.text.outNAC
-import com.mozhimen.basick.utilk.kotlin.text.outNumber
+import com.mozhimen.basick.utilk.kotlin.text.isStrDigits
+import com.mozhimen.basick.utilk.kotlin.text.isStrDigits2
+import com.mozhimen.basick.utilk.kotlin.text.isStrDigitsAndAlphabets
+import com.mozhimen.basick.utilk.kotlin.text.filterAlphabet
+import com.mozhimen.basick.utilk.kotlin.text.filterChinese
+import com.mozhimen.basick.utilk.kotlin.text.filterNAC
+import com.mozhimen.basick.utilk.kotlin.text.filterNumber
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
@@ -27,25 +27,25 @@ class TestUtilKFilter {
 //        "8080".checkPort().printlog()
 //        "80".checkPort().printlog()
 
-        "0123456789".isAllDigits().printlog()
-        "12322r".isAllDigits().printlog()
-        "ree".isAllDigits().printlog()
+        "0123456789".isStrDigits().printlog()
+        "12322r".isStrDigits().printlog()
+        "ree".isStrDigits().printlog()
 
-        "0123456789".isAllDigits2().printlog()
-        "12322r".isAllDigits2().printlog()
-        "ree".isAllDigits2().printlog()
+        "0123456789".isStrDigits2().printlog()
+        "12322r".isStrDigits2().printlog()
+        "ree".isStrDigits2().printlog()
 
-        "ree123".isAllDigitsAndAlphabets().printlog()
-        "123456".isAllDigitsAndAlphabets().printlog()
-        "123".isAllDigitsAndAlphabets().printlog()
-        "ree".isAllDigitsAndAlphabets().printlog()
+        "ree123".isStrDigitsAndAlphabets().printlog()
+        "123456".isStrDigitsAndAlphabets().printlog()
+        "123".isStrDigitsAndAlphabets().printlog()
+        "ree".isStrDigitsAndAlphabets().printlog()
     }
 
     @Test
     fun filter() {
-        "123我是谁AAA&&".outNumber().printlog()
-        "123我是谁AAA&&".outAlphabet().printlog()
-        "123我是谁AAA&&".outChinese().printlog()
-        "123我是谁AAA&&".outNAC().printlog()
+        "123我是谁AAA&&".filterNumber().printlog()
+        "123我是谁AAA&&".filterAlphabet().printlog()
+        "123我是谁AAA&&".filterChinese().printlog()
+        "123我是谁AAA&&".filterNAC().printlog()
     }
 }
