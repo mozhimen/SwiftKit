@@ -40,7 +40,7 @@ object UtilKAnim : BaseUtilK() {
     fun stopAnim(view: View) {
         view.apply {
             animation?.cancel()
-            view.clearAnimation()
+            clearAnimation()
         }
     }
 }

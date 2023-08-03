@@ -50,7 +50,7 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
             val deviceInfo1Path = UtilKStrPath.Absolute.Internal.getFilesDir() + "/deviceInfo1"
             "createFile deviceInfo1 ${UtilKFile.createFile(deviceInfo1Path).absolutePath}".log()
             "deleteFile deviceInfo1 ${UtilKFile.deleteFile(deviceInfo1Path)}".log()
-            "getFileSize deviceInfo size ${UtilKFile.getFileSize(deviceInfoPath)}".log()
+            "getFileSize deviceInfo size ${UtilKFile.getFileSizeAvailable(deviceInfoPath)}".log()
 
             val str2File1Path = UtilKStrPath.Absolute.Internal.getFilesDir() + "/tmp1.txt"
             val str2File1Time = System.currentTimeMillis()

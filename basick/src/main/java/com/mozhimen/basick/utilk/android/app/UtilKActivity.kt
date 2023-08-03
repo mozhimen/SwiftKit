@@ -85,9 +85,7 @@ object UtilKActivity {
         if (tempContext is Activity) return tempContext
         var tryCount = 0
         while (tempContext is ContextWrapper) {
-            if (tempContext is Activity) {
-                return tempContext
-            }
+            if (tempContext is Activity) return tempContext
             if (tryCount > 20) {
                 break
             }
@@ -140,7 +138,7 @@ object UtilKActivity {
      * @param context Context
      * @return Boolean
      */
-    @OptInApiInit_InApplication
+    @OptInApiUse_BaseApplication
     @JvmStatic
     fun isDestroyed(context: Context): Boolean {
         val activity: Activity? = getByContext(context)

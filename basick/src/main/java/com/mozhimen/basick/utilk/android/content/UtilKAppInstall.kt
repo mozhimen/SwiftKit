@@ -8,6 +8,8 @@ import android.content.pm.PackageInstaller
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.android.app.cons.CPendingIntent
+import com.mozhimen.basick.elemk.android.content.cons.CPackageInstaller
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optin.OptInDeviceRoot
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
@@ -18,8 +20,8 @@ import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.java.io.UtilKInputStream
 import java.io.*
-import java.nio.charset.Charset
 
 /**
  * @ClassName UtilKAppInstall
@@ -29,10 +31,10 @@ import java.nio.charset.Charset
  * @Version 1.0
  */
 @AManifestKRequire(
-        CPermission.INSTALL_PACKAGES,
-        CPermission.REQUEST_INSTALL_PACKAGES,
-        CPermission.READ_INSTALL_SESSIONS,
-        CPermission.REPLACE_EXISTING_PACKAGE
+    CPermission.INSTALL_PACKAGES,
+    CPermission.REQUEST_INSTALL_PACKAGES,
+    CPermission.READ_INSTALL_SESSIONS,
+    CPermission.REPLACE_EXISTING_PACKAGE
 )
 object UtilKAppInstall : BaseUtilK() {
 
@@ -42,9 +44,8 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    fun isAppInstallsPermissionEnable(): Boolean {
-        return UtilKPermission.hasPackageInstalls().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
-    }
+    fun hasPackageInstalls(): Boolean =
+        UtilKPermission.hasPackageInstalls().also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -72,7 +73,6 @@ object UtilKAppInstall : BaseUtilK() {
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installRoot(apkPathWithName: String): Boolean {
         require(apkPathWithName.isNotEmpty()) { "$TAG please check apk file path" }
-        var result = false
         var process: Process? = null
         var outputStream: OutputStream? = null
         var bufferedReader: BufferedReader? = null
@@ -87,24 +87,58 @@ object UtilKAppInstall : BaseUtilK() {
 
             process.waitFor()
             bufferedReader = BufferedReader(InputStreamReader(process.errorStream))
-            val msg = StringBuilder()
+            val stringBuilder = StringBuilder()
             var line: String?
-            while (bufferedReader.readLine().also { line = it } != null) {
-                msg.append(line)
-            }
-            Log.d(TAG, "installRoot msg is $msg")
-            if (!msg.toString().contains("Failure", ignoreCase = true)) {
-                result = true
-            }
+            while (bufferedReader.readLine().also { line = it } != null)
+                stringBuilder.append(line)
+            "installRoot msg is $stringBuilder".dt(TAG)
+            return !stringBuilder.toString().contains("failure", ignoreCase = true)
         } catch (e: Exception) {
-            throw e
+            e.printStackTrace()
+            e.message?.et(TAG)
         } finally {
             outputStream?.flush()
             outputStream?.close()
             bufferedReader?.close()
             process?.destroy()
         }
-        return result.also { Log.d(TAG, "installRoot: result $it apkPathWithName $apkPathWithName") }
+        return false
+    }
+
+    /**
+     * 静默安装
+     * @param apkPathWithName String 绝对路径
+     * @param pkgName String
+     * @return Boolean
+     */
+    @JvmStatic
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    fun installSilence(apkPathWithName: String, pkgName: String): Boolean {
+        var strRes = ""
+        val cmd =
+            if (UtilKBuildVersion.isAfterV_24_7_N()) arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPathWithName)
+            else arrayOf("pm", "install", "-i", pkgName, "-r", apkPathWithName)
+
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        val processBuilder = ProcessBuilder(*cmd)
+        var process: Process? = null
+        var inputStream: InputStream? = null
+        try {
+            process = processBuilder.start()
+            byteArrayOutputStream.write('/'.code)
+            inputStream = process.inputStream
+            strRes = UtilKInputStream.inputStream2str2(inputStream, byteArrayOutputStream)
+            "installSilence result $strRes".dt(TAG)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            byteArrayOutputStream.flush()
+            byteArrayOutputStream.close()
+            inputStream?.close()
+            process?.destroy()
+        }
+        return strRes.contains("success", ignoreCase = true)
     }
 
     /**
@@ -120,62 +154,14 @@ object UtilKAppInstall : BaseUtilK() {
 
     /**
      * 静默安装
-     * @param apkPathWithName String 绝对路径
-     * @param pkgName String
-     * @return Boolean
-     */
-    @JvmStatic
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun installSilence(apkPathWithName: String, pkgName: String): Boolean {
-        var result = "EMPTY"
-        val cmd =
-                if (UtilKBuildVersion.isAfterV_24_7_N()) {
-                    arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPathWithName)
-                } else {
-                    arrayOf("pm", "install", "-i", pkgName, "-r", apkPathWithName)
-                }
-        val processBuilder = ProcessBuilder(*cmd)
-        var process: Process? = null
-        var inputStream: InputStream? = null
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        try {
-
-            var readCount: Int
-            process = processBuilder.start()
-            byteArrayOutputStream.write('/'.code)
-            inputStream = process.inputStream
-            while (inputStream.read().also { readCount = it } != -1) {
-                byteArrayOutputStream.write(readCount)
-            }
-            result = String(byteArrayOutputStream.toByteArray(), Charset.forName("UTF-8"))
-            Log.d(TAG, "installSilence result $result")
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Log.e(TAG, "installSilence IOException ${e.message}")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e(TAG, "installSilence Exception ${e.message}")
-        } finally {
-            byteArrayOutputStream.close()
-            inputStream?.close()
-            process?.destroy()
-        }
-        return result.contains("success", ignoreCase = true)
-    }
-
-    /**
-     * 静默安装
      * @param apkPathWithName String
      * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun installSilence(apkPathWithName: String, receiver: Class<*>) {
-        if (UtilKBuildVersion.isAfterV_28_9_P()) {
-            installSilenceAfter28(apkPathWithName, receiver)
-        } else {
-            installSilenceBefore28(apkPathWithName)
-        }
+        if (UtilKBuildVersion.isAfterV_28_9_P()) installSilenceAfter28(apkPathWithName, receiver)
+        else installSilenceBefore28(apkPathWithName)
     }
 
     /**
@@ -190,24 +176,22 @@ object UtilKAppInstall : BaseUtilK() {
         var resSuccessBufferedReader: BufferedReader? = null
         var resErrorBufferedReader: BufferedReader? = null
 
-        val msgSuccess = StringBuilder()
-        val msgError = StringBuilder()
+        val stringBuilderSuccess = StringBuilder()
+        val stringBuilderFail = StringBuilder()
         val cmd: Array<String> =
-                if (UtilKBuildVersion.isAfterV_24_7_N()) {
-                    arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
-                } else {
-                    arrayOf("pm", "install", "-r", apkPathWithName)
-                }
+            if (UtilKBuildVersion.isAfterV_24_7_N())
+                arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
+            else arrayOf("pm", "install", "-r", apkPathWithName)
         try {
             process = ProcessBuilder(*cmd).start()
             resSuccessBufferedReader = BufferedReader(InputStreamReader(process.inputStream))
             resErrorBufferedReader = BufferedReader(InputStreamReader(process.errorStream))
             var msg: String?
             while (resSuccessBufferedReader.readLine().also { msg = it } != null) {
-                msgSuccess.append(msg)
+                stringBuilderSuccess.append(msg)
             }
             while (resErrorBufferedReader.readLine().also { msg = it } != null) {
-                msgError.append(msg)
+                stringBuilderFail.append(msg)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -217,7 +201,7 @@ object UtilKAppInstall : BaseUtilK() {
             resErrorBufferedReader?.close()
             process?.destroy()
         }
-        return msgSuccess.toString().contains("success", ignoreCase = true)        //如果含有success单词则认为安装成功
+        return stringBuilderSuccess.toString().contains("success", ignoreCase = true)        //如果含有success单词则认为安装成功
     }
 
     /**
@@ -231,97 +215,17 @@ object UtilKAppInstall : BaseUtilK() {
     fun installSilenceAfter28(apkPathWithName: String, receiver: Class<*>) {
         Log.d(TAG, "installSilenceAfter28 pathApk $apkPathWithName")
         val apkFile = File(apkPathWithName)
-        val packageInstaller = UtilKPackageManager.getPackageInstaller(_context)
-        val sessionParams = PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL)
+        val packageInstaller = UtilKPackageInstaller.get(_context)
+        val sessionParams = PackageInstaller.SessionParams(CPackageInstaller.SessionParams.MODE_FULL_INSTALL)
         sessionParams.setSize(apkFile.length())
-        val sessionId: Int = createSession(packageInstaller, sessionParams)
+        val sessionId: Int = UtilKPackageInstaller.createSession(packageInstaller, sessionParams)
         Log.d(TAG, "installSilenceAfter28 sessionId $sessionId")
 
         if (sessionId != -1) {
-            val isCopySuccess = copyApkFile(packageInstaller, sessionId, apkPathWithName)
-            Log.d(TAG, "installSilenceAfter28 copySuccess $isCopySuccess")
-            if (isCopySuccess) {
-                execInstall(packageInstaller, sessionId, receiver)
-            }
+            val isCopySuccess = UtilKPackageInstaller.copyBaseApk(packageInstaller, sessionId, apkPathWithName)
+            Log.d(TAG, "installSilenceAfter28 isCopySuccess $isCopySuccess")
+            if (isCopySuccess)
+                UtilKPackageInstaller.commitSession(packageInstaller, sessionId, receiver)
         }
-    }
-
-    /**
-     * 命令安装
-     * @param packageInstaller PackageInstaller
-     * @param sessionId Int
-     * @param receiver Class<*>
-     */
-    @JvmStatic
-    @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun execInstall(packageInstaller: PackageInstaller, sessionId: Int, receiver: Class<*>) {
-        var session: PackageInstaller.Session? = null
-        try {
-            session = packageInstaller.openSession(sessionId)
-            val pendingIntent = PendingIntent.getBroadcast(_context, 1, Intent(_context, receiver), PendingIntent.FLAG_UPDATE_CURRENT)
-            session.commit(pendingIntent.intentSender)
-            Log.d(TAG, "execInstall begin")
-        } catch (e: IOException) {
-            e.printStackTrace()
-            Log.e(TAG, "execInstall: IOException ${e.message}")
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Log.e(TAG, "execInstall: Exception ${e.message}")
-        } finally {
-            session?.close()
-        }
-    }
-
-    /**
-     * createSession
-     * @param packageInstaller PackageInstaller
-     * @param sessionParams SessionParams
-     * @return Int
-     */
-    fun createSession(packageInstaller: PackageInstaller, sessionParams: PackageInstaller.SessionParams): Int {
-        var sessionId = -1
-        try {
-            sessionId = packageInstaller.createSession(sessionParams)
-        } catch (e: IOException) {
-            Log.e(TAG, "createSession: ${e.message}")
-            e.printStackTrace()
-        }
-        return sessionId
-    }
-
-    /**
-     * 拷贝
-     * @param packageInstaller PackageInstaller
-     * @param sessionId Int
-     * @param apkFilePathWithName String
-     * @return Boolean
-     */
-    fun copyApkFile(packageInstaller: PackageInstaller, sessionId: Int, apkFilePathWithName: String): Boolean {
-        var fileInputStream: FileInputStream? = null
-        var outputStream: OutputStream? = null
-        var session: PackageInstaller.Session? = null
-        try {
-            val apkFile = File(apkFilePathWithName)
-            session = packageInstaller.openSession(sessionId)
-            outputStream = session.openWrite("base.apk", 0, apkFile.length())
-            fileInputStream = FileInputStream(apkFile)
-
-            var readCount: Int
-            val bytes = ByteArray(65536)
-            while (fileInputStream.read(bytes).also { readCount = it } != -1) {
-                outputStream.write(bytes, 0, readCount)
-            }
-            session.fsync(outputStream)
-            return true.also { "copyApkFile success".dt(TAG) }
-        } catch (e: IOException) {
-            e.printStackTrace()
-            "copyApkFile: IOException ${e.message}".et(TAG)
-        } finally {
-            session?.close()
-            outputStream?.flush()
-            outputStream?.close()
-            fileInputStream?.close()
-        }
-        return false
     }
 }
