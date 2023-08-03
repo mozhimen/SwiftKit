@@ -13,10 +13,7 @@ import java.io.File
  * @Version 1.0
  */
 object UtilKStrPath {
-    @JvmStatic
-    fun strPath2bitmap(filePathWithName: String): Bitmap? =
-        if (filePathWithName.isEmpty() || filePathWithName.hasSpace()) null
-        else BitmapFactory.decodeFile(filePathWithName)
+
 
     object Absolute {
         object Internal {

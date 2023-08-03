@@ -29,7 +29,7 @@ object InstallUtils : BaseUtilK() {
                 Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
                 Uri.parse("package:" + activity.packageName)
             )
-            //intentSetting.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            //intentSetting.addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
             activity.startActivityForResult(intentSetting, requestCode)
         }
     }
@@ -51,11 +51,11 @@ object InstallUtils : BaseUtilK() {
 //    if (!hasInstallPermission(context)) {
 //        return UpgradePermissionDialogActivity.createIntent(context, uri.toString())
 //    }
-//    val intent = Intent(Intent.ACTION_VIEW)
+//    val intent = Intent(CIntent.ACTION_VIEW)
 //    if (context !is Activity) {
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//        intent.addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
 //    }
-//    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//    intent.addFlags(CIntent.FLAG_GRANT_READ_URI_PERMISSION)
 //    intent.setDataAndType(uri, "application/vnd.android.package-archive")
 //    return intent
 //}

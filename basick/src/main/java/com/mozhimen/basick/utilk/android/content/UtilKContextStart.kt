@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.android.content
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
@@ -37,7 +38,7 @@ inline fun <reified A : Activity> Activity.startActivityAndFinish() {
 object UtilKContextStart : BaseUtilK() {
     @JvmStatic
     fun startContext(context: Context, intent: Intent) {
-        if (context !is Activity) intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        if (context !is Activity) intent.addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
     }
 

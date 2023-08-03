@@ -8,17 +8,15 @@ import android.view.Display
 import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
+import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
-import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKLifecycle
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 
@@ -29,45 +27,37 @@ import com.mozhimen.basick.utilk.kotlin.UtilKString
  * @Date 2022/6/13 13:44
  * @Version 1.0
  */
-fun Activity.isFinishingOrDestroyed(): Boolean =
-    UtilKActivity.isFinishingOrDestroyed(this)
-
-fun AppCompatActivity.runOnBackThread(block: I_Listener) {
-    UtilKActivity.runOnBackThread(this, block)
-}
-
-fun AppCompatActivity.runOnMainThread(block: I_Listener) {
-    UtilKActivity.runOnMainThread(this, block)
-}
-
 fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
-    UtilKActivity.getAnnotation(this, annotationClazz)
+        UtilKActivity.getAnnotation(this, annotationClazz)
 
 fun <V : View> Activity.getContentView(): V =
-    UtilKContentView.get(this)
+        UtilKContentView.get(this)
+
+fun Activity.isFinishingOrDestroyed(): Boolean =
+        UtilKActivity.isFinishingOrDestroyed(this)
 
 object UtilKActivity {
 
     @JvmStatic
     fun <A : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<A>): A? =
-        UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
+            UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
 
     @JvmStatic
     fun getCurrentFocus(activity: Activity): View? =
-        activity.currentFocus
+            activity.currentFocus
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     fun getDisplay(activity: Activity): Display =
-        activity.display!!
+            activity.display!!
 
     @JvmStatic
     fun getWindowManager(activity: Activity): WindowManager =
-        activity.windowManager
+            activity.windowManager
 
     @JvmStatic
     fun <V : View> getContentView(activity: Activity): V =
-        UtilKContentView.get(activity)
+            UtilKContentView.get(activity)
 
     /**
      * 获取启动Activity
@@ -87,13 +77,12 @@ object UtilKActivity {
      * @param returnTopIfNull Boolean
      * @return Activity?
      */
-    @OptInApiInit_InApplication
+    @OptIn(OptInApiInit_InApplication::class)
+    @OptInApiUse_BaseApplication
     @JvmStatic
     fun getByContext(context: Context, returnTopIfNull: Boolean = false): Activity? {
         var tempContext = context
-        if (tempContext is Activity) {
-            return tempContext
-        }
+        if (tempContext is Activity) return tempContext
         var tryCount = 0
         while (tempContext is ContextWrapper) {
             if (tempContext is Activity) {
@@ -113,10 +102,10 @@ object UtilKActivity {
      * @param view View
      * @return Activity?
      */
-    @OptInApiInit_InApplication
+    @OptInApiUse_BaseApplication
     @JvmStatic
     fun getByView(view: View): Activity? =
-        getByContext(view.context)
+            getByContext(view.context)
 
     /**
      * 寻找Activity从Obj
@@ -124,22 +113,15 @@ object UtilKActivity {
      * @param returnTopIfNull Boolean
      * @return Activity?
      */
-    @OptInApiInit_InApplication
+    @OptInApiUse_BaseApplication
+    @OptIn(OptInApiInit_InApplication::class)
     @JvmStatic
     fun getByObj(obj: Any, returnTopIfNull: Boolean = false): Activity? {
         var activity: Activity? = null
         when (obj) {
-            is Context -> {
-                activity = getByContext(obj, true)
-            }
-
-            is Fragment -> {
-                activity = obj.activity
-            }
-
-            is Dialog -> {
-                activity = getByContext(obj.context, true)
-            }
+            is Context -> activity = getByContext(obj, true)
+            is Fragment -> activity = obj.activity
+            is Dialog -> activity = getByContext(obj.context, true)
         }
         if (activity == null && returnTopIfNull) {
             activity = StackKCb.instance.getStackTopActivity()
@@ -148,6 +130,10 @@ object UtilKActivity {
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun isFinishingOrDestroyed(activity: Activity): Boolean =
+            isFinishing(activity) || isDestroyed(activity)
 
     /**
      * 判断Activity是否被销毁
@@ -162,33 +148,19 @@ object UtilKActivity {
     }
 
     @JvmStatic
-    fun isFinishingOrDestroyed(activity: Activity): Boolean =
-        isFinishing(activity) || isDestroyed(activity)
-
-    @JvmStatic
     fun isFinishing(activity: Activity): Boolean =
-        activity.isFinishing
+            activity.isFinishing
 
     @JvmStatic
     fun isDestroyed(activity: Activity): Boolean =
-        if (UtilKBuildVersion.isAfterV_17_42_J1()) {
-            activity.isDestroyed || isFinishing(activity)
-        } else isFinishing(activity)
+            if (UtilKBuildVersion.isAfterV_17_42_J1())
+                activity.isDestroyed || isFinishing(activity)
+            else isFinishing(activity)
 
     //////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun requestWindowFeature(activity: Activity, featureId: Int) {
         activity.requestWindowFeature(featureId)
-    }
-
-    @JvmStatic
-    fun runOnBackThread(appCompatActivity: AppCompatActivity, block: I_Listener) {
-        UtilKLifecycle.runOnBackThread(appCompatActivity, block)
-    }
-
-    @JvmStatic
-    fun runOnMainThread(appCompatActivity: AppCompatActivity, block: I_Listener) {
-        UtilKLifecycle.runOnMainThread(appCompatActivity, block)
     }
 }

@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.app
 
-import android.app.Activity
 import android.content.Context
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -34,7 +33,7 @@ object UtilKLaunchActivity {
     @JvmStatic
     fun startManageInstallSource(context: Context) {
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            UtilKContextStart.startContext(context, UtilKIntent.getManageInstallSource(context))
+            UtilKContextStart.startContext(context, UtilKIntent.getManageUnknownAppSources(context))
     }
 
     /**
@@ -44,7 +43,7 @@ object UtilKLaunchActivity {
     @JvmStatic
     fun startManageOverlay(context: Context) {
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            UtilKContextStart.startContext(context, UtilKIntent.getManageOverlay(context))
+            UtilKContextStart.startContext(context, UtilKIntent.getManageOverlayPermission(context))
     }
 
     /**
@@ -56,7 +55,7 @@ object UtilKLaunchActivity {
     fun startManageAll(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R())
         //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
-            UtilKContextStart.startContext(context, UtilKIntent.getManageAll(context))
+            UtilKContextStart.startContext(context, UtilKIntent.getManageAppAllFilesAccessPermission(context))
         //}
     }
 
@@ -66,7 +65,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingAppDetails(context: Context) {
-        UtilKContextStart.startContext(context, UtilKIntent.getSettingAppDetails(context))
+        UtilKContextStart.startContext(context, UtilKIntent.getApplicationDetailsSettings(context))
     }
 
     /**
@@ -75,6 +74,6 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingAccessibility(context: Context) {
-        UtilKContextStart.startContext(context, UtilKIntent.getSettingAccessibility())
+        UtilKContextStart.startContext(context, UtilKIntent.getAccessibilitySettings())
     }
 }

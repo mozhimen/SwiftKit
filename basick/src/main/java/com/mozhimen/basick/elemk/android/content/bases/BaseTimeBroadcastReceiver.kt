@@ -2,6 +2,7 @@ package com.mozhimen.basick.elemk.android.content.bases
 
 import android.content.Context
 import android.content.Intent
+import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.optin.OptInApiCall_RegisterDynamic
 import com.mozhimen.basick.utilk.bases.IUtilK
 
@@ -27,9 +28,9 @@ Log.d(TAG, "initData: start")
 _receiverProxy = ReceiverProxy(
 this,
 arrayOf(
-Intent.ACTION_TIME_TICK,
-Intent.ACTION_TIMEZONE_CHANGED,
-Intent.ACTION_TIME_CHANGED
+CIntent.ACTION_TIME_TICK,
+CIntent.ACTION_TIMEZONE_CHANGED,
+CIntent.ACTION_TIME_CHANGED
 ),
 ElemKTimeReceiver()
 )
@@ -52,15 +53,9 @@ open class BaseTimeBroadcastReceiver(private val _listener: ITimeReceiverListene
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
-            Intent.ACTION_TIMEZONE_CHANGED -> {
-                _listener.onTimeZoneChanged()
-            }
-            Intent.ACTION_TIME_TICK -> {
-                _listener.onTimeTick()
-            }
-            Intent.ACTION_TIME_CHANGED -> {
-                _listener.onTimeChanged()
-            }
+            CIntent.ACTION_TIMEZONE_CHANGED -> _listener.onTimeZoneChanged()
+            CIntent.ACTION_TIME_TICK -> _listener.onTimeTick()
+            CIntent.ACTION_TIME_CHANGED -> _listener.onTimeChanged()
         }
     }
 }

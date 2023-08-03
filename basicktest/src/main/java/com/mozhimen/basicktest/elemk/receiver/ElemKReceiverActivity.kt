@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiverProxy
+import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
@@ -24,9 +25,9 @@ class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
         BaseBroadcastReceiverProxy(
             this,
             ElemKTimeReceiver(),
-            Intent.ACTION_TIME_TICK,
-            Intent.ACTION_TIMEZONE_CHANGED,
-            Intent.ACTION_TIME_CHANGED
+            CIntent.ACTION_TIME_TICK,
+            CIntent.ACTION_TIMEZONE_CHANGED,
+            CIntent.ACTION_TIME_CHANGED
         )
     }
 

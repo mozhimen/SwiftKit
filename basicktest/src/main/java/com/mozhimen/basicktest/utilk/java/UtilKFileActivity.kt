@@ -14,6 +14,7 @@ import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 import kotlinx.coroutines.Dispatchers
@@ -53,13 +54,13 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
 
             val str2File1Path = UtilKStrPath.Absolute.Internal.getFilesDir() + "/tmp1.txt"
             val str2File1Time = System.currentTimeMillis()
-            "str2File1 tmp1 ${UtilKFile.str2file("第一行\n第二行", str2File1Path)} time ${System.currentTimeMillis() - str2File1Time}".log()
+            "str2File1 tmp1 ${UtilKFileFormat.str2file("第一行\n第二行", str2File1Path)} time ${System.currentTimeMillis() - str2File1Time}".log()
             val str2File2Path = UtilKStrPath.Absolute.Internal.getFilesDir() + "/tmp2.txt"
             val str2File2Time = System.currentTimeMillis()
-            "str2File2 tmp2 ${UtilKFile.str2file2("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
+            "str2File2 tmp2 ${UtilKFileFormat.str2file2("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
 
             val file2StrTime = System.currentTimeMillis()
-            "file2Str tmp ${UtilKFile.file2str(str2File1Path)} time ${System.currentTimeMillis() - file2StrTime}".log()
+            "file2Str tmp ${UtilKFileFormat.strFilePath2str(str2File1Path)} time ${System.currentTimeMillis() - file2StrTime}".log()
 
             val copyFileTime = System.currentTimeMillis()
             val destTmpFilePath = UtilKStrPath.Absolute.Internal.getFilesDir() + "/tmp3.txt"

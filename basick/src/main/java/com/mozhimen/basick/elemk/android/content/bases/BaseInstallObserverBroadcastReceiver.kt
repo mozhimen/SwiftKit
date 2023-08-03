@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.lintk.optin.OptInApiTarget_AtV_25_71_N1
 import com.mozhimen.basick.utilk.android.content.UtilKApp
@@ -39,7 +40,7 @@ open class BaseInstallObserverBroadcastReceiver : BaseBroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val packageName = intent.dataString
         when (intent.action) {
-            Intent.ACTION_PACKAGE_REPLACED -> {
+            CIntent.ACTION_PACKAGE_REPLACED -> {
                 Log.w(TAG, "onReceiveInstall: update one apk, restart program soon packageName $packageName // package:${UtilKContext.getPackageName(context)}")
                 if (packageName == "package:${UtilKContext.getPackageName(context)}") {
                     UtilKApp.restartApp(isKillProcess = true, context = context)
@@ -48,11 +49,11 @@ open class BaseInstallObserverBroadcastReceiver : BaseBroadcastReceiver() {
                 }
             }
 
-            Intent.ACTION_PACKAGE_ADDED -> {
+            CIntent.ACTION_PACKAGE_ADDED -> {
                 Log.w(TAG, "onReceiveInstall: install one apk $packageName")
             }
 
-            Intent.ACTION_PACKAGE_REMOVED -> {
+            CIntent.ACTION_PACKAGE_REMOVED -> {
                 Log.w(TAG, "onReceiveInstall: uninstall one apk $packageName")
             }
         }

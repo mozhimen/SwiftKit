@@ -16,6 +16,8 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.et
 import java.io.*
 import java.nio.charset.Charset
 
@@ -27,10 +29,10 @@ import java.nio.charset.Charset
  * @Version 1.0
  */
 @AManifestKRequire(
-    CPermission.INSTALL_PACKAGES,
-    CPermission.REQUEST_INSTALL_PACKAGES,
-    CPermission.READ_INSTALL_SESSIONS,
-    CPermission.REPLACE_EXISTING_PACKAGE
+        CPermission.INSTALL_PACKAGES,
+        CPermission.REQUEST_INSTALL_PACKAGES,
+        CPermission.READ_INSTALL_SESSIONS,
+        CPermission.REPLACE_EXISTING_PACKAGE
 )
 object UtilKAppInstall : BaseUtilK() {
 
@@ -76,9 +78,9 @@ object UtilKAppInstall : BaseUtilK() {
         var bufferedReader: BufferedReader? = null
         try {
             process = Runtime.getRuntime().exec("su")
+
             outputStream = process.outputStream
-            val command = "pm install -r $apkPathWithName\n"
-            outputStream.write(command.toByteArray())
+            outputStream.write("pm install -r $apkPathWithName\n".toByteArray())
             outputStream.flush()
             outputStream.write("exit\n".toByteArray())
             outputStream.flush()
@@ -127,16 +129,17 @@ object UtilKAppInstall : BaseUtilK() {
     fun installSilence(apkPathWithName: String, pkgName: String): Boolean {
         var result = "EMPTY"
         val cmd =
-            if (UtilKBuildVersion.isAfterV_24_7_N()) {
-                arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPathWithName)
-            } else {
-                arrayOf("pm", "install", "-i", pkgName, "-r", apkPathWithName)
-            }
+                if (UtilKBuildVersion.isAfterV_24_7_N()) {
+                    arrayOf("pm", "install", "-r", "-i", pkgName, "--user", "0", apkPathWithName)
+                } else {
+                    arrayOf("pm", "install", "-i", pkgName, "-r", apkPathWithName)
+                }
         val processBuilder = ProcessBuilder(*cmd)
         var process: Process? = null
         var inputStream: InputStream? = null
         val byteArrayOutputStream = ByteArrayOutputStream()
         try {
+
             var readCount: Int
             process = processBuilder.start()
             byteArrayOutputStream.write('/'.code)
@@ -190,11 +193,11 @@ object UtilKAppInstall : BaseUtilK() {
         val msgSuccess = StringBuilder()
         val msgError = StringBuilder()
         val cmd: Array<String> =
-            if (UtilKBuildVersion.isAfterV_24_7_N()) {
-                arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
-            } else {
-                arrayOf("pm", "install", "-r", apkPathWithName)
-            }
+                if (UtilKBuildVersion.isAfterV_24_7_N()) {
+                    arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
+                } else {
+                    arrayOf("pm", "install", "-r", apkPathWithName)
+                }
         try {
             process = ProcessBuilder(*cmd).start()
             resSuccessBufferedReader = BufferedReader(InputStreamReader(process.inputStream))
@@ -297,31 +300,28 @@ object UtilKAppInstall : BaseUtilK() {
         var fileInputStream: FileInputStream? = null
         var outputStream: OutputStream? = null
         var session: PackageInstaller.Session? = null
-        var success = false
         try {
             val apkFile = File(apkFilePathWithName)
             session = packageInstaller.openSession(sessionId)
             outputStream = session.openWrite("base.apk", 0, apkFile.length())
             fileInputStream = FileInputStream(apkFile)
-            var total = 0
-            var count: Int
-            val buffer = ByteArray(65536)
-            while (fileInputStream.read(buffer).also { count = it } != -1) {
-                total += count
-                outputStream.write(buffer, 0, count)
+
+            var readCount: Int
+            val bytes = ByteArray(65536)
+            while (fileInputStream.read(bytes).also { readCount = it } != -1) {
+                outputStream.write(bytes, 0, readCount)
             }
             session.fsync(outputStream)
-            success = true
-            Log.d(TAG, "copyApkFile success")
+            return true.also { "copyApkFile success".dt(TAG) }
         } catch (e: IOException) {
             e.printStackTrace()
-            Log.e(TAG, "copyApkFile: IOException ${e.message}")
+            "copyApkFile: IOException ${e.message}".et(TAG)
         } finally {
             session?.close()
             outputStream?.flush()
             outputStream?.close()
             fileInputStream?.close()
         }
-        return success
+        return false
     }
 }

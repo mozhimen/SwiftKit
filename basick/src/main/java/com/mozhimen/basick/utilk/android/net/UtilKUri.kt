@@ -14,6 +14,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
+import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKContext
@@ -102,7 +103,7 @@ object UtilKUri : BaseUtilK() {
      * @return Uri
      */
     @JvmStatic
-    @ADescription(Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(), Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
+    @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun strFilePath2uri(filePathWithName: String): Uri? =
         file2uri(File(filePathWithName))
 
@@ -111,7 +112,7 @@ object UtilKUri : BaseUtilK() {
      * @return Uri?
      */
     @JvmStatic
-    @ADescription(Intent.FLAG_GRANT_READ_URI_PERMISSION.toString(), Intent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
+    @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun file2uri(file: File): Uri? {
         if (!UtilKFile.isFileExist(file)) {
             Log.e(TAG, "file2Uri: file isFileExist false")
@@ -121,7 +122,7 @@ object UtilKUri : BaseUtilK() {
             val authority = "${UtilKPackage.getPackageName()}.fileProvider"
             Log.d(TAG, "file2Uri: authority $authority")
             FileProvider.getUriForFile(_context, authority, file).also {
-                UtilKContext.grantUriPermission(_context, it, Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                UtilKContext.grantUriPermission(_context, it, CIntent.FLAG_GRANT_READ_URI_PERMISSION)
             }
         } else Uri.fromFile(file)
     }

@@ -1,5 +1,7 @@
 package com.mozhimen.basick.manifestk.cons
 
+import android.Manifest
+
 
 /**
  * @ClassName Permission
@@ -25,7 +27,7 @@ object CPermission {
     const val ACCESS_BLOBS_ACROSS_USERS = "android.permission.ACCESS_BLOBS_ACROSS_USERS"
     const val ACCESS_CHECKIN_PROPERTIES = "android.permission.ACCESS_CHECKIN_PROPERTIES"
     const val ACCESS_COARSE_LOCATION = "android.permission.ACCESS_COARSE_LOCATION"
-    const val ACCESS_FINE_LOCATION = "android.permission.ACCESS_FINE_LOCATION"
+    const val ACCESS_FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION
     const val ACCESS_LOCATION_EXTRA_COMMANDS = "android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"
     const val ACCESS_MEDIA_LOCATION = "android.permission.ACCESS_MEDIA_LOCATION"
     const val ACCESS_NETWORK_STATE = "android.permission.ACCESS_NETWORK_STATE"

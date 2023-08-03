@@ -1,10 +1,8 @@
 package com.mozhimen.basick.utilk.java.io
 
-import android.os.Build
 import android.os.FileUtils
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.appendStrLineBreak
 import java.io.File
 import java.io.FileOutputStream
@@ -32,6 +30,8 @@ fun FileOutputStream.fileOutputStream2file(inputStream: InputStream, destFile: F
 fun FileOutputStream.fileOutputStream2file2(inputStream: InputStream, destFile: File) =
         UtilKFileOutputStream.fileOutputStream2file2(this, inputStream, destFile)
 
+//////////////////////////////////////////////////////////////////////////
+
 object UtilKFileOutputStream {
     @JvmStatic
     fun writeStr2fileOutputStream(str: String, fileOutputStream: FileOutputStream) {
@@ -46,9 +46,10 @@ object UtilKFileOutputStream {
     @JvmStatic
     fun fileOutputStream2file(fileOutputStream: FileOutputStream, inputStream: InputStream, destFile: File): File {
         fileOutputStream.flushClose {
-            var byteLength: Int
+            var readCount: Int
             val bytes = ByteArray(1024)
-            while (inputStream.read(bytes).also { byteLength = it } != -1) fileOutputStream.write(bytes, 0, byteLength)
+            while (inputStream.read(bytes).also { readCount = it } != -1)
+                fileOutputStream.write(bytes, 0, readCount)
             return destFile
         }
     }

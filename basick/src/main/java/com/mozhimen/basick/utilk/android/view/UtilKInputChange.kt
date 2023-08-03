@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.Window
 import android.widget.FrameLayout
-import com.mozhimen.basick.elemk.cons.CParameter
+import com.mozhimen.basick.elemk.cons.CCons
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.elemk.commons.IA_Listener
@@ -53,7 +53,7 @@ object UtilKInputChange : BaseUtilK() {
             }
         }
         contentView.viewTreeObserver.addOnGlobalLayoutListener(onGlobalLayoutListener)
-        contentView.setTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, onGlobalLayoutListener)
+        contentView.setTag(CCons.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, onGlobalLayoutListener)
     }
 
     /**
@@ -63,11 +63,11 @@ object UtilKInputChange : BaseUtilK() {
     @JvmStatic
     fun unregisterKeyBoardChangedListener(window: Window) {
         val contentView = UtilKContentView.get<View>(window)
-        val tag = contentView.getTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER)
+        val tag = contentView.getTag(CCons.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER)
         if (tag is ViewTreeObserver.OnGlobalLayoutListener) {
             if (UtilKBuildVersion.isAfterV_16_41_J()) {
                 contentView.viewTreeObserver.removeOnGlobalLayoutListener(tag)
-                contentView.setTag(CParameter.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, null)//这里会发生内存泄漏 如果不设置为null
+                contentView.setTag(CCons.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER, null)//这里会发生内存泄漏 如果不设置为null
             }
         }
     }

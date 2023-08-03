@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.android.content.applyCreateChooser
 import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
@@ -32,26 +34,26 @@ class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
 
         vb.debugkLogkRecycler.layoutManager = LinearLayoutManager(this)
         val adapterKRecycler =
-            AdapterKRecyclerVB<MDebugKCrashK, DebugkItemCrashkFileBinding>(
-                _dataSets,
-                R.layout.debugk_item_crashk_file,
-                BR.itemDebugKCrashK
-            ) { holder, itemData, _, _ ->
-                holder.vb.debugkCrashkFileShare.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.putExtra("subject", "")
-                    intent.putExtra("body", "")
+                AdapterKRecyclerVB<MDebugKCrashK, DebugkItemCrashkFileBinding>(
+                        _dataSets,
+                        R.layout.debugk_item_crashk_file,
+                        BR.itemDebugKCrashK
+                ) { holder, itemData, _, _ ->
+                    holder.vb.debugkCrashkFileShare.setOnClickListener {
+                        val intent = Intent(CIntent.ACTION_SEND)
+                        intent.putExtra("subject", "")
+                        intent.putExtra("body", "")
 
-                    val uri = UtilKUri.file2uri(itemData.file)
-                    intent.putExtra(Intent.EXTRA_STREAM, uri)//添加文件
-                    if (itemData.file.name.endsWith(".txt")) {
-                        intent.type = "text/plain"//纯文本
-                    } else {
-                        intent.type = "application/octet-stream" //二进制文件流
+                        val uri = UtilKUri.file2uri(itemData.file)
+                        intent.putExtra(CIntent.EXTRA_STREAM, uri)//添加文件
+                        if (itemData.file.name.endsWith(".txt")) {
+                            intent.type = "text/plain"//纯文本
+                        } else {
+                            intent.type = "application/octet-stream" //二进制文件流
+                        }
+                        startActivity(intent.applyCreateChooser("分享Log 日志文件"))
                     }
-                    startActivity(Intent.createChooser(intent, "分享Crash 日志文件"))
                 }
-            }
         vb.debugkLogkRecycler.adapter = adapterKRecycler
     }
 }

@@ -11,7 +11,10 @@ import com.mozhimen.basick.utilk.android.net.UtilKNetDeal
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.fileOutputStream2file
 import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
+import com.mozhimen.basick.utilk.java.io.strFilePath2file
+import com.mozhimen.basick.utilk.java.net.UtilKURI
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -28,29 +31,28 @@ import javax.net.ssl.HttpsURLConnection
  * @Date 2023/8/1 15:42
  * @Version 1.0
  */
-fun String.isStrUrlAvailable(): Boolean =
-        UtilKStrUrl.isStrUrlAvailable(this)
+fun String.isStrUrlConnectable(): Boolean =
+        UtilKStrUrl.isStrUrlConnectable(this)
 
 object UtilKStrUrl : BaseUtilK() {
-
     /**
      * 判断url是否可连
      * @param strUrl String
      * @return Boolean
      */
     @JvmStatic
-    fun isStrUrlAvailable(strUrl: String): Boolean {
-        val uri: URI?
+    fun isStrUrlConnectable(strUrl: String): Boolean {
+        val uRI: URI?
         try {
-            uri = URI(strUrl)
+            uRI = URI(strUrl)
         } catch (e: URISyntaxException) {
             e.printStackTrace()
             e.message?.et(TAG)
             return false
         }
-        if (uri.host == null) {
+        if (uRI.host == null) {
             return false
-        } else if (!uri.scheme.equals("http") && !uri.scheme.equals("https") && !uri.scheme.equals("tcp") && !uri.scheme.equals("udp")) {
+        } else if (!UtilKURI.isSchemeValid(uRI)) {
             return false
         }
         return true
@@ -67,30 +69,22 @@ object UtilKStrUrl : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.INTERNET)
-    fun strUrl2bitmap2(strUrl: String): Bitmap? {
-        val tempURL = URL(strUrl)
-        var inputStream: InputStream? = null
-        return try {
-            inputStream = tempURL.openStream()
-            inputStream.inputStream2anyBitmap()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        } finally {
-            inputStream?.close()
-        }
-    }
+    fun strUrl2bitmap2(strUrl: String): Bitmap =
+            URL(strUrl).openStream().use { it.inputStream2anyBitmap() }
 
     @JvmStatic
     @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
-    fun strUrl2file(strUrl: String, fileNameWithName: String): String {
-        require(strUrl.isNotEmpty()) { "$TAG httpUrl must be not empty" }
+    fun strUrl2file(strUrl: String, fileNameWithName: String, isOverwrite: Boolean = true): File? =
+            strUrl2file(strUrl, fileNameWithName.strFilePath2file(), isOverwrite)
 
-        val file = File(fileNameWithName)
+    @JvmStatic
+    @RequiresPermission(CPermission.INTERNET)
+    @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
+    fun strUrl2file(strUrl: String, file: File, isOverwrite: Boolean = true): File? {
+        require(strUrl.isNotEmpty()) { "$TAG httpUrl must be not empty" }
         UtilKFile.deleteFile(file)
 
         var inputStream: InputStream? = null
-        var fileOutputStream: FileOutputStream? = null
         var httpURLConnection: HttpURLConnection? = null
 
         try {
@@ -103,25 +97,20 @@ object UtilKStrUrl : BaseUtilK() {
                     httpURLConnection.sslSocketFactory = sslSocketFactory
                 }
             }
-            httpURLConnection.connectTimeout = 60 * 1000
-            httpURLConnection.readTimeout = 60 * 1000
-            httpURLConnection.connect()
-            inputStream = httpURLConnection.inputStream
-            fileOutputStream = FileOutputStream(file)
-            val buffer = ByteArray(1024)
-            var len: Int
-            while (inputStream.read(buffer).also { len = it } > 0) {
-                fileOutputStream.write(buffer, 0, len)
+            httpURLConnection.apply {
+                connectTimeout = 60 * 1000
+                readTimeout = 60 * 1000
+                connect()
             }
+            inputStream = httpURLConnection.inputStream
+            return FileOutputStream(file, !isOverwrite).fileOutputStream2file(inputStream, file)
         } catch (e: Exception) {
             e.printStackTrace()
-            return ""
+            e.message?.et(TAG)
         } finally {
             inputStream?.close()
-            fileOutputStream?.flush()
-            fileOutputStream?.close()
             httpURLConnection?.disconnect()
         }
-        return file.absolutePath
+        return null
     }
 }

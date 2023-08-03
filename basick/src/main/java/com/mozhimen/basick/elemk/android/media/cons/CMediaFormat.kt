@@ -3,7 +3,7 @@ package com.mozhimen.basick.elemk.android.media.cons
 
 /**
  * @ClassName CMediaFormat
- * @Description TODO
+ * @Description [android.media.MediaFormat]
  * @Author Mozhimen & Kolin Zhao
  * @Date 2023/3/27 15:58
  * @Version 1.0

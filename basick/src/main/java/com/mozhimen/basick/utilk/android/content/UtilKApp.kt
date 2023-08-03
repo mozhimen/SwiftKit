@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Process
 import android.util.Log
+import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKSystemProperties
@@ -37,7 +38,7 @@ object UtilKApp : BaseUtilK() {
         val intent: Intent = UtilKIntent.getLauncherActivity(context, UtilKContext.getPackageName(context)) ?: run {
             Log.e(TAG, "didn't exist launcher activity.");return
         }
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.addFlags(CIntent.FLAG_ACTIVITY_CLEAR_TOP or CIntent.FLAG_ACTIVITY_CLEAR_TASK)
         UtilKContextStart.startContext(context, intent)
         if (!isKillProcess) return
         exitApp(isValid)

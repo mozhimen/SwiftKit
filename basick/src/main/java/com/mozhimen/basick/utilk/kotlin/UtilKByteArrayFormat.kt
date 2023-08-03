@@ -31,16 +31,23 @@ fun ByteArray.bytes2hexStr(size: Int): String =
 fun ByteArray.bytes2hexStr(): String =
         UtilKByteArrayFormat.bytes2hexStr(this)
 
+fun ByteArray.bytes2str(): String =
+        UtilKByteArrayFormat.bytes2str(this)
+
 object UtilKByteArrayFormat {
+    @JvmStatic
+    fun bytes2str(bytes: ByteArray): String =
+            String(bytes)
+
     @JvmStatic
     fun bytes2file(bytes: ByteArray, filePathWithName: String, isOverwrite: Boolean = true): File =
             bytes2file(bytes, UtilKFile.createFile(filePathWithName), isOverwrite)
 
     @JvmStatic
-    fun bytes2file(bytes: ByteArray, destFile: File, isOverwrite: Boolean = true): File {
-        UtilKFile.createFile(destFile)
-        FileOutputStream(destFile, !isOverwrite).flushClose { bytes.writeBytes2fileOutputStream(it) }
-        return destFile
+    fun bytes2file(bytes: ByteArray, file: File, isOverwrite: Boolean = true): File {
+        UtilKFile.createFile(file)
+        FileOutputStream(file, !isOverwrite).flushClose { bytes.writeBytes2fileOutputStream(it) }
+        return file
     }
 
     @JvmStatic
@@ -61,12 +68,6 @@ object UtilKByteArrayFormat {
         return null
     }
 
-    /**
-     * 转HexString
-     * @param bytes ByteArray
-     * @param size Int
-     * @return String
-     */
     @JvmStatic
     fun bytes2hexStr(bytes: ByteArray, size: Int): String {
         val stringBuilder = StringBuilder()

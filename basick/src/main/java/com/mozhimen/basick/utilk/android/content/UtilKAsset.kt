@@ -11,6 +11,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.inputStream2bytes
 import com.mozhimen.basick.utilk.java.io.inputStream2file
 import com.mozhimen.basick.utilk.java.io.inputStream2str
+import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.File
 import java.io.InputStream
@@ -28,21 +29,21 @@ object UtilKAsset : BaseUtilK() {
 
     @JvmStatic
     fun getForRes(): AssetManager =
-        UtilKAssetManager.getForRes(_context)
+            UtilKAssetManager.getForRes(_context)
 
     ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun openFd(filePathWithName: String): AssetFileDescriptor =
-        UtilKAssetManager.openFd(filePathWithName, _context)
+    fun openFd(assetFileName: String): AssetFileDescriptor =
+            UtilKAssetManager.openFd(assetFileName, _context)
 
     @JvmStatic
-    fun open(filePathWithName: String): InputStream =
-        UtilKAssetManager.open(filePathWithName, _context)
+    fun open(assetFileName: String): InputStream =
+            UtilKAssetManager.open(assetFileName, _context)
 
     @JvmStatic
     fun list(assetFileName: String): Array<String>? =
-        UtilKAssetManager.list(assetFileName, _context)
+            UtilKAssetManager.list(assetFileName, _context)
 
     ///////////////////////////////////////////////////////////////////
 
@@ -59,7 +60,7 @@ object UtilKAsset : BaseUtilK() {
 
     @JvmStatic
     fun asset2bytes(assetFileName: String): ByteArray =
-        open(assetFileName).inputStream2bytes()
+            open(assetFileName).use { it.inputStream2bytes() }
 
     /**
      * 文件转String:分析json文件,从资产文件加载内容:license,获取txt文本文件内容等
@@ -67,19 +68,9 @@ object UtilKAsset : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun asset2str(assetFileName: String): String {
-        if (!isAssetExists(assetFileName)) return CMsg.NOT_EXIST
-        val inputStream = open(assetFileName)
-        try {
-            return inputStream.inputStream2str()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            inputStream.close()
-        }
-        return CMsg.WRONG
-    }
+    fun asset2str(assetFileName: String): String =
+            if (!isAssetExists(assetFileName)) ""
+            else open(assetFileName).use { it.inputStream2str().replaceRegexLineBreak() }
 
     /**
      * 获取文本文件内容: txt
@@ -88,21 +79,9 @@ object UtilKAsset : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun asset2str2(assetName: String): String {
-        if (!isAssetExists(assetName)) return CMsg.NOT_EXIST
-        val inputStream = open(assetName)
-        try {
-            val data = ByteArray(inputStream.available())
-            inputStream.read(data)
-            return String(data).replaceRegexLineBreak()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            inputStream.close()
-        }
-        return CMsg.WRONG
-    }
+    fun asset2str2(assetFileName: String): String =
+            if (!isAssetExists(assetFileName)) ""
+            else asset2bytes(assetFileName).bytes2str().replaceRegexLineBreak()
 
     /**
      * 通过路径加载Assets中的文本内容
@@ -110,9 +89,9 @@ object UtilKAsset : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun asset2str3(assetName: String): String {
-        if (!isAssetExists(assetName)) return CMsg.NOT_EXIST
-        val inputStream = open(assetName)
+    fun asset2str3(assetFileName: String): String {
+        if (!isAssetExists(assetFileName)) return CMsg.NOT_EXIST
+        val inputStream = open(assetFileName)
         val stringBuilder = StringBuilder()
         try {
             var bufferLength: Int
@@ -137,13 +116,13 @@ object UtilKAsset : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun asset2file(assetName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? {
-        if (!isAssetExists(assetName)) return null
-        val inputStream: InputStream = getForRes().open(assetName)
+    fun asset2file(assetFileName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? {
+        if (!isAssetExists(assetFileName)) return null
+        val inputStream: InputStream = getForRes().open(assetFileName)
         //整理名称
         var tmpDestFilePath = destFilePathWithName
         if (tmpDestFilePath.endsWith("/")) {
-            tmpDestFilePath += assetName
+            tmpDestFilePath += assetFileName
         }
         Log.d(TAG, "assetCopyFile: tmpDestFilePath $tmpDestFilePath")
         try {

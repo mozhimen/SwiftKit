@@ -13,6 +13,7 @@ import com.mozhimen.basick.utilk.android.hardware.UtilKDevice
 import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.java.lang.UtilKCurrentThread
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
@@ -92,8 +93,8 @@ class CrashKJava : BaseUtilK() {
         }
 
         private fun saveCrashInfo2File(log: String) {
-            val savePath = crashPathJava + "/${UtilKFile.nowDateStr2fileName()}.txt"
-            UtilKFile.str2file(log, savePath)
+            val savePath = crashPathJava + "/${UtilKFile.getStrFileNameForStrNowDate()}.txt"
+            UtilKFileFormat.str2file(log, savePath)
         }
 
         private fun collectDeviceInfo(e: Throwable): String {

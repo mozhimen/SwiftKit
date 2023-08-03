@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.java.io
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.FileUtils
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -74,9 +73,9 @@ object UtilKInputStream : IUtilK {
         inputStream.use {
             val bytes = ByteArray(fileLength.toInt())
             var offset = 0
-            var numRead = 0
-            while (offset < bytes.size && inputStream.read(bytes, offset, bytes.size - offset).also { numRead = it } >= 0) {
-                offset += numRead
+            var readCount = 0
+            while (offset < bytes.size && inputStream.read(bytes, offset, bytes.size - offset).also { readCount = it } != -1) {
+                offset += readCount
             }
             // 确保所有数据均被读取
             if (offset != bytes.size) throw IOException("Could not completely read file.")
@@ -114,15 +113,15 @@ object UtilKInputStream : IUtilK {
             inputStream.use { inputStream2file(it, UtilKFile.createFile(destFilePathWithName), isOverwrite) }
 
     @JvmStatic
-    fun inputStream2file(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
-        UtilKFile.createFile(destFile)
-        val fileInputStream = FileInputStream(destFile)
+    fun inputStream2file(inputStream: InputStream, file: File, isOverwrite: Boolean = true): File? {
+        UtilKFile.createFile(file)
+        val fileInputStream = FileInputStream(file)
         if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
             Log.d(TAG, "assetCopyFile: the two files is same")
-            return destFile//"the two files is same, don't need overwrite"
+            return file//"the two files is same, don't need overwrite"
         }
         try {
-            return FileOutputStream(destFile, !isOverwrite).flushClose { it.fileOutputStream2file(inputStream, destFile) }
+            return FileOutputStream(file, !isOverwrite).flushClose { it.fileOutputStream2file(inputStream, file) }
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(UtilKFile.TAG)
@@ -140,15 +139,15 @@ object UtilKInputStream : IUtilK {
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun inputStream2file2(inputStream: InputStream, destFile: File, isOverwrite: Boolean = true): File? {
-        UtilKFile.createFile(destFile)
-        val fileInputStream = FileInputStream(destFile)
+    fun inputStream2file2(inputStream: InputStream, file: File, isOverwrite: Boolean = true): File? {
+        UtilKFile.createFile(file)
+        val fileInputStream = FileInputStream(file)
         if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
             Log.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
-            return destFile//"the two files is same, don't need overwrite"
+            return file//"the two files is same, don't need overwrite"
         }
         try {
-            return FileOutputStream(destFile, !isOverwrite).flushClose { it.fileOutputStream2file2(inputStream,destFile) }
+            return FileOutputStream(file, !isOverwrite).flushClose { it.fileOutputStream2file2(inputStream, file) }
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(UtilKFile.TAG)

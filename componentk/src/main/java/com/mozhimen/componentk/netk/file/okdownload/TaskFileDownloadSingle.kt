@@ -11,7 +11,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
-import com.mozhimen.basick.utilk.kotlin.isStrUrlAvailable
+import com.mozhimen.basick.utilk.kotlin.isStrUrlConnectable
 import com.mozhimen.componentk.netk.file.okdownload.commons.IFileDownloadSingleListener
 import com.mozhimen.underlayk.logk.LogK
 import java.io.File
@@ -40,7 +40,7 @@ class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
     }
 
     fun start(url: String, file: File, listener: IFileDownloadSingleListener? = null) {
-        if (!url.isStrUrlAvailable() || _downloadUrls.contains(url)) return
+        if (!url.isStrUrlConnectable() || _downloadUrls.contains(url)) return
 
         _downloadUrls.add(url)
         listener?.let { _downloadListenerMap[url] = it }

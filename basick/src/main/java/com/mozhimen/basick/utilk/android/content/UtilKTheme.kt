@@ -14,22 +14,19 @@ import android.util.TypedValue
 object UtilKTheme {
     @JvmStatic
     fun get(context: Context): Theme =
-        UtilKContext.getTheme(context)
+            UtilKContext.getTheme(context)
 
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun resolveAttribute(context: Context, resId: Int, outValue: TypedValue, resolveRefs: Boolean) =
-        get(context).resolveAttribute(resId, outValue, resolveRefs)
+            get(context).resolveAttribute(resId, outValue, resolveRefs)
 
     /**
      * 是否全屏
      * @return Boolean
      */
     @JvmStatic
-    fun isFullScreen(context: Context): Boolean {
-        var windowFullscreen: Boolean
-        get(context).obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen)).use { windowFullscreen = it.getBoolean(0, false) }
-        return windowFullscreen
-    }
+    fun isFullScreen(context: Context): Boolean =
+            get(context).obtainStyledAttributes(intArrayOf(android.R.attr.windowFullscreen)).use { it.getBoolean(0, false) }
 }

@@ -21,7 +21,7 @@ class SystemDownloadReceiver : BroadcastReceiver() {
         }// else if (DownloadManager.ACTION_NOTIFICATION_CLICKED == intent.action) {
             //如果还未完成下载，用户点击 Notification
             //val viewDownloadIntent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS)
-            //viewDownloadIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            //viewDownloadIntent.addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
             //context.startActivity(viewDownloadIntent)
        // }
     }

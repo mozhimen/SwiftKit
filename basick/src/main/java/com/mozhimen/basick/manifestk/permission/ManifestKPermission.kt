@@ -92,7 +92,7 @@ object ManifestKPermission : BaseUtilK() {
         var allGranted = true
         return if (permissions.isEmpty()) true
         else {
-            for (permission in permissions) allGranted = allGranted and (UtilKContextCompat.checkSelfPermission(_context, permission) == PackageManager.PERMISSION_GRANTED)
+            for (permission in permissions) allGranted = allGranted and (UtilKContextCompat.isSelfPermissionGranted(_context, permission))
             allGranted
         }
     }

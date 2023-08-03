@@ -10,20 +10,18 @@ import java.io.RandomAccessFile
  * @Date 2023/8/2 17:08
  * @Version 1.0
  */
-fun String.str2randomAccessFile(randomAccessFile: RandomAccessFile) {
-    UtilKRandomAccessFile.str2randomAccessFile(this, randomAccessFile)
+fun String.writeStr2randomAccessFile(randomAccessFile: RandomAccessFile) {
+    UtilKRandomAccessFile.writeStr2randomAccessFile(this, randomAccessFile)
 }
 
 object UtilKRandomAccessFile {
     @JvmStatic
-    fun str2randomAccessFile(str: String, randomAccessFile: RandomAccessFile) {
-        bytes2randomAccessFile(str.appendStrLineBreak().toByteArray(), randomAccessFile)
+    fun writeStr2randomAccessFile(str: String, randomAccessFile: RandomAccessFile) {
+        writeBytes2randomAccessFile(str.appendStrLineBreak().toByteArray(), randomAccessFile)
     }
 
     @JvmStatic
-    fun bytes2randomAccessFile(bytes: ByteArray, randomAccessFile: RandomAccessFile) {
-        randomAccessFile.use {
-            it.write(bytes)
-        }
+    fun writeBytes2randomAccessFile(bytes: ByteArray, randomAccessFile: RandomAccessFile) {
+        randomAccessFile.use { it.write(bytes) }
     }
 }

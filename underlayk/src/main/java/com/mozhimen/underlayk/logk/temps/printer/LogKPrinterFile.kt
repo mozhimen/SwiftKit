@@ -5,6 +5,7 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import java.io.BufferedWriter
 import java.io.File
@@ -82,7 +83,7 @@ class LogKPrinterFile(
     }
 
     private fun genFileName(): String {
-        return "${UtilKFile.currentHourStr2fileName()}.txt"
+        return "${UtilKFile.getStrFileNameForStrCurrentHour()}.txt"
     }
 
     /**

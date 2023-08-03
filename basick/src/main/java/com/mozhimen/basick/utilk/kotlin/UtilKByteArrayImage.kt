@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
 import android.graphics.Rect
 import android.graphics.YuvImage
@@ -12,6 +11,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.ByteBuffer
 import androidx.annotation.IntRange
+import com.mozhimen.basick.utilk.android.graphics.anyBytes2anyBitmap
 import com.mozhimen.basick.utilk.android.graphics.jpegBitmap2jpegFile
 import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
 
@@ -22,16 +22,10 @@ import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
  * @Date 2023/7/31 17:45
  * @Version 1.0
  */
-fun ByteArray.jpegBytes2jpegBitmap(): Bitmap =
-    UtilKByteArrayImage.jpegBytes2jpegBitmap(this)
-
 fun ByteArray.nv21Bytes2jpegBytes(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
     UtilKByteArrayImage.nv21Bytes2jpegBytes(this, width, height, quality)
 
 object UtilKByteArrayImage : IUtilK {
-    @JvmStatic
-    fun jpegBytes2jpegBitmap(bytes: ByteArray): Bitmap =
-        BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
     @JvmStatic
     fun yuv420Bytes2yuv420spBytes(y: ByteArray, u: ByteArray, v: ByteArray, nv21: ByteArray, stride: Int, height: Int) {
@@ -104,7 +98,7 @@ object UtilKByteArrayImage : IUtilK {
         try {
             byteArrayOutputStream = ByteArrayOutputStream()
             yuvImage.compressToJpeg(Rect(0, 0, yuvImage.width, yuvImage.height), 100, byteArrayOutputStream)
-            return byteArrayOutputStream.byteArrayOutputStream2bytes().jpegBytes2jpegBitmap()
+            return byteArrayOutputStream.byteArrayOutputStream2bytes().anyBytes2anyBitmap()
         } catch (e: Exception) {
             throw e
         } finally {

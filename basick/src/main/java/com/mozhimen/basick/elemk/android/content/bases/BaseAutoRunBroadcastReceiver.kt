@@ -2,6 +2,7 @@ package com.mozhimen.basick.elemk.android.content.bases
 
 import android.content.Context
 import android.content.Intent
+import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.elemk.io.reactivex.bases.BaseObserver
@@ -39,7 +40,7 @@ open class BaseAutoRunBroadcastReceiver(private val clazz: Class<*>, private val
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
-            Intent.ACTION_BOOT_COMPLETED -> {
+            CIntent.ACTION_BOOT_COMPLETED -> {
                 if (_delayTime != 0L) {
                     Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKTransformer.io2mainObservable()).subscribe(object : BaseObserver<String>() {
                         override fun onComplete() {

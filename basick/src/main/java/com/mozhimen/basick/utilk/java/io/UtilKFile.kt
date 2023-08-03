@@ -23,15 +23,14 @@ import java.util.Locale
 @AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
 object UtilKFile : BaseUtilK() {
 
-    //region # file
     /**
      * 当前小时转文件名
      * @param locale Locale
      * @return String
      */
     @JvmStatic
-    fun currentHourStr2fileName(locale: Locale = Locale.CHINA) =
-            strDate2fileName(CDateFormat.yyyyMMddHH, locale)
+    fun getStrFileNameForStrCurrentHour(locale: Locale = Locale.CHINA): String =
+            getStrFileNameForStrDate(CDateFormat.yyyyMMddHH, locale)
 
     /**
      * 当前时间转文件名
@@ -39,8 +38,8 @@ object UtilKFile : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun nowDateStr2fileName(locale: Locale = Locale.CHINA): String =
-            strDate2fileName(locale = locale)
+    fun getStrFileNameForStrNowDate(locale: Locale = Locale.CHINA): String =
+            getStrFileNameForStrDate(locale = locale)
 
     /**
      * 时间转文件名
@@ -49,70 +48,11 @@ object UtilKFile : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun strDate2fileName(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
+    fun getStrFileNameForStrDate(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
         return UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
     }
 
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun str2file(str: String, filePathWithName: String): File =
-            str2file(str, createFile(filePathWithName))
-
-    /**
-     * Str2file
-     * 文本转文件
-     * @param str
-     * @param destFile
-     * @return
-     */
-    @JvmStatic
-    fun str2file(str: String, destFile: File): File {
-        createFile(destFile)
-        RandomAccessFile(destFile, "rwd").use { str.str2randomAccessFile(it) }
-        return destFile
-    }
-
-    @JvmStatic
-    fun str2file2(str: String, filePathWithName: String): File =
-            str2file2(str, createFile(filePathWithName))
-
-    @JvmStatic
-    fun str2file2(str: String, destFile: File): File {
-        createFile(destFile)
-        FileOutputStream(destFile).flushClose { str.writeStr2fileOutputStream(it) }
-        return destFile
-    }
-
-    @JvmStatic
-    fun file2str(filePathWithName: String): String =
-            file2str(File(filePathWithName))
-
-    @JvmStatic
-    fun file2str(file: File): String =
-            if (!isFileExist(file)) ""
-            else FileInputStream(file).use { it.inputStream2str() }
-
-    @JvmStatic
-    fun file2Bytes(filePathWithName: String): ByteArray? =
-            file2Bytes(File(filePathWithName))
-
-    @JvmStatic
-    fun file2Bytes(file: File): ByteArray? =
-            if (!isFileExist(file)) null
-            else FileInputStream(file).use { it.inputStream2bytes() }
-
-    @JvmStatic
-    fun file2bytes2(filePathWithName: String): ByteArray? =
-            file2bytes2(File(filePathWithName))
-
-    @JvmStatic
-    fun file2bytes2(file: File): ByteArray? =
-            if (!isFileExist(file)) null
-            else FileInputStream(file).use { it.inputStream2bytes2(file.length()) }
-
-    /////////////////////////////////////////////////////////////////////////////////////////
-
+    //region # file
     /**
      * 判断是否为文件
      * @param file File
@@ -223,19 +163,9 @@ object UtilKFile : BaseUtilK() {
      * @param destFile File
      */
     @JvmStatic
-    fun copyFile(sourceFile: File, destFile: File, isOverwrite: Boolean = true): File? {
-        if (!isFileExist(sourceFile)) return null
-        val fileInputStream = FileInputStream(sourceFile)
-        try {
-            return fileInputStream.inputStream2file(destFile, isOverwrite)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            fileInputStream.close()
-        }
-        return null
-    }
+    fun copyFile(sourceFile: File, destFile: File, isOverwrite: Boolean = true): File? =
+        if (!isFileExist(sourceFile)) null
+        else FileInputStream(sourceFile).use { it.inputStream2file(destFile, isOverwrite) }
 
     /**
      * 获取文件大小

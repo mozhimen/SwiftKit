@@ -3,8 +3,10 @@ package com.mozhimen.basick.utilk.android.graphics
 import android.graphics.*
 import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
+import androidx.annotation.IntRange
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
+import java.io.OutputStream
 import java.lang.Integer.min
 
 /**
@@ -14,22 +16,42 @@ import java.lang.Integer.min
  * @Date 2022/2/27 22:49
  * @Version 1.0
  */
-fun Bitmap.applyAnyBitmapCrop(width: Int, height: Int, x: Int, y: Int): Bitmap =
-    UtilKBitmapDeal.applyAnyBitmapCrop(this, width, height, x, y)
+fun Bitmap.applyAnyBitmapCompress(format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100, stream: OutputStream) {
+    UtilKBitmapDeal.applyAnyBitmapCompress(this, format, quality, stream)
+}
+
+fun Bitmap.applyAnyBitmapResize(destWidth: Int, destHeight: Int, filter: Boolean = true) =
+        UtilKBitmapDeal.applyAnyBitmapResize(this, destWidth, destHeight, filter)
 
 fun Bitmap.applyAnyBitmapRotate(degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap =
-    UtilKBitmapDeal.applyAnyBitmapRotate(this, degree, flipX, flipY)
+        UtilKBitmapDeal.applyAnyBitmapRotate(this, degree, flipX, flipY)
 
-fun Bitmap.applyAnyBitmapScaleRatio(ratioX: Float, ratioY: Float) =
-    UtilKBitmapDeal.applyAnyBitmapScaleRatio(this, ratioX, ratioY)
+fun Bitmap.applyAnyBitmapScale(destWidth: Float, destHeight: Float): Bitmap =
+        UtilKBitmapDeal.applyAnyBitmapScale(this, destWidth, destHeight)
+
+fun Bitmap.applyAnyBitmapScaleRatio(@FloatRange(from = 0.0) ratio: Float): Bitmap =
+        UtilKBitmapDeal.applyAnyBitmapScaleRatio(this, ratio)
+
+fun Bitmap.applyAnyBitmapScaleRatio(ratioX: Float, ratioY: Float): Bitmap =
+        UtilKBitmapDeal.applyAnyBitmapScaleRatio(this, ratioX, ratioY)
+
+fun Bitmap.applyAnyBitmapZoom(sourceBitmap: Bitmap, ratio: Float): Bitmap =
+        UtilKBitmapDeal.applyAnyBitmapZoom(this, ratio)
+
+fun Bitmap.applyAnyBitmapCrop(width: Int, height: Int, x: Int, y: Int): Bitmap =
+        UtilKBitmapDeal.applyAnyBitmapCrop(this, width, height, x, y)
 
 object UtilKBitmapDeal : BaseUtilK() {
+    fun applyAnyBitmapCompress(sourceBitmap: Bitmap, format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100, stream: OutputStream) {
+        sourceBitmap.compress(format, quality, stream)
+    }
+
     /**
      * 设置大小
      */
     @JvmStatic
-    fun applyAnyBitmapResize(bitmap: Bitmap, destWidth: Int, destHeight: Int, filter: Boolean = true): Bitmap =
-        Bitmap.createScaledBitmap(bitmap, destWidth, destHeight, filter)
+    fun applyAnyBitmapResize(sourceBitmap: Bitmap, destWidth: Int, destHeight: Int, filter: Boolean = true): Bitmap =
+            Bitmap.createScaledBitmap(sourceBitmap, destWidth, destHeight, filter)
 
     /**
      * 旋转位图
@@ -37,19 +59,9 @@ object UtilKBitmapDeal : BaseUtilK() {
     @JvmStatic
     fun applyAnyBitmapRotate(sourceBitmap: Bitmap, degree: Int, flipX: Boolean = false, flipY: Boolean = false): Bitmap {
         val matrix = Matrix()
-        matrix.postRotate((degree).toFloat())
+        matrix.postRotate(degree.toFloat())
         matrix.postScale(if (flipX) -1f else 1f, if (flipY) -1f else 1f)
         return Bitmap.createBitmap(sourceBitmap, 0, 0, sourceBitmap.width, sourceBitmap.height, matrix, true)
-    }
-
-    /**
-     * 将两个图片裁剪成一致
-     */
-    @JvmStatic
-    fun applyAnyBitmapScale2sameSize(sourceBitmap1: Bitmap, sourceBitmap2: Bitmap, @FloatRange() ratio: Float = 1f): Pair<Bitmap, Bitmap> {
-        val minWidth = min(sourceBitmap1.width, sourceBitmap2.width) * ratio
-        val minHeight = min(sourceBitmap1.height, sourceBitmap2.height) * ratio
-        return applyAnyBitmapScale(sourceBitmap1, minWidth, minHeight) to applyAnyBitmapScaleRatio(sourceBitmap2, minWidth, minHeight)
     }
 
     /**
@@ -57,7 +69,7 @@ object UtilKBitmapDeal : BaseUtilK() {
      */
     @JvmStatic
     fun applyAnyBitmapScale(sourceBitmap: Bitmap, destWidth: Float, destHeight: Float): Bitmap =
-        applyAnyBitmapScaleRatio(sourceBitmap, destWidth / sourceBitmap.width.toFloat(), destHeight / sourceBitmap.height.toFloat())
+            applyAnyBitmapScaleRatio(sourceBitmap, destWidth / sourceBitmap.width.toFloat(), destHeight / sourceBitmap.height.toFloat())
 
     /**
      * 缩放原图
@@ -65,7 +77,7 @@ object UtilKBitmapDeal : BaseUtilK() {
     @JvmStatic
     @Throws(Exception::class)
     fun applyAnyBitmapScaleRatio(sourceBitmap: Bitmap, @FloatRange(from = 0.0) ratio: Float): Bitmap =
-        applyAnyBitmapScaleRatio(sourceBitmap, ratio, ratio)
+            applyAnyBitmapScaleRatio(sourceBitmap, ratio, ratio)
 
     /**
      * 缩放原图
@@ -106,6 +118,16 @@ object UtilKBitmapDeal : BaseUtilK() {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 将两个图片裁剪成一致
+     */
+    @JvmStatic
+    fun applyAnyBitmapScale2sameSize(sourceBitmap1: Bitmap, sourceBitmap2: Bitmap, @FloatRange() ratio: Float = 1f): Pair<Bitmap, Bitmap> {
+        val minWidth = min(sourceBitmap1.width, sourceBitmap2.width) * ratio
+        val minHeight = min(sourceBitmap1.height, sourceBitmap2.height) * ratio
+        return applyAnyBitmapScale(sourceBitmap1, minWidth, minHeight) to applyAnyBitmapScaleRatio(sourceBitmap2, minWidth, minHeight)
+    }
 
     /**
      * 匹配角度
@@ -149,14 +171,14 @@ object UtilKBitmapDeal : BaseUtilK() {
         return try {
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true
-            BitmapFactory.decodeFile(filePathWithName, options)
+            filePathWithName.strFilePath2anyBitmap(options)
             var sampleSize = options.outHeight / 400
             if (sampleSize <= 0) {
                 sampleSize = 1
             }
             options.inSampleSize = sampleSize
             options.inJustDecodeBounds = false
-            BitmapFactory.decodeFile(filePathWithName, options)
+            filePathWithName.strFilePath2anyBitmap(options)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)

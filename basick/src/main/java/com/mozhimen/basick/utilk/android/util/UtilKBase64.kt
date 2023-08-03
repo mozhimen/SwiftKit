@@ -6,9 +6,9 @@ import android.graphics.drawable.BitmapDrawable
 import android.util.Base64
 import androidx.annotation.IntRange
 import com.mozhimen.basick.utilk.android.graphics.anyBitmap2anyBytes
+import com.mozhimen.basick.utilk.android.graphics.anyBytes2anyBitmap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.bytes2byteArrayInputStream
-import com.mozhimen.basick.utilk.kotlin.jpegBytes2jpegBitmap
 
 /**
  * @ClassName UtilKBase64
@@ -40,7 +40,7 @@ object UtilKBase64 : BaseUtilK() {
      */
     @JvmStatic
     fun strBase642bitmap(strBase64: String, flags: Int = Base64.DEFAULT): Bitmap =
-            strBase64.strBase642bytes(flags).jpegBytes2jpegBitmap()
+            strBase64.strBase642bytes(flags).anyBytes2anyBitmap()
 
     /**
      * 位图转base64

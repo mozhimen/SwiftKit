@@ -4,11 +4,11 @@ import android.annotation.TargetApi
 import android.os.Environment
 import android.provider.Settings
 import android.text.TextUtils
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -16,6 +16,11 @@ import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.isBeforeVersion
+import com.mozhimen.basick.utilk.android.provider.UtilKSettings
+import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.it
+import com.mozhimen.basick.utilk.android.util.vt
 
 /**
  * @ClassName UtilKPermission
@@ -28,8 +33,7 @@ object UtilKPermission : BaseUtilK() {
 
     @JvmStatic
     fun hasOverlay(): Boolean =
-        if (UtilKBuildVersion.isAfterV_23_6_M()) hasOverlay2()
-        else true
+            if (UtilKBuildVersion.isAfterV_23_6_M()) hasOverlay2() else true
 
     /**
      * 是否有Overlay的权限
@@ -38,10 +42,9 @@ object UtilKPermission : BaseUtilK() {
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     @RequiresPermission(CPermission.SYSTEM_ALERT_WINDOW)
-    @ADescription(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+    @ADescription(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION)
     fun hasOverlay2(): Boolean =
-        CVersCode.V_23_6_M.isBeforeVersion() || Settings.canDrawOverlays(_context)
-
+            CVersCode.V_23_6_M.isBeforeVersion() || UtilKSettings.canDrawOverlays(_context)
 
     /**
      * 是否有文件管理权限
@@ -50,9 +53,9 @@ object UtilKPermission : BaseUtilK() {
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    @ADescription(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+    @ADescription(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
     fun hasExternalStorage(): Boolean =
-        Environment.isExternalStorageManager()
+            Environment.isExternalStorageManager()
 
     /**
      * 是否有包安装权限
@@ -61,8 +64,7 @@ object UtilKPermission : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     fun hasPackageInstalls(): Boolean =
-        if (UtilKBuildVersion.isAfterV_26_8_O()) hasPackageInstallsAfterO()
-        else true
+            if (UtilKBuildVersion.isAfterV_26_8_O()) hasPackageInstallsAfterO() else true
 
     /**
      * 是否有包安装权限
@@ -72,9 +74,9 @@ object UtilKPermission : BaseUtilK() {
     @RequiresApi(CVersCode.V_26_8_O)
     @TargetApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
+    @ADescription(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun hasPackageInstallsAfterO(): Boolean =
-        UtilKPackageManager.canRequestPackageInstalls(_context).also { Log.d(TAG, "isAppInstallsPermissionEnable: $it") }
+            UtilKPackageManager.canRequestPackageInstalls(_context).also { "isAppInstallsPermissionEnable: $it".dt(TAG) }
 
     /**
      * 是否有无障碍权限
@@ -83,32 +85,30 @@ object UtilKPermission : BaseUtilK() {
     @JvmStatic
     fun hasAccessibility(serviceClazz: Class<*>): Boolean {
         var permissionEnable = 0
-        val service = "${UtilKPackage.getPackageName()}/${serviceClazz.canonicalName}"
+        val strService = "${UtilKPackage.getPackageName()}/${serviceClazz.canonicalName}"
         try {
-            permissionEnable = Settings.Secure.getInt(UtilKContentResolver.get(_context), Settings.Secure.ACCESSIBILITY_ENABLED)
-            Log.d(TAG, "isSettingAccessibilityPermissionEnable permissionEnable $permissionEnable")
+            permissionEnable = UtilKSettings.getSecureInt(UtilKContentResolver.get(_context), CSettings.Secure.ACCESSIBILITY_ENABLED)
+            "hasAccessibility permissionEnable $permissionEnable".dt(TAG)
         } catch (e: Settings.SettingNotFoundException) {
             e.printStackTrace()
-            Log.e(TAG, "isSettingAccessibilityPermissionEnable error finding setting, default accessibility to not found ${e.message}")
+            "hasAccessibility error finding setting, default accessibility to not found ${e.message}".et(TAG)
         }
         val stringColonSplitter = TextUtils.SimpleStringSplitter(':')
         if (permissionEnable == 1) {
-            Log.d(TAG, "isSettingAccessibilityPermissionEnable accessibility is enabled")
-            val settingValue = Settings.Secure.getString(UtilKContentResolver.get(_context), Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
+            "hasAccessibility accessibility is enabled".dt(TAG)
+            val settingValue = UtilKSettings.getSecureString(UtilKContentResolver.get(_context), CSettings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
             if (settingValue != null) {
                 stringColonSplitter.setString(settingValue)
                 while (stringColonSplitter.hasNext()) {
                     val accessibilityService = stringColonSplitter.next()
-                    Log.v(TAG, "isSettingAccessibilityPermissionEnable accessibilityService $accessibilityService - service $service")
-                    if (accessibilityService.equals(service, ignoreCase = true)) {
-                        Log.i(TAG, "isSettingAccessibilityPermissionEnable we've found the correct setting - accessibility is switched on!")
+                    "isSettingAccessibilityPermissionEnable accessibilityService $accessibilityService - service $strService".vt(TAG)
+                    if (accessibilityService.equals(strService, ignoreCase = true)) {
+                        "hasAccessibility we've found the correct setting - accessibility is switched on!".it(TAG)
                         return true
                     }
                 }
             }
-        } else {
-            Log.e(TAG, "isSettingAccessibilityPermissionEnable accessibility is disabled")
-        }
+        } else "hasAccessibility accessibility is disabled".et(TAG)
         return false
     }
 }

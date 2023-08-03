@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.MotionEvent
 import com.mozhimen.basick.utilk.android.view.UtilKGesture
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
-import com.mozhimen.basick.elemk.cons.CParameter
+import com.mozhimen.basick.elemk.cons.CCons
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKStackTrace
 import com.mozhimen.basick.utilk.kotlin.collections.UtilKList
@@ -109,11 +109,11 @@ object UtilKLogPro : BaseUtilK() {
             try {
                 var logCat = getLogCat(*content)
                 val length = logCat.length.toLong()
-                if (length <= CParameter.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
+                if (length <= CCons.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
                     log(type, tag, logCat)
                 } else {
-                    while (logCat.length > CParameter.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
-                        val logContent = logCat.substring(0, CParameter.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH)
+                    while (logCat.length > CCons.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
+                        val logContent = logCat.substring(0, CCons.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH)
                         logCat = logCat.replace(logContent, "")
                         log(type, tag, logCat)
                     }

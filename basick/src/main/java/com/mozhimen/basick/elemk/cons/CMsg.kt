@@ -17,8 +17,4 @@ object CMsg {
     const val BLANK_STR = "\\t"
     const val PART_LINE_BIAS = "/////////////////////////////////////////////////////////////////////"
     const val PART_LINE_HOR = "----------------------------------------------------------------------"
-
-    object Init {
-        const val BY_LAZY = "init by lazy"
-    }
 }

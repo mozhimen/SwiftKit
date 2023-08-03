@@ -1,7 +1,11 @@
 package com.mozhimen.basick.utilk.java.io
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import androidx.annotation.IntRange
+import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
+import com.mozhimen.basick.utilk.android.graphics.anyBytes2anyBitmap
+import com.mozhimen.basick.utilk.android.graphics.applyAnyBitmapCompress
+import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.bytes2file
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -25,6 +29,7 @@ fun ByteArrayOutputStream.byteArrayOutputStream2file(filePathWithName: String, i
 fun ByteArrayOutputStream.byteArrayOutputStream2file(destFile: File, isOverwrite: Boolean = true): File =
         UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, destFile, isOverwrite)
 
+
 object UtilKByteArrayOutputStream {
     @JvmStatic
     @Throws(Exception::class)
@@ -33,7 +38,7 @@ object UtilKByteArrayOutputStream {
 
     @JvmStatic
     fun byteArrayOutputStream2anyBitmap(byteArrayOutputStream: ByteArrayOutputStream): Bitmap =
-            byteArrayOutputStream.flushClose { BitmapFactory.decodeByteArray(byteArrayOutputStream.byteArrayOutputStream2bytes(), 0, byteArrayOutputStream.size()) }
+            byteArrayOutputStream.flushClose { it.byteArrayOutputStream2bytes().anyBytes2anyBitmap() }
 
     /**
      * 输出流转文件
@@ -44,7 +49,7 @@ object UtilKByteArrayOutputStream {
      */
     @JvmStatic
     fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, filePathWithName: String, isOverwrite: Boolean = true): File =
-            byteArrayOutputStream2file(byteArrayOutputStream, File(filePathWithName), isOverwrite)
+            byteArrayOutputStream2file(byteArrayOutputStream, filePathWithName.strFilePath2file(), isOverwrite)
 
     /**
      * 输出流转文件

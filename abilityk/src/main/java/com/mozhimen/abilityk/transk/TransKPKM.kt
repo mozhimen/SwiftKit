@@ -4,7 +4,6 @@ import android.opengl.ETC1
 import android.opengl.ETC1Util.ETC1Texture
 import android.util.Log
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.basick.utilk.kotlin.UtilKCharSequence
@@ -82,7 +81,7 @@ class TransKPKM : BaseUtilK() {
     fun getNextTexture(): ETC1Texture? {
         if (hasElements()) {
             try {
-                return createTexture(_zipInputStream)
+                return _zipInputStream?.let { createTexture(it) }
             } catch (e: Exception) {
                 e.printStackTrace()
                 e.message?.et(TAG)
@@ -107,20 +106,20 @@ class TransKPKM : BaseUtilK() {
     }
 
     @Throws(IOException::class)
-    private fun createTexture(input: InputStream?): ETC1Texture {
+    private fun createTexture(inputStream: InputStream): ETC1Texture {
         var width = 0
         var height = 0
-        val ioBuffer = ByteArray(4096)
+        val bytes = ByteArray(4096)
         run {
-            if (input!!.read(ioBuffer, 0, ETC1.ETC_PKM_HEADER_SIZE) != ETC1.ETC_PKM_HEADER_SIZE) {
-                Log.e(TAG, ioBuffer.contentToString())
+            if (inputStream.read(bytes, 0, ETC1.ETC_PKM_HEADER_SIZE) != ETC1.ETC_PKM_HEADER_SIZE) {
+                Log.e(TAG, bytes.contentToString())
                 throw IOException("Unable to read PKM file header.")
             }
             if (_headerBuffer == null) {
                 _headerBuffer = ByteBuffer.allocateDirect(ETC1.ETC_PKM_HEADER_SIZE)
                     .order(ByteOrder.nativeOrder())
             }
-            _headerBuffer!!.put(ioBuffer, 0, ETC1.ETC_PKM_HEADER_SIZE).position(0)
+            _headerBuffer!!.put(bytes, 0, ETC1.ETC_PKM_HEADER_SIZE).position(0)
             if (!ETC1.isValid(_headerBuffer)) {
                 throw IOException("Not a PKM file.")
             }
@@ -129,9 +128,9 @@ class TransKPKM : BaseUtilK() {
         }
         val encodedSize = ETC1.getEncodedDataSize(width, height)
         val dataBuffer = ByteBuffer.allocateDirect(encodedSize).order(ByteOrder.nativeOrder())
-        var len: Int
-        while (input!!.read(ioBuffer).also { len = it } != -1) {
-            dataBuffer.put(ioBuffer, 0, len)
+        var readCount: Int
+        while (inputStream.read(bytes).also { readCount = it } != -1) {
+            dataBuffer.put(bytes, 0, readCount)
         }
         dataBuffer.position(0)
         return ETC1Texture(width, height, dataBuffer)

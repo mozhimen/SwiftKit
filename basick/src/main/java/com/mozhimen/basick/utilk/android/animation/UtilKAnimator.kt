@@ -27,9 +27,7 @@ object UtilKAnimator {
                     duration = max(duration, childAnimation.duration)
                 }
             }
-        } else {
-            duration = animator.duration
-        }
+        } else duration = animator.duration
         return if (duration <= 0) 0 else duration
     }
 

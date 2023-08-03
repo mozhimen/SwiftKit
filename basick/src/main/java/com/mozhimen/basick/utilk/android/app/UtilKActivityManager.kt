@@ -16,7 +16,7 @@ import com.mozhimen.basick.utilk.android.text.getFormatFileSize
 object UtilKActivityManager {
     @JvmStatic
     fun get(context: Context): ActivityManager =
-        UtilKContext.getActivityManager(context)
+            UtilKContext.getActivityManager(context)
 
     @JvmStatic
     fun getMemoryInfo(context: Context, memoryInfo: MemoryInfo) {
@@ -34,39 +34,39 @@ object UtilKActivityManager {
 
     @JvmStatic
     fun getAvailMem(context: Context): Long =
-        getMemoryInfo(context).availMem
-
-    @JvmStatic
-    fun getAvailMemSizeStr(context: Context): String =
-        getAvailMem(context).getFormatFileSize()
+            getAvailMem(getMemoryInfo(context))
 
     @JvmStatic
     fun getAvailMem(memoryInfo: MemoryInfo): Long =
-        memoryInfo.availMem
+            memoryInfo.availMem
+
+    @JvmStatic
+    fun getAvailMemSizeStr(context: Context): String =
+            getAvailMem(context).getFormatFileSize()
 
     @JvmStatic
     fun getAvailMemSizeStr(memoryInfo: MemoryInfo): String =
-        getAvailMem(memoryInfo).getFormatFileSize()
+            getAvailMem(memoryInfo).getFormatFileSize()
 
     ////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getTotalMen(context: Context): Long =
-        getMemoryInfo(context).totalMem
-
-    @JvmStatic
-    fun getTotalMenSizeStr(context: Context): String =
-        getTotalMen(context).getFormatFileSize()
+            getTotalMen(getMemoryInfo(context))
 
     @JvmStatic
     fun getTotalMen(memoryInfo: MemoryInfo): Long =
-        memoryInfo.totalMem
+            memoryInfo.totalMem
+
+    @JvmStatic
+    fun getTotalMenSizeStr(context: Context): String =
+            getTotalMen(context).getFormatFileSize()
 
     @JvmStatic
     fun getTotalMenSizeStr(memoryInfo: MemoryInfo): String =
-        getTotalMen(memoryInfo).getFormatFileSize()
+            getTotalMen(memoryInfo).getFormatFileSize()
 
     @JvmStatic
     fun getRunningAppProcesses(context: Context): List<ActivityManager.RunningAppProcessInfo> =
-        get(context).runningAppProcesses
+            get(context).runningAppProcesses
 }

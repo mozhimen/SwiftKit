@@ -6,7 +6,9 @@ import android.util.Log
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
+import com.mozhimen.basick.utilk.android.graphics.anyBytes2anyBitmap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2anyBitmap
 import com.mozhimen.underlayk.logk.LogK
 import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
@@ -60,7 +62,7 @@ object ImageProxyUtil : BaseUtilK() {
         val size = buffer.remaining()
         val jpegBytes = ByteArray(size)
         buffer.get(jpegBytes, 0, size)
-        return BitmapFactory.decodeByteArray(jpegBytes, 0, jpegBytes.size)
+        return jpegBytes.anyBytes2anyBitmap()
     }
 
     /**
@@ -90,7 +92,7 @@ object ImageProxyUtil : BaseUtilK() {
         try {
             val yuvImage = YuvImage(imageInBuffer, ImageFormat.NV21, width, height, null)
             yuvImage.compressToJpeg(Rect(0, 0, width, height), 80, byteArrayOutputStream)
-            return BitmapFactory.decodeByteArray(byteArrayOutputStream.toByteArray(), 0, byteArrayOutputStream.size())
+            return byteArrayOutputStream.byteArrayOutputStream2anyBitmap()
         } catch (e: Exception) {
             e.printStackTrace()
             LogK.et(TAG, "buffer2bitmap Exception ${e.message}")
