@@ -70,12 +70,12 @@ object UtilKPackageInstaller : BaseUtilK() {
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, apkFile: File): Boolean {
         var fileInputStream: FileInputStream? = null
-        var outputStream: OutputStream? = null
         var session: PackageInstaller.Session? = null
+        var outputStream: OutputStream? = null
         try {
-            fileInputStream = FileInputStream(apkFile)
             session = packageInstaller.openSession(sessionId)
             outputStream = session.openWrite("base.apk", 0, apkFile.length())
+            fileInputStream = FileInputStream(apkFile)
 
             var readCount: Int
             val bytes = ByteArray(65536)
