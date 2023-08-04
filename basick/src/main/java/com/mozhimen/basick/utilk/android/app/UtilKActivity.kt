@@ -31,46 +31,12 @@ fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
         UtilKActivity.getAnnotation(this, annotationClazz)
 
 fun <V : View> Activity.getContentView(): V =
-        UtilKContentView.get(this)
+        UtilKActivity.getContentView(this)
 
 fun Activity.isFinishingOrDestroyed(): Boolean =
         UtilKActivity.isFinishingOrDestroyed(this)
 
 object UtilKActivity {
-
-    @JvmStatic
-    fun <A : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<A>): A? =
-            UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
-
-    @JvmStatic
-    fun getCurrentFocus(activity: Activity): View? =
-            activity.currentFocus
-
-    @RequiresApi(CVersCode.V_30_11_R)
-    @JvmStatic
-    fun getDisplay(activity: Activity): Display =
-            activity.display!!
-
-    @JvmStatic
-    fun getWindowManager(activity: Activity): WindowManager =
-            activity.windowManager
-
-    @JvmStatic
-    fun <V : View> getContentView(activity: Activity): V =
-            UtilKContentView.get(activity)
-
-    /**
-     * 获取启动Activity
-     * @param packageName String
-     * @return String?
-     */
-    @JvmStatic
-    fun getLauncherActivityName(context: Context, packageName: String): String {
-        if (UtilKString.hasSpace(packageName) || packageName.isEmpty()) return ""
-        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntent.getMainLauncher(packageName, null), 0)
-        return if (resolveInfos.isEmpty()) "" else resolveInfos[0].activityInfo.name
-    }
-
     /**
      * 判断context是否是Activity 这里注意一定要再Application中加入StackK并初始化
      * @param context Context
@@ -126,6 +92,42 @@ object UtilKActivity {
         }
         return activity
     }
+
+    /**
+     * 获取启动Activity
+     * @param packageName String
+     * @return String?
+     */
+    @JvmStatic
+    fun getLauncherActivityName(context: Context, packageName: String): String {
+        if (UtilKString.hasSpace(packageName) || packageName.isEmpty()) return ""
+        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntent.getMainLauncher(packageName, null), 0)
+        return if (resolveInfos.isEmpty()) "" else resolveInfos[0].activityInfo.name
+    }
+    /////////////////////////////////////////////////////////////////////////
+
+
+    @JvmStatic
+    fun <A : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<A>): A? =
+            UtilKClazz.getAnnotation(activity.javaClass, annotationClazz)
+
+    @JvmStatic
+    fun getCurrentFocus(activity: Activity): View? =
+            activity.currentFocus
+
+    @RequiresApi(CVersCode.V_30_11_R)
+    @JvmStatic
+    fun getDisplay(activity: Activity): Display =
+            activity.display!!
+
+    @JvmStatic
+    fun getWindowManager(activity: Activity): WindowManager =
+            activity.windowManager
+
+    @JvmStatic
+    fun <V : View> getContentView(activity: Activity): V =
+            UtilKContentView.get(activity)
+
 
     //////////////////////////////////////////////////////////////////////////////////////////
 

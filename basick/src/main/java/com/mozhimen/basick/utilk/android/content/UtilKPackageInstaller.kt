@@ -25,7 +25,7 @@ import java.io.OutputStream
  */
 object UtilKPackageInstaller : BaseUtilK() {
     fun get(context: Context): PackageInstaller =
-        UtilKPackageManager.getPackageInstaller(context)
+            UtilKPackageManager.getPackageInstaller(context)
 
     /////////////////////////////////////////////////////////////////
 
@@ -54,10 +54,10 @@ object UtilKPackageInstaller : BaseUtilK() {
         try {
             session = packageInstaller.openSession(sessionId)
             session.commit(PendingIntent.getBroadcast(_context, 1, Intent(_context, receiverClazz), CPendingIntent.FLAG_UPDATE_CURRENT).intentSender)
-            Log.d(TAG, "execInstall begin")
+            Log.d(TAG, "commitSession begin")
         } catch (e: Exception) {
             e.printStackTrace()
-            Log.e(TAG, "execInstall: Exception ${e.message}")
+            Log.e(TAG, "commitSession: Exception ${e.message}")
         } finally {
             session?.close()
         }
@@ -65,14 +65,15 @@ object UtilKPackageInstaller : BaseUtilK() {
 
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, apkFilePathWithName: String): Boolean =
-        copyBaseApk(packageInstaller, sessionId, File(apkFilePathWithName))
+            copyBaseApk(packageInstaller, sessionId, File(apkFilePathWithName))
 
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, apkFile: File): Boolean {
-        val fileInputStream = FileInputStream(apkFile)
+        var fileInputStream: FileInputStream? = null
         var outputStream: OutputStream? = null
         var session: PackageInstaller.Session? = null
         try {
+            fileInputStream = FileInputStream(apkFile)
             session = packageInstaller.openSession(sessionId)
             outputStream = session.openWrite("base.apk", 0, apkFile.length())
 

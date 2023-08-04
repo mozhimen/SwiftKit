@@ -19,6 +19,7 @@ import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.flushClose
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
@@ -42,26 +43,6 @@ object UtilKContentResolver : BaseUtilK() {
 
     ////////////////////////////////////////////////////////////////////////
 
-    @JvmStatic
-    fun query(context: Context, @RequiresPermission.Read uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? =
-            get(context).query(uri, projection, selection, selectionArgs, sortOrder)
-
-    @JvmStatic
-    fun openInputStream(context: Context, uri: Uri): InputStream? =
-            get(context).openInputStream(uri)
-
-    @JvmStatic
-    fun openOutputStream(context: Context, uri: Uri): OutputStream? =
-            get(context).openOutputStream(uri)
-
-    @JvmStatic
-    fun delete(context: Context, @RequiresPermission.Write uri: Uri, where: String?, selectionArgs: Array<String>?) {
-        get(context).delete(uri, where, selectionArgs)
-    }
-
-    @JvmStatic
-    fun insert(context: Context, @RequiresPermission.Write uri: Uri, values: ContentValues?): Uri? =
-            get(context).insert(uri, values)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
@@ -85,8 +66,7 @@ object UtilKContentResolver : BaseUtilK() {
             e.printStackTrace()
             e.message?.et(TAG)
         } finally {
-            outputStream?.flush()
-            outputStream?.close()
+            outputStream?.flushClose()
             try {
                 UtilKMediaScannerConnection.scanFile(_context, arrayOf(destFile.absolutePath), arrayOf(CMediaFormat.MIMETYPE_IMAGE_JPEG)) { path, uri ->
                     "bitmap2Album: path $path, uri $uri".dt(TAG)
@@ -97,6 +77,29 @@ object UtilKContentResolver : BaseUtilK() {
             }
         }
         return null
+    }
+
+    ////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun query(context: Context, @RequiresPermission.Read uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? =
+            get(context).query(uri, projection, selection, selectionArgs, sortOrder)
+
+    @JvmStatic
+    fun openInputStream(context: Context, uri: Uri): InputStream? =
+            get(context).openInputStream(uri)
+
+    @JvmStatic
+    fun openOutputStream(context: Context, uri: Uri): OutputStream? =
+            get(context).openOutputStream(uri)
+
+    @JvmStatic
+    fun insert(context: Context, @RequiresPermission.Write uri: Uri, values: ContentValues?): Uri? =
+            get(context).insert(uri, values)
+
+    @JvmStatic
+    fun delete(context: Context, @RequiresPermission.Write uri: Uri, where: String?, selectionArgs: Array<String>?) {
+        get(context).delete(uri, where, selectionArgs)
     }
 
     @JvmStatic

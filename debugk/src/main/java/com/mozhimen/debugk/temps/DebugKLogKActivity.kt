@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.android.content.applyCreateChooser
+import com.mozhimen.basick.utilk.android.content.createChooser
 import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
@@ -51,7 +51,7 @@ class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
                         } else {
                             intent.type = "application/octet-stream" //二进制文件流
                         }
-                        startActivity(intent.applyCreateChooser("分享Log 日志文件"))
+                        startActivity(intent.createChooser("分享Log 日志文件"))
                     }
                 }
         vb.debugkLogkRecycler.adapter = adapterKRecycler

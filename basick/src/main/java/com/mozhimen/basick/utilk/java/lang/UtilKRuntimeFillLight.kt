@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.java.lang
 
 import com.mozhimen.basick.elemk.cons.CCmd
-import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 
 
 /**
@@ -18,7 +17,7 @@ object UtilKRuntimeFillLight {
      */
     @JvmStatic
     fun open() {
-        UtilKRuntime.execCmd(CCmd.FILL_LIGHT_OPEN)
+        UtilKRuntime.execShC(CCmd.FILL_LIGHT_OPEN)
     }
 
     /**
@@ -26,6 +25,6 @@ object UtilKRuntimeFillLight {
      */
     @JvmStatic
     fun close() {
-        UtilKRuntime.execCmd(CCmd.FILL_LIGHT_CLOSE)
+        UtilKRuntime.execShC(CCmd.FILL_LIGHT_CLOSE)
     }
 }

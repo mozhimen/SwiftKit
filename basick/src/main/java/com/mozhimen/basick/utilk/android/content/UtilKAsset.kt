@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk.android.content
 import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
 import android.util.Log
-import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.utilk.android.util.et
@@ -11,6 +10,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.inputStream2bytes
 import com.mozhimen.basick.utilk.java.io.inputStream2file
 import com.mozhimen.basick.utilk.java.io.inputStream2str
+import com.mozhimen.basick.utilk.java.io.inputStream2str3
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.File
@@ -24,6 +24,9 @@ import java.io.InputStream
  * @Date 2022/4/15 3:52
  * @Version 1.0
  */
+fun String.getStrAssetFilePath(assetFileName: String): String =
+        UtilKAsset.getStrAssetFilePath(this, assetFileName)
+
 @AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
 object UtilKAsset : BaseUtilK() {
 
@@ -31,19 +34,9 @@ object UtilKAsset : BaseUtilK() {
     fun getForRes(): AssetManager =
             UtilKAssetManager.getForRes(_context)
 
-    ///////////////////////////////////////////////////////////////////
-
     @JvmStatic
-    fun openFd(assetFileName: String): AssetFileDescriptor =
-            UtilKAssetManager.openFd(assetFileName, _context)
-
-    @JvmStatic
-    fun open(assetFileName: String): InputStream =
-            UtilKAssetManager.open(assetFileName, _context)
-
-    @JvmStatic
-    fun list(assetFileName: String): Array<String>? =
-            UtilKAssetManager.list(assetFileName, _context)
+    fun getStrAssetFilePath(destFilePathWithName: String, assetFileName: String): String =
+            if (destFilePathWithName.endsWith("/")) destFilePathWithName + assetFileName else destFilePathWithName
 
     ///////////////////////////////////////////////////////////////////
 
@@ -85,29 +78,14 @@ object UtilKAsset : BaseUtilK() {
 
     /**
      * 通过路径加载Assets中的文本内容
-     * @param assetName String
+     * @param assetFileName String
      * @return String
      */
     @JvmStatic
-    fun asset2str3(assetFileName: String): String {
-        if (!isAssetExists(assetFileName)) return CMsg.NOT_EXIST
-        val inputStream = open(assetFileName)
-        val stringBuilder = StringBuilder()
-        try {
-            var bufferLength: Int
-            val buffer = ByteArray(1024)
-            while (inputStream.read(buffer).also { bufferLength = it } != -1) {
-                stringBuilder.append(String(buffer, 0, bufferLength))
-            }
-            return stringBuilder.toString().replaceRegexLineBreak()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            inputStream.close()
-        }
-        return CMsg.WRONG
-    }
+    fun asset2str3(assetFileName: String): String =
+            if (!isAssetExists(assetFileName)) ""
+            else open(assetFileName).use { it.inputStream2str3() }
+
 
     /**
      * 从资产拷贝到文件
@@ -116,23 +94,21 @@ object UtilKAsset : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun asset2file(assetFileName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? {
-        if (!isAssetExists(assetFileName)) return null
-        val inputStream: InputStream = getForRes().open(assetFileName)
-        //整理名称
-        var tmpDestFilePath = destFilePathWithName
-        if (tmpDestFilePath.endsWith("/")) {
-            tmpDestFilePath += assetFileName
-        }
-        Log.d(TAG, "assetCopyFile: tmpDestFilePath $tmpDestFilePath")
-        try {
-            return inputStream.inputStream2file(tmpDestFilePath, isOverwrite)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            inputStream.close()
-        }
-        return null
-    }
+    fun asset2file(assetFileName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
+            if (!isAssetExists(assetFileName)) null
+            else getForRes().open(assetFileName).use { it.inputStream2file(destFilePathWithName.getStrAssetFilePath(assetFileName), isOverwrite) }
+
+    ///////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun openFd(assetFileName: String): AssetFileDescriptor =
+            UtilKAssetManager.openFd(assetFileName, _context)
+
+    @JvmStatic
+    fun open(assetFileName: String): InputStream =
+            UtilKAssetManager.open(assetFileName, _context)
+
+    @JvmStatic
+    fun list(assetFileName: String): Array<String>? =
+            UtilKAssetManager.list(assetFileName, _context)
 }

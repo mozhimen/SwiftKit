@@ -20,15 +20,6 @@ import kotlin.system.exitProcess
  * @Version 1.0
  */
 object UtilKApp : BaseUtilK() {
-
-    /**
-     * 重启
-     */
-    @JvmStatic
-    fun applyReboot() {
-        UtilKSystemProperties.applySystemProperties(CPackage.SYS_POWERED, "reboot")
-    }
-
     /**
      * 重启App
      * @param isKillProcess Boolean
@@ -54,14 +45,6 @@ object UtilKApp : BaseUtilK() {
     }
 
     /////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 是否自启动
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isAutoRun(): Boolean =
-        UtilKSystemProperties.getSystemPropertiesBool(CPackage.PERSIST_SENSEPASS_AUTORUN, false)
 
     /**
      * isSystemApp

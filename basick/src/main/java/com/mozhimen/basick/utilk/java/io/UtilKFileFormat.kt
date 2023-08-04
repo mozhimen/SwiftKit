@@ -63,22 +63,22 @@ object UtilKFileFormat {
             file2str(filePathWithName.strFilePath2file())
 
     @JvmStatic
+    fun strFilePath2Bytes(filePathWithName: String): ByteArray? =
+            file2Bytes(filePathWithName.strFilePath2file())
+
+    @JvmStatic
+    fun strFilePath2bytes2(filePathWithName: String): ByteArray? =
+            file2bytes2(filePathWithName.strFilePath2file())
+
+    @JvmStatic
     fun file2str(file: File): String =
             if (!UtilKFile.isFileExist(file)) ""
             else FileInputStream(file).use { it.inputStream2str() }
 
     @JvmStatic
-    fun strFilePath2Bytes(filePathWithName: String): ByteArray? =
-            file2Bytes(filePathWithName.strFilePath2file())
-
-    @JvmStatic
     fun file2Bytes(file: File): ByteArray? =
             if (!UtilKFile.isFileExist(file)) null
             else FileInputStream(file).use { it.inputStream2bytes() }
-
-    @JvmStatic
-    fun strFilePath2bytes2(filePathWithName: String): ByteArray? =
-            file2bytes2(filePathWithName.strFilePath2file())
 
     @JvmStatic
     fun file2bytes2(file: File): ByteArray? =

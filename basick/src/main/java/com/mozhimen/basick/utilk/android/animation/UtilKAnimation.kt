@@ -10,7 +10,8 @@ object UtilKAnimation {
      */
     @JvmStatic
     fun getAnimationDuration(animation: Animation): Long =
-         if (animation.duration <= 0) 0 else animation.duration
+            if (animation.duration <= 0) 0
+            else animation.duration
 
     //////////////////////////////////////////////////////////////////////////////////////////
 

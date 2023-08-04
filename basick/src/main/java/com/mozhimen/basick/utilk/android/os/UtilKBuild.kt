@@ -32,7 +32,7 @@ object UtilKBuild {
 
     //构建标签聚合
     @JvmStatic
-    fun getTags(): String = Build.TAGS
+    fun getTags(): String? = Build.TAGS
 
     //构建SDK版本
     @JvmStatic

@@ -28,15 +28,15 @@ object UtilKDialog : BaseUtilK() {
     @SuppressLint("PrivateApi", "DiscouragedPrivateApi", "SoonBlockedPrivateApi")
     fun closeDialogAt28() {
         try {
-            val declaredConstructor = "android.content.pm.PackageParser\$Package".strPackage2clazz().getDeclaredConstructor(String::class.java)
-            declaredConstructor.isAccessible = true
+//            val constructor = "android.content.pm.PackageParser\$Package".strPackage2clazz().getDeclaredConstructor(String::class.java)
+//            constructor.isAccessible = true
+            val clazzActivityThread = "android.app.ActivityThread".strPackage2clazz()
 
-            val activityThreadClazz = "android.app.ActivityThread".strPackage2clazz()
-            val methodCurrentActivityThread = activityThreadClazz.getDeclaredMethod("currentActivityThread")
+            val methodCurrentActivityThread = clazzActivityThread.getDeclaredMethod("currentActivityThread")
             methodCurrentActivityThread.isAccessible = true
-
             val activityThread = methodCurrentActivityThread.invoke(null)
-            val fieldMHiddenApiWarningShown = activityThreadClazz.getDeclaredField("mHiddenApiWarningShown")
+
+            val fieldMHiddenApiWarningShown = clazzActivityThread.getDeclaredField("mHiddenApiWarningShown")
             fieldMHiddenApiWarningShown.isAccessible = true
             fieldMHiddenApiWarningShown.setBoolean(activityThread, true)
         } catch (e: Exception) {

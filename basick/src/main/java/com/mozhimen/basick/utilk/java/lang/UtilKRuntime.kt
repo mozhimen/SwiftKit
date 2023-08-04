@@ -2,17 +2,26 @@ package com.mozhimen.basick.utilk.java.lang
 
 import android.text.TextUtils
 import android.util.Log
-import com.mozhimen.basick.elemk.cons.CPackage
+import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.cons.CPath
+import com.mozhimen.basick.elemk.kotlin.text.cons.CCharsets
 import com.mozhimen.basick.elemk.mos.MResultISS
-import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.content.UtilKPackage
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
-
+import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.io.UtilKInputStream
+import com.mozhimen.basick.utilk.java.io.flushClose
 import java.io.BufferedReader
+import java.io.ByteArrayOutputStream
 import java.io.DataOutputStream
 import java.io.IOException
+import java.io.InputStream
 import java.io.InputStreamReader
-import java.lang.Exception
-import java.lang.StringBuilder
+import java.io.OutputStream
+import kotlin.jvm.Throws
 
 /**
  * @ClassName UtilKShell
@@ -22,171 +31,313 @@ import java.lang.StringBuilder
  * @Version 1.0
  */
 object UtilKRuntime : BaseUtilK() {
-    private val SHELL_SEP = System.getProperty(CPackage.LINE_SEPARATOR)
 
     @JvmStatic
-    fun getProp(packageStr: String): String? {
-        val line: String
-        var inputBuffer: BufferedReader? = null
+    fun get(): Runtime =
+            Runtime.getRuntime()
+
+    @JvmStatic
+    @Throws(IOException::class)
+    fun exec(cmdArray: Array<String>): Process =
+            get().exec(cmdArray, null, null)
+
+    @JvmStatic
+    @Throws(IOException::class)
+    fun exec(command: String): Process =
+            get().exec(command)
+
+    @JvmStatic
+    fun execGetProp(strPackage: String): String? {
+        var process: Process? = null
+        var inputStream: InputStream? = null
+        var inputStreamReader: InputStreamReader? = null
+        var inputBufferedReader: BufferedReader? = null
+
         try {
-            val process = Runtime.getRuntime().exec("getprop $packageStr")
-            inputBuffer = BufferedReader(InputStreamReader(process.inputStream), 1024)
-            line = inputBuffer.readLine()
-            inputBuffer.close()
-        } catch (e: IOException) {
-            Log.e(TAG, "getProp IOException Unable to read prop $packageStr $e")
-            return null
+            process = exec("getprop $strPackage")
+            inputStream = process.inputStream
+            inputStreamReader = InputStreamReader(inputStream)
+            inputBufferedReader = BufferedReader(inputStreamReader, 1024)
+            return inputBufferedReader.readLine()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e(TAG, "getProp Unable to read prop strPackage $strPackage msg ${e.message}")
         } finally {
-            inputBuffer?.let {
-                try {
-                    inputBuffer.close()
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    e.message?.et(TAG)
-                }
-            }
+            inputBufferedReader?.close()
+            inputStreamReader?.close()
+            inputStream?.close()
+            process?.destroy()
         }
-        return line
+        return ""
     }
 
-    ///////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * 执行单条shell命令
-     * @param cmd String
-     * @param isRooted Boolean
-     * @return UtilKShellCmd?
+     * 静默安装适配 SDK28 之前的安装方法
+     * @param apkPathWithName String
+     * @return Boolean
      */
     @JvmStatic
-    fun execCmd(cmd: String, isRooted: Boolean): MResultISS {
-        return execCmds(arrayOf(cmd), isRooted, true)
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    fun execInstallBefore28(apkPathWithName: String): Boolean {
+        val command: Array<String> =
+                if (UtilKBuildVersion.isAfterV_24_7_N())
+                    arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
+                else arrayOf("pm", "install", "-r", apkPathWithName)
+
+        val inputStringBuilder = StringBuilder()
+        val errorStringBuilder = StringBuilder()
+
+        var process: Process? = null
+        var inputStream: InputStream? = null
+        var errorStream: InputStream? = null
+        var inputStreamReader: InputStreamReader? = null
+        var errorStreamReader: InputStreamReader? = null
+        var inputBufferedReader: BufferedReader? = null
+        var errorBufferedReader: BufferedReader? = null
+
+        try {
+            process = ProcessBuilder(*command).start()
+            inputStream = process.inputStream
+            errorStream = process.errorStream
+            inputStreamReader = InputStreamReader(inputStream)
+            errorStreamReader = InputStreamReader(errorStream)
+            inputBufferedReader = BufferedReader(inputStreamReader)
+            errorBufferedReader = BufferedReader(errorStreamReader)
+
+            var msg: String?
+            while (inputBufferedReader.readLine().also { msg = it } != null)
+                inputStringBuilder.append(msg)
+
+            while (errorBufferedReader.readLine().also { msg = it } != null)
+                errorStringBuilder.append(msg)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            "execInstallBefore28: Exception ${e.message}".et(TAG)
+        } finally {
+            errorBufferedReader?.close()
+            inputBufferedReader?.close()
+            errorStreamReader?.close()
+            inputStreamReader?.close()
+            errorStream?.close()
+            inputStream?.close()
+            process?.destroy()
+        }
+        return inputStringBuilder.toString().contains("success", ignoreCase = true)        //如果含有success单词则认为安装成功
     }
 
     /**
-     * 执行多条shell命令
-     * @param cmds List<String>
-     * @param isRooted Boolean
-     * @return UtilKShellCmd?
+     * 静默安装
+     * @param apkPathWithName String 绝对路径
+     * @return Boolean
      */
     @JvmStatic
-    fun execCmds(cmds: List<String>, isRooted: Boolean): MResultISS {
-        return execCmds(cmds.toTypedArray(), isRooted, true)
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    fun execInstallBefore282(apkPathWithName: String): Boolean {
+        val command =
+                if (UtilKBuildVersion.isAfterV_24_7_N())
+                    arrayOf("pm", "install", "-r", "-i", UtilKPackage.getPackageName(), "--user", "0", apkPathWithName)
+                else arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
+
+        var strInput = ""
+        var process: Process? = null
+        var inputStream: InputStream? = null
+        var byteArrayOutputStream: ByteArrayOutputStream? = null
+        try {
+            process = ProcessBuilder(*command).start()
+            inputStream = process.inputStream
+            byteArrayOutputStream = ByteArrayOutputStream()
+            byteArrayOutputStream.write('/'.code)
+            strInput = UtilKInputStream.inputStream2str2(inputStream, byteArrayOutputStream)
+            "installSilence result $strInput".dt(TAG)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            byteArrayOutputStream?.flushClose()
+            inputStream?.close()
+            process?.destroy()
+        }
+        return strInput.contains("success", ignoreCase = true)
     }
 
     /**
-     * 执行多条shell命令
-     * @param cmds Array<String>?
-     * @param isRooted Boolean
-     * @return UtilKShellCmd?
+     * 系统是否包含which
+     * @return Boolean
+     * @throws Exception
      */
     @JvmStatic
-    fun execCmds(cmds: Array<String>, isRooted: Boolean): MResultISS {
-        return execCmds(cmds, isRooted, true)
+    fun execSystemXbinWhich(): Boolean {
+        var process: Process? = null
+        var inputStream: InputStream? = null
+        var inputStreamReader: InputStreamReader? = null
+        var inputBufferedReader: BufferedReader? = null
+
+        return try {
+            process = exec(arrayOf(CPath.SYSTEM_XBIN_WHICH, "su"))
+            inputStream = process.inputStream
+            inputStreamReader = InputStreamReader(inputStream)
+            inputBufferedReader = BufferedReader(inputStreamReader)
+            (inputBufferedReader.readLine() != null).also { Log.d(TAG, "isWhichAvailable: $it") }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+            false.also { Log.d(TAG, "isWhichAvailable: $it") }
+        } finally {
+            inputBufferedReader?.close()
+            inputStreamReader?.close()
+            inputStream?.close()
+            process?.destroy()
+        }
     }
 
     /**
      * 发射命令
-     * @param cmd String
+     * @param command String
      */
     @JvmStatic
-    fun execCmd(cmd: String) {
+    fun execShC(command: String) {
         var process: Process? = null
-        try {
-            process = Runtime.getRuntime().exec(arrayOf("sh", "-c", cmd))
-        } catch (var8: IOException) {
-            var8.printStackTrace()
-        }
+        var inputStream: InputStream? = null
+        var errorStream: InputStream? = null
+        var inputStreamReader: InputStreamReader? = null
+        var errorStreamReader: InputStreamReader? = null
+        var inputBufferedReader: BufferedReader? = null
+        var errorBufferedReader: BufferedReader? = null
         var data = ""
-        val inputStream = BufferedReader(InputStreamReader(process!!.inputStream))
-        val errorStream = BufferedReader(InputStreamReader(process.errorStream))
-        var line: String
-        var error: String
+        var strInput: String
+        var strError: String
         try {
-            while (inputStream.readLine().also { line = it } != null && !TextUtils.isEmpty(line)) {
+            process = exec(arrayOf("sh", "-c", command))
+            inputStream = process.inputStream
+            errorStream = process.errorStream
+            inputStreamReader = InputStreamReader(inputStream)
+            errorStreamReader = InputStreamReader(errorStream)
+            inputBufferedReader = BufferedReader(inputStreamReader)
+            errorBufferedReader = BufferedReader(errorStreamReader)
+
+            while (inputBufferedReader.readLine().also { strInput = it } != null && !TextUtils.isEmpty(strInput)) {
                 data = """
-                $data$line
+                $data$strInput
                 
                 """.trimIndent()
             }
-            while (errorStream.readLine().also { error = it } != null && !TextUtils.isEmpty(error)) {
+            while (errorBufferedReader.readLine().also { strError = it } != null && !TextUtils.isEmpty(strError)) {
                 data = """
-                $data$error
+                $data$strError
                 
                 """.trimIndent()
             }
-        } catch (e: IOException) {
-            Log.e(TAG, "executeShellCmd: IOException ${e.message}")
+            "execShC line $strInput error $strError".dt(TAG)
+        } catch (e: Exception) {
             e.printStackTrace()
+            "executeShellCmd: IOException ${e.message}".et(TAG)
+        } finally {
+            errorBufferedReader?.close()
+            inputBufferedReader?.close()
+            errorStreamReader?.close()
+            inputStreamReader?.close()
+            errorStream?.close()
+            inputStream?.close()
+            process?.destroy()
         }
     }
 
     /**
+     * 执行单条shell命令
+     * @param command String
+     * @param isRoot Boolean
+     * @return UtilKShellCmd?
+     */
+    @JvmStatic
+    fun execSuOrSh(command: String, isRoot: Boolean, isNeedResultMsg: Boolean = true): MResultISS =
+            execSuOrSh(arrayOf(command), isRoot, isNeedResultMsg)
+
+    /**
+     * 执行多条shell命令
+     * @param commands List<String>
+     * @param isRoot Boolean
+     * @return UtilKShellCmd?
+     */
+    @JvmStatic
+    fun execSuOrSh(commands: List<String>, isRoot: Boolean, isNeedResultMsg: Boolean = true): MResultISS =
+            execSuOrSh(commands.toTypedArray(), isRoot, isNeedResultMsg)
+
+    /**
      * 执行shell命令核心方法
-     * @param cmds
-     * @param isRooted
+     * @param commands
+     * @param isRoot
      * @param isNeedResultMsg
      * @return
      */
     @JvmStatic
-    fun execCmds(cmds: Array<String>, isRooted: Boolean, isNeedResultMsg: Boolean): MResultISS {
+    fun execSuOrSh(commands: Array<String>, isRoot: Boolean, isNeedResultMsg: Boolean = true): MResultISS {
         var result = -1
-        if (cmds.isEmpty()) {
-            return MResultISS(result, "", "")
-        }
+        if (commands.isEmpty()) return MResultISS(result, "", "")
+
+        val inputStringBuilder: StringBuilder = StringBuilder()
+        val errorStringBuilder: StringBuilder = StringBuilder()
+
         var process: Process? = null
-        var successResult: BufferedReader? = null
-        var errorResult: BufferedReader? = null
-        var successMsg: StringBuilder? = null
-        var errorMsg: StringBuilder? = null
-        var outputStream: DataOutputStream? = null
+        var outputStream: OutputStream? = null
+        var dataOutputStream: DataOutputStream? = null
+        var inputStream: InputStream? = null
+        var errorStream: InputStream? = null
+        var inputStreamReader: InputStreamReader? = null
+        var errorStreamReader: InputStreamReader? = null
+        var inputBufferedReader: BufferedReader? = null
+        var errorBufferedReader: BufferedReader? = null
+
         try {
-            process = Runtime.getRuntime().exec(if (isRooted) "su" else "sh")
-            outputStream = DataOutputStream(process.outputStream)
-            for (cmd in cmds) {
-                outputStream.write(cmd.toByteArray())
-                outputStream.writeBytes(SHELL_SEP)
-                outputStream.flush()
+            process = exec(if (isRoot) "su" else "sh")
+            outputStream = process.outputStream
+            dataOutputStream = DataOutputStream(outputStream)
+            for (command in commands) {
+                dataOutputStream.write(command.toByteArray())
+                dataOutputStream.writeBytes(UtilKSystem.getPropertyLineSeparator())
+                dataOutputStream.flush()
             }
-            outputStream.writeBytes("exit$SHELL_SEP")
-            outputStream.flush()
+            dataOutputStream.writeBytes("exit${UtilKSystem.getPropertyLineSeparator()}")
+            dataOutputStream.flush()
             result = process.waitFor()
+
             if (isNeedResultMsg) {
-                successMsg = StringBuilder()
-                errorMsg = StringBuilder()
-                successResult = BufferedReader(
-                    InputStreamReader(process.inputStream, "UTF-8")
-                )
-                errorResult = BufferedReader(
-                    InputStreamReader(process.errorStream, "UTF-8")
-                )
+                inputStream = process.inputStream
+                errorStream = process.errorStream
+                inputStreamReader = InputStreamReader(inputStream, CCharsets.UTF_8)
+                errorStreamReader = InputStreamReader(errorStream, CCharsets.UTF_8)
+                inputBufferedReader = BufferedReader(inputStreamReader)
+                errorBufferedReader = BufferedReader(errorStreamReader)
+
                 var line: String?
-                if (successResult.readLine().also { line = it } != null) {
-                    successMsg.append(line)
-                    while (successResult.readLine().also { line = it } != null) {
-                        successMsg.append(SHELL_SEP).append(line)
-                    }
+                if (inputBufferedReader.readLine().also { line = it } != null) {
+                    inputStringBuilder.append(line)
+                    while (inputBufferedReader.readLine().also { line = it } != null)
+                        inputStringBuilder.append(UtilKSystem.getPropertyLineSeparator()).append(line)
                 }
-                if (errorResult.readLine().also { line = it } != null) {
-                    errorMsg.append(line)
-                    while (errorResult.readLine().also { line = it } != null) {
-                        errorMsg.append(SHELL_SEP).append(line)
-                    }
+                if (errorBufferedReader.readLine().also { line = it } != null) {
+                    errorStringBuilder.append(line)
+                    while (errorBufferedReader.readLine().also { line = it } != null)
+                        errorStringBuilder.append(UtilKSystem.getPropertyLineSeparator()).append(line)
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "execCmd: Exception ${e.message}")
+            Log.e(TAG, "execSuOrSh: Exception ${e.message}")
             e.printStackTrace()
         } finally {
-            try {
-                outputStream?.close()
-                successResult?.close()
-                errorResult?.close()
-                process?.destroy()
-            } catch (e: IOException) {
-                Log.e(TAG, "execCmd: IOException ${e.message}")
-                e.printStackTrace()
-            }
+            errorBufferedReader?.close()
+            inputBufferedReader?.close()
+            errorStreamReader?.close()
+            inputStreamReader?.close()
+            errorStream?.close()
+            inputStream?.close()
+            dataOutputStream?.flush()
+            dataOutputStream?.close()
+            outputStream?.flush()
+            outputStream?.close()
+            process?.destroy()
         }
-        return MResultISS(result, successMsg?.toString() ?: "", errorMsg?.toString() ?: "")
+        return MResultISS(result, inputStringBuilder.toString(), errorStringBuilder.toString())
     }
 }

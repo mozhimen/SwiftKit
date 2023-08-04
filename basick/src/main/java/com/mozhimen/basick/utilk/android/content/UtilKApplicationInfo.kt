@@ -2,9 +2,9 @@ package com.mozhimen.basick.utilk.android.content
 
 import android.content.Context
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import com.mozhimen.basick.elemk.android.content.cons.CApplicationInfo
 import java.lang.IllegalArgumentException
 
 /**
@@ -18,39 +18,35 @@ object UtilKApplicationInfo {
 
     @JvmStatic
     fun get(context: Context): ApplicationInfo? =
-        UtilKPackageInfo.getApplicationInfo(context)
-
-    @JvmStatic
-    fun get(packageInfo: PackageInfo): ApplicationInfo =
-        packageInfo.applicationInfo
+            UtilKPackageInfo.getApplicationInfo(context)
 
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getFlags(context: Context): Int? =
-        get(context)?.flags
+            get(context)?.flags
 
     /**
      * 和这个方法一样[UtilKPackageManager.getApplicationIcon]
      */
     @JvmStatic
     fun loadIcon(context: Context, packageManager: PackageManager): Drawable? =
-        get(context)?.loadIcon(packageManager)
+            loadIcon(get(context), packageManager)
 
     @JvmStatic
-    fun loadIcon(applicationInfo: ApplicationInfo, packageManager: PackageManager): Drawable =
-        applicationInfo.loadIcon(packageManager)
+    fun loadIcon(applicationInfo: ApplicationInfo?, packageManager: PackageManager): Drawable? =
+            applicationInfo?.loadIcon(packageManager)
 
     /**
      * 得到包名
      */
     @JvmStatic
     fun getPackageName(context: Context): String? =
-        get(context)?.packageName
+            get(context)?.packageName
 
     @JvmStatic
     fun getPackageName(applicationInfo: ApplicationInfo): String =
-        applicationInfo.packageName
+            applicationInfo.packageName
 
     /**
      * app的目标版本
@@ -59,7 +55,7 @@ object UtilKApplicationInfo {
      */
     @JvmStatic
     fun getTargetSdkVersion(context: Context): Int? =
-        get(context)?.targetSdkVersion
+            get(context)?.targetSdkVersion
 
     ////////////////////////////////////////////////////////////////////
 
@@ -68,7 +64,7 @@ object UtilKApplicationInfo {
     fun isSystemApp(context: Context): Boolean {
         val flags = getFlags(context)
         requireNotNull(flags)
-        return (flags and ApplicationInfo.FLAG_SYSTEM) != 0
+        return (flags and CApplicationInfo.FLAG_SYSTEM) != 0
     }
 
     @JvmStatic
@@ -76,11 +72,11 @@ object UtilKApplicationInfo {
     fun isSystemUpdateApp(context: Context): Boolean {
         val flags = getFlags(context)
         requireNotNull(flags)
-        return (flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
+        return (flags and CApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
     }
 
     @JvmStatic
     @Throws(IllegalArgumentException::class)
     fun isUserApp(context: Context): Boolean =
-        !isSystemApp(context) && !isSystemUpdateApp(context)
+            !isSystemApp(context) && !isSystemUpdateApp(context)
 }

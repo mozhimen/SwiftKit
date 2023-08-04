@@ -4,12 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
-import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
@@ -23,15 +23,10 @@ import com.mozhimen.basick.utilk.kotlin.UtilKString
  * @Date 2023/2/26 23:03
  * @Version 1.0
  */
-fun Intent.applyCreateChooser(title: CharSequence): Intent =
-        UtilKIntent.applyCreateChooser(this, title)
+fun Intent.createChooser(title: CharSequence): Intent =
+        UtilKIntent.createChooser(this, title)
 
 object UtilKIntent {
-
-    @JvmStatic
-    fun applyCreateChooser(target: Intent, title: CharSequence): Intent =
-            Intent.createChooser(target, title)
-
     /**
      * 选择系统文件
      * @return Intent
@@ -54,7 +49,7 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getAccessibilitySettings(): Intent =
-            Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            Intent(CSettings.ACTION_ACCESSIBILITY_SETTINGS)
 
     /**
      * 管理APP设置
@@ -63,7 +58,7 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getApplicationDetailsSettings(context: Context): Intent =
-            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUri2(context))
+            Intent(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUri2(context))
 
     /**
      * 管理通知
@@ -73,8 +68,8 @@ object UtilKIntent {
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getAppNotificationSettings(context: Context): Intent =
-            Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+            Intent(CSettings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                putExtra(CSettings.EXTRA_APP_PACKAGE, context.packageName)
             }
 
     /**
@@ -86,7 +81,7 @@ object UtilKIntent {
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun getManageAppAllFilesAccessPermission(context: Context): Intent =
-            Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
+            Intent(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
 
     /**
      * 获取管理悬浮窗
@@ -96,7 +91,7 @@ object UtilKIntent {
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     fun getManageOverlayPermission(context: Context): Intent =
-            Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
+            Intent(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
 
     /**
      * 获取管理安装
@@ -106,7 +101,7 @@ object UtilKIntent {
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getManageUnknownAppSources(context: Context): Intent =
-            Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
+            Intent(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
 
     /**
      * 获取mainLauncher
@@ -165,4 +160,10 @@ object UtilKIntent {
         intent.setDataAndType(UtilKUri.strFilePath2uri(filePathWithName) ?: return null, "application/vnd.android.package-archive")
         return intent
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun createChooser(target: Intent, title: CharSequence): Intent =
+            Intent.createChooser(target, title)
 }

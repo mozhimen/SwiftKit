@@ -18,31 +18,38 @@ import java.nio.charset.Charset
  * @Version 1.0
  */
 fun ByteArray.bytes2file(filePathWithName: String, isOverwrite: Boolean = true): File =
-    UtilKByteArrayFormat.bytes2file(this, filePathWithName, isOverwrite)
+        UtilKByteArrayFormat.bytes2file(this, filePathWithName, isOverwrite)
 
 fun ByteArray.bytes2file(destFile: File, isOverwrite: Boolean = true): File =
-    UtilKByteArrayFormat.bytes2file(this, destFile, isOverwrite)
+        UtilKByteArrayFormat.bytes2file(this, destFile, isOverwrite)
 
 fun ByteArray.bytes2obj(): Any? =
-    UtilKByteArrayFormat.bytes2obj(this)
+        UtilKByteArrayFormat.bytes2obj(this)
 
 fun ByteArray.bytes2hexStr(size: Int): String =
-    UtilKByteArrayFormat.bytes2hexStr(this, size)
+        UtilKByteArrayFormat.bytes2hexStr(this, size)
 
 fun ByteArray.bytes2hexStr(): String =
-    UtilKByteArrayFormat.bytes2hexStr(this)
+        UtilKByteArrayFormat.bytes2hexStr(this)
 
 fun ByteArray.bytes2str(charset: Charset = Charsets.UTF_8): String =
-    UtilKByteArrayFormat.bytes2str(this, charset)
+        UtilKByteArrayFormat.bytes2str(this, charset)
+
+fun ByteArray.bytes2str(offset: Int, length: Int): String =
+        UtilKByteArrayFormat.bytes2str(this, offset, length)
 
 object UtilKByteArrayFormat {
     @JvmStatic
     fun bytes2str(bytes: ByteArray, charset: Charset = Charsets.UTF_8): String =
-        String(bytes, charset)
+            String(bytes, charset)
+
+    @JvmStatic
+    fun bytes2str(bytes: ByteArray, offset: Int, length: Int): String =
+            String(bytes, offset, length)
 
     @JvmStatic
     fun bytes2file(bytes: ByteArray, filePathWithName: String, isOverwrite: Boolean = true): File =
-        bytes2file(bytes, UtilKFile.createFile(filePathWithName), isOverwrite)
+            bytes2file(bytes, UtilKFile.createFile(filePathWithName), isOverwrite)
 
     @JvmStatic
     fun bytes2file(bytes: ByteArray, file: File, isOverwrite: Boolean = true): File {

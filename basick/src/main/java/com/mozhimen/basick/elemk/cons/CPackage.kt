@@ -25,5 +25,4 @@ object CPackage {
     const val LINE_SEPARATOR = "line.separator"
 
     const val SYS_POWERED = "sys.powered"
-    const val UNKNOWN = "unknown"
 }

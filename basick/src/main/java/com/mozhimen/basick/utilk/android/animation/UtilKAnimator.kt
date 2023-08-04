@@ -23,9 +23,8 @@ object UtilKAnimator {
         if (animator is AnimatorSet) {
             duration = animator.duration
             if (duration <= 0) {
-                for (childAnimation in animator.childAnimations) {
+                for (childAnimation in animator.childAnimations)
                     duration = max(duration, childAnimation.duration)
-                }
             }
         } else duration = animator.duration
         return if (duration <= 0) 0 else duration

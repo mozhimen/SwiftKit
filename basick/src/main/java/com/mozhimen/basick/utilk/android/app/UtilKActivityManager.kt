@@ -42,7 +42,7 @@ object UtilKActivityManager {
 
     @JvmStatic
     fun getAvailMemSizeStr(context: Context): String =
-            getAvailMem(context).getFormatFileSize()
+            getAvailMemSizeStr(getMemoryInfo(context))
 
     @JvmStatic
     fun getAvailMemSizeStr(memoryInfo: MemoryInfo): String =
@@ -60,7 +60,7 @@ object UtilKActivityManager {
 
     @JvmStatic
     fun getTotalMenSizeStr(context: Context): String =
-            getTotalMen(context).getFormatFileSize()
+            getTotalMenSizeStr(getMemoryInfo(context))
 
     @JvmStatic
     fun getTotalMenSizeStr(memoryInfo: MemoryInfo): String =

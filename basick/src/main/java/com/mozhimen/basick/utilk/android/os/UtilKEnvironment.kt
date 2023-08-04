@@ -1,8 +1,12 @@
 package com.mozhimen.basick.utilk.android.os
 
+import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.provider.cons.CSettings
+import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import java.io.File
@@ -18,103 +22,97 @@ import java.io.File
  */
 @AManifestKRequire(CPermission.READ_EXTERNAL_STORAGE, CPermission.WRITE_EXTERNAL_STORAGE)
 object UtilKEnvironment {
+
     @JvmStatic
     fun getDataDir(): File =
-        Environment.getDataDirectory()
+            Environment.getDataDirectory()
 
     @JvmStatic
     fun getRootDir(): File =
-        Environment.getRootDirectory()
+            Environment.getRootDirectory()
 
     @JvmStatic
     fun getDownloadCacheDir(): File =
-        Environment.getDownloadCacheDirectory()
+            Environment.getDownloadCacheDirectory()
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
     fun getStorageDir(): File =
-        Environment.getStorageDirectory()
+            Environment.getStorageDirectory()
 
     @JvmStatic
     fun getExternalStorageDir(): File =
-        Environment.getExternalStorageDirectory()
+            Environment.getExternalStorageDirectory()
 
     @JvmStatic
-    fun getExternalStoragePublicDir(): File=
-        Environment.getExternalStoragePublicDirectory(null)
+    fun getExternalStoragePublicDir(): File =
+            Environment.getExternalStoragePublicDirectory(null)
 
     @JvmStatic
-    fun getExternalStoragePublicAlarmsDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS)
+    fun getExternalStoragePublicAlarmsDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS)
 
     @RequiresApi(CVersCode.V_29_10_Q)
     @JvmStatic
-    fun getExternalStoragePublicScreenshotsDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_SCREENSHOTS)
+    fun getExternalStoragePublicScreenshotsDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_SCREENSHOTS)
 
     @RequiresApi(CVersCode.V_31_11_S)
     @JvmStatic
-    fun getExternalStoragePublicRecordingsDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RECORDINGS)
+    fun getExternalStoragePublicRecordingsDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RECORDINGS)
 
     @JvmStatic
-    fun getExternalStoragePublicPodcastsDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PODCASTS)
+    fun getExternalStoragePublicPodcastsDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PODCASTS)
 
     @JvmStatic
-    fun getExternalStoragePublicPicturesDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+    fun getExternalStoragePublicPicturesDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
 
     @JvmStatic
-    fun getExternalStoragePublicNotificationsDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_NOTIFICATIONS)
+    fun getExternalStoragePublicNotificationsDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_NOTIFICATIONS)
 
     @JvmStatic
-    fun getExternalStoragePublicMusicDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
+    fun getExternalStoragePublicMusicDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC)
 
     @JvmStatic
-    fun getExternalStoragePublicMoviesDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
+    fun getExternalStoragePublicMoviesDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES)
 
     @JvmStatic
-    fun getExternalStoragePublicDownloadsDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+    fun getExternalStoragePublicDownloadsDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
 
     @JvmStatic
-    fun getExternalStoragePublicDocumentsDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+    fun getExternalStoragePublicDocumentsDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
 
     @JvmStatic
-    fun getExternalStoragePublicDCIMDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
+    fun getExternalStoragePublicDCIMDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)
 
     @RequiresApi(CVersCode.V_29_10_Q)
     @JvmStatic
-    fun getExternalStoragePublicAudiobooksDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_AUDIOBOOKS)
+    fun getExternalStoragePublicAudiobooksDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_AUDIOBOOKS)
 
     @JvmStatic
-    fun getExternalStoragePublicRingtonesDir(): File=
-        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES)
+    fun getExternalStoragePublicRingtonesDir(): File =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES)
+
+    ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun isExternalStorageMounted(): Boolean =
-        Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+            Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
 
-//    @JvmStatic
-//    fun getExternalStorageAbsolutePath(): String =
-//        getExternalStorage().absolutePath
-//
-//    @JvmStatic
-//    fun getExternalStoragePath(): String =
-//        getExternalStorage().path
-//
-//    @JvmStatic
-//    fun getDataAbsolutePath(): String =
-//        getData().absolutePath
-//
-//    @JvmStatic
-//    fun getDataPath(): String =
-//        getData().path
+    @RequiresApi(CVersCode.V_30_11_R)
+    @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
+    @ADescription(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+    @JvmStatic
+    fun isExternalStorageManager(): Boolean =
+            Environment.isExternalStorageManager()
 }

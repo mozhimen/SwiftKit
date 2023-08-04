@@ -29,11 +29,16 @@ object UtilKContextCompat {
     fun getDrawable(context: Context, @DrawableRes drawableId: Int): Drawable? =
             ContextCompat.getDrawable(context, drawableId)
 
-    @JvmStatic
-    fun checkSelfPermission(context: Context, permission: String): Int =
-            ContextCompat.checkSelfPermission(context, permission)
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun isSelfPermissionGranted(context: Context, permission: String): Boolean =
             checkSelfPermission(context, permission) == CPackageManager.PERMISSION_GRANTED
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+
+    @JvmStatic
+    fun checkSelfPermission(context: Context, permission: String): Int =
+            ContextCompat.checkSelfPermission(context, permission)
 }

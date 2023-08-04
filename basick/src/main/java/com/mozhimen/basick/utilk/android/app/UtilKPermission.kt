@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.android.app
 
 import android.annotation.TargetApi
-import android.os.Environment
 import android.provider.Settings
 import android.text.TextUtils
 import androidx.annotation.RequiresApi
@@ -15,6 +14,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.android.os.isBeforeVersion
 import com.mozhimen.basick.utilk.android.provider.UtilKSettings
 import com.mozhimen.basick.utilk.android.util.dt
@@ -55,7 +55,7 @@ object UtilKPermission : BaseUtilK() {
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     @ADescription(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
     fun hasExternalStorage(): Boolean =
-            Environment.isExternalStorageManager()
+            UtilKEnvironment.isExternalStorageManager()
 
     /**
      * 是否有包安装权限
@@ -64,7 +64,7 @@ object UtilKPermission : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     fun hasPackageInstalls(): Boolean =
-            if (UtilKBuildVersion.isAfterV_26_8_O()) hasPackageInstallsAfterO() else true
+            if (UtilKBuildVersion.isAfterV_26_8_O()) hasPackageInstallsAfter26() else true
 
     /**
      * 是否有包安装权限
@@ -75,7 +75,7 @@ object UtilKPermission : BaseUtilK() {
     @TargetApi(CVersCode.V_26_8_O)
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     @ADescription(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-    fun hasPackageInstallsAfterO(): Boolean =
+    fun hasPackageInstallsAfter26(): Boolean =
             UtilKPackageManager.canRequestPackageInstalls(_context).also { "isAppInstallsPermissionEnable: $it".dt(TAG) }
 
     /**
@@ -96,9 +96,8 @@ object UtilKPermission : BaseUtilK() {
         val stringColonSplitter = TextUtils.SimpleStringSplitter(':')
         if (permissionEnable == 1) {
             "hasAccessibility accessibility is enabled".dt(TAG)
-            val settingValue = UtilKSettings.getSecureString(UtilKContentResolver.get(_context), CSettings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
-            if (settingValue != null) {
-                stringColonSplitter.setString(settingValue)
+            UtilKSettings.getSecureString(UtilKContentResolver.get(_context), CSettings.Secure.ENABLED_ACCESSIBILITY_SERVICES)?.let {
+                stringColonSplitter.setString(it)
                 while (stringColonSplitter.hasNext()) {
                     val accessibilityService = stringColonSplitter.next()
                     "isSettingAccessibilityPermissionEnable accessibilityService $accessibilityService - service $strService".vt(TAG)

@@ -10,7 +10,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.content.UtilKRes
-import com.mozhimen.basick.utilk.android.content.applyCreateChooser
+import com.mozhimen.basick.utilk.android.content.createChooser
 import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.BR
@@ -59,7 +59,7 @@ class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
                 } else {
                     intent.type = "application/octet-stream" //二进制文件流
                 }
-                startActivity(intent.applyCreateChooser("分享Crash 日志文件"))
+                startActivity(intent.createChooser("分享Crash 日志文件"))
             }
         }
         vb.debugkCrashkRecycler.adapter = adapterKRecycler

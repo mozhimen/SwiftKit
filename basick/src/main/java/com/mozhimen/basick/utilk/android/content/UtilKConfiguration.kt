@@ -75,6 +75,10 @@ object UtilKConfiguration {
     fun getOrientation(resources: Resources): Int =
         get(resources).orientation
 
+    @JvmStatic
+    fun getUiModeAndNightMask(): Int =
+            getUiMode() and CConfiguration.UiMode.NIGHT_MASK
+
     ///////////////////////////////////////////////////////////////////
 
     /**
@@ -96,10 +100,6 @@ object UtilKConfiguration {
     @JvmStatic
     fun isOrientationLandscape(resources: Resources): Boolean =
         getOrientation(resources) == CConfiguration.Orientation.LANDSCAPE
-
-    @JvmStatic
-    fun getUiModeAndNightMask(): Int =
-        getUiMode() and CConfiguration.UiMode.NIGHT_MASK
 
     /**
      * 检测系统是否是浅色主题

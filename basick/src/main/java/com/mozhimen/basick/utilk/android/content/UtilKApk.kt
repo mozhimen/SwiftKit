@@ -23,7 +23,7 @@ object UtilKApk : BaseUtilK() {
 
     @JvmStatic
     fun getApplicationInfo(apkPathWithName: String): ApplicationInfo? =
-        getPackageArchiveInfo(apkPathWithName)?.let { UtilKApplicationInfo.get(it) }
+        getPackageArchiveInfo(apkPathWithName)?.let { UtilKPackageInfo.getApplicationInfo(it) }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 

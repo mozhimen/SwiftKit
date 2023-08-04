@@ -54,15 +54,15 @@ object UtilKRom {
     @JvmStatic
     fun checkRom(strRom: String): Boolean {
         _name?.let { return _name == strRom }
-        if (!TextUtils.isEmpty(UtilKRuntime.getProp(CPackage.RO_MIUI_UI_VERSION_NAME).also { _version = it })) {
+        if (!TextUtils.isEmpty(UtilKRuntime.execGetProp(CPackage.RO_MIUI_UI_VERSION_NAME).also { _version = it })) {
             _name = CRom.MIUI
-        } else if (!TextUtils.isEmpty(UtilKRuntime.getProp(CPackage.RO_BUILD_VERSION_EMUI).also { _version = it })) {
+        } else if (!TextUtils.isEmpty(UtilKRuntime.execGetProp(CPackage.RO_BUILD_VERSION_EMUI).also { _version = it })) {
             _name = CRom.EMUI
-        } else if (!TextUtils.isEmpty(UtilKRuntime.getProp(CPackage.RO_BUILD_VERSION_OPPOROM).also { _version = it })) {
+        } else if (!TextUtils.isEmpty(UtilKRuntime.execGetProp(CPackage.RO_BUILD_VERSION_OPPOROM).also { _version = it })) {
             _name = CRom.OPPO
-        } else if (!TextUtils.isEmpty(UtilKRuntime.getProp(CPackage.RO_VIVO_OS_VERSION).also { _version = it })) {
+        } else if (!TextUtils.isEmpty(UtilKRuntime.execGetProp(CPackage.RO_VIVO_OS_VERSION).also { _version = it })) {
             _name = CRom.VIVO
-        } else if (!TextUtils.isEmpty(UtilKRuntime.getProp(CPackage.RO_SMARTISAN_VERSION).also { _version = it })) {
+        } else if (!TextUtils.isEmpty(UtilKRuntime.execGetProp(CPackage.RO_SMARTISAN_VERSION).also { _version = it })) {
             _name = CRom.SMARTISAN
         } else {
             _version = Build.DISPLAY

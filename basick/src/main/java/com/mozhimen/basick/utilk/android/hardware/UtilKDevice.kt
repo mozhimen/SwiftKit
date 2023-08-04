@@ -76,7 +76,7 @@ object UtilKDevice : BaseUtilK() {
     @JvmStatic
     fun getCpuUsed(): Float {
         try {
-            val reader = RandomAccessFile(CPath.PROC_STAT, "r")
+            val reader = RandomAccessFile(CPath.SYSTEM_XBIN_WHICH, "r")
             var load = reader.readLine()
             var toks = load.split(" ".toRegex()).toTypedArray()
             val idle1 = toks[5].toLong()
