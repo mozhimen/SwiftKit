@@ -111,7 +111,7 @@ object UtilKInputStream : IUtilK {
     @JvmStatic
     fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
             inputStream.use { inputStream2file(it, UtilKFile.createFile(destFilePathWithName), isOverwrite) }
-
+    
     @JvmStatic
     fun inputStream2file(inputStream: InputStream, file: File, isOverwrite: Boolean = true): File? {
         UtilKFile.createFile(file)
