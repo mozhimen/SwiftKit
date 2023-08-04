@@ -138,7 +138,7 @@ class InstallK : IInstallK, BaseUtilK() {
         }
         val targetSdkVersion = UtilKApplicationInfo.getTargetSdkVersion(_context)
         requireNotNull(targetSdkVersion)
-        if (targetSdkVersion >= CVersCode.V_26_8_O && UtilKBuildVersion.isAfterV_26_8_O() && !UtilKAppInstall.isAppInstallsPermissionEnable()) {        // 允许安装应用
+        if (targetSdkVersion >= CVersCode.V_26_8_O && UtilKBuildVersion.isAfterV_26_8_O() && !UtilKAppInstall.hasPackageInstalls()) {        // 允许安装应用
             Log.w(TAG, "installByMode: onNeedPermissions isAppInstallsPermissionEnable false")
             _handler.sendMessage(Message().apply {
                 what = CInstallKCons.MSG_NEED_PERMISSION

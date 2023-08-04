@@ -4,13 +4,11 @@ import android.util.Log
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
-import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.RandomAccessFile
 import java.util.Locale
 
 /**
@@ -20,6 +18,9 @@ import java.util.Locale
  * @Date 2022/2/22 11:59
  * @Version 1.0
  */
+fun String.getStrFolderPath(): String =
+    UtilKFile.getStrFolderPath(this)
+
 @AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
 object UtilKFile : BaseUtilK() {
 
@@ -30,7 +31,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun getStrFileNameForStrCurrentHour(locale: Locale = Locale.CHINA): String =
-            getStrFileNameForStrDate(CDateFormat.yyyyMMddHH, locale)
+        getStrFileNameForStrDate(CDateFormat.yyyyMMddHH, locale)
 
     /**
      * 当前时间转文件名
@@ -39,7 +40,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun getStrFileNameForStrNowDate(locale: Locale = Locale.CHINA): String =
-            getStrFileNameForStrDate(locale = locale)
+        getStrFileNameForStrDate(locale = locale)
 
     /**
      * 时间转文件名
@@ -48,20 +49,10 @@ object UtilKFile : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun getStrFileNameForStrDate(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String {
-        return UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
-    }
+    fun getStrFileNameForStrDate(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String =
+        UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
 
     //region # file
-    /**
-     * 判断是否为文件
-     * @param file File
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isFile(file: File): Boolean =
-            file.exists() && file.isFile
-
     /**
      * 判断是否为文件
      * @param filePathWithName String
@@ -69,16 +60,16 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFile(filePathWithName: String): Boolean =
-            isFile(File(filePathWithName))
+        isFile(filePathWithName.strFilePath2file())
 
     /**
-     * 文件是否存在
+     * 判断是否为文件
      * @param file File
      * @return Boolean
      */
     @JvmStatic
-    fun isFileExist(file: File): Boolean =
-            isFile(file)
+    fun isFile(file: File): Boolean =
+        file.exists() && file.isFile
 
     /**
      * 文件是否存在
@@ -87,75 +78,77 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFileExist(filePathWithName: String) =
-            isFileExist(File(filePathWithName))
+        isFileExist(filePathWithName.strFilePath2file())
 
     /**
-     * 创建文件
+     * 文件是否存在
      * @param file File
-     * @return File
-     * @throws Exception
+     * @return Boolean
      */
     @JvmStatic
-    fun createFile(file: File): File {
-        file.parent?.let { createFolder(it) } ?: throw Exception("don't have parent folder")
-        Log.d(TAG, "createFile: file ${file.absolutePath}")
-        if (!isFileExist(file)) {
-            file.createNewFile()
-        }
-        return file
-    }
+    fun isFileExist(file: File): Boolean =
+        isFile(file)
 
     /**
      * 创建文件
      * @param filePathWithName String
      * @return File
-     * @throws Exception
      */
     @JvmStatic
     fun createFile(filePathWithName: String): File =
-            createFile(File(filePathWithName))
+        createFile(filePathWithName.strFilePath2file())
+
+    /**
+     * 创建文件
+     * @param file File
+     * @return File
+     */
+    @JvmStatic
+    fun createFile(file: File): File {
+        file.parent?.let { createFolder(it) } ?: throw Exception("don't have parent folder")
+        Log.d(TAG, "createFile: file ${file.absolutePath}")
+        if (!isFileExist(file))
+            file.createNewFile()
+        return file
+    }
+
+    /**
+     * 删除文件
+     * @param filePathWithName String
+     */
+    @JvmStatic
+    fun deleteFile(filePathWithName: String): Boolean =
+        deleteFile(filePathWithName.strFilePath2file())
+
+    /**
+     * 删除文件
+     * @param file File
+     */
+    @JvmStatic
+    fun deleteFile(file: File): Boolean =
+        if (isFileExist(file)) {
+            file.delete().also {
+                "deleteFile: file ${file.absolutePath} success".dt(TAG)
+            }
+        } else false
 
     /**
      * 批量删除
      * @param files Array<out File>
      */
     fun deleteFiles(vararg files: File) {
-        for (file in files) {
+        for (file in files)
             deleteFile(file)
-        }
     }
-
-    /**
-     * 删除文件
-     * @param file File
-     */
-    @JvmStatic
-    fun deleteFile(file: File): Boolean {
-        return if (isFileExist(file)) {
-            file.delete().also {
-                Log.d(TAG, "deleteFile: file ${file.absolutePath} success")
-            }
-        } else false
-    }
-
-    /**
-     * 删除文件
-     * @param filePathWithName String
-     * @throws Exception
-     */
-    @JvmStatic
-    fun deleteFile(filePathWithName: String): Boolean =
-            deleteFile(File(filePathWithName))
 
     /**
      * 复制文件
      * @param sourceFilePathWithName String
      * @param destFilePathWithName String
-     * @throws Exception
      */
     @JvmStatic
-    fun copyFile(sourceFilePathWithName: String, destFilePathWithName: String): File? =
-            copyFile(File(sourceFilePathWithName), File(destFilePathWithName))
+    fun copyFile(sourceFilePathWithName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
+        copyFile(sourceFilePathWithName.strFilePath2file(), destFilePathWithName.strFilePath2file(), isOverwrite)
 
     /**
      * 复制文件
@@ -173,10 +166,10 @@ object UtilKFile : BaseUtilK() {
      * @return Long
      */
     @JvmStatic
-    fun getFileSize(filePathWithName: String): Long {
-        if (filePathWithName.isEmpty()) return 0L
-        return getFileSize(File(filePathWithName))
-    }
+    fun getFileSizeAvailable(filePathWithName: String): Long =
+        if (filePathWithName.isEmpty()) 0L
+        else getFileSizeAvailable(filePathWithName.strFilePath2file())
+
 
     /**
      * 获取文件大小
@@ -184,20 +177,9 @@ object UtilKFile : BaseUtilK() {
      * @return Long
      */
     @JvmStatic
-    fun getFileSize(file: File): Long {
-        if (!isFileExist(file)) return 0L
-        val size = 0L
-        val fileInputStream = FileInputStream(file)
-        try {
-            return fileInputStream.available().toLong()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            fileInputStream.close()
-        }
-        return size
-    }
+    fun getFileSizeAvailable(file: File): Long =
+        if (!isFileExist(file)) 0L
+        else FileInputStream(file).use { it.getAvailableLong() }
 
     /**
      * 获取文件大小
@@ -205,21 +187,20 @@ object UtilKFile : BaseUtilK() {
      * @return Long
      */
     @JvmStatic
-    fun getFileSize2(filePathWithName: String): Long {
-        if (filePathWithName.isEmpty()) return 0L
-        return getFileSize2(File(filePathWithName))
-    }
+    fun getFileSizeTotal(filePathWithName: String): Long =
+        if (filePathWithName.isEmpty()) 0L
+        else getFileSizeTotal(filePathWithName.strFilePath2file())
 
     /**
      * 获取文件大小
+     * file.length() 方法返回文件的长度，单位是字节，表示整个文件的大小。而 inputStream.available() 方法返回的是当前输入流中可读取的字节数，它可能小于或等于文件的长度，具体取决于输入流的类型和状态。
      * @param file File
      * @return Long
      */
     @JvmStatic
-    fun getFileSize2(file: File): Long {
-        if (!isFileExist(file)) return 0L
-        return file.length()
-    }
+    fun getFileSizeTotal(file: File): Long =
+        if (!isFileExist(file)) 0L
+        else file.length()
 //endregion
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -227,21 +208,21 @@ object UtilKFile : BaseUtilK() {
 //region # folder
     /**
      * 判断是否是文件夹
-     * @param folder File
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isFolder(folder: File): Boolean =
-            folder.exists() && folder.isDirectory
-
-    /**
-     * 判断是否是文件夹
      * @param folderPath String
      * @return Boolean
      */
     @JvmStatic
     fun isFolder(folderPath: String): Boolean =
-            isFolder(File(folderPath))
+        isFolder(folderPath.getStrFolderPath().strFilePath2file())
+
+    /**
+     * 判断是否是文件夹
+     * @param folder File
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isFolder(folder: File): Boolean =
+        folder.exists() && folder.isDirectory
 
     /**
      * 文件夹是否存在
@@ -249,8 +230,8 @@ object UtilKFile : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun isFolderExist(folderPath: String) =
-            isFolderExist(File(genFolderPath(folderPath)))
+    fun isFolderExist(folderPath: String): Boolean =
+        isFolderExist(folderPath.getStrFolderPath().strFilePath2file())
 
     /**
      * 文件夹是否存在
@@ -259,7 +240,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun isFolderExist(folder: File): Boolean =
-            isFolder(folder)
+        isFolder(folder)
 
     /**
      * 创建文件夹
@@ -267,8 +248,8 @@ object UtilKFile : BaseUtilK() {
      * @return File
      */
     @JvmStatic
-    fun createFolder(folderPath: String) =
-            createFolder(File(genFolderPath(folderPath)))
+    fun createFolder(folderPath: String): File =
+        createFolder(folderPath.getStrFolderPath().strFilePath2file())
 
     /**
      * 创建文件夹
@@ -277,9 +258,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun createFolder(folder: File): File {
-        if (!isFolderExist(folder)) {
-            folder.mkdirs()
-        }
+        if (!isFolderExist(folder)) folder.mkdirs()
         return folder
     }
 
@@ -287,17 +266,15 @@ object UtilKFile : BaseUtilK() {
      * 删除文件夹
      * @param folderPath String
      * @return Boolean
-     * @throws Exception
      */
     @JvmStatic
     fun deleteFolder(folderPath: String): Boolean =
-            deleteFolder(File(genFolderPath(folderPath)))
+        deleteFolder(folderPath.getStrFolderPath().strFilePath2file())
 
     /**
      * 删除文件夹
      * @param folder File
      * @return Boolean
-     * @throws Exception
      */
     @JvmStatic
     fun deleteFolder(folder: File): Boolean {
@@ -308,9 +285,8 @@ object UtilKFile : BaseUtilK() {
                 if (isFolder(file)) { // 判断是否为文件夹
                     deleteFolder(file)
                     file.delete()
-                } else {
+                } else
                     deleteFile(file)
-                }
             }
         }
         return true
@@ -319,11 +295,8 @@ object UtilKFile : BaseUtilK() {
 /////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun genFolderPath(folderPath: String): String {
-        var tmpFolderPath = folderPath
-        if (!tmpFolderPath.endsWith("/")) tmpFolderPath += "/"
-        return tmpFolderPath
-    }
+    fun getStrFolderPath(folderPath: String): String =
+        if (!folderPath.endsWith("/")) "$folderPath/" else folderPath
 //endregion
 }
 

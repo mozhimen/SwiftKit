@@ -32,12 +32,13 @@ object UtilKDialog : BaseUtilK() {
             declaredConstructor.isAccessible = true
 
             val activityThreadClazz = "android.app.ActivityThread".strPackage2clazz()
-            val declaredMethod = activityThreadClazz.getDeclaredMethod("currentActivityThread")
-            declaredMethod.isAccessible = true
-            val activityThread = declaredMethod.invoke(null)
-            val hiddenApiWarningShown = activityThreadClazz.getDeclaredField("mHiddenApiWarningShown")
-            hiddenApiWarningShown.isAccessible = true
-            hiddenApiWarningShown.setBoolean(activityThread, true)
+            val methodCurrentActivityThread = activityThreadClazz.getDeclaredMethod("currentActivityThread")
+            methodCurrentActivityThread.isAccessible = true
+
+            val activityThread = methodCurrentActivityThread.invoke(null)
+            val fieldMHiddenApiWarningShown = activityThreadClazz.getDeclaredField("mHiddenApiWarningShown")
+            fieldMHiddenApiWarningShown.isAccessible = true
+            fieldMHiddenApiWarningShown.setBoolean(activityThread, true)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)

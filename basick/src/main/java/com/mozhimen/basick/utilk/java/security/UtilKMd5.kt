@@ -92,7 +92,8 @@ object UtilKMd5 : BaseUtilK() {
         val messageDigest = get()
         var length: Int
         val bytes = ByteArray(1024 * 1024)
-        while (inputStream.read(bytes).also { length = it } > 0) messageDigest.update(bytes, 0, length)
+        while (inputStream.read(bytes).also { length = it } > 0)
+            messageDigest.update(bytes, 0, length)
         return messageDigest.digest().bytes2hexStr()
     }
 
@@ -102,7 +103,8 @@ object UtilKMd5 : BaseUtilK() {
         val messageDigest: MessageDigest = get()
         var length: Int
         val bytes = ByteArray(1024)
-        while (inputStream.read(bytes, 0, 1024).also { length = it } != -1) messageDigest.update(bytes, 0, length)
+        while (inputStream.read(bytes, 0, 1024).also { length = it } != -1)
+            messageDigest.update(bytes, 0, length)
         return BigInteger(1, messageDigest.digest()).toString(16)
     }
 }
