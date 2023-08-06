@@ -1,5 +1,12 @@
 package com.mozhimen.basick.utilk.java.io
 
+import android.os.FileUtils
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
+import java.io.File
+import java.io.InputStream
 import java.io.OutputStream
 
 /**
@@ -13,7 +20,14 @@ fun OutputStream.flushClose() {
     UtilKOutputStream.flushClose(this)
 }
 
-object UtilKOutputStream {
+fun OutputStream.outputStream2file(inputStream: InputStream, destFile: File, bufferSize: Int = 1024): File? =
+    UtilKOutputStream.outputStream2file(this, inputStream, destFile, bufferSize)
+
+@RequiresApi(CVersCode.V_29_10_Q)
+fun OutputStream.outputStream2file2(inputStream: InputStream, destFile: File): File =
+    UtilKOutputStream.outputStream2file2(this, inputStream, destFile)
+
+object UtilKOutputStream : IUtilK {
     @JvmStatic
     fun flushClose(outputStream: OutputStream) {
         outputStream.apply {
@@ -21,4 +35,39 @@ object UtilKOutputStream {
             close()
         }
     }
+
+    @JvmStatic
+    fun outputStream2file(outputStream: OutputStream, inputStream: InputStream, destFile: File, bufferSize: Int = 1024): File? {
+        try {
+            var readCount: Int
+            val bytes = ByteArray(bufferSize)
+            while (inputStream.read(bytes).also { readCount = it } != -1)
+                outputStream.write(bytes, 0, readCount)
+            return destFile
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(UtilKFileOutputStream.TAG)
+        } finally {
+            outputStream.flushClose()
+            inputStream.close()
+        }
+        return null
+    }
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_29_10_Q)
+    fun outputStream2file2(outputStream: OutputStream, inputStream: InputStream, destFile: File): File {
+        try {
+            FileUtils.copy(inputStream, outputStream)
+            return destFile
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            outputStream.flushClose()
+            inputStream.close()
+        }
+        return destFile
+    }
+
 }

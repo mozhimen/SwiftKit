@@ -76,19 +76,6 @@ object UtilKPackageManager {
     fun queryIntentActivities(context: Context, intent: Intent, flags: Int): List<ResolveInfo> =
         get(context).queryIntentActivities(intent, flags)
 
-
-    /**
-     * 是否有包安装权限
-     * @return Boolean
-     */
-    @JvmStatic
-    @RequiresApi(CVersCode.V_26_8_O)
-    @TargetApi(CVersCode.V_26_8_O)
-    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
-    @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-    fun canRequestPackageInstalls(context: Context): Boolean =
-        get(context).canRequestPackageInstalls()
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -114,4 +101,16 @@ object UtilKPackageManager {
     @JvmStatic
     fun hasSystemFeature(context: Context, featureName: String): Boolean =
         get(context).hasSystemFeature(featureName)
+
+    /**
+     * 是否有包安装权限
+     * @return Boolean
+     */
+    @JvmStatic
+    @RequiresApi(CVersCode.V_26_8_O)
+    @TargetApi(CVersCode.V_26_8_O)
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
+    @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
+    fun canRequestPackageInstalls(context: Context): Boolean =
+        get(context).canRequestPackageInstalls()
 }

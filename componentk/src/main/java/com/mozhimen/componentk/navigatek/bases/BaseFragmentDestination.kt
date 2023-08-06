@@ -43,7 +43,7 @@ class BaseFragmentDestination(fragmentNavigator: BaseFragmentNavigator) : NavDes
     @CallSuper
     override fun onInflate(context: Context, attrs: AttributeSet) {
         super.onInflate(context, attrs)
-        UtilKResource.obtainAttributes(attrs, R.styleable.FragmentNavigator, context).use { array ->
+        UtilKResource.obtainAttributes(context, attrs, R.styleable.FragmentNavigator).use { array ->
             val className = array.getString(R.styleable.FragmentNavigator_android_name)
             className?.let { setClassName(it) }
         }

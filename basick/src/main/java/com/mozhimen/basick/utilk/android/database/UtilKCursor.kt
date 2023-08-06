@@ -14,8 +14,12 @@ fun Cursor.getString(key: String): String =
     UtilKCursor.getString(this, key)
 
 object UtilKCursor {
+    @JvmStatic
+    fun getColumnIndex(cursor: Cursor, columnName: String): Int =
+        cursor.getColumnIndex(columnName)
+
     @SuppressLint("Range")
     @JvmStatic
     fun getString(cursor: Cursor, key: String): String =
-        cursor.getString(cursor.getColumnIndex(key))
+        cursor.getString(getColumnIndex(cursor, key))
 }

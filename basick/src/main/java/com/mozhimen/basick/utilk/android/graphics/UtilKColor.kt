@@ -14,19 +14,19 @@ import kotlin.math.roundToInt
  * @Version 1.0
  */
 @ColorInt
+fun Int.getContrastColor(): Int =
+    UtilKColor.getContrastColor(this)
+
+@ColorInt
 fun Int.applyAdjustAlpha(factor: Float): Int =
     UtilKColor.applyAdjustAlpha(this, factor)
 
 @ColorInt
-fun Int.getContrastColor(): Int =
-    UtilKColor.getContrastColor(this)
+fun String.colorStr2colorInt(): Int =
+    UtilKColor.colorStr2colorInt(this)
 
 fun Int.colorInt2colorStr(): String =
     UtilKColor.colorInt2colorStr(this)
-
-@ColorInt
-fun String.colorStr2colorInt(): Int =
-    UtilKColor.colorStr2colorInt(this)
 
 object UtilKColor {
     @JvmStatic

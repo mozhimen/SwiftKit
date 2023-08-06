@@ -3,7 +3,10 @@ package com.mozhimen.basick.utilk.java.io
 import android.os.FileUtils
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.kotlin.appendStrLineBreak
+import com.mozhimen.basick.utilk.kotlin.str2bytes
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -23,19 +26,19 @@ fun ByteArray.writeBytes2fileOutputStream(fileOutputStream: FileOutputStream) {
     UtilKFileOutputStream.writeBytes2fileOutputStream(this, fileOutputStream)
 }
 
-fun FileOutputStream.fileOutputStream2file(inputStream: InputStream, destFile: File) =
-        UtilKFileOutputStream.fileOutputStream2file(this, inputStream, destFile)
+fun FileOutputStream.fileOutputStream2file(inputStream: InputStream, destFile: File, bufferSize: Int = 1024) =
+    UtilKFileOutputStream.fileOutputStream2file(this, inputStream, destFile, bufferSize)
 
 @RequiresApi(CVersCode.V_29_10_Q)
 fun FileOutputStream.fileOutputStream2file2(inputStream: InputStream, destFile: File) =
-        UtilKFileOutputStream.fileOutputStream2file2(this, inputStream, destFile)
+    UtilKFileOutputStream.fileOutputStream2file2(this, inputStream, destFile)
 
 //////////////////////////////////////////////////////////////////////////
 
-object UtilKFileOutputStream {
+object UtilKFileOutputStream : IUtilK {
     @JvmStatic
     fun writeStr2fileOutputStream(str: String, fileOutputStream: FileOutputStream) {
-        writeBytes2fileOutputStream(str.appendStrLineBreak().toByteArray(), fileOutputStream)
+        writeBytes2fileOutputStream(str.appendStrLineBreak().str2bytes(), fileOutputStream)
     }
 
     @JvmStatic
@@ -44,22 +47,11 @@ object UtilKFileOutputStream {
     }
 
     @JvmStatic
-    fun fileOutputStream2file(fileOutputStream: FileOutputStream, inputStream: InputStream, destFile: File): File {
-        fileOutputStream.flushClose {
-            var readCount: Int
-            val bytes = ByteArray(1024)
-            while (inputStream.read(bytes).also { readCount = it } != -1)
-                fileOutputStream.write(bytes, 0, readCount)
-            return destFile
-        }
-    }
+    fun fileOutputStream2file(fileOutputStream: FileOutputStream, inputStream: InputStream, destFile: File, bufferSize: Int = 1024): File? =
+        UtilKOutputStream.outputStream2file(fileOutputStream, inputStream, destFile, bufferSize)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun fileOutputStream2file2(fileOutputStream: FileOutputStream, inputStream: InputStream, destFile: File): File {
-        fileOutputStream.flushClose {
-            FileUtils.copy(inputStream, it)
-            return destFile
-        }
-    }
+    fun fileOutputStream2file2(fileOutputStream: FileOutputStream, inputStream: InputStream, destFile: File): File =
+        UtilKOutputStream.outputStream2file2(fileOutputStream, inputStream, destFile)
 }

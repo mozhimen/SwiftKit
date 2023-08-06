@@ -9,6 +9,8 @@ import android.net.NetworkInfo
 import android.net.NetworkRequest
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
+import com.mozhimen.basick.elemk.android.net.cons.CNetworkCapabilities
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -54,6 +56,45 @@ object UtilKConnectivityManager {
     fun getActiveNetwork(context: Context): Network? =
         get(context).activeNetwork
 
+    @JvmStatic
+    fun getNetworkCapabilities(context: Context, network: Network): NetworkCapabilities? =
+        get(context).getNetworkCapabilities(network)
+
+    ////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    fun isNetworkConnected(context: Context): Boolean =
+        if (UtilKBuildVersion.isAfterV_23_6_M())
+            isNetworkConnectedAfter23(context)
+        else isNetworkConnectedBefore23(context)
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    fun isNetworkConnectedAfter23(context: Context): Boolean {
+        val networkCapabilities = getNetworkCapabilities(context, getActiveNetwork(context) ?: return false) ?: return false
+        return when {
+            networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_WIFI) -> true
+            networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_CELLULAR) -> true
+            networkCapabilities.hasTransport(CNetworkCapabilities.TRANSPORT_ETHERNET) -> true
+            else -> false
+        }
+    }
+
+    @JvmStatic
+    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
+    fun isNetworkConnectedBefore23(context: Context): Boolean {
+        return getActiveNetworkInfo(context)?.let {
+            when (it.type) {
+                CConnectivityManager.TYPE_WIFI -> true
+                CConnectivityManager.TYPE_MOBILE -> true
+                CConnectivityManager.TYPE_ETHERNET -> true
+                else -> false
+            }
+        } ?: false
+    }
+
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -65,42 +106,5 @@ object UtilKConnectivityManager {
     @JvmStatic
     fun unregisterNetworkCallback(context: Context, networkCallback: NetworkCallback) {
         get(context).unregisterNetworkCallback(networkCallback)
-    }
-
-    ////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isNetworkConnected(context: Context): Boolean =
-        if (UtilKBuildVersion.isAfterV_23_6_M()) {
-            isNetworkConnectedAfter23(context)
-        } else {
-            isNetworkConnectedBefore23(context)
-        }
-
-    @JvmStatic
-    @RequiresApi(CVersCode.V_23_6_M)
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isNetworkConnectedAfter23(context: Context): Boolean {
-        val networkCapabilities = get(context).getNetworkCapabilities(getActiveNetwork(context) ?: return false) ?: return false
-        return when {
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
-        }
-    }
-
-    @JvmStatic
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun isNetworkConnectedBefore23(context: Context): Boolean {
-        return getActiveNetworkInfo(context)?.let {
-            when (it.type) {
-                ConnectivityManager.TYPE_WIFI -> true
-                ConnectivityManager.TYPE_MOBILE -> true
-                ConnectivityManager.TYPE_ETHERNET -> true
-                else -> false
-            }
-        } ?: false
     }
 }

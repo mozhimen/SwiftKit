@@ -62,7 +62,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
         object : ICameraXKFrameListener {
             override fun invoke(imageProxy: ImageProxy) {
                 if (System.currentTimeMillis() - _currentTime > 2000L) {
-                    _rgb565Bitmap = ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(imageProxy).anyBitmap2rgb565Bitmap().applyAnyBitmapRotate(-90, flipX = true)
+                    _rgb565Bitmap = ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(imageProxy).anyBitmap2rgb565Bitmap().applyAnyBitmapRotate(-90f, flipX = true)
                     if (_faceDetector == null)
                         _faceDetector = FaceDetector(_rgb565Bitmap!!.width, _rgb565Bitmap!!.height, 1)
                     val faceCount = _faceDetector!!.findFaces(_rgb565Bitmap!!, _faces)

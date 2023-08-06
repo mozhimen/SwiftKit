@@ -29,7 +29,7 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getStringArray(resId: Int): Array<String> =
-        UtilKResource.getStringArray(resId, _context)
+        UtilKResource.getStringArray(_context, resId)
 
     /////////////////////////////////////////////////////////////////////
 
@@ -65,19 +65,19 @@ object UtilKRes : BaseUtilK() {
 
     @JvmStatic
     fun getDimensionPixelOffset(@DimenRes resId: Int): Int =
-        UtilKResource.getDimensionPixelOffset(resId, _context)
+        UtilKResource.getDimensionPixelOffset(_context, resId)
 
     @JvmStatic
     fun getDimensionPixelSize(@DimenRes resId: Int): Int =
-        UtilKResource.getDimensionPixelSize(resId, _context)
+        UtilKResource.getDimensionPixelSize(_context, resId)
 
     @JvmStatic
     fun getDimension(@DimenRes resId: Int): Float =
-        UtilKResource.getDimension(resId, _context)
+        UtilKResource.getDimension(_context, resId)
 
     /////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getInteger(@IntegerRes resId: Int): Int =
-        UtilKResource.getInteger(resId, _context)
+        UtilKResource.getInteger(_context, resId)
 }

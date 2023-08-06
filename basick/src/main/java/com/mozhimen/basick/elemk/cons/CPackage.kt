@@ -8,10 +8,8 @@ package com.mozhimen.basick.elemk.cons
  * @Version 1.0
  */
 object CPackage {
-    const val COM_ANDROID_PROVIDERS_DOWNLOADS = "com.android.providers.downloads"
 
     const val PERSIST_SENSEPASS_AUTORUN = "persist.sensepass.autorun"
-    const val ANDROID_OS_SYSTEM_PROPERTIES = "android.os.SystemProperties"
     const val RO_PRODUCT_ROM_VERSION = "ro.product.rom.version"
     const val RO_PRODUCT_HW_VERSION = "ro.product.hw.version"
     const val RO_SERIAL_NO = "ro.serialno"
@@ -25,4 +23,12 @@ object CPackage {
     const val LINE_SEPARATOR = "line.separator"
 
     const val SYS_POWERED = "sys.powered"
+
+    const val COM_ANDROID_PROVIDERS_DOWNLOADS = "com.android.providers.downloads"
+    const val COM_ANDROID_PROVIDERS_DOWNLOADS_DOCUMENTS = "com.android.providers.downloads.documents"
+    const val COM_ANDROID_EXTERNALSTORAGE_DOCUMENTS = "com.android.externalstorage.documents"
+    const val COM_ANDROID_PROVIDERS_MEDIA_DOCUMENTS = "com.android.providers.media.documents"
+    const val ANDROID_OS_SYSTEMPROPERTIES = "android.os.SystemProperties"
+    const val RIL_GSM_IMEI = "ril.gsm.imei"
+    const val RIL_CDMA_MEID = "ril.cdma.meid"
 }

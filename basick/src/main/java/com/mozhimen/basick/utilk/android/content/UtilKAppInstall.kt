@@ -16,7 +16,6 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 import java.io.*
@@ -29,10 +28,10 @@ import java.io.*
  * @Version 1.0
  */
 @AManifestKRequire(
-        CPermission.INSTALL_PACKAGES,
-        CPermission.REQUEST_INSTALL_PACKAGES,
-        CPermission.READ_INSTALL_SESSIONS,
-        CPermission.REPLACE_EXISTING_PACKAGE
+    CPermission.INSTALL_PACKAGES,
+    CPermission.REQUEST_INSTALL_PACKAGES,
+    CPermission.READ_INSTALL_SESSIONS,
+    CPermission.REPLACE_EXISTING_PACKAGE
 )
 object UtilKAppInstall : BaseUtilK() {
 
@@ -43,7 +42,7 @@ object UtilKAppInstall : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     fun hasPackageInstalls(): Boolean =
-            UtilKPermission.hasPackageInstalls().also { "isAppInstallsPermissionEnable: $it".dt(TAG) }
+        UtilKPermission.hasPackageInstalls().also { "isAppInstallsPermissionEnable: $it".dt(TAG) }
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -69,46 +68,8 @@ object UtilKAppInstall : BaseUtilK() {
     @Throws(Exception::class)
     @OptInDeviceRoot
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun installRoot(apkPathWithName: String): Boolean {
-        require(apkPathWithName.isNotEmpty()) { "$TAG please check apk file path" }
-        val stringBuilder = StringBuilder()
-
-        var process: Process? = null
-        var outputStream: OutputStream? = null
-        var errorStream: InputStream? = null
-        var errorStreamReader: InputStreamReader? = null
-        var errorBufferedReader: BufferedReader? = null
-        try {
-            process = Runtime.getRuntime().exec("su")
-
-            outputStream = process.outputStream
-            outputStream.write("pm install -r $apkPathWithName\n".toByteArray())
-            outputStream.flush()
-            outputStream.write("exit\n".toByteArray())
-            outputStream.flush()
-
-            process.waitFor()
-
-            errorStream = process.errorStream
-            errorStreamReader = InputStreamReader(errorStream)
-            errorBufferedReader = BufferedReader(errorStreamReader)
-            var line: String?
-            while (errorBufferedReader.readLine().also { line = it } != null)
-                stringBuilder.append(line)
-            "installRoot msg is $stringBuilder".dt(TAG)
-            return !stringBuilder.toString().contains("failure", ignoreCase = true)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            errorBufferedReader?.close()
-            errorStreamReader?.close()
-            errorStream?.close()
-            outputStream?.flushClose()
-            process?.destroy()
-        }
-        return false
-    }
+    fun installRoot(apkPathWithName: String): Boolean =
+        UtilKRuntime.execSuInstall(apkPathWithName)
 
     /**
      * 手动安装

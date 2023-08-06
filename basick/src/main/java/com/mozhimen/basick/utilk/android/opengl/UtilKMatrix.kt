@@ -12,22 +12,6 @@ import com.mozhimen.basick.lintk.annors.AMatrixType
  */
 object UtilKMatrix {
     @JvmStatic
-    fun rotateMatrix(matrix: FloatArray, angle: Float): FloatArray {
-        Matrix.rotateM(matrix, 0, angle, 0f, 0f, 1f)
-        return matrix
-    }
-
-    @JvmStatic
-    fun flipMatrix(matrix: FloatArray, isFlipX: Boolean, isFlipY: Boolean): FloatArray {
-        if (isFlipX || isFlipY) {
-            Matrix.scaleM(matrix, 0, if (isFlipX) -1f else 1f, if (isFlipY) -1f else 1f, 1f)
-        }
-        return matrix
-    }
-
-    //////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
     fun getMatrixOf(matrix: FloatArray, @AMatrixType type: Int, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
         if (imgHeight > 0 && imgWidth > 0 && viewWidth > 0 && viewHeight > 0) {
             val projection = FloatArray(16)

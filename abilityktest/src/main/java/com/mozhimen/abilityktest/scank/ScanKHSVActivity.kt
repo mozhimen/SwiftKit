@@ -64,7 +64,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
                         ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(imageProxy)!!
                     } else {
                         ImageProxyUtil.jpegImageProxy2JpegBitmap(imageProxy)
-                    }.applyAnyBitmapRotate(90).apply {
+                    }.applyAnyBitmapRotate(90f).apply {
                         applyAnyBitmapCrop(
                             (_ratio * this.width).toInt(),
                             (_ratio * this.width).toInt(),

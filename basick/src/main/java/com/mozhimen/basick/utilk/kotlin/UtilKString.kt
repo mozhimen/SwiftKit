@@ -38,9 +38,36 @@ fun String.throwIllegalStateException() {
 }
 
 object UtilKString : BaseUtilK() {
+    /**
+     * 获取分割后的最后一个元素
+     * @param str String
+     * @param splitStr String
+     * @return String
+     */
     @JvmStatic
-    fun appendStrLineBreak(str: String): String =
-            if (!str.endsWith(CMsg.LINE_BREAK)) str + CMsg.LINE_BREAK else str
+    fun getSplitLast(str: String, splitStr: String): String =
+        str.substring(str.lastIndexOf(splitStr) + 1, str.length)
+
+    /**
+     * 获取分割后的第一个元素
+     * @param str String
+     * @param splitStr String
+     * @return String
+     */
+    @JvmStatic
+    fun getSplitFirst(str: String, splitStr: String): String =
+        str.substring(0, str.indexOf(splitStr))
+
+    /**
+     * 获取扩展名
+     * @param str String
+     * @return String
+     */
+    @JvmStatic
+    fun getFilenameExtension(str: String): String =
+        str.substring(str.lastIndexOf(".") + 1)
+
+    ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun isNotEmptyOrElse(str: String, isNotEmptyBlock: I_Listener, orElseBlock: I_Listener) {
@@ -88,6 +115,10 @@ object UtilKString : BaseUtilK() {
 
     ////////////////////////////////////////////////////////////////////////////
 
+    @JvmStatic
+    fun appendStrLineBreak(str: String): String =
+            if (!str.endsWith(CMsg.LINE_BREAK)) str + CMsg.LINE_BREAK else str
+
     /**
      * 找到第一个匹配的字符的位置
      * @param strContent String
@@ -117,37 +148,6 @@ object UtilKString : BaseUtilK() {
     @JvmStatic
     fun subStr(strContent: String, firstIndex: Int, length: Int): String =
             strContent.substring(firstIndex.normalize(strContent.indices), if (firstIndex + length > strContent.length) strContent.length else firstIndex + length)
-
-    ////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 获取分割后的最后一个元素
-     * @param str String
-     * @param splitStr String
-     * @return String
-     */
-    @JvmStatic
-    fun getSplitLast(str: String, splitStr: String): String =
-            str.substring(str.lastIndexOf(splitStr) + 1, str.length)
-
-    /**
-     * 获取分割后的第一个元素
-     * @param str String
-     * @param splitStr String
-     * @return String
-     */
-    @JvmStatic
-    fun getSplitFirst(str: String, splitStr: String): String =
-            str.substring(0, str.indexOf(splitStr))
-
-    /**
-     * 获取扩展名
-     * @param str String
-     * @return String
-     */
-    @JvmStatic
-    fun getFilenameExtension(str: String): String =
-            str.substring(str.lastIndexOf(".") + 1)
 
     /**
      * 电话号码隐藏中间四位

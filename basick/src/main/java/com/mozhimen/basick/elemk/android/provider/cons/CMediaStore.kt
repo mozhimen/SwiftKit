@@ -24,4 +24,10 @@ object CMediaStore {
 
         }
     }
+
+    object Files {
+        object FileColumns {
+            const val DATA = MediaStore.Files.FileColumns.DATA
+        }
+    }
 }

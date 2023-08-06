@@ -85,7 +85,7 @@ object UtilKNavigationBar : BaseUtilK() {
             val child = decorView.getChildAt(i)
             if (child.id == View.NO_ID || !child.isShown) continue
             try {
-                val resourceEntryName = UtilKResource.getResourceEntryName(child.id, context)
+                val resourceEntryName = UtilKResource.getResourceEntryName(context, child.id)
                 if (_navigationBarNames.containsKey(resourceEntryName.lowercase(Locale.getDefault()))) {
                     rect[child.left, child.top, child.right] = child.bottom
                     return

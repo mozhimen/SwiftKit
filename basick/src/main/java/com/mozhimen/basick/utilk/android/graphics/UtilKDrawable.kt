@@ -28,25 +28,6 @@ fun Drawable.drawable2bitmap2(width: Int = this.intrinsicWidth, height: Int = th
     UtilKDrawable.drawable2bitmap2(this, width, height)
 
 object UtilKDrawable {
-    /**
-     * 是否正常的drawable
-     * @param drawable Drawable
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isColorDrawableNormal(drawable: Drawable): Boolean {
-        return drawable !is ColorDrawable || drawable.color != Color.TRANSPARENT
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun applyColorFilter(drawable: Drawable, @ColorInt colorInt: Int) {
-        drawable.mutate().setColorFilter(colorInt, PorterDuff.Mode.SRC_IN)
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-
     @JvmStatic
     fun drawable2bitmap(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
         drawable.toBitmap(width, height, config)
@@ -64,4 +45,23 @@ object UtilKDrawable {
             drawable.draw(canvas)
             bitmap
         }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 是否正常的drawable
+     * @param drawable Drawable
+     * @return Boolean
+     */
+    @JvmStatic
+    fun isColorDrawableNormal(drawable: Drawable): Boolean {
+        return drawable !is ColorDrawable || drawable.color != Color.TRANSPARENT
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyColorFilter(drawable: Drawable, @ColorInt colorInt: Int) {
+        drawable.mutate().setColorFilter(colorInt, PorterDuff.Mode.SRC_IN)
+    }
 }

@@ -2,11 +2,12 @@ package com.mozhimen.basick.utilk.java.io
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.BitmapFactory.Options
+import android.graphics.Rect
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.elemk.cons.CMsg
 import com.mozhimen.basick.elemk.kotlin.text.cons.CCharsets
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
@@ -34,39 +35,42 @@ fun ByteArray.readBytes2inputStream(inputStream: InputStream) {
 }
 
 fun InputStream.inputStream2bytes(): ByteArray =
-        UtilKInputStream.inputStream2bytes(this)
+    UtilKInputStream.inputStream2bytes(this)
 
 fun InputStream.inputStream2bytes2(fileLength: Long): ByteArray =
-        UtilKInputStream.inputStream2bytes2(this, fileLength)
+    UtilKInputStream.inputStream2bytes2(this, fileLength)
 
 fun InputStream.inputStream2str(): String =
-        UtilKInputStream.inputStream2str(this)
+    UtilKInputStream.inputStream2str(this)
 
 fun InputStream.inputStream2str2(): String =
-        UtilKInputStream.inputStream2str2(this)
+    UtilKInputStream.inputStream2str2(this)
 
 fun InputStream.inputStream2str2(byteArrayOutputStream: ByteArrayOutputStream): String =
-        UtilKInputStream.inputStream2str2(this, byteArrayOutputStream)
+    UtilKInputStream.inputStream2str2(this, byteArrayOutputStream)
 
 fun InputStream.inputStream2str3(): String =
-        UtilKInputStream.inputStream2str3(this)
+    UtilKInputStream.inputStream2str3(this)
 
 fun InputStream.inputStream2anyBitmap(): Bitmap =
-        UtilKInputStream.inputStream2anyBitmap(this)
+    UtilKInputStream.inputStream2anyBitmap(this)
 
-fun InputStream.inputStream2file(destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-        UtilKInputStream.inputStream2file(this, destFilePathWithName, isOverwrite)
+fun InputStream.inputStream2anyBitmap(outPadding: Rect?, opts: Options): Bitmap? =
+    UtilKInputStream.inputStream2anyBitmap(this, outPadding, opts)
 
-fun InputStream.inputStream2file(destFile: File, isOverwrite: Boolean = true): File? =
-        UtilKInputStream.inputStream2file(this, destFile, isOverwrite)
+fun InputStream.inputStream2file(destFilePathWithName: String, isOverwrite: Boolean = true, bufferSize: Int = 1024): File? =
+    UtilKInputStream.inputStream2file(this, destFilePathWithName, isOverwrite, bufferSize)
+
+fun InputStream.inputStream2file(destFile: File, isOverwrite: Boolean = true, bufferSize: Int = 1024): File? =
+    UtilKInputStream.inputStream2file(this, destFile, isOverwrite, bufferSize)
 
 @RequiresApi(CVersCode.V_29_10_Q)
 fun InputStream.inputStream2file2(destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-        UtilKInputStream.inputStream2file2(this, destFilePathWithName, isOverwrite)
+    UtilKInputStream.inputStream2file2(this, destFilePathWithName, isOverwrite)
 
 @RequiresApi(CVersCode.V_29_10_Q)
 fun InputStream.inputStream2file2(destFile: File, isOverwrite: Boolean = true): File? =
-        UtilKInputStream.inputStream2file2(this, destFile, isOverwrite)
+    UtilKInputStream.inputStream2file2(this, destFile, isOverwrite)
 
 object UtilKInputStream : IUtilK {
 
@@ -106,9 +110,9 @@ object UtilKInputStream : IUtilK {
             inputStreamReader = InputStreamReader(inputStream, CCharsets.UTF_8)
             inputBufferedReader = BufferedReader(inputStreamReader)
 
-            var strInput = ""
-            while (inputBufferedReader.readLine()?.also { strInput = it } != null) {
-                inputStringBuilder.append(strInput).append("\n")
+            var strLineInput = ""
+            while (inputBufferedReader.readLine()?.also { strLineInput = it } != null) {
+                inputStringBuilder.append(strLineInput).append("\n")
             }
             return inputStringBuilder.deleteCharAt(inputStringBuilder.length - 1).toString().replaceRegexLineBreak()
         } catch (e: Exception) {
@@ -124,17 +128,17 @@ object UtilKInputStream : IUtilK {
 
     @JvmStatic
     fun inputStream2str2(inputStream: InputStream): String =
-            inputStream2str2(inputStream, ByteArrayOutputStream())
+        inputStream2str2(inputStream, ByteArrayOutputStream())
 
     @JvmStatic
     fun inputStream2str2(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream): String =
-            byteArrayOutputStream.flushClose { stream ->
-                var readCount: Int
-                while (inputStream.read().also { readCount = it } != -1) {
-                    stream.write(readCount)
-                }
-                stream.byteArrayOutputStream2str()
+        byteArrayOutputStream.flushClose { stream ->
+            var readCount: Int
+            while (inputStream.read().also { readCount = it } != -1) {
+                stream.write(readCount)
             }
+            stream.byteArrayOutputStream2str()
+        }
 
     @JvmStatic
     fun inputStream2str3(inputStream: InputStream): String {
@@ -156,26 +160,33 @@ object UtilKInputStream : IUtilK {
 
     @JvmStatic
     fun inputStream2anyBitmap(inputStream: InputStream): Bitmap =
-            inputStream.use { BitmapFactory.decodeStream(it) }
+        inputStream.use { BitmapFactory.decodeStream(it) }
 
     @JvmStatic
-    fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
-            inputStream.use { inputStream2file(it, UtilKFile.createFile(destFilePathWithName), isOverwrite) }
+    fun inputStream2anyBitmap(inputStream: InputStream, outPadding: Rect?, opts: Options): Bitmap? =
+        inputStream.use { BitmapFactory.decodeStream(it, outPadding, opts) }
 
     @JvmStatic
-    fun inputStream2file(inputStream: InputStream, file: File, isOverwrite: Boolean = true): File? {
+    fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true, bufferSize: Int = 1024): File? =
+        inputStream2file(inputStream, UtilKFile.createFile(destFilePathWithName), isOverwrite, bufferSize)
+
+    @JvmStatic
+    fun inputStream2file(inputStream: InputStream, file: File, isOverwrite: Boolean = true, bufferSize: Int = 1024): File? {
         UtilKFile.createFile(file)
         val fileInputStream = FileInputStream(file)
         if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
             Log.d(TAG, "assetCopyFile: the two files is same")
             return file//"the two files is same, don't need overwrite"
         }
+        var fileOutputStream: FileOutputStream? = null
         try {
-            return FileOutputStream(file, !isOverwrite).flushClose { it.fileOutputStream2file(inputStream, file) }
+            fileOutputStream = FileOutputStream(file, !isOverwrite)
+            return fileOutputStream.fileOutputStream2file(inputStream, file, bufferSize)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(UtilKFile.TAG)
         } finally {
+            fileOutputStream?.flushClose()
             fileInputStream.close()
             inputStream.close()
         }
@@ -185,7 +196,7 @@ object UtilKInputStream : IUtilK {
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     fun inputStream2file2(inputStream: InputStream, filePathWithName: String, isOverwrite: Boolean = true): File? =
-            inputStream2file2(inputStream, UtilKFile.createFile(filePathWithName), isOverwrite)
+        inputStream2file2(inputStream, UtilKFile.createFile(filePathWithName), isOverwrite)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
@@ -210,5 +221,5 @@ object UtilKInputStream : IUtilK {
 
     @JvmStatic
     fun isInputStreamSame(inputStream1: InputStream, inputStream2: InputStream): Boolean =
-            TextUtils.equals(inputStream1.inputStream2md5Str2(), inputStream2.inputStream2md5Str2())
+        TextUtils.equals(inputStream1.inputStream2md5Str2(), inputStream2.inputStream2md5Str2())
 }

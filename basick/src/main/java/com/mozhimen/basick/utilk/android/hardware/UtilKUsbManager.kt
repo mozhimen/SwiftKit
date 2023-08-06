@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.hardware
 
 import android.content.Context
+import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
@@ -17,4 +18,21 @@ object UtilKUsbManager {
     @JvmStatic
     fun get(context: Context): UsbManager =
         UtilKContext.getUsbManager(context)
+
+    @JvmStatic
+    fun getDeviceList(context: Context): Collection<UsbDevice> =
+        get(context).deviceList.values
+
+    /**
+     * 设备是否有USB外设
+     */
+    @JvmStatic
+    fun hasPid(context: Context, vendorId: Int, productId: Int): Boolean {
+        val devices: Iterator<UsbDevice> = getDeviceList(context).iterator()
+        while (devices.hasNext()) {
+            val usbDevice: UsbDevice = devices.next()
+            if (usbDevice.vendorId == vendorId && usbDevice.productId == productId) return true
+        }
+        return false
+    }
 }

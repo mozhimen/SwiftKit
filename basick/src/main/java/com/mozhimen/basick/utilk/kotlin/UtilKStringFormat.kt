@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
+import java.nio.charset.Charset
+
 /**
  * @ClassName UtilKStringFormat
  * @Description TODO
@@ -10,7 +12,13 @@ package com.mozhimen.basick.utilk.kotlin
 fun String.str2unicode(): String =
     UtilKStringFormat.str2unicode(this)
 
+fun String.str2bytes(charset: Charset = Charsets.UTF_8): ByteArray =
+    UtilKStringFormat.str2bytes(this, charset)
+
 object UtilKStringFormat {
+    fun str2bytes(str: String, charset: Charset = Charsets.UTF_8): ByteArray =
+        str.toByteArray(charset)
+
     /**
      * icon代码转unicode
      * @param str String

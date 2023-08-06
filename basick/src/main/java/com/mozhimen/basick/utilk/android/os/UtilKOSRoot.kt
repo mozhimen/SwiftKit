@@ -85,8 +85,6 @@ object UtilKOSRoot : IUtilK {
 
     /**
      * 系统是否包含which
-     * @return Boolean
-     * @throws Exception
      */
     @JvmStatic
     @Throws(Exception::class)

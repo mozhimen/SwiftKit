@@ -18,7 +18,6 @@ import javax.net.ssl.X509TrustManager
  */
 object UtilKNetDeal : BaseUtilK() {
 
-
     /**
      * 获取SSL
      * @return SSLContext?

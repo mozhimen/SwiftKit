@@ -7,6 +7,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
+import java.lang.Math.abs
 
 /**
  * @ClassName UtilKWifiManager
@@ -42,4 +43,9 @@ object UtilKWifiManager {
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getRssi(context: Context): Int =
         getConnectionInfo(context).rssi
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    fun getRssiAbs(context: Context): Int =
+        kotlin.math.abs(getConnectionInfo(context).rssi)
 }

@@ -11,6 +11,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.java.io.outputStream2file
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
@@ -25,7 +26,7 @@ import java.io.OutputStream
  */
 object UtilKPackageInstaller : BaseUtilK() {
     fun get(context: Context): PackageInstaller =
-            UtilKPackageManager.getPackageInstaller(context)
+        UtilKPackageManager.getPackageInstaller(context)
 
     /////////////////////////////////////////////////////////////////
 
@@ -65,7 +66,7 @@ object UtilKPackageInstaller : BaseUtilK() {
 
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, apkFilePathWithName: String): Boolean =
-            copyBaseApk(packageInstaller, sessionId, File(apkFilePathWithName))
+        copyBaseApk(packageInstaller, sessionId, File(apkFilePathWithName))
 
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, apkFile: File): Boolean {
@@ -77,11 +78,7 @@ object UtilKPackageInstaller : BaseUtilK() {
             outputStream = session.openWrite("base.apk", 0, apkFile.length())
             fileInputStream = FileInputStream(apkFile)
 
-            var readCount: Int
-            val bytes = ByteArray(65536)
-            while (fileInputStream.read(bytes).also { readCount = it } != -1) {
-                outputStream.write(bytes, 0, readCount)
-            }
+            outputStream.outputStream2file(fileInputStream, apkFile, 65536)
             session.fsync(outputStream)
             return true
         } catch (e: Exception) {
@@ -91,7 +88,7 @@ object UtilKPackageInstaller : BaseUtilK() {
             session?.close()
             outputStream?.flush()
             outputStream?.close()
-            fileInputStream.close()
+            fileInputStream?.close()
         }
         return false
     }

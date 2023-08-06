@@ -6,6 +6,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.cons.CPath
 import com.mozhimen.basick.elemk.kotlin.text.cons.CCharsets
 import com.mozhimen.basick.elemk.mos.MResultISS
+import com.mozhimen.basick.lintk.optin.OptInDeviceRoot
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -73,6 +74,53 @@ object UtilKRuntime : BaseUtilK() {
 
     ///////////////////////////////////////////////////////////////////////////
 
+    @JvmStatic
+    @Throws(Exception::class)
+    @OptInDeviceRoot
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    fun execSuInstall(apkPathWithName: String): Boolean {
+        require(apkPathWithName.isNotEmpty()) { "$TAG please check apk file path" }
+        val errorStringBuilder = StringBuilder()
+
+        var process: Process? = null
+        var outputStream: OutputStream? = null
+        var errorStream: InputStream? = null
+        var errorStreamReader: InputStreamReader? = null
+        var errorBufferedReader: BufferedReader? = null
+        try {
+            process = exec("su")
+
+            outputStream = process.outputStream
+            outputStream.write("pm install -r $apkPathWithName\n".toByteArray())
+            outputStream.flush()
+            outputStream.write("exit\n".toByteArray())
+            outputStream.flush()
+
+            process.waitFor()
+
+            errorStream = process.errorStream
+            errorStreamReader = InputStreamReader(errorStream)
+            errorBufferedReader = BufferedReader(errorStreamReader)
+
+            var strLineError: String?
+            while (errorBufferedReader.readLine().also { strLineError = it } != null)
+                errorStringBuilder.append(strLineError)
+            "installRoot msg is $errorStringBuilder".dt(TAG)
+            return !errorStringBuilder.toString().contains("failure", ignoreCase = true)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            errorBufferedReader?.close()
+            errorStreamReader?.close()
+            errorStream?.close()
+            outputStream?.flushClose()
+            process?.destroy()
+        }
+        return false
+    }
+
+
     /**
      * 静默安装适配 SDK28 之前的安装方法
      * @param apkPathWithName String
@@ -106,12 +154,12 @@ object UtilKRuntime : BaseUtilK() {
             inputBufferedReader = BufferedReader(inputStreamReader)
             errorBufferedReader = BufferedReader(errorStreamReader)
 
-            var msg: String?
-            while (inputBufferedReader.readLine().also { msg = it } != null)
-                inputStringBuilder.append(msg)
+            var strLine: String?
+            while (inputBufferedReader.readLine().also { strLine = it } != null)
+                inputStringBuilder.append(strLine)
 
-            while (errorBufferedReader.readLine().also { msg = it } != null)
-                errorStringBuilder.append(msg)
+            while (errorBufferedReader.readLine().also { strLine = it } != null)
+                errorStringBuilder.append(strLine)
         } catch (e: Exception) {
             e.printStackTrace()
             "execInstallBefore28: Exception ${e.message}".et(TAG)
@@ -147,8 +195,7 @@ object UtilKRuntime : BaseUtilK() {
         try {
             process = ProcessBuilder(*command).start()
             inputStream = process.inputStream
-            byteArrayOutputStream = ByteArrayOutputStream()
-            byteArrayOutputStream.write('/'.code)
+            byteArrayOutputStream = ByteArrayOutputStream().apply { write('/'.code) }
             strInput = UtilKInputStream.inputStream2str2(inputStream, byteArrayOutputStream)
             "installSilence result $strInput".dt(TAG)
         } catch (e: Exception) {
@@ -165,7 +212,6 @@ object UtilKRuntime : BaseUtilK() {
     /**
      * 系统是否包含which
      * @return Boolean
-     * @throws Exception
      */
     @JvmStatic
     fun execSystemXbinWhich(): Boolean {
@@ -206,8 +252,9 @@ object UtilKRuntime : BaseUtilK() {
         var inputBufferedReader: BufferedReader? = null
         var errorBufferedReader: BufferedReader? = null
         var data = ""
-        var strInput: String
-        var strError: String
+        var strLineInput: String
+        var strLineError: String
+
         try {
             process = exec(arrayOf("sh", "-c", command))
             inputStream = process.inputStream
@@ -217,19 +264,19 @@ object UtilKRuntime : BaseUtilK() {
             inputBufferedReader = BufferedReader(inputStreamReader)
             errorBufferedReader = BufferedReader(errorStreamReader)
 
-            while (inputBufferedReader.readLine().also { strInput = it } != null && !TextUtils.isEmpty(strInput)) {
+            while (inputBufferedReader.readLine().also { strLineInput = it } != null && !TextUtils.isEmpty(strLineInput)) {
                 data = """
-                $data$strInput
+                $data$strLineInput
                 
                 """.trimIndent()
             }
-            while (errorBufferedReader.readLine().also { strError = it } != null && !TextUtils.isEmpty(strError)) {
+            while (errorBufferedReader.readLine().also { strLineError = it } != null && !TextUtils.isEmpty(strLineError)) {
                 data = """
-                $data$strError
+                $data$strLineError
                 
                 """.trimIndent()
             }
-            "execShC line $strInput error $strError".dt(TAG)
+            "execShC line $strLineInput error $strLineError".dt(TAG)
         } catch (e: Exception) {
             e.printStackTrace()
             "executeShellCmd: IOException ${e.message}".et(TAG)
@@ -310,16 +357,16 @@ object UtilKRuntime : BaseUtilK() {
                 inputBufferedReader = BufferedReader(inputStreamReader)
                 errorBufferedReader = BufferedReader(errorStreamReader)
 
-                var line: String?
-                if (inputBufferedReader.readLine().also { line = it } != null) {
-                    inputStringBuilder.append(line)
-                    while (inputBufferedReader.readLine().also { line = it } != null)
-                        inputStringBuilder.append(UtilKSystem.getPropertyLineSeparator()).append(line)
+                var strLine: String?
+                if (inputBufferedReader.readLine().also { strLine = it } != null) {
+                    inputStringBuilder.append(strLine)
+                    while (inputBufferedReader.readLine().also { strLine = it } != null)
+                        inputStringBuilder.append(UtilKSystem.getPropertyLineSeparator()).append(strLine)
                 }
-                if (errorBufferedReader.readLine().also { line = it } != null) {
-                    errorStringBuilder.append(line)
-                    while (errorBufferedReader.readLine().also { line = it } != null)
-                        errorStringBuilder.append(UtilKSystem.getPropertyLineSeparator()).append(line)
+                if (errorBufferedReader.readLine().also { strLine = it } != null) {
+                    errorStringBuilder.append(strLine)
+                    while (errorBufferedReader.readLine().also { strLine = it } != null)
+                        errorStringBuilder.append(UtilKSystem.getPropertyLineSeparator()).append(strLine)
                 }
             }
         } catch (e: Exception) {

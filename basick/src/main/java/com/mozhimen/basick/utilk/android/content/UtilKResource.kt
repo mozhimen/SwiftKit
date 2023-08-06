@@ -60,30 +60,32 @@ object UtilKResource {
         getAppResources(context).assets
 
     @JvmStatic
-    fun getResourceEntryName(@AnyRes resId: Int, context: Context): String =
+    fun getResourceEntryName(context: Context, @AnyRes resId: Int): String =
         getAppResources(context).getResourceEntryName(resId)
 
     @JvmStatic
-    fun obtainAttributes(set: AttributeSet, @StyleableRes attrs: IntArray, context: Context): TypedArray =
-        getAppResources(context).obtainAttributes(set, attrs)
-
-    @JvmStatic
-    fun getDimensionPixelOffset(@DimenRes resId: Int, context: Context): Int =
+    fun getDimensionPixelOffset(context: Context, @DimenRes resId: Int): Int =
         getAppResources(context).getDimensionPixelOffset(resId)
 
     @JvmStatic
-    fun getDimensionPixelSize(@DimenRes resId: Int, context: Context): Int =
+    fun getDimensionPixelSize(context: Context, @DimenRes resId: Int): Int =
         getAppResources(context).getDimensionPixelSize(resId)
 
     @JvmStatic
-    fun getDimension(@DimenRes resId: Int, context: Context): Float =
+    fun getDimension(context: Context, @DimenRes resId: Int): Float =
         getAppResources(context).getDimension(resId)
 
     @JvmStatic
-    fun getStringArray(@ArrayRes resId: Int, context: Context): Array<String> =
+    fun getStringArray(context: Context, @ArrayRes resId: Int): Array<String> =
         getAppResources(context).getStringArray(resId)
 
     @JvmStatic
-    fun getInteger(@IntegerRes resId: Int, context: Context): Int =
+    fun getInteger(context: Context, @IntegerRes resId: Int): Int =
         getAppResources(context).getInteger(resId)
+
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun obtainAttributes(context: Context, set: AttributeSet, @StyleableRes attrs: IntArray): TypedArray =
+        getAppResources(context).obtainAttributes(set, attrs)
 }

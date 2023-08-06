@@ -3,10 +3,8 @@ package com.mozhimen.basick.utilk.android.net
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Environment
 import android.provider.DocumentsContract
@@ -15,16 +13,20 @@ import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
+import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
+import com.mozhimen.basick.utilk.android.graphics.UtilKImageDecoder
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.android.provider.UtilKMediaStore
 import com.mozhimen.basick.utilk.android.provider.getDataColumn
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.kotlin.text.UtilKMatchStr
 import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
 import com.mozhimen.basick.utilk.java.io.inputStream2file
 import java.io.File
 import java.io.InputStream
@@ -87,13 +89,16 @@ object UtilKUri : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun isDownloadsDocument(uri: Uri) = uri.authority == "com.android.providers.downloads.documents"
+    fun isDownloadsDocument(uri: Uri) =
+        uri.authority == CPackage.COM_ANDROID_PROVIDERS_DOWNLOADS_DOCUMENTS//"com.android.providers.downloads.documents"
 
     @JvmStatic
-    fun isExternalStorageDocument(uri: Uri) = uri.authority == "com.android.externalstorage.documents"
+    fun isExternalStorageDocument(uri: Uri) =
+        uri.authority == CPackage.COM_ANDROID_EXTERNALSTORAGE_DOCUMENTS//"com.android.externalstorage.documents"
 
     @JvmStatic
-    fun isMediaDocument(uri: Uri) = uri.authority == "com.android.providers.media.documents"
+    fun isMediaDocument(uri: Uri) =
+        uri.authority == CPackage.COM_ANDROID_PROVIDERS_MEDIA_DOCUMENTS//"com.android.providers.media.documents"
 
     /////////////////////////////////////////////////////////////////////////////
 
@@ -139,7 +144,7 @@ object UtilKUri : BaseUtilK() {
 
             ContentResolver.SCHEME_CONTENT -> {
                 //把文件复制到沙盒目录
-                val contentResolver = _context.contentResolver
+                val contentResolver = UtilKContentResolver.get(_context)//_context.contentResolver
                 return contentResolver.openInputStream(uri)?.use { it.inputStream2file(filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}") }
             }
         }
@@ -151,13 +156,12 @@ object UtilKUri : BaseUtilK() {
         if (uri.scheme == "file") return uri.path
 
         if (isDownloadsDocument(uri)) {
-            val id = DocumentsContract.getDocumentId(uri)
-            if (UtilKMatchStr.isStrDigits2(id)) {
-                val newUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), id.toLong())
+            val documentId = DocumentsContract.getDocumentId(uri)
+            if (UtilKMatchStr.isStrDigits2(documentId)) {
+                val newUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), documentId.toLong())
                 val path = newUri.getDataColumn()
-                if (path != null) {
+                if (path != null)
                     return path
-                }
             }
         } else if (isExternalStorageDocument(uri)) {
             val documentId = DocumentsContract.getDocumentId(uri)
@@ -193,31 +197,23 @@ object UtilKUri : BaseUtilK() {
      * @return Bitmap?
      */
     @JvmStatic
-    fun uri2bitmap(uri: Uri): Bitmap? {
-        return try {
-            if (UtilKBuildVersion.isAfterV_28_9_P()) {
-                ImageDecoder.decodeBitmap(ImageDecoder.createSource(UtilKContentResolver.get(_context), uri))
-            } else {
-                MediaStore.Images.Media.getBitmap(UtilKContentResolver.get(_context), uri)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return null
-        }
-    }
+    fun uri2bitmap(uri: Uri): Bitmap =
+        if (UtilKBuildVersion.isAfterV_28_9_P())
+            UtilKImageDecoder.decodeBitmap(_context, uri)
+        else UtilKMediaStore.getImagesMediaBitmap(_context, uri)
 
     @JvmStatic
-    fun uri2bitmap(context: Context, uri: Uri): Bitmap? {
-        var stream: InputStream? = null
+    fun uri2bitmap2(uri: Uri): Bitmap? {
+        var inputStreamOpts: InputStream? = null
         var inputStream: InputStream? = null
         try {
             //根据uri获取图片的流
-            inputStream = UtilKContentResolver.get(context).openInputStream(uri)
+            inputStreamOpts = UtilKContentResolver.openInputStream(_context, uri)
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true            //options的in系列的设置了，injustDecodeBound只解析图片的大小，而不加载到内存中去
             //1.如果通过options.outHeight获取图片的宽高，就必须通过decodeStream解析同options赋值
             //否则options.outHeight获取不到宽高
-            BitmapFactory.decodeStream(inputStream, null, options)
+            inputStreamOpts?.inputStream2anyBitmap(null, options)//BitmapFactory.decodeStream(inputStream, null, options)
             //2.通过 btm.getHeight()获取图片的宽高就不需要1的解析，我这里采取第一张方式
             //Bitmap btm = BitmapFactory.decodeStream(inputStream)
             //获取图片的宽高
@@ -228,20 +224,19 @@ object UtilKUri : BaseUtilK() {
             val b = ceil((outWidth / UtilKScreen.getCurrentWidth().toDouble())).toInt()
             //比例计算,一般是图片比较大的情况下进行压缩
             val max = a.coerceAtLeast(b)
-            if (max > 1) {
+            if (max > 1)
                 options.inSampleSize = max
-            }
             //解析到内存中去
             options.inJustDecodeBounds = false
             //根据uri重新获取流，inputStream在解析中发生改变了
-            stream = UtilKContentResolver.get(context).openInputStream(uri)
-            return BitmapFactory.decodeStream(stream, null, options)
+            inputStream = UtilKContentResolver.openInputStream(_context, uri)
+            return inputStream?.inputStream2anyBitmap(null, options)//BitmapFactory.decodeStream(inputStream1, null, options)
         } catch (e: Exception) {
             e.printStackTrace()
             return null
         } finally {
+            inputStreamOpts?.close()
             inputStream?.close()
-            stream?.close()
         }
     }
 }
