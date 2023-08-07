@@ -16,11 +16,11 @@ import java.lang.reflect.ParameterizedType
  */
 
 @Throws(Exception::class)
-fun <T : Any> T.t2json(indent: String = ""): String =
+inline fun <reified T : Any> T.t2json(indent: String = ""): String =
     UtilKJsonMoshi.t2json(this, indent)
 
 @Throws(Exception::class)
-fun <T> String.json2t(): T? =
+inline fun <reified T> String.json2t(): T? =
     UtilKJsonMoshi.json2t(this)
 
 object UtilKJsonMoshi {
@@ -34,7 +34,7 @@ object UtilKJsonMoshi {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2json(t: T, indent: String = ""): String =
+    inline fun <reified T> t2json(t: T, indent: String = ""): String =
         t2json(moshiBuilder.adapter(UtilKGeneric.getGenericType<T>()!!), t, indent)
 
     @Throws(Exception::class)
@@ -54,7 +54,7 @@ object UtilKJsonMoshi {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2t(json: String): T? =
+    inline fun <reified T> json2t(json: String): T? =
         json2t(moshiBuilder.adapter<T>(UtilKGeneric.getGenericType<T>()!!), json)
 
     @Throws(Exception::class)
@@ -74,7 +74,7 @@ object UtilKJsonMoshi {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2list(json: String): MutableList<T>? =
+    inline fun <reified T> json2list(json: String): MutableList<T>? =
         json2t<MutableList<T>>(json, Types.newParameterizedType(MutableList::class.java, UtilKGeneric.getGenericType<T>()!!))
 
     @Throws(Exception::class)

@@ -20,8 +20,11 @@ fun <T : Any> T.t2json(): String =
     UtilKJsonGson.t2json(this)
 
 @Throws(Exception::class)
-fun <T> String.json2t(): T? =
+inline fun <reified T> String.json2t(): T? =
     UtilKJsonGson.json2t(this)
+
+fun <T> String.json2t(clazz: Class<T>): T? =
+    UtilKJsonGson.json2t(this, clazz)
 
 object UtilKJsonGson : BaseUtilK() {
     val gson by lazy { Gson() }
@@ -75,7 +78,7 @@ object UtilKJsonGson : BaseUtilK() {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2t(json: String): T? =
+    inline fun <reified T> json2t(json: String): T? =
         json2t(json, UtilKGeneric.getGenericType<T>()!!)
 
     @Throws(Exception::class)

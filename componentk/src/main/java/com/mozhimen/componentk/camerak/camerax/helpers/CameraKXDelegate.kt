@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.elemk.java.util.bases.BaseHandlerExecutor
+import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
@@ -96,23 +97,24 @@ class CameraKXDelegate : ICameraKX, BaseUtilK() {
     private var _isOpenHdr = false
     private var _captureBitmap: Bitmap? = null
 
+    @OptIn(OptInFieldCall_Close::class)
     private val _onImageCaptureCallback = object : ImageCapture.OnImageCapturedCallback() {
         @SuppressLint("UnsafeOptInUsageError")
         override fun onCaptureSuccess(image: ImageProxy) {
             Log.d(TAG, "onCaptureSuccess: ${image.format} ${image.width}x${image.height}")
             when (image.format) {
                 ImageFormat.YUV_420_888 -> {
-                    _captureBitmap = ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(image)
+                    _captureBitmap = image.yuv420888ImageProxy2JpegBitmap()
                     Log.d(TAG, "onCaptureSuccess: YUV_420_888")
                 }
 
                 ImageFormat.JPEG -> {
-                    _captureBitmap = ImageProxyUtil.jpegImageProxy2JpegBitmap(image)
+                    _captureBitmap = image.jpegImageProxy2JpegBitmap()
                     Log.d(TAG, "onCaptureSuccess: JPEG")
                 }
 
                 ImageFormat.FLEX_RGBA_8888 -> {
-                    _captureBitmap = ImageProxyUtil.rgba8888ImageProxy2Rgba8888Bitmap(image)
+                    _captureBitmap = image.rgba8888ImageProxy2Rgba8888Bitmap()
                     Log.d(TAG, "onCaptureSuccess: FLEX_RGBA_8888")
                 }
             }

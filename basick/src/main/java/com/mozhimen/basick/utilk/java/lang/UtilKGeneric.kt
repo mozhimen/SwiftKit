@@ -18,7 +18,7 @@ object UtilKGeneric {
      * @return Type?
      */
     @JvmStatic
-    fun <T> getGenericType(index: Int = 0): Type? =
+    inline fun <reified T> getGenericType(index: Int = 0): Type? =
         object : BaseGeneric<T>() {}::class.java
             .genericSuperclass
             .let { it as ParameterizedType }
@@ -36,7 +36,7 @@ object UtilKGeneric {
      * @return Class<*>?
      */
     @JvmStatic
-    fun <T> getGenericTypeClazz(index: Int = 0): Class<*>? =
+    inline fun <reified T> getGenericTypeClazz(index: Int = 0): Class<*>? =
         getGenericType<T>(index) as? Class<*>?
 
     ////////////////////////////////////////////////////////////////////////////////////////////

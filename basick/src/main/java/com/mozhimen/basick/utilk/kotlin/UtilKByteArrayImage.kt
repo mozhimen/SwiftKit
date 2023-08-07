@@ -21,8 +21,20 @@ import com.mozhimen.basick.utilk.java.io.flushClose
  * @Date 2023/7/31 17:45
  * @Version 1.0
  */
+fun ByteArray.grba8888Bytes2rgba8888Bitmap(width: Int, height: Int): Bitmap =
+    UtilKByteArrayImage.grba8888Bytes2rgba8888Bitmap(this, width, height)
+
 fun ByteArray.nv21Bytes2jpegBytes(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
     UtilKByteArrayImage.nv21Bytes2jpegBytes(this, width, height, quality)
+
+fun ByteArray.nv21Bytes2jpegFile(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isOverwrite: Boolean = true): File =
+    UtilKByteArrayImage.nv21Bytes2jpegFile(this, filePathWithName, width, height, quality, isOverwrite)
+
+fun ByteArray.nv21Bytes2jpegBitmap(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap =
+    UtilKByteArrayImage.nv21Bytes2jpegBitmap(this, width, height, quality)
+
+fun ByteArray.nv21Bytes2jpegFile2(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+    UtilKByteArrayImage.nv21Bytes2jpegFile2(this, filePathWithName, width, height, quality)
 
 object UtilKByteArrayImage : IUtilK {
 
@@ -55,6 +67,13 @@ object UtilKByteArrayImage : IUtilK {
     }
 
     @JvmStatic
+    fun grba8888Bytes2rgba8888Bitmap(grba8888Bytes: ByteArray, width: Int, height: Int): Bitmap {
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(grba8888Bytes))
+        return bitmap
+    }
+
+    @JvmStatic
     fun nv21Bytes2jpegBytes(nv21Bytes: ByteArray, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray {
         ByteArrayOutputStream().flushClose {
             val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
@@ -64,7 +83,7 @@ object UtilKByteArrayImage : IUtilK {
     }
 
     @JvmStatic
-    fun nv21Bytes2jpegFile(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isOverwrite: Boolean = true): File? =
+    fun nv21Bytes2jpegFile(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isOverwrite: Boolean = true): File =
         nv21Bytes2jpegBytes(nv21Bytes, width, height, quality).bytes2file(filePathWithName, isOverwrite)
 
     @JvmStatic
@@ -76,13 +95,6 @@ object UtilKByteArrayImage : IUtilK {
     @Throws(Exception::class)
     fun nv21Bytes2jpegFile2(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
         nv21Bytes2jpegBitmap(nv21Bytes, width, height, quality).jpegBitmap2jpegFile(filePathWithName)
-
-    @JvmStatic
-    fun grba8888Bytes2rgba8888Bitmap(grba8888Bytes: ByteArray, width: Int, height: Int): Bitmap {
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(grba8888Bytes))
-        return bitmap
-    }
 
     ////////////////////////////////////////////////////////////////////////////////////
 
