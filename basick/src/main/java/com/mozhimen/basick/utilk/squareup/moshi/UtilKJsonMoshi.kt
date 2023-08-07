@@ -54,6 +54,16 @@ object UtilKJsonMoshi {
 
     @Throws(Exception::class)
     @JvmStatic
+    fun <T> json2t(json: String): T? =
+        json2t(moshiBuilder.adapter<T>(UtilKGeneric.getGenericType<T>()!!), json)
+
+    @Throws(Exception::class)
+    @JvmStatic
+    inline fun <reified T> json2t2(json: String): T? =
+        json2t(moshiBuilder.adapter(T::class.java), json)
+
+    @Throws(Exception::class)
+    @JvmStatic
     fun <T> json2t(adapter: JsonAdapter<T>, json: String): T? =
         adapter.fromJson(json)
 
@@ -71,15 +81,4 @@ object UtilKJsonMoshi {
     @JvmStatic
     inline fun <reified T> json2list2(json: String): MutableList<T>? =
         json2t<MutableList<T>>(json, Types.newParameterizedType(MutableList::class.java, T::class.java))
-
-    @Throws(Exception::class)
-    @JvmStatic
-    fun <T> json2t(json: String): T? =
-        json2t(moshiBuilder.adapter<T>(UtilKGeneric.getGenericType<T>()!!), json)
-
-    @Throws(Exception::class)
-    @JvmStatic
-    inline fun <reified T> json2t2(json: String): T? =
-        json2t(moshiBuilder.adapter(T::class.java), json)
-
 }

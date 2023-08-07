@@ -16,18 +16,19 @@ import kotlinx.coroutines.flow.flow
  * @Date 2023/7/4 17:29
  * @Version 1.0
  */
-fun <T> Flow<T>.throttleFirst(thresholdMillis: Long): Flow<T> =
-    UtilKFlow.throttleFirst(this, thresholdMillis)
-
 fun View.createViewClickFlow(): Flow<Unit> =
     UtilKFlow.createViewClickFlow(this)
 
 fun EditText.createEditTextChangeFlow(): Flow<CharSequence> =
     UtilKFlow.createEditTextChangeFlow(this)
 
+fun <T> Flow<T>.throttleFirst(thresholdMillis: Long): Flow<T> =
+    UtilKFlow.throttleFirst(this, thresholdMillis)
+
 object UtilKFlow {
     @JvmStatic
-    fun createSearchFlow(str: String, scope: CoroutineScope, block: suspend CoroutineScope.(String) -> List<String>) = flow { emit(scope.block(str)) }
+    fun createSearchFlow(str: String, scope: CoroutineScope, block: suspend CoroutineScope.(String) -> List<String>) =
+        flow { emit(scope.block(str)) }
 
     @JvmStatic
     fun createViewClickFlow(view: View): Flow<Unit> = callbackFlow {

@@ -9,6 +9,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.graphics.drawable2bitmap
+import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
 import com.mozhimen.basick.utilk.squareup.moshi.t2json
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -40,23 +41,8 @@ object ScanKHSV : BaseUtilK() {
      * @return Map<String, Int>?
      */
     @JvmStatic
-    fun colorAnalyze(bitmapPathWithName: String): List<Pair<EColorHSV, Int>>? {
-        val outputStream: FileOutputStream? = null
-        var inputStream: FileInputStream? = null
-        try {
-            inputStream = FileInputStream(bitmapPathWithName)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            return colorAnalyze(bitmap)//开始分析颜色
-        } catch (e: Exception) {
-            e.printStackTrace()
-            LogK.et(TAG, "colorAnalyze Exception ${e.message}")
-        } finally {
-            outputStream?.flush()
-            outputStream?.close()
-            inputStream?.close()
-        }
-        return null
-    }
+    fun colorAnalyze(bitmapPathWithName: String): List<Pair<EColorHSV, Int>>? =
+        colorAnalyze(FileInputStream(bitmapPathWithName).inputStream2anyBitmap())
 
     /**
      * 检查图片资源的颜色占比

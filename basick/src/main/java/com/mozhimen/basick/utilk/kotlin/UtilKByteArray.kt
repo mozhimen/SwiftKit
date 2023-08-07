@@ -18,14 +18,13 @@ object UtilKByteArray : BaseUtilK() {
      */
     @JvmStatic
     fun checkCS(bytes: ByteArray): Byte {
-        var result: Byte
         try {
             var num = 0
-            for (i in bytes.indices) num = (num + bytes[i]) % 256
-            result = num.toByte()
+            for (i in bytes.indices)
+                num = (num + bytes[i]) % 256
+            return num.toByte()
         } catch (e: Exception) {
-            result = 0
         }
-        return result
+        return 0
     }
 }

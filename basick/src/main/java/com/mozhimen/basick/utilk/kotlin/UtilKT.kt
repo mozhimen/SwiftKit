@@ -11,15 +11,14 @@ object UtilKT {
 
     /**
      * 泛型是否为空
-     * @return Boolean
      */
+    @JvmStatic
     inline fun <reified T> isTNullable(): Boolean {
         return kotlin.reflect.typeOf<T>().isMarkedNullable
     }
 
     /**
      * 判断数据类型是否是原始数据类型
-     * @return Boolean
      */
     @JvmStatic
     inline fun <reified T> isTPrimitive(): Boolean {
@@ -27,7 +26,8 @@ object UtilKT {
     }
 
     ////////////////////////////////////////////////////
+
     @JvmStatic
     fun <T> t2bytes(obj: T): ByteArray? =
-            UtilKAny.obj2bytes(obj!!)
+        obj!!.obj2bytes()
 }

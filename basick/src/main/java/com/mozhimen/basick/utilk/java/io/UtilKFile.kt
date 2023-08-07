@@ -26,8 +26,6 @@ object UtilKFile : BaseUtilK() {
 
     /**
      * 当前小时转文件名
-     * @param locale Locale
-     * @return String
      */
     @JvmStatic
     fun getStrFileNameForStrCurrentHour(locale: Locale = Locale.CHINA): String =
@@ -35,8 +33,6 @@ object UtilKFile : BaseUtilK() {
 
     /**
      * 当前时间转文件名
-     * @param locale Locale
-     * @return String
      */
     @JvmStatic
     fun getStrFileNameForStrNowDate(locale: Locale = Locale.CHINA): String =
@@ -44,9 +40,6 @@ object UtilKFile : BaseUtilK() {
 
     /**
      * 时间转文件名
-     * @param formatDate String
-     * @param locale Locale
-     * @return String
      */
     @JvmStatic
     fun getStrFileNameForStrDate(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String =
@@ -158,7 +151,7 @@ object UtilKFile : BaseUtilK() {
     @JvmStatic
     fun copyFile(sourceFile: File, destFile: File, isOverwrite: Boolean = true): File? =
         if (!isFileExist(sourceFile)) null
-        else FileInputStream(sourceFile).use { it.inputStream2file(destFile, isOverwrite) }
+        else FileInputStream(sourceFile).inputStream2file(destFile, isOverwrite)
 
     /**
      * 获取文件大小

@@ -5,10 +5,12 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.util.Base64
 import androidx.annotation.IntRange
+import com.mozhimen.basick.elemk.android.util.cons.CBase64
 import com.mozhimen.basick.utilk.android.graphics.anyBitmap2anyBytes
 import com.mozhimen.basick.utilk.android.graphics.anyBytes2anyBitmap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.bytes2byteArrayInputStream
+import com.mozhimen.basick.utilk.java.io.inputStream2bitmapDrawable
 
 /**
  * @ClassName UtilKBase64
@@ -17,30 +19,35 @@ import com.mozhimen.basick.utilk.java.io.bytes2byteArrayInputStream
  * @Date 2023/2/26 19:56
  * @Version 1.0
  */
-fun String.strBase642bytes(flags: Int = Base64.DEFAULT): ByteArray =
-        UtilKBase64.strBase642bytes(this, flags)
+fun ByteArray.bytes2strBase64(flags: Int = CBase64.NO_WRAP): String =
+    UtilKBase64.bytes2strBase64(this, flags)
 
-fun ByteArray.bytes2strBase64(flags: Int = Base64.NO_WRAP): String =
-        UtilKBase64.bytes2strBase64(this, flags)
+fun String.strBase642bytes(flags: Int = CBase64.DEFAULT): ByteArray =
+    UtilKBase64.strBase642bytes(this, flags)
+
+fun ByteArray.bytesBase642bytes(flags: Int = CBase64.DEFAULT): ByteArray =
+    UtilKBase64.bytesBase642bytes(this, flags)
 
 object UtilKBase64 : BaseUtilK() {
 
     @JvmStatic
-    fun bytes2strBase64(bytes: ByteArray, flags: Int = Base64.NO_WRAP): String =
-            Base64.encodeToString(bytes, flags)
+    fun bytes2strBase64(bytes: ByteArray, flags: Int = CBase64.NO_WRAP): String =
+        Base64.encodeToString(bytes, flags)
 
     @JvmStatic
-    fun strBase642bytes(strBase64: String, flags: Int = Base64.DEFAULT): ByteArray =
-            Base64.decode(strBase64, flags)
+    fun strBase642bytes(strBase64: String, flags: Int = CBase64.DEFAULT): ByteArray =
+        Base64.decode(strBase64, flags)
+
+    @JvmStatic
+    fun bytesBase642bytes(bytesBase64: ByteArray, flags: Int = CBase64.DEFAULT): ByteArray =
+        Base64.decode(bytesBase64, flags)
 
     /**
      * base64转位图
-     * @param str String
-     * @return Bitmap?
      */
     @JvmStatic
-    fun strBase642bitmap(strBase64: String, flags: Int = Base64.DEFAULT): Bitmap =
-            strBase64.strBase642bytes(flags).anyBytes2anyBitmap()
+    fun strBase642bitmap(strBase64: String, flags: Int = CBase64.DEFAULT): Bitmap =
+        strBase64.strBase642bytes(flags).anyBytes2anyBitmap()
 
     /**
      * 位图转base64
@@ -54,11 +61,11 @@ object UtilKBase64 : BaseUtilK() {
      * @return String?
      */
     @JvmStatic
-    fun bitmap2strBase64(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 50, flags: Int = Base64.NO_WRAP): String? {
+    fun bitmap2strBase64(sourceBitmap: Bitmap, compressFormat: CompressFormat = CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 50, flags: Int = CBase64.NO_WRAP): String? {
         return sourceBitmap.anyBitmap2anyBytes(compressFormat, quality)?.bytes2strBase64(flags)
     }
 
     @JvmStatic
-    fun strBase642bitmapDrawable(strBase64: String, flags: Int = Base64.DEFAULT): BitmapDrawable =
-            strBase64.strBase642bytes(flags).bytes2byteArrayInputStream().use { BitmapDrawable(null, it) }
+    fun strBase642bitmapDrawable(strBase64: String, flags: Int = CBase64.DEFAULT): BitmapDrawable =
+        strBase64.strBase642bytes(flags).bytes2byteArrayInputStream().inputStream2bitmapDrawable()
 }

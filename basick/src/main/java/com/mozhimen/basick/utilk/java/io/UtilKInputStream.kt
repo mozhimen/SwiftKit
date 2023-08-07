@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.BitmapFactory.Options
 import android.graphics.Rect
+import android.graphics.drawable.BitmapDrawable
 import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -58,6 +59,9 @@ fun InputStream.inputStream2anyBitmap(): Bitmap =
 fun InputStream.inputStream2anyBitmap(outPadding: Rect?, opts: Options): Bitmap? =
     UtilKInputStream.inputStream2anyBitmap(this, outPadding, opts)
 
+fun InputStream.inputStream2bitmapDrawable(): BitmapDrawable =
+    UtilKInputStream.inputStream2bitmapDrawable(this)
+
 fun InputStream.inputStream2file(destFilePathWithName: String, isOverwrite: Boolean = true, bufferSize: Int = 1024): File? =
     UtilKInputStream.inputStream2file(this, destFilePathWithName, isOverwrite, bufferSize)
 
@@ -92,9 +96,8 @@ object UtilKInputStream : IUtilK {
             val bytes = ByteArray(fileLength.toInt())
             var offset = 0
             var readCount = 0
-            while (offset < bytes.size && inputStream.read(bytes, offset, bytes.size - offset).also { readCount = it } != -1) {
+            while (offset < bytes.size && inputStream.read(bytes, offset, bytes.size - offset).also { readCount = it } != -1)
                 offset += readCount
-            }
             // 确保所有数据均被读取
             if (offset != bytes.size) throw IOException("Could not completely read file.")
             return bytes
@@ -111,9 +114,8 @@ object UtilKInputStream : IUtilK {
             inputBufferedReader = BufferedReader(inputStreamReader)
 
             var strLineInput = ""
-            while (inputBufferedReader.readLine()?.also { strLineInput = it } != null) {
+            while (inputBufferedReader.readLine()?.also { strLineInput = it } != null)
                 inputStringBuilder.append(strLineInput).append("\n")
-            }
             return inputStringBuilder.deleteCharAt(inputStringBuilder.length - 1).toString().replaceRegexLineBreak()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -131,31 +133,33 @@ object UtilKInputStream : IUtilK {
         inputStream2str2(inputStream, ByteArrayOutputStream())
 
     @JvmStatic
-    fun inputStream2str2(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream): String =
-        byteArrayOutputStream.flushClose { stream ->
+    fun inputStream2str2(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream): String {
+        try {
             var readCount: Int
-            while (inputStream.read().also { readCount = it } != -1) {
-                stream.write(readCount)
-            }
-            stream.byteArrayOutputStream2str()
+            while (inputStream.read().also { readCount = it } != -1)
+                byteArrayOutputStream.write(readCount)
+            return byteArrayOutputStream.byteArrayOutputStream2str()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            byteArrayOutputStream.flushClose()
+            inputStream.close()
         }
+        return ""
+    }
+
 
     @JvmStatic
     fun inputStream2str3(inputStream: InputStream): String {
         val inputStringBuilder = StringBuilder()
-        try {
+        inputStream.use {
             var readCount: Int
             val bytes = ByteArray(1024)
             while (inputStream.read(bytes).also { readCount = it } != -1)
                 inputStringBuilder.append(bytes.bytes2str(0, readCount))
             return inputStringBuilder.toString().replaceRegexLineBreak()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            inputStream.close()
         }
-        return ""
     }
 
     @JvmStatic
@@ -165,6 +169,10 @@ object UtilKInputStream : IUtilK {
     @JvmStatic
     fun inputStream2anyBitmap(inputStream: InputStream, outPadding: Rect?, opts: Options): Bitmap? =
         inputStream.use { BitmapFactory.decodeStream(it, outPadding, opts) }
+
+    @JvmStatic
+    fun inputStream2bitmapDrawable(inputStream: InputStream): BitmapDrawable =
+        inputStream.use { BitmapDrawable(null, it) }
 
     @JvmStatic
     fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isOverwrite: Boolean = true, bufferSize: Int = 1024): File? =
@@ -207,12 +215,15 @@ object UtilKInputStream : IUtilK {
             Log.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
             return file//"the two files is same, don't need overwrite"
         }
+        var fileOutputStream: FileOutputStream? = null
         try {
-            return FileOutputStream(file, !isOverwrite).flushClose { it.fileOutputStream2file2(inputStream, file) }
+            fileOutputStream = FileOutputStream(file, !isOverwrite)
+            return fileOutputStream.fileOutputStream2file2(inputStream, file)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(UtilKFile.TAG)
         } finally {
+            fileOutputStream?.flushClose()
             fileInputStream.close()
             inputStream.close()
         }

@@ -68,7 +68,8 @@ object UtilKTime {
         return try {
             time[0] == hourStrTwoBits && time[1] == minuteStrTwoBits
         } catch (e: Exception) {
-            e.printStackTrace();false
+            e.printStackTrace();
+            false
         }
     }
 
@@ -92,7 +93,8 @@ object UtilKTime {
         return try {
             time[0] == hourStrTwoBits && time[1] == "00"
         } catch (e: Exception) {
-            e.printStackTrace();false
+            e.printStackTrace();
+            false
         }
     }
 
@@ -118,11 +120,11 @@ object UtilKTime {
      * @return Boolean
      */
     @JvmStatic
-    fun isTimeAtHour(timeStr: String): Boolean {
-        return try {
+    fun isTimeAtHour(timeStr: String): Boolean =
+        try {
             timeStr == "00"
         } catch (e: Exception) {
-            e.printStackTrace();false
+            e.printStackTrace();
+            false
         }
-    }
 }

@@ -1,12 +1,11 @@
 package com.mozhimen.basick.utilk.android.view
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKReflect
 import com.mozhimen.basick.utilk.android.util.et
-import java.lang.reflect.Field
 
 /**
  * @ClassName UtilKDragAndDrop
@@ -15,33 +14,32 @@ import java.lang.reflect.Field
  * @Date 2023/2/19 17:10
  * @Version 1.0
  */
-object UtilKDragAndDrop : BaseUtilK() {
+object UtilKViewDrag : BaseUtilK() {
 
     @JvmStatic
     @Throws(Exception::class)
-    fun fixDragAndDropLeak(vararg views: View) {
+    fun fixDragLeak(vararg views: View) {
         var tempView: View
         views.forEach { v ->
             tempView = v
             while (tempView.parent != null && tempView.parent is ViewGroup) {
                 tempView = tempView.parent as ViewGroup
-                fixDragAndDropLeak(tempView)
+                fixDragLeak(tempView)
             }
         }
     }
 
     @JvmStatic
     @Throws(Exception::class)
-    fun fixDragAndDropLeak(view: View) {
-        val field: Field
-        val fieldObj: Any?
+    fun fixDragLeak(view: View) {
         try {
-            field = UtilKReflect.getField(view, "mCurrentDragChild")
-            if (!field.isAccessible) field.isAccessible = true
-            fieldObj = field.get(view)
-            if (fieldObj != null) {
-                field.set(view, null)
-                Log.d(TAG, "fixDragAndDropLeak: set viewGroup ${view.javaClass.simpleName} mCurrentDragChild null")
+            val fieldMCurrentDragChild = UtilKReflect.getField(view, "mCurrentDragChild")
+            if (!fieldMCurrentDragChild.isAccessible)
+                fieldMCurrentDragChild.isAccessible = true
+            val view = fieldMCurrentDragChild.get(view)
+            if (view != null) {
+                fieldMCurrentDragChild.set(view, null)
+                "fixLeak: set viewGroup ${view.javaClass.simpleName} mCurrentDragChild null".dt(TAG)
             }
         } catch (e: Exception) {
             e.printStackTrace()

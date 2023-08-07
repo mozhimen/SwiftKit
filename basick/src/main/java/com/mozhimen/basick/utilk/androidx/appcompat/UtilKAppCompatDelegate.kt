@@ -13,7 +13,7 @@ import com.mozhimen.basick.elemk.androidx.appcompat.cons.CAppCompatDelegate
 object UtilKAppCompatDelegate {
     @JvmStatic
     fun getDefaultNightMode(): Int =
-            AppCompatDelegate.getDefaultNightMode()
+        AppCompatDelegate.getDefaultNightMode()
 
     ////////////////////////////////////////////////////////////////
 
@@ -23,11 +23,11 @@ object UtilKAppCompatDelegate {
      */
     @JvmStatic
     fun isLightMode(): Boolean =
-            getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_NO
+        getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_NO
 
     @JvmStatic
     fun isDarkMode(): Boolean =
-            getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_YES
+        getDefaultNightMode() == CAppCompatDelegate.MODE_NIGHT_YES
 
     ////////////////////////////////////////////////////////////////
 
@@ -50,6 +50,8 @@ object UtilKAppCompatDelegate {
 
     @JvmStatic
     fun toggleMode() {
-        if (isLightMode()) applyDarkMode() else applyLightMode()
+        if (isLightMode())
+            applyDarkMode()
+        else applyLightMode()
     }
 }

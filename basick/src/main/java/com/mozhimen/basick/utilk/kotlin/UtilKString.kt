@@ -15,23 +15,45 @@ import java.util.stream.Collectors
  * @Version 1.0
  */
 fun String.getSplitLast(splitStr: String): String =
-        UtilKString.getSplitLast(this, splitStr)
+    UtilKString.getSplitLast(this, splitStr)
 
 fun String.getSplitFirst(splitStr: String): String =
-        UtilKString.getSplitFirst(this, splitStr)
+    UtilKString.getSplitFirst(this, splitStr)
 
 fun String.getFilenameExtension(): String =
-        UtilKString.getFilenameExtension(this)
+    UtilKString.getFilenameExtension(this)
 
-fun String.hasSpace(): Boolean =
-        UtilKString.hasSpace(this)
-
-fun String.appendStrLineBreak(): String =
-        UtilKString.appendStrLineBreak(this)
+////////////////////////////////////////////////////////////////////////////
 
 fun String.isNotEmptyOrElse(isNotEmptyBlock: I_Listener, orElseBlock: I_Listener) {
     UtilKString.isNotEmptyOrElse(this, isNotEmptyBlock, orElseBlock)
 }
+
+fun String.hasSpace(): Boolean =
+    UtilKString.hasSpace(this)
+
+fun String.containStr(str: String): Boolean =
+    UtilKString.containStr(this, str)
+
+////////////////////////////////////////////////////////////////////////////
+
+fun String.findFirst(char: Char): Int =
+    UtilKString.findFirst(this, char)
+
+fun String.findFirst(str: String): Int =
+    UtilKString.findFirst(this, str)
+
+fun String.subStr(firstIndex: Int, length: Int): String =
+    UtilKString.subStr(this, firstIndex, length)
+
+fun String.hidePhone(): String =
+    UtilKString.hidePhone(this)
+
+fun String.hideName(): String =
+    UtilKString.hideName(this)
+
+fun String.appendStrLineBreak(): String =
+    UtilKString.appendStrLineBreak(this)
 
 fun String.throwIllegalStateException() {
     UtilKString.throwIllegalStateException(this)
@@ -40,9 +62,6 @@ fun String.throwIllegalStateException() {
 object UtilKString : BaseUtilK() {
     /**
      * 获取分割后的最后一个元素
-     * @param str String
-     * @param splitStr String
-     * @return String
      */
     @JvmStatic
     fun getSplitLast(str: String, splitStr: String): String =
@@ -50,9 +69,6 @@ object UtilKString : BaseUtilK() {
 
     /**
      * 获取分割后的第一个元素
-     * @param str String
-     * @param splitStr String
-     * @return String
      */
     @JvmStatic
     fun getSplitFirst(str: String, splitStr: String): String =
@@ -60,8 +76,6 @@ object UtilKString : BaseUtilK() {
 
     /**
      * 获取扩展名
-     * @param str String
-     * @return String
      */
     @JvmStatic
     fun getFilenameExtension(str: String): String =
@@ -117,7 +131,7 @@ object UtilKString : BaseUtilK() {
 
     @JvmStatic
     fun appendStrLineBreak(str: String): String =
-            if (!str.endsWith(CMsg.LINE_BREAK)) str + CMsg.LINE_BREAK else str
+        if (!str.endsWith(CMsg.LINE_BREAK)) str + CMsg.LINE_BREAK else str
 
     /**
      * 找到第一个匹配的字符的位置
@@ -127,7 +141,7 @@ object UtilKString : BaseUtilK() {
      */
     @JvmStatic
     fun findFirst(strContent: String, char: Char): Int =
-            strContent.indexOfFirst { it == char }
+        strContent.indexOfFirst { it == char }
 
     /**
      * 找到第一个匹配的字符串的位置
@@ -136,7 +150,7 @@ object UtilKString : BaseUtilK() {
      * @return Int
      */
     fun findFirst(strContent: String, str: String): Int =
-            strContent.indexOf(str)
+        strContent.indexOf(str)
 
     /**
      * 切割字符串
@@ -147,7 +161,7 @@ object UtilKString : BaseUtilK() {
      */
     @JvmStatic
     fun subStr(strContent: String, firstIndex: Int, length: Int): String =
-            strContent.substring(firstIndex.normalize(strContent.indices), if (firstIndex + length > strContent.length) strContent.length else firstIndex + length)
+        strContent.substring(firstIndex.normalize(strContent.indices), if (firstIndex + length > strContent.length) strContent.length else firstIndex + length)
 
     /**
      * 电话号码隐藏中间四位
@@ -156,7 +170,7 @@ object UtilKString : BaseUtilK() {
      */
     @JvmStatic
     fun hidePhone(str: String): String =
-            if (str.length == 11) str.substring(0, 3) + "****" + str.substring(7, str.length) else str
+        if (str.length == 11) str.substring(0, 3) + "****" + str.substring(7, str.length) else str
 
     /**
      * 名字脱敏

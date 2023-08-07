@@ -1,6 +1,7 @@
 package com.mozhimen.debugk.cons
 
 import android.annotation.SuppressLint
+import com.mozhimen.basick.elemk.android.os.cons.CBuild
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.hardware.UtilKDevice
@@ -39,7 +40,7 @@ class DebugKParams {
     fun deviceSerialNoShort(): String = UtilKDevice.getSerialNumberShort()
 
     @ADebugKParams("设备IP")
-    fun deviceIP(): String = UtilKNetConn.getIp() ?: "unknown"
+    fun deviceIP(): String = UtilKNetConn.getIp() ?: CBuild.UNKNOWN
 
     @ADebugKParams("设备Rom版本")
     fun deviceRomVersion(): String = UtilKDevice.getRomVersion()
@@ -58,7 +59,7 @@ class DebugKParams {
 
     @SuppressLint("MissingPermission")
     @ADebugKParams("设备默认IMEI")
-    fun deviceIMEI():String = UtilKDevice.getIMEI()
+    fun deviceIMEI(): String = UtilKDevice.getIMEI()
 
     /**
      * 构建参数
@@ -68,7 +69,8 @@ class DebugKParams {
     fun buildParams(): String = ""
 
     @ADebugKParams("构建版本")
-    fun buildConfigVersion(): String = "code ${BuildConfig.VERSION_CODE} name ${BuildConfig.VERSION_NAME}"
+    fun buildConfigVersion(): String =
+        "code ${BuildConfig.VERSION_CODE} name ${BuildConfig.VERSION_NAME}"
 
     @ADebugKParams("构建环境")
     fun buildConfigEnvironment(): String = if (BuildConfig.DEBUG) "测试环境" else "正式环境"
@@ -80,7 +82,7 @@ class DebugKParams {
     fun buildType(): String = UtilKBuild.getType()
 
     @ADebugKParams("构建标签聚合")
-    fun buildTags(): String = UtilKBuild.getTags()
+    fun buildTags(): String = UtilKBuild.getTags() ?: CBuild.UNKNOWN
 
     @ADebugKParams("构建SDK版本")
     fun buildVersionSDKStr(): String = UtilKBuild.getVersionSDKStr()
@@ -156,13 +158,16 @@ class DebugKParams {
     fun screenSize(): String = UtilKScreen.getSize().toString()
 
     @ADebugKParams("屏幕真实分辨率px")
-    fun screenResolution(): String = "设备分辨率: w " + UtilKScreen.getRealWidth() + " h " + UtilKScreen.getRealHeight()
+    fun screenResolution(): String =
+        "设备分辨率: w " + UtilKScreen.getRealWidth() + " h " + UtilKScreen.getRealHeight()
 
     @ADebugKParams("屏幕当前分辨率px")
-    fun screenResolution2(): String = "设备分辨率: w " + UtilKScreen.getCurrentWidth() + " h " + UtilKScreen.getCurrentHeight()
+    fun screenResolution2(): String =
+        "设备分辨率: w " + UtilKScreen.getCurrentWidth() + " h " + UtilKScreen.getCurrentHeight()
 
     @ADebugKParams("屏幕分辨率dp")
-    fun screenResolutionDpi(): String = "设备分辨率: w " + UtilKScreen.getWidthDp() + " h " + UtilKScreen.getHeightDp()
+    fun screenResolutionDpi(): String =
+        "设备分辨率: w " + UtilKScreen.getWidthDp() + " h " + UtilKScreen.getHeightDp()
 
     @ADebugKParams("屏幕密度px")
     fun screenDensity(): String = UtilKScreen.getDensity().toString()

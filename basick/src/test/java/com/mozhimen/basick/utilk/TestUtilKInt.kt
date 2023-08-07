@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk
 
-import com.mozhimen.basick.utilk.kotlin.getByteStr
+import com.mozhimen.basick.utilk.kotlin.getStrByte
+import com.mozhimen.basick.utilk.kotlin.intByte2strByte
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
 
@@ -14,10 +15,10 @@ import org.junit.Test
 class TestUtilKInt {
     @Test
     fun test() {
-        (0b11 or 0b100).getByteStr(8).printlog()
-        (0b11 or 0b100).getByteStr().printlog()
-        (0b1 shl 7).getByteStr(8).printlog()
+        (0b11 or 0b100).getStrByte(8).printlog()
+        (0b11 or 0b100).intByte2strByte().printlog()
+        (0b1 shl 7).getStrByte(8).printlog()
 
-        (0b11 shl 8).getByteStr(10).printlog()
+        (0b11 shl 8).getStrByte(10).printlog()
     }
 }

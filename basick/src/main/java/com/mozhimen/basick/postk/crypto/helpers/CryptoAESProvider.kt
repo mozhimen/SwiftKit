@@ -5,6 +5,11 @@ import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.postk.crypto.commons.ICryptoProvider
 import com.mozhimen.basick.postk.crypto.mos.MCryptoAESConfig
+import com.mozhimen.basick.utilk.android.util.UtilKBase64
+import com.mozhimen.basick.utilk.android.util.bytes2strBase64
+import com.mozhimen.basick.utilk.android.util.bytesBase642bytes
+import com.mozhimen.basick.utilk.kotlin.bytes2str
+import com.mozhimen.basick.utilk.kotlin.str2bytes
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
@@ -21,13 +26,12 @@ class CryptoAESProvider(private val _config: MCryptoAESConfig) : ICryptoProvider
     @Throws(Exception::class)
     @RequiresApi(CVersCode.V_19_44_K)
     override fun encryptWithBase64(str: String): String =
-        Base64.encodeToString(encrypt(str.toByteArray(_config.charset)), Base64.DEFAULT)
+        encrypt(str.str2bytes(_config.charset)).bytes2strBase64(Base64.DEFAULT)
 
     @Throws(Exception::class)
     @RequiresApi(CVersCode.V_19_44_K)
     override fun decryptWithBase64(str: String): String =
-        String(decrypt(Base64.decode(str.toByteArray(_config.charset), Base64.DEFAULT)), _config.charset)
-
+        decrypt(str.str2bytes(_config.charset).bytesBase642bytes(Base64.DEFAULT)).bytes2str(_config.charset)
 
     /**
      * 采用AES128加密

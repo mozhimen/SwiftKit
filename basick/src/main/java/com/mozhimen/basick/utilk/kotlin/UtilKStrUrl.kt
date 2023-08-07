@@ -70,7 +70,7 @@ object UtilKStrUrl : BaseUtilK() {
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.INTERNET)
     fun strUrl2bitmap2(strUrl: String): Bitmap =
-            URL(strUrl).openStream().use { it.inputStream2anyBitmap() }
+            URL(strUrl).openStream().inputStream2anyBitmap()
 
     @JvmStatic
     @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
@@ -92,10 +92,8 @@ object UtilKStrUrl : BaseUtilK() {
             httpURLConnection = url.openConnection() as HttpURLConnection
             if (httpURLConnection is HttpsURLConnection) {
                 val sslContext = UtilKNetDeal.getSLLContext()
-                if (sslContext != null) {
-                    val sslSocketFactory = sslContext.socketFactory
-                    httpURLConnection.sslSocketFactory = sslSocketFactory
-                }
+                if (sslContext != null)
+                    httpURLConnection.sslSocketFactory = sslContext.socketFactory
             }
             httpURLConnection.apply {
                 connectTimeout = 60 * 1000

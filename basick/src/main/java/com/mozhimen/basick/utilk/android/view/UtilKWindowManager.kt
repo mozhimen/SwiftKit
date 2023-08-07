@@ -26,9 +26,8 @@ object UtilKWindowManager {
 
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
-    fun getCurrentWindowMetrics(context: Context): WindowMetrics {
-        return get(context).currentWindowMetrics
-    }
+    fun getCurrentWindowMetrics(context: Context): WindowMetrics =
+        get(context).currentWindowMetrics
 
     @JvmStatic
     fun getDefaultDisplay(context: Context): Display =

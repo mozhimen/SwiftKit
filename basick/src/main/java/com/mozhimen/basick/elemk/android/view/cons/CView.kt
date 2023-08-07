@@ -13,6 +13,12 @@ import com.mozhimen.basick.lintk.annors.ADescription
  * @Version 1.0
  */
 object CView {
+    const val FOCUSABLE = View.FOCUSABLE
+    const val VISIBLE = View.VISIBLE
+    const val INVISIBLE = View.INVISIBLE
+    const val GONE = View.GONE
+    const val NO_ID = View.NO_ID
+
     object SystemUiFlag {
         /**
          * 字体白色
@@ -39,7 +45,7 @@ object CView {
         /**
          * 隐藏状态栏
          * 隐藏状态栏, 点击屏幕区域不会出现, 需要从状态栏位置下拉才会出现
-         * [EGesture.PULL_DOWN_STATUS_BAR] [EGesture.WINDOW_CHANGE] 才会出现
+         * [EMotionEvent.PULL_DOWN_STATUS_BAR] [EMotionEvent.WINDOW_CHANGE] 才会出现
          * [CWinMgr.Lpf.FULLSCREEN] 有相同视觉效果。不同在于，此Flag一般用在暂时需要全屏的情形（如：阅读应用，全屏视频等），以便让用户的注意力暂时集中在内容上，
          * 而如果只是简单的需要一直停留在全屏状态（如：游戏应用），使用 [CWinMgr.Lpf.FULLSCREEN] 则是更好的选择。
          * 此Flag会因为各种的交互（如：跳转到其他应用,下拉StatusBar，弹出键盘）的发送而被系统清除
@@ -75,7 +81,7 @@ object CView {
          * 沉浸模式, 避免某些用户交互造成系统自动清除全屏状态
          * 使状态栏和导航栏真正的进入沉浸模式,即全屏模式, 如果没有设置这个标志, 设置全屏时, 我们点击屏幕的任意位置, 就会恢复为正常模式, 所以配合
          * [FULLSCREEN] [HIDE_NAVIGATION] 一起使用的, 当使用FLAG_HIDE_NAVIGATION 隐藏导航栏时，配合此特性，只有
-         * [EGesture.PULL_UP_NAVIGATION_BAR] , [EGesture.WINDOW_CHANGE] 操作会导致导航栏的隐藏状态被系统自动清除；否则，任何交互都会导致导航栏的隐藏状态被系统自动清除。
+         * [EMotionEvent.PULL_UP_NAVIGATION_BAR] , [EMotionEvent.WINDOW_CHANGE] 操作会导致导航栏的隐藏状态被系统自动清除；否则，任何交互都会导致导航栏的隐藏状态被系统自动清除。
          * 此标识只有配合FLAG_HIDE_NAVIGATION才有作用
          */
         @ADescription("系统栏", "沉浸模式")
@@ -84,7 +90,7 @@ object CView {
         /**
          * 沉浸模式, 用户可以交互的界面.同时, 用户上下拉系统栏时, 会自动隐藏系统栏跟 [IMMERSIVE] 一样
          * 但是, 它在全屏模式下, 用户上下拉状态栏或者导航栏时, 这些系统栏只是以半透明的状态显示出来, 并且在一定时间后会自动消失, 用
-         * [HIDE_NAVIGATION] 隐藏导航栏，配合使用此Flag,只有用户的 [EGesture.WINDOW_CHANGE] 第四种操作会导致状态栏或（和）导航栏的隐藏状态被系统自动清除。否则任何交互都会导致相应状态的清除。
+         * [HIDE_NAVIGATION] 隐藏导航栏，配合使用此Flag,只有用户的 [EMotionEvent.WINDOW_CHANGE] 第四种操作会导致状态栏或（和）导航栏的隐藏状态被系统自动清除。否则任何交互都会导致相应状态的清除。
          * 此Flag只有配合 [FULLSCREEN] [HIDE_NAVIGATION] 使用时才会起作用
          */
         @ADescription("系统栏", "沉浸模式", "用户上下拉系统栏时, 会自动隐藏系统栏")

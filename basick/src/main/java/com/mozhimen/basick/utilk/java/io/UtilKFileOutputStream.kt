@@ -48,10 +48,10 @@ object UtilKFileOutputStream : IUtilK {
 
     @JvmStatic
     fun fileOutputStream2file(fileOutputStream: FileOutputStream, inputStream: InputStream, destFile: File, bufferSize: Int = 1024): File? =
-        UtilKOutputStream.outputStream2file(fileOutputStream, inputStream, destFile, bufferSize)
+        fileOutputStream.outputStream2file(inputStream, destFile, bufferSize)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     fun fileOutputStream2file2(fileOutputStream: FileOutputStream, inputStream: InputStream, destFile: File): File =
-        UtilKOutputStream.outputStream2file2(fileOutputStream, inputStream, destFile)
+        fileOutputStream.outputStream2file2(inputStream, destFile)
 }

@@ -7,7 +7,7 @@ package com.mozhimen.basick.elemk.android.view.cons
  * @Date 2023/6/28 15:32
  * @Version 1.0
  */
-enum class EGesture {
+enum class EMotionEvent {
     TOUCH,//触摸
     PULL_DOWN_STATUS_BAR,//下拉状态栏
     PULL_UP_NAVIGATION_BAR,//上拉导航栏

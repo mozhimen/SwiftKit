@@ -3,18 +3,19 @@ package com.mozhimen.basick.utilk.android.view
 import android.app.Activity
 import android.content.Context
 import android.util.Log
-import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.view.cons.CKeyEvent
 import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_Official_AfterV_31_11_S
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.lang.UtilKReflect
 import java.lang.reflect.Field
@@ -50,9 +51,8 @@ object UtilKInputManager : BaseUtilK() {
      */
     @JvmStatic
     fun show(activity: Activity) {
-        if (get(activity).isActive && UtilKActivity.getCurrentFocus(activity) != null) {
+        if (isActive(activity) && UtilKActivity.getCurrentFocus(activity) != null)
             show(UtilKActivity.getCurrentFocus(activity)!!)
-        }
     }
 
     /**
@@ -85,9 +85,8 @@ object UtilKInputManager : BaseUtilK() {
      */
     @JvmStatic
     fun hide(activity: Activity) {
-        if (((UtilKWindow.getPeekDecorView(activity) != null || get(activity).isActive) && UtilKActivity.getCurrentFocus(activity) != null) && isShow(activity)) {
+        if (((UtilKWindow.getPeekDecorView(activity) != null || isActive(activity)) && UtilKActivity.getCurrentFocus(activity) != null) && isShow(activity))
             hide(UtilKActivity.getCurrentFocus(activity)!!)
-        }
     }
 
     /**
@@ -143,7 +142,8 @@ object UtilKInputManager : BaseUtilK() {
 
     @JvmStatic
     fun handleKeyEventHide(view: View, keyCode: Int) {
-        if (keyCode == KeyEvent.KEYCODE_ENTER) hide(view)
+        if (keyCode == CKeyEvent.KEYCODE_ENTER)
+            hide(view)
     }
 
     /**
@@ -169,9 +169,8 @@ object UtilKInputManager : BaseUtilK() {
      * @return Boolean
      */
     @JvmStatic
-    fun isShow(activity: Activity): Boolean {
-        return UtilKDecorView.getInvisibleHeight(activity) > 0
-    }
+    fun isShow(activity: Activity): Boolean =
+        UtilKDecorView.getInvisibleHeight(activity) > 0
 
     /**
      * 是否需要隐藏软键盘
@@ -227,12 +226,11 @@ object UtilKInputManager : BaseUtilK() {
      * @param context Context
      */
     @JvmStatic
-    fun fixInputMethodLeak(context: Context, tag: String) {
-        if (UtilKBuildVersion.isAfterV_29_10_Q()) {
-            fixInputMethodLeakAfter29(context, tag)
-        } else {
-            fixInputMethodLeakBefore29(context, tag)
-        }
+    fun fixInputLeak(context: Context, tag: String) {
+        if (UtilKBuildVersion.isAfterV_29_10_Q())
+            fixInputLeakAfter29(context, tag)
+        else
+            fixInputLeakBefore29(context, tag)
     }
 
     /**
@@ -242,26 +240,30 @@ object UtilKInputManager : BaseUtilK() {
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun fixInputMethodLeakAfter29(context: Context, tag: String) {
+    fun fixInputLeakAfter29(context: Context, tag: String) {
         val inputMethodManager = get(context)
         try {
-            val mCurRootViewField = UtilKReflect.getField(inputMethodManager, "mCurRootView")
-            if (!mCurRootViewField.isAccessible) mCurRootViewField.isAccessible = true
-            val mCurRootViewObj = mCurRootViewField.get(inputMethodManager)
-            if (mCurRootViewObj != null) {
-                val mImeFocusControllerField = UtilKReflect.getField(mCurRootViewObj, "mImeFocusController")
-                if (!mImeFocusControllerField.isAccessible) mImeFocusControllerField.isAccessible = true
-                val mImeFocusControllerObj = mImeFocusControllerField.get(mCurRootViewObj)
-                if (mImeFocusControllerObj != null) {
-                    val mNextServedViewField = UtilKReflect.getField(mImeFocusControllerObj, "mNextServedView")
-                    if (!mNextServedViewField.isAccessible) mNextServedViewField.isAccessible = true
-                    val mNextServedViewObj = mNextServedViewField.get(mImeFocusControllerObj)
-                    if (mNextServedViewObj != null) {
-                        val mParentField = UtilKReflect.getField(mNextServedViewObj, "mParent")
-                        if (!mParentField.isAccessible) mParentField.isAccessible = true
-                        val mParentObj = mParentField.get(mNextServedViewObj)
-                        if (mParentObj != null) {
-                            mParentField.set(mParentObj, null)
+            val fieldMCurRootView = UtilKReflect.getField(inputMethodManager, "mCurRootView")
+            if (!fieldMCurRootView.isAccessible)
+                fieldMCurRootView.isAccessible = true
+            val mCurRootView = fieldMCurRootView.get(inputMethodManager)
+            if (mCurRootView != null) {
+                val fieldMImeFocusController = UtilKReflect.getField(mCurRootView, "mImeFocusController")
+                if (!fieldMImeFocusController.isAccessible)
+                    fieldMImeFocusController.isAccessible = true
+                val mImeFocusController = fieldMImeFocusController.get(mCurRootView)
+                if (mImeFocusController != null) {
+                    val fieldMNextServedView = UtilKReflect.getField(mImeFocusController, "mNextServedView")
+                    if (!fieldMNextServedView.isAccessible)
+                        fieldMNextServedView.isAccessible = true
+                    val mNextServedView = fieldMNextServedView.get(mImeFocusController)
+                    if (mNextServedView != null) {
+                        val fieldMParent = UtilKReflect.getField(mNextServedView, "mParent")
+                        if (!fieldMParent.isAccessible)
+                            fieldMParent.isAccessible = true
+                        val mParent = fieldMParent.get(mNextServedView)
+                        if (mParent != null) {
+                            fieldMParent.set(mParent, null)
                             Log.d(TAG, "fixInputMethodLeak: $tag set view mNextServedView: mParent null in inputMethodManager")
                         }
 //                            val mParent1Field = UtilKReflect.getField(mParentObj, "mParent")
@@ -286,24 +288,24 @@ object UtilKInputManager : BaseUtilK() {
      * @param tag String
      */
     @JvmStatic
-    fun fixInputMethodLeakBefore29(context: Context, tag: String) {
+    fun fixInputLeakBefore29(context: Context, tag: String) {
         if (UtilKBuildVersion.isAfterV_29_10_Q()) return
         val inputMethodManager = UtilKContext.getInputMethodManager(context)
         val leakViews = arrayOf("mCurRootView", "mServedView", "mNextServedView")
-        var leakViewField: Field
-        var fieldObj: Any?
+        var fieldLeakView: Field
+        var view: Any?
         for (leakView in leakViews) {
             try {
-                leakViewField = UtilKReflect.getField(inputMethodManager, leakView)
-                if (!leakViewField.isAccessible) leakViewField.isAccessible = true
-                fieldObj = leakViewField.get(inputMethodManager)
-                if (fieldObj != null && fieldObj is View) {
-                    if (fieldObj.context == context) {                        //注意需要判断View关联的Context是不是当前Activity，否则有可能造成正常的输入框输入失效
-                        leakViewField.set(inputMethodManager, null)
-                        Log.d(TAG, "fixInputMethodLeak: $tag set view $leakView null in inputMethodManager")
-                    } else {
+                fieldLeakView = UtilKReflect.getField(inputMethodManager, leakView)
+                if (!fieldLeakView.isAccessible)
+                    fieldLeakView.isAccessible = true
+                view = fieldLeakView.get(inputMethodManager)
+                if (view != null && view is View) {
+                    if (view.context == context) {                        //注意需要判断View关联的Context是不是当前Activity，否则有可能造成正常的输入框输入失效
+                        fieldLeakView.set(inputMethodManager, null)
+                        "fixInputMethodLeakBefore29: $tag set view $leakView null in inputMethodManager".dt(TAG)
+                    } else
                         break
-                    }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

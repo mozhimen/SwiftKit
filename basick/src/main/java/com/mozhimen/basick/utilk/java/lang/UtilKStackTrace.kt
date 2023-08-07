@@ -63,9 +63,8 @@ object UtilKStackTrace : IUtilK {
     @JvmStatic
     fun getCroppedStackTrace(callStack: Array<StackTraceElement?>, maxDepth: Int): Array<StackTraceElement?> {
         var realDepth = callStack.size
-        if (maxDepth > 0) {
+        if (maxDepth > 0)
             realDepth = maxDepth.coerceAtMost(realDepth)
-        }
         val realStack = arrayOfNulls<StackTraceElement>(realDepth)
         System.arraycopy(callStack, 0, realStack, 0, realDepth)
         return realStack
@@ -79,9 +78,8 @@ object UtilKStackTrace : IUtilK {
             stackOffset = getStackTraceOffset(stackTrace, Logger::class.java)
             if (stackOffset == -1) {
                 stackOffset = getStackTraceOffset(stackTrace, Log::class.java)
-                if (stackOffset == -1) {
+                if (stackOffset == -1)
                     return null
-                }
             }
         }
         return stackTrace[stackOffset]
@@ -93,17 +91,15 @@ object UtilKStackTrace : IUtilK {
         for (i in stackTraceElements.indices) {
             val element = stackTraceElements[i]
             val tClass = element.className
-            if (TextUtils.equals(tClass, clazz.name)) {
+            if (TextUtils.equals(tClass, clazz.name))
                 logIndex = i
-            } else {
+            else
                 if (logIndex > -1) break
-            }
         }
         if (logIndex != -1) {
             logIndex++
-            if (logIndex >= stackTraceElements.size) {
+            if (logIndex >= stackTraceElements.size)
                 logIndex = stackTraceElements.size - 1
-            }
         }
         return logIndex
     }

@@ -22,7 +22,7 @@ fun String.isStrUrlDomain(): Boolean =
 fun String.isStrUrlPort(): Boolean =
     UtilKMatchStrUrl.isStrUrlPort(this)
 
-fun String.isUrl(): Boolean =
+fun String.checkStrUrl(): Boolean =
     UtilKMatchStrUrl.checkStrUrl(this)
 
 object UtilKMatchStrUrl : BaseUtilK() {

@@ -20,16 +20,12 @@ import com.mozhimen.basick.utilk.android.os.UtilKHandler
  */
 object UtilKSnackbar : BaseUtilK() {
     @JvmStatic
-    fun showSnackbar(
-        view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null
-    ) {
+    fun showSnackbar(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
         make(view, msg, duration, action, listener).show()
     }
 
     @JvmStatic
-    fun showSnackbar(
-        view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null
-    ) {
+    fun showSnackbar(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
         make(view, msgId, duration, action, listener).show()
     }
 
@@ -37,7 +33,11 @@ object UtilKSnackbar : BaseUtilK() {
 
     @JvmStatic
     fun showSnackbarMultiLines(
-        view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
+        view: View,
+        msg: String,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        action: String = "",
+        listener: View.OnClickListener? = null,
         maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
     ) {
         makeMultiLines(view, msg, duration, action, listener, maxLines).show()
@@ -45,7 +45,11 @@ object UtilKSnackbar : BaseUtilK() {
 
     @JvmStatic
     fun showSnackbarMultiLines(
-        view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
+        view: View,
+        @StringRes msgId: Int,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        action: String = "",
+        listener: View.OnClickListener? = null,
         maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
     ) {
         makeMultiLines(view, msgId, duration, action, listener, maxLines).show()
@@ -55,46 +59,50 @@ object UtilKSnackbar : BaseUtilK() {
 
     @JvmStatic
     fun showSnackbarOnMain(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
-        if (UtilKHandler.isMainLooper()) {
+        if (UtilKHandler.isMainLooper())
             showSnackbar(view, msg, duration, action, listener)
-        } else {
+        else
             BaseWeakRefMainHandler(_context).post { showSnackbar(view, msg, duration, action, listener) }
-        }
     }
 
     @JvmStatic
     fun showSnackbarOnMain(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
-        if (UtilKHandler.isMainLooper()) {
+        if (UtilKHandler.isMainLooper())
             showSnackbar(view, msgId, duration, action, listener)
-        } else {
+        else
             BaseWeakRefMainHandler(_context).post { showSnackbar(view, msgId, duration, action, listener) }
-        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun showSnackbarMultiLinesOnMain(
-        view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
+        view: View,
+        msg: String,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        action: String = "",
+        listener: View.OnClickListener? = null,
         maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
     ) {
-        if (UtilKHandler.isMainLooper()) {
+        if (UtilKHandler.isMainLooper())
             showSnackbarMultiLines(view, msg, duration, action, listener, maxLines)
-        } else {
+        else
             BaseWeakRefMainHandler(_context).post { showSnackbarMultiLines(view, msg, duration, action, listener, maxLines) }
-        }
     }
 
     @JvmStatic
     fun showSnackbarMultiLinesOnMain(
-        view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
+        view: View,
+        @StringRes msgId: Int,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        action: String = "",
+        listener: View.OnClickListener? = null,
         maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
     ) {
-        if (UtilKHandler.isMainLooper()) {
+        if (UtilKHandler.isMainLooper())
             showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines)
-        } else {
+        else
             BaseWeakRefMainHandler(_context).post { showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines) }
-        }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -113,14 +121,22 @@ object UtilKSnackbar : BaseUtilK() {
 
     @JvmStatic
     fun makeMultiLines(
-        view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
+        view: View,
+        msg: String,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        action: String = "",
+        listener: View.OnClickListener? = null,
         maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
     ): Snackbar =
         make(view, msg, duration, action, listener).apply { enableMultiLines(this, maxLines) }
 
     @JvmStatic
     fun makeMultiLines(
-        view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null,
+        view: View,
+        @StringRes msgId: Int,
+        duration: Int = Snackbar.LENGTH_SHORT,
+        action: String = "",
+        listener: View.OnClickListener? = null,
         maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
     ): Snackbar =
         make(view, msgId, duration, action, listener).apply { enableMultiLines(this, maxLines) }

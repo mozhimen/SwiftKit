@@ -20,7 +20,7 @@ object UtilKStrSerialNo : BaseUtilK() {
      * @return
      */
     @JvmStatic
-    fun getStrSerialNo(): String {
+    fun get(): String {
         //定义需要返回的流水号
         val serialNo: String
         //先查询到今天的日期，格式:"yyyyMMddHH"

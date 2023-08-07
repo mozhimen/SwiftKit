@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewGroup
 import com.mozhimen.uicorek.viewk.commons.IViewK
-import com.mozhimen.basick.utilk.android.view.UtilKGesture
+import com.mozhimen.basick.utilk.android.view.UtilKMotionEvent
 import com.mozhimen.uicorek.layoutk.slider.LayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ILayoutKSlider
 import com.mozhimen.uicorek.layoutk.slider.commons.ISliderScrollListener
@@ -236,7 +236,7 @@ internal class LayoutKSliderDelegate(
             }
 
             MotionEvent.ACTION_DOWN -> {
-                _rodIsScrolling = if (!UtilKGesture.isTapInArea(
+                _rodIsScrolling = if (!UtilKMotionEvent.isTapInArea(
                         event,
                         _slider.leftX - if (!_rod.isInsideSlider) _rod.radius else _slider.heightHalf,
                         _slider.topY - AttrsParser.DEFAULT_PADDING_VERTICAL,

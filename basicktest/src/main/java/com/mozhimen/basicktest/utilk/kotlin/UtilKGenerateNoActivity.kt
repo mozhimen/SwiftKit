@@ -8,7 +8,7 @@ import com.mozhimen.basicktest.databinding.ActivityUtilkGenerateNoBinding
 class UtilKGenerateNoActivity : BaseActivityVB<ActivityUtilkGenerateNoBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         vb.utilkGenerateNoBtn.setOnClickListener {
-            vb.utilkGenerateNoTxt.setText(UtilKStrSerialNo.getStrSerialNo())
+            vb.utilkGenerateNoTxt.text = UtilKStrSerialNo.get()
         }
     }
 }

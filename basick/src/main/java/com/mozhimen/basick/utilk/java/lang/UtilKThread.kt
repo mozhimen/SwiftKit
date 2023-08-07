@@ -29,9 +29,9 @@ object UtilKThread {
      */
     @JvmStatic
     fun isMainProcess(context: Context): Boolean {
-        for (process in UtilKActivityManager.get(context).runningAppProcesses) {
-            if (process.processName == UtilKContext.getPackageName(context)) return true
-        }
+        for (process in UtilKActivityManager.get(context).runningAppProcesses)
+            if (process.processName == UtilKContext.getPackageName(context))
+                return true
         return false
     }
 
@@ -45,20 +45,18 @@ object UtilKThread {
 
     @JvmStatic
     fun runOnBackThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
-        if (isMainThread()) {
+        if (isMainThread())
             lifecycleOwner.lifecycleScope.launch(Dispatchers.IO) { block.invoke() }
-        } else {
+        else
             block.invoke()
-        }
     }
 
     @JvmStatic
     fun runOnMainThread(lifecycleOwner: LifecycleOwner, block: I_Listener) {
-        if (isMainThread()) {
+        if (isMainThread())
             block.invoke()
-        } else {
+        else
             lifecycleOwner.lifecycleScope.launch(Dispatchers.Main) { block.invoke() }
-        }
     }
 
     @JvmStatic
@@ -74,10 +72,9 @@ object UtilKThread {
      */
     @JvmStatic
     suspend fun runOnBackThread(block: ISuspend_Listener) {
-        if (isMainThread()) {
+        if (isMainThread())
             withContext(Dispatchers.IO) { block.invoke() }
-        } else {
+        else
             block.invoke()
-        }
     }
 }

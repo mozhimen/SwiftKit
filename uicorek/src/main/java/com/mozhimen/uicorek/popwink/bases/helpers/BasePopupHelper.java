@@ -43,7 +43,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity;
 import com.mozhimen.basick.utilk.android.content.UtilKResource;
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
 import com.mozhimen.basick.utilk.android.util.UtilKLog;
-import com.mozhimen.basick.utilk.android.util.UtilKLogPro;
+import com.mozhimen.basick.utilk.android.util.UtilKLog2;
 import com.mozhimen.basick.utilk.android.view.UtilKContentView;
 import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
 import com.mozhimen.basick.utilk.android.view.UtilKInputManager;
@@ -629,7 +629,7 @@ public final class BasePopupHelper implements Function2<Rect, Boolean, Unit>, IC
                 r.set(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
                         cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
             } catch (Exception e) {
-                UtilKLogPro.e(e);
+                UtilKLog2.e(e);
             }
         } else {
             r.setEmpty();
@@ -962,7 +962,7 @@ public final class BasePopupHelper implements Function2<Rect, Boolean, Unit>, IC
         showFlag |= BasePopupHelper.STATUS_START_SHOWING;
 
         if (mGlobalLayoutListener == null && mPopupWindow.getContext() != null) {
-            mGlobalLayoutListener = UtilKInputChange.observerKeyboardChange(mPopupWindow.getContext(), new Function2<Rect, Boolean, Unit>() {
+            mGlobalLayoutListener = UtilKInputChange.observerInputChange(mPopupWindow.getContext(), new Function2<Rect, Boolean, Unit>() {
                 @Override
                 public Unit invoke(Rect keyboardBounds, Boolean isVisible) {
                     BasePopupHelper.this.invoke(keyboardBounds, isVisible);

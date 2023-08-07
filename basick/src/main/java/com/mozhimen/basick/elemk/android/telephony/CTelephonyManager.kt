@@ -36,4 +36,6 @@ object CTelephonyManager {
     const val NETWORK_TYPE_EDGE = TelephonyManager.NETWORK_TYPE_EDGE
     const val NETWORK_TYPE_1xRTT = TelephonyManager.NETWORK_TYPE_1xRTT
     const val NETWORK_TYPE_IDEN = TelephonyManager.NETWORK_TYPE_IDEN
+
+    const val PHONE_TYPE_NONE = TelephonyManager.PHONE_TYPE_NONE
 }

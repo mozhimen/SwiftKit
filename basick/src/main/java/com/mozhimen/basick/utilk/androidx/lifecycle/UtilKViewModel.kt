@@ -18,9 +18,9 @@ object UtilKViewModel {
     fun <VM : ViewModel> get(owner: ViewModelStoreOwner, factory: ViewModelProvider.Factory? = null, index: Int = 1): VM =
         UtilKGeneric.getParentGenericTypeClazz(owner::class.java, index)?.let { vmClazz ->
             factory?.let { fac ->
-                ViewModelProvider(owner, fac).get(vmClazz as Class<VM>)
+                ViewModelProvider(owner, fac)[vmClazz as Class<VM>]
             } ?: run {
-                ViewModelProvider(owner).get(vmClazz as Class<VM>)
+                ViewModelProvider(owner)[vmClazz as Class<VM>]
             }
         } ?: throw Exception("inflate vm fail!")
 }

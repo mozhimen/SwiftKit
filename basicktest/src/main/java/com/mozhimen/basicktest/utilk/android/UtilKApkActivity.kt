@@ -7,6 +7,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKApk
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
+import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basicktest.databinding.ActivityUtilkApkBinding
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
 class UtilKApkActivity : BaseActivityVB<ActivityUtilkApkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
-            val apkPathWithName = UtilKStrPath.Absolute.Internal.getCacheDir() + "/temp/${UtilKFileFormat.nowDateStr2strFileName()}.apk"
+            val apkPathWithName = UtilKStrPath.Absolute.Internal.getCacheDir() + "/temp/${UtilKFile.getStrFileNameForStrNowDate()}.apk"
             if (!UtilKFile.isFileExist(apkPathWithName)) {
                 UtilKAsset.asset2file("basicktest-debug.apk", apkPathWithName)
             }

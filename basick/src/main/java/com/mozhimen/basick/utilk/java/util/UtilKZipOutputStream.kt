@@ -4,7 +4,9 @@ import android.util.Log
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.flushClose
 import java.io.*
+import java.nio.Buffer
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
@@ -19,21 +21,21 @@ object UtilKZipOutputStream : IUtilK {
 
     @JvmStatic
     fun file2zipFile(file: File, zipFile: File) {
-        val fileOutputStream = FileOutputStream(zipFile, false)
-        val zipOutputStream = ZipOutputStream(fileOutputStream)
-        val bufferedOutputStream = BufferedOutputStream(zipOutputStream)
+        var fileOutputStream: FileOutputStream? = null
+        var zipOutputStream: ZipOutputStream? = null
+        var bufferedOutputStream: BufferedOutputStream? = null
         try {
+            fileOutputStream = FileOutputStream(zipFile, false)
+            zipOutputStream = ZipOutputStream(fileOutputStream)
+            bufferedOutputStream = BufferedOutputStream(zipOutputStream)
             file2zipFile(zipOutputStream, bufferedOutputStream, file, file.name)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
         } finally {
-            bufferedOutputStream.flush()
-            bufferedOutputStream.close()
-            zipOutputStream.flush()
-            zipOutputStream.close()
-            fileOutputStream.flush()
-            fileOutputStream.close()
+            bufferedOutputStream?.flushClose()
+            zipOutputStream?.flushClose()
+            fileOutputStream?.flushClose()
         }
     }
 
@@ -46,35 +48,41 @@ object UtilKZipOutputStream : IUtilK {
      */
     @JvmStatic
     fun file2zipFile(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, sourceFile: File, fileName: String) {
-        if (UtilKFile.isFolder(sourceFile)) {
-            val listFiles = sourceFile.listFiles() ?: emptyArray()
-            if (listFiles.isEmpty()) {
-                val stringBuilder = StringBuilder().apply {
-                    append(fileName).append("/")
-                }
-                zipOutputStream.putNextEntry(ZipEntry(stringBuilder.toString().also { Log.d(TAG, "compress: stringBuilder $stringBuilder") }))
-            } else {
-                for (file in listFiles) {
+        try {
+            if (UtilKFile.isFolder(sourceFile)) {
+                val listFiles = sourceFile.listFiles() ?: emptyArray()
+                if (listFiles.isEmpty()) {
                     val stringBuilder = StringBuilder().apply {
-                        append(fileName).append("/").append(file.name)
+                        append(fileName).append("/")
                     }
-                    file2zipFile(zipOutputStream, bufferedOutputStream, file, stringBuilder.toString())
-                }
-            }
-        } else {
-            zipOutputStream.putNextEntry(ZipEntry(fileName))
-            val fileInputStream = FileInputStream(sourceFile)
-            val bufferedInputStream = BufferedInputStream(fileInputStream)
-            while (true) {
-                val read = bufferedInputStream.read()
-                if (read != -1) {
-                    bufferedOutputStream.write(read)
+                    zipOutputStream.putNextEntry(ZipEntry(stringBuilder.toString().also { Log.d(TAG, "compress: stringBuilder $stringBuilder") }))
                 } else {
-                    bufferedInputStream.close()
-                    fileInputStream.close()
-                    return
+                    for (file in listFiles) {
+                        val stringBuilder = StringBuilder().apply {
+                            append(fileName).append("/").append(file.name)
+                        }
+                        file2zipFile(zipOutputStream, bufferedOutputStream, file, stringBuilder.toString())
+                    }
+                }
+            } else {
+                zipOutputStream.putNextEntry(ZipEntry(fileName))
+                val fileInputStream = FileInputStream(sourceFile)
+                val bufferedInputStream = BufferedInputStream(fileInputStream)
+
+                while (true) {
+                    val read = bufferedInputStream.read()
+                    if (read != -1) {
+                        bufferedOutputStream.write(read)
+                    } else {
+                        bufferedInputStream.close()
+                        fileInputStream.close()
+                        return
+                    }
                 }
             }
+        } finally {
+            zipOutputStream.flushClose()
+            bufferedOutputStream.flushClose()
         }
     }
 }

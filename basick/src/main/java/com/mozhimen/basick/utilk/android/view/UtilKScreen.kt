@@ -22,48 +22,7 @@ import kotlin.math.sqrt
 object UtilKScreen : BaseUtilK() {
 
     /**
-     * 是否全屏
-     * @param activity Activity
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isFullScreen(activity: Activity): Boolean =
-        UtilKWindow.isFullScreen(activity)
-
-    /**
-     * 是否全屏
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isFullScreen(): Boolean =
-        UtilKTheme.isFullScreen(_context)
-
-//    /**
-//     * 设置全屏
-//     * @param decorView View
-//     */
-//    @JvmStatic
-//    fun setFullScreen(decorView: View) {
-//        UtilKDecorView.setFullScreen(decorView)
-//    }
-
-    /**
-     * 设置屏幕亮度
-     * @param paramFloat Float 0-1范围
-     * @param activity Activity
-     */
-    @JvmStatic
-    fun applyBrightness(@FloatRange(from = 0.0, to = 1.0) paramFloat: Float, activity: Activity) {
-        val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(activity)
-        layoutParams.screenBrightness = paramFloat
-        UtilKWindow.applyAttributes(activity, layoutParams)
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////
-
-    /**
      * 获取屏幕密度dp
-     * @return Int
      */
     @JvmStatic
     fun getDensityDpi(): Int =
@@ -71,7 +30,6 @@ object UtilKScreen : BaseUtilK() {
 
     /**
      * 获取屏幕密度dp
-     * @return Int
      */
     @JvmStatic
     fun getDensityDpi1(): Int =
@@ -79,7 +37,6 @@ object UtilKScreen : BaseUtilK() {
 
     /**
      * 获取屏幕密度
-     * @return Float
      */
     @JvmStatic
     fun getDensity(): Float =
@@ -87,7 +44,6 @@ object UtilKScreen : BaseUtilK() {
 
     /**
      * 获取屏幕宽度
-     * @return Int
      */
     @JvmStatic
     fun getCurrentWidth(): Int =
@@ -95,7 +51,6 @@ object UtilKScreen : BaseUtilK() {
 
     /**
      * 获取屏幕高度 2的和1的区别是是否考虑状态栏等, 2是减去状态栏的高度, 即为当前的
-     * @return Int
      */
     @JvmStatic
     fun getCurrentHeight(): Int =
@@ -103,31 +58,26 @@ object UtilKScreen : BaseUtilK() {
 
     /**
      * 获取像素宽
-     * @return Int
      */
     @JvmStatic
     fun getRealWidth(): Int =
-        if (UtilKBuildVersion.isAfterV_30_11_R()) {
+        if (UtilKBuildVersion.isAfterV_30_11_R())
             UtilKWindowManager.getBoundsWidth(_context)
-        } else {
+        else
             UtilKWindowManager.getSizeX(_context)
-        }
 
     /**
      * 获取像素高
-     * @return Int
      */
     @JvmStatic
     fun getRealHeight(): Int =
-        if (UtilKBuildVersion.isAfterV_30_11_R()) {
+        if (UtilKBuildVersion.isAfterV_30_11_R())
             UtilKWindowManager.getBoundsHeight(_context)
-        } else {
+        else
             UtilKWindowManager.getSizeY(_context)
-        }
 
     /**
      * 获取屏幕尺寸
-     * @return Float
      */
     @JvmStatic
     fun getSize(): Float {
@@ -143,7 +93,6 @@ object UtilKScreen : BaseUtilK() {
 
     /**
      * 获取dp宽
-     * @return Int
      */
     @JvmStatic
     fun getWidthDp(): Int =
@@ -151,7 +100,6 @@ object UtilKScreen : BaseUtilK() {
 
     /**
      * 获取dp高
-     * @return Int
      */
     @JvmStatic
     fun getHeightDp(): Int =
@@ -159,15 +107,26 @@ object UtilKScreen : BaseUtilK() {
 
     /**
      * 获取屏幕方向
-     * @return Int
      */
     @JvmStatic
     fun getOrientation(): Int =
         UtilKConfiguration.getOrientation()
 
+
+    /**
+     * 获取方向
+     */
+    @JvmStatic
+    fun getRotation(activity: Activity): Int =
+        if (UtilKBuildVersion.isAfterV_30_11_R())
+            UtilKDisplay.getRotation(activity)
+        else
+            UtilKDisplay.getDefaultRotation(activity as Context)
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 是否为竖屏
-     * @return Boolean
      */
     @JvmStatic
     fun isOrientationPortrait(): Boolean =
@@ -178,26 +137,46 @@ object UtilKScreen : BaseUtilK() {
         UtilKConfiguration.isOrientationLandscape()
 
     /**
-     * 获取方向
-     * @param activity Activity
-     * @return Int
+     * 是否全屏
      */
     @JvmStatic
-    fun getRotation(activity: Activity): Int =
-        if (UtilKBuildVersion.isAfterV_30_11_R()) {
-            UtilKDisplay.getRotation(activity)
-        } else {
-            UtilKDisplay.getDefaultRotation(activity as Context)
-        }
+    fun isFullScreen(activity: Activity): Boolean =
+        UtilKWindow.isFullScreen(activity)
+
+    /**
+     * 是否全屏
+     */
+    @JvmStatic
+    fun isFullScreen(): Boolean =
+        UtilKTheme.isFullScreen(_context)
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
-     * 截屏
+     * 设置屏幕亮度
+     * @param paramFloat Float 0-1范围
      * @param activity Activity
-     * @return Bitmap
+     */
+    @JvmStatic
+    fun applyBrightness(@FloatRange(from = 0.0, to = 1.0) paramFloat: Float, activity: Activity) {
+        val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(activity)
+        layoutParams.screenBrightness = paramFloat
+        UtilKWindow.applyAttributes(activity, layoutParams)
+    }
+
+    /**
+     * 截屏
      */
     @JvmStatic
     fun capture(activity: Activity): Bitmap =
         UtilKDecorView.getBitmap(activity)
+
+//    /**
+//     * 设置全屏
+//     * @param decorView View
+//     */
+//    @JvmStatic
+//    fun applyFullScreen(decorView: View) {
+//        UtilKDecorView.setFullScreen(decorView)
+//    }
 }

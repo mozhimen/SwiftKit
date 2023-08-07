@@ -1,9 +1,10 @@
 package com.mozhimen.basick.utilk.kotlin
 
+import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.PrintWriter
 import java.io.StringWriter
-import java.io.Writer
 
 /**
  * @ClassName UtilKThrowable
@@ -13,21 +14,30 @@ import java.io.Writer
  * @Version 1.0
  */
 fun Throwable.throwable2str(): String =
-        UtilKThrowable.throwable2str(this)
+    UtilKThrowable.throwable2str(this)
 
-object UtilKThrowable {
+object UtilKThrowable : IUtilK {
     @JvmStatic
     fun throwable2str(throwable: Throwable): String {
-        val stringWriter: Writer = StringWriter()
+        val stringWriter = StringWriter()
         val printWriter = PrintWriter(stringWriter)
-        throwable.printStackTrace(printWriter)
-        var cause = throwable.cause
-        while (cause != null) {
-            cause.printStackTrace(printWriter)
-            cause = cause.cause
+        try {
+            throwable.printStackTrace(printWriter)
+            var cause = throwable.cause
+            while (cause != null) {
+                cause.printStackTrace(printWriter)
+                cause = cause.cause
+            }
+            return stringWriter.toString().replaceRegexLineBreak()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        } finally {
+            printWriter.flush()
+            printWriter.close()
+            stringWriter.flush()
+            stringWriter.close()
         }
-        val crashString = stringWriter.toString()
-        printWriter.close()
-        return crashString.replaceRegexLineBreak()
+        return ""
     }
 }

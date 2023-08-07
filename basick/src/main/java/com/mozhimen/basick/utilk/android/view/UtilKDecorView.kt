@@ -3,11 +3,12 @@ package com.mozhimen.basick.utilk.android.view
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Rect
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import com.mozhimen.basick.elemk.android.view.cons.CView
+import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlin.math.abs
 
@@ -28,6 +29,10 @@ object UtilKDecorView : BaseUtilK() {
         UtilKWindow.getDecorView(window)
 
     @JvmStatic
+    fun getContentView(activity: Activity): View? =
+        get(activity).findViewById(CPackage.ANDROID_R_ID_CONTENT)
+
+    @JvmStatic
     fun getAsViewGroup(activity: Activity): ViewGroup =
         getAsViewGroup(activity.window)
 
@@ -39,6 +44,74 @@ object UtilKDecorView : BaseUtilK() {
     @JvmStatic
     fun <V : View> getAs(window: Window): V =
         get(window) as V
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getSystemUiVisibility(activity: Activity): Int =
+        getSystemUiVisibility(activity.window)
+
+    @JvmStatic
+    fun getSystemUiVisibility(window: Window): Int =
+        getSystemUiVisibility(get(window))
+
+    @JvmStatic
+    fun getSystemUiVisibility(decorView: View): Int =
+        decorView.systemUiVisibility
+
+    @JvmStatic
+    fun getWindowSystemUiVisibility(activity: Activity): Int =
+        getWindowSystemUiVisibility(activity.window)
+
+    @JvmStatic
+    fun getWindowSystemUiVisibility(window: Window): Int =
+        get(window).windowSystemUiVisibility
+
+    @JvmStatic
+    fun getWindowVisibleDisplayFrame(activity: Activity, rect: Rect) {
+        getWindowVisibleDisplayFrame(get(activity), rect)
+    }
+
+    @JvmStatic
+    fun getWindowVisibleDisplayFrame(view: View, rect: Rect) {
+        UtilKView.getWindowVisibleDisplayFrame(view, rect)
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getInvisibleHeight(activity: Activity): Int =
+        getInvisibleHeight(UtilKWindow.get(activity))
+
+    /**
+     * 获取DecorView区域高度
+     * @param window Window
+     * @return Int
+     */
+    @JvmStatic
+    fun getInvisibleHeight(window: Window): Int {
+        val decorView = UtilKWindow.getDecorView(window)
+        val rect = Rect()
+        getWindowVisibleDisplayFrame(decorView, rect)
+        val delta = abs(decorView.bottom - rect.bottom)
+        return (if (delta <= UtilKNavigationBar.getHeight() + UtilKStatusBar.getHeight()) 0 else delta).also { ("getInvisibleHeight: " + (decorView.bottom - rect.bottom)).dt(TAG) }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 截屏
+     */
+    @JvmStatic
+    fun getBitmap(activity: Activity): Bitmap {
+        val decorView = get(activity)
+        decorView.isDrawingCacheEnabled = true
+        decorView.buildDrawingCache()
+        val bitmap = Bitmap.createBitmap(decorView.drawingCache, 0, 0, decorView.measuredWidth, decorView.measuredHeight - UtilKVirtualBar.getHeight(activity))
+        decorView.isDrawingCacheEnabled = false
+        decorView.destroyDrawingCache()
+        return bitmap
+    }
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -88,40 +161,6 @@ object UtilKDecorView : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getSystemUiVisibility(activity: Activity): Int =
-        getSystemUiVisibility(activity.window)
-
-    @JvmStatic
-    fun getSystemUiVisibility(window: Window): Int =
-        getSystemUiVisibility(get(window))
-
-    @JvmStatic
-    fun getSystemUiVisibility(decorView: View): Int =
-        decorView.systemUiVisibility
-
-    @JvmStatic
-    fun getWindowSystemUiVisibility(activity: Activity): Int =
-        getWindowSystemUiVisibility(activity.window)
-
-    @JvmStatic
-    fun getWindowSystemUiVisibility(window: Window): Int =
-        get(window).windowSystemUiVisibility
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getWindowVisibleDisplayFrame(activity: Activity, rect: Rect) {
-        getWindowVisibleDisplayFrame(get(activity), rect)
-    }
-
-    @JvmStatic
-    fun getWindowVisibleDisplayFrame(view: View, rect: Rect) {
-        UtilKView.getWindowVisibleDisplayFrame(view, rect)
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
     fun applyLayoutStable(activity: Activity) {
         applySystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_STABLE)
     }
@@ -136,50 +175,13 @@ object UtilKDecorView : BaseUtilK() {
         applySystemUiVisibilityOr(activity, CView.SystemUiFlag.IMMERSIVE_STICKY)
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getInvisibleHeight(activity: Activity): Int =
-        getInvisibleHeight(UtilKWindow.get(activity))
-
-    /**
-     * 获取DecorView区域高度
-     * @param window Window
-     * @return Int
-     */
-    @JvmStatic
-    fun getInvisibleHeight(window: Window): Int {
-        val decorView = UtilKWindow.getDecorView(window)
-        val outRect = Rect()
-        getWindowVisibleDisplayFrame(decorView, outRect)
-        Log.d(TAG, "getInvisibleHeight: " + (decorView.bottom - outRect.bottom))
-        val delta = abs(decorView.bottom - outRect.bottom)
-        return if (delta <= UtilKNavigationBar.getHeight() + UtilKStatusBar.getHeight()) 0 else delta
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 截屏
-     */
-    @JvmStatic
-    fun getBitmap(activity: Activity): Bitmap {
-        val view = get(activity)
-        view.isDrawingCacheEnabled = true
-        view.buildDrawingCache()
-        val bitmap = Bitmap.createBitmap(view.drawingCache, 0, 0, view.measuredWidth, view.measuredHeight - UtilKVirtualBar.getHeight(activity))
-        view.isDrawingCacheEnabled = false
-        view.destroyDrawingCache()
-        return bitmap
-    }
-
 //    @JvmStatic
-//    fun setFullScreen(activity: Activity) {
+//    fun applyFullScreen(activity: Activity) {
 //        setFullScreen(activity.window)
 //    }
 //
 //    @JvmStatic
-//    fun setFullScreen(window: Window) {
+//    fun applyFullScreen(window: Window) {
 //        setFullScreen(get(window))
 //    }
 //
@@ -188,7 +190,7 @@ object UtilKDecorView : BaseUtilK() {
 //     * @param decorView View
 //     */
 //    @JvmStatic
-//    fun setFullScreen(decorView: View) {
+//    fun applyFullScreen(decorView: View) {
 //        setSystemUiVisibility(
 //            decorView, (CView.SystemUiFlag.LOW_PROFILE or
 //                    CView.SystemUiFlag.FULLSCREEN or

@@ -34,19 +34,19 @@ object UtilKRandomAccessFile {
     @JvmStatic
     fun getCpuUsage(): Float {
         var randomAccessFile: RandomAccessFile? = null
-        var line: String
+        var strLine: String
         try {
             randomAccessFile = RandomAccessFile(CPath.SYSTEM_XBIN_WHICH, "r")
-            line = randomAccessFile.readLine()
-            var toks = line.split(" ".toRegex()).toTypedArray()
+            strLine = randomAccessFile.readLine()
+            var toks = strLine.split(" ".toRegex()).toTypedArray()
             val idle1 = toks[5].toLong()
             val cpu1 = toks[2].toLong() + toks[3].toLong() + toks[4].toLong() + toks[6].toLong() + toks[7].toLong() + toks[8].toLong()
 
             Thread.sleep(360)
 
             randomAccessFile.seek(0)
-            line = randomAccessFile.readLine()
-            toks = line.split(" ".toRegex()).toTypedArray()
+            strLine = randomAccessFile.readLine()
+            toks = strLine.split(" ".toRegex()).toTypedArray()
             val idle2 = toks[5].toLong()
             val cpu2 = toks[2].toLong() + toks[3].toLong() + toks[4].toLong() + toks[6].toLong() + toks[7].toLong() + toks[8].toLong()
             return (cpu2 - cpu1).toFloat() / (cpu2 + idle2 - (cpu1 + idle1))

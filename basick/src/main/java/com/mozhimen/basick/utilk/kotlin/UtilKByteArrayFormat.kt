@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.writeBytes2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
@@ -18,38 +19,38 @@ import java.nio.charset.Charset
  * @Version 1.0
  */
 fun ByteArray.bytes2file(filePathWithName: String, isOverwrite: Boolean = true): File =
-        UtilKByteArrayFormat.bytes2file(this, filePathWithName, isOverwrite)
+    UtilKByteArrayFormat.bytes2file(this, filePathWithName, isOverwrite)
 
 fun ByteArray.bytes2file(destFile: File, isOverwrite: Boolean = true): File =
-        UtilKByteArrayFormat.bytes2file(this, destFile, isOverwrite)
+    UtilKByteArrayFormat.bytes2file(this, destFile, isOverwrite)
 
 fun ByteArray.bytes2obj(): Any? =
-        UtilKByteArrayFormat.bytes2obj(this)
+    UtilKByteArrayFormat.bytes2obj(this)
 
 fun ByteArray.bytes2hexStr(size: Int): String =
-        UtilKByteArrayFormat.bytes2hexStr(this, size)
+    UtilKByteArrayFormat.bytes2hexStr(this, size)
 
 fun ByteArray.bytes2hexStr(): String =
-        UtilKByteArrayFormat.bytes2hexStr(this)
+    UtilKByteArrayFormat.bytes2hexStr(this)
 
 fun ByteArray.bytes2str(charset: Charset = Charsets.UTF_8): String =
-        UtilKByteArrayFormat.bytes2str(this, charset)
+    UtilKByteArrayFormat.bytes2str(this, charset)
 
 fun ByteArray.bytes2str(offset: Int, length: Int): String =
-        UtilKByteArrayFormat.bytes2str(this, offset, length)
+    UtilKByteArrayFormat.bytes2str(this, offset, length)
 
-object UtilKByteArrayFormat {
+object UtilKByteArrayFormat : IUtilK {
     @JvmStatic
     fun bytes2str(bytes: ByteArray, charset: Charset = Charsets.UTF_8): String =
-            String(bytes, charset)
+        String(bytes, charset)
 
     @JvmStatic
     fun bytes2str(bytes: ByteArray, offset: Int, length: Int): String =
-            String(bytes, offset, length)
+        String(bytes, offset, length)
 
     @JvmStatic
     fun bytes2file(bytes: ByteArray, filePathWithName: String, isOverwrite: Boolean = true): File =
-            bytes2file(bytes, UtilKFile.createFile(filePathWithName), isOverwrite)
+        bytes2file(bytes, UtilKFile.createFile(filePathWithName), isOverwrite)
 
     @JvmStatic
     fun bytes2file(bytes: ByteArray, file: File, isOverwrite: Boolean = true): File {
@@ -68,7 +69,7 @@ object UtilKByteArrayFormat {
             return objectInputStream.readObject()
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKByteArray.TAG)
+            e.message?.et(TAG)
         } finally {
             byteArrayInputStream?.close()
             objectInputStream?.close()
@@ -81,7 +82,8 @@ object UtilKByteArrayFormat {
         val stringBuilder = StringBuilder()
         for (i in 0 until size) {
             val hex = Integer.toHexString(0xFF and bytes[i].toInt())
-            if (hex.length == 1) stringBuilder.append('0')
+            if (hex.length == 1)
+                stringBuilder.append('0')
             stringBuilder.append(hex)
         }
         return stringBuilder.toString()

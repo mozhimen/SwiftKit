@@ -73,15 +73,15 @@ object UtilKFileFormat {
     @JvmStatic
     fun file2str(file: File): String =
             if (!UtilKFile.isFileExist(file)) ""
-            else FileInputStream(file).use { it.inputStream2str() }
+            else FileInputStream(file).inputStream2str()
 
     @JvmStatic
     fun file2Bytes(file: File): ByteArray? =
             if (!UtilKFile.isFileExist(file)) null
-            else FileInputStream(file).use { it.inputStream2bytes() }
+            else FileInputStream(file).inputStream2bytes()
 
     @JvmStatic
     fun file2bytes2(file: File): ByteArray? =
             if (!UtilKFile.isFileExist(file)) null
-            else FileInputStream(file).use { it.inputStream2bytes2(file.length()) }
+            else FileInputStream(file).inputStream2bytes2(file.length())
 }

@@ -14,13 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 object UtilKActionBar {
 
     @JvmStatic
-    fun get(activity: AppCompatActivity): ActionBar? {
-        return activity.supportActionBar
-    }
+    fun get(activity: AppCompatActivity): ActionBar? =
+        activity.supportActionBar
 
     @JvmStatic
     fun hide(activity: Activity) {
-        if (activity is AppCompatActivity) hide(activity)
+        if (activity is AppCompatActivity)
+            hide(activity)
     }
 
     @JvmStatic

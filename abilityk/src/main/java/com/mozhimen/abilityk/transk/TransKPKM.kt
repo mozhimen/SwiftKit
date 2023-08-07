@@ -33,7 +33,7 @@ class TransKPKM : BaseUtilK() {
     }
 
     fun open(): Boolean {
-        if (_path == null && UtilKCharSequence.isEmpty(_path)) {
+        if (_path == null && UtilKCharSequence.isNullOrEmpty(_path)) {
             _zipInputStream = null
             _zipEntry = null
             return false

@@ -6,6 +6,7 @@ import android.os.Build
 import android.telephony.TelephonyManager
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.telephony.CTelephonyManager
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 
 
@@ -33,9 +34,13 @@ object UtilKTelephonyManager {
     fun getDeviceId(context: Context): String =
         get(context).deviceId
 
+    @JvmStatic
+    fun getPhoneType(context: Context): Int =
+        get(context).phoneType
+
     //////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun hasTelephone(context: Context): Boolean =
-        get(context).phoneType != TelephonyManager.PHONE_TYPE_NONE
+        getPhoneType(context) != CTelephonyManager.PHONE_TYPE_NONE
 }

@@ -47,26 +47,13 @@ object UtilKByteArrayOutputStream {
 
     @JvmStatic
     fun byteArrayOutputStream2anyBitmap(byteArrayOutputStream: ByteArrayOutputStream): Bitmap =
-        byteArrayOutputStream.flushClose { it.byteArrayOutputStream2bytes().anyBytes2anyBitmap() }
+        byteArrayOutputStream.byteArrayOutputStream2bytes().anyBytes2anyBitmap()
 
-    /**
-     * 输出流转文件
-     * @param byteArrayOutputStream ByteArrayOutputStream
-     * @param filePathWithName String
-     * @param isOverwrite Boolean
-     * @return String
-     */
     @JvmStatic
     fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, filePathWithName: String, isOverwrite: Boolean = true): File =
         byteArrayOutputStream2file(byteArrayOutputStream, filePathWithName.strFilePath2file(), isOverwrite)
 
-    /**
-     * 输出流转文件
-     * @param byteArrayOutputStream ByteArrayOutputStream
-     * @param destFile File
-     * @param isOverwrite Boolean
-     */
     @JvmStatic
     fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, destFile: File, isOverwrite: Boolean = true): File =
-        byteArrayOutputStream.flushClose { it.byteArrayOutputStream2bytes().bytes2file(destFile, isOverwrite) }
+        byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2file(destFile, isOverwrite)
 }

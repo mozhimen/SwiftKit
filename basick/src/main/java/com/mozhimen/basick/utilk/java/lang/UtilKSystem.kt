@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.java.lang
 
 import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.elemk.cons.CStrPackage
 
 /**
  * @ClassName UtilKSystem
@@ -16,5 +17,5 @@ object UtilKSystem {
 
     @JvmStatic
     fun getPropertyLineSeparator(): String? =
-            getProperty(CPackage.LINE_SEPARATOR)
+            getProperty(CStrPackage.LINE_SEPARATOR)
 }

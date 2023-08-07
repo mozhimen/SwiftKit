@@ -7,6 +7,9 @@ package com.mozhimen.basick.utilk.kotlin.collections
  * @Date 2023/8/2 16:15
  * @Version 1.0
  */
+fun Map<*, *>.map2str(): String =
+    UtilKMap.map2str(this)
+
 object UtilKMap {
     /**
      * map2Str

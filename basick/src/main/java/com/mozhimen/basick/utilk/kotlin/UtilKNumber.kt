@@ -13,83 +13,82 @@ import kotlin.math.min
  * @Version 1.0
  */
 fun Double.keepDigits(digit: Int): Double =
-        UtilKNumber.keepDigits(this, digit)
+    UtilKNumber.keepDigits(this, digit)
 
 fun Float.keepDigits(digit: Int): Float =
-        UtilKNumber.keepDigits(this, digit)
+    UtilKNumber.keepDigits(this, digit)
 
 fun Double.keepDigitsStr(digit: Int): String =
-        UtilKNumber.keepDigitsStr(this, digit)
+    UtilKNumber.keepDigitsStr(this, digit)
 
 fun Float.keepDigitsStr(digit: Int): String =
-        UtilKNumber.keepDigitsStr(this, digit)
+    UtilKNumber.keepDigitsStr(this, digit)
 
 /////////////////////////////////////////////////////
 
 fun Double.normalize(min: Double, max: Double): Double =
-        UtilKNumber.normalize(this, min, max)
+    UtilKNumber.normalize(this, min, max)
 
 fun Long.normalize(min: Long, max: Long): Long =
-        UtilKNumber.normalize(this, min, max)
+    UtilKNumber.normalize(this, min, max)
 
 fun Float.normalize(min: Float, max: Float): Float =
-        UtilKNumber.normalize(this, min, max)
+    UtilKNumber.normalize(this, min, max)
 
 fun Int.normalize(min: Int, max: Int): Int =
-        UtilKNumber.normalize(this, min, max)
+    UtilKNumber.normalize(this, min, max)
 
 /////////////////////////////////////////////////////
 
 fun Double.normalize(range: Pair<Double, Double>): Double =
-        UtilKNumber.normalize(this, range.first, range.second)
+    UtilKNumber.normalize(this, range.first, range.second)
 
 fun Long.normalize(range: Pair<Long, Long>): Long =
-        UtilKNumber.normalize(this, range.first, range.second)
+    UtilKNumber.normalize(this, range.first, range.second)
 
 fun Float.normalize(range: Pair<Float, Float>): Float =
-        UtilKNumber.normalize(this, range.first, range.second)
+    UtilKNumber.normalize(this, range.first, range.second)
 
 fun Int.normalize(range: Pair<Int, Int>): Int =
-        UtilKNumber.normalize(this, range.first, range.second)
+    UtilKNumber.normalize(this, range.first, range.second)
 
 /////////////////////////////////////////////////////
 
 fun Int.normalize(range: IntRange): Int =
-        UtilKNumber.normalize(this, range.first, range.last)
+    UtilKNumber.normalize(this, range.first, range.last)
 
 fun Long.normalize(range: LongRange): Long =
-        UtilKNumber.normalize(this, range.first, range.last)
+    UtilKNumber.normalize(this, range.first, range.last)
 
 /////////////////////////////////////////////////////
 
 fun Float.percent(start: Float, end: Float): Float =
-        UtilKNumber.percent(this, start, end)
+    UtilKNumber.percent(this, start, end)
 
 fun Float.percent(range: Pair<Float, Float>): Float =
-        UtilKNumber.percent(this, range.first, range.second)
+    UtilKNumber.percent(this, range.first, range.second)
 
 fun Double.percent(start: Double, end: Double): Double =
-        UtilKNumber.percent(this, start, end)
+    UtilKNumber.percent(this, start, end)
 
 fun Double.percent(range: Pair<Double, Double>): Double =
-        UtilKNumber.percent(this, range.first, range.second)
+    UtilKNumber.percent(this, range.first, range.second)
 
 object UtilKNumber {
 
     @JvmStatic
-    fun complementBy0(number: Number, decimal: Int): String {
-        return String.format("%0${decimal}d", number)
-    }
+    fun complementBy0(number: Number, decimal: Int): String =
+        String.format("%0${decimal}d", number)
 
     ////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun keepDigits(value: Double, @androidx.annotation.IntRange(from = 1) digit: Int): Double =
-            keepDigitsStr(value, digit).toDouble()
+        keepDigitsStr(value, digit).toDouble()
 
     @JvmStatic
     fun keepDigits(value: Float, @androidx.annotation.IntRange(from = 1) digit: Int): Float =
-            keepDigitsStr(value, digit).toFloat()
+        keepDigitsStr(value, digit).toFloat()
 
     @JvmStatic
     fun keepDigitsStr(value: Any, @androidx.annotation.IntRange(from = 1) digit: Int): String {
@@ -160,11 +159,13 @@ object UtilKNumber {
         return (normalize(value, tempRange.first, tempRange.second) - tempRange.first) / (tempRange.second - tempRange.first)
     }
 
+    ////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun random(start: Int, end: Int): Int =
-            random(IntRange(start, end))
+        random(IntRange(start, end))
 
     @JvmStatic
     fun random(range: IntRange): Int =
-            range.random()
+        range.random()
 }

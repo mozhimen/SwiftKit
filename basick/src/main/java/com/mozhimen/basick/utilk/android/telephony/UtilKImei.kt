@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -91,7 +92,7 @@ object UtilKImei : IUtilK {
             imei = if (UtilKBuildVersion.isAfterV_26_8_O())
                 telephonyManager.javaClass.getMethod("getImei", Int::class.javaPrimitiveType).invoke(telephonyManager, slotId) as String// android 8 即以后建议用getImei 方法获取 不会获取到MEID
             else if (UtilKBuildVersion.isAfterV_21_5_L())
-                UtilKSystemProperties.get2(CPackage.RIL_GSM_IMEI)//5.0的系统如果想获取MEID/IMEI1/IMEI2  ----framework层提供了两个属性值“ril.cdma.meid"和“ril.gsm.imei"获取
+                UtilKSystemProperties.get2(CStrPackage.RIL_GSM_IMEI)//5.0的系统如果想获取MEID/IMEI1/IMEI2  ----framework层提供了两个属性值“ril.cdma.meid"和“ril.gsm.imei"获取
             else
                 getDeviceId(context, slotId)//如果获取不到 就调用 getDeviceId 方法获取//5.0以下获取imei/meid只能通过 getDeviceId  方法去取
         } catch (e: Exception) {
@@ -124,7 +125,7 @@ object UtilKImei : IUtilK {
                 imei = methodGetImei.invoke(telephonyManager, slotId) as String
             } else if (UtilKBuildVersion.isAfterV_21_5_L()) {
                 //5.0的系统如果想获取MEID/IMEI1/IMEI2  ----framework层提供了两个属性值“ril.cdma.meid"和“ril.gsm.imei"获取
-                imei = UtilKSystemProperties.get2(CPackage.RIL_GSM_IMEI)
+                imei = UtilKSystemProperties.get2(CStrPackage.RIL_GSM_IMEI)
                 //如果获取不到 就调用 getDeviceId 方法获取
             } else { //5.0以下获取imei/meid只能通过 getDeviceId  方法去取
             }
@@ -163,7 +164,7 @@ object UtilKImei : IUtilK {
                 meid = methodGetMeid.invoke(telephonyManager, slotId) as String
             } else if (UtilKBuildVersion.isAfterV_21_5_L()) {
                 //5.0的系统如果想获取MEID/IMEI1/IMEI2  ----framework层提供了两个属性值“ril.cdma.meid"和“ril.gsm.imei"获取
-                meid = UtilKSystemProperties.get2(CPackage.RIL_CDMA_MEID/*"ril.cdma.meid"*/)
+                meid = UtilKSystemProperties.get2(CStrPackage.RIL_CDMA_MEID/*"ril.cdma.meid"*/)
                 //如果获取不到 就调用 getDeviceId 方法获取
             } else { //5.0以下获取imei/meid只能通过 getDeviceId  方法去取
             }

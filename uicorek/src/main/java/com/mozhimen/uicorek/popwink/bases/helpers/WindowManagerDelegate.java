@@ -19,7 +19,7 @@ import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.mozhimen.basick.utilk.android.util.UtilKLogPro;
+import com.mozhimen.basick.utilk.android.util.UtilKLog2;
 import com.mozhimen.uicorek.popwink.bases.cons.CFlag;
 import com.mozhimen.uicorek.popwink.bases.cons.CUI;
 
@@ -59,7 +59,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
 
     @Override
     public void removeViewImmediate(View view) {
-        UtilKLogPro.i(TAG,
+        UtilKLog2.i(TAG,
                 "WindowManager.removeViewImmediate  >>>  " + (view == null ? null : view.getClass()
                         .getSimpleName()));
         PopupWindowQueueManager.getInstance().remove(this);
@@ -79,7 +79,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
 
     @Override
     public void removeView(View view) {
-        UtilKLogPro.i(TAG,
+        UtilKLog2.i(TAG,
                 "WindowManager.removeView  >>>  " + (view == null ? null : view.getClass()
                         .getSimpleName()));
         PopupWindowQueueManager.getInstance().remove(this);
@@ -95,7 +95,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
 
     @Override
     public void addView(View view, ViewGroup.LayoutParams params) {
-        UtilKLogPro.i(TAG,
+        UtilKLog2.i(TAG,
                 "WindowManager.addView  >>>  " + (view == null ? null : view.getClass()
                         .getName()));
         if (mWindowManager == null || view == null) return;
@@ -136,7 +136,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
 
     @Override
     public void updateViewLayout(View view, ViewGroup.LayoutParams params) {
-        UtilKLogPro.i(TAG,
+        UtilKLog2.i(TAG,
                 "WindowManager.updateViewLayout  >>>  " + (view == null ? null : view.getClass()
                         .getName()));
         if (mWindowManager == null || view == null) return;
@@ -266,7 +266,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
             queue.addLast(managerProxy);
             managerProxy.isAddedToQueue = true;
 
-            UtilKLogPro.d(TAG, queue);
+            UtilKLog2.d(TAG, queue);
         }
 
         public void remove(WindowManagerDelegate managerProxy) {
@@ -278,7 +278,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
                 queue.remove(managerProxy);
             }
             managerProxy.isAddedToQueue = false;
-            UtilKLogPro.d(TAG, queue);
+            UtilKLog2.d(TAG, queue);
         }
 
         void clear(String key) {
@@ -287,7 +287,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
                 queue.clear();
             }
             sQueueMap.remove(key);
-            UtilKLogPro.d(TAG, queue, sQueueMap);
+            UtilKLog2.d(TAG, queue, sQueueMap);
         }
 
         @Nullable
@@ -325,7 +325,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
                         }
                     }
                     if (helper.isOverlayStatusbar()) {
-                        UtilKLogPro.i(TAG, "applyHelper  >>>  覆盖状态栏");
+                        UtilKLog2.i(TAG, "applyHelper  >>>  覆盖状态栏");
                         if (UtilKBuildVersion.isAfterV_28_9_P()) {
                             int cutoutGravity = helper.getCutoutGravity();
                             if (cutoutGravity == Gravity.TOP || cutoutGravity == Gravity.BOTTOM) {
@@ -361,7 +361,7 @@ public final class WindowManagerDelegate implements WindowManager, IClearMemoryL
                     }
                     int insetsType = p.getFitInsetsTypes();
                     if (helper.isOverlayStatusbar()) {
-                        UtilKLogPro.i(TAG, "applyHelper  >>>  覆盖状态栏");
+                        UtilKLog2.i(TAG, "applyHelper  >>>  覆盖状态栏");
                         if (UtilKBuildVersion.isAfterV_28_9_P()) {
                             int cutoutGravity = helper.getCutoutGravity();
                             if (cutoutGravity == Gravity.TOP || cutoutGravity == Gravity.BOTTOM) {

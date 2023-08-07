@@ -5,6 +5,8 @@ import android.widget.TextView
 import androidx.annotation.IntRange
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.kotlin.UtilKAny
+import com.mozhimen.basick.utilk.kotlin.UtilKAnyFormat
 import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
 
 /**
@@ -33,6 +35,18 @@ fun TextView.getValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> 
 }
 
 object UtilKTextView {
+    @JvmStatic
+    fun getValue(textView: TextView): String =
+        textView.text.obj2stringTrim()
+
+    @JvmStatic
+    fun getValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
+        val value = getValue(textView)
+        if (value.isNotEmpty()) invoke.invoke(value)
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+
     /**
      * 设置字体的细或粗
      * @param textView TextView
@@ -59,17 +73,5 @@ object UtilKTextView {
             textView.text = str
             true
         } else false
-    }
-
-    ////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun getValue(textView: TextView): String =
-            textView.text.obj2stringTrim()
-
-    @JvmStatic
-    fun getValueIfNotEmpty(textView: TextView, invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
-        val value = getValue(textView)
-        if (value.isNotEmpty()) invoke.invoke(value)
     }
 }

@@ -6,6 +6,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
+import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
@@ -47,23 +48,23 @@ object UtilKWindow : BaseUtilK() {
 
     @JvmStatic
     fun <V : View> getContentView(window: Window): V =
-        window.findViewById(android.R.id.content)
+        window.findViewById(CPackage.ANDROID_R_ID_CONTENT)
 
     @JvmStatic
     fun getAttributes(activity: Activity): WindowManager.LayoutParams =
-            getAttributes(get(activity))
+        getAttributes(get(activity))
 
     @JvmStatic
     fun getAttributes(window: Window): WindowManager.LayoutParams =
-            window.attributes
+        window.attributes
 
     @JvmStatic
     fun getAttributesFlags(activity: Activity): Int =
-            getAttributesFlags(get(activity))
+        getAttributesFlags(get(activity))
 
     @JvmStatic
     fun getAttributesFlags(window: Window): Int =
-            getAttributes(window).flags
+        getAttributes(window).flags
 
     //////////////////////////////////////////////////////////////////
 

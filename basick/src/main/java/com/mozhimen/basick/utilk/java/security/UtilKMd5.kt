@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.java.security
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.bytes2hexStr
+import com.mozhimen.basick.utilk.kotlin.str2bytes
 import java.io.InputStream
 import java.io.UnsupportedEncodingException
 import java.math.BigInteger
@@ -42,7 +43,7 @@ object UtilKMd5 : BaseUtilK() {
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun hash(str: String): String =
-        str.toByteArray().bytes2md5HexStr()
+        str.str2bytes().bytes2md5HexStr()
 
     /**
      * md5 hash 16位
@@ -52,7 +53,7 @@ object UtilKMd5 : BaseUtilK() {
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun hash16(str: String): String {
-        val bytes: ByteArray = digest(str.toByteArray())
+        val bytes: ByteArray = digest(str.str2bytes())
         var md5Str: String = BigInteger(1, bytes).toString(16)
         for (i in 0 until 32 - md5Str.length) md5Str = "0$md5Str"
         return md5Str
@@ -66,7 +67,7 @@ object UtilKMd5 : BaseUtilK() {
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun hash32_lowerCase(str: String): String {
-        val bytes = digest(str.toByteArray())
+        val bytes = digest(str.str2bytes())
         val stringBuilder = StringBuilder()
         for (byte in bytes.indices) {
             val value = bytes[byte].toInt() and 0xff
@@ -84,7 +85,7 @@ object UtilKMd5 : BaseUtilK() {
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class, UnsupportedEncodingException::class)
     fun hash32(str: String): String =
-        DigestUtils.md5Hex(str.toByteArray())
+        DigestUtils.md5Hex(str.str2bytes())
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)

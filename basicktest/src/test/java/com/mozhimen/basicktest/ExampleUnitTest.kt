@@ -1,7 +1,7 @@
 package com.mozhimen.basicktest
 
+import com.mozhimen.basick.utilk.kotlin.getStrByte
 import com.mozhimen.uicorek.adaptk.systembar.cons.CPropertyOr
-import com.mozhimen.basick.utilk.kotlin.getByteStr
 import com.mozhimen.basick.utilk.kotlin.printlog
 import com.mozhimen.basick.utilk.kotlin.printlogEach
 import org.junit.Test
@@ -27,8 +27,8 @@ class ExampleUnitTest {
 
     @Test
     fun test1() {
-        CPropertyOr.THEME_CUSTOM.getByteStr(16).printlog()
-        CPropertyOr.THEME_CUSTOM.inv().getByteStr(16).printlog()
-       0b1.inv().getByteStr(16).printlogEach()
+        CPropertyOr.THEME_CUSTOM.getStrByte(16).printlog()
+        CPropertyOr.THEME_CUSTOM.inv().getStrByte(16).printlog()
+       0b1.inv().getStrByte(16).printlogEach()
     }
 }

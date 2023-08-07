@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Scroller
-import com.mozhimen.basick.utilk.android.view.UtilKViewGroup.isVGChildScrolled
-import com.mozhimen.basick.utilk.android.view.UtilKViewGroup.getVGChildScrollable
+import com.mozhimen.basick.utilk.android.view.UtilKViewGroup.isChildScrolled
+import com.mozhimen.basick.utilk.android.view.UtilKViewGroup.getChildScrollable
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.recyclerk.load.RecyclerKLoad
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefresh
@@ -55,8 +55,8 @@ open class LayoutKRefresh @JvmOverloads constructor(context: Context, attrs: Att
                 }
 
                 val head = getChildAt(0)
-                val child: View = getVGChildScrollable(this@LayoutKRefresh)
-                if (isVGChildScrolled(child) || (child is RecyclerKLoad && child.isLoading())) {
+                val child: View = getChildScrollable(this@LayoutKRefresh)
+                if (isChildScrolled(child) || (child is RecyclerKLoad && child.isLoading())) {
                     //如果列表发生了滚动或正在加载则不处理
                     return false
                 }

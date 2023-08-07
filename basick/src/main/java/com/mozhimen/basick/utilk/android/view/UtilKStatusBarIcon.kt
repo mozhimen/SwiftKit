@@ -61,8 +61,8 @@ object UtilKStatusBarIcon : BaseUtilK() {
             //状态栏亮色且黑色字体
             extraFlagMethod.invoke(window, if (isDark) EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ else 0, EXTRA_FLAG_STATUS_BAR_DARK_MODE_OBJ)
         } catch (e: Exception) {
-            e.message?.et(TAG)
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 
@@ -89,18 +89,20 @@ object UtilKStatusBarIcon : BaseUtilK() {
             val window = UtilKWindow.get(activity)
             val layoutParams = window.attributes
             val field_MEIZU_FLAG_DARK_STATUS_BAR_ICON = WindowManager.LayoutParams::class.java.getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON")
-            val fielf_meizuFlags = WindowManager.LayoutParams::class.java.getDeclaredField("meizuFlags")
+            val fieldMeizuFlags = WindowManager.LayoutParams::class.java.getDeclaredField("meizuFlags")
             field_MEIZU_FLAG_DARK_STATUS_BAR_ICON.isAccessible = true
-            fielf_meizuFlags.isAccessible = true
+            fieldMeizuFlags.isAccessible = true
 
             val value_MEIZU_FLAG_DARK_STATUS_BAR_ICON = field_MEIZU_FLAG_DARK_STATUS_BAR_ICON.getInt(null)
-            var value_meizuFlags = fielf_meizuFlags.getInt(layoutParams)
-            value_meizuFlags = if (isDarkMode) value_meizuFlags or value_MEIZU_FLAG_DARK_STATUS_BAR_ICON else value_meizuFlags and value_MEIZU_FLAG_DARK_STATUS_BAR_ICON.inv()
-            fielf_meizuFlags.setInt(layoutParams, value_meizuFlags)
+            var meizuFlags = fieldMeizuFlags.getInt(layoutParams)
+            meizuFlags = if (isDarkMode)
+                meizuFlags or value_MEIZU_FLAG_DARK_STATUS_BAR_ICON
+            else meizuFlags and value_MEIZU_FLAG_DARK_STATUS_BAR_ICON.inv()
+            fieldMeizuFlags.setInt(layoutParams, meizuFlags)
             UtilKWindow.applyAttributes(window, layoutParams)
         } catch (e: Exception) {
-            e.message?.et(TAG)
             e.printStackTrace()
+            e.message?.et(TAG)
         }
     }
 

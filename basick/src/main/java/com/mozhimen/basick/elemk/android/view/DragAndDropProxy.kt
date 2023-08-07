@@ -10,7 +10,7 @@ import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefPauseLifecy
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.android.view.UtilKDragAndDrop
+import com.mozhimen.basick.utilk.android.view.UtilKViewDrag
 
 /**
  * @ClassName DragAndDropProxy
@@ -71,7 +71,7 @@ class DragAndDropProxy : BaseWakeBefPauseLifecycleObserver() {
 
     override fun onPause(owner: LifecycleOwner) {
         try {
-            for (view in _viewList) UtilKDragAndDrop.fixDragAndDropLeak(view.first, view.second)
+            for (view in _viewList) UtilKViewDrag.fixDragLeak(view.first, view.second)
             _viewList.clear()
         } catch (e: Exception) {
             e.printStackTrace()

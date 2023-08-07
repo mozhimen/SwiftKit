@@ -7,12 +7,12 @@ package com.mozhimen.basick.utilk.kotlin
  * @Date 2023/8/2 15:39
  * @Version 1.0
  */
-fun CharSequence.applyEquals(charSequence: CharSequence): Boolean =
-        UtilKCharSequence.applyEquals(this, charSequence)
+fun CharSequence.isEquals(charSequence: CharSequence): Boolean =
+        UtilKCharSequence.isEquals(this, charSequence)
 
 object UtilKCharSequence {
     @JvmStatic
-    fun applyEquals(charSequence1: CharSequence, charSequence2: CharSequence): Boolean {
+    fun isEquals(charSequence1: CharSequence, charSequence2: CharSequence): Boolean {
         if (charSequence1 === charSequence2) return true
         var length: Int
         return if (charSequence1.length.also { length = it } == charSequence2.length) {
@@ -31,7 +31,6 @@ object UtilKCharSequence {
      * 是否为空
      */
     @JvmStatic
-    fun isEmpty(str: CharSequence?): Boolean {
-        return str.isNullOrEmpty()
-    }
+    fun isNullOrEmpty(str: CharSequence?): Boolean =
+        str.isNullOrEmpty()
 }

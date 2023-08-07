@@ -26,14 +26,14 @@ object UtilKPattern {
      */
     @JvmStatic
     fun strHump2strUnderline(str: String): String {
-        var newStr = str
-        val matcher: Matcher = Pattern.compile("([A-Z])").matcher(newStr)
+        var tempStr = str
+        val matcher: Matcher = Pattern.compile("([A-Z])").matcher(tempStr)
         while (matcher.find()) {
             val target = matcher.group()
-            newStr = newStr.replace(target.toRegex(), "_" + target.lowercase(Locale.getDefault()))
+            tempStr = tempStr.replace(target.toRegex(), "_" + target.lowercase(Locale.getDefault()))
         }
-        if (newStr.first() == '_') newStr.replaceFirst("_", "")
-        return newStr
+        if (tempStr.first() == '_') tempStr.replaceFirst("_", "")
+        return tempStr
     }
 
     /**
@@ -44,14 +44,14 @@ object UtilKPattern {
      */
     @JvmStatic
     fun strUnderline2strHump(str: String): String {
-        var newStr = str
-        val matcher: Matcher = Pattern.compile("_(.)").matcher(newStr)
+        var tempStr = str
+        val matcher: Matcher = Pattern.compile("_(.)").matcher(tempStr)
         while (matcher.find()) {
             val target = matcher.group(1)
             if (target != null) {
-                newStr = newStr.replace("_$target".toRegex(), target.uppercase(Locale.getDefault()))
+                tempStr = tempStr.replace("_$target".toRegex(), target.uppercase(Locale.getDefault()))
             }
         }
-        return newStr
+        return tempStr
     }
 }

@@ -18,7 +18,7 @@ fun Date.date2longDate(): Long =
     UtilKDate.date2longDate(this)
 
 fun Long.longDate2date(): Date =
-        UtilKDate.longDate2date(this)
+    UtilKDate.longDate2date(this)
 
 fun Date.date2strDate(formatDate: String, locale: Locale = Locale.CHINA): String =
     UtilKDate.date2strDate(this, formatDate, locale)

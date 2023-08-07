@@ -11,12 +11,10 @@ import com.mozhimen.basick.animk.builder.AnimKBuilder.asAnimation
 import com.mozhimen.basick.animk.builder.temps.AnimKScaleType.Companion.CENTER_HIDE
 import com.mozhimen.basick.animk.builder.temps.AnimKScaleType.Companion.CENTER_SHOW
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.view.UtilKInputChange
-import com.mozhimen.basick.utilk.android.util.UtilKLogPro
-import com.mozhimen.basick.utilk.kotlin.UtilKAny
+import com.mozhimen.basick.utilk.android.util.UtilKLog2
+import com.mozhimen.basick.utilk.kotlin.obj2clazz
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK.KeyEventListener
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK.OnBlurOptionInitListener
@@ -304,15 +302,14 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         return try {
             PopwinKBuilderDelegate::class.java.getMethod(methodName, parameterTypes)
         } catch (e: Exception) {
-            UtilKLogPro.e("not found", methodName, parameterTypes!!.name)
+            UtilKLog2.e("not found", methodName, parameterTypes!!.name)
             null
         }
     }
 
     private fun set(name: String, obj: Any) {
-        if (appendInvokeMap(name, UtilKAny.obj2clazz(obj))) {
+        if (appendInvokeMap(name, obj.obj2clazz()))
             _invokeParams[name] = obj
-        }
     }
 
     private fun setFlag(flag: Int, added: Boolean) {

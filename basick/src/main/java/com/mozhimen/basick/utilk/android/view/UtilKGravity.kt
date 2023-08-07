@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.view
 
 import android.annotation.SuppressLint
 import android.graphics.Rect
-import android.view.Gravity
+import com.mozhimen.basick.elemk.android.view.cons.CGravity
 
 /**
  * @ClassName UtilKGravity
@@ -15,18 +15,16 @@ object UtilKGravity {
     @SuppressLint("RtlHardcoded")
     @JvmStatic
     fun computeGravity(sourceRect: Rect, destRect: Rect): Int {
-        var gravity = Gravity.NO_GRAVITY
+        var gravity = CGravity.NO_GRAVITY
         val xDelta = sourceRect.centerX() - destRect.centerX()
         val yDelta = sourceRect.centerY() - destRect.centerY()
-        if (xDelta == 0) {
-            gravity = if (yDelta == 0) Gravity.CENTER else Gravity.CENTER_HORIZONTAL or if (yDelta > 0) Gravity.BOTTOM else Gravity.TOP
-        }
-        if (yDelta == 0) {
-            gravity = if (xDelta == 0) Gravity.CENTER else Gravity.CENTER_VERTICAL or if (xDelta > 0) Gravity.RIGHT else Gravity.LEFT
-        }
-        if (gravity == Gravity.NO_GRAVITY) {
-            gravity = if (xDelta > 0) Gravity.RIGHT else Gravity.LEFT
-            gravity = gravity or if (yDelta > 0) Gravity.BOTTOM else Gravity.TOP
+        if (xDelta == 0)
+            gravity = if (yDelta == 0) CGravity.CENTER else CGravity.CENTER_HORIZONTAL or if (yDelta > 0) CGravity.BOTTOM else CGravity.TOP
+        if (yDelta == 0)
+            gravity = if (xDelta == 0) CGravity.CENTER else CGravity.CENTER_VERTICAL or if (xDelta > 0) CGravity.RIGHT else CGravity.LEFT
+        if (gravity == CGravity.NO_GRAVITY) {
+            gravity = if (xDelta > 0) CGravity.RIGHT else CGravity.LEFT
+            gravity = gravity or if (yDelta > 0) CGravity.BOTTOM else CGravity.TOP
         }
         return gravity
     }

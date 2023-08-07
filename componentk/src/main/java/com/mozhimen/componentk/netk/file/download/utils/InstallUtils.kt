@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
 import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKLog.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -144,7 +145,7 @@ object InstallUtils : BaseUtilK() {
 
     fun showDownloadComponentSetting(context: Context) {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        intent.data = Uri.parse("package:${CPackage.COM_ANDROID_PROVIDERS_DOWNLOADS}")
+        intent.data = Uri.parse("package:${CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS}")
         if (intentAvailable(context, intent)) {
             context.startActivity(intent)
         }
@@ -159,7 +160,7 @@ object InstallUtils : BaseUtilK() {
     fun checkDownloadComponentEnable(context: Context): Boolean {
         try {
             val state =
-                context.packageManager.getApplicationEnabledSetting(CPackage.COM_ANDROID_PROVIDERS_DOWNLOADS)
+                context.packageManager.getApplicationEnabledSetting(CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS)
             if (state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED || state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER || state == PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED) {
                 return false
             }

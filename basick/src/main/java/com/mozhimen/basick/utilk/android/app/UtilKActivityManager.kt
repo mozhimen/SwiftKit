@@ -4,7 +4,7 @@ import android.app.ActivityManager
 import android.app.ActivityManager.MemoryInfo
 import android.content.Context
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.android.text.getFormatFileSize
+import com.mozhimen.basick.utilk.android.text.formatFileSize
 
 /**
  * @ClassName UtilKActivityManager
@@ -46,7 +46,7 @@ object UtilKActivityManager {
 
     @JvmStatic
     fun getAvailMemSizeStr(memoryInfo: MemoryInfo): String =
-            getAvailMem(memoryInfo).getFormatFileSize()
+            getAvailMem(memoryInfo).formatFileSize()
 
     ////////////////////////////////////////////////////////////////
 
@@ -64,7 +64,7 @@ object UtilKActivityManager {
 
     @JvmStatic
     fun getTotalMenSizeStr(memoryInfo: MemoryInfo): String =
-            getTotalMen(memoryInfo).getFormatFileSize()
+            getTotalMen(memoryInfo).formatFileSize()
 
     @JvmStatic
     fun getRunningAppProcesses(context: Context): List<ActivityManager.RunningAppProcessInfo> =

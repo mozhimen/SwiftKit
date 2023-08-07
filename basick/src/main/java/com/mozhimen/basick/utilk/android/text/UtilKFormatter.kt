@@ -10,11 +10,11 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  * @Date 2023/6/26 16:55
  * @Version 1.0
  */
-fun Long.getFormatFileSize(): String =
-    UtilKFormatter.getFormatFileSize(this)
+fun Long.formatFileSize(): String =
+    UtilKFormatter.formatFileSize(this)
 
 object UtilKFormatter : BaseUtilK() {
     @JvmStatic
-    fun getFormatFileSize(bytes: Long): String =
+    fun formatFileSize(bytes: Long): String =
         Formatter.formatFileSize(_context, bytes)
 }

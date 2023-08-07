@@ -54,18 +54,13 @@ object UtilKDisplay {
 
     /**
      * 获取旋转
-     * @return Int
      */
     @JvmStatic
     fun getDefaultRotation(context: Context): Int =
         getDefault(context).rotation
 
-    ///////////////////////////////////////////////////////////
-
     /**
      * 获取旋转
-     * @param activity Activity
-     * @return Int
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_30_11_R)

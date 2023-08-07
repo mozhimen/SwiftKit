@@ -25,49 +25,29 @@ import java.lang.reflect.Array
  * @Date 2023/7/14 15:41
  * @Version 1.0
  */
-fun Any.obj2stringTrim(): String =
-        UtilKAny.obj2stringTrim(this)
+
+fun Any.getObjTypeName(): String =
+    UtilKAny.getObjTypeName(this)
+
+fun Any.isObjNullOrEmpty(): Boolean =
+    UtilKAny.isObjNullOrEmpty(this)
 
 fun Any.isObjPrimitive(): Boolean =
-        UtilKAny.isObjPrimitive(this)
+    UtilKAny.isObjPrimitive(this)
+
+fun Any.isObjTypeMatch(vararg matches: Class<*>): Boolean =
+    UtilKAny.isObjTypeMatch(this, *matches)
 
 object UtilKAny : IUtilK {
-    @JvmStatic
-    fun obj2clazz(obj: Any): Class<*> =
-            when (obj) {
-                is Int -> Int::class.java
-                is Boolean -> Boolean::class.java
-                is Double -> Double::class.java
-                is Float -> Float::class.java
-                is Long -> Long::class.java
-                is Animation -> Animation::class.java
-                is Animator -> Animator::class.java
-                is Drawable -> Drawable::class.java
-                else -> obj.javaClass
-            }
 
+    /**
+     * 获取类型名称
+     * @param obj Any
+     * @return String
+     */
     @JvmStatic
-    fun obj2stringTrim(obj: Any): String =
-            obj.toString().trim()
-
-    @JvmStatic
-    fun obj2bytes(obj: Any): ByteArray? {
-        var byteArrayOutputStream: ByteArrayOutputStream? = null
-        var objectOutputStream: ObjectOutputStream? = null
-        try {
-            byteArrayOutputStream = ByteArrayOutputStream()
-            objectOutputStream = ObjectOutputStream(byteArrayOutputStream)
-            objectOutputStream.writeObject(obj)
-            objectOutputStream.flush()
-            return byteArrayOutputStream.toByteArray()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(UtilKByteArray.TAG)
-        } finally {
-            byteArrayOutputStream?.close()
-            objectOutputStream?.close()
-        }
-        return null
+    fun getObjTypeName(obj: Any): String {
+        return obj.javaClass.simpleName
     }
 
     /////////////////////////////////////////////////////////////////////
@@ -155,17 +135,5 @@ object UtilKAny : IUtilK {
             e.printStackTrace()
         }
         return false
-    }
-
-    /////////////////////////////////////////////////////////////////////
-
-    /**
-     * 获取类型名称
-     * @param obj Any
-     * @return String
-     */
-    @JvmStatic
-    fun getObjTypeName(obj: Any): String {
-        return obj.javaClass.simpleName
     }
 }

@@ -56,22 +56,19 @@ object UtilKTriangle {
 
 
     @JvmStatic
-    fun getOppositeLength(hypotenuse: Double, angle: Double): Double {
-        return sin(2.0 * Math.PI / 360.0 * angle) * hypotenuse
-    }
+    fun getOppositeLength(hypotenuse: Double, angle: Double): Double =
+        sin(2.0 * Math.PI / 360.0 * angle) * hypotenuse
 
     @JvmStatic
-    fun getOppositeLength(hypotenuse: Float, angle: Float): Float {
-        return sin((2.0 * Math.PI / 360.0 * angle).toFloat()) * hypotenuse
-    }
+    fun getOppositeLength(hypotenuse: Float, angle: Float): Float =
+        sin((2.0 * Math.PI / 360.0 * angle).toFloat()) * hypotenuse
 
     @JvmStatic
-    fun getAdjacentLength(hypotenuse: Double, angle: Double): Double {
-        return cos(2.0 * Math.PI / 360.0 * angle) * hypotenuse
-    }
+    fun getAdjacentLength(hypotenuse: Double, angle: Double): Double =
+        cos(2.0 * Math.PI / 360.0 * angle) * hypotenuse
 
     @JvmStatic
-    fun getAdjacentLength(hypotenuse: Float, angle: Float): Float {
-        return cos((2.0 * Math.PI / 360.0 * angle).toFloat()) * hypotenuse
-    }
+    fun getAdjacentLength(hypotenuse: Float, angle: Float): Float =
+        cos((2.0 * Math.PI / 360.0 * angle).toFloat()) * hypotenuse
+
 }

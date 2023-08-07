@@ -48,7 +48,8 @@ object UtilKConsole : IUtilK {
 
     @JvmStatic
     fun printlogEach(msg: String) {
-        for (char in msg) printlog(TAG, char)
+        for (char in msg)
+            printlog(TAG, char)
     }
 
     @JvmStatic

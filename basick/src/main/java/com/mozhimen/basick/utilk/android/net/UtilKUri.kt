@@ -14,6 +14,7 @@ import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKContext
@@ -90,15 +91,15 @@ object UtilKUri : BaseUtilK() {
 
     @JvmStatic
     fun isDownloadsDocument(uri: Uri) =
-        uri.authority == CPackage.COM_ANDROID_PROVIDERS_DOWNLOADS_DOCUMENTS//"com.android.providers.downloads.documents"
+        uri.authority == CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS_DOCUMENTS//"com.android.providers.downloads.documents"
 
     @JvmStatic
     fun isExternalStorageDocument(uri: Uri) =
-        uri.authority == CPackage.COM_ANDROID_EXTERNALSTORAGE_DOCUMENTS//"com.android.externalstorage.documents"
+        uri.authority == CStrPackage.COM_ANDROID_EXTERNALSTORAGE_DOCUMENTS//"com.android.externalstorage.documents"
 
     @JvmStatic
     fun isMediaDocument(uri: Uri) =
-        uri.authority == CPackage.COM_ANDROID_PROVIDERS_MEDIA_DOCUMENTS//"com.android.providers.media.documents"
+        uri.authority == CStrPackage.COM_ANDROID_PROVIDERS_MEDIA_DOCUMENTS//"com.android.providers.media.documents"
 
     /////////////////////////////////////////////////////////////////////////////
 
@@ -213,7 +214,7 @@ object UtilKUri : BaseUtilK() {
             options.inJustDecodeBounds = true            //options的in系列的设置了，injustDecodeBound只解析图片的大小，而不加载到内存中去
             //1.如果通过options.outHeight获取图片的宽高，就必须通过decodeStream解析同options赋值
             //否则options.outHeight获取不到宽高
-            inputStreamOpts?.inputStream2anyBitmap(null, options)//BitmapFactory.decodeStream(inputStream, null, options)
+            inputStreamOpts?.inputStream2anyBitmap(null, options)
             //2.通过 btm.getHeight()获取图片的宽高就不需要1的解析，我这里采取第一张方式
             //Bitmap btm = BitmapFactory.decodeStream(inputStream)
             //获取图片的宽高
@@ -230,7 +231,7 @@ object UtilKUri : BaseUtilK() {
             options.inJustDecodeBounds = false
             //根据uri重新获取流，inputStream在解析中发生改变了
             inputStream = UtilKContentResolver.openInputStream(_context, uri)
-            return inputStream?.inputStream2anyBitmap(null, options)//BitmapFactory.decodeStream(inputStream1, null, options)
+            return inputStream?.inputStream2anyBitmap(null, options)
         } catch (e: Exception) {
             e.printStackTrace()
             return null

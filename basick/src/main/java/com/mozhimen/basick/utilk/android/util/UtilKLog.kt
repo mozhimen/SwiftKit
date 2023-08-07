@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.util
 
 import android.util.Log
+import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 fun String.v() {
@@ -97,6 +98,18 @@ object UtilKLog : BaseUtilK() {
     @JvmStatic
     fun et(tag: String, msg: String) {
         Log.e(tag, msg)
+    }
+
+    @JvmStatic
+    fun log(level: Int, tag: String, msg: String) {
+        when (level) {
+            CLogPriority.V -> vt(tag, msg)
+            CLogPriority.D -> dt(tag, msg)
+            CLogPriority.I -> it(tag, msg)
+            CLogPriority.W -> wt(tag, msg)
+            CLogPriority.E -> et(tag, msg)
+            else -> it(tag, msg)
+        }
     }
 
     @JvmStatic

@@ -30,8 +30,8 @@ object UtilKInputChange : BaseUtilK() {
      * @param listener The soft input changed listener.
      */
     @JvmStatic
-    fun registerKeyBoardChangeListener(activity: Activity, listener: IA_Listener<Int>) {
-        registerKeyBoardChangeListener(activity.window, listener)
+    fun registerInputChangeListener(activity: Activity, listener: IA_Listener<Int>) {
+        registerInputChangeListener(activity.window, listener)
     }
 
     /**
@@ -40,7 +40,7 @@ object UtilKInputChange : BaseUtilK() {
      * @param listener The soft input changed listener.
      */
     @JvmStatic
-    fun registerKeyBoardChangeListener(window: Window, listener: IA_Listener<Int>) {
+    fun registerInputChangeListener(window: Window, listener: IA_Listener<Int>) {
         if (UtilKWindow.getAttributesFlags(window) and CWinMgr.Lpf.LAYOUT_NO_LIMITS != 0)
             window.clearFlags(CWinMgr.Lpf.LAYOUT_NO_LIMITS)
         val contentView = UtilKContentView.get<FrameLayout>(window)
@@ -61,7 +61,7 @@ object UtilKInputChange : BaseUtilK() {
      * @param window The window.
      */
     @JvmStatic
-    fun unregisterKeyBoardChangedListener(window: Window) {
+    fun unregisterInputChangeListener(window: Window) {
         val contentView = UtilKContentView.get<View>(window)
         val tag = contentView.getTag(CCons.UTILK_INPUT_CHANGE_TAG_ON_GLOBAL_LAYOUT_LISTENER)
         if (tag is ViewTreeObserver.OnGlobalLayoutListener) {
@@ -74,23 +74,22 @@ object UtilKInputChange : BaseUtilK() {
 
     @OptInApiInit_InApplication
     @JvmStatic
-    fun observerKeyboardChangeByView(view: View): ViewTreeObserver.OnGlobalLayoutListener? {
-        return observerKeyboardChange(UtilKActivity.getByContext(view.context, true) ?: return null,
+    fun observerInputChangeByView(view: View): ViewTreeObserver.OnGlobalLayoutListener? {
+        return observerInputChange(UtilKActivity.getByContext(view.context, true) ?: return null,
                 object : IAB_Listener<Rect, Boolean> {
                     private val _location = intArrayOf(0, 0)
                     override fun invoke(keyboardBounds: Rect, isVisible: Boolean) {
                         if (isVisible) {
                             view.getLocationOnScreen(_location)
                             view.translationY = view.translationY + keyboardBounds.top - (_location[1] + view.height)
-                        } else {
+                        } else
                             view.animate().translationY(0f).setDuration(300).setStartDelay(100).start()
-                        }
                     }
                 })
     }
 
     @JvmStatic
-    fun observerKeyboardChange(activity: Activity, listener: IAB_Listener<Rect, Boolean>): ViewTreeObserver.OnGlobalLayoutListener {
+    fun observerInputChange(activity: Activity, listener: IAB_Listener<Rect, Boolean>): ViewTreeObserver.OnGlobalLayoutListener {
         val decorView = UtilKDecorView.get(activity)
         val onGlobalLayoutListener: ViewTreeObserver.OnGlobalLayoutListener = object : ViewTreeObserver.OnGlobalLayoutListener {
             private var _rect = Rect()
@@ -100,7 +99,7 @@ object UtilKInputChange : BaseUtilK() {
             private var _lastHeight = 0
 
             override fun onGlobalLayout() {
-                val contentView = decorView.findViewById<View>(android.R.id.content) ?: return
+                val contentView = UtilKDecorView.getContentView(activity) ?: return
                 if (_originalContentRect.isEmpty) {
                     val destView: View = UtilKView.findViewFromParentByView(decorView, contentView)!!
                     _originalContentRect[destView.left, destView.top, destView.right] = destView.bottom

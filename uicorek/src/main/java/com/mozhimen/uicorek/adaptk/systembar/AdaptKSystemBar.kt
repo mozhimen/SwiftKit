@@ -10,7 +10,7 @@ import com.mozhimen.uicorek.adaptk.systembar.mos.MPropertyConfig
 import com.mozhimen.basick.utilk.android.app.getAnnotation
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.getByteStr
+import com.mozhimen.basick.utilk.kotlin.getStrByte
 import com.mozhimen.basick.utilk.kotlin.int2boolean
 
 /**
@@ -117,7 +117,7 @@ object AdaptKSystemBar : BaseUtilK() {
 
     private fun getConfigForByteInt(byteInt: Int): MPropertyConfig {
         val mPropertyConfig = MPropertyConfig()
-        val byteStr = byteInt.getByteStr(16)
+        val byteStr = byteInt.getStrByte(16)
         var byteBoolean: Boolean
         byteStr.forEachIndexed { position, c ->
             byteBoolean = c.digitToInt().int2boolean()

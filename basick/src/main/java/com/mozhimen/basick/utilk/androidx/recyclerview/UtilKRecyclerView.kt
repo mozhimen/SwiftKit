@@ -12,35 +12,35 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * @Date 2022/11/6 0:30
  * @Version 1.0
  */
-fun RecyclerView.isRVScroll2top(): Boolean =
-    UtilKRecyclerView.isRVScroll2top(this)
+fun RecyclerView.isScroll2top(): Boolean =
+    UtilKRecyclerView.isScroll2top(this)
 
-fun RecyclerView.isRVScroll2end(): Boolean =
-    UtilKRecyclerView.isRVScroll2end(this)
+fun RecyclerView.isScroll2end(): Boolean =
+    UtilKRecyclerView.isScroll2end(this)
 
-fun RecyclerView.isRVScroll2top2(): Boolean =
-    UtilKRecyclerView.isRVScroll2top2(this)
+fun RecyclerView.isScroll2top2(): Boolean =
+    UtilKRecyclerView.isScroll2top2(this)
 
-fun RecyclerView.isRVScroll2end2(): Boolean =
-    UtilKRecyclerView.isRVScroll2end2(this)
+fun RecyclerView.isScroll2end2(): Boolean =
+    UtilKRecyclerView.isScroll2end2(this)
 
-fun RecyclerView.isRVScroll2VerticalEdge(): Boolean =
-    UtilKRecyclerView.isRVScroll2VerticalEdge(this)
+fun RecyclerView.isScroll2VerticalEdge(): Boolean =
+    UtilKRecyclerView.isScroll2VerticalEdge(this)
 
-fun RecyclerView.isRVScroll2VerticalEdge2(): Boolean =
-    UtilKRecyclerView.isRVScroll2VerticalEdge2(this)
+fun RecyclerView.isScroll2VerticalEdge2(): Boolean =
+    UtilKRecyclerView.isScroll2VerticalEdge2(this)
 
-fun RecyclerView.isRVScrollUp(dy: Int): Boolean =
-    UtilKRecyclerView.isRVScrollUp(dy)
+fun RecyclerView.isScrollUp(dy: Int): Boolean =
+    UtilKRecyclerView.isScrollUp(dy)
 
-fun RecyclerView.isRVScrollDown(dx: Int): Boolean =
-    UtilKRecyclerView.isRVScrollDown(dx)
+fun RecyclerView.isScrollDown(dx: Int): Boolean =
+    UtilKRecyclerView.isScrollDown(dx)
 
-fun RecyclerView.getRVLastVisibleItemPosition(): Int =
-    UtilKRecyclerView.getRVLastVisibleItemPosition(this)
+fun RecyclerView.getLastVisibleItemPosition(): Int =
+    UtilKRecyclerView.getLastVisibleItemPosition(this)
 
-fun RecyclerView.getRVFirstVisibleItemPosition(): Int =
-    UtilKRecyclerView.getRVFirstVisibleItemPosition(this)
+fun RecyclerView.getFirstVisibleItemPosition(): Int =
+    UtilKRecyclerView.getFirstVisibleItemPosition(this)
 
 object UtilKRecyclerView {
     /**
@@ -49,7 +49,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isRVScroll2top(recyclerView: RecyclerView): Boolean =
+    fun isScroll2top(recyclerView: RecyclerView): Boolean =
         !recyclerView.canScrollVertically(-1)
 
     /**
@@ -58,7 +58,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isRVScroll2end(recyclerView: RecyclerView): Boolean =
+    fun isScroll2end(recyclerView: RecyclerView): Boolean =
         !recyclerView.canScrollVertically(1)
 
     /**
@@ -67,16 +67,15 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isRVScroll2top2(recyclerView: RecyclerView): Boolean {
+    fun isScroll2top2(recyclerView: RecyclerView): Boolean {
         if (recyclerView.layoutManager is LinearLayoutManager) {
             val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
             val firstItemPos = linearLayoutManager.findFirstVisibleItemPosition()
             val lastItemPos = linearLayoutManager.findLastVisibleItemPosition()
             val itemCount = linearLayoutManager.itemCount
             val lastChild: View = recyclerView.getChildAt(lastItemPos - firstItemPos)
-            if (lastItemPos == itemCount - 1 && lastChild.bottom <= recyclerView.measuredHeight) {
+            if (lastItemPos == itemCount - 1 && lastChild.bottom <= recyclerView.measuredHeight)
                 return true
-            }
         } else if (recyclerView.layoutManager is StaggeredGridLayoutManager) {
             val layoutManager = recyclerView.layoutManager as StaggeredGridLayoutManager
             val firstVisibleItems =
@@ -87,9 +86,8 @@ object UtilKRecyclerView {
             layoutManager.findLastVisibleItemPositions(lastPositions)
             val lastPosition: Int = lastPositions.maxOf { it }
             val lastChild: View? = recyclerView.getChildAt(lastPosition - firstVisibleItems[0])
-            if (lastPosition == itemCount - 1 && lastChild != null && lastChild.bottom <= recyclerView.getMeasuredHeight()) {
+            if (lastPosition == itemCount - 1 && lastChild != null && lastChild.bottom <= recyclerView.measuredHeight)
                 return true
-            }
         }
         return false
     }
@@ -100,14 +98,14 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isRVScroll2end2(recyclerView: RecyclerView): Boolean {
+    fun isScroll2end2(recyclerView: RecyclerView): Boolean {
         if (recyclerView.layoutManager is LinearLayoutManager) {
             val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
             val firstItem = linearLayoutManager.findFirstVisibleItemPosition()
             return recyclerView.getChildAt(0).y == 0f && firstItem == 0
         } else if (recyclerView.layoutManager is StaggeredGridLayoutManager) {
-            val aa = (recyclerView.layoutManager as StaggeredGridLayoutManager).findFirstVisibleItemPositions(null)
-            return recyclerView.getChildAt(0).y == 0f && aa[0] == 0
+            val firstItem = (recyclerView.layoutManager as StaggeredGridLayoutManager).findFirstVisibleItemPositions(null)
+            return recyclerView.getChildAt(0).y == 0f && firstItem[0] == 0
         }
         return false
     }
@@ -118,8 +116,8 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isRVScroll2VerticalEdge(recyclerView: RecyclerView): Boolean =
-        isRVScroll2end(recyclerView) || isRVScroll2top(recyclerView)
+    fun isScroll2VerticalEdge(recyclerView: RecyclerView): Boolean =
+        isScroll2end(recyclerView) || isScroll2top(recyclerView)
 
     /**
      * 是否滑动到边缘2
@@ -127,8 +125,8 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isRVScroll2VerticalEdge2(recyclerView: RecyclerView): Boolean =
-        isRVScroll2end2(recyclerView) || isRVScroll2top2(recyclerView)
+    fun isScroll2VerticalEdge2(recyclerView: RecyclerView): Boolean =
+        isScroll2end2(recyclerView) || isScroll2top2(recyclerView)
 
     /**
      * 是否向上滚动
@@ -136,7 +134,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isRVScrollUp(dy: Int): Boolean =
+    fun isScrollUp(dy: Int): Boolean =
         dy < 0
 
     /**
@@ -145,7 +143,7 @@ object UtilKRecyclerView {
      * @return Boolean
      */
     @JvmStatic
-    fun isRVScrollDown(dx: Int): Boolean =
+    fun isScrollDown(dx: Int): Boolean =
         dx > 0
 
     /**
@@ -154,15 +152,11 @@ object UtilKRecyclerView {
      * @return Int
      */
     @JvmStatic
-    fun getRVLastVisibleItemPosition(recyclerView: RecyclerView): Int {
+    fun getLastVisibleItemPosition(recyclerView: RecyclerView): Int {
         when (val layoutManager = recyclerView.layoutManager) {
             //layoutManager is GridLayoutManager
-            is LinearLayoutManager -> {
-                return layoutManager.findLastVisibleItemPosition()
-            }
-            is StaggeredGridLayoutManager -> {
-                return layoutManager.findLastVisibleItemPositions(null)[0]
-            }
+            is LinearLayoutManager -> return layoutManager.findLastVisibleItemPosition()
+            is StaggeredGridLayoutManager -> return layoutManager.findLastVisibleItemPositions(null)[0]
         }
         return -1
     }
@@ -173,15 +167,11 @@ object UtilKRecyclerView {
      * @return Int
      */
     @JvmStatic
-    fun getRVFirstVisibleItemPosition(recyclerView: RecyclerView): Int {
+    fun getFirstVisibleItemPosition(recyclerView: RecyclerView): Int {
         when (val layoutManager = recyclerView.layoutManager) {
             //layoutManager is GridLayoutManager
-            is LinearLayoutManager -> {
-                return layoutManager.findFirstVisibleItemPosition()
-            }
-            is StaggeredGridLayoutManager -> {
-                return layoutManager.findFirstVisibleItemPositions(null)[0]
-            }
+            is LinearLayoutManager -> return layoutManager.findFirstVisibleItemPosition()
+            is StaggeredGridLayoutManager -> return layoutManager.findFirstVisibleItemPositions(null)[0]
         }
         return -1
     }

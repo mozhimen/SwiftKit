@@ -1,15 +1,10 @@
 package com.mozhimen.basick.utilk.android.util
 
-import android.util.Log
-import android.view.MotionEvent
-import com.mozhimen.basick.utilk.android.view.UtilKGesture
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.elemk.cons.CCons
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKStackTrace
-import com.mozhimen.basick.utilk.kotlin.collections.UtilKList
-import com.mozhimen.basick.utilk.kotlin.collections.UtilKMap
-import com.mozhimen.basick.utilk.kotlin.throwable2str
+import com.mozhimen.basick.utilk.kotlin.obj2str
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -19,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @Date 2022/11/19 13:53
  * @Version 1.0
  */
-object UtilKLogPro : BaseUtilK() {
+object UtilKLog2 : BaseUtilK() {
 
     private val _isOpenLog = AtomicBoolean(false)
     private val _isSupportLongLog = AtomicBoolean(true)
@@ -47,98 +42,90 @@ object UtilKLogPro : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    private fun getLogCat(vararg content: Any): String =
-            UtilKStackTrace.getStackTraceInfo(parseContents(*content))
+    private fun getLogCat(vararg msg: Any): String =
+        UtilKStackTrace.getStackTraceInfo(parseContents(*msg))
 
     ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun v(vararg content: Any) {
-        vt(TAG, *content)
+    fun v(vararg msg: Any) {
+        vt(TAG, *msg)
     }
 
     @JvmStatic
-    fun vt(tag: String, vararg content: Any) {
-        log(CLogPriority.V, tag, *content)
+    fun vt(tag: String, vararg msg: Any) {
+        log(CLogPriority.V, tag, *msg)
     }
 
     @JvmStatic
-    fun d(vararg content: Any) {
-        dt(TAG, *content)
+    fun d(vararg msg: Any) {
+        dt(TAG, *msg)
     }
 
     @JvmStatic
-    fun dt(tag: String, vararg content: Any) {
-        log(CLogPriority.D, tag, *content)
+    fun dt(tag: String, vararg msg: Any) {
+        log(CLogPriority.D, tag, *msg)
     }
 
     @JvmStatic
-    fun i(vararg content: Any) {
-        it(TAG, content)
+    fun i(vararg msg: Any) {
+        it(TAG, msg)
     }
 
     @JvmStatic
-    fun it(tag: String, vararg content: Any) {
-        log(CLogPriority.I, tag, *content)
+    fun it(tag: String, vararg msg: Any) {
+        log(CLogPriority.I, tag, *msg)
     }
 
     @JvmStatic
-    fun w(vararg content: Any) {
-        wt(TAG, *content)
+    fun w(vararg msg: Any) {
+        wt(TAG, *msg)
     }
 
     @JvmStatic
-    fun wt(tag: String, vararg content: Any) {
-        log(CLogPriority.W, tag, *content)
+    fun wt(tag: String, vararg msg: Any) {
+        log(CLogPriority.W, tag, *msg)
     }
 
     @JvmStatic
-    fun e(vararg content: Any) {
-        et(TAG, *content)
+    fun e(vararg msg: Any) {
+        et(TAG, *msg)
     }
 
     @JvmStatic
-    fun et(tag: String, vararg content: Any) {
-        log(CLogPriority.E, tag, *content)
+    fun et(tag: String, vararg msg: Any) {
+        log(CLogPriority.E, tag, *msg)
     }
 
     @JvmStatic
-    private fun log(type: Int, tag: String, vararg content: Any) {
+    private fun log(level: Int, tag: String, vararg msg: Any) {
         if (!isOpenLog()) return
         if (isSupportLongLog()) {
             try {
-                var logCat = getLogCat(*content)
+                var logCat = getLogCat(*msg)
                 val length = logCat.length.toLong()
                 if (length <= CCons.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
-                    log(type, tag, logCat)
+                    log(level, tag, logCat)
                 } else {
                     while (logCat.length > CCons.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH) {
                         val logContent = logCat.substring(0, CCons.UTILK_LOG_PRO_MAX_LOG_MSG_LENGTH)
                         logCat = logCat.replace(logContent, "")
-                        log(type, tag, logCat)
+                        log(level, tag, logCat)
                     }
-                    log(type, tag, logCat)
+                    log(level, tag, logCat)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
                 e.message?.et(TAG)
             }
-        } else {
-            log(type, tag, getLogCat(*content))
-        }
+        } else
+            log(level, tag, getLogCat(*msg))
     }
 
     @JvmStatic
-    private fun log(type: Int, tag: String, logCat: String) {
+    private fun log(level: Int, tag: String, msg: String) {
         if (!isOpenLog()) return
-        when (type) {
-            CLogPriority.V -> Log.v(tag, logCat)
-            CLogPriority.D -> Log.d(tag, logCat)
-            CLogPriority.I -> Log.i(tag, logCat)
-            CLogPriority.W -> Log.w(tag, logCat)
-            CLogPriority.E -> Log.e(tag, logCat)
-            else -> Log.i(tag, logCat)
-        }
+        UtilKLog.log(level, tag, msg)
     }
 
     @JvmStatic
@@ -153,7 +140,7 @@ object UtilKLogPro : BaseUtilK() {
                     .append(index)
                     .append("】")
                     .append(" = ")
-                    .append(parseContent(obj))
+                    .append(obj.obj2str())
                 if (index < objs.size - 1) {
                     stringBuilder.append(" , ")
                 }
@@ -163,17 +150,5 @@ object UtilKLogPro : BaseUtilK() {
             }
         }
         return stringBuilder.toString()
-    }
-
-    @JvmStatic
-    private fun parseContent(obj: Any): String {
-        return when (obj) {
-            is String -> obj
-            is Throwable -> obj.throwable2str()
-            is List<*> -> UtilKList.list2str(obj)
-            is Map<*, *> -> UtilKMap.map2str(obj)
-            is MotionEvent -> UtilKGesture.motionEvent2str(obj.action)
-            else -> obj.toString()
-        }
     }
 }
