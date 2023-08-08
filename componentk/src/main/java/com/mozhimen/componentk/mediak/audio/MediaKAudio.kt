@@ -22,14 +22,16 @@ import com.mozhimen.componentk.mediak.audio.mos.MAudioKInfo
 @AManifestKRequire(CPermission.WAKE_LOCK)
 class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
-    private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
-
-    private val _mediaKAudioDelegate by lazy { MediaKAudioDelegate(this) }
-
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder
     }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
+
+    private val _mediaKAudioDelegate by lazy { MediaKAudioDelegate(this) }
 
     init {
         runOnMainThread {
@@ -151,6 +153,8 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
     override fun getLifecycle(): Lifecycle {
         return _lifecycleRegistry
     }
+
+    ////////////////////////////////////////////////////////////////////////
 
     private object INSTANCE {
         val holder = MediaKAudio()

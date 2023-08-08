@@ -22,9 +22,7 @@ class CrashKMgr {
         val instance = INSTANCE.holder
     }
 
-    private object INSTANCE {
-        val holder = CrashKMgr()
-    }
+    //////////////////////////////////////////////////////////////
 
     private val _crashKJava by lazy { CrashKJava() }
     private val _crashKNative by lazy { CrashKNative() }
@@ -47,5 +45,11 @@ class CrashKMgr {
 
     fun getCrashFiles(): Array<File> {
         return _crashKJava.getJavaCrashFiles() + _crashKNative.getNativeCrashFiles()
+    }
+
+    //////////////////////////////////////////////////////////////
+
+    private object INSTANCE {
+        val holder = CrashKMgr()
     }
 }

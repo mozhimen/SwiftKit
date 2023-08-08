@@ -73,6 +73,4 @@ class NetConnectionBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiv
     private object INSTANCE {
         val holder = NetConnectionBroadcastReceiver()
     }
-
-
 }
