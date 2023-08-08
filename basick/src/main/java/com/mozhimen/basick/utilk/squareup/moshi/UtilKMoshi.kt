@@ -17,20 +17,29 @@ import java.lang.reflect.ParameterizedType
 
 @Throws(Exception::class)
 inline fun <reified T : Any> T.t2json(indent: String = ""): String =
-    UtilKJsonMoshi.t2json(this, indent)
+    UtilKMoshi.t2json(this, indent)
 
 @Throws(Exception::class)
 inline fun <reified T> String.json2t(): T? =
-    UtilKJsonMoshi.json2t(this)
+    UtilKMoshi.json2t(this)
 
-object UtilKJsonMoshi {
+object UtilKMoshi {
 
     val moshiBuilder by lazy { Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build() }
+
+    /////////////////////////////////////////////////////////////////////////////
 
     @Throws(Exception::class)
     @JvmStatic
     fun <T> t2json(adapter: JsonAdapter<T>, t: T, indent: String = ""): String =
         adapter.indent(indent).toJson(t)
+
+    @Throws(Exception::class)
+    @JvmStatic
+    fun <T> json2t(adapter: JsonAdapter<T>, json: String): T? =
+        adapter.fromJson(json)
+
+    /////////////////////////////////////////////////////////////////////////////
 
     @Throws(Exception::class)
     @JvmStatic
@@ -42,16 +51,6 @@ object UtilKJsonMoshi {
     inline fun <reified T> t2json2(t: T, indent: String = ""): String =
         t2json(moshiBuilder.adapter(T::class.java), t, indent)
 
-    /**
-     * 将 T 序列化为 json，指定 parameterizedType，适合复杂类型
-     */
-    @Throws(Exception::class)
-    @JvmStatic
-    fun <T> t2json(t: T, parameterizedType: ParameterizedType, indent: String = ""): String =
-        t2json(moshiBuilder.adapter(parameterizedType), t, indent)
-
-    /////////////////////////////////////////////////////////////////////////////
-
     @Throws(Exception::class)
     @JvmStatic
     inline fun <reified T> json2t(json: String): T? =
@@ -62,10 +61,15 @@ object UtilKJsonMoshi {
     inline fun <reified T> json2t2(json: String): T? =
         json2t(moshiBuilder.adapter(T::class.java), json)
 
+    /////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 将 T 序列化为 json，指定 parameterizedType，适合复杂类型
+     */
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2t(adapter: JsonAdapter<T>, json: String): T? =
-        adapter.fromJson(json)
+    fun <T> t2json(t: T, parameterizedType: ParameterizedType, indent: String = ""): String =
+        t2json(moshiBuilder.adapter(parameterizedType), t, indent)
 
     @Throws(Exception::class)
     @JvmStatic

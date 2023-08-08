@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.org.json
 import android.text.TextUtils
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.google.gson.UtilKJsonGson
+import com.mozhimen.basick.utilk.google.gson.UtilKGson
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -145,7 +145,7 @@ object UtilKJson : BaseUtilK() {
     fun obj2jsonObj(obj: Any): JSONObject =
         if (obj is String)
             JSONObject(obj)
-        else JSONObject(UtilKJsonGson.obj2json(obj))
+        else JSONObject(UtilKGson.obj2json(obj))
 
     /**
      * jsonArray转StrList
@@ -182,7 +182,7 @@ object UtilKJson : BaseUtilK() {
             for (i in 0 until length) {
                 val jsonObj = jsonArray[i] as? JSONObject?
                 if (jsonObj != null)
-                    arrayList.add(UtilKJsonGson.json2t(jsonObj.toString(), clazz))
+                    arrayList.add(UtilKGson.json2t(jsonObj.toString(), clazz))
                 else
                     arrayList.add(null)
             }

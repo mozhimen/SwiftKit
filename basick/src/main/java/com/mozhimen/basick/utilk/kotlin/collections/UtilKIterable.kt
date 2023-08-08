@@ -10,21 +10,21 @@ import com.mozhimen.basick.elemk.commons.IA_BListener
  * @Version 1.0
  */
 fun <T> Iterable<T>.containsBy(predicate: IA_BListener<T, Boolean>): Boolean =
-        UtilKCollection.containsBy(this, predicate)
+        UtilKIterable.containsBy(this, predicate)
 
 fun <T> Iterable<T>.getIndexFirst(predicate: IA_BListener<T, Boolean>): Int? =
-        UtilKCollection.getIndexFirst(this, predicate)
+        UtilKIterable.getIndexFirst(this, predicate)
 
 fun <T, I> Iterable<T>.joinT2list(predicate: IA_BListener<T, I>): List<I> =
-    UtilKCollection.joinT2list(this, predicate)
+    UtilKIterable.joinT2list(this, predicate)
 
 fun <T, I> Iterable<T>.joinT2listIgnoreRepeat(predicate: IA_BListener<T, I>): List<I> =
-    UtilKCollection.joinT2listIgnoreRepeat(this, predicate)
+    UtilKIterable.joinT2listIgnoreRepeat(this, predicate)
 
 fun <T, I> Iterable<T>.joinT2listIgnoreNull(predicate: IA_BListener<T?, I>): List<I> =
-    UtilKCollection.joinT2listIgnoreNull(this, predicate)
+    UtilKIterable.joinT2listIgnoreNull(this, predicate)
 
-object UtilKCollection {
+object UtilKIterable {
 
     /**
      * 判断符合条件的元素是否在Collection中
