@@ -66,7 +66,7 @@ include ':SwiftKit'
 - 设置项目地址
 
 ```
-project(':SwiftKit').projectDir = new File("C:\\Users\\mozhimen\\Documents\\GitHub\\SwiftKit")
+project(':SwiftKit').projectDir = new File("C:\\Users\\${System.getenv().get("USERNAME")}\\Documents\\GitHub\\SwiftKit")
 ```
 
 - 引入模块
