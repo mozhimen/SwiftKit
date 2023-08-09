@@ -14,7 +14,7 @@ import androidx.lifecycle.ServiceLifecycleDispatcher
  * @Date 2023/6/10 18:57
  * @Version 1.0
  */
-class BaseLifecycleService : BaseService(), LifecycleOwner {
+open class BaseLifecycleService : BaseService(), LifecycleOwner {
 
     private val _serviceLifecycleDispatcher = ServiceLifecycleDispatcher(this)
 

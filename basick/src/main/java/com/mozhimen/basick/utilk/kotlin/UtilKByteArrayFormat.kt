@@ -27,11 +27,11 @@ fun ByteArray.bytes2file(destFile: File, isOverwrite: Boolean = true): File =
 fun ByteArray.bytes2obj(): Any? =
     UtilKByteArrayFormat.bytes2obj(this)
 
-fun ByteArray.bytes2hexStr(size: Int): String =
-    UtilKByteArrayFormat.bytes2hexStr(this, size)
+fun ByteArray.bytes2strHex(size: Int): String =
+    UtilKByteArrayFormat.bytes2strHex(this, size)
 
-fun ByteArray.bytes2hexStr(): String =
-    UtilKByteArrayFormat.bytes2hexStr(this)
+fun ByteArray.bytes2strHex(): String =
+    UtilKByteArrayFormat.bytes2strHex(this)
 
 fun ByteArray.bytes2str(charset: Charset = Charsets.UTF_8): String =
     UtilKByteArrayFormat.bytes2str(this, charset)
@@ -77,8 +77,14 @@ object UtilKByteArrayFormat : IUtilK {
         return null
     }
 
+    /**
+     * byte[]数组转换为16进制的字符串
+     *
+     * @param bytes 要转换的字节数组
+     * @return 转换后的结果
+     */
     @JvmStatic
-    fun bytes2hexStr(bytes: ByteArray, size: Int): String {
+    fun bytes2strHex(bytes: ByteArray, size: Int): String {
         val stringBuilder = StringBuilder()
         for (i in 0 until size) {
             val hex = Integer.toHexString(0xFF and bytes[i].toInt())
@@ -95,10 +101,10 @@ object UtilKByteArrayFormat : IUtilK {
      * @return 16进制字串
      */
     @JvmStatic
-    fun bytes2hexStr(bytes: ByteArray): String {
+    fun bytes2strHex(bytes: ByteArray): String {
         val stringBuilder = StringBuilder()
         for (byte in bytes) {
-            stringBuilder.append(byte.bytes2hexStr())
+            stringBuilder.append(byte.byte2strHex())
             // 也可以使用下面的方式。 X 表示大小字母，x 表示小写字母，对应的是 HEX_DIGITS 中字母
             // buf.append(String.format("%02X", value));
         }

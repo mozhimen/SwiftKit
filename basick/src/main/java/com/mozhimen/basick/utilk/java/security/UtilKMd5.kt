@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.java.security
 
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.bytes2hexStr
+import com.mozhimen.basick.utilk.kotlin.bytes2strHex
 import com.mozhimen.basick.utilk.kotlin.str2bytes
 import java.io.InputStream
 import java.io.UnsupportedEncodingException
@@ -20,8 +20,8 @@ import java.security.NoSuchAlgorithmException
 fun InputStream.inputStream2md5Str2(): String =
     UtilKMd5.inputStream2md5Str2(this)
 
-fun ByteArray.bytes2md5HexStr(): String =
-    UtilKMd5.bytes2md5HexStr(this)
+fun ByteArray.bytes2strMd5Hex(): String =
+    UtilKMd5.bytes2strMd5Hex(this)
 
 object UtilKMd5 : BaseUtilK() {
 
@@ -37,13 +37,13 @@ object UtilKMd5 : BaseUtilK() {
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
-    fun bytes2md5HexStr(bytes: ByteArray): String =
-        digest(bytes).bytes2hexStr()
+    fun bytes2strMd5Hex(bytes: ByteArray): String =
+        digest(bytes).bytes2strHex()
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun hash(str: String): String =
-        str.str2bytes().bytes2md5HexStr()
+        str.str2bytes().bytes2strMd5Hex()
 
     /**
      * md5 hash 16位
@@ -95,7 +95,7 @@ object UtilKMd5 : BaseUtilK() {
         val bytes = ByteArray(1024 * 1024)
         while (inputStream.read(bytes).also { length = it } > 0)
             messageDigest.update(bytes, 0, length)
-        return messageDigest.digest().bytes2hexStr()
+        return messageDigest.digest().bytes2strHex()
     }
 
     @JvmStatic

@@ -7,8 +7,8 @@ package com.mozhimen.basick.utilk.kotlin
  * @Date 2023/8/1 16:19
  * @Version 1.0
  */
-fun Byte.bytes2hexStr(): String =
-    UtilKByte.byte2hexStr(this)
+fun Byte.byte2strHex(): String =
+    UtilKByte.byte2strHex(this)
 
 object UtilKByte {
     /**
@@ -17,7 +17,7 @@ object UtilKByte {
      * @return 转换后的字符.
      */
     @JvmStatic
-    fun byte2hexStr(byte: Byte): String {
+    fun byte2strHex(byte: Byte): String {
         val hexs = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f")
         return hexs[(byte.toInt() and 0xf0) shr 4] + hexs[byte.toInt() and 0x0f]
     }
