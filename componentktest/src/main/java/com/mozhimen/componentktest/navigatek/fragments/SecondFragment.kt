@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
 import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVBVM
 import com.mozhimen.basick.elemk.mos.MKey
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.componentktest.BR
 import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.FragmentSecondBinding
@@ -17,6 +19,7 @@ class SecondFragment : BaseFragmentVB<FragmentSecondBinding>() {
     private val _datas = listOf(MKey("01", "01"))
     private var _adapter: AdapterKRecyclerVB<MKey, ItemNavigatekBinding>? = null
 
+    @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     override fun initView(savedInstanceState: Bundle?) {
         vb.navigatekFragmentSecondTxt.setOnClickListener {
             (requireActivity() as NavigateKActivity).navigateKProxy.navController.popBackStack()

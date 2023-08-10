@@ -5,19 +5,19 @@ plugins {
 }
 
 android {
-    compileSdk rootProject.android.compileSdk
+    compileSdk 33
 
     defaultConfig {
-        minSdk rootProject.android.minSdk
-        targetSdk rootProject.android.targetSdk
-        multiDexEnabled rootProject.android.multiDexEnabled
+        minSdk 21
+        targetSdk 33
+        multiDexEnabled true
 
         //fileProvider
         manifestPlaceholders = [fileProviderAuthoritiesSuffix: ".fileProvider"]
         buildConfigField("String", "FILE_PROVIDER_AUTHORITIES_SUFFIX", "\"${manifestPlaceholders['fileProviderAuthoritiesSuffix']}\"")
 
         //renderscript
-        renderscriptTargetApi rootProject.android.renderscriptTargetApi
+        renderscriptTargetApi 18
         renderscriptSupportModeEnabled true
 
         //test

@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.util
 
 import android.util.Log
+import com.mozhimen.basick.elemk.android.util.annors.ALogPriority
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
@@ -48,7 +49,22 @@ fun String.println(level: Int, tag: String) {
     UtilKLog.println(level, tag, this)
 }
 
+fun Int.intLogPriority2str(): String =
+    UtilKLog.intLogPriority2str(this)
+
 object UtilKLog : BaseUtilK() {
+
+    @JvmStatic
+    fun intLogPriority2str(@ALogPriority priority: Int): String =
+        when (priority) {
+            2 -> "V"
+            3 -> "D"
+            4 -> "I"
+            5 -> "W"
+            6 -> "E"
+            7 -> "A"
+            else -> "UNKNOWN"
+        }
 
     @JvmStatic
     fun v(msg: String) {

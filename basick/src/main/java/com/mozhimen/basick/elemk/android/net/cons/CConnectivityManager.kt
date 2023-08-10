@@ -13,4 +13,6 @@ object CConnectivityManager {
     const val TYPE_WIFI = ConnectivityManager.TYPE_WIFI
     const val TYPE_MOBILE = ConnectivityManager.TYPE_MOBILE
     const val TYPE_ETHERNET = ConnectivityManager.TYPE_ETHERNET
+
+    const val CONNECTIVITY_ACTION = ConnectivityManager.CONNECTIVITY_ACTION
 }

@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.androidx.databinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.java.lang.UtilKGeneric
 import java.lang.Exception
 
@@ -15,12 +16,14 @@ import java.lang.Exception
  */
 object UtilKViewDataBinding {
     @JvmStatic
+    @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater, index: Int = 0): VB =
         UtilKGeneric.getParentGenericTypeClazz(clazz, index)?.run {
             getDeclaredMethod("inflate", LayoutInflater::class.java).invoke(null, inflater) as VB
         } ?: throw Exception("inflate activity vb fail!")
 
     @JvmStatic
+    @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater, container: ViewGroup?, index: Int = 0): VB =
         UtilKGeneric.getParentGenericTypeClazz(clazz, index)?.run {
             getDeclaredMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java).invoke(null, inflater, container, false) as VB

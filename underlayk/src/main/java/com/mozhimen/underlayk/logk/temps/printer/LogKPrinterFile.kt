@@ -5,8 +5,8 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
+import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -14,7 +14,6 @@ import java.io.IOException
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.Executors
 import java.util.concurrent.LinkedBlockingQueue
-import com.mozhimen.underlayk.logk.mos.MLogKConfig
 
 /**
  * @ClassName FilePrinter
@@ -28,9 +27,7 @@ import com.mozhimen.underlayk.logk.mos.MLogKConfig
  * @Date 2021/12/20 17:33
  * @Version 1.0
  */
-class LogKPrinterFile(
-    private val _retentionTime: Long
-) : ILogKPrinter, BaseUtilK() {
+class LogKPrinterFile(private val _retentionTime: Long) : ILogKPrinter, BaseUtilK() {
 
     var logPath: String? = null
         get() {
@@ -74,12 +71,12 @@ class LogKPrinterFile(
         return File(logPath!!).listFiles() ?: emptyArray()
     }
 
-    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
+    override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         val timeMillis = System.currentTimeMillis()
         if (!_worker.isRunning()) {
             _worker.start()
         }
-        _worker.put(MLogKConfig(timeMillis, level, tag, printString))
+        _worker.put(BaseLogKRecord(timeMillis, priority, tag, msg))
     }
 
     private fun genFileName(): String {
@@ -103,7 +100,7 @@ class LogKPrinterFile(
     }
 
     private inner class PrinterWorker : Runnable {
-        private val _logQueue: BlockingQueue<MLogKConfig> = LinkedBlockingQueue()
+        private val _logQueue: BlockingQueue<BaseLogKRecord> = LinkedBlockingQueue()
 
         @Volatile
         private var _isRunning = false
@@ -113,7 +110,7 @@ class LogKPrinterFile(
          *
          * @param log 要被打印的log
          */
-        fun put(log: MLogKConfig) {
+        fun put(log: BaseLogKRecord) {
             try {
                 _logQueue.put(log)
             } catch (e: InterruptedException) {
@@ -144,7 +141,7 @@ class LogKPrinterFile(
         }
 
         override fun run() {
-            var log: MLogKConfig?
+            var log: BaseLogKRecord?
             try {
                 while (true) {
                     log = _logQueue.take()
@@ -157,7 +154,7 @@ class LogKPrinterFile(
             }
         }
 
-        private fun doPrint(log: MLogKConfig) {
+        private fun doPrint(log: BaseLogKRecord) {
             val lastFileName: String? = _writer.getPreFileName()
             if (lastFileName == null) {
                 val newFileName: String = genFileName()

@@ -36,10 +36,10 @@ object UtilKViewDrag : BaseUtilK() {
             val fieldMCurrentDragChild = UtilKReflect.getField(view, "mCurrentDragChild")
             if (!fieldMCurrentDragChild.isAccessible)
                 fieldMCurrentDragChild.isAccessible = true
-            val view = fieldMCurrentDragChild.get(view)
-            if (view != null) {
-                fieldMCurrentDragChild.set(view, null)
-                "fixLeak: set viewGroup ${view.javaClass.simpleName} mCurrentDragChild null".dt(TAG)
+            val childView = fieldMCurrentDragChild.get(view)
+            if (childView != null) {
+                fieldMCurrentDragChild.set(childView, null)
+                "fixLeak: set viewGroup ${childView.javaClass.simpleName} mCurrentDragChild null".dt(TAG)
             }
         } catch (e: Exception) {
             e.printStackTrace()

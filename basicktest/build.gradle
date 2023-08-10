@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdk rootProject.android.compileSdk
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.mozhimen.basicktest"
-        minSdk rootProject.android.minSdk
+        minSdk 21
         targetSdk 25
         versionCode rootProject.android.versionCode
         versionName rootProject.android.versionName

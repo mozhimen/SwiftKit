@@ -4,6 +4,7 @@ import android.util.Log
 import android.util.SparseArray
 import android.view.animation.Interpolator
 import com.mozhimen.basick.animk.builder.commons.IAnimationType
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 
 /**
  * @ClassName AnimationApi
@@ -12,7 +13,7 @@ import com.mozhimen.basick.animk.builder.commons.IAnimationType
  * @Date 2022/11/17 22:50
  * @Version 1.0
  */
-@Suppress("UNCHECKED_CAST")
+@Suppress(CSuppress.UNCHECKED_CAST)
 abstract class BaseAnimationBuilder<T> : BaseAnimKBuilder() {
     protected var _types: SparseArray<IAnimationType> = SparseArray()
 

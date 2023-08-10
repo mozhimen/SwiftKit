@@ -125,7 +125,7 @@ class CameraKXDelegate : ICameraKX, BaseUtilK() {
         }
 
         override fun onError(e: ImageCaptureException) {
-            LogK.et(TAG, "OnImageCapturedCallback onError ImageCaptureException ${e.message}")
+            LogK.etk(TAG, "OnImageCapturedCallback onError ImageCaptureException ${e.message}")
             _cameraXKCaptureListener?.onCaptureFail()
             e.printStackTrace()
             e.message?.et(TAG)
@@ -171,11 +171,11 @@ class CameraKXDelegate : ICameraKX, BaseUtilK() {
                     cameraProvider = cameraProviderFuture.get()
                 } catch (e: InterruptedException) {
                     _cameraXKListener?.onCameraStartFail(e.message ?: "")
-                    LogK.et(TAG, "startCamera InterruptedException ${e.message ?: ""}")
+                    LogK.etk(TAG, "startCamera InterruptedException ${e.message ?: ""}")
                     return@addListener
                 } catch (e: ExecutionException) {
                     _cameraXKListener?.onCameraStartFail(e.message ?: "")
-                    LogK.et(TAG, "startCamera ExecutionException ${e.message ?: ""}")
+                    LogK.etk(TAG, "startCamera ExecutionException ${e.message ?: ""}")
                     return@addListener
                 }
 

@@ -1,10 +1,11 @@
-package com.mozhimen.abilityk.hotupdatek
+package com.mozhimen.abilityk.updatek
 
 import android.net.Uri
 import android.util.Log
-import com.mozhimen.abilityk.hotupdatek.commons.IHotupdateKListener
-import com.mozhimen.abilityk.hotupdatek.commons.ISuspendHotupdateKListener
-import com.mozhimen.abilityk.hotupdatek.cons.CHotupdateKEvent
+import com.mozhimen.abilityk.updatek.commons.IUpdateKListener
+import com.mozhimen.abilityk.updatek.commons.ISuspendUpdateKListener
+import com.mozhimen.abilityk.updatek.cons.CUpdateKEvent
+import com.mozhimen.basick.lintk.optin.OptInDeviceRoot
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
@@ -34,6 +35,7 @@ import kotlin.coroutines.resume
  * @Date 2022/2/24 12:15
  * @Version 1.0
  */
+@OptIn(OptInDeviceRoot::class)
 @AManifestKRequire(
     CPermission.READ_EXTERNAL_STORAGE,
     CPermission.WRITE_EXTERNAL_STORAGE,
@@ -45,22 +47,22 @@ import kotlin.coroutines.resume
     CPermission.BIND_ACCESSIBILITY_SERVICE,
     CManifest.SERVICE_ACCESSIBILITY
 )
-class HotupdateK : BaseUtilK() {
+class UpdateK : BaseUtilK() {
 
     private val _apkPath by lazy { UtilKStrPath.Absolute.Internal.getCacheDir() + "/hotupdatek" }
     private val _installK by lazy { InstallK() }
     private var _downloadRequest: DownloadRequest? = null
-    private var _hotupdateKListener: IHotupdateKListener? = null
-    private var _suspendHotupdateKListener: ISuspendHotupdateKListener? = null
+    private var _hotupdateKListener: IUpdateKListener? = null
+    private var _suspendHotupdateKListener: ISuspendUpdateKListener? = null
     fun getInstallK(): InstallK {
         return _installK
     }
 
-    fun setHotupdateKListener(listener: IHotupdateKListener) {
+    fun setHotupdateKListener(listener: IUpdateKListener) {
         _hotupdateKListener = listener
     }
 
-    fun setSuspendHotupdateKListener(listener: ISuspendHotupdateKListener) {
+    fun setSuspendHotupdateKListener(listener: ISuspendUpdateKListener) {
         _suspendHotupdateKListener = listener
     }
 
@@ -148,7 +150,7 @@ class HotupdateK : BaseUtilK() {
 
             override fun onProgressUpdate(percent: Int) {
                 Log.d(TAG, "downloadApk onProgressUpdate: percent $percent")
-                PostKEventLiveData.instance.with<String>(CHotupdateKEvent.HOTUPDATEK_PROGRESS).postValue("$percent")
+                PostKEventLiveData.instance.with<String>(CUpdateKEvent.HOTUPDATEK_PROGRESS).postValue("$percent")
             }
 
             override fun onDownloadComplete(uri: Uri) {
@@ -159,7 +161,7 @@ class HotupdateK : BaseUtilK() {
 
             override fun onDownloadFailed(e: Throwable) {
                 e.printStackTrace()
-                LogK.et(TAG, "downloadApk fail msg: ${e.message}")
+                LogK.etk(TAG, "downloadApk fail msg: ${e.message}")
                 coroutine.resume(false)
             }
         })
@@ -207,7 +209,7 @@ class HotupdateK : BaseUtilK() {
             true
         } catch (e: Exception) {
             e.printStackTrace()
-            LogK.et(TAG, "deleteAllOldPkgs: Exception ${e.message}")
+            LogK.etk(TAG, "deleteAllOldPkgs: Exception ${e.message}")
             false
         }
     }

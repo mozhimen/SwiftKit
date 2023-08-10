@@ -1,14 +1,7 @@
 package com.mozhimen.underlayk.logk
 
-import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.underlayk.logk.commons.ILogKPrinter
-import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
-import com.mozhimen.basick.utilk.java.lang.UtilKStackTrace
-import com.mozhimen.basick.lintk.annors.ALogPriority
-import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
-import com.mozhimen.underlayk.logk.cons.CLogKCons
-import java.lang.StringBuilder
-import kotlin.collections.ArrayList
+import com.mozhimen.underlayk.logk.commons.ILogK
+import com.mozhimen.underlayk.logk.helpers.LogKProvider
 
 /**
  * @ClassName LogK
@@ -33,236 +26,52 @@ import kotlin.collections.ArrayList
  * @Date 2021/12/20 21:49
  * @Version 1.0
  */
-fun String.kv() {
-    LogK.v(this)
+fun String.vk() {
+    LogK.vk(this)
 }
 
-fun String.kvt(tag: String) {
-    LogK.vt(tag, this)
+fun String.vtk(tag: String) {
+    LogK.vtk(tag, this)
 }
 
-fun String.kd() {
-    LogK.d(this)
+fun String.dk() {
+    LogK.dk(this)
 }
 
-fun String.kdt(tag: String) {
-    LogK.dt(tag, this)
+fun String.dtk(tag: String) {
+    LogK.dtk(tag, this)
 }
 
-fun String.ki() {
-    LogK.i(this)
+fun String.ik() {
+    LogK.ik(this)
 }
 
-fun String.kit(tag: String) {
-    LogK.it(tag, this)
+fun String.itk(tag: String) {
+    LogK.itk(tag, this)
 }
 
-fun String.kw() {
-    LogK.w(this)
+fun String.wk() {
+    LogK.wk(this)
 }
 
-fun String.kwt(tag: String) {
-    LogK.wt(tag, this)
+fun String.wtk(tag: String) {
+    LogK.wtk(tag, this)
 }
 
-fun String.ke() {
-    LogK.e(this)
+fun String.ek() {
+    LogK.ek(this)
 }
 
-fun String.ket(tag: String) {
-    LogK.et(tag, this)
+fun String.etk(tag: String) {
+    LogK.etk(tag, this)
 }
 
-fun String.ka() {
-    LogK.a(this)
+fun String.ak() {
+    LogK.ak(this)
 }
 
-fun String.kat(tag: String) {
-    LogK.at(tag, this)
+fun String.atk(tag: String) {
+    LogK.atk(tag, this)
 }
 
-object LogK : BaseUtilK() {
-    private var _logKPackageName: String
-
-    init {
-        val className = LogK::class.java.name
-        _logKPackageName = className.substring(0, className.lastIndexOf(".") + 1)
-    }
-
-    /**
-     * v
-     * @param contents Array<out Any>
-     */
-    fun v(vararg contents: Any) {
-        log(CLogPriority.V, *contents)
-    }
-
-    /**
-     * vt
-     * @param tag String
-     * @param contents Array<out Any>
-     */
-    fun vt(tag: String, vararg contents: Any) {
-        log(CLogPriority.V, tag, *contents)
-    }
-
-    /**
-     * d
-     * @param contents Array<out Any>
-     */
-    fun d(vararg contents: Any) {
-        log(CLogPriority.D, *contents)
-    }
-
-    /**
-     * dt
-     * @param tag String
-     * @param contents Array<out Any>
-     */
-    fun dt(tag: String, vararg contents: Any) {
-        log(CLogPriority.D, tag, *contents)
-    }
-
-    /**
-     * i
-     * @param contents Array<out Any>
-     */
-    fun i(vararg contents: Any) {
-        log(CLogPriority.I, *contents)
-    }
-
-    /**
-     * it
-     * @param tag String
-     * @param contents Array<out Any>
-     */
-    fun it(tag: String, vararg contents: Any) {
-        log(CLogPriority.I, tag, *contents)
-    }
-
-    /**
-     * w
-     * @param contents Array<out Any>
-     */
-    fun w(vararg contents: Any) {
-        log(CLogPriority.W, *contents)
-    }
-
-    /**
-     * wt
-     * @param tag String
-     * @param contents Array<out Any>
-     */
-    fun wt(tag: String, vararg contents: Any) {
-        log(CLogPriority.W, tag, *contents)
-    }
-
-    /**
-     * e
-     * @param contents Array<out Any>
-     */
-    fun e(vararg contents: Any) {
-        log(CLogPriority.E, *contents)
-    }
-
-    /**
-     * et
-     * @param tag String
-     * @param contents Array<out Any>
-     */
-    fun et(tag: String, vararg contents: Any) {
-        log(CLogPriority.E, tag, *contents)
-    }
-
-    /**
-     * a
-     * @param contents Array<out Any>
-     */
-    fun a(vararg contents: Any) {
-        log(CLogPriority.A, *contents)
-    }
-
-    /**
-     * at
-     * @param tag String
-     * @param contents Array<out Any>
-     */
-    fun at(tag: String, vararg contents: Any) {
-        log(CLogPriority.A, tag, *contents)
-    }
-
-    /**
-     * log
-     * @param type Int
-     * @param contents Array<out Any>
-     */
-    fun log(@ALogPriority type: Int, vararg contents: Any) {
-        log(type, LogKMgr.instance.getConfig().getGlobalTag(), contents)
-    }
-
-    /**
-     * log
-     * @param type Int
-     * @param tag String
-     * @param contents Array<out Any>
-     */
-    fun log(@ALogPriority type: Int, tag: String, vararg contents: Any) {
-        log(LogKMgr.instance.getConfig(), type, tag, *contents)
-    }
-
-    /**
-     * log实现
-     * @param config LogKConfig
-     * @param type Int
-     * @param tag String
-     * @param contents Array<out Any?>
-     */
-    fun log(config: BaseLogKConfig, @ALogPriority type: Int, tag: String, vararg contents: Any?) {
-        if (!config.enable()) {
-            return
-        }
-        val builder = StringBuilder()
-        if (config.includeThread()) {
-            val threadInfo: String = CLogKCons.FORMATTER_THREAD.format(Thread.currentThread())
-            builder.append(threadInfo).append("\n")
-        }
-        if (config.stackTraceDepth() > 0 || (config.stackTraceDepth() <= 0 && type >= CLogPriority.E)) {
-            val stackTrace: String? = CLogKCons.FORMATTER_STACK_TRACE.format(
-                UtilKStackTrace.getCroppedRealStackTrack(
-                    Throwable().stackTrace,
-                    _logKPackageName,
-                    if (config.stackTraceDepth() <= 0) 5 else config.stackTraceDepth()
-                )
-            )
-            builder.append(stackTrace).append("\n")
-        }
-        require(contents.isNotEmpty()) { "$TAG content's size must not be 0" }
-        val body = parseBody(contents, config)
-        builder.append(body)
-        val printers: MutableList<ILogKPrinter> = ArrayList()
-        if (config.printers() != null)
-            printers.addAll(config.printers()!!)
-        else
-            printers.addAll(LogKMgr.instance.getPrinters())
-        if (printers.isEmpty()) return
-
-        //打印log
-        for (printer in printers) {
-            printer.print(config, type, tag, builder.toString().replace("[", "").replace("]", ""))
-        }
-    }
-
-    private fun parseBody(contents: Array<out Any?>, config: BaseLogKConfig): String {
-        if (config.injectJsonParser() != null) {
-            return config.injectJsonParser()!!.toJson(contents)
-        }
-        val builder = StringBuilder()
-        for (o in contents) {
-            builder.append(o.toString()).append(";")
-        }
-        if (builder.isNotEmpty()) {
-            builder.deleteCharAt(builder.length - 1)
-        }
-        return builder.toString()
-    }
-}
+object LogK : ILogK by LogKProvider()

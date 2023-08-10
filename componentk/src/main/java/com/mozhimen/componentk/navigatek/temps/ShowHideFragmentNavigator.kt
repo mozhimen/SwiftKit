@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.componentk.navigatek.bases.BaseFragmentDestination
@@ -92,7 +93,7 @@ open class ShowHideFragmentNavigator(
      * @param args            The Fragment's arguments, if any
      * @return A new fragment instance.
      */
-    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Suppress(CSuppress.DeprecatedCallableAddReplaceWith)
     @Deprecated(
         """Set a custom {@link FragmentFactory} via
       {@link FragmentManager#setFragmentFactory(FragmentFactory)} to control

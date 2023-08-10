@@ -1,7 +1,6 @@
 package com.mozhimen.abilityk.scank
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.util.Log
 import com.mozhimen.abilityk.scank.cons.EColorHSV
@@ -12,7 +11,6 @@ import com.mozhimen.basick.utilk.android.graphics.drawable2bitmap
 import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
 import com.mozhimen.basick.utilk.squareup.moshi.t2json
 import java.io.FileInputStream
-import java.io.FileOutputStream
 
 /**
  * @ClassName ScanKHSV
@@ -78,7 +76,7 @@ object ScanKHSV : BaseUtilK() {
             Log.d(TAG, "colorAnalyze: colorMap ${_colorMap.t2json()}")
             return colorPercentage(rows * cols)
         } catch (e: Exception) {
-            LogK.et(TAG, "colorAnalyze Exception $e")
+            LogK.etk(TAG, "colorAnalyze Exception $e")
         }
         return null
     }

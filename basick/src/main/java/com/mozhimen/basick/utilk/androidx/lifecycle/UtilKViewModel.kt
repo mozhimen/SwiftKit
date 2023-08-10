@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.androidx.lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.java.lang.UtilKGeneric
 import java.lang.Exception
 
@@ -15,6 +16,7 @@ import java.lang.Exception
  */
 object UtilKViewModel {
     @JvmStatic
+    @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VM : ViewModel> get(owner: ViewModelStoreOwner, factory: ViewModelProvider.Factory? = null, index: Int = 1): VM =
         UtilKGeneric.getParentGenericTypeClazz(owner::class.java, index)?.let { vmClazz ->
             factory?.let { fac ->

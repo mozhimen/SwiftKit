@@ -9,6 +9,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.android.content.NetConnectionBroadcastReceiver
+import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.commons.IConnectionListener
 
 
@@ -31,7 +32,7 @@ class NetKConnectionProxy<A>(
     _activity: A,
     private val _listener: IConnectionListener,
     private val _receiver: NetConnectionBroadcastReceiver = NetConnectionBroadcastReceiver(),
-) : BaseBroadcastReceiverProxy<A>(_activity, _receiver, ConnectivityManager.CONNECTIVITY_ACTION) where A : Activity, A : LifecycleOwner {
+) : BaseBroadcastReceiverProxy<A>(_activity, _receiver, CConnectivityManager.CONNECTIVITY_ACTION) where A : Activity, A : LifecycleOwner {
 
     init {
         _receiver.registerListener(_listener)

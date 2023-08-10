@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.mozhimen.basick.cachek.commons.ICacheKProvider
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -102,7 +103,7 @@ class CacheKDSProvider(dsName: String) : ICacheKProvider, BaseUtilK() {
 
     /////////////////////////////////////////////////////////////////////
 
-    @Suppress("UNCHECKED_CAST")
+    @Suppress(CSuppress.UNCHECKED_CAST)
     override fun <T> getObj(key: String, default: T): T =
         when (default) {
             is Int -> getInt(key, default)

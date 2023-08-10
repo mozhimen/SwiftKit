@@ -15,25 +15,25 @@ import com.mozhimen.underlayk.logk.cons.CLogKCons
  */
 class LogKPrinterConsole(private val _ignoreLineBreak: Boolean = false) : BaseLogKPrinter() {
 
-    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
-        super.print(config, level, tag, printString)
+    override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
+        super.print(config, priority, tag, msg)
 
         if (_ignoreLineBreak) {
-            val len = printString.length
+            val len = msg.length
             val countOfSub = len / CLogKCons.LOG_MAX_LEN
             if (countOfSub > 0) {
                 var index = 0
                 for (i in 0 until countOfSub) {
-                    printlog(level, tag, printString.substring(index, index + CLogKCons.LOG_MAX_LEN))
+                    printlog(priority, tag, msg.substring(index, index + CLogKCons.LOG_MAX_LEN))
                     index += CLogKCons.LOG_MAX_LEN
                 }
-                if (index != len) printlog(level, tag, printString.substring(index, len))
-            } else printlog(level, tag, printString)
+                if (index != len) printlog(priority, tag, msg.substring(index, len))
+            } else printlog(priority, tag, msg)
         } else {
-            val logs: List<String> = printString.split(CMsg.LINE_BREAK)
+            val logs: List<String> = msg.split(CMsg.LINE_BREAK)
             val lines: List<String>? = logs.lastOrNull()?.replace(CMsg.BLANK_STR, CMsg.TAB_STR)?.split(CMsg.LINE_BREAK_STR)
-            for (log in logs) printlog(level, tag, log)
-            if (!lines.isNullOrEmpty()) for (line in lines) printlog(level, tag, line)
+            for (log in logs) printlog(priority, tag, log)
+            if (!lines.isNullOrEmpty()) for (line in lines) printlog(priority, tag, line)
         }
     }
 

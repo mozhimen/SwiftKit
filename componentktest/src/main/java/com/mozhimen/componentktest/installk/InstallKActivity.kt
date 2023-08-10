@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.OptInDeviceRoot
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -54,6 +55,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
     private val _apkPathWithName by lazy { UtilKStrPath.Absolute.Internal.getFilesDir() + "/installk/componentktest.apk" }
     private val _installK by lazy { InstallK() }
 
+    @OptIn(OptInDeviceRoot::class)
     override fun initView(savedInstanceState: Bundle?) {
         vb.installkTxt.text = UtilKPackage.getVersionCode().toString()
         vb.installkBtn.setOnClickListener {

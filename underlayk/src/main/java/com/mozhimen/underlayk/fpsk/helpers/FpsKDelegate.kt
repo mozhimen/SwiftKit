@@ -68,7 +68,7 @@ class FpsKDelegate : IFpsK, BaseUtilK() {
 //                    stop()
 //                }
                 if (!isFront && isOpen()) {
-                    LogK.wt(TAG, "FpsKView onChanged fpsk stop")
+                    LogK.wtk(TAG, "FpsKView onChanged fpsk stop")
                     stop()
                 }
             }
@@ -102,7 +102,7 @@ class FpsKDelegate : IFpsK, BaseUtilK() {
         if (_isOpen) return
         if (!UtilKPermission.hasOverlay()) {
             UtilKLaunchActivity.startManageOverlay(_context)
-            LogK.et(TAG, "FpsKView play app has no overlay permission")
+            LogK.etk(TAG, "FpsKView play app has no overlay permission")
             return
         }
 

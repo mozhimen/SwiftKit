@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.annotation.IntRange
 import com.mozhimen.basick.taskk.executor.commons.ITaskKExecutor
 import com.mozhimen.basick.elemk.java.lang.PriorityRunnable
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlinx.coroutines.ExecutorCoroutineDispatcher
 import kotlinx.coroutines.asCoroutineDispatcher
@@ -24,6 +25,7 @@ import java.util.concurrent.locks.ReentrantLock
  * @Version 1.0
  * 线程池能力监控,耗时任务检测,定时,延迟
  */
+@Suppress(CSuppress.UNCHECKED_CAST)
 object TaskKExecutor : ITaskKExecutor, BaseUtilK() {
 
     private var _isPaused = false

@@ -3,6 +3,7 @@ package com.mozhimen.basick.cachek.room
 import com.mozhimen.basick.cachek.commons.ICacheKProvider
 import com.mozhimen.basick.cachek.room.commons.CacheKRMDatabase
 import com.mozhimen.basick.cachek.room.mos.MCacheKRM
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.bytes2obj
 import com.mozhimen.basick.utilk.android.util.et
@@ -47,7 +48,7 @@ object CacheKRM : BaseUtilK(), ICacheKProvider {
 
     /////////////////////////////////////////////////////////////////////
 
-    @Suppress("UNCHECKED_CAST")
+    @Suppress(CSuppress.UNCHECKED_CAST)
     override fun <T> getObj(key: String, default: T): T {
         val cache = CacheKRMDatabase.get().cacheKDao.getCache(key)
         return ((if (cache?.data != null) cache.data.bytes2obj() else null) as? T?) ?: default

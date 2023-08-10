@@ -131,11 +131,11 @@ class LayoutKTabBottom @JvmOverloads constructor(context: Context, attrs: Attrib
         onSelected(defaultItem)
     }
 
-    override fun inflateTabItem(infoList: List<MTabBottom>) {
-        if (infoList.isEmpty()) {
+    override fun inflateTabItem(itemList: List<MTabBottom>) {
+        if (itemList.isEmpty()) {
             return
         }
-        this._itemList = infoList
+        this._itemList = itemList
         //移除之前已经添加的View
         for (i in childCount - 1 downTo 1) {
             removeViewAt(i)
@@ -150,13 +150,13 @@ class LayoutKTabBottom @JvmOverloads constructor(context: Context, attrs: Attrib
                 iterator.remove()
             }
         }
-        val width = getRealWidth() / infoList.size
+        val width = getRealWidth() / itemList.size
         val height = _tabBottomHeight
         //不用LinearLayout的原因: 当动态改变child大小后Gravity.Bottom会失效.
         _tabBottomContainer = FrameLayout(context)
         _tabBottomContainer!!.tag = "TAG_TAB_BOTTOM_LAYOUT"
-        for (i in infoList.indices) {
-            val info = infoList[i]
+        for (i in itemList.indices) {
+            val info = itemList[i]
             val itemLP = LayoutParams(width, height)
             itemLP.gravity = Gravity.BOTTOM
             itemLP.leftMargin = i * width

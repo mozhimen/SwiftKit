@@ -22,7 +22,7 @@ class BasePopwinKBackgroundView @JvmOverloads constructor(context: Context, attr
         @JvmStatic
         fun create(context: Context, helper: BasePopupHelper): BasePopwinKBackgroundView? {
             val view = BasePopwinKBackgroundView(context)
-            view.init(context, helper)
+            view.init(helper)
             return view
         }
     }
@@ -37,7 +37,7 @@ class BasePopwinKBackgroundView @JvmOverloads constructor(context: Context, attr
         }
     }
 
-    private fun init(context: Context, helper: BasePopupHelper) {
+    private fun init(helper: BasePopupHelper) {
         if (!isColorDrawableNormal(helper.popupBackground)) {
             visibility = GONE
             return

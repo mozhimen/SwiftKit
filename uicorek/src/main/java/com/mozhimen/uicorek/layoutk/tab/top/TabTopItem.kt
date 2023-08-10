@@ -88,14 +88,14 @@ class TabTopItem @JvmOverloads constructor(
     /**
      *
      * @param index Int
-     * @param prevMo MTabTop?
-     * @param nextMo MTabTop
+     * @param prevItem MTabTop?
+     * @param currentItem MTabTop
      */
-    override fun onTabItemSelected(index: Int, prevMo: MTabTop?, nextMo: MTabTop) {
-        if (prevMo != _tabTopItem && nextMo != _tabTopItem || prevMo == nextMo) {
+    override fun onTabItemSelected(index: Int, prevItem: MTabTop?, currentItem: MTabTop) {
+        if (prevItem != _tabTopItem && currentItem != _tabTopItem || prevItem == currentItem) {
             return
         }
-        if (prevMo == _tabTopItem) {
+        if (prevItem == _tabTopItem) {
             inflateInfo(false, false)
         } else {
             inflateInfo(true, false)

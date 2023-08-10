@@ -1,4 +1,4 @@
-package com.mozhimen.basick.lintk.annors
+package com.mozhimen.basick.elemk.android.util.annors
 
 import androidx.annotation.IntDef
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority

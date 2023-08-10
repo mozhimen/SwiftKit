@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.Window
 import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import kotlin.math.abs
@@ -40,7 +41,7 @@ object UtilKDecorView : BaseUtilK() {
     fun getAsViewGroup(window: Window): ViewGroup =
         getAs(window)
 
-    @Suppress("UNCHECKED_CAST")
+    @Suppress(CSuppress.UNCHECKED_CAST)
     @JvmStatic
     fun <V : View> getAs(window: Window): V =
         get(window) as V

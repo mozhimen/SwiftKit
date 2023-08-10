@@ -55,13 +55,13 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
 
     private fun printLog() {
         //初级用法
-        LogK.i("just a test1!")
+        LogK.ik("just a test1!")
 
         //中级用法
-        LogK.log(CLogPriority.W, TAG, "just a test2!")
+        LogK.logk(CLogPriority.W, TAG, "just a test2!")
 
         //高级用法
-        LogK.log(object : BaseLogKConfig() {
+        LogK.logk(object : BaseLogKConfig() {
             override fun includeThread(): Boolean {
                 return true
             }
@@ -74,7 +74,7 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
 
     private fun printLog1() {
         val printers: String = LogKMgr.instance.getPrinters().joinToString { it.getName() }
-        LogK.dt(TAG, printers)
+        LogK.dtk(TAG, printers)
     }
 
     override fun onResume() {

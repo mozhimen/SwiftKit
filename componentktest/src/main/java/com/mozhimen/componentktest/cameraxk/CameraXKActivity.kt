@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
@@ -56,6 +57,7 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     }
 
     private var _outputBitmap: Bitmap? = null
+    @OptIn(OptInFieldCall_Close::class)
     private val _frameAnalyzer: ICameraXKFrameListener by lazy {
         object : ICameraXKFrameListener {
             @SuppressLint("UnsafeOptInUsageError")

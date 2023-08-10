@@ -1,4 +1,4 @@
-package com.mozhimen.abilityk.hotupdatek.commons
+package com.mozhimen.abilityk.updatek.commons
 
 /**
  * @ClassName IHotUpdateKListener
@@ -7,7 +7,7 @@ package com.mozhimen.abilityk.hotupdatek.commons
  * @Date 2022/6/13 15:35
  * @Version 1.0
  */
-interface IHotupdateKListener {
+interface IUpdateKListener {
     fun onComplete()
     fun onFail(msg: String)
 }

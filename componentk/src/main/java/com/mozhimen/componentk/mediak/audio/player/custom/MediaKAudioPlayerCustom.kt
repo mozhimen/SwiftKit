@@ -107,7 +107,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
         if (getPlayStatus() == EMediaKPlayerStatus.PAUSED) start()
     }
 
-    @OptIn(OptInApiInit_ByLazy::class)
+    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     override fun pause() {
         if (getPlayStatus() != EMediaKPlayerStatus.STARTED) return
         _mediaKPlayerStatus!!.pause()
@@ -123,7 +123,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
         setAudioEvent(CMediaKAudioCons.Event.AUDIO_PAUSE, _currentAudioK)
     }
 
-    @OptIn(OptInApiInit_ByLazy::class)
+    @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     override fun release() {
         if (_mediaKPlayerStatus == null) return
         _mediaKPlayerStatus!!.release()

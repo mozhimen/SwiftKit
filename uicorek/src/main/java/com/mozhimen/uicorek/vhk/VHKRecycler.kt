@@ -3,6 +3,7 @@ package com.mozhimen.uicorek.vhk
 import android.util.SparseArray
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 
 /**
  * @ClassName RecyclerKViewHolder
@@ -20,6 +21,7 @@ open class VHKRecycler(val containerView: View) : RecyclerView.ViewHolder(contai
      * @param viewId Int
      * @return T?
      */
+    @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VIEW : View> findViewById(viewId: Int): VIEW? {
         var view = _viewCaches.get(viewId)
         if (view == null) {

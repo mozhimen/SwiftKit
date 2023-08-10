@@ -98,7 +98,7 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
      * 设置图片
      * @param resId Int
      */
-    fun setImage(resId: Int = R.mipmap.layoutk_empty) {
+    fun setImage(resId: Int? = R.mipmap.layoutk_empty) {
         if (resId != null) {
             _imageView.setImageResource(resId)
             _imageView.asVisible()

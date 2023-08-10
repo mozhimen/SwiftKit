@@ -31,7 +31,6 @@ class DragAndDropProxy : BaseWakeBefPauseLifecycleObserver() {
                 sourceView.startDragAndDrop(null, DragShadowBuilder(sourceView), sourceView, 0)
             } else {
                 //support pre-Nougat versions
-                @Suppress("DEPRECATION")
                 sourceView.startDrag(null, DragShadowBuilder(sourceView), sourceView, 0)
             }
             //v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING)

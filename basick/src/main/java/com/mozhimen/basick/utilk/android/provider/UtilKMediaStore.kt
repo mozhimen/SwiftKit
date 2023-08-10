@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.android.provider
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
@@ -40,6 +39,6 @@ object UtilKMediaStore : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getImagesMediaBitmap(context: Context, uri: Uri): Bitmap =
+    fun getImagesMediaBitmap(uri: Uri): Bitmap =
         MediaStore.Images.Media.getBitmap(UtilKContentResolver.get(_context), uri)
 }

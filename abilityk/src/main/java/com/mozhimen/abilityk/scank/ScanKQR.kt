@@ -78,7 +78,7 @@ object ScanKQR : BaseUtilK() {
             return bitmap
         } catch (e: WriterException) {
             e.printStackTrace()
-            LogK.et(TAG, e.message ?: "")
+            LogK.etk(TAG, e.message ?: "")
         }
         return null
     }

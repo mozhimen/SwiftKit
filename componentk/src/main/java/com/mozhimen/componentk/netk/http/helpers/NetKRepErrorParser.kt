@@ -10,7 +10,6 @@ import java.lang.NullPointerException
 import java.net.ConnectException
 import javax.net.ssl.SSLHandshakeException
 import com.mozhimen.componentk.netk.http.cons.CResCode
-import com.mozhimen.underlayk.logk.ket
 
 /**
  * @ClassName ExceptionParser

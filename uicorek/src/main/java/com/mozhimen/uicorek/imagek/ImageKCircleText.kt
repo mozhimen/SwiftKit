@@ -377,9 +377,9 @@ class ImageKCircleText @JvmOverloads constructor(context: Context, attrs: Attrib
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val widthMeasureSpecMode = MeasureSpec.getMode(widthMeasureSpec)
-        val widthMeasureSpecSize = MeasureSpec.getSize(widthMeasureSpec)
+//        val widthMeasureSpecSize = MeasureSpec.getSize(widthMeasureSpec)
         val heightMeasureSpecMode = MeasureSpec.getMode(heightMeasureSpec)
-        val heightMeasureSpecSize = MeasureSpec.getSize(heightMeasureSpec)
+//        val heightMeasureSpecSize = MeasureSpec.getSize(heightMeasureSpec)
         if (!TextUtils.isEmpty(mTextContent)) {
             var textMeasuredSize = mTextPaint.measureText(mTextContent).toInt()
             textMeasuredSize += 2 * mTextPadding

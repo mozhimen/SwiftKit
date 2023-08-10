@@ -2,6 +2,7 @@ package com.mozhimen.uicorek.adapterk
 
 import android.view.View
 import androidx.databinding.ViewDataBinding
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2list
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2listIgnoreNull
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerStuffedVB
@@ -18,8 +19,9 @@ import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 typealias IAdapterKRecyclerStuffedVB2Listener<DATA, VB> = (holder: VHKRecyclerVB<VB>, itemData: DATA, position: Int, currentSelectPos: Int) -> Unit
 
+@Suppress(CSuppress.UNCHECKED_CAST)
 class AdapterKRecyclerStuffedVB2<DATA, VB : ViewDataBinding>(
-    private var _datas: List<DATA>,
+    private val _datas: List<DATA>,
     private var _defaultLayoutId: Int,
     private var _brId: Int,
     private var _headerLayoutId: Int? = null,
@@ -76,7 +78,7 @@ class AdapterKRecyclerStuffedVB2<DATA, VB : ViewDataBinding>(
         if (position < 0 || position >= _items.size) return
         _selectItemPosition = position
         val item = getItem(_selectItemPosition) as RecyclerKItemVB<DATA, VB>
-        listener.invoke(item.vh as VHKRecyclerVB<VB>, item.data, _selectItemPosition, _selectItemPosition)
+        listener.invoke(item.vh, item.data, _selectItemPosition, _selectItemPosition)
     }
 
     override fun onSelectItemPositionGet(): Int {

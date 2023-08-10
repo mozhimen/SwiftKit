@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.SharedPreferences.Editor
 import com.mozhimen.basick.cachek.commons.ICacheKProvider
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.postk.crypto.PostKCryptoAES
 import com.mozhimen.basick.postk.crypto.mos.MCryptoAESConfig
@@ -115,7 +116,7 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
 
     /////////////////////////////////////////////////////////////////////
 
-    @Suppress("UNCHECKED_CAST")
+    @Suppress(CSuppress.UNCHECKED_CAST)
     override fun <T> getObj(key: String, default: T): T =
         when (default) {
             is String -> getString(key, default)

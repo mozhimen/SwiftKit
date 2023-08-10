@@ -21,6 +21,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
@@ -31,10 +32,10 @@ import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.commons.ILogKPrinterMonitor
 import com.mozhimen.underlayk.logk.cons.CLogKCons
-import com.mozhimen.underlayk.logk.mos.MLogKConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -47,6 +48,8 @@ import kotlinx.coroutines.launch
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(), LifecycleOwner {
+    private val TITLE_OPEN_PANEL by lazy { UtilKRes.getString(R.string.logk_view_provider_title_open) }
+    private val TITLE_CLOSE_PANEL by lazy { UtilKRes.getString(R.string.logk_view_provider_title_close) }
 
     private val _layoutParams: WindowManager.LayoutParams by lazy { WindowManager.LayoutParams() }
     private var _rootView: FrameLayout? = null
@@ -79,7 +82,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
 
     private var _isFold = false
         set(value) {
-            _titleView!!.text = if (value) CLogKCons.TITLE_OPEN_PANEL else CLogKCons.TITLE_CLOSE_PANEL
+            _titleView!!.text = if (value) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
             field = value
         }
 
@@ -103,13 +106,13 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
 
     override fun getLifecycle(): Lifecycle = _lifecycleRegistry
 
-    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
+    override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         if (_isOpen) {
             if (UtilKThread.isMainThread()) {
-                printInView(config, level, tag, printString)
+                printInView(config, priority, tag, msg)
             } else {
                 lifecycleScope.launch(Dispatchers.Main) {
-                    printInView(config, level, tag, printString)
+                    printInView(config, priority, tag, msg)
                 }
             }
         }
@@ -137,7 +140,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     override fun open(isFold: Boolean) {
         if (_isOpen) return
         if (!UtilKPermission.hasOverlay()) {
-            LogK.et(TAG, "PrinterMonitor play app has no overlay permission")
+            LogK.etk(TAG, "PrinterMonitor play app has no overlay permission")
             "请打开悬浮窗权限".showToastOnMain()
             UtilKLaunchActivity.startManageOverlay(_context)
             return
@@ -167,7 +170,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun printInView(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
-        _adapterKRecycler.addItem(LogKPrinterItem(MLogKConfig(System.currentTimeMillis(), level, tag, printString)), true)
+        _adapterKRecycler.addItem(LogKPrinterItem(BaseLogKRecord(System.currentTimeMillis(), level, tag, printString)), true)
         _recyclerView!!.smoothScrollToPosition(_adapterKRecycler.itemCount - 1)
     }
 
@@ -175,7 +178,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     private fun fold() {
         if (_isFold) return
         _isFold = true
-        _titleView!!.text = CLogKCons.TITLE_OPEN_PANEL
+        _titleView!!.text = TITLE_OPEN_PANEL
         _recyclerView!!.visibility = View.GONE
         _rootView!!.layoutParams = getLayoutParams(true)
         _windowManager.updateViewLayout(_rootView, getWindowLayoutParams(true))
@@ -185,7 +188,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     private fun unfold() {
         if (!_isFold) return
         _isFold = false
-        _titleView!!.text = CLogKCons.TITLE_CLOSE_PANEL
+        _titleView!!.text = TITLE_CLOSE_PANEL
         _recyclerView!!.visibility = View.VISIBLE
         _rootView!!.layoutParams = getLayoutParams(false)
         _windowManager.updateViewLayout(_rootView, getWindowLayoutParams(false))

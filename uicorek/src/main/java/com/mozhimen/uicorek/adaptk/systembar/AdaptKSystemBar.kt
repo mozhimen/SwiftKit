@@ -146,8 +146,8 @@ object AdaptKSystemBar : BaseUtilK() {
     }
 
 
-    @JvmStatic
-    internal fun init(activity: Activity) {
+//    @JvmStatic
+//    internal fun init(activity: Activity) {
 //        val statusBarAnnor: ASenseKSystemBarProperty =
 //            activity.getAnnotation(ASenseKSystemBarProperty::class.java) ?: ASenseKSystemBarProperty(property = CSystemBarType.NORMAL)
 //        val systemBarType = statusBarAnnor.property
@@ -200,5 +200,5 @@ object AdaptKSystemBar : BaseUtilK() {
 //                UtilKStatusBar.setStatusBarColor(activity, UtilKRes.getColor(statusBarColor))
 //                UtilKStatusBarFontIcon.setStatusBarFontIcon(activity, if (statusBarAnnor.isFollowSystem) UtilKUiMode.isOSLightMode() else statusBarAnnor.isFontIconDark)//设置状态栏文字和Icon是否为深色
 //            }
-    }
+//    }
 }

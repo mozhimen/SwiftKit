@@ -13,7 +13,6 @@ import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
-import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
@@ -201,7 +200,7 @@ object UtilKUri : BaseUtilK() {
     fun uri2bitmap(uri: Uri): Bitmap =
         if (UtilKBuildVersion.isAfterV_28_9_P())
             UtilKImageDecoder.decodeBitmap(_context, uri)
-        else UtilKMediaStore.getImagesMediaBitmap(_context, uri)
+        else UtilKMediaStore.getImagesMediaBitmap(uri)
 
     @JvmStatic
     fun uri2bitmap2(uri: Uri): Bitmap? {

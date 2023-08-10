@@ -10,6 +10,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.PopupWindow
 import com.mozhimen.basick.elemk.android.view.cons.CView
+import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity.getByContext
 import com.mozhimen.basick.utilk.android.util.et
@@ -77,6 +78,7 @@ class BasePopwinKDelegate(context: BasePopwinKContextWrapper) : PopupWindow(cont
         }
     }
 
+    @OptIn(OptInApiUse_BaseApplication::class)
     override fun showAtLocation(parent: View, gravity: Int, x: Int, y: Int) {
         if (isShowing) return
         val activity = getByContext(parent.context, false)

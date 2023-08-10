@@ -18,8 +18,8 @@ class UtilKEncryptActivity : BaseActivityVB<ActivityUtilkEncryptBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         val content = "Lovelive9."
-        var pwd: String = ""
-        var res: String = ""
+        var pwd = ""
+        var res = ""
         vb.utilkEncryptTxt1.text = content
         vb.utilkEncryptBtnEncrypt.setOnClickListener {
             pwd = PostKCryptoAES.with(MCryptoAESConfig(secretKey = "saaierForTodoKey", ivString = "ihaierForTodo_Iv")).encryptWithBase64(content)

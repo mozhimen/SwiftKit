@@ -3,9 +3,9 @@ package com.mozhimen.basick.elemk.android.content
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.ConnectivityManager
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiver
 import com.mozhimen.basick.elemk.android.content.commons.IBroadcastReceiver
+import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.commons.IConnectionListener
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -37,7 +37,7 @@ class NetConnectionBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiv
     private val _listeners: ArrayList<IConnectionListener> = ArrayList()
 
     override fun registerReceiver(context: Context) {
-        context.registerReceiver(INSTANCE.holder, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        context.registerReceiver(INSTANCE.holder, IntentFilter(CConnectivityManager.CONNECTIVITY_ACTION))
     }
 
     override fun unregisterReceiver(context: Context) {
@@ -45,7 +45,7 @@ class NetConnectionBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiv
     }
 
     override fun onReceive(context: Context?, intent: Intent) {
-        if (ConnectivityManager.CONNECTIVITY_ACTION == intent.action) {
+        if (CConnectivityManager.CONNECTIVITY_ACTION == intent.action) {
             val netType: ENetType = UtilKNetConn.getNetType()
             "onReceive: eNetKType $netType".wt(TAG)
             notifyListeners(netType)

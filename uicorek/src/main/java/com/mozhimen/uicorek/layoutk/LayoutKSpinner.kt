@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Resources.Theme
 import android.util.AttributeSet
 import android.widget.ArrayAdapter
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.uicorek.R
 
 /**
@@ -55,6 +56,7 @@ class LayoutKSpinner<T> @JvmOverloads constructor(
         }
     }
 
+    @Suppress(CSuppress.UNCHECKED_CAST)
     fun getSelectItem(): T? {
         return if (_items.isNotEmpty()) this.selectedItem as? T? else null
     }

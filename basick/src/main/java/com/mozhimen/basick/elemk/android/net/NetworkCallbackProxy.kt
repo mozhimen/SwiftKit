@@ -1,6 +1,5 @@
 package com.mozhimen.basick.elemk.android.net
 
-import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
@@ -19,7 +18,7 @@ import com.mozhimen.basick.utilk.android.net.UtilKNetConn
  */
 @OptInApiCall_BindLifecycle
 @OptInApiInit_ByLazy
-class NetworkCallbackProxy(context: Context, private val _networkCallback: ConnectivityManager.NetworkCallback) : BaseWakeBefDestroyLifecycleObserver() {
+class NetworkCallbackProxy(private val _networkCallback: ConnectivityManager.NetworkCallback) : BaseWakeBefDestroyLifecycleObserver() {
 
     init {
         UtilKNetConn.registerNetworkCallback(NetworkRequest.Builder().addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET).build(), _networkCallback)

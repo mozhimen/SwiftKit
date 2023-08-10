@@ -22,8 +22,8 @@ class ExampleUnitTest {
 //                }
 //            }
 //        }.start()
-        val a = 0b010
-        val b = 0b100
+//        val a = 0b010
+//        val b = 0b100
         //read(a or b, 8)
     }
 

@@ -1,6 +1,8 @@
 package com.mozhimen.underlayk.logk.bases
 
 import com.mozhimen.basick.utilk.squareup.moshi.t2json
+import com.mozhimen.underlayk.logk.commons.ILogKConfig
+import com.mozhimen.underlayk.logk.commons.ILogKJsonParser
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 
 /**
@@ -10,36 +12,25 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinter
  * @Date 2021/12/20 17:04
  * @Version 1.0
  */
-open class BaseLogKConfig {
-    open fun injectJsonParser(): IJsonParser? {
-        return object : IJsonParser {
-            override fun toJson(src: Any): String {
-                return src.t2json()
-            }
+open class BaseLogKConfig : ILogKConfig {
+    override fun injectJsonParser(): ILogKJsonParser? =
+        object : ILogKJsonParser {
+            override fun toJson(src: Any): String =
+                src.t2json()
         }
-    }
 
-    open fun getGlobalTag(): String {
-        return "LogK"
-    }
+    override fun getGlobalTag(): String =
+        TAG
 
-    open fun enable(): Boolean {
-        return true
-    }
+    override fun getStackTraceDepth(): Int =
+        0
 
-    open fun includeThread(): Boolean {
-        return false
-    }
+    override fun getPrinters(): Array<ILogKPrinter>? =
+        null
 
-    open fun stackTraceDepth(): Int {
-        return 0
-    }
+    override fun isEnable(): Boolean =
+        true
 
-    open fun printers(): Array<ILogKPrinter>? {
-        return null
-    }
-
-    interface IJsonParser {
-        fun toJson(src: Any): String
-    }
+    override fun isIncludeThread(): Boolean =
+        false
 }

@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.org.json
 
 import android.text.TextUtils
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.google.gson.UtilKGson
@@ -65,6 +66,7 @@ object UtilKJson : BaseUtilK() {
      * @param name String
      * @return T?
      */
+    @Suppress(CSuppress.UNCHECKED_CAST)
     @JvmStatic
     fun <T> getTForJsonObj(jsonObj: JSONObject, name: String): T? =
         try {

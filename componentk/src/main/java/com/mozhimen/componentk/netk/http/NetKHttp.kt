@@ -64,7 +64,6 @@ open class NetKHttp(
         return _retrofit!!.create(service) as SERVICE
     }
 
-    @Synchronized
     inline fun <reified SERVICE : Any> create(): SERVICE {
         return create(SERVICE::class.java)
     }

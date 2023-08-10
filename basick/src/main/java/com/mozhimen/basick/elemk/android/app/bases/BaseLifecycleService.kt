@@ -6,6 +6,7 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ServiceLifecycleDispatcher
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 
 /**
  * @ClassName BaseLifecycleService
@@ -30,7 +31,6 @@ open class BaseLifecycleService : BaseService(), LifecycleOwner {
     }
 
     @Deprecated("Deprecated in Java")
-    @Suppress("deprecation")
     @CallSuper
     override fun onStart(intent: Intent?, startId: Int) {
         _serviceLifecycleDispatcher.onServicePreSuperOnStart()

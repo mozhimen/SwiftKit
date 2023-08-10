@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdk rootProject.android.compileSdk
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.mozhimen.componentktest"
-        minSdk rootProject.android.minSdk
+        minSdk 21
         targetSdk 25
         versionCode 1
         versionName "0.0.1"

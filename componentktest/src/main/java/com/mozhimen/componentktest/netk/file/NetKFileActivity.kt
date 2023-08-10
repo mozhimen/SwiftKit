@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import com.liulishuo.okdownload.DownloadTask
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
+import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_ThirdParty
+import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.okdownload.commons.IFileDownloadSingleListener
@@ -80,6 +83,7 @@ class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
         }
     }
 
+    @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class, OptInApiDeprecated_ThirdParty::class)
     override fun initView(savedInstanceState: Bundle?) {
         vb.netkFileBtn1.setOnClickListener {
             vb.netkFileBtn1.isClickable = false

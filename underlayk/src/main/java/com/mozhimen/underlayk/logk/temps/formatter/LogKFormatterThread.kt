@@ -10,7 +10,6 @@ import com.mozhimen.underlayk.logk.commons.ILogKFormatter
  * @Version 1.0
  */
 class LogKFormatterThread : ILogKFormatter<Thread> {
-    override fun format(data: Thread): String {
-        return "Thread: " + data.name
-    }
+    override fun format(data: Thread): String =
+        "Thread: " + data.name
 }

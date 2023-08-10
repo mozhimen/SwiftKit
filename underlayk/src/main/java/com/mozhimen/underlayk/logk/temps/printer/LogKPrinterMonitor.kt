@@ -30,7 +30,7 @@ class LogKPrinterMonitor : ILogKPrinter, ILogKPrinterMonitor, IUtilK {
         StackKCb.instance.addFrontBackListener(object : IStackKListener {
             override fun onChanged(isFront: Boolean) {
                 if (!isFront && isOpen()) {
-                    LogK.wt(TAG, "PrinterMonitor onChanged log stop")
+                    LogK.wtk(TAG, "PrinterMonitor onChanged log stop")
                     _logKPrinterMonitorDelegate.close()
                 }
 //                if (isFront) {
@@ -68,7 +68,7 @@ class LogKPrinterMonitor : ILogKPrinter, ILogKPrinterMonitor, IUtilK {
 
     override val TAG: String = "LogKPrinterMonitor>>>>>"
 
-    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
-        _logKPrinterMonitorDelegate.print(config, level, tag, printString)
+    override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
+        _logKPrinterMonitorDelegate.print(config, priority, tag, msg)
     }
 }

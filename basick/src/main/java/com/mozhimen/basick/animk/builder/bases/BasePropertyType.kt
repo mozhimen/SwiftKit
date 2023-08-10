@@ -2,6 +2,7 @@ package com.mozhimen.basick.animk.builder.bases
 
 import android.view.animation.Interpolator
 import androidx.annotation.FloatRange
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 
 /**
  * @ClassName BaseAnimationConfig
@@ -10,7 +11,7 @@ import androidx.annotation.FloatRange
  * @Date 2022/11/17 22:44
  * @Version 1.0
  */
-@Suppress("UNCHECKED_CAST")
+@Suppress(CSuppress.UNCHECKED_CAST)
 abstract class BasePropertyType<T> {
 
     protected var _interpolator: Interpolator? = null

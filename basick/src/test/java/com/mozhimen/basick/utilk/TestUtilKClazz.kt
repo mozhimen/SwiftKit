@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import android.view.Display
-import com.mozhimen.basick.utilk.kotlin.getStrPackage
+import com.mozhimen.basick.utilk.kotlin.getStrPackageName
 import com.mozhimen.basick.utilk.kotlin.strPackage2clazz
 import com.mozhimen.basick.utilk.kotlin.printlog
 import org.junit.Test
@@ -17,6 +17,6 @@ class TestUtilKClazz {
     @Test
     fun test() {
         "android.view.Display".strPackage2clazz().name.printlog()
-        Display::class.java.getStrPackage().strPackage2clazz().getStrPackage().printlog()
+        Display::class.java.getStrPackageName().strPackage2clazz().getStrPackageName().printlog()
     }
 }

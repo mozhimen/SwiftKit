@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.process.StackKProcess
 import com.mozhimen.basick.utilk.android.widget.showToast
@@ -11,6 +12,7 @@ import com.mozhimen.basicktest.databinding.ActivityStackkProcessBinding
 
 class StackKProcessActivity : BaseActivityVB<ActivityStackkProcessBinding>(), IStackKListener {
 
+    @OptIn(OptInApiInit_InApplication::class)
     @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
         val stackTopActivity = StackKProcess.instance.getStackTopActivity()

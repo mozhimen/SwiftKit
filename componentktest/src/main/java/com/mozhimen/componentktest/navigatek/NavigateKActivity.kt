@@ -16,6 +16,7 @@ class NavigateKActivity : BaseActivityVB<ActivityNavigatekBinding>() {
 
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     private val _navigateKProxy by lazy { NavigateKProxy(this, R.id.navigatek_fragment_container, _fragments) }
+    @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     val navigateKProxy get() = _navigateKProxy
 
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)

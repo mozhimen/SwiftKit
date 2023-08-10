@@ -12,7 +12,7 @@ import com.mozhimen.underlayktest.logk.LogKActivity
 
 class UnderlayKActivity : BaseActivityVB<ActivityUnderlaykBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
-        vb.underlaykPrintLog.setOnClickListener { LogK.w("这是一个测试") }
+        vb.underlaykPrintLog.setOnClickListener { LogK.wk("这是一个测试") }
     }
 
     fun goCrashK(view: View) {

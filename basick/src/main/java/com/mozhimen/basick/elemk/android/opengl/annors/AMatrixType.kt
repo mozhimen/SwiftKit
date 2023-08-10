@@ -1,4 +1,4 @@
-package com.mozhimen.basick.lintk.annors
+package com.mozhimen.basick.elemk.android.opengl.annors
 
 import androidx.annotation.IntDef
 

@@ -2,6 +2,7 @@ package com.mozhimen.basick.postk.event
 
 import androidx.lifecycle.*
 import com.mozhimen.basick.elemk.androidx.lifecycle.StickyLiveData
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -26,6 +27,7 @@ class PostKEventLiveData {
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 
+    @Suppress(CSuppress.UNCHECKED_CAST)
     fun <T> with(eventName: String): StickyLiveData<T> {
         var liveData = _eventLiveDataMap[eventName]
         if (liveData == null) {

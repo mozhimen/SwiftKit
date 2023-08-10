@@ -17,7 +17,6 @@ object CLogPriority {
     const val WARN = Log.WARN
     const val ERROR = Log.ERROR
     const val ASSERT = Log.ASSERT
-
     const val V = VERBOSE
     const val D = DEBUG
     const val I = INFO

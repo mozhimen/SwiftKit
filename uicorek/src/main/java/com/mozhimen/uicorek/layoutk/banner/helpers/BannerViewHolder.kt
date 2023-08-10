@@ -3,6 +3,7 @@ package com.mozhimen.uicorek.layoutk.banner.helpers
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 
 /**
  * @ClassName BannerViewHolder
@@ -14,6 +15,7 @@ import android.view.ViewGroup
 class BannerViewHolder(var rootView: View) {
     private var _viewSparseArray: SparseArray<View>? = null
 
+    @Suppress(CSuppress.UNCHECKED_CAST)
     fun <V : View> findViewById(id: Int): V {
         if (rootView !is ViewGroup) {
             return rootView as V

@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.installk.commons
 
+import com.mozhimen.basick.lintk.optin.OptInDeviceRoot
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.cons.EInstallKMode
 
@@ -10,6 +11,7 @@ import com.mozhimen.componentk.installk.cons.EInstallKMode
  * @Date 2023/5/17 18:21
  * @Version 1.0
  */
+@OptIn(OptInDeviceRoot::class)
 interface IInstallK {
     fun setInstallMode(mode: EInstallKMode): InstallK
     fun setInstallSilenceReceiver(receiverClazz: Class<*>): InstallK

@@ -1,6 +1,7 @@
 package com.mozhimen.uicorek.adapterk
 
 import androidx.databinding.ViewDataBinding
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2list
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2listIgnoreNull
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVB
@@ -20,6 +21,7 @@ import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 typealias IAdapterKRecyclerVB2Listener<DATA, VB> = (holder: VHKRecyclerVB<VB>, data: DATA, position: Int, selectItemPos: Int) -> Unit
 
+@Suppress(CSuppress.UNCHECKED_CAST)
 class AdapterKRecyclerVB2<DATA, VB : ViewDataBinding>(
     private val _datas: List<DATA>,
     private val _defaultLayoutId: Int,

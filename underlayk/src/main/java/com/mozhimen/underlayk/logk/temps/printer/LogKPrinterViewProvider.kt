@@ -10,13 +10,15 @@ import android.widget.TextView
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
+import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.cons.CLogKCons
-import com.mozhimen.underlayk.logk.mos.MLogKConfig
 
 /**
  * @ClassName ViewPrinterProvider
@@ -31,6 +33,8 @@ class LogKPrinterViewProvider(
 ) : ILogKPrinter {
 
     private val _adapterKRecyclerStuffed by lazy { AdapterKRecycler() }
+    private val TITLE_OPEN_PANEL by lazy { UtilKRes.getString(R.string.logk_view_provider_title_open) }
+    private val TITLE_CLOSE_PANEL by lazy { UtilKRes.getString(R.string.logk_view_provider_title_close) }
 
     private var _recyclerView: RecyclerView? = null
         get() {
@@ -46,7 +50,7 @@ class LogKPrinterViewProvider(
         get() {
             if (field != null) return field
             val textView = TextView(_context)
-            textView.text = if (_isFold) CLogKCons.TITLE_OPEN_PANEL else CLogKCons.TITLE_CLOSE_PANEL
+            textView.text = if (_isFold) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
             textView.setPadding(4f.dp2px().toInt())
             textView.setTextColor(Color.WHITE)
             textView.setBackgroundColor(Color.BLACK)
@@ -70,7 +74,7 @@ class LogKPrinterViewProvider(
 
     private var _isFold = false
         set(value) {
-            _titleView!!.text = if (value) CLogKCons.TITLE_OPEN_PANEL else CLogKCons.TITLE_CLOSE_PANEL
+            _titleView!!.text = if (value) TITLE_OPEN_PANEL else TITLE_CLOSE_PANEL
             field = value
         }
 
@@ -89,7 +93,7 @@ class LogKPrinterViewProvider(
     fun foldLogView() {
         if (_isFold) return
         _isFold = true
-        _titleView!!.text = CLogKCons.TITLE_OPEN_PANEL
+        _titleView!!.text = TITLE_OPEN_PANEL
         _recyclerView!!.visibility = View.GONE
         //transform
         _containerView!!.layoutParams = getLayoutParams(true)
@@ -98,15 +102,15 @@ class LogKPrinterViewProvider(
     fun unfoldLogView() {
         if (!_isFold) return
         _isFold = false
-        _titleView!!.text = CLogKCons.TITLE_CLOSE_PANEL
+        _titleView!!.text = TITLE_CLOSE_PANEL
         _recyclerView!!.visibility = View.VISIBLE
         //transform
         _containerView!!.layoutParams = getLayoutParams(false)
     }
 
-    override fun print(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
+    override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         //将log展示添加到recyclerView
-        _adapterKRecyclerStuffed.addItem(LogKPrinterItem(MLogKConfig(System.currentTimeMillis(), level, tag, printString)), true)
+        _adapterKRecyclerStuffed.addItem(LogKPrinterItem(BaseLogKRecord(System.currentTimeMillis(), priority, tag, msg)), true)
         //滚动到对应的位置
         _recyclerView!!.smoothScrollToPosition(_adapterKRecyclerStuffed.itemCount - 1)
     }

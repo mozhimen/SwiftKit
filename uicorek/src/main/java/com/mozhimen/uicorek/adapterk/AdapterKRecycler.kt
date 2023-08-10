@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
@@ -70,6 +71,7 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         if (position != -1) removeItemAtPosition(position, notify)
     }
 
+    @Suppress(CSuppress.UNCHECKED_CAST)
     override fun removeItemAtPosition(position: Int, notify: Boolean): BaseRecyclerKItem<in RecyclerView.ViewHolder>? {
         if (position < 0 || position >= _items.size) return null
         val remove = _items.removeAt(position)

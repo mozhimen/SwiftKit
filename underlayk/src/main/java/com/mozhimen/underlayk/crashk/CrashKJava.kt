@@ -18,7 +18,7 @@ import com.mozhimen.basick.utilk.java.lang.UtilKCurrentThread
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
-import com.mozhimen.underlayk.logk.ket
+import com.mozhimen.underlayk.logk.etk
 import java.io.File
 import java.io.PrintWriter
 import java.io.StringWriter
@@ -80,7 +80,7 @@ class CrashKJava : BaseUtilK() {
             if (BuildConfig.DEBUG) {
                 e.printStackTrace()
             }
-            "UncaughtExceptionHandler handleException log $log".ket(TAG)
+            "UncaughtExceptionHandler handleException log $log".etk(TAG)
 
             ///////////////////////////////////////////////////////////////////////////////
 

@@ -119,11 +119,11 @@ class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
                     Log.d(TAG, "taskEnd: success")
                     _listener?.onComplete(task)
                 } ?: kotlin.run {
-                    LogK.et(TAG, "taskEnd: fail get file path fail")
+                    LogK.etk(TAG, "taskEnd: fail get file path fail")
                     _listener?.onFail(task, Exception("get file path fail"))
                 }
             } else {
-                LogK.et(TAG, "taskEnd: error ${cause.name} realCause ${realCause?.message}")
+                LogK.etk(TAG, "taskEnd: error ${cause.name} realCause ${realCause?.message}")
                 realCause?.printStackTrace()
                 _listener?.onFail(task, realCause)
             }

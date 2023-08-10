@@ -7,6 +7,9 @@ package com.mozhimen.basick.utilk.kotlin
  * @Date 2022/11/26 23:54
  * @Version 1.0
  */
+fun Class<*>.getStrPackageName(): String =
+    UtilKClazz.getStrPackageName(this)
+
 fun Class<*>.getStrPackage(): String =
     UtilKClazz.getStrPackage(this)
 
@@ -16,8 +19,14 @@ object UtilKClazz {
         clazz.getAnnotation(annotationClazz)
 
     @JvmStatic
-    fun getStrPackage(clazz: Class<*>): String =
+    fun getStrPackageName(clazz: Class<*>): String =
             clazz.name
+
+    @JvmStatic
+    fun getStrPackage(clazz: Class<*>): String {
+        val clazzName = clazz.getStrPackageName()
+        return clazzName.substring(0, clazzName.lastIndexOf(".") + 1)
+    }
 
     @JvmStatic
     fun getSuperClazz(clazz: Class<*>): Class<*> =

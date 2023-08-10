@@ -11,6 +11,7 @@ import com.mozhimen.componentk.camerak.camerax.helpers.ImageProxyUtil
 import com.mozhimen.abilityk.scank.ScanKHSV
 import com.mozhimen.abilityktest.databinding.ActivityScankHsvBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
@@ -54,6 +55,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
     private var _orgBitmap: Bitmap? = null
     private var _lastTime: Long = System.currentTimeMillis()
     private val _ratio: Double by lazy { vb.scankHsvQrscan.getRectSize().toDouble() / UtilKScreen.getRealWidth().toDouble() }
+    @OptIn(OptInFieldCall_Close::class)
     private val _frameAnalyzer: ICameraXKFrameListener by lazy {
         object : ICameraXKFrameListener {
 
@@ -61,7 +63,7 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
             override fun invoke(imageProxy: ImageProxy) {
                 if (System.currentTimeMillis() - _lastTime >= 1000) {
                     _orgBitmap = if (imageProxy.format == ImageFormat.YUV_420_888) {
-                        ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(imageProxy)!!
+                        ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(imageProxy)
                     } else {
                         ImageProxyUtil.jpegImageProxy2JpegBitmap(imageProxy)
                     }.applyAnyBitmapRotate(90f).apply {
