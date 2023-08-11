@@ -84,11 +84,13 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         if (notify) notifyItemRangeRemoved(0, _items.size)
     }
 
+    @Suppress(CSuppress.UNCHECKED_CAST)
     override fun getItem(position: Int): BaseRecyclerKItem<RecyclerView.ViewHolder>? {
         if (position < 0 || position >= _items.size) return null
         return _items[position] as BaseRecyclerKItem<RecyclerView.ViewHolder>
     }
 
+    @Suppress(CSuppress.UNCHECKED_CAST)
     override fun getItems(): List<BaseRecyclerKItem<in RecyclerView.ViewHolder>> {
         return _items.toList() as List<BaseRecyclerKItem<in RecyclerView.ViewHolder>>
     }

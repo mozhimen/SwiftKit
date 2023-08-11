@@ -25,12 +25,10 @@ class LogKPrinterView<A>(owner: A) : ILogKPrinter, BaseWakeBefPauseLifecycleObse
     private var _isShow: Boolean = false
         set(value) {
             if (value == field) return
-            if (value) {
+            if (value)
                 _viewProvider.showLogView(_isFold)
-
-            } else {
+            else
                 _viewProvider.closeLogView()
-            }
             field = value
         }
 

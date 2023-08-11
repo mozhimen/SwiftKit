@@ -28,16 +28,19 @@ class LogKPrinterConsole(private val _ignoreLineBreak: Boolean = false) : BaseLo
                     index += CLogKCons.LOG_MAX_LEN
                 }
                 if (index != len) printlog(priority, tag, msg.substring(index, len))
-            } else printlog(priority, tag, msg)
+            } else
+                printlog(priority, tag, msg)
         } else {
-            val logs: List<String> = msg.split(CMsg.LINE_BREAK)
-            val lines: List<String>? = logs.lastOrNull()?.replace(CMsg.BLANK_STR, CMsg.TAB_STR)?.split(CMsg.LINE_BREAK_STR)
-            for (log in logs) printlog(priority, tag, log)
-            if (!lines.isNullOrEmpty()) for (line in lines) printlog(priority, tag, line)
+            val msgs: MutableSet<String> = msg.split(CMsg.LINE_BREAK).toMutableSet()
+            val lines: List<String>? = msgs.lastOrNull()?.replace(CMsg.BLANK_STR, CMsg.TAB_STR)?.split(CMsg.LINE_BREAK_STR)
+            if (!lines.isNullOrEmpty())
+                msgs.addAll(msgs)
+            for (m in msgs)
+                printlog(priority, tag, m)
         }
     }
 
-    private fun printlog(level: Int, tag: String, printString: String) {
-        printString.println(level, tag)
+    private fun printlog(level: Int, tag: String, msg: String) {
+        msg.println(level, tag)
     }
 }

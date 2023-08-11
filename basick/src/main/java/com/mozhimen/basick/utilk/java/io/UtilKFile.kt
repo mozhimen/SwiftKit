@@ -24,6 +24,10 @@ fun String.getStrFolderPath(): String =
 @AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
 object UtilKFile : BaseUtilK() {
 
+    @JvmStatic
+    fun getStrFileNameForStrToday(locale: Locale = Locale.CHINA): String =
+        getStrFileNameForStrDate(CDateFormat.yyyyMMdd, locale)
+
     /**
      * 当前小时转文件名
      */
@@ -99,9 +103,11 @@ object UtilKFile : BaseUtilK() {
     @JvmStatic
     fun createFile(file: File): File {
         file.parent?.let { createFolder(it) } ?: throw Exception("don't have parent folder")
-        Log.d(TAG, "createFile: file ${file.absolutePath}")
-        if (!isFileExist(file))
+
+        if (!isFileExist(file)) {
             file.createNewFile()
+            "createFile: file ${file.absolutePath}".dt(TAG)
+        } else "createFile: file is exits".dt(TAG)
         return file
     }
 

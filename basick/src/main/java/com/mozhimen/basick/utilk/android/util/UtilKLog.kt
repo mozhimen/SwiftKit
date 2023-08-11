@@ -49,13 +49,16 @@ fun String.println(level: Int, tag: String) {
     UtilKLog.println(level, tag, this)
 }
 
+fun Int.intLogPriority2strSimple(): String =
+    UtilKLog.intLogPriority2strSimple(this)
+
 fun Int.intLogPriority2str(): String =
     UtilKLog.intLogPriority2str(this)
 
 object UtilKLog : BaseUtilK() {
 
     @JvmStatic
-    fun intLogPriority2str(@ALogPriority priority: Int): String =
+    fun intLogPriority2strSimple(@ALogPriority priority: Int): String =
         when (priority) {
             2 -> "V"
             3 -> "D"
@@ -63,6 +66,18 @@ object UtilKLog : BaseUtilK() {
             5 -> "W"
             6 -> "E"
             7 -> "A"
+            else -> "UNKNOWN"
+        }
+
+    @JvmStatic
+    fun intLogPriority2str(@ALogPriority priority: Int): String =
+        when (priority) {
+            2 -> "VERBOSE"
+            3 -> "DEBUG"
+            4 -> "INFO"
+            5 -> "WARN"
+            6 -> "ERROR"
+            7 -> "ASSERT"
             else -> "UNKNOWN"
         }
 

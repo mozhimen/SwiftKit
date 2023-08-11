@@ -10,7 +10,9 @@ import com.mozhimen.underlayk.crashk.CrashKMgr
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
+import com.mozhimen.underlayk.logk.commons.ILogKJsonParser
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterConsole
+import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterFile
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
 
 /**
@@ -28,36 +30,31 @@ class UnderlayKApplication : BaseApplication() {
         super.onCreate()
 
         //logk
-        LogKMgr.instance.init(_logkConfig, LogKPrinterConsole()/*, LogKPrinterFile.getInstance(retentionDay = 3)*/, LogKPrinterMonitor())
+        LogKMgr.instance.init(_logkConfig, LogKPrinterConsole(), LogKPrinterFile(retentionDay = 3), LogKPrinterMonitor())
 
         //crashk
         CrashKMgr.instance.init(_crashKCallback)
+
     }
 
     private val _logkConfig = object : BaseLogKConfig() {
-        override fun injectJsonParser(): IJsonParser {
-            return object : IJsonParser {
-                override fun toJson(src: Any): String {
-                    return src.t2json()
-                }
+        override fun injectJsonParser(): ILogKJsonParser =
+            object : ILogKJsonParser {
+                override fun toJson(src: Any): String =
+                    src.t2json()
             }
-        }
 
-        override fun getGlobalTag(): String {
-            return TAG
-        }
+        override fun getGlobalTag(): String =
+            TAG
 
-        override fun enable(): Boolean {
-            return true
-        }
+        override fun getStackTraceDepth(): Int =
+            0
 
-        override fun includeThread(): Boolean {
-            return true
-        }
+        override fun isEnable(): Boolean =
+            true
 
-        override fun stackTraceDepth(): Int {
-            return 0
-        }
+        override fun isIncludeThread(): Boolean =
+            false
     }
 
     private val _crashKCallback = object : ICrashKListener {

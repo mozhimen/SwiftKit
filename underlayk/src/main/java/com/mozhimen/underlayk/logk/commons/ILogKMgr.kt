@@ -13,22 +13,18 @@ interface ILogKMgr {
     fun init(config: BaseLogKConfig, vararg printers: ILogKPrinter)
     /**
      * 获取配置
-     * @return LogKConfig
      */
     fun getConfig(): BaseLogKConfig
     /**
      * 获取打印机列表
-     * @return MutableList<IPrinter>
      */
     fun getPrinters(): List<ILogKPrinter>
     /**
      * 增加打印机
-     * @param printer IPrinter
      */
     fun addPrinter(printer: ILogKPrinter)
     /**
      * 移除打印机
-     * @param printer IPrinter
      */
     fun removePrinter(printer: ILogKPrinter)
 }

@@ -2,6 +2,8 @@ package com.mozhimen.basick.utilk.java.util
 
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import java.lang.Exception
+import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.minutes
 
 /**
  * @ClassName UtilKTime
@@ -25,6 +27,8 @@ fun Pair<String, String>.isTimeAtMinuteOf() =
 fun Pair<String, String>.isTimeAtMinuteOf(timeStr: String) =
     UtilKTime.isTimeAtMinuteOf(this, timeStr)
 
+
+
 object UtilKTime {
     /**
      * 获取当前小时2位
@@ -32,7 +36,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun getCurrentHourStrDoubleBits(): String =
-            UtilKDate.getNowStr(CDateFormat.HH)
+        UtilKDate.getNowStr(CDateFormat.HH)
 
     //////////////////////////////////////////////////////////////////////
 
@@ -127,4 +131,5 @@ object UtilKTime {
             e.printStackTrace();
             false
         }
+
 }

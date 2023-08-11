@@ -66,8 +66,6 @@ class LogKPrinterMonitor : ILogKPrinter, ILogKPrinterMonitor, IUtilK {
         _logKPrinterMonitorDelegate.close()
     }
 
-    override val TAG: String = "LogKPrinterMonitor>>>>>"
-
     override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         _logKPrinterMonitorDelegate.print(config, priority, tag, msg)
     }

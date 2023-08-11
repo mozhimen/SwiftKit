@@ -15,7 +15,7 @@ class TaskKPollInfinite : BaseWakeBefDestroyTaskK() {
     override fun isActive(): Boolean =
         _pollingScope != null && _pollingScope!!.isActive
 
-    fun start(interval: Long, task: /*suspend*/ ISuspend_Listener) {
+    fun start(intervalMillis: Long, task: /*suspend*/ ISuspend_Listener) {
         if (isActive()) return
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
@@ -27,7 +27,7 @@ class TaskKPollInfinite : BaseWakeBefDestroyTaskK() {
                     e.printStackTrace()
                     e.message?.et(TAG)
                 }
-                delay(interval)
+                delay(intervalMillis)
             }
         }
         _pollingScope = scope

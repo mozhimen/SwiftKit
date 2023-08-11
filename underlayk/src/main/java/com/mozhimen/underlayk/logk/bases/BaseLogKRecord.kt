@@ -1,7 +1,7 @@
 package com.mozhimen.underlayk.logk.bases
 
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
-import com.mozhimen.basick.utilk.android.util.intLogPriority2str
+import com.mozhimen.basick.utilk.android.util.intLogPriority2strSimple
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 
 /**
@@ -11,11 +11,11 @@ import com.mozhimen.basick.utilk.java.util.UtilKDate
  * @Date 2021/12/20 16:46
  * @Version 1.0
  */
-class BaseLogKRecord(private var _timeMillis: Long, var priority: Int, var tag: String, var msg: String) {
+open class BaseLogKRecord(var timeMillis: Long, var priority: Int, var tag: String, var msg: String) {
 
-    fun flattenedLog(): String =
-        getFlattened() + "\n" + msg
+    open fun flattenedLog(): String =
+        getFlattened() + msg
 
-    fun getFlattened(): String =
-        "${UtilKDate.longDate2strDate(_timeMillis, CDateFormat.yyyyMMddHHmmss)} | Level: ${priority.intLogPriority2str()} | Tag: $tag :"
+    open fun getFlattened(): String =
+        "${UtilKDate.longDate2strDate(timeMillis, CDateFormat.yyyyMMddHHmmss)} | Level: ${priority.intLogPriority2strSimple()} | Tag: $tag : "
 }

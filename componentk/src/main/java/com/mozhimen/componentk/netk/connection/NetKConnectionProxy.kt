@@ -1,7 +1,6 @@
 package com.mozhimen.componentk.netk.connection
 
 import android.app.Activity
-import android.net.ConnectivityManager
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiverProxy

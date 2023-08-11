@@ -15,6 +15,7 @@ import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterMonitor
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterView
 import com.mozhimen.underlayktest.databinding.ActivityLogkBinding
 
+
 @OptIn(OptInApiInit_InApplication::class)
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 @APermissionCheck(CPermission.SYSTEM_ALERT_WINDOW)
@@ -25,10 +26,6 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
             Log.d(TAG, "_printerMonitor: init")
             LogKPrinterMonitor().also { LogKMgr.instance.addPrinter(it) }
         }
-    }
-
-    override fun initData(savedInstanceState: Bundle?) {
-        super.initData(savedInstanceState)
     }
 
     override fun initView(savedInstanceState: Bundle?) {
@@ -62,13 +59,11 @@ class LogKActivity : BaseActivityVB<ActivityLogkBinding>() {
 
         //高级用法
         LogK.logk(object : BaseLogKConfig() {
-            override fun includeThread(): Boolean {
-                return true
-            }
+            override fun isIncludeThread(): Boolean =
+                true
 
-            override fun stackTraceDepth(): Int {
-                return 5
-            }
+            override fun getStackTraceDepth(): Int =
+                5
         }, CLogPriority.E, TAG, "just a test3!")
     }
 

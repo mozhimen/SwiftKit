@@ -1,5 +1,6 @@
 package com.mozhimen.underlayk.logk.temps.printer
 
+import com.mozhimen.basick.elemk.java.util.cons.EDateType
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
@@ -22,12 +23,11 @@ import java.util.concurrent.LinkedBlockingQueue
  * 2、线程同步；
  * 3、文件操作，BufferedWriter的应用；
  * 如果是外部路径需要确保已经有外部存储的读写权限
- * @param _retentionTime log文件的有效时长，单位ms，<=0表示一直有效
  * @Author Kolin Zhao / Mozhimen
  * @Date 2021/12/20 17:33
  * @Version 1.0
  */
-class LogKPrinterFile(private val _retentionTime: Long) : ILogKPrinter, BaseUtilK() {
+open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
 
     var logPath: String? = null
         get() {
@@ -37,69 +37,69 @@ class LogKPrinterFile(private val _retentionTime: Long) : ILogKPrinter, BaseUtil
             return logFullPath.also { field = it }
         }
 
-    private val _executors = Executors.newSingleThreadExecutor()
-    private var _writer: PrinterWriter
+    private var _retentionTime: Long = -1
+    private var _createLogFileDateType: EDateType = EDateType.DAY
+    private val _executors by lazy { Executors.newSingleThreadExecutor() }
+    protected var _printerWorker: PrinterWorker
+    private var _printerWriter: PrinterWriter
 
-    @Volatile
-    private var _worker: PrinterWorker
-
-    companion object {
-        private var instance: LogKPrinterFile? = null
-
-        /**
-         * @param retentionDay Long? 单位天
-         * @return PrinterFile
-         */
-        @Synchronized
-        fun getInstance(
-            retentionDay: Long = 0
-        ): LogKPrinterFile {
-            if (instance == null) {
-                instance = LogKPrinterFile(retentionDay * 1000 * 60 * 60 * 24)
-            }
-            return instance!!
-        }
+    /**
+     * retentionMillis log文件的有效时长，单位ms，<=0表示一直有效
+     */
+    constructor(retentionMillis: Long) : this() {
+        _retentionTime = retentionMillis
     }
 
+    /**
+     * retentionDay log文件的有效时长，单位天，<=0表示一直有效
+     */
+    constructor(retentionDay: Int) : this(retentionDay * 1000L * 60L * 60L * 24L)
+
     init {
-        _writer = PrinterWriter()
-        _worker = PrinterWorker()
+        _printerWriter = PrinterWriter()
+        _printerWorker = PrinterWorker()
         cleanExpiredLog()
     }
 
-    fun getLogFiles(): Array<File> {
-        return File(logPath!!).listFiles() ?: emptyArray()
+    fun setCreateLogFileDateType(type: EDateType) {
+        _createLogFileDateType = type
     }
+
+    fun getLogFiles(): Array<File> =
+        File(logPath!!).listFiles() ?: emptyArray()
 
     override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
-        val timeMillis = System.currentTimeMillis()
-        if (!_worker.isRunning()) {
-            _worker.start()
-        }
-        _worker.put(BaseLogKRecord(timeMillis, priority, tag, msg))
+        val currentTimeMillis = System.currentTimeMillis()
+        if (!_printerWorker.isRunning())
+            _printerWorker.start()
+
+        _printerWorker.put(BaseLogKRecord(currentTimeMillis, priority, tag, msg))
     }
 
-    private fun genFileName(): String {
-        return "${UtilKFile.getStrFileNameForStrCurrentHour()}.txt"
-    }
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    private fun getLogFileName(): String =
+        when (_createLogFileDateType) {
+            EDateType.HOUR -> "${UtilKFile.getStrFileNameForStrCurrentHour()}.txt"
+            else -> "${UtilKFile.getStrFileNameForStrToday()}.txt"
+        }
 
     /**
      * 清除过期log
      */
     private fun cleanExpiredLog() {
-        if (_retentionTime <= 0) {
+        if (_retentionTime <= 0)
             return
-        }
+
         val currentTimeMillis = System.currentTimeMillis()
         val files = getLogFiles()
         for (file in files) {
-            if (currentTimeMillis - file.lastModified() > _retentionTime) {
+            if (currentTimeMillis - file.lastModified() > _retentionTime)
                 file.delete()
-            }
         }
     }
 
-    private inner class PrinterWorker : Runnable {
+    protected inner class PrinterWorker : Runnable {
         private val _logQueue: BlockingQueue<BaseLogKRecord> = LinkedBlockingQueue()
 
         @Volatile
@@ -155,17 +155,16 @@ class LogKPrinterFile(private val _retentionTime: Long) : ILogKPrinter, BaseUtil
         }
 
         private fun doPrint(log: BaseLogKRecord) {
-            val lastFileName: String? = _writer.getPreFileName()
+            val lastFileName: String? = _printerWriter.getPreFileName()
             if (lastFileName == null) {
-                val newFileName: String = genFileName()
-                if (_writer.isRunning()) {
-                    _writer.close()
-                }
-                if (!_writer.ready(newFileName)) {
+                val newFileName: String = getLogFileName()
+                if (_printerWriter.isRunning())
+                    _printerWriter.close()
+
+                if (!_printerWriter.ready(newFileName))
                     return
-                }
             }
-            _writer.append(log.flattenedLog())
+            _printerWriter.append(log.flattenedLog())
         }
     }
 
@@ -177,13 +176,11 @@ class LogKPrinterFile(private val _retentionTime: Long) : ILogKPrinter, BaseUtil
         private var _logFile: File? = null
         private var _bufferedWriter: BufferedWriter? = null
 
-        fun isRunning(): Boolean {
-            return _bufferedWriter != null
-        }
+        fun isRunning(): Boolean =
+            _bufferedWriter != null
 
-        fun getPreFileName(): String? {
-            return _preFileName
-        }
+        fun getPreFileName(): String? =
+            _preFileName
 
         /**
          * log写入前的准备操作
@@ -247,5 +244,4 @@ class LogKPrinterFile(private val _retentionTime: Long) : ILogKPrinter, BaseUtil
             }
         }
     }
-
 }

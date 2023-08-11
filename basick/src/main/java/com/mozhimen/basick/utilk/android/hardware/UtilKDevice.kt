@@ -28,7 +28,7 @@ object UtilKDevice : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(CPermission.READ_PHONE_STATE)
     fun getIMEI(): String =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) {
             UtilKImei.getImei(_context)
         } else ""
 

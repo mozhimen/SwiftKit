@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.android.opengl
 
 import android.opengl.Matrix
-import com.mozhimen.basick.lintk.annors.AMatrixType
+import com.mozhimen.basick.elemk.android.opengl.annors.AMatrixType
 
 /**
  * @ClassName UtilKMatrix

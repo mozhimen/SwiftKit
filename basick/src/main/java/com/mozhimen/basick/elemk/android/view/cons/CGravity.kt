@@ -1,5 +1,6 @@
 package com.mozhimen.basick.elemk.android.view.cons
 
+import android.annotation.SuppressLint
 import android.view.Gravity
 
 
@@ -10,6 +11,7 @@ import android.view.Gravity
  * @Date 2023/7/27 17:49
  * @Version 1.0
  */
+@SuppressLint("RtlHardcoded")
 object CGravity {
     const val NO_GRAVITY = Gravity.NO_GRAVITY
     const val AXIS_SPECIFIED = Gravity.AXIS_SPECIFIED

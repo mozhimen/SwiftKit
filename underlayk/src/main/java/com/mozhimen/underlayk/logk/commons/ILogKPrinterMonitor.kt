@@ -9,6 +9,9 @@ package com.mozhimen.underlayk.logk.commons
  */
 interface ILogKPrinterMonitor {
     fun isOpen(): Boolean
+
+    //////////////////////////////////////////////////////
+
     fun open()
     fun open(isFold: Boolean)
     fun toggle()

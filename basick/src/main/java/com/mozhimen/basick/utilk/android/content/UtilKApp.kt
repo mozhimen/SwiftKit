@@ -6,6 +6,7 @@ import android.os.Process
 import android.util.Log
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.lang.UtilKSystem
 import java.lang.IllegalArgumentException
 import kotlin.system.exitProcess
 
@@ -37,7 +38,8 @@ object UtilKApp : BaseUtilK() {
      * 退出App
      */
     @JvmStatic
-    fun exitApp(isValid: Boolean = true) {
+    fun exitApp(isValid: Boolean = true, isGc: Boolean = false) {
+        if (isGc) UtilKSystem.gc()
         Process.killProcess(Process.myPid())//杀掉当前进程,并主动启动新的启动页,以完成重启的动作
         exitProcess(if (isValid) 0 else 10)
     }

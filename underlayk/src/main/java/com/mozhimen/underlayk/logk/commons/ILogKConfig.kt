@@ -15,6 +15,9 @@ interface ILogKConfig : IUtilK {
     fun getGlobalTag(): String
     fun getPrinters(): Array<ILogKPrinter>?
     fun getStackTraceDepth(): Int
+
+    ////////////////////////////////////////////////////////
+
     fun isEnable(): Boolean
     fun isIncludeThread(): Boolean
 }

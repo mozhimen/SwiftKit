@@ -96,14 +96,16 @@ class LogKProvider : ILogK, IUtilK {
         if (config.getStackTraceDepth() > 0 || (config.getStackTraceDepth() <= 0 && priority >= CLogPriority.E)) {
             val stackTrace: String? = _logKFormatterStackTraces.format(
                 UtilKStackTrace.getCroppedRealStackTrack(
-                    Throwable().stackTrace,
-                    _logKPackageName,
-                    if (config.getStackTraceDepth() <= 0) 5 else config.getStackTraceDepth()
+                    Throwable().stackTrace, _logKPackageName,
+                    if (config.getStackTraceDepth() <= 0) 5
+                    else config.getStackTraceDepth()
                 )
             )
             stringBuilder.append(stackTrace).append("\n")
         }
+
         require(contents.isNotEmpty()) { "$TAG content's size must not be 0" }
+
         val body = parseBody(contents, config)
         stringBuilder.append(body)
         val printers: MutableList<ILogKPrinter> = ArrayList()
@@ -122,6 +124,7 @@ class LogKProvider : ILogK, IUtilK {
     private fun parseBody(contents: Array<out Any?>, config: BaseLogKConfig): String {
         if (config.injectJsonParser() != null)
             return config.injectJsonParser()!!.toJson(contents)
+
         val stringBuilder = StringBuilder()
         for (content in contents)
             stringBuilder.append(content.toString()).append(";")

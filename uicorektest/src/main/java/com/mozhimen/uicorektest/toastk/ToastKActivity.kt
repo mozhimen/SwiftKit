@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_Official_AfterV_30_11_R
 import com.mozhimen.basick.utilk.android.widget.showToast
-import com.mozhimen.uicorek.toastk.builder.ToastKBuilder
+import com.mozhimen.uicorek.toastk.builder.ToastKViewBuilder
 import com.mozhimen.uicorektest.databinding.ActivityToastkBinding
 
 class ToastKActivity : BaseActivityVB<ActivityToastkBinding>() {
@@ -14,7 +14,7 @@ class ToastKActivity : BaseActivityVB<ActivityToastkBinding>() {
             "这是原生Toast".showToast()
         }
         vb.toastkBtnCustom.setOnClickListener {
-            ToastKBuilder.makeText(this,"这是自定义Toast").show()
+            ToastKViewBuilder.makeText("这是自定义Toast").show()
         }
     }
 }

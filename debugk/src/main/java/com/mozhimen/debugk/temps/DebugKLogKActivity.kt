@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.content.createChooser
 import com.mozhimen.basick.utilk.android.net.UtilKUri
@@ -15,6 +16,7 @@ import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
 import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.mos.MDebugKCrashK
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
+import com.mozhimen.underlayk.logk.LogKMgr
 import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterFile
 
 /**
@@ -23,10 +25,14 @@ import com.mozhimen.underlayk.logk.temps.printer.LogKPrinterFile
 class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
 
     private val _dataSets = ArrayList<MDebugKCrashK>()
+    @OptIn(OptInApiInit_InApplication::class)
     override fun initView(savedInstanceState: Bundle?) {
-        val logFiles = LogKPrinterFile.getInstance(0).getLogFiles()
+        val logFiles =LogKMgr.instance.getPrinters().filterIsInstance<LogKPrinterFile>().getOrNull(0)?.getLogFiles()/*LogKPrinterFile.getInstance(0).getLogFiles()*/
 
-        for (logFile in logFiles) _dataSets.add(MDebugKCrashK(logFile.name, logFile))
+        if (logFiles != null) {
+            for (logFile in logFiles)
+                _dataSets.add(MDebugKCrashK(logFile.name, logFile))
+        }
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         decoration.setDrawable(UtilKRes.getDrawable(R.drawable.debugk_crashk_divider)!!)

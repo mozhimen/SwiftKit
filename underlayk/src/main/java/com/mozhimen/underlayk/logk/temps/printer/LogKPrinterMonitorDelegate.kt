@@ -29,7 +29,6 @@ import com.mozhimen.basick.utilk.android.view.UtilKWindowManager
 import com.mozhimen.basick.utilk.android.widget.showToastOnMain
 import com.mozhimen.basick.utilk.java.lang.UtilKThread
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
@@ -48,15 +47,15 @@ import kotlinx.coroutines.launch
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
 class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(), LifecycleOwner {
-    private val TITLE_OPEN_PANEL by lazy { UtilKRes.getString(R.string.logk_view_provider_title_open) }
-    private val TITLE_CLOSE_PANEL by lazy { UtilKRes.getString(R.string.logk_view_provider_title_close) }
+    private val TITLE_OPEN_PANEL by lazy { UtilKRes.getString(com.mozhimen.underlayk.R.string.logk_view_provider_title_open) }
+    private val TITLE_CLOSE_PANEL by lazy { UtilKRes.getString(com.mozhimen.underlayk.R.string.logk_view_provider_title_close) }
 
     private val _layoutParams: WindowManager.LayoutParams by lazy { WindowManager.LayoutParams() }
     private var _rootView: FrameLayout? = null
         @SuppressLint("InflateParams")
         get() {
             if (field != null) return field
-            val frameLayout = LayoutInflater.from(_context).inflate(R.layout.logk_monitor_view, null, false) as FrameLayout
+            val frameLayout = LayoutInflater.from(_context).inflate(com.mozhimen.underlayk.R.layout.logk_monitor_view, null, false) as FrameLayout
             frameLayout.tag = CLogKCons.TAG_LOGK_MONITOR_VIEW
             return frameLayout.also { field = it }
         }
@@ -66,7 +65,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     private var _recyclerView: RecyclerView? = null
         get() {
             if (field != null) return field
-            val recyclerView = _rootView!!.findViewById<RecyclerView>(R.id.logk_monitor_view_msg)
+            val recyclerView = _rootView!!.findViewById<RecyclerView>(com.mozhimen.underlayk.R.id.logk_monitor_view_msg)
             recyclerView.layoutManager = LinearLayoutManager(_context)
             recyclerView.adapter = _adapterKRecycler
             return recyclerView.also { field = it }
@@ -75,7 +74,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     private var _titleView: TextView? = null
         get() {
             if (field != null) return field
-            val textView = _rootView!!.findViewById<TextView>(R.id.logk_monitor_view_title)
+            val textView = _rootView!!.findViewById<TextView>(com.mozhimen.underlayk.R.id.logk_monitor_view_title)
             textView.setOnClickListener { if (_isFold) unfold() else fold() }
             return textView.also { field = it }
         }
@@ -109,10 +108,10 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         if (_isOpen) {
             if (UtilKThread.isMainThread()) {
-                printInView(config, priority, tag, msg)
+                printInView(priority, tag, msg)
             } else {
                 lifecycleScope.launch(Dispatchers.Main) {
-                    printInView(config, priority, tag, msg)
+                    printInView(priority, tag, msg)
                 }
             }
         }
@@ -126,11 +125,10 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     }
 
     override fun toggle(isFold: Boolean) {
-        if (isOpen()) {
+        if (isOpen())
             close()
-        } else {
+        else
             open(isFold)
-        }
     }
 
     override fun open() {
@@ -147,7 +145,9 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
         }
         try {
             _windowManager.addView(_rootView, getWindowLayoutParams(isFold))
-            if (isFold) fold() else unfold()
+            if (isFold)
+                fold()
+            else unfold()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -169,8 +169,8 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private fun printInView(config: BaseLogKConfig, level: Int, tag: String, printString: String) {
-        _adapterKRecycler.addItem(LogKPrinterItem(BaseLogKRecord(System.currentTimeMillis(), level, tag, printString)), true)
+    private fun printInView(level: Int, tag: String, msg: String) {
+        _adapterKRecycler.addItem(LogKPrinterItem(BaseLogKRecord(System.currentTimeMillis(), level, tag, msg)), true)
         _recyclerView!!.smoothScrollToPosition(_adapterKRecycler.itemCount - 1)
     }
 

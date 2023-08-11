@@ -13,9 +13,14 @@ import com.mozhimen.basick.elemk.cons.CStrPackage
 object UtilKSystem {
     @JvmStatic
     fun getProperty(key: String): String? =
-            System.getProperty(key)
+        System.getProperty(key)
 
     @JvmStatic
     fun getPropertyLineSeparator(): String? =
-            getProperty(CStrPackage.LINE_SEPARATOR)
+        getProperty(CStrPackage.LINE_SEPARATOR)
+
+    @JvmStatic
+    fun gc() {
+        System.gc()
+    }
 }

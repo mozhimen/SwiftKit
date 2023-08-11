@@ -40,6 +40,6 @@ object CVersCode {
     const val V_29_10_Q = 29//Q
     const val V_30_11_R = 30//R
     const val V_31_11_S = 31//S
-    const val V_32_11_S_V2 = 31//S
+    const val V_32_11_S_V2 = 32//S
     const val V_33_11_TIRAMISU = 33//TIRAMISU
 }
