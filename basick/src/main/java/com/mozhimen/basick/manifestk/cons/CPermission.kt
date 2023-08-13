@@ -23,6 +23,7 @@ object CPermission {
     const val READ_PRIVILEGED_PHONE_STATE = "android.permission.READ_PRIVILEGED_PHONE_STATE"
     const val REPLACE_EXISTING_PACKAGE = "android.permission.REPLACE_EXISTING_PACKAGE"
     const val READ_INSTALL_SESSIONS = "android.permission.READ_INSTALL_SESSIONS"
+    const val FLASHLIGHT = "android.permission.FLASHLIGHT"
     //endregion
 
     @RequiresApi(CVersCode.V_28_9_P)
