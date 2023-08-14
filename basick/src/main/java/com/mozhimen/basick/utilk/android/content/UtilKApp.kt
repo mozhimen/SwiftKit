@@ -29,7 +29,7 @@ object UtilKApp : BaseUtilK() {
             Log.e(TAG, "didn't exist launcher activity.");return
         }
         intent.addFlags(CIntent.FLAG_ACTIVITY_CLEAR_TOP or CIntent.FLAG_ACTIVITY_CLEAR_TASK)
-        UtilKContextStart.startContext(context, intent)
+        context.startContext(intent)
         if (!isKillProcess) return
         exitApp(isValid)
     }

@@ -8,6 +8,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.elemk.io.reactivex.bases.BaseObserver
 import com.mozhimen.basick.utilk.io.reactivex.UtilKTransformer
 import com.mozhimen.basick.utilk.android.content.UtilKContextStart
+import com.mozhimen.basick.utilk.android.content.startContext
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
@@ -44,11 +45,11 @@ open class BaseAutoRunBroadcastReceiver(private val clazz: Class<*>, private val
                 if (_delayTime != 0L) {
                     Observable.just("").delay(_delayTime, TimeUnit.MILLISECONDS).compose(UtilKTransformer.io2mainObservable()).subscribe(object : BaseObserver<String>() {
                         override fun onComplete() {
-                            UtilKContextStart.startContext(context, clazz)
+                            context.startContext(clazz)
                         }
                     })
                 } else {
-                    UtilKContextStart.startContext(context, clazz)
+                    context.startContext(clazz)
                 }
             }
         }

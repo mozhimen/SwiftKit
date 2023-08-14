@@ -10,6 +10,7 @@ import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
+import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
@@ -24,16 +25,34 @@ import com.mozhimen.basick.utilk.kotlin.UtilKString
  * @Version 1.0
  */
 fun Intent.createChooser(title: CharSequence): Intent =
-        UtilKIntent.createChooser(this, title)
+    UtilKIntent.createChooser(this, title)
+
+fun Context.createIntent(clazz: Class<*>): Intent =
+    UtilKIntent.createIntent(this, clazz)
+
+inline fun <reified T> Context.createIntent(): Intent =
+    UtilKIntent.createIntent<T>(this)
+
+inline fun <reified T> Context.createIntent(block: IExtension_Listener<Intent>): Intent =
+    UtilKIntent.createIntent<T>(this, block)
 
 object UtilKIntent {
+    fun createIntent(context: Context, clazz: Class<*>): Intent =
+        Intent(context, clazz)
+
+    inline fun <reified T> createIntent(context: Context): Intent =
+        Intent(context, T::class.java)
+
+    inline fun <reified T> createIntent(context: Context, block: IExtension_Listener<Intent>): Intent =
+        Intent(context, T::class.java).apply(block)
+
     /**
      * 选择系统文件
      * @return Intent
      */
     @JvmStatic
     fun getPick(): Intent =
-            Intent(CIntent.ACTION_PICK)
+        Intent(CIntent.ACTION_PICK)
 
     /**
      * 选择系统图像
@@ -41,7 +60,7 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getPickImage(): Intent =
-            getPick().apply { setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL) }
+        getPick().apply { setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL) }
 
     /**
      * 获取设置无障碍
@@ -49,7 +68,7 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getAccessibilitySettings(): Intent =
-            Intent(CSettings.ACTION_ACCESSIBILITY_SETTINGS)
+        Intent(CSettings.ACTION_ACCESSIBILITY_SETTINGS)
 
     /**
      * 管理APP设置
@@ -58,7 +77,7 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getApplicationDetailsSettings(context: Context): Intent =
-            Intent(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUri2(context))
+        Intent(CSettings.ACTION_APPLICATION_DETAILS_SETTINGS, UtilKUri.getPackageUri2(context))
 
     /**
      * 管理通知
@@ -68,9 +87,9 @@ object UtilKIntent {
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getAppNotificationSettings(context: Context): Intent =
-            Intent(CSettings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                putExtra(CSettings.EXTRA_APP_PACKAGE, context.packageName)
-            }
+        Intent(CSettings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+            putExtra(CSettings.EXTRA_APP_PACKAGE, context.packageName)
+        }
 
     /**
      * 获取管理所有APP
@@ -81,7 +100,7 @@ object UtilKIntent {
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun getManageAppAllFilesAccessPermission(context: Context): Intent =
-            Intent(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
+        Intent(CSettings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, UtilKUri.getPackageUri(context))
 
     /**
      * 获取管理悬浮窗
@@ -91,7 +110,7 @@ object UtilKIntent {
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     fun getManageOverlayPermission(context: Context): Intent =
-            Intent(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
+        Intent(CSettings.ACTION_MANAGE_OVERLAY_PERMISSION, UtilKUri.getPackageUri(context))
 
     /**
      * 获取管理安装
@@ -101,7 +120,7 @@ object UtilKIntent {
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
     fun getManageUnknownAppSources(context: Context): Intent =
-            Intent(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
+        Intent(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
 
     /**
      * 获取mainLauncher
@@ -111,10 +130,10 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getMainLauncher(packageName: String, launcherActivityName: String): Intent =
-            Intent(CIntent.ACTION_MAIN).apply {
-                addCategory(CIntent.CATEGORY_LAUNCHER)
-                setClassName(packageName, launcherActivityName)
-            }
+        Intent(CIntent.ACTION_MAIN).apply {
+            addCategory(CIntent.CATEGORY_LAUNCHER)
+            setClassName(packageName, launcherActivityName)
+        }
 
     /**
      * 获取mainLauncher
@@ -124,10 +143,10 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getMainLauncher(packageName: String, uri: Uri? = null): Intent =
-            Intent(CIntent.ACTION_MAIN, uri).apply {
-                addCategory(CIntent.CATEGORY_LAUNCHER)
-                setPackage(packageName)
-            }
+        Intent(CIntent.ACTION_MAIN, uri).apply {
+            addCategory(CIntent.CATEGORY_LAUNCHER)
+            setPackage(packageName)
+        }
 
     /**
      * 获取启动App的Intent
@@ -143,13 +162,14 @@ object UtilKIntent {
 
     @JvmStatic
     fun getLauncherForPackage(context: Context): Intent? =
-            UtilKPackageManager.get(context).getLaunchIntentForPackage(UtilKPackage.getPackageName())
+        UtilKPackageManager.get(context).getLaunchIntentForPackage(UtilKPackage.getPackageName())
 
     /**
      * 获取安装app的intent
      * @param filePathWithName String
      * @return Intent?
      */
+    @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     fun getInstall(filePathWithName: String): Intent? {
@@ -165,5 +185,5 @@ object UtilKIntent {
 
     @JvmStatic
     fun createChooser(target: Intent, title: CharSequence): Intent =
-            Intent.createChooser(target, title)
+        Intent.createChooser(target, title)
 }

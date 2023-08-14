@@ -192,6 +192,7 @@
     <color name="ui_green_900_dark">#113E15</color>
 
     <color name="ui_gray_000">#FFFFFF</color>
+    <color name="ui_gray_100">#F5F6F8</color>
     <color name="ui_gray_200">#EEEEEE</color>
     <color name="ui_gray_300">#E0E0E0</color>
     <color name="ui_gray_350">#D2D4D7</color>

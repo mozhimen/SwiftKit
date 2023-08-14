@@ -44,13 +44,20 @@ object UtilKContextStart : BaseUtilK() {
 
     @JvmStatic
     fun startContext(context: Context, clazz: Class<*>) {
-        startContext(context, Intent(context, clazz))
+        startContext(context, context.createIntent(clazz))
     }
 
     @JvmStatic
     inline fun <reified T : Context> startContext(context: Context) {
-        startContext(context, Intent(context, T::class.java))
+        startContext(context, context.createIntent<T>())
     }
+
+    @JvmStatic
+    inline fun <reified T : Context> startContext(context: Context, block: IExtension_Listener<Intent>) {
+        startContext(context, context.createIntent<T>(block))
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     inline fun <reified T : Activity> startActivityAndFinish(activity: Activity) {
@@ -58,10 +65,7 @@ object UtilKContextStart : BaseUtilK() {
         activity.finish()
     }
 
-    @JvmStatic
-    inline fun <reified T : Context> startContext(context: Context, block: IExtension_Listener<Intent>) {
-        startContext(context, Intent(context, T::class.java).apply(block))
-    }
+    /////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun startActivityForResult(activity: Activity, requestCode: Int, intent: Intent) {
