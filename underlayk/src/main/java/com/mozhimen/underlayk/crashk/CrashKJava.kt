@@ -14,15 +14,17 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuild
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
+import com.mozhimen.basick.utilk.java.io.getFolderFiles
+import com.mozhimen.basick.utilk.java.io.throwable2printWriter
 import com.mozhimen.basick.utilk.java.lang.UtilKCurrentThread
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
+import com.mozhimen.underlayk.crashk.commons.ICrashK
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.etk
 import java.io.File
 import java.io.PrintWriter
 import java.io.StringWriter
-import java.io.Writer
 
 /**
  * @ClassName CrashKJava
@@ -33,9 +35,10 @@ import java.io.Writer
  */
 @OptInApiInit_InApplication
 @AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
-class CrashKJava : BaseUtilK() {
+class CrashKJava : BaseUtilK(), ICrashK {
 
     private var _crashKListener: ICrashKListener? = null
+    private var _isRestart = true
 
     var crashPathJava: String? = null
         get() {
@@ -45,14 +48,20 @@ class CrashKJava : BaseUtilK() {
             return crashFullPath.also { field = it }
         }
 
-    fun init(listener: ICrashKListener?) {
-        listener?.let { this._crashKListener = it }
-        Thread.setDefaultUncaughtExceptionHandler(CrashKUncaughtExceptionHandler())
+    fun setEnableRestart(isRestart: Boolean): CrashKJava {
+        _isRestart = isRestart
+        return this
     }
 
-    fun getJavaCrashFiles(): Array<File> {
-        return File(crashPathJava!!).listFiles() ?: emptyArray()
+    override fun init(listener: ICrashKListener?) {
+        listener?.let { this._crashKListener = it }
+        Thread.setDefaultUncaughtExceptionHandler(CrashKUncaughtExceptionHandler(_isRestart))
     }
+
+    override fun getCrashFiles(): Array<File> =
+        crashPathJava!!.getFolderFiles()
+
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     @OptInApiInit_InApplication
     private inner class CrashKUncaughtExceptionHandler(private val _isRestart: Boolean = true) : Thread.UncaughtExceptionHandler {
@@ -64,7 +73,7 @@ class CrashKJava : BaseUtilK() {
                 _defaultExceptionHandler.uncaughtException(t, e)
             }
             if (_isRestart) {
-                Thread.sleep(500)
+                Thread.sleep(2000)
                 UtilKApp.restartApp(isKillProcess = true, isValid = false)
             }
         }
@@ -76,28 +85,27 @@ class CrashKJava : BaseUtilK() {
          * @return Boolean
          */
         private fun handleException(e: Throwable): Boolean {
-            val log = collectDeviceInfo(e)
-            if (BuildConfig.DEBUG) {
+            val crashLog = collectDeviceInfoAndCrash(e)
+            if (BuildConfig.DEBUG)
                 e.printStackTrace()
-            }
-            "UncaughtExceptionHandler handleException log $log".etk(TAG)
+            "UncaughtExceptionHandler handleException log $crashLog".etk(TAG)
 
             ///////////////////////////////////////////////////////////////////////////////
 
-            _crashKListener?.onGetCrashMsg(log)
+            _crashKListener?.onGetCrashLog(crashLog)
 
             ///////////////////////////////////////////////////////////////////////////////
 
-            saveCrashInfo2File(log)
+            saveCrashLog2File(crashLog)
             return true
         }
 
-        private fun saveCrashInfo2File(log: String) {
+        private fun saveCrashLog2File(log: String) {
             val savePath = crashPathJava + "/${UtilKFile.getStrFileNameForStrNowDate()}.txt"
             UtilKFileFormat.str2file(log, savePath)
         }
 
-        private fun collectDeviceInfo(e: Throwable): String {
+        private fun collectDeviceInfoAndCrash(e: Throwable): String {
             val stringBuilder = StringBuilder()
 
             //device info
@@ -129,16 +137,17 @@ class CrashKJava : BaseUtilK() {
             stringBuilder.append(CMsg.PART_LINE_BIAS).append(CMsg.LINE_BREAK)
 
             //stack info
-            val write: Writer = StringWriter()
-            val printWriter = PrintWriter(write)
-            e.printStackTrace(printWriter)
-            var cause = e.cause
-            while (cause != null) {
-                cause.printStackTrace(printWriter)
-                cause = cause.cause
-            }
-            printWriter.close()
-            stringBuilder.append(write.toString())
+            val stringWriter = StringWriter()
+            val printWriter = PrintWriter(stringWriter)
+            e.throwable2printWriter(printWriter)
+//            e.printStackTrace(printWriter)
+//            var cause = e.cause
+//            while (cause != null) {
+//                cause.printStackTrace(printWriter)
+//                cause = cause.cause
+//            }
+//            printWriter.close()
+            stringBuilder.append(stringWriter.toString())
             return stringBuilder.toString()
         }
     }

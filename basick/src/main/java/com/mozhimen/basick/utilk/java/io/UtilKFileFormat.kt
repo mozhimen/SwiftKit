@@ -13,23 +13,55 @@ import java.io.RandomAccessFile
  * @Version 1.0
  */
 fun String.strFilePath2file(): File =
-        UtilKFileFormat.strFilePath2file(this)
+    UtilKFileFormat.strFilePath2file(this)
 
 fun File.file2strFilePath(): String =
-        UtilKFileFormat.file2strFilePath(this)
+    UtilKFileFormat.file2strFilePath(this)
+
+fun String.str2file(filePathWithName: String): File =
+    UtilKFileFormat.str2file(this, filePathWithName)
+
+fun String.str2file(destFile: File): File =
+    UtilKFileFormat.str2file(this, destFile)
+
+fun String.str2file2(filePathWithName: String, isOverwrite: Boolean = true): File =
+    UtilKFileFormat.str2file2(this, filePathWithName, isOverwrite)
+
+fun String.str2file2(destFile: File, isOverwrite: Boolean = true): File =
+    UtilKFileFormat.str2file2(this, destFile, isOverwrite)
+
+fun String.strFilePath2str(): String =
+    UtilKFileFormat.strFilePath2str(this)
+
+fun String.strFilePath2bytes(): ByteArray? =
+    UtilKFileFormat.strFilePath2bytes(this)
+
+fun String.strFilePath2bytes2(): ByteArray? =
+    UtilKFileFormat.strFilePath2bytes2(this)
+
+fun File.file2str(): String =
+    UtilKFileFormat.file2str(this)
+
+fun File.file2bytes(): ByteArray? =
+    UtilKFileFormat.file2Bytes(this)
+
+fun File.file2bytes2(): ByteArray? =
+    UtilKFileFormat.file2bytes2(this)
 
 object UtilKFileFormat {
     @JvmStatic
     fun strFilePath2file(filePathWithName: String): File =
-            File(filePathWithName)
+        File(filePathWithName)
 
     @JvmStatic
     fun file2strFilePath(file: File): String =
-            file.absolutePath
+        file.absolutePath
+
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun str2file(str: String, filePathWithName: String): File =
-            str2file(str, UtilKFile.createFile(filePathWithName))
+        str2file(str, UtilKFile.createFile(filePathWithName))
 
     /**
      * Str2file
@@ -47,41 +79,41 @@ object UtilKFileFormat {
 
     @JvmStatic
     fun str2file2(str: String, filePathWithName: String, isOverwrite: Boolean = true): File =
-            str2file2(str, UtilKFile.createFile(filePathWithName), isOverwrite)
+        str2file2(str, UtilKFile.createFile(filePathWithName), isOverwrite)
 
     @JvmStatic
-    fun str2file2(str: String, file: File, isOverwrite: Boolean = true): File {
-        UtilKFile.createFile(file)
-        FileOutputStream(file, !isOverwrite).flushClose { str.writeStr2fileOutputStream(it) }
-        return file
+    fun str2file2(str: String, destFile: File, isOverwrite: Boolean = true): File {
+        UtilKFile.createFile(destFile)
+        FileOutputStream(destFile, !isOverwrite).flushClose { str.writeStr2fileOutputStream(it) }
+        return destFile
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun strFilePath2str(filePathWithName: String): String =
-            file2str(filePathWithName.strFilePath2file())
+        file2str(filePathWithName.strFilePath2file())
 
     @JvmStatic
-    fun strFilePath2Bytes(filePathWithName: String): ByteArray? =
-            file2Bytes(filePathWithName.strFilePath2file())
+    fun strFilePath2bytes(filePathWithName: String): ByteArray? =
+        file2Bytes(filePathWithName.strFilePath2file())
 
     @JvmStatic
     fun strFilePath2bytes2(filePathWithName: String): ByteArray? =
-            file2bytes2(filePathWithName.strFilePath2file())
+        file2bytes2(filePathWithName.strFilePath2file())
 
     @JvmStatic
     fun file2str(file: File): String =
-            if (!UtilKFile.isFileExist(file)) ""
-            else FileInputStream(file).inputStream2str()
+        if (!UtilKFile.isFileExist(file)) ""
+        else FileInputStream(file).inputStream2str()
 
     @JvmStatic
     fun file2Bytes(file: File): ByteArray? =
-            if (!UtilKFile.isFileExist(file)) null
-            else FileInputStream(file).inputStream2bytes()
+        if (!UtilKFile.isFileExist(file)) null
+        else FileInputStream(file).inputStream2bytes()
 
     @JvmStatic
     fun file2bytes2(file: File): ByteArray? =
-            if (!UtilKFile.isFileExist(file)) null
-            else FileInputStream(file).inputStream2bytes2(file.length())
+        if (!UtilKFile.isFileExist(file)) null
+        else FileInputStream(file).inputStream2bytes2(file.length())
 }

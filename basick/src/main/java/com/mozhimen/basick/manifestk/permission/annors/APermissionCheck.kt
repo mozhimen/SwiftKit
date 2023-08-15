@@ -10,5 +10,5 @@ package com.mozhimen.basick.manifestk.permission.annors
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class APermissionCheck(
-    vararg val permission: String//需要持有的权限
+    vararg val permissions: String//需要持有的权限
 )

@@ -5,6 +5,7 @@ import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.flushClose
+import com.mozhimen.basick.utilk.java.io.getFolderFiles
 import java.io.*
 import java.nio.Buffer
 import java.util.zip.ZipEntry
@@ -50,7 +51,7 @@ object UtilKZipOutputStream : IUtilK {
     fun file2zipFile(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, sourceFile: File, fileName: String) {
         try {
             if (UtilKFile.isFolder(sourceFile)) {
-                val listFiles = sourceFile.listFiles() ?: emptyArray()
+                val listFiles = sourceFile.getFolderFiles()
                 if (listFiles.isEmpty()) {
                     val stringBuilder = StringBuilder().apply {
                         append(fileName).append("/")

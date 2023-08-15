@@ -7,6 +7,7 @@ import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.util.UtilKDate
+import com.mozhimen.basick.utilk.java.util.longDate2strDate
 import java.io.File
 import java.io.FileInputStream
 import java.util.Locale
@@ -20,6 +21,18 @@ import java.util.Locale
  */
 fun String.getStrFolderPath(): String =
     UtilKFile.getStrFolderPath(this)
+
+fun String.getFolderFiles(): Array<File> =
+    UtilKFile.getFolderFiles(this)
+
+fun File.getFolderFiles(): Array<File> =
+    UtilKFile.getFolderFiles(this)
+
+fun File.getFileCreateTime(): Long =
+    UtilKFile.getFileCreateTime(this)
+
+fun File.getFileCreateTimeStr(): String =
+    UtilKFile.getFileCreateTimeStr(this)
 
 @AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
 object UtilKFile : BaseUtilK() {
@@ -200,6 +213,14 @@ object UtilKFile : BaseUtilK() {
     fun getFileSizeTotal(file: File): Long =
         if (!isFileExist(file)) 0L
         else file.length()
+
+    @JvmStatic
+    fun getFileCreateTime(file: File): Long =
+        file.lastModified()
+
+    @JvmStatic
+    fun getFileCreateTimeStr(file: File, formatDate: String = CDateFormat.yyyyMMddHHmmss): String =
+        getFileCreateTime(file).longDate2strDate(formatDate)
 //endregion
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -278,7 +299,7 @@ object UtilKFile : BaseUtilK() {
     @JvmStatic
     fun deleteFolder(folder: File): Boolean {
         if (!isFolderExist(folder)) return false
-        val listFiles: Array<File> = folder.listFiles() ?: emptyArray()
+        val listFiles: Array<File> = getFolderFiles(folder)
         if (listFiles.isNotEmpty()) {
             for (file in listFiles) {
                 if (isFolder(file)) { // 判断是否为文件夹
@@ -290,6 +311,14 @@ object UtilKFile : BaseUtilK() {
         }
         return true
     }
+
+    @JvmStatic
+    fun getFolderFiles(folderPath: String): Array<File> =
+        getFolderFiles(File(folderPath))
+
+    @JvmStatic
+    fun getFolderFiles(folder: File): Array<File> =
+        folder.listFiles() ?: emptyArray()
 
 /////////////////////////////////////////////////////////////////////////////////////////
 

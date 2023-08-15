@@ -8,5 +8,5 @@ package com.mozhimen.underlayk.crashk.commons
  * @Version 1.0
  */
 interface ICrashKListener {
-    fun onGetCrashMsg(msg: String?){}
+    fun onGetCrashLog(msg: String){}
 }

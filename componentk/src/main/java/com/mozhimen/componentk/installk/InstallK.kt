@@ -128,7 +128,7 @@ class InstallK : IInstallK, BaseUtilK() {
     private fun installByMode(apkPathWithName: String) {
         require(apkPathWithName.isNotEmpty() && apkPathWithName.endsWith(".apk")) { "$TAG $apkPathWithName not a correct apk file path" }
         require(UtilKFile.isFileExist(apkPathWithName)) { "$TAG $apkPathWithName is not exist" }
-        if (!ManifestKPermission.checkPermissions(CInstallKCons.PERMISSIONS)) {
+        if (!UtilKPermission.checkPermissions(CInstallKCons.PERMISSIONS)) {
             Log.w(TAG, "installByMode: onNeedPermissions PERMISSIONS")
             _handler.sendMessage(Message().apply {
                 what = CInstallKCons.MSG_NEED_PERMISSION

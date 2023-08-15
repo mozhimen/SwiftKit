@@ -8,6 +8,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
+import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 
 /**
  * @ClassName UtilKContextCompat
@@ -19,26 +20,26 @@ import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 object UtilKContextCompat {
     @JvmStatic
     fun getColor(context: Context, @ColorRes resId: Int): Int =
-            ContextCompat.getColor(context, resId)
+        ContextCompat.getColor(context, resId)
 
     @JvmStatic
     fun getColorStateList(context: Context, @ColorRes resId: Int): ColorStateList? =
-            ContextCompat.getColorStateList(context, resId)
+        ContextCompat.getColorStateList(context, resId)
 
     @JvmStatic
     fun getDrawable(context: Context, @DrawableRes drawableId: Int): Drawable? =
-            ContextCompat.getDrawable(context, drawableId)
+        ContextCompat.getDrawable(context, drawableId)
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun isSelfPermissionGranted(context: Context, permission: String): Boolean =
-            checkSelfPermission(context, permission) == CPackageManager.PERMISSION_GRANTED
+        checkSelfPermission(context, permission) == CPackageManager.PERMISSION_GRANTED
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-
     @JvmStatic
     fun checkSelfPermission(context: Context, permission: String): Int =
-            ContextCompat.checkSelfPermission(context, permission)
+        ContextCompat.checkSelfPermission(context, permission)
+
 }

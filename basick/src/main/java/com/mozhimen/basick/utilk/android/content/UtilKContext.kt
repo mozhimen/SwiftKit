@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.android.content
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.ActivityManager
 import android.content.ContentResolver
 import android.content.Context
@@ -14,6 +13,7 @@ import android.content.res.Resources.Theme
 import android.graphics.drawable.Drawable
 import android.hardware.display.DisplayManager
 import android.hardware.usb.UsbManager
+import android.location.LocationManager
 import android.media.AudioManager
 import android.net.ConnectivityManager
 import android.net.Uri
@@ -30,6 +30,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import coil.ImageLoader
 import coil.imageLoader
+import com.mozhimen.basick.elemk.android.content.cons.CContext
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 
 
@@ -71,53 +72,57 @@ object UtilKContext {
         context.packageName
 
     @JvmStatic
+    fun getLocationManager(context: Context): LocationManager =
+        context.getSystemService(CContext.LOCATION_SERVICE) as LocationManager
+
+    @JvmStatic
     fun getVibrator(context: Context): Vibrator =
-        context.getSystemService(Activity.VIBRATOR_SERVICE) as Vibrator
+        context.getSystemService(CContext.VIBRATOR_SERVICE) as Vibrator
 
     @RequiresApi(CVersCode.V_31_11_S)
     @JvmStatic
     fun getVibratorManager(context: Context): VibratorManager =
-        context.getSystemService(Activity.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+        context.getSystemService(CContext.VIBRATOR_MANAGER_SERVICE) as VibratorManager
 
     @JvmStatic
     fun getWindowManager(context: Context): WindowManager =
-        context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        context.getSystemService(CContext.WINDOW_SERVICE) as WindowManager
 
     @JvmStatic
     fun getInputMethodManager(context: Context): InputMethodManager =
-        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        context.getSystemService(CContext.INPUT_METHOD_SERVICE) as InputMethodManager
 
     @JvmStatic
     fun getTelephonyManager(context: Context): TelephonyManager =
-        context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        context.getSystemService(CContext.TELEPHONY_SERVICE) as TelephonyManager
 
     @JvmStatic
     fun getWifiManager(context: Context): WifiManager =
-        getApplicationContext(context).getSystemService(Context.WIFI_SERVICE) as WifiManager
+        getApplicationContext(context).getSystemService(CContext.WIFI_SERVICE) as WifiManager
 
     @JvmStatic
     fun getAudioManager(context: Context): AudioManager =
-        context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        context.getSystemService(CContext.AUDIO_SERVICE) as AudioManager
 
     @JvmStatic
     fun getConnectivityManager(context: Context): ConnectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        context.getSystemService(CContext.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     @JvmStatic
     fun getDisplayManager(context: Context): DisplayManager =
-        context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
+        context.getSystemService(CContext.DISPLAY_SERVICE) as DisplayManager
 
     @JvmStatic
     fun getActivityManager(context: Context) =
-        context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        context.getSystemService(CContext.ACTIVITY_SERVICE) as ActivityManager
 
     @JvmStatic
     fun getLayoutInflater(context: Context) =
-        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        context.getSystemService(CContext.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     @JvmStatic
     fun getUsbManager(context: Context): UsbManager =
-        context.getSystemService(Context.USB_SERVICE) as UsbManager
+        context.getSystemService(CContext.USB_SERVICE) as UsbManager
 
     @JvmStatic
     fun getPackageManager(context: Context): PackageManager =

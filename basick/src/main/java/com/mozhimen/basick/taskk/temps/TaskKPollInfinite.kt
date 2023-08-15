@@ -9,13 +9,13 @@ import kotlinx.coroutines.*
 
 @OptInApiCall_BindLifecycle
 @OptInApiInit_ByLazy
-class TaskKPollInfinite : BaseWakeBefDestroyTaskK() {
+open class TaskKPollInfinite : BaseWakeBefDestroyTaskK() {
     private var _pollingScope: CoroutineScope? = null
 
     override fun isActive(): Boolean =
         _pollingScope != null && _pollingScope!!.isActive
 
-    fun start(intervalMillis: Long, task: /*suspend*/ ISuspend_Listener) {
+    open fun start(intervalMillis: Long, task: /*suspend*/ ISuspend_Listener) {
         if (isActive()) return
         val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {

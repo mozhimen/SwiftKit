@@ -1,15 +1,16 @@
 package com.mozhimen.basick.manifestk.permission
 
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.manifestk.permission.helpers.IManifestKPermissionListener
-import com.mozhimen.basick.manifestk.permission.helpers.InvisibleFragment
+import com.mozhimen.basick.manifestk.permission.commons.IManifestKPermissionListener
+import com.mozhimen.basick.manifestk.permission.helpers.InvisibleProxyFragment
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
+import com.mozhimen.basick.utilk.android.app.UtilKPermission
+import com.mozhimen.basick.utilk.android.app.getAnnotation
 import com.mozhimen.basick.utilk.android.content.UtilKContextCompat
 import com.mozhimen.basick.utilk.android.util.wt
 import com.mozhimen.basick.utilk.android.widget.showToastOnMain
@@ -29,33 +30,35 @@ object ManifestKPermission : BaseUtilK() {
         onSuccess: I_Listener,
         onFail: I_Listener? = { UtilKLaunchActivity.startSettingAppDetails(activity) }
     ) {
-        requestPermissions(activity, onResult = { if (it) onSuccess.invoke() else onFail?.invoke() })
+        requestPermissions(
+            activity,
+            onResult = { if (it) onSuccess.invoke() else onFail?.invoke() })
     }
 
     @JvmStatic
     @Throws(Exception::class)
     fun requestPermissions(
         activity: AppCompatActivity,
-        onResult: (IA_Listener<Boolean>/*(isGranted: Boolean) -> Unit*/)? = null,
+        onResult: IA_Listener<Boolean>/*(isGranted: Boolean) -> Unit*/? = null,
     ) {
-        val permissionAnnor = activity.javaClass.getAnnotation(APermissionCheck::class.java)
+        val permissionAnnor = activity.getAnnotation(APermissionCheck::class.java)
         require(permissionAnnor != null) { "$TAG you may be forget add annor" }
         val permissions = mutableSetOf<String>()
-        permissions.addAll(permissionAnnor.permission)
+        permissions.addAll(permissionAnnor.permissions)
         requestPermissions(activity, permissions.toTypedArray(), onResult)
     }
 
     @JvmStatic
     fun requestPermissions(
         activity: AppCompatActivity,
-        permissions: Array<out String>,
-        onResult: (IA_Listener<Boolean>/*(isGranted: Boolean) -> Unit*/)? = null
+        permissions: Array<String>,
+        onResult: IA_Listener<Boolean>/*(isGranted: Boolean) -> Unit*/? = null
     ) {
         if (permissions.isNotEmpty()) {
-            if (!checkPermissions(permissions)) {
-                requestPermissionsByFragment(activity, *permissions) { allGranted, deniedList ->
+            if (!UtilKPermission.checkPermissions(permissions)) {
+                requestPermissionsByFragment(activity, permissions) { isAllGranted, deniedList ->
                     printDeniedPermissions(deniedList)
-                    onResult?.invoke(allGranted)
+                    onResult?.invoke(isAllGranted)
                 }
             } else onResult?.invoke(true)
         } else onResult?.invoke(true)
@@ -64,41 +67,35 @@ object ManifestKPermission : BaseUtilK() {
     @JvmStatic
     fun requestPermissionsByFragment(
         activity: FragmentActivity,
-        vararg permissions: String,
-        callback: IManifestKPermissionListener
+        permissions: Array<out String>,
+        onResult: IManifestKPermissionListener
     ) {
-        val fragmentManager = activity.supportFragmentManager
-        val existedFragment = fragmentManager.findFragmentByTag(TAG)
-        val fragment = if (existedFragment != null) {
-            existedFragment as InvisibleFragment
+        val noPermissions = mutableListOf<String>()
+        for (permission in permissions) {
+            if (!UtilKPermission.checkPermission(permission))
+                noPermissions.add(permission)
+        }
+        if (noPermissions.isNotEmpty()) {
+            val fragmentManager = activity.supportFragmentManager
+            val existedFragment = fragmentManager.findFragmentByTag(TAG)
+            val fragment = if (existedFragment != null) {
+                existedFragment as InvisibleProxyFragment
+            } else {
+                val invisibleProxyFragment = InvisibleProxyFragment()
+                fragmentManager.beginTransaction().add(invisibleProxyFragment, TAG).commitNow()
+                invisibleProxyFragment
+            }
+            fragment.request(noPermissions.toTypedArray(), onResult)
         } else {
-            val invisibleFragment = InvisibleFragment()
-            fragmentManager.beginTransaction().add(invisibleFragment, TAG).commitNow()
-            invisibleFragment
-        }
-        fragment.requestNow(callback, *permissions)
-    }
-
-    @JvmStatic
-    fun checkPermission(permission: String): Boolean =
-        checkPermissions(arrayOf(permission))
-
-    @JvmStatic
-    fun checkPermissions(permissions: Array<out String>): Boolean =
-        checkPermissions(permissions.toList())
-
-    @JvmStatic
-    fun checkPermissions(permissions: List<String>): Boolean {
-        var allGranted = true
-        return if (permissions.isEmpty()) true
-        else {
-            for (permission in permissions) allGranted = allGranted and (UtilKContextCompat.isSelfPermissionGranted(_context, permission))
-            allGranted
+            onResult.invoke(true, emptyList())
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     private fun printDeniedPermissions(deniedList: List<String>) {
-        "printDeniedList $deniedList".wt(TAG)
-        if (deniedList.isNotEmpty()) "请在设置中打开${deniedList.joinToString()}权限".showToastOnMain()
+        "printDeniedPermissions $deniedList".wt(TAG)
+        if (deniedList.isNotEmpty())
+            "请在设置中打开${deniedList.joinToString()}权限".showToastOnMain()
     }
 }

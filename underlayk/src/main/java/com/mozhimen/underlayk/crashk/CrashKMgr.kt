@@ -3,7 +3,9 @@ package com.mozhimen.underlayk.crashk
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
+import com.mozhimen.underlayk.crashk.commons.ICrashKMgr
 import java.io.File
 
 /**
@@ -15,7 +17,7 @@ import java.io.File
  */
 @OptInApiInit_InApplication
 @AManifestKRequire(CPermission.READ_PHONE_STATE, CPermission.READ_PRIVILEGED_PHONE_STATE)
-class CrashKMgr {
+class CrashKMgr : ICrashKMgr {
 
     companion object {
         @JvmStatic
@@ -29,23 +31,21 @@ class CrashKMgr {
 
     fun init(
         crashKJavaListener: ICrashKListener? = null,
-        crashKNativeListener: ICrashKListener? = null
+        crashKNativeListener: ICrashKListener? = null,
+        isRestart: Boolean = false
     ) {
-        _crashKJava.init(crashKJavaListener)
+        _crashKJava.setEnableRestart(isRestart).init(crashKJavaListener)
         _crashKNative.init(crashKNativeListener)
     }
 
-    fun getJavaCrashFiles(): Array<File> {
-        return _crashKJava.getJavaCrashFiles()
-    }
+    override fun getJavaCrashFiles(): Array<File> =
+        _crashKJava.getCrashFiles()
 
-    fun getNativeCrashFiles(): Array<File> {
-        return _crashKNative.getNativeCrashFiles()
-    }
+    override fun getNativeCrashFiles(): Array<File> =
+        _crashKNative.getCrashFiles()
 
-    fun getCrashFiles(): Array<File> {
-        return _crashKJava.getJavaCrashFiles() + _crashKNative.getNativeCrashFiles()
-    }
+    override fun getCrashFiles(): Array<File> =
+        getJavaCrashFiles() + getNativeCrashFiles()
 
     //////////////////////////////////////////////////////////////
 

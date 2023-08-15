@@ -1,0 +1,57 @@
+package com.mozhimen.basick.utilk.android.location
+
+import android.content.Context
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.android.location.cons.CLocationManager
+import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.content.UtilKContext
+
+
+/**
+ * @ClassName UtilKLocationManager
+ * @Description TODO
+ * @Author Mozhimen & Kolin Zhao
+ * @Date 2023/8/15 16:03
+ * @Version 1.0
+ */
+object UtilKLocationManager {
+    @JvmStatic
+    fun get(context: Context): LocationManager =
+        UtilKContext.getLocationManager(context)
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun getLastKnownLocation(context: Context, provider: String): Location? =
+        get(context).getLastKnownLocation(provider)
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun getGpsLastKnownLocation(context: Context): Location? =
+        getLastKnownLocation(context, CLocationManager.GPS_PROVIDER)
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun getNetworkLastKnownLocation(context: Context): Location? =
+        getLastKnownLocation(context, CLocationManager.NETWORK_PROVIDER)
+
+    /////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun isProviderEnabled(context: Context, provider: String): Boolean =
+        get(context).isProviderEnabled(provider)
+
+    @JvmStatic
+    fun isGpsProviderEnabled(context: Context): Boolean =
+        isProviderEnabled(context, CLocationManager.GPS_PROVIDER)
+
+    /////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun requestLocationUpdates(context: Context, provider: String, minTimeMs: Long, minDistanceM: Float, listener: LocationListener) {
+        get(context).requestLocationUpdates(provider, minTimeMs, minDistanceM, listener)
+    }
+}

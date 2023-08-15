@@ -6,6 +6,8 @@ import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.java.io.getFileCreateTime
+import com.mozhimen.basick.utilk.java.io.getFolderFiles
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
 import java.io.BufferedWriter
@@ -66,7 +68,7 @@ open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
     }
 
     fun getLogFiles(): Array<File> =
-        File(logPath!!).listFiles() ?: emptyArray()
+            logPath!!.getFolderFiles()
 
     override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         val currentTimeMillis = System.currentTimeMillis()
@@ -79,10 +81,10 @@ open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun getLogFileName(): String =
-        when (_createLogFileDateType) {
-            EDateType.HOUR -> "${UtilKFile.getStrFileNameForStrCurrentHour()}.txt"
-            else -> "${UtilKFile.getStrFileNameForStrToday()}.txt"
-        }
+            when (_createLogFileDateType) {
+                EDateType.HOUR -> "${UtilKFile.getStrFileNameForStrCurrentHour()}.txt"
+                else -> "${UtilKFile.getStrFileNameForStrToday()}.txt"
+            }
 
     /**
      * 清除过期log
@@ -94,7 +96,7 @@ open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
         val currentTimeMillis = System.currentTimeMillis()
         val files = getLogFiles()
         for (file in files) {
-            if (currentTimeMillis - file.lastModified() > _retentionTime)
+            if (currentTimeMillis - file.getFileCreateTime() > _retentionTime)
                 file.delete()
         }
     }
@@ -177,10 +179,10 @@ open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
         private var _bufferedWriter: BufferedWriter? = null
 
         fun isRunning(): Boolean =
-            _bufferedWriter != null
+                _bufferedWriter != null
 
         fun getPreFileName(): String? =
-            _preFileName
+                _preFileName
 
         /**
          * log写入前的准备操作

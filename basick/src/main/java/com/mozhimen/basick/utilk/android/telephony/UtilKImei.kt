@@ -11,6 +11,7 @@ import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
+import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
 import com.mozhimen.basick.utilk.android.util.et
@@ -85,7 +86,7 @@ object UtilKImei : IUtilK {
     fun getImeiOrMeid(context: Context, slotId: Int): String {
         var imei = ""
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!ManifestKPermission.checkPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.checkPermission(CPermission.READ_PHONE_STATE))
             return imei
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
@@ -116,7 +117,7 @@ object UtilKImei : IUtilK {
         var imei = ""
 
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!ManifestKPermission.checkPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.checkPermission(CPermission.READ_PHONE_STATE))
             return imei
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
@@ -155,7 +156,7 @@ object UtilKImei : IUtilK {
     fun getMeidOnly(context: Context, slotId: Int): String {
         var meid = ""
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!ManifestKPermission.checkPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.checkPermission(CPermission.READ_PHONE_STATE))
             return meid
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
@@ -192,7 +193,7 @@ object UtilKImei : IUtilK {
     fun getDeviceId(context: Context): String {
         var imei = ""
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!ManifestKPermission.checkPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.checkPermission(CPermission.READ_PHONE_STATE))
             return imei
         // 1. 尝试通过系统api获取imei
         imei = getDeviceIdForSystemApi(context)
