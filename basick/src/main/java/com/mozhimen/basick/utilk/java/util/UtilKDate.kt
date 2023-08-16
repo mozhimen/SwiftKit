@@ -47,7 +47,7 @@ object UtilKDate : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun getNowStr(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String =
+    fun getNowStr(formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss, locale: Locale = Locale.CHINA): String =
         date2strDate(getNowDate(), formatDate, locale)
 
     /**
@@ -65,7 +65,7 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     fun getCurrentHourStr(locale: Locale = Locale.CHINA): String =
-        date2strDate(getNowDate(), CDateFormat.yyyyMMddHH, locale)
+        date2strDate(getNowDate(), CDateFormat.yyyy_MM_dd_HH, locale)
 
     /**
      * 获取当前小时
@@ -73,7 +73,7 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     fun getCurrentHourLong(locale: Locale = Locale.CHINA): Long =
-        strDate2longDate(getCurrentHourStr(locale), CDateFormat.yyyyMMddHH, locale)
+        strDate2longDate(getCurrentHourStr(locale), CDateFormat.yyyy_MM_dd_HH, locale)
 
     /**
      * 今日
@@ -82,7 +82,7 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     @JvmOverloads
-    fun getTodayStr(locale: Locale = Locale.CHINA, formatDate: String = CDateFormat.yyyyMMdd): String =
+    fun getTodayStr(locale: Locale = Locale.CHINA, formatDate: String = CDateFormat.yyyy_MM_dd): String =
         date2strDate(getNowDate(), formatDate, locale)
 
     /**
@@ -92,7 +92,7 @@ object UtilKDate : BaseUtilK() {
      */
     @JvmStatic
     fun getTodayLong(locale: Locale = Locale.CHINA): Long =
-        strDate2longDate(getTodayStr(locale), CDateFormat.yyyyMMdd, locale)
+        strDate2longDate(getTodayStr(locale), CDateFormat.yyyy_MM_dd, locale)
 
     /**
      * 获得Format

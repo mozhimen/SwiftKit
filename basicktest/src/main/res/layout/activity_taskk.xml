@@ -29,6 +29,12 @@
 
         <com.google.android.material.button.MaterialButton
             style="@style/Btn_Style"
+            android:onClick="goTaskKLocation"
+            android:text="goTaskKLocation"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
             android:onClick="goTaskKPoll"
             android:text="goTaskKPoll"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

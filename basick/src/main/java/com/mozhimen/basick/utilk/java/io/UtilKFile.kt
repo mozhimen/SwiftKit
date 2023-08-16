@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.java.io
 
-import android.util.Log
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
@@ -39,14 +38,14 @@ object UtilKFile : BaseUtilK() {
 
     @JvmStatic
     fun getStrFileNameForStrToday(locale: Locale = Locale.CHINA): String =
-        getStrFileNameForStrDate(CDateFormat.yyyyMMdd, locale)
+        getStrFileNameForStrDate(CDateFormat.yyyy_MM_dd, locale)
 
     /**
      * 当前小时转文件名
      */
     @JvmStatic
     fun getStrFileNameForStrCurrentHour(locale: Locale = Locale.CHINA): String =
-        getStrFileNameForStrDate(CDateFormat.yyyyMMddHH, locale)
+        getStrFileNameForStrDate(CDateFormat.yyyy_MM_dd_HH, locale)
 
     /**
      * 当前时间转文件名
@@ -59,7 +58,7 @@ object UtilKFile : BaseUtilK() {
      * 时间转文件名
      */
     @JvmStatic
-    fun getStrFileNameForStrDate(formatDate: String = CDateFormat.yyyyMMddHHmmss, locale: Locale = Locale.CHINA): String =
+    fun getStrFileNameForStrDate(formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss, locale: Locale = Locale.CHINA): String =
         UtilKDate.getNowStr(formatDate, locale).replace(" ", "~").replace(":", "-")
 
     //region # file
@@ -219,7 +218,7 @@ object UtilKFile : BaseUtilK() {
         file.lastModified()
 
     @JvmStatic
-    fun getFileCreateTimeStr(file: File, formatDate: String = CDateFormat.yyyyMMddHHmmss): String =
+    fun getFileCreateTimeStr(file: File, formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss): String =
         getFileCreateTime(file).longDate2strDate(formatDate)
 //endregion
 

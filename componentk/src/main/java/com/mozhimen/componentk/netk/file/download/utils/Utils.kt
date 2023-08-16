@@ -20,11 +20,11 @@ import java.net.UnknownHostException
 internal object Utils {
 
     fun getLocalDownloadId(context: Context, url: String): Long {
-        return SpHelper.get(context).getLong("${UtilKMd5.hash(url)}-id", -1L)
+        return SpHelper.get(context).getLong("${UtilKMd5.str2strMd5(url)}-id", -1L)
     }
 
     fun saveDownloadId(context: Context, url: String, id: Long) {
-        SpHelper.get(context).putLong("${UtilKMd5.hash(url)}-id", id)
+        SpHelper.get(context).putLong("${UtilKMd5.str2strMd5(url)}-id", id)
     }
 
     inline fun <reified T> Cursor.getValue(column: String): T? {

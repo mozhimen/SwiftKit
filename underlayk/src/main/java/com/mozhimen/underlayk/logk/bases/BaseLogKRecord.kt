@@ -17,5 +17,5 @@ open class BaseLogKRecord(var timeMillis: Long, var priority: Int, var tag: Stri
         getFlattened() + msg
 
     open fun getFlattened(): String =
-        "${UtilKDate.longDate2strDate(timeMillis, CDateFormat.yyyyMMddHHmmss)} | Level: ${priority.intLogPriority2strSimple()} | Tag: $tag : "
+        "${UtilKDate.longDate2strDate(timeMillis, CDateFormat.yyyy_MM_dd_HH_mm_ss)} | Level: ${priority.intLogPriority2strSimple()} | Tag: $tag : "
 }

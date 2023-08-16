@@ -115,4 +115,9 @@ object UtilKLaunchActivity {
     fun startSettingAccessibility(context: Context) {
         context.startContext(UtilKIntent.getAccessibilitySettings())
     }
+
+    @JvmStatic
+    fun startSettingLocation(context: Context) {
+        context.startContext(UtilKIntent.getLocationSourceSettings())
+    }
 }

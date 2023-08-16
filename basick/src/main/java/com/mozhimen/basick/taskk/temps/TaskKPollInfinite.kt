@@ -1,11 +1,13 @@
 package com.mozhimen.basick.taskk.temps
 
+import coil.request.Disposable
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.commons.ISuspend_Listener
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.util.et
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
 @OptInApiCall_BindLifecycle
 @OptInApiInit_ByLazy
@@ -15,9 +17,9 @@ open class TaskKPollInfinite : BaseWakeBefDestroyTaskK() {
     override fun isActive(): Boolean =
         _pollingScope != null && _pollingScope!!.isActive
 
-    open fun start(intervalMillis: Long, task: /*suspend*/ ISuspend_Listener) {
+    open fun start(intervalMillis: Long, context: CoroutineContext = Dispatchers.IO, task: /*suspend*/ ISuspend_Listener) {
         if (isActive()) return
-        val scope = CoroutineScope(Dispatchers.IO)
+        val scope = CoroutineScope(context)
         scope.launch {
             while (isActive) {
                 try {

@@ -4,6 +4,7 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Looper
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.location.cons.CLocationManager
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -29,13 +30,18 @@ object UtilKLocationManager {
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    fun getGpsLastKnownLocation(context: Context): Location? =
+    fun getLastKnownLocationGps(context: Context): Location? =
         getLastKnownLocation(context, CLocationManager.GPS_PROVIDER)
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
-    fun getNetworkLastKnownLocation(context: Context): Location? =
+    fun getLastKnownLocationNetwork(context: Context): Location? =
         getLastKnownLocation(context, CLocationManager.NETWORK_PROVIDER)
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun getProviders(context: Context, enableOnly: Boolean): List<String> =
+        get(context).getProviders(enableOnly)
 
     /////////////////////////////////////////////////////////////////////
 
@@ -44,7 +50,7 @@ object UtilKLocationManager {
         get(context).isProviderEnabled(provider)
 
     @JvmStatic
-    fun isGpsProviderEnabled(context: Context): Boolean =
+    fun isProviderEnabledGps(context: Context): Boolean =
         isProviderEnabled(context, CLocationManager.GPS_PROVIDER)
 
     /////////////////////////////////////////////////////////////////////
@@ -53,5 +59,23 @@ object UtilKLocationManager {
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     fun requestLocationUpdates(context: Context, provider: String, minTimeMs: Long, minDistanceM: Float, listener: LocationListener) {
         get(context).requestLocationUpdates(provider, minTimeMs, minDistanceM, listener)
+    }
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun requestLocationUpdates(context: Context, provider: String, minTimeMs: Long, minDistanceM: Float, listener: LocationListener, looper: Looper) {
+        get(context).requestLocationUpdates(provider, minTimeMs, minDistanceM, listener, looper)
+    }
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun requestLocationUpdatesNetwork(context: Context, minTimeMs: Long, minDistanceM: Float, listener: LocationListener) {
+        requestLocationUpdates(context, CLocationManager.NETWORK_PROVIDER, minTimeMs, minDistanceM, listener)
+    }
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
+    fun requestLocationUpdatesNetwork(context: Context, minTimeMs: Long, minDistanceM: Float, listener: LocationListener, looper: Looper) {
+        requestLocationUpdates(context, CLocationManager.NETWORK_PROVIDER, minTimeMs, minDistanceM, listener, looper)
     }
 }

@@ -137,5 +137,5 @@ object UtilKBuild {
     //构建内部时间
     @JvmStatic
     fun getTime(): String =
-        Build.TIME.longDate2strDate(CDateFormat.yyyyMMddHHmmss)
+        Build.TIME.longDate2strDate(CDateFormat.yyyy_MM_dd_HH_mm_ss)
 }

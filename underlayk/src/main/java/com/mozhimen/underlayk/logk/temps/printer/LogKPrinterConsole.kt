@@ -38,6 +38,8 @@ class LogKPrinterConsole(private val _ignoreLineBreak: Boolean = false) : BaseLo
             for (m in msgs)
                 printlog(priority, tag, m)
         }
+
+        (getName() + CMsg.PART_LINE_HOR).println(priority, tag)
     }
 
     private fun printlog(level: Int, tag: String, msg: String) {

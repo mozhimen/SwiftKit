@@ -18,6 +18,10 @@ class TaskKActivity : BaseActivityVB<ActivityTaskkBinding>() {
         startContext<TaskKExecutorActivity>()
     }
 
+    fun goTaskKLocation(view: View) {
+        startContext<TaskKLocationActivity>()
+    }
+
     fun goTaskKPoll(view: View) {
         startContext<TaskKPollActivity>()
     }

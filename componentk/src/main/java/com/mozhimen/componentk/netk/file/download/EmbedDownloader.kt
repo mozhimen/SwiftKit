@@ -67,7 +67,7 @@ class EmbedDownloader(request: DownloadRequest) :
             val ext: String = request.url.substringAfterLast(".", "").run {
                 if (length > 10) "" else ".${this}"
             }
-            return File(file, "${UtilKMd5.hash(request.url)}$ext")
+            return File(file, "${UtilKMd5.str2strMd5(request.url)}$ext")
         }
         return file
     }

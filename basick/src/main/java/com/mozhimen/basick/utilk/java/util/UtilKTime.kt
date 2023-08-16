@@ -2,8 +2,6 @@ package com.mozhimen.basick.utilk.java.util
 
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import java.lang.Exception
-import java.util.concurrent.TimeUnit
-import kotlin.time.Duration.Companion.minutes
 
 /**
  * @ClassName UtilKTime
@@ -47,7 +45,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun isTimeAtMinuteOf(hourAndMinuteTwoBits: Pair<String, String>): Boolean =
-        isTimeAtMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, UtilKDate.getNowStr(CDateFormat.HHmm))
+        isTimeAtMinuteOf(hourAndMinuteTwoBits.first, hourAndMinuteTwoBits.second, UtilKDate.getNowStr(CDateFormat.HH_mm))
 
     /**
      * 是否对齐时间
@@ -84,7 +82,7 @@ object UtilKTime {
      */
     @JvmStatic
     fun isTimeAtHourOf(hourStrTwoBits: String): Boolean =
-        isTimeAtHourOf(hourStrTwoBits, UtilKDate.getNowStr(CDateFormat.HHmm))
+        isTimeAtHourOf(hourStrTwoBits, UtilKDate.getNowStr(CDateFormat.HH_mm))
 
     /**
      * 是否是指定整点

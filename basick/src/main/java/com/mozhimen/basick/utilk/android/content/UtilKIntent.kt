@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
+import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
@@ -46,6 +47,9 @@ object UtilKIntent {
     inline fun <reified T> createIntent(context: Context, block: IExtension_Listener<Intent>): Intent =
         Intent(context, T::class.java).apply(block)
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+
     /**
      * 选择系统文件
      * @return Intent
@@ -61,6 +65,15 @@ object UtilKIntent {
     @JvmStatic
     fun getPickImage(): Intent =
         getPick().apply { setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL) }
+
+    /**
+     * Get location source settings
+     *  定位服务
+     * @return
+     */
+    @JvmStatic
+    fun getLocationSourceSettings(): Intent =
+        Intent(CSettings.ACTION_LOCATION_SOURCE_SETTINGS)
 
     /**
      * 获取设置无障碍

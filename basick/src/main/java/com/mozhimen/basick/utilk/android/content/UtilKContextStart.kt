@@ -31,8 +31,20 @@ inline fun <reified A : Context> Context.startContext(block: IExtension_Listener
     UtilKContextStart.startContext<A>(this, block)
 }
 
+/////////////////////////////////////////////////////////////////////////////////
+
 inline fun <reified A : Activity> Activity.startActivityAndFinish() {
     UtilKContextStart.startActivityAndFinish<A>(this)
+}
+
+/////////////////////////////////////////////////////////////////////////////////
+
+inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: Int) {
+    UtilKContextStart.startActivityForResult<T>(this, requestCode)
+}
+
+inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: Int, block: IExtension_Listener<Intent>) {
+    UtilKContextStart.startActivityForResult<T>(this, requestCode, block)
 }
 
 object UtilKContextStart : BaseUtilK() {

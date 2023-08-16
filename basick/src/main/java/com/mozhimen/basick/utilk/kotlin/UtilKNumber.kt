@@ -76,6 +76,13 @@ fun Double.percent(range: Pair<Double, Double>): Double =
 
 object UtilKNumber {
 
+    /**
+     * Complement by0
+     * 左补0
+     * @param number
+     * @param decimal
+     * @return
+     */
     @JvmStatic
     fun complementBy0(number: Number, decimal: Int): String =
         String.format("%0${decimal}d", number)

@@ -12,7 +12,7 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.kotlin.text.cons.CCharsets
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.java.security.inputStream2md5Str2
+import com.mozhimen.basick.utilk.java.security.inputStream2strMd52
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.BufferedReader
@@ -232,5 +232,5 @@ object UtilKInputStream : IUtilK {
 
     @JvmStatic
     fun isInputStreamSame(inputStream1: InputStream, inputStream2: InputStream): Boolean =
-        TextUtils.equals(inputStream1.inputStream2md5Str2(), inputStream2.inputStream2md5Str2())
+        TextUtils.equals(inputStream1.inputStream2strMd52(), inputStream2.inputStream2strMd52())
 }

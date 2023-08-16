@@ -11,9 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
-        <activity
-            android:name=".utilk.kotlin.UtilKGenerateNoActivity"
-            android:exported="false" />
+
+
         <activity
             android:name=".BasicKActivity"
             android:exported="true">
@@ -108,6 +107,9 @@
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- taskk -->
         <activity
+            android:name=".taskk.TaskKLocationActivity"
+            android:exported="false" />
+        <activity
             android:name=".taskk.TaskKActivity"
             android:exported="false" />
         <activity
@@ -121,8 +123,12 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKCountDownActivity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" />
+        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- utilk -->
+        <activity
+            android:name=".utilk.kotlin.UtilKGenerateNoActivity"
+            android:exported="false" />
         <activity
             android:name=".utilk.UtilKActivity"
             android:exported="false" />
