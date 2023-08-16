@@ -44,8 +44,8 @@ object UtilKStrPath {
                 UtilKFileDir.External.getFilesRootDir()!!.absolutePath
 
             @JvmStatic
-            fun getStoragePublicDCIMDir(): File =
-                UtilKFileDir.External.getStoragePublicDCIMDir()
+            fun getStoragePublicDCIMDir(): String =
+                UtilKFileDir.External.getStoragePublicDCIMDir().absolutePath
         }
     }
 }

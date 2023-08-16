@@ -3,13 +3,11 @@ package com.mozhimen.basick.utilk.android.app
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.content.UtilKContextStart
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -60,7 +58,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    fun startManageAll(context: Context) {
+    fun startManageAllFilesAccess(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
             context.startContext(UtilKIntent.getManageAppAllFilesAccessPermission(context))
@@ -74,7 +72,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    fun startManageAll2(context: Context) {
+    fun startManageAllFilesAccess2(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
             context.startContext(Intent().apply {
                 data = Uri.parse(CSettings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
@@ -88,7 +86,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    fun startManageAll3(context: Context) {
+    fun startManageAllFilesAccess3(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
             context.startContext(UtilKIntent.getManageAppAllFilesAccessPermission(context).apply {
