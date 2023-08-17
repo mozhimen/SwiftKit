@@ -101,7 +101,7 @@ object UtilKMd5 : BaseUtilK() {
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun inputStream2strMd5(inputStream: InputStream): String {
-        val messageDigest = get()
+        val messageDigest: MessageDigest = get()
         var length: Int
         val bytes = ByteArray(1024 * 1024)
         while (inputStream.read(bytes).also { length = it } != -1)

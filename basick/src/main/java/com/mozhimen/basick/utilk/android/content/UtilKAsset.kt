@@ -2,10 +2,8 @@ package com.mozhimen.basick.utilk.android.content
 
 import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
-import android.util.Log
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.inputStream2bytes
 import com.mozhimen.basick.utilk.java.io.inputStream2file
@@ -96,7 +94,7 @@ object UtilKAsset : BaseUtilK() {
     @JvmStatic
     fun asset2file(assetFileName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
             if (!isAssetExists(assetFileName)) null
-            else getForRes().open(assetFileName).use { it.inputStream2file(destFilePathWithName.getStrAssetFilePath(assetFileName), isOverwrite) }
+            else getForRes().open(assetFileName).inputStream2file(destFilePathWithName.getStrAssetFilePath(assetFileName), isOverwrite)
 
     ///////////////////////////////////////////////////////////////////
 
