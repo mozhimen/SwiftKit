@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.java.io
 
 import android.os.FileUtils
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.util.et
@@ -42,15 +41,10 @@ object UtilKOutputStream : IUtilK {
     fun outputStream2file(outputStream: OutputStream, inputStream: InputStream, destFile: File, bufferSize: Int = 1024): File? {
         try {
             var readCount: Int
-            var count = 0
             val bytes = ByteArray(bufferSize)
             "outputStream2file ${inputStream.available()}".it(TAG)
-            while (inputStream.read(bytes).also { readCount = it } != -1) {
+            while (inputStream.read(bytes).also { readCount = it } != -1)
                 outputStream.write(bytes, 0, readCount)
-                count++
-            }
-
-            Log.d(TAG, "outputStream2file: readCount $readCount count $count")
             return destFile
         } catch (e: Exception) {
             e.printStackTrace()
