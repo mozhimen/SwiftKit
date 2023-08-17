@@ -1,9 +1,9 @@
-package com.mozhimen.basick.elemk.android.os.bases
+package com.mozhimen.basick.elemk.android.os
 
 import android.os.Handler.Callback
 import android.os.Looper
 import android.os.Message
-import android.util.Log
+import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefHandler
 import java.lang.ref.WeakReference
 
 

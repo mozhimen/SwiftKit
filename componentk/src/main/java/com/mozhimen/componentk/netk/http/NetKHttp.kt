@@ -69,7 +69,8 @@ open class NetKHttp(
     }
 
     private fun initRetrofit(url: String): Retrofit =
-        Retrofit.Builder().baseUrl(url)
+        Retrofit.Builder()
+            .baseUrl(url)
             .client(_okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create(UtilKMoshi.moshiBuilder))
             .build()
