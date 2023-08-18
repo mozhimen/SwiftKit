@@ -147,7 +147,7 @@ object UtilKJson : BaseUtilK() {
     fun obj2jsonObj(obj: Any): JSONObject =
         if (obj is String)
             JSONObject(obj)
-        else JSONObject(UtilKGson.obj2json(obj))
+        else JSONObject(UtilKGson.obj2jsonGson(obj))
 
     /**
      * jsonArray转StrList
@@ -184,7 +184,7 @@ object UtilKJson : BaseUtilK() {
             for (i in 0 until length) {
                 val jsonObj = jsonArray[i] as? JSONObject?
                 if (jsonObj != null)
-                    arrayList.add(UtilKGson.json2t(jsonObj.toString(), clazz))
+                    arrayList.add(UtilKGson.jsonGson2t(jsonObj.toString(), clazz))
                 else
                     arrayList.add(null)
             }
