@@ -16,15 +16,15 @@ import kotlin.jvm.Throws
  * @Version 1.0
  */
 @Throws(Exception::class)
-fun <T : Any> T.t2json(): String =
-    UtilKGson.t2json(this)
+fun <T : Any> T.t2jsonGson(): String =
+    UtilKGson.t2jsonGson(this)
 
 @Throws(Exception::class)
-inline fun <reified T> String.json2t(): T? =
-    UtilKGson.json2t(this)
+inline fun <reified T> String.jsonGson2t(): T? =
+    UtilKGson.jsonGson2t(this)
 
-fun <T> String.json2t(clazz: Class<T>): T? =
-    UtilKGson.json2t(this, clazz)
+fun <T> String.jsonGson2t(clazz: Class<T>): T? =
+    UtilKGson.jsonGson2t(this, clazz)
 
 object UtilKGson : BaseUtilK() {
     val gson by lazy { Gson() }
@@ -33,67 +33,67 @@ object UtilKGson : BaseUtilK() {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2json(gson: Gson, t: T): String =
+    fun <T> t2jsonGson(gson: Gson, t: T): String =
         gson.toJson(t)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2t(gson: Gson, json: String, typeToken: TypeToken<T>): T =
+    fun <T> jsonGson2t(gson: Gson, json: String, typeToken: TypeToken<T>): T =
         gson.fromJson(json, typeToken.type)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2t(gson: Gson, json: String, clazz: Class<T>): T? =
+    fun <T> jsonGson2t(gson: Gson, json: String, clazz: Class<T>): T? =
         gson.fromJson(json, clazz)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2t(gson: Gson, json: String, type: Type): T? =
+    fun <T> jsonGson2t(gson: Gson, json: String, type: Type): T? =
         gson.fromJson(json, type)
 
     /////////////////////////////////////////////////////////////////////////////
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2json(t: T): String =
-        t2json(gson, t)
+    fun <T> t2jsonGson(t: T): String =
+        t2jsonGson(gson, t)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun obj2json(obj: Any): String =
-        t2json(obj)
+    fun obj2jsonGson(obj: Any): String =
+        t2jsonGson(obj)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2t(json: String, typeToken: TypeToken<T>): T =
-        json2t(gson, json, typeToken)
+    fun <T> jsonGson2t(json: String, typeToken: TypeToken<T>): T =
+        jsonGson2t(gson, json, typeToken)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2t(json: String, clazz: Class<T>): T? =
-        json2t(gson, json, clazz)
+    fun <T> jsonGson2t(json: String, clazz: Class<T>): T? =
+        jsonGson2t(gson, json, clazz)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> json2t(json: String, type: Type): T? =
-        json2t(gson, json, type)
+    fun <T> jsonGson2t(json: String, type: Type): T? =
+        jsonGson2t(gson, json, type)
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> json2t(json: String): T? =
-        json2t(json, UtilKGeneric.getGenericType<T>()!!)
+    inline fun <reified T> jsonGson2t(json: String): T? =
+        jsonGson2t(json, UtilKGeneric.getGenericType<T>()!!)
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> json2t2(json: String): T? =
-        json2t(json, T::class.java)
+    inline fun <reified T> jsonGson2t2(json: String): T? =
+        jsonGson2t(json, T::class.java)
 
     ///////////////////////////////////////////////////////////////////////////////
 
     @Throws(Exception::class)
     @JvmStatic
-    fun json2jsonElement(json: String): JsonElement? =
-        json2t(json.trim { it <= ' ' }, JsonElement::class.java)
+    fun jsonGson2jsonElement(json: String): JsonElement? =
+        jsonGson2t(json.trim { it <= ' ' }, JsonElement::class.java)
 }
 
 //    private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
