@@ -37,6 +37,11 @@ inline fun <reified A : Activity> Activity.startActivityAndFinish() {
     UtilKContextStart.startActivityAndFinish<A>(this)
 }
 
+inline fun <reified A : Activity> Activity.startActivityAndFinish(block: IExtension_Listener<Intent>) {
+    UtilKContextStart.startActivityAndFinish<A>(this, block)
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////
 
 inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: Int) {
@@ -74,6 +79,12 @@ object UtilKContextStart : BaseUtilK() {
     @JvmStatic
     inline fun <reified T : Activity> startActivityAndFinish(activity: Activity) {
         startContext(activity, Intent(activity, T::class.java))
+        activity.finish()
+    }
+
+    @JvmStatic
+    inline fun <reified T : Activity> startActivityAndFinish(activity: Activity, block: IExtension_Listener<Intent>) {
+        startContext(activity, Intent(activity, T::class.java).apply(block))
         activity.finish()
     }
 
