@@ -16,11 +16,11 @@ import java.lang.reflect.ParameterizedType
  */
 
 @Throws(Exception::class)
-inline fun <reified T : Any> T.t2json(indent: String = ""): String =
+inline fun <reified T : Any> T.t2jsonMoshi(indent: String = ""): String =
     UtilKMoshi.t2jsonMoshi(this, indent)
 
 @Throws(Exception::class)
-inline fun <reified T> String.json2t(): T? =
+inline fun <reified T> String.jsonMoshi2t(): T? =
     UtilKMoshi.jsonMoshi2t(this)
 
 object UtilKMoshi {
