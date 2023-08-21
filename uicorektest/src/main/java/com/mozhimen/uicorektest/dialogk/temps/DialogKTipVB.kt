@@ -5,7 +5,9 @@ import android.view.View
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.widget.applyValueIfNotEmpty
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogKVB
+import com.mozhimen.uicorek.dialogk.bases.commons.IBaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
+import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKVBClickListener
 import com.mozhimen.uicorektest.databinding.DialogkTipBinding
 import kotlin.math.roundToInt
 
@@ -17,7 +19,7 @@ import kotlin.math.roundToInt
  * @Version 1.0
  */
 class DialogKTipVB(context: Context, private val _txt: String, private var _onSure: IDialogKTipListener) :
-    BaseDialogKVB<DialogkTipBinding, IDialogKClickListener>(context) {
+        BaseDialogKVB<DialogkTipBinding, IDialogKVBClickListener<DialogkTipBinding>>(context) {
 
     companion object {
         @JvmStatic
@@ -28,13 +30,14 @@ class DialogKTipVB(context: Context, private val _txt: String, private var _onSu
 
     init {
         setDialogCancelable(true)
-        setDialogClickListener(object : IDialogKClickListener {
-            override fun onClickPositive(view: View?) {
+        setDialogClickListener(object : IDialogKVBClickListener<DialogkTipBinding> {
+
+            override fun onVBClickPositive(vb: DialogkTipBinding, dialogK: BaseDialogKVB<DialogkTipBinding, IDialogKVBClickListener<DialogkTipBinding>>) {
                 _onSure.invoke()
                 this@DialogKTipVB.dismiss()
             }
 
-            override fun onClickNegative(view: View?) {
+            override fun onVBClickNegative(vb: DialogkTipBinding, dialogK: BaseDialogKVB<DialogkTipBinding, IDialogKVBClickListener<DialogkTipBinding>>) {
                 this@DialogKTipVB.dismiss()
             }
         })
@@ -49,8 +52,8 @@ class DialogKTipVB(context: Context, private val _txt: String, private var _onSu
     }
 
     override fun onViewCreated(view: View) {
-        vb.dialogkTipBtnSure.setOnClickListener { getDialogClickListener()?.onClickPositive(view) }
-        vb.dialogkTipBtnCancel.setOnClickListener { getDialogClickListener()?.onClickNegative(view) }
+        vb.dialogkTipBtnSure.setOnClickListener { getDialogClickListener()?.onClickPositive(view, this) }
+        vb.dialogkTipBtnCancel.setOnClickListener { getDialogClickListener()?.onClickNegative(view, this) }
         setTxt(_txt)
     }
 

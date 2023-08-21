@@ -3,6 +3,8 @@ package com.mozhimen.uicorek.dialogk.bases.commons
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import androidx.annotation.AnimRes
+import androidx.annotation.StyleRes
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.uicorek.dialogk.bases.annors.ADialogMode
 
@@ -22,6 +24,8 @@ interface IBaseDialogK<I : IDialogKClickListener> : IUtilK {
      */
     @ADialogMode
     fun getDialogMode(): Int
+
+    //////////////////////////////////////////////////////////////////////////////
 
     fun setDialogClickListener(listener: I): IBaseDialogK<*>
 
@@ -61,6 +65,23 @@ interface IBaseDialogK<I : IDialogKClickListener> : IUtilK {
     fun showInSystemWindow()
 
     //////////////////////////////////////////////////////////////////////////////
+    //os detect
+    //////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 创建View
+     * @param inflater LayoutInflater
+     * @return View?
+     */
+    fun onCreateView(inflater: LayoutInflater): View?
+
+    /**
+     * view创建
+     * @param view View
+     */
+    fun onViewCreated(view: View)
+
+    //////////////////////////////////////////////////////////////////////////////
     //callback
     //////////////////////////////////////////////////////////////////////////////
 
@@ -85,23 +106,13 @@ interface IBaseDialogK<I : IDialogKClickListener> : IUtilK {
      */
     fun onInitWindowGravity(): Int
 
-    /**
-     * 创建View
-     * @param inflater LayoutInflater
-     * @return View?
-     */
-    fun onCreateView(inflater: LayoutInflater): View?
+    @StyleRes
+    fun onInitWindowAnimations(): Int?
 
     /**
      * 销毁View
      */
     fun onDestroyView()
-
-    /**
-     * view创建
-     * @param view View
-     */
-    fun onViewCreated(view: View)
 
     /**
      * 初始化Mode

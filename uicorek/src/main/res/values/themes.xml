@@ -1,33 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="App_Theme_Translucent" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item><!--设置状态栏半透明状态, true为半透明, false为不透明-->
-        <item name="android:windowTranslucentNavigation">true</item><!--设置导航栏半透明状态, true为半透明, false为不透明-->
+    <style name="ThemeK_MaterialDayNoActionBridge" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge" />
+
+    <style name="ThemeK_OverlayAppLight" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ThemeK_OverlayAppDarkAction" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="ThemeK_WidgetAppAction" parent="Widget.AppCompat.ActionBar" />
+
+    <style name="ThemeK_AppLightDarkAction" parent="Theme.AppCompat.Light.DarkActionBar" />
+
+    <style name="ThemeK_AppLightNoAction" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="ThemeK_AppLightNoAction.Translucent">
+        <item name="android:windowTranslucentStatus">true
+        </item><!--设置状态栏半透明状态, true为半透明, false为不透明-->
+        <item name="android:windowTranslucentNavigation">true
+        </item><!--设置导航栏半透明状态, true为半透明, false为不透明-->
     </style>
 
-    <style name="App_Theme_Transparent" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="ThemeK_AppLightNoAction.Transparent">
         <item name="android:statusBarColor">@color/ui_transparent</item> <!-- 设置状态栏背景色为透明 -->
         <item name="android:navigationBarColor">@color/ui_transparent</item> <!-- 设置导航栏背景色为透明 -->
-        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item> <!-- 设置状态栏文字色为深色, true为深色, false为白色 -->
-        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item> <!-- 设置导航栏文字色为深色, true为深色, false为白色 -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true
+        </item> <!-- 设置状态栏文字色为深色, true为深色, false为白色 -->
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true
+        </item> <!-- 设置导航栏文字色为深色, true为深色, false为白色 -->
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--dialogk-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="DialogK_Theme_Transparent" parent="@android:style/Theme.Dialog">
+    <style name="ThemeK_Dialog" parent="@android:style/Theme.Dialog" />
+
+    <style name="ThemeK_Dialog.Commons">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否悬浮在activity上-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <!--        <item name="android:windowCloseOnTouchOutside">false</item>&lt;!&ndash;外部点击关闭&ndash;&gt;-->
+        <item name="android:backgroundDimEnabled">true</item><!--是否允许背景变暗-->
+    </style>
+
+    <style name="ThemeK_Dialog.Transparent">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:background">@android:color/transparent</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="DialogK_Theme_Translucent" parent="@android:style/Theme.Dialog">
+    <style name="ThemeK_Dialog.Translucent">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowNoTitle">true</item>
@@ -36,7 +66,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="DialogK_Theme_Blur" parent="@android:style/Theme.Dialog">
+    <style name="ThemeK_Dialog.Blur">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowNoTitle">true</item>
@@ -45,10 +75,12 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-    <style name="DialogK_Theme_Fullscreen" parent="android:style/Theme.Dialog">
+    <style name="ThemeK_Dialog.Fullscreen">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <style name="ThemeK_Dialog_Animation" parent="AnimK_Theme" />
 </resources>

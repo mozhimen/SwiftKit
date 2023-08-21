@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="viewk_wheel_textsize">@dimen/sp_20</dimen>
-
     <dimen name="sp_10">10sp</dimen>
     <dimen name="sp_12">12sp</dimen>
     <dimen name="sp_13">13sp</dimen>
@@ -13,14 +11,11 @@
 
     <!--/////////////////////////////////////////////////-->
 
+    <dimen name="dp_003">3dp</dimen>
     <dimen name="dp_004">4dp</dimen>
+    <dimen name="dp_005">5dp</dimen>
     <dimen name="dp_006">6dp</dimen>
     <dimen name="dp_008">8dp</dimen>
-
-    <!--/////////////////////////////////////////////////-->
-
-    <dimen name="dp_003">3dp</dimen>
-    <dimen name="dp_005">5dp</dimen>
     <dimen name="dp_010">10dp</dimen>
     <dimen name="dp_015">15dp</dimen>
     <dimen name="dp_016">16dp</dimen>

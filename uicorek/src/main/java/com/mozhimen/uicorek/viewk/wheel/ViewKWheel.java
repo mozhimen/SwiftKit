@@ -141,7 +141,7 @@ public class ViewKWheel extends View {
     public ViewKWheel(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        textSize = getResources().getDimensionPixelSize(R.dimen.viewk_wheel_textsize);//默认大小
+        textSize = getResources().getDimensionPixelSize(R.dimen.sp_20);//默认大小
 
         DisplayMetrics dm = getResources().getDisplayMetrics();
         float density = dm.density; // 屏幕密度比（0.75/1.0/1.5/2.0/3.0）

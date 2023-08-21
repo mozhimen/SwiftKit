@@ -1,52 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AnimK_Alpha" parent="android:Animation">
+    <style name="AnimK_Theme" parent="android:Animation" />
+
+    <style name="AnimK_Theme.Alpha" >
         <item name="android:windowEnterAnimation">@anim/animk_alpha_show</item>
         <item name="android:windowExitAnimation">@anim/animk_alpha_hide</item>
     </style>
 
-    <style name="AnimK_Scale_Center" parent="android:Animation">
+    <style name="AnimK_Theme.Scale_Center" >
         <item name="android:windowEnterAnimation">@anim/animk_scale_center_show</item>
         <item name="android:windowExitAnimation">@anim/animk_scale_center_hide</item>
     </style>
 
-    <style name="AnimK_Scale_Left" parent="android:Animation">
+    <style name="AnimK_Theme.Scale_Left" >
         <item name="android:windowEnterAnimation">@anim/animk_scale_left_show</item>
         <item name="android:windowExitAnimation">@anim/animk_scale_left_hide</item>
     </style>
 
-    <style name="AnimK_Scale_Top" parent="android:Animation">
+    <style name="AnimK_Theme.Scale_Top" >
         <item name="android:windowEnterAnimation">@anim/animk_scale_top_show</item>
         <item name="android:windowExitAnimation">@anim/animk_scale_top_hide</item>
     </style>
 
-    <style name="AnimK_Scale_Right" parent="android:Animation">
+    <style name="AnimK_Theme.Scale_Right" >
         <item name="android:windowEnterAnimation">@anim/animk_scale_right_show</item>
         <item name="android:windowExitAnimation">@anim/animk_scale_right_hide</item>
     </style>
 
-    <style name="AnimK_Scale_Bottom" parent="android:Animation">
+    <style name="AnimK_Theme.Scale_Bottom" >
         <item name="android:windowEnterAnimation">@anim/animk_scale_bottom_show</item>
         <item name="android:windowExitAnimation">@anim/animk_scale_bottom_hide</item>
     </style>
 
-    <style name="AnimK_Trans_Left" parent="android:Animation">
+    <style name="AnimK_Theme.Trans_Left" >
         <item name="android:windowEnterAnimation">@anim/animk_trans_left_show</item>
         <item name="android:windowExitAnimation">@anim/animk_trans_left_hide</item>
     </style>
 
-    <style name="AnimK_Trans_Top" parent="android:Animation">
+    <style name="AnimK_Theme.Trans_Top" >
         <item name="android:windowEnterAnimation">@anim/animk_trans_top_show</item>
         <item name="android:windowExitAnimation">@anim/animk_trans_top_hide</item>
     </style>
 
-    <style name="AnimK_Trans_Right" parent="android:Animation">
+    <style name="AnimK_Theme.Trans_Right" >
         <item name="android:windowEnterAnimation">@anim/animk_trans_right_show</item>
         <item name="android:windowExitAnimation">@anim/animk_trans_right_hide</item>
     </style>
 
-    <style name="AnimK_Trans_Bottom" parent="android:Animation">
+    <style name="AnimK_Theme.Trans_Bottom" >
         <item name="android:windowEnterAnimation">@anim/animk_trans_bottom_show</item>
         <item name="android:windowExitAnimation">@anim/animk_trans_bottom_hide</item>
     </style>

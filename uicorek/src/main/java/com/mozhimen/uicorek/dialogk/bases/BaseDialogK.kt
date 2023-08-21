@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.activity.ComponentDialog
+import androidx.annotation.AnimRes
 import androidx.annotation.StyleRes
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
@@ -27,7 +28,7 @@ import kotlinx.coroutines.launch
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.SYSTEM_ALERT_WINDOW)
-abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.DialogK_Theme_Blur) : ComponentDialog(context, themeResId),
+abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(context: Context, @StyleRes themeResId: Int = R.style.ThemeK_Dialog_Blur) : ComponentDialog(context, themeResId),
     IBaseDialogK<I> {
 
     private var _isHasSetWindowAttr = false
@@ -35,14 +36,14 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
     private var _dialogView: View? = null
     private var _dialogClickListener: I? = null
 
-    override fun getDialogClickListener(): I? {
-        return _dialogClickListener
-    }
+    override fun getDialogClickListener(): I? =
+        _dialogClickListener
 
     @ADialogMode
-    override fun getDialogMode(): Int {
-        return _dialogMode
-    }
+    override fun getDialogMode(): Int =
+        _dialogMode
+
+    //////////////////////////////////////////////////////////////////////////////
 
     override fun setDialogClickListener(listener: I): BaseDialogK<*> {
         this._dialogClickListener = listener
@@ -108,6 +109,10 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////
+    //os detect
+    //////////////////////////////////////////////////////////////////////////////
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (_dialogView == null) {
@@ -122,6 +127,7 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
             layoutParams.width = onInitWindowWidth()
             layoutParams.height = onInitWindowHeight()
             layoutParams.gravity = onInitWindowGravity()
+            onInitWindowAnimations()?.let { window!!.setWindowAnimations(it) }
             window!!.attributes = layoutParams
             _isHasSetWindowAttr = true
         }
@@ -132,21 +138,22 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
         onDestroyView()
     }
 
-    override fun onDestroyView() {}
-
     //////////////////////////////////////////////////////////////////////////////
     //callback
     //////////////////////////////////////////////////////////////////////////////
 
-    override fun onInitWindowWidth(): Int {
-        return ViewGroup.LayoutParams.WRAP_CONTENT
-    }
+    override fun onInitWindowWidth(): Int =
+        ViewGroup.LayoutParams.WRAP_CONTENT
 
-    override fun onInitWindowHeight(): Int {
-        return ViewGroup.LayoutParams.WRAP_CONTENT
-    }
+    override fun onInitWindowHeight(): Int =
+        ViewGroup.LayoutParams.WRAP_CONTENT
 
-    override fun onInitWindowGravity(): Int {
-        return Gravity.CENTER
-    }
+    override fun onInitWindowGravity(): Int =
+        Gravity.CENTER
+
+    @StyleRes
+    override fun onInitWindowAnimations(): Int? =
+        null
+
+    override fun onDestroyView() {}
 }

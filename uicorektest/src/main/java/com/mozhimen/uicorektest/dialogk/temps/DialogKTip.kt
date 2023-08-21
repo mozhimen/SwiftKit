@@ -31,12 +31,12 @@ class DialogKTip(context: Context, private val _txt: String, private var _onSure
     init {
         setDialogCancelable(true)
         setDialogClickListener(object : IDialogKClickListener {
-            override fun onClickPositive(view: View?) {
+            override fun <I : IDialogKClickListener> onClickPositive(view: View?, dialogK: BaseDialogK<I>) {
                 _onSure.invoke()
                 this@DialogKTip.dismiss()
             }
 
-            override fun onClickNegative(view: View?) {
+            override fun <I : IDialogKClickListener> onClickNegative(view: View?, dialogK: BaseDialogK<I>) {
                 this@DialogKTip.dismiss()
             }
         })
@@ -59,8 +59,8 @@ class DialogKTip(context: Context, private val _txt: String, private var _onSure
         _btnSure = view.findViewById(R.id.dialogk_tip_btn_sure)
         _btnCancel = view.findViewById(R.id.dialogk_tip_btn_cancel)
 
-        _btnSure?.setOnClickListener { getDialogClickListener()?.onClickPositive(view) }
-        _btnCancel?.setOnClickListener { getDialogClickListener()?.onClickNegative(view) }
+        _btnSure?.setOnClickListener { getDialogClickListener()?.onClickPositive(view, this) }
+        _btnCancel?.setOnClickListener { getDialogClickListener()?.onClickNegative(view, this) }
         setTxt(_txt)
     }
 

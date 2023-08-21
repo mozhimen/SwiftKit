@@ -38,7 +38,7 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
         override var layoutParams: ViewGroup.LayoutParams =
             FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT)
         override var animStyleId: Int? = null
-        override var styleId: Int = com.mozhimen.uicorek.R.style.DialogK_Theme_Fullscreen
+        override var styleId: Int = com.mozhimen.uicorek.R.style.ThemeK_Dialog_Fullscreen
         override var cancelable: Boolean = true
 
         fun setQuestion(title: String): Builder {
