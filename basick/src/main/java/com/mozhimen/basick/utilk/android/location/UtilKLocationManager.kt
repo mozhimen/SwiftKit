@@ -9,6 +9,9 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.location.cons.CLocationManager
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.android.util.dt
+import com.mozhimen.basick.utilk.android.util.it
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 
 /**
@@ -18,7 +21,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
  * @Date 2023/8/15 16:03
  * @Version 1.0
  */
-object UtilKLocationManager {
+object UtilKLocationManager : IUtilK {
     @JvmStatic
     fun get(context: Context): LocationManager =
         UtilKContext.getLocationManager(context)
@@ -39,7 +42,6 @@ object UtilKLocationManager {
         getLastKnownLocation(context, CLocationManager.NETWORK_PROVIDER)
 
     @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     fun getProviders(context: Context, enableOnly: Boolean): List<String> =
         get(context).getProviders(enableOnly)
 
@@ -51,7 +53,11 @@ object UtilKLocationManager {
 
     @JvmStatic
     fun isProviderEnabledGps(context: Context): Boolean =
-        isProviderEnabled(context, CLocationManager.GPS_PROVIDER)
+        isProviderEnabled(context, CLocationManager.GPS_PROVIDER).also { "isProviderEnabledGps $it".dt(TAG) }
+
+    @JvmStatic
+    fun isProviderEnabledNetwork(context: Context): Boolean =
+        isProviderEnabled(context, CLocationManager.NETWORK_PROVIDER).also { "isProviderEnabledNetwork $it".dt(TAG) }
 
     /////////////////////////////////////////////////////////////////////
 
@@ -77,5 +83,12 @@ object UtilKLocationManager {
     @RequiresPermission(allOf = [CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION])
     fun requestLocationUpdatesNetwork(context: Context, minTimeMs: Long, minDistanceM: Float, listener: LocationListener, looper: Looper) {
         requestLocationUpdates(context, CLocationManager.NETWORK_PROVIDER, minTimeMs, minDistanceM, listener, looper)
+    }
+
+    /////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun removeUpdates(context: Context, listener: LocationListener) {
+        get(context).removeUpdates(listener)
     }
 }

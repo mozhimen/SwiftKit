@@ -86,7 +86,7 @@ class DialogKQues @JvmOverloads constructor(context: Context, themeId: Int = 0) 
             }
             dialogKQues.setContentView(view)
             dialogKQues.setCancelable(cancelable)
-            dialogKQues.window?.setWindowAnimations(animStyleId ?: com.mozhimen.basick.R.style.AnimK_Alpha)
+            dialogKQues.window?.setWindowAnimations(animStyleId ?: com.mozhimen.basick.R.style.AnimK_Theme_Alpha)
             dialogKQues.window?.setLayout(width.dp2px().toInt(), height.dp2px().toInt())
             return dialogKQues
         }
