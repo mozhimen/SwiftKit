@@ -66,37 +66,44 @@ fun View.asGoneIf(boolean: Boolean) {
 object UtilKViewFormat {
     @JvmStatic
     fun asVisible(view: View) {
-        if (!UtilKView.isVisible(view)) view.visibility = View.VISIBLE
+        if (!UtilKView.isVisible(view))
+            view.visibility = View.VISIBLE
     }
 
     @JvmStatic
     fun asInVisible(view: View) {
-        if (!UtilKView.isInvisible(view)) view.visibility = View.INVISIBLE
+        if (!UtilKView.isInvisible(view))
+            view.visibility = View.INVISIBLE
     }
 
     @JvmStatic
     fun asGone(view: View) {
-        if (!UtilKView.isGone(view)) view.visibility = View.GONE
+        if (!UtilKView.isGone(view))
+            view.visibility = View.GONE
     }
 
     @JvmStatic
     fun asVisibleIfElseGone(view: View, invoke: I_AListener<Boolean>) {
-        if (invoke.invoke()) asVisible(view) else asGone(view)
+        if (invoke.invoke()) asVisible(view)
+        else asGone(view)
     }
 
     @JvmStatic
     fun asVisibleIfElseGone(view: View, boolean: Boolean) {
-        if (boolean) asVisible(view) else asGone(view)
+        if (boolean) asVisible(view)
+        else asGone(view)
     }
 
     @JvmStatic
     fun asVisibleIfElseInVisible(view: View, invoke: I_AListener<Boolean>) {
-        if (invoke.invoke()) asVisible(view) else asInVisible(view)
+        if (invoke.invoke()) asVisible(view)
+        else asInVisible(view)
     }
 
     @JvmStatic
     fun asVisibleIfElseInVisible(view: View, boolean: Boolean) {
-        if (boolean) asVisible(view) else asInVisible(view)
+        if (boolean) asVisible(view)
+        else asInVisible(view)
     }
 
     @JvmStatic
