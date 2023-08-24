@@ -5,8 +5,6 @@ import android.view.View
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.widget.applyValueIfNotEmpty
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogKVB
-import com.mozhimen.uicorek.dialogk.bases.commons.IBaseDialogK
-import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKVBClickListener
 import com.mozhimen.uicorektest.databinding.DialogkTipBinding
 import kotlin.math.roundToInt

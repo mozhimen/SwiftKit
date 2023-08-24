@@ -79,6 +79,10 @@ fun View.applyFocusable() {
     UtilKView.applyFocusable(this)
 }
 
+fun View.applyRequestFocus() {
+    UtilKView.applyRequestFocus(this)
+}
+
 fun View.applyOnGlobalLayoutObserver(invoke: I_Listener) {
     UtilKView.applyOnGlobalLayoutObserver(this, invoke)
 }
