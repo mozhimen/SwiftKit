@@ -16,41 +16,41 @@ interface IAdapterKRecyclerStuffedVB<DATA, VB : ViewDataBinding> : IAdapterKRecy
      * 添加Header
      * @param view View
      */
-    fun onHeaderViewAdd(view: View)
+    fun addHeaderView(view: View)
 
     /**
      * 移除Header
      * @param view View
      */
-    fun onHeaderViewRemove(view: View)
+    fun removeHeaderView(view: View)
 
     /**
      * 添加Footer
      * @param view View
      */
-    fun onFooterViewAdd(view: View)
+    fun addFooterView(view: View)
 
     /**
      * 移除Footer
      * @param view View
      */
-    fun onFooterViewRemove(view: View)
+    fun removeFooterView(view: View)
 
     /**
      * 获取Header数量
      * @return Int
      */
-    fun onHeaderViewSizeGet(): Int
+    fun getHeaderViewSize(): Int
 
     /**
      * 获取Footer数量
      * @return Int
      */
-    fun onFooterViewSizeGet(): Int
+    fun getFooterViewSize(): Int
 
     /**
      * 获取item数量
      * @return Int
      */
-    fun onNormalItemSizeGet(): Int
+    fun getNormalItemSize(): Int
 }

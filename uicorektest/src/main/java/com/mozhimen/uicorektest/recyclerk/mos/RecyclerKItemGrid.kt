@@ -24,4 +24,8 @@ class RecyclerKItemGrid : BaseRecyclerKItem<RecyclerKItemGrid.MyVHKRecycler>() {
     class MyVHKRecycler(view: View) : VHKRecycler(view) {
         val imageView: ImageView = view.findViewById(R.id.datak_item_grid_img)
     }
+
+    override fun getItemSpanSize(): Int {
+        return 2
+    }
 }

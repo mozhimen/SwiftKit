@@ -17,4 +17,8 @@ class AdapterKActivity : BaseActivityVB<ActivityAdapterkBinding>() {
     fun goAdapterKRecyclerVb2(view: View) {
         startContext<AdapterKRecyclerVB2Activity>()
     }
+
+    fun goAdapterKRecyclerVb(view: View) {
+        startContext<AdapterKRecyclerVBActivity>()
+    }
 }

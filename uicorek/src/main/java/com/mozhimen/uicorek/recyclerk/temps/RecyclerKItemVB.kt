@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 
@@ -23,6 +24,7 @@ class RecyclerKItemVB<DATA, VB : ViewDataBinding>(
     private val _selectItemPos: Int,
     private val _onBind: IRecyclerKItemVBListener<DATA, VB>? = null
 ) : BaseRecyclerKItem<VHKRecyclerVB<VB>>() {
+
     override fun onBindItem(holder: VHKRecyclerVB<VB>, position: Int) {
         super.onBindItem(holder, position)
         holder.vb.setVariable(_brId, data)

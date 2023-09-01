@@ -61,6 +61,8 @@ open class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffe
     override fun getNormalItemSize(): Int = _items.size
     //endregion
 
+    /////////////////////////////////////////////////////////////////////////////////
+
     //region # AdapterKRecycler
     /**
      * 以每种item类型的class.hasCode为该item的viewType
@@ -186,6 +188,8 @@ open class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffe
             }
         }
     }
+
+    /////////////////////////////////////////////////////////////////////////////////
 
     private fun isHeaderPosition(position: Int): Boolean = position < _headers.size() // 5 --> 4 3 2 1
 

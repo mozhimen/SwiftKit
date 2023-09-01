@@ -13,6 +13,7 @@ import com.mozhimen.uicorek.adapterk.AdapterKRecycler
 import com.mozhimen.uicorek.databinding.RecyclerkLinearItemBinding
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.recyclerk.linear.commons.IRecyclerKLinear
+import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 /**

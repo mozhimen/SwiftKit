@@ -46,5 +46,9 @@ class RecyclerKItemTop : BaseRecyclerKItem<RecyclerView.ViewHolder>() {
             holder.itemView.layoutParams = params
         }
     }
+
+    override fun getItemSpanSize(): Int {
+        return 2
+    }
 }
 

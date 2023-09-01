@@ -42,7 +42,7 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
                 BR.itemAstro
             ) { holder, itemData, position, _ ->
                 if (position in 1 until list.size) {
-                    holder.binding?.demoItemListBtn?.setOnClickListener {
+                    holder.vb.demoItemListBtn.setOnClickListener {
                         Log.i(TAG, itemData.name)
                     }
                 }

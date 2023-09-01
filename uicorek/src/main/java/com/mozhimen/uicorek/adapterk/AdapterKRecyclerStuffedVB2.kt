@@ -1,13 +1,12 @@
 package com.mozhimen.uicorek.adapterk
 
-import android.view.View
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2list
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2listIgnoreNull
-import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerStuffedVB
+import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVB
+import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVBListener
 import com.mozhimen.uicorek.recyclerk.temps.RecyclerKItemVB
-import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 /**
  * @ClassName AdapterKRecyclerStuffedVB2
@@ -17,7 +16,7 @@ import com.mozhimen.uicorek.vhk.VHKRecyclerVB
  * @Version 1.0
  */
 
-typealias IAdapterKRecyclerStuffedVB2Listener<DATA, VB> = (holder: VHKRecyclerVB<VB>, itemData: DATA, position: Int, currentSelectPos: Int) -> Unit
+//typealias IAdapterKRecyclerStuffedVB2Listener<DATA, VB> = (holder: VHKRecyclerVB<VB>, itemData: DATA, position: Int, currentSelectPos: Int) -> Unit
 
 @Suppress(CSuppress.UNCHECKED_CAST)
 class AdapterKRecyclerStuffedVB2<DATA, VB : ViewDataBinding>(
@@ -26,90 +25,103 @@ class AdapterKRecyclerStuffedVB2<DATA, VB : ViewDataBinding>(
     private var _brId: Int,
     private var _headerLayoutId: Int? = null,
     private var _footerLayoutId: Int? = null,
-    private var _listener: IAdapterKRecyclerStuffedVB2Listener<DATA, VB>? = null
-) : AdapterKRecyclerStuffed(), IAdapterKRecyclerStuffedVB<DATA, VB> {
+    private var _listener: IAdapterKRecyclerVBListener<DATA, VB>? = null
+) : AdapterKRecyclerStuffed(), IAdapterKRecyclerVB<DATA, VB> {
     private var _selectItemPosition = -1
 
     init {
-        onItemsAdd(_datas, false)
+        addDatas(_datas, true)
     }
 
-    override fun onItemRefresh(item: DATA, position: Int, notify: Boolean) {
-        refreshItem(RecyclerKItemVB(item, _brId, _defaultLayoutId, _selectItemPosition, _listener), position, notify)
+    ///////////////////////////////////////////////////////////////////////////////////
+
+    override fun refreshData(data: DATA, position: Int, notify: Boolean) {
+        refreshItem(RecyclerKItemVB(data, _brId, _defaultLayoutId, _selectItemPosition, _listener), position, notify)
     }
 
-    override fun onItemsRefresh(items: List<DATA>, notify: Boolean) {
-        refreshItems(items.joinT2list { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
+    override fun refreshDatas(notify: Boolean) {
+        refreshItems(notify)
     }
 
-    override fun onItemAdd(item: DATA, notify: Boolean) {
-        addItem(RecyclerKItemVB(item, _brId, _defaultLayoutId, _selectItemPosition, _listener), notify)
+    override fun refreshDatas(datas: List<DATA>) {
+        refreshDatas(datas)
     }
 
-    override fun onItemAddAtPosition(item: DATA, position: Int, notify: Boolean) {
-        addItemAtPosition(RecyclerKItemVB(item, _brId, _defaultLayoutId, _selectItemPosition, _listener), position, notify)
+    override fun refreshDatas(datas: List<DATA>, notify: Boolean) {
+        refreshItems(datas.joinT2list { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
     }
 
-    override fun onItemsAdd(items: List<DATA>, notify: Boolean) {
-        addItems(items.joinT2list { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
+    override fun addData(data: DATA, notify: Boolean) {
+        addItem(RecyclerKItemVB(data, _brId, _defaultLayoutId, _selectItemPosition, _listener), notify)
     }
 
-    override fun onItemRemove(item: DATA, notify: Boolean) {
-        _items.find { (it as? RecyclerKItemVB<DATA, VB>?)?.data == item }?.let { removeItem(it, notify) }
+    override fun addDataAtPosition(data: DATA, position: Int, notify: Boolean) {
+        addItemAtPosition(RecyclerKItemVB(data, _brId, _defaultLayoutId, _selectItemPosition, _listener), position, notify)
     }
 
-    override fun onItemRemoveAtPosition(position: Int, notify: Boolean): DATA? {
-        return (removeItemAtPosition(position, notify) as? RecyclerKItemVB<DATA, VB>?)?.data
+    override fun addDatas(datas: List<DATA>, notify: Boolean) {
+        addItems(datas.joinT2list { RecyclerKItemVB(it, _brId, _defaultLayoutId, _selectItemPosition, _listener) }, notify)
     }
 
-    override fun onItemsRemoveAll(notify: Boolean) {
-        removeItemsAll(notify)
+    override fun removeData(data: DATA, notify: Boolean) {
+        _items.find { (it as? RecyclerKItemVB<DATA, VB>?)?.data == data }?.let { removeItem(it, notify) }
     }
 
-    override fun onItemGet(position: Int): DATA? {
-        return (getItem(position) as? RecyclerKItemVB<DATA, VB>?)?.data
+    override fun removeDataAtPosition(position: Int, notify: Boolean): DATA? {
+        return (removeDataAtPosition(position, notify) as? RecyclerKItemVB<DATA, VB>?)?.data
     }
 
-    override fun onItemsGet(): List<DATA?> {
+    override fun removeDatasAll(notify: Boolean) {
+        removeDatasAll(notify)
+    }
+
+    override fun getData(position: Int): DATA? {
+        return (getData(position) as? RecyclerKItemVB<DATA, VB>?)?.data
+    }
+
+    override fun getDatas(): List<DATA?> {
         return _items.joinT2listIgnoreNull { (it as? RecyclerKItemVB<DATA, VB>?)?.data }
     }
 
-    override fun onSelectItemPositionSet(position: Int, listener: IAdapterKRecyclerVB2Listener<DATA, VB>) {
+    override fun onDataSelected(position: Int) {
         if (position < 0 || position >= _items.size) return
         _selectItemPosition = position
-        val item = getItem(_selectItemPosition) as RecyclerKItemVB<DATA, VB>
-        listener.invoke(item.vh, item.data, _selectItemPosition, _selectItemPosition)
+//        val item = getData(_selectItemPosition) as RecyclerKItemVB<DATA, VB>
+//        listener.invoke(item.vh, item.data, _selectItemPosition, _selectItemPosition)
+        refreshItems(true)
     }
 
-    override fun onSelectItemPositionGet(): Int {
+    override fun getCurrentSelectPosition(): Int {
         return _selectItemPosition
     }
 
-    override fun onHeaderViewAdd(view: View) {
-        addHeaderView(view)
-    }
-
-    override fun onHeaderViewRemove(view: View) {
-        removeHeaderView(view)
-    }
-
-    override fun onFooterViewAdd(view: View) {
-        addFooterView(view)
-    }
-
-    override fun onFooterViewRemove(view: View) {
-        removeFooterView(view)
-    }
-
-    override fun onHeaderViewSizeGet(): Int {
-        return getHeaderViewSize()
-    }
-
-    override fun onFooterViewSizeGet(): Int {
-        return getFooterViewSize()
-    }
-
-    override fun onNormalItemSizeGet(): Int {
-        return getNormalItemSize()
-    }
+//    ///////////////////////////////////////////////////////////////////////////////////
+//
+//    override fun addHeaderView(view: View) {
+//        addHeaderView(view)
+//    }
+//
+//    override fun removeHeaderView(view: View) {
+//        removeHeaderView(view)
+//    }
+//
+//    override fun addFooterView(view: View) {
+//        addFooterView(view)
+//    }
+//
+//    override fun removeFooterView(view: View) {
+//        removeFooterView(view)
+//    }
+//
+//    override fun getHeaderViewSize(): Int {
+//        return getHeaderViewSize()
+//    }
+//
+//    override fun getFooterViewSize(): Int {
+//        return getFooterViewSize()
+//    }
+//
+//    override fun getNormalItemSize(): Int {
+//        return getNormalItemSize()
+//    }
 }

@@ -9,6 +9,7 @@ import com.mozhimen.basick.elemk.android.os.WakeBefPauseLifecycleHandler
 import com.mozhimen.basick.utilk.android.os.applyPostDelayed
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
 import com.mozhimen.uicorek.layoutk.refresh.temps.TextOverView
 import com.mozhimen.uicorek.layoutk.refresh.cons.ERefreshStatus
@@ -20,7 +21,7 @@ import com.mozhimen.uicorektest.recyclerk.mos.RecyclerKItemLoadMore
 class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
     private var _pageIndex: Int = 1
     private lateinit var _textOverView: TextOverView
-    private val _adapterKRecyclerStuffed by lazy { AdapterKRecycler() }
+    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
     private val _dataSets = ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>>()
 
     override fun initView(savedInstanceState: Bundle?) {

@@ -20,6 +20,11 @@ interface IAdapterKRecycler : IUtilK {
 
     /**
      * 刷新Item
+     */
+    fun refreshItems(notify: Boolean)
+
+    /**
+     * 刷新Item
      * @param items List<BaseRecyclerKItem<DATA, ViewHolder>>
      */
     fun refreshItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean)

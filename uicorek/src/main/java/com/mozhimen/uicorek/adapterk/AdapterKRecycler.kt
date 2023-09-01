@@ -1,5 +1,6 @@
 package com.mozhimen.uicorek.adapterk
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.util.SparseIntArray
 import android.view.LayoutInflater
@@ -30,17 +31,24 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
     protected val _typePositions = SparseIntArray()
     protected var _recyclerViewRef: WeakReference<RecyclerView>? = null
 
+    ////////////////////////////////////////////////////////////////////////////////////
+
     //region # IAdapterKRecycler
     override fun refreshItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean) {
         if (position < 0 || position >= _items.size) return
-        _items[position] = item
+        _items[position] = item.apply { bindAdapter(this@AdapterKRecycler) }
         if (notify) notifyItemChanged(position)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun refreshItems(notify: Boolean) {
+        if (notify) notifyDataSetChanged()
     }
 
     override fun refreshItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
         _items.clear()
-        _items.addAll(items)
-        if (notify) notifyDataSetChanged()
+        for (item in items) _items.add(item.apply { bindAdapter(this@AdapterKRecycler) })
+        refreshItems(notify)
     }
 
     override fun addItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, notify: Boolean) {
@@ -48,11 +56,10 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
     }
 
     override fun addItemAtPosition(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean) {
-        if (position >= 0) {
+        if (position >= 0)
             _items.add(position, item)
-        } else {
+        else
             _items.add(item)
-        }
 
         val notifyPos = if (position >= 0) position else _items.size - 1
         if (notify) notifyItemInserted(notifyPos)
@@ -62,7 +69,9 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
 
     override fun addItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
         val start = _items.size
-        for (item in _items) _items.add(item.apply { bindAdapter(this@AdapterKRecycler) })
+        for (item in items)
+            _items.add(item.apply { bindAdapter(this@AdapterKRecycler) })
+        Log.d(TAG, "addItems: start $start items size ${items.size} _items size ${_items.size}")
         if (notify) notifyItemRangeInserted(start, items.size)
     }
 
@@ -100,6 +109,8 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
     }
     //endregion
 
+    ////////////////////////////////////////////////////////////////////////////////////
+
     //region # RecyclerView.Adapter
     /**
      * 以每种item类型的class.hasCode为该item的viewType
@@ -113,7 +124,9 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         return type
     }
 
-    override fun getItemCount() = _items.size
+    override fun getItemCount() =
+        _items.size
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         //为了解决dataItem成员变量binding, 刷新之后无法被复用的问题
         val position = _typePositions.get(viewType)
@@ -170,6 +183,8 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         item.onViewDetachedFromWindow(holder)
     }
     //endregion
+
+    ////////////////////////////////////////////////////////////////////////////////////
 
     protected open fun onAttachedToRecyclerViewInternal(recyclerView: RecyclerView) {
         _recyclerViewRef = WeakReference(recyclerView)

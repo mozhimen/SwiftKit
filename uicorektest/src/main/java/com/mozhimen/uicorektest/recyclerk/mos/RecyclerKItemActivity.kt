@@ -20,4 +20,8 @@ class RecyclerKItemActivity : BaseRecyclerKItem<VHKRecycler>() {
     }
 
     override fun getItemLayoutId() = R.layout.item_recyclerk_activity
+
+    override fun getItemSpanSize(): Int {
+        return 2
+    }
 }

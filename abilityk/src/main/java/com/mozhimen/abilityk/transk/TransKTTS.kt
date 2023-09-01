@@ -40,7 +40,7 @@ class TransKTTS<O>(owner: O, config: MText2SpeechConfig = MText2SpeechConfig(Loc
 
     init {
         if (UtilKBuildVersion.isAfterV_28_9_P()) {
-            if (!UtilKPermission.checkPermissions(CPermission.FOREGROUND_SERVICE)) {
+            if (!UtilKPermission.checkPermission(CPermission.FOREGROUND_SERVICE)) {
                 UtilKLaunchActivity.startSettingAppDetails(owner)
             }
         }

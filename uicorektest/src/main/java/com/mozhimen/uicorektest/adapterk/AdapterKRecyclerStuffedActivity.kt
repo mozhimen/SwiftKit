@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.uicorektest.databinding.ActivityAdapterkRecyclerStuffedBinding
 import com.mozhimen.uicorektest.recyclerk.mos.*
 
@@ -18,7 +19,7 @@ import com.mozhimen.uicorektest.recyclerk.mos.*
  */
 class AdapterKRecyclerStuffedActivity : BaseActivityVB<ActivityAdapterkRecyclerStuffedBinding>() {
 
-    private val _adapterKRecyclerStuffed by lazy { AdapterKRecycler() }
+    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
     override fun initView(savedInstanceState: Bundle?) {
         initAdapter()
     }

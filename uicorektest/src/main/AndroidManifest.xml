@@ -11,12 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
 
-<!--        <meta-data-->
-<!--            android:name="design_width_in_dp"-->
-<!--            android:value="800"/>-->
-<!--        <meta-data-->
-<!--            android:name="design_height_in_dp"-->
-<!--            android:value="1280"/>-->
+        <!--        <meta-data-->
+        <!--            android:name="design_width_in_dp"-->
+        <!--            android:value="800"/>-->
+        <!--        <meta-data-->
+        <!--            android:name="design_height_in_dp"-->
+        <!--            android:value="1280"/>-->
 
         <activity
             android:name=".UicoreKActivity"
@@ -52,7 +52,10 @@
             android:exported="false" />
         <activity
             android:name=".adapterk.AdapterKRecyclerVB2Activity"
-            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" />
+        <activity
+            android:name=".adapterk.AdapterKRecyclerVBActivity"
+            android:exported="false" /><!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- btnk -->
         <activity
             android:name=".btnk.BtnKActivity"

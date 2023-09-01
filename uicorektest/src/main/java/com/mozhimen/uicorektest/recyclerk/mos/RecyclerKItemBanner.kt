@@ -11,8 +11,9 @@ import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.temps.PointIndicator
 import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder
-import com.mozhimen.uicorek.vhk.VHKRecyclerVB
+import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
 import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ItemRecyclerkBannerBinding
 
@@ -82,5 +83,9 @@ class RecyclerKItemBanner : BaseRecyclerKItem<VHKRecyclerVB<ItemRecyclerkBannerB
         val index = CacheKSP.instance.with(RECYCLERK_ITEM_BANNER_SP_NAME).getInt("bannerIndex")
         Log.d(TAG, "onViewAttachedToWindow currentIndex $index")
         holder.vb.itemRecyclerkBanner.setCurrentPosition(index, false)
+    }
+
+    override fun getItemSpanSize(): Int {
+        return 2
     }
 }

@@ -14,6 +14,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
 import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
@@ -32,7 +33,7 @@ class LogKPrinterViewProvider(
     private val _rootView: FrameLayout
 ) : ILogKPrinter {
 
-    private val _adapterKRecyclerStuffed by lazy { AdapterKRecycler() }
+    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
     private val TITLE_OPEN_PANEL by lazy { UtilKRes.getString(R.string.logk_view_provider_title_open) }
     private val TITLE_CLOSE_PANEL by lazy { UtilKRes.getString(R.string.logk_view_provider_title_close) }
 

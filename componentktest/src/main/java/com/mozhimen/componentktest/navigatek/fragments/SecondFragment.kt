@@ -1,10 +1,8 @@
 package com.mozhimen.componentktest.navigatek.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
-import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVBVM
 import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
@@ -16,7 +14,7 @@ import com.mozhimen.componentktest.navigatek.NavigateKActivity
 import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
 
 class SecondFragment : BaseFragmentVB<FragmentSecondBinding>() {
-    private val _datas = listOf(MKey("01", "01"))
+    private val _datas = mutableListOf(MKey("01", "01"))
     private var _adapter: AdapterKRecyclerVB<MKey, ItemNavigatekBinding>? = null
 
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
