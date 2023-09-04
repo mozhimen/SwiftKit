@@ -9,5 +9,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:onClick="goUtilKActionBar"
+            android:text="goUtilKActionBar"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

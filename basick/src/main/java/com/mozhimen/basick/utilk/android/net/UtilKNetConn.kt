@@ -4,13 +4,11 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.NetworkRequest
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.android.net.cons.ENetType
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import java.util.*
 
 /**
  * @ClassName UtilKNet
@@ -33,7 +31,7 @@ object UtilKNetConn : BaseUtilK() {
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getWifiStrength(): Int =
-        UtilKWifiManager.getRssiAbs(_context)
+        UtilKWifiManager.getRssiAbs(_context)?:0
 
     /**
      * 获取NetworkInfo

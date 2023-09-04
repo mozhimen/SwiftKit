@@ -129,10 +129,6 @@ object UtilKContext {
         context.packageManager
 
     @JvmStatic
-    fun checkCallingOrSelfPermission(context: Context, permission: String): Int =
-        context.checkCallingOrSelfPermission(permission)
-
-    @JvmStatic
     fun getResources(context: Context): Resources =
         context.resources
 
@@ -166,4 +162,15 @@ object UtilKContext {
     @JvmStatic
     fun getTheme(context: Context): Theme =
         context.theme
+
+    ////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_23_6_M)
+    fun checkSelfPermission(context: Context, permission: String): Int =
+        context.checkSelfPermission(permission)
+
+    @JvmStatic
+    fun checkCallingOrSelfPermission(context: Context, permission: String): Int =
+        context.checkCallingOrSelfPermission(permission)
 }

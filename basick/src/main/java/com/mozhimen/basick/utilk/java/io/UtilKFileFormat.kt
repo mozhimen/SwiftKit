@@ -18,8 +18,8 @@ fun String.strFilePath2file(): File =
 fun File.file2strFilePath(): String =
     UtilKFileFormat.file2strFilePath(this)
 
-fun String.str2file(filePathWithName: String): File =
-    UtilKFileFormat.str2file(this, filePathWithName)
+fun String.str2file(destFilePathWithName: String): File =
+    UtilKFileFormat.str2file(this, destFilePathWithName)
 
 fun String.str2file(destFile: File): File =
     UtilKFileFormat.str2file(this, destFile)
@@ -60,8 +60,8 @@ object UtilKFileFormat {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun str2file(str: String, filePathWithName: String): File =
-        str2file(str, UtilKFile.createFile(filePathWithName))
+    fun str2file(str: String, destFilePathWithName: String): File =
+        str2file(str, UtilKFile.createFile(destFilePathWithName))
 
     /**
      * Str2file
