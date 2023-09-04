@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.elemk.service
+package com.mozhimen.basicktest.elemk.android
 
 import android.os.Bundle
 import android.util.Log

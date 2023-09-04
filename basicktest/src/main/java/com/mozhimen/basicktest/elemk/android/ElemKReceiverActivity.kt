@@ -1,6 +1,5 @@
-package com.mozhimen.basicktest.elemk.receiver
+package com.mozhimen.basicktest.elemk.android
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiverProxy

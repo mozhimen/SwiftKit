@@ -4,11 +4,13 @@ import android.view.View
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basicktest.databinding.ActivityElemkBinding
-import com.mozhimen.basicktest.elemk.activity.ElemKVBVMActivity
-import com.mozhimen.basicktest.elemk.gesture.ElemKGestureActivity
-import com.mozhimen.basicktest.elemk.gesture.ElemKGestureFlingActivity
-import com.mozhimen.basicktest.elemk.receiver.ElemKReceiverActivity
-import com.mozhimen.basicktest.elemk.service.ElemKServiceActivity
+import com.mozhimen.basicktest.elemk.android.ElemKAndroidActivity
+import com.mozhimen.basicktest.elemk.androidx.ElemKVBVMActivity
+import com.mozhimen.basicktest.elemk.android.ElemKGestureActivity
+import com.mozhimen.basicktest.elemk.android.ElemKGestureFlingActivity
+import com.mozhimen.basicktest.elemk.android.ElemKReceiverActivity
+import com.mozhimen.basicktest.elemk.android.ElemKServiceActivity
+import com.mozhimen.basicktest.elemk.androidx.ElemKAndroidXActivity
 
 /**
  * @ClassName ElemKActivity
@@ -19,23 +21,11 @@ import com.mozhimen.basicktest.elemk.service.ElemKServiceActivity
  */
 class ElemKActivity : BaseActivityVB<ActivityElemkBinding>() {
 
-    fun goElemKVBVM(view: View) {
-        startContext<ElemKVBVMActivity>()
+    fun goElemKAndroid(view: View) {
+        startContext<ElemKAndroidActivity>()
     }
 
-    fun goElemKService(view: View) {
-        startContext<ElemKServiceActivity>()
-    }
-
-    fun goElemKReceiver(view: View) {
-        startContext<ElemKReceiverActivity>()
-    }
-
-    fun goElemKGesture(view: View) {
-        startContext<ElemKGestureActivity>()
-    }
-
-    fun goElemKGestureFling(view: View) {
-        startContext<ElemKGestureFlingActivity>()
+    fun goElemKAndroidX(view: View) {
+        startContext<ElemKAndroidXActivity>()
     }
 }

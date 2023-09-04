@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
 
-
         <activity
             android:name=".BasicKActivity"
             android:exported="true">
@@ -41,28 +40,34 @@
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- elemk -->
         <activity
-            android:name=".elemk.gesture.ElemKGestureFlingActivity"
+            android:name=".elemk.androidx.ElemKAndroidXActivity"
+            android:exported="false" />
+        <activity
+            android:name=".elemk.android.ElemKAndroidActivity"
+            android:exported="false" />
+        <activity
+            android:name=".elemk.android.ElemKGestureFlingActivity"
             android:exported="false" />
         <activity
             android:name=".elemk.ElemKActivity"
             android:exported="false" />
         <activity
-            android:name=".elemk.activity.ElemKVBVMActivity"
+            android:name=".elemk.androidx.ElemKVBVMActivity"
             android:exported="false" />
         <activity
-            android:name=".elemk.service.ElemKServiceActivity"
+            android:name=".elemk.android.ElemKServiceActivity"
             android:exported="false" />
         <activity
-            android:name=".elemk.receiver.ElemKReceiverActivity"
+            android:name=".elemk.android.ElemKReceiverActivity"
             android:exported="false" />
         <activity
-            android:name=".elemk.gesture.ElemKGestureActivity"
+            android:name=".elemk.android.ElemKGestureActivity"
             android:exported="false" />
 
-        <service android:name=".elemk.service.ElemKService" />
+        <service android:name=".elemk.android.ElemKService" />
 
         <receiver
-            android:name=".elemk.receiver.ElemKAutoRunReceiver"
+            android:name=".elemk.android.ElemKAutoRunReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="1000">
@@ -70,7 +75,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".elemk.receiver.ElemKInstallObserverReceiver"
+            android:name=".elemk.android.ElemKInstallObserverReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="100">
@@ -123,8 +128,7 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKCountDownActivity"
-            android:exported="false" />
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- utilk -->
         <activity
             android:name=".utilk.kotlin.UtilKGenerateNoActivity"

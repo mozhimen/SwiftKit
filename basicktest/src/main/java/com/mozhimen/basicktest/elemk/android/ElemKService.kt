@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.elemk.service
+package com.mozhimen.basicktest.elemk.android
 
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.android.app.bases.BaseLifecycleService2

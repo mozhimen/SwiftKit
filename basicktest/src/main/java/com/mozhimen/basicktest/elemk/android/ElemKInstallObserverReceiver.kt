@@ -1,4 +1,4 @@
-package com.mozhimen.basicktest.elemk.receiver
+package com.mozhimen.basicktest.elemk.android
 
 import com.mozhimen.basick.elemk.android.content.bases.BaseInstallObserverBroadcastReceiver
 import com.mozhimen.basick.lintk.optin.OptInApiTarget_AtV_25_71_N1

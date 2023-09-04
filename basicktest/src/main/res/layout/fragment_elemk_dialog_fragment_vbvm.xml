@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.mozhimen.basicktest.elemk.viewmodel.ElemKViewModel" />
+            type="com.mozhimen.basicktest.elemk.androidx.ElemKViewModel" />
     </data>
 
     <FrameLayout

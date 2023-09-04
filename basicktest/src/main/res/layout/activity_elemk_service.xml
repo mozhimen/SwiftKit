@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".elemk.service.ElemKServiceActivity">
+        tools:context=".elemk.android.ElemKServiceActivity">
 
         <TextView
             android:id="@+id/elemk_service_txt"
