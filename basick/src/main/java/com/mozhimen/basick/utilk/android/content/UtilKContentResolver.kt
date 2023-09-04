@@ -34,12 +34,12 @@ import java.io.OutputStream
 @RequiresApi(CVersCode.V_29_10_Q)
 @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
 fun Bitmap.anyBitmap2imageFile(filePathWithName: String, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        UtilKContentResolver.anyBitmap2imageFile(this, filePathWithName, compressFormat, quality)
+    UtilKContentResolver.anyBitmap2imageFile(this, filePathWithName, compressFormat, quality)
 
 object UtilKContentResolver : BaseUtilK() {
     @JvmStatic
     fun get(context: Context): ContentResolver =
-            UtilKContext.getContentResolver(context)
+        UtilKContext.getContentResolver(context)
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -47,7 +47,12 @@ object UtilKContentResolver : BaseUtilK() {
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
-    fun anyBitmap2imageFile(sourceBitmap: Bitmap, filePathWithName: String, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
+    fun anyBitmap2imageFile(
+        sourceBitmap: Bitmap,
+        filePathWithName: String,
+        compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG,
+        @IntRange(from = 0, to = 100) quality: Int = 100
+    ): File? {
         var outputStream: OutputStream? = null
         val destFile = UtilKFile.createFile(filePathWithName)
         try {
@@ -83,19 +88,19 @@ object UtilKContentResolver : BaseUtilK() {
 
     @JvmStatic
     fun query(context: Context, @RequiresPermission.Read uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? =
-            get(context).query(uri, projection, selection, selectionArgs, sortOrder)
+        get(context).query(uri, projection, selection, selectionArgs, sortOrder)
 
     @JvmStatic
     fun openInputStream(context: Context, uri: Uri): InputStream? =
-            get(context).openInputStream(uri)
+        get(context).openInputStream(uri)
 
     @JvmStatic
     fun openOutputStream(context: Context, uri: Uri): OutputStream? =
-            get(context).openOutputStream(uri)
+        get(context).openOutputStream(uri)
 
     @JvmStatic
     fun insert(context: Context, @RequiresPermission.Write uri: Uri, values: ContentValues?): Uri? =
-            get(context).insert(uri, values)
+        get(context).insert(uri, values)
 
     @JvmStatic
     fun delete(context: Context, @RequiresPermission.Write uri: Uri, where: String?, selectionArgs: Array<String>?) {

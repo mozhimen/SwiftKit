@@ -3,15 +3,25 @@
 
     <style name="ThemeK_MaterialDayNoActionBridge" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge" />
 
+    <style name="ThemeK_MaterialDay" parent="Theme.MaterialComponents.DayNight" />
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <style name="ThemeK_OverlayAppLight" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="ThemeK_OverlayAppDarkAction" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <style name="ThemeK_WidgetAppAction" parent="Widget.AppCompat.ActionBar" />
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="ThemeK_AppLightDarkAction" parent="Theme.AppCompat.Light.DarkActionBar" />
 
     <style name="ThemeK_AppLightNoAction" parent="Theme.AppCompat.Light.NoActionBar" />
+
+    <style name="ThemeK_AppDayNoAction" parent="Theme.AppCompat.DayNight.NoActionBar" />
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 

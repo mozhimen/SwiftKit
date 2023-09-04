@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.net
 
+import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.Context
@@ -12,6 +13,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
+import com.mozhimen.basick.elemk.android.content.cons.CContentResolver
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.lintk.annors.ADescription
@@ -112,10 +114,6 @@ object UtilKUri : BaseUtilK() {
     fun strFilePath2uri(filePathWithName: String): Uri? =
         file2uri(File(filePathWithName))
 
-    /**
-     * @param file File
-     * @return Uri?
-     */
     @JvmStatic
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun file2uri(file: File): Uri? {
@@ -132,20 +130,15 @@ object UtilKUri : BaseUtilK() {
         } else Uri.fromFile(file)
     }
 
+    @SuppressLint("Recycle")
     @JvmStatic
     fun uri2file(uri: Uri, filePathWithName: String): File? {
         //android10以上转换
         when (uri.scheme) {
-            ContentResolver.SCHEME_FILE -> {
-                uri.path?.let {
-                    return File(it)
-                }
-            }
-
-            ContentResolver.SCHEME_CONTENT -> {
-                //把文件复制到沙盒目录
-                val contentResolver = UtilKContentResolver.get(_context)//_context.contentResolver
-                return contentResolver.openInputStream(uri)?.use { it.inputStream2file(filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}") }
+            CContentResolver.SCHEME_FILE -> uri.path?.let { return File(it) }
+            ContentResolver.SCHEME_CONTENT -> {//把文件复制到沙盒目录
+                val contentResolver = UtilKContentResolver.get(_context)
+                return contentResolver.openInputStream(uri)?.inputStream2file(filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}")
             }
         }
         return null
@@ -204,16 +197,16 @@ object UtilKUri : BaseUtilK() {
 
     @JvmStatic
     fun uri2bitmap2(uri: Uri): Bitmap? {
-        var inputStreamOpts: InputStream? = null
-        var inputStream: InputStream? = null
+        var contentSizeInputStream: InputStream? = null
+        var realInputStream: InputStream? = null
         try {
             //根据uri获取图片的流
-            inputStreamOpts = UtilKContentResolver.openInputStream(_context, uri)
+            contentSizeInputStream = UtilKContentResolver.openInputStream(_context, uri)
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true            //options的in系列的设置了，injustDecodeBound只解析图片的大小，而不加载到内存中去
             //1.如果通过options.outHeight获取图片的宽高，就必须通过decodeStream解析同options赋值
             //否则options.outHeight获取不到宽高
-            inputStreamOpts?.inputStream2anyBitmap(null, options)
+            contentSizeInputStream?.inputStream2anyBitmap(null, options)
             //2.通过 btm.getHeight()获取图片的宽高就不需要1的解析，我这里采取第一张方式
             //Bitmap btm = BitmapFactory.decodeStream(inputStream)
             //获取图片的宽高
@@ -229,14 +222,14 @@ object UtilKUri : BaseUtilK() {
             //解析到内存中去
             options.inJustDecodeBounds = false
             //根据uri重新获取流，inputStream在解析中发生改变了
-            inputStream = UtilKContentResolver.openInputStream(_context, uri)
-            return inputStream?.inputStream2anyBitmap(null, options)
+            realInputStream = UtilKContentResolver.openInputStream(_context, uri)
+            return realInputStream?.inputStream2anyBitmap(null, options)
         } catch (e: Exception) {
             e.printStackTrace()
             return null
         } finally {
-            inputStreamOpts?.close()
-            inputStream?.close()
+            contentSizeInputStream?.close()
+            realInputStream?.close()
         }
     }
 }

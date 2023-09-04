@@ -12,7 +12,7 @@ object CStrPackage {
     const val PERSIST_SENSEPASS_AUTORUN = "persist.sensepass.autorun"
     const val RO_PRODUCT_ROM_VERSION = "ro.product.rom.version"
     const val RO_PRODUCT_HW_VERSION = "ro.product.hw.version"
-    const val RO_SERIAL_NO = "ro.serialno"
+    const val RO_SERIALNO = "ro.serialno"
 
     const val RO_MIUI_UI_VERSION_NAME = "ro.miui.ui.version.name"
     const val RO_BUILD_VERSION_EMUI = "ro.build.version.emui"

@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SwiftKit">
-
-
+        <activity
+            android:name=".utilk.androidx.UtilKActionBarActivity"
+            android:exported="false" />
         <activity
             android:name=".BasicKActivity"
             android:exported="true">
@@ -123,8 +124,7 @@
             android:exported="false" />
         <activity
             android:name=".taskk.TaskKCountDownActivity"
-            android:exported="false" />
-        <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
+            android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- utilk -->
         <activity
             android:name=".utilk.kotlin.UtilKGenerateNoActivity"

@@ -17,6 +17,8 @@ object UtilKActionBar {
     fun get(activity: AppCompatActivity): ActionBar? =
         activity.supportActionBar
 
+    /////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun hide(activity: Activity) {
         if (activity is AppCompatActivity)

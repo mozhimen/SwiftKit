@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk.android.os
 import android.annotation.SuppressLint
 import android.util.Log
 import com.mozhimen.basick.elemk.android.os.cons.CBuild
-import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -98,7 +97,7 @@ object UtilKSystemProperties : BaseUtilK() {
     } else if (UtilKBuildVersion.isAfterV_26_8_O()) {
         UtilKBuild.getSerial()
     } else {
-        get(CStrPackage.RO_SERIAL_NO, CBuild.UNKNOWN)
+        get(CStrPackage.RO_SERIALNO, CBuild.UNKNOWN)
     }
 
     ///////////////////////////////////////////////////////////////////////////////////
