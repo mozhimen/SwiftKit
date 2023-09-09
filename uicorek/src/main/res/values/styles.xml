@@ -15,19 +15,37 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
+    <style name="Txt_Style.Font_Sans_Serif" />
 
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014.Width_Wrap" />
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center" />
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_000">
+        <item name="android:textColor">@color/ui_gray_000</item>
+    </style>
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000">
+        <item name="android:textColor">@color/ui_gray_000</item>
+    </style>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014" />
-
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_012.Width_Wrap.Height_Wrap" />
-
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_012.Width_Wrap" />
-
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap" />
-
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_013.Width_Wrap" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_013">
         <item name="android:textSize">@dimen/sp_13</item>
@@ -36,12 +54,6 @@
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_012">
         <item name="android:textSize">@dimen/sp_12</item>
     </style>
-
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999" />
-
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap" />
-
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_000.Size_014.Width_Wrap" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_000.Size_014" />
 
@@ -53,12 +65,6 @@
         <item name="android:textSize">@dimen/sp_20</item>
     </style>
 
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_000">
-        <item name="android:textColor">@color/ui_gray_000</item>
-    </style>
-
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal" />
-
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014">
         <item name="android:textSize">@dimen/sp_14</item>
     </style>
@@ -67,23 +73,33 @@
         <item name="android:textSize">@dimen/sp_20</item>
     </style>
 
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999" />
-
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000.Size_020">
         <item name="android:textSize">@dimen/sp_20</item>
     </style>
 
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000">
-        <item name="android:textColor">@color/ui_gray_000</item>
-    </style>
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold">
-        <item name="android:textStyle">bold</item>
-    </style>
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014.Width_Wrap" />
 
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center" />
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_012.Width_Wrap" />
 
-    <style name="Txt_Style.Font_Sans_Serif" />
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_013.Width_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_000.Size_014.Width_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap" />
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_012.Width_Wrap.Height_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap" />
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--///Edit_Style-->
@@ -106,7 +122,7 @@
     <!--///Btn_Style-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
-    <style name="Btn_Style" parent="Txt_Style">
+    <style name="Btn_Style" parent="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/dp_040</item>
         <item name="android:paddingStart">@dimen/dp_010</item>

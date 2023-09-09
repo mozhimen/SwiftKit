@@ -5,7 +5,7 @@ import android.annotation.SuppressLint
 import android.location.Location
 import android.location.LocationListener
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.android.location.commons.LocationCallback
+import com.mozhimen.basick.elemk.android.location.commons.ILocationListener
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.provider.UtilKSettings
@@ -46,7 +46,7 @@ object UtilKLocation : BaseUtilK() {
      */
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION])
-    fun getForNetwork(minTimeMs: Long, minDistanceM: Float, listener: LocationListener = object : LocationCallback() {}): Location? {
+    fun getForNetwork(minTimeMs: Long, minDistanceM: Float, listener: LocationListener = object : ILocationListener {}): Location? {
         if (!UtilKLocationManager.isProviderEnabledNetwork(_context)) return null
         UtilKLocationManager.requestLocationUpdatesNetwork(_context, minTimeMs, minDistanceM, listener)
         return UtilKLocationManager.getLastKnownLocationNetwork(_context).also { "getForNetwork is null ${it == null}".it(TAG) }

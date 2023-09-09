@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.widget
 
 import android.widget.SeekBar
 import com.mozhimen.basick.elemk.commons.IA_Listener
-import com.mozhimen.basick.elemk.android.view.bases.BaseOnSeekBarChangeListener
+import com.mozhimen.basick.elemk.android.view.commons.IOnSeekBarChangeListener
 
 /**
  * @ClassName UtilKSeekBar
@@ -22,7 +22,7 @@ fun SeekBar.applySeekBarFinishObserver(onSeekBarChange: IA_Listener<Int>/*(progr
 object UtilKSeekBar {
     @JvmStatic
     fun applySeekBarChangeObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
-        bar.setOnSeekBarChangeListener(object : BaseOnSeekBarChangeListener() {
+        bar.setOnSeekBarChangeListener(object : IOnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 onSeekBarChange(progress)
             }
@@ -31,7 +31,7 @@ object UtilKSeekBar {
 
     @JvmStatic
     fun applySeekBarFinishObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
-        bar.setOnSeekBarChangeListener(object : BaseOnSeekBarChangeListener() {
+        bar.setOnSeekBarChangeListener(object : IOnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 onSeekBarChange(seekBar.progress)
             }

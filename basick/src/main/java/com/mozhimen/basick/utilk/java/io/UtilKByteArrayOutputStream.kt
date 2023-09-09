@@ -1,11 +1,7 @@
 package com.mozhimen.basick.utilk.java.io
 
 import android.graphics.Bitmap
-import androidx.annotation.IntRange
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
 import com.mozhimen.basick.utilk.android.graphics.anyBytes2anyBitmap
-import com.mozhimen.basick.utilk.android.graphics.applyAnyBitmapCompress
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.bytes2file
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import java.io.ByteArrayOutputStream
@@ -28,11 +24,11 @@ fun ByteArrayOutputStream.byteArrayOutputStream2str(charset: Charset = Charsets.
 fun ByteArrayOutputStream.byteArrayOutputStream2anyBitmap(): Bitmap =
     UtilKByteArrayOutputStream.byteArrayOutputStream2anyBitmap(this)
 
-fun ByteArrayOutputStream.byteArrayOutputStream2file(filePathWithName: String, isOverwrite: Boolean = true): File =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, filePathWithName, isOverwrite)
+fun ByteArrayOutputStream.byteArrayOutputStream2file(destFilePathWithName: String, isAppend: Boolean = false): File =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, destFilePathWithName, isAppend)
 
-fun ByteArrayOutputStream.byteArrayOutputStream2file(destFile: File, isOverwrite: Boolean = true): File =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, destFile, isOverwrite)
+fun ByteArrayOutputStream.byteArrayOutputStream2file(destFile: File, isAppend: Boolean = false): File =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, destFile, isAppend)
 
 
 object UtilKByteArrayOutputStream {
@@ -50,10 +46,10 @@ object UtilKByteArrayOutputStream {
         byteArrayOutputStream.byteArrayOutputStream2bytes().anyBytes2anyBitmap()
 
     @JvmStatic
-    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, filePathWithName: String, isOverwrite: Boolean = true): File =
-        byteArrayOutputStream2file(byteArrayOutputStream, filePathWithName.strFilePath2file(), isOverwrite)
+    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, destFilePathWithName: String, isAppend: Boolean = false): File =
+        byteArrayOutputStream2file(byteArrayOutputStream, destFilePathWithName.strFilePath2file(), isAppend)
 
     @JvmStatic
-    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, destFile: File, isOverwrite: Boolean = true): File =
-        byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2file(destFile, isOverwrite)
+    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, destFile: File, isAppend: Boolean = false): File =
+        byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2file(destFile, isAppend)
 }

@@ -27,8 +27,8 @@ fun ByteArray.grba8888Bytes2rgba8888Bitmap(width: Int, height: Int): Bitmap =
 fun ByteArray.nv21Bytes2jpegBytes(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
     UtilKByteArrayImage.nv21Bytes2jpegBytes(this, width, height, quality)
 
-fun ByteArray.nv21Bytes2jpegFile(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isOverwrite: Boolean = true): File =
-    UtilKByteArrayImage.nv21Bytes2jpegFile(this, filePathWithName, width, height, quality, isOverwrite)
+fun ByteArray.nv21Bytes2jpegFile(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
+    UtilKByteArrayImage.nv21Bytes2jpegFile(this, filePathWithName, width, height, quality, isAppend)
 
 fun ByteArray.nv21Bytes2jpegBitmap(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap =
     UtilKByteArrayImage.nv21Bytes2jpegBitmap(this, width, height, quality)
@@ -75,16 +75,15 @@ object UtilKByteArrayImage : IUtilK {
 
     @JvmStatic
     fun nv21Bytes2jpegBytes(nv21Bytes: ByteArray, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray {
-        ByteArrayOutputStream().flushClose {
-            val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
-            yuvImage.compressToJpeg(Rect(0, 0, width, height), quality, it)
-            return it.byteArrayOutputStream2bytes()
-        }
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
+        yuvImage.compressToJpeg(Rect(0, 0, width, height), quality, byteArrayOutputStream)
+        return byteArrayOutputStream.byteArrayOutputStream2bytes()
     }
 
     @JvmStatic
-    fun nv21Bytes2jpegFile(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isOverwrite: Boolean = true): File =
-        nv21Bytes2jpegBytes(nv21Bytes, width, height, quality).bytes2file(filePathWithName, isOverwrite)
+    fun nv21Bytes2jpegFile(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
+        nv21Bytes2jpegBytes(nv21Bytes, width, height, quality).bytes2file(filePathWithName, isAppend)
 
     @JvmStatic
     @Throws(Exception::class)

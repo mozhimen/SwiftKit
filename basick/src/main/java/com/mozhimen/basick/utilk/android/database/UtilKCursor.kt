@@ -10,8 +10,8 @@ import android.database.Cursor
  * @Date 2023/5/25 10:31
  * @Version 1.0
  */
-fun Cursor.getString(key: String): String =
-    UtilKCursor.getString(this, key)
+fun Cursor.getColumnString(key: String): String =
+    UtilKCursor.getColumnString(this, key)
 
 object UtilKCursor {
     @JvmStatic
@@ -20,6 +20,6 @@ object UtilKCursor {
 
     @SuppressLint("Range")
     @JvmStatic
-    fun getString(cursor: Cursor, key: String): String =
+    fun getColumnString(cursor: Cursor, key: String): String =
         cursor.getString(getColumnIndex(cursor, key))
 }

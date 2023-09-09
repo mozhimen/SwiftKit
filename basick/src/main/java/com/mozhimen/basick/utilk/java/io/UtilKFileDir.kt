@@ -35,15 +35,15 @@ object UtilKFileDir : BaseUtilK() {
             UtilKContextDir.External.getFilesRootDir(_context)
 
         @JvmStatic
-        fun getStorageDir(): File =
+        fun getEnvStorageDir(): File =
             UtilKEnvironment.getExternalStorageDir()
 
         @JvmStatic
-        fun getStoragePublicDCIMDir(): File =
+        fun getEnvStoragePublicDCIMDir(): File =
             UtilKEnvironment.getExternalStoragePublicDCIMDir()
 
         @JvmStatic
-        fun getDataDir(): File =
+        fun getEnvDataDir(): File =
             UtilKEnvironment.getDataDir()
     }
 }

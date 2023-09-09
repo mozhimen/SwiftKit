@@ -3,6 +3,7 @@ package com.mozhimen.componentk.camerak.camerax.commons
 import androidx.camera.core.ImageCapture
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFacing
+import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXRotation
 import com.mozhimen.componentk.camerak.camerax.cons.ECameraKXTimer
 import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
 
@@ -14,15 +15,27 @@ import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
  * @Version 1.0
  */
 interface ICameraKX {
-    fun initCameraX(owner: LifecycleOwner, config: MCameraKXConfig)
-    fun initCameraX(owner: LifecycleOwner)
-    fun startCameraX()
+    fun initCameraKX(owner: LifecycleOwner, config: MCameraKXConfig)
+    fun initCameraKX(owner: LifecycleOwner)
+    fun restartCameraKX()
+    fun stopCameraKX()
     fun startCapture()
+
+    /////////////////////////////////////////////////////////////
+
+    fun isCameraKXStart(): Boolean
+
+    /////////////////////////////////////////////////////////////
+
     fun setCameraXListener(listener: ICameraKXListener)
     fun setCameraXCaptureListener(listener: ICameraKXCaptureListener)
     fun setCameraXFrameListener(listener: ICameraXKFrameListener)
+
+    /////////////////////////////////////////////////////////////
+
     fun changeHdr(isOpen: Boolean)
     fun changeFlash(@ImageCapture.FlashMode flashMode: Int)
     fun changeCountDownTimer(timer: ECameraKXTimer)
-    fun changeCameraXFacing(@ACameraKXFacing facing: Int)
+    fun changeRotation(@ACameraKXRotation rotation: Int)
+    fun changeFacing(@ACameraKXFacing facing: Int)
 }

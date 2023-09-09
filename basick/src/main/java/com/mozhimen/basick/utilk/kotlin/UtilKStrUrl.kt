@@ -11,8 +11,9 @@ import com.mozhimen.basick.utilk.android.net.UtilKNetDeal
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.fileOutputStream2file
+import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
+import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
 import com.mozhimen.basick.utilk.java.io.strFilePath2file
 import com.mozhimen.basick.utilk.java.net.UtilKURI
 import java.io.File
@@ -32,7 +33,7 @@ import javax.net.ssl.HttpsURLConnection
  * @Version 1.0
  */
 fun String.isStrUrlConnectable(): Boolean =
-        UtilKStrUrl.isStrUrlConnectable(this)
+    UtilKStrUrl.isStrUrlConnectable(this)
 
 object UtilKStrUrl : BaseUtilK() {
     /**
@@ -64,25 +65,25 @@ object UtilKStrUrl : BaseUtilK() {
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.INTERNET)
     suspend fun strUrl2bitmap(strUrl: String): Bitmap? =
-            (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(strUrl).build()).drawable as? BitmapDrawable)?.bitmap
+        (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(strUrl).build()).drawable as? BitmapDrawable)?.bitmap
 
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.INTERNET)
     fun strUrl2bitmap2(strUrl: String): Bitmap =
-            URL(strUrl).openStream().inputStream2anyBitmap()
+        URL(strUrl).openStream().inputStream2anyBitmap()
 
     @JvmStatic
     @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
-    fun strUrl2file(strUrl: String, fileNameWithName: String, isOverwrite: Boolean = true): File? =
-            strUrl2file(strUrl, fileNameWithName.strFilePath2file(), isOverwrite)
+    fun strUrl2file(strUrl: String, destFileNameWithName: String, isAppend: Boolean = false): File? =
+        strUrl2file(strUrl, destFileNameWithName.strFilePath2file(), isAppend)
 
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
-    fun strUrl2file(strUrl: String, file: File, isOverwrite: Boolean = true): File? {
+    fun strUrl2file(strUrl: String, destFile: File, isAppend: Boolean = false): File? {
         require(strUrl.isNotEmpty()) { "$TAG httpUrl must be not empty" }
-        UtilKFile.deleteFile(file)
+        UtilKFile.deleteFile(destFile)
 
         var inputStream: InputStream? = null
         var httpURLConnection: HttpURLConnection? = null
@@ -101,7 +102,8 @@ object UtilKStrUrl : BaseUtilK() {
                 connect()
             }
             inputStream = httpURLConnection.inputStream
-            return FileOutputStream(file, !isOverwrite).fileOutputStream2file(inputStream, file)
+            inputStream.inputStream2outputStream(destFile.file2fileOutputStream(isAppend), 1024)
+            return destFile
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)

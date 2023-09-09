@@ -2,9 +2,7 @@ package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.cons.CMsg
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import java.util.stream.Collectors
 
 
 /**

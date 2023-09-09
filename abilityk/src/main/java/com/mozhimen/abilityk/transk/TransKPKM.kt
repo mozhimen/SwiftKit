@@ -1,11 +1,12 @@
 package com.mozhimen.abilityk.transk
 
-import android.opengl.ETC1
 import android.opengl.ETC1Util.ETC1Texture
 import android.util.Log
+import com.mozhimen.basick.elemk.android.opengl.cons.CETC1
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
+import com.mozhimen.basick.utilk.android.opengl.UtilKETC1
 import com.mozhimen.basick.utilk.kotlin.UtilKCharSequence
 import java.io.FileInputStream
 import java.io.IOException
@@ -26,10 +27,10 @@ class TransKPKM : BaseUtilK() {
     private var _path: String? = null
     private var _zipInputStream: ZipInputStream? = null
     private var _zipEntry: ZipEntry? = null
-    private var _headerBuffer: ByteBuffer? = null
+    private var _pkmByteBuffer: ByteBuffer? = null
 
     fun setZipPath(path: String) {
-        this._path = path
+        _path = path
     }
 
     fun open(): Boolean {
@@ -66,17 +67,14 @@ class TransKPKM : BaseUtilK() {
                 _zipEntry = null
             }
         }
-        if (_headerBuffer != null) {
-            _headerBuffer!!.clear()
-            _headerBuffer = null
+        if (_pkmByteBuffer != null) {
+            _pkmByteBuffer!!.clear()
+            _pkmByteBuffer = null
         }
     }
 
-    fun getNextStream(): InputStream? {
-        return if (hasElements()) {
-            _zipInputStream
-        } else null
-    }
+    fun getNextStream(): InputStream? =
+        if (hasElements()) _zipInputStream else null
 
     fun getNextTexture(): ETC1Texture? {
         if (hasElements()) {
@@ -90,13 +88,14 @@ class TransKPKM : BaseUtilK() {
         return null
     }
 
+    ///////////////////////////////////////////////////////////////////////////////
+    
     private fun hasElements(): Boolean {
         try {
             if (_zipInputStream != null) {
                 _zipEntry = _zipInputStream!!.nextEntry
-                if (_zipEntry != null) {
+                if (_zipEntry != null)
                     return true
-                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -107,32 +106,27 @@ class TransKPKM : BaseUtilK() {
 
     @Throws(IOException::class)
     private fun createTexture(inputStream: InputStream): ETC1Texture {
-        var width = 0
-        var height = 0
         val bytes = ByteArray(4096)
-        run {
-            if (inputStream.read(bytes, 0, ETC1.ETC_PKM_HEADER_SIZE) != ETC1.ETC_PKM_HEADER_SIZE) {
-                Log.e(TAG, bytes.contentToString())
-                throw IOException("Unable to read PKM file header.")
-            }
-            if (_headerBuffer == null) {
-                _headerBuffer = ByteBuffer.allocateDirect(ETC1.ETC_PKM_HEADER_SIZE)
-                    .order(ByteOrder.nativeOrder())
-            }
-            _headerBuffer!!.put(bytes, 0, ETC1.ETC_PKM_HEADER_SIZE).position(0)
-            if (!ETC1.isValid(_headerBuffer)) {
-                throw IOException("Not a PKM file.")
-            }
-            width = ETC1.getWidth(_headerBuffer)
-            height = ETC1.getHeight(_headerBuffer)
+        if (inputStream.read(bytes, 0, CETC1.ETC_PKM_HEADER_SIZE) != CETC1.ETC_PKM_HEADER_SIZE) {
+            Log.e(TAG, bytes.contentToString())
+            throw IOException("Unable to read PKM file header.")
         }
-        val encodedSize = ETC1.getEncodedDataSize(width, height)
-        val dataBuffer = ByteBuffer.allocateDirect(encodedSize).order(ByteOrder.nativeOrder())
+        if (_pkmByteBuffer == null)
+            _pkmByteBuffer = ByteBuffer.allocateDirect(CETC1.ETC_PKM_HEADER_SIZE).order(ByteOrder.nativeOrder())
+
+        _pkmByteBuffer!!.put(bytes, 0, CETC1.ETC_PKM_HEADER_SIZE).position(0)
+        if (UtilKETC1.isValid(_pkmByteBuffer!!))
+            throw IOException("Not a PKM file.")
+
+        val width = UtilKETC1.getWidth(_pkmByteBuffer!!)
+        val height = UtilKETC1.getHeight(_pkmByteBuffer!!)
+        val encodedSize = UtilKETC1.getEncodedDataSize(width, height)
+        val byteBuffer = ByteBuffer.allocateDirect(encodedSize).order(ByteOrder.nativeOrder())
         var readCount: Int
         while (inputStream.read(bytes).also { readCount = it } != -1) {
-            dataBuffer.put(bytes, 0, readCount)
+            byteBuffer.put(bytes, 0, readCount)
         }
-        dataBuffer.position(0)
-        return ETC1Texture(width, height, dataBuffer)
+        byteBuffer.position(0)
+        return ETC1Texture(width, height, byteBuffer)
     }
 }

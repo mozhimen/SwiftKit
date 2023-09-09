@@ -23,7 +23,7 @@ object UtilKProcess : BaseUtilK() {
 
     @JvmStatic
     fun getCurrentProcessName(): String {
-        var name: String = getCurrentProcessNameByFile()
+        var name: String = getCurrentProcessNameByFile() ?: ""
         if (!TextUtils.isEmpty(name)) return name
         name = getCurrentProcessNameByAms()
         if (!TextUtils.isEmpty(name)) return name
@@ -48,7 +48,7 @@ object UtilKProcess : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getCurrentProcessNameByFile(): String =
+    fun getCurrentProcessNameByFile(): String? =
         UtilKReader.getCurrentProcessName()
 
     @JvmStatic

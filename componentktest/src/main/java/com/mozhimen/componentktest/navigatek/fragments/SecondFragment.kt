@@ -19,9 +19,13 @@ class SecondFragment : BaseFragmentVB<FragmentSecondBinding>() {
 
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     override fun initView(savedInstanceState: Bundle?) {
-        vb.navigatekFragmentSecondTxt.setOnClickListener {
+        arguments?.getString(FirstFragment.KEY_FIRST,"这是原有的数据")?.let {
+            vb.navigatekFragmentSecondTxt1.text = it
+        }
+        vb.navigatekFragmentSecondTxt2.setOnClickListener {
             (requireActivity() as NavigateKActivity).navigateKProxy.navController.popBackStack()
         }
+
         vb.navigatekFragmentSecondRecycler.layoutManager = LinearLayoutManager(requireActivity())
         _adapter = AdapterKRecyclerVB<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek)
         vb.navigatekFragmentSecondRecycler.adapter = _adapter

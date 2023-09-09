@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.navigatek.helpers
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -52,6 +53,7 @@ object DestinationUtil : IUtilK {
         navController.navigate(destinationId)
     }
 
+    @SuppressLint("RestrictedApi")
     @JvmStatic
     fun findId(navController: NavController, destinationId: Int): Boolean =
         navController.findDestination(destinationId) != null

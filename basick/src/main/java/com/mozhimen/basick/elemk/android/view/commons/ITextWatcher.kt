@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.android.view.bases
+package com.mozhimen.basick.elemk.android.view.commons
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +10,7 @@ import android.text.TextWatcher
  * @Date 2023/5/25 14:54
  * @Version 1.0
  */
-open class BaseTextWatcher : TextWatcher {
+interface ITextWatcher : TextWatcher {
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}

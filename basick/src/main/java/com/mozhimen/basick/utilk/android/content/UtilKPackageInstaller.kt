@@ -10,8 +10,7 @@ import com.mozhimen.basick.elemk.android.app.cons.CPendingIntent
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.java.io.outputStream2file
+import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
@@ -78,7 +77,7 @@ object UtilKPackageInstaller : BaseUtilK() {
             outputStream = session.openWrite("base.apk", 0, apkFile.length())
             fileInputStream = FileInputStream(apkFile)
 
-            outputStream.outputStream2file(fileInputStream, apkFile, 65536)
+            fileInputStream.inputStream2outputStream(outputStream, 65536)
             session.fsync(outputStream)
             return true
         } catch (e: Exception) {

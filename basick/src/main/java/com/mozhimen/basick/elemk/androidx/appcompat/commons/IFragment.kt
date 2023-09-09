@@ -11,5 +11,5 @@ import android.view.ViewGroup
  * @Version 1.0
  */
 interface IFragment {
-    fun inflateView(viewGroup: ViewGroup?)
+    fun inflateView(viewGroup: ViewGroup?) {}
 }

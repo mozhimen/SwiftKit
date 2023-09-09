@@ -3,10 +3,11 @@ package com.mozhimen.basick.elemk.android.app.bases
 import android.app.Service
 import android.os.RemoteCallbackList
 import android.os.RemoteException
-import com.mozhimen.basick.elemk.android.app.commons.IBaseService
 import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceConnListener
 import com.mozhimen.basick.elemk.android.app.commons.IBaseServiceResListener
+import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
  * @ClassName BaseService
@@ -15,11 +16,11 @@ import com.mozhimen.basick.utilk.android.util.et
  * @Date 2023/6/10 19:03
  * @Version 1.0
  */
-abstract class BaseService : Service(), IBaseService {
+abstract class BaseService : Service(), IA_Listener<Any>, IUtilK {
     protected val serviceResListeners = RemoteCallbackList<IBaseServiceResListener>()
     protected open val binder: IBaseServiceConnListener.Stub = BaseServiceBinder(serviceResListeners)
 
-    override fun onCallback(obj: Any) {
+    override fun invoke(obj: Any) {
         val listenerSize = serviceResListeners.beginBroadcast()
         try {
             for (i in 0 until listenerSize) {

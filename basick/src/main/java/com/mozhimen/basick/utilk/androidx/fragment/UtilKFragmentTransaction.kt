@@ -1,7 +1,6 @@
 package com.mozhimen.basick.utilk.androidx.fragment
 
 import androidx.annotation.IdRes
-import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
@@ -13,16 +12,16 @@ import androidx.fragment.app.FragmentTransaction
  * @Date 2023/9/3 20:39
  * @Version 1.0
  */
-fun FragmentActivity.replace(@IdRes containerViewId: Int, fragment: Fragment) {
-    UtilKFragmentTransaction.replace(this, containerViewId, fragment)
+fun FragmentActivity.replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) {
+    UtilKFragmentTransaction.replaceFragment(this, containerViewId, fragment)
 }
 
-fun Fragment.replace(@IdRes containerViewId: Int, fragment: Fragment) {
-    UtilKFragmentTransaction.replace(this, containerViewId, fragment)
+fun Fragment.replaceFragment(@IdRes containerViewId: Int, fragment: Fragment) {
+    UtilKFragmentTransaction.replaceFragment(this, containerViewId, fragment)
 }
 
-fun FragmentActivity.remove(fragment: Fragment) {
-    UtilKFragmentTransaction.remove(this, fragment)
+fun FragmentActivity.removeFragment(fragment: Fragment) {
+    UtilKFragmentTransaction.removeFragment(this, fragment)
 }
 
 object UtilKFragmentTransaction {
@@ -35,17 +34,17 @@ object UtilKFragmentTransaction {
         UtilKFragmentManager.beginTransaction(fragment)
 
     @JvmStatic
-    fun replace(fragmentActivity: FragmentActivity, @IdRes containerViewId: Int, fragment: Fragment) {
+    fun replaceFragment(fragmentActivity: FragmentActivity, @IdRes containerViewId: Int, fragment: Fragment) {
         get(fragmentActivity).replace(containerViewId, fragment).commit()
     }
 
     @JvmStatic
-    fun replace(mainFragment: Fragment, @IdRes containerViewId: Int, fragment: Fragment) {
+    fun replaceFragment(mainFragment: Fragment, @IdRes containerViewId: Int, fragment: Fragment) {
         get(mainFragment).replace(containerViewId, fragment).commit()
     }
 
     @JvmStatic
-    fun remove(fragmentActivity: FragmentActivity, fragment: Fragment) {
+    fun removeFragment(fragmentActivity: FragmentActivity, fragment: Fragment) {
         get(fragmentActivity).remove(fragment).commit()
     }
 }

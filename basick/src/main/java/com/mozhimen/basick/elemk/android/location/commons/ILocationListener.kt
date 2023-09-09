@@ -12,14 +12,13 @@ import android.os.Bundle
  * @Date 2023/8/15 16:19
  * @Version 1.0
  */
-open class LocationCallback : LocationListener {
+interface ILocationListener : LocationListener {
     // 当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
     override fun onLocationChanged(location: Location) {}
 
     // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
     @Deprecated("Deprecated in Java")
-    override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {
-    }
+    override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
 
     // Provider被enable时触发此函数，比如GPS被打开
     override fun onProviderEnabled(provider: String) {}

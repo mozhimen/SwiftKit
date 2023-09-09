@@ -21,6 +21,7 @@ object CIntent {
     const val ACTION_PICK = Intent.ACTION_PICK
     const val ACTION_MAIN = Intent.ACTION_MAIN
     const val ACTION_VIEW = Intent.ACTION_VIEW
+    const val ACTION_GET_CONTENT = Intent.ACTION_GET_CONTENT
 
     const val CATEGORY_LAUNCHER = Intent.CATEGORY_LAUNCHER
 

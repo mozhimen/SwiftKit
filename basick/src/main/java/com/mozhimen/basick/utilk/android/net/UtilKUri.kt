@@ -1,35 +1,35 @@
 package com.mozhimen.basick.utilk.android.net
 
 import android.annotation.SuppressLint
-import android.content.ContentResolver
-import android.content.ContentUris
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Environment
 import android.provider.DocumentsContract
-import android.provider.MediaStore
 import android.util.Log
-import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.mozhimen.basick.elemk.android.content.cons.CContentResolver
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
+import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
+import com.mozhimen.basick.utilk.android.content.withAppendedId
 import com.mozhimen.basick.utilk.android.graphics.UtilKImageDecoder
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.provider.UtilKMediaStore
-import com.mozhimen.basick.utilk.android.provider.getDataColumn
+import com.mozhimen.basick.utilk.android.provider.UtilKDocumentsContract
+import com.mozhimen.basick.utilk.android.provider.UtilKMediaStoreImages
+import com.mozhimen.basick.utilk.android.provider.getMediaColumnsString
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
-import com.mozhimen.basick.utilk.kotlin.text.UtilKMatchStr
+import com.mozhimen.basick.utilk.android.webkit.UtilKMimeTypeMap
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
 import com.mozhimen.basick.utilk.java.io.inputStream2file
+import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
+import com.mozhimen.basick.utilk.kotlin.text.isStrDigits2
 import java.io.File
 import java.io.InputStream
 import kotlin.math.ceil
@@ -68,6 +68,19 @@ scheme: content
 schemeSpecificPart: //com.android.providers.media.documents/document/image:27391
 userInfo: null
  */
+
+fun String.strUri2uri(): Uri =
+    UtilKUri.strUri2uri(this)
+
+fun Uri.isAuthorityDownloadsDocument(): Boolean =
+    UtilKUri.isAuthorityDownloadsDocument(this)
+
+fun Uri.isAuthorityExternalStorageDocument(): Boolean =
+    UtilKUri.isAuthorityExternalStorageDocument(this)
+
+fun Uri.isAuthorityMediaDocument(): Boolean =
+    UtilKUri.isAuthorityMediaDocument(this)
+
 object UtilKUri : BaseUtilK() {
 
     /**
@@ -91,15 +104,15 @@ object UtilKUri : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun isDownloadsDocument(uri: Uri) =
+    fun isAuthorityDownloadsDocument(uri: Uri): Boolean =
         uri.authority == CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS_DOCUMENTS//"com.android.providers.downloads.documents"
 
     @JvmStatic
-    fun isExternalStorageDocument(uri: Uri) =
+    fun isAuthorityExternalStorageDocument(uri: Uri): Boolean =
         uri.authority == CStrPackage.COM_ANDROID_EXTERNALSTORAGE_DOCUMENTS//"com.android.externalstorage.documents"
 
     @JvmStatic
-    fun isMediaDocument(uri: Uri) =
+    fun isAuthorityMediaDocument(uri: Uri): Boolean =
         uri.authority == CStrPackage.COM_ANDROID_PROVIDERS_MEDIA_DOCUMENTS//"com.android.providers.media.documents"
 
     /////////////////////////////////////////////////////////////////////////////
@@ -113,6 +126,10 @@ object UtilKUri : BaseUtilK() {
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun strFilePath2uri(filePathWithName: String): Uri? =
         file2uri(File(filePathWithName))
+
+    @JvmStatic
+    fun strUri2uri(uriStr: String): Uri =
+        Uri.parse(uriStr)
 
     @JvmStatic
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
@@ -132,57 +149,57 @@ object UtilKUri : BaseUtilK() {
 
     @SuppressLint("Recycle")
     @JvmStatic
-    fun uri2file(uri: Uri, filePathWithName: String): File? {
-        //android10以上转换
+    fun uri2strFilePath(uri: Uri, destFilePathWithName: String = ""): String? {
         when (uri.scheme) {
-            CContentResolver.SCHEME_FILE -> uri.path?.let { return File(it) }
-            ContentResolver.SCHEME_CONTENT -> {//把文件复制到沙盒目录
-                val contentResolver = UtilKContentResolver.get(_context)
-                return contentResolver.openInputStream(uri)?.inputStream2file(filePathWithName + ".${MimeTypeMap.getSingleton().getExtensionFromMimeType(contentResolver.getType(uri))}")
+            CContentResolver.SCHEME_FILE -> uri.path
+            CContentResolver.SCHEME_CONTENT -> {
+                if (DocumentsContract.isDocumentUri(_context, uri)) {
+                    val documentId = UtilKDocumentsContract.getDocumentId(uri)
+                    val split = documentId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    val type = split[0]
+                    val path = split[1]
+
+                    when {
+                        uri.isAuthorityDownloadsDocument() -> {
+                            if (documentId.isStrDigits2())
+                                return "content://downloads/public_downloads".strUri2uri().withAppendedId(documentId.toLong()).getMediaColumnsString()
+                        }
+
+                        uri.isAuthorityExternalStorageDocument() -> {
+                            if (type.equals(CMediaStore.Type.PRIMARY, true))
+                                return "${UtilKStrPath.Absolute.External.getEnvStorageDir()}/$path"
+                        }
+
+                        uri.isAuthorityMediaDocument() -> {
+                            if (type.equals(CMediaStore.Type.PRIMARY, true))
+                                return "${UtilKStrPath.Absolute.External.getEnvStorageDir()}/$path"
+                            else if (type.equals(CMediaStore.Type.RAW, true))
+                                return path
+                            when {
+                                type.equals(CMediaStore.Type.VIDEO, true) -> CMediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                                type.equals(CMediaStore.Type.AUDIO, true) -> CMediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                                type.equals(CMediaStore.Type.IMAGE, true) -> CMediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                                else -> null
+                            }?.let {
+                                return it.getMediaColumnsString("${CMediaStore.MediaColumns._ID}=?", arrayOf(path))
+                            }
+                        }
+                    }
+
+                    if (UtilKBuildVersion.isAfterV_29_10_Q() && destFilePathWithName.isNotEmpty())
+                        return UtilKContentResolver.openInputStream(_context, uri)
+                            ?.inputStream2file("$destFilePathWithName.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}")?.absolutePath
+                }
+
+                return uri.getMediaColumnsString()
             }
         }
         return null
     }
 
     @JvmStatic
-    fun uri2strFilePath(uri: Uri): String? {
-        if (uri.scheme == "file") return uri.path
-
-        if (isDownloadsDocument(uri)) {
-            val documentId = DocumentsContract.getDocumentId(uri)
-            if (UtilKMatchStr.isStrDigits2(documentId)) {
-                val newUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), documentId.toLong())
-                val path = newUri.getDataColumn()
-                if (path != null)
-                    return path
-            }
-        } else if (isExternalStorageDocument(uri)) {
-            val documentId = DocumentsContract.getDocumentId(uri)
-            val parts = documentId.split(":")
-            if (parts[0].equals("primary", true)) {
-                return "${Environment.getExternalStorageDirectory().absolutePath}/${parts[1]}"
-            }
-        } else if (isMediaDocument(uri)) {
-            val documentId = DocumentsContract.getDocumentId(uri)
-            val split = documentId.split(":").dropLastWhile { it.isEmpty() }.toTypedArray()
-            val type = split[0]
-
-            val contentUri = when (type) {
-                "video" -> MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                "audio" -> MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-                else -> MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            }
-
-            val selection = "_id=?"
-            val selectionArgs = arrayOf(split[1])
-            val path = contentUri.getDataColumn(selection, selectionArgs)
-            if (path != null) {
-                return path
-            }
-        }
-
-        return uri.getDataColumn()
-    }
+    fun uri2file(uri: Uri, destFilePathWithName: String = ""): File? =
+        uri2strFilePath(uri, destFilePathWithName)?.let { File(it) }
 
     /**
      * 从相册获得图片
@@ -193,7 +210,7 @@ object UtilKUri : BaseUtilK() {
     fun uri2bitmap(uri: Uri): Bitmap =
         if (UtilKBuildVersion.isAfterV_28_9_P())
             UtilKImageDecoder.decodeBitmap(_context, uri)
-        else UtilKMediaStore.getImagesMediaBitmap(uri)
+        else UtilKMediaStoreImages.getMediaBitmap(_context, uri)
 
     @JvmStatic
     fun uri2bitmap2(uri: Uri): Bitmap? {
@@ -232,4 +249,6 @@ object UtilKUri : BaseUtilK() {
             realInputStream?.close()
         }
     }
+
+
 }

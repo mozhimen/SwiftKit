@@ -5,7 +5,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.lintk.optin.OptInApiMultiDex_InApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.squareup.moshi.t2json
+import com.mozhimen.basick.utilk.squareup.moshi.t2jsonMoshi
 import com.mozhimen.underlayk.crashk.CrashKMgr
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
@@ -41,7 +41,7 @@ class UnderlayKApplication : BaseApplication() {
         override fun injectJsonParser(): ILogKJsonParser =
             object : ILogKJsonParser {
                 override fun toJson(src: Any): String =
-                    src.t2json()
+                    src.t2jsonMoshi()
             }
 
         override fun getGlobalTag(): String =
@@ -59,11 +59,7 @@ class UnderlayKApplication : BaseApplication() {
 
     private val _crashKCallback = object : ICrashKListener {
 
-        override fun onGetCrashJava(msg: String?) {
-            //msg?.et(TAG) ?: "Ops! A crash happened, but i didn't get it messages".e()
-        }
-
-        override fun onGetCrashNative(msg: String?) {
+        override fun onGetCrashLog(msg: String) {
             //msg?.et(TAG) ?: "Ops! A crash happened, but i didn't get it messages".e()
         }
     }

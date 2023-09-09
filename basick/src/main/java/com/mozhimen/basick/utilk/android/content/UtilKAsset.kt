@@ -51,7 +51,7 @@ object UtilKAsset : BaseUtilK() {
 
     @JvmStatic
     fun asset2bytes(assetFileName: String): ByteArray =
-            open(assetFileName).use { it.inputStream2bytes() }
+            open(assetFileName).inputStream2bytes()
 
     /**
      * 文件转String:分析json文件,从资产文件加载内容:license,获取txt文本文件内容等
@@ -59,9 +59,9 @@ object UtilKAsset : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun asset2str(assetFileName: String): String =
-            if (!isAssetExists(assetFileName)) ""
-            else open(assetFileName).use { it.inputStream2str().replaceRegexLineBreak() }
+    fun asset2str(assetFileName: String): String? =
+            if (!isAssetExists(assetFileName)) null
+            else open(assetFileName).inputStream2str()?.replaceRegexLineBreak()
 
     /**
      * 获取文本文件内容: txt
@@ -70,8 +70,8 @@ object UtilKAsset : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun asset2str2(assetFileName: String): String =
-            if (!isAssetExists(assetFileName)) ""
+    fun asset2str2(assetFileName: String): String? =
+            if (!isAssetExists(assetFileName)) null
             else asset2bytes(assetFileName).bytes2str().replaceRegexLineBreak()
 
     /**
@@ -80,9 +80,9 @@ object UtilKAsset : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun asset2str3(assetFileName: String): String =
-            if (!isAssetExists(assetFileName)) ""
-            else open(assetFileName).use { it.inputStream2str3() }
+    fun asset2str3(assetFileName: String): String? =
+            if (!isAssetExists(assetFileName)) null
+            else open(assetFileName).inputStream2str3()
 
 
     /**
@@ -92,9 +92,9 @@ object UtilKAsset : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun asset2file(assetFileName: String, destFilePathWithName: String, isOverwrite: Boolean = true): File? =
+    fun asset2file(assetFileName: String, destFilePathWithName: String, isAppend: Boolean = false): File? =
             if (!isAssetExists(assetFileName)) null
-            else getForRes().open(assetFileName).inputStream2file(destFilePathWithName.getStrAssetFilePath(assetFileName), isOverwrite)
+            else getForRes().open(assetFileName).inputStream2file(destFilePathWithName.getStrAssetFilePath(assetFileName), isAppend)
 
     ///////////////////////////////////////////////////////////////////
 

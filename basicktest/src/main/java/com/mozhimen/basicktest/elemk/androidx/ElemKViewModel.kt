@@ -28,7 +28,7 @@ class ElemKViewModel() : BaseViewModel() {
 
     /////////////////////////////////////////////////////////////////////
 
-    private var _num: Int by VarProperty_Set(0) { field, value ->
+    private var _num: Int by VarProperty_Set(0) { _, value ->
         lv_num.value = value.toString()
         _savedStateHandle?.set(KEY_NUM, value)
         true

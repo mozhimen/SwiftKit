@@ -8,8 +8,8 @@ package com.mozhimen.basick.elemk.android.view.commons
  * @Version 1.0
  */
 interface IGestureFlingListener {
-    fun onFlingUp()
-    fun onFlingDown()
-    fun onFlingLeft()
-    fun onFlingRight()
+    fun onFlingUp() {}
+    fun onFlingDown() {}
+    fun onFlingLeft() {}
+    fun onFlingRight() {}
 }

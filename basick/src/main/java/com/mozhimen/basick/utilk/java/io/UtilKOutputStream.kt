@@ -6,9 +6,12 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.util.it
 import com.mozhimen.basick.utilk.bases.IUtilK
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
 import java.io.File
 import java.io.InputStream
 import java.io.OutputStream
+import java.util.zip.ZipOutputStream
 
 /**
  * @ClassName UtilKOutputStream
@@ -17,18 +20,27 @@ import java.io.OutputStream
  * @Date 2023/8/4 13:49
  * @Version 1.0
  */
+fun OutputStream.outputStream2bufferedOutputStream(): BufferedOutputStream =
+    UtilKOutputStream.outputStream2bufferedOutputStream(this)
+
+fun OutputStream.outputStream2zipOutputStream(): ZipOutputStream =
+    UtilKOutputStream.outputStream2zipOutputStream(this)
+
 fun OutputStream.flushClose() {
     UtilKOutputStream.flushClose(this)
 }
 
-fun OutputStream.outputStream2file(inputStream: InputStream, destFile: File, bufferSize: Int = 1024): File? =
-    UtilKOutputStream.outputStream2file(this, inputStream, destFile, bufferSize)
-
-@RequiresApi(CVersCode.V_29_10_Q)
-fun OutputStream.outputStream2file2(inputStream: InputStream, destFile: File): File =
-    UtilKOutputStream.outputStream2file2(this, inputStream, destFile)
-
 object UtilKOutputStream : IUtilK {
+    @JvmStatic
+    fun outputStream2bufferedOutputStream(outputStream: OutputStream): BufferedOutputStream =
+        BufferedOutputStream(outputStream)
+
+    @JvmStatic
+    fun outputStream2zipOutputStream(outputStream: OutputStream): ZipOutputStream =
+        ZipOutputStream(outputStream)
+
+    ////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun flushClose(outputStream: OutputStream) {
         outputStream.apply {
@@ -36,40 +48,4 @@ object UtilKOutputStream : IUtilK {
             close()
         }
     }
-
-    @JvmStatic
-    fun outputStream2file(outputStream: OutputStream, inputStream: InputStream, destFile: File, bufferSize: Int = 1024): File? {
-        try {
-            var readCount: Int
-            val bytes = ByteArray(bufferSize)
-            "outputStream2file ${inputStream.available()}".it(TAG)
-            while (inputStream.read(bytes).also { readCount = it } != -1)
-                outputStream.write(bytes, 0, readCount)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            outputStream.flushClose()
-            inputStream.close()
-        }
-        return null
-    }
-
-    @JvmStatic
-    @RequiresApi(CVersCode.V_29_10_Q)
-    fun outputStream2file2(outputStream: OutputStream, inputStream: InputStream, destFile: File): File {
-        try {
-            FileUtils.copy(inputStream, outputStream)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            outputStream.flushClose()
-            inputStream.close()
-        }
-        return destFile
-    }
-
 }

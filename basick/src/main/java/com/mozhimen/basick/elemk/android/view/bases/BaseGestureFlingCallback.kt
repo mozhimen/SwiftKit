@@ -1,7 +1,8 @@
-package com.mozhimen.basick.elemk.android.view.commons
+package com.mozhimen.basick.elemk.android.view.bases
 
 import android.view.GestureDetector
 import android.view.MotionEvent
+import com.mozhimen.basick.elemk.android.view.commons.IGestureFlingListener
 import kotlin.math.abs
 
 /**
@@ -11,7 +12,7 @@ import kotlin.math.abs
  * @Date 2022/11/27 0:15
  * @Version 1.0
  */
-open class GestureFlingCallback : IGestureFlingListener, GestureDetector.SimpleOnGestureListener() {
+open class BaseGestureFlingCallback : IGestureFlingListener, GestureDetector.SimpleOnGestureListener() {
     private val _minDistance = 200 //最小识别距离
     private val _minVelocity = 20 //最小识别速度
 
@@ -27,21 +28,5 @@ open class GestureFlingCallback : IGestureFlingListener, GestureDetector.SimpleO
             onFlingDown()
         }
         return false
-    }
-
-    override fun onFlingUp() {
-
-    }
-
-    override fun onFlingDown() {
-
-    }
-
-    override fun onFlingLeft() {
-
-    }
-
-    override fun onFlingRight() {
-
     }
 }

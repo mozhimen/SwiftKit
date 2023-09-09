@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -11,11 +12,15 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/ui_blue_300">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{item_navigatek.name}" />
+            android:text="@{item_navigatek.name}"
+            style="@style/Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000.Size_020"
+            android:layout_gravity="center"
+            tools:text="01"/>
     </FrameLayout>
 </layout>

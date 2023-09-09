@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IActivity
 import com.mozhimen.basick.elemk.androidx.appcompat.commons.IFragment
 import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
+import com.mozhimen.basick.utilk.androidx.fragment.UtilKFragment
 import com.mozhimen.basick.utilk.bases.IUtilK
 
 open class BaseFragmentVB<VB : ViewDataBinding>(
@@ -21,7 +22,7 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
     private var _vb: VB? = null
     protected val vb get() = _vb!!
 
-    fun isAlive(): Boolean = !isRemoving && !isDetached && activity != null
+    fun isAlive(): Boolean = UtilKFragment.isAlive(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         inflateView(container)

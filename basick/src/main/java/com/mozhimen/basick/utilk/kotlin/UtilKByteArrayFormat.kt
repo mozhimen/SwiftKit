@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.kotlin
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.writeBytes2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import java.io.ByteArrayInputStream
@@ -18,11 +19,11 @@ import java.nio.charset.Charset
  * @Date 2023/8/1 16:13
  * @Version 1.0
  */
-fun ByteArray.bytes2file(filePathWithName: String, isOverwrite: Boolean = true): File =
-    UtilKByteArrayFormat.bytes2file(this, filePathWithName, isOverwrite)
+fun ByteArray.bytes2file(destFilePathWithName: String, isAppend: Boolean = false): File =
+    UtilKByteArrayFormat.bytes2file(this, destFilePathWithName, isAppend)
 
-fun ByteArray.bytes2file(destFile: File, isOverwrite: Boolean = true): File =
-    UtilKByteArrayFormat.bytes2file(this, destFile, isOverwrite)
+fun ByteArray.bytes2file(destFile: File, isAppend: Boolean = false): File =
+    UtilKByteArrayFormat.bytes2file(this, destFile, isAppend)
 
 fun ByteArray.bytes2obj(): Any? =
     UtilKByteArrayFormat.bytes2obj(this)
@@ -49,14 +50,14 @@ object UtilKByteArrayFormat : IUtilK {
         String(bytes, offset, length)
 
     @JvmStatic
-    fun bytes2file(bytes: ByteArray, filePathWithName: String, isOverwrite: Boolean = true): File =
-        bytes2file(bytes, UtilKFile.createFile(filePathWithName), isOverwrite)
+    fun bytes2file(bytes: ByteArray, destFilePathWithName: String, isAppend: Boolean = false): File =
+        bytes2file(bytes, UtilKFile.createFile(destFilePathWithName), isAppend)
 
     @JvmStatic
-    fun bytes2file(bytes: ByteArray, file: File, isOverwrite: Boolean = true): File {
-        UtilKFile.createFile(file)
-        FileOutputStream(file, !isOverwrite).flushClose { bytes.writeBytes2fileOutputStream(it) }
-        return file
+    fun bytes2file(bytes: ByteArray, destFile: File, isAppend: Boolean = false): File {
+        UtilKFile.createFile(destFile)
+        destFile.file2fileOutputStream(isAppend).writeBytes2fileOutputStream(bytes)
+        return destFile
     }
 
     @JvmStatic

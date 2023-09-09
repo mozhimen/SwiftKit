@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.kotlinx.coroutines
 
 import android.view.View
 import android.widget.EditText
-import com.mozhimen.basick.elemk.android.view.bases.BaseTextWatcher
+import com.mozhimen.basick.elemk.android.view.commons.ITextWatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -38,7 +38,7 @@ object UtilKFlow {
 
     @JvmStatic
     fun createEditTextChangeFlow(editText: EditText): Flow<CharSequence> = callbackFlow {
-        val textWatcher = object : BaseTextWatcher() {
+        val textWatcher = object : ITextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {// 在文本变化后向流发射数据
                 s?.let { this@callbackFlow.trySend(it).isSuccess }
             }

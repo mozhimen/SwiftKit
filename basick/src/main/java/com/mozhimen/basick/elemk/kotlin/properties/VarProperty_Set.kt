@@ -18,9 +18,8 @@ open class VarProperty_Set<T>(
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
         if (_isOpenCheckEquals && _field == value) return
         if (_isOpenCheckNull && value == null) return
-        if (_onSetField.invoke(_field, value)) {
+        if (_onSetField.invoke(_field, value))
             _field = value
-        }
     }
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T {

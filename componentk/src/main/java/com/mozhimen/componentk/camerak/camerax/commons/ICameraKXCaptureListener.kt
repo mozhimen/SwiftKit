@@ -11,5 +11,5 @@ import android.graphics.Bitmap
  */
 interface ICameraKXCaptureListener {
     fun onCaptureSuccess(bitmap: Bitmap, imageRotation: Int)
-    fun onCaptureFail()
+    fun onCaptureFail() {}
 }

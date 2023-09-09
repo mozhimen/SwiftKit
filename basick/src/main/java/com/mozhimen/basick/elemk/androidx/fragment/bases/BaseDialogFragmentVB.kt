@@ -48,14 +48,6 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
         initData(savedInstanceState)
     }
 
-    override fun inflateView(viewGroup: ViewGroup?) {
-
-    }
-
-    override fun initFlag() {
-
-    }
-
     override fun initLayout() {
 
     }
@@ -64,14 +56,6 @@ open class BaseDialogFragmentVB<VB : ViewDataBinding>(
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
         initObserver()
-    }
-
-    override fun initView(savedInstanceState: Bundle?) {
-
-    }
-
-    override fun initObserver() {
-
     }
 
     override fun onAttach(context: Context) {

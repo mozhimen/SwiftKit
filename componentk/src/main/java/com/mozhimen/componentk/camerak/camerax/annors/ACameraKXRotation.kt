@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.camerak.camerax.annors
 
+import android.view.Surface
 import androidx.annotation.IntDef
 
 /**
@@ -13,9 +14,9 @@ import androidx.annotation.IntDef
 @IntDef(value = [ACameraKXRotation.ROTATION_0, ACameraKXRotation.ROTATION_90, ACameraKXRotation.ROTATION_180, ACameraKXRotation.ROTATION_270])
 annotation class ACameraKXRotation {
     companion object {
-        const val ROTATION_0 = 0
-        const val ROTATION_90 = 1
-        const val ROTATION_180 = 2
-        const val ROTATION_270 = 3
+        const val ROTATION_0 = Surface.ROTATION_0
+        const val ROTATION_90 = Surface.ROTATION_90
+        const val ROTATION_180 = Surface.ROTATION_180
+        const val ROTATION_270 = Surface.ROTATION_270
     }
 }

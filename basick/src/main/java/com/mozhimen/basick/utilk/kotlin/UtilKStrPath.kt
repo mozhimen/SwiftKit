@@ -1,9 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
-import java.io.File
 
 /**
  * @ClassName UtilKStringPath
@@ -32,20 +29,20 @@ object UtilKStrPath {
                 UtilKFileDir.External.getCacheDir()?.absolutePath
 
             @JvmStatic
-            fun getDataDir(): String =
-                UtilKFileDir.External.getDataDir().absolutePath
-
-            @JvmStatic
-            fun getStorageDir(): String =
-                UtilKFileDir.External.getStorageDir().absolutePath
-
-            @JvmStatic
             fun getFilesRootDir(): String =
                 UtilKFileDir.External.getFilesRootDir()!!.absolutePath
 
             @JvmStatic
-            fun getStoragePublicDCIMDir(): String =
-                UtilKFileDir.External.getStoragePublicDCIMDir().absolutePath
+            fun getEnvStorageDir(): String =
+                UtilKFileDir.External.getEnvStorageDir().absolutePath
+
+            @JvmStatic
+            fun getEnvStoragePublicDCIMDir(): String =
+                UtilKFileDir.External.getEnvStoragePublicDCIMDir().absolutePath
+
+            @JvmStatic
+            fun getEnvDataDir(): String =
+                UtilKFileDir.External.getEnvDataDir().absolutePath
         }
     }
 }

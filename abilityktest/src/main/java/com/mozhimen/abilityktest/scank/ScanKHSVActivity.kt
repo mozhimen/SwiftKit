@@ -23,6 +23,8 @@ import com.mozhimen.basick.utilk.android.graphics.applyAnyBitmapCrop
 import com.mozhimen.basick.utilk.android.graphics.applyAnyBitmapRotate
 import com.mozhimen.basick.utilk.android.graphics.applyAnyBitmapScaleRatio
 import com.mozhimen.componentk.camerak.camerax.commons.ICameraXKFrameListener
+import com.mozhimen.componentk.camerak.camerax.helpers.jpegImageProxy2JpegBitmap
+import com.mozhimen.componentk.camerak.camerax.helpers.yuv420888ImageProxy2JpegBitmap
 import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
 
 @AManifestKRequire(CPermission.CAMERA, CUseFeature.CAMERA, CUseFeature.CAMERA_AUTOFOCUS)
@@ -46,9 +48,8 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
 
     private fun initCamera() {
         vb.scankHsvPreview.apply {
-            initCameraX(this@ScanKHSVActivity, MCameraKXConfig(facing = ACameraKXFacing.BACK))
+            initCameraKX(this@ScanKHSVActivity, MCameraKXConfig(facing = ACameraKXFacing.BACK))
             setCameraXFrameListener(_frameAnalyzer)
-            startCameraX()
         }
     }
 
@@ -63,9 +64,9 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
             override fun invoke(imageProxy: ImageProxy) {
                 if (System.currentTimeMillis() - _lastTime >= 1000) {
                     _orgBitmap = if (imageProxy.format == ImageFormat.YUV_420_888) {
-                        ImageProxyUtil.yuv420888ImageProxy2JpegBitmap(imageProxy)
+                        imageProxy.yuv420888ImageProxy2JpegBitmap()
                     } else {
-                        ImageProxyUtil.jpegImageProxy2JpegBitmap(imageProxy)
+                        imageProxy.jpegImageProxy2JpegBitmap()
                     }.applyAnyBitmapRotate(90f).apply {
                         applyAnyBitmapCrop(
                             (_ratio * this.width).toInt(),

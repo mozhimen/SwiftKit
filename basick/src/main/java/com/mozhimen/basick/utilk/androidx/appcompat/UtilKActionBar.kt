@@ -11,11 +11,31 @@ import androidx.appcompat.app.AppCompatActivity
  * @Date 2022/11/27 18:02
  * @Version 1.0
  */
+fun AppCompatActivity.applyActionBarTitle(str: String) {
+    UtilKActionBar.applyActionBarTitle(this, str)
+}
+
 object UtilKActionBar {
 
     @JvmStatic
     fun get(activity: AppCompatActivity): ActionBar? =
         activity.supportActionBar
+
+    /////////////////////////////////////////////////////////////////
+
+    /**
+     * enableBackIfActionBarExists
+     * @param activity AppCompatActivity
+     */
+    @JvmStatic
+    fun applyActionBarDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
+        get(activity)?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    @JvmStatic
+    fun applyActionBarTitle(activity: AppCompatActivity, str: String) {
+        get(activity)?.title = str
+    }
 
     /////////////////////////////////////////////////////////////////
 
@@ -30,12 +50,5 @@ object UtilKActionBar {
         get(activity)?.hide()
     }
 
-    /**
-     * enableBackIfActionBarExists
-     * @param activity AppCompatActivity
-     */
-    @JvmStatic
-    fun applyDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
-        get(activity)?.setDisplayHomeAsUpEnabled(true)
-    }
+
 }

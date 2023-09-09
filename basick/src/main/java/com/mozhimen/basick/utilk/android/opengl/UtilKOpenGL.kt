@@ -78,8 +78,13 @@ object UtilKOpenGL : BaseUtilK() {
     }
 
     @JvmStatic
-    fun createGlProgramByRes(vert: String, frag: String): Int =
-        createGlProgram(UtilKAsset.asset2str3(vert), UtilKAsset.asset2str3(frag))
+    fun createGlProgramByRes(vert: String, frag: String): Int? {
+        val vertexSource = UtilKAsset.asset2str3(vert)
+        val fragmentSource = UtilKAsset.asset2str3(frag)
+        if (vertexSource != null && fragmentSource != null)
+            createGlProgram(vertexSource, fragmentSource)
+        return null
+    }
 
     /**
      * 创建GL程序

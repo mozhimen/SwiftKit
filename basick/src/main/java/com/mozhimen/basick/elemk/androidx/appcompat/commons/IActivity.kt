@@ -10,13 +10,13 @@ import android.os.Bundle
  * @Version 1.0
  */
 interface IActivity {
-    fun initFlag()
+    fun initFlag() {}
 
     fun initLayout()
 
     fun initData(savedInstanceState: Bundle?)
 
-    fun initView(savedInstanceState: Bundle?)
+    fun initView(savedInstanceState: Bundle?) {}
 
-    fun initObserver()
+    fun initObserver() {}
 }

@@ -37,10 +37,6 @@ abstract class BaseActivityVB<VB : ViewDataBinding>(
 
     ///////////////////////////////////////////////////////////////
 
-    override fun initFlag() {
-
-    }
-
     @CallSuper
     override fun initLayout() {
         setContentView(vb.root)
@@ -50,13 +46,5 @@ abstract class BaseActivityVB<VB : ViewDataBinding>(
     override fun initData(savedInstanceState: Bundle?) {
         initView(savedInstanceState)
         initObserver()
-    }
-
-    override fun initView(savedInstanceState: Bundle?) {
-
-    }
-
-    override fun initObserver() {
-
     }
 }

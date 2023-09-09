@@ -63,13 +63,14 @@ object UtilKContext {
         context.contentResolver
 
     @JvmStatic
-    fun grantUriPermission(context: Context, uri: Uri, modeFlags: Int) {
-        context.grantUriPermission(getPackageName(context), uri, modeFlags)
-    }
-
-    @JvmStatic
     fun getPackageName(context: Context): String =
         context.packageName
+
+    @JvmStatic
+    fun getPackageManager(context: Context): PackageManager =
+        context.packageManager
+
+    ////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getLocationManager(context: Context): LocationManager =
@@ -124,9 +125,7 @@ object UtilKContext {
     fun getUsbManager(context: Context): UsbManager =
         context.getSystemService(CContext.USB_SERVICE) as UsbManager
 
-    @JvmStatic
-    fun getPackageManager(context: Context): PackageManager =
-        context.packageManager
+    ////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getResources(context: Context): Resources =
@@ -164,6 +163,11 @@ object UtilKContext {
         context.theme
 
     ////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun grantUriPermission(context: Context, uri: Uri, modeFlags: Int) {
+        context.grantUriPermission(getPackageName(context), uri, modeFlags)
+    }
 
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)

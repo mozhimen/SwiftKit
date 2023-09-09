@@ -4,10 +4,8 @@ import android.text.Editable
 import android.text.InputFilter
 import android.widget.EditText
 import com.mozhimen.basick.elemk.commons.IA_Listener
-import com.mozhimen.basick.elemk.android.view.bases.BaseTextWatcher
+import com.mozhimen.basick.elemk.android.view.commons.ITextWatcher
 import com.mozhimen.basick.elemk.commons.IAB_Listener
-import com.mozhimen.basick.utilk.kotlin.UtilKAny
-import com.mozhimen.basick.utilk.kotlin.UtilKAnyFormat
 import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
 import com.mozhimen.basick.utilk.kotlinx.coroutines.UtilKFlow.createSearchFlow
 import com.mozhimen.basick.utilk.kotlinx.coroutines.createEditTextChangeFlow
@@ -120,7 +118,7 @@ object UtilKEditText {
      */
     @JvmStatic
     fun addTextChangeWatcher(editText: EditText, onTextChanged: IA_Listener<String>/*(newTextStr: String) -> Unit*/) {
-        editText.addTextChangedListener(object : BaseTextWatcher() {
+        editText.addTextChangedListener(object : ITextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 onTextChanged(s.toString())
             }

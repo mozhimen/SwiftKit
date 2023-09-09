@@ -2,12 +2,14 @@ package com.mozhimen.uicorektest.dialogk
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnim
 import com.mozhimen.uicorektest.dialogk.temps.DialogKLoadingAnimDrawable
@@ -24,35 +26,15 @@ import kotlinx.coroutines.launch
 @APermissionCheck(CPermission.SYSTEM_ALERT_WINDOW)
 class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
 
-    override fun initView(savedInstanceState: Bundle?) {
-        vb.dialogkQues.setOnClickListener {
-            genDialogKQues("你get到此用法了吗?", onSureClick = {})
-        }
-
-        vb.dialogkQuesAnim.setOnClickListener {
-            genDialogKQuesAnim("带弹出动画的毛玻璃效果的弹框~")
-        }
-
-        vb.dialogkCustomAnimDrawable.setOnClickListener {
-            showDialogLoadingAnimDrawable()
-        }
-
-        vb.dialogkCustomAnim.setOnClickListener {
-            showDialogLoadingAnim()
-        }
-
-        vb.dialogkCustomUpdate.setOnClickListener {
-            showLoadingUpdateDialog("正在更新", "...")
-        }
-
-        vb.dialogkCustomVb.setOnClickListener {
-            //如此使用
-            showDialogTip("你提出的问题,亲?") {
-                ///////////////////////////
-                "你点击了确定".showToast()
-            }
-        }
+    fun goDialogKQues(view: View) {
+        genDialogKQues("你get到此用法了吗?", onSureClick = {})
     }
+
+    fun goDialogKQuesAnim(view: View) {
+        genDialogKQuesAnim("带弹出动画的毛玻璃效果的弹框~")
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     private var _dialogKQues: DialogKQues? = null
     private fun genDialogKQues(ques: String, onSureClick: I_Listener, onCancelClick: I_Listener? = null) {
@@ -76,6 +58,14 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         _dialogKQues!!.show()
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    fun goDialogKCustomAnimDrawable(view: View) {
+        showDialogLoadingAnimDrawable()
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     private var _dialogkLoadingAnimDrawable: DialogKLoadingAnimDrawable? = null
 
     fun showDialogLoadingAnimDrawable() {
@@ -85,6 +75,14 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         _dialogkLoadingAnimDrawable!!.show()
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    fun goDialogLoadingAnim(view: View) {
+        showDialogLoadingAnim()
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     private var _dialogkLoadingAnim: DialogKLoadingAnim? = null
 
     fun showDialogLoadingAnim() {
@@ -93,6 +91,14 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         }
         _dialogkLoadingAnim!!.show()
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    fun goDialogKCustomUpdate(view: View) {
+        showLoadingUpdateDialog("正在更新", "...")
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     private var _dialogKLoadingUpdate: DialogKLoadingUpdate? = null
 
@@ -119,19 +125,34 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    fun goDialogTipVb(view: View) {
+        //如此使用
+        showDialogTip("你提出的问题,亲?") {
+            ///////////////////////////
+            "你点击了确定".showToast()
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     private var _dialogKTipVB: DialogKTipVB? = null
 
     fun showDialogTip(txt: String, onSure: IDialogKTipListener) {
-        if (_dialogKTipVB == null) {
+        if (_dialogKTipVB == null)
             _dialogKTipVB = DialogKTipVB.create(this, txt, onSure)
-        } else {
-            _dialogKTipVB!!.apply {
-                setTxt(txt)
-                setOnSureListener(onSure)
-            }
+        else _dialogKTipVB!!.apply {
+            setTxt(txt)
+            setOnSureListener(onSure)
         }
-        _dialogKTipVB!!.show()
+        if (!_dialogKTipVB!!.isShowing && !this.isFinishingOrDestroyed())
+            _dialogKTipVB!!.show()
     }
+
+    private fun dismissTipsVertical() {
+        if (_dialogKTipVB != null && _dialogKTipVB!!.isShowing)
+            _dialogKTipVB?.dismiss()
+    }
+
 }

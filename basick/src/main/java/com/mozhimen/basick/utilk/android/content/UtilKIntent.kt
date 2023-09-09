@@ -10,6 +10,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -64,7 +65,23 @@ object UtilKIntent {
      */
     @JvmStatic
     fun getPickImage(): Intent =
-        getPick().apply { setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL) }
+        getPick().apply { setDataAndType(CMediaStore.Images.Media.EXTERNAL_CONTENT_URI, CMediaFormat.MIMETYPE_IMAGE_ALL) }
+
+    @JvmStatic
+    fun getContent(): Intent =
+        Intent(CIntent.ACTION_GET_CONTENT)
+
+    @JvmStatic
+    fun getContentAudio():Intent =
+        getContent().apply { setType(CMediaFormat.MIMETYPE_AUDIO_ALL) }
+
+    @JvmStatic
+    fun getContentVideo(): Intent =
+        getContent().apply { setType(CMediaFormat.MIMETYPE_VIDEO_ALL) }
+
+    @JvmStatic
+    fun getContentAudioVideo():Intent =
+        getContent().apply { setType("${CMediaFormat.MIMETYPE_AUDIO_ALL};${CMediaFormat.MIMETYPE_VIDEO_ALL}") }
 
     /**
      * Get location source settings

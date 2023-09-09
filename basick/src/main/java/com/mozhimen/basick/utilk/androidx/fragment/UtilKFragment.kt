@@ -12,6 +12,10 @@ import androidx.fragment.app.FragmentManager
  */
 object UtilKFragment {
     @JvmStatic
-    fun getChildFragmentManager(fragment: Fragment):FragmentManager =
+    fun getChildFragmentManager(fragment: Fragment): FragmentManager =
         fragment.childFragmentManager
+
+    @JvmStatic
+    fun isAlive(fragment: Fragment): Boolean =
+        !fragment.isRemoving && !fragment.isDetached && fragment.activity != null
 }

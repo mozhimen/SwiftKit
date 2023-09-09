@@ -13,8 +13,8 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
+import com.mozhimen.basick.utilk.java.io.inputStream2str
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
 import java.io.DataOutputStream
@@ -35,17 +35,17 @@ object UtilKRuntime : BaseUtilK() {
 
     @JvmStatic
     fun get(): Runtime =
-            Runtime.getRuntime()
+        Runtime.getRuntime()
 
     @JvmStatic
     @Throws(IOException::class)
     fun exec(cmdArray: Array<String>): Process =
-            get().exec(cmdArray, null, null)
+        get().exec(cmdArray, null, null)
 
     @JvmStatic
     @Throws(IOException::class)
     fun exec(command: String): Process =
-            get().exec(command)
+        get().exec(command)
 
     @JvmStatic
     fun execGetProp(strPackage: String): String? {
@@ -130,9 +130,9 @@ object UtilKRuntime : BaseUtilK() {
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun execInstallBefore28(apkPathWithName: String): Boolean {
         val command: Array<String> =
-                if (UtilKBuildVersion.isAfterV_24_7_N())
-                    arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
-                else arrayOf("pm", "install", "-r", apkPathWithName)
+            if (UtilKBuildVersion.isAfterV_24_7_N())
+                arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
+            else arrayOf("pm", "install", "-r", apkPathWithName)
 
         val inputStringBuilder = StringBuilder()
         val errorStringBuilder = StringBuilder()
@@ -184,9 +184,9 @@ object UtilKRuntime : BaseUtilK() {
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
     fun execInstallBefore282(apkPathWithName: String): Boolean {
         val command =
-                if (UtilKBuildVersion.isAfterV_24_7_N())
-                    arrayOf("pm", "install", "-r", "-i", UtilKPackage.getPackageName(), "--user", "0", apkPathWithName)
-                else arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
+            if (UtilKBuildVersion.isAfterV_24_7_N())
+                arrayOf("pm", "install", "-r", "-i", UtilKPackage.getPackageName(), "--user", "0", apkPathWithName)
+            else arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
 
         var strInput = ""
         var process: Process? = null
@@ -195,8 +195,9 @@ object UtilKRuntime : BaseUtilK() {
         try {
             process = ProcessBuilder(*command).start()
             inputStream = process.inputStream
-            byteArrayOutputStream = ByteArrayOutputStream().apply { write('/'.code) }
-            strInput = UtilKInputStream.inputStream2str2(inputStream, byteArrayOutputStream)
+            byteArrayOutputStream = ByteArrayOutputStream()
+            byteArrayOutputStream.write('/'.code)
+            strInput = inputStream.inputStream2str(byteArrayOutputStream) ?: ""
             "installSilence result $strInput".dt(TAG)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -299,7 +300,7 @@ object UtilKRuntime : BaseUtilK() {
      */
     @JvmStatic
     fun execSuOrSh(command: String, isRoot: Boolean, isNeedResultMsg: Boolean = true): MResultISS =
-            execSuOrSh(arrayOf(command), isRoot, isNeedResultMsg)
+        execSuOrSh(arrayOf(command), isRoot, isNeedResultMsg)
 
     /**
      * 执行多条shell命令
@@ -309,7 +310,7 @@ object UtilKRuntime : BaseUtilK() {
      */
     @JvmStatic
     fun execSuOrSh(commands: List<String>, isRoot: Boolean, isNeedResultMsg: Boolean = true): MResultISS =
-            execSuOrSh(commands.toTypedArray(), isRoot, isNeedResultMsg)
+        execSuOrSh(commands.toTypedArray(), isRoot, isNeedResultMsg)
 
     /**
      * 执行shell命令核心方法

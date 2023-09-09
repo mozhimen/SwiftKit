@@ -8,9 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <TextView
+            android:id="@+id/navigatek_fragment_second_txt1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/navigatek_fragment_second_txt"
+            android:id="@+id/navigatek_fragment_second_txt2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="第二个Fragment(点击去第一个Fragment)"

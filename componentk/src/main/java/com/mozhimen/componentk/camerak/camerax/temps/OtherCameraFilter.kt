@@ -6,6 +6,7 @@ import androidx.camera.core.CameraInfo
 import androidx.camera.core.impl.CameraInfoInternal
 import androidx.core.util.Preconditions
 import com.mozhimen.basick.utilk.android.util.UtilKLog
+import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.componentk.camerak.camerax.commons.ICameraKXFilter
 
 
@@ -20,16 +21,14 @@ class OtherCameraFilter(private val _id: String) : ICameraKXFilter {
 
     @SuppressLint("RestrictedApi")
     override fun filter(cameraInfos: MutableList<CameraInfo>): MutableList<CameraInfo> {
-        UtilKLog.dt(TAG, "filter: _id $_id cameraInfos $cameraInfos")
+        "filter: _id $_id cameraInfos $cameraInfos".dt(TAG)
         val tempCameraInfos = ArrayList<CameraInfo>()
         cameraInfos.forEach {
             Preconditions.checkArgument(it is CameraInfoInternal, "The camera info doesn't contain internal implementation.")
             it as CameraInfoInternal
             val id = it.cameraId
-            Log.v(TAG, "filter: id $id")
             if (id.contains(_id) || id == _id) tempCameraInfos.add(it)
         }
-        UtilKLog.dt(TAG, "filter: cameraInfos ${tempCameraInfos.joinToString { (it as CameraInfoInternal).cameraId }}")
-        return tempCameraInfos
+        return tempCameraInfos.also { "filter: cameraInfos ${it.joinToString { list-> (list as CameraInfoInternal).cameraId }}".dt(TAG) }
     }
 }

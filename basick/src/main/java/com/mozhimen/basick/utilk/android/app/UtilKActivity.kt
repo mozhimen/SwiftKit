@@ -33,8 +33,12 @@ fun <A : Annotation> Activity.getAnnotation(annotationClazz: Class<A>): A? =
 fun <V : View> Activity.getContentView(): V =
         UtilKActivity.getContentView(this)
 
+//////////////////////////////////////////////////////////////////////////////////////////
+
 fun Activity.isFinishingOrDestroyed(): Boolean =
         UtilKActivity.isFinishingOrDestroyed(this)
+
+//////////////////////////////////////////////////////////////////////////////////////////
 
 object UtilKActivity {
     /**
@@ -104,8 +108,8 @@ object UtilKActivity {
         val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntent.getMainLauncher(packageName, null), 0)
         return if (resolveInfos.isEmpty()) "" else resolveInfos[0].activityInfo.name
     }
-    /////////////////////////////////////////////////////////////////////////
 
+    /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun <A : Annotation> getAnnotation(activity: Activity, annotationClazz: Class<A>): A? =
@@ -127,7 +131,6 @@ object UtilKActivity {
     @JvmStatic
     fun <V : View> getContentView(activity: Activity): V =
             UtilKContentView.get(activity)
-
 
     //////////////////////////////////////////////////////////////////////////////////////////
 

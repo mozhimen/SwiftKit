@@ -2,6 +2,7 @@ package com.mozhimen.componentk.camerak.camerax.mos
 
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFormat
+import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXRotation
 
 /**
  * @ClassName CameraXKConfig
@@ -12,5 +13,6 @@ import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFormat
  */
 data class MCameraKXConfig(
     @ACameraKXFormat val format: Int = ACameraKXFormat.YUV_420_888,
-    @ACameraKXFacing val facing: Int = ACameraKXFacing.BACK
+    @ACameraKXFacing val facing: Int = ACameraKXFacing.BACK,
+    @ACameraKXRotation val rotation: Int = ACameraKXRotation.ROTATION_90
 )

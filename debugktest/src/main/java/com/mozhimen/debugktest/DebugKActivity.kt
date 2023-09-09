@@ -6,7 +6,7 @@ import android.view.GestureDetector
 import android.view.KeyEvent
 import android.view.MotionEvent
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.basick.elemk.android.view.commons.GestureFlingCallback
+import com.mozhimen.basick.elemk.android.view.bases.BaseGestureFlingCallback
 import com.mozhimen.debugk.DebugK
 import com.mozhimen.debugktest.databinding.ActivityDebugkBinding
 
@@ -19,7 +19,7 @@ class DebugKActivity : BaseActivityVB<ActivityDebugkBinding>() {
     }
 
     private val _gestureDetector: GestureDetector by lazy {
-        GestureDetector(this, object : GestureFlingCallback() {
+        GestureDetector(this, object : BaseGestureFlingCallback() {
             override fun onFlingLeft() {
                 toggleDebugDialog()
             }

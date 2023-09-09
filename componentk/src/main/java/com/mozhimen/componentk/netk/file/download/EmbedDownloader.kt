@@ -7,6 +7,7 @@ import android.os.Looper
 import android.os.SystemClock
 import android.util.Log
 import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
@@ -237,12 +238,12 @@ class EmbedDownloader(request: DownloadRequest) :
                     fun writeFile(append: Boolean = false) {
                         var wroteLength: Long = if (append) currentLength else 0
                         conn.inputStream.use { input ->
-                            FileOutputStream(destinationFile, append).use { fos ->
+                            destinationFile.file2fileOutputStream(append).use { fos ->
                                 val data = ByteArray(8 * 1024)
-                                var count: Int
-                                while (input.read(data).also { len -> count = len } != -1) {
-                                    fos.write(data, 0, count)
-                                    wroteLength += count
+                                var readCount: Int
+                                while (input.read(data).also { readCount = it } != -1) {
+                                    fos.write(data, 0, readCount)
+                                    wroteLength += readCount
                                     fos.flush()
                                     val now = SystemClock.elapsedRealtime()
                                     val notifyInterval = now - lastNotifyTime

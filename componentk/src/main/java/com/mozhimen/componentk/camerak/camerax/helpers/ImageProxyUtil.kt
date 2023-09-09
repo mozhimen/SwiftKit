@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.camerak.camerax.helpers
 
+import android.annotation.SuppressLint
 import android.graphics.*
 import android.media.Image.Plane
 import android.util.Log
@@ -36,9 +37,10 @@ object ImageProxyUtil : BaseUtilK() {
     /**
      * rgba8888转Bitmap
      */
+    @SuppressLint("UnsafeOptInUsageError")
     @JvmStatic
     fun rgba8888ImageProxy2Rgba8888Bitmap(imageProxy: ImageProxy): Bitmap {
-        Log.v(TAG, "rgba8888Image2Rgba8888Bitmap: width ${imageProxy.width} height ${imageProxy.height}")
+        Log.v(TAG, "rgba8888Image2Rgba8888Bitmap: imageProxy width ${imageProxy.width} height ${imageProxy.height}")
         val bitmap = Bitmap.createBitmap(imageProxy.width, imageProxy.height, Bitmap.Config.ARGB_8888)
         // Copy out RGB bits to the shared bitmap buffer
         imageProxy.use { bitmap.copyPixelsFromBuffer(imageProxy.planes[0].buffer) }
@@ -47,8 +49,6 @@ object ImageProxyUtil : BaseUtilK() {
 
     /**
      * 将来自 CameraX API 的 YUV_420_888 图像转换为Bitmap
-     * @param imageProxy ImageProxy
-     * @return Bitmap?
      */
     @JvmStatic
     @ExperimentalGetImage
@@ -60,8 +60,6 @@ object ImageProxyUtil : BaseUtilK() {
 
     /**
      * 将来自 CameraX API 的 JPEG 图像转换为Bitmap
-     * @param imageProxy ImageProxy
-     * @return Bitmap
      */
     @JvmStatic
     fun jpegImageProxy2JpegBitmap(imageProxy: ImageProxy): Bitmap {
@@ -76,8 +74,6 @@ object ImageProxyUtil : BaseUtilK() {
 
     /**
      * YUV_420_888转NV21
-     * @param imageProxy ImageProxy
-     * @return ByteArray
      */
     @JvmStatic
     @ExperimentalGetImage
@@ -86,10 +82,6 @@ object ImageProxyUtil : BaseUtilK() {
 
     /**
      * 将 NV21 格式字节缓冲区转换为Bitmap
-     * @param nv21Buffer ByteBuffer
-     * @param width Int
-     * @param height Int
-     * @return Bitmap?
      */
     @JvmStatic
     fun nv21Buffer2JpegBitmap(nv21Buffer: ByteBuffer, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap {

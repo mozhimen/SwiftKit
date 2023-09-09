@@ -10,7 +10,6 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.IntRange
 import androidx.core.graphics.drawable.toDrawable
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
-import com.mozhimen.basick.utilk.android.content.UtilKContextCompat
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKResource
 import com.mozhimen.basick.utilk.android.content.anyBitmap2imageFile
@@ -18,6 +17,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
+import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.file2strFilePath
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.kotlin.hasSpace
@@ -52,18 +52,18 @@ fun File.file2anyBitmap(opts: Options): Bitmap? =
 //////////////////////////////////////////////////////////////////////////////////////////
 
 fun Bitmap.anyBitmap2file(
-    filePathWithName: String,
+    destFilePathWithName: String,
     compressFormat: CompressFormat = CompressFormat.JPEG,
     @IntRange(from = 0, to = 100) quality: Int = 100
 ): File? =
-    UtilKBitmapFormat.anyBitmap2file(this, filePathWithName, compressFormat, quality)
+    UtilKBitmapFormat.anyBitmap2file(this, destFilePathWithName, compressFormat, quality)
 
 fun Bitmap.anyBitmap2file(
-    file: File,
+    destFile: File,
     compressFormat: CompressFormat = CompressFormat.JPEG,
     @IntRange(from = 0, to = 100) quality: Int = 10
 ): File? =
-    UtilKBitmapFormat.anyBitmap2file(this, file, compressFormat, quality)
+    UtilKBitmapFormat.anyBitmap2file(this, destFile, compressFormat, quality)
 
 fun Bitmap.jpegBitmap2jpegFile(
     filePathWithName: String,
@@ -142,11 +142,11 @@ object UtilKBitmapFormat : BaseUtilK() {
     @JvmStatic
     fun anyBitmap2file(
         sourceBitmap: Bitmap,
-        filePathWithName: String,
+        destFilePathWithName: String,
         compressFormat: CompressFormat = CompressFormat.JPEG,
         @IntRange(from = 0, to = 100) quality: Int = 100
     ): File? =
-        anyBitmap2file(sourceBitmap, File(filePathWithName), compressFormat, quality)
+        anyBitmap2file(sourceBitmap, File(destFilePathWithName), compressFormat, quality)
 
     /**
      * 保存图片 before 29
@@ -154,18 +154,18 @@ object UtilKBitmapFormat : BaseUtilK() {
     @JvmStatic
     fun anyBitmap2file(
         sourceBitmap: Bitmap,
-        file: File,
+        destFile: File,
         compressFormat: CompressFormat = CompressFormat.JPEG,
         @IntRange(from = 0, to = 100) quality: Int = 100
     ): File? {
-        UtilKFile.createFile(file)
+        UtilKFile.createFile(destFile)
         var fileOutputStream: FileOutputStream? = null
         var bufferedOutputStream: BufferedOutputStream? = null
         try {
-            fileOutputStream = FileOutputStream(file, false)
+            fileOutputStream = destFile.file2fileOutputStream()
             bufferedOutputStream = BufferedOutputStream(fileOutputStream)
             sourceBitmap.applyAnyBitmapCompress(compressFormat, quality, bufferedOutputStream)
-            return file
+            return destFile
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
@@ -180,30 +180,30 @@ object UtilKBitmapFormat : BaseUtilK() {
     @JvmStatic
     fun jpegBitmap2jpegFile(
         sourceBitmap: Bitmap,
-        filePathWithName: String,
+        destFilePathWithName: String,
         @IntRange(from = 0, to = 100) quality: Int = 100
     ): File? =
         if (UtilKBuildVersion.isAfterV_29_10_Q()) {
             if (UtilKPermission.checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
-                sourceBitmap.anyBitmap2imageFile(filePathWithName, CompressFormat.JPEG, quality)
+                sourceBitmap.anyBitmap2imageFile(destFilePathWithName, CompressFormat.JPEG, quality)
             else null
-        } else anyBitmap2jpegFile(sourceBitmap, filePathWithName, quality)
+        } else anyBitmap2jpegFile(sourceBitmap, destFilePathWithName, quality)
 
     @JvmStatic
     fun anyBitmap2jpegFile(
         sourceBitmap: Bitmap,
-        filePathWithName: String,
+        destFilePathWithName: String,
         @IntRange(from = 0, to = 100) quality: Int = 100
     ): File? =
-        anyBitmap2file(sourceBitmap, filePathWithName, CompressFormat.JPEG, quality)
+        anyBitmap2file(sourceBitmap, destFilePathWithName, CompressFormat.JPEG, quality)
 
     @JvmStatic
     fun anyBitmap2pngFile(
         sourceBitmap: Bitmap,
-        filePathWithName: String,
+        destFilePathWithName: String,
         @IntRange(from = 0, to = 100) quality: Int = 100
     ): File? =
-        anyBitmap2file(sourceBitmap, filePathWithName, CompressFormat.PNG, quality)
+        anyBitmap2file(sourceBitmap, destFilePathWithName, CompressFormat.PNG, quality)
 
     //endregion
 
@@ -221,10 +221,9 @@ object UtilKBitmapFormat : BaseUtilK() {
         compressFormat: CompressFormat = CompressFormat.JPEG,
         @IntRange(from = 0, to = 100) quality: Int = 100
     ): ByteArray {
-        ByteArrayOutputStream(sourceBitmap.width * sourceBitmap.height * 4).flushClose {
-            sourceBitmap.applyAnyBitmapCompress(compressFormat, quality, it)
-            return it.byteArrayOutputStream2bytes()
-        }
+        val byteArrayOutputStream = ByteArrayOutputStream(sourceBitmap.width * sourceBitmap.height * 4)
+        sourceBitmap.applyAnyBitmapCompress(compressFormat, quality, byteArrayOutputStream)
+        return byteArrayOutputStream.byteArrayOutputStream2bytes()
     }
 
     @JvmStatic

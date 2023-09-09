@@ -32,7 +32,7 @@ class ElemKService : BaseLifecycleService2() {
     private fun runBackgroundTasks() {
         lifecycleScope.launch(Dispatchers.IO) {
             delay(3000)
-            onCallback("鸡你太美")
+            invoke("鸡你太美")
         }
     }
 }

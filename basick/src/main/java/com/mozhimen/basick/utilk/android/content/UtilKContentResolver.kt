@@ -41,6 +41,15 @@ object UtilKContentResolver : BaseUtilK() {
     fun get(context: Context): ContentResolver =
         UtilKContext.getContentResolver(context)
 
+    @JvmStatic
+    fun getType(context: Context, uri: Uri): String? =
+        getType(get(context), uri)
+
+    @JvmStatic
+    fun getType(contentResolver: ContentResolver, uri: Uri): String? =
+        contentResolver.getType(uri)
+
+
     ////////////////////////////////////////////////////////////////////////
 
 

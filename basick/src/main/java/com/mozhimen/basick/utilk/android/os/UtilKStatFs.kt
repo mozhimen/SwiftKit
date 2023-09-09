@@ -16,11 +16,11 @@ object UtilKStatFs : BaseUtilK() {
 
     @JvmStatic
     fun getStatFsExternalData(): StatFs =
-        StatFs(UtilKStrPath.Absolute.External.getDataDir())
+        StatFs(UtilKStrPath.Absolute.External.getEnvDataDir())
 
     @JvmStatic
     fun getStatFsExternalStorage(): StatFs =
-        StatFs(UtilKStrPath.Absolute.External.getStorageDir())
+        StatFs(UtilKStrPath.Absolute.External.getEnvStorageDir())
 
     /////////////////////////////////////////////////////////////////////
 

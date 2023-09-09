@@ -38,7 +38,7 @@ object UtilKDevice : BaseUtilK() {
      * @return String
      */
     @JvmStatic
-    fun getMemorySize(): String =
+    fun getMemorySize(): String? =
         UtilKReader.getMemorySize()
 
     /**

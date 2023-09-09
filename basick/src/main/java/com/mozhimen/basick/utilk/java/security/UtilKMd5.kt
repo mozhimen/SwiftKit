@@ -102,10 +102,10 @@ object UtilKMd5 : BaseUtilK() {
     @Throws(NoSuchAlgorithmException::class)
     fun inputStream2strMd5(inputStream: InputStream): String {
         val messageDigest: MessageDigest = get()
-        var length: Int
+        var readCount: Int
         val bytes = ByteArray(1024 * 1024)
-        while (inputStream.read(bytes).also { length = it } != -1)
-            messageDigest.update(bytes, 0, length)
+        while (inputStream.read(bytes).also { readCount = it } != -1)
+            messageDigest.update(bytes, 0, readCount)
         return messageDigest.digest().bytes2strHex()
     }
 
@@ -113,10 +113,10 @@ object UtilKMd5 : BaseUtilK() {
     @Throws(NoSuchAlgorithmException::class)
     fun inputStream2strMd52(inputStream: InputStream): String {
         val messageDigest: MessageDigest = get()
-        var length: Int
+        var readCount: Int
         val bytes = ByteArray(1024)
-        while (inputStream.read(bytes, 0, 1024).also { length = it } != -1)
-            messageDigest.update(bytes, 0, length)
+        while (inputStream.read(bytes, 0, 1024).also { readCount = it } != -1)
+            messageDigest.update(bytes, 0, readCount)
         return BigInteger(1, messageDigest.digest()).toString(16)
     }
 }
