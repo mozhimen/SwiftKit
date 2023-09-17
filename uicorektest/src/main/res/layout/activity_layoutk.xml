@@ -83,6 +83,12 @@
 
             <com.google.android.material.button.MaterialButton
                 style="@style/Btn_Style"
+                android:onClick="goLayoutKRollText"
+                android:text="goLayoutKRollText"
+                tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Btn_Style"
                 android:onClick="goLayoutKSpinner"
                 android:text="goLayoutKSpinner"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

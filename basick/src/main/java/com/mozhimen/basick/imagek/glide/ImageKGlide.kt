@@ -26,21 +26,13 @@ object ImageKGlide {
 
 
     @JvmStatic
-    fun loadImage(
-        imageView: ImageView,
-        res: Any
-    ) {
+    fun loadImageGlide(imageView: ImageView, res: Any) {
         Glide.with(imageView).load(res)
             .into(imageView)
     }
 
     @JvmStatic
-    fun loadImageComplex(
-        imageView: ImageView,
-        res: Any,
-        placeholder: Int,
-        error: Int
-    ) {
+    fun loadImageComplexGlide(imageView: ImageView, res: Any, placeholder: Int, error: Int) {
         Glide.with(imageView).load(res)
             .transition(DrawableTransitionOptions.withCrossFade())
             .error(error)
@@ -50,18 +42,9 @@ object ImageKGlide {
 
     /**
      * 加载圆形图片
-     * @param imageView ImageView
-     * @param res Any
-     * @param placeholder Int
-     * @param error Int
      */
     @JvmStatic
-    fun loadImageCircle(
-        imageView: ImageView,
-        res: Any,
-        placeholder: Int,
-        error: Int
-    ) {
+    fun loadImageCircleGlide(imageView: ImageView, res: Any, placeholder: Int, error: Int) {
         Glide.with(imageView).load(res)
             .transition(DrawableTransitionOptions.withCrossFade())
             .transform(CircleCrop())
@@ -72,21 +55,12 @@ object ImageKGlide {
 
     /**
      * 加载带边框的圆角图片
-     * @param imageView ImageView
-     * @param res Any
-     * @param borderWidth Float
-     * @param borderColor Int
-     * @param placeholder Int
-     * @param error Int
      */
     @JvmStatic
-    fun loadImageBorderRoundedCorner(
-        imageView: ImageView,
-        res: Any,
+    fun loadImageBorderRoundedCornerGlide(
+        imageView: ImageView, res: Any, placeholder: Int, error: Int,
         borderWidth: Float,
-        borderColor: Int,
-        placeholder: Int,
-        error: Int
+        borderColor: Int
     ) {
         Glide.with(imageView).load(res)
             .transition(DrawableTransitionOptions.withCrossFade())
@@ -98,19 +72,11 @@ object ImageKGlide {
 
     /**
      * 加载圆角图片
-     * @param imageView ImageView
-     * @param res Any
-     * @param cornerRadius Int
-     * @param placeholder Int
-     * @param error Int
      */
     @JvmStatic
-    fun loadImageRoundedCorner(
-        imageView: ImageView,
-        res: Any,
-        cornerRadius: Int,
-        placeholder: Int,
-        error: Int
+    fun loadImageRoundedCornerGlide(
+        imageView: ImageView, res: Any, placeholder: Int, error: Int,
+        cornerRadius: Int
     ) {
         Glide.with(imageView).load(res)
             .transition(DrawableTransitionOptions.withCrossFade())

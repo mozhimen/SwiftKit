@@ -159,7 +159,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
 //        valueAnimator.addUpdateListener { animation -> imageAlpha = (animation.animatedValue as Int) }
 //        valueAnimator.start()
 
-        AnimKBuilder.asAnimator().add(AnimatorAlphaType().setAlpha(0f, 1f).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        AnimKBuilder.asAnimator().add(AnimatorAlphaType().setAlpha(0f, 1f).addAnimatorUpdateListener(object : IAnimatorUpdateListener<Int> {
             override fun onChange(value: Int) {
                 imageAlpha = value
             }
@@ -182,7 +182,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
 //        valueAnimator.addUpdateListener { animation -> imageAlpha = (animation.animatedValue as Int) }
 //        valueAnimator.start()
 
-        AnimKBuilder.asAnimator().add(AnimatorAlphaType().setAlpha(1f, 0f).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        AnimKBuilder.asAnimator().add(AnimatorAlphaType().setAlpha(1f, 0f).addAnimatorUpdateListener(object : IAnimatorUpdateListener<Int> {
             override fun onChange(value: Int) {
                 imageAlpha = value
             }

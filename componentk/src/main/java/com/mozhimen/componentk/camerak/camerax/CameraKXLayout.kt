@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.camerak.camerax
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
@@ -7,11 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.FrameLayout
-import androidx.camera.core.Preview
+import androidx.camera.core.FocusMeteringAction
 import androidx.camera.view.PreviewView
 import androidx.lifecycle.LifecycleOwner
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.elemk.android.hardware.commons.IDisplayListener
+import com.mozhimen.basick.elemk.android.view.bases.BaseGestureDetector
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.cons.CUseFeature
@@ -40,7 +42,7 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     BaseLayoutKFrame(context, attrs, defStyleAttr), ICameraKX {
 
     private val _cameraXKDelegate: CameraKXDelegate by lazy { CameraKXDelegate(this) }
-
+    private var _focusMeteringAction: FocusMeteringAction? = null
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     private var _previewView: PreviewView? = null
@@ -83,6 +85,40 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
             _previewView!!.viewTreeObserver.removeOnGlobalLayoutListener(this)
         }
     }
+
+    private val _zoomGestureDetector = object : BaseGestureDetector(context) {
+        //        override fun onZoomUp() {
+//            if (_cameraXKDelegate.zoomRatio < _cameraXKDelegate.maxZoomRatio) {
+//                _cameraXKDelegate.cameraControl?.setZoomRatio((_cameraXKDelegate.zoomRatio + 0.1).toFloat())
+//            }
+//        }
+//
+//        override fun onZoomDown() {
+//            if (_cameraXKDelegate.zoomRatio > _cameraXKDelegate.minZoomRatio) {
+//                _cameraXKDelegate.cameraControl?.setZoomRatio((_cameraXKDelegate.zoomRatio - 0.1).toFloat())
+//            }
+//        }
+        override fun onSingleClick(x: Float, y: Float) {
+            try {
+                _focusMeteringAction = FocusMeteringAction.Builder(_previewView!!.meteringPointFactory.createPoint(x, y)).build()
+                _cameraXKDelegate.cameraControl?.startFocusAndMetering(_focusMeteringAction!!)
+            } catch (_: Exception) {
+            }
+        }
+
+        override fun onScale(scaleFactor: Float) {
+            val zoomRatio = _cameraXKDelegate.zoomRatio
+            if (zoomRatio in _cameraXKDelegate.minZoomRatio.._cameraXKDelegate.maxZoomRatio)
+                _cameraXKDelegate.cameraControl?.setZoomRatio(zoomRatio * scaleFactor)
+        }
+
+        override fun onDoubleClick(x: Float, y: Float) {
+            if (_cameraXKDelegate.zoomRatio > _cameraXKDelegate.minZoomRatio)
+                _cameraXKDelegate.cameraControl?.setLinearZoom(0f)
+            else
+                _cameraXKDelegate.cameraControl?.setLinearZoom(0.5f)
+        }
+    }
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     init {
@@ -90,12 +126,16 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     //region # open fun
+    @SuppressLint("ClickableViewAccessibility")
     override fun initView() {
         val view = LayoutInflater.from(context).inflate(R.layout.cameraxk_preview_layout, this)
         _previewView =
             view.findViewById<PreviewView>(R.id.cameraxk_preview).apply {
                 addOnAttachStateChangeListener(_onAttachStateChangeListener)
                 viewTreeObserver.addOnGlobalLayoutListener(_onGlobalLayoutListener)
+                setOnTouchListener { v, event ->
+                    _zoomGestureDetector.onTouch(v, event)// 自定义预览界面touch类
+                }
             }
         _sliderContainer =
             view.findViewById<FrameLayout>(R.id.cameraxk_container)
@@ -176,3 +216,4 @@ class CameraKXLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         super.onDetachedFromWindow()
     }
 }
+

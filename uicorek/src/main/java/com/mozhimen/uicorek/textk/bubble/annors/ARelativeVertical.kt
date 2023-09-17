@@ -11,7 +11,7 @@ import androidx.annotation.IntDef
  */
 
 @IntDef(value = [ARelativeVertical.CENTER_VERTICAL, ARelativeVertical.ABOVE, ARelativeVertical.BELOW, ARelativeVertical.ALIGN_TOP, ARelativeVertical.ALIGN_BOTTOM])
-@kotlin.annotation.Retention(AnnotationRetention.SOURCE)
+@Retention(AnnotationRetention.SOURCE)
 annotation class ARelativeVertical {
     companion object {
         const val CENTER_VERTICAL = 0

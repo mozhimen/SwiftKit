@@ -34,4 +34,4 @@ import com.mozhimen.basick.elemk.android.view.cons.CGravity
     CGravity.END,
     CGravity.RELATIVE_HORIZONTAL_GRAVITY_MASK
 )
-annotation class AGravity()
+annotation class AGravity

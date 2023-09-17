@@ -88,8 +88,7 @@ class ImageKCircleText @JvmOverloads constructor(context: Context, attrs: Attrib
 
     override fun initAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
         attrs ?: return
-        val typedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.ImageKCircleText, defStyleAttr, 0)
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageKCircleText, defStyleAttr, 0)
         mBorderWidth =
             typedArray.getDimensionPixelSize(R.styleable.ImageKCircleText_imageKCircleText_borderWidth, DEFAULT_BORDER_WIDTH)
         mBorderColor =

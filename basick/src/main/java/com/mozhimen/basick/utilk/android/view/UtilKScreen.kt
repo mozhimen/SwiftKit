@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.view.WindowManager
 import androidx.annotation.FloatRange
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKConfiguration
 import com.mozhimen.basick.utilk.android.content.UtilKTheme
@@ -155,13 +156,36 @@ object UtilKScreen : BaseUtilK() {
     /**
      * 设置屏幕亮度
      * @param paramFloat Float 0-1范围
-     * @param activity Activity
      */
     @JvmStatic
-    fun applyBrightness(@FloatRange(from = 0.0, to = 1.0) paramFloat: Float, activity: Activity) {
+    fun applyBrightness(activity: Activity, @FloatRange(from = 0.0, to = 1.0) paramFloat: Float) {
         val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(activity)
         layoutParams.screenBrightness = paramFloat
         UtilKWindow.applyAttributes(activity, layoutParams)
+    }
+
+    @JvmStatic
+    fun applyMaxBrightness(activity: Activity, isMaxBrightness: Boolean) {
+        val layoutParams: WindowManager.LayoutParams = UtilKWindow.getAttributes(activity)
+        layoutParams.screenBrightness = if (isMaxBrightness) CWinMgr.Lp.BRIGHTNESS_OVERRIDE_FULL else CWinMgr.Lp.BRIGHTNESS_OVERRIDE_NONE
+        UtilKWindow.applyAttributes(activity, layoutParams)
+    }
+
+    /**
+     * 是否使屏幕常亮
+     */
+    @JvmStatic
+    fun keepScreen(activity: Activity, isKeepScreenOn: Boolean) {
+        if (isKeepScreenOn)
+            UtilKWindow.addFlags(activity, CWinMgr.Lpf.KEEP_SCREEN_ON)
+        else
+            UtilKWindow.clearFlags(activity, CWinMgr.Lpf.KEEP_SCREEN_ON)
+    }
+
+    @JvmStatic
+    fun keepScreen(activity: Activity, isKeepScreenOn: Boolean, isMaxBrightness: Boolean) {
+        keepScreen(activity, isKeepScreenOn)
+        applyMaxBrightness(activity, isMaxBrightness)
     }
 
     /**

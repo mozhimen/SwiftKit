@@ -10,4 +10,4 @@ import java.lang.ref.WeakReference
  * @Date 2022/2/27 17:56
  * @Version 1.0
  */
-open class BaseWeakRefMainHandler<T>(obj: T) : BaseWeakRefHandler<T>(Looper.getMainLooper(), WeakReference(obj))
+open class BaseWeakRefMainHandler<T>(obj: T) : BaseWeakRefHandler<T>(WeakReference(obj), Looper.getMainLooper())

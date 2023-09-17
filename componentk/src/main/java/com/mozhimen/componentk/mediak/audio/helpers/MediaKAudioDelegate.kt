@@ -102,41 +102,19 @@ internal class MediaKAudioDelegate(private val _owner: LifecycleOwner) : IMediaK
 
     override fun getPlayPositionNext(): Int {
         return when (_playMode) {
-            EMediaKAudioPlayMode.LIST_ONCE -> {
-                return 0
-            }
-
-            EMediaKAudioPlayMode.LIST_LOOP -> {
-                (_playPositionCurrent + 1) % _playList.size
-            }
-
-            EMediaKAudioPlayMode.LIST_RANDOM -> {
-                (0 until _playList.size).random() % _playList.size
-            }
-
-            EMediaKAudioPlayMode.SINGLE_REPEAT -> {
-                _playPositionCurrent
-            }
+            EMediaKAudioPlayMode.LIST_ONCE -> 0
+            EMediaKAudioPlayMode.LIST_LOOP -> (_playPositionCurrent + 1) % _playList.size
+            EMediaKAudioPlayMode.LIST_RANDOM -> (0 until _playList.size).random() % _playList.size
+            EMediaKAudioPlayMode.SINGLE_REPEAT -> _playPositionCurrent
         }
     }
 
     override fun getPlayPositionPrevious(): Int {
         return when (_playMode) {
-            EMediaKAudioPlayMode.LIST_ONCE -> {
-                0
-            }
-
-            EMediaKAudioPlayMode.LIST_LOOP -> {
-                (_playPositionCurrent + _playList.size - 1) % _playList.size
-            }
-
-            EMediaKAudioPlayMode.LIST_RANDOM -> {
-                (0 until _playList.size).random() % _playList.size
-            }
-
-            EMediaKAudioPlayMode.SINGLE_REPEAT -> {
-                _playPositionCurrent
-            }
+            EMediaKAudioPlayMode.LIST_ONCE -> 0
+            EMediaKAudioPlayMode.LIST_LOOP ->  (_playPositionCurrent + _playList.size - 1) % _playList.size
+            EMediaKAudioPlayMode.LIST_RANDOM -> (0 until _playList.size).random() % _playList.size
+            EMediaKAudioPlayMode.SINGLE_REPEAT -> _playPositionCurrent
         }
     }
 

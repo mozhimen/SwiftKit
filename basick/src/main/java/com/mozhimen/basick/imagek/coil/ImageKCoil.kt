@@ -78,19 +78,13 @@ fun ImageView.loadImageCropCoil(
 object ImageKCoil {
 
     @JvmStatic
-    fun loadImage(
-        imageView: ImageView,
-        res: Any
-    ) {
+    fun loadImage(imageView: ImageView, res: Any) {
         imageView.load(res)
     }
 
     @JvmStatic
     fun loadImageComplex(
-        imageView: ImageView,
-        res: Any,
-        placeholder: Int,
-        error: Int,
+        imageView: ImageView, res: Any, placeholder: Int, error: Int,
         crossFadeEnable: Boolean = true,
         crossFadeTime: Int = 1000
     ) {
@@ -104,10 +98,6 @@ object ImageKCoil {
 
     /**
      * 加载高斯模糊图
-     * @param imageView ImageView
-     * @param res Any
-     * @param radius Float
-     * @param sampling Float
      */
     @JvmStatic
     fun loadImageBlur(
@@ -126,8 +116,6 @@ object ImageKCoil {
 
     /**
      * 加载灰度图
-     * @param imageView ImageView
-     * @param res Any
      */
     @JvmStatic
     fun loadImageGray(imageView: ImageView, res: Any) {
@@ -138,9 +126,6 @@ object ImageKCoil {
 
     /**
      * 加载颜色过滤图片
-     * @param imageView ImageView
-     * @param res Any
-     * @param color Int
      */
     @JvmStatic
     fun loadImageColorFilter(imageView: ImageView, res: Any, @ColorInt color: Int) {
@@ -151,8 +136,6 @@ object ImageKCoil {
 
     /**
      * 加载圆形图片
-     * @param imageView ImageView
-     * @param res Any
      */
     @JvmStatic
     fun loadImageCircle(imageView: ImageView, res: Any) {
@@ -163,12 +146,6 @@ object ImageKCoil {
 
     /**
      * 加载圆形图片
-     * @param imageView ImageView
-     * @param res Any
-     * @param placeholder Int
-     * @param error Int
-     * @param crossFadeEnable Boolean
-     * @param crossFadeTime Int
      */
     @JvmStatic
     fun loadImageCircleComplex(
@@ -187,9 +164,6 @@ object ImageKCoil {
 
     /**
      * 加载圆角图片
-     * @param imageView ImageView
-     * @param res Any
-     * @param roundedCornerRadius Int
      */
     @JvmStatic
     fun loadImageRoundedCorner(
@@ -203,9 +177,6 @@ object ImageKCoil {
 
     /**
      * 加载裁剪图片
-     * @param imageView ImageView
-     * @param res Any
-     * @param cropType CropType
      */
     @JvmStatic
     fun loadImageCrop(

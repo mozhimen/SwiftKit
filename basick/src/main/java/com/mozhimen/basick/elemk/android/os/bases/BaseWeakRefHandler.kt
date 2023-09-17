@@ -18,7 +18,26 @@ interface IBaseWeakRefHandler<T> {
     fun isRefActive(): Boolean
 }
 
-open class BaseWeakRefHandler<T>(looper: Looper, protected var objRef: WeakReference<T>? = null) : Handler(looper), IUtilK, IBaseWeakRefHandler<T> {
+open class BaseWeakRefHandler<T> : Handler, IUtilK, IBaseWeakRefHandler<T> {
+    protected var objRef: WeakReference<T>? = null
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+    constructor() : this(null)
+
+    constructor(looper: Looper) : this(null, looper)
+
+    constructor(objRef: WeakReference<T>?) : super() {
+        this.objRef = objRef
+    }
+
+    constructor(objRef: WeakReference<T>?, looper: Looper) : super(looper) {
+        this.objRef = objRef
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+
+
     override fun getRef(): T? =
         objRef?.get()
 

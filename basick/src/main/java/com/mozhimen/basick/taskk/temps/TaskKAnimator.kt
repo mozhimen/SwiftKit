@@ -37,7 +37,7 @@ class TaskKAnimator : BaseWakeBefDestroyTaskK() {
      */
     fun betweenColors(view: View, colorStart: Int, colorEnd: Int) {
         val colorDrawable = ColorDrawable(colorStart)
-        val colorAnimator = AnimKBuilder.asAnimator().add(AnimatorColorRecyclerType().setColorRange(colorStart, colorEnd).addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        val colorAnimator = AnimKBuilder.asAnimator().add(AnimatorColorRecyclerType().setColorRange(colorStart, colorEnd).addAnimatorUpdateListener(object : IAnimatorUpdateListener<Int> {
             override fun onChange(value: Int) {
                 colorDrawable.color = value
                 ViewCompat.setBackground(view, colorDrawable)
@@ -54,7 +54,7 @@ class TaskKAnimator : BaseWakeBefDestroyTaskK() {
      */
     fun alphaFlash(view: View, @FloatRange(from = 0.0, to = 1.0) alphaEnd: Float, @FloatRange(from = 0.0, to = 1.0) alphaStart: Float = 1f) {
         val alphaDrawable = view.background
-        val alphaAnimator = AnimKBuilder.asAnimator().add(AnimatorAlphaType().addAnimatorUpdateListener(object : IAnimatorUpdateListener {
+        val alphaAnimator = AnimKBuilder.asAnimator().add(AnimatorAlphaType().addAnimatorUpdateListener(object : IAnimatorUpdateListener<Int> {
             override fun onChange(value: Int) {
                 alphaDrawable.alpha = value
                 ViewCompat.setBackground(view, alphaDrawable)

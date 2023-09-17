@@ -2,8 +2,8 @@
 <resources>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
     <!--btnk-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <declare-styleable name="BtnKIconFont">
         <attr name="btnKIconFont_fontPath" format="string" />
     </declare-styleable>
@@ -15,8 +15,8 @@
     </declare-styleable>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
     <!--imagek-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <declare-styleable name="ImageKSquare">
         <attr name="imageKSquare_measureMode" format="enum">
             <enum name="measureMin" value="0" />
@@ -38,7 +38,17 @@
     </declare-styleable>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
+    <!--layoutk-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <declare-styleable name="LayoutKRollText">
+        <attr name="layoutKRollText_animatorMode" format="enum">
+            <enum name="up" value="1" />
+            <enum name="down" value="2" />
+        </attr>
+        <attr name="layoutKRollText_animatorDuration" format="integer" />
+        <attr name="layoutKRollText_textSize" format="float" />
+        <attr name="layoutKRollText_textColor" format="color|reference" />
+    </declare-styleable>
     <!--layoutk_search-->
     <attr name="LayoutKSearch_LayoutKSearch_Style" format="reference" />
     <declare-styleable name="LayoutKSearch">
@@ -282,8 +292,8 @@
     </declare-styleable>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
     <!--textk-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <declare-styleable name="TextKBubble">
         <!--设置箭头朝向-->
         <attr name="textKBubble_arrowDirection" format="enum">
@@ -374,8 +384,8 @@
     </declare-styleable>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
     <!--viewk-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <declare-styleable name="ViewKWheel">
         <attr name="viewKWheel_gravity">
             <enum name="center" value="17" />

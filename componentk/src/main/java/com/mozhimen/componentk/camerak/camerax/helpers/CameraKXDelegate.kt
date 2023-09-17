@@ -14,6 +14,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.google.android.material.slider.Slider
 import com.mozhimen.basick.elemk.java.util.bases.BaseHandlerExecutor
 import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
@@ -22,6 +24,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.androidx.lifecycle.runOnMainScope
 import com.mozhimen.componentk.camerak.camerax.CameraKXLayout
+import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXCaptureMode
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFormat
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXRotation
@@ -50,16 +53,18 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
     private var _cameraXKCaptureListener: ICameraKXCaptureListener? = null
     private var _cameraXKFrameListener: ICameraXKFrameListener? = null
     private var _cameraXKTimer = ECameraKXTimer.OFF
+    private var _imageFormatFrame: Int = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
+    private var _imageCaptureMode = ACameraKXCaptureMode.MAXIMIZE_QUALITY
+    private var _isCameraSingle: Boolean = false
+    private var _isCameraOpen: Boolean = false
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
     private var _preview: Preview? = null
     private var _cameraSelectorFacing: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA//显示相机选择的选择器(正面或背面) Selector showing which camera is selected (front or back)
     private var _cameraSelectorHdr: CameraSelector? = null
-    private var _isCameraSingle: Boolean = false
-    private var _isCameraOpen: Boolean = false
+    private var _zoomState: LiveData<ZoomState>? = null
 
-    private var _imageFormatFrame: Int = ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
     private var _imageCapture: ImageCapture? = null
     private var _imageCaptureBitmap: Bitmap? = null
     private var _imageAnalysis: ImageAnalysis? = null
@@ -94,9 +99,32 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
         _cameraXKFrameListener?.invoke(imageProxy)
     }
 
+    private val _zoomRatioObserver: Observer<ZoomState> = object : Observer<ZoomState> {
+        override fun onChanged(t: ZoomState?) {
+            t?.let { zoomRatio = it.zoomRatio }
+        }
+    }
     //////////////////////////////////////////////////////////////////////////////////////////////
 
-    internal var _isCameraOpening: Boolean by Delegates.observable(false) { _, old, new ->//选择器显示是否启用hdr(只有当设备的摄像头在硬件层面支持hdr时才会工作) Selector showing is hdr enabled or not (will work, only if device's camera supports hdr on hardware level)
+    internal var camera: Camera? by Delegates.observable(null) { _, old, new ->
+        if (old == new || new == null) return@observable
+        _zoomState = camera!!.cameraInfo.zoomState.apply {
+            maxZoomRatio = value!!.maxZoomRatio
+            minZoomRatio = value!!.minZoomRatio
+            zoomRatio = value!!.zoomRatio
+            removeObserver(_zoomRatioObserver)
+            observe(_lifecycleOwner, _zoomRatioObserver)
+        }
+    }
+
+    internal val cameraControl: CameraControl?
+        get() = camera?.cameraControl
+
+    internal var maxZoomRatio = 0f
+    internal var minZoomRatio = 0f
+    internal var zoomRatio = 0f
+
+    internal var isCameraOpening: Boolean by Delegates.observable(false) { _, old, new ->//选择器显示是否启用hdr(只有当设备的摄像头在硬件层面支持hdr时才会工作) Selector showing is hdr enabled or not (will work, only if device's camera supports hdr on hardware level)
         if (old == new) return@observable
         _isCameraOpen = !new
     }
@@ -141,6 +169,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
             ACameraKXFormat.RGBA_8888 -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_RGBA_8888
             else -> ImageAnalysis.OUTPUT_IMAGE_FORMAT_YUV_420_888
         }
+        _imageCaptureMode = config.captureMode
         lensFacing = config.facing
     }
 
@@ -150,7 +179,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
 
     @SuppressLint("NewApi")
     override fun restartCameraKX() {
-        _isCameraOpening = true
+        isCameraOpening = true
         try {
             val cameraProviderFuture = ProcessCameraProvider.getInstance(_context)
             cameraProviderFuture.addListener(
@@ -173,7 +202,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                     _imageCapture = ImageCapture.Builder()//图像捕获的配置 The Configuration of image capture
                         .setTargetAspectRatio(this.aspectRatio) // set the capture aspect ratio
                         .setTargetRotation(this.rotation) // set the capture rotation
-                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY) // setting to have pictures with highest quality possible (may be slow)
+                        .setCaptureMode(_imageCaptureMode) // setting to have pictures with highest quality possible (may be slow)
                         .setFlashMode(this.flashMode) // set capture flash
                         .build()
 
@@ -186,6 +215,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                     _imageAnalysis = ImageAnalysis.Builder()
                         .setTargetAspectRatio(this.aspectRatio) // set the analyzer aspect ratio
                         .setTargetRotation(this.rotation) // set the analyzer rotation
+                        .setOutputImageRotationEnabled(true)
                         .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST) // in our analysis, we care about the latest image
                         .setOutputImageFormat(_imageFormatFrame.also { Log.d(TAG, "restartCameraKX: _imageFormatFrame $_imageFormatFrame") })
                         .build()
@@ -201,7 +231,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
                 },
                 ContextCompat.getMainExecutor(_context)
             )
-            _isCameraOpening = false
+            isCameraOpening = false
         } catch (e: InterruptedException) {
             _cameraXKListener?.onCameraStartFail(e.message ?: "").also { "startCamera InterruptedException ${e.message ?: ""}".et(TAG) }
         } catch (e: ExecutionException) {
@@ -270,6 +300,8 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
             _handlerThreadAnalyzer?.interrupt()
             _handlerThreadAnalyzer = null
         }
+        _zoomState?.removeObserver(_zoomRatioObserver)
+        _zoomState = null
         _isCameraOpen = false
     }
     //endregion
@@ -289,7 +321,7 @@ class CameraKXDelegate(private val _cameraKXLayout: CameraKXLayout) : ICameraKX,
             _cameraSelectorFacing.cameraFilterSet.clear()
             _cameraSelectorFacing.cameraFilterSet.add(OtherCameraFilter(cameraInfo.cameraId))
         }
-        localCameraProvider.bindToLifecycle(
+        camera = localCameraProvider.bindToLifecycle(
             _lifecycleOwner, // current lifecycle owner
             /*_hdrCameraSelector ?: */
             _cameraSelectorFacing, // either front or back facing

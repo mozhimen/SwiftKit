@@ -32,7 +32,7 @@ class CrashKMgr : ICrashKMgr {
     fun init(
         crashKJavaListener: ICrashKListener? = null,
         crashKNativeListener: ICrashKListener? = null,
-        isRestart: Boolean = false
+        isRestart: Boolean = true
     ) {
         _crashKJava.setEnableRestart(isRestart).init(crashKJavaListener)
         _crashKNative.init(crashKNativeListener)

@@ -57,6 +57,10 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
         startContext<LayoutKEmptyActivity>()
     }
 
+    fun goLayoutKRollText(view: View) {
+        startContext<LayoutKRollTextActivity>()
+    }
+
     fun goLayoutKSpinner(view: View) {
         startContext<LayoutKSpinnerActivity>()
     }

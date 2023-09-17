@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/toast_text"
-        style="@style/Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Normal.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap"
+        style="@style/Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap"
         android:layout_marginHorizontal="@dimen/dp_005"
         android:layout_marginVertical="@dimen/dp_005"
         tools:text="this is test" />

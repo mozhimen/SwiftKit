@@ -23,7 +23,7 @@ class TaskKPoll : BaseWakeBefDestroyTaskK() {
      * @param times Int 循环次数
      * @param task SuspendFunction1<Int, Unit>
      */
-    fun start(interval: Long, times: Int, task: ISuspendA_Listener<Int>/*suspend (Int) -> Unit*/, onFinish: I_Listener? = null) {
+    fun start(intervalMillis: Long, times: Int, task: ISuspendA_Listener<Int>/*suspend (Int) -> Unit*/, onFinish: I_Listener? = null) {
         if (isActive()) return
         _time = times
         val scope = CoroutineScope(Dispatchers.IO)
@@ -37,7 +37,7 @@ class TaskKPoll : BaseWakeBefDestroyTaskK() {
                     e.message?.et(TAG)
                 }
                 _time--
-                delay(interval)
+                delay(intervalMillis)
             }
             onFinish?.invoke()
             this@TaskKPoll.cancel()

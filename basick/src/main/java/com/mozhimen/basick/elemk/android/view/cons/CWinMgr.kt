@@ -16,6 +16,8 @@ object CWinMgr {
         const val WRAP_CONTENT = WindowManager.LayoutParams.WRAP_CONTENT
         const val MATCH_PARENT = WindowManager.LayoutParams.MATCH_PARENT
         const val FILL_PARENT = WindowManager.LayoutParams.FILL_PARENT
+        const val BRIGHTNESS_OVERRIDE_FULL = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_FULL
+        const val BRIGHTNESS_OVERRIDE_NONE = WindowManager.LayoutParams.BRIGHTNESS_OVERRIDE_NONE
     }
 
     object Lpf {

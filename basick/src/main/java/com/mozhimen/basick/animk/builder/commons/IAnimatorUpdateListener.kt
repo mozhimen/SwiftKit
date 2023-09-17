@@ -7,6 +7,6 @@ package com.mozhimen.basick.animk.builder.commons
  * @Date 2022/11/20 22:53
  * @Version 1.0
  */
-interface IAnimatorUpdateListener {
-    fun onChange(value: Int)
+interface IAnimatorUpdateListener<T> {
+    fun onChange(value: T)
 }

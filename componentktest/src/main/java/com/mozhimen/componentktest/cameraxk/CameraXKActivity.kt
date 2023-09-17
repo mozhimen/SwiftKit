@@ -61,7 +61,7 @@ class CameraXKActivity : BaseActivityVB<ActivityCameraxkBinding>() {
     private fun initCamera() {
 //        vb.cameraxkPreviewLayout.previewView?.scaleType = PreviewView.ScaleType.FILL_CENTER
         vb.cameraxkPreviewLayout.apply {
-            initCameraKX(this@CameraXKActivity, MCameraKXConfig(_format, ACameraKXFacing.FRONT))
+            initCameraKX(this@CameraXKActivity, MCameraKXConfig(_format, ACameraKXFacing.BACK))
             setCameraXFrameListener(_cameraKXFrameListener)
             setCameraXCaptureListener(_cameraKXCaptureListener)
         }
