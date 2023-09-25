@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.download.cons
+package com.mozhimen.componentk.netk.file.download
 
 /**
  * @ClassName CDownloadParameter
@@ -24,9 +24,6 @@ object CDownloadParameter {
     const val EXTRA_URL = "url"
     const val EXTRA_FROM = "from"
     const val EXTRA_FROM_NOTIFIER = 2
-
-    const val DOWNLOAD_ENGINE_EMBED = 0//使用内置的下载引擎
-    const val DOWNLOAD_ENGINE_SYSTEM_DM = 1//使用系统的 DownloadManager
 
     const val NOTIFICATION_CHANNEL_ID = "download_channel_normal"
     const val EMBED_HTTP_TEMP_REDIRECT = 307

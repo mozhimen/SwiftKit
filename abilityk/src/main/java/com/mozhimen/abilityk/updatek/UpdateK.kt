@@ -17,10 +17,10 @@ import com.mozhimen.basick.utilk.kotlin.getSplitLast
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.componentk.installk.InstallK
-import com.mozhimen.componentk.netk.file.download.DownloadListener
+import com.mozhimen.componentk.netk.file.download.commons.IDownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
+import com.mozhimen.componentk.netk.file.download.annors.ADownloadEngine
+import com.mozhimen.componentk.netk.file.download.annors.ANotificationVisibility
 import com.mozhimen.underlayk.logk.LogK
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -143,7 +143,7 @@ class UpdateK : BaseUtilK() {
 //        })
         ///////////////////////////////////////////////////////////////////
         _downloadRequest = createCommonRequest(url, destApkPathWithName)
-        _downloadRequest?.registerListener(object : DownloadListener {
+        _downloadRequest?.registerListener(object : IDownloadListener {
             override fun onDownloadStart() {
                 Log.d(TAG, "downloadApk onDownloadStart")
             }
@@ -221,8 +221,8 @@ class UpdateK : BaseUtilK() {
     }
 
     private fun createCommonRequest(url: String, destApkPathWithName: String): DownloadRequest =
-        DownloadRequest(_context, url, CDownloadParameter.DOWNLOAD_ENGINE_EMBED)
-            .setNotificationVisibility(CDownloadConstants.NOTIFIER_HIDDEN)
+        DownloadRequest(_context, url, ADownloadEngine.EMBED)
+            .setNotificationVisibility(ANotificationVisibility.HIDDEN)
             .setShowNotificationDisableTip(false)
             .setDestinationUri(Uri.fromFile(File(destApkPathWithName)))
 

@@ -1,13 +1,11 @@
-package com.mozhimen.componentk.netk.file.download
+package com.mozhimen.componentk.netk.file.download.commons
 
 import android.net.Uri
 
 /**
- *
  * @author by chiclaim@google.com
  */
-interface DownloadListener {
-
+interface IDownloadListener {
     fun onDownloadStart()
     fun onProgressUpdate(percent: Int)
     fun onDownloadComplete(uri: Uri)

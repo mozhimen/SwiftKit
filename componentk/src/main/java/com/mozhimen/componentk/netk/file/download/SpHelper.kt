@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.download.utils
+package com.mozhimen.componentk.netk.file.download
 
 import android.content.Context
 import android.content.SharedPreferences

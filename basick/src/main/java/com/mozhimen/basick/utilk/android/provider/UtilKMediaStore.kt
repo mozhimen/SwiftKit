@@ -1,6 +1,10 @@
 package com.mozhimen.basick.utilk.android.provider
 
 import android.net.Uri
+import android.provider.MediaStore
+import androidx.annotation.RequiresApi
+import com.mozhimen.basick.elemk.android.os.cons.CBuild
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.database.getColumnString
@@ -18,12 +22,17 @@ fun Uri.getMediaColumnsString(selection: String? = null, selectionArgs: Array<St
     UtilKMediaStore.getMediaColumnsString(this, selection, selectionArgs)
 
 object UtilKMediaStore : BaseUtilK() {
+    /**
+     * api 24?
+     */
     @JvmStatic
     fun getMediaColumnsString(uri: Uri, selection: String? = null, selectionArgs: Array<String>? = null): String? {
         try {
             val cursor = UtilKContentResolver.query(_context, uri, arrayOf(CMediaStore.MediaColumns.DATA), selection, selectionArgs, null)
             cursor?.use {
                 if (cursor.moveToFirst()) {
+                    val index = cursor.getColumnIndex(CMediaStore.MediaColumns.DATA)
+                    if (index == -1) return null
                     val data = cursor.getColumnString(CMediaStore.MediaColumns.DATA)
                     if (data != "null")
                         return data

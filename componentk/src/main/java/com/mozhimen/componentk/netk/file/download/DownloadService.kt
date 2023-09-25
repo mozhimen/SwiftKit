@@ -6,13 +6,13 @@ import android.net.Uri
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
+import com.mozhimen.componentk.netk.file.download.commons.IDownloadListener
 
 /**
  *
  * @author by chiclaim@google.com
  */
-internal class DownloadService : Service(), DownloadListener {
+internal class DownloadService : Service(), IDownloadListener {
 
     private val handler by lazy {
         Handler(Looper.getMainLooper())

@@ -69,9 +69,6 @@ schemeSpecificPart: //com.android.providers.media.documents/document/image:27391
 userInfo: null
  */
 
-fun String.strUri2uri(): Uri =
-    UtilKUri.strUri2uri(this)
-
 fun Uri.isAuthorityDownloadsDocument(): Boolean =
     UtilKUri.isAuthorityDownloadsDocument(this)
 
@@ -81,12 +78,33 @@ fun Uri.isAuthorityExternalStorageDocument(): Boolean =
 fun Uri.isAuthorityMediaDocument(): Boolean =
     UtilKUri.isAuthorityMediaDocument(this)
 
+/////////////////////////////////////////////////////////////////////////////
+
+fun String.strFilePath2uri(): Uri? =
+    UtilKUri.strFilePath2uri(this)
+
+fun File.file2uri(): Uri? =
+    UtilKUri.file2uri(this)
+
+fun String.strUri2uri(): Uri =
+    UtilKUri.strUri2uri(this)
+
+fun Uri.uri2strFilePath(): String? =
+    UtilKUri.uri2strFilePath(this)
+
+fun Uri.uri2file(): File? =
+    UtilKUri.uri2file(this)
+
+fun Uri.uri2bitmap(): Bitmap =
+    UtilKUri.uri2bitmap(this)
+
+fun Uri.uri2bitmap2(): Bitmap? =
+    UtilKUri.uri2bitmap2(this)
+
 object UtilKUri : BaseUtilK() {
 
     /**
      * 获取PackageUri
-     * @param context Context
-     * @return Uri
      */
     @JvmStatic
     fun getPackageUri(context: Context): Uri =
@@ -94,8 +112,6 @@ object UtilKUri : BaseUtilK() {
 
     /**
      * 获取PackageUri
-     * @param context Context
-     * @return Uri
      */
     @JvmStatic
     fun getPackageUri2(context: Context): Uri =
@@ -119,17 +135,11 @@ object UtilKUri : BaseUtilK() {
 
     /**
      * 文件转Uri
-     * @param filePathWithName String
-     * @return Uri
      */
     @JvmStatic
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun strFilePath2uri(filePathWithName: String): Uri? =
         file2uri(File(filePathWithName))
-
-    @JvmStatic
-    fun strUri2uri(uriStr: String): Uri =
-        Uri.parse(uriStr)
 
     @JvmStatic
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
@@ -146,6 +156,10 @@ object UtilKUri : BaseUtilK() {
             }
         } else Uri.fromFile(file)
     }
+
+    @JvmStatic
+    fun strUri2uri(strUri: String): Uri =
+        Uri.parse(strUri)
 
     @SuppressLint("Recycle")
     @JvmStatic
@@ -175,14 +189,14 @@ object UtilKUri : BaseUtilK() {
                                 return "${UtilKStrPath.Absolute.External.getEnvStorageDir()}/$path"
                             else if (type.equals(CMediaStore.Type.RAW, true))
                                 return path
-                            when {
+                            val externalContentUri = when {
                                 type.equals(CMediaStore.Type.VIDEO, true) -> CMediaStore.Video.Media.EXTERNAL_CONTENT_URI
                                 type.equals(CMediaStore.Type.AUDIO, true) -> CMediaStore.Audio.Media.EXTERNAL_CONTENT_URI
                                 type.equals(CMediaStore.Type.IMAGE, true) -> CMediaStore.Images.Media.EXTERNAL_CONTENT_URI
                                 else -> null
-                            }?.let {
-                                return it.getMediaColumnsString("${CMediaStore.MediaColumns._ID}=?", arrayOf(path))
                             }
+                            if (externalContentUri != null)
+                                return externalContentUri.getMediaColumnsString("${CMediaStore.MediaColumns._ID}=?", arrayOf(path))
                         }
                     }
 
@@ -203,8 +217,6 @@ object UtilKUri : BaseUtilK() {
 
     /**
      * 从相册获得图片
-     * @param uri Uri
-     * @return Bitmap?
      */
     @JvmStatic
     fun uri2bitmap(uri: Uri): Bitmap =
@@ -249,6 +261,4 @@ object UtilKUri : BaseUtilK() {
             realInputStream?.close()
         }
     }
-
-
 }

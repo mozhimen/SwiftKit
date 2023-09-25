@@ -1,10 +1,9 @@
 package com.mozhimen.basick.utilk.android.content
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.provider.MediaStore
-import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
@@ -18,6 +17,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.kotlin.UtilKString
+import java.io.File
 
 /**
  * @ClassName UtilKIntent
@@ -53,7 +53,6 @@ object UtilKIntent {
 
     /**
      * 选择系统文件
-     * @return Intent
      */
     @JvmStatic
     fun getPick(): Intent =
@@ -61,7 +60,6 @@ object UtilKIntent {
 
     /**
      * 选择系统图像
-     * @return Intent
      */
     @JvmStatic
     fun getPickImage(): Intent =
@@ -72,7 +70,7 @@ object UtilKIntent {
         Intent(CIntent.ACTION_GET_CONTENT)
 
     @JvmStatic
-    fun getContentAudio():Intent =
+    fun getContentAudio(): Intent =
         getContent().apply { setType(CMediaFormat.MIMETYPE_AUDIO_ALL) }
 
     @JvmStatic
@@ -80,13 +78,12 @@ object UtilKIntent {
         getContent().apply { setType(CMediaFormat.MIMETYPE_VIDEO_ALL) }
 
     @JvmStatic
-    fun getContentAudioVideo():Intent =
+    fun getContentAudioVideo(): Intent =
         getContent().apply { setType("${CMediaFormat.MIMETYPE_AUDIO_ALL};${CMediaFormat.MIMETYPE_VIDEO_ALL}") }
 
     /**
      * Get location source settings
      *  定位服务
-     * @return
      */
     @JvmStatic
     fun getLocationSourceSettings(): Intent =
@@ -94,7 +91,6 @@ object UtilKIntent {
 
     /**
      * 获取设置无障碍
-     * @return Intent
      */
     @JvmStatic
     fun getAccessibilitySettings(): Intent =
@@ -102,8 +98,6 @@ object UtilKIntent {
 
     /**
      * 管理APP设置
-     * @param context Context
-     * @return Intent
      */
     @JvmStatic
     fun getApplicationDetailsSettings(context: Context): Intent =
@@ -111,8 +105,6 @@ object UtilKIntent {
 
     /**
      * 管理通知
-     * @param context Context
-     * @return Intent
      */
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
@@ -123,8 +115,6 @@ object UtilKIntent {
 
     /**
      * 获取管理所有APP
-     * @param context Context
-     * @return Intent
      */
     @RequiresApi(CVersCode.V_30_11_R)
     @JvmStatic
@@ -134,8 +124,6 @@ object UtilKIntent {
 
     /**
      * 获取管理悬浮窗
-     * @param context Context
-     * @return Intent
      */
     @RequiresApi(CVersCode.V_23_6_M)
     @JvmStatic
@@ -144,8 +132,6 @@ object UtilKIntent {
 
     /**
      * 获取管理安装
-     * @param context Context
-     * @return Intent
      */
     @RequiresApi(CVersCode.V_26_8_O)
     @JvmStatic
@@ -154,9 +140,6 @@ object UtilKIntent {
 
     /**
      * 获取mainLauncher
-     * @param packageName String
-     * @param launcherActivityName String
-     * @return Intent
      */
     @JvmStatic
     fun getMainLauncher(packageName: String, launcherActivityName: String): Intent =
@@ -167,9 +150,6 @@ object UtilKIntent {
 
     /**
      * 获取mainLauncher
-     * @param packageName String
-     * @param uri Uri?
-     * @return Intent
      */
     @JvmStatic
     fun getMainLauncher(packageName: String, uri: Uri? = null): Intent =
@@ -180,8 +160,6 @@ object UtilKIntent {
 
     /**
      * 获取启动App的Intent
-     * @param packageName String
-     * @return Intent?
      */
     @JvmStatic
     fun getLauncherActivity(context: Context, packageName: String): Intent? {
@@ -196,18 +174,33 @@ object UtilKIntent {
 
     /**
      * 获取安装app的intent
-     * @param filePathWithName String
-     * @return Intent?
      */
-    @RequiresApi(CVersCode.V_23_6_M)
+    @SuppressLint("InlinedApi")
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
-    fun getInstall(filePathWithName: String): Intent? {
+    fun getInstall(filePathWithName: String): Intent? =
+        UtilKUri.strFilePath2uri(filePathWithName)?.let { getInstall(it) }
+
+    /**
+     * 获取安装app的intent
+     */
+    @SuppressLint("InlinedApi")
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    fun getInstall(apkFile: File): Intent? =
+        UtilKUri.file2uri(apkFile)?.let { getInstall(it) }
+
+    /**
+     * 获取安装app的intent
+     */
+    @SuppressLint("InlinedApi")
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    fun getInstall(apkUri: Uri): Intent {
         val intent = Intent(CIntent.ACTION_VIEW)
-        if (UtilKBuildVersion.isAfterV_24_7_N()) {//判断安卓系统是否大于7.0  大于7.0使用以下方法
+        if (UtilKBuildVersion.isAfterV_24_7_N()) //判断安卓系统是否大于7.0  大于7.0使用以下方法
             intent.addFlags(CIntent.FLAG_GRANT_READ_URI_PERMISSION) //增加读写权限//添加这一句表示对目标应用临时授权该Uri所代表的文件
-        }
-        intent.setDataAndType(UtilKUri.strFilePath2uri(filePathWithName) ?: return null, "application/vnd.android.package-archive")
+        intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
         return intent
     }
 

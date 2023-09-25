@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.content
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageInstaller
@@ -14,9 +15,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.dt
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 import java.io.*
 
@@ -27,6 +26,7 @@ import java.io.*
  * @Date 2023/1/4 23:29
  * @Version 1.0
  */
+@SuppressLint("InlinedApi")
 @AManifestKRequire(
     CPermission.INSTALL_PACKAGES,
     CPermission.REQUEST_INSTALL_PACKAGES,
@@ -52,7 +52,7 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     fun openSettingAppInstall(activity: Activity) {
-        UtilKLaunchActivity.startManageInstallSource(activity)
+        UtilKLaunchActivity.startManageUnknownInstallSource(activity)
     }
 
     /**
@@ -61,7 +61,7 @@ object UtilKAppInstall : BaseUtilK() {
      */
     @JvmStatic
     fun openSettingAppInstall(context: Context) {
-        UtilKLaunchActivity.startManageInstallSource(context)
+        UtilKLaunchActivity.startManageUnknownInstallSource(context)
     }
 
     @JvmStatic
@@ -74,7 +74,6 @@ object UtilKAppInstall : BaseUtilK() {
     /**
      * 手动安装
      * if sdk >= 24 add provider
-     * @param apkPathWithName String
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)

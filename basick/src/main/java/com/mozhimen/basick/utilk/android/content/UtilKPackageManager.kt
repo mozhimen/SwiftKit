@@ -13,8 +13,10 @@ import android.graphics.drawable.Drawable
 import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
+import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 
@@ -26,6 +28,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
  * @Date 2023/3/20 10:50
  * @Version 1.0
  */
+@SuppressLint("InlinedApi")
 @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
 object UtilKPackageManager {
 
@@ -47,19 +50,18 @@ object UtilKPackageManager {
 
     /**
      * 得到应用名
-     * @param context Context
-     * @param applicationInfo ApplicationInfo
-     * @return String
      */
     @JvmStatic
     fun getApplicationLabel(context: Context, applicationInfo: ApplicationInfo): String =
         get(context).getApplicationLabel(applicationInfo).toString()
 
+
+    @JvmStatic
+    fun getApplicationEnabledSetting(context: Context, packageName: String): Int =
+        get(context).getApplicationEnabledSetting(packageName)
+
     /**
      * 得到图标信息
-     * @param context Context
-     * @param applicationInfo ApplicationInfo
-     * @return Drawable
      */
     @JvmStatic
     fun getApplicationIcon(context: Context, applicationInfo: ApplicationInfo): Drawable =
@@ -67,9 +69,6 @@ object UtilKPackageManager {
 
     /**
      * 查询所有的符合Intent的Activities
-     * @param intent Intent
-     * @param flags Int
-     * @return List<ResolveInfo>
      */
     @SuppressLint("QueryPermissionsNeeded")
     @JvmStatic
@@ -79,8 +78,22 @@ object UtilKPackageManager {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
+     * 系统的下载组件是否可用
+     */
+    fun isDownloadComponentEnabled(context: Context): Boolean {
+        try {
+            val setting = getApplicationEnabledSetting(context, CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS)
+            if (setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER || setting == CPackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED)
+                return false
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
+        return true
+    }
+
+    /**
      * 是否有前置
-     * @return Boolean
      */
     @JvmStatic
     fun hasFrontCamera(context: Context): Boolean =
@@ -88,7 +101,6 @@ object UtilKPackageManager {
 
     /**
      * 是否有后置
-     * @return Boolean
      */
     @JvmStatic
     fun hasBackCamera(context: Context): Boolean =
@@ -96,7 +108,6 @@ object UtilKPackageManager {
 
     /**
      * 是否有配置
-     * @param featureName String
      */
     @JvmStatic
     fun hasSystemFeature(context: Context, featureName: String): Boolean =
@@ -104,7 +115,6 @@ object UtilKPackageManager {
 
     /**
      * 是否有包安装权限
-     * @return Boolean
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_26_8_O)

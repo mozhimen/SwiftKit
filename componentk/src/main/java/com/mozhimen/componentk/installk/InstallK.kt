@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.installk
 
+import android.annotation.SuppressLint
 import android.os.*
 import android.util.Log
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
@@ -33,6 +34,7 @@ import java.io.*
  * @Date 2023/1/7 0:04
  * @Version 1.0
  */
+@SuppressLint("InlinedApi")
 @OptInDeviceRoot
 @AManifestKRequire(
     CPermission.READ_EXTERNAL_STORAGE,

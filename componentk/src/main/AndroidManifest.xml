@@ -37,7 +37,7 @@
         tools:targetApi="m">
 
         <receiver
-            android:name=".netk.file.download.SystemDownloadReceiver"
+            android:name=".netk.file.download.helpers.SystemDownloadBroadcastReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />

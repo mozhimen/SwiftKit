@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.download.utils
+package com.mozhimen.componentk.netk.file.download
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
@@ -8,10 +8,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.annotation.DrawableRes
 import androidx.core.app.NotificationCompat
+import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.componentk.R
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
+import com.mozhimen.componentk.netk.file.download.annors.ADownloadStatus
 import java.io.File
 
 
@@ -41,7 +41,7 @@ internal class NotifierUtils private constructor() {
             percent: Int,
             title: CharSequence,
             content: CharSequence?,
-            @DownloadStatus status: Int,
+            @ADownloadStatus status: Int,
             file: File? = null,
             url: String? = null
         ) {
@@ -50,7 +50,7 @@ internal class NotifierUtils private constructor() {
             if (UtilKBuildVersion.isAfterV_26_8_O()) {
                 val channel = NotificationChannel(
                     CDownloadParameter.NOTIFICATION_CHANNEL_ID,
-                    context.getString(R.string.downloader_notifier_channel_name),
+                    context.getString(R.string.netk_file_notifier_channel_name),
                     NotificationManager.IMPORTANCE_LOW
                 )
                 notificationManager.createNotificationChannel(channel)
@@ -59,19 +59,19 @@ internal class NotifierUtils private constructor() {
             val builder = NotificationCompat.Builder(context, CDownloadParameter.NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(notifierSmallIcon)
                 .setContentTitle(title)
-                .setAutoCancel(status == CDownloadConstants.STATUS_SUCCESSFUL) // canceled when it is clicked by the user.
+                .setAutoCancel(status == CDownloadManager.STATUS_SUCCESSFUL) // canceled when it is clicked by the user.
                 .setOngoing(percent != 100)
 
             if (percent >= 0) {
                 builder.setSubText( // don't use setContentInfo(deprecated in API level 24)
                     context.getString(
-                        R.string.downloader_notifier_subtext_placeholder,
+                        R.string.netk_file_notifier_subtext_placeholder,
                         percent
                     )
                 )
             }
             when (status) {
-                CDownloadConstants.STATUS_SUCCESSFUL -> {
+                CDownloadManager.STATUS_SUCCESSFUL -> {
                     // click to install
                     file?.let {
 //                        val clickIntent = createInstallIntent(context, it)
@@ -85,11 +85,11 @@ internal class NotifierUtils private constructor() {
                     }
                 }
 
-                CDownloadConstants.STATUS_RUNNING -> {
+                CDownloadManager.STATUS_RUNNING -> {
                     builder.setProgress(100, percent, percent <= 0)
                 }
 
-                CDownloadConstants.STATUS_FAILED -> {
+                CDownloadManager.STATUS_FAILED -> {
                     val intent =
                         Intent("${context.packageName}.DownloadService")
                     intent.setPackage(context.packageName)

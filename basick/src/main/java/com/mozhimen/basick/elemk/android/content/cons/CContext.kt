@@ -29,4 +29,5 @@ object CContext {
     const val USB_SERVICE = Context.USB_SERVICE
     const val LAYOUT_INFLATER_SERVICE = Context.LAYOUT_INFLATER_SERVICE
     const val LOCATION_SERVICE = Context.LOCATION_SERVICE
+    const val DOWNLOAD_SERVICE = Context.DOWNLOAD_SERVICE
 }

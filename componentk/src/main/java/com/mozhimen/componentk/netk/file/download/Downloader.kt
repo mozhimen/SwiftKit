@@ -1,7 +1,6 @@
 package com.mozhimen.componentk.netk.file.download
 
 import android.content.Intent
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
 
 abstract class Downloader(internal val request: DownloadRequest) {
 
