@@ -18,7 +18,7 @@ android {
     buildTypes {
         release {
             buildConfigField("String", "BUILD_TIME", "\"" + buildTime() + "\"")
-            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.android.versionName + "\""
+            buildConfigField "String", "VERSION_NAME", "\"" + rootProject.android.versionName + "\""// add config.gradle
             buildConfigField "int", "VERSION_CODE", "" + rootProject.android.versionCode
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

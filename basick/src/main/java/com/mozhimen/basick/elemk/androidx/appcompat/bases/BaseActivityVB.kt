@@ -10,7 +10,7 @@ import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 import com.mozhimen.basick.utilk.bases.IUtilK
 
 abstract class BaseActivityVB<VB : ViewDataBinding>(
-    private val _factory: ViewModelProvider.Factory? = null
+    protected val _factory: ViewModelProvider.Factory? = null
 ) : AppCompatActivity(), IActivity, IUtilK {
 
     protected val vb: VB by lazy(mode = LazyThreadSafetyMode.NONE) {

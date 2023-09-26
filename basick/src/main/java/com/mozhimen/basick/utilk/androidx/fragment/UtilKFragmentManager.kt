@@ -16,6 +16,12 @@ import androidx.fragment.app.FragmentTransaction
 fun FragmentActivity.findFragmentById(@IdRes id: Int): Fragment? =
     UtilKFragmentManager.findFragmentById(this, id)
 
+fun FragmentActivity.findFragmentByTag(tag: String): Fragment? =
+    UtilKFragmentManager.findFragmentByTag(this, tag)
+
+fun FragmentActivity.beginTransaction(): FragmentTransaction =
+    UtilKFragmentManager.beginTransaction(this)
+
 object UtilKFragmentManager {
     @JvmStatic
     fun get(fragmentActivity: FragmentActivity): FragmentManager =
@@ -26,6 +32,10 @@ object UtilKFragmentManager {
         UtilKFragment.getChildFragmentManager(fragment)
 
     /////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun findFragmentByTag(fragmentActivity: FragmentActivity, tag: String): Fragment? =
+        get(fragmentActivity).findFragmentByTag(tag)
 
     @JvmStatic
     fun findFragmentById(fragmentActivity: FragmentActivity, @IdRes id: Int): Fragment? =

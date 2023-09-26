@@ -1,8 +1,9 @@
-package com.mozhimen.basick.utilk.android.animation
+package com.mozhimen.basick.utilk.android.view
 
 import android.animation.Animator
 import android.view.View
 import android.view.animation.Animation
+import com.mozhimen.basick.utilk.android.animation.UtilKAnimator
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
 /**
