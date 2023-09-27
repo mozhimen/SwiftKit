@@ -8,6 +8,7 @@ import android.net.Uri
 import android.provider.Settings
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
+import com.mozhimen.basick.utilk.android.content.isIntentAvailable
 import com.mozhimen.basick.utilk.android.net.uri2strFilePath
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKLog.et
@@ -74,24 +75,6 @@ object InstallUtils : BaseUtilK() {
                 path,
                 PackageManager.GET_SIGNATURES
             )
-        }
-    }
-
-    /**
-     * 要启动的intent是否可用
-     *
-     * @return boolean
-     */
-    private fun intentAvailable(context: Context, intent: Intent): Boolean {
-        return intent.resolveActivity(context.packageManager) != null
-    }
-
-
-    fun showDownloadComponentSetting(context: Context) {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-        intent.data = Uri.parse("package:${CStrPackage.COM_ANDROID_PROVIDERS_DOWNLOADS}")
-        if (intentAvailable(context, intent)) {
-            context.startActivity(intent)
         }
     }
 }

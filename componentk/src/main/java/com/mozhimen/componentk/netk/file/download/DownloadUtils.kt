@@ -2,17 +2,17 @@ package com.mozhimen.componentk.netk.file.download
 
 import android.content.Context
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
-import com.mozhimen.componentk.netk.file.download.SpHelper
+import com.mozhimen.componentk.netk.file.download.utils.SPUtil
 import java.io.File
 
 internal object DownloadUtils {
 
-    fun getLocalDownloadId(context: Context, url: String): Long {
-        return SpHelper.get(context).getLong("${UtilKMd5.str2strMd5(url)}-id", -1L)
+    fun getLocalDownloadId(url: String): Long {
+        return SPUtil.getLong("${UtilKMd5.str2strMd5(url)}-id", -1L)
     }
 
     fun saveDownloadId(context: Context, url: String, id: Long) {
-        SpHelper.get(context).putLong("${UtilKMd5.str2strMd5(url)}-id", id)
+        SPUtil.putLong("${UtilKMd5.str2strMd5(url)}-id", id)
     }
 
     internal fun getPercent(totalSize: Long, downloadedSize: Long) = if (totalSize <= 0) 0 else

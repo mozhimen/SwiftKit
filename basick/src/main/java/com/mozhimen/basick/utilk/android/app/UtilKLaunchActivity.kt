@@ -11,6 +11,8 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
+import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
+import com.mozhimen.basick.utilk.android.content.isIntentAvailable
 import com.mozhimen.basick.utilk.android.content.startActivityForResult
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -31,21 +33,21 @@ object UtilKLaunchActivity {
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     @JvmStatic
     fun startInstall(context: Context, apkPathWithName: String) {
-        context.startContext(UtilKIntent.getInstall(apkPathWithName) ?: return)
+        context.startContext(UtilKIntentWrapper.getInstall(apkPathWithName) ?: return)
     }
 
     @SuppressLint("InlinedApi")
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     @JvmStatic
     fun startInstall(context: Context, apkFile: File) {
-        context.startContext(UtilKIntent.getInstall(apkFile) ?: return)
+        context.startContext(UtilKIntentWrapper.getInstall(apkFile) ?: return)
     }
 
     @SuppressLint("InlinedApi")
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     @JvmStatic
     fun startInstall(context: Context, apkUri: Uri) {
-        context.startContext(UtilKIntent.getInstall(apkUri))
+        context.startContext(UtilKIntentWrapper.getInstall(apkUri))
     }
 
     /**
@@ -54,13 +56,13 @@ object UtilKLaunchActivity {
     @JvmStatic
     fun startManageUnknownInstallSource(context: Context) {
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            context.startContext(UtilKIntent.getManageUnknownAppSources(context))
+            context.startContext(UtilKIntentWrapper.getManageUnknownAppSources(context))
     }
 
     @JvmStatic
     fun startManageUnknownInstallSourceForResult(activity: Activity, requestCode: Int) {
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            activity.startActivityForResult(UtilKIntent.getManageUnknownAppSources(activity), requestCode)
+            activity.startActivityForResult(UtilKIntentWrapper.getManageUnknownAppSources(activity), requestCode)
     }
 
     /**
@@ -69,7 +71,7 @@ object UtilKLaunchActivity {
     @JvmStatic
     fun startManageOverlay(context: Context) {
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            context.startContext(UtilKIntent.getManageOverlayPermission(context))
+            context.startContext(UtilKIntentWrapper.getManageOverlayPermission(context))
     }
 
     /**
@@ -80,7 +82,7 @@ object UtilKLaunchActivity {
     fun startManageAllFilesAccess(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
-            context.startContext(UtilKIntent.getManageAppAllFilesAccessPermission(context))
+            context.startContext(UtilKIntentWrapper.getManageAppAllFilesAccessPermission(context))
             //}
         }
     }
@@ -106,7 +108,7 @@ object UtilKLaunchActivity {
     fun startManageAllFilesAccess3(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
-            context.startContext(UtilKIntent.getManageAppAllFilesAccessPermission(context).apply {
+            context.startContext(UtilKIntentWrapper.getManageAppAllFilesAccessPermission(context).apply {
                 addCategory("android.intent.category.DEFAULT")
             })
             //}
@@ -118,7 +120,14 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingAppDetails(context: Context) {
-        context.startContext(UtilKIntent.getApplicationDetailsSettings(context))
+        context.startContext(UtilKIntentWrapper.getApplicationDetailsSettings(context))
+    }
+
+    @JvmStatic
+    fun startSettingAppDetailsDownloads(context: Context) {
+        val intent = UtilKIntentWrapper.getApplicationDetailsSettings(context)
+        if (intent.isIntentAvailable(context))
+            context.startContext(intent)
     }
 
     /**
@@ -126,7 +135,7 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingAccessibility(context: Context) {
-        context.startContext(UtilKIntent.getAccessibilitySettings())
+        context.startContext(UtilKIntentWrapper.getAccessibilitySettings())
     }
 
     /**
@@ -134,6 +143,6 @@ object UtilKLaunchActivity {
      */
     @JvmStatic
     fun startSettingLocation(context: Context) {
-        context.startContext(UtilKIntent.getLocationSourceSettings())
+        context.startContext(UtilKIntentWrapper.getLocationSourceSettings())
     }
 }

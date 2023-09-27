@@ -2,8 +2,8 @@ package com.mozhimen.basick.utilk.android.content
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 
@@ -18,12 +18,32 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 object UtilKApk : BaseUtilK() {
 
     @JvmStatic
-    fun getPackageArchiveInfo(apkPathWithName: String): PackageInfo? =
-        UtilKPackageManager.getPackageArchiveInfo(_context, apkPathWithName, PackageManager.GET_ACTIVITIES)
+    fun getPackageArchiveInfoOfActivities(apkPathWithName: String): PackageInfo? =
+        UtilKPackageArchiveInfo.getOfActivities(_context, apkPathWithName)
 
     @JvmStatic
     fun getApplicationInfo(apkPathWithName: String): ApplicationInfo? =
-        getPackageArchiveInfo(apkPathWithName)?.let { UtilKPackageInfo.getApplicationInfo(it) }
+        getPackageArchiveInfoOfActivities(apkPathWithName)?.let { UtilKPackageInfo.getApplicationInfo(it) }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 得到版本信息
+     * @param apkPathWithName String
+     * @return String?
+     */
+    @JvmStatic
+    fun getVersionName(apkPathWithName: String): String? =
+        getPackageArchiveInfoOfActivities(apkPathWithName)?.let { UtilKPackageInfo.getVersionName(it) }
+
+    /**
+     * 得到版本号
+     * @param apkPathWithName String
+     * @return Int?
+     */
+    @JvmStatic
+    fun getVersionCode(apkPathWithName: String): Int? =
+        getPackageArchiveInfoOfActivities(apkPathWithName)?.let { UtilKPackageInfo.getVersionCode(it) }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -44,24 +64,6 @@ object UtilKApk : BaseUtilK() {
     @JvmStatic
     fun getPackageName(apkPathWithName: String): String? =
         getApplicationInfo(apkPathWithName)?.let { UtilKApplicationInfo.getPackageName(it) }
-
-    /**
-     * 得到版本信息
-     * @param apkPathWithName String
-     * @return String?
-     */
-    @JvmStatic
-    fun getVersionName(apkPathWithName: String): String? =
-        getPackageArchiveInfo(apkPathWithName)?.let { UtilKPackageInfo.getVersionName(it) }
-
-    /**
-     * 得到版本号
-     * @param apkPathWithName String
-     * @return Int?
-     */
-    @JvmStatic
-    fun getVersionCode(apkPathWithName: String): Int? =
-        getPackageArchiveInfo(apkPathWithName)?.let { UtilKPackageInfo.getVersionCode(it) }
 
     /**
      * 得到图标信息

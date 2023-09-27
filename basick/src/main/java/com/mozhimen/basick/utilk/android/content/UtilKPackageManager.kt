@@ -2,12 +2,16 @@ package com.mozhimen.basick.utilk.android.content
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageInstaller
 import android.content.pm.PackageManager
+import android.content.pm.PermissionGroupInfo
+import android.content.pm.PermissionInfo
 import android.content.pm.ResolveInfo
 import android.graphics.drawable.Drawable
 import android.provider.Settings
@@ -75,6 +79,31 @@ object UtilKPackageManager {
     fun queryIntentActivities(context: Context, intent: Intent, flags: Int): List<ResolveInfo> =
         get(context).queryIntentActivities(intent, flags)
 
+    @SuppressLint("QueryPermissionsNeeded")
+    @JvmStatic
+    fun getInstalledPackages(context: Context, flags: Int): List<PackageInfo> =
+        get(context).getInstalledPackages(flags)
+
+    @JvmStatic
+    fun getInstalledPackagesActivities(context: Context): List<PackageInfo> =
+        getInstalledPackages(context, CPackageManager.GET_ACTIVITIES)
+
+    @JvmStatic
+    fun getPermissionInfo(context: Context, permName: String, flags: Int): PermissionInfo =
+        get(context).getPermissionInfo(permName, flags)
+
+    @JvmStatic
+    fun getAllPermissionGroups(context: Context, flags: Int): List<PermissionGroupInfo> =
+        get(context).getAllPermissionGroups(flags)
+
+    @JvmStatic
+    fun getActivityInfo(context: Context, component: ComponentName, flags: Int): ActivityInfo =
+        get(context).getActivityInfo(component, flags)
+
+    @JvmStatic
+    fun getActivityInfo(context: Context, packageClazzName: String, activityClazzName: String): ActivityInfo =
+        getActivityInfo(context, ComponentName(packageClazzName, activityClazzName), CPackageManager.GET_ACTIVITIES)
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
@@ -97,14 +126,14 @@ object UtilKPackageManager {
      */
     @JvmStatic
     fun hasFrontCamera(context: Context): Boolean =
-        hasSystemFeature(context, PackageManager.FEATURE_CAMERA_FRONT)
+        hasSystemFeature(context, CPackageManager.FEATURE_CAMERA_FRONT)
 
     /**
      * 是否有后置
      */
     @JvmStatic
     fun hasBackCamera(context: Context): Boolean =
-        hasSystemFeature(context, PackageManager.FEATURE_CAMERA)
+        hasSystemFeature(context, CPackageManager.FEATURE_CAMERA)
 
     /**
      * 是否有配置

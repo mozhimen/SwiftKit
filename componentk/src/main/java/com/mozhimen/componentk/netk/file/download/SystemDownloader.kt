@@ -4,14 +4,16 @@ import android.app.DownloadManager
 import android.net.Uri
 import android.widget.Toast
 import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
+import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.net.uri2strFilePath
 import com.mozhimen.basick.utilk.android.util.UtilKLog
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.componentk.R
+import com.mozhimen.componentk.netk.file.download.bases.BaseDownloader
 import java.io.File
 
-internal class SystemDownloader(request: DownloadRequest) : Downloader(request), IUtilK {
+internal class SystemDownloader(request: DownloadRequest) : BaseDownloader(request), IUtilK {
 
     private var observer: DownloadObserver? = null
 
@@ -26,7 +28,8 @@ internal class SystemDownloader(request: DownloadRequest) : Downloader(request),
                 R.string.netk_file_component_disable,
                 Toast.LENGTH_SHORT
             ).show()
-            InstallUtils.showDownloadComponentSetting(request.context)
+            UtilKLaunchActivity.startSettingAppDetailsDownloads(request.context)
+            //InstallUtils.showDownloadComponentSetting(request.context)
             return
         }
 
@@ -35,7 +38,7 @@ internal class SystemDownloader(request: DownloadRequest) : Downloader(request),
             return
         }
 
-        val downloadId = DownloadUtils.getLocalDownloadId(request.context, request.url)
+        val downloadId = DownloadUtils.getLocalDownloadId(request.url)
         if (downloadId != -1L) {
             val downloadInfo = downloader.getDownloadInfo(downloadId)
             if (downloadInfo == null) {

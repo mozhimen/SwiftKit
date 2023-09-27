@@ -25,6 +25,8 @@ abstract class BaseDialogKVB<VB : ViewDataBinding, T : IDialogKVBClickListener<V
     private var _vb: VB? = null
     protected val vb get() = _vb!!
 
+    //////////////////////////////////////////////////////////////////////////////
+
     override fun onCreateView(inflater: LayoutInflater): View? {
         _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, 0).apply {
             lifecycleOwner = this@BaseDialogKVB

@@ -18,46 +18,44 @@ object UtilKApplicationInfo {
 
     @JvmStatic
     fun get(context: Context): ApplicationInfo? =
-            UtilKPackageInfo.getApplicationInfo(context)
+        UtilKPackageInfo.getApplicationInfo(context)
 
     ////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getFlags(context: Context): Int? =
-            get(context)?.flags
+        get(context)?.flags
 
     /**
      * 和这个方法一样[UtilKPackageManager.getApplicationIcon]
      */
     @JvmStatic
     fun loadIcon(context: Context, packageManager: PackageManager): Drawable? =
-            loadIcon(get(context), packageManager)
+        loadIcon(get(context), packageManager)
 
     @JvmStatic
     fun loadIcon(applicationInfo: ApplicationInfo?, packageManager: PackageManager): Drawable? =
-            applicationInfo?.loadIcon(packageManager)
+        applicationInfo?.loadIcon(packageManager)
 
     /**
      * 得到包名
      */
     @JvmStatic
     fun getPackageName(context: Context): String? =
-            get(context)?.packageName
+        get(context)?.packageName
 
     @JvmStatic
     fun getPackageName(applicationInfo: ApplicationInfo): String =
-            applicationInfo.packageName
+        applicationInfo.packageName
 
     /**
      * app的目标版本
-     * @param context Context
-     * @return Int
      */
     @JvmStatic
     fun getTargetSdkVersion(context: Context): Int? =
-            get(context)?.targetSdkVersion
+        get(context)?.targetSdkVersion
 
-    ////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @Throws(IllegalArgumentException::class)
@@ -78,5 +76,5 @@ object UtilKApplicationInfo {
     @JvmStatic
     @Throws(IllegalArgumentException::class)
     fun isUserApp(context: Context): Boolean =
-            !isSystemApp(context) && !isSystemUpdateApp(context)
+        !isSystemApp(context) && !isSystemUpdateApp(context)
 }

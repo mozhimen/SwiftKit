@@ -13,8 +13,9 @@ import com.mozhimen.basick.utilk.java.security.UtilKMd5
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.annors.ANotificationVisibility
 import com.mozhimen.componentk.netk.file.download.cons.CErrorCode
-import com.mozhimen.componentk.netk.file.download.helpers.DownloadException
+import com.mozhimen.componentk.netk.file.download.mos.DownloadException
 import com.mozhimen.componentk.netk.file.download.DownloadUtils.getPercent
+import com.mozhimen.componentk.netk.file.download.bases.BaseDownloader
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
@@ -23,7 +24,7 @@ import java.net.URL
  * @author by chiclaim@google.com
  */
 class EmbedDownloader(request: DownloadRequest) :
-    Downloader(request), IUtilK {
+    BaseDownloader(request), IUtilK {
     override val TAG: String = "EmbedDownloader>>>>>"
 
     private val handler by lazy {

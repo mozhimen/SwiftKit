@@ -2,7 +2,7 @@ package com.mozhimen.componentk.netk.file.download.cons
 
 import android.content.Context
 import com.mozhimen.componentk.R
-import com.mozhimen.componentk.netk.file.download.helpers.DownloadException
+import com.mozhimen.componentk.netk.file.download.mos.DownloadException
 import java.net.ConnectException
 import java.net.SocketException
 import java.net.SocketTimeoutException

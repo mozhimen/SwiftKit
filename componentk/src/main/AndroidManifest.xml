@@ -46,7 +46,7 @@
         </receiver>
 
         <service
-            android:name=".netk.file.download.DownloadService"
+            android:name=".netk.file.download.helpers.DownloadService"
             android:exported="false">
             <intent-filter>
                 <action android:name="${applicationId}.DownloadService" />

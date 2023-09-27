@@ -7,8 +7,9 @@ import android.os.Looper
 import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.cons.CErrorCode
-import com.mozhimen.componentk.netk.file.download.helpers.DownloadException
+import com.mozhimen.componentk.netk.file.download.mos.DownloadException
 import com.mozhimen.componentk.netk.file.download.DownloadUtils.getPercent
+import com.mozhimen.componentk.netk.file.download.bases.BaseDownloader
 
 
 /**
@@ -18,7 +19,7 @@ import com.mozhimen.componentk.netk.file.download.DownloadUtils.getPercent
 internal class DownloadObserver(
     context: Context,
     private val downloadId: Long,
-    private var downloader: Downloader
+    private var downloader: BaseDownloader
 ) : ContentObserver(null) {
 
 

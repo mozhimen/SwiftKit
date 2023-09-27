@@ -178,7 +178,8 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
         _sharedPreferences.contains(key)
 
     fun remove(key: String) {
-        getEditor().remove(key).apply()
+        if (contains(key))
+            getEditor().remove(key).apply()
     }
 
     override fun clear() {

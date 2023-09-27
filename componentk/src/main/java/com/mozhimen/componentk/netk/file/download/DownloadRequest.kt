@@ -11,6 +11,7 @@ import com.mozhimen.componentk.BuildConfig
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.annors.ADownloadEngine
 import com.mozhimen.componentk.netk.file.download.annors.ANotificationVisibility
+import com.mozhimen.componentk.netk.file.download.bases.BaseDownloader
 import com.mozhimen.componentk.netk.file.download.commons.IDownloadListener
 import java.io.File
 
@@ -202,7 +203,7 @@ class DownloadRequest(
         }
     }
 
-    private fun createDownloader(@ADownloadEngine engine: Int): Downloader {
+    private fun createDownloader(@ADownloadEngine engine: Int): BaseDownloader {
         return when (engine) {
             ADownloadEngine.SYSTEM_DM -> SystemDownloader(this)
             else -> EmbedDownloader(this)

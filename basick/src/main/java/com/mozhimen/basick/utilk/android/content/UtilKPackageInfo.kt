@@ -20,13 +20,16 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
  */
 object UtilKPackageInfo : BaseUtilK() {
     @JvmStatic
-    @JvmOverloads
-    fun get(context: Context, flags: Int = CPackageInfo.INSTALL_LOCATION_AUTO): PackageInfo? =
+    fun get(context: Context): PackageInfo? =
+        getOfInstallLocationAuto(context)
+
+    @JvmStatic
+    fun get(context: Context, flags: Int): PackageInfo? =
         UtilKPackageManager.getPackageInfo(context, UtilKContext.getPackageName(context), flags /*0*/)
 
     @JvmStatic
     fun getOfInstallLocationAuto(context: Context): PackageInfo? =
-        get(context)
+        get(context, CPackageInfo.INSTALL_LOCATION_AUTO)
 
     @JvmStatic
     fun getOfConfigurations(context: Context): PackageInfo? =
@@ -34,7 +37,7 @@ object UtilKPackageInfo : BaseUtilK() {
 
     @JvmStatic
     fun getApplicationInfo(context: Context): ApplicationInfo? =
-        getApplicationInfo(get(context))
+        get(context)?.let { getApplicationInfo(it) }
 
     @JvmStatic
     fun getApplicationInfo(packageInfo: PackageInfo?): ApplicationInfo? =

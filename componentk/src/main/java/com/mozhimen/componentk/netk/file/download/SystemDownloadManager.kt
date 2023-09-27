@@ -6,6 +6,8 @@ import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
+import com.mozhimen.componentk.netk.file.download.utils.SPUtil
+import com.mozhimen.componentk.netk.file.download.mos.DownloadInfo
 
 /**
  * 文件下载管理
@@ -127,9 +129,7 @@ internal class SystemDownloadManager(context: Context) {
         return null
     }
 
-    fun clearLocalDownloadIds(context: Context) {
-        SpHelper.get(context).clear()
+    fun clearLocalDownloadIds() {
+        SPUtil.clear()
     }
-
-
 }

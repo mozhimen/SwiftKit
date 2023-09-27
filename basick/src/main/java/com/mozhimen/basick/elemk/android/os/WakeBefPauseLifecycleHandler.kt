@@ -24,8 +24,8 @@ class WakeBefPauseLifecycleHandler<O : LifecycleOwner>(private val _lifecycleOwn
 
     override fun bindLifecycle(owner: LifecycleOwner) {
         owner.runOnMainThread {
-            _lifecycleOwner.lifecycle.removeObserver(this@WakeBefPauseLifecycleHandler)
-            _lifecycleOwner.lifecycle.addObserver(this@WakeBefPauseLifecycleHandler)
+            owner.lifecycle.removeObserver(this@WakeBefPauseLifecycleHandler)
+            owner.lifecycle.addObserver(this@WakeBefPauseLifecycleHandler)
         }
     }
 

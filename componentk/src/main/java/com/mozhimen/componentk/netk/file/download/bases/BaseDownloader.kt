@@ -1,22 +1,19 @@
-package com.mozhimen.componentk.netk.file.download
+package com.mozhimen.componentk.netk.file.download.bases
 
 import android.content.Intent
+import com.mozhimen.componentk.netk.file.download.CDownloadParameter
+import com.mozhimen.componentk.netk.file.download.DownloadRequest
+import com.mozhimen.componentk.netk.file.download.DownloaderManager
+import com.mozhimen.componentk.netk.file.download.commons.IDownloader
 
-abstract class Downloader(internal val request: DownloadRequest) {
+abstract class BaseDownloader(internal val request: DownloadRequest) : IDownloader {
 
-
-    /**
-     * 具体的下载实现
-     */
-    internal open fun download() {
+    override fun download() {
         DownloaderManager.addIfAbsent(this)
         request.onStart()
     }
 
-    /**
-     * 在 Service 中开始下载
-     */
-    open fun startDownload() {
+    override fun startDownload() {
         DownloaderManager.addIfAbsent(this)
         val intent = Intent("${request.context.packageName}.DownloadService")
         intent.setPackage(request.context.packageName)
@@ -27,11 +24,8 @@ abstract class Downloader(internal val request: DownloadRequest) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is Downloader) return false
-
-        if (request.url != other.request.url) return false
-
-        return true
+        if (other !is BaseDownloader) return false
+        return request.url == other.request.url
     }
 
     override fun hashCode(): Int {
