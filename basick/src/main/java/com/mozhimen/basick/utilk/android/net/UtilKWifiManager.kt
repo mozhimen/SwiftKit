@@ -1,6 +1,7 @@
 package com.mozhimen.basick.utilk.android.net
 
 import android.content.Context
+import android.net.wifi.ScanResult
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
@@ -26,33 +27,18 @@ object UtilKWifiManager {
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
+    fun getScanResults(context: Context): List<ScanResult> =
+        get(context).scanResults
+
+    @JvmStatic
+    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getConnectionInfo(context: Context): WifiInfo? =
         get(context).connectionInfo
 
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
-    fun getRssi(context: Context): Int? =
-        getConnectionInfo(context)?.rssi
-
-    @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
-    fun getSsid(context: Context): String? =
-        getConnectionInfo(context)?.ssid
-
-    @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
-    fun getRssiAbs(context: Context): Int? =
-        getRssi(context)?.let { kotlin.math.abs(it) }
-
-    @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
     fun getConfiguredNetworks(context: Context): List<WifiConfiguration>? =
         get(context).configuredNetworks
-
-    @JvmStatic
-    @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
-    fun getConnectionInfoIpAddress(context: Context): Int? =
-        getConnectionInfo(context)?.ipAddress
 
     /////////////////////////////////////////////////////////////////////////////
 

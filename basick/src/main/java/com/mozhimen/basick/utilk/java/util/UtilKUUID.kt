@@ -1,5 +1,11 @@
 package com.mozhimen.basick.utilk.java.util
 
+import android.util.Base64
+import com.mozhimen.basick.elemk.android.util.cons.CBase64
+import com.mozhimen.basick.utilk.android.util.bytes2bytesBase64
+import com.mozhimen.basick.utilk.kotlin.UtilKString
+import com.mozhimen.basick.utilk.kotlin.bytes2str
+import com.mozhimen.basick.utilk.kotlin.strHex2bytes
 import java.util.UUID
 
 /**
@@ -9,16 +15,22 @@ import java.util.UUID
  * @Date 2023/8/2 15:51
  * @Version 1.0
  */
+fun String.compressStrUUID(): String =
+    UtilKUUID.compressStrUUID(this)
+
 object UtilKUUID {
-    /**
-     * 生成随机字符串
-     * @return String
-     */
     @JvmStatic
     fun getStrUUID(): String =
-        uUid2strUUID().replace("-", "")
+        UUID.randomUUID().toString()
+
+    /**
+     * 生成随机字符串
+     */
+    @JvmStatic
+    fun getFormatStrUUID(): String =
+        getStrUUID().replace("-", "")
 
     @JvmStatic
-    fun uUid2strUUID(): String =
-        UUID.randomUUID().toString()
+    fun compressStrUUID(strUUID: String): String =
+        strUUID.replace("-", "").strHex2bytes().bytes2bytesBase64(CBase64.URL_SAFE or CBase64.NO_PADDING or CBase64.NO_WRAP).bytes2str()
 }

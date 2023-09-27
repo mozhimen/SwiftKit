@@ -22,6 +22,9 @@ import com.mozhimen.basick.utilk.java.io.inputStream2bitmapDrawable
 fun ByteArray.bytes2strBase64(flags: Int = CBase64.NO_WRAP): String =
     UtilKBase64.bytes2strBase64(this, flags)
 
+fun ByteArray.bytes2bytesBase64(flags: Int): ByteArray =
+    UtilKBase64.bytes2bytesBase64(this, flags)
+
 fun String.strBase642bytes(flags: Int = CBase64.DEFAULT): ByteArray =
     UtilKBase64.strBase642bytes(this, flags)
 
@@ -33,6 +36,10 @@ object UtilKBase64 : BaseUtilK() {
     @JvmStatic
     fun bytes2strBase64(bytes: ByteArray, flags: Int = CBase64.NO_WRAP): String =
         Base64.encodeToString(bytes, flags)
+
+    @JvmStatic
+    fun bytes2bytesBase64(bytes: ByteArray, flags: Int): ByteArray =
+        Base64.encode(bytes, flags)
 
     @JvmStatic
     fun strBase642bytes(strBase64: String, flags: Int = CBase64.DEFAULT): ByteArray =

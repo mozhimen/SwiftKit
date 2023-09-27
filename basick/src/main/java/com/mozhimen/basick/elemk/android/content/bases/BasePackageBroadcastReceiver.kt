@@ -14,13 +14,17 @@ import com.mozhimen.basick.utilk.android.content.UtilKContext
  * @ClassName BaseInstallObserverReceiver
  * @Description if you use it, you must register in manifest first
 
- * 继承
+ * 权限:
+无
+
+ * 继承:
 class ElemKInstallObserverReceiver : BaseInstallObserverReceiver()
 
  * 静态注册
 <receiver
-android:name=".elemk.receiver.ElemKInstallObserverReceiver" android:exported="true"
-android:enabled="true">
+android:name=".elemk.receiver.ElemKInstallObserverReceiver"
+android:enabled="true"
+android:exported="true">
 <intent-filter android:priority="100">
 <action android:name="android.intent.action.PACKAGE_ADDED" />
 <action android:name="android.intent.action.PACKAGE_REPLACED" />
@@ -35,7 +39,7 @@ android:enabled="true">
  */
 @OptInApiTarget_AtV_25_71_N1
 @TargetApi(CVersCode.V_25_71_N1)
-open class BaseInstallObserverBroadcastReceiver : BaseBroadcastReceiver() {
+open class BasePackageBroadcastReceiver : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         val packageName = intent.dataString

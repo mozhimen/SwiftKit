@@ -12,7 +12,7 @@ import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 
 /**
- * @ClassName PrefabKReceiverAutoRun
+ * @ClassName BaseAutoRunBroadcastReceiver
  * @Description
 
  * 权限:
@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit
  * 继承:
 class ElemKAutoRunReceiver : BaseAutoRunReceiver(BasicKActivity::class.java, 5000)
 
- * 静态注册:
+ * 静态注册(AndroidManifest.xml):
 <receiver
 android:name=".elemk.receiver.ElemKAutoRunReceiver"
 android:enabled="true"
@@ -36,7 +36,7 @@ android:exported="true">
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.RECEIVE_BOOT_COMPLETED)
-open class BaseAutoRunBroadcastReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BaseBroadcastReceiver() {
+open class BaseBootBroadcastReceiver(private val clazz: Class<*>, private val _delayTime: Long = 0L) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {

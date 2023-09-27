@@ -7,10 +7,13 @@ import com.mozhimen.basick.lintk.optin.OptInApiCall_RegisterDynamic
 import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
- * @ClassName BaseTimeReceiver
+ * @ClassName BaseTimeBroadcastReceiver
  * @Description
 
- * 继承
+ * 权限:
+无
+
+ * 继承:
 class ElemKTimeReceiver : BaseTimeReceiver(
 object : ITimeReceiverListener {
 override fun onTimeTick() {
@@ -19,7 +22,7 @@ Log.v("ElemKTimeReceiver>>>>>", "onTimeTick: long ${UtilKDate.getNowLong()} stri
 }
 )
 
- * 动态注册
+ * 动态注册:
 class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
 private lateinit var _receiverProxy: ReceiverProxy<ElemKReceiverActivity>
 

@@ -13,4 +13,6 @@ import android.util.Base64
 object CBase64 {
     const val DEFAULT = Base64.DEFAULT
     const val NO_WRAP = Base64.NO_WRAP
+    const val URL_SAFE = Base64.URL_SAFE
+    const val NO_PADDING = Base64.NO_PADDING
 }
