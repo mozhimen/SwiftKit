@@ -22,7 +22,7 @@ object UtilKWifi : BaseUtilK() {
                     ipAddress = wifiInfo.ipAddress
                 }
             }
-        } else ipAddress = UtilKWifiManager.getConnectionInfoIpAddress(_context) ?: 0
+        } else ipAddress = UtilKWifiInfo.getIpAddress(_context) ?: 0
         if (ipAddress == 0) return ""
         return (ipAddress and 0xFF).toString() + "." + (ipAddress shr 8 and 0xFF) + "." + (ipAddress shr 16 and 0xFF) + "." + (ipAddress shr 24 and 0xFF)
     }

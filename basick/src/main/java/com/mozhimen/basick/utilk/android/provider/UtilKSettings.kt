@@ -24,12 +24,12 @@ import com.mozhimen.basick.utilk.bases.IUtilK
  */
 object UtilKSettings : IUtilK {
     @JvmStatic
-    @Throws(Settings.SettingNotFoundException::class)
+    @Throws(SettingNotFoundException::class)
     fun getSecureInt(contentResolver: ContentResolver, name: String): Int =
         Settings.Secure.getInt(contentResolver, name)
 
     @JvmStatic
-    @Throws(Settings.SettingNotFoundException::class)
+    @Throws(SettingNotFoundException::class)
     fun getSecureInt(context: Context, name: String): Int =
         Settings.Secure.getInt(UtilKContentResolver.get(context), name)
 
@@ -40,6 +40,18 @@ object UtilKSettings : IUtilK {
     @JvmStatic
     fun getSecureString(context: Context, name: String): String =
         Settings.Secure.getString(UtilKContentResolver.get(context), name)
+
+    @JvmStatic
+    fun getSystemString(contentResolver: ContentResolver, name: String): String =
+        Settings.System.getString(contentResolver, name)
+
+    @JvmStatic
+    fun getSystemString(context: Context, name: String): String =
+        Settings.System.getString(UtilKContentResolver.get(context), name)
+
+    @JvmStatic
+    fun getAndroidId(context: Context): String =
+        getSystemString(context, CSettings.Secure.ANDROID_ID)
 
     //////////////////////////////////////////////////////////////////////////
 

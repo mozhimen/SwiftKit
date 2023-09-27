@@ -16,15 +16,19 @@ import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
  * @Description if you use it, you must register in manifest first
  *
 
- * 权限
-Permission.INSTALL_PACKAGES, Permission.REQUEST_INSTALL_PACKAGES, Permission.READ_INSTALL_SESSIONS, Permission.REPLACE_EXISTING_PACKAGE)
+ * 权限:
+Permission.INSTALL_PACKAGES,
+Permission.REQUEST_INSTALL_PACKAGES,
+Permission.READ_INSTALL_SESSIONS,
+Permission.REPLACE_EXISTING_PACKAGE
 
- * 继承
-class ElemKDownloadInstallReceiver : BaseDownloadInstallReceiver("")
+ * 继承:
+class ElemKDownloadInstallReceiver : BaseDownloadInstallReceiver("你的包名")
 
- * 静态注册(AndroidManifest.xml)
-<receiver android:name=".InstallReceiver"
-android:exported="false">
+ * 静态注册(AndroidManifest.xml):
+<receiver android:name=".elemk.receiver.ElemKDownloadInstallReceiver"
+android:enabled="true"
+android:exported="true">
 <intent-filter>
 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>

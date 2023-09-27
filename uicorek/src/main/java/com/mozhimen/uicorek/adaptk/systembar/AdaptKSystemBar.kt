@@ -148,43 +148,6 @@ object AdaptKSystemBar : BaseUtilK() {
 
 //    @JvmStatic
 //    internal fun init(activity: Activity) {
-//        val statusBarAnnor: ASenseKSystemBarProperty =
-//            activity.getAnnotation(ASenseKSystemBarProperty::class.java) ?: ASenseKSystemBarProperty(property = CSystemBarType.NORMAL)
-//        val systemBarType = statusBarAnnor.property
-//        val isFollowSystem = statusBarAnnor.isFollowSystem
-//        val isFontIconDark = statusBarAnnor.isFontIconDark
-//        val bgColorLight = statusBarAnnor.bgColorLight
-//        val bgColorDark = statusBarAnnor.bgColorDark
-//
-//        when (statusBarAnnor.property) {
-//            CSystemBarType.NORMAL -> {
-//
-//            }
-//
-//            CSystemBarType.LOW_PROFILE -> {
-//            }
-//
-//            CSystemBarType.IMMERSED_LIGHT -> {
-//            }
-//
-//            CSystemBarType.IMMERSED_FORCE -> {
-//            }
-//
-//            CSystemBarType.IMMERSED_STICKY -> {
-//            }
-//
-//            CSystemBarType.EXPAND_STATUS_BAR -> {
-//
-//            }
-//
-//            CSystemBarType.EXPAND_NAVIGATION_BAR -> {
-//
-//            }
-//
-//            CSystemBarType.EXPAND_ALL -> {
-//
-//            }
-
 //            ASenseKSystemBarType.FULL_SCREEN -> UtilKSystemBar.setImmersed(activity)//设置状态栏全屏
 //            ASenseKSystemBarType.IMMERSED -> {
 //                UtilKStatusBar.setImmersed(activity)//设置状态栏沉浸式

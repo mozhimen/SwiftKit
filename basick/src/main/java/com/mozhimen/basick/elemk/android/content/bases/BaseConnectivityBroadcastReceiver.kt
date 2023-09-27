@@ -1,9 +1,8 @@
-package com.mozhimen.basick.elemk.android.content
+package com.mozhimen.basick.elemk.android.content.bases
 
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiver
 import com.mozhimen.basick.elemk.android.content.commons.IBroadcastReceiver
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.commons.IConnectionListener
@@ -16,7 +15,26 @@ import com.mozhimen.basick.utilk.android.util.wt
 
 /**
  * @ClassName NetKConnReceiver
- * @Description TODO
+ * @Description
+
+ * 权限:
+CPermission.ACCESS_NETWORK_STATE,
+CPermission.ACCESS_WIFI_STATE,
+CPermission.INTERNET
+
+ * 继承:
+class ElemKNetConnectionReceiver : BaseNetConnectionBroadcastReceiver()
+
+ * 静态注册(AndroidManifest.xml)一般动态注册:
+<receiver
+android:name=".elemk.receiver.ElemKNetConnectionReceiver"
+android:enabled="true"
+android:exported="true">
+<intent-filter>
+<action android:name="android.intent.action.CONNECTIVITY_ACTION" />
+</intent-filter>
+</receiver>
+
  * @Author Mozhimen & Kolin Zhao
  * @Date 2023/2/13 15:18
  * @Version 1.0
@@ -26,7 +44,7 @@ import com.mozhimen.basick.utilk.android.util.wt
     CPermission.ACCESS_WIFI_STATE,
     CPermission.INTERNET
 )
-class NetConnectionBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiver {
+open class BaseConnectivityBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiver {
     companion object {
         @JvmStatic
         val instance = INSTANCE.holder
@@ -35,6 +53,17 @@ class NetConnectionBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiv
     ///////////////////////////////////////////////////////////////////////////
 
     private val _listeners: ArrayList<IConnectionListener> = ArrayList()
+    protected var _netType = ENetType.NONE
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    override fun onReceive(context: Context?, intent: Intent) {
+        if (CConnectivityManager.CONNECTIVITY_ACTION != intent.action) return
+        _netType = UtilKNetConn.getNetType().also { "onReceive: eNetKType $it".wt(TAG) }
+        notifyListeners(_netType)
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
 
     override fun registerReceiver(context: Context) {
         context.registerReceiver(INSTANCE.holder, IntentFilter(CConnectivityManager.CONNECTIVITY_ACTION))
@@ -44,13 +73,7 @@ class NetConnectionBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiv
         context.unregisterReceiver(INSTANCE.holder)
     }
 
-    override fun onReceive(context: Context?, intent: Intent) {
-        if (CConnectivityManager.CONNECTIVITY_ACTION == intent.action) {
-            val netType: ENetType = UtilKNetConn.getNetType()
-            "onReceive: eNetKType $netType".wt(TAG)
-            notifyListeners(netType)
-        }
-    }
+    ///////////////////////////////////////////////////////////////////////////
 
     fun registerListener(listener: IConnectionListener) {
         if (!_listeners.contains(listener)) _listeners.add(listener)
@@ -71,6 +94,6 @@ class NetConnectionBroadcastReceiver : BaseBroadcastReceiver(), IBroadcastReceiv
     ///////////////////////////////////////////////////////////////////////////
 
     private object INSTANCE {
-        val holder = NetConnectionBroadcastReceiver()
+        val holder = BaseConnectivityBroadcastReceiver()
     }
 }

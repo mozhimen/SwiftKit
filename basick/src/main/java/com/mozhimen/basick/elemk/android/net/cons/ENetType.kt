@@ -10,9 +10,10 @@ package com.mozhimen.basick.elemk.android.net.cons
  */
 enum class ENetType {
     WIFI,
-    M4G,
-    M3G,
-    M2G,
+    MOBILE_4G,//移动4G
+    MOBILE_3G,//移动3G
+    MOBILE_2G,//移动2G
+    MOBILE,//移动
     UNKNOWN,
     NONE,
 }

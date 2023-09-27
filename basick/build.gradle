@@ -107,6 +107,8 @@ dependencies {
     api "androidx.datastore:datastore-preferences:1.0.0"
     api "androidx.datastore:datastore:1.0.0"
 
+    api 'com.tencent:mmkv:1.2.10'
+
     //////////////////////////////////////////////////////////////////
     //serialize
     //moshi

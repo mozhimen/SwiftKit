@@ -94,12 +94,13 @@ object CacheKRM : BaseUtilK(), ICacheKProvider {
 
     /////////////////////////////////////////////////////////////////////
 
-    fun remove(key: String) {
-        CacheKRMDatabase.get().cacheKDao.deleteCacheByKey(key)
-    }
-
     fun contains(key: String): Boolean =
         CacheKRMDatabase.get().cacheKDao.getCache(key) != null
+
+    fun remove(key: String) {
+        if (contains(key))
+            CacheKRMDatabase.get().cacheKDao.deleteCacheByKey(key)
+    }
 
     override fun clear() {
         CacheKRMDatabase.get().cacheKDao.deleteAllCaches()

@@ -44,5 +44,6 @@ object CSettings {
         const val LOCATION_MODE_OFF = Settings.Secure.LOCATION_MODE_OFF
         const val LOCATION_PROVIDERS_ALLOWED = Settings.Secure.LOCATION_PROVIDERS_ALLOWED
         const val LOCATION_MODE = Settings.Secure.LOCATION_MODE
+        const val ANDROID_ID = Settings.Secure.ANDROID_ID
     }
 }

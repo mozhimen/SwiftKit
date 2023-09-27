@@ -39,19 +39,19 @@ class CacheKDSProvider(dsName: String) : ICacheKProvider, BaseUtilK() {
         dataStore.editBy(key, value, ::transform)
     }
 
-    suspend fun putStringAsync(key: String, value: String) {
-        putObjAsync(key, value)
-    }
-
-    suspend fun putBooleanAsync(key: String, value: Boolean) {
-        putObjAsync(key, value)
-    }
-
     suspend fun putIntAsync(key: String, value: Int) {
         putObjAsync(key, value)
     }
 
     suspend fun putLongAsync(key: String, value: Long) {
+        putObjAsync(key, value)
+    }
+
+    suspend fun putStringAsync(key: String, value: String) {
+        putObjAsync(key, value)
+    }
+
+    suspend fun putBooleanAsync(key: String, value: Boolean) {
         putObjAsync(key, value)
     }
 
@@ -73,20 +73,20 @@ class CacheKDSProvider(dsName: String) : ICacheKProvider, BaseUtilK() {
         runBlocking { putObjAsync(key, obj) }
     }
 
-    override fun putString(key: String, value: String) {
-        runBlocking { putStringAsync(key, value) }
-    }
-
-    override fun putBoolean(key: String, value: Boolean) {
-        runBlocking { putBooleanAsync(key, value) }
-    }
-
     override fun putInt(key: String, value: Int) {
         runBlocking { putIntAsync(key, value) }
     }
 
     override fun putLong(key: String, value: Long) {
         runBlocking { putLongAsync(key, value) }
+    }
+
+    override fun putString(key: String, value: String) {
+        runBlocking { putStringAsync(key, value) }
+    }
+
+    override fun putBoolean(key: String, value: Boolean) {
+        runBlocking { putBooleanAsync(key, value) }
     }
 
     override fun putFloat(key: String, value: Float) {
@@ -161,10 +161,10 @@ class CacheKDSProvider(dsName: String) : ICacheKProvider, BaseUtilK() {
 
     inline fun <reified T> getPreferencesKey(key: String): Preferences.Key<out Any> =
         when (T::class) {
-            String::class -> stringPreferencesKey(key)//putString(key, value)
-            Boolean::class -> booleanPreferencesKey(key)
             Int::class -> intPreferencesKey(key)
             Long::class -> longPreferencesKey(key)
+            String::class -> stringPreferencesKey(key)//putString(key, value)
+            Boolean::class -> booleanPreferencesKey(key)
             Float::class -> floatPreferencesKey(key)
             Double::class -> doublePreferencesKey(key)
             else -> throw IllegalArgumentException("This type cannot be saved to the Data Store")
