@@ -35,6 +35,10 @@ class NetKObserver : BaseUtilK(), INetKObserver {
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
+    fun init() {
+        //无操作, 初始化
+    }
+
     override fun getNetType(): String =
         _networkCallbackImpl.getNetType()
 

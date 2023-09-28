@@ -28,19 +28,12 @@ object NavigateKBarHelper {
             //如果不为空，判断本地配置是否为空，如果本地配置为空，加载远程配置
             if (remoteConfigJson.isNullOrEmpty()) {
                 withContext(Dispatchers.Main) {
-                    onLoadFinish.invoke(
-                        loadLocaleConfig()
-                    )
+                    onLoadFinish.invoke(loadLocaleConfig())
                 }
             } else {
                 withContext(Dispatchers.Main) {
                     onLoadFinish.invoke(
-                        createNavigateKBar(
-                            remoteConfigJson,
-                            transDestination,
-                            loadLocaleConfig,
-                            typeOf
-                        )
+                        createNavigateKBar(remoteConfigJson, transDestination, loadLocaleConfig, typeOf)
                     )
                 }
             }
@@ -54,10 +47,7 @@ object NavigateKBarHelper {
         typeOf: Type
     ): List<OUT> {
         val list = try {
-            UtilKGson.gson.fromJson<ArrayList<IN>>(
-                remoteConfigJson,
-                typeOf
-            )
+            UtilKGson.gson.fromJson<ArrayList<IN>>(remoteConfigJson, typeOf)
         } catch (e: Exception) {
             null
         }
