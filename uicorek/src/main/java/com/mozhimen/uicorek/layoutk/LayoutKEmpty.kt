@@ -10,8 +10,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.mozhimen.basick.elemk.commons.IExtension_Listener
-import com.mozhimen.basick.utilk.android.view.asGone
-import com.mozhimen.basick.utilk.android.view.asVisible
+import com.mozhimen.basick.utilk.android.view.applyGone
+import com.mozhimen.basick.utilk.android.view.applyVisible
 import com.mozhimen.basick.utilk.android.widget.applyIconFont
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKLinear
 import com.mozhimen.uicorek.R
@@ -90,8 +90,8 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
         if (!TextUtils.isEmpty(iconStr)) {
             _iconView.text = iconStr
             _iconView.applyIconFont()
-            _iconView.asVisible()
-        } else _iconView.asGone()
+            _iconView.applyVisible()
+        } else _iconView.applyGone()
     }
 
     /**
@@ -101,8 +101,8 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
     fun setImage(resId: Int? = R.mipmap.layoutk_empty) {
         if (resId != null) {
             _imageView.setImageResource(resId)
-            _imageView.asVisible()
-        } else _imageView.asGone()
+            _imageView.applyVisible()
+        } else _imageView.applyGone()
     }
 
     fun applyImage(invoke: IExtension_Listener<ImageView>) {
@@ -116,8 +116,8 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
     fun setTitle(title: String) {
         if (!TextUtils.isEmpty(title)) {
             _titleView.text = title
-            _titleView.asVisible()
-        } else _titleView.asGone()
+            _titleView.applyVisible()
+        } else _titleView.applyGone()
     }
 
     fun applyTitle(invoke: IExtension_Listener<TextView>) {
@@ -131,8 +131,8 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
     fun setContent(content: String) {
         if (!TextUtils.isEmpty(content)) {
             _contentView.text = content
-            _contentView.asVisible()
-        } else _contentView.asGone()
+            _contentView.applyVisible()
+        } else _contentView.applyGone()
     }
 
     fun applyContent(invoke: IExtension_Listener<TextView>) {
@@ -148,8 +148,8 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
         if (!TextUtils.isEmpty(iconStr)) {
             _helpView.text = iconStr
             listener?.let { _helpView.setOnClickListener(it) }
-            _helpView.asVisible()
-        } else _helpView.asGone()
+            _helpView.applyVisible()
+        } else _helpView.applyGone()
     }
 
     /**
@@ -160,8 +160,8 @@ class LayoutKEmpty @JvmOverloads constructor(context: Context, attrs: AttributeS
         if (!TextUtils.isEmpty(text)) {
             _btn.text = text
             listener?.let { _btn.setOnClickListener(it) }
-            _btn.asVisible()
-        } else _btn.asGone()
+            _btn.applyVisible()
+        } else _btn.applyGone()
     }
 
     fun applyButton(invoke: IExtension_Listener<Button>) {

@@ -15,13 +15,18 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * @Version 1.0
  */
 abstract class BaseSaveStateActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseSaveStateActivityVB<VB>, IViewDataBinding<VB> {
+
+    protected var _factory: ViewModelProvider.Factory?
+
     /**
      * 针对Hilt(@JvmOverloads kotlin默认参数值无效)
      * @constructor
      */
     constructor() : this(null)
 
-    constructor(factory: ViewModelProvider.Factory?) : super(factory)
+    constructor(factory: ViewModelProvider.Factory?){
+        _factory = factory
+    }
 
     //////////////////////////////////////////////////////////////////////////////
 

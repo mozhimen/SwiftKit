@@ -106,7 +106,7 @@ object UtilKInputChange : BaseUtilK() {
                 }
                 decorView.getWindowVisibleDisplayFrame(_rect)
                 _keyboardRect[_rect.left, _rect.bottom, _rect.right] = _originalContentRect.bottom
-                val isVisible = _keyboardRect.height() > _originalContentRect.height() shr 2 && UtilKInputManager.isActive(_context)
+                val isVisible = _keyboardRect.height() > _originalContentRect.height() shr 2 && UtilKInputMethodManager.isActive(_context)
                 if (isVisible == _lastVisible && _keyboardRect.height() == _lastHeight) return
                 _lastVisible = isVisible
                 _lastHeight = _keyboardRect.height()

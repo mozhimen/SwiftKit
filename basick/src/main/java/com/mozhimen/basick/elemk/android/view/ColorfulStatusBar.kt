@@ -7,8 +7,8 @@ import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView
-import com.mozhimen.basick.utilk.android.view.asGone
-import com.mozhimen.basick.utilk.android.view.asVisibleIfElseGone
+import com.mozhimen.basick.utilk.android.view.applyGone
+import com.mozhimen.basick.utilk.android.view.applyVisibleIfElseGone
 
 /**
  * @ClassName BarTintManager
@@ -29,7 +29,7 @@ class ColorfulStatusBar(private val _activity: Activity) {
 
     fun setEnable(enabled: Boolean) {
         _isColorfulStatusBarEnabled = enabled
-        _colorfulStatusBarView.asVisibleIfElseGone(_isColorfulStatusBarEnabled)
+        _colorfulStatusBarView.applyVisibleIfElseGone(_isColorfulStatusBarEnabled)
     }
 
     fun setColor(@ColorInt colorInt: Int) {
@@ -46,7 +46,7 @@ class ColorfulStatusBar(private val _activity: Activity) {
         _colorfulStatusBarView.layoutParams = layoutParams
         _colorfulStatusBarView.setBackgroundColor(-0x67000000)
         //默认不显示
-        _colorfulStatusBarView.asGone()
+        _colorfulStatusBarView.applyGone()
         //decorView添加状态栏高度的View
         UtilKDecorView.getAsViewGroup(activity).addView(_colorfulStatusBarView)
     }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.KeyEvent
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.ViewModelProvider
 
 /**
  * @ClassName BaseSaveStateActivityVB
@@ -19,13 +18,13 @@ abstract class BaseSaveStateActivityVB<VB : ViewDataBinding> : BaseActivityVB<VB
      * 针对Hilt(@JvmOverloads kotlin默认参数值无效)
      * @constructor
      */
-    constructor() : this(null)
-
-    constructor(factory: ViewModelProvider.Factory?) : super(factory)
+    constructor() :  super()
 
     //////////////////////////////////////////////////////////////////////////////
 
     private var _stateSaved = false
+    
+    val stateSaved get() = _stateSaved
 
     //////////////////////////////////////////////////////////////////////////////
 

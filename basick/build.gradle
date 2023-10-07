@@ -134,6 +134,10 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
     //////////////////////////////////////////////////////////////////
+    //data source
+    api "androidx.paging:paging-runtime-ktx:2.1.2"
+
+    //////////////////////////////////////////////////////////////////
     //firebase
     api 'com.google.firebase:firebase-crashlytics-buildtools:2.9.2'
 
