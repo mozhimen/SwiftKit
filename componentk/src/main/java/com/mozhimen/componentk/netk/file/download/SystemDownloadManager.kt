@@ -5,8 +5,9 @@ import android.app.DownloadManager
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
-import com.mozhimen.componentk.netk.file.download.utils.SpHelper
+import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
+import com.mozhimen.componentk.netk.file.download.utils.SPUtil
+import com.mozhimen.componentk.netk.file.download.mos.DownloadInfo
 
 /**
  * 文件下载管理
@@ -74,7 +75,7 @@ internal class SystemDownloadManager(context: Context) {
                 return c.getInt(c.getColumnIndex(DownloadManager.COLUMN_STATUS))
             }
         }
-        return CDownloadConstants.STATUS_UNKNOWN
+        return CDownloadManager.STATUS_UNKNOWN
     }
 
     fun removeTask(downloadId: Long): Int {
@@ -128,9 +129,7 @@ internal class SystemDownloadManager(context: Context) {
         return null
     }
 
-    fun clearLocalDownloadIds(context: Context) {
-        SpHelper.get(context).clear()
+    fun clearLocalDownloadIds() {
+        SPUtil.clear()
     }
-
-
 }

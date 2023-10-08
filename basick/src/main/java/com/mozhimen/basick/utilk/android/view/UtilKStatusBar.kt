@@ -104,7 +104,7 @@ object UtilKStatusBar : BaseUtilK() {
      * @return Int
      */
     @JvmStatic
-    fun getHeight(isCheckFullScreen: Boolean): Int {
+    fun getHeight(isCheckFullScreen: Boolean = true): Int {
         if (isCheckFullScreen && UtilKScreen.isFullScreen()) return 0
         return getHeight()
     }

@@ -3,7 +3,6 @@ package com.mozhimen.componentk.netk.file.download
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
 
 /**
  *

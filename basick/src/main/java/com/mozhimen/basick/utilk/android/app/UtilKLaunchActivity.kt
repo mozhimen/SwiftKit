@@ -1,5 +1,7 @@
 package com.mozhimen.basick.utilk.android.app
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -9,8 +11,12 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
+import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
+import com.mozhimen.basick.utilk.android.content.isIntentAvailable
+import com.mozhimen.basick.utilk.android.content.startActivityForResult
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import java.io.File
 
 /**
  * @ClassName UtilKPermission
@@ -21,54 +27,68 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  */
 object UtilKLaunchActivity {
     /**
-     * 安装
-     * if sdk >= 24 add provider
-     * @param context Context
-     * @param apkPathWithName String
+     * 安装 if sdk >= 24 add provider
      */
-    @RequiresApi(CVersCode.V_23_6_M)
+    @SuppressLint("InlinedApi")
+    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     @JvmStatic
     fun startInstall(context: Context, apkPathWithName: String) {
-        context.startContext(UtilKIntent.getInstall(apkPathWithName) ?: return)
+        context.startContext(UtilKIntentWrapper.getInstall(apkPathWithName) ?: return)
+    }
+
+    @SuppressLint("InlinedApi")
+    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    @JvmStatic
+    fun startInstall(context: Context, apkFile: File) {
+        context.startContext(UtilKIntentWrapper.getInstall(apkFile) ?: return)
+    }
+
+    @SuppressLint("InlinedApi")
+    @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
+    @JvmStatic
+    fun startInstall(context: Context, apkUri: Uri) {
+        context.startContext(UtilKIntentWrapper.getInstall(apkUri))
     }
 
     /**
      * 打开包安装权限
-     * @param context Context
      */
     @JvmStatic
-    fun startManageInstallSource(context: Context) {
+    fun startManageUnknownInstallSource(context: Context) {
         if (UtilKBuildVersion.isAfterV_26_8_O())
-            context.startContext(UtilKIntent.getManageUnknownAppSources(context))
+            context.startContext(UtilKIntentWrapper.getManageUnknownAppSources(context))
+    }
+
+    @JvmStatic
+    fun startManageUnknownInstallSourceForResult(activity: Activity, requestCode: Int) {
+        if (UtilKBuildVersion.isAfterV_26_8_O())
+            activity.startActivityForResult(UtilKIntentWrapper.getManageUnknownAppSources(activity), requestCode)
     }
 
     /**
      * 设置申请权限 当系统在23及以上
-     * @param context Context
      */
     @JvmStatic
     fun startManageOverlay(context: Context) {
         if (UtilKBuildVersion.isAfterV_23_6_M())
-            context.startContext(UtilKIntent.getManageOverlayPermission(context))
+            context.startContext(UtilKIntentWrapper.getManageOverlayPermission(context))
     }
 
     /**
      * 设置申请权限 当系统在11及以上
-     * @param context Context
      */
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun startManageAllFilesAccess(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
-            context.startContext(UtilKIntent.getManageAppAllFilesAccessPermission(context))
+            context.startContext(UtilKIntentWrapper.getManageAppAllFilesAccessPermission(context))
             //}
         }
     }
 
     /**
      * 设置申请权限 当系统在11及以上
-     * @param context Context
      */
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
@@ -82,14 +102,13 @@ object UtilKLaunchActivity {
 
     /**
      * 设置申请权限 当系统在11及以上
-     * @param context Context
      */
     @JvmStatic
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun startManageAllFilesAccess3(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
-            context.startContext(UtilKIntent.getManageAppAllFilesAccessPermission(context).apply {
+            context.startContext(UtilKIntentWrapper.getManageAppAllFilesAccessPermission(context).apply {
                 addCategory("android.intent.category.DEFAULT")
             })
             //}
@@ -98,24 +117,32 @@ object UtilKLaunchActivity {
 
     /**
      * 设置申请app权限
-     * @param context Context
      */
     @JvmStatic
     fun startSettingAppDetails(context: Context) {
-        context.startContext(UtilKIntent.getApplicationDetailsSettings(context))
+        context.startContext(UtilKIntentWrapper.getApplicationDetailsSettings(context))
+    }
+
+    @JvmStatic
+    fun startSettingAppDetailsDownloads(context: Context) {
+        val intent = UtilKIntentWrapper.getApplicationDetailsSettings(context)
+        if (intent.isIntentAvailable(context))
+            context.startContext(intent)
     }
 
     /**
      * 设置申请无障碍权限
-     * @param context Context
      */
     @JvmStatic
     fun startSettingAccessibility(context: Context) {
-        context.startContext(UtilKIntent.getAccessibilitySettings())
+        context.startContext(UtilKIntentWrapper.getAccessibilitySettings())
     }
 
+    /**
+     * 设置申请定位
+     */
     @JvmStatic
     fun startSettingLocation(context: Context) {
-        context.startContext(UtilKIntent.getLocationSourceSettings())
+        context.startContext(UtilKIntentWrapper.getLocationSourceSettings())
     }
 }

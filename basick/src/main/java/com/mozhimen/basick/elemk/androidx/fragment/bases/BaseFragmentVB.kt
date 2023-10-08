@@ -17,12 +17,17 @@ import com.mozhimen.basick.utilk.androidx.fragment.UtilKFragment
 import com.mozhimen.basick.utilk.bases.IUtilK
 
 open class BaseFragmentVB<VB : ViewDataBinding>(
-    protected open val _factory: ViewModelProvider.Factory? = null
+    /*protected open var _factory: ViewModelProvider.Factory? = null*/
 ) : Fragment(), IActivity, IFragment, IUtilK {
+
     private var _vb: VB? = null
     protected val vb get() = _vb!!
 
+    //////////////////////////////////////////////////////////////////////////////
+
     fun isAlive(): Boolean = UtilKFragment.isAlive(this)
+
+    //////////////////////////////////////////////////////////////////////////////
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         inflateView(container)

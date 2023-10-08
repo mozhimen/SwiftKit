@@ -1,12 +1,13 @@
 package com.mozhimen.componentk.netk.file.download
 
+import com.mozhimen.componentk.netk.file.download.bases.BaseDownloader
 import java.util.concurrent.ConcurrentHashMap
 
 internal object DownloaderManager {
 
-    private val _downloadingMap = ConcurrentHashMap<DownloadRequest, Downloader>()
+    private val _downloadingMap = ConcurrentHashMap<DownloadRequest, BaseDownloader>()
 
-    fun addIfAbsent(downloader: Downloader) {
+    fun addIfAbsent(downloader: BaseDownloader) {
         _downloadingMap[downloader.request] = downloader
     }
 
@@ -18,5 +19,5 @@ internal object DownloaderManager {
 
     fun isRunning(request: DownloadRequest) = _downloadingMap.containsKey(request)
 
-    fun getDownloader(request: DownloadRequest): Downloader? = _downloadingMap[request]
+    fun getDownloader(request: DownloadRequest): BaseDownloader? = _downloadingMap[request]
 }

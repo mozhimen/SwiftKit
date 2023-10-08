@@ -1,6 +1,10 @@
 package com.mozhimen.basick.utilk.android.widget
 
+import android.content.Context
 import android.graphics.Typeface
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.IntRange
 import com.mozhimen.basick.elemk.commons.IA_Listener

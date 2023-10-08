@@ -16,10 +16,10 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
-import com.mozhimen.componentk.netk.file.download.DownloadListener
+import com.mozhimen.componentk.netk.file.download.commons.IDownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
+import com.mozhimen.componentk.netk.file.download.annors.ADownloadEngine
+import com.mozhimen.componentk.netk.file.download.annors.ANotificationVisibility
 import com.mozhimen.componentktest.databinding.ActivityNetkFileBinding
 import java.io.File
 
@@ -53,7 +53,7 @@ class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
         }
     }
 
-    private val _downloadListener = object : DownloadListener {
+    private val _downloadListener = object : IDownloadListener {
         override fun onDownloadStart() {
             Log.d(TAG, "onDownloadStart")
         }
@@ -99,8 +99,8 @@ class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
     }
 
     private fun createCommonRequest(url: String, destApkPathWithName: String): DownloadRequest =
-        DownloadRequest(this, url, CDownloadParameter.DOWNLOAD_ENGINE_EMBED)
-            .setNotificationVisibility(CDownloadConstants.NOTIFIER_HIDDEN)
+        DownloadRequest(this, url, ADownloadEngine.EMBED)
+            .setNotificationVisibility(ANotificationVisibility.HIDDEN)
             .setShowNotificationDisableTip(false)
             .setDestinationUri(Uri.fromFile(File(destApkPathWithName)))
 }

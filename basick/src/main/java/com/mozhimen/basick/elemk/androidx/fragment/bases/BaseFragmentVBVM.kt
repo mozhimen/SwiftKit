@@ -17,11 +17,25 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * @Date 2022/2/27 13:02
  * @Version 1.0
  */
-abstract class BaseFragmentVBVM<VB : ViewDataBinding, VM : BaseViewModel>(
-    override val _factory: ViewModelProvider.Factory? = null
-) : BaseFragmentVB<VB>(_factory), IActivity, IViewDataBinding<VB> {
+abstract class BaseFragmentVBVM<VB : ViewDataBinding, VM : BaseViewModel> : BaseFragmentVB<VB>, IActivity, IViewDataBinding<VB> {
+
+    protected var _factory: ViewModelProvider.Factory?
+
+    /**
+     * 针对Hilt(@JvmOverloads kotlin默认参数值无效)
+     * @constructor
+     */
+    constructor() : this(null)
+
+    constructor(factory: ViewModelProvider.Factory?) : super(){
+        _factory = factory
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
 
     protected lateinit var vm: VM
+
+    //////////////////////////////////////////////////////////////////////////////
 
     @CallSuper
     override fun initLayout() {

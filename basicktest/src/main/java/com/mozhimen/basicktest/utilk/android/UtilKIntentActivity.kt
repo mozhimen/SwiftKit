@@ -7,6 +7,7 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.android.media.cons.CMediaFormat
 import com.mozhimen.basick.utilk.android.content.UtilKContextStart
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
+import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basicktest.databinding.ActivityUtilkIntentBinding
 
 /**
@@ -23,7 +24,7 @@ class UtilKIntentActivity : BaseActivityVB<ActivityUtilkIntentBinding>() {
             vb.utilkIntentImg.setImageURI(it)
         }
         vb.utilkIntentBtn.setOnClickListener {
-            UtilKContextStart.startActivityForResult(this, 0, UtilKIntent.getPickImage())
+            UtilKContextStart.startActivityForResult(this, 0, UtilKIntentWrapper.getPickImage())
         }
         vb.utilkIntentBtn2.setOnClickListener {
             activityResultLauncher.launch(CMediaFormat.MIMETYPE_IMAGE_ALL)

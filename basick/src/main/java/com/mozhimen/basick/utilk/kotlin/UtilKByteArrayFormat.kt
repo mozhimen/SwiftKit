@@ -40,7 +40,23 @@ fun ByteArray.bytes2str(charset: Charset = Charsets.UTF_8): String =
 fun ByteArray.bytes2str(offset: Int, length: Int): String =
     UtilKByteArrayFormat.bytes2str(this, offset, length)
 
+fun String.strHex2bytes(): ByteArray =
+    UtilKByteArrayFormat.strHex2bytes(this)
+
 object UtilKByteArrayFormat : IUtilK {
+    @JvmStatic
+    fun strHex2bytes(strHex: String): ByteArray {
+        if (strHex.isEmpty()) return ByteArray(0)
+        val bytes = strHex.toByteArray()
+        val n = bytes.size shr 1
+        val buf = ByteArray(n)
+        for (i in 0 until n) {
+            val index = i shl 1
+            buf[i] = (bytes[index].byte2int() shl 4 or bytes[index + 1].byte2int()).toByte()
+        }
+        return buf
+    }
+
     @JvmStatic
     fun bytes2str(bytes: ByteArray, charset: Charset = Charsets.UTF_8): String =
         String(bytes, charset)

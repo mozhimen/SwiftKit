@@ -4,10 +4,12 @@ import android.content.Context
 import android.database.ContentObserver
 import android.os.Handler
 import android.os.Looper
+import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
 import com.mozhimen.componentk.R
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
 import com.mozhimen.componentk.netk.file.download.cons.CErrorCode
-import com.mozhimen.componentk.netk.file.download.utils.Utils.getPercent
+import com.mozhimen.componentk.netk.file.download.mos.DownloadException
+import com.mozhimen.componentk.netk.file.download.DownloadUtils.getPercent
+import com.mozhimen.componentk.netk.file.download.bases.BaseDownloader
 
 
 /**
@@ -17,7 +19,7 @@ import com.mozhimen.componentk.netk.file.download.utils.Utils.getPercent
 internal class DownloadObserver(
     context: Context,
     private val downloadId: Long,
-    private var downloader: Downloader
+    private var downloader: BaseDownloader
 ) : ContentObserver(null) {
 
 
@@ -35,27 +37,27 @@ internal class DownloadObserver(
             handler.post {
                 downloader.request.onProgressUpdate(getPercent(info.totalSize, info.downloadedSize))
                 when (info.status) {
-                    CDownloadConstants.STATUS_SUCCESSFUL -> {
+                    CDownloadManager.STATUS_SUCCESSFUL -> {
                         context.contentResolver.unregisterContentObserver(this)
                         val uri = info.uri
                         if (uri == null) {
                             downloader.request.onFailed(
                                 DownloadException(
-                                    CErrorCode.ERROR_MISSING_URI,
-                                    context.getString(R.string.downloader_notifier_failed_missing_uri)
+                                    CErrorCode.MISSING_URI,
+                                    context.getString(R.string.netk_file_notifier_failed_missing_uri)
                                 )
                             )
                         } else {
                             downloader.request.onComplete(uri)
                         }
                     }
-                    CDownloadConstants.STATUS_FAILED -> {
+                    CDownloadManager.STATUS_FAILED -> {
                         context.contentResolver.unregisterContentObserver(this)
                         downloader.request.onFailed(
                             DownloadException(
-                                CErrorCode.ERROR_DM_FAILED,
+                                CErrorCode.DM_FAILED,
                                 context.getString(
-                                    R.string.downloader_notifier_content_err_placeholder,
+                                    R.string.netk_file_notifier_content_err_placeholder,
                                     info.reason ?: "-"
                                 )
                             )

@@ -6,6 +6,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.imagek.coil.ImageKCoil
 import com.mozhimen.basick.utilk.android.util.dp2px
+import com.mozhimen.basick.utilk.android.widget.applyImageResourceWhen
 
 /**
  * @ClassName ImageKBindingAdapter
@@ -16,6 +17,12 @@ import com.mozhimen.basick.utilk.android.util.dp2px
  */
 @AManifestKRequire(CPermission.INTERNET)
 object ImageKBindingAdapter {
+
+    @JvmStatic
+    @BindingAdapter(value = ["applyImageResourceWhen", "applyImageResourceWhen_statusTrue", "applyImageResourceWhen_statusFalse"], requireAll = true)
+    fun applyImageResourceWhen(imageView: ImageView, applyImageResourceWhen: Boolean, applyImageResourceWhen_statusTrue: Int, applyImageResourceWhen_statusFalse: Int) {
+        imageView.applyImageResourceWhen(applyImageResourceWhen, applyImageResourceWhen_statusTrue, applyImageResourceWhen_statusFalse)
+    }
 
     @JvmStatic
     @BindingAdapter(value = ["loadImageWhen", "loadImageWhen_statusTrue", "loadImageWhen_statusFalse"], requireAll = true)

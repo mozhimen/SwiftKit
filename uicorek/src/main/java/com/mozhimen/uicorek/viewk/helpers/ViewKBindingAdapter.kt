@@ -7,9 +7,6 @@ import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basick.utilk.android.view.UtilKViewFormat
-import com.mozhimen.basick.utilk.android.view.asGone
-import com.mozhimen.basick.utilk.android.view.asInVisible
-import com.mozhimen.basick.utilk.android.view.asVisible
 
 /**
  * @ClassName ViewKBindingAdapter
@@ -22,13 +19,13 @@ object ViewKBindingAdapter {
     @JvmStatic
     @BindingAdapter("applyVisibilityShowHide")
     fun applyVisibilityShowHide(view: View, visibility: Boolean) {
-        UtilKViewFormat.asVisibleIfElseInVisible(view, visibility)
+        UtilKViewFormat.applyVisibleIfElseInVisible(view, visibility)
     }
 
     @JvmStatic
     @BindingAdapter("applyVisibilityShowGone")
     fun asVisibleIfElseGone(view: View, visibility: Boolean) {
-        UtilKViewFormat.asVisibleIfElseGone(view, visibility)
+        UtilKViewFormat.applyVisibleIfElseGone(view, visibility)
     }
 
     /**

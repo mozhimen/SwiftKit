@@ -22,39 +22,13 @@ val Float.dp2px: Float
 fun Float.dp2px(): Float =
     UtilKDisplayMetrics.dp2px(this)
 
-////////////////////////////////////
-
 val Int.dp2px: Float
     get() = dp2px()
 
 fun Int.dp2px(): Float =
     UtilKDisplayMetrics.dp2px(this.toFloat())
 
-////////////////////////////////////
-
-val Float.sp2px: Float
-    get() = sp2px()
-
-fun Float.sp2px(): Float =
-    UtilKDisplayMetrics.sp2px(this)
-
-////////////////////////////////////
-
-val Int.sp2px: Float
-    get() = sp2px()
-
-fun Int.sp2px(): Float =
-    UtilKDisplayMetrics.sp2px(this.toFloat())
-
-////////////////////////////////////
-
-val Int.px2dp: Float
-    get() = px2dp()
-
-fun Int.px2dp(): Float =
-    UtilKDisplayMetrics.px2dp(this.toFloat())
-
-////////////////////////////////////
+/////////////////////////////////////////////////////////////
 
 val Float.px2dp: Float
     get() = px2dp()
@@ -62,15 +36,13 @@ val Float.px2dp: Float
 fun Float.px2dp(): Float =
     UtilKDisplayMetrics.px2dp(this)
 
-////////////////////////////////////
+val Int.px2dp: Float
+    get() = px2dp()
 
-val Int.px2sp: Float
-    get() = px2sp()
+fun Int.px2dp(): Float =
+    UtilKDisplayMetrics.px2dp(this.toFloat())
 
-fun Int.px2sp(): Float =
-    UtilKDisplayMetrics.px2sp(this.toFloat())
-
-////////////////////////////////////
+/////////////////////////////////////////////////////////////
 
 val Float.px2sp: Float
     get() = px2sp()
@@ -78,8 +50,29 @@ val Float.px2sp: Float
 fun Float.px2sp(): Float =
     UtilKDisplayMetrics.px2sp(this)
 
+val Int.px2sp: Float
+    get() = px2sp()
+
+fun Int.px2sp(): Float =
+    UtilKDisplayMetrics.px2sp(this.toFloat())
+
+/////////////////////////////////////////////////////////////
+
+val Float.sp2px: Float
+    get() = sp2px()
+
+fun Float.sp2px(): Float =
+    UtilKDisplayMetrics.sp2px(this)
+
+val Int.sp2px: Float
+    get() = sp2px()
+
+fun Int.sp2px(): Float =
+    UtilKDisplayMetrics.sp2px(this.toFloat())
+
 object UtilKDisplayMetrics {
 
+    //region # get function
     @JvmStatic
     fun get(): DisplayMetrics =
         UtilKResource.getDisplayMetrics()
@@ -134,6 +127,7 @@ object UtilKDisplayMetrics {
     @JvmStatic
     fun getScaledDensity(): Float =
         get().scaledDensity
+    //endregion
 
     /////////////////////////////////////////////////////////////
 
@@ -164,4 +158,8 @@ object UtilKDisplayMetrics {
     @JvmStatic
     fun sp2px(@FloatRange(from = 0.0) sp: Float): Float =
         TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_SP, sp, get())
+
+    @JvmStatic
+    fun sp2px2(@FloatRange(from = 0.0) sp: Float): Float =
+        sp * getScaledDensity()
 }

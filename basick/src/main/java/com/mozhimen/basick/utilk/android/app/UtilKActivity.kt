@@ -14,6 +14,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
+import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
@@ -105,7 +106,7 @@ object UtilKActivity {
     @JvmStatic
     fun getLauncherActivityName(context: Context, packageName: String): String {
         if (UtilKString.hasSpace(packageName) || packageName.isEmpty()) return ""
-        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntent.getMainLauncher(packageName, null), 0)
+        val resolveInfos = UtilKPackageManager.queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(packageName, null), 0)
         return if (resolveInfos.isEmpty()) "" else resolveInfos[0].activityInfo.name
     }
 

@@ -33,6 +33,9 @@ fun String.hasSpace(): Boolean =
 fun String.containStr(str: String): Boolean =
     UtilKString.containStr(this, str)
 
+fun String.equalsIgnoreCase(str: String): Boolean =
+    UtilKString.equalsIgnoreCase(this, str)
+
 ////////////////////////////////////////////////////////////////////////////
 
 fun String.findFirst(char: Char): Int =
@@ -58,6 +61,8 @@ fun String.throwIllegalStateException() {
 }
 
 object UtilKString : BaseUtilK() {
+
+
     /**
      * 获取分割后的最后一个元素
      */
@@ -124,6 +129,10 @@ object UtilKString : BaseUtilK() {
         if (strContent.isEmpty() || str.isEmpty()) return false
         return strContent.contains(str)
     }
+
+    @JvmStatic
+    fun equalsIgnoreCase(str: String, str1: String): Boolean =
+        str.equals(str1, true)
 
     ////////////////////////////////////////////////////////////////////////////
 

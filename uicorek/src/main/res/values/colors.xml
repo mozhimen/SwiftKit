@@ -193,12 +193,14 @@
 
     <color name="ui_gray_000">#FFFFFF</color>
     <color name="ui_gray_100">#F5F6F8</color>
+    <color name="ui_gray_133">#F8F8F8</color>
     <color name="ui_gray_150">#EFF2F7</color>
     <color name="ui_gray_200">#EEEEEE</color>
     <color name="ui_gray_300">#E0E0E0</color>
     <color name="ui_gray_350">#D2D4D7</color>
     <color name="ui_gray_400">#BDBDBD</color>
     <color name="ui_gray_500">#9E9E9E</color>
+    <color name="ui_gray_555">#7D7D7D</color>
     <color name="ui_gray_600">#757575</color>
     <color name="ui_gray_700">#616161</color>
     <color name="ui_gray_800">#424242</color>

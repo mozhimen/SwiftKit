@@ -42,19 +42,19 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
         getPutEditor(key, value).commit()
     }
 
-    fun putStringSync(key: String, value: String) {
-        putObjSync(key, value)
-    }
-
-    fun putBooleanSync(key: String, value: String) {
-        putObjSync(key, value)
-    }
-
     fun putIntSync(key: String, value: String) {
         putObjSync(key, value)
     }
 
     fun putLongSync(key: String, value: String) {
+        putObjSync(key, value)
+    }
+
+    fun putStringSync(key: String, value: String) {
+        putObjSync(key, value)
+    }
+
+    fun putBooleanSync(key: String, value: String) {
         putObjSync(key, value)
     }
 
@@ -81,19 +81,19 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
         getPutEditor(key, obj).apply()
     }
 
-    override fun putString(key: String, value: String) {
-        putObj(key, value)
-    }
-
-    override fun putBoolean(key: String, value: Boolean) {
-        putObj(key, value)
-    }
-
     override fun putInt(key: String, value: Int) {
         putObj(key, value)
     }
 
     override fun putLong(key: String, value: Long) {
+        putObj(key, value)
+    }
+
+    override fun putString(key: String, value: String) {
+        putObj(key, value)
+    }
+
+    override fun putBoolean(key: String, value: Boolean) {
         putObj(key, value)
     }
 
@@ -119,26 +119,14 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
     @Suppress(CSuppress.UNCHECKED_CAST)
     override fun <T> getObj(key: String, default: T): T =
         when (default) {
-            is String -> getString(key, default)
-            is Boolean -> getBoolean(key, default)
             is Int -> getInt(key, default)
             is Long -> getLong(key, default)
+            is String -> getString(key, default)
+            is Boolean -> getBoolean(key, default)
             is Float -> getFloat(key, default)
             is Double -> getDouble(key, default)
             else -> throw IllegalArgumentException("Unknown Type.")
         } as T
-
-    override fun getString(key: String): String =
-        getString(key, "")
-
-    override fun getString(key: String, defaultValue: String): String =
-        _sharedPreferences.getString(key, defaultValue) ?: defaultValue
-
-    override fun getBoolean(key: String): Boolean =
-        getBoolean(key, false)
-
-    override fun getBoolean(key: String, defaultValue: Boolean): Boolean =
-        _sharedPreferences.getBoolean(key, defaultValue)
 
     override fun getInt(key: String): Int =
         getInt(key, 0)
@@ -152,6 +140,18 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
     override fun getLong(key: String, defaultValue: Long): Long =
         _sharedPreferences.getLong(key, defaultValue)
 
+    override fun getString(key: String): String =
+        getString(key, "")
+
+    override fun getString(key: String, defaultValue: String): String =
+        _sharedPreferences.getString(key, defaultValue) ?: defaultValue
+
+    override fun getBoolean(key: String): Boolean =
+        getBoolean(key, false)
+
+    override fun getBoolean(key: String, defaultValue: Boolean): Boolean =
+        _sharedPreferences.getBoolean(key, defaultValue)
+
     override fun getFloat(key: String): Float =
         getFloat(key, 0F)
 
@@ -163,6 +163,12 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
 
     override fun getDouble(key: String, defaultValue: Double): Double =
         java.lang.Double.longBitsToDouble(_sharedPreferences.getLong(key, defaultValue.toLong()))
+
+    fun getStringSet(key: String): Set<String>? =
+        getStringSet(key, null)
+
+    fun getStringSet(key: String, defaultValue: Set<String>?): Set<String>? =
+        _sharedPreferences.getStringSet(key, defaultValue)
 
     fun getStringDecrypt(key: String, defaultValue: String = ""): String {
         val valueDecrypted = _sharedPreferences.getString(key, null) ?: return defaultValue
@@ -178,7 +184,8 @@ class CacheKSPProvider(spName: String) : ICacheKProvider, BaseUtilK() {
         _sharedPreferences.contains(key)
 
     fun remove(key: String) {
-        getEditor().remove(key).apply()
+        if (contains(key))
+            getEditor().remove(key).apply()
     }
 
     override fun clear() {

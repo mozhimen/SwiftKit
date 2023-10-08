@@ -8,6 +8,7 @@ import com.mozhimen.basick.elemk.commons.ISuspend_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.app.UtilKActivityManager
+import com.mozhimen.basick.utilk.android.os.UtilKProcess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,20 +25,13 @@ object UtilKThread {
 
     /**
      * 是否在主线程
-     * @param context Application
-     * @return Boolean
      */
     @JvmStatic
-    fun isMainProcess(context: Context): Boolean {
-        for (process in UtilKActivityManager.get(context).runningAppProcesses)
-            if (process.processName == UtilKContext.getPackageName(context))
-                return true
-        return false
-    }
+    fun isMainProcess(context: Context): Boolean =
+        UtilKProcess.isMainProcess(context)
 
     /**
      * 是否是主线程
-     * @return Boolean
      */
     @JvmStatic
     fun isMainThread(): Boolean =
@@ -68,7 +62,6 @@ object UtilKThread {
 
     /**
      * 在子线程运行
-     * @param block SuspendFunction0<Unit>
      */
     @JvmStatic
     suspend fun runOnBackThread(block: ISuspend_Listener) {

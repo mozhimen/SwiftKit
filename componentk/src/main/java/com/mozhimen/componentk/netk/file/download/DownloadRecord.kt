@@ -5,11 +5,11 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteException
+import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
+import com.mozhimen.basick.utilk.android.database.getColumnValue
 import com.mozhimen.basick.utilk.android.util.UtilKLog.dt
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
-import com.mozhimen.componentk.netk.file.download.utils.Utils.getValue
+import com.mozhimen.componentk.netk.file.download.annors.ANotificationVisibility
 
 /**
  * 'download' table record
@@ -22,46 +22,46 @@ class DownloadRecord(
     var destinationUri: String? = null,
     var ignoreLocal: Boolean = false,
     var needInstall: Boolean = false,
-    var notificationVisibility: Int = CDownloadConstants.NOTIFIER_VISIBLE_NOTIFY_COMPLETED,
+    var notificationVisibility: Int = ANotificationVisibility.VISIBLE_NOTIFY_COMPLETED,
     var notificationTitle: String? = null,
     var notificationContent: String? = null,
     var totalBytes: Long = 0L,
-    var status: Int = CDownloadConstants.STATUS_UNKNOWN
+    var status: Int = CDownloadManager.STATUS_UNKNOWN
 ) : BaseUtilK() {
 
     private fun createFromCursor(cursor: Cursor): DownloadRecord {
         val record = DownloadRecord()
-        cursor.getValue<Long>(CDownloadParameter.COLUMN_ID)?.let {
+        cursor.getColumnValue<Long>(CDownloadParameter.COLUMN_ID)?.let {
             record.id = it
         }
-        cursor.getValue<String>(CDownloadParameter.COLUMN_URL)?.let {
+        cursor.getColumnValue<String>(CDownloadParameter.COLUMN_URL)?.let {
             record.url = it
         }
-        cursor.getValue<String>(CDownloadParameter.COLUMN_FILENAME)?.let {
+        cursor.getColumnValue<String>(CDownloadParameter.COLUMN_FILENAME)?.let {
             record.fileName = it
         }
-        cursor.getValue<String>(CDownloadParameter.COLUMN_DESTINATION_URI)?.let {
+        cursor.getColumnValue<String>(CDownloadParameter.COLUMN_DESTINATION_URI)?.let {
             record.destinationUri = it
         }
-        cursor.getValue<Boolean>(CDownloadParameter.COLUMN_IGNORE_LOCAL)?.let {
+        cursor.getColumnValue<Boolean>(CDownloadParameter.COLUMN_IGNORE_LOCAL)?.let {
             record.ignoreLocal = it
         }
-        cursor.getValue<Boolean>(CDownloadParameter.COLUMN_NEED_INSTALL)?.let {
+        cursor.getColumnValue<Boolean>(CDownloadParameter.COLUMN_NEED_INSTALL)?.let {
             record.needInstall = it
         }
-        cursor.getValue<Int>(CDownloadParameter.COLUMN_NOTIFICATION_VISIBILITY)?.let {
+        cursor.getColumnValue<Int>(CDownloadParameter.COLUMN_NOTIFICATION_VISIBILITY)?.let {
             record.notificationVisibility = it
         }
-        cursor.getValue<String>(CDownloadParameter.COLUMN_NOTIFICATION_TITLE)?.let {
+        cursor.getColumnValue<String>(CDownloadParameter.COLUMN_NOTIFICATION_TITLE)?.let {
             record.notificationTitle = it
         }
-        cursor.getValue<String>(CDownloadParameter.COLUMN_NOTIFICATION_CONTENT)?.let {
+        cursor.getColumnValue<String>(CDownloadParameter.COLUMN_NOTIFICATION_CONTENT)?.let {
             record.notificationContent = it
         }
-        cursor.getValue<Long>(CDownloadParameter.COLUMN_TOTAL_BYTES)?.let {
+        cursor.getColumnValue<Long>(CDownloadParameter.COLUMN_TOTAL_BYTES)?.let {
             record.totalBytes = it
         }
-        cursor.getValue<Int>(CDownloadParameter.COLUMN_STATUS)?.let {
+        cursor.getColumnValue<Int>(CDownloadParameter.COLUMN_STATUS)?.let {
             record.status = it
         }
         return record

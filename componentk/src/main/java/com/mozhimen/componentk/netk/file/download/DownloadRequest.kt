@@ -4,14 +4,15 @@ import android.content.Context
 import android.net.Uri
 import androidx.annotation.DrawableRes
 import com.mozhimen.basick.utilk.android.util.UtilKLog.et
+import com.mozhimen.basick.utilk.android.widget.showToast
+import com.mozhimen.basick.utilk.androidx.core.UtilKNotificationManagerCompat
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.componentk.BuildConfig
 import com.mozhimen.componentk.R
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadConstants
-import com.mozhimen.componentk.netk.file.download.cons.CDownloadParameter
-import com.mozhimen.componentk.netk.file.download.utils.DownloadEngine
-import com.mozhimen.componentk.netk.file.download.utils.NotifierVisibility
-import com.mozhimen.componentk.netk.file.download.utils.Utils
+import com.mozhimen.componentk.netk.file.download.annors.ADownloadEngine
+import com.mozhimen.componentk.netk.file.download.annors.ANotificationVisibility
+import com.mozhimen.componentk.netk.file.download.bases.BaseDownloader
+import com.mozhimen.componentk.netk.file.download.commons.IDownloadListener
 import java.io.File
 
 /**
@@ -21,8 +22,8 @@ import java.io.File
 class DownloadRequest(
     val context: Context,
     val url: String,
-    @DownloadEngine
-    val engine: Int = CDownloadParameter.DOWNLOAD_ENGINE_EMBED
+    @ADownloadEngine
+    val engine: Int = ADownloadEngine.EMBED
 ) : BaseUtilK() {
     /**
      * 文件下载的目标地址
@@ -33,7 +34,7 @@ class DownloadRequest(
         private set
         get() {
             return if (field == null) {
-                Uri.fromFile(File(Utils.getDownloadDir(context), url.substringAfterLast("/")))
+                Uri.fromFile(File(DownloadUtils.getDownloadDir(context), url.substringAfterLast("/")))
             } else {
                 field
             }
@@ -51,7 +52,7 @@ class DownloadRequest(
     var needInstall = false
         private set
 
-    var notificationVisibility = CDownloadConstants.NOTIFIER_VISIBLE_NOTIFY_COMPLETED
+    var notificationVisibility = ANotificationVisibility.VISIBLE_NOTIFY_COMPLETED
         private set
 
     var notificationSmallIcon = -1
@@ -123,7 +124,7 @@ class DownloadRequest(
      * 设置通知栏可见性，默认为 [NOTIFIER_VISIBLE_NOTIFY_COMPLETED]
      * [NOTIFIER_VISIBLE] [NOTIFIER_HIDDEN] [NOTIFIER_VISIBLE_NOTIFY_COMPLETED] [NOTIFIER_VISIBLE_NOTIFY_ONLY_COMPLETION]
      */
-    fun setNotificationVisibility(@NotifierVisibility visibility: Int): DownloadRequest {
+    fun setNotificationVisibility(@ANotificationVisibility visibility: Int): DownloadRequest {
         notificationVisibility = visibility
         return this
     }
@@ -143,12 +144,12 @@ class DownloadRequest(
 
     private fun getDefaultTitle(): String {
         return context.getString(
-            R.string.downloader_notifier_title_placeholder,
+            R.string.netk_file_notifier_title_placeholder,
             context.applicationInfo.loadLabel(context.packageManager)
         )
     }
 
-    private var _listeners: MutableSet<DownloadListener>? = null
+    private var _listeners: MutableSet<IDownloadListener>? = null
 
     private fun initListenerList() {
         if (_listeners == null) {
@@ -163,13 +164,13 @@ class DownloadRequest(
     /**
      * 注册下载监听。当下载完成或下载失败会自动移除监听
      */
-    fun registerListener(listener: DownloadListener): DownloadRequest {
+    fun registerListener(listener: IDownloadListener): DownloadRequest {
         initListenerList()
         _listeners?.add(listener)
         return this
     }
 
-    fun unregisterListener(listener: DownloadListener) {
+    fun unregisterListener(listener: IDownloadListener) {
         if (_listeners == null) return
         _listeners?.remove(listener)
     }
@@ -202,9 +203,9 @@ class DownloadRequest(
         }
     }
 
-    private fun createDownloader(@DownloadEngine engine: Int): Downloader {
+    private fun createDownloader(@ADownloadEngine engine: Int): BaseDownloader {
         return when (engine) {
-            CDownloadParameter.DOWNLOAD_ENGINE_SYSTEM_DM -> SystemDownloader(this)
+            ADownloadEngine.SYSTEM_DM -> SystemDownloader(this)
             else -> EmbedDownloader(this)
         }
     }
@@ -224,8 +225,8 @@ class DownloadRequest(
             if (BuildConfig.DEBUG) et(TAG, "下载任务已经存在")
             return false
         }
-        if (notificationVisibility != CDownloadConstants.NOTIFIER_HIDDEN && showNotificationDisableTip) {
-            Utils.checkNotificationsEnabled(context)
+        if (notificationVisibility != ANotificationVisibility.HIDDEN && showNotificationDisableTip&&!UtilKNotificationManagerCompat.areNotificationsEnabled()) {
+                R.string.netk_file_notification_disable.showToast()
         }
         val downloader = createDownloader(engine)
         downloader.startDownload()

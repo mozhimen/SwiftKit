@@ -2,6 +2,7 @@ package com.mozhimen.basick.utilk.android.content
 
 import android.annotation.SuppressLint
 import android.app.ActivityManager
+import android.app.DownloadManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.pm.ApplicationInfo
@@ -71,6 +72,10 @@ object UtilKContext {
         context.packageManager
 
     ////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun getDownloadManager(context: Context): DownloadManager =
+        context.getSystemService(CContext.DOWNLOAD_SERVICE) as DownloadManager
 
     @JvmStatic
     fun getLocationManager(context: Context): LocationManager =

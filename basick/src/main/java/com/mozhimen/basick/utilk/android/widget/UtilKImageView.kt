@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorInt
+import androidx.annotation.DrawableRes
 import com.mozhimen.basick.utilk.android.graphics.applyAdjustAlpha
 import com.mozhimen.basick.utilk.android.graphics.getContrastColor
 
@@ -16,6 +17,10 @@ import com.mozhimen.basick.utilk.android.graphics.getContrastColor
  * @Date 2022/11/6 2:35
  * @Version 1.0
  */
+fun ImageView.applyImageResourceWhen(bool: Boolean, @DrawableRes statusTrue: Int, @DrawableRes statusFalse: Int) {
+    UtilKImageView.applyImageResourceWhen(this, bool, statusTrue, statusFalse)
+}
+
 fun ImageView.applyFitDrawable(drawable: Drawable) {
     UtilKImageView.applyFitDrawable(this, drawable)
 }
@@ -33,6 +38,11 @@ fun ImageView.applyFillWithStroke(@ColorInt fillColorInt: Int, @ColorInt backgro
 }
 
 object UtilKImageView {
+
+    @JvmStatic
+    fun applyImageResourceWhen(imageView: ImageView, bool: Boolean, @DrawableRes statusTrue: Int, @DrawableRes statusFalse: Int) {
+        imageView.setImageResource(if (bool) statusTrue else statusFalse)
+    }
 
     /**
      * 适应图片

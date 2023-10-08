@@ -16,12 +16,17 @@ import com.mozhimen.basick.utilk.androidx.databinding.UtilKViewDataBinding
 import com.mozhimen.basick.utilk.bases.IUtilK
 
 open class BaseDialogFragmentVB<VB : ViewDataBinding>(
-    protected open val _factory: ViewModelProvider.Factory? = null
+    /*protected open var _factory: ViewModelProvider.Factory? = null*/
 ) : DialogFragment(), IActivity, IFragment, IUtilK {
+
     private var _vb: VB? = null
     protected val vb get() = _vb!!
 
+    //////////////////////////////////////////////////////////////////////////////
+
     fun isAlive(): Boolean = !isRemoving && !isDetached && activity != null
+
+    //////////////////////////////////////////////////////////////////////////////
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         inflateView(container)

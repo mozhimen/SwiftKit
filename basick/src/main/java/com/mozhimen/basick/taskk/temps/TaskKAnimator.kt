@@ -13,8 +13,8 @@ import com.mozhimen.basick.animk.builder.temps.AnimatorColorRecyclerType
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
-import com.mozhimen.basick.utilk.android.animation.UtilKAnim
 import com.mozhimen.basick.utilk.android.animation.UtilKAnimator
+import com.mozhimen.basick.utilk.android.view.UtilKAnim
 import java.util.concurrent.ConcurrentHashMap
 
 /**

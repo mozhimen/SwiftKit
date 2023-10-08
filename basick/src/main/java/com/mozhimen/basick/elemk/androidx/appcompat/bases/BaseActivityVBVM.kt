@@ -14,9 +14,9 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * @Date 2022/1/25 18:47
  * @Version 1.0
  */
-abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel>(
+abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel> : BaseActivityVB<VB>, IViewDataBinding<VB> {
+
     protected var _factory: ViewModelProvider.Factory?
-) : BaseActivityVB<VB>(_factory), IViewDataBinding<VB> {
 
     /**
      * 针对Hilt(@JvmOverloads kotlin默认参数值无效)
@@ -24,7 +24,15 @@ abstract class BaseActivityVBVM<VB : ViewDataBinding, VM : ViewModel>(
      */
     constructor() : this(null)
 
+    constructor(factory: ViewModelProvider.Factory?) : super(){
+        _factory = factory
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+
     protected lateinit var vm: VM
+
+    //////////////////////////////////////////////////////////////////////////////
 
     @CallSuper
     override fun initLayout() {
