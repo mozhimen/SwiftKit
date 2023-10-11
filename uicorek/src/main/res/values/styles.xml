@@ -37,11 +37,11 @@
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm" />
 
-    <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm" />
-
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold">
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm" />
 
     <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Bold">
         <item name="android:textStyle">bold</item>
@@ -77,11 +77,14 @@
         <item name="android:textSize">@dimen/sp_13</item>
     </style>
 
-    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_013" >
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_013">
         <item name="android:textSize">@dimen/sp_13</item>
     </style>
 
-    <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_013" >
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013" />
+
+
+    <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_013">
         <item name="android:textSize">@dimen/sp_13</item>
     </style>
 
@@ -135,6 +138,8 @@
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000.Size_020.Width_Wrap" />
 
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013.Width_Wrap" />
+
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_013.Width_Wrap.Height_Wrap" />
@@ -154,6 +159,8 @@
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000.Size_020.Width_Wrap.Height_Wrap" />
+
+    <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap" />
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--///Edit_Style-->

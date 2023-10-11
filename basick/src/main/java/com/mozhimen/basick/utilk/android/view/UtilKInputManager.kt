@@ -114,7 +114,7 @@ object UtilKInputManager : BaseUtilK() {
      */
     fun show(editText: EditText) {
         if (!editText.isEnabled || !editText.hasFocus()) return
-        show(editText)
+        show(editText as View)
     }
 
     /**

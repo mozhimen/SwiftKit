@@ -1,16 +1,10 @@
 package com.mozhimen.basick.utilk.android.widget
 
-import android.content.Context
 import android.graphics.Typeface
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.IntRange
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.kotlin.UtilKAny
-import com.mozhimen.basick.utilk.kotlin.UtilKAnyFormat
 import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
 
 /**
@@ -22,6 +16,14 @@ import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
  */
 fun TextView.applyTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
     UtilKTextView.applyTextStyle(this, style)
+}
+
+fun TextView.applyTextStyleBold() {
+    UtilKTextView.applyTextStyleBold(this)
+}
+
+fun TextView.applyTextStyleNormal() {
+    UtilKTextView.applyTextStyleNormal(this)
 }
 
 fun TextView.applyIconFont(iconFont: String = "icons/iconfont.ttf") {
@@ -53,12 +55,20 @@ object UtilKTextView {
 
     /**
      * 设置字体的细或粗
-     * @param textView TextView
-     * @param style Int
      */
     @JvmStatic
     fun applyTextStyle(textView: TextView, @IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
         textView.typeface = Typeface.defaultFromStyle(style)
+    }
+
+    @JvmStatic
+    fun applyTextStyleBold(textView: TextView) {
+        applyTextStyle(textView, Typeface.BOLD)
+    }
+
+    @JvmStatic
+    fun applyTextStyleNormal(textView: TextView) {
+        applyTextStyle(textView, Typeface.NORMAL)
     }
 
     /**

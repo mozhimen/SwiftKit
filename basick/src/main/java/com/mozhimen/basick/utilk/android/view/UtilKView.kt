@@ -8,6 +8,8 @@ import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.elemk.android.view.cons.CView
+import com.mozhimen.basick.elemk.android.view.cons.CViewGroup
+import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.elemk.android.view.cons.CWindow
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
@@ -62,6 +64,10 @@ fun View.applyResizeSize(size: Int) {
 
 fun View.applyResizeSize(width: Int, height: Int) {
     UtilKView.applyResizeSize(this, width, height)
+}
+
+fun View.applyResizeSizeMax() {
+    UtilKView.applyResizeSizeMax(this)
 }
 
 fun View.applyBackgroundNull() =
@@ -393,12 +399,15 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 重置大小
-     * @param view View
-     * @param size Int
      */
     @JvmStatic
     fun applyResizeSize(view: View, size: Int) {
         applyResizeSize(view, size, size)
+    }
+
+    @JvmStatic
+    fun applyResizeSizeMax(view: View) {
+        view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
     /**
