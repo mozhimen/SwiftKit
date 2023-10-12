@@ -203,7 +203,7 @@ class LayoutKSideList @JvmOverloads constructor(context: Context, attrs: Attribu
 
         private fun bindMenuView(holder: VHKRecycler, position: Int) {
             if (position in _mo.menus.indices)
-                holder.findViewById<TextView>(R.id.layoutk_side_menu_item_title)?.text = _mo.menus[position].menuName
+                holder.findViewByIdOrNull<TextView>(R.id.layoutk_side_menu_item_title)?.text = _mo.menus[position].menuName
         }
 
         private fun applyMenuItemAttr(position: Int, holder: VHKRecycler) {
@@ -253,8 +253,8 @@ class LayoutKSideList @JvmOverloads constructor(context: Context, attrs: Attribu
 
         private fun bindContentView(holder: VHKRecycler, position: Int) {
             val contentMo = getContentByPosition(_mo, position)
-            holder.findViewById<TextView>(R.id.layoutk_side_content_item_txt)?.text = contentMo?.contentName ?: "暂无数据"
-            holder.findViewById<ImageView>(R.id.layoutk_side_content_item_img)
+            holder.findViewByIdOrNull<TextView>(R.id.layoutk_side_content_item_txt)?.text = contentMo?.contentName ?: "暂无数据"
+            holder.findViewByIdOrNull<ImageView>(R.id.layoutk_side_content_item_img)
                 ?.loadImageComplexCoil(contentMo?.contentImageUrl ?: "", placeholder = R.mipmap.layoutk_refresh_loading, error = R.mipmap.layoutk_empty)
         }
 

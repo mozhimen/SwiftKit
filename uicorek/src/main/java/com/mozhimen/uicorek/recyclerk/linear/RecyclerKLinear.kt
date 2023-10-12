@@ -9,11 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.uicorek.R
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.uicorek.adapterk.item.AdapterKItemRecycler
 import com.mozhimen.uicorek.databinding.RecyclerkLinearItemBinding
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.recyclerk.linear.commons.IRecyclerKLinear
-import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 /**
@@ -28,12 +27,12 @@ typealias IRecyclerKLinearListener = IAB_Listener<Int, MKey>//(position: Int, it
 class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr), IRecyclerKLinear {
 
     private var _recyclerLinearListener: IRecyclerKLinearListener? = null
-    private val _adapterKRecycler by lazy { AdapterKRecycler() }
+    private val _adapterKItemRecycler by lazy { AdapterKItemRecycler() }
     private val _keys = ArrayList<MKey>()
 
     init {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        adapter = _adapterKRecycler
+        adapter = _adapterKItemRecycler
         layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
     }
 
@@ -46,18 +45,18 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
         _keys.addAll(keys)
         val items = mutableListOf<RecyclerKLinearItem>()
         for (key in keys) items.add(RecyclerKLinearItem(key, listener))
-        _adapterKRecycler.removeItemsAll(true)
-        _adapterKRecycler.addItems(items.toList(), true)
+        _adapterKItemRecycler.removeItemsAll(true)
+        _adapterKItemRecycler.addItems(items.toList(), true)
     }
 
     override fun clearKeys() {
         _keys.clear()
-        _adapterKRecycler.removeItemsAll(true)
+        _adapterKItemRecycler.removeItemsAll(true)
     }
 
     override fun addKey(key: MKey) {
         _keys.add(key)
-        _adapterKRecycler.addItem(RecyclerKLinearItem(key, _recyclerLinearListener), true)
+        _adapterKItemRecycler.addItem(RecyclerKLinearItem(key, _recyclerLinearListener), true)
     }
 
     override fun removeKey(key: MKey) {
@@ -68,14 +67,14 @@ class RecyclerKLinear @JvmOverloads constructor(context: Context, attrs: Attribu
     override fun removeKey(index: Int) {
         if (index in 0 until _keys.size) {
             _keys.removeAt(index)
-            _adapterKRecycler.removeItemAtPosition(index, true)
+            _adapterKItemRecycler.removeItemAtPosition(index, true)
         }
     }
 
     private inner class RecyclerKLinearItem(
         private val _data: MKey,
         private val _listener: IRecyclerKLinearListener?
-    ) : BaseRecyclerKItem<VHKRecyclerVB<RecyclerkLinearItemBinding>>() {
+    ) : RecyclerKItem<VHKRecyclerVB<RecyclerkLinearItemBinding>>() {
 
         override fun onBindItem(holder: VHKRecyclerVB<RecyclerkLinearItemBinding>, position: Int) {
             super.onBindItem(holder, position)

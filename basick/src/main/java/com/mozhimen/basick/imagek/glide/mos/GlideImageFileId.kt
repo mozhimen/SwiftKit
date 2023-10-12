@@ -1,4 +1,4 @@
-package com.mozhimen.basick.imagek.glide.temps
+package com.mozhimen.basick.imagek.glide.mos
 
 /**
  * @ClassName GlideImageFileId

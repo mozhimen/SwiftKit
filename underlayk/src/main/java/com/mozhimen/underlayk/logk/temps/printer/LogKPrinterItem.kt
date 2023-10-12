@@ -8,7 +8,7 @@ import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 import com.mozhimen.underlayk.databinding.LogkPrinterViewItemBinding
 import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
@@ -20,7 +20,7 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
  * @Date 2022/9/23 11:51
  * @Version 1.0
  */
-class LogKPrinterItem<R : BaseLogKRecord>(private val _record: R) : BaseRecyclerKItem<VHKRecyclerVB<LogkPrinterViewItemBinding>>() {
+class LogKPrinterItem<R : BaseLogKRecord>(private val _record: R) : RecyclerKItem<VHKRecyclerVB<LogkPrinterViewItemBinding>>() {
     override fun onBindItem(holder: VHKRecyclerVB<LogkPrinterViewItemBinding>, position: Int) {
         super.onBindItem(holder, position)
         val colorInt = getColorIntFor(_record.priority)

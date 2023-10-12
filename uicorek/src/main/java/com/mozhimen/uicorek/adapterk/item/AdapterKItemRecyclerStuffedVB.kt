@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.adapterk
+package com.mozhimen.uicorek.adapterk.item
 
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
@@ -6,7 +6,7 @@ import com.mozhimen.basick.utilk.kotlin.collections.joinT2list
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2listIgnoreNull
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVB
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVBListener
-import com.mozhimen.uicorek.recyclerk.temps.RecyclerKItemVB
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItemVB
 
 /**
  * @ClassName AdapterKRecyclerStuffedVB2
@@ -19,14 +19,14 @@ import com.mozhimen.uicorek.recyclerk.temps.RecyclerKItemVB
 //typealias IAdapterKRecyclerStuffedVB2Listener<DATA, VB> = (holder: VHKRecyclerVB<VB>, itemData: DATA, position: Int, currentSelectPos: Int) -> Unit
 
 @Suppress(CSuppress.UNCHECKED_CAST)
-class AdapterKRecyclerStuffedVB2<DATA, VB : ViewDataBinding>(
+class AdapterKItemRecyclerStuffedVB<DATA, VB : ViewDataBinding>(
     private val _datas: List<DATA>,
     private var _defaultLayoutId: Int,
     private var _brId: Int,
     private var _headerLayoutId: Int? = null,
     private var _footerLayoutId: Int? = null,
     private var _listener: IAdapterKRecyclerVBListener<DATA, VB>? = null
-) : AdapterKRecyclerStuffed(), IAdapterKRecyclerVB<DATA, VB> {
+) : AdapterKItemRecyclerStuffed(), IAdapterKRecyclerVB<DATA, VB> {
     private var _selectItemPosition = -1
 
     init {

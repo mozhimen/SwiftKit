@@ -1,11 +1,11 @@
-package com.mozhimen.uicorek.adapterk
+package com.mozhimen.uicorek.adapterk.item
 
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2list
 import com.mozhimen.basick.utilk.kotlin.collections.joinT2listIgnoreNull
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVB
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVBListener
-import com.mozhimen.uicorek.recyclerk.temps.RecyclerKItemVB
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItemVB
 
 /**
  * @ClassName AdapterKRecyclerVB2
@@ -18,12 +18,12 @@ import com.mozhimen.uicorek.recyclerk.temps.RecyclerKItemVB
  * @Version 1.0
  */
 
-class AdapterKRecyclerVB2<DATA, VB : ViewDataBinding>(
+class AdapterKItemRecyclerVB<DATA, VB : ViewDataBinding>(
     private val _datas: List<DATA>,
     private val _defaultLayoutId: Int,
     private val _brId: Int,
     private val _listener: IAdapterKRecyclerVBListener<DATA, VB>? = null
-) : AdapterKRecycler(), IAdapterKRecyclerVB<DATA, VB> {
+) : AdapterKItemRecycler(), IAdapterKRecyclerVB<DATA, VB> {
 
     private var _selectItemPosition = -1
 

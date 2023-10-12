@@ -8,8 +8,6 @@ import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.elemk.android.view.cons.CView
-import com.mozhimen.basick.elemk.android.view.cons.CViewGroup
-import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.elemk.android.view.cons.CWindow
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
@@ -35,6 +33,11 @@ import java.util.*
  * @Date 2022/2/27 16:50
  * @Version 1.0
  */
+fun View.getTagLong(key: Int, defaultValue: Long): Long =
+    UtilKView.getTagLong(this, key, defaultValue)
+
+//////////////////////////////////////////////////////////////////////////////
+
 fun View.isVisible(): Boolean =
     UtilKView.isVisible(this)
 
@@ -97,6 +100,10 @@ fun View.applyFitSystemWindow() {
     UtilKView.applyFitSystemWindow(this)
 }
 
+fun View.applyDebounceClickListener(thresholdMillis: Long = 500, block: IA_Listener<View>) {
+    UtilKView.applyDebounceClickListener(this, block, thresholdMillis)
+}
+
 fun View.applyDebounceClickListener(scope: CoroutineScope, thresholdMillis: Long = 500, block: IA_Listener<View>) {
     UtilKView.applyDebounceClickListener(this, scope, block, thresholdMillis)
 }
@@ -106,6 +113,10 @@ fun View.applySuspendDebounceClickListener(scope: CoroutineScope, thresholdMilli
 }
 
 object UtilKView : BaseUtilK() {
+
+    @JvmStatic
+    fun getTagLong(view: View, key: Int, defaultValue: Long): Long =
+        if (view.getTag(key) != null) view.getTag(key) as Long else defaultValue
 
     @JvmStatic
     fun getBundle(view: View): Bundle {
@@ -177,6 +188,17 @@ object UtilKView : BaseUtilK() {
             }
         }
         return null
+    }
+
+    private fun <V : View> isDebounceClickable(view: V, thresholdMillis: Long = 500): Boolean {
+        var isClickable = false
+        val currentClickTime = System.currentTimeMillis()
+        val lastClickTime = getTagLong(view, 1123460103, currentClickTime)
+        if (currentClickTime - lastClickTime >= getTagLong(view, 1123461123, thresholdMillis)) {
+            isClickable = true
+            view.setTag(1123460103, currentClickTime)
+        }
+        return isClickable
     }
 
     /**
@@ -278,6 +300,12 @@ object UtilKView : BaseUtilK() {
     //////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
+    fun applyDebounceClickListener(view: View, block: IA_Listener<View>, thresholdMillis: Long = 500) {
+        view.setTag(1123461123, thresholdMillis)
+        view.setOnClickListener { if (isDebounceClickable(view, thresholdMillis)) block.invoke(view) }
+    }
+
+    @JvmStatic
     fun applyDebounceClickListener(view: View, scope: CoroutineScope, block: IA_Listener<View>, thresholdMillis: Long = 500) {
         view.createViewClickFlow().throttleFirst(thresholdMillis).onEach { block.invoke(view) }.launchIn(scope)
     }
@@ -354,9 +382,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 四周内边距
-     * @param view View
-     * @param paddingHorizontal Int
-     * @param paddingVertical Int
      */
     @JvmStatic
     fun applyPadding(view: View, paddingHorizontal: Int, paddingVertical: Int) {
@@ -365,8 +390,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 左右内边距
-     * @param view View
-     * @param padding Int
      */
     @JvmStatic
     fun applyPaddingHorizontal(view: View, padding: Int) {

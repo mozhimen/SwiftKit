@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.adapterk
+package com.mozhimen.uicorek.adapterk.item
 
 import android.util.SparseArray
 import android.view.LayoutInflater
@@ -17,7 +17,7 @@ import java.lang.ref.WeakReference
  * @Date 2021/8/31 16:14
  * @Version 1.0
  */
-open class AdapterKRecyclerStuffed : AdapterKRecycler(), IAdapterKRecyclerStuffed {
+open class AdapterKItemRecyclerStuffed : AdapterKItemRecycler(), IAdapterKRecyclerStuffed {
 
     private var _headers = SparseArray<View>()
     private var _footers = SparseArray<View>()

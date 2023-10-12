@@ -28,7 +28,7 @@ import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.view.UtilKWindowManager
 import com.mozhimen.basick.utilk.android.widget.showToastOnMain
 import com.mozhimen.basick.utilk.java.lang.UtilKThread
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
+import com.mozhimen.uicorek.adapterk.item.AdapterKItemRecycler
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
@@ -60,14 +60,14 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
             return frameLayout.also { field = it }
         }
     private val _windowManager: WindowManager by lazy { UtilKWindowManager.get(_context) }
-    private val _adapterKRecycler by lazy { AdapterKRecycler() }
+    private val _adapterKItemRecycler by lazy { AdapterKItemRecycler() }
 
     private var _recyclerView: RecyclerView? = null
         get() {
             if (field != null) return field
             val recyclerView = _rootView!!.findViewById<RecyclerView>(com.mozhimen.underlayk.R.id.logk_monitor_view_msg)
             recyclerView.layoutManager = LinearLayoutManager(_context)
-            recyclerView.adapter = _adapterKRecycler
+            recyclerView.adapter = _adapterKItemRecycler
             return recyclerView.also { field = it }
         }
 
@@ -170,8 +170,8 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private fun printInView(level: Int, tag: String, msg: String) {
-        _adapterKRecycler.addItem(LogKPrinterItem(BaseLogKRecord(System.currentTimeMillis(), level, tag, msg)), true)
-        _recyclerView!!.smoothScrollToPosition(_adapterKRecycler.itemCount - 1)
+        _adapterKItemRecycler.addItem(LogKPrinterItem(BaseLogKRecord(System.currentTimeMillis(), level, tag, msg)), true)
+        _recyclerView!!.smoothScrollToPosition(_adapterKItemRecycler.itemCount - 1)
     }
 
     @Throws(Exception::class)

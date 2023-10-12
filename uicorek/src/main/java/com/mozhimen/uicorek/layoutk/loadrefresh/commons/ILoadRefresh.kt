@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.layoutk.loadrefresh.commons
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
 import com.mozhimen.uicorek.layoutk.refresh.commons.RefreshOverView
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.recyclerk.load.RecyclerKLoad
 import com.mozhimen.uicorek.recyclerk.load.commons.IRecyclerKLoadListener
 
@@ -46,7 +46,7 @@ interface ILoadRefresh {
      */
     fun initLoadParams(
         prefetchSize: Int,
-        items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>,
+        items: List<RecyclerKItem<out RecyclerView.ViewHolder>>,
         listener: IRecyclerKLoadListener?
     )
 
@@ -56,7 +56,7 @@ interface ILoadRefresh {
      * @param listener ILoadRefreshListener?
      */
     fun startRefresh(
-        items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>?,
+        items: List<RecyclerKItem<out RecyclerView.ViewHolder>>?,
         listener: ILoadRefreshListener?
     )
 
@@ -66,7 +66,7 @@ interface ILoadRefresh {
      * @param listener ILoadRefreshListener?
      */
     fun startLoad(
-        items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>?,
+        items: List<RecyclerKItem<out RecyclerView.ViewHolder>>?,
         listener: ILoadRefreshListener?
     )
 }

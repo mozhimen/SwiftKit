@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.recyclerk.bases
+package com.mozhimen.uicorek.recyclerk.item
 
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
  * @Date 2021/8/31 15:56
  * @Version 1.0
  */
-open class BaseRecyclerKItem<VH : RecyclerView.ViewHolder> : IUtilK {
+open class RecyclerKItem<VH : RecyclerView.ViewHolder> : IUtilK {
     protected var _adapterKRecycler: IAdapterKRecycler? = null
     lateinit var vh: VH
     var pos: Int = -1

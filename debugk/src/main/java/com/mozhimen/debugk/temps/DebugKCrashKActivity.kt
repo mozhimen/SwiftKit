@@ -17,7 +17,7 @@ import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.databinding.DebugkActivityCrashkBinding
 import com.mozhimen.debugk.databinding.DebugkItemCrashkFileBinding
 import com.mozhimen.debugk.mos.MDebugKCrashK
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
+import com.mozhimen.uicorek.adapterk.quick.AdapterKQuickRecyclerVB
 import com.mozhimen.underlayk.crashk.CrashKMgr
 
 /**
@@ -42,7 +42,7 @@ class DebugKCrashKActivity : BaseActivityVB<DebugkActivityCrashkBinding>() {
         vb.debugkCrashkRecycler.addItemDecoration(decoration)
 
         vb.debugkCrashkRecycler.layoutManager = LinearLayoutManager(this)
-        val adapterKRecycler = AdapterKRecyclerVB<MDebugKCrashK, DebugkItemCrashkFileBinding>(
+        val adapterKRecycler = AdapterKQuickRecyclerVB<MDebugKCrashK, DebugkItemCrashkFileBinding>(
                 _dataSets,
                 R.layout.debugk_item_crashk_file,
                 BR.itemDebugKCrashK

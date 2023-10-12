@@ -11,4 +11,4 @@ import com.mozhimen.uicorek.vhk.VHKRecyclerVB
  * @Version 1.0
  */
 typealias IAdapterKRecyclerVBListener<DATA, VB> = (holder: VHKRecyclerVB<VB>, data: DATA, position: Int, currentSelectPosition: Int) -> Unit
-typealias IAdapterKRecyclerMultiVBListener<DATA, VB> = (holder: VHKRecyclerMultiVB<VB>, data: DATA, position: Int, currentSelectPosition: Int) -> Unit
+typealias IAdapterKRecyclerStuffedVBListener<DATA, VB> = (holder: VHKRecyclerMultiVB<VB>, data: DATA, position: Int, currentSelectPosition: Int) -> Unit

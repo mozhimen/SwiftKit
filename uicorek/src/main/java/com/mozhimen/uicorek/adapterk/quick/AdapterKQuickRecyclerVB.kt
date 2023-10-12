@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.adapterk
+package com.mozhimen.uicorek.adapterk.quick
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVB
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVBListener
-import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 /**
@@ -23,7 +22,7 @@ import com.mozhimen.uicorek.vhk.VHKRecyclerVB
  * @Date 2021/6/4 20:07
  * @Version 1.0
  */
-open class AdapterKRecyclerVB<DATA, VB : ViewDataBinding>(
+open class AdapterKQuickRecyclerVB<DATA, VB : ViewDataBinding>(
     private var _datas: MutableList<DATA>,
     private val _defaultLayout: Int,
     private val _brId: Int,

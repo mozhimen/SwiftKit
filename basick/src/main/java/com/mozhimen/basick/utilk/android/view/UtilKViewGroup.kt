@@ -1,8 +1,10 @@
 package com.mozhimen.basick.utilk.android.view
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2top
 
@@ -13,6 +15,9 @@ import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2top
  * @Date 2022/2/22 22:30
  * @Version 1.0
  */
+fun ViewGroup.findViewByInflate(@LayoutRes layoutId: Int): View =
+    UtilKViewGroup.findViewByInflate(this, layoutId)
+
 object UtilKViewGroup {
 
     /**
@@ -32,6 +37,10 @@ object UtilKViewGroup {
         }
         return child
     }
+
+    @JvmStatic
+    fun findViewByInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
+        LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
 
     //////////////////////////////////////////////////////////////////////////////////////
 

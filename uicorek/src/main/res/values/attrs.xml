@@ -294,6 +294,22 @@
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--textk-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <declare-styleable name="TextKProgressDownload">
+        <attr name="textKProgressDownload_radius" format="dimension" />
+        <attr name="textKProgressDownload_backgroundColor" format="color" />
+        <attr name="textKProgressDownload_backgroundColorNormal" format="color" />
+        <attr name="textKProgressDownload_backgroundColorSecond" format="color" />
+        <attr name="textKProgressDownload_textColor" format="color" />
+        <attr name="textKProgressDownload_textColorNormal" format="color" />
+        <attr name="textKProgressDownload_textColorCover" format="color" />
+        <attr name="textKProgressDownload_borderColor" format="color" />
+        <attr name="textKProgressDownload_borderWidth" format="dimension" />
+        <attr name="textKProgressDownload_ballStyle" format="enum">
+            <enum name="pulse" value="1" />
+            <enum name="jump" value="2" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="TextKBubble">
         <!--设置箭头朝向-->
         <attr name="textKBubble_arrowDirection" format="enum">

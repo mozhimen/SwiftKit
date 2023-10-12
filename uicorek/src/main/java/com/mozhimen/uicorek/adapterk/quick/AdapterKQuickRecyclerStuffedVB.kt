@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.adapterk
+package com.mozhimen.uicorek.adapterk.quick
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,9 +6,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerMultiVBListener
+import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerStuffedVBListener
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVB
-import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVBListener
 import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
 
 /**
@@ -21,13 +20,13 @@ import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
 
 //typealias IAdapterKRecyclerStuffedVBListener<DATA, VB> = (holder: VHKRecyclerVB<VB>, itemData: DATA, position: Int, currentSelectPos: Int) -> Unit
 
-open class AdapterKRecyclerStuffedVB<DATA, VB : ViewDataBinding>(
+open class AdapterKQuickRecyclerStuffedVB<DATA, VB : ViewDataBinding>(
     private var _datas: MutableList<DATA>,
     private var _defaultLayout: Int,
     private var _headerLayout: Int?,
     private var _footerLayout: Int?,
     private var _brId: Int,
-    private var _listener: IAdapterKRecyclerMultiVBListener<DATA, VB>? = null
+    private var _listener: IAdapterKRecyclerStuffedVBListener<DATA, VB>? = null
 ) : RecyclerView.Adapter<VHKRecyclerMultiVB<VB>>(), IAdapterKRecyclerVB<DATA, VB> {
 
     private var _selectItemPosition = 0

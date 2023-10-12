@@ -11,6 +11,7 @@ package com.mozhimen.basick.elemk.commons
 typealias I_Listener = () -> Unit
 typealias I_AListener<A> = () -> A
 typealias IA_Listener<A> = (a: A) -> Unit
+typealias IA_AListener<A> = (a: A) -> A
 typealias IA_BListener<A, B> = (a: A) -> B
 typealias IAA_Listener<A> = (a1: A, a2: A) -> Unit
 typealias IAA_BListener<A,B> = (a1: A, a2: A) -> B

@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.adapterk
+package com.mozhimen.uicorek.adapterk.item
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecycler
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import java.lang.ref.WeakReference
 import java.lang.reflect.ParameterizedType
@@ -26,17 +26,17 @@ import java.util.ArrayList
  * @Date 2023/3/31 18:38
  * @Version 1.0
  */
-open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), IAdapterKRecycler {
-    protected var _items = ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>>()
+open class AdapterKItemRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), IAdapterKRecycler {
+    protected var _items = ArrayList<RecyclerKItem<out RecyclerView.ViewHolder>>()
     protected val _typePositions = SparseIntArray()
     protected var _recyclerViewRef: WeakReference<RecyclerView>? = null
 
     ////////////////////////////////////////////////////////////////////////////////////
 
     //region # IAdapterKRecycler
-    override fun refreshItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean) {
+    override fun refreshItem(item: RecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean) {
         if (position < 0 || position >= _items.size) return
-        _items[position] = item.apply { bindAdapter(this@AdapterKRecycler) }
+        _items[position] = item.apply { bindAdapter(this@AdapterKItemRecycler) }
         if (notify) notifyItemChanged(position)
     }
 
@@ -45,17 +45,17 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         if (notify) notifyDataSetChanged()
     }
 
-    override fun refreshItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
+    override fun refreshItems(items: List<RecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
         _items.clear()
-        for (item in items) _items.add(item.apply { bindAdapter(this@AdapterKRecycler) })
+        for (item in items) _items.add(item.apply { bindAdapter(this@AdapterKItemRecycler) })
         refreshItems(notify)
     }
 
-    override fun addItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, notify: Boolean) {
+    override fun addItem(item: RecyclerKItem<out RecyclerView.ViewHolder>, notify: Boolean) {
         addItemAtPosition(item, -1, notify)
     }
 
-    override fun addItemAtPosition(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean) {
+    override fun addItemAtPosition(item: RecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean) {
         if (position >= 0)
             _items.add(position, item)
         else
@@ -67,25 +67,25 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         item.bindAdapter(this)
     }
 
-    override fun addItems(items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
+    override fun addItems(items: List<RecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean) {
         val start = _items.size
         for (item in items)
-            _items.add(item.apply { bindAdapter(this@AdapterKRecycler) })
+            _items.add(item.apply { bindAdapter(this@AdapterKItemRecycler) })
         Log.d(TAG, "addItems: start $start items size ${items.size} _items size ${_items.size}")
         if (notify) notifyItemRangeInserted(start, items.size)
     }
 
-    override fun removeItem(item: BaseRecyclerKItem<out RecyclerView.ViewHolder>, notify: Boolean) {
+    override fun removeItem(item: RecyclerKItem<out RecyclerView.ViewHolder>, notify: Boolean) {
         val position = _items.indexOf(item)
         if (position != -1) removeItemAtPosition(position, notify)
     }
 
     @Suppress(CSuppress.UNCHECKED_CAST)
-    override fun removeItemAtPosition(position: Int, notify: Boolean): BaseRecyclerKItem<in RecyclerView.ViewHolder>? {
+    override fun removeItemAtPosition(position: Int, notify: Boolean): RecyclerKItem<in RecyclerView.ViewHolder>? {
         if (position < 0 || position >= _items.size) return null
         val remove = _items.removeAt(position)
         if (notify) notifyItemRemoved(position)
-        return remove as BaseRecyclerKItem<in RecyclerView.ViewHolder>
+        return remove as RecyclerKItem<in RecyclerView.ViewHolder>
     }
 
     override fun removeItemsAll(notify: Boolean) {
@@ -94,14 +94,14 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
     }
 
     @Suppress(CSuppress.UNCHECKED_CAST)
-    override fun getItem(position: Int): BaseRecyclerKItem<RecyclerView.ViewHolder>? {
+    override fun getItem(position: Int): RecyclerKItem<RecyclerView.ViewHolder>? {
         if (position < 0 || position >= _items.size) return null
-        return _items[position] as BaseRecyclerKItem<RecyclerView.ViewHolder>
+        return _items[position] as RecyclerKItem<RecyclerView.ViewHolder>
     }
 
     @Suppress(CSuppress.UNCHECKED_CAST)
-    override fun getItems(): List<BaseRecyclerKItem<in RecyclerView.ViewHolder>> {
-        return _items.toList() as List<BaseRecyclerKItem<in RecyclerView.ViewHolder>>
+    override fun getItems(): List<RecyclerKItem<in RecyclerView.ViewHolder>> {
+        return _items.toList() as List<RecyclerKItem<in RecyclerView.ViewHolder>>
     }
 
     override fun getAttachedRecyclerView(): RecyclerView? {
@@ -211,7 +211,7 @@ open class AdapterKRecycler : RecyclerView.Adapter<RecyclerView.ViewHolder>(), I
         _recyclerViewRef?.clear()
     }
 
-    protected open fun onCreateViewHolderInternal(clazz: Class<BaseRecyclerKItem<out RecyclerView.ViewHolder>>, view: View): RecyclerView.ViewHolder {
+    protected open fun onCreateViewHolderInternal(clazz: Class<RecyclerKItem<out RecyclerView.ViewHolder>>, view: View): RecyclerView.ViewHolder {
         //得到该item的父类型,即为RecyclerKItem.class. class也是type的一个子类
         //type的子类常见的有class. 泛类型, parameterizedType参数泛型, TypeVariable字段泛型
         //来进一步判断它是不是参数泛型

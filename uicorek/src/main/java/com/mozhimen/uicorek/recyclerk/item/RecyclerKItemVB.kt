@@ -1,12 +1,9 @@
-package com.mozhimen.uicorek.recyclerk.temps
+package com.mozhimen.uicorek.recyclerk.item
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
-import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
-
 
 /**
  * @ClassName RecyclerKItemVB
@@ -23,7 +20,7 @@ class RecyclerKItemVB<DATA, VB : ViewDataBinding>(
     private val _layoutId: Int,
     private val _selectItemPos: Int,
     private val _onBind: IRecyclerKItemVBListener<DATA, VB>? = null
-) : BaseRecyclerKItem<VHKRecyclerVB<VB>>() {
+) : RecyclerKItem<VHKRecyclerVB<VB>>() {
 
     override fun onBindItem(holder: VHKRecyclerVB<VB>, position: Int) {
         super.onBindItem(holder, position)

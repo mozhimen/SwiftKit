@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.ILoadRefreshListener
 import com.mozhimen.uicorek.recyclerk.load.RecyclerKLoad
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
+import com.mozhimen.uicorek.adapterk.item.AdapterKItemRecyclerStuffed
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.ILoadRefresh
 import com.mozhimen.uicorek.layoutk.refresh.LayoutKRefresh
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
@@ -25,7 +25,7 @@ class LayoutKLoadRefresh @JvmOverloads constructor(context: Context, attrs: Attr
     LayoutKRefresh(context, attrs, defStyleAttr), ILoadRefresh {
 
     private lateinit var _recyclerKLoad: RecyclerKLoad
-    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
+    private val _adapterKRecyclerStuffed by lazy { AdapterKItemRecyclerStuffed() }
 
 
     override fun getRecyclerKLoad(): RecyclerKLoad =
@@ -45,7 +45,7 @@ class LayoutKLoadRefresh @JvmOverloads constructor(context: Context, attrs: Attr
 
     override fun initLoadParams(
         prefetchSize: Int,
-        items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>,
+        items: List<RecyclerKItem<out RecyclerView.ViewHolder>>,
         listener: IRecyclerKLoadListener?
     ) {
         _recyclerKLoad = RecyclerKLoad(context)
@@ -58,7 +58,7 @@ class LayoutKLoadRefresh @JvmOverloads constructor(context: Context, attrs: Attr
     }
 
     override fun startRefresh(
-        items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>?,
+        items: List<RecyclerKItem<out RecyclerView.ViewHolder>>?,
         listener: ILoadRefreshListener?
     ) {
         val success = items != null && items.isNotEmpty()
@@ -75,7 +75,7 @@ class LayoutKLoadRefresh @JvmOverloads constructor(context: Context, attrs: Attr
     }
 
     override fun startLoad(
-        items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>?,
+        items: List<RecyclerKItem<out RecyclerView.ViewHolder>>?,
         listener: ILoadRefreshListener?
     ) {
         val success = items != null && items.isNotEmpty()
