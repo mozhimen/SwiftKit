@@ -184,13 +184,13 @@ public class LayoutKLabelGroup extends ViewGroup implements View.OnClickListener
         if (isInEditMode()) {
 //            测试的数据
             ArrayList<String> label = new ArrayList<>();
-            label.add("Label 1");
-            label.add("Label 2");
-            label.add("Label 3");
-            label.add("Label 4");
-            label.add("Label 5");
-            label.add("Label 6");
-            label.add("Label 7");
+            label.add("Labelg 1");
+            label.add("Labelg 2");
+            label.add("Labelg 3");
+            label.add("Labelg 4");
+            label.add("Labelg 5");
+            label.add("Labelg 6");
+            label.add("Labelg 7");
             setLabels(label);
         }
     }
