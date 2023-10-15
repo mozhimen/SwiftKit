@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--/////////////////////////////////////////////////////////////////////////-->
+    <!--layoutk-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
     <!--layoutk_nav-->
     <item name="layoutk_nav_icon_back_left" type="id" />
     <!--layoutk_search-->
@@ -9,6 +12,11 @@
     <item name="layoutk_search_txt_icon_search" type="id" />
     <item name="layoutk_search_txt_icon_keyword" type="id" />
     <item name="layoutk_search_txt_keyword" type="id" />
+    <!--layoutk_label_group-->
+    <item name="tag_key_data" type="id" />
+    <item name="tag_key_position" type="id" />
+    <!--/////////////////////////////////////////////////////////////////////////-->
     <!--popwink-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
     <item name="base_popwink_content_root" type="id"/>
 </resources>

@@ -13,6 +13,7 @@
         <item name="android:textStyle">normal</item>
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">sans-serif</item>
+        <item name="android:ellipsize">end</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
