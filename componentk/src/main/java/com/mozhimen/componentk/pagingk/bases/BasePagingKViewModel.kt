@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.pagingk.bases
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -23,7 +24,7 @@ import kotlinx.coroutines.CoroutineScope
  */
 abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: PagingKConfig = PagingKConfig()) : BaseViewModel(), IPagingKDataSource<RES, DES> {
     val liveLoadState = MutableLiveData<Int>()
-    val livePagedList: LiveData<PagedList<DES>>
+    open val livePagedList: LiveData<PagedList<DES>>
 
     ////////////////////////////////////////////////////////////////////////////////////
 
@@ -44,6 +45,16 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
     ////////////////////////////////////////////////////////////////////////////////////
 
     init {
+        livePagedList = generateLivePagedList()
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    fun getViewModelScope(): CoroutineScope =
+        viewModelScope
+
+    fun generateLivePagedList(): LiveData<PagedList<DES>> {
+        Log.d(TAG, "generateLivePagedList: ")
         val dataSourceFactory = object : BasePagingKDataSourceFactory<DES>(viewModelScope, _pagingKDataSourceLoadingListener) {
             override fun createPagingKDataSource(coroutineScope: CoroutineScope, pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener): BasePagingKKeyedDataSource<RES, DES> =
                 object : BasePagingKKeyedDataSource<RES, DES>(pagingKConfig, coroutineScope, pagingKDataSourceLoadingListener) {
@@ -67,7 +78,7 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
                         this@BasePagingKViewModel.getFooter()
                 }
         }
-        livePagedList = LivePagedListBuilder(
+        return LivePagedListBuilder(
             dataSourceFactory,
             PagedList.Config.Builder()
                 //设置是否显示占位符
@@ -81,10 +92,6 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
                 .build()
         ).build()
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////
-
-    fun getViewModelScope() = viewModelScope
 
     ////////////////////////////////////////////////////////////////////////////////////
 
