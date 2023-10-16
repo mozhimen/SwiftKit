@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.adapterk
+package com.mozhimen.uicorek.adapterk.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
