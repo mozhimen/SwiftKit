@@ -40,6 +40,7 @@ android {
 dependencies {
     implementation project(project.path.replace(project.name, '') + ':basick')
     api 'androidx.constraintlayout:constraintlayout:2.1.4'
+    api 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     api "com.airbnb.android:lottie:3.6.1"
 
     //adaptk

@@ -40,6 +40,10 @@
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--layoutk-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--layoutk_loading-->
+    <declare-styleable name="LayoutKLoading">
+        <attr name="layoutKLoading_loadColor" format="color|reference" />
+    </declare-styleable>
     <!--layoutk_label_group-->
     <declare-styleable name="LayoutKLabelGroup">
         <attr name="layoutKLabelGroup_selectType" format="enum">
