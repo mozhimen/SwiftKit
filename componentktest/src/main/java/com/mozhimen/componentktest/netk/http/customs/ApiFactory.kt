@@ -18,9 +18,10 @@ object ApiFactory {
 
     val netKHttp = NetKHttp(_baseUrl)
 
+    //示例1
     val apis: Apis = netKHttp.create(Apis::class.java)
 
-    //示例
+    //示例2
     val apis1: Apis = netKHttp.create()
 
     /////////////////////////////////////////////////////////////////

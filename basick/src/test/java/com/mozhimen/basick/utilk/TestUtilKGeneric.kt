@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk
 
 import com.mozhimen.basick.utilk.kotlin.printlog
-import com.mozhimen.basick.utilk.java.lang.UtilKGeneric
+import com.mozhimen.basick.utilk.java.lang.UtilKReflectGenericKotlin
 import org.junit.Test
 
 /**
@@ -14,9 +14,9 @@ import org.junit.Test
 class TestUtilKGeneric : Person<Knife>() {
     @Test
     fun getClazzGenericType() {
-        UtilKGeneric.getGenericType<TestUtilKGeneric>()?.printlog()
-        UtilKGeneric.getParentGenericType<TestUtilKGeneric>()?.printlog()
-        UtilKGeneric.getParentGenericTypeClazz<TestUtilKGeneric>()?.printlog()
+        UtilKReflectGenericKotlin.getGenericType<TestUtilKGeneric>()?.printlog()
+        UtilKReflectGenericKotlin.getParentGenericType<TestUtilKGeneric>()?.printlog()
+        UtilKReflectGenericKotlin.getParentGenericTypeClazz<TestUtilKGeneric>()?.printlog()
     }
 }
 
