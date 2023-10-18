@@ -33,30 +33,30 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
         super.initLayout()
         getSwipeRefreshLayout().apply {
             setColorSchemeResources(getSwipeRefreshLayoutColorScheme())
-            setOnRefreshListener { getViewModel().onInvalidate() }
+//            setOnRefreshListener { getViewModel().onInvalidate() }
         }
         getRecyclerView().apply {
             layoutManager = getRecyclerViewLayoutManager()
             adapter = getPagedListAdapter()
         }
-        getViewModel().liveLoadState.observe(this) {
-            if (it != CPagingKLoadingState.STATE_FIRST_LOAD_START) {
-                getSwipeRefreshLayout().isRefreshing = false
-                onLoadStart()
-            } else
-                getSwipeRefreshLayout().isRefreshing = true
-            if (it == CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY) {
-                getRecyclerView().applyGone()
-                onLoadEmpty()
-            } else {
-                getRecyclerView().applyInVisible()
-                onLoadComplete()
-            }
-        }
+//        getViewModel().liveLoadState.observe(this) {
+//            if (it != CPagingKLoadingState.STATE_FIRST_LOAD_START) {
+//                getSwipeRefreshLayout().isRefreshing = false
+//                onLoadStart()
+//            } else
+//                getSwipeRefreshLayout().isRefreshing = true
+//            if (it == CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY) {
+//                getRecyclerView().applyGone()
+//                onLoadEmpty()
+//            } else {
+//                getRecyclerView().applyInVisible()
+//                onLoadComplete()
+//            }
+//        }
     }
 
     override fun onResume() {
         super.onResume()
-        getViewModel().livePagedList.observe(this, _pagedListObserver_)
+//        getViewModel().livePagedList.observe(this, _pagedListObserver_)
     }
 }

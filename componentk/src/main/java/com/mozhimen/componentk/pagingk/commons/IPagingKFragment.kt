@@ -16,7 +16,7 @@ import com.mozhimen.componentk.pagingk.bases.BasePagingKViewModel
  * @Version 1.0
  */
 interface IPagingKFragment<DES, VM : BasePagingKViewModel<*, DES>> {
-    fun getViewModel(): VM
+//    fun getViewModel(): VM
     fun getPagedListAdapter(): PagedListAdapter<DES, *>
     fun getSwipeRefreshLayout(): SwipeRefreshLayout
     fun getSwipeRefreshLayoutColorScheme(): Int = Color.BLACK
