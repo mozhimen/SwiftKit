@@ -211,6 +211,14 @@ object UtilKIntentWrapper {
         return intent
     }
 
+    @JvmStatic
+    fun getUri(uri: Uri): Intent =
+        Intent(CIntent.ACTION_VIEW, uri)
+
+    @JvmStatic
+    fun getStrUrl(strUrl: String): Intent =
+        getUri(Uri.parse(strUrl))
+
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic

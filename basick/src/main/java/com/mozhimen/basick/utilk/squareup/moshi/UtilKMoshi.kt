@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.squareup.moshi
 
-import com.mozhimen.basick.utilk.java.lang.UtilKGeneric
+import com.mozhimen.basick.utilk.java.lang.UtilKReflectGenericKotlin
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -44,7 +44,7 @@ object UtilKMoshi {
     @Throws(Exception::class)
     @JvmStatic
     inline fun <reified T> t2jsonMoshi(t: T, indent: String = ""): String =
-        t2jsonMoshi(moshiBuilder.adapter(UtilKGeneric.getGenericType<T>()!!), t, indent)
+        t2jsonMoshi(moshiBuilder.adapter(UtilKReflectGenericKotlin.getGenericType<T>()!!), t, indent)
 
     @Throws(Exception::class)
     @JvmStatic
@@ -54,7 +54,7 @@ object UtilKMoshi {
     @Throws(Exception::class)
     @JvmStatic
     inline fun <reified T> jsonMoshi2t(json: String): T? =
-        jsonMoshi2t(moshiBuilder.adapter<T>(UtilKGeneric.getGenericType<T>()!!), json)
+        jsonMoshi2t(moshiBuilder.adapter<T>(UtilKReflectGenericKotlin.getGenericType<T>()!!), json)
 
     @Throws(Exception::class)
     @JvmStatic
@@ -79,7 +79,7 @@ object UtilKMoshi {
     @Throws(Exception::class)
     @JvmStatic
     inline fun <reified T> jsonMoshi2list(json: String): MutableList<T>? =
-        jsonMoshi2t<MutableList<T>>(json, Types.newParameterizedType(MutableList::class.java, UtilKGeneric.getGenericType<T>()!!))
+        jsonMoshi2t<MutableList<T>>(json, Types.newParameterizedType(MutableList::class.java, UtilKReflectGenericKotlin.getGenericType<T>()!!))
 
     @Throws(Exception::class)
     @JvmStatic

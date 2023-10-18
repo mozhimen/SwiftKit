@@ -14,6 +14,7 @@ import java.util.List;
  * @Version 1.0
  */
 public class UtilKReflect {
+
     public static int getFieldInt(Object obj, String fieldName) throws NoSuchFieldException, IllegalAccessException {
         return getField(obj, fieldName).getInt(obj);
     }
@@ -43,6 +44,8 @@ public class UtilKReflect {
         }
         throw new NoSuchFieldException("Field " + fieldName + " not found in " + clazz);
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 获取类及其基类所有的field

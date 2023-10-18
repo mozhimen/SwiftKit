@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
-import com.mozhimen.basick.utilk.java.lang.UtilKGeneric
-import java.lang.Exception
+import com.mozhimen.basick.utilk.java.lang.UtilKReflectGenericKotlin
+import kotlin.Exception
 
 /**
  * @ClassName UtilKViewDataBinding
@@ -18,14 +18,14 @@ object UtilKViewDataBinding {
     @JvmStatic
     @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater, index: Int = 0): VB =
-        UtilKGeneric.getParentGenericTypeClazz(clazz, index)?.run {
+        UtilKReflectGenericKotlin.getParentGenericTypeByTClazz/*<VB>*//*getParentGenericTypeClazz(clazz, index)*/(clazz, ViewDataBinding::class.java)?.run {
             getDeclaredMethod("inflate", LayoutInflater::class.java).invoke(null, inflater) as VB
         } ?: throw Exception("inflate activity vb fail!")
 
     @JvmStatic
     @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater, container: ViewGroup?, index: Int = 0): VB =
-        UtilKGeneric.getParentGenericTypeClazz(clazz, index)?.run {
+        UtilKReflectGenericKotlin.getParentGenericTypeByTClazz/*<VB>*//*getParentGenericTypeClazz(clazz, index)*/(clazz, ViewDataBinding::class.java)?.run {
             getDeclaredMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java).invoke(null, inflater, container, false) as VB
         } ?: throw Exception("inflate fragment vb fail!")
 
