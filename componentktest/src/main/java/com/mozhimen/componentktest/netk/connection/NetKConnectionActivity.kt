@@ -64,7 +64,7 @@ class NetKConnectionActivity : BaseActivityVB<ActivityNetkConnectionBinding>() {
                             "WIFI risi ${UtilKNetConn.getWifiStrength()}"
                     }
 
-                    ENetType.M4G, ENetType.M2G, ENetType.M3G -> "移动网"
+                    ENetType.MOBILE_4G, ENetType.MOBILE_2G, ENetType.MOBILE_3G -> "移动网"
 
                     else -> "其他"
                 }

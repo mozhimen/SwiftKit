@@ -2,7 +2,7 @@ package com.mozhimen.uicorektest.recyclerk.mos
 
 import android.view.View
 import android.widget.ImageView
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import com.mozhimen.uicorektest.R
 
@@ -13,7 +13,7 @@ import com.mozhimen.uicorektest.R
  * @Date 2021/9/1 14:54
  * @Version 1.0
  */
-class RecyclerKItemGrid : BaseRecyclerKItem<RecyclerKItemGrid.MyVHKRecycler>() {
+class RecyclerKItemGrid : RecyclerKItem<RecyclerKItemGrid.MyVHKRecycler>() {
     override fun onBindItem(holder: MyVHKRecycler, position: Int) {
         super.onBindItem(holder, position)
         holder.imageView.setImageResource(R.mipmap.datak_item_grid)

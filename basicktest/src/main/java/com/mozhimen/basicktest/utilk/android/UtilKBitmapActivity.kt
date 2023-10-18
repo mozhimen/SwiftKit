@@ -12,7 +12,7 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
-import com.mozhimen.basick.utilk.android.graphics.applyAnyBitmapScaleRatio
+import com.mozhimen.basick.utilk.android.graphics.applyBitmapAnyScaleRatio
 import com.mozhimen.basick.utilk.android.graphics.drawable2bitmap
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.UtilKStrUrl
@@ -50,9 +50,9 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
                 val ratio: Float = 1 + progress / 100f
                 Log.i(TAG, "onStopTrackingTouch: ratio $ratio")
                 Log.i(TAG, "onStopTrackingTouch: bmp w ${bitmap.width} h ${bitmap.height}")
-                val zoomBmp = UtilKBitmapDeal.applyAnyBitmapZoom(bitmap, ratio)
+                val zoomBmp = UtilKBitmapDeal.applyBitmapAnyZoom(bitmap, ratio)
                 Log.i(TAG, "onStopTrackingTouch: zoomBmp w ${zoomBmp.width} h ${zoomBmp.height}")
-                val scaleBmp = zoomBmp.applyAnyBitmapScaleRatio(bitmap.width.toFloat(), bitmap.height.toFloat())
+                val scaleBmp = zoomBmp.applyBitmapAnyScaleRatio(bitmap.width.toFloat(), bitmap.height.toFloat())
                 Log.i(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
                 Log.i(TAG, "onStopTrackingTouch: --->")
                 vb.utilkBitmapImgBmpZoom.setImageBitmap(scaleBmp)
@@ -70,14 +70,14 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
                 val progress = seekBar!!.progress
                 var ratio: Float = 5 * progress / 100f
                 if (ratio < 1) ratio = 1f
-                val scaleBmp = bitmap.applyAnyBitmapScaleRatio(bitmap.width.toFloat() / ratio, bitmap.height.toFloat() / ratio)
+                val scaleBmp = bitmap.applyBitmapAnyScaleRatio(bitmap.width.toFloat() / ratio, bitmap.height.toFloat() / ratio)
                 Log.i(TAG, "onStopTrackingTouch: scaleBmp w ${scaleBmp.width} h ${scaleBmp.height}")
                 vb.utilkBitmapImgBmpScale.setImageBitmap(scaleBmp)
             }
         })
 
         vb.utilkBitmapBtnSave.setOnClickListener {
-            UtilKBitmapFormat.anyBitmap2jpegFile(bitmap, UtilKStrPath.Absolute.Internal.getCacheDir())
+            UtilKBitmapFormat.bitmapAny2fileJpeg(bitmap, UtilKStrPath.Absolute.Internal.getCacheDir())
         }
     }
 }

@@ -29,12 +29,12 @@ fun ImageView.applyColorFilter(colorRes: Int) {
     UtilKImageView.applyColorFilter(this, colorRes)
 }
 
-fun ImageView.showToastContentDescriptionOnLongClick() {
-    UtilKImageView.showToastContentDescriptionOnLongClick(this)
-}
-
 fun ImageView.applyFillWithStroke(@ColorInt fillColorInt: Int, @ColorInt backgroundColorInt: Int, isDrawRectangle: Boolean = false) {
     UtilKImageView.applyFillWithStroke(this, fillColorInt, backgroundColorInt, isDrawRectangle)
+}
+
+fun ImageView.showToastContentDescriptionOnLongClick() {
+    UtilKImageView.showToastContentDescriptionOnLongClick(this)
 }
 
 object UtilKImageView {

@@ -1,15 +1,19 @@
 package com.mozhimen.basick.utilk.kotlin
 
 import android.animation.Animator
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.MotionEvent
 import android.view.animation.Animation
+import androidx.annotation.ColorInt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.view.motionEvent2str
+import com.mozhimen.basick.utilk.google.gson.UtilKGson
 import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.kotlin.collections.list2str
 import com.mozhimen.basick.utilk.kotlin.collections.map2str
+import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.ObjectOutputStream
 
@@ -21,6 +25,12 @@ import java.io.ObjectOutputStream
  * @Date 2023/8/7 12:30
  * @Version 1.0
  */
+fun Any.obj2jSONObject(): JSONObject =
+    UtilKAnyFormat.obj2jSONObject(this)
+
+fun Any.obj2intColor(): Int =
+    UtilKAnyFormat.obj2intColor(this)
+
 fun Any.obj2str(): String =
     UtilKAnyFormat.obj2str(this)
 
@@ -34,6 +44,21 @@ fun Any.obj2bytes(): ByteArray? =
     UtilKAnyFormat.obj2bytes(this)
 
 object UtilKAnyFormat {
+    @JvmStatic
+    fun obj2jSONObject(obj: Any): JSONObject =
+        if (obj is String)
+            JSONObject(obj)
+        else JSONObject(UtilKGson.obj2strJsonGson(obj))
+
+    @JvmStatic
+    @ColorInt
+    fun obj2intColor(obj: Any): Int =
+        when (obj) {
+            is String -> obj.strColor2intColor()
+            is Int -> obj
+            else -> Color.WHITE
+        }
+
     @JvmStatic
     fun obj2str(obj: Any): String =
         when (obj) {

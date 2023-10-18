@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.recyclerk.mos
 
 import android.widget.ImageView
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import com.mozhimen.uicorektest.R
 
@@ -12,7 +12,7 @@ import com.mozhimen.uicorektest.R
  * @Date 2021/9/2 15:33
  * @Version 1.0
  */
-class RecyclerKItemImage(private var _spanCount: Int) : BaseRecyclerKItem<VHKRecycler>() {
+class RecyclerKItemImage(private var _spanCount: Int) : RecyclerKItem<VHKRecycler>() {
 
     override fun onBindItem(holder: VHKRecycler, position: Int) {
         super.onBindItem(holder, position)

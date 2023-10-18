@@ -8,9 +8,9 @@ import androidx.annotation.IntRange
 import androidx.camera.core.ExperimentalGetImage
 import androidx.camera.core.ImageProxy
 import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
-import com.mozhimen.basick.utilk.android.graphics.anyBytes2anyBitmap
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.kotlin.nv21Bytes2jpegBitmap
+import com.mozhimen.basick.utilk.kotlin.bytes2bitmapAny
+import com.mozhimen.basick.utilk.kotlin.bytesNv212bitmapJpeg
 import java.nio.ByteBuffer
 
 
@@ -67,7 +67,7 @@ object ImageProxyUtil : BaseUtilK() {
         val size = buffer.remaining()
         val jpegBytes = ByteArray(size)
         buffer.get(jpegBytes, 0, size)
-        return jpegBytes.anyBytes2anyBitmap()
+        return jpegBytes.bytes2bitmapAny()
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@ object ImageProxyUtil : BaseUtilK() {
         nv21Buffer.rewind()
         val nv21Bytes = ByteArray(nv21Buffer.limit())
         nv21Buffer[nv21Bytes, 0, nv21Bytes.size]
-        return nv21Bytes.nv21Bytes2jpegBitmap(width, height, quality)
+        return nv21Bytes.bytesNv212bitmapJpeg(width, height, quality)
     }
 
     @JvmStatic

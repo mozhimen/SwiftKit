@@ -1,6 +1,6 @@
 package com.mozhimen.basicktest.elemk.android
 
-import com.mozhimen.basick.elemk.android.content.bases.BaseAutoRunBroadcastReceiver
+import com.mozhimen.basick.elemk.android.content.bases.BaseBootBroadcastReceiver
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basicktest.BasicKActivity
@@ -13,4 +13,4 @@ import com.mozhimen.basicktest.BasicKActivity
  * @Version 1.0
  */
 @AManifestKRequire(CPermission.RECEIVE_BOOT_COMPLETED)
-class ElemKAutoRunReceiver : BaseAutoRunBroadcastReceiver(BasicKActivity::class.java, 5000)
+class ElemKAutoRunReceiver : BaseBootBroadcastReceiver(BasicKActivity::class.java, 5000)

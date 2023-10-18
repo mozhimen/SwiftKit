@@ -2,8 +2,7 @@ package com.mozhimen.uicorektest.recyclerk.mos
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ItemRecyclerkTabBinding
@@ -15,7 +14,7 @@ import com.mozhimen.uicorektest.databinding.ItemRecyclerkTabBinding
  * @Date 2021/9/2 16:03
  * @Version 1.0
  */
-class RecyclerKItemTab : BaseRecyclerKItem<VHKRecyclerVB<ItemRecyclerkTabBinding>>() {
+class RecyclerKItemTab : RecyclerKItem<VHKRecyclerVB<ItemRecyclerkTabBinding>>() {
 
     override fun onBindItem(holder: VHKRecyclerVB<ItemRecyclerkTabBinding>, position: Int) {
         super.onBindItem(holder, position)

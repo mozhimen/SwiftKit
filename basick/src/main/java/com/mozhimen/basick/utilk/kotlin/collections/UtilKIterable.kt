@@ -9,11 +9,13 @@ import com.mozhimen.basick.elemk.commons.IA_BListener
  * @Date 2022/11/27 0:24
  * @Version 1.0
  */
-fun <T> Iterable<T>.containsBy(predicate: IA_BListener<T, Boolean>): Boolean =
-        UtilKIterable.containsBy(this, predicate)
+
 
 fun <T> Iterable<T>.getIndexFirst(predicate: IA_BListener<T, Boolean>): Int? =
         UtilKIterable.getIndexFirst(this, predicate)
+
+fun <T> Iterable<T>.containsBy(predicate: IA_BListener<T, Boolean>): Boolean =
+    UtilKIterable.containsBy(this, predicate)
 
 fun <T, I> Iterable<T>.joinT2list(predicate: IA_BListener<T, I>): List<I> =
     UtilKIterable.joinT2list(this, predicate)

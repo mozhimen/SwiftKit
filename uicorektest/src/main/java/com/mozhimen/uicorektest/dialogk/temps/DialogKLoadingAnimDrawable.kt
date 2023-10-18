@@ -9,8 +9,8 @@ import android.widget.TextView
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.content.UtilKRes
+import com.mozhimen.basick.utilk.android.view.applyVisibleIfElseGone
 import com.mozhimen.basick.utilk.android.widget.applyValueIfNotEmpty
-import com.mozhimen.basick.utilk.android.view.asVisibleIfElseGone
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.commons.IDialogKClickListener
 import com.mozhimen.uicorektest.R
@@ -81,7 +81,7 @@ class DialogKLoadingAnimDrawable internal constructor(context: Context, private 
         _txtAction?.apply {
             applyValueIfNotEmpty(actionStr)
             listener?.let { setOnClickListener(it) }
-            asVisibleIfElseGone { !actionStr.isNullOrEmpty() }
+            applyVisibleIfElseGone() { !actionStr.isNullOrEmpty() }
         }
     }
 }

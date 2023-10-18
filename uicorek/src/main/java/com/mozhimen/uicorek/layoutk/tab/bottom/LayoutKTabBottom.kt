@@ -14,6 +14,8 @@ import com.mozhimen.basick.utilk.android.graphics.UtilKColor
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen.getRealWidth
 import com.mozhimen.basick.utilk.android.view.UtilKView.findTypeChildView
+import com.mozhimen.basick.utilk.kotlin.UtilKAnyFormat
+import com.mozhimen.basick.utilk.kotlin.obj2intColor
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.uicorek.layoutk.tab.bottom.mos.MTabBottom
@@ -68,7 +70,7 @@ class LayoutKTabBottom @JvmOverloads constructor(context: Context, attrs: Attrib
      * @param bottomLineColor String
      */
     fun setTabBottomLineColor(bottomLineColor: Any) {
-        this._tabBottomLineColor = UtilKColor.obj2colorInt(bottomLineColor)
+        this._tabBottomLineColor = UtilKAnyFormat.obj2intColor(bottomLineColor)
     }
 
     /**

@@ -9,10 +9,8 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.ByteBuffer
 import androidx.annotation.IntRange
-import com.mozhimen.basick.utilk.android.graphics.anyBytes2anyBitmap
-import com.mozhimen.basick.utilk.android.graphics.jpegBitmap2jpegFile
+import com.mozhimen.basick.utilk.android.graphics.bitmapJpeg2fileJpeg
 import com.mozhimen.basick.utilk.java.io.byteArrayOutputStream2bytes
-import com.mozhimen.basick.utilk.java.io.flushClose
 
 /**
  * @ClassName UtilKImageByteArray
@@ -21,25 +19,25 @@ import com.mozhimen.basick.utilk.java.io.flushClose
  * @Date 2023/7/31 17:45
  * @Version 1.0
  */
-fun ByteArray.grba8888Bytes2rgba8888Bitmap(width: Int, height: Int): Bitmap =
-    UtilKByteArrayImage.grba8888Bytes2rgba8888Bitmap(this, width, height)
+fun ByteArray.bytesRgba88882bitmapRgba8888(width: Int, height: Int): Bitmap =
+    UtilKByteArrayImage.bytesRgba88882bitmapRgba8888(this, width, height)
 
-fun ByteArray.nv21Bytes2jpegBytes(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
-    UtilKByteArrayImage.nv21Bytes2jpegBytes(this, width, height, quality)
+fun ByteArray.bytesNv212bytesJpeg(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
+    UtilKByteArrayImage.bytesNv212bytesJpeg(this, width, height, quality)
 
-fun ByteArray.nv21Bytes2jpegFile(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
-    UtilKByteArrayImage.nv21Bytes2jpegFile(this, filePathWithName, width, height, quality, isAppend)
+fun ByteArray.bytesNv212fileJpeg(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
+    UtilKByteArrayImage.bytesNv212fileJpeg(this, filePathWithName, width, height, quality, isAppend)
 
-fun ByteArray.nv21Bytes2jpegBitmap(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap =
-    UtilKByteArrayImage.nv21Bytes2jpegBitmap(this, width, height, quality)
+fun ByteArray.bytesNv212bitmapJpeg(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap =
+    UtilKByteArrayImage.bytesNv212bitmapJpeg(this, width, height, quality)
 
-fun ByteArray.nv21Bytes2jpegFile2(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-    UtilKByteArrayImage.nv21Bytes2jpegFile2(this, filePathWithName, width, height, quality)
+fun ByteArray.bytesNv212fileJpeg2(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+    UtilKByteArrayImage.bytesNv212fileJpeg2(this, filePathWithName, width, height, quality)
 
 object UtilKByteArrayImage : IUtilK {
 
     @JvmStatic
-    fun yuv420Bytes2yuv420spBytes(y: ByteArray, u: ByteArray, v: ByteArray, nv21: ByteArray, stride: Int, height: Int) {
+    fun bytesYuv4202bytesYuv420sp(y: ByteArray, u: ByteArray, v: ByteArray, nv21: ByteArray, stride: Int, height: Int) {
         System.arraycopy(y, 0, nv21, 0, y.size)
         val length = y.size + u.size + v.size
         var uIndex = 0
@@ -51,7 +49,7 @@ object UtilKByteArrayImage : IUtilK {
     }
 
     @JvmStatic
-    fun yuv422Bytes2yuv420spBytes(y: ByteArray, u: ByteArray, v: ByteArray, nv21: ByteArray, stride: Int, height: Int) {
+    fun bytesYuv4222bytesYuv420sp(y: ByteArray, u: ByteArray, v: ByteArray, nv21: ByteArray, stride: Int, height: Int) {
         System.arraycopy(y, 0, nv21, 0, y.size)
         val length = y.size + u.size / 2 + v.size / 2
         var uIndex = 0
@@ -67,14 +65,14 @@ object UtilKByteArrayImage : IUtilK {
     }
 
     @JvmStatic
-    fun grba8888Bytes2rgba8888Bitmap(grba8888Bytes: ByteArray, width: Int, height: Int): Bitmap {
+    fun bytesRgba88882bitmapRgba8888(grba8888Bytes: ByteArray, width: Int, height: Int): Bitmap {
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         bitmap.copyPixelsFromBuffer(ByteBuffer.wrap(grba8888Bytes))
         return bitmap
     }
 
     @JvmStatic
-    fun nv21Bytes2jpegBytes(nv21Bytes: ByteArray, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray {
+    fun bytesNv212bytesJpeg(nv21Bytes: ByteArray, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray {
         val byteArrayOutputStream = ByteArrayOutputStream()
         val yuvImage = YuvImage(nv21Bytes, ImageFormat.NV21, width, height, null)
         yuvImage.compressToJpeg(Rect(0, 0, width, height), quality, byteArrayOutputStream)
@@ -82,18 +80,18 @@ object UtilKByteArrayImage : IUtilK {
     }
 
     @JvmStatic
-    fun nv21Bytes2jpegFile(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
-        nv21Bytes2jpegBytes(nv21Bytes, width, height, quality).bytes2file(filePathWithName, isAppend)
+    fun bytesNv212fileJpeg(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
+        bytesNv212bytesJpeg(nv21Bytes, width, height, quality).bytes2file(filePathWithName, isAppend)
 
     @JvmStatic
     @Throws(Exception::class)
-    fun nv21Bytes2jpegBitmap(nv21Bytes: ByteArray, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap =
-        nv21Bytes2jpegBytes(nv21Bytes, width, height, quality).anyBytes2anyBitmap()
+    fun bytesNv212bitmapJpeg(nv21Bytes: ByteArray, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap =
+        bytesNv212bytesJpeg(nv21Bytes, width, height, quality).bytes2bitmapAny()
 
     @JvmStatic
     @Throws(Exception::class)
-    fun nv21Bytes2jpegFile2(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        nv21Bytes2jpegBitmap(nv21Bytes, width, height, quality).jpegBitmap2jpegFile(filePathWithName)
+    fun bytesNv212fileJpeg2(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        bytesNv212bitmapJpeg(nv21Bytes, width, height, quality).bitmapJpeg2fileJpeg(filePathWithName)
 
     ////////////////////////////////////////////////////////////////////////////////////
 

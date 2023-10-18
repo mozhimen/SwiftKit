@@ -16,15 +16,15 @@ import kotlin.jvm.Throws
  * @Version 1.0
  */
 @Throws(Exception::class)
-fun <T : Any> T.t2jsonGson(): String =
-    UtilKGson.t2jsonGson(this)
+fun <T : Any> T.t2strJsonGson(): String =
+    UtilKGson.t2strJsonGson(this)
 
 @Throws(Exception::class)
-inline fun <reified T> String.jsonGson2t(): T? =
-    UtilKGson.jsonGson2t(this)
+inline fun <reified T> String.strJsonGson2t(): T? =
+    UtilKGson.strJsonGson2t(this)
 
-fun <T> String.jsonGson2t(clazz: Class<T>): T? =
-    UtilKGson.jsonGson2t(this, clazz)
+fun <T> String.strJsonGson2t(clazz: Class<T>): T? =
+    UtilKGson.strJsonGson2t(this, clazz)
 
 object UtilKGson : BaseUtilK() {
     val gson by lazy { Gson() }
@@ -33,67 +33,67 @@ object UtilKGson : BaseUtilK() {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2jsonGson(gson: Gson, t: T): String =
+    fun <T> t2strJsonGson(gson: Gson, t: T): String =
         gson.toJson(t)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> jsonGson2t(gson: Gson, json: String, typeToken: TypeToken<T>): T =
-        gson.fromJson(json, typeToken.type)
+    fun <T> strJsonGson2t(gson: Gson, strJson: String, typeToken: TypeToken<T>): T =
+        gson.fromJson(strJson, typeToken.type)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> jsonGson2t(gson: Gson, json: String, clazz: Class<T>): T? =
-        gson.fromJson(json, clazz)
+    fun <T> strJsonGson2t(gson: Gson, strJson: String, clazz: Class<T>): T? =
+        gson.fromJson(strJson, clazz)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> jsonGson2t(gson: Gson, json: String, type: Type): T? =
-        gson.fromJson(json, type)
+    fun <T> strJsonGson2t(gson: Gson, strJson: String, type: Type): T? =
+        gson.fromJson(strJson, type)
 
     /////////////////////////////////////////////////////////////////////////////
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> t2jsonGson(t: T): String =
-        t2jsonGson(gson, t)
+    fun <T> t2strJsonGson(t: T): String =
+        t2strJsonGson(gson, t)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun obj2jsonGson(obj: Any): String =
-        t2jsonGson(obj)
+    fun obj2strJsonGson(obj: Any): String =
+        t2strJsonGson(obj)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> jsonGson2t(json: String, typeToken: TypeToken<T>): T =
-        jsonGson2t(gson, json, typeToken)
+    fun <T> strJsonGson2t(strJson: String, typeToken: TypeToken<T>): T =
+        strJsonGson2t(gson, strJson, typeToken)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> jsonGson2t(json: String, clazz: Class<T>): T? =
-        jsonGson2t(gson, json, clazz)
+    fun <T> strJsonGson2t(strJson: String, clazz: Class<T>): T? =
+        strJsonGson2t(gson, strJson, clazz)
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> jsonGson2t(json: String, type: Type): T? =
-        jsonGson2t(gson, json, type)
+    fun <T> strJsonGson2t(strJson: String, type: Type): T? =
+        strJsonGson2t(gson, strJson, type)
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> jsonGson2t(json: String): T? =
-        jsonGson2t(json, UtilKReflectGenericKotlin.getGenericType<T>()!!)
+    inline fun <reified T> strJsonGson2t(strJson: String): T? =
+        strJsonGson2t(strJson, UtilKReflectGenericKotlin.getGenericType<T>()!!)
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> jsonGson2t2(json: String): T? =
-        jsonGson2t(json, T::class.java)
+    inline fun <reified T> strJsonGson2t2(strJson: String): T? =
+        strJsonGson2t(strJson, T::class.java)
 
     ///////////////////////////////////////////////////////////////////////////////
 
     @Throws(Exception::class)
     @JvmStatic
-    fun jsonGson2jsonElement(json: String): JsonElement? =
-        jsonGson2t(json.trim { it <= ' ' }, JsonElement::class.java)
+    fun strJsonGson2jsonElement(strJson: String): JsonElement? =
+        strJsonGson2t(strJson.trim { it <= ' ' }, JsonElement::class.java)
 }
 
 //    private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
@@ -104,16 +104,16 @@ object UtilKGson : BaseUtilK() {
 //        _gsonWithField.toJson(obj)
 //
 //    @JvmStatic
-//    fun <T> json2TWithField(json: String, clazz: Class<T>): T =
-//        _gsonWithField.fromJson(json, clazz)
+//    fun <T> json2TWithField(strJson: String, clazz: Class<T>): T =
+//        _gsonWithField.fromJson(strJson, clazz)
 //
 //    @JvmStatic
 //    fun obj2JsonWithExpose(obj: Any): String =
 //        _gsonWithExpose.toJson(obj)
 //
 //    @JvmStatic
-//    fun <T> json2TWithExpose(json: String, clazz: Class<T>): T? =
-//        _gsonWithExpose.fromJson(json, clazz)
+//    fun <T> json2TWithExpose(strJson: String, clazz: Class<T>): T? =
+//        _gsonWithExpose.fromJson(strJson, clazz)
 
 //fun Any.toJsonWithExposeGson(): String =
 //    UtilKJsonGson.obj2JsonWithExpose(this)

@@ -16,9 +16,12 @@ import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
-import com.mozhimen.basick.utilk.android.net.strUri2uri
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFilePath
 import com.mozhimen.basick.utilk.kotlin.UtilKString
+import com.mozhimen.basick.utilk.kotlin.strUri2uri
 import java.io.File
 
 /**
@@ -186,7 +189,7 @@ object UtilKIntentWrapper {
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     fun getInstall(filePathWithName: String): Intent? =
-        UtilKUri.strFilePath2uri(filePathWithName)?.let { getInstall(it) }
+        UtilKStrFilePath.strFilePath2uri(filePathWithName)?.let { getInstall(it) }
 
     /**
      * 获取安装app的intent
@@ -195,7 +198,7 @@ object UtilKIntentWrapper {
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     fun getInstall(apkFile: File): Intent? =
-        UtilKUri.file2uri(apkFile)?.let { getInstall(it) }
+        UtilKFileFormat.file2uri(apkFile)?.let { getInstall(it) }
 
     /**
      * 获取安装app的intent

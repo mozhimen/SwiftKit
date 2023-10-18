@@ -9,11 +9,11 @@ import java.text.DecimalFormat
  * @Date 2023/8/1 16:34
  * @Version 1.0
  */
-fun Double.decimal2str(pattern: String = "#.0"): String =
-    UtilKDouble.decimal2str(this, pattern)
+fun Double.doubleDecimal2str(pattern: String = "#.0"): String =
+    UtilKDouble.doubleDecimal2str(this, pattern)
 
 object UtilKDouble {
     @JvmStatic
-    fun decimal2str(double: Double, pattern: String = "#.0"): String =
+    fun doubleDecimal2str(double: Double, pattern: String = "#.0"): String =
         DecimalFormat(pattern).format(double)
 }

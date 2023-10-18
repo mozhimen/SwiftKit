@@ -10,6 +10,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.content.createChooser
 import com.mozhimen.basick.utilk.android.net.UtilKUri
+import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.debugk.BR
 import com.mozhimen.debugk.R
 import com.mozhimen.debugk.databinding.DebugkActivityLogkBinding
@@ -50,7 +51,7 @@ class DebugKLogKActivity : BaseActivityVB<DebugkActivityLogkBinding>() {
                         intent.putExtra("subject", "")
                         intent.putExtra("body", "")
 
-                        val uri = UtilKUri.file2uri(itemData.file)
+                        val uri = UtilKFileFormat.file2uri(itemData.file)
                         intent.putExtra(CIntent.EXTRA_STREAM, uri)//添加文件
                         if (itemData.file.name.endsWith(".txt")) {
                             intent.type = "text/plain"//纯文本

@@ -11,8 +11,7 @@ import com.mozhimen.uicorek.layoutk.banner.bases.BaseBannerItem
 import com.mozhimen.uicorek.layoutk.banner.commons.IBannerBindListener
 import com.mozhimen.uicorek.layoutk.banner.temps.PointIndicator
 import com.mozhimen.uicorek.layoutk.banner.helpers.BannerViewHolder
-import com.mozhimen.uicorek.vhk.VHKRecyclerMultiVB
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ItemRecyclerkBannerBinding
@@ -24,7 +23,7 @@ import com.mozhimen.uicorektest.databinding.ItemRecyclerkBannerBinding
  * @Date 2021/9/1 14:39
  * @Version 1.0
  */
-class RecyclerKItemBanner : BaseRecyclerKItem<VHKRecyclerVB<ItemRecyclerkBannerBinding>>() {
+class RecyclerKItemBanner : RecyclerKItem<VHKRecyclerVB<ItemRecyclerkBannerBinding>>() {
     private val RECYCLERK_ITEM_BANNER_SP_NAME = "recyclerk_item_banner_sp_name"
     private var _index = 0
     private var _urls = arrayOf(

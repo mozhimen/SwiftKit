@@ -10,6 +10,7 @@ import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
+import com.mozhimen.basick.utilk.kotlin.UtilKStrMd5
 import com.mozhimen.componentk.R
 import com.mozhimen.componentk.netk.file.download.annors.ANotificationVisibility
 import com.mozhimen.componentk.netk.file.download.cons.CErrorCode
@@ -66,7 +67,7 @@ class EmbedDownloader(request: DownloadRequest) :
             val ext: String = request.url.substringAfterLast(".", "").run {
                 if (length > 10) "" else ".${this}"
             }
-            return File(file, "${UtilKMd5.str2strMd5(request.url)}$ext")
+            return File(file, "${UtilKStrMd5.str2strMd5(request.url)}$ext")
         }
         return file
     }

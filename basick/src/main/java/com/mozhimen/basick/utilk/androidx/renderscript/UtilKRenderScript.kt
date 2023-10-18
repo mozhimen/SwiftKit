@@ -13,12 +13,11 @@ import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
 import com.mozhimen.basick.imagek.blur.ImageKBlur
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
-import com.mozhimen.basick.utilk.android.graphics.colorStr2colorInt
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.UtilKLog
 import com.mozhimen.basick.utilk.android.util.UtilKLog2
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.kotlin.strColor2intColor
 
 /**
  * @ClassName RenderScriptHelper
@@ -106,7 +105,7 @@ object UtilKRenderScript : BaseUtilK() {
         //释放
         blurInput.destroy()
         blurOutput.destroy()
-        val result = UtilKBitmapDeal.applyAnyBitmapResize(origin, outWidth, outHeight)
+        val result = UtilKBitmapDeal.applyBitmapAnyResize(origin, outWidth, outHeight)
         origin.recycle()
         val time = System.currentTimeMillis() - _startTime
         if (UtilKLog2.isOpenLog())
@@ -120,7 +119,7 @@ object UtilKRenderScript : BaseUtilK() {
         if (tempOrigin == null || tempOrigin.isRecycled) return null
         tempOrigin = ImageKBlur.blurBitmap(tempOrigin, UtilKNumber.normalize(radius, 0f, 20f).toInt(), false)
         if (tempOrigin == null || tempOrigin.isRecycled) return null
-        tempOrigin = UtilKBitmapDeal.applyAnyBitmapResize(tempOrigin, outWidth, outHeight)
+        tempOrigin = UtilKBitmapDeal.applyBitmapAnyResize(tempOrigin, outWidth, outHeight)
         val time = System.currentTimeMillis() - _startTime
         if (UtilKLog2.isOpenLog())
             UtilKLog2.i("fastBlur: 模糊用时：【" + time + "ms】")
@@ -152,7 +151,7 @@ object UtilKRenderScript : BaseUtilK() {
         canvas.setMatrix(matrix)
         val bgDrawable = view.background
         if (bgDrawable == null)
-            canvas.drawColor("#FAFAFA".colorStr2colorInt())
+            canvas.drawColor("#FAFAFA".strColor2intColor())
         else
             bgDrawable.draw(canvas)
         if (fullScreen) {

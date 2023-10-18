@@ -2,7 +2,7 @@ package com.mozhimen.basick.utilk.android.media
 
 import android.graphics.ImageFormat
 import android.media.Image
-import com.mozhimen.basick.utilk.kotlin.nv21Bytes2jpegBytes
+import com.mozhimen.basick.utilk.kotlin.bytesNv212bytesJpeg
 
 /**
  * @ClassName UtilKImage
@@ -12,15 +12,18 @@ import com.mozhimen.basick.utilk.kotlin.nv21Bytes2jpegBytes
  * @Version 1.0
  */
 fun Image.anyImage2jpegBytes(): ByteArray =
-    UtilKImage.anyImage2jpegBytes(this)
+    UtilKImageFormat.anyImage2jpegBytes(this)
 
 fun Image.yuv420888Image2nv21Bytes(): ByteArray =
-    UtilKImage.yuv420888Image2nv21Bytes(this)
+    UtilKImageFormat.yuv420888Image2nv21Bytes(this)
+
+fun Image.yuv420888Image2jpegBytes(): ByteArray =
+    UtilKImageFormat.yuv420888Image2jpegBytes(this)
 
 fun Image.jpegImage2jpegBytes(): ByteArray =
-    UtilKImage.jpegImage2jpegBytes(this)
+    UtilKImageFormat.jpegImage2jpegBytes(this)
 
-object UtilKImage {
+object UtilKImageFormat {
     @JvmStatic
     @Throws(Exception::class)
     fun anyImage2jpegBytes(image: Image): ByteArray {
@@ -52,7 +55,7 @@ object UtilKImage {
 
     @JvmStatic
     fun yuv420888Image2jpegBytes(image: Image): ByteArray =
-        image.yuv420888Image2nv21Bytes().nv21Bytes2jpegBytes(image.width, image.height)
+        image.yuv420888Image2nv21Bytes().bytesNv212bytesJpeg(image.width, image.height)
 
     @JvmStatic
     fun jpegImage2jpegBytes(image: Image): ByteArray {

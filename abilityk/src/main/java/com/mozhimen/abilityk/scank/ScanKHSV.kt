@@ -9,7 +9,7 @@ import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.graphics.drawable2bitmap
 import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
-import com.mozhimen.basick.utilk.squareup.moshi.t2jsonMoshi
+import com.mozhimen.basick.utilk.squareup.moshi.t2strJsonMoshi
 import java.io.FileInputStream
 
 /**
@@ -73,7 +73,7 @@ object ScanKHSV : BaseUtilK() {
                     }
                 }
             }
-            Log.d(TAG, "colorAnalyze: colorMap ${_colorMap.t2jsonMoshi()}")
+            Log.d(TAG, "colorAnalyze: colorMap ${_colorMap.t2strJsonMoshi()}")
             return colorPercentage(rows * cols)
         } catch (e: Exception) {
             LogK.etk(TAG, "colorAnalyze Exception $e")

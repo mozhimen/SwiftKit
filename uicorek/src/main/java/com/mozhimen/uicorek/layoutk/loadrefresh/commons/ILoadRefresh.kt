@@ -41,7 +41,7 @@ interface ILoadRefresh {
     /**
      * 绑定加载动作
      * @param prefetchSize Int 加载个数
-     * @param items List<BaseRecyclerKItem<out ViewHolder>>
+     * @param items List<RecyclerKItem<out ViewHolder>>
      * @param listener IRecyclerKLoadListener
      */
     fun initLoadParams(
@@ -52,7 +52,7 @@ interface ILoadRefresh {
 
     /**
      * 开始刷新
-     * @param items List<BaseRecyclerKItem<out ViewHolder>>?
+     * @param items List<RecyclerKItem<out ViewHolder>>?
      * @param listener ILoadRefreshListener?
      */
     fun startRefresh(
@@ -62,7 +62,7 @@ interface ILoadRefresh {
 
     /**
      * 开始加载
-     * @param items List<BaseRecyclerKItem<ViewHolder>>?
+     * @param items List<RecyclerKItem<ViewHolder>>?
      * @param listener ILoadRefreshListener?
      */
     fun startLoad(

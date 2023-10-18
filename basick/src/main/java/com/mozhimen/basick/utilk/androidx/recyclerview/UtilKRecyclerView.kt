@@ -12,6 +12,14 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * @Date 2022/11/6 0:30
  * @Version 1.0
  */
+fun RecyclerView.getLastVisibleItemPosition(): Int =
+    UtilKRecyclerView.getLastVisibleItemPosition(this)
+
+fun RecyclerView.getFirstVisibleItemPosition(): Int =
+    UtilKRecyclerView.getFirstVisibleItemPosition(this)
+
+///////////////////////////////////////////////////////////////////////////////////
+
 fun RecyclerView.isScroll2top(): Boolean =
     UtilKRecyclerView.isScroll2top(this)
 
@@ -36,13 +44,41 @@ fun RecyclerView.isScrollUp(dy: Int): Boolean =
 fun RecyclerView.isScrollDown(dx: Int): Boolean =
     UtilKRecyclerView.isScrollDown(dx)
 
-fun RecyclerView.getLastVisibleItemPosition(): Int =
-    UtilKRecyclerView.getLastVisibleItemPosition(this)
 
-fun RecyclerView.getFirstVisibleItemPosition(): Int =
-    UtilKRecyclerView.getFirstVisibleItemPosition(this)
 
 object UtilKRecyclerView {
+    /**
+     * 找到最后一个可视的Item
+     * @param recyclerView RecyclerView
+     * @return Int
+     */
+    @JvmStatic
+    fun getLastVisibleItemPosition(recyclerView: RecyclerView): Int {
+        when (val layoutManager = recyclerView.layoutManager) {
+            //layoutManager is GridLayoutManager
+            is LinearLayoutManager -> return layoutManager.findLastVisibleItemPosition()
+            is StaggeredGridLayoutManager -> return layoutManager.findLastVisibleItemPositions(null)[0]
+        }
+        return -1
+    }
+
+    /**
+     * 找到第一个可视的View
+     * @param recyclerView RecyclerView
+     * @return Int
+     */
+    @JvmStatic
+    fun getFirstVisibleItemPosition(recyclerView: RecyclerView): Int {
+        when (val layoutManager = recyclerView.layoutManager) {
+            //layoutManager is GridLayoutManager
+            is LinearLayoutManager -> return layoutManager.findFirstVisibleItemPosition()
+            is StaggeredGridLayoutManager -> return layoutManager.findFirstVisibleItemPositions(null)[0]
+        }
+        return -1
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 是否滑动到底部
      * @param recyclerView RecyclerView
@@ -145,34 +181,4 @@ object UtilKRecyclerView {
     @JvmStatic
     fun isScrollDown(dx: Int): Boolean =
         dx > 0
-
-    /**
-     * 找到最后一个可视的Item
-     * @param recyclerView RecyclerView
-     * @return Int
-     */
-    @JvmStatic
-    fun getLastVisibleItemPosition(recyclerView: RecyclerView): Int {
-        when (val layoutManager = recyclerView.layoutManager) {
-            //layoutManager is GridLayoutManager
-            is LinearLayoutManager -> return layoutManager.findLastVisibleItemPosition()
-            is StaggeredGridLayoutManager -> return layoutManager.findLastVisibleItemPositions(null)[0]
-        }
-        return -1
-    }
-
-    /**
-     * 找到第一个可视的View
-     * @param recyclerView RecyclerView
-     * @return Int
-     */
-    @JvmStatic
-    fun getFirstVisibleItemPosition(recyclerView: RecyclerView): Int {
-        when (val layoutManager = recyclerView.layoutManager) {
-            //layoutManager is GridLayoutManager
-            is LinearLayoutManager -> return layoutManager.findFirstVisibleItemPosition()
-            is StaggeredGridLayoutManager -> return layoutManager.findFirstVisibleItemPositions(null)[0]
-        }
-        return -1
-    }
 }

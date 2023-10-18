@@ -5,6 +5,7 @@ import com.mozhimen.basick.utilk.android.os.UtilKProcess
 import com.mozhimen.basick.utilk.android.text.formatFileSize
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException

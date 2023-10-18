@@ -7,12 +7,11 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.elemk.android.os.WakeBefPauseLifecycleHandler
 import com.mozhimen.basick.utilk.android.os.applyPostDelayed
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.adapterk.item.AdapterKItemRecyclerStuffed
 import com.mozhimen.uicorek.layoutk.refresh.commons.IRefreshListener
 import com.mozhimen.uicorek.layoutk.refresh.temps.TextOverView
 import com.mozhimen.uicorek.layoutk.refresh.cons.ERefreshStatus
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.recyclerk.load.commons.IRecyclerKLoadListener
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.databinding.ActivityRecyclerkLoadBinding
@@ -21,8 +20,8 @@ import com.mozhimen.uicorektest.recyclerk.mos.RecyclerKItemLoadMore
 class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
     private var _pageIndex: Int = 1
     private lateinit var _textOverView: TextOverView
-    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
-    private val _dataSets = ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>>()
+    private val _adapterKRecyclerStuffed by lazy { AdapterKItemRecyclerStuffed() }
+    private val _dataSets = ArrayList<RecyclerKItem<out RecyclerView.ViewHolder>>()
 
     override fun initView(savedInstanceState: Bundle?) {
         initRefresh()
@@ -50,7 +49,7 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
                 //模拟刷新
                 WakeBefPauseLifecycleHandler(this@RecyclerKLoadActivity).applyPostDelayed(1000) {
                     //模拟获取到了
-                    val dataItems: ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(
+                    val dataItems: ArrayList<RecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(
                         RecyclerKItemLoadMore(1),
                         RecyclerKItemLoadMore(2),
                         RecyclerKItemLoadMore(3),
@@ -74,7 +73,7 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
      * @param isRefresh Boolean 是否是刷新
      * @param dataItems List<DataKItem<*, out ViewHolder>>?
      */
-    fun refreshOrLoad(isRefresh: Boolean, dataItems: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>>?) {
+    fun refreshOrLoad(isRefresh: Boolean, dataItems: List<RecyclerKItem<out RecyclerView.ViewHolder>>?) {
         val success = dataItems != null && dataItems.isNotEmpty()
         //光真么判断还是不行的，我们还需要别的措施。。。因为可能会出现 下拉单时候，有执行了删上拉分页
         if (isRefresh) {
@@ -117,7 +116,7 @@ class RecyclerKLoadActivity : BaseActivityVB<ActivityRecyclerkLoadBinding>() {
                 _pageIndex++
                 //模拟加载
                 WakeBefPauseLifecycleHandler(this@RecyclerKLoadActivity).applyPostDelayed(1000) {
-                    val dataItems: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(
+                    val dataItems: List<RecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(
                         RecyclerKItemLoadMore(_dataSets.size + 1)
                     )
                     refreshOrLoad(false, dataItems)

@@ -5,9 +5,8 @@ import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.adapterk.item.AdapterKItemRecycler
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorektest.databinding.ActivityAdapterkRecyclerBinding
 import com.mozhimen.uicorektest.recyclerk.mos.*
 
@@ -20,19 +19,19 @@ import com.mozhimen.uicorektest.recyclerk.mos.*
  */
 class AdapterKRecyclerActivity : BaseActivityVB<ActivityAdapterkRecyclerBinding>() {
 
-    private lateinit var _adapterKRecycler: AdapterKRecycler
+    private lateinit var _adapterKRecycler: AdapterKItemRecycler
     override fun initView(savedInstanceState: Bundle?) {
         initAdapter()
     }
 
     private fun initAdapter() {
-        _adapterKRecycler = AdapterKRecycler()
+        _adapterKRecycler = AdapterKItemRecycler()
         vb.adapterkRecycler.apply {
             layoutManager = GridLayoutManager(this@AdapterKRecyclerActivity, 2)
             adapter = _adapterKRecycler
         }
 
-        val dataSets = ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>>()
+        val dataSets = ArrayList<RecyclerKItem<out RecyclerView.ViewHolder>>()
         dataSets.apply {
             add(RecyclerKItemTop())
             add(RecyclerKItemBanner())

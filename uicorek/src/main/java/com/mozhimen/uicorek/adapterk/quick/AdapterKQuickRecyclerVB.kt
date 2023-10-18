@@ -13,7 +13,7 @@ import com.mozhimen.uicorek.adapterk.commons.IAdapterKRecyclerVBListener
 import com.mozhimen.uicorek.vhk.VHKRecyclerVB
 
 /**
- * @ClassName AdapterKRecyclerVB
+ * @ClassName AdapterKQuickRecyclerVB
  * @Description  通用RecyclerView适配器
  * 注意:
  * 在使用Fragment切换,挂起与恢复时, 要使recyclerView.adapter置null

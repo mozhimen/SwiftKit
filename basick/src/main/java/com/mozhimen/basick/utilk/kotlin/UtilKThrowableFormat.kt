@@ -13,10 +13,26 @@ import java.io.StringWriter
  * @Date 2022/11/27 0:19
  * @Version 1.0
  */
+fun Throwable.throwable2printWriter(printWriter: PrintWriter) {
+    UtilKThrowable.throwable2printWriter(this, printWriter)
+}
+
 fun Throwable.throwable2str(): String =
     UtilKThrowable.throwable2str(this)
 
 object UtilKThrowable : IUtilK {
+    @JvmStatic
+    fun throwable2printWriter(e: Throwable, printWriter: PrintWriter) {
+        printWriter.use {
+            e.printStackTrace(it)
+            var cause = e.cause
+            while (cause != null) {
+                cause.printStackTrace(it)
+                cause = cause.cause
+            }
+        }
+    }
+
     @JvmStatic
     fun throwable2str(throwable: Throwable): String {
         val stringWriter = StringWriter()

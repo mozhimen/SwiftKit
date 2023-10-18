@@ -1,9 +1,10 @@
 package com.mozhimen.basick.utilk.java.io
 
 import android.graphics.Bitmap
-import com.mozhimen.basick.utilk.android.graphics.anyBytes2anyBitmap
+import com.mozhimen.basick.utilk.kotlin.bytes2bitmapAny
 import com.mozhimen.basick.utilk.kotlin.bytes2file
 import com.mozhimen.basick.utilk.kotlin.bytes2str
+import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.nio.charset.Charset
@@ -43,7 +44,7 @@ object UtilKByteArrayOutputStream {
 
     @JvmStatic
     fun byteArrayOutputStream2anyBitmap(byteArrayOutputStream: ByteArrayOutputStream): Bitmap =
-        byteArrayOutputStream.byteArrayOutputStream2bytes().anyBytes2anyBitmap()
+        byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2bitmapAny()
 
     @JvmStatic
     fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, destFilePathWithName: String, isAppend: Boolean = false): File =

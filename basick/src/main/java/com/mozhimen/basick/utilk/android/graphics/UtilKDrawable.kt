@@ -21,32 +21,7 @@ fun Drawable.applyColorFilter(@ColorInt colorInt: Int) {
     UtilKDrawable.applyColorFilter(this, colorInt)
 }
 
-fun Drawable.drawable2bitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
-    UtilKDrawable.drawable2bitmap(this, width, height, config)
-
-fun Drawable.drawable2bitmap2(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight): Bitmap =
-    UtilKDrawable.drawable2bitmap2(this, width, height)
-
 object UtilKDrawable {
-    @JvmStatic
-    fun drawable2bitmap(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
-        drawable.toBitmap(width, height, config)
-
-    @JvmStatic
-    fun drawable2bitmap2(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight): Bitmap =
-        if (drawable is BitmapDrawable) drawable.bitmap else {
-            val bitmap: Bitmap = if (width <= 0 || height <= 0) {
-                Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888)
-            } else {
-                Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            }
-            val canvas = Canvas(bitmap)
-            drawable.setBounds(0, 0, canvas.width, canvas.height)
-            drawable.draw(canvas)
-            bitmap
-        }
-
-    /////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 是否正常的drawable

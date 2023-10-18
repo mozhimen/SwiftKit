@@ -1,9 +1,7 @@
 package com.mozhimen.basick.utilk.java.util
 
-import android.util.Base64
 import com.mozhimen.basick.elemk.android.util.cons.CBase64
-import com.mozhimen.basick.utilk.android.util.bytes2bytesBase64
-import com.mozhimen.basick.utilk.kotlin.UtilKString
+import com.mozhimen.basick.utilk.kotlin.bytes2bytesBase64
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.strHex2bytes
 import java.util.UUID
@@ -29,6 +27,8 @@ object UtilKUUID {
     @JvmStatic
     fun getFormatStrUUID(): String =
         getStrUUID().replace("-", "")
+
+    //////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun compressStrUUID(strUUID: String): String =

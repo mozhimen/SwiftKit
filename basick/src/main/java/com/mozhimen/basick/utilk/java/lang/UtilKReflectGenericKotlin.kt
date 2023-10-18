@@ -41,35 +41,35 @@ object UtilKReflectGenericKotlin : IUtilK {
                     null
             }
 
-    @JvmStatic
-    fun getParentGenericTypeByTClazz(clazz: Class<*>, tClazz: Class<*>/*, index: Int = 0*/): Class<*>? =
-        getParentGenericTypeByT(clazz, tClazz/*, index*/) as? Class<*>?
-
-    @JvmStatic
-    fun getParentGenericTypeByT(clazz: Class<*>, tClazz: Class<*>/*, index: Int = 0*/): Type? {
-        val superClazz: Class<*>? = clazz.superclass
-        val genericSuperclass: Type? = clazz.genericSuperclass
-        if (genericSuperclass !is ParameterizedType) {//当继承类不是参数化类型,就从父类中寻找
-            return if (superClazz != null) {
-                getParentGenericTypeByT(superClazz, tClazz)//当我们继承多层BaseActivity时递归查找泛型
-            } else
-                null
-        }
-        genericSuperclass.actualTypeArguments.filterIsInstance<Class<*>>()
-            .run {
-//                Log.d(TAG, "getParentGenericTypeByT: ${this.map { it.simpleName }}")
-                if (isNotEmpty()) {
-                    for (clz in this) {
-                        if (clz.isAssignableFrom(tClazz))
-                            return clz
-                    }
-                }
-                if (superClazz != null)
-                    return getParentGenericTypeByT(superClazz, tClazz)
-                else
-                    return null
-            }
-    }
+//    @JvmStatic
+//    fun getParentGenericTypeByTClazz(clazz: Class<*>, tClazz: Class<*>/*, index: Int = 0*/): Class<*>? =
+//        getParentGenericTypeByT(clazz, tClazz/*, index*/) as? Class<*>?
+//
+//    @JvmStatic
+//    fun getParentGenericTypeByT(clazz: Class<*>, tClazz: Class<*>/*, index: Int = 0*/): Type? {
+//        val superClazz: Class<*>? = clazz.superclass
+//        val genericSuperclass: Type? = clazz.genericSuperclass
+//        if (genericSuperclass !is ParameterizedType) {//当继承类不是参数化类型,就从父类中寻找
+//            return if (superClazz != null) {
+//                getParentGenericTypeByT(superClazz, tClazz)//当我们继承多层BaseActivity时递归查找泛型
+//            } else
+//                null
+//        }
+//        genericSuperclass.actualTypeArguments.filterIsInstance<Class<*>>()
+//            .run {
+////                Log.d(TAG, "getParentGenericTypeByT: ${this.map { it.simpleName }}")
+//                if (isNotEmpty()) {
+//                    for (clz in this) {
+//                        if (clz.isAssignableFrom(tClazz))
+//                            return clz
+//                    }
+//                }
+//                if (superClazz != null)
+//                    return getParentGenericTypeByT(superClazz, tClazz)
+//                else
+//                    return null
+//            }
+//    }
 
     /**
      * 获取父类泛型类

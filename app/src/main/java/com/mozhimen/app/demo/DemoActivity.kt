@@ -11,7 +11,7 @@ import com.mozhimen.app.databinding.ItemDemoListBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVBVM
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffedVB
+import com.mozhimen.uicorek.adapterk.quick.AdapterKQuickRecyclerStuffedVB
 import com.mozhimen.uicorek.adaptk.systembar.initAdaptKSystemBar
 import kotlin.math.abs
 
@@ -34,7 +34,7 @@ class DemoActivity : BaseActivityVBVM<ActivityDemoBinding, DemoViewModel>() {
         )
         vb.demoRecycler.layoutManager = LinearLayoutManager(this)
         vb.demoRecycler.adapter =
-            AdapterKRecyclerStuffedVB<Astro, ItemDemoListBinding>(
+            AdapterKQuickRecyclerStuffedVB<Astro, ItemDemoListBinding>(
                 list,
                 R.layout.item_demo_list,
                 R.layout.item_demo_header,

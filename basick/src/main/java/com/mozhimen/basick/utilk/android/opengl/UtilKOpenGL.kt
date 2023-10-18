@@ -6,6 +6,7 @@ import android.util.Log
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
+import com.mozhimen.basick.utilk.kotlin.UtilKStrAssetFileName
 
 /**
  * @ClassName UtilKOpenGL
@@ -79,8 +80,8 @@ object UtilKOpenGL : BaseUtilK() {
 
     @JvmStatic
     fun createGlProgramByRes(vert: String, frag: String): Int? {
-        val vertexSource = UtilKAsset.asset2str3(vert)
-        val fragmentSource = UtilKAsset.asset2str3(frag)
+        val vertexSource = UtilKStrAssetFileName.strAssetFileName2str3(vert)
+        val fragmentSource = UtilKStrAssetFileName.strAssetFileName2str3(frag)
         if (vertexSource != null && fragmentSource != null)
             createGlProgram(vertexSource, fragmentSource)
         return null

@@ -15,11 +15,11 @@ import kotlin.coroutines.CoroutineContext
  * @Date 2023/6/7 15:09
  * @Version 1.0
  */
-fun MutableLiveData<String>.value2stringTrim() =
-    UtilKLiveData.value2stringTrim(this)
+fun MutableLiveData<String>.liveValue2stringTrim() =
+    UtilKLiveData.liveValue2stringTrim(this)
 
 object UtilKLiveData {
-    fun value2stringTrim(mutableLiveData: MutableLiveData<String>): String =
+    fun liveValue2stringTrim(mutableLiveData: MutableLiveData<String>): String =
         mutableLiveData.value?.obj2stringTrim() ?: ""
 
     /**

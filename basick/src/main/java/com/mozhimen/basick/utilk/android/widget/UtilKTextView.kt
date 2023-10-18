@@ -14,6 +14,13 @@ import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
  * @Date 2022/11/6 0:27
  * @Version 1.0
  */
+
+val TextView.value: String get() = UtilKTextView.getValue(this)
+
+fun TextView.getValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
+    UtilKTextView.getValueIfNotEmpty(this, invoke)
+}
+
 fun TextView.applyTextStyle(@IntRange(from = 0, to = 3) style: Int = Typeface.NORMAL) {
     UtilKTextView.applyTextStyle(this, style)
 }
@@ -32,12 +39,6 @@ fun TextView.applyIconFont(iconFont: String = "icons/iconfont.ttf") {
 
 fun TextView.applyValueIfNotEmpty(str: String?) {
     UtilKTextView.applyValueIfNotEmpty(this, str)
-}
-
-val TextView.value: String get() = UtilKTextView.getValue(this)
-
-fun TextView.getValueIfNotEmpty(invoke: IA_Listener<String>/*(value: String) -> Unit*/) {
-    UtilKTextView.getValueIfNotEmpty(this, invoke)
 }
 
 object UtilKTextView {

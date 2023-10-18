@@ -18,14 +18,14 @@ object UtilKViewDataBinding {
     @JvmStatic
     @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater, index: Int = 0): VB =
-        UtilKReflectGenericKotlin.getParentGenericTypeByTClazz/*<VB>*//*getParentGenericTypeClazz(clazz, index)*/(clazz, ViewDataBinding::class.java)?.run {
+        UtilKReflectGenericKotlin.getParentGenericTypeClazz(clazz, index)?.run {
             getDeclaredMethod("inflate", LayoutInflater::class.java).invoke(null, inflater) as VB
         } ?: throw Exception("inflate activity vb fail!")
 
     @JvmStatic
     @Suppress(CSuppress.UNCHECKED_CAST)
     fun <VB : ViewDataBinding> get(clazz: Class<*>, inflater: LayoutInflater, container: ViewGroup?, index: Int = 0): VB =
-        UtilKReflectGenericKotlin.getParentGenericTypeByTClazz/*<VB>*//*getParentGenericTypeClazz(clazz, index)*/(clazz, ViewDataBinding::class.java)?.run {
+        UtilKReflectGenericKotlin.getParentGenericTypeClazz(clazz, index)?.run {
             getDeclaredMethod("inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java).invoke(null, inflater, container, false) as VB
         } ?: throw Exception("inflate fragment vb fail!")
 

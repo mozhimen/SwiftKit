@@ -21,12 +21,9 @@ fun Int.getContrastColor(): Int =
 fun Int.applyAdjustAlpha(factor: Float): Int =
     UtilKColor.applyAdjustAlpha(this, factor)
 
-@ColorInt
-fun String.colorStr2colorInt(): Int =
-    UtilKColor.colorStr2colorInt(this)
 
-fun Int.colorInt2colorStr(): String =
-    UtilKColor.colorInt2colorStr(this)
+
+
 
 object UtilKColor {
     @JvmStatic
@@ -75,29 +72,4 @@ object UtilKColor {
     @ColorInt
     fun applyAdjustAlpha(@ColorInt colorInt: Int, ratio: Float): Int =
         Color.argb((Color.alpha(colorInt) * ratio).roundToInt(), Color.red(colorInt), Color.green(colorInt), Color.blue(colorInt))
-
-    /////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    @ColorInt
-    fun obj2colorInt(obj: Any): Int =
-        when (obj) {
-            is String -> obj.colorStr2colorInt()
-            is Int -> obj
-            else -> Color.WHITE
-        }
-
-    /**
-     * 获取颜色
-     * @param colorStr String
-     * @return Int
-     */
-    @JvmStatic
-    @ColorInt
-    fun colorStr2colorInt(colorStr: String): Int =
-        Color.parseColor(colorStr)
-
-    @JvmStatic
-    fun colorInt2colorStr(@ColorInt colorInt: Int): String =
-        String.format("#%06X", 0xFFFFFF and colorInt).uppercase()
 }

@@ -2,6 +2,8 @@ package com.mozhimen.uicorek.layoutk.tab.top.mos
 
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.utilk.android.graphics.UtilKColor
+import com.mozhimen.basick.utilk.kotlin.UtilKAnyFormat
+import com.mozhimen.basick.utilk.kotlin.obj2intColor
 import com.mozhimen.uicorek.layoutk.tab.top.cons.ETabTopType
 
 /**
@@ -39,7 +41,7 @@ open class MTabTop {
         this.name = name
         this.bitmapDefault = bitmapDefault
         this.bitmapSelected = bitmapSelected
-        this.colorIndicator = UtilKColor.obj2colorInt(colorIndicator)
+        this.colorIndicator = UtilKAnyFormat.obj2intColor(colorIndicator)
         this.tabType = ETabTopType.IMAGE
     }
 
@@ -56,8 +58,8 @@ open class MTabTop {
         colorSelected: Any
     ) {
         this.name = name
-        this.colorDefault = UtilKColor.obj2colorInt(colorDefault)
-        this.colorSelected = UtilKColor.obj2colorInt(colorSelected)
+        this.colorDefault =UtilKAnyFormat.obj2intColor(colorDefault)
+        this.colorSelected = UtilKAnyFormat.obj2intColor(colorSelected)
         this.tabType = ETabTopType.TEXT
     }
 
@@ -80,8 +82,8 @@ open class MTabTop {
         this.name = name
         this.bitmapDefault = bitmapDefault
         this.bitmapSelected = bitmapSelected
-        this.colorDefault = UtilKColor.obj2colorInt(colorDefault)
-        this.colorSelected = UtilKColor.obj2colorInt(colorSelected)
+        this.colorDefault = UtilKAnyFormat.obj2intColor(colorDefault)
+        this.colorSelected = UtilKAnyFormat.obj2intColor(colorSelected)
         this.tabType = ETabTopType.IMAGE_TEXT
     }
 }

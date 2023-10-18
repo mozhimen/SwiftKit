@@ -15,6 +15,10 @@ fun RandomAccessFile.writeStr2randomAccessFile(str: String) {
     UtilKRandomAccessFile.writeStr2randomAccessFile(this, str)
 }
 
+fun RandomAccessFile.writeBytes2randomAccessFile(bytes: ByteArray) {
+    UtilKRandomAccessFile.writeBytes2randomAccessFile(this, bytes)
+}
+
 object UtilKRandomAccessFile {
     /**
      * cpu使用率

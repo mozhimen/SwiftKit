@@ -25,8 +25,6 @@ fun Pair<String, String>.isTimeAtMinuteOf() =
 fun Pair<String, String>.isTimeAtMinuteOf(timeStr: String) =
     UtilKTime.isTimeAtMinuteOf(this, timeStr)
 
-
-
 object UtilKTime {
     /**
      * 获取当前小时2位

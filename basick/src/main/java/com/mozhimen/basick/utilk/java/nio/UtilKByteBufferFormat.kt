@@ -11,9 +11,9 @@ import java.nio.ByteBuffer
  * @Version 1.0
  */
 fun ByteBuffer.byteBuffer2bytes(): ByteArray =
-    UtilKByteBuffer.byteBuffer2bytes(this)
+    UtilKByteBufferFormat.byteBuffer2bytes(this)
 
-object UtilKByteBuffer {
+object UtilKByteBufferFormat {
 
     @JvmStatic
     fun byteBuffer2bytes(byteBuffer: ByteBuffer): ByteArray {

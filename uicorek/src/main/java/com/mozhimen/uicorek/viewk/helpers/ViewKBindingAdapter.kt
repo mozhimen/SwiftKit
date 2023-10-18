@@ -24,7 +24,7 @@ object ViewKBindingAdapter {
 
     @JvmStatic
     @BindingAdapter("applyVisibilityShowGone")
-    fun asVisibleIfElseGone(view: View, visibility: Boolean) {
+    fun applyVisibleIfElseGone(view: View, visibility: Boolean) {
         UtilKViewFormat.applyVisibleIfElseGone(view, visibility)
     }
 

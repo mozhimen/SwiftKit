@@ -2,7 +2,8 @@ package com.mozhimen.uicorek.layoutk.tab.bottom.mos
 
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.utilk.android.graphics.UtilKColor
-import com.mozhimen.basick.utilk.kotlin.str2unicode
+import com.mozhimen.basick.utilk.kotlin.UtilKAnyFormat
+import com.mozhimen.basick.utilk.kotlin.str2strUnicode
 import com.mozhimen.uicorek.layoutk.tab.bottom.cons.ETabBottomType
 import java.io.Serializable
 
@@ -63,8 +64,8 @@ class MTabBottom : Serializable {
         this.name = name
         this.bitmapDefault = bitmapDefault
         this.bitmapSelected = bitmapSelected
-        this.iconColorDefault = UtilKColor.obj2colorInt(iconColorDefault)
-        this.iconColorSelected = UtilKColor.obj2colorInt(iconColorSelected)
+        this.iconColorDefault = UtilKAnyFormat.obj2intColor(iconColorDefault)
+        this.iconColorSelected = UtilKAnyFormat.obj2intColor(iconColorSelected)
         this.tabType = ETabBottomType.IMAGE_TEXT
     }
 
@@ -88,10 +89,10 @@ class MTabBottom : Serializable {
     ) {
         this.name = name
         this.iconFont = iconFont
-        this.iconNameDefault = iconNameDefault.str2unicode()
-        this.iconNameSelected = iconNameSelected.str2unicode()
-        this.iconColorDefault = UtilKColor.obj2colorInt(iconColorDefault)
-        this.iconColorSelected = UtilKColor.obj2colorInt(iconColorSelected)
+        this.iconNameDefault = iconNameDefault.str2strUnicode()
+        this.iconNameSelected = iconNameSelected.str2strUnicode()
+        this.iconColorDefault = UtilKAnyFormat.obj2intColor(iconColorDefault)
+        this.iconColorSelected = UtilKAnyFormat.obj2intColor(iconColorSelected)
         this.tabType = ETabBottomType.ICONFONT_TEXT
     }
 }

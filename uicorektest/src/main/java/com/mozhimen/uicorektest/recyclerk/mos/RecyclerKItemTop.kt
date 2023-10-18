@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.widget.applyFitDrawable
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorektest.R
 
 /**
@@ -17,7 +17,7 @@ import com.mozhimen.uicorektest.R
  * @Date 2022/4/21 23:29
  * @Version 1.0
  */
-class RecyclerKItemTop : BaseRecyclerKItem<RecyclerView.ViewHolder>() {
+class RecyclerKItemTop : RecyclerKItem<RecyclerView.ViewHolder>() {
     private var _parentWidth: Int = 0
 
     override fun onBindItem(holder: RecyclerView.ViewHolder, position: Int) {

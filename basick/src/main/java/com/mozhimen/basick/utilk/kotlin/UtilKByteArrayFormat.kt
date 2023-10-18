@@ -1,16 +1,18 @@
 package com.mozhimen.basick.utilk.kotlin
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.writeBytes2fileOutputStream
-import com.mozhimen.basick.utilk.java.io.flushClose
+import com.mozhimen.basick.utilk.java.security.UtilKMd5
 import java.io.ByteArrayInputStream
 import java.io.File
-import java.io.FileOutputStream
 import java.io.ObjectInputStream
 import java.nio.charset.Charset
+import java.security.NoSuchAlgorithmException
 
 /**
  * @ClassName UtilKByteArrayFormat
@@ -19,14 +21,26 @@ import java.nio.charset.Charset
  * @Date 2023/8/1 16:13
  * @Version 1.0
  */
+
+fun ByteArray.bytes2obj(): Any? =
+    UtilKByteArrayFormat.bytes2obj(this)
+
+fun ByteArray.bytes2byteArrayInputStream(): ByteArrayInputStream =
+    UtilKByteArrayFormat.bytes2byteArrayInputStream(this)
+
+fun ByteArray.bytes2bitmapAny(): Bitmap =
+    UtilKByteArrayFormat.bytes2bitmapAny(this)
+
 fun ByteArray.bytes2file(destFilePathWithName: String, isAppend: Boolean = false): File =
     UtilKByteArrayFormat.bytes2file(this, destFilePathWithName, isAppend)
 
 fun ByteArray.bytes2file(destFile: File, isAppend: Boolean = false): File =
     UtilKByteArrayFormat.bytes2file(this, destFile, isAppend)
 
-fun ByteArray.bytes2obj(): Any? =
-    UtilKByteArrayFormat.bytes2obj(this)
+//////////////////////////////////////////////////////////////////////////////////
+
+fun ByteArray.bytes2strMd5Hex(): String =
+    UtilKByteArrayFormat.bytes2strMd5Hex(this)
 
 fun ByteArray.bytes2strHex(size: Int): String =
     UtilKByteArrayFormat.bytes2strHex(this, size)
@@ -40,41 +54,7 @@ fun ByteArray.bytes2str(charset: Charset = Charsets.UTF_8): String =
 fun ByteArray.bytes2str(offset: Int, length: Int): String =
     UtilKByteArrayFormat.bytes2str(this, offset, length)
 
-fun String.strHex2bytes(): ByteArray =
-    UtilKByteArrayFormat.strHex2bytes(this)
-
 object UtilKByteArrayFormat : IUtilK {
-    @JvmStatic
-    fun strHex2bytes(strHex: String): ByteArray {
-        if (strHex.isEmpty()) return ByteArray(0)
-        val bytes = strHex.toByteArray()
-        val n = bytes.size shr 1
-        val buf = ByteArray(n)
-        for (i in 0 until n) {
-            val index = i shl 1
-            buf[i] = (bytes[index].byte2int() shl 4 or bytes[index + 1].byte2int()).toByte()
-        }
-        return buf
-    }
-
-    @JvmStatic
-    fun bytes2str(bytes: ByteArray, charset: Charset = Charsets.UTF_8): String =
-        String(bytes, charset)
-
-    @JvmStatic
-    fun bytes2str(bytes: ByteArray, offset: Int, length: Int): String =
-        String(bytes, offset, length)
-
-    @JvmStatic
-    fun bytes2file(bytes: ByteArray, destFilePathWithName: String, isAppend: Boolean = false): File =
-        bytes2file(bytes, UtilKFile.createFile(destFilePathWithName), isAppend)
-
-    @JvmStatic
-    fun bytes2file(bytes: ByteArray, destFile: File, isAppend: Boolean = false): File {
-        UtilKFile.createFile(destFile)
-        destFile.file2fileOutputStream(isAppend).writeBytes2fileOutputStream(bytes)
-        return destFile
-    }
 
     @JvmStatic
     fun bytes2obj(bytes: ByteArray): Any? {
@@ -93,6 +73,32 @@ object UtilKByteArrayFormat : IUtilK {
         }
         return null
     }
+
+    @JvmStatic
+    fun bytes2byteArrayInputStream(bytes: ByteArray): ByteArrayInputStream =
+        ByteArrayInputStream(bytes)
+
+    @JvmStatic
+    fun bytes2bitmapAny(bytes: ByteArray): Bitmap =
+        BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+    @JvmStatic
+    fun bytes2file(bytes: ByteArray, destFilePathWithName: String, isAppend: Boolean = false): File =
+        bytes2file(bytes, UtilKFile.createFile(destFilePathWithName), isAppend)
+
+    @JvmStatic
+    fun bytes2file(bytes: ByteArray, destFile: File, isAppend: Boolean = false): File {
+        UtilKFile.createFile(destFile)
+        destFile.file2fileOutputStream(isAppend).writeBytes2fileOutputStream(bytes)
+        return destFile
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @Throws(NoSuchAlgorithmException::class)
+    fun bytes2strMd5Hex(bytes: ByteArray): String =
+        UtilKMd5.digest(bytes).bytes2strHex()
 
     /**
      * byte[]数组转换为16进制的字符串
@@ -127,4 +133,12 @@ object UtilKByteArrayFormat : IUtilK {
         }
         return stringBuilder.toString()
     }
+
+    @JvmStatic
+    fun bytes2str(bytes: ByteArray, charset: Charset = Charsets.UTF_8): String =
+        String(bytes, charset)
+
+    @JvmStatic
+    fun bytes2str(bytes: ByteArray, offset: Int, length: Int): String =
+        String(bytes, offset, length)
 }

@@ -14,7 +14,7 @@ import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 interface IAdapterKRecycler : IUtilK {
     /**
      * 刷新Item
-     * @param item BaseRecyclerKItem<DATA, ViewHolder>
+     * @param item RecyclerKItem<DATA, ViewHolder>
      */
     fun refreshItem(item: RecyclerKItem<out RecyclerView.ViewHolder>, position: Int, notify: Boolean)
 
@@ -25,7 +25,7 @@ interface IAdapterKRecycler : IUtilK {
 
     /**
      * 刷新Item
-     * @param items List<BaseRecyclerKItem<DATA, ViewHolder>>
+     * @param items List<RecyclerKItem<DATA, ViewHolder>>
      */
     fun refreshItems(items: List<RecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean)
 
@@ -38,7 +38,7 @@ interface IAdapterKRecycler : IUtilK {
 
     /**
      * 在指定位上添加item
-     * @param item BaseRecyclerKItem<DATA, ViewHolder>
+     * @param item RecyclerKItem<DATA, ViewHolder>
      * @param position Int
      * @param notify Boolean
      */
@@ -46,21 +46,21 @@ interface IAdapterKRecycler : IUtilK {
 
     /**
      * 添加items集合
-     * @param items List<BaseRecyclerKItem<DATA, ViewHolder>>
+     * @param items List<RecyclerKItem<DATA, ViewHolder>>
      * @param notify Boolean
      */
     fun addItems(items: List<RecyclerKItem<out RecyclerView.ViewHolder>>, notify: Boolean)
 
     /**
      * 移除item
-     * @param item BaseRecyclerKItem<DATA, ViewHolder>
+     * @param item RecyclerKItem<DATA, ViewHolder>
      */
     fun removeItem(item: RecyclerKItem<out RecyclerView.ViewHolder>, notify: Boolean)
 
     /**
      * 从指定位上移除item
      * @param position Int
-     * @return BaseRecyclerKItem<DATA, VH>?
+     * @return RecyclerKItem<DATA, VH>?
      */
     fun removeItemAtPosition(position: Int, notify: Boolean): RecyclerKItem<in RecyclerView.ViewHolder>?
 
@@ -72,13 +72,13 @@ interface IAdapterKRecycler : IUtilK {
     /**
      * 获取Item
      * @param position Int
-     * @return BaseRecyclerKItem<DATA, VH>?
+     * @return RecyclerKItem<DATA, VH>?
      */
     fun getItem(position: Int): RecyclerKItem<RecyclerView.ViewHolder>?
 
     /**
      * 获取Items
-     * @return BaseRecyclerKItem<DATA, VH>?
+     * @return RecyclerKItem<DATA, VH>?
      */
     fun getItems(): List<RecyclerKItem<in RecyclerView.ViewHolder>>
 

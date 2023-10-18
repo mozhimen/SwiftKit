@@ -1,6 +1,6 @@
 package com.mozhimen.underlayk.logk.bases
 
-import com.mozhimen.basick.utilk.squareup.moshi.t2jsonMoshi
+import com.mozhimen.basick.utilk.squareup.moshi.t2strJsonMoshi
 import com.mozhimen.underlayk.logk.commons.ILogKConfig
 import com.mozhimen.underlayk.logk.commons.ILogKJsonParser
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
@@ -16,7 +16,7 @@ open class BaseLogKConfig : ILogKConfig {
     override fun injectJsonParser(): ILogKJsonParser? =
         object : ILogKJsonParser {
             override fun toJson(src: Any): String =
-                src.t2jsonMoshi()
+                src.t2strJsonMoshi()
         }
 
     override fun getGlobalTag(): String =

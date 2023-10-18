@@ -6,15 +6,15 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.os.WakeBefPauseLifecycleHandler
 import com.mozhimen.basick.utilk.android.os.applyPostDelayed
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.LoadRefreshLoadCallback
 import com.mozhimen.uicorek.layoutk.loadrefresh.commons.LoadRefreshRefreshCallback
 import com.mozhimen.uicorek.layoutk.refresh.temps.LottieOverView
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorektest.databinding.ActivityLayoutkLoadrefreshBinding
 import com.mozhimen.uicorektest.recyclerk.mos.RecyclerKItemLoadMore
 
 class LayoutKLoadRefreshActivity : BaseActivityVB<ActivityLayoutkLoadrefreshBinding>() {
-    private val _dataSets = ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>>()
+    private val _dataSets = ArrayList<RecyclerKItem<out RecyclerView.ViewHolder>>()
     private var _pageIndex = 0
 
     @OptIn(OptInApiInit_ByLazy::class)
@@ -36,7 +36,7 @@ class LayoutKLoadRefreshActivity : BaseActivityVB<ActivityLayoutkLoadrefreshBind
                         super.onLoading()
                         _pageIndex++
                         WakeBefPauseLifecycleHandler(this@LayoutKLoadRefreshActivity).applyPostDelayed(1000) {
-                            val items: List<BaseRecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(RecyclerKItemLoadMore(_dataSets.size + 1))
+                            val items: List<RecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(RecyclerKItemLoadMore(_dataSets.size + 1))
                             _dataSets.addAll(items)
                             vb.loadkContainer.startLoad(items, null)
                         }
@@ -53,7 +53,7 @@ class LayoutKLoadRefreshActivity : BaseActivityVB<ActivityLayoutkLoadrefreshBind
                         _pageIndex = 1
                         WakeBefPauseLifecycleHandler(this@LayoutKLoadRefreshActivity).applyPostDelayed(1000) {
                             //模拟获取到了
-                            val items: ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(
+                            val items: ArrayList<RecyclerKItem<out RecyclerView.ViewHolder>> = arrayListOf(
                                 RecyclerKItemLoadMore(1),
                                 RecyclerKItemLoadMore(2),
                                 RecyclerKItemLoadMore(3),

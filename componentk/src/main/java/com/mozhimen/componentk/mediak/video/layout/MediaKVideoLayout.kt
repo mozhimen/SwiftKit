@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.Surface
 import android.view.TextureView
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
+import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.componentk.mediak.video.cons.CMediaKVideoGravity
@@ -235,7 +236,7 @@ class MediaKVideoLayout @JvmOverloads constructor(context: Context, attrs: Attri
             if (_videoIsUrl) {
                 mediaMetadataRetriever.setDataSource(_videoSource, HashMap())
             } else {
-                val assetFileDescriptor = UtilKAsset.openFd(_videoSource!!)
+                val assetFileDescriptor = UtilKAssetManager.openFd(_videoSource!!, context)
                 mediaMetadataRetriever.setDataSource(
                     assetFileDescriptor.fileDescriptor,
                     assetFileDescriptor.startOffset,
@@ -291,10 +292,10 @@ class MediaKVideoLayout @JvmOverloads constructor(context: Context, attrs: Attri
             if (_videoIsUrl) {
                 setDataSource(_videoSource)
             } else {
-                if (_videoSource!!.contains("/")){
+                if (_videoSource!!.contains("/")) {
                     setDataSource(_videoSource)
-                }else{
-                    val assetFileDescriptor = UtilKAsset.openFd(_videoSource!!)
+                } else {
+                    val assetFileDescriptor = UtilKAssetManager.openFd(_videoSource!!, context)
                     setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
                 }
             }

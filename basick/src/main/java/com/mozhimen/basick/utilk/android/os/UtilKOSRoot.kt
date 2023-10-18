@@ -8,8 +8,8 @@ import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.strFilePath2file
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
+import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.File
 
 

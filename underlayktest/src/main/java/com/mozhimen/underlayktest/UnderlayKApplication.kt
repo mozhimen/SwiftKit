@@ -5,7 +5,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.lintk.optin.OptInApiMultiDex_InApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
-import com.mozhimen.basick.utilk.squareup.moshi.t2jsonMoshi
+import com.mozhimen.basick.utilk.squareup.moshi.t2strJsonMoshi
 import com.mozhimen.underlayk.crashk.CrashKMgr
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.LogKMgr
@@ -41,7 +41,7 @@ class UnderlayKApplication : BaseApplication() {
         override fun injectJsonParser(): ILogKJsonParser =
             object : ILogKJsonParser {
                 override fun toJson(src: Any): String =
-                    src.t2jsonMoshi()
+                    src.t2strJsonMoshi()
             }
 
         override fun getGlobalTag(): String =

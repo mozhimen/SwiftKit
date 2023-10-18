@@ -15,6 +15,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.net.UtilKWifiManager
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
+import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.componentk.mediak.audio.manager.focus.commons.IMediaKAudioManagerFocusListener
 import com.mozhimen.componentk.mediak.audio.cons.CMediaKAudioCons
 import com.mozhimen.componentk.mediak.audio.player.custom.commons.IMediaKAudioPlayerCustom
@@ -89,7 +90,7 @@ class MediaKAudioPlayerCustom(private val _owner: LifecycleOwner) :
                 if (audio.url.contains("/")) {
                     setDataSource(audio.url)
                 } else {
-                    val assetFileDescriptor = UtilKAsset.openFd(audio.url)
+                    val assetFileDescriptor = UtilKAssetManager.openFd(audio.url, _context)
                     setDataSource(assetFileDescriptor.fileDescriptor, assetFileDescriptor.startOffset, assetFileDescriptor.length)
                 }
                 prepareAsync()

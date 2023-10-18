@@ -1,8 +1,21 @@
 package com.mozhimen.basick.utilk.java.io
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.util.Log
+import androidx.core.content.FileProvider
+import com.mozhimen.basick.elemk.android.content.cons.CIntent
+import com.mozhimen.basick.lintk.annors.ADescription
+import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.android.content.UtilKPackage
+import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
+import com.mozhimen.basick.utilk.android.net.UtilKUri
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.java.util.UtilKZipOutputStream
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFilePath
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -16,73 +29,64 @@ import java.io.RandomAccessFile
  * @Date 2023/8/3 16:42
  * @Version 1.0
  */
+fun File.file2uri(): Uri? =
+    UtilKFileFormat.file2uri(this)
 
-fun String.strFilePath2file(): File =
-    UtilKFileFormat.strFilePath2file(this)
+fun File.file2anyBitmap(): Bitmap? =
+    UtilKFileFormat.file2anyBitmap(this)
+
+fun File.file2anyBitmap(opts: BitmapFactory.Options): Bitmap? =
+    UtilKFileFormat.file2anyBitmap(this, opts)
 
 fun File.file2strFilePath(): String =
     UtilKFileFormat.file2strFilePath(this)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-fun String.strFilePath2fileInputStream(): FileInputStream =
-    UtilKFileFormat.strFilePath2fileInputStream(this)
-
 fun File.file2fileInputStream(): FileInputStream =
     UtilKFileFormat.file2fileInputStream(this)
-
-fun String.strFilePath2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
-    UtilKFileFormat.strFilePath2fileOutputStream(this, isAppend)
 
 fun File.file2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
     UtilKFileFormat.file2fileOutputStream(this, isAppend)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-fun String.str2file(destFilePathWithName: String): File? =
-    UtilKFileFormat.str2file(this, destFilePathWithName)
-
-fun String.str2file(destFile: File): File? =
-    UtilKFileFormat.str2file(this, destFile)
-
-fun String.str2file2(filePathWithName: String, isAppend: Boolean = false): File? =
-    UtilKFileFormat.str2file2(this, filePathWithName, isAppend)
-
-fun String.str2file2(destFile: File, isAppend: Boolean = false): File? =
-    UtilKFileFormat.str2file2(this, destFile, isAppend)
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-fun String.strFilePath2str(): String? =
-    UtilKFileFormat.strFilePath2str(this)
-
 fun File.file2str(): String? =
     UtilKFileFormat.file2str(this)
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-fun String.strFilePath2bytes(): ByteArray? =
-    UtilKFileFormat.strFilePath2bytes(this)
 
 fun File.file2bytes(): ByteArray? =
     UtilKFileFormat.file2bytes(this)
 
-fun String.strFilePath2bytes2(): ByteArray? =
-    UtilKFileFormat.strFilePath2bytes2(this)
-
 fun File.file2bytes2(): ByteArray? =
     UtilKFileFormat.file2bytes2(this)
-
-fun String.strFilePath2bytes3(): ByteArray? =
-    UtilKFileFormat.strFilePath2bytes3(this)
 
 fun File.file2bytes3(): ByteArray? =
     UtilKFileFormat.file2bytes3(this)
 
-object UtilKFileFormat : IUtilK {
+object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
-    fun strFilePath2file(destFilePathWithName: String): File =
-        File(destFilePathWithName)
+    @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
+    fun file2uri(file: File): Uri? {
+        if (!UtilKFile.isFileExist(file)) {
+            Log.e(TAG, "file2Uri: file isFileExist false")
+            return null
+        }
+        return if (UtilKBuildVersion.isAfterV_24_7_N()) {
+            val authority = "${UtilKPackage.getPackageName()}.fileProvider"
+            Log.d(TAG, "file2Uri: authority $authority")
+            FileProvider.getUriForFile(_context, authority, file).also {
+                UtilKContext.grantUriPermission(_context, it, CIntent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+        } else Uri.fromFile(file)
+    }
+
+    @JvmStatic
+    fun file2anyBitmap(file: File): Bitmap? =
+        UtilKStrFilePath.strFilePath2anyBitmap(file.file2strFilePath())
+
+    @JvmStatic
+    fun file2anyBitmap(file: File, opts: BitmapFactory.Options): Bitmap? =
+        UtilKStrFilePath.strFilePath2anyBitmap(file.file2strFilePath(), opts)
 
     @JvmStatic
     fun file2strFilePath(file: File): String =
@@ -90,15 +94,9 @@ object UtilKFileFormat : IUtilK {
 
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    fun strFilePath2fileInputStream(filePathWithName: String): FileInputStream =
-        file2fileInputStream(filePathWithName.strFilePath2file())
-
     @JvmStatic
     fun file2fileInputStream(file: File): FileInputStream =
         FileInputStream(file)
-
-    fun strFilePath2fileOutputStream(filePathWithName: String, isAppend: Boolean = false): FileOutputStream =
-        file2fileOutputStream(filePathWithName.strFilePath2file(), isAppend)
 
     @JvmStatic
     fun file2fileOutputStream(file: File, isAppend: Boolean = false): FileOutputStream =
@@ -106,62 +104,10 @@ object UtilKFileFormat : IUtilK {
 
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 文本转文件
-     */
-    @JvmStatic
-    fun str2file(str: String, destFilePathWithName: String): File? =
-        str2file(str, UtilKFile.createFile(destFilePathWithName))
-
-    /**
-     * 文本转文件
-     */
-    @JvmStatic
-    fun str2file(str: String, destFile: File): File? {
-        UtilKFile.createFile(destFile)
-        try {
-            RandomAccessFile(destFile, "rwd").writeStr2randomAccessFile(str)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        }
-        return null
-    }
-
-    @JvmStatic
-    fun str2file2(str: String, filePathWithName: String, isAppend: Boolean = false): File? =
-        str2file2(str, UtilKFile.createFile(filePathWithName), isAppend)
-
-    @JvmStatic
-    fun str2file2(str: String, destFile: File, isAppend: Boolean = false): File? {
-        UtilKFile.createFile(destFile)
-        try {
-            destFile.file2fileOutputStream(isAppend).writeStr2fileOutputStream(str)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        }
-        return null
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun strFilePath2str(filePathWithName: String): String? =
-        file2str(filePathWithName.strFilePath2file())
-
     @JvmStatic
     fun file2str(file: File): String? =
         if (!UtilKFile.isFileExist(file)) null
         else FileInputStream(file).inputStream2str()
-
-    ////////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun strFilePath2bytes(filePathWithName: String): ByteArray? =
-        file2bytes(filePathWithName.strFilePath2file())
 
     @JvmStatic
     fun file2bytes(file: File): ByteArray? =
@@ -169,17 +115,9 @@ object UtilKFileFormat : IUtilK {
         else FileInputStream(file).inputStream2bytes()
 
     @JvmStatic
-    fun strFilePath2bytes2(filePathWithName: String): ByteArray? =
-        file2bytes2(filePathWithName.strFilePath2file())
-
-    @JvmStatic
     fun file2bytes2(file: File): ByteArray? =
         if (!UtilKFile.isFileExist(file)) null
         else FileInputStream(file).inputStream2bytes(file.length())
-
-    @JvmStatic
-    fun strFilePath2bytes3(filePathWithName: String): ByteArray? =
-        file2bytes3(filePathWithName.strFilePath2file())
 
     @JvmStatic
     fun file2bytes3(file: File): ByteArray? =

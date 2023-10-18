@@ -15,12 +15,11 @@ import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
-import com.mozhimen.basick.utilk.android.graphics.anyBitmap2rgb565Bitmap
-import com.mozhimen.basick.utilk.android.graphics.applyAnyBitmapRotate
+import com.mozhimen.basick.utilk.android.graphics.bitmapAny2bitmapRgb565
+import com.mozhimen.basick.utilk.android.graphics.applyBitmapAnyRotate
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFormat
 import com.mozhimen.componentk.camerak.camerax.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.camerak.camerax.helpers.ImageProxyUtil
 import com.mozhimen.componentk.camerak.camerax.helpers.rgba8888ImageProxy2Rgba8888Bitmap
 import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig
 import com.mozhimen.uicorek.viewk.scan.ViewKScanOverlay
@@ -61,7 +60,7 @@ class ScanKFaceActivity : BaseActivityVB<ActivityScankFaceBinding>() {
         object : ICameraXKFrameListener {
             override fun invoke(imageProxy: ImageProxy) {
                 if (System.currentTimeMillis() - _currentTime > 2000L) {
-                    _rgb565Bitmap = imageProxy.rgba8888ImageProxy2Rgba8888Bitmap().anyBitmap2rgb565Bitmap().applyAnyBitmapRotate(-90f, flipX = true)
+                    _rgb565Bitmap = imageProxy.rgba8888ImageProxy2Rgba8888Bitmap().bitmapAny2bitmapRgb565().applyBitmapAnyRotate(-90f, flipX = true)
                     if (_faceDetector == null)
                         _faceDetector = FaceDetector(_rgb565Bitmap!!.width, _rgb565Bitmap!!.height, 1)
                     val faceCount = _faceDetector!!.findFaces(_rgb565Bitmap!!, _faces)

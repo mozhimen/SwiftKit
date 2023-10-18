@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.widget.applyTextStyle
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import com.mozhimen.uicorektest.R
 
@@ -20,7 +20,7 @@ import com.mozhimen.uicorektest.R
  * @Date 2022/4/25 0:31
  * @Version 1.0
  */
-class RecyclerKItemLoadMore(private val index: Int?=null) : BaseRecyclerKItem<VHKRecycler>() {
+class RecyclerKItemLoadMore(private val index: Int?=null) : RecyclerKItem<VHKRecycler>() {
     private var parentWidth: Int = 0
 
     override fun onBindItem(holder: VHKRecycler, position: Int) {

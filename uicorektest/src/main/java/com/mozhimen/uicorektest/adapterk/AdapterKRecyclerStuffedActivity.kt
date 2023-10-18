@@ -4,9 +4,8 @@ import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.uicorek.recyclerk.bases.BaseRecyclerKItem
-import com.mozhimen.uicorek.adapterk.AdapterKRecycler
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerStuffed
+import com.mozhimen.uicorek.adapterk.item.AdapterKItemRecyclerStuffed
+import com.mozhimen.uicorek.recyclerk.item.RecyclerKItem
 import com.mozhimen.uicorektest.databinding.ActivityAdapterkRecyclerStuffedBinding
 import com.mozhimen.uicorektest.recyclerk.mos.*
 
@@ -19,7 +18,7 @@ import com.mozhimen.uicorektest.recyclerk.mos.*
  */
 class AdapterKRecyclerStuffedActivity : BaseActivityVB<ActivityAdapterkRecyclerStuffedBinding>() {
 
-    private val _adapterKRecyclerStuffed by lazy { AdapterKRecyclerStuffed() }
+    private val _adapterKRecyclerStuffed by lazy { AdapterKItemRecyclerStuffed() }
     override fun initView(savedInstanceState: Bundle?) {
         initAdapter()
     }
@@ -30,7 +29,7 @@ class AdapterKRecyclerStuffedActivity : BaseActivityVB<ActivityAdapterkRecyclerS
             adapter = _adapterKRecyclerStuffed
         }
 
-        val dataSets = ArrayList<BaseRecyclerKItem<out RecyclerView.ViewHolder>>()
+        val dataSets = ArrayList<RecyclerKItem<out RecyclerView.ViewHolder>>()
         dataSets.apply {
             add(RecyclerKItemTop())
             add(RecyclerKItemBanner())

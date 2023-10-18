@@ -3,11 +3,7 @@ package com.mozhimen.componentktest.cameraxk
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import androidx.camera.core.ImageProxy
-import androidx.camera.view.PreviewView
-import com.mozhimen.basick.elemk.android.graphics.cons.CImageFormat
-import com.mozhimen.basick.elemk.android.graphics.cons.CPixelFormat
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInFieldCall_Close
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -15,15 +11,12 @@ import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CUseFeature
-import com.mozhimen.basick.utilk.android.graphics.applyAnyBitmapRotate
-import com.mozhimen.basick.utilk.kotlin.intByte2strByte
 import com.mozhimen.uicorek.adaptk.systembar.annors.AAdaptKSystemBarProperty
 import com.mozhimen.uicorek.adaptk.systembar.cons.CProperty
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFacing
 import com.mozhimen.componentk.camerak.camerax.annors.ACameraKXFormat
 import com.mozhimen.componentk.camerak.camerax.commons.ICameraKXCaptureListener
 import com.mozhimen.componentk.camerak.camerax.commons.ICameraXKFrameListener
-import com.mozhimen.componentk.camerak.camerax.helpers.jpegImageProxy2JpegBitmap
 import com.mozhimen.componentk.camerak.camerax.helpers.rgba8888ImageProxy2Rgba8888Bitmap
 import com.mozhimen.componentk.camerak.camerax.helpers.yuv420888ImageProxy2JpegBitmap
 import com.mozhimen.componentk.camerak.camerax.mos.MCameraKXConfig

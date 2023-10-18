@@ -16,6 +16,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.kotlin.UtilKStrAssetFileName
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.commons.IInstallKStateListener
@@ -61,7 +62,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
         vb.installkBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 if (!UtilKFile.isFileExist(_apkPathWithName)) {
-                    UtilKAsset.asset2file("componentktest.apk", _apkPathWithName, false)
+                    UtilKStrAssetFileName.strAssetFileName2file("componentktest.apk", _apkPathWithName, false)
                 }
                 delay(500)
                 _installK.setInstallMode(EInstallKMode.ROOT).setInstallSmartService(InstallKService::class.java).setInstallSilenceReceiver(InstallKReceiver::class.java)

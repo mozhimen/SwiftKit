@@ -8,7 +8,7 @@ import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.mos.MKey
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.utilk.android.widget.showToast
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
+import com.mozhimen.uicorek.adapterk.item.AdapterKItemRecyclerVB
 import com.mozhimen.uicorektest.R
 import com.mozhimen.uicorektest.BR
 import com.mozhimen.uicorektest.databinding.ActivityRecyclerkLifecycleBinding
@@ -22,7 +22,7 @@ class RecyclerKLifecycleActivity : BaseActivityVB<ActivityRecyclerkLifecycleBind
         vb.recyclerkLifecycle.layoutManager = LinearLayoutManager(this)
         vb.recyclerkLifecycle.addItemDecoration(DividerItemDecoration(this, LinearLayout.VERTICAL))
         vb.recyclerkLifecycle.adapter =
-            AdapterKRecyclerVB<MKey, ItemRecyclerkLifecycleBinding>(list, R.layout.item_recyclerk_lifecycle, BR.item_recyclerk_lifecycle) { holder, _, position, _ ->
+            AdapterKItemRecyclerVB<MKey, ItemRecyclerkLifecycleBinding>(list, R.layout.item_recyclerk_lifecycle, BR.item_recyclerk_lifecycle) { holder, _, position, _ ->
                 holder.vb.itemRecyclerkLifecycleBox.setOnClickListener {
                     position.toString().showToast()
                 }

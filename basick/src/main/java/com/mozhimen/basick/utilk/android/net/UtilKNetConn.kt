@@ -137,17 +137,6 @@ object UtilKNetConn : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
-    fun registerNetworkCallback(request: NetworkRequest, networkCallback: ConnectivityManager.NetworkCallback) {
-        UtilKConnectivityManager.registerNetworkCallback(_context, request, networkCallback)
-    }
-
-    @JvmStatic
-    fun unregisterNetworkCallback(networkCallback: ConnectivityManager.NetworkCallback) {
-        UtilKConnectivityManager.unregisterNetworkCallback(_context, networkCallback)
-    }
-
-    @JvmStatic
     fun eNetType2strNetType(type: ENetType): String =
         when (type) {
             ENetType.WIFI -> CNetType.WIFI
@@ -158,6 +147,19 @@ object UtilKNetConn : BaseUtilK() {
             ENetType.UNKNOWN -> CNetType.UNKNOWN
             else -> CNetType.NONE
         }
+
+    /////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    @RequiresPermission(value = CPermission.ACCESS_NETWORK_STATE)
+    fun registerNetworkCallback(request: NetworkRequest, networkCallback: ConnectivityManager.NetworkCallback) {
+        UtilKConnectivityManager.registerNetworkCallback(_context, request, networkCallback)
+    }
+
+    @JvmStatic
+    fun unregisterNetworkCallback(networkCallback: ConnectivityManager.NetworkCallback) {
+        UtilKConnectivityManager.unregisterNetworkCallback(_context, networkCallback)
+    }
 
     /**
      * 打印连接信息

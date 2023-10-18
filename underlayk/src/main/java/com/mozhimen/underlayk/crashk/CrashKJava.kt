@@ -15,10 +15,11 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import com.mozhimen.basick.utilk.java.io.getFolderFiles
-import com.mozhimen.basick.utilk.java.io.throwable2printWriter
 import com.mozhimen.basick.utilk.java.lang.UtilKCurrentThread
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
+import com.mozhimen.basick.utilk.kotlin.UtilKStringFormat
+import com.mozhimen.basick.utilk.kotlin.throwable2printWriter
 import com.mozhimen.underlayk.crashk.commons.ICrashK
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.underlayk.logk.etk
@@ -102,7 +103,7 @@ class CrashKJava : BaseUtilK(), ICrashK {
 
         private fun saveCrashLog2File(log: String) {
             val savePath = crashPathJava + "/${UtilKFile.getStrFileNameForStrNowDate()}.txt"
-            UtilKFileFormat.str2file(log, savePath)
+            UtilKStringFormat.str2file(log, savePath)
         }
 
         private fun collectDeviceInfoAndCrash(e: Throwable): String {

@@ -11,11 +11,11 @@ import com.mozhimen.componentktest.R
 import com.mozhimen.componentktest.databinding.FragmentSecondBinding
 import com.mozhimen.componentktest.databinding.ItemNavigatekBinding
 import com.mozhimen.componentktest.navigatek.NavigateKActivity
-import com.mozhimen.uicorek.adapterk.AdapterKRecyclerVB
+import com.mozhimen.uicorek.adapterk.quick.AdapterKQuickRecyclerVB
 
 class SecondFragment : BaseFragmentVB<FragmentSecondBinding>() {
     private val _datas = mutableListOf(MKey("01", "01"))
-    private var _adapter: AdapterKRecyclerVB<MKey, ItemNavigatekBinding>? = null
+    private var _adapter: AdapterKQuickRecyclerVB<MKey, ItemNavigatekBinding>? = null
 
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     override fun initView(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class SecondFragment : BaseFragmentVB<FragmentSecondBinding>() {
         }
 
         vb.navigatekFragmentSecondRecycler.layoutManager = LinearLayoutManager(requireActivity())
-        _adapter = AdapterKRecyclerVB<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek)
+        _adapter = AdapterKQuickRecyclerVB<MKey, ItemNavigatekBinding>(_datas, R.layout.item_navigatek, BR.item_navigatek)
         vb.navigatekFragmentSecondRecycler.adapter = _adapter
     }
 }

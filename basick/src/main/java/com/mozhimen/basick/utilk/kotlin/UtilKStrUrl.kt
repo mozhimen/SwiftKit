@@ -14,10 +14,8 @@ import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
 import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
 import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
-import com.mozhimen.basick.utilk.java.io.strFilePath2file
 import com.mozhimen.basick.utilk.java.net.UtilKURI
 import java.io.File
-import java.io.FileOutputStream
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URI
@@ -34,6 +32,27 @@ import javax.net.ssl.HttpsURLConnection
  */
 fun String.isStrUrlConnectable(): Boolean =
     UtilKStrUrl.isStrUrlConnectable(this)
+
+/////////////////////////////////////////////////////////////////////////
+
+@RequiresPermission(CPermission.INTERNET)
+@AManifestKRequire(CPermission.INTERNET)
+suspend fun String.strUrl2bitmap(): Bitmap? =
+    UtilKStrUrl.strUrl2bitmap(this)
+
+@RequiresPermission(CPermission.INTERNET)
+@AManifestKRequire(CPermission.INTERNET)
+fun String.strUrl2bitmap2(): Bitmap =
+    UtilKStrUrl.strUrl2bitmap2(this)
+
+@AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
+fun String.strUrl2file(destFileNameWithName: String, isAppend: Boolean = false): File? =
+    UtilKStrUrl.strUrl2file(this, destFileNameWithName, isAppend)
+
+@RequiresPermission(CPermission.INTERNET)
+@AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
+fun String.strUrl2file(destFile: File, isAppend: Boolean = false): File? =
+    UtilKStrUrl.strUrl2file(this, destFile, isAppend)
 
 object UtilKStrUrl : BaseUtilK() {
     /**

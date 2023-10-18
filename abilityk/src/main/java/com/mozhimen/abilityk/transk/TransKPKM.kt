@@ -6,6 +6,7 @@ import com.mozhimen.basick.elemk.android.opengl.cons.CETC1
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
+import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.android.opengl.UtilKETC1
 import com.mozhimen.basick.utilk.kotlin.UtilKCharSequence
 import java.io.FileInputStream
@@ -41,7 +42,7 @@ class TransKPKM : BaseUtilK() {
         }
         return try {
             _zipInputStream = if (_path!!.startsWith("assets/")) {
-                val inputStream = UtilKAsset.open(_path!!.substring(7))
+                val inputStream = UtilKAssetManager.open(_path!!.substring(7), _context)
                 ZipInputStream(inputStream)
             } else {
                 ZipInputStream(FileInputStream(_path))
@@ -89,7 +90,7 @@ class TransKPKM : BaseUtilK() {
     }
 
     ///////////////////////////////////////////////////////////////////////////////
-    
+
     private fun hasElements(): Boolean {
         try {
             if (_zipInputStream != null) {
