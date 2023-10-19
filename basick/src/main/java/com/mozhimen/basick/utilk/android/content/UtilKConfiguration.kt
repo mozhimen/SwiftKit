@@ -17,7 +17,6 @@ import com.mozhimen.basick.utilk.android.telephony.UtilKTelephonyManager
 object UtilKConfiguration {
     /**
      * 获取自定义Configuration
-     * @return Configuration
      */
     @JvmStatic
     fun get(resources: Resources): Configuration =
@@ -25,7 +24,6 @@ object UtilKConfiguration {
 
     /**
      * 获取系统Configuration
-     * @return Configuration
      */
     @JvmStatic
     fun get(): Configuration =
@@ -41,7 +39,6 @@ object UtilKConfiguration {
 
     /**
      * 获取密度dp
-     * @return Int
      */
     @JvmStatic
     fun getDensityDpi(): Int =
@@ -49,7 +46,6 @@ object UtilKConfiguration {
 
     /**
      * 获取dp宽
-     * @return Int
      */
     @JvmStatic
     fun getScreenWidthDp(): Int =
@@ -57,7 +53,6 @@ object UtilKConfiguration {
 
     /**
      * 获取dp高
-     * @return Int
      */
     @JvmStatic
     fun getScreenHeightDp(): Int =
@@ -65,7 +60,6 @@ object UtilKConfiguration {
 
     /**
      * 获取屏幕方向
-     * @return Int
      */
     @JvmStatic
     fun getOrientation(): Int =
@@ -83,7 +77,6 @@ object UtilKConfiguration {
 
     /**
      * 是否为竖屏
-     * @return Boolean
      */
     @JvmStatic
     fun isOrientationPortrait(): Boolean =
@@ -103,7 +96,6 @@ object UtilKConfiguration {
 
     /**
      * 检测系统是否是浅色主题
-     * @return Boolean
      */
     @JvmStatic
     fun isLightMode(): Boolean =
@@ -115,7 +107,6 @@ object UtilKConfiguration {
 
     /**
      * 是否是平板
-     * @return Boolean
      */
     @JvmStatic
     fun isPad(context: Context): Boolean =

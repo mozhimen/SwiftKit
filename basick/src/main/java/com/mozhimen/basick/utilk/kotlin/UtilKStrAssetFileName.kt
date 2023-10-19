@@ -67,7 +67,7 @@ object UtilKStrAssetFileName : BaseUtilK() {
     @JvmStatic
     fun strAssetFileName2str3(assetFileName: String): String? =
         if (!UtilKAsset.isAssetExists(assetFileName)) null
-        else UtilKAssetManager.open(assetFileName, _context).inputStream2str3()
+        else UtilKAssetManager.open(assetFileName, _context).inputStream2str3()?.replaceRegexLineBreak()
 
     /**
      * 从资产拷贝到文件

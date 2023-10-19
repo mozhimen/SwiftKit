@@ -24,7 +24,6 @@ import java.io.OutputStream
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import kotlin.jvm.Throws
 
 /**
  * @ClassName UtilKInputStreamFormat
@@ -41,6 +40,9 @@ fun InputStream.inputStream2bufferedInputStream(): BufferedInputStream =
 
 fun InputStream.inputStream2bytes(): ByteArray =
     UtilKInputStreamFormat.inputStream2bytes(this)
+
+fun InputStream.inputStream2bytes2(): ByteArray =
+    UtilKInputStreamFormat.inputStream2bytes2(this)
 
 fun InputStream.inputStream2bytes(fileLength: Long): ByteArray =
     UtilKInputStreamFormat.inputStream2bytes(this, fileLength)
@@ -126,6 +128,21 @@ object UtilKInputStreamFormat {
     fun inputStream2bytes(inputStream: InputStream): ByteArray {
         val bytes = ByteArray(inputStream.available())
         inputStream.readBytesForInputStream(bytes)
+        return bytes
+    }
+
+    @JvmStatic
+    fun inputStream2bytes2(inputStream: InputStream): ByteArray {
+        val size = inputStream.available()
+        val bytes = ByteArray(size)
+        try {
+            val readSize = inputStream.read(bytes)
+            if (readSize.toLong() < size) throw IOException(String.format("File length is [{}] but read [{}]!", *arrayOf<Any>(size, readSize)))
+        } catch (e: Exception) {
+            throw Exception(e)
+        } finally {
+            inputStream.close()
+        }
         return bytes
     }
 
