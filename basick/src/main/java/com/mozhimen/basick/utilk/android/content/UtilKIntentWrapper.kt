@@ -17,9 +17,8 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
-import com.mozhimen.basick.utilk.kotlin.UtilKStrFilePath
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
 import java.io.File
@@ -189,7 +188,7 @@ object UtilKIntentWrapper {
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     fun getInstall(filePathWithName: String): Intent? =
-        UtilKStrFilePath.strFilePath2uri(filePathWithName)?.let { getInstall(it) }
+        UtilKStrFile.strFilePath2uri(filePathWithName)?.let { getInstall(it) }
 
     /**
      * 获取安装app的intent

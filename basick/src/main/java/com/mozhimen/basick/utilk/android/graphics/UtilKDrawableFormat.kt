@@ -13,6 +13,9 @@ import androidx.core.graphics.drawable.toBitmap
  * @Date 2023/10/19 0:15
  * @Version 1.0
  */
+fun Drawable.drawable2bitmapDrawable(drawable: Drawable): BitmapDrawable =
+    UtilKDrawableFormat.drawable2bitmapDrawable(drawable)
+
 fun Drawable.drawable2bitmap(width: Int = this.intrinsicWidth, height: Int = this.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
     UtilKDrawableFormat.drawable2bitmap(this, width, height, config)
 
@@ -20,6 +23,10 @@ fun Drawable.drawable2bitmap2(width: Int = this.intrinsicWidth, height: Int = th
     UtilKDrawableFormat.drawable2bitmap2(this, width, height)
 
 object UtilKDrawableFormat {
+    @JvmStatic
+    fun drawable2bitmapDrawable(drawable: Drawable): BitmapDrawable =
+        drawable as BitmapDrawable
+
     @JvmStatic
     fun drawable2bitmap(drawable: Drawable, width: Int = drawable.intrinsicWidth, height: Int = drawable.intrinsicHeight, config: Bitmap.Config? = null): Bitmap =
         drawable.toBitmap(width, height, config)

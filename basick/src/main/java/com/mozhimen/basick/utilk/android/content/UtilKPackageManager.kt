@@ -59,13 +59,19 @@ object UtilKPackageManager {
     fun getApplicationLabel(context: Context, applicationInfo: ApplicationInfo): String =
         get(context).getApplicationLabel(applicationInfo).toString()
 
-
     @JvmStatic
     fun getApplicationEnabledSetting(context: Context, packageName: String): Int =
         get(context).getApplicationEnabledSetting(packageName)
 
     /**
-     * 得到图标信息
+     * 得到图标
+     */
+    @JvmStatic
+    fun getApplicationIcon(context: Context): Drawable? =
+        UtilKApplicationInfo.get(context)?.let { get(context).getApplicationIcon(it) }
+
+    /**
+     * 得到图标
      */
     @JvmStatic
     fun getApplicationIcon(context: Context, applicationInfo: ApplicationInfo): Drawable =

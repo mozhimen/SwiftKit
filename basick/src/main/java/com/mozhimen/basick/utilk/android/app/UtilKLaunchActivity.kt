@@ -5,15 +5,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.android.provider.cons.CSettings
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.isIntentAvailable
-import com.mozhimen.basick.utilk.android.content.startActivityForResult
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import java.io.File
@@ -26,6 +23,11 @@ import java.io.File
  * @Version 1.0
  */
 object UtilKLaunchActivity {
+    @JvmStatic
+    fun startWebOutSide(context: Context, strUrl: String) {
+        context.startContext(UtilKIntentWrapper.getStrUrl(strUrl)/*Intent(Intent.ACTION_VIEW, Uri.parse(strUrl)*/)
+    }
+
     /**
      * 安装 if sdk >= 24 add provider
      */

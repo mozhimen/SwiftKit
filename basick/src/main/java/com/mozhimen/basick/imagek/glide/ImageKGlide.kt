@@ -75,7 +75,7 @@ object ImageKGlide {
      */
     @JvmStatic
     fun loadImageRoundedCornerGlide(
-        imageView: ImageView, res: Any, placeholder: Int, error: Int,
+        imageView: ImageView, res: Any?, placeholder: Int, error: Int,
         cornerRadius: Int
     ) {
         Glide.with(imageView).load(res)

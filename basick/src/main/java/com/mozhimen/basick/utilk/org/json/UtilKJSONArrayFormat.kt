@@ -45,7 +45,7 @@ object UtilKJSONArrayFormat {
             for (i in 0 until length) {
                 val jsonObj = jsonArray[i] as? JSONObject?
                 if (jsonObj != null)
-                    arrayList.add(UtilKGson.strJsonGson2t(jsonObj.toString(), clazz))
+                    arrayList.add(UtilKGson.strJson2tGson(jsonObj.toString(), clazz))
                 else
                     arrayList.add(null)
             }

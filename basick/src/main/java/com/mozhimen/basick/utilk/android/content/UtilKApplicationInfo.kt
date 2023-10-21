@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import androidx.annotation.IdRes
 import com.mozhimen.basick.elemk.android.content.cons.CApplicationInfo
 import java.lang.IllegalArgumentException
 
@@ -33,6 +34,9 @@ object UtilKApplicationInfo {
     fun loadIcon(context: Context, packageManager: PackageManager): Drawable? =
         loadIcon(get(context), packageManager)
 
+    /**
+     * 和这个方法一样[UtilKPackageManager.getApplicationIcon]
+     */
     @JvmStatic
     fun loadIcon(applicationInfo: ApplicationInfo?, packageManager: PackageManager): Drawable? =
         applicationInfo?.loadIcon(packageManager)
@@ -44,6 +48,9 @@ object UtilKApplicationInfo {
     fun getPackageName(context: Context): String? =
         get(context)?.packageName
 
+    /**
+     * 得到包名
+     */
     @JvmStatic
     fun getPackageName(applicationInfo: ApplicationInfo): String =
         applicationInfo.packageName
@@ -54,6 +61,15 @@ object UtilKApplicationInfo {
     @JvmStatic
     fun getTargetSdkVersion(context: Context): Int? =
         get(context)?.targetSdkVersion
+
+    @JvmStatic
+    @IdRes
+    fun getLabelRes(context: Context): Int? =
+        get(context)?.labelRes
+
+    @JvmStatic
+    fun getApplicationLabel(context: Context):String? =
+        getLabelRes(context)?.let { UtilKRes.getString(it) }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 

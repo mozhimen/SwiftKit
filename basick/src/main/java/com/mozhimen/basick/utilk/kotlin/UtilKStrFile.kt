@@ -18,36 +18,37 @@ import java.io.FileOutputStream
  * @Version 1.0
  */
 fun String.strFilePath2bytes(): ByteArray? =
-    UtilKStrFilePath.strFilePath2bytes(this)
+    UtilKStrFile.strFilePath2bytes(this)
 
 fun String.strFilePath2bytes2(): ByteArray? =
-    UtilKStrFilePath.strFilePath2bytes2(this)
+    UtilKStrFile.strFilePath2bytes2(this)
 
 fun String.strFilePath2bytes3(): ByteArray? =
-    UtilKStrFilePath.strFilePath2bytes3(this)
+    UtilKStrFile.strFilePath2bytes3(this)
 
 fun String.strFilePath2str(): String? =
-    UtilKStrFilePath.strFilePath2str(this)
+    UtilKStrFile.strFilePath2str(this)
 
 fun String.strFilePath2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
-    UtilKStrFilePath.strFilePath2fileOutputStream(this, isAppend)
+    UtilKStrFile.strFilePath2fileOutputStream(this, isAppend)
 
 fun String.strFilePath2fileInputStream(): FileInputStream =
-    UtilKStrFilePath.strFilePath2fileInputStream(this)
+    UtilKStrFile.strFilePath2fileInputStream(this)
 
 fun String.strFilePath2file(): File =
-    UtilKStrFilePath.strFilePath2file(this)
+    UtilKStrFile.strFilePath2file(this)
 
 fun String.strFilePath2uri(): Uri? =
-    UtilKStrFilePath.strFilePath2uri(this)
+    UtilKStrFile.strFilePath2uri(this)
 
 fun String.strFilePath2anyBitmap(): Bitmap? =
-    UtilKStrFilePath.strFilePath2anyBitmap(this)
+    UtilKStrFile.strFilePath2anyBitmap(this)
 
 fun String.strFilePath2anyBitmap(opts: BitmapFactory.Options): Bitmap? =
-    UtilKStrFilePath.strFilePath2anyBitmap(this, opts)
+    UtilKStrFile.strFilePath2anyBitmap(this, opts)
 
-object UtilKStrFilePath {
+object UtilKStrFile {
+
     @JvmStatic
     fun strFilePath2str(filePathWithName: String): String? =
         UtilKFileFormat.file2str(filePathWithName.strFilePath2file())

@@ -9,18 +9,13 @@ import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
-import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapFormat
-import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.kotlin.UtilKStrFilePath
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.io.RandomAccessFile
 
 /**
  * @ClassName UtilKFileFormat
@@ -82,11 +77,11 @@ object UtilKFileFormat : BaseUtilK() {
 
     @JvmStatic
     fun file2anyBitmap(file: File): Bitmap? =
-        UtilKStrFilePath.strFilePath2anyBitmap(file.file2strFilePath())
+        UtilKStrFile.strFilePath2anyBitmap(file.file2strFilePath())
 
     @JvmStatic
     fun file2anyBitmap(file: File, opts: BitmapFactory.Options): Bitmap? =
-        UtilKStrFilePath.strFilePath2anyBitmap(file.file2strFilePath(), opts)
+        UtilKStrFile.strFilePath2anyBitmap(file.file2strFilePath(), opts)
 
     @JvmStatic
     fun file2strFilePath(file: File): String =

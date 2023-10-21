@@ -58,6 +58,8 @@
         <item name="android:textColor">@color/ui_gray_000</item>
     </style>
 
+    <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_999" />
+
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000">
         <item name="android:textColor">@color/ui_gray_000</item>
     </style>
@@ -191,6 +193,7 @@
         <item name="android:paddingEnd">@dimen/dp_010</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->

@@ -20,8 +20,8 @@ inline fun <reified T : Any> T.t2strJsonMoshi(indent: String = ""): String =
     UtilKMoshi.t2strJsonMoshi(this, indent)
 
 @Throws(Exception::class)
-inline fun <reified T> String.strJsonMoshi2t(): T? =
-    UtilKMoshi.strJsonMoshi2t(this)
+inline fun <reified T> String.strJson2tMoshi(): T? =
+    UtilKMoshi.strJson2tMoshi(this)
 
 object UtilKMoshi {
 
@@ -36,7 +36,7 @@ object UtilKMoshi {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> strJsonMoshi2t(adapter: JsonAdapter<T>, strJson: String): T? =
+    fun <T> strJson2tMoshi(adapter: JsonAdapter<T>, strJson: String): T? =
         adapter.fromJson(strJson)
 
     /////////////////////////////////////////////////////////////////////////////
@@ -53,13 +53,13 @@ object UtilKMoshi {
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> strJsonMoshi2t(strJson: String): T? =
-        strJsonMoshi2t(moshiBuilder.adapter<T>(UtilKReflectGenericKotlin.getGenericType<T>()!!), strJson)
+    inline fun <reified T> strJson2tMoshi(strJson: String): T? =
+        strJson2tMoshi(moshiBuilder.adapter<T>(UtilKReflectGenericKotlin.getGenericType<T>()!!), strJson)
 
     @Throws(Exception::class)
     @JvmStatic
-    inline fun <reified T> strJsonMoshi2t2(strJson: String): T? =
-        strJsonMoshi2t(moshiBuilder.adapter(T::class.java), strJson)
+    inline fun <reified T> strJson2tMoshi2(strJson: String): T? =
+        strJson2tMoshi(moshiBuilder.adapter(T::class.java), strJson)
 
     /////////////////////////////////////////////////////////////////////////////
 
@@ -73,16 +73,16 @@ object UtilKMoshi {
 
     @Throws(Exception::class)
     @JvmStatic
-    fun <T> strJsonMoshi2t(strJson: String, parameterizedType: ParameterizedType): T? =
-        strJsonMoshi2t(moshiBuilder.adapter<T>(parameterizedType), strJson)
+    fun <T> strJson2tMoshi(strJson: String, parameterizedType: ParameterizedType): T? =
+        strJson2tMoshi(moshiBuilder.adapter<T>(parameterizedType), strJson)
 
     @Throws(Exception::class)
     @JvmStatic
     inline fun <reified T> strJsonMoshi2list(strJson: String): MutableList<T>? =
-        strJsonMoshi2t<MutableList<T>>(strJson, Types.newParameterizedType(MutableList::class.java, UtilKReflectGenericKotlin.getGenericType<T>()!!))
+        strJson2tMoshi<MutableList<T>>(strJson, Types.newParameterizedType(MutableList::class.java, UtilKReflectGenericKotlin.getGenericType<T>()!!))
 
     @Throws(Exception::class)
     @JvmStatic
     inline fun <reified T> strJsonMoshi2list2(strJson: String): MutableList<T>? =
-        strJsonMoshi2t<MutableList<T>>(strJson, Types.newParameterizedType(MutableList::class.java, T::class.java))
+        strJson2tMoshi<MutableList<T>>(strJson, Types.newParameterizedType(MutableList::class.java, T::class.java))
 }
