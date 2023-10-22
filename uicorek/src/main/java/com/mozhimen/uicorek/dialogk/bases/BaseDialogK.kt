@@ -1,5 +1,6 @@
 package com.mozhimen.uicorek.dialogk.bases
 
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -10,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.lang.UtilKThread
 import com.mozhimen.uicorek.R
@@ -69,6 +71,7 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
     }
 
     override fun show() {
+        if (context is Activity&& (context as Activity).isFinishingOrDestroyed()) return
         if (isShowing) return
         lifecycleScope.launch(Dispatchers.Main) {
             super.show()

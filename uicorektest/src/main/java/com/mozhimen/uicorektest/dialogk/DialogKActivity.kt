@@ -146,12 +146,10 @@ class DialogKActivity : BaseActivityVB<ActivityDialogkBinding>() {
             setTxt(txt)
             setOnSureListener(onSure)
         }
-        if (!_dialogKTipVB!!.isShowing && !this.isFinishingOrDestroyed())
             _dialogKTipVB!!.show()
     }
 
     private fun dismissTipsVertical() {
-        if (_dialogKTipVB != null && _dialogKTipVB!!.isShowing)
             _dialogKTipVB?.dismiss()
     }
 

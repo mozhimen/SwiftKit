@@ -32,7 +32,7 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
     //@warn 如果子类可以继承, 这里子类的VB一定要放置在第一个
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         inflateView(container)
-        _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container, 0).apply {
+        _vb = UtilKViewDataBinding.get<VB>(this::class.java, inflater, container/*, 0*/).apply {
             lifecycleOwner = this@BaseFragmentVB
         }
         return vb.root

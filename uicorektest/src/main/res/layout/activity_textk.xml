@@ -45,5 +45,10 @@
             android:background="@drawable/textk_edit_form"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
+        <com.mozhimen.uicorek.textk.TextKProgressDownload
+            android:text="123"
+            android:id="@+id/textk_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </layout>

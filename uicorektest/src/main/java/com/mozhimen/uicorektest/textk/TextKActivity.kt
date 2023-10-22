@@ -1,19 +1,33 @@
 package com.mozhimen.uicorektest.textk
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.uicorek.popwink.PopwinKTextKBubbleBuilder
+import com.mozhimen.uicorek.textk.TextKProgressDownload
 import com.mozhimen.uicorektest.databinding.ActivityTextkBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
+    @SuppressLint("SetTextI18n")
     override fun initView(savedInstanceState: Bundle?) {
         vb.textkBubbleBtn.setOnClickListener {
             genPopwinKBubbleText(it, "弹出了一个气泡提示")
+        }
+        lifecycleScope.launch{
+            vb.textkProgress.text = "12333333333333"
+            vb.textkProgress.progress = 0f
+            vb.textkProgress.state = TextKProgressDownload.STATE_NORMAL
+            delay(1000)
+            vb.textkProgress.state = TextKProgressDownload.STATE_DOWNLOADING
+            delay(1000)
+            vb.textkProgress.progress = 50f
+            delay(1000)
+            vb.textkProgress.progress = 100f
+            vb.textkProgress.state = TextKProgressDownload.STATE_FINISH
         }
     }
 

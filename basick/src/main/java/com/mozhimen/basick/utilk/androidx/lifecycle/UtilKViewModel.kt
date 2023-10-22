@@ -17,8 +17,8 @@ import java.lang.Exception
 object UtilKViewModel {
     @JvmStatic
     @Suppress(CSuppress.UNCHECKED_CAST)
-    fun <VM : ViewModel> get(owner: ViewModelStoreOwner, factory: ViewModelProvider.Factory? = null, index: Int = 1): VM =
-        UtilKReflectGenericKotlin.getParentGenericTypeClazz(owner::class.java, index)?.let { vmClazz ->
+    fun <VM : ViewModel> get(owner: ViewModelStoreOwner, factory: ViewModelProvider.Factory? = null/*, index: Int = 1*/): VM =
+        UtilKReflectGenericKotlin.getParentGenericTypeByTClazz(owner::class.java, ViewModel::class.java)?.let { vmClazz ->
             factory?.let { fac ->
                 ViewModelProvider(owner, fac)[vmClazz as Class<VM>]
             } ?: run {

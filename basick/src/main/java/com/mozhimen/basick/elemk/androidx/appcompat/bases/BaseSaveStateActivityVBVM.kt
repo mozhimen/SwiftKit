@@ -37,7 +37,7 @@ abstract class BaseSaveStateActivityVBVM<VB : ViewDataBinding, VM : ViewModel> :
     @CallSuper
     override fun initLayout() {
         super.initLayout()
-        vm = UtilKViewModel.get(this, _factory, 1)
+        vm = UtilKViewModel.get(this, _factory/*, 1*/)
         bindViewVM(vb)
     }
 }

@@ -34,9 +34,13 @@
 
     <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center" />
 
+    <style name="Txt_Style.Font_Ali_Puhuit.Gravity_Center" />
+
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm" />
+
+    <style name="Txt_Style.Font_Ali_Puhuit.Gravity_Center.Style_Norm" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold">
         <item name="android:textStyle">bold</item>
@@ -59,6 +63,8 @@
     </style>
 
     <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_999" />
+
+    <style name="Txt_Style.Font_Ali_Puhuit.Gravity_Center.Style_Norm.Color_Gray_999" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000">
         <item name="android:textColor">@color/ui_gray_000</item>
@@ -86,7 +92,6 @@
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_013" />
 
-
     <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_013">
         <item name="android:textSize">@dimen/sp_13</item>
     </style>
@@ -94,6 +99,8 @@
     <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Bold.Color_Gray_999.Size_014" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014" />
+
+    <style name="Txt_Style.Font_Ali_Puhuit.Gravity_Center.Style_Norm.Color_Gray_999.Size_014" />
 
     <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_014" />
 
@@ -135,6 +142,8 @@
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap" />
 
+    <style name="Txt_Style.Font_Ali_Puhuit.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap" />
+
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap" />
@@ -150,6 +159,8 @@
     <style name="Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
+
+    <style name="Txt_Style.Font_Ali_Puhuit.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
 
     <style name="Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap" />
 

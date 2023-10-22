@@ -25,11 +25,6 @@ import com.mozhimen.uicorek.R;
 
 import java.util.ArrayList;
 
-/**
- * @author : Android-张康
- * created on: 2020/11/1 16:00
- * description:
- */
 public class TextKProgressDownload extends AppCompatTextView {
     //背景画笔
     private Paint mBackgroundPaint;
