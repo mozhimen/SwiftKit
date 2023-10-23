@@ -19,6 +19,45 @@ import java.net.URL
  */
 object UtilKHttpURLConnection {
     @JvmStatic
+    fun httpGet(url: String?, headers: Map<String?, String?>?, params: Map<String?, String?>?): String? {
+        var result = ""
+        var httpURLConnection: HttpURLConnection? = null
+        var inputStream: InputStream? = null
+        var bufferedReader: BufferedReader? = null
+        var inputStreamReader: InputStreamReader? = null
+        try {
+            val httpUrl = URL(url)
+            httpURLConnection = httpUrl.openConnection() as HttpURLConnection
+            httpURLConnection.requestMethod = "GET"
+            params?.forEach { (key, value) ->
+                httpURLConnection.setRequestProperty(key, value)
+            }
+            httpURLConnection.connectTimeout = 1000 // 设置超时时间
+            httpURLConnection.readTimeout = 1000
+            httpURLConnection.connect()
+            inputStream = if (httpURLConnection.responseCode == 200) httpURLConnection.inputStream else httpURLConnection.errorStream
+            inputStreamReader = InputStreamReader(inputStream)
+            bufferedReader = BufferedReader(inputStreamReader)
+            val stringBuilder = java.lang.StringBuilder()
+            var line: String?
+            while (bufferedReader.readLine().also { line = it } != null) {
+                stringBuilder.append(line)
+            }
+            result = stringBuilder.toString()
+        } catch (e: MalformedURLException) {
+            e.printStackTrace() // url格式错误
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            inputStreamReader?.close()
+            bufferedReader?.close()
+            inputStream?.close()
+            httpURLConnection?.disconnect()
+        }
+        return result
+    }
+
+    @JvmStatic
     fun post(url: String, headers: Map<String, String>?, params: Map<String, String>?): String {
         var result = ""
         var httpURLConnection: HttpURLConnection? = null

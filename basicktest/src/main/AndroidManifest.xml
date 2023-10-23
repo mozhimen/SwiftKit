@@ -179,6 +179,9 @@
             android:name=".utilk.android.UtilKIntentActivity"
             android:exported="false" />
         <activity
+            android:name=".utilk.android.UtilKLaunchActivityActivity"
+            android:exported="false" />
+        <activity
             android:name=".utilk.android.UtilKInputActivity"
             android:exported="false" />
         <activity

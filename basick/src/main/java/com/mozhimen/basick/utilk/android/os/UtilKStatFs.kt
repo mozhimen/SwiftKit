@@ -29,6 +29,10 @@ object UtilKStatFs : BaseUtilK() {
         statFs.blockSizeLong//每个block 占字节数
 
     @JvmStatic
+    fun getAvailableBlocks(statFs: StatFs): Int =
+        statFs.availableBlocks//block总数
+
+    @JvmStatic
     fun getAvailableBlocksLong(statFs: StatFs): Long =
         statFs.availableBlocksLong//block总数
 
@@ -46,41 +50,88 @@ object UtilKStatFs : BaseUtilK() {
      * 本地存储可用大小
      */
     @JvmStatic
-    fun getFreeExternalDataMemorySize(): String {
+    fun getFreeExternalDataMemorySize(): Long {
         val statFs = getStatFsExternalData()
-        return (getFreeBlocksLong(statFs) * getBlockSizeLong(statFs)).formatFileSize()
+        return getFreeBlocksLong(statFs) * getBlockSizeLong(statFs)
     }
+
+
+    @JvmStatic
+    fun getFreeExternalDataMemorySizeStr(): String =
+        getFreeExternalDataMemorySize().formatFileSize()
 
     /**
      * 获取手机内部空间大小
      */
     @JvmStatic
-    fun getAvailableExternalDataMemorySize(): String {
+    fun getAvailableExternalDataMemorySize(): Long {
         val statFs = getStatFsExternalData()//Gets the Android data directory
-        return (getAvailableBlocksLong(statFs) * getBlockSizeLong(statFs)).formatFileSize()
+        return getAvailableBlocksLong(statFs) * getBlockSizeLong(statFs)
     }
 
     @JvmStatic
-    fun getTotalExternalDataMemorySize(): String {
+    fun getAvailableExternalDataMemorySizeStr(): String =
+        getAvailableExternalDataMemorySize().formatFileSize()
+
+    /**
+     *
+     */
+    @JvmStatic
+    fun getTotalExternalDataMemorySize(): Long {
         val statFs = getStatFsExternalData()//Gets the Android data directory
-        return (getBlockCountLong(statFs) * getBlockSizeLong(statFs)).formatFileSize()
+        return (getBlockCountLong(statFs) * getBlockSizeLong(statFs))
     }
 
     @JvmStatic
-    fun getFreeExternalStorageMemorySize(): String {
+    fun getTotalExternalDataMemorySizeStr(): String =
+        getTotalExternalDataMemorySize().formatFileSize()
+
+    /////////////////////////////////////////////////////////////////////
+
+    /**
+     *
+     */
+    @JvmStatic
+    fun getFreeExternalStorageMemorySize(): Long {
         val statFs = getStatFsExternalStorage()
-        return (getFreeBlocksLong(statFs) * getBlockSizeLong(statFs)).formatFileSize()
+        return (getFreeBlocksLong(statFs) * getBlockSizeLong(statFs))
     }
 
     @JvmStatic
-    fun getAvailableExternalStorageMemorySize(): String {
+    fun getFreeExternalStorageMemorySizeStr(): String =
+        getFreeExternalStorageMemorySize().formatFileSize()
+
+    /**
+     *
+     */
+    @JvmStatic
+    fun getAvailableExternalStorageMemorySize(): Long {
         val statFs = getStatFsExternalStorage()
-        return (getAvailableBlocksLong(statFs) * getBlockSizeLong(statFs)).formatFileSize()
+        return getAvailableBlocksLong(statFs) * getBlockSizeLong(statFs)
     }
 
     @JvmStatic
-    fun getTotalExternalStorageMemorySize(): String {
+    fun getAvailableExternalStorageMemorySizeStr(): String =
+        getAvailableExternalStorageMemorySize().formatFileSize()
+
+    /**
+     *
+     */
+    @JvmStatic
+    fun getTotalExternalStorageMemorySize(): Long {
         val statFs = getStatFsExternalStorage()
-        return (getBlockCountLong(statFs) * getBlockSizeLong(statFs)).formatFileSize()
+        return getBlockCountLong(statFs) * getBlockSizeLong(statFs)
+    }
+
+    @JvmStatic
+    fun getTotalExternalStorageMemorySizeStr(): String =
+        getTotalExternalStorageMemorySize().formatFileSize()
+
+    /////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun isEnoughOfFileSize(fileSize: Long): Boolean {
+        val availableMemorySize = getAvailableExternalStorageMemorySize()
+        return availableMemorySize >= fileSize
     }
 }

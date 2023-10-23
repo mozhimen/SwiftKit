@@ -14,6 +14,7 @@ import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.flushClose
+import com.mozhimen.basick.utilk.java.io.getStrFolderPath
 import com.mozhimen.basick.utilk.java.io.inputStream2str
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
@@ -22,7 +23,6 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.OutputStream
-import kotlin.jvm.Throws
 
 /**
  * @ClassName UtilKShell
@@ -46,6 +46,18 @@ object UtilKRuntime : BaseUtilK() {
     @Throws(IOException::class)
     fun exec(command: String): Process =
         get().exec(command)
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun chmod(path: String) {
+        try {
+            get().exec("chmod 777 ${path.getStrFolderPath()}")
+            get().exec("chmod 777 $path")
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
 
     @JvmStatic
     fun execGetProp(strPackage: String): String? {
@@ -71,8 +83,6 @@ object UtilKRuntime : BaseUtilK() {
         }
         return ""
     }
-
-    ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @Throws(Exception::class)
@@ -119,7 +129,6 @@ object UtilKRuntime : BaseUtilK() {
         }
         return false
     }
-
 
     /**
      * 静默安装适配 SDK28 之前的安装方法

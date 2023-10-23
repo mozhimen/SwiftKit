@@ -28,67 +28,36 @@ import com.mozhimen.uicorek.viewk.commons.IViewK
  * @Date 2023/10/22 18:35
  * @Version 1.0s
  */
-class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSet? = null,defStyleAttr:Int =0) :AppCompatTextView(context, attrs, defStyleAttr),IViewK{
+class TextKProgress @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr), IViewK {
 
 
-    companion object{
+    companion object {
+        const val SCALE = 1.0f
+
         const val STYLE_BALL_PULSE = 1
         const val STYLE_BALL_JUMP = 2
-        private const val SCALE = 1.0f
 
-        /**
-         * 开始下载
-         */
-        const val STATE_NORMAL = 0
-
-        /**
-         * 下载之中
-         */
-        const val STATE_DOWNLOADING = 1
-
-        /**
-         * 暂停下载
-         */
-        const val STATE_PAUSE = 2
-
-        /**
-         * 下载完成
-         */
-        const val STATE_FINISH = 3
+        const val PROGRESS_STATE_IDLE = 0//开始下载
+        const val PROGRESS_STATE_DOWNLOADING = 1//下载之中
+        const val PROGRESS_STATE_PAUSE = 2//暂停下载
+        const val PROGRESS_STATE_FINISH = 3//下载完成
     }
 
     //////////////////////////////////////////////////////////////////
 
-    //背景颜色
-    private var mBackgroundColor = 0
-    private var mNormalBackgroundColor = 0
-
-    //下载中后半部分后面背景颜色
-    private var mBackgroundSecondColor = 0
-    private var mButtonRadius = 0f
-
-    //文字颜色
-    private var mTextColor = 0
+    private var mBackgroundColor = 0//背景颜色
+    private var mBackgroundColorStart = 0
+    private var mBackgroundColorEnd = 0//下载中后半部分后面背景颜色
+    private var mTextColor = 0//文字颜色
     private var mNormalTextColor = 0
-
-    //覆盖后颜色
-    private var mTextCoverColor = 0
-
-    //边框宽度
-    private var mBorderWidth = 0f
-
-    //边框颜色
-    private var mBorderColor = 0
-
-    //点动画样式
-    private var mBallStyle = STYLE_BALL_JUMP
-
+    private var mTextCoverColor = 0//覆盖后颜色
+    private var mBorderRadius = 0f
+    private var mBorderWidth = 0f//边框宽度
+    private var mBorderColor = 0//边框颜色
+    private var mBallStyle = STYLE_BALL_JUMP//点动画样式
+    private val mBallRadius = 6f//点的半径
+    private val mBallSpacing = 4f//点的间隙
     private val mEnableAnimation = false
-    //点的半径
-    private val mBallRadius = 6f
-
-    //点的间隙
-    private val mBallSpacing = 4f
 
     //////////////////////////////////////////////////////////////////
 
@@ -98,45 +67,28 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
     private var mCurrentText: CharSequence? = null
     private var mMaxProgress = 100
     private var mMinProgress = 0
-    private var mProgress = -1f
+    private var mProgress = 0f
     private var mToProgress = 0f
-    private var mState = 0
+    private var mProgressPercent = 0f
+    private var mProgressState = 0
     private var mTextBottomBorder = 0f
     private var mTextRightBorder = 0f
-    private val scaleFloats = floatArrayOf(
-        SCALE,
-        SCALE,
-        SCALE
-    )
+    private val scaleFloats = floatArrayOf(SCALE, SCALE, SCALE)
     private val translateYFloats = FloatArray(3)
-    private var mProgressPercent = 0f
 
     //////////////////////////////////////////////////////////////////
 
-    private var mProgressTextGradient: LinearGradient? = null
-
-    private val mBackgroundBounds = RectF()
-
-    //背景画笔
-    private lateinit var mBackgroundPaint: Paint
-
-    //按钮文字画笔
     @Volatile
-    private  lateinit var mTextPaint: Paint
-
-    /**
-     * 下载平滑动画
-     */
-    private lateinit var mProgressAnimation: ValueAnimator
-
-    /**
-     * 点运动动画
-     */
-    private var mAnimators: ArrayList<ValueAnimator?>? = null
+    private lateinit var mTextPaint: Paint//按钮文字画笔
+    private lateinit var mProgressAnimation: ValueAnimator//下载平滑动画
+    private var mAnimators: ArrayList<ValueAnimator?>? = null//点运动动画
+    private var mProgressTextGradient: LinearGradient? = null
+    private val mBackgroundBounds = RectF()
+    private lateinit var mBackgroundPaint: Paint//背景画笔
 
     //////////////////////////////////////////////////////////////////
 
-    init{
+    init {
         initAttrs(attrs)
         initView()
         setupAnimations()
@@ -145,7 +97,6 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
     //////////////////////////////////////////////////////////////////
 
     override fun initView() {
-        mProgress = 0f
         //设置背景画笔
         mBackgroundPaint = Paint()
         mBackgroundPaint.setAntiAlias(true)
@@ -157,16 +108,16 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
         //解决文字有时候画不出问题
         setLayerType(LAYER_TYPE_SOFTWARE, mTextPaint)
         //初始化状态设为NORMAL
-        mState = STATE_NORMAL
+        mProgressState = PROGRESS_STATE_IDLE
     }
 
     override fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKProgress)
         try {
             mBackgroundColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColor, Color.parseColor("#BFE8D9"))
-            mNormalBackgroundColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorNormal, Color.parseColor("#00A667"))
-            mBackgroundSecondColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorSecond, Color.WHITE)
-            mButtonRadius = typedArray.getDimension(R.styleable.TextKProgress_textKProgress_radius, 0f)
+            mBackgroundColorStart = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorNormal, Color.parseColor("#00A667"))
+            mBackgroundColorEnd = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorSecond, Color.WHITE)
+            mBorderRadius = typedArray.getDimension(R.styleable.TextKProgress_textKProgress_radius, 0f)
             mTextColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColor, Color.parseColor("#00A667"))
             mNormalTextColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorNormal, Color.WHITE)
             mTextCoverColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColorCover, Color.parseColor("#00A667"))
@@ -186,15 +137,23 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
     override fun onRestoreInstanceState(state: Parcelable) {
         val progressSavedState = state as ProgressSavedState
         super.onRestoreInstanceState(progressSavedState.superState)
-        mState = progressSavedState.state
+        mProgressState = progressSavedState.state
         mProgress = progressSavedState.progress.toFloat()
         mCurrentText = progressSavedState.currentText
+    }
+
+    override fun onSaveInstanceState(): Parcelable? {
+        val superState = super.onSaveInstanceState()
+        if (mCurrentText == null) {
+            mCurrentText = ""
+        }
+        return ProgressSavedState(superState, mProgress.toInt(), mProgressState, mCurrentText.toString())
     }
 
     //////////////////////////////////////////////////////////////////
 
     fun getState(): Int {
-        return mState
+        return mProgressState
     }
 
     fun getBorderWidth(): Float {
@@ -206,7 +165,7 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
     }
 
     fun getButtonRadius(): Float {
-        return mButtonRadius
+        return mBorderRadius
     }
 
     fun getTextColor(): Int {
@@ -220,10 +179,12 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
     fun getMinProgress(): Int {
         return mMinProgress
     }
+
     fun getMaxProgress(): Int {
         return mMaxProgress
     }
-    fun getBorderColor():Int =
+
+    fun getBorderColor(): Int =
         mBorderColor
 
 
@@ -231,21 +192,26 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
         mBackgroundColor = backgroundColor
         invalidate()
     }
+
     fun setNormalBackgroundColor(normalBackgroundColor: Int) {
-        mNormalBackgroundColor = normalBackgroundColor
+        mBackgroundColorStart = normalBackgroundColor
         invalidate()
     }
+
     fun setBackgroundSecondColor(@ColorInt backgroundSecondColor: Int) {
-        mBackgroundSecondColor = backgroundSecondColor
+        mBackgroundColorEnd = backgroundSecondColor
         invalidate()
     }
+
     fun setBorderColor(@ColorInt borderColor: Int) {
         mBorderColor = borderColor
         invalidate()
     }
+
     fun setMaxProgress(maxProgress: Int) {
         mMaxProgress = maxProgress
     }
+
     fun setMinProgress(minProgress: Int) {
         mMinProgress = minProgress
     }
@@ -261,7 +227,7 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
 
 
     fun setButtonRadius(buttonRadius: Float) {
-        mButtonRadius = buttonRadius
+        mBorderRadius = buttonRadius
         invalidate()
     }
 
@@ -277,10 +243,10 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
 
     fun setState(state: Int) {
         //状态确实有改变
-        if (mState != state) {
-            mState = state
+        if (mProgressState != state) {
+            mProgressState = state
             invalidate()
-            if (state == STATE_FINISH) {
+            if (state == PROGRESS_STATE_FINISH) {
                 //开启点动画
                 startAnimators()
             } else {
@@ -349,7 +315,7 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
             scaleAnim.repeatCount = -1
             scaleAnim.startDelay = delays[i].toLong()
             scaleAnim.addUpdateListener { animation ->
-                scaleFloats[i] =animation.animatedValue as Float
+                scaleFloats[i] = animation.animatedValue as Float
                 postInvalidate()
             }
             animators.add(scaleAnim)
@@ -412,8 +378,8 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
         val textWidth = mTextPaint.measureText(mCurrentText.toString())
         mTextBottomBorder = y
         mTextRightBorder = (measuredWidth + textWidth) / 2
-        when (mState) {
-            STATE_PAUSE, STATE_DOWNLOADING -> {
+        when (mProgressState) {
+            PROGRESS_STATE_PAUSE, PROGRESS_STATE_DOWNLOADING -> {
                 //进度条压过距离
                 val coverLength = measuredWidth * mProgressPercent
                 //开始渐变指示器
@@ -441,7 +407,7 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
                 canvas.drawText(mCurrentText.toString(), (measuredWidth - textWidth) / 2, y, mTextPaint)
             }
 
-            STATE_NORMAL, STATE_FINISH -> {
+            PROGRESS_STATE_IDLE, PROGRESS_STATE_FINISH -> {
                 mTextPaint.setShader(null)
                 mTextPaint.color = mNormalTextColor
                 canvas.drawText(mCurrentText.toString(), (measuredWidth - textWidth) / 2, y, mTextPaint)
@@ -456,8 +422,8 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
     }
 
     private fun drawBackground(canvas: Canvas) {
-        when (mState) {
-            STATE_PAUSE, STATE_DOWNLOADING -> {
+        when (mProgressState) {
+            PROGRESS_STATE_PAUSE, PROGRESS_STATE_DOWNLOADING -> {
                 //下载中 需要绘制边框
                 mBackgroundBounds.left = mBorderWidth
                 mBackgroundBounds.top = mBorderWidth
@@ -466,14 +432,14 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
                 mBackgroundPaint.style = Paint.Style.STROKE
                 mBackgroundPaint.color = mBorderColor
                 mBackgroundPaint.strokeWidth = mBorderWidth
-                canvas.drawRoundRect(mBackgroundBounds, mButtonRadius, mButtonRadius, mBackgroundPaint)
+                canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
                 //计算当前的进度
                 mBackgroundPaint.style = Paint.Style.FILL
                 mProgressPercent = mProgress / (mMaxProgress + 0f)
-                mBackgroundPaint.color = mBackgroundSecondColor
+                mBackgroundPaint.color = mBackgroundColorEnd
                 canvas.save()
                 //画出dst图层
-                canvas.drawRoundRect(mBackgroundBounds, mButtonRadius, mButtonRadius, mBackgroundPaint)
+                canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
                 //设置图层显示模式为 SRC_ATOP
                 val porterDuffXfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP)
                 mBackgroundPaint.color = mBackgroundColor
@@ -486,14 +452,14 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
                 mBackgroundPaint.setXfermode(null)
             }
 
-            STATE_NORMAL, STATE_FINISH -> {
+            PROGRESS_STATE_IDLE, PROGRESS_STATE_FINISH -> {
                 mBackgroundBounds.left = 0f
                 mBackgroundBounds.top = 0f
                 mBackgroundBounds.right = measuredWidth.toFloat()
                 mBackgroundBounds.bottom = measuredHeight.toFloat()
                 mBackgroundPaint.style = Paint.Style.FILL
-                mBackgroundPaint.color = mNormalBackgroundColor
-                canvas.drawRoundRect(mBackgroundBounds, mButtonRadius, mButtonRadius, mBackgroundPaint)
+                mBackgroundPaint.color = mBackgroundColorStart
+                canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
             }
 
             else -> {
@@ -502,8 +468,8 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
                 mBackgroundBounds.right = measuredWidth.toFloat()
                 mBackgroundBounds.bottom = measuredHeight.toFloat()
                 mBackgroundPaint.style = Paint.Style.FILL
-                mBackgroundPaint.color = mNormalBackgroundColor
-                canvas.drawRoundRect(mBackgroundBounds, mButtonRadius, mButtonRadius, mBackgroundPaint)
+                mBackgroundPaint.color = mBackgroundColorStart
+                canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
             }
         }
     }
@@ -517,6 +483,7 @@ class TextKProgress @JvmOverloads constructor(context: Context,attrs:AttributeSe
             mAnimators = createBallJumpAnimators()
         }
     }
+
     private fun setupAnimations() {
         if (mEnableAnimation) {
             //ProgressBar的动画

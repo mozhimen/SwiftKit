@@ -3,16 +3,15 @@ package com.mozhimen.basick.utilk.android.app
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.net.Uri
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.android.provider.cons.CSettings
+import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.utilk.android.content.UtilKIntent
 import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.isIntentAvailable
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 import java.io.File
 
 /**
@@ -35,7 +34,7 @@ object UtilKLaunchActivity {
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     @JvmStatic
     fun startInstall(context: Context, apkPathWithName: String) {
-        context.startContext(UtilKIntentWrapper.getInstall(apkPathWithName) ?: return)
+        context.startContext(UtilKIntentWrapper.getInstall(apkPathWithName.also { if (UtilKBuildVersion.isBeforeVersion(CVersCode.V_24_7_N)) UtilKRuntime.chmod(apkPathWithName) }) ?: return)
     }
 
     @SuppressLint("InlinedApi")
@@ -86,8 +85,21 @@ object UtilKLaunchActivity {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
             context.startContext(UtilKIntentWrapper.getManageAppAllFilesAccessPermission(context))
             //}
-        }
+        } else startSettingAppDetails(context)
     }
+
+    /**
+     * 设置申请权限 当系统在11及以上
+     */
+//    @JvmStatic
+//    @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
+//    fun startManageAllFilesAccess2(context: Context) {
+//        if (UtilKBuildVersion.isAfterV_30_11_R()) {
+//            context.startContext(Intent().apply {
+//                data = Uri.parse(CSettings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
+//            })
+//        }
+//    }
 
     /**
      * 设置申请权限 当系统在11及以上
@@ -96,25 +108,12 @@ object UtilKLaunchActivity {
     @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
     fun startManageAllFilesAccess2(context: Context) {
         if (UtilKBuildVersion.isAfterV_30_11_R()) {
-            context.startContext(Intent().apply {
-                data = Uri.parse(CSettings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION)
-            })
-        }
-    }
-
-    /**
-     * 设置申请权限 当系统在11及以上
-     */
-    @JvmStatic
-    @RequiresPermission(CPermission.MANAGE_EXTERNAL_STORAGE)
-    fun startManageAllFilesAccess3(context: Context) {
-        if (UtilKBuildVersion.isAfterV_30_11_R()) {
             //if (!Environment.isExternalStorageManager()) {// 没文件管理权限时申请权限
             context.startContext(UtilKIntentWrapper.getManageAppAllFilesAccessPermission(context).apply {
                 addCategory("android.intent.category.DEFAULT")
             })
             //}
-        }
+        } else startSettingAppDetails(context)
     }
 
     /**

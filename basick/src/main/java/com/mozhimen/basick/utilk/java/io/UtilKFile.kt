@@ -1,6 +1,5 @@
 package com.mozhimen.basick.utilk.java.io
 
-import com.bumptech.glide.util.Util
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
@@ -13,6 +12,8 @@ import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.File
 import java.io.FileInputStream
 import java.util.Locale
+import java.util.Vector
+
 
 /**
  * @ClassName UtilKFile
@@ -369,6 +370,33 @@ object UtilKFile : BaseUtilK() {
     @JvmStatic
     fun getFolderFiles(folder: File): Array<File> =
         folder.listFiles() ?: emptyArray()
-//endregion
+
+    @JvmStatic
+    fun getFolderAllFiles(dirPath: String?, fileType: String?): Vector<File>? {
+        val fileVector = Vector<File>()
+        val f = File(dirPath)
+        if (!f.exists()) { //判断路径是否存在
+            return fileVector
+        }
+        val files = f.listFiles()
+            ?: //判断权限
+            return fileVector
+        val vecFile = Vector<File>()
+        for (_file in files) { //遍历目录
+            if (_file.isFile && _file.name.endsWith(fileType!!)) {
+                vecFile.add(_file)
+            } else if (_file.isDirectory) { //查询子目录
+                getAllFiles(_file.absolutePath, fileType)
+            } else {
+            }
+        }
+        return vecFile
+    }
+
+    @JvmStatic
+    fun getFolderAllFiles(dirPath: String?, fileType: String?): Vector<File>? {
+
+    }
+    //endregion
 }
 

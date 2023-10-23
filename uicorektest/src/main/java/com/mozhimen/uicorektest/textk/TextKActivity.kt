@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.uicorek.popwink.PopwinKTextKBubbleBuilder
 import com.mozhimen.uicorek.textk.TextKProgressDownload
+import com.mozhimen.uicorek.textk.progress.TextKProgress
 import com.mozhimen.uicorektest.databinding.ActivityTextkBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -19,15 +20,15 @@ class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
         }
         lifecycleScope.launch{
             vb.textkProgress.text = "12333333333333"
-            vb.textkProgress.progress = 0f
-            vb.textkProgress.state = TextKProgressDownload.STATE_NORMAL
+            vb.textkProgress.setProgress(0f)
+            vb.textkProgress.setState(TextKProgress.PROGRESS_STATE_IDLE)
             delay(1000)
-            vb.textkProgress.state = TextKProgressDownload.STATE_DOWNLOADING
+            vb.textkProgress.setState(TextKProgress.PROGRESS_STATE_DOWNLOADING)
             delay(1000)
-            vb.textkProgress.progress = 50f
+            vb.textkProgress.setProgress(50f)
             delay(1000)
-            vb.textkProgress.progress = 100f
-            vb.textkProgress.state = TextKProgressDownload.STATE_FINISH
+            vb.textkProgress.setProgress(100f)
+            vb.textkProgress.setState(TextKProgress.PROGRESS_STATE_FINISH)
         }
     }
 

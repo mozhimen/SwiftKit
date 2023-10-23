@@ -38,6 +38,10 @@ class UtilKAndroidActivity : BaseActivityVB<ActivityUtilkAndroidBinding>() {
         startContext<UtilKIntentActivity>()
     }
 
+    fun goUtilKLaunchActivity(view: View) {
+        startContext<UtilKLaunchActivityActivity>()
+    }
+
     fun goUtilKScreen(view: View) {
         startContext<UtilKScreenActivity>()
     }

@@ -21,7 +21,7 @@ class ProgressSavedState : View.BaseSavedState {
     private var _currentText: String
     val currentText get() = _currentText
 
-    constructor(parcel: Parcelable, progress: Int, state: Int, currentText: String) : super(parcel) {
+    constructor(parcel: Parcelable?, progress: Int, state: Int, currentText: String) : super(parcel) {
         _progress = progress
         _state = state
         _currentText = currentText

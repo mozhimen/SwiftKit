@@ -91,11 +91,11 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun getFreeInternalMemorySize(): String =
-        UtilKStatFs.getFreeExternalDataMemorySize()
+        UtilKStatFs.getFreeExternalDataMemorySizeStr()
 
     @JvmStatic
     fun getAvailableInternalMemorySize(): String =
-        UtilKStatFs.getAvailableExternalDataMemorySize()
+        UtilKStatFs.getAvailableExternalDataMemorySizeStr()
 
     /**
      * 获取手机内部空间大小
@@ -103,7 +103,7 @@ object UtilKDevice : BaseUtilK() {
      */
     @JvmStatic
     fun getTotalInternalMemorySize(): String =
-        UtilKStatFs.getTotalExternalDataMemorySize()
+        UtilKStatFs.getTotalExternalDataMemorySizeStr()
 
     /**
      * 获取手机空闲空间大小
@@ -112,13 +112,13 @@ object UtilKDevice : BaseUtilK() {
     @JvmStatic
     fun getFreeExternalMemorySize(): String =
         if (hasExternalStorage()) {
-            UtilKStatFs.getFreeExternalStorageMemorySize()
+            UtilKStatFs.getFreeExternalStorageMemorySizeStr()
         } else "0"
 
     @JvmStatic
     fun getAvailableExternalMemorySize(): String =
         if (hasExternalStorage()) {
-            UtilKStatFs.getAvailableExternalStorageMemorySize()
+            UtilKStatFs.getAvailableExternalStorageMemorySizeStr()
         } else "0"
 
     /**
@@ -128,7 +128,7 @@ object UtilKDevice : BaseUtilK() {
     @JvmStatic
     fun getTotalExternalMemorySize(): String =
         if (hasExternalStorage()) {
-            UtilKStatFs.getTotalExternalStorageMemorySize()
+            UtilKStatFs.getTotalExternalStorageMemorySizeStr()
         } else "0"
 
     ///////////////////////////////////////////////////////////////////////////////

@@ -57,10 +57,10 @@ object UtilKReflectGenericKotlin : IUtilK {
         }
         genericSuperclass.actualTypeArguments.filterIsInstance<Class<*>>()
             .run {
-                this.printlog()
+                this.printlog()//for debug
                 if (this.isNotEmpty()) {
                     for (clz in this) {
-                        if (clz.isAssignableFrom(tClazz))
+                        if (tClazz.isAssignableFrom(clz))
                             return clz
                     }
                 }

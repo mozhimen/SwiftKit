@@ -34,6 +34,7 @@ object UtilKAsset : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
+
     fun isAssetExists(assetFileName: String): Boolean {
         val assets = UtilKAssetManager.list("", _context) ?: return false
         for (index in assets.indices) {
@@ -41,4 +42,8 @@ object UtilKAsset : BaseUtilK() {
         }
         return false
     }
+
+    ///////////////////////////////////////////////////////////////////
+
+
 }
