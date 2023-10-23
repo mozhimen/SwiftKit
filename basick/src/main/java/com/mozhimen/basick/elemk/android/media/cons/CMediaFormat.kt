@@ -14,9 +14,15 @@ import com.mozhimen.basick.elemk.android.os.cons.CVersCode
  * @Version 1.0
  */
 object CMediaFormat {
+    const val MIMETYPE_TEXT_PLAIN = "text/plain"
+
+    ///////////////////////////////////////////////////////////////////
+
     const val MIMETYPE_IMAGE_ALL = "image/*"
     const val MIMETYPE_IMAGE_PNG = "image/png"
     const val MIMETYPE_IMAGE_JPEG = "image/jpeg"
+
+    ///////////////////////////////////////////////////////////////////
 
     const val MIMETYPE_VIDEO_ALL = "video/*"
     const val MIMETYPE_VIDEO_VP8 = MediaFormat.MIMETYPE_VIDEO_VP8
@@ -36,6 +42,8 @@ object CMediaFormat {
 
     @RequiresApi(CVersCode.V_26_8_O)
     const val MIMETYPE_VIDEO_SCRAMBLED = MediaFormat.MIMETYPE_VIDEO_SCRAMBLED
+
+    ///////////////////////////////////////////////////////////////////
 
     const val MIMETYPE_AUDIO_ALL = "audio/*"
     const val MIMETYPE_AUDIO_AMR_NB = MediaFormat.MIMETYPE_AUDIO_AMR_NB

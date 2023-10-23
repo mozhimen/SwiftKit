@@ -12,6 +12,7 @@ import com.mozhimen.basick.utilk.java.io.inputStream2str3
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.File
+import java.util.Vector
 
 
 /**
@@ -34,7 +35,6 @@ object UtilKAsset : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
-
     fun isAssetExists(assetFileName: String): Boolean {
         val assets = UtilKAssetManager.list("", _context) ?: return false
         for (index in assets.indices) {
@@ -42,8 +42,5 @@ object UtilKAsset : BaseUtilK() {
         }
         return false
     }
-
-    ///////////////////////////////////////////////////////////////////
-
 
 }

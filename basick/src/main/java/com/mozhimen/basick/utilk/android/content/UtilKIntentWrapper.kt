@@ -57,6 +57,15 @@ object UtilKIntentWrapper {
     ///////////////////////////////////////////////////////////////////////////////////////
 
     /**
+     * 分享文字
+     */
+    @JvmStatic
+    fun getShareText(str:String):Intent =
+        Intent(CIntent.ACTION_SEND).apply {
+            putExtra(CIntent.EXTRA_STREAM,str)
+            type = CMediaFormat.MIMETYPE_TEXT_PLAIN
+        }
+    /**
      * 选择系统文件
      */
     @JvmStatic

@@ -369,33 +369,33 @@ object UtilKFile : BaseUtilK() {
 
     @JvmStatic
     fun getFolderFiles(folder: File): Array<File> =
-        folder.listFiles() ?: emptyArray()
+        if (!isFolderExist(folder)) emptyArray()
+        else folder.listFiles() ?: emptyArray()
 
     @JvmStatic
-    fun getFolderAllFiles(dirPath: String?, fileType: String?): Vector<File>? {
+    fun getFolderAllFiles(folderPath: String, fileType:String?=null): Vector<File> =
+        getFolderAllFiles(folderPath.getStrFolderPath().strFilePath2file(),fileType)
+
+    @JvmStatic
+    fun getFolderAllFiles(folder: File, fileType: String? = null): Vector<File> {
         val fileVector = Vector<File>()
-        val f = File(dirPath)
-        if (!f.exists()) { //判断路径是否存在
+        if (!isFolderExist(folder)) return fileVector//判断路径是否存在
+        val files = getFolderFiles(folder)
+        if (files.isEmpty()){ //判断权限
             return fileVector
         }
-        val files = f.listFiles()
-            ?: //判断权限
-            return fileVector
-        val vecFile = Vector<File>()
-        for (_file in files) { //遍历目录
-            if (_file.isFile && _file.name.endsWith(fileType!!)) {
-                vecFile.add(_file)
-            } else if (_file.isDirectory) { //查询子目录
-                getAllFiles(_file.absolutePath, fileType)
-            } else {
+        for (file in files) { //遍历目录
+            if (file.isFile) {
+                if (fileType==null){
+                    fileVector.add(file)
+                } else if (file.endsWith(fileType)){
+                    fileVector.add(file)
+                }
+            } else if (file.isDirectory) { //查询子目录
+                getFolderAllFiles(file.absolutePath, fileType)
             }
         }
-        return vecFile
-    }
-
-    @JvmStatic
-    fun getFolderAllFiles(dirPath: String?, fileType: String?): Vector<File>? {
-
+        return fileVector
     }
     //endregion
 }

@@ -23,6 +23,11 @@ import java.io.File
  */
 object UtilKLaunchActivity {
     @JvmStatic
+    fun startShareText(context: Context,str:String){
+        context.startContext(UtilKIntentWrapper.getShareText(str))
+    }
+
+    @JvmStatic
     fun startWebOutSide(context: Context, strUrl: String) {
         context.startContext(UtilKIntentWrapper.getStrUrl(strUrl)/*Intent(Intent.ACTION_VIEW, Uri.parse(strUrl)*/)
     }
