@@ -84,7 +84,7 @@ object UtilKByteArrayFormat : IUtilK {
 
     @JvmStatic
     fun bytes2file(bytes: ByteArray, destFilePathWithName: String, isAppend: Boolean = false): File =
-        bytes2file(bytes, UtilKFile.createFile(destFilePathWithName), isAppend)
+        bytes2file(bytes, destFilePathWithName.createFile(), isAppend)
 
     @JvmStatic
     fun bytes2file(bytes: ByteArray, destFile: File, isAppend: Boolean = false): File {

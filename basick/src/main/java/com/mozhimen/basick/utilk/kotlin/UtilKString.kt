@@ -15,6 +15,9 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 fun String.getSplitLast(splitStr: String): String =
     UtilKString.getSplitLast(this, splitStr)
 
+fun String.getSplitExLast(splitStr: String): String =
+    UtilKString.getSplitExLast(this, splitStr)
+
 fun String.getSplitFirst(splitStr: String): String =
     UtilKString.getSplitFirst(this, splitStr)
 
@@ -69,6 +72,13 @@ object UtilKString : BaseUtilK() {
     @JvmStatic
     fun getSplitLast(str: String, splitStr: String): String =
         str.substring(str.lastIndexOf(splitStr) + 1, str.length)
+
+    /**
+     * 获取分割后的最后一个元素的互斥集合
+     */
+    @JvmStatic
+    fun getSplitExLast(str: String, splitStr: String): String =
+        str.substring(0, str.lastIndexOf(splitStr) + 1)
 
     /**
      * 获取分割后的第一个元素

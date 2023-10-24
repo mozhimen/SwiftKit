@@ -8,6 +8,7 @@ import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
+import com.mozhimen.basick.utilk.android.content.createChooser
 import com.mozhimen.basick.utilk.android.content.isIntentAvailable
 import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
@@ -23,8 +24,8 @@ import java.io.File
  */
 object UtilKLaunchActivity {
     @JvmStatic
-    fun startShareText(context: Context,str:String){
-        context.startContext(UtilKIntentWrapper.getShareText(str))
+    fun startShareText(context: Context, title: String, str: String) {
+        context.startContext(UtilKIntentWrapper.getShareText(str).createChooser(title))
     }
 
     @JvmStatic

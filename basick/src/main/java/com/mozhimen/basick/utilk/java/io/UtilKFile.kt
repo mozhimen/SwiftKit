@@ -8,7 +8,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.util.UtilKDate
 import com.mozhimen.basick.utilk.java.util.UtilKZipOutputStream
 import com.mozhimen.basick.utilk.java.util.longDate2strDate
-import com.mozhimen.basick.utilk.kotlin.strFilePath2file
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import java.io.File
 import java.io.FileInputStream
 import java.util.Locale
@@ -22,32 +22,11 @@ import java.util.Vector
  * @Date 2022/2/22 11:59
  * @Version 1.0
  */
-fun String.isFileExist(): Boolean =
-    UtilKFile.isFile(this)
-
-fun File.isFileExist(): Boolean =
-    UtilKFile.isFile(this)
-
-fun String.createFile(): File =
-    UtilKFile.createFile(this)
-
-fun File.createFile(): File =
-    UtilKFile.createFile(this)
-
-fun String.deleteFile(): Boolean =
-    UtilKFile.deleteFile(this)
-
-fun File.deleteFile(): Boolean =
-    UtilKFile.deleteFile(this)
-
-fun String.getFileSizeAvailable(): Long? =
-    UtilKFile.getFileSizeAvailable(this)
+fun File.getNameExExtension(): String? =
+    UtilKFile.getNameExExtension(this)
 
 fun File.getFileSizeAvailable(): Long? =
     UtilKFile.getFileSizeAvailable(this)
-
-fun String.getFileSizeTotal(): Long? =
-    UtilKFile.getFileSizeTotal(this)
 
 fun File.getFileSizeTotal(): Long? =
     UtilKFile.getFileSizeTotal(this)
@@ -58,34 +37,40 @@ fun File.getFileCreateTime(): Long =
 fun File.getFileCreateTimeStr(): String =
     UtilKFile.getFileCreateTimeStr(this)
 
+fun File.isFileExist(): Boolean =
+    UtilKFile.isFileExist(this)
+
+fun File.createFile(): File =
+    UtilKFile.createFile(this)
+
+fun File.copyFile(destFile: File, isAppend: Boolean = false): File? =
+    UtilKFile.copyFile(this, destFile, isAppend)
+
+fun File.zipFile(zipFile: File): File? =
+    UtilKFile.zipFile(this, zipFile)
+
+fun File.deleteFile(): Boolean =
+    UtilKFile.deleteFile(this)
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 
-fun String.getStrFolderPath(): String =
-    UtilKFile.getStrFolderPath(this)
+fun File.getFolderFiles(): Array<File> =
+    UtilKFile.getFolderFiles(this)
 
-fun String.isFolderExist(): Boolean =
-    UtilKFile.isFolderExist(this)
+fun File.getFolderAllFiles(fileType: String? = null): Vector<File> =
+    UtilKFile.getFolderAllFiles(this, fileType)
+
+fun File.isFolder(): Boolean =
+    UtilKFile.isFolder(this)
 
 fun File.isFolderExist(): Boolean =
     UtilKFile.isFolderExist(this)
 
-fun String.createFolder(): File =
-    UtilKFile.createFolder(this)
-
 fun File.createFolder(): File =
     UtilKFile.createFolder(this)
 
-fun String.deleteFolder(): Boolean =
-    UtilKFile.deleteFolder(this)
-
 fun File.deleteFolder(): Boolean =
     UtilKFile.deleteFolder(this)
-
-fun String.getFolderFiles(): Array<File> =
-    UtilKFile.getFolderFiles(this)
-
-fun File.getFolderFiles(): Array<File> =
-    UtilKFile.getFolderFiles(this)
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -121,128 +106,10 @@ object UtilKFile : BaseUtilK() {
 
     /////////////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 判断是否为文件
-     */
     @JvmStatic
-    fun isFile(filePathWithName: String): Boolean =
-        isFile(filePathWithName.strFilePath2file())
-
-    /**
-     * 判断是否为文件
-     */
-    @JvmStatic
-    fun isFile(file: File): Boolean =
-        file.exists() && file.isFile
-
-    /**
-     * 文件是否存在
-     */
-    @JvmStatic
-    fun isFileExist(filePathWithName: String): Boolean =
-        isFileExist(filePathWithName.strFilePath2file())
-
-    /**
-     * 文件是否存在
-     */
-    @JvmStatic
-    fun isFileExist(file: File): Boolean =
-        isFile(file)
-
-    /**
-     * 创建文件
-     */
-    @JvmStatic
-    fun createFile(filePathWithName: String): File =
-        createFile(filePathWithName.strFilePath2file())
-
-    /**
-     * 创建文件
-     */
-    @JvmStatic
-    fun createFile(file: File): File {
-        file.parent?.let { createFolder(it) } ?: throw Exception("don't have parent folder")
-
-        if (!isFileExist(file)) {
-            file.createNewFile().also { "createFile: file ${file.absolutePath}".dt(TAG) }
-        } else "createFile: file is exits".dt(TAG)
-        return file
-    }
-
-    /**
-     * 删除文件
-     */
-    @JvmStatic
-    fun deleteFile(filePathWithName: String): Boolean =
-        deleteFile(filePathWithName.strFilePath2file())
-
-    /**
-     * 删除文件
-     */
-    @JvmStatic
-    fun deleteFile(file: File): Boolean =
-        if (!isFileExist(file)) false
-        else file.delete().also { "deleteFile: file ${file.absolutePath} success".dt(TAG) }
-
-    /**
-     * 批量删除
-     */
-    fun deleteFiles(vararg files: File) {
-        for (file in files)
-            deleteFile(file)
-    }
-
-    /**
-     * 复制文件
-     */
-    @JvmStatic
-    fun copyFile(sourceFilePathWithName: String, destFilePathWithName: String, isAppend: Boolean = false): File? =
-        copyFile(sourceFilePathWithName.strFilePath2file(), destFilePathWithName.strFilePath2file(), isAppend)
-
-    /**
-     * 复制文件
-     */
-    @JvmStatic
-    fun copyFile(sourceFile: File, destFile: File, isAppend: Boolean = false): File? =
-        if (!isFileExist(sourceFile)) null
-        else FileInputStream(sourceFile).inputStream2file(destFile, isAppend)
-
-    /**
-     * 压缩文件
-     */
-    @JvmStatic
-    fun zipFile(sourceFilePathWithName: String, zipFilePathWithName: String): File? =
-        zipFile(sourceFilePathWithName.strFilePath2file(), zipFilePathWithName.strFilePath2file())
-
-    /**
-     * 压缩文件
-     */
-    @JvmStatic
-    fun zipFile(sourceFile: File, zipFile: File): File? =
-        if (!isFileExist(sourceFile)) null
-        else {
-            val zipOutputStream = zipFile.file2fileOutputStream().outputStream2zipOutputStream()
-            UtilKZipOutputStream.zipOutputStream2bufferedOutputStream(zipOutputStream, zipOutputStream.outputStream2bufferedOutputStream(), sourceFile, sourceFile.name)
-            zipFile
-        }
-
-    @JvmStatic
-    fun getNameWithoutExtension(filePathWithName: String): String? =
-        if (filePathWithName.isEmpty()) null
-        else getNameWithoutExtension(filePathWithName.strFilePath2file())
-
-    @JvmStatic
-    fun getNameWithoutExtension(file: File): String? =
+    fun getNameExExtension(file: File): String? =
         if (!isFileExist(file)) null
         else file.nameWithoutExtension
-
-    /**
-     * 获取文件大小
-     */
-    @JvmStatic
-    fun getFileSizeAvailable(filePathWithName: String): Long? =
-        if (filePathWithName.isEmpty()) null
-        else getFileSizeAvailable(filePathWithName.strFilePath2file())
 
     /**
      * 获取文件大小
@@ -251,14 +118,6 @@ object UtilKFile : BaseUtilK() {
     fun getFileSizeAvailable(file: File): Long? =
         if (!isFileExist(file)) null
         else FileInputStream(file).getAvailableLong()
-
-    /**
-     * 获取文件大小
-     */
-    @JvmStatic
-    fun getFileSizeTotal(filePathWithName: String): Long? =
-        if (filePathWithName.isEmpty()) null
-        else getFileSizeTotal(filePathWithName.strFilePath2file())
 
     /**
      * 获取文件大小
@@ -282,23 +141,101 @@ object UtilKFile : BaseUtilK() {
     @JvmStatic
     fun getFileCreateTimeStr(file: File, formatDate: String = CDateFormat.yyyy_MM_dd_HH_mm_ss): String =
         getFileCreateTime(file).longDate2strDate(formatDate)
+
+    /**
+     * 判断是否为文件
+     */
+    @JvmStatic
+    fun isFile(file: File): Boolean =
+        file.exists() && file.isFile
+
+    /**
+     * 文件是否存在
+     */
+    @JvmStatic
+    fun isFileExist(file: File): Boolean =
+        isFile(file)
+
+    /**
+     * 创建文件
+     */
+    @JvmStatic
+    fun createFile(file: File): File {
+        file.parent?.let { UtilKStrFile.createFolder(it) } ?: throw Exception("don't have parent folder")
+
+        if (!isFileExist(file)) {
+            file.createNewFile().also { "createFile: file ${file.absolutePath}".dt(TAG) }
+        } else "createFile: file is exits".dt(TAG)
+        return file
+    }
+
+    /**
+     * 删除文件
+     */
+    @JvmStatic
+    fun deleteFile(file: File): Boolean =
+        if (!isFileExist(file)) false
+        else file.delete().also { "deleteFile: file ${file.absolutePath} success".dt(TAG) }
+
+    /**
+     * 批量删除
+     */
+    fun deleteFiles(vararg files: File) {
+        for (file in files)
+            deleteFile(file)
+    }
+
+    /**
+     * 复制文件
+     */
+    @JvmStatic
+    fun copyFile(sourceFile: File, destFile: File, isAppend: Boolean = false): File? =
+        if (!isFileExist(sourceFile)) null
+        else FileInputStream(sourceFile).inputStream2file(destFile, isAppend)
+
+    /**
+     * 压缩文件
+     */
+    @JvmStatic
+    fun zipFile(sourceFile: File, zipFile: File): File? =
+        if (!isFileExist(sourceFile)) null
+        else {
+            val zipOutputStream = zipFile.file2fileOutputStream().outputStream2zipOutputStream()
+            UtilKZipOutputStream.zipOutputStream2bufferedOutputStream(zipOutputStream, zipOutputStream.outputStream2bufferedOutputStream(), sourceFile, sourceFile.name)
+            zipFile
+        }
+
 //endregion
 
 /////////////////////////////////////////////////////////////////////////////////////////
 
     //region # folder
     @JvmStatic
-    fun getStrFolderPath(folderPath: String): String =
-        if (!folderPath.endsWith("/")) "$folderPath/" else folderPath
+    fun getFolderFiles(folder: File): Array<File> =
+        if (!isFolderExist(folder)) emptyArray()
+        else folder.listFiles() ?: emptyArray()
 
-    /////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * 判断是否是文件夹
-     */
     @JvmStatic
-    fun isFolder(folderPath: String): Boolean =
-        isFolder(folderPath.getStrFolderPath().strFilePath2file())
+    fun getFolderAllFiles(folder: File, fileType: String? = null): Vector<File> {
+        val fileVector = Vector<File>()
+        if (!isFolderExist(folder)) return fileVector//判断路径是否存在
+        val files = getFolderFiles(folder)
+        if (files.isEmpty()) { //判断权限
+            return fileVector
+        }
+        for (file in files) { //遍历目录
+            if (file.isFile) {
+                if (fileType == null) {
+                    fileVector.add(file)
+                } else if (file.endsWith(fileType)) {
+                    fileVector.add(file)
+                }
+            } else if (file.isDirectory) { //查询子目录
+                UtilKStrFile.getFolderAllFiles(file.absolutePath, fileType)
+            }
+        }
+        return fileVector
+    }
 
     /**
      * 判断是否是文件夹
@@ -311,22 +248,8 @@ object UtilKFile : BaseUtilK() {
      * 文件夹是否存在
      */
     @JvmStatic
-    fun isFolderExist(folderPath: String): Boolean =
-        isFolderExist(folderPath.getStrFolderPath().strFilePath2file())
-
-    /**
-     * 文件夹是否存在
-     */
-    @JvmStatic
     fun isFolderExist(folder: File): Boolean =
         isFolder(folder)
-
-    /**
-     * 创建文件夹
-     */
-    @JvmStatic
-    fun createFolder(folderPath: String): File =
-        createFolder(folderPath.getStrFolderPath().strFilePath2file())
 
     /**
      * 创建文件夹
@@ -336,13 +259,6 @@ object UtilKFile : BaseUtilK() {
         if (!isFolderExist(folder)) folder.mkdirs()
         return folder
     }
-
-    /**
-     * 删除文件夹
-     */
-    @JvmStatic
-    fun deleteFolder(folderPath: String): Boolean =
-        deleteFolder(folderPath.getStrFolderPath().strFilePath2file())
 
     /**
      * 删除文件夹
@@ -361,41 +277,6 @@ object UtilKFile : BaseUtilK() {
             }
         }
         return true
-    }
-
-    @JvmStatic
-    fun getFolderFiles(folderPath: String): Array<File> =
-        getFolderFiles(folderPath.getStrFolderPath().strFilePath2file())
-
-    @JvmStatic
-    fun getFolderFiles(folder: File): Array<File> =
-        if (!isFolderExist(folder)) emptyArray()
-        else folder.listFiles() ?: emptyArray()
-
-    @JvmStatic
-    fun getFolderAllFiles(folderPath: String, fileType:String?=null): Vector<File> =
-        getFolderAllFiles(folderPath.getStrFolderPath().strFilePath2file(),fileType)
-
-    @JvmStatic
-    fun getFolderAllFiles(folder: File, fileType: String? = null): Vector<File> {
-        val fileVector = Vector<File>()
-        if (!isFolderExist(folder)) return fileVector//判断路径是否存在
-        val files = getFolderFiles(folder)
-        if (files.isEmpty()){ //判断权限
-            return fileVector
-        }
-        for (file in files) { //遍历目录
-            if (file.isFile) {
-                if (fileType==null){
-                    fileVector.add(file)
-                } else if (file.endsWith(fileType)){
-                    fileVector.add(file)
-                }
-            } else if (file.isDirectory) { //查询子目录
-                getFolderAllFiles(file.absolutePath, fileType)
-            }
-        }
-        return fileVector
     }
     //endregion
 }

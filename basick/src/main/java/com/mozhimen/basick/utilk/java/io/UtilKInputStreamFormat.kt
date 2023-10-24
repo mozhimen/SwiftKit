@@ -12,6 +12,7 @@ import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex
+import com.mozhimen.basick.utilk.kotlin.createFile
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.BufferedInputStream
 import java.io.BufferedReader
@@ -264,7 +265,7 @@ object UtilKInputStreamFormat {
 
     @JvmStatic
     fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isAppend: Boolean = false, bufferSize: Int = 1024): File? =
-        inputStream2file(inputStream, UtilKFile.createFile(destFilePathWithName), isAppend, bufferSize)
+        inputStream2file(inputStream, destFilePathWithName.createFile(), isAppend, bufferSize)
 
     @JvmStatic
     fun inputStream2file(inputStream: InputStream, destFile: File, isAppend: Boolean = false, bufferSize: Int = 1024): File? {
@@ -288,7 +289,7 @@ object UtilKInputStreamFormat {
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
     fun inputStream2file2(inputStream: InputStream, filePathWithName: String, isAppend: Boolean = false): File? =
-        inputStream2file2(inputStream, UtilKFile.createFile(filePathWithName), isAppend)
+        inputStream2file2(inputStream, filePathWithName.createFile(), isAppend)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
@@ -320,7 +321,7 @@ object UtilKInputStreamFormat {
             while (inputStream.read(bytes).also { readCount = it } != -1)
                 outputStream.write(bytes, 0, readCount)
         } catch (e: Exception) {
-            throw e
+            e.printStackTrace()
         } finally {
             inputStream.close()
             outputStream.flushClose()

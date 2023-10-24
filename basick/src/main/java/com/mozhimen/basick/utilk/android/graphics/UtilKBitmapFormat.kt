@@ -31,6 +31,7 @@ import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.outputStream2bufferedOutputStream
 import com.mozhimen.basick.utilk.kotlin.bytes2file
 import com.mozhimen.basick.utilk.kotlin.bytes2strBase64
+import com.mozhimen.basick.utilk.kotlin.createFile
 import java.io.BufferedOutputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -118,7 +119,7 @@ object UtilKBitmapFormat : BaseUtilK() {
     @RequiresPermission(CPermission.WRITE_EXTERNAL_STORAGE)
     fun bitmapAny2fileImage(sourceBitmap: Bitmap, filePathWithName: String, compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100): File? {
         var outputStream: OutputStream? = null
-        val destFile = UtilKFile.createFile(filePathWithName)
+        val destFile = filePathWithName.createFile()
         try {
             val contentValues = ContentValues().apply {
                 put(CMediaStore.Images.ImageColumns.DATA, destFile.absolutePath)

@@ -62,7 +62,7 @@ object UtilKIntentWrapper {
     @JvmStatic
     fun getShareText(str:String):Intent =
         Intent(CIntent.ACTION_SEND).apply {
-            putExtra(CIntent.EXTRA_STREAM,str)
+            putExtra(CIntent.EXTRA_TEXT,str)
             type = CMediaFormat.MIMETYPE_TEXT_PLAIN
         }
     /**

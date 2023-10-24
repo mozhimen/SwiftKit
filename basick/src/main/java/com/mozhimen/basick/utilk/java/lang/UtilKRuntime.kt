@@ -14,8 +14,8 @@ import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.flushClose
-import com.mozhimen.basick.utilk.java.io.getStrFolderPath
 import com.mozhimen.basick.utilk.java.io.inputStream2str
+import com.mozhimen.basick.utilk.kotlin.getStrFolderPath
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
 import java.io.DataOutputStream

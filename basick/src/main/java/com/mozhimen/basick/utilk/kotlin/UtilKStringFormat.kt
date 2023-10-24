@@ -43,7 +43,7 @@ object UtilKStringFormat {
      */
     @JvmStatic
     fun str2file(str: String, destFilePathWithName: String): File? =
-        str2file(str, UtilKFile.createFile(destFilePathWithName))
+        str2file(str, destFilePathWithName.createFile())
 
     /**
      * 文本转文件
@@ -63,7 +63,7 @@ object UtilKStringFormat {
 
     @JvmStatic
     fun str2file2(str: String, filePathWithName: String, isAppend: Boolean = false): File? =
-        str2file2(str, UtilKFile.createFile(filePathWithName), isAppend)
+        str2file2(str, filePathWithName.createFile(), isAppend)
 
     @JvmStatic
     fun str2file2(str: String, destFile: File, isAppend: Boolean = false): File? {

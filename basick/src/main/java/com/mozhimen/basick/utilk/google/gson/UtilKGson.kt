@@ -97,7 +97,7 @@ object UtilKGson : BaseUtilK() {
 }
 
 //    private val _gsonWithField by lazy { GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES).create() }
-//    private val _gsonWithExpose by lazy { GsonBuilder().excludeFieldsWithoutExposeAnnotation().create() }
+//    private val _gsonWithExpose by lazy { GsonBuilder().excludeFieldsExExposeAnnotation().create() }
 //
 //    @JvmStatic
 //    fun obj2JsonWithField(obj: Any): String =

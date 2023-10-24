@@ -6,6 +6,8 @@ import com.mozhimen.basick.elemk.android.os.cons.CEnvironment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.File
 
 /**
@@ -36,10 +38,10 @@ object UtilKContextDir {
         fun getFilesDir(context: Context): File =
             context.filesDir
 
-        @RequiresApi(CVersCode.V_24_7_N)
         @JvmStatic
         fun getDataDir(context: Context): File =
-            context.dataDir
+            if (UtilKBuildVersion.isAfterV_24_7_N()) context.dataDir
+            else UtilKApplicationInfo.get(context)!!.dataDir.strFilePath2file()
 
         @JvmStatic
         fun getObbDir(context: Context): File =

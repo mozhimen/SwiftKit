@@ -1,5 +1,7 @@
 package com.mozhimen.basick.elemk.android.os.cons
 
+import android.os.Build
+
 
 /**
  * @ClassName VersionCode
@@ -9,7 +11,7 @@ package com.mozhimen.basick.elemk.android.os.cons
  * @Version 1.0
  */
 object CVersCode {
-    const val V_1_1_B = 1//BASE
+    const val V_1_1_B = Build.VERSION_CODES.BASE//BASE
     const val V_2_11_B11 = 2//BASE_1_1
     const val V_3_15_C = 3//CUPCAKE
     const val V_4_16_D = 4//DONUT
