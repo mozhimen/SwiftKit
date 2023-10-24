@@ -5,6 +5,8 @@ import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.getFolderFiles
 import com.mozhimen.underlayk.crashk.commons.ICrashKListener
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
+import com.mozhimen.basick.utilk.kotlin.createFolder
+import com.mozhimen.basick.utilk.kotlin.getFolderFiles
 import com.mozhimen.crashk_native.CrashKNativeLib
 import com.mozhimen.underlayk.crashk.commons.ICrashK
 import java.io.File
@@ -23,7 +25,7 @@ class CrashKNative : ICrashK {
         get() {
             if (field != null) return field
             val crashFullPath = UtilKStrPath.Absolute.Internal.getCacheDir() + "/crashk_native"
-            UtilKFile.createFolder(crashFullPath)
+            crashFullPath.createFolder()
             return crashFullPath.also { field = it }
         }
 

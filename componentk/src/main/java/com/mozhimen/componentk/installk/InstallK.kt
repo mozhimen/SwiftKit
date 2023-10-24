@@ -18,6 +18,7 @@ import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.kotlin.isFileExist
 import com.mozhimen.componentk.installk.commons.IInstallK
 import com.mozhimen.componentk.installk.commons.IInstallKStateListener
 import com.mozhimen.componentk.installk.cons.CInstallKCons
@@ -129,7 +130,7 @@ class InstallK : IInstallK, BaseUtilK() {
     @Throws(Exception::class)
     private fun installByMode(apkPathWithName: String) {
         require(apkPathWithName.isNotEmpty() && apkPathWithName.endsWith(".apk")) { "$TAG $apkPathWithName not a correct apk file path" }
-        require(UtilKFile.isFileExist(apkPathWithName)) { "$TAG $apkPathWithName is not exist" }
+        require(apkPathWithName.isFileExist()) { "$TAG $apkPathWithName is not exist" }
         if (!UtilKPermission.checkPermissions(CInstallKCons.PERMISSIONS)) {
             Log.w(TAG, "installByMode: onNeedPermissions PERMISSIONS")
             _handler.sendMessage(Message().apply {

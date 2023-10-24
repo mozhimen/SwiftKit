@@ -45,32 +45,32 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
 
     //////////////////////////////////////////////////////////////////
 
-    private var mBackgroundColor = 0//背景颜色
-    private var mBackgroundColorStart = 0
-    private var mBackgroundColorEnd = 0//下载中后半部分后面背景颜色
-    private var mTextColor = 0//文字颜色
-    private var mNormalTextColor = 0
-    private var mTextCoverColor = 0//覆盖后颜色
+    private var mBackgroundColor = Color.parseColor("#BFE8D9")//背景颜色
+    private var mBackgroundColorStart = Color.parseColor("#00A667")
+    private var mBackgroundColorEnd = Color.WHITE//下载中后半部分后面背景颜色
+    private var mTextColor = Color.parseColor("#00A667")//文字颜色
+    private var mTextColorNormal = Color.BLACK
+    private var mTextColorCover = Color.parseColor("#00A667")//覆盖后颜色
     private var mBorderRadius = 0f
-    private var mBorderWidth = 0f//边框宽度
-    private var mBorderColor = 0//边框颜色
+    private var mBorderWidth =  2f.dp2px()//边框宽度
+    private var mBorderColor = Color.parseColor("#BFE8D9")//边框颜色
     private var mBallStyle = STYLE_BALL_JUMP//点动画样式
-    private val mBallRadius = 6f//点的半径
-    private val mBallSpacing = 4f//点的间隙
-    private val mEnableAnimation = false
+    private var mBallRadius = 6f//点的半径
+    private var mBallSpacing = 4f//点的间隙
+    private var mEnableAnimation = false
+    private var mMinProgress = 0
+    private var mMaxProgress = 100
 
     //////////////////////////////////////////////////////////////////
 
-    /**
-     * 记录当前文字
-     */
-    private var mCurrentText: CharSequence? = null
-    private var mMaxProgress = 100
-    private var mMinProgress = 0
     private var mProgress = 0f
-    private var mToProgress = 0f
-    private var mProgressPercent = 0f
     private var mProgressState = 0
+    private var mCurrentText: CharSequence? = null//记录当前文字
+
+    //////////////////////////////////////////////////////////////////
+
+    private var mProgressPercent = 0f
+    private var mProgressDestination = 0f
     private var mTextBottomBorder = 0f
     private var mTextRightBorder = 0f
     private val scaleFloats = floatArrayOf(SCALE, SCALE, SCALE)
@@ -80,11 +80,11 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
 
     @Volatile
     private lateinit var mTextPaint: Paint//按钮文字画笔
+    private lateinit var mBackgroundPaint: Paint//背景画笔
     private lateinit var mProgressAnimation: ValueAnimator//下载平滑动画
     private var mAnimators: ArrayList<ValueAnimator?>? = null//点运动动画
     private var mProgressTextGradient: LinearGradient? = null
     private val mBackgroundBounds = RectF()
-    private lateinit var mBackgroundPaint: Paint//背景画笔
 
     //////////////////////////////////////////////////////////////////
 
@@ -114,16 +114,36 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
     override fun initAttrs(attrs: AttributeSet?) {
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.TextKProgress)
         try {
-            mBackgroundColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColor, Color.parseColor("#BFE8D9"))
-            mBackgroundColorStart = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorNormal, Color.parseColor("#00A667"))
-            mBackgroundColorEnd = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorSecond, Color.WHITE)
-            mBorderRadius = typedArray.getDimension(R.styleable.TextKProgress_textKProgress_radius, 0f)
-            mTextColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColor, Color.parseColor("#00A667"))
-            mNormalTextColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorNormal, Color.WHITE)
-            mTextCoverColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColorCover, Color.parseColor("#00A667"))
-            mBorderWidth = typedArray.getDimension(R.styleable.TextKProgress_textKProgress_borderWidth, 2f.dp2px())
-            mBorderColor = typedArray.getColor(R.styleable.TextKProgress_textKProgress_borderColor, Color.parseColor("#BFE8D9"))
-            mBallStyle = typedArray.getInt(R.styleable.TextKProgress_textKProgress_ballStyle, TextKProgress.STYLE_BALL_JUMP)
+            mBackgroundColor =
+                typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColor, mBackgroundColor)
+            mBackgroundColorStart =
+                typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorStart, mBackgroundColorStart)
+            mBackgroundColorEnd =
+                typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorEnd, mBackgroundColorEnd)
+            mTextColor =
+                typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColor, mTextColor)
+            mTextColorNormal =
+                typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColorNormal, mTextColorNormal)
+            mTextColorCover =
+                typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColorCover, mTextColorCover)
+            mBorderRadius =
+                typedArray.getDimension(R.styleable.TextKProgress_textKProgress_borderRadius, mBorderRadius)
+            mBorderWidth =
+                typedArray.getDimension(R.styleable.TextKProgress_textKProgress_borderWidth, mBorderWidth)
+            mBorderColor =
+                typedArray.getColor(R.styleable.TextKProgress_textKProgress_borderColor, mBorderColor)
+            mBallStyle =
+                typedArray.getInt(R.styleable.TextKProgress_textKProgress_ballStyle, mBallStyle)
+            mBallRadius =
+                typedArray.getDimension(R.styleable.TextKProgress_textKProgress_ballRadius,mBallRadius)
+            mBallSpacing =
+                typedArray.getDimension(R.styleable.TextKProgress_textKProgress_ballSpacing,mBallSpacing)
+            mEnableAnimation =
+                typedArray.getBoolean(R.styleable.TextKProgress_textKProgress_enableAnimation,mEnableAnimation)
+            mMinProgress =
+                typedArray.getInt(R.styleable.TextKProgress_textKProgress_minProgress,mMinProgress)
+            mMaxProgress =
+                typedArray.getInt(R.styleable.TextKProgress_textKProgress_maxProgress, mMaxProgress)
         } finally {
             typedArray.recycle()
         }
@@ -131,7 +151,7 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        drawing(canvas)
+        startDraw(canvas)
     }
 
     override fun onRestoreInstanceState(state: Parcelable) {
@@ -142,97 +162,56 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         mCurrentText = progressSavedState.currentText
     }
 
-    override fun onSaveInstanceState(): Parcelable? {
+    override fun onSaveInstanceState(): Parcelable {
         val superState = super.onSaveInstanceState()
-        if (mCurrentText == null) {
-            mCurrentText = ""
-        }
+        if (mCurrentText == null) mCurrentText = ""
         return ProgressSavedState(superState, mProgress.toInt(), mProgressState, mCurrentText.toString())
     }
 
     //////////////////////////////////////////////////////////////////
 
-    fun getState(): Int {
-        return mProgressState
-    }
-
-    fun getBorderWidth(): Float {
-        return mBorderWidth
-    }
-
     fun getProgress(): Float {
         return mProgress
     }
 
-    fun getButtonRadius(): Float {
-        return mBorderRadius
+    fun getProgressState(): Int {
+        return mProgressState
     }
 
-    fun getTextColor(): Int {
-        return mTextColor
-    }
-
-    fun getTextCoverColor(): Int {
-        return mTextCoverColor
-    }
-
-    fun getMinProgress(): Int {
-        return mMinProgress
-    }
-
-    fun getMaxProgress(): Int {
-        return mMaxProgress
-    }
-
-    fun getBorderColor(): Int =
-        mBorderColor
-
+    //////////////////////////////////////////////////////////////////
 
     override fun setBackgroundColor(@ColorInt backgroundColor: Int) {
         mBackgroundColor = backgroundColor
         invalidate()
     }
 
-    fun setNormalBackgroundColor(normalBackgroundColor: Int) {
-        mBackgroundColorStart = normalBackgroundColor
+    fun setBackgroundColorStart(@ColorInt backgroundColorStart: Int) {
+        mBackgroundColorStart = backgroundColorStart
         invalidate()
     }
 
-    fun setBackgroundSecondColor(@ColorInt backgroundSecondColor: Int) {
-        mBackgroundColorEnd = backgroundSecondColor
+    fun setBackgroundColorEnd(@ColorInt backgroundColorEnd: Int) {
+        mBackgroundColorEnd = backgroundColorEnd
         invalidate()
     }
 
-    fun setBorderColor(@ColorInt borderColor: Int) {
-        mBorderColor = borderColor
-        invalidate()
-    }
-
-    fun setMaxProgress(maxProgress: Int) {
-        mMaxProgress = maxProgress
-    }
-
-    fun setMinProgress(minProgress: Int) {
-        mMinProgress = minProgress
-    }
-
-    fun setTextCoverColor(textCoverColor: Int) {
-        mTextCoverColor = textCoverColor
-    }
-
-    override fun setTextColor(textColor: Int) {
-        super.setTextColor(textColor)
+    override fun setTextColor(@ColorInt textColor: Int) {
         mTextColor = textColor
+        super.setTextColor(textColor)
     }
 
+    fun setTextColorNormal(@ColorInt textColorNormal: Int) {
+        mTextColorNormal = textColorNormal
+    }
 
-    fun setButtonRadius(buttonRadius: Float) {
+    fun setTextColorCover(@ColorInt textColorCover: Int) {
+        mTextColorCover = textColorCover
+    }
+
+    //////////////////////////////////////////////////////////////////
+
+    fun setBorderRadius(buttonRadius: Float) {
         mBorderRadius = buttonRadius
-        invalidate()
-    }
-
-    fun setProgress(progress: Float) {
-        mProgress = progress
         invalidate()
     }
 
@@ -241,7 +220,45 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         invalidate()
     }
 
-    fun setState(state: Int) {
+    fun setBorderColor(@ColorInt borderColor: Int) {
+        mBorderColor = borderColor
+        invalidate()
+    }
+
+    //////////////////////////////////////////////////////////////////
+
+    fun setBallStyle(ballStyle:Int) {
+        mBallStyle = ballStyle
+    }
+
+    fun setBallRadius(ballRadius:Float) {
+        mBallRadius = ballRadius
+    }
+
+    fun setBallSpacing(ballSpacing:Float) {
+        mBallSpacing = ballSpacing
+    }
+
+    fun setEnableAnimation(enableAnimation:Boolean ){
+        mEnableAnimation = enableAnimation
+    }
+
+    fun setMinProgress(minProgress: Int) {
+        mMinProgress = minProgress
+    }
+
+    fun setMaxProgress(maxProgress: Int) {
+        mMaxProgress = maxProgress
+    }
+
+    //////////////////////////////////////////////////////////////////
+
+    fun setProgress(progress: Float) {
+        mProgress = progress
+        invalidate()
+    }
+
+    fun setProgressState(state: Int) {
         //状态确实有改变
         if (mProgressState != state) {
             mProgressState = state
@@ -279,7 +296,7 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         }
         if (progress >= mMinProgress && progress <= mMaxProgress) {
             if (mEnableAnimation) {
-                mToProgress = progress
+                mProgressDestination = progress
                 if (mProgressAnimation.isRunning) {
                     mProgressAnimation.resume()
                 }
@@ -296,6 +313,8 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
+    //////////////////////////////////////////////////////////////////
+
     fun drawLoadingBall(canvas: Canvas) {
         for (i in 0..2) {
             canvas.save()
@@ -306,7 +325,7 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    fun createBallPulseAnimators(): java.util.ArrayList<ValueAnimator?>? {
+    fun createBallPulseAnimators(): java.util.ArrayList<ValueAnimator?> {
         val animators = java.util.ArrayList<ValueAnimator?>()
         val delays = intArrayOf(120, 240, 360)
         for (i in 0..2) {
@@ -341,6 +360,12 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     //////////////////////////////////////////////////////////////////
+
+    private fun startDraw(canvas: Canvas) {
+        drawBackground(canvas)
+        drawText(canvas)
+    }
+
     private fun startAnimators() {
         if (null != mAnimators) {
             for (i in mAnimators!!.indices) {
@@ -360,20 +385,11 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    private fun drawing(canvas: Canvas) {
-        drawBackground(canvas)
-        drawTextAbove(canvas)
-    }
-
-    private fun drawTextAbove(canvas: Canvas) {
+    private fun drawText(canvas: Canvas) {
         //计算Baseline绘制的Y坐标
         val y = canvas.height / 2 - (mTextPaint.descent() / 2 + mTextPaint.ascent() / 2)
         if (mCurrentText == null) {
-            if (isInEditMode) {
-                mCurrentText = text
-            } else {
-                mCurrentText = ""
-            }
+            mCurrentText = if (isInEditMode) text else ""
         }
         val textWidth = mTextPaint.measureText(mCurrentText.toString())
         mTextBottomBorder = y
@@ -395,27 +411,27 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
                 } else if (indicator1 < coverLength && coverLength <= indicator2) {
                     //设置变色效果
                     mProgressTextGradient = LinearGradient(
-                        (measuredWidth - textWidth) / 2, 0f, (measuredWidth + textWidth) / 2, 0f, intArrayOf(mTextCoverColor, mTextColor), floatArrayOf(textProgress, textProgress + 0.001f),
+                        (measuredWidth - textWidth) / 2, 0f, (measuredWidth + textWidth) / 2, 0f, intArrayOf(mTextColorCover, mTextColor), floatArrayOf(textProgress, textProgress + 0.001f),
                         Shader.TileMode.CLAMP
                     )
                     mTextPaint.color = mTextColor
                     mTextPaint.setShader(mProgressTextGradient)
                 } else {
                     mTextPaint.setShader(null)
-                    mTextPaint.color = mTextCoverColor
+                    mTextPaint.color = mTextColorCover
                 }
                 canvas.drawText(mCurrentText.toString(), (measuredWidth - textWidth) / 2, y, mTextPaint)
             }
 
             PROGRESS_STATE_IDLE, PROGRESS_STATE_FINISH -> {
                 mTextPaint.setShader(null)
-                mTextPaint.color = mNormalTextColor
+                mTextPaint.color = mTextColorNormal
                 canvas.drawText(mCurrentText.toString(), (measuredWidth - textWidth) / 2, y, mTextPaint)
             }
 
             else -> {
                 mTextPaint.setShader(null)
-                mTextPaint.color = mNormalTextColor
+                mTextPaint.color = mTextColorNormal
                 canvas.drawText(mCurrentText.toString(), (measuredWidth - textWidth) / 2, y, mTextPaint)
             }
         }
@@ -474,26 +490,26 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         }
     }
 
-    //设置点动画样式
-    private fun setBallStyle(mBallStyle: Int) {
-        this.mBallStyle = mBallStyle
-        if (mBallStyle == STYLE_BALL_PULSE) {
-            mAnimators = createBallPulseAnimators()
-        } else {
-            mAnimators = createBallJumpAnimators()
-        }
-    }
-
     private fun setupAnimations() {
         if (mEnableAnimation) {
             //ProgressBar的动画
             mProgressAnimation = ValueAnimator.ofFloat(0f, 1f).setDuration(500)
             mProgressAnimation.addUpdateListener(AnimatorUpdateListener { animation ->
                 val timePercent = animation.animatedValue as Float
-                mProgress = (mToProgress - mProgress) * timePercent + mProgress
+                mProgress += (mProgressDestination - mProgress) * timePercent
                 invalidate()
             })
-            setBallStyle(mBallStyle)
+            setupBallStyle(mBallStyle)
+        }
+    }
+
+    //设置点动画样式
+    private fun setupBallStyle(ballStyle: Int) {
+        mBallStyle = ballStyle
+        mAnimators = if (ballStyle == STYLE_BALL_PULSE) {
+            createBallPulseAnimators()
+        } else {
+            createBallJumpAnimators()
         }
     }
 }

@@ -6,7 +6,6 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.uicorek.popwink.PopwinKTextKBubbleBuilder
-import com.mozhimen.uicorek.textk.TextKProgressDownload
 import com.mozhimen.uicorek.textk.progress.TextKProgress
 import com.mozhimen.uicorektest.databinding.ActivityTextkBinding
 import kotlinx.coroutines.delay
@@ -19,16 +18,28 @@ class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
             genPopwinKBubbleText(it, "弹出了一个气泡提示")
         }
         lifecycleScope.launch{
-            vb.textkProgress.text = "12333333333333"
+            vb.textkProgress.setCurrentText("10%")
             vb.textkProgress.setProgress(0f)
-            vb.textkProgress.setState(TextKProgress.PROGRESS_STATE_IDLE)
+            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_IDLE)
             delay(1000)
-            vb.textkProgress.setState(TextKProgress.PROGRESS_STATE_DOWNLOADING)
+            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_DOWNLOADING)
             delay(1000)
             vb.textkProgress.setProgress(50f)
             delay(1000)
             vb.textkProgress.setProgress(100f)
-            vb.textkProgress.setState(TextKProgress.PROGRESS_STATE_FINISH)
+            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_FINISH)
+        }
+
+        lifecycleScope.launch{
+            vb.textkProgress.setProgress(0f)
+            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_IDLE)
+            delay(1000)
+            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_DOWNLOADING)
+            delay(1000)
+            vb.textkProgress.setProgress(50f)
+            delay(1000)
+            vb.textkProgress.setProgress(100f)
+            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_FINISH)
         }
     }
 

@@ -372,19 +372,24 @@
     <!--textk-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <declare-styleable name="TextKProgress">
-        <attr name="textKProgress_radius" format="dimension" />
         <attr name="textKProgress_backgroundColor" format="color" />
-        <attr name="textKProgress_backgroundColorNormal" format="color" />
-        <attr name="textKProgress_backgroundColorSecond" format="color" />
+        <attr name="textKProgress_backgroundColorStart" format="color" />
+        <attr name="textKProgress_backgroundColorEnd" format="color" />
         <attr name="textKProgress_textColor" format="color" />
         <attr name="textKProgress_textColorNormal" format="color" />
         <attr name="textKProgress_textColorCover" format="color" />
-        <attr name="textKProgress_borderColor" format="color" />
+        <attr name="textKProgress_borderRadius" format="dimension" />
         <attr name="textKProgress_borderWidth" format="dimension" />
+        <attr name="textKProgress_borderColor" format="color" />
         <attr name="textKProgress_ballStyle" format="enum">
             <enum name="pulse" value="1" />
             <enum name="jump" value="2" />
         </attr>
+        <attr name="textKProgress_ballRadius" format="dimension" />
+        <attr name="textKProgress_ballSpacing" format="dimension" />
+        <attr name="textKProgress_enableAnimation" format="boolean" />
+        <attr name="textKProgress_minProgress" format="integer" />
+        <attr name="textKProgress_maxProgress" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="TextKProgressDownload">
