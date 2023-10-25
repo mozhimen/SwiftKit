@@ -30,7 +30,6 @@ import com.mozhimen.uicorek.viewk.commons.IViewK
  */
 class TextKProgress @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr), IViewK {
 
-
     companion object {
         const val SCALE = 1.0f
 
@@ -38,7 +37,7 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         const val STYLE_BALL_JUMP = 2
 
         const val PROGRESS_STATE_IDLE = 0//开始下载
-        const val PROGRESS_STATE_DOWNLOADING = 1//下载之中
+        const val PROGRESS_STATE_LOADING = 1//下载之中
         const val PROGRESS_STATE_PAUSE = 2//暂停下载
         const val PROGRESS_STATE_FINISH = 3//下载完成
     }
@@ -48,11 +47,11 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
     private var mBackgroundColor = Color.parseColor("#BFE8D9")//背景颜色
     private var mBackgroundColorStart = Color.parseColor("#00A667")
     private var mBackgroundColorEnd = Color.WHITE//下载中后半部分后面背景颜色
-    private var mTextColor = Color.parseColor("#00A667")//文字颜色
-    private var mTextColorNormal = Color.BLACK
+    private var mTextColorDefault = Color.parseColor("#00A667")//文字颜色
+    private var mTextColorUnCover = Color.BLACK
     private var mTextColorCover = Color.parseColor("#00A667")//覆盖后颜色
     private var mBorderRadius = 0f
-    private var mBorderWidth =  2f.dp2px()//边框宽度
+    private var mBorderWidth = 2f.dp2px()//边框宽度
     private var mBorderColor = Color.parseColor("#BFE8D9")//边框颜色
     private var mBallStyle = STYLE_BALL_JUMP//点动画样式
     private var mBallRadius = 6f//点的半径
@@ -84,6 +83,7 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
     private lateinit var mProgressAnimation: ValueAnimator//下载平滑动画
     private var mAnimators: ArrayList<ValueAnimator?>? = null//点运动动画
     private var mProgressTextGradient: LinearGradient? = null
+//    private val mBackgroundBoundsBorder = RectF()
     private val mBackgroundBounds = RectF()
 
     //////////////////////////////////////////////////////////////////
@@ -120,10 +120,10 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
                 typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorStart, mBackgroundColorStart)
             mBackgroundColorEnd =
                 typedArray.getColor(R.styleable.TextKProgress_textKProgress_backgroundColorEnd, mBackgroundColorEnd)
-            mTextColor =
-                typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColor, mTextColor)
-            mTextColorNormal =
-                typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColorNormal, mTextColorNormal)
+            mTextColorDefault =
+                typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColorDefault, mTextColorDefault)
+            mTextColorUnCover =
+                typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColorUnCover, mTextColorUnCover)
             mTextColorCover =
                 typedArray.getColor(R.styleable.TextKProgress_textKProgress_textColorCover, mTextColorCover)
             mBorderRadius =
@@ -135,13 +135,13 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
             mBallStyle =
                 typedArray.getInt(R.styleable.TextKProgress_textKProgress_ballStyle, mBallStyle)
             mBallRadius =
-                typedArray.getDimension(R.styleable.TextKProgress_textKProgress_ballRadius,mBallRadius)
+                typedArray.getDimension(R.styleable.TextKProgress_textKProgress_ballRadius, mBallRadius)
             mBallSpacing =
-                typedArray.getDimension(R.styleable.TextKProgress_textKProgress_ballSpacing,mBallSpacing)
+                typedArray.getDimension(R.styleable.TextKProgress_textKProgress_ballSpacing, mBallSpacing)
             mEnableAnimation =
-                typedArray.getBoolean(R.styleable.TextKProgress_textKProgress_enableAnimation,mEnableAnimation)
+                typedArray.getBoolean(R.styleable.TextKProgress_textKProgress_enableAnimation, mEnableAnimation)
             mMinProgress =
-                typedArray.getInt(R.styleable.TextKProgress_textKProgress_minProgress,mMinProgress)
+                typedArray.getInt(R.styleable.TextKProgress_textKProgress_minProgress, mMinProgress)
             mMaxProgress =
                 typedArray.getInt(R.styleable.TextKProgress_textKProgress_maxProgress, mMaxProgress)
         } finally {
@@ -196,12 +196,12 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun setTextColor(@ColorInt textColor: Int) {
-        mTextColor = textColor
+        mTextColorDefault = textColor
         super.setTextColor(textColor)
     }
 
-    fun setTextColorNormal(@ColorInt textColorNormal: Int) {
-        mTextColorNormal = textColorNormal
+    fun setTextColorUnCover(@ColorInt textColorNormal: Int) {
+        mTextColorUnCover = textColorNormal
     }
 
     fun setTextColorCover(@ColorInt textColorCover: Int) {
@@ -227,19 +227,19 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
 
     //////////////////////////////////////////////////////////////////
 
-    fun setBallStyle(ballStyle:Int) {
+    fun setBallStyle(ballStyle: Int) {
         mBallStyle = ballStyle
     }
 
-    fun setBallRadius(ballRadius:Float) {
+    fun setBallRadius(ballRadius: Float) {
         mBallRadius = ballRadius
     }
 
-    fun setBallSpacing(ballSpacing:Float) {
+    fun setBallSpacing(ballSpacing: Float) {
         mBallSpacing = ballSpacing
     }
 
-    fun setEnableAnimation(enableAnimation:Boolean ){
+    fun setEnableAnimation(enableAnimation: Boolean) {
         mEnableAnimation = enableAnimation
     }
 
@@ -395,7 +395,7 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         mTextBottomBorder = y
         mTextRightBorder = (measuredWidth + textWidth) / 2
         when (mProgressState) {
-            PROGRESS_STATE_PAUSE, PROGRESS_STATE_DOWNLOADING -> {
+            PROGRESS_STATE_PAUSE, PROGRESS_STATE_LOADING -> {
                 //进度条压过距离
                 val coverLength = measuredWidth * mProgressPercent
                 //开始渐变指示器
@@ -407,14 +407,14 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
                 val textProgress = coverTextLength / textWidth
                 if (coverLength <= indicator1) {
                     mTextPaint.setShader(null)
-                    mTextPaint.color = mTextColor
+                    mTextPaint.color = mTextColorUnCover
                 } else if (indicator1 < coverLength && coverLength <= indicator2) {
                     //设置变色效果
                     mProgressTextGradient = LinearGradient(
-                        (measuredWidth - textWidth) / 2, 0f, (measuredWidth + textWidth) / 2, 0f, intArrayOf(mTextColorCover, mTextColor), floatArrayOf(textProgress, textProgress + 0.001f),
+                        (measuredWidth - textWidth) / 2, 0f, (measuredWidth + textWidth) / 2, 0f, intArrayOf(mTextColorCover, mTextColorUnCover), floatArrayOf(textProgress, textProgress + 0.001f),
                         Shader.TileMode.CLAMP
                     )
-                    mTextPaint.color = mTextColor
+                    mTextPaint.color = mTextColorCover
                     mTextPaint.setShader(mProgressTextGradient)
                 } else {
                     mTextPaint.setShader(null)
@@ -425,13 +425,13 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
 
             PROGRESS_STATE_IDLE, PROGRESS_STATE_FINISH -> {
                 mTextPaint.setShader(null)
-                mTextPaint.color = mTextColorNormal
+                mTextPaint.color = mTextColorDefault
                 canvas.drawText(mCurrentText.toString(), (measuredWidth - textWidth) / 2, y, mTextPaint)
             }
 
             else -> {
                 mTextPaint.setShader(null)
-                mTextPaint.color = mTextColorNormal
+                mTextPaint.color = mTextColorDefault
                 canvas.drawText(mCurrentText.toString(), (measuredWidth - textWidth) / 2, y, mTextPaint)
             }
         }
@@ -439,52 +439,60 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private fun drawBackground(canvas: Canvas) {
         when (mProgressState) {
-            PROGRESS_STATE_PAUSE, PROGRESS_STATE_DOWNLOADING -> {
-                //下载中 需要绘制边框
+            PROGRESS_STATE_PAUSE, PROGRESS_STATE_LOADING -> {
                 mBackgroundBounds.left = mBorderWidth
                 mBackgroundBounds.top = mBorderWidth
                 mBackgroundBounds.right = measuredWidth - mBorderWidth
                 mBackgroundBounds.bottom = measuredHeight - mBorderWidth
-                mBackgroundPaint.style = Paint.Style.STROKE
-                mBackgroundPaint.color = mBorderColor
-                mBackgroundPaint.strokeWidth = mBorderWidth
-                canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
-                //计算当前的进度
-                mBackgroundPaint.style = Paint.Style.FILL
-                mProgressPercent = mProgress / (mMaxProgress + 0f)
+
+                if (mBorderWidth >= 1f) {
+                    //下载中 需要绘制边框
+                    mBackgroundPaint.style = Paint.Style.STROKE
+                    mBackgroundPaint.color = mBorderColor
+                    mBackgroundPaint.strokeWidth = mBorderWidth
+                    canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
+                }
+
+                //画背景板
+                mBackgroundPaint.style = Paint.Style.FILL_AND_STROKE
                 mBackgroundPaint.color = mBackgroundColorEnd
-                canvas.save()
-                //画出dst图层
                 canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
+
+                canvas.save()
+                //画进度条
                 //设置图层显示模式为 SRC_ATOP
                 val porterDuffXfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP)
-                mBackgroundPaint.color = mBackgroundColor
+                mBackgroundPaint.color = mBackgroundColorStart
                 mBackgroundPaint.setXfermode(porterDuffXfermode)
                 //计算 src 矩形的右边界
+                mProgressPercent = mProgress / (mMaxProgress + 0f)//计算当前的进度
                 val right: Float = mBackgroundBounds.right * mProgressPercent
                 //在dst画出src矩形
-                canvas.drawRect(mBackgroundBounds.left, mBackgroundBounds.top, right, mBackgroundBounds.bottom, mBackgroundPaint)
+//                canvas.drawRect(mBackgroundBoundsBorder.left, mBackgroundBoundsBorder.top, right, mBackgroundBoundsBorder.bottom, mBackgroundPaint)
+                mBackgroundBounds.right = right
+                canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
                 canvas.restore()
+
                 mBackgroundPaint.setXfermode(null)
             }
 
             PROGRESS_STATE_IDLE, PROGRESS_STATE_FINISH -> {
-                mBackgroundBounds.left = 0f
-                mBackgroundBounds.top = 0f
-                mBackgroundBounds.right = measuredWidth.toFloat()
-                mBackgroundBounds.bottom = measuredHeight.toFloat()
+                mBackgroundBounds.left = mBorderWidth
+                mBackgroundBounds.top = mBorderWidth
+                mBackgroundBounds.right = measuredWidth - mBorderWidth
+                mBackgroundBounds.bottom = measuredHeight - mBorderWidth
                 mBackgroundPaint.style = Paint.Style.FILL
-                mBackgroundPaint.color = mBackgroundColorStart
+                mBackgroundPaint.color = mBackgroundColor
                 canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
             }
 
             else -> {
-                mBackgroundBounds.left = 0f
-                mBackgroundBounds.top = 0f
-                mBackgroundBounds.right = measuredWidth.toFloat()
-                mBackgroundBounds.bottom = measuredHeight.toFloat()
+                mBackgroundBounds.left = mBorderWidth
+                mBackgroundBounds.top = mBorderWidth
+                mBackgroundBounds.right = measuredWidth - mBorderWidth
+                mBackgroundBounds.bottom = measuredHeight - mBorderWidth
                 mBackgroundPaint.style = Paint.Style.FILL
-                mBackgroundPaint.color = mBackgroundColorStart
+                mBackgroundPaint.color = mBackgroundColor
                 canvas.drawRoundRect(mBackgroundBounds, mBorderRadius, mBorderRadius, mBackgroundPaint)
             }
         }

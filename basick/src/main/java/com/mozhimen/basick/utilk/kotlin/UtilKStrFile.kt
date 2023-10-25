@@ -3,8 +3,10 @@ package com.mozhimen.basick.utilk.kotlin
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.util.Log
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.annors.ADescription
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
 import java.io.File
@@ -21,6 +23,9 @@ import java.util.Vector
  */
 
 //region # file
+fun String.getFileNameExtension(): String? =
+    UtilKStrFile.getFileNameExtension(this)
+
 fun String.getFileNameExExtension(): String? =
     UtilKStrFile.getFileNameExExtension(this)
 
@@ -107,8 +112,13 @@ fun String.deleteFolder(): Boolean =
     UtilKStrFile.deleteFolder(this)
 //endregion
 
-object UtilKStrFile {
+object UtilKStrFile : IUtilK {
     //region # file
+    @JvmStatic
+    fun getFileNameExtension(filePathWithName: String): String? =
+        if (filePathWithName.isEmpty()) null
+        else if (filePathWithName.containStr(".")) filePathWithName.getSplitLast(".") else null
+
     @JvmStatic
     fun getFileNameExExtension(filePathWithName: String): String? =
         if (filePathWithName.isEmpty()) null

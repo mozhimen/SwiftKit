@@ -375,8 +375,8 @@
         <attr name="textKProgress_backgroundColor" format="color" />
         <attr name="textKProgress_backgroundColorStart" format="color" />
         <attr name="textKProgress_backgroundColorEnd" format="color" />
-        <attr name="textKProgress_textColor" format="color" />
-        <attr name="textKProgress_textColorNormal" format="color" />
+        <attr name="textKProgress_textColorDefault" format="color" />
+        <attr name="textKProgress_textColorUnCover" format="color" />
         <attr name="textKProgress_textColorCover" format="color" />
         <attr name="textKProgress_borderRadius" format="dimension" />
         <attr name="textKProgress_borderWidth" format="dimension" />

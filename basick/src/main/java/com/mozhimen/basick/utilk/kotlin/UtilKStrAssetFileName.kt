@@ -1,7 +1,7 @@
 package com.mozhimen.basick.utilk.kotlin
 
-import android.content.Context
 import android.graphics.Bitmap
+import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.android.content.getStrAssetFilePath
@@ -33,8 +33,8 @@ fun String.strAssetFileName2str2(): String? =
 fun String.strAssetFileName2str3(): String? =
     UtilKStrAssetFileName.strAssetFileName2str3(this)
 
-fun String.strAssetFileName2file(destFilePathWithName: String, isAppend: Boolean = false): File? =
-    UtilKStrAssetFileName.strAssetFileName2file(this, destFilePathWithName, isAppend)
+fun String.strAssetFileName2file(destFilePathWithName: String, isAppend: Boolean = false, block: IAB_Listener<Int, Float>? = null): File? =
+    UtilKStrAssetFileName.strAssetFileName2file(this, destFilePathWithName, isAppend, block)
 
 fun String.strAssetFileName2bitmap(): Bitmap? =
     UtilKStrAssetFileName.strAssetFileName2bitmap(this)
@@ -73,9 +73,9 @@ object UtilKStrAssetFileName : BaseUtilK() {
      * 从资产拷贝到文件
      */
     @JvmStatic
-    fun strAssetFileName2file(assetFileName: String, destFilePathWithName: String, isAppend: Boolean = false): File? =
+    fun strAssetFileName2file(assetFileName: String, destFilePathWithName: String, isAppend: Boolean = false, block: IAB_Listener<Int, Float>? = null): File? =
         if (!UtilKAsset.isAssetExists(assetFileName)) null
-        else UtilKAssetManager.open(assetFileName, _context).inputStream2file(destFilePathWithName.getStrAssetFilePath(assetFileName), isAppend)
+        else UtilKAssetManager.open(assetFileName, _context).inputStream2file(destFilePathWithName.getStrAssetFilePath(assetFileName), isAppend, block = block)
 
     /**
      *

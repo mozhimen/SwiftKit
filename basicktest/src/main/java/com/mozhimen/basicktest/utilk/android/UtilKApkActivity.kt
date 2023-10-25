@@ -25,7 +25,7 @@ class UtilKApkActivity : BaseActivityVB<ActivityUtilkApkBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         lifecycleScope.launch(Dispatchers.IO) {
             val apkPathWithName = UtilKStrPath.Absolute.Internal.getCacheDir() + "/temp/${UtilKFile.getStrFileNameForStrNowDate()}.apk"
-            if (!UtilKFile.isFileExist(apkPathWithName)) {
+            if (!apkPathWithName.isFileExist()) {
                 UtilKStrAssetFileName.strAssetFileName2file("basicktest-debug.apk", apkPathWithName)
             }
             UtilKApk.printApkInfo(apkPathWithName)

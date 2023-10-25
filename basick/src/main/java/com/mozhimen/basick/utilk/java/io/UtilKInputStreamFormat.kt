@@ -5,14 +5,18 @@ import android.graphics.BitmapFactory
 import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.os.FileUtils
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.elemk.kotlin.text.cons.CCharsets
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex
 import com.mozhimen.basick.utilk.kotlin.createFile
+import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.BufferedInputStream
 import java.io.BufferedReader
@@ -83,11 +87,11 @@ fun InputStream.inputStream2bitmapDrawable(): BitmapDrawable =
 
 ////////////////////////////////////////////////////////////////////////////
 
-fun InputStream.inputStream2file(destFilePathWithName: String, isAppend: Boolean = false, bufferSize: Int = 1024): File? =
-    UtilKInputStreamFormat.inputStream2file(this, destFilePathWithName, isAppend, bufferSize)
+fun InputStream.inputStream2file(destFilePathWithName: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+    UtilKInputStreamFormat.inputStream2file(this, destFilePathWithName, isAppend, bufferSize, block)
 
-fun InputStream.inputStream2file(destFile: File, isAppend: Boolean = false, bufferSize: Int = 1024): File? =
-    UtilKInputStreamFormat.inputStream2file(this, destFile, isAppend, bufferSize)
+fun InputStream.inputStream2file(destFile: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+    UtilKInputStreamFormat.inputStream2file(this, destFile, isAppend, bufferSize, block)
 
 @RequiresApi(CVersCode.V_29_10_Q)
 fun InputStream.inputStream2file2(destFilePathWithName: String, isAppend: Boolean = false): File? =
@@ -99,8 +103,8 @@ fun InputStream.inputStream2file2(destFile: File, isAppend: Boolean = false): Fi
 
 ////////////////////////////////////////////////////////////////////////////
 
-fun InputStream.inputStream2outputStream(outputStream: OutputStream, bufferSize: Int) {
-    UtilKInputStreamFormat.inputStream2outputStream(this, outputStream, bufferSize)
+fun InputStream.inputStream2outputStream(outputStream: OutputStream, bufferSize: Int, block: IAB_Listener<Int, Float>? = null) {
+    UtilKInputStreamFormat.inputStream2outputStream(this, outputStream, bufferSize, block)
 }
 
 fun InputStream.inputStream2outputStream2(outputStream: OutputStream, bufferSize: Int) {
@@ -118,7 +122,7 @@ fun InputStream.inputStream2outputStream2(outputStream: OutputStream) {
 
 ////////////////////////////////////////////////////////////////////////////
 
-object UtilKInputStreamFormat {
+object UtilKInputStreamFormat : IUtilK {
     @JvmStatic
     fun inputStream2bufferedInputStream(inputStream: InputStream): BufferedInputStream =
         BufferedInputStream(inputStream)
@@ -264,11 +268,11 @@ object UtilKInputStreamFormat {
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isAppend: Boolean = false, bufferSize: Int = 1024): File? =
-        inputStream2file(inputStream, destFilePathWithName.createFile(), isAppend, bufferSize)
+    fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+        inputStream2file(inputStream, destFilePathWithName.createFile(), isAppend, bufferSize, block)
 
     @JvmStatic
-    fun inputStream2file(inputStream: InputStream, destFile: File, isAppend: Boolean = false, bufferSize: Int = 1024): File? {
+    fun inputStream2file(inputStream: InputStream, destFile: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
         UtilKFile.createFile(destFile)
         /*//        val fileInputStream = FileInputStream(file)
         //        Log.d(TAG, "inputStream2file: inputStream ${inputStream.available()}")
@@ -277,7 +281,7 @@ object UtilKInputStreamFormat {
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
-            inputStream.inputStream2outputStream(destFile.file2fileOutputStream(isAppend), bufferSize)
+            inputStream.inputStream2outputStream(destFile.file2fileOutputStream(isAppend), bufferSize, block)
             return destFile
         } catch (e: Exception) {
             e.printStackTrace()
@@ -314,12 +318,21 @@ object UtilKInputStreamFormat {
 
     @JvmStatic
     @Throws(Exception::class)
-    fun inputStream2outputStream(inputStream: InputStream, outputStream: OutputStream, bufferSize: Int) {
+    fun inputStream2outputStream(inputStream: InputStream, outputStream: OutputStream, bufferSize: Int, block: IAB_Listener<Int, Float>? = null) {
         try {
-            var readCount: Int
             val bytes = ByteArray(bufferSize)
-            while (inputStream.read(bytes).also { readCount = it } != -1)
+            val totalCount = inputStream.available()
+            var readCount: Int
+            var offset = 0
+            var percent: Float = 0f
+            Log.d(TAG, "inputStream2outputStream: totalCount $totalCount")
+            while (inputStream.read(bytes).also { readCount = it } != -1) {
+                offset += readCount
                 outputStream.write(bytes, 0, readCount)
+                percent = (offset.toFloat() / totalCount.toFloat()).normalize(0f, 1f)
+                //Log.d(TAG, "inputStream2outputStream: offset $offset total $totalCount percent $percent")
+                block?.invoke(readCount, percent)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {

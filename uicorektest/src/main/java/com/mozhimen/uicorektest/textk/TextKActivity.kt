@@ -22,7 +22,7 @@ class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
             vb.textkProgress.setProgress(0f)
             vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_IDLE)
             delay(1000)
-            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_DOWNLOADING)
+            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_LOADING)
             delay(1000)
             vb.textkProgress.setProgress(50f)
             delay(1000)
@@ -31,15 +31,17 @@ class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
         }
 
         lifecycleScope.launch{
-            vb.textkProgress.setProgress(0f)
-            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_IDLE)
+            vb.textkProgress1.setProgressText("0%",0)
             delay(1000)
-            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_DOWNLOADING)
+            vb.textkProgress1.setProgressText("20%",20)
             delay(1000)
-            vb.textkProgress.setProgress(50f)
+            vb.textkProgress1.setProgressText("40%",40)
             delay(1000)
-            vb.textkProgress.setProgress(100f)
-            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_FINISH)
+            vb.textkProgress1.setProgressText("60%",60)
+            delay(1000)
+            vb.textkProgress1.setProgressText("80%",80)
+            delay(1000)
+            vb.textkProgress1.setProgressText("100%",100)
         }
     }
 
