@@ -7,7 +7,7 @@ package com.mozhimen.componentk.pagingk.mos
  * @Date 2023/10/11 16:57
  * @Version 1.0
  */
-data class PagingKConfig(
+class PagingKConfig(
     /**
      * 第一页的页码
      */
