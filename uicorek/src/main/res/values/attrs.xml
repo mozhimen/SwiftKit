@@ -390,6 +390,10 @@
         <attr name="textKProgress_enableAnimation" format="boolean" />
         <attr name="textKProgress_minProgress" format="integer" />
         <attr name="textKProgress_maxProgress" format="integer" />
+        <attr name="textKProgress_progressStyle" format="enum">
+            <enum name="round" value="0" />
+            <enum name="rect" value="1" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="TextKProgressDownload">

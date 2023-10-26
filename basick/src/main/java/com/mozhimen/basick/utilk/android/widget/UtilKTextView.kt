@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.android.widget
 
+import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.widget.TextView
 import androidx.annotation.IntRange
@@ -74,8 +75,6 @@ object UtilKTextView {
 
     /**
      * 设置字体
-     * @param textView TextView
-     * @param fontPathWithName String
      */
     @JvmStatic
     fun applyIconFont(textView: TextView, fontPathWithName: String = "fonts/iconfont.ttf") {
@@ -88,5 +87,10 @@ object UtilKTextView {
             textView.text = str
             true
         } else false
+    }
+
+    @JvmStatic
+    fun applyTextColorStateList(textView: TextView, colors: ColorStateList) {
+        textView.setTextColor(colors)
     }
 }

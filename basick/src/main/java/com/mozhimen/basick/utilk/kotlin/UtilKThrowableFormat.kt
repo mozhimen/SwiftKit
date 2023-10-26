@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.kotlin
 
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.PrintWriter
 import java.io.StringWriter
 
@@ -44,7 +43,7 @@ object UtilKThrowable : IUtilK {
                 cause.printStackTrace(printWriter)
                 cause = cause.cause
             }
-            return stringWriter.toString().replaceRegexLineBreak()
+            return stringWriter.toString()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)

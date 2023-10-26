@@ -22,8 +22,8 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
 
 //    protected val _vm_: VM by lazy { getViewModel() }
 //
-//    protected val _pagedListAdapter_: PagedListAdapter<DES, *> by lazy { getPagedListAdapter(requireContext()) }
-//
+//    protected val _pagedListAdapter_: PagedListAdapter<DES, *> by lazy { getPagedListAdapter() }
+
     protected val _pagedListObserver_: Observer<PagedList<DES>> by lazy { Observer<PagedList<DES>> { pagedList -> getPagedListAdapter().submitList(pagedList) } }
 
     //////////////////////////////////////////////////////////////////////////////
@@ -33,30 +33,30 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
         super.initLayout()
         getSwipeRefreshLayout().apply {
             setColorSchemeResources(getSwipeRefreshLayoutColorScheme())
-//            setOnRefreshListener { getViewModel().onInvalidate() }
+            setOnRefreshListener { getViewModel().onInvalidate() }
         }
         getRecyclerView().apply {
             layoutManager = getRecyclerViewLayoutManager()
             adapter = getPagedListAdapter()
         }
-//        getViewModel().liveLoadState.observe(this) {
-//            if (it != CPagingKLoadingState.STATE_FIRST_LOAD_START) {
-//                getSwipeRefreshLayout().isRefreshing = false
-//                onLoadStart()
-//            } else
-//                getSwipeRefreshLayout().isRefreshing = true
-//            if (it == CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY) {
-//                getRecyclerView().applyGone()
-//                onLoadEmpty()
-//            } else {
-//                getRecyclerView().applyInVisible()
-//                onLoadComplete()
-//            }
-//        }
+        getViewModel().liveLoadState.observe(this) {
+            if (it != CPagingKLoadingState.STATE_FIRST_LOAD_START) {
+                getSwipeRefreshLayout().isRefreshing = false
+                onLoadStart()
+            } else
+                getSwipeRefreshLayout().isRefreshing = true
+            if (it == CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY) {
+                getRecyclerView().applyGone()
+                onLoadEmpty()
+            } else {
+                getRecyclerView().applyInVisible()
+                onLoadComplete()
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-//        getViewModel().livePagedList.observe(this, _pagedListObserver_)
+        getViewModel().livePagedList.observe(this, _pagedListObserver_)
     }
 }

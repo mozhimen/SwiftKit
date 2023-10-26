@@ -6,11 +6,13 @@ import android.content.res.AssetManager
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.content.res.TypedArray
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.DisplayMetrics
 import androidx.annotation.AnyRes
 import androidx.annotation.ArrayRes
 import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
 import androidx.annotation.IntegerRes
 import androidx.annotation.StyleableRes
 
@@ -54,6 +56,11 @@ object UtilKResource {
         getSystemResources().getIdentifier(name, defType, defPackage)
 
     ////////////////////////////////////////////////////////////////////////////
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    @JvmStatic
+    fun getDrawable(context: Context, @DrawableRes id: Int): Drawable =
+        getAppResources(context).getDrawable(id)// ResourcesCompat.getDrawable()
 
     @JvmStatic
     fun getAssets(context: Context): AssetManager =

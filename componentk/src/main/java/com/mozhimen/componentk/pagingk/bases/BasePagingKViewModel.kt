@@ -24,12 +24,11 @@ import kotlinx.coroutines.CoroutineScope
  */
 abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: PagingKConfig = PagingKConfig()) : BaseViewModel(), IPagingKDataSource<RES, DES> {
     val liveLoadState = MutableLiveData<Int>()
-    open val livePagedList: LiveData<PagedList<DES>>
+    val livePagedList: LiveData<PagedList<DES>> = generateLivePagedList()
 
     ////////////////////////////////////////////////////////////////////////////////////
 
     private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener = object : IPagingKDataSourceLoadListener {
-
         override fun onFirstLoadStart() {
             liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_START)
         }
@@ -44,17 +43,10 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
 
     ////////////////////////////////////////////////////////////////////////////////////
 
-    init {
-        livePagedList = generateLivePagedList()
-    }
-
-    ////////////////////////////////////////////////////////////////////////////////////
-
     fun getViewModelScope(): CoroutineScope =
         viewModelScope
 
     fun generateLivePagedList(): LiveData<PagedList<DES>> {
-        Log.d(TAG, "generateLivePagedList: ")
         val dataSourceFactory = object : BasePagingKDataSourceFactory<DES>(viewModelScope, _pagingKDataSourceLoadingListener) {
             override fun createPagingKDataSource(coroutineScope: CoroutineScope, pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener): BasePagingKKeyedDataSource<RES, DES> =
                 object : BasePagingKKeyedDataSource<RES, DES>(pagingKConfig, coroutineScope, pagingKDataSourceLoadingListener) {

@@ -1,4 +1,4 @@
-package com.mozhimen.basick.elemk.android.bluetooth
+package com.mozhimen.basick.elemk.android.bluetooth.cons
 
 import android.bluetooth.BluetoothDevice
 

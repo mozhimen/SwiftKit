@@ -102,7 +102,6 @@ object UtilKByteArrayFormat : IUtilK {
 
     /**
      * byte[]数组转换为16进制的字符串
-     *
      * @param bytes 要转换的字节数组
      * @return 转换后的结果
      */

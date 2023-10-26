@@ -49,13 +49,12 @@ class BasePagingKRep<RES> {
          */
         var current = 0
         var pages = 0
-        var isSearchCount = false
         var size = 0
         var total = 0
         var records: List<RES>? = null
 
         override fun toString(): String {
-            return "PagingKData(current=$current, pages=$pages, isSearchCount=$isSearchCount, size=$size, total=$total, records=$records)"
+            return "PagingKData(current=$current, pages=$pages, size=$size, total=$total, records=$records)"
         }
     }
 }

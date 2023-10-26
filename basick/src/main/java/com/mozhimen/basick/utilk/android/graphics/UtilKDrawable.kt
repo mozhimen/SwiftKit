@@ -1,14 +1,12 @@
 package com.mozhimen.basick.utilk.android.graphics
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
-import androidx.core.graphics.drawable.toBitmap
+import com.mozhimen.basick.utilk.java.io.UtilKFile
+import java.net.URL
 
 /**
  * @ClassName UtilKDrawable
@@ -22,6 +20,19 @@ fun Drawable.applyColorFilter(@ColorInt colorInt: Int) {
 }
 
 object UtilKDrawable {
+    /**
+     * 从网络获取图片
+     */
+    @JvmStatic
+    fun getDrawableForStrUrl(strUrl: String, drawableName: String = UtilKFile.getStrFileNameForStrNowDate()): Drawable? =
+        try {
+            Drawable.createFromStream(URL(strUrl).openStream(), drawableName/*"netUrl.jpg"*/)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+
+    /////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 是否正常的drawable

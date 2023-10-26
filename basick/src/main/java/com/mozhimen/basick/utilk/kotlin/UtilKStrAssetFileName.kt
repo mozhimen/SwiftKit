@@ -11,7 +11,6 @@ import com.mozhimen.basick.utilk.java.io.inputStream2bytes
 import com.mozhimen.basick.utilk.java.io.inputStream2file
 import com.mozhimen.basick.utilk.java.io.inputStream2str
 import com.mozhimen.basick.utilk.java.io.inputStream2str3
-import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.File
 
 /**
@@ -51,7 +50,7 @@ object UtilKStrAssetFileName : BaseUtilK() {
     @JvmStatic
     fun strAssetFileName2str(assetFileName: String): String? =
         if (!UtilKAsset.isAssetExists(assetFileName)) null
-        else UtilKAssetManager.open(assetFileName, _context).inputStream2str()?.replaceRegexLineBreak()
+        else UtilKAssetManager.open(assetFileName, _context).inputStream2str()
 
     /**
      * 获取文本文件内容: txt 最快的方法
@@ -59,7 +58,7 @@ object UtilKStrAssetFileName : BaseUtilK() {
     @JvmStatic
     fun strAssetFileName2str2(assetFileName: String): String? =
         if (!UtilKAsset.isAssetExists(assetFileName)) null
-        else strAssetFileName2bytes(assetFileName).bytes2str().replaceRegexLineBreak()
+        else strAssetFileName2bytes(assetFileName).bytes2str()
 
     /**
      * 通过路径加载Assets中的文本内容
@@ -67,7 +66,7 @@ object UtilKStrAssetFileName : BaseUtilK() {
     @JvmStatic
     fun strAssetFileName2str3(assetFileName: String): String? =
         if (!UtilKAsset.isAssetExists(assetFileName)) null
-        else UtilKAssetManager.open(assetFileName, _context).inputStream2str3()?.replaceRegexLineBreak()
+        else UtilKAssetManager.open(assetFileName, _context).inputStream2str3()
 
     /**
      * 从资产拷贝到文件

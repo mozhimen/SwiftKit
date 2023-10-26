@@ -18,19 +18,20 @@ class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
             genPopwinKBubbleText(it, "弹出了一个气泡提示")
         }
         lifecycleScope.launch{
-            vb.textkProgress.setCurrentText("10%")
             vb.textkProgress.setProgress(0f)
-            vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_IDLE)
-            delay(1000)
+            vb.textkProgress.setCurrentText("0%")
             vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_LOADING)
             delay(1000)
             vb.textkProgress.setProgress(50f)
+            vb.textkProgress.setCurrentText("10%")
             delay(1000)
             vb.textkProgress.setProgress(100f)
+            vb.textkProgress.setCurrentText("100%")
             vb.textkProgress.setProgressState(TextKProgress.PROGRESS_STATE_FINISH)
         }
 
         lifecycleScope.launch{
+            vb.textkProgress1.setProgressState(TextKProgress.PROGRESS_STATE_LOADING)
             vb.textkProgress1.setProgressText("0%",0)
             delay(1000)
             vb.textkProgress1.setProgressText("20%",20)
@@ -42,6 +43,7 @@ class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
             vb.textkProgress1.setProgressText("80%",80)
             delay(1000)
             vb.textkProgress1.setProgressText("100%",100)
+            vb.textkProgress1.setProgressState(TextKProgress.PROGRESS_STATE_FINISH)
         }
     }
 

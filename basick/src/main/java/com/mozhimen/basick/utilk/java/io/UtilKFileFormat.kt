@@ -112,7 +112,7 @@ object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
     fun file2bytes2(file: File): ByteArray? =
         if (!UtilKFile.isFileExist(file)) null
-        else FileInputStream(file).inputStream2bytes(file.length())
+        else FileInputStream(file).inputStream2bytesCheck(file.length())
 
     @JvmStatic
     fun file2bytes3(file: File): ByteArray? =

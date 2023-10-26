@@ -25,23 +25,23 @@ abstract class BasePagingKKeyedDataSource<RES, DES>(
         _coroutineScope.launch(Dispatchers.IO) {
             //回调接口
             _pagingKDataSourceLoadListener.onFirstLoadStart()
-            val loadInitial = onLoadInitial()
+            val pagingKRep = onLoadInitial()
 
-            if (loadInitial.isSuccessful()) {
-                val data = loadInitial.data
-                if (data != null) {
-                    val records = data.records
+            if (pagingKRep.isSuccessful()) {
+                val pagingKData = pagingKRep.data
+                if (pagingKData != null) {
+                    val records = pagingKData.records
                     if (!records.isNullOrEmpty()) {
-                        var pages = data.pages
+                        var pages = pagingKData.pages
                         if (pages <= 0) {
-                            val total = data.total
+                            val total = pagingKData.total
                             //total 总条数 用总条数/每页数量=总页数
                             pages = total / _pagingKConfig.loadPageSize
                             if (total % _pagingKConfig.loadPageSize > 0) {
                                 pages += 1
                             }
                         }
-                        val adjacentPageKey = if (data.current >= pages) null else data.current + 1
+                        val adjacentPageKey = if (pagingKData.current >= pages) null else pagingKData.current + 1
                         val dataAggregation = onDataAggregation(records)
                         val haveMore = null != adjacentPageKey
                         onAddOtherData(true, haveMore, dataAggregation)
@@ -50,10 +50,8 @@ abstract class BasePagingKKeyedDataSource<RES, DES>(
                             dataAggregation.add(0, it)
                         }
                         //添加底部
-                        if (null == adjacentPageKey) {
-                            getFooter()?.let {
-                                dataAggregation.add(it)
-                            }
+                        if (adjacentPageKey == null && getFooter() != null) {
+                            dataAggregation.add(getFooter()!!)
                         }
                         _pagingKDataSourceLoadListener.onFirstLoadCompleted(false)
                         callback.onResult(dataAggregation, null, adjacentPageKey)
@@ -84,24 +82,20 @@ abstract class BasePagingKKeyedDataSource<RES, DES>(
         _coroutineScope.launch(Dispatchers.IO) {
             val loadInitial = onLoadAfter(params.key)
             if (loadInitial.isSuccessful()) {
-                val data = loadInitial.data
-                if (data != null) {
-                    val records = data.records
+                val pagingKData = loadInitial.data
+                if (pagingKData != null) {
+                    val records = pagingKData.records
                     if (!records.isNullOrEmpty()) {
-                        var pages = data.pages
+                        var pages = pagingKData.pages
                         if (pages <= 0) {
-                            val total = data.total
+                            val total = pagingKData.total
                             //total 总条数 用总条数/每页数量=总页数
                             pages = total / _pagingKConfig.loadPageSize
                             if (total % _pagingKConfig.loadPageSize > 0) {
                                 pages += 1
                             }
                         }
-                        val adjacentPageKey = if (data.current >= pages) {
-                            null
-                        } else {
-                            data.current + 1
-                        }
+                        val adjacentPageKey = if (pagingKData.current >= pages) null else pagingKData.current + 1
                         val dataAggregation = onDataAggregation(records)
                         val haveMore = null != adjacentPageKey
                         onAddOtherData(false, haveMore, dataAggregation)

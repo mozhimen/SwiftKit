@@ -17,7 +17,6 @@ import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex
 import com.mozhimen.basick.utilk.kotlin.createFile
 import com.mozhimen.basick.utilk.kotlin.normalize
-import com.mozhimen.basick.utilk.kotlin.text.replaceRegexLineBreak
 import java.io.BufferedInputStream
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
@@ -46,11 +45,11 @@ fun InputStream.inputStream2bufferedInputStream(): BufferedInputStream =
 fun InputStream.inputStream2bytes(): ByteArray =
     UtilKInputStreamFormat.inputStream2bytes(this)
 
-fun InputStream.inputStream2bytes2(): ByteArray =
-    UtilKInputStreamFormat.inputStream2bytes2(this)
+fun InputStream.inputStream2bytesCheck(): ByteArray =
+    UtilKInputStreamFormat.inputStream2bytesCheck(this)
 
-fun InputStream.inputStream2bytes(fileLength: Long): ByteArray =
-    UtilKInputStreamFormat.inputStream2bytes(this, fileLength)
+fun InputStream.inputStream2bytesCheck(fileLength: Long): ByteArray =
+    UtilKInputStreamFormat.inputStream2bytesCheck(this, fileLength)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -60,7 +59,7 @@ fun InputStream.inputStream2strMd5(): String =
 fun InputStream.inputStream2strMd52(): String =
     UtilKInputStreamFormat.inputStream2strMd52(this)
 
-fun InputStream.inputStream2str(): String? =
+fun InputStream.inputStream2str(): String =
     UtilKInputStreamFormat.inputStream2str(this)
 
 fun InputStream.inputStream2str(byteArrayOutputStream: ByteArrayOutputStream): String? =
@@ -136,25 +135,27 @@ object UtilKInputStreamFormat : IUtilK {
         return bytes
     }
 
+    /**
+     * 和方法一一样(增加完整性校验)
+     */
     @JvmStatic
-    fun inputStream2bytes2(inputStream: InputStream): ByteArray {
+    fun inputStream2bytesCheck(inputStream: InputStream): ByteArray {
         val size = inputStream.available()
         val bytes = ByteArray(size)
-        try {
+        inputStream.use {
             val readSize = inputStream.read(bytes)
             if (readSize.toLong() < size) throw IOException(String.format("File length is [{}] but read [{}]!", *arrayOf<Any>(size, readSize)))
-        } catch (e: Exception) {
-            throw Exception(e)
-        } finally {
-            inputStream.close()
         }
         return bytes
     }
 
+    /**
+     * 和方法二一样(增加完整性校验)
+     */
     @JvmStatic
-    fun inputStream2bytes(inputStream: InputStream, fileLength: Long): ByteArray {
+    fun inputStream2bytesCheck(inputStream: InputStream, fileLength: Long): ByteArray {
+        val bytes = ByteArray(fileLength.toInt())
         inputStream.use {
-            val bytes = ByteArray(fileLength.toInt())
             var offset = 0
             var readCount = 0
             while (offset < bytes.size && inputStream.read(bytes, offset, bytes.size - offset).also { readCount = it } != -1)
@@ -189,48 +190,40 @@ object UtilKInputStreamFormat : IUtilK {
         return BigInteger(1, messageDigest.digest()).toString(16)
     }
 
+    /**
+     * 针对字符串文本
+     */
     @JvmStatic
-    fun inputStream2str(inputStream: InputStream): String? {
-        val inputStringBuilder = StringBuilder()
+    fun inputStream2str(inputStream: InputStream): String {
+        val stringBuilder = StringBuilder()
         var inputStreamReader: InputStreamReader? = null
-        var inputBufferedReader: BufferedReader? = null
+        var bufferedReader: BufferedReader? = null
         try {
             inputStreamReader = InputStreamReader(inputStream, CCharsets.UTF_8)
-            inputBufferedReader = BufferedReader(inputStreamReader)
-
-            var strLineInput = ""
-            while (inputBufferedReader.readLine()?.also { strLineInput = it } != null)
-                inputStringBuilder.append(strLineInput).append("\n")
-            return inputStringBuilder.deleteCharAt(inputStringBuilder.length - 1).toString().replaceRegexLineBreak()
+            bufferedReader = BufferedReader(inputStreamReader)
+            var line = ""
+            while (bufferedReader.readLine()?.also { line = it } != null)
+                stringBuilder.append(line)
+            return stringBuilder.toString()
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKFile.TAG)
         } finally {
-            inputBufferedReader?.close()
+            bufferedReader?.close()
             inputStreamReader?.close()
             inputStream.close()
         }
-        return null
+        return ""
     }
 
     @JvmStatic
-    fun inputStream2str(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream): String? {
-        try {
-            inputStream.inputStream2outputStream(byteArrayOutputStream)
-            return byteArrayOutputStream.byteArrayOutputStream2str().replaceRegexLineBreak()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(UtilKInputStream.TAG)
-        } finally {
-            inputStream.close()
-            byteArrayOutputStream.flushClose()
-        }
-        return null
-    }
-
-    @JvmStatic
-    fun inputStream2str2(inputStream: InputStream): String? =
+    fun inputStream2str2(inputStream: InputStream): String =
         inputStream2str(inputStream, ByteArrayOutputStream())
+
+    @JvmStatic
+    fun inputStream2str(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream): String {
+        inputStream.inputStream2outputStream(byteArrayOutputStream)
+        return byteArrayOutputStream.byteArrayOutputStream2str()
+    }
 
     @JvmStatic
     fun inputStream2str3(inputStream: InputStream): String? {
@@ -240,7 +233,7 @@ object UtilKInputStreamFormat : IUtilK {
             val bytes = ByteArray(1024)
             while (inputStream.read(bytes).also { readCount = it } != -1)
                 inputStringBuilder.append(bytes.bytes2str(0, readCount))
-            return inputStringBuilder.toString().replaceRegexLineBreak()
+            return inputStringBuilder.toString()
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(UtilKInputStream.TAG)

@@ -26,10 +26,6 @@ fun OutputStream.outputStream2bufferedOutputStream(): BufferedOutputStream =
 fun OutputStream.outputStream2zipOutputStream(): ZipOutputStream =
     UtilKOutputStream.outputStream2zipOutputStream(this)
 
-fun OutputStream.flushClose() {
-    UtilKOutputStream.flushClose(this)
-}
-
 object UtilKOutputStream : IUtilK {
     @JvmStatic
     fun outputStream2bufferedOutputStream(outputStream: OutputStream): BufferedOutputStream =
@@ -38,14 +34,4 @@ object UtilKOutputStream : IUtilK {
     @JvmStatic
     fun outputStream2zipOutputStream(outputStream: OutputStream): ZipOutputStream =
         ZipOutputStream(outputStream)
-
-    ////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun flushClose(outputStream: OutputStream) {
-        outputStream.apply {
-            flush()
-            close()
-        }
-    }
 }

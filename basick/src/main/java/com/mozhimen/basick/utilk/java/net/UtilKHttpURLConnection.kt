@@ -19,26 +19,29 @@ import java.net.URL
  */
 object UtilKHttpURLConnection {
     @JvmStatic
-    fun httpGet(url: String?, headers: Map<String?, String?>?, params: Map<String?, String?>?): String? {
+    fun httpGet(url: String, headers: Map<String, String>?): String {
         var result = ""
         var httpURLConnection: HttpURLConnection? = null
         var inputStream: InputStream? = null
         var bufferedReader: BufferedReader? = null
         var inputStreamReader: InputStreamReader? = null
         try {
-            val httpUrl = URL(url)
-            httpURLConnection = httpUrl.openConnection() as HttpURLConnection
+            val uRL = URL(url)
+            httpURLConnection = uRL.openConnection() as HttpURLConnection
             httpURLConnection.requestMethod = "GET"
-            params?.forEach { (key, value) ->
-                httpURLConnection.setRequestProperty(key, value)
-            }
             httpURLConnection.connectTimeout = 1000 // 设置超时时间
             httpURLConnection.readTimeout = 1000
-            httpURLConnection.connect()
+
+            headers?.forEach { (key, value) ->//配置参数
+                httpURLConnection.setRequestProperty(key, value)
+            }
+            httpURLConnection.connect()//链接
+
             inputStream = if (httpURLConnection.responseCode == 200) httpURLConnection.inputStream else httpURLConnection.errorStream
+
             inputStreamReader = InputStreamReader(inputStream)
             bufferedReader = BufferedReader(inputStreamReader)
-            val stringBuilder = java.lang.StringBuilder()
+            val stringBuilder = StringBuilder()
             var line: String?
             while (bufferedReader.readLine().also { line = it } != null) {
                 stringBuilder.append(line)
@@ -103,7 +106,7 @@ object UtilKHttpURLConnection {
             inputStreamReader = InputStreamReader(inputStream)
             bufferedReader = BufferedReader(inputStreamReader)
             val stringBuilder = StringBuilder()
-            var line: String
+            var line: String?
             while (bufferedReader.readLine().also { line = it } != null) {
                 stringBuilder.append(line)
             }

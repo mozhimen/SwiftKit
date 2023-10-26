@@ -47,13 +47,34 @@
 
         <com.mozhimen.uicorek.textk.progress.TextKProgress
             android:id="@+id/textk_progress"
-            android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/dp_040"
+            android:layout_marginBottom="10dp"
+            app:textKProgress_backgroundColor="@color/ui_blue_100"
+            app:textKProgress_backgroundColorEnd="@color/white"
+            app:textKProgress_backgroundColorStart="@color/ui_blue_100"
+            app:textKProgress_borderColor="@color/ui_blue_100"
+            app:textKProgress_borderWidth="2dp"
+            app:textKProgress_progressStyle="rect"
+            app:textKProgress_textColorCover="@color/white"
+            app:textKProgress_textColorDefault="@color/ui_blue_050"
+            app:textKProgress_textColorUnCover="@color/ui_blue_100" />
 
         <com.mozhimen.uicorek.textk.progress.TextKProgress
             android:id="@+id/textk_progress1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="@dimen/dp_040"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_20"
+            app:textKProgress_backgroundColor="@color/ui_blue_100"
+            app:textKProgress_backgroundColorEnd="@color/white"
+            app:textKProgress_backgroundColorStart="@color/ui_blue_100"
+            app:textKProgress_borderColor="@color/ui_blue_100"
+            app:textKProgress_borderRadius="10dp"
+            app:textKProgress_borderWidth="2dp"
+            app:textKProgress_progressStyle="round"
+            app:textKProgress_textColorCover="@color/white"
+            app:textKProgress_textColorDefault="@color/ui_blue_050"
+            app:textKProgress_textColorUnCover="@color/ui_blue_100" />
     </LinearLayout>
 </layout>

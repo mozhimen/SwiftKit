@@ -131,7 +131,6 @@ object UtilKStatFs : BaseUtilK() {
 
     @JvmStatic
     fun isEnoughOfFileSize(fileSize: Long): Boolean {
-        val availableMemorySize = getAvailableExternalStorageMemorySize()
-        return availableMemorySize >= fileSize
+        return getAvailableExternalStorageMemorySize() >= fileSize
     }
 }
