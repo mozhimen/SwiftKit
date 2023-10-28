@@ -23,11 +23,6 @@ import kotlinx.coroutines.CoroutineScope
  * @Version 1.0
  */
 abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: PagingKConfig = PagingKConfig()) : BaseViewModel(), IPagingKDataSource<RES, DES> {
-    val liveLoadState = MutableLiveData<Int>()
-    val livePagedList: LiveData<PagedList<DES>> = generateLivePagedList()
-
-    ////////////////////////////////////////////////////////////////////////////////////
-
     private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener = object : IPagingKDataSourceLoadListener {
         override fun onFirstLoadStart() {
             liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_START)
@@ -40,6 +35,11 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
                 liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_COMPLETED)
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    val liveLoadState = MutableLiveData<Int>()
+    open val livePagedList: LiveData<PagedList<DES>> = generateLivePagedList()
 
     ////////////////////////////////////////////////////////////////////////////////////
 
@@ -88,7 +88,11 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
     ////////////////////////////////////////////////////////////////////////////////////
 
     open fun onInvalidate() {
-        livePagedList.value?.dataSource?.invalidate()
+        livePagedList.value?.let {
+            it.dataSource?.let {
+                it.invalidate()
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////

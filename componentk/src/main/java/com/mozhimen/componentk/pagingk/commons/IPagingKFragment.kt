@@ -19,7 +19,7 @@ interface IPagingKFragment<DES, VM : BasePagingKViewModel<*, DES>> {
     fun getViewModel(): VM
     fun getPagedListAdapter(): PagedListAdapter<DES, *>
     fun getSwipeRefreshLayout(): SwipeRefreshLayout
-    fun getSwipeRefreshLayoutColorScheme(): Int = Color.BLACK
+    fun getSwipeRefreshLayoutColorScheme(): Int = 0
     fun getRecyclerView(): RecyclerView
     fun getRecyclerViewLayoutManager(): LayoutManager
     fun onLoadStart()

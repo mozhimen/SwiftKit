@@ -5,6 +5,8 @@ import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
+import androidx.paging.PagedListAdapter
+import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
 import com.mozhimen.basick.utilk.android.view.applyGone
 import com.mozhimen.basick.utilk.android.view.applyInVisible
@@ -18,7 +20,7 @@ import com.mozhimen.componentk.pagingk.cons.CPagingKLoadingState
  * @Date 2023/10/16 15:05
  * @Version 1.0
  */
-abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagingKViewModel<*, DES>> : BaseFragmentVB<VB>(), IPagingKFragment<DES, VM> {
+abstract class BasePagingKActivityVBVM<DES, VB : ViewDataBinding, VM : BasePagingKViewModel<*, DES>> : BaseActivityVB<VB>(), IPagingKFragment<DES, VM> {
 
 //    protected val _vm_: VM by lazy { getViewModel() }
 //
@@ -26,7 +28,7 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
 
     protected val _pagedListObserver_: Observer<PagedList<DES>> by lazy {
         Observer<PagedList<DES>> { pagedList ->
-            Log.d(TAG, "_pagedListObserver_: $pagedList")
+            Log.d(TAG, "_pagedListObserver_: pagedList $pagedList")
             getPagedListAdapter().submitList(pagedList)
         }
     }
@@ -37,9 +39,8 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
     override fun initLayout() {
         super.initLayout()
         getSwipeRefreshLayout().apply {
-            if (getSwipeRefreshLayoutColorScheme() != 0) {
+            if (getSwipeRefreshLayoutColorScheme() != 0)
                 setColorSchemeResources(getSwipeRefreshLayoutColorScheme())
-            }
             setOnRefreshListener { getViewModel().onInvalidate() }
         }
         getRecyclerView().apply {

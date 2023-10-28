@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.java.lang
 
+import android.util.Log
 import com.mozhimen.basick.elemk.java.lang.bases.BaseGeneric
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.kotlin.printlog
@@ -57,11 +58,12 @@ object UtilKReflectGenericKotlin : IUtilK {
         }
         genericSuperclass.actualTypeArguments.filterIsInstance<Class<*>>()
             .run {
-                this.printlog()//for debug
                 if (this.isNotEmpty()) {
                     for (clz in this) {
-                        if (tClazz.isAssignableFrom(clz))
+                        if (tClazz.isAssignableFrom(clz)){
+                            Log.d(TAG, "getParentGenericTypeByT: clz $clz")
                             return clz
+                        }
                     }
                 }
                 if (superClazz != null)
