@@ -5,9 +5,6 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.java.lang.UtilKReflectGenericKotlin
-import com.mozhimen.basick.utilk.kotlin.printlog
-import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
 import kotlin.Exception
 
 /**

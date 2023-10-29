@@ -3,10 +3,10 @@ package com.mozhimen.componentk.pagingk.bases
 import android.util.Log
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
+import androidx.paging.PagedList
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
 import com.mozhimen.basick.utilk.android.view.applyGone
-import com.mozhimen.basick.utilk.android.view.applyInVisible
 import com.mozhimen.basick.utilk.android.view.applyVisible
 import com.mozhimen.componentk.pagingk.commons.IPagingKActivity
 import com.mozhimen.componentk.pagingk.cons.CPagingKLoadingState
@@ -19,13 +19,26 @@ import com.mozhimen.componentk.pagingk.cons.CPagingKLoadingState
  * @Version 1.0
  */
 abstract class BasePagingKActivityVBVM<DES, VB : ViewDataBinding, VM : BasePagingKViewModel<*, DES>> : BaseActivityVB<VB>(), IPagingKActivity<DES, VM> {
+
+//    protected val _vm_: VM by lazy { getViewModel() }
+//
+//    protected val _pagedListAdapter_: PagedListAdapter<DES, *> by lazy { getPagedListAdapter() }
+
+    private val _pagedListObserver: Observer<PagedList<DES>> by lazy {
+        Observer<PagedList<DES>> { pagedList ->
+            Log.d(TAG, "_pagedListObserver_: pagedList $pagedList")
+            getPagedListAdapter().submitList(pagedList)
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+
     @CallSuper
     override fun initLayout() {
         super.initLayout()
         getSwipeRefreshLayout().apply {
-            if(getSwipeRefreshLayoutColorScheme()!=0){
+            if (getSwipeRefreshLayoutColorScheme() != 0)
                 setColorSchemeResources(getSwipeRefreshLayoutColorScheme())
-            }
             setOnRefreshListener { getViewModel().onInvalidate() }
         }
         getRecyclerView().apply {
@@ -50,9 +63,6 @@ abstract class BasePagingKActivityVBVM<DES, VB : ViewDataBinding, VM : BasePagin
 
     override fun onResume() {
         super.onResume()
-        getViewModel().livePagedList.observe(this) { pagedList ->
-            Log.d(TAG, "onResume: pagedList $pagedList")
-            getPagedListAdapter().submitList(pagedList)
-        }
+        getViewModel().livePagedList.observe(this, _pagedListObserver)
     }
 }

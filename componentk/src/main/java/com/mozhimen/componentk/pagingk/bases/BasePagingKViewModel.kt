@@ -26,8 +26,8 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
     private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener
     ////////////////////////////////////////////////////////////////////////////////////
 
-    val liveLoadState = MutableLiveData<Int>()
     val livePagedList: LiveData<PagedList<DES>>
+    val liveLoadState = MutableLiveData<Int>()
 
     ////////////////////////////////////////////////////////////////////////////////////
 
@@ -94,27 +94,27 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
     ////////////////////////////////////////////////////////////////////////////////////
 
     open fun onInvalidate() {
-        livePagedList.value?.dataSource?.invalidate()
+        livePagedList.value?.let {
+            it.dataSource?.let {
+                it.invalidate()
+            }
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 初次加载
-     *
      * @param firstPage 第一页
      * @param pageSize 每页数量
-     *
      * @return 请求的数量
      */
     abstract suspend fun onLoadInitial(firstPage: Int, pageSize: Int): BasePagingKRep<RES>
 
     /**
      * 加载下一页
-     *
      * @param adjacentPageKey 当前页数
      * @param pageSize 每页数量
-     *
      * @return 请求的数量
      */
     abstract suspend fun onLoadAfter(adjacentPageKey: Int, pageSize: Int): BasePagingKRep<RES>
