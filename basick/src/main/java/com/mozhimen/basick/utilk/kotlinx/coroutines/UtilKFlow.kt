@@ -16,28 +16,28 @@ import kotlinx.coroutines.flow.flow
  * @Date 2023/7/4 17:29
  * @Version 1.0
  */
-fun View.createViewClickFlow(): Flow<Unit> =
-    UtilKFlow.createViewClickFlow(this)
+fun View.getViewClickFlow(): Flow<Unit> =
+    UtilKFlow.getViewClickFlow(this)
 
-fun EditText.createEditTextChangeFlow(): Flow<CharSequence> =
-    UtilKFlow.createEditTextChangeFlow(this)
+fun EditText.getEditTextChangeFlow(): Flow<CharSequence> =
+    UtilKFlow.getEditTextChangeFlow(this)
 
 fun <T> Flow<T>.throttleFirst(thresholdMillis: Long): Flow<T> =
     UtilKFlow.throttleFirst(this, thresholdMillis)
 
 object UtilKFlow {
     @JvmStatic
-    fun createSearchFlow(str: String, scope: CoroutineScope, block: suspend CoroutineScope.(String) -> List<String>) =
+    fun getSearchFlow(str: String, scope: CoroutineScope, block: suspend CoroutineScope.(String) -> List<String>) =
         flow { emit(scope.block(str)) }
 
     @JvmStatic
-    fun createViewClickFlow(view: View): Flow<Unit> = callbackFlow {
+    fun getViewClickFlow(view: View): Flow<Unit> = callbackFlow {
         view.setOnClickListener { this.trySend(Unit).isSuccess }
         awaitClose { view.setOnClickListener(null) }
     }
 
     @JvmStatic
-    fun createEditTextChangeFlow(editText: EditText): Flow<CharSequence> = callbackFlow {
+    fun getEditTextChangeFlow(editText: EditText): Flow<CharSequence> = callbackFlow {
         val textWatcher = object : ITextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {// 在文本变化后向流发射数据
                 s?.let { this@callbackFlow.trySend(it).isSuccess }

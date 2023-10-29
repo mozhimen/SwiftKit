@@ -34,8 +34,6 @@ object UtilKConnectivityManager {
 
     /**
      * 获取可获得的网络信息
-     * @param context Context
-     * @return NetworkInfo?
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -44,8 +42,6 @@ object UtilKConnectivityManager {
 
     /**
      * 获取所有网络信息
-     * @param context Context
-     * @return Array<NetworkInfo>
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)

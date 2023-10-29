@@ -66,6 +66,20 @@ object UtilKWindow : BaseUtilK() {
     fun getAttributesFlags(window: Window): Int =
         getAttributes(window).flags
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun isFlagStatusBarTranslucent(activity: Activity): Boolean =
+        getAttributesFlags(activity) and CWinMgr.Lpf.TRANSLUCENT_STATUS != 0
+
+    @JvmStatic
+    fun isFlagFullScreen(activity: Activity): Boolean =
+        getAttributesFlags(activity) and CWinMgr.Lpf.FULLSCREEN != 0
+
+    @JvmStatic
+    fun isFullScreen(activity: Activity): Boolean =
+        isFlagFullScreen(activity) || !UtilKNavigationBar.isVisible(activity) || !UtilKStatusBar.isVisible(activity)
+
     //////////////////////////////////////////////////////////////////
 
     @JvmStatic
@@ -94,13 +108,13 @@ object UtilKWindow : BaseUtilK() {
     }
 
     @JvmStatic
-    fun applyStatusBarColor(activity: Activity, @ColorInt colorInt: Int) {
-        get(activity).statusBarColor = colorInt
+    fun applyStatusBarColor(activity: Activity, @ColorInt intColor: Int) {
+        get(activity).statusBarColor = intColor
     }
 
     @JvmStatic
-    fun applyNavigationBarColor(activity: Activity, @ColorInt colorInt: Int) {
-        get(activity).navigationBarColor = colorInt
+    fun applyNavigationBarColor(activity: Activity, @ColorInt intColor: Int) {
+        get(activity).navigationBarColor = intColor
     }
 
     @JvmStatic
@@ -112,19 +126,5 @@ object UtilKWindow : BaseUtilK() {
     fun addFlags(activity: Activity, flags: Int) {
         get(activity).addFlags(flags)
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun isFlagStatusBarTranslucent(activity: Activity): Boolean =
-        getAttributesFlags(activity) and CWinMgr.Lpf.TRANSLUCENT_STATUS != 0
-
-    @JvmStatic
-    fun isFlagFullScreen(activity: Activity): Boolean =
-        getAttributesFlags(activity) and CWinMgr.Lpf.FULLSCREEN != 0
-
-    @JvmStatic
-    fun isFullScreen(activity: Activity): Boolean =
-        isFlagFullScreen(activity) || !UtilKNavigationBar.isVisible(activity) || !UtilKStatusBar.isVisible(activity)
 }
 

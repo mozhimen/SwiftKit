@@ -12,20 +12,6 @@ import kotlin.math.min
  * @Date 2022/5/31 17:33
  * @Version 1.0
  */
-fun Double.keepDigits(digit: Int): Double =
-    UtilKNumber.keepDigits(this, digit)
-
-fun Float.keepDigits(digit: Int): Float =
-    UtilKNumber.keepDigits(this, digit)
-
-fun Double.keepDigitsStr(digit: Int): String =
-    UtilKNumber.keepDigitsStr(this, digit)
-
-fun Float.keepDigitsStr(digit: Int): String =
-    UtilKNumber.keepDigitsStr(this, digit)
-
-/////////////////////////////////////////////////////
-
 fun Double.normalize(min: Double, max: Double): Double =
     UtilKNumber.normalize(this, min, max)
 
@@ -86,27 +72,6 @@ object UtilKNumber {
     @JvmStatic
     fun complementBy0(number: Number, decimal: Int): String =
         String.format("%0${decimal}d", number)
-
-    ////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun keepDigits(value: Double, @androidx.annotation.IntRange(from = 1) digit: Int): Double =
-        keepDigitsStr(value, digit).toDouble()
-
-    @JvmStatic
-    fun keepDigits(value: Float, @androidx.annotation.IntRange(from = 1) digit: Int): Float =
-        keepDigitsStr(value, digit).toFloat()
-
-    @JvmStatic
-    fun keepDigitsStr(value: Any, @androidx.annotation.IntRange(from = 1) digit: Int): String {
-        val stringBuilder = StringBuilder("#.")
-        repeat(digit) {
-            stringBuilder.append("#")
-        }
-        val format = DecimalFormat(stringBuilder.toString())
-        format.roundingMode = RoundingMode.HALF_UP
-        return format.format(value)
-    }
 
     ////////////////////////////////////////////////////////////
 

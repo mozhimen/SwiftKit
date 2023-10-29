@@ -49,11 +49,7 @@ fun String.println(level: Int, tag: String) {
     UtilKLog.println(level, tag, this)
 }
 
-
-
 object UtilKLog : BaseUtilK() {
-
-
 
     @JvmStatic
     fun v(msg: String) {

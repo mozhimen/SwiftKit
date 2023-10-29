@@ -35,7 +35,6 @@ object UtilKNetConn : BaseUtilK() {
 
     /**
      * 获取Wifi强度
-     * @return Int
      */
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_WIFI_STATE, CPermission.ACCESS_FINE_LOCATION])
@@ -43,20 +42,11 @@ object UtilKNetConn : BaseUtilK() {
         UtilKWifiInfo.getRssiAbs(_context) ?: 0
 
     /**
-     * 获取NetworkInfo
-     * @return NetworkInfo?
-     */
-    @JvmStatic
-    @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
-    fun getActiveNetworkInfo(): NetworkInfo? =
-        UtilKConnectivityManager.getActiveNetworkInfo(_context)
-
-    /**
      * 获取网路IP
      */
     @JvmStatic
-    fun getStrIp(): String? =
-        UtilKNetworkInterface.getStrIp()
+    fun getStrIP(): String? =
+        UtilKNetworkInterface.getStrIP()
 
     @JvmStatic
     fun getNetType(): ENetType {
@@ -85,7 +75,6 @@ object UtilKNetConn : BaseUtilK() {
 
     /**
      * 获取连接类型
-     * @return Int
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -96,7 +85,6 @@ object UtilKNetConn : BaseUtilK() {
 
     /**
      * 网络是否连接
-     * @return Boolean
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -109,7 +97,6 @@ object UtilKNetConn : BaseUtilK() {
 
     /**
      * 是否连接网络,需要权限:ACCESS_NETWORK_STATE
-     * @return Boolean
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -118,7 +105,6 @@ object UtilKNetConn : BaseUtilK() {
 
     /**
      * 是否连接无线网
-     * @return Boolean
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)
@@ -127,7 +113,6 @@ object UtilKNetConn : BaseUtilK() {
 
     /**
      * 是否连接移动网络
-     * @return Boolean
      */
     @JvmStatic
     @RequiresPermission(CPermission.ACCESS_NETWORK_STATE)

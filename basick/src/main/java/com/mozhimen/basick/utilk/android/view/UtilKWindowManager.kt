@@ -90,6 +90,4 @@ object UtilKWindowManager {
     @JvmStatic
     fun getSizeX(context: Context): Int =
         getSize(context).x
-
-    ///////////////////////////////////////////////////////////////////
 }

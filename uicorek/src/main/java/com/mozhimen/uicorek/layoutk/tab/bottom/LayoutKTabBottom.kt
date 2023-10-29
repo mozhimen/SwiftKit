@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.android.graphics.UtilKColor
 import com.mozhimen.basick.utilk.android.util.dp2px
 import com.mozhimen.basick.utilk.android.view.UtilKScreen.getRealWidth
-import com.mozhimen.basick.utilk.android.view.UtilKView.findTypeChildView
+import com.mozhimen.basick.utilk.android.view.UtilKViewGroup.findTypeChildView
 import com.mozhimen.basick.utilk.kotlin.UtilKAnyFormat
 import com.mozhimen.basick.utilk.kotlin.obj2intColor
 import com.mozhimen.uicorek.R

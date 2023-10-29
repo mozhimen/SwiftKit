@@ -7,10 +7,8 @@ import android.text.TextUtils
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
-import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.os.UtilKSystemProperties
@@ -32,8 +30,6 @@ object UtilKImei : IUtilK {
     /**
      * 获取默认的imei  一般都是IMEI 1
      * //优先获取IMEI(即使是电信卡)  不行的话就获取MEID
-     * @param context
-     * @return
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
@@ -43,9 +39,6 @@ object UtilKImei : IUtilK {
 
     /**
      * 获取imei2
-     *
-     * @param context
-     * @return
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
@@ -76,7 +69,6 @@ object UtilKImei : IUtilK {
      * 获取 Imei/Meid    优先获取IMEI(即使是电信卡)  不行的话就获取MEID
      * 如果装有CDMA制式的SIM卡(电信卡) ，在Android 8 以下 只能获取MEID ,无法获取到该卡槽的IMEI
      * 8及以上可以通过 #imei 方法获取IMEI  通过 #deviceId 方法获取的是MEID
-     * @param context
      * @param slotId  slotId为卡槽Id，它的值为 0、1；
      * @return
      */
@@ -86,14 +78,14 @@ object UtilKImei : IUtilK {
     fun getImeiOrMeid(context: Context, slotId: Int): String {
         var imei = ""
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!UtilKPermission.checkPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.hasPermission(CPermission.READ_PHONE_STATE))
             return imei
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
             imei = if (UtilKBuildVersion.isAfterV_26_8_O())
                 telephonyManager.javaClass.getMethod("getImei", Int::class.javaPrimitiveType).invoke(telephonyManager, slotId) as String// android 8 即以后建议用getImei 方法获取 不会获取到MEID
             else if (UtilKBuildVersion.isAfterV_21_5_L())
-                UtilKSystemProperties.get2(CStrPackage.RIL_GSM_IMEI)//5.0的系统如果想获取MEID/IMEI1/IMEI2  ----framework层提供了两个属性值“ril.cdma.meid"和“ril.gsm.imei"获取
+                UtilKSystemProperties.getStr2(CStrPackage.RIL_GSM_IMEI)//5.0的系统如果想获取MEID/IMEI1/IMEI2  ----framework层提供了两个属性值“ril.cdma.meid"和“ril.gsm.imei"获取
             else
                 getDeviceId(context, slotId)//如果获取不到 就调用 getDeviceId 方法获取//5.0以下获取imei/meid只能通过 getDeviceId  方法去取
         } catch (e: Exception) {
@@ -107,9 +99,7 @@ object UtilKImei : IUtilK {
 
     /**
      * 仅获取 Imei  如果获取到的是meid 或空  均返回空字符串
-     *
      * @param slotId slotId为卡槽Id，它的值为 0、1；
-     * @return
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_23_6_M)
@@ -117,7 +107,7 @@ object UtilKImei : IUtilK {
         var imei = ""
 
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!UtilKPermission.checkPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.hasPermission(CPermission.READ_PHONE_STATE))
             return imei
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
@@ -126,7 +116,7 @@ object UtilKImei : IUtilK {
                 imei = methodGetImei.invoke(telephonyManager, slotId) as String
             } else if (UtilKBuildVersion.isAfterV_21_5_L()) {
                 //5.0的系统如果想获取MEID/IMEI1/IMEI2  ----framework层提供了两个属性值“ril.cdma.meid"和“ril.gsm.imei"获取
-                imei = UtilKSystemProperties.get2(CStrPackage.RIL_GSM_IMEI)
+                imei = UtilKSystemProperties.getStr2(CStrPackage.RIL_GSM_IMEI)
                 //如果获取不到 就调用 getDeviceId 方法获取
             } else { //5.0以下获取imei/meid只能通过 getDeviceId  方法去取
             }
@@ -146,8 +136,6 @@ object UtilKImei : IUtilK {
     /**
      * 仅获取 Meid  如果获取到的是imei 或空  均返回空字符串
      * 一般只有一个 meid  即获取到的二个是相同的
-     *
-     * @param context
      * @param slotId  slotId为卡槽Id，它的值为 0、1；
      * @return
      */
@@ -156,7 +144,7 @@ object UtilKImei : IUtilK {
     fun getMeidOnly(context: Context, slotId: Int): String {
         var meid = ""
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!UtilKPermission.checkPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.hasPermission(CPermission.READ_PHONE_STATE))
             return meid
         try {
             val telephonyManager = UtilKTelephonyManager.get(context)
@@ -165,7 +153,7 @@ object UtilKImei : IUtilK {
                 meid = methodGetMeid.invoke(telephonyManager, slotId) as String
             } else if (UtilKBuildVersion.isAfterV_21_5_L()) {
                 //5.0的系统如果想获取MEID/IMEI1/IMEI2  ----framework层提供了两个属性值“ril.cdma.meid"和“ril.gsm.imei"获取
-                meid = UtilKSystemProperties.get2(CStrPackage.RIL_CDMA_MEID/*"ril.cdma.meid"*/)
+                meid = UtilKSystemProperties.getStr2(CStrPackage.RIL_CDMA_MEID/*"ril.cdma.meid"*/)
                 //如果获取不到 就调用 getDeviceId 方法获取
             } else { //5.0以下获取imei/meid只能通过 getDeviceId  方法去取
             }
@@ -184,7 +172,6 @@ object UtilKImei : IUtilK {
 
     /**
      * 获取 IMEI/MEID
-     *
      * @param context 上下文
      * @return 获取到的值 或者 空串""
      */
@@ -193,7 +180,7 @@ object UtilKImei : IUtilK {
     fun getDeviceId(context: Context): String {
         var imei = ""
         //Android 6.0 以后需要获取动态权限  检查权限
-        if (!UtilKPermission.checkPermission(CPermission.READ_PHONE_STATE))
+        if (!UtilKPermission.hasPermission(CPermission.READ_PHONE_STATE))
             return imei
         // 1. 尝试通过系统api获取imei
         imei = getDeviceIdForSystemApi(context)
@@ -204,8 +191,6 @@ object UtilKImei : IUtilK {
 
     /**
      * 获取 IMEI/MEID
-     *
-     * @param context 上下文
      * @param slotId  slotId为卡槽Id，它的值为 0、1；
      * @return 获取到的值 或者 空串""
      */
@@ -222,12 +207,8 @@ object UtilKImei : IUtilK {
 
     /**
      * 调用系统接口获取 IMEI/MEID
-     *
-     *
      * Android 6.0之后如果用户不允许通过 [CPermission.READ_PHONE_STATE] 权限的话，
      * 那么是没办法通过系统api进行获取 IMEI/MEID 的，但是可以通过[.getDeviceIdByReflect] 反射}绕过权限进行获取
-     *
-     * @param context 上下文
      * @return 获取到的值 或者 空串""
      */
     @JvmStatic
@@ -260,12 +241,8 @@ object UtilKImei : IUtilK {
 
     /**
      * 反射获取 IMEI/MEID
-     *
-     *
      * Android 6.0之后如果用户不允许通过 [CPermission.READ_PHONE_STATE] 权限的话，
      * 那么是没办法通过系统api进行获取 IMEI/MEID 的，但是可以通过这个反射来尝试绕过权限进行获取
-     *
-     * @param context 上下文
      * @return 获取到的值 或者 空串""
      */
     @SuppressLint("DiscouragedPrivateApi")
@@ -275,15 +252,17 @@ object UtilKImei : IUtilK {
             val telephonyManager = UtilKTelephonyManager.get(context)
             return if (UtilKBuildVersion.isAfterV_21_5_L()) {
                 val methodGetDefaultSim: Method = TelephonyManager::class.java.getDeclaredMethod("getDefaultSim")
-                val sim: Any? = methodGetDefaultSim.invoke(telephonyManager)
+                methodGetDefaultSim.isAccessible =true
+                val defaultSim: Any? = methodGetDefaultSim.invoke(telephonyManager)
+
                 val methodGetDeviceId: Method = TelephonyManager::class.java.getDeclaredMethod("getDeviceId", Int::class.javaPrimitiveType)
-                methodGetDeviceId.invoke(telephonyManager, sim)?.toString() ?: ""
+                methodGetDeviceId.invoke(telephonyManager, defaultSim)?.toString() ?: ""
             } else {
-                val clazz = "com.android.internal.telephony.IPhoneSubInfo".strPackage2clazz()
                 val methodGetSubscriberInfo: Method = TelephonyManager::class.java.getDeclaredMethod("getSubscriberInfo")
                 methodGetSubscriberInfo.isAccessible = true
                 val subInfo: Any? = methodGetSubscriberInfo.invoke(telephonyManager)
-                val methodGetDeviceId: Method = clazz.getDeclaredMethod("getDeviceId")
+
+                val methodGetDeviceId: Method = "com.android.internal.telephony.IPhoneSubInfo".strPackage2clazz().getDeclaredMethod("getDeviceId")
                 methodGetDeviceId.invoke(subInfo)?.toString() ?: ""
             }
         } catch (e: Exception) {
@@ -295,10 +274,7 @@ object UtilKImei : IUtilK {
 
     /**
      * 反射获取 deviceId
-     *
-     * @param context
      * @param slotId  slotId为卡槽Id，它的值为 0、1；
-     * @return
      */
     @JvmStatic
     fun getDeviceIdByReflect(context: Context, slotId: Int): String {

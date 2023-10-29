@@ -21,8 +21,6 @@ object UtilKPattern {
     /**
      * Hump to underline
      * 驼峰转下划线
-     * @param str
-     * @return
      */
     @JvmStatic
     fun strHump2strUnderline(str: String): String {
@@ -39,8 +37,6 @@ object UtilKPattern {
     /**
      * Underline to hump
      * 下划线转驼峰
-     * @param str
-     * @return
      */
     @JvmStatic
     fun strUnderline2strHump(str: String): String {

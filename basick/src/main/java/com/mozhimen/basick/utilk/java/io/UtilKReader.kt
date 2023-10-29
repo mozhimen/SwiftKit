@@ -9,6 +9,8 @@ import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import java.io.BufferedReader
 import java.io.FileReader
 import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
 
 /**
  * @ClassName UtilKReader
@@ -18,6 +20,51 @@ import java.io.IOException
  * @Version 1.0
  */
 object UtilKReader : BaseUtilK() {
+    @JvmStatic
+    fun getStrForInputStreamSingleLine(inputStream: InputStream, charset:String? = null,readSize :Int= 0):String {
+        var inputStreamReader: InputStreamReader? = null
+        var bufferedReader: BufferedReader? = null
+        try {
+            inputStreamReader = if (charset==null) InputStreamReader(inputStream)
+            else InputStreamReader(inputStream,charset)
+            bufferedReader =if (readSize==0)  BufferedReader(inputStreamReader)
+            else BufferedReader(inputStreamReader,readSize)
+            return bufferedReader.readLine()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            bufferedReader?.close()
+            inputStreamReader?.close()
+            inputStream.close()
+        }
+        return ""
+    }
+
+
+    @JvmStatic
+    fun getStrForInputStreamMultiLine(inputStream: InputStream, charset:String? = null,readSize: Int=0):String {
+        val stringBuilder = StringBuilder()
+        var inputStreamReader: InputStreamReader? = null
+        var bufferedReader: BufferedReader? = null
+        try {
+            inputStreamReader = if (charset==null) InputStreamReader(inputStream)
+            else InputStreamReader(inputStream,charset)
+            bufferedReader = if (readSize==0)  BufferedReader(inputStreamReader)
+            else BufferedReader(inputStreamReader,readSize)
+            var line = ""
+            while (bufferedReader.readLine()?.also { line = it } != null)
+                stringBuilder.append(line)
+            return stringBuilder.toString()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            bufferedReader?.close()
+            inputStreamReader?.close()
+            inputStream.close()
+        }
+        return ""
+    }
+
     @JvmStatic
     fun getCurrentProcessName(): String? {
         var fileReader: FileReader? = null

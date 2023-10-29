@@ -151,7 +151,7 @@ class TextKBubbleDelegate(private val _context: Context) : ITextKBubble, ILayout
         var arrowToView = getArrowTo()
 
         if (arrowToView == null && _arrowToByViewId != 0) {
-            arrowToView = UtilKView.findViewFromParentById(_arrowToByViewId, _textKBubble)
+            arrowToView = UtilKView.findViewForParentById(_textKBubble,_arrowToByViewId)
             setArrowToViewRef(arrowToView)
         }
 

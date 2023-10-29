@@ -1,12 +1,10 @@
 package com.mozhimen.basick.utilk.android.opengl
 
 import android.opengl.GLES20
-import android.opengl.Matrix
 import android.util.Log
 import com.mozhimen.basick.BuildConfig
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.content.UtilKAsset
-import com.mozhimen.basick.utilk.kotlin.UtilKStrAssetFileName
+import com.mozhimen.basick.utilk.kotlin.UtilKStrAsset
 
 /**
  * @ClassName UtilKOpenGL
@@ -15,37 +13,13 @@ import com.mozhimen.basick.utilk.kotlin.UtilKStrAssetFileName
  * @Date 2022/6/16 12:32
  * @Version 1.0
  */
-object UtilKOpenGL : BaseUtilK() {
-
-    @JvmStatic
-    fun getShowMatrix(matrix: FloatArray, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
-        if (imgHeight > 0 && imgWidth > 0 && viewWidth > 0 && viewHeight > 0) {
-            val sWhView = viewWidth.toFloat() / viewHeight
-            val sWhImg = imgWidth.toFloat() / imgHeight
-            val projection = FloatArray(16)
-            val camera = FloatArray(16)
-            if (sWhImg > sWhView) {
-                Matrix.orthoM(projection, 0, -sWhView / sWhImg, sWhView / sWhImg, -1f, 1f, 1f, 3f)
-            } else {
-                Matrix.orthoM(projection, 0, -1f, 1f, -sWhImg / sWhView, sWhImg / sWhView, 1f, 3f)
-            }
-            Matrix.setLookAtM(camera, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
-            Matrix.multiplyMM(matrix, 0, projection, 0, camera, 0)
-        }
-    }
-
-    /////////////////////////////////////////////////////////////
-
+object UtilKGLES20 : BaseUtilK() {
     @JvmStatic
     fun useTexParameterf() {
-        //设置缩小过滤为使用纹理中坐标最接近的一个像素的颜色作为需要绘制的像素颜色
-        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST.toFloat())
-        //设置放大过滤为使用纹理中坐标最接近的若干个颜色，通过加权平均算法得到需要绘制的像素颜色
-        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR.toFloat())
-        //设置环绕方向S，截取纹理坐标到[1/2n,1-1/2n]。将导致永远不会与border融合
-        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE.toFloat())
-        //设置环绕方向T，截取纹理坐标到[1/2n,1-1/2n]。将导致永远不会与border融合
-        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE.toFloat())
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST.toFloat())//设置缩小过滤为使用纹理中坐标最接近的一个像素的颜色作为需要绘制的像素颜色
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR.toFloat())//设置放大过滤为使用纹理中坐标最接近的若干个颜色，通过加权平均算法得到需要绘制的像素颜色
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE.toFloat())//设置环绕方向S，截取纹理坐标到[1/2n,1-1/2n]。将导致永远不会与border融合
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE.toFloat())//设置环绕方向T，截取纹理坐标到[1/2n,1-1/2n]。将导致永远不会与border融合
     }
 
     @JvmStatic
@@ -80,8 +54,8 @@ object UtilKOpenGL : BaseUtilK() {
 
     @JvmStatic
     fun createGlProgramByRes(vert: String, frag: String): Int? {
-        val vertexSource = UtilKStrAssetFileName.strAssetFileName2str3(vert)
-        val fragmentSource = UtilKStrAssetFileName.strAssetFileName2str3(frag)
+        val vertexSource = UtilKStrAsset.strAssetName2str3(vert)
+        val fragmentSource = UtilKStrAsset.strAssetName2str3(frag)
         if (vertexSource != null && fragmentSource != null)
             createGlProgram(vertexSource, fragmentSource)
         return null
@@ -89,9 +63,6 @@ object UtilKOpenGL : BaseUtilK() {
 
     /**
      * 创建GL程序
-     * @param vertexSource String
-     * @param fragmentSource String
-     * @return Int
      */
     @JvmStatic
     fun createGlProgram(vertexSource: String, fragmentSource: String): Int {

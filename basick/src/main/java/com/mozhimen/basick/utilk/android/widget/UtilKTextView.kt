@@ -42,6 +42,10 @@ fun TextView.applyValueIfNotEmpty(str: String?) {
     UtilKTextView.applyValueIfNotEmpty(this, str)
 }
 
+fun TextView.applyTextColorStateList( colors: ColorStateList) {
+    UtilKTextView.applyTextColorStateList(this,colors)
+}
+
 object UtilKTextView {
     @JvmStatic
     fun getValue(textView: TextView): String =

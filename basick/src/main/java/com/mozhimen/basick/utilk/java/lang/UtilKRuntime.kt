@@ -14,7 +14,9 @@ import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.flushClose
-import com.mozhimen.basick.utilk.java.io.inputStream2str
+import com.mozhimen.basick.utilk.java.io.inputStream2strOfReadMultiLines
+import com.mozhimen.basick.utilk.java.io.inputStream2strOfBytesOutStream
+import com.mozhimen.basick.utilk.java.io.inputStream2strOfReadSingleLine
 import com.mozhimen.basick.utilk.kotlin.getStrFolderPath
 import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
@@ -50,7 +52,7 @@ object UtilKRuntime : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun chmod(path: String) {
+    fun chmod777(path: String) {
         try {
             get().exec("chmod 777 ${path.getStrFolderPath()}")
             get().exec("chmod 777 $path")
@@ -63,21 +65,14 @@ object UtilKRuntime : BaseUtilK() {
     fun execGetProp(strPackage: String): String? {
         var process: Process? = null
         var inputStream: InputStream? = null
-        var inputStreamReader: InputStreamReader? = null
-        var inputBufferedReader: BufferedReader? = null
-
         try {
             process = exec("getprop $strPackage")
             inputStream = process.inputStream
-            inputStreamReader = InputStreamReader(inputStream)
-            inputBufferedReader = BufferedReader(inputStreamReader, 1024)
-            return inputBufferedReader.readLine()
+            return inputStream.inputStream2strOfReadSingleLine(readSize = 1024)
         } catch (e: Exception) {
             e.printStackTrace()
             Log.e(TAG, "getProp Unable to read prop strPackage $strPackage msg ${e.message}")
         } finally {
-            inputBufferedReader?.close()
-            inputStreamReader?.close()
             inputStream?.close()
             process?.destroy()
         }
@@ -88,20 +83,17 @@ object UtilKRuntime : BaseUtilK() {
     @Throws(Exception::class)
     @OptInDeviceRoot
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun execSuInstall(apkPathWithName: String): Boolean {
-        require(apkPathWithName.isNotEmpty()) { "$TAG please check apk file path" }
-        val errorStringBuilder = StringBuilder()
+    fun execSuInstall(strPathNameApk: String): Boolean {
+        require(strPathNameApk.isNotEmpty()) { "$TAG please check apk file path" }
 
         var process: Process? = null
         var outputStream: OutputStream? = null
         var errorStream: InputStream? = null
-        var errorStreamReader: InputStreamReader? = null
-        var errorBufferedReader: BufferedReader? = null
         try {
             process = exec("su")
 
             outputStream = process.outputStream
-            outputStream.write("pm install -r $apkPathWithName\n".toByteArray())
+            outputStream.write("pm install -r $strPathNameApk\n".toByteArray())
             outputStream.flush()
             outputStream.write("exit\n".toByteArray())
             outputStream.flush()
@@ -109,20 +101,13 @@ object UtilKRuntime : BaseUtilK() {
             process.waitFor()
 
             errorStream = process.errorStream
-            errorStreamReader = InputStreamReader(errorStream)
-            errorBufferedReader = BufferedReader(errorStreamReader)
-
-            var strLineError: String?
-            while (errorBufferedReader.readLine().also { strLineError = it } != null)
-                errorStringBuilder.append(strLineError)
-            "installRoot msg is $errorStringBuilder".dt(TAG)
-            return !errorStringBuilder.toString().contains("failure", ignoreCase = true)
+            val strError =errorStream.inputStream2strOfReadMultiLines()
+            "execSuInstall msg is $strError".dt(TAG)
+            return !strError.contains("failure", ignoreCase = true)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)
         } finally {
-            errorBufferedReader?.close()
-            errorStreamReader?.close()
             errorStream?.close()
             outputStream?.flushClose()
             process?.destroy()
@@ -132,70 +117,44 @@ object UtilKRuntime : BaseUtilK() {
 
     /**
      * 静默安装适配 SDK28 之前的安装方法
-     * @param apkPathWithName String
-     * @return Boolean
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun execInstallBefore28(apkPathWithName: String): Boolean {
+    fun execInstallBefore28(strPathNameApk: String): Boolean {
         val command: Array<String> =
             if (UtilKBuildVersion.isAfterV_24_7_N())
-                arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
-            else arrayOf("pm", "install", "-r", apkPathWithName)
+                arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", strPathNameApk)
+            else arrayOf("pm", "install", "-r", strPathNameApk)
 
-        val inputStringBuilder = StringBuilder()
-        val errorStringBuilder = StringBuilder()
-
+        var strInput = ""
         var process: Process? = null
         var inputStream: InputStream? = null
-        var errorStream: InputStream? = null
-        var inputStreamReader: InputStreamReader? = null
-        var errorStreamReader: InputStreamReader? = null
-        var inputBufferedReader: BufferedReader? = null
-        var errorBufferedReader: BufferedReader? = null
 
         try {
             process = ProcessBuilder(*command).start()
             inputStream = process.inputStream
-            errorStream = process.errorStream
-            inputStreamReader = InputStreamReader(inputStream)
-            errorStreamReader = InputStreamReader(errorStream)
-            inputBufferedReader = BufferedReader(inputStreamReader)
-            errorBufferedReader = BufferedReader(errorStreamReader)
-
-            var strLine: String?
-            while (inputBufferedReader.readLine().also { strLine = it } != null)
-                inputStringBuilder.append(strLine)
-
-            while (errorBufferedReader.readLine().also { strLine = it } != null)
-                errorStringBuilder.append(strLine)
+            strInput = inputStream.inputStream2strOfReadMultiLines()
         } catch (e: Exception) {
             e.printStackTrace()
             "execInstallBefore28: Exception ${e.message}".et(TAG)
         } finally {
-            errorBufferedReader?.close()
-            inputBufferedReader?.close()
-            errorStreamReader?.close()
-            inputStreamReader?.close()
-            errorStream?.close()
             inputStream?.close()
             process?.destroy()
         }
-        return inputStringBuilder.toString().contains("success", ignoreCase = true)        //如果含有success单词则认为安装成功
+        return strInput.contains("success", ignoreCase = true)        //如果含有success单词则认为安装成功
     }
 
     /**
      * 静默安装
-     * @param apkPathWithName String 绝对路径
-     * @return Boolean
+     * @param strPathNameApk String 绝对路径
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun execInstallBefore282(apkPathWithName: String): Boolean {
+    fun execInstallBefore282(strPathNameApk: String): Boolean {
         val command =
             if (UtilKBuildVersion.isAfterV_24_7_N())
-                arrayOf("pm", "install", "-r", "-i", UtilKPackage.getPackageName(), "--user", "0", apkPathWithName)
-            else arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", apkPathWithName)
+                arrayOf("pm", "install", "-r", "-i", UtilKPackage.getPackageName(), "--user", "0", strPathNameApk)
+            else arrayOf("pm", "install", "-i", UtilKPackage.getPackageName(), "-r", strPathNameApk)
 
         var strInput = ""
         var process: Process? = null
@@ -206,7 +165,7 @@ object UtilKRuntime : BaseUtilK() {
             inputStream = process.inputStream
             byteArrayOutputStream = ByteArrayOutputStream()
             byteArrayOutputStream.write('/'.code)
-            strInput = inputStream.inputStream2str(byteArrayOutputStream) ?: ""
+            strInput = inputStream.inputStream2strOfBytesOutStream(byteArrayOutputStream)
             "installSilence result $strInput".dt(TAG)
         } catch (e: Exception) {
             e.printStackTrace()

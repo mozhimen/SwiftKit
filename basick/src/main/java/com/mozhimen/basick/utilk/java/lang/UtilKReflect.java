@@ -27,10 +27,6 @@ public class UtilKReflect {
 
     /**
      * 仅能获取类本身的属性成员（包括私有、共有、保护）
-     * @param clazz
-     * @param fieldName
-     * @return
-     * @throws NoSuchFieldException
      */
     public static Field getField(Class<?> clazz, String fieldName) throws NoSuchFieldException {
         for (Class<?> tempClazz = clazz; tempClazz != null; tempClazz = tempClazz.getSuperclass()) {

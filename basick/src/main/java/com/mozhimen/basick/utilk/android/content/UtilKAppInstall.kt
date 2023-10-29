@@ -37,12 +37,11 @@ object UtilKAppInstall : BaseUtilK() {
 
     /**
      * 是否有包安装权限
-     * @return Boolean
      */
     @JvmStatic
     @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
     fun hasPackageInstalls(): Boolean =
-        UtilKPermission.hasPackageInstalls().also { "isAppInstallsPermissionEnable: $it".dt(TAG) }
+        UtilKPermission.hasPackageInstalls().also { "hasPackageInstalls: $it".dt(TAG) }
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -57,7 +56,6 @@ object UtilKAppInstall : BaseUtilK() {
 
     /**
      * 打开包安装权限
-     * @param context Context
      */
     @JvmStatic
     fun openSettingAppInstall(context: Context) {
@@ -68,51 +66,46 @@ object UtilKAppInstall : BaseUtilK() {
     @Throws(Exception::class)
     @OptInDeviceRoot
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun installRoot(apkPathWithName: String): Boolean =
-        UtilKRuntime.execSuInstall(apkPathWithName)
+    fun installRoot(strPathNameApk: String): Boolean =
+        UtilKRuntime.execSuInstall(strPathNameApk)
 
     /**
-     * 手动安装
-     * if sdk >= 24 add provider
+     * 手动安装 if sdk >= 24 add provider
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun installHand(apkPathWithName: String) {
-        UtilKLaunchActivity.startInstall(_context, apkPathWithName)
+    fun installHand(strPathNameApk: String) {
+        UtilKLaunchActivity.startInstall(_context, strPathNameApk)
     }
 
     /**
      * 静默安装
-     * @param apkPathWithName String
-     * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun installSilence(apkPathWithName: String, receiver: Class<*>) {
-        if (UtilKBuildVersion.isAfterV_28_9_P()) installSilenceAfter28(apkPathWithName, receiver)
-        else UtilKRuntime.execInstallBefore28(apkPathWithName)
+    fun installSilence(strPathNameApk: String, receiver: Class<*>) {
+        if (UtilKBuildVersion.isAfterV_28_9_P()) installSilenceAfter28(strPathNameApk, receiver)
+        else UtilKRuntime.execInstallBefore28(strPathNameApk)
     }
 
     /**
      * 静默安装 SDK28 之后的
-     * @param apkPathWithName String
-     * @param receiver Class<LoadKReceiverInstall>
      */
     @JvmStatic
     @RequiresApi(CVersCode.V_28_9_P)
     @RequiresPermission(CPermission.INSTALL_PACKAGES)
-    fun installSilenceAfter28(apkPathWithName: String, receiver: Class<*>) {
-        "installSilenceAfter28 pathApk $apkPathWithName".dt(TAG)
-        val apkFile = File(apkPathWithName)
+    fun installSilenceAfter28(strPathNameApk: String, receiver: Class<*>) {
+        "installSilenceAfter28 pathApk $strPathNameApk".dt(TAG)
+        val fileApk = File(strPathNameApk)
         val packageInstaller = UtilKPackageInstaller.get(_context)
         val sessionParams = PackageInstaller.SessionParams(CPackageInstaller.SessionParams.MODE_FULL_INSTALL).apply {
-            setSize(apkFile.length())
+            setSize(fileApk.length())
         }
         val sessionId: Int = UtilKPackageInstaller.createSession(packageInstaller, sessionParams)
         "installSilenceAfter28 sessionId $sessionId".dt(TAG)
 
         if (sessionId != -1) {
-            val isCopySuccess = UtilKPackageInstaller.copyBaseApk(packageInstaller, sessionId, apkPathWithName)
+            val isCopySuccess = UtilKPackageInstaller.copyBaseApk(packageInstaller, sessionId, strPathNameApk)
             "installSilenceAfter28 isCopySuccess $isCopySuccess".dt(TAG)
             if (isCopySuccess)
                 UtilKPackageInstaller.commitSession(packageInstaller, sessionId, receiver)

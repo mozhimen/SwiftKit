@@ -4,7 +4,7 @@ import com.mozhimen.basick.elemk.android.util.annors.ALogPriority
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.basick.utilk.java.lang.UtilKStackTrace
+import com.mozhimen.basick.utilk.java.lang.UtilKStackTraceElement
 import com.mozhimen.basick.utilk.kotlin.getStrPackage
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.LogKMgr
@@ -95,7 +95,7 @@ class LogKProvider : ILogK, IUtilK {
         }
         if (config.getStackTraceDepth() > 0 || (config.getStackTraceDepth() <= 0 && priority >= CLogPriority.E)) {
             val stackTrace: String? = _logKFormatterStackTraces.format(
-                UtilKStackTrace.getCroppedRealStackTrack(
+                UtilKStackTraceElement.getCroppedRealStackTracks(
                     Throwable().stackTrace, _logKPackageName,
                     if (config.getStackTraceDepth() <= 0) 5
                     else config.getStackTraceDepth()

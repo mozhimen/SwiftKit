@@ -12,8 +12,8 @@ import com.mozhimen.basick.elemk.android.opengl.annors.AMatrixType
  */
 object UtilKMatrix {
     @JvmStatic
-    fun getMatrixOf(matrix: FloatArray, @AMatrixType type: Int, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
-        if (imgHeight > 0 && imgWidth > 0 && viewWidth > 0 && viewHeight > 0) {
+    fun getOf(matrix: FloatArray, @AMatrixType type: Int, widthImage: Int, heightImage: Int, widthView: Int, heightView: Int) {
+        if (heightImage > 0 && widthImage > 0 && widthView > 0 && heightView > 0) {
             val projection = FloatArray(16)
             val camera = FloatArray(16)
             if (type == AMatrixType.MATRIX_FIT_XY) {
@@ -21,8 +21,8 @@ object UtilKMatrix {
                 Matrix.setLookAtM(camera, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
                 Matrix.multiplyMM(matrix, 0, projection, 0, camera, 0)
             }
-            val sWhView = viewWidth.toFloat() / viewHeight
-            val sWhImg = imgWidth.toFloat() / imgHeight
+            val sWhView = widthView.toFloat() / heightView
+            val sWhImg = widthImage.toFloat() / heightImage
             if (sWhImg > sWhView) {
                 when (type) {
                     AMatrixType.MATRIX_CENTER_CROP -> Matrix.orthoM(projection, 0, -sWhView / sWhImg, sWhView / sWhImg, -1f, 1f, 1f, 3f)
@@ -44,11 +44,28 @@ object UtilKMatrix {
     }
 
     @JvmStatic
-    fun getOriginalMatrix(): FloatArray =
+    fun getOfShow(matrix: FloatArray, widthImage: Int, heightImage: Int, widthView: Int, heightView: Int) {
+        if (heightImage > 0 && widthImage > 0 && widthView > 0 && heightView > 0) {
+            val sWhView = widthView.toFloat() / heightView
+            val sWhImg = widthImage.toFloat() / heightImage
+            val projection = FloatArray(16)
+            val camera = FloatArray(16)
+            if (sWhImg > sWhView) {
+                Matrix.orthoM(projection, 0, -sWhView / sWhImg, sWhView / sWhImg, -1f, 1f, 1f, 3f)
+            } else {
+                Matrix.orthoM(projection, 0, -1f, 1f, -sWhImg / sWhView, sWhImg / sWhView, 1f, 3f)
+            }
+            Matrix.setLookAtM(camera, 0, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f)
+            Matrix.multiplyMM(matrix, 0, projection, 0, camera, 0)
+        }
+    }
+
+    @JvmStatic
+    fun getOriginal(): FloatArray =
         floatArrayOf(1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 1f)
 
     @JvmStatic
-    fun getCenterInsideMatrix(matrix: FloatArray, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
+    fun getCenterInside(matrix: FloatArray, imgWidth: Int, imgHeight: Int, viewWidth: Int, viewHeight: Int) {
         if (imgHeight > 0 && imgWidth > 0 && viewWidth > 0 && viewHeight > 0) {
             val sWhView = viewWidth.toFloat() / viewHeight
             val sWhImg = imgWidth.toFloat() / imgHeight

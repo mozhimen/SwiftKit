@@ -20,6 +20,15 @@ object UtilKTheme {
 
     ////////////////////////////////////////////////////////////////////
 
+    /**
+     * 是否全屏
+     */
+    @JvmStatic
+    fun isFullScreen(context: Context): Boolean =
+        obtainStyledAttributes(context, intArrayOf(android.R.attr.windowFullscreen)).use { it.getBoolean(0, false) }
+
+    ////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun resolveAttribute(context: Context, resId: Int, outValue: TypedValue, resolveRefs: Boolean) =
         get(context).resolveAttribute(resId, outValue, resolveRefs)
@@ -27,13 +36,5 @@ object UtilKTheme {
     @JvmStatic
     fun obtainStyledAttributes(context: Context, @StyleableRes attrs: IntArray): TypedArray =
         get(context).obtainStyledAttributes(attrs)
-    ////////////////////////////////////////////////////////////////////
 
-    /**
-     * 是否全屏
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isFullScreen(context: Context): Boolean =
-        obtainStyledAttributes(context, intArrayOf(android.R.attr.windowFullscreen)).use { it.getBoolean(0, false) }
 }

@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk
 import com.mozhimen.basick.utilk.kotlin.UtilKNumber
 import com.mozhimen.basick.utilk.kotlin.printlog
 import com.mozhimen.basick.utilk.kotlin.UtilKConsole
-import com.mozhimen.basick.utilk.kotlin.keepDigits
 import com.mozhimen.basick.utilk.kotlin.math.UtilKTriangle
 import org.junit.Test
 
@@ -41,15 +40,6 @@ class TestUtilKNumber {
 //        UtilKConsole.printlog(UtilKNumber.percent(23f, 0, 0).toString())
         UtilKNumber.percent(23f, 33f, 44f).printlog()
         UtilKNumber.percent(-23f, 33f, 44f).printlog()
-    }
-
-    @Test
-    fun keepDigits() {
-        2.33333f.keepDigits(1).printlog()
-        2.33333f.keepDigits(2).printlog()
-        2.33333f.keepDigits(3).printlog()
-        2.33333f.keepDigits(4).printlog()
-        2.33333f.keepDigits(5).printlog()
     }
 
     @Test

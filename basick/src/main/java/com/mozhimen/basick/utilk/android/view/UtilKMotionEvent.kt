@@ -34,16 +34,16 @@ object UtilKMotionEvent {
      * 计算手指间间距
      */
     @JvmStatic
-    fun distance(event: MotionEvent): Float =
-        if (event.pointerCount >= 2)
-            UtilKPoint.distance(event.getX(0), event.getY(0), event.getX(1), event.getY(1))
+    fun distance(motionEvent: MotionEvent): Float =
+        if (motionEvent.pointerCount >= 2)
+            UtilKPoint.distance(motionEvent.getX(0), motionEvent.getY(0), motionEvent.getX(1), motionEvent.getY(1))
         else 0f
 
     //////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun motionEvent2str(event: MotionEvent): String =
-        intAction2str(event.action)
+    fun motionEvent2str(motionEvent: MotionEvent): String =
+        intAction2str(motionEvent.action)
 
     @JvmStatic
     fun intAction2str(intAction: Int): String {

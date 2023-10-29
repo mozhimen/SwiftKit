@@ -32,7 +32,7 @@ object UtilKPackageInfo : BaseUtilK() {
         get(context, CPackageInfo.INSTALL_LOCATION_AUTO)
 
     @JvmStatic
-    fun getOfConfigurations(context: Context): PackageInfo? =
+    fun getOfGetConfigurations(context: Context): PackageInfo? =
         get(context, CPackageManager.GET_CONFIGURATIONS)
 
     @JvmStatic

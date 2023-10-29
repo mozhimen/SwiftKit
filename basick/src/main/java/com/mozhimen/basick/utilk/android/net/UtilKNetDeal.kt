@@ -1,13 +1,6 @@
 package com.mozhimen.basick.utilk.android.net
 
-import android.annotation.SuppressLint
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.util.et
-import java.security.SecureRandom
-import java.security.cert.X509Certificate
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
 /**
  * @ClassName UtilKNetDeal
@@ -17,41 +10,6 @@ import javax.net.ssl.X509TrustManager
  * @Version 1.0
  */
 object UtilKNetDeal : BaseUtilK() {
-
-    /**
-     * 获取SSL
-     * @return SSLContext?
-     */
-    @JvmStatic
-    fun getSLLContext(): SSLContext? {
-        var sslContext: SSLContext? = null
-        try {
-            sslContext = SSLContext.getInstance("TLS")
-            sslContext.init(
-                null, arrayOf<TrustManager>(
-                    @SuppressLint("CustomX509TrustManager")
-                    object : X509TrustManager {
-                        @SuppressLint("TrustAllX509TrustManager")
-                        override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
-                        }
-
-                        @SuppressLint("TrustAllX509TrustManager")
-                        override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
-                        }
-
-                        override fun getAcceptedIssuers(): Array<X509Certificate?> {
-                            return arrayOfNulls(0)
-                        }
-                    }), SecureRandom()
-            )
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        }
-        return sslContext
-    }
-
-    /////////////////////////////////////////////////////////////////////////////
 
 //    private val UTILKNET_SP_NAME = "utilknet_sp_name"
 //    private val UTILKNET_SP_DEGRADE_HTTP = "utilknet_sp_degrade_http"

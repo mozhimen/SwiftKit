@@ -12,11 +12,6 @@ import java.nio.ByteBuffer
  * @Version 1.0
  */
 object UtilKETC1 {
-
-    @JvmStatic
-    fun isValid(header: Buffer): Boolean =
-        ETC1.isValid(header)
-
     @JvmStatic
     fun getWidth(header: Buffer): Int =
         ETC1.getWidth(header)
@@ -28,4 +23,8 @@ object UtilKETC1 {
     @JvmStatic
     fun getEncodedDataSize(width: Int, height: Int): Int =
         ETC1.getEncodedDataSize(width, height)
+
+    @JvmStatic
+    fun isValid(header: Buffer): Boolean =
+        ETC1.isValid(header)
 }

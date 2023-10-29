@@ -34,36 +34,6 @@ object UtilKViewDataBinding {
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-//    @JvmStatic
-//    fun getViewDataBindingGenericTypeClazz(clazz: Class<*>): Class<*>? =
-//        getViewDataBindingGenericType(clazz) as? Class<*>?
-//
-//    @JvmStatic
-//    fun getViewDataBindingGenericType(clazz: Class<*>): Type? {
-//        val superClazz: Class<*>? = clazz.superclass
-//        val genericSuperclass: Type? = clazz.genericSuperclass
-//        if (genericSuperclass !is ParameterizedType) {//当继承类不是参数化类型,就从父类中寻找
-//            return if (superClazz != null) {
-//                getViewDataBindingGenericType(superClazz)//当我们继承多层BaseActivity时递归查找泛型
-//            } else
-//                null
-//        }
-//        genericSuperclass.actualTypeArguments.filterIsInstance<Class<*>>()
-//            .run {
-//                this.printlog()
-//                if (this.isNotEmpty()) {
-//                    for (clz in this) {
-//                        if (clz.simpleName.endsWith("Binding"))
-//                            return clz
-//                    }
-//                }
-//                if (superClazz != null)
-//                    return getViewDataBindingGenericType(superClazz)
-//                else
-//                    return null
-//            }
-//    }
-
 //    fun <VM : ViewDataBinding> ComponentActivity.createViewModel(position: Int): VM {
 //        val vbClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments.filterIsInstance<Class<*>>()
 //        val viewModel = vbClass[position] as Class<VM>

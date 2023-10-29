@@ -6,7 +6,7 @@ import androidx.annotation.FloatRange
 import androidx.annotation.IntRange
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.kotlin.strFilePath2anyBitmap
+import com.mozhimen.basick.utilk.kotlin.strFilePath2bitmapAny
 import java.io.OutputStream
 import java.lang.Integer.min
 
@@ -21,14 +21,14 @@ fun Bitmap.applyBitmapAnyCompress(format: Bitmap.CompressFormat = Bitmap.Compres
     UtilKBitmapDeal.applyBitmapAnyCompress(this, format, quality, stream)
 }
 
-fun Bitmap.applyBitmapAnyResize(destWidth: Int, destHeight: Int, filter: Boolean = true) =
-    UtilKBitmapDeal.applyBitmapAnyResize(this, destWidth, destHeight, filter)
+fun Bitmap.applyBitmapAnyResize(destWidth: Int, heightDest: Int, filter: Boolean = true):Bitmap =
+    UtilKBitmapDeal.applyBitmapAnyResize(this, destWidth, heightDest, filter)
 
 fun Bitmap.applyBitmapAnyRotate(degree: Float, flipX: Boolean = false, flipY: Boolean = false): Bitmap =
     UtilKBitmapDeal.applyBitmapAnyRotate(this, degree, flipX, flipY)
 
-fun Bitmap.applyBitmapAnyScale(destWidth: Float, destHeight: Float): Bitmap =
-    UtilKBitmapDeal.applyBitmapAnyScale(this, destWidth, destHeight)
+fun Bitmap.applyBitmapAnyScale(destWidth: Float, heightDest: Float): Bitmap =
+    UtilKBitmapDeal.applyBitmapAnyScale(this, destWidth, heightDest)
 
 fun Bitmap.applyBitmapAnyScaleRatio(@FloatRange(from = 0.0) ratio: Float): Bitmap =
     UtilKBitmapDeal.applyBitmapAnyScaleRatio(this, ratio)
@@ -43,16 +43,16 @@ fun Bitmap.applyBitmapAnyCrop(width: Int, height: Int, x: Int, y: Int): Bitmap =
     UtilKBitmapDeal.applyBitmapAnyCrop(this, width, height, x, y)
 
 object UtilKBitmapDeal : BaseUtilK() {
-    fun applyBitmapAnyCompress(sourceBitmap: Bitmap, format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100, stream: OutputStream) {
-        sourceBitmap.compress(format, quality, stream)
+    fun applyBitmapAnyCompress(sourceBitmap: Bitmap, format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, @IntRange(from = 0, to = 100) quality: Int = 100, outputStream: OutputStream) {
+        sourceBitmap.compress(format, quality, outputStream)
     }
 
     /**
      * 设置大小
      */
     @JvmStatic
-    fun applyBitmapAnyResize(sourceBitmap: Bitmap, destWidth: Int, destHeight: Int, filter: Boolean = true): Bitmap =
-        Bitmap.createScaledBitmap(sourceBitmap, destWidth, destHeight, filter)
+    fun applyBitmapAnyResize(sourceBitmap: Bitmap, destWidth: Int, heightDest: Int, filter: Boolean = true): Bitmap =
+        Bitmap.createScaledBitmap(sourceBitmap, destWidth, heightDest, filter)
 
     /**
      * 旋转位图
@@ -69,8 +69,8 @@ object UtilKBitmapDeal : BaseUtilK() {
      * 缩放原图
      */
     @JvmStatic
-    fun applyBitmapAnyScale(sourceBitmap: Bitmap, destWidth: Float, destHeight: Float): Bitmap =
-        applyBitmapAnyScaleRatio(sourceBitmap, destWidth / sourceBitmap.width.toFloat(), destHeight / sourceBitmap.height.toFloat())
+    fun applyBitmapAnyScale(sourceBitmap: Bitmap, destWidth: Float, heightDest: Float): Bitmap =
+        applyBitmapAnyScaleRatio(sourceBitmap, destWidth / sourceBitmap.width.toFloat(), heightDest / sourceBitmap.height.toFloat())
 
     /**
      * 缩放原图
@@ -94,7 +94,6 @@ object UtilKBitmapDeal : BaseUtilK() {
 
     /**
      * 同比例放大图片
-     * @return Bitmap
      */
     @JvmStatic
     fun applyBitmapAnyZoom(sourceBitmap: Bitmap, @FloatRange(from = 0.0) ratio: Float): Bitmap {
@@ -170,17 +169,17 @@ object UtilKBitmapDeal : BaseUtilK() {
      * 将本地图片文件转换成可解码二维码的 Bitmap,为了避免图片太大，这里对图片进行了压缩
      */
     @JvmStatic
-    fun applyAnyBitmapDecode(filePathWithName: String): Bitmap? =
+    fun applyAnyBitmapDecode(strFilePathName: String): Bitmap? =
         try {
             val options = BitmapFactory.Options()
             options.inJustDecodeBounds = true
-            filePathWithName.strFilePath2anyBitmap(options)
+            strFilePathName.strFilePath2bitmapAny(options)
             var sampleSize = options.outHeight / 400
             if (sampleSize <= 0)
                 sampleSize = 1
             options.inSampleSize = sampleSize
             options.inJustDecodeBounds = false
-            filePathWithName.strFilePath2anyBitmap(options)
+            strFilePathName.strFilePath2bitmapAny(options)
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(TAG)

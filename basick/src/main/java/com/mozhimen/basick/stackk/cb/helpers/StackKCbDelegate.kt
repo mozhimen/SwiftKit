@@ -7,7 +7,7 @@ import com.mozhimen.basick.postk.event.PostKEventLiveData
 import com.mozhimen.basick.stackk.commons.IStackK
 import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.cons.CStackKCons
-import com.mozhimen.basick.utilk.android.app.UtilKApplication
+import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
 import java.lang.ref.WeakReference
 
@@ -27,7 +27,7 @@ internal class StackKCbDelegate : IStackK {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     override fun init() {
-        UtilKApplication.instance.get().registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
+        UtilKApplicationReflect.instance.get().registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
     }
 
     override fun getStackTopActivity(): Activity? =

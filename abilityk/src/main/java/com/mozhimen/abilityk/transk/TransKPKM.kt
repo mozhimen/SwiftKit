@@ -5,7 +5,6 @@ import android.util.Log
 import com.mozhimen.basick.elemk.android.opengl.cons.CETC1
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.android.opengl.UtilKETC1
 import com.mozhimen.basick.utilk.kotlin.UtilKCharSequence

@@ -14,16 +14,10 @@ import javax.microedition.khronos.opengles.GL10
 object UtilKGL10 {
     /**
      * gl10转bitmap
-     * @param gl10 GL10
-     * @param width Int
-     * @param height Int
-     * @param x Int
-     * @param y Int
-     * @return Bitmap
      */
     @JvmStatic
     @Throws(Exception::class)
-    fun gl102bitmap(gl10: GL10, width: Int, height: Int, x: Int, y: Int): Bitmap {
+    fun gl102bitmapARGB8888(gl10: GL10, width: Int, height: Int, x: Int, y: Int): Bitmap {
         val bitmapBuffer = IntArray(width * height)
         val bitmapSource = IntArray(width * height)
         val intBuffer = IntBuffer.wrap(bitmapBuffer)

@@ -15,11 +15,6 @@ object UtilKBall {
 
     /**
      * 距离
-     * @param longitude1 Double
-     * @param latitude1 Double
-     * @param longitude2 Double
-     * @param latitude2 Double
-     * @return Double
      */
     @JvmStatic
     fun distance(longitude1: Double, latitude1: Double, longitude2: Double, latitude2: Double): Double {
@@ -31,8 +26,6 @@ object UtilKBall {
 
     /**
      * 将角度转换为弧度
-     * @param degree Double
-     * @return Double
      */
     @JvmStatic
     fun angle2radian(degree: Double): Double =
@@ -40,8 +33,6 @@ object UtilKBall {
 
     /**
      * 将弧度转换为角度
-     * @param radian Double
-     * @return Double
      */
     @JvmStatic
     fun radian2angle(radian: Double): Double =

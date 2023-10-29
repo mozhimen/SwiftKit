@@ -3,7 +3,7 @@ package com.mozhimen.uicorek.popwink.bases.helpers
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import com.mozhimen.basick.utilk.android.graphics.UtilKDrawable.isColorDrawableNormal
+import com.mozhimen.basick.utilk.android.graphics.UtilKColorDrawable
 import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basick.utilk.android.view.applyBackground
 
@@ -38,7 +38,7 @@ class BasePopwinKBackgroundView @JvmOverloads constructor(context: Context, attr
     }
 
     private fun init(helper: BasePopupHelper) {
-        if (!isColorDrawableNormal(helper.popupBackground)) {
+        if (!UtilKColorDrawable.isColorDrawableNormal(helper.popupBackground)) {
             visibility = GONE
             return
         }

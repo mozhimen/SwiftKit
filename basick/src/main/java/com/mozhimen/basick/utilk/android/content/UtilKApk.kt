@@ -18,100 +18,88 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 object UtilKApk : BaseUtilK() {
 
     @JvmStatic
-    fun getPackageArchiveInfoOfActivities(apkPathWithName: String): PackageInfo? =
-        UtilKPackageArchiveInfo.getOfActivities(_context, apkPathWithName)
+    fun getPackageArchiveInfoOfActivities(strPathNameApk: String): PackageInfo? =
+        UtilKPackageArchiveInfo.getOfActivities(_context, strPathNameApk)
 
     @JvmStatic
-    fun getApplicationInfo(apkPathWithName: String): ApplicationInfo? =
-        getPackageArchiveInfoOfActivities(apkPathWithName)?.let { UtilKPackageInfo.getApplicationInfo(it) }
+    fun getApplicationInfo(strPathNameApk: String): ApplicationInfo? =
+        getPackageArchiveInfoOfActivities(strPathNameApk)?.let { UtilKPackageInfo.getApplicationInfo(it) }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 得到版本信息
-     * @param apkPathWithName String
-     * @return String?
      */
     @JvmStatic
-    fun getVersionName(apkPathWithName: String): String? =
-        getPackageArchiveInfoOfActivities(apkPathWithName)?.let { UtilKPackageInfo.getVersionName(it) }
+    fun getVersionName(strPathNameApk: String): String? =
+        getPackageArchiveInfoOfActivities(strPathNameApk)?.let { UtilKPackageInfo.getVersionName(it) }
 
     /**
      * 得到版本号
-     * @param apkPathWithName String
-     * @return Int?
      */
     @JvmStatic
-    fun getVersionCode(apkPathWithName: String): Int? =
-        getPackageArchiveInfoOfActivities(apkPathWithName)?.let { UtilKPackageInfo.getVersionCode(it) }
+    fun getVersionCode(strPathNameApk: String): Int? =
+        getPackageArchiveInfoOfActivities(strPathNameApk)?.let { UtilKPackageInfo.getVersionCode(it) }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 得到应用名
-     * @param apkPathWithName String
-     * @return String?
      */
     @JvmStatic
-    fun getApplicationLabel(apkPathWithName: String): String? =
-        getApplicationInfo(apkPathWithName)?.let { UtilKPackageManager.getApplicationLabel(_context, it) }
+    fun getApplicationLabel(strPathNameApk: String): String? =
+        getApplicationInfo(strPathNameApk)?.let { UtilKPackageManager.getApplicationLabel(_context, it) }
 
     /**
      * 得到包名
-     * @param apkPathWithName String
-     * @return String?
      */
     @JvmStatic
-    fun getPackageName(apkPathWithName: String): String? =
-        getApplicationInfo(apkPathWithName)?.let { UtilKApplicationInfo.getPackageName(it) }
+    fun getPackageName(strPathNameApk: String): String? =
+        getApplicationInfo(strPathNameApk)?.let { UtilKApplicationInfo.getPackageName(it) }
 
     /**
      * 得到图标信息
-     * @param apkPathWithName String
-     * @return Drawable?
      */
     @JvmStatic
-    fun getApplicationIcon(apkPathWithName: String): Drawable? =
-        getApplicationInfo(apkPathWithName)?.let {
+    fun getApplicationIcon(strPathNameApk: String): Drawable? =
+        getApplicationInfo(strPathNameApk)?.let {
             it.apply {
-                sourceDir = apkPathWithName
-                publicSourceDir = apkPathWithName/* 必须加这两句，不然下面icon获取是default icon而不是应用包的icon */
+                sourceDir = strPathNameApk
+                publicSourceDir = strPathNameApk/* 必须加这两句，不然下面icon获取是default icon而不是应用包的icon */
             }
             UtilKPackageManager.getApplicationIcon(_context, it)
         }
 
     /**
      * 得到图标信息2
-     * @param apkPathWithName String
-     * @return Drawable?
      */
     @JvmStatic
-    fun getApplicationIcon2(apkPathWithName: String): Drawable? =
-        getApplicationInfo(apkPathWithName)?.let {
+    fun getApplicationIcon2(strPathNameApk: String): Drawable? =
+        getApplicationInfo(strPathNameApk)?.let {
             it.apply {
-                sourceDir = apkPathWithName
-                publicSourceDir = apkPathWithName/* 必须加这两句，不然下面icon获取是default icon而不是应用包的icon */
+                sourceDir = strPathNameApk
+                publicSourceDir = strPathNameApk/* 必须加这两句，不然下面icon获取是default icon而不是应用包的icon */
             }
             UtilKApplicationInfo.loadIcon(it, UtilKPackageManager.get(_context))
         }
 
     /**
      * 打印apk包的信息：版本号，名称，图标等
-     * @param apkPathWithName apk包的绝对路径
+     * @param strPathNameApk apk包的绝对路径
      */
     @JvmStatic
-    fun printApkInfo(apkPathWithName: String) {
+    fun printApkInfo(strPathNameApk: String) {
         // 得到应用名
-        getApplicationLabel(apkPathWithName)?.let {
+        getApplicationLabel(strPathNameApk)?.let {
             "printApkInfo: getApplicationLabel $it".dt(TAG)
         }
-        getPackageName(apkPathWithName)?.let {
+        getPackageName(strPathNameApk)?.let {
             "printApkInfo: getPackageName $it".dt(TAG)
         }
-        getVersionName(apkPathWithName)?.let {
+        getVersionName(strPathNameApk)?.let {
             "printApkInfo: getVersionName $it".dt(TAG)
         }
-        getVersionCode(apkPathWithName)?.let {
+        getVersionCode(strPathNameApk)?.let {
             "printApkInfo: getVersionCode $it".dt(TAG)
         }
     }

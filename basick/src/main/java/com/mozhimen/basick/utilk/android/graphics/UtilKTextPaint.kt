@@ -10,15 +10,11 @@ import android.text.TextPaint
  * @Date 2023/3/20 16:32
  * @Version 1.0
  */
-object UtilKPaint {
+object UtilKTextPaint {
     /**
      * 多行高度
-     * @param textPaint TextPaint
-     * @param text String
-     * @return Float
      */
     @JvmStatic
-    fun getMultiLineTextHeight(textPaint: TextPaint, text: String): Float {
-        return text.split("\n").toTypedArray().size * textPaint.textSize
-    }
+    fun getMultiLineStrHeight(textPaint: TextPaint, str: String): Float =
+        str.split("\n").toTypedArray().size * textPaint.textSize
 }

@@ -56,5 +56,4 @@ object UtilKConsole : IUtilK {
     fun <T> printlog(tag: String, msg: T) {
         println("$tag: $msg")
     }
-
 }

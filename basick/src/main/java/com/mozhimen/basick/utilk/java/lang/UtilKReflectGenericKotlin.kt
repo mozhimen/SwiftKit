@@ -16,8 +16,6 @@ import java.lang.reflect.Type
 object UtilKReflectGenericKotlin : IUtilK {
     /**
      * 获取当前<>里面的泛型实例
-     * @param index Int
-     * @return Class<*>?
      */
     @JvmStatic
     inline fun <reified T> getGenericTypeClazz(index: Int = 0): Class<*>? =
@@ -25,8 +23,6 @@ object UtilKReflectGenericKotlin : IUtilK {
 
     /**
      * 获取当前<>里面的泛型实例
-     * @param index Int
-     * @return Type?
      */
     @JvmStatic
     inline fun <reified T> getGenericType(index: Int = 0): Type? =
@@ -41,10 +37,16 @@ object UtilKReflectGenericKotlin : IUtilK {
                     null
             }
 
+    /**
+     * 获取继承自parentClass的泛型实例
+     */
     @JvmStatic
     fun getParentGenericTypeByTClazz(clazz: Class<*>, parentClazz: Class<*>/*, index: Int = 0*/): Class<*>? =
         getParentGenericTypeByT(clazz, parentClazz) as? Class<*>?
 
+    /**
+     * 获取继承自parentClass的泛型实例
+     */
     @JvmStatic
     fun getParentGenericTypeByT(clazz: Class<*>, tClazz: Class<*>/*, index: Int = 0*/): Type? {
         val superClazz: Class<*>? = clazz.superclass
@@ -80,9 +82,6 @@ object UtilKReflectGenericKotlin : IUtilK {
 
     /**
      * 获取父类泛型type
-     * @param clazz Class<*>
-     * @param index Int
-     * @return Type?
      */
     @JvmStatic
     fun getParentGenericType(clazz: Class<*>, index: Int = 0): Type? {
@@ -110,8 +109,6 @@ object UtilKReflectGenericKotlin : IUtilK {
 
     /**
      * 获取继承父类的泛型类
-     * @param index Int
-     * @return Class<*>?
      */
     @JvmStatic
     inline fun <reified T> getParentGenericTypeClazz(index: Int = 0): Class<*>? =
@@ -119,8 +116,6 @@ object UtilKReflectGenericKotlin : IUtilK {
 
     /**
      * 获取继承父类的泛型Type
-     * @param index Int
-     * @return Type?
      */
     @JvmStatic
     inline fun <reified T> getParentGenericType(index: Int = 0): Type? =

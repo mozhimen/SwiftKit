@@ -16,8 +16,6 @@ fun String.strColor2intColor(): Int =
 object UtilKStrColor {
     /**
      * 获取颜色
-     * @param strColor String
-     * @return Int
      */
     @JvmStatic
     @ColorInt

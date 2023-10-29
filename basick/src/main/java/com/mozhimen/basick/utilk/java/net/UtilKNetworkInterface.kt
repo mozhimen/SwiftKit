@@ -20,13 +20,11 @@ object UtilKNetworkInterface {
     fun getNetworkInterfaces(): Enumeration<NetworkInterface> =
         NetworkInterface.getNetworkInterfaces()
 
-    //////////////////////////////////////////////////////////////////
-
     /**
      * 获取网路IP
      */
     @JvmStatic
-    fun getStrIp(): String? {
+    fun getStrIP(): String? {
         try {
             val networkInterfaces: Enumeration<NetworkInterface> = getNetworkInterfaces()
             var inetAddress: InetAddress
@@ -43,7 +41,7 @@ object UtilKNetworkInterface {
             }
         } catch (e: SocketException) {
             e.printStackTrace()
-            "getIP SocketException ${e.message}".et(UtilKNetConn.TAG)
+            "getStrIP SocketException ${e.message}".et(UtilKNetConn.TAG)
         }
         return null
     }

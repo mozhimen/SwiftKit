@@ -27,11 +27,11 @@ import java.io.FileOutputStream
 fun File.file2uri(): Uri? =
     UtilKFileFormat.file2uri(this)
 
-fun File.file2anyBitmap(): Bitmap? =
-    UtilKFileFormat.file2anyBitmap(this)
+fun File.file2bitmapAny(): Bitmap? =
+    UtilKFileFormat.file2bitmapAny(this)
 
-fun File.file2anyBitmap(opts: BitmapFactory.Options): Bitmap? =
-    UtilKFileFormat.file2anyBitmap(this, opts)
+fun File.file2bitmapAny(opts: BitmapFactory.Options): Bitmap? =
+    UtilKFileFormat.file2bitmapAny(this, opts)
 
 fun File.file2strFilePath(): String =
     UtilKFileFormat.file2strFilePath(this)
@@ -52,11 +52,13 @@ fun File.file2str(): String? =
 fun File.file2bytes(): ByteArray? =
     UtilKFileFormat.file2bytes(this)
 
+fun File.file2bytesCheck(): ByteArray? =
+    UtilKFileFormat.file2bytesCheck(this)
+
 fun File.file2bytes2(): ByteArray? =
     UtilKFileFormat.file2bytes2(this)
 
-fun File.file2bytes3(): ByteArray? =
-    UtilKFileFormat.file2bytes3(this)
+////////////////////////////////////////////////////////////////////////////////////////
 
 object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
@@ -76,12 +78,12 @@ object UtilKFileFormat : BaseUtilK() {
     }
 
     @JvmStatic
-    fun file2anyBitmap(file: File): Bitmap? =
-        UtilKStrFile.strFilePath2anyBitmap(file.file2strFilePath())
+    fun file2bitmapAny(file: File): Bitmap? =
+        UtilKStrFile.strFilePath2bitmapAny(file.file2strFilePath())
 
     @JvmStatic
-    fun file2anyBitmap(file: File, opts: BitmapFactory.Options): Bitmap? =
-        UtilKStrFile.strFilePath2anyBitmap(file.file2strFilePath(), opts)
+    fun file2bitmapAny(file: File, opts: BitmapFactory.Options): Bitmap? =
+        UtilKStrFile.strFilePath2bitmapAny(file.file2strFilePath(), opts)
 
     @JvmStatic
     fun file2strFilePath(file: File): String =
@@ -102,7 +104,7 @@ object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
     fun file2str(file: File): String? =
         if (!UtilKFile.isFileExist(file)) null
-        else FileInputStream(file).inputStream2str()
+        else FileInputStream(file).inputStream2strOfReadMultiLines()
 
     @JvmStatic
     fun file2bytes(file: File): ByteArray? =
@@ -110,12 +112,12 @@ object UtilKFileFormat : BaseUtilK() {
         else FileInputStream(file).inputStream2bytes()
 
     @JvmStatic
-    fun file2bytes2(file: File): ByteArray? =
+    fun file2bytesCheck(file: File): ByteArray? =
         if (!UtilKFile.isFileExist(file)) null
         else FileInputStream(file).inputStream2bytesCheck(file.length())
 
     @JvmStatic
-    fun file2bytes3(file: File): ByteArray? =
+    fun file2bytes2(file: File): ByteArray? =
         if (!UtilKFile.isFileExist(file)) null
         else {
             val byteArrayOutputStream = ByteArrayOutputStream(file.length().toInt())

@@ -26,8 +26,8 @@ open class AnimatorGradientDrawableColorType : BaseAnimatorType<AnimatorGradient
         return this
     }
 
-    fun setColors(@ColorInt vararg colorInt: Int): AnimatorGradientDrawableColorType {
-        _colors = colorInt
+    fun setColors(@ColorInt vararg intColor: Int): AnimatorGradientDrawableColorType {
+        _colors = intColor
         return this
     }
 

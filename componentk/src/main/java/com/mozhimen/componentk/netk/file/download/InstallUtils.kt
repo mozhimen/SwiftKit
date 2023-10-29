@@ -1,14 +1,10 @@
 package com.mozhimen.componentk.netk.file.download
 
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.provider.Settings
-import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
-import com.mozhimen.basick.utilk.android.content.isIntentAvailable
 import com.mozhimen.basick.utilk.android.net.uri2strFilePath
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.util.UtilKLog.et
@@ -29,19 +25,19 @@ object InstallUtils : BaseUtilK() {
      */
     private fun compare(context: Context, uri: Uri): Boolean {
         val realFilePath = uri.uri2strFilePath() ?: return false
-        val apkFileInfo = getApkFileSignature(context, realFilePath) ?: return false
+        val fileApkInfo = getFileApkSignature(context, realFilePath) ?: return false
         try {
-            val packageInfo = UtilKPackageInfo.getOfConfigurations(context)!!
+            val packageInfo = UtilKPackageInfo.getOfGetConfigurations(context)!!
             if (BuildConfig.DEBUG) {
-                et(TAG, "apk file package=${apkFileInfo.packageName},versionCode=${apkFileInfo.versionCode}")
+                et(TAG, "apk file package=${fileApkInfo.packageName},versionCode=${fileApkInfo.versionCode}")
                 et(TAG, "current package=${packageInfo.packageName},versionCode=${packageInfo.versionCode}")
             }
             //String appName = pm.getApplicationLabel(appInfo).toString();
             //Drawable icon = pm.getApplicationIcon(appInfo);//得到图标信息
 
             //如果下载的apk包名和当前应用不同，则不执行更新操作
-            if (apkFileInfo.packageName == packageInfo.packageName
-                && apkFileInfo.versionCode > packageInfo.versionCode
+            if (fileApkInfo.packageName == packageInfo.packageName
+                && fileApkInfo.versionCode > packageInfo.versionCode
             ) {
                 return true
             }
@@ -58,7 +54,7 @@ object InstallUtils : BaseUtilK() {
      * @param context Context
      * @param path    apk path
      */
-    private fun getApkFileSignature(context: Context, path: String): PackageInfo? {
+    private fun getFileApkSignature(context: Context, path: String): PackageInfo? {
         val file = File(path)
         if (!file.exists()) {
             return null

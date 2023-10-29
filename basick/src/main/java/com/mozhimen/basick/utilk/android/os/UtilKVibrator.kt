@@ -20,26 +20,26 @@ object UtilKVibrator {
     ////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun has(context: Context): Boolean =
+    fun hasVibrator(context: Context): Boolean =
         get(context).hasVibrator()
+
+    ////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun vibrate(context: Context, milliseconds: Long) {
-        if (has(context)) get(context).vibrate(milliseconds)
+        if (hasVibrator(context)) get(context).vibrate(milliseconds)
     }
 
     /**
      * 让手机以我们自己设定的pattern[]模式振动
      * long pattern[] = {1000, 20000, 10000, 10000, 30000};
-     * @param context Context
-     * @param pattern LongArray
-     * @param repeat Int
      */
     fun vibrate(context: Context, pattern: LongArray, repeat: Int) {
-        if (has(context)) get(context).vibrate(pattern, repeat)
+        if (hasVibrator(context)) get(context).vibrate(pattern, repeat)
     }
 
     fun cancel(context: Context) {
-        if (has(context)) get(context).cancel()
+        if (hasVibrator(context))
+            get(context).cancel()
     }
 }

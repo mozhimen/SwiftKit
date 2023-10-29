@@ -836,7 +836,7 @@ final class PopupDecorViewProxy extends ViewGroup implements Function2<Rect, Boo
             } else {
                 if (mHelper.isWithAnchor()) {
                     //如果是有anchor，则考虑anchor的情况
-                    int gravity = UtilKGravity.computeGravity(popupRect, anchorRect);
+                    int gravity = UtilKGravity.compute(popupRect, anchorRect);
                     if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.TOP) {
                         //显示在anchor顶部，则需要考虑anchor的高度
                         offsetY -= mHelper.getAnchorViewBound().height();

@@ -3,7 +3,6 @@ package com.mozhimen.basick.utilk.kotlin
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.util.Log
 import com.mozhimen.basick.elemk.android.content.cons.CIntent
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.bases.IUtilK
@@ -26,8 +25,8 @@ import java.util.Vector
 fun String.getFileNameExtension(): String? =
     UtilKStrFile.getFileNameExtension(this)
 
-fun String.getFileNameExExtension(): String? =
-    UtilKStrFile.getFileNameExExtension(this)
+fun String.getFileNameExpExtension(): String? =
+    UtilKStrFile.getFileNameExpExtension(this)
 
 fun String.getFileSizeTotal(): Long? =
     UtilKStrFile.getFileSizeTotal(this)
@@ -59,28 +58,28 @@ fun String.strFilePath2file(): File =
 fun String.strFilePath2bytes(): ByteArray? =
     UtilKStrFile.strFilePath2bytes(this)
 
+fun String.strFilePath2bytesCheck(): ByteArray? =
+    UtilKStrFile.strFilePath2bytesCheck(this)
+
 fun String.strFilePath2bytes2(): ByteArray? =
     UtilKStrFile.strFilePath2bytes2(this)
-
-fun String.strFilePath2bytes3(): ByteArray? =
-    UtilKStrFile.strFilePath2bytes3(this)
 
 fun String.strFilePath2uri(): Uri? =
     UtilKStrFile.strFilePath2uri(this)
 
-fun String.strFilePath2anyBitmap(): Bitmap? =
-    UtilKStrFile.strFilePath2anyBitmap(this)
+fun String.strFilePath2bitmapAny(): Bitmap? =
+    UtilKStrFile.strFilePath2bitmapAny(this)
 
-fun String.strFilePath2anyBitmap(opts: BitmapFactory.Options): Bitmap? =
-    UtilKStrFile.strFilePath2anyBitmap(this, opts)
+fun String.strFilePath2bitmapAny(opts: BitmapFactory.Options): Bitmap? =
+    UtilKStrFile.strFilePath2bitmapAny(this, opts)
 
 /////////////////////////////////////////////////////////////////
 
 fun String.createFile(): File =
     UtilKStrFile.createFile(this)
 
-fun String.copyFile(destFilePathWithName: String, isAppend: Boolean = false): File? =
-    UtilKStrFile.copyFile(this, destFilePathWithName, isAppend)
+fun String.copyFile(strFilePathNameDest: String, isAppend: Boolean = false): File? =
+    UtilKStrFile.copyFile(this, strFilePathNameDest, isAppend)
 
 fun String.zipFile(zipFilePathWithName: String): File? =
     UtilKStrFile.zipFile(this, zipFilePathWithName)
@@ -115,30 +114,30 @@ fun String.deleteFolder(): Boolean =
 object UtilKStrFile : IUtilK {
     //region # file
     @JvmStatic
-    fun getFileNameExtension(filePathWithName: String): String? =
-        if (filePathWithName.isEmpty()) null
-        else if (filePathWithName.containStr(".")) filePathWithName.getSplitLast(".") else null
+    fun getFileNameExtension(strFilePathName: String): String? =
+        if (strFilePathName.isEmpty()) null
+        else if (strFilePathName.containStr(".")) strFilePathName.getSplitLast(".") else null
 
     @JvmStatic
-    fun getFileNameExExtension(filePathWithName: String): String? =
-        if (filePathWithName.isEmpty()) null
-        else UtilKFile.getNameExExtension(filePathWithName.strFilePath2file())
-
-    /**
-     * 获取文件大小
-     */
-    @JvmStatic
-    fun getFileSizeTotal(filePathWithName: String): Long? =
-        if (filePathWithName.isEmpty()) null
-        else UtilKFile.getFileSizeTotal(filePathWithName.strFilePath2file())
+    fun getFileNameExpExtension(strFilePathName: String): String? =
+        if (strFilePathName.isEmpty()) null
+        else UtilKFile.getNameExpExtension(strFilePathName.strFilePath2file())
 
     /**
      * 获取文件大小
      */
     @JvmStatic
-    fun getFileSizeAvailable(filePathWithName: String): Long? =
-        if (filePathWithName.isEmpty()) null
-        else UtilKFile.getFileSizeAvailable(filePathWithName.strFilePath2file())
+    fun getFileSizeTotal(strFilePathName: String): Long? =
+        if (strFilePathName.isEmpty()) null
+        else UtilKFile.getFileSizeTotal(strFilePathName.strFilePath2file())
+
+    /**
+     * 获取文件大小
+     */
+    @JvmStatic
+    fun getFileSizeAvailable(strFilePathName: String): Long? =
+        if (strFilePathName.isEmpty()) null
+        else UtilKFile.getFileSizeAvailable(strFilePathName.strFilePath2file())
 
     //////////////////////////////////////////////////////////////////////
 
@@ -146,65 +145,65 @@ object UtilKStrFile : IUtilK {
      * 判断是否为文件
      */
     @JvmStatic
-    fun isFile(filePathWithName: String): Boolean =
-        UtilKFile.isFile(filePathWithName.strFilePath2file())
+    fun isFile(strFilePathName: String): Boolean =
+        UtilKFile.isFile(strFilePathName.strFilePath2file())
 
     /**
      * 文件是否存在
      */
     @JvmStatic
-    fun isFileExist(filePathWithName: String): Boolean =
-        UtilKFile.isFileExist(filePathWithName.strFilePath2file())
+    fun isFileExist(strFilePathName: String): Boolean =
+        UtilKFile.isFileExist(strFilePathName.strFilePath2file())
 
     /////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun strFilePath2str(filePathWithName: String): String? =
-        UtilKFileFormat.file2str(filePathWithName.strFilePath2file())
+    fun strFilePath2str(strFilePathName: String): String? =
+        UtilKFileFormat.file2str(strFilePathName.strFilePath2file())
 
     @JvmStatic
-    fun strFilePath2fileOutputStream(filePathWithName: String, isAppend: Boolean = false): FileOutputStream =
-        UtilKFileFormat.file2fileOutputStream(filePathWithName.strFilePath2file(), isAppend)
+    fun strFilePath2fileOutputStream(strFilePathName: String, isAppend: Boolean = false): FileOutputStream =
+        UtilKFileFormat.file2fileOutputStream(strFilePathName.strFilePath2file(), isAppend)
 
     @JvmStatic
-    fun strFilePath2fileInputStream(filePathWithName: String): FileInputStream =
-        UtilKFileFormat.file2fileInputStream(filePathWithName.strFilePath2file())
+    fun strFilePath2fileInputStream(strFilePathName: String): FileInputStream =
+        UtilKFileFormat.file2fileInputStream(strFilePathName.strFilePath2file())
 
     @JvmStatic
-    fun strFilePath2file(destFilePathWithName: String): File =
-        File(destFilePathWithName)
+    fun strFilePath2file(strFilePathNameDest: String): File =
+        File(strFilePathNameDest)
 
     ////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun strFilePath2bytes(filePathWithName: String): ByteArray? =
-        UtilKFileFormat.file2bytes(filePathWithName.strFilePath2file())
+    fun strFilePath2bytes(strFilePathName: String): ByteArray? =
+        UtilKFileFormat.file2bytes(strFilePathName.strFilePath2file())
 
     @JvmStatic
-    fun strFilePath2bytes2(filePathWithName: String): ByteArray? =
-        UtilKFileFormat.file2bytes2(filePathWithName.strFilePath2file())
+    fun strFilePath2bytesCheck(strFilePathName: String): ByteArray? =
+        UtilKFileFormat.file2bytesCheck(strFilePathName.strFilePath2file())
 
     @JvmStatic
-    fun strFilePath2bytes3(filePathWithName: String): ByteArray? =
-        UtilKFileFormat.file2bytes3(filePathWithName.strFilePath2file())
+    fun strFilePath2bytes2(strFilePathName: String): ByteArray? =
+        UtilKFileFormat.file2bytes2(strFilePathName.strFilePath2file())
 
     /**
      * 文件转Uri
      */
     @JvmStatic
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
-    fun strFilePath2uri(filePathWithName: String): Uri? =
-        UtilKFileFormat.file2uri(File(filePathWithName))
+    fun strFilePath2uri(strFilePathName: String): Uri? =
+        UtilKFileFormat.file2uri(File(strFilePathName))
 
     @JvmStatic
-    fun strFilePath2anyBitmap(filePathWithName: String): Bitmap? =
-        if (filePathWithName.isEmpty() || filePathWithName.hasSpace()) null
-        else BitmapFactory.decodeFile(filePathWithName)
+    fun strFilePath2bitmapAny(strFilePathName: String): Bitmap? =
+        if (strFilePathName.isEmpty() || strFilePathName.hasSpace()) null
+        else BitmapFactory.decodeFile(strFilePathName)
 
     @JvmStatic
-    fun strFilePath2anyBitmap(filePathWithName: String, opts: BitmapFactory.Options): Bitmap? =
-        if (filePathWithName.isEmpty() || filePathWithName.hasSpace()) null
-        else BitmapFactory.decodeFile(filePathWithName, opts)
+    fun strFilePath2bitmapAny(strFilePathName: String, opts: BitmapFactory.Options): Bitmap? =
+        if (strFilePathName.isEmpty() || strFilePathName.hasSpace()) null
+        else BitmapFactory.decodeFile(strFilePathName, opts)
 
     //////////////////////////////////////////////////////////////////////
 
@@ -212,29 +211,29 @@ object UtilKStrFile : IUtilK {
      * 创建文件
      */
     @JvmStatic
-    fun createFile(filePathWithName: String): File =
-        UtilKFile.createFile(filePathWithName.strFilePath2file())
+    fun createFile(strFilePathName: String): File =
+        UtilKFile.createFile(strFilePathName.strFilePath2file())
 
     /**
      * 复制文件
      */
     @JvmStatic
-    fun copyFile(sourceFilePathWithName: String, destFilePathWithName: String, isAppend: Boolean = false): File? =
-        UtilKFile.copyFile(sourceFilePathWithName.strFilePath2file(), destFilePathWithName.strFilePath2file(), isAppend)
+    fun copyFile(strFilePathNameSource: String, strFilePathNameDest: String, isAppend: Boolean = false): File? =
+        UtilKFile.copyFile(strFilePathNameSource.strFilePath2file(), strFilePathNameDest.strFilePath2file(), isAppend)
 
     /**
      * 压缩文件
      */
     @JvmStatic
-    fun zipFile(sourceFilePathWithName: String, zipFilePathWithName: String): File? =
-        UtilKFile.zipFile(sourceFilePathWithName.strFilePath2file(), zipFilePathWithName.strFilePath2file())
+    fun zipFile(strFilePathNameSource: String, zipFilePathWithName: String): File? =
+        UtilKFile.zipFile(strFilePathNameSource.strFilePath2file(), zipFilePathWithName.strFilePath2file())
 
     /**
      * 删除文件
      */
     @JvmStatic
-    fun deleteFile(filePathWithName: String): Boolean =
-        UtilKFile.deleteFile(filePathWithName.strFilePath2file())
+    fun deleteFile(strFilePathName: String): Boolean =
+        UtilKFile.deleteFile(strFilePathName.strFilePath2file())
     //endregion
 
     //region # folder

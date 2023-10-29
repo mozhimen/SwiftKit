@@ -25,14 +25,14 @@ fun ByteArray.bytesRgba88882bitmapRgba8888(width: Int, height: Int): Bitmap =
 fun ByteArray.bytesNv212bytesJpeg(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): ByteArray =
     UtilKByteArrayImage.bytesNv212bytesJpeg(this, width, height, quality)
 
-fun ByteArray.bytesNv212fileJpeg(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
-    UtilKByteArrayImage.bytesNv212fileJpeg(this, filePathWithName, width, height, quality, isAppend)
+fun ByteArray.bytesNv212fileJpeg(strFilePathName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
+    UtilKByteArrayImage.bytesNv212fileJpeg(this, strFilePathName, width, height, quality, isAppend)
 
 fun ByteArray.bytesNv212bitmapJpeg(width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): Bitmap =
     UtilKByteArrayImage.bytesNv212bitmapJpeg(this, width, height, quality)
 
-fun ByteArray.bytesNv212fileJpeg2(filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-    UtilKByteArrayImage.bytesNv212fileJpeg2(this, filePathWithName, width, height, quality)
+fun ByteArray.bytesNv212fileJpeg2(strFilePathName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+    UtilKByteArrayImage.bytesNv212fileJpeg2(this, strFilePathName, width, height, quality)
 
 object UtilKByteArrayImage : IUtilK {
 
@@ -80,8 +80,8 @@ object UtilKByteArrayImage : IUtilK {
     }
 
     @JvmStatic
-    fun bytesNv212fileJpeg(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
-        bytesNv212bytesJpeg(nv21Bytes, width, height, quality).bytes2file(filePathWithName, isAppend)
+    fun bytesNv212fileJpeg(nv21Bytes: ByteArray, strFilePathName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100, isAppend: Boolean = false): File =
+        bytesNv212bytesJpeg(nv21Bytes, width, height, quality).bytes2file(strFilePathName, isAppend)
 
     @JvmStatic
     @Throws(Exception::class)
@@ -90,8 +90,8 @@ object UtilKByteArrayImage : IUtilK {
 
     @JvmStatic
     @Throws(Exception::class)
-    fun bytesNv212fileJpeg2(nv21Bytes: ByteArray, filePathWithName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
-        bytesNv212bitmapJpeg(nv21Bytes, width, height, quality).bitmapJpeg2fileJpeg(filePathWithName)
+    fun bytesNv212fileJpeg2(nv21Bytes: ByteArray, strFilePathName: String, width: Int, height: Int, @IntRange(from = 0, to = 100) quality: Int = 100): File? =
+        bytesNv212bitmapJpeg(nv21Bytes, width, height, quality).bitmapJpeg2fileJpeg(strFilePathName)
 
     ////////////////////////////////////////////////////////////////////////////////////
 

@@ -17,9 +17,10 @@ import com.mozhimen.basick.animk.builder.temps.AnimatorAlphaType
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.androidx.renderscript.UtilKRenderScript
 import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig
+import com.mozhimen.basick.utilk.android.os.UtilKLooper
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basick.utilk.android.view.applyBackgroundNull
-import com.mozhimen.basick.utilk.java.lang.UtilKThread
 import com.mozhimen.uicorek.commons.IUicoreK
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -206,7 +207,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
      * @param blurBitmap
      */
     private fun setImageBitmapOnUiThread(blurBitmap: Bitmap?, isOnUpdate: Boolean) {
-        if (UtilKThread.isMainThread()) {
+        if (UtilKLooper.isMainThread()) {
             handleSetImageBitmap(blurBitmap, isOnUpdate)
         } else {
             if (!_isAttachedToWindow) {
@@ -285,7 +286,7 @@ class ImageKBlur @JvmOverloads constructor(context: Context, attrs: AttributeSet
         init {
             _outWidth = target.width
             _outHeight = target.height
-            _bitmap = UtilKRenderScript.getViewBitmap(target, _blurOption!!.getBlurPreScaleRatio(), _blurOption!!.isFullScreen(), _cutoutX, _cutoutY)
+            _bitmap = UtilKView.getBitmapForViewBackground(target, _blurOption!!.getBlurPreScaleRatio(), _blurOption!!.isFullScreen(), _cutoutX, _cutoutY)
         }
 
         override fun run() {

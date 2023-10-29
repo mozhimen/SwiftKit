@@ -23,11 +23,11 @@ import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.android.os.UtilKLooper
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.view.UtilKScreen
 import com.mozhimen.basick.utilk.android.view.UtilKWindowManager
 import com.mozhimen.basick.utilk.android.widget.showToastOnMain
-import com.mozhimen.basick.utilk.java.lang.UtilKThread
 import com.mozhimen.uicorek.adapterk.item.AdapterKItemRecycler
 import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
@@ -107,7 +107,7 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
 
     override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         if (_isOpen) {
-            if (UtilKThread.isMainThread()) {
+            if (UtilKLooper.isMainThread()) {
                 printInView(priority, tag, msg)
             } else {
                 lifecycleScope.launch(Dispatchers.Main) {

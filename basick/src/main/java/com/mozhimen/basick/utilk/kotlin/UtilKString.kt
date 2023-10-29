@@ -103,8 +103,6 @@ object UtilKString : BaseUtilK() {
 
     /**
      * 判断是否不为Empty
-     * @param str Array<out String>
-     * @return Boolean
      */
     @JvmStatic
     fun isNotEmpty(vararg str: String): Boolean {
@@ -114,8 +112,6 @@ object UtilKString : BaseUtilK() {
 
     /**
      * 是否含有空格
-     * @param str String
-     * @return Boolean
      */
     @JvmStatic
     fun hasSpace(str: String): Boolean {
@@ -130,9 +126,6 @@ object UtilKString : BaseUtilK() {
 
     /**
      * 包含String
-     * @param strContent String
-     * @param str String
-     * @return Boolean
      */
     @JvmStatic
     fun containStr(strContent: String, str: String): Boolean {
@@ -152,9 +145,6 @@ object UtilKString : BaseUtilK() {
 
     /**
      * 找到第一个匹配的字符的位置
-     * @param strContent String
-     * @param char Char
-     * @return Int
      */
     @JvmStatic
     fun findFirst(strContent: String, char: Char): Int =
@@ -162,19 +152,12 @@ object UtilKString : BaseUtilK() {
 
     /**
      * 找到第一个匹配的字符串的位置
-     * @param strContent String
-     * @param str String
-     * @return Int
      */
     fun findFirst(strContent: String, str: String): Int =
         strContent.indexOf(str)
 
     /**
      * 切割字符串
-     * @param strContent String
-     * @param firstIndex Int
-     * @param length Int
-     * @return String
      */
     @JvmStatic
     fun subStr(strContent: String, firstIndex: Int, length: Int): String =
@@ -182,8 +165,6 @@ object UtilKString : BaseUtilK() {
 
     /**
      * 电话号码隐藏中间四位
-     * @param str String
-     * @return String
      */
     @JvmStatic
     fun hidePhone(str: String): String =
@@ -191,8 +172,6 @@ object UtilKString : BaseUtilK() {
 
     /**
      * 名字脱敏
-     * @param str String
-     * @return String
      */
     @JvmStatic
     fun hideName(str: String): String {

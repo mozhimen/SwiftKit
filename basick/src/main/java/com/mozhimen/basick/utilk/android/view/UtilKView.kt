@@ -1,6 +1,10 @@
 package com.mozhimen.basick.utilk.android.view
 
 import android.app.Activity
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Matrix
+import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -8,22 +12,23 @@ import android.text.TextUtils
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import com.mozhimen.basick.elemk.android.view.cons.CView
-import com.mozhimen.basick.elemk.android.view.cons.CWindow
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.elemk.cons.CPackage
+import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
+import com.mozhimen.basick.utilk.android.util.UtilKLogSupport
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.UtilKAny
-import com.mozhimen.basick.utilk.kotlinx.coroutines.createViewClickFlow
+import com.mozhimen.basick.utilk.kotlin.strColor2intColor
+import com.mozhimen.basick.utilk.kotlinx.coroutines.getViewClickFlow
 import com.mozhimen.basick.utilk.kotlinx.coroutines.throttleFirst
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import java.util.*
 
 
 /**
@@ -33,11 +38,6 @@ import java.util.*
  * @Date 2022/2/27 16:50
  * @Version 1.0
  */
-fun View.getTagLong(key: Int, defaultValue: Long): Long =
-    UtilKView.getTagLong(this, key, defaultValue)
-
-//////////////////////////////////////////////////////////////////////////////
-
 fun View.isVisible(): Boolean =
     UtilKView.isVisible(this)
 
@@ -115,7 +115,7 @@ fun View.applySuspendDebounceClickListener(scope: CoroutineScope, thresholdMilli
 object UtilKView : BaseUtilK() {
 
     @JvmStatic
-    fun getTagLong(view: View, key: Int, defaultValue: Long): Long =
+    fun getLongTag(view: View, key: Int, defaultValue: Long): Long =
         if (view.getTag(key) != null) view.getTag(key) as Long else defaultValue
 
     @JvmStatic
@@ -161,16 +161,6 @@ object UtilKView : BaseUtilK() {
     }
 
     /**
-     * 获取View绘制区域TOP高度
-     * 注: 在Activity的回调方法onWindowFocusChanged()执行后,才能得到预期结果
-     * @param activity Activity
-     * @return Int
-     */
-    @JvmStatic
-    fun getViewDrawHeight(activity: Activity): Int =
-        UtilKWindow.get(activity).findViewById<View>(CWindow.ID_ANDROID_CONTENT).top
-
-    /**
      * 寻找父View是否匹配列举的类型
      * @param view View
      * @param matches Array<out Class<*>>
@@ -190,11 +180,66 @@ object UtilKView : BaseUtilK() {
         return null
     }
 
+    @JvmStatic
+    fun getBitmapForViewBackground(view: View, fullScreen: Boolean): Bitmap? =
+        getBitmapForViewBackground(view, 1.0f, fullScreen, 0, 0)
+
+    @JvmStatic
+    fun getBitmapForViewBackground(view: View, scaledRatio: Float, fullScreen: Boolean, cutoutX: Int, cutoutY: Int): Bitmap? {
+        if (view.width <= 0 || view.height <= 0) {
+            UtilKLogSupport.e("getViewBitmap  >>  宽或者高为空")
+            return null
+        }
+        val statusBarHeight = UtilKStatusBar.getHeight(false)
+        var tempBitmap: Bitmap
+        UtilKLogSupport.i("getViewBitmap 模糊原始图像分辨率 [" + view.width + " x " + view.height + "]")
+        tempBitmap = try {
+            Bitmap.createBitmap((view.width * scaledRatio).toInt(), (view.height * scaledRatio).toInt(), Bitmap.Config.ARGB_8888)
+        } catch (error: OutOfMemoryError) {
+            System.gc()
+            return null
+        }
+        val canvas = Canvas(tempBitmap)
+        val matrix = Matrix()
+        matrix.preScale(scaledRatio, scaledRatio)
+        canvas.setMatrix(matrix)
+        val bgDrawable = view.background
+        if (bgDrawable == null)
+            canvas.drawColor("#FAFAFA".strColor2intColor())
+        else
+            bgDrawable.draw(canvas)
+        if (fullScreen) {
+            if (statusBarHeight > 0 && UtilKBuildVersion.isAfterV_21_5_L() && view.context is Activity) {
+                val statusBarColor = (view.context as Activity).window.statusBarColor
+                val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+                paint.color = statusBarColor
+                val rect = Rect(0, 0, view.width, statusBarHeight)
+                canvas.drawRect(rect, paint)
+            }
+        }
+        view.draw(canvas)
+        UtilKLogSupport.i("getViewBitmap 模糊缩放图像分辨率 [" + tempBitmap.width + " x " + tempBitmap.height + "]")
+        if (cutoutX > 0 || cutoutY > 0) {
+            try {
+                val cutLeft = (cutoutX * scaledRatio).toInt()
+                val cutTop = (cutoutY * scaledRatio).toInt()
+                val cutWidth = tempBitmap.width - cutLeft
+                val cutHeight = tempBitmap.height - cutTop
+                tempBitmap = Bitmap.createBitmap(tempBitmap, cutLeft, cutTop, cutWidth, cutHeight, null, false)
+            } catch (e: Exception) {
+                System.gc()
+            }
+        }
+        return tempBitmap
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+
     private fun <V : View> isDebounceClickable(view: V, thresholdMillis: Long = 500): Boolean {
         var isClickable = false
         val currentClickTime = System.currentTimeMillis()
-        val lastClickTime = getTagLong(view, 1123460103, currentClickTime)
-        if (currentClickTime - lastClickTime >= getTagLong(view, 1123461123, thresholdMillis)) {
+        val lastClickTime = getLongTag(view, 1123460103, currentClickTime)
+        if (currentClickTime - lastClickTime >= getLongTag(view, 1123461123, thresholdMillis)) {
             isClickable = true
             view.setTag(1123460103, currentClickTime)
         }
@@ -202,40 +247,14 @@ object UtilKView : BaseUtilK() {
     }
 
     /**
-     * 获取指定类型的子View
-     * @param viewGroup ViewGroup?
-     * @param clazz Class<T>
-     * @return T?
-     */
-    @JvmStatic
-    fun <T> findTypeChildView(viewGroup: ViewGroup, clazz: Class<T>): T? {
-        val viewDeque: Deque<View> = ArrayDeque()
-        viewDeque.add(viewGroup)
-        while (!viewDeque.isEmpty()) {
-            val node = viewDeque.removeFirst()
-            if (clazz.isInstance(node)) {
-                return clazz.cast(node)
-            } else if (node is ViewGroup) {
-                var i = 0
-                val count = node.childCount
-                while (i < count) {
-                    viewDeque.add(node.getChildAt(i))
-                    i++
-                }
-            }
-        }
-        return null
-    }
-
-    /**
      * 逐层在父View中查找View
      * @param viewId Int
-     * @param sourceView View
+     * @param view View
      * @return View?
      */
     @JvmStatic
-    fun findViewFromParentById(viewId: Int, sourceView: View): View? {
-        var tempView: View = sourceView
+    fun findViewForParentById(view: View, viewId: Int): View? {
+        var tempView: View = view
         while (tempView.parent is View) {
             //逐层在父View中查找，是为了查找离自己最近的目标对象，因为ID可能重复
             tempView = tempView.parent as View
@@ -253,7 +272,7 @@ object UtilKView : BaseUtilK() {
      * @return View?
      */
     @JvmStatic
-    fun findViewFromParentByView(destView: View, sourceView: View): View? {
+    fun findViewForParentByView(destView: View, sourceView: View): View? {
         var tempView: View = sourceView
         while (tempView.parent is View) {
             //需要从content一直遍历往前找到decorView下的第一个child，那个为准
@@ -278,12 +297,12 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 寻找父View是否匹配列举的类型
-     * @param currentView View
+     * @param view View
      * @param matches Array<out Class<*>>
      */
     @JvmStatic
-    fun isParentViewMatch(currentView: View, vararg matches: Class<*>): Boolean =
-        getParentViewMatch(currentView, *matches) != null
+    fun isParentViewMatch(view: View, vararg matches: Class<*>): Boolean =
+        getParentViewMatch(view, *matches) != null
 
     @JvmStatic
     fun isVisible(view: View): Boolean =
@@ -307,12 +326,12 @@ object UtilKView : BaseUtilK() {
 
     @JvmStatic
     fun applyDebounceClickListener(view: View, scope: CoroutineScope, block: IA_Listener<View>, thresholdMillis: Long = 500) {
-        view.createViewClickFlow().throttleFirst(thresholdMillis).onEach { block.invoke(view) }.launchIn(scope)
+        view.getViewClickFlow().throttleFirst(thresholdMillis).onEach { block.invoke(view) }.launchIn(scope)
     }
 
     @JvmStatic
     fun applySuspendDebounceClickListener(view: View, scope: CoroutineScope, block: suspend CoroutineScope.(View) -> Unit, thresholdMillis: Long = 500) {
-        view.createViewClickFlow().throttleFirst(thresholdMillis).onEach { scope.block(view) }.launchIn(scope)
+        view.getViewClickFlow().throttleFirst(thresholdMillis).onEach { scope.block(view) }.launchIn(scope)
     }
 
     @JvmStatic
@@ -481,6 +500,7 @@ object UtilKView : BaseUtilK() {
      * @param view View
      * @return View
      */
+    @OptInApiUse_BaseApplication
     @JvmStatic
     fun removeViewFromParent(view: View): View {
         val viewParent: ViewParent = view.parent

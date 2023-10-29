@@ -23,11 +23,11 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKRecord
 class LogKPrinterItem<R : BaseLogKRecord>(private val _record: R) : RecyclerKItem<VHKRecyclerVB<LogkPrinterViewItemBinding>>() {
     override fun onBindItem(holder: VHKRecyclerVB<LogkPrinterViewItemBinding>, position: Int) {
         super.onBindItem(holder, position)
-        val colorInt = getColorIntFor(_record.priority)
+        val intColor = getIntColorFor(_record.priority)
         holder.vb.logkPrinterViewTag.text = _record.getFlattened()
-        holder.vb.logkPrinterViewTag.setTextColor(colorInt)
+        holder.vb.logkPrinterViewTag.setTextColor(intColor)
         holder.vb.logkPrinterViewMsg.text = _record.msg.replaceRegexLineBreak().replace(UtilKPackage.getPackageName(), "")
-        holder.vb.logkPrinterViewMsg.setTextColor(colorInt)
+        holder.vb.logkPrinterViewMsg.setTextColor(intColor)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup): VHKRecyclerVB<LogkPrinterViewItemBinding> =
@@ -37,7 +37,7 @@ class LogKPrinterItem<R : BaseLogKRecord>(private val _record: R) : RecyclerKIte
         com.mozhimen.underlayk.R.layout.logk_printer_view_item
 
     @ColorInt
-    fun getColorIntFor(@ALogPriority priority: Int): Int =
+    fun getIntColorFor(@ALogPriority priority: Int): Int =
         UtilKRes.getColor(
             when (priority) {
                 CLogPriority.V -> com.mozhimen.underlayk.R.color.logk_v

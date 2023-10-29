@@ -10,6 +10,9 @@ import android.graphics.Bitmap
  * @Date 2023/8/15 14:21
  * @Version 1.0
  */
+fun Bitmap.getSizeOfM():Int =
+    UtilKBitmap.getSizeOfM(this)
+
 object UtilKBitmap {
     @JvmStatic
     fun getSizeOfM(bitmap: Bitmap): Int =

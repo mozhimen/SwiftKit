@@ -22,8 +22,8 @@ class AnimatorBackgroundColorType : BaseAnimatorType<AnimatorBackgroundColorType
     override lateinit var _animator: Animator
     private var _view: View? = null
 
-    fun setColors(@ColorInt vararg colorInt: Int): AnimatorBackgroundColorType {
-        _colors = colorInt
+    fun setColors(@ColorInt vararg intColor: Int): AnimatorBackgroundColorType {
+        _colors = intColor
         return this
     }
 

@@ -44,13 +44,9 @@ fun RecyclerView.isScrollUp(dy: Int): Boolean =
 fun RecyclerView.isScrollDown(dx: Int): Boolean =
     UtilKRecyclerView.isScrollDown(dx)
 
-
-
 object UtilKRecyclerView {
     /**
      * 找到最后一个可视的Item
-     * @param recyclerView RecyclerView
-     * @return Int
      */
     @JvmStatic
     fun getLastVisibleItemPosition(recyclerView: RecyclerView): Int {
@@ -64,8 +60,6 @@ object UtilKRecyclerView {
 
     /**
      * 找到第一个可视的View
-     * @param recyclerView RecyclerView
-     * @return Int
      */
     @JvmStatic
     fun getFirstVisibleItemPosition(recyclerView: RecyclerView): Int {
@@ -81,8 +75,6 @@ object UtilKRecyclerView {
 
     /**
      * 是否滑动到底部
-     * @param recyclerView RecyclerView
-     * @return Boolean
      */
     @JvmStatic
     fun isScroll2top(recyclerView: RecyclerView): Boolean =
@@ -90,8 +82,6 @@ object UtilKRecyclerView {
 
     /**
      * 是否滑动到底部
-     * @param recyclerView RecyclerView
-     * @return Boolean
      */
     @JvmStatic
     fun isScroll2end(recyclerView: RecyclerView): Boolean =
@@ -99,8 +89,6 @@ object UtilKRecyclerView {
 
     /**
      * 滑动到顶部2
-     * @param recyclerView RecyclerView
-     * @return Boolean
      */
     @JvmStatic
     fun isScroll2top2(recyclerView: RecyclerView): Boolean {
@@ -130,8 +118,6 @@ object UtilKRecyclerView {
 
     /**
      * 滑动到底部2
-     * @param recyclerView RecyclerView
-     * @return Boolean
      */
     @JvmStatic
     fun isScroll2end2(recyclerView: RecyclerView): Boolean {
@@ -148,8 +134,6 @@ object UtilKRecyclerView {
 
     /**
      * 是否滑动到边缘
-     * @param recyclerView RecyclerView
-     * @return Boolean
      */
     @JvmStatic
     fun isScroll2VerticalEdge(recyclerView: RecyclerView): Boolean =
@@ -166,8 +150,6 @@ object UtilKRecyclerView {
 
     /**
      * 是否向上滚动
-     * @param dy Int
-     * @return Boolean
      */
     @JvmStatic
     fun isScrollUp(dy: Int): Boolean =
@@ -175,8 +157,6 @@ object UtilKRecyclerView {
 
     /**
      * 是否向下滚动
-     * @param dx Int
-     * @return Boolean
      */
     @JvmStatic
     fun isScrollDown(dx: Int): Boolean =

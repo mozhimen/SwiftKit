@@ -1,11 +1,9 @@
 package com.mozhimen.basick.elemk.android.content.bases
 
 import android.annotation.SuppressLint
-import android.app.DownloadManager.ACTION_DOWNLOAD_COMPLETE
 import android.content.Context
 import android.content.Intent
 import com.mozhimen.basick.elemk.android.app.cons.CDownloadManager
-import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiver
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
@@ -41,11 +39,11 @@ android:exported="true">
  */
 @SuppressLint("InlinedApi")
 @AManifestKRequire(CPermission.INSTALL_PACKAGES, CPermission.REQUEST_INSTALL_PACKAGES, CPermission.READ_INSTALL_SESSIONS, CPermission.REPLACE_EXISTING_PACKAGE)
-open class BaseDownloadInstallBroadcastReceiver(private val _apkPathWithName: String) : BaseBroadcastReceiver() {
+open class BaseDownloadInstallBroadcastReceiver(private val _strPathNameApk: String) : BaseBroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent.action) {
-            CDownloadManager.ACTION_DOWNLOAD_COMPLETE ->  UtilKAppInstall.installHand(_apkPathWithName)
+            CDownloadManager.ACTION_DOWNLOAD_COMPLETE ->  UtilKAppInstall.installHand(_strPathNameApk)
         }
     }
 }

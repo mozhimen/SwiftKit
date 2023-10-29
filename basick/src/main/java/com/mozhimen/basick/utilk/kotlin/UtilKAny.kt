@@ -29,6 +29,8 @@ import java.lang.reflect.Array
 fun Any.getObjTypeName(): String =
     UtilKAny.getObjTypeName(this)
 
+/////////////////////////////////////////////////////////////////////
+
 fun Any.isObjNullOrEmpty(): Boolean =
     UtilKAny.isObjNullOrEmpty(this)
 
@@ -38,12 +40,12 @@ fun Any.isObjPrimitive(): Boolean =
 fun Any.isObjTypeMatch(vararg matches: Class<*>): Boolean =
     UtilKAny.isObjTypeMatch(this, *matches)
 
+/////////////////////////////////////////////////////////////////////
+
 object UtilKAny : IUtilK {
 
     /**
      * 获取类型名称
-     * @param obj Any
-     * @return String
      */
     @JvmStatic
     fun getObjTypeName(obj: Any): String {
@@ -97,8 +99,6 @@ object UtilKAny : IUtilK {
 
     /**
      * 判断数据类型是否是原始数据类型
-     * @param obj Any
-     * @return Boolean
      */
     @JvmStatic
     fun isObjPrimitive(obj: Any): Boolean {
@@ -121,9 +121,6 @@ object UtilKAny : IUtilK {
 
     /**
      * 判断类型是否匹配
-     * @param obj Class<*>
-     * @param matches Array<out Class<*>>
-     * @return Boolean
      */
     @JvmStatic
     fun isObjTypeMatch(obj: Any, vararg matches: Class<*>): Boolean {

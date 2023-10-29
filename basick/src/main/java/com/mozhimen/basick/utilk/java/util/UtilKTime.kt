@@ -28,7 +28,6 @@ fun Pair<String, String>.isTimeAtMinuteOf(timeStr: String) =
 object UtilKTime {
     /**
      * 获取当前小时2位
-     * @return String
      */
     @JvmStatic
     fun getCurrentHourStrDoubleBits(): String =
@@ -39,7 +38,6 @@ object UtilKTime {
     /**
      * 是否对齐时间
      * @param hourAndMinuteTwoBits Pair<String, String> 小时两位,分钟两位
-     * @return Boolean
      */
     @JvmStatic
     fun isTimeAtMinuteOf(hourAndMinuteTwoBits: Pair<String, String>): Boolean =
@@ -49,7 +47,6 @@ object UtilKTime {
      * 是否对齐时间
      * @param hourAndMinuteTwoBits Pair<String, String> 小时两位,分钟两位
      * @param timeStr String 格式HHmm
-     * @return Boolean
      */
     @JvmStatic
     fun isTimeAtMinuteOf(hourAndMinuteTwoBits: Pair<String, String>, timeStr: String): Boolean =
@@ -60,7 +57,6 @@ object UtilKTime {
      * @param hourStrTwoBits String 小时两位
      * @param minuteStrTwoBits String 分钟两位
      * @param timeStr String 格式HHmm
-     * @return Boolean
      */
     @JvmStatic
     fun isTimeAtMinuteOf(hourStrTwoBits: String, minuteStrTwoBits: String, timeStr: String): Boolean {
@@ -76,7 +72,6 @@ object UtilKTime {
     /**
      * 是否是指定整点
      * @param hourStrTwoBits String HHmm格式
-     * @return Boolean
      */
     @JvmStatic
     fun isTimeAtHourOf(hourStrTwoBits: String): Boolean =
@@ -84,7 +79,6 @@ object UtilKTime {
 
     /**
      * 是否是指定整点
-     * @param hourStrTwoBits String
      * @param timeStr String HHmm格式
      */
     @JvmStatic
@@ -100,7 +94,6 @@ object UtilKTime {
 
     /**
      * 是否是整小时
-     * @param timeLong Long
      */
     @JvmStatic
     fun isTimeAtHour(timeLong: Long): Boolean =
@@ -108,7 +101,6 @@ object UtilKTime {
 
     /**
      * 是否是整小时
-     * @return Boolean
      */
     @JvmStatic
     fun isTimeAtHour(): Boolean =
@@ -117,7 +109,6 @@ object UtilKTime {
     /**
      * 是否是整小时
      * @param timeStr String 时间格式mm
-     * @return Boolean
      */
     @JvmStatic
     fun isTimeAtHour(timeStr: String): Boolean =
@@ -127,5 +118,4 @@ object UtilKTime {
             e.printStackTrace();
             false
         }
-
 }

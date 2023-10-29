@@ -25,7 +25,6 @@ object UtilKActionBar {
 
     /**
      * enableBackIfActionBarExists
-     * @param activity AppCompatActivity
      */
     @JvmStatic
     fun applyActionBarDisplayHomeAsUpEnabled(activity: AppCompatActivity) {
@@ -49,6 +48,4 @@ object UtilKActionBar {
     fun hide(activity: AppCompatActivity) {
         get(activity)?.hide()
     }
-
-
 }

@@ -23,22 +23,28 @@ import kotlinx.coroutines.CoroutineScope
  * @Version 1.0
  */
 abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: PagingKConfig = PagingKConfig()) : BaseViewModel(), IPagingKDataSource<RES, DES> {
+    private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener
+    ////////////////////////////////////////////////////////////////////////////////////
+
     val liveLoadState = MutableLiveData<Int>()
-    val livePagedList: LiveData<PagedList<DES>> = generateLivePagedList()
+    val livePagedList: LiveData<PagedList<DES>>
 
     ////////////////////////////////////////////////////////////////////////////////////
 
-    private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener = object : IPagingKDataSourceLoadListener {
-        override fun onFirstLoadStart() {
-            liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_START)
-        }
+    init {
+       _pagingKDataSourceLoadingListener =  object : IPagingKDataSourceLoadListener {
+            override fun onFirstLoadStart() {
+                liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_START)
+            }
 
-        override fun onFirstLoadCompleted(isEmpty: Boolean) {
-            if (isEmpty)
-                liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY)
-            else
-                liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_COMPLETED)
+            override fun onFirstLoadCompleted(isEmpty: Boolean) {
+                if (isEmpty)
+                    liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY)
+                else
+                    liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_COMPLETED)
+            }
         }
+        livePagedList = generateLivePagedList()
     }
 
     ////////////////////////////////////////////////////////////////////////////////////

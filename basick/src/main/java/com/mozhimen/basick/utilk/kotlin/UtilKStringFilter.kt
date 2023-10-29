@@ -25,8 +25,6 @@ fun String.filterLength(endIndex: Int): String =
 object UtilKFilter {
     /**
      * 过滤出数字
-     * @param number String
-     * @return String
      */
     @JvmStatic
     fun filterNumber(number: String): String =
@@ -34,8 +32,6 @@ object UtilKFilter {
 
     /**
      * 过滤出字母
-     * @param alphabet String
-     * @return String
      */
     @JvmStatic
     fun filterAlphabet(alphabet: String): String =
@@ -44,8 +40,6 @@ object UtilKFilter {
 
     /**
      * 过滤出中文
-     * @param chinese String
-     * @return String
      */
     @JvmStatic
     fun filterChinese(chinese: String): String =
@@ -53,8 +47,6 @@ object UtilKFilter {
 
     /**
      * 过滤出字母、数字和中文
-     * @param character String
-     * @return String
      */
     @JvmStatic
     fun filterNAC(character: String): String =
@@ -62,9 +54,6 @@ object UtilKFilter {
 
     /**
      * 过滤长度
-     * @param str String
-     * @param endIndex Int
-     * @return String
      */
     @JvmStatic
     fun filterLength(str: String, endIndex: Int): String =

@@ -29,7 +29,6 @@ object UtilKCamera {
 
     /**
      * 设备是否有前置摄像
-     * @return Boolean
      */
     @JvmStatic
     fun hasFrontCamera(context: Context): Boolean =
@@ -37,7 +36,6 @@ object UtilKCamera {
 
     /**
      * 设备是否有后置摄像头
-     * @return Boolean
      */
     @JvmStatic
     fun hasBackCamera(context: Context): Boolean =

@@ -16,12 +16,12 @@ object UtilKTitleBar {
     /**
      * 获取标题栏高度
      * 注: 在Activity的回调方法onWindowFocusChanged()执行后,才能得到预期的结果
-     * @param activity Activity
-     * @return Int
      */
     @JvmStatic
     fun getHeight(activity: Activity) =
-        abs(UtilKView.getViewDrawHeight(activity) - UtilKStatusBar.getHeight(activity))
+        abs(UtilKActivity.getViewDrawHeight(activity) - UtilKStatusBar.getHeight(activity))
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun hide(activity: Activity) {

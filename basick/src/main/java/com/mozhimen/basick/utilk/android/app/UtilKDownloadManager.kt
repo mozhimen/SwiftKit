@@ -20,7 +20,4 @@ object UtilKDownloadManager {
     @JvmStatic
     fun getUriForDownloadedFile(context: Context, id: Long): Uri? =
         get(context).getUriForDownloadedFile(id)
-
-    /////////////////////////////////////////////////////
-
 }

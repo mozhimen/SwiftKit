@@ -26,52 +26,6 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
  */
 object UtilKStatusBar : BaseUtilK() {
     /**
-     * 设置状态栏沉浸式
-     * @param activity Activity
-     */
-    @JvmStatic
-    @ADescription("需要${CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE}")
-    fun applyTranslucent(activity: Activity) {
-        if (UtilKBuildVersion.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
-            UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)//清除透明状态栏
-            //UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
-            //Log.d(TAG, "setTranslucent: ${(UtilKDecorView.getWindowSystemUiVisibility(activity) or CView.SystemUiFlag.LAYOUT_FULLSCREEN) == CView.SystemUiFlag.LAYOUT_FULLSCREEN}")
-            UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
-            UtilKWindow.applyStatusBarColor(activity, Color.TRANSPARENT)//设置透明
-        } else if (UtilKBuildVersion.isAfterV_19_44_K()) {//19
-            UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)
-        }
-    }
-
-    /**
-     * 修改状态栏颜色,支持4.4以上的版本
-     */
-    @JvmStatic
-    fun applyColor(activity: Activity, @ColorInt colorInt: Int) {
-        if (UtilKBuildVersion.isAfterV_21_5_L()) {
-            UtilKWindow.applyStatusBarColor(activity, colorInt)
-        } else if (UtilKBuildVersion.isAfterV_19_44_K()) {
-            //使用SystemBarTintManager,需要先将状态栏设置为透明
-            applyTranslucent(activity)
-            val colorfulStatusBar = ColorfulStatusBar(activity)
-            colorfulStatusBar.setEnable(true)//显示状态栏
-            colorfulStatusBar.setColor(colorInt)//显示状态栏颜色
-        }
-    }
-
-    @JvmStatic
-    fun hide(activity: Activity) {
-        UtilKDecorView.applySystemUiVisibilityOr(activity, CView.SystemUiFlag.FULLSCREEN /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
-    }
-
-    @JvmStatic
-    fun overlay(activity: Activity) {
-        UtilKDecorView.applySystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN)
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    /**
      * Return the status bar's height.
      * @return Int
      */
@@ -133,5 +87,53 @@ object UtilKStatusBar : BaseUtilK() {
         var isStatusBarAvailable: Boolean = activity.obtainStyledAttributes(intArrayOf(CPackage.ANDROID_R_ATTR_WINDOWTRANSLUCENTSTATUS)).use { it.getBoolean(0,false) }
         if (UtilKWindow.isFlagStatusBarTranslucent(activity)) isStatusBarAvailable = true
         return isStatusBarAvailable
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 设置状态栏沉浸式
+     * @param activity Activity
+     */
+    @JvmStatic
+    @ADescription("需要${CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE}")
+    fun applyTranslucent(activity: Activity) {
+        if (UtilKBuildVersion.isAfterV_21_5_L()) {//21//5.0以上状态栏透明
+            UtilKWindow.clearFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)//清除透明状态栏
+            //UtilKDecorView.setSystemUiVisibility(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN or CView.SystemUiFlag.LAYOUT_STABLE)
+            //Log.d(TAG, "setTranslucent: ${(UtilKDecorView.getWindowSystemUiVisibility(activity) or CView.SystemUiFlag.LAYOUT_FULLSCREEN) == CView.SystemUiFlag.LAYOUT_FULLSCREEN}")
+            UtilKWindow.addFlags(activity, CWinMgr.Lpf.DRAWS_SYSTEM_BAR_BACKGROUNDS)//设置状态栏颜色必须添加
+            UtilKWindow.applyStatusBarColor(activity, Color.TRANSPARENT)//设置透明
+        } else if (UtilKBuildVersion.isAfterV_19_44_K()) {//19
+            UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_STATUS)
+        }
+    }
+
+    /**
+     * 修改状态栏颜色,支持4.4以上的版本
+     */
+    @JvmStatic
+    fun applyColor(activity: Activity, @ColorInt intColor: Int) {
+        if (UtilKBuildVersion.isAfterV_21_5_L()) {
+            UtilKWindow.applyStatusBarColor(activity, intColor)
+        } else if (UtilKBuildVersion.isAfterV_19_44_K()) {
+            //使用SystemBarTintManager,需要先将状态栏设置为透明
+            applyTranslucent(activity)
+            val colorfulStatusBar = ColorfulStatusBar(activity)
+            colorfulStatusBar.setEnable(true)//显示状态栏
+            colorfulStatusBar.setColor(intColor)//显示状态栏颜色
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun hide(activity: Activity) {
+        UtilKDecorView.applySystemUiVisibilityOr(activity, CView.SystemUiFlag.FULLSCREEN /*or CView.SystemUi.FLAG_LIGHT_STATUS_BAR*/)
+    }
+
+    @JvmStatic
+    fun overlay(activity: Activity) {
+        UtilKDecorView.applySystemUiVisibilityOr(activity, CView.SystemUiFlag.LAYOUT_FULLSCREEN)
     }
 }

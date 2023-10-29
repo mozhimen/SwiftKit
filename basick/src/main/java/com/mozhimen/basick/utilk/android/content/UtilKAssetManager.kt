@@ -24,16 +24,16 @@ object UtilKAssetManager {
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun openFd(filePathWithName: String, context: Context): AssetFileDescriptor =
-        getForContext(context).openFd(filePathWithName)
+    fun openFd(strAssetName: String, context: Context): AssetFileDescriptor =
+        getForContext(context).openFd(strAssetName)
 
     @JvmStatic
-    fun open(filePathWithName: String, context: Context): InputStream =
-        getForContext(context).open(filePathWithName)
+    fun open(strAssetName: String, context: Context): InputStream =
+        getForContext(context).open(strAssetName)
 
     /////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun list(assetFileName: String, context: Context): Array<String>? =
-        getForRes(context).list(assetFileName)
+    fun list(strAssetName: String, context: Context): Array<String>? =
+        getForRes(context).list(strAssetName)
 }

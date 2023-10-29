@@ -9,6 +9,7 @@ import com.mozhimen.basick.elemk.android.location.commons.ILocationListener
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.provider.UtilKSettings
+import com.mozhimen.basick.utilk.android.provider.UtilKSettingsSecure
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.util.it
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -38,11 +39,8 @@ object UtilKLocation : BaseUtilK() {
 
     /**
      * Get for network
-     *
      * @param minTimeMs 2000
      * @param minDistanceM 5f
-     * @param listener
-     * @return
      */
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.ACCESS_FINE_LOCATION, CPermission.ACCESS_COARSE_LOCATION])
@@ -75,9 +73,9 @@ object UtilKLocation : BaseUtilK() {
 
     @JvmStatic
     fun hasPermission(): Boolean =
-        if (!UtilKPermission.checkPermissions(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION))) {
+        if (!UtilKPermission.hasPermissions(arrayOf(CPermission.ACCESS_COARSE_LOCATION, CPermission.ACCESS_FINE_LOCATION))) {
             false.also { "get: permission denied".et(TAG) }
-        } else if (!UtilKSettings.isLocationEnabled(_context)) {
+        } else if (!UtilKSettingsSecure.isLocationEnabled(_context)) {
             false.also { "get: system setting location off".et(TAG) }
         } else true
 }

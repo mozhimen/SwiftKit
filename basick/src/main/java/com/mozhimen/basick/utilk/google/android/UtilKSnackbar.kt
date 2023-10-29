@@ -10,6 +10,7 @@ import com.mozhimen.basick.elemk.cons.CCons
 import com.mozhimen.basick.elemk.android.os.bases.BaseWeakRefMainHandler
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKHandler
+import com.mozhimen.basick.utilk.android.os.UtilKLooper
 
 /**
  * @ClassName UtilKSnackBar
@@ -59,7 +60,7 @@ object UtilKSnackbar : BaseUtilK() {
 
     @JvmStatic
     fun showSnackbarOnMain(view: View, msg: String, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
-        if (UtilKHandler.isMainLooper())
+        if (UtilKLooper.isMainLooper())
             showSnackbar(view, msg, duration, action, listener)
         else
             BaseWeakRefMainHandler(_context).post { showSnackbar(view, msg, duration, action, listener) }
@@ -67,7 +68,7 @@ object UtilKSnackbar : BaseUtilK() {
 
     @JvmStatic
     fun showSnackbarOnMain(view: View, @StringRes msgId: Int, duration: Int = Snackbar.LENGTH_SHORT, action: String = "", listener: View.OnClickListener? = null) {
-        if (UtilKHandler.isMainLooper())
+        if (UtilKLooper.isMainLooper())
             showSnackbar(view, msgId, duration, action, listener)
         else
             BaseWeakRefMainHandler(_context).post { showSnackbar(view, msgId, duration, action, listener) }
@@ -84,7 +85,7 @@ object UtilKSnackbar : BaseUtilK() {
         listener: View.OnClickListener? = null,
         maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
     ) {
-        if (UtilKHandler.isMainLooper())
+        if (UtilKLooper.isMainLooper())
             showSnackbarMultiLines(view, msg, duration, action, listener, maxLines)
         else
             BaseWeakRefMainHandler(_context).post { showSnackbarMultiLines(view, msg, duration, action, listener, maxLines) }
@@ -99,7 +100,7 @@ object UtilKSnackbar : BaseUtilK() {
         listener: View.OnClickListener? = null,
         maxLines: Int = CCons.UTILK_SNACK_BAR_MAX_LINES
     ) {
-        if (UtilKHandler.isMainLooper())
+        if (UtilKLooper.isMainLooper())
             showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines)
         else
             BaseWeakRefMainHandler(_context).post { showSnackbarMultiLines(view, msgId, duration, action, listener, maxLines) }

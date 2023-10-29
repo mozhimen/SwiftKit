@@ -19,10 +19,11 @@ import java.lang.reflect.Method
  */
 object UtilKSystemProperties : BaseUtilK() {
 
+    @SuppressLint("PrivateApi")
     @JvmStatic
-    fun get2(strPackage: String, defaultValue: String = ""): String {
+    fun getStr2(strPackage: String, defaultValue: String = ""): String {
         try {
-            @SuppressLint("PrivateApi") val clazz = CStrPackage.ANDROID_OS_SYSTEMPROPERTIES.strPackage2clazz()
+            val clazz = CStrPackage.ANDROID_OS_SYSTEMPROPERTIES.strPackage2clazz()
             val methodGet: Method = clazz.getMethod("get", String::class.java, String::class.java)
             return methodGet.invoke(clazz, strPackage, defaultValue) as String
         } catch (e: Exception) { /**/
@@ -34,27 +35,21 @@ object UtilKSystemProperties : BaseUtilK() {
 
     /**
      * 获取首选项
-     * @param strPackage String
-     * @param defaultValue String
-     * @return String
      */
     @JvmStatic
-    fun get(strPackage: String, defaultValue: String): String =
+    fun getStr(strPackage: String, defaultValue: String): String =
         try {
             val clazz = CStrPackage.ANDROID_OS_SYSTEMPROPERTIES.strPackage2clazz()
             val methodGet: Method = clazz.getMethod("get", String::class.java)
             (methodGet.invoke(clazz, strPackage) as String).ifEmpty { defaultValue }
         } catch (e: Exception) {
-            Log.e(TAG, "getSystemProperties Exception ${e.message}")
+            Log.e(TAG, "get Exception ${e.message}")
             e.printStackTrace()
             defaultValue
         }
 
     /**
      * 获取首选项
-     * @param strPackage String
-     * @param defaultValue Boolean
-     * @return String
      */
     @JvmStatic
     @SuppressLint("PrivateApi")
@@ -72,23 +67,20 @@ object UtilKSystemProperties : BaseUtilK() {
 
     /**
      * 设备Rom版本
-     * @return String
      */
     @JvmStatic
     fun getRomVersion(): String =
-        get(CStrPackage.RO_PRODUCT_ROM_VERSION, CBuild.UNKNOWN)
+        getStr(CStrPackage.RO_PRODUCT_ROM_VERSION, CBuild.UNKNOWN)
 
     /**
      * 设备硬件版本
-     * @return String
      */
     @JvmStatic
-    fun getHardwareVersion(): String =
-        get(CStrPackage.RO_PRODUCT_HW_VERSION, CBuild.UNKNOWN)
+    fun getHwVersion(): String =
+        getStr(CStrPackage.RO_PRODUCT_HW_VERSION, CBuild.UNKNOWN)
 
     /**
      * 序列号
-     * @return String
      */
     @SuppressLint("HardwareIds")
     @JvmStatic
@@ -97,7 +89,7 @@ object UtilKSystemProperties : BaseUtilK() {
     } else if (UtilKBuildVersion.isAfterV_26_8_O()) {
         UtilKBuild.getSerial()
     } else {
-        get(CStrPackage.RO_SERIALNO, CBuild.UNKNOWN)
+        getStr(CStrPackage.RO_SERIALNO, CBuild.UNKNOWN)
     }
 
     ///////////////////////////////////////////////////////////////////////////////////
@@ -121,7 +113,6 @@ object UtilKSystemProperties : BaseUtilK() {
 
     /**
      * colorOS是否大于3
-     * @return Boolean
      */
     @JvmStatic
     @SuppressLint("PrivateApi")
@@ -145,7 +136,6 @@ object UtilKSystemProperties : BaseUtilK() {
 
     /**
      * 是否自启动
-     * @return Boolean
      */
     @JvmStatic
     fun isAutoRun(): Boolean =
@@ -155,8 +145,6 @@ object UtilKSystemProperties : BaseUtilK() {
 
     /**
      * 设置首选项
-     * @param key String?
-     * @param value String?
      */
     @JvmStatic
     @SuppressLint("PrivateApi")
@@ -166,12 +154,10 @@ object UtilKSystemProperties : BaseUtilK() {
             val methodSet: Method = clazz.getMethod("set", String::class.java, String::class.java)
             methodSet.invoke(clazz, key, value)
         } catch (e: Exception) {
-            Log.e(TAG, "setSystemProperties Exception ${e.message}")
+            Log.e(TAG, "apply Exception ${e.message}")
             e.printStackTrace()
         }
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 重启

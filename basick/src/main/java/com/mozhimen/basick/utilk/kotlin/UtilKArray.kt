@@ -15,10 +15,6 @@ fun <T> Array<T>.joinArray2str(defaultValue: String = "", splitChar: String = ",
 object UtilKArray {
     /**
      * 聚合array
-     * @param array Array<T>
-     * @param defaultValue String
-     * @param splitChar String
-     * @return String
      */
     @JvmStatic
     fun <T> joinArray2str(array: Array<T>, defaultValue: String = "", splitChar: String = ","): String =

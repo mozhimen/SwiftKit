@@ -175,7 +175,7 @@ object UtilKScreen : BaseUtilK() {
      * 是否使屏幕常亮
      */
     @JvmStatic
-    fun keepScreen(activity: Activity, isKeepScreenOn: Boolean) {
+    fun applyKeepScreen(activity: Activity, isKeepScreenOn: Boolean) {
         if (isKeepScreenOn)
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.KEEP_SCREEN_ON)
         else
@@ -183,8 +183,8 @@ object UtilKScreen : BaseUtilK() {
     }
 
     @JvmStatic
-    fun keepScreen(activity: Activity, isKeepScreenOn: Boolean, isMaxBrightness: Boolean) {
-        keepScreen(activity, isKeepScreenOn)
+    fun applyKeepScreen(activity: Activity, isKeepScreenOn: Boolean, isMaxBrightness: Boolean) {
+        applyKeepScreen(activity, isKeepScreenOn)
         applyMaxBrightness(activity, isMaxBrightness)
     }
 
@@ -192,8 +192,8 @@ object UtilKScreen : BaseUtilK() {
      * 截屏
      */
     @JvmStatic
-    fun capture(activity: Activity): Bitmap =
-        UtilKDecorView.getBitmap(activity)
+    fun applyCapture(activity: Activity): Bitmap =
+        UtilKDecorView.getBitmapForDrawingCache(activity)
 
 //    /**
 //     * 设置全屏

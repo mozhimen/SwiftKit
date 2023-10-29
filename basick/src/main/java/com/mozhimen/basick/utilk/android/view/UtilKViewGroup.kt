@@ -7,6 +7,8 @@ import android.widget.AdapterView
 import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.androidx.recyclerview.isScroll2top
+import java.util.ArrayDeque
+import java.util.Deque
 
 /**
  * @ClassName UtilKScroll
@@ -22,8 +24,6 @@ object UtilKViewGroup {
 
     /**
      * 查找可以滚动的child
-     * @param viewGroup ViewGroup
-     * @return View?
      */
     @JvmStatic
     fun getChildScrollable(viewGroup: ViewGroup): View {
@@ -38,16 +38,10 @@ object UtilKViewGroup {
         return child
     }
 
-    @JvmStatic
-    fun findViewByInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
-        LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
-
     //////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 判断child是否发生了滚动
-     * @param child View
-     * @return Boolean
      */
     @JvmStatic
     fun isChildScrolled(child: View): Boolean {
@@ -61,5 +55,37 @@ object UtilKViewGroup {
             return firstPosition != 0 || !child.isScroll2top()
         }
         return false
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun findViewByInflate(viewGroup: ViewGroup, @LayoutRes layoutId: Int): View =
+        LayoutInflater.from(viewGroup.context).inflate(layoutId, viewGroup, false)
+
+    /**
+     * 获取指定类型的子View
+     * @param viewGroup ViewGroup?
+     * @param clazz Class<T>
+     * @return T?
+     */
+    @JvmStatic
+    fun <T> findTypeChildView(viewGroup: ViewGroup, clazz: Class<T>): T? {
+        val viewDeque: Deque<View> = ArrayDeque()
+        viewDeque.add(viewGroup)
+        while (!viewDeque.isEmpty()) {
+            val node = viewDeque.removeFirst()
+            if (clazz.isInstance(node)) {
+                return clazz.cast(node)
+            } else if (node is ViewGroup) {
+                var i = 0
+                val count = node.childCount
+                while (i < count) {
+                    viewDeque.add(node.getChildAt(i))
+                    i++
+                }
+            }
+        }
+        return null
     }
 }

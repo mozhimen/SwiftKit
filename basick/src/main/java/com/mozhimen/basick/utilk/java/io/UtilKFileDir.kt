@@ -17,33 +17,33 @@ object UtilKFileDir : BaseUtilK() {
 
     object Internal {
         @JvmStatic
-        fun getFilesDir(): File =
+        fun getFiles(): File =
             UtilKContextDir.Internal.getFilesDir(_context)
 
         @JvmStatic
-        fun getCacheDir(): File =
+        fun getCache(): File =
             UtilKContextDir.Internal.getCacheDir(_context)
     }
 
     object External {
         @JvmStatic
-        fun getCacheDir(): File? =
+        fun getCache(): File? =
             UtilKContextDir.External.getCacheDir(_context)
 
         @JvmStatic
-        fun getFilesRootDir(): File? =
+        fun getFilesRoot(): File? =
             UtilKContextDir.External.getFilesRootDir(_context)
 
         @JvmStatic
-        fun getEnvStorageDir(): File =
+        fun getEnvStorage(): File =
             UtilKEnvironment.getExternalStorageDir()
 
         @JvmStatic
-        fun getEnvStoragePublicDCIMDir(): File =
-            UtilKEnvironment.getExternalStoragePublicDCIMDir()
+        fun getEnvStoragePublicDCIM(): File =
+            UtilKEnvironment.getExternalStoragePublicDirDCIM()
 
         @JvmStatic
-        fun getEnvDataDir(): File =
+        fun getEnvData(): File =
             UtilKEnvironment.getDataDir()
     }
 }

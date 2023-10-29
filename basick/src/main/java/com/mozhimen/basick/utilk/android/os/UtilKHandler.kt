@@ -30,12 +30,6 @@ fun Handler.removeAllCbsAndMsgs() {
 }
 
 object UtilKHandler {
-    /**
-     * postDelay
-     * @param handler Handler
-     * @param delayMills Long
-     * @param runnable Runnable
-     */
     @JvmStatic
     fun applyPostDelayed(handler: Handler, delayMills: Long, runnable: Runnable) {
         handler.postDelayed(runnable, delayMills)
@@ -43,8 +37,6 @@ object UtilKHandler {
 
     /**
      * 插到队首
-     * @param handler Handler
-     * @param runnable Runnable
      */
     @JvmStatic
     fun sendMsgAtFrontOfQueue(handler: Handler, runnable: Runnable) {
@@ -53,8 +45,6 @@ object UtilKHandler {
 
     /**
      * 移除callbacks
-     * @param handler Handler
-     * @param runnable Runnable
      */
     @JvmStatic
     fun removeCbs(handler: Handler, runnable: Runnable) {
@@ -63,41 +53,14 @@ object UtilKHandler {
 
     /**
      * 移除所有
-     * @param handler Handler
      */
     @JvmStatic
     fun removeAllCbsAndMsgs(handler: Handler) {
         handler.removeCallbacksAndMessages(null)
     }
 
-    /**
-     * 循环
-     * @param block Function0<Unit>
-     */
-    @JvmStatic
-    fun prepareAndLoop(block: I_Listener) {
-        var myLooper = Looper.myLooper()
-        if (myLooper == null) {
-            Looper.prepare()
-            myLooper = Looper.myLooper()
-        }
-        block.invoke()
-        if (myLooper != null) {
-            Looper.loop()
-            myLooper.quit()
-        }
-    }
-
     @JvmStatic
     fun postOnMain(block: I_Listener) {
-        Handler(Looper.getMainLooper()).post(block)
+        Handler(UtilKLooper.getMainLooper()).post(block)
     }
-
-    /**
-     * 是否是MainLooper
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isMainLooper(): Boolean =
-        Looper.myLooper() == Looper.getMainLooper()
 }

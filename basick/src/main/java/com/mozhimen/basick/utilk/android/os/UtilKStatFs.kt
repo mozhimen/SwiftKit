@@ -16,11 +16,11 @@ object UtilKStatFs : BaseUtilK() {
 
     @JvmStatic
     fun getStatFsExternalData(): StatFs =
-        StatFs(UtilKStrPath.Absolute.External.getEnvDataDir())
+        StatFs(UtilKStrPath.Absolute.External.getEnvData())
 
     @JvmStatic
     fun getStatFsExternalStorage(): StatFs =
-        StatFs(UtilKStrPath.Absolute.External.getEnvStorageDir())
+        StatFs(UtilKStrPath.Absolute.External.getEnvStorage())
 
     /////////////////////////////////////////////////////////////////////
 
@@ -57,7 +57,7 @@ object UtilKStatFs : BaseUtilK() {
 
 
     @JvmStatic
-    fun getFreeExternalDataMemorySizeStr(): String =
+    fun getStrFreeExternalDataMemorySize(): String =
         getFreeExternalDataMemorySize().formatFileSize()
 
     /**
@@ -70,12 +70,9 @@ object UtilKStatFs : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getAvailableExternalDataMemorySizeStr(): String =
+    fun getStrAvailableExternalDataMemorySize(): String =
         getAvailableExternalDataMemorySize().formatFileSize()
 
-    /**
-     *
-     */
     @JvmStatic
     fun getTotalExternalDataMemorySize(): Long {
         val statFs = getStatFsExternalData()//Gets the Android data directory
@@ -83,14 +80,11 @@ object UtilKStatFs : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getTotalExternalDataMemorySizeStr(): String =
+    fun getStrTotalExternalDataMemorySize(): String =
         getTotalExternalDataMemorySize().formatFileSize()
 
     /////////////////////////////////////////////////////////////////////
 
-    /**
-     *
-     */
     @JvmStatic
     fun getFreeExternalStorageMemorySize(): Long {
         val statFs = getStatFsExternalStorage()
@@ -98,12 +92,9 @@ object UtilKStatFs : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getFreeExternalStorageMemorySizeStr(): String =
+    fun getStrFreeExternalStorageMemorySize(): String =
         getFreeExternalStorageMemorySize().formatFileSize()
 
-    /**
-     *
-     */
     @JvmStatic
     fun getAvailableExternalStorageMemorySize(): Long {
         val statFs = getStatFsExternalStorage()
@@ -111,12 +102,9 @@ object UtilKStatFs : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getAvailableExternalStorageMemorySizeStr(): String =
+    fun getStrAvailableExternalStorageMemorySize(): String =
         getAvailableExternalStorageMemorySize().formatFileSize()
 
-    /**
-     *
-     */
     @JvmStatic
     fun getTotalExternalStorageMemorySize(): Long {
         val statFs = getStatFsExternalStorage()
@@ -124,7 +112,7 @@ object UtilKStatFs : BaseUtilK() {
     }
 
     @JvmStatic
-    fun getTotalExternalStorageMemorySizeStr(): String =
+    fun getStrTotalExternalStorageMemorySize(): String =
         getTotalExternalStorageMemorySize().formatFileSize()
 
     /////////////////////////////////////////////////////////////////////

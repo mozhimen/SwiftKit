@@ -1,6 +1,6 @@
 package com.mozhimen.basick.utilk.bases
 
-import com.mozhimen.basick.utilk.android.app.UtilKApplication
+import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
 
 
 /**
@@ -11,5 +11,5 @@ import com.mozhimen.basick.utilk.android.app.UtilKApplication
  * @Version 1.0
  */
 open class BaseUtilK : IUtilK {
-    protected val _context by lazy { UtilKApplication.instance.applicationContext }
+    protected val _context by lazy { UtilKApplicationReflect.instance.applicationContext }
 }

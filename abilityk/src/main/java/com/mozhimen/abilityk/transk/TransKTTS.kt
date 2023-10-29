@@ -8,7 +8,6 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseWakeBefDestroyLifecycleObserver
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
-import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CQuery
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
@@ -40,7 +39,7 @@ class TransKTTS<O>(owner: O, config: MText2SpeechConfig = MText2SpeechConfig(Loc
 
     init {
         if (UtilKBuildVersion.isAfterV_28_9_P()) {
-            if (!UtilKPermission.checkPermission(CPermission.FOREGROUND_SERVICE)) {
+            if (!UtilKPermission.hasPermission(CPermission.FOREGROUND_SERVICE)) {
                 UtilKLaunchActivity.startSettingAppDetails(owner)
             }
         }

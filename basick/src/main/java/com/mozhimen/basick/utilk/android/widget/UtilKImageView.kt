@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import com.mozhimen.basick.utilk.android.graphics.applyAdjustAlpha
-import com.mozhimen.basick.utilk.android.graphics.getContrastColor
+import com.mozhimen.basick.utilk.kotlin.applyIntColorAdjustAlpha
+import com.mozhimen.basick.utilk.kotlin.getIntColorContrast
 
 /**
  * @ClassName UtilKViewImage
@@ -37,6 +37,10 @@ fun ImageView.showToastContentDescriptionOnLongClick() {
     UtilKImageView.showToastContentDescriptionOnLongClick(this)
 }
 
+fun ImageView.showToastContentDescription() {
+    UtilKImageView.showToastContentDescription(this)
+}
+
 object UtilKImageView {
 
     @JvmStatic
@@ -57,8 +61,8 @@ object UtilKImageView {
     }
 
     @JvmStatic
-    fun applyColorFilter(imageView: ImageView, @ColorInt colorInt: Int) {
-        imageView.setColorFilter(colorInt, PorterDuff.Mode.SRC_IN)
+    fun applyColorFilter(imageView: ImageView, @ColorInt intColor: Int) {
+        imageView.setColorFilter(intColor, PorterDuff.Mode.SRC_IN)
     }
 
     @JvmStatic
@@ -69,7 +73,7 @@ object UtilKImageView {
             imageView.background = this
 
             if (backgroundColorInt == fillColorInt || fillColorInt == -2 && backgroundColorInt == -1) {
-                setStroke(2, backgroundColorInt.getContrastColor().applyAdjustAlpha(0.5f))
+                setStroke(2, backgroundColorInt.getIntColorContrast().applyIntColorAdjustAlpha(0.5f))
             }
         }
     }

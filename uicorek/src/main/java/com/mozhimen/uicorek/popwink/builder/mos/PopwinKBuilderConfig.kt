@@ -13,7 +13,7 @@ import com.mozhimen.basick.animk.builder.temps.AnimKScaleType.Companion.CENTER_S
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.UtilKLog2
+import com.mozhimen.basick.utilk.android.util.UtilKLogSupport
 import com.mozhimen.basick.utilk.kotlin.obj2clazz
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK.KeyEventListener
@@ -302,7 +302,7 @@ class PopwinKBuilderConfig : IClearMemoryListener {
         return try {
             PopwinKBuilderDelegate::class.java.getMethod(methodName, parameterTypes)
         } catch (e: Exception) {
-            UtilKLog2.e("not found", methodName, parameterTypes!!.name)
+            UtilKLogSupport.e("not found", methodName, parameterTypes!!.name)
             null
         }
     }

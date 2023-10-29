@@ -15,6 +15,7 @@ import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.view.cons.CView
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
+import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.content.UtilKRes
 import com.mozhimen.basick.utilk.android.content.UtilKResource
@@ -35,7 +36,7 @@ object UtilKNavigationBar : BaseUtilK() {
      * 方法参考
      * https://juejin.im/post/5bb5c4e75188255c72285b54
      */
-    @OptInApiInit_InApplication
+    @OptInApiUse_BaseApplication
     @JvmStatic
     fun getBounds(rect: Rect, context: Context) {
         val activity = UtilKActivity.getByContext(context, true)
@@ -59,8 +60,6 @@ object UtilKNavigationBar : BaseUtilK() {
 
     /**
      * 获取导航栏Gravity
-     * @param navigationBarBounds Rect
-     * @return Int
      */
     @SuppressLint("RtlHardcoded")
     @JvmStatic
@@ -89,6 +88,7 @@ object UtilKNavigationBar : BaseUtilK() {
      * @param view View 目标View
      * @return Int 如果存在NavigationBar则返回高度，否则0
      */
+    @OptInApiUse_BaseApplication
     @JvmStatic
     fun getHeight(view: View): Int {
         val activity: Activity? = UtilKActivity.getByView(view)
@@ -118,9 +118,9 @@ object UtilKNavigationBar : BaseUtilK() {
         hashMapOf("navigationbarbackground" to null, "immersion_navigation_bar_view" to null)
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /**
      * 设置状态栏沉浸式
-     * @param activity Activity
      */
     @JvmStatic
     @ADescription("需要${CView.SystemUiFlag.LAYOUT_HIDE_NAVIGATION or CView.SystemUiFlag.LAYOUT_STABLE}")
@@ -134,6 +134,8 @@ object UtilKNavigationBar : BaseUtilK() {
             UtilKWindow.addFlags(activity, CWinMgr.Lpf.TRANSLUCENT_NAVIGATION)
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun hide(activity: Activity) {

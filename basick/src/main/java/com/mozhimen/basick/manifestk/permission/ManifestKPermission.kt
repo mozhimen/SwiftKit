@@ -11,7 +11,6 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.app.getAnnotation
-import com.mozhimen.basick.utilk.android.content.UtilKContextCompat
 import com.mozhimen.basick.utilk.android.util.wt
 import com.mozhimen.basick.utilk.android.widget.showToastOnMain
 
@@ -55,7 +54,7 @@ object ManifestKPermission : BaseUtilK() {
         onResult: IA_Listener<Boolean>/*(isGranted: Boolean) -> Unit*/? = null
     ) {
         if (permissions.isNotEmpty()) {
-            if (!UtilKPermission.checkPermissions(permissions)) {
+            if (!UtilKPermission.hasPermissions(permissions)) {
                 requestPermissionsByFragment(activity, permissions) { isAllGranted, deniedList ->
                     printDeniedPermissions(deniedList)
                     onResult?.invoke(isAllGranted)
@@ -72,7 +71,7 @@ object ManifestKPermission : BaseUtilK() {
     ) {
         val noPermissions = mutableListOf<String>()
         for (permission in permissions) {
-            if (!UtilKPermission.checkPermission(permission))
+            if (!UtilKPermission.hasPermission(permission))
                 noPermissions.add(permission)
         }
         if (noPermissions.isNotEmpty()) {

@@ -17,9 +17,7 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.app.UtilKActivity
 import com.mozhimen.basick.utilk.android.net.UtilKUri
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.os.UtilKProcess
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
-import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 import com.mozhimen.basick.utilk.kotlin.strUri2uri
@@ -35,24 +33,19 @@ import java.io.File
 fun Intent.createChooser(title: CharSequence): Intent =
     UtilKIntentWrapper.createChooser(this, title)
 
-fun Context.createIntent(clazz: Class<*>): Intent =
-    UtilKIntentWrapper.createIntent(this, clazz)
-
-inline fun <reified T> Context.createIntent(): Intent =
-    UtilKIntentWrapper.createIntent<T>(this)
-
-inline fun <reified T> Context.createIntent(block: IExtension_Listener<Intent>): Intent =
-    UtilKIntentWrapper.createIntent<T>(this, block)
-
 object UtilKIntentWrapper {
-    fun createIntent(context: Context, clazz: Class<*>): Intent =
+    fun get(context: Context, clazz: Class<*>): Intent =
         Intent(context, clazz)
 
-    inline fun <reified T> createIntent(context: Context): Intent =
+    inline fun <reified T> get(context: Context): Intent =
         Intent(context, T::class.java)
 
-    inline fun <reified T> createIntent(context: Context, block: IExtension_Listener<Intent>): Intent =
+    inline fun <reified T> get(context: Context, block: IExtension_Listener<Intent>): Intent =
         Intent(context, T::class.java).apply(block)
+
+    @JvmStatic
+    fun createChooser(target: Intent, title: CharSequence): Intent =
+        Intent.createChooser(target, title)
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -65,6 +58,7 @@ object UtilKIntentWrapper {
             putExtra(CIntent.EXTRA_TEXT,str)
             type = CMediaFormat.MIMETYPE_TEXT_PLAIN
         }
+
     /**
      * 选择系统文件
      */
@@ -198,8 +192,8 @@ object UtilKIntentWrapper {
     @SuppressLint("InlinedApi")
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
-    fun getInstall(filePathWithName: String): Intent? =
-        UtilKStrFile.strFilePath2uri(filePathWithName)?.let { getInstall(it) }
+    fun getInstall(strFilePathName: String): Intent? =
+        UtilKStrFile.strFilePath2uri(strFilePathName)?.let { getInstall(it) }
 
     /**
      * 获取安装app的intent
@@ -207,8 +201,8 @@ object UtilKIntentWrapper {
     @SuppressLint("InlinedApi")
     @JvmStatic
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
-    fun getInstall(apkFile: File): Intent? =
-        UtilKFileFormat.file2uri(apkFile)?.let { getInstall(it) }
+    fun getInstall(fileApk: File): Intent? =
+        UtilKFileFormat.file2uri(fileApk)?.let { getInstall(it) }
 
     /**
      * 获取安装app的intent
@@ -231,10 +225,4 @@ object UtilKIntentWrapper {
     @JvmStatic
     fun getStrUrl(strUrl: String): Intent =
         getUri(Uri.parse(strUrl))
-
-    ////////////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun createChooser(target: Intent, title: CharSequence): Intent =
-        Intent.createChooser(target, title)
 }

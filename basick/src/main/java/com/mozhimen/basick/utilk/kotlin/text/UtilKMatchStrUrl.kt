@@ -28,8 +28,6 @@ fun String.checkStrUrl(): Boolean =
 object UtilKMatchStrUrl : BaseUtilK() {
     /**
      * ip是否合法
-     * @param ip String
-     * @return Boolean
      */
     @JvmStatic
     fun isStrUrlIp(ip: String) =
@@ -37,8 +35,6 @@ object UtilKMatchStrUrl : BaseUtilK() {
 
     /**
      * 域名是否合法
-     * @param domain String
-     * @return Boolean
      */
     @JvmStatic
     fun isStrUrlDomain(domain: String) =
@@ -46,8 +42,6 @@ object UtilKMatchStrUrl : BaseUtilK() {
 
     /**
      * 端口是否合法
-     * @param port String
-     * @return Boolean
      */
     @JvmStatic
     fun isStrUrlPort(port: String) =
@@ -55,8 +49,6 @@ object UtilKMatchStrUrl : BaseUtilK() {
 
     /**
      * 判断url是否合法
-     * @param url String
-     * @return Boolean
      */
     @JvmStatic
     @MainThread

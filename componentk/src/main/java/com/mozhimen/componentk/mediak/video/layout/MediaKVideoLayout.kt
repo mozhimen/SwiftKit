@@ -10,7 +10,6 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.Surface
 import android.view.TextureView
-import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
 import com.mozhimen.basick.utilk.android.view.UtilKScreen

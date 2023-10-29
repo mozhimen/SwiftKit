@@ -7,7 +7,6 @@ import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.java.io.getFileCreateTime
-import com.mozhimen.basick.utilk.java.io.getFolderFiles
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.createFolder
 import com.mozhimen.basick.utilk.kotlin.getFolderFiles
@@ -36,7 +35,7 @@ open class LogKPrinterFile() : ILogKPrinter, BaseUtilK() {
     var logPath: String? = null
         get() {
             if (field != null) return field
-            val logFullPath = UtilKStrPath.Absolute.External.getCacheDir() + "/logk_printer_file"
+            val logFullPath = UtilKStrPath.Absolute.External.getCache() + "/logk_printer_file"
             logFullPath.createFolder()
             return logFullPath.also { field = it }
         }

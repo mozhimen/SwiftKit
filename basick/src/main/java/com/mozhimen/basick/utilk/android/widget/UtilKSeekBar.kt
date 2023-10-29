@@ -21,8 +21,8 @@ fun SeekBar.applySeekBarFinishObserver(onSeekBarChange: IA_Listener<Int>/*(progr
 
 object UtilKSeekBar {
     @JvmStatic
-    fun applySeekBarChangeObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
-        bar.setOnSeekBarChangeListener(object : IOnSeekBarChangeListener {
+    fun applySeekBarChangeObserver(seekBar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
+        seekBar.setOnSeekBarChangeListener(object : IOnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 onSeekBarChange(progress)
             }
@@ -30,8 +30,8 @@ object UtilKSeekBar {
     }
 
     @JvmStatic
-    fun applySeekBarFinishObserver(bar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
-        bar.setOnSeekBarChangeListener(object : IOnSeekBarChangeListener {
+    fun applySeekBarFinishObserver(seekBar: SeekBar, onSeekBarChange: IA_Listener<Int>/*(progress: Int) -> Unit*/) {
+        seekBar.setOnSeekBarChangeListener(object : IOnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
                 onSeekBarChange(seekBar.progress)
             }

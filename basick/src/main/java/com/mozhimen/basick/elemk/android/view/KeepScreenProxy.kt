@@ -24,11 +24,11 @@ class KeepScreenProxy<A>(private val _activity: A) : BaseWakeBefDestroyLifecycle
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        UtilKScreen.keepScreen(_activity, false)
+        UtilKScreen.applyKeepScreen(_activity, false)
         super.onDestroy(owner)
     }
 
     private fun applyScreenOn() {
-        UtilKScreen.keepScreen(_activity, true)
+        UtilKScreen.applyKeepScreen(_activity, true)
     }
 }

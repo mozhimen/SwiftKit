@@ -8,7 +8,6 @@ import com.mozhimen.basick.lintk.optin.OptInDeviceRoot
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.utilk.android.content.UtilKApp
 import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -16,7 +15,6 @@ import com.mozhimen.basick.utilk.android.content.UtilKApplicationInfo
 import com.mozhimen.basick.utilk.android.os.UtilKOSRoot
 import com.mozhimen.basick.utilk.android.app.UtilKPermission
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.kotlin.isFileExist
 import com.mozhimen.componentk.installk.commons.IInstallK
@@ -106,13 +104,13 @@ class InstallK : IInstallK, BaseUtilK() {
 
     /**
      * 安装
-     * @param apkPathWithName String
+     * @param strPathNameApk String
      */
-    suspend fun install(apkPathWithName: String) {
+    suspend fun install(strPathNameApk: String) {
         withContext(Dispatchers.Main) {
             try {
                 _handler.sendEmptyMessage(CInstallKCons.MSG_INSTALL_START)
-                installByMode(apkPathWithName)
+                installByMode(strPathNameApk)
             } catch (e: Exception) {
                 e.printStackTrace()
                 Log.e(TAG, "install: ${e.message}")
@@ -128,10 +126,10 @@ class InstallK : IInstallK, BaseUtilK() {
     }
 
     @Throws(Exception::class)
-    private fun installByMode(apkPathWithName: String) {
-        require(apkPathWithName.isNotEmpty() && apkPathWithName.endsWith(".apk")) { "$TAG $apkPathWithName not a correct apk file path" }
-        require(apkPathWithName.isFileExist()) { "$TAG $apkPathWithName is not exist" }
-        if (!UtilKPermission.checkPermissions(CInstallKCons.PERMISSIONS)) {
+    private fun installByMode(strPathNameApk: String) {
+        require(strPathNameApk.isNotEmpty() && strPathNameApk.endsWith(".apk")) { "$TAG $strPathNameApk not a correct apk file path" }
+        require(strPathNameApk.isFileExist()) { "$TAG $strPathNameApk is not exist" }
+        if (!UtilKPermission.hasPermissions(CInstallKCons.PERMISSIONS)) {
             Log.w(TAG, "installByMode: onNeedPermissions PERMISSIONS")
             _handler.sendMessage(Message().apply {
                 what = CInstallKCons.MSG_NEED_PERMISSION
@@ -153,36 +151,36 @@ class InstallK : IInstallK, BaseUtilK() {
         when (_installMode) {
             EInstallKMode.AUTO -> {
                 //try install root
-                if (UtilKOSRoot.isRoot() && UtilKAppInstall.installRoot(apkPathWithName)) {
+                if (UtilKOSRoot.isRoot() && UtilKAppInstall.installRoot(strPathNameApk)) {
                     Log.d(TAG, "installByMode: AUTO as ROOT success")
                     return
                 }
                 //try install silence
                 if (_silenceReceiverClazz != null && (UtilKOSRoot.isRoot() || !UtilKApp.isUserApp(_context))) {
-                    UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
+                    UtilKAppInstall.installSilence(strPathNameApk, _silenceReceiverClazz!!)
                     Log.d(TAG, "installByMode: AUTO as SILENCE success")
                     return
                 }
                 //try install smart
                 if (_smartServiceClazz != null && UtilKPermission.hasAccessibility(_smartServiceClazz!!)) {
-                    UtilKAppInstall.installHand(apkPathWithName)
+                    UtilKAppInstall.installHand(strPathNameApk)
                     Log.d(TAG, "installByMode: AUTO as SMART success")
                     return
                 }
                 //try install hand
-                UtilKAppInstall.installHand(apkPathWithName)
+                UtilKAppInstall.installHand(strPathNameApk)
             }
 
             EInstallKMode.ROOT -> {
                 require(UtilKOSRoot.isRoot()) { "$TAG this device has not root" }
-                UtilKAppInstall.installRoot(apkPathWithName)
+                UtilKAppInstall.installRoot(strPathNameApk)
                 Log.d(TAG, "installByMode: ROOT success")
             }
 
             EInstallKMode.SILENCE -> {
                 requireNotNull(_silenceReceiverClazz) { "$TAG silence receiver must not be null" }
                 require(UtilKOSRoot.isRoot() || !UtilKApp.isUserApp(_context)) { "$TAG this device has not root or its system app" }
-                UtilKAppInstall.installSilence(apkPathWithName, _silenceReceiverClazz!!)
+                UtilKAppInstall.installSilence(strPathNameApk, _silenceReceiverClazz!!)
                 Log.d(TAG, "installByMode: SILENCE success")
             }
 
@@ -196,12 +194,12 @@ class InstallK : IInstallK, BaseUtilK() {
                     })
                     return
                 }
-                UtilKAppInstall.installHand(apkPathWithName)
+                UtilKAppInstall.installHand(strPathNameApk)
                 Log.d(TAG, "installByMode: SMART success")
             }
 
             EInstallKMode.HAND -> {
-                UtilKAppInstall.installHand(apkPathWithName)
+                UtilKAppInstall.installHand(strPathNameApk)
                 Log.d(TAG, "installByMode: HAND success")
             }
         }
@@ -214,11 +212,11 @@ class InstallK : IInstallK, BaseUtilK() {
 //    suspend fun downloadFromUrlAndInstall(apkUrl: String) {
 //        try {
 //            _handler.sendEmptyMessage(CCons.MSG_DOWNLOAD_START)
-//            var apkPathWithName: String
+//            var strPathNameApk: String
 //            withContext(Dispatchers.IO) {
-//                apkPathWithName = UtilKFileNet.downLoadFile(apkUrl, _tempApkPathWithName)
+//                strPathNameApk = UtilKFileNet.downLoadFile(apkUrl, _tempStrPathNameApk)
 //            }
-//            installByMode(apkPathWithName)
+//            installByMode(strPathNameApk)
 //        } catch (e: Exception) {
 //            e.printStackTrace()
 //            Log.e(TAG, "downloadFromUrlAndInstall: ${e.message}")

@@ -35,8 +35,8 @@ class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
     private var _downloadListenerMap = ConcurrentHashMap<String, IFileDownloadSingleListener>()
     private var _downloadTaskMap = ConcurrentHashMap<String, DownloadTask>()
 
-    fun start(url: String, filePathWithName: String, listener: IFileDownloadSingleListener? = null) {
-        start(url, File(filePathWithName), listener)
+    fun start(url: String, strFilePathName: String, listener: IFileDownloadSingleListener? = null) {
+        start(url, File(strFilePathName), listener)
     }
 
     fun start(url: String, file: File, listener: IFileDownloadSingleListener? = null) {

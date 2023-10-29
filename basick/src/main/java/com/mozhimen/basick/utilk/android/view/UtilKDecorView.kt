@@ -86,8 +86,6 @@ object UtilKDecorView : BaseUtilK() {
 
     /**
      * 获取DecorView区域高度
-     * @param window Window
-     * @return Int
      */
     @JvmStatic
     fun getInvisibleHeight(window: Window): Int {
@@ -104,7 +102,7 @@ object UtilKDecorView : BaseUtilK() {
      * 截屏
      */
     @JvmStatic
-    fun getBitmap(activity: Activity): Bitmap {
+    fun getBitmapForDrawingCache(activity: Activity): Bitmap {
         val decorView = get(activity)
         decorView.isDrawingCacheEnabled = true
         decorView.buildDrawingCache()

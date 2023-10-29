@@ -19,7 +19,6 @@ fun String.isStrDigitsAndAlphabets(): Boolean =
 object UtilKMatchStr {
     /**
      * 是否是数字
-     * @param str String
      */
     @JvmStatic
     fun isStrDigits(str: String): Boolean =
@@ -27,8 +26,6 @@ object UtilKMatchStr {
 
     /**
      * 是否是数字
-     * @param str String
-     * @return Boolean
      */
     @JvmStatic
     fun isStrDigits2(str: String) =
@@ -36,8 +33,6 @@ object UtilKMatchStr {
 
     /**
      * 同时包含数字和字母
-     * @param str String
-     * @return Boolean
      */
     @JvmStatic
     fun isStrDigitsAndAlphabets(str: String): Boolean =

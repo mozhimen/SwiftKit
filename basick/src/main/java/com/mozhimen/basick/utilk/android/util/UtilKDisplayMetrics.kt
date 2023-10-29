@@ -86,7 +86,6 @@ object UtilKDisplayMetrics {
 
     /**
      * 获取密度dp
-     * @return Int
      */
     @JvmStatic
     fun getDensityDpi(): Int =
@@ -94,7 +93,6 @@ object UtilKDisplayMetrics {
 
     /**
      * 获取密度
-     * @return Float
      */
     @JvmStatic
     fun getDensity(): Float =
@@ -102,7 +100,6 @@ object UtilKDisplayMetrics {
 
     /**
      * 获取widthPixels
-     * @return Int
      */
     @JvmStatic
     fun getWidthPixels(): Int =
@@ -110,7 +107,6 @@ object UtilKDisplayMetrics {
 
     /**
      * 获取heightPixels
-     * @return Int
      */
     @JvmStatic
     fun getHeightPixels(): Int =

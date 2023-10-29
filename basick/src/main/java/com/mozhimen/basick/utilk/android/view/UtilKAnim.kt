@@ -22,7 +22,6 @@ object UtilKAnim : BaseUtilK() {
 
     /**
      * 释放Anim
-     * @param objs Array<out Any>
      */
     @JvmStatic
     fun releaseAnim(vararg objs: Any) {
@@ -35,7 +34,6 @@ object UtilKAnim : BaseUtilK() {
 
     /**
      * 停止View的Anim
-     * @param view View
      */
     @JvmStatic
     fun stopAnim(view: View) {

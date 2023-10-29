@@ -5,15 +5,14 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.activity.ComponentDialog
-import androidx.annotation.AnimRes
 import androidx.annotation.StyleRes
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.android.view.cons.CWinMgr
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
+import com.mozhimen.basick.utilk.android.os.UtilKLooper
 import com.mozhimen.basick.utilk.android.util.et
-import com.mozhimen.basick.utilk.java.lang.UtilKThread
 import com.mozhimen.uicorek.R
 import com.mozhimen.uicorek.dialogk.bases.annors.ADialogMode
 import com.mozhimen.uicorek.dialogk.bases.commons.IBaseDialogK
@@ -103,7 +102,7 @@ abstract class BaseDialogK<I : IDialogKClickListener> @JvmOverloads constructor(
 
     override fun dismiss() {
         if (!isShowing) return
-        if (UtilKThread.isMainThread()) {
+        if (UtilKLooper.isMainThread()) {
             super.dismiss()
         } else {
             lifecycleScope.launch(Dispatchers.Main) {

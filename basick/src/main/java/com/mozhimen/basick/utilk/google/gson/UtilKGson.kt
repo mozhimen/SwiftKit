@@ -26,6 +26,8 @@ inline fun <reified T> String.strJson2tGson(): T? =
 fun <T> String.strJson2tGson(clazz: Class<T>): T? =
     UtilKGson.strJson2tGson(this, clazz)
 
+/////////////////////////////////////////////////////////////////////////////
+
 object UtilKGson : BaseUtilK() {
     val gson by lazy { Gson() }
 

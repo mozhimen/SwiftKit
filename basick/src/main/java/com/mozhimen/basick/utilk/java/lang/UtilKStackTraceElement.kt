@@ -13,30 +13,28 @@ import java.util.logging.Logger
  * @Date 2021/12/20 18:42
  * @Version 1.0
  */
-object UtilKStackTrace : IUtilK {
+object UtilKStackTraceElement : IUtilK {
 
     /**
      * 获取真正的堆栈跟踪，然后用最大深度裁剪它。
      * @param stackTrace Array<StackTraceElement?> 完整的堆栈跟踪
-     * @param ignoredPackage String
      * @param maxDepth Int 将被裁剪的真实堆栈跟踪的最大深度，O表示没有限制
      * @return Array<StackTraceElement?> 裁剪后的真实堆栈跟踪
      */
     @JvmStatic
     @Throws(Exception::class)
-    fun getCroppedRealStackTrack(stackTrace: Array<StackTraceElement?>, ignoredPackage: String, maxDepth: Int): Array<StackTraceElement?> =
-        getCroppedStackTrace(getRealStackTrack(stackTrace, ignoredPackage), maxDepth)
+    fun getCroppedRealStackTracks(stackTrace: Array<StackTraceElement?>, ignoredPackage: String, maxDepth: Int): Array<StackTraceElement?> =
+        getCroppedStackTraces(getRealStackTracks(stackTrace, ignoredPackage), maxDepth)
 
     /**
      * 获取真正的堆栈跟踪，所有来自XLog库的元素都将被删除
      * 获取除忽略包名之外的堆栈信息
      * @param stackTrace Array<StackTraceElement?> 完整的堆栈跟踪
-     * @param ignorePackage String?
      * @return Array<StackTraceElement?> 真正的堆栈跟踪, 所有元素都来自system和library user
      */
     @JvmStatic
     @Throws(Exception::class)
-    fun getRealStackTrack(stackTrace: Array<StackTraceElement?>, ignorePackage: String?): Array<StackTraceElement?> {
+    fun getRealStackTracks(stackTrace: Array<StackTraceElement?>, ignorePackage: String?): Array<StackTraceElement?> {
         var ignoreDepth = 0
         val allDepth = stackTrace.size
         require(allDepth > 0) { "$TAG stackTrace's size is 0" }
@@ -61,7 +59,7 @@ object UtilKStackTrace : IUtilK {
      * @return Array<StackTraceElement?> 裁剪后的堆栈跟踪
      */
     @JvmStatic
-    fun getCroppedStackTrace(callStack: Array<StackTraceElement?>, maxDepth: Int): Array<StackTraceElement?> {
+    fun getCroppedStackTraces(callStack: Array<StackTraceElement?>, maxDepth: Int): Array<StackTraceElement?> {
         var realDepth = callStack.size
         if (maxDepth > 0)
             realDepth = maxDepth.coerceAtMost(realDepth)
@@ -71,13 +69,13 @@ object UtilKStackTrace : IUtilK {
     }
 
     @JvmStatic
-    fun getCurrentStackTrace(clazz: Class<*>): StackTraceElement? {
+    fun getCurrentStackTraces(clazz: Class<*>): StackTraceElement? {
         val stackTrace = UtilKCurrentThread.getStackTrace()
-        var stackOffset = getStackTraceOffset(stackTrace, clazz)
+        var stackOffset = getStackTracesOffset(stackTrace, clazz)
         if (stackOffset == -1) {
-            stackOffset = getStackTraceOffset(stackTrace, Logger::class.java)
+            stackOffset = getStackTracesOffset(stackTrace, Logger::class.java)
             if (stackOffset == -1) {
-                stackOffset = getStackTraceOffset(stackTrace, Log::class.java)
+                stackOffset = getStackTracesOffset(stackTrace, Log::class.java)
                 if (stackOffset == -1)
                     return null
             }
@@ -86,7 +84,7 @@ object UtilKStackTrace : IUtilK {
     }
 
     @JvmStatic
-    fun getStackTraceOffset(stackTraceElements: Array<StackTraceElement>, clazz: Class<*>): Int {
+    fun getStackTracesOffset(stackTraceElements: Array<StackTraceElement>, clazz: Class<*>): Int {
         var logIndex = -1
         for (i in stackTraceElements.indices) {
             val element = stackTraceElements[i]
@@ -105,8 +103,8 @@ object UtilKStackTrace : IUtilK {
     }
 
     @JvmStatic
-    fun getStackTraceInfo(msg: String): String {
-        val element = getCurrentStackTrace(this::class.java)
+    fun getStackTracesInfo(msg: String): String {
+        val element = getCurrentStackTraces(this::class.java)
         var clazzName = "unknown"
         var methodName = "unknown"
         var lineNumber = -1

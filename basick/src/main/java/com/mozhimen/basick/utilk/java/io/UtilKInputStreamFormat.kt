@@ -9,7 +9,6 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.commons.IAB_Listener
-import com.mozhimen.basick.elemk.kotlin.text.cons.CCharsets
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
@@ -18,14 +17,13 @@ import com.mozhimen.basick.utilk.kotlin.bytes2strHex
 import com.mozhimen.basick.utilk.kotlin.createFile
 import com.mozhimen.basick.utilk.kotlin.normalize
 import java.io.BufferedInputStream
-import java.io.BufferedReader
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.io.InputStream
-import java.io.InputStreamReader
 import java.io.OutputStream
 import java.math.BigInteger
+import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -59,25 +57,28 @@ fun InputStream.inputStream2strMd5(): String =
 fun InputStream.inputStream2strMd52(): String =
     UtilKInputStreamFormat.inputStream2strMd52(this)
 
-fun InputStream.inputStream2str(): String =
-    UtilKInputStreamFormat.inputStream2str(this)
+fun InputStream.inputStream2strOfReadSingleLine(charset: String?=null,readSize: Int=0): String =
+    UtilKInputStreamFormat.inputStream2strOfReadSingleLine(this,charset,readSize)
 
-fun InputStream.inputStream2str(byteArrayOutputStream: ByteArrayOutputStream): String? =
-    UtilKInputStreamFormat.inputStream2str(this, byteArrayOutputStream)
+fun InputStream.inputStream2strOfReadMultiLines(charset: String?=null,readSize: Int=0): String =
+    UtilKInputStreamFormat.inputStream2strOfReadMultiLines(this,charset,readSize)
 
-fun InputStream.inputStream2str2(): String? =
-    UtilKInputStreamFormat.inputStream2str2(this)
+fun InputStream.inputStream2strOfBytesOutStream(byteArrayOutputStream: ByteArrayOutputStream): String =
+    UtilKInputStreamFormat.inputStream2strOfBytesOutStream(this, byteArrayOutputStream)
 
-fun InputStream.inputStream2str3(): String? =
-    UtilKInputStreamFormat.inputStream2str3(this)
+fun InputStream.inputStream2strOfBytesOutStream(): String =
+    UtilKInputStreamFormat.inputStream2strOfBytesOutStream(this)
+
+fun InputStream.inputStream2strOfBytes(): String? =
+    UtilKInputStreamFormat.inputStream2strOfBytes(this)
 
 ////////////////////////////////////////////////////////////////////////////
 
-fun InputStream.inputStream2anyBitmap(): Bitmap =
-    UtilKInputStreamFormat.inputStream2anyBitmap(this)
+fun InputStream.inputStream2bitmapAny(): Bitmap =
+    UtilKInputStreamFormat.inputStream2bitmapAny(this)
 
-fun InputStream.inputStream2anyBitmap(outPadding: Rect?, opts: BitmapFactory.Options): Bitmap? =
-    UtilKInputStreamFormat.inputStream2anyBitmap(this, outPadding, opts)
+fun InputStream.inputStream2bitmapAny(outPadding: Rect?, opts: BitmapFactory.Options): Bitmap? =
+    UtilKInputStreamFormat.inputStream2bitmapAny(this, outPadding, opts)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -86,19 +87,19 @@ fun InputStream.inputStream2bitmapDrawable(): BitmapDrawable =
 
 ////////////////////////////////////////////////////////////////////////////
 
-fun InputStream.inputStream2file(destFilePathWithName: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
-    UtilKInputStreamFormat.inputStream2file(this, destFilePathWithName, isAppend, bufferSize, block)
+fun InputStream.inputStream2file(strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+    UtilKInputStreamFormat.inputStream2file(this, strFilePathNameDest, isAppend, bufferSize, block)
 
-fun InputStream.inputStream2file(destFile: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
-    UtilKInputStreamFormat.inputStream2file(this, destFile, isAppend, bufferSize, block)
-
-@RequiresApi(CVersCode.V_29_10_Q)
-fun InputStream.inputStream2file2(destFilePathWithName: String, isAppend: Boolean = false): File? =
-    UtilKInputStreamFormat.inputStream2file2(this, destFilePathWithName, isAppend)
+fun InputStream.inputStream2file(fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+    UtilKInputStreamFormat.inputStream2file(this, fileDest, isAppend, bufferSize, block)
 
 @RequiresApi(CVersCode.V_29_10_Q)
-fun InputStream.inputStream2file2(destFile: File, isAppend: Boolean = false): File? =
-    UtilKInputStreamFormat.inputStream2file2(this, destFile, isAppend)
+fun InputStream.inputStream2file2(strFilePathNameDest: String, isAppend: Boolean = false): File? =
+    UtilKInputStreamFormat.inputStream2file2(this, strFilePathNameDest, isAppend)
+
+@RequiresApi(CVersCode.V_29_10_Q)
+fun InputStream.inputStream2file2(fileDest: File, isAppend: Boolean = false): File? =
+    UtilKInputStreamFormat.inputStream2file2(this, fileDest, isAppend)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -190,43 +191,31 @@ object UtilKInputStreamFormat : IUtilK {
         return BigInteger(1, messageDigest.digest()).toString(16)
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun inputStream2strOfReadSingleLine(inputStream: InputStream, charset:String? = null,readSize:Int=0): String =
+        UtilKReader.getStrForInputStreamSingleLine(inputStream,charset,readSize)
+
     /**
      * 针对字符串文本
      */
     @JvmStatic
-    fun inputStream2str(inputStream: InputStream): String {
-        val stringBuilder = StringBuilder()
-        var inputStreamReader: InputStreamReader? = null
-        var bufferedReader: BufferedReader? = null
-        try {
-            inputStreamReader = InputStreamReader(inputStream, CCharsets.UTF_8)
-            bufferedReader = BufferedReader(inputStreamReader)
-            var line = ""
-            while (bufferedReader.readLine()?.also { line = it } != null)
-                stringBuilder.append(line)
-            return stringBuilder.toString()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            bufferedReader?.close()
-            inputStreamReader?.close()
-            inputStream.close()
-        }
-        return ""
-    }
+    fun inputStream2strOfReadMultiLines(inputStream: InputStream, charset:String? = null,readSize: Int=0): String =
+        UtilKReader.getStrForInputStreamMultiLine(inputStream,charset,readSize)
 
     @JvmStatic
-    fun inputStream2str2(inputStream: InputStream): String =
-        inputStream2str(inputStream, ByteArrayOutputStream())
+    fun inputStream2strOfBytesOutStream(inputStream: InputStream): String =
+        inputStream2strOfBytesOutStream(inputStream, ByteArrayOutputStream())
 
     @JvmStatic
-    fun inputStream2str(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream): String {
+    fun inputStream2strOfBytesOutStream(inputStream: InputStream, byteArrayOutputStream: ByteArrayOutputStream, charset: Charset = Charsets.UTF_8): String {
         inputStream.inputStream2outputStream(byteArrayOutputStream)
-        return byteArrayOutputStream.byteArrayOutputStream2str()
+        return byteArrayOutputStream.byteArrayOutputStream2str(charset)
     }
 
     @JvmStatic
-    fun inputStream2str3(inputStream: InputStream): String? {
+    fun inputStream2strOfBytes(inputStream: InputStream): String? {
         val inputStringBuilder = StringBuilder()
         try {
             var readCount: Int
@@ -236,7 +225,7 @@ object UtilKInputStreamFormat : IUtilK {
             return inputStringBuilder.toString()
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKInputStream.TAG)
+            e.message?.et(TAG)
         } finally {
             inputStream.close()
         }
@@ -246,11 +235,11 @@ object UtilKInputStreamFormat : IUtilK {
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun inputStream2anyBitmap(inputStream: InputStream): Bitmap =
+    fun inputStream2bitmapAny(inputStream: InputStream): Bitmap =
         inputStream.use { BitmapFactory.decodeStream(it) }
 
     @JvmStatic
-    fun inputStream2anyBitmap(inputStream: InputStream, outPadding: Rect?, opts: BitmapFactory.Options): Bitmap? =
+    fun inputStream2bitmapAny(inputStream: InputStream, outPadding: Rect?, opts: BitmapFactory.Options): Bitmap? =
         inputStream.use { BitmapFactory.decodeStream(it, outPadding, opts) }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -261,12 +250,12 @@ object UtilKInputStreamFormat : IUtilK {
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun inputStream2file(inputStream: InputStream, destFilePathWithName: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
-        inputStream2file(inputStream, destFilePathWithName.createFile(), isAppend, bufferSize, block)
+    fun inputStream2file(inputStream: InputStream, strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+        inputStream2file(inputStream, strFilePathNameDest.createFile(), isAppend, bufferSize, block)
 
     @JvmStatic
-    fun inputStream2file(inputStream: InputStream, destFile: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
-        UtilKFile.createFile(destFile)
+    fun inputStream2file(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
+        UtilKFile.createFile(fileDest)
         /*//        val fileInputStream = FileInputStream(file)
         //        Log.d(TAG, "inputStream2file: inputStream ${inputStream.available()}")
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
@@ -274,35 +263,35 @@ object UtilKInputStreamFormat : IUtilK {
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
-            inputStream.inputStream2outputStream(destFile.file2fileOutputStream(isAppend), bufferSize, block)
-            return destFile
+            inputStream.inputStream2outputStream(fileDest.file2fileOutputStream(isAppend), bufferSize, block)
+            return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKInputStream.TAG)
+            e.message?.et(TAG)
         }
         return null
     }
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun inputStream2file2(inputStream: InputStream, filePathWithName: String, isAppend: Boolean = false): File? =
-        inputStream2file2(inputStream, filePathWithName.createFile(), isAppend)
+    fun inputStream2file2(inputStream: InputStream, strFilePathNameDest: String, isAppend: Boolean = false): File? =
+        inputStream2file2(inputStream, strFilePathNameDest.createFile(), isAppend)
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun inputStream2file2(inputStream: InputStream, destFile: File, isAppend: Boolean = false): File? {
-        UtilKFile.createFile(destFile)
+    fun inputStream2file2(inputStream: InputStream, fileDest: File, isAppend: Boolean = false): File? {
+        UtilKFile.createFile(fileDest)
         /*//        val fileInputStream = FileInputStream(file)
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
         //            Log.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
         //            return file//"the two files is same, don't need overwrite"
         //        }*/
         try {
-            inputStream.inputStream2outputStream2(destFile.file2fileOutputStream(isAppend))
-            return destFile
+            inputStream.inputStream2outputStream2(fileDest.file2fileOutputStream(isAppend))
+            return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
-            e.message?.et(UtilKInputStream.TAG)
+            e.message?.et(TAG)
         }
         return null
     }
@@ -343,7 +332,7 @@ object UtilKInputStreamFormat : IUtilK {
             while (inputStream.read(bytes, 0, bufferSize).also { readCount = it } != -1)
                 outputStream.write(bytes, 0, readCount)
         } catch (e: Exception) {
-            throw e
+            e.printStackTrace()
         } finally {
             inputStream.close()
             outputStream.flushClose()
@@ -358,7 +347,7 @@ object UtilKInputStreamFormat : IUtilK {
             while (inputStream.read().also { readCount = it } != -1)
                 outputStream.write(readCount)
         } catch (e: Exception) {
-            throw e
+            e.printStackTrace()
         } finally {
             inputStream.close()
             outputStream.flushClose()
@@ -372,7 +361,7 @@ object UtilKInputStreamFormat : IUtilK {
         try {
             FileUtils.copy(inputStream, outputStream)
         } catch (e: Exception) {
-            throw e
+            e.printStackTrace()
         } finally {
             inputStream.close()
             outputStream.flushClose()

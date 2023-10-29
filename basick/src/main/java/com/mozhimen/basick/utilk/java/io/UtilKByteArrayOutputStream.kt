@@ -22,14 +22,14 @@ fun ByteArrayOutputStream.byteArrayOutputStream2bytes(): ByteArray =
 fun ByteArrayOutputStream.byteArrayOutputStream2str(charset: Charset = Charsets.UTF_8): String =
     UtilKByteArrayOutputStream.byteArrayOutputStream2str(this, charset)
 
-fun ByteArrayOutputStream.byteArrayOutputStream2anyBitmap(): Bitmap =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2anyBitmap(this)
+fun ByteArrayOutputStream.byteArrayOutputStream2bitmapAny(): Bitmap =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2bitmapAny(this)
 
-fun ByteArrayOutputStream.byteArrayOutputStream2file(destFilePathWithName: String, isAppend: Boolean = false): File =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, destFilePathWithName, isAppend)
+fun ByteArrayOutputStream.byteArrayOutputStream2file(strFilePathNameDest: String, isAppend: Boolean = false): File =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, strFilePathNameDest, isAppend)
 
-fun ByteArrayOutputStream.byteArrayOutputStream2file(destFile: File, isAppend: Boolean = false): File =
-    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, destFile, isAppend)
+fun ByteArrayOutputStream.byteArrayOutputStream2file(fileDest: File, isAppend: Boolean = false): File =
+    UtilKByteArrayOutputStream.byteArrayOutputStream2file(this, fileDest, isAppend)
 
 
 object UtilKByteArrayOutputStream {
@@ -43,14 +43,14 @@ object UtilKByteArrayOutputStream {
         byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2str(charset)
 
     @JvmStatic
-    fun byteArrayOutputStream2anyBitmap(byteArrayOutputStream: ByteArrayOutputStream): Bitmap =
+    fun byteArrayOutputStream2bitmapAny(byteArrayOutputStream: ByteArrayOutputStream): Bitmap =
         byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2bitmapAny()
 
     @JvmStatic
-    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, destFilePathWithName: String, isAppend: Boolean = false): File =
-        byteArrayOutputStream2file(byteArrayOutputStream, destFilePathWithName.strFilePath2file(), isAppend)
+    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, strFilePathNameDest: String, isAppend: Boolean = false): File =
+        byteArrayOutputStream2file(byteArrayOutputStream, strFilePathNameDest.strFilePath2file(), isAppend)
 
     @JvmStatic
-    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, destFile: File, isAppend: Boolean = false): File =
-        byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2file(destFile, isAppend)
+    fun byteArrayOutputStream2file(byteArrayOutputStream: ByteArrayOutputStream, fileDest: File, isAppend: Boolean = false): File =
+        byteArrayOutputStream.byteArrayOutputStream2bytes().bytes2file(fileDest, isAppend)
 }

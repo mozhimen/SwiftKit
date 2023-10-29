@@ -13,46 +13,26 @@ import kotlin.math.roundToInt
  * @Date 2022/2/9 15:05
  * @Version 1.0
  */
-@ColorInt
-fun Int.getContrastColor(): Int =
-    UtilKColor.getContrastColor(this)
-
-@ColorInt
-fun Int.applyAdjustAlpha(factor: Float): Int =
-    UtilKColor.applyAdjustAlpha(this, factor)
-
-
-
-
-
 object UtilKColor {
-    @JvmStatic
-    @ColorInt
-    fun getContrastColor(@ColorInt colorInt: Int): Int {
-        val y = (299 * Color.red(colorInt) + 587 * Color.green(colorInt) + 114 * Color.blue(colorInt)) / 1000
-        return if (y >= 149 && colorInt != Color.BLACK) 0xFF333333.toInt() else Color.WHITE
-    }
 
     /**
      * 渐变色值
-     * @param startColorInt Int 开始颜色
-     * @param endColorInt Int 结束颜色
-     * @param ratio Float
-     * @return Int
+     * @param intColorStart Int 开始颜色
+     * @param intColorEnd Int 结束颜色
      */
     @JvmStatic
     @ColorInt
     @RequiresApi(CVersCode.V_26_8_O)
-    fun getMedianColor(@ColorInt startColorInt: Int, @ColorInt endColorInt: Int, ratio: Float): Int {
-        val startRed = Color.red(startColorInt)
-        val startBlue = Color.blue(startColorInt)
-        val startGreen = Color.green(startColorInt)
-        val startAlpha = Color.alpha(startColorInt)
+    fun getMedianColor(@ColorInt intColorStart: Int, @ColorInt intColorEnd: Int, ratio: Float): Int {
+        val startRed = Color.red(intColorStart)
+        val startBlue = Color.blue(intColorStart)
+        val startGreen = Color.green(intColorStart)
+        val startAlpha = Color.alpha(intColorStart)
 
-        val disRed = Color.red(endColorInt) - startRed
-        val disBlue = Color.blue(endColorInt) - startBlue
-        val disGreen = Color.green(endColorInt) - startGreen
-        val disAlpha = Color.alpha(endColorInt) - startAlpha
+        val disRed = Color.red(intColorEnd) - startRed
+        val disBlue = Color.blue(intColorEnd) - startBlue
+        val disGreen = Color.green(intColorEnd) - startGreen
+        val disAlpha = Color.alpha(intColorEnd) - startAlpha
 
         val medRed = startRed + ratio * disRed
         val medBlue = startBlue + ratio * disBlue
@@ -61,15 +41,4 @@ object UtilKColor {
 
         return Color.argb(medAlpha, medRed, medGreen, medBlue)
     }
-
-    /////////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @param ratio Float 比例 0-1
-     * @return Int
-     */
-    @JvmStatic
-    @ColorInt
-    fun applyAdjustAlpha(@ColorInt colorInt: Int, ratio: Float): Int =
-        Color.argb((Color.alpha(colorInt) * ratio).roundToInt(), Color.red(colorInt), Color.green(colorInt), Color.blue(colorInt))
 }

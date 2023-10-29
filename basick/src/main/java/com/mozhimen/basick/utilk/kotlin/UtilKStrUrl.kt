@@ -2,30 +2,17 @@ package com.mozhimen.basick.utilk.kotlin
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import androidx.annotation.RequiresPermission
 import coil.request.ImageRequest
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.content.UtilKContext
-import com.mozhimen.basick.utilk.android.graphics.UtilKDrawable
-import com.mozhimen.basick.utilk.android.graphics.UtilKStateListDrawable
-import com.mozhimen.basick.utilk.android.net.UtilKNetDeal
-import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
-import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
-import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
+import com.mozhimen.basick.utilk.java.io.inputStream2bitmapAny
+import com.mozhimen.basick.utilk.java.net.UtilKHttpURLConnection
 import com.mozhimen.basick.utilk.java.net.UtilKURI
-import kotlinx.coroutines.withContext
 import java.io.File
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URI
-import java.net.URISyntaxException
 import java.net.URL
-import javax.net.ssl.HttpsURLConnection
 
 /**
  * @ClassName UtilKStringUrl
@@ -41,99 +28,54 @@ fun String.isStrUrlConnectable(): Boolean =
 
 @RequiresPermission(CPermission.INTERNET)
 @AManifestKRequire(CPermission.INTERNET)
-suspend fun String.strUrl2bitmap(): Bitmap? =
-    UtilKStrUrl.strUrl2bitmap(this)
+suspend fun String.strUrl2bitmapAnyOfCoil(): Bitmap? =
+    UtilKStrUrl.strUrl2bitmapAnyOfCoil(this)
 
 @RequiresPermission(CPermission.INTERNET)
 @AManifestKRequire(CPermission.INTERNET)
-fun String.strUrl2bitmap2(): Bitmap =
-    UtilKStrUrl.strUrl2bitmap2(this)
-
-@AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
-fun String.strUrl2file(destFileNameWithName: String, isAppend: Boolean = false): File? =
-    UtilKStrUrl.strUrl2file(this, destFileNameWithName, isAppend)
+fun String.strUrl2bitmapAny(): Bitmap =
+    UtilKStrUrl.strUrl2bitmapAny(this)
 
 @RequiresPermission(CPermission.INTERNET)
 @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
-fun String.strUrl2file(destFile: File, isAppend: Boolean = false): File? =
-    UtilKStrUrl.strUrl2file(this, destFile, isAppend)
+fun String.strUrl2file(strFileNameDest: String, isAppend: Boolean = false): File? =
+    UtilKStrUrl.strUrl2file(this, strFileNameDest, isAppend)
+
+@RequiresPermission(CPermission.INTERNET)
+@AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
+fun String.strUrl2file(fileDest: File, isAppend: Boolean = false): File? =
+    UtilKStrUrl.strUrl2file(this, fileDest, isAppend)
+
+/////////////////////////////////////////////////////////////////////////
 
 object UtilKStrUrl : BaseUtilK() {
-    /**
-     * 判断url是否可连
-     * @param strUrl String
-     * @return Boolean
-     */
+
     @JvmStatic
-    fun isStrUrlConnectable(strUrl: String): Boolean {
-        val uRI: URI?
-        try {
-            uRI = URI(strUrl)
-        } catch (e: URISyntaxException) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-            return false
-        }
-        if (uRI.host == null) {
-            return false
-        } else if (!UtilKURI.isSchemeValid(uRI)) {
-            return false
-        }
-        return true
-    }
+    fun isStrUrlConnectable(strUrl: String): Boolean =
+        UtilKURI.isStrUrlConnectable(strUrl)
 
     /////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.INTERNET)
-    suspend fun strUrl2bitmap(strUrl: String): Bitmap? =
+    suspend fun strUrl2bitmapAnyOfCoil(strUrl: String): Bitmap? =
         (UtilKContext.getImageLoader(_context).execute(ImageRequest.Builder(_context).data(strUrl).build()).drawable as? BitmapDrawable)?.bitmap
 
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.INTERNET)
-    fun strUrl2bitmap2(strUrl: String): Bitmap =
-        URL(strUrl).openStream().inputStream2anyBitmap()
+    fun strUrl2bitmapAny(strUrl: String): Bitmap =
+        URL(strUrl).openStream().inputStream2bitmapAny()
 
     @JvmStatic
     @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
-    fun strUrl2file(strUrl: String, destFileNameWithName: String, isAppend: Boolean = false): File? =
-        strUrl2file(strUrl, destFileNameWithName.strFilePath2file(), isAppend)
+    fun strUrl2file(strUrl: String, strFileNameDest: String, isAppend: Boolean = false): File? =
+        strUrl2file(strUrl, strFileNameDest.strFilePath2file(), isAppend)
 
     @JvmStatic
     @RequiresPermission(CPermission.INTERNET)
     @AManifestKRequire(CPermission.WRITE_EXTERNAL_STORAGE, CPermission.READ_EXTERNAL_STORAGE, CPermission.INTERNET)
-    fun strUrl2file(strUrl: String, destFile: File, isAppend: Boolean = false): File? {
-        require(strUrl.isNotEmpty()) { "$TAG httpUrl must be not empty" }
-        UtilKFile.deleteFile(destFile)
-
-        var inputStream: InputStream? = null
-        var httpURLConnection: HttpURLConnection? = null
-
-        try {
-            val url = URL(strUrl)
-            httpURLConnection = url.openConnection() as HttpURLConnection
-            if (httpURLConnection is HttpsURLConnection) {
-                val sslContext = UtilKNetDeal.getSLLContext()
-                if (sslContext != null)
-                    httpURLConnection.sslSocketFactory = sslContext.socketFactory
-            }
-            httpURLConnection.apply {
-                connectTimeout = 60 * 1000
-                readTimeout = 60 * 1000
-                connect()
-            }
-            inputStream = httpURLConnection.inputStream
-            inputStream.inputStream2outputStream(destFile.file2fileOutputStream(isAppend), 1024)
-            return destFile
-        } catch (e: Exception) {
-            e.printStackTrace()
-            e.message?.et(TAG)
-        } finally {
-            inputStream?.close()
-            httpURLConnection?.disconnect()
-        }
-        return null
-    }
+    fun strUrl2file(strUrl: String, fileDest: File, isAppend: Boolean = false): File? =
+        UtilKHttpURLConnection.getFileForStrUrl(strUrl, fileDest, isAppend)
 }

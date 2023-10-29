@@ -10,8 +10,6 @@ import com.mozhimen.basick.utilk.java.lang.UtilKCharacter
  * @Date 2023/5/25 10:41
  * @Version 1.0
  */
-
-
 fun Int.getStrByte(@IntRange(from = 1) digit: Int): String =
     UtilKInt.getStrByte(this, digit)
 

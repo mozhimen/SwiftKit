@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.kotlin
 
+import com.mozhimen.basick.utilk.java.text.UtilKDecimalFormat
 import java.text.DecimalFormat
 
 /**
@@ -18,7 +19,7 @@ fun Long.longFileSize2strFileSizeLong(): String =
 object UtilKLongFormat {
     @JvmStatic
     fun longFileSize2strFileSize(fileSize: Long): String {
-        val decimalFormat = DecimalFormat("#.00")
+        val decimalFormat = UtilKDecimalFormat.getOf(2)
         return if (fileSize <= 0) "0B"
         else if (fileSize < 1024)
             decimalFormat.format(fileSize) + "B"

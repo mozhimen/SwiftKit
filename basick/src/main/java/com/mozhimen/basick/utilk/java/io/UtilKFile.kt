@@ -22,8 +22,8 @@ import java.util.Vector
  * @Date 2022/2/22 11:59
  * @Version 1.0
  */
-fun File.getNameExExtension(): String? =
-    UtilKFile.getNameExExtension(this)
+fun File.getNameExpExtension(): String? =
+    UtilKFile.getNameExpExtension(this)
 
 fun File.getFileSizeAvailable(): Long? =
     UtilKFile.getFileSizeAvailable(this)
@@ -43,8 +43,8 @@ fun File.isFileExist(): Boolean =
 fun File.createFile(): File =
     UtilKFile.createFile(this)
 
-fun File.copyFile(destFile: File, isAppend: Boolean = false): File? =
-    UtilKFile.copyFile(this, destFile, isAppend)
+fun File.copyFile(fileDest: File, isAppend: Boolean = false): File? =
+    UtilKFile.copyFile(this, fileDest, isAppend)
 
 fun File.zipFile(zipFile: File): File? =
     UtilKFile.zipFile(this, zipFile)
@@ -107,7 +107,7 @@ object UtilKFile : BaseUtilK() {
     /////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun getNameExExtension(file: File): String? =
+    fun getNameExpExtension(file: File): String? =
         if (!isFileExist(file)) null
         else file.nameWithoutExtension
 
@@ -189,19 +189,19 @@ object UtilKFile : BaseUtilK() {
      * 复制文件
      */
     @JvmStatic
-    fun copyFile(sourceFile: File, destFile: File, isAppend: Boolean = false): File? =
-        if (!isFileExist(sourceFile)) null
-        else FileInputStream(sourceFile).inputStream2file(destFile, isAppend)
+    fun copyFile(fileSource: File, fileDest: File, isAppend: Boolean = false): File? =
+        if (!isFileExist(fileSource)) null
+        else FileInputStream(fileSource).inputStream2file(fileDest, isAppend)
 
     /**
      * 压缩文件
      */
     @JvmStatic
-    fun zipFile(sourceFile: File, zipFile: File): File? =
-        if (!isFileExist(sourceFile)) null
+    fun zipFile(fileSource: File, zipFile: File): File? =
+        if (!isFileExist(fileSource)) null
         else {
             val zipOutputStream = zipFile.file2fileOutputStream().outputStream2zipOutputStream()
-            UtilKZipOutputStream.zipOutputStream2bufferedOutputStream(zipOutputStream, zipOutputStream.outputStream2bufferedOutputStream(), sourceFile, sourceFile.name)
+            UtilKZipOutputStream.zipOutputStream2bufferedOutputStream(zipOutputStream, zipOutputStream.outputStream2bufferedOutputStream(), fileSource, fileSource.name)
             zipFile
         }
 

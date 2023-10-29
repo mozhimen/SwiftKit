@@ -17,17 +17,17 @@ import java.nio.charset.Charset
  * @Date 2023/8/1 16:31
  * @Version 1.0
  */
-fun String.str2file(destFilePathWithName: String): File? =
-    UtilKStringFormat.str2file(this, destFilePathWithName)
+fun String.str2file(strFilePathNameDest: String): File? =
+    UtilKStringFormat.str2file(this, strFilePathNameDest)
 
-fun String.str2file(destFile: File): File? =
-    UtilKStringFormat.str2file(this, destFile)
+fun String.str2file(fileDest: File): File? =
+    UtilKStringFormat.str2file(this, fileDest)
 
-fun String.str2file2(filePathWithName: String, isAppend: Boolean = false): File? =
-    UtilKStringFormat.str2file2(this, filePathWithName, isAppend)
+fun String.str2fileOfFileOutStream(strFilePathName: String, isAppend: Boolean = false): File? =
+    UtilKStringFormat.str2fileOfFileOutStream(this, strFilePathName, isAppend)
 
-fun String.str2file2(destFile: File, isAppend: Boolean = false): File? =
-    UtilKStringFormat.str2file2(this, destFile, isAppend)
+fun String.str2fileOfFileOutStream(fileDest: File, isAppend: Boolean = false): File? =
+    UtilKStringFormat.str2fileOfFileOutStream(this, fileDest, isAppend)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -42,18 +42,18 @@ object UtilKStringFormat {
      * 文本转文件
      */
     @JvmStatic
-    fun str2file(str: String, destFilePathWithName: String): File? =
-        str2file(str, destFilePathWithName.createFile())
+    fun str2file(str: String, strFilePathNameDest: String): File? =
+        str2file(str, strFilePathNameDest.createFile())
 
     /**
      * 文本转文件
      */
     @JvmStatic
-    fun str2file(str: String, destFile: File): File? {
-        UtilKFile.createFile(destFile)
+    fun str2file(str: String, fileDest: File): File? {
+        UtilKFile.createFile(fileDest)
         try {
-            RandomAccessFile(destFile, "rwd").writeStr2randomAccessFile(str)
-            return destFile
+            RandomAccessFile(fileDest, "rwd").writeStr2randomAccessFile(str)
+            return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(UtilKFileFormat.TAG)
@@ -62,15 +62,15 @@ object UtilKStringFormat {
     }
 
     @JvmStatic
-    fun str2file2(str: String, filePathWithName: String, isAppend: Boolean = false): File? =
-        str2file2(str, filePathWithName.createFile(), isAppend)
+    fun str2fileOfFileOutStream(str: String, strFilePathName: String, isAppend: Boolean = false): File? =
+        str2fileOfFileOutStream(str, strFilePathName.createFile(), isAppend)
 
     @JvmStatic
-    fun str2file2(str: String, destFile: File, isAppend: Boolean = false): File? {
-        UtilKFile.createFile(destFile)
+    fun str2fileOfFileOutStream(str: String, fileDest: File, isAppend: Boolean = false): File? {
+        UtilKFile.createFile(fileDest)
         try {
-            destFile.file2fileOutputStream(isAppend).writeStr2fileOutputStream(str)
-            return destFile
+            fileDest.file2fileOutputStream(isAppend).writeStr2fileOutputStream(str)
+            return fileDest
         } catch (e: Exception) {
             e.printStackTrace()
             e.message?.et(UtilKFileFormat.TAG)
@@ -83,8 +83,6 @@ object UtilKStringFormat {
 
     /**
      * icon代码转unicode
-     * @param str String
-     * @return String
      */
     @JvmStatic
     fun str2strUnicode(str: String): String {

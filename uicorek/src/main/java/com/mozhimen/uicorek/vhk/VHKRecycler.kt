@@ -60,8 +60,8 @@ open class VHKRecycler(containerView: View) : RecyclerView.ViewHolder(containerV
         return this
     }
 
-    fun setTextColor(@IdRes viewId: Int, @ColorInt colorInt: Int): VHKRecycler {
-        findViewById<TextView>(viewId).setTextColor(colorInt)
+    fun setTextColor(@IdRes viewId: Int, @ColorInt intColor: Int): VHKRecycler {
+        findViewById<TextView>(viewId).setTextColor(intColor)
         return this
     }
 
@@ -85,8 +85,8 @@ open class VHKRecycler(containerView: View) : RecyclerView.ViewHolder(containerV
         return this
     }
 
-    fun setBackgroundColor(@IdRes viewId: Int, @ColorInt colorInt: Int): VHKRecycler {
-        findViewById<View>(viewId).setBackgroundColor(colorInt)
+    fun setBackgroundColor(@IdRes viewId: Int, @ColorInt intColor: Int): VHKRecycler {
+        findViewById<View>(viewId).setBackgroundColor(intColor)
         return this
     }
 

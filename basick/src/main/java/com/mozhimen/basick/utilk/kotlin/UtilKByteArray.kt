@@ -13,11 +13,9 @@ object UtilKByteArray : BaseUtilK() {
 
     /**
      * cs校验
-     * @param bytes
-     * @return Byte
      */
     @JvmStatic
-    fun checkCS(bytes: ByteArray): Byte {
+    fun getOfCS(bytes: ByteArray): Byte {
         try {
             var num = 0
             for (i in bytes.indices)

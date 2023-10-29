@@ -37,7 +37,7 @@ object UtilKStateListDrawable {
         val drawableNormal = UtilKDrawable.getDrawableForStrUrl(strUrlDrawableNormal)
         val drawablePressed = UtilKDrawable.getDrawableForStrUrl(strUrlDrawablePressed)
         return if (drawableNormal != null && drawablePressed != null) {
-            UtilKStateListDrawable.get(drawableNormal, drawablePressed)
+            get(drawableNormal, drawablePressed)
         } else null
     }
 }

@@ -17,8 +17,6 @@ object UtilKTriangle {
     /**
      * 计算临边对斜边的角度
      * @param adjacent Double 临边
-     * @param hypotenuse Double
-     * @return Float
      */
     @JvmStatic
     fun angleCos(adjacent: Double, hypotenuse: Double): Double =
@@ -26,9 +24,6 @@ object UtilKTriangle {
 
     /**
      * 计算对边对斜边的角度
-     * @param opposite Double
-     * @param hypotenuse Double
-     * @return Float
      */
     @JvmStatic
     fun angleSin(opposite: Double, hypotenuse: Double): Double =
@@ -37,8 +32,6 @@ object UtilKTriangle {
     /**
      * 计算临边对斜边的角度
      * @param adjacent Float 临边
-     * @param hypotenuse Float
-     * @return Float
      */
     @JvmStatic
     fun angleCos(adjacent: Float, hypotenuse: Float): Float =
@@ -46,9 +39,6 @@ object UtilKTriangle {
 
     /**
      * 计算对边对斜边的角度
-     * @param opposite Float
-     * @param hypotenuse Float
-     * @return Float
      */
     @JvmStatic
     fun angleSin(opposite: Float, hypotenuse: Float): Float =

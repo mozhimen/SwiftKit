@@ -22,6 +22,7 @@ object CEnvironment {
     val DIRECTORY_DOWNLOADS = Environment.DIRECTORY_DOWNLOADS
     val DIRECTORY_DCIM = Environment.DIRECTORY_DCIM
     val DIRECTORY_DOCUMENTS = Environment.DIRECTORY_DOCUMENTS
+    val MEDIA_MOUNTED = Environment.MEDIA_MOUNTED
 
     @RequiresApi(CVersCode.V_29_10_Q)
     val DIRECTORY_SCREENSHOTS = Environment.DIRECTORY_SCREENSHOTS

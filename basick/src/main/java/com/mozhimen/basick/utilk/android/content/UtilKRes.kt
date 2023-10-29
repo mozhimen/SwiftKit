@@ -28,7 +28,7 @@ object UtilKRes : BaseUtilK() {
         UtilKContext.getString(_context, resId, formatArgs)
 
     @JvmStatic
-    fun getStringArray(resId: Int): Array<String> =
+    fun getStringArray( resId: Int): Array<String> =
         UtilKResource.getStringArray(_context, resId)
 
     /////////////////////////////////////////////////////////////////////

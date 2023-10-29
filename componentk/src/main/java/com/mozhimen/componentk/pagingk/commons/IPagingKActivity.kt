@@ -1,6 +1,5 @@
 package com.mozhimen.componentk.pagingk.commons
 
-import android.content.Context
 import android.graphics.Color
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,11 +14,11 @@ import com.mozhimen.componentk.pagingk.bases.BasePagingKViewModel
  * @Date 2023/10/17 17:13
  * @Version 1.0
  */
-interface IPagingKFragment<DES, VM : BasePagingKViewModel<*, DES>> {
+interface IPagingKActivity<DES, VM : BasePagingKViewModel<*, DES>> {
     fun getViewModel(): VM
     fun getPagedListAdapter(): PagedListAdapter<DES, *>
     fun getSwipeRefreshLayout(): SwipeRefreshLayout
-    fun getSwipeRefreshLayoutColorScheme(): Int = Color.BLACK
+    fun getSwipeRefreshLayoutColorScheme(): Int = 0
     fun getRecyclerView(): RecyclerView
     fun getRecyclerViewLayoutManager(): LayoutManager
     fun onLoadStart()

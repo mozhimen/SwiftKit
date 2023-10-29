@@ -25,6 +25,8 @@ inline fun <T, R> T.flushClose(block: (T) -> R): R where T : Closeable?, T : Flu
 fun <T> T?.flushCloseFinally(cause: Throwable?): Unit where T : Closeable?, T : Flushable? =
     UtilKFlushable.flushCloseFinally(this, cause)
 
+//////////////////////////////////////////////////////////////////////////////////////
+
 object UtilKFlushable {
     @JvmStatic
     fun <T> flushClose(t: T) where T : Closeable?, T : Flushable? {

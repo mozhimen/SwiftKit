@@ -26,10 +26,10 @@ object UtilKZipOutputStream : IUtilK {
      * 压缩
      */
     @JvmStatic
-    fun zipOutputStream2bufferedOutputStream(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, sourceFile: File, fileName: String) {
+    fun zipOutputStream2bufferedOutputStream(zipOutputStream: ZipOutputStream, bufferedOutputStream: BufferedOutputStream, fileSource: File, fileName: String) {
         try {
-            if (UtilKFile.isFolder(sourceFile)) {
-                val listFiles = sourceFile.getFolderFiles()
+            if (UtilKFile.isFolder(fileSource)) {
+                val listFiles = fileSource.getFolderFiles()
                 if (listFiles.isEmpty()) {
                     val stringBuilder = StringBuilder().apply { append(fileName).append("/") }
                     zipOutputStream.putNextEntry(ZipEntry(stringBuilder.toString().also { Log.d(TAG, "compress: stringBuilder $stringBuilder") }))
@@ -40,7 +40,7 @@ object UtilKZipOutputStream : IUtilK {
                     }
             } else {
                 zipOutputStream.putNextEntry(ZipEntry(fileName))
-                sourceFile.file2fileInputStream().inputStream2bufferedInputStream().inputStream2outputStream(bufferedOutputStream)
+                fileSource.file2fileInputStream().inputStream2bufferedInputStream().inputStream2outputStream(bufferedOutputStream)
             }
         } finally {
             zipOutputStream.flushClose()

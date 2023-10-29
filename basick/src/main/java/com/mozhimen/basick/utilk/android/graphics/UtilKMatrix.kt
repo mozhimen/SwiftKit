@@ -13,6 +13,11 @@ import android.graphics.Matrix
 object UtilKMatrix {
 
     @JvmStatic
+    fun getValues(matrix: Matrix, values: FloatArray) {
+        matrix.getValues(values)
+    }
+
+    @JvmStatic
     fun applyRotate(matrix: Matrix, degree: Float, px: Float, py: Float) {
         matrix.setRotate(degree, px, py)
     }
@@ -36,10 +41,5 @@ object UtilKMatrix {
     @JvmStatic
     fun postTranslate(matrix: Matrix, dx: Float, dy: Float) {
         matrix.postTranslate(dx, dy)
-    }
-
-    @JvmStatic
-    fun getValues(matrix: Matrix, values: FloatArray) {
-        matrix.getValues(values)
     }
 }

@@ -40,7 +40,7 @@ class DebugKParams {
     fun deviceSerialNoShort(): String = UtilKDevice.getSerialNumberShort()
 
     @ADebugKParams("设备IP")
-    fun deviceIP(): String = UtilKNetConn.getStrIp() ?: CBuild.UNKNOWN
+    fun deviceIP(): String = UtilKNetConn.getStrIP() ?: CBuild.UNKNOWN
 
     @ADebugKParams("设备Rom版本")
     fun deviceRomVersion(): String = UtilKDevice.getRomVersion()
@@ -59,7 +59,7 @@ class DebugKParams {
 
     @SuppressLint("MissingPermission")
     @ADebugKParams("设备默认IMEI")
-    fun deviceIMEI(): String = UtilKDevice.getIMEI()
+    fun deviceIMEI(): String = UtilKDevice.getImei()
 
     /**
      * 构建参数

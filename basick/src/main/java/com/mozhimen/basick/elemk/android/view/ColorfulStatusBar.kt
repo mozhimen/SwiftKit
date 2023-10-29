@@ -32,8 +32,8 @@ class ColorfulStatusBar(private val _activity: Activity) {
         _colorfulStatusBarView.applyVisibleIfElseGone(_isColorfulStatusBarEnabled)
     }
 
-    fun setColor(@ColorInt colorInt: Int) {
-        if (UtilKStatusBar.isTranslucent(_activity)) _colorfulStatusBarView.setBackgroundColor(colorInt)
+    fun setColor(@ColorInt intColor: Int) {
+        if (UtilKStatusBar.isTranslucent(_activity)) _colorfulStatusBarView.setBackgroundColor(intColor)
     }
 
     private fun setupColorfulStatusBarView(activity: Activity) {

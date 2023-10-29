@@ -20,8 +20,31 @@ import kotlin.system.exitProcess
  */
 object UtilKApp : BaseUtilK() {
     /**
+     * isSystemApp
+     */
+    @JvmStatic
+    @Throws(IllegalArgumentException::class)
+    fun isSystemApp(context: Context): Boolean =
+        UtilKApplicationInfo.isSystemApp(context)
+
+    /**
+     * isSystemUpdateApp
+     */
+    @JvmStatic
+    fun isSystemUpdateApp(context: Context): Boolean =
+        UtilKApplicationInfo.isSystemUpdateApp(context)
+
+    /**
+     * isUserApp
+     */
+    @JvmStatic
+    fun isUserApp(context: Context): Boolean =
+        UtilKApplicationInfo.isUserApp(context)
+
+    /////////////////////////////////////////////////////////////////////////////
+
+    /**
      * 重启App
-     * @param isKillProcess Boolean
      */
     @JvmStatic
     fun restartApp(isKillProcess: Boolean, isValid: Boolean = true, context: Context = _context) {
@@ -43,31 +66,4 @@ object UtilKApp : BaseUtilK() {
         Process.killProcess(Process.myPid())//杀掉当前进程,并主动启动新的启动页,以完成重启的动作
         exitProcess(if (isValid) 0 else 10)
     }
-
-    /////////////////////////////////////////////////////////////////////////////
-
-    /**
-     * isSystemApp
-     * @return Boolean
-     */
-    @JvmStatic
-    @Throws(IllegalArgumentException::class)
-    fun isSystemApp(context: Context): Boolean =
-        UtilKApplicationInfo.isSystemApp(context)
-
-    /**
-     * isSystemUpdateApp
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isSystemUpdateApp(context: Context): Boolean =
-        UtilKApplicationInfo.isSystemUpdateApp(context)
-
-    /**
-     * isUserApp
-     * @return Boolean
-     */
-    @JvmStatic
-    fun isUserApp(context: Context): Boolean =
-        UtilKApplicationInfo.isUserApp(context)
 }

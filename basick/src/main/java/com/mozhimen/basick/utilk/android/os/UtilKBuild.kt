@@ -47,12 +47,12 @@ object UtilKBuild {
     //构建Release版本号
     @JvmStatic
     fun getVersionRelease(): String =
-        Build.VERSION.RELEASE
+        UtilKBuildVersion.getRelease()
 
     //构建版本名称
     @JvmStatic
     fun getVersionCodeName(): String =
-        Build.VERSION.CODENAME
+        UtilKBuildVersion.getCodeName()
 
     //设备品牌
     @JvmStatic

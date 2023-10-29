@@ -2,7 +2,6 @@ package com.mozhimen.basick.utilk.android.os
 
 import android.os.Build
 import android.text.TextUtils
-import com.mozhimen.basick.elemk.cons.CPackage
 import com.mozhimen.basick.elemk.cons.CRom
 import com.mozhimen.basick.elemk.cons.CStrPackage
 import com.mozhimen.basick.utilk.java.lang.UtilKRuntime
@@ -24,36 +23,36 @@ object UtilKRom {
 
     @JvmStatic
     fun isEmui(): Boolean =
-        checkRom(CRom.EMUI)
+        isRom(CRom.EMUI)
 
     @JvmStatic
     fun isMiui(): Boolean =
-        checkRom(CRom.MIUI)
+        isRom(CRom.MIUI)
 
     @JvmStatic
     fun isVivo(): Boolean =
-        checkRom(CRom.VIVO)
+        isRom(CRom.VIVO)
 
     @JvmStatic
     fun isOppo(): Boolean =
-        checkRom(CRom.OPPO)
+        isRom(CRom.OPPO)
 
     @JvmStatic
     fun isFlyme(): Boolean =
-        checkRom(CRom.FLYME)
+        isRom(CRom.FLYME)
 
     @JvmStatic
     fun is360(): Boolean =
-        checkRom(CRom.QIKU) || checkRom(CRom.`360`)
+        isRom(CRom.QIKU) || isRom(CRom.`360`)
 
     @JvmStatic
     fun isSmartisan(): Boolean =
-        checkRom(CRom.SMARTISAN)
+        isRom(CRom.SMARTISAN)
 
     ///////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun checkRom(strRom: String): Boolean {
+    fun isRom(strRom: String): Boolean {
         _name?.let { return _name == strRom }
         if (!TextUtils.isEmpty(UtilKRuntime.execGetProp(CStrPackage.RO_MIUI_UI_VERSION_NAME).also { _version = it })) {
             _name = CRom.MIUI

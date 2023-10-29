@@ -23,11 +23,17 @@ import java.io.File
  * @Version 1.0
  */
 object UtilKLaunchActivity {
+    /**
+     * 分享文本
+     */
     @JvmStatic
     fun startShareText(context: Context, title: String, str: String) {
         context.startContext(UtilKIntentWrapper.getShareText(str).createChooser(title))
     }
 
+    /**
+     * 打开外部浏览器
+     */
     @JvmStatic
     fun startWebOutSide(context: Context, strUrl: String) {
         context.startContext(UtilKIntentWrapper.getStrUrl(strUrl)/*Intent(Intent.ACTION_VIEW, Uri.parse(strUrl)*/)
@@ -39,17 +45,23 @@ object UtilKLaunchActivity {
     @SuppressLint("InlinedApi")
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     @JvmStatic
-    fun startInstall(context: Context, apkPathWithName: String) {
-        context.startContext(UtilKIntentWrapper.getInstall(apkPathWithName.also { if (UtilKBuildVersion.isBeforeVersion(CVersCode.V_24_7_N)) UtilKRuntime.chmod(apkPathWithName) }) ?: return)
+    fun startInstall(context: Context, strPathNameApk: String) {
+        context.startContext(UtilKIntentWrapper.getInstall(strPathNameApk.also { if (UtilKBuildVersion.isBeforeVersion(CVersCode.V_24_7_N)) UtilKRuntime.chmod777(strPathNameApk) }) ?: return)
     }
 
+    /**
+     * 安装 if sdk >= 24 add provider
+     */
     @SuppressLint("InlinedApi")
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     @JvmStatic
-    fun startInstall(context: Context, apkFile: File) {
-        context.startContext(UtilKIntentWrapper.getInstall(apkFile) ?: return)
+    fun startInstall(context: Context, fileApk: File) {
+        context.startContext(UtilKIntentWrapper.getInstall(fileApk) ?: return)
     }
 
+    /**
+     * 安装 if sdk >= 24 add provider
+     */
     @SuppressLint("InlinedApi")
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     @JvmStatic
@@ -66,6 +78,9 @@ object UtilKLaunchActivity {
             context.startContext(UtilKIntentWrapper.getManageUnknownAppSources(context))
     }
 
+    /**
+     * 打开包安装权限
+     */
     @JvmStatic
     fun startManageUnknownInstallSourceForResult(activity: Activity, requestCode: Int) {
         if (UtilKBuildVersion.isAfterV_26_8_O())

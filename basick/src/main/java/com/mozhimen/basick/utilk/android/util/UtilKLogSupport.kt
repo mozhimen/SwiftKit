@@ -3,7 +3,7 @@ package com.mozhimen.basick.utilk.android.util
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.elemk.cons.CCons
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.java.lang.UtilKStackTrace
+import com.mozhimen.basick.utilk.java.lang.UtilKStackTraceElement
 import com.mozhimen.basick.utilk.kotlin.obj2str
 import java.util.concurrent.atomic.AtomicBoolean
 
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * @Date 2022/11/19 13:53
  * @Version 1.0
  */
-object UtilKLog2 : BaseUtilK() {
+object UtilKLogSupport : BaseUtilK() {
 
     private val _isOpenLog = AtomicBoolean(false)
     private val _isSupportLongLog = AtomicBoolean(true)
@@ -43,7 +43,7 @@ object UtilKLog2 : BaseUtilK() {
 
     @JvmStatic
     private fun getLogCat(vararg msg: Any): String =
-        UtilKStackTrace.getStackTraceInfo(parseContents(*msg))
+        UtilKStackTraceElement.getStackTracesInfo(parseContents(*msg))
 
     ///////////////////////////////////////////////////////////////////
 

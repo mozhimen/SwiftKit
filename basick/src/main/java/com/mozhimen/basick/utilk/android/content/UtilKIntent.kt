@@ -16,16 +16,16 @@ fun Intent.isIntentAvailable(context: Context): Boolean =
     UtilKIntent.isIntentAvailable(this, context)
 
 object UtilKIntent {
-    @SuppressLint("QueryPermissionsNeeded")
-    @JvmStatic
-    fun resolveActivity(intent: Intent, context: Context): ComponentName? =
-        intent.resolveActivity(UtilKPackageManager.get(context))
-
-    ///////////////////////////////////////////////////////////////////////////////////////
-
     /**
      * 要启动的intent是否可用
      */
     fun isIntentAvailable(intent: Intent, context: Context): Boolean =
         resolveActivity(intent, context) != null
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
+    @SuppressLint("QueryPermissionsNeeded")
+    @JvmStatic
+    fun resolveActivity(intent: Intent, context: Context): ComponentName? =
+        intent.resolveActivity(UtilKPackageManager.get(context))
 }

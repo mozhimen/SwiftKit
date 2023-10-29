@@ -46,33 +46,33 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
         lifecycleScope.launch(Dispatchers.IO) {
             "section file".log()
             "filePath getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) ${this@UtilKFileActivity.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)!!.absolutePath}".log()
-            val deviceInfoPath = UtilKStrPath.Absolute.Internal.getFilesDir() + "/deviceInfo"
-            "isFile deviceInfo ${UtilKFile.isFile(deviceInfoPath)}".log()
-            val deviceInfo1Path = UtilKStrPath.Absolute.Internal.getFilesDir() + "/deviceInfo1"
-            "createFile deviceInfo1 ${UtilKFile.createFile(deviceInfo1Path).absolutePath}".log()
-            "deleteFile deviceInfo1 ${UtilKFile.deleteFile(deviceInfo1Path)}".log()
-            "getFileSize deviceInfo size ${UtilKFile.getFileSizeAvailable(deviceInfoPath)}".log()
+            val deviceInfoPath = UtilKStrPath.Absolute.Internal.getFiles() + "/deviceInfo"
+            "isFile deviceInfo ${UtilKStrFile.isFile(deviceInfoPath)}".log()
+            val deviceInfo1Path = UtilKStrPath.Absolute.Internal.getFiles() + "/deviceInfo1"
+            "createFile deviceInfo1 ${UtilKStrFile.createFile(deviceInfo1Path).absolutePath}".log()
+            "deleteFile deviceInfo1 ${UtilKStrFile.deleteFile(deviceInfo1Path)}".log()
+            "getFileSize deviceInfo size ${UtilKStrFile.getFileSizeAvailable(deviceInfoPath)}".log()
 
-            val str2File1Path = UtilKStrPath.Absolute.Internal.getFilesDir() + "/tmp1.txt"
+            val str2File1Path = UtilKStrPath.Absolute.Internal.getFiles() + "/tmp1.txt"
             val str2File1Time = System.currentTimeMillis()
             "str2File1 tmp1 ${UtilKStringFormat.str2file("第一行\n第二行", str2File1Path)} time ${System.currentTimeMillis() - str2File1Time}".log()
-            val str2File2Path = UtilKStrPath.Absolute.Internal.getFilesDir() + "/tmp2.txt"
+            val str2File2Path = UtilKStrPath.Absolute.Internal.getFiles() + "/tmp2.txt"
             val str2File2Time = System.currentTimeMillis()
-            "str2File2 tmp2 ${UtilKStringFormat.str2file2("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
+            "str2File2 tmp2 ${UtilKStringFormat.str2fileOfFileOutStream("第一行\n第二行", str2File2Path)} time ${System.currentTimeMillis() - str2File2Time}".log()
 
             val file2StrTime = System.currentTimeMillis()
             "file2Str tmp ${UtilKStrFile.strFilePath2str(str2File1Path)} time ${System.currentTimeMillis() - file2StrTime}".log()
 
             val copyFileTime = System.currentTimeMillis()
-            val destTmpFilePath = UtilKStrPath.Absolute.Internal.getFilesDir() + "/tmp3.txt"
-            "copyFile tmp -> tmp3 ${UtilKFile.copyFile(str2File1Path, destTmpFilePath)?.absolutePath} time ${System.currentTimeMillis() - copyFileTime}".log()
+            val destTmpFilePath = UtilKStrPath.Absolute.Internal.getFiles() + "/tmp3.txt"
+            "copyFile tmp -> tmp3 ${UtilKStrFile.copyFile(str2File1Path, destTmpFilePath)?.absolutePath} time ${System.currentTimeMillis() - copyFileTime}".log()
 
             "section folder".log()
-            val deviceInfoFolder = UtilKStrPath.Absolute.Internal.getFilesDir()
-            "isFolder filesDir ${UtilKFile.isFolder(deviceInfoFolder)}".log()
-            val createFolderPath = UtilKStrPath.Absolute.Internal.getFilesDir() + "/folder/"
-            "createFolder folder ${UtilKFile.createFolder(createFolderPath).absolutePath}".log()
-            "deleteFolder folder ${UtilKFile.deleteFolder(createFolderPath)}".log()
+            val deviceInfoFolder = UtilKStrPath.Absolute.Internal.getFiles()
+            "isFolder filesDir ${UtilKStrFile.isFolder(deviceInfoFolder)}".log()
+            val createFolderPath = UtilKStrPath.Absolute.Internal.getFiles() + "/folder/"
+            "createFolder folder ${UtilKStrFile.createFolder(createFolderPath).absolutePath}".log()
+            "deleteFolder folder ${UtilKStrFile.deleteFolder(createFolderPath)}".log()
         }
     }
 

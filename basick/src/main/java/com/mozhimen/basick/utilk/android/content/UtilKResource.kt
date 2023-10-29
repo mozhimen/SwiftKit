@@ -36,7 +36,6 @@ object UtilKResource {
 
     /**
      * 获取系统Configuration
-     * @return Configuration
      */
     @JvmStatic
     fun getSystemConfiguration(): Configuration =
@@ -50,15 +49,15 @@ object UtilKResource {
     fun getDisplayMetrics(): DisplayMetrics =
         getSystemResources().displayMetrics
 
-    @SuppressLint("DiscouragedApi")
     @JvmStatic
+    @SuppressLint("DiscouragedApi")
     fun getIdentifier(name: String, defType: String, defPackage: String): Int =
         getSystemResources().getIdentifier(name, defType, defPackage)
 
     ////////////////////////////////////////////////////////////////////////////
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     @JvmStatic
+    @SuppressLint("UseCompatLoadingForDrawables")
     fun getDrawable(context: Context, @DrawableRes id: Int): Drawable =
         getAppResources(context).getDrawable(id)// ResourcesCompat.getDrawable()
 

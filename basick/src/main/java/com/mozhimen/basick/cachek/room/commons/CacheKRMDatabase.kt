@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.mozhimen.basick.cachek.room.mos.MCacheKRM
-import com.mozhimen.basick.utilk.android.app.UtilKApplication
+import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
 
 /**
  * @ClassName CacheDatabase
@@ -19,7 +19,7 @@ abstract class CacheKRMDatabase : RoomDatabase() {
 
     companion object {
         private val _db: CacheKRMDatabase by lazy {
-            Room.databaseBuilder(UtilKApplication.instance.applicationContext, CacheKRMDatabase::class.java, "basick_cachek_rm").enableMultiInstanceInvalidation().allowMainThreadQueries().build()
+            Room.databaseBuilder(UtilKApplicationReflect.instance.applicationContext, CacheKRMDatabase::class.java, "basick_cachek_rm").enableMultiInstanceInvalidation().allowMainThreadQueries().build()
         }
 
         @JvmStatic

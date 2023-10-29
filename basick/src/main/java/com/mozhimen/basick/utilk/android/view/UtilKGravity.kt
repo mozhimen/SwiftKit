@@ -14,7 +14,7 @@ import com.mozhimen.basick.elemk.android.view.cons.CGravity
 object UtilKGravity {
     @SuppressLint("RtlHardcoded")
     @JvmStatic
-    fun computeGravity(sourceRect: Rect, destRect: Rect): Int {
+    fun compute(sourceRect: Rect, destRect: Rect): Int {
         var gravity = CGravity.NO_GRAVITY
         val xDelta = sourceRect.centerX() - destRect.centerX()
         val yDelta = sourceRect.centerY() - destRect.centerY()

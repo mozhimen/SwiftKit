@@ -4,9 +4,9 @@ import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
 import androidx.annotation.RequiresPermission
-import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKEnvironment
 import com.mozhimen.basick.utilk.android.os.UtilKStatFs
@@ -28,14 +28,13 @@ object UtilKDevice : BaseUtilK() {
 
     @JvmStatic
     @RequiresPermission(CPermission.READ_PHONE_STATE)
-    fun getIMEI(): String =
-        if (Build.VERSION.SDK_INT >= CVersCode.V_23_6_M) {
+    fun getImei(): String =
+        if (UtilKBuildVersion.isAfterV_23_6_M()) {
             UtilKImei.getImei(_context)
         } else ""
 
     /**
      * 设备内存空间
-     * @return String
      */
     @JvmStatic
     fun getMemorySize(): String? =
@@ -43,7 +42,6 @@ object UtilKDevice : BaseUtilK() {
 
     /**
      * cpu使用率
-     * @return Float
      */
     @JvmStatic
     fun getCpuUsage(): Float =
@@ -51,7 +49,6 @@ object UtilKDevice : BaseUtilK() {
 
     /**
      * 设备Rom版本
-     * @return String
      */
     @JvmStatic
     fun getRomVersion(): String =
@@ -59,15 +56,13 @@ object UtilKDevice : BaseUtilK() {
 
     /**
      * 设备硬件版本
-     * @return String
      */
     @JvmStatic
     fun getHardwareVersion(): String =
-        UtilKSystemProperties.getHardwareVersion()
+        UtilKSystemProperties.getHwVersion()
 
     /**
      * 序列号
-     * @return String
      */
     @JvmStatic
     fun getSerialNumber(): String =
@@ -75,7 +70,6 @@ object UtilKDevice : BaseUtilK() {
 
     /**
      * 短序列号
-     * @return String
      */
     @JvmStatic
     fun getSerialNumberShort(): String {
@@ -87,48 +81,44 @@ object UtilKDevice : BaseUtilK() {
 
     /**
      * 本地存储可用大小
-     * @return String?
      */
     @JvmStatic
     fun getFreeInternalMemorySize(): String =
-        UtilKStatFs.getFreeExternalDataMemorySizeStr()
+        UtilKStatFs.getStrFreeExternalDataMemorySize()
 
     @JvmStatic
     fun getAvailableInternalMemorySize(): String =
-        UtilKStatFs.getAvailableExternalDataMemorySizeStr()
+        UtilKStatFs.getStrAvailableExternalDataMemorySize()
 
     /**
      * 获取手机内部空间大小
-     * @return String
      */
     @JvmStatic
     fun getTotalInternalMemorySize(): String =
-        UtilKStatFs.getTotalExternalDataMemorySizeStr()
+        UtilKStatFs.getStrTotalExternalDataMemorySize()
 
     /**
      * 获取手机空闲空间大小
-     * @return String
      */
     @JvmStatic
     fun getFreeExternalMemorySize(): String =
         if (hasExternalStorage()) {
-            UtilKStatFs.getFreeExternalStorageMemorySizeStr()
+            UtilKStatFs.getStrFreeExternalStorageMemorySize()
         } else "0"
 
     @JvmStatic
     fun getAvailableExternalMemorySize(): String =
         if (hasExternalStorage()) {
-            UtilKStatFs.getAvailableExternalStorageMemorySizeStr()
+            UtilKStatFs.getStrAvailableExternalStorageMemorySize()
         } else "0"
 
     /**
      * 获取手机外部空间大小
-     * @return String
      */
     @JvmStatic
     fun getTotalExternalMemorySize(): String =
         if (hasExternalStorage()) {
-            UtilKStatFs.getTotalExternalStorageMemorySizeStr()
+            UtilKStatFs.getStrTotalExternalStorageMemorySize()
         } else "0"
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -137,7 +127,6 @@ object UtilKDevice : BaseUtilK() {
      * 是否是折叠机型
      * 1.官方没有给我们提供api的
      * 2.只能去检测针对的机型
-     * @return Boolean
      */
     fun isFoldable(): Boolean {
         return if (TextUtils.equals(Build.BRAND, "samsung") && TextUtils.equals(Build.DEVICE, "Galaxy Z Fo1d2")) {
@@ -161,7 +150,6 @@ object UtilKDevice : BaseUtilK() {
 
     /**
      * 设备是否有sd卡
-     * @return Boolean
      */
     @JvmStatic
     fun hasSdcard(): Boolean =
@@ -176,7 +164,6 @@ object UtilKDevice : BaseUtilK() {
 
     /**
      * 是否有外部存储
-     * @return Boolean
      */
     @JvmStatic
     fun hasExternalStorage(): Boolean =

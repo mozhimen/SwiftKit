@@ -12,7 +12,7 @@ import com.mozhimen.basick.elemk.android.content.bases.BaseConnectivityBroadcast
 import com.mozhimen.basick.elemk.android.net.cons.CConnectivityManager
 import com.mozhimen.basick.elemk.android.net.cons.CNetType
 import com.mozhimen.basick.lintk.annors.ANetType
-import com.mozhimen.basick.utilk.android.app.UtilKApplication
+import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
 import com.mozhimen.basick.utilk.android.net.UtilKNetConn
 import com.mozhimen.basick.utilk.android.net.eNetType2strNetType
 import com.mozhimen.basick.utilk.android.net.networkCapabilities2netType
@@ -46,7 +46,7 @@ class NetworkCallbackImpl : ConnectivityManager.NetworkCallback(), IUtilK, INetK
 
     init {
         val intentFilter = IntentFilter().apply { addAction(CConnectivityManager.CONNECTIVITY_ACTION/*"android.net.conn.CONNECTIVITY_CHANGE"*/) }
-        UtilKApplication.instance.applicationContext.registerReceiver(_netStatusReceiver, intentFilter)
+        UtilKApplicationReflect.instance.applicationContext.registerReceiver(_netStatusReceiver, intentFilter)
         post(UtilKNetConn.getNetType().eNetType2strNetType())
     }
 

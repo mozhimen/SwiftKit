@@ -41,15 +41,15 @@ import com.mozhimen.basick.utilk.android.app.UtilKActivity;
 import com.mozhimen.basick.utilk.android.content.UtilKResource;
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
 import com.mozhimen.basick.utilk.android.util.UtilKLog;
-import com.mozhimen.basick.utilk.android.util.UtilKLog2;
+import com.mozhimen.basick.utilk.android.util.UtilKLogSupport;
 import com.mozhimen.basick.utilk.android.view.UtilKAnim;
 import com.mozhimen.basick.utilk.android.view.UtilKAnimation;
 import com.mozhimen.basick.utilk.android.view.UtilKContentView;
-import com.mozhimen.basick.utilk.android.view.UtilKInputChange;
 import com.mozhimen.basick.utilk.android.view.UtilKInputManager;
 import com.mozhimen.basick.utilk.android.view.UtilKNavigationBar;
 import com.mozhimen.basick.utilk.android.view.UtilKScreen;
 import com.mozhimen.basick.utilk.android.view.UtilKView;
+import com.mozhimen.basick.utilk.android.view.UtilKViewTreeObserver;
 import com.mozhimen.uicorek.R;
 import com.mozhimen.uicorek.popwink.bases.BasePopwinK;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
@@ -629,7 +629,7 @@ public final class BasePopupHelper implements Function2<Rect, Boolean, Unit>, IC
                 r.set(cutout.getSafeInsetLeft(), cutout.getSafeInsetTop(),
                         cutout.getSafeInsetRight(), cutout.getSafeInsetBottom());
             } catch (Exception e) {
-                UtilKLog2.e(e);
+                UtilKLogSupport.e(e);
             }
         } else {
             r.setEmpty();
@@ -962,7 +962,7 @@ public final class BasePopupHelper implements Function2<Rect, Boolean, Unit>, IC
         showFlag |= BasePopupHelper.STATUS_START_SHOWING;
 
         if (mGlobalLayoutListener == null && mPopupWindow.getContext() != null) {
-            mGlobalLayoutListener = UtilKInputChange.observerInputChange(mPopupWindow.getContext(), new Function2<Rect, Boolean, Unit>() {
+            mGlobalLayoutListener = UtilKViewTreeObserver.observerInputChange(mPopupWindow.getContext(), new Function2<Rect, Boolean, Unit>() {
                 @Override
                 public Unit invoke(Rect keyboardBounds, Boolean isVisible) {
                     BasePopupHelper.this.invoke(keyboardBounds, isVisible);

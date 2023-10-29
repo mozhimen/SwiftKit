@@ -1,11 +1,8 @@
 package com.mozhimen.basick.utilk.google.android
 
-import android.graphics.Color
 import android.graphics.Typeface
-import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
 import com.mozhimen.basick.elemk.google.android.commons.IOnTabSelectedListener

@@ -33,6 +33,8 @@ object UtilKFragmentTransaction {
     fun get(fragment: Fragment): FragmentTransaction =
         UtilKFragmentManager.beginTransaction(fragment)
 
+    ///////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun replaceFragment(fragmentActivity: FragmentActivity, @IdRes containerViewId: Int, fragment: Fragment) {
         get(fragmentActivity).replace(containerViewId, fragment).commit()

@@ -10,6 +10,7 @@ import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
+import com.mozhimen.basick.elemk.android.view.cons.CWindow
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.lintk.optin.OptInApiUse_BaseApplication
 import com.mozhimen.basick.stackk.cb.StackKCb
@@ -18,6 +19,7 @@ import com.mozhimen.basick.utilk.android.content.UtilKIntentWrapper
 import com.mozhimen.basick.utilk.android.content.UtilKPackageManager
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.android.view.UtilKContentView
+import com.mozhimen.basick.utilk.android.view.UtilKWindow
 import com.mozhimen.basick.utilk.kotlin.UtilKClazz
 import com.mozhimen.basick.utilk.kotlin.UtilKString
 
@@ -132,6 +134,16 @@ object UtilKActivity {
     @JvmStatic
     fun <V : View> getContentView(activity: Activity): V =
             UtilKContentView.get(activity)
+
+    /**
+     * 获取View绘制区域TOP高度
+     * 注: 在Activity的回调方法onWindowFocusChanged()执行后,才能得到预期结果
+     * @param activity Activity
+     * @return Int
+     */
+    @JvmStatic
+    fun getViewDrawHeight(activity: Activity): Int =
+        UtilKWindow.get(activity).findViewById<View>(CWindow.ID_ANDROID_CONTENT).top
 
     //////////////////////////////////////////////////////////////////////////////////////////
 

@@ -47,10 +47,10 @@ class BasePagingKRep<RES> {
          * size : 0
          * total : 0
          */
-        var current = 0
-        var pages = 0
-        var size = 0
-        var total = 0
+        var current = 0//当前页码
+        var pages = 0//总页数
+        var size = 0//一页条数
+        var total = 0//总条数
         var records: List<RES>? = null
 
         override fun toString(): String {

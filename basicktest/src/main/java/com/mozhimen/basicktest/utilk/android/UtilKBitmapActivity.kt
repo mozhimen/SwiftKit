@@ -30,7 +30,7 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
             val bitmap: Bitmap?
             withContext(Dispatchers.IO) {
                 bitmap =
-                    UtilKStrUrl.strUrl2bitmap("http://192.168.2.6/construction-sites-images/person/20221101/93ea2a3e11e54a76944dfc802519e3cc.jpg")//http://img.crcz.com/allimg/202003/25/1585100748975745.jpg
+                    UtilKStrUrl.strUrl2bitmapAnyOfCoil("http://192.168.2.6/construction-sites-images/person/20221101/93ea2a3e11e54a76944dfc802519e3cc.jpg")//http://img.crcz.com/allimg/202003/25/1585100748975745.jpg
             }
             bitmap?.let {
                 vb.utilKBitmapImg.setImageBitmap(it)
@@ -77,7 +77,7 @@ class UtilKBitmapActivity : BaseActivityVB<ActivityUtilkBitmapBinding>() {
         })
 
         vb.utilkBitmapBtnSave.setOnClickListener {
-            UtilKBitmapFormat.bitmapAny2fileJpeg(bitmap, UtilKStrPath.Absolute.Internal.getCacheDir())
+            UtilKBitmapFormat.bitmapAny2fileJpeg(bitmap, UtilKStrPath.Absolute.Internal.getCache())
         }
     }
 }

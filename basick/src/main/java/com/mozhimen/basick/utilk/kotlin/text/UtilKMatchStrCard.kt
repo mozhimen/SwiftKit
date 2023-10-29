@@ -10,8 +10,6 @@ package com.mozhimen.basick.utilk.kotlin.text
 object UtilKMatchStrCard {
     /**
      * 身份证校验
-     * @param id String
-     * @return Boolean
      */
     @JvmStatic
     fun isStrCardId(id: String): Boolean =
@@ -19,12 +17,8 @@ object UtilKMatchStrCard {
 
     /**
      * 港澳居民来往内地通行证校验
-     *
      * 规则： H/M + 10位或6位数字
      * 样本： H1234567890
-     *
-     * @param id String
-     * @return Boolean
      */
     @JvmStatic
     fun isStrCardHk(id: String): Boolean =
@@ -32,12 +26,8 @@ object UtilKMatchStrCard {
 
     /**
      * 台湾居民来往大陆通行证校验
-     *
      * 规则： 新版8位或18位数字， 旧版10位数字 + 英文字母
      * 样本： 12345678 或 1234567890B
-     *
-     * @param id String
-     * @return Boolean
      */
     @JvmStatic
     fun isStrCardTw(id: String): Boolean =
@@ -46,12 +36,8 @@ object UtilKMatchStrCard {
 
     /**
      * 护照校验
-     *
      * 规则： 14/15开头 + 7位数字, G + 8位数字, P + 7位数字, S/D + 7或8位数字,等
      * 样本： 141234567, G12345678, P1234567
-     *
-     * @param id String
-     * @return Boolean
      */
     @JvmStatic
     fun isStrCardPp(id: String): Boolean =

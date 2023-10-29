@@ -21,17 +21,10 @@ object UtilKCursor {
     fun getColumnIndex(cursor: Cursor, columnName: String): Int =
         cursor.getColumnIndex(columnName)
 
-    @SuppressLint("Range")
     @JvmStatic
+    @SuppressLint("Range")
     fun getColumnString(cursor: Cursor, key: String): String =
         cursor.getString(getColumnIndex(cursor, key))
-
-    @JvmStatic
-    inline fun <reified T> getColumnValue(cursor: Cursor, columnName: String): T? {
-        val index = getColumnIndex(cursor, columnName)
-        if (index == -1) return null
-        return getColumnValueByType(cursor, index, T::class.java) as T?
-    }
 
     @JvmStatic
     fun getColumnValueByType(cursor: Cursor, index: Int, clazz: Class<*>): Any? =
@@ -46,4 +39,11 @@ object UtilKCursor {
             ByteArray::class.java -> cursor.getBlob(index)
             else -> null
         }
+
+    @JvmStatic
+    inline fun <reified T> getColumnValue(cursor: Cursor, columnName: String): T? {
+        val index = getColumnIndex(cursor, columnName)
+        if (index == -1) return null
+        return getColumnValueByType(cursor, index, T::class.java) as T?
+    }
 }

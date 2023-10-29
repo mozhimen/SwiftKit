@@ -35,7 +35,7 @@ object UtilKWifi : BaseUtilK() {
         val wifiInfo = UtilKWifiManager.getConnectionInfo(_context) ?: return CWifiManager.NO_CONNECT
         return if (wifiInfo.ssid == CWifiManager.UNKNOWN_SSID) {
             if (UtilKBuildVersion.isAfterV_26_8_O()) {
-                if (UtilKPermission.checkPermission(CPermission.ACCESS_FINE_LOCATION)) {
+                if (UtilKPermission.hasPermission(CPermission.ACCESS_FINE_LOCATION)) {
                     val configuredNetworks = UtilKWifiManager.getConfiguredNetworks(_context)
                     if (!configuredNetworks.isNullOrEmpty()) {
                         for (wifiConfiguration in configuredNetworks) {

@@ -26,7 +26,6 @@ object UtilKOSRoot : IUtilK {
     /**
      * 判断手机是否拥有Root权限:
      * 有root权限返回true, 否则返回false
-     * @return Boolean
      */
     @JvmStatic
     fun isRoot(): Boolean =
@@ -40,7 +39,6 @@ object UtilKOSRoot : IUtilK {
 
     /**
      * 是否存在su命令，并且有执行权限
-     * @return Boolean
      */
     @JvmStatic
     @Throws(Exception::class)
@@ -62,8 +60,6 @@ object UtilKOSRoot : IUtilK {
 
     /**
      * 系统是否包含busybox
-     * @return Boolean
-     * @throws Exception
      */
     @JvmStatic
     @Throws(Exception::class)
@@ -93,7 +89,6 @@ object UtilKOSRoot : IUtilK {
 
     /**
      * 检测系统内是否安装了Superuser.apk之类的App
-     * @return Boolean
      */
     @JvmStatic
     fun hasSuperuserApk(): Boolean =
@@ -101,7 +96,6 @@ object UtilKOSRoot : IUtilK {
 
     /**
      * 系统是否是非官方发布版
-     * @return Boolean
      */
     @JvmStatic
     fun isSystemBeta(): Boolean =

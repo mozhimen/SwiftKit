@@ -11,32 +11,32 @@ import com.mozhimen.basick.utilk.kotlin.bytesNv212bytesJpeg
  * @Date 2023/7/31 17:40
  * @Version 1.0
  */
-fun Image.anyImage2jpegBytes(): ByteArray =
-    UtilKImageFormat.anyImage2jpegBytes(this)
+fun Image.imageAny2bytesJpeg(): ByteArray =
+    UtilKImageFormat.imageAny2bytesJpeg(this)
 
-fun Image.yuv420888Image2nv21Bytes(): ByteArray =
-    UtilKImageFormat.yuv420888Image2nv21Bytes(this)
+fun Image.imageYuv4208882bytesNv21(): ByteArray =
+    UtilKImageFormat.imageYuv4208882bytesNv21(this)
 
-fun Image.yuv420888Image2jpegBytes(): ByteArray =
-    UtilKImageFormat.yuv420888Image2jpegBytes(this)
+fun Image.imageYuv4208882bytesJpeg(): ByteArray =
+    UtilKImageFormat.imageYuv4208882bytesJpeg(this)
 
-fun Image.jpegImage2jpegBytes(): ByteArray =
-    UtilKImageFormat.jpegImage2jpegBytes(this)
+fun Image.imageJpeg2bytesJpeg(): ByteArray =
+    UtilKImageFormat.imageJpeg2bytesJpeg(this)
 
 object UtilKImageFormat {
     @JvmStatic
     @Throws(Exception::class)
-    fun anyImage2jpegBytes(image: Image): ByteArray {
+    fun imageAny2bytesJpeg(image: Image): ByteArray {
         val bytes: ByteArray = when (image.format) {
-            ImageFormat.JPEG -> jpegImage2jpegBytes(image)
-            ImageFormat.YUV_420_888 -> yuv420888Image2jpegBytes(image)
+            ImageFormat.JPEG -> imageJpeg2bytesJpeg(image)
+            ImageFormat.YUV_420_888 -> imageYuv4208882bytesJpeg(image)
             else -> throw Exception("cannot handle this format")
         }
         return bytes
     }
 
     @JvmStatic
-    fun yuv420888Image2nv21Bytes(image: Image): ByteArray {
+    fun imageYuv4208882bytesNv21(image: Image): ByteArray {
         val nv21Bytes: ByteArray
         val yBuffer = image.planes[0].buffer
         val uBuffer = image.planes[1].buffer
@@ -54,11 +54,11 @@ object UtilKImageFormat {
     }
 
     @JvmStatic
-    fun yuv420888Image2jpegBytes(image: Image): ByteArray =
-        image.yuv420888Image2nv21Bytes().bytesNv212bytesJpeg(image.width, image.height)
+    fun imageYuv4208882bytesJpeg(image: Image): ByteArray =
+        image.imageYuv4208882bytesNv21().bytesNv212bytesJpeg(image.width, image.height)
 
     @JvmStatic
-    fun jpegImage2jpegBytes(image: Image): ByteArray {
+    fun imageJpeg2bytesJpeg(image: Image): ByteArray {
         val bytes: ByteArray
         val buffer = image.planes[0].buffer
         bytes = ByteArray(buffer.capacity())

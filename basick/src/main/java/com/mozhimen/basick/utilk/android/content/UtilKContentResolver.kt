@@ -55,7 +55,7 @@ object UtilKContentResolver : BaseUtilK() {
     }
 
     @JvmStatic
-    fun deleteImageFile(filePathWithName: String) {
-        delete(_context, CMediaStore.Images.Media.EXTERNAL_CONTENT_URI, "${CMediaStore.Images.Media.DATA}='${filePathWithName}'", null)
+    fun deleteImageFile(strFilePathName: String) {
+        delete(_context, CMediaStore.Images.Media.EXTERNAL_CONTENT_URI, "${CMediaStore.Images.Media.DATA}='${strFilePathName}'", null)
     }
 }

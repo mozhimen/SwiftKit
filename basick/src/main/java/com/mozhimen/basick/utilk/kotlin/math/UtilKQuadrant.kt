@@ -16,8 +16,6 @@ object UtilKQuadrant {
 
     /**
      * 计算临边对斜边的角度在象限中
-     * @param pointF MPoint
-     * @return Float
      */
     @JvmStatic
     fun angleCosInQuadrant(pointF: MPointF, centerPointF: MPointF): Float {
@@ -57,8 +55,6 @@ object UtilKQuadrant {
 
     /**
      * 计算临边对斜边的角度在象限中
-     * @param pointF MPoint
-     * @return Float
      */
     @JvmStatic
     fun angleCosInQuadrant(pointF: MPointF): Float {

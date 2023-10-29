@@ -22,6 +22,9 @@ fun FragmentActivity.findFragmentByTag(tag: String): Fragment? =
 fun FragmentActivity.beginTransaction(): FragmentTransaction =
     UtilKFragmentManager.beginTransaction(this)
 
+fun Fragment.beginTransaction(): FragmentTransaction =
+    UtilKFragmentManager.beginTransaction(this)
+
 object UtilKFragmentManager {
     @JvmStatic
     fun get(fragmentActivity: FragmentActivity): FragmentManager =

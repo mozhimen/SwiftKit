@@ -2,13 +2,10 @@ package com.mozhimen.componentk.pagingk.bases
 
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
-import androidx.paging.PagedList
-import androidx.paging.PagedListAdapter
 import com.mozhimen.basick.elemk.androidx.fragment.bases.BaseFragmentVB
 import com.mozhimen.basick.utilk.android.view.applyGone
 import com.mozhimen.basick.utilk.android.view.applyInVisible
-import com.mozhimen.componentk.pagingk.commons.IPagingKFragment
+import com.mozhimen.componentk.pagingk.commons.IPagingKActivity
 import com.mozhimen.componentk.pagingk.cons.CPagingKLoadingState
 
 /**
@@ -18,13 +15,11 @@ import com.mozhimen.componentk.pagingk.cons.CPagingKLoadingState
  * @Date 2023/10/16 15:05
  * @Version 1.0
  */
-abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagingKViewModel<*, DES>> : BaseFragmentVB<VB>(), IPagingKFragment<DES, VM> {
+abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagingKViewModel<*, DES>> : BaseFragmentVB<VB>(), IPagingKActivity<DES, VM> {
 
 //    protected val _vm_: VM by lazy { getViewModel() }
-//
 //    protected val _pagedListAdapter_: PagedListAdapter<DES, *> by lazy { getPagedListAdapter() }
-
-    protected val _pagedListObserver_: Observer<PagedList<DES>> by lazy { Observer<PagedList<DES>> { pagedList -> getPagedListAdapter().submitList(pagedList) } }
+//    protected val _pagedListObserver_: Observer<PagedList<DES>> by lazy { Observer<PagedList<DES>> { pagedList -> getPagedListAdapter().submitList(pagedList) } }
 
     //////////////////////////////////////////////////////////////////////////////
 
@@ -57,6 +52,6 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
 
     override fun onResume() {
         super.onResume()
-        getViewModel().livePagedList.observe(this, _pagedListObserver_)
+        getViewModel().livePagedList.observe(this) { pagedList -> getPagedListAdapter().submitList(pagedList) }
     }
 }

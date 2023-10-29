@@ -14,9 +14,10 @@ import com.mozhimen.basick.utilk.android.view.UtilKStatusBar
 import com.mozhimen.basick.imagek.blur.ImageKBlur
 import com.mozhimen.basick.utilk.android.graphics.UtilKBitmapDeal
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.util.UtilKLog2
+import com.mozhimen.basick.utilk.android.util.UtilKLogSupport
 import com.mozhimen.basick.utilk.android.util.dt
 import com.mozhimen.basick.utilk.android.util.et
+import com.mozhimen.basick.utilk.android.view.UtilKView
 import com.mozhimen.basick.utilk.kotlin.strColor2intColor
 
 /**
@@ -37,7 +38,7 @@ object UtilKRenderScript : BaseUtilK() {
     private var _renderScript: RenderScript? = null
 
     @JvmStatic
-    fun getRenderScriptInstance(context: Context): RenderScript? {
+    fun get(context: Context): RenderScript? {
         if (_renderScript == null) {
             synchronized(UtilKRenderScript::class.java) {
                 if (_renderScript == null) {
@@ -63,7 +64,7 @@ object UtilKRenderScript : BaseUtilK() {
 
     @JvmStatic
     fun blur(view: View, scaledRatio: Float, radius: Float, fullScreen: Boolean, cutoutX: Int, cutoutY: Int): Bitmap? =
-        blur(getViewBitmap(view, scaledRatio, fullScreen, cutoutX, cutoutY), view.width, view.height, radius)
+        blur(UtilKView.getBitmapForViewBackground(view, scaledRatio, fullScreen, cutoutX, cutoutY), view.width, view.height, radius)
 
     @JvmStatic
     fun blur(origin: Bitmap?, resultWidth: Int, resultHeight: Int, radius: Float): Bitmap? {
@@ -80,7 +81,7 @@ object UtilKRenderScript : BaseUtilK() {
     @JvmStatic
     fun scriptBlur(origin: Bitmap?, outWidth: Int, outHeight: Int, radius: Float): Bitmap? {
         if (origin == null || origin.isRecycled) return null
-        val renderScript = getRenderScriptInstance(_context)
+        val renderScript = get(_context)
         val blurInput = Allocation.createFromBitmap(renderScript, origin)
         val blurOutput = Allocation.createTyped(renderScript, blurInput.type)
         var blur: ScriptIntrinsicBlur? = null
@@ -108,8 +109,8 @@ object UtilKRenderScript : BaseUtilK() {
         val result = UtilKBitmapDeal.applyBitmapAnyResize(origin, outWidth, outHeight)
         origin.recycle()
         val time = System.currentTimeMillis() - _startTime
-        if (UtilKLog2.isOpenLog())
-            UtilKLog2.i("scriptBlur: 模糊用时：【" + time + "ms】")
+        if (UtilKLogSupport.isOpenLog())
+            UtilKLogSupport.i("scriptBlur: 模糊用时：【" + time + "ms】")
         return result
     }
 
@@ -121,61 +122,8 @@ object UtilKRenderScript : BaseUtilK() {
         if (tempOrigin == null || tempOrigin.isRecycled) return null
         tempOrigin = UtilKBitmapDeal.applyBitmapAnyResize(tempOrigin, outWidth, outHeight)
         val time = System.currentTimeMillis() - _startTime
-        if (UtilKLog2.isOpenLog())
-            UtilKLog2.i("fastBlur: 模糊用时：【" + time + "ms】")
+        if (UtilKLogSupport.isOpenLog())
+            UtilKLogSupport.i("fastBlur: 模糊用时：【" + time + "ms】")
         return tempOrigin
-    }
-
-    @JvmStatic
-    fun getViewBitmap(view: View, fullScreen: Boolean): Bitmap? =
-        getViewBitmap(view, 1.0f, fullScreen, 0, 0)
-
-    @JvmStatic
-    fun getViewBitmap(view: View, scaledRatio: Float, fullScreen: Boolean, cutoutX: Int, cutoutY: Int): Bitmap? {
-        if (view.width <= 0 || view.height <= 0) {
-            UtilKLog2.e("getViewBitmap  >>  宽或者高为空")
-            return null
-        }
-        val statusBarHeight = UtilKStatusBar.getHeight(false)
-        var tempBitmap: Bitmap
-        UtilKLog2.i("getViewBitmap 模糊原始图像分辨率 [" + view.width + " x " + view.height + "]")
-        tempBitmap = try {
-            Bitmap.createBitmap((view.width * scaledRatio).toInt(), (view.height * scaledRatio).toInt(), Bitmap.Config.ARGB_8888)
-        } catch (error: OutOfMemoryError) {
-            System.gc()
-            return null
-        }
-        val canvas = Canvas(tempBitmap)
-        val matrix = Matrix()
-        matrix.preScale(scaledRatio, scaledRatio)
-        canvas.setMatrix(matrix)
-        val bgDrawable = view.background
-        if (bgDrawable == null)
-            canvas.drawColor("#FAFAFA".strColor2intColor())
-        else
-            bgDrawable.draw(canvas)
-        if (fullScreen) {
-            if (statusBarHeight > 0 && UtilKBuildVersion.isAfterV_21_5_L() && view.context is Activity) {
-                val statusBarColor = (view.context as Activity).window.statusBarColor
-                val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-                paint.color = statusBarColor
-                val rect = Rect(0, 0, view.width, statusBarHeight)
-                canvas.drawRect(rect, paint)
-            }
-        }
-        view.draw(canvas)
-        UtilKLog2.i("getViewBitmap 模糊缩放图像分辨率 [" + tempBitmap.width + " x " + tempBitmap.height + "]")
-        if (cutoutX > 0 || cutoutY > 0) {
-            try {
-                val cutLeft = (cutoutX * scaledRatio).toInt()
-                val cutTop = (cutoutY * scaledRatio).toInt()
-                val cutWidth = tempBitmap.width - cutLeft
-                val cutHeight = tempBitmap.height - cutTop
-                tempBitmap = Bitmap.createBitmap(tempBitmap, cutLeft, cutTop, cutWidth, cutHeight, null, false)
-            } catch (e: Exception) {
-                System.gc()
-            }
-        }
-        return tempBitmap
     }
 }

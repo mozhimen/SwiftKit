@@ -2,9 +2,7 @@ package com.mozhimen.componentk.netk.observer
 
 import android.net.NetworkRequest
 import androidx.lifecycle.LiveData
-import com.mozhimen.basick.elemk.android.net.cons.CNetType
-import com.mozhimen.basick.utilk.android.app.UtilKApplication
-import com.mozhimen.basick.utilk.android.content.UtilKApp
+import com.mozhimen.basick.utilk.android.app.UtilKApplicationReflect
 import com.mozhimen.basick.utilk.android.net.UtilKConnectivityManager
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.componentk.netk.observer.commons.INetKObserver
@@ -55,7 +53,7 @@ class NetKObserver : BaseUtilK(), INetKObserver {
 
     override fun unRegisterAll() {
         _networkCallbackImpl.unRegisterAll()
-        UtilKConnectivityManager.unregisterNetworkCallback(UtilKApplication.instance.applicationContext, _networkCallbackImpl)
+        UtilKConnectivityManager.unregisterNetworkCallback(UtilKApplicationReflect.instance.applicationContext, _networkCallbackImpl)
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////

@@ -11,11 +11,6 @@ fun Map<*, *>.map2str(): String =
     UtilKMap.map2str(this)
 
 object UtilKMap {
-    /**
-     * map2Str
-     * @param map Map<*, *>
-     * @return String
-     */
     @JvmStatic
     fun map2str(map: Map<*, *>): String {
         if (map.isEmpty()) return "map is empty"

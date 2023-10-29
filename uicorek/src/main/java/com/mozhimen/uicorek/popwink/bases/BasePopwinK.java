@@ -242,11 +242,10 @@ import com.mozhimen.basick.stackk.cb.StackKCb;
 import com.mozhimen.basick.stackk.cons.CStackKCons;
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion;
 import com.mozhimen.basick.utilk.bases.BaseUtilK;
-import com.mozhimen.basick.utilk.android.graphics.UtilKColor;
 import com.mozhimen.basick.utilk.android.view.UtilKGravity;
 import com.mozhimen.basick.utilk.android.content.UtilKRes;
 import com.mozhimen.basick.imagek.blur.mos.ImageKBlurConfig;
-import com.mozhimen.basick.utilk.android.util.UtilKLog2;
+import com.mozhimen.basick.utilk.android.util.UtilKLogSupport;
 import com.mozhimen.basick.utilk.android.view.UtilKDecorView;
 import com.mozhimen.basick.utilk.kotlin.UtilKStrColor;
 import com.mozhimen.uicorek.R;
@@ -898,7 +897,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
     }
 
     protected void onShowError(Exception e) {
-        UtilKLog2.e(TAG, "onShowError: ", e);
+        UtilKLogSupport.e(TAG, "onShowError: ", e);
         onLogInternal(e.getMessage());
     }
 
@@ -2154,7 +2153,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
     }
 
     public int computeGravity(@NonNull Rect popupRect, @NonNull Rect anchorRect) {
-        return UtilKGravity.computeGravity(popupRect, anchorRect);
+        return UtilKGravity.compute(popupRect, anchorRect);
     }
 
     /**
@@ -2173,14 +2172,14 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
     }
 
     public static void setDebugMode(boolean debugMode) {
-        UtilKLog2.applyOpenLog(debugMode);
+        UtilKLogSupport.applyOpenLog(debugMode);
     }
 
     /**
      * 日志输出口
      */
     protected void onLogInternal(String msg) {
-        UtilKLog2.d(TAG, msg);
+        UtilKLogSupport.d(TAG, msg);
     }
 
     private String ownerParentLog() {

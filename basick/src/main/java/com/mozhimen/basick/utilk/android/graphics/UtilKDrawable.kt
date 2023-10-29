@@ -15,8 +15,8 @@ import java.net.URL
  * @Date 2022/11/22 22:42
  * @Version 1.0
  */
-fun Drawable.applyColorFilter(@ColorInt colorInt: Int) {
-    UtilKDrawable.applyColorFilter(this, colorInt)
+fun Drawable.applyColorFilter(@ColorInt intColor: Int) {
+    UtilKDrawable.applyColorFilter(this, intColor)
 }
 
 object UtilKDrawable {
@@ -34,20 +34,8 @@ object UtilKDrawable {
 
     /////////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * 是否正常的drawable
-     * @param drawable Drawable
-     * @return Boolean
-     */
     @JvmStatic
-    fun isColorDrawableNormal(drawable: Drawable): Boolean {
-        return drawable !is ColorDrawable || drawable.color != Color.TRANSPARENT
-    }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    @JvmStatic
-    fun applyColorFilter(drawable: Drawable, @ColorInt colorInt: Int) {
-        drawable.mutate().setColorFilter(colorInt, PorterDuff.Mode.SRC_IN)
+    fun applyColorFilter(drawable: Drawable, @ColorInt intColor: Int) {
+        drawable.mutate().setColorFilter(intColor, PorterDuff.Mode.SRC_IN)
     }
 }

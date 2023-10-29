@@ -27,8 +27,8 @@ package com.mozhimen.basick.utilk.android.content
 - Util工具类的方法集可分为五类:
 
 获取 -> getXxx (不用带主语)
-应用 -> applyXxx (不用带主语,即set方法,为了防止扩展方法名冲突,统一用apply)
 是否 -> isXxx/hasXxx (不用带主语)
+应用 -> applyXxx (不用带主语,即set方法,为了防止扩展方法名冲突,统一用apply)
 转化 -> xxx2xxx (带主语和宾语即什么转化为什么)
 其他 -> xxx 
 

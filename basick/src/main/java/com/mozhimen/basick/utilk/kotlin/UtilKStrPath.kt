@@ -10,39 +10,37 @@ import com.mozhimen.basick.utilk.java.io.UtilKFileDir
  * @Version 1.0
  */
 object UtilKStrPath {
-
-
     object Absolute {
         object Internal {
             @JvmStatic
-            fun getFilesDir(): String =
-                UtilKFileDir.Internal.getFilesDir().absolutePath
+            fun getFiles(): String =
+                UtilKFileDir.Internal.getFiles().absolutePath
 
             @JvmStatic
-            fun getCacheDir(): String =
-                UtilKFileDir.Internal.getCacheDir().absolutePath
+            fun getCache(): String =
+                UtilKFileDir.Internal.getCache().absolutePath
         }
 
         object External {
             @JvmStatic
-            fun getCacheDir(): String? =
-                UtilKFileDir.External.getCacheDir()?.absolutePath
+            fun getCache(): String? =
+                UtilKFileDir.External.getCache()?.absolutePath
 
             @JvmStatic
-            fun getFilesRootDir(): String =
-                UtilKFileDir.External.getFilesRootDir()!!.absolutePath
+            fun getFilesRoot(): String =
+                UtilKFileDir.External.getFilesRoot()!!.absolutePath
 
             @JvmStatic
-            fun getEnvStorageDir(): String =
-                UtilKFileDir.External.getEnvStorageDir().absolutePath
+            fun getEnvStorage(): String =
+                UtilKFileDir.External.getEnvStorage().absolutePath
 
             @JvmStatic
-            fun getEnvStoragePublicDCIMDir(): String =
-                UtilKFileDir.External.getEnvStoragePublicDCIMDir().absolutePath
+            fun getEnvStoragePublicDCIM(): String =
+                UtilKFileDir.External.getEnvStoragePublicDCIM().absolutePath
 
             @JvmStatic
-            fun getEnvDataDir(): String =
-                UtilKFileDir.External.getEnvDataDir().absolutePath
+            fun getEnvData(): String =
+                UtilKFileDir.External.getEnvData().absolutePath
         }
     }
 }

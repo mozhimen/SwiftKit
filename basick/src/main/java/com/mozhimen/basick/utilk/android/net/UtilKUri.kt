@@ -1,38 +1,10 @@
 package com.mozhimen.basick.utilk.android.net
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.provider.DocumentsContract
-import android.util.Log
-import androidx.core.content.FileProvider
-import com.mozhimen.basick.elemk.android.content.cons.CContentResolver
-import com.mozhimen.basick.elemk.android.content.cons.CIntent
-import com.mozhimen.basick.elemk.android.provider.cons.CMediaStore
 import com.mozhimen.basick.elemk.cons.CStrPackage
-import com.mozhimen.basick.lintk.annors.ADescription
-import com.mozhimen.basick.utilk.android.content.UtilKContentResolver
 import com.mozhimen.basick.utilk.android.content.UtilKContext
 import com.mozhimen.basick.utilk.bases.BaseUtilK
-import com.mozhimen.basick.utilk.android.content.UtilKPackage
-import com.mozhimen.basick.utilk.android.content.withAppendedId
-import com.mozhimen.basick.utilk.android.graphics.UtilKImageDecoder
-import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
-import com.mozhimen.basick.utilk.android.provider.UtilKDocumentsContract
-import com.mozhimen.basick.utilk.android.provider.UtilKMediaStoreImages
-import com.mozhimen.basick.utilk.android.provider.getMediaColumnsString
-import com.mozhimen.basick.utilk.android.view.UtilKScreen
-import com.mozhimen.basick.utilk.android.webkit.UtilKMimeTypeMap
-import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.java.io.inputStream2anyBitmap
-import com.mozhimen.basick.utilk.java.io.inputStream2file
-import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
-import com.mozhimen.basick.utilk.kotlin.text.isStrDigits2
-import java.io.File
-import java.io.InputStream
-import kotlin.math.ceil
 
 
 /**

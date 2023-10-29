@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.os.UtilKHandler
 import com.mozhimen.basick.utilk.android.app.isFinishingOrDestroyed
+import com.mozhimen.basick.utilk.android.os.UtilKLooper
 import java.lang.Exception
 
 
@@ -34,7 +35,7 @@ fun Int.showToastLong() {
 
 ////////////////////////////////////////////////////////////////
 
-fun String.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
+fun String.showToastOnMain(duration: Int = Toast.LENGTH_SHORT) {
     UtilKToast.showToastOnMain(this, duration)
 }
 
@@ -61,8 +62,6 @@ fun Exception.showToastOnMain(duration: Int = Toast.LENGTH_LONG) {
 object UtilKToast : BaseUtilK() {
     /**
      * 用法1: "...".showToast(context)
-     * @param msg String
-     * @param duration Int
      */
     @JvmStatic
     fun showToast(msg: String, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
@@ -77,8 +76,6 @@ object UtilKToast : BaseUtilK() {
 
     /**
      * 用法2: R.string.app_name.showToast(context)
-     * @param msgId Int
-     * @param duration Int
      */
     @JvmStatic
     fun showToast(msgId: Int, duration: Int = Toast.LENGTH_SHORT, context: Context = _context) {
@@ -96,12 +93,10 @@ object UtilKToast : BaseUtilK() {
     /**
      * 在主线程show
      * 用法1: "...".showToastOnMain(context)
-     * @param msg String
-     * @param duration Int
      */
     @JvmStatic
     fun showToastOnMain(msg: String, duration: Int = Toast.LENGTH_SHORT) {
-        if (UtilKHandler.isMainLooper()) {
+        if (UtilKLooper.isMainLooper()) {
             showToast(msg, duration)
         } else {
             UtilKHandler.postOnMain { showToast(msg, duration) }
@@ -111,12 +106,10 @@ object UtilKToast : BaseUtilK() {
     /**
      * 在主线程show
      * 用法2: R.string.app_name.showToastOnMain(context)
-     * @param msgId Int
-     * @param duration Int
      */
     @JvmStatic
     fun showToastOnMain(msgId: Int, duration: Int = Toast.LENGTH_SHORT) {
-        if (UtilKHandler.isMainLooper()) {
+        if (UtilKLooper.isMainLooper()) {
             showToast(msgId, duration)
         } else {
             UtilKHandler.postOnMain { showToast(msgId, duration) }

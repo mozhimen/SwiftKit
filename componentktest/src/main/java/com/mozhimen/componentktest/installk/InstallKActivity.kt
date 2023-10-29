@@ -10,13 +10,13 @@ import com.mozhimen.basick.manifestk.cons.CManifest
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
-import com.mozhimen.basick.utilk.android.content.UtilKAsset
 import com.mozhimen.basick.utilk.android.app.UtilKLaunchActivity
 import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
 import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basick.utilk.java.io.UtilKFile
-import com.mozhimen.basick.utilk.kotlin.UtilKStrAssetFileName
+import com.mozhimen.basick.utilk.kotlin.UtilKStrAsset
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.installk.commons.IInstallKStateListener
@@ -53,7 +53,8 @@ import kotlinx.coroutines.launch
     CPermission.READ_INSTALL_SESSIONS,
 )
 class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
-    private val _apkPathWithName by lazy { UtilKStrPath.Absolute.Internal.getFilesDir() + "/installk/componentktest.apk" }
+    private val _strPathNameApk by lazy { UtilKStrPath.Absolute.Internal.getFiles() + "/installk/componentktest.apk" }
+    @OptIn(OptInDeviceRoot::class)
     private val _installK by lazy { InstallK() }
 
     @OptIn(OptInDeviceRoot::class)
@@ -61,8 +62,8 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
         vb.installkTxt.text = UtilKPackage.getVersionCode().toString()
         vb.installkBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                if (!UtilKFile.isFileExist(_apkPathWithName)) {
-                    UtilKStrAssetFileName.strAssetFileName2file("componentktest.apk", _apkPathWithName, false)
+                if (!UtilKStrFile.isFileExist(_strPathNameApk)) {
+                    UtilKStrAsset.strAssetName2file("componentktest.apk", _strPathNameApk, false)
                 }
                 delay(500)
                 _installK.setInstallMode(EInstallKMode.ROOT).setInstallSmartService(InstallKService::class.java).setInstallSilenceReceiver(InstallKReceiver::class.java)
@@ -98,7 +99,7 @@ class InstallKActivity : BaseActivityVB<ActivityInstallkBinding>() {
                             }
                         }
 
-                    }).install(_apkPathWithName)
+                    }).install(_strPathNameApk)
             }
         }
     }

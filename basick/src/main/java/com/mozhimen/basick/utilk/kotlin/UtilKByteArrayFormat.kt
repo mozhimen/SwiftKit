@@ -31,11 +31,11 @@ fun ByteArray.bytes2byteArrayInputStream(): ByteArrayInputStream =
 fun ByteArray.bytes2bitmapAny(): Bitmap =
     UtilKByteArrayFormat.bytes2bitmapAny(this)
 
-fun ByteArray.bytes2file(destFilePathWithName: String, isAppend: Boolean = false): File =
-    UtilKByteArrayFormat.bytes2file(this, destFilePathWithName, isAppend)
+fun ByteArray.bytes2file(strFilePathNameDest: String, isAppend: Boolean = false): File =
+    UtilKByteArrayFormat.bytes2file(this, strFilePathNameDest, isAppend)
 
-fun ByteArray.bytes2file(destFile: File, isAppend: Boolean = false): File =
-    UtilKByteArrayFormat.bytes2file(this, destFile, isAppend)
+fun ByteArray.bytes2file(fileDest: File, isAppend: Boolean = false): File =
+    UtilKByteArrayFormat.bytes2file(this, fileDest, isAppend)
 
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -83,14 +83,14 @@ object UtilKByteArrayFormat : IUtilK {
         BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
 
     @JvmStatic
-    fun bytes2file(bytes: ByteArray, destFilePathWithName: String, isAppend: Boolean = false): File =
-        bytes2file(bytes, destFilePathWithName.createFile(), isAppend)
+    fun bytes2file(bytes: ByteArray, strFilePathNameDest: String, isAppend: Boolean = false): File =
+        bytes2file(bytes, strFilePathNameDest.createFile(), isAppend)
 
     @JvmStatic
-    fun bytes2file(bytes: ByteArray, destFile: File, isAppend: Boolean = false): File {
-        UtilKFile.createFile(destFile)
-        destFile.file2fileOutputStream(isAppend).writeBytes2fileOutputStream(bytes)
-        return destFile
+    fun bytes2file(bytes: ByteArray, fileDest: File, isAppend: Boolean = false): File {
+        UtilKFile.createFile(fileDest)
+        fileDest.file2fileOutputStream(isAppend).writeBytes2fileOutputStream(bytes)
+        return fileDest
     }
 
     //////////////////////////////////////////////////////////////////////////////////

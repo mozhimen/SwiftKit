@@ -15,6 +15,7 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.android.content.UtilKPackageInfo
 import com.mozhimen.basick.utilk.kotlin.getSplitLast
 import com.mozhimen.basick.utilk.java.io.UtilKFile
+import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.componentk.installk.InstallK
 import com.mozhimen.componentk.netk.file.download.commons.IDownloadListener
@@ -49,7 +50,7 @@ import kotlin.coroutines.resume
 )
 class UpdateK : BaseUtilK() {
 
-    private val _apkPath by lazy { UtilKStrPath.Absolute.Internal.getCacheDir() + "/hotupdatek" }
+    private val _apkPath by lazy { UtilKStrPath.Absolute.Internal.getCache() + "/hotupdatek" }
     private val _installK by lazy { InstallK() }
     private var _downloadRequest: DownloadRequest? = null
     private var _hotupdateKListener: IUpdateKListener? = null
@@ -87,8 +88,8 @@ class UpdateK : BaseUtilK() {
                 _suspendHotupdateKListener?.onComplete()
                 return@withContext
             }
-            val apkPathWithName = _apkPath + "/${getApkNameFromUrl(apkUrl)}"
-            if (!isDownloadApk(apkPathWithName, remoteVersionCode)) {
+            val strPathNameApk = _apkPath + "/${getApkNameFromUrl(apkUrl)}"
+            if (!isDownloadApk(strPathNameApk, remoteVersionCode)) {
                 //delete all cache
                 if (!deleteAllOldPkgs()) {
                     Log.e(TAG, "updateApk: deleteAllOldPkgs fail")
@@ -97,12 +98,12 @@ class UpdateK : BaseUtilK() {
                     return@withContext
                 }
                 //create apk file
-                if (!UtilKFile.isFileExist(apkPathWithName)) {
+                if (!UtilKStrFile.isFileExist(strPathNameApk)) {
                     Log.d(TAG, "updateApk: create apk file")
-                    UtilKFile.createFile(apkPathWithName)
+                    UtilKStrFile.createFile(strPathNameApk)
                 }
                 //download new apk
-                if (!downloadApk(apkUrl, apkPathWithName)) {
+                if (!downloadApk(apkUrl, strPathNameApk)) {
                     Log.e(TAG, "updateApk: downloadApk fail")
                     deleteAllOldPkgs()
                     _hotupdateKListener?.onFail("download new apk fail")
@@ -112,7 +113,7 @@ class UpdateK : BaseUtilK() {
             }
             //install new apk
             Log.d(TAG, "updateApk: installApk start")
-            installApk(apkPathWithName)
+            installApk(strPathNameApk)
             _hotupdateKListener?.onComplete()
             _suspendHotupdateKListener?.onComplete()
         }
@@ -122,8 +123,8 @@ class UpdateK : BaseUtilK() {
      * 下载更新
      * @param url String
      */
-    suspend fun downloadApk(url: String, destApkPathWithName: String): Boolean = suspendCancellableCoroutine { coroutine ->
-//        _netKFile.download().singleFileTask().start(url, destApkPathWithName, object : IFileDownloadSingleListener {
+    suspend fun downloadApk(url: String, strPathNameApk: String): Boolean = suspendCancellableCoroutine { coroutine ->
+//        _netKFile.download().singleFileTask().start(url, strPathNameApk, object : IFileDownloadSingleListener {
 //            override fun onComplete(task: DownloadTask) {
 //                task.file?.let {
 //                    coroutine.resume(true)
@@ -142,7 +143,7 @@ class UpdateK : BaseUtilK() {
 //            }
 //        })
         ///////////////////////////////////////////////////////////////////
-        _downloadRequest = createCommonRequest(url, destApkPathWithName)
+        _downloadRequest = createCommonRequest(url, strPathNameApk)
         _downloadRequest?.registerListener(object : IDownloadListener {
             override fun onDownloadStart() {
                 Log.d(TAG, "downloadApk onDownloadStart")
@@ -155,7 +156,7 @@ class UpdateK : BaseUtilK() {
 
             override fun onDownloadComplete(uri: Uri) {
                 Log.d(TAG, "downloadApk onDownloadComplete: path ${uri.path}")
-                Log.d(TAG, "downloadApk onDownloadComplete: isFileExists ${uri.path?.let { UtilKFile.isFileExist(it) } ?: "null"}")
+                Log.d(TAG, "downloadApk onDownloadComplete: isFileExists ${uri.path?.let { UtilKStrFile.isFileExist(it) } ?: "null"}")
                 coroutine.resume(true)
             }
 
@@ -170,12 +171,12 @@ class UpdateK : BaseUtilK() {
 
     /**
      * 安装更新
-     * @param apkPathWithName String
+     * @param strPathNameApk String
      */
-    suspend fun installApk(apkPathWithName: String) {
+    suspend fun installApk(strPathNameApk: String) {
         withContext(Dispatchers.Main) {
-            _installK.install(apkPathWithName)
-            //AutoInstaller.getDefault(_context).install(apkPathWithName)
+            _installK.install(strPathNameApk)
+            //AutoInstaller.getDefault(_context).install(strPathNameApk)
         }
     }
 
@@ -204,7 +205,7 @@ class UpdateK : BaseUtilK() {
      */
     fun deleteAllOldPkgs(): Boolean {
         return try {
-            val deleteRes = UtilKFile.deleteFolder(_apkPath)
+            val deleteRes = UtilKStrFile.deleteFolder(_apkPath)
             Log.d(TAG, "deleteAllOldPkgs: deleteRes $deleteRes")
             true
         } catch (e: Exception) {
@@ -214,18 +215,18 @@ class UpdateK : BaseUtilK() {
         }
     }
 
-    private fun isDownloadApk(apkPathWithName: String, destVersionCode: Int): Boolean {
-        return (UtilKFile.isFileExist(apkPathWithName) && UtilKApk.getVersionCode(apkPathWithName) != null && UtilKApk.getVersionCode(apkPathWithName)!! >= destVersionCode).also {
+    private fun isDownloadApk(strPathNameApk: String, destVersionCode: Int): Boolean {
+        return (UtilKStrFile.isFileExist(strPathNameApk) && UtilKApk.getVersionCode(strPathNameApk) != null && UtilKApk.getVersionCode(strPathNameApk)!! >= destVersionCode).also {
             Log.d(TAG, "isDownloadApk: $it")
         }
     }
 
-    private fun createCommonRequest(url: String, destApkPathWithName: String): DownloadRequest =
+    private fun createCommonRequest(url: String, strPathNameApk: String): DownloadRequest =
         DownloadRequest(_context, url, ADownloadEngine.EMBED)
             .setNotificationVisibility(ANotificationVisibility.HIDDEN)
             .setShowNotificationDisableTip(false)
-            .setDestinationUri(Uri.fromFile(File(destApkPathWithName)))
+            .setDestinationUri(Uri.fromFile(File(strPathNameApk)))
 
-    //val apkPathWithName = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
+    //val strPathNameApk = _apkPath + "/hotupdatek_${UtilKDate.getNowLong()}.apk"
     //private val _netKFile by lazy { NetKFile(owner) }
 }

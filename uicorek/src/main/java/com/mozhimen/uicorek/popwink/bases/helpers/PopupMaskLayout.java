@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.mozhimen.basick.utilk.android.graphics.UtilKColorDrawable;
 import com.mozhimen.uicorek.imagek.ImageKBlur;
 import com.mozhimen.uicorek.popwink.bases.commons.IClearMemoryListener;
 
@@ -71,7 +72,7 @@ class PopupMaskLayout extends FrameLayout implements IEventObserver, IClearMemor
         if (mHelper.getBackgroundView() != null) {
             mBackgroundViewHolder = new BackgroundViewHolder(mHelper.getBackgroundView(), mHelper);
         } else {
-            if (UtilKDrawable.isColorDrawableNormal(mHelper.getPopupBackground())) {
+            if (UtilKColorDrawable.isColorDrawableNormal(mHelper.getPopupBackground())) {
                 mBackgroundViewHolder = new BackgroundViewHolder(BasePopwinKBackgroundView.create(context, mHelper), mHelper);
             }
         }

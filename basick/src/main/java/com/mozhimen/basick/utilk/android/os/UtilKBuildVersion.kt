@@ -23,6 +23,16 @@ object UtilKBuildVersion {
     fun getSDKInt(): Int =
         Build.VERSION.SDK_INT
 
+    //构建Release版本号
+    @JvmStatic
+    fun getRelease(): String =
+        Build.VERSION.RELEASE
+
+    //构建版本名称
+    @JvmStatic
+    fun getCodeName(): String =
+        Build.VERSION.CODENAME
+
     @JvmStatic
     fun getSDKStr(): String =
         getSDKInt().toString()

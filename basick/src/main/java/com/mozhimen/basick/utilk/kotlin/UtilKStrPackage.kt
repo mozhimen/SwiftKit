@@ -12,6 +12,6 @@ fun String.strPackage2clazz(): Class<*> =
 
 object UtilKStrPackage {
     @JvmStatic
-    fun strPackage2clazz(packageStr: String): Class<*> =
-            Class.forName(packageStr)
+    fun strPackage2clazz(strPackage: String): Class<*> =
+            Class.forName(strPackage)
 }

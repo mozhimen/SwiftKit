@@ -23,6 +23,8 @@ object UtilKUsbManager {
     fun getDeviceList(context: Context): Collection<UsbDevice> =
         get(context).deviceList.values
 
+    /////////////////////////////////////////////////////////////////////
+
     /**
      * 设备是否有USB外设
      */
