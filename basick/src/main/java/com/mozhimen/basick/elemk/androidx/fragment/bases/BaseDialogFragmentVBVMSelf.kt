@@ -8,19 +8,15 @@ import com.mozhimen.basick.elemk.androidx.databinding.commons.IViewDataBinding
 import com.mozhimen.basick.elemk.androidx.lifecycle.bases.BaseViewModel
 import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
 
+
 /**
- * @ClassName BaseFragmentVBVM
- * @Description class BaseDemoFragment : BaseFragment<FragmentBasekFragmentBinding, BaseDemoViewModel>() {
- * override fun assignVM() {vb.vm = vm}
- * override fun initView() {}}
- *
- * 这里的VM是和Activity共享的VM,私有可以通过代理的方式引入
- *
- * @Author mozhimen / Kolin Zhao
- * @Date 2022/2/27 13:02
+ * @ClassName BaseDialogFragmentVBVM
+ * @Description 这里的VM是和Activity共享的VM,私有可以通过代理的方式引入
+ * @Author Mozhimen & Kolin Zhao
+ * @Date 2023/2/17 13:06
  * @Version 1.0
  */
-abstract class BaseFragmentVBVM<VB : ViewDataBinding, VM : BaseViewModel> : BaseFragmentVB<VB>, IActivity, IViewDataBinding<VB> {
+abstract class BaseDialogFragmentVBVMSelf<VB : ViewDataBinding, VM : BaseViewModel> : BaseDialogFragmentVB<VB>, IActivity, IViewDataBinding<VB> {
 
     protected var _factory: ViewModelProvider.Factory?
 
@@ -43,7 +39,7 @@ abstract class BaseFragmentVBVM<VB : ViewDataBinding, VM : BaseViewModel> : Base
     @CallSuper
     override fun initLayout() {
         super.initLayout()
-        vm = UtilKViewModel.get(this.requireActivity(), _factory/*, 1*/)
+        vm = UtilKViewModel.get(this, _factory/*, 1*/)
         bindViewVM(vb)
     }
 }

@@ -3,6 +3,7 @@ package com.mozhimen.componentk.pagingk.commons
 import android.graphics.Color
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mozhimen.componentk.pagingk.bases.BasePagingKViewModel
@@ -21,6 +22,7 @@ interface IPagingKActivity<DES, VM : BasePagingKViewModel<*, DES>> {
     fun getSwipeRefreshLayoutColorScheme(): Int = 0
     fun getRecyclerView(): RecyclerView
     fun getRecyclerViewLayoutManager(): LayoutManager
+    fun getRecyclerViewItemDecoration(): ItemDecoration? = null
     fun onLoadStart()
     fun onLoadEmpty()
     fun onLoadComplete()

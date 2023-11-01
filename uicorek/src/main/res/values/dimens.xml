@@ -17,6 +17,7 @@
     <!--/////////////////////////////////////////////////-->
 
     <dimen name="dp_000">0dp</dimen>
+    <dimen name="dp_002">2dp</dimen>
     <dimen name="dp_003">3dp</dimen>
     <dimen name="dp_004">4dp</dimen>
     <dimen name="dp_005">5dp</dimen>

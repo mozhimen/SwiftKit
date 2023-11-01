@@ -9,9 +9,9 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.android.view.applyDebounceClickListener
-import com.mozhimen.uicorek.adapterk.page.commons.IOnItemChildClickListener
-import com.mozhimen.uicorek.adapterk.page.commons.IOnItemClickListener
-import com.mozhimen.uicorek.adapterk.page.commons.IOnItemLongClickListener
+import com.mozhimen.uicorek.adapterk.page.commons.IOnPageItemChildClickListener
+import com.mozhimen.uicorek.adapterk.page.commons.IOnPageItemClickListener
+import com.mozhimen.uicorek.adapterk.page.commons.IOnPageItemLongClickListener
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import java.util.LinkedHashSet
 
@@ -23,9 +23,10 @@ import java.util.LinkedHashSet
  * @Version 1.0
  */
 open class AdapterKPageRecycler<DATA>(@LayoutRes private val _layoutId: Int, itemCallback: DiffUtil.ItemCallback<DATA>) : PagedListAdapter<DATA, VHKRecycler>(itemCallback) {
-    private var _onItemClickListener: IOnItemClickListener<DATA>? = null
-    private var _onItemChildClickListener: IOnItemChildClickListener<DATA>? = null
-    private var _onItemLongClickListener: IOnItemLongClickListener<DATA>? = null
+    private var _onPageItemClickListener: IOnPageItemClickListener<DATA>? = null
+    private var _onPageItemLongClickListener: IOnPageItemLongClickListener<DATA>? = null
+    private var _onPageItemChildClickListener: IOnPageItemChildClickListener<DATA>? = null
+
     private val _childClickViewIds = LinkedHashSet<Int>()//用于保存需要设置点击事件的 item
 
     //////////////////////////////////////////////////////////////////////////////
@@ -51,66 +52,73 @@ open class AdapterKPageRecycler<DATA>(@LayoutRes private val _layoutId: Int, ite
      * 绑定 item 点击事件
      */
     protected open fun onBindViewClickListener(holder: VHKRecycler, viewType: Int) {
-        _onItemClickListener?.let {
+        _onPageItemClickListener?.let {
             holder.itemView.applyDebounceClickListener(1000) { view ->
                 val position = holder.adapterPosition
-                if (position == RecyclerView.NO_POSITION) return@applyDebounceClickListener
+                if (position == RecyclerView.NO_POSITION)
+                    return@applyDebounceClickListener
                 val itemViewType = holder.itemViewType
-                //过滤掉暂无更多
-                if (itemViewType == -0x201) return@applyDebounceClickListener
+                if (itemViewType == -0x201) //过滤掉暂无更多
+                    return@applyDebounceClickListener
                 it.invoke(this, view, position)
             }
         }
-        _onItemChildClickListener?.let { block ->
+        _onPageItemLongClickListener?.let {
+            holder.itemView.setOnLongClickListener { view ->
+                val position = holder.adapterPosition
+                if (position == RecyclerView.NO_POSITION)
+                    return@setOnLongClickListener false
+                it.invoke(this, view, position)
+                return@setOnLongClickListener true
+            }
+        }
+        _onPageItemChildClickListener?.let { block ->
             for (id in getChildClickViewIds()) {
                 holder.itemView.findViewById<View>(id)?.let { view ->
-                    if (!view.isClickable) view.isClickable = true
+                    if (!view.isClickable)
+                        view.isClickable = true
                     view.applyDebounceClickListener(1000) {
                         val position = holder.adapterPosition
-                        if (position == RecyclerView.NO_POSITION) return@applyDebounceClickListener
+                        if (position == RecyclerView.NO_POSITION)
+                            return@applyDebounceClickListener
                         block.invoke(this, view, position)
                     }
                 }
             }
         }
-        _onItemLongClickListener?.let {
-            holder.itemView.setOnLongClickListener { view ->
-                val position = holder.adapterPosition
-                if (position == RecyclerView.NO_POSITION) return@setOnLongClickListener false
-                it.invoke(this, view, position)
-                return@setOnLongClickListener true
-            }
-        }
+
     }
 
     //////////////////////////////////////////////////////////////////////////////
 
-    fun getChildClickViewIds(): LinkedHashSet<Int> {
-        return _childClickViewIds
-    }
+    fun getChildClickViewIds(): LinkedHashSet<Int> =
+        _childClickViewIds
 
-    fun getOnItemClickListener(): IOnItemClickListener<DATA>? = _onItemClickListener
+    fun getOnItemClickListener(): IOnPageItemClickListener<DATA>? =
+        _onPageItemClickListener
 
-    fun getOnItemChildClickListener(): IOnItemChildClickListener<DATA>? = _onItemChildClickListener
+    fun getOnItemChildClickListener(): IOnPageItemChildClickListener<DATA>? =
+        _onPageItemChildClickListener
+
+    //////////////////////////////////////////////////////////////////////////////
 
     /**
      * 设置需要点击事件的子view
      */
     fun addChildClickViewIds(@IdRes vararg viewIds: Int) {
-        for (viewId in viewIds) {
+        for (viewId in viewIds)
             _childClickViewIds.add(viewId)
-        }
     }
 
-    fun setOnItemClickListener(listener: IOnItemClickListener<DATA>) {
-        _onItemClickListener = listener
+    fun setOnItemClickListener(listener: IOnPageItemClickListener<DATA>) {
+        _onPageItemClickListener = listener
     }
 
-    fun setOnItemChildClickListener(listener: IOnItemChildClickListener<DATA>) {
-        _onItemChildClickListener = listener
+    fun setOnItemChildClickListener(listener: IOnPageItemChildClickListener<DATA>) {
+        _onPageItemChildClickListener = listener
     }
 
-    fun setOnItemLongClickListener(listener: IOnItemLongClickListener<DATA>) {
-        _onItemLongClickListener = listener
+    fun setOnItemLongClickListener(listener: IOnPageItemLongClickListener<DATA>) {
+        _onPageItemLongClickListener = listener
     }
 }

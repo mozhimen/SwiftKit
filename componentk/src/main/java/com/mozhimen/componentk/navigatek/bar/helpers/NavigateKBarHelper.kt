@@ -4,7 +4,6 @@ import com.mozhimen.basick.utilk.google.gson.UtilKGson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.reflect.Type
-import java.util.ArrayList
 
 /**
  * @ClassName NavigateKBarHelper
@@ -15,46 +14,39 @@ import java.util.ArrayList
  */
 object NavigateKBarHelper {
     suspend fun <IN, OUT> loadNavigateKBar(
-        transDestination: (list: List<IN>) -> List<OUT>,
-        loadRemoteConfig: suspend () -> String?,
-        loadLocaleConfig: () -> List<OUT>,
+        onLoadRemote: suspend () -> String?,
+        onTransRemote: (list: List<IN>) -> List<OUT>,
+        onLoadLocale: () -> List<OUT>,
         onLoadFinish: (List<OUT>) -> Unit,
         typeOf: Type
     ) {
         withContext(Dispatchers.IO) {
-            //加载远程的配置
-            val remoteConfigJson = loadRemoteConfig.invoke()
-            //如果为空，判断本地配置是否为空，如果本地配置为空，加载默认配置
-            //如果不为空，判断本地配置是否为空，如果本地配置为空，加载远程配置
-            if (remoteConfigJson.isNullOrEmpty()) {
+            val strJsonRemote = onLoadRemote.invoke()//加载远程的配置
+            if (strJsonRemote.isNullOrEmpty()) {//如果为空，判断本地配置是否为空，如果本地配置为空，加载默认配置
                 withContext(Dispatchers.Main) {
-                    onLoadFinish.invoke(loadLocaleConfig())
+                    onLoadFinish.invoke(onLoadLocale())
                 }
-            } else {
+            } else {//如果不为空，判断本地配置是否为空，如果本地配置为空，加载远程配置
                 withContext(Dispatchers.Main) {
-                    onLoadFinish.invoke(
-                        createNavigateKBar(remoteConfigJson, transDestination, loadLocaleConfig, typeOf)
-                    )
+                    onLoadFinish.invoke(getLoadNavigationBar(strJsonRemote, onTransRemote, onLoadLocale, typeOf))
                 }
             }
         }
     }
 
-    private fun <IN, OUT> createNavigateKBar(
-        remoteConfigJson: String,
-        createNavigationBar: (list: List<IN>) -> List<OUT>,
-        loadDefaultConfig: () -> List<OUT>,
+    fun <IN, OUT> getLoadNavigationBar(
+        strJsonRemote: String,
+        onTransRemote: (List<IN>) -> List<OUT>,
+        onLoadLocale: () -> List<OUT>,
         typeOf: Type
     ): List<OUT> {
-        val list = try {
-            UtilKGson.gson.fromJson<ArrayList<IN>>(remoteConfigJson, typeOf)
+        val list: List<IN>? = try {
+            UtilKGson.gson.fromJson<List<IN>>(strJsonRemote, typeOf)
         } catch (e: Exception) {
             null
-        }
-
-        //转换失败，返回默认的配置
-        return if (list.isNullOrEmpty()) {
-            loadDefaultConfig.invoke()
-        } else createNavigationBar(list)
+        }//转换失败，返回默认的配置
+        return if (list.isNullOrEmpty())
+            onLoadLocale.invoke()
+        else onTransRemote.invoke(list)
     }
 }

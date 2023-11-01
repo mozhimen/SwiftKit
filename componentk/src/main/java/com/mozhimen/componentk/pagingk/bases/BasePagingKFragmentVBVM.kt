@@ -21,9 +21,6 @@ import com.mozhimen.componentk.pagingk.cons.CPagingKLoadingState
  */
 abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagingKViewModel<*, DES>> : BaseFragmentVB<VB>(), IPagingKActivity<DES, VM> {
 
-//    protected val _vm_: VM by lazy { getViewModel() }
-//    protected val _pagedListAdapter_: PagedListAdapter<DES, *> by lazy { getPagedListAdapter() }
-
     private val _pagedListObserver: Observer<PagedList<DES>> by lazy {
         Observer<PagedList<DES>> { pagedList ->
             Log.d(TAG, "_pagedListObserver: $pagedList")
@@ -37,13 +34,13 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
     override fun initLayout() {
         super.initLayout()
         getSwipeRefreshLayout().apply {
-            if (getSwipeRefreshLayoutColorScheme() != 0) {
+            if (getSwipeRefreshLayoutColorScheme() != 0)
                 setColorSchemeResources(getSwipeRefreshLayoutColorScheme())
-            }
             setOnRefreshListener { getViewModel().onInvalidate() }
         }
         getRecyclerView().apply {
             layoutManager = getRecyclerViewLayoutManager()
+            getRecyclerViewItemDecoration()?.let { addItemDecoration(it) }
             adapter = getPagedListAdapter()
         }
         getViewModel().liveLoadState.observe(this) {
@@ -64,6 +61,6 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
 
     override fun onResume() {
         super.onResume()
-        getViewModel().livePagedList.observe(this,_pagedListObserver) /*{ pagedList -> getPagedListAdapter().submitList(pagedList) }*/
+        getViewModel().livePagedList.observe(this, _pagedListObserver) /*{ pagedList -> getPagedListAdapter().submitList(pagedList) }*/
     }
 }

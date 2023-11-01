@@ -31,16 +31,12 @@ object NetKAppDownload : INetKAppDownloadState {
     /////////////////////////////////////////////////////////////////
 
     override fun onDownloadStart(appDownloadParam: AppDownloadParam) {
-
     }
 
-    override fun onDownloadProgress(appDownloadParam: AppDownloadParam, complete: Int) {
+    override fun onDownloadProgress(appDownloadParam: AppDownloadParam, progress: Int) {
     }
 
-    override fun onDeleteTask(appDownloadParam: AppDownloadParam) {
-    }
-
-    override fun onDownloadCanceled(appDownloadParam: AppDownloadParam) {
+    override fun onDownloadPause(appDownloadParam: AppDownloadParam) {
     }
 
     override fun onDownloadSuccess(appDownloadParam: AppDownloadParam) {
@@ -49,30 +45,49 @@ object NetKAppDownload : INetKAppDownloadState {
     override fun onDownloadFail(appDownloadParam: AppDownloadParam) {
     }
 
-    override fun onChecking(appDownloadParam: AppDownloadParam) {
+    /////////////////////////////////////////////////////////////////
+
+    override fun onVerifyStart(appDownloadParam: AppDownloadParam) {
     }
 
-    override fun onCheckingSuccess(appDownloadParam: AppDownloadParam) {
+    override fun onVerifySuccess(appDownloadParam: AppDownloadParam) {
     }
 
-    override fun onCheckingFailure(appDownloadParam: AppDownloadParam) {
+    override fun onVerifyFail(appDownloadParam: AppDownloadParam) {
     }
 
-    override fun onUnzip(appDownloadParam: AppDownloadParam) {
+    /////////////////////////////////////////////////////////////////
+
+    override fun onUnzipStart(appDownloadParam: AppDownloadParam) {
     }
 
     override fun onUnzipSuccess(appDownloadParam: AppDownloadParam) {
     }
 
-    override fun onUnzipFailure(appDownloadParam: AppDownloadParam) {
+    override fun onUnzipFail(appDownloadParam: AppDownloadParam) {
     }
 
-    override fun onGoInstall(appDownloadParam: AppDownloadParam) {
+    /////////////////////////////////////////////////////////////////
+
+    override fun onInstallStart(appDownloadParam: AppDownloadParam) {
     }
 
-    override fun onInstall(appDownloadParam: AppDownloadParam) {
+    override fun onInstallSuccess(appDownloadParam: AppDownloadParam) {
     }
 
-    override fun onUninstall(appDownloadParam: AppDownloadParam) {
+    override fun onInstallFail(appDownloadParam: AppDownloadParam) {
+    }
+
+    /////////////////////////////////////////////////////////////////
+
+    override fun onUninstallStart(appDownloadParam: AppDownloadParam) {
+    }
+
+    /////////////////////////////////////////////////////////////////
+
+    override fun onTaskStart(appDownloadParam: AppDownloadParam) {
+    }
+
+    override fun onTaskCancel(appDownloadParam: AppDownloadParam) {
     }
 }

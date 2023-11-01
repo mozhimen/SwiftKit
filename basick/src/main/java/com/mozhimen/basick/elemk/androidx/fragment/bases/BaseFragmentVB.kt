@@ -51,8 +51,12 @@ open class BaseFragmentVB<VB : ViewDataBinding>(
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initLayout()
-        initData(savedInstanceState)
+        try {
+            initLayout()
+            initData(savedInstanceState)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun inflateView(viewGroup: ViewGroup?) {

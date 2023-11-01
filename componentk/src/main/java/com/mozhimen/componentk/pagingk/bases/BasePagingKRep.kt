@@ -15,6 +15,12 @@ class BasePagingKRep<RES> {
         this.msg = msg
     }
 
+    constructor(code: Int, msg: String?, data: PagingKData<RES>) {
+        this.code = code
+        this.msg = msg
+        this.data = data
+    }
+
     //////////////////////////////////////////////////////
 
     /**

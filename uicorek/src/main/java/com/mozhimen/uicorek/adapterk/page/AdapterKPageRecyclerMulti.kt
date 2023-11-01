@@ -30,13 +30,13 @@ open class AdapterKPageRecyclerMulti<DATA>(itemCallback: ItemCallback<DATA>) : A
     }
 
     override fun onBindViewHolder(holder: VHKRecycler, position: Int) {
-        convert(holder, getItem(position))
+        onBindViewHolder(holder, getItem(position))
     }
 
     override fun onBindViewClickListener(holder: VHKRecycler, viewType: Int) {
         super.onBindViewClickListener(holder, viewType)
-        onBindClick(holder)
-        bindChildClick(holder, viewType)
+        onBindViewClickListener(holder)
+        onBindChildClickListener(holder, viewType)
     }
 
     override fun onViewAttachedToWindow(holder: VHKRecycler) {
@@ -55,9 +55,6 @@ open class AdapterKPageRecyclerMulti<DATA>(itemCallback: ItemCallback<DATA>) : A
      * 通过 ViewType 获取 BaseItemProvider
      * 例如：如果ViewType经过特殊处理，可以重写此方法，获取正确的Provider
      * （比如 ViewType 通过位运算进行的组合的）
-     *
-     * @param viewType Int
-     * @return BaseItemProvider
      */
     fun getRecyclerKPageItem(viewType: Int): RecyclerKPageItem<DATA>? {
         return _recyclerKPageItems.get(viewType)
@@ -65,50 +62,52 @@ open class AdapterKPageRecyclerMulti<DATA>(itemCallback: ItemCallback<DATA>) : A
 
     /**
      * 必须通过此方法，添加 provider
-     * @param provider BaseItemProvider
      */
-    fun addRecyclerKPageItem(provider: RecyclerKPageItem<DATA>) {
-        provider.setAdapter(this)
-        _recyclerKPageItems.put(provider.itemViewType, provider)
+    fun addRecyclerKPageItem(item: RecyclerKPageItem<DATA>) {
+        item.setAdapter(this)
+        _recyclerKPageItems.put(item.itemViewType, item)
     }
 
-    fun convert(holder: VHKRecycler, item: DATA?) {
-        getRecyclerKPageItem(holder.itemViewType)!!.convert(holder, item)
+    fun onBindViewHolder(holder: VHKRecycler, item: DATA?) {
+        getRecyclerKPageItem(holder.itemViewType)!!.onBindViewHolder(holder, item)
     }
 
-    fun convert(holder: VHKRecycler, item: DATA, payloads: List<Any>) {
-        getRecyclerKPageItem(holder.itemViewType)!!.convert(holder, item, payloads)
+    fun onBindViewHolder(holder: VHKRecycler, item: DATA, payloads: List<Any>) {
+        getRecyclerKPageItem(holder.itemViewType)!!.onBindViewHolder(holder, item, payloads)
     }
 
     /////////////////////////////////////////////////////////////////////////////////
 
-    protected open fun onBindClick(viewHolder: VHKRecycler) {
+    protected open fun onBindViewClickListener(holder: VHKRecycler) {
         if (getOnItemClickListener() == null) {
             //如果没有设置点击监听，则回调给 itemProvider
             //Callback to itemProvider if no click listener is set
-            viewHolder.itemView.applyDebounceClickListener(1000) {
-                val position = viewHolder.adapterPosition
-                if (position == RecyclerView.NO_POSITION) return@applyDebounceClickListener
-                val itemViewType = viewHolder.itemViewType
-                //过滤掉暂无更多
-                if (itemViewType == -0x201) return@applyDebounceClickListener
+            holder.itemView.applyDebounceClickListener(1000) {
+                val position = holder.adapterPosition
+                if (position == RecyclerView.NO_POSITION)
+                    return@applyDebounceClickListener
+                val itemViewType = holder.itemViewType
+                if (itemViewType == -0x201) //过滤掉暂无更多
+                    return@applyDebounceClickListener
                 val recyclerKPageItem = _recyclerKPageItems.get(itemViewType)
-                recyclerKPageItem.onClick(viewHolder, it, getItem(position), position)
+                recyclerKPageItem.onClick(holder, it, getItem(position), position)
             }
         }
     }
 
-    protected open fun bindChildClick(viewHolder: VHKRecycler, viewType: Int) {
+    protected open fun onBindChildClickListener(holder: VHKRecycler, viewType: Int) {
         if (getOnItemChildClickListener() == null) {
             val recyclerKPageItem = getRecyclerKPageItem(viewType) ?: return
-            val ids = recyclerKPageItem.getChildClickViewIds()
-            ids.forEach { id ->
-                viewHolder.itemView.findViewById<View>(id)?.let {
-                    if (!it.isClickable) it.isClickable = true
+            val childClickViewIds = recyclerKPageItem.getChildClickViewIds()
+            childClickViewIds.forEach { id ->
+                holder.itemView.findViewById<View>(id)?.let {
+                    if (!it.isClickable)
+                        it.isClickable = true
                     it.applyDebounceClickListener(1000) { v ->
-                        val position: Int = viewHolder.adapterPosition
-                        if (position == RecyclerView.NO_POSITION) return@applyDebounceClickListener
-                        recyclerKPageItem.onChildClick(viewHolder, v, getItem(position), position)
+                        val position: Int = holder.adapterPosition
+                        if (position == RecyclerView.NO_POSITION)
+                            return@applyDebounceClickListener
+                        recyclerKPageItem.onChildClick(holder, v, getItem(position), position)
                     }
                 }
             }

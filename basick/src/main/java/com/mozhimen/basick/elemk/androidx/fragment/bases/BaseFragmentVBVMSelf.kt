@@ -20,7 +20,7 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * @Date 2022/2/27 13:02
  * @Version 1.0
  */
-abstract class BaseFragmentVBVM<VB : ViewDataBinding, VM : BaseViewModel> : BaseFragmentVB<VB>, IActivity, IViewDataBinding<VB> {
+abstract class BaseFragmentVBVMSelf<VB : ViewDataBinding, VM : BaseViewModel> : BaseFragmentVB<VB>, IActivity, IViewDataBinding<VB> {
 
     protected var _factory: ViewModelProvider.Factory?
 
@@ -43,7 +43,7 @@ abstract class BaseFragmentVBVM<VB : ViewDataBinding, VM : BaseViewModel> : Base
     @CallSuper
     override fun initLayout() {
         super.initLayout()
-        vm = UtilKViewModel.get(this.requireActivity(), _factory/*, 1*/)
+        vm = UtilKViewModel.get(this, _factory/*, 1*/)
         bindViewVM(vb)
     }
 }

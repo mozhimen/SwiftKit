@@ -23,29 +23,22 @@ import kotlinx.coroutines.CoroutineScope
  * @Version 1.0
  */
 abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: PagingKConfig = PagingKConfig()) : BaseViewModel(), IPagingKDataSource<RES, DES> {
-    private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener
-    ////////////////////////////////////////////////////////////////////////////////////
-
-    val livePagedList: LiveData<PagedList<DES>>
-    val liveLoadState = MutableLiveData<Int>()
-
-    ////////////////////////////////////////////////////////////////////////////////////
-
-    init {
-       _pagingKDataSourceLoadingListener =  object : IPagingKDataSourceLoadListener {
-            override fun onFirstLoadStart() {
-                liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_START)
-            }
-
-            override fun onFirstLoadCompleted(isEmpty: Boolean) {
-                if (isEmpty)
-                    liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY)
-                else
-                    liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_COMPLETED)
-            }
+    private val _pagingKDataSourceLoadingListener: IPagingKDataSourceLoadListener=  object : IPagingKDataSourceLoadListener {
+        override fun onFirstLoadStart() {
+            liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_START)
         }
-        livePagedList = generateLivePagedList()
+
+        override fun onFirstLoadCompleted(isEmpty: Boolean) {
+            if (isEmpty)
+                liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY)
+            else
+                liveLoadState.postValue(CPagingKLoadingState.STATE_FIRST_LOAD_COMPLETED)
+        }
     }
+    ////////////////////////////////////////////////////////////////////////////////////
+
+    open val livePagedList: LiveData<PagedList<DES>> = generateLivePagedList()
+    val liveLoadState = MutableLiveData<Int>()
 
     ////////////////////////////////////////////////////////////////////////////////////
 

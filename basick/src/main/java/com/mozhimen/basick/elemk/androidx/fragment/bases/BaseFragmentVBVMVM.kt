@@ -14,15 +14,16 @@ import com.mozhimen.basick.utilk.androidx.lifecycle.UtilKViewModel
  * override fun assignVM() {vb.vm = vm}
  * override fun initView() {}}
  *
- * 这里的VM是和Activity共享的VM,私有可以通过代理的方式引入
+ * 这里的VM1是和Activity共享的VM,私有VM2
  *
  * @Author mozhimen / Kolin Zhao
  * @Date 2022/2/27 13:02
  * @Version 1.0
  */
-abstract class BaseFragmentVBVM<VB : ViewDataBinding, VM : BaseViewModel> : BaseFragmentVB<VB>, IActivity, IViewDataBinding<VB> {
+abstract class BaseFragmentVBVMVM<VB : ViewDataBinding, VM1 : BaseViewModel, VM2 : BaseViewModel> : BaseFragmentVB<VB>, IActivity, IViewDataBinding<VB> {
 
-    protected var _factory: ViewModelProvider.Factory?
+    protected var _factoryShare: ViewModelProvider.Factory?
+    protected var _factorySelf: ViewModelProvider.Factory?
 
     /**
      * 针对Hilt(@JvmOverloads kotlin默认参数值无效)
@@ -30,20 +31,25 @@ abstract class BaseFragmentVBVM<VB : ViewDataBinding, VM : BaseViewModel> : Base
      */
     constructor() : this(null)
 
-    constructor(factory: ViewModelProvider.Factory?) : super(){
-        _factory = factory
+    constructor(factoryShare: ViewModelProvider.Factory?) : this(factoryShare, null)
+
+    constructor(factoryShare: ViewModelProvider.Factory?, factorySelf: ViewModelProvider.Factory?) : super() {
+        _factoryShare = factoryShare
+        _factorySelf = factorySelf
     }
 
     //////////////////////////////////////////////////////////////////////////////
 
-    protected lateinit var vm: VM
+    protected lateinit var vmShare: VM1
+    protected lateinit var vmSelf: VM2
 
     //////////////////////////////////////////////////////////////////////////////
 
     @CallSuper
     override fun initLayout() {
         super.initLayout()
-        vm = UtilKViewModel.get(this.requireActivity(), _factory/*, 1*/)
+        vmShare = UtilKViewModel.get(this.requireActivity(), _factoryShare/*, 1*/)
+        vmSelf = UtilKViewModel.get(this.requireActivity(), _factorySelf/*, 1*/)
         bindViewVM(vb)
     }
 }

@@ -20,10 +20,6 @@ import com.mozhimen.componentk.pagingk.cons.CPagingKLoadingState
  */
 abstract class BasePagingKActivityVBVM<DES, VB : ViewDataBinding, VM : BasePagingKViewModel<*, DES>> : BaseActivityVB<VB>(), IPagingKActivity<DES, VM> {
 
-//    protected val _vm_: VM by lazy { getViewModel() }
-//
-//    protected val _pagedListAdapter_: PagedListAdapter<DES, *> by lazy { getPagedListAdapter() }
-
     private val _pagedListObserver: Observer<PagedList<DES>> by lazy {
         Observer<PagedList<DES>> { pagedList ->
             Log.d(TAG, "_pagedListObserver_: pagedList $pagedList")
@@ -43,6 +39,7 @@ abstract class BasePagingKActivityVBVM<DES, VB : ViewDataBinding, VM : BasePagin
         }
         getRecyclerView().apply {
             layoutManager = getRecyclerViewLayoutManager()
+            getRecyclerViewItemDecoration()?.let { addItemDecoration(it) }
             adapter = getPagedListAdapter()
         }
         getViewModel().liveLoadState.observe(this) {

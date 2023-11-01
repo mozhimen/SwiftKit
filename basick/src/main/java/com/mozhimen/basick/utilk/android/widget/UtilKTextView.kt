@@ -1,12 +1,19 @@
 package com.mozhimen.basick.utilk.android.widget
 
+import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Typeface
+import android.text.TextUtils
+import android.view.Gravity
 import android.widget.TextView
 import androidx.annotation.IntRange
+import androidx.core.content.ContextCompat
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.kotlin.ifOrElse
 import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
+import com.mozhimen.basick.utilk.kotlin.whether
 
 /**
  * @ClassName UtilKViewText
@@ -42,11 +49,31 @@ fun TextView.applyValueIfNotEmpty(str: String?) {
     UtilKTextView.applyValueIfNotEmpty(this, str)
 }
 
-fun TextView.applyTextColorStateList( colors: ColorStateList) {
-    UtilKTextView.applyTextColorStateList(this,colors)
+fun TextView.applyTextColorStateList(colors: ColorStateList) {
+    UtilKTextView.applyTextColorStateList(this, colors)
 }
 
 object UtilKTextView {
+    @JvmStatic
+    fun get(
+        context: Context,
+        singleLine: Boolean = false,
+        ems: Int = 10,
+        truncateAt: TextUtils.TruncateAt? = TextUtils.TruncateAt.END,
+        gravity: Int? = Gravity.CENTER,
+        colorResId: Int? = android.R.color.black,
+        textSize: Float? = 16f
+    ): TextView {
+        val textView = TextView(context)
+        singleLine.whether { textView.setSingleLine() }//设置显示为1行
+        if (ems > 0) textView.setEms(ems)//设置最多显示多少个字
+        truncateAt?.let { textView.ellipsize = it }//设置省略号在尾部
+        gravity?.let { textView.gravity = it }
+        colorResId?.let { textView.setTextColor(ContextCompat.getColor(context, it)) }
+        textSize?.let { textView.textSize = it }
+        return textView
+    }
+
     @JvmStatic
     fun getValue(textView: TextView): String =
         textView.text.obj2stringTrim()

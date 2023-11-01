@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.recyclerk.decoration
+package com.mozhimen.uicorek.recyclerk.decoration.bases
 
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
@@ -9,4 +9,4 @@ import androidx.recyclerview.widget.RecyclerView.ItemDecoration
  * @Date 2023/10/11 18:01
  * @Version 1.0
  */
-class RecyclerKDecoration : ItemDecoration()
+open class BaseRecyclerKDecoration : ItemDecoration()

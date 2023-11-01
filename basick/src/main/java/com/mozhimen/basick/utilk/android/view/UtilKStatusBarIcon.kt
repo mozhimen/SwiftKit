@@ -109,6 +109,15 @@ object UtilKStatusBarIcon : BaseUtilK() {
     @JvmStatic
     fun applyIcon_ColorOsUi(activity: Activity, isDarkMode: Boolean) {//控制字体颜色，只有黑白两色
         //UtilKDecorView.setSystemUiVisibility(activity, 0 or if (isDarkMode) 0x00000010 else 0x00190000)
-        UtilKDecorView.applySystemUiVisibilityOr(activity, 0 or if (isDarkMode) 0x00000010 else 0x00190000)
+        if (UtilKBuildVersion.isAfterV_23_6_M()) {
+            applyIcon_CommonUi(activity, isDarkMode)
+        } else
+            UtilKDecorView.applySystemUiVisibilityOr(
+                activity, 0 or
+                        if (isDarkMode)
+                            0x00000010
+                        else
+                            0x00190000
+            )
     }
 }

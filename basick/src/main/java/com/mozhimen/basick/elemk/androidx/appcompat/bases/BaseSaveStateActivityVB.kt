@@ -24,12 +24,22 @@ abstract class BaseSaveStateActivityVB<VB : ViewDataBinding> : BaseActivityVB<VB
 
     private var _stateSaved = false
     
-    val stateSaved get() = _stateSaved
+    val isActivityFinishing get() = _stateSaved
 
     //////////////////////////////////////////////////////////////////////////////
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        _stateSaved = false
+    }
+
+    override fun onStart() {
+        super.onStart()
+        _stateSaved = false
+    }
+
+    override fun onResume() {
+        super.onResume()
         _stateSaved = false
     }
 
@@ -39,19 +49,9 @@ abstract class BaseSaveStateActivityVB<VB : ViewDataBinding> : BaseActivityVB<VB
         _stateSaved = true
     }
 
-    override fun onResume() {
-        super.onResume()
-        _stateSaved = false
-    }
-
     override fun onStop() {
         super.onStop()
         _stateSaved = true
-    }
-
-    override fun onStart() {
-        super.onStart()
-        _stateSaved = false
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

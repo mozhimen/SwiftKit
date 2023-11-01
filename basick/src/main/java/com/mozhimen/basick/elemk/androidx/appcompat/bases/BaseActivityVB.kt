@@ -24,9 +24,13 @@ abstract class BaseActivityVB<VB : ViewDataBinding>(
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initFlag()
-        initLayout()
-        initData(savedInstanceState)
+        try {
+            initFlag()
+            initLayout()
+            initData(savedInstanceState)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     @CallSuper
