@@ -2,6 +2,29 @@
 <resources>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--bark-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <declare-styleable name="BarKRating">
+        <!-- color of star -->
+        <attr name="barKRating_starColor" format="color|reference" />
+        <!-- color of secondary star -->
+        <attr name="barKRating_subStarColor" format="color|reference" />
+        <!-- color of background star -->
+        <attr name="barKRating_bgColor" format="color|reference" />
+        <!-- drawable of star -->
+        <attr name="barKRating_starDrawable" format="reference" />
+        <!-- drawable of background star -->
+        <attr name="barKRating_bgDrawable" format="reference" />
+        <!-- if keep the origin color of star drawable -->
+        <attr name="barKRating_keepOriginColor" format="boolean" />
+        <!-- the scale factor of ratingbar that can change the spacing of star -->
+        <attr name="barKRating_scaleFactor" format="float" />
+        <!-- additional the spacing of the star -->
+        <attr name="barKRating_starSpacing" format="dimension" />
+        <!-- right to left -->
+        <attr name="barKRating_right2Left" format="boolean" />
+    </declare-styleable>
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--btnk-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <declare-styleable name="BtnKIconFont">
