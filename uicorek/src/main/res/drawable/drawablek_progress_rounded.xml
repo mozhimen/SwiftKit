@@ -20,20 +20,22 @@
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@android:id/background"
-        android:drawable="@color/ui_blue_050" />
-
-    <item android:id="@android:id/secondaryProgress">
-        <scale
-            android:drawable="@color/ui_blue_650"
-            android:scaleWidth="100%" />
+    <!--  设置背景色  -->
+    <item android:id="@android:id/background">
+        <shape>
+            <solid android:color="@color/ui_blue_050" />
+            <corners android:radius="1.5dp" />
+        </shape>
     </item>
 
+    <!--  设置进度条颜色  -->
     <item android:id="@android:id/progress">
-        <scale
-            android:drawable="@color/ui_blue_666"
-            android:scaleWidth="100%" />
+        <scale android:scaleWidth="100%">
+            <shape>
+                <solid android:color="@color/ui_blue_666" />
+                <corners android:radius="1.5dp" />
+            </shape>
+        </scale>
     </item>
 
 </layer-list>

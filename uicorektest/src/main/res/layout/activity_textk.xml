@@ -33,12 +33,12 @@
             android:layout_marginBottom="20dp"
             android:format24Hour="HH:mm:ss:SS" />
 
-        <com.mozhimen.uicorek.textk.TextKEditClear
+        <com.mozhimen.uicorek.textk.edit.TextKEditClear
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-        <com.mozhimen.uicorek.textk.TextKEditFocus
+        <com.mozhimen.uicorek.textk.edit.TextKEditFocus
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"

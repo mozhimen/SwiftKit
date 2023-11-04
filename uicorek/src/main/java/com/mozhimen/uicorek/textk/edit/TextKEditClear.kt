@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.textk
+package com.mozhimen.uicorek.textk.edit
 
 import android.content.Context
 import android.graphics.drawable.Drawable
