@@ -11,6 +11,7 @@ import androidx.annotation.IntRange
 import androidx.core.content.ContextCompat
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.utilk.android.content.UtilKContext
+import com.mozhimen.basick.utilk.android.text.UtilKInputFilter
 import com.mozhimen.basick.utilk.kotlin.ifOrElse
 import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
 import com.mozhimen.basick.utilk.kotlin.whether
@@ -51,6 +52,10 @@ fun TextView.applyValueIfNotEmpty(str: String?) {
 
 fun TextView.applyTextColorStateList(colors: ColorStateList) {
     UtilKTextView.applyTextColorStateList(this, colors)
+}
+
+fun TextView.applyLengthFilter(max:Int){
+    UtilKTextView.applyLengthFilter(this,max)
 }
 
 object UtilKTextView {
@@ -123,5 +128,12 @@ object UtilKTextView {
     @JvmStatic
     fun applyTextColorStateList(textView: TextView, colors: ColorStateList) {
         textView.setTextColor(colors)
+    }
+
+    @JvmStatic
+    fun applyLengthFilter(textView: TextView,max:Int){
+        if (max>0){
+            textView.filters = arrayOf(UtilKInputFilter.getLengthFilter(max))
+        }
     }
 }

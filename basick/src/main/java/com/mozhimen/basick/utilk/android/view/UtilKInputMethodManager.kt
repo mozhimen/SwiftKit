@@ -62,6 +62,11 @@ object UtilKInputMethodManager {
     }
 
     @JvmStatic
+    fun hideSoftInputFromWindow(context: Context, windowToken: IBinder, flags: Int) {
+        get(context).hideSoftInputFromWindow(windowToken, flags)
+    }
+
+    @JvmStatic
     fun hideSoftInputFromWindow(view: View, windowToken: IBinder, flags: Int) {
         get(view).hideSoftInputFromWindow(windowToken, flags)
     }

@@ -10,6 +10,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.material.button.MaterialButton
+            style="@style/Btn_Style"
+            android:text="goTextKEdit"
+            android:onClick="goTextKEdit"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
+
         <com.mozhimen.uicorek.textk.bubble.TextKBubble
             style="@style/TextKBubble_Style"
             android:text="这是一个气泡文本"

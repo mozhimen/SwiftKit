@@ -394,6 +394,20 @@
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--textk-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <declare-styleable name="TextKEditRect">
+        <attr name="textKEditRect_rectNum" format="integer"/>
+        <attr name="textKEditRect_rectWidth" format="dimension|reference"/>
+        <attr name="textKEditRect_rectHeight" format="dimension|reference"/>
+        <attr name="textKEditRect_rectGap" format="dimension|reference"/>
+        <attr name="textKEditRect_rectStateDrawable" format="reference"/>
+
+        <attr name="textKEditRect_cursorIsShow" format="boolean"/>
+        <attr name="textKEditRect_cursorFlashIntervalMillis" format="integer"/>
+        <attr name="textKEditRect_cursorWidth" format="dimension|reference"/>
+        <attr name="textKEditRect_cursorHeight" format="dimension|reference"/>
+        <attr name="textKEditRect_cursorStateDrawable" format="reference"/>
+    </declare-styleable>
+
     <declare-styleable name="TextKProgress">
         <attr name="textKProgress_backgroundColor" format="color" />
         <attr name="textKProgress_backgroundColorStart" format="color" />
@@ -416,22 +430,6 @@
         <attr name="textKProgress_progressStyle" format="enum">
             <enum name="round" value="0" />
             <enum name="rect" value="1" />
-        </attr>
-    </declare-styleable>
-
-    <declare-styleable name="TextKProgressDownload">
-        <attr name="textKProgressDownload_radius" format="dimension" />
-        <attr name="textKProgressDownload_backgroundColor" format="color" />
-        <attr name="textKProgressDownload_backgroundColorNormal" format="color" />
-        <attr name="textKProgressDownload_backgroundColorSecond" format="color" />
-        <attr name="textKProgressDownload_textColor" format="color" />
-        <attr name="textKProgressDownload_textColorNormal" format="color" />
-        <attr name="textKProgressDownload_textColorCover" format="color" />
-        <attr name="textKProgressDownload_borderColor" format="color" />
-        <attr name="textKProgressDownload_borderWidth" format="dimension" />
-        <attr name="textKProgressDownload_ballStyle" format="enum">
-            <enum name="pulse" value="1" />
-            <enum name="jump" value="2" />
         </attr>
     </declare-styleable>
 

@@ -129,7 +129,7 @@ object UtilKDisplayMetrics {
 
     @JvmStatic
     fun dp2px(@FloatRange(from = 0.0) dp: Float): Float =
-        dp * (getXdpi() / CDisplayMetrics.DENSITY_DEFAULT)
+        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_DIP, dp, get())
 
     @JvmStatic
     fun dp2px2(@FloatRange(from = 0.0) dp: Float): Float =
@@ -137,7 +137,9 @@ object UtilKDisplayMetrics {
 
     @JvmStatic
     fun dp2px3(@FloatRange(from = 0.0) dp: Float): Float =
-        TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_DIP, dp, get())
+        dp * (getXdpi() / CDisplayMetrics.DENSITY_DEFAULT)
+
+    /////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun px2dp(@FloatRange(from = 0.0) px: Float): Float =
@@ -147,10 +149,14 @@ object UtilKDisplayMetrics {
     fun px2dp2(@FloatRange(from = 0.0) px: Float): Float =
         px / getDensity()
 
+    /////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun px2sp(@FloatRange(from = 0.0) px: Float): Float =
         px / getScaledDensity() + 0.5f
 
+    /////////////////////////////////////////////////////////////
+    
     @JvmStatic
     fun sp2px(@FloatRange(from = 0.0) sp: Float): Float =
         TypedValue.applyDimension(CTypedValue.COMPLEX_UNIT_SP, sp, get())

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
+import com.mozhimen.basick.utilk.android.content.startContext
 import com.mozhimen.uicorek.popwink.PopwinKTextKBubbleBuilder
 import com.mozhimen.uicorek.textk.progress.TextKProgress
 import com.mozhimen.uicorektest.databinding.ActivityTextkBinding
@@ -56,5 +57,9 @@ class TextKActivity : BaseActivityVB<ActivityTextkBinding>() {
             setDismissDelay(delayMillis)
             create(view)
         }
+    }
+
+    fun goTextKEdit(view: View){
+        startContext<TextKEditActivity>()
     }
 }

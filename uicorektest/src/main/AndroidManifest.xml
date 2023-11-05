@@ -159,6 +159,9 @@
         <!-- textk -->
         <activity
             android:name=".textk.TextKActivity"
+            android:exported="false" />
+        <activity
+            android:name=".textk.TextKEditActivity"
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- viewk -->
         <activity

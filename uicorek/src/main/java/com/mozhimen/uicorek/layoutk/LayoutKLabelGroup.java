@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics;
 import com.mozhimen.uicorek.R;
 
 import java.util.ArrayList;
@@ -140,24 +141,24 @@ public class LayoutKLabelGroup extends ViewGroup implements View.OnClickListener
             }
 
             mTextSize = mTypedArray.getDimension(R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextSize,
-                    sp2px(14));
+                    UtilKDisplayMetrics.sp2px(14));
             if (mTypedArray.hasValue(R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPadding)) {
                 int textPadding = mTypedArray.getDimensionPixelOffset(
                         R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPadding, 0);
                 mTextPaddingLeft = mTextPaddingTop = mTextPaddingRight = mTextPaddingBottom = textPadding;
             } else {
                 mTextPaddingLeft = mTypedArray.getDimensionPixelOffset(
-                        R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPaddingLeft, dp2px(10));
+                        R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPaddingLeft,(int) UtilKDisplayMetrics.dp2px(10));
                 mTextPaddingTop = mTypedArray.getDimensionPixelOffset(
-                        R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPaddingTop, dp2px(5));
+                        R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPaddingTop, (int) UtilKDisplayMetrics.dp2px(5));
                 mTextPaddingRight = mTypedArray.getDimensionPixelOffset(
-                        R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPaddingRight, dp2px(10));
+                        R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPaddingRight, (int) UtilKDisplayMetrics.dp2px(10));
                 mTextPaddingBottom = mTypedArray.getDimensionPixelOffset(
-                        R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPaddingBottom, dp2px(5));
+                        R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelTextPaddingBottom, (int) UtilKDisplayMetrics.dp2px(5));
             }
 
-            mLineMargin = mTypedArray.getDimensionPixelOffset(R.styleable.LayoutKLabelGroup_layoutKLabelGroup_lineMargin, dp2px(5));
-            mWordMargin = mTypedArray.getDimensionPixelOffset(R.styleable.LayoutKLabelGroup_layoutKLabelGroup_wordMargin, dp2px(5));
+            mLineMargin = mTypedArray.getDimensionPixelOffset(R.styleable.LayoutKLabelGroup_layoutKLabelGroup_lineMargin, (int) UtilKDisplayMetrics.dp2px(5));
+            mWordMargin = mTypedArray.getDimensionPixelOffset(R.styleable.LayoutKLabelGroup_layoutKLabelGroup_wordMargin, (int) UtilKDisplayMetrics.dp2px(5));
             if (mTypedArray.hasValue(R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelBackground)) {
                 int labelBgResId = mTypedArray.getResourceId(R.styleable.LayoutKLabelGroup_layoutKLabelGroup_labelBackground, 0);
                 if (labelBgResId != 0) {
@@ -1140,22 +1141,6 @@ public class LayoutKLabelGroup extends ViewGroup implements View.OnClickListener
      */
     public void setOnSelectChangeIntercept(OnSelectChangeIntercept intercept) {
         mOnSelectChangeIntercept = intercept;
-    }
-
-    /**
-     * sp转px
-     */
-    private int sp2px(float spVal) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,
-                spVal, getResources().getDisplayMetrics());
-    }
-
-    /**
-     * dp转px
-     */
-    private int dp2px(float dpVal) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                dpVal, getResources().getDisplayMetrics());
     }
 
     /**

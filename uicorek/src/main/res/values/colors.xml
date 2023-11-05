@@ -395,4 +395,11 @@
     <color name="ui_yellow_700_dark">#FBB504</color>
     <color name="ui_yellow_800_dark">#EF9606</color>
     <color name="ui_yellow_900_dark">#DA6B09</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--gray-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_gray_f1f1f1">#f1f1f1</color>
+    <color name="cok_orange_ffa500">#ffa500</color>
 </resources>

@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
 
+import com.mozhimen.basick.utilk.android.util.UtilKDisplayMetrics;
 import com.mozhimen.uicorek.R;
 
 /**
@@ -21,7 +22,7 @@ import com.mozhimen.uicorek.R;
  * @Date 2023/11/3 18:03
  * @Version 1.0
  */
-public class TextKEditRect extends androidx.appcompat.widget.AppCompatEditText {
+public class TextKEditCode extends androidx.appcompat.widget.AppCompatEditText {
 
     public interface OnTextFinishListener {
 
@@ -95,18 +96,18 @@ public class TextKEditRect extends androidx.appcompat.widget.AppCompatEditText {
     /**
      * 构造方法
      */
-    public TextKEditRect(Context context) {
+    public TextKEditCode(Context context) {
         this(context, null);
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public TextKEditRect(Context context, AttributeSet attrs) {
+    public TextKEditCode(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mStrokeWidth = toDip(context, 30);
-        mStrokeHeight = toDip(context, 30);
-        mStrokePadding = toDip(context, 10);
-        mCursorWidth = toDip(context, 1);
-        mCursorHeight = toDip(context, 20);
+        mStrokeWidth =(int) UtilKDisplayMetrics.dp2px( 30);
+        mStrokeHeight = (int) UtilKDisplayMetrics.dp2px( 30);
+        mStrokePadding = (int) UtilKDisplayMetrics.dp2px(  10);
+        mCursorWidth = (int) UtilKDisplayMetrics.dp2px(  1);
+        mCursorHeight = (int) UtilKDisplayMetrics.dp2px(  20);
         mStrokeDrawable = context.getResources().getDrawable(R.drawable.textk_edit_rect_bg);
         mCursorDrawable = context.getResources().getDrawable(R.drawable.textk_edit_rect_cursor);
         mMaxLength = 6;
@@ -298,16 +299,5 @@ public class TextKEditRect extends androidx.appcompat.widget.AppCompatEditText {
      */
     public void setOnTextFinishListener(OnTextFinishListener onInputFinishListener) {
         this.mOnInputFinishListener = onInputFinishListener;
-    }
-
-    /**
-     * 转 dp 值
-     *
-     * @param context
-     * @param paramFloat
-     * @return
-     */
-    public static int toDip(Context context, float paramFloat) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, paramFloat, context.getResources().getDisplayMetrics());
     }
 }
