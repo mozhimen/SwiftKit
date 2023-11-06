@@ -12,10 +12,6 @@
         android:gravity="center_horizontal"
         tools:context=".textk.TextKEditActivity">
 
-<!--        <com.mozhimen.uicorek.textk.edit.TextKEditCode
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />-->
-
         <com.mozhimen.uicorek.textk.edit.TextKEditRect
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

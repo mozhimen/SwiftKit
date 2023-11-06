@@ -1,4 +1,4 @@
-package com.mozhimen.uicorek.layoutk
+package com.mozhimen.uicorek.layoutk.scrollable
 
 import android.content.Context
 import android.util.AttributeSet
@@ -17,7 +17,7 @@ import kotlin.math.sign
  * @Date 2023/10/13 11:57
  * @Version 1.0
  */
-class LayoutKNestedScrollable @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleRes: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleRes) {
+class LayoutKScrollableNestedFrame @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleRes: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleRes) {
 
     private var _touchSlop = 0
     private var _initialX = 0f
