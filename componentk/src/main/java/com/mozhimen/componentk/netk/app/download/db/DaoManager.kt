@@ -5,6 +5,7 @@ import androidx.annotation.WorkerThread
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.componentk.netk.app.download.cons.CAppDownloadState
 
 /**
  * @ClassName AppDownloadParamDaoManager
@@ -78,6 +79,8 @@ object DaoManager : IUtilK {
         return null
     }
 
+    //////////////////////////////////////////////////////////
+
     fun hasDownloading(): Boolean {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
@@ -123,6 +126,8 @@ object DaoManager : IUtilK {
     fun addAll(vararg appDownloadTask: AppDownloadTask) {
         TaskKExecutor.execute(TAG + "addAll") {
             appDownloadTask.forEach {
+                it.taskState = CAppDownloadState.STATE_TASK_CREATE
+                it.downloadProgress = 0
                 it.taskUpdateTime = System.currentTimeMillis()
             }
             _downloadTasks.addAll(appDownloadTask.toList())
@@ -162,7 +167,11 @@ object DaoManager : IUtilK {
                 break
             }
         }
-        DatabaseManager.appDownloadParamDao.delete(appDownloadTask)
+        try {
+            DatabaseManager.appDownloadParamDao.delete(appDownloadTask)
+        } catch (e: SQLiteDatabaseLockedException) {
+            e.printStackTrace()
+        }
     }
 
 

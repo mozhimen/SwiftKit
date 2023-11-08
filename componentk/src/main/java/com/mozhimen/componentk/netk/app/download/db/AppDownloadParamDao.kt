@@ -25,7 +25,7 @@ interface AppDownloadParamDao {
     fun getByDownloadId(taskId: String): List<AppDownloadTask>
 
     @Query("select * from app_download_task where apk_package_name = :packageName order by task_update_time desc")
-    fun getByPackageName(packageName: String): List<AppDownloadTask>
+    fun getByApkPackageName(packageName: String): List<AppDownloadTask>
 
     //////////////////////////////////////////////////////////
 

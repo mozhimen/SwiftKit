@@ -147,7 +147,7 @@ interface IAppDownloadStateListener : IAppDownloadStateDownload, IAppDownloadSta
     /**
      * 任务成功
      */
-    fun onTaskSuccess(apPDownloadTask: AppDownloadTask)
+    fun onTaskSuccess(appDownloadTask: AppDownloadTask)
 
     /**
      * 任务失败

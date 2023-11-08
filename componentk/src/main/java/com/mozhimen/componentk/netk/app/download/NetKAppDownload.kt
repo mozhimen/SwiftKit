@@ -1,11 +1,12 @@
 package com.mozhimen.componentk.netk.app.download
 
 import android.content.Context
-import android.database.sqlite.SQLiteDatabaseLockedException
 import android.os.Environment
 import android.text.TextUtils
+import androidx.annotation.WorkerThread
 import com.liulishuo.okdownload.core.exception.ServerCanceledException
 import com.mozhimen.basick.elemk.commons.IAB_Listener
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.taskk.handler.TaskKHandler
@@ -51,9 +52,8 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
 
     fun unregisterDownloadListener(listener: IAppDownloadStateListener) {
         val indexOf = _appDownloadStateListeners.indexOf(listener)
-        if (indexOf >= 0) {
+        if (indexOf >= 0)
             _appDownloadStateListeners.removeAt(indexOf)
-        }
     }
 
     /////////////////////////////////////////////////////////////////
@@ -100,7 +100,7 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
     }
 
     fun taskWaitCancel(appDownloadTask: AppDownloadTask) {
-        updateTaskState(appDownloadTask, CAppDownloadState.STATE_TASK_WAIT_CANCEL)
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_TASK_WAIT_CANCEL)
         AppDownloadManager.waitCancel(appDownloadTask)
     }
 
@@ -115,7 +115,7 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
     }
 
     fun downloadPause(appDownloadTask: AppDownloadTask) {
-        updateTaskState(appDownloadTask,CAppDownloadState.STATE_DOWNLOAD_PAUSE)
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_DOWNLOAD_PAUSE)
         AppDownloadManager.pause(appDownloadTask)
     }
 
@@ -143,16 +143,25 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
         return DaoManager.getByApkSaveName(apkSaveName)
     }
 
-    fun getAppDownloadTaskByApkPackageName
+    /**
+     * 通过包名获取下载信息
+     */
+    fun getAppDownloadTaskByApkPackageName(apkPackageName: String): AppDownloadTask? {
+        return DaoManager.getByApkPackageName(apkPackageName)
+    }
 
+    /**
+     * 是否有正在下载的任务
+     */
     fun hasDownloading(): Boolean {
-        val iterator = _appDownloadParams.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (CAppDownloadState.isDownloading(next))
-                return true
-        }
         return DaoManager.hasDownloading()
+    }
+
+    /**
+     * 是否有正在校验的任务
+     */
+    fun hasVerifying(): Boolean {
+        return DaoManager.hasVerifying()
     }
 
     /**
@@ -167,46 +176,32 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
 
     override fun onTaskCreate(appDownloadTask: AppDownloadTask) {
         TaskKExecutor.execute(TAG + "onTaskCreate") {
-            val downloadId = DatabaseManager.appDownloadParamDao.getByDownloadId(appDownloadTask.taskId)//更新本地数据库中的数据
-            if (downloadId.isEmpty()) {
-                DaoManager.addAll(appDownloadTask.apply {
-                    taskState = CAppDownloadState.STATE_TASK_CREATE
-                    downloadProgress = 0
-                    taskUpdateTime = System.currentTimeMillis()
-                })
+            val downloadId = DaoManager.getByDownloadId(appDownloadTask.taskId)//更新本地数据库中的数据
+            if (downloadId != null) {
+                applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_TASK_CREATE, 0)
             } else {
-                DaoManager.update(downloadId[0].apply {
-                    taskState = CAppDownloadState.STATE_TASK_CREATE
-                    downloadProgress = 0
-                })
+                DaoManager.addAll(appDownloadTask)
             }
         }
     }
 
     override fun onTaskWait(appDownloadTask: AppDownloadTask) {
-
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_TASK_WAIT)
     }
 
     override fun onTaskCancel(appDownloadTask: AppDownloadTask) {
-        TaskKHandler.post {
-            for (listener in _appDownloadStateListeners) {
-                listener.onTaskCancel(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_TASK_CANCEL)
     }
 
-    override fun onTaskSuccess(apPDownloadTask: AppDownloadTask) {
-
+    override fun onTaskSuccess(appDownloadTask: AppDownloadTask) {
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_TASK_SUCCESS)
     }
 
     override fun onTaskFail(appDownloadTask: AppDownloadTask) {
-
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_TASK_FAIL)
     }
 
     override fun onDownloadCreate(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_DOWNLOAD_CREATE
-        })
         /*        //将结果传递给服务端
                 GlobalScope.launch(Dispatchers.IO) {
                     if (appDownloadParam.appId == "2") {
@@ -215,102 +210,25 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
                         ApplicationService.updateAppDownload(appDownloadParam.appId)
                     }
                 }*/
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_DOWNLOAD_CREATE
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onDownloadCreate(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_DOWNLOAD_CREATE)
     }
 
     override fun onDownloading(appDownloadTask: AppDownloadTask, progress: Int) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_DOWNLOADING
-            downloadProgress = progress
-        })
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_DOWNLOADING
-                    next.downloadProgress = progress
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onDownloading(appDownloadTask, progress)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_DOWNLOADING, progress)
     }
 
     override fun onDownloadPause(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_DOWNLOAD_PAUSE
-        })
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_DOWNLOAD_PAUSE
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onDownloadPause(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_DOWNLOAD_PAUSE)
     }
 
     override fun onDownloadCancel(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_TASK_CANCEL
-        })
-        TaskKHandler.post {
-            //先修改内存中保存的信息
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_TASK_CANCEL
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onTaskCancel(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_DOWNLOAD_CANCEL)
     }
 
     override fun onDownloadSuccess(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_DOWNLOAD_SUCCESS
-            downloadProgress = 100
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_DOWNLOAD_SUCCESS, nextMethod = {
+            installCreate(appDownloadTask)//下载完成，去安装
         })
-        TaskKHandler.post {
-            //先修改内存中保存的信息
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_DOWNLOAD_SUCCESS
-                    break
-                }
-            }
-            //然后调用回调，通知外部已经下载成功
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onDownloadSuccess(appDownloadTask)
-            }
-            //下载完成，去安装
-            installCreate(appDownloadTask)
-        }
     }
 
     fun onDownloadFail(appDownloadTask: AppDownloadTask, exception: Exception?) {
@@ -326,267 +244,68 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
     }
 
     override fun onDownloadFail(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_DOWNLOAD_FAIL
-        })
-        TaskKHandler.post {
-            //先修改内存中保存的信息
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_DOWNLOAD_FAIL
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onDownloadFail(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_DOWNLOAD_FAIL)
     }
 
     /////////////////////////////////////////////////////////////////
 
     override fun onVerifyCreate(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_VERIFY_CREATE
-        })
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_VERIFY_CREATE
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onVerifyCreate(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_VERIFY_CREATE)
     }
 
     override fun onVerifying(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_VERIFYING
-        })
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_VERIFYING
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onVerifying(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_VERIFYING)
     }
 
     override fun onVerifySuccess(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_VERIFY_SUCCESS
-        })
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_VERIFY_SUCCESS
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onVerifySuccess(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_VERIFY_SUCCESS)
     }
 
     override fun onVerifyFail(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_VERIFY_FAIL
-        })
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_VERIFY_FAIL
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onVerifyFail(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_VERIFY_FAIL)
     }
 
     /////////////////////////////////////////////////////////////////
 
     override fun onUnzipCreate(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_UNZIP_CREATE
-        })
-        TaskKHandler.post {
-            //先修改内存中保存的信息
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_UNZIP_CREATE
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onUnzipCreate(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_UNZIP_CREATE)
     }
 
     override fun onUnziping(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_UNZIPING
-        })
-        TaskKHandler.post {
-            //先修改内存中保存的信息
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_UNZIPING
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onUnziping(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_UNZIPING)
     }
 
     override fun onUnzipSuccess(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_UNZIP_SUCCESS
-        })
-        TaskKHandler.post {
-            //先修改内存中保存的信息
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_UNZIP_SUCCESS
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onUnzipSuccess(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_UNZIP_SUCCESS)
     }
 
     override fun onUnzipFail(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_UNZIP_FAIL
-        })
-        TaskKHandler.post {
-//            AlertTools.showToast("解压失败，请检测存储空间是否足够！")
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_UNZIP_FAIL
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onUnzipFail(appDownloadTask)
-            }
-        }
+        //            AlertTools.showToast("解压失败，请检测存储空间是否足够！")
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_UNZIP_FAIL)
     }
 
     /////////////////////////////////////////////////////////////////
 
     override fun onInstallCreate(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_INSTALL_CREATE
-        })
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_INSTALL_CREATE
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onInstallCreate(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_INSTALL_CREATE)
     }
 
     override fun onInstalling(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_INSTALLING
-        })
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_INSTALLING
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onInstalling(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask, CAppDownloadState.STATE_INSTALLING)
     }
 
     override fun onInstallSuccess(appDownloadTask: AppDownloadTask) {
         if (appDownloadTask.apkPackageName.isEmpty()) return
         TaskKExecutor.execute(TAG + "onInstallSuccess") {
-            val appDownloadParams = DatabaseManager.appDownloadParamDao.getByPackageName(appDownloadTask.apkPackageName)//从本地数据库中查询出下载信息
-            if (appDownloadParams.isEmpty()) return@execute//如果查询不到，就不处理
-            val appDownloadParam0 = appDownloadParams[0]
-            //删除数据库中的其他已安装的数据，相同包名的只保留一条已安装的数据
-            for (param in appDownloadParams) {
-                if (param.apkIsInstalled) {
-                    try {
-                        DatabaseManager.appDownloadParamDao.delete(param)
-                    } catch (e: SQLiteDatabaseLockedException) {
-                        e.printStackTrace()
-                    }
-                }
-            }
+            val appDownloadParam = DaoManager.getByApkPackageName(appDownloadTask.apkPackageName) ?: return@execute//从本地数据库中查询出下载信息//如果查询不到，就不处理
+            if (appDownloadParam.apkIsInstalled)//删除数据库中的其他已安装的数据，相同包名的只保留一条已安装的数据
+                DaoManager.deleteOnBack(appDownloadParam)
             //将安装状态发给后端
             /*            GlobalScope.launch(Dispatchers.IO) {
                             ApplicationService.install(appDownloadParam0.appId)
                         }*/
             //将安装状态更新到数据库中
-            DaoManager.updateOnBack(appDownloadParam0.apply {
-                taskState = CAppDownloadState.STATE_INSTALL_SUCCESS
-                downloadProgress = 0
-                taskUpdateTime = System.currentTimeMillis()
-                //更新安装的状态为1 q
-                apkIsInstalled = true
-            })
-            //调用回调
-            TaskKHandler.post {
-                val iterator = _appDownloadParams.iterator()
-                while (iterator.hasNext()) {
-                    val next = iterator.next()
-                    if (next.downloadId == appDownloadParam0.taskId && next.apkPackageName == appDownloadParam0.apkPackageName) {
-                        next.downloadState = CAppDownloadState.STATE_INSTALL_SUCCESS
-                        break
-                    }
-                }
-                for (fileDownloadListener in _appDownloadStateListeners) {
-                    fileDownloadListener.onInstallSuccess(appDownloadParam0)
-                }
-            }
+            applyAppDownloadTaskStateOnBack(appDownloadTask.apply {  apkIsInstalled = true},CAppDownloadState.STATE_INSTALL_SUCCESS,0)//更新安装的状态为1 q })
             /*            //TODO 如果设置自动删除安装包，安装成功后删除安装包
                         if (AutoDeleteApkSettingHelper.isAutoDelete()) {
                             if (deleteApkFile(appDownloadParam0)) {
@@ -599,22 +318,7 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
     }
 
     override fun onInstallFail(appDownloadTask: AppDownloadTask) {
-        DaoManager.update(appDownloadTask.apply {
-            taskState = CAppDownloadState.STATE_INSTALL_FAIL
-        })
-        TaskKHandler.post {
-            val iterator = _appDownloadParams.iterator()
-            while (iterator.hasNext()) {
-                val next = iterator.next()
-                if (next.downloadId == appDownloadTask.taskId) {
-                    next.downloadState = CAppDownloadState.STATE_TASK_FAIL
-                    break
-                }
-            }
-            for (fileDownloadListener in _appDownloadStateListeners) {
-                fileDownloadListener.onInstallFail(appDownloadTask)
-            }
-        }
+        applyAppDownloadTaskState(appDownloadTask,CAppDownloadState.STATE_INSTALL_FAIL)
     }
 
     /////////////////////////////////////////////////////////////////
@@ -622,83 +326,67 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
     override fun onUninstallCreate(appDownloadTask: AppDownloadTask) {
         if (appDownloadTask.apkPackageName.isEmpty()) return
         TaskKExecutor.execute(TAG + "onUnInstall") {
-            val appDownloadParams = DatabaseManager.appDownloadParamDao.getByPackageName(appDownloadTask.apkPackageName)
-            var appDownloadTask0: AppDownloadTask? = null
-            if (appDownloadParams.isNotEmpty()) {
-                appDownloadTask0 = appDownloadParams[0]
-            } else {//如果查不到，去列表中查询
-                val iterator = _appDownloadParams.iterator()
-                while (iterator.hasNext()) {
-                    val next = iterator.next()
-                    if (next.apkPackageName == appDownloadTask.apkPackageName) {
-                        appDownloadTask0 = next
-                        break
-                    }
-                }
-            }
-            if (null == appDownloadTask0) return@execute
-            DaoManager.update(appDownloadTask0.apply {
-                apkIsInstalled = false//设置为未安装
-            })
-            TaskKHandler.post {
-                val iterator = _appDownloadParams.iterator()
-                while (iterator.hasNext()) {
-                    val next = iterator.next()
-                    if (next.downloadId == appDownloadTask0.taskId && next.apkPackageName == appDownloadTask0.apkPackageName) {
-                        next.downloadState = CAppDownloadState.STATE_TASK_CREATE
-                        next.downloadProgress = 0
-                        break
-                    }
-                }
-                for (fileDownloadListener in _appDownloadStateListeners) {
-                    fileDownloadListener.onUninstallCreate(appDownloadTask0)
-                }
-            }
+            val appDownloadParam = DaoManager.getByApkPackageName(appDownloadTask.apkPackageName) ?: return@execute
+            applyAppDownloadTaskStateOnBack(appDownloadParam.apply { apkIsInstalled = false },CAppDownloadState.STATE_UNINSTALL_CREATE,0)//设置为未安装
         }
     }
 
     /////////////////////////////////////////////////////////////////
 
-    private fun updateTaskState(appDownloadTask: AppDownloadTask, state: Int, progress: Int = 0) {
+    private fun applyAppDownloadTaskState(appDownloadTask: AppDownloadTask, state: Int, progress: Int = -1, nextMethod: I_Listener? = null) {
         DaoManager.update(appDownloadTask.apply {
             taskState = state
-            if (progress != 0) downloadProgress = progress
+            if (progress > -1) downloadProgress = progress
         })
+        postAppDownloadTaskState(appDownloadTask, state, progress, nextMethod)
+    }
+
+    @WorkerThread
+    private fun applyAppDownloadTaskStateOnBack(appDownloadTask: AppDownloadTask, state: Int, progress: Int = -1, nextMethod: I_Listener? = null) {
+        DaoManager.updateOnBack(appDownloadTask.apply {
+            taskState = state
+            if (progress > -1) downloadProgress = progress
+        })
+        postAppDownloadTaskState(appDownloadTask, state, progress, nextMethod)
+    }
+
+    private fun postAppDownloadTaskState(appDownloadTask: AppDownloadTask, state: Int, progress: Int = -1, nextMethod: I_Listener? = null){
         TaskKHandler.post {
-            for (fileDownloadListener in _appDownloadStateListeners) {
+            for (listener in _appDownloadStateListeners) {
                 when (state) {
-                    CAppDownloadState.STATE_TASK_CREATE -> fileDownloadListener.onTaskCreate(appDownloadTask)
-                    CAppDownloadState.STATE_TASK_WAIT -> fileDownloadListener.onTaskWait(appDownloadTask)
-                    CAppDownloadState.STATE_TASK_WAIT_CANCEL -> fileDownloadListener.onTaskWaitCancel(appDownloadTask)
-                    CAppDownloadState.STATE_TASK_CANCEL -> fileDownloadListener.onTaskCancel(appDownloadTask)
-                    CAppDownloadState.STATE_TASK_SUCCESS -> fileDownloadListener.onTaskSuccess(appDownloadTask)
-                    CAppDownloadState.STATE_TASK_FAIL -> fileDownloadListener.onTaskFail(appDownloadTask)
+                    CAppDownloadState.STATE_TASK_CREATE -> listener.onTaskCreate(appDownloadTask)
+                    CAppDownloadState.STATE_TASK_WAIT -> listener.onTaskWait(appDownloadTask)
+                    CAppDownloadState.STATE_TASK_WAIT_CANCEL -> listener.onTaskWaitCancel(appDownloadTask)
+                    CAppDownloadState.STATE_TASK_CANCEL -> listener.onTaskCancel(appDownloadTask)
+                    CAppDownloadState.STATE_TASK_SUCCESS -> listener.onTaskSuccess(appDownloadTask)
+                    CAppDownloadState.STATE_TASK_FAIL -> listener.onTaskFail(appDownloadTask)
                     ///////////////////////////////////////////////////////////////////////////////
-                    CAppDownloadState.STATE_DOWNLOAD_CREATE -> fileDownloadListener.onDownloadCreate(appDownloadTask)
-                    CAppDownloadState.STATE_DOWNLOADING -> fileDownloadListener.onDownloading(appDownloadTask, progress)
-                    CAppDownloadState.STATE_DOWNLOAD_PAUSE -> fileDownloadListener.onDownloadPause(appDownloadTask)
-                    CAppDownloadState.STATE_DOWNLOAD_CANCEL -> fileDownloadListener.onDownloadCancel(appDownloadTask)
-                    CAppDownloadState.STATE_DOWNLOAD_SUCCESS -> fileDownloadListener.onDownloadSuccess(appDownloadTask)
-                    CAppDownloadState.STATE_DOWNLOAD_FAIL -> fileDownloadListener.onDownloadFail(appDownloadTask)
+                    CAppDownloadState.STATE_DOWNLOAD_CREATE -> listener.onDownloadCreate(appDownloadTask)
+                    CAppDownloadState.STATE_DOWNLOADING -> listener.onDownloading(appDownloadTask, progress)
+                    CAppDownloadState.STATE_DOWNLOAD_PAUSE -> listener.onDownloadPause(appDownloadTask)
+                    CAppDownloadState.STATE_DOWNLOAD_CANCEL -> listener.onDownloadCancel(appDownloadTask)
+                    CAppDownloadState.STATE_DOWNLOAD_SUCCESS -> listener.onDownloadSuccess(appDownloadTask)
+                    CAppDownloadState.STATE_DOWNLOAD_FAIL -> listener.onDownloadFail(appDownloadTask)
                     ///////////////////////////////////////////////////////////////////////////////
-                    CAppDownloadState.STATE_VERIFY_CREATE -> fileDownloadListener.onVerifyCreate(appDownloadTask)
-                    CAppDownloadState.STATE_VERIFYING -> fileDownloadListener.onVerifying(appDownloadTask)
-                    CAppDownloadState.STATE_VERIFY_SUCCESS -> fileDownloadListener.onVerifySuccess(appDownloadTask)
-                    CAppDownloadState.STATE_VERIFY_FAIL -> fileDownloadListener.onVerifyFail(appDownloadTask)
+                    CAppDownloadState.STATE_VERIFY_CREATE -> listener.onVerifyCreate(appDownloadTask)
+                    CAppDownloadState.STATE_VERIFYING -> listener.onVerifying(appDownloadTask)
+                    CAppDownloadState.STATE_VERIFY_SUCCESS -> listener.onVerifySuccess(appDownloadTask)
+                    CAppDownloadState.STATE_VERIFY_FAIL -> listener.onVerifyFail(appDownloadTask)
                     ///////////////////////////////////////////////////////////////////////////////
-                    CAppDownloadState.STATE_UNZIP_CREATE -> fileDownloadListener.onUnzipCreate(appDownloadTask)
-                    CAppDownloadState.STATE_UNZIPING -> fileDownloadListener.onUnziping(appDownloadTask)
-                    CAppDownloadState.STATE_UNZIP_SUCCESS -> fileDownloadListener.onUnzipSuccess(appDownloadTask)
-                    CAppDownloadState.STATE_UNZIP_FAIL -> fileDownloadListener.onUnzipFail(appDownloadTask)
+                    CAppDownloadState.STATE_UNZIP_CREATE -> listener.onUnzipCreate(appDownloadTask)
+                    CAppDownloadState.STATE_UNZIPING -> listener.onUnziping(appDownloadTask)
+                    CAppDownloadState.STATE_UNZIP_SUCCESS -> listener.onUnzipSuccess(appDownloadTask)
+                    CAppDownloadState.STATE_UNZIP_FAIL -> listener.onUnzipFail(appDownloadTask)
                     ///////////////////////////////////////////////////////////////////////////////
-                    CAppDownloadState.STATE_INSTALL_CREATE -> fileDownloadListener.onInstallCreate(appDownloadTask)
-                    CAppDownloadState.STATE_INSTALLING -> fileDownloadListener.onInstalling(appDownloadTask)
-                    CAppDownloadState.STATE_INSTALL_SUCCESS -> fileDownloadListener.onInstallSuccess(appDownloadTask)
-                    CAppDownloadState.STATE_INSTALL_FAIL -> fileDownloadListener.onInstallFail(appDownloadTask)
+                    CAppDownloadState.STATE_INSTALL_CREATE -> listener.onInstallCreate(appDownloadTask)
+                    CAppDownloadState.STATE_INSTALLING -> listener.onInstalling(appDownloadTask)
+                    CAppDownloadState.STATE_INSTALL_SUCCESS -> listener.onInstallSuccess(appDownloadTask)
+                    CAppDownloadState.STATE_INSTALL_FAIL -> listener.onInstallFail(appDownloadTask)
                     ///////////////////////////////////////////////////////////////////////////////
-                    CAppDownloadState.STATE_UNINSTALL_CREATE -> fileDownloadListener.onUninstallCreate(appDownloadTask)
+                    CAppDownloadState.STATE_UNINSTALL_CREATE -> listener.onUninstallCreate(appDownloadTask)
                 }
             }
+            nextMethod?.invoke()
         }
     }
 
@@ -706,28 +394,36 @@ object NetKAppDownload : IAppDownloadStateListener, IUtilK {
      * 安装apk文件
      */
     private fun installApk(appDownloadTask: AppDownloadTask) {
-        //如果文件没有MD5值或者为空，则不校验 直接去安装
-        if (appDownloadTask.apkFileMd5.isEmpty() || "NONE" == appDownloadTask.apkFileMd5) {
-            val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: return
-            InstallApkHelper.installApk(appDownloadTask, File(externalFilesDir, appDownloadTask.apkSaveName))
+        if (appDownloadTask.apkFileMd5.isEmpty() || "NONE" == appDownloadTask.apkFileMd5) {//如果文件没有MD5值或者为空，则不校验 直接去安装
+            InstallApkHelper.installApk(appDownloadTask, File(UtilKFileDir.External.getFilesDownloadsDir() ?: return, appDownloadTask.apkSaveName))
             return
         }
         TaskKExecutor.execute(TAG + "installApk") {
             val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: kotlin.run {
+                /**
+                 * [CAppDownloadState.STATE_VERIFY_FAIL]
+                 */
                 onVerifyFail(appDownloadTask)
                 return@execute
             }
             val apkFile = File(externalFilesDir, appDownloadTask.apkSaveName)
             if (!apkFile.exists()) {
+                /**
+                 * [CAppDownloadState.STATE_VERIFY_FAIL]
+                 */
                 onVerifyFail(appDownloadTask)
                 return@execute
             }
             //判断是否需要校验MD5值
             if (isNeedVerify(appDownloadTask)) {
+                /**
+                 * @see CAppDownloadState.STATE_VERIFYING
+                 */
                 onVerifying(appDownloadTask)
+
                 val apkFileMd5Remote = appDownloadTask.apkFileMd5//如果本地文件存在，且MD5值相等
-                if (apkFileMd5Remote.isNotEmpty() && "NONE" != apkFileMd5Remote) {
-                    val apkFileMd5Locale = (apkFile.file2strMd5() ?: "") + "1"//取文件的MD5值
+                if (apkFileMd5Remote.isNotEmpty()) {
+                    val apkFileMd5Locale = (apkFile.file2strMd5() ?: "") /*+ "1"*///取文件的MD5值
                     if (!TextUtils.equals(apkFileMd5Remote, apkFileMd5Locale)) {
                         onVerifyFail(appDownloadTask)
 

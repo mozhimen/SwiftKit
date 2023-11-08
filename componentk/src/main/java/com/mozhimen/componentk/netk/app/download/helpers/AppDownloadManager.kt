@@ -13,7 +13,7 @@ import com.mozhimen.basick.utilk.java.io.UtilKFileDir
 import com.mozhimen.componentk.netk.app.download.cons.CAppDownloadErrorCode
 import com.mozhimen.componentk.netk.app.download.db.AppDownloadTask
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
-import com.mozhimen.componentk.netk.app.download.mos.AppDownloadProgress
+import com.mozhimen.componentk.netk.app.download.mos.MAppDownloadProgress
 
 /**
  * @ClassName AppDownloadManager
@@ -119,7 +119,7 @@ object AppDownloadManager {
     /**
      * 查询下载状态
      */
-    fun getAppDownloadProgress(appDownloadTask: AppDownloadTask): AppDownloadProgress {
+    fun getAppDownloadProgress(appDownloadTask: AppDownloadTask): MAppDownloadProgress {
         val task = getTask(appFileParams)
         task ?: return AppDownloadStatus().apply {
             appState = AppState.APP_STATE_NOT_DOWNLOADED

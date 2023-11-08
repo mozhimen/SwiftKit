@@ -9,7 +9,7 @@ import com.mozhimen.componentk.netk.app.download.cons.CAppDownloadState
  * @Date 2023/11/8 13:56
  * @Version 1.0
  */
-data class AppDownloadProgress(
+data class MAppDownloadProgress(
     val progressState: Int = CAppDownloadState.STATE_TASK_CREATE,
     val progress: Int = 0
 ) {
