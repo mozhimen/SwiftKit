@@ -23,7 +23,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/elemk_vbvm_btn"
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:text="ADD NUM"
             android:onClick="@{()->elemk_vbvm.addNum()}"
             tools:ignore="HardcodedText" />

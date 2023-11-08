@@ -15,8 +15,8 @@ internal object SearchAttrsParser : IAttrsParser2<MSearchAttrs> {
 
     override fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MSearchAttrs {
         val value = TypedValue()
-        UtilKTheme.resolveAttribute(context, R.attr.LayoutKSearch_LayoutKSearch_Style, value, true)
-        val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.LayoutKSearch_Style
+        UtilKTheme.resolveAttribute(context, R.attr.LayoutKSearch_StyleK_LayoutKSearch, value, true)
+        val defStyleRes = if (value.resourceId != 0) value.resourceId else R.style.StyleK_LayoutKSearch
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKSearch, defStyleAttr, defStyleRes)
         //search icon

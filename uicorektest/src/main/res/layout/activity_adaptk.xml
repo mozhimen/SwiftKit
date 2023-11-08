@@ -11,7 +11,7 @@
         tools:context=".adaptk.AdaptKActivity">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/UicoreKStyle_Btn"
             android:onClick="goSystemBar"
             android:text="goSystemBar"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

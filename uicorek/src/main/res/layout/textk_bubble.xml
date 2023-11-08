@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.mozhimen.uicorek.textk.bubble.TextKBubble xmlns:tools="http://schemas.android.com/tools"
-    style="@style/TextKBubble_Style"
+    style="@style/StyleK_TextKBubble"
     tools:text="test text" />

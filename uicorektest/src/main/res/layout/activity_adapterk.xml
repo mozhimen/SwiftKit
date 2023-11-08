@@ -10,25 +10,25 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/UicoreKStyle_Btn"
             android:onClick="goAdapterKRecycler"
             android:text="goAdapterKRecycler"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/UicoreKStyle_Btn"
             android:onClick="goAdapterKRecyclerStuffed"
             android:text="goAdapterKRecyclerStuffed"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/UicoreKStyle_Btn"
             android:onClick="goAdapterKRecyclerVb2"
             android:text="goAdapterKRecyclerVb2"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/UicoreKStyle_Btn"
             android:onClick="goAdapterKRecyclerVb"
             android:text="goAdapterKRecyclerVb"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

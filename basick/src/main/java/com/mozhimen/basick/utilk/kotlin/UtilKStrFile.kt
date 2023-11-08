@@ -8,6 +8,25 @@ import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFile
 import com.mozhimen.basick.utilk.java.io.UtilKFileFormat
+import com.mozhimen.basick.utilk.java.io.createFile
+import com.mozhimen.basick.utilk.java.io.createFolder
+import com.mozhimen.basick.utilk.java.io.deleteFile
+import com.mozhimen.basick.utilk.java.io.deleteFolder
+import com.mozhimen.basick.utilk.java.io.file2bytes
+import com.mozhimen.basick.utilk.java.io.file2bytes2
+import com.mozhimen.basick.utilk.java.io.file2bytesCheck
+import com.mozhimen.basick.utilk.java.io.file2fileInputStream
+import com.mozhimen.basick.utilk.java.io.file2fileOutputStream
+import com.mozhimen.basick.utilk.java.io.file2str
+import com.mozhimen.basick.utilk.java.io.file2uri
+import com.mozhimen.basick.utilk.java.io.getFileSizeAvailable
+import com.mozhimen.basick.utilk.java.io.getFileSizeTotal
+import com.mozhimen.basick.utilk.java.io.getFolderAllFiles
+import com.mozhimen.basick.utilk.java.io.getFolderFiles
+import com.mozhimen.basick.utilk.java.io.getNameExpExtension
+import com.mozhimen.basick.utilk.java.io.isFileExist
+import com.mozhimen.basick.utilk.java.io.isFolder
+import com.mozhimen.basick.utilk.java.io.isFolderExist
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -49,6 +68,9 @@ fun String.strFilePath2fileOutputStream(isAppend: Boolean = false): FileOutputSt
 
 fun String.strFilePath2fileInputStream(): FileInputStream =
     UtilKStrFile.strFilePath2fileInputStream(this)
+
+fun String.strFilePath2fileInputStream2(): FileInputStream =
+    UtilKStrFile.strFilePath2fileInputStream2(this)
 
 fun String.strFilePath2file(): File =
     UtilKStrFile.strFilePath2file(this)
@@ -121,7 +143,7 @@ object UtilKStrFile : IUtilK {
     @JvmStatic
     fun getFileNameExpExtension(strFilePathName: String): String? =
         if (strFilePathName.isEmpty()) null
-        else UtilKFile.getNameExpExtension(strFilePathName.strFilePath2file())
+        else strFilePathName.strFilePath2file().getNameExpExtension()
 
     /**
      * 获取文件大小
@@ -129,7 +151,7 @@ object UtilKStrFile : IUtilK {
     @JvmStatic
     fun getFileSizeTotal(strFilePathName: String): Long? =
         if (strFilePathName.isEmpty()) null
-        else UtilKFile.getFileSizeTotal(strFilePathName.strFilePath2file())
+        else strFilePathName.strFilePath2file().getFileSizeTotal()
 
     /**
      * 获取文件大小
@@ -137,7 +159,7 @@ object UtilKStrFile : IUtilK {
     @JvmStatic
     fun getFileSizeAvailable(strFilePathName: String): Long? =
         if (strFilePathName.isEmpty()) null
-        else UtilKFile.getFileSizeAvailable(strFilePathName.strFilePath2file())
+        else strFilePathName.strFilePath2file().getFileSizeAvailable()
 
     //////////////////////////////////////////////////////////////////////
 
@@ -153,21 +175,25 @@ object UtilKStrFile : IUtilK {
      */
     @JvmStatic
     fun isFileExist(strFilePathName: String): Boolean =
-        UtilKFile.isFileExist(strFilePathName.strFilePath2file())
+        strFilePathName.strFilePath2file().isFileExist()
 
     /////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun strFilePath2str(strFilePathName: String): String? =
-        UtilKFileFormat.file2str(strFilePathName.strFilePath2file())
+        strFilePathName.strFilePath2file().file2str()
 
     @JvmStatic
     fun strFilePath2fileOutputStream(strFilePathName: String, isAppend: Boolean = false): FileOutputStream =
-        UtilKFileFormat.file2fileOutputStream(strFilePathName.strFilePath2file(), isAppend)
+        strFilePathName.strFilePath2file().file2fileOutputStream(isAppend)
 
     @JvmStatic
     fun strFilePath2fileInputStream(strFilePathName: String): FileInputStream =
-        UtilKFileFormat.file2fileInputStream(strFilePathName.strFilePath2file())
+        FileInputStream(strFilePathName)
+
+    @JvmStatic
+    fun strFilePath2fileInputStream2(strFilePathName: String): FileInputStream =
+        strFilePathName.strFilePath2file().file2fileInputStream()
 
     @JvmStatic
     fun strFilePath2file(strFilePathNameDest: String): File =
@@ -177,15 +203,15 @@ object UtilKStrFile : IUtilK {
 
     @JvmStatic
     fun strFilePath2bytes(strFilePathName: String): ByteArray? =
-        UtilKFileFormat.file2bytes(strFilePathName.strFilePath2file())
+        strFilePathName.strFilePath2file().file2bytes()
 
     @JvmStatic
     fun strFilePath2bytesCheck(strFilePathName: String): ByteArray? =
-        UtilKFileFormat.file2bytesCheck(strFilePathName.strFilePath2file())
+        strFilePathName.strFilePath2file().file2bytesCheck()
 
     @JvmStatic
     fun strFilePath2bytes2(strFilePathName: String): ByteArray? =
-        UtilKFileFormat.file2bytes2(strFilePathName.strFilePath2file())
+        strFilePathName.strFilePath2file().file2bytes2()
 
     /**
      * 文件转Uri
@@ -193,7 +219,7 @@ object UtilKStrFile : IUtilK {
     @JvmStatic
     @ADescription(CIntent.FLAG_GRANT_READ_URI_PERMISSION.toString(), CIntent.FLAG_GRANT_WRITE_URI_PERMISSION.toString())
     fun strFilePath2uri(strFilePathName: String): Uri? =
-        UtilKFileFormat.file2uri(File(strFilePathName))
+        strFilePathName.strFilePath2file().file2uri()
 
     @JvmStatic
     fun strFilePath2bitmapAny(strFilePathName: String): Bitmap? =
@@ -212,7 +238,7 @@ object UtilKStrFile : IUtilK {
      */
     @JvmStatic
     fun createFile(strFilePathName: String): File =
-        UtilKFile.createFile(strFilePathName.strFilePath2file())
+        strFilePathName.strFilePath2file().createFile()
 
     /**
      * 复制文件
@@ -233,7 +259,7 @@ object UtilKStrFile : IUtilK {
      */
     @JvmStatic
     fun deleteFile(strFilePathName: String): Boolean =
-        UtilKFile.deleteFile(strFilePathName.strFilePath2file())
+        strFilePathName.strFilePath2file().deleteFile()
     //endregion
 
     //region # folder
@@ -243,11 +269,11 @@ object UtilKStrFile : IUtilK {
 
     @JvmStatic
     fun getFolderFiles(folderPath: String): Array<File> =
-        UtilKFile.getFolderFiles(folderPath.getStrFolderPath().strFilePath2file())
+        folderPath.getStrFolderPath().strFilePath2file().getFolderFiles()
 
     @JvmStatic
     fun getFolderAllFiles(folderPath: String, fileType: String? = null): Vector<File> =
-        UtilKFile.getFolderAllFiles(folderPath.getStrFolderPath().strFilePath2file(), fileType)
+        folderPath.getStrFolderPath().strFilePath2file().getFolderAllFiles(fileType)
 
     //////////////////////////////////////////////////////////////////////
 
@@ -256,27 +282,27 @@ object UtilKStrFile : IUtilK {
      */
     @JvmStatic
     fun isFolder(folderPath: String): Boolean =
-        UtilKFile.isFolder(folderPath.getStrFolderPath().strFilePath2file())
+        folderPath.getStrFolderPath().strFilePath2file().isFolder()
 
     /**
      * 文件夹是否存在
      */
     @JvmStatic
     fun isFolderExist(folderPath: String): Boolean =
-        UtilKFile.isFolderExist(folderPath.getStrFolderPath().strFilePath2file())
+        folderPath.getStrFolderPath().strFilePath2file().isFolderExist()
 
     /**
      * 创建文件夹
      */
     @JvmStatic
     fun createFolder(folderPath: String): File =
-        UtilKFile.createFolder(folderPath.getStrFolderPath().strFilePath2file())
+        folderPath.getStrFolderPath().strFilePath2file().createFolder()
 
     /**
      * 删除文件夹
      */
     @JvmStatic
     fun deleteFolder(folderPath: String): Boolean =
-        UtilKFile.deleteFolder(folderPath.getStrFolderPath().strFilePath2file())
+        folderPath.getStrFolderPath().strFilePath2file().deleteFolder()
     //endregion
 }

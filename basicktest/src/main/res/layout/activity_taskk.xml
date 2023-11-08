@@ -10,31 +10,31 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goTaskKAsync"
             android:text="goTaskKAsync"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goTaskKCountDown"
             android:text="goTaskKCountDown"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goTaskKExecutor"
             android:text="goTaskKExecutor"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goTaskKLocation"
             android:text="goTaskKLocation"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goTaskKPoll"
             android:text="goTaskKPoll"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

@@ -12,21 +12,21 @@
 
         <TextView
             android:id="@+id/dialogk_tip_txt"
-            style="@style/Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap"
+            style="@style/StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014.Width_Wrap.Height_Wrap"
             android:layout_width="match_parent"
             android:layout_marginBottom="@dimen/dp_010"
             tools:text="这是提示" />
 
         <Button
             android:id="@+id/dialogk_tip_btn_sure"
-            style="@style/Btn_Style.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040.Back_Null"
+            style="@style/StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040.Back_Null"
             android:layout_marginBottom="@dimen/dp_010"
             android:text="确认"
             tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/dialogk_tip_btn_cancel"
-            style="@style/Btn_Style.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040.Back_Null"
+            style="@style/StyleK_Btn.Ellip_End.StateL_Anim_Null.PH_10.Width_Mat.Height_040.Back_Null"
             android:text="取消"
             tools:ignore="HardcodedText" />
     </LinearLayout>

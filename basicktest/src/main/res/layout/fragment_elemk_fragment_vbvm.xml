@@ -15,7 +15,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/elemk_fragment_vbvm_btn"
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:text="Add Num(VBVM)"
             tools:ignore="HardcodedText" />
 

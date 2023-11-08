@@ -12,7 +12,7 @@
 
         <TextView
             android:id="@+id/taskk_location_txt"
-            style="@style/Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014"
+            style="@style/StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_014"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

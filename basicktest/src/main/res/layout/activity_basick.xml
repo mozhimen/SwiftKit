@@ -15,55 +15,55 @@
             android:orientation="vertical">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/BasicKStyle_Btn"
                 android:onClick="goAnimK"
                 android:text="goAnimK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/BasicKStyle_Btn"
                 android:onClick="goCacheK"
                 android:text="goCacheK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/BasicKStyle_Btn"
                 android:onClick="goElemK"
                 android:text="goElemK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/BasicKStyle_Btn"
                 android:onClick="goImageK"
                 android:text="goImageK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/BasicKStyle_Btn"
                 android:onClick="goManifestK"
                 android:text="goManifestK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/BasicKStyle_Btn"
                 android:onClick="goPostK"
                 android:text="goPostK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/BasicKStyle_Btn"
                 android:onClick="goStackK"
                 android:text="goStackK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/BasicKStyle_Btn"
                 android:onClick="goTaskK"
                 android:text="goTaskK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/BasicKStyle_Btn"
                 android:onClick="goUtilK"
                 android:text="goUtilK"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

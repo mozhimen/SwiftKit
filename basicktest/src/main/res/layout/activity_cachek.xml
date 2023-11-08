@@ -11,19 +11,19 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goCachekDS"
             android:text="goCachekDS (Datastore)"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goCachekRM"
             android:text="goCachekRM (Room)"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goCachekSP"
             android:text="goCachekSP (SharedPreferences)"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

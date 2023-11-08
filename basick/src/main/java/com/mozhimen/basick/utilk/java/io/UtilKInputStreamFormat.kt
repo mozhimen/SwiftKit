@@ -14,6 +14,8 @@ import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.security.UtilKMd5
 import com.mozhimen.basick.utilk.kotlin.bytes2str
 import com.mozhimen.basick.utilk.kotlin.bytes2strHex
+import com.mozhimen.basick.utilk.kotlin.bytes2strHex2
+import com.mozhimen.basick.utilk.kotlin.bytes2strHexOfBigInteger
 import com.mozhimen.basick.utilk.kotlin.createFile
 import com.mozhimen.basick.utilk.kotlin.normalize
 import java.io.BufferedInputStream
@@ -51,17 +53,26 @@ fun InputStream.inputStream2bytesCheck(fileLength: Long): ByteArray =
 
 ////////////////////////////////////////////////////////////////////////////
 
+fun InputStream.inputStream2bytesMd5(): ByteArray =
+    UtilKInputStreamFormat.inputStream2bytesMd5(this)
+
+fun InputStream.inputStream2bytesMd52(): ByteArray =
+    UtilKInputStreamFormat.inputStream2bytesMd52(this)
+
 fun InputStream.inputStream2strMd5(): String =
     UtilKInputStreamFormat.inputStream2strMd5(this)
 
 fun InputStream.inputStream2strMd52(): String =
     UtilKInputStreamFormat.inputStream2strMd52(this)
 
-fun InputStream.inputStream2strOfReadSingleLine(charset: String?=null,readSize: Int=0): String =
-    UtilKInputStreamFormat.inputStream2strOfReadSingleLine(this,charset,readSize)
+fun InputStream.inputStream2strMd53(): String =
+    UtilKInputStreamFormat.inputStream2strMd53(this)
 
-fun InputStream.inputStream2strOfReadMultiLines(charset: String?=null,readSize: Int=0): String =
-    UtilKInputStreamFormat.inputStream2strOfReadMultiLines(this,charset,readSize)
+fun InputStream.inputStream2strOfReadSingleLine(charset: String? = null, readSize: Int = 0): String =
+    UtilKInputStreamFormat.inputStream2strOfReadSingleLine(this, charset, readSize)
+
+fun InputStream.inputStream2strOfReadMultiLines(charset: String? = null, readSize: Int = 0): String =
+    UtilKInputStreamFormat.inputStream2strOfReadMultiLines(this, charset, readSize)
 
 fun InputStream.inputStream2strOfBytesOutStream(byteArrayOutputStream: ByteArrayOutputStream): String =
     UtilKInputStreamFormat.inputStream2strOfBytesOutStream(this, byteArrayOutputStream)
@@ -171,38 +182,58 @@ object UtilKInputStreamFormat : IUtilK {
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
+    fun inputStream2bytesMd5(inputStream: InputStream): ByteArray =
+        inputStream.use {
+            val messageDigest: MessageDigest = UtilKMd5.get()
+            var readCount: Int
+            val bytes = ByteArray(1024 * 1024)
+            while (inputStream.read(bytes).also { readCount = it } != -1)
+                messageDigest.update(bytes, 0, readCount)
+            messageDigest.digest()
+        }
+
+    @JvmStatic
+    @Throws(NoSuchAlgorithmException::class)
+    fun inputStream2bytesMd52(inputStream: InputStream): ByteArray =
+        inputStream.use {
+            val messageDigest: MessageDigest = UtilKMd5.get()
+            var readCount: Int
+            val bytes = ByteArray(1024)
+            while (inputStream.read(bytes, 0, 1024).also { readCount = it } != -1)
+                messageDigest.update(bytes, 0, readCount)
+            messageDigest.digest()
+        }
+
+    @JvmStatic
+    @Throws(NoSuchAlgorithmException::class)
     fun inputStream2strMd5(inputStream: InputStream): String {
-        val messageDigest: MessageDigest = UtilKMd5.get()
-        var readCount: Int
-        val bytes = ByteArray(1024 * 1024)
-        while (inputStream.read(bytes).also { readCount = it } != -1)
-            messageDigest.update(bytes, 0, readCount)
-        return messageDigest.digest().bytes2strHex()
+        return inputStream.inputStream2bytesMd5().bytes2strHex()
     }
 
     @JvmStatic
     @Throws(NoSuchAlgorithmException::class)
     fun inputStream2strMd52(inputStream: InputStream): String {
-        val messageDigest: MessageDigest = UtilKMd5.get()
-        var readCount: Int
-        val bytes = ByteArray(1024)
-        while (inputStream.read(bytes, 0, 1024).also { readCount = it } != -1)
-            messageDigest.update(bytes, 0, readCount)
-        return BigInteger(1, messageDigest.digest()).toString(16)
+        return inputStream.inputStream2bytesMd52().bytes2strHexOfBigInteger()
+    }
+
+    @JvmStatic
+    @Throws(NoSuchAlgorithmException::class)
+    fun inputStream2strMd53(inputStream: InputStream): String {
+        return inputStream.inputStream2bytesMd52().bytes2strHex2()
     }
 
     ////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun inputStream2strOfReadSingleLine(inputStream: InputStream, charset:String? = null,readSize:Int=0): String =
-        UtilKReader.getStrForInputStreamSingleLine(inputStream,charset,readSize)
+    fun inputStream2strOfReadSingleLine(inputStream: InputStream, charset: String? = null, readSize: Int = 0): String =
+        UtilKReader.getStrForInputStreamSingleLine(inputStream, charset, readSize)
 
     /**
      * 针对字符串文本
      */
     @JvmStatic
-    fun inputStream2strOfReadMultiLines(inputStream: InputStream, charset:String? = null,readSize: Int=0): String =
-        UtilKReader.getStrForInputStreamMultiLine(inputStream,charset,readSize)
+    fun inputStream2strOfReadMultiLines(inputStream: InputStream, charset: String? = null, readSize: Int = 0): String =
+        UtilKReader.getStrForInputStreamMultiLine(inputStream, charset, readSize)
 
     @JvmStatic
     fun inputStream2strOfBytesOutStream(inputStream: InputStream): String =
@@ -256,7 +287,7 @@ object UtilKInputStreamFormat : IUtilK {
     @JvmStatic
     fun inputStream2file(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
         UtilKFile.createFile(fileDest)
-        /*//        val fileInputStream = FileInputStream(file)
+        /*//        val fileInputStream = file.file2fileInputStream()
         //        Log.d(TAG, "inputStream2file: inputStream ${inputStream.available()}")
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
         //            Log.d(TAG, "assetCopyFile: the two files is same")
@@ -281,7 +312,7 @@ object UtilKInputStreamFormat : IUtilK {
     @RequiresApi(CVersCode.V_29_10_Q)
     fun inputStream2file2(inputStream: InputStream, fileDest: File, isAppend: Boolean = false): File? {
         UtilKFile.createFile(fileDest)
-        /*//        val fileInputStream = FileInputStream(file)
+        /*//        val fileInputStream = file.file2fileInputStream()
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
         //            Log.d(UtilKFile.TAG, "assetCopyFile: the two files is same")
         //            return file//"the two files is same, don't need overwrite"

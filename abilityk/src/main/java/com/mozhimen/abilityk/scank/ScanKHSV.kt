@@ -35,12 +35,12 @@ object ScanKHSV : BaseUtilK() {
 
     /**
      * 检查图片资源的颜色占比
-     * @param bitmapPathWithName String
+     * @param bitmapPathName String
      * @return Map<String, Int>?
      */
     @JvmStatic
-    fun colorAnalyze(bitmapPathWithName: String): List<Pair<EColorHSV, Int>>? =
-        colorAnalyze(FileInputStream(bitmapPathWithName).inputStream2bitmapAny())
+    fun colorAnalyze(bitmapPathName: String): List<Pair<EColorHSV, Int>>? =
+        colorAnalyze(bitmapPathName.strFilePath2fileInputStream().inputStream2bitmapAny())
 
     /**
      * 检查图片资源的颜色占比

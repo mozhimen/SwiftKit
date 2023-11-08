@@ -34,14 +34,14 @@
 
             <TextView
                 android:id="@+id/dialogk_loading_update_txt"
-                style="@style/Txt_Style"
+                style="@style/UicoreKStyle_Txt"
                 android:layout_marginEnd="10dp"
                 android:text="正在加载..."
                 tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/dialogk_loading_update_txt1"
-                style="@style/Txt_Style"
+                style="@style/UicoreKStyle_Txt"
                 android:maxLength="10"
                 android:text="0% 0MB"
                 tools:ignore="HardcodedText"

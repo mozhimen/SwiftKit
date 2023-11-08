@@ -63,10 +63,10 @@ object UtilKBitmapCompress : BaseUtilK() {
      * 压缩采样率
      */
     @JvmStatic
-    fun compressStrBitmapPathSampleSize(bitmapPathWithName: String, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap? {
+    fun compressStrBitmapPathSampleSize(bitmapPathName: String, @androidx.annotation.IntRange(from = 1, to = 100) quality: Int): Bitmap? {
         val options = BitmapFactory.Options()
         options.inSampleSize = (100f / quality.toFloat()).roundToInt().also { "compressSampleSize: inSampleSize $it".vt(TAG) }
-        return bitmapPathWithName.strFilePath2bitmapAny(options)?.also { printBitmapInfo(it, null, quality) }
+        return bitmapPathName.strFilePath2bitmapAny(options)?.also { printBitmapInfo(it, null, quality) }
     }
 
     /**
@@ -89,10 +89,10 @@ object UtilKBitmapCompress : BaseUtilK() {
      * rgb565压缩方法
      */
     @JvmStatic
-    fun compressStrBitmapPath2bitmapRgb565(bitmapPathWithName: String): Bitmap? {
+    fun compressStrBitmapPath2bitmapRgb565(bitmapPathName: String): Bitmap? {
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.RGB_565;
-        return bitmapPathWithName.strFilePath2bitmapAny(options)?.also { printBitmapInfo(it, null, 100) }
+        return bitmapPathName.strFilePath2bitmapAny(options)?.also { printBitmapInfo(it, null, 100) }
     }
 
     /**

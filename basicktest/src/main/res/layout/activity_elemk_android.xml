@@ -11,25 +11,25 @@
         tools:context=".elemk.android.ElemKAndroidActivity">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goElemKGesture"
             android:text="goElemKGesture"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goElemKGestureFling"
             android:text="goElemKGestureFling"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goElemKReceiver"
             android:text="goElemKReceiver"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goElemKService"
             android:text="goElemKService"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

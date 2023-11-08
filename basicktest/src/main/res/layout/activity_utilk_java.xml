@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goUtilKFile"
             android:text="goUtilKFile"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

@@ -8,5 +8,5 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_gravity="center"
-        android:indeterminateTint="@color/ui_blue_650" />
+        android:indeterminateTint="@color/cok_blue_650" />
 </FrameLayout>

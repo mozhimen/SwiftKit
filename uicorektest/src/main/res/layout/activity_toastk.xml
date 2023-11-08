@@ -13,13 +13,13 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/toastk_btn_normal"
             android:text="弹出toast"
-            style="@style/Btn_Style"
+            style="@style/UicoreKStyle_Btn"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/toastk_btn_custom"
             android:text="弹出自定义toast"
-            style="@style/Btn_Style"
+            style="@style/UicoreKStyle_Btn"
             tools:ignore="HardcodedText" />
     </LinearLayout>
 </layout>

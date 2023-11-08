@@ -22,19 +22,19 @@ internal object SideAttrsParser : IAttrsParser<MSideAttrs> {
     private val MENU_ITEM_TEXT_SIZE = 16f.sp2px().toInt()
     private val MENU_ITEM_TEXT_SIZE_SELECT = 17f.sp2px().toInt()
 
-    private val MENU_ITEM_TEXT_COLOR = UtilKRes.getColor(R.color.ui_blue_650)
-    private val MENU_ITEM_TEXT_COLOR_SELECT = UtilKRes.getColor(R.color.ui_blue_650)
+    private val MENU_ITEM_TEXT_COLOR = UtilKRes.getColor(R.color.cok_blue_650)
+    private val MENU_ITEM_TEXT_COLOR_SELECT = UtilKRes.getColor(R.color.cok_blue_650)
     private val MENU_ITEM_BG_COLOR = UtilKRes.getColor(android.R.color.white)
-    private val MENU_ITEM_BG_COLOR_SELECT = UtilKRes.getColor(R.color.ui_blue_050)
+    private val MENU_ITEM_BG_COLOR_SELECT = UtilKRes.getColor(R.color.cok_blue_050)
     private val MENU_ITEM_INDICATOR = UtilKRes.getDrawable(R.drawable.layoutk_side_indicator_menu)
 
     private val SUB_TEXT_SIZE = 16f.sp2px().toInt()
-    private val SUB_TEXT_COLOR = UtilKRes.getColor(R.color.ui_blue_650)
+    private val SUB_TEXT_COLOR = UtilKRes.getColor(R.color.cok_blue_650)
     private val SUB_HEIGHT = 40f.dp2px().toInt()
     private val SUB_MARGIN_START = 10f.dp2px().toInt()
 
     private val CONTENT_TEXT_SIZE = 15f.sp2px().toInt()
-    private val CONTENT_TEXT_COLOR = UtilKRes.getColor(R.color.ui_blue_650)
+    private val CONTENT_TEXT_COLOR = UtilKRes.getColor(R.color.cok_blue_650)
     private val CONTENT_IMG_RATIO = 1f
 
     override fun parseAttrs(context: Context, attrs: AttributeSet?): MSideAttrs {

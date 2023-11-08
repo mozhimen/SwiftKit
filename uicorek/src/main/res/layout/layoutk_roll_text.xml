@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/tv_number_one"
-        style="@style/Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap"
+        style="@style/StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap"
         android:layout_gravity="center"
         android:padding="0dp"
         android:text="0"
@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/tv_number_tow"
-        style="@style/Txt_Style.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap"
+        style="@style/StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000.Size_014.Width_Wrap.Height_Wrap"
         android:layout_gravity="center"
         android:padding="0dp"
         android:text="1"

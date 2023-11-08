@@ -17,13 +17,13 @@
             tools:context="com.mozhimen.uicorektest.viewk.ViewKActivity">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/UicoreKStyle_Btn"
                 android:onClick="goViewKViews"
                 android:text="goViewKViews"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/UicoreKStyle_Btn"
                 android:onClick="goViewKWheel"
                 android:text="goViewKWheel"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />

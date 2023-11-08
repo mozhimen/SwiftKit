@@ -11,7 +11,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/taskk_async_btn"
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:text="开始异步任务(10个)"
             tools:ignore="HardcodedText" />
     </LinearLayout>

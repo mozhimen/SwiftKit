@@ -10,6 +10,7 @@ import com.mozhimen.basick.elemk.android.app.cons.CPendingIntent
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import com.mozhimen.basick.utilk.java.io.file2fileInputStream
 import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.io.inputStream2outputStream
 import java.io.File
@@ -65,15 +66,12 @@ object UtilKPackageInstaller : BaseUtilK() {
 
     @JvmStatic
     fun copyBaseApk(packageInstaller: PackageInstaller, sessionId: Int, fileApk: File): Boolean {
-        var fileInputStream: FileInputStream? = null
         var outputStream: OutputStream? = null
         var session: PackageInstaller.Session? = null
         try {
             session = openSession(packageInstaller,sessionId)
             outputStream = session.openWrite("base.apk", 0, fileApk.length())
-            fileInputStream = FileInputStream(fileApk)
-
-            fileInputStream.inputStream2outputStream(outputStream, 65536)
+            fileApk.file2fileInputStream().inputStream2outputStream(outputStream, 65536)
             session.fsync(outputStream)
             return true
         } catch (e: Exception) {
@@ -82,7 +80,6 @@ object UtilKPackageInstaller : BaseUtilK() {
         } finally {
             session?.close()
             outputStream?.flushClose()
-            fileInputStream?.close()
         }
         return false
     }

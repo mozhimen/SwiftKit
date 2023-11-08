@@ -23,15 +23,15 @@ internal object AttrsParser : IAttrsParser2<MNavBarAttrs> {
     private val TITLE_TEXT_SIZE = 17f.sp2px().toInt()
     private val TITLE_TEXT_COLOR = Color.BLACK
     private val SUBTITLE_TEXT_SIZE = 14f.sp2px().toInt()
-    private val SUBTITLE_TEXT_COLOR = UtilKRes.getColor(R.color.ui_gray_350)
+    private val SUBTITLE_TEXT_COLOR = UtilKRes.getColor(R.color.cok_gray_350)
     private val SUBTITLE_TEXT_MARGIN_TOP = 1f.dp2px().toInt()
-    private val LINE_COLOR = UtilKRes.getColor(R.color.ui_gray_200)
+    private val LINE_COLOR = UtilKRes.getColor(R.color.cok_gray_200)
     private val LINE_WIDTH = 0f.dp2px().toInt()
 
     override fun parseAttrs(context: Context, attrs: AttributeSet?, defStyleAttr: Int): MNavBarAttrs {
         val typedValue = TypedValue()
-        UtilKTheme.resolveAttribute(context, R.attr.LayoutKNavBar_LayoutKNavBar_Style, typedValue, true)
-        val defStyleRes = if (typedValue.resourceId != 0) typedValue.resourceId else R.style.LayoutKNavBar_Style//xml-->theme.navigationStyle---navigationStyle
+        UtilKTheme.resolveAttribute(context, R.attr.LayoutKNavBar_StyleK_LayoutKNavBar, typedValue, true)
+        val defStyleRes = if (typedValue.resourceId != 0) typedValue.resourceId else R.style.StyleK_LayoutKNavBar//xml-->theme.navigationStyle---navigationStyle
 
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKNavBar, defStyleAttr, defStyleRes)
         val titleStr =

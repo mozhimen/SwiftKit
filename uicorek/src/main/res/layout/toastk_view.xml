@@ -5,11 +5,11 @@
     android:layout_height="wrap_content"
     android:background="@drawable/toastk_radius_border"
     android:orientation="vertical"
-    tools:background="@color/ui_amber_100">
+    tools:background="@color/cok_amber_100">
 
     <TextView
         android:id="@+id/toast_text"
-        style="@style/Txt_Style.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap"
+        style="@style/StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999.Size_013.Width_Wrap.Height_Wrap"
         android:layout_marginHorizontal="@dimen/dp_005"
         android:layout_marginVertical="@dimen/dp_005"
         tools:text="this is test" />

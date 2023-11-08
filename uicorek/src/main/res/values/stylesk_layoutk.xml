@@ -1,82 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-
+<resources>
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-    <style name="DialogK_Style_Title">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginVertical" tools:targetApi="o">14dp</item>
-        <item name="android:textColor">@color/ui_blue_666</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-    <style name="DialogK_Style_BtnCancel">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">5dp</item>
-        <item name="android:backgroundTint">@color/ui_blue_050</item>
-        <item name="android:textColor">@color/ui_blue_666</item>
-        <item name="android:textSize">16sp</item>
-        <item name="cornerRadius">4dp</item>
-    </style>
-
-    <style name="DialogK_Style_BtnSure" parent="DialogK_Style_BtnCancel">
-        <item name="android:backgroundTint">@color/ui_blue_650</item>
-        <item name="android:textColor">@color/ui_blue_050</item>
-    </style>
-
     <!--layoutk-->
-    <style name="LayoutKAmount_Style">
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="StyleK_LayoutKAmount">
         <item name="layoutKAmount_minVal">0</item>
         <item name="layoutKAmount_maxVal">100</item>
         <item name="layoutKAmount_defaultAmount">0</item>
-        <item name="layoutKAmount_amountTextColor">@color/ui_blue_650</item>
+        <item name="layoutKAmount_amountTextColor">@color/cok_blue_650</item>
         <item name="layoutKAmount_amountBackgroundColor">@android:color/white</item>
         <item name="layoutKAmount_amountMarginHorizontal">0dp</item>
         <item name="layoutKAmount_amountMinWidth">20dp</item>
-        <item name="layoutKAmount_btnTextColor">@color/ui_blue_650</item>
+        <item name="layoutKAmount_btnTextColor">@color/cok_blue_650</item>
         <item name="layoutKAmount_btnTextSize">14sp</item>
-        <item name="layoutKAmount_btnBackgroundColor">@color/ui_gray_350</item>
+        <item name="layoutKAmount_btnBackgroundColor">@color/cok_gray_350</item>
         <item name="layoutKAmount_btnSize">20dp</item>
     </style>
 
-    <style name="LayoutKEmpty_Style_BtnCancel">
+    <style name="StyleK_LayoutKEmpty_BtnCancel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">@color/ui_gray_200</item>
+        <item name="android:backgroundTint">@color/cok_gray_200</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:shadowColor">@color/ui_gray_200</item>
+        <item name="android:shadowColor">@color/cok_gray_200</item>
         <item name="android:textSize">14sp</item>
         <item name="cornerRadius">16dp</item>
         <item name="strokeColor">@android:color/darker_gray</item>
     </style>
 
-    <style name="LayoutKEditItem_Style_TitleAppearance">
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <style name="StyleK_LayoutKEditItem_TitleAppearance">
         <item name="titleAppearance_titleColor">@android:color/black</item>
         <item name="titleAppearance_titleSize">16sp</item>
         <item name="titleAppearance_leftPadding">2dp</item>
         <item name="titleAppearance_minWidth">100dp</item>
     </style>
 
-    <style name="LayoutKEditItem_Style_EditAppearance">
-        <item name="inputAppearance_hintColor">@color/ui_blue_050</item>
-        <item name="inputAppearance_inputColor">@color/ui_blue_650</item>
+    <style name="StyleK_LayoutKEditItem_EditAppearance">
+        <item name="inputAppearance_hintColor">@color/cok_blue_050</item>
+        <item name="inputAppearance_inputColor">@color/cok_blue_650</item>
         <item name="inputAppearance_textSize">15sp</item>
     </style>
 
-    <style name="LayoutKEditItem_Style_LineAppearance">
-        <item name="lineAppearance_color">@color/ui_blue_666</item>
+    <style name="StyleK_LayoutKEditItem_LineAppearance">
+        <item name="lineAppearance_color">@color/cok_blue_666</item>
         <item name="lineAppearance_height">1.5dp</item>
         <item name="lineAppearance_leftMargin">0dp</item>
         <item name="lineAppearance_rightMargin">0dp</item>
     </style>
 
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
     <!--layoutk_search-->
-    <style name="LayoutKSearch_Style">
+    <style name="StyleK_LayoutKSearch">
         <item name="layoutKSearch_search_icon">&#xe987;</item>
         <item name="layoutKSearch_search_iconSize">16sp</item>
         <item name="layoutKSearch_search_iconPadding">10dp</item>
@@ -100,36 +78,16 @@
         <item name="layoutKSearch_keyword_padding">4dp</item>
     </style>
 
-    <!--layoutk-->
     <!--layoutk_NavBar-->
-    <style name="LayoutKNavBar_Style">
+    <style name="StyleK_LayoutKNavBar">
         <item name="layoutKNavBar_title_textSize">17sp</item>
         <item name="layoutKNavBar_title_textColor">@android:color/black</item>
 
         <item name="layoutKNavBar_subTitle_textSize">14sp</item>
-        <item name="layoutKNavBar_subTitle_textColor">@color/ui_gray_350</item>
+        <item name="layoutKNavBar_subTitle_textColor">@color/cok_gray_350</item>
         <item name="layoutKNavBar_subTitle_marginTop">1dp</item>
 
-        <item name="layoutKNavBar_lineColor">@color/ui_gray_200</item>
+        <item name="layoutKNavBar_lineColor">@color/cok_gray_200</item>
         <item name="layoutKNavBar_lineWidth">0dp</item>
-    </style>
-
-    <!--textk-->
-    <!--textk_Bubble-->
-    <style name="TextKBubble_Style">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">4dp</item>
-        <item name="android:fontFamily">monospace</item>
-        <item name="android:includeFontPadding">false</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:padding">8dp</item>
-        <item name="textKBubble_arrowDirection">up</item>
-        <item name="textKBubble_arrowHeight">8dp</item>
-        <item name="textKBubble_arrowWidth">16dp</item>
-        <item name="textKBubble_bgColor">@android:color/white</item>
-        <item name="textKBubble_borderColor">@color/ui_blue_650</item>
-        <item name="textKBubble_borderWidth">2dp</item>
-        <item name="textKBubble_cornerRadius">6dp</item>
     </style>
 </resources>

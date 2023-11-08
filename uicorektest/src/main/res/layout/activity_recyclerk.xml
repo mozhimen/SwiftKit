@@ -10,13 +10,13 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/UicoreKStyle_Btn"
             android:onClick="goRecyclerKLifecycle"
             android:text="goRecyclerKLifecycle"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/UicoreKStyle_Btn"
             android:onClick="goRecyclerKLoad"
             android:text="goRecyclerKLoad"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

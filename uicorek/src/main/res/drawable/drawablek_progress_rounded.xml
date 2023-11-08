@@ -4,7 +4,7 @@
     <item android:id="@android:id/background">
         <shape>
             <corners android:radius="10dp" />
-            <solid android:color="@color/ui_blue_050" />
+            <solid android:color="@color/cok_blue_050" />
         </shape>
     </item>
     &lt;!&ndash;设置progress进度条颜色&ndash;&gt;
@@ -12,7 +12,7 @@
         <clip android:clipOrientation="horizontal">
             <shape>
                 <corners android:radius="10dp" />
-                <solid android:color="@color/ui_blue_650" />
+                <solid android:color="@color/cok_blue_650" />
             </shape>
         </clip>
     </item>
@@ -23,7 +23,7 @@
     <!--  设置背景色  -->
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@color/ui_blue_050" />
+            <solid android:color="@color/cok_blue_050" />
             <corners android:radius="1.5dp" />
         </shape>
     </item>
@@ -32,7 +32,7 @@
     <item android:id="@android:id/progress">
         <scale android:scaleWidth="100%">
             <shape>
-                <solid android:color="@color/ui_blue_666" />
+                <solid android:color="@color/cok_blue_666" />
                 <corners android:radius="1.5dp" />
             </shape>
         </scale>

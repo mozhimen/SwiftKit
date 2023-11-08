@@ -49,6 +49,11 @@ fun File.file2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
 fun File.file2str(): String? =
     UtilKFileFormat.file2str(this)
 
+fun File.file2strMd5(): String? =
+    UtilKFileFormat.file2strMd5(this)
+
+////////////////////////////////////////////////////////////////////////////////////////
+
 fun File.file2bytes(): ByteArray? =
     UtilKFileFormat.file2bytes(this)
 
@@ -104,17 +109,22 @@ object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
     fun file2str(file: File): String? =
         if (!UtilKFile.isFileExist(file)) null
-        else FileInputStream(file).inputStream2strOfReadMultiLines()
+        else file.file2fileInputStream().inputStream2strOfReadMultiLines()
+
+    @JvmStatic
+    fun file2strMd5(file: File): String? =
+        if (!UtilKFile.isFileExist(file)) null
+        else file.file2fileInputStream().inputStream2strMd53()
 
     @JvmStatic
     fun file2bytes(file: File): ByteArray? =
         if (!UtilKFile.isFileExist(file)) null
-        else FileInputStream(file).inputStream2bytes()
+        else file.file2fileInputStream().inputStream2bytes()
 
     @JvmStatic
     fun file2bytesCheck(file: File): ByteArray? =
         if (!UtilKFile.isFileExist(file)) null
-        else FileInputStream(file).inputStream2bytesCheck(file.length())
+        else file.file2fileInputStream().inputStream2bytesCheck(file.length())
 
     @JvmStatic
     fun file2bytes2(file: File): ByteArray? =

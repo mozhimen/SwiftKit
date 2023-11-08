@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.java.io
 
+import android.util.Log
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
@@ -117,7 +118,7 @@ object UtilKFile : BaseUtilK() {
     @JvmStatic
     fun getFileSizeAvailable(file: File): Long? =
         if (!isFileExist(file)) null
-        else FileInputStream(file).getAvailableLong()
+        else file.file2fileInputStream().getAvailableLong()
 
     /**
      * 获取文件大小
@@ -191,7 +192,7 @@ object UtilKFile : BaseUtilK() {
     @JvmStatic
     fun copyFile(fileSource: File, fileDest: File, isAppend: Boolean = false): File? =
         if (!isFileExist(fileSource)) null
-        else FileInputStream(fileSource).inputStream2file(fileDest, isAppend)
+        else fileSource.file2fileInputStream().inputStream2file(fileDest, isAppend)
 
     /**
      * 压缩文件
@@ -256,7 +257,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun createFolder(folder: File): File {
-        if (!isFolderExist(folder)) folder.mkdirs()
+        if (!isFolderExist(folder)) folder.mkdirs().also { Log.d(TAG, "createFolder: create path ${folder.absolutePath}") }
         return folder
     }
 

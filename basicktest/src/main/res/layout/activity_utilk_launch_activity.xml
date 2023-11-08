@@ -10,13 +10,13 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="startManageAllFilesAccess"
             android:text="startManageAllFilesAccess"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="startManageAllFilesAccess2"
             android:text="startManageAllFilesAccess2"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

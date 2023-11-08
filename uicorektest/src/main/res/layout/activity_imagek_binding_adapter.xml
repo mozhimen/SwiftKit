@@ -21,12 +21,12 @@
         <com.mozhimen.uicorek.imagek.ImageKCircleText
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:background="@color/ui_gray_999"
-            app:imageKCircleText_borderColor="@color/ui_gray_000"
+            android:background="@color/cok_gray_999"
+            app:imageKCircleText_borderColor="@color/cok_gray_000"
             app:imageKCircleText_borderOverlay="true"
             app:imageKCircleText_borderWidth="2dp"
-            app:imageKCircleText_fillColor="@color/ui_gray_300"
-            app:imageKCircleText_textColor="@color/ui_gray_000"
+            app:imageKCircleText_fillColor="@color/cok_gray_300"
+            app:imageKCircleText_textColor="@color/cok_gray_000"
             app:imageKCircleText_textContent="123"
             app:imageKCircleText_textSize="16sp" />
     </LinearLayout>

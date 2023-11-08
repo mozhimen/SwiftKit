@@ -17,7 +17,7 @@
             android:layout_height="56dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layoutKNavBar_title="这是主标题"
-            app:layoutKNavBar_title_textColor="@color/ui_blue_650" />
+            app:layoutKNavBar_title_textColor="@color/cok_blue_650" />
 
         <com.mozhimen.uicorek.layoutk.navbar.LayoutKNavBar
             android:id="@+id/layoutk_navbar2"

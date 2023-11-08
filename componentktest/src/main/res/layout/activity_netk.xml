@@ -11,19 +11,19 @@
         android:orientation="vertical">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/ComponentKStyle_Btn"
             android:onClick="goNetConn"
             android:text="goNetConn"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/ComponentKStyle_Btn"
             android:onClick="goNetKFile"
             android:text="goNetKFile"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/ComponentKStyle_Btn"
             android:onClick="goNetKHttp"
             android:text="goNetKHttp"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

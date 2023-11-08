@@ -11,7 +11,7 @@
         tools:context=".elemk.androidx.ElemKAndroidXActivity">
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:onClick="goElemKVBVM"
             android:text="goElemKVBVM"
             tools:ignore="HardcodedText,UsingOnClickInXml" />

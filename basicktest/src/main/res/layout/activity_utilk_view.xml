@@ -12,13 +12,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/utilk_view_btn_debounce"
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:text="按钮点击消抖"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/utilk_view_btn_debounce_suspend"
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:text="按钮点击消抖(协程)"
             tools:ignore="HardcodedText" />
     </LinearLayout>

@@ -16,7 +16,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/utilk_generate_no_btn"
-            style="@style/Btn_Style"
+            style="@style/BasicKStyle_Btn"
             android:text="Generate"
             tools:ignore="HardcodedText" />
     </LinearLayout>

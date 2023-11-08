@@ -18,7 +18,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/installk_btn"
-            style="@style/Btn_Style"
+            style="@style/ComponentKStyle_Btn"
             android:text="installApp"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>

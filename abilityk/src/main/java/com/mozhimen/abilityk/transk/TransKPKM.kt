@@ -44,7 +44,7 @@ class TransKPKM : BaseUtilK() {
                 val inputStream = UtilKAssetManager.open(_path!!.substring(7), _context)
                 ZipInputStream(inputStream)
             } else {
-                ZipInputStream(FileInputStream(_path))
+                ZipInputStream(_path.file2fileInputStream())
             }
             true
         } catch (e: Exception) {

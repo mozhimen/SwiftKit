@@ -35,6 +35,18 @@ object UtilKFileDir : BaseUtilK() {
             UtilKContextDir.External.getFilesRootDir(_context)
 
         @JvmStatic
+        fun getFilesRootFreeSpace(): Long =
+            getFilesRoot()?.freeSpace ?: Long.MAX_VALUE
+
+        //////////////////////////////////////////////////////////////
+
+        @JvmStatic
+        fun getFilesDownloadsDir(): File? =
+            UtilKContextDir.External.getFilesDownloadsDir(_context)
+
+        //////////////////////////////////////////////////////////////
+
+        @JvmStatic
         fun getEnvStorage(): File =
             UtilKEnvironment.getExternalStorageDir()
 

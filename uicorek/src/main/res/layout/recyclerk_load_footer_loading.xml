@@ -11,7 +11,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginRight="6dp"
-        android:indeterminateTint="@color/ui_blue_650" />
+        android:indeterminateTint="@color/cok_blue_650" />
 
     <TextView
         android:id="@+id/recyclerk_load_footer_loading_title"
@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/recyclerk_load_footer_loading"
-        android:textColor="@color/ui_blue_650"
+        android:textColor="@color/cok_blue_650"
         android:textSize="13sp" />
 </LinearLayout>

@@ -15,7 +15,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Btn_Style"
+                style="@style/AppStyle_Btn"
                 android:onClick="goDemo"
                 android:text="Demo"
                 tools:ignore="HardcodedText,UsingOnClickInXml" />
