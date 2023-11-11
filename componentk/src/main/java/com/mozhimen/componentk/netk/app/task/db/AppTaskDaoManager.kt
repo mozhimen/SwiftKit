@@ -1,32 +1,32 @@
-package com.mozhimen.componentk.netk.app.download.db
+package com.mozhimen.componentk.netk.app.task.db
 
 import android.database.sqlite.SQLiteDatabaseLockedException
 import androidx.annotation.WorkerThread
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.componentk.netk.app.download.cons.CAppDownloadState
+import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 
 /**
- * @ClassName AppDownloadParamDaoManager
+ * @ClassName AppTaskDaoManager
  * @Description TODO
  * @Author Mozhimen
  * @Date 2023/11/7 16:08
  * @Version 1.0
  */
 @OptInApiInit_InApplication
-object DaoManager : IUtilK {
-    private val _downloadTasks = mutableListOf<AppDownloadTask>()
+object AppTaskDaoManager : IUtilK {
+    private val _downloadTasks = mutableListOf<AppTask>()
 
     fun init() {
         TaskKExecutor.execute(TAG + "init") {
-            _downloadTasks.addAll(DatabaseManager.appDownloadParamDao.getAll())
+            _downloadTasks.addAll(AppTaskDbManager.appTaskDao.getAll())
         }
     }
 
     //////////////////////////////////////////////////////////
 
-//    fun getAllDownloading(countDownLatch: CountDownLatch, list: MutableList<AppDownloadParam>) {
+//    fun getAllDownloading(countDownLatch: CountDownLatch, list: MutableList<AppTask>) {
 //        TaskKExecutor.execute(TAG + "getAllDownloading") {
 //            val queryAllDownload = DatabaseManager.appDownloadParamDao.getAllDownloading()
 //            list.addAll(queryAllDownload)
@@ -36,14 +36,14 @@ object DaoManager : IUtilK {
 
     /**
      * 根据应用id查询下载对象
-     * @param downloadId 应用Id
+     * @param taskId 应用Id
      * @return null 表示没有查询到
      */
-    fun getByDownloadId(downloadId: String): AppDownloadTask? {
+    fun getByTaskId(taskId: String): AppTask? {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
-            if (next.taskId == downloadId)
+            if (next.taskId == taskId)
                 return next
         }
         return null
@@ -51,14 +51,14 @@ object DaoManager : IUtilK {
 
     /**
      * 根据应用包名查询下载对象
-     * @param apkPackageName 应用Id
+     * @param packageName 应用Id
      * @return null 表示没有查询到
      */
-    fun getByApkPackageName(apkPackageName: String): AppDownloadTask? {
+    fun getByApkPackageName(packageName: String): AppTask? {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
-            if (next.apkPackageName == apkPackageName)
+            if (next.apkPackageName == packageName)
                 return next
         }
         return null
@@ -66,14 +66,14 @@ object DaoManager : IUtilK {
 
     /**
      * 通过保存名称获取下载信息
-     * @param apkSaveName 保存名称
+     * @param apkName 保存名称
      * @return 下载信息
      */
-    fun getByApkSaveName(apkSaveName: String): AppDownloadTask? {
+    fun getByApkName(apkName: String): AppTask? {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
-            if (next.apkSaveName == apkSaveName) //游戏id，包名相同即判定为同一个游戏
+            if (next.apkName == apkName) //游戏id，包名相同即判定为同一个游戏
                 return next
         }
         return null
@@ -123,60 +123,60 @@ object DaoManager : IUtilK {
 
     //////////////////////////////////////////////////////////
 
-    fun addAll(vararg appDownloadTask: AppDownloadTask) {
+    fun addAll(vararg appTask: AppTask) {
         TaskKExecutor.execute(TAG + "addAll") {
-            appDownloadTask.forEach {
-                it.taskState = CAppDownloadState.STATE_TASK_CREATE
+            appTask.forEach {
+                it.taskState = CNetKAppState.STATE_TASK_CREATE
                 it.downloadProgress = 0
                 it.taskUpdateTime = System.currentTimeMillis()
             }
-            _downloadTasks.addAll(appDownloadTask.toList())
-            DatabaseManager.appDownloadParamDao.addAll(*appDownloadTask)
+            _downloadTasks.addAll(appTask.toList())
+            AppTaskDbManager.appTaskDao.addAll(*appTask)
         }
     }
 
     /**
      * 更新数据
      */
-    fun update(appDownloadTask: AppDownloadTask) {
+    fun update(appTask: AppTask) {
         TaskKExecutor.execute(TAG + "update") {
-            updateSync(appDownloadTask)
+            updateSync(appTask)
         }
     }
 
     /**
      * 在子线程更新数据
-     * @param appDownloadTask 文件信息
+     * @param appTask 文件信息
      */
     @WorkerThread
-    fun updateOnBack(appDownloadTask: AppDownloadTask) {
-        updateSync(appDownloadTask)
+    fun updateOnBack(appTask: AppTask) {
+        updateSync(appTask)
     }
 
     /**
      * 删除任务
-     * @param appDownloadTask 需要删除的任务
+     * @param appTask 需要删除的任务
      */
     @WorkerThread
-    fun deleteOnBack(appDownloadTask: AppDownloadTask) {
+    fun deleteOnBack(appTask: AppTask) {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
-            if (next.taskId == appDownloadTask.taskId) {
+            if (next.taskId == appTask.taskId) {
                 iterator.remove()
                 break
             }
         }
         try {
-            DatabaseManager.appDownloadParamDao.delete(appDownloadTask)
+            AppTaskDbManager.appTaskDao.delete(appTask)
         } catch (e: SQLiteDatabaseLockedException) {
             e.printStackTrace()
         }
     }
 
 
-    /*    fun queryAppDownloadParam(appBaseInfo: AppBaseInfo): AppDownloadParam? {
-        val iterator = _appDownloadParams.iterator()
+    /*    fun queryAppTask(appBaseInfo: AppBaseInfo): AppTask? {
+        val iterator = _appTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
             if (next.packName == appBaseInfo.packageName) {
@@ -205,17 +205,17 @@ object DaoManager : IUtilK {
      * idnex 无作用
      */
     @Synchronized
-    private fun updateSync(appDownloadTask: AppDownloadTask) {
+    private fun updateSync(appTask: AppTask) {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
-            if (next.apkPackageName == appDownloadTask.apkPackageName) {
+            if (next.apkPackageName == appTask.apkPackageName) {
                 iterator.remove()
-                _downloadTasks.add(appDownloadTask.apply {
+                _downloadTasks.add(appTask.apply {
                     taskUpdateTime = System.currentTimeMillis()
                 })
                 try {
-                    DatabaseManager.appDownloadParamDao.update(appDownloadTask)//将本条数据插入到数据库
+                    AppTaskDbManager.appTaskDao.update(appTask)//将本条数据插入到数据库
                 } catch (e: SQLiteDatabaseLockedException) {
                     e.printStackTrace()
                 }

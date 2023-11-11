@@ -46,7 +46,12 @@ object UtilKLaunchActivity {
     @RequiresPermission(allOf = [CPermission.REQUEST_INSTALL_PACKAGES])
     @JvmStatic
     fun startInstall(context: Context, strPathNameApk: String) {
-        context.startContext(UtilKIntentWrapper.getInstall(strPathNameApk.also { if (UtilKBuildVersion.isBeforeVersion(CVersCode.V_24_7_N)) UtilKRuntime.chmod777(strPathNameApk) }) ?: return)
+        context.startContext(
+            UtilKIntentWrapper.getInstall(strPathNameApk.apply {
+                if (UtilKBuildVersion.isBeforeVersion(CVersCode.V_24_7_N))
+                    UtilKRuntime.chmod777(this)
+            }) ?: return
+        )
     }
 
     /**

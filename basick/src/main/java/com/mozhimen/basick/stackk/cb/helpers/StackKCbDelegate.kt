@@ -98,7 +98,7 @@ internal class StackKCbDelegate : IStackK {
             //_activityLaunchCount>0 说明应用处在可见状态, 也就是前台
             //!isFront 之前是不是在后台
             if (!_isFront && _activityLaunchCount > 0) {
-                onFrontBackChanged(true.also { _isFront = true })
+                onFrontBackChanged(true.also { _isFront = true }, activity)
             }
         }
 
@@ -113,7 +113,7 @@ internal class StackKCbDelegate : IStackK {
         override fun onActivityStopped(activity: Activity) {
             _activityLaunchCount--
             if (_activityLaunchCount <= 0 && _isFront) {
-                onFrontBackChanged(false.also { _isFront = false })
+                onFrontBackChanged(false.also { _isFront = false }, activity)
             }
         }
 
@@ -130,14 +130,14 @@ internal class StackKCbDelegate : IStackK {
             }
         }
 
-        private fun onFrontBackChanged(isFront: Boolean) {
+        private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {
             for (listener in _frontBackListeners) {
-                listener.onChanged(isFront)
+                listener.onChanged(isFront, WeakReference(activity))
             }
         }
     }
 
     private fun postEventFirstActivity() {
-        if (getStackCount() == 1)  PostKEventLiveData.instance.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
+        if (getStackCount() == 1) PostKEventLiveData.instance.with<Boolean>(CStackKCons.Event.STACKK_FIRST_ACTIVITY).setValue(true)
     }
 }

@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.app.download.cons
+package com.mozhimen.componentk.netk.app.cons
 
 /**
  * @ClassName CAppDownloadState
@@ -7,7 +7,7 @@ package com.mozhimen.componentk.netk.app.download.cons
  * @Date 2023/11/7 11:36
  * @Version 1.0
  */
-object CAppDownloadState {
+object CNetKAppState {
     //任务
     const val STATE_TASK_CREATE = 0//STATE_NOT_INSTALLED = 0//未安装 处于未下载，
     const val STATE_TASK_WAIT = 1//STATE_PENDING = 3//等待中

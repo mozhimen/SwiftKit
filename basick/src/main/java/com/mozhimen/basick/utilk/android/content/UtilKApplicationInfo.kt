@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.util.Log
 import androidx.annotation.IdRes
 import com.mozhimen.basick.elemk.android.content.cons.CApplicationInfo
+import com.mozhimen.basick.utilk.bases.IUtilK
 import java.lang.IllegalArgumentException
 
 /**
@@ -15,7 +17,7 @@ import java.lang.IllegalArgumentException
  * @Date 2023/4/18 11:24
  * @Version 1.0
  */
-object UtilKApplicationInfo {
+object UtilKApplicationInfo : IUtilK {
 
     @JvmStatic
     fun get(context: Context): ApplicationInfo? =
@@ -25,7 +27,12 @@ object UtilKApplicationInfo {
 
     @JvmStatic
     fun getFlags(context: Context): Int? =
-        get(context)?.flags
+        get(context)?.let { getFlags(it) }
+
+    @JvmStatic
+    fun getFlags(applicationInfo: ApplicationInfo): Int =
+        applicationInfo.flags
+
 
     /**
      * 和这个方法一样[UtilKPackageManager.getApplicationIcon]
@@ -68,29 +75,42 @@ object UtilKApplicationInfo {
         get(context)?.labelRes
 
     @JvmStatic
-    fun getApplicationLabel(context: Context):String? =
+    fun getApplicationLabel(context: Context): String? =
         getLabelRes(context)?.let { UtilKRes.getString(it) }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    @Throws(IllegalArgumentException::class)
-    fun isSystemApp(context: Context): Boolean {
-        val flags = getFlags(context)
-        requireNotNull(flags)
-        return (flags and CApplicationInfo.FLAG_SYSTEM) != 0
-    }
+    fun isSystemApp(context: Context): Boolean =
+        get(context)?.let { isSystemApp(it) } ?: false.also { Log.d(TAG, "isSystemApp: getApplicationInfo fail") }
 
     @JvmStatic
-    @Throws(IllegalArgumentException::class)
-    fun isSystemUpdateApp(context: Context): Boolean {
-        val flags = getFlags(context)
-        requireNotNull(flags)
-        return (flags and CApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
-    }
+    fun isSystemUpdateApp(context: Context): Boolean =
+        get(context)?.let { isSystemUpdateApp(it) } ?: false.also { Log.d(TAG, "isSystemUpdateApp: getApplicationInfo fail") }
 
     @JvmStatic
-    @Throws(IllegalArgumentException::class)
+    fun isSystemOrSystemUpdateApp(context: Context): Boolean =
+        get(context)?.let { isSystemOrSystemUpdateApp(it) } ?: false.also { Log.d(TAG, "isSystemOrSystemUpdateApp: getApplicationInfo fail") }
+
+    @JvmStatic
     fun isUserApp(context: Context): Boolean =
-        !isSystemApp(context) && !isSystemUpdateApp(context)
+        get(context)?.let { isUserApp(it) } ?: false.also { Log.d(TAG, "isUserApp: getApplicationInfo fail") }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun isSystemApp(applicationInfo: ApplicationInfo): Boolean =
+        (getFlags(applicationInfo) and CApplicationInfo.FLAG_SYSTEM) != 0
+
+    @JvmStatic
+    fun isSystemUpdateApp(applicationInfo: ApplicationInfo): Boolean =
+        (getFlags(applicationInfo) and CApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
+
+    @JvmStatic
+    fun isSystemOrSystemUpdateApp(applicationInfo: ApplicationInfo): Boolean =
+        isSystemApp(applicationInfo) || isSystemUpdateApp(applicationInfo)
+
+    @JvmStatic
+    fun isUserApp(applicationInfo: ApplicationInfo): Boolean =
+        !isSystemApp(applicationInfo) && !isSystemUpdateApp(applicationInfo)
 }

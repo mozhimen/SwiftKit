@@ -1,5 +1,6 @@
 package com.mozhimen.underlayk.logk.temps.printer
 
+import android.app.Activity
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
@@ -10,6 +11,7 @@ import com.mozhimen.underlayk.logk.LogK
 import com.mozhimen.underlayk.logk.bases.BaseLogKConfig
 import com.mozhimen.underlayk.logk.commons.ILogKPrinter
 import com.mozhimen.underlayk.logk.commons.ILogKPrinterMonitor
+import java.lang.ref.WeakReference
 
 /**
  * @ClassName PrinterMonitor
@@ -28,7 +30,7 @@ class LogKPrinterMonitor : ILogKPrinter, ILogKPrinterMonitor, IUtilK {
 
     init {
         StackKCb.instance.addFrontBackListener(object : IStackKListener {
-            override fun onChanged(isFront: Boolean) {
+            override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>) {
                 if (!isFront && isOpen()) {
                     LogK.wtk(TAG, "PrinterMonitor onChanged log stop")
                     _logKPrinterMonitorDelegate.close()

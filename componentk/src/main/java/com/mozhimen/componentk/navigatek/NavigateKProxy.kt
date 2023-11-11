@@ -26,7 +26,7 @@ class NavigateKProxy<A>(
     private val _classes: List<Class<*>>,
     private val _navigateKConfig: MNavigateKConfig = MNavigateKConfig(),
     private val _defaultDestinationId: Int = _classes.getOrNull(0)?.getDestinationId() ?: 0
-) : BaseWakeBefDestroyLifecycleObserver() where A : LifecycleOwner, A : FragmentActivity {
+) : BaseWakeBefDestroyLifecycleObserver() where A : FragmentActivity, A : LifecycleOwner {
     ///////////////////////////////////////////////////////////////////////////////////////
 
     private val _navigateK: NavigateK by lazy { NavigateK(_activity) }

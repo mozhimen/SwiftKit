@@ -1,6 +1,6 @@
 package com.mozhimen.componentk.netk.connection
 
-import android.app.Activity
+import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.elemk.android.content.bases.BaseBroadcastReceiverProxy
@@ -27,18 +27,18 @@ import com.mozhimen.basick.elemk.commons.IConnectionListener
     CPermission.ACCESS_FINE_LOCATION,
     CPermission.INTERNET
 )
-class NetKConnectionProxy<A>(
-    _activity: A,
+class NetKConnectionProxy<C>(
+    context: C,
     private val _listener: IConnectionListener,
-    private val _receiver: BaseConnectivityBroadcastReceiver = BaseConnectivityBroadcastReceiver(),
-) : BaseBroadcastReceiverProxy<A>(_activity, _receiver, CConnectivityManager.CONNECTIVITY_ACTION) where A : Activity, A : LifecycleOwner {
+    receiver: BaseConnectivityBroadcastReceiver = BaseConnectivityBroadcastReceiver(),
+) : BaseBroadcastReceiverProxy<C>(context, receiver, CConnectivityManager.CONNECTIVITY_ACTION) where C : Context, C : LifecycleOwner {
 
     init {
-        _receiver.registerListener(_listener)
+        (_receiver as BaseConnectivityBroadcastReceiver).registerListener(_listener)
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-        _receiver.unRegisterListener(_listener)
+        (_receiver as BaseConnectivityBroadcastReceiver).unRegisterListener(_listener)
         super.onDestroy(owner)
     }
 }

@@ -1,6 +1,7 @@
 package com.mozhimen.underlayk.fpsk.helpers
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.graphics.PixelFormat
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import com.mozhimen.underlayk.R
 import com.mozhimen.underlayk.fpsk.commons.IFpsK
 import com.mozhimen.underlayk.fpsk.commons.IFpsKListener
 import com.mozhimen.underlayk.logk.LogK
+import java.lang.ref.WeakReference
 
 /**
  * @ClassName FpsViewer
@@ -59,7 +61,7 @@ class FpsKDelegate : IFpsK, BaseUtilK() {
 
     init {
         StackKCb.instance.addFrontBackListener(object : IStackKListener {
-            override fun onChanged(isFront: Boolean) {
+            override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>) {
 //                if (isFront) {
 //                    LogK.dt(TAG, "FpsKView onChanged fpsk start")
 //                    start()

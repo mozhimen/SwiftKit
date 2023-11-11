@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.app.download.helpers
+package com.mozhimen.componentk.netk.app.unzip
 
 import android.os.Environment
 import android.util.Log
@@ -9,7 +9,7 @@ import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.util.UtilKZip
 import com.mozhimen.basick.utilk.kotlin.collections.containsBy
 import com.mozhimen.basick.utilk.kotlin.getSplitExLast
-import com.mozhimen.componentk.netk.app.download.db.AppDownloadTask
+import com.mozhimen.componentk.netk.app.task.db.AppTask
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -23,7 +23,7 @@ import java.util.zip.ZipFile
  * @Date 2023/11/7 15:09
  * @Version 1.0
  */
-object AppZipManager {
+object AppUnzipManager {
     /**
      *  过滤在mac上压缩时自动生成的__MACOSX文件夹
      */
@@ -31,7 +31,7 @@ object AppZipManager {
 
     //////////////////////////////////////////////////////////////////
 
-    private val _unzippingTasks = mutableListOf<AppDownloadTask>()
+    private val _unzippingTasks = mutableListOf<AppTask>()
 
     //////////////////////////////////////////////////////////////////
 
@@ -40,12 +40,12 @@ object AppZipManager {
      * @return true 表示正在解压中 false 不在解压中
      */
     @JvmStatic
-    fun isUnziping(appDownloadTask: AppDownloadTask): Boolean {
+    fun isUnziping(appTask: AppTask): Boolean {
 //        for (task in _unzippingTasks) {
-//            if (isSame(appDownloadTask, task))
+//            if (isSame(appTask, task))
 //                return true
 //        }
-        return _unzippingTasks.containsBy { it.taskId == appDownloadTask.taskId } && appDownloadTask.isUnziping()
+        return _unzippingTasks.containsBy { it.taskId == appTask.taskId } && appTask.isUnziping()
     }
 
     @JvmStatic
@@ -54,15 +54,12 @@ object AppZipManager {
     }
 
     @JvmStatic
-    fun unzip(appDownloadTask: AppDownloadTask): String? {
-        for (task in _unzippingTasks) {
-            if (appDownloadTask.taskId == task.taskId)
-                return ""
-        }
-        _unzippingTasks.add(appDownloadTask)//开始解压，添加到列表中
+    fun unzip(appTask: AppTask): String {
+        if (isUnziping(appTask)) return ""//正在解压
+        _unzippingTasks.add(appTask)//开始解压，添加到列表中
         val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: return ""
-        val strPathNameApk = unzip(File(externalFilesDir, appDownloadTask.apkSaveName), externalFilesDir.absolutePath)
-        _unzippingTasks.remove(appDownloadTask)//解压成功，移除
+        val strPathNameApk = unzip(File(externalFilesDir, appTask.apkName), externalFilesDir.absolutePath)
+        _unzippingTasks.remove(appTask)//解压成功，移除
         return strPathNameApk
     }
 

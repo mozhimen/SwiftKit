@@ -1,6 +1,6 @@
 package com.mozhimen.componentk.netk.app.download.mos
 
-import com.mozhimen.componentk.netk.app.download.cons.CAppDownloadState
+import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 
 /**
  * @ClassName AppDownloadProgress
@@ -10,9 +10,9 @@ import com.mozhimen.componentk.netk.app.download.cons.CAppDownloadState
  * @Version 1.0
  */
 data class MAppDownloadProgress(
-    val progressState: Int = CAppDownloadState.STATE_TASK_CREATE,
-    val progress: Int = 0
+    var progressState: Int = CNetKAppState.STATE_TASK_CREATE,
+    var progress: Int = 0
 ) {
     fun isDownloading(): Boolean =
-        CAppDownloadState.isDownloading(progressState)
+        CNetKAppState.isDownloading(progressState)
 }

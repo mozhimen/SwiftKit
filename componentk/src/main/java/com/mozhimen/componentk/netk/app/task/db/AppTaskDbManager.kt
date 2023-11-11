@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.app.download.db
+package com.mozhimen.componentk.netk.app.task.db
 
 import android.content.Context
 import androidx.room.Room
@@ -12,10 +12,10 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
  * @Version 1.0
  */
 @OptInApiInit_InApplication
-object DatabaseManager {
-    private lateinit var _appDownloadDb: AppDownloadDb
+object AppTaskDbManager {
+    private lateinit var _appTaskDb: AppTaskDb
 
-    lateinit var appDownloadParamDao: AppDownloadParamDao
+    lateinit var appTaskDao: AppTaskDao
         private set
 
 //    /**
@@ -29,11 +29,11 @@ object DatabaseManager {
 //    }
 
     fun init(context: Context) {
-        _appDownloadDb = Room.databaseBuilder(context, AppDownloadDb::class.java, "netk_app_download_db")
+        _appTaskDb = Room.databaseBuilder(context, AppTaskDb::class.java, "netk_app_task_db")
 //            .fallbackToDestructiveMigration()//使用该方法会在数据库升级异常时重建数据库，但是所有数据会丢失
 //            .addMigrations(APP_DATABASE_MIGRATION_1_2)
             .build()
-        appDownloadParamDao = _appDownloadDb.appDownloadParamDao()
-        DaoManager.init()
+        appTaskDao = _appTaskDb.appTaskDao()
+        AppTaskDaoManager.init()
     }
 }

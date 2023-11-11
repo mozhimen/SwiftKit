@@ -1,9 +1,9 @@
-package com.mozhimen.componentk.netk.app.download.db
+package com.mozhimen.componentk.netk.app.task.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.mozhimen.componentk.netk.app.download.cons.CAppDownloadState
+import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 
 /**
  * @ClassName AppFileParam
@@ -12,8 +12,8 @@ import com.mozhimen.componentk.netk.app.download.cons.CAppDownloadState
  * @Date 2023/10/11 18:26
  * @Version 1.0
  */
-@Entity(tableName = "app_download_task")
-data class AppDownloadTask(
+@Entity(tableName = "netk_app_task")
+data class AppTask(
     @PrimaryKey
     @ColumnInfo(name = "task_id")
     val taskId: String,//主键
@@ -33,8 +33,10 @@ data class AppDownloadTask(
     val apkFileMd5: String,//文件的MD5值
     @ColumnInfo(name = "apk_package_name")
     val apkPackageName: String,//包名
-    @ColumnInfo(name = "apk_save_name")
-    val apkSaveName: String,//本地保存的名称 为appid.apk或appid.npk
+    @ColumnInfo(name = "apk_name")
+    val apkName: String,//本地保存的名称 为appid.apk或appid.npk
+    @ColumnInfo(name = "apk_path_name")
+    var apkPathName: String,//本地暂存路径
     @ColumnInfo(name = "apk_is_installed")
     var apkIsInstalled: Boolean,//是否安装0未,1安装
     @ColumnInfo(name = "apk_verify_need")
@@ -43,14 +45,14 @@ data class AppDownloadTask(
     var taskUpdateTime: Long = System.currentTimeMillis(),//更新时间
 ) {
     fun isDownloading(): Boolean =
-        !apkIsInstalled && CAppDownloadState.isDownloading(taskState)
+        !apkIsInstalled && CNetKAppState.isDownloading(taskState)
 
     fun isVerifying(): Boolean =
-        !apkIsInstalled && CAppDownloadState.isVerifying(taskState)
+        !apkIsInstalled && CNetKAppState.isVerifying(taskState)
 
     fun isUnziping(): Boolean =
-        !apkIsInstalled && CAppDownloadState.isUnziping(taskState)
+        !apkIsInstalled && CNetKAppState.isUnziping(taskState)
 
     fun isInstalling(): Boolean =
-        !apkIsInstalled && CAppDownloadState.isInstalling(taskState)
+        !apkIsInstalled && CNetKAppState.isInstalling(taskState)
 }

@@ -25,7 +25,11 @@ object UtilKPackageInfo : BaseUtilK() {
 
     @JvmStatic
     fun get(context: Context, flags: Int): PackageInfo? =
-        UtilKPackageManager.getPackageInfo(context, UtilKContext.getPackageName(context), flags /*0*/)
+        get(context, UtilKContext.getPackageName(context), flags /*0*/)
+
+    @JvmStatic
+    fun get(context: Context, packageName: String, flags: Int): PackageInfo? =
+        UtilKPackageManager.getPackageInfo(context, packageName, flags)
 
     @JvmStatic
     fun getOfInstallLocationAuto(context: Context): PackageInfo? =
@@ -50,6 +54,8 @@ object UtilKPackageInfo : BaseUtilK() {
     @JvmStatic
     fun getRequestedPermissions(packageInfo: PackageInfo?): Array<String>? =
         packageInfo?.requestedPermissions
+
+    /////////////////////////////////////////////////////////////////////////
 
     /**
      * 获取程序包名
@@ -87,4 +93,7 @@ object UtilKPackageInfo : BaseUtilK() {
             Log.e(TAG, "getVersionCode: NameNotFoundException ${e.message}")
             0
         }
+
+    /////////////////////////////////////////////////////////////////////////
+
 }

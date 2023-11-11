@@ -1,5 +1,8 @@
 package com.mozhimen.basick.stackk.commons
 
+import android.app.Activity
+import java.lang.ref.WeakReference
+
 /**
  * @ClassName StackKListener
  * @Description TODO
@@ -8,5 +11,5 @@ package com.mozhimen.basick.stackk.commons
  * @Version 1.0
  */
 interface IStackKListener {
-    fun onChanged(isFront: Boolean)
+    fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>)
 }

@@ -47,8 +47,9 @@ dependencies {
     api "com.squareup.retrofit2:adapter-rxjava2:2.6.1"
 
     //netk_file
-    api 'com.liulishuo.okdownload:okdownload:1.0.7'
-    api 'com.liulishuo.okdownload:sqlite:1.0.7'
+    api 'com.liulishuo.okdownload:okdownload:1.0.7'//核心库
+    api 'com.liulishuo.okdownload:sqlite:1.0.7'//存储断点信息的数据库
+    api 'com.liulishuo.okdownload:okhttp:1.0.7'//提供okhttp连接，如果使用的话，需要引入okhttp网络请求库
     api 'in.xiandan:okdownload-ext:1.0.7'
 
     //cameraxk

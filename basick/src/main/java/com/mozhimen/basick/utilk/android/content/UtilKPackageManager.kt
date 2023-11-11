@@ -18,6 +18,7 @@ import android.provider.Settings
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import com.mozhimen.basick.elemk.android.content.cons.CPackageManager
+import com.mozhimen.basick.elemk.android.os.cons.CProcess
 import com.mozhimen.basick.lintk.annors.ADescription
 import com.mozhimen.basick.elemk.android.os.cons.CVersCode
 import com.mozhimen.basick.elemk.cons.CStrPackage
@@ -113,6 +114,55 @@ object UtilKPackageManager {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /**
+     * 获取所有安装程序包名
+     */
+    @JvmStatic
+    fun getInstalledPackages(context: Context, hasSystemPackages: Boolean = false): List<PackageInfo> {
+        var installedPackages = getInstalledPackages(context, 0).toMutableList()
+        if (installedPackages.isEmpty()) {
+            installedPackages = getInstalledPackagesForce(context).toMutableList()
+        }
+        if (!hasSystemPackages) {
+            val iterator = installedPackages.iterator()
+            while (iterator.hasNext()) {
+                val next = iterator.next()
+                if (UtilKApplicationInfo.isSystemApp(next.applicationInfo))
+                    iterator.remove()
+            }
+        }
+        return installedPackages
+    }
+
+    /**
+     * 强制获取软件包列表
+     * @return 获取查询到的应用列表
+     */
+    private fun getInstalledPackagesForce(context: Context): List<PackageInfo> {
+        val installedPackages = mutableListOf<PackageInfo>()
+        val packageManager = get(context)
+        for (uid in CProcess.SYSTEM_UID..CProcess.LAST_APPLICATION_UID) {
+            val packagesForUid = try {
+                packageManager.getPackagesForUid(uid)
+            } catch (e: Exception) {
+                null
+            }
+            packagesForUid?.forEach { packageName ->
+                val packageInfo = try {
+                    packageManager.getPackageInfo(packageName, 0)
+                } catch (e: Exception) {
+                    null
+                }
+                packageInfo?.let {
+                    installedPackages.add(packageInfo)
+                }
+            }
+        }
+        return installedPackages
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /**
      * 系统的下载组件是否可用
      */
     fun isDownloadComponentEnabled(context: Context): Boolean {
@@ -149,6 +199,13 @@ object UtilKPackageManager {
         get(context).hasSystemFeature(featureName)
 
     /**
+     * 是否有匹配的包名
+     */
+    fun hasPackage(context: Context, packageName: String): Boolean =
+        queryIntentActivities(context, UtilKIntentWrapper.getMainLauncher(packageName), 0).isNotEmpty()
+
+
+    /**
      * 是否有包安装权限
      */
     @JvmStatic
@@ -158,4 +215,6 @@ object UtilKPackageManager {
     @ADescription(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
     fun canRequestPackageInstalls(context: Context): Boolean =
         get(context).canRequestPackageInstalls()
+
+
 }

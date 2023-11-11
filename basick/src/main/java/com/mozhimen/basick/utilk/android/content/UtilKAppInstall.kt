@@ -79,6 +79,15 @@ object UtilKAppInstall : BaseUtilK() {
     }
 
     /**
+     * 手动安装 if sdk >= 24 add provider
+     */
+    @JvmStatic
+    @RequiresPermission(CPermission.INSTALL_PACKAGES)
+    fun installHand(fileApk: File) {
+        UtilKLaunchActivity.startInstall(_context, fileApk)
+    }
+
+    /**
      * 静默安装
      */
     @JvmStatic

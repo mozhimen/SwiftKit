@@ -89,6 +89,8 @@ object UtilKIntentWrapper {
     fun getContentAudioVideo(): Intent =
         getContent().apply { setType("${CMediaFormat.MIMETYPE_AUDIO_ALL};${CMediaFormat.MIMETYPE_VIDEO_ALL}") }
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * Get location source settings
      *  定位服务
@@ -152,6 +154,8 @@ object UtilKIntentWrapper {
     fun getManageUnknownAppSources(context: Context): Intent =
         Intent(CSettings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, UtilKUri.getPackageUri(context))
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 获取mainLauncher
      */
@@ -171,6 +175,19 @@ object UtilKIntentWrapper {
             addCategory(CIntent.CATEGORY_LAUNCHER)
             setPackage(packageName)
         }
+
+    /**
+     * 获取mainLauncher
+     */
+    @JvmStatic
+    fun getMainLauncher(packageName: String): Intent =
+        Intent(CIntent.ACTION_MAIN).apply {
+            addCategory(CIntent.CATEGORY_LAUNCHER)
+            setPackage(packageName)
+            addFlags(CIntent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 获取启动App的Intent
@@ -217,6 +234,8 @@ object UtilKIntentWrapper {
         intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
         return intent
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
     fun getUri(uri: Uri): Intent =
