@@ -11,5 +11,5 @@ import java.lang.ref.WeakReference
  * @Version 1.0
  */
 interface IStackKListener {
-    fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>)
+    fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?)
 }

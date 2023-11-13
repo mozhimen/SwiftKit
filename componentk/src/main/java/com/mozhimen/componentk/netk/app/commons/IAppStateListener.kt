@@ -10,14 +10,26 @@ import com.mozhimen.componentk.netk.app.task.db.AppTask
  * @Date 2023/10/11 18:24
  * @Version 1.0
  */
+
+interface IAppStateBook {
+    //    /**
+//     * 预约状态发生变化的回调
+//     *@param appFileParams 应用Id
+//     *@param booked 预约状态 true 已预约 false 未预约
+//     *
+//     */
+//    fun onReservationStateChange(appFileParams: AppTask, booked: Boolean)
+}
+
+interface IAppStateUninstall {
+    fun onUninstallSuccess(appTask: AppTask) {}//应用卸载的监听
+}
+
 interface IAppStateInstall {
     fun onInstalling(appTask: AppTask) {}//安装中
     fun onInstallSuccess(appTask: AppTask) {}//应用安装的监听
     fun onInstallFail(appTask: AppTask) {}
-    //////////////////////////////////////////////////////
-    fun onUninstallSuccess(appTask: AppTask) {}//应用卸载的监听
 }
-
 
 interface IAppStateUnzip {
     fun onUnziping(appTask: AppTask) {}//解压中
@@ -33,15 +45,13 @@ interface IAppStateVerify {
 
 interface IAppStateDownload {
     fun onDownloadCreate(appTask: AppTask) {}//下载开始的回调
-    fun onDownloadWait(appTask: AppTask){}
+    fun onDownloadWait(appTask: AppTask) {}
     fun onDownloading(appTask: AppTask, progress: Int) {}//下载进度回调方法
     fun onDownloadPause(appTask: AppTask) {}//下载暂停的回调
     fun onDownloadCancel(appTask: AppTask) {}//下载取消的回调
     fun onDownloadSuccess(appTask: AppTask) {}//下载成功的回调 不做任何事 此时会去校验应用或者解压npk
     fun onDownloadFail(appTask: AppTask) {}//下载失败的回调
 }
-
-interface IAppStateListener : IAppStateDownload, IAppStateVerify, IAppStateUnzip, IAppStateInstall, IAppStateTask
 
 interface IAppStateTask {
     fun onTaskCreate(appTask: AppTask)
@@ -71,12 +81,4 @@ interface IAppStateTask {
 
 }
 
-interface IAppStateListenerBook {
-    //    /**
-//     * 预约状态发生变化的回调
-//     *@param appFileParams 应用Id
-//     *@param booked 预约状态 true 已预约 false 未预约
-//     *
-//     */
-//    fun onReservationStateChange(appFileParams: AppTask, booked: Boolean)
-}
+interface IAppStateListener : IAppStateDownload, IAppStateVerify, IAppStateUnzip, IAppStateInstall, IAppStateTask, IAppStateUninstall

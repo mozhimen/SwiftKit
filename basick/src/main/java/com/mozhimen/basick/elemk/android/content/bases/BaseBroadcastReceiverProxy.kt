@@ -29,8 +29,6 @@ open class BaseBroadcastReceiverProxy<C> : BaseWakeBefDestroyLifecycleObserver w
 
     /////////////////////////////////////////////////////////////////////////////
 
-    constructor(activity: C, receiver: BroadcastReceiver, vararg actions: String) : this(activity, receiver, actions)
-
     constructor(activity: C, receiver: BroadcastReceiver, actions: Array<out String>) : super() {
         _activity = activity
         _receiver = receiver

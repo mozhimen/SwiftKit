@@ -61,7 +61,7 @@ class FpsKDelegate : IFpsK, BaseUtilK() {
 
     init {
         StackKCb.instance.addFrontBackListener(object : IStackKListener {
-            override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>) {
+            override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
 //                if (isFront) {
 //                    LogK.dt(TAG, "FpsKView onChanged fpsk start")
 //                    start()

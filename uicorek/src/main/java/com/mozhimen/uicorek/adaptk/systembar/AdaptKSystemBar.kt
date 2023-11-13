@@ -142,7 +142,7 @@ object AdaptKSystemBar : BaseUtilK() {
                 15 -> mPropertyConfig.isThemeDark = byteBoolean
             }
         }
-        return mPropertyConfig.also { "getConfigForByteInt mPropertyConfig $it".dt(TAG) }
+        return mPropertyConfig.also { "getConfigForByteInt: mPropertyConfig $it".dt(TAG) }
     }
 
 

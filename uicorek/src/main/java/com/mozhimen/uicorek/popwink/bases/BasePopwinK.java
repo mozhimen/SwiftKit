@@ -827,7 +827,7 @@ public abstract class BasePopwinK extends BaseUtilK implements PopupWindow.OnDis
         }
         checkActivity();
         if (mContext == null) {
-            if (StackKCb.getInstance().getStackTopActivity(true) == null) {
+            if (StackKCb.getInstance().getStackTopActivityRef(true) == null) {
                 waitForFirstActivityOpened(v, positionMode);
                 return;
             }

@@ -22,8 +22,6 @@ fun Long.minute2millis(): Long =
 fun Long.hour2millis(): Long =
     UtilKTimeUnit.hour2millis(this)
 
-
-
 object UtilKTimeUnit {
     @JvmStatic
     fun second2millis(second: Long): Long =

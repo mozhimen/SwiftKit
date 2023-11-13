@@ -30,7 +30,7 @@ class LogKPrinterMonitor : ILogKPrinter, ILogKPrinterMonitor, IUtilK {
 
     init {
         StackKCb.instance.addFrontBackListener(object : IStackKListener {
-            override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>) {
+            override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
                 if (!isFront && isOpen()) {
                     LogK.wtk(TAG, "PrinterMonitor onChanged log stop")
                     _logKPrinterMonitorDelegate.close()

@@ -2,10 +2,13 @@ package com.mozhimen.uicorek.layoutk
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.BlendMode
 import android.graphics.Color
+import android.os.Build
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatRatingBar
 import com.mozhimen.basick.utilk.android.util.dp2px
@@ -38,7 +41,11 @@ class LayoutKLoading @JvmOverloads constructor(context: Context, attrs: Attribut
         val progressBar = ProgressBar(context)
         if (_loadColor != 0) {
             progressBar.indeterminateTintList = ColorStateList.valueOf(_loadColor)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                progressBar.indeterminateTintBlendMode = BlendMode.SRC_ATOP
+            }
+
         }
-        addView(progressBar, LayoutParams(45.dp2px().toInt(), 45.dp2px().toInt()).apply { gravity = Gravity.CENTER })
+        addView(progressBar, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply { gravity = Gravity.CENTER })
     }
 }

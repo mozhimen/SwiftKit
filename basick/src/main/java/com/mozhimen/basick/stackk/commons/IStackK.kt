@@ -27,6 +27,19 @@ interface IStackK {
     fun getStackTopActivity(onlyAlive: Boolean): Activity?
 
     /**
+     * 找出栈顶不为空，且没有被销毁的activity
+     * @return Activity?
+     */
+    fun getStackTopActivityRef(): WeakReference<Activity>?
+
+    /**
+     * 找出栈顶不为空，且没有被销毁的activity
+     * @param onlyAlive Boolean
+     * @return Activity?
+     */
+    fun getStackTopActivityRef(onlyAlive: Boolean): WeakReference<Activity>?
+
+    /**
      * 增加栈监听器
      * @param listener StackKListener
      */

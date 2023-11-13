@@ -61,6 +61,8 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+
     @JvmStatic
     fun download(appTask: AppTask) {
         val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: throw AppDownloadException(CNetKAppErrorCode.CODE_DOWNLOAD_PATH_NOT_EXIST)
@@ -71,8 +73,11 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             .build()
         //先根据Id去查找当前队列中有没有相同的任务，
         //如果有相同的任务，则不进行提交
-        val appFileParams1 = _appTasks[downloadTask.id]
-        if (null != appFileParams1) return
+        val appTask1 = _appTasks[downloadTask.id]
+        if (appTask1 != null) {
+            Log.d(TAG, "download: the task is downloading")
+            return
+        }
         when (StatusUtil.getStatus(downloadTask)) {
             StatusUtil.Status.PENDING -> {
                 //等待中 不做处理
@@ -99,12 +104,71 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             }
         }
         /**
-         * [CNetKAppState.STATE_TASK_WAIT]
+         * [CNetKAppState.STATE_DOWNLOAD_WAIT]
          */
-        NetKApp.onTaskWait(appTask)
+        NetKApp.onDownloadWait(appTask)
+
         _appTasks.put(downloadTask.id, appTask)
         _appDownloadSerialQueue.enqueue(downloadTask)
     }
+
+    fun downloadPause(appTask: AppTask) {
+        val task = getDownloadTask(appTask) ?: return
+        task.cancel()//取消任务
+    }
+
+    /**
+     * 恢复任务
+     */
+    fun downloadResume(appTask: AppTask) {
+        val task = getDownloadTask(appTask) ?: return
+        val status = StatusUtil.getStatus(task)
+        if (status != StatusUtil.Status.RUNNING) {
+            _appDownloadSerialQueue.enqueue(task)
+        }
+        _appTasks.put(task.id, appTask)
+    }
+
+//    /**
+//     * 任务取消等待
+//     */
+//    fun downloadWaitCancel(appTask: AppTask) {
+//        val task = getDownloadTask(appTask) ?: return
+//        _appDownloadSerialQueue.remove(task)//先从队列中移除
+//        task.cancel()//然后取消任务
+//        /**
+//         * [CNetKAppState.STATE_TASK_WAIT_CANCEL]
+//         */
+//        NetKApp.onDownloadW(appTask)
+//    }
+
+    /**
+     * 删除任务
+     */
+    @WorkerThread
+    fun downloadCancelOnBack(appTask: AppTask, onDeleteBlock: IAB_Listener<Boolean, Int>?) {
+        val task = getDownloadTask(appTask) ?: kotlin.run {
+            TaskKHandler.post {
+                onDeleteBlock?.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
+            }
+            return
+        }
+        task.cancel()
+        _appTasks.delete(task.id)//先从队列中移除
+        _appDownloadSerialQueue.remove(task)
+        OkDownload.with().breakpointStore().remove(task.id)
+        task.file?.delete()
+        AppTaskDaoManager.deleteOnBack(appTask)
+        TaskKHandler.post {
+            onDeleteBlock?.invoke(true, -1)
+            /**
+             * [CNetKAppState.STATE_TASK_CANCEL]
+             */
+            NetKApp.onTaskCancel(appTask)
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////
 
     /**
      * 查询下载状态
@@ -154,55 +218,6 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                     } ?: 0
                 }
             }
-        }
-    }
-
-    fun waitCancel(appTask: AppTask) {
-        val task = getDownloadTask(appTask) ?: return
-        _appDownloadSerialQueue.remove(task)//先从队列中移除
-        task.cancel()//然后取消任务
-    }
-
-    fun pause(appTask: AppTask) {
-        val task = getDownloadTask(appTask) ?: return
-        task.cancel()//取消任务
-    }
-
-    /**
-     * 恢复任务
-     */
-    fun resume(appTask: AppTask) {
-        val task = getDownloadTask(appTask) ?: return
-        val status = StatusUtil.getStatus(task)
-        if (status != StatusUtil.Status.RUNNING) {
-            _appDownloadSerialQueue.enqueue(task)
-        }
-        _appTasks.put(task.id, appTask)
-    }
-
-    /**
-     * 删除任务
-     */
-    @WorkerThread
-    fun deleteOnBack(appTask: AppTask, onDelete: IAB_Listener<Boolean, Int>) {
-        val task = getDownloadTask(appTask) ?: kotlin.run {
-            TaskKHandler.post {
-                onDelete.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
-            }
-            return
-        }
-        task.cancel()
-        _appTasks.delete(task.id)//先从队列中移除
-        _appDownloadSerialQueue.remove(task)
-        OkDownload.with().breakpointStore().remove(task.id)
-        task.file?.delete()
-        AppTaskDaoManager.deleteOnBack(appTask)
-        TaskKHandler.post {
-            onDelete.invoke(true, -1)
-            /**
-             * [CNetKAppState.STATE_TASK_CANCEL]
-             */
-            NetKApp.onTaskCancel(appTask)
         }
     }
 

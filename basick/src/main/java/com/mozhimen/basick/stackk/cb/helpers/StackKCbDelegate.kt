@@ -30,25 +30,6 @@ internal class StackKCbDelegate : IStackK {
         UtilKApplicationReflect.instance.get().registerActivityLifecycleCallbacks(InnerActivityLifecycleCallbacks())
     }
 
-    override fun getStackTopActivity(): Activity? =
-        getStackTopActivity(true)
-
-    override fun getStackTopActivity(onlyAlive: Boolean): Activity? {
-        if (getStackCount() <= 0) {
-            return null
-        } else {
-            val activityRef: WeakReference<Activity> = _activityRefs[getStackCount() - 1]
-            val activity: Activity? = activityRef.get()
-            if (onlyAlive) {
-                if (activity == null || activity.isFinishingOrDestroyed()) {
-                    _activityRefs.remove(activityRef)
-                    return getStackTopActivity(onlyAlive)
-                }
-            }
-            return activity
-        }
-    }
-
     override fun addFrontBackListener(listener: IStackKListener) {
         if (!_frontBackListeners.contains(listener)) {
             _frontBackListeners.add(listener)
@@ -64,6 +45,40 @@ internal class StackKCbDelegate : IStackK {
     override fun getFrontBackListeners(): ArrayList<IStackKListener> =
         _frontBackListeners
 
+    override fun getStackTopActivity(): Activity? =
+        getStackTopActivityRef()?.get()
+
+    override fun getStackTopActivity(onlyAlive: Boolean): Activity? =
+        getStackTopActivityRef(onlyAlive)?.get()
+
+    override fun getStackTopActivityRef(): WeakReference<Activity>? =
+        getStackTopActivityRef(true)
+
+    override fun getStackTopActivityRef(onlyAlive: Boolean): WeakReference<Activity>? {
+        if (getStackCount() <= 0) {
+            return null
+        } else {
+            val activityRef: WeakReference<Activity> = _activityRefs[getStackCount() - 1]
+            val activity: Activity? = activityRef.get()
+            if (onlyAlive) {
+                if (activity == null || activity.isFinishingOrDestroyed()) {
+                    _activityRefs.remove(activityRef)
+                    return getStackTopActivityRef(onlyAlive)
+                }
+            }
+            return WeakReference(activity)
+        }
+    }
+
+    override fun getActivityRefs(): ArrayList<WeakReference<Activity>> =
+        _activityRefs
+
+    override fun getStackCount(): Int =
+        getActivityRefs().size
+
+    override fun getLaunchCount(): Int =
+        _activityLaunchCount
+
     override fun finishAllActivity() {
         for (activityRef in _activityRefs) {
             if (activityRef.get()?.isFinishing == false) {
@@ -75,15 +90,6 @@ internal class StackKCbDelegate : IStackK {
 
     override fun isFront(): Boolean =
         _isFront
-
-    override fun getActivityRefs(): ArrayList<WeakReference<Activity>> =
-        _activityRefs
-
-    override fun getStackCount(): Int =
-        getActivityRefs().size
-
-    override fun getLaunchCount(): Int =
-        _activityLaunchCount
 
     //////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -129,6 +135,8 @@ internal class StackKCbDelegate : IStackK {
                 }
             }
         }
+
+        ////////////////////////////////////////////////////////////
 
         private fun onFrontBackChanged(isFront: Boolean, activity: Activity) {
             for (listener in _frontBackListeners) {

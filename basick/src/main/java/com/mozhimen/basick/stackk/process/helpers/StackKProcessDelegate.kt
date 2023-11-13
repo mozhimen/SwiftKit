@@ -34,11 +34,6 @@ internal class StackKProcessDelegate : IStackK {
         _applicationObserver.bindLifecycle(ProcessLifecycleOwner.get())
     }
 
-    override fun getStackTopActivity(): Activity? =
-        StackKCb.instance.getStackTopActivity()
-
-    override fun getStackTopActivity(onlyAlive: Boolean): Activity? =
-        StackKCb.instance.getStackTopActivity(onlyAlive)
 
     override fun addFrontBackListener(listener: IStackKListener) {
         if (!_frontBackListeners.contains(listener)) {
@@ -55,12 +50,17 @@ internal class StackKProcessDelegate : IStackK {
     override fun getFrontBackListeners(): ArrayList<IStackKListener> =
         _frontBackListeners
 
-    override fun finishAllActivity() {
-        StackKCb.instance.finishAllActivity()
-    }
+    override fun getStackTopActivity(): Activity? =
+        StackKCb.instance.getStackTopActivity()
 
-    override fun isFront(): Boolean =
-        _isFront
+    override fun getStackTopActivity(onlyAlive: Boolean): Activity? =
+        StackKCb.instance.getStackTopActivity(onlyAlive)
+
+    override fun getStackTopActivityRef(): WeakReference<Activity>? =
+        StackKCb.instance.getStackTopActivityRef()
+
+    override fun getStackTopActivityRef(onlyAlive: Boolean): WeakReference<Activity>? =
+        StackKCb.instance.getStackTopActivityRef(onlyAlive)
 
     override fun getActivityRefs(): ArrayList<WeakReference<Activity>> =
         StackKCb.instance.getActivityRefs()
@@ -70,6 +70,13 @@ internal class StackKProcessDelegate : IStackK {
 
     override fun getLaunchCount(): Int =
         StackKCb.instance.getLaunchCount()
+
+    override fun finishAllActivity() {
+        StackKCb.instance.finishAllActivity()
+    }
+
+    override fun isFront(): Boolean =
+        _isFront
 
     /////////////////////////////////////////////////////////////////////////
 
@@ -92,7 +99,7 @@ internal class StackKProcessDelegate : IStackK {
         override fun onStart(owner: LifecycleOwner) {
             Log.d(TAG, "onStart")
             if (!_isFront && getLaunchCount() > 0) {
-                onFrontBackChanged(true.also { _isFront = true })
+                onFrontBackChanged(true.also { _isFront = true }, null)
             }
         }
 
@@ -119,7 +126,7 @@ internal class StackKProcessDelegate : IStackK {
         override fun onStop(owner: LifecycleOwner) {
             Log.d(TAG, "onStop")
             if (getLaunchCount() <= 0 && _isFront) {
-                onFrontBackChanged(false.also { _isFront = false })
+                onFrontBackChanged(false.also { _isFront = false }, null)
             }
         }
 
@@ -131,9 +138,11 @@ internal class StackKProcessDelegate : IStackK {
             Log.d(TAG, "onDestroy")
         }
 
-        private fun onFrontBackChanged(isFront: Boolean) {
+        //////////////////////////////////////////////////////////////////////////
+
+        private fun onFrontBackChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
             for (listener in _frontBackListeners) {
-                listener.onChanged(isFront)
+                listener.onChanged(isFront, activityRef)
             }
         }
     }

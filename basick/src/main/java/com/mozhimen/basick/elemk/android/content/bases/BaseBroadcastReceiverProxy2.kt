@@ -30,8 +30,6 @@ open class BaseBroadcastReceiverProxy2 : BaseWakeBefDestroyLifecycleObserver {
 
     /////////////////////////////////////////////////////////////////////////////
 
-    constructor(activity: Context, owner: LifecycleOwner, receiver: BroadcastReceiver, vararg actions: String) : this(activity, owner, receiver, actions)
-
     constructor(activity: Context, owner: LifecycleOwner, receiver: BroadcastReceiver, actions: Array<out String>) : super() {
         _activity = activity
         _owner = owner

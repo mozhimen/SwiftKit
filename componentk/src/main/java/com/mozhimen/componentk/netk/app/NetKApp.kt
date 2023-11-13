@@ -2,6 +2,7 @@ package com.mozhimen.componentk.netk.app
 
 import android.content.Context
 import android.text.TextUtils
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.liulishuo.okdownload.core.exception.ServerCanceledException
@@ -50,7 +51,9 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     private val _netKAppInstallProxy by lazy { NetKAppInstallProxy(_context, ProcessLifecycleOwner.get()) }
 
     /////////////////////////////////////////////////////////////////
-
+    // init
+    /////////////////////////////////////////////////////////////////
+    //region # init
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     fun init(context: Context) {
         _netKAppInstallProxy.bindLifecycle(ProcessLifecycleOwner.get())// 注册应用安装的监听 InstalledApkReceiver.registerReceiver(this)
@@ -70,10 +73,13 @@ object NetKApp : IAppStateListener, BaseUtilK() {
         if (indexOf >= 0)
             _appDownloadStateListeners.removeAt(indexOf)
     }
+    //endregion
 
     /////////////////////////////////////////////////////////////////
-
-    fun startTask(appTask: AppTask, listener: IAppDownloadListener? = null) {
+    // control
+    /////////////////////////////////////////////////////////////////
+    //region
+    fun taskStart(appTask: AppTask, listener: IAppDownloadListener? = null) {
         try {
             if (appTask.apkFileSize != 0L) {
                 //当前剩余的空间
@@ -107,14 +113,16 @@ object NetKApp : IAppStateListener, BaseUtilK() {
                     }
                 }
             }
+            createTask2Db(appTask)
             /**
              * [CNetKAppState.STATE_TASK_CREATE]
              */
             onTaskCreate(appTask)
             /**
-             * [CNetKAppState.STATE_TASK_CREATE]
+             * [CNetKAppState.STATE_DOWNLOAD_CREATE]
              */
             onDownloadCreate(appTask)
+
             NetKAppDownloadManager.download(appTask)
             listener?.onSuccess()
         } catch (e: AppDownloadException) {
@@ -123,21 +131,25 @@ object NetKApp : IAppStateListener, BaseUtilK() {
         }
     }
 
-    fun taskWaitCancel(appTask: AppTask) {
-        /**
-         * [CNetKAppState.STATE_TASK_WAIT_CANCEL]
-         */
-        onTaskWaitCancel(appTask)
-        NetKAppDownloadManager.waitCancel(appTask)
-    }
-
-    fun taskCancel(appTask: AppTask, onCancelBlock: IAB_Listener<Boolean, Int>) {
-        if (AppUnzipManager.isUnziping(appTask)) {
-            onCancelBlock(false, CNetKAppErrorCode.CODE_TASK_CANCEL_FAIL_ON_UNZIPING)
+    fun taskResume(appTask: AppTask) {
+        if (appTask.taskState != CNetKAppState.STATE_TASK_PAUSE) {
+            Log.d(TAG, "taskResume: already tasking")
             return
         }
-        TaskKExecutor.execute(TAG + "onTaskCancel") {
-            NetKAppDownloadManager.deleteOnBack(appTask, onCancelBlock)//从数据库中移除掉
+        NetKAppDownloadManager.downloadResume(appTask)
+    }
+
+    fun taskCancel(appTask: AppTask, onCancelBlock: IAB_Listener<Boolean, Int>? = null) {
+        if (appTask.taskState == CNetKAppState.STATE_TASK_WAIT) {
+            NetKAppDownloadManager.downloadWaitCancel(appTask)
+        } else {
+            if (AppUnzipManager.isUnziping(appTask)) {
+                onCancelBlock?.invoke(false, CNetKAppErrorCode.CODE_TASK_CANCEL_FAIL_ON_UNZIPING)
+                return
+            }
+            TaskKExecutor.execute(TAG + "onTaskCancel") {
+                NetKAppDownloadManager.downloadCancelOnBack(appTask, onCancelBlock)//从数据库中移除掉
+            }
         }
     }
 
@@ -146,15 +158,17 @@ object NetKApp : IAppStateListener, BaseUtilK() {
          * [CNetKAppState.STATE_DOWNLOAD_PAUSE]
          */
         onDownloadPause(appTask)
-        NetKAppDownloadManager.pause(appTask)
+        NetKAppDownloadManager.downloadPause(appTask)
     }
 
     fun downloadResume(appTask: AppTask) {
-        NetKAppDownloadManager.resume(appTask)
+        NetKAppDownloadManager.downloadResume(appTask)
     }
 
     /////////////////////////////////////////////////////////////////
-
+    // state
+    /////////////////////////////////////////////////////////////////
+    //region # state
     /**
      *  根据游戏id查询下载信息
      */
@@ -191,26 +205,29 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     /**
+     * 是否有正在解压的任务
+     */
+    fun hasUnziping(): Boolean {
+        return AppTaskDaoManager.hasUnziping()
+    }
+
+    /**
      * 判断是否正在下载中
      * @return true 正在下载中  false 当前不是正在下载中
      */
     fun isDownloading(appTask: AppTask): Boolean {
         return NetKAppDownloadManager.getAppDownloadProgress(appTask).isDownloading()//查询下载状态
     }
+    //endregion
 
     /////////////////////////////////////////////////////////////////
 
     override fun onTaskCreate(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_TASK_WAIT)
+        applyAppTaskState(appTask, CNetKAppState.STATE_TASK_CREATE)
     }
 
     override fun onTaskWait(appTask: AppTask) {
-        val downloadId = AppTaskDaoManager.getByTaskId(appTask.taskId)//更新本地数据库中的数据
-        if (downloadId != null) {
-            applyAppTaskState(appTask, CNetKAppState.STATE_TASK_WAIT, 0)
-        } else {
-            AppTaskDaoManager.addAll(appTask)
-        }
+        applyAppTaskState(appTask, CNetKAppState.STATE_TASK_WAIT)
     }
 
     override fun onTasking(appTask: AppTask, state: Int) {
@@ -243,6 +260,8 @@ object NetKApp : IAppStateListener, BaseUtilK() {
         applyAppTaskState(appTask, CNetKAppState.STATE_TASK_FAIL)
     }
 
+    /////////////////////////////////////////////////////////////////
+
     override fun onDownloadCreate(appTask: AppTask) {
         /*        //将结果传递给服务端
                 GlobalScope.launch(Dispatchers.IO) {
@@ -253,6 +272,15 @@ object NetKApp : IAppStateListener, BaseUtilK() {
                     }
                 }*/
         applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_CREATE)
+    }
+
+    override fun onDownloadWait(appTask: AppTask) {
+        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_WAIT, 0, nextMethod = {
+            /**
+             * [CNetKAppState.STATE_TASK_WAIT]
+             */
+            onTaskWait(appTask)
+        })
     }
 
     override fun onDownloading(appTask: AppTask, progress: Int) {
@@ -279,7 +307,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
         if (exception is ServerCanceledException) {
             if (exception.responseCode == 404 && appTask.downloadUrlCurrent != appTask.downloadUrl && appTask.downloadUrl.isNotEmpty()) {
                 appTask.downloadUrlCurrent = appTask.downloadUrl
-                startTask(appTask)
+                taskStart(appTask)
             } else {
                 /**
                  * [CNetKAppState.STATE_DOWNLOAD_FAIL]
@@ -480,13 +508,19 @@ object NetKApp : IAppStateListener, BaseUtilK() {
                     CNetKAppState.STATE_INSTALL_SUCCESS -> listener.onInstallSuccess(appTask)
                     CNetKAppState.STATE_INSTALL_FAIL -> listener.onInstallFail(appTask)
                     ///////////////////////////////////////////////////////////////////////////////
-                    CNetKAppState.STATE_UNINSTALL_CREATE -> listener.onUninstallSuccess(appTask)
+                    CNetKAppState.STATE_UNINSTALL_SUCCESS -> listener.onUninstallSuccess(appTask)
                 }
             }
             nextMethod?.invoke()
         }
     }
 
+    private fun createTask2Db(appTask: AppTask) {
+        val downloadId = AppTaskDaoManager.getByTaskId(appTask.taskId)//更新本地数据库中的数据
+        if (downloadId == null) {
+            AppTaskDaoManager.addAll(appTask)
+        }
+    }
 
     private fun verifyCreate(appTask: AppTask) {
         if (appTask.apkName.endsWith(".npk"))//如果文件以.npk结尾则先解压
@@ -594,10 +628,10 @@ object NetKApp : IAppStateListener, BaseUtilK() {
                     if (appTask.downloadUrlCurrent != appTask.downloadUrl) {//重新使用内部地址下载
                         if (appTask.downloadUrl.isNotEmpty()) {
                             appTask.downloadUrlCurrent = appTask.downloadUrl
-                            startTask(appTask)
+                            taskStart(appTask)
                         } else {
                             appTask.apkVerifyNeed = false//重新下载，下次不校验MD5值
-                            startTask(appTask)
+                            taskStart(appTask)
                         }
                     }
                     return
