@@ -118,7 +118,8 @@ object NetKApp : IAppStateListener, BaseUtilK() {
                     }
                 }
             }
-            addAppTask2Database(appTask)
+            AppTaskDaoManager.addAppTask2Database(appTask)
+
             /**
              * [CNetKAppTaskState.STATE_TASK_CREATE]
              */
@@ -253,7 +254,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
 
     override fun onTaskFinish(appTask: AppTask, finishType: ENetKAppFinishType) {
         when (finishType) {
-            ENetKAppFinishType.SUCCESS -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_SUCCESS)
+            ENetKAppFinishType.SUCCESS -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_SUCCESS, 0)
 
             ENetKAppFinishType.CANCEL -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CANCEL, nextMethod = {
                 onTaskCreate(appTask)
@@ -262,7 +263,6 @@ object NetKApp : IAppStateListener, BaseUtilK() {
             is ENetKAppFinishType.FAIL -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_FAIL)
         }
     }
-
 
     /////////////////////////////////////////////////////////////////
 
@@ -398,11 +398,6 @@ object NetKApp : IAppStateListener, BaseUtilK() {
              * [CNetKAppTaskState.STATE_TASKING]
              */
             onTasking(appTask, CNetKAppState.STATE_UNZIP_SUCCESS)
-
-            /**
-             * [CNetKAppState.STATE_INSTALL_CREATE]
-             */
-            onInstallCreate(appTask)//调用安装的回调
         })
     }
 
@@ -418,52 +413,30 @@ object NetKApp : IAppStateListener, BaseUtilK() {
 
     /////////////////////////////////////////////////////////////////
 
-    override fun onInstallCreate(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_INSTALL_CREATE, nextMethod = {
-            /**
-             * [CNetKAppState.STATE_INSTALLING]
-             */
-            onInstalling(appTask)
-        })
-    }
-
     override fun onInstalling(appTask: AppTask) {
         applyAppTaskState(appTask, CNetKAppState.STATE_INSTALLING, nextMethod = {
-
+            /**
+             * [CNetKAppTaskState.STATE_TASKING]
+             */
+            onTasking(appTask, CNetKAppState.STATE_INSTALLING)
         })
     }
 
     override fun onInstallSuccess(appTask: AppTask) {
-        if (appTask.apkPackageName.isEmpty()) return
-        TaskKExecutor.execute(TAG + "onInstallSuccess") {
-            val appTask1 = AppTaskDaoManager.getByApkPackageName(appTask.apkPackageName) ?: return@execute//从本地数据库中查询出下载信息//如果查询不到，就不处理
-            if (appTask1.apkIsInstalled)//删除数据库中的其他已安装的数据，相同包名的只保留一条已安装的数据
-                AppTaskDaoManager.deleteOnBack(appTask1)
-            //将安装状态发给后端
-            /*            GlobalScope.launch(Dispatchers.IO) {
-                            ApplicationService.install(appDownloadParam0.appId)
-                        }*/
-            //将安装状态更新到数据库中
-            applyAppTaskStateOnBack(appTask1.apply { apkIsInstalled = true }, CNetKAppState.STATE_INSTALL_SUCCESS, 0, nextMethod = {
-                onTaskSuccess(appTask1)
-            })//更新安装的状态为1 q })
-            /*            //TODO 如果设置自动删除安装包，安装成功后删除安装包
-                        if (AutoDeleteApkSettingHelper.isAutoDelete()) {
-                            if (deleteApkFile(appDownloadParam0)) {
-                                HandlerHelper.post {
-                                    AlertTools.showToast("文件已经删除！")
-                                }
-                            }
-                        }*/
-        }
+        applyAppTaskState(appTask, CNetKAppState.STATE_INSTALL_SUCCESS, nextMethod = {
+            /**
+             * [CNetKAppTaskState.STATE_TASK_SUCCESS]
+             */
+            onTaskFinish(appTask, ENetKAppFinishType.SUCCESS)
+        })
     }
 
-    override fun onInstallFail(appTask: AppTask) {
+    override fun onInstallFail(appTask: AppTask, exception: AppDownloadException) {
         applyAppTaskState(appTask, CNetKAppState.STATE_INSTALL_FAIL, nextMethod = {
             /**
-             * [CNetKAppState.STATE_TASK_FAIL]
+             * [CNetKAppTaskState.STATE_TASK_FAIL]
              */
-            onTaskFail(appTask)
+            onTaskFinish(appTask, ENetKAppFinishType.FAIL(exception))
         })
     }
 
@@ -532,33 +505,5 @@ object NetKApp : IAppStateListener, BaseUtilK() {
             }
             nextMethod?.invoke()
         }
-    }
-
-    private fun addAppTask2Database(appTask: AppTask) {
-        val downloadId = AppTaskDaoManager.getByTaskId(appTask.taskId)//更新本地数据库中的数据
-        if (downloadId == null) {
-            AppTaskDaoManager.addAll(appTask)
-        }
-    }
-
-
-//    /**
-//     * 获取本地保存的文件
-//     */
-//    private fun getApkSavePathName(appTask: AppTask): File? {
-//        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: return null
-//        return File(externalFilesDir, appTask.apkName)
-//    }
-
-    /**
-     * 删除Apk文件
-     */
-    private fun deleteFileApk(appTask: AppTask): Boolean {
-        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: return true
-        File(externalFilesDir, appTask.apkName).deleteFile()
-        if (appTask.apkName.endsWith(".npk")) {//如果是npk,删除解压的文件夹
-            File(externalFilesDir, appTask.apkName.split(".npk")[0]).deleteFolder()
-        }
-        return true
     }
 }

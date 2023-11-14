@@ -6,6 +6,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
 import com.mozhimen.basick.utilk.java.io.deleteFile
+import com.mozhimen.basick.utilk.java.io.file2strFilePath
 import com.mozhimen.basick.utilk.java.io.file2strMd5
 import com.mozhimen.componentk.netk.app.NetKApp
 import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
@@ -96,13 +97,14 @@ object NetKAppVerifyManager : IUtilK {
                 }
             }
         }
+
         /**
          * [CNetKAppState.STATE_VERIFY_SUCCESS]
          */
         NetKApp.onVerifySuccess(appTask)
 
         NetKAppUnzipManager.unzip(appTask.apply {
-            apkPathName = fileApk.absolutePath
+            apkPathName = fileApk.file2strFilePath()
         })
     }
 
@@ -117,14 +119,7 @@ object NetKAppVerifyManager : IUtilK {
             NetKApp.onVerifySuccess(appTask)
 
             NetKAppUnzipManager.unzip(appTask.apply {
-                apkPathName = fileApk.absolutePath
-            })
-
-            /**
-             * [CNetKAppState.STATE_INSTALL_CREATE]
-             */
-            NetKApp.onInstallCreate(appTask.apply {
-                apkPathName = File(UtilKFileDir.External.getFilesDownloadsDir() ?: return, appTask.apkName).absolutePath
+                apkPathName = File(UtilKFileDir.External.getFilesDownloadsDir() ?: return, appTask.apkName).file2strFilePath()
             })
             return
         }
@@ -170,15 +165,14 @@ object NetKAppVerifyManager : IUtilK {
                 }
             }
         }
+
         /**
          * [CNetKAppState.STATE_VERIFY_SUCCESS]
          */
         NetKApp.onVerifySuccess(appTask)//检测通过，去安装
-        /**
-         * [CNetKAppState.STATE_INSTALL_CREATE]
-         */
-        NetKApp.onInstallCreate(appTask.apply {
-            apkPathName = fileApk.absolutePath
-        })//调用安装的回调
+
+        NetKAppUnzipManager.unzip(appTask.apply {
+            apkPathName = fileApk.file2strFilePath()
+        })
     }
 }

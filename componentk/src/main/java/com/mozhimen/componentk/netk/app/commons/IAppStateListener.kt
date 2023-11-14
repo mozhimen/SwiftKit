@@ -30,7 +30,7 @@ interface IAppStateUninstall {
 interface IAppStateInstall {
     fun onInstalling(appTask: AppTask) {}//安装中
     fun onInstallSuccess(appTask: AppTask) {}//应用安装的监听
-    fun onInstallFail(appTask: AppTask) {}
+    fun onInstallFail(appTask: AppTask, exception: AppDownloadException) {}
 }
 
 interface IAppStateUnzip {

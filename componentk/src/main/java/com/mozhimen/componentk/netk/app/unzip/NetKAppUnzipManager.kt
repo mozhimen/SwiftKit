@@ -82,7 +82,7 @@ object NetKAppUnzipManager : IUtilK {
                 TaskKHandler.post {
                     NetKApp.onUnzipSuccess(appTask)
 
-                    NetKAppInstallManager.installApkOnUi(appTask, appTask.apkPathName.strFilePath2file())
+                    NetKAppInstallManager.installApk(appTask, appTask.apkPathName.strFilePath2file())
                 }
             } catch (e: AppDownloadException) {
                 TaskKHandler.post {

@@ -35,6 +35,10 @@ class NetKAppInstallReceiver : BaseBroadcastReceiver() {
 
                         CIntent.ACTION_PACKAGE_ADDED, CIntent.ACTION_PACKAGE_REPLACED -> {//有应用发生变化，强制刷新应用
                             InstallKManager.onPackageAdded(context, apkPackName)
+
+                            /**
+                             * [CNetKAppState.STATE_INSTALL_SUCCESS]
+                             */
                             NetKApp.onInstallSuccess(createAppTask(apkPackName))
                         }
                     }

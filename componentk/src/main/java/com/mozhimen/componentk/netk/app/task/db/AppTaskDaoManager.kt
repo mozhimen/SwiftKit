@@ -5,6 +5,8 @@ import androidx.annotation.WorkerThread
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.componentk.netk.app.NetKApp
+import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
 
 /**
@@ -123,7 +125,24 @@ object AppTaskDaoManager : IUtilK {
 
     //////////////////////////////////////////////////////////
 
-    fun addAll(vararg appTask: AppTask) {
+    fun removeAppTaskForDatabase(appTask: AppTask) {
+        if (appTask.apkPackageName.isEmpty()) return
+        val appTask1 = getByApkPackageName(appTask.apkPackageName) ?: return//从本地数据库中查询出下载信息//如果查询不到，就不处理
+        if (appTask1.apkIsInstalled)//删除数据库中的其他已安装的数据，相同包名的只保留一条已安装的数据
+            delete(appTask1)
+
+    }
+
+    fun addAppTask2Database(appTask: AppTask) {
+        val appTask1 = getByTaskId(appTask.taskId)//更新本地数据库中的数据
+        if (appTask1 == null) {
+            addAll(appTask)
+        }
+    }
+
+    //////////////////////////////////////////////////////////
+
+    private fun addAll(vararg appTask: AppTask) {
         TaskKExecutor.execute(TAG + "addAll") {
             appTask.forEach {
                 it.taskState = CNetKAppTaskState.STATE_TASK_CREATE
@@ -146,7 +165,6 @@ object AppTaskDaoManager : IUtilK {
 
     /**
      * 在子线程更新数据
-     * @param appTask 文件信息
      */
     @WorkerThread
     fun updateOnBack(appTask: AppTask) {
@@ -154,24 +172,20 @@ object AppTaskDaoManager : IUtilK {
     }
 
     /**
-     * 删除任务
-     * @param appTask 需要删除的任务
+     * 删除数据
+     */
+    private fun delete(appTask: AppTask) {
+        TaskKExecutor.execute(TAG + "delete") {
+            deleteSync(appTask)
+        }
+    }
+
+    /**
+     * 在子线程删除数据
      */
     @WorkerThread
     fun deleteOnBack(appTask: AppTask) {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.taskId == appTask.taskId) {
-                iterator.remove()
-                break
-            }
-        }
-        try {
-            AppTaskDbManager.appTaskDao.delete(appTask)
-        } catch (e: SQLiteDatabaseLockedException) {
-            e.printStackTrace()
-        }
+        deleteSync(appTask)
     }
 
 
@@ -199,6 +213,27 @@ object AppTaskDaoManager : IUtilK {
     }*/
 
     /////////////////////////////////////////////////////////////////////////////
+
+    /**
+     * 删除任务
+     * @param appTask 需要删除的任务
+     */
+    @Synchronized
+    private fun deleteSync(appTask: AppTask) {
+        val iterator = _downloadTasks.iterator()
+        while (iterator.hasNext()) {
+            val next = iterator.next()
+            if (next.taskId == appTask.taskId) {
+                iterator.remove()
+                try {
+                    AppTaskDbManager.appTaskDao.delete(appTask)
+                } catch (e: SQLiteDatabaseLockedException) {
+                    e.printStackTrace()
+                }
+                break
+            }
+        }
+    }
 
     /**
      * 同步更新，防止多个线程同时更新，出现问题

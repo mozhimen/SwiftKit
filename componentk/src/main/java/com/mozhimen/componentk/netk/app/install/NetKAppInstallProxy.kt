@@ -19,6 +19,7 @@ import com.mozhimen.componentk.installk.manager.InstallKManager
 import com.mozhimen.componentk.netk.app.install.helpers.NetKAppInstallReceiver
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import java.lang.ref.WeakReference
+import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 
 /**
  * @ClassName InstallKFlyme
@@ -75,7 +76,12 @@ class NetKAppInstallProxy(
     override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
         _appTask?.let {
             if (UtilKPackageManager.hasPackage(_activity, it.apkPackageName)) {
+
                 InstallKManager.onPackageAdded(_activity, it.apkPackageName)
+
+                /**
+                 * [CNetKAppState.STATE_INSTALL_SUCCESS]
+                 */
                 NetKApp.onInstallSuccess(it)
             }
         }
