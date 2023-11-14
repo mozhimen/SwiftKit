@@ -22,11 +22,13 @@ import com.mozhimen.basick.utilk.javax.net.UtilKSSLSocketFactory
 import com.mozhimen.componentk.netk.app.NetKApp
 import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
+import com.mozhimen.componentk.netk.app.download.commons.IAppDownloadListener
 import com.mozhimen.componentk.netk.app.download.helpers.AppDownloadSerialQueue
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 import com.mozhimen.componentk.netk.app.download.mos.MAppDownloadProgress
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.task.db.AppTaskDaoManager
+import com.mozhimen.componentk.netk.app.verify.NetKAppVerifyManager
 import okhttp3.OkHttpClient
 import java.lang.Exception
 
@@ -39,7 +41,7 @@ import java.lang.Exception
  */
 @OptInApiInit_InApplication
 object NetKAppDownloadManager : DownloadListener1(), IUtilK {
-    private val _appTasks = SparseArray<AppTask>()
+    private val _downloadingTasks = SparseArray<AppTask>()
     private val _appDownloadSerialQueue: AppDownloadSerialQueue by lazy { AppDownloadSerialQueue(this) }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -73,7 +75,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             .build()
         //先根据Id去查找当前队列中有没有相同的任务，
         //如果有相同的任务，则不进行提交
-        val appTask1 = _appTasks[downloadTask.id]
+        val appTask1 = _downloadingTasks[downloadTask.id]
         if (appTask1 != null) {
             Log.d(TAG, "download: the task is downloading")
             return
@@ -92,6 +94,8 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                  * [CNetKAppState.STATE_DOWNLOAD_SUCCESS]
                  */
                 NetKApp.onDownloadSuccess(appTask)//下载完成，去安装
+
+                NetKAppVerifyManager.verify(appTask)//下载完成，去安装
                 return
             }
 
@@ -103,18 +107,25 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
 
             }
         }
+
+        _downloadingTasks.put(downloadTask.id, appTask)
+        _appDownloadSerialQueue.enqueue(downloadTask)
+
         /**
          * [CNetKAppState.STATE_DOWNLOAD_WAIT]
          */
         NetKApp.onDownloadWait(appTask)
-
-        _appTasks.put(downloadTask.id, appTask)
-        _appDownloadSerialQueue.enqueue(downloadTask)
+        listener?.onSuccess()
     }
 
     fun downloadPause(appTask: AppTask) {
         val task = getDownloadTask(appTask) ?: return
         task.cancel()//取消任务
+
+        /**
+         * [CNetKAppState.STATE_DOWNLOAD_PAUSE]
+         */
+        NetKApp.onDownloadPause(appTask)
     }
 
     /**
@@ -126,21 +137,32 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         if (status != StatusUtil.Status.RUNNING) {
             _appDownloadSerialQueue.enqueue(task)
         }
-        _appTasks.put(task.id, appTask)
+        _downloadingTasks.put(task.id, appTask)
+
+        /**
+         * [CNetKAppState.STATE_DOWNLOADING]
+         */
+        NetKApp.onDownloading(appTask, appTask.downloadProgress)
     }
 
-//    /**
-//     * 任务取消等待
-//     */
-//    fun downloadWaitCancel(appTask: AppTask) {
-//        val task = getDownloadTask(appTask) ?: return
-//        _appDownloadSerialQueue.remove(task)//先从队列中移除
-//        task.cancel()//然后取消任务
-//        /**
-//         * [CNetKAppState.STATE_TASK_WAIT_CANCEL]
-//         */
-//        NetKApp.onDownloadW(appTask)
-//    }
+    /**
+     * 任务取消等待
+     */
+    fun downloadWaitCancel(appTask: AppTask, onDeleteBlock: IAB_Listener<Boolean, Int>?) {
+        val task = getDownloadTask(appTask) ?: kotlin.run {
+            TaskKHandler.post {
+                onDeleteBlock?.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
+            }
+            return
+        }
+        _appDownloadSerialQueue.remove(task)//先从队列中移除
+        task.cancel()//然后取消任务
+
+        /**
+         * [CNetKAppState.STATE_TASK_WAIT_CANCEL]
+         */
+        NetKApp.onDownloadW(appTask)
+    }
 
     /**
      * 删除任务
@@ -154,7 +176,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             return
         }
         task.cancel()
-        _appTasks.delete(task.id)//先从队列中移除
+        _downloadingTasks.delete(task.id)//先从队列中移除
         _appDownloadSerialQueue.remove(task)
         OkDownload.with().breakpointStore().remove(task.id)
         task.file?.delete()
@@ -221,12 +243,11 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////////////////
 
     override fun taskStart(task: DownloadTask, model: Listener1Assist.Listener1Model) {
         Log.d(TAG, "taskStart: task $task")
-        _appTasks[task.id]?.let { appTask ->
+        _downloadingTasks[task.id]?.let { appTask ->
             /**
              * [CNetKAppState.STATE_DOWNLOAD_CREATE]
              */
@@ -244,7 +265,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
 
     override fun progress(task: DownloadTask, currentOffset: Long, totalLength: Long) {
         Log.d(TAG, "progress: task $task currentOffset $currentOffset  totalLength $totalLength")
-        _appTasks[task.id]?.let { appTask ->
+        _downloadingTasks[task.id]?.let { appTask ->
             val complete = (currentOffset.toFloat() / totalLength * 100).toInt()
             /**
              * [CNetKAppState.STATE_DOWNLOADING]
@@ -255,13 +276,15 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
 
     override fun taskEnd(task: DownloadTask, cause: EndCause, realCause: Exception?, model: Listener1Assist.Listener1Model) {
         Log.d(TAG, "taskEnd: $task cause ${cause.name} realCause ${realCause.toString()}")
-        _appTasks[task.id]?.let { appTask ->
+        _downloadingTasks[task.id]?.let { appTask ->
             when (cause) {
                 EndCause.COMPLETED -> {
                     /**
                      * [CNetKAppState.STATE_DOWNLOAD_SUCCESS]
                      */
                     NetKApp.onDownloadSuccess(appTask)
+
+                    NetKAppVerifyManager.verify(appTask)
                 }
 
                 EndCause.CANCELED -> {
@@ -279,7 +302,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                 }
             }
         }
-        _appTasks.delete(task.id)//从队列里移除掉
+        _downloadingTasks.delete(task.id)//从队列里移除掉
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////

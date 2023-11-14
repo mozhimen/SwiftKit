@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
+import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
 
 /**
  * @ClassName AppFileParam
@@ -44,15 +45,37 @@ data class AppTask(
     @ColumnInfo(name = "task_update_time")
     var taskUpdateTime: Long = System.currentTimeMillis(),//更新时间
 ) {
+    fun isTaskProcess(): Boolean =
+        !apkIsInstalled && CNetKAppTaskState.isTaskProcess(taskState)
+
+    fun isTaskWait(): Boolean =
+        !apkIsInstalled && CNetKAppTaskState.isTaskWait(taskState)
+
+    fun isTasking(): Boolean =
+        !apkIsInstalled && CNetKAppTaskState.isTasking(taskState)
+
+    fun isTaskPause(): Boolean =
+        !apkIsInstalled && CNetKAppTaskState.isTaskPause(taskState)
+
+    fun isTaskCancel(): Boolean =
+        !apkIsInstalled && CNetKAppTaskState.isTaskCancel(taskState)
+
+    ////////////////////////////////////////////////////////////
+
+    fun isTaskDownload(): Boolean =
+        !apkIsInstalled && CNetKAppState.isTaskDownload(taskState)
+
+    fun isTaskVerify(): Boolean =
+        !apkIsInstalled && CNetKAppState.isTaskVerify(taskState)
+
+    fun isTaskUnzip(): Boolean =
+        !apkIsInstalled && CNetKAppState.isTaskUnzip(taskState)
+
+    fun isTaskInstall(): Boolean =
+        !apkIsInstalled && CNetKAppState.isTaskInstall(taskState)
+
+    ////////////////////////////////////////////////////////////
+
     fun isDownloading(): Boolean =
         !apkIsInstalled && CNetKAppState.isDownloading(taskState)
-
-    fun isVerifying(): Boolean =
-        !apkIsInstalled && CNetKAppState.isVerifying(taskState)
-
-    fun isUnziping(): Boolean =
-        !apkIsInstalled && CNetKAppState.isUnziping(taskState)
-
-    fun isInstalling(): Boolean =
-        !apkIsInstalled && CNetKAppState.isInstalling(taskState)
 }

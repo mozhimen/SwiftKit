@@ -20,6 +20,23 @@ object CNetKAppTaskState {
     const val STATE_TASK_FAIL = 9//任务失败
 
     @JvmStatic
+    fun isTaskProcess(taskState: Int): Boolean {
+        return taskState != STATE_TASK_CREATE && taskState != STATE_TASK_CANCEL && taskState != STATE_TASK_SUCCESS && taskState != STATE_TASK_FAIL
+    }
+
+    @JvmStatic
+    fun isTaskWait(state: Int): Boolean =
+        (state % 10) == STATE_TASK_WAIT
+
+    @JvmStatic
     fun isTasking(state: Int): Boolean =
-        state in STATE_TASK_WAIT until STATE_TASK_CANCEL
+        (state % 10) == STATE_TASKING
+
+    @JvmStatic
+    fun isTaskPause(state: Int): Boolean =
+        (state % 10) == STATE_TASK_PAUSE
+
+    @JvmStatic
+    fun isTaskCancel(state: Int): Boolean =
+        (state % 10) == STATE_TASK_CANCEL
 }

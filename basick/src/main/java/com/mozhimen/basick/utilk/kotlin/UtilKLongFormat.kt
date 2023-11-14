@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.kotlin
 import com.mozhimen.basick.utilk.java.text.UtilKDecimalFormat
 import android.util.Log
 import com.mozhimen.basick.utilk.bases.IUtilK
+import com.mozhimen.basick.utilk.kotlin.text.replaceDot
 
 /**
  * @ClassName UtilKLongFormat
@@ -29,7 +30,7 @@ object UtilKLongFormat : IUtilK {
         else if (fileSize < 1073741824)
             decimalFormat.format(fileSize.toDouble() / 1048576.0) + "M" + suffix
         else
-            decimalFormat.format(fileSize.toDouble() / 1073741824.0) + "G" + suffix).replace(",", ".").also { Log.d(TAG, "longFileSize2strFileSize: $it") }
+            decimalFormat.format(fileSize.toDouble() / 1073741824.0) + "G" + suffix).replaceDot().also { Log.d(TAG, "longFileSize2strFileSize: $it") }
     }
 
     @JvmStatic

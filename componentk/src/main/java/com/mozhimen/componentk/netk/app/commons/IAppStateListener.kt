@@ -1,7 +1,9 @@
 package com.mozhimen.componentk.netk.app.commons
 
 import com.mozhimen.componentk.netk.app.cons.ENetKAppFinishType
+import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 import com.mozhimen.componentk.netk.app.task.db.AppTask
+import java.lang.Exception
 
 /**
  * @ClassName IDownloadStateListener
@@ -34,13 +36,13 @@ interface IAppStateInstall {
 interface IAppStateUnzip {
     fun onUnziping(appTask: AppTask) {}//解压中
     fun onUnzipSuccess(appTask: AppTask) {}//解压成功
-    fun onUnzipFail(appTask: AppTask) {}//解压失败
+    fun onUnzipFail(appTask: AppTask, exception: AppDownloadException) {}//解压失败
 }
 
 interface IAppStateVerify {
     fun onVerifying(appTask: AppTask) {}//应用校验中
     fun onVerifySuccess(appTask: AppTask) {}//应用校验成功
-    fun onVerifyFail(appTask: AppTask) {}//应用校验失败
+    fun onVerifyFail(appTask: AppTask, exception: AppDownloadException) {}//应用校验失败
 }
 
 interface IAppStateDownload {
@@ -50,7 +52,7 @@ interface IAppStateDownload {
     fun onDownloadPause(appTask: AppTask) {}//下载暂停的回调
     fun onDownloadCancel(appTask: AppTask) {}//下载取消的回调
     fun onDownloadSuccess(appTask: AppTask) {}//下载成功的回调 不做任何事 此时会去校验应用或者解压npk
-    fun onDownloadFail(appTask: AppTask) {}//下载失败的回调
+    fun onDownloadFail(appTask: AppTask, exception: AppDownloadException) {}//下载失败的回调
 }
 
 interface IAppStateTask {

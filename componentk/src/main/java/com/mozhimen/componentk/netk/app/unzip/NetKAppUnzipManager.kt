@@ -2,6 +2,11 @@ package com.mozhimen.componentk.netk.app.unzip
 
 import android.os.Environment
 import android.util.Log
+import androidx.annotation.WorkerThread
+import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
+import com.mozhimen.basick.taskk.executor.TaskKExecutor
+import com.mozhimen.basick.taskk.handler.TaskKHandler
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
 import com.mozhimen.basick.utilk.java.io.createFolder
 import com.mozhimen.basick.utilk.java.io.deleteFile
@@ -9,10 +14,18 @@ import com.mozhimen.basick.utilk.java.io.flushClose
 import com.mozhimen.basick.utilk.java.util.UtilKZip
 import com.mozhimen.basick.utilk.kotlin.collections.containsBy
 import com.mozhimen.basick.utilk.kotlin.getSplitExLast
+import com.mozhimen.basick.utilk.kotlin.strFilePath2file
+import com.mozhimen.componentk.netk.app.NetKApp
+import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
+import com.mozhimen.componentk.netk.app.cons.CNetKAppState
+import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
+import com.mozhimen.componentk.netk.app.download.mos.int2appDownloadException
+import com.mozhimen.componentk.netk.app.install.NetKAppInstallManager
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import java.io.BufferedOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.util.concurrent.CopyOnWriteArrayList
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
@@ -23,7 +36,8 @@ import java.util.zip.ZipFile
  * @Date 2023/11/7 15:09
  * @Version 1.0
  */
-object AppUnzipManager {
+@OptInApiInit_InApplication
+object NetKAppUnzipManager : IUtilK {
     /**
      *  过滤在mac上压缩时自动生成的__MACOSX文件夹
      */
@@ -31,7 +45,7 @@ object AppUnzipManager {
 
     //////////////////////////////////////////////////////////////////
 
-    private val _unzippingTasks = mutableListOf<AppTask>()
+    private val _unzippingTasks = CopyOnWriteArrayList<AppTask>()
 
     //////////////////////////////////////////////////////////////////
 
@@ -41,11 +55,7 @@ object AppUnzipManager {
      */
     @JvmStatic
     fun isUnziping(appTask: AppTask): Boolean {
-//        for (task in _unzippingTasks) {
-//            if (isSame(appTask, task))
-//                return true
-//        }
-        return _unzippingTasks.containsBy { it.taskId == appTask.taskId } && appTask.isUnziping()
+        return _unzippingTasks.containsBy { it.taskId == appTask.taskId } && appTask.isTaskUnzip()
     }
 
     @JvmStatic
@@ -53,12 +63,44 @@ object AppUnzipManager {
         return _unzippingTasks.isNotEmpty()
     }
 
+    //////////////////////////////////////////////////////////////////
+
     @JvmStatic
-    fun unzip(appTask: AppTask): String {
+    fun unzip(appTask: AppTask) {
+        /**
+         * [CNetKAppState.STATE_UNZIPING]
+         */
+        NetKApp.onUnziping(appTask)
+
+        TaskKExecutor.execute(TAG + "unzip") {
+            try {
+                val strPathNameUnzip = unzipOnBack(appTask)
+                if (strPathNameUnzip.isEmpty()) return@execute//正在解压
+                /**
+                 * [CNetKAppState.STATE_UNZIP_SUCCESS]
+                 */
+                TaskKHandler.post {
+                    NetKApp.onUnzipSuccess(appTask)
+
+                    NetKAppInstallManager.installApkOnUi(appTask, appTask.apkPathName.strFilePath2file())
+                }
+            } catch (e: AppDownloadException) {
+                TaskKHandler.post {
+                    NetKApp.onUnzipFail(appTask, e)
+                }
+            }
+        }
+        NetKApp.onUnziping(appTask)
+    }
+
+    @WorkerThread
+    private fun unzipOnBack(appTask: AppTask): String {
         if (isUnziping(appTask)) return ""//正在解压
         _unzippingTasks.add(appTask)//开始解压，添加到列表中
-        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: return ""
-        val strPathNameApk = unzip(File(externalFilesDir, appTask.apkName), externalFilesDir.absolutePath)
+        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: run {
+            throw CNetKAppErrorCode.CODE_UNZIP_DOWNLOAD_DIR_NULL.int2appDownloadException()
+        }
+        val strPathNameApk = unzipOnBack(File(externalFilesDir, appTask.apkName), externalFilesDir.absolutePath)
         _unzippingTasks.remove(appTask)//解压成功，移除
         return strPathNameApk
     }
@@ -70,7 +112,8 @@ object AppUnzipManager {
      * @param fileSource 需要解压的文件
      * @param strFilePathDest 目标路径 当前项目中使用的是 /Android/data/包名/Download/文件名/
      */
-    private fun unzip(fileSource: File, strFilePathDest: String): String {
+    @WorkerThread
+    private fun unzipOnBack(fileSource: File, strFilePathDest: String): String {
         try {
             val fileNameReal = fileSource.name.getSplitExLast(".", false)//name.subSequence(0, name.lastIndexOf("."))
             val strFilePathDestReal = (strFilePathDest + File.separator + fileNameReal).also { Log.d(UtilKZip.TAG, "unzip: strFilePathDestReal $it") }

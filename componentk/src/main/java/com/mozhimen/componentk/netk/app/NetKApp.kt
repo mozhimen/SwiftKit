@@ -1,7 +1,6 @@
 package com.mozhimen.componentk.netk.app
 
 import android.content.Context
-import android.text.TextUtils
 import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -17,7 +16,6 @@ import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
 import com.mozhimen.basick.utilk.java.io.deleteFile
 import com.mozhimen.basick.utilk.java.io.deleteFolder
-import com.mozhimen.basick.utilk.java.io.file2strMd5
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import com.mozhimen.componentk.installk.manager.InstallKManager
 import com.mozhimen.componentk.netk.app.commons.IAppStateListener
@@ -26,14 +24,14 @@ import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 import com.mozhimen.componentk.netk.app.cons.ENetKAppFinishType
 import com.mozhimen.componentk.netk.app.task.db.AppTaskDaoManager
-import com.mozhimen.componentk.netk.app.unzip.AppUnzipManager
+import com.mozhimen.componentk.netk.app.unzip.NetKAppUnzipManager
 import com.mozhimen.componentk.netk.app.task.db.AppTaskDbManager
 import com.mozhimen.componentk.netk.app.download.NetKAppDownloadManager
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallManager
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallProxy
 import com.mozhimen.componentk.netk.app.task.db.AppTask
-import com.mozhimen.componentk.netk.app.verify.AppVerifyManager
+import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
 import java.io.File
 
 /**
@@ -49,6 +47,9 @@ object NetKApp : IAppStateListener, BaseUtilK() {
 
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     private val _netKAppInstallProxy by lazy { NetKAppInstallProxy(_context, ProcessLifecycleOwner.get()) }
+
+    @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
+    val netKAppInstallProxy get() = _netKAppInstallProxy
 
     /////////////////////////////////////////////////////////////////
     // init
@@ -78,9 +79,13 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
     // control
     /////////////////////////////////////////////////////////////////
-    //region
-    fun taskStart(appTask: AppTask, listener: IAppDownloadListener? = null) {
+    //region # control
+    fun taskStart(appTask: AppTask) {
         try {
+            if (appTask.isTaskProcess()) {
+                Log.d(TAG, "taskStart: the task already start")
+                return
+            }
             if (appTask.apkFileSize != 0L) {
                 //当前剩余的空间
                 val availMemory = UtilKFileDir.External.getFilesRootFreeSpace()
@@ -113,9 +118,9 @@ object NetKApp : IAppStateListener, BaseUtilK() {
                     }
                 }
             }
-            createTask2Db(appTask)
+            addAppTask2Database(appTask)
             /**
-             * [CNetKAppState.STATE_TASK_CREATE]
+             * [CNetKAppTaskState.STATE_TASK_CREATE]
              */
             onTaskCreate(appTask)
             /**
@@ -123,47 +128,55 @@ object NetKApp : IAppStateListener, BaseUtilK() {
              */
             onDownloadCreate(appTask)
 
-            NetKAppDownloadManager.download(appTask)
-            listener?.onSuccess()
+            NetKAppDownloadManager.download(appTask/*, listener*/)
         } catch (e: AppDownloadException) {
-            onTaskFail(appTask)
-            listener?.onFail(e.code)
+            onTaskFinish(appTask, ENetKAppFinishType.FAIL(e))
+//            listener?.onFail(e.code)
+        }
+    }
+
+    fun taskCancel(appTask: AppTask, onCancelBlock: IAB_Listener<Boolean, Int>? = null) {
+        if (!appTask.isTaskProcess()) {
+            Log.d(TAG, "taskCancel: task is not process")
+            return
+        }
+        if (appTask.isTaskDownload() && appTask.isTaskWait()) {
+            Log.d(TAG, "taskCancel: downloadWaitCancel")
+            NetKAppDownloadManager.downloadWaitCancel(appTask, onCancelBlock)
+
+        } else if (appTask.isTaskDownload() && appTask.isDownloading()) {
+            Log.d(TAG, "taskCancel: downloadCancelOnBack")
+            TaskKExecutor.execute(TAG + "onTaskCancel") {
+                NetKAppDownloadManager.downloadCancelOnBack(appTask, onCancelBlock)//从数据库中移除掉
+            }
+
+        } else if (appTask.isTaskUnzip() && NetKAppUnzipManager.isUnziping(appTask)) {
+            onCancelBlock?.invoke(false, CNetKAppErrorCode.CODE_TASK_CANCEL_FAIL_ON_UNZIPING)
+        }
+    }
+
+    fun taskPause(appTask: AppTask) {
+        if (!appTask.isTaskProcess()) {
+            Log.d(TAG, "taskPause: task is not process")
+            return
+        }
+        if (appTask.isTaskDownload() && appTask.isTasking()) {
+            Log.d(TAG, "taskPause: downloadPause")
+            NetKAppDownloadManager.downloadPause(appTask)
         }
     }
 
     fun taskResume(appTask: AppTask) {
-        if (appTask.taskState != CNetKAppState.STATE_TASK_PAUSE) {
-            Log.d(TAG, "taskResume: already tasking")
+        if (!appTask.isTaskProcess()) {
+            Log.d(TAG, "downloadResume: task is not process")
             return
         }
-        NetKAppDownloadManager.downloadResume(appTask)
-    }
-
-    fun taskCancel(appTask: AppTask, onCancelBlock: IAB_Listener<Boolean, Int>? = null) {
-        if (appTask.taskState == CNetKAppState.STATE_TASK_WAIT) {
-            NetKAppDownloadManager.downloadWaitCancel(appTask)
-        } else {
-            if (AppUnzipManager.isUnziping(appTask)) {
-                onCancelBlock?.invoke(false, CNetKAppErrorCode.CODE_TASK_CANCEL_FAIL_ON_UNZIPING)
-                return
-            }
-            TaskKExecutor.execute(TAG + "onTaskCancel") {
-                NetKAppDownloadManager.downloadCancelOnBack(appTask, onCancelBlock)//从数据库中移除掉
-            }
+        if (appTask.isTaskDownload() && appTask.isTaskPause()) {
+            Log.d(TAG, "taskPause: downloadResume")
+            NetKAppDownloadManager.downloadResume(appTask)
         }
     }
-
-    fun downloadPause(appTask: AppTask) {
-        /**
-         * [CNetKAppState.STATE_DOWNLOAD_PAUSE]
-         */
-        onDownloadPause(appTask)
-        NetKAppDownloadManager.downloadPause(appTask)
-    }
-
-    fun downloadResume(appTask: AppTask) {
-        NetKAppDownloadManager.downloadResume(appTask)
-    }
+    //endregion
 
     /////////////////////////////////////////////////////////////////
     // state
@@ -223,42 +236,33 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
 
     override fun onTaskCreate(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_TASK_CREATE)
+        applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CREATE)
     }
 
     override fun onTaskWait(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_TASK_WAIT)
+        applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_WAIT)
     }
 
     override fun onTasking(appTask: AppTask, state: Int) {
-        TODO("Not yet implemented")
+        applyAppTaskState(appTask, state)
     }
 
     override fun onTaskPause(appTask: AppTask) {
-        TODO("Not yet implemented")
+        applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_PAUSE)
     }
 
     override fun onTaskFinish(appTask: AppTask, finishType: ENetKAppFinishType) {
-        TODO("Not yet implemented")
+        when (finishType) {
+            ENetKAppFinishType.SUCCESS -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_SUCCESS)
+
+            ENetKAppFinishType.CANCEL -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CANCEL, nextMethod = {
+                onTaskCreate(appTask)
+            })
+
+            is ENetKAppFinishType.FAIL -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_FAIL)
+        }
     }
 
-    override fun onTaskWaitCancel(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_TASK_WAIT_CANCEL)
-    }
-
-    override fun onTaskCancel(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_TASK_CANCEL, nextMethod = {
-            onTaskCreate(appTask)
-        })
-    }
-
-    override fun onTaskSuccess(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_TASK_SUCCESS)
-    }
-
-    override fun onTaskFail(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_TASK_FAIL)
-    }
 
     /////////////////////////////////////////////////////////////////
 
@@ -277,29 +281,45 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     override fun onDownloadWait(appTask: AppTask) {
         applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_WAIT, 0, nextMethod = {
             /**
-             * [CNetKAppState.STATE_TASK_WAIT]
+             * [CNetKAppTaskState.STATE_TASK_WAIT]
              */
             onTaskWait(appTask)
         })
     }
 
     override fun onDownloading(appTask: AppTask, progress: Int) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOADING, progress)
+        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOADING, progress, nextMethod = {
+            /**
+             * [CNetKAppTaskState.STATE_TASKING]
+             */
+            onTasking(appTask, CNetKAppState.STATE_DOWNLOADING)
+        })
     }
 
     override fun onDownloadPause(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_PAUSE)
+        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_PAUSE, nextMethod = {
+            /**
+             * [CNetKAppTaskState.STATE_TASK_PAUSE]
+             */
+            onTaskPause(appTask)
+        })
     }
 
     override fun onDownloadCancel(appTask: AppTask) {
         applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_CANCEL, nextMethod = {
-            onTaskCancel(appTask)
+            /**
+             * [CNetKAppTaskState.STATE_TASK_CANCEL]
+             */
+            onTaskFinish(appTask, ENetKAppFinishType.CANCEL)
         })
     }
 
     override fun onDownloadSuccess(appTask: AppTask) {
         applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_SUCCESS, nextMethod = {
-            verifyCreate(appTask)//下载完成，去安装
+            /**
+             * [CNetKAppTaskState.STATE_TASKING]
+             */
+            onTasking(appTask, CNetKAppState.STATE_DOWNLOAD_SUCCESS)
         })
     }
 
@@ -307,79 +327,78 @@ object NetKApp : IAppStateListener, BaseUtilK() {
         if (exception is ServerCanceledException) {
             if (exception.responseCode == 404 && appTask.downloadUrlCurrent != appTask.downloadUrl && appTask.downloadUrl.isNotEmpty()) {
                 appTask.downloadUrlCurrent = appTask.downloadUrl
+                appTask.taskState = CNetKAppTaskState.STATE_TASK_CREATE
                 taskStart(appTask)
             } else {
                 /**
                  * [CNetKAppState.STATE_DOWNLOAD_FAIL]
                  */
-                onDownloadFail(appTask)
+                onDownloadFail(appTask, AppDownloadException(CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED, exception.message ?: ""))
             }
         } else {
             /**
              * [CNetKAppState.STATE_DOWNLOAD_FAIL]
              */
-            onDownloadFail(appTask)
+            onDownloadFail(appTask, AppDownloadException(CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED))
         }
     }
 
-    override fun onDownloadFail(appTask: AppTask) {
+    override fun onDownloadFail(appTask: AppTask, exception: AppDownloadException) {
         applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_FAIL, nextMethod = {
             /**
-             * [CNetKAppState.STATE_TASK_FAIL]
+             * [CNetKAppTaskState.STATE_TASK_FAIL]
              */
-            onTaskFail(appTask)
+            onTaskFinish(appTask, ENetKAppFinishType.FAIL(exception))
         })
     }
 
     /////////////////////////////////////////////////////////////////
 
-    override fun onVerifyCreate(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFY_CREATE)
-    }
-
     override fun onVerifying(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFYING)
+        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFYING, nextMethod = {
+            /**
+             * [CNetKAppTaskState.STATE_TASKING]
+             */
+            onTasking(appTask, CNetKAppState.STATE_VERIFYING)
+        })
     }
 
     override fun onVerifySuccess(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFY_SUCCESS)
+        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFY_SUCCESS, nextMethod = {
+            /**
+             * [CNetKAppTaskState.STATE_TASKING]
+             */
+            onTasking(appTask, CNetKAppState.STATE_VERIFY_SUCCESS)
+        })
     }
 
-    override fun onVerifyFail(appTask: AppTask) {
+    override fun onVerifyFail(appTask: AppTask, exception: AppDownloadException) {
         applyAppTaskState(appTask, CNetKAppState.STATE_VERIFY_FAIL, nextMethod = {
             /**
-             * [CNetKAppState.STATE_TASK_FAIL]
+             * [CNetKAppTaskState.STATE_TASK_FAIL]
              */
-            onTaskFail(appTask)
+            onTaskFinish(appTask, ENetKAppFinishType.FAIL(exception))
         })
     }
 
     /////////////////////////////////////////////////////////////////
 
-    override fun onUnzipCreate(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_UNZIP_CREATE, nextMethod = {
-            /**
-             * [CNetKAppState.STATE_UNZIPING]
-             */
-            onUnziping(appTask)
-        })
-    }
-
     override fun onUnziping(appTask: AppTask) {
         applyAppTaskState(appTask, CNetKAppState.STATE_UNZIPING, nextMethod = {
-            TaskKExecutor.execute(TAG + "onUnziping") {
-                val strPathNameUnzip = AppUnzipManager.unzip(appTask)
-                if (strPathNameUnzip.isEmpty()) return@execute//正在解压
-                /**
-                 * [CNetKAppState.STATE_UNZIP_SUCCESS]
-                 */
-                onUnzipSuccess(appTask)
-            }
+            /**
+             * [CNetKAppTaskState.STATE_TASKING]
+             */
+            onTasking(appTask, CNetKAppState.STATE_UNZIPING)
         })
     }
 
     override fun onUnzipSuccess(appTask: AppTask) {
         applyAppTaskState(appTask, CNetKAppState.STATE_UNZIP_SUCCESS, nextMethod = {
+            /**
+             * [CNetKAppTaskState.STATE_TASKING]
+             */
+            onTasking(appTask, CNetKAppState.STATE_UNZIP_SUCCESS)
+
             /**
              * [CNetKAppState.STATE_INSTALL_CREATE]
              */
@@ -387,13 +406,13 @@ object NetKApp : IAppStateListener, BaseUtilK() {
         })
     }
 
-    override fun onUnzipFail(appTask: AppTask) {
+    override fun onUnzipFail(appTask: AppTask, exception: AppDownloadException) {
         //            AlertTools.showToast("解压失败，请检测存储空间是否足够！")
         applyAppTaskState(appTask, CNetKAppState.STATE_UNZIP_FAIL, nextMethod = {
             /**
-             * [CNetKAppState.STATE_TASK_FAIL]
+             * [CNetKAppTaskState.STATE_TASK_FAIL]
              */
-            onTaskFail(appTask)
+            onTaskFinish(appTask, ENetKAppFinishType.FAIL(exception))
         })
     }
 
@@ -410,7 +429,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
 
     override fun onInstalling(appTask: AppTask) {
         applyAppTaskState(appTask, CNetKAppState.STATE_INSTALLING, nextMethod = {
-            installApkOnMain(appTask, appTask.apkPathName.strFilePath2file())
+
         })
     }
 
@@ -515,148 +534,13 @@ object NetKApp : IAppStateListener, BaseUtilK() {
         }
     }
 
-    private fun createTask2Db(appTask: AppTask) {
+    private fun addAppTask2Database(appTask: AppTask) {
         val downloadId = AppTaskDaoManager.getByTaskId(appTask.taskId)//更新本地数据库中的数据
         if (downloadId == null) {
             AppTaskDaoManager.addAll(appTask)
         }
     }
 
-    private fun verifyCreate(appTask: AppTask) {
-        if (appTask.apkName.endsWith(".npk"))//如果文件以.npk结尾则先解压
-            verifyAndUnzipNpk(appTask)
-        else
-            verifyApk(appTask)
-    }
-
-    /**
-     * 安装.npk文件
-     */
-    private fun verifyAndUnzipNpk(appTask: AppTask) {
-        if (AppUnzipManager.isUnziping(appTask)) return//正在解压中，不进行操作
-
-        /**
-         * [CNetKAppState.STATE_VERIFYING]
-         */
-        onVerifying(appTask)
-        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir()
-        if (externalFilesDir == null) {
-            /**
-             * [CNetKAppState.STATE_VERIFY_FAIL]
-             */
-            onVerifyFail(appTask)
-            return
-        }
-        val fileApk = File(externalFilesDir, appTask.apkName)
-        if (!fileApk.exists()) {
-            /**
-             * [CNetKAppState.STATE_VERIFY_FAIL]
-             */
-            onVerifyFail(appTask)
-            return
-        }
-
-        if (AppVerifyManager.isNeedVerify(appTask)) {
-            val apkFileMd5Remote = appTask.apkFileMd5
-            if (apkFileMd5Remote.isNotEmpty() && "NONE" != apkFileMd5Remote) {
-                val apkFileMd5Locale = fileApk.file2strMd5()//取文件的MD5值
-                if (!TextUtils.equals(apkFileMd5Remote, apkFileMd5Locale)) {
-                    /**
-                     * [CNetKAppState.STATE_VERIFY_FAIL]
-                     */
-                    onVerifyFail(appTask)
-                    return
-                }
-            }
-        }
-        /**
-         * [CNetKAppState.STATE_VERIFY_SUCCESS]
-         */
-        onVerifySuccess(appTask)
-        /**
-         * [CNetKAppState.STATE_UNZIP_CREATE]
-         */
-        onUnzipCreate(appTask.apply {
-            apkPathName = fileApk.absolutePath
-        })
-    }
-
-    /**
-     * 安装apk文件
-     */
-    private fun verifyApk(appTask: AppTask) {
-        if (appTask.apkFileMd5.isEmpty() || "NONE" == appTask.apkFileMd5) {//如果文件没有MD5值或者为空，则不校验 直接去安装
-            /**
-             * [CNetKAppState.STATE_INSTALL_CREATE]
-             */
-            onInstallCreate(appTask.apply {
-                apkPathName = File(UtilKFileDir.External.getFilesDownloadsDir() ?: return, appTask.apkName).absolutePath
-            })
-            return
-        }
-        /**
-         * [CNetKAppState.STATE_VERIFYING]
-         */
-        onVerifying(appTask)
-        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: kotlin.run {
-            /**
-             * [CNetKAppState.STATE_VERIFY_FAIL]
-             */
-            onVerifyFail(appTask)
-            return
-        }
-        val fileApk = File(externalFilesDir, appTask.apkName)
-        if (!fileApk.exists()) {
-            /**
-             * [CNetKAppState.STATE_VERIFY_FAIL]
-             */
-            onVerifyFail(appTask)
-            return
-        }
-
-        if (AppVerifyManager.isNeedVerify(appTask)) {//判断是否需要校验MD5值
-            val apkFileMd5Remote = appTask.apkFileMd5//如果本地文件存在，且MD5值相等
-            if (apkFileMd5Remote.isNotEmpty()) {
-                val apkFileMd5Locale = (fileApk.file2strMd5() ?: "") /*+ "1"*///取文件的MD5值
-                if (!TextUtils.equals(apkFileMd5Remote, apkFileMd5Locale)) {
-                    /**
-                     * [CNetKAppState.STATE_VERIFY_FAIL]
-                     */
-                    onVerifyFail(appTask)
-
-                    fileApk.deleteFile()//删除本地文件
-                    if (appTask.downloadUrlCurrent != appTask.downloadUrl) {//重新使用内部地址下载
-                        if (appTask.downloadUrl.isNotEmpty()) {
-                            appTask.downloadUrlCurrent = appTask.downloadUrl
-                            taskStart(appTask)
-                        } else {
-                            appTask.apkVerifyNeed = false//重新下载，下次不校验MD5值
-                            taskStart(appTask)
-                        }
-                    }
-                    return
-                }
-            }
-        }
-        /**
-         * [CNetKAppState.STATE_VERIFY_SUCCESS]
-         */
-        onVerifySuccess(appTask)//检测通过，去安装
-        /**
-         * [CNetKAppState.STATE_INSTALL_CREATE]
-         */
-        onInstallCreate(appTask.apply {
-            apkPathName = fileApk.absolutePath
-        })//调用安装的回调
-    }
-
-    @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
-    private fun installApkOnMain(appTask: AppTask, fileApk: File) {
-        TaskKHandler.post {
-            _netKAppInstallProxy.setAppTask(appTask)
-            NetKAppInstallManager.installApk(fileApk)
-        }
-    }
 
 //    /**
 //     * 获取本地保存的文件

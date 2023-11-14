@@ -10,7 +10,7 @@ import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
  * @Version 1.0
  */
 object CNetKAppState {
-    private const val STATE_DOWNLOAD_CREATE = 10//STATE_DOWNLOADED = 5//未下载
+    const val STATE_DOWNLOAD_CREATE = 10//STATE_DOWNLOADED = 5//未下载
     const val STATE_DOWNLOAD_WAIT = STATE_DOWNLOAD_CREATE + CNetKAppTaskState.STATE_TASK_WAIT//11//下载等待
     const val STATE_DOWNLOADING = STATE_DOWNLOAD_CREATE + CNetKAppTaskState.STATE_TASKING//12//STATE_DOWNLOAD_IN_PROGRESS = 6//正在下载
     const val STATE_DOWNLOAD_PAUSE = STATE_DOWNLOAD_CREATE + CNetKAppTaskState.STATE_TASK_PAUSE//13//STATE_DOWNLOAD_PAUSED = 7//下载暂停
@@ -19,8 +19,12 @@ object CNetKAppState {
     const val STATE_DOWNLOAD_FAIL = STATE_DOWNLOAD_CREATE + CNetKAppTaskState.STATE_TASK_FAIL//19//STATE_DOWNLOAD_FAILED = 10//下载失败
 
     @JvmStatic
+    fun isTaskDownload(state: Int): Boolean =
+        state in STATE_DOWNLOAD_CREATE until STATE_DOWNLOAD_CANCEL
+
+    @JvmStatic
     fun isDownloading(state: Int): Boolean =
-        state in STATE_DOWNLOAD_WAIT until STATE_DOWNLOAD_CANCEL
+        state == STATE_DOWNLOADING
 
     //////////////////////////////////////////////////////////////
     //校验
@@ -30,8 +34,8 @@ object CNetKAppState {
     const val STATE_VERIFY_FAIL = STATE_VERIFY_CREATE + CNetKAppTaskState.STATE_TASK_FAIL//29//STATE_CHECKING_FAILURE = 16//校验失败
 
     @JvmStatic
-    fun isVerifying(state: Int): Boolean =
-        state in STATE_VERIFYING until STATE_VERIFY_SUCCESS
+    fun isTaskVerify(state: Int): Boolean =
+        state in STATE_VERIFY_CREATE until STATE_VERIFY_SUCCESS
 
     //////////////////////////////////////////////////////////////
     //解压
@@ -41,8 +45,8 @@ object CNetKAppState {
     const val STATE_UNZIP_FAIL = STATE_UNZIP_CREATE + CNetKAppTaskState.STATE_TASK_FAIL//39//STATE_UNPACKING_FAILED = 13//解压失败
 
     @JvmStatic
-    fun isUnziping(state: Int): Boolean =
-        state in STATE_UNZIPING until STATE_UNZIP_SUCCESS
+    fun isTaskUnzip(state: Int): Boolean =
+        state in STATE_UNZIP_CREATE until STATE_UNZIP_SUCCESS
 
     //////////////////////////////////////////////////////////////
     //安装
@@ -52,8 +56,9 @@ object CNetKAppState {
     const val STATE_INSTALL_FAIL = STATE_INSTALL_CREATE + CNetKAppTaskState.STATE_TASK_FAIL//49//STATE_INSTALLED = 2//已安装
 
     @JvmStatic
-    fun isInstalling(state: Int): Boolean =
-        state in STATE_INSTALLING until STATE_INSTALL_SUCCESS
+    fun isTaskInstall(state: Int): Boolean =
+        state in STATE_INSTALL_CREATE until STATE_INSTALL_SUCCESS
+
 
     //////////////////////////////////////////////////////////////
     //卸载

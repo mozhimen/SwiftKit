@@ -5,7 +5,7 @@ import androidx.annotation.WorkerThread
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.componentk.netk.app.cons.CNetKAppState
+import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
 
 /**
  * @ClassName AppTaskDaoManager
@@ -85,7 +85,7 @@ object AppTaskDaoManager : IUtilK {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
-            if (next.isDownloading())
+            if (next.isTaskDownload())
                 return true
         }
         return false
@@ -95,7 +95,7 @@ object AppTaskDaoManager : IUtilK {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
-            if (next.isVerifying())
+            if (next.isTaskVerify())
                 return true
         }
         return false
@@ -105,7 +105,7 @@ object AppTaskDaoManager : IUtilK {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
-            if (next.isUnziping())
+            if (next.isTaskUnzip())
                 return true
         }
         return false
@@ -115,7 +115,7 @@ object AppTaskDaoManager : IUtilK {
         val iterator = _downloadTasks.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
-            if (next.isInstalling())
+            if (next.isTaskInstall())
                 return true
         }
         return false
@@ -126,7 +126,7 @@ object AppTaskDaoManager : IUtilK {
     fun addAll(vararg appTask: AppTask) {
         TaskKExecutor.execute(TAG + "addAll") {
             appTask.forEach {
-                it.taskState = CNetKAppState.STATE_TASK_CREATE
+                it.taskState = CNetKAppTaskState.STATE_TASK_CREATE
                 it.downloadProgress = 0
                 it.taskUpdateTime = System.currentTimeMillis()
             }
@@ -202,7 +202,6 @@ object AppTaskDaoManager : IUtilK {
 
     /**
      * 同步更新，防止多个线程同时更新，出现问题
-     * idnex 无作用
      */
     @Synchronized
     private fun updateSync(appTask: AppTask) {

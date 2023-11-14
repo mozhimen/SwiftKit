@@ -35,9 +35,7 @@ class NetKAppInstallProxy(
     owner: LifecycleOwner,
     receiver: BaseBroadcastReceiver = NetKAppInstallReceiver(),
 ) : BaseBroadcastReceiverProxy2(
-    context,
-    owner,
-    receiver,
+    context, owner, receiver,
     if (UtilKRom.isFlyme())
         arrayOf(CIntent.ACTION_PACKAGE_REMOVED)
     else
@@ -74,7 +72,7 @@ class NetKAppInstallProxy(
         super.onDestroy(owner)
     }
 
-    override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>) {
+    override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
         _appTask?.let {
             if (UtilKPackageManager.hasPackage(_activity, it.apkPackageName)) {
                 InstallKManager.onPackageAdded(_activity, it.apkPackageName)

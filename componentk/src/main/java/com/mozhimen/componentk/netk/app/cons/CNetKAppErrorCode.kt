@@ -13,4 +13,9 @@ object CNetKAppErrorCode {
     const val CODE_TASK_CANCEL_FAIL_ON_UNZIPING = 2//正在解压, 无法删除
     const val CODE_DOWNLOAD_PATH_NOT_EXIST =10//"下载路径不存在"
     const val CODE_DOWNLOAD_CANT_FIND_TASK = 11//"未找到下载任务！"
+    const val CODE_DOWNLOAD_SERVER_CANCELED = 12//
+    const val CODE_VERIFY_DOWNLOAD_DIR_NULL = 20
+    const val CODE_VERIFY_DOWNLOAD_FILE_NOT_EXIST = 21
+    const val CODE_VERIFY_MD5_FAIL = 22
+    const val CODE_UNZIP_DOWNLOAD_DIR_NULL = 30
 }

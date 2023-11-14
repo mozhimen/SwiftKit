@@ -9,6 +9,9 @@ import com.mozhimen.basick.elemk.cons.CMsg
  * @Date 2023/8/2 15:18
  * @Version 1.0
  */
+fun String.replaceDot(): String =
+    UtilKRegex.replaceDot(this)
+
 fun String.replaceRegexLineBreak(): String =
     UtilKRegex.replaceRegexLineBreak(this)
 
@@ -16,6 +19,10 @@ fun String.replaceRegexDoubleQuote(): String =
     UtilKRegex.replaceRegexDoubleQuote(this)
 
 object UtilKRegex {
+    @JvmStatic
+    fun replaceDot(str: String): String =
+        str.replace(",", ".")
+
     @JvmStatic
     fun replaceRegexLineBreak(str: String): String =
         str.replace("\\n".toRegex(), CMsg.LINE_BREAK)

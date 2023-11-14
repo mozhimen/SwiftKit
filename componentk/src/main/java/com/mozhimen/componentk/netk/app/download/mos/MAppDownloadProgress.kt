@@ -15,5 +15,5 @@ data class MAppDownloadProgress(
     var progress: Int = 0
 ) {
     fun isDownloading(): Boolean =
-        CNetKAppState.isDownloading(progressState)
+        CNetKAppState.isTaskDownload(progressState)
 }
