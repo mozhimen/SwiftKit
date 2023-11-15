@@ -43,19 +43,19 @@
                 android:id="@+id/scank_hsv_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@color/cok_blue_050" />
+                android:src="@color/cok_blue_e8f3ff" />
 
             <ImageView
                 android:id="@+id/scank_hsv_img1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@color/cok_blue_050" />
+                android:src="@color/cok_blue_e8f3ff" />
 
             <ImageView
                 android:id="@+id/scank_hsv_img2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@color/cok_blue_050" />
+                android:src="@color/cok_blue_e8f3ff" />
 
         </LinearLayout>
     </FrameLayout>

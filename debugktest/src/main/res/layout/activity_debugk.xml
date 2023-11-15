@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="音量减键或左划以开启DebugK弹框"
-            android:textColor="@color/cok_blue_650"
+            android:textColor="@color/cok_blue_287ff1"
             tools:ignore="HardcodedText" />
     </FrameLayout>
 </layout>

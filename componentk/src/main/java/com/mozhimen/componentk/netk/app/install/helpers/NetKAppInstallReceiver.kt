@@ -9,6 +9,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.componentk.installk.manager.InstallKManager
 import com.mozhimen.componentk.netk.app.NetKApp
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
+import com.mozhimen.componentk.netk.app.install.NetKAppInstallManager
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 
 /**
@@ -29,25 +30,15 @@ class NetKAppInstallReceiver : BaseBroadcastReceiver() {
                     Log.i(TAG, "onReceive: action ${intent.action} apkPackName $apkPackName")
                     when (intent.action) {
                         CIntent.ACTION_PACKAGE_REMOVED -> {//需要主动移除掉保存的应用
-                            InstallKManager.onPackageRemoved(apkPackName)
-                            NetKApp.onUninstallSuccess(createAppTask(apkPackName))
+                            NetKAppInstallManager.onUninstallSuccess(apkPackName)
                         }
 
                         CIntent.ACTION_PACKAGE_ADDED, CIntent.ACTION_PACKAGE_REPLACED -> {//有应用发生变化，强制刷新应用
-                            InstallKManager.onPackageAdded(context, apkPackName)
-
-                            /**
-                             * [CNetKAppState.STATE_INSTALL_SUCCESS]
-                             */
-                            NetKApp.onInstallSuccess(createAppTask(apkPackName))
+                            NetKAppInstallManager.onInstallSuccess(apkPackName)
                         }
                     }
                 }
             }
         }
-    }
-
-    private fun createAppTask(apkPackName: String): AppTask {
-        return AppTask("", CNetKAppState.STATE_INSTALL_SUCCESS, "", "", "", 100, 0, "", apkPackName, "", "", apkIsInstalled = false, false)
     }
 }

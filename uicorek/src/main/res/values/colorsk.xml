@@ -1,406 +1,431 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="cok_transparent">#00FFFFFF</color>
-    <color name="cok_white">@color/cok_gray_000</color>
-    <color name="cok_black">@color/cok_gray_999</color>
-
-    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
-
-    <color name="cok_amber_100">#FFECB3</color>
-    <color name="cok_amber_200">#FFE082</color>
-    <color name="cok_amber_300">#FFD54F</color>
-    <color name="cok_amber_400">#FFCA28</color>
-    <color name="cok_amber_500">#FFC107</color>
-    <color name="cok_amber_600">#FFB300</color>
-    <color name="cok_amber_700">#FFA000</color>
-    <color name="cok_amber_800">#FF8F00</color>
-    <color name="cok_amber_900">#FF6F00</color>
-
-    <color name="cok_amber_100_dark">#FFE28A</color>
-    <color name="cok_amber_200_dark">#FFD659</color>
-    <color name="cok_amber_300_dark">#FFCC26</color>
-    <color name="cok_amber_400_dark">#FFC100</color>
-    <color name="cok_amber_500_dark">#DEA700</color>
-    <color name="cok_amber_600_dark">#D79700</color>
-    <color name="cok_amber_700_dark">#D78700</color>
-    <color name="cok_amber_800_dark">#D77800</color>
-    <color name="cok_amber_900_dark">#D75D00</color>
-
-    <color name="cok_light_blue_100">#B3E5FC</color>
-    <color name="cok_light_blue_200">#81D4fA</color>
-    <color name="cok_light_blue_300">#4fC3F7</color>
-    <color name="cok_light_blue_400">#29B6FC</color>
-    <color name="cok_light_blue_500">#03A9F4</color>
-    <color name="cok_light_blue_600">#039BE5</color>
-    <color name="cok_light_blue_700">#0288D1</color>
-    <color name="cok_light_blue_800">#0277BD</color>
-    <color name="cok_light_blue_900">#01579B</color>
-
-    <color name="cok_light_blue_100_dark">#8BD8FB</color>
-    <color name="cok_light_blue_200_dark">#59C7F9</color>
-    <color name="cok_light_blue_300_dark">#27B6F6</color>
-    <color name="cok_light_blue_400_dark">#02A7F9</color>
-    <color name="cok_light_blue_500_dark">#028DCC</color>
-    <color name="cok_light_blue_600_dark">#0280BD</color>
-    <color name="cok_light_blue_700_dark">#016EA9</color>
-    <color name="cok_light_blue_800_dark">#015E95</color>
-    <color name="cok_light_blue_900_dark">#004072</color>
-
-
-    <color name="cok_blue_050">#E8F3FF</color>
-    <color name="cok_blue_100">#BBDEFB</color>
-    <color name="cok_blue_200">#90CAF9</color>
-    <color name="cok_blue_300">#64B5F6</color>
-    <color name="cok_blue_400">#42A5F5</color>
-    <color name="cok_blue_500">#2196F3</color>
-    <color name="cok_blue_600">#1E88E5</color>
-    <color name="cok_blue_633">#4785EF</color>
-    <color name="cok_blue_650">#287FF1</color>
-    <color name="cok_blue_666">#0876E4</color>
-    <color name="cok_blue_700">#1976D2</color>
-    <color name="cok_blue_800">#1565C0</color>
-    <color name="cok_blue_900">#0D47A1</color>
-
-    <color name="cok_blue_100_dark">#94CCF9</color>
-    <color name="cok_blue_200_dark">#69B8F7</color>
-    <color name="cok_blue_300_dark">#3DA2F4</color>
-    <color name="cok_blue_400_dark">#1A92F3</color>
-    <color name="cok_blue_500_dark">#0B82E0</color>
-    <color name="cok_blue_600_dark">#1673C4</color>
-    <color name="cok_blue_700_dark">#1462AE</color>
-    <color name="cok_blue_800_dark">#11529B</color>
-    <color name="cok_blue_900_dark">#09367B</color>
-
-    <color name="cok_blue_gray_100">#CFD8DC</color>
-    <color name="cok_blue_gray_200">#B0BBC5</color>
-    <color name="cok_blue_gray_300">#90A4AE</color>
-    <color name="cok_blue_gray_400">#78909C</color>
-    <color name="cok_blue_gray_500">#607D8B</color>
-    <color name="cok_blue_gray_600">#546E7A</color>
-    <color name="cok_blue_gray_700">#455A64</color>
-    <color name="cok_blue_gray_800">#37474F</color>
-    <color name="cok_blue_gray_900">#263238</color>
-
-    <color name="cok_blue_gray_100_dark">#B8C5CB</color>
-    <color name="cok_blue_gray_200_dark">#99A7B4</color>
-    <color name="cok_blue_gray_300_dark">#78919D</color>
-    <color name="cok_blue_gray_400_dark">#647C88</color>
-    <color name="cok_blue_gray_500_dark">#4F6873</color>
-    <color name="cok_blue_gray_600_dark">#445962</color>
-    <color name="cok_blue_gray_700_dark">#34454C</color>
-    <color name="cok_blue_gray_800_dark">#263237</color>
-    <color name="cok_blue_gray_900_dark">#151C1F</color>
-
-    <color name="cok_brown_100">#D7CCC8</color>
-    <color name="cok_brown_200">#BCAAA4</color>
-    <color name="cok_brown_300">#A1887F</color>
-    <color name="cok_brown_400">#8D6E63</color>
-    <color name="cok_brown_500">#795548</color>
-    <color name="cok_brown_600">#6D4C41</color>
-    <color name="cok_brown_700">#5D4037</color>
-    <color name="cok_brown_800">#4E342E</color>
-    <color name="cok_brown_900">#3E2723</color>
-
-    <color name="cok_brown_100_dark">#C6B7B1</color>
-    <color name="cok_brown_200_dark">#AB958D</color>
-    <color name="cok_brown_300_dark">#8F7369</color>
-    <color name="cok_brown_400_dark">#755B52</color>
-    <color name="cok_brown_500_dark">#5F4339</color>
-    <color name="cok_brown_600_dark">#533A31</color>
-    <color name="cok_brown_700_dark">#432E28</color>
-    <color name="cok_brown_800_dark">#34231F</color>
-    <color name="cok_brown_900_dark">#241714</color>
-
-    <color name="cok_cyan_100">#B2EBF2</color>
-    <color name="cok_cyan_200">#80DEEA</color>
-    <color name="cok_cyan_300">#4DD0E1</color>
-    <color name="cok_cyan_400">#26C6DA</color>
-    <color name="cok_cyan_500">#00BCD4</color>
-    <color name="cok_cyan_600">#00ACC1</color>
-    <color name="cok_cyan_700">#0097A7</color>
-    <color name="cok_cyan_800">#00838F</color>
-    <color name="cok_cyan_900">#006064</color>
-
-    <color name="cok_cyan_100_dark">#90E3ED</color>
-    <color name="cok_cyan_200_dark">#5DD5E5</color>
-    <color name="cok_cyan_300_dark">#2AC7DB</color>
-    <color name="cok_cyan_400_dark">#1FA7B8</color>
-    <color name="cok_cyan_500_dark">#0098AB</color>
-    <color name="cok_cyan_600_dark">#008898</color>
-    <color name="cok_cyan_700_dark">#00727E</color>
-    <color name="cok_cyan_800_dark">#005E66</color>
-    <color name="cok_cyan_900_dark">#00393B</color>
-
-    <color name="cok_deep_orange_100">#FFCCBC</color>
-    <color name="cok_deep_orange_200">#FFAB91</color>
-    <color name="cok_deep_orange_300">#FF8A65</color>
-    <color name="cok_deep_orange_400">#FF7043</color>
-    <color name="cok_deep_orange_500">#FF5722</color>
-    <color name="cok_deep_orange_600">#F4511E</color>
-    <color name="cok_deep_orange_700">#E64A19</color>
-    <color name="cok_deep_orange_800">#D84315</color>
-    <color name="cok_deep_orange_900">#BF360C</color>
-
-    <color name="cok_deep_orange_100_dark">#FFAD93</color>
-    <color name="cok_deep_orange_200_dark">#FF8C68</color>
-    <color name="cok_deep_orange_300_dark">#FF6B3C</color>
-    <color name="cok_deep_orange_400_dark">#FF511A</color>
-    <color name="cok_deep_orange_500_dark">#F93C00</color>
-    <color name="cok_deep_orange_600_dark">#DF3D0A</color>
-    <color name="cok_deep_orange_700_dark">#C13E14</color>
-    <color name="cok_deep_orange_800_dark">#B33710</color>
-    <color name="cok_deep_orange_900_dark">#992B09</color>
-
-    <color name="cok_deep_purple_100">#D1C4E9</color>
-    <color name="cok_deep_purple_200">#B39DDB</color>
-    <color name="cok_deep_purple_300">#9575CD</color>
-    <color name="cok_deep_purple_400">#7E57C2</color>
-    <color name="cok_deep_purple_500">#673AB7</color>
-    <color name="cok_deep_purple_600">#5E35B1</color>
-    <color name="cok_deep_purple_700">#512DA8</color>
-    <color name="cok_deep_purple_800">#4527A0</color>
-    <color name="cok_deep_purple_900">#311B92</color>
-
-    <color name="cok_deep_purple_100_dark">#BAA6DE</color>
-    <color name="cok_deep_purple_200_dark">#9C7FD0</color>
-    <color name="cok_deep_purple_300_dark">#7E56C2</color>
-    <color name="cok_deep_purple_400_dark">#693FB0</color>
-    <color name="cok_deep_purple_500_dark">#563098</color>
-    <color name="cok_deep_purple_600_dark">#4E2B92</color>
-    <color name="cok_deep_purple_700_dark">#412488</color>
-    <color name="cok_deep_purple_800_dark">#371F7F</color>
-    <color name="cok_deep_purple_900_dark">#251470</color>
-
-    <color name="cok_green_100">#C8E6C9</color>
-    <color name="cok_green_200">#A5D6A7</color>
-    <color name="cok_green_300">#81C784</color>
-    <color name="cok_green_400">#66BB6A</color>
-    <color name="cok_green_500">#4CAF50</color>
-    <color name="cok_green_600">#43A047</color>
-    <color name="cok_green_700">#388E3C</color>
-    <color name="cok_green_800">#2E7D32</color>
-    <color name="cok_green_900">#1B5E20</color>
-
-    <color name="cok_green_100_dark">#ACDAAE</color>
-    <color name="cok_green_200_dark">#89CA8D</color>
-    <color name="cok_green_300_dark">#65BB69</color>
-    <color name="cok_green_400_dark">#4CAC51</color>
-    <color name="cok_green_500_dark">#409343</color>
-    <color name="cok_green_600_dark">#37833A</color>
-    <color name="cok_green_700_dark">#2C7130</color>
-    <color name="cok_green_800_dark">#235F26</color>
-    <color name="cok_green_900_dark">#113E15</color>
-
-    <color name="cok_gray_000">#FFFFFF</color>
-    <color name="cok_gray_100">#F5F6F8</color>
-    <color name="cok_gray_133">#F8F8F8</color>
-    <color name="cok_gray_150">#EFF2F7</color>
-    <color name="cok_gray_200">#EEEEEE</color>
-    <color name="cok_gray_300">#E0E0E0</color>
-    <color name="cok_gray_350">#D2D4D7</color>
-    <color name="cok_gray_400">#BDBDBD</color>
-    <color name="cok_gray_500">#9E9E9E</color>
-    <color name="cok_gray_555">#7D7D7D</color>
-    <color name="cok_gray_600">#757575</color>
-    <color name="cok_gray_700">#616161</color>
-    <color name="cok_gray_800">#424242</color>
-    <color name="cok_gray_999">#000000</color>
-
-    <color name="cok_gray_100_dark">#DFDFDF</color>
-    <color name="cok_gray_200_dark">#DADADA</color>
-    <color name="cok_gray_300_dark">#CCCCCC</color>
-    <color name="cok_gray_400_dark">#A9A9A9</color>
-    <color name="cok_gray_500_dark">#8A8A8A</color>
-    <color name="cok_gray_600_dark">#606060</color>
-    <color name="cok_gray_700_dark">#4C4C4C</color>
-    <color name="cok_gray_800_dark">#2D2D2D</color>
-    <color name="cok_gray_999_dark">#000000</color>
-
-    <color name="cok_indigo_100">#C5CAE9</color>
-    <color name="cok_indigo_200">#9FA8DA</color>
-    <color name="cok_indigo_300">#7986CB</color>
-    <color name="cok_indigo_400">#5C6BC0</color>
-    <color name="cok_indigo_500">#3F51B5</color>
-    <color name="cok_indigo_600">#3949AB</color>
-    <color name="cok_indigo_700">#303F9F</color>
-    <color name="cok_indigo_800">#283593</color>
-    <color name="cok_indigo_900">#1A237E</color>
-
-    <color name="cok_indigo_100_dark">#A8AFDE</color>
-    <color name="cok_indigo_200_dark">#828ECF</color>
-    <color name="cok_indigo_300_dark">#5B6CC0</color>
-    <color name="cok_indigo_400_dark">#4354B0</color>
-    <color name="cok_indigo_500_dark">#344497</color>
-    <color name="cok_indigo_600_dark">#2E3C8C</color>
-    <color name="cok_indigo_700_dark">#263380</color>
-    <color name="cok_indigo_800_dark">#1F2973</color>
-    <color name="cok_indigo_900_dark">#12195C</color>
-
-    <color name="cok_light_green_100">#DCEDC8</color>
-    <color name="cok_light_green_200">#C5E1A5</color>
-    <color name="cok_light_green_300">#AED581</color>
-    <color name="cok_light_green_400">#9CCC65</color>
-    <color name="cok_light_green_500">#8BC34A</color>
-    <color name="cok_light_green_600">#7CB342</color>
-    <color name="cok_light_green_700">#689F38</color>
-    <color name="cok_light_green_800">#558B2F</color>
-    <color name="cok_light_green_900">#33691E</color>
-
-    <color name="cok_light_green_100_dark">#C9E3A9</color>
-    <color name="cok_light_green_200_dark">#B2D787</color>
-    <color name="cok_light_green_300_dark">#9BCB62</color>
-    <color name="cok_light_green_400_dark">#89C246</color>
-    <color name="cok_light_green_500_dark">#76AC38</color>
-    <color name="cok_light_green_600_dark">#679537</color>
-    <color name="cok_light_green_700_dark">#54812D</color>
-    <color name="cok_light_green_800_dark">#426C24</color>
-    <color name="cok_light_green_900_dark">#234915</color>
-
-    <color name="cok_lime_100">#F0F4C3</color>
-    <color name="cok_lime_200">#E6EE9C</color>
-    <color name="cok_lime_300">#DCE775</color>
-    <color name="cok_lime_400">#D4E157</color>
-    <color name="cok_lime_500">#CDDC39</color>
-    <color name="cok_lime_600">#C0CA33</color>
-    <color name="cok_lime_700">#A4B42B</color>
-    <color name="cok_lime_800">#9E9D24</color>
-    <color name="cok_lime_900">#827717</color>
-
-    <color name="cok_lime_100_dark">#E8EEA0</color>
-    <color name="cok_lime_200_dark">#DEE879</color>
-    <color name="cok_lime_300_dark">#D3E152</color>
-    <color name="cok_lime_400_dark">#CBDB34</color>
-    <color name="cok_lime_500_dark">#BAC923</color>
-    <color name="cok_lime_600_dark">#A2AA2A</color>
-    <color name="cok_lime_700_dark">#869323</color>
-    <color name="cok_lime_800_dark">#7D7D1C</color>
-    <color name="cok_lime_900_dark">#5F5710</color>
-
-    <color name="cok_orange_100">#FFE0B2</color>
-    <color name="cok_orange_200">#FFCC80</color>
-    <color name="cok_orange_300">#FFB74D</color>
-    <color name="cok_orange_400">#FFA726</color>
-    <color name="cok_orange_500">#FF9800</color>
-    <color name="cok_orange_600">#FB8C00</color>
-    <color name="cok_orange_700">#F57C00</color>
-    <color name="cok_orange_800">#EF6C00</color>
-    <color name="cok_orange_900">#E65100</color>
-
-    <color name="cok_orange_100_dark">#FFD089</color>
-    <color name="cok_orange_200_dark">#FFBC57</color>
-    <color name="cok_orange_300_dark">#FFA724</color>
-    <color name="cok_orange_400_dark">#FD9600</color>
-    <color name="cok_orange_500_dark">#D78000</color>
-    <color name="cok_orange_600_dark">#D37600</color>
-    <color name="cok_orange_700_dark">#CD6800</color>
-    <color name="cok_orange_800_dark">#C65A00</color>
-    <color name="cok_orange_900_dark">#BD4200</color>
-
-    <color name="cok_pink_100">#F8BBD0</color>
-    <color name="cok_pink_200">#F48FB1</color>
-    <color name="cok_pink_300">#F06292</color>
-    <color name="cok_pink_400">#EC407A</color>
-    <color name="cok_pink_500">#E91E63</color>
-    <color name="cok_pink_600">#D81B60</color>
-    <color name="cok_pink_700">#C2185B</color>
-    <color name="cok_pink_800">#AD1457</color>
-    <color name="cok_pink_900">#880E4F</color>
-
-    <color name="cok_pink_100_dark">#F596B7</color>
-    <color name="cok_pink_200_dark">#F16998</color>
-    <color name="cok_pink_300_dark">#ED3C78</color>
-    <color name="cok_pink_400_dark">#E91A60</color>
-    <color name="cok_pink_500_dark">#CB1352</color>
-    <color name="cok_pink_600_dark">#B4154F</color>
-    <color name="cok_pink_700_dark">#9E134A</color>
-    <color name="cok_pink_800_dark">#880F44</color>
-    <color name="cok_pink_900_dark">#630A3A</color>
-
-    <color name="cok_purple_100">#E1BEE7</color>
-    <color name="cok_purple_200">#CE93D8</color>
-    <color name="cok_purple_300">#BA68C8</color>
-    <color name="cok_purple_400">#AB47BC</color>
-    <color name="cok_purple_500">#9C27B0</color>
-    <color name="cok_purple_600">#8E24AA</color>
-    <color name="cok_purple_700">#7B1FA2</color>
-    <color name="cok_purple_800">#6A1B9A</color>
-    <color name="cok_purple_900">#4A148C</color>
-
-    <color name="cok_purple_100_dark">#D3A0DC</color>
-    <color name="cok_purple_200_dark">#C175CD</color>
-    <color name="cok_purple_300_dark">#AC4ABD</color>
-    <color name="cok_purple_400_dark">#913AA0</color>
-    <color name="cok_purple_500_dark">#7F1F8F</color>
-    <color name="cok_purple_600_dark">#711C88</color>
-    <color name="cok_purple_700_dark">#611880</color>
-    <color name="cok_purple_800_dark">#521477</color>
-    <color name="cok_purple_900_dark">#370E68</color>
-
-    <color name="cok_red_100">#FFCDD2</color>
-    <color name="cok_red_200">#EF9A9A</color>
-    <color name="cok_red_300">#E57373</color>
-    <color name="cok_red_400">#EF5350</color>
-    <color name="cok_red_500">#F44336</color>
-    <color name="cok_red_600">#E53935</color>
-    <color name="cok_red_700">#D32F2F</color>
-    <color name="cok_red_800">#C62828</color>
-    <color name="cok_red_900">#B71C1C</color>
-
-    <color name="cok_red_100_dark">#FFA4AE</color>
-    <color name="cok_red_200_dark">#EA7777</color>
-    <color name="cok_red_300_dark">#DF5050</color>
-    <color name="cok_red_400_dark">#EC2E2A</color>
-    <color name="cok_red_500_dark">#F21F0F</color>
-    <color name="cok_red_600_dark">#D61F1A</color>
-    <color name="cok_red_700_dark">#B32525</color>
-    <color name="cok_red_800_dark">#A42020</color>
-    <color name="cok_red_900_dark">#941616</color>
-
-    <color name="cok_teal_100">#B2DFDB</color>
-    <color name="cok_teal_200">#80CBC4</color>
-    <color name="cok_teal_300">#4DB6AC</color>
-    <color name="cok_teal_400">#26A69A</color>
-    <color name="cok_teal_500">#009688</color>
-    <color name="cok_teal_600">#00897B</color>
-    <color name="cok_teal_700">#00796B</color>
-    <color name="cok_teal_800">#00695C</color>
-    <color name="cok_teal_900">#004D40</color>
-
-    <color name="cok_teal_100_dark">#95D3CE</color>
-    <color name="cok_teal_200_dark">#63BFB7</color>
-    <color name="cok_teal_300_dark">#3F9B92</color>
-    <color name="cok_teal_400_dark">#1E857C</color>
-    <color name="cok_teal_500_dark">#006D63</color>
-    <color name="cok_teal_600_dark">#006056</color>
-    <color name="cok_teal_700_dark">#005047</color>
-    <color name="cok_teal_800_dark">#004038</color>
-    <color name="cok_teal_900_dark">#00241E</color>
-
-    <color name="cok_yellow_100">#FFF9C4</color>
-    <color name="cok_yellow_200">#FFF590</color>
-    <color name="cok_yellow_300">#FFF176</color>
-    <color name="cok_yellow_400">#FFEE58</color>
-    <color name="cok_yellow_500">#FFEB3B</color>
-    <color name="cok_yellow_600">#FDD835</color>
-    <color name="cok_yellow_700">#FBC02D</color>
-    <color name="cok_yellow_800">#F9A825</color>
-    <color name="cok_yellow_900">#F57F17</color>
-
-    <color name="cok_yellow_100_dark">#FFF59B</color>
-    <color name="cok_yellow_200_dark">#FFF267</color>
-    <color name="cok_yellow_300_dark">#FFED4D</color>
-    <color name="cok_yellow_400_dark">#FFEA2F</color>
-    <color name="cok_yellow_500_dark">#FFE712</color>
-    <color name="cok_yellow_600_dark">#FDD10B</color>
-    <color name="cok_yellow_700_dark">#FBB504</color>
-    <color name="cok_yellow_800_dark">#EF9606</color>
-    <color name="cok_yellow_900_dark">#DA6B09</color>
+    <color name="cok_transparent">#00ffffff</color>
+    <color name="cok_white">@color/cok_gray_ffffff</color>
+    <color name="cok_black">@color/cok_gray_000000</color>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
     <!--gray-->
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
+    <color name="cok_gray_ffffff">#ffffff</color>
+    <color name="cok_gray_f8f8f8">#f8f8f8</color>
+    <color name="cok_gray_f5f6f8">#f5f6f8</color>
     <color name="cok_gray_f1f1f1">#f1f1f1</color>
+    <color name="cok_gray_eff2f7">#eff2f7</color>
+    <color name="cok_gray_eeeeee">#eeeeee</color>
+    <color name="cok_gray_e0e0e0">#e0e0e0</color>
+    <color name="cok_gray_dfdfdf">#dfdfdf</color>
+    <color name="cok_gray_cccccc">#cccccc</color>
+    <color name="cok_gray_bdbdbd">#bdbdbd</color>
+    <color name="cok_gray_dadada">#dadada</color>
+    <color name="cok_gray_d2d4d7">#d2d4d7</color>
+    <color name="cok_gray_a9a9a9">#a9a9a9</color>
+    <color name="cok_gray_9e9e9e">#9e9e9e</color>
+    <color name="cok_gray_8a8a8a">#8a8a8a</color>
+    <color name="cok_gray_7d7d7d">#7d7d7d</color>
+    <color name="cok_gray_757575">#757575</color>
+    <color name="cok_gray_616161">#616161</color>
+    <color name="cok_gray_606060">#606060</color>
+    <color name="cok_gray_4c4c4c">#4c4c4c</color>
+    <color name="cok_gray_424242">#424242</color>
+    <color name="cok_gray_2d2d2d">#2d2d2d</color>
+    <color name="cok_gray_000000">#000000</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--brow-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_brow_d7ccc8">#d7ccc8</color>
+    <color name="cok_brow_c6b7b1">#c6b7b1</color>
+    <color name="cok_brow_bcaaa4">#bcaaa4</color>
+    <color name="cok_brow_ab958d">#ab958d</color>
+    <color name="cok_brow_a1887f">#a1887f</color>
+    <color name="cok_brow_8f7369">#8f7369</color>
+    <color name="cok_brow_8d6e63">#8d6e63</color>
+    <color name="cok_brow_795548">#795548</color>
+    <color name="cok_brow_755b52">#755b52</color>
+    <color name="cok_brow_6d4c41">#6d4c41</color>
+    <color name="cok_brow_5f4339">#5f4339</color>
+    <color name="cok_brow_5d4037">#5d4037</color>
+    <color name="cok_brow_533a31">#533a31</color>
+    <color name="cok_brow_4e342e">#4e342e</color>
+    <color name="cok_brow_432e28">#432e28</color>
+    <color name="cok_brow_3e2723">#3e2723</color>
+    <color name="cok_brow_34231f">#34231f</color>
+    <color name="cok_brow_241714">#241714</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--red_-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_red__ffcdd2">#ffcdd2</color>
+    <color name="cok_red__ffa4ae">#ffa4ae</color>
+    <color name="cok_red__f44336">#f44336</color>
+    <color name="cok_red__f21f0f">#f21f0f</color>
+    <color name="cok_red__ef9a9a">#ef9a9a</color>
+    <color name="cok_red__ef5350">#ef5350</color>
+    <color name="cok_red__ec2e2a">#ec2e2a</color>
+    <color name="cok_red__ea7777">#ea7777</color>
+    <color name="cok_red__e57373">#e57373</color>
+    <color name="cok_red__e53935">#e53935</color>
+    <color name="cok_red__df5050">#df5050</color>
+    <color name="cok_red__d61f1a">#d61f1a</color>
+    <color name="cok_red__d32f2f">#d32f2f</color>
+    <color name="cok_red__c62828">#c62828</color>
+    <color name="cok_red__b71c1c">#b71c1c</color>
+    <color name="cok_red__b32525">#b32525</color>
+    <color name="cok_red__a42020">#a42020</color>
+    <color name="cok_red__941616">#941616</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--pink-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_pink_f8bbd0">#f8bbd0</color>
+    <color name="cok_pink_f596b7">#f596b7</color>
+    <color name="cok_pink_f48fb1">#f48fb1</color>
+    <color name="cok_pink_f16998">#f16998</color>
+    <color name="cok_pink_f06292">#f06292</color>
+    <color name="cok_pink_ed3c78">#ed3c78</color>
+    <color name="cok_pink_ec407a">#ec407a</color>
+    <color name="cok_pink_e91e63">#e91e63</color>
+    <color name="cok_pink_e91a60">#e91a60</color>
+    <color name="cok_pink_d81b60">#d81b60</color>
+    <color name="cok_pink_cb1352">#cb1352</color>
+    <color name="cok_pink_c2185b">#c2185b</color>
+    <color name="cok_pink_b4154f">#b4154f</color>
+    <color name="cok_pink_ad1457">#ad1457</color>
+    <color name="cok_pink_9e134a">#9e134a</color>
+    <color name="cok_pink_880e4f">#880e4f</color>
+    <color name="cok_pink_880f44">#880f44</color>
+    <color name="cok_pink_630a3a">#630a3a</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--ambe-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_ambe_ffecb3">#ffecb3</color>
+    <color name="cok_ambe_ffe082">#ffe082</color>
+    <color name="cok_ambe_ffd54f">#ffd54f</color>
+    <color name="cok_ambe_ffca28">#ffca28</color>
+    <color name="cok_ambe_ffc107">#ffc107</color>
+    <color name="cok_ambe_ffb300">#ffb300</color>
+    <color name="cok_ambe_ffa000">#ffa000</color>
+    <color name="cok_ambe_ff8f00">#ff8f00</color>
+    <color name="cok_ambe_ff6f00">#ff6f00</color>
+    <color name="cok_ambe_ffe28a">#ffe28a</color>
+    <color name="cok_ambe_ffd659">#ffd659</color>
+    <color name="cok_ambe_ffcc26">#ffcc26</color>
+    <color name="cok_ambe_ffc100">#ffc100</color>
+    <color name="cok_ambe_dea700">#dea700</color>
+    <color name="cok_ambe_d79700">#d79700</color>
+    <color name="cok_ambe_d78700">#d78700</color>
+    <color name="cok_ambe_d77800">#d77800</color>
+    <color name="cok_ambe_d75d00">#d75d00</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--oran-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <color name="cok_oran_ffccbc">#ffccbc</color>
+    <color name="cok_oran_ffab91">#ffab91</color>
+    <color name="cok_oran_ff8a65">#ff8a65</color>
+    <color name="cok_oran_ff7043">#ff7043</color>
+    <color name="cok_oran_ff5722">#ff5722</color>
+    <color name="cok_oran_f4511e">#f4511e</color>
+    <color name="cok_oran_e64a19">#e64a19</color>
+    <color name="cok_oran_d84315">#d84315</color>
+    <color name="cok_oran_bf360c">#bf360c</color>
+    <color name="cok_oran_ffad93">#ffad93</color>
+    <color name="cok_oran_ff8c68">#ff8c68</color>
+    <color name="cok_oran_ff6b3c">#ff6b3c</color>
+    <color name="cok_oran_ff511a">#ff511a</color>
+    <color name="cok_oran_f93c00">#f93c00</color>
+    <color name="cok_oran_df3d0a">#df3d0a</color>
+    <color name="cok_oran_c13e14">#c13e14</color>
+    <color name="cok_oran_b33710">#b33710</color>
+    <color name="cok_oran_992b09">#992b09</color>
+
+    <color name="cok_oran_ffe0b2">#ffe0b2</color>
+    <color name="cok_oran_ffcc80">#ffcc80</color>
+    <color name="cok_oran_ffb74d">#ffb74d</color>
+    <color name="cok_oran_ffa726">#ffa726</color>
+    <color name="cok_oran_ff9800">#ff9800</color>
+    <color name="cok_oran_fb8c00">#fb8c00</color>
+    <color name="cok_oran_f57c00">#f57c00</color>
+    <color name="cok_oran_ef6c00">#ef6c00</color>
+    <color name="cok_oran_e65100">#e65100</color>
+    <color name="cok_oran_ffa500">#ffa500</color>
+    <color name="cok_oran_ffd089">#ffd089</color>
+    <color name="cok_oran_ffbc57">#ffbc57</color>
+    <color name="cok_oran_ffa724">#ffa724</color>
+    <color name="cok_oran_fd9600">#fd9600</color>
+    <color name="cok_oran_d78000">#d78000</color>
+    <color name="cok_oran_d37600">#d37600</color>
+    <color name="cok_oran_cd6800">#cd6800</color>
+    <color name="cok_oran_c65a00">#c65a00</color>
+    <color name="cok_oran_bd4200">#bd4200</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--yell-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_yell_fff9c4">#fff9c4</color>
+    <color name="cok_yell_fff590">#fff590</color>
+    <color name="cok_yell_fff176">#fff176</color>
+    <color name="cok_yell_ffee58">#ffee58</color>
+    <color name="cok_yell_ffeb3b">#ffeb3b</color>
+    <color name="cok_yell_fdd835">#fdd835</color>
+    <color name="cok_yell_fbc02d">#fbc02d</color>
+    <color name="cok_yell_f9a825">#f9a825</color>
+    <color name="cok_yell_f57f17">#f57f17</color>
+    <color name="cok_yell_fff59b">#fff59b</color>
+    <color name="cok_yell_fff267">#fff267</color>
+    <color name="cok_yell_ffed4d">#ffed4d</color>
+    <color name="cok_yell_ffea2f">#ffea2f</color>
+    <color name="cok_yell_ffe712">#ffe712</color>
+    <color name="cok_yell_fdd10b">#fdd10b</color>
+    <color name="cok_yell_fbb504">#fbb504</color>
+    <color name="cok_yell_ef9606">#ef9606</color>
+    <color name="cok_yell_da6b09">#da6b09</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--lime-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_lime_f0f4c3">#f0f4c3</color>
+    <color name="cok_lime_e6ee9c">#e6ee9c</color>
+    <color name="cok_lime_dce775">#dce775</color>
+    <color name="cok_lime_d4e157">#d4e157</color>
+    <color name="cok_lime_cddc39">#cddc39</color>
+    <color name="cok_lime_c0ca33">#c0ca33</color>
+    <color name="cok_lime_a4b42b">#a4b42b</color>
+    <color name="cok_lime_9e9d24">#9e9d24</color>
+    <color name="cok_lime_827717">#827717</color>
+    <color name="cok_lime_e8eea0">#e8eea0</color>
+    <color name="cok_lime_dee879">#dee879</color>
+    <color name="cok_lime_d3e152">#d3e152</color>
+    <color name="cok_lime_cbdb34">#cbdb34</color>
+    <color name="cok_lime_bac923">#bac923</color>
+    <color name="cok_lime_a2aa2a">#a2aa2a</color>
+    <color name="cok_lime_869323">#869323</color>
+    <color name="cok_lime_7d7d1c">#7d7d1c</color>
+    <color name="cok_lime_5f5710">#5f5710</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--gree-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_gree_c8e6c9">#c8e6c9</color>
+    <color name="cok_gree_a5d6a7">#a5d6a7</color>
+    <color name="cok_gree_81c784">#81c784</color>
+    <color name="cok_gree_66bb6a">#66bb6a</color>
+    <color name="cok_gree_4caf50">#4caf50</color>
+    <color name="cok_gree_43a047">#43a047</color>
+    <color name="cok_gree_388e3c">#388e3c</color>
+    <color name="cok_gree_2e7d32">#2e7d32</color>
+    <color name="cok_gree_1b5e20">#1b5e20</color>
+    <color name="cok_gree_acdaae">#acdaae</color>
+    <color name="cok_gree_89ca8d">#89ca8d</color>
+    <color name="cok_gree_65bb69">#65bb69</color>
+    <color name="cok_gree_4cac51">#4cac51</color>
+    <color name="cok_gree_409343">#409343</color>
+    <color name="cok_gree_37833a">#37833a</color>
+    <color name="cok_gree_2c7130">#2c7130</color>
+    <color name="cok_gree_235f26">#235f26</color>
+    <color name="cok_gree_113e15">#113e15</color>
+    <color name="cok_gree_dcedc8">#dcedc8</color>
+    <color name="cok_gree_c5e1a5">#c5e1a5</color>
+    <color name="cok_gree_aed581">#aed581</color>
+    <color name="cok_gree_9ccc65">#9ccc65</color>
+    <color name="cok_gree_8bc34a">#8bc34a</color>
+    <color name="cok_gree_7cb342">#7cb342</color>
+    <color name="cok_gree_689f38">#689f38</color>
+    <color name="cok_gree_558b2f">#558b2f</color>
+    <color name="cok_gree_33691e">#33691e</color>
+    <color name="cok_gree_c9e3a9">#c9e3a9</color>
+    <color name="cok_gree_b2d787">#b2d787</color>
+    <color name="cok_gree_9bcb62">#9bcb62</color>
+    <color name="cok_gree_89c246">#89c246</color>
+    <color name="cok_gree_76ac38">#76ac38</color>
+    <color name="cok_gree_679537">#679537</color>
+    <color name="cok_gree_54812d">#54812d</color>
+    <color name="cok_gree_426c24">#426c24</color>
+    <color name="cok_gree_234915">#234915</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--teal-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_teal_b2dfdb">#b2dfdb</color>
+    <color name="cok_teal_80cbc4">#80cbc4</color>
+    <color name="cok_teal_4db6ac">#4db6ac</color>
+    <color name="cok_teal_26a69a">#26a69a</color>
+    <color name="cok_teal_009688">#009688</color>
+    <color name="cok_teal_00897b">#00897b</color>
+    <color name="cok_teal_00796b">#00796b</color>
+    <color name="cok_teal_00695c">#00695c</color>
+    <color name="cok_teal_004d40">#004d40</color>
+    <color name="cok_teal_95d3ce">#95d3ce</color>
+    <color name="cok_teal_63bfb7">#63bfb7</color>
+    <color name="cok_teal_3f9b92">#3f9b92</color>
+    <color name="cok_teal_1e857c">#1e857c</color>
+    <color name="cok_teal_006d63">#006d63</color>
+    <color name="cok_teal_006056">#006056</color>
+    <color name="cok_teal_005047">#005047</color>
+    <color name="cok_teal_004038">#004038</color>
+    <color name="cok_teal_00241e">#00241e</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--cyan-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_cyan_b2ebf2">#b2ebf2</color>
+    <color name="cok_cyan_80deea">#80deea</color>
+    <color name="cok_cyan_4dd0e1">#4dd0e1</color>
+    <color name="cok_cyan_26c6da">#26c6da</color>
+    <color name="cok_cyan_00bcd4">#00bcd4</color>
+    <color name="cok_cyan_00acc1">#00acc1</color>
+    <color name="cok_cyan_0097a7">#0097a7</color>
+    <color name="cok_cyan_00838f">#00838f</color>
+    <color name="cok_cyan_006064">#006064</color>
+    <color name="cok_cyan_90e3ed">#90e3ed</color>
+    <color name="cok_cyan_5dd5e5">#5dd5e5</color>
+    <color name="cok_cyan_2ac7db">#2ac7db</color>
+    <color name="cok_cyan_1fa7b8">#1fa7b8</color>
+    <color name="cok_cyan_0098ab">#0098ab</color>
+    <color name="cok_cyan_008898">#008898</color>
+    <color name="cok_cyan_00727e">#00727e</color>
+    <color name="cok_cyan_005e66">#005e66</color>
+    <color name="cok_cyan_00393b">#00393b</color>
+
+    <color name="cok_cyan_cfd8dc">#cfd8dc</color>
+    <color name="cok_cyan_b0bbc5">#b0bbc5</color>
+    <color name="cok_cyan_90a4ae">#90a4ae</color>
+    <color name="cok_cyan_78909c">#78909c</color>
+    <color name="cok_cyan_607d8b">#607d8b</color>
+    <color name="cok_cyan_546e7a">#546e7a</color>
+    <color name="cok_cyan_455a64">#455a64</color>
+    <color name="cok_cyan_37474f">#37474f</color>
+    <color name="cok_cyan_263238">#263238</color>
+    <color name="cok_cyan_b8c5cb">#b8c5cb</color>
+    <color name="cok_cyan_99a7b4">#99a7b4</color>
+    <color name="cok_cyan_78919d">#78919d</color>
+    <color name="cok_cyan_647c88">#647c88</color>
+    <color name="cok_cyan_4f6873">#4f6873</color>
+    <color name="cok_cyan_445962">#445962</color>
+    <color name="cok_cyan_34454c">#34454c</color>
+    <color name="cok_cyan_263237">#263237</color>
+    <color name="cok_cyan_151c1f">#151c1f</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--blue-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_blue_b3e5fc">#b3e5fc</color>
+    <color name="cok_blue_81d4fa">#81d4fa</color>
+    <color name="cok_blue_4fc3f7">#4fc3f7</color>
+    <color name="cok_blue_29b6fc">#29b6fc</color>
+    <color name="cok_blue_03a9f4">#03a9f4</color>
+    <color name="cok_blue_039be5">#039be5</color>
+    <color name="cok_blue_0288d1">#0288d1</color>
+    <color name="cok_blue_0277bd">#0277bd</color>
+    <color name="cok_blue_01579b">#01579b</color>
+    <color name="cok_blue_8bd8fb">#8bd8fb</color>
+    <color name="cok_blue_59c7f9">#59c7f9</color>
+    <color name="cok_blue_27b6f6">#27b6f6</color>
+    <color name="cok_blue_02a7f9">#02a7f9</color>
+    <color name="cok_blue_028dcc">#028dcc</color>
+    <color name="cok_blue_0280bd">#0280bd</color>
+    <color name="cok_blue_016ea9">#016ea9</color>
+    <color name="cok_blue_015e95">#015e95</color>
+    <color name="cok_blue_004072">#004072</color>
+    <color name="cok_blue_e8f3ff">#e8f3ff</color>
+    <color name="cok_blue_bbdefb">#bbdefb</color>
+    <color name="cok_blue_90caf9">#90caf9</color>
+    <color name="cok_blue_64b5f6">#64b5f6</color>
+    <color name="cok_blue_42a5f5">#42a5f5</color>
+    <color name="cok_blue_2196f3">#2196f3</color>
+    <color name="cok_blue_1e88e5">#1e88e5</color>
+    <color name="cok_blue_4785ef">#4785ef</color>
+    <color name="cok_blue_287ff1">#287ff1</color>
+    <color name="cok_blue_0876e4">#0876e4</color>
+    <color name="cok_blue_1976d2">#1976d2</color>
+    <color name="cok_blue_1565c0">#1565c0</color>
+    <color name="cok_blue_0d47a1">#0d47a1</color>
     <color name="cok_blue_0177fd">#0177fd</color>
-    <color name="cok_orange_ffa500">#ffa500</color>
+    <color name="cok_blue_94ccf9">#94ccf9</color>
+    <color name="cok_blue_69b8f7">#69b8f7</color>
+    <color name="cok_blue_3da2f4">#3da2f4</color>
+    <color name="cok_blue_1a92f3">#1a92f3</color>
+    <color name="cok_blue_0b82e0">#0b82e0</color>
+    <color name="cok_blue_1673c4">#1673c4</color>
+    <color name="cok_blue_1462ae">#1462ae</color>
+    <color name="cok_blue_11529b">#11529b</color>
+    <color name="cok_blue_09367b">#09367b</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--indigo-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_indi_c5cae9">#c5cae9</color>
+    <color name="cok_indi_9fa8da">#9fa8da</color>
+    <color name="cok_indi_7986cb">#7986cb</color>
+    <color name="cok_indi_5c6bc0">#5c6bc0</color>
+    <color name="cok_indi_3f51b5">#3f51b5</color>
+    <color name="cok_indi_3949ab">#3949ab</color>
+    <color name="cok_indi_303f9f">#303f9f</color>
+    <color name="cok_indi_283593">#283593</color>
+    <color name="cok_indi_1a237e">#1a237e</color>
+    <color name="cok_indi_a8afde">#a8afde</color>
+    <color name="cok_indi_828ecf">#828ecf</color>
+    <color name="cok_indi_5b6cc0">#5b6cc0</color>
+    <color name="cok_indi_4354b0">#4354b0</color>
+    <color name="cok_indi_344497">#344497</color>
+    <color name="cok_indi_2e3c8c">#2e3c8c</color>
+    <color name="cok_indi_263380">#263380</color>
+    <color name="cok_indi_1f2973">#1f2973</color>
+    <color name="cok_indi_12195c">#12195c</color>
+
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+    <!--purp-->
+    <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    <color name="cok_purp_d1c4e9">#d1c4e9</color>
+    <color name="cok_purp_b39ddb">#b39ddb</color>
+    <color name="cok_purp_9575cd">#9575cd</color>
+    <color name="cok_purp_7e57c2">#7e57c2</color>
+    <color name="cok_purp_673ab7">#673ab7</color>
+    <color name="cok_purp_5e35b1">#5e35b1</color>
+    <color name="cok_purp_512da8">#512da8</color>
+    <color name="cok_purp_4527a0">#4527a0</color>
+    <color name="cok_purp_311b92">#311b92</color>
+    <color name="cok_purp_baa6de">#baa6de</color>
+    <color name="cok_purp_9c7fd0">#9c7fd0</color>
+    <color name="cok_purp_7e56c2">#7e56c2</color>
+    <color name="cok_purp_693fb0">#693fb0</color>
+    <color name="cok_purp_563098">#563098</color>
+    <color name="cok_purp_4e2b92">#4e2b92</color>
+    <color name="cok_purp_412488">#412488</color>
+    <color name="cok_purp_371f7f">#371f7f</color>
+    <color name="cok_purp_251470">#251470</color>
+    <color name="cok_purp_e1bee7">#e1bee7</color>
+    <color name="cok_purp_ce93d8">#ce93d8</color>
+    <color name="cok_purp_ba68c8">#ba68c8</color>
+    <color name="cok_purp_ab47bc">#ab47bc</color>
+    <color name="cok_purp_9c27b0">#9c27b0</color>
+    <color name="cok_purp_8e24aa">#8e24aa</color>
+    <color name="cok_purp_7b1fa2">#7b1fa2</color>
+    <color name="cok_purp_6a1b9a">#6a1b9a</color>
+    <color name="cok_purp_4a148c">#4a148c</color>
+    <color name="cok_purp_d3a0dc">#d3a0dc</color>
+    <color name="cok_purp_c175cd">#c175cd</color>
+    <color name="cok_purp_ac4abd">#ac4abd</color>
+    <color name="cok_purp_913aa0">#913aa0</color>
+    <color name="cok_purp_7f1f8f">#7f1f8f</color>
+    <color name="cok_purp_711c88">#711c88</color>
+    <color name="cok_purp_611880">#611880</color>
+    <color name="cok_purp_521477">#521477</color>
+    <color name="cok_purp_370e68">#370e68</color>
+
 </resources>

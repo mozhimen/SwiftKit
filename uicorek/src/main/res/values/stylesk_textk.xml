@@ -9,7 +9,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/sp_14</item>
-        <item name="android:textColor">@color/cok_gray_999</item>
+        <item name="android:textColor">@color/cok_gray_000000</item>
         <item name="android:textStyle">normal</item>
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">sans-serif</item>
@@ -55,11 +55,11 @@
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->
 
     <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_000">
-        <item name="android:textColor">@color/cok_gray_000</item>
+        <item name="android:textColor">@color/cok_gray_ffffff</item>
     </style>
 
     <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_000">
-        <item name="android:textColor">@color/cok_gray_000</item>
+        <item name="android:textColor">@color/cok_gray_ffffff</item>
     </style>
 
     <style name="StyleK_Txt.Font_Rubik_Regu.Gravity_Center.Style_Norm.Color_Gray_999" />
@@ -67,7 +67,7 @@
     <style name="StyleK_Txt.Font_Ali_Puhuit.Gravity_Center.Style_Norm.Color_Gray_999" />
 
     <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Bold.Color_Gray_000">
-        <item name="android:textColor">@color/cok_gray_000</item>
+        <item name="android:textColor">@color/cok_gray_ffffff</item>
     </style>
 
     <style name="StyleK_Txt.Font_Sans_Serif.Gravity_Center.Style_Norm.Color_Gray_999" />
@@ -191,7 +191,7 @@
         <item name="textKBubble_arrowHeight">8dp</item>
         <item name="textKBubble_arrowWidth">16dp</item>
         <item name="textKBubble_bgColor">@android:color/white</item>
-        <item name="textKBubble_borderColor">@color/cok_blue_650</item>
+        <item name="textKBubble_borderColor">@color/cok_blue_287ff1</item>
         <item name="textKBubble_borderWidth">2dp</item>
         <item name="textKBubble_cornerRadius">6dp</item>
     </style>

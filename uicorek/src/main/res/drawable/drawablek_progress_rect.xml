@@ -22,17 +22,17 @@
 
     <item
         android:id="@android:id/background"
-        android:drawable="@color/cok_blue_050" />
+        android:drawable="@color/cok_blue_e8f3ff" />
 
     <item android:id="@android:id/secondaryProgress">
         <scale
-            android:drawable="@color/cok_blue_650"
+            android:drawable="@color/cok_blue_287ff1"
             android:scaleWidth="100%" />
     </item>
 
     <item android:id="@android:id/progress">
         <scale
-            android:drawable="@color/cok_blue_666"
+            android:drawable="@color/cok_blue_0876e4"
             android:scaleWidth="100%" />
     </item>
 

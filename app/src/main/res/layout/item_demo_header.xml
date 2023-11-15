@@ -10,7 +10,7 @@
         android:layout_gravity="left|bottom"
         android:text="星座晴雨表"
         android:textSize="40sp"
-        android:textColor="@color/cok_gray_000"
+        android:textColor="@color/cok_gray_ffffff"
         android:textStyle="bold"
         tools:ignore="HardcodedText,RtlHardcoded"
         android:layout_margin="50dp"/>

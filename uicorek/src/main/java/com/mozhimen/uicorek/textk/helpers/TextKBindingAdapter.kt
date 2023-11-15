@@ -2,6 +2,7 @@ package com.mozhimen.uicorek.textk.helpers
 
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.StringRes
 import androidx.databinding.BindingAdapter
 
 /**
@@ -20,5 +21,14 @@ object TextKBindingAdapter {
         } else {
             textView.setTextColor(loadTextColorWhen_statusFalse)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["loadTextWhen", "loadTextWhen_statusTrue", "loadTextWhen_statusFalse"], requireAll = true)
+    fun loadTextWhen(textView: TextView, boolean: Boolean, loadTextWhen_statusTrue: String, loadTextWhen_statusFalse: String) {
+        if (boolean) {
+            textView.text = loadTextWhen_statusTrue
+        } else
+            textView.text = loadTextWhen_statusFalse
     }
 }

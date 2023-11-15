@@ -6,12 +6,12 @@
 
     <style name="StyleK_MaterialBtn" parent="StyleK_Btn">
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:backgroundTint">@color/cok_blue_050</item>
-        <item name="android:textColor">@color/cok_blue_650</item>
-        <item name="android:shadowColor">@color/cok_blue_650</item>
+        <item name="android:backgroundTint">@color/cok_blue_e8f3ff</item>
+        <item name="android:textColor">@color/cok_blue_287ff1</item>
+        <item name="android:shadowColor">@color/cok_blue_287ff1</item>
         <item name="android:textSize">16sp</item>
         <item name="cornerRadius">16dp</item>
-        <item name="strokeColor">@color/cok_blue_666</item>
+        <item name="strokeColor">@color/cok_blue_0876e4</item>
     </style>
 
     <!--////////////////////////////////////////////////////////////////////////////////////////////////-->

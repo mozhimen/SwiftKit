@@ -17,9 +17,9 @@
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_marginBottom="12dp"
-            android:background="@color/cok_blue_650"
+            android:background="@color/cok_blue_287ff1"
             android:scaleType="centerCrop"
-            android:src="@color/cok_blue_050" />
+            android:src="@color/cok_blue_e8f3ff" />
 
         <EditText
             android:id="@+id/scank_demo_edit"

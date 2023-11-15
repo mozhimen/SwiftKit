@@ -19,7 +19,7 @@
             android:id="@+id/netk_txt1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cok_blue_050"
+            android:background="@color/cok_blue_e8f3ff"
             android:hint="当前的天气"
             android:text="@{vm.uiWeather2}"
             tools:ignore="HardcodedText" />
@@ -34,7 +34,7 @@
             android:id="@+id/netk_txt2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/cok_blue_050"
+            android:background="@color/cok_blue_e8f3ff"
             android:hint="当前的天气"
             tools:ignore="HardcodedText" />
 

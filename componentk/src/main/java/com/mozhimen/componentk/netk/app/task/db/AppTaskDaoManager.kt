@@ -130,7 +130,6 @@ object AppTaskDaoManager : IUtilK {
         val appTask1 = getByApkPackageName(appTask.apkPackageName) ?: return//从本地数据库中查询出下载信息//如果查询不到，就不处理
         if (appTask1.apkIsInstalled)//删除数据库中的其他已安装的数据，相同包名的只保留一条已安装的数据
             delete(appTask1)
-
     }
 
     fun addAppTask2Database(appTask: AppTask) {
@@ -174,7 +173,7 @@ object AppTaskDaoManager : IUtilK {
     /**
      * 删除数据
      */
-    private fun delete(appTask: AppTask) {
+    fun delete(appTask: AppTask) {
         TaskKExecutor.execute(TAG + "delete") {
             deleteSync(appTask)
         }

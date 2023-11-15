@@ -2,24 +2,16 @@ package com.mozhimen.componentk.netk.app
 
 import android.content.Context
 import android.util.Log
-import androidx.annotation.WorkerThread
 import androidx.lifecycle.ProcessLifecycleOwner
 import com.liulishuo.okdownload.core.exception.ServerCanceledException
-import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
-import com.mozhimen.basick.taskk.executor.TaskKExecutor
-import com.mozhimen.basick.taskk.handler.TaskKHandler
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
-import com.mozhimen.basick.utilk.java.io.deleteFile
-import com.mozhimen.basick.utilk.java.io.deleteFolder
-import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import com.mozhimen.componentk.installk.manager.InstallKManager
-import com.mozhimen.componentk.netk.app.commons.IAppStateListener
-import com.mozhimen.componentk.netk.app.download.commons.IAppDownloadListener
+import com.mozhimen.componentk.netk.app.commons.INetKAppState
 import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 import com.mozhimen.componentk.netk.app.cons.ENetKAppFinishType
@@ -27,12 +19,11 @@ import com.mozhimen.componentk.netk.app.task.db.AppTaskDaoManager
 import com.mozhimen.componentk.netk.app.unzip.NetKAppUnzipManager
 import com.mozhimen.componentk.netk.app.task.db.AppTaskDbManager
 import com.mozhimen.componentk.netk.app.download.NetKAppDownloadManager
-import com.mozhimen.componentk.netk.app.install.NetKAppInstallManager
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
+import com.mozhimen.componentk.netk.app.download.mos.int2appDownloadException
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallProxy
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
-import java.io.File
 
 /**
  * @ClassName NetKAppDownload
@@ -42,8 +33,8 @@ import java.io.File
  * @Version 1.0
  */
 @OptInApiInit_InApplication
-object NetKApp : IAppStateListener, BaseUtilK() {
-    private val _appDownloadStateListeners = mutableListOf<IAppStateListener>()
+object NetKApp : INetKAppState, BaseUtilK() {
+    private val _appDownloadStateListeners = mutableListOf<INetKAppState>()
 
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     private val _netKAppInstallProxy by lazy { NetKAppInstallProxy(_context, ProcessLifecycleOwner.get()) }
@@ -63,13 +54,13 @@ object NetKApp : IAppStateListener, BaseUtilK() {
         NetKAppDownloadManager.init(context)
     }
 
-    fun registerDownloadStateListener(listener: IAppStateListener) {
+    fun registerDownloadStateListener(listener: INetKAppState) {
         if (!_appDownloadStateListeners.contains(listener)) {
             _appDownloadStateListeners.add(listener)
         }
     }
 
-    fun unregisterDownloadListener(listener: IAppStateListener) {
+    fun unregisterDownloadListener(listener: INetKAppState) {
         val indexOf = _appDownloadStateListeners.indexOf(listener)
         if (indexOf >= 0)
             _appDownloadStateListeners.removeAt(indexOf)
@@ -124,35 +115,29 @@ object NetKApp : IAppStateListener, BaseUtilK() {
              * [CNetKAppTaskState.STATE_TASK_CREATE]
              */
             onTaskCreate(appTask)
-            /**
-             * [CNetKAppState.STATE_DOWNLOAD_CREATE]
-             */
-            onDownloadCreate(appTask)
 
             NetKAppDownloadManager.download(appTask/*, listener*/)
-        } catch (e: AppDownloadException) {
-            onTaskFinish(appTask, ENetKAppFinishType.FAIL(e))
-//            listener?.onFail(e.code)
+        } catch (exception: AppDownloadException) {
+            onTaskFinish(appTask, ENetKAppFinishType.FAIL(exception))
         }
     }
 
-    fun taskCancel(appTask: AppTask, onCancelBlock: IAB_Listener<Boolean, Int>? = null) {
+    fun taskCancel(appTask: AppTask/*, onCancelBlock: IAB_Listener<Boolean, Int>? = null*/) {
         if (!appTask.isTaskProcess()) {
             Log.d(TAG, "taskCancel: task is not process")
             return
         }
         if (appTask.isTaskDownload() && appTask.isTaskWait()) {
             Log.d(TAG, "taskCancel: downloadWaitCancel")
-            NetKAppDownloadManager.downloadWaitCancel(appTask, onCancelBlock)
+            NetKAppDownloadManager.downloadWaitCancel(appTask/*, onCancelBlock*/)
 
         } else if (appTask.isTaskDownload() && appTask.isDownloading()) {
             Log.d(TAG, "taskCancel: downloadCancelOnBack")
-            TaskKExecutor.execute(TAG + "onTaskCancel") {
-                NetKAppDownloadManager.downloadCancelOnBack(appTask, onCancelBlock)//从数据库中移除掉
-            }
+            NetKAppDownloadManager.downloadCancel(appTask/*, onCancelBlock*/)//从数据库中移除掉
 
         } else if (appTask.isTaskUnzip() && NetKAppUnzipManager.isUnziping(appTask)) {
-            onCancelBlock?.invoke(false, CNetKAppErrorCode.CODE_TASK_CANCEL_FAIL_ON_UNZIPING)
+            Log.d(TAG, "taskCancel: CODE_TASK_CANCEL_FAIL_ON_UNZIPING")
+//            onCancelBlock?.invoke(false, CNetKAppErrorCode.CODE_TASK_CANCEL_FAIL_ON_UNZIPING)
         }
     }
 
@@ -237,7 +222,15 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
 
     override fun onTaskCreate(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CREATE)
+        /*        //将结果传递给服务端
+        GlobalScope.launch(Dispatchers.IO) {
+            if (appTask.appId == "2") {
+                ApplicationService.updateAppDownload("1")
+            } else {
+                ApplicationService.updateAppDownload(appTask.appId)
+            }
+        }*/
+        applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CREATE, 0)
     }
 
     override fun onTaskWait(appTask: AppTask) {
@@ -254,32 +247,31 @@ object NetKApp : IAppStateListener, BaseUtilK() {
 
     override fun onTaskFinish(appTask: AppTask, finishType: ENetKAppFinishType) {
         when (finishType) {
-            ENetKAppFinishType.SUCCESS -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_SUCCESS, 0)
+            ENetKAppFinishType.SUCCESS ->
+                applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_SUCCESS)
 
-            ENetKAppFinishType.CANCEL -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CANCEL, nextMethod = {
-                onTaskCreate(appTask)
-            })
+            ENetKAppFinishType.CANCEL ->
+                applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CANCEL, onNext = {
+                    /**
+                     * [CNetKAppTaskState.STATE_TASK_CREATE]
+                     */
+                    onTaskCreate(appTask)
+                })
 
-            is ENetKAppFinishType.FAIL -> applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_FAIL)
+            is ENetKAppFinishType.FAIL ->
+                applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_FAIL, onNext = {
+                    /**
+                     * [CNetKAppTaskState.STATE_TASK_CREATE]
+                     */
+                    onTaskCreate(appTask)
+                })
         }
     }
 
     /////////////////////////////////////////////////////////////////
 
-    override fun onDownloadCreate(appTask: AppTask) {
-        /*        //将结果传递给服务端
-                GlobalScope.launch(Dispatchers.IO) {
-                    if (appTask.appId == "2") {
-                        ApplicationService.updateAppDownload("1")
-                    } else {
-                        ApplicationService.updateAppDownload(appTask.appId)
-                    }
-                }*/
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_CREATE)
-    }
-
     override fun onDownloadWait(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_WAIT, 0, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_WAIT, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_WAIT]
              */
@@ -288,7 +280,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     override fun onDownloading(appTask: AppTask, progress: Int) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOADING, progress, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOADING, progress, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASKING]
              */
@@ -297,7 +289,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     override fun onDownloadPause(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_PAUSE, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_PAUSE, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_PAUSE]
              */
@@ -306,7 +298,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     override fun onDownloadCancel(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_CANCEL, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_CANCEL, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_CANCEL]
              */
@@ -315,7 +307,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     override fun onDownloadSuccess(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_SUCCESS, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_SUCCESS, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASKING]
              */
@@ -333,18 +325,18 @@ object NetKApp : IAppStateListener, BaseUtilK() {
                 /**
                  * [CNetKAppState.STATE_DOWNLOAD_FAIL]
                  */
-                onDownloadFail(appTask, AppDownloadException(CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED, exception.message ?: ""))
+                onDownloadFail(appTask, CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED.int2appDownloadException(exception.message ?: ""))
             }
         } else {
             /**
              * [CNetKAppState.STATE_DOWNLOAD_FAIL]
              */
-            onDownloadFail(appTask, AppDownloadException(CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED))
+            onDownloadFail(appTask, CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED.int2appDownloadException())
         }
     }
 
     override fun onDownloadFail(appTask: AppTask, exception: AppDownloadException) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_FAIL, nextMethod = {
+        applyAppTaskStateException(appTask, CNetKAppState.STATE_DOWNLOAD_FAIL, exception, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_FAIL]
              */
@@ -355,7 +347,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
 
     override fun onVerifying(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFYING, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFYING, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASKING]
              */
@@ -364,7 +356,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     override fun onVerifySuccess(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFY_SUCCESS, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFY_SUCCESS, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASKING]
              */
@@ -373,7 +365,10 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     override fun onVerifyFail(appTask: AppTask, exception: AppDownloadException) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_VERIFY_FAIL, nextMethod = {
+        applyAppTaskStateException(appTask, CNetKAppState.STATE_VERIFY_FAIL, exception, onNext = {
+            /**
+             * [CNetKAppTaskState.STATE_TASK_FAIL]
+             */
             /**
              * [CNetKAppTaskState.STATE_TASK_FAIL]
              */
@@ -384,7 +379,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
 
     override fun onUnziping(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_UNZIPING, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_UNZIPING, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASKING]
              */
@@ -393,7 +388,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     override fun onUnzipSuccess(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_UNZIP_SUCCESS, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_UNZIP_SUCCESS, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASKING]
              */
@@ -403,7 +398,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
 
     override fun onUnzipFail(appTask: AppTask, exception: AppDownloadException) {
         //            AlertTools.showToast("解压失败，请检测存储空间是否足够！")
-        applyAppTaskState(appTask, CNetKAppState.STATE_UNZIP_FAIL, nextMethod = {
+        applyAppTaskStateException(appTask, CNetKAppState.STATE_UNZIP_FAIL, exception, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_FAIL]
              */
@@ -414,7 +409,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
 
     override fun onInstalling(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_INSTALLING, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_INSTALLING, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASKING]
              */
@@ -423,7 +418,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     override fun onInstallSuccess(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_INSTALL_SUCCESS, nextMethod = {
+        applyAppTaskState(appTask.apply { this.apkIsInstalled = true }, CNetKAppState.STATE_INSTALL_SUCCESS, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_SUCCESS]
              */
@@ -432,7 +427,7 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     }
 
     override fun onInstallFail(appTask: AppTask, exception: AppDownloadException) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_INSTALL_FAIL, nextMethod = {
+        applyAppTaskState(appTask, CNetKAppState.STATE_INSTALL_FAIL, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_FAIL]
              */
@@ -443,67 +438,80 @@ object NetKApp : IAppStateListener, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
 
     override fun onUninstallSuccess(appTask: AppTask) {
-        if (appTask.apkPackageName.isEmpty()) return
-        val appTask = AppTaskDaoManager.getByApkPackageName(appTask.apkPackageName) ?: return
-        applyAppTaskState(appTask.apply { apkIsInstalled = false }, CNetKAppState.STATE_UNINSTALL_CREATE, 0)//设置为未安装
+        applyAppTaskState(appTask.apply { this.apkIsInstalled = false }, CNetKAppState.STATE_UNINSTALL_SUCCESS)//设置为未安装
     }
 
     /////////////////////////////////////////////////////////////////
 
-    private fun applyAppTaskState(appTask: AppTask, state: Int, progress: Int = -1, nextMethod: I_Listener? = null) {
-        AppTaskDaoManager.update(appTask.apply {
-            taskState = state
-            if (progress > -1) downloadProgress = progress
-        })
-        postAppTaskState(appTask, state, progress, nextMethod)
+    private fun applyAppTaskState(
+        appTask: AppTask,
+        state: Int,
+        progress: Int = -1,
+        finishType: ENetKAppFinishType = ENetKAppFinishType.SUCCESS,
+        onNext: I_Listener? = null
+    ) {
+        AppTaskDaoManager.update(
+            appTask.apply {
+                this.taskState = state
+                if (progress > -1) downloadProgress = progress
+            })
+        postAppTaskState(appTask, state, progress, finishType, onNext)
     }
 
-    @WorkerThread
-    private fun applyAppTaskStateOnBack(appTask: AppTask, state: Int, progress: Int = -1, nextMethod: I_Listener? = null) {
-        AppTaskDaoManager.updateOnBack(appTask.apply {
-            taskState = state
-            if (progress > -1) downloadProgress = progress
-        })
-        postAppTaskState(appTask, state, progress, nextMethod)
+    private fun applyAppTaskStateException(
+        appTask: AppTask,
+        state: Int,
+        exception: AppDownloadException,
+        progress: Int = -1,
+        onNext: I_Listener? = null
+    ) {
+        AppTaskDaoManager.update(
+            appTask.apply {
+                this.taskState = state
+                if (progress > -1) downloadProgress = progress
+            })
+        postAppTaskState(appTask, state, exception, onNext)
     }
 
-    private fun postAppTaskState(appTask: AppTask, state: Int, progress: Int = -1, nextMethod: I_Listener? = null) {
-        TaskKHandler.post {
-            for (listener in _appDownloadStateListeners) {
-                when (state) {
-                    CNetKAppState.STATE_TASK_CREATE -> listener.onTaskCreate(appTask)
-                    CNetKAppState.STATE_TASK_WAIT -> listener.onTaskWait(appTask)
-                    CNetKAppState.STATE_TASK_WAIT_CANCEL -> listener.onTaskWaitCancel(appTask)
-                    CNetKAppState.STATE_TASK_CANCEL -> listener.onTaskCancel(appTask)
-                    CNetKAppState.STATE_TASK_SUCCESS -> listener.onTaskSuccess(appTask)
-                    CNetKAppState.STATE_TASK_FAIL -> listener.onTaskFail(appTask)
-                    ///////////////////////////////////////////////////////////////////////////////
-                    CNetKAppState.STATE_DOWNLOAD_CREATE -> listener.onDownloadCreate(appTask)
-                    CNetKAppState.STATE_DOWNLOADING -> listener.onDownloading(appTask, progress)
-                    CNetKAppState.STATE_DOWNLOAD_PAUSE -> listener.onDownloadPause(appTask)
-                    CNetKAppState.STATE_DOWNLOAD_CANCEL -> listener.onDownloadCancel(appTask)
-                    CNetKAppState.STATE_DOWNLOAD_SUCCESS -> listener.onDownloadSuccess(appTask)
-                    CNetKAppState.STATE_DOWNLOAD_FAIL -> listener.onDownloadFail(appTask)
-                    ///////////////////////////////////////////////////////////////////////////////
-                    CNetKAppState.STATE_VERIFY_CREATE -> listener.onVerifyCreate(appTask)
-                    CNetKAppState.STATE_VERIFYING -> listener.onVerifying(appTask)
-                    CNetKAppState.STATE_VERIFY_SUCCESS -> listener.onVerifySuccess(appTask)
-                    CNetKAppState.STATE_VERIFY_FAIL -> listener.onVerifyFail(appTask)
-                    ///////////////////////////////////////////////////////////////////////////////
-                    CNetKAppState.STATE_UNZIP_CREATE -> listener.onUnzipCreate(appTask)
-                    CNetKAppState.STATE_UNZIPING -> listener.onUnziping(appTask)
-                    CNetKAppState.STATE_UNZIP_SUCCESS -> listener.onUnzipSuccess(appTask)
-                    CNetKAppState.STATE_UNZIP_FAIL -> listener.onUnzipFail(appTask)
-                    ///////////////////////////////////////////////////////////////////////////////
-                    CNetKAppState.STATE_INSTALL_CREATE -> listener.onInstallCreate(appTask)
-                    CNetKAppState.STATE_INSTALLING -> listener.onInstalling(appTask)
-                    CNetKAppState.STATE_INSTALL_SUCCESS -> listener.onInstallSuccess(appTask)
-                    CNetKAppState.STATE_INSTALL_FAIL -> listener.onInstallFail(appTask)
-                    ///////////////////////////////////////////////////////////////////////////////
-                    CNetKAppState.STATE_UNINSTALL_SUCCESS -> listener.onUninstallSuccess(appTask)
-                }
+    private fun postAppTaskState(appTask: AppTask, state: Int, exception: AppDownloadException, nextMethod: I_Listener?) {
+        for (listener in _appDownloadStateListeners) {
+            when (state) {
+                CNetKAppState.STATE_DOWNLOAD_FAIL -> listener.onDownloadFail(appTask, exception)
+                CNetKAppState.STATE_VERIFY_FAIL -> listener.onVerifyFail(appTask, exception)
+                CNetKAppState.STATE_UNZIP_FAIL -> listener.onUnzipFail(appTask, exception)
+                CNetKAppState.STATE_INSTALL_FAIL -> listener.onInstallFail(appTask, exception)
             }
-            nextMethod?.invoke()
         }
+        nextMethod?.invoke()
+    }
+
+    private fun postAppTaskState(appTask: AppTask, state: Int, progress: Int, finishType: ENetKAppFinishType, nextMethod: I_Listener?) {
+        for (listener in _appDownloadStateListeners) {
+            when (state) {
+                CNetKAppTaskState.STATE_TASK_CREATE -> listener.onTaskCreate(appTask)
+                CNetKAppTaskState.STATE_TASK_WAIT -> listener.onTaskWait(appTask)
+                CNetKAppTaskState.STATE_TASKING -> listener.onTasking(appTask, state)
+                CNetKAppTaskState.STATE_TASK_PAUSE -> listener.onTaskPause(appTask)
+                CNetKAppTaskState.STATE_TASK_CANCEL, CNetKAppTaskState.STATE_TASK_SUCCESS, CNetKAppTaskState.STATE_TASK_FAIL -> listener.onTaskFinish(appTask, finishType)
+                ///////////////////////////////////////////////////////////////////////////////
+                CNetKAppState.STATE_DOWNLOAD_WAIT -> listener.onDownloadWait(appTask)
+                CNetKAppState.STATE_DOWNLOADING -> listener.onDownloading(appTask, progress)
+                CNetKAppState.STATE_DOWNLOAD_PAUSE -> listener.onDownloadPause(appTask)
+                CNetKAppState.STATE_DOWNLOAD_CANCEL -> listener.onDownloadCancel(appTask)
+                CNetKAppState.STATE_DOWNLOAD_SUCCESS -> listener.onDownloadSuccess(appTask)
+                ///////////////////////////////////////////////////////////////////////////////
+                CNetKAppState.STATE_VERIFYING -> listener.onVerifying(appTask)
+                CNetKAppState.STATE_VERIFY_SUCCESS -> listener.onVerifySuccess(appTask)
+                ///////////////////////////////////////////////////////////////////////////////
+                CNetKAppState.STATE_UNZIPING -> listener.onUnziping(appTask)
+                CNetKAppState.STATE_UNZIP_SUCCESS -> listener.onUnzipSuccess(appTask)
+                ///////////////////////////////////////////////////////////////////////////////
+                CNetKAppState.STATE_INSTALLING -> listener.onInstalling(appTask)
+                CNetKAppState.STATE_INSTALL_SUCCESS -> listener.onInstallSuccess(appTask)
+                ///////////////////////////////////////////////////////////////////////////////
+                CNetKAppState.STATE_UNINSTALL_SUCCESS -> listener.onUninstallSuccess(appTask)
+            }
+        }
+        nextMethod?.invoke()
     }
 }

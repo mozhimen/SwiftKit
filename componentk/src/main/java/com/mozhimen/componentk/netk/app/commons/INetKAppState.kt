@@ -3,7 +3,6 @@ package com.mozhimen.componentk.netk.app.commons
 import com.mozhimen.componentk.netk.app.cons.ENetKAppFinishType
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 import com.mozhimen.componentk.netk.app.task.db.AppTask
-import java.lang.Exception
 
 /**
  * @ClassName IDownloadStateListener
@@ -13,7 +12,7 @@ import java.lang.Exception
  * @Version 1.0
  */
 
-interface IAppStateBook {
+interface INetKAppStateBook {
     //    /**
 //     * 预约状态发生变化的回调
 //     *@param appFileParams 应用Id
@@ -23,30 +22,29 @@ interface IAppStateBook {
 //    fun onReservationStateChange(appFileParams: AppTask, booked: Boolean)
 }
 
-interface IAppStateUninstall {
-    fun onUninstallSuccess(appTask: AppTask) {}//应用卸载的监听
+interface INetKAppStateUninstall {
+    fun onUninstallSuccess(appTask: AppTask)//应用卸载的监听
 }
 
-interface IAppStateInstall {
+interface INetKAppStateInstall {
     fun onInstalling(appTask: AppTask) {}//安装中
     fun onInstallSuccess(appTask: AppTask) {}//应用安装的监听
     fun onInstallFail(appTask: AppTask, exception: AppDownloadException) {}
 }
 
-interface IAppStateUnzip {
+interface INetKAppStateUnzip {
     fun onUnziping(appTask: AppTask) {}//解压中
     fun onUnzipSuccess(appTask: AppTask) {}//解压成功
     fun onUnzipFail(appTask: AppTask, exception: AppDownloadException) {}//解压失败
 }
 
-interface IAppStateVerify {
+interface INetKAppStateVerify {
     fun onVerifying(appTask: AppTask) {}//应用校验中
     fun onVerifySuccess(appTask: AppTask) {}//应用校验成功
     fun onVerifyFail(appTask: AppTask, exception: AppDownloadException) {}//应用校验失败
 }
 
-interface IAppStateDownload {
-    fun onDownloadCreate(appTask: AppTask) {}//下载开始的回调
+interface INetKAppStateDownload {
     fun onDownloadWait(appTask: AppTask) {}
     fun onDownloading(appTask: AppTask, progress: Int) {}//下载进度回调方法
     fun onDownloadPause(appTask: AppTask) {}//下载暂停的回调
@@ -55,7 +53,7 @@ interface IAppStateDownload {
     fun onDownloadFail(appTask: AppTask, exception: AppDownloadException) {}//下载失败的回调
 }
 
-interface IAppStateTask {
+interface INetKAppStateTask {
     fun onTaskCreate(appTask: AppTask)
     fun onTaskWait(appTask: AppTask) //任务等待的回调
     fun onTasking(appTask: AppTask, state: Int)//任务进行中
@@ -83,4 +81,4 @@ interface IAppStateTask {
 
 }
 
-interface IAppStateListener : IAppStateDownload, IAppStateVerify, IAppStateUnzip, IAppStateInstall, IAppStateTask, IAppStateUninstall
+interface INetKAppState : INetKAppStateDownload, INetKAppStateVerify, INetKAppStateUnzip, INetKAppStateInstall, INetKAppStateTask, INetKAppStateUninstall

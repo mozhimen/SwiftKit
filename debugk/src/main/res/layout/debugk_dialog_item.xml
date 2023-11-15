@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/cok_gray_350"
+            android:textColor="@color/cok_gray_d2d4d7"
             android:textSize="12sp"
             android:visibility="gone"
             tools:visibility="visible" />

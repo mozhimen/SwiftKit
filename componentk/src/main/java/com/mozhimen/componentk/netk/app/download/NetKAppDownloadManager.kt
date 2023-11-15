@@ -3,7 +3,6 @@ package com.mozhimen.componentk.netk.app.download
 import android.content.Context
 import android.util.Log
 import android.util.SparseArray
-import androidx.annotation.WorkerThread
 import com.liulishuo.okdownload.DownloadTask
 import com.liulishuo.okdownload.OkDownload
 import com.liulishuo.okdownload.StatusUtil
@@ -12,20 +11,18 @@ import com.liulishuo.okdownload.core.cause.ResumeFailedCause
 import com.liulishuo.okdownload.core.connection.DownloadOkHttp3Connection
 import com.liulishuo.okdownload.core.listener.DownloadListener1
 import com.liulishuo.okdownload.core.listener.assist.Listener1Assist
-import com.mozhimen.basick.elemk.commons.IAB_Listener
 import com.mozhimen.basick.elemk.javax.net.bases.BaseX509TrustManager
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
-import com.mozhimen.basick.taskk.handler.TaskKHandler
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
 import com.mozhimen.basick.utilk.javax.net.UtilKSSLSocketFactory
 import com.mozhimen.componentk.netk.app.NetKApp
 import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
-import com.mozhimen.componentk.netk.app.download.commons.IAppDownloadListener
 import com.mozhimen.componentk.netk.app.download.helpers.AppDownloadSerialQueue
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 import com.mozhimen.componentk.netk.app.download.mos.MAppDownloadProgress
+import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.task.db.AppTaskDaoManager
 import com.mozhimen.componentk.netk.app.verify.NetKAppVerifyManager
@@ -90,12 +87,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             }
 
             StatusUtil.Status.COMPLETED -> {
-                /**
-                 * [CNetKAppState.STATE_DOWNLOAD_SUCCESS]
-                 */
-                NetKApp.onDownloadSuccess(appTask)//下载完成，去安装
-
-                NetKAppVerifyManager.verify(appTask)//下载完成，去安装
+                onDownloadSuccess(appTask)
                 return
             }
 
@@ -115,11 +107,14 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
          * [CNetKAppState.STATE_DOWNLOAD_WAIT]
          */
         NetKApp.onDownloadWait(appTask)
-        listener?.onSuccess()
+//        listener?.onSuccess()
     }
 
     fun downloadPause(appTask: AppTask) {
-        val task = getDownloadTask(appTask) ?: return
+        val task = getDownloadTask(appTask) ?: run {
+            Log.d(TAG, "downloadPause: get download task fail")
+            return
+        }
         task.cancel()//取消任务
 
         /**
@@ -132,9 +127,11 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
      * 恢复任务
      */
     fun downloadResume(appTask: AppTask) {
-        val task = getDownloadTask(appTask) ?: return
-        val status = StatusUtil.getStatus(task)
-        if (status != StatusUtil.Status.RUNNING) {
+        val task = getDownloadTask(appTask) ?: run {
+            Log.d(TAG, "downloadPause: get download task fail")
+            return
+        }
+        if (StatusUtil.getStatus(task) != StatusUtil.Status.RUNNING) {
             _appDownloadSerialQueue.enqueue(task)
         }
         _downloadingTasks.put(task.id, appTask)
@@ -148,31 +145,32 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
     /**
      * 任务取消等待
      */
-    fun downloadWaitCancel(appTask: AppTask, onDeleteBlock: IAB_Listener<Boolean, Int>?) {
-        val task = getDownloadTask(appTask) ?: kotlin.run {
-            TaskKHandler.post {
-                onDeleteBlock?.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
-            }
+    fun downloadWaitCancel(appTask: AppTask/*, onDeleteBlock: IAB_Listener<Boolean, Int>?*/) {
+        val task = getDownloadTask(appTask) ?: run {
+//            TaskKHandler.post {
+//                onDeleteBlock?.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
+//            }
+            Log.d(TAG, "downloadPause: get download task fail")
             return
         }
         _appDownloadSerialQueue.remove(task)//先从队列中移除
         task.cancel()//然后取消任务
 
-        /**
-         * [CNetKAppState.STATE_TASK_WAIT_CANCEL]
-         */
-        NetKApp.onDownloadW(appTask)
+//        /**
+//         * [CNetKAppState.STATE_DOWNLOAD_CANCEL]
+//         */
+//        NetKApp.onDownloadCancel(appTask)
     }
 
     /**
      * 删除任务
      */
-    @WorkerThread
-    fun downloadCancelOnBack(appTask: AppTask, onDeleteBlock: IAB_Listener<Boolean, Int>?) {
-        val task = getDownloadTask(appTask) ?: kotlin.run {
-            TaskKHandler.post {
-                onDeleteBlock?.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
-            }
+    fun downloadCancel(appTask: AppTask/*, onDeleteBlock: IAB_Listener<Boolean, Int>?*/) {
+        val task = getDownloadTask(appTask) ?: run {
+//            TaskKHandler.post {
+//                onDeleteBlock?.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
+//            }
+            Log.d(TAG, "downloadPause: get download task fail")
             return
         }
         task.cancel()
@@ -180,14 +178,12 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         _appDownloadSerialQueue.remove(task)
         OkDownload.with().breakpointStore().remove(task.id)
         task.file?.delete()
-        AppTaskDaoManager.deleteOnBack(appTask)
-        TaskKHandler.post {
-            onDeleteBlock?.invoke(true, -1)
-            /**
-             * [CNetKAppState.STATE_TASK_CANCEL]
-             */
-            NetKApp.onTaskCancel(appTask)
-        }
+        AppTaskDaoManager.delete(appTask)
+//            onDeleteBlock?.invoke(true, -1)
+//        /**
+//         * [CNetKAppState.STATE_DOWNLOAD_CANCEL]
+//         */
+//        NetKApp.onDownloadCancel(appTask)
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -196,19 +192,19 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
      * 查询下载状态
      */
     fun getAppDownloadProgress(appTask: AppTask): MAppDownloadProgress {
-        val task = getDownloadTask(appTask)
-        task ?: return MAppDownloadProgress().apply {
-            progressState = CNetKAppState.STATE_TASK_CREATE
+        val task = getDownloadTask(appTask) ?: run {
+            Log.d(TAG, "downloadPause: get download task fail")
+            return MAppDownloadProgress()
         }
-        when (StatusUtil.getStatus(task)) {
+        return when (StatusUtil.getStatus(task)) {
             StatusUtil.Status.PENDING -> {//等待中 不做处理
-                return MAppDownloadProgress().apply {
-                    progressState = CNetKAppState.STATE_TASK_WAIT
+                MAppDownloadProgress().apply {
+                    progressState = CNetKAppState.STATE_DOWNLOAD_WAIT
                 }
             }
 
             StatusUtil.Status.RUNNING -> {//下载中，不做处理
-                return MAppDownloadProgress().apply {
+                MAppDownloadProgress().apply {
                     progressState = CNetKAppState.STATE_DOWNLOADING
                     progress = StatusUtil.getCurrentInfo(task)?.let {
                         (it.totalOffset.toFloat() / it.totalLength * 100).toInt()
@@ -217,7 +213,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             }
 
             StatusUtil.Status.COMPLETED -> {//下载完成，去安装
-                return MAppDownloadProgress().apply {
+                MAppDownloadProgress().apply {
                     progressState = CNetKAppState.STATE_DOWNLOAD_SUCCESS
                     progress = 100
                 }
@@ -234,7 +230,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             //StatusUtil.Status.UNKNOWN
             else -> {
                 return MAppDownloadProgress().apply {
-                    progressState = CNetKAppState.STATE_TASK_CREATE
+                    progressState = CNetKAppTaskState.STATE_TASKING
                     progress = StatusUtil.getCurrentInfo(task)?.let {
                         (it.totalOffset.toFloat() / it.totalLength * 100).toInt()
                     } ?: 0
@@ -249,9 +245,9 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         Log.d(TAG, "taskStart: task $task")
         _downloadingTasks[task.id]?.let { appTask ->
             /**
-             * [CNetKAppState.STATE_DOWNLOAD_CREATE]
+             * [CNetKAppState.STATE_DOWNLOADING]
              */
-            NetKApp.onDownloadCreate(appTask)
+            NetKApp.onDownloading(appTask, 0)
         }
     }
 
@@ -266,11 +262,11 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
     override fun progress(task: DownloadTask, currentOffset: Long, totalLength: Long) {
         Log.d(TAG, "progress: task $task currentOffset $currentOffset  totalLength $totalLength")
         _downloadingTasks[task.id]?.let { appTask ->
-            val complete = (currentOffset.toFloat() / totalLength * 100).toInt()
+            val progress = (currentOffset.toFloat() / totalLength * 100).toInt()
             /**
              * [CNetKAppState.STATE_DOWNLOADING]
              */
-            NetKApp.onDownloading(appTask, complete)
+            NetKApp.onDownloading(appTask, progress)
         }
     }
 
@@ -279,12 +275,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         _downloadingTasks[task.id]?.let { appTask ->
             when (cause) {
                 EndCause.COMPLETED -> {
-                    /**
-                     * [CNetKAppState.STATE_DOWNLOAD_SUCCESS]
-                     */
-                    NetKApp.onDownloadSuccess(appTask)
-
-                    NetKAppVerifyManager.verify(appTask)
+                    onDownloadSuccess(appTask)
                 }
 
                 EndCause.CANCELED -> {
@@ -307,8 +298,20 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
+    private fun onDownloadSuccess(appTask: AppTask) {
+        /**
+         * [CNetKAppState.STATE_DOWNLOAD_SUCCESS]
+         */
+        NetKApp.onDownloadSuccess(appTask)//下载完成，去安装
+
+        NetKAppVerifyManager.verify(appTask)//下载完成，去安装
+    }
+
     private fun getDownloadTask(appTask: AppTask): DownloadTask? {
-        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: return null
+        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: run {
+            Log.d(TAG, "getDownloadTask: get download dir fail")
+            return null
+        }
         return DownloadTask.Builder(appTask.downloadUrlCurrent, externalFilesDir.absolutePath, appTask.apkName).build()
     }
 }

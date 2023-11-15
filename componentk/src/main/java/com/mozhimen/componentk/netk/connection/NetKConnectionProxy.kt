@@ -31,7 +31,7 @@ class NetKConnectionProxy<C>(
     context: C,
     private val _listener: IConnectionListener,
     receiver: BaseConnectivityBroadcastReceiver = BaseConnectivityBroadcastReceiver(),
-) : BaseBroadcastReceiverProxy<C>(context, receiver, CConnectivityManager.CONNECTIVITY_ACTION) where C : Context, C : LifecycleOwner {
+) : BaseBroadcastReceiverProxy<C>(context, receiver, arrayOf(CConnectivityManager.CONNECTIVITY_ACTION)) where C : Context, C : LifecycleOwner {
 
     init {
         (_receiver as BaseConnectivityBroadcastReceiver).registerListener(_listener)

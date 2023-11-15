@@ -8,6 +8,7 @@ import com.mozhimen.basick.utilk.android.util.et
 import com.mozhimen.basick.utilk.android.content.UtilKAssetManager
 import com.mozhimen.basick.utilk.android.opengl.UtilKETC1
 import com.mozhimen.basick.utilk.kotlin.UtilKCharSequence
+import com.mozhimen.basick.utilk.kotlin.strFilePath2fileInputStream
 import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
@@ -44,7 +45,7 @@ class TransKPKM : BaseUtilK() {
                 val inputStream = UtilKAssetManager.open(_path!!.substring(7), _context)
                 ZipInputStream(inputStream)
             } else {
-                ZipInputStream(_path.file2fileInputStream())
+                ZipInputStream(_path!!.strFilePath2fileInputStream())
             }
             true
         } catch (e: Exception) {

@@ -38,7 +38,7 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
 
         const val PROGRESS_STATE_IDLE = 0//开始下载
         const val PROGRESS_STATE_LOADING = 1//下载之中
-        const val PROGRESS_STATE_PAUSE = 2//暂停下载
+//        const val PROGRESS_STATE_PAUSE = 2//暂停下载
         const val PROGRESS_STATE_FINISH = 3//下载完成
 
         const val PROGRESS_STYLE_ROUND = 0//圆形进度条
@@ -403,7 +403,7 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
         _textBottomBorder = y
         _textRightBorder = (measuredWidth + textWidth) / 2
         when (_progressState) {
-            PROGRESS_STATE_PAUSE, PROGRESS_STATE_LOADING -> {
+            /*PROGRESS_STATE_PAUSE,*/ PROGRESS_STATE_LOADING -> {
                 //进度条压过距离
                 val coverLength = measuredWidth * _progressPercent
                 //开始渐变指示器
@@ -447,7 +447,7 @@ class TextKProgress @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private fun drawBackground(canvas: Canvas) {
         when (_progressState) {
-            PROGRESS_STATE_PAUSE, PROGRESS_STATE_LOADING -> {
+            /*PROGRESS_STATE_PAUSE,*/ PROGRESS_STATE_LOADING -> {
                 _backgroundBounds.left = _borderWidth
                 _backgroundBounds.top = _borderWidth
                 _backgroundBounds.right = measuredWidth - _borderWidth

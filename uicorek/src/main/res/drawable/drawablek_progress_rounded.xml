@@ -23,7 +23,7 @@
     <!--  设置背景色  -->
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@color/cok_blue_050" />
+            <solid android:color="@color/cok_blue_e8f3ff" />
             <corners android:radius="1.5dp" />
         </shape>
     </item>
@@ -32,7 +32,7 @@
     <item android:id="@android:id/progress">
         <scale android:scaleWidth="100%">
             <shape>
-                <solid android:color="@color/cok_blue_666" />
+                <solid android:color="@color/cok_blue_0876e4" />
                 <corners android:radius="1.5dp" />
             </shape>
         </scale>

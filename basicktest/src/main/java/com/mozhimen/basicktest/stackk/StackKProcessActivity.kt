@@ -1,6 +1,7 @@
 package com.mozhimen.basicktest.stackk
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
@@ -9,6 +10,7 @@ import com.mozhimen.basick.stackk.commons.IStackKListener
 import com.mozhimen.basick.stackk.process.StackKProcess
 import com.mozhimen.basick.utilk.android.widget.showToast
 import com.mozhimen.basicktest.databinding.ActivityStackkProcessBinding
+import java.lang.ref.WeakReference
 
 class StackKProcessActivity : BaseActivityVB<ActivityStackkProcessBinding>(), IStackKListener {
 
@@ -22,12 +24,13 @@ class StackKProcessActivity : BaseActivityVB<ActivityStackkProcessBinding>(), IS
         StackKProcess.instance.addFrontBackListener(this)
     }
 
+    @OptIn(OptInApiInit_InApplication::class)
     override fun onDestroy() {
         StackKProcess.instance.removeFrontBackListener(this)
         super.onDestroy()
     }
 
-    override fun onChanged(isFront: Boolean) {
+    override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
         "App is At Front ?: $isFront".showToast()
         Log.d(TAG, "App is At Front ?: $isFront")
     }

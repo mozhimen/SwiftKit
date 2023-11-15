@@ -20,21 +20,21 @@ import java.io.File
  * @Date 2023/10/18 23:47
  * @Version 1.0
  */
-fun String.getStrAssetName():String =
+fun String.getStrAssetName(): String =
     UtilKStrAsset.getStrAssetName(this)
 
-fun String.getStrAssetParentPath():String =
+fun String.getStrAssetParentPath(): String =
     UtilKStrAsset.getStrAssetParentPath(this)
 
 ///////////////////////////////////////////////////////////////////
 
-fun String.isAssetExists():Boolean =
+fun String.isAssetExists(): Boolean =
     UtilKStrAsset.isAssetExists(this)
 
 ///////////////////////////////////////////////////////////////////
 
 fun String.strAssetName2strFilePathName(strFilePathNameDest: String): String =
-    UtilKStrAsset.strAssetName2strFilePathName(this,strFilePathNameDest)
+    UtilKStrAsset.strAssetName2strFilePathName(this, strFilePathNameDest)
 
 fun String.strAssetName2bytes(): ByteArray =
     UtilKStrAsset.strAssetName2bytes(this)
@@ -48,8 +48,8 @@ fun String.strAssetName2str2(): String? =
 fun String.strAssetName2str3(): String? =
     UtilKStrAsset.strAssetName2str3(this)
 
-fun String.strAssetName2file(strFilePathNameDest: String, isAppend: Boolean = false, block: IAB_Listener<Int, Float>? = null): File? =
-    UtilKStrAsset.strAssetName2file(this, strFilePathNameDest, isAppend, block)
+fun String.strAssetName2file(strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+    UtilKStrAsset.strAssetName2file(this, strFilePathNameDest, isAppend, bufferSize, block)
 
 fun String.strAssetName2bitmap(): Bitmap? =
     UtilKStrAsset.strAssetName2bitmap(this)
@@ -59,7 +59,7 @@ fun String.strAssetName2bitmap(): Bitmap? =
 @AManifestKRequire(CApplication.REQUEST_LEGACY_EXTERNAL_STORAGE)
 object UtilKStrAsset : BaseUtilK() {
     @JvmStatic
-    fun getStrAssetName(strAssetName: String):String =
+    fun getStrAssetName(strAssetName: String): String =
         if (strAssetName.containStr("/")) strAssetName.getSplitLast("/")
         else ""
 
@@ -83,7 +83,7 @@ object UtilKStrAsset : BaseUtilK() {
     ///////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun strAssetName2strFilePathName(strAssetName: String,strFilePathNameDest: String):String =
+    fun strAssetName2strFilePathName(strAssetName: String, strFilePathNameDest: String): String =
         if (strFilePathNameDest.endsWith("/")) strFilePathNameDest + strAssetName
         else strFilePathNameDest
 
@@ -119,9 +119,9 @@ object UtilKStrAsset : BaseUtilK() {
      * 从资产拷贝到文件
      */
     @JvmStatic
-    fun strAssetName2file(strAssetName: String, strFilePathNameDest: String, isAppend: Boolean = false, block: IAB_Listener<Int, Float>? = null): File? =
+    fun strAssetName2file(strAssetName: String, strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
         if (!isAssetExists(strAssetName)) null
-        else UtilKAssetManager.open(strAssetName, _context).inputStream2file(strAssetName.strAssetName2strFilePathName(strFilePathNameDest), isAppend, block = block)
+        else UtilKAssetManager.open(strAssetName, _context).inputStream2file(strAssetName.strAssetName2strFilePathName(strFilePathNameDest), isAppend, bufferSize, block)
 
     @JvmStatic
     fun strAssetName2bitmap(strAssetName: String): Bitmap? =

@@ -33,7 +33,7 @@
                 app:squareQRScan_borderColor="@android:color/transparent"
                 app:squareQRScan_borderWidth="1dp"
                 app:squareQRScan_isLineReverse="false"
-                app:squareQRScan_lineColor="@color/cok_blue_650"
+                app:squareQRScan_lineColor="@color/cok_blue_287ff1"
                 app:squareQRScan_lineWidth="2dp"
                 app:squareQRScan_successDrawable="@mipmap/square_qr_scan_success"
                 app:squareQRScan_successAnimTime="100"

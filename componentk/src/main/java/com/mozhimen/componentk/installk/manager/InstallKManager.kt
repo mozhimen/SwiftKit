@@ -44,7 +44,7 @@ object InstallKManager : BaseUtilK() {
     /**
      * 查询应用是否安装
      */
-    fun isInstall(packageName: String): Boolean =
+    fun hasPackageName(packageName: String): Boolean =
         _installedPackageInfos.containsBy { it.packageName == packageName }
 
     /////////////////////////////////////////////////////////////////////////
@@ -53,8 +53,9 @@ object InstallKManager : BaseUtilK() {
      * 应用安装的时候调用
      */
     @JvmStatic
-    fun onPackageAdded(context: Context, packageName: String) {
-        UtilKPackageInfo.get(context, packageName, 0)?.let {
+    fun onPackageAdded(packageName: String) {
+        if (hasPackageName(packageName)) return
+        UtilKPackageInfo.get(_context, packageName, 0)?.let {
             _installedPackageInfos.add(it)
         }
     }
@@ -64,6 +65,7 @@ object InstallKManager : BaseUtilK() {
      */
     @JvmStatic
     fun onPackageRemoved(packageName: String) {
+        if (!hasPackageName(packageName)) return
         val iterator = _installedPackageInfos.iterator()
         while (iterator.hasNext()) {
             val packageInfo = iterator.next()
@@ -84,5 +86,4 @@ object InstallKManager : BaseUtilK() {
             _installedPackageInfos.addAll(UtilKPackageManager.getInstalledPackages(context, false))
         }
     }
-
 }

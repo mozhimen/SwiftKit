@@ -30,7 +30,7 @@ class StackKCbActivity : BaseActivityVB<ActivityStackkCbBinding>(), IStackKListe
         super.onDestroy()
     }
 
-    override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>) {
+    override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
         "App is At Front ?: $isFront".showToast()
         Log.d(TAG, "App is At Front ?: $isFront")
     }

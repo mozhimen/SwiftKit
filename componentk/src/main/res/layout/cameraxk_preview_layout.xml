@@ -29,7 +29,7 @@
             android:paddingHorizontal="16dp"
             android:paddingVertical="32dp"
             android:progressBackgroundTint="@android:color/white"
-            app:haloColor="@color/cok_blue_650"
-            app:thumbColor="@color/cok_blue_650" />
+            app:haloColor="@color/cok_blue_287ff1"
+            app:thumbColor="@color/cok_blue_287ff1" />
     </FrameLayout>
 </FrameLayout>

@@ -56,15 +56,15 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_040"
             android:layout_marginBottom="10dp"
-            app:textKProgress_backgroundColor="@color/cok_blue_100"
+            app:textKProgress_backgroundColor="@color/cok_blue_bbdefb"
             app:textKProgress_backgroundColorEnd="@color/white"
-            app:textKProgress_backgroundColorStart="@color/cok_blue_100"
-            app:textKProgress_borderColor="@color/cok_blue_100"
+            app:textKProgress_backgroundColorStart="@color/cok_blue_bbdefb"
+            app:textKProgress_borderColor="@color/cok_blue_bbdefb"
             app:textKProgress_borderWidth="2dp"
             app:textKProgress_progressStyle="rect"
             app:textKProgress_textColorCover="@color/white"
-            app:textKProgress_textColorDefault="@color/cok_blue_050"
-            app:textKProgress_textColorUnCover="@color/cok_blue_100" />
+            app:textKProgress_textColorDefault="@color/cok_blue_e8f3ff"
+            app:textKProgress_textColorUnCover="@color/cok_blue_bbdefb" />
 
         <com.mozhimen.uicorek.textk.progress.TextKProgress
             android:id="@+id/textk_progress1"
@@ -72,15 +72,15 @@
             android:layout_height="@dimen/dp_040"
             android:textStyle="bold"
             android:textSize="@dimen/sp_20"
-            app:textKProgress_backgroundColor="@color/cok_blue_100"
+            app:textKProgress_backgroundColor="@color/cok_blue_bbdefb"
             app:textKProgress_backgroundColorEnd="@color/white"
-            app:textKProgress_backgroundColorStart="@color/cok_blue_100"
-            app:textKProgress_borderColor="@color/cok_blue_100"
+            app:textKProgress_backgroundColorStart="@color/cok_blue_bbdefb"
+            app:textKProgress_borderColor="@color/cok_blue_bbdefb"
             app:textKProgress_borderRadius="10dp"
             app:textKProgress_borderWidth="2dp"
             app:textKProgress_progressStyle="round"
             app:textKProgress_textColorCover="@color/white"
-            app:textKProgress_textColorDefault="@color/cok_blue_050"
-            app:textKProgress_textColorUnCover="@color/cok_blue_100" />
+            app:textKProgress_textColorDefault="@color/cok_blue_e8f3ff"
+            app:textKProgress_textColorUnCover="@color/cok_blue_bbdefb" />
     </LinearLayout>
 </layout>

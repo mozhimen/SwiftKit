@@ -10,7 +10,7 @@ import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
  * @Version 1.0
  */
 object CNetKAppState {
-    const val STATE_DOWNLOAD_CREATE = 10//STATE_DOWNLOADED = 5//未下载
+    private const val STATE_DOWNLOAD_CREATE = 10//STATE_DOWNLOADED = 5//未下载
     const val STATE_DOWNLOAD_WAIT = STATE_DOWNLOAD_CREATE + CNetKAppTaskState.STATE_TASK_WAIT//11//下载等待
     const val STATE_DOWNLOADING = STATE_DOWNLOAD_CREATE + CNetKAppTaskState.STATE_TASKING//12//STATE_DOWNLOAD_IN_PROGRESS = 6//正在下载
     const val STATE_DOWNLOAD_PAUSE = STATE_DOWNLOAD_CREATE + CNetKAppTaskState.STATE_TASK_PAUSE//13//STATE_DOWNLOAD_PAUSED = 7//下载暂停

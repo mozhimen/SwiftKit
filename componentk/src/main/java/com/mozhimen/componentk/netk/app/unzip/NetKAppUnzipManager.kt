@@ -67,6 +67,10 @@ object NetKAppUnzipManager : IUtilK {
 
     @JvmStatic
     fun unzip(appTask: AppTask) {
+        if (isUnziping(appTask)) {//正在解压
+            Log.d(TAG, "unzip: the task already unziping")
+            return
+        }
         /**
          * [CNetKAppState.STATE_UNZIPING]
          */
@@ -75,30 +79,37 @@ object NetKAppUnzipManager : IUtilK {
         TaskKExecutor.execute(TAG + "unzip") {
             try {
                 val strPathNameUnzip = unzipOnBack(appTask)
-                if (strPathNameUnzip.isEmpty()) return@execute//正在解压
-                /**
-                 * [CNetKAppState.STATE_UNZIP_SUCCESS]
-                 */
-                TaskKHandler.post {
-                    NetKApp.onUnzipSuccess(appTask)
+                if (strPathNameUnzip.isEmpty())
+                    throw CNetKAppErrorCode.CODE_UNZIP_FAIL.int2appDownloadException()
 
-                    NetKAppInstallManager.installApk(appTask, appTask.apkPathName.strFilePath2file())
+                TaskKHandler.post {
+                    onUnzipSuccess(appTask)
                 }
             } catch (e: AppDownloadException) {
                 TaskKHandler.post {
+                    /**
+                     * [CNetKAppState.STATE_UNZIP_FAIL]
+                     */
                     NetKApp.onUnzipFail(appTask, e)
                 }
             }
         }
-        NetKApp.onUnziping(appTask)
+    }
+
+    private fun onUnzipSuccess(appTask: AppTask) {
+        /**
+         * [CNetKAppState.STATE_UNZIP_SUCCESS]
+         */
+        NetKApp.onUnzipSuccess(appTask)
+
+        NetKAppInstallManager.install(appTask, appTask.apkPathName.strFilePath2file())
     }
 
     @WorkerThread
     private fun unzipOnBack(appTask: AppTask): String {
-        if (isUnziping(appTask)) return ""//正在解压
         _unzippingTasks.add(appTask)//开始解压，添加到列表中
         val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: run {
-            throw CNetKAppErrorCode.CODE_UNZIP_DOWNLOAD_DIR_NULL.int2appDownloadException()
+            throw CNetKAppErrorCode.CODE_UNZIP_DIR_NULL.int2appDownloadException()
         }
         val strPathNameApk = unzipOnBack(File(externalFilesDir, appTask.apkName), externalFilesDir.absolutePath)
         _unzippingTasks.remove(appTask)//解压成功，移除

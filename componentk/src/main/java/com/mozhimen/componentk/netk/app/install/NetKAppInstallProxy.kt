@@ -74,17 +74,11 @@ class NetKAppInstallProxy(
     }
 
     override fun onChanged(isFront: Boolean, activityRef: WeakReference<Activity>?) {
-        _appTask?.let {
-            if (UtilKPackageManager.hasPackage(_activity, it.apkPackageName)) {
-
-                InstallKManager.onPackageAdded(_activity, it.apkPackageName)
-
-                /**
-                 * [CNetKAppState.STATE_INSTALL_SUCCESS]
-                 */
-                NetKApp.onInstallSuccess(it)
+        if (isFront) {
+            if (_appTask != null && UtilKPackageManager.hasPackage(_context, _appTask!!.apkPackageName)) {
+                NetKAppInstallManager.onInstallSuccess(_appTask!!)
             }
+            _appTask = null
         }
-        _appTask = null
     }
 }

@@ -102,7 +102,7 @@ class LayoutKEditItem @JvmOverloads constructor(context: Context, attrs: Attribu
     private fun parseTitleStyle(resId: Int, title: String?) {
         val typedArray = context.obtainStyledAttributes(resId, R.styleable.LayoutKEditItem_TitleAppearance)
         val titleColor: Int =
-            typedArray.getColor(R.styleable.LayoutKEditItem_TitleAppearance_titleAppearance_titleColor, UtilKRes.getColor(R.color.cok_blue_650))
+            typedArray.getColor(R.styleable.LayoutKEditItem_TitleAppearance_titleAppearance_titleColor, UtilKRes.getColor(R.color.cok_blue_287ff1))
         val titleSize: Float =
             typedArray.getDimensionPixelSize(R.styleable.LayoutKEditItem_TitleAppearance_titleAppearance_titleSize, 15f.sp2px().toInt()).toFloat()
         val leftMargin =
@@ -128,9 +128,9 @@ class LayoutKEditItem @JvmOverloads constructor(context: Context, attrs: Attribu
 
         val typedArray = context.obtainStyledAttributes(resId, R.styleable.LayoutKEditItem_EditAppearance)
         val hintColor: Int =
-            typedArray.getColor(R.styleable.LayoutKEditItem_EditAppearance_inputAppearance_hintColor, UtilKRes.getColor(R.color.cok_blue_050))
+            typedArray.getColor(R.styleable.LayoutKEditItem_EditAppearance_inputAppearance_hintColor, UtilKRes.getColor(R.color.cok_blue_e8f3ff))
         val inputColor: Int =
-            typedArray.getColor(R.styleable.LayoutKEditItem_EditAppearance_inputAppearance_inputColor, UtilKRes.getColor(R.color.cok_blue_650))
+            typedArray.getColor(R.styleable.LayoutKEditItem_EditAppearance_inputAppearance_inputColor, UtilKRes.getColor(R.color.cok_blue_287ff1))
         val inputSize: Int =
             typedArray.getDimensionPixelSize(R.styleable.LayoutKEditItem_EditAppearance_inputAppearance_textSize, 15f.sp2px().toInt())
         val inputMaxLength: Int =
@@ -166,7 +166,7 @@ class LayoutKEditItem @JvmOverloads constructor(context: Context, attrs: Attribu
         val line = CrossLine()
         val typedArray = context.obtainStyledAttributes(resId, R.styleable.LayoutKEditItem_LineAppearance)
         line.color =
-            typedArray.getColor(R.styleable.LayoutKEditItem_LineAppearance_lineAppearance_color, UtilKRes.getColor(R.color.cok_blue_650))
+            typedArray.getColor(R.styleable.LayoutKEditItem_LineAppearance_lineAppearance_color, UtilKRes.getColor(R.color.cok_blue_287ff1))
         line.height =
             typedArray.getDimensionPixelOffset(R.styleable.LayoutKEditItem_LineAppearance_lineAppearance_height, 0).toFloat()
         line.leftMargin =

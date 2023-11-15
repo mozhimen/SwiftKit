@@ -24,9 +24,11 @@ class ElemKReceiverActivity : BaseActivityVB<ActivityElemkReceiverBinding>() {
         BaseBroadcastReceiverProxy(
             this,
             ElemKTimeReceiver(),
-            CIntent.ACTION_TIME_TICK,
-            CIntent.ACTION_TIMEZONE_CHANGED,
-            CIntent.ACTION_TIME_CHANGED
+            arrayOf(
+                CIntent.ACTION_TIME_TICK,
+                CIntent.ACTION_TIMEZONE_CHANGED,
+                CIntent.ACTION_TIME_CHANGED
+            )
         )
     }
 
