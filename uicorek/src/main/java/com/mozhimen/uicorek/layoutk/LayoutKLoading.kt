@@ -24,6 +24,7 @@ import com.mozhimen.uicorek.layoutk.bases.BaseLayoutKFrame
  */
 class LayoutKLoading @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleAttr) {
     private var _loadColor: Int = 0
+    private var _loadSize: Float = 40f.dp2px
 
     init {
         initAttrs(attrs)
@@ -34,6 +35,7 @@ class LayoutKLoading @JvmOverloads constructor(context: Context, attrs: Attribut
         attrs ?: return
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.LayoutKLoading)
         _loadColor = typedArray.getColor(R.styleable.LayoutKLoading_layoutKLoading_loadColor, _loadColor)
+        _loadSize = typedArray.getDimension(R.styleable.LayoutKLoading_layoutKLoading_loadSize, _loadSize)
         typedArray.recycle()
     }
 
@@ -46,6 +48,6 @@ class LayoutKLoading @JvmOverloads constructor(context: Context, attrs: Attribut
             }
 
         }
-        addView(progressBar, LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT).apply { gravity = Gravity.CENTER })
+        addView(progressBar, LayoutParams(_loadSize.toInt(), _loadSize.toInt()).apply { gravity = Gravity.CENTER })
     }
 }

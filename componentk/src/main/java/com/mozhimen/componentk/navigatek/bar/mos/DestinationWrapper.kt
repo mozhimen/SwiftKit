@@ -8,8 +8,8 @@ data class DestinationWrapper(
     val routePath: String,
     val name: String,
     val fragment: Fragment,
-    @DrawableRes val resId: Int,
-    @DrawableRes var selectedResId: Int = 0,
-    @DrawableRes var unSelectResId: Int = 0,
-    @ColorRes val fragmentPrimaryColor: Int = android.R.color.white,
+    @DrawableRes val stateDrawableId: Int,
+    @DrawableRes var selectedDrawableId: Int = 0,
+    @DrawableRes var unSelectDrawableId: Int = 0/*,
+    @ColorRes val fragmentPrimaryColor: Int = android.R.color.white,*/
 )

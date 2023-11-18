@@ -17,6 +17,18 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
         startContext<LayoutKBannerActivity>()
     }
 
+    fun goLayoutKBlur(view: View) {
+
+    }
+
+    fun goLayoutKBtn(view: View) {
+        startContext<LayoutKBtnActivity>()
+    }
+
+    fun goLayoutKEdit(view: View) {
+        startContext<LayoutKEditActivity>()
+    }
+
     fun goLayoutKLoadRefresh(view: View) {
         startContext<LayoutKLoadRefreshActivity>()
     }
@@ -27,6 +39,18 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
 
     fun goLayoutKRefresh(view: View) {
         startContext<LayoutKRefreshActivity>()
+    }
+
+    fun goLayoutKRoll(view: View) {
+        startContext<LayoutKRollActivity>()
+    }
+
+    fun goLayoutKScrollable(view: View) {
+
+    }
+
+    fun goLayoutSearch(view: View) {
+
     }
 
     fun goLayoutKSide(view: View) {
@@ -41,24 +65,32 @@ class LayoutKActivity : BaseActivityVB<ActivityLayoutkBinding>() {
         startContext<LayoutKTabActivity>()
     }
 
-    fun goLayoutKBtn(view: View) {
-        startContext<LayoutKBtnActivity>()
+    fun goLayoutKTouch(view: View) {
+
+    }
+
+    fun goLayoutKUnTouch(view: View) {
+
+    }
+
+    fun goLayoutAmount(view: View) {
+
     }
 
     fun goLayoutKChipGroup(view: View) {
         startContext<LayoutKChipGroupActivity>()
     }
 
-    fun goLayoutKEditItem(view: View) {
-        startContext<LayoutKEditItemActivity>()
-    }
-
     fun goLayoutKEmpty(view: View) {
         startContext<LayoutKEmptyActivity>()
     }
 
-    fun goLayoutKRollText(view: View) {
-        startContext<LayoutKRollTextActivity>()
+    fun goLayoutKLabelGroup(view: View) {
+
+    }
+
+    fun goLayoutKLoading(view: View) {
+        startContext<LayoutKLoadingActivity>()
     }
 
     fun goLayoutKSpinner(view: View) {

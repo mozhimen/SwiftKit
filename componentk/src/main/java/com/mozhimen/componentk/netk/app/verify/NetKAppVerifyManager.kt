@@ -92,7 +92,7 @@ object NetKAppVerifyManager : IUtilK {
      * 安装apk文件
      */
     private fun verifyApk(appTask: AppTask) {
-        if (appTask.apkFileMd5.isEmpty() || "NONE" == appTask.apkFileMd5) {//如果文件没有MD5值或者为空，则不校验 直接去安装
+        if (appTask.apkFileMd5.isEmpty() || "NONE" == appTask.apkFileMd5 || !appTask.apkVerifyNeed) {//如果文件没有MD5值或者为空，则不校验 直接去安装
             onVerifySuccess(appTask, File(UtilKFileDir.External.getFilesDownloadsDir() ?: return, appTask.apkName))
             return
         }

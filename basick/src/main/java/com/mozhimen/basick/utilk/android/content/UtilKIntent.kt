@@ -15,7 +15,16 @@ import android.content.Intent
 fun Intent.isIntentAvailable(context: Context): Boolean =
     UtilKIntent.isIntentAvailable(this, context)
 
+fun Intent.getQueryParameter(key: String): String? =
+    UtilKIntent.getQueryParameter(this, key)
+
 object UtilKIntent {
+    @JvmStatic
+    fun getQueryParameter(intent: Intent, key: String): String? =
+        intent.data?.getQueryParameter(key)
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+
     /**
      * 要启动的intent是否可用
      */
@@ -28,4 +37,6 @@ object UtilKIntent {
     @JvmStatic
     fun resolveActivity(intent: Intent, context: Context): ComponentName? =
         intent.resolveActivity(UtilKPackageManager.get(context))
+
+
 }

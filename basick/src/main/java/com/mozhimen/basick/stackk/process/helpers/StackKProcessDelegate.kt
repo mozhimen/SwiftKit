@@ -23,7 +23,7 @@ import java.lang.ref.WeakReference
 @OptInApiInit_InApplication
 internal class StackKProcessDelegate : IStackK {
     @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
-    private val _applicationObserver by lazy { ApplicationObserver() }
+    private val _applicationLifecycleProxy by lazy { ApplicationLifecycleProxy() }
     private val _frontBackListeners = ArrayList<IStackKListener>()
     private var _isFront = true
 
@@ -31,7 +31,7 @@ internal class StackKProcessDelegate : IStackK {
 
     @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     override fun init() {
-        _applicationObserver.bindLifecycle(ProcessLifecycleOwner.get())
+        _applicationLifecycleProxy.bindLifecycle(ProcessLifecycleOwner.get())
     }
 
 
@@ -82,7 +82,7 @@ internal class StackKProcessDelegate : IStackK {
 
     @OptInApiCall_BindLifecycle
     @OptInApiInit_ByLazy
-    private inner class ApplicationObserver : BaseWakeBefDestroyLifecycleObserver() {
+    private inner class ApplicationLifecycleProxy : BaseWakeBefDestroyLifecycleObserver() {
 
         /**
          * 在程序的整个生命周期中只会调用一次

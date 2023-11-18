@@ -34,7 +34,7 @@ import java.util.*
 @OptInApiCall_BindLifecycle
 @OptInApiInit_ByLazy
 @AManifestKRequire(CPermission.FOREGROUND_SERVICE, CQuery.TTS_SERVICE)
-class TransKTTS<O>(owner: O, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : BaseWakeBefDestroyLifecycleObserver() where O : LifecycleOwner, O : Activity {
+class TransKTTSProxy<O>(owner: O, config: MText2SpeechConfig = MText2SpeechConfig(Locale.CHINA, 1.5f, 1.5f)) : BaseWakeBefDestroyLifecycleObserver() where O : LifecycleOwner, O : Activity {
     private var _transKText2Speech: TextToSpeech? = null
 
     init {

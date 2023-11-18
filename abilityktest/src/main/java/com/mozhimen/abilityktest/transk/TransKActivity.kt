@@ -1,7 +1,7 @@
 package com.mozhimen.abilityktest.transk
 
 import android.os.Bundle
-import com.mozhimen.abilityk.transk.TransKTTS
+import com.mozhimen.abilityk.transk.TransKTTSProxy
 import com.mozhimen.abilityktest.databinding.ActivityTranskBinding
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
@@ -16,8 +16,8 @@ import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 @APermissionCheck(CPermission.FOREGROUND_SERVICE)
 class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
     @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
-    private val _transKTTS by lazy {
-        TransKTTS(this)
+    private val _transKTTSProxy by lazy {
+        TransKTTSProxy(this)
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -32,9 +32,9 @@ class TransKActivity : BaseActivityVB<ActivityTranskBinding>() {
 
     @OptIn(OptInApiInit_ByLazy::class, OptInApiCall_BindLifecycle::class)
     override fun initView(savedInstanceState: Bundle?) {
-        _transKTTS.bindLifecycle(this)
+        _transKTTSProxy.bindLifecycle(this)
         vb.transkT2sBtn.setOnClickListener {
-            _transKTTS.play(vb.transkT2sEdt.text.toString())
+            _transKTTSProxy.play(vb.transkT2sEdt.text.toString())
         }
     }
 }

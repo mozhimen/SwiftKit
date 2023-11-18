@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:background="@color/cok_blue_64b5f6"
         android:orientation="vertical"
-        tools:context=".layoutk.LayoutKRollTextActivity">
+        tools:context=".layoutk.LayoutKRollActivity">
 
         <com.mozhimen.uicorek.layoutk.roll.LayoutKRollDigit
             android:id="@+id/roll_text_digit"

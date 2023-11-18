@@ -1,7 +1,7 @@
 package com.mozhimen.uicorektest.layoutk
 
 import com.mozhimen.basick.elemk.androidx.appcompat.bases.BaseActivityVB
-import com.mozhimen.uicorektest.databinding.ActivityLayoutkInputItemBinding
+import com.mozhimen.uicorektest.databinding.ActivityLayoutkEditBinding
 
 /**
  * @ClassName LayoutKInputItemActivity
@@ -10,4 +10,4 @@ import com.mozhimen.uicorektest.databinding.ActivityLayoutkInputItemBinding
  * @Date 2022/11/7 1:23
  * @Version 1.0
  */
-class LayoutKEditItemActivity : BaseActivityVB<ActivityLayoutkInputItemBinding>()
+class LayoutKEditActivity : BaseActivityVB<ActivityLayoutkEditBinding>()

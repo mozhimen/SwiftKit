@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.navigatek.bar.helpers
 
+import androidx.annotation.WorkerThread
 import com.mozhimen.basick.utilk.google.gson.UtilKGson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,31 +14,35 @@ import java.lang.reflect.Type
  * @Version 1.0
  */
 object NavigateKBarHelper {
-    suspend fun <IN, OUT> loadNavigateKBar(
-        onLoadRemote: suspend () -> String?,
-        onTransRemote: (list: List<IN>) -> List<OUT>,
-        onLoadLocale: () -> List<OUT>,
-        onLoadFinish: (List<OUT>) -> Unit,
+    @WorkerThread
+    @JvmStatic
+    suspend fun <IN, OUT> onGenerateNavigateKBarOnBack(
+        onRemoteLoadStrJson: suspend () -> String?,
+        onRemoteTrans: (list: List<IN>) -> List<OUT>,
+        onLocaleLoadOUTs: () -> List<OUT>,
+        onFinish: (List<OUT>) -> Unit,
         typeOf: Type
     ) {
         withContext(Dispatchers.IO) {
-            val strJsonRemote = onLoadRemote.invoke()//加载远程的配置
+            val strJsonRemote = onRemoteLoadStrJson.invoke()//加载远程的配置
             if (strJsonRemote.isNullOrEmpty()) {//如果为空，判断本地配置是否为空，如果本地配置为空，加载默认配置
                 withContext(Dispatchers.Main) {
-                    onLoadFinish.invoke(onLoadLocale())
+                    onFinish.invoke(onLocaleLoadOUTs())
                 }
             } else {//如果不为空，判断本地配置是否为空，如果本地配置为空，加载远程配置
+                val list = getNavigateKBarOUTsOnBack(strJsonRemote, onRemoteTrans, onLocaleLoadOUTs, typeOf)
                 withContext(Dispatchers.Main) {
-                    onLoadFinish.invoke(getLoadNavigationBar(strJsonRemote, onTransRemote, onLoadLocale, typeOf))
+                    onFinish.invoke(list)
                 }
             }
         }
     }
 
-    fun <IN, OUT> getLoadNavigationBar(
+    @WorkerThread
+    fun <IN, OUT> getNavigateKBarOUTsOnBack(
         strJsonRemote: String,
-        onTransRemote: (List<IN>) -> List<OUT>,
-        onLoadLocale: () -> List<OUT>,
+        onRemoteTrans: (List<IN>) -> List<OUT>,
+        onLocaleLoad: () -> List<OUT>,
         typeOf: Type
     ): List<OUT> {
         val list: List<IN>? = try {
@@ -46,7 +51,7 @@ object NavigateKBarHelper {
             null
         }//转换失败，返回默认的配置
         return if (list.isNullOrEmpty())
-            onLoadLocale.invoke()
-        else onTransRemote.invoke(list)
+            onLocaleLoad.invoke()
+        else onRemoteTrans.invoke(list)
     }
 }

@@ -23,7 +23,7 @@ interface INetKAppStateBook {
 }
 
 interface INetKAppStateUninstall {
-    fun onUninstallSuccess(appTask: AppTask)//应用卸载的监听
+    fun onUninstallSuccess(appTask: AppTask) {}//应用卸载的监听
 }
 
 interface INetKAppStateInstall {

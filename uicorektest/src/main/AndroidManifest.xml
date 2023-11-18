@@ -77,7 +77,10 @@
             android:exported="false" /> <!-- ///////////////////////////////////////////////////////////////////////////////////// -->
         <!-- layoutk -->
         <activity
-            android:name=".layoutk.LayoutKRollTextActivity"
+            android:name=".layoutk.LayoutKLoadingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".layoutk.LayoutKRollActivity"
             android:exported="false" />
         <activity
             android:name=".layoutk.LayoutKSpinnerActivity"
@@ -86,7 +89,7 @@
             android:name=".layoutk.LayoutKActivity"
             android:exported="false" />
         <activity
-            android:name=".layoutk.LayoutKEditItemActivity"
+            android:name=".layoutk.LayoutKEditActivity"
             android:exported="false" />
         <activity
             android:name=".layoutk.LayoutKBtnActivity"

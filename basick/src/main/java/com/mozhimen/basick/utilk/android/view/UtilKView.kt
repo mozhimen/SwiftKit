@@ -73,6 +73,12 @@ fun View.applyResizeSizeMax() {
     UtilKView.applyResizeSizeMax(this)
 }
 
+fun View.applyStatusBarHeight(){
+    UtilKView.applyStatusBarHeight(this)
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
 fun View.applyBackgroundNull() =
     UtilKView.applyBackgroundNull(this)
 
@@ -99,6 +105,8 @@ fun View.applyOnGlobalLayoutObserver(invoke: I_Listener) {
 fun View.applyFitSystemWindow() {
     UtilKView.applyFitSystemWindow(this)
 }
+
+//////////////////////////////////////////////////////////////////////////////
 
 fun View.applyDebounceClickListener(thresholdMillis: Long = 500, block: IA_Listener<View>) {
     UtilKView.applyDebounceClickListener(this, block, thresholdMillis)
@@ -146,8 +154,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 显示占比
-     * @param view View
-     * @return Int
      */
     @JvmStatic
     fun getVisiblePercent(view: View): Int {
@@ -162,8 +168,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 寻找父View是否匹配列举的类型
-     * @param view View
-     * @param matches Array<out Class<*>>
      */
     @JvmStatic
     fun getParentViewMatch(view: View, vararg matches: Class<*>): View? {
@@ -248,9 +252,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 逐层在父View中查找View
-     * @param viewId Int
-     * @param view View
-     * @return View?
      */
     @JvmStatic
     fun findViewForParentById(view: View, viewId: Int): View? {
@@ -267,9 +268,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 逐层在父View中查找View
-     * @param destView View
-     * @param sourceView View
-     * @return View?
      */
     @JvmStatic
     fun findViewForParentByView(destView: View, sourceView: View): View? {
@@ -287,8 +285,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 是否是DecorView
-     * @param view View
-     * @return Boolean
      */
     @JvmStatic
     fun isContentOrDecorView(view: View): Boolean =
@@ -297,8 +293,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 寻找父View是否匹配列举的类型
-     * @param view View
-     * @param matches Array<out Class<*>>
      */
     @JvmStatic
     fun isParentViewMatch(view: View, vararg matches: Class<*>): Boolean =
@@ -358,8 +352,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 设置背景
-     * @param view View
-     * @param background Drawable
      */
     @JvmStatic
     fun applyBackground(view: View, background: Drawable?) {
@@ -383,8 +375,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 根据View的高度和宽高比, 设置高度
-     * @param view View
-     * @param ratio Float
      */
     @JvmStatic
     fun applyViewRatio(view: View, ratio: Float) {
@@ -417,19 +407,16 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 上下内边距
-     * @param view View
-     * @param padding Int
      */
     @JvmStatic
     fun applyPaddingVertical(view: View, padding: Int) {
         view.setPadding(0, padding, 0, padding)
     }
 
+    //////////////////////////////////////////////////////////////////////////////
+
     /**
      * 重置大小
-     * @param view View
-     * @param width Int
-     * @param height Int
      */
     @JvmStatic
     fun applyResizeSize(view: View, width: Int, height: Int) {
@@ -452,10 +439,17 @@ object UtilKView : BaseUtilK() {
         view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
+    @JvmStatic
+    fun applyStatusBarHeight(view: View) {
+        view.layoutParams = view.layoutParams.apply {
+            height = UtilKStatusBar.getHeight()
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+
     /**
      * 添加全局监听
-     * @param view View
-     * @param listener OnGlobalLayoutListener
      */
     @JvmStatic
     fun applySafeAddOnGlobalLayoutObserver(view: View, listener: OnGlobalLayoutListener) {
@@ -470,8 +464,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 删除全局监听
-     * @param view View
-     * @param listener OnGlobalLayoutListener?
      */
     @JvmStatic
     fun applySafeRemoveOnGlobalLayoutObserver(view: View, listener: OnGlobalLayoutListener?) {
@@ -485,7 +477,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 获取焦点
-     * @param view View
      */
     @JvmStatic
     fun applyRequestFocus(view: View) {
@@ -497,8 +488,6 @@ object UtilKView : BaseUtilK() {
 
     /**
      * 从父布局删除View
-     * @param view View
-     * @return View
      */
     @OptInApiUse_BaseApplication
     @JvmStatic

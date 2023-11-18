@@ -5,7 +5,9 @@ import android.text.InputFilter
 import android.widget.EditText
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.android.view.commons.ITextWatcher
+import com.mozhimen.basick.elemk.android.view.cons.CEditorInfo
 import com.mozhimen.basick.elemk.commons.IAB_Listener
+import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.utilk.kotlin.obj2stringTrim
 import com.mozhimen.basick.utilk.kotlinx.coroutines.UtilKFlow.getSearchFlow
 import com.mozhimen.basick.utilk.kotlinx.coroutines.getEditTextChangeFlow
@@ -27,6 +29,10 @@ import kotlinx.coroutines.flow.onEach
  * @Date 2022/11/6 0:28
  * @Version 1.0
  */
+fun EditText.applyOnEditorActionSearchListener(block: I_Listener) {
+    UtilKEditText.applyOnEditorActionSearchListener(this, block)
+}
+
 @FlowPreview
 @ExperimentalCoroutinesApi
 fun EditText.applyDebounceTextChangeListener(
@@ -69,6 +75,17 @@ object UtilKEditText {
         editText.text.obj2stringTrim()
 
     //////////////////////////////////////////////////////////////////////////////////////////////
+
+    @JvmStatic
+    fun applyOnEditorActionSearchListener(editText: EditText, block: I_Listener) {
+        editText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == CEditorInfo.IME_ACTION_SEARCH) {
+                block.invoke()
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+    }
 
     @ExperimentalCoroutinesApi
     @FlowPreview

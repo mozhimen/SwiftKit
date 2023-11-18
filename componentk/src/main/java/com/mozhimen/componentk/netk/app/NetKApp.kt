@@ -2,7 +2,10 @@ package com.mozhimen.componentk.netk.app
 
 import android.content.Context
 import android.util.Log
+import androidx.annotation.AnyThread
+import androidx.annotation.MainThread
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.google.firebase.crashlytics.buildtools.reloc.javax.annotation.concurrent.ThreadSafe
 import com.liulishuo.okdownload.core.exception.ServerCanceledException
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
@@ -192,6 +195,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     /**
      * 是否有正在下载的任务
      */
+    @AnyThread
     fun hasDownloading(): Boolean {
         return AppTaskDaoManager.hasDownloading()
     }
@@ -438,7 +442,12 @@ object NetKApp : INetKAppState, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
 
     override fun onUninstallSuccess(appTask: AppTask) {
-        applyAppTaskState(appTask.apply { this.apkIsInstalled = false }, CNetKAppState.STATE_UNINSTALL_SUCCESS)//设置为未安装
+        applyAppTaskState(appTask.apply { this.apkIsInstalled = false }, CNetKAppState.STATE_UNINSTALL_SUCCESS, onNext = {
+            /**
+             * [CNetKAppTaskState.STATE_TASK_CANCEL]
+             */
+            onTaskFinish(appTask, ENetKAppFinishType.CANCEL)
+        })//设置为未安装
     }
 
     /////////////////////////////////////////////////////////////////

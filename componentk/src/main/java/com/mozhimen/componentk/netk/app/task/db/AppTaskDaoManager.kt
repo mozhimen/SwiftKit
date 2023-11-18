@@ -8,6 +8,7 @@ import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.componentk.netk.app.NetKApp
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
+import java.util.concurrent.CopyOnWriteArrayList
 
 /**
  * @ClassName AppTaskDaoManager
@@ -18,7 +19,7 @@ import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
  */
 @OptInApiInit_InApplication
 object AppTaskDaoManager : IUtilK {
-    private val _downloadTasks = mutableListOf<AppTask>()
+    private val _downloadTasks = CopyOnWriteArrayList<AppTask>()
 
     fun init() {
         TaskKExecutor.execute(TAG + "init") {

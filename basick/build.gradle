@@ -52,6 +52,14 @@ android {
         checkReleaseBuilds false
         abortOnError false
     }
+    //强制项目使用指定的版本
+//    configurations.all {
+//        resolutionStrategy {
+//            force "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//            force "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+//            force "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+//        }
+//    }
 }
 
 dependencies {

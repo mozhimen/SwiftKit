@@ -8,11 +8,11 @@ import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.taskk.temps.TaskKPoll
 import com.mozhimen.uicorek.layoutk.roll.annors.AAnimatorMode
-import com.mozhimen.uicorektest.databinding.ActivityLayoutkRollTextBinding
+import com.mozhimen.uicorektest.databinding.ActivityLayoutkRollBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class LayoutKRollTextActivity : BaseActivityVB<ActivityLayoutkRollTextBinding>() {
+class LayoutKRollActivity : BaseActivityVB<ActivityLayoutkRollBinding>() {
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     private val _taskKPoll by lazy { TaskKPoll() }
     private val list = "我喜欢唱跳RAP篮球!"
