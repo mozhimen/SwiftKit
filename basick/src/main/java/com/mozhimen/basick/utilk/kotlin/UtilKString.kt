@@ -142,6 +142,8 @@ object UtilKString : BaseUtilK() {
 
     ////////////////////////////////////////////////////////////////////////////
 
+
+
     @JvmStatic
     fun appendStrLineBreak(str: String): String =
         if (!str.endsWith(CMsg.LINE_BREAK)) str + CMsg.LINE_BREAK else str

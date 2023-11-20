@@ -4,6 +4,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import androidx.annotation.ColorInt
+import com.mozhimen.basick.elemk.commons.IA_Listener
 
 /**
  * @ClassName UtilKCharSequence
@@ -13,10 +14,14 @@ import androidx.annotation.ColorInt
  * @Version 1.0
  */
 fun CharSequence.isEquals(chars: CharSequence): Boolean =
-        UtilKCharSequence.isEquals(this, chars)
+    UtilKCharSequence.isEquals(this, chars)
 
-fun CharSequence.applyTextColor(@ColorInt intColor: Int,start: Int,end: Int):CharSequence =
-    UtilKCharSequence.applyTextColor(this,intColor, start, end)
+fun CharSequence.ifNotEmpty(block: IA_Listener<CharSequence>) {
+    UtilKCharSequence.ifNotEmpty(this, block)
+}
+
+fun CharSequence.applyTextColor(@ColorInt intColor: Int, start: Int, end: Int): CharSequence =
+    UtilKCharSequence.applyTextColor(this, intColor, start, end)
 
 object UtilKCharSequence {
     @JvmStatic
@@ -45,7 +50,13 @@ object UtilKCharSequence {
     //////////////////////////////////////////////////////////////////////////////
 
     @JvmStatic
-    fun applyTextColor(chars: CharSequence,@ColorInt intColor:Int,start:Int,end:Int):CharSequence{
+    fun ifNotEmpty(chars: CharSequence, block: IA_Listener<CharSequence>) {
+        if (chars.isNotEmpty()) block.invoke(chars)
+    }
+
+    @JvmStatic
+    fun applyTextColor(chars: CharSequence, @ColorInt intColor: Int, start: Int, end: Int): CharSequence {
         return SpannableString(chars).apply { setSpan(ForegroundColorSpan(intColor), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
     }
 }
+
