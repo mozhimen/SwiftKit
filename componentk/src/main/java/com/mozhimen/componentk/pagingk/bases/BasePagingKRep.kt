@@ -59,6 +59,15 @@ class BasePagingKRep<RES> {
         var total = 0//总条数
         var records: List<RES>? = null
 
+        constructor(current: Int, pages: Int, size: Int, total: Int, records: List<RES>?) {
+            this.current = current
+            this.pages = pages
+            this.size = size
+            this.total = total
+            this.records = records
+        }
+
+
         override fun toString(): String {
             return "PagingKData(current=$current, pages=$pages, size=$size, total=$total, records=$records)"
         }
