@@ -61,6 +61,7 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
 
     override fun onResume() {
         super.onResume()
+        //由于注册观察者时会立即触发，所以在onResume中,防止在ViewPager2中切换时立刻触发
         getViewModel().livePagedList.observe(this, _pagedListObserver) /*{ pagedList -> getPagedListAdapter().submitList(pagedList) }*/
     }
 }

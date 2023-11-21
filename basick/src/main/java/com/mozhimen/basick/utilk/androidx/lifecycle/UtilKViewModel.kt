@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelStoreOwner
 import com.mozhimen.basick.elemk.kotlin.cons.CSuppress
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.lang.UtilKReflectGenericKotlin
-import java.lang.Exception
 
 /**
  * @ClassName UtilKViewModel

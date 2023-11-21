@@ -28,7 +28,7 @@ import com.mozhimen.uicorek.viewk.commons.IViewK
  * @Date 2023/10/22 18:35
  * @Version 1.0s
  */
-class TextKProgress @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr), IViewK {
+class TextView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : AppCompatTextView(context, attrs, defStyleAttr), IViewK {
 
     companion object {
         const val SCALE = 1.0f

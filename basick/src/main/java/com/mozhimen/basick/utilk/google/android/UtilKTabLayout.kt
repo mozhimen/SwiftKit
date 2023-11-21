@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.Tab
 import com.mozhimen.basick.elemk.google.android.commons.IOnTabSelectedListener
 import com.mozhimen.basick.utilk.android.view.applyResizeSizeMax
 import com.mozhimen.basick.utilk.bases.IUtilK
@@ -18,6 +19,10 @@ import com.mozhimen.basick.utilk.bases.IUtilK
  */
 fun TabLayout.applyTabTextSize(unselectedTextSize: Float, selectedTextSize: Float) {
     UtilKTabLayout.applyTabTextSize(this, unselectedTextSize, selectedTextSize)
+}
+
+fun TabLayout.applyTabModeScrollable() {
+    UtilKTabLayout.applyTabModeScrollable(this)
 }
 
 object UtilKTabLayout : IUtilK {
@@ -52,5 +57,10 @@ object UtilKTabLayout : IUtilK {
                 }
             }
         })
+    }
+
+    @JvmStatic
+    fun applyTabModeScrollable(tabLayout: TabLayout) {
+        tabLayout.tabMode = TabLayout.MODE_SCROLLABLE
     }
 }

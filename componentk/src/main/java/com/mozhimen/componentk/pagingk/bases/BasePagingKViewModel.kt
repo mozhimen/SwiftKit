@@ -87,11 +87,7 @@ abstract class BasePagingKViewModel<RES, DES>(protected val pagingKConfig: Pagin
     ////////////////////////////////////////////////////////////////////////////////////
 
     open fun onInvalidate() {
-        livePagedList.value?.let {
-            it.dataSource?.let {
-                it.invalidate()
-            }
-        }
+        livePagedList.value?.dataSource?.invalidate()
     }
 
     ////////////////////////////////////////////////////////////////////////////////////
