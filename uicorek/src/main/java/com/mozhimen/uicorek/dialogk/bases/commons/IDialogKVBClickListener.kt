@@ -2,7 +2,6 @@ package com.mozhimen.uicorek.dialogk.bases.commons
 
 import android.view.View
 import androidx.databinding.ViewDataBinding
-import com.mozhimen.uicorek.dialogk.bases.BaseDialogK
 import com.mozhimen.uicorek.dialogk.bases.BaseDialogKVB
 
 /**

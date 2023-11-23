@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.java.util
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.mozhimen.basick.elemk.java.util.cons.CDateFormat
 import com.mozhimen.basick.utilk.bases.BaseUtilK
@@ -91,6 +92,13 @@ object UtilKDate : BaseUtilK() {
         formatDate: String, locale: Locale = Locale.CHINA
     ): SimpleDateFormat =
         SimpleDateFormat(formatDate, locale)
+
+    @SuppressLint("SimpleDateFormat")
+    @JvmStatic
+    fun getSdf1(
+        formatDate: String
+    ): SimpleDateFormat =
+        SimpleDateFormat(formatDate,Locale.getDefault())
 
     /////////////////////////////////////////////////////////////////////////////////////
 

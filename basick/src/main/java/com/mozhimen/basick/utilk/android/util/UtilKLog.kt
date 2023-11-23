@@ -4,6 +4,7 @@ import android.util.Log
 import com.mozhimen.basick.elemk.android.util.annors.ALogPriority
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.utilk.bases.BaseUtilK
+import java.util.concurrent.atomic.AtomicBoolean
 
 fun String.v() {
     UtilKLog.v(this)
@@ -50,6 +51,17 @@ fun String.println(level: Int, tag: String) {
 }
 
 object UtilKLog : BaseUtilK() {
+
+    private val _isLogEnable = AtomicBoolean(true)
+
+    @JvmStatic
+    fun setLogEnable(enable: Boolean) {
+        _isLogEnable.set(enable)
+    }
+
+    @JvmStatic
+    fun getLogEnable(): Boolean =
+        _isLogEnable.get()
 
     @JvmStatic
     fun v(msg: String) {
@@ -110,6 +122,27 @@ object UtilKLog : BaseUtilK() {
             CLogPriority.W -> wt(tag, msg)
             CLogPriority.E -> et(tag, msg)
             else -> it(tag, msg)
+        }
+    }
+
+    @JvmStatic
+    fun longLog(level: Int, tag: String, msg: String) {
+        if (!getLogEnable()) return
+        val segmentSize = 1024
+        val logLength = msg.length
+        if (logLength < segmentSize) {
+            log(level, tag, msg)
+        } else {
+            var startIndex = 0
+            while (startIndex < logLength) {
+                var endIndex = startIndex + segmentSize
+                if (endIndex > logLength) {
+                    endIndex = logLength
+                }
+                val printMessage = msg.subSequence(startIndex, endIndex)
+                log(level, tag, printMessage.toString())
+                startIndex = endIndex
+            }
         }
     }
 

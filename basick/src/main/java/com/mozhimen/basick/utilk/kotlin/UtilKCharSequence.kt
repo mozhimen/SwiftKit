@@ -5,6 +5,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.elemk.commons.IA_Listener
+import com.mozhimen.basick.elemk.commons.I_AListener
 
 /**
  * @ClassName UtilKCharSequence
@@ -19,6 +20,9 @@ fun CharSequence.isEquals(chars: CharSequence): Boolean =
 fun CharSequence.ifNotEmpty(block: IA_Listener<CharSequence>) {
     UtilKCharSequence.ifNotEmpty(this, block)
 }
+
+fun <C : CharSequence> C?.ifNullOrEmpty(defaultValue: I_AListener<C>): C =
+    UtilKCharSequence.ifNullOrEmpty(this, defaultValue)
 
 fun CharSequence.applyTextColor(@ColorInt intColor: Int, start: Int, end: Int): CharSequence =
     UtilKCharSequence.applyTextColor(this, intColor, start, end)
@@ -53,6 +57,10 @@ object UtilKCharSequence {
     fun ifNotEmpty(chars: CharSequence, block: IA_Listener<CharSequence>) {
         if (chars.isNotEmpty()) block.invoke(chars)
     }
+
+    @JvmStatic
+    fun <C : CharSequence> ifNullOrEmpty(str: C?, defaultValue: I_AListener<C>): C =
+        if (str.isNullOrEmpty()) defaultValue() else str
 
     @JvmStatic
     fun applyTextColor(chars: CharSequence, @ColorInt intColor: Int, start: Int, end: Int): CharSequence {

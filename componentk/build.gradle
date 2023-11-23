@@ -67,6 +67,9 @@ dependencies {
     implementation project(project.path.replace(project.name, '') + ':uicorek')
     implementation project(project.path.replace(project.name, '') + ':underlayk')
 
+    //kapt
+    kapt 'androidx.room:room-compiler:2.5.2'
+
     //test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

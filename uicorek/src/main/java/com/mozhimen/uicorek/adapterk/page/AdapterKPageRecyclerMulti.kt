@@ -69,11 +69,11 @@ open class AdapterKPageRecyclerMulti<DATA>(itemCallback: ItemCallback<DATA>) : A
     }
 
     fun onBindViewHolder(holder: VHKRecycler, item: DATA?) {
-        getRecyclerKPageItem(holder.itemViewType)!!.onBindViewHolder(holder, item)
+        getRecyclerKPageItem(holder.itemViewType)?.onBindViewHolder(holder, item)
     }
 
     fun onBindViewHolder(holder: VHKRecycler, item: DATA, payloads: List<Any>) {
-        getRecyclerKPageItem(holder.itemViewType)!!.onBindViewHolder(holder, item, payloads)
+        getRecyclerKPageItem(holder.itemViewType)?.onBindViewHolder(holder, item, payloads)
     }
 
     /////////////////////////////////////////////////////////////////////////////////

@@ -73,7 +73,7 @@ fun View.applyResizeSizeMax() {
     UtilKView.applyResizeSizeMax(this)
 }
 
-fun View.applyStatusBarHeight(){
+fun View.applyStatusBarHeight() {
     UtilKView.applyStatusBarHeight(this)
 }
 
@@ -239,13 +239,15 @@ object UtilKView : BaseUtilK() {
 
     //////////////////////////////////////////////////////////////////////////////
 
+    private const val DEBOUNCE_THRESHOLD_MILLIS = 1123460103
+    private const val DEBOUNCE_LAST_CLICK_TIME = 1123461123
     private fun <V : View> isDebounceClickable(view: V, thresholdMillis: Long = 500): Boolean {
         var isClickable = false
         val currentClickTime = System.currentTimeMillis()
-        val lastClickTime = getLongTag(view, 1123460103, currentClickTime)
-        if (currentClickTime - lastClickTime >= getLongTag(view, 1123461123, thresholdMillis)) {
+        val lastClickTime = getLongTag(view, DEBOUNCE_LAST_CLICK_TIME, currentClickTime)
+        if (currentClickTime - lastClickTime >= getLongTag(view, DEBOUNCE_THRESHOLD_MILLIS, thresholdMillis)) {
             isClickable = true
-            view.setTag(1123460103, currentClickTime)
+            view.setTag(DEBOUNCE_LAST_CLICK_TIME, currentClickTime)
         }
         return isClickable
     }
@@ -314,8 +316,10 @@ object UtilKView : BaseUtilK() {
 
     @JvmStatic
     fun applyDebounceClickListener(view: View, block: IA_Listener<View>, thresholdMillis: Long = 500) {
-        view.setTag(1123461123, thresholdMillis)
-        view.setOnClickListener { if (isDebounceClickable(view, thresholdMillis)) block.invoke(view) }
+        view.setTag(DEBOUNCE_THRESHOLD_MILLIS, thresholdMillis)
+        if (isDebounceClickable(view, thresholdMillis)) {
+            view.setOnClickListener { block.invoke(view) }
+        }
     }
 
     @JvmStatic

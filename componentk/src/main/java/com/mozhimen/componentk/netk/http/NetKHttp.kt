@@ -1,12 +1,16 @@
 package com.mozhimen.componentk.netk.http
 
 import android.util.Log
+import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.basick.utilk.android.util.UtilKLog
+import com.mozhimen.basick.utilk.android.util.UtilKLogSupport
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.squareup.moshi.UtilKMoshi
 import com.mozhimen.componentk.BuildConfig
+import com.mozhimen.underlayk.logk.cons.CLogKCons
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,7 +33,7 @@ open class NetKHttp(
     private val _okHttpClient by lazy {
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
-                addInterceptor(HttpLoggingInterceptor { msg -> Log.v(TAG, msg) }.also { it.level = HttpLoggingInterceptor.Level.BODY })
+                addInterceptor(HttpLoggingInterceptor { msg -> UtilKLog.longLog(CLogPriority.V, TAG, msg) }.also { it.level = HttpLoggingInterceptor.Level.BODY })
                 if (_intercepters.isNotEmpty())
                     for (interceptor in _intercepters) addInterceptor(interceptor)
             }
@@ -41,6 +45,14 @@ open class NetKHttp(
             if (field != null) return field
             return initRetrofit(baseUrl).also { field = it }
         }
+
+    /////////////////////////////////////////////////////////////////////////
+
+    val okHttpClient: OkHttpClient
+        get() = _okHttpClient
+
+    val retrofit: Retrofit
+        get() = _retrofit!!
 
     var baseUrl: String = baseUrl
         set(value) {
@@ -67,6 +79,8 @@ open class NetKHttp(
     inline fun <reified SERVICE : Any> create(): SERVICE {
         return create(SERVICE::class.java)
     }
+
+    /////////////////////////////////////////////////////////////////////////
 
     private fun initRetrofit(url: String): Retrofit =
         Retrofit.Builder()

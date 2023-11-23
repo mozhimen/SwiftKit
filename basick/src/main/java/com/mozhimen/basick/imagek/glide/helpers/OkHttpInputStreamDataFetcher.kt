@@ -9,7 +9,7 @@ import com.bumptech.glide.load.data.DataFetcher
 import com.bumptech.glide.util.ContentLengthInputStream
 import com.bumptech.glide.util.Preconditions
 import com.mozhimen.basick.elemk.commons.IA_AListener
-import com.mozhimen.basick.imagek.glide.mos.GlideImageFileId
+import com.mozhimen.basick.imagek.glide.mos.ImageKGlideFile
 import com.mozhimen.basick.utilk.bases.IUtilK
 import okhttp3.Call
 import okhttp3.Callback
@@ -27,9 +27,9 @@ import java.io.InputStream
  * @Version 1.0
  */
 
-class OkHttpStreamFetcher(client: Call.Factory, glideImageFileId: GlideImageFileId, private val _onExecuteFileId: IA_AListener<String?>) : DataFetcher<InputStream>, Callback, IUtilK {
+class OkHttpInputStreamDataFetcher(client: Call.Factory, imageKGlideFile: ImageKGlideFile, private val _onExecuteFileId: IA_AListener<String?>) : DataFetcher<InputStream>, Callback, IUtilK {
     private val _client: Call.Factory
-    private val _glideImageFileId: GlideImageFileId
+    private val _ImageKGlideFile: ImageKGlideFile
     private var _inputStream: InputStream? = null
     private var _responseBody: ResponseBody? = null
     private var _dataCallback: DataFetcher.DataCallback<in InputStream>? = null
@@ -41,15 +41,15 @@ class OkHttpStreamFetcher(client: Call.Factory, glideImageFileId: GlideImageFile
 
     // Public API.
     init {
-        this._client = client
-        this._glideImageFileId = glideImageFileId
+        _client = client
+        _ImageKGlideFile = imageKGlideFile
     }
 
     override fun loadData(priority: Priority, callback: DataFetcher.DataCallback<in InputStream>) {
-        val glideImageFileId: GlideImageFileId = _glideImageFileId
-        var imageFileIdUrl: String? = glideImageFileId.url
+        val imageKGlideFile: ImageKGlideFile = _ImageKGlideFile
+        var imageFileIdUrl: String? = imageKGlideFile.url
         if (TextUtils.isEmpty(imageFileIdUrl)) {
-            imageFileIdUrl = _onExecuteFileId.invoke(glideImageFileId.fileId)//Router.serviceRouter.executeCmsNodeGetByIdAndPath(glideImageFileId.getFileId())
+            imageFileIdUrl = _onExecuteFileId.invoke(imageKGlideFile.fileId)//Router.serviceRouter.executeCmsNodeGetByIdAndPath(glideImageFileId.getFileId())
         }
         if (imageFileIdUrl.isNullOrEmpty()) {
             callback.onLoadFailed(RuntimeException("查询失败，未找到该节点"))
@@ -57,7 +57,7 @@ class OkHttpStreamFetcher(client: Call.Factory, glideImageFileId: GlideImageFile
         }
         val requestBuilder: Request.Builder = Request.Builder().url(imageFileIdUrl)
         val request: Request = requestBuilder.build()
-        this._dataCallback = callback
+        _dataCallback = callback
         _call = _client.newCall(request)
         _call!!.enqueue(this)
     }
@@ -66,7 +66,7 @@ class OkHttpStreamFetcher(client: Call.Factory, glideImageFileId: GlideImageFile
         if (Log.isLoggable(TAG, Log.DEBUG)) {
             Log.d(TAG, "OkHttp failed to obtain result", e)
         }
-        _dataCallback!!.onLoadFailed(e)
+        _dataCallback?.onLoadFailed(e)
     }
 
     override fun onResponse(call: Call, response: Response) {
@@ -74,23 +74,19 @@ class OkHttpStreamFetcher(client: Call.Factory, glideImageFileId: GlideImageFile
         if (response.isSuccessful) {
             val contentLength = Preconditions.checkNotNull(_responseBody).contentLength()
             _inputStream = ContentLengthInputStream.obtain(_responseBody!!.byteStream(), contentLength)
-            _dataCallback!!.onDataReady(_inputStream)
+            _dataCallback?.onDataReady(_inputStream)
         } else {
-            _dataCallback!!.onLoadFailed(HttpException(response.message, response.code))
+            _dataCallback?.onLoadFailed(HttpException(response.message, response.code))
         }
     }
 
     override fun cleanup() {
         try {
-            if (_inputStream != null) {
-                _inputStream!!.close()
-            }
+            _inputStream?.close()
         } catch (e: IOException) {
             // Ignored
         }
-        if (_responseBody != null) {
-            _responseBody!!.close()
-        }
+        _responseBody?.close()
         _dataCallback = null
     }
 

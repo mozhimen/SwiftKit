@@ -21,4 +21,10 @@ open class BaseFragmentInfo {
         this.fragmentTitle = fragmentTitle
         this.newFragmentBlock = newFragmentBlock
     }
+
+    override fun toString(): String {
+        return "BaseFragmentInfo(fragmentId='$fragmentId', fragmentTitle='$fragmentTitle')"
+    }
+
+
 }

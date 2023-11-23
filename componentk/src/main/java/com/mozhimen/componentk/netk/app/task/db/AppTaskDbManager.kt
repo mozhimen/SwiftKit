@@ -1,6 +1,7 @@
 package com.mozhimen.componentk.netk.app.task.db
 
 import android.content.Context
+import androidx.annotation.UiThread
 import androidx.room.Room
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 
@@ -28,8 +29,9 @@ object AppTaskDbManager {
 //        }
 //    }
 
+    @UiThread
     fun init(context: Context) {
-        _appTaskDb = Room.databaseBuilder(context, AppTaskDb::class.java, "netk_app_task_db")
+        _appTaskDb = Room.databaseBuilder(context.applicationContext, AppTaskDb::class.java, "netk_app_task_db")
 //            .fallbackToDestructiveMigration()//使用该方法会在数据库升级异常时重建数据库，但是所有数据会丢失
 //            .addMigrations(APP_DATABASE_MIGRATION_1_2)
             .build()

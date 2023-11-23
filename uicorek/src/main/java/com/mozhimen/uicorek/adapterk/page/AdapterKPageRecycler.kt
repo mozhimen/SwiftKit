@@ -86,7 +86,6 @@ open class AdapterKPageRecycler<DATA>(@LayoutRes private val _layoutId: Int, ite
                 }
             }
         }
-
     }
 
     //////////////////////////////////////////////////////////////////////////////
