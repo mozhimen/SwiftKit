@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mozhimen.basicktest">
 
+    <!--测试用-->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <application
         android:name=".BasicKApplication"
         android:allowBackup="true"
@@ -110,7 +112,8 @@
             android:name=".postk.PostKLiveDataEventBusActivity"
             android:exported="false" />
 
-        <activity android:name=".postk.PostKLinkActivity"
+        <activity
+            android:name=".postk.PostKLinkActivity"
             android:exported="true">
             <intent-filter>
                 <!--必有项-->

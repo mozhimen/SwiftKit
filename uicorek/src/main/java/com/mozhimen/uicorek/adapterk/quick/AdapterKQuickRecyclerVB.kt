@@ -49,8 +49,8 @@ open class AdapterKQuickRecyclerVB<DATA, VB : ViewDataBinding>(
     }
 
     override fun refreshDatas(datas: List<DATA>, notify: Boolean) {
-        _datas.clear()
-        _datas.addAll(datas)
+//        _datas.clear()
+//        _datas.addAll(datas)
         refreshDatas(notify)
     }
 

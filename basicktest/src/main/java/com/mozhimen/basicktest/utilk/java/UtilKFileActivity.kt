@@ -14,9 +14,12 @@ import com.mozhimen.basicktest.databinding.ItemUtilkFileLogBinding
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
+import com.mozhimen.basick.utilk.android.content.UtilKContextDir
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
 import com.mozhimen.basick.utilk.kotlin.UtilKStrPath
 import com.mozhimen.basick.utilk.kotlin.UtilKStringFormat
+import com.mozhimen.basick.utilk.kotlin.createFile
+import com.mozhimen.basick.utilk.kotlin.createFolder
 import com.mozhimen.uicorek.adapterk.quick.AdapterKQuickRecyclerVB
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -73,6 +76,10 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
             val createFolderPath = UtilKStrPath.Absolute.Internal.getFiles() + "/folder/"
             "createFolder folder ${UtilKStrFile.createFolder(createFolderPath).absolutePath}".log()
             "deleteFolder folder ${UtilKStrFile.deleteFolder(createFolderPath)}".log()
+            val path = "${UtilKStrPath.Absolute.External.getEnvStorage()}/Android/obb/com.mozhimen.app"
+            path.createFolder()
+            "$path/1.txt".createFile()
+            path.log()
         }
     }
 

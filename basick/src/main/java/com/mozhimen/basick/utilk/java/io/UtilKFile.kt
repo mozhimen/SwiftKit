@@ -165,7 +165,7 @@ object UtilKFile : BaseUtilK() {
         file.parent?.let { UtilKStrFile.createFolder(it) } ?: throw Exception("don't have parent folder")
 
         if (!isFileExist(file)) {
-            file.createNewFile().also { "createFile: file ${file.absolutePath}".dt(TAG) }
+            file.createNewFile().also { "createFile: file ${file.absolutePath} $it".dt(TAG) }
         } else "createFile: file is exits".dt(TAG)
         return file
     }
@@ -257,7 +257,7 @@ object UtilKFile : BaseUtilK() {
      */
     @JvmStatic
     fun createFolder(folder: File): File {
-        if (!isFolderExist(folder)) folder.mkdirs().also { Log.d(TAG, "createFolder: create path ${folder.absolutePath}") }
+        if (!isFolderExist(folder)) folder.mkdirs().also { Log.d(TAG, "createFolder: create path ${folder.absolutePath} $it") }
         return folder
     }
 
