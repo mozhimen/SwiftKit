@@ -29,13 +29,17 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
     ///////////////////////////////////////////////////////////////////////
 
-    private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
+    private var _lifecycleRegistry: LifecycleRegistry? = null
+    protected val lifecycleRegistry: LifecycleRegistry
+        get() = _lifecycleRegistry ?: LifecycleRegistry(this).also {
+            _lifecycleRegistry = it
+        }
 
     private val _mediaKAudioDelegate by lazy { MediaKAudioDelegate(this) }
 
     init {
         runOnMainThread {
-            _lifecycleRegistry.currentState = Lifecycle.State.STARTED
+            lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
         }
     }
 
@@ -112,7 +116,7 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
     }
 
     override fun release() {
-        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         _mediaKAudioDelegate.release()
     }
 
@@ -150,9 +154,8 @@ class MediaKAudio : IMediaKAudio, LifecycleOwner {
 
     ////////////////////////////////////////////////////////////////////////
 
-    override fun getLifecycle(): Lifecycle {
-        return _lifecycleRegistry
-    }
+    override fun getLifecycle(): Lifecycle =
+        lifecycleRegistry
 
     ////////////////////////////////////////////////////////////////////////
 

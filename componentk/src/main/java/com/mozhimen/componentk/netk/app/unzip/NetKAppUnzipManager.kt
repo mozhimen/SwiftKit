@@ -102,7 +102,7 @@ object NetKAppUnzipManager : IUtilK {
          */
         NetKApp.onUnzipSuccess(appTask)
 
-        NetKAppInstallManager.install(appTask, appTask.apkPathName.strFilePath2file())
+//        NetKAppInstallManager.install(appTask, appTask.apkPathName.strFilePath2file())
     }
 
     @WorkerThread

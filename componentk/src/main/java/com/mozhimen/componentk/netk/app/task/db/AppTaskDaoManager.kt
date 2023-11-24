@@ -5,10 +5,8 @@ import androidx.annotation.WorkerThread
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.bases.IUtilK
-import com.mozhimen.componentk.netk.app.NetKApp
-import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
-import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * @ClassName AppTaskDaoManager
@@ -19,11 +17,13 @@ import java.util.concurrent.CopyOnWriteArrayList
  */
 @OptInApiInit_InApplication
 object AppTaskDaoManager : IUtilK {
-    private val _downloadTasks = CopyOnWriteArrayList<AppTask>()
+    private val _downloadTasks = ConcurrentHashMap<String, AppTask>()
 
     fun init() {
         TaskKExecutor.execute(TAG + "init") {
-            _downloadTasks.addAll(AppTaskDbManager.appTaskDao.getAll())
+            AppTaskDbManager.appTaskDao.getAll().forEach {
+                _downloadTasks[it.taskId] = it
+            }
         }
     }
 
@@ -37,19 +37,22 @@ object AppTaskDaoManager : IUtilK {
 //        }
 //    }
 
+    @JvmStatic
+    fun getByTaskId_PackageName(taskId: String, packageName: String): AppTask? {
+        val appTask: AppTask = _downloadTasks[taskId] ?: return null
+        if (appTask.apkPackageName == packageName)
+            return appTask
+        return null
+    }
+
     /**
      * 根据应用id查询下载对象
      * @param taskId 应用Id
      * @return null 表示没有查询到
      */
+    @JvmStatic
     fun getByTaskId(taskId: String): AppTask? {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.taskId == taskId)
-                return next
-        }
-        return null
+        return _downloadTasks[taskId]
     }
 
     /**
@@ -57,13 +60,14 @@ object AppTaskDaoManager : IUtilK {
      * @param packageName 应用Id
      * @return null 表示没有查询到
      */
+    @JvmStatic
     fun getByApkPackageName(packageName: String): AppTask? {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.apkPackageName == packageName)
-                return next
-        }
+        val map = _downloadTasks.filter { it.value.apkPackageName == packageName }
+        if (map.isNotEmpty())
+            map.forEach {
+                if (it.value.apkPackageName == packageName)
+                    return it.value
+            }
         return null
     }
 
@@ -73,55 +77,31 @@ object AppTaskDaoManager : IUtilK {
      * @return 下载信息
      */
     fun getByApkName(apkName: String): AppTask? {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.apkName == apkName) //游戏id，包名相同即判定为同一个游戏
-                return next
-        }
+        val map = _downloadTasks.filter { it.value.apkName == apkName }
+        if (map.isNotEmpty())
+            map.forEach {
+                if (it.value.apkName == apkName)
+                    return it.value
+            }
         return null
     }
 
     //////////////////////////////////////////////////////////
 
     fun hasDownloading(): Boolean {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.isTaskDownload())
-                return true
-        }
-        return false
+        return _downloadTasks.filter { it.value.isTaskDownload() }.isNotEmpty()
     }
 
     fun hasVerifying(): Boolean {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.isTaskVerify())
-                return true
-        }
-        return false
+        return _downloadTasks.filter { it.value.isTaskVerify() }.isNotEmpty()
     }
 
     fun hasUnziping(): Boolean {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.isTaskUnzip())
-                return true
-        }
-        return false
+        return _downloadTasks.filter { it.value.isTaskUnzip() }.isNotEmpty()
     }
 
     fun hasInstalling(): Boolean {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.isTaskInstall())
-                return true
-        }
-        return false
+        return _downloadTasks.filter { it.value.isTaskInstall() }.isNotEmpty()
     }
 
     //////////////////////////////////////////////////////////
@@ -149,7 +129,9 @@ object AppTaskDaoManager : IUtilK {
                 it.downloadProgress = 0
                 it.taskUpdateTime = System.currentTimeMillis()
             }
-            _downloadTasks.addAll(appTask.toList())
+            appTask.forEach {
+                _downloadTasks[it.taskId] = it
+            }
             AppTaskDbManager.appTaskDao.addAll(*appTask)
         }
     }
@@ -159,16 +141,8 @@ object AppTaskDaoManager : IUtilK {
      */
     fun update(appTask: AppTask) {
         TaskKExecutor.execute(TAG + "update") {
-            updateSync(appTask)
+            updateOnBack(appTask)
         }
-    }
-
-    /**
-     * 在子线程更新数据
-     */
-    @WorkerThread
-    fun updateOnBack(appTask: AppTask) {
-        updateSync(appTask)
     }
 
     /**
@@ -176,18 +150,9 @@ object AppTaskDaoManager : IUtilK {
      */
     fun delete(appTask: AppTask) {
         TaskKExecutor.execute(TAG + "delete") {
-            deleteSync(appTask)
+            deleteOnBack(appTask)
         }
     }
-
-    /**
-     * 在子线程删除数据
-     */
-    @WorkerThread
-    fun deleteOnBack(appTask: AppTask) {
-        deleteSync(appTask)
-    }
-
 
     /*    fun queryAppTask(appBaseInfo: AppBaseInfo): AppTask? {
         val iterator = _appTasks.iterator()
@@ -219,42 +184,26 @@ object AppTaskDaoManager : IUtilK {
      * @param appTask 需要删除的任务
      */
     @Synchronized
-    private fun deleteSync(appTask: AppTask) {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.taskId == appTask.taskId) {
-                iterator.remove()
-                try {
-                    AppTaskDbManager.appTaskDao.delete(appTask)
-                } catch (e: SQLiteDatabaseLockedException) {
-                    e.printStackTrace()
-                }
-                break
-            }
-        }
+    @WorkerThread
+    private fun deleteOnBack(appTask: AppTask) {
+        if (_downloadTasks.contains(appTask.taskId))
+            _downloadTasks.remove(appTask.taskId)
+        AppTaskDbManager.appTaskDao.delete(appTask)
     }
 
     /**
      * 同步更新，防止多个线程同时更新，出现问题
      */
     @Synchronized
-    private fun updateSync(appTask: AppTask) {
-        val iterator = _downloadTasks.iterator()
-        while (iterator.hasNext()) {
-            val next = iterator.next()
-            if (next.apkPackageName == appTask.apkPackageName) {
-                iterator.remove()
-                _downloadTasks.add(appTask.apply {
-                    taskUpdateTime = System.currentTimeMillis()
-                })
-                try {
-                    AppTaskDbManager.appTaskDao.update(appTask)//将本条数据插入到数据库
-                } catch (e: SQLiteDatabaseLockedException) {
-                    e.printStackTrace()
-                }
-                break
-            }
+    @WorkerThread
+    private fun updateOnBack(appTask: AppTask) {
+        appTask.taskUpdateTime = System.currentTimeMillis()
+        if (_downloadTasks.contains(appTask.taskId))
+            _downloadTasks[appTask.taskId] = appTask
+        try {
+            AppTaskDbManager.appTaskDao.update(appTask)//将本条数据插入到数据库
+        } catch (e: SQLiteDatabaseLockedException) {
+            e.printStackTrace()
         }
     }
 }

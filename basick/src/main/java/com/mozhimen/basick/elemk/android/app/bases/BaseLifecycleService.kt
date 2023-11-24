@@ -52,7 +52,6 @@ open class BaseLifecycleService : BaseService(), LifecycleOwner {
         super.onDestroy()
     }
 
-    override fun getLifecycle(): Lifecycle {
-        return _serviceLifecycleDispatcher.lifecycle
-    }
+    override fun getLifecycle(): Lifecycle =
+        _serviceLifecycleDispatcher.lifecycle
 }

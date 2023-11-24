@@ -1,10 +1,9 @@
-package com.mozhimen.componentk.netk.file
+package com.mozhimen.componentk.netk.file.okdownload
 
 import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_ThirdParty
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.componentk.netk.file.okdownload.FileDownloadTaskMgr
 
 
 /**
@@ -17,7 +16,7 @@ import com.mozhimen.componentk.netk.file.okdownload.FileDownloadTaskMgr
 @AManifestKRequire(
     CPermission.INTERNET, CPermission.READ_EXTERNAL_STORAGE, CPermission.WRITE_EXTERNAL_STORAGE
 )
-class NetKFile(owner: LifecycleOwner) {
+class NetKFileOkDownload(owner: LifecycleOwner) {
 
     @OptInApiDeprecated_ThirdParty
     private val _fileDownloadTaskMgr by lazy { FileDownloadTaskMgr(owner) }

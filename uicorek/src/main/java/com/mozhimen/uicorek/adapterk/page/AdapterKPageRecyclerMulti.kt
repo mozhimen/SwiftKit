@@ -3,6 +3,7 @@ package com.mozhimen.uicorek.adapterk.page
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.util.forEach
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.android.view.applyDebounceClickListener
@@ -30,7 +31,11 @@ open class AdapterKPageRecyclerMulti<DATA>(itemCallback: ItemCallback<DATA>) : A
     }
 
     override fun onBindViewHolder(holder: VHKRecycler, position: Int) {
-        onBindViewHolder(holder, getItem(position))
+        onBindRecyclerKPageItem(holder, getItem(position), position)
+    }
+
+    override fun onBindViewHolder(holder: VHKRecycler, position: Int, payloads: MutableList<Any>) {
+        onBindRecyclerKPageItem(holder, getItem(position), position, payloads)
     }
 
     override fun onBindViewClickListener(holder: VHKRecycler, viewType: Int) {
@@ -39,14 +44,34 @@ open class AdapterKPageRecyclerMulti<DATA>(itemCallback: ItemCallback<DATA>) : A
         onBindChildClickListener(holder, viewType)
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        _recyclerKPageItems.forEach { _, value ->
+            value.onAttachedToRecyclerView()
+        }
+    }
+
     override fun onViewAttachedToWindow(holder: VHKRecycler) {
         super.onViewAttachedToWindow(holder)
         getRecyclerKPageItem(holder.itemViewType)?.onViewAttachedToWindow(holder)
     }
 
     override fun onViewDetachedFromWindow(holder: VHKRecycler) {
-        super.onViewDetachedFromWindow(holder)
         getRecyclerKPageItem(holder.itemViewType)?.onViewDetachedFromWindow(holder)
+        super.onViewDetachedFromWindow(holder)
+    }
+
+    override fun onViewRecycled(holder: VHKRecycler) {
+        super.onViewRecycled(holder)
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        _recyclerKPageItems.forEach { _, value ->
+            value.onDetachedFromRecyclerView()
+        }
+        super.onDetachedFromRecyclerView(recyclerView)
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -68,12 +93,12 @@ open class AdapterKPageRecyclerMulti<DATA>(itemCallback: ItemCallback<DATA>) : A
         _recyclerKPageItems.put(item.itemViewType, item)
     }
 
-    fun onBindViewHolder(holder: VHKRecycler, item: DATA?) {
-        getRecyclerKPageItem(holder.itemViewType)?.onBindViewHolder(holder, item)
+    fun onBindRecyclerKPageItem(holder: VHKRecycler, item: DATA?, position: Int) {
+        getRecyclerKPageItem(holder.itemViewType)?.onBindViewHolder(holder, item, position)
     }
 
-    fun onBindViewHolder(holder: VHKRecycler, item: DATA, payloads: List<Any>) {
-        getRecyclerKPageItem(holder.itemViewType)?.onBindViewHolder(holder, item, payloads)
+    fun onBindRecyclerKPageItem(holder: VHKRecycler, item: DATA?, position: Int, payloads: List<Any>) {
+        getRecyclerKPageItem(holder.itemViewType)?.onBindViewHolder(holder, item, position, payloads)
     }
 
     /////////////////////////////////////////////////////////////////////////////////

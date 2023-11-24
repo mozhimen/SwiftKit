@@ -16,27 +16,32 @@ import androidx.lifecycle.LifecycleRegistry
  */
 open class BaseLifecycleService2 : BaseService(), LifecycleOwner {
 
-    private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
+    private var _lifecycleRegistry: LifecycleRegistry? = null
+    protected val lifecycleRegistry: LifecycleRegistry
+        get() = _lifecycleRegistry ?: LifecycleRegistry(this).also {
+            _lifecycleRegistry = it
+        }
+
+    //////////////////////////////////////////////////////////////////////////
 
     @CallSuper
     override fun onCreate() {
         super.onCreate()
-        _lifecycleRegistry.currentState = Lifecycle.State.CREATED
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
     }
 
     @CallSuper
     override fun onBind(intent: Intent): IBinder {
-        _lifecycleRegistry.currentState = Lifecycle.State.STARTED
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
         return binder
     }
 
     @CallSuper
     override fun onDestroy() {
-        _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         super.onDestroy()
     }
 
-    override fun getLifecycle(): Lifecycle {
-        return _lifecycleRegistry
-    }
+    override fun getLifecycle(): Lifecycle =
+        lifecycleRegistry
 }

@@ -1,11 +1,18 @@
 package com.mozhimen.uicorek.recyclerk.item
 
 import android.content.Context
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.utilk.android.view.findViewByInflate
+import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.uicorek.adapterk.page.AdapterKPageRecyclerMulti
 import com.mozhimen.uicorek.vhk.VHKRecycler
 import java.lang.ref.WeakReference
@@ -17,12 +24,22 @@ import java.lang.ref.WeakReference
  * @Date 2023/10/11 11:52
  * @Version 1.0
  */
-abstract class RecyclerKPageItem<DATA> {
+abstract class RecyclerKPageItem<DATA> : LifecycleOwner, IUtilK {
 
     lateinit var context: Context
     private var _adapterKPageRecyclerMultiRef: WeakReference<AdapterKPageRecyclerMulti<DATA>>? = null
     private val _childClickViewIds by lazy(LazyThreadSafetyMode.NONE) { ArrayList<Int>() }
     private val _childLongClickViewIds by lazy(LazyThreadSafetyMode.NONE) { ArrayList<Int>() }
+    private var _lifecycleRegistry: LifecycleRegistry? = null
+    private val lifecycleRegistry: LifecycleRegistry
+        get() = _lifecycleRegistry ?: LifecycleRegistry(this).also {
+            _lifecycleRegistry = it
+        }
+
+    ///////////////////////////////////////////////////////////////////////
+
+    override fun getLifecycle(): Lifecycle =
+        lifecycleRegistry
 
     ///////////////////////////////////////////////////////////////////////
 
@@ -62,7 +79,7 @@ abstract class RecyclerKPageItem<DATA> {
         @LayoutRes
         get
 
-    abstract fun onBindViewHolder(holder: VHKRecycler, item: DATA?)
+    abstract fun onBindViewHolder(holder: VHKRecycler, item: DATA?, position: Int)
 
     ///////////////////////////////////////////////////////////////////////
 
@@ -73,12 +90,19 @@ abstract class RecyclerKPageItem<DATA> {
     open fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VHKRecycler =
         VHKRecycler(parent.findViewByInflate(layoutId))
 
-    open fun onBindViewHolder(helper: VHKRecycler, item: DATA, payloads: List<Any>) {}
+    open fun onBindViewHolder(holder: VHKRecycler, item: DATA?, position: Int, payloads: List<Any>) {
+        onBindViewHolder(holder, item, position)
+    }
 
     /**
      * （可选重写）ViewHolder创建完毕以后的回掉方法。
      */
     open fun onViewHolderCreated(holder: VHKRecycler, viewType: Int) {}
+
+    @CallSuper
+    open fun onAttachedToRecyclerView() {
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    }
 
     /**
      * Called when a view created by this [BaseItemProvider] has been attached to a window.
@@ -91,7 +115,10 @@ abstract class RecyclerKPageItem<DATA> {
      *
      * @param holder Holder of the view being attached
      */
-    open fun onViewAttachedToWindow(holder: VHKRecycler) {}
+    @CallSuper
+    open fun onViewAttachedToWindow(holder: VHKRecycler) {
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
+    }
 
     /**
      * Called when a view created by this [BaseItemProvider] has been detached from its
@@ -104,7 +131,16 @@ abstract class RecyclerKPageItem<DATA> {
      *
      * @param holder Holder of the view being detached
      */
-    open fun onViewDetachedFromWindow(holder: VHKRecycler) {}
+    @CallSuper
+    open fun onViewDetachedFromWindow(holder: VHKRecycler) {
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+    }
+
+    @CallSuper
+    fun onDetachedFromRecyclerView() {
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        Log.d(TAG, "onDetachedFromRecyclerView: ")
+    }
 
     /**
      * item 若想实现条目点击事件则重写该方法
@@ -117,8 +153,14 @@ abstract class RecyclerKPageItem<DATA> {
     open fun onLongClick(holder: VHKRecycler, view: View, data: DATA, position: Int): Boolean =
         false
 
+    /**
+     *
+     */
     open fun onChildClick(holder: VHKRecycler, view: View, data: DATA?, position: Int) {}
 
+    /**
+     *
+     */
     open fun onChildLongClick(holder: VHKRecycler, view: View, data: DATA, position: Int): Boolean =
         false
 }

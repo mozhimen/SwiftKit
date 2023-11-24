@@ -15,33 +15,34 @@ import com.mozhimen.uicorek.popwink.bases.BasePopwinK
  * @Version 1.0
  */
 open class BasePopwinKLifecycle(context: Context) : BasePopwinK(context), LifecycleOwner {
-    protected var _lifecycleRegistry: LifecycleRegistry? = null
+    private var _lifecycleRegistry: LifecycleRegistry? = null
+    protected val lifecycleRegistry: LifecycleRegistry
+        get() = _lifecycleRegistry ?: LifecycleRegistry(this).also {
+            _lifecycleRegistry = it
+        }
 
-    init {
-        _lifecycleRegistry = LifecycleRegistry(this)
-    }
+    ///////////////////////////////////////////////////////////////////////////
 
     override fun onViewCreated(contentView: View) {
         super.onViewCreated(contentView)
-        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
     }
 
     override fun onShowing() {
         super.onShowing()
-        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_START)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
     }
 
     override fun onDismiss() {
-        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
         super.onDismiss()
     }
 
     override fun onDestroy() {
-        _lifecycleRegistry?.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         super.onDestroy()
     }
 
-    override fun getLifecycle(): Lifecycle {
-        return _lifecycleRegistry!!
-    }
+    override fun getLifecycle(): Lifecycle =
+        lifecycleRegistry
 }

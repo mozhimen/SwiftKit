@@ -86,12 +86,15 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
         }
 
     private var _isOpen by VarProperty_SetVaryNonnull(false) { _, value ->
-        if (value) _lifecycleRegistry.currentState = Lifecycle.State.STARTED else _lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
+        if (value) lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START) else lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         true
     }
 
-    private val _lifecycleRegistry: LifecycleRegistry by lazy { LifecycleRegistry(this) }
-
+    private var _lifecycleRegistry: LifecycleRegistry? = null
+    protected val lifecycleRegistry: LifecycleRegistry
+        get() = _lifecycleRegistry ?: LifecycleRegistry(this).also {
+            _lifecycleRegistry = it
+        }
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     init {
@@ -103,7 +106,8 @@ class LogKPrinterMonitorDelegate : ILogKPrinter, ILogKPrinterMonitor, BaseUtilK(
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    override fun getLifecycle(): Lifecycle = _lifecycleRegistry
+    override fun getLifecycle(): Lifecycle =
+        lifecycleRegistry
 
     override fun print(config: BaseLogKConfig, priority: Int, tag: String, msg: String) {
         if (_isOpen) {

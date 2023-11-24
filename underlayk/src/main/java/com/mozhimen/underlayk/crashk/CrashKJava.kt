@@ -134,7 +134,10 @@ class CrashKJava : BaseUtilK(), ICrashK {
             stringBuilder.append("totalMemory= ${UtilKActivityManager.getTotalMenSizeStr(memoryInfo)}").append(CMsg.LINE_BREAK)//设备总内存
 
             //sd storage size
-            stringBuilder.append("availableStorage= ${UtilKDevice.getFreeExternalMemorySize()}").append(CMsg.LINE_BREAK)//存储空间
+            try {
+                stringBuilder.append("availableStorage= ${UtilKDevice.getFreeExternalMemorySize()}").append(CMsg.LINE_BREAK)//存储空间
+            } catch (_: Exception) {
+            }
             stringBuilder.append(CMsg.PART_LINE_BIAS).append(CMsg.LINE_BREAK)
 
             //stack info

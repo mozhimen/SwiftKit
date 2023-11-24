@@ -78,4 +78,11 @@ data class AppTask(
 
     fun isDownloading(): Boolean =
         !apkIsInstalled && CNetKAppState.isDownloading(taskState)
+
+    ////////////////////////////////////////////////////////////
+
+    override fun toString(): String {
+        return "AppTask(taskId='$taskId', taskState=$taskState, downloadProgress=$downloadProgress, apkFileSize=$apkFileSize, apkFileMd5='$apkFileMd5', apkPackageName='$apkPackageName', apkName='$apkName', apkPathName='$apkPathName', apkIsInstalled=$apkIsInstalled, apkVerifyNeed=$apkVerifyNeed, taskUpdateTime=$taskUpdateTime),  downloadUrl='$downloadUrl', downloadUrlOutSide='$downloadUrlOutSide', downloadUrlCurrent='$downloadUrlCurrent'"
+    }
+
 }

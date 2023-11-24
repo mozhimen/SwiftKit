@@ -13,6 +13,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
+import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import com.mozhimen.componentk.installk.manager.InstallKManager
 import com.mozhimen.componentk.netk.app.commons.INetKAppState
 import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
@@ -24,6 +25,7 @@ import com.mozhimen.componentk.netk.app.task.db.AppTaskDbManager
 import com.mozhimen.componentk.netk.app.download.NetKAppDownloadManager
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 import com.mozhimen.componentk.netk.app.download.mos.int2appDownloadException
+import com.mozhimen.componentk.netk.app.install.NetKAppInstallManager
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallProxy
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
@@ -50,6 +52,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
     //region # init
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
+    @JvmStatic
     fun init(context: Context) {
         _netKAppInstallProxy.bindLifecycle(ProcessLifecycleOwner.get())// 注册应用安装的监听 InstalledApkReceiver.registerReceiver(this)
         AppTaskDbManager.init(context)
@@ -57,12 +60,14 @@ object NetKApp : INetKAppState, BaseUtilK() {
         NetKAppDownloadManager.init(context)
     }
 
+    @JvmStatic
     fun registerDownloadStateListener(listener: INetKAppState) {
         if (!_appDownloadStateListeners.contains(listener)) {
             _appDownloadStateListeners.add(listener)
         }
     }
 
+    @JvmStatic
     fun unregisterDownloadListener(listener: INetKAppState) {
         val indexOf = _appDownloadStateListeners.indexOf(listener)
         if (indexOf >= 0)
@@ -74,6 +79,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     // control
     /////////////////////////////////////////////////////////////////
     //region # control
+    @JvmStatic
     fun taskStart(appTask: AppTask) {
         try {
             if (appTask.isTaskProcess()) {
@@ -125,6 +131,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
         }
     }
 
+    @JvmStatic
     fun taskCancel(appTask: AppTask/*, onCancelBlock: IAB_Listener<Boolean, Int>? = null*/) {
         if (!appTask.isTaskProcess()) {
             Log.d(TAG, "taskCancel: task is not process")
@@ -144,6 +151,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
         }
     }
 
+    @JvmStatic
     fun taskPause(appTask: AppTask) {
         if (!appTask.isTaskProcess()) {
             Log.d(TAG, "taskPause: task is not process")
@@ -155,6 +163,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
         }
     }
 
+    @JvmStatic
     fun taskResume(appTask: AppTask) {
         if (!appTask.isTaskProcess()) {
             Log.d(TAG, "downloadResume: task is not process")
@@ -165,15 +174,25 @@ object NetKApp : INetKAppState, BaseUtilK() {
             NetKAppDownloadManager.downloadResume(appTask)
         }
     }
+
+    @JvmStatic
+    fun install(appTask: AppTask) {
+        NetKAppInstallManager.install(appTask, appTask.apkPathName.strFilePath2file())
+    }
     //endregion
 
     /////////////////////////////////////////////////////////////////
     // state
     /////////////////////////////////////////////////////////////////
     //region # state
+    @JvmStatic
+    fun getAppTaskByTaskId_PackageName(taskId: String, packageName: String): AppTask? =
+        AppTaskDaoManager.getByTaskId_PackageName(taskId, packageName)
+
     /**
      *  根据游戏id查询下载信息
      */
+    @JvmStatic
     fun getAppTaskByDownloadId(downloadId: String): AppTask? {
         return AppTaskDaoManager.getByTaskId(downloadId)
     }
@@ -181,6 +200,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     /**
      * 通过保存名称获取下载信息
      */
+    @JvmStatic
     fun getAppTaskByApkSaveName(apkSaveName: String): AppTask? {
         return AppTaskDaoManager.getByApkName(apkSaveName)
     }
@@ -195,6 +215,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     /**
      * 是否有正在下载的任务
      */
+    @JvmStatic
     @AnyThread
     fun hasDownloading(): Boolean {
         return AppTaskDaoManager.hasDownloading()
@@ -203,6 +224,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     /**
      * 是否有正在校验的任务
      */
+    @JvmStatic
     fun hasVerifying(): Boolean {
         return AppTaskDaoManager.hasVerifying()
     }
@@ -210,6 +232,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     /**
      * 是否有正在解压的任务
      */
+    @JvmStatic
     fun hasUnziping(): Boolean {
         return AppTaskDaoManager.hasUnziping()
     }
@@ -218,9 +241,11 @@ object NetKApp : INetKAppState, BaseUtilK() {
      * 判断是否正在下载中
      * @return true 正在下载中  false 当前不是正在下载中
      */
+    @JvmStatic
     fun isDownloading(appTask: AppTask): Boolean {
         return NetKAppDownloadManager.getAppDownloadProgress(appTask).isDownloading()//查询下载状态
     }
+
     //endregion
 
     /////////////////////////////////////////////////////////////////
@@ -474,6 +499,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
         progress: Int = -1,
         onNext: I_Listener? = null
     ) {
+        Log.d(TAG, "applyAppTaskStateException: ${appTask.taskState} $appTask")
         AppTaskDaoManager.update(
             appTask.apply {
                 this.taskState = state

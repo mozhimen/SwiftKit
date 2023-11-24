@@ -44,8 +44,13 @@ object InstallKManager : BaseUtilK() {
     /**
      * 查询应用是否安装
      */
+    @JvmStatic
     fun hasPackageName(packageName: String): Boolean =
         _installedPackageInfos.containsBy { it.packageName == packageName }
+
+    @JvmStatic
+    fun getByPackageName(packageName: String): PackageInfo? =
+        _installedPackageInfos.find { packageInfo -> packageInfo.packageName == packageName }
 
     /////////////////////////////////////////////////////////////////////////
 
