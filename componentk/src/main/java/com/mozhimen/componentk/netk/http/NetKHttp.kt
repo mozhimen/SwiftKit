@@ -1,21 +1,19 @@
 package com.mozhimen.componentk.netk.http
 
-import android.util.Log
 import com.mozhimen.basick.elemk.android.util.cons.CLogPriority
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CApplication
 import com.mozhimen.basick.manifestk.cons.CPermission
 import com.mozhimen.basick.utilk.android.util.UtilKLog
-import com.mozhimen.basick.utilk.android.util.UtilKLogSupport
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.squareup.moshi.UtilKMoshi
 import com.mozhimen.componentk.BuildConfig
-import com.mozhimen.underlayk.logk.cons.CLogKCons
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  * @ClassName CoroutineFactory
@@ -29,13 +27,15 @@ open class NetKHttp(
     baseUrl: String,
     interceptors: List<Interceptor> = emptyList()
 ) : BaseUtilK() {
-    private val _intercepters: ArrayList<Interceptor> = ArrayList()
+    private val _interceptors: ArrayList<Interceptor> = ArrayList()
     private val _okHttpClient by lazy {
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
+                connectTimeout(5, TimeUnit.SECONDS)
+                readTimeout(5, TimeUnit.SECONDS)
                 addInterceptor(HttpLoggingInterceptor { msg -> UtilKLog.longLog(CLogPriority.V, TAG, msg) }.also { it.level = HttpLoggingInterceptor.Level.BODY })
-                if (_intercepters.isNotEmpty())
-                    for (interceptor in _intercepters) addInterceptor(interceptor)
+                if (_interceptors.isNotEmpty())
+                    for (interceptor in _interceptors) addInterceptor(interceptor)
             }
         }.build()
     }
@@ -63,7 +63,7 @@ open class NetKHttp(
     /////////////////////////////////////////////////////////////////////////
 
     init {
-        if (interceptors.isNotEmpty()) this._intercepters.addAll(interceptors)
+        if (interceptors.isNotEmpty()) this._interceptors.addAll(interceptors)
     }
 
     /////////////////////////////////////////////////////////////////////////

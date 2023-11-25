@@ -70,7 +70,7 @@ object TaskKExecutor : ITaskKExecutor, BaseUtilK() {
             override fun afterExecute(r: Runnable?, t: Throwable?) {
                 //监控线程池耗时任务,线程创建数量,正在运行的数量
                 val runnable = r as PriorityRunnable
-                Log.d(TAG, "the task ${runnable.name} is finished, priority ${runnable.priority}")
+                Log.v(TAG, "afterExecute: the task ${runnable.name} is finished, priority ${runnable.priority}")
             }
         }
     }

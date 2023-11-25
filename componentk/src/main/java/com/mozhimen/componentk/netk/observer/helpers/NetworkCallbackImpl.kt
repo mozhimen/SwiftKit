@@ -54,18 +54,18 @@ class NetworkCallbackImpl : ConnectivityManager.NetworkCallback(), IUtilK, INetK
 
     override fun onAvailable(network: Network) {
         super.onAvailable(network)
-        "net connect success! 网络已连接".it(TAG)
+        "onAvailable: net connect success (网络已连接)".it(TAG)
     }
 
     override fun onLost(network: Network) {
         super.onLost(network)
-        "net disconnect! 网络已断开连接".it(TAG)
+        "onLost: net disconnect (网络已断开连接)".it(TAG)
     }
 
     override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
         super.onCapabilitiesChanged(network, networkCapabilities)
-        "net status change! 网络连接改变".it(TAG)// 表明此网络连接成功验证
         val type = networkCapabilities.networkCapabilities2netType().eNetType2strNetType()
+        "onCapabilitiesChanged: net status change (网络连接改变) $type".it(TAG)// 表明此网络连接成功验证
         if (type == _liveNetType.value) return
         post(type)
     }

@@ -9,10 +9,10 @@ package com.mozhimen.componentk.netk.app.task.cons
  */
 object CNetKAppTaskState {
     //任务
-    const val STATE_TASK_CREATE = 0//STATE_NOT_INSTALLED = 0//未安装 处于未下载，
-    const val STATE_TASK_WAIT = 1//STATE_PENDING = 3//等待中
-    const val STATE_TASKING = 2
-    const val STATE_TASK_PAUSE = 3
+    const val STATE_TASK_CREATE = 0//STATE_NOT_INSTALLED = 0//任务创建 未安装 处于未下载，
+    const val STATE_TASK_WAIT = 1//STATE_PENDING = 3//任务等待
+    const val STATE_TASKING = 2//任务中
+    const val STATE_TASK_PAUSE = 3//任务暂停
 
     //    const val STATE_TASK_WAIT_CANCEL = 2//STATE_PENDING_CANCELED = 4//取消等待中
     const val STATE_TASK_CANCEL = 7//取消任务

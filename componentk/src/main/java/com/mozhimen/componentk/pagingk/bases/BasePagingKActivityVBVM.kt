@@ -49,13 +49,21 @@ abstract class BasePagingKActivityVBVM<DES, VB : ViewDataBinding, VM : BasePagin
             } else
                 getSwipeRefreshLayout().isRefreshing = false
             if (it == CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY) {
-                getRecyclerView().applyGone()
                 onLoadEmpty()
             } else {
-                getRecyclerView().applyVisible()
                 onLoadComplete()
             }
         }
+    }
+
+    @CallSuper
+    override fun onLoadEmpty() {
+        getRecyclerView().applyGone()
+    }
+
+    @CallSuper
+    override fun onLoadComplete() {
+        getRecyclerView().applyVisible()
     }
 
     override fun onResume() {

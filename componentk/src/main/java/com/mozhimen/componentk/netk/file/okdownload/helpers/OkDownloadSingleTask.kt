@@ -1,4 +1,4 @@
-package com.mozhimen.componentk.netk.file.okdownload
+package com.mozhimen.componentk.netk.file.okdownload.helpers
 
 import android.util.Log
 import com.liulishuo.okdownload.DownloadTask
@@ -30,7 +30,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 @OptInApiInit_ByLazy
 @OptInApiDeprecated_ThirdParty
 @Deprecated("okdownload is deprecated")
-class TaskFileDownloadSingle : BaseWakeBefDestroyTaskK() {
+class OkDownloadSingleTask : BaseWakeBefDestroyTaskK() {
     private val _downloadUrls = CopyOnWriteArrayList<String>()
     private var _downloadListenerMap = ConcurrentHashMap<String, IFileDownloadSingleListener>()
     private var _downloadTaskMap = ConcurrentHashMap<String, DownloadTask>()

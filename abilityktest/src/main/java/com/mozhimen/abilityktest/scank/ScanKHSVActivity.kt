@@ -66,16 +66,12 @@ class ScanKHSVActivity : BaseActivityVB<ActivityScankHsvBinding>() {
                         imageProxy.yuv420888ImageProxy2JpegBitmap()
                     } else {
                         imageProxy.jpegImageProxy2JpegBitmap()
-                    }.applyBitmapAnyRotate(90f).apply {
-                        applyBitmapAnyCrop(
-                            (_ratio * this.width).toInt(),
-                            (_ratio * this.width).toInt(),
-                            ((1 - _ratio) * this.width / 2).toInt(),
-                            ((this.height - _ratio * this.width) / 2).toInt()
-                        ).apply {
-                            applyBitmapAnyScaleRatio( this.width / 5f, this.height / 5f)//降低分辨率提高运算速度
-                        }
-                    }
+                    }.applyBitmapAnyRotate(90f).applyBitmapAnyCrop(
+                        (_ratio * this.width).toInt(),
+                        (_ratio * this.width).toInt(),
+                        ((1 - _ratio) * this.width / 2).toInt(),
+                        ((this.height - _ratio * this.width) / 2).toInt()
+                    ).applyBitmapAnyScaleRatio( this.width / 5f, this.height / 5f)//降低分辨率提高运算速度
                     val results = ScanKHSV.colorAnalyze(_orgBitmap!!)
                     Log.i(TAG, "analyze: $results")
                     _lastTime = System.currentTimeMillis()

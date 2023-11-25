@@ -24,12 +24,18 @@ object CEnvironment {
     val DIRECTORY_DOCUMENTS = Environment.DIRECTORY_DOCUMENTS
     val MEDIA_MOUNTED = Environment.MEDIA_MOUNTED
 
+    @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    val DIRECTORY_SCREENSHOTS = Environment.DIRECTORY_SCREENSHOTS
+    fun getDirectoryScreenShots(): String =
+        Environment.DIRECTORY_SCREENSHOTS
 
+    @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    val DIRECTORY_AUDIOBOOKS = Environment.DIRECTORY_AUDIOBOOKS
+    fun getDirectoryAudioBooks(): String =
+        Environment.DIRECTORY_AUDIOBOOKS
 
-//    @RequiresApi(CVersCode.V_31_11_S)
-//    val DIRECTORY_RECORDINGS = Environment.DIRECTORY_RECORDINGS
+    @JvmStatic
+    @RequiresApi(CVersCode.V_31_11_S)
+    fun getDirectoryRecordings(): String =
+        Environment.DIRECTORY_RECORDINGS
 }

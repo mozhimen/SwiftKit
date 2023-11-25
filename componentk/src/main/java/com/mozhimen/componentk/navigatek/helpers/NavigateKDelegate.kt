@@ -1,5 +1,6 @@
 package com.mozhimen.componentk.navigatek.helpers
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
@@ -25,6 +26,7 @@ internal class NavigateKDelegate(private val _activity: FragmentActivity) : INav
         return this
     }
 
+    @SuppressLint("RestrictedApi")
     override fun setupNavGraph(containerId: Int, clazzes: List<Class<*>>, defaultDestinationId: Int): NavController {
         if (clazzes.isEmpty()) throw Exception("clazzes must not be empty!")
 

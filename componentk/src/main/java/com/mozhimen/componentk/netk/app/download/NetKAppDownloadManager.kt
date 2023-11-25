@@ -220,7 +220,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             }
 
             StatusUtil.Status.IDLE -> {
-                return MAppDownloadProgress().apply {
+                MAppDownloadProgress().apply {
                     progressState = CNetKAppState.STATE_DOWNLOAD_PAUSE
                     progress = StatusUtil.getCurrentInfo(task)?.let {
                         (it.totalOffset.toFloat() / it.totalLength * 100).toInt()
@@ -229,7 +229,7 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             }
             //StatusUtil.Status.UNKNOWN
             else -> {
-                return MAppDownloadProgress().apply {
+                MAppDownloadProgress().apply {
                     progressState = CNetKAppTaskState.STATE_TASKING
                     progress = StatusUtil.getCurrentInfo(task)?.let {
                         (it.totalOffset.toFloat() / it.totalLength * 100).toInt()
@@ -262,11 +262,11 @@ object NetKAppDownloadManager : DownloadListener1(), IUtilK {
     override fun progress(task: DownloadTask, currentOffset: Long, totalLength: Long) {
         Log.d(TAG, "progress: task $task currentOffset $currentOffset  totalLength $totalLength")
         _downloadingTasks[task.id]?.let { appTask ->
-            val progress = (currentOffset.toFloat() / totalLength * 100).toInt()
+            val progress = ((currentOffset.toFloat() / totalLength.toFloat()) * 100f).toInt()
             /**
              * [CNetKAppState.STATE_DOWNLOADING]
              */
-            NetKApp.onDownloading(appTask, progress)
+            NetKApp.onDownloading(appTask.apply { downloadProgress = progress }, progress)
         }
     }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_ThirdParty
 import com.mozhimen.basick.manifestk.annors.AManifestKRequire
 import com.mozhimen.basick.manifestk.cons.CPermission
+import com.mozhimen.componentk.netk.file.okdownload.helpers.OkDownloadTaskManager
 
 
 /**
@@ -19,11 +20,11 @@ import com.mozhimen.basick.manifestk.cons.CPermission
 class NetKFileOkDownload(owner: LifecycleOwner) {
 
     @OptInApiDeprecated_ThirdParty
-    private val _fileDownloadTaskMgr by lazy { FileDownloadTaskMgr(owner) }
+    private val _okDownloadTaskManager by lazy { OkDownloadTaskManager(owner) }
 
     @OptInApiDeprecated_ThirdParty
-    fun download(): FileDownloadTaskMgr =
-        _fileDownloadTaskMgr
+    fun download(): OkDownloadTaskManager =
+        _okDownloadTaskManager
 
 //    companion object {
 //        @JvmStatic

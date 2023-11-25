@@ -29,6 +29,8 @@ import com.mozhimen.componentk.netk.app.install.NetKAppInstallManager
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallProxy
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
+import com.mozhimen.componentk.netk.app.utils.intAppState2strAppState
+import com.mozhimen.componentk.netk.file.okdownload.NetKFileOkDownloadMgr
 
 /**
  * @ClassName NetKAppDownload
@@ -55,6 +57,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     @JvmStatic
     fun init(context: Context) {
         _netKAppInstallProxy.bindLifecycle(ProcessLifecycleOwner.get())// 注册应用安装的监听 InstalledApkReceiver.registerReceiver(this)
+        NetKFileOkDownloadMgr.init(context)
         AppTaskDbManager.init(context)
         InstallKManager.init(context)
         NetKAppDownloadManager.init(context)
@@ -259,7 +262,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 ApplicationService.updateAppDownload(appTask.appId)
             }
         }*/
-        applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CREATE, 0)
+        applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CREATE)
     }
 
     override fun onTaskWait(appTask: AppTask) {
@@ -478,17 +481,14 @@ object NetKApp : INetKAppState, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
 
     private fun applyAppTaskState(
-        appTask: AppTask,
-        state: Int,
-        progress: Int = -1,
-        finishType: ENetKAppFinishType = ENetKAppFinishType.SUCCESS,
-        onNext: I_Listener? = null
+        appTask: AppTask, state: Int, progress: Int = 0, finishType: ENetKAppFinishType = ENetKAppFinishType.SUCCESS, onNext: I_Listener? = null
     ) {
-        AppTaskDaoManager.update(
-            appTask.apply {
-                this.taskState = state
-                if (progress > -1) downloadProgress = progress
-            })
+        appTask.apply {
+            this.taskState = state
+            if (progress > 0) downloadProgress = progress
+        }
+        Log.d(TAG, "applyAppTaskState: state ${state.intAppState2strAppState()} appTask $appTask")
+        AppTaskDaoManager.update(appTask)
         postAppTaskState(appTask, state, progress, finishType, onNext)
     }
 
@@ -496,15 +496,15 @@ object NetKApp : INetKAppState, BaseUtilK() {
         appTask: AppTask,
         state: Int,
         exception: AppDownloadException,
-        progress: Int = -1,
+        progress: Int = 0,
         onNext: I_Listener? = null
     ) {
-        Log.d(TAG, "applyAppTaskStateException: ${appTask.taskState} $appTask")
-        AppTaskDaoManager.update(
-            appTask.apply {
-                this.taskState = state
-                if (progress > -1) downloadProgress = progress
-            })
+        appTask.apply {
+            this.taskState = state
+            if (progress > 0) downloadProgress = progress
+        }
+        Log.d(TAG, "applyAppTaskState: state ${state.intAppState2strAppState()} exception $exception appTask $appTask")
+        AppTaskDaoManager.update(appTask)
         postAppTaskState(appTask, state, exception, onNext)
     }
 
