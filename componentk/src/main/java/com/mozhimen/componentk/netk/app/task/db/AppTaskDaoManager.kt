@@ -6,6 +6,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
+import java.lang.Exception
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -71,6 +72,11 @@ object AppTaskDaoManager : IUtilK {
         return null
     }
 
+    @JvmStatic
+    fun getAllAtTaskDownload(): List<AppTask> {
+        return _downloadTasks.filter { it.value.isTaskDownload() }.map { it.value }
+    }
+
     /**
      * 通过保存名称获取下载信息
      * @param apkName 保存名称
@@ -109,8 +115,8 @@ object AppTaskDaoManager : IUtilK {
     fun removeAppTaskForDatabase(appTask: AppTask) {
         if (appTask.apkPackageName.isEmpty()) return
         val appTask1 = getByApkPackageName(appTask.apkPackageName) ?: return//从本地数据库中查询出下载信息//如果查询不到，就不处理
-        if (appTask1.apkIsInstalled)//删除数据库中的其他已安装的数据，相同包名的只保留一条已安装的数据
-            delete(appTask1)
+        //if (appTask1.apkIsInstalled)//删除数据库中的其他已安装的数据，相同包名的只保留一条已安装的数据
+        delete(appTask1)
     }
 
     fun addAppTask2Database(appTask: AppTask) {
@@ -198,12 +204,15 @@ object AppTaskDaoManager : IUtilK {
     @WorkerThread
     private fun updateOnBack(appTask: AppTask) {
         appTask.taskUpdateTime = System.currentTimeMillis()
-        if (_downloadTasks.contains(appTask.taskId))
-            _downloadTasks[appTask.taskId] = appTask
         try {
-            AppTaskDbManager.appTaskDao.update(appTask)//将本条数据插入到数据库
-        } catch (e: SQLiteDatabaseLockedException) {
+            if (_downloadTasks.containsKey(appTask.taskId)) {
+                AppTaskDbManager.appTaskDao.update(appTask)//将本条数据插入到数据库
+            } else {
+                AppTaskDbManager.appTaskDao.addAll(appTask)
+            }
+        } catch (e: Exception) {
             e.printStackTrace()
         }
+        _downloadTasks[appTask.taskId] = appTask
     }
 }

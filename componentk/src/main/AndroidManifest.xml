@@ -3,26 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mozhimen.componentk">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:ignore="CoarseFineLocation" />
+    <!--/////////////////////////////////////////////////////////////////////////-->
+    <!--服务-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.CAMERA" />
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.READ_INSTALL_SESSIONS" />
-    <uses-permission android:name="android.permission.REPLACE_EXISTING_PACKAGE" />
-    <uses-permission
-        android:name="android.permission.INSTALL_PACKAGES"
-        tools:ignore="ProtectedPermissions" />
     <uses-permission
         android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"
         tools:ignore="ProtectedPermissions" />
+
+    <!--/////////////////////////////////////////////////////////////////////////-->
+    <!--传感器/手机-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:ignore="CoarseFineLocation" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <!--/////////////////////////////////////////////////////////////////////////-->
+    <!--网络/状态-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <!--/////////////////////////////////////////////////////////////////////////-->
+    <!--存储-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
 
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
@@ -30,6 +39,21 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
+
+    <!--/////////////////////////////////////////////////////////////////////////-->
+    <!--应用-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.READ_INSTALL_SESSIONS" />
+    <uses-permission android:name="android.permission.REPLACE_EXISTING_PACKAGE" />
+    <uses-permission
+        android:name="android.permission.INSTALL_PACKAGES"
+        tools:ignore="ProtectedPermissions" />
+
+    <!--/////////////////////////////////////////////////////////////////////////-->
+    <!--application-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
 
     <application
         android:allowBackup="true"

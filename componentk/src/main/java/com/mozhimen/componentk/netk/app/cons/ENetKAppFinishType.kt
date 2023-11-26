@@ -1,6 +1,6 @@
 package com.mozhimen.componentk.netk.app.cons
 
-import java.lang.Exception
+import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 
 /**
  * @ClassName ENetKAppFinish
@@ -12,5 +12,5 @@ import java.lang.Exception
 sealed class ENetKAppFinishType {
     object SUCCESS : ENetKAppFinishType()
     object CANCEL : ENetKAppFinishType()
-    data class FAIL(val exception: Exception) : ENetKAppFinishType()
+    data class FAIL(val exception: AppDownloadException) : ENetKAppFinishType()
 }

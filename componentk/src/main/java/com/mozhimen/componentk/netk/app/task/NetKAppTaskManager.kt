@@ -28,9 +28,9 @@ object NetKAppTaskManager {
     @JvmStatic
     fun deleteFileApk(appTask: AppTask): Boolean {
         val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: return true
-        File(externalFilesDir, appTask.apkName).deleteFile()
-        if (appTask.apkName.endsWith(".npk")) {//如果是npk,删除解压的文件夹
-            File(externalFilesDir, appTask.apkName.split(".npk")[0]).deleteFolder()
+        File(externalFilesDir, appTask.apkFileName).deleteFile()
+        if (appTask.apkFileName.endsWith(".npk")) {//如果是npk,删除解压的文件夹
+            File(externalFilesDir, appTask.apkFileName.split(".npk")[0]).deleteFolder()
         }
         return true
     }

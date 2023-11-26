@@ -5,13 +5,12 @@ import android.util.Log
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
-import com.mozhimen.basick.utilk.java.io.deleteFile
 import com.mozhimen.basick.utilk.java.io.file2strFilePath
 import com.mozhimen.basick.utilk.java.io.file2strMd5
 import com.mozhimen.componentk.netk.app.NetKApp
 import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
-import com.mozhimen.componentk.netk.app.download.mos.int2appDownloadException
+import com.mozhimen.componentk.netk.app.download.mos.intAppErrorCode2appDownloadException
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.unzip.NetKAppUnzipManager
 import java.io.File
@@ -25,6 +24,7 @@ import java.io.File
  */
 @OptInApiInit_InApplication
 object NetKAppVerifyManager : IUtilK {
+
     @JvmStatic
     fun verify(appTask: AppTask) {
         if (appTask.isTaskUnzip()) {
@@ -36,28 +36,39 @@ object NetKAppVerifyManager : IUtilK {
          */
         NetKApp.onVerifying(appTask)
 
-        if (appTask.apkName.endsWith(".npk"))//如果文件以.npk结尾则先解压
-            verifyAndUnzipNpk(appTask)
-        else
-            verifyApk(appTask)
+        Log.d(TAG, "verify: apkFileName ${appTask.apkFileName}")
+
+        if (appTask.apkFileName.endsWith(".apk") || appTask.apkFileName.endsWith(".npk")) {//如果文件以.npk结尾则先解压
+            verifyApp(appTask)
+        } else {
+            /**
+             * [CNetKAppState.STATE_VERIFY_FAIL]
+             */
+            NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_FORMAT_INVALID.intAppErrorCode2appDownloadException())
+            Log.d(TAG, "verifyAndUnzipNpk: getFilesDownloadsDir is null")
+        }
     }
 
     /**
      * 安装.npk文件
      */
-    private fun verifyAndUnzipNpk(appTask: AppTask) {
+    private fun verifyApp(appTask: AppTask) {
+        if (!isNeedVerify(appTask)) {//如果文件没有MD5值或者为空，则不校验 直接去安装
+            onVerifySuccess(appTask, File(UtilKFileDir.External.getFilesDownloadsDir() ?: return, appTask.apkFileName))
+            return
+        }
+
         if (NetKAppUnzipManager.isUnziping(appTask)) {
             Log.d(TAG, "verifyAndUnzipNpk: isUnziping")
             return//正在解压中，不进行操作
         }
 
-        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir()
-        if (externalFilesDir == null) {
+        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: run {
             /**
              * [CNetKAppState.STATE_VERIFY_FAIL]
              */
-            NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_DIR_NULL.int2appDownloadException())
-            Log.d(TAG, "verifyAndUnzipNpk: getFilesDownloadsDir is null")
+            NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_DIR_NULL.intAppErrorCode2appDownloadException())
+            Log.e(TAG, "verifyAndUnzipNpk: getFilesDownloadsDir is null")
             return
         }
         val fileApk = File(externalFilesDir, appTask.apkName)
@@ -65,76 +76,24 @@ object NetKAppVerifyManager : IUtilK {
             /**
              * [CNetKAppState.STATE_VERIFY_FAIL]
              */
-            NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_FILE_NOT_EXIST.int2appDownloadException())
-            Log.d(TAG, "verifyAndUnzipNpk: download file fail")
+            NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_FILE_NOT_EXIST.intAppErrorCode2appDownloadException())
+            Log.e(TAG, "verifyAndUnzipNpk: download file fail")
             return
         }
 
         if (isNeedVerify(appTask)) {
-            val apkFileMd5Remote = appTask.apkFileMd5
-            if (apkFileMd5Remote.isNotEmpty() && "NONE" != apkFileMd5Remote) {
-                val apkFileMd5Locale = fileApk.file2strMd5()//取文件的MD5值
-                if (!TextUtils.equals(apkFileMd5Remote, apkFileMd5Locale)) {
-                    /**
-                     * [CNetKAppState.STATE_VERIFY_FAIL]
-                     */
-                    NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_MD5_FAIL.int2appDownloadException())
-                    Log.d(TAG, "verifyAndUnzipNpk: download file fail")
-                    return
-                }
-            }
-        }
+            val apkFileMd5Locale = fileApk.file2strMd5()//取文件的MD5值
+            if (!TextUtils.equals(appTask.apkFileMd5, apkFileMd5Locale)) {
+                /**
+                 * [CNetKAppState.STATE_VERIFY_FAIL]
+                 */
+                NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_MD5_FAIL.intAppErrorCode2appDownloadException())
+                Log.e(TAG, "verifyAndUnzipNpk: download file fail")
 
-        onVerifySuccess(appTask, fileApk)
-    }
-
-    /**
-     * 安装apk文件
-     */
-    private fun verifyApk(appTask: AppTask) {
-        if (appTask.apkFileMd5.isEmpty() || "NONE" == appTask.apkFileMd5 || !appTask.apkVerifyNeed) {//如果文件没有MD5值或者为空，则不校验 直接去安装
-            onVerifySuccess(appTask, File(UtilKFileDir.External.getFilesDownloadsDir() ?: return, appTask.apkName))
-            return
-        }
-
-        val externalFilesDir = UtilKFileDir.External.getFilesDownloadsDir() ?: kotlin.run {
-            /**
-             * [CNetKAppState.STATE_VERIFY_FAIL]
-             */
-            NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_DIR_NULL.int2appDownloadException())
-            return
-        }
-        val fileApk = File(externalFilesDir, appTask.apkName)
-        if (!fileApk.exists()) {
-            /**
-             * [CNetKAppState.STATE_VERIFY_FAIL]
-             */
-            NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_FILE_NOT_EXIST.int2appDownloadException())
-            return
-        }
-
-        if (isNeedVerify(appTask)) {//判断是否需要校验MD5值
-            val apkFileMd5Remote = appTask.apkFileMd5//如果本地文件存在，且MD5值相等
-            if (apkFileMd5Remote.isNotEmpty()) {
-                val apkFileMd5Locale = (fileApk.file2strMd5() ?: "") /*+ "1"*///取文件的MD5值
-                if (!TextUtils.equals(apkFileMd5Remote, apkFileMd5Locale)) {
-                    /**
-                     * [CNetKAppState.STATE_VERIFY_FAIL]
-                     */
-                    NetKApp.onVerifyFail(appTask, CNetKAppErrorCode.CODE_VERIFY_MD5_FAIL.int2appDownloadException())
-
-                    fileApk.deleteFile()//删除本地文件
-                    if (appTask.downloadUrlCurrent != appTask.downloadUrl) {//重新使用内部地址下载
-                        if (appTask.downloadUrl.isNotEmpty()) {
-                            appTask.downloadUrlCurrent = appTask.downloadUrl
-                            NetKApp.taskStart(appTask)
-                        } else {
-                            appTask.apkVerifyNeed = false//重新下载，下次不校验MD5值
-                            NetKApp.taskStart(appTask)
-                        }
-                    }
-                    return
-                }
+                NetKApp.taskRetry(appTask.apply {
+                    apkPathName = fileApk.file2strFilePath()
+                })
+                return
             }
         }
 
@@ -152,6 +111,8 @@ object NetKAppVerifyManager : IUtilK {
         })
     }
 
+    //////////////////////////////////////////////////////////////////
+
     /**
      * 判断是否需要校验MD5值
      * 1、NPK不需要校验MD5值
@@ -160,11 +121,11 @@ object NetKAppVerifyManager : IUtilK {
      */
     @JvmStatic
     private fun isNeedVerify(appTask: AppTask): Boolean {
-        if (appTask.apkName.endsWith(".npk"))
-            return false
-        if (appTask.downloadUrlCurrent == appTask.downloadUrl) {//如果是使用站内地址下载，不用校验MD5值
-            return false
-        }
-        return appTask.apkVerifyNeed
+//        if (appTask.apkName.endsWith(".npk"))
+//            return false
+//        if (appTask.downloadUrlCurrent == appTask.downloadUrl) {//如果是使用站内地址下载，不用校验MD5值
+//            return false
+//        }
+        return appTask.apkVerifyNeed && appTask.apkFileMd5.isNotEmpty()
     }
 }

@@ -4,6 +4,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import androidx.annotation.LayoutRes
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import com.mozhimen.uicorek.vhk.bases.BaseVHK
 
 
@@ -17,7 +20,21 @@ import com.mozhimen.uicorek.vhk.bases.BaseVHK
 abstract class BaseAdapterK<T>(
     private val _datas: MutableList<T>,
     @LayoutRes private val _layoutId: Int
-) : BaseAdapter() {
+) : BaseAdapter(), LifecycleOwner {
+
+    private var _lifecycleRegistry: LifecycleRegistry? = null
+    protected val lifecycleRegistry: LifecycleRegistry
+        get() = _lifecycleRegistry ?: LifecycleRegistry(this).also {
+            _lifecycleRegistry = it
+        }
+
+    //////////////////////////////////////////////////////////////////////////
+
+    init {
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
+    }
+
+    //////////////////////////////////////////////////////////////////////////
 
     override fun getCount(): Int =
         _datas.size
@@ -34,9 +51,16 @@ abstract class BaseAdapterK<T>(
         return viewHolder.itemView
     }
 
+    override fun getLifecycle(): Lifecycle =
+        lifecycleRegistry
+
     //////////////////////////////////////////////////////////////////////////
 
     abstract fun onBindView(holder: BaseVHK, data: T, position: Int)
+
+    open fun onDetachedFromWindow() {
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    }
 
     //////////////////////////////////////////////////////////////////////////
 

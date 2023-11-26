@@ -9,10 +9,10 @@ import com.mozhimen.componentk.netk.app.cons.intAppErrorCode2strAppError
  * @Date 2023/11/7 15:10
  * @Version 1.0
  */
-fun Int.int2appDownloadException(): AppDownloadException =
+fun Int.intAppErrorCode2appDownloadException(): AppDownloadException =
     AppDownloadException(this)
 
-fun Int.int2appDownloadException(msg: String): AppDownloadException =
+fun Int.intAppErrorCode2appDownloadException(msg: String): AppDownloadException =
     AppDownloadException(this, msg)
 
 class AppDownloadException : Exception {
@@ -23,7 +23,9 @@ class AppDownloadException : Exception {
     }
 
     private var _code: Int
+    val code get() = _code
     private var _msg: String
+    val msg get() = _msg
 
     override fun toString(): String {
         return "AppDownloadException(code=$_code, msg='$_msg')"

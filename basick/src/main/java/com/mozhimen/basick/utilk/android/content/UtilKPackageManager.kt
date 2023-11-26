@@ -117,6 +117,8 @@ object UtilKPackageManager {
      * 获取所有安装程序包名
      */
     @JvmStatic
+    @RequiresPermission(CPermission.REQUEST_INSTALL_PACKAGES)
+    @AManifestKRequire(CPermission.REQUEST_INSTALL_PACKAGES)
     fun getInstalledPackages(context: Context, hasSystemPackages: Boolean = false): List<PackageInfo> {
         var installedPackages = getInstalledPackages(context, 0).toMutableList()
         if (installedPackages.isEmpty()) {

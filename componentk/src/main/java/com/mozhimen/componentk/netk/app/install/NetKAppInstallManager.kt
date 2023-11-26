@@ -8,9 +8,11 @@ import com.mozhimen.basick.utilk.android.content.UtilKAppInstall
 import com.mozhimen.basick.utilk.bases.IUtilK
 import com.mozhimen.componentk.installk.manager.InstallKManager
 import com.mozhimen.componentk.netk.app.NetKApp
+import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.task.db.AppTaskDaoManager
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
+import com.mozhimen.componentk.netk.app.download.mos.intAppErrorCode2appDownloadException
 import java.io.File
 
 /**
@@ -25,10 +27,18 @@ object NetKAppInstallManager : IUtilK {
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     @JvmStatic
     fun install(appTask: AppTask, fileApk: File) {
-        if (appTask.isTaskInstall()) {
-            Log.d(TAG, "install: the task already install")
+        if (!appTask.canInstall()) {
+            Log.e(TAG, "install: the task hasn't unzip or verify success")
+            /**
+             * Net
+             */
+            NetKApp.onInstallFail(appTask, CNetKAppErrorCode.CODE_INSTALL_HAST_VERIFY_OR_UNZIP.intAppErrorCode2appDownloadException())
             return
         }
+//        if (appTask.isTaskInstall()) {
+//            Log.d(TAG, "install: the task already installing")
+//            return
+//        }
         /**
          * [CNetKAppState.STATE_INSTALLING]
          */
@@ -51,8 +61,6 @@ object NetKAppInstallManager : IUtilK {
     @JvmStatic
     fun onInstallSuccess(appTask: AppTask) {
         InstallKManager.onPackageAdded(appTask.apkPackageName)
-
-        AppTaskDaoManager.removeAppTaskForDatabase(appTask)
 
         //将安装状态发给后端
         /*            GlobalScope.launch(Dispatchers.IO) {

@@ -21,9 +21,9 @@ data class AppTask(
     @ColumnInfo(name = "task_state")
     var taskState: Int,//下载状态
     @ColumnInfo(name = "download_url")
-    val downloadUrl: String,//内部下载地址
+    var downloadUrl: String,//内部下载地址
     @ColumnInfo(name = "download_url_outside")
-    val downloadUrlOutSide: String,//外部下载地址
+    var downloadUrlOutSide: String,//外部下载地址
     @ColumnInfo(name = "download_url_current")
     var downloadUrlCurrent: String,//当前使用的下载地址
     @ColumnInfo(name = "download_progress")
@@ -36,12 +36,16 @@ data class AppTask(
     val apkPackageName: String,//包名
     @ColumnInfo(name = "apk_name")
     val apkName: String,//本地保存的名称 为appid.apk或appid.npk
+    @ColumnInfo("apk_file_name")
+    var apkFileName: String,//和apkName的区别是有后缀
     @ColumnInfo(name = "apk_path_name")
     var apkPathName: String,//本地暂存路径
     @ColumnInfo(name = "apk_is_installed")
     var apkIsInstalled: Boolean,//是否安装0未,1安装
     @ColumnInfo(name = "apk_verify_need")
     var apkVerifyNeed: Boolean,//是否需要检测0,不需要,1需要
+    @ColumnInfo(name = "apk_unzip_need")
+    var apkUnzipNeed: Boolean,
     @ColumnInfo(name = "task_update_time")
     var taskUpdateTime: Long = System.currentTimeMillis(),//更新时间
 ) {
@@ -81,8 +85,12 @@ data class AppTask(
 
     ////////////////////////////////////////////////////////////
 
+    fun canInstall(): Boolean =
+        CNetKAppState.canInstall(taskState)
+
     override fun toString(): String {
-        return "AppTask(taskId='$taskId', taskState=$taskState, downloadProgress=$downloadProgress, apkFileSize=$apkFileSize, apkFileMd5='$apkFileMd5', apkPackageName='$apkPackageName', apkName='$apkName', apkPathName='$apkPathName', apkIsInstalled=$apkIsInstalled, apkVerifyNeed=$apkVerifyNeed, taskUpdateTime=$taskUpdateTime),  downloadUrl='$downloadUrl', downloadUrlOutSide='$downloadUrlOutSide', downloadUrlCurrent='$downloadUrlCurrent'"
+        return "AppTask(taskId='$taskId', taskState=$taskState, downloadProgress=$downloadProgress, apkFileSize=$apkFileSize, apkFileMd5='$apkFileMd5', apkPackageName='$apkPackageName', apkName='$apkName', apkFileName='$apkFileName', apkPathName='$apkPathName', apkIsInstalled=$apkIsInstalled, apkVerifyNeed=$apkVerifyNeed, apkUnzipNeed=$apkUnzipNeed, downloadUrl='$downloadUrl', downloadUrlOutSide='$downloadUrlOutSide', downloadUrlCurrent='$downloadUrlCurrent', taskUpdateTime=$taskUpdateTime)"
     }
+
 
 }

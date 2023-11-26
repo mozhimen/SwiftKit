@@ -3,9 +3,7 @@ package com.mozhimen.componentk.netk.app
 import android.content.Context
 import android.util.Log
 import androidx.annotation.AnyThread
-import androidx.annotation.MainThread
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.google.firebase.crashlytics.buildtools.reloc.javax.annotation.concurrent.ThreadSafe
 import com.liulishuo.okdownload.core.exception.ServerCanceledException
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
@@ -24,9 +22,10 @@ import com.mozhimen.componentk.netk.app.unzip.NetKAppUnzipManager
 import com.mozhimen.componentk.netk.app.task.db.AppTaskDbManager
 import com.mozhimen.componentk.netk.app.download.NetKAppDownloadManager
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
-import com.mozhimen.componentk.netk.app.download.mos.int2appDownloadException
+import com.mozhimen.componentk.netk.app.download.mos.intAppErrorCode2appDownloadException
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallManager
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallProxy
+import com.mozhimen.componentk.netk.app.task.NetKAppTaskManager
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
 import com.mozhimen.componentk.netk.app.utils.intAppState2strAppState
@@ -83,12 +82,41 @@ object NetKApp : INetKAppState, BaseUtilK() {
     /////////////////////////////////////////////////////////////////
     //region # control
     @JvmStatic
+    fun taskRetry(appTask: AppTask) {
+        NetKAppTaskManager.deleteFileApk(appTask)//删除本地文件.apk + .npk
+
+        if (appTask.downloadUrlCurrent != appTask.downloadUrl) {//重新使用内部地址下载
+            if (appTask.downloadUrl.isNotEmpty()) {
+                appTask.downloadUrlCurrent = appTask.downloadUrl
+                taskStart(appTask)
+            } else {
+                appTask.apkVerifyNeed = false//重新下载，下次不校验MD5值
+                taskStart(appTask)
+            }
+        }
+    }
+
+    @JvmStatic
     fun taskStart(appTask: AppTask) {
         try {
             if (appTask.isTaskProcess()) {
                 Log.d(TAG, "taskStart: the task already start")
                 return
             }
+            if (InstallKManager.hasPackageName(appTask.apkPackageName)) {
+                //throw CNetKAppErrorCode.CODE_TASK_HAS_INSTALL.intAppErrorCode2appDownloadException()
+                appTask.apply {
+                    taskState = CNetKAppTaskState.STATE_TASK_SUCCESS
+                    apkIsInstalled = true
+                }
+
+                /**
+                 * [CNetKAppTaskState.STATE_TASK_SUCCESS]
+                 */
+                onTaskFinish(appTask, ENetKAppFinishType.SUCCESS)
+                return
+            }
+
             if (appTask.apkFileSize != 0L) {
                 //当前剩余的空间
                 val availMemory = UtilKFileDir.External.getFilesRootFreeSpace()
@@ -96,11 +124,11 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 val needMinMemory: Long = (appTask.apkFileSize * 1.2).toLong()
                 //如果当前需要的空间大于剩余空间，提醒清理空间
                 if (availMemory < needMinMemory) {
-                    throw AppDownloadException(CNetKAppErrorCode.CODE_TASK_NEED_MEMORY_APK)
+                    throw CNetKAppErrorCode.CODE_TASK_NEED_MEMORY_APK.intAppErrorCode2appDownloadException()
                 }
 
                 //判断是否为npk,如果是npk,判断空间是否小于需要的2.2倍，如果小于2.2，提示是否继续
-                if (appTask.apkName.endsWith(".npk")) {
+                if (appTask.apkFileName.endsWith(".npk") || (appTask.apkFileName.endsWith(".apk") && appTask.apkUnzipNeed)) {
                     //警告空间
                     val warningsMemory: Long = (appTask.apkFileSize * 2.2).toLong()
                     //如果当前空间小于警告空间，
@@ -117,7 +145,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
                                                     dialog.dismiss()
                                                 }
                                                 .show()*/
-                        throw AppDownloadException(CNetKAppErrorCode.CODE_TASK_NEED_MEMORY_NPK)
+                        throw CNetKAppErrorCode.CODE_TASK_NEED_MEMORY_NPK.intAppErrorCode2appDownloadException()
                     }
                 }
             }
@@ -130,7 +158,10 @@ object NetKApp : INetKAppState, BaseUtilK() {
 
             NetKAppDownloadManager.download(appTask/*, listener*/)
         } catch (exception: AppDownloadException) {
-            onTaskFinish(appTask, ENetKAppFinishType.FAIL(exception))
+            /**
+             * [CNetKAppState.STATE_DOWNLOAD_FAIL]
+             */
+            onDownloadFail(appTask, exception)
         }
     }
 
@@ -172,7 +203,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
             Log.d(TAG, "downloadResume: task is not process")
             return
         }
-        if (appTask.isTaskDownload() && appTask.isTaskPause()) {
+        if (appTask.isTaskPause()) {
             Log.d(TAG, "taskPause: downloadResume")
             NetKAppDownloadManager.downloadResume(appTask)
         }
@@ -204,8 +235,8 @@ object NetKApp : INetKAppState, BaseUtilK() {
      * 通过保存名称获取下载信息
      */
     @JvmStatic
-    fun getAppTaskByApkSaveName(apkSaveName: String): AppTask? {
-        return AppTaskDaoManager.getByApkName(apkSaveName)
+    fun getAppTaskByApkName(apkName: String): AppTask? {
+        return AppTaskDaoManager.getByApkName(apkName)
     }
 
     /**
@@ -246,7 +277,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
      */
     @JvmStatic
     fun isDownloading(appTask: AppTask): Boolean {
-        return NetKAppDownloadManager.getAppDownloadProgress(appTask).isDownloading()//查询下载状态
+        return NetKAppDownloadManager.getAppDownloadProgress(appTask)?.isDownloading() ?: false//查询下载状态
     }
 
     //endregion
@@ -280,10 +311,10 @@ object NetKApp : INetKAppState, BaseUtilK() {
     override fun onTaskFinish(appTask: AppTask, finishType: ENetKAppFinishType) {
         when (finishType) {
             ENetKAppFinishType.SUCCESS ->
-                applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_SUCCESS)
+                applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_SUCCESS, finishType = finishType)
 
             ENetKAppFinishType.CANCEL ->
-                applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CANCEL, onNext = {
+                applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_CANCEL, finishType = finishType, onNext = {
                     /**
                      * [CNetKAppTaskState.STATE_TASK_CREATE]
                      */
@@ -291,7 +322,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 })
 
             is ENetKAppFinishType.FAIL ->
-                applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_FAIL, onNext = {
+                applyAppTaskState(appTask, CNetKAppTaskState.STATE_TASK_FAIL, finishType = finishType, onNext = {
                     /**
                      * [CNetKAppTaskState.STATE_TASK_CREATE]
                      */
@@ -357,17 +388,19 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 /**
                  * [CNetKAppState.STATE_DOWNLOAD_FAIL]
                  */
-                onDownloadFail(appTask, CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED.int2appDownloadException(exception.message ?: ""))
+                onDownloadFail(appTask, CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED.intAppErrorCode2appDownloadException(exception.message ?: ""))
             }
         } else {
             /**
              * [CNetKAppState.STATE_DOWNLOAD_FAIL]
              */
-            onDownloadFail(appTask, CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED.int2appDownloadException())
+            onDownloadFail(appTask, CNetKAppErrorCode.CODE_DOWNLOAD_SERVER_CANCELED.intAppErrorCode2appDownloadException())
         }
     }
 
     override fun onDownloadFail(appTask: AppTask, exception: AppDownloadException) {
+        AppTaskDaoManager.removeAppTaskForDatabase(appTask)
+
         applyAppTaskStateException(appTask, CNetKAppState.STATE_DOWNLOAD_FAIL, exception, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_FAIL]
@@ -487,9 +520,9 @@ object NetKApp : INetKAppState, BaseUtilK() {
             this.taskState = state
             if (progress > 0) downloadProgress = progress
         }
-        Log.d(TAG, "applyAppTaskState: state ${state.intAppState2strAppState()} appTask $appTask")
+        Log.d(TAG, "applyAppTaskState: state ${state.intAppState2strAppState()} progress ${appTask.downloadProgress} appTask $appTask")
         AppTaskDaoManager.update(appTask)
-        postAppTaskState(appTask, state, progress, finishType, onNext)
+        postAppTaskState(appTask, state, appTask.downloadProgress, finishType, onNext)
     }
 
     private fun applyAppTaskStateException(
@@ -530,7 +563,9 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 CNetKAppTaskState.STATE_TASK_CANCEL, CNetKAppTaskState.STATE_TASK_SUCCESS, CNetKAppTaskState.STATE_TASK_FAIL -> listener.onTaskFinish(appTask, finishType)
                 ///////////////////////////////////////////////////////////////////////////////
                 CNetKAppState.STATE_DOWNLOAD_WAIT -> listener.onDownloadWait(appTask)
-                CNetKAppState.STATE_DOWNLOADING -> listener.onDownloading(appTask, progress)
+                CNetKAppState.STATE_DOWNLOADING ->
+                    listener.onDownloading(appTask, progress)
+
                 CNetKAppState.STATE_DOWNLOAD_PAUSE -> listener.onDownloadPause(appTask)
                 CNetKAppState.STATE_DOWNLOAD_CANCEL -> listener.onDownloadCancel(appTask)
                 CNetKAppState.STATE_DOWNLOAD_SUCCESS -> listener.onDownloadSuccess(appTask)

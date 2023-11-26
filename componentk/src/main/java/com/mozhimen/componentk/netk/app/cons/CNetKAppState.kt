@@ -59,6 +59,9 @@ object CNetKAppState {
     fun isTaskInstall(state: Int): Boolean =
         state in STATE_INSTALL_CREATE until STATE_INSTALL_SUCCESS
 
+    @JvmStatic
+    fun canInstall(state: Int): Boolean =
+        state == STATE_VERIFY_SUCCESS || state == STATE_UNZIP_SUCCESS
 
     //////////////////////////////////////////////////////////////
     //卸载
@@ -71,4 +74,5 @@ object CNetKAppState {
         const val STATE_UPDATEING = 51//STATE_NEED_UPDATE = 17//更新中
         const val STATE_UPDATE_SUCCESS = 58
         const val STATE_UPDATE_FAIL = 59*/
+
 }
