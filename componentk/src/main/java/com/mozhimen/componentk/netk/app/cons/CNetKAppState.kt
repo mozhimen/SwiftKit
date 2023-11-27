@@ -20,7 +20,7 @@ object CNetKAppState {
 
     @JvmStatic
     fun isTaskDownload(state: Int): Boolean =
-        state in STATE_DOWNLOAD_CREATE until STATE_DOWNLOAD_CANCEL
+        state in STATE_DOWNLOAD_CREATE..STATE_DOWNLOAD_FAIL
 
     @JvmStatic
     fun isDownloading(state: Int): Boolean =
@@ -35,7 +35,7 @@ object CNetKAppState {
 
     @JvmStatic
     fun isTaskVerify(state: Int): Boolean =
-        state in STATE_VERIFY_CREATE until STATE_VERIFY_SUCCESS
+        state in STATE_VERIFY_CREATE..STATE_VERIFY_FAIL
 
     //////////////////////////////////////////////////////////////
     //解压
@@ -46,7 +46,7 @@ object CNetKAppState {
 
     @JvmStatic
     fun isTaskUnzip(state: Int): Boolean =
-        state in STATE_UNZIP_CREATE until STATE_UNZIP_SUCCESS
+        state in STATE_UNZIP_CREATE..STATE_UNZIP_FAIL
 
     //////////////////////////////////////////////////////////////
     //安装
@@ -57,11 +57,11 @@ object CNetKAppState {
 
     @JvmStatic
     fun isTaskInstall(state: Int): Boolean =
-        state in STATE_INSTALL_CREATE until STATE_INSTALL_SUCCESS
+        state in STATE_INSTALL_CREATE..STATE_INSTALL_FAIL
 
     @JvmStatic
     fun canInstall(state: Int): Boolean =
-        state == STATE_VERIFY_SUCCESS || state == STATE_UNZIP_SUCCESS
+        state == STATE_VERIFY_SUCCESS || state == STATE_UNZIP_SUCCESS || state == STATE_INSTALLING
 
     //////////////////////////////////////////////////////////////
     //卸载

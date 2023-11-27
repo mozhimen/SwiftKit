@@ -13,7 +13,7 @@ import java.io.File
  * @Date 2023/11/14 23:46
  * @Version 1.0
  */
-object NetKAppTaskManager {
+internal object NetKAppTaskManager {
 //    /**
 //     * 获取本地保存的文件
 //     */

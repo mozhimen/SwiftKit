@@ -18,6 +18,7 @@ object CNetKAppErrorCode {
     const val CODE_DOWNLOAD_PATH_NOT_EXIST = 10//"下载路径不存在"
     const val CODE_DOWNLOAD_CANT_FIND_TASK = 11//"未找到下载任务！"
     const val CODE_DOWNLOAD_SERVER_CANCELED = 12//
+    const val CODE_DOWNLOAD_ENOUGH = 13//
     const val CODE_VERIFY_DIR_NULL = 20
     const val CODE_VERIFY_FILE_NOT_EXIST = 21
     const val CODE_VERIFY_MD5_FAIL = 22
@@ -36,6 +37,7 @@ object CNetKAppErrorCode {
             CODE_DOWNLOAD_PATH_NOT_EXIST -> "下载路径不存在"
             CODE_DOWNLOAD_CANT_FIND_TASK -> "下载任务丢失"
             CODE_DOWNLOAD_SERVER_CANCELED -> "下载服务取消"
+            CODE_DOWNLOAD_ENOUGH -> "下载队列已满, 请稍候再试吧"
             CODE_VERIFY_DIR_NULL -> "验证路径为空"
             CODE_VERIFY_FILE_NOT_EXIST -> "验证文件不存在"
             CODE_VERIFY_MD5_FAIL -> "验证MD5失败"

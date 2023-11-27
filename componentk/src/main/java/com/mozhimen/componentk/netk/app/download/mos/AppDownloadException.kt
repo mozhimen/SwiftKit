@@ -30,4 +30,18 @@ class AppDownloadException : Exception {
     override fun toString(): String {
         return "AppDownloadException(code=$_code, msg='$_msg')"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is AppDownloadException) return false
+
+        if (_code != other._code) return false
+        return _msg == other._msg
+    }
+
+    override fun hashCode(): Int {
+        var result = _code
+        result = 31 * result + _msg.hashCode()
+        return result
+    }
 }

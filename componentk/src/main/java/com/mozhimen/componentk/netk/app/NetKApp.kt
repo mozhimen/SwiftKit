@@ -11,6 +11,7 @@ import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.java.io.UtilKFileDir
+import com.mozhimen.basick.utilk.java.io.file2strFilePath
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import com.mozhimen.componentk.installk.manager.InstallKManager
 import com.mozhimen.componentk.netk.app.commons.INetKAppState
@@ -101,6 +102,13 @@ object NetKApp : INetKAppState, BaseUtilK() {
         try {
             if (appTask.isTaskProcess()) {
                 Log.d(TAG, "taskStart: the task already start")
+                return
+            }
+            if (NetKAppDownloadManager.getDownloadTaskCount() >= 3) {
+                /**
+                 * [CNetKAppTaskState.STATE_TASK_SUCCESS]
+                 */
+                onTaskFinish(appTask, ENetKAppFinishType.FAIL(CNetKAppErrorCode.CODE_DOWNLOAD_ENOUGH.intAppErrorCode2appDownloadException()))
                 return
             }
             if (InstallKManager.hasPackageName(appTask.apkPackageName)) {
@@ -213,12 +221,34 @@ object NetKApp : INetKAppState, BaseUtilK() {
     fun install(appTask: AppTask) {
         NetKAppInstallManager.install(appTask, appTask.apkPathName.strFilePath2file())
     }
+
+    @JvmStatic
+    fun unzip(appTask: AppTask) {
+        if (appTask.apkPathName.isNotEmpty()) {
+            NetKAppUnzipManager.unzip(appTask)
+        }
+    }
+
+    @JvmStatic
+    fun onDestroy() {
+        NetKAppDownloadManager.downloadPauseAll()
+    }
     //endregion
 
     /////////////////////////////////////////////////////////////////
     // state
     /////////////////////////////////////////////////////////////////
     //region # state
+    @JvmStatic
+    fun generateAppTaskByPackageName(appTask: AppTask): AppTask {
+        if (getAppTaskByTaskId_PackageName(appTask.taskId, appTask.apkPackageName) == null && InstallKManager.hasPackageName(appTask.apkPackageName)) {
+            onTaskFinish(appTask, ENetKAppFinishType.SUCCESS)
+        } else if ((appTask.apkIsInstalled || appTask.taskState == CNetKAppTaskState.STATE_TASK_SUCCESS) && !InstallKManager.hasPackageName(appTask.apkPackageName)) {
+            onTaskCreate(appTask.apply { apkIsInstalled = false })
+        }
+        return appTask
+    }
+
     @JvmStatic
     fun getAppTaskByTaskId_PackageName(taskId: String, packageName: String): AppTask? =
         AppTaskDaoManager.getByTaskId_PackageName(taskId, packageName)
@@ -399,7 +429,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     }
 
     override fun onDownloadFail(appTask: AppTask, exception: AppDownloadException) {
-        AppTaskDaoManager.removeAppTaskForDatabase(appTask)
+//        AppTaskDaoManager.removeAppTaskForDatabase(appTask)
 
         applyAppTaskStateException(appTask, CNetKAppState.STATE_DOWNLOAD_FAIL, exception, onNext = {
             /**

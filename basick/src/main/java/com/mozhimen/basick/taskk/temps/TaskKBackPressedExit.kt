@@ -1,12 +1,13 @@
 package com.mozhimen.basick.taskk.temps
 
-import android.widget.Toast
 import com.mozhimen.basick.elemk.commons.I_Listener
 import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.taskk.bases.BaseWakeBefDestroyTaskK
 import com.mozhimen.basick.utilk.android.content.UtilKApp
+import com.mozhimen.basick.utilk.android.widget.UtilKToast.showToast
 import com.mozhimen.basick.utilk.android.widget.showToast
+import com.mozhimen.basick.utilk.kotlin.ifNotEmpty
 
 /**
  * @ClassName TaskKExitApp
@@ -20,8 +21,20 @@ import com.mozhimen.basick.utilk.android.widget.showToast
 class TaskKBackPressedExit : BaseWakeBefDestroyTaskK() {
     private var _exitWaitTime = 2000L//退出App判断时间
     private var _firstClickTime = 0L//用来记录第一次点击的时间
+    private var _strTip = "再按一次退出"
 
     override fun isActive(): Boolean = _firstClickTime != 0L
+
+    override fun cancel() {
+        _firstClickTime = 0L
+    }
+
+    /////////////////////////////////////////////////////////
+
+    fun setStrTip(strTip: String): TaskKBackPressedExit {
+        _strTip = strTip
+        return this
+    }
 
     fun setExitWaitTime(time: Long): TaskKBackPressedExit {
         _exitWaitTime = time
@@ -32,15 +45,11 @@ class TaskKBackPressedExit : BaseWakeBefDestroyTaskK() {
         val secondClickTime = System.currentTimeMillis()
         if (secondClickTime - _firstClickTime > _exitWaitTime) {
             _firstClickTime = secondClickTime
-            "再按一次退出纽扣助手".showToast()
+            _strTip.showToast()
             return false
         }
         onExit?.invoke()
         UtilKApp.exitApp()
         return true
-    }
-
-    override fun cancel() {
-        _firstClickTime = 0L
     }
 }

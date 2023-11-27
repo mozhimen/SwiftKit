@@ -277,7 +277,7 @@ object UtilKFile : BaseUtilK() {
                     deleteFile(file)
             }
         }
-        return true
+        return true.also { Log.d(TAG, "deleteFolder: success") }
     }
     //endregion
 }

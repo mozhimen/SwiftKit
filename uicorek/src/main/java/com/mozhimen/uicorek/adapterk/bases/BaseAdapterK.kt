@@ -3,6 +3,7 @@ package com.mozhimen.uicorek.adapterk.bases
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -58,7 +59,13 @@ abstract class BaseAdapterK<T>(
 
     abstract fun onBindView(holder: BaseVHK, data: T, position: Int)
 
-    open fun onDetachedFromWindow() {
+//    @CallSuper
+//    open fun onDetachedFromWindow() {
+////        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+//    }
+
+    @CallSuper
+    open fun onDetachedFromRecycler() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     }
 

@@ -42,7 +42,7 @@ public class AppDownloadSerialQueue extends DownloadListener2 implements Runnabl
     private static final Executor SERIAL_EXECUTOR = new ThreadPoolExecutor(0,
             Integer.MAX_VALUE, 30, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(),
             Util.threadFactory("OkDownload DynamicSerial", false));
-    private static final String TAG = "DownloadSerialQueue";
+    private static final String TAG = "AppDownloadSerialQueue";
     private final ArrayList<DownloadTask> taskList;
     volatile boolean shutedDown = false;
     volatile boolean looping = false;

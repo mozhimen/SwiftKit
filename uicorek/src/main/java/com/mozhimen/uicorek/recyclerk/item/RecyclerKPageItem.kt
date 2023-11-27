@@ -101,43 +101,11 @@ abstract class RecyclerKPageItem<DATA> : LifecycleOwner, IUtilK {
 
     @CallSuper
     open fun onAttachedToRecyclerView() {
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    }
-
-    /**
-     * Called when a view created by this [BaseItemProvider] has been attached to a window.
-     * 当此[BaseItemProvider]出现在屏幕上的时候，会调用此方法
-     *
-     * This can be used as a reasonable signal that the view is about to be seen
-     * by the user. If the [BaseItemProvider] previously freed any resources in
-     * [onViewDetachedFromWindow][.onViewDetachedFromWindow]
-     * those resources should be restored here.
-     *
-     * @param holder Holder of the view being attached
-     */
-    @CallSuper
-    open fun onViewAttachedToWindow(holder: VHKRecycler) {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
     }
 
-    /**
-     * Called when a view created by this [BaseItemProvider] has been detached from its
-     * window.
-     * 当此[BaseItemProvider]从屏幕上移除的时候，会调用此方法
-     *
-     * Becoming detached from the window is not necessarily a permanent condition;
-     * the consumer of an Adapter's views may choose to cache views offscreen while they
-     * are not visible, attaching and detaching them as appropriate.
-     *
-     * @param holder Holder of the view being detached
-     */
     @CallSuper
-    open fun onViewDetachedFromWindow(holder: VHKRecycler) {
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
-    }
-
-    @CallSuper
-    fun onDetachedFromRecyclerView() {
+    open fun onDetachedFromRecyclerView() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         Log.d(TAG, "onDetachedFromRecyclerView: ")
     }

@@ -58,7 +58,7 @@ open class AdapterKPageRecycler<DATA>(@LayoutRes private val _layoutId: Int, ite
     }
 
     override fun onViewDetachedFromWindow(holder: VHKRecycler) {
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
     }
 
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {

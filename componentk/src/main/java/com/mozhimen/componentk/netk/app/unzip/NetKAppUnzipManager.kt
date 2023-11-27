@@ -37,7 +37,7 @@ import java.util.zip.ZipFile
  * @Version 1.0
  */
 @OptInApiInit_InApplication
-object NetKAppUnzipManager : IUtilK {
+internal object NetKAppUnzipManager : IUtilK {
     /**
      *  过滤在mac上压缩时自动生成的__MACOSX文件夹
      */
@@ -67,23 +67,23 @@ object NetKAppUnzipManager : IUtilK {
 
     @JvmStatic
     fun unzip(appTask: AppTask) {
-        if (isUnziping(appTask)) {//正在解压
-            Log.d(TAG, "unzip: the task already unziping")
-            return
-        }
+//        if (isUnziping(appTask)) {//正在解压
+//            Log.d(TAG, "unzip: the task already unziping")
+//            return
+//        }
         /**
          * [CNetKAppState.STATE_UNZIPING]
          */
         NetKApp.onUnziping(appTask)
 
-        if (appTask.apkFileName.endsWith(".apk") && !appTask.apkUnzipNeed) {
+        if (appTask.apkFileName.endsWith("apk") && !appTask.apkUnzipNeed) {
             onUnzipSuccess(appTask)
         }
 
         TaskKExecutor.execute(TAG + "unzip") {
             try {
                 val strPathNameUnzip = unzipOnBack(appTask)
-                Log.d(TAG, "unzip: strPathNameUnzip $$strPathNameUnzip")
+                Log.d(TAG, "unzip: strPathNameUnzip $strPathNameUnzip")
                 if (strPathNameUnzip.isEmpty())
                     throw CNetKAppErrorCode.CODE_UNZIP_FAIL.intAppErrorCode2appDownloadException()
                 else if (!strPathNameUnzip.endsWith("apk"))
@@ -104,6 +104,7 @@ object NetKAppUnzipManager : IUtilK {
     }
 
     private fun onUnzipSuccess(appTask: AppTask) {
+        Log.d(TAG, "onUnzipSuccess: 解压成功 appTask $appTask")
         /**
          * [CNetKAppState.STATE_UNZIP_SUCCESS]
          */
@@ -185,7 +186,8 @@ object NetKAppUnzipManager : IUtilK {
         } catch (e: Exception) {
             e.printStackTrace()
             Log.e(TAG, "unzipOnBack: error ${e.message}")
-            throw CNetKAppErrorCode.CODE_UNZIP_FAIL.intAppErrorCode2appDownloadException()
+//            throw CNetKAppErrorCode.CODE_UNZIP_FAIL.intAppErrorCode2appDownloadException()
+            return ""
         }
     }
 
@@ -196,10 +198,10 @@ object NetKAppUnzipManager : IUtilK {
      */
     @WorkerThread
     private fun unzipApkOnBack(apkFileSource: File, strApkFilePathDest: String): String {
-        try {
-            val strApkFileNameReal = apkFileSource.name.getSplitExLast(".", false)//name.subSequence(0, name.lastIndexOf("."))
+        val strApkFileNameReal = apkFileSource.name.getSplitExLast(".", false)//name.subSequence(0, name.lastIndexOf("."))
+        val strApkFilePathDestReal = (strApkFilePathDest + File.separator + strApkFileNameReal).also { Log.d(TAG, "unzipOnBack: strFilePathDestReal $it") }
 
-            val strApkFilePathDestReal = (strApkFilePathDest + File.separator + strApkFileNameReal).also { Log.d(TAG, "unzipOnBack: strFilePathDestReal $it") }
+        try {
             strApkFilePathDestReal.createFolder()
             ///storage/emulated/0/data/com.xx.xxx/files/Download/xxx/
 
@@ -207,29 +209,31 @@ object NetKAppUnzipManager : IUtilK {
             var apkFileName = ""
             val zipFile = ZipFile(apkFileSource)
             val entries = zipFile.entries()
-            val bytes = ByteArray(1024)
+            val bytes = ByteArray(1024 * 1024)
             var zipEntry: ZipEntry?
             while (entries.hasMoreElements()) {
                 zipEntry = entries.nextElement() ?: continue
                 if (zipEntry.name.contains(MAC__IGNORE)) continue
                 if (!zipEntry.name.contains("assets")) continue
-                if (!zipEntry.name.contains("assets/Android") || !zipEntry.name.endsWith("apk")) continue
+                if (!zipEntry.name.contains("Android") && !zipEntry.name.endsWith("apk")) continue
+                Log.v(TAG, "unzipApkOnBack: assets/Android name ${zipEntry.name}")
+
                 if (zipEntry.isDirectory) {
                     File(strApkFilePathDestReal, zipEntry.name).createFolder()
                     continue
                 }
                 var tempFile = File(zipEntry.name)
 
-                tempFile.parentFile?.let {//先判断当前文件是否含有路径 如 Android/obb/包名/xx.obb
-                    tempFile = File(Environment.getExternalStorageDirectory(), tempFile.absolutePath)//根目录/Android/obb/包名/xx.obb
-                } ?: kotlin.run {
-                    tempFile = File(strApkFilePathDestReal, zipEntry.name)//如果保护路径则需要把文件复制到根目录下指定的文件夹中
+                tempFile = if (tempFile.parentFile != null && tempFile.parentFile!!.absolutePath.contains("Android")) {//先判断当前文件是否含有路径 如 Android/obb/包名/xx.obb
+                    File(Environment.getExternalStorageDirectory(), tempFile.absolutePath.replace("assets" + File.separator, ""))//根目录/Android/obb/包名/xx.obb
+                } else {
+                    File(strApkFilePathDestReal, zipEntry.name.replace("assets" + File.separator, ""))//如果保护路径则需要把文件复制到根目录下指定的文件夹中
                 }
                 tempFile.parentFile?.createFolder()
-                Log.d(TAG, "unzipOnBack: tempFilePath ${tempFile.absolutePath}")
-                //如果文件已经存在，则删除
-                tempFile.deleteFile()
-                if (tempFile.name.endsWith(".apk")) {
+                Log.d(TAG, "unzipApkOnBack: tempFilePath ${tempFile.absolutePath}")
+
+                tempFile.deleteFile()//如果文件已经存在，则删除
+                if (tempFile.name.endsWith("apk")) {
                     apkFileName = tempFile.name
                 }
                 //移动文件
@@ -251,7 +255,9 @@ object NetKAppUnzipManager : IUtilK {
         } catch (e: Exception) {
             e.printStackTrace()
             Log.e(TAG, "unzipOnBack: error ${e.message}")
-            throw CNetKAppErrorCode.CODE_UNZIP_FAIL.intAppErrorCode2appDownloadException()
+            strApkFilePathDestReal.deleteFolder()
+            return apkFileSource.absolutePath
+//            throw CNetKAppErrorCode.CODE_UNZIP_FAIL.intAppErrorCode2appDownloadException()
         }
     }
 }

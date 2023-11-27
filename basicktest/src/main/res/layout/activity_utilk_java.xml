@@ -14,5 +14,11 @@
             android:onClick="goUtilKFile"
             android:text="goUtilKFile"
             tools:ignore="HardcodedText,UsingOnClickInXml" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/BasicKStyle_Btn"
+            android:onClick="goManageAllStorage"
+            android:text="goManageAllStorage"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

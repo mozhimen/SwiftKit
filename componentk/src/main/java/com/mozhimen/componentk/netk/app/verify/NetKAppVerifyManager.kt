@@ -23,7 +23,7 @@ import java.io.File
  * @Version 1.0
  */
 @OptInApiInit_InApplication
-object NetKAppVerifyManager : IUtilK {
+internal object NetKAppVerifyManager : IUtilK {
 
     @JvmStatic
     fun verify(appTask: AppTask) {

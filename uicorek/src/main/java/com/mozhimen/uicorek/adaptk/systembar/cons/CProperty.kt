@@ -112,7 +112,7 @@ object CProperty {
      */
     const val TRANSLUCENT_DARK = PreProperty.NORMAL or PreProperty.OVERLAY_ALL or CPropertyOr.STATUS_BAR_BG_TRANSLUCENT or CPropertyOr.THEME_CUSTOM or CPropertyOr.THEME_DARK
 
-    internal object PreProperty {
+    object PreProperty {
         const val NORMAL = CPropertyOr.NORMAL//0b0000_0000_0000_0000
         const val IMMERSED_SOFT = CPropertyOr.IMMERSED_OPEN//0b0100_0000_0000_0000
         const val IMMERSED_HARD = CPropertyOr.IMMERSED_OPEN or CPropertyOr.IMMERSED_HARD//0b0110_0000_0000_0000

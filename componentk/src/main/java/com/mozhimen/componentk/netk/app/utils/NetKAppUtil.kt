@@ -10,7 +10,7 @@ import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
  * @Date 2023/11/16 15:46
  * @Version 1.0
  */
-internal fun Int.intAppState2strAppState(): String =
+fun Int.intAppState2strAppState(): String =
     NetKAppUtil.intAppState2strAppState(this)
 
 object NetKAppUtil {

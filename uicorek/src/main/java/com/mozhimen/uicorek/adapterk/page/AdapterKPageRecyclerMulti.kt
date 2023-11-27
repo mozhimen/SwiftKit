@@ -53,20 +53,6 @@ open class AdapterKPageRecyclerMulti<DATA>(itemCallback: ItemCallback<DATA>) : A
         }
     }
 
-    override fun onViewAttachedToWindow(holder: VHKRecycler) {
-        super.onViewAttachedToWindow(holder)
-        getRecyclerKPageItem(holder.itemViewType)?.onViewAttachedToWindow(holder)
-    }
-
-    override fun onViewDetachedFromWindow(holder: VHKRecycler) {
-        getRecyclerKPageItem(holder.itemViewType)?.onViewDetachedFromWindow(holder)
-        super.onViewDetachedFromWindow(holder)
-    }
-
-    override fun onViewRecycled(holder: VHKRecycler) {
-        super.onViewRecycled(holder)
-    }
-
     override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
         _recyclerKPageItems.forEach { _, value ->
             value.onDetachedFromRecyclerView()

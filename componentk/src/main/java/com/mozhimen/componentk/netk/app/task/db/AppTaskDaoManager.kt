@@ -1,6 +1,5 @@
 package com.mozhimen.componentk.netk.app.task.db
 
-import android.database.sqlite.SQLiteDatabaseLockedException
 import androidx.annotation.WorkerThread
 import com.mozhimen.basick.lintk.optin.OptInApiInit_InApplication
 import com.mozhimen.basick.taskk.executor.TaskKExecutor
@@ -73,8 +72,9 @@ object AppTaskDaoManager : IUtilK {
     }
 
     @JvmStatic
-    fun getAllAtTaskDownload(): List<AppTask> {
-        return _downloadTasks.filter { it.value.isTaskDownload() }.map { it.value }
+    fun getAllAtTaskDownloadOrWaitOrPause(): List<AppTask> {
+        return _downloadTasks.filter { it.value.isTaskDownload() || it.value.taskState == CNetKAppTaskState.STATE_TASK_WAIT || it.value.taskState == CNetKAppTaskState.STATE_TASK_PAUSE }
+            .map { it.value }
     }
 
     /**
@@ -112,12 +112,13 @@ object AppTaskDaoManager : IUtilK {
 
     //////////////////////////////////////////////////////////
 
-    fun removeAppTaskForDatabase(appTask: AppTask) {
-        if (appTask.apkPackageName.isEmpty()) return
-        val appTask1 = getByApkPackageName(appTask.apkPackageName) ?: return//从本地数据库中查询出下载信息//如果查询不到，就不处理
-        //if (appTask1.apkIsInstalled)//删除数据库中的其他已安装的数据，相同包名的只保留一条已安装的数据
-        delete(appTask1)
-    }
+    //废弃
+//    fun removeAppTaskForDatabase(appTask: AppTask) {
+//        if (appTask.apkPackageName.isEmpty()) return
+//        val appTask1 = getByApkPackageName(appTask.apkPackageName) ?: return//从本地数据库中查询出下载信息//如果查询不到，就不处理
+//        //if (appTask1.apkIsInstalled)//删除数据库中的其他已安装的数据，相同包名的只保留一条已安装的数据
+//        delete(appTask1)
+//    }
 
     fun addAppTask2Database(appTask: AppTask) {
         val appTask1 = getByTaskId(appTask.taskId)//更新本地数据库中的数据
@@ -136,9 +137,13 @@ object AppTaskDaoManager : IUtilK {
                 it.taskUpdateTime = System.currentTimeMillis()
             }
             appTask.forEach {
-                _downloadTasks[it.taskId] = it
+                if (_downloadTasks[it.taskId] != null) {
+                    AppTaskDbManager.appTaskDao.update(it)
+                } else {
+                    _downloadTasks[it.taskId] = it
+                    AppTaskDbManager.appTaskDao.addAll(it)
+                }
             }
-            AppTaskDbManager.appTaskDao.addAll(*appTask)
         }
     }
 

@@ -23,7 +23,7 @@ import java.io.File
  * @Version 1.0
  */
 @OptInApiInit_InApplication
-object NetKAppInstallManager : IUtilK {
+internal object NetKAppInstallManager : IUtilK {
     @OptIn(OptInApiCall_BindLifecycle::class, OptInApiInit_ByLazy::class)
     @JvmStatic
     fun install(appTask: AppTask, fileApk: File) {
@@ -39,10 +39,10 @@ object NetKAppInstallManager : IUtilK {
 //            Log.d(TAG, "install: the task already installing")
 //            return
 //        }
-        /**
-         * [CNetKAppState.STATE_INSTALLING]
-         */
-        NetKApp.onInstalling(appTask)
+//        /**
+//         * [CNetKAppState.STATE_INSTALLING]
+//         */
+//        NetKApp.onInstalling(appTask)
 
         NetKApp.netKAppInstallProxy.setAppTask(appTask)
 

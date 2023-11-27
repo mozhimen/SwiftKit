@@ -34,7 +34,7 @@ open class BasePopwinKLifecycle(context: Context) : BasePopwinK(context), Lifecy
     }
 
     override fun onDismiss() {
-        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+//        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
         super.onDismiss()
     }
 
