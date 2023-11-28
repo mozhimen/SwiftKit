@@ -1,8 +1,11 @@
 package com.mozhimen.basicktest.utilk.java;
 
+import android.content.Context;
 import android.os.Build;
+import android.os.storage.StorageManager;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 
 /**
@@ -33,5 +36,31 @@ public class ManageAllStorageByReflect {
             }
         Log.d("ManageAllStorage>>>>>", "reflect: " + bool);
         return bool;
+    }
+
+    public static String[] reflect(Context paramContext) {
+        String[] arrayOfString;
+        byte b = 0;
+        StorageManager storageManager = (StorageManager)paramContext.getSystemService("storage");
+        Class<?> clazz = (Class)null;
+        try {
+            clazz = Class.forName("android.os.storage.StorageVolume");
+            Method method2 = storageManager.getClass().getMethod("getVolumeList", new Class[0]);
+            Method method1 = clazz.getMethod("getPath", new Class[0]);
+            Object object = method2.invoke(storageManager, new Object[0]);
+            int i = Array.getLength(object);
+            arrayOfString = new String[i];
+            while (true) {
+                if (b < i) {
+                    arrayOfString[b] = (String)method1.invoke(Array.get(object, b), new Object[0]);
+                    b++;
+                    continue;
+                }
+                return arrayOfString;
+            }
+        } catch (Exception exception) {
+            arrayOfString = (String[])null;
+        }
+        return arrayOfString;
     }
 }

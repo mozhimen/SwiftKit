@@ -24,6 +24,6 @@ class UtilKJavaActivity : BaseActivityVB<ActivityUtilkJavaBinding>() {
     }
 
     fun goManageAllStorageByReflect(view: View) {
-        ManageAllStorageByReflect.reflect()
+        ManageAllStorageByReflect.reflect(this)
     }
 }

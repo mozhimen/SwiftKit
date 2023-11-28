@@ -17,11 +17,15 @@ open class BaseCacheKVarPropertyString<P : ICacheKProvider>(
     private val _key: String,
     private val _default: String = ""
 ) : ReadWriteProperty<Any?, String> {
+    @Volatile
+    private var _field = _cacheKProvider.getString(_key, _default)
+
     override fun getValue(thisRef: Any?, property: KProperty<*>): String {
-        return _cacheKProvider.getString(_key, _default)
+        return _field
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: String) {
+        _field = value
         _cacheKProvider.putString(_key, value)
     }
 }

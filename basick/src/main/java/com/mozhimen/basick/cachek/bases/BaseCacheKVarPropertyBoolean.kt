@@ -17,11 +17,15 @@ open class BaseCacheKVarPropertyBoolean<P : ICacheKProvider>(
     private val _key: String,
     private val _default: Boolean = false
 ) : ReadWriteProperty<Any?, Boolean> {
+    @Volatile
+    private var _field = _cacheKProvider.getBoolean(_key, _default)
+
     override fun getValue(thisRef: Any?, property: KProperty<*>): Boolean {
-        return _cacheKProvider.getBoolean(_key, _default)
+        return _field
     }
 
     override fun setValue(thisRef: Any?, property: KProperty<*>, value: Boolean) {
+        _field = value
         _cacheKProvider.putBoolean(_key, value)
     }
 }

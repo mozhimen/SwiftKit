@@ -102,7 +102,7 @@ class UtilKFileActivity : BaseActivityVB<ActivityUtilkFileBinding>() {
             val createFolderPath = UtilKStrPath.Absolute.Internal.getFiles() + "/folder/"
             "createFolder folder ${UtilKStrFile.createFolder(createFolderPath).absolutePath}".log()
             "deleteFolder folder ${UtilKStrFile.deleteFolder(createFolderPath)}".log()
-            val path = "${UtilKStrPath.Absolute.External.getEnvStorage()}/Android/obb/com.mozhimen.ddd"
+            val path = "${UtilKStrPath.Absolute.External.getEnvStorage()}/Android/obb/com.mozhimen.xxxx"
             path.createFolder()
             "$path/1.txt".createFile()
             path.log()
