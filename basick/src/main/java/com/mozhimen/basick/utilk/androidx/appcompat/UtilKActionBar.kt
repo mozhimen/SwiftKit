@@ -3,6 +3,7 @@ package com.mozhimen.basick.utilk.androidx.appcompat
 import android.app.Activity
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ActionBarContainer
 
 /**
  * @ClassName UtilKActionBar
@@ -15,11 +16,18 @@ fun AppCompatActivity.applyActionBarTitle(str: String) {
     UtilKActionBar.applyActionBarTitle(this, str)
 }
 
+fun AppCompatActivity.getActionBarContainer(): ActionBarContainer? =
+    UtilKActionBar.getActionBarContainer(this)
+
 object UtilKActionBar {
 
     @JvmStatic
     fun get(activity: AppCompatActivity): ActionBar? =
         activity.supportActionBar
+
+    @JvmStatic
+    fun getActionBarContainer(activity: AppCompatActivity): ActionBarContainer? =
+        activity.findViewById(androidx.appcompat.R.id.action_bar_container)
 
     /////////////////////////////////////////////////////////////////
 

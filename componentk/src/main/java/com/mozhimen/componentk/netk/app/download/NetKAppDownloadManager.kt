@@ -322,7 +322,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         _downloadingTasks[task.id]?.let { appTask ->
             val progress = ((currentOffset.toFloat() / totalLength.toFloat()) * 100f).toInt()
             Log.d(TAG, "progress: $progress currentOffset $currentOffset  totalLength $totalLength")
-
+            if (progress !in 0..100) return
             /**
              * [CNetKAppState.STATE_DOWNLOADING]
              */
@@ -362,6 +362,9 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                         }
                         return
                     }
+
+                    if (appTask.appTask.isTaskPause())
+                        return
 
                     /**
                      * [CNetKAppState.STATE_DOWNLOAD_FAIL]

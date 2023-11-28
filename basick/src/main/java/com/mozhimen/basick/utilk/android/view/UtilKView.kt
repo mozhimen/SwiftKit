@@ -317,8 +317,10 @@ object UtilKView : BaseUtilK() {
     @JvmStatic
     fun applyDebounceClickListener(view: View, block: IA_Listener<View>, thresholdMillis: Long = 500) {
         view.setTag(DEBOUNCE_THRESHOLD_MILLIS, thresholdMillis)
-        if (isDebounceClickable(view, thresholdMillis)) {
-            view.setOnClickListener { block.invoke(view) }
+        view.setOnClickListener {
+            if (isDebounceClickable(view, thresholdMillis)) {
+                block.invoke(view)
+            }
         }
     }
 

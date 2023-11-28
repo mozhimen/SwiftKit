@@ -19,7 +19,7 @@ import com.mozhimen.uicorek.adapterk.page.AdapterKPageRecycler
  * will be a view provided by the adapter)
  * @param position The position of the view in the adapter.
  */
-typealias IOnPageItemClickListener<DATA> = (adapter: AdapterKPageRecycler<DATA>, itemView: View, position: Int) -> Unit
+typealias IOnPageItemClickListener<DATA> = (adapter: AdapterKPageRecycler<DATA>, itemView: View, viewType: Int, position: Int) -> Unit
 /**
  * callback method to be invoked when an item child in this view has been click
  *

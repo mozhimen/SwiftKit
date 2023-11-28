@@ -1,14 +1,9 @@
 package com.mozhimen.basick.utilk.androidx.appcompat
 
-import android.content.Context
 import android.graphics.drawable.Drawable
-import android.text.TextUtils
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.view.ViewParent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.mozhimen.basick.utilk.android.widget.UtilKTextView
 
 /**
  * @ClassName UtilKToobar
@@ -17,12 +12,19 @@ import com.mozhimen.basick.utilk.android.widget.UtilKTextView
  * @Date 2023/11/16 11:49
  * @Version 1.0
  */
+fun AppCompatActivity.getToolbar(): Toolbar =
+    UtilKToolbar.getToolbar(this)
+
 fun Toolbar.applyCustomView(customView: View, drawIcon: Drawable? = null) {
     UtilKToolbar.applyCustomView(this, customView, drawIcon)
 }
 
 object UtilKToolbar {
+    @JvmStatic
+    fun getToolbar(activity: AppCompatActivity): Toolbar =
+        activity.findViewById(androidx.appcompat.R.id.action_bar)
 
+    //////////////////////////////////////////////////////////////
     /**
      * 自定义标题
      */

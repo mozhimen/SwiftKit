@@ -3,11 +3,13 @@ package com.mozhimen.uicorek.adapterk.page
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.annotation.IdRes
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -40,13 +42,18 @@ open class AdapterKPageRecycler<DATA>(@LayoutRes private val _layoutId: Int, ite
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VHKRecycler {
         val inflate = LayoutInflater.from(parent.context).inflate(_layoutId, parent, false)
-        val vhkRecycler = VHKRecycler(inflate)
-        onBindViewClickListener(vhkRecycler, viewType)
-        return vhkRecycler
+        return VHKRecycler(inflate)
     }
 
+    //    @CallSuper
     override fun onBindViewHolder(holder: VHKRecycler, position: Int) {
+//        bindViewClickListener(holder, holder.itemViewType, position)
+    }
 
+    //    @CallSuper
+    override fun onBindViewHolder(holder: VHKRecycler, position: Int, payloads: MutableList<Any>) {
+        onBindViewHolder(holder, position)
+//        bindViewClickListener(holder, holder.itemViewType, position)
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -77,37 +84,38 @@ open class AdapterKPageRecycler<DATA>(@LayoutRes private val _layoutId: Int, ite
     /**
      * 绑定 item 点击事件
      */
-    protected open fun onBindViewClickListener(holder: VHKRecycler, viewType: Int) {
+    @CallSuper
+    protected open fun bindViewClickListener(holder: VHKRecycler, viewType: Int, position: Int) {
         _onPageItemClickListener?.let {
-            holder.itemView.applyDebounceClickListener(1000) { view ->
-                val position = holder.adapterPosition
+            holder.itemView.applyDebounceClickListener(lifecycleScope, 500) { view ->
+//                val position = holder.adapterPosition
                 if (position == RecyclerView.NO_POSITION)
                     return@applyDebounceClickListener
-                val itemViewType = holder.itemViewType
-                if (itemViewType == -0x201) //过滤掉暂无更多
-                    return@applyDebounceClickListener
-                it.invoke(this, view, position)
+//                val itemViewType = holder.itemViewType
+//                if (itemViewType == -0x201) //过滤掉暂无更多
+//                    return@applyDebounceClickListener
+                it.invoke(this, view, viewType, position)
             }
         }
         _onPageItemLongClickListener?.let {
             holder.itemView.setOnLongClickListener { view ->
-                val position = holder.adapterPosition
+//                val position = holder.adapterPosition
                 if (position == RecyclerView.NO_POSITION)
                     return@setOnLongClickListener false
-                it.invoke(this, view, position)
+                it.invoke(this, view, viewType, position)
                 return@setOnLongClickListener true
             }
         }
-        _onPageItemChildClickListener?.let { block ->
+        _onPageItemChildClickListener?.let {
             for (id in getChildClickViewIds()) {
                 holder.itemView.findViewById<View>(id)?.let { view ->
                     if (!view.isClickable)
                         view.isClickable = true
-                    view.applyDebounceClickListener(1000) {
-                        val position = holder.adapterPosition
+                    view.applyDebounceClickListener(lifecycleScope, 500) { clickView ->
+//                        val position = holder.adapterPosition
                         if (position == RecyclerView.NO_POSITION)
                             return@applyDebounceClickListener
-                        block.invoke(this, view, position)
+                        it.invoke(this, view, viewType, position)
                     }
                 }
             }
@@ -146,6 +154,4 @@ open class AdapterKPageRecycler<DATA>(@LayoutRes private val _layoutId: Int, ite
     fun setOnItemLongClickListener(listener: IOnPageItemLongClickListener<DATA>) {
         _onPageItemLongClickListener = listener
     }
-
-
 }
