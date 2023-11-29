@@ -17,7 +17,7 @@ import kotlin.math.sign
  * @Date 2023/10/13 11:57
  * @Version 1.0
  */
-class LayoutKScrollableNestedFrame @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleRes: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleRes) {
+class LayoutKScrollableFrameNestedViewPager2 @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleRes: Int = 0) : BaseLayoutKFrame(context, attrs, defStyleRes) {
 
     private var _touchSlop = 0
     private var _initialX = 0f
@@ -31,7 +31,8 @@ class LayoutKScrollableNestedFrame @JvmOverloads constructor(context: Context, a
             return view as? ViewPager2
         }
 
-    private val _child: View? get() = if (childCount > 0) getChildAt(0) else null
+    private val _child: View?
+        get() = if (childCount > 0) getChildAt(0) else null
 
     ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -44,8 +45,8 @@ class LayoutKScrollableNestedFrame @JvmOverloads constructor(context: Context, a
     private fun canChildScroll(orientation: Int, delta: Float): Boolean {
         val direction = -delta.sign.toInt()
         return when (orientation) {
-            0 -> _child?.canScrollHorizontally(direction) ?: false
-            1 -> _child?.canScrollVertically(direction) ?: false
+            ViewPager2.ORIENTATION_HORIZONTAL/*0*/ -> _child?.canScrollHorizontally(direction) ?: false
+            ViewPager2.ORIENTATION_VERTICAL/*1*/ -> _child?.canScrollVertically(direction) ?: false
             else -> throw IllegalArgumentException()
         }
     }

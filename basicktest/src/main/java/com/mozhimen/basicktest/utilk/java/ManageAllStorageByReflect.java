@@ -6,7 +6,9 @@ import android.os.storage.StorageManager;
 import android.util.Log;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * @ClassName ManageAllStorgeByReflect
@@ -41,8 +43,8 @@ public class ManageAllStorageByReflect {
     public static String[] reflect(Context paramContext) {
         String[] arrayOfString;
         byte b = 0;
-        StorageManager storageManager = (StorageManager)paramContext.getSystemService("storage");
-        Class<?> clazz = (Class)null;
+        StorageManager storageManager = (StorageManager) paramContext.getSystemService("storage");
+        Class<?> clazz = (Class) null;
         try {
             clazz = Class.forName("android.os.storage.StorageVolume");
             Method method2 = storageManager.getClass().getMethod("getVolumeList", new Class[0]);
@@ -52,15 +54,39 @@ public class ManageAllStorageByReflect {
             arrayOfString = new String[i];
             while (true) {
                 if (b < i) {
-                    arrayOfString[b] = (String)method1.invoke(Array.get(object, b), new Object[0]);
+                    arrayOfString[b] = (String) method1.invoke(Array.get(object, b), new Object[0]);
                     b++;
                     continue;
                 }
                 return arrayOfString;
             }
         } catch (Exception exception) {
-            arrayOfString = (String[])null;
+            arrayOfString = (String[]) null;
         }
+        return arrayOfString;
+    }
+
+    public static String[] reflect1() {
+        String[] arrayOfString;
+        try {
+            Class<?> clazz1 = Class.forName("android.provider.Settings");
+            Class<?> clazz2 = Class.forName(clazz1.getName());
+            Field field2 = clazz2.getDeclaredField("ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
+            field2.setAccessible(true);
+            Field field1 = clazz2.getDeclaredField("ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION");
+            field1.setAccessible(true);
+            arrayOfString = new String[]{(String) field2.get(clazz2), (String) field1.get(clazz2)};
+        } catch (ClassNotFoundException classNotFoundException) {
+            classNotFoundException.printStackTrace();
+            NoClassDefFoundError noClassDefFoundError = new NoClassDefFoundError();
+//            this(classNotFoundException.getMessage());
+            throw noClassDefFoundError;
+        } catch (Exception exception) {
+            arrayOfString = new String[2];
+            arrayOfString[0] = "android.settings.MANAGE_APP_ALL_FILES_ACCESS_PERMISSION";
+            arrayOfString[1] = "android.settings.MANAGE_ALL_FILES_ACCESS_PERMISSION";
+        }
+        Log.d("TAG", "reflect1: " + Arrays.toString(arrayOfString));
         return arrayOfString;
     }
 }

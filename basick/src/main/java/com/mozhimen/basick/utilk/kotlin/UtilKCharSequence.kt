@@ -6,6 +6,7 @@ import android.text.style.ForegroundColorSpan
 import androidx.annotation.ColorInt
 import com.mozhimen.basick.elemk.commons.IA_Listener
 import com.mozhimen.basick.elemk.commons.I_AListener
+import com.mozhimen.basick.elemk.commons.I_Listener
 
 /**
  * @ClassName UtilKCharSequence
@@ -19,6 +20,10 @@ fun CharSequence.isEquals(chars: CharSequence): Boolean =
 
 fun CharSequence.ifNotEmpty(block: IA_Listener<CharSequence>) {
     UtilKCharSequence.ifNotEmpty(this, block)
+}
+
+fun CharSequence.ifNotEmptyOr(onNotEmpty: IA_Listener<CharSequence>, onEmpty: I_Listener) {
+    UtilKCharSequence.ifNotEmptyOr(this, onNotEmpty, onEmpty)
 }
 
 fun <C : CharSequence> C?.ifNullOrEmpty(defaultValue: I_AListener<C>): C =
@@ -56,6 +61,11 @@ object UtilKCharSequence {
     @JvmStatic
     fun ifNotEmpty(chars: CharSequence, block: IA_Listener<CharSequence>) {
         if (chars.isNotEmpty()) block.invoke(chars)
+    }
+
+    @JvmStatic
+    fun ifNotEmptyOr(chars: CharSequence, onNotEmpty: IA_Listener<CharSequence>, onEmpty: I_Listener) {
+        if (chars.isNotEmpty()) onNotEmpty.invoke(chars) else onEmpty.invoke()
     }
 
     @JvmStatic

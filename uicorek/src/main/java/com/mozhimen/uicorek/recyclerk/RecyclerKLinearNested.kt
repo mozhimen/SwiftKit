@@ -2,9 +2,11 @@ package com.mozhimen.uicorek.recyclerk
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import androidx.recyclerview.widget.RecyclerView
 import com.mozhimen.basick.elemk.android.view.cons.CMotionEvent
+import com.mozhimen.basick.utilk.android.view.requestAllowInterceptTouchEvent
 import kotlin.math.abs
 
 /**
@@ -15,7 +17,7 @@ import kotlin.math.abs
  * @Version 1.0
  */
 
-class RecyclerKNested @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
+class RecyclerKLinearNested @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr) {
     private var _startX = 0
     private var _startY = 0
 
@@ -25,7 +27,7 @@ class RecyclerKNested @JvmOverloads constructor(context: Context, attrs: Attribu
                 _startX = ev.x.toInt()
                 _startY = ev.y.toInt()
                 //告诉viewGroup不要去拦截我
-                parent.requestDisallowInterceptTouchEvent(true)
+                parent.requestAllowInterceptTouchEvent(false)
             }
 
             CMotionEvent.ACTION_MOVE -> {
@@ -33,11 +35,19 @@ class RecyclerKNested @JvmOverloads constructor(context: Context, attrs: Attribu
                 val endY = ev.y.toInt()
                 val disX = abs(endX - _startX)
                 val disY = abs(endY - _startY)
-                //下拉的时候是false
-                parent.requestDisallowInterceptTouchEvent(disX <= disY)
+                Log.v("RecyclerKLinearNested>>>>>", "dispatchTouchEvent: disX $disX disY $disY")
+//                //下拉的时候是false
+//                if (disY >= disX) {
+//                    parent.requestDisallowInterceptTouchEvent(false)//y轴大于x轴->父控件拦截->false->y>x取反->y<=x
+//                    return false
+//                } else {
+//                    parent.requestDisallowInterceptTouchEvent(true)
+//                }
+                parent.requestAllowInterceptTouchEvent(disX <= disY)
             }
 
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> parent.requestDisallowInterceptTouchEvent(true)
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->
+                parent.requestAllowInterceptTouchEvent(true)
             else -> {}
         }
         return super.dispatchTouchEvent(ev)
