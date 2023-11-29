@@ -35,7 +35,6 @@ class RecyclerKLinearNested @JvmOverloads constructor(context: Context, attrs: A
                 val endY = ev.y.toInt()
                 val disX = abs(endX - _startX)
                 val disY = abs(endY - _startY)
-                Log.v("RecyclerKLinearNested>>>>>", "dispatchTouchEvent: disX $disX disY $disY")
 //                //下拉的时候是false
 //                if (disY >= disX) {
 //                    parent.requestDisallowInterceptTouchEvent(false)//y轴大于x轴->父控件拦截->false->y>x取反->y<=x
