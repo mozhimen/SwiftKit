@@ -1,6 +1,10 @@
 package com.mozhimen.basicktest.utilk.java;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.storage.StorageManager;
 import android.util.Log;
@@ -63,30 +67,6 @@ public class ManageAllStorageByReflect {
         } catch (Exception exception) {
             arrayOfString = (String[]) null;
         }
-        return arrayOfString;
-    }
-
-    public static String[] reflect1() {
-        String[] arrayOfString;
-        try {
-            Class<?> clazz1 = Class.forName("android.provider.Settings");
-            Class<?> clazz2 = Class.forName(clazz1.getName());
-            Field field2 = clazz2.getDeclaredField("ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
-            field2.setAccessible(true);
-            Field field1 = clazz2.getDeclaredField("ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION");
-            field1.setAccessible(true);
-            arrayOfString = new String[]{(String) field2.get(clazz2), (String) field1.get(clazz2)};
-        } catch (ClassNotFoundException classNotFoundException) {
-            classNotFoundException.printStackTrace();
-            NoClassDefFoundError noClassDefFoundError = new NoClassDefFoundError();
-//            this(classNotFoundException.getMessage());
-            throw noClassDefFoundError;
-        } catch (Exception exception) {
-            arrayOfString = new String[2];
-            arrayOfString[0] = "android.settings.MANAGE_APP_ALL_FILES_ACCESS_PERMISSION";
-            arrayOfString[1] = "android.settings.MANAGE_ALL_FILES_ACCESS_PERMISSION";
-        }
-        Log.d("TAG", "reflect1: " + Arrays.toString(arrayOfString));
         return arrayOfString;
     }
 }

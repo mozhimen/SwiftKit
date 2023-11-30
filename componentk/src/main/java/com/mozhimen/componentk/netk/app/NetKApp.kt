@@ -111,19 +111,19 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 onTaskFinish(appTask, ENetKAppFinishType.FAIL(CNetKAppErrorCode.CODE_DOWNLOAD_ENOUGH.intAppErrorCode2appDownloadException()))
                 return
             }
-            if (InstallKManager.hasPackageName(appTask.apkPackageName)) {
-                //throw CNetKAppErrorCode.CODE_TASK_HAS_INSTALL.intAppErrorCode2appDownloadException()
-                appTask.apply {
-                    taskState = CNetKAppTaskState.STATE_TASK_SUCCESS
-                    apkIsInstalled = true
-                }
-
-                /**
-                 * [CNetKAppTaskState.STATE_TASK_SUCCESS]
-                 */
-                onTaskFinish(appTask, ENetKAppFinishType.SUCCESS)
-                return
-            }
+//            if (InstallKManager.hasPackageName(appTask.apkPackageName)) {
+//                //throw CNetKAppErrorCode.CODE_TASK_HAS_INSTALL.intAppErrorCode2appDownloadException()
+//                appTask.apply {
+//                    taskState = CNetKAppTaskState.STATE_TASK_SUCCESS
+//                    apkIsInstalled = true
+//                }
+//
+//                /**
+//                 * [CNetKAppTaskState.STATE_TASK_SUCCESS]
+//                 */
+//                onTaskFinish(appTask, ENetKAppFinishType.SUCCESS)
+//                return
+//            }
 
             if (appTask.apkFileSize != 0L) {
                 //当前剩余的空间
@@ -309,6 +309,15 @@ object NetKApp : INetKAppState, BaseUtilK() {
     fun isDownloading(appTask: AppTask): Boolean {
         return NetKAppDownloadManager.getAppDownloadProgress(appTask)?.isDownloading() ?: false//查询下载状态
     }
+
+    @JvmStatic
+    fun isDeleteApkFile(isDelete: Boolean) {
+        NetKAppTaskManager.isDeleteApkFile = isDelete
+    }
+
+    @JvmStatic
+    fun isDeleteApkFile(): Boolean =
+        NetKAppTaskManager.isDeleteApkFile
 
     //endregion
 

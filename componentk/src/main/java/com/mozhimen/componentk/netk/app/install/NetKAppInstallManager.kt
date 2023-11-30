@@ -13,6 +13,7 @@ import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.task.db.AppTaskDaoManager
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 import com.mozhimen.componentk.netk.app.download.mos.intAppErrorCode2appDownloadException
+import com.mozhimen.componentk.netk.app.task.NetKAppTaskManager
 import java.io.File
 
 /**
@@ -62,6 +63,9 @@ internal object NetKAppInstallManager : IUtilK {
     fun onInstallSuccess(appTask: AppTask) {
         InstallKManager.onPackageAdded(appTask.apkPackageName)
 
+        if (NetKAppTaskManager.isDeleteApkFile) {
+            NetKAppTaskManager.deleteFileApk(appTask)
+        }
         //将安装状态发给后端
         /*            GlobalScope.launch(Dispatchers.IO) {
                         ApplicationService.install(appDownloadParam0.appId)
