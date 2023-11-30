@@ -33,7 +33,7 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
     @CallSuper
     override fun initLayout() {
         super.initLayout()
-        getSwipeRefreshLayout().apply {
+        getSwipeRefreshLayout()?.apply {
             if (getSwipeRefreshLayoutColorScheme() != 0)
                 setColorSchemeResources(getSwipeRefreshLayoutColorScheme())
             setOnRefreshListener { getViewModel().onInvalidate() }
@@ -45,10 +45,10 @@ abstract class BasePagingKFragmentVBVM<DES, VB : ViewDataBinding, VM : BasePagin
         }
         getViewModel().liveLoadState.observe(this) {
             if (it == CPagingKLoadingState.STATE_FIRST_LOAD_START) {
-                getSwipeRefreshLayout().isRefreshing = true
+                getSwipeRefreshLayout()?.isRefreshing = true
                 onLoadStart()
             } else
-                getSwipeRefreshLayout().isRefreshing = false
+                getSwipeRefreshLayout()?.isRefreshing = false
             if (it == CPagingKLoadingState.STATE_FIRST_LOAD_EMPTY) {
                 onLoadEmpty()
             } else {

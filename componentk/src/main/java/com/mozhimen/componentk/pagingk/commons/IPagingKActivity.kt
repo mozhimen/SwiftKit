@@ -18,7 +18,7 @@ import com.mozhimen.componentk.pagingk.bases.BasePagingKViewModel
 interface IPagingKActivity<DES, VM : BasePagingKViewModel<*, DES>> {
     fun getViewModel(): VM
     fun getPagedListAdapter(): PagedListAdapter<DES, *>
-    fun getSwipeRefreshLayout(): SwipeRefreshLayout
+    fun getSwipeRefreshLayout(): SwipeRefreshLayout?
     fun getSwipeRefreshLayoutColorScheme(): Int = 0
     fun getRecyclerView(): RecyclerView
     fun getRecyclerViewLayoutManager(): LayoutManager
