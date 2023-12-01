@@ -51,49 +51,52 @@ object UtilKUriFormat : BaseUtilK() {
     fun uri2strFilePath(uri: Uri, strFilePathNameDest: String = ""): String? {
         when (uri.scheme) {
             CContentResolver.SCHEME_FILE -> uri.path
-            CContentResolver.SCHEME_CONTENT -> {
-                if (DocumentsContract.isDocumentUri(_context, uri)) {
-                    val documentId = UtilKDocumentsContract.getDocumentId(uri)
-                    val split = documentId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                    val type = split[0]
-                    val path = split[1]
-
-                    when {
-                        uri.isAuthorityDownloadsDocument() -> {
-                            if (documentId.isStrDigits2())
-                                return "content://downloads/public_downloads".strUri2uri().withAppendedId(documentId.toLong()).getMediaColumns()
-                        }
-
-                        uri.isAuthorityExternalStorageDocument() -> {
-                            if (type.equals(CMediaStore.Type.PRIMARY, true))
-                                return "${UtilKStrPath.Absolute.External.getEnvStorage()}/$path"
-                        }
-
-                        uri.isAuthorityMediaDocument() -> {
-                            if (type.equals(CMediaStore.Type.PRIMARY, true))
-                                return "${UtilKStrPath.Absolute.External.getEnvStorage()}/$path"
-                            else if (type.equals(CMediaStore.Type.RAW, true))
-                                return path
-                            val externalContentUri = when {
-                                type.equals(CMediaStore.Type.VIDEO, true) -> CMediaStore.Video.Media.EXTERNAL_CONTENT_URI
-                                type.equals(CMediaStore.Type.AUDIO, true) -> CMediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-                                type.equals(CMediaStore.Type.IMAGE, true) -> CMediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                                else -> null
-                            }
-                            if (externalContentUri != null)
-                                return externalContentUri.getMediaColumns("${CMediaStore.MediaColumns._ID}=?", arrayOf(path))
-                        }
-                    }
-
-                    if (UtilKBuildVersion.isAfterV_29_10_Q() && strFilePathNameDest.isNotEmpty())
-                        return UtilKContentResolver.openInputStream(_context, uri)
-                            ?.inputStream2file("$strFilePathNameDest.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}")?.absolutePath
-                }
-
-                return uri.getMediaColumns()
-            }
+            CContentResolver.SCHEME_CONTENT -> return uri2strFilePathOfContent(uri, strFilePathNameDest)
         }
         return null
+    }
+
+    @JvmStatic
+    fun uri2strFilePathOfContent(uri: Uri, strFilePathNameDest: String = ""): String? {
+        if (DocumentsContract.isDocumentUri(_context, uri)) {
+            val documentId = UtilKDocumentsContract.getDocumentId(uri)
+            val split = documentId.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            val type = split[0]
+            val path = split[1]
+
+            when {
+                uri.isAuthorityDownloadsDocument() -> {
+                    if (documentId.isStrDigits2())
+                        return "content://downloads/public_downloads".strUri2uri().withAppendedId(documentId.toLong()).getMediaColumns()
+                }
+
+                uri.isAuthorityExternalStorageDocument() -> {
+                    if (type.equals(CMediaStore.Type.PRIMARY, true))
+                        return "${UtilKStrPath.Absolute.External.getEnvStorage()}/$path"
+                }
+
+                uri.isAuthorityMediaDocument() -> {
+                    if (type.equals(CMediaStore.Type.PRIMARY, true))
+                        return "${UtilKStrPath.Absolute.External.getEnvStorage()}/$path"
+                    else if (type.equals(CMediaStore.Type.RAW, true))
+                        return path
+                    val externalContentUri = when {
+                        type.equals(CMediaStore.Type.VIDEO, true) -> CMediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                        type.equals(CMediaStore.Type.AUDIO, true) -> CMediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                        type.equals(CMediaStore.Type.IMAGE, true) -> CMediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                        else -> null
+                    }
+                    if (externalContentUri != null)
+                        return externalContentUri.getMediaColumns("${CMediaStore.MediaColumns._ID}=?", arrayOf(path))
+                }
+            }
+
+            if (UtilKBuildVersion.isAfterV_29_10_Q() && strFilePathNameDest.isNotEmpty())
+                return UtilKContentResolver.openInputStream(_context, uri)
+                    ?.inputStream2file("$strFilePathNameDest.${UtilKMimeTypeMap.getExtensionFromMimeType(_context, uri)}")?.absolutePath
+        }
+
+        return uri.getMediaColumns()
     }
 
     @JvmStatic

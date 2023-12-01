@@ -36,6 +36,12 @@ data class AppTask(
     val apkPackageName: String,//包名
     @ColumnInfo(name = "apk_name")
     val apkName: String,//本地保存的名称 为appid.apk或appid.npk
+    @ColumnInfo(name = "apk_version_code")
+    val apkVersionCode: Int,
+    @ColumnInfo(name = "apk_version_name")
+    val apkVersionName: String,
+    @ColumnInfo(name = "apk_icon_url")
+    val apkIconUrl: String,
     @ColumnInfo("apk_file_name")
     var apkFileName: String,//和apkName的区别是有后缀
     @ColumnInfo(name = "apk_path_name")
