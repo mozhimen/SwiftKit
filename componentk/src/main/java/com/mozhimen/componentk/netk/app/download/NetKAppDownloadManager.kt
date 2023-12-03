@@ -1,6 +1,5 @@
 package com.mozhimen.componentk.netk.app.download
 
-import android.app.DownloadManager
 import android.content.Context
 import android.util.Log
 import android.util.SparseArray
@@ -32,7 +31,6 @@ import com.mozhimen.componentk.netk.app.task.db.AppTaskDaoManager
 import com.mozhimen.componentk.netk.app.verify.NetKAppVerifyManager
 import okhttp3.OkHttpClient
 import java.lang.Exception
-import java.net.SocketTimeoutException
 
 /**
  * @ClassName AppDownloadManager
@@ -43,7 +41,8 @@ import java.net.SocketTimeoutException
  */
 @OptInApiInit_InApplication
 internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
-    private const val RETRY_COUNT = 10
+    private const val RETRY_COUNT_MIN = 5
+    private const val RETRY_COUNT_MAX = 10
     private val _downloadingTasks = SparseArray<MAppDownloadProgress>()
 //    private val _appDownloadSerialQueue: AppDownloadSerialQueue by lazy { AppDownloadSerialQueue(this) }
 
@@ -57,8 +56,17 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
     fun init(context: Context) {
         try {
             AppTaskDaoManager.getAllAtTaskDownloadOrWaitOrPause().forEach {
-                getDownloadTask(it)?.let { downloadTask ->
-                    _downloadingTasks.put(downloadTask.id, MAppDownloadProgress(it))
+//                getDownloadTask(it)?.let { downloadTask ->
+////                    _downloadingTasks.put(downloadTask.id, MAppDownloadProgress(it))
+//
+//                }
+                if (it.isTaskWait()) {
+                    downloadWaitCancel(it)
+
+                    /**
+                     * @see CNetKAppState.STATE_DOWNLOAD_CANCEL
+                     */
+                    NetKApp.onDownloadCancel(it)
                 }
             }
             Log.d(TAG, "init: resume task num ${_downloadingTasks.size()}")
@@ -74,7 +82,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        downloadResumeAll()
+//        downloadResumeAll()
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -130,17 +138,17 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         /**
          * [CNetKAppState.STATE_DOWNLOAD_WAIT]
          */
-        NetKApp.onDownloadWait(appTask)
+        NetKApp.onDownloadWait(appTask.apply { downloadId = downloadTask.id })
 //        listener?.onSuccess()
     }
 
     @JvmStatic
     fun downloadPause(appTask: AppTask) {
-        val task = getDownloadTask(appTask) ?: run {
+        val downloadTask = getDownloadTask(appTask) ?: run {
             Log.d(TAG, "downloadPause: get download task fail")
             return
         }
-        task.cancel()//取消任务
+        downloadTask.cancel()//取消任务
 
         /**
          * [CNetKAppState.STATE_DOWNLOAD_PAUSE]
@@ -177,13 +185,13 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
      */
     @JvmStatic
     fun downloadResume(appTask: AppTask) {
-        val task = getDownloadTask(appTask) ?: run {
-            Log.d(TAG, "downloadPause: get download task fail")
+        val downloadTask = getDownloadTask(appTask) ?: run {
+            Log.d(TAG, "downloadResume: get download task fail")
             return
         }
-        if (StatusUtil.getStatus(task) != StatusUtil.Status.RUNNING) {
+        if (StatusUtil.getStatus(downloadTask) != StatusUtil.Status.RUNNING) {
 //            _appDownloadSerialQueue.enqueue(task)
-            DownloadTask.enqueue(arrayOf(task), this)
+            DownloadTask.enqueue(arrayOf(downloadTask), this)
         }
 //        _downloadingTasks.put(task.id, appTask)
 
@@ -198,18 +206,17 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
      */
     @JvmStatic
     fun downloadWaitCancel(appTask: AppTask/*, onDeleteBlock: IAB_Listener<Boolean, Int>?*/) {
-        val task = getDownloadTask(appTask) ?: run {
+        val downloadTask = getDownloadTask(appTask) ?: run {
 //            TaskKHandler.post {
 //                onDeleteBlock?.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
 //            }
-            Log.d(TAG, "downloadPause: get download task fail")
+            Log.d(TAG, "downloadWaitCancel: get download task fail")
             return
         }
-        task.cancel()//然后取消任务
-        _downloadingTasks.delete(task.id)
+        downloadTask.cancel()//然后取消任务
+        _downloadingTasks.delete(downloadTask.id)
 //        _appDownloadSerialQueue.remove(task)//先从队列中移除
-        DownloadTask.cancel(arrayOf(task))
-        AppTaskDaoManager.delete(appTask)
+        DownloadTask.cancel(arrayOf(downloadTask))
 
 //        /**
 //         * [CNetKAppState.STATE_DOWNLOAD_CANCEL]
@@ -217,30 +224,56 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
 //        NetKApp.onDownloadCancel(appTask)
     }
 
+    @JvmStatic
+    fun downloadRetry(appTask: AppTask) {
+        val downloadTask = getDownloadTask(appTask) ?: run {
+//            TaskKHandler.post {
+//                onDeleteBlock?.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
+//            }
+            Log.d(TAG, "downloadRetry: get download task fail")
+            return
+        }
+        downloadTask.cancel()//然后取消任务
+//        _appDownloadSerialQueue.remove(task)//先从队列中移除
+        DownloadTask.cancel(arrayOf(downloadTask))
+    }
+
     /**
      * 删除任务
      */
     @JvmStatic
     fun downloadCancel(appTask: AppTask/*, onDeleteBlock: IAB_Listener<Boolean, Int>?*/) {
-        val task = getDownloadTask(appTask) ?: run {
+        val downloadTask = getDownloadTask(appTask) ?: run {
 //            TaskKHandler.post {
 //                onDeleteBlock?.invoke(false, CNetKAppErrorCode.CODE_DOWNLOAD_CANT_FIND_TASK)
 //            }
-            Log.d(TAG, "downloadPause: get download task fail")
+            Log.d(TAG, "downloadCancel: get download task fail")
             return
         }
-        task.cancel()
-        _downloadingTasks.delete(task.id)//先从队列中移除
-        DownloadTask.cancel(arrayOf(task))
+        downloadTask.cancel()
+        _downloadingTasks.delete(downloadTask.id)//先从队列中移除
+        DownloadTask.cancel(arrayOf(downloadTask))
 //        _appDownloadSerialQueue.remove(task)
-        OkDownload.with().breakpointStore().remove(task.id)
-        task.file?.delete()
-        AppTaskDaoManager.delete(appTask)
-//            onDeleteBlock?.invoke(true, -1)
+        OkDownload.with().breakpointStore().remove(downloadTask.id)
+        downloadTask.file?.delete()
+
+        //            onDeleteBlock?.invoke(true, -1)
 //        /**
 //         * [CNetKAppState.STATE_DOWNLOAD_CANCEL]
 //         */
 //        NetKApp.onDownloadCancel(appTask)
+    }
+
+    @JvmStatic
+    fun downloadRetryWithClear(appTask: AppTask) {
+        val downloadTask = getDownloadTask(appTask) ?: run {
+            Log.d(TAG, "downloadRetryWithClear: get download task fail")
+            return
+        }
+        downloadTask.cancel()
+        DownloadTask.cancel(arrayOf(downloadTask))
+        OkDownload.with().breakpointStore().remove(downloadTask.id)
+        downloadTask.file?.delete()
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -250,11 +283,11 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
      */
     @JvmStatic
     fun getAppDownloadProgress(appTask: AppTask): MAppDownloadProgress? {
-        val task = getDownloadTask(appTask) ?: run {
+        val downloadTask = getDownloadTask(appTask) ?: run {
             Log.d(TAG, "downloadPause: get download task fail")
             return null
         }
-        return _downloadingTasks[task.id]
+        return _downloadingTasks[downloadTask.id]
         /*return when (StatusUtil.getStatus(task)) {
             StatusUtil.Status.PENDING -> {//等待中 不做处理
                 MAppDownloadProgress().apply {
@@ -300,9 +333,15 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
 
     ///////////////////////////////////////////////////////////////////////////////////////
 
-    override fun taskStart(task: DownloadTask, model: Listener1Assist.Listener1Model) {
-        Log.d(TAG, "taskStart: task $task")
-        _downloadingTasks[task.id]?.let { appTask ->
+    override fun taskStart(downloadTask: DownloadTask, model: Listener1Assist.Listener1Model) {
+        Log.d(TAG, "taskStart: task $downloadTask")
+        var mAppDownloadProgress = _downloadingTasks[downloadTask.id]
+        if (mAppDownloadProgress == null) {
+            val appTask = AppTaskDaoManager.getByDownloadId(downloadTask.id) ?: return
+            _downloadingTasks[downloadTask.id] = MAppDownloadProgress(appTask)
+            mAppDownloadProgress = _downloadingTasks[downloadTask.id]
+        }
+        mAppDownloadProgress?.let { appTask ->
             /**
              * [CNetKAppState.STATE_DOWNLOADING]
              */
@@ -310,19 +349,28 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         }
     }
 
-    override fun retry(task: DownloadTask, cause: ResumeFailedCause) {
-        Log.d(TAG, "retry: task $task")
+    override fun retry(downloadTask: DownloadTask, cause: ResumeFailedCause) {
+        Log.d(TAG, "retry: task $downloadTask")
     }
 
-    override fun connected(task: DownloadTask, blockCount: Int, currentOffset: Long, totalLength: Long) {
-        Log.d(TAG, "connected: task $task")
+    override fun connected(downloadTask: DownloadTask, blockCount: Int, currentOffset: Long, totalLength: Long) {
+        Log.d(TAG, "connected: task $downloadTask")
     }
 
-    override fun progress(task: DownloadTask, currentOffset: Long, totalLength: Long) {
-        _downloadingTasks[task.id]?.let { appTask ->
+    override fun progress(downloadTask: DownloadTask, currentOffset: Long, totalLength: Long) {
+        var mAppDownloadProgress = _downloadingTasks[downloadTask.id]
+        if (mAppDownloadProgress == null) {
+            val appTask = AppTaskDaoManager.getByDownloadId(downloadTask.id) ?: return
+            _downloadingTasks[downloadTask.id] = MAppDownloadProgress(appTask)
+            mAppDownloadProgress = _downloadingTasks[downloadTask.id]
+        }
+        mAppDownloadProgress?.let { appTask ->
             val progress = ((currentOffset.toFloat() / totalLength.toFloat()) * 100f).toInt()
             Log.d(TAG, "progress: $progress currentOffset $currentOffset  totalLength $totalLength")
             if (progress !in 0..100) return
+            if (appTask.appTask.isTaskPause()) return
+            if (progress < appTask.appTask.downloadProgress) return
+
             /**
              * [CNetKAppState.STATE_DOWNLOADING]
              */
@@ -330,9 +378,15 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         }
     }
 
-    override fun taskEnd(task: DownloadTask, cause: EndCause, realCause: Exception?, model: Listener1Assist.Listener1Model) {
-        Log.d(TAG, "taskEnd: $task cause ${cause.name} realCause ${realCause.toString()}")
-        _downloadingTasks[task.id]?.let { appTask ->
+    override fun taskEnd(downloadTask: DownloadTask, cause: EndCause, realCause: Exception?, model: Listener1Assist.Listener1Model) {
+        Log.d(TAG, "taskEnd: $downloadTask cause ${cause.name} realCause ${realCause.toString()}")
+        var mAppDownloadProgress = _downloadingTasks[downloadTask.id]
+        if (mAppDownloadProgress == null) {
+            val appTask = AppTaskDaoManager.getByDownloadId(downloadTask.id) ?: return
+            _downloadingTasks[downloadTask.id] = MAppDownloadProgress(appTask)
+            mAppDownloadProgress = _downloadingTasks[downloadTask.id]
+        }
+        mAppDownloadProgress?.let { appTask ->
             when (cause) {
                 EndCause.COMPLETED -> {
                     onDownloadSuccess(appTask.appTask)
@@ -341,6 +395,11 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                 EndCause.CANCELED -> {
                     if (appTask.appTask.isTaskPause())
                         return
+                    if (appTask.isRetry) {
+                        appTask.isRetry = false
+                        download(appTask.appTask)
+                        return
+                    }
                     /**
                      * [CNetKAppState.STATE_DOWNLOAD_CANCEL]
                      */
@@ -348,23 +407,40 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                 }
 
                 else -> {
-                    if (realCause is SocketTimeoutException && appTask.retryCount < 10) {
+                    if (appTask.appTask.isTaskPause())
+                        return
+
+                    if (appTask.retryCount < RETRY_COUNT_MIN) {
                         try {
                             appTask.retryCount++
+                            appTask.isRetry = true
+                            downloadRetry(appTask.appTask)
                             download(appTask.appTask)
-                            Log.d(TAG, "taskEnd: 通信问题重试 ${appTask.retryCount}次 appTask ${appTask.appTask}")
+                            Log.d(TAG, "taskEnd: MIN通信问题重试 ${appTask.retryCount}次 appTask ${appTask.appTask}")
                         } catch (e: AppDownloadException) {
                             /**
                              * [CNetKAppState.STATE_DOWNLOAD_FAIL]
                              */
                             NetKApp.onDownloadFail(appTask.appTask, e)
-                            _downloadingTasks.delete(task.id)//从队列里移除掉
+                            _downloadingTasks.delete(downloadTask.id)//从队列里移除掉
+                        }
+                        return
+                    } else if (appTask.retryCount < RETRY_COUNT_MAX) {
+                        try {
+                            appTask.retryCount++
+                            appTask.isRetry = true
+                            downloadRetryWithClear(appTask.appTask)
+                            download(appTask.appTask)
+                            Log.d(TAG, "taskEnd: MAX通信问题重试 ${appTask.retryCount}次 appTask ${appTask.appTask}")
+                        } catch (e: AppDownloadException) {
+                            /**
+                             * [CNetKAppState.STATE_DOWNLOAD_FAIL]
+                             */
+                            NetKApp.onDownloadFail(appTask.appTask, e)
+                            _downloadingTasks.delete(downloadTask.id)//从队列里移除掉
                         }
                         return
                     }
-
-                    if (appTask.appTask.isTaskPause())
-                        return
 
                     /**
                      * [CNetKAppState.STATE_DOWNLOAD_FAIL]
@@ -373,7 +449,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                 }
             }
         }
-        _downloadingTasks.delete(task.id)//从队列里移除掉
+        _downloadingTasks.delete(downloadTask.id)//从队列里移除掉
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////

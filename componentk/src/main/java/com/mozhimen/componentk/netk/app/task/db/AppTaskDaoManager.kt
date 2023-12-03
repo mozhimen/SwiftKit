@@ -17,12 +17,12 @@ import java.util.concurrent.ConcurrentHashMap
  */
 @OptInApiInit_InApplication
 object AppTaskDaoManager : IUtilK {
-    private val _downloadTasks = ConcurrentHashMap<String, AppTask>()
+    private val _tasks = ConcurrentHashMap<String, AppTask>()
 
     fun init() {
         TaskKExecutor.execute(TAG + "init") {
             AppTaskDbManager.appTaskDao.getAll().forEach {
-                _downloadTasks[it.taskId] = it
+                _tasks[it.taskId] = it
             }
         }
     }
@@ -39,7 +39,7 @@ object AppTaskDaoManager : IUtilK {
 
     @JvmStatic
     fun getByTaskId_PackageName(taskId: String, packageName: String): AppTask? {
-        val appTask: AppTask = _downloadTasks[taskId] ?: return null
+        val appTask: AppTask = _tasks[taskId] ?: return null
         if (appTask.apkPackageName == packageName)
             return appTask
         return null
@@ -52,7 +52,12 @@ object AppTaskDaoManager : IUtilK {
      */
     @JvmStatic
     fun getByTaskId(taskId: String): AppTask? {
-        return _downloadTasks[taskId]
+        return _tasks[taskId]
+    }
+
+    @JvmStatic
+    fun getByDownloadId(downloadId: Int): AppTask? {
+        return _tasks.filter { it.value.downloadId == downloadId }.map { it.value }.getOrNull(0)
     }
 
     /**
@@ -62,20 +67,25 @@ object AppTaskDaoManager : IUtilK {
      */
     @JvmStatic
     fun getByApkPackageName(packageName: String): AppTask? {
-        val map = _downloadTasks.filter { it.value.apkPackageName == packageName }
-        if (map.isNotEmpty())
-            map.forEach {
-                if (it.value.apkPackageName == packageName)
-                    return it.value
-            }
-        return null
+        return _tasks.filter { it.value.apkPackageName == packageName }.map { it.value }.getOrNull(0)
     }
 
     @JvmStatic
     fun getAllAtTaskDownloadOrWaitOrPause(): List<AppTask> {
-        return _downloadTasks.filter { it.value.isTaskDownload() || it.value.taskState == CNetKAppTaskState.STATE_TASK_WAIT || it.value.taskState == CNetKAppTaskState.STATE_TASK_PAUSE }
+        return _tasks.filter { it.value.isTaskDownload() || it.value.taskState == CNetKAppTaskState.STATE_TASK_WAIT || it.value.taskState == CNetKAppTaskState.STATE_TASK_PAUSE }
             .map { it.value }
     }
+
+    @JvmStatic
+    fun getAppTasksIsProcess(): List<AppTask> {
+        return _tasks.filter { it.value.isTaskProcess() }.map { it.value }
+    }
+
+    @JvmStatic
+    fun getAppTasksIsInstalled(): List<AppTask> {
+        return _tasks.filter { it.value.isInstalled() }.map { it.value }
+    }
+
 
     /**
      * 通过保存名称获取下载信息
@@ -83,32 +93,27 @@ object AppTaskDaoManager : IUtilK {
      * @return 下载信息
      */
     fun getByApkName(apkName: String): AppTask? {
-        val map = _downloadTasks.filter { it.value.apkName == apkName }
-        if (map.isNotEmpty())
-            map.forEach {
-                if (it.value.apkName == apkName)
-                    return it.value
-            }
-        return null
+        return _tasks.filter { it.value.apkName == apkName }.map { it.value }.getOrNull(0)
     }
 
     //////////////////////////////////////////////////////////
 
     fun hasDownloading(): Boolean {
-        return _downloadTasks.filter { it.value.isTaskDownload() }.isNotEmpty()
+        return _tasks.filter { it.value.isTaskDownload() }.isNotEmpty()
     }
 
     fun hasVerifying(): Boolean {
-        return _downloadTasks.filter { it.value.isTaskVerify() }.isNotEmpty()
+        return _tasks.filter { it.value.isTaskVerify() }.isNotEmpty()
     }
 
     fun hasUnziping(): Boolean {
-        return _downloadTasks.filter { it.value.isTaskUnzip() }.isNotEmpty()
+        return _tasks.filter { it.value.isTaskUnzip() }.isNotEmpty()
     }
 
     fun hasInstalling(): Boolean {
-        return _downloadTasks.filter { it.value.isTaskInstall() }.isNotEmpty()
+        return _tasks.filter { it.value.isTaskInstall() }.isNotEmpty()
     }
+
 
     //////////////////////////////////////////////////////////
 
@@ -137,10 +142,10 @@ object AppTaskDaoManager : IUtilK {
                 it.taskUpdateTime = System.currentTimeMillis()
             }
             appTask.forEach {
-                if (_downloadTasks[it.taskId] != null) {
+                if (_tasks[it.taskId] != null) {
                     AppTaskDbManager.appTaskDao.update(it)
                 } else {
-                    _downloadTasks[it.taskId] = it
+                    _tasks[it.taskId] = it
                     AppTaskDbManager.appTaskDao.addAll(it)
                 }
             }
@@ -197,8 +202,8 @@ object AppTaskDaoManager : IUtilK {
     @Synchronized
     @WorkerThread
     private fun deleteOnBack(appTask: AppTask) {
-        if (_downloadTasks.contains(appTask.taskId))
-            _downloadTasks.remove(appTask.taskId)
+        if (_tasks.contains(appTask.taskId))
+            _tasks.remove(appTask.taskId)
         AppTaskDbManager.appTaskDao.delete(appTask)
     }
 
@@ -210,7 +215,7 @@ object AppTaskDaoManager : IUtilK {
     private fun updateOnBack(appTask: AppTask) {
         appTask.taskUpdateTime = System.currentTimeMillis()
         try {
-            if (_downloadTasks.containsKey(appTask.taskId)) {
+            if (_tasks.containsKey(appTask.taskId)) {
                 AppTaskDbManager.appTaskDao.update(appTask)//将本条数据插入到数据库
             } else {
                 AppTaskDbManager.appTaskDao.addAll(appTask)
@@ -218,6 +223,8 @@ object AppTaskDaoManager : IUtilK {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        _downloadTasks[appTask.taskId] = appTask
+        _tasks[appTask.taskId] = appTask
     }
+
+
 }

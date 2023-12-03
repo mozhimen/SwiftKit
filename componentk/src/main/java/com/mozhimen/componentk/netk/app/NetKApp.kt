@@ -105,22 +105,17 @@ object NetKApp : INetKAppState, BaseUtilK() {
             }
             if (NetKAppDownloadManager.getDownloadTaskCount() >= 3) {
                 /**
-                 * [CNetKAppTaskState.STATE_TASK_SUCCESS]
+                 * [CNetKAppTaskState.STATE_TASK_FAIL]
                  */
                 onTaskFinish(appTask, ENetKAppFinishType.FAIL(CNetKAppErrorCode.CODE_DOWNLOAD_ENOUGH.intAppErrorCode2appDownloadException()))
                 return
             }
-            if (InstallKManager.hasPackageNameAndVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
+            if (InstallKManager.hasPackageNameAndSatisfyVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
                 //throw CNetKAppErrorCode.CODE_TASK_HAS_INSTALL.intAppErrorCode2appDownloadException()
-                appTask.apply {
-                    taskState = CNetKAppTaskState.STATE_TASK_SUCCESS
-                    apkIsInstalled = true
-                }
-
                 /**
-                 * [CNetKAppTaskState.STATE_TASK_SUCCESS]
+                 * [CNetKAppState.STATE_INSTALL_SUCCESS]
                  */
-                onTaskFinish(appTask, ENetKAppFinishType.SUCCESS)
+                onInstallSuccess(appTask)
                 return
             }
 
@@ -240,13 +235,21 @@ object NetKApp : INetKAppState, BaseUtilK() {
     //region # state
     @JvmStatic
     fun generateAppTaskByPackageName(appTask: AppTask): AppTask {
-        if (getAppTaskByTaskId_PackageName(appTask.taskId, appTask.apkPackageName) == null && InstallKManager.hasPackageNameAndVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
+        if (getAppTaskByTaskId_PackageName(appTask.taskId, appTask.apkPackageName) == null && InstallKManager.hasPackageNameAndSatisfyVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
             onTaskFinish(appTask, ENetKAppFinishType.SUCCESS)
-        } else if ((appTask.apkIsInstalled || appTask.taskState == CNetKAppTaskState.STATE_TASK_SUCCESS) && !InstallKManager.hasPackageNameAndVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
+        } else if ((appTask.apkIsInstalled || appTask.taskState == CNetKAppTaskState.STATE_TASK_SUCCESS) && !InstallKManager.hasPackageNameAndSatisfyVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
             onTaskCreate(appTask.apply { apkIsInstalled = false })
         }
         return appTask
     }
+
+    @JvmStatic
+    fun getAppTasksIsProcess():List<AppTask> =
+        AppTaskDaoManager.getAppTasksIsProcess()
+
+    @JvmStatic
+    fun getAppTasksIsInstalled():List<AppTask> =
+        AppTaskDaoManager.getAppTasksIsInstalled()
 
     @JvmStatic
     fun getAppTaskByTaskId_PackageName(taskId: String, packageName: String): AppTask? =
@@ -469,9 +472,6 @@ object NetKApp : INetKAppState, BaseUtilK() {
 
     override fun onVerifyFail(appTask: AppTask, exception: AppDownloadException) {
         applyAppTaskStateException(appTask, CNetKAppState.STATE_VERIFY_FAIL, exception, onNext = {
-            /**
-             * [CNetKAppTaskState.STATE_TASK_FAIL]
-             */
             /**
              * [CNetKAppTaskState.STATE_TASK_FAIL]
              */

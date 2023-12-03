@@ -53,4 +53,10 @@
         <item name="android:windowExitAnimation">@anim/animk_trans_bottom_hide</item>
     </style>
 
+    <style name="AnimK_Theme_Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/animk_set_trans_bottom_alpha_show</item>
+        <item name="android:activityOpenExitAnimation">@anim/animk_set_alpha_no</item>
+        <item name="android:activityCloseEnterAnimation">@anim/animk_set_alpha_no</item>
+        <item name="android:activityCloseExitAnimation">@anim/animk_set_trans_bottom_alpha_hide</item>
+    </style>
 </resources>

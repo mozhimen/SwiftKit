@@ -60,6 +60,10 @@ object CNetKAppState {
         state in STATE_INSTALL_CREATE..STATE_INSTALL_FAIL
 
     @JvmStatic
+    fun isInstalled(state: Int): Boolean =
+        state == STATE_INSTALL_SUCCESS
+
+    @JvmStatic
     fun canInstall(state: Int): Boolean =
         state == STATE_VERIFY_SUCCESS || state == STATE_UNZIP_SUCCESS || state == STATE_INSTALLING
 

@@ -13,7 +13,8 @@ import com.mozhimen.componentk.netk.app.task.db.AppTask
  */
 data class MAppDownloadProgress(
     var appTask: AppTask,
-    var retryCount: Int = 0
+    var retryCount: Int = 0,
+    var isRetry: Boolean = false
 ) {
     fun isDownloading(): Boolean =
         appTask.isTaskDownload()

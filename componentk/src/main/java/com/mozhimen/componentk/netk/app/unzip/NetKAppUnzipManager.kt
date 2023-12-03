@@ -216,7 +216,7 @@ internal object NetKAppUnzipManager : IUtilK {
                 if (zipEntry.name.contains(MAC__IGNORE)) continue
                 if (!zipEntry.name.contains("assets")) continue
                 if (!zipEntry.name.contains("Android") && !zipEntry.name.endsWith("apk")) continue
-                Log.v(TAG, "unzipApkOnBack: assets/Android name ${zipEntry.name}")
+//                Log.v(TAG, "unzipApkOnBack: assets/Android name ${zipEntry.name}")
 
                 if (zipEntry.isDirectory) {
                     File(strApkFilePathDestReal, zipEntry.name).createFolder()
@@ -230,7 +230,7 @@ internal object NetKAppUnzipManager : IUtilK {
                     File(strApkFilePathDestReal, zipEntry.name.replace("assets" + File.separator, ""))//如果保护路径则需要把文件复制到根目录下指定的文件夹中
                 }
                 tempFile.parentFile?.createFolder()
-                Log.d(TAG, "unzipApkOnBack: tempFilePath ${tempFile.absolutePath}")
+//                Log.d(TAG, "unzipApkOnBack: tempFilePath ${tempFile.absolutePath}")
 
                 tempFile.deleteFile()//如果文件已经存在，则删除
                 if (tempFile.name.endsWith("apk")) {

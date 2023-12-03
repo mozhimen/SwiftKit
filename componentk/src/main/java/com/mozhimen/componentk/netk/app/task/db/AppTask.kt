@@ -42,6 +42,8 @@ data class AppTask(
     val apkVersionName: String,
     @ColumnInfo(name = "apk_icon_url")
     val apkIconUrl: String,
+    @ColumnInfo(name = "apk_icon_Id")
+    val apkIconId: Int,
     @ColumnInfo("apk_file_name")
     var apkFileName: String,//和apkName的区别是有后缀
     @ColumnInfo(name = "apk_path_name")
@@ -54,6 +56,7 @@ data class AppTask(
     var apkUnzipNeed: Boolean,
     @ColumnInfo(name = "task_update_time")
     var taskUpdateTime: Long = System.currentTimeMillis(),//更新时间
+    var downloadId: Int = 0
 ) {
     fun isTaskProcess(): Boolean =
         !apkIsInstalled && CNetKAppTaskState.isTaskProcess(taskState)
@@ -93,6 +96,9 @@ data class AppTask(
 
     fun canInstall(): Boolean =
         CNetKAppState.canInstall(taskState)
+
+    fun isInstalled(): Boolean =
+        CNetKAppState.isInstalled(taskState) || CNetKAppTaskState.isInstalled(taskState) || apkIsInstalled
 
     override fun toString(): String {
         return "AppTask(taskId='$taskId', taskState=$taskState, downloadProgress=$downloadProgress, apkFileSize=$apkFileSize, apkFileMd5='$apkFileMd5', apkPackageName='$apkPackageName', apkName='$apkName', apkFileName='$apkFileName', apkPathName='$apkPathName', apkIsInstalled=$apkIsInstalled, apkVerifyNeed=$apkVerifyNeed, apkUnzipNeed=$apkUnzipNeed, downloadUrl='$downloadUrl', downloadUrlOutSide='$downloadUrlOutSide', downloadUrlCurrent='$downloadUrlCurrent', taskUpdateTime=$taskUpdateTime)"

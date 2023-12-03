@@ -3,17 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data/>
+    <data />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:gravity="center_horizontal"
+        android:orientation="vertical"
         tools:context=".textk.TextKEditActivity">
 
         <com.mozhimen.uicorek.textk.edit.TextKEditRect
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
+
+
+        <Button
+            style="@style/StyleK_Btn"
+            android:onClick="goTextKEditBar"
+            android:text="goTextKEditBar"
+            tools:ignore="HardcodedText,UsingOnClickInXml" />
     </LinearLayout>
 </layout>

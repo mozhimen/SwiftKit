@@ -50,10 +50,10 @@ object InstallKManager : BaseUtilK() {
         _installedPackageInfos.containsBy { exist -> packageName == exist.packageName }
 
     /**
-     * 查询应用是否安装
+     * 查询应用是否安装并且大于等于需要下载的版本
      */
     @JvmStatic
-    fun hasPackageNameAndVersion(packageName: String, versionCode: Int): Boolean =
+    fun hasPackageNameAndSatisfyVersion(packageName: String, versionCode: Int): Boolean =
         _installedPackageInfos.containsBy { exist -> packageName == exist.packageName && versionCode <= UtilKPackageInfo.getVersionCode(exist) }
 
     @JvmStatic

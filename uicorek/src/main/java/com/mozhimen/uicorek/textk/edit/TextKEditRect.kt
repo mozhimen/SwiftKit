@@ -101,6 +101,7 @@ class TextKEditRect @JvmOverloads constructor(context: Context, attrs: Attribute
         isFocusableInTouchMode = true
         setRectNum(_rectNum)
     }
+
     override fun onTextContextMenuItem(id: Int): Boolean =
         false
 

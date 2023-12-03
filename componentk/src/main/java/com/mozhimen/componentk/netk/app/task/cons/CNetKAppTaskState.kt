@@ -39,4 +39,8 @@ object CNetKAppTaskState {
     @JvmStatic
     fun isTaskCancel(state: Int): Boolean =
         (state % 10) == STATE_TASK_CANCEL
+
+    @JvmStatic
+    fun isInstalled(state: Int): Boolean =
+        state == STATE_TASK_SUCCESS
 }
