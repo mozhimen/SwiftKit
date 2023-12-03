@@ -9,7 +9,6 @@ import com.mozhimen.basick.lintk.optin.OptInApiCall_BindLifecycle
 import com.mozhimen.basick.lintk.optin.OptInApiDeprecated_ThirdParty
 import com.mozhimen.basick.lintk.optin.OptInApiInit_ByLazy
 import com.mozhimen.basick.manifestk.cons.CPermission
-import com.mozhimen.componentk.netk.file.NetKFile
 import com.mozhimen.componentk.netk.file.okdownload.commons.IFileDownloadSingleListener
 import com.mozhimen.basick.manifestk.permission.ManifestKPermission
 import com.mozhimen.basick.manifestk.permission.annors.APermissionCheck
@@ -20,6 +19,7 @@ import com.mozhimen.componentk.netk.file.download.commons.IDownloadListener
 import com.mozhimen.componentk.netk.file.download.DownloadRequest
 import com.mozhimen.componentk.netk.file.download.annors.ADownloadEngine
 import com.mozhimen.componentk.netk.file.download.annors.ANotificationVisibility
+import com.mozhimen.componentk.netk.file.okdownload.NetKFileOkDownload
 import com.mozhimen.componentktest.databinding.ActivityNetkFileBinding
 import java.io.File
 
@@ -34,7 +34,7 @@ import java.io.File
     CPermission.INTERNET
 )
 class NetKFileActivity : BaseActivityVB<ActivityNetkFileBinding>() {
-    private val _netKFile by lazy { NetKFile(this) }
+    private val _netKFile by lazy { NetKFileOkDownload(this) }
     private val _musicUrl = "http://192.168.2.6/construction-sites-images/voice/20221102/176f9197f0694591b16ffd47a0f117fe.wav"
     private val _musicPath by lazy { UtilKStrPath.Absolute.Internal.getFiles() + "/netkfile/music.wav" }
     private var _downloadRequest: DownloadRequest? = null
