@@ -46,7 +46,7 @@ interface INetKAppStateVerify {
 
 interface INetKAppStateDownload {
     fun onDownloadWait(appTask: AppTask) {}
-    fun onDownloading(appTask: AppTask, progress: Int) {}//下载进度回调方法
+    fun onDownloading(appTask: AppTask, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long) {}//下载进度回调方法
     fun onDownloadPause(appTask: AppTask) {}//下载暂停的回调
     fun onDownloadCancel(appTask: AppTask) {}//下载取消的回调
     fun onDownloadSuccess(appTask: AppTask) {}//下载成功的回调 不做任何事 此时会去校验应用或者解压npk

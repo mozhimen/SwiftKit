@@ -20,7 +20,7 @@ interface INetKAppStateView<V : View> {
     fun onTaskFinish(view: V?, appTask: AppTask, finishType: ENetKAppFinishType)
 
     fun onDownloadWait(view: V?, appTask: AppTask) {}
-    fun onDownloading(view: V?, appTask: AppTask, progress: Int) {}//下载进度回调方法
+    fun onDownloading(view: V?, appTask: AppTask, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long) {}//下载进度回调方法
     fun onDownloadPause(view: V?, appTask: AppTask) {}//下载暂停的回调
     fun onDownloadCancel(view: V?, appTask: AppTask) {}//下载取消的回调
     fun onDownloadSuccess(view: V?, appTask: AppTask) {}//下载成功的回调 不做任何事 此时会去校验应用或者解压npk

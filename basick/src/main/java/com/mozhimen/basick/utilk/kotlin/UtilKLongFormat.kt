@@ -12,16 +12,16 @@ import com.mozhimen.basick.utilk.kotlin.text.replaceDot
  * @Date 2023/10/20 16:51
  * @Version 1.0
  */
-fun Long.longFileSize2strFileSize(): String =
-    UtilKLongFormat.longFileSize2strFileSize(this)
+fun Long.longFileSize2strFileSize(suffix: String = "B", bit: Int = 2): String =
+    UtilKLongFormat.longFileSize2strFileSize(this, suffix, bit)
 
 fun Long.longFileSize2strFileSizeLong(suffix: String = "B"): String =
-    UtilKLongFormat.longFileSize2strFileSizeLong(this)
+    UtilKLongFormat.longFileSize2strFileSizeLong(this, suffix)
 
 object UtilKLongFormat : IUtilK {
     @JvmStatic
-    fun longFileSize2strFileSize(fileSize: Long, suffix: String = "B"): String {
-        val decimalFormat = UtilKDecimalFormat.getOf(2)
+    fun longFileSize2strFileSize(fileSize: Long, suffix: String = "B", bit: Int = 2): String {
+        val decimalFormat = UtilKDecimalFormat.getOf(bit)
         return (if (fileSize <= 0) "0B"
         else if (fileSize < 1024)
             "${fileSize}B"

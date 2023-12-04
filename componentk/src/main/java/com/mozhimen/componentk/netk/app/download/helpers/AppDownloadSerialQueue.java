@@ -39,9 +39,8 @@ import java.util.concurrent.TimeUnit;
 
 public class AppDownloadSerialQueue extends DownloadListener2 implements Runnable {
     static final int ID_INVALID = BreakpointStoreOnCache.FIRST_ID - 1;
-    private static final Executor SERIAL_EXECUTOR = new ThreadPoolExecutor(0,
-            Integer.MAX_VALUE, 30, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(),
-            Util.threadFactory("OkDownload DynamicSerial", false));
+    private static final Executor SERIAL_EXECUTOR = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 30, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), Util.threadFactory("OkDownload DynamicSerial", false));
+
     private static final String TAG = "AppDownloadSerialQueue";
     private final ArrayList<DownloadTask> taskList;
     volatile boolean shutedDown = false;

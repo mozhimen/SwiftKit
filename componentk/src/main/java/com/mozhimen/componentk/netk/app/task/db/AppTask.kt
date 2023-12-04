@@ -28,6 +28,8 @@ data class AppTask(
     var downloadUrlCurrent: String,//当前使用的下载地址
     @ColumnInfo(name = "download_progress")
     var downloadProgress: Int,//下载进度
+    @ColumnInfo(name = "download_file_size")
+    var downloadFileSize: Long,
     @ColumnInfo(name = "apk_file_size")
     var apkFileSize: Long,//软件大小
     @ColumnInfo(name = "apk_file_md5")

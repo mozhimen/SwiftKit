@@ -31,8 +31,8 @@ open class NetKHttp(
     private val _okHttpClient by lazy {
         OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
-                connectTimeout(5, TimeUnit.SECONDS)
-                readTimeout(5, TimeUnit.SECONDS)
+                connectTimeout(15, TimeUnit.SECONDS)
+                readTimeout(15, TimeUnit.SECONDS)
                 addInterceptor(HttpLoggingInterceptor { msg -> UtilKLog.longLog(CLogPriority.V, TAG, msg) }.also { it.level = HttpLoggingInterceptor.Level.BODY })
                 if (_interceptors.isNotEmpty())
                     for (interceptor in _interceptors) addInterceptor(interceptor)

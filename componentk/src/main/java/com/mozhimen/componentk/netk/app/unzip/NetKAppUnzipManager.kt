@@ -46,6 +46,7 @@ internal object NetKAppUnzipManager : IUtilK {
     //////////////////////////////////////////////////////////////////
 
     private val _unzippingTasks = CopyOnWriteArrayList<AppTask>()
+    private val _unzippingProgressTasks = CopyOnWriteArrayList<AppTask>()
 
     //////////////////////////////////////////////////////////////////
 
@@ -149,7 +150,7 @@ internal object NetKAppUnzipManager : IUtilK {
             var apkName = ""
             val zipFile = ZipFile(fileSource)
             val entries = zipFile.entries()
-            val bytes = ByteArray(1024)
+            val bytes = ByteArray(1024 * 1024)
             var zipEntry: ZipEntry?
             while (entries.hasMoreElements()) {
                 zipEntry = entries.nextElement() ?: continue

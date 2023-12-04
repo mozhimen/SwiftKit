@@ -55,9 +55,14 @@ object AppTaskDaoManager : IUtilK {
         return _tasks[taskId]
     }
 
+//    @JvmStatic
+//    fun getByDownloadId(downloadId: Int): AppTask? {
+//        return _tasks.filter { it.value.downloadId == downloadId }.map { it.value }.getOrNull(0)
+//    }
+
     @JvmStatic
-    fun getByDownloadId(downloadId: Int): AppTask? {
-        return _tasks.filter { it.value.downloadId == downloadId }.map { it.value }.getOrNull(0)
+    fun getByDownloadUrl(downloadUrlCurrent: String): AppTask? {
+        return _tasks.filter { it.value.downloadUrlCurrent == downloadUrlCurrent }.map { it.value }.getOrNull(0)
     }
 
     /**

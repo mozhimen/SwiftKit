@@ -237,18 +237,22 @@ object NetKApp : INetKAppState, BaseUtilK() {
     fun generateAppTaskByPackageName(appTask: AppTask): AppTask {
         if (getAppTaskByTaskId_PackageName(appTask.taskId, appTask.apkPackageName) == null && InstallKManager.hasPackageNameAndSatisfyVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
             onTaskFinish(appTask, ENetKAppFinishType.SUCCESS)
-        } else if ((appTask.apkIsInstalled || appTask.taskState == CNetKAppTaskState.STATE_TASK_SUCCESS) && !InstallKManager.hasPackageNameAndSatisfyVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
+        } else if ((appTask.apkIsInstalled || appTask.taskState == CNetKAppTaskState.STATE_TASK_SUCCESS) && !InstallKManager.hasPackageNameAndSatisfyVersion(
+                appTask.apkPackageName,
+                appTask.apkVersionCode
+            )
+        ) {
             onTaskCreate(appTask.apply { apkIsInstalled = false })
         }
         return appTask
     }
 
     @JvmStatic
-    fun getAppTasksIsProcess():List<AppTask> =
+    fun getAppTasksIsProcess(): List<AppTask> =
         AppTaskDaoManager.getAppTasksIsProcess()
 
     @JvmStatic
-    fun getAppTasksIsInstalled():List<AppTask> =
+    fun getAppTasksIsInstalled(): List<AppTask> =
         AppTaskDaoManager.getAppTasksIsInstalled()
 
     @JvmStatic
@@ -383,8 +387,8 @@ object NetKApp : INetKAppState, BaseUtilK() {
         })
     }
 
-    override fun onDownloading(appTask: AppTask, progress: Int) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOADING, progress, onNext = {
+    override fun onDownloading(appTask: AppTask, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long) {
+        applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOADING, progress, currentIndex, totalIndex, offsetIndexPerSeconds, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASKING]
              */
@@ -558,9 +562,24 @@ object NetKApp : INetKAppState, BaseUtilK() {
             this.taskState = state
             if (progress > 0) downloadProgress = progress
         }
-        Log.d(TAG, "applyAppTaskState: state ${state.intAppState2strAppState()} progress ${appTask.downloadProgress} appTask $appTask")
+        Log.d(TAG, "applyAppTaskState: id ${appTask.taskId} state ${state.intAppState2strAppState()} progress ${appTask.downloadProgress} appTask $appTask")
         AppTaskDaoManager.update(appTask)
         postAppTaskState(appTask, state, appTask.downloadProgress, finishType, onNext)
+    }
+
+    private fun applyAppTaskState(
+        appTask: AppTask, state: Int, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long, onNext: I_Listener? = null
+    ) {
+        appTask.apply {
+            this.taskState = state
+            if (progress > 0) downloadProgress = progress
+        }
+        Log.d(
+            TAG,
+            "applyAppTaskState: id ${appTask.taskId} state ${state.intAppState2strAppState()} progress ${appTask.downloadProgress} currentIndex $currentIndex totalIndex $totalIndex offsetIndexPerSeconds $offsetIndexPerSeconds appTask $appTask"
+        )
+        AppTaskDaoManager.update(appTask)
+        postAppTaskState(appTask, state, appTask.downloadProgress, currentIndex, totalIndex, offsetIndexPerSeconds, onNext)
     }
 
     private fun applyAppTaskStateException(
@@ -574,7 +593,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
             this.taskState = state
             if (progress > 0) downloadProgress = progress
         }
-        Log.d(TAG, "applyAppTaskState: state ${state.intAppState2strAppState()} exception $exception appTask $appTask")
+        Log.d(TAG, "applyAppTaskState: id ${appTask.taskId} state ${state.intAppState2strAppState()} exception $exception appTask $appTask")
         AppTaskDaoManager.update(appTask)
         postAppTaskState(appTask, state, exception, onNext)
     }
@@ -601,9 +620,6 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 CNetKAppTaskState.STATE_TASK_CANCEL, CNetKAppTaskState.STATE_TASK_SUCCESS, CNetKAppTaskState.STATE_TASK_FAIL -> listener.onTaskFinish(appTask, finishType)
                 ///////////////////////////////////////////////////////////////////////////////
                 CNetKAppState.STATE_DOWNLOAD_WAIT -> listener.onDownloadWait(appTask)
-                CNetKAppState.STATE_DOWNLOADING ->
-                    listener.onDownloading(appTask, progress)
-
                 CNetKAppState.STATE_DOWNLOAD_PAUSE -> listener.onDownloadPause(appTask)
                 CNetKAppState.STATE_DOWNLOAD_CANCEL -> listener.onDownloadCancel(appTask)
                 CNetKAppState.STATE_DOWNLOAD_SUCCESS -> listener.onDownloadSuccess(appTask)
@@ -618,6 +634,15 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 CNetKAppState.STATE_INSTALL_SUCCESS -> listener.onInstallSuccess(appTask)
                 ///////////////////////////////////////////////////////////////////////////////
                 CNetKAppState.STATE_UNINSTALL_SUCCESS -> listener.onUninstallSuccess(appTask)
+            }
+        }
+        nextMethod?.invoke()
+    }
+
+    private fun postAppTaskState(appTask: AppTask, state: Int, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long, nextMethod: I_Listener?) {
+        for (listener in _appDownloadStateListeners) {
+            when (state) {
+                CNetKAppState.STATE_DOWNLOADING -> listener.onDownloading(appTask, progress, currentIndex, totalIndex, offsetIndexPerSeconds)
             }
         }
         nextMethod?.invoke()
