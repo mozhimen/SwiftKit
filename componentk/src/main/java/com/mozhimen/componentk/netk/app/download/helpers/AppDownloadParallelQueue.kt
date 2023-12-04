@@ -15,14 +15,14 @@ import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
 /**
- * @ClassName AppDownloadSerialQueue
+ * @ClassName AppDownloadParallelQueue
  * @Description TODO
  * @Author Mozhimen & Kolin Zhao
  * @Date 2023/12/4 18:11
  * @Version 1.0
  */
 
-class AppDownloadSerialQueue internal constructor(listener: DownloadListener?, taskList: ArrayList<DownloadTask>) : DownloadListener2(), Runnable {
+class AppDownloadParallelQueue internal constructor(listener: DownloadListener?, taskList: ArrayList<DownloadTask>) : DownloadListener2(), Runnable {
     private val taskList: ArrayList<DownloadTask>
 
     @Volatile
@@ -169,7 +169,7 @@ class AppDownloadSerialQueue internal constructor(listener: DownloadListener?, t
                 if (taskList.isEmpty() || paused) {
                     runningTask = null
                     looping = false
-                    break
+                    return
                 }
                 nextTask = taskList.removeAt(0)
             }
@@ -198,7 +198,7 @@ class AppDownloadSerialQueue internal constructor(listener: DownloadListener?, t
     companion object {
         const val ID_INVALID = BreakpointStoreOnCache.FIRST_ID - 1
         private val SERIAL_EXECUTOR: Executor = ThreadPoolExecutor(0, Int.MAX_VALUE, 30, TimeUnit.SECONDS, SynchronousQueue(), Util.threadFactory("OkDownload DynamicSerial", false))
-        private const val TAG = "AppDownloadSerialQueue"
+        private const val TAG = "AppDownloadParallelQueue"
     }
 }
 

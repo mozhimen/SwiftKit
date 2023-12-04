@@ -22,7 +22,6 @@ import com.mozhimen.basick.utilk.javax.net.UtilKSSLSocketFactory
 import com.mozhimen.componentk.netk.app.NetKApp
 import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
-import com.mozhimen.componentk.netk.app.download.helpers.AppDownloadSerialQueue
 import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 import com.mozhimen.componentk.netk.app.download.mos.MAppDownloadProgress
 import com.mozhimen.componentk.netk.app.download.mos.intAppErrorCode2appDownloadException
@@ -48,8 +47,8 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
     private const val BLOCK_SIZE_MIN = 100L
     private val _downloadingTasks = SparseArray<MAppDownloadProgress>()
 
-    //    private val _appDownloadSerialQueue: AppDownloadSerialQueue by lazy { AppDownloadSerialQueue(this) }
-    private val _appDownloadWaitQueue: Queue<MAppDownloadProgress> = Queue<MAppDownloadProgress>()
+    //    private val _appDownloadSerialQueue: AppDownloadParallelQueue by lazy { AppDownloadParallelQueue(this) }
+//    private val _appDownloadWaitQueue: Queue<MAppDownloadProgress> = Queue<MAppDownloadProgress>()
 
     init {
         DownloadDispatcher.setMaxParallelRunningCount(3)

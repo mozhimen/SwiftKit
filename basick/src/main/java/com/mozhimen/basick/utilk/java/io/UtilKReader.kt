@@ -21,14 +21,14 @@ import java.io.InputStreamReader
  */
 object UtilKReader : BaseUtilK() {
     @JvmStatic
-    fun getStrForInputStreamSingleLine(inputStream: InputStream, charset:String? = null,readSize :Int= 0):String {
+    fun getStrForInputStreamSingleLine(inputStream: InputStream, charset: String? = null, readSize: Int = 0): String {
         var inputStreamReader: InputStreamReader? = null
         var bufferedReader: BufferedReader? = null
         try {
-            inputStreamReader = if (charset==null) InputStreamReader(inputStream)
-            else InputStreamReader(inputStream,charset)
-            bufferedReader =if (readSize==0)  BufferedReader(inputStreamReader)
-            else BufferedReader(inputStreamReader,readSize)
+            inputStreamReader = if (charset == null) InputStreamReader(inputStream)
+            else InputStreamReader(inputStream, charset)
+            bufferedReader = if (readSize == 0) BufferedReader(inputStreamReader)
+            else BufferedReader(inputStreamReader, readSize)
             return bufferedReader.readLine()
         } catch (e: Exception) {
             e.printStackTrace()
@@ -42,19 +42,19 @@ object UtilKReader : BaseUtilK() {
 
 
     @JvmStatic
-    fun getStrForInputStreamMultiLine(inputStream: InputStream, charset:String? = null,readSize: Int=0):String {
+    fun getStrForInputStreamMultiLine(inputStream: InputStream, charset: String? = null, readSize: Int = 0): String {
         val stringBuilder = StringBuilder()
         var inputStreamReader: InputStreamReader? = null
         var bufferedReader: BufferedReader? = null
         try {
-            inputStreamReader = if (charset==null) InputStreamReader(inputStream)
-            else InputStreamReader(inputStream,charset)
-            bufferedReader = if (readSize==0)  BufferedReader(inputStreamReader)
-            else BufferedReader(inputStreamReader,readSize)
+            inputStreamReader = if (charset == null) InputStreamReader(inputStream)
+            else InputStreamReader(inputStream, charset)
+            bufferedReader = if (readSize == 0) BufferedReader(inputStreamReader)
+            else BufferedReader(inputStreamReader, readSize)
             var line = ""
             while (bufferedReader.readLine()?.also { line = it } != null)
-                stringBuilder.append(line)
-            return stringBuilder.toString()
+                stringBuilder.append(line).append("\n")
+            return stringBuilder.toString().replaceAfterLast("\n", "")
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
