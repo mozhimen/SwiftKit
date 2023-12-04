@@ -21,7 +21,7 @@ class AppDownloadParallelQueue internal constructor(listener: DownloadListener?,
 
     //////////////////////////////////////////////////////////////////////////
 
-    
+
     val waitQueue = Queue
 }
 
