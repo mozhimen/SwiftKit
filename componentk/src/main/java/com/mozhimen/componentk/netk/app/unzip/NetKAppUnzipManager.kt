@@ -90,6 +90,8 @@ internal object NetKAppUnzipManager : IUtilK {
                 else if (!strPathNameUnzip.endsWith("apk"))
                     throw CNetKAppErrorCode.CODE_UNZIP_FAIL.intAppErrorCode2appDownloadException()
 
+                /////////////////////////////////////////////////////////
+
                 TaskKHandler.post {
                     onUnzipSuccess(appTask.apply { apkPathName = strPathNameUnzip })
                 }
@@ -106,10 +108,11 @@ internal object NetKAppUnzipManager : IUtilK {
 
     private fun onUnzipSuccess(appTask: AppTask) {
         Log.d(TAG, "onUnzipSuccess: 解压成功 appTask $appTask")
-        /**
-         * [CNetKAppState.STATE_UNZIP_SUCCESS]
-         */
-        NetKApp.onUnzipSuccess(appTask)
+        //TODO 测试用 记得解开
+//        /**
+//         * [CNetKAppState.STATE_UNZIP_SUCCESS]
+//         */
+//        NetKApp.onUnzipSuccess(appTask)
 
 //        NetKAppInstallManager.install(appTask, appTask.apkPathName.strFilePath2file())
     }
@@ -216,8 +219,8 @@ internal object NetKAppUnzipManager : IUtilK {
                 zipEntry = entries.nextElement() ?: continue
                 if (zipEntry.name.contains(MAC__IGNORE)) continue
                 if (!zipEntry.name.contains("assets")) continue
-                if (!zipEntry.name.contains("Android") && !zipEntry.name.endsWith("apk")) continue
-//                Log.v(TAG, "unzipApkOnBack: assets/Android name ${zipEntry.name}")
+                if (!zipEntry.name.contains("assets/Android") && !zipEntry.name.endsWith("apk")) continue
+                Log.v(TAG, "unzipApkOnBack: assets/Android name ${zipEntry.name}")
 
                 if (zipEntry.isDirectory) {
                     File(strApkFilePathDestReal, zipEntry.name).createFolder()
@@ -231,11 +234,12 @@ internal object NetKAppUnzipManager : IUtilK {
                     File(strApkFilePathDestReal, zipEntry.name.replace("assets" + File.separator, ""))//如果保护路径则需要把文件复制到根目录下指定的文件夹中
                 }
                 tempFile.parentFile?.createFolder()
-//                Log.d(TAG, "unzipApkOnBack: tempFilePath ${tempFile.absolutePath}")
+                Log.d(TAG, "unzipApkOnBack: tempFilePath ${tempFile.absolutePath}")
 
                 tempFile.deleteFile()//如果文件已经存在，则删除
                 if (tempFile.name.endsWith("apk")) {
                     apkFileName = tempFile.name
+                    Log.d(TAG, "unzipApkOnBack: apkFileName $apkFileName")
                 }
                 //移动文件
                 val bufferedOutputStream = BufferedOutputStream(FileOutputStream(tempFile))

@@ -406,6 +406,10 @@ object NetKApp : INetKAppState, BaseUtilK() {
     }
 
     override fun onDownloadCancel(appTask: AppTask) {
+        appTask.apply {
+            downloadProgress = 0
+            downloadFileSize = 0
+        }
         applyAppTaskState(appTask, CNetKAppState.STATE_DOWNLOAD_CANCEL, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_CANCEL]
