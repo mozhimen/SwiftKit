@@ -135,7 +135,8 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         if (_downloadingTasks[downloadTask.id] == null) {
             _downloadingTasks.put(downloadTask.id, MAppDownloadProgress(appTask))
         }
-        DownloadTask.enqueue(arrayOf(downloadTask), this)
+        downloadTask.enqueue(this)
+//        DownloadTask.enqueue(arrayOf(downloadTask), this)
 //        if (_appDownloadSerialQueue.workingTaskId != downloadTask.id)
 //            _appDownloadSerialQueue.enqueue(downloadTask)
 
@@ -161,17 +162,17 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
     }
 
     @JvmStatic
-    fun downloadResumeAll() {
-        _downloadingTasks.forEach { _, value ->
-            Log.d(TAG, "downloadResumeAll: appTask ${value.appTask}")
-            TaskKHandler.postDelayed(10000) {
+    fun downloadResumeAllDelay(delayMills: Long) {
+        TaskKHandler.postDelayed(delayMills) {
+            _downloadingTasks.forEach { _, value ->
+                Log.d(TAG, "downloadResumeAll: appTask ${value.appTask}")
                 if (value.appTask.isTaskPause()) {
                     downloadResume(value.appTask)
                     Log.d(TAG, "downloadResumeAll: 恢复下载 appTask ${value.appTask}")
-                } else {
+                } /*else {
                     download(value.appTask)
                     Log.d(TAG, "downloadResumeAll: 开始下载 appTask ${value.appTask}")
-                }
+                }*/
             }
         }
     }
@@ -195,7 +196,8 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         }
         if (StatusUtil.getStatus(downloadTask) != StatusUtil.Status.RUNNING) {
 //            _appDownloadSerialQueue.enqueue(task)
-            DownloadTask.enqueue(arrayOf(downloadTask), this)
+            downloadTask.enqueue(this)
+//            DownloadTask.enqueue(arrayOf(downloadTask), this)
         }
 //        _downloadingTasks.put(task.id, appTask)
 
@@ -220,7 +222,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         downloadTask.cancel()//然后取消任务
         _downloadingTasks.delete(downloadTask.id)
 //        _appDownloadSerialQueue.remove(task)//先从队列中移除
-        DownloadTask.cancel(arrayOf(downloadTask))
+//        DownloadTask.cancel(arrayOf(downloadTask))
 
 //        /**
 //         * [CNetKAppState.STATE_DOWNLOAD_CANCEL]
@@ -239,7 +241,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         }
         downloadTask.cancel()//然后取消任务
 //        _appDownloadSerialQueue.remove(task)//先从队列中移除
-        DownloadTask.cancel(arrayOf(downloadTask))
+//        DownloadTask.cancel(arrayOf(downloadTask))
     }
 
     /**
@@ -256,7 +258,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
         }
         downloadTask.cancel()
         _downloadingTasks.delete(downloadTask.id)//先从队列中移除
-        DownloadTask.cancel(arrayOf(downloadTask))
+//        DownloadTask.cancel(arrayOf(downloadTask))
 //        _appDownloadSerialQueue.remove(task)
         OkDownload.with().breakpointStore().remove(downloadTask.id)
         downloadTask.file?.delete()
@@ -275,7 +277,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
             return
         }
         downloadTask.cancel()
-        DownloadTask.cancel(arrayOf(downloadTask))
+//        DownloadTask.cancel(arrayOf(downloadTask))
         OkDownload.with().breakpointStore().remove(downloadTask.id)
         downloadTask.file?.delete()
     }

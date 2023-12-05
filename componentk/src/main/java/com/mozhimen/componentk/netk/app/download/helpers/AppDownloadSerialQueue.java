@@ -178,6 +178,7 @@ public class AppDownloadSerialQueue extends DownloadListener2 implements Runnabl
 
     @Override
     public void run() {
+
         while (!shutedDown) {
             final DownloadTask nextTask;
             synchronized (this) {
@@ -192,6 +193,7 @@ public class AppDownloadSerialQueue extends DownloadListener2 implements Runnabl
 
             nextTask.execute(listenerBunch);
         }
+
     }
 
     void startNewLooper() {

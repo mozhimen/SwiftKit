@@ -103,13 +103,13 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 Log.d(TAG, "taskStart: the task already start")
                 return
             }
-            if (NetKAppDownloadManager.getDownloadTaskCount() >= 3) {
-                /**
-                 * [CNetKAppTaskState.STATE_TASK_FAIL]
-                 */
-                onTaskFinish(appTask, ENetKAppFinishType.FAIL(CNetKAppErrorCode.CODE_DOWNLOAD_ENOUGH.intAppErrorCode2appDownloadException()))
-                return
-            }
+//            if (NetKAppDownloadManager.getDownloadTaskCount() >= 3) {
+//                /**
+//                 * [CNetKAppTaskState.STATE_TASK_FAIL]
+//                 */
+//                onTaskFinish(appTask, ENetKAppFinishType.FAIL(CNetKAppErrorCode.CODE_DOWNLOAD_ENOUGH.intAppErrorCode2appDownloadException()))
+//                return
+//            }
             if (InstallKManager.hasPackageNameAndSatisfyVersion(appTask.apkPackageName, appTask.apkVersionCode)) {
                 //throw CNetKAppErrorCode.CODE_TASK_HAS_INSTALL.intAppErrorCode2appDownloadException()
                 /**
