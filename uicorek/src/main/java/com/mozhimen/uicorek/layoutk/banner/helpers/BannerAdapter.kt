@@ -28,7 +28,7 @@ class BannerAdapter(private var _context: Context) : PagerAdapter(), IBannerAdap
     private var _bannerItems: LinkedList<BaseBannerItem>? = null
     private var _autoPlay = true //是否开启自动轮播
     private var _loop = false //非自动轮播状态下是否可以循环切换
-    private var _layoutResId = -1
+    private var _layoutId = -1
 
     override fun setBannerData(mos: List<BaseBannerItem>) {
         _bannerItems = LinkedList(mos)
@@ -45,7 +45,7 @@ class BannerAdapter(private var _context: Context) : PagerAdapter(), IBannerAdap
     }
 
     override fun setLayoutResId(@LayoutRes layoutId: Int) {
-        _layoutResId = layoutId
+        _layoutId = layoutId
     }
 
     override fun setAutoPlay(autoPlay: Boolean) {
@@ -133,7 +133,7 @@ class BannerAdapter(private var _context: Context) : PagerAdapter(), IBannerAdap
 
     @Throws(Exception::class)
     private fun createView(layoutInflater: LayoutInflater, parent: ViewGroup?): View {
-        require(_layoutResId != -1) { "$TAG you must be set setLayoutResId first" }
-        return layoutInflater.inflate(_layoutResId, parent, false)
+        require(_layoutId != -1) { "$TAG you must be set setLayoutResId first" }
+        return layoutInflater.inflate(_layoutId, parent, false)
     }
 }

@@ -10,6 +10,7 @@ import com.mozhimen.componentk.installk.manager.InstallKManager
 import com.mozhimen.componentk.netk.app.NetKApp
 import com.mozhimen.componentk.netk.app.cons.CNetKAppState
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallManager
+import com.mozhimen.componentk.netk.app.install.NetKAppUnInstallManager
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 
 /**
@@ -30,7 +31,7 @@ class NetKAppInstallReceiver : BaseBroadcastReceiver() {
                     Log.i(TAG, "onReceive: action ${intent.action} apkPackName $apkPackName")
                     when (intent.action) {
                         CIntent.ACTION_PACKAGE_REMOVED -> {//需要主动移除掉保存的应用
-                            NetKAppInstallManager.onUninstallSuccess(apkPackName)
+                            NetKAppUnInstallManager.onUninstallSuccess(apkPackName)
                         }
 
                         CIntent.ACTION_PACKAGE_ADDED, CIntent.ACTION_PACKAGE_REPLACED -> {//有应用发生变化，强制刷新应用

@@ -94,6 +94,9 @@ data class AppTask(
     fun isDownloading(): Boolean =
         !apkIsInstalled && CNetKAppState.isDownloading(taskState)
 
+    fun isUnzipSuccess(): Boolean =
+        !apkIsInstalled && CNetKAppState.isUnzipSuccess(taskState)
+
     ////////////////////////////////////////////////////////////
 
     fun canInstall(): Boolean =
@@ -116,16 +119,22 @@ data class AppTask(
         if (downloadUrlOutSide != other.downloadUrlOutSide) return false
         if (downloadUrlCurrent != other.downloadUrlCurrent) return false
         if (downloadProgress != other.downloadProgress) return false
+        if (downloadFileSize != other.downloadFileSize) return false
         if (apkFileSize != other.apkFileSize) return false
         if (apkFileMd5 != other.apkFileMd5) return false
         if (apkPackageName != other.apkPackageName) return false
         if (apkName != other.apkName) return false
+        if (apkVersionCode != other.apkVersionCode) return false
+        if (apkVersionName != other.apkVersionName) return false
+        if (apkIconUrl != other.apkIconUrl) return false
+        if (apkIconId != other.apkIconId) return false
         if (apkFileName != other.apkFileName) return false
         if (apkPathName != other.apkPathName) return false
         if (apkIsInstalled != other.apkIsInstalled) return false
         if (apkVerifyNeed != other.apkVerifyNeed) return false
         if (apkUnzipNeed != other.apkUnzipNeed) return false
-        return taskUpdateTime == other.taskUpdateTime
+        if (taskUpdateTime != other.taskUpdateTime) return false
+        return downloadId == other.downloadId
     }
 
     override fun hashCode(): Int {
@@ -135,16 +144,22 @@ data class AppTask(
         result = 31 * result + downloadUrlOutSide.hashCode()
         result = 31 * result + downloadUrlCurrent.hashCode()
         result = 31 * result + downloadProgress
+        result = 31 * result + downloadFileSize.hashCode()
         result = 31 * result + apkFileSize.hashCode()
         result = 31 * result + apkFileMd5.hashCode()
         result = 31 * result + apkPackageName.hashCode()
         result = 31 * result + apkName.hashCode()
+        result = 31 * result + apkVersionCode
+        result = 31 * result + apkVersionName.hashCode()
+        result = 31 * result + apkIconUrl.hashCode()
+        result = 31 * result + apkIconId
         result = 31 * result + apkFileName.hashCode()
         result = 31 * result + apkPathName.hashCode()
         result = 31 * result + apkIsInstalled.hashCode()
         result = 31 * result + apkVerifyNeed.hashCode()
         result = 31 * result + apkUnzipNeed.hashCode()
         result = 31 * result + taskUpdateTime.hashCode()
+        result = 31 * result + downloadId
         return result
     }
 

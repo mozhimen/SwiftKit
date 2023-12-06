@@ -35,6 +35,7 @@ object NetKAppUtil {
             CNetKAppState.STATE_INSTALLING -> "安装中 "
             CNetKAppState.STATE_INSTALL_SUCCESS -> "安装成功"
             CNetKAppState.STATE_INSTALL_FAIL -> "安装失败"
+            CNetKAppState.STATE_INSTALL_CANCEL -> "安装取消"
 
             CNetKAppState.STATE_UNINSTALL_SUCCESS -> "卸载成功"
 

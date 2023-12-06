@@ -24,7 +24,6 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import java.math.BigInteger
 import java.nio.charset.Charset
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -104,13 +103,19 @@ fun InputStream.inputStream2file(strFilePathNameDest: String, isAppend: Boolean 
 fun InputStream.inputStream2file(fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
     UtilKInputStreamFormat.inputStream2file(this, fileDest, isAppend, bufferSize, block)
 
-@RequiresApi(CVersCode.V_29_10_Q)
-fun InputStream.inputStream2file2(strFilePathNameDest: String, isAppend: Boolean = false): File? =
-    UtilKInputStreamFormat.inputStream2file2(this, strFilePathNameDest, isAppend)
+fun InputStream.inputStream2fileOfBufferedOps(strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+    UtilKInputStreamFormat.inputStream2fileOfBufferedOps(this, strFilePathNameDest, isAppend, bufferSize, block)
+
+fun InputStream.inputStream2fileOfBufferedOps(fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+    UtilKInputStreamFormat.inputStream2fileOfBufferedOps(this, fileDest, isAppend, bufferSize, block)
 
 @RequiresApi(CVersCode.V_29_10_Q)
-fun InputStream.inputStream2file2(fileDest: File, isAppend: Boolean = false): File? =
-    UtilKInputStreamFormat.inputStream2file2(this, fileDest, isAppend)
+fun InputStream.inputStream2fileOfFileUtils(strFilePathNameDest: String, isAppend: Boolean = false): File? =
+    UtilKInputStreamFormat.inputStream2fileOfFileUtils(this, strFilePathNameDest, isAppend)
+
+@RequiresApi(CVersCode.V_29_10_Q)
+fun InputStream.inputStream2fileOfFileUtils(fileDest: File, isAppend: Boolean = false): File? =
+    UtilKInputStreamFormat.inputStream2fileOfFileUtils(this, fileDest, isAppend)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -304,13 +309,30 @@ object UtilKInputStreamFormat : IUtilK {
     }
 
     @JvmStatic
-    @RequiresApi(CVersCode.V_29_10_Q)
-    fun inputStream2file2(inputStream: InputStream, strFilePathNameDest: String, isAppend: Boolean = false): File? =
-        inputStream2file2(inputStream, strFilePathNameDest.createFile(), isAppend)
+    fun inputStream2fileOfBufferedOps(inputStream: InputStream, strFilePathNameDest: String, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? =
+        inputStream2fileOfBufferedOps(inputStream, strFilePathNameDest.createFile(), isAppend, bufferSize, block)
+
+    @JvmStatic
+    fun inputStream2fileOfBufferedOps(inputStream: InputStream, fileDest: File, isAppend: Boolean = false, bufferSize: Int = 1024, block: IAB_Listener<Int, Float>? = null): File? {
+        UtilKFile.createFile(fileDest)
+        try {
+            inputStream.inputStream2outputStream(fileDest.file2fileBufferedOutputStream(isAppend), bufferSize, block)
+            return fileDest
+        } catch (e: Exception) {
+            e.printStackTrace()
+            e.message?.et(TAG)
+        }
+        return null
+    }
 
     @JvmStatic
     @RequiresApi(CVersCode.V_29_10_Q)
-    fun inputStream2file2(inputStream: InputStream, fileDest: File, isAppend: Boolean = false): File? {
+    fun inputStream2fileOfFileUtils(inputStream: InputStream, strFilePathNameDest: String, isAppend: Boolean = false): File? =
+        inputStream2fileOfFileUtils(inputStream, strFilePathNameDest.createFile(), isAppend)
+
+    @JvmStatic
+    @RequiresApi(CVersCode.V_29_10_Q)
+    fun inputStream2fileOfFileUtils(inputStream: InputStream, fileDest: File, isAppend: Boolean = false): File? {
         UtilKFile.createFile(fileDest)
         /*//        val fileInputStream = file.file2fileInputStream()
         //        if (isInputStreamSame(inputStream, fileInputStream)) {//相似内容就直接返回地址
@@ -337,7 +359,7 @@ object UtilKInputStreamFormat : IUtilK {
             val totalCount = inputStream.available()
             var readCount: Int
             var offset = 0
-            var percent: Float = 0f
+            var percent: Float
             Log.d(TAG, "inputStream2outputStream: totalCount $totalCount")
             while (inputStream.read(bytes).also { readCount = it } != -1) {
                 offset += readCount

@@ -12,10 +12,12 @@ import com.mozhimen.basick.utilk.android.content.UtilKPackage
 import com.mozhimen.basick.utilk.android.os.UtilKBuildVersion
 import com.mozhimen.basick.utilk.bases.BaseUtilK
 import com.mozhimen.basick.utilk.kotlin.UtilKStrFile
+import java.io.BufferedOutputStream
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.nio.Buffer
 
 /**
  * @ClassName UtilKFileFormat
@@ -43,6 +45,9 @@ fun File.file2fileInputStream(): FileInputStream =
 
 fun File.file2fileOutputStream(isAppend: Boolean = false): FileOutputStream =
     UtilKFileFormat.file2fileOutputStream(this, isAppend)
+
+fun File.file2fileBufferedOutputStream(isAppend: Boolean = false): BufferedOutputStream =
+    UtilKFileFormat.file2fileBufferedOutputStream(this, isAppend)
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -103,6 +108,10 @@ object UtilKFileFormat : BaseUtilK() {
     @JvmStatic
     fun file2fileOutputStream(file: File, isAppend: Boolean = false): FileOutputStream =
         FileOutputStream(file, isAppend)
+
+    @JvmStatic
+    fun file2fileBufferedOutputStream(file: File, isAppend: Boolean = false): BufferedOutputStream =
+        FileOutputStream(file, isAppend).outputStream2bufferedOutputStream()
 
     ////////////////////////////////////////////////////////////////////////////////////////
 

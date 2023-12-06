@@ -61,20 +61,20 @@ fun View.applyPaddingVertical(padding: Int) {
     UtilKView.applyPaddingVertical(this, padding)
 }
 
-fun View.applyResizeSize(size: Int) {
-    UtilKView.applyResizeSize(this, size)
+fun View.applyLayoutParams(size: Int) {
+    UtilKView.applyLayoutParams(this, size)
 }
 
-fun View.applyResizeSize(width: Int, height: Int) {
-    UtilKView.applyResizeSize(this, width, height)
+fun View.applyLayoutParams(width: Int, height: Int) {
+    UtilKView.applyLayoutParams(this, width, height)
 }
 
-fun View.applyResizeSizeMax() {
-    UtilKView.applyResizeSizeMax(this)
+fun View.applyLayoutParamsMatch() {
+    UtilKView.applyLayoutParamsMatch(this)
 }
 
-fun View.applyStatusBarHeight() {
-    UtilKView.applyStatusBarHeight(this)
+fun View.applyLayoutParamHeightStatusBar() {
+    UtilKView.applyLayoutParamHeightStatusBar(this)
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -425,7 +425,7 @@ object UtilKView : BaseUtilK() {
      * 重置大小
      */
     @JvmStatic
-    fun applyResizeSize(view: View, width: Int, height: Int) {
+    fun applyLayoutParams(view: View, width: Int, height: Int) {
         val layoutParams = view.layoutParams
         layoutParams.width = width
         layoutParams.height = height
@@ -436,17 +436,17 @@ object UtilKView : BaseUtilK() {
      * 重置大小
      */
     @JvmStatic
-    fun applyResizeSize(view: View, size: Int) {
-        applyResizeSize(view, size, size)
+    fun applyLayoutParams(view: View, size: Int) {
+        applyLayoutParams(view, size, size)
     }
 
     @JvmStatic
-    fun applyResizeSizeMax(view: View) {
+    fun applyLayoutParamsMatch(view: View) {
         view.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
     }
 
     @JvmStatic
-    fun applyStatusBarHeight(view: View) {
+    fun applyLayoutParamHeightStatusBar(view: View) {
         view.layoutParams = view.layoutParams.apply {
             height = UtilKStatusBar.getHeight()
         }

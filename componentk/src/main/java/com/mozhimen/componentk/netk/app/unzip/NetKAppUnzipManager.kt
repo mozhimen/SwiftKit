@@ -11,10 +11,13 @@ import com.mozhimen.basick.utilk.java.io.UtilKFileDir
 import com.mozhimen.basick.utilk.java.io.createFolder
 import com.mozhimen.basick.utilk.java.io.deleteFile
 import com.mozhimen.basick.utilk.java.io.flushClose
+import com.mozhimen.basick.utilk.java.io.inputStream2file
+import com.mozhimen.basick.utilk.java.io.inputStream2fileOfBufferedOps
 import com.mozhimen.basick.utilk.kotlin.collections.containsBy
 import com.mozhimen.basick.utilk.kotlin.createFolder
 import com.mozhimen.basick.utilk.kotlin.deleteFolder
 import com.mozhimen.basick.utilk.kotlin.getSplitExLast
+import com.mozhimen.basick.utilk.kotlin.normalize
 import com.mozhimen.basick.utilk.kotlin.strFilePath2file
 import com.mozhimen.componentk.netk.app.NetKApp
 import com.mozhimen.componentk.netk.app.cons.CNetKAppErrorCode
@@ -75,7 +78,7 @@ internal object NetKAppUnzipManager : IUtilK {
         /**
          * [CNetKAppState.STATE_UNZIPING]
          */
-        NetKApp.onUnziping(appTask)
+        NetKApp.onUnziping(appTask, 100, appTask.apkFileSize, appTask.apkFileSize, 0)
 
         if (appTask.apkFileName.endsWith("apk") && !appTask.apkUnzipNeed) {
             onUnzipSuccess(appTask)
@@ -108,13 +111,18 @@ internal object NetKAppUnzipManager : IUtilK {
 
     private fun onUnzipSuccess(appTask: AppTask) {
         Log.d(TAG, "onUnzipSuccess: 解压成功 appTask $appTask")
-        //TODO 测试用 记得解开
-//        /**
-//         * [CNetKAppState.STATE_UNZIP_SUCCESS]
-//         */
-//        NetKApp.onUnzipSuccess(appTask)
+        /**
+         * [CNetKAppState.STATE_UNZIP_SUCCESS]
+         */
+        NetKApp.onUnzipSuccess(appTask)
+    }
 
-//        NetKAppInstallManager.install(appTask, appTask.apkPathName.strFilePath2file())
+    private fun onUnziping(appTask: AppTask, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long) {
+        Log.v(TAG, "onUnziping: 解压进度 progress $progress")
+        /**
+         * [CNetKAppState.STATE_UNZIPING]
+         */
+        NetKApp.onUnziping(appTask, progress, currentIndex, totalIndex, offsetIndexPerSeconds)
     }
 
     @WorkerThread
@@ -130,7 +138,7 @@ internal object NetKAppUnzipManager : IUtilK {
         val strPathNameApk = if (appTask.apkFileName.endsWith(".npk"))
             unzipNpkOnBack(fileSource, externalFilesDownloadDir.absolutePath)
         else
-            unzipApkOnBack(fileSource, externalFilesDownloadDir.absolutePath)
+            unzipApkOnBack(fileSource, appTask, externalFilesDownloadDir.absolutePath)
 
         _unzippingTasks.remove(appTask)//解压成功，移除
         return strPathNameApk
@@ -201,7 +209,7 @@ internal object NetKAppUnzipManager : IUtilK {
      * @param strApkFilePathDest String /storage/emulated/0/data/com.xx.xxx/files/Download/
      */
     @WorkerThread
-    private fun unzipApkOnBack(apkFileSource: File, strApkFilePathDest: String): String {
+    private fun unzipApkOnBack(apkFileSource: File, appTask: AppTask, strApkFilePathDest: String): String {
         val strApkFileNameReal = apkFileSource.name.getSplitExLast(".", false)//name.subSequence(0, name.lastIndexOf("."))
         val strApkFilePathDestReal = (strApkFilePathDest + File.separator + strApkFileNameReal).also { Log.d(TAG, "unzipOnBack: strFilePathDestReal $it") }
 
@@ -213,8 +221,14 @@ internal object NetKAppUnzipManager : IUtilK {
             var apkFileName = ""
             val zipFile = ZipFile(apkFileSource)
             val entries = zipFile.entries()
-            val bytes = ByteArray(1024 * 1024)
+//            val bytes = ByteArray(1024 * 1024)
+            /////////////////////////////////////////////////////////
+
             var zipEntry: ZipEntry?
+            var totalOffset = 0L
+            var totalSize = 0L
+            var lastOffset = 0L
+            var lastTime = System.currentTimeMillis()
             while (entries.hasMoreElements()) {
                 zipEntry = entries.nextElement() ?: continue
                 if (zipEntry.name.contains(MAC__IGNORE)) continue
@@ -226,6 +240,7 @@ internal object NetKAppUnzipManager : IUtilK {
                     File(strApkFilePathDestReal, zipEntry.name).createFolder()
                     continue
                 }
+
                 var tempFile = File(zipEntry.name)
 
                 tempFile = if (tempFile.parentFile != null && tempFile.parentFile!!.absolutePath.contains("Android")) {//先判断当前文件是否含有路径 如 Android/obb/包名/xx.obb
@@ -241,15 +256,28 @@ internal object NetKAppUnzipManager : IUtilK {
                     apkFileName = tempFile.name
                     Log.d(TAG, "unzipApkOnBack: apkFileName $apkFileName")
                 }
+
                 //移动文件
-                val bufferedOutputStream = BufferedOutputStream(FileOutputStream(tempFile))
-                val inputStream = zipFile.getInputStream(zipEntry)
-                var len: Int
-                while ((inputStream.read(bytes).also { len = it }) != -1) {
-                    bufferedOutputStream.write(bytes, 0, len)
-                }
-                bufferedOutputStream.flushClose()
-                inputStream.close()
+                zipFile.getInputStream(zipEntry).inputStream2fileOfBufferedOps(tempFile, bufferSize = 1024 * 1024, block = { offset: Int, _: Float ->
+                    totalOffset += offset
+                    if (System.currentTimeMillis() - lastTime > 1000L) {
+                        lastTime = System.currentTimeMillis()
+                        totalSize = if (totalOffset > appTask.apkFileSize) totalOffset else appTask.apkFileSize
+                        val offsetIndexPerSeconds = totalOffset - lastOffset
+                        lastOffset = totalOffset
+                        val progress = (totalOffset.toFloat() / totalSize.toFloat()).normalize(0f, 1f) * 100f
+                        TaskKHandler.post {
+                            onUnziping(appTask, progress.toInt(), totalOffset, totalSize, offsetIndexPerSeconds)
+                        }
+                    }
+                })
+//                val bufferedOutputStream = BufferedOutputStream(FileOutputStream(tempFile))
+//                var len: Int
+//                while ((inputStream.read(bytes).also { len = it }) != -1) {
+//                    bufferedOutputStream.write(bytes, 0, len)
+//                }
+//                bufferedOutputStream.flushClose()
+//                inputStream.close()
             }
             zipFile.close()
             if (apkFileName.isEmpty()) {

@@ -25,9 +25,11 @@ import com.mozhimen.componentk.netk.app.download.mos.AppDownloadException
 import com.mozhimen.componentk.netk.app.download.mos.intAppErrorCode2appDownloadException
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallManager
 import com.mozhimen.componentk.netk.app.install.NetKAppInstallProxy
+import com.mozhimen.componentk.netk.app.install.NetKAppUnInstallManager
 import com.mozhimen.componentk.netk.app.task.NetKAppTaskManager
 import com.mozhimen.componentk.netk.app.task.db.AppTask
 import com.mozhimen.componentk.netk.app.task.cons.CNetKAppTaskState
+import com.mozhimen.componentk.netk.app.utils.NetKAppViewUtil
 import com.mozhimen.componentk.netk.app.utils.intAppState2strAppState
 import com.mozhimen.componentk.netk.file.okdownload.NetKFileOkDownloadMgr
 
@@ -83,7 +85,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
     //region # control
     @JvmStatic
     fun taskRetry(appTask: AppTask) {
-        NetKAppTaskManager.deleteFileApk(appTask)//删除本地文件.apk + .npk
+        NetKAppUnInstallManager.deleteFileApk(appTask)//删除本地文件.apk + .npk
 
         if (appTask.downloadUrlCurrent != appTask.downloadUrl) {//重新使用内部地址下载
             if (appTask.downloadUrl.isNotEmpty()) {
@@ -173,14 +175,17 @@ object NetKApp : INetKAppState, BaseUtilK() {
             Log.d(TAG, "taskCancel: task is not process")
             return
         }
-        if (appTask.isTaskDownload() && appTask.isTaskWait()) {
+        if (/*appTask.isTaskDownload() && */appTask.isTaskWait()) {
             Log.d(TAG, "taskCancel: downloadWaitCancel")
             NetKAppDownloadManager.downloadWaitCancel(appTask/*, onCancelBlock*/)
 
         } else if (appTask.isTaskDownload() && appTask.isDownloading()) {
-            Log.d(TAG, "taskCancel: downloadCancelOnBack")
+            Log.d(TAG, "taskCancel: downloadCancel")
             NetKAppDownloadManager.downloadCancel(appTask/*, onCancelBlock*/)//从数据库中移除掉
 
+        } else if (appTask.isTaskUnzip() && appTask.isUnzipSuccess()) {
+            Log.d(TAG, "taskCancel: installCancel")
+            NetKAppInstallManager.installCancel(appTask)
         } else if (appTask.isTaskUnzip() && NetKAppUnzipManager.isUnziping(appTask)) {
             Log.d(TAG, "taskCancel: CODE_TASK_CANCEL_FAIL_ON_UNZIPING")
 //            onCancelBlock?.invoke(false, CNetKAppErrorCode.CODE_TASK_CANCEL_FAIL_ON_UNZIPING)
@@ -489,8 +494,8 @@ object NetKApp : INetKAppState, BaseUtilK() {
 
     /////////////////////////////////////////////////////////////////
 
-    override fun onUnziping(appTask: AppTask) {
-        applyAppTaskState(appTask, CNetKAppState.STATE_UNZIPING, onNext = {
+    override fun onUnziping(appTask: AppTask, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long) {
+        applyAppTaskState(appTask, CNetKAppState.STATE_UNZIPING, progress, currentIndex, totalIndex, offsetIndexPerSeconds, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASKING]
              */
@@ -546,10 +551,28 @@ object NetKApp : INetKAppState, BaseUtilK() {
         })
     }
 
+    override fun onInstallCancel(appTask: AppTask) {
+        appTask.apply {
+            downloadProgress = 0
+            downloadFileSize = 0
+        }
+        applyAppTaskState(appTask, CNetKAppState.STATE_INSTALL_CANCEL, onNext = {
+            /**
+             * [CNetKAppTaskState.STATE_TASK_FAIL]
+             */
+            onTaskFinish(appTask, ENetKAppFinishType.CANCEL)
+        })
+    }
+
     /////////////////////////////////////////////////////////////////
 
     override fun onUninstallSuccess(appTask: AppTask) {
-        applyAppTaskState(appTask.apply { this.apkIsInstalled = false }, CNetKAppState.STATE_UNINSTALL_SUCCESS, onNext = {
+        appTask.apply {
+            apkIsInstalled = false
+            downloadProgress = 0
+            downloadFileSize = 0
+        }
+        applyAppTaskState(appTask, CNetKAppState.STATE_UNINSTALL_SUCCESS, onNext = {
             /**
              * [CNetKAppTaskState.STATE_TASK_CANCEL]
              */
@@ -631,11 +654,11 @@ object NetKApp : INetKAppState, BaseUtilK() {
                 CNetKAppState.STATE_VERIFYING -> listener.onVerifying(appTask)
                 CNetKAppState.STATE_VERIFY_SUCCESS -> listener.onVerifySuccess(appTask)
                 ///////////////////////////////////////////////////////////////////////////////
-                CNetKAppState.STATE_UNZIPING -> listener.onUnziping(appTask)
                 CNetKAppState.STATE_UNZIP_SUCCESS -> listener.onUnzipSuccess(appTask)
                 ///////////////////////////////////////////////////////////////////////////////
                 CNetKAppState.STATE_INSTALLING -> listener.onInstalling(appTask)
                 CNetKAppState.STATE_INSTALL_SUCCESS -> listener.onInstallSuccess(appTask)
+                CNetKAppState.STATE_INSTALL_CANCEL -> listener.onInstallCancel(appTask)
                 ///////////////////////////////////////////////////////////////////////////////
                 CNetKAppState.STATE_UNINSTALL_SUCCESS -> listener.onUninstallSuccess(appTask)
             }
@@ -647,6 +670,7 @@ object NetKApp : INetKAppState, BaseUtilK() {
         for (listener in _appDownloadStateListeners) {
             when (state) {
                 CNetKAppState.STATE_DOWNLOADING -> listener.onDownloading(appTask, progress, currentIndex, totalIndex, offsetIndexPerSeconds)
+                CNetKAppState.STATE_UNZIPING -> listener.onUnziping(appTask, progress, currentIndex, totalIndex, offsetIndexPerSeconds)
             }
         }
         nextMethod?.invoke()

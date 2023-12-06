@@ -30,10 +30,11 @@ interface INetKAppStateInstall {
     fun onInstalling(appTask: AppTask) {}//安装中
     fun onInstallSuccess(appTask: AppTask) {}//应用安装的监听
     fun onInstallFail(appTask: AppTask, exception: AppDownloadException) {}
+    fun onInstallCancel(appTask: AppTask) {}
 }
 
 interface INetKAppStateUnzip {
-    fun onUnziping(appTask: AppTask) {}//解压中
+    fun onUnziping(appTask: AppTask, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long) {}//解压中
     fun onUnzipSuccess(appTask: AppTask) {}//解压成功
     fun onUnzipFail(appTask: AppTask, exception: AppDownloadException) {}//解压失败
 }

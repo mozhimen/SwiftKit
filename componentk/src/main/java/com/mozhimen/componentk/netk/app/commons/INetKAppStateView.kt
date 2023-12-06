@@ -30,12 +30,13 @@ interface INetKAppStateView<V : View> {
     fun onVerifySuccess(view: V?, appTask: AppTask) {}//应用校验成功
     fun onVerifyFail(view: V?, appTask: AppTask, exception: AppDownloadException) {}//应用校验失败
 
-    fun onUnziping(view: V?, appTask: AppTask) {}//解压中
+    fun onUnziping(view: V?, appTask: AppTask, progress: Int, currentIndex: Long, totalIndex: Long, offsetIndexPerSeconds: Long) {}//解压中
     fun onUnzipSuccess(view: V?, appTask: AppTask) {}//解压成功
     fun onUnzipFail(view: V?, appTask: AppTask, exception: AppDownloadException) {}//解压失败
 
     fun onInstalling(view: V?, appTask: AppTask) {}//安装中
     fun onInstallSuccess(view: V?, appTask: AppTask) {}//应用安装的监听
+    fun onInstallCancel(view: V?, appTask: AppTask) {}//安装取消
     fun onInstallFail(view: V?, appTask: AppTask, exception: AppDownloadException) {}
 
     fun onUninstallSuccess(view: V?, appTask: AppTask) {}//应用卸载的监听

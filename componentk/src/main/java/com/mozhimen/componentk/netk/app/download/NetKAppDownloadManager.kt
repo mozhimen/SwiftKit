@@ -68,7 +68,7 @@ internal object NetKAppDownloadManager : DownloadListener1(), IUtilK {
                     downloadWaitCancel(it)
 
                     /**
-                     * @see CNetKAppState.STATE_DOWNLOAD_CANCEL
+                     * [CNetKAppState.STATE_DOWNLOAD_CANCEL]
                      */
                     NetKApp.onDownloadCancel(it)
                 }

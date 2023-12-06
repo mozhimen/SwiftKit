@@ -48,12 +48,17 @@ object CNetKAppState {
     fun isTaskUnzip(state: Int): Boolean =
         state in STATE_UNZIP_CREATE..STATE_UNZIP_FAIL
 
+    @JvmStatic
+    fun isUnzipSuccess(state: Int): Boolean =
+        state == STATE_UNZIP_SUCCESS
+
     //////////////////////////////////////////////////////////////
     //安装
     private const val STATE_INSTALL_CREATE = 40
     const val STATE_INSTALLING = STATE_INSTALL_CREATE + CNetKAppTaskState.STATE_TASKING//40//STATE_INSTALLING = 1//安装中
     const val STATE_INSTALL_SUCCESS = STATE_INSTALL_CREATE + CNetKAppTaskState.STATE_TASK_SUCCESS//48//STATE_INSTALLED = 2//已安装
     const val STATE_INSTALL_FAIL = STATE_INSTALL_CREATE + CNetKAppTaskState.STATE_TASK_FAIL//49//STATE_INSTALLED = 2//已安装
+    const val STATE_INSTALL_CANCEL = STATE_INSTALL_CREATE + CNetKAppTaskState.STATE_TASK_CANCEL//49//STATE_INSTALLED = 2//安装取消
 
     @JvmStatic
     fun isTaskInstall(state: Int): Boolean =

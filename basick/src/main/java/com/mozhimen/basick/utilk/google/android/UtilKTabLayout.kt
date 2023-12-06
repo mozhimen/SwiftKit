@@ -1,5 +1,6 @@
 package com.mozhimen.basick.utilk.google.android
 
+import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Gravity
 import android.view.View
@@ -7,7 +8,7 @@ import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.Tab
 import com.mozhimen.basick.elemk.google.android.commons.IOnTabSelectedListener
-import com.mozhimen.basick.utilk.android.view.applyResizeSizeMax
+import com.mozhimen.basick.utilk.android.view.applyLayoutParamsMatch
 import com.mozhimen.basick.utilk.bases.IUtilK
 
 /**
@@ -29,12 +30,12 @@ object UtilKTabLayout : IUtilK {
     @JvmStatic
     fun applyTabTextSize(tabLayout: TabLayout, unselectedTextSize: Float, selectedTextSize: Float) {
         tabLayout.addOnTabSelectedListener(object : IOnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
+            override fun onTabSelected(tab: Tab) {
                 val customView: View? = tab.customView
                 if (customView == null) tab.setCustomView(TextView(tabLayout.context).apply {
                     id = android.R.id.text1
                     gravity = Gravity.CENTER
-                    applyResizeSizeMax()
+                    applyLayoutParamsMatch()
                 })
                 tab.customView?.findViewById<TextView>(android.R.id.text1)?.let {
                     it.setTextColor(tabLayout.tabTextColors)
@@ -43,12 +44,12 @@ object UtilKTabLayout : IUtilK {
                 }
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {
+            override fun onTabUnselected(tab: Tab) {
                 val customView: View? = tab.customView
                 if (customView == null) tab.setCustomView(TextView(tabLayout.context).apply {
                     id = android.R.id.text1
                     gravity = Gravity.CENTER
-                    applyResizeSizeMax()
+                    applyLayoutParamsMatch()
                 })
                 tab.customView?.findViewById<TextView>(android.R.id.text1)?.let {
                     it.setTextColor(tabLayout.tabTextColors)

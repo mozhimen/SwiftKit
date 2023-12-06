@@ -64,8 +64,9 @@ internal object NetKAppInstallManager : IUtilK {
         InstallKManager.onPackageAdded(appTask.apkPackageName)
 
         if (NetKAppTaskManager.isDeleteApkFile) {
-            NetKAppTaskManager.deleteFileApk(appTask)
+            NetKAppUnInstallManager.deleteFileApk(appTask)
         }
+
         //将安装状态发给后端
         /*            GlobalScope.launch(Dispatchers.IO) {
                         ApplicationService.install(appDownloadParam0.appId)
@@ -85,22 +86,15 @@ internal object NetKAppInstallManager : IUtilK {
         NetKApp.onInstallSuccess(appTask)
     }
 
-    @JvmStatic
-    fun onUninstallSuccess(apkPackageName: String) {
-        AppTaskDaoManager.getByApkPackageName(apkPackageName)?.let {
-            onUninstallSuccess(it)
-        } ?: run {
-            InstallKManager.onPackageRemoved(apkPackageName)
-        }
-    }
+    /////////////////////////////////////////////////////
 
     @JvmStatic
-    fun onUninstallSuccess(appTask: AppTask) {
-        InstallKManager.onPackageRemoved(appTask.apkPackageName)
+    fun installCancel(appTask: AppTask) {
+        NetKAppUnInstallManager.deleteFileApk(appTask)
 
         /**
-         * [CNetKAppState.STATE_INSTALL_SUCCESS]
+         * [CNetKAppState.STATE_INzzzzzzSTALL_CANCEL]
          */
-        NetKApp.onUninstallSuccess(appTask)
+        NetKApp.onInstallCancel(appTask)
     }
 }

@@ -7,11 +7,11 @@ package com.mozhimen.uicorek.layoutk.banner.bases
  * @Date 2022/4/19 23:08
  * @Version 1.0
  */
-abstract class BaseBannerItem {
+open class BaseBannerItem {
     open var name: String = ""
     open var url: String = ""
 
-    constructor()
+    constructor(url: String) : this("", url)
 
     constructor(name: String, url: String) {
         this.name = name
